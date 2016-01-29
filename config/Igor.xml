@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Igor>
+	<!-- all paths have to be relative to bin folder -->
+	<ResourceManager>
+		<SearchPaths>
+			<SearchPath>..\data\textures</SearchPath>
+			<SearchPath>..\data\fonts</SearchPath>
+			<SearchPath>..\data\shaders</SearchPath>
+			<SearchPath>..\data\models</SearchPath>
+			<SearchPath>..\data\sounds</SearchPath>
+		</SearchPaths>
+	</ResourceManager>
+</Igor>

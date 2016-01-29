@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\IgorAux.cpp" />
+    <ClCompile Include="..\src\iaBSpline.cpp">
+      <Filter>math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaState.cpp">
+      <Filter>state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaStateMachine.cpp">
+      <Filter>state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaTransition.cpp">
+      <Filter>state machine</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaDirectory.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaFile.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaMemBlock.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaMemBlockControl.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaSerializable.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaConvert.cpp">
+      <Filter>data types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaConsole.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaString.cpp">
+      <Filter>data types</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\iaDefines.h" />
+    <ClInclude Include="..\src\IgorAux.h" />
+    <ClInclude Include="..\src\iaVersion.h" />
+    <ClInclude Include="..\src\iaBSpline.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaMatrix.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaVector2.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaVector3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaVector4.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaState.h">
+      <Filter>state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaStateMachine.h">
+      <Filter>state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaTransition.h">
+      <Filter>state machine</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaDirectory.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaFile.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaMemBlock.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaMemBlockControl.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaSerializable.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaColor3.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaColor4.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaMatrix3x3.h">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaConvert.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaConsole.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaDelegate.h">
+      <Filter>event handling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaEvent.h">
+      <Filter>event handling</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaQuaternion.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaFlushList.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaString.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaSingleton.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaRLE.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\src\iaMatrix.inl">
+      <Filter>math</Filter>
+    </None>
+    <None Include="..\src\iaVector2.inl">
+      <Filter>math</Filter>
+    </None>
+    <None Include="..\src\iaVector3.inl">
+      <Filter>math</Filter>
+    </None>
+    <None Include="..\src\iaVector4.inl">
+      <Filter>math</Filter>
+    </None>
+    <None Include="..\src\iaSerializable.inl">
+      <Filter>IO</Filter>
+    </None>
+    <None Include="..\src\iaMatrix3x3.inl">
+      <Filter>math</Filter>
+    </None>
+    <None Include="..\src\iaQuaternion.inl">
+      <Filter>data types</Filter>
+    </None>
+    <None Include="..\src\iaRLE.inl">
+      <Filter>data types</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="math">
+      <UniqueIdentifier>{67d8b4e2-8bd7-4f5e-855e-fc67971ccbb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="state machine">
+      <UniqueIdentifier>{77db4432-9f9f-4d80-8c73-f3faf4d00b6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{51a4ee6f-3351-4909-8f4b-6c4ef2a4bf4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="event handling">
+      <UniqueIdentifier>{b06e198c-3cd3-4ad3-bb02-70b925cb0f64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data types">
+      <UniqueIdentifier>{691d419c-4e7e-422a-88e4-e916dd2dddbd}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

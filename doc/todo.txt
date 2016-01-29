@@ -1,0 +1,15 @@
+render in general from front to back
+
+switch all transformations from float to double
+make octree floating
+
+!!! paging !!! everything !!!! generated data as loaded !!!
+
+bug: material switch e.g. from cat to teapot
+
+reintegrate 3DS import
+
+ModelViewer:
+add material editing functionality
+add MeshNode target material editing functionality
+add MeshNode material selection functionality

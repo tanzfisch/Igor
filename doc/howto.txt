@@ -1,0 +1,24 @@
+ HOW TO BUILD
+ 
+1. install dependencies to 3rd party folder (e.g. /3rd/Newton). See list of dependencies below.
+
+2. 
+
+
+
+ LIST OF DEPENDENCIES
+ 
+1. TortoiseSVN
+Need TortoiseSVN for setting up revision number inside the code.
+
+2. TinyXML v?.?
+No need to install. Code is within the repository.
+
+3. GLee v5.4
+No need to install. Code is within the repository.
+
+4. OpenIL v1.7.8
+
+5. Newton Game Dynamics v3.11
+
+6. OpenAL TODO

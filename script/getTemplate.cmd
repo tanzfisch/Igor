@@ -1,0 +1,21 @@
+@echo off
+
+@echo "<<< <<< <<< UPDATE CONFIG >>> >>> >>>"
+@echo "%CONFIG_LOCATION%\%CONFIG_NAME%.h"
+
+set CONFIG_LOCATION=%1
+set CONFIG_NAME=%2
+
+@if not exist "%CONFIG_LOCATION%\%CONFIG_NAME%".h goto goon
+
+copy %CONFIG_LOCATION%\%CONFIG_NAME%.template %CONFIG_LOCATION%\%CONFIG_NAME%.temp
+fc %CONFIG_LOCATION%\%CONFIG_NAME%.h %CONFIG_LOCATION%\%CONFIG_NAME%.temp
+@if ERRORLEVEL 0 goto end
+
+:goon
+copy %CONFIG_LOCATION%\%CONFIG_NAME%.template %CONFIG_LOCATION%\%CONFIG_NAME%.h
+
+:end
+
+@if exist %CONFIG_LOCATION%\%CONFIG_NAME%.temp del %CONFIG_LOCATION%\%CONFIG_NAME%.temp
+
