@@ -12,7 +12,9 @@
 
 #include <windows.h>
 
-//! gets called when the dll is loaded into memory
+/*! dll main entry point
+gets called for events like loading, unloading
+*/
 bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch(fdwReason)
