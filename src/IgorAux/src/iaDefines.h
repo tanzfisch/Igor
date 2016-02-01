@@ -30,14 +30,15 @@
 #define __IGOR_AUX_DEFINES__
 
 #ifdef _WIN64
+//! defined if igor is running under windows
 #define __IGOR_WIN__
+//! defined if igor is running under windows 64 bit
 #define __IGOR_WIN64__
+//! defined if igor is running under windows 64 bit
 #define __IGOR_X64__
 #else
 #ifdef _WIN32
-#define __IGOR_WIN__
-#define __IGOR_WIN32__
-#define __IGOR_X32__
+#error Igor currently only supports 64bit
 #endif
 #endif
 
@@ -50,13 +51,13 @@
 #define __IGOR_INLINE__ __forceinline
 #endif
 
-#define IGOR_DISABLE_WARNING(num) __pragma(warning(disable:num))
-#define IGOR_ENABLE_WARNING(num) __pragma(warning(default:num))
+#define __IGOR_DISABLE_WARNING__(num) __pragma(warning(disable:num))
+#define __IGOR_ENABLE_WARNING__(num) __pragma(warning(default:num))
 
-    /*!
-    Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
-    http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
-    */
+/*!
+Some Information arround __func__ __FUNCSIG__ and __FUNCTION__
+http://stackoverflow.com/questions/4384765/whats-the-difference-between-pretty-function-function-func
+*/
 #ifdef __FUNCTION__
 #define __IGOR_FUNCTION__ __FUNCTION__ "(...)"
 #else
@@ -131,32 +132,31 @@ typedef double float64;
 #endif
 
 #else
-#error missing definitions for this environment
+#error Igor currently only supports windows
 #endif
 
 #ifndef _USE_MATH_DEFINES
 
-    /* Define _USE_MATH_DEFINES before including math.h to expose these macro
-    * definitions for common math constants.  These are placed under an #ifdef
-    * since these commonly-defined names are not part of the C/C++ standards.
-    */
+/* Define _USE_MATH_DEFINES before including math.h to expose these macro
+* definitions for common math constants.  These are placed under an #ifdef
+* since these commonly-defined names are not part of the C/C++ standards.
+*/
 
-    /* Definitions of useful mathematical constants
-    * M_E        - e
-    * M_LOG2E    - log2(e)
-    * M_LOG10E   - log10(e)
-    * M_LN2      - ln(2)
-    * M_LN10     - ln(10)
-    * M_PI       - pi
-    * M_PI_2     - pi/2
-    * M_PI_4     - pi/4
-    * M_1_PI     - 1/pi
-    * M_2_PI     - 2/pi
-    * M_2_SQRTPI - 2/sqrt(pi)
-    * M_SQRT2    - sqrt(2)
-    * M_SQRT1_2  - 1/sqrt(2)
-    */
-
+/* Definitions of useful mathematical constants
+* M_E        - e
+* M_LOG2E    - log2(e)
+* M_LOG10E   - log10(e)
+* M_LN2      - ln(2)
+* M_LN10     - ln(10)
+* M_PI       - pi
+* M_PI_2     - pi/2
+* M_PI_4     - pi/4
+* M_1_PI     - 1/pi
+* M_2_PI     - 2/pi
+* M_2_SQRTPI - 2/sqrt(pi)
+* M_SQRT2    - sqrt(2)
+* M_SQRT1_2  - 1/sqrt(2)
+*/
 #define M_E        2.71828182845904523536
 #define M_LOG2E    1.44269504088896340736
 #define M_LOG10E   0.434294481903251827651
@@ -199,6 +199,8 @@ namespace IgorAux
 #define __IGOR_AUX_BIT_STR__ x32
 #endif
 
+/*! igor tab definition
+*/
 #define __IGOR_TAB__ L"    "
 
 //! helper macro to handle scrings in macros
@@ -206,34 +208,65 @@ namespace IgorAux
 //! an other helper macro to handle scrings in macros
 #define STR(x) STR2(x)
 
-#define IGOR_GRAMM 0.001
-#define IGOR_KILO 1.0
-#define IGOR_TON 1000.0
+/*! definitions of gramm
+*/
+#define __IGOR_GRAMM__ 0.001
+
+/*! definitions of kilo gramm
+*/
+#define __IGOR_KILO__ 1.0
+
+/*! definitions of ton
+*/
+#define __IGOR_TON__ 1000.0
 
 /*! base weight
 */
-#define IGOR_BASE_WEIGHT IGOR_KILO          
+#define __IGOR_BASE_WEIGHT__ __IGOR_KILO__
 
-#define IGOR_MILIMETER 0.001
-#define IGOR_CENTIMETER 0.01
-#define IGOR_DEZIMETER 0.1
-#define IGOR_METER 1.0
-#define IGOR_KILOMETER 1000.0
+/*! definition of milimeter
+*/
+#define __IGOR_MILIMETER__ 0.001
+
+/*! definition of centimeter
+*/
+#define __IGOR_CENTIMETER__ 0.01
+
+/*! definition of decimeter
+*/
+#define __IGOR_DECIMETER__ 0.1
+
+/*! definition of one meter
+*/
+#define __IGOR_METER__ 1.0
+
+/*! definition of kilometer
+*/
+#define __IGOR_KILOMETER__ 1000.0
 
 /*! base lenght
 */
-#define IGOR_BASE_LENGHT IGOR_METER
+#define __IGOR_BASE_LENGHT__ __IGOR_METER__
 
-#define IGOR_MILLISECOND 1.0
-#define IGOR_SECOND 1000.0
+/*! definition of millisecond
+*/
+#define __IGOR_MILLISECOND__ 1.0
+
+/*! definition of second
+*/
+#define __IGOR_SECOND__ 1000.0
+
+/*! definition of minute
+*/
+#define __IGOR_MINUTE__ 60000.0
 
 /*! base time
 */
-#define IGOR_BASE_TIME IGOR_MILLISECOND
+#define __IGOR_BASE_TIME__ __IGOR_MILLISECOND__
 
 /*! default gravity in m/s²
 */
-#define IGOR_GRAVITY 9.81
+#define __IGOR_GRAVITY__ 9.81
 
 #ifndef _UNICODE
 #error Igor needs unicode!
