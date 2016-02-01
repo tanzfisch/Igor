@@ -30,34 +30,74 @@
 #define __MOUSEEXAMPLE__
 
 #include <iWindow.h>
-#include <iView.h>
-#include <iKeyboard.h>
+#include <iKeyCodeMap.h>
 using namespace Igor;
 
 class MouseExample
 {
 
-private:
-
-	iView view;
-	iWindow window;
-
-    void mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
-	void mouseKeyDown(iKeyCode key);
-	void mouseKeyUp(iKeyCode key);
-	void mouseWheel(int32 d);
-	void keyboardESCKeyDown();
-	void closeWindow();
-
-	void init();
-	void deinit();
-
 public:
 
-	void run();
+    /*! run the example
+    */
+    void run();
 
-	MouseExample();
-	~MouseExample();
+    /*! init example
+    */
+    MouseExample();
+
+    /*! deinit example
+    */
+    ~MouseExample();
+    
+private:
+
+    /*! the window we need to receive io events
+    */
+	iWindow _window;
+
+    /*! called when mouse was moved
+    \param x1 last horrizontal coordinate
+    \param y1 last vertical coordinate
+    \param x2 current horrizontal coordinate
+    \param y2 current vertical coordinate
+    \param window the window the coordinates are related to
+    */
+    void onMouseMovedFull(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+
+    /*! called when any mouse key was pressed
+
+    \pram key the key code of the key that was pressed
+    */
+	void onMouseKeyDown(iKeyCode key);
+
+    /*! called when any mouse key was released
+
+    \pram key the key code of the key that was pressed
+    */
+    void onMouseKeyUp(iKeyCode key);
+
+    /*! called when mouse wheel was turned
+
+    \param d mouse wheel delta
+    */
+	void onMouseWheel(int32 d);
+
+    /*! called when ESC key was pressed
+    */
+	void onKeyESCDown();
+
+    /*! called when window was closed
+    */
+	void onCloseWindow();
+
+    /*! init example
+    */
+	void init();
+
+    /*! deinit example
+    */
+	void deinit();
 
 };
 

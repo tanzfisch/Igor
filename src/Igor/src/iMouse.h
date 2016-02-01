@@ -44,32 +44,55 @@ namespace Igor
 	/*! mouse key down event
 
 	will be called for a any pressed mouse key
+    (only the first 5 keys of the mouse)
+
+    \pram key the key code of the key that was pressed
 	*/
-	iaEVENT(MouseKeyDownEvent, MouseKeyDownDelegate, void, (iKeyCode key), (key));
+	iaEVENT(iMouseKeyDownEvent, iMouseKeyDownDelegate, void, (iKeyCode key), (key));
 
 	/*! mouse key up event
 
 	will be called for a any released mouse key
+    (only the first 5 keys of the mouse)
+
+    \pram key the key code of the key that was released
 	*/
-	iaEVENT(MouseKeyUpEvent, MouseKeyUpDelegate, void, (iKeyCode key), (key));
+	iaEVENT(iMouseKeyUpEvent, iMouseKeyUpDelegate, void, (iKeyCode key), (key));
 
     /*! mouse double click event
 
     will be called for a any mouse key that does a double click
+
+    \pram key the key code of the key that was double clicked
     */
-    iaEVENT(MouseKeyDoubleClickEvent, MouseKeyDoubleClickDelegate, void, (iKeyCode key), (key));
+    iaEVENT(iMouseKeyDoubleClickEvent, iMouseKeyDoubleClickDelegate, void, (iKeyCode key), (key));
 
     /*! mouse move event with simple data
+
+    mouse coordinates have their origin in the upper left corner of the parenting window
+
+    \param x current horrizontal coordinate of mouse cursor
+    \param y current vertical coordinate of mouse cursor
     */
-    iaEVENT(MouseMoveEvent, MouseMoveDelegate, void, (int32 x, int32 y), (x, y));
+    iaEVENT(iMouseMoveEvent, iMouseMoveDelegate, void, (int32 x, int32 y), (x, y));
 
 	/*! mouse move event with full data
-	*/
-	iaEVENT(MouseMoveFullEvent, MouseMoveFullDelegate, void, (int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window), (x1, y1, x2, y2, window));
+
+    mouse coordinates have their origin in the upper left corner of the parenting window
+
+    \param x1 last horrizontal coordinate
+    \param y1 last vertical coordinate
+    \param x2 current horrizontal coordinate
+    \param y2 current vertical coordinate
+    \param window the window the coordinates are related to
+    */
+	iaEVENT(iMouseMoveFullEvent, iMouseMoveFullDelegate, void, (int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window), (x1, y1, x2, y2, window));
 
 	/*! mouse wheel event
+
+    \param d mouse wheel delta
 	*/
-	iaEVENT(MouseWheelEvent, MouseWheelDelegate, void, (int32 d), (d));
+	iaEVENT(iMouseWheelEvent, iMouseWheelDelegate, void, (int32 d), (d));
 
 	/*! Mouse (Singleton)
 
@@ -145,27 +168,27 @@ namespace Igor
 
         /*! mouse key down event
         */
-		MouseKeyDownEvent _keyDownEvent;
+		iMouseKeyDownEvent _keyDownEvent;
 
         /*! mouse key up event
         */
-        MouseKeyUpEvent _keyUpEvent;
+        iMouseKeyUpEvent _keyUpEvent;
 
         /*! mouse double click event
         */
-        MouseKeyDoubleClickEvent _doubleClickEvent;
+        iMouseKeyDoubleClickEvent _doubleClickEvent;
 
         /*! mouse move event
         */
-		MouseMoveFullEvent _moveFullEvent;
+		iMouseMoveFullEvent _moveFullEvent;
 
         /*! mouse move event
         */
-        MouseMoveEvent _moveEvent;
+        iMouseMoveEvent _moveEvent;
 
         /*! mouse wheel event
         */
-        MouseWheelEvent _wheelEvent;
+        iMouseWheelEvent _wheelEvent;
 
 		/*! handles incomming OS messages
 		*/
@@ -191,73 +214,73 @@ namespace Igor
 
 		\param doubleClickDelegate the delegate to register
 		*/
-		void registerMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate doubleClickDelegate);
+		void registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate);
 
 		/*! unregister delegate from mouse key down event
 
 		\param doubleClickDelegate the delegate to unregister
 		*/
-		void unregisterMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate doubleClickDelegate);
+		void unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate);
 
         /*! register delegate to mouse key down event
 
         \param keydown_delegate the delegate to register
         */
-        void registerMouseKeyDownDelegate(MouseKeyDownDelegate keydown_delegate);
+        void registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
 
         /*! unregister delegate from mouse key down event
 
         \param keydown_delegate the delegate to unregister
         */
-        void unregisterMouseKeyDownDelegate(MouseKeyDownDelegate keydown_delegate);
+        void unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
 
 		/*! register delegate to mouse key up event
 
 		\param keyup_delegate the delegate to register
 		*/
-		void registerMouseKeyUpDelegate(MouseKeyUpDelegate keyup_delegate);
+		void registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
 
 		/*! unregister delegate from mouse key up event
 
 		\param keyup_delegate the delegate to unregister
 		*/
-		void unregisterMouseKeyUpDelegate(MouseKeyUpDelegate keyup_delegate);
+		void unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
 
 		/*! register delegate to mouse move full data event
 
 		\param move_delegate the delegate to register
 		*/
-		void registerMouseMoveFullDelegate(MouseMoveFullDelegate move_delegate);
+		void registerMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate);
 
 		/*! unregister delegate from mouse move full data event
 
 		\param move_delegate the delegate to unregister
 		*/
-		void unregisterMouseMoveFullDelegate(MouseMoveFullDelegate move_delegate);
+		void unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate);
 
         /*! register delegate to mouse move event
 
         \param move_delegate the delegate to register
         */
-        void registerMouseMoveDelegate(MouseMoveDelegate move_delegate);
+        void registerMouseMoveDelegate(iMouseMoveDelegate move_delegate);
 
         /*! unregister delegate from mouse move event
 
         \param move_delegate the delegate to unregister
         */
-        void unregisterMouseMoveDelegate(MouseMoveDelegate move_delegate);
+        void unregisterMouseMoveDelegate(iMouseMoveDelegate move_delegate);
 
 		/*! register delegate to mouse wheel event
 
 		\param wheel_delegate the delegate to register
 		*/
-		void registerMouseWheelDelegate(MouseWheelDelegate wheel_delegate);
+		void registerMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
 
 		/*! unregister delegate from mouse wheel event
 
 		\param wheel_delegate the delegate to unregister
 		*/
-		void unregisterMouseWheelDelegate(MouseWheelDelegate wheel_delegate);
+		void unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
 
 		/*! set mouse to center of currently focused window
 		*/

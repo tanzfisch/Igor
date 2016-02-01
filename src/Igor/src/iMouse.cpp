@@ -199,62 +199,62 @@ namespace Igor
 		ShowCursor(show);
 	}
 
-    void iMouse::registerMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate doubleClickDelegate)
+    void iMouse::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)
     {
         _doubleClickEvent.append(doubleClickDelegate);
     }
 
-    void iMouse::unregisterMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate doubleClickDelegate)
+    void iMouse::unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)
     {
         _doubleClickEvent.remove(doubleClickDelegate);
     }
 
-	void iMouse::registerMouseKeyDownDelegate(MouseKeyDownDelegate keydown_delegate)
+	void iMouse::registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate)
 	{
 		_keyDownEvent.append(keydown_delegate);
 	}
 
-	void iMouse::registerMouseKeyUpDelegate(MouseKeyUpDelegate keyup_delegate)
+	void iMouse::registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate)
 	{
 		_keyUpEvent.append(keyup_delegate);
 	}
 
-    void iMouse::registerMouseMoveDelegate(MouseMoveDelegate move_delegate)
+    void iMouse::registerMouseMoveDelegate(iMouseMoveDelegate move_delegate)
     {
         _moveEvent.append(move_delegate);
     }
 
-    void iMouse::unregisterMouseMoveDelegate(MouseMoveDelegate move_delegate)
+    void iMouse::unregisterMouseMoveDelegate(iMouseMoveDelegate move_delegate)
     {
         _moveEvent.remove(move_delegate);
     }
 
-    void iMouse::registerMouseMoveFullDelegate(MouseMoveFullDelegate move_delegate)
+    void iMouse::registerMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate)
 	{
         _moveFullEvent.append(move_delegate);
 	}
 
-	void iMouse::registerMouseWheelDelegate(MouseWheelDelegate wheel_delegate)
+	void iMouse::registerMouseWheelDelegate(iMouseWheelDelegate wheel_delegate)
 	{
 		_wheelEvent.append(wheel_delegate);
 	}
 
-	void iMouse::unregisterMouseKeyDownDelegate(MouseKeyDownDelegate keydown_delegate)
+	void iMouse::unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate)
 	{
 		_keyDownEvent.remove(keydown_delegate);
 	}
 
-	void iMouse::unregisterMouseKeyUpDelegate(MouseKeyUpDelegate keyup_delegate)
+	void iMouse::unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate)
 	{
 		_keyUpEvent.remove(keyup_delegate);
 	}
 
-	void iMouse::unregisterMouseMoveFullDelegate(MouseMoveFullDelegate move_delegate)
+	void iMouse::unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate)
 	{
         _moveFullEvent.remove(move_delegate);
 	}
 
-	void iMouse::unregisterMouseWheelDelegate(MouseWheelDelegate wheel_delegate)
+	void iMouse::unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate)
 	{
 		_wheelEvent.remove(wheel_delegate);
 	}

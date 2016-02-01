@@ -3,86 +3,111 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-#include <Igor.h>
 #include <iMouse.h>
+#include <iKeyboard.h>
 #include <iApplication.h>
 using namespace Igor;
 
 MouseExample::MouseExample()
 {
+    // initialize example
 	init();
 }
 
 MouseExample::~MouseExample()
 {
+    // deinitialize example
 	deinit();
 }
 
 void MouseExample::init()
 {
+    // print some informative text
 	con_endl("--- Mouse Example ---");
 	con_endl("press ESC - to exit");
 	con_endl("Keep keyboard focus on window \"Mouse Example\"");
 	con_endl("Move the mouse over that window, click or use mouse wheel.");
 	con_endl("");
+    con_endl("!!! One Warning about a missing view is supposed to pop up. !!!");
+    con_endl("");
 	
-	window.addView(&view); // we don't need a view. this just to prevent a warning at startup
-    window.setTitle("Igor - Mouse Example");
-	window.open();
-	window.registerWindowCloseDelegate(WindowCloseDelegate(this, &MouseExample::closeWindow));
+    // set title of window and open it
+    _window.setTitle("Igor - Mouse Example");
+	_window.open();
 
-	iMouse::getInstance().registerMouseMoveFullDelegate(MouseMoveFullDelegate(this, &MouseExample::mouseMoved));
-	iMouse::getInstance().registerMouseKeyDownDelegate(MouseKeyDownDelegate(this, &MouseExample::mouseKeyDown));
-	iMouse::getInstance().registerMouseKeyUpDelegate(MouseKeyUpDelegate(this, &MouseExample::mouseKeyUp));
-	iMouse::getInstance().registerMouseWheelDelegate(MouseWheelDelegate(this, &MouseExample::mouseWheel));
-	iKeyboard::getInstance().registerKeyDownDelegate(KeyDownDelegate(this, &MouseExample::keyboardESCKeyDown), iKeyCode::ESC);
+    // register to close window event so we can shutdown the application correctly
+	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &MouseExample::onCloseWindow));
+
+    // register callback to mouse move event. we use the "full" version here to show more information in the console
+    // usually you only need the iMouseMoveEvent respectively registerMouseMoveDelegate
+	iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &MouseExample::onMouseMovedFull));
+    // register callback to mouse key down event. called for any key on the mouse pressed
+	iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &MouseExample::onMouseKeyDown));
+    // register callback to mouse key up event. called for any key on the mouse released
+	iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &MouseExample::onMouseKeyUp));
+    // register callback to mosue wheel event. called when mouse wheel was turned 
+	iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &MouseExample::onMouseWheel));
+
+    // register callback to the ESC key on the keyboard pressed event
+	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &MouseExample::onKeyESCDown), iKeyCode::ESC);
 }
 
 void MouseExample::deinit()
 {
-	iMouse::getInstance().unregisterMouseWheelDelegate(MouseWheelDelegate(this, &MouseExample::mouseWheel));
-	iMouse::getInstance().unregisterMouseKeyUpDelegate(MouseKeyUpDelegate(this, &MouseExample::mouseKeyUp));
-	iMouse::getInstance().unregisterMouseKeyDownDelegate(MouseKeyDownDelegate(this, &MouseExample::mouseKeyDown));
-	iMouse::getInstance().unregisterMouseMoveFullDelegate(MouseMoveFullDelegate(this, &MouseExample::mouseMoved));
-	iKeyboard::getInstance().unregisterKeyDownDelegate(KeyDownDelegate(this, &MouseExample::keyboardESCKeyDown), iKeyCode::ESC);
+    // unregister from all io events
+	iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &MouseExample::onMouseWheel));
+	iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &MouseExample::onMouseKeyUp));
+	iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &MouseExample::onMouseKeyDown));
+	iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &MouseExample::onMouseMovedFull));
+	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &MouseExample::onKeyESCDown), iKeyCode::ESC);
 
-	window.close();
-	window.removeView(&view);
-    window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &MouseExample::closeWindow));
+    // closes the window if it was not closed allready
+	_window.close();
+
+    // unregisters from close event
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &MouseExample::onCloseWindow));
 }
 
 void MouseExample::run()
 {
+    // run the engine main loop
 	iApplication::getInstance().run();
 }
 
-void MouseExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
+void MouseExample::onMouseMovedFull(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
 {
-	con_endl("\r" << x1 << ", " << y1 << ", " << x2 <<  ", " << y2);
+    // prints old and new mouse position to the console
+	con_endl("mouse moved from (" << x1 << ", " << y1 << ") to (" << x2 <<  ", " << y2 << ")");
 }
 
-void MouseExample::mouseKeyDown(iKeyCode key)
+void MouseExample::onMouseKeyDown(iKeyCode key)
 {
-	con_endl("\rpressed " << iKeyCodeMap::getInstance().getKeyName(key));
+    // prints if a key was pressed to the console
+	con_endl("pressed " << iKeyCodeMap::getInstance().getKeyName(key));
 }
 
-void MouseExample::mouseKeyUp(iKeyCode key)
+void MouseExample::onMouseKeyUp(iKeyCode key)
 {
-	con_endl("\rreleased " << iKeyCodeMap::getInstance().getKeyName(key));
+    // prints if a key was released to the console
+	con_endl("released " << iKeyCodeMap::getInstance().getKeyName(key));
 }
 
-void MouseExample::mouseWheel(int32 d)
+void MouseExample::onMouseWheel(int32 d)
 {
-	con_endl("\rwheel delta " << d);
+    // prints the mouse wheel delta to the console
+	con_endl("wheel delta " << d);
 }
 
-void MouseExample::keyboardESCKeyDown()
+void MouseExample::onKeyESCDown()
 {
+    // stops application aka engine loop
 	iApplication::getInstance().stop();
 }
 
-void MouseExample::closeWindow()
+void MouseExample::onCloseWindow()
 {
 	con_endl("windows was closed");
+
+    // stops application aka engine loop after window was closed. otherwhise you will have to close the console manually
 	iApplication::getInstance().stop();
 }

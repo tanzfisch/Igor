@@ -44,21 +44,21 @@ namespace Igor
 
     void iWidgetManager::registerIOEvents()
     {
-        iMouse::getInstance().registerMouseKeyDownDelegate(MouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
-        iMouse::getInstance().registerMouseKeyUpDelegate(MouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
-        iMouse::getInstance().registerMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
-        iMouse::getInstance().registerMouseMoveDelegate(MouseMoveDelegate(this, &iWidgetManager::onMouseMove));
-        iMouse::getInstance().registerMouseWheelDelegate(MouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
+        iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
+        iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
+        iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
+        iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &iWidgetManager::onMouseMove));
+        iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
     }
 
     void iWidgetManager::unregisterIOEvents()
     {
-        iMouse::getInstance().unregisterMouseKeyDownDelegate(MouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
-        iMouse::getInstance().unregisterMouseKeyUpDelegate(MouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
-        iMouse::getInstance().unregisterMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
-        iMouse::getInstance().unregisterMouseMoveDelegate(MouseMoveDelegate(this, &iWidgetManager::onMouseMove));
-        iMouse::getInstance().unregisterMouseWheelDelegate(MouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
+        iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
+        iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
+        iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
+        iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &iWidgetManager::onMouseMove));
+        iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
     }
 

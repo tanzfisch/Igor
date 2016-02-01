@@ -13,12 +13,12 @@ namespace Igor
     iNodeTransformControl::iNodeTransformControl(bool initDefaultLayout)
         : iControl(initDefaultLayout)
     {
-        iMouse::getInstance().registerMouseMoveFullDelegate(MouseMoveFullDelegate(this, &iNodeTransformControl::onMouseMove));
+        iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iNodeTransformControl::onMouseMove));
     }
 
     iNodeTransformControl::~iNodeTransformControl()
     {
-        iMouse::getInstance().unregisterMouseMoveFullDelegate(MouseMoveFullDelegate(this, &iNodeTransformControl::onMouseMove));
+        iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iNodeTransformControl::onMouseMove));
     }
 
     uint32 iNodeTransformControl::getNode()
