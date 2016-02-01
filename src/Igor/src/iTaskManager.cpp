@@ -28,8 +28,6 @@ namespace Igor
             numThreads = 4;
 		}
 
-        numThreads = 3;
-
 		for(int i=0;i<numThreads;++i)
 		{
 			createThread();
@@ -157,8 +155,6 @@ namespace Igor
         {
             numThreads = 4;
         }
-
-        numThreads = 2;
 
         for (int i = 0; i<numThreads; ++i)
         {
