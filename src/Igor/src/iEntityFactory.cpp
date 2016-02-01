@@ -26,6 +26,11 @@ namespace Igor
             con_err("possible mem leak! not all entities released");
         }
 
+        if (!_entityCreators.empty())
+        {
+            con_err("possible mem leak! Still " << _entityCreators.size() << " entity creators registered");
+        }
+
         auto entityIter = _entities.begin();
         while(_entities.end() != entityIter)
         {
@@ -36,11 +41,62 @@ namespace Igor
         _entities.clear();
     }
 
-    iEntity* iEntityFactory::createEntity()
+    void iEntityFactory::registerEntityCreator(const iaString& identifier, CreateEntity functionPointer)
     {
-        iEntity* result = new iEntity();
-        result->_id = _nextID++;
-        _entities[result->getID()] = result;
+        int64 hashValue = calcHashValue(identifier);
+
+        auto generatorIter = _entityCreators.find(hashValue);
+        if (generatorIter == _entityCreators.end())
+        {
+            _entityCreators[hashValue] = functionPointer;
+        }
+        else
+        {
+            con_err("entity creator " << identifier << " already registered");
+        }
+    }
+
+    void iEntityFactory::unregisterEntityCreator(const iaString& identifier, CreateEntity functionPointer)
+    {
+        int64 hashValue = calcHashValue(identifier);
+
+        auto generatorIter = _entityCreators.find(hashValue);
+        if (generatorIter != _entityCreators.end())
+        {
+            _entityCreators.erase(generatorIter);
+        }
+        else
+        {
+            con_err("entity creator " << identifier << " was not registered");
+        }
+    }
+
+    int64 iEntityFactory::calcHashValue(const iaString& text)
+    {
+        std::hash<wstring> hashFunc;
+        wstring keyValue = text.getData();
+        return static_cast<int64>(hashFunc(keyValue));
+    }
+
+    iEntity* iEntityFactory::createEntity(const iaString& identifier)
+    {
+        iEntity* result = nullptr;
+        int64 hashValue = calcHashValue(identifier);
+
+        auto iter = _entityCreators.find(hashValue);
+        if (iter != _entityCreators.end())
+        {
+            result = (*iter).second();
+        }
+
+        con_assert(result != nullptr, "can't create entity of type " << identifier);
+
+        if (result != nullptr)
+        {
+            result->_id = _nextID;
+            _entities[_nextID++] = result;
+        }
+
         return result;
     }
 
@@ -72,6 +128,7 @@ namespace Igor
             auto entityIter = _entities.find(entity->getID());
             if (_entities.end() != entityIter)
             {
+                delete entity;
                 _entities.erase(entityIter);
             }
             else

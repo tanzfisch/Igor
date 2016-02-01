@@ -30,6 +30,7 @@
 #define __iPHYSICSBODY__
 
 #include <iDefines.h>
+#include <iNode.h>
 
 #include <iaEvent.h>
 #include <iaMatrix.h>
@@ -42,7 +43,7 @@ using namespace std;
 namespace Igor
 {
 
-    class iEntity;
+    class iNodeTransform;
     class iPhysicsBody;
 
     /*! event called by newton to apply force and Torque
@@ -55,7 +56,6 @@ namespace Igor
     {
 
         friend class iPhysics;
-        friend class iEntity;
         friend void PhysicsNodeDestructor(const void* body);
         friend void PhysicsApplyForceAndTorque(const void* body, float32 timestep, int threadIndex);
         friend void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex);
@@ -78,6 +78,17 @@ namespace Igor
         */
         float32 getMass();
 
+        const iaVector3f& getVelocity() const;
+        const iaVector3f& getAngularVelocity() const;
+
+        void setVelocity(const iaVector3f& velocity);
+        void setAngularVelocity(const iaVector3f& angularVelocity);
+
+        void setMatrix(const iaMatrixf& matrix);
+        const iaMatrixf& getMatrix() const;
+
+        uint32 getTransformNode() const;
+        
         /*! \returns body ID
         */
         uint64 getID();
@@ -108,13 +119,16 @@ namespace Igor
         */
         float32 _mass = 0;
 
+        iaVector3f _velocity;
+        iaVector3f _angularVelocity; 
+
         /*! handle to newton body
         */
         void* _newtonBody = nullptr;
 
-        /*! weak pointer to corresponding entity
+        /*! bound transform node
         */
-        iEntity* _entity = nullptr;
+        uint32 _transformNodeID = iNode::INVALID_NODE_ID;
 
         /*!
         \todo implement an event for this
@@ -145,15 +159,7 @@ namespace Igor
         */
         void release();
 
-        /*! set entity
-
-        \param entity pointer to entity under physic control
-        */
-        void setEntity(iEntity* entity);
-
-        /*! \returns entity
-        */
-        iEntity* getEntity() const;
+        void setTransformNode(iNodeTransform* transformNode);
 
     };
 

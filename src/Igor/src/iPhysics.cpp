@@ -17,6 +17,7 @@
 #include <iPhysicsPlayer.h>
 #include <iPhysicsCollision.h>
 #include <iPhysicsJoint.h>
+#include <iNodeTransform.h>
 #include <iMesh.h>
 
 #include <Newton.h>
@@ -71,13 +72,12 @@ namespace Igor
         {
             iaVector3f vel;
             iaVector3f omega;
-            iEntity* entity = bodyWrapper->_physicsBody->_entity;
-
+            
             NewtonBodyGetVelocity(static_cast<const NewtonBody*>(body), vel.getData());
             NewtonBodyGetOmega(static_cast<const NewtonBody*>(body), omega.getData());
-            entity->updateMatrix(matrix);
-            entity->setVelocity(vel);
-            entity->setAngularVelocity(omega);
+            bodyWrapper->_physicsBody->setMatrix(matrix);
+            bodyWrapper->_physicsBody->setVelocity(vel);
+            bodyWrapper->_physicsBody->setAngularVelocity(omega);
         }
     }
 
@@ -252,9 +252,9 @@ namespace Igor
         return nullptr;
     }
 
-    void iPhysics::bindEntity(iPhysicsBody* body, iEntity* entity)
+    void iPhysics::bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode)
     {
-        body->setEntity(entity);
+        body->setTransformNode(transformNode);
         BodyWrapper* bodyWrapper = new BodyWrapper();
         bodyWrapper->_physicsBody = body;
         NewtonBodySetUserData(static_cast<const NewtonBody*>(body->_newtonBody), bodyWrapper);
@@ -404,7 +404,7 @@ namespace Igor
 
     void iPhysics::setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz)
     {
-        if (mass >= __IGOR_GRAMM__)
+        if (mass >= IGOR_GRAMM)
         {
             NewtonBodySetMassMatrix(static_cast<const NewtonBody*>(newtonBody), mass, Ixx, Iyy, Izz);
         }

@@ -46,7 +46,7 @@ using namespace std;
 namespace Igor
 {
 
-    class iEntity;
+    class iNodeTransform;
     class iPhysicsCollision;
     class iPhysicsJoint;
     class iMesh;
@@ -62,7 +62,6 @@ namespace Igor
     {
         friend void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex);
         friend class iaSingleton<iPhysics>;
-        friend class iEntity;
         friend class iPhysicsCollision;
         friend class iTaskPhysics;
         friend class iPhysicsBody; // needed so newton can call dtor on bodys by it self
@@ -241,6 +240,13 @@ namespace Igor
         */
         void updateMatrix(void* newtonBody, const iaMatrixf& matrix);
 
+        /*! binds transform node to newton body
+
+        \param body handle to newton body
+        \param transformNode transform node to bind
+        */
+        void bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode);
+
     private:
 
         /*! next collision id
@@ -289,13 +295,6 @@ namespace Igor
         \returns the physics collision
         */
         iPhysicsCollision* prepareCollision(void* collision);
-
-        /*! binds entity to newton body
-
-        \param body handle to newton body
-        \param entity pointer to entity
-        */
-        void bindEntity(iPhysicsBody* body, iEntity* entity);
 
         /*! releases newton body
 

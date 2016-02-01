@@ -57,10 +57,11 @@ namespace Igor
             setKeyBinding(iKeyCode::Down, iTransformDirection::RotateDown);
         }
 
-        iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iControl::onKeyDown));
-        iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iControl::onKeyUp));
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &iControl::onKeyDown));
-        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &iControl::onKeyUp));
+        //iMouse::getInstance().registerMouseMoveFullDelegate(MouseMoveFullDelegate(this, &iControl::onMouseMove));
+        iMouse::getInstance().registerMouseKeyDownDelegate(MouseKeyDownDelegate(this, &iControl::onKeyDown));
+        iMouse::getInstance().registerMouseKeyUpDelegate(MouseKeyUpDelegate(this, &iControl::onKeyUp));
+        iKeyboard::getInstance().registerKeyDownDelegate(KeyDownDelegateExt(this, &iControl::onKeyDown));
+        iKeyboard::getInstance().registerKeyUpDelegate(KeyUpDelegateExt(this, &iControl::onKeyUp));
 
         iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &iControl::onHandle));
     }
@@ -69,10 +70,11 @@ namespace Igor
     {
         iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &iControl::onHandle));
 
-        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &iControl::onKeyDown));
-        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &iControl::onKeyUp));
-        iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iControl::onKeyDown));
-        iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iControl::onKeyUp));
+        //iMouse::getInstance().unregisterMouseMoveFullDelegate(MouseMoveFullDelegate(this, &iControl::onMouseMove));
+        iKeyboard::getInstance().unregisterKeyDownDelegate(KeyDownDelegateExt(this, &iControl::onKeyDown));
+        iKeyboard::getInstance().unregisterKeyUpDelegate(KeyUpDelegateExt(this, &iControl::onKeyUp));
+        iMouse::getInstance().unregisterMouseKeyDownDelegate(MouseKeyDownDelegate(this, &iControl::onKeyDown));
+        iMouse::getInstance().unregisterMouseKeyUpDelegate(MouseKeyUpDelegate(this, &iControl::onKeyUp));
     }
 
     void iControl::setKeyBinding(iKeyCode key, iTransformDirection dir)

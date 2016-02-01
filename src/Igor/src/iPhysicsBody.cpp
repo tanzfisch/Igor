@@ -5,6 +5,10 @@
 #include <iPhysicsBody.h>
 
 #include <iPhysics.h>
+#include <iNodeTransform.h>
+#include <iNodeFactory.h>
+
+#include <iaConsole.h>
 
 namespace Igor
 {
@@ -24,24 +28,33 @@ namespace Igor
         }
     }
 
+    uint32 iPhysicsBody::getTransformNode() const
+    {
+        return _transformNodeID;
+    }
+
     void iPhysicsBody::ApplyForceAndTorque(float32 timestep, int threadIndex)
     {
         _applyForceAndTorque(this, timestep, threadIndex);
     }
 
-    void iPhysicsBody::setEntity(iEntity* entity)
+    void iPhysicsBody::setTransformNode(iNodeTransform* transformNode)
     {
-        _entity = entity;
+        con_assert(transformNode != nullptr, "zero pointer");
+
+        if (transformNode != nullptr)
+        {
+            _transformNodeID = transformNode->getID();
+        }
+
+        iaMatrixf matrix;
+        transformNode->getMatrix(matrix);
+        updateMatrix(matrix);
     }
 
     void* iPhysicsBody::getNewtonBody()
     {
         return _newtonBody;
-    }
-
-    iEntity* iPhysicsBody::getEntity() const
-    {
-        return _entity;
     }
 
     void iPhysicsBody::release()
@@ -50,9 +63,52 @@ namespace Igor
         _newtonBody = nullptr;
     }
 
+    void iPhysicsBody::setMatrix(const iaMatrixf& matrix)
+    {
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+
+        if (transformNode != nullptr)
+        {
+            transformNode->setMatrix(matrix);
+        }
+    }
+
+    const iaMatrixf& iPhysicsBody::getMatrix() const
+    {
+        iaMatrixf result;
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+
+        if (transformNode != nullptr)
+        {
+            transformNode->getMatrix(result);
+        }
+
+        return result;
+    }
+
     void iPhysicsBody::updateMatrix(const iaMatrixf& matrix)
     {
         iPhysics::getInstance().updateMatrix(_newtonBody, matrix);
+    }
+
+    const iaVector3f& iPhysicsBody::getVelocity() const
+    {
+        return _velocity;
+    }
+
+    const iaVector3f& iPhysicsBody::getAngularVelocity() const
+    {
+        return _angularVelocity;
+    }
+
+    void iPhysicsBody::setVelocity(const iaVector3f& velocity)
+    {
+        _velocity = velocity;
+    }
+
+    void iPhysicsBody::setAngularVelocity(const iaVector3f& angularVelocity)
+    {
+        _angularVelocity = angularVelocity;
     }
 
     uint64 iPhysicsBody::getID()

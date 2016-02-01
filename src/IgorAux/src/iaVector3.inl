@@ -23,6 +23,14 @@ iaVector3<T> iaVector3<T>::operator + (const iaVector3<T> &a) const
 }
 
 template <class T>
+__IGOR_INLINE__ iaVector3<T> iaVector3<T>::getEuler(void)
+{
+    iaVector3<T> result;
+
+    return result;
+}
+
+template <class T>
 __IGOR_INLINE__ std::wostream& operator << (std::wostream &ostr, const iaVector3<T> &v)
 {
     ostr << "(" << v._x << ", " << v._y << ", " << v._z << ")";
@@ -245,19 +253,18 @@ T iaVector3<T>::angle(iaVector3<T> &a) const
 }
 
 template <class T>
-T iaVector3<T>::angleX() const
+T iaVector3<T>::angleXZ() const
 {
-    return (T)acos(_x / length());
-}
+    iaVector3<T> temp(_x, 0, _z);
+    temp.normalize();
 
-template <class T>
-T iaVector3<T>::angleY() const
-{
-    return (T)acos(_y / length());
-}
+    float64 gk = -temp._z;
+    float64 heading = asin(gk);
 
-template <class T>
-T iaVector3<T>::angleZ() const
-{
-    return (T)(_z / length());
+    if (temp._x < 0)
+    {
+        heading = M_PI - heading;
+    }
+
+    return heading;
 }

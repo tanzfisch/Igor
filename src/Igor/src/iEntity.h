@@ -50,8 +50,8 @@ namespace Igor
     class Igor_API iEntity
     {
 
-        friend class iEntityFactory;
         friend class iEntityControl;
+        friend class iEntityFactory;
         friend void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex);
 
     public:
@@ -59,98 +59,6 @@ namespace Igor
         /*! the invalid entity id
         */
         static const uint32 INVALID_ENTITY_ID = 0;
-
-        /*! sets the matrix of the entity
-
-        \param matrix matrix to be set
-        */
-        void setMatrix(const iaMatrixf& matrix);
-
-        /*! returns the matrix of this entity
-
-        \param[out] matrix to be returned
-        */
-        void getMatrix(iaMatrixf& matrix);
-
-        /*! set position of entity
-
-        \param positin position to be set
-        */
-        void setPosition(const iaVector3f& position);
-
-        /*! \returns position of entity
-        */
-        iaVector3f getPosition();
-
-        /*! set oriantation with euler angles in radians
-
-        \param orientation euler angles in radians
-        */
-        void setOrientation(const iaVector3f& orientation);
-
-        /*! \returns orientation in euler angles in radians
-        */
-        iaVector3f getOrientation();
-
-        /*! sets velocity of this entity
-
-        \param velocity velocity to be set
-        */
-        void setVelocity(const iaVector3f& velocity);
-
-        /*! \returns velocity of the entity
-        */
-        iaVector3f getVelocity();
-
-        /*! sets force to this entity
-
-        \param force force to be set
-        */
-        void setForce(const iaVector3f& force);
-
-        /*! \returns force to the entity
-        */
-        iaVector3f getForce();
-
-        /*! sets angular velocity of this entity
-
-        \param angularVelocity the angular velocity to be set
-        */
-        void setAngularVelocity(const iaVector3f& angularVelocity);
-
-        /*! \returns the angular velocity of this entity
-        */
-        iaVector3f getAngularVelocity();
-
-        /*! sets angular force of this entity
-
-        \param angularForce the angular force to be set
-        */
-        void setAngularForce(const iaVector3f& angularForce);
-
-        /*! \returns the angular force of this entity
-        */
-        iaVector3f getAngularForce();
-
-        /*! binds entity to phsical body
-
-        \param body physical body
-        */
-        void setBody(iPhysicsBody* body);
-
-        /*! \returns newton body
-        */
-        iPhysicsBody* getBody() const;
-
-        /*! bind transform node to entity
-
-        \param node the transform node
-        */
-        void setTransformNode(iNodeTransform* node);
-
-        /*! \returns transform node of entity
-        */
-        iNodeTransform* getTransformNode();
 
         /*! \retruns the id of this entity
         */
@@ -169,14 +77,7 @@ namespace Igor
         \param value value to set
         */
         void setFloat(uint32 index, float32 value);
-
-        /*! set custom value of type int
-
-        \param index index of velue to set
-        \param value value to set
-        */
-        void setInt(uint32 index, int32 value);
-
+        
         /*! \returns custom value of type bool
 
         \param index index of value to return
@@ -189,104 +90,41 @@ namespace Igor
         */
         float32 getFloat(uint32 index);
 
+        /*! set custom value of type int
+
+        \param index index of velue to set
+        \param value value to set
+        */
+        void setInt(uint32 index, int64 value);
+
         /*! \returns custom value of type int
 
         \param index index of value to return
         */
-        int32 getInt(uint32 index);
+        int64 getInt(uint32 index);
 
-        /*! \returns dirty velocity flag
+        /*! set custom value of type int
+
+        \param index index of velue to set
+        \param value value to set
         */
-        bool isDirtyVelocity();
+        void setUInt(uint32 index, uint64 value);
 
-        /*! \returns dirty angular velocity flag
+        /*! \returns custom value of type int
+
+        \param index index of value to return
         */
-        bool isDirtyAngularVelocity();
+        uint64 getUInt(uint32 index);
 
-        /*! \returns dirty force flag
-        */
-        bool isDirtyForce();
+        void setVector(uint32 index, const iaVector3f& value);
+        const iaVector3f& getVector(uint32 index);
 
-        /*! \returns dirty angular force flag
-        */
-        bool isDirtyAngularForce();
-
-        /*! \returns dirty matrix flag
-
-        \todo might be interessing to differ between position and orientation
-        */
-        bool isDirtyMatrix();
-
-        /*! resets the dirty flag
-        */
-        void resetDirty();
-
-        /*! \returns true if entity contains body
-        */
-        bool hasBody();
-
-        /*! \returns true if entity contains node
-        */
-        bool hasNode();
-
-    private:
+    protected:
 
         /*! entity unique id
         */
         uint32 _id = 0;
 
-        /*! matrix of entity. contains orientation and position of entity
-        */
-        iaMatrixf _matrix;
-
-        /*! current velocity of entity in m/s
-        */
-        iaVector3f _velocity;
-
-        /*! current angular velocity in radians/s
-        */
-        iaVector3f _angularVelocity;
-
-        /*! force or acceleration to apply to entity in m/(s*s)
-        */
-        iaVector3f _force;
-
-        /*! current angular force
-        */
-        iaVector3f _angularForce;
-        
-        /*! dirty flag velocity
-        */
-        bool _dirtyVelocity = true;
-
-        /*! dirty flag angular velocity
-        */
-        bool _dirtyAngularVelocity = true;
-
-        /*! dirty flag force
-        */
-        bool _dirtyForce = true;
-
-        /*! dirty flag angular force
-        */
-        bool _dirtyAngularForce = true;
-
-        /*! dirty flag matrix
-        */
-        bool _dirtyMatrix = true;
-
-        /*! dirty physics flag. true if updateMatrix was called
-        */
-        bool _dirtyPhysics = true;
-
-        /*! shared pointer to optional physical body
-        */
-        iPhysicsBody* _body = nullptr;
-
-        /*! transformation node
-		*/
-        iNodeTransform* _node = nullptr;
-        
         /*! custom data bools
         */
         map<uint32, bool> _customBools;
@@ -294,26 +132,15 @@ namespace Igor
         /*! custom data integers
         */
         map<uint32, int32> _customInts;
+        map<uint32, int32> _uInts;
 
         /*! custom data floats
         */
         map<uint32, float32> _customFloats;
 
-        /*! matrix updated by physics
-        */
-        void updateMatrix(const iaMatrixf& matrix);
+        map<uint32, iaVector3f> _vectors;
 
-        /*! \todo
-        */
-        void onHandle();
-
-        /*! updates physics if body is connected
-        */
-        void updatePhysics();
-
-        /*! updates scene if node is connected
-        */
-        void updateScene();
+        virtual void onHandle() = 0;
 
         /*! does nothing
         */

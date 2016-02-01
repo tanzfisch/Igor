@@ -17,16 +17,16 @@ namespace Testigor
 		{
 			iaVector2f vec;
 
-			Assert::IsTrue(vec.x == 0.0f && 
-				vec.y == 0.0f);
+			Assert::IsTrue(vec._x == 0.0f && 
+				vec._y == 0.0f);
 		}
 
 		TEST_METHOD(Vector2fParamCtor)
 		{
 			iaVector2f vec(1.0f,2.0f);
 
-			Assert::IsTrue(vec.x == 1.0f && 
-				vec.y == 2.0f);
+			Assert::IsTrue(vec._x == 1.0f && 
+				vec._y == 2.0f);
 		}
 
 		TEST_METHOD(Vector2fLenghtZero)
@@ -101,8 +101,8 @@ namespace Testigor
 			iaVector2f vec;
 			vec.set(1,2);
 
-			Assert::IsTrue(vec.x == 1.0f && 
-				vec.y == 2.0f);
+			Assert::IsTrue(vec._x == 1.0f && 
+				vec._y == 2.0f);
 		}
 
 		TEST_METHOD(Vector2fGetData)
@@ -120,8 +120,8 @@ namespace Testigor
 			iaVector2f vec(1.0f,0.0f);
 			vec.rotateXY(0.5f * static_cast<float32>(M_PI));
 
-			Assert::IsTrue(fabs(vec.x) < 0.00001f && 
-				fabs(vec.y) > 0.99999f);
+			Assert::IsTrue(fabs(vec._x) < 0.00001f && 
+				fabs(vec._y) > 0.99999f);
 		}
 
 		TEST_METHOD(Vector2fNormalize)
@@ -129,9 +129,9 @@ namespace Testigor
 			iaVector2f vec(10.2f,0.0f);
 			vec.normalize();
 
-			Assert::IsTrue(fabs(vec.x) > 0.99999f && 
-				fabs(vec.x) <= 1.0f &&
-				vec.y == 0);
+			Assert::IsTrue(fabs(vec._x) > 0.99999f && 
+				fabs(vec._x) <= 1.0f &&
+				vec._y == 0);
 		}
 
 	};

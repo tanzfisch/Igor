@@ -30,17 +30,20 @@
 #define __iENTITYFACTORY__
 
 #include <iDefines.h>
+
 #include <iaSingleton.h>
+#include <iaString.h>
 using namespace IgorAux;
 
 #include <map>
-#include <memory>
 using namespace std;
 
 namespace Igor
 {
 
     class iEntity;
+
+    __IGOR_FUNCTION_POINTER__(CreateEntity, __IGOR_DEFAULTCALL__, iEntity*, ());
 
     /*! entity factory
     */
@@ -55,7 +58,7 @@ namespace Igor
 
         \returns pointer to new entity
         */
-        iEntity* createEntity();
+        iEntity* createEntity(const iaString& identifier);
 
         /*! destroys entity by pointer
 
@@ -79,6 +82,9 @@ namespace Igor
         */
         map<uint32, iEntity*>& getEntities();
 
+        void registerEntityCreator(const iaString& identifier, CreateEntity functionPointer);
+        void unregisterEntityCreator(const iaString& identifier, CreateEntity functionPointer);
+
     private:
 
         /*! next entity id
@@ -88,6 +94,10 @@ namespace Igor
         /*! map of ids to shared pointer of entities
         */
         map<uint32, iEntity*> _entities;
+
+        map<int64, CreateEntity> _entityCreators;
+
+        int64 calcHashValue(const iaString& text);
 
         /*! starts entity control
         */

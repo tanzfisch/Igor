@@ -128,6 +128,8 @@ namespace Igor
 
     int64 iTextureResourceFactory::calcHashValue(const iaString& name, iTextureBuildMode mode)
     {
+        con_assert(!name.isEmpty(), "invalid parameter");
+
         std::hash<wstring> hashFunc;
 
         iaString combined = name;

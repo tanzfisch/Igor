@@ -187,9 +187,9 @@ namespace IgorAux
         /*! \returns angle beween to vectors in radians
         */
         __IGOR_INLINE__ T angle(iaVector3<T> &a) const;
-        __IGOR_INLINE__ T angleX() const;
-        __IGOR_INLINE__ T angleY() const;
-        __IGOR_INLINE__ T angleZ() const;
+        __IGOR_INLINE__ T angleXZ() const;
+
+        __IGOR_INLINE__ iaVector3<T> getEuler(void);
 
         __IGOR_INLINE__ iaVector3<T> normalize(void);
         __IGOR_INLINE__ iaVector3<T> negate(void);

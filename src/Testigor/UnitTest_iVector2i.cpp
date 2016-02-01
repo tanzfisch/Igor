@@ -17,14 +17,14 @@ namespace Testigor
 		{
 			iaVector2i vec;
 
-			Assert::IsTrue(vec.x == 0 && vec.y == 0);
+			Assert::IsTrue(vec._x == 0 && vec._y == 0);
 		}
 
 		TEST_METHOD(Vector2iParamCtor)
 		{
 			iaVector2i vec(1, 2);
 
-			Assert::IsTrue(vec.x == 1 && vec.y == 2);
+			Assert::IsTrue(vec._x == 1 && vec._y == 2);
 		}
 
 		TEST_METHOD(Vector2iLenghtZero)
@@ -74,7 +74,7 @@ namespace Testigor
 			iaVector2i vec;
 			vec.set(1, 2);
 
-			Assert::IsTrue(vec.x == 1 && vec.y == 2);
+			Assert::IsTrue(vec._x == 1 && vec._y == 2);
 		}
 
 		TEST_METHOD(Vector2iGetData)
@@ -91,8 +91,8 @@ namespace Testigor
 			iaVector2i vec(10, 0);
 			vec.normalize();
 
-            Assert::AreEqual(vec.x, 1);
-            Assert::AreEqual(vec.y, 0);
+            Assert::AreEqual(vec._x, 1);
+            Assert::AreEqual(vec._y, 0);
 		}
 
 	};

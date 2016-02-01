@@ -17,14 +17,14 @@ namespace Testigor
 		{
 			iaVector3d vec;
 
-            Assert::IsTrue(vec.x == 0.0 && vec.y == 0.0 && vec.z == 0.0);
+            Assert::IsTrue(vec._x == 0.0 && vec._y == 0.0 && vec._z == 0.0);
 		}
 
 		TEST_METHOD(Vector2dParamCtor)
 		{
 			iaVector3d vec(1.0, -2.0, 3.0);
 
-            Assert::IsTrue(vec.x == 1.0 && vec.y == -2.0 && vec.z == 3.0);
+            Assert::IsTrue(vec._x == 1.0 && vec._y == -2.0 && vec._z == 3.0);
 		}
 
 		TEST_METHOD(Vector2dLenghtZero)
@@ -99,7 +99,7 @@ namespace Testigor
 			iaVector3d vec;
 			vec.set(1,2,3);
 
-            Assert::IsTrue(vec.x == 1.0 && vec.y == 2.0 && vec.z == 3.0);
+            Assert::IsTrue(vec._x == 1.0 && vec._y == 2.0 && vec._z == 3.0);
 		}
 
 		TEST_METHOD(Vector2dGetData)
@@ -116,8 +116,8 @@ namespace Testigor
 			iaVector3d vec(10.2, 0.0, 0.0);
 			vec.normalize();
 
-            Assert::IsTrue(fabs(vec.x) > 0.9999999999 && fabs(vec.x) <= 1.0 && 
-                vec.y == 0 && vec.z == 0);
+            Assert::IsTrue(fabs(vec._x) > 0.9999999999 && fabs(vec._x) <= 1.0 && 
+                vec._y == 0 && vec._z == 0);
 		}
 
 	};
