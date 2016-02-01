@@ -51,54 +51,6 @@ namespace IgorAux
     class IgorAux_API iaStateMachine
     {
 
-    private:
-
-        /*! pointer to initial state 
-        */
-        iaState* _initState = nullptr;
-
-        /*! pointer to current active state
-        */
-        iaState* _currentState = nullptr;
-
-        /*! if true statemachine is allowed to change
-        if false the state machine can not be changed anymore
-        will be set to false by start()
-        */
-        bool _initialisation = true;
-
-        /*! map of all created states
-        */
-        map<uint32, iaState*> _states;
-
-        /*! map of all created transitions
-        */
-        map<uint32, iaTransition*> _transitions;
-
-        /*! triggers the current states enter event
-        */
-        void enterCurrentState();
-
-        /*! triggers the current states reenter event
-        */
-        void reEnterCurrentState();
-
-        /*! triggers a transition
-        */
-        void transit(iaTransition* transition);
-
-        /*! \returns pointer to specified state
-
-        \param id specified state id
-        */
-        iaState* getState(uint32 id);
-
-        /*! \returns pointer to specified transition
-
-        \param id specified transition id
-        */
-        iaTransition* getTransition(uint32 id);
-
     public:
 
         /*! creates new state
@@ -257,6 +209,54 @@ namespace IgorAux
         /*! does nothing
         */
         ~iaStateMachine() = default;
+
+    private:
+
+        /*! pointer to initial state
+        */
+        iaState* _initState = nullptr;
+
+        /*! pointer to current active state
+        */
+        iaState* _currentState = nullptr;
+
+        /*! if true statemachine is allowed to change
+        if false the state machine can not be changed anymore
+        will be set to false by start()
+        */
+        bool _initialisation = true;
+
+        /*! map of all created states
+        */
+        map<uint32, iaState*> _states;
+
+        /*! map of all created transitions
+        */
+        map<uint32, iaTransition*> _transitions;
+
+        /*! triggers the current states enter event
+        */
+        void enterCurrentState();
+
+        /*! triggers the current states reenter event
+        */
+        void reEnterCurrentState();
+
+        /*! triggers a transition
+        */
+        void transit(iaTransition* transition);
+
+        /*! \returns pointer to specified state
+
+        \param id specified state id
+        */
+        iaState* getState(uint32 id);
+
+        /*! \returns pointer to specified transition
+
+        \param id specified transition id
+        */
+        iaTransition* getTransition(uint32 id);
 
     };
 

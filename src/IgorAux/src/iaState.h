@@ -63,40 +63,10 @@ namespace IgorAux
     Example:
     \ref StateMachine/src/StateMachineExample.cpp "StateMachine usage example"
     */
-    class IgorAux_API iaState
+    class iaState
     {
 
-        friend class iaStateMachine;
-
-    private:
-
-        /*! id of the next state created
-        */
-        static uint32 _nextID;
-
-        /*! id of this state
-        */ 
-        uint32 _id = 0;
-
-        /*! enter state event
-        */
-        EnterStateEvent _enterStateEvent;
-
-        /*! reenter state event
-        */
-        ReEnterStateEvent _reEnterStateEvent;
-
-        /*! leave state event
-        */
-        LeaveStateEvent _leaveStateEvent;
-
-        /*! handle state event
-        */
-        HandleStateEvent _handleStateEvent;
-
-        /*! render state event
-        */
-        RenderStateEvent _renderStateEvent;
+    public:
 
         /*! \returns the id of this state
         */
@@ -182,10 +152,43 @@ namespace IgorAux
         */
         void unregisterRenderStateDelegate(RenderStateDelegate renderStateDelegate);
 
+        /*! init id
+        */
         iaState();
-        virtual ~iaState();
 
-    public:
+        /*! does nothing
+        */
+        virtual ~iaState() = default;
+
+    private:
+
+        /*! id of the next state created
+        */
+        static uint32 _nextID;
+
+        /*! id of this state
+        */ 
+        uint32 _id = 0;
+
+        /*! enter state event
+        */
+        EnterStateEvent _enterStateEvent;
+
+        /*! reenter state event
+        */
+        ReEnterStateEvent _reEnterStateEvent;
+
+        /*! leave state event
+        */
+        LeaveStateEvent _leaveStateEvent;
+
+        /*! handle state event
+        */
+        HandleStateEvent _handleStateEvent;
+
+        /*! render state event
+        */
+        RenderStateEvent _renderStateEvent; 
 
     };
 

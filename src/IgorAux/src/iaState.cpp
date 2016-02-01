@@ -16,11 +16,6 @@ namespace IgorAux
         _id = _nextID++;
     }
 
-    iaState::~iaState()
-    {
-
-    }
-
     uint32 iaState::getID()
     {
         return _id;
