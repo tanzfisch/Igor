@@ -48,7 +48,7 @@ namespace Igor
     {
         uint64 time;
         QueryPerformanceCounter((LARGE_INTEGER*)&time);
-        return time * _timeScale * IGOR_SECOND;
+        return time * _timeScale * __IGOR_SECOND__;
     }
 
     void iTimer::handle()
@@ -68,7 +68,7 @@ namespace Igor
 
 	float64 iTimer::getMilliSecondsDelta() const
     {
-        return _timeDelta * _timeScale * IGOR_SECOND;
+        return _timeDelta * _timeScale * __IGOR_SECOND__;
     }
 
 	float64 iTimer::getSecondsDelta() const
@@ -83,7 +83,7 @@ namespace Igor
 
 	float64 iTimer::getMilliSeconds() const
     {
-        return _lastTime * _timeScale * IGOR_SECOND;
+        return _lastTime * _timeScale * __IGOR_SECOND__;
     }
 
 	float64 iTimer::getSeconds() const

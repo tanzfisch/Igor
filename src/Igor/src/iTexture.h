@@ -136,7 +136,7 @@ namespace Igor
 
         Thanks to http://nealabq.com/blog/2008/11/28/factory/
         */
-        IGOR_DISABLE_WARNING(4091);
+        __IGOR_DISABLE_WARNING__(4091);
         static struct private_deleter
         {
             void operator()(iTexture* p)
@@ -144,7 +144,7 @@ namespace Igor
                 delete p;
             }
         };
-        IGOR_ENABLE_WARNING(4091);
+        __IGOR_ENABLE_WARNING__(4091);
 		
 	};
 

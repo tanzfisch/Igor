@@ -39,7 +39,7 @@ namespace Igor
         _lastMeasuredDelta = _stopTime - _startTime;
 #endif
 
-		return (_stopTime - _startTime) / IGOR_SECOND;
+		return (_stopTime - _startTime) / __IGOR_SECOND__;
 	}
 
     float64 iStopWatch::getCurrentMilliSeconds()
@@ -57,7 +57,7 @@ namespace Igor
 #ifdef __IGOR_DEBUG__
         _lastMeasuredDelta = stopTime - _startTime;
 #endif
-        return (stopTime - _startTime) / IGOR_SECOND;
+        return (stopTime - _startTime) / __IGOR_SECOND__;
     }
 
     bool iStopWatch::isRunning()
