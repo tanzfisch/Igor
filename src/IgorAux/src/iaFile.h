@@ -48,7 +48,115 @@ namespace IgorAux
 	class IgorAux_API iaFile
 	{
 
-	private:
+    public:
+
+        /*! creates an object for a file
+
+        \param fileName the path to the file associated with this object
+        */
+        iaFile(const iaString& fileName);
+
+        /*! automatic closes the file if not closed yet
+        */
+        ~iaFile();
+
+        /*! opens the file with the needed rights
+
+        \param writeable true: open for writing; false: open read only
+        */
+        bool open(bool writeable);
+
+        /*! closes the file
+        */
+        void close();
+
+        /*! \returns true: if the file is open; false: if the file is closed
+        */
+        bool isOpen();
+
+        /*! renames the file to a new name
+
+        \param newFileName the new file name
+        \param replaceExisting true: destination will be replaced; false: no action will be taken if destination already exists
+        */
+        void rename(const iaString & newFileName, bool replaceExisting = false);
+
+        /*! copys the file to a new destination
+
+        \param newFileName name of copy destination
+        */
+        iaFile copy(const iaString & newFileName) const;
+
+        /*! checks if the file exist
+
+        \returns true: if file exists; false: if not
+        */
+        bool exist() const;
+
+        /*! checks if some file exist
+
+        \param filename the file to be checked for
+        \returns true: if file exists; false: if not
+        */
+        static bool exist(const iaString & filename);
+
+        /*! \returns only the parent path
+        */
+        iaString getPath() const;
+
+        /*! \returns only the filename
+        */
+        iaString getFileName() const;
+
+        /*! \returns the full path & filename
+        */
+        iaString getFullFileName() const;
+
+        /*! \returns the file extension
+        */
+        iaString getExtension() const;
+
+        /*! \returns the size of the file
+        */
+        int64 getFileSize();
+
+        /*! resizes the file
+
+        \param newSize the new size of the file
+        \returns true: success; false: fail
+        */
+        bool setFileSize(int64 newSize);
+
+        /*! reads from offset the number of size bytes to a (allocated) destination
+
+        \todo asynchron callback not implemented
+
+        \param offset the offset to start reading from
+        \param size size in bytes to read
+        \param destination the destination to write to
+        \param asynchron true: read asynchronnous; false: read synchronous
+        */
+        bool readFromFile(uint64 offset, int32 size, char* destination, bool asynchron = false);
+
+        /*! writes from offset the number of size bytes from a destination
+        \todo asynchron callback not implemented
+
+        \param offset the offset to start writing to
+        \param size size in bytes to write
+        \param source the source to read from
+        \param asynchron true: write asynchronnous; false: write synchronous
+        */
+        bool writeToFile(uint64 offset, int32 size, const char* source, bool asynchron = false);
+
+	protected:
+
+		/*! sets the file pointer to a destination
+
+        \param position new absolute position of filepointer
+        */
+		bool setFilePointer(uint64 position);
+
+    private:
 
         /*! the file name
         */
@@ -66,7 +174,7 @@ namespace IgorAux
         */
         void* _windowsFileHandle = 0;
 
-		/*! the completion routine called when finished asynchron reading
+        /*! the completion routine called when finished asynchron reading
 
         \param errorCode
         \param size number of bytes read
@@ -82,114 +190,6 @@ namespace IgorAux
         */
         static void __stdcall writeCompletionCallback(uint32 errorCode, uint32 size, void* overlapped);
 
-	protected:
-
-		/*! sets the file pointer to a destination
-
-        \param position new absolute position of filepointer
-        */
-		bool setFilePointer(uint64 position);
-
-	public:
-
-		/*! creates an object for a file
-
-        \param fileName the path to the file associated with this object
-        */
-		iaFile(const iaString& fileName);
-
-		/*! automatic closes the file if not closed yet
-        */
-		~iaFile();
-
-		/*! opens the file with the needed rights
-
-        \param writeable true: open for writing; false: open read only
-        */
-		bool open(bool writeable);
-
-		/*! closes the file
-        */ 
-		void close();
-
-        /*! \returns true: if the file is open; false: if the file is closed
-        */
-        bool isOpen();
-
-		/*! renames the file to a new name
-
-        \param newFileName the new file name
-        \param replaceExisting true: destination will be replaced; false: no action will be taken if destination already exists
-        */
-        void rename(const iaString & newFileName, bool replaceExisting = false);
-
-		/*! copys the file to a new destination
-
-        \param newFileName name of copy destination
-        */
-        iaFile copy(const iaString & newFileName) const;
-
-		/*! checks if the file exist
-
-        \returns true: if file exists; false: if not
-        */
-		bool exist() const;
-
-		/*! checks if some file exist
-
-        \param filename the file to be checked for
-        \returns true: if file exists; false: if not
-        */
-		static bool exist(const iaString & filename);
-
-        /*! \returns only the parent path
-        */
-		iaString getPath() const;
-
-        /*! \returns only the filename
-        */
-		iaString getFileName() const;
-
-        /*! \returns the full path & filename
-        */
-		iaString getFullFileName() const;
-
-        /*! \returns the file extension
-        */
-        iaString getExtension() const;
-
-		/*! \returns the size of the file
-        */
-		int64 getFileSize();
-
-		/*! resizes the file
-
-        \param newSize the new size of the file
-        \returns true: success; false: fail
-        */
-		bool setFileSize(int64 newSize);
-
-		/*! reads from offset the number of size bytes to a (allocated) destination
-
-		\todo asynchron callback not implemented
-
-        \param offset the offset to start reading from
-        \param size size in bytes to read
-        \param destination the destination to write to
-        \param asynchron true: read asynchronnous; false: read synchronous
-        */
-		bool readFromFile(uint64 offset, int32 size, char* destination, bool asynchron = false);
-
-		/*! writes from offset the number of size bytes from a destination
-        \todo asynchron callback not implemented
-
-        \param offset the offset to start writing to
-        \param size size in bytes to write
-        \param source the source to read from
-        \param asynchron true: write asynchronnous; false: write synchronous
-        */
-		bool writeToFile(uint64 offset, int32 size, const char* source, bool asynchron = false);
-		
 	};
 
 }

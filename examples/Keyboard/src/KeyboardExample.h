@@ -29,33 +29,74 @@
 #ifndef __KEYBOARDEXAMPLE__
 #define __KEYBOARDEXAMPLE__
 
+// need window and keyboard
 #include <iWindow.h>
-#include <iView.h>
 #include <iKeyboard.h>
 using namespace Igor;
 
+/*! keyboard input example
+*/
 class KeyboardExample
 {
-private:
-
-	iWindow window;
-	iView view;
-	bool outputSwitch;
-
-	void keyPressed(iKeyCode key);
-	void keyReleased(iKeyCode key);
-	void keyASCIIInput(uint8 c);
-	void closeWindow();
-
-	void init();
-	void deinit();
 
 public:
 
-	KeyboardExample();
-	~KeyboardExample();
+    /*! init example
+    */
+    KeyboardExample();
 
-	void run();
+    /*! release resources
+    */
+    ~KeyboardExample();
+
+    /*! run example
+    */
+    void run();
+
+private:
+
+    /*! the window that receives the input messages
+    */
+	iWindow _window;
+
+    /*! switches beween ascii output or single key output
+    */
+	bool _outputSwitch;
+
+    /*! called when key was pressed
+
+    \param key the keycode of the pressed key
+    */
+	void onKeyPressed(iKeyCode key);
+
+    /*! called when key was released
+
+    \param key the keycode of the released key
+    */
+    void onKeyReleased(iKeyCode key);
+
+    /*! called on ascii input
+
+    \param c the ascii value
+    */
+	void onKeyASCIIInput(char c);
+
+    /*! called when window got closed
+    */
+	void onCloseWindow();
+
+    /*! called when ESC key 
+    */
+    void onKeyESCPressed();
+
+    /*! initialize example
+    */
+	void init();
+
+    /*! release resources
+    */
+    void deinit();
+
 };
 
 #endif

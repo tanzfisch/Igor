@@ -116,7 +116,7 @@ namespace IgorAux
 
         \returns true: if excactly equal; false: if not equal
         */
-        __IGOR_INLINE__ bool		operator== (const iaVector2<T> &vec) const;
+        __IGOR_INLINE__ bool operator== (const iaVector2<T> &vec) const;
 
         /*! comparison of two vectors
 
@@ -124,26 +124,26 @@ namespace IgorAux
 
         \returns true: if not equal; false: if excactly equal
         */
-        __IGOR_INLINE__ bool		operator!= (const iaVector2<T> &vec) const;
+        __IGOR_INLINE__ bool operator!= (const iaVector2<T> &vec) const;
 
         /*! dot product between two vectors
 
         \param vec vector to multiply this vector with
         \returns dot product of both vectors
         */
-        __IGOR_INLINE__ T			operator*  (const iaVector2<T> &vec) const;
+        __IGOR_INLINE__ T operator*  (const iaVector2<T> &vec) const;
 
         /*! \returns value by index (const version)
 
         \param index the index of the value to be returned
         */
-		__IGOR_INLINE__ const T&	operator[] (int index) const;
+		__IGOR_INLINE__ const T& operator[] (int index) const;
 
         /*! \returns value by index
 
         \param index the index of the value to be returned
         */
-        __IGOR_INLINE__ T&			operator[] (int index);
+        __IGOR_INLINE__ T& operator[] (int index);
 
         /*! \returns pointer to data
         */
@@ -158,7 +158,7 @@ namespace IgorAux
         \param x x value to set
         \param y y value to set
         */
-		__IGOR_INLINE__ void  set(T x,T y);
+		__IGOR_INLINE__ void set(T x,T y);
 
         /*! \returns length of vector
         */

@@ -98,7 +98,7 @@ namespace IgorAux
 
         \param depth max number of call stack depth to print
         */
-        void printCallStack(uint32 maxDepth);
+        void printCallStack(uint32 maxDepth = 1000);
 
         /*! activates or deactivates log file output
 
@@ -213,16 +213,36 @@ namespace IgorAux
 #ifdef __IGOR_WIN__
 #ifdef __IGOR_DEBUG__
 
-    /*! works in principle like the original assert
+    /*! works like the original assert
+
+    will be fully removed in rlease build
 
     \param Condition a condition that returns false in case of an error
     \param Message additional message output
-    \todo could use an other assert function that behaves like the real assert function. and rename this one to con_critical
     */
 #define con_assert(Condition, Message) \
     if (!(Condition)) \
     { \
         iaConsole::getInstance() << LOCK << iaForegroundColor::Red << "ASSERTION " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TAB__ << __IGOR_FILE_LINE__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TAB__ << __IGOR_FUNCTION__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TAB__ << "-----------------------------------------------------------------------" << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed; \
+        iaConsole::getInstance().printCallStack(); \
+        iaConsole::getInstance().printTombstone(); \
+        iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
+        std::exit(EXIT_FAILURE); \
+    }
+
+    /*! works similar to an assert but opens the debugger instead of stopping the application in debug mode and stays in the release build
+
+    \param Condition a condition that returns false in case of an error
+    \param Message additional message output
+    */
+#define con_assert_sticky(Condition, Message) \
+    if (!(Condition)) \
+    { \
+        iaConsole::getInstance() << LOCK << iaForegroundColor::Red << "ASSERTION_DEBUG_BREAK " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TAB__ << __IGOR_FILE_LINE__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TAB__ << __IGOR_FUNCTION__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TAB__ << "-----------------------------------------------------------------------" << endl; \
@@ -251,7 +271,9 @@ namespace IgorAux
 
 #else
 
-#define con_assert(Condition, Message) \
+#define con_assert(Condition, Message)
+
+#define con_assert_sticky(Condition, Message) \
     if (!(Condition)) \
     { \
         iaConsole::getInstance() << LOCK << iaForegroundColor::Red << "INTERNAL ERROR " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
@@ -281,7 +303,7 @@ namespace IgorAux
     iaConsole::getInstance() << iaForegroundColor::DarkRed; \
     iaConsole::getInstance().printCallStack(10); \
     iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
-    con_assert(iaConsole::getInstance().getErrors() < 100, "too many errors")
+    con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors")
 
     /*! prints an windows specific error message to console and optionally to the log file
 
@@ -296,7 +318,7 @@ namespace IgorAux
     iaConsole::getInstance() << iaForegroundColor::DarkRed; \
     iaConsole::getInstance().printCallStack(10); \
     iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
-    con_assert(iaConsole::getInstance().getErrors() < 100, "too many errors")
+    con_assert_sticky(iaConsole::getInstance().getErrors() < 100, "too many errors")
 
     /*! prints an warning message to console and optionally to the log file
 
@@ -307,7 +329,7 @@ namespace IgorAux
     iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_TAB__ << __IGOR_FILE_LINE__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_TAB__ << __IGOR_FUNCTION__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
-    con_assert(iaConsole::getInstance().getWarnings() < 100, "too many warnings")
+    con_assert_sticky(iaConsole::getInstance().getWarnings() < 100, "too many warnings")
 
     /*! prints an info message to console and optionally to the log file
 

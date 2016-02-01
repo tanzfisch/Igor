@@ -43,20 +43,6 @@ namespace IgorAux
 	class IgorAux_API iaMemBlockControl
 	{
 
-	private:
-
-        /*! pointer to actual data
-        */
-		void* _data = nullptr;
-
-        /*! current position in data
-        */
-		uint64 _pos = 0;
-
-        /*! size of memory allocated
-        */
-		uint64 _size = 0;
-
 	public:
 
         /*! does nothing
@@ -175,6 +161,20 @@ namespace IgorAux
         No range check.
         */
         float64 readFloat64();
+
+    private:
+
+        /*! pointer to actual data
+        */
+        void* _data = nullptr;
+
+        /*! current position in data
+        */
+        uint64 _pos = 0;
+
+        /*! size of memory allocated
+        */
+        uint64 _size = 0;
 
 	};
 

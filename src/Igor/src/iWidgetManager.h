@@ -173,7 +173,7 @@ namespace Igor
 
         /*! internal handler for incomming keyboard events
         */
-        void onASCII(uint8 c);
+        void onASCII(char c);
 
         /*! registers to mouse and keyboard evetns
         */

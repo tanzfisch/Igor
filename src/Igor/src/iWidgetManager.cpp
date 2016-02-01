@@ -49,7 +49,7 @@ namespace Igor
         iMouse::getInstance().registerMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
         iMouse::getInstance().registerMouseMoveDelegate(MouseMoveDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().registerMouseWheelDelegate(MouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
-        iKeyboard::getInstance().registerKeyASCIIDelegate(KeyASCIIDelegate(this, &iWidgetManager::onASCII));
+        iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
     }
 
     void iWidgetManager::unregisterIOEvents()
@@ -59,7 +59,7 @@ namespace Igor
         iMouse::getInstance().unregisterMouseDoubleClickDelegate(MouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
         iMouse::getInstance().unregisterMouseMoveDelegate(MouseMoveDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().unregisterMouseWheelDelegate(MouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
-        iKeyboard::getInstance().unregisterKeyASCIIDelegate(KeyASCIIDelegate(this, &iWidgetManager::onASCII));
+        iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
     }
 
     void iWidgetManager::onMouseKeyDown(iKeyCode key)
@@ -183,7 +183,7 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::onASCII(uint8 c)
+    void iWidgetManager::onASCII(char c)
     {
         bool foundModal = false;
         vector<iWidgetDialog*> dialogs = _dialogs;

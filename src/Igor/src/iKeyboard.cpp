@@ -80,52 +80,52 @@ namespace Igor
         return _keys[static_cast<unsigned int>(keyCode)];
     }
 
-    void iKeyboard::registerKeyDownDelegate(KeyDownDelegateExt keyDownDelegate)
+    void iKeyboard::registerKeyDownDelegate(iKeyDownDelegate keyDownDelegate)
     {
         _keyDownEventExt.append(keyDownDelegate);
     }
 
-    void iKeyboard::registerKeyUpDelegate(KeyUpDelegateExt keyUpDelegate)
+    void iKeyboard::registerKeyUpDelegate(iKeyUpDelegate keyUpDelegate)
     {
         _keyUpEventExt.append(keyUpDelegate);
     }
 
-    void iKeyboard::registerKeyDownDelegate(KeyDownDelegate keyDownDelegate, iKeyCode key)
+    void iKeyboard::registerKeyDownDelegate(iKeyDownSpecificDelegate keyDownDelegate, iKeyCode key)
     {
         _keyDownEvent[static_cast<unsigned int>(key)].append(keyDownDelegate);
     }
 
-    void iKeyboard::registerKeyUpDelegate(KeyUpDelegate keyUpDelegate, iKeyCode key)
+    void iKeyboard::registerKeyUpDelegate(iKeyUpSpecificDelegate keyUpDelegate, iKeyCode key)
     {
         _keyUpEvent[static_cast<unsigned int>(key)].append(keyUpDelegate);
     }
 
-    void iKeyboard::registerKeyASCIIDelegate(KeyASCIIDelegate keyASCIIDelegate)
+    void iKeyboard::registerKeyASCIIDelegate(iKeyASCIIDelegate keyASCIIDelegate)
     {
         _keyASCIIEvent.append(keyASCIIDelegate);
     }
 
-    void iKeyboard::unregisterKeyDownDelegate(KeyDownDelegateExt keyDownDelegate)
+    void iKeyboard::unregisterKeyDownDelegate(iKeyDownDelegate keyDownDelegate)
     {
         _keyDownEventExt.remove(keyDownDelegate);
     }
 
-    void iKeyboard::unregisterKeyUpDelegate(KeyUpDelegateExt keyUpDelegate)
+    void iKeyboard::unregisterKeyUpDelegate(iKeyUpDelegate keyUpDelegate)
     {
         _keyUpEventExt.remove(keyUpDelegate);
     }
 
-    void iKeyboard::unregisterKeyDownDelegate(KeyDownDelegate keyDownDelegate, iKeyCode key)
+    void iKeyboard::unregisterKeyDownDelegate(iKeyDownSpecificDelegate keyDownDelegate, iKeyCode key)
     {
         _keyDownEvent[static_cast<unsigned int>(key)].remove(keyDownDelegate);
     }
 
-    void iKeyboard::unregisterKeyUpDelegate(KeyUpDelegate keyUpDelegate, iKeyCode key)
+    void iKeyboard::unregisterKeyUpDelegate(iKeyUpSpecificDelegate keyUpDelegate, iKeyCode key)
     {
         _keyUpEvent[static_cast<unsigned int>(key)].remove(keyUpDelegate);
     }
 
-    void iKeyboard::unregisterKeyASCIIDelegate(KeyASCIIDelegate keyASCIIDelegate)
+    void iKeyboard::unregisterKeyASCIIDelegate(iKeyASCIIDelegate keyASCIIDelegate)
     {
         _keyASCIIEvent.remove(keyASCIIDelegate);
     }
