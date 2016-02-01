@@ -34,22 +34,72 @@
 namespace IgorAux
 {
 
+    /*! 4d vector
+    */
     template <class T> class IgorAux_API_Template iaVector4
     {
     public:
+
+        /*! 3d vector
+        */
         iaVector3<T> _vec;
+
+        /*! w component
+        */
         T _w;
 
-        __IGOR_INLINE__ iaVector4<T> operator=(const iaVector4<T> &a);		//!< Vektor Kopie
-        __IGOR_INLINE__ iaVector4<T> operator=(const iaVector3<T> &a);		//!< Vektor Kopie
+        /*! copy operator
 
-        __IGOR_INLINE__ bool operator== (const iaVector4<T> &a) const;	//!< Gleich
-        __IGOR_INLINE__ bool operator!= (const iaVector4<T> &a) const;	//!< Ungleich
+        \param src vector to copy
+        \returns this
+        */
+        __IGOR_INLINE__ iaVector4<T> operator=(const iaVector4<T> &src);
+        
+        /*! copy operator 3 components
 
-        __IGOR_INLINE__ const T& operator[] (int i) const;				//!< get operator
-        __IGOR_INLINE__ T& operator[] (int i);						//!< set operator
+        leaves w component as is
 
-        void  set(T x, T y, T z, T w);								//!< Setzt Vektor Koordinaten
+        \param src vector to copy
+        \returns this
+        */
+        __IGOR_INLINE__ iaVector4<T> operator=(const iaVector3<T> &src);
+
+        /*! compares two vectors
+
+        \param a the vector to compare this vector with
+        \returns true if both vectors are equal
+        */
+        __IGOR_INLINE__ bool operator== (const iaVector4<T> &a) const;
+
+        /*! compares two vectors
+
+        \param a the vector to compare this vector with
+        \returns true if both vectors are not equal
+        */
+        __IGOR_INLINE__ bool operator!= (const iaVector4<T> &a) const;
+
+        /*! array operator read only versione
+
+        \param i index of field to access
+        \returns value of field
+        */
+        __IGOR_INLINE__ const T& operator[] (int i) const;
+
+        /*! array operator read and write
+
+        \param i index of field to access
+        \returns reference to value
+        */
+        __IGOR_INLINE__ T& operator[] (int i);
+
+        /*! sets the components of this vector
+
+        \pram x x component
+        \pram y y component
+        \pram z z component
+        \pram w w component
+        */
+        void set(T x, T y, T z, T w);
 
         /*! \returns pointer to internal data
         */
@@ -61,16 +111,43 @@ namespace IgorAux
         */
         const T* getData() const;
 
-        iaVector4();												//!< Konstruktor setzt Nullvektor
-        iaVector4(T x, T y, T z, T w);								//!< Konstruktor mit startwerten
-        ~iaVector4();												//!< Destruktor tut nichts
+        /*! default ctor
+
+        initializes components with zero
+        */
+        iaVector4();
+
+        /*! param ctor
+
+        \pram x x component
+        \pram y y component
+        \pram z z component
+        \pram w w component
+        */
+        iaVector4(T x, T y, T z, T w);
+
+        /*! does nothing
+        */
+        ~iaVector4() = default;
     };
 
 #include <iaVector4.inl>
 
-    typedef iaVector4<float32> iaVector4f;
+    /*! float32 4d vector
+    */
+    typedef iaVector4<float32> iaVector4f; 
+
+    /*! float64 4d vector
+    */
     typedef iaVector4<float64> iaVector4d;
+
+    /*! int32 4d vector
+    */
     typedef iaVector4<int32> iaVector4i;
+
+    /*! int64 4d vector
+    */
+    typedef iaVector4<int64> iaVector4I;
 
 };
 

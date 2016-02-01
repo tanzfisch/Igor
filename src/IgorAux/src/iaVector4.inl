@@ -54,14 +54,11 @@ bool iaVector4<T>::operator != (const iaVector4<T> &a) const
 }
 
 template <class T>
-iaVector4<T> iaVector4<T>::operator = (const iaVector4<T> &a)
+iaVector4<T> iaVector4<T>::operator = (const iaVector4<T> &src)
 {
     iaVector4<T> result;
-    result._vec._x = _vec._x = a._vec._x;
-    result._vec._y = _vec._y = a._vec._y;
-    result._vec._z = _vec._z = a._vec._z;
-    result._w = _w = a._w;
-
+    result._vec = _vec = src._vec;
+    result._w = _w = src._w;
     return result;
 }
 
@@ -69,10 +66,7 @@ template <class T>
 iaVector4<T> iaVector4<T>::operator = (const iaVector3<T> &a)
 {
     iaVector4<T> result;
-    result._vec._x = _vec._x = a._vec._x;
-    result._vec._y = _vec._y = a._vec._y;
-    result._vec._z = _vec._z = a._vec._z;
-
+    result._vec = _vec = a._vec;
     return result;
 }
 
@@ -92,12 +86,6 @@ iaVector4<T>::iaVector4(T x, T y, T z, T w)
     _vec._y = y;
     _vec._z = z;
     _w = w;
-}
-
-template <class T>
-iaVector4<T>::~iaVector4()
-{
-
 }
 
 template <class T>
