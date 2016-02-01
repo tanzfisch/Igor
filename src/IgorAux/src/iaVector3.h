@@ -38,9 +38,13 @@ using namespace std;
 namespace IgorAux
 {
 
+    /*! 3d vector
+    */
     template <class T> class IgorAux_API_Template iaVector3
     {
+
     public:
+
         /*! x component
         */
         T _x = static_cast<T>(0);
