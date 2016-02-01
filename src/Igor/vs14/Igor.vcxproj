@@ -297,7 +297,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iEntity.h" />
     <ClInclude Include="..\src\iEntityControl.h" />
     <ClInclude Include="..\src\iEntityFactory.h" />
-    <ClInclude Include="..\src\iEntityTransformControl.h" />
     <ClInclude Include="..\src\iFileDialog.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
@@ -530,7 +529,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iEntity.cpp" />
     <ClCompile Include="..\src\iEntityControl.cpp" />
     <ClCompile Include="..\src\iEntityFactory.cpp" />
-    <ClCompile Include="..\src\iEntityTransformControl.cpp" />
     <ClCompile Include="..\src\iFileDialog.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />

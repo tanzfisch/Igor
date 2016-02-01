@@ -329,9 +329,6 @@
     <ClCompile Include="..\src\iControl.cpp">
       <Filter>controls</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iEntityTransformControl.cpp">
-      <Filter>controls</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPhysicsJoint.cpp">
       <Filter>physics</Filter>
     </ClCompile>
@@ -703,9 +700,6 @@
       <Filter>application</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iControl.h">
-      <Filter>controls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityTransformControl.h">
       <Filter>controls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsJoint.h">
