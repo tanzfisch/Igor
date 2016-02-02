@@ -50,7 +50,7 @@ namespace Igor
     class iPhysicsCollision;
     class iPhysicsJoint;
     class iMesh;
-  
+
     /*! wrapper for newton game dynamics
 
     Examples:
@@ -145,6 +145,19 @@ namespace Igor
         */
         iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
 
+        /*! creates and return a physics scene. a group of collision objects that are meant to be static
+        use this for optimization
+        */
+        iPhysicsCollision* createScene();
+
+        /*! adds collision to scene
+
+        \returns scene proxy ID
+        */
+        uint64 addToScene(iPhysicsCollision* scene, iPhysicsCollision* collision);
+
+        void removeFromScene(iPhysicsCollision* scene, uint64 sceneProxyID);
+
         /*! \returns collision by id
 
         \param collisionID the collision id
@@ -183,8 +196,16 @@ namespace Igor
         */
         void destroyBody(iPhysicsBody* body);
 
+        /*! destrox body by ID
+
+        \param bodyID the ID of the body to be destroyed
+        */
         void destroyBody(uint64 bodyID);
 
+        /*! \returns body by given ID
+
+        \pram bodyID the body's ID
+        */
         iPhysicsBody* getBody(uint64 bodyID);
 
         /*! returns the mass matrix from given body
@@ -261,6 +282,10 @@ namespace Igor
         */
         uint64 _nextJointID = 1;
 
+        /*! next scene proxy id
+        */
+        uint64 _nextSceneProxyID = 1;
+
         /*! list of collisions
         */
         map<uint64, iPhysicsCollision*> _collisions;
@@ -272,6 +297,10 @@ namespace Igor
         /*! list of joints
         */
         map<uint64, iPhysicsJoint*> _joints;
+
+        /*! list of scene proxies
+        */
+        map<uint64, void*> _sceneProxies;
 
         /*! handle to newton world
         */

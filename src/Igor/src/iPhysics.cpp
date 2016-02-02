@@ -320,11 +320,45 @@ namespace Igor
         }
     }
 
+    iPhysicsCollision* iPhysics::createScene()
+    {
+        NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
+        NewtonCollision* collision = NewtonCreateSceneCollision(static_cast<const NewtonWorld*>(_world), 0);
+        return prepareCollision(collision);
+    }
+
+    uint64 iPhysics::addToScene(iPhysicsCollision* scene, iPhysicsCollision* collision)
+    {
+        NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
+        NewtonSceneCollisionBeginAddRemove(static_cast<NewtonCollision*>(scene->getCollision()));
+        void* newtonProxy = NewtonSceneCollisionAddSubCollision(static_cast<NewtonCollision*>(scene->getCollision()), static_cast<NewtonCollision*>(collision->getCollision()));
+        uint64 result = _nextSceneProxyID;
+        _sceneProxies[_nextSceneProxyID++] = newtonProxy;
+        NewtonSceneCollisionEndAddRemove(static_cast<NewtonCollision*>(scene->getCollision()));
+
+        return result;
+    }
+
+    void iPhysics::removeFromScene(iPhysicsCollision* scene, uint64 sceneProxyID)
+    {
+        auto sceneProxyIter = _sceneProxies.find(sceneProxyID);
+        con_assert(sceneProxyIter != _sceneProxies.end(), "scene proxy id " << sceneProxyID << " not found");
+
+        if (sceneProxyIter != _sceneProxies.end())
+        {
+            NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
+            NewtonSceneCollisionBeginAddRemove(static_cast<NewtonCollision*>(scene->getCollision()));
+            NewtonSceneCollisionRemoveSubCollision(static_cast<NewtonCollision*>(scene->getCollision()), sceneProxyIter->second);
+            NewtonSceneCollisionEndAddRemove(static_cast<NewtonCollision*>(scene->getCollision()));
+
+            _sceneProxies.erase(sceneProxyIter);
+        }
+    }
+
     iPhysicsCollision* iPhysics::createCompound(vector<iPhysicsCollision*>& collisions)
     {
         NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
         NewtonCollision* collision = NewtonCreateCompoundCollision(static_cast<const NewtonWorld*>(_world), _nextCollisionID);
-        NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), _nextCollisionID);
         iPhysicsCollision* result = new iPhysicsCollision(collision, _nextCollisionID);
         _collisions[_nextCollisionID++] = result;
 
@@ -377,8 +411,7 @@ namespace Igor
 
     iPhysicsCollision* iPhysics::prepareCollision(void* collision)
     {
-        NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), 0);
-
+        NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), _nextCollisionID);
         iPhysicsCollision* result = new iPhysicsCollision(collision, _nextCollisionID);
         _collisions[_nextCollisionID++] = result;
 
