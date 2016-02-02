@@ -32,9 +32,10 @@
 #include <iWindow.h>
 #include <iView.h>
 #include <iParticleSystem2D.h>
-#include <iKeyboard.h>
+#include <iKeyCodeMap.h>
 #include <iRainbow.h>
 #include <iPerlinNoise.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -50,60 +51,153 @@ namespace Igor
     class iSprite;
     class iTexture;
     class iTextureFont;
-    class iRenderStatistics;
 }
 
+/*! rendering 2d example
+*/
 class OpenGL2DExample
 {
-private:
-
-    iPerlinNoise perlinNoise;
-
-    iaVector2f _lastMousePos;
-    iaVector2f _logoPosition;
-
-	iaMatrixf _modelMatrix;
-	iaMatrixf _particleMatrix;
-	iWindow _window;
-	iView _view;
-    iRainbow _rainbow;
-	
-	iSprite* _sprite = nullptr;
-	iTextureFont* _font = nullptr;
-
-	shared_ptr<iTexture> _particleTexture;
-	shared_ptr<iTexture> _dummyTexture;
-
-	int32 _materialWithTextureAndBlending = 0;
-	int32 _materialWithoutDepthTest = 0;
-
-	iParticleSystem2D _particleSystem;
-
-    iaBSpline _spline;
-    iRenderStatistics* _renderStatistics = nullptr;
-
-	float _logoRotationAngle = 0.0f;
-	float _animationvalue = 0.0f;
-	float _emitangle = 0.1f;
-	bool _dir = true;
-
-    void onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
-	void onWindowClosed();
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
-
-	void keyPressed(iKeyCode key);
-	void handle();
-	void particlesHandle();
-	void render();
-	void init();
-	void deinit();
 
 public:
 
-	OpenGL2DExample();
-	virtual ~OpenGL2DExample();
+    /*! initializes the example
+    */
+    OpenGL2DExample();
+
+    /*! deinitializes the example
+    */
+    virtual ~OpenGL2DExample();
+
+    /*! run the example
+    */
+    void run();
+
+private:
+
+    /*! the window
+    */
+    iWindow _window;
+
+    /*! the view we want to render in
+
+    basically contains information about where inside the window to render and projection information
+    */
+    iView _view;
+
+    /*! perlin noise generator 
+    (default ctor initializes with 1337 as random seed)
+    */
+    iPerlinNoise _perlinNoise;
+
+    /*! stores the last mouse position
+    */
+    iaVector2f _lastMousePos;
+
+    /*! particles
+    */
+    iParticleSystem2D _particleSystem;
+
+    /*! texture used for the particles
+    */
+    shared_ptr<iTexture> _particleTexture = nullptr;
+
+    /*! just increases over time and feeds a sinus function to change the orientation of the particle stream
+    */
+    float32 _particleAnimatioValue = 0.0f;
+
+    /*! multicolor gradient used for coloring the particles
+    */
+    iRainbow _rainbow;
 	
-	void run();
+    /*! renderer logo
+    */
+	iSprite* _logo = nullptr;
+
+    /*! current position of renderer logo 
+    */
+    iaVector2f _logoPosition{200, 200};
+
+    /*! rotation angle of logo in radians
+    */
+    float32 _logoRotationAngle = 0.0f;
+
+    /*! texture font
+    */
+	iTextureFont* _font = nullptr;
+
+    /*! background tileable texture
+    */
+    shared_ptr<iTexture> _backgroundTexture = nullptr;
+
+    /*! a dummy texture
+    */
+	shared_ptr<iTexture> _dummyTexture = nullptr;
+
+    /*! material id of a textured material
+    */
+    int32 _materialWithTexture = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! material id of a textured material with alpha blending
+    */
+    int32 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! material id of a non textured material
+    */
+    int32 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! a B-Spline
+    */
+    iaBSpline _spline;
+
+    /*! mouse move event with minimum data
+
+    mouse coordinates have their origin in the upper left corner of the parenting window
+
+    \param x last horrizontal coordinate
+    \param y last vertical coordinate
+    */
+    void onMouseMove(int32 x, int32 y);
+
+    /*! called when window was closed
+    */
+	void onWindowClosed();
+
+    /*! called on window resize
+
+    \param clientWidth width of client rectangle
+    \param clientHeight height of client rectangle
+    */
+    void onWindowResize(int32 clientWidth, int32 clientHeight);
+
+    /*! called when esc key was pressed
+    */
+	void onKeyESCPressed();
+
+    /*! called before every frame
+    */
+	void onHandle();
+	
+    /*! called every frame 
+    
+    here we render everyting
+    */
+	void onRender();
+
+    /*! call the particles system handle to update particle positions
+
+    also changes initiali velocity of particles for waving particle stream effect
+    */
+    void updateParticles();
+
+    /*! initializes the example
+    */
+	void init();
+
+    /*! deinitializes the example
+    */
+	void deinit();
+
+
 
 };
 

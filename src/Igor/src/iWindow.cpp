@@ -315,6 +315,7 @@ namespace Igor
         _views.flush();
         if (_views.getList().size() == 0)
         {
+            // we do this warning here for quick response on a black screen because no view was added to the window
             con_warn("opened window without views");
         }
 

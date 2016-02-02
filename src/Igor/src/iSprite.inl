@@ -12,9 +12,9 @@ __IGOR_INLINE__ const iaVector2f& iSprite::getTexCoord(uint32 index) const
     return _texCoord[index];
 }
 
-__IGOR_INLINE__  const iaVector2f& iSprite::getCoi() const
+__IGOR_INLINE__  const iaVector2f& iSprite::getOrigin() const
 {
-    return _coi;
+    return _origin;
 }
 
 __IGOR_INLINE__ float32 iSprite::getWidth() const

@@ -58,11 +58,11 @@ namespace Igor
         */
         void setTexcoord(const iaVector2f& tex0, const iaVector2f& tex1, const iaVector2f& tex2, const iaVector2f& tex3);
 
-        /*! sets center of interesst
+        /*! sets origin of the sprite
 
         \param coi center of interesst
         */
-        void setCoi(const iaVector2f& coi);
+        void setOrigin(const iaVector2f& pos);
 
         /*! \returns texture
         */
@@ -76,7 +76,7 @@ namespace Igor
 
         /*! \returns center of interesst
         */
-        __IGOR_INLINE__ const iaVector2f& getCoi() const;
+        __IGOR_INLINE__ const iaVector2f& getOrigin() const;
 
         /*! \returns width
         */
@@ -106,9 +106,9 @@ namespace Igor
         */
 		iaVector2f _texCoord[4];
 
-        /*! center of interest
+        /*! relative origin
         */
-		iaVector2f _coi;
+		iaVector2f _origin;
 
         /*! width of sprite
         */

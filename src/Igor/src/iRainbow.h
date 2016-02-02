@@ -39,28 +39,60 @@ using namespace std;
 
 namespace Igor
 {
-
+    /*! definition of one color entry
+    */
     struct RainbowColor
-	{
-		iaColor4f color;
-		float32 position;
-	};
+    {
+        /*! color
+        */
+        iaColor4f _color;
 
+        /*! position of color
+        */
+        float32 _position;
+    };
+
+    /*! multi color gradient
+
+    \todo generate lookuptable for shaders
+    \todo implement remove color
+    */
 	class Igor_API iRainbow
 	{
+   
+    public:
 
-	private:
+        /*! insert a color at given position
 
-		vector<RainbowColor> colors;
-
-	public:
-
+        \param color the color
+        \param at the given position
+        */
         void insertColor(const iaColor4f& color, float32 at);
+
+        /*! returns color at given position
+
+        \param[in,out] color the color at given position
+        \param at the given position
+        */
         void getColor(float32 at, iaColor4f& color);
+
+        /*! clears all color definitions
+        */
 		void clear();
 
-		iRainbow();
-		~iRainbow();
+        /*! does nothing
+        */
+		iRainbow() = default;
+
+        /*! does nothing
+        */
+		~iRainbow() = default;
+
+    private:
+
+        /*! the colors
+        */
+        vector<RainbowColor> colors;
 	};
 
 };

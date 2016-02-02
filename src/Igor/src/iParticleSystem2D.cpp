@@ -10,10 +10,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    /*! all particle system are triggred by the same timer event. see getTimerHandle to change interval
-    */
-#define PARTICLE_HANDLETIME 20
-
     iParticleSystem2D::iParticleSystem2D()
     {
         setMaxParticleCount(100);
@@ -33,10 +29,8 @@ namespace Igor
         if (_emitterType == iEmitterType::PointEmitter)
         {
             particle._position = _emitterPos;
-
-            particle._velocity.set(rand() % 100 / 100.0f * _spreadFactor, 0);
-            particle._velocity.rotateXY(rand() % 100 / 100.0f * 2.0f * M_PI);
-            particle._velocity += _initialVelocity;
+            particle._velocity = _initialVelocity;
+            particle._velocity.rotateXY(rand() % 100 / 100.0f * _spreadFactor * 2.0 * M_PI);
         }
         else
         {
@@ -82,7 +76,7 @@ namespace Igor
                 _done = false;
 
                 // Geschwindigkeiten der Partikel neu berechnen
-                _particles[i]._velocity += _gravitation;	// Einfluss der Gravitation
+                _particles[i]._velocity += _externalForce;	// Einfluss der Gravitation
                 _particles[i]._velocity *= _airDrag;		// Einfluss Luftwiederstand
 
                 // Positionen der Partikel neu berechnen
@@ -120,37 +114,38 @@ namespace Igor
         _emitterPos = v;
     }
 
-    void iParticleSystem2D::setSpreadFactor(float32 _spreadFactor)
+    void iParticleSystem2D::setSpreadFactor(float32 spreadFactor)
     {
-        this->_spreadFactor = _spreadFactor;
+        _spreadFactor = spreadFactor;
     }
 
-    void iParticleSystem2D::setParticleSizeDelta(float32 _minSizeDelta, float32 _maxSizeDelta)
+    void iParticleSystem2D::setParticleSizeDelta(float32 min, float32 max)
     {
-        this->_minSizeDelta = _minSizeDelta;
-        this->_maxSizeDelta = _maxSizeDelta;
+        _minSizeDelta = min;
+        _maxSizeDelta = max;
     }
 
-    void iParticleSystem2D::setParticleSize(float32 _minSize, float32 _maxSize)
+    void iParticleSystem2D::setParticleSize(float32 min, float32 max)
     {
-        this->_minSize = _minSize;
-        this->_maxSize = _maxSize;
+        _minSize = min;
+        _maxSize = max;
     }
 
-    void iParticleSystem2D::setParticleRotationDelta(float32 _minRotationDelta, float32 _maxRotationDelta)
+    void iParticleSystem2D::setParticleRotationDelta(float32 min, float32 max)
     {
-        this->_minRotationDelta = _minRotationDelta;
-        this->_maxRotationDelta = _maxRotationDelta;
+        _minRotationDelta = min;
+        _maxRotationDelta = max;
     }
 
-    void iParticleSystem2D::setParticleRotation(float32 _minRotation, float32 _maxRotation)
+    void iParticleSystem2D::setParticleRotation(float32 min, float32 max)
     {
-        this->_minRotation = _minRotation;
-        this->_maxRotation = _maxRotation;
+        _minRotation = min;
+        _maxRotation = max;
     }
 
     void iParticleSystem2D::setParticleLifetime(int32 iterations)
     {
+        _particleLifeTime = iterations;
         _lifeDelta = 1.0f / static_cast<float32>(iterations);
     }
 
@@ -184,9 +179,9 @@ namespace Igor
         return _particleCount;
     }
 
-    void iParticleSystem2D::setGravitation(const iaVector2f& gravitation)
+    void iParticleSystem2D::setExternalForce(const iaVector2f& force)
     {
-        _gravitation = gravitation;
+        _externalForce = force;
     }
 
     void iParticleSystem2D::setInitialVelocity(const iaVector2f& initialVelocity)
@@ -196,7 +191,22 @@ namespace Igor
 
     void iParticleSystem2D::setAirDrag(float32 airDrag)
     {
-        _airDrag = airDrag;
+        con_assert(airDrag >= 0.0 && airDrag <= 1.0, "value out of range");
+
+        if (airDrag >= 0.0 && airDrag <= 1.0)
+        {
+            _airDrag = 1.0 - airDrag;
+        }
+    }
+
+    int32 iParticleSystem2D::getEmitRate() const
+    {
+        return _emitRate;
+    }
+
+    int32 iParticleSystem2D::getParticleLifetime() const
+    {
+        return _particleLifeTime;
     }
 
     void iParticleSystem2D::setLoopable(bool loop)

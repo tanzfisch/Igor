@@ -833,7 +833,9 @@ namespace Igor
 
     void iRenderer::drawSprite(iSprite* sprite, float32 x, float32 y, float32 angle, float32 scalex, float32 scaley)
     {
-        if (sprite = nullptr)
+        con_assert(sprite != nullptr, "zero pointer");
+
+        if (sprite != nullptr)
         {
             iaVector2f o(x, y);
             iaVector2f u(1.0f, 0.0f);
@@ -842,7 +844,7 @@ namespace Igor
             v._x = -u._y;
             v._y = u._x;
 
-            o = o - u * sprite->getCoi()._x * scalex - v * sprite->getCoi()._y * scaley;
+            o = o - u * sprite->getOrigin()._x * scalex - v * sprite->getOrigin()._y * scaley;
 
             iaVector2f b = o + u * (sprite->getWidth() * scalex);
             iaVector2f c = b + v * (sprite->getHeight() * scaley);
@@ -1235,7 +1237,7 @@ namespace Igor
     /*!
     \bug in debug mode the rainbow colors are wrong. it's changing back and forth
     */
-    void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iRainbow *_rainbow)
+    void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iRainbow *rainbow)
     {
         iaVector2f a, b, c, d, u, v;
         iaColor4f color;
@@ -1248,11 +1250,11 @@ namespace Igor
 
         for (uint32 i = 0; i < particleCount; ++i)
         {
-            if (0 < particles[i]._life)
+            if (particles[i]._life > 0)
             {
-                if (_rainbow) //! \todo optimize, maybe two interfaces
+                if (rainbow != nullptr)
                 {
-                    _rainbow->getColor(particles[i]._life, color);
+                    rainbow->getColor(particles[i]._life, color);
                     glColor4fv(color.getData());
                 }
 

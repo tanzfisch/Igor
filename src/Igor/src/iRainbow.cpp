@@ -13,14 +13,6 @@ using namespace std;
 namespace Igor
 {
 
-	iRainbow::iRainbow()
-	{
-	}
-
-	iRainbow::~iRainbow()
-	{
-	}
-
 	void iRainbow::clear()
 	{
 		colors.clear();
@@ -28,20 +20,23 @@ namespace Igor
 
 	__IGOR_INLINE__ bool smaller(const RainbowColor &a, const RainbowColor &b)
 	{
-		return (a.position < b.position);
+		return (a._position < b._position);
 	}
 
     void iRainbow::insertColor(const iaColor4f& color, float32 at)
 	{
         con_assert(0 <= at && 1 >= at, "invalid value");
 
-		RainbowColor temp;
+        if (0 <= at && 1 >= at)
+        {
+            RainbowColor temp;
 
-		temp.color = color;
-		temp.position = at;
-		colors.push_back(temp);
+            temp._color = color;
+            temp._position = at;
+            colors.push_back(temp);
 
-		sort(colors.begin(),colors.end(),smaller);
+            sort(colors.begin(), colors.end(), smaller);
+        }
 	}
 
 	__IGOR_INLINE__ float32 normalize(float32 from, float32 to, float32 t)
@@ -51,21 +46,27 @@ namespace Igor
 
     void iRainbow::getColor(float32 at, iaColor4f& color)
 	{
-        color.set(1, 1, 1, 1);
+        con_assert(colors.size() > 1, "not enough data");
 
-		for(uint32 i=1;i<colors.size();++i)
-		{
-			if(colors[i].position > at)
-			{
-				at = normalize(colors[i-1].position, colors[i].position, at);
-                iaColor4f a = colors[i - 1].color;
-                a *= (1.0f - at);
-                iaColor4f b = colors[i].color;
-                b *= at;
-                color = a;
-                color += b;;
-			}
-		}
+        if (colors.size() > 1)
+        {
+            color = colors[0]._color;
+
+            for (uint32 i = 1; i < colors.size(); ++i)
+            {
+                if (colors[i]._position > at)
+                {
+                    float32 t = normalize(colors[i - 1]._position, colors[i]._position, at);
+                    color = colors[i - 1]._color;
+                    color *= (1.0f - t);
+                    iaColor4f b = colors[i]._color;
+                    b *= t;
+                    color += b;
+
+                    break;
+                }
+            }
+        }
 	}
 
 };

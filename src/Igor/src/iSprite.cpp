@@ -18,8 +18,6 @@ namespace Igor
         _texCoord[2] = iaVector2f(1.0f, 1.0f);
         _texCoord[3] = iaVector2f(1.0f, 0.0f);
 
-        _coi.set(0.0f, 0.0f);
-
         _width = static_cast<float32>(_texture->getWidth());
         _height = static_cast<float32>(_texture->getHeight());
     }
@@ -30,15 +28,11 @@ namespace Igor
         _texCoord[1] = tex1;
         _texCoord[2] = tex2;
         _texCoord[3] = tex3;
-
-        // TODO ????
-        _width = 1.0f;
-        _height = 1.0f;
     }
 
-    void iSprite::setCoi(const iaVector2f& coi)
+    void iSprite::setOrigin(const iaVector2f& pos)
     {
-        _coi = coi;
+        _origin = pos;
     }
 
 };

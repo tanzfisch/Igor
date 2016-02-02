@@ -102,31 +102,31 @@ namespace Igor
 
         /*! sets particle size range when created
 
-        \param minSize minimum size of particle created
-        \param maxSize maximum size of particle created
+        \param min minimum size of particle created
+        \param max maximum size of particle created
         */
-        void setParticleSize(float32 minSize, float32 maxSize);
+        void setParticleSize(float32 min, float32 max);
 
         /*! sets particle scale speed range over time
 
-        \param minSizeDelta minimum size scale over time
-        \param maxSizeDelta maximum size scale over time
+        \param min minimum size scale over time
+        \param max maximum size scale over time
         */
-        void setParticleSizeDelta(float32 minSizeDelta, float32 maxSizeDelta);
+        void setParticleSizeDelta(float32 min, float32 max);
 
         /*! sets particle rotation (orientation) range when created
 
-        \param minRotation minimum rotation of particle created
-        \param maxRotation maximum rotation of particle created
+        \param min minimum rotation of particle created
+        \param max maximum rotation of particle created
         */
-        void setParticleRotation(float32 minRotation, float32 maxRotation);
+        void setParticleRotation(float32 min, float32 max);
 
         /*! sets particle rotation speed range over time
 
-        \param minRotationDelta minimum rotation speed change over time
-        \param maxRotationDelta maximum rotation speed change over time
+        \param min minimum rotation speed change over time
+        \param max maximum rotation speed change over time
         */
-        void setParticleRotationDelta(float32 minRotationDelta, float32 maxRotationDelta);
+        void setParticleRotationDelta(float32 min, float32 max);
 
         /*! sets particle life time in iterations
 
@@ -134,9 +134,15 @@ namespace Igor
         */
         void setParticleLifetime(int32 iterations);
 
+        /*! \returns particle lifetime in frames
+        */
+        int32 getParticleLifetime() const;
+
         /*! sets maximum particle count
 
-        basically to prevent you from endlessly creating particles
+        maximum means that it continues emitting particles untill the maximum 
+        value except the particle system runs in a loop than it can reuse particles
+        but in total this is the maximum
 
         \param count particle count
         */
@@ -150,11 +156,11 @@ namespace Igor
         */
         int32 getParticleCount();
 
-        /*! sets gravitation force
+        /*! sets external force e.g. something like gravitation
 
-        \param gravitation gravitational force
+        \param force external force
         */
-        void setGravitation(const iaVector2f& gravitation);
+        void setExternalForce(const iaVector2f& force);
 
         /*! sets initial velocity
 
@@ -164,11 +170,20 @@ namespace Igor
 
         /*! sets air drag
 
-        \param airDrag air drag that effects speed of particles over time
+        0 means no air drag
+        0.5 means 50% speed reduction per frame
+        1 means full stop
+
+        \param airDrag air drag that effects speed of particles over time from 0 to 1
         */
         void setAirDrag(float32 airDrag);
 
         /*! sets spread factor of particle emission
+
+        all values are allowed but it makes only sense to put values from 0 to 1
+        0 means that the emission happens in only one direction
+        0.5 means in 180 degree directions
+        and 1.0 means in all directions evenly distributed
 
         \param spreadFactor spread factor
         */
@@ -182,9 +197,16 @@ namespace Igor
 
         /*! sets particle emition rate
 
-        \param emitRate amout of particles emitted per time
+        emition rate is particles per frame
+        one frame is when the handle was called
+
+        \param emitRate amout of particles emitted per frame
         */
-        void setEmitRate(int32 emitRate);						
+        void setEmitRate(int32 emitRate);
+
+        /*! \returns emition rate particles per frame
+        */
+        int32 getEmitRate() const;
 
         /*! translates emitter position
 
@@ -250,9 +272,13 @@ namespace Igor
         */
 		float32 _lifeDelta = 0.01f;
 
+        /*! the particle lifetime in frames
+        */
+        int32 _particleLifeTime = 0;
+
         /*! gravitation
         */
-        iaVector2f _gravitation = { 0.0f, 0.0f };
+        iaVector2f _externalForce = { 0.0f, 0.0f };
 
         /*! initial velocity
         */
@@ -282,6 +308,10 @@ namespace Igor
         */
 		int32 _maxParticleCount = 0;
 
+        /*! current particle count in buffer
+
+        can not be greater than _maxParticleCount
+        */
         int32 _particleCount = 0;
 
         /*! emitter type
