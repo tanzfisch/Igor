@@ -296,7 +296,10 @@ namespace Igor
                     if ((*modelIter).second->getParameters() != nullptr &&
                         (*modelIter).second->getParameters()->_modelSourceType == iModelSourceType::File)
                     {
-                        con_info("released model", "\"" << (*modelIter).second->getName() << "\"");
+                        if (!(*modelIter).second->getName().isEmpty())
+                        {
+                            con_info("released model", "\"" << (*modelIter).second->getName() << "\"");
+                        }
                     }
 
                     modelIter = _models.erase(modelIter);

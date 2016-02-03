@@ -48,11 +48,16 @@ namespace Igor
 
     public:
 
+        /*! default priority for a task to run
+        */
         static const uint32 DEFAULT_PRIORITY = 10;
 
         /*! sets member variables
 
         \param window optional parameter only for task using render context
+        \param priority the priority this task will run
+        \param isRepeating if true the task will be triggered repeadetly
+        \param needsRenderContext if true the task needs the render context e.g. to create a texture using the renderer
         */
         iTask(iWindow* window = nullptr, uint32 priority = iTask::DEFAULT_PRIORITY, bool isRepeating = false, bool needsRenderContext = false);
 
@@ -86,6 +91,8 @@ namespace Igor
         */
         bool isRepeating();
 
+        /*! \returns ID of task
+        */
         uint64 getID();
 
 	protected:

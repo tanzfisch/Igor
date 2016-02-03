@@ -15,7 +15,7 @@ namespace Igor
     {
         if (_data != nullptr)
         {
-            delete _data;
+            delete [] _data;
             _data = nullptr;
         }
     }
