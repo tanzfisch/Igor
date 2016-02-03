@@ -5,20 +5,20 @@ const vector<iaRLEBlock<TValue, TIndex>>& iaRLE<TValue, TIndex>::getBlocks() con
 }
 
 template <typename TValue, typename TIndex>
-void iaRLE<TValue, TIndex>::setSize(TIndex size)
+void iaRLE<TValue, TIndex>::setSize(TIndex size, TValue clearValue)
 {
     _size = size;
-    clear();
+    clear(clearValue);
 }
 
 template <typename TValue, typename TIndex> 
-void iaRLE<TValue, TIndex>::clear()
+void iaRLE<TValue, TIndex>::clear(TValue clearValue)
 {
     _blocks.clear();
 
     iaRLEBlock<TValue, TIndex> block;
     block._length = _size;
-    block._value = static_cast<TValue>(0);
+    block._value = clearValue;
 
     _blocks.push_back(block);
 }

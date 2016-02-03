@@ -77,11 +77,23 @@ namespace Igor
         */
         void destroyNode(iNode* node);
 
+        /*! destroys node and all its children  (asynchronously)
+
+        \param node pointer to node to be destroyed
+        */
+        void destroyNodeAsync(iNode* node);
+
         /*! destroys node and all its children
 
         \param nodeID id of node
         */
         void destroyNode(uint32 nodeID);
+
+        /*! destroys node and all its children
+
+        \param nodeID id of node (asynchronously)
+        */
+        void destroyNodeAsync(uint32 nodeID);
 
         /*! inserts one node as child to an other (asynchronously)
 
@@ -111,6 +123,10 @@ namespace Igor
         */
         mutex _mutexQueueRemove;
 
+        /*! mutex to protect delete queue
+        */
+        mutex _mutexQueueDelete;
+
         /*! mutex to protect node list
         */
         mutex _mutexNodes;
@@ -122,6 +138,10 @@ namespace Igor
         /*! the queue to remove nodes from other nodes
         */
         vector<pair<uint32, uint32>> _queueRemove;
+
+        /*! node IDs to be deleted
+        */
+        vector<uint32> _queueDelete;
 
         /*! mapping ids to nodes
         */

@@ -45,11 +45,10 @@ namespace Igor
         if (transformNode != nullptr)
         {
             _transformNodeID = transformNode->getID();
+            iaMatrixf matrix;
+            transformNode->getMatrix(matrix);
+            updateMatrix(matrix);
         }
-
-        iaMatrixf matrix;
-        transformNode->getMatrix(matrix);
-        updateMatrix(matrix);
     }
 
     void* iPhysicsBody::getNewtonBody()
@@ -66,6 +65,7 @@ namespace Igor
     void iPhysicsBody::setMatrix(const iaMatrixf& matrix)
     {
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        con_assert_sticky(transformNode != nullptr, "body is not bound to a node");
 
         if (transformNode != nullptr)
         {
@@ -77,6 +77,7 @@ namespace Igor
     {
         iaMatrixf result;
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        con_assert_sticky(transformNode != nullptr, "body is not bound to a node");
 
         if (transformNode != nullptr)
         {

@@ -62,6 +62,8 @@ namespace Igor
 
     public:
 
+        static const uint64 INVALID_BODY_ID = 0;
+
         /*! updates matrix of newton body
 
         \param matrix the matrix

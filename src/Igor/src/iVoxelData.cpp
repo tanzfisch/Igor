@@ -37,16 +37,16 @@ namespace Igor
             _data = new iVoxelPole[_width * _depth];
             for (int i = 0; i < _width * _depth; ++i)
             {
-                _data[i]._density.setSize(_height);
-                _data[i]._material.setSize(_height);
+                _data[i]._density.setSize(_height, _clearValue);
+                _data[i]._material.setSize(_height, _clearValue);
             }
         }
         else
         {
             for (int i = 0; i < _width * _depth; ++i)
             {
-                _data[i]._density.clear();
-                _data[i]._material.clear();
+                _data[i]._density.clear(_clearValue);
+                _data[i]._material.clear(_clearValue);
             }
         }
     }
@@ -54,6 +54,16 @@ namespace Igor
     void iVoxelData::clear()
     {
         initData(_width, _depth, _height);
+    }
+
+    void iVoxelData::setClearValue(uint8 clearValue)
+    {
+        _clearValue = clearValue;
+    }
+
+    uint8 iVoxelData::getClearValue() const
+    {
+        return _clearValue;
     }
 
     void iVoxelData::setVoxelLine(iaVector3I pos1, iaVector3I pos2, uint8 value)

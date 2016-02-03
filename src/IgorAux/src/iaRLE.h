@@ -53,17 +53,18 @@ namespace IgorAux
     template <typename TValue, typename TIndex> 
     class IgorAux_API_Template iaRLE
     {
+
     public:
 
         /*! sets size of rle buffer
 
         \param size in amount of storable values not bytes
         */
-        void setSize(TIndex size);
+        void setSize(TIndex size, TValue clearValue = 0);
 
         /*! resets the memory to 0
         */
-        void clear();
+        void clear(TValue clearValue = 0);
 
         /*! sets value at given index
 
