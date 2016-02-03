@@ -254,6 +254,7 @@ namespace Igor
 
     void iPhysics::bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode)
     {
+        NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
         body->setTransformNode(transformNode);
         BodyWrapper* bodyWrapper = new BodyWrapper();
         bodyWrapper->_physicsBody = body;
@@ -273,15 +274,18 @@ namespace Igor
 
     void iPhysics::destroyBody(iPhysicsBody* body)
     {
-        con_assert(body != nullptr, "zero pointer");
+        con_assert_sticky(body != nullptr, "zero pointer");
 
-        if (nullptr != body->_newtonBody)
+        if (body != nullptr)
         {
-            destroyNewtonBody(body->_newtonBody);
-            body->_newtonBody = nullptr;
-        }
+            if (body->_newtonBody != nullptr)
+            {
+                destroyNewtonBody(body->_newtonBody);
+                body->_newtonBody = nullptr;
+            }
 
-        delete body;
+            delete body;
+        }
     }
 
     void iPhysics::destroyBody(uint64 bodyID)
@@ -292,7 +296,7 @@ namespace Igor
     void iPhysics::destroyNewtonBody(void* newtonBody)
     {
         NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
-        NewtonBodySetUserData(static_cast<const NewtonBody*>(newtonBody), 0);
+        NewtonBodySetUserData(static_cast<const NewtonBody*>(newtonBody), nullptr);
         NewtonDestroyBody(static_cast<const NewtonBody*>(newtonBody));
     }
 

@@ -86,8 +86,18 @@ namespace Igor
         /*! \returns height of voxel data
         */
         int64 getHeight();
+ 
+        /*! sets density of specified voxel
 
+        \param pos the voxel to change the density
+        \param density the new density
+        */
         void setVoxelDensity(iaVector3I pos, uint8 density);
+
+        /*! \returns density of specified voxel
+
+        \param pos the voxel to get the density from
+        */
         uint8 getVoxelDensity(iaVector3I pos);
 
         void setVoxelMaterial(iaVector3I pos, uint8 material);
@@ -101,6 +111,9 @@ namespace Igor
 
         bool getIntersection(iaVector3I pos, iaVector3I dir, iaVector3I &returnPos, uint8 &returnValue);
 
+        void setClearValue(uint8 clearValue);
+        uint8 getClearValue() const;
+
     private:
 
         /*! the data
@@ -110,6 +123,8 @@ namespace Igor
 		int64 _width = 0;
 		int64 _depth = 0;
 		int64 _height = 0;
+
+        uint8 _clearValue = 0;
 		uint8 _nonSolidValue = 0;
 
         void freeMemory();

@@ -221,18 +221,18 @@ void OpenGL3DExample::init()
     iTaskManager::getInstance().addTask(_taskFlushTextures);
 
     // register some callbacks
-    iKeyboard::getInstance().registerKeyUpDelegate(KeyUpDelegateExt(this, &OpenGL3DExample::keyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(MouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(MouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &OpenGL3DExample::keyPressed));
+    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
+    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
     iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(_scene, &iScene::handle));
 }
 
 void OpenGL3DExample::deinit()
 {
     // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(KeyUpDelegateExt(this, &OpenGL3DExample::keyPressed));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(MouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
-    iMouse::getInstance().unregisterMouseWheelDelegate(MouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &OpenGL3DExample::keyPressed));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
     iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(_scene, &iScene::handle));
 
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &OpenGL3DExample::windowClosed));

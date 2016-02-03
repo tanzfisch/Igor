@@ -41,7 +41,7 @@ namespace Igor
 
     iNodePhysicsMesh::~iNodePhysicsMesh()
     {
-        if (_bodyID != 0)
+        if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
         {
             iPhysics::getInstance().destroyBody(_bodyID);
         }

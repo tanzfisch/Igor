@@ -53,54 +53,6 @@ namespace Igor
 	{
 		friend class iaSingleton<iMaterialResourceFactory>;
 
-	private:
-
-        /*! dirty flag for changes in materials list.
-
-        if false the materials list has to be sorted
-        */
-        bool _dirtyMaterials = true;
-
-        /*! list of materials
-        */
-        list<iMaterialGroup*> _materials;
-
-        /*! lookup table for material groups.
-        */
-        map<int32, iMaterialGroup*> _materialMap;
-
-        /*! list of target materials
-        */
-        vector<iTargetMaterial*> _targetMaterials;
-
-        /*! current material in use
-        */
-        iMaterial* _currentMaterial = nullptr;
-
-        /*! mutex for material lists
-        */
-        mutex _mutexMaterial;
-
-        /*! default material ID
-        */
-        uint32 _defaultID = 0;
-
-        /*! sorts the materials if needed
-        */
-        virtual void updateGroups();
-
-        /*! initializes default materials
-        */
-        void initDefaultMaterial();
-
-		/*! initialisation of members
-		*/
-		iMaterialResourceFactory();
-
-		/*! clean up and error handling
-		*/
-		virtual ~iMaterialResourceFactory();
-
 	public:
 
         /*! creates material
@@ -171,6 +123,58 @@ namespace Igor
         /*! \returns list of all material groups
         */
         list<iMaterialGroup*>* getMaterialGroups();
+
+    private:
+
+        /*! dirty flag for changes in materials list.
+
+        if false the materials list has to be sorted
+        */
+        bool _dirtyMaterials = true;
+
+        /*! list of materials
+        */
+        list<iMaterialGroup*> _materials;
+
+        /*! lookup table for material groups.
+        */
+        map<int32, iMaterialGroup*> _materialMap;
+
+        /*! mutex to protect the target material list
+        */
+        mutex _targetMaterialMutex;
+
+        /*! list of target materials
+        */
+        vector<iTargetMaterial*> _targetMaterials;
+
+        /*! current material in use
+        */
+        iMaterial* _currentMaterial = nullptr;
+
+        /*! mutex for material lists
+        */
+        mutex _mutexMaterial;
+
+        /*! default material ID
+        */
+        uint32 _defaultID = 0;
+
+        /*! sorts the materials if needed
+        */
+        virtual void updateGroups();
+
+        /*! initializes default materials
+        */
+        void initDefaultMaterial();
+
+        /*! initialisation of members
+        */
+        iMaterialResourceFactory();
+
+        /*! clean up and error handling
+        */
+        virtual ~iMaterialResourceFactory();
 
 	};
 

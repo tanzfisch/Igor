@@ -27,6 +27,12 @@ namespace Igor
         {
             iNodeFactory::getInstance().destroyNode(_data);
         }
+
+        if (_parameter != nullptr)
+        {
+            delete _parameter;
+            _parameter = nullptr;
+        }
 	}
 
     iModelDataInputParameter* iModel::getParameters()

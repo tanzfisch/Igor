@@ -78,6 +78,15 @@ namespace Igor
             iNode* child = getNode(entry.second);
             parent->insertNode(child);
         }
+
+        _mutexQueueDelete.lock();
+        auto deleteQueue = std::move(_queueDelete);
+        _mutexQueueDelete.unlock();
+        
+        for (auto nodeID : deleteQueue)
+        {
+            destroyNode(getNode(nodeID));
+        }
     }
 
     iNode* iNodeFactory::getNode(uint32 id)
@@ -128,6 +137,27 @@ namespace Igor
             con_err("tried to delete zero pointer");
         }
 	}
+
+    void iNodeFactory::destroyNodeAsync(uint32 nodeID)
+    {
+        destroyNodeAsync(getNode(nodeID));
+    }
+
+    void iNodeFactory::destroyNodeAsync(iNode* node)
+    {
+        con_assert(nullptr != node, "zero pointer");
+
+        if (nullptr != node)
+        {
+            _mutexQueueDelete.lock();
+            _queueDelete.push_back(node->getID());
+            _mutexQueueDelete.unlock();
+        }
+        else
+        {
+            con_err("tried to delete zero pointer");
+        }
+    }
 
     iNode* iNodeFactory::createCopy(iNode* node, uint32 recursiveDepth)
     {

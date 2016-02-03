@@ -45,6 +45,13 @@ namespace Igor
 
     iNodeModel::~iNodeModel()
     {
+        if (_parameters != nullptr)
+        {
+            // if arrived here it was never given to iModel so we need to delete it now
+            delete _parameters;
+            _parameters = nullptr;
+        }
+
         _model = nullptr;
     }
 
@@ -70,7 +77,7 @@ namespace Igor
             _model == nullptr)
         {
             _model = iModelResourceFactory::getInstance().requestModelData(_filename, _parameters);
-            _parameters = nullptr;
+            _parameters = nullptr; // passing ownership to iModel
             modelNodeQueue.addModelNode(this);
         }
     }

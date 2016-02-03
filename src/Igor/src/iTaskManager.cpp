@@ -33,12 +33,13 @@ namespace Igor
 			createThread();
 		}
 
-        con_endl(numThreads << " standard threads created");
+        con_info("threading", numThreads << " standard threads created");
 	}
 
 	iTaskManager::~iTaskManager()
 	{
         iTaskManager::_running = false;
+        con_info("threading", "shutdown remaining threads");
 
         _mutex.lock();
         // first clear all tasks left in queue
@@ -54,40 +55,40 @@ namespace Igor
         }
         _tasks.clear();
 
+        con_endl("waiting for " << _renderContextTasksRunning.size() << " render context tasks to finish");
+
         // than finish all task that are already running
         for (auto task : _renderContextTasksRunning)
         {
-            if (task->isRunning())
+            task->abort();
+
+            while (task->isRunning())
             {
-                task->abort();
-
-                while (task->isRunning())
-                {
-                    _sleep(1);
-                }
-
-                delete task;
+                _sleep(1);
             }
+
+            delete task;
         }
         _renderContextTasksRunning.clear();
 
+        con_endl("waiting for " << _tasksRunning.size() << " regular tasks to finish");
+
         for (auto task : _tasksRunning)
         {
-            if (task->isRunning())
+            task->abort();
+                
+            while (task->isRunning())
             {
-                task->abort();
-
-                while (task->isRunning())
-                {
-                    _sleep(1);
-                }
-
-                delete task;
+                _sleep(1);
             }
+
+            delete task;
         }
         _tasksRunning.clear();
 
         _mutex.unlock();
+
+        con_endl("waiting for " << _renderContextThreads.size() << " render context threads to join");
 
         // now stop and kill all threads
         _renderContextThreadsMutex.lock();
@@ -102,12 +103,16 @@ namespace Igor
         _renderContextThreads.clear();
         _renderContextThreadsMutex.unlock();
 
+        con_endl("waiting for " << _threads.size() << " regular threads to join");
+
         for (auto thread : _threads)
         {
             thread->join();
             delete thread;
         }
         _threads.clear();
+
+        con_info("threading", "done");
 	}
 
     uint32 iTaskManager::getThreadCount()
@@ -162,7 +167,7 @@ namespace Igor
             _sleep(10);
         }
 
-        con_endl(numThreads << " render context threads created");
+        con_info("threading", numThreads << " render context threads created");
     }
 
 	bool iTaskManager::createRenderContextThread(iWindow *window)

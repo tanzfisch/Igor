@@ -72,10 +72,6 @@ namespace Igor
         */
         bool _needsRenderContext = true;
 
-        /*! if ture this model is relevant to physics
-        */
-        bool _passToPhysics = false;
-
         /*! loading priority of model
         */
         uint32 _loadPriority = iTask::DEFAULT_PRIORITY;

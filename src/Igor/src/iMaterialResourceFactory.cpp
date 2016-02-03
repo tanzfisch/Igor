@@ -56,13 +56,17 @@ namespace Igor
     iTargetMaterial* iMaterialResourceFactory::createTargetMaterial()
     {
         iTargetMaterial* result = new iTargetMaterial();
+
+        _targetMaterialMutex.lock();
         _targetMaterials.push_back(result);
+        _targetMaterialMutex.unlock();
 
         return result;
     }
 
     void iMaterialResourceFactory::destroyTargetMaterial(iTargetMaterial* targetMaterial)
     {
+        _targetMaterialMutex.lock();
         auto iter = find(_targetMaterials.begin(), _targetMaterials.end(), targetMaterial);
 
         if(iter != _targetMaterials.end())
@@ -70,6 +74,7 @@ namespace Igor
             delete (*iter);
             _targetMaterials.erase(iter);
         }
+        _targetMaterialMutex.unlock();
     }
 
     int32 iMaterialResourceFactory::getDefaultMaterialID() const
