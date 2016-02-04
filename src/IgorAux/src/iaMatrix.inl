@@ -5,10 +5,10 @@
 template <class T>
 __IGOR_INLINE__ std::wostream& operator<<(std::wostream &ostr, const iaMatrix<T> &m)
 {
-    ostr << "|" << fixed << right << setprecision(2) << setw(8) << m._right._x << " " << right << setprecision(2) << setw(8) << m._top._x << " " << right << setprecision(2) << setw(8) << m._depth._x << " " << right << setprecision(2) << setw(8) << m._pos._x << "|" << endl;
-    ostr << "|" << fixed << right << setprecision(2) << setw(8) << m._right._y << " " << right << setprecision(2) << setw(8) << m._top._y << " " << right << setprecision(2) << setw(8) << m._depth._y << " " << right << setprecision(2) << setw(8) << m._pos._y << "|" << endl;
-    ostr << "|" << fixed << right << setprecision(2) << setw(8) << m._right._z << " " << right << setprecision(2) << setw(8) << m._top._z << " " << right << setprecision(2) << setw(8) << m._depth._z << " " << right << setprecision(2) << setw(8) << m._pos._z << "|" << endl;
-    ostr << "|" << fixed << right << setprecision(2) << setw(8) << m._w0 << " " << right << setprecision(2) << setw(8) << m._w1 << " " << right << setprecision(2) << setw(8) << m._w2 << " " << right << setprecision(2) << setw(8) << m._w3 << "|" << endl;
+    ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._right._x << " " << right << setprecision(2) << setw(10) << m._top._x << " " << right << setprecision(2) << setw(10) << m._depth._x << " " << right << setprecision(2) << setw(10) << m._pos._x << "|\n";
+    ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._right._y << " " << right << setprecision(2) << setw(10) << m._top._y << " " << right << setprecision(2) << setw(10) << m._depth._y << " " << right << setprecision(2) << setw(10) << m._pos._y << "|\n";
+    ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._right._z << " " << right << setprecision(2) << setw(10) << m._top._z << " " << right << setprecision(2) << setw(10) << m._depth._z << " " << right << setprecision(2) << setw(10) << m._pos._z << "|\n";
+    ostr << "|" << fixed << right << setprecision(2) << setw(10) << m._w0 << " " << right << setprecision(2) << setw(10) << m._w1 << " " << right << setprecision(2) << setw(10) << m._w2 << " " << right << setprecision(2) << setw(10) << m._w3 << "|\n";
     return ostr;
 }
 

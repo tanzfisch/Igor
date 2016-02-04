@@ -44,13 +44,13 @@ namespace Igor
 
     void iEntity::setInt(uint32 index, int64 value)
     {
-        _customInts[index] = value;
+        _sInts[index] = value;
     }
 
     int64 iEntity::getInt(uint32 index)
     {
         con_assert(_customInts.end() != _customInts.find(index), "id does not exist");
-        return _customInts[index];
+        return _sInts[index];
     }
 
     void iEntity::setUInt(uint32 index, uint64 value)
@@ -73,6 +73,17 @@ namespace Igor
     {
         con_assert(_vectors.end() != _vectors.find(index), "id does not exist");
         return _vectors[index];
+    }
+
+    void iEntity::setMatrix(uint32 index, const iaMatrixf& value)
+    {
+        _matrices[index] = value;
+    }
+
+    const iaMatrixf& iEntity::getMatrix(uint32 index)
+    {
+        con_assert(_matrices.end() != _matrices.find(index), "id does not exist");
+        return _matrices[index];
     }
 
 }

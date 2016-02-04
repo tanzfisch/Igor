@@ -56,7 +56,7 @@ namespace Igor
         }
     }
 
-    void iEntityFactory::unregisterEntityCreator(const iaString& identifier, CreateEntity functionPointer)
+    void iEntityFactory::unregisterEntityCreator(const iaString& identifier)
     {
         int64 hashValue = calcHashValue(identifier);
 

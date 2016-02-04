@@ -82,8 +82,18 @@ namespace Igor
         */
         map<uint32, iEntity*>& getEntities();
 
+        /*! registers an entity creator
+
+        \param identifier name of the creator
+        \param functionPointer function pointer to instance creation
+        */
         void registerEntityCreator(const iaString& identifier, CreateEntity functionPointer);
-        void unregisterEntityCreator(const iaString& identifier, CreateEntity functionPointer);
+
+        /*! unregisters an entity creator
+
+        \param identifier name of the creator
+        */
+        void unregisterEntityCreator(const iaString& identifier);
 
     private:
 

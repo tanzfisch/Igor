@@ -116,8 +116,21 @@ namespace Igor
         */
         uint64 getUInt(uint32 index);
 
+        /*! sets a vector with a specified index
+
+        \param index the indext to put the vector in
+        \param value the vectors value
+        */
         void setVector(uint32 index, const iaVector3f& value);
+
+        /*! \returns vector for given index
+
+        \param index the given index
+        */
         const iaVector3f& getVector(uint32 index);
+
+        void setMatrix(uint32 index, const iaMatrixf& value);
+        const iaMatrixf& getMatrix(uint32 index);
 
     protected:
 
@@ -131,15 +144,24 @@ namespace Igor
 
         /*! custom data integers
         */
-        map<uint32, int32> _customInts;
+        map<uint32, int32> _sInts;
+
+        /*! custom data unsigned integers
+        */
         map<uint32, int32> _uInts;
 
         /*! custom data floats
         */
         map<uint32, float32> _customFloats;
 
+        /*! custom data vectors
+        */
         map<uint32, iaVector3f> _vectors;
 
+        map<uint32, iaMatrixf> _matrices;
+
+        /*! called every frame
+        */
         virtual void onHandle() = 0;
 
         /*! does nothing
