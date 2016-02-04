@@ -49,7 +49,7 @@ namespace Igor
 
     int64 iEntity::getInt(uint32 index)
     {
-        con_assert(_customInts.end() != _customInts.find(index), "id does not exist");
+        con_assert(_sInts.end() != _sInts.find(index), "id does not exist");
         return _sInts[index];
     }
 

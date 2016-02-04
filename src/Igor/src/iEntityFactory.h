@@ -36,6 +36,7 @@
 using namespace IgorAux;
 
 #include <map>
+#include <vector>
 using namespace std;
 
 namespace Igor
@@ -78,9 +79,11 @@ namespace Igor
         */
         iEntity* getEntity(uint32 id);
 
-        /*! \returns list of all entities
+        /*! returns list of all entity ids
+
+        \param[in,out] entityIDs list with entity IDs returned
         */
-        map<uint32, iEntity*>& getEntities();
+        void getEntityIDs(vector<uint32>& entityIDs);
 
         /*! registers an entity creator
 
@@ -101,13 +104,25 @@ namespace Igor
         */
         static uint32 _nextID;
 
-        /*! map of ids to shared pointer of entities
+        /*! map of ids to entities
         */
         map<uint32, iEntity*> _entities;
 
+        vector<iEntity*> _creationQueue;
+
+        vector<iEntity*> _destroyQueue;
+
+        mutex _creationMutex;
+
+        mutex _destroyMutex;
+
+        /*! map of entity creators
+        */
         map<int64, CreateEntity> _entityCreators;
 
-        int64 calcHashValue(const iaString& text);
+        /*! called every frame. triggers the entities handles
+        */
+        void onHandle();
 
         /*! starts entity control
         */

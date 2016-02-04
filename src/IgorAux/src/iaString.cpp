@@ -33,6 +33,13 @@ namespace IgorAux
         CHECK_CONSISTENCY();
     }
 
+    int64 iaString::getHashValue() const
+    {
+        std::hash<wstring> hashFunc;
+        wstring keyValue = getData();
+        return static_cast<int64>(hashFunc(keyValue));
+    }
+
     iaString::iaString(const char* text, const uint16 lenght)
     {
         if (lenght != INVALID_POSITION)

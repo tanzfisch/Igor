@@ -3,8 +3,8 @@
 // see copyright notice in corresponding header file
 
 #include <iEntityFactory.h>
-#include <iEntityControl.h>
 #include <iEntity.h>
+#include <iApplication.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -16,11 +16,13 @@ namespace Igor
 
     iEntityFactory::iEntityFactory()
     {
-        iEntityControl::getInstance();
+        iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &iEntityFactory::onHandle));
     }
 
     iEntityFactory::~iEntityFactory()
     {
+        iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &iEntityFactory::onHandle));
+
         if (_entities.size())
         {
             con_err("possible mem leak! not all entities released");
@@ -43,7 +45,7 @@ namespace Igor
 
     void iEntityFactory::registerEntityCreator(const iaString& identifier, CreateEntity functionPointer)
     {
-        int64 hashValue = calcHashValue(identifier);
+        int64 hashValue = identifier.getHashValue();
 
         auto generatorIter = _entityCreators.find(hashValue);
         if (generatorIter == _entityCreators.end())
@@ -58,7 +60,7 @@ namespace Igor
 
     void iEntityFactory::unregisterEntityCreator(const iaString& identifier)
     {
-        int64 hashValue = calcHashValue(identifier);
+        int64 hashValue = identifier.getHashValue();
 
         auto generatorIter = _entityCreators.find(hashValue);
         if (generatorIter != _entityCreators.end())
@@ -71,17 +73,10 @@ namespace Igor
         }
     }
 
-    int64 iEntityFactory::calcHashValue(const iaString& text)
-    {
-        std::hash<wstring> hashFunc;
-        wstring keyValue = text.getData();
-        return static_cast<int64>(hashFunc(keyValue));
-    }
-
     iEntity* iEntityFactory::createEntity(const iaString& identifier)
     {
         iEntity* result = nullptr;
-        int64 hashValue = calcHashValue(identifier);
+        int64 hashValue = identifier.getHashValue();
 
         auto iter = _entityCreators.find(hashValue);
         if (iter != _entityCreators.end())
@@ -93,8 +88,10 @@ namespace Igor
 
         if (result != nullptr)
         {
-            result->_id = _nextID;
-            _entities[_nextID++] = result;
+            _creationMutex.lock();
+            result->_id = _nextID++;
+            _creationQueue.push_back(result);
+            _creationMutex.unlock();
         }
 
         return result;
@@ -107,16 +104,15 @@ namespace Igor
 
     iEntity* iEntityFactory::getEntity(uint32 entityID)
     {
-        con_assert(_entities.end() != _entities.find(entityID), "id not found");
+        iEntity* result = nullptr;
 
+        con_assert(_entities.end() != _entities.find(entityID), "id not found");
         if (_entities.end() != _entities.find(entityID))
         {
-            return _entities[entityID];
+            result = _entities[entityID];
         }
-        else
-        {
-            return nullptr;
-        }
+
+        return result;
     }
 
     void iEntityFactory::destroyEntity(iEntity* entity)
@@ -125,22 +121,59 @@ namespace Igor
 
         if (entity != nullptr)
         {
+            _destroyMutex.lock();
+            _destroyQueue.push_back(entity);
+            _destroyMutex.unlock();
+        }
+    }
+
+    void iEntityFactory::getEntityIDs(vector<uint32>& entityIDs)
+    {
+        entityIDs.clear();
+
+        for (auto entity : _entities)
+        {
+            entityIDs.push_back(entity.first);
+        }
+    }
+
+    void iEntityFactory::onHandle()
+    {
+        vector<iEntity*> destroy;
+        _destroyMutex.lock();
+        destroy = std::move(_destroyQueue);
+        _destroyMutex.unlock();
+
+        con_endl("destroy: " << destroy.size());
+
+        for (auto entity : destroy)
+        {
             auto entityIter = _entities.find(entity->getID());
-            if (_entities.end() != entityIter)
+            if (entityIter != _entities.end())
             {
-                delete entity;
+                delete entityIter->second;
                 _entities.erase(entityIter);
             }
             else
             {
-                con_err("entity id " << entity->getID() << " does not exist");
+                con_err("inconsystant data");
             }
         }
-    }
 
-    map<uint32, iEntity*>& iEntityFactory::getEntities()
-    {
-        return _entities;
+        vector<iEntity*> create;
+        _creationMutex.lock();
+        create = std::move(_creationQueue);
+        _creationMutex.unlock();
+
+        for (auto entity : create)
+        {
+            _entities[entity->getID()] = entity;
+        }
+
+        for (auto entity : _entities)
+        {
+            entity.second->onHandle();
+        }
     }
 
 }

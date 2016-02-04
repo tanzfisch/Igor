@@ -85,7 +85,7 @@ namespace IgorAux
         \param character the character to create the string with
         */
         iaString(const char character);
-
+        
 		/*! copy ctor
 
 		\param text the string to copy from
@@ -95,6 +95,10 @@ namespace IgorAux
 		/*! dtor releases allocated memory
 		*/
 		~iaString();
+
+        /*! \returns hash value for current text
+        */
+        int64 getHashValue() const;
 
         /*! change string to lower case letters
         */

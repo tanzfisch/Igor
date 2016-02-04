@@ -37,6 +37,7 @@ using namespace IgorAux;
 
 #include <memory>
 #include <map>
+#include <vector>
 using namespace std;
 
 namespace Igor

@@ -23,9 +23,6 @@
     <ClCompile Include="..\src\iEntity.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iEntityControl.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iEntityFactory.cpp">
       <Filter>entities</Filter>
     </ClCompile>
@@ -361,9 +358,6 @@
       <Filter>application</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEntity.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityControl.h">
       <Filter>entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEntityFactory.h">
