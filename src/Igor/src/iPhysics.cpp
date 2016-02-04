@@ -95,6 +95,7 @@ namespace Igor
         NewtonSetMemorySystem(AllocMemory, FreeMemory);
         _world = NewtonCreate();
         NewtonSetSolverModel(static_cast<const NewtonWorld*>(_world), 1);
+        NewtonSetThreadsCount(static_cast<const NewtonWorld*>(_world), 1);
     }
 
     iPhysics::~iPhysics()
@@ -126,6 +127,8 @@ namespace Igor
             }
             _collisions.clear();
         }
+
+        // todo clear joints
 
         NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
         NewtonDestroy(static_cast<const NewtonWorld*>(_world));
@@ -212,6 +215,7 @@ namespace Igor
     iPhysicsBody* iPhysics::createBody(iPhysicsCollision* collisionVolume)
     {
         iaMatrixf matrix;
+        NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
         NewtonBody* newtonBody = NewtonCreateDynamicBody(static_cast<const NewtonWorld*>(_world), static_cast<const NewtonCollision*>(collisionVolume->_collision), matrix.getData());
 
         // set callbacks
@@ -225,24 +229,32 @@ namespace Igor
         start();
 
         iPhysicsBody* result = new iPhysicsBody(newtonBody, _nextBodyID);
+        listsMutex.lock();
         _bodys[_nextBodyID++] = result;
+        listsMutex.unlock();
 
         return result;
     }
 
     iPhysicsJoint* iPhysics::createUpVectorJoint(iPhysicsBody* body, const iaVector3f& upVector)
     {
+        NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
         NewtonJoint* joint = NewtonConstraintCreateUpVector(static_cast<const NewtonWorld*>(_world), upVector.getData(), static_cast<const NewtonBody*>(body->_newtonBody));
 
         iPhysicsJoint* result = new iPhysicsJoint(joint, _nextJointID);
+        listsMutex.lock();
         _joints[_nextJointID++] = result;
+        listsMutex.unlock();
 
         return result;
     }
 
     iPhysicsJoint* iPhysics::getJoint(uint64 jointID)
     {
+        listsMutex.lock();
         auto iter = _joints.find(jointID);
+        listsMutex.lock();
+
         if (iter != _joints.end())
         {
             return (*iter).second;
@@ -263,9 +275,13 @@ namespace Igor
 
     iPhysicsBody* iPhysics::getBody(uint64 bodyID)
     {
-        if (_bodys.find(bodyID) != _bodys.end())
+        listsMutex.lock();
+        auto iter = _bodys.find(bodyID);
+        listsMutex.unlock();
+
+        if (iter != _bodys.end())
         {
-            return _bodys[bodyID];
+            return (*iter).second;
         }
 
         con_err("body id " << bodyID << "not found");
@@ -306,6 +322,7 @@ namespace Igor
 
         if (nullptr != collision->_collision)
         {
+            listsMutex.lock();
             auto iter = _collisions.find(collision->getID());
             if (iter != _collisions.end())
             {
@@ -321,6 +338,7 @@ namespace Igor
             {
                 con_err("can't find collision with id " << collision->getID());
             }
+            listsMutex.unlock();
         }
     }
 
@@ -364,7 +382,10 @@ namespace Igor
         NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
         NewtonCollision* collision = NewtonCreateCompoundCollision(static_cast<const NewtonWorld*>(_world), _nextCollisionID);
         iPhysicsCollision* result = new iPhysicsCollision(collision, _nextCollisionID);
+
+        listsMutex.lock();
         _collisions[_nextCollisionID++] = result;
+        listsMutex.unlock();
 
         NewtonCompoundCollisionBeginAddRemove(collision);
 
@@ -417,14 +438,19 @@ namespace Igor
     {
         NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), _nextCollisionID);
         iPhysicsCollision* result = new iPhysicsCollision(collision, _nextCollisionID);
+        listsMutex.lock();
         _collisions[_nextCollisionID++] = result;
+        listsMutex.unlock();
 
         return result;
     }
 
     iPhysicsCollision* iPhysics::getCollision(uint64 collisionID)
     {
+        listsMutex.lock();
         auto iter = _collisions.find(collisionID);
+        listsMutex.unlock();
+
         if (iter != _collisions.end())
         {
             return (*iter).second;
@@ -494,44 +520,5 @@ namespace Igor
 
         return prepareCollision(collision);
     }
-
-
-    /*    void iPhysicsCollision::mesh(iMeshBuilder *mesh, int faceattribute, bool speed_optimized)
-    {
-    if (_collision) NewtonDestroyCollision(_collision);
-    _collision = NewtonCreateTreeCollision(ngdTreeCollisionCallback);
-    NewtonTreeCollisionBeginBuild(_collision);
-
-    dFloat vertexPtr[12];
-
-    vector<iaVector3f> *vertices = mesh->getVertices();
-    vector<TriangleIndexes> *triangles = mesh->getTriangleIndexes();
-
-    vertexPtr[3] = 1.0f;
-    vertexPtr[7] = 1.0f;
-    vertexPtr[11] = 1.0f;
-
-    for (int i = 0; i<triangles->size(); ++i)
-    {
-    vertexPtr[0] = (*vertices)[(*triangles)[i].index[0]].x;
-    vertexPtr[1] = (*vertices)[(*triangles)[i].index[0]].y;
-    vertexPtr[2] = (*vertices)[(*triangles)[i].index[0]].z;
-
-    vertexPtr[4] = (*vertices)[(*triangles)[i].index[1]].x;
-    vertexPtr[5] = (*vertices)[(*triangles)[i].index[1]].y;
-    vertexPtr[6] = (*vertices)[(*triangles)[i].index[1]].z;
-
-    vertexPtr[8] = (*vertices)[(*triangles)[i].index[2]].x;
-    vertexPtr[9] = (*vertices)[(*triangles)[i].index[2]].y;
-    vertexPtr[10] = (*vertices)[(*triangles)[i].index[2]].z;
-
-    NewtonTreeCollisionAddFace(_collision, 3, vertexPtr, sizeof(dFloat)* 4, faceattribute);
-    }
-
-    if (speed_optimized)
-    NewtonTreeCollisionEndBuild(_collision, 1);
-    else
-    NewtonTreeCollisionEndBuild(_collision, 0);
-    }*/
 
 }

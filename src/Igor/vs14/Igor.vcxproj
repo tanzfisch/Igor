@@ -282,6 +282,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd\GLee\include\GLee.h" />
+    <ClInclude Include="..\..\..\3rd\Newton\include\Newton.h" />
     <ClInclude Include="..\..\..\3rd\stb_image\stb_image.h" />
     <ClInclude Include="..\..\..\3rd\TinyXML\tinystr.h" />
     <ClInclude Include="..\..\..\3rd\TinyXML\tinyxml.h" />

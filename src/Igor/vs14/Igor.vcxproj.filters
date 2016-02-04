@@ -709,6 +709,9 @@
     <ClInclude Include="..\src\iPhysicsManager.h">
       <Filter>physics</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\3rd\Newton\include\Newton.h">
+      <Filter>3rd\newton</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -853,6 +856,9 @@
     </Filter>
     <Filter Include="controls">
       <UniqueIdentifier>{461333aa-caa3-4cdd-a7d4-1daa80e74710}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3rd\newton">
+      <UniqueIdentifier>{42af59b1-beae-460f-8f88-b1e55abbf035}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

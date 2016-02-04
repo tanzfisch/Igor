@@ -144,8 +144,6 @@ namespace Igor
         destroy = std::move(_destroyQueue);
         _destroyMutex.unlock();
 
-        con_endl("destroy: " << destroy.size());
-
         for (auto entity : destroy)
         {
             auto entityIter = _entities.find(entity->getID());

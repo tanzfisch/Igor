@@ -40,7 +40,6 @@ using namespace Igor;
 #include <memory>
 #include <vector>
 #include <map>
-#include <mutex>
 using namespace std;
 
 namespace Igor
@@ -285,6 +284,8 @@ namespace Igor
         /*! next scene proxy id
         */
         uint64 _nextSceneProxyID = 1;
+
+        mutex listsMutex;
 
         /*! list of collisions
         */
