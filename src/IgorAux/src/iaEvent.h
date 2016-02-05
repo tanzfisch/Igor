@@ -54,17 +54,17 @@ namespace IgorAux
 																										\
 			void append(const DelegateName &fpDelegate)													\
 			{																							\
-				this->delegates.push_back(fpDelegate);													\
+				_delegates.push_back(fpDelegate);													    \
 			}																							\
 																										\
 			void remove(const DelegateName &fpDelegate)													\
 			{																							\
 				vector<DelegateName>::iterator it;														\
-				for(it = this->delegates.begin();it != this->delegates.end();it++)						\
+				for(it = _delegates.begin();it != _delegates.end();it++)						        \
 				{																						\
 					if((*it) == fpDelegate)																\
 					{																					\
-						this->delegates.erase(it);														\
+						_delegates.erase(it);														    \
 						break;																			\
 					}																					\
 				}																						\
@@ -72,25 +72,25 @@ namespace IgorAux
 																										\
 			__inline void operator() ParameterList const												\
 			{																							\
-				for (unsigned int i = 0; i<this->delegates.size(); ++i)									\
+				for (unsigned int i = 0; i<_delegates.size(); ++i)									    \
 				{																						\
-					this->delegates[i] InnerParameterList;												\
+					_delegates[i] InnerParameterList;												    \
 				}																						\
 			}																							\
 																										\
 			void clear()																				\
 			{																							\
-				this->delegates.clear();																\
+				_delegates.clear();																        \
 			}																							\
 																										\
 			bool hasDelegates()																			\
 			{																							\
-				return this->delegates.size() ? true : false;											\
+				return _delegates.size() ? true : false;											    \
 			}																							\
 																										\
 		protected:																						\
 																										\
-			vector<DelegateName> delegates;																\
+			vector<DelegateName> _delegates;															\
 	};
 
 };

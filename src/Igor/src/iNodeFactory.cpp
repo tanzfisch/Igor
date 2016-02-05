@@ -20,6 +20,7 @@ using namespace IgorAux;
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
 #include <iNodePhysicsMesh.h>
+#include <iNodePhysicsPrimitives.h>
 
 #include <iApplication.h>
 
@@ -31,15 +32,15 @@ namespace Igor
         iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &iNodeFactory::flush));
     }
 
-	iNodeFactory::~iNodeFactory()
-	{
+    iNodeFactory::~iNodeFactory()
+    {
         iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &iNodeFactory::flush));
 
         if (_nodes.size())
-		{
+        {
             con_err("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
-		}
-	}
+        }
+    }
 
     void iNodeFactory::insertNodeAsync(iNode* src, iNode* dst)
     {
@@ -82,7 +83,7 @@ namespace Igor
         _mutexQueueDelete.lock();
         auto deleteQueue = std::move(_queueDelete);
         _mutexQueueDelete.unlock();
-        
+
         for (auto nodeID : deleteQueue)
         {
             destroyNode(getNode(nodeID));
@@ -111,8 +112,8 @@ namespace Igor
         destroyNode(getNode(nodeID));
     }
 
-	void iNodeFactory::destroyNode(iNode* node)
-	{
+    void iNodeFactory::destroyNode(iNode* node)
+    {
         con_assert(nullptr != node, "zero pointer");
 
         if (nullptr != node)
@@ -136,7 +137,7 @@ namespace Igor
         {
             con_err("tried to delete zero pointer");
         }
-	}
+    }
 
     void iNodeFactory::destroyNodeAsync(uint32 nodeID)
     {
@@ -239,6 +240,10 @@ namespace Igor
                 result = new iNodePhysicsMesh(static_cast<iNodePhysicsMesh*>(node));
                 break;
 
+            case iNodeType::iNodePhysicsPrimitives:
+                result = new iNodePhysicsPrimitives(static_cast<iNodePhysicsPrimitives*>(node));
+                break;
+
             case iNodeType::Undefined:
             default:
                 con_err("undefined node type");
@@ -255,47 +260,47 @@ namespace Igor
         return result;
     }
 
-	iNode* iNodeFactory::createNode(iNodeType nodeType)
-	{
-		iNode* result = 0;
+    iNode* iNodeFactory::createNode(iNodeType nodeType)
+    {
+        iNode* result = 0;
 
-		switch (nodeType)
-		{
-		case iNodeType::iNode:
-			result = new iNode();
-			break;
+        switch (nodeType)
+        {
+        case iNodeType::iNode:
+            result = new iNode();
+            break;
 
-		case iNodeType::iNodeCamera:
-			result = new iNodeCamera();
-			break;
+        case iNodeType::iNodeCamera:
+            result = new iNodeCamera();
+            break;
 
-		case iNodeType::iCelestialNode:
-			result = new iCelestialNode();
-			break;
+        case iNodeType::iCelestialNode:
+            result = new iCelestialNode();
+            break;
 
-		case iNodeType::iNodeLight:
+        case iNodeType::iNodeLight:
             result = new iNodeLight();
-			break;
+            break;
 
-		case iNodeType::iNodeMesh:
-			result = new iNodeMesh();
-			break;
+        case iNodeType::iNodeMesh:
+            result = new iNodeMesh();
+            break;
 
-		case iNodeType::iNodeModel:
-			result = new iNodeModel();
-			break;
+        case iNodeType::iNodeModel:
+            result = new iNodeModel();
+            break;
 
-		case iNodeType::iNodeSkyBox:
-			result = new iNodeSkyBox();
-			break;
+        case iNodeType::iNodeSkyBox:
+            result = new iNodeSkyBox();
+            break;
 
-		case iNodeType::iSkyLightNode:
-			result = new iSkyLightNode();
-			break;
+        case iNodeType::iSkyLightNode:
+            result = new iSkyLightNode();
+            break;
 
-		case iNodeType::iNodeTransform:
-			result = new iNodeTransform();
-			break;
+        case iNodeType::iNodeTransform:
+            result = new iNodeTransform();
+            break;
 
         case iNodeType::iNodeSwitch:
             result = new iNodeSwitch();
@@ -312,20 +317,24 @@ namespace Igor
         case iNodeType::iNodePhysicsMesh:
             result = new iNodePhysicsMesh();
             break;
-        
-        case iNodeType::Undefined:
-		default:
-			con_err("undefined node type");
-		};
 
-		if (result)
-		{
+        case iNodeType::iNodePhysicsPrimitives:
+            result = new iNodePhysicsPrimitives();
+            break;
+
+        case iNodeType::Undefined:
+        default:
+            con_err("undefined node type");
+        };
+
+        if (result)
+        {
             _mutexNodes.lock();
             _nodes[result->getID()] = result;
             _mutexNodes.unlock();
-		}
+        }
 
-		return result;
-	}
+        return result;
+    }
 
 }

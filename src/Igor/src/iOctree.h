@@ -31,6 +31,7 @@
 
 #include <iAACube.h>
 #include <iFrustum.h>
+#include <iNode.h>
 
 #include <memory>
 #include <list>
@@ -81,14 +82,16 @@ namespace Igor
         /*! filters everything out that is not within the frustum
 
         \param frustum cull frustum
+        \param filterKind the kind of nodes to filter
         */
-        void filter(const iFrustumd& frustum);
+        void filter(const iFrustumd& frustum, iNodeKind filterKind = iNodeKind::Undefined);
 
         /*! filters everything out that is not within the spehere
 
         \param sphere cull sphere
+        \param filterKind the kind of nodes to filter
         */
-        void filter(const iSphered& sphere);
+        void filter(const iSphered& sphere, iNodeKind filterKind = iNodeKind::Undefined);
 
         /*! returns the result of filtering
 
@@ -225,15 +228,17 @@ namespace Igor
 
         \param frustum the frustum
         \param nodeID current octree node to check for filtering
+        \param filterKind the kind of nodes to filter
         */
-        void filter(const iFrustumd& frustum, uint64 nodeID);
+        void filter(const iFrustumd& frustum, uint64 nodeID, iNodeKind nodeKind);
 
         /*! recursive method to filter the octree with a sphere
 
         \param frustum the frustum
         \param nodeID current octree node to check for filtering
+        \param filterKind the kind of nodes to filter
         */
-        void filter(const iSphered& sphere, uint64 nodeID);
+        void filter(const iSphered& sphere, uint64 nodeID, iNodeKind nodeKind);
 
         /*! creates a node and returns the new node id
 

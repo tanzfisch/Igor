@@ -48,12 +48,12 @@ namespace Igor
 
     void iTask::abort()
     {
+        _isRepeating = false;
+
         while (isRunning())
         {
             _sleep(1);
         }
-
-        _isRepeating = false;
     }
 
     void iTask::setPriority(uint32 priority)

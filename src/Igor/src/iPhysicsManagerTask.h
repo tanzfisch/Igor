@@ -26,79 +26,35 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iNODEPHYSICSMESH__
-#define __iNODEPHYSICSMESH__
+#ifndef __iPHYSICSMANAGERTASK__
+#define __iPHYSICSMANAGERTASK__
 
-#include <iNodePhysics.h>
-#include <iaMatrix.h>
+#include <iTask.h>
 
-#include <memory>
+#include <list>
 using namespace std;
 
 namespace Igor
 {
-    
-    /*! 
 
-    \todo mesh nodes currently can not be moved
-    */
-    class Igor_API iNodePhysicsMesh : public iNodePhysics
-	{
-		
-		friend class iNodeVisitorUpdateTransform;
-        friend class iNodeFactory;
-        friend class iPhysicsManager;
+    class iNode;
+
+    class iPhysicsManagerTask : public iTask
+    {
 
     public:
 
-        /*! set up mesh for physics mesh
+        iPhysicsManagerTask(list<iNode*>& listToUpdate);
 
-        \param mesh the mesh to make a physics collision from
-        \param faceAttribute the faceattribute for the whole mesh
-        \param offset off the mesh collision object
-        */
-        void setMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
-                
+        ~iPhysicsManagerTask();
+
     private:
 
-        /*!
-        */
-        iaMatrixf _offset;
+        list<iNode*> _listToUpdate;
 
-        /*! 
-        */
-        shared_ptr<iMesh> _mesh = nullptr;
+        void run();
 
-        int64 _faceAttribute = 0;
-
-        /*! does nothing
-        */
-        virtual void draw();
-
-        virtual void initPhysics();
-
-        virtual void deinitPhysics();
-
-        /*! set world matrix
-
-        \param matrix matrix to set
-        */
-        virtual void onUpdateTransform(iaMatrixf& matrix);
-
-        /*! initializes member variables
-        */
-        iNodePhysicsMesh();
-
-        /*! copy ctor
-        */
-        iNodePhysicsMesh(iNodePhysicsMesh* node);
-
-        /*! does nothing
-        */
-		virtual ~iNodePhysicsMesh() = default;
-		
-	};
-
-};
+    };
+}
 
 #endif

@@ -26,10 +26,11 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iNODEPHYSICSMESH__
-#define __iNODEPHYSICSMESH__
+#ifndef __iNODEPHYSICSPRIMITIVES__
+#define __iNODEPHYSICSPRIMITIVES__
 
 #include <iNodePhysics.h>
+#include <iPhysicsBody.h>
 #include <iaMatrix.h>
 
 #include <memory>
@@ -38,11 +39,7 @@ using namespace std;
 namespace Igor
 {
     
-    /*! 
-
-    \todo mesh nodes currently can not be moved
-    */
-    class Igor_API iNodePhysicsMesh : public iNodePhysics
+    class Igor_API iNodePhysicsPrimitives : public iNodePhysics
 	{
 		
 		friend class iNodeVisitorUpdateTransform;
@@ -51,51 +48,84 @@ namespace Igor
 
     public:
 
-        /*! set up mesh for physics mesh
+        void clear();
+        void addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
+        void addSphere(float32 radius, const iaMatrixf& offset);
+        void addCone(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCapsule(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCylinder(float32 radius, float32 height, const iaMatrixf& offset);
 
-        \param mesh the mesh to make a physics collision from
-        \param faceAttribute the faceattribute for the whole mesh
-        \param offset off the mesh collision object
-        */
-        void setMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
+        float32 getMass() const;
+        void setMass(float32 mass);
+
+
+        void setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate applyForceAndTorqueDelegate);
+
+        void resetForceAndTorqueDelegate();
                 
     private:
 
-        /*!
-        */
-        iaMatrixf _offset;
+        struct Box
+        {
+            float32 _width;
+            float32 _height;
+            float32 _depth;
+            iaMatrixf _offset;
+        };
 
-        /*! 
-        */
-        shared_ptr<iMesh> _mesh = nullptr;
+        struct Sphere
+        {
+            float32 _radius;
+            iaMatrixf _offset;
+        };
 
-        int64 _faceAttribute = 0;
+        struct Cone
+        {
+            float32 _radius;
+            float32 _height;
+            iaMatrixf _offset;
+        };
 
-        /*! does nothing
-        */
+        struct Capsule
+        {
+            float32 _radius;
+            float32 _height; 
+            iaMatrixf _offset;
+        };
+
+        struct Cylinder
+        {
+            float32 _radius;
+            float32 _height;
+            iaMatrixf _offset;
+        };
+
+        vector<Box> _boxes;
+        vector<Sphere> _spheres;
+        vector<Cone> _cones;
+        vector<Capsule> _capsules;
+        vector<Cylinder> _cylinders;
+        float32 _mass = 0;
+
+        iApplyForceAndTorqueDelegate* _applyForceAndTorqueDelegate = nullptr;
+
         virtual void draw();
 
         virtual void initPhysics();
 
         virtual void deinitPhysics();
 
-        /*! set world matrix
-
-        \param matrix matrix to set
-        */
-        virtual void onUpdateTransform(iaMatrixf& matrix);
-
         /*! initializes member variables
         */
-        iNodePhysicsMesh();
+        iNodePhysicsPrimitives();
 
         /*! copy ctor
         */
-        iNodePhysicsMesh(iNodePhysicsMesh* node);
+        iNodePhysicsPrimitives(iNodePhysicsPrimitives* node);
 
         /*! does nothing
         */
-		virtual ~iNodePhysicsMesh() = default;
+		virtual ~iNodePhysicsPrimitives() = default;
 		
 	};
 

@@ -60,7 +60,9 @@ namespace Igor
         iNodeSwitch,
         iNodeLODSwitch,
         iNodeLODTrigger,
+        iNodePhysics,
         iNodePhysicsMesh,
+        iNodePhysicsPrimitives,
 		Undefined
 	};
 
@@ -73,6 +75,7 @@ namespace Igor
 		Node,
 		Renderable,
 		Volume,
+        Physics,
 		Light,
 		Camera,
 		Transformation,

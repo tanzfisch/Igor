@@ -146,6 +146,8 @@ namespace Igor
 
         /*! creates and return a physics scene. a group of collision objects that are meant to be static
         use this for optimization
+
+        \todo do we need this really?
         */
         iPhysicsCollision* createScene();
 

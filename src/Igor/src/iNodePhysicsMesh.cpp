@@ -14,17 +14,15 @@ namespace Igor
 {
 
     iNodePhysicsMesh::iNodePhysicsMesh()
-        : iNodeVolume()
     {
         setName(L"iNodePhysicsMesh");
         _nodeType = iNodeType::iNodePhysicsMesh;
-        _nodeKind = iNodeKind::Volume;
+        _nodeKind = iNodeKind::Physics;
 
         setMaterial(iMaterial::INVALID_MATERIAL_ID); // physics should only render for debugging purposes
     }
 
     iNodePhysicsMesh::iNodePhysicsMesh(iNodePhysicsMesh* node)
-        : iNodeVolume()
     {
         con_assert(node != nullptr, "zero pointer");
 
@@ -39,24 +37,6 @@ namespace Igor
         _offset = node->_offset;
     }
 
-    iNodePhysicsMesh::~iNodePhysicsMesh()
-    {
-        if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
-        {
-            iPhysics::getInstance().destroyBody(_bodyID);
-        }
-    }
-
-    void iNodePhysicsMesh::setBody(uint64 bodyID)
-    {
-        _bodyID = bodyID;
-    }
-
-    uint64 iNodePhysicsMesh::getBody() const
-    {
-        return _bodyID;
-    }
-
     void iNodePhysicsMesh::setMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset)
     {
         _offset = offset;
@@ -66,17 +46,22 @@ namespace Igor
         setTransformationDirty();
     }
 
-    void iNodePhysicsMesh::setupPhysics()
+    void iNodePhysicsMesh::initPhysics()
     {
         if (_mesh != nullptr)
         {
             iPhysicsCollision* collision = iPhysics::getInstance().createMesh(_mesh, _faceAttribute, _offset);
-            _bodyID = iPhysics::getInstance().createBody(collision)->getID();
+            setBody(iPhysics::getInstance().createBody(collision)->getID());
             iPhysics::getInstance().destroyCollision(collision);
             _mesh = nullptr;
 
             setTransformationDirty();
         }
+    }
+
+    void iNodePhysicsMesh::deinitPhysics()
+    {
+        // nothing to do here
     }
 
     void iNodePhysicsMesh::draw()
@@ -88,9 +73,9 @@ namespace Igor
     {
         iNodeVolume::onUpdateTransform(matrix);
 
-        if (_bodyID != 0)
+        if (getBody() != iPhysicsBody::INVALID_BODY_ID)
         {
-            iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+            iPhysicsBody* body = iPhysics::getInstance().getBody(getBody());
             if (body != nullptr)
             {
                 body->updateMatrix(_worldMatrix);
@@ -98,7 +83,7 @@ namespace Igor
             else
             {
                 con_warn("lost body");
-                _bodyID = 0;
+                setBody(iPhysicsBody::INVALID_BODY_ID);
             }
         }
     }

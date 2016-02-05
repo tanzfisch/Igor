@@ -338,6 +338,15 @@
     <ClCompile Include="..\src\iPhysicsManager.cpp">
       <Filter>physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNodePhysics.cpp">
+      <Filter>scene\nodes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsManagerTask.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iNodePhysicsPrimitives.cpp">
+      <Filter>scene\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -711,6 +720,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\3rd\Newton\include\Newton.h">
       <Filter>3rd\newton</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodePhysics.h">
+      <Filter>scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsManagerTask.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodePhysicsPrimitives.h">
+      <Filter>scene\nodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

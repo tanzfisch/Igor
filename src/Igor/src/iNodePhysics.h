@@ -26,11 +26,12 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iNODEPHYSICSMESH__
-#define __iNODEPHYSICSMESH__
+#ifndef __iNODEPHYSICS__
+#define __iNODEPHYSICS__
 
-#include <iNodePhysics.h>
+#include <iNodeVolume.h>
 #include <iaMatrix.h>
+#include <iPhysicsBody.h>
 
 #include <memory>
 using namespace std;
@@ -38,11 +39,7 @@ using namespace std;
 namespace Igor
 {
     
-    /*! 
-
-    \todo mesh nodes currently can not be moved
-    */
-    class Igor_API iNodePhysicsMesh : public iNodePhysics
+    class iNodePhysics : public iNodeVolume
 	{
 		
 		friend class iNodeVisitorUpdateTransform;
@@ -51,33 +48,9 @@ namespace Igor
 
     public:
 
-        /*! set up mesh for physics mesh
-
-        \param mesh the mesh to make a physics collision from
-        \param faceAttribute the faceattribute for the whole mesh
-        \param offset off the mesh collision object
-        */
-        void setMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
-                
-    private:
-
-        /*!
-        */
-        iaMatrixf _offset;
-
-        /*! 
-        */
-        shared_ptr<iMesh> _mesh = nullptr;
-
-        int64 _faceAttribute = 0;
-
-        /*! does nothing
-        */
-        virtual void draw();
-
-        virtual void initPhysics();
-
-        virtual void deinitPhysics();
+        uint64 getBody() const;
+        
+	protected:
 
         /*! set world matrix
 
@@ -85,17 +58,55 @@ namespace Igor
         */
         virtual void onUpdateTransform(iaMatrixf& matrix);
 
-        /*! initializes member variables
-        */
-        iNodePhysicsMesh();
+        /*! sets physic body id
 
-        /*! copy ctor
+        \param bodyID the body id
         */
-        iNodePhysicsMesh(iNodePhysicsMesh* node);
+        void setBody(uint64 bodyID);
 
         /*! does nothing
         */
-		virtual ~iNodePhysicsMesh() = default;
+        virtual void draw() = 0;
+
+        /*! called to init physics
+        */
+        virtual void initPhysics() = 0;
+
+        /*! called to deinit physics
+        */
+        virtual void deinitPhysics() = 0;
+
+        /*! \returns true if physics was already initialized
+        */
+        bool isInitialized();
+
+        /*! initializes member variables
+        */
+        iNodePhysics();
+
+        /*! copy ctor
+        */
+        iNodePhysics(iNodePhysics* node);
+
+        /*! does nothing
+        */
+        virtual ~iNodePhysics();
+
+    private:
+
+        bool _physicsInitialized = false;
+
+        /*! physics body
+        */
+        uint64 _bodyID = iPhysicsBody::INVALID_BODY_ID;
+
+        /*! updates physics
+        */
+        void updatePhysics();
+
+        /*! shutdown physics
+        */
+        void shutdownPhysics();
 		
 	};
 

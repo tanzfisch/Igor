@@ -314,7 +314,7 @@ namespace Igor
         _queryResult.clear();
     }
 
-    void iOctree::filter(const iFrustumd& frustum, uint64 nodeID)
+    void iOctree::filter(const iFrustumd& frustum, uint64 nodeID, iNodeKind nodeKind)
     {
         OctreeNode* node = _nodes[nodeID];
         iAACubed box;
@@ -327,16 +327,17 @@ namespace Igor
                 while (iterObjectID != node->_objects.end())
                 {
                     iNodeVolume* sceneNode = static_cast<iNodeVolume*>(iNodeFactory::getInstance().getNode((*iterObjectID)));
-
-                    box._center.set(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
-                    box._halfEdgeLength = sceneNode->getBoundingSphere()._radius;
-
-                    if (box.intersects(frustum))
+                    if (nodeKind == iNodeKind::Undefined || sceneNode->getKind() == nodeKind)
                     {
-                        sceneNode->_reached = true;
-                        _queryResult.push_back(sceneNode);
-                    }
+                        box._center.set(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
+                        box._halfEdgeLength = sceneNode->getBoundingSphere()._radius;
 
+                        if (box.intersects(frustum))
+                        {
+                            sceneNode->_reached = true;
+                            _queryResult.push_back(sceneNode);
+                        }
+                    }
                     iterObjectID++;
                 }
             }
@@ -345,13 +346,13 @@ namespace Igor
             {
                 for (uint32 i = 0; i < 8; ++i)
                 {
-                    filter(frustum, node->_children[i]);
+                    filter(frustum, node->_children[i], nodeKind);
                 }
             }
         }
     }
 
-    void iOctree::filter(const iSphered& sphere, uint64 nodeID)
+    void iOctree::filter(const iSphered& sphere, uint64 nodeID, iNodeKind nodeKind)
     {
         OctreeNode* node = _nodes[nodeID];
         iAACubed box;
@@ -364,15 +365,17 @@ namespace Igor
                 while (iterObjectID != node->_objects.end())
                 {
                     iNodeVolume* sceneNode = static_cast<iNodeVolume*>(iNodeFactory::getInstance().getNode((*iterObjectID)));
-                    box._center.set(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
-                    box._halfEdgeLength = sceneNode->getBoundingSphere()._radius;
-
-                    if (box.intersects(sphere))
+                    if (nodeKind == iNodeKind::Undefined || sceneNode->getKind() == nodeKind)
                     {
-                        sceneNode->_reached = true;
-                        _queryResult.push_back(sceneNode);
-                    }
+                        box._center.set(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
+                        box._halfEdgeLength = sceneNode->getBoundingSphere()._radius;
 
+                        if (box.intersects(sphere))
+                        {
+                            sceneNode->_reached = true;
+                            _queryResult.push_back(sceneNode);
+                        }
+                    }
                     iterObjectID++;
                 }
             }
@@ -381,20 +384,20 @@ namespace Igor
             {
                 for (uint32 i = 0; i < 8; ++i)
                 {
-                    filter(sphere, node->_children[i]);
+                    filter(sphere, node->_children[i], nodeKind);
                 }
             }
         }
     }
 
-    void iOctree::filter(const iSphered& sphere)
+    void iOctree::filter(const iSphered& sphere, iNodeKind nodeKind)
     {
-        filter(sphere, _rootNode);
+        filter(sphere, _rootNode, nodeKind);
     }
 
-    void iOctree::filter(const iFrustumd& frustum)
+    void iOctree::filter(const iFrustumd& frustum, iNodeKind nodeKind)
     {
-        filter(frustum, _rootNode);
+        filter(frustum, _rootNode, nodeKind);
     }
 
     void iOctree::getResult(list<iNode*>& data)

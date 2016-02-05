@@ -50,16 +50,13 @@ namespace Igor
     void iPhysicsManager::cullScene(const iSphered& sphere)
     {
         _scene->getOctree()->resetFilter();
-        _scene->getOctree()->filter(sphere);
+        _scene->getOctree()->filter(sphere, iNodeKind::Physics);
         _scene->getOctree()->getResult(_cullResult);
 
         for (auto node : _cullResult)
         {
-            if (node->getType() == iNodeType::iNodePhysicsMesh)
-            {
-                iNodePhysicsMesh* physicsMesh = static_cast<iNodePhysicsMesh*>(node);
-                physicsMesh->setupPhysics();
-            }
+            iNodePhysics* physicsNode = static_cast<iNodePhysics*>(node);
+            physicsNode->updatePhysics();
         }
     }
 
