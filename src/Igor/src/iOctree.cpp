@@ -15,26 +15,26 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    const iaVector3f iOctree::_splitTable[8] =
+    const iaVector3d iOctree::_splitTable[8] =
     {
-        iaVector3f(-1.0, -1.0, -1.0),
-        iaVector3f(1.0, -1.0, -1.0),
-        iaVector3f(-1.0, 1.0, -1.0),
-        iaVector3f(1.0, 1.0, -1.0),
-        iaVector3f(-1.0, -1.0, 1.0),
-        iaVector3f(1.0, -1.0, 1.0),
-        iaVector3f(-1.0, 1.0, 1.0),
-        iaVector3f(1.0, 1.0, 1.0)
+        iaVector3d(-1.0, -1.0, -1.0),
+        iaVector3d(1.0, -1.0, -1.0),
+        iaVector3d(-1.0, 1.0, -1.0),
+        iaVector3d(1.0, 1.0, -1.0),
+        iaVector3d(-1.0, -1.0, 1.0),
+        iaVector3d(1.0, -1.0, 1.0),
+        iaVector3d(-1.0, 1.0, 1.0),
+        iaVector3d(1.0, 1.0, 1.0)
     };
 
-    iOctree::iOctree(const iAACubef& box, float32 halfMinResolution, uint32 objectCountMaxThreashold, uint32 objectCountMinThreashold)
+    iOctree::iOctree(const iAACubed& box, float64 halfMinResolution, uint64 objectCountMaxThreashold, uint64 objectCountMinThreashold)
         : _halfMinResolution(halfMinResolution)
         , _objectCountMaxThreashold(objectCountMaxThreashold)
         , _objectCountMinThreashold(objectCountMinThreashold)
     {
-        con_assert(box._halfEdgeLength > 0 && \
+        con_assert(box._halfEdgeLength > 0.0 && \
             box._halfEdgeLength > halfMinResolution && \
-            halfMinResolution > 0 && \
+            halfMinResolution > 0.0 && \
             objectCountMaxThreashold > objectCountMinThreashold, "invalid configuration");
 
         _rootNode = createNode();
@@ -43,6 +43,7 @@ namespace Igor
 
     iOctree::~iOctree()
     {
+        // TODO cleanup?
     }
 
     iOctree::OctreeObject* iOctree::createObject(uint32 sceneNodeID)
@@ -67,23 +68,28 @@ namespace Igor
         }
     }
 
-    void iOctree::deleteNode(uint32 nodeID)
+    void iOctree::deleteNode(uint64 nodeID)
     {
-        con_assert(_nodes.end() != _nodes.find(nodeID), "node does not exist");
-        con_assert(nullptr == (*_nodes.find(nodeID)).second->_children, "node still has children");
-        con_assert(0 == (*_nodes.find(nodeID)).second->_objects.size(), "inconsistend data");
+        auto nodeIter = _nodes.find(nodeID);
 
-        _nodes.erase(_nodes.find(nodeID));
+        con_assert(_nodes.end() != nodeIter, "node does not exist");
+        con_assert(nullptr == (*nodeIter).second->_children, "node still has children");
+        con_assert(0 == (*nodeIter).second->_objects.size(), "inconsistend data");
+
+        if (_nodes.end() != nodeIter)
+        {
+            _nodes.erase(nodeIter);
+        }
     }
 
-    uint32 iOctree::createNode()
+    uint64 iOctree::createNode()
     {
         OctreeNode* node = new OctreeNode();
         _nodes[_nextNodeID] = node;
         return _nextNodeID++;
     }
 
-    void iOctree::insert(uint32 nodeID, uint32 sceneNodeID, iaVector3f& center)
+    void iOctree::insert(uint64 nodeID, uint32 sceneNodeID, iaVector3d& center)
     {
         OctreeNode* node = _nodes[nodeID];
 
@@ -118,7 +124,7 @@ namespace Igor
         }
     }
 
-    void iOctree::trySplit(uint32 nodeID)
+    void iOctree::trySplit(uint64 nodeID)
     {
         OctreeNode* node = _nodes[nodeID];
 
@@ -135,7 +141,7 @@ namespace Igor
         con_assert(nullptr != sceneNode, "scene node does not exist");
 
         OctreeNode* rootNode = _nodes[_rootNode];
-        iaVector3f center = sceneNode->getCenter();
+        iaVector3d center(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z); // todo need to switch all top 64 bit
 
         if (rootNode->_box.intersects(center))
         {
@@ -147,22 +153,22 @@ namespace Igor
         }
     }
 
-    void iOctree::split(uint32 nodeID)
+    void iOctree::split(uint64 nodeID)
     {
         con_assert(nullptr == _nodes[nodeID]->_children, "can't split because has no children");
 
         OctreeNode* node = _nodes[nodeID];
-        float32 halfSize = node->_box._halfEdgeLength * 0.5f;
+        float64 halfSize = node->_box._halfEdgeLength * 0.5;
 
         node->_children = new uint32[8];
 
         for (int i = 0; i < 8; ++i)
         {
-            iaVector3f center = _splitTable[i];
+            iaVector3d center = _splitTable[i];
             center *= halfSize;
             center += node->_box._center;
 
-            uint32 newNodeID = createNode();
+            uint64 newNodeID = createNode();
             OctreeNode* newNode = _nodes[newNodeID];
             newNode->_box._center = center;
             newNode->_box._halfEdgeLength = halfSize;
@@ -170,11 +176,11 @@ namespace Igor
             node->_children[i] = newNodeID;
         }
 
-        auto objectIter = node->_objects.begin();
-        while (objectIter != node->_objects.end())
+        for (auto sceneNodeID : node->_objects)
         {
-            uint32 objectID = (*objectIter);
-            iNodeVolume* sceneNode = static_cast<iNodeVolume*>(iNodeFactory::getInstance().getNode(objectID));
+            iNodeVolume* sceneNode = static_cast<iNodeVolume*>(iNodeFactory::getInstance().getNode(sceneNodeID));
+            con_assert(sceneNode != nullptr, "inconsistand data");
+
             iaVector3f center = sceneNode->getCenter();
 
             int index = 0;
@@ -193,14 +199,12 @@ namespace Igor
                 index |= 4;
             }
 
-            uint32 destinationID = node->_children[index];
-            OctreeNode* destination = _nodes[destinationID];
-            destination->_objects.push_back(objectID);
+            uint32 destinationNodeID = node->_children[index];
+            OctreeNode* destination = _nodes[destinationNodeID];
+            destination->_objects.push_back(sceneNodeID);
 
-            OctreeObject* object = _objects[objectID];
-            object->_octreeNode = destinationID;
-
-            objectIter++;
+            OctreeObject* object = _objects[sceneNodeID];
+            object->_octreeNode = destinationNodeID;
         }
 
         node->_objects.clear();
@@ -232,7 +236,7 @@ namespace Igor
         }
     }
 
-    void iOctree::tryMerge(uint32 nodeID)
+    void iOctree::tryMerge(uint64 nodeID)
     {
         auto iter = _nodes.find(nodeID);
         con_assert(_nodes.end() != iter, "inconsistend data");
@@ -261,7 +265,7 @@ namespace Igor
         }
     }
 
-    void iOctree::merge(uint32 nodeID)
+    void iOctree::merge(uint64 nodeID)
     {
         con_assert(nullptr != _nodes[nodeID]->_children, "does not have children to merge");
 
@@ -293,7 +297,7 @@ namespace Igor
     void iOctree::update(uint32 sceneNodeID)
     {
         auto sceneNode = static_cast<iNodeVolume*>(iNodeFactory::getInstance().getNode(sceneNodeID));
-        auto vec = sceneNode->getCenter();
+        iaVector3d vec(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
 
         auto object = _objects[sceneNodeID];
         auto node = _nodes[object->_octreeNode];
@@ -310,10 +314,10 @@ namespace Igor
         _queryResult.clear();
     }
 
-    void iOctree::filter(const iFrustumf& frustum, uint32 nodeID)
+    void iOctree::filter(const iFrustumd& frustum, uint64 nodeID)
     {
         OctreeNode* node = _nodes[nodeID];
-        iAACubef box;
+        iAACubed box;
 
         if (node->_box.intersects(frustum))
         {
@@ -324,7 +328,7 @@ namespace Igor
                 {
                     iNodeVolume* sceneNode = static_cast<iNodeVolume*>(iNodeFactory::getInstance().getNode((*iterObjectID)));
 
-                    box._center = sceneNode->getCenter();
+                    box._center.set(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
                     box._halfEdgeLength = sceneNode->getBoundingSphere()._radius;
 
                     if (box.intersects(frustum))
@@ -347,10 +351,10 @@ namespace Igor
         }
     }
 
-    void iOctree::filter(const iSpheref& sphere, uint32 nodeID)
+    void iOctree::filter(const iSphered& sphere, uint64 nodeID)
     {
         OctreeNode* node = _nodes[nodeID];
-        iAACubef box;
+        iAACubed box;
 
         if (node->_box.intersects(sphere))
         {
@@ -360,7 +364,7 @@ namespace Igor
                 while (iterObjectID != node->_objects.end())
                 {
                     iNodeVolume* sceneNode = static_cast<iNodeVolume*>(iNodeFactory::getInstance().getNode((*iterObjectID)));
-                    box._center = sceneNode->getCenter();
+                    box._center.set(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
                     box._halfEdgeLength = sceneNode->getBoundingSphere()._radius;
 
                     if (box.intersects(sphere))
@@ -383,12 +387,12 @@ namespace Igor
         }
     }
 
-    void iOctree::filter(const iSpheref& sphere)
+    void iOctree::filter(const iSphered& sphere)
     {
         filter(sphere, _rootNode);
     }
 
-    void iOctree::filter(const iFrustumf& frustum)
+    void iOctree::filter(const iFrustumd& frustum)
     {
         filter(frustum, _rootNode);
     }
@@ -403,7 +407,7 @@ namespace Igor
         draw(_rootNode);
     }
 
-    void iOctree::draw(uint32 nodeID)
+    void iOctree::draw(uint64 nodeID)
     {
         OctreeNode* node = _nodes[nodeID];
 
@@ -416,8 +420,8 @@ namespace Igor
             iRenderer::getInstance().setColor(iaColor4f(0.5, 0.5, 0.5, 0.5));
         }
 
-        iaVector3f a = node->_box._center;
-        iaVector3f b = node->_box._center;
+        iaVector3d a = node->_box._center;
+        iaVector3d b = node->_box._center;
 
         a._x -= node->_box._halfEdgeLength;
         a._y -= node->_box._halfEdgeLength;
@@ -427,7 +431,10 @@ namespace Igor
         b._y += node->_box._halfEdgeLength;
         b._z += node->_box._halfEdgeLength;
 
-        iRenderer::getInstance().drawBox(a, b);
+        iaVector3f af(a._x, a._y, a._z);
+        iaVector3f bf(b._x, b._y, b._z);
+
+        iRenderer::getInstance().drawBox(af, bf);
 
         if (nullptr != node->_children)
         {

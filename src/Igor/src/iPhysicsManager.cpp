@@ -33,10 +33,10 @@ namespace Igor
             if (camera)
             {
                 iaMatrixf camMatrix;
-                iSpheref camSphere;
+                iSphered camSphere;
                 camera->getWorldMatrix(camMatrix);
-                camSphere._center = camMatrix._pos;
-                camSphere._radius = 50.0f; // something is completely wrong with the box sizes of volume nodes
+                camSphere._center.set(camMatrix._pos._x, camMatrix._pos._y, camMatrix._pos._z);
+                camSphere._radius = 50.0; // something is completely wrong with the box sizes of volume nodes
 
                 cullScene(camSphere);
             }
@@ -47,7 +47,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsManager::cullScene(const iSpheref& sphere)
+    void iPhysicsManager::cullScene(const iSphered& sphere)
     {
         _scene->getOctree()->resetFilter();
         _scene->getOctree()->filter(sphere);

@@ -93,6 +93,10 @@ namespace Igor
     */
 	typedef iFrustum<float32> iFrustumf;
 
+    /*! float64 specialization of iFrustum
+    */
+    typedef iFrustum<float64> iFrustumd;
+
 }
 
 #endif

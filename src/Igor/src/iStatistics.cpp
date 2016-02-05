@@ -215,14 +215,14 @@ namespace Igor
                 float64 scale = 10.0;
                 float64 x = 10;
                 float64 y = 500;
-                uint32 offsetX = 0;
-                float64 horrizontalScale = static_cast<float32>(window->getClientWidth() - x - x) / static_cast<float32>(iStatisticsSection::BUFFER_SIZE);
+                uint32 textOffsetX = 0;
+                float64 horrizontalScale = static_cast<float64>(window->getClientWidth() - x - x) / static_cast<float64>(iStatisticsSection::BUFFER_SIZE);
 
                 for (auto section : _sections)
                 {
                     iRenderer::getInstance().setColor(section.second.getColor());
-                    iRenderer::getInstance().drawString(10 + offsetX, y + 30, section.second.getName(), iHorrizontalAlign::Left, iVerticalAlign::Bottom);
-                    offsetX += 100;
+                    iRenderer::getInstance().drawString(10 + textOffsetX, y + 30, section.second.getName(), iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                    textOffsetX += 100;
                 }
 
                 iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
@@ -251,7 +251,7 @@ namespace Igor
                     {
                         currentIndex = (currentFrame + i) % iStatisticsSection::BUFFER_SIZE;
                         value = (end[currentIndex] - begin[currentIndex]) * scale;
-                        iRenderer::getInstance().drawLine((i*horrizontalScale) + 9, y - lastValue, (i*horrizontalScale) + 10, y - value);
+                        iRenderer::getInstance().drawLine((static_cast<float64>(i)*horrizontalScale) + x, y - lastValue, (static_cast<float64>(i + 1)*horrizontalScale) + x, y - value);
                         lastValue = value;
                     }
                 }

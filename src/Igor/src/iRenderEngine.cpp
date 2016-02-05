@@ -69,8 +69,15 @@ namespace Igor
         iRenderer::getInstance().getProjectionMatrix(projection);
         projection *= view;
 
-        iFrustumf frustum;
-        frustum.set(projection);
+        iaMatrixd projectiond; // TODO whole system should switch to double precision
+
+        for (int i = 0; i < 16; ++i)
+        {
+            projectiond[i] = static_cast<float64>(projection[i]);
+        }
+
+        iFrustumd frustum;
+        frustum.set(projectiond);
         _scene->getOctree()->resetFilter();
         _scene->getOctree()->filter(frustum);
         _scene->getOctree()->getResult(_cullResult);

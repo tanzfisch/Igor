@@ -89,9 +89,21 @@ namespace Igor
         */
         uint32 _handleSectionID = 0;
 
+        /*! window handle section id
+        */
+        uint32 _windowhandleSectionID = 0;
+
+        /*! handle callbacks section ID
+        */
+        uint32 _handleCallbacksSectionID = 0;
+
         /*! draw section id
         */
         uint32 _drawSectionID = 0;
+
+        /*! physics handle section ID
+        */
+        uint32 _physicsHandleSectionID = 0;
 
 		/*! flag if the aplication is currently running
 		*/

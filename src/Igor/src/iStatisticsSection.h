@@ -48,7 +48,7 @@ namespace Igor
 
     public:
 
-        static const uint32 BUFFER_SIZE = 500;
+        static const uint32 BUFFER_SIZE = 300;
 
         /*! begins measuring section
         */

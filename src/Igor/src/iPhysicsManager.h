@@ -78,7 +78,7 @@ namespace Igor
         
         /*! cull by sphere
         */
-        void cullScene(const iSpheref& sphere);
+        void cullScene(const iSphered& sphere);
 
         /*! does nothing
         */

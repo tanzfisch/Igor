@@ -17,39 +17,42 @@ using namespace std;
 namespace Igor
 {
 
-	iApplication::iApplication()
-	{        
-	}
+    iApplication::iApplication()
+    {
+    }
 
-	iApplication::~iApplication()
-	{
-		_windows.flush();
+    iApplication::~iApplication()
+    {
+        _windows.flush();
 
-		if (_windows.getList().size())
-		{
-			con_err("close _windows before shutdown");
-		}
-	}
+        if (_windows.getList().size())
+        {
+            con_err("close _windows before shutdown");
+        }
+    }
 
-	void iApplication::stop()
-	{
-		_running = false;
-	}
+    void iApplication::stop()
+    {
+        _running = false;
+    }
 
-	void iApplication::run()
-	{
-		_running = true;
+    void iApplication::run()
+    {
+        _running = true;
 
-        _frameSectionID = iStatistics::getInstance().registerSection("frame", iaColor4f(1,1,1,1));
-        _handleSectionID = iStatistics::getInstance().registerSection("handle", iaColor4f(0, 1, 0, 1));
+        _frameSectionID = iStatistics::getInstance().registerSection("frame", iaColor4f(1, 1, 1, 1));
+        _handleSectionID = iStatistics::getInstance().registerSection("h", iaColor4f(0, 1, 0, 1));
+        _physicsHandleSectionID = iStatistics::getInstance().registerSection("h_p_culling", iaColor4f(0, 0, 1, 1));
+        _handleCallbacksSectionID = iStatistics::getInstance().registerSection("h_callbacks", iaColor4f(0, 1, 1, 1));
+        //_windowhandleSectionID = iStatistics::getInstance().registerSection("h_window", iaColor4f(1, 0, 1, 1));
         _drawSectionID = iStatistics::getInstance().registerSection("draw", iaColor4f(1, 0, 0, 1));
 
-		do
-		{
+        do
+        {
             iStatistics::getInstance().beginSection(_frameSectionID);
+            _windows.flush();
 
             iStatistics::getInstance().beginSection(_handleSectionID);
-			_windows.flush();
             handle();
             iStatistics::getInstance().endSection(_handleSectionID);
 
@@ -58,17 +61,20 @@ namespace Igor
             iStatistics::getInstance().endSection(_drawSectionID);
 
             iStatistics::getInstance().endSection(_frameSectionID);
-		} while (_running);
+        } while (_running);
 
         iStatistics::getInstance().unregisterSection(_frameSectionID);
         iStatistics::getInstance().unregisterSection(_handleSectionID);
         iStatistics::getInstance().unregisterSection(_drawSectionID);
-	}
+        iStatistics::getInstance().unregisterSection(_physicsHandleSectionID);
+        iStatistics::getInstance().unregisterSection(_handleCallbacksSectionID);
+        //iStatistics::getInstance().unregisterSection(_windowhandleSectionID);
+    }
 
-	bool iApplication::isRunning()
-	{
-		return _running;
-	}
+    bool iApplication::isRunning()
+    {
+        return _running;
+    }
 
     void iApplication::draw()
     {
@@ -81,12 +87,17 @@ namespace Igor
         }
     }
 
-	void iApplication::handle()
-	{
-		_handleEvent();
+    void iApplication::handle()
+    {
+        iStatistics::getInstance().beginSection(_handleCallbacksSectionID);
+        _handleEvent();
+        iStatistics::getInstance().endSection(_handleCallbacksSectionID);
 
+        iStatistics::getInstance().beginSection(_physicsHandleSectionID);
         iPhysicsManager::getInstance().update();
+        iStatistics::getInstance().endSection(_physicsHandleSectionID);
 
+        //iStatistics::getInstance().beginSection(_windowhandleSectionID);
         for (auto window : _windows.getList())
         {
             if (window->isOpen())
@@ -94,26 +105,27 @@ namespace Igor
                 window->handle();
             }
         }
-	}
+        //iStatistics::getInstance().endSection(_windowhandleSectionID);
+    }
 
-	void iApplication::addWindow(iWindow* window)
-	{
-		_windows.add(window);
-	}
+    void iApplication::addWindow(iWindow* window)
+    {
+        _windows.add(window);
+    }
 
-	void iApplication::removeWindow(iWindow* window)
-	{
-		_windows.remove(window);
-	}
+    void iApplication::removeWindow(iWindow* window)
+    {
+        _windows.remove(window);
+    }
 
-	void iApplication::registerApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate)
-	{
-		_handleEvent.append(handleDelegate);
-	}
+    void iApplication::registerApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate)
+    {
+        _handleEvent.append(handleDelegate);
+    }
 
-	void iApplication::unregisterApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate)
-	{
-		_handleEvent.remove(handleDelegate);
-	}
+    void iApplication::unregisterApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate)
+    {
+        _handleEvent.remove(handleDelegate);
+    }
 
 };

@@ -25,7 +25,7 @@ namespace Igor
         
 		//! \todo octree needs to be of variable size
         // maybe multiple octrees?
-		_octree = new iOctree(iAACubef(iaVector3f(0,0,0), 20000.0f), 50.0f, 8, 4);
+		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 40000.0), 50.0, 8, 4);
 	}
 
 	iScene::~iScene()
