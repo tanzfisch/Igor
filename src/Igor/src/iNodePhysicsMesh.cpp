@@ -59,11 +59,6 @@ namespace Igor
         }
     }
 
-    void iNodePhysicsMesh::deinitPhysics()
-    {
-        // nothing to do here
-    }
-
     void iNodePhysicsMesh::draw()
     {
 

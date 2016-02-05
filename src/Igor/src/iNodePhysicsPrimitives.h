@@ -113,8 +113,6 @@ namespace Igor
 
         virtual void initPhysics();
 
-        virtual void deinitPhysics();
-
         /*! initializes member variables
         */
         iNodePhysicsPrimitives();

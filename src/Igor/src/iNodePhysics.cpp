@@ -37,8 +37,6 @@ namespace Igor
 
     iNodePhysics::~iNodePhysics()
     {
-        shutdownPhysics();
-
         if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
         {
             iPhysics::getInstance().destroyBody(_bodyID);
@@ -58,14 +56,6 @@ namespace Igor
     uint64 iNodePhysics::getBody() const
     {
         return _bodyID;
-    }
-
-    void iNodePhysics::shutdownPhysics()
-    {
-        if (_physicsInitialized)
-        {
-            deinitPhysics();
-        }
     }
 
     void iNodePhysics::updatePhysics()

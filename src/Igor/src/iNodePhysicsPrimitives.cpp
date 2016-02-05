@@ -244,11 +244,6 @@ namespace Igor
         _mass = mass;
     }
 
-    void iNodePhysicsPrimitives::deinitPhysics()
-    {
-        // nothing to do here
-    }
-
     void iNodePhysicsPrimitives::draw()
     {
         // nothing to do here

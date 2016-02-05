@@ -72,10 +72,6 @@ namespace Igor
         */
         virtual void initPhysics() = 0;
 
-        /*! called to deinit physics
-        */
-        virtual void deinitPhysics() = 0;
-
         /*! \returns true if physics was already initialized
         */
         bool isInitialized();

@@ -77,8 +77,6 @@ namespace Igor
 
         virtual void initPhysics();
 
-        virtual void deinitPhysics();
-
         /*! set world matrix
 
         \param matrix matrix to set
