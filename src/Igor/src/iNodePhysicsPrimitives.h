@@ -54,6 +54,7 @@ namespace Igor
         void addCone(float32 radius, float32 height, const iaMatrixf& offset);
         void addCapsule(float32 radius, float32 height, const iaMatrixf& offset);
         void addCylinder(float32 radius, float32 height, const iaMatrixf& offset);
+        void addUpVectorJoint(const iaVector3f& upVector);
 
         float32 getMass() const;
         void setMass(float32 mass);
@@ -105,6 +106,7 @@ namespace Igor
         vector<Cone> _cones;
         vector<Capsule> _capsules;
         vector<Cylinder> _cylinders;
+        vector<iaVector3f> _upVectorJoints;
         float32 _mass = 0;
 
         iApplyForceAndTorqueDelegate* _applyForceAndTorqueDelegate = nullptr;
