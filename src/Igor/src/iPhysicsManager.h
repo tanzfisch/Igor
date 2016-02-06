@@ -32,12 +32,15 @@
 #include <iDefines.h>
 
 #include <iSphere.h>
+#include <iTask.h>
 
 #include <iaSingleton.h>
 using namespace IgorAux;
 
 #include <list>
 using namespace std;
+
+#define UPDATE_ASYNC 0
 
 namespace Igor
 {
@@ -68,25 +71,25 @@ namespace Igor
 
     private:
 
+        uint64 _taskID = 0;
+
         /*! pointer to scene
         */
         iScene* _scene = nullptr;
 
-        /*! temporary list of nodes that where filtered by the culling process
-        */
-        list<iNode*> _cullResult;
-        
+        void onTaskFinished(uint64 taskID);
+       
         /*! cull by sphere
         */
         void cullScene(const iSphered& sphere);
 
         /*! does nothing
         */
-        iPhysicsManager() = default;
+        iPhysicsManager();
 
         /*! does nothing
         */
-        virtual ~iPhysicsManager() = default;
+        virtual ~iPhysicsManager();
 
     };
 }

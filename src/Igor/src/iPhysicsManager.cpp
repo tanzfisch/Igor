@@ -8,12 +8,28 @@
 #include <iScene.h>
 #include <iOctree.h>
 #include <iNodePhysicsMesh.h>
+#include <iPhysicsManagerTask.h>
+#include <iTaskManager.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
 
 namespace Igor
 {
+
+    iPhysicsManager::iPhysicsManager()
+    {
+#if UPDATE_ASYNC == 1
+        iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iPhysicsManager::onTaskFinished));
+#endif
+    }
+
+    iPhysicsManager::~iPhysicsManager()
+    {
+#if UPDATE_ASYNC == 1
+        iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iPhysicsManager::onTaskFinished));
+#endif
+    }
 
     void iPhysicsManager::setScene(iScene* scene)
     {
@@ -47,16 +63,35 @@ namespace Igor
         }
     }
 
+    void iPhysicsManager::onTaskFinished(uint64 taskID)
+    {
+        if (_taskID != taskID)
+        {
+            _taskID = 0;
+        }
+    }
+
     void iPhysicsManager::cullScene(const iSphered& sphere)
     {
-        _scene->getOctree()->resetFilter();
-        _scene->getOctree()->filter(sphere, iNodeKind::Physics);
-        _scene->getOctree()->getResult(_cullResult);
-
-        for (auto node : _cullResult)
+        if (_taskID == 0)
         {
-            iNodePhysics* physicsNode = static_cast<iNodePhysics*>(node);
-            physicsNode->updatePhysics();
+            list<iNode*> cullResult;
+
+            _scene->getOctree()->resetFilter();
+            _scene->getOctree()->filter(sphere, iNodeKind::Physics);
+            _scene->getOctree()->getResult(cullResult);
+
+#if UPDATE_ASYNC == 1
+            iTask* task = new iPhysicsManagerTask(cullResult);
+            _taskID = task->getID();
+            iTaskManager::getInstance().addTask(task);
+#else
+            for (auto node : cullResult)
+            {
+                iNodePhysics* physicsNode = static_cast<iNodePhysics*>(node);
+                physicsNode->updatePhysics();
+            }
+#endif
         }
     }
 
