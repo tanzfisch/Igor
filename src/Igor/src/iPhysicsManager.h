@@ -40,7 +40,7 @@ using namespace IgorAux;
 #include <list>
 using namespace std;
 
-#define UPDATE_ASYNC 0
+#define UPDATE_ASYNC 1
 
 namespace Igor
 {
@@ -71,12 +71,16 @@ namespace Igor
 
     private:
 
+        /*! keep trak if last task was done
+        */
         uint64 _taskID = 0;
 
         /*! pointer to scene
         */
         iScene* _scene = nullptr;
 
+        /*!
+        */
         void onTaskFinished(uint64 taskID);
        
         /*! cull by sphere

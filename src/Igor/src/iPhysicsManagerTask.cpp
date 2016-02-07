@@ -5,6 +5,9 @@
 #include <iPhysicsManagerTask.h>
 #include <iNodePhysics.h>
 
+#include <iaConsole.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 

@@ -5,14 +5,10 @@
 #include <iNodeVisitorUpdateTransform.h>
 #include <iNode.h>
 #include <iNodeTransform.h>
-#include <iNodeRender.h>
-#include <iNodeLight.h>
-#include <iNodeCamera.h>
-#include <iNodeVolume.h>
-#include <iNodeModel.h>
-#include <iNodeLODTrigger.h>
-#include <iNodeLODSwitch.h>
 #include <iScene.h>
+
+#include <iaConsole.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -28,6 +24,7 @@ namespace Igor
 		{
             node->onUpdateTransform(_currentMatrix);
 			node->setTransformationDirty(false);
+            _updatedTransformations++;
 			return true;
 		}
 		else
@@ -47,6 +44,7 @@ namespace Igor
 
 	void iNodeVisitorUpdateTransform::preTraverse()
 	{
+        _updatedTransformations = 0;
 		_currentMatrix.identity();
 	}
 
@@ -54,4 +52,9 @@ namespace Igor
 	{
         con_assert(_matrixStack.size() == 0, "matrix stack should be empty");
 	}
+
+    uint64 iNodeVisitorUpdateTransform::getUpdatedTransformationCount() const
+    {
+        return _updatedTransformations;
+    }
 }

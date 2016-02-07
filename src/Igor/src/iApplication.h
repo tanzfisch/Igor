@@ -89,10 +89,6 @@ namespace Igor
         */
         uint32 _handleSectionID = 0;
 
-        /*! window handle section id
-        */
-        uint32 _windowhandleSectionID = 0;
-
         /*! handle callbacks section ID
         */
         uint32 _handleCallbacksSectionID = 0;

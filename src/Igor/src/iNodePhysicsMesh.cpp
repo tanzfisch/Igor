@@ -42,8 +42,6 @@ namespace Igor
         _offset = offset;
         _mesh = mesh;
         _faceAttribute = faceAttribute;
-
-        setTransformationDirty();
     }
 
     void iNodePhysicsMesh::initPhysics()

@@ -144,21 +144,6 @@ namespace Igor
         */
         iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
 
-        /*! creates and return a physics scene. a group of collision objects that are meant to be static
-        use this for optimization
-
-        \todo do we need this really?
-        */
-        iPhysicsCollision* createScene();
-
-        /*! adds collision to scene
-
-        \returns scene proxy ID
-        */
-        uint64 addToScene(iPhysicsCollision* scene, iPhysicsCollision* collision);
-
-        void removeFromScene(iPhysicsCollision* scene, uint64 sceneProxyID);
-
         /*! \returns collision by id
 
         \param collisionID the collision id
@@ -283,11 +268,15 @@ namespace Igor
         */
         uint64 _nextJointID = 1;
 
-        /*! next scene proxy id
-        */
-        uint64 _nextSceneProxyID = 1;
 
-        mutex listsMutex;
+
+        mutex _idMutex;
+
+        mutex _bodyListMutex;
+        mutex _jointListMutex;
+        mutex _collisionsListMutex;
+        
+        mutex _createDestroyMutex;
 
         /*! list of collisions
         */
@@ -301,13 +290,15 @@ namespace Igor
         */
         map<uint64, iPhysicsJoint*> _joints;
 
-        /*! list of scene proxies
-        */
-        map<uint64, void*> _sceneProxies;
+        uint64 generateCollisionID();
+        uint64 generateBodyID();
+        uint64 generateJointID();
 
         /*! handle to newton world
         */
         void* _world;
+
+        void* _shadowWorld;
 
         /*! last frame time
         */
@@ -326,7 +317,7 @@ namespace Igor
         \param collision the newton collision
         \returns the physics collision
         */
-        iPhysicsCollision* prepareCollision(void* collision);
+        iPhysicsCollision* prepareCollision(void* collision, uint64 collisionID);
 
         /*! releases newton body
 

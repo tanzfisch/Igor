@@ -45,15 +45,17 @@ namespace Igor
 	class iNodeVisitorUpdateTransform : public iNodeVisitor
 	{
 
-    private:
+    public:
 
-        /*! holds a stack of matrices while traversion tree
+        /*! does nothing
         */
-        vector<iaMatrixf> _matrixStack;
+        iNodeVisitorUpdateTransform() = default;
 
-        /*! current matrix that eventually gets pushed on stack or came poped from stack
+        /*! does nothing
         */
-        iaMatrixf _currentMatrix;
+        virtual ~iNodeVisitorUpdateTransform() = default;
+
+        uint64 getUpdatedTransformationCount() const;
     
     protected:
 
@@ -73,15 +75,19 @@ namespace Igor
         */
         virtual void postTraverse();
 
-    public:
+    private:
 
-        /*! does nothing
+        /*! counting updated transformations
         */
-		iNodeVisitorUpdateTransform() = default;
+        uint64 _updatedTransformations = 0;
 
-        /*! does nothing
+        /*! holds a stack of matrices while traversion tree
         */
-        virtual ~iNodeVisitorUpdateTransform() = default;
+        vector<iaMatrixf> _matrixStack;
+
+        /*! current matrix that eventually gets pushed on stack or came poped from stack
+        */
+        iaMatrixf _currentMatrix;
 
 	};
 

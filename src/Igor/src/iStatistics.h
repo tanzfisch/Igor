@@ -86,8 +86,10 @@ namespace Igor
         /*! registers a measurement section
 
         \param sectionName the section's name
+        \param color color to render the graph with
+        \param groupIndex index of group this section belongs to
         */
-        uint32 registerSection(const iaString& sectionName, const iaColor4f& color);
+        uint32 registerSection(const iaString& sectionName, const iaColor4f& color, uint64 groupIndex = 0);
 
         /*! unregister section by id
 
@@ -97,15 +99,24 @@ namespace Igor
 
         /*! begins measuring section
 
-        \param section the section ID
+        \param sectionID the section ID
         */
         void beginSection(uint32 sectionID);
 
         /*! ends measuring section
 
-        \param section the section ID
+        \param sectionID the section ID
         */
         void endSection(uint32 sectionID);
+
+        /*! sets a sectiond beginning to zero and end to lenght
+
+        use this if you don't want to measure time but to display any other value per frame in a graph
+
+        \param sectionID the section ID
+        \param lenght the lenght of the section
+        */
+        void setSectionLenght(uint32 sectionID, float64 lenght);
 
     private:
 

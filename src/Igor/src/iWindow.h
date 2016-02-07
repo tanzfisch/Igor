@@ -211,6 +211,9 @@ namespace Igor
 
 	protected:
 
+        uint32 _drawSectionID = 0;
+        uint32 _swapBufferSectionID = 0;
+
         /*! triggered by window closed OS message
         */
         WindowCloseEvent _windowCloseEvent;

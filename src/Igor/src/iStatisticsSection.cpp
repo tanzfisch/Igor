@@ -14,8 +14,14 @@ namespace Igor
         memset(&_end, 0, sizeof(float64) * BUFFER_SIZE);
     }
 
-    iStatisticsSection::~iStatisticsSection()
+    void iStatisticsSection::setGroup(uint64 groupIndex)
     {
+        _groupIndex = groupIndex;
+    }
+
+    uint64 iStatisticsSection::getGroup() const
+    {
+        return _groupIndex;
     }
 
     void iStatisticsSection::setColor(const iaColor4f& color)
@@ -36,6 +42,13 @@ namespace Igor
     void iStatisticsSection::endSection()
     {
         _end[_currentFrame] = iTimer::getInstance().getTime();
+        _currentFrame = (_currentFrame + 1) % BUFFER_SIZE;
+    }
+
+    void iStatisticsSection::setSectionLenght(float64 lenght)
+    {
+        _begin[_currentFrame] = 0;
+        _end[_currentFrame] = lenght;
         _currentFrame = (_currentFrame + 1) % BUFFER_SIZE;
     }
 

@@ -43,10 +43,11 @@ namespace Igor
 
     void iPhysicsManager::update()
     {
-        if (_scene)
+        if (_scene != nullptr)
         {
             iNodeCamera* camera = _scene->getCamera();
-            if (camera)
+
+            if (camera != nullptr)
             {
                 iaMatrixf camMatrix;
                 iSphered camSphere;

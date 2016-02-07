@@ -149,6 +149,10 @@ namespace Igor
 
 	private:
 
+        uint32 _updateLODSectionID = 0;
+        uint32 _processModelNodesSectionID = 0;
+        uint32 _updateTransformSectionID = 0;
+
         /*! added node event
         */
         iAddedNodeEvent _addedNode;

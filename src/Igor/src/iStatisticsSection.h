@@ -48,7 +48,7 @@ namespace Igor
 
     public:
 
-        static const uint32 BUFFER_SIZE = 300;
+        static const uint32 BUFFER_SIZE = 500;
 
         /*! begins measuring section
         */
@@ -57,6 +57,12 @@ namespace Igor
         /*! ends measuring section
         */
         void endSection();
+
+        /*! sets a sections lenght
+
+        \param lenght section length
+        */
+        void setSectionLenght(float64 lenght);
 
         /*! \returns statisitcs section name
         */
@@ -78,15 +84,41 @@ namespace Igor
         */
         const iaColor4f& getColor();
 
+        /*! sets groups index
+
+        all sections that belong to the same group will be represented in the same graph
+
+        \param groupIndex the group index
+        */
+        void setGroup(uint64 groupIndex);
+
+        /*! \returns group index
+        */
+        uint64 getGroup() const;
+
+        /*! \returns measurements for beginning sections
+        */
         const float64* getBeginnings() const;
+
+        /*! \returns measurements for ending sections
+        */
         const float64* getEnds() const;
 
+        /*! \returns current frames position within buffer
+        */
         uint32 getCurrentFrame() const;
 
+        /*! init buffers
+        */
         iStatisticsSection();
-        ~iStatisticsSection();
+
+        /*! does nothing
+        */
+        ~iStatisticsSection() = default;
 
     private:
+
+        uint64 _groupIndex = 0;
 
         /*! the color to render with
         */

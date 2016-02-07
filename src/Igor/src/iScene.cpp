@@ -10,6 +10,7 @@
 #include <iOctree.h>
 #include <iNodeVolume.h>
 #include <iNodeLODSwitch.h>
+#include <iStatistics.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -26,6 +27,10 @@ namespace Igor
 		//! \todo octree needs to be of variable size
         // maybe multiple octrees?
 		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 40000.0), 50.0, 8, 4);
+
+        _updateLODSectionID = iStatistics::getInstance().registerSection("LOD", iaColor4f(1, 0, 0, 1), 2);
+        _processModelNodesSectionID = iStatistics::getInstance().registerSection("MN", iaColor4f(0, 1, 0, 1), 2);
+        _updateTransformSectionID = iStatistics::getInstance().registerSection("uTrans", iaColor4f(0, 0, 1, 1), 2);
 	}
 
 	iScene::~iScene()
@@ -247,13 +252,19 @@ namespace Igor
 
 	void iScene::handle()
 	{
+        iStatistics::getInstance().beginSection(_updateLODSectionID);
         // todo can't not stay here. need to reduce update effort per frame. event based would be nice
         updateLOD();
+        iStatistics::getInstance().endSection(_updateLODSectionID);
 
+        iStatistics::getInstance().beginSection(_processModelNodesSectionID);
         // todo not doing much. so for now it can stay here but ther is no need to do that every frame
         iNodeModel::processModelNodes(); 
+        iStatistics::getInstance().endSection(_processModelNodesSectionID);
 
-		_updateTransformVisitor.traverseTree(_root);
+        iStatistics::getInstance().beginSection(_updateTransformSectionID);
+        _updateTransformVisitor.traverseTree(_root);
+        iStatistics::getInstance().endSection(_updateTransformSectionID);
 	}
 
     iOctree* iScene::getOctree()

@@ -40,12 +40,9 @@ namespace Igor
     {
         _running = true;
 
-        _frameSectionID = iStatistics::getInstance().registerSection("frame", iaColor4f(1, 1, 1, 1));
-        _handleSectionID = iStatistics::getInstance().registerSection("h", iaColor4f(0, 1, 0, 1));
-        _physicsHandleSectionID = iStatistics::getInstance().registerSection("h_p_culling", iaColor4f(0, 0, 1, 1));
-        _handleCallbacksSectionID = iStatistics::getInstance().registerSection("h_callbacks", iaColor4f(0, 1, 1, 1));
-        //_windowhandleSectionID = iStatistics::getInstance().registerSection("h_window", iaColor4f(1, 0, 1, 1));
-        _drawSectionID = iStatistics::getInstance().registerSection("draw", iaColor4f(1, 0, 0, 1));
+        _frameSectionID = iStatistics::getInstance().registerSection("frame", iaColor4f(1, 1, 1, 1), 0);
+        _handleSectionID = iStatistics::getInstance().registerSection("handle", iaColor4f(0, 1, 0, 1), 0);
+        _drawSectionID = iStatistics::getInstance().registerSection("draw", iaColor4f(1, 0, 0, 1), 0);
 
         do
         {
@@ -66,9 +63,6 @@ namespace Igor
         iStatistics::getInstance().unregisterSection(_frameSectionID);
         iStatistics::getInstance().unregisterSection(_handleSectionID);
         iStatistics::getInstance().unregisterSection(_drawSectionID);
-        iStatistics::getInstance().unregisterSection(_physicsHandleSectionID);
-        iStatistics::getInstance().unregisterSection(_handleCallbacksSectionID);
-        //iStatistics::getInstance().unregisterSection(_windowhandleSectionID);
     }
 
     bool iApplication::isRunning()
@@ -89,15 +83,9 @@ namespace Igor
 
     void iApplication::handle()
     {
-        iStatistics::getInstance().beginSection(_handleCallbacksSectionID);
         _handleEvent();
-        iStatistics::getInstance().endSection(_handleCallbacksSectionID);
-
-        iStatistics::getInstance().beginSection(_physicsHandleSectionID);
         iPhysicsManager::getInstance().update();
-        iStatistics::getInstance().endSection(_physicsHandleSectionID);
 
-        //iStatistics::getInstance().beginSection(_windowhandleSectionID);
         for (auto window : _windows.getList())
         {
             if (window->isOpen())
@@ -105,7 +93,6 @@ namespace Igor
                 window->handle();
             }
         }
-        //iStatistics::getInstance().endSection(_windowhandleSectionID);
     }
 
     void iApplication::addWindow(iWindow* window)
