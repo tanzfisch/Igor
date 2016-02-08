@@ -61,8 +61,6 @@ namespace Igor
         iNodeLODSwitch,
         iNodeLODTrigger,
         iNodePhysics,
-        iNodePhysicsMesh,
-        iNodePhysicsPrimitives,
 		Undefined
 	};
 

@@ -19,8 +19,7 @@ using namespace IgorAux;
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
-#include <iNodePhysicsMesh.h>
-#include <iNodePhysicsPrimitives.h>
+#include <iNodePhysics.h>
 
 #include <iApplication.h>
 
@@ -236,12 +235,8 @@ namespace Igor
                 result = new iNodeLODTrigger(static_cast<iNodeLODTrigger*>(node));
                 break;
 
-            case iNodeType::iNodePhysicsMesh:
-                result = new iNodePhysicsMesh(static_cast<iNodePhysicsMesh*>(node));
-                break;
-
-            case iNodeType::iNodePhysicsPrimitives:
-                result = new iNodePhysicsPrimitives(static_cast<iNodePhysicsPrimitives*>(node));
+            case iNodeType::iNodePhysics:
+                result = new iNodePhysics(static_cast<iNodePhysics*>(node));
                 break;
 
             case iNodeType::Undefined:
@@ -314,12 +309,8 @@ namespace Igor
             result = new iNodeLODTrigger();
             break;
 
-        case iNodeType::iNodePhysicsMesh:
-            result = new iNodePhysicsMesh();
-            break;
-
-        case iNodeType::iNodePhysicsPrimitives:
-            result = new iNodePhysicsPrimitives();
+        case iNodeType::iNodePhysics:
+            result = new iNodePhysics();
             break;
 
         case iNodeType::Undefined:

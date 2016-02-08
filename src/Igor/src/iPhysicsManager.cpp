@@ -7,7 +7,6 @@
 #include <iNodeCamera.h>
 #include <iScene.h>
 #include <iOctree.h>
-#include <iNodePhysicsMesh.h>
 #include <iPhysicsManagerTask.h>
 #include <iTaskManager.h>
 
