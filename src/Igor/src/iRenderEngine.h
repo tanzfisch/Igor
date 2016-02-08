@@ -31,7 +31,7 @@
 
 #include <iDefines.h>
 
-#include <list>
+#include <vector>
 using namespace std;
 
 namespace Igor
@@ -80,7 +80,7 @@ namespace Igor
 
         /*! temporary list of nodes that where filtered by the culling process
         */
-        list<iNode*> _cullResult;
+        vector<uint32> _cullResult;
 
         /*! cull scene relative to specified camera
 

@@ -16,6 +16,7 @@
 #include <iNodeMesh.h>
 #include <iMesh.h>
 #include <iMaterialResourceFactory.h>
+#include <iNodeFactory.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -82,19 +83,17 @@ namespace Igor
         _scene->getOctree()->filter(frustum);
         _scene->getOctree()->getResult(_cullResult);
 
-        int count = 0;
-        auto iter = _cullResult.begin();
-        while (iter != _cullResult.end())
+        for (auto nodeID : _cullResult)
         {
-            iNodeRender* renderNode = static_cast<iNodeRender*>((*iter));
-            uint32 materialID = renderNode->getMaterial();
-            if (materialID != iMaterial::INVALID_MATERIAL_ID)
+            iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(nodeID));
+            if (renderNode != nullptr)
             {
-                iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
-                count++;
+                uint32 materialID = renderNode->getMaterial();
+                if (materialID != iMaterial::INVALID_MATERIAL_ID)
+                {
+                    iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
+                }
             }
-            
-            iter++;
         }
         
         auto renderables = _scene->getRenderables();

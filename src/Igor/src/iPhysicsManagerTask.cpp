@@ -4,6 +4,7 @@
 
 #include <iPhysicsManagerTask.h>
 #include <iNodePhysics.h>
+#include <iNodeFactory.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -11,7 +12,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iPhysicsManagerTask::iPhysicsManagerTask(list<iNode*>& listToUpdate)
+    iPhysicsManagerTask::iPhysicsManagerTask(vector<uint32>& listToUpdate)
         : iTask(nullptr, 0, false, false)
     {
         _listToUpdate = std::move(listToUpdate);
@@ -24,10 +25,13 @@ namespace Igor
 
     void iPhysicsManagerTask::run()
     {
-        for (auto node : _listToUpdate)
+        for (auto nodeID : _listToUpdate)
         {
-            iNodePhysics* physicsNode = static_cast<iNodePhysics*>(node);
-            physicsNode->updatePhysics();
+            iNodePhysics* node = static_cast<iNodePhysics*>(iNodeFactory::getInstance().getNode(nodeID));
+            if (node != nullptr)
+            {
+                node->updatePhysics();
+            }
         }
 
         _isRunning = false;

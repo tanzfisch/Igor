@@ -335,7 +335,7 @@ namespace Igor
                         if (box.intersects(frustum))
                         {
                             sceneNode->_reached = true;
-                            _queryResult.push_back(sceneNode);
+                            _queryResult.push_back(sceneNode->getID());
                         }
                     }
                     iterObjectID++;
@@ -373,7 +373,7 @@ namespace Igor
                         if (box.intersects(sphere))
                         {
                             sceneNode->_reached = true;
-                            _queryResult.push_back(sceneNode);
+                            _queryResult.push_back(sceneNode->getID());
                         }
                     }
                     iterObjectID++;
@@ -400,7 +400,7 @@ namespace Igor
         filter(frustum, _rootNode, nodeKind);
     }
 
-    void iOctree::getResult(list<iNode*>& data)
+    void iOctree::getResult(vector<uint32>& data)
     {
         data = _queryResult;
     }

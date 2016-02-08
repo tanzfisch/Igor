@@ -97,7 +97,7 @@ namespace Igor
 
         \param data in out parameter for the resulting data
         */
-        void getResult(list<iNode*>& data);
+        void getResult(vector<uint32>& data);
 
         /*! creates the octree including the root node
 
@@ -188,7 +188,7 @@ namespace Igor
 
         /*! internal list for filtering
         */
-		list<iNode*> _queryResult;
+		vector<uint32> _queryResult;
 
         /*! recursive function to insert a scene node to the octree
 

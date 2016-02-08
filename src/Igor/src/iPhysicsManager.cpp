@@ -76,7 +76,7 @@ namespace Igor
     {
         if (_taskID == 0)
         {
-            list<iNode*> cullResult;
+            vector<uint32> cullResult;
 
             _scene->getOctree()->resetFilter();
             _scene->getOctree()->filter(sphere, iNodeKind::Physics);

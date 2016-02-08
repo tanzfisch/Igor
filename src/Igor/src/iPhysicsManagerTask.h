@@ -31,7 +31,7 @@
 
 #include <iTask.h>
 
-#include <list>
+#include <vector>
 using namespace std;
 
 namespace Igor
@@ -44,13 +44,13 @@ namespace Igor
 
     public:
 
-        iPhysicsManagerTask(list<iNode*>& listToUpdate);
+        iPhysicsManagerTask(vector<uint32>& listToUpdate);
 
         ~iPhysicsManagerTask();
 
     private:
 
-        list<iNode*> _listToUpdate;
+        vector<uint32> _listToUpdate;
 
         void run();
 
