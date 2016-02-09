@@ -9,6 +9,7 @@
 #include <iTextureResourceFactory.h>
 #include <iScene.h>
 #include <iOctree.h>
+#include <iStatistics.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -19,12 +20,60 @@ using namespace std;
 namespace Igor
 {
 
+    iView::iView()
+    {
+        _scenePreparationSectionID = iStatistics::getInstance().registerSection("scene", iaColor4f(1, 1, 0, 1), 3);
+        _postRenderSectionID = iStatistics::getInstance().registerSection("postRender", iaColor4f(0, 1, 1, 1), 3);
+    }
+
     iView::~iView()
     {
+        if (_scenePreparationSectionID != 0)
+        {
+            iStatistics::getInstance().unregisterSection(_scenePreparationSectionID);
+            _scenePreparationSectionID = 0;
+        }
+
+        if (_postRenderSectionID != 0)
+        {
+            iStatistics::getInstance().unregisterSection(_postRenderSectionID);
+            _postRenderSectionID = 0;
+        }
+
         if (_renderEvent.hasDelegates())
         {
             con_err("not all delegates unregistered");
         }
+    }
+
+    void iView::setName(const iaString& name)
+    {
+        _name = name;
+
+        if (_scenePreparationSectionID != 0)
+        {
+            iStatistics::getInstance().unregisterSection(_scenePreparationSectionID);
+            _scenePreparationSectionID = 0;
+        }
+
+        if (_postRenderSectionID != 0)
+        {
+            iStatistics::getInstance().unregisterSection(_postRenderSectionID);
+            _postRenderSectionID = 0;
+        }
+
+        iaString scene = _name;
+        scene += ":scene";
+        _scenePreparationSectionID = iStatistics::getInstance().registerSection(scene, iaColor4f(1, 0, 0, 1), 3);
+
+        iaString post = _name;
+        post += ":postRender";
+        _postRenderSectionID = iStatistics::getInstance().registerSection(post, iaColor4f(0, 1, 0, 1), 3);
+    }
+
+    const iaString& iView::gtName() const
+    {
+        return _name;
     }
 
     void iView::setClearDepth(bool active)
@@ -87,6 +136,7 @@ namespace Igor
 
     void iView::draw(const iRectanglei& rect, float32 aspectRatio)
     {
+        
         iRenderer::getInstance().setViewport(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 
         iRenderer::getInstance().setClearColor(_clearColor);
@@ -111,13 +161,21 @@ namespace Igor
             iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
         }
 
+        iStatistics::getInstance().beginSection(_scenePreparationSectionID);
         if (_scene != nullptr)
         {
             _scene->handle();
+        }
+        iStatistics::getInstance().endSection(_scenePreparationSectionID);
+
+        if (_scene != nullptr)
+        {
             _renderEngine.render();
         }
         
+        iStatistics::getInstance().beginSection(_postRenderSectionID);
         _renderEvent();
+        iStatistics::getInstance().endSection(_postRenderSectionID);
     }
 
     void iView::draw(iWindow* window)

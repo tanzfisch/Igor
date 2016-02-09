@@ -211,7 +211,8 @@ namespace Igor
 
 	protected:
 
-        uint32 _drawSectionID = 0;
+        /*! swap buffer seciton id
+        */
         uint32 _swapBufferSectionID = 0;
 
         /*! triggered by window closed OS message

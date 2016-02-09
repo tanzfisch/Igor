@@ -172,6 +172,8 @@ namespace Igor
         */
         uint32 _materialSolid = 0;
 
+        uint32 _materialBlend = 0;
+
         /*! init
         */
         iStatistics();

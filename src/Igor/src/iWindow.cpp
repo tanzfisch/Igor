@@ -116,8 +116,7 @@ namespace Igor
 
         updateClientSize();
 
-        _drawSectionID = iStatistics::getInstance().registerSection("w_draw", iaColor4f(0.66, 0, 0, 1), 1);
-        _swapBufferSectionID = iStatistics::getInstance().registerSection("w_swap", iaColor4f(0.33, 0, 0, 1), 1);
+        _swapBufferSectionID = iStatistics::getInstance().registerSection("w_swap", iaColor4f(0.33, 0, 0, 1), 0);
     }
 
     iWindow::~iWindow()
@@ -602,7 +601,6 @@ namespace Igor
 
     void iWindow::draw()
     {
-        iStatistics::getInstance().beginSection(_drawSectionID);
         _views.flush();
         auto view = _views.getList().begin();
         while (view != _views.getList().end())
@@ -610,7 +608,6 @@ namespace Igor
             (*view)->draw(this);
             view++;
         }
-        iStatistics::getInstance().endSection(_drawSectionID);
 
         iStatistics::getInstance().beginSection(_swapBufferSectionID);
         swapBuffers();

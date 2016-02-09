@@ -42,7 +42,6 @@ namespace Igor
 
         _frameSectionID = iStatistics::getInstance().registerSection("frame", iaColor4f(1, 1, 1, 1), 0);
         _handleSectionID = iStatistics::getInstance().registerSection("handle", iaColor4f(0, 1, 0, 1), 0);
-        _drawSectionID = iStatistics::getInstance().registerSection("draw", iaColor4f(1, 0, 0, 1), 0);
 
         do
         {
@@ -53,16 +52,13 @@ namespace Igor
             handle();
             iStatistics::getInstance().endSection(_handleSectionID);
 
-            iStatistics::getInstance().beginSection(_drawSectionID);
             draw();
-            iStatistics::getInstance().endSection(_drawSectionID);
 
             iStatistics::getInstance().endSection(_frameSectionID);
         } while (_running);
 
         iStatistics::getInstance().unregisterSection(_frameSectionID);
         iStatistics::getInstance().unregisterSection(_handleSectionID);
-        iStatistics::getInstance().unregisterSection(_drawSectionID);
     }
 
     bool iApplication::isRunning()

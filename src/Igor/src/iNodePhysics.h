@@ -139,7 +139,7 @@ namespace Igor
 
         /*! \returns the ID of the body if exists
         */
-        uint64 getBody() const;
+        uint64 getBodyID() const;
         
 	private:
 
@@ -147,6 +147,8 @@ namespace Igor
         */
         struct Box
         {
+            /*! width of box
+            */
             float32 _width;
             float32 _height;
             float32 _depth;

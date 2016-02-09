@@ -62,15 +62,23 @@ namespace Igor
         */
         void render();
 
-        /*! does nothing
+        /*! init
         */
-        iRenderEngine() = default;
+        iRenderEngine();
 
-        /*! does nothing
+        /*! deinit
         */
-        virtual ~iRenderEngine() = default;
+        virtual ~iRenderEngine();
 
     private:
+
+        /*! cull section id for statistics
+        */
+        uint32 _cullSectionID = 0;
+
+        /*! draw section id for statistics
+        */
+        uint32 _drawSectionID = 0;
 
         /*! pointe to scene
 

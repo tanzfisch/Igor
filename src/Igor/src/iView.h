@@ -35,6 +35,7 @@
 
 #include <iaColor4.h>
 #include <iaEvent.h>
+#include <iaString.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -71,6 +72,9 @@ namespace Igor
         /*! \returns scene to be rendered with this view
         */
         iScene* getScene();
+
+        void setName(const iaString& name);
+        const iaString& gtName() const;
 
         /*! registers delegate to render event
 
@@ -147,15 +151,22 @@ namespace Igor
         */
         void setClearDepth(float32 depth);        
 
-        /*! does nothing
+        /*! init
         */
-        iView() = default;
+        iView();
 
         /*! checks consistency
         */
         virtual ~iView();
 
 	private:
+
+        uint32 _scenePreparationSectionID = 0;
+        uint32 _postRenderSectionID = 0;
+
+        /*! views name
+        */
+        iaString _name = "iView";
 
         /*! scene that is currently bound with this view
         */

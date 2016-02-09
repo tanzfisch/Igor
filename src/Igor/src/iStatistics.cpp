@@ -26,6 +26,10 @@ namespace Igor
         _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
         iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
+        _materialBlend = iMaterialResourceFactory::getInstance().createMaterial();
+        iMaterialResourceFactory::getInstance().getMaterial(_materialBlend)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+        iMaterialResourceFactory::getInstance().getMaterial(_materialBlend)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+
         _seconds = iTimer::getInstance().getSeconds();
     }
 
@@ -225,39 +229,49 @@ namespace Igor
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)
             {
-                float64 scale = window->getClientHeight() / 600;
-                float64 y = 600 * scale;
-                float64 groupDiff = 100 * scale;
+                float64 groupCount = 5;
+                float64 totalHeight = window->getClientHeight() * 0.9f;
+                float64 groupTotalHeight = totalHeight / groupCount;
+                float64 scale = groupTotalHeight / 100;
                 float64 x = 10;
-                uint32 textOffsetX[5];
-                for (int i = 0; i < 5; ++i)
-                {
-                    textOffsetX[i] = 0;
-                }
-
+                uint32 textOffsetX[5]{ 0,0,0,0,0 };
                 float64 horrizontalScale = static_cast<float64>(window->getClientWidth() - x - x) / static_cast<float64>(iStatisticsSection::BUFFER_SIZE);
+                float32 thirtyHz = 33.3333 * scale;
+                float32 sixtyHz = 66.6666 * scale;
+
+                iMaterialResourceFactory::getInstance().setMaterial(_materialBlend);
+                for (int i = 0; i < groupCount; ++i)
+                {
+                    float32 groupOffset = i * groupTotalHeight;
+                    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 0.4));
+                    iRenderer::getInstance().drawRectangle(x, totalHeight - groupOffset - sixtyHz, window->getClientWidth() - x - x, sixtyHz);
+                }
 
                 iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
 
-                iRenderer::getInstance().setColor(iaColor4f(1,1,1,1));
-                
-                iRenderer::getInstance().drawLine(x, y, x, 0);
-                iRenderer::getInstance().drawLine(window->getClientWidth() - x, y, window->getClientWidth() - x, 0);
+                iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+                iRenderer::getInstance().drawLine(x, totalHeight, x, 0);
+                iRenderer::getInstance().drawLine(window->getClientWidth() - x, totalHeight, window->getClientWidth() - x, 0);
 
-                for (int i = 0; i < 5; ++i)
+                for (int i = 0; i < groupCount; ++i)
                 {
-                    iRenderer::getInstance().drawLine(x, y - i * groupDiff, window->getClientWidth() - x, y - i * groupDiff);
-                    iRenderer::getInstance().drawLine(x, y - (16.66 * scale) - i * groupDiff, window->getClientWidth() - x, y - (16.66 * scale) - i * groupDiff);
-                    iRenderer::getInstance().drawLine(x, y - (33.33 * scale) - i * groupDiff, window->getClientWidth() - x, y - (33.33 * scale) - i * groupDiff);
+                    float32 groupOffset = i * groupTotalHeight;
+
+                    iRenderer::getInstance().setColor(iaColor4f(0.4,0.4,0.4,1));
+                    iRenderer::getInstance().drawRectangle(x, totalHeight - groupOffset - 3, window->getClientWidth() - x - x, 3);
+                    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+                    iRenderer::getInstance().drawLine(x, totalHeight - sixtyHz - groupOffset, window->getClientWidth() - x, totalHeight - sixtyHz - groupOffset);
+                    iRenderer::getInstance().drawLine(x, totalHeight - thirtyHz - groupOffset, window->getClientWidth() - x, totalHeight - thirtyHz - groupOffset);
                 }
 
+                iRenderer::getInstance().setLineWidth(2);
                 for (auto section : _sections)
                 {
                     uint32 currentIndex = 0;
                     const float64* begin = section.second.getBeginnings();
                     const float64* end = section.second.getEnds();
                     uint32 currentFrame = (section.second.getCurrentFrame() + 1) % iStatisticsSection::BUFFER_SIZE;
-                    float64 yPos = y - section.second.getGroup() * groupDiff;
+                    float64 yPos = totalHeight - section.second.getGroup() * groupTotalHeight;
 
                     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
 
@@ -279,6 +293,7 @@ namespace Igor
                         lastValue = value;
                     }
                 }
+                iRenderer::getInstance().setLineWidth(1);
 
                 iRenderer::getInstance().setColor(color);
             }

@@ -32,7 +32,7 @@ namespace Igor
         _nodeKind = node->_nodeKind;
 
         setName(node->getName());
-        setBody(node->getBody());
+        setBody(node->getBodyID());
 
         _boxes = node->_boxes;
         _spheres = node->_spheres;
@@ -67,7 +67,7 @@ namespace Igor
         _bodyID = bodyID;
     }
 
-    uint64 iNodePhysics::getBody() const
+    uint64 iNodePhysics::getBodyID() const
     {
         return _bodyID;
     }
@@ -325,10 +325,13 @@ namespace Igor
     {
         _mass = mass;
 
-        iPhysicsBody* body = iPhysics::getInstance().getBody(getBody());
-        if (body != nullptr)
+        if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
         {
-            body->setMass(_mass);
+            iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+            if (body != nullptr)
+            {
+                body->setMass(_mass);
+            }
         }
     }
 
@@ -345,8 +348,15 @@ namespace Igor
             if (nextTransformNode != nullptr &&
                 nextTransformNode->getType() == iNodeType::iNodeTransform)
             {
-                iPhysicsBody* body = iPhysics::getInstance().getBody(getBody());
-                iPhysics::getInstance().bindTransformNode(body, reinterpret_cast<iNodeTransform*>(nextTransformNode));
+                if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+                {
+                    iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+                    iPhysics::getInstance().bindTransformNode(body, reinterpret_cast<iNodeTransform*>(nextTransformNode));
+                }
+                else
+                {
+                    con_err("inconsistand data");
+                }
             }
             else
             {

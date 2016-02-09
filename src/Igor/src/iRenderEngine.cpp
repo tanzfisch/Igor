@@ -17,6 +17,7 @@
 #include <iMesh.h>
 #include <iMaterialResourceFactory.h>
 #include <iNodeFactory.h>
+#include <iStatistics.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -24,9 +25,46 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iRenderEngine::iRenderEngine()
+    {
+    }
+
+    iRenderEngine::~iRenderEngine()
+    {
+        if (_cullSectionID != 0)
+        {
+            iStatistics::getInstance().unregisterSection(_cullSectionID);
+        }
+
+        if (_drawSectionID != 0)
+        {
+            iStatistics::getInstance().unregisterSection(_drawSectionID);
+        }
+    }
+
     void iRenderEngine::setScene(iScene* scene)
     {
         _scene = scene;
+
+        if (_scene != nullptr)
+        {
+            _cullSectionID = iStatistics::getInstance().registerSection("cull", iaColor4f(1, 0, 0, 1), 4);
+            _drawSectionID = iStatistics::getInstance().registerSection("draw", iaColor4f(0, 1, 0, 1), 4);
+        }
+        else
+        {
+            if (_cullSectionID != 0)
+            {
+                iStatistics::getInstance().unregisterSection(_cullSectionID);
+                _cullSectionID = 0;
+            }
+
+            if (_drawSectionID != 0)
+            {
+                iStatistics::getInstance().unregisterSection(_drawSectionID);
+                _drawSectionID = 0;
+            }
+        }
     }
 
     iScene* iRenderEngine::getScene()
@@ -42,8 +80,13 @@ namespace Igor
 
             if (camera)
             {
+                iStatistics::getInstance().beginSection(_cullSectionID);
                 cullScene(camera);
+                iStatistics::getInstance().endSection(_cullSectionID);
+
+                iStatistics::getInstance().beginSection(_drawSectionID);
                 drawScene(camera);
+                iStatistics::getInstance().endSection(_drawSectionID);
             }
             else
             {
