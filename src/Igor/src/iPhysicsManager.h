@@ -37,10 +37,8 @@
 #include <iaSingleton.h>
 using namespace IgorAux;
 
-#include <list>
+#include <map>
 using namespace std;
-
-#define UPDATE_ASYNC 1
 
 namespace Igor
 {
@@ -71,9 +69,7 @@ namespace Igor
 
     private:
 
-        /*! keep trak if last task was done
-        */
-        uint64 _taskID = 0;
+        map<uint32, uint64> _inWork;
 
         /*! pointer to scene
         */

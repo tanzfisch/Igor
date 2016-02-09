@@ -77,5 +77,11 @@ namespace Igor
         }
     }
 
+    bool iNodeVolume::onUpdateData()
+    {
+        // does nothing
+        return true;
+    }
+
 }
 

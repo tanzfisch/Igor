@@ -39,6 +39,12 @@ namespace Igor
         }
     }
 
+    bool iNodeRender::onUpdateData()
+    {
+        // does nothing
+        return true;
+    }
+
     bool iNodeRender::wasReached()
     {
         return _reached;

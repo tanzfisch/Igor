@@ -29,7 +29,7 @@ namespace Igor
 		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 40000.0), 50.0, 8, 4);
 
         _updateLODSectionID = iStatistics::getInstance().registerSection("LOD", iaColor4f(1, 0, 0, 1), 2);
-        _processModelNodesSectionID = iStatistics::getInstance().registerSection("MN", iaColor4f(0, 1, 0, 1), 2);
+        _processUpdateDataSectionID = iStatistics::getInstance().registerSection("MN", iaColor4f(0, 1, 0, 1), 2);
         _updateTransformSectionID = iStatistics::getInstance().registerSection("uTrans", iaColor4f(0, 0, 1, 1), 2);
 	}
 
@@ -257,15 +257,27 @@ namespace Igor
         updateLOD();
         iStatistics::getInstance().endSection(_updateLODSectionID);
 
-        iStatistics::getInstance().beginSection(_processModelNodesSectionID);
-        // todo not doing much. so for now it can stay here but ther is no need to do that every frame
-        iNodeModel::processModelNodes(); 
-        iStatistics::getInstance().endSection(_processModelNodesSectionID);
+        iStatistics::getInstance().beginSection(_processUpdateDataSectionID);
+        updateData(); 
+        iStatistics::getInstance().endSection(_processUpdateDataSectionID);
 
         iStatistics::getInstance().beginSection(_updateTransformSectionID);
         _updateTransformVisitor.traverseTree(_root);
         iStatistics::getInstance().endSection(_updateTransformSectionID);
 	}
+
+    void iScene::addToDataUpdateQueue(iNode* node)
+    {
+        con_assert_sticky(node != nullptr, "zero pointer");
+
+        node->_queueToDirtyData = false;
+        _dataUpdateQueue.addNode(node->getID());
+    }
+
+    void iScene::updateData()
+    {
+        _dataUpdateQueue.process();
+    }
 
     iOctree* iScene::getOctree()
     {

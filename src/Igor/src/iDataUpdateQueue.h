@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iMODELNODEQUEUE__
-#define __iMODELNODEQUEUE__
+#ifndef __iDATAUPDATEQUEUE__
+#define __iDATAUPDATEQUEUE__
 
 #include <iDefines.h>
 
@@ -38,14 +38,26 @@ using namespace std;
 namespace Igor
 {
 
-    class iNodeModel;
+    class iNode;
 
-    /*! a queue of node models that have to be loaded asynchronously
-
-    \todo remove this and use iNodeFactory to add data instead. still a good idea
+    /*! a queue that calls update data on nodes added
     */
-	class iNodeModelQueue
+	class iDataUpdateQueue
 	{
+
+    public:
+
+        /*! adds node to queue
+
+        thread save addind to queue
+        */
+        void addNode(uint32 nodeID);
+
+        /*! called indirectly by iScene once per frame to process possible updates in scene
+
+        must be called in main thread
+        */
+        void process();
 
 	private:
 
@@ -60,16 +72,6 @@ namespace Igor
         /*! contains model nodes to be processed in current frame
         */
         vector<uint32> _processingQueue;
-
-	public:
-
-        /*! adds model to queue
-        */
-        void addModelNode(iNodeModel* modelNode);
-
-        /*! called indirectly by iScene once per frame to process possible updates in scene
-        */
-        void process();
         
 	};
 

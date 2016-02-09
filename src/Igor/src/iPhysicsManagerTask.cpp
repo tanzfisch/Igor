@@ -12,10 +12,10 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iPhysicsManagerTask::iPhysicsManagerTask(vector<uint32>& listToUpdate)
+    iPhysicsManagerTask::iPhysicsManagerTask(uint32 nodeID)
         : iTask(nullptr, 0, false, false)
     {
-        _listToUpdate = std::move(listToUpdate);
+        _nodeID = nodeID;
     }
 
     iPhysicsManagerTask::~iPhysicsManagerTask()
@@ -25,13 +25,10 @@ namespace Igor
 
     void iPhysicsManagerTask::run()
     {
-        for (auto nodeID : _listToUpdate)
+        iNodePhysics* node = static_cast<iNodePhysics*>(iNodeFactory::getInstance().getNode(_nodeID));
+        if (node != nullptr)
         {
-            iNodePhysics* node = static_cast<iNodePhysics*>(iNodeFactory::getInstance().getNode(nodeID));
-            if (node != nullptr)
-            {
-                node->updatePhysics();
-            }
+            node->updatePhysics();
         }
 
         _isRunning = false;

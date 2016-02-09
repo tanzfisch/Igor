@@ -5,10 +5,12 @@
 #include <iPhysicsManager.h>
 
 #include <iNodeCamera.h>
+#include <iNodePhysics.h>
 #include <iScene.h>
 #include <iOctree.h>
 #include <iPhysicsManagerTask.h>
 #include <iTaskManager.h>
+#include <iNodeFactory.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -18,16 +20,12 @@ namespace Igor
 
     iPhysicsManager::iPhysicsManager()
     {
-#if UPDATE_ASYNC == 1
         iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iPhysicsManager::onTaskFinished));
-#endif
     }
 
     iPhysicsManager::~iPhysicsManager()
     {
-#if UPDATE_ASYNC == 1
         iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iPhysicsManager::onTaskFinished));
-#endif
     }
 
     void iPhysicsManager::setScene(iScene* scene)
@@ -52,9 +50,9 @@ namespace Igor
                 iSphered camSphere;
                 camera->getWorldMatrix(camMatrix);
                 camSphere._center.set(camMatrix._pos._x, camMatrix._pos._y, camMatrix._pos._z);
-                camSphere._radius = 50.0; // something is completely wrong with the box sizes of volume nodes
+                camSphere._radius = 50.0;
 
-                cullScene(camSphere);
+                cullScene(camSphere); // BIG TODO
             }
             else
             {
@@ -65,34 +63,51 @@ namespace Igor
 
     void iPhysicsManager::onTaskFinished(uint64 taskID)
     {
-        if (_taskID != taskID)
+        auto iter = _inWork.begin();
+        while (iter != _inWork.end())
         {
-            _taskID = 0;
+            if ((*iter).second == taskID)
+            {
+                _inWork.erase(iter);
+                return;
+            }
+            iter++;
         }
     }
 
     void iPhysicsManager::cullScene(const iSphered& sphere)
     {
-        if (_taskID == 0)
+        vector<uint32> cullResult;
+        vector<uint32> updateList;
+
+        _scene->getOctree()->resetFilter();
+        _scene->getOctree()->filter(sphere, iNodeKind::Physics);
+        _scene->getOctree()->getResult(cullResult);
+
+        for (auto id : cullResult)
         {
-            vector<uint32> cullResult;
-
-            _scene->getOctree()->resetFilter();
-            _scene->getOctree()->filter(sphere, iNodeKind::Physics);
-            _scene->getOctree()->getResult(cullResult);
-
-#if UPDATE_ASYNC == 1
-            iTask* task = new iPhysicsManagerTask(cullResult);
-            _taskID = task->getID();
-            iTaskManager::getInstance().addTask(task);
-#else
-            for (auto node : cullResult)
+            auto workingIter = _inWork.find(id);
+            if (workingIter == _inWork.end())
             {
-                iNodePhysics* physicsNode = static_cast<iNodePhysics*>(node);
-                physicsNode->updatePhysics();
+                iNodePhysics* node = static_cast<iNodePhysics*>(iNodeFactory::getInstance().getNode(id));
+                if (node != nullptr)
+                {
+                    if (!node->isInitialized())
+                    {
+                        _inWork[id] = 0;
+                        updateList.push_back(id);
+                    }
+                }
             }
-#endif
+        }
+
+        for (auto id : updateList)
+        {
+            iTask* task = new iPhysicsManagerTask(id);
+            _inWork[id] = task->getID();
+            iTaskManager::getInstance().addTask(task);
         }
     }
+
 
 }

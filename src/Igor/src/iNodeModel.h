@@ -29,7 +29,6 @@
 #ifndef __iMODELNODE__
 #define __iMODELNODE__
 
-#include <iNodeModelQueue.h>
 #include <iNode.h>
 
 #include <iaString.h>
@@ -47,7 +46,6 @@ namespace Igor
 	class Igor_API iNodeModel : public iNode
 	{
 
-        friend class iNodeModelQueue;
 		friend class iNodeFactory;
         friend class iNodeVisitorUpdateTransform;
 
@@ -69,19 +67,7 @@ namespace Igor
         */
         iaString getModelName() const;
 
-        /*! handles model nodes that are not loaded yet
-
-        \todo this does not fit in here. the model queue should be handeled elsewhere
-        */
-        static void processModelNodes();
-
 	private:
-
-        /*! model node queue
-
-        holds models that are meant to be loaded asynchronously
-        */
-        static iNodeModelQueue modelNodeQueue;
 
         /*! filename of model
         */
@@ -101,11 +87,19 @@ namespace Igor
         */
 		bool _initialized = false;
 
+        /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
+        */
+        virtual void onPreSetScene();
+
+        /*! this is called just after setScene and gives the class the chance to register it self to the new scene.
+        */
+        virtual void onPostSetScene();
+
         /*! checks if model data was loaded and creates corresponding subtree
 
         \returns true if model data was present
         */
-		bool updateModelData();
+        bool onUpdateData();
 
         /*! called by update transform run
 

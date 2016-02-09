@@ -293,6 +293,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iContouringCubes.h" />
     <ClInclude Include="..\src\iControl.h" />
     <ClInclude Include="..\src\iCullContext.h" />
+    <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDecisionBox.h" />
     <ClInclude Include="..\src\iDefines.h" />
     <ClInclude Include="..\src\iEntity.h" />
@@ -324,10 +325,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iNodeLODTrigger.h" />
     <ClInclude Include="..\src\iNodeMesh.h" />
     <ClInclude Include="..\src\iNodeModel.h" />
-    <ClInclude Include="..\src\iNodeModelQueue.h" />
     <ClInclude Include="..\src\iNodePhysics.h" />
-    <ClInclude Include="..\src\iNodePhysicsMesh.h" />
-    <ClInclude Include="..\src\iNodePhysicsPrimitives.h" />
     <ClInclude Include="..\src\iNodeRender.h" />
     <ClInclude Include="..\src\iNodeSkyBox.h" />
     <ClInclude Include="..\src\iNodeSwitch.h" />
@@ -528,6 +526,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iConfigReader.cpp" />
     <ClCompile Include="..\src\iContouringCubes.cpp" />
     <ClCompile Include="..\src\iControl.cpp" />
+    <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
     <ClCompile Include="..\src\iDecisionBox.cpp" />
     <ClCompile Include="..\src\iEntity.cpp" />
     <ClCompile Include="..\src\iEntityFactory.cpp" />
@@ -557,10 +556,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iNodeLODTrigger.cpp" />
     <ClCompile Include="..\src\iNodeMesh.cpp" />
     <ClCompile Include="..\src\iNodeModel.cpp" />
-    <ClCompile Include="..\src\iNodeModelQueue.cpp" />
     <ClCompile Include="..\src\iNodePhysics.cpp" />
-    <ClCompile Include="..\src\iNodePhysicsMesh.cpp" />
-    <ClCompile Include="..\src\iNodePhysicsPrimitives.cpp" />
     <ClCompile Include="..\src\iNodeRender.cpp" />
     <ClCompile Include="..\src\iNodeSkyBox.cpp" />
     <ClCompile Include="..\src\iNodeSwitch.cpp" />

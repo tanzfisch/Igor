@@ -300,8 +300,8 @@ namespace Igor
         iaVector3d vec(sceneNode->getCenter()._x, sceneNode->getCenter()._y, sceneNode->getCenter()._z);
 
         auto object = _objects[sceneNodeID];
+        con_assert(object != nullptr, "corrupt data");
         auto node = _nodes[object->_octreeNode];
-
         if (!node->_box.intersects(vec))
         {
             remove(sceneNodeID);

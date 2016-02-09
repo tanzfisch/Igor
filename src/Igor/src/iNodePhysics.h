@@ -43,7 +43,10 @@ using namespace std;
 
 namespace Igor
 {
-    
+    /*! node that handles physics collisions boudn to one body
+
+    \todo also need to remove things after adding them. maybe using IDs for that
+    */
     class Igor_API iNodePhysics : public iNodeVolume
 	{
 		
@@ -54,11 +57,48 @@ namespace Igor
 
     public:
 
+        /*! clears all lists and removes all primitives
+        */
         void clear();
+
+        /*! adds box
+
+        \param width width of box
+        \param height height of box
+        \param depth depth of box
+        \param offset relative position
+        */
         void addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
+
+        /*! adds sphere
+
+        \param radius radius of sphere
+        \param offset relative position
+        */
         void addSphere(float32 radius, const iaMatrixf& offset);
+
+        /*! adds cone
+
+        \param radius radius of cone
+        \param height height of cone
+        \param offset relative position
+        */
         void addCone(float32 radius, float32 height, const iaMatrixf& offset);
+
+        /*! adds capsule
+
+        \param radius radius of capsule
+        \param height height of capsule
+        \param offset relative position
+        */
         void addCapsule(float32 radius, float32 height, const iaMatrixf& offset);
+
+        /*! adds cylinder
+
+        \param radius radius of cylinder
+        \param height height of cylinder
+        \param offset relative position
+        */
         void addCylinder(float32 radius, float32 height, const iaMatrixf& offset);
 
         /*! set up mesh for physics mesh
@@ -69,20 +109,42 @@ namespace Igor
         */
         void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
 
+        /*! adds up vector joint
+
+        \param upVector the up vector
+        */
         void addUpVectorJoint(const iaVector3f& upVector);
 
+        /*! \returns mass of body
+        */
         float32 getMass() const;
+
+        /*! sets mass of body
+
+        if body is initialized the actual bodys mass will also be updated
+
+        \param mass new mass
+        */
         void setMass(float32 mass);
 
+        /*! sets a delegate to handle the ApplyForceAndTorque event
 
+        \param applyForceAndTorqueDelegate the delegate to register
+        */
         void setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate applyForceAndTorqueDelegate);
 
+        /*! resets the delegate to handle the ApplyForceAndTorque event
+        */
         void resetForceAndTorqueDelegate();
 
+        /*! \returns the ID of the body if exists
+        */
         uint64 getBody() const;
         
 	private:
 
+        /*! structure to hold the data to initialize physics with a box
+        */
         struct Box
         {
             float32 _width;
@@ -91,12 +153,16 @@ namespace Igor
             iaMatrixf _offset;
         };
 
+        /*! structure to hold the data to initialize physics with a sphere
+        */
         struct Sphere
         {
             float32 _radius;
             iaMatrixf _offset;
         };
 
+        /*! structure to hold the data to initialize physics with a cone
+        */
         struct Cone
         {
             float32 _radius;
@@ -104,6 +170,8 @@ namespace Igor
             iaMatrixf _offset;
         };
 
+        /*! structure to hold the data to initialize physics with a capsule
+        */
         struct Capsule
         {
             float32 _radius;
@@ -111,6 +179,8 @@ namespace Igor
             iaMatrixf _offset;
         };
 
+        /*! structure to hold the data to initialize physics with a cylinder
+        */
         struct Cylinder
         {
             float32 _radius;
@@ -118,6 +188,8 @@ namespace Igor
             iaMatrixf _offset;
         };
 
+        /*! structure to hold the data to initialize physics with a mesh
+        */
         struct Mesh
         {
             shared_ptr<iMesh> _mesh = nullptr;
@@ -125,19 +197,44 @@ namespace Igor
             iaMatrixf _offset;
         };
 
+        /*! lsit of boxes
+        */
         vector<Box> _boxes;
+
+        /*! lsit of spheres
+        */
         vector<Sphere> _spheres;
+
+        /*! lsit of cones
+        */
         vector<Cone> _cones;
+        
+        /*! lsit of capsules
+        */
         vector<Capsule> _capsules;
+
+        /*! lsit of cylinders
+        */
         vector<Cylinder> _cylinders;
+
+        /*! lsit of up vector joints
+        */
         vector<iaVector3f> _upVectorJoints;
+
+        /*! lsit of meshs
+        */
         vector<Mesh> _meshs;
 
+        /*! the bodys mass
+        */
         float32 _mass = 0;
 
+        /*! handles ApplyForceAndTorque event
+        */
         iApplyForceAndTorqueDelegate* _applyForceAndTorqueDelegate = nullptr;
 
-
+        /*! true if the physics was initialized
+        */
         bool _physicsInitialized = false;
 
         /*! physics body
@@ -146,11 +243,25 @@ namespace Igor
 
         virtual void initPhysics();
 
+        /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
+        */
+        virtual void onPreSetScene();
+
+        /*! this is called just after setScene and gives the class the chance to register it self to the new scene.
+        */
+        virtual void onPostSetScene();
+
         /*! set world matrix
 
         \param matrix matrix to set
         */
         virtual void onUpdateTransform(iaMatrixf& matrix);
+
+        /*! checks if physics was created and forces tree to update
+
+        \returns true if physics data was present
+        */
+        bool onUpdateData();
 
         /*! sets physic body id
 
@@ -188,3 +299,4 @@ namespace Igor
 };
 
 #endif
+

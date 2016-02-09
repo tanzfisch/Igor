@@ -200,9 +200,6 @@
     <ClCompile Include="..\src\iNodeModel.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iNodeModelQueue.cpp">
-      <Filter>scene\nodes</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iNodeLight.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
@@ -332,20 +329,17 @@
     <ClCompile Include="..\src\iMeshBuffers.cpp">
       <Filter>resources\mesh</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iNodePhysicsMesh.cpp">
-      <Filter>scene\nodes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iPhysicsManager.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iNodePhysics.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsManagerTask.cpp">
       <Filter>physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iNodePhysicsPrimitives.cpp">
-      <Filter>scene\nodes</Filter>
+    <ClCompile Include="..\src\iDataUpdateQueue.cpp">
+      <Filter>scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsManager.cpp">
+      <Filter>physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -579,9 +573,6 @@
     <ClInclude Include="..\src\iNodeModel.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iNodeModelQueue.h">
-      <Filter>scene\nodes</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iNodeLight.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
@@ -712,12 +703,6 @@
     <ClInclude Include="..\src\iMeshBuffers.h">
       <Filter>resources\mesh</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iNodePhysicsMesh.h">
-      <Filter>scene\nodes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iPhysicsManager.h">
-      <Filter>physics</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\3rd\Newton\include\Newton.h">
       <Filter>3rd\newton</Filter>
     </ClInclude>
@@ -727,8 +712,11 @@
     <ClInclude Include="..\src\iPhysicsManagerTask.h">
       <Filter>physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iNodePhysicsPrimitives.h">
-      <Filter>scene\nodes</Filter>
+    <ClInclude Include="..\src\iDataUpdateQueue.h">
+      <Filter>scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsManager.h">
+      <Filter>physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

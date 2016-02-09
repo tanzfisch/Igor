@@ -29,11 +29,12 @@
 #ifndef __iNODE__
 #define __iNODE__
 
+#include <iDataUpdateQueue.h>
+#include <iDefines.h>
+
 #include <iaString.h>
 #include <iaMatrix.h>
 using namespace IgorAux;
-
-#include <iDefines.h>
 
 #include <vector>
 #include <memory>
@@ -96,6 +97,7 @@ namespace Igor
 		friend class iNodeFactory;
 		friend class iScene;
         friend class iNodeVisitorUpdateTransform;
+        friend class iDataUpdateQueue;
 
     public:
 
@@ -266,6 +268,14 @@ namespace Igor
         */
         void setTransformationDirtyUp();
 
+        /*! sets data dirty and puts node in update data queue
+        */
+        void setDataDirty();
+
+        /*! \returns true if data is dirty and top be queued
+        */
+        bool isDataDirty();
+
         /*! sets the parent of this node
 
         \param parent pointer to parent node
@@ -292,6 +302,12 @@ namespace Igor
         */
         virtual void onUpdateTransform(iaMatrixf& matrix);
 
+        /*! called by update dirty data queue
+
+        to end up in that queue call setDataDirty();
+        */
+        virtual bool onUpdateData();
+
         /*! set's node id
         */
 		iNode();
@@ -305,6 +321,10 @@ namespace Igor
 		virtual ~iNode();
 
     private:
+
+        /*! flag if there is dirty data
+        */
+        bool _queueToDirtyData = false;
 
         /*! mutex to save unique id generation
         */

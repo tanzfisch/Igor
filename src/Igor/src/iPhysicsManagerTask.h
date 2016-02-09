@@ -30,6 +30,7 @@
 #define __iPHYSICSMANAGERTASK__
 
 #include <iTask.h>
+#include <iNode.h>
 
 #include <vector>
 using namespace std;
@@ -44,14 +45,18 @@ namespace Igor
 
     public:
 
-        iPhysicsManagerTask(vector<uint32>& listToUpdate);
+        iPhysicsManagerTask(uint32 nodeID);
 
         ~iPhysicsManagerTask();
 
     private:
 
-        vector<uint32> _listToUpdate;
+        /*! id of node to update
+        */
+        uint32 _nodeID = iNode::INVALID_NODE_ID;
 
+        /*! run task
+        */
         void run();
 
     };

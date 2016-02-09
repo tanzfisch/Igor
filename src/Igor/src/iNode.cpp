@@ -51,6 +51,27 @@ namespace Igor
         _inactiveChildren.clear();
 	}
 
+    bool iNode::isDataDirty()
+    {
+        return _queueToDirtyData;
+    }
+
+    void iNode::setDataDirty()
+    {
+        _queueToDirtyData = true;
+
+        if (_scene != nullptr)
+        {
+            _scene->addToDataUpdateQueue(this);            
+        }
+    }
+
+    bool iNode::onUpdateData()
+    {
+        // does nothing
+        return true;
+    }
+
     bool iNode::isChild(iNode* child)
     {
         auto iter = _children.begin();

@@ -77,6 +77,8 @@ namespace Igor
         */
 		virtual void onPostSetScene();
 
+        virtual bool onUpdateData();
+
         /*! updates octree if node is within a scene
         */
 		void update();

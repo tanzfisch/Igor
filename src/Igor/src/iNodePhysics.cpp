@@ -77,7 +77,7 @@ namespace Igor
         if (!_physicsInitialized)
         {
             initPhysics();
-            _physicsInitialized = true;
+            _physicsInitialized = true;            
         }
     }
 
@@ -292,28 +292,28 @@ namespace Igor
 
             iPhysics::getInstance().destroyCollision(resultingCollision);
 
-            iNode* nextTransformNode = _parent;
-            while (nextTransformNode != nullptr && nextTransformNode->getType() != iNodeType::iNodeTransform)
-            {
-                nextTransformNode = nextTransformNode->getParent();
-            }
-
-            if (nextTransformNode != nullptr &&
-                nextTransformNode->getType() == iNodeType::iNodeTransform)
-            {
-                iPhysics::getInstance().bindTransformNode(body, reinterpret_cast<iNodeTransform*>(nextTransformNode));
-            }
-            else
-            {
-                con_err("need a transform node as ancester");
-            }
+            setDataDirty();
         }
         else
         {
             con_warn("no collision objects defined");
         }
+    }
 
-        setTransformationDirty();
+    void iNodePhysics::onPreSetScene()
+    {
+        iNodeVolume::onPreSetScene();
+    }
+
+    void iNodePhysics::onPostSetScene()
+    {
+        iNodeVolume::onPostSetScene();
+
+        if (getScene() &&
+            isDataDirty())
+        {
+            getScene()->addToDataUpdateQueue(this);
+        }
     }
 
     float32 iNodePhysics::getMass() const
@@ -324,6 +324,40 @@ namespace Igor
     void iNodePhysics::setMass(float32 mass)
     {
         _mass = mass;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(getBody());
+        if (body != nullptr)
+        {
+            body->setMass(_mass);
+        }
+    }
+
+    bool iNodePhysics::onUpdateData()
+    {
+        if (isInitialized())
+        {
+            iNode* nextTransformNode = _parent;
+            while (nextTransformNode != nullptr && nextTransformNode->getType() != iNodeType::iNodeTransform)
+            {
+                nextTransformNode = nextTransformNode->getParent();
+            }
+
+            if (nextTransformNode != nullptr &&
+                nextTransformNode->getType() == iNodeType::iNodeTransform)
+            {
+                iPhysicsBody* body = iPhysics::getInstance().getBody(getBody());
+                iPhysics::getInstance().bindTransformNode(body, reinterpret_cast<iNodeTransform*>(nextTransformNode));
+            }
+            else
+            {
+                con_err("need a transform node as ancester");
+            }
+
+            setTransformationDirty();
+            return true;
+        }
+
+        return false;
     }
 
     void iNodePhysics::draw()

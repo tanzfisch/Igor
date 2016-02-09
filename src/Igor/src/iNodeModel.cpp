@@ -23,7 +23,7 @@ using namespace std;
 namespace Igor
 {
 
-    iNodeModelQueue iNodeModel::modelNodeQueue;
+    
 
     iNodeModel::iNodeModel()
         : iNode()
@@ -60,15 +60,25 @@ namespace Igor
         return _filename;
     }
 
-    void iNodeModel::processModelNodes()
+    void iNodeModel::onPreSetScene()
     {
-        modelNodeQueue.process();
+        // nothing to do
+    }
+
+    void iNodeModel::onPostSetScene()
+    {
+        if (getScene() &&
+            isDataDirty())
+        {
+            getScene()->addToDataUpdateQueue(this);
+        }
     }
 
     void iNodeModel::setModel(const iaString& modelFileName, iModelDataInputParameter* parameters)
 	{
         _filename = modelFileName;
         _parameters = parameters;
+        setDataDirty();
 	}
 
     void iNodeModel::onUpdateTransform(iaMatrixf& matrix)
@@ -78,11 +88,10 @@ namespace Igor
         {
             _model = iModelResourceFactory::getInstance().requestModelData(_filename, _parameters);
             _parameters = nullptr; // passing ownership to iModel
-            modelNodeQueue.addModelNode(this);
         }
     }
 
-	bool iNodeModel::updateModelData()
+	bool iNodeModel::onUpdateData()
 	{
 		if (!_initialized &&
             _model != nullptr &&
@@ -90,7 +99,6 @@ namespace Igor
 		{
             insertNode(_model->getDataCopy());
 			_initialized = true;
-
             return true;
 		}
 

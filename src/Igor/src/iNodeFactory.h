@@ -112,7 +112,7 @@ namespace Igor
         \param child the child to be removed
         */
         void removeNodeAsync(iNode* parent, iNode* child);
-    
+            
     private:
 
         /*! mutex to protect add queue

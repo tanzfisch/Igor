@@ -35,6 +35,7 @@ using namespace IgorAux;
 
 #include <iDefines.h>
 #include <iNodeVisitorUpdateTransform.h>
+#include <iDataUpdateQueue.h>
 
 #include<memory>
 #include<vector>
@@ -67,7 +68,7 @@ namespace Igor
 
     /*! the scene graph
 
-    \todo we should use shared pointers to nodes
+    \todo we should use shared pointers to nodes or just use IDs
     */
 	class Igor_API iScene
 	{
@@ -76,6 +77,7 @@ namespace Igor
 		friend class iNodeCamera;
 		friend class iNodeLight;
 		friend class iNodeVolume;
+        friend class iNodeModel;
 		friend class iNodeVisitorUpdateTransform;
         friend class iSceneFactory;
         friend class iNodeRender;
@@ -147,11 +149,29 @@ namespace Igor
         */
         void handle();
 
+        /*! adds node to data update queue
+
+        \param node the node to add
+        */
+        void addToDataUpdateQueue(iNode* node);
+
 	private:
 
+        /*! id for statistics counter LOD
+        */
         uint32 _updateLODSectionID = 0;
-        uint32 _processModelNodesSectionID = 0;
+
+        /*! id for statistics counter update dirty data
+        */
+        uint32 _processUpdateDataSectionID = 0;
+
+        /*! id for statistics counter update transformations
+        */
         uint32 _updateTransformSectionID = 0;
+
+        /*! data update queue
+        */
+        iDataUpdateQueue _dataUpdateQueue;
 
         /*! added node event
         */
@@ -206,6 +226,10 @@ namespace Igor
         /*! transformation update visitor
         */
 		iNodeVisitorUpdateTransform _updateTransformVisitor;
+
+        /*! handles dirty data ans tries to update it
+        */
+        void updateData();
 
         /*! registers a camera node to the scene so it can be actually used as camera. 
 

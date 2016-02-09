@@ -2,7 +2,7 @@
 // (c) Copyright 2014-2015 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iNodeModelQueue.h>
+#include <iDataUpdateQueue.h>
 
 #include <iNodeModel.h>
 #include <iNodeFactory.h>
@@ -13,24 +13,24 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    void iNodeModelQueue::addModelNode(iNodeModel* modelnode)
+    void iDataUpdateQueue::addNode(uint32 nodeID)
     {
         _mutex.lock();
 
-        auto iter = find(_loadingQueue.begin(), _loadingQueue.end(), modelnode->getID());
+        auto iter = find(_loadingQueue.begin(), _loadingQueue.end(), nodeID);
         if (iter != _loadingQueue.end())
         {
-            con_err("this node was already add to loading queue");
+            con_err("this node was already added to update queue");
         }
         else
         {
-            _loadingQueue.push_back(modelnode->getID());
+            _loadingQueue.push_back(nodeID);
         }
 
         _mutex.unlock();
     }
 
-    void iNodeModelQueue::process()
+    void iDataUpdateQueue::process()
     {
         _mutex.lock();
 
@@ -46,10 +46,10 @@ namespace Igor
         auto iterP = _processingQueue.begin();
         while (iterP != _processingQueue.end())
         {
-            iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode((*iterP)));
-            if (modelNode != nullptr)
+            iNode* node = iNodeFactory::getInstance().getNode((*iterP));
+            if (node != nullptr)
             {
-                if (modelNode->updateModelData())
+                if (node->onUpdateData())
                 {
                     iterP = _processingQueue.erase(iterP);
                 }
