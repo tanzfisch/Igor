@@ -21,23 +21,23 @@ namespace Igor
 
     iKeyboard::~iKeyboard()
     {
-        bool _hasDelegates = false;
+        bool printWarn = false;
 
         if (_keyDownEventExt.hasDelegates())
         {
-            _hasDelegates = true;
+            printWarn = true;
             _keyDownEventExt.clear();
         }
 
         if (_keyUpEventExt.hasDelegates())
         {
-            _hasDelegates = true;
+            printWarn = true;
             _keyUpEventExt.clear();
         }
 
         if (_keyASCIIEvent.hasDelegates())
         {
-            _hasDelegates = true;
+            printWarn = true;
             _keyASCIIEvent.clear();
         }
 
@@ -45,20 +45,20 @@ namespace Igor
         {
             if (_keyDownEvent[i].hasDelegates())
             {
-                _hasDelegates = true;
+                printWarn = true;
                 _keyDownEvent[i].clear();
             }
 
             if (_keyUpEvent[i].hasDelegates())
             {
-                _hasDelegates = true;
+                printWarn = true;
                 _keyUpEvent[i].clear();
             }
         }
 
-        if (_hasDelegates)
+        if (printWarn)
         {
-            con_warn("unregister all delegates before shutdown");
+            con_warn("not all delegates unregistered");
         }
     }
 

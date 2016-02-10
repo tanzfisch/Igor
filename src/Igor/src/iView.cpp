@@ -42,7 +42,8 @@ namespace Igor
 
         if (_renderEvent.hasDelegates())
         {
-            con_err("not all delegates unregistered");
+            con_warn("not all delegates unregistered");
+            _renderEvent.clear();
         }
     }
 

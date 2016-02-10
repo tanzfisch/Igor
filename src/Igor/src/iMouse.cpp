@@ -24,11 +24,41 @@ namespace Igor
 
 	iMouse::~iMouse()
 	{
-		_keyDownEvent.clear();
-		_keyUpEvent.clear();
-        _moveFullEvent.clear();
-        _moveEvent.clear();
-		_wheelEvent.clear();
+        bool printWarn = false;
+        if (_keyDownEvent.hasDelegates())
+        {
+            _keyDownEvent.clear();
+            printWarn = true;
+        }
+
+        if (_keyUpEvent.hasDelegates())
+        {
+            _keyUpEvent.clear();
+            printWarn = true;
+        }
+
+        if (_moveFullEvent.hasDelegates())
+        {
+            _moveFullEvent.clear();
+            printWarn = true;
+        }
+
+        if (_moveEvent.hasDelegates())
+        {
+            _moveEvent.clear();
+            printWarn = true;
+        }
+
+        if (_wheelEvent.hasDelegates())
+        {
+            _wheelEvent.clear();
+            printWarn = true;
+        }
+
+        if (printWarn)
+        {
+            con_warn("not all delegates unregistered");
+        }
 
 		if (_rawInputBuffer)
 		{

@@ -27,7 +27,13 @@ namespace Igor
 
         if (_windows.getList().size())
         {
-            con_err("close _windows before shutdown");
+            con_warn("close windows before shutdown");
+        }
+
+        if (_handleEvent.hasDelegates())
+        {
+            con_warn("not all delegates unregistered");
+            _handleEvent.clear();
         }
     }
 

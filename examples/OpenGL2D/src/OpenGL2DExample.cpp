@@ -147,48 +147,61 @@ void OpenGL2DExample::init()
 
 void OpenGL2DExample::deinit()
 {
+    // unregister some callbacks. otherwhise you will be reminded of callbacks that where not released
+    iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &OpenGL2DExample::onHandle));
+    iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &OpenGL2DExample::onMouseMove));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &OpenGL2DExample::onKeyESCPressed), iKeyCode::ESC);
+
+    // unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
     _view.unregisterRenderDelegate(RenderDelegate(this, &OpenGL2DExample::onRender));
 
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
-    _materialWithTextureAndBlending = 0;
-    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithoutDepthTest);
-    _materialWithoutDepthTest = 0;
-
+    // close the window, release callback and remove the view. if not you will get various reminders that you should
     _window.close();
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &OpenGL2DExample::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &OpenGL2DExample::onWindowResize));
     _window.removeView(&_view);
 
-    iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &OpenGL2DExample::onHandle));
-    iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &OpenGL2DExample::onMouseMove));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &OpenGL2DExample::onKeyESCPressed), iKeyCode::ESC);
+    // release materials (optional)
+    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
+    _materialWithTextureAndBlending = 0;
+    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTexture);
+    _materialWithTexture = 0;
+    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithoutDepthTest);
+    _materialWithoutDepthTest = 0;
 
-    if (_logo)
+    // release some textures. otherwhise you will get a reminder of possible mem leak
+    if (_logo != nullptr)
     {
         delete _logo;
+        _logo = nullptr;
     }
 
-    if (_font)
+    if (_font != nullptr)
     {
         delete _font;
+        _font = nullptr;
     }
 
     _particleTexture = nullptr;
+    _backgroundTexture = nullptr;
     _dummyTexture = nullptr;
 }
 
 void OpenGL2DExample::onMouseMove(int32 x, int32 y)
 {
+    // save mouse position for later
     _lastMousePos.set(x, y);
 }
 
 void OpenGL2DExample::run()
 {
+    // calls the applications endless loop
     iApplication::getInstance().run();
 }
 
 void OpenGL2DExample::onWindowClosed()
 {
+    // breaks the applications endless loop
     iApplication::getInstance().stop();
 }
 
@@ -200,37 +213,41 @@ void OpenGL2DExample::onWindowResize(int32 clientWidth, int32 clientHeight)
 
 void OpenGL2DExample::onKeyESCPressed()
 {
+    // breaks the applications endless loop
     iApplication::getInstance().stop();
 }
 
-// triggered by timer
-void OpenGL2DExample::updateParticles()
-{
-    iaVector2f velocity(12, 0);
-
-    float32 emitangle = _perlinNoise.getValue(_particleAnimatioValue * 0.05, 3) + 0.1;
-
-    velocity.rotateXY(emitangle);
-    _particleSystem.setInitialVelocity(velocity);
-    _particleAnimatioValue += 1.0f;
-
-    _particleSystem.handle();
-}
-
-// triggered per frame
 void OpenGL2DExample::onHandle()
 {
+    // manipulate the rotation angle of the logo
     _logoRotationAngle += 0.01f;
     if (_logoRotationAngle >= M_PI * 2.0)
     {
         _logoRotationAngle = 0.0f;
     }
 
+    // moves the logo towards the mouse position
     _logoPosition += (_lastMousePos - _logoPosition) * 0.01f;
 
+    // moves one of the splines support point to the logo's position
     _spline.setSupportPoint(iaVector3f(_logoPosition._x, _logoPosition._y, 0), 3);
 
+    // update particles
     updateParticles();
+}
+
+void OpenGL2DExample::updateParticles()
+{
+    // manipulates particles initial velocity over time
+    iaVector2f velocity(12, 0);
+    float32 emitangle = _perlinNoise.getValue(_particleAnimatioValue * 0.05, 3) + 0.1;
+    
+    velocity.rotateXY(emitangle);
+    _particleSystem.setInitialVelocity(velocity);
+    _particleAnimatioValue += 1.0f;
+
+    // calls particles iteration
+    _particleSystem.handle();
 }
 
 void OpenGL2DExample::onRender()
@@ -241,12 +258,13 @@ void OpenGL2DExample::onRender()
     modelMatrix.translate(iaVector3f(0, 0, -30));
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
+    // set a textured material and draw the tiles texture as background
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTexture);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawTextureTiled(0, 0, _window.getClientWidth(), _window.getClientHeight(), _backgroundTexture);
 
+    // set non textured material and draw some primitves
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
-
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
 
     iRenderer::getInstance().drawRectangle(10, 10, 200, 150);
@@ -269,33 +287,33 @@ void OpenGL2DExample::onRender()
         }
     }
 
+    // change material again to textured an draw the logo
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
-
-
-
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawSprite(_logo, _logoPosition._x, _logoPosition._y, _logoRotationAngle, 1.5f, 1.5f);
 
+    // draw the texture that we could not load at startup
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawTexture(10, 170, 410, 150, _dummyTexture);
 
+    // draw the particles
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 0.5));
     iRenderer::getInstance().bindTexture(_particleTexture, 0);
     iRenderer::getInstance().drawParticles(-10, _window.getClientHeight() - 150, 0, _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
 
+    // draw some text from wikipedia
+    iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige Programmierschnittstelle zur Entwicklung von 2D- und 3D-Computergrafik. Der OpenGL-Standard beschreibt etwa 250 Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen (zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(15.0f);
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-
-    iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige Programmierschnittstelle zur Entwicklung von 2D- und 3D-Computergrafik. Der OpenGL-Standard beschreibt etwa 250 Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen (zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
     iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);
 
+    // draw spline
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0.5, 1));
+    iRenderer::getInstance().drawLineStrip(_spline.getSpline());
 
-    auto spline = _spline.getSpline();
-    iRenderer::getInstance().drawLineStrip(spline);
-
+    // draw random graph in the upper right corner
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
     iRenderer::getInstance().drawRectangle(_window.getClientWidth() - 260, 10, 250, 150);
 
@@ -313,6 +331,7 @@ void OpenGL2DExample::onRender()
 
     offset += 1.0f;
 
+    // draw frame rate in lower right corner
     iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
