@@ -32,14 +32,11 @@ namespace Igor
 		{
 			createThread();
 		}
-
-        con_info("threading", numThreads << " standard threads created");
 	}
 
 	iTaskManager::~iTaskManager()
 	{
         iTaskManager::_running = false;
-        con_info("threading", "shutdown remaining threads");
 
         _mutex.lock();
         // first clear all tasks left in queue
@@ -55,7 +52,7 @@ namespace Igor
         }
         _tasks.clear();
 
-        con_endl("waiting for " << _renderContextTasksRunning.size() << " render context tasks to finish");
+        con_debug_endl("waiting for " << _renderContextTasksRunning.size() << " render context tasks to finish");
 
         // than finish all task that are already running
         for (auto task : _renderContextTasksRunning)
@@ -71,7 +68,7 @@ namespace Igor
         }
         _renderContextTasksRunning.clear();
 
-        con_endl("waiting for " << _tasksRunning.size() << " regular tasks to finish");
+        con_debug_endl("waiting for " << _tasksRunning.size() << " regular tasks to finish");
 
         for (auto task : _tasksRunning)
         {
@@ -88,7 +85,7 @@ namespace Igor
 
         _mutex.unlock();
 
-        con_endl("waiting for " << _renderContextThreads.size() << " render context threads to join");
+        con_debug_endl("waiting for " << _renderContextThreads.size() << " render context threads to join");
 
         // now stop and kill all threads
         _renderContextThreadsMutex.lock();
@@ -103,7 +100,7 @@ namespace Igor
         _renderContextThreads.clear();
         _renderContextThreadsMutex.unlock();
 
-        con_endl("waiting for " << _threads.size() << " regular threads to join");
+        con_debug_endl("waiting for " << _threads.size() << " regular threads to join");
 
         for (auto thread : _threads)
         {
@@ -112,7 +109,7 @@ namespace Igor
         }
         _threads.clear();
 
-        con_info("threading", "done");
+        con_debug_endl("threading done");
 	}
 
     uint32 iTaskManager::getThreadCount()
@@ -166,8 +163,6 @@ namespace Igor
             createRenderContextThread(window);
             _sleep(10);
         }
-
-        con_info("threading", numThreads << " render context threads created");
     }
 
 	bool iTaskManager::createRenderContextThread(iWindow *window)

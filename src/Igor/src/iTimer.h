@@ -74,7 +74,7 @@ namespace Igor
 
 		/*! inverse performance frequency 
 		*/
-        double _timeScale = 0.0;
+        float64 _timeScale = 0.0;
 
 		/*! registered timer handles
 
@@ -110,7 +110,7 @@ namespace Igor
 
     public:
         
-		/*! Absolute current time in milliseconds since program start.
+		/*! Absolute current time in milliseconds since operating system start.
 
 		This is the one you need if you want to meashure time independent from anything.
         

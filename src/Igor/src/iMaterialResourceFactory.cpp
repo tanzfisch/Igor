@@ -24,7 +24,7 @@ namespace Igor
 
         if (!_materials.empty())
         {
-            con_endl(static_cast<int>(_materials.size()) << " materials left. will clean up for you");
+            con_debug_endl(static_cast<int>(_materials.size()) << " materials left. will clean up for you");
         }
 
         auto materialIter = _materials.begin();

@@ -48,7 +48,7 @@ namespace Igor
     {
         uint64 time;
         QueryPerformanceCounter((LARGE_INTEGER*)&time);
-        return time * _timeScale * __IGOR_SECOND__;
+        return static_cast<float64>(time) * _timeScale * static_cast<float64>(__IGOR_SECOND__);
     }
 
     void iTimer::handle()
