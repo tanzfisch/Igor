@@ -35,6 +35,7 @@
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
+#include <iPerlinNoise.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -54,54 +55,157 @@ namespace Igor
     class iNodeTransformControl;
 }
 
+/*! the voxel example
+*/
 class VoxelExample
 {
-private:
-
-	iWindow _window;
-	iView _view;
-    iView _viewOrtho;
-
-    iTextureFont* _font = nullptr;
-	iScene* _scene = nullptr;
-
-    iNodeTransform* _cameraHeading = nullptr;
-    iNodeTransform* _cameraPitch = nullptr;
-    iNodeTransform* _cameraTranslation = nullptr;
-    iNodeCamera* _camera = nullptr;
-
-    iNodeTransform* _lightTranslate = nullptr;
-    iNodeTransform* _lightRotate = nullptr;
-    iNodeLight* _lightNode = nullptr;
-
-    iNodeModel* _voxelMeshModel = nullptr;
-
-    int32 _materialSkyBox = 0;
-    int32 _voxelMeshMaterialID = 0;
-
-    iVoxelData* _voxelData = nullptr;
-    uint32 _seed = 0;
-    
-	void keyESCPressed();
-    void keySpaceReleased();
-	void windowClosed();
-    void windowResized(int32 clientWidth, int32 clientHeight);
-    void mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
-	void deinit();
-	void init();
-    void generateVoxelData();
-    void renderOrtho();
-	void registerHandles();
-	void unregisterHandles();
-	void initViews();
-	void initScene();
 
 public:
 
-	VoxelExample();
-	virtual ~VoxelExample();
+    /*! init
+    */
+    VoxelExample();
 
-	void run();
+    /*! deinit
+    */
+    virtual ~VoxelExample();
+
+    /*! runs application loop
+    */
+    void run();
+
+private:
+
+    /*! window to render in
+    */
+	iWindow _window;
+
+    /*! view within the window
+    */
+	iView _view;
+
+    /*! an other view to render orthogonal projected stuff
+    */
+    iView _viewOrtho;
+
+    /*! font to display framerate
+    */
+    iTextureFont* _font = nullptr;
+
+    /*! the scene
+    */
+	iScene* _scene = nullptr;
+
+    /*! heading of camera
+    */
+    iNodeTransform* _cameraHeading = nullptr;
+
+    /*! pitch of camera
+    */
+    iNodeTransform* _cameraPitch = nullptr;
+
+    /*! translation from origin of camera
+    */
+    iNodeTransform* _cameraTranslation = nullptr;
+
+    /*! the camera
+    */
+    iNodeCamera* _camera = nullptr;
+
+    /*! translation from origin of light
+    */
+    iNodeTransform* _lightTranslate = nullptr;
+
+    /*! rotation of light. since it is a directional light it's basically describing the direction
+    */
+    iNodeTransform* _lightRotate = nullptr;
+
+    /*! the light
+    */
+    iNodeLight* _lightNode = nullptr;
+
+    /*! the model that represents our voxel mesh
+    */
+    iNodeModel* _voxelMeshModel = nullptr;
+
+    iNodeTransform* _voxelMeshTransform = nullptr;
+
+    /*! voxel mesh material
+    */
+    int32 _voxelMeshMaterialID = 0;
+
+    /*! the actual voxel data
+    */
+    iVoxelData* _voxelData = nullptr;
+
+    /*! material for the sky box
+    */
+    int32 _materialSkyBox = 0;
+
+    /*! perlin noise generator
+    */
+    iPerlinNoise _perlinNoise;
+
+    /*! called when ESC key was pressed
+    */
+	void onKeyESCPressed();
+
+    /*! called when space key was released
+    */
+    void onKeySpaceReleased();
+
+    /*! called when window was closed
+    */
+	void onWindowClosed();
+
+    /*! called when window was resized
+
+    \param clientWidth new client width of window
+    \param clientHeight new client height of window
+    */
+    void onWindowResized(int32 clientWidth, int32 clientHeight);
+
+    /*! called when mouse was moved
+    
+    \param x1 last horrizontal coordinate
+    \param y1 last vertical coordinate
+    \param x2 current horrizontal coordinate
+    \param y2 current vertical coordinate
+    \param window the window the coordinates are related to
+    */
+    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+
+    /*! called when orthogonal view was rendred
+    */
+    void onRenderOrtho();
+
+    /*! initialize everything
+    */
+    void init();
+
+    /*! initialize window and views
+    */
+	void initViews();
+
+    /*! initialize scene
+    */
+	void initScene();
+
+    /*! register some callbacks
+    */
+    void registerHandles();
+
+    /*! deinitialize everything
+    */
+    void deinit();
+
+    /*! unregister the callbacks
+    */
+    void unregisterHandles();
+
+    /*! generate some voxel data and meshs
+    */
+    void generateVoxelData();
 
 };
 

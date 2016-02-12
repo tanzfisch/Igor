@@ -9,14 +9,12 @@ using namespace IgorAux;
 
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
-#include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>
 #include <iNodeLight.h>
 #include <iNodeCamera.h>
 #include <iNodeModel.h> 
 #include <iNodeTransform.h>
-#include <iRenderer.h>
 #include <iApplication.h>
 #include <iSceneFactory.h>
 #include <iScene.h>
@@ -28,19 +26,8 @@ using namespace IgorAux;
 #include <iTaskFlushTextures.h>
 #include <iMaterialResourceFactory.h>
 #include <iVoxelData.h>
-#include <iMeshBuilder.h>
 #include <iaVector3.h>
-#include <iContouringCubes.h>
-#include <iTextureResourceFactory.h>
-#include <iPixmap.h>
 #include <iStatistics.h>
-#include <iTargetMaterial.h>
-#include <iPerlinNoise.h>
-#include <iNodeTransformControl.h>
-#include <iNodeLODTrigger.h>
-#include <iNodeLODSwitch.h>
-#include <iOctree.h>
-#include <iPhysicsManager.h>
 using namespace Igor;
 
 #include "VoxelTerrainMeshGenerator.h"
@@ -58,41 +45,45 @@ VoxelExample::~VoxelExample()
 void VoxelExample::registerHandles()
 {
     // register callbacks to all the events that are of interest to us
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::keyESCPressed), iKeyCode::ESC);
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::keySpaceReleased), iKeyCode::Space);
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::mouseMoved));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::onKeySpaceReleased), iKeyCode::Space);
+    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
 
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::windowResized));
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::windowClosed));
+    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
+    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
 }
 
 void VoxelExample::unregisterHandles()
 {
     // unregister all the callbacks
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::windowResized));
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::windowClosed));
+    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
 
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::mouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::keyESCPressed), iKeyCode::ESC);
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::keySpaceReleased), iKeyCode::Space);
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::onKeySpaceReleased), iKeyCode::Space);
 }
 
 void VoxelExample::initViews()
 {
+    // init the view to render the scene
     _view.setClearColor(iaColor4f(0.97, 0.97, 1.0, 1));
     _view.setPerspective(60);
     _view.setClipPlanes(0.1f, 1000.f);
 
+    // init an other view to display the frame rate
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &VoxelExample::renderOrtho));
+    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
 
+    // add the views to the window and open it
     _window.setTitle("Voxel Example");
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
     _window.setSize(1000, 1000);
     _window.open();
 
+    // update the orthogonal projection after we know the windows cient rectangle. the same we do after a resize
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
 }
 
@@ -132,19 +123,12 @@ void VoxelExample::initScene()
     _lightTranslate->insertNode(_lightNode);
     _scene->getRoot()->insertNode(_lightRotate);
 
-    // init sky box
+    // init sky box and add it to scene
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
     iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
-
-    // set up voxel mesh material
-    _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain_directional_light.frag", iShaderObjectType::Fragment);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     skyBoxNode->setTextures(
@@ -157,73 +141,90 @@ void VoxelExample::initScene()
     skyBoxNode->setTextureScale(1);
     skyBoxNode->setMaterial(_materialSkyBox);
     _scene->getRoot()->insertNode(skyBoxNode);
+
+    // set up voxel mesh material
+    _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 }
 
 void VoxelExample::generateVoxelData()
 {
+    // if there is none create it
     if (_voxelData == nullptr)
     {
         _voxelData = new iVoxelData();
+        // all voxels have a full density as default. so afterwars we need to cut holes in it
         _voxelData->setClearValue(255);
         _voxelData->initData(70, 70, 70);
     }
 
-    iPerlinNoise perlinNoise;
-    perlinNoise.generateBase(static_cast<uint32>(iTimer::getInstance().getTime()));
+    // generate new random base with time based seed
+    _perlinNoise.generateBase(static_cast<uint32>(iTimer::getInstance().getTime()));
 
+    // clear the voxel data
     _voxelData->clear();
 
+    // so we want a sphere with a center and radius
     iaVector3f center(_voxelData->getWidth() / 2.0f, _voxelData->getHeight() / 2.0f, _voxelData->getDepth() / 2.0f);
-    float32 targetRadius = center._x - 4.0f;
-    const float64 from = 0.444;
-    const float64 to = 0.45;
-    float64 factor = 1.0 / (to - from);
+    float32 radius = center._x - 4.0f;
 
+    // now iterate though all the voxels and define thair density
     for (int64 x = 0; x < _voxelData->getWidth(); ++x)
     {
         for (int64 y = 0; y < _voxelData->getHeight(); ++y)
         {
             for (int64 z = 0; z < _voxelData->getDepth(); ++z)
             {
+                // first figure out if a voxel is outside the sphere
                 iaVector3f pos(x,y,z);
-                float32 radius = center.distance(pos);
+                float32 distance = center.distance(pos);
 
-                if(radius > targetRadius - 1.0f)
+                if(distance > radius - 1.0f)
                 {
-                    if (radius > targetRadius)
-                    {
+                    if (distance > radius)
+                    {   
+                        // outside sphere
                         _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
                     }
                     else
                     {
-                        radius -= (targetRadius - 1.0f);
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), ((1-radius) * 254) + 1);
+                        // at the edge of the sphere. 
+                        // now we can use the fractional part of the distance to determine how much more than a full voxel we are away from the center
+                        // and use this to set the density. this way we get a smooth sphere.
+                        float32 denstity = 1 - (distance - (radius - 1.0f));
+
+                        // the density by the way goes from 0-255 but the zero is interpreted as outside ans the 1 is inside but with zero density
+                        // so to calculate a propper density we need to multiply the density with 254 and to make it alwasy beein "inside" we add one
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
                     }
                 }
 
-                float64 onoff = perlinNoise.getValue(iaVector3d(x * 0.04, y * 0.04, z * 0.04), 2, 0.5);
-                if (onoff <= from)
+                // using some perline noise to cut holes in the sphere. this time we skip the smoothing part due to much effort and cluttering the tutorial 
+                // with bad understandable code. Ask the author if you'd like to know about smoothing the values
+                float64 onoff = _perlinNoise.getValue(iaVector3d(x * 0.04, y * 0.04, z * 0.04), 2, 0.5);
+                if (onoff < 0.5)
                 {
-                    if (onoff >= to)
-                    {
-                        float64 gradient = 1.0 - ((onoff - from) * factor);
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), (gradient * 254) + 1);
-                    }
-                    else
-                    {
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-                    }
+                    _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
                 }
             }
         }
     }
 
-    if (_voxelMeshModel != nullptr)
+    // cleanup the scene
+    if (_voxelMeshTransform != nullptr)
     {
-        iNodeFactory::getInstance().destroyNode(_voxelMeshModel);
+        // this will also kill all the children of that node
+        iNodeFactory::getInstance().destroyNode(_voxelMeshTransform);
+        _voxelMeshTransform = nullptr;
         _voxelMeshModel = nullptr;
     }
 
+    // !!!! now you should first have a look at the VoxelTerrainMeshGenerator class before you continue !!!!
+
+    // prepar 
     TileInformation tileInformation;
     tileInformation._materialID = _voxelMeshMaterialID;
     tileInformation._voxelData = _voxelData;
@@ -239,10 +240,10 @@ void VoxelExample::generateVoxelData()
     _voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _voxelMeshModel->setModel("VoxelMesh", inputParam);
 
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
-    transform->insertNode(_voxelMeshModel);
-    _scene->getRoot()->insertNode(transform);
+    _voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _voxelMeshTransform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
+    _voxelMeshTransform->insertNode(_voxelMeshModel);
+    _scene->getRoot()->insertNode(_voxelMeshTransform);
 }
 
 void VoxelExample::init()
@@ -273,7 +274,7 @@ void VoxelExample::deinit()
 
     iSceneFactory::getInstance().destroyScene(_scene);
 
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::renderOrtho));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
 
     _window.close();
     _window.removeView(&_view);
@@ -286,7 +287,7 @@ void VoxelExample::deinit()
     }
 }
 
-void VoxelExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void VoxelExample::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
     if (iMouse::getInstance().getRightButton())
     {
@@ -309,27 +310,27 @@ void VoxelExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _
     }
 }
 
-void VoxelExample::windowClosed()
+void VoxelExample::onWindowClosed()
 {
     iApplication::getInstance().stop();
 }
 
-void VoxelExample::windowResized(int32 clientWidth, int32 clientHeight)
+void VoxelExample::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
 
-void VoxelExample::keySpaceReleased()
+void VoxelExample::onKeySpaceReleased()
 {
     generateVoxelData();
 }
 
-void VoxelExample::keyESCPressed()
+void VoxelExample::onKeyESCPressed()
 {
     iApplication::getInstance().stop();
 }
 
-void VoxelExample::renderOrtho()
+void VoxelExample::onRenderOrtho()
 {
     iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
 }
