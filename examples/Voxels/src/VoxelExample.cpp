@@ -43,7 +43,7 @@ using namespace IgorAux;
 #include <iPhysicsManager.h>
 using namespace Igor;
 
-#include "Player.h"
+#include "VoxelTerrainMeshGenerator.h"
 
 VoxelExample::VoxelExample()
 {
@@ -57,61 +57,72 @@ VoxelExample::~VoxelExample()
 
 void VoxelExample::registerHandles()
 {
-    iKeyboard::getInstance().registerKeyDownDelegate(KeyDownDelegateExt(this, &VoxelExample::keyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(MouseMoveFullDelegate(this, &VoxelExample::mouseMoved));
-    iMouse::getInstance().registerMouseKeyDownDelegate(MouseKeyDownDelegate(this, &VoxelExample::mouseDown));
-    iMouse::getInstance().registerMouseWheelDelegate(MouseWheelDelegate(this, &VoxelExample::mouseWheel));
+    // register callbacks to all the events that are of interest to us
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::keyESCPressed), iKeyCode::ESC);
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::keySpaceReleased), iKeyCode::Space);
+    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::mouseMoved));
 
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::windowResized));
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::windowClosed));
-
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &VoxelExample::handle));
 }
 
 void VoxelExample::unregisterHandles()
 {
-    iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &VoxelExample::handle));
-
+    // unregister all the callbacks
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::windowResized));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::windowClosed));
 
-    iMouse::getInstance().unregisterMouseKeyDownDelegate(MouseKeyDownDelegate(this, &VoxelExample::mouseDown));
-    iMouse::getInstance().unregisterMouseWheelDelegate(MouseWheelDelegate(this, &VoxelExample::mouseWheel));
-
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(MouseMoveFullDelegate(this, &VoxelExample::mouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(KeyDownDelegateExt(this, &VoxelExample::keyPressed));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::mouseMoved));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::keyESCPressed), iKeyCode::ESC);
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::keySpaceReleased), iKeyCode::Space);
 }
 
 void VoxelExample::initViews()
 {
     _view.setClearColor(iaColor4f(0.97, 0.97, 1.0, 1));
     _view.setPerspective(60);
-    _view.setClipPlanes(0.1f, 400.f);
-    _view.registerRenderDelegate(RenderDelegate(this, &VoxelExample::render));
+    _view.setClipPlanes(0.1f, 1000.f);
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, 1280, 768, 0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &VoxelExample::renderOrtho));
 
-    _window.setTitle("VoxelExample");
+    _window.setTitle("Voxel Example");
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
-    _window.setSize(1280, 768);
+    _window.setSize(1000, 1000);
     _window.open();
+
+    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
 }
 
 void VoxelExample::initScene()
 {
+    // create scene and bind it to view
     _scene = iSceneFactory::getInstance().createScene();
-    iPhysicsManager::getInstance().setScene(_scene);
-
     _view.setScene(_scene);
 
-    // light
+    // create camera and insertt in to scene
+    _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraTranslation->translate(0, 0, 70);
+    _camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+
+    _scene->getRoot()->insertNode(_cameraHeading);
+    _cameraHeading->insertNode(_cameraPitch);
+    _cameraPitch->insertNode(_cameraTranslation);
+    _cameraTranslation->insertNode(_camera);
+
+    // make it the current active camera
+    _camera->makeCurrent();
+
+    // create a directional light
     _lightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _lightTranslate->translate(100, 100, 100);
+
     _lightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+
     _lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
     _lightNode->setAmbient(iaColor4f(0.6f, 0.6f, 0.6f, 1.0f));
     _lightNode->setDiffuse(iaColor4f(0.9f, 0.7f, 0.6f, 1.0f));
@@ -121,188 +132,178 @@ void VoxelExample::initScene()
     _lightTranslate->insertNode(_lightNode);
     _scene->getRoot()->insertNode(_lightRotate);
 
-    _markerTranform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    iNodeTransform* offset = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    offset->translate(0, 1, 0);
-    iNodeTransform* scale1 = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    scale1->scale(20, 0.5, 0.5);
-    iNodeTransform* scale2 = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    scale2->scale(0.5, 20, 0.5);
-    iNodeTransform* scale3 = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    scale3->scale(0.5, 0.5, 20);
+    // init sky box
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
 
-    iNodeModel* marker1 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    marker1->setModel("crate.ompf");
-    iNodeModel* marker2 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    marker2->setModel("crate.ompf");
-    iNodeModel* marker3 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    marker3->setModel("crate.ompf");
+    // set up voxel mesh material
+    _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 
-    _scene->getRoot()->insertNode(_markerTranform);
-    _markerTranform->insertNode(offset);
-    offset->insertNode(scale1);
-    offset->insertNode(scale2);
-    offset->insertNode(scale3);
-    scale1->insertNode(marker1);
-    scale2->insertNode(marker2);
-    scale3->insertNode(marker3);
+    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    skyBoxNode->setTextures(
+        "skybox_stars/front.jpg",
+        "skybox_stars/back.jpg",
+        "skybox_stars/left.jpg",
+        "skybox_stars/right.jpg",
+        "skybox_stars/top.jpg",
+        "skybox_stars/bottom.jpg");
+    skyBoxNode->setTextureScale(1);
+    skyBoxNode->setMaterial(_materialSkyBox);
+    _scene->getRoot()->insertNode(skyBoxNode);
 }
 
-void VoxelExample::initPlayer()
+void VoxelExample::generateVoxelData()
 {
-    _player = new Player(_scene);
+    if (_voxelData == nullptr)
+    {
+        _voxelData = new iVoxelData();
+        _voxelData->setClearValue(255);
+        _voxelData->initData(70, 70, 70);
+    }
+
+    iPerlinNoise perlinNoise;
+    perlinNoise.generateBase(static_cast<uint32>(iTimer::getInstance().getTime()));
+
+    _voxelData->clear();
+
+    iaVector3f center(_voxelData->getWidth() / 2.0f, _voxelData->getHeight() / 2.0f, _voxelData->getDepth() / 2.0f);
+    float32 targetRadius = center._x - 4.0f;
+    const float64 from = 0.444;
+    const float64 to = 0.45;
+    float64 factor = 1.0 / (to - from);
+
+    for (int64 x = 0; x < _voxelData->getWidth(); ++x)
+    {
+        for (int64 y = 0; y < _voxelData->getHeight(); ++y)
+        {
+            for (int64 z = 0; z < _voxelData->getDepth(); ++z)
+            {
+                iaVector3f pos(x,y,z);
+                float32 radius = center.distance(pos);
+
+                if(radius > targetRadius - 1.0f)
+                {
+                    if (radius > targetRadius)
+                    {
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    }
+                    else
+                    {
+                        radius -= (targetRadius - 1.0f);
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), ((1-radius) * 254) + 1);
+                    }
+                }
+
+                float64 onoff = perlinNoise.getValue(iaVector3d(x * 0.04, y * 0.04, z * 0.04), 2, 0.5);
+                if (onoff <= from)
+                {
+                    if (onoff >= to)
+                    {
+                        float64 gradient = 1.0 - ((onoff - from) * factor);
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), (gradient * 254) + 1);
+                    }
+                    else
+                    {
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    }
+                }
+            }
+        }
+    }
+
+    if (_voxelMeshModel != nullptr)
+    {
+        iNodeFactory::getInstance().destroyNode(_voxelMeshModel);
+        _voxelMeshModel = nullptr;
+    }
+
+    TileInformation tileInformation;
+    tileInformation._materialID = _voxelMeshMaterialID;
+    tileInformation._voxelData = _voxelData;
+
+    iModelDataInputParameter* inputParam = new iModelDataInputParameter(); // will be deleted by iModel
+    inputParam->_identifier = "vtg";
+    inputParam->_joinVertexes = true;
+    inputParam->_needsRenderContext = false;
+    inputParam->_modelSourceType = iModelSourceType::Generated;
+    inputParam->_loadPriority = 0;
+    inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(TileInformation));
+
+    _voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    _voxelMeshModel->setModel("VoxelMesh", inputParam);
+
+    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
+    transform->insertNode(_voxelMeshModel);
+    _scene->getRoot()->insertNode(transform);
 }
 
 void VoxelExample::init()
 {
-    con(" -- OpenGL 3D Test --" << endl);
+    con_endl("--- Voxel Example ---");
 
     initViews();
     initScene();
-    initPlayer();
-    initVoxelData();
 
-    // set up octree debug rendering
-    _octreeMaterial = iMaterialResourceFactory::getInstance().createMaterial("Octree");
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-
-    // set up statistics
+    // load font for statistics display
     _font = new iTextureFont("StandardFont.png");
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::None);
+    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSOnly);
 
     // launch resource handlers
     iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     registerHandles();
+
+    iModelResourceFactory::getInstance().registerModelDataIO("vtg", &VoxelTerrainMeshGenerator::createInstance);
+    generateVoxelData();
 }
 
 void VoxelExample::deinit()
 {
+    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
     unregisterHandles();
 
     iSceneFactory::getInstance().destroyScene(_scene);
 
-    _view.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::render));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::renderOrtho));
 
     _window.close();
     _window.removeView(&_view);
     _window.removeView(&_viewOrtho);
 
-    if (_font)
+    if (_font != nullptr)
     {
         delete _font;
-    }
-}
-
-void VoxelExample::mouseWheel(int d)
-{
-    if (iKeyboard::getInstance().getKey(iKeyCode::LShift))
-    {
-        if (d > 0)
-        {
-            _toolDensity += 10;
-            if (_toolDensity > 255)
-            {
-                _toolDensity = 255;
-            }
-        }
-        else
-        {
-            _toolDensity -= 10;
-
-            if (_toolDensity < 1)
-            {
-                _toolDensity = 1;
-            }
-        }
-
-        con_endl("tool density " << _toolDensity);
-    }
-    else
-    {
-        if (d > 0)
-        {
-            _toolSize += 1;
-            if (_toolSize > 10)
-            {
-                _toolSize = 10;
-            }
-        }
-        else
-        {
-            _toolSize -= 1;
-
-            if (_toolSize < 1)
-            {
-                _toolSize = 1;
-            }
-        }
-
-        con_endl("tool size " << _toolSize);
-    }
-}
-
-void VoxelExample::mouseDown(iKeyCode key)
-{
-    if (key == iKeyCode::MouseRight)
-    {
-        uint8 density = static_cast<uint8>(_toolDensity);
-        if (iKeyboard::getInstance().getKey(iKeyCode::LShift))
-        {
-            density = 0;
-        }
-
-        iaMatrixf matrix;
-        _markerTranform->getMatrix(matrix);
-        iaVector3I markerPosition(matrix._pos._x, matrix._pos._y, matrix._pos._z);
-        
-        int64 halfToolSize = _toolSize / 2;
-
-        for (int x = -halfToolSize; x < halfToolSize + 1; ++x)
-        {
-            for (int y = -halfToolSize; y < halfToolSize + 1; ++y)
-            {
-                for (int z = -halfToolSize; z < halfToolSize + 1; ++z)
-                {
-                    iaVector3I pos(x, y, z);
-                    _voxelTerrainGenerator->setVoxelDensity(markerPosition + pos, density);
-                }
-            }
-        }
-
-        iaVector3I tilePosition = markerPosition / 32;
-
-        for (int x = -1; x < 2; ++x)
-        {
-            for (int y = -1; y < 2; ++y)
-            {
-                for (int z = -1; z < 2; ++z)
-                {
-                    iaVector3I pos(x, y, z);
-                    _voxelTerrainGenerator->refreshTile(tilePosition + pos);
-                }
-            }
-        }
+        _font = nullptr;
     }
 }
 
 void VoxelExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
-    if (iMouse::getInstance().getMiddleButton())
+    if (iMouse::getInstance().getRightButton())
     {
         float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
         float32 dy = static_cast<float32>(y1 - y2) * 0.005f;
         _lightRotate->rotate(dx, iaAxis::Y);
         _lightRotate->rotate(dy, iaAxis::X);
+
+        iMouse::getInstance().setCenter(true);
+    }
+
+    if (iMouse::getInstance().getLeftButton())
+    {
+        float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
+        float32 dy = static_cast<float32>(y1 - y2) * 0.005f;
+        _cameraHeading->rotate(dx, iaAxis::Y);
+        _cameraPitch->rotate(dy, iaAxis::X);
 
         iMouse::getInstance().setCenter(true);
     }
@@ -318,93 +319,19 @@ void VoxelExample::windowResized(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
 
-void VoxelExample::keyPressed(iKeyCode key)
+void VoxelExample::keySpaceReleased()
 {
-    switch (key)
-    {
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        break;
-
-    case iKeyCode::F2:
-        _renderOctree = !_renderOctree;
-        break;
-
-    case iKeyCode::F3:
-    {
-        iRenderStatisticsVerbosity level = iStatistics::getInstance().getVerbosity();
-
-        if (level == iRenderStatisticsVerbosity::All)
-        {
-            level = iRenderStatisticsVerbosity::None;
-        }
-        else
-        {
-            int value = static_cast<int>(level);
-            value++;
-            level = static_cast<iRenderStatisticsVerbosity>(value);
-        }
-
-        iStatistics::getInstance().setVerbosity(level);
-    }
-    break;
-
-    case iKeyCode::P:
-        _player->printPosition();
-        break;
-
-    case iKeyCode::Space:
-    {
-        
-    }
-    break;
-    }
+    generateVoxelData();
 }
 
-void VoxelExample::updateMarkerPosition()
+void VoxelExample::keyESCPressed()
 {
-   iaMatrixf matrix;
-    _player->getMatrix(matrix);
-
-    iaVector3I dir(matrix._depth._x * 100.0f, matrix._depth._y * 100.0f, matrix._depth._z * 100.0f);
-    dir.negate();
-    iaVector3I from(matrix._pos._x, matrix._pos._y, matrix._pos._z);
-    iaVector3I to(from);
-    to += dir;
-
-    iaVector3I result = _voxelTerrainGenerator->castRay(from, to);
-    matrix.identity();
-    matrix.translate(result._x, result._y, result._z);
-    _markerTranform->setMatrix(matrix);
-}
-
-void VoxelExample::initVoxelData()
-{
-    _voxelTerrainGenerator = new VoxelTerrainGenerator(_scene);
-    _voxelTerrainGenerator->setLODTrigger(_player->getLODTrigger());
-}
-
-void VoxelExample::handle()
-{
-    updateMarkerPosition();
-}
-
-void VoxelExample::render()
-{
-    if (_renderOctree)
-    {
-        iaMatrixf model;
-        iRenderer::getInstance().setModelMatrix(model);
-
-        iMaterialResourceFactory::getInstance().setMaterial(_octreeMaterial);
-        iRenderer::getInstance().setColor(0, 1.0f, 0, 0.5f);
-        _scene->getOctree()->draw();
-    }
+    iApplication::getInstance().stop();
 }
 
 void VoxelExample::renderOrtho()
 {
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1.0f, 0.5f, 0.0f, 1.0f));
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
 }
 
 void VoxelExample::run()

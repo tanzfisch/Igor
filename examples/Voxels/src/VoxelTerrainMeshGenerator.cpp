@@ -16,7 +16,7 @@
 #include <iTextureResourceFactory.h>
 #include <iTargetMaterial.h>
 #include <iNodeTransform.h>
-#include <iNodePhysicsMesh.h>
+#include <iNodePhysics.h>
 using namespace Igor;
 
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
@@ -34,34 +34,17 @@ iModelDataIO* VoxelTerrainMeshGenerator::createInstance()
 iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
 {
     TileInformation* tileInformation = reinterpret_cast<TileInformation*>(parameter->_parameters.getDataPointer());
-    const iaVector3I& relativePos = tileInformation->_relativePos;
-    const iaVector3I& absolutePos = tileInformation->_absolutePos;
-    int64 width = tileInformation->_width;
-    int64 depth = tileInformation->_depth;
-    int64 height = tileInformation->_height;
     iVoxelData* voxelData = tileInformation->_voxelData;
-
-    if (relativePos._x + width >= voxelData->getWidth())
-    {
-        width = voxelData->getWidth() - 1 - relativePos._x;
-    }
-
-    if (relativePos._z + depth >= voxelData->getDepth())
-    {
-        depth = voxelData->getDepth() - 1 - relativePos._z;
-    }
-
-    if (relativePos._y + height >= voxelData->getHeight())
-    {
-        height = voxelData->getHeight() - 1 - relativePos._y;
-    }
-
+    int64 width = voxelData->getWidth() - 1;
+    int64 depth = voxelData->getDepth() - 1;
+    int64 height = voxelData->getHeight() - 1;
+    
     iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 
     iContouringCubes contouringCubes;
     contouringCubes.setVoxelData(voxelData);
 
-    shared_ptr<iMesh> mesh = contouringCubes.compile(relativePos, iaVector3I(width, height, depth));
+    shared_ptr<iMesh> mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
 
     if (mesh.get() != nullptr)
     {
@@ -80,16 +63,7 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
         targetMaterial->setShininess(100.0f);
 
         result->insertNode(meshNode);
-
-        iNodePhysicsMesh* physicsMeshNode = static_cast<iNodePhysicsMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysicsMesh));
-        iaMatrixf offset;
-        offset.translate(absolutePos._x, absolutePos._y, absolutePos._z);
-        physicsMeshNode->setMesh(mesh, 1, offset);
-
-        result->insertNode(physicsMeshNode);
     }
-
-    delete parameter;
 
     return result;
 }

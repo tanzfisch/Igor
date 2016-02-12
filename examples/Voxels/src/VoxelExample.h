@@ -40,8 +40,6 @@ using namespace Igor;
 #include <iaMatrix.h>
 using namespace IgorAux;
 
-#include "VoxelTerrainGenerator.h"
-
 namespace Igor
 {
 	class iScene;
@@ -54,10 +52,7 @@ namespace Igor
     class iMesh;
     class iTargetMaterial;
     class iNodeTransformControl;
-    class iNodeLODTrigger;
 }
-
-class Player;
 
 class VoxelExample
 {
@@ -67,52 +62,39 @@ private:
 	iView _view;
     iView _viewOrtho;
 
-    Player* _player = nullptr;
-
     iTextureFont* _font = nullptr;
-
 	iScene* _scene = nullptr;
 
-    bool _renderOctree = false;
-
-    iNodeTransform* _markerTranform = nullptr;
-    iNodeTransform* _markerScale = nullptr;
-    iNodeModel* _marker = nullptr;
-
-    int64 _toolSize = 3;
-    int64 _toolDensity = 255;
+    iNodeTransform* _cameraHeading = nullptr;
+    iNodeTransform* _cameraPitch = nullptr;
+    iNodeTransform* _cameraTranslation = nullptr;
+    iNodeCamera* _camera = nullptr;
 
     iNodeTransform* _lightTranslate = nullptr;
     iNodeTransform* _lightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
-    uint32 _materialWithTextureAndBlending = 0;
-    uint32 _octreeMaterial = 0;
+    iNodeModel* _voxelMeshModel = nullptr;
+
     int32 _materialSkyBox = 0;
+    int32 _voxelMeshMaterialID = 0;
 
-    VoxelTerrainGenerator* _voxelTerrainGenerator = nullptr;
-
-	void keyPressed(iKeyCode key);
+    iVoxelData* _voxelData = nullptr;
+    uint32 _seed = 0;
+    
+	void keyESCPressed();
+    void keySpaceReleased();
 	void windowClosed();
     void windowResized(int32 clientWidth, int32 clientHeight);
     void mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
-    void mouseDown(iKeyCode key);
-    void mouseWheel(int d);
 	void deinit();
 	void init();
-
-	void render();
-    void handle();
+    void generateVoxelData();
     void renderOrtho();
-
 	void registerHandles();
 	void unregisterHandles();
 	void initViews();
 	void initScene();
-	void initPlayer();
-    void initVoxelData();
-
-    void updateMarkerPosition();
 
 public:
 

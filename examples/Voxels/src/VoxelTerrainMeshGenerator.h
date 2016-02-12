@@ -7,9 +7,9 @@
 //      /\_____\\ \____ \\ \____/ \ \_\   |       | /     \
 //  ____\/_____/_\/___L\ \\/___/___\/_/____\__  _/__\__ __/________________
 //                 /\____/                   ( (       ))
-//                 \_/__/  game engine        ) )     ((
+//                 \_/__/                     ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2014-2015 by Martin Loga
+//    (c) Copyright 2014-2015 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -45,14 +45,8 @@ namespace Igor
 
 struct TileInformation
 {
-    iaVector3I _relativePos;
-    iaVector3I _absolutePos;
-    int64 _width = 0;
-    int64 _depth = 0;
-    int64 _height = 0;
     iVoxelData* _voxelData = nullptr;
-    uint32 _lodTriggerID = 0;
-    uint32 _materialID = 0;
+    int32 _materialID = 0;
 };
 
 class VoxelTerrainMeshGenerator : public iModelDataIO

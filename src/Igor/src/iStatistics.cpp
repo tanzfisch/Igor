@@ -105,6 +105,7 @@ namespace Igor
         }
     }
 
+    // todo refactor
     void iStatistics::drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color)
     {
         if (_renderStatisticsMode > iRenderStatisticsVerbosity::None)
@@ -298,6 +299,8 @@ namespace Igor
                 iRenderer::getInstance().setColor(color);
             }
         }
+
+        iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     }
 
 
