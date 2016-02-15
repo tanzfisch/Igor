@@ -191,7 +191,11 @@ namespace Igor
 		else
 		{
             _volumes.push_back(volume);
-			_octree->insert(volume->getID());
+
+            iSpheref sphere;
+            sphere._center = volume->getCenter();
+            sphere._radius = volume->getBoundingSphere()._radius;
+			_octree->insert(volume->getID(), sphere);
 		}
 	}
 
@@ -210,7 +214,11 @@ namespace Igor
 
 	void iScene::updateVolume(iNodeVolume* volume)
 	{
-		_octree->update(volume->getID());
+        iSpheref sphere;
+        sphere._center = volume->getCenter();
+        sphere._radius = volume->getBoundingSphere()._radius;
+
+		_octree->update(volume->getID(), sphere);
 	}
 
 	void iScene::registerCamera(iNodeCamera* camera)

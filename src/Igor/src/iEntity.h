@@ -51,9 +51,7 @@ namespace Igor
     class Igor_API iEntity
     {
 
-        friend class iEntityControl;
         friend class iEntityFactory;
-        friend void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex);
 
     public:
 
@@ -65,101 +63,11 @@ namespace Igor
         */
         uint32 getID();
 
-        /*! set custom value of type bool
-
-        \param index index of velue to set
-        \param value value to set
-        */
-        void setBool(uint32 index, bool value);
-
-        /*! set custom value of type float
-
-        \param index index of velue to set
-        \param value value to set
-        */
-        void setFloat(uint32 index, float32 value);
-        
-        /*! \returns custom value of type bool
-
-        \param index index of value to return
-        */
-        bool getBool(uint32 index);
-
-        /*! \returns custom value of type float
-
-        \param index index of value to return
-        */
-        float32 getFloat(uint32 index);
-
-        /*! set custom value of type int
-
-        \param index index of velue to set
-        \param value value to set
-        */
-        void setInt(uint32 index, int64 value);
-
-        /*! \returns custom value of type int
-
-        \param index index of value to return
-        */
-        int64 getInt(uint32 index);
-
-        /*! set custom value of type int
-
-        \param index index of velue to set
-        \param value value to set
-        */
-        void setUInt(uint32 index, uint64 value);
-
-        /*! \returns custom value of type int
-
-        \param index index of value to return
-        */
-        uint64 getUInt(uint32 index);
-
-        /*! sets a vector with a specified index
-
-        \param index the indext to put the vector in
-        \param value the vectors value
-        */
-        void setVector(uint32 index, const iaVector3f& value);
-
-        /*! \returns vector for given index
-
-        \param index the given index
-        */
-        const iaVector3f& getVector(uint32 index);
-
-        void setMatrix(uint32 index, const iaMatrixf& value);
-        const iaMatrixf& getMatrix(uint32 index);
-
     protected:
 
         /*! entity unique id
         */
-        uint32 _id = 0;
-
-        /*! custom data bools
-        */
-        map<uint32, bool> _customBools;
-
-        /*! custom data integers
-        */
-        map<uint32, int32> _sInts;
-
-        /*! custom data unsigned integers
-        */
-        map<uint32, int32> _uInts;
-
-        /*! custom data floats
-        */
-        map<uint32, float32> _customFloats;
-
-        /*! custom data vectors
-        */
-        map<uint32, iaVector3f> _vectors;
-
-        map<uint32, iaMatrixf> _matrices;
+        uint32 _id = INVALID_ENTITY_ID;
 
         /*! called every frame
         */

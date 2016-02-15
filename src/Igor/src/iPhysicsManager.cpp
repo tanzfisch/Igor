@@ -81,18 +81,20 @@ namespace Igor
         vector<uint32> updateList;
 
         _scene->getOctree()->resetFilter();
-        _scene->getOctree()->filter(sphere, iNodeKind::Physics);
+        _scene->getOctree()->filter(sphere);
         _scene->getOctree()->getResult(cullResult);
 
         for (auto id : cullResult)
         {
-            auto workingIter = _inWork.find(id);
-            if (workingIter == _inWork.end())
+            iNode* node = iNodeFactory::getInstance().getNode(id);
+            if (node != nullptr &&
+                node->getKind() == iNodeKind::Physics)
             {
-                iNodePhysics* node = static_cast<iNodePhysics*>(iNodeFactory::getInstance().getNode(id));
-                if (node != nullptr)
+                auto workingIter = _inWork.find(id);
+                if (workingIter == _inWork.end())
                 {
-                    if (!node->isInitialized())
+                    iNodePhysics* nodePhysics = static_cast<iNodePhysics*>(node);
+                    if (!nodePhysics->isInitialized())
                     {
                         _inWork[id] = 0;
                         updateList.push_back(id);

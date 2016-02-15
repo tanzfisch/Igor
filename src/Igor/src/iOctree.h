@@ -30,6 +30,7 @@
 #define __iOCTREE__
 
 #include <iAACube.h>
+#include <iSphere.h>
 #include <iFrustum.h>
 #include <iNode.h>
 
@@ -57,23 +58,23 @@ namespace Igor
 
         /*! insert scene node to octree
 
-        \param sceneNodeID id of the scene node
+        \param userDataID id of the scene node
         */
-        void insert(uint32 sceneNodeID);
+        void insert(uint32 userDataID, const iSpheref& sphere);
 
         /*! remove scene node from octree
 
-        \param sceneNodeID id of the scene node
+        \param userDataID id of the scene node
         */
-        void remove(uint32 sceneNodeID);
+        void remove(uint32 userDataID);
 
         /*! update scene node in octree
 
         this is called usually if the scene node changed it's position
 
-        \param sceneNodeID id of the scene node
+        \param userDataID id of the scene node
         */
-        void update(uint32 sceneNodeID);
+        void update(uint32 userDataID, const iSpheref& sphere);
 
         /*! clears the filter results
         */
@@ -82,16 +83,14 @@ namespace Igor
         /*! filters everything out that is not within the frustum
 
         \param frustum cull frustum
-        \param filterKind the kind of nodes to filter
         */
-        void filter(const iFrustumd& frustum, iNodeKind filterKind = iNodeKind::Undefined);
+        void filter(const iFrustumd& frustum);
 
         /*! filters everything out that is not within the spehere
 
         \param sphere cull sphere
-        \param filterKind the kind of nodes to filter
         */
-        void filter(const iSphered& sphere, iNodeKind filterKind = iNodeKind::Undefined);
+        void filter(const iSphered& sphere);
 
         /*! returns the result of filtering
 
@@ -129,6 +128,10 @@ namespace Igor
             /*! id of paranting octree node
             */
             uint32 _octreeNode;
+
+            /*! sphere of object
+            */
+            iSphered _sphere;
         };
 
         /*! octree node of certain size
@@ -195,10 +198,10 @@ namespace Igor
         if the right place is fount a octree object will be created the represents the scene node
 
         \param nodeID the current octree node in rucursion
-        \param sceneNodeID the id of the scene node to bind to the octree object
-        \param center center of scene node volume
+        \param userDataID the id of the scene node to bind to the octree object
+        \param position position of scene node volume
         */
-        void insert(uint64 nodeID, uint32 sceneNodeID, iaVector3d& center);
+        void insert(uint64 nodeID, uint32 userDataID, const iSphered& sphere);
 
         /*! check if node has to be split and than split
 
@@ -228,17 +231,15 @@ namespace Igor
 
         \param frustum the frustum
         \param nodeID current octree node to check for filtering
-        \param filterKind the kind of nodes to filter
         */
-        void filter(const iFrustumd& frustum, uint64 nodeID, iNodeKind nodeKind);
+        void filter(const iFrustumd& frustum, uint64 nodeID);
 
         /*! recursive method to filter the octree with a sphere
 
         \param frustum the frustum
         \param nodeID current octree node to check for filtering
-        \param filterKind the kind of nodes to filter
         */
-        void filter(const iSphered& sphere, uint64 nodeID, iNodeKind nodeKind);
+        void filter(const iSphered& sphere, uint64 nodeID);
 
         /*! creates a node and returns the new node id
 
@@ -254,16 +255,16 @@ namespace Igor
 
         /*! creates an octree object
 
-        \param sceneNodeID scene node to associate the octree object with
+        \param userDataID scene node to associate the octree object with
         \returns pointer to new octree object
         */
-        OctreeObject* createObject(uint32 sceneNodeID);
+        OctreeObject* createObject(uint32 userDataID, const iSphered& sphere);
 
         /*! deletes an octree object by scene node id
 
-        \param sceneNodeID id of the corresponding scene node
+        \param userDataID id of the corresponding scene node
         */
-        void deleteObject(uint32 sceneNodeID);
+        void deleteObject(uint32 userDataID);
 
         /*! recursive method the draw the octree structure
 
