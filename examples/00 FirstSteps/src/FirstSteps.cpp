@@ -1,6 +1,5 @@
 #include "FirstSteps.h"
 
-#include <Igor.h>
 #include <iApplication.h>
 #include <iTimer.h>
 using namespace Igor;
@@ -43,10 +42,10 @@ void FirstSteps::onHandle()
     // lets count
     _counter++;
 
-    // print the counter and frame rate
-    con_endl("counter " << _counter << "  fps " << iTimer::getInstance().getFPS());
+    // print the counter
+    con_endl("handle " << _counter);
     
-    if (_counter >= 100)
+    if (_counter >= 5)
     {
         // breaks the applications endless loop
         iApplication::getInstance().stop();

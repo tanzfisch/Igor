@@ -50,6 +50,50 @@ namespace Igor
         friend class iTimerHandle;
 		friend class iaSingleton<iTimer>;
 
+    public:
+
+        /*! Absolute current time in milliseconds since operating system start.
+
+        This is the one you need if you want to meashure time independent from anything.
+
+        \returns time in milliseconds
+        */
+        virtual float64 getTime() const;
+
+        /*! Absolute handle time in ms since program start
+
+        This is basically the time from program start to last handle call (right after last render frame)
+        */
+        virtual float64 getMilliSeconds() const;
+
+        /*! Absolute handle time in s since program start
+
+        This is basically the time from program start to last handle call (right after last render frame)
+        */
+        virtual float64 getSeconds() const;
+
+        /*! delta since last handle call in ms
+
+        Basically the delta between the two last render frames.
+        */
+        virtual float64 getMilliSecondsDelta() const;
+
+        /*! delta since last handle call in s
+
+        Basically the delta between the two last render frames.
+        */
+        virtual float64 getSecondsDelta() const;
+
+        /*! Returns handle frame rate. It's connected to render framerate.
+        */
+        virtual float32 getFPS() const;
+
+    protected:
+
+        /*! call timer handles events
+        */
+        void handleTimerHandles();
+
 	private:
 		
 		/*! if true performance counter is available
@@ -101,50 +145,6 @@ namespace Igor
 		/*! Unregisters from iApplication
 		*/
 		virtual ~iTimer();
-
-	protected:
-
-		/*! call timer handles events
-		*/
-        void handleTimerHandles();
-
-    public:
-        
-		/*! Absolute current time in milliseconds since operating system start.
-
-		This is the one you need if you want to meashure time independent from anything.
-        
-        \returns time in milliseconds
-        */
-		virtual float64 getTime() const;
-
-		/*! Absolute handle time in ms since program start
-
-		This is basically the time from program start to last handle call (right after last render frame)
-		*/
-		virtual float64 getMilliSeconds() const;
-
-		/*! Absolute handle time in s since program start
-		
-		This is basically the time from program start to last handle call (right after last render frame)
-		*/
-		virtual float64 getSeconds() const;
-
-		/*! delta since last handle call in ms
-
-		Basically the delta between the two last render frames.
-		*/
-		virtual float64 getMilliSecondsDelta() const;
-
-		/*! delta since last handle call in s
-
-		Basically the delta between the two last render frames.
-		*/
-		virtual float64 getSecondsDelta() const;
-
-		/*! Returns handle frame rate. It's connected to render framerate.
-		*/
-		virtual float32 getFPS() const;
 
     };
 

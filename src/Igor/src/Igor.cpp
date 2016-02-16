@@ -108,7 +108,8 @@ namespace Igor
 		
         iaConsole::getInstance() << T << "    (c) Copyright 2014-2015 by Martin Loga" << endl << endl;
         iaConsole::getInstance() << T << "    ver. " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0"<< endl << endl;
-        iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek, I. Yozova" << endl;
+        iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek, I. Yozova" << endl << endl;
+        iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, GLee, stb_image, TinyXML" << endl;
 		iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl << endl;
 		iaConsole::getInstance() << UNLOCK;
 
