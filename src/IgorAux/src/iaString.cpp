@@ -763,7 +763,7 @@ namespace IgorAux
     iaString iaString::itoa(int32 value)
     {
         iaString result;
-        float32 n = value;
+        int32 n = value;
 
         if (value < 0)
         {
@@ -792,7 +792,7 @@ namespace IgorAux
         int ipart = (int)n;
 
         // Extract floating part
-        float fpart = n - (float)ipart;
+        float32 fpart = n - static_cast<float32>(ipart);
 
         // convert integer part to string
         result += intToStrInternal(ipart, 0);
@@ -805,7 +805,7 @@ namespace IgorAux
                            // Get the value of fraction part upto given no.
                            // of points after dot. The third parameter is needed
                            // to handle cases like 233.007
-            fpart = fpart * pow(10, afterpoint);
+            fpart = fpart * static_cast<float32>(pow(10, afterpoint));
 
             result += intToStrInternal((int)fpart, afterpoint);
         }
