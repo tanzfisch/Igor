@@ -77,8 +77,8 @@ namespace Igor
 
     void iPhysicsManager::cullScene(const iSphered& sphere)
     {
-        vector<uint32> cullResult;
-        vector<uint32> updateList;
+        vector<uint64> cullResult;
+        vector<uint64> updateList;
 
         _scene->getOctree()->resetFilter();
         _scene->getOctree()->filter(sphere);

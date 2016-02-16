@@ -60,13 +60,13 @@ namespace Igor
 
         \param userDataID id of the scene node
         */
-        void insert(uint32 userDataID, const iSpheref& sphere);
+        void insert(uint64 userDataID, const iSpheref& sphere);
 
         /*! remove scene node from octree
 
         \param userDataID id of the scene node
         */
-        void remove(uint32 userDataID);
+        void remove(uint64 userDataID);
 
         /*! update scene node in octree
 
@@ -74,7 +74,7 @@ namespace Igor
 
         \param userDataID id of the scene node
         */
-        void update(uint32 userDataID, const iSpheref& sphere);
+        void update(uint64 userDataID, const iSpheref& sphere);
 
         /*! clears the filter results
         */
@@ -96,7 +96,7 @@ namespace Igor
 
         \param data in out parameter for the resulting data
         */
-        void getResult(vector<uint32>& data);
+        void getResult(vector<uint64>& data);
 
         /*! creates the octree including the root node
 
@@ -127,7 +127,7 @@ namespace Igor
         {
             /*! id of paranting octree node
             */
-            uint32 _octreeNode;
+            uint64 _octreeNode;
 
             /*! sphere of object
             */
@@ -146,15 +146,15 @@ namespace Igor
 
             /*! octree nodes child nodes
             */
-            uint32* _children = nullptr;
+            uint64* _children = nullptr;
 
             /*! the parenting octree node
             */
-            uint32 _parent = 0;
+            uint64 _parent = 0;
 
             /*! list of objects within the volume of this octree node
             */
-            vector<uint32> _objects;
+            vector<uint64> _objects;
         };
 
         /*! lookup table for faster split of octree node volumes
@@ -191,7 +191,7 @@ namespace Igor
 
         /*! internal list for filtering
         */
-		vector<uint32> _queryResult;
+		vector<uint64> _queryResult;
 
         /*! recursive function to insert a scene node to the octree
 
@@ -201,7 +201,7 @@ namespace Igor
         \param userDataID the id of the scene node to bind to the octree object
         \param position position of scene node volume
         */
-        void insert(uint64 nodeID, uint32 userDataID, const iSphered& sphere);
+        void insert(uint64 nodeID, uint64 userDataID, const iSphered& sphere);
 
         /*! check if node has to be split and than split
 
@@ -258,13 +258,13 @@ namespace Igor
         \param userDataID scene node to associate the octree object with
         \returns pointer to new octree object
         */
-        OctreeObject* createObject(uint32 userDataID, const iSphered& sphere);
+        OctreeObject* createObject(uint64 userDataID, const iSphered& sphere);
 
         /*! deletes an octree object by scene node id
 
         \param userDataID id of the corresponding scene node
         */
-        void deleteObject(uint32 userDataID);
+        void deleteObject(uint64 userDataID);
 
         /*! recursive method the draw the octree structure
 

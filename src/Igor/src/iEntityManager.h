@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iENTITYFACTORY__
-#define __iENTITYFACTORY__
+#ifndef __iENTITYMANAGER__
+#define __iENTITYMANAGER__
 
 #include <iDefines.h>
 
@@ -35,102 +35,69 @@
 #include <iaString.h>
 using namespace IgorAux;
 
-#include <map>
-#include <vector>
+#include <unordered_set>
 using namespace std;
 
 namespace Igor
 {
 
-    class iEntity;
-
-    __IGOR_FUNCTION_POINTER__(CreateEntity, __IGOR_DEFAULTCALL__, iEntity*, ());
+    class iSystem;
 
     /*! entity factory
     */
-    class Igor_API iEntityFactory : public iaSingleton<iEntityFactory>
+    class Igor_API iEntityManager : public iaSingleton<iEntityManager>
     {
 
-        friend class iaSingleton<iEntityFactory>;
+        friend class iaSingleton<iEntityManager>;
+        friend class iSystem;
 
     public:
 
+        /*! invallid id definition
+        */
+        static const uint64 INVALID_ENTITY_ID = 0;
+
         /*! creates an entity
 
-        \returns pointer to new entity
+        \returns entity id
         */
-        iEntity* createEntity(const iaString& identifier);
-
-        /*! destroys entity by pointer
-
-        \param entity pointer to entity
-        */
-        void destroyEntity(iEntity* entity);
+        uint64 createEntity();
 
         /*! destroys entity by id
 
         \param entityID the id of the entity to destroy
         */
-        void destroyEntity(uint32 entityID);
+        void destroyEntity(uint64 entityID);
 
-        /*! \returns shared pointer to entity by id
+        /*! checks if given entity id exists
 
-        \param id the id of the entity to return
+        \param entityID entity id
+        \returns true if entity id exists
         */
-        iEntity* getEntity(uint32 id);
-
-        /*! returns list of all entity ids
-
-        \param[in,out] entityIDs list with entity IDs returned
-        */
-        void getEntityIDs(vector<uint32>& entityIDs);
-
-        /*! registers an entity creator
-
-        \param identifier name of the creator
-        \param functionPointer function pointer to instance creation
-        */
-        void registerEntityCreator(const iaString& identifier, CreateEntity functionPointer);
-
-        /*! unregisters an entity creator
-
-        \param identifier name of the creator
-        */
-        void unregisterEntityCreator(const iaString& identifier);
+        bool isEntity(uint64 entityID);
 
     private:
 
+        vector<iSystem*> _systems;
+
         /*! next entity id
         */
-        static uint32 _nextID;
+        uint64 _nextID = INVALID_ENTITY_ID + 1;
 
         /*! map of ids to entities
         */
-        map<uint32, iEntity*> _entities;
+        unordered_set<uint64> _entityIDs;
 
-        vector<iEntity*> _creationQueue;
+        void registerSystem(iSystem* system);
+        void unregisterSystem(iSystem* system);
 
-        vector<iEntity*> _destroyQueue;
-
-        mutex _creationMutex;
-
-        mutex _destroyMutex;
-
-        /*! map of entity creators
+        /*! does nothing
         */
-        map<int64, CreateEntity> _entityCreators;
-
-        /*! called every frame. triggers the entities handles
-        */
-        void onHandle();
-
-        /*! starts entity control
-        */
-        iEntityFactory();
+        iEntityManager() = default;
 
         /*! checks if all entity where released
         */
-        ~iEntityFactory();
+        ~iEntityManager();
 
     };
 

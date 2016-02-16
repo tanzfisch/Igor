@@ -20,12 +20,6 @@
     <ClCompile Include="..\src\iApplication.cpp">
       <Filter>application</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iEntity.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iEntityFactory.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iKeyboard.cpp">
       <Filter>devices</Filter>
     </ClCompile>
@@ -341,6 +335,18 @@
     <ClCompile Include="..\src\iPhysicsManager.cpp">
       <Filter>physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iSystemPosition.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iEntityManager.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iSystem.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iSystemSceneInteraction.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -359,12 +365,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iApplication.h">
       <Filter>application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntity.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityFactory.h">
-      <Filter>entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iKeyboard.h">
       <Filter>devices</Filter>
@@ -717,6 +717,18 @@
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsManager.h">
       <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSystem.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSystemPosition.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEntityManager.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSystemSceneInteraction.h">
+      <Filter>entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

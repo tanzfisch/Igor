@@ -11,7 +11,6 @@
 #include <iaVector3.h>
 #include <iTaskManager.h>
 #include <iPhysicsBody.h>
-#include <iEntity.h>
 #include <iNodeFactory.h>
 #include <iTimer.h>
 #include <iPhysicsPlayer.h>

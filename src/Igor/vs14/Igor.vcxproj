@@ -296,8 +296,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDecisionBox.h" />
     <ClInclude Include="..\src\iDefines.h" />
-    <ClInclude Include="..\src\iEntity.h" />
-    <ClInclude Include="..\src\iEntityFactory.h" />
+    <ClInclude Include="..\src\iEntityManager.h" />
     <ClInclude Include="..\src\iFileDialog.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
@@ -394,10 +393,13 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iStatisticsSection.h" />
     <ClInclude Include="..\src\iSTBImageExt.h" />
     <ClInclude Include="..\src\iStopWatch.h" />
+    <ClInclude Include="..\src\iSystem.h" />
     <ClInclude Include="..\src\iSystemConfig.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\src\iSystemPosition.h" />
+    <ClInclude Include="..\src\iSystemSceneInteraction.h" />
     <ClInclude Include="..\src\iTargetMaterial.h" />
     <ClInclude Include="..\src\iTask.h" />
     <ClInclude Include="..\src\iTaskFlushModels.h" />
@@ -528,8 +530,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iControl.cpp" />
     <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
     <ClCompile Include="..\src\iDecisionBox.cpp" />
-    <ClCompile Include="..\src\iEntity.cpp" />
-    <ClCompile Include="..\src\iEntityFactory.cpp" />
+    <ClCompile Include="..\src\iEntityManager.cpp" />
     <ClCompile Include="..\src\iFileDialog.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
@@ -619,10 +620,13 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iStatistics.cpp" />
     <ClCompile Include="..\src\iStatisticsSection.cpp" />
     <ClCompile Include="..\src\iStopWatch.cpp" />
+    <ClCompile Include="..\src\iSystem.cpp" />
     <ClCompile Include="..\src\iSystemConfig.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\src\iSystemPosition.cpp" />
+    <ClCompile Include="..\src\iSystemSceneInteraction.cpp" />
     <ClCompile Include="..\src\iTargetMaterial.cpp" />
     <ClCompile Include="..\src\iTask.cpp" />
     <ClCompile Include="..\src\iTaskFlushModels.cpp" />

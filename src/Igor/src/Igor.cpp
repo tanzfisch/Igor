@@ -18,7 +18,7 @@ using namespace IgorAux;
 #include <iResourceManager.h>
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
-#include <iEntityFactory.h>
+#include <iEntityManager.h>
 #ifdef __USE_OPENAL__
     #include <iSoundResourceFactory.h>
 #endif
@@ -234,9 +234,9 @@ namespace Igor
             iPhysics::destroyInstance();
         }
 
-        if (iEntityFactory::isInstantiated())
+        if (iEntityManager::isInstantiated())
         {
-            iEntityFactory::destroyInstance();
+            iEntityManager::destroyInstance();
         }
 
 #ifdef __USE_OPENAL__

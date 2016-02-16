@@ -26,16 +26,15 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iENTITY__
-#define __iENTITY__
+#ifndef __iSYSTEMPOSITION__
+#define __iSYSTEMPOSITION__
 
-#include <iDefines.h>
+#include <iSystem.h>
+#include <iSphere.h>
 
-#include <iaMatrix.h>
 #include <iaVector3.h>
 using namespace IgorAux;
 
-#include <memory>
 #include <map>
 #include <vector>
 using namespace std;
@@ -43,43 +42,35 @@ using namespace std;
 namespace Igor
 {
 
-    class iPhysicsBody;
-    class iNodeTransform;
+    class iOctree;
 
-    /*! an entity is something you want to play with. like a character or vehicle or intercative object
-    */
-    class Igor_API iEntity
+    class Igor_API iSystemPosition : public iSystem
     {
-
-        friend class iEntityFactory;
 
     public:
 
-        /*! the invalid entity id
-        */
-        static const uint32 INVALID_ENTITY_ID = 0;
+        virtual void registerEntity(uint64 entityID);
+        virtual void unregisterEntity(uint64 entityID);
+        virtual bool hasEntity(uint64 entityID);
 
-        /*! \retruns the id of this entity
-        */
-        uint32 getID();
+        void setPosition(uint64 entityID, const iaVector3f& position);
+        const iaVector3f& getPosition(uint64 entityID);
 
-    protected:
+        void query(const iSphered& sphere, vector<uint64>& data);
 
-        /*! entity unique id
-        */
-        uint32 _id = INVALID_ENTITY_ID;
+        iSystemPosition();
+        virtual ~iSystemPosition();
 
-        /*! called every frame
-        */
-        virtual void onHandle() = 0;
+    private:
 
-        /*! does nothing
+        /*! map of entity spheres
         */
-        iEntity() = default;
+        map<uint64, iSpheref> _spheres;
 
-        /*! does nothing
+        /*! octree
         */
-        virtual ~iEntity() = default;
+        iOctree* _octree = nullptr;
+
 
     };
 

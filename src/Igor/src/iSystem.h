@@ -26,83 +26,34 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __RENDERENGINE__
-#define __RENDERENGINE__
+#ifndef __iSYSTEM__
+#define __iSYSTEM__
 
 #include <iDefines.h>
-
-#include <vector>
-using namespace std;
 
 namespace Igor
 {
 
-    class iScene;
-    class iNodeCamera;
-    class iNode;
-    
-    /*! does control the render loop
-    */
-    class iRenderEngine
+    class iEntity;
+
+    class Igor_API iSystem
     {
 
     public:
 
-        /*! sets the scene to render with
+        virtual void registerEntity(uint64 entityID) = 0;
 
-        \param scene scene to render
-        */
-        void setScene(iScene* scene);
+        virtual void unregisterEntity(uint64 entityID) = 0;
+        
+        virtual bool hasEntity(uint64 entityID) = 0;
 
-        /*! \returns pointer to scene
-        */
-        iScene* getScene();
-
-        /*! culls and renders
-        */
-        void render();
-
-        /*! init
-        */
-        iRenderEngine();
-
-        /*! deinit
-        */
-        virtual ~iRenderEngine();
+        iSystem();
+        virtual ~iSystem();
 
     private:
 
-        /*! cull section id for statistics
-        */
-        uint32 _cullSectionID = 0;
-
-        /*! draw section id for statistics
-        */
-        uint32 _drawSectionID = 0;
-
-        /*! pointe to scene
-
-        \todo can't we use an array here?
-        */
-        iScene* _scene = nullptr;
-
-        /*! temporary list of nodes that where filtered by the culling process
-        */
-        vector<uint64> _cullResult;
-
-        /*! cull scene relative to specified camera
-
-        \param camera the specified camera
-        */
-        void cullScene(iNodeCamera* camera);
-
-        /*! draw scene relative to specified camera
-
-        \param camera the specified camera
-        */
-        void drawScene(iNodeCamera* camera);
-
     };
+
 }
 
 #endif

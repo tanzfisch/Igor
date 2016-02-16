@@ -44,7 +44,7 @@ namespace Igor
         // TODO cleanup?
     }
 
-    iOctree::OctreeObject* iOctree::createObject(uint32 userDataID, const iSphered& sphere)
+    iOctree::OctreeObject* iOctree::createObject(uint64 userDataID, const iSphered& sphere)
     {
         con_assert_sticky(_objects.find(userDataID) == _objects.end(), "object id already in use");
 
@@ -55,7 +55,7 @@ namespace Igor
         return object;
     }
 
-    void iOctree::deleteObject(uint32 userDataID)
+    void iOctree::deleteObject(uint64 userDataID)
     {
         con_assert(_objects.find(userDataID) != _objects.end(), "object not registered");
 
@@ -88,7 +88,7 @@ namespace Igor
         return _nextNodeID++;
     }
 
-    void iOctree::insert(uint64 nodeID, uint32 userDataID, const iSphered& sphere)
+    void iOctree::insert(uint64 nodeID, uint64 userDataID, const iSphered& sphere)
     {
         OctreeNode* node = _nodes[nodeID];
 
@@ -134,7 +134,7 @@ namespace Igor
         }
     }
 
-    void iOctree::insert(uint32 userDataID, const iSpheref& sphere)
+    void iOctree::insert(uint64 userDataID, const iSpheref& sphere)
     {
         iSphered sphered;
         sphered._center.set(sphere._center._x, sphere._center._y, sphere._center._z);
@@ -159,7 +159,7 @@ namespace Igor
         OctreeNode* node = _nodes[nodeID];
         float64 halfSize = node->_box._halfEdgeLength * 0.5;
 
-        node->_children = new uint32[8];
+        node->_children = new uint64[8];
 
         for (int i = 0; i < 8; ++i)
         {
@@ -195,7 +195,7 @@ namespace Igor
                 index |= 4;
             }
 
-            uint32 destinationNodeID = node->_children[index];
+            uint64 destinationNodeID = node->_children[index];
             OctreeNode* destination = _nodes[destinationNodeID];
             destination->_objects.push_back(userDataID);
 
@@ -211,12 +211,12 @@ namespace Igor
         }
     }
 
-    void iOctree::remove(uint32 userDataID)
+    void iOctree::remove(uint64 userDataID)
     {
         con_assert(_objects.end() != _objects.find(userDataID), "object to remove is not registered");
         con_assert(_nodes.end() != _nodes.find(_objects[userDataID]->_octreeNode), "node not found");
 
-        uint32 nodeID = _objects[userDataID]->_octreeNode;
+        uint64 nodeID = _objects[userDataID]->_octreeNode;
         OctreeNode* node = _nodes[nodeID];
 
         auto iterObjectID = find(node->_objects.begin(), node->_objects.end(), userDataID);
@@ -240,13 +240,13 @@ namespace Igor
         OctreeNode* node = (*iter).second;
         con_assert(nullptr != node->_children, "inconsistend data");
 
-        uint32 objectCount = 0;
+        uint64 objectCount = 0;
         bool nested = false;
 
         for (int i = 0; i < 8; ++i)
         {
             auto child = _nodes[node->_children[i]];
-            objectCount += static_cast<uint32>(child->_objects.size());
+            objectCount += static_cast<uint64>(child->_objects.size());
 
             if (nullptr != child->_children)
             {
@@ -290,7 +290,7 @@ namespace Igor
         node->_children = 0;
     }
 
-    void iOctree::update(uint32 userDataID, const iSpheref& sphere)
+    void iOctree::update(uint64 userDataID, const iSpheref& sphere)
     {
         iSphered sphered;
         sphered._center.set(sphere._center._x, sphere._center._y, sphere._center._z);
@@ -338,7 +338,7 @@ namespace Igor
 
             if (nullptr != node->_children)
             {
-                for (uint32 i = 0; i < 8; ++i)
+                for (uint64 i = 0; i < 8; ++i)
                 {
                     filter(frustum, node->_children[i]);
                 }
@@ -371,7 +371,7 @@ namespace Igor
 
             if (nullptr != node->_children)
             {
-                for (uint32 i = 0; i < 8; ++i)
+                for (uint64 i = 0; i < 8; ++i)
                 {
                     filter(sphere, node->_children[i]);
                 }
@@ -389,7 +389,7 @@ namespace Igor
         filter(frustum, _rootNode);
     }
 
-    void iOctree::getResult(vector<uint32>& data)
+    void iOctree::getResult(vector<uint64>& data)
     {
         data = _queryResult;
     }

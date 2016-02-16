@@ -26,83 +26,65 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __RENDERENGINE__
-#define __RENDERENGINE__
+#ifndef __iSYSTEMSCENEINTERACTION__
+#define __iSYSTEMSCENEINTERACTION__
 
-#include <iDefines.h>
+#include <iSystem.h>
+#include <iNode.h>
 
+#include <iaVector3.h>
+using namespace IgorAux;
+
+#include <map>
 #include <vector>
 using namespace std;
 
 namespace Igor
 {
 
+    __IGOR_FUNCTION_POINTER__(InitNodes, __IGOR_DEFAULTCALL__, uint32, (uint64));
+    __IGOR_FUNCTION_POINTER__(DeInitNodes, __IGOR_DEFAULTCALL__, void, (uint64, uint32));
+
     class iScene;
-    class iNodeCamera;
-    class iNode;
-    
-    /*! does control the render loop
-    */
-    class iRenderEngine
+
+    class Igor_API iSystemSceneInteraction : public iSystem
     {
+
+        struct EntityData
+        {
+            uint32 _transformNodeID = iNode::INVALID_NODE_ID;
+            DeInitNodes _deinitFunction = nullptr;
+            InitNodes _initFunction = nullptr;
+            bool _initialized = false;
+        };
 
     public:
 
-        /*! sets the scene to render with
+        virtual void registerEntity(uint64 entityID);
+        virtual void unregisterEntity(uint64 entityID);
+        virtual bool hasEntity(uint64 entityID);
 
-        \param scene scene to render
-        */
-        void setScene(iScene* scene);
+        void init(uint64 entityID);
+        void deinit(uint64 entityID);
+        bool isInitialized(uint64 entityID) const;
 
-        /*! \returns pointer to scene
-        */
-        iScene* getScene();
+        void setCallbacks(uint64 entityID, InitNodes initFunction, DeInitNodes deinitFunction);
 
-        /*! culls and renders
-        */
-        void render();
-
-        /*! init
-        */
-        iRenderEngine();
-
-        /*! deinit
-        */
-        virtual ~iRenderEngine();
+        iSystemSceneInteraction(iScene* scene);
+        virtual ~iSystemSceneInteraction();
 
     private:
 
-        /*! cull section id for statistics
+        /*! map of entity transform nodes
         */
-        uint32 _cullSectionID = 0;
+        map<uint64, EntityData> _transformNodes;
 
-        /*! draw section id for statistics
-        */
-        uint32 _drawSectionID = 0;
-
-        /*! pointe to scene
-
-        \todo can't we use an array here?
+        /*! scene in use
         */
         iScene* _scene = nullptr;
 
-        /*! temporary list of nodes that where filtered by the culling process
-        */
-        vector<uint64> _cullResult;
-
-        /*! cull scene relative to specified camera
-
-        \param camera the specified camera
-        */
-        void cullScene(iNodeCamera* camera);
-
-        /*! draw scene relative to specified camera
-
-        \param camera the specified camera
-        */
-        void drawScene(iNodeCamera* camera);
-
     };
+
 }
 
 #endif
