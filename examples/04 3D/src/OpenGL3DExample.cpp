@@ -89,39 +89,39 @@ void OpenGL3DExample::init()
 
     iNodeTransform* catTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     catTransform->setName("catTransform");
-    catTransform->translate(2, 0, 0);
+    catTransform->translate(1, 0, 0);
     _catModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _catModel->setModel("cat.ompf");
 
     iNodeTransform* teapotTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     teapotTransform->setName("teapotTransform");
-    teapotTransform->translate(-2, 0, 0);
+    teapotTransform->translate(1, 0, 0);
     teapotTransform->scale(0.33, 0.33, 0.33);
     _teapotModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _teapotModel->setModel("teapot.ompf");
     
     iNodeTransform* crateTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     crateTransform->setName("crateTransform");
-    crateTransform->translate(0, 2, 0);
+    crateTransform->translate(1, 0.5, 0);
     _crateModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _crateModel->setModel("crate.ompf");
 
     iNodeTransform* lod0Transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     lod0Transform->setName("lod0Transform");
-    lod0Transform->translate(0, 0, 0);
-    lod0Transform->scale(0.33, 0.33, 0.33);
+    lod0Transform->translate(-1, 0, 0);
     iNodeModel* lod0Model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    lod0Model->setModel("teapot.ompf");
+    lod0Model->setModel("cat.ompf");
 
     iNodeTransform* lod1Transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     lod1Transform->setName("lod1Transform");
-    lod1Transform->translate(0, 0, 0);
+    lod1Transform->translate(-1, 0, 0);
+    lod1Transform->scale(0.33, 0.33, 0.33);
     iNodeModel* lod1Model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    lod1Model->setModel("cat.ompf");
+    lod1Model->setModel("teapot.ompf");
 
     iNodeTransform* lod2Transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     lod2Transform->setName("lod0Transform");
-    lod2Transform->translate(0, 0.5, 0);
+    lod2Transform->translate(-1, 0.5, 0);
     iNodeModel* lod2Model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     lod2Model->setModel("crate.ompf");
 
@@ -206,7 +206,7 @@ void OpenGL3DExample::init()
      
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::All);
+    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     // animation
     _animationTimingHandle = new iTimerHandle();
