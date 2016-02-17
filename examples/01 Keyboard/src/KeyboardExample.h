@@ -31,7 +31,7 @@
 
 // need window and keyboard
 #include <iWindow.h>
-#include <iKeyboard.h>
+#include <iKeyCodeMap.h>
 using namespace Igor;
 
 /*! keyboard input example
