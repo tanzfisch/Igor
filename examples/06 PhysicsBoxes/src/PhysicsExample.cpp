@@ -22,8 +22,6 @@ using namespace IgorAux;
 #include <iNodeLight.h>
 #include <iModelResourceFactory.h>
 #include <iPhysics.h>
-#include <iEntity.h>
-#include <iEntityFactory.h>
 #include <iTaskFlushModels.h>
 #include <iTaskFlushTextures.h>
 #include <iMaterialResourceFactory.h>
@@ -56,16 +54,12 @@ void PhysicsExample::deinit()
 
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
 
-    iEntityFactory::getInstance().destroyEntity(_floor);
-    _floor = nullptr;
-
-    auto boxIter = _boxes.begin();
-    while (_boxes.end() != boxIter)
+    for (auto bodyID : _bodyIDs)
     {
-        iEntityFactory::getInstance().destroyEntity((*boxIter));
-        ++boxIter;
+        iPhysics::getInstance().destroyBody(bodyID);
     }
-    _boxes.clear();
+
+    _bodyIDs.clear();
 
     iSceneFactory::getInstance().destroyScene(_scene);
 
@@ -78,18 +72,18 @@ void PhysicsExample::deinit()
         delete _font;
     }
 
-    iMouse::getInstance().unregisterMouseWheelDelegate(MouseWheelDelegate(this, &PhysicsExample::mouseWheel));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(MouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(KeyDownDelegateExt(this, &PhysicsExample::keyPressed));
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
 }
 
 void PhysicsExample::init()
 {
 	con(" -- OpenGL 3D Test --" << endl);    
 
-	iKeyboard::getInstance().registerKeyDownDelegate(KeyDownDelegateExt(this, &PhysicsExample::keyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(MouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(MouseWheelDelegate(this, &PhysicsExample::mouseWheel));
+	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
+    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
+    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
 
 	iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &PhysicsExample::handle));
 
@@ -115,68 +109,78 @@ void PhysicsExample::init()
     srand(1337);
 
     int range = 10;
-    iaMatrixf offset;
+    
 
     iPhysics::getInstance().setSimulationRate(60);
 
-    _floor = iEntityFactory::getInstance().createEntity();
-    _floor->setBody(iPhysics::getInstance().createBody(iPhysics::getInstance().createBox(50, 1, 50, offset.getData()), PhysicsBodyType::Generic));
-    _floor->getBody()->setMass(0);
+    iaMatrixf offsetFloor;
+    vector<iPhysicsCollision*> collisions;
+    collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
+    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));
+    offsetFloor.translate(0, -5, 0);
+    collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor.getData()));
+    iPhysicsCollision* floorCollision = iPhysics::getInstance().createCompound(collisions);
 
-    iPhysicsCollision* collisionBox = iPhysics::getInstance().createBox(1, 1, 1, offset.getData());
+    iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
+    floorBody->setMass(0);
+    
+    iaMatrixf floorMatrix;
+    floorMatrix.translate(0, -1, 0);
 
-    for (int i = 0; i < 500; ++i)
+    floorBody->setMatrix(floorMatrix);
+    _bodyIDs.push_back(floorBody->getID());
+
+    iaMatrixf offsetBox;
+    iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
+    for (int i = 0; i < 300; ++i)
     {
-        iEntity* box = iEntityFactory::getInstance().createEntity();
-        _boxes.push_back(box);
-
-        box->setBody(iPhysics::getInstance().createBody(collisionBox, PhysicsBodyType::Generic));
-        box->getBody()->setMass(100);
-
-        iaMatrixf transformation;
-        transformation.translate(rand() % range - (range*0.5f), rand() % range + 20, rand() % range - (range*0.5f));
-        transformation.rotate(rand(), iaAxis::X);
-        transformation.rotate(rand(), iaAxis::Y);
-        transformation.rotate(rand(), iaAxis::Z);
-        box->setMatrix(transformation);
+        iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
+        boxBody->setMass(100);
+        boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
+        _bodyIDs.push_back(boxBody->getID());
 
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+        transformNode->translate(rand() % range - (range*0.5f), rand() % range + 20, rand() % range - (range*0.5f));
+        transformNode->rotate(rand(), iaAxis::X);
+        transformNode->rotate(rand(), iaAxis::Y);
+        transformNode->rotate(rand(), iaAxis::Z);
+
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
         transformNode->insertNode(crate);
 
-        box->setTransformNode(transformNode);
+        iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
 
         _scene->getRoot()->insertNode(transformNode);
     }
 
-    for (int z = -12; z < 24; z += 4)
+    for (int z = -24; z < 25; z += 4)
     {
-        for (int x = -12; x < 24; x += 4)
+        for (int x = -24; x < 25; x += 4)
         {
-            for (int i = 0; i < 10; ++i)
+            for (int i = 0; i < 5; ++i)
             {
-                iEntity* box = iEntityFactory::getInstance().createEntity();
-                _boxes.push_back(box);
-
-                box->setBody(iPhysics::getInstance().createBody(collisionBox, PhysicsBodyType::Generic));
-                box->getBody()->setMass(100);
-
-                iaMatrixf transformation;
-                transformation.translate(x, i + 1, z);
-                box->setMatrix(transformation);
+                iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
+                boxBody->setMass(100);
+                boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
+                _bodyIDs.push_back(boxBody->getID());
 
                 iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+                transformNode->translate(x, i, z);
+
                 iNodeModel* cube = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
                 cube->setModel("crate.ompf");
+                
                 transformNode->insertNode(cube);
-
-                box->setTransformNode(transformNode);
-
                 _scene->getRoot()->insertNode(transformNode);
+                iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
             }
         }
     }
+
+    // no need to keep the collisions after putting them in to a body
+    iPhysics::getInstance().destroyCollision(floorCollision);
+    iPhysics::getInstance().destroyCollision(boxCollision);
     
 	// cam
     _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -244,7 +248,22 @@ void PhysicsExample::init()
     _taskFlushTextures = new iTaskFlushTextures(&_window);
     iTaskManager::getInstance().addTask(_taskFlushTextures);
 
-    iStatistics::getInstance().setDrawMode(iRenderStatisticsVerbosity::FPSAndMetrics);
+    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+}
+
+void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex)
+{
+    float32 Ixx;
+    float32 Iyy;
+    float32 Izz;
+    float32 mass;
+    iaVector3f force;
+    iaVector3f angularForce;
+
+    iPhysics::getInstance().getMassMatrixFromBody(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
+    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+
+    iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
 }
 
 void PhysicsExample::mouseWheel(int32 d)

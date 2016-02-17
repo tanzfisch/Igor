@@ -255,7 +255,7 @@ void VoxelExample::init()
 
     // load font for statistics display
     _font = new iTextureFont("StandardFont.png");
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSOnly);
+    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     // launch resource handlers
     iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -332,7 +332,7 @@ void VoxelExample::onKeyESCPressed()
 
 void VoxelExample::onRenderOrtho()
 {
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
 }
 
 void VoxelExample::run()

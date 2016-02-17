@@ -68,7 +68,7 @@ namespace Igor
 
         \param matrix the matrix
         */
-        void updateMatrix(const iaMatrixf& matrix);
+        void setMatrix(const iaMatrixf& matrix);
 
         /*! changes the mass of the newton body
 
@@ -86,8 +86,8 @@ namespace Igor
         void setVelocity(const iaVector3f& velocity);
         void setAngularVelocity(const iaVector3f& angularVelocity);
 
-        void setMatrix(const iaMatrixf& matrix);
-        const iaMatrixf& getMatrix() const;
+        void setTransformNodeMatrix(const iaMatrixf& matrix);
+        const iaMatrixf& getTransformNodeMatrix() const;
 
         uint32 getTransformNode() const;
         
@@ -123,6 +123,8 @@ namespace Igor
 
         iaVector3f _velocity;
         iaVector3f _angularVelocity; 
+
+        iaMatrixf _matrix;
 
         /*! handle to newton body
         */
@@ -161,7 +163,11 @@ namespace Igor
         */
         void release();
 
-        void setTransformNode(iNodeTransform* transformNode);
+        /*! binds transform node to physics body
+
+        \param transformNode the transform node to bind to this body
+        */
+        void bindTransformNode(iNodeTransform* transformNode);
 
     };
 

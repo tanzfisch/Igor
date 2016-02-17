@@ -49,6 +49,7 @@ namespace Igor
     class iEntity;
     class iTaskFlushModels;
     class iTaskFlushTextures;
+    class iPhysicsBody;
 }
 
 class PhysicsExample
@@ -72,8 +73,7 @@ private:
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
-    iEntity* _floor = nullptr;
-    vector<iEntity*> _boxes;
+    vector<uint64> _bodyIDs;
 
 	TimerDelegate _timerDelegate;
 
@@ -84,6 +84,8 @@ private:
     float32 _camHeading = 0.2;
 
 	int32 _materialSkyBox = 0;
+
+    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);
 
 	void keyPressed(iKeyCode key);
 	void windowClosed();

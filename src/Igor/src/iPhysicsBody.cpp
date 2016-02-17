@@ -38,7 +38,7 @@ namespace Igor
         _applyForceAndTorque(this, timestep, threadIndex);
     }
 
-    void iPhysicsBody::setTransformNode(iNodeTransform* transformNode)
+    void iPhysicsBody::bindTransformNode(iNodeTransform* transformNode)
     {
         con_assert(transformNode != nullptr, "zero pointer");
 
@@ -47,7 +47,7 @@ namespace Igor
             _transformNodeID = transformNode->getID();
             iaMatrixf matrix;
             transformNode->getMatrix(matrix);
-            updateMatrix(matrix);
+            setMatrix(matrix);
         }
     }
 
@@ -62,32 +62,47 @@ namespace Igor
         _newtonBody = nullptr;
     }
 
-    void iPhysicsBody::setMatrix(const iaMatrixf& matrix)
+    void iPhysicsBody::setTransformNodeMatrix(const iaMatrixf& matrix)
     {
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-        con_assert_sticky(transformNode != nullptr, "body is not bound to a node");
-
-        if (transformNode != nullptr)
+        if (_transformNodeID != iNode::INVALID_NODE_ID)
         {
-            transformNode->setMatrix(matrix);
+            iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+            con_assert(transformNode != nullptr, "body " << _id << " is not bound to a node");
+
+            if (transformNode != nullptr)
+            {
+                transformNode->setMatrix(matrix);
+            }
+        }
+        else
+        {
+            _matrix = matrix;
         }
     }
 
-    const iaMatrixf& iPhysicsBody::getMatrix() const
+    const iaMatrixf& iPhysicsBody::getTransformNodeMatrix() const
     {
         iaMatrixf result;
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-        con_assert_sticky(transformNode != nullptr, "body is not bound to a node");
 
-        if (transformNode != nullptr)
+        if (_transformNodeID != iNode::INVALID_NODE_ID)
         {
-            transformNode->getMatrix(result);
+            iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+            con_assert(transformNode != nullptr, "body is not bound to a node");
+
+            if (transformNode != nullptr)
+            {
+                transformNode->getMatrix(result);
+            }
+        }
+        else
+        {
+            result = _matrix;
         }
 
         return result;
     }
 
-    void iPhysicsBody::updateMatrix(const iaMatrixf& matrix)
+    void iPhysicsBody::setMatrix(const iaMatrixf& matrix)
     {
         iPhysics::getInstance().updateMatrix(_newtonBody, matrix);
     }

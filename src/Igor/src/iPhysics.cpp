@@ -74,7 +74,7 @@ namespace Igor
             
             NewtonBodyGetVelocity(static_cast<const NewtonBody*>(body), vel.getData());
             NewtonBodyGetOmega(static_cast<const NewtonBody*>(body), omega.getData());
-            bodyWrapper->_physicsBody->setMatrix(matrix);
+            bodyWrapper->_physicsBody->setTransformNodeMatrix(matrix);
             bodyWrapper->_physicsBody->setVelocity(vel);
             bodyWrapper->_physicsBody->setAngularVelocity(omega);
         }
@@ -289,7 +289,7 @@ namespace Igor
 
     void iPhysics::bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode)
     {
-        body->setTransformNode(transformNode);
+        body->bindTransformNode(transformNode);
         BodyWrapper* bodyWrapper = new BodyWrapper();
         bodyWrapper->_physicsBody = body;
         NewtonBodySetUserData(static_cast<const NewtonBody*>(body->_newtonBody), bodyWrapper);
