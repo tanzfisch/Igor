@@ -335,16 +335,10 @@
     <ClCompile Include="..\src\iPhysicsManager.cpp">
       <Filter>physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemPosition.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iEntityManager.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSystem.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iSystemSceneTransformation.cpp">
+    <ClCompile Include="..\src\iSystemSceneTransformationUpdate.cpp">
       <Filter>entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -721,13 +715,19 @@
     <ClInclude Include="..\src\iSystem.h">
       <Filter>entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemPosition.h">
-      <Filter>entities</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iEntityManager.h">
       <Filter>entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemSceneTransformation.h">
+    <ClInclude Include="..\src\iEntityData.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEntityDataPosition.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEntityDataTransformation.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSystemSceneTransformationUpdate.h">
       <Filter>entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -767,6 +767,12 @@
     </None>
     <None Include="..\src\iMeshBuffers.inl">
       <Filter>resources\mesh</Filter>
+    </None>
+    <None Include="..\src\iEntityDataTransformation.inl">
+      <Filter>entities</Filter>
+    </None>
+    <None Include="..\src\iEntityDataPosition.inl">
+      <Filter>entities</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

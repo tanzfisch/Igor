@@ -35,12 +35,13 @@
 #include <iaString.h>
 using namespace IgorAux;
 
-#include <unordered_set>
+#include <map>
 using namespace std;
 
 namespace Igor
 {
 
+    class iEntityData;
     class iSystem;
 
     /*! entity factory
@@ -74,11 +75,22 @@ namespace Igor
         \param entityID entity id
         \returns true if entity id exists
         */
-        bool isEntity(uint64 entityID);        
+        bool isEntity(uint64 entityID);
+
+        void setEntityDataMask(uint64 entityID, uint64 dataMask);
+        uint64 getEntityDataMask(uint64 entityID);
+
+        // can't be called after system was added
+        void registerEntityData(iEntityData* entityData);
+        // can't be called after system was added
+        void unregisterEntityData(iEntityData* entityData);
+
+        iEntityData* getEntityData(uint64 dataMask);
+
+        void registerSystem(iSystem* system);
+        void unregisterSystem(iSystem* system);
 
     private:
-
-        vector<iSystem*> _systems;
 
         /*! next entity id
         */
@@ -86,10 +98,16 @@ namespace Igor
 
         /*! map of ids to entities
         */
-        unordered_set<uint64> _entityIDs;
+        map<uint64, uint64> _entitys;
 
-        void registerSystem(iSystem* system);
-        void unregisterSystem(iSystem* system);
+        /*! data related to entity masks and entities
+        */
+        map<uint64, iEntityData*> _entityData;
+
+        /*! systems to manipulate entities data
+        */
+        map<uint64, iSystem*> _systems;
+
 
         /*! called per frame. calls handles of all systems registered
         */

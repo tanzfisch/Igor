@@ -26,50 +26,48 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEMSCENETRANSFORMATION__
-#define __iSYSTEMSCENETRANSFORMATION__
+#ifndef __iENTITYDATAPOSITION__
+#define __iENTITYDATAPOSITION__
 
-#include <iSystem.h>
-#include <iNodeTransform.h>
+#include <iEntityData.h>
+#include <iSphere.h>
+#include <iOctree.h>
+
+#include <iaVector3.h>
+using namespace IgorAux;
 
 #include <map>
+#include <vector>
 using namespace std;
 
 namespace Igor
 {
 
-    class iScene;
-    class iSystemPosition;
-
-    class Igor_API iSystemSceneTransformation : public iSystem
+    class Igor_API iEntityDataPosition : public iEntityData
     {
 
     public:
 
-        virtual void registerEntity(uint64 entityID);
-        virtual void unregisterEntity(uint64 entityID);
-        virtual bool hasEntity(uint64 entityID);
-        virtual void handle();
+        __IGOR_INLINE__ uint64 getDataMask();
 
-        void setTransformID(uint64 entityID, uint32 transformNodeID);
-        uint32 getTransformID(uint64 entityID) const;
+        __IGOR_INLINE__ void setPosition(uint64 entityID, const iaVector3f& position);
+        __IGOR_INLINE__ const iaVector3f& getPosition(uint64 entityID);
 
-        iSystemSceneTransformation(iSystemPosition* systemPosition, iScene* scene);
-        virtual ~iSystemSceneTransformation();
+        __IGOR_INLINE__ void query(const iSphered& sphere, vector<uint64>& data);
 
     private:
 
-        iSystemPosition* _systemPosition = nullptr;
-
-        /*! map of entity transform nodes
+        /*! map of entity spheres
         */
-        map<uint64, uint32> _transformNodes;
+        map<uint64, iSpheref> _spheres;
 
-        /*! scene in use
+        /*! octree
         */
-        iScene* _scene = nullptr;
+        iOctree* _octree = nullptr;
 
     };
+
+#include <iEntityDataPosition.inl>
 
 }
 

@@ -26,55 +26,26 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEMPOSITION__
-#define __iSYSTEMPOSITION__
+#ifndef __iENTITYDATA__
+#define __iENTITYDATA__
 
-#include <iSystem.h>
-#include <iSphere.h>
-
-#include <iaVector3.h>
-using namespace IgorAux;
-
-#include <map>
-#include <vector>
-using namespace std;
+#include <iDefines.h>
 
 namespace Igor
 {
 
-    class iOctree;
+    enum class iEntityDataMask
+    {
+        Position = 0x0000000000000001,
+        TransformNode = 0x0000000000000002
+    };
 
-    class Igor_API iSystemPosition : public iSystem
+    class Igor_API iEntityData
     {
 
     public:
 
-        virtual void registerEntity(uint64 entityID);
-        virtual void unregisterEntity(uint64 entityID);
-        virtual bool hasEntity(uint64 entityID);
-
-        virtual void handle();
-
-        void setPosition(uint64 entityID, const iaVector3f& position);
-        const iaVector3f& getPosition(uint64 entityID);
-
-        void query(const iSphered& sphere, vector<uint64>& data);
-
-        iSystemPosition();
-        virtual ~iSystemPosition();
-
-    private:
-
-        
-
-        /*! map of entity spheres
-        */
-        map<uint64, iSpheref> _spheres;
-
-        /*! octree
-        */
-        iOctree* _octree = nullptr;
-
+        virtual uint64 getDataMask() = 0;
 
     };
 

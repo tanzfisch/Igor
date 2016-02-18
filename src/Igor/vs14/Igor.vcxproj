@@ -296,6 +296,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDecisionBox.h" />
     <ClInclude Include="..\src\iDefines.h" />
+    <ClInclude Include="..\src\iEntityData.h" />
+    <ClInclude Include="..\src\iEntityDataPosition.h" />
+    <ClInclude Include="..\src\iEntityDataTransformation.h" />
     <ClInclude Include="..\src\iEntityManager.h" />
     <ClInclude Include="..\src\iFileDialog.h" />
     <ClInclude Include="..\src\iFrustum.h" />
@@ -398,8 +401,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemPosition.h" />
-    <ClInclude Include="..\src\iSystemSceneTransformation.h" />
+    <ClInclude Include="..\src\iSystemSceneTransformationUpdate.h" />
     <ClInclude Include="..\src\iTargetMaterial.h" />
     <ClInclude Include="..\src\iTask.h" />
     <ClInclude Include="..\src\iTaskFlushModels.h" />
@@ -498,6 +500,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iAACube.inl" />
+    <None Include="..\src\iEntityDataPosition.inl" />
+    <None Include="..\src\iEntityDataTransformation.inl" />
     <None Include="..\src\iFrustum.inl" />
     <None Include="..\src\iInstancer.inl" />
     <None Include="..\src\iMesh.inl" />
@@ -620,13 +624,11 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iStatistics.cpp" />
     <ClCompile Include="..\src\iStatisticsSection.cpp" />
     <ClCompile Include="..\src\iStopWatch.cpp" />
-    <ClCompile Include="..\src\iSystem.cpp" />
     <ClCompile Include="..\src\iSystemConfig.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemPosition.cpp" />
-    <ClCompile Include="..\src\iSystemSceneTransformation.cpp" />
+    <ClCompile Include="..\src\iSystemSceneTransformationUpdate.cpp" />
     <ClCompile Include="..\src\iTargetMaterial.cpp" />
     <ClCompile Include="..\src\iTask.cpp" />
     <ClCompile Include="..\src\iTaskFlushModels.cpp" />

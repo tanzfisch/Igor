@@ -39,8 +39,9 @@ namespace Igor
     class iNodeLight;
     class iScene;
     class iWindow;
-    class iSystemPosition;
-    class iSystemSceneTransformation;
+    class iEntityDataPosition;
+    class iEntityDataTransformation;
+    class iSystemSceneTransformationUpdate;
 }
 
 using namespace Igor;
@@ -73,8 +74,10 @@ private:
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
-    iSystemPosition* _systemPosition = nullptr;
-    iSystemSceneTransformation* _systemSceneTransformation = nullptr;
+    iEntityDataPosition* _entityDataPosition = nullptr;
+    iEntityDataTransformation* _entityDataTransformation = nullptr;
+    iSystemSceneTransformationUpdate* _systemSceneTransformationUpdate = nullptr;
+
 
     uint64 _playerID = iEntityManager::INVALID_ENTITY_ID;
     vector<uint64> _enemies;

@@ -26,26 +26,32 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEM__
-#define __iSYSTEM__
+#ifndef __iSYSTEMSCENETRANSFORMATIONUPDATE__
+#define __iSYSTEMSCENETRANSFORMATIONUPDATE__
 
-#include <iDefines.h>
+#include <iSystem.h>
 
 namespace Igor
 {
 
-    class iEntity;
+    class iEntityDataPosition;
+    class iEntityDataTransformation;
 
-    class Igor_API iSystem
+    class Igor_API iSystemSceneTransformationUpdate : public iSystem
     {
 
     public:
 
-        virtual uint64 getDataMask() = 0;
+        uint64 getDataMask();
 
-        virtual void handle(uint64 entityID) = 0;
+        void handle(uint64 entityID);
 
-        virtual void onRegistration() = 0;
+        void onRegistration();
+
+    private:
+
+        iEntityDataPosition* _entityDataPosition = nullptr;
+        iEntityDataTransformation* _entityDataTransformation = nullptr;
 
     };
 

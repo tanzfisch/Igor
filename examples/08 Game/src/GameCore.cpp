@@ -19,8 +19,9 @@
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
 
-#include <iSystemPosition.h>
-#include <iSystemSceneTransformation.h>
+#include <iSystemSceneTransformationUpdate.h>
+#include <iEntityDataPosition.h>
+#include <iEntityDataTransformation.h>
 
 #include <iPhysicsBody.h>
 #include <iMaterialResourceFactory.h>
@@ -109,17 +110,29 @@ void GameCore::init()
 
 void GameCore::initSystems()
 {
-    _systemPosition = new iSystemPosition();
-    _systemSceneTransformation = new iSystemSceneTransformation(_systemPosition, _scene);
+    _entityDataPosition = new iEntityDataPosition();
+    _entityDataTransformation = new iEntityDataTransformation();
+    _systemSceneTransformationUpdate = new iSystemSceneTransformationUpdate();
+
+    iEntityManager::getInstance().registerEntityData(_entityDataPosition);
+    iEntityManager::getInstance().registerEntityData(_entityDataTransformation);
+    iEntityManager::getInstance().registerSystem(_systemSceneTransformationUpdate);
 }
 
 void GameCore::deinitSystems()
 {
-    delete _systemPosition;
-    _systemPosition = nullptr;
+    iEntityManager::getInstance().unregisterSystem(_systemSceneTransformationUpdate);
+    iEntityManager::getInstance().unregisterEntityData(_entityDataPosition);
+    iEntityManager::getInstance().unregisterEntityData(_entityDataTransformation);
 
-    delete _systemSceneTransformation;
-    _systemSceneTransformation = nullptr;
+    delete _entityDataPosition;
+    _entityDataPosition = nullptr;
+
+    delete _entityDataTransformation;
+    _entityDataTransformation = nullptr;
+
+    delete _systemSceneTransformationUpdate;
+    _systemSceneTransformationUpdate = nullptr;
 }
 
 void GameCore::initPlayer()
@@ -132,11 +145,9 @@ void GameCore::initPlayer()
     _scene->getRoot()->insertNode(transformNode);
 
     _playerID = iEntityManager::getInstance().createEntity();
-    _systemPosition->registerEntity(_playerID);
-    _systemSceneTransformation->registerEntity(_playerID);
-    _systemSceneTransformation->setTransformID(_playerID, transformNode->getID());
-
-    _systemPosition->setPosition(_playerID, iaVector3f(0, 0, 0));
+    iEntityManager::getInstance().setEntityDataMask(_playerID, static_cast<uint64>(iEntityDataMask::Position) | static_cast<uint64>(iEntityDataMask::TransformNode));
+    _entityDataTransformation->setTransformID(_playerID, transformNode->getID());
+    _entityDataPosition->setPosition(_playerID, iaVector3f(0, 0, 0));
 }
 
 void GameCore::deinitPlayer()

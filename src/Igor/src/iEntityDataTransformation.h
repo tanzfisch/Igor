@@ -26,28 +26,38 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEM__
-#define __iSYSTEM__
+#ifndef __iENTITYDATATRANSFORMATION__
+#define __iENTITYDATATRANSFORMATION__
 
-#include <iDefines.h>
+#include <iEntityData.h>
+
+#include <map>
+#include <vector>
+using namespace std;
 
 namespace Igor
 {
 
-    class iEntity;
-
-    class Igor_API iSystem
+    class Igor_API iEntityDataTransformation : public iEntityData
     {
 
     public:
 
-        virtual uint64 getDataMask() = 0;
+        __IGOR_INLINE__ uint64 getDataMask();
 
-        virtual void handle(uint64 entityID) = 0;
+        __IGOR_INLINE__ void setTransformID(uint64 entityID, uint32 transformNodeID);
+        __IGOR_INLINE__ uint32 getTransformID(uint64 entityID);
 
-        virtual void onRegistration() = 0;
+    private:
+
+        /*! map of entity transform nodes
+        */
+        map<uint64, uint32> _transformNodes;
+
 
     };
+
+#include <iEntityDataTransformation.inl>
 
 }
 
