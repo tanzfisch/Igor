@@ -14,16 +14,21 @@
 #include <iNodeLight.h>
 #include <iNodeTransform.h>
 
+#include <iPhysics.h>
+#include <iPhysicsBody.h>
+
 #include <iRenderer.h>
 #include <iRenderStateSet.h>
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
 
-#include <iSystemSceneTransformationUpdate.h>
+#include <iSystemScenePositionUpdate.h>
+#include <iSystemPhysicsUpdate.h>
+
 #include <iEntityDataPosition.h>
+#include <iEntityDataPhysics.h>
 #include <iEntityDataTransformation.h>
 
-#include <iPhysicsBody.h>
 #include <iMaterialResourceFactory.h>
 using namespace Igor;
 
@@ -107,23 +112,53 @@ void GameCore::init()
     _isRunning = true;
 }
 
+void GameCore::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep, int threadIndex)
+{
+    iaVector3f force;
+    float32 Ixx;
+    float32 Iyy;
+    float32 Izz;
+    float32 mass;
+
+    //iPhysics::getInstance().getMassMatrixFromBody(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
+    //force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    force = body->getVelocity();
+
+/*    iaVector3<float32> velocity;
+    iPhysics::getInstance().getVelocity(body->getNewtonBody(), velocity);
+    velocity.negate();
+    force += (velocity / (1.0 / iPhysics::getSimulationRate())) * 0.5;*/
+
+    iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
+}
 
 void GameCore::initSystems()
 {
     _entityDataPosition = new iEntityDataPosition();
     _entityDataTransformation = new iEntityDataTransformation();
-    _systemSceneTransformationUpdate = new iSystemSceneTransformationUpdate();
+    _entityDataPhysics = new iEntityDataPhysics();
 
+    iEntityManager::getInstance().registerEntityData(_entityDataPhysics);
     iEntityManager::getInstance().registerEntityData(_entityDataPosition);
     iEntityManager::getInstance().registerEntityData(_entityDataTransformation);
-    iEntityManager::getInstance().registerSystem(_systemSceneTransformationUpdate);
+
+    _systemPhysicsUpdate = new iSystemPhysicsUpdate();
+    _systemScenePositionUpdate = new iSystemScenePositionUpdate();
+
+    iEntityManager::getInstance().registerSystem(_systemScenePositionUpdate);
+    iEntityManager::getInstance().registerSystem(_systemPhysicsUpdate);
 }
 
 void GameCore::deinitSystems()
 {
-    iEntityManager::getInstance().unregisterSystem(_systemSceneTransformationUpdate);
+    iEntityManager::getInstance().unregisterSystem(_systemScenePositionUpdate);
+
     iEntityManager::getInstance().unregisterEntityData(_entityDataPosition);
     iEntityManager::getInstance().unregisterEntityData(_entityDataTransformation);
+    iEntityManager::getInstance().unregisterEntityData(_entityDataPhysics);
+
+    delete _entityDataPhysics;
+    _entityDataPhysics = nullptr;
 
     delete _entityDataPosition;
     _entityDataPosition = nullptr;
@@ -131,23 +166,38 @@ void GameCore::deinitSystems()
     delete _entityDataTransformation;
     _entityDataTransformation = nullptr;
 
-    delete _systemSceneTransformationUpdate;
-    _systemSceneTransformationUpdate = nullptr;
+    delete _systemScenePositionUpdate;
+    _systemScenePositionUpdate = nullptr;
 }
 
 void GameCore::initPlayer()
 {
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+
     iNodeModel* playerModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     playerModel->setModel("crate.ompf");
 
     transformNode->insertNode(playerModel);
     _scene->getRoot()->insertNode(transformNode);
 
+    iaMatrixf offset;
+    iPhysicsCollision* collisionBox = iPhysics::getInstance().createBox(1, 1, 1, offset);
+    iPhysicsBody* body = iPhysics::getInstance().createBody(collisionBox);
+    iPhysics::getInstance().destroyCollision(collisionBox);
+    body->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &GameCore::onApplyForceAndTorquePlayer));
+    iPhysics::getInstance().bindTransformNode(body, transformNode);
+
+
     _playerID = iEntityManager::getInstance().createEntity();
-    iEntityManager::getInstance().setEntityDataMask(_playerID, static_cast<uint64>(iEntityDataMask::Position) | static_cast<uint64>(iEntityDataMask::TransformNode));
+    iEntityManager::getInstance().setEntityDataMask(_playerID, static_cast<uint64>(iEntityDataMask::Position) |
+        static_cast<uint64>(iEntityDataMask::TransformNode) |
+        static_cast<uint64>(iEntityDataMask::Physics));
+
     _entityDataTransformation->setTransformID(_playerID, transformNode->getID());
-    _entityDataPosition->setPosition(_playerID, iaVector3f(0, 0, 0));
+
+    _entityDataPhysics->setMass(_playerID, 10);
+    _entityDataPhysics->setBody(_playerID, body->getID());
+    _entityDataPhysics->setVelocity(_playerID, iaVector3f(15.0, 0, 0));
 }
 
 void GameCore::deinitPlayer()

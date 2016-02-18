@@ -26,29 +26,50 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iENTITYDATA__
-#define __iENTITYDATA__
+#ifndef __iENTITYDATAPHYSICS__
+#define __iENTITYDATAPHYSICS__
 
-#include <iDefines.h>
+#include <iEntityData.h>
+
+#include <iaVector3.h>
+using namespace IgorAux;
+
+#include <map>
+using namespace std;
 
 namespace Igor
 {
 
-    enum class iEntityDataMask
-    {
-        Position = 0x0000000000000001,
-        TransformNode = 0x0000000000000002,
-        Physics = 0x0000000000000004
-    };
-
-    class Igor_API iEntityData
+    class Igor_API iEntityDataPhysics : public iEntityData
     {
 
     public:
 
-        virtual uint64 getDataMask() = 0;
+        __IGOR_INLINE__ uint64 getDataMask();
+
+        __IGOR_INLINE__ void setVelocity(uint64 entityID, const iaVector3f& velocity);
+        __IGOR_INLINE__ const iaVector3f& getVelocity(uint64 entityID);
+
+        __IGOR_INLINE__ void setMass(uint64 entityID, float32 mass);
+        __IGOR_INLINE__ float32 getMass(uint64 entityID);
+
+        __IGOR_INLINE__ void setBody(uint64 entityID, uint64 bodyID);
+        __IGOR_INLINE__ uint64 getBody(uint64 entityID);
+
+    private:
+
+        /*! map of entity transform nodes
+        */
+        map<uint64, iaVector3f> _velocities;
+
+        map<uint64, float32> _masses;
+
+        map<uint64, uint64> _bodies;
+
 
     };
+
+#include <iEntityDataPhysics.inl>
 
 }
 

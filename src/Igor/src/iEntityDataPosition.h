@@ -50,10 +50,13 @@ namespace Igor
 
         __IGOR_INLINE__ uint64 getDataMask();
 
-        __IGOR_INLINE__ void setPosition(uint64 entityID, const iaVector3f& position);
-        __IGOR_INLINE__ const iaVector3f& getPosition(uint64 entityID);
+        __IGOR_INLINE__ void updatePosition(uint64 entityID, const iaVector3f& position);
 
         __IGOR_INLINE__ void query(const iSphered& sphere, vector<uint64>& data);
+
+        iEntityDataPosition();
+
+        ~iEntityDataPosition();
 
     private:
 

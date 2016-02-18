@@ -297,6 +297,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iDecisionBox.h" />
     <ClInclude Include="..\src\iDefines.h" />
     <ClInclude Include="..\src\iEntityData.h" />
+    <ClInclude Include="..\src\iEntityDataPhysics.h" />
     <ClInclude Include="..\src\iEntityDataPosition.h" />
     <ClInclude Include="..\src\iEntityDataTransformation.h" />
     <ClInclude Include="..\src\iEntityManager.h" />
@@ -401,7 +402,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemSceneTransformationUpdate.h" />
+    <ClInclude Include="..\src\iSystemPhysicsUpdate.h" />
+    <ClInclude Include="..\src\iSystemScenePositionUpdate.h" />
     <ClInclude Include="..\src\iTargetMaterial.h" />
     <ClInclude Include="..\src\iTask.h" />
     <ClInclude Include="..\src\iTaskFlushModels.h" />
@@ -500,6 +502,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iAACube.inl" />
+    <None Include="..\src\iEntityDataPhysics.inl" />
     <None Include="..\src\iEntityDataPosition.inl" />
     <None Include="..\src\iEntityDataTransformation.inl" />
     <None Include="..\src\iFrustum.inl" />
@@ -534,6 +537,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iControl.cpp" />
     <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
     <ClCompile Include="..\src\iDecisionBox.cpp" />
+    <ClCompile Include="..\src\iEntityDataPosition.cpp" />
     <ClCompile Include="..\src\iEntityManager.cpp" />
     <ClCompile Include="..\src\iFileDialog.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
@@ -628,7 +632,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemSceneTransformationUpdate.cpp" />
+    <ClCompile Include="..\src\iSystemPhysicsUpdate.cpp" />
+    <ClCompile Include="..\src\iSystemScenePositionUpdate.cpp" />
     <ClCompile Include="..\src\iTargetMaterial.cpp" />
     <ClCompile Include="..\src\iTask.cpp" />
     <ClCompile Include="..\src\iTaskFlushModels.cpp" />

@@ -40,8 +40,12 @@ namespace Igor
     class iScene;
     class iWindow;
     class iEntityDataPosition;
+    class iEntityDataPhysics;
     class iEntityDataTransformation;
-    class iSystemSceneTransformationUpdate;
+
+    class iSystemPhysicsUpdate;
+    class iSystemScenePositionUpdate;
+    class iPhysicsBody;
 }
 
 using namespace Igor;
@@ -74,9 +78,12 @@ private:
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
+    iEntityDataPhysics* _entityDataPhysics = nullptr;
     iEntityDataPosition* _entityDataPosition = nullptr;
     iEntityDataTransformation* _entityDataTransformation = nullptr;
-    iSystemSceneTransformationUpdate* _systemSceneTransformationUpdate = nullptr;
+
+    iSystemPhysicsUpdate* _systemPhysicsUpdate = nullptr;
+    iSystemScenePositionUpdate* _systemScenePositionUpdate = nullptr;
 
 
     uint64 _playerID = iEntityManager::INVALID_ENTITY_ID;
@@ -92,7 +99,7 @@ private:
     void deinitPlayer();
     void deinitPlayerRepresentation();
 
-    
+    void onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep, int threadIndex);
 
     void onHandle();
 

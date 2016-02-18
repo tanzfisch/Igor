@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEMSCENETRANSFORMATIONUPDATE__
-#define __iSYSTEMSCENETRANSFORMATIONUPDATE__
+#ifndef __iSYSTEMSCENEPOSITIONUPDATE__
+#define __iSYSTEMSCENEPOSITIONUPDATE__
 
 #include <iSystem.h>
 
@@ -37,7 +37,7 @@ namespace Igor
     class iEntityDataPosition;
     class iEntityDataTransformation;
 
-    class Igor_API iSystemSceneTransformationUpdate : public iSystem
+    class Igor_API iSystemScenePositionUpdate : public iSystem
     {
 
     public:

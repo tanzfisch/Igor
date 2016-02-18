@@ -26,27 +26,30 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iENTITYDATA__
-#define __iENTITYDATA__
+#ifndef __iSYSTEMPHYSICSUPDATE__
+#define __iSYSTEMPHYSICSUPDATE__
 
-#include <iDefines.h>
+#include <iSystem.h>
 
 namespace Igor
 {
 
-    enum class iEntityDataMask
-    {
-        Position = 0x0000000000000001,
-        TransformNode = 0x0000000000000002,
-        Physics = 0x0000000000000004
-    };
+    class iEntityDataPhysics;
 
-    class Igor_API iEntityData
+    class Igor_API iSystemPhysicsUpdate : public iSystem
     {
 
     public:
 
-        virtual uint64 getDataMask() = 0;
+        uint64 getDataMask();
+
+        void handle(uint64 entityID);
+
+        void onRegistration();
+
+    private:
+
+        iEntityDataPhysics* _entityDataPhysics = nullptr;
 
     };
 
