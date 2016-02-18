@@ -9,7 +9,7 @@ using namespace IgorAux;
 
 namespace IgorAux
 {
-    uint32 iaState::_nextID = 1;
+    uint32 iaState::_nextID = INVALID_STATE_ID + 1;
 
     iaState::iaState()
     {

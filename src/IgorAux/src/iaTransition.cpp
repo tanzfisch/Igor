@@ -5,14 +5,13 @@
 #include <iaTransition.h>
 
 #include <iaConsole.h>
-#include <iaState.h>
 #include <iaStateMachine.h>
 using namespace IgorAux;
 
 namespace IgorAux
 {
 
-    uint32 iaTransition::_nextID = 1;
+    uint32 iaTransition::_nextID = INVALID_TRANSITION_ID + 1;
 
     iaTransition::iaTransition(uint32 from, uint32 to)
     {

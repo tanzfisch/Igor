@@ -26,40 +26,51 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __GAMEFRONTEND__
-#define __GAMEFRONTEND__
+#ifndef __GAMECORE__
+#define __GAMECORE__
 
-#include "GameControl.h"
 #include <iView.h>
-#include <iWindow.h>
+
+namespace Igor
+{
+    class iNodeCamera;
+    class iNodeTransform;
+    class iNodeLight;
+    class iScene;
+    class iWindow;
+}
+
 using namespace Igor;
 
-#include <iaVector2.h>
-using namespace IgorAux;
-
-class GameScene;
-
-class GameView
+class GameCore
 {
-private:
-
-    GameControl* _gameControl = nullptr;
-    iWindow* _window = nullptr;
-    iView view;
-
-    GameScene* _gameScene = nullptr;
-    
-    /*! camera position in tile coordinates
-    */
-    iaVector2f _cameraPosition;
-
-    const uint32 _scaleX = 20;
-    const uint32 _scaleY = 20;
 
 public:
 
-    GameView(GameControl* gameControl, iWindow* window);
-    ~GameView();
+    GameCore(iWindow* window);
+    ~GameCore();
+
+private:
+
+    iWindow* _parentWindow = nullptr;
+    iView _view;
+
+    iScene* _scene = nullptr;
+
+    iNodeCamera* _camera = nullptr;
+    iNodeTransform* _cameraHeading = nullptr;
+    iNodeTransform* _cameraPitch = nullptr;
+    iNodeTransform* _cameraDistance = nullptr;
+
+    iNodeTransform* _directionalLightTranslate = nullptr;
+    iNodeTransform* _directionalLightRotate = nullptr;
+    iNodeLight* _lightNode = nullptr;
+
+    void init();
+    void deinit();
+
+    void onHandle();
+
 };
 
 #endif

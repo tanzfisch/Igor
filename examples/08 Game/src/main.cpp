@@ -1,4 +1,4 @@
-#include "GameMenu.h"
+#include "Game.h"
 
 #include <Igor.h>
 using namespace Igor;
@@ -7,7 +7,7 @@ int main(void)
 {
 	Igor::startup();
 
-	GameMenu* game = new GameMenu();
+    Game* game = new Game();
     game->run();
     delete game;
 

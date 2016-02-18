@@ -32,13 +32,13 @@
 #include <iaDefines.h>
 #include <iaEvent.h>
 
+#include <iaState.h>
+
 #include <map>
 using namespace std;
 
 namespace IgorAux
 {
-
-    class iaState;
 
     /*! transition beween two states
 
@@ -52,7 +52,17 @@ namespace IgorAux
 
         friend class iaStateMachine;
 
+    public:
+
+        /*! definition of invalid transition id
+        */
+        static const uint32 INVALID_TRANSITION_ID = 0;
+
     private:
+
+        /*! definition of invalid gate id
+        */
+        static const uint32 INVALID_GATE_ID = 0;
 
         /*! holds the next transition id
         */
@@ -60,19 +70,19 @@ namespace IgorAux
 
         /*! transition id
         */
-        uint32 _id;
+        uint32 _id = INVALID_TRANSITION_ID;
 
-        /*! holds the next transition id
+        /*! holds the next gate id
         */
-        uint32 _nextGateID = 1;
+        uint32 _nextGateID = INVALID_GATE_ID + 1;
 
         /*! source state id
         */
-        uint32 _from = 0;
+        uint32 _from = iaState::INVALID_STATE_ID;
 
         /*! destination state id
         */
-        uint32 _to = 0;
+        uint32 _to = iaState::INVALID_STATE_ID;
 
         /*! map of gate flags
         */

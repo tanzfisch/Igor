@@ -26,27 +26,22 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __GAMEMENU__
-#define __GAMEMENU__
+#ifndef __GAME__
+#define __GAME__
 
 #include <iWindow.h>
 #include <iView.h>
-#include <iKeyboard.h>
+#include <iKeyCodeMap.h>
 #include <iTextureFont.h>
-#include <iTexture.h>
-#include <iParticleSystem2D.h>
 using namespace Igor;
 
 #include <iaStateMachine.h>
 #include <iaString.h>
+#include <iaTransition.h>
 using namespace IgorAux;
 
 #include <vector>
 using namespace std;
-
-class GameControl;
-class GameView;
-class GameInput;
 
 namespace Igor
 {
@@ -54,19 +49,18 @@ namespace Igor
     class iTaskFlushTextures;
 }
 
-class GameMenu
+class GameCore;
+
+class Game
 {
     
 private:
 
-    // game
-    GameControl* _gameControl = nullptr;
-    GameView* _gameView = nullptr;
-    GameInput* _gameInput = nullptr;
+    GameCore* _gameCore = nullptr;
 
     // general
-	iWindow window;
-	iView view;
+	iWindow _window;
+	iView _menuView;
     iTaskFlushModels* _taskFlushModels = nullptr;
     iTaskFlushTextures* _taskFlushTextures = nullptr;
 
@@ -77,21 +71,21 @@ private:
 
     // state machine
     iaStateMachine _stateMachine;
-    uint32 _initIntroTransition = 0;
-    uint32 _introMenuTransition = 0; 
-    uint32 _menuExitTransition = 0;
-    uint32 _menuHelpTransition = 0;
-    uint32 _helpMenuTransition = 0;
-    uint32 _menuCreditsTransition = 0;
-    uint32 _creditsMenuTransition = 0;
-    uint32 _menuSettingsTransition = 0;
-    uint32 _settingsMenuTransition = 0;
-    uint32 _menuGameTransition = 0;
-    uint32 _gameMenuTransition = 0;
-    uint32 _gameWinTransition = 0;
-    uint32 _gameLooseTransition = 0;
-    uint32 _winMenuTransition = 0;
-    uint32 _looseMenuTransition = 0;
+    uint32 _initIntroTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _introMenuTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _menuExitTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _menuHelpTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _helpMenuTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _menuCreditsTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _creditsMenuTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _menuSettingsTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _settingsMenuTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _menuGameTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _gameMenuTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _gameWinTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _gameLooseTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _winMenuTransition = iaTransition::INVALID_TRANSITION_ID;
+    uint32 _looseMenuTransition = iaTransition::INVALID_TRANSITION_ID;
 
     // menu
     int32 _activeMenuEntry = 0;
@@ -99,8 +93,6 @@ private:
 
     // general events
     void onCloseWindow();
-    void onRender();
-    void onHandle();
 
     // state machine events
     void onKeyReleasedMenuState(iKeyCode key);
@@ -138,8 +130,8 @@ private:
 
 public:
 
-    GameMenu();
-    ~GameMenu();
+    Game();
+    ~Game();
 
 	void run();
 };

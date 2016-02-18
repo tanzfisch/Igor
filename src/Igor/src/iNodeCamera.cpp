@@ -52,6 +52,10 @@ namespace Igor
 		{
 			getScene()->setCamera(this);
 		}
+        else
+        {
+            con_warn("camera does not currently belong to a scene");
+        }
 	}
 
 	void iNodeCamera::onPreSetScene()

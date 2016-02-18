@@ -68,6 +68,8 @@ namespace IgorAux
 
     public:
 
+        static const uint32 INVALID_STATE_ID = 0;
+
         /*! \returns the id of this state
         */
         uint32 getID();
@@ -168,7 +170,7 @@ namespace IgorAux
 
         /*! id of this state
         */ 
-        uint32 _id = 0;
+        uint32 _id = INVALID_STATE_ID;
 
         /*! enter state event
         */
