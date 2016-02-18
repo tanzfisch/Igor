@@ -75,7 +75,6 @@ private:
 
 	iWidgetDefaultTheme* _widgetDefaultTheme = nullptr;
 	iWidgetDialog* _dialog1 = nullptr;
-	iWidgetDialog* _dialog2 = nullptr;
 	iWidgetLabel* _label1 = nullptr;
 	iWidgetLabel* _label2 = nullptr;
 	iWidgetButton* _button1 = nullptr;

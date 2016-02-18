@@ -86,12 +86,6 @@ void WidgetsExample::initGUI()
     _dialog1->setActive();
     _dialog1->setVisible();
 
-/*	_dialog2 = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createWidget(iWidgetType::Dialog));
-	_dialog2->setX(10);
-	_dialog2->setY(340);
-	_dialog2->setWidth(300);
-	_dialog2->setHeight(400);*/
-
 	_grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _grid1->appendCollumns(2);
     _grid1->appendRows(2);
@@ -186,7 +180,6 @@ void WidgetsExample::deinitGUI()
 	}
 
 	iWidgetManager::getInstance().destroyWidget(_dialog1);
-//	iWidgetManager::getInstance().destroyWidget(_dialog2);
 	iWidgetManager::getInstance().destroyWidget(_label1);
 	iWidgetManager::getInstance().destroyWidget(_label2);
 	iWidgetManager::getInstance().destroyWidget(_button1);
@@ -239,7 +232,7 @@ void WidgetsExample::onExitClick(iWidget* source)
 
 void WidgetsExample::onWindowClosed()
 {
-	con_endl("_window was closed");
+	con_endl("window was closed");
 	iApplication::getInstance().stop();
 }
 
