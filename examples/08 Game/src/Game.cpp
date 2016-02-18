@@ -109,7 +109,7 @@ void Game::init()
 
     _stateMachine.start();
 
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
     _menuView.registerRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
 
     // create some materials
@@ -120,27 +120,23 @@ void Game::init()
 
     // load a texture font
     _font = new iTextureFont("StandardFont.png");
+
+    // start model and texture loading tasks
+    _taskFlushModels = new iTaskFlushModels(&_window);
+    iTaskManager::getInstance().addTask(_taskFlushModels);
+
+    _taskFlushTextures = new iTaskFlushTextures(&_window);
+    iTaskManager::getInstance().addTask(_taskFlushTextures);
 }
 
 void Game::deinit()
 {
     _menuView.unregisterRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
-    iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
 
     if (_font)
     {
         delete _font;
-    }
-
-    if (_taskFlushModels != nullptr)
-    {
-        _taskFlushModels->abort();
-        _taskFlushModels = nullptr;
-    }
-    if (_taskFlushTextures != nullptr)
-    {
-        _taskFlushTextures->abort();
-        _taskFlushTextures = nullptr;
     }
 
 	_window.close();
@@ -355,8 +351,10 @@ void Game::onLeaveGameState()
 
 void Game::onHandleGameState()
 {
-    // TODO
-    _stateMachine.doTransition(_gameMenuTransition);
+    if (!_gameCore->isRunning())
+    {
+        _stateMachine.doTransition(_gameMenuTransition);
+    }
 }
 
 void Game::onRenderGameState()

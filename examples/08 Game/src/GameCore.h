@@ -30,6 +30,7 @@
 #define __GAMECORE__
 
 #include <iView.h>
+#include <iEntityManager.h>
 
 namespace Igor
 {
@@ -38,6 +39,8 @@ namespace Igor
     class iNodeLight;
     class iScene;
     class iWindow;
+    class iSystemPosition;
+    class iSystemSceneTransformation;
 }
 
 using namespace Igor;
@@ -50,7 +53,11 @@ public:
     GameCore(iWindow* window);
     ~GameCore();
 
+    bool isRunning();
+
 private:
+
+    bool _isRunning = false;
 
     iWindow* _parentWindow = nullptr;
     iView _view;
@@ -66,8 +73,23 @@ private:
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
+    iSystemPosition* _systemPosition = nullptr;
+    iSystemSceneTransformation* _systemSceneTransformation = nullptr;
+
+    uint64 _playerID = iEntityManager::INVALID_ENTITY_ID;
+    vector<uint64> _enemies;
+
     void init();
+    void initSystems();
+    void initPlayer();
+    void initPlayerRepresentation();
+
     void deinit();
+    void deinitSystems();
+    void deinitPlayer();
+    void deinitPlayerRepresentation();
+
+    
 
     void onHandle();
 

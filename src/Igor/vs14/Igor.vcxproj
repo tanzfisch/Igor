@@ -399,7 +399,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\src\iSystemPosition.h" />
-    <ClInclude Include="..\src\iSystemSceneInteraction.h" />
+    <ClInclude Include="..\src\iSystemSceneTransformation.h" />
     <ClInclude Include="..\src\iTargetMaterial.h" />
     <ClInclude Include="..\src\iTask.h" />
     <ClInclude Include="..\src\iTaskFlushModels.h" />
@@ -626,7 +626,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\iSystemPosition.cpp" />
-    <ClCompile Include="..\src\iSystemSceneInteraction.cpp" />
+    <ClCompile Include="..\src\iSystemSceneTransformation.cpp" />
     <ClCompile Include="..\src\iTargetMaterial.cpp" />
     <ClCompile Include="..\src\iTask.cpp" />
     <ClCompile Include="..\src\iTaskFlushModels.cpp" />

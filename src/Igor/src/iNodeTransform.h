@@ -61,7 +61,7 @@ namespace Igor
 
         \param vector vector to translate the transformation matrix
         */
-        virtual void translate(iaVector3f &vector);
+        virtual void translate(const iaVector3f& vector);
 
         /*! high level function to translate the transformation matrix
 
@@ -71,11 +71,25 @@ namespace Igor
         */
         virtual void translate(float32 x, float32 y, float32 z);
 
+        /*! high level function to set the position of the transformation matrix
+
+        \param vector position to set
+        */
+        virtual void setPosition(const iaVector3f& vector);
+
+        /*! high level function to set the position of the transformation matrix
+
+        \param x x component of position
+        \param y y component of position
+        \param z z component of position
+        */
+        virtual void setPosition(float32 x, float32 y, float32 z);
+
         /*! high level function to scale the transformation matrix
 
         \param vector vector to scale the transformation matrix
         */
-        virtual void scale(iaVector3f &vector);
+        virtual void scale(const iaVector3f& vector);
 
         /*! high level function to scale the transformation matrix
 

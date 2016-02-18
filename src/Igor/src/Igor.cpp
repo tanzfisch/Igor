@@ -184,6 +184,7 @@ namespace Igor
 
 	void shutdown()
 	{
+        //! \todo somehow we have to figure out dependencies and shutdown in correct order!
 		// don't change the shutdown order
         if (iModelResourceFactory::isInstantiated())
         {
@@ -198,11 +199,6 @@ namespace Igor
 		if(iTimer::isInstantiated())
 		{
 			iTimer::destroyInstance();
-		}
-
-		if(iApplication::isInstantiated())
-		{
-			iApplication::destroyInstance();
 		}
 
 		if (iNodeFactory::isInstantiated())
@@ -261,6 +257,11 @@ namespace Igor
 		{
 			iMouse::destroyInstance();
 		}
+
+        if (iApplication::isInstantiated())
+        {
+            iApplication::destroyInstance();
+        }
 
         IgorAux::shutdown();
 	}

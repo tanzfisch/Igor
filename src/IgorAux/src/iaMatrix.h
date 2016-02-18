@@ -153,7 +153,7 @@ namespace IgorAux
 
 		\param a translation vector 
 		*/
-		__IGOR_INLINE__ void translate(const iaVector3<T> &a);
+		__IGOR_INLINE__ void translate(const iaVector3<T>& a);
 
 		/*! translate the matrix by vector 3d
 
@@ -167,7 +167,7 @@ namespace IgorAux
 
 		\param s scale vector
 		*/
-		__IGOR_INLINE__ void scale(iaVector3<T> &s);
+		__IGOR_INLINE__ void scale(const iaVector3<T>& s);
 		__IGOR_INLINE__ void scale(T x, T y, T z);
 
 		/*! translate the matrix along it's own orientation vectors
@@ -194,7 +194,7 @@ namespace IgorAux
 
 		/*! set data
 		*/
-		__IGOR_INLINE__ void setData(T* data);
+		__IGOR_INLINE__ void setData(const T* data);
 
 		/*! initializes the matrix with the id matrix
 		*/

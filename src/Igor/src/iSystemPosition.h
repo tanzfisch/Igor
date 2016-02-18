@@ -53,6 +53,8 @@ namespace Igor
         virtual void unregisterEntity(uint64 entityID);
         virtual bool hasEntity(uint64 entityID);
 
+        virtual void handle();
+
         void setPosition(uint64 entityID, const iaVector3f& position);
         const iaVector3f& getPosition(uint64 entityID);
 
@@ -62,6 +64,8 @@ namespace Igor
         virtual ~iSystemPosition();
 
     private:
+
+        
 
         /*! map of entity spheres
         */

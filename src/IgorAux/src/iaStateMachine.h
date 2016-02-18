@@ -186,7 +186,7 @@ namespace IgorAux
 
         /*! calles the handle of the current state
 
-        is ment to be registered to ApplicationHandleDelegate but can be called by anyone
+        is ment to be registered to iApplicationHandleDelegate but can be called by anyone
         */
         void handle();
 

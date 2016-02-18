@@ -28,12 +28,12 @@ namespace Igor
 
     iNodeFactory::iNodeFactory()
     {
-        iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &iNodeFactory::flush));
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeFactory::flush));
     }
 
     iNodeFactory::~iNodeFactory()
     {
-        iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &iNodeFactory::flush));
+        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeFactory::flush));
 
         if (_nodes.size())
         {

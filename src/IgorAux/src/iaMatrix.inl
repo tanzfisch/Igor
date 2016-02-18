@@ -462,10 +462,12 @@ __IGOR_INLINE__ T* iaMatrix<T>::getData()
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::setData(T* data)
+__IGOR_INLINE__ void iaMatrix<T>::setData(const T* data)
 {
     for (int i = 0; i < 16; i++)
+    {
         ((T*)&_right)[i] = data[i];
+    }
 }
 
 template <class T>
@@ -478,7 +480,7 @@ __IGOR_INLINE__ void iaMatrix<T>::identity(void)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::scale(iaVector3<T> &s)
+__IGOR_INLINE__ void iaMatrix<T>::scale(const iaVector3<T>& s)
 {
     iaMatrix<T> scaleMatrix;
 

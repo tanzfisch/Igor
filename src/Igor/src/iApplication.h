@@ -41,7 +41,7 @@ namespace Igor
 	
 	Since the last thing in application cycle is swap buffers this is also related to render frame intervals.
 	*/
-	iaEVENT(ApplicationHandleEvent, ApplicationHandleDelegate, void, (), ());
+	iaEVENT(iApplicationHandleEvent, iApplicationHandleDelegate, void, (), ());
 
 	/*! Application (Singleton)
 	
@@ -73,11 +73,11 @@ namespace Igor
 
         /*! registers application handle delegate
         */
-        void registerApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate);
+        void registerApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate);
 
         /*! unregisters application handle delegate
         */
-        void unregisterApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate);
+        void unregisterApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate);
 
 	private:
 
@@ -103,7 +103,7 @@ namespace Igor
 
 		/*! handle event called after last render frame
 		*/
-		ApplicationHandleEvent _handleEvent;
+		iApplicationHandleEvent _handleEvent;
 
 		/*! triggers ApplicationHandleEvent and updates windows
 		*/

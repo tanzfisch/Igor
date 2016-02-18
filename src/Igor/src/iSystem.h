@@ -47,6 +47,8 @@ namespace Igor
         
         virtual bool hasEntity(uint64 entityID) = 0;
 
+        virtual void handle() = 0;
+
         iSystem();
         virtual ~iSystem();
 

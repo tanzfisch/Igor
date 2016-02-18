@@ -107,12 +107,12 @@ namespace Igor
         _windows.remove(window);
     }
 
-    void iApplication::registerApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate)
+    void iApplication::registerApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate)
     {
         _handleEvent.append(handleDelegate);
     }
 
-    void iApplication::unregisterApplicationHandleDelegate(ApplicationHandleDelegate handleDelegate)
+    void iApplication::unregisterApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate)
     {
         _handleEvent.remove(handleDelegate);
     }

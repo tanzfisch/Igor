@@ -21,6 +21,11 @@ namespace Igor
         _octree = nullptr;
     }
 
+    void iSystemPosition::handle()
+    {
+        // nothing to do
+    }
+
     void iSystemPosition::registerEntity(uint64 entityID)
     {
         con_assert(_spheres.find(entityID) == _spheres.end(), "already registered");

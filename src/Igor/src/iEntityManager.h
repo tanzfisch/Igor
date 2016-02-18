@@ -74,7 +74,7 @@ namespace Igor
         \param entityID entity id
         \returns true if entity id exists
         */
-        bool isEntity(uint64 entityID);
+        bool isEntity(uint64 entityID);        
 
     private:
 
@@ -91,9 +91,13 @@ namespace Igor
         void registerSystem(iSystem* system);
         void unregisterSystem(iSystem* system);
 
+        /*! called per frame. calls handles of all systems registered
+        */
+        void onHandle();
+
         /*! does nothing
         */
-        iEntityManager() = default;
+        iEntityManager();
 
         /*! checks if all entity where released
         */

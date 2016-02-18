@@ -167,7 +167,7 @@ namespace Igor
     {
         if (!_handleRegistered)
         {
-            iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &iPhysics::onUpdate));
+            iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iPhysics::onUpdate));
             _handleRegistered = true;
         }
 
@@ -178,7 +178,7 @@ namespace Igor
     {
         if (_handleRegistered)
         {
-            iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &iPhysics::onUpdate));
+            iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iPhysics::onUpdate));
             _handleRegistered = false;
         }
     }

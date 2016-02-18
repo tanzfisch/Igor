@@ -19,6 +19,9 @@
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
 
+#include <iSystemPosition.h>
+#include <iSystemSceneTransformation.h>
+
 #include <iPhysicsBody.h>
 #include <iMaterialResourceFactory.h>
 using namespace Igor;
@@ -95,19 +98,83 @@ void GameCore::init()
     _scene->getRoot()->insertNode(skyBoxNode);
 
     // register handle
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &GameCore::onHandle));
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &GameCore::onHandle));
+
+    initSystems();
+    initPlayer();
+
+    _isRunning = true;
+}
+
+
+void GameCore::initSystems()
+{
+    _systemPosition = new iSystemPosition();
+    _systemSceneTransformation = new iSystemSceneTransformation(_systemPosition, _scene);
+}
+
+void GameCore::deinitSystems()
+{
+    delete _systemPosition;
+    _systemPosition = nullptr;
+
+    delete _systemSceneTransformation;
+    _systemSceneTransformation = nullptr;
+}
+
+void GameCore::initPlayer()
+{
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeModel* playerModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    playerModel->setModel("crate.ompf");
+
+    transformNode->insertNode(playerModel);
+    _scene->getRoot()->insertNode(transformNode);
+
+    _playerID = iEntityManager::getInstance().createEntity();
+    _systemPosition->registerEntity(_playerID);
+    _systemSceneTransformation->registerEntity(_playerID);
+    _systemSceneTransformation->setTransformID(_playerID, transformNode->getID());
+
+    _systemPosition->setPosition(_playerID, iaVector3f(0, 0, 0));
+}
+
+void GameCore::deinitPlayer()
+{
+    // get's unregistered from systems implicitly
+    iEntityManager::getInstance().destroyEntity(_playerID);
+}
+
+void GameCore::initPlayerRepresentation()
+{
+
+}
+
+void GameCore::deinitPlayerRepresentation()
+{
+
 }
 
 void GameCore::deinit()
 {
+    deinitPlayer();
+    deinitSystems();
+
     _parentWindow->removeView(&_view);
     _view.setScene(nullptr);
 
     iSceneFactory::getInstance().destroyScene(_scene);
-    iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &GameCore::onHandle));
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &GameCore::onHandle));
+
+    _isRunning = false;
 }
 
 void GameCore::onHandle()
 {
     _scene->handle();
+}
+
+bool GameCore::isRunning()
+{
+    return _isRunning;
 }

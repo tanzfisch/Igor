@@ -9,14 +9,14 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	
-	iNodeTransform::iNodeTransform()
-		: iNode()
-	{
-		setName(L"iNodeTransform");
-		_nodeType = iNodeType::iNodeTransform;
-		_nodeKind = iNodeKind::Transformation;
-	}
+
+    iNodeTransform::iNodeTransform()
+        : iNode()
+    {
+        setName(L"iNodeTransform");
+        _nodeType = iNodeType::iNodeTransform;
+        _nodeKind = iNodeKind::Transformation;
+    }
 
     iNodeTransform::iNodeTransform(iNodeTransform* node)
         : iNode()
@@ -38,19 +38,19 @@ namespace Igor
         matrix *= _transform;
     }
 
-	void iNodeTransform::getMatrix(iaMatrixf& matrix)
-	{
-		matrix = _transform;
-	}
+    void iNodeTransform::getMatrix(iaMatrixf& matrix)
+    {
+        matrix = _transform;
+    }
 
-	void iNodeTransform::setMatrix(const iaMatrixf& matrix)
-	{
+    void iNodeTransform::setMatrix(const iaMatrixf& matrix)
+    {
         if (_transform != matrix)
         {
-            _transform = matrix;
+            _transform.setData(matrix.getData());
             setTransformationDirty();
         }
-	}
+    }
 
     void iNodeTransform::identity()
     {
@@ -58,33 +58,46 @@ namespace Igor
         setTransformationDirty();
     }
 
-    void iNodeTransform::translate(iaVector3f &vector)
-	{
+    void iNodeTransform::translate(const iaVector3f& vector)
+    {
         _transform.translate(vector);
-		setTransformationDirty();
-	}
-
-	void iNodeTransform::translate(float32 x, float32 y, float32 z)
-	{
-		_transform.translate(x, y, z);
-		setTransformationDirty();
-	}
-    void iNodeTransform::scale(iaVector3f &vector)
-	{
-        _transform.scale(vector);
-		setTransformationDirty();
-	}
-
-	void iNodeTransform::scale(float32 x, float32 y, float32 z)
-	{
-		_transform.scale(x, y, z);
-		setTransformationDirty();
-	}
-
-	void iNodeTransform::rotate(float32 angle, iaAxis axis)
-	{
-		_transform.rotate(angle, axis);
         setTransformationDirty();
-	}
+    }
+
+    void iNodeTransform::translate(float32 x, float32 y, float32 z)
+    {
+        _transform.translate(x, y, z);
+        setTransformationDirty();
+    }
+
+    void iNodeTransform::setPosition(const iaVector3f& vector)
+    {
+        _transform._pos.set(vector._x, vector._y, vector._z);
+        setTransformationDirty();
+    }
+
+    void iNodeTransform::setPosition(float32 x, float32 y, float32 z)
+    {
+        _transform._pos.set(x, y, z);
+        setTransformationDirty();
+    }
+
+    void iNodeTransform::scale(const iaVector3f& vector)
+    {
+        _transform.scale(vector);
+        setTransformationDirty();
+    }
+
+    void iNodeTransform::scale(float32 x, float32 y, float32 z)
+    {
+        _transform.scale(x, y, z);
+        setTransformationDirty();
+    }
+
+    void iNodeTransform::rotate(float32 angle, iaAxis axis)
+    {
+        _transform.rotate(angle, axis);
+        setTransformationDirty();
+    }
 
 };

@@ -26,58 +26,44 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEMSCENEINTERACTION__
-#define __iSYSTEMSCENEINTERACTION__
+#ifndef __iSYSTEMSCENETRANSFORMATION__
+#define __iSYSTEMSCENETRANSFORMATION__
 
 #include <iSystem.h>
-#include <iNode.h>
-
-#include <iaVector3.h>
-using namespace IgorAux;
+#include <iNodeTransform.h>
 
 #include <map>
-#include <vector>
 using namespace std;
 
 namespace Igor
 {
 
-    __IGOR_FUNCTION_POINTER__(InitNodes, __IGOR_DEFAULTCALL__, uint32, (uint64));
-    __IGOR_FUNCTION_POINTER__(DeInitNodes, __IGOR_DEFAULTCALL__, void, (uint64, uint32));
-
     class iScene;
+    class iSystemPosition;
 
-    class Igor_API iSystemSceneInteraction : public iSystem
+    class Igor_API iSystemSceneTransformation : public iSystem
     {
-
-        struct EntityData
-        {
-            uint32 _transformNodeID = iNode::INVALID_NODE_ID;
-            DeInitNodes _deinitFunction = nullptr;
-            InitNodes _initFunction = nullptr;
-            bool _initialized = false;
-        };
 
     public:
 
         virtual void registerEntity(uint64 entityID);
         virtual void unregisterEntity(uint64 entityID);
         virtual bool hasEntity(uint64 entityID);
+        virtual void handle();
 
-        void init(uint64 entityID);
-        void deinit(uint64 entityID);
-        bool isInitialized(uint64 entityID) const;
+        void setTransformID(uint64 entityID, uint32 transformNodeID);
+        uint32 getTransformID(uint64 entityID) const;
 
-        void setCallbacks(uint64 entityID, InitNodes initFunction, DeInitNodes deinitFunction);
-
-        iSystemSceneInteraction(iScene* scene);
-        virtual ~iSystemSceneInteraction();
+        iSystemSceneTransformation(iSystemPosition* systemPosition, iScene* scene);
+        virtual ~iSystemSceneTransformation();
 
     private:
 
+        iSystemPosition* _systemPosition = nullptr;
+
         /*! map of entity transform nodes
         */
-        map<uint64, EntityData> _transformNodes;
+        map<uint64, uint32> _transformNodes;
 
         /*! scene in use
         */

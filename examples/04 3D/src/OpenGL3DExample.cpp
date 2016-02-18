@@ -224,7 +224,7 @@ void OpenGL3DExample::init()
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &OpenGL3DExample::keyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(_scene, &iScene::handle));
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(_scene, &iScene::handle));
 }
 
 void OpenGL3DExample::deinit()
@@ -233,7 +233,7 @@ void OpenGL3DExample::deinit()
     iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &OpenGL3DExample::keyPressed));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
-    iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(_scene, &iScene::handle));
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(_scene, &iScene::handle));
 
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &OpenGL3DExample::windowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &OpenGL3DExample::windowResized));

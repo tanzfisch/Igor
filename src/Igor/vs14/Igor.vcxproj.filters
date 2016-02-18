@@ -344,7 +344,7 @@
     <ClCompile Include="..\src\iSystem.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemSceneInteraction.cpp">
+    <ClCompile Include="..\src\iSystemSceneTransformation.cpp">
       <Filter>entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -727,7 +727,7 @@
     <ClInclude Include="..\src\iEntityManager.h">
       <Filter>entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemSceneInteraction.h">
+    <ClInclude Include="..\src\iSystemSceneTransformation.h">
       <Filter>entities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,15 +4,22 @@
 
 #include <iEntityManager.h>
 #include <iSystem.h>
+#include <iApplication.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
 
 namespace Igor
 {
+    iEntityManager::iEntityManager()
+    {
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iEntityManager::onHandle));
+    }
 
     iEntityManager::~iEntityManager()
     {
+        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iEntityManager::onHandle));
+
         if (_entityIDs.size())
         {
             con_err("possible mem leak! not all entities released");
@@ -24,6 +31,14 @@ namespace Igor
         uint64 result = _nextID++;
         _entityIDs.insert(result);
         return result;
+    }
+
+    void iEntityManager::onHandle()
+    {
+        for (auto system : _systems)
+        {
+            system->handle();
+        }
     }
 
     void iEntityManager::destroyEntity(uint64 entityID)
