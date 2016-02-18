@@ -33,14 +33,14 @@ void StateMachineExample::init()
     _menuEntries = vector<iaString>{ "Play", "Settings", "Help", "Credits", "Exit" };
     
     // init essentials
-    view.setClearColor(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
-    view.setOrthogonal(0, 1024, 768, 0);
-    view.registerRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
+    _view.setClearColor(iaColor4f(0.5f, 0.5f, 0.5f, 1.0f));
+    _view.setOrthogonal(0, 1024, 768, 0);
+    _view.registerRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
 
-	window.setTitle("State Machine Example");
-	window.addView(&view);
-	window.open();
-	window.registerWindowCloseDelegate(WindowCloseDelegate(this, &StateMachineExample::onCloseWindow));
+	_window.setTitle("State Machine Example");
+	_window.addView(&_view);
+	_window.open();
+	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &StateMachineExample::onCloseWindow));
 
     // init state machine
     uint32 initState = _stateMachine.createState();
@@ -103,7 +103,7 @@ void StateMachineExample::init()
     _gameGateC = _stateMachine.createGate(_gameWinTransition);
    
     iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
-    view.registerRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
+    _view.registerRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
 
     _stateMachine.start();
 
@@ -116,13 +116,19 @@ void StateMachineExample::init()
     _font = new iTextureFont("StandardFont.png");
 
     _particleTexture = iTextureResourceFactory::getInstance().loadFile("simpleParticle.png");
-    _particleSystem.setParticleSize(10.0f, 50.0f);
-    _particleSystem.setInitialVelocity(iaVector2f(0, -10));
-    _particleSystem.setMaxParticleCount(100);
-    _particleSystem.setEmitRate(1);
-    _particleSystem.setSpreadFactor(2.0f);
-    _particleSystem.setAirDrag(0.995f);
-    _particleSystem.setGravitation(iaVector2f(0, 0.2f));
+
+    for (int i = 0; i < 5; ++i)
+    {
+        _particleSystems[i].setParticleSize(10.0f, 50.0f);
+        _particleSystems[i].setInitialVelocity(iaVector2f(0, -(rand() % 10 + 2)));
+        _particleSystems[i].setMaxParticleCount(100);
+        _particleSystems[i].setEmitRate(20);
+        _particleSystems[i].setParticleLifetime(30);
+        _particleSystems[i].setSpreadFactor(1.0f);
+        _particleSystems[i].setAirDrag(0.03f);
+        _particleSystems[i].setExternalForce(iaVector2f(0.0f, 0.02f));
+        _particleSystems[i].setLoopable(false);
+    }
 }
 
 void StateMachineExample::deinit()
@@ -135,11 +141,11 @@ void StateMachineExample::deinit()
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
     _materialWithTextureAndBlending = 0;
 
-	window.close();
-	window.removeView(&view);
+	_window.close();
+	_window.removeView(&_view);
 
-    view.unregisterRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
-    view.unregisterRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
+    _view.unregisterRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
+    _view.unregisterRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
 }
 
 void StateMachineExample::onEnterLooseState()
@@ -152,7 +158,7 @@ void StateMachineExample::onHandleLooseState()
 {
     float64 currentTime = iTimer::getInstance().getTime();
 
-    if (currentTime > _time + 2 * IGOR_SECOND)
+    if (currentTime > _time + 2 * __IGOR_SECOND__)
     {
         _stateMachine.doTransition(_looseMenuTransition);
     }
@@ -172,12 +178,15 @@ void StateMachineExample::onHandleWinState()
 {
     float64 currentTime = iTimer::getInstance().getTime();
 
-    if (currentTime > _time + 2 * IGOR_SECOND)
+    if (currentTime > _time + 2 * __IGOR_SECOND__)
     {
         _stateMachine.doTransition(_winMenuTransition);
     }
 
-    _particleSystem.handle();
+    for (int i = 0; i < 5; ++i)
+    {
+        _particleSystems[i].handle();
+    }
 }
 
 void StateMachineExample::onRenderWinState()
@@ -189,7 +198,16 @@ void StateMachineExample::onRenderWinState()
     iRenderer::getInstance().setColor(iaColor4f(1,0,0,1));
 
     iRenderer::getInstance().bindTexture(_particleTexture, 0);
-    iRenderer::getInstance().drawParticles(500, 700, 0, _particleSystem.getParticles(), _particleSystem.getParticleCount());
+    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0, _particleSystems[0].getParticles(), _particleSystems[0].getParticleCount());
+    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.4, _window.getClientHeight() * 0.7, 0, _particleSystems[1].getParticles(), _particleSystems[1].getParticleCount());
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 0, 1));
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.7, _window.getClientHeight() * 0.4, 0, _particleSystems[2].getParticles(), _particleSystems[2].getParticleCount());
+    iRenderer::getInstance().setColor(iaColor4f(1, 0, 1, 1));
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.6, _window.getClientHeight() * 0.55, 0, _particleSystems[3].getParticles(), _particleSystems[3].getParticleCount()); 
+    iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.45, _window.getClientHeight() * 0.6, 0, _particleSystems[4].getParticles(), _particleSystems[4].getParticleCount());
 }
 
 void StateMachineExample::onKeyPressedGameState(iKeyCode key)
@@ -242,21 +260,21 @@ void StateMachineExample::onEnterGameState()
 
     _backgroundText = "press A,B and C";
     _time = iTimer::getInstance().getTime();
-    iKeyboard::getInstance().registerKeyUpDelegate(KeyUpDelegateExt(this, &StateMachineExample::onKeyReleasedGameState));
-    iKeyboard::getInstance().registerKeyDownDelegate(KeyDownDelegateExt(this, &StateMachineExample::onKeyPressedGameState));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &StateMachineExample::onKeyReleasedGameState));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &StateMachineExample::onKeyPressedGameState));
 }
 
 void StateMachineExample::onLeaveGameState()
 {
-    iKeyboard::getInstance().unregisterKeyUpDelegate(KeyUpDelegateExt(this, &StateMachineExample::onKeyReleasedGameState));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(KeyDownDelegateExt(this, &StateMachineExample::onKeyPressedGameState));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &StateMachineExample::onKeyReleasedGameState));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &StateMachineExample::onKeyPressedGameState));
 }
 
 void StateMachineExample::onHandleGameState()
 {
     float64 currentTime = iTimer::getInstance().getTime();
 
-    if (currentTime > _time + 5 * IGOR_SECOND)
+    if (currentTime > _time + 5 * __IGOR_SECOND__)
     {
         _stateMachine.doTransition(_gameLooseTransition);
     }
@@ -298,17 +316,17 @@ void StateMachineExample::onHandleInitState()
 {
     float64 currentTime = iTimer::getInstance().getTime();
 
-    if (currentTime > _time + 1 * IGOR_SECOND)
+    if (currentTime > _time + 1 * __IGOR_SECOND__)
     {
         _backgroundText = "2";
     }
 
-    if (currentTime > _time + 2 * IGOR_SECOND)
+    if (currentTime > _time + 2 * __IGOR_SECOND__)
     {
         _backgroundText = "1";
     }
 
-    if (currentTime > _time + 3 * IGOR_SECOND)
+    if (currentTime > _time + 3 * __IGOR_SECOND__)
     {
         _stateMachine.doTransition(_initMenuTransition);
     }
@@ -369,12 +387,12 @@ void StateMachineExample::onKeyReleasedMenuState(iKeyCode key)
 void StateMachineExample::onEnterMenuState()
 {
     _backgroundText = "Main Menu";
-    iKeyboard::getInstance().registerKeyUpDelegate(KeyUpDelegateExt(this, &StateMachineExample::onKeyReleasedMenuState));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &StateMachineExample::onKeyReleasedMenuState));
 }
 
 void StateMachineExample::onLeaveMenuState()
 {
-    iKeyboard::getInstance().unregisterKeyUpDelegate(KeyUpDelegateExt(this, &StateMachineExample::onKeyReleasedMenuState));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &StateMachineExample::onKeyReleasedMenuState));
 }
 
 void StateMachineExample::onHandleMenuState()

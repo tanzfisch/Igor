@@ -30,7 +30,10 @@ namespace Igor
         {
             particle._position = _emitterPos;
             particle._velocity = _initialVelocity;
-            particle._velocity.rotateXY(rand() % 100 / 100.0f * _spreadFactor * 2.0 * M_PI);
+
+            float32 spread = ((rand() % 100 / 50.0f) - 1.0f) * _spreadFactor * 0.5f;
+
+            particle._velocity.rotateXY(spread * 2.0 * M_PI);
         }
         else
         {

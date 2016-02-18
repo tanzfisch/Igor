@@ -49,12 +49,12 @@ class StateMachineExample
     
 private:
 
-	iWindow window;
-	iView view;
+	iWindow _window;
+	iView _view;
 
     iTextureFont* _font = 0;
     int32 _materialWithTextureAndBlending = -1;
-    iParticleSystem2D _particleSystem;
+    iParticleSystem2D _particleSystems[5];
     shared_ptr<iTexture> _particleTexture;
 
     iaStateMachine _stateMachine;  
