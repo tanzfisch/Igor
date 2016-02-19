@@ -25,6 +25,7 @@
 #include <iSystemScenePositionUpdate.h>
 #include <iSystemPhysicsUpdate.h>
 
+#include <iEntityDataInput.h>
 #include <iEntityDataPosition.h>
 #include <iEntityDataPhysics.h>
 #include <iEntityDataTransformation.h>
@@ -134,10 +135,12 @@ void GameCore::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep,
 
 void GameCore::initSystems()
 {
+    _entityDataInput = new iEntityDataInput();
     _entityDataPosition = new iEntityDataPosition();
     _entityDataTransformation = new iEntityDataTransformation();
     _entityDataPhysics = new iEntityDataPhysics();
 
+    iEntityManager::getInstance().registerEntityData(_entityDataInput);
     iEntityManager::getInstance().registerEntityData(_entityDataPhysics);
     iEntityManager::getInstance().registerEntityData(_entityDataPosition);
     iEntityManager::getInstance().registerEntityData(_entityDataTransformation);
@@ -153,6 +156,7 @@ void GameCore::deinitSystems()
 {
     iEntityManager::getInstance().unregisterSystem(_systemScenePositionUpdate);
 
+    iEntityManager::getInstance().unregisterEntityData(_entityDataInput);
     iEntityManager::getInstance().unregisterEntityData(_entityDataPosition);
     iEntityManager::getInstance().unregisterEntityData(_entityDataTransformation);
     iEntityManager::getInstance().unregisterEntityData(_entityDataPhysics);
@@ -190,7 +194,7 @@ void GameCore::initPlayer()
 
     _playerID = iEntityManager::getInstance().createEntity();
     iEntityManager::getInstance().setEntityDataMask(_playerID, static_cast<uint64>(iEntityDataMask::Position) |
-        static_cast<uint64>(iEntityDataMask::TransformNode) |
+        static_cast<uint64>(iEntityDataMask::TransformNode) | static_cast<uint64>(iEntityDataMask::Input) |
         static_cast<uint64>(iEntityDataMask::Physics));
 
     _entityDataTransformation->setTransformID(_playerID, transformNode->getID());
@@ -198,6 +202,8 @@ void GameCore::initPlayer()
     _entityDataPhysics->setMass(_playerID, 10);
     _entityDataPhysics->setBody(_playerID, body->getID());
     _entityDataPhysics->setVelocity(_playerID, iaVector3f(15.0, 0, 0));
+
+    _entityDataInput->setInput(_playerID, iEntityInput::Forward, false);
 }
 
 void GameCore::deinitPlayer()
@@ -238,4 +244,48 @@ void GameCore::onHandle()
 bool GameCore::isRunning()
 {
     return _isRunning;
+}
+
+void GameCore::onKeyPressed(iKeyCode key)
+{
+    switch (key)
+    {
+    case iKeyCode::Left:
+        _entityDataInput->setInput(_playerID, iEntityInput::StraveLeft, true);
+        break;
+
+    case iKeyCode::Right:
+        _entityDataInput->setInput(_playerID, iEntityInput::StraveRight, true);
+        break;
+
+    case iKeyCode::Up:
+        _entityDataInput->setInput(_playerID, iEntityInput::Forward, true);
+        break;
+
+    case iKeyCode::Down:
+        _entityDataInput->setInput(_playerID, iEntityInput::Backward, true);
+        break;
+    }
+}
+
+void GameCore::onKeyReleased(iKeyCode key)
+{
+    switch (key)
+    {
+    case iKeyCode::Left:
+        _entityDataInput->setInput(_playerID, iEntityInput::StraveLeft, false);
+        break;
+
+    case iKeyCode::Right:
+        _entityDataInput->setInput(_playerID, iEntityInput::StraveRight, false);
+        break;
+
+    case iKeyCode::Up:
+        _entityDataInput->setInput(_playerID, iEntityInput::Forward, false);
+        break;
+
+    case iKeyCode::Down:
+        _entityDataInput->setInput(_playerID, iEntityInput::Backward, false);
+        break;
+    }
 }

@@ -31,6 +31,7 @@
 
 #include <iView.h>
 #include <iEntityManager.h>
+#include <iKeyCodeMap.h>
 
 namespace Igor
 {
@@ -39,6 +40,8 @@ namespace Igor
     class iNodeLight;
     class iScene;
     class iWindow;
+
+    class iEntityDataInput;
     class iEntityDataPosition;
     class iEntityDataPhysics;
     class iEntityDataTransformation;
@@ -78,6 +81,7 @@ private:
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
+    iEntityDataInput* _entityDataInput = nullptr;
     iEntityDataPhysics* _entityDataPhysics = nullptr;
     iEntityDataPosition* _entityDataPosition = nullptr;
     iEntityDataTransformation* _entityDataTransformation = nullptr;
@@ -100,6 +104,9 @@ private:
     void deinitPlayerRepresentation();
 
     void onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep, int threadIndex);
+
+    void onKeyPressed(iKeyCode key);
+    void onKeyReleased(iKeyCode key);
 
     void onHandle();
 

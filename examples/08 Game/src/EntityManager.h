@@ -26,30 +26,36 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iENTITYDATA__
-#define __iENTITYDATA__
+#ifndef __ENTITYMANAGER__
+#define __ENTITYMANAGER__
 
-#include <iDefines.h>
+#include "Entity.h"
 
-namespace Igor
+#include <iOctree.h>
+using namespace Igor;
+
+#include <map>
+using namespace std;
+
+class EntityManager
 {
 
-    enum class iEntityDataMask
-    {
-        Position = 0x0000000000000001,
-        TransformNode = 0x0000000000000002,
-        Physics = 0x0000000000000004
-    };
+public:
 
-    class Igor_API iEntityData
-    {
+    EntityManager();
+    virtual ~EntityManager();
 
-    public:
+    uint64 createEntity();
+    void destroyEntity(uint64 entityID);
 
-        virtual uint64 getDataMask() = 0;
+protected:
 
-    };
+    uint64 _nextEntityID = 1;
 
-}
+    map<uint64, Entity*> _entities;
+
+    iOctree* _octree = nullptr;
+
+};
 
 #endif

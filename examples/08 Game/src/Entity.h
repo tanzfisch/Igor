@@ -26,35 +26,31 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEMSCENEPOSITIONUPDATE__
-#define __iSYSTEMSCENEPOSITIONUPDATE__
+#ifndef __ENTITY__
+#define __ENTITY__
 
-#include <iSystem.h>
+#include <iNode.h>
+#include <iSphere.h>
+using namespace Igor;
 
-namespace Igor
+class Entity
 {
 
-    class iEntityDataPosition;
-    class iEntityDataTransformation;
+public:
 
-    class Igor_API iSystemScenePositionUpdate : public iSystem
-    {
+    const iSpheref& getSphere();
+    uint64 getID();
 
-    public:
+protected:    
 
-        uint64 getDataMask();
+    uint64 _id = 0;
 
-        void handle(uint64 entityID);
+    iSpheref _sphere;
 
-        void onRegistration();
+    Entity();
+    virtual ~Entity();
 
-    private:
 
-        iEntityDataPosition* _entityDataPosition = nullptr;
-        iEntityDataTransformation* _entityDataTransformation = nullptr;
-
-    };
-
-}
+};
 
 #endif

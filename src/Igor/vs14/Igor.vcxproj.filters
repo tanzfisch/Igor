@@ -335,18 +335,6 @@
     <ClCompile Include="..\src\iPhysicsManager.cpp">
       <Filter>physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iEntityManager.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iSystemScenePositionUpdate.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iEntityDataPosition.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iSystemPhysicsUpdate.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -718,30 +706,6 @@
     <ClInclude Include="..\src\iPhysicsManager.h">
       <Filter>physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystem.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityManager.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityData.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityDataTransformation.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityDataPosition.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iSystemScenePositionUpdate.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iSystemPhysicsUpdate.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityDataPhysics.h">
-      <Filter>entities</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -780,15 +744,6 @@
     <None Include="..\src\iMeshBuffers.inl">
       <Filter>resources\mesh</Filter>
     </None>
-    <None Include="..\src\iEntityDataTransformation.inl">
-      <Filter>entities</Filter>
-    </None>
-    <None Include="..\src\iEntityDataPosition.inl">
-      <Filter>entities</Filter>
-    </None>
-    <None Include="..\src\iEntityDataPhysics.inl">
-      <Filter>entities</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="3rd">
@@ -808,9 +763,6 @@
     </Filter>
     <Filter Include="devices">
       <UniqueIdentifier>{7439be0e-0be3-4059-ba0c-446d35c87cf1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="entities">
-      <UniqueIdentifier>{2d198645-35df-49e4-b312-00ad43ed59a9}</UniqueIdentifier>
     </Filter>
     <Filter Include="graphics">
       <UniqueIdentifier>{9c9458da-a174-40b8-a62e-0d736743c77f}</UniqueIdentifier>
