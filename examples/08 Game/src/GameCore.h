@@ -44,6 +44,9 @@ namespace Igor
 
 using namespace Igor;
 
+class Player;
+class Enemy;
+
 class GameCore
 {
 
@@ -72,18 +75,14 @@ private:
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
-    uint64 _playerID = 0;
-    vector<uint64> _enemies;
+    Player* _player = nullptr;
+    vector<Enemy*> _enemies;
 
     void init();
     void initPlayer();
-    void initPlayerRepresentation();
 
     void deinit();
     void deinitPlayer();
-    void deinitPlayerRepresentation();
-
-    void onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep, int threadIndex);
 
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);

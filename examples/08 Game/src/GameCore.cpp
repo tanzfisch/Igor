@@ -2,6 +2,7 @@
 
 #include <iApplication.h>
 #include <iWindow.h>
+#include <iKeyboard.h>
 
 #include <iSceneFactory.h>
 #include <iScene.h>
@@ -24,6 +25,10 @@
 
 #include <iMaterialResourceFactory.h>
 using namespace Igor;
+
+#include "Player.h"
+#include "Enemy.h"
+#include "EntityManager.h"
 
 GameCore::GameCore(iWindow* window)
 {
@@ -59,7 +64,6 @@ void GameCore::init()
     _cameraDistance->insertNode(_camera);
 
     _cameraPitch->rotate(-45.0f / 180.0f * M_PI, iaAxis::X);
-    _cameraHeading->rotate(45.0f / 180.0f * M_PI, iaAxis::Y);
     _cameraDistance->translate(0, 0, 7);
 
     _scene->getRoot()->insertNode(_cameraHeading);
@@ -96,71 +100,36 @@ void GameCore::init()
     skyBoxNode->setMaterial(materialSkyBox);
     _scene->getRoot()->insertNode(skyBoxNode);
 
-    // register handle
+    // register handles
     iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &GameCore::onHandle));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &GameCore::onKeyPressed));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &GameCore::onKeyReleased));
 
     initPlayer();
 
     _isRunning = true;
 }
 
-void GameCore::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep, int threadIndex)
-{
-    iaVector3f force;
-    float32 Ixx;
-    float32 Iyy;
-    float32 Izz;
-    float32 mass;
-
-    //iPhysics::getInstance().getMassMatrixFromBody(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
-    //force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
-    force = body->getForce();
-
-/*    iaVector3<float32> velocity;
-    iPhysics::getInstance().getVelocity(body->getNewtonBody(), velocity);
-    velocity.negate();
-    force += (velocity / (1.0 / iPhysics::getSimulationRate())) * 0.5;*/
-
-    iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
-}
-
 void GameCore::initPlayer()
 {
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _player = new Player(_scene, iaVector3f(0, 0, 0));
 
-    iNodeModel* playerModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    playerModel->setModel("crate.ompf");
-
-    transformNode->insertNode(playerModel);
-    _scene->getRoot()->insertNode(transformNode);
-
-    iaMatrixf offset;
-    iPhysicsCollision* collisionBox = iPhysics::getInstance().createBox(1, 1, 1, offset);
-    iPhysicsBody* body = iPhysics::getInstance().createBody(collisionBox);
-    iPhysics::getInstance().destroyCollision(collisionBox);
-    body->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &GameCore::onApplyForceAndTorquePlayer));
-    iPhysics::getInstance().bindTransformNode(body, transformNode);
-
-    // TODO
+    Enemy* enemy = new Enemy(_scene, iaVector3f(4, 0, 0));
+    
+    _enemies.push_back(enemy);
 }
 
 void GameCore::deinitPlayer()
 {
-    // TODO
-}
-
-void GameCore::initPlayerRepresentation()
-{
-
-}
-
-void GameCore::deinitPlayerRepresentation()
-{
-
+    delete _player;
 }
 
 void GameCore::deinit()
 {
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &GameCore::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &GameCore::onKeyReleased));
+
+
     deinitPlayer();
 
     _parentWindow->removeView(&_view);
@@ -174,6 +143,7 @@ void GameCore::deinit()
 
 void GameCore::onHandle()
 {
+    EntityManager::getInstance().handle();
     _scene->handle();
 }
 
@@ -187,15 +157,19 @@ void GameCore::onKeyPressed(iKeyCode key)
     switch (key)
     {
     case iKeyCode::Left:
+        _player->startLeft();
         break;
 
     case iKeyCode::Right:
+        _player->startRight();
         break;
 
     case iKeyCode::Up:
+        _player->startUp();
         break;
 
     case iKeyCode::Down:
+        _player->startDown();
         break;
     }
 }
@@ -205,15 +179,19 @@ void GameCore::onKeyReleased(iKeyCode key)
     switch (key)
     {
     case iKeyCode::Left:
+        _player->stopLeft();
         break;
 
     case iKeyCode::Right:
+        _player->stopRight();
         break;
 
     case iKeyCode::Up:
+        _player->stopUp();
         break;
 
     case iKeyCode::Down:
+        _player->stopDown();
         break;
     }
 }
