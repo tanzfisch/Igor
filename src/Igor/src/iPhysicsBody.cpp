@@ -107,24 +107,25 @@ namespace Igor
         iPhysics::getInstance().updateMatrix(_newtonBody, matrix);
     }
 
-    const iaVector3f& iPhysicsBody::getVelocity() const
+
+    const iaVector3f& iPhysicsBody::getForce() const
     {
-        return _velocity;
+        return _force;
     }
 
-    const iaVector3f& iPhysicsBody::getAngularVelocity() const
+    void iPhysicsBody::setForce(const iaVector3f& force)
     {
-        return _angularVelocity;
+        _force = force;
     }
 
-    void iPhysicsBody::setVelocity(const iaVector3f& velocity)
+    const iaVector3f& iPhysicsBody::getTorque() const
     {
-        _velocity = velocity;
+        return _torque;
     }
 
-    void iPhysicsBody::setAngularVelocity(const iaVector3f& angularVelocity)
+    void iPhysicsBody::setTorque(const iaVector3f& torque)
     {
-        _angularVelocity = angularVelocity;
+        _torque = torque;
     }
 
     uint64 iPhysicsBody::getID()

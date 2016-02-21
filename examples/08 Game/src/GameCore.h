@@ -30,7 +30,6 @@
 #define __GAMECORE__
 
 #include <iView.h>
-#include <iEntityManager.h>
 #include <iKeyCodeMap.h>
 
 namespace Igor
@@ -40,14 +39,6 @@ namespace Igor
     class iNodeLight;
     class iScene;
     class iWindow;
-
-    class iEntityDataInput;
-    class iEntityDataPosition;
-    class iEntityDataPhysics;
-    class iEntityDataTransformation;
-
-    class iSystemPhysicsUpdate;
-    class iSystemScenePositionUpdate;
     class iPhysicsBody;
 }
 
@@ -81,25 +72,14 @@ private:
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
-    iEntityDataInput* _entityDataInput = nullptr;
-    iEntityDataPhysics* _entityDataPhysics = nullptr;
-    iEntityDataPosition* _entityDataPosition = nullptr;
-    iEntityDataTransformation* _entityDataTransformation = nullptr;
-
-    iSystemPhysicsUpdate* _systemPhysicsUpdate = nullptr;
-    iSystemScenePositionUpdate* _systemScenePositionUpdate = nullptr;
-
-
-    uint64 _playerID = iEntityManager::INVALID_ENTITY_ID;
+    uint64 _playerID = 0;
     vector<uint64> _enemies;
 
     void init();
-    void initSystems();
     void initPlayer();
     void initPlayerRepresentation();
 
     void deinit();
-    void deinitSystems();
     void deinitPlayer();
     void deinitPlayerRepresentation();
 

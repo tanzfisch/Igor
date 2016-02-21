@@ -22,14 +22,6 @@
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
 
-#include <iSystemScenePositionUpdate.h>
-#include <iSystemPhysicsUpdate.h>
-
-#include <iEntityDataInput.h>
-#include <iEntityDataPosition.h>
-#include <iEntityDataPhysics.h>
-#include <iEntityDataTransformation.h>
-
 #include <iMaterialResourceFactory.h>
 using namespace Igor;
 
@@ -107,7 +99,6 @@ void GameCore::init()
     // register handle
     iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &GameCore::onHandle));
 
-    initSystems();
     initPlayer();
 
     _isRunning = true;
@@ -123,7 +114,7 @@ void GameCore::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep,
 
     //iPhysics::getInstance().getMassMatrixFromBody(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
     //force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
-    force = body->getVelocity();
+    force = body->getForce();
 
 /*    iaVector3<float32> velocity;
     iPhysics::getInstance().getVelocity(body->getNewtonBody(), velocity);
@@ -131,47 +122,6 @@ void GameCore::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep,
     force += (velocity / (1.0 / iPhysics::getSimulationRate())) * 0.5;*/
 
     iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
-}
-
-void GameCore::initSystems()
-{
-    _entityDataInput = new iEntityDataInput();
-    _entityDataPosition = new iEntityDataPosition();
-    _entityDataTransformation = new iEntityDataTransformation();
-    _entityDataPhysics = new iEntityDataPhysics();
-
-    iEntityManager::getInstance().registerEntityData(_entityDataInput);
-    iEntityManager::getInstance().registerEntityData(_entityDataPhysics);
-    iEntityManager::getInstance().registerEntityData(_entityDataPosition);
-    iEntityManager::getInstance().registerEntityData(_entityDataTransformation);
-
-    _systemPhysicsUpdate = new iSystemPhysicsUpdate();
-    _systemScenePositionUpdate = new iSystemScenePositionUpdate();
-
-    iEntityManager::getInstance().registerSystem(_systemScenePositionUpdate);
-    iEntityManager::getInstance().registerSystem(_systemPhysicsUpdate);
-}
-
-void GameCore::deinitSystems()
-{
-    iEntityManager::getInstance().unregisterSystem(_systemScenePositionUpdate);
-
-    iEntityManager::getInstance().unregisterEntityData(_entityDataInput);
-    iEntityManager::getInstance().unregisterEntityData(_entityDataPosition);
-    iEntityManager::getInstance().unregisterEntityData(_entityDataTransformation);
-    iEntityManager::getInstance().unregisterEntityData(_entityDataPhysics);
-
-    delete _entityDataPhysics;
-    _entityDataPhysics = nullptr;
-
-    delete _entityDataPosition;
-    _entityDataPosition = nullptr;
-
-    delete _entityDataTransformation;
-    _entityDataTransformation = nullptr;
-
-    delete _systemScenePositionUpdate;
-    _systemScenePositionUpdate = nullptr;
 }
 
 void GameCore::initPlayer()
@@ -191,25 +141,12 @@ void GameCore::initPlayer()
     body->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &GameCore::onApplyForceAndTorquePlayer));
     iPhysics::getInstance().bindTransformNode(body, transformNode);
 
-
-    _playerID = iEntityManager::getInstance().createEntity();
-    iEntityManager::getInstance().setEntityDataMask(_playerID, static_cast<uint64>(iEntityDataMask::Position) |
-        static_cast<uint64>(iEntityDataMask::TransformNode) | static_cast<uint64>(iEntityDataMask::Input) |
-        static_cast<uint64>(iEntityDataMask::Physics));
-
-    _entityDataTransformation->setTransformID(_playerID, transformNode->getID());
-
-    _entityDataPhysics->setMass(_playerID, 10);
-    _entityDataPhysics->setBody(_playerID, body->getID());
-    _entityDataPhysics->setVelocity(_playerID, iaVector3f(15.0, 0, 0));
-
-    _entityDataInput->setInput(_playerID, iEntityInput::Forward, false);
+    // TODO
 }
 
 void GameCore::deinitPlayer()
 {
-    // get's unregistered from systems implicitly
-    iEntityManager::getInstance().destroyEntity(_playerID);
+    // TODO
 }
 
 void GameCore::initPlayerRepresentation()
@@ -225,7 +162,6 @@ void GameCore::deinitPlayerRepresentation()
 void GameCore::deinit()
 {
     deinitPlayer();
-    deinitSystems();
 
     _parentWindow->removeView(&_view);
     _view.setScene(nullptr);
@@ -251,19 +187,15 @@ void GameCore::onKeyPressed(iKeyCode key)
     switch (key)
     {
     case iKeyCode::Left:
-        _entityDataInput->setInput(_playerID, iEntityInput::StraveLeft, true);
         break;
 
     case iKeyCode::Right:
-        _entityDataInput->setInput(_playerID, iEntityInput::StraveRight, true);
         break;
 
     case iKeyCode::Up:
-        _entityDataInput->setInput(_playerID, iEntityInput::Forward, true);
         break;
 
     case iKeyCode::Down:
-        _entityDataInput->setInput(_playerID, iEntityInput::Backward, true);
         break;
     }
 }
@@ -273,19 +205,15 @@ void GameCore::onKeyReleased(iKeyCode key)
     switch (key)
     {
     case iKeyCode::Left:
-        _entityDataInput->setInput(_playerID, iEntityInput::StraveLeft, false);
         break;
 
     case iKeyCode::Right:
-        _entityDataInput->setInput(_playerID, iEntityInput::StraveRight, false);
         break;
 
     case iKeyCode::Up:
-        _entityDataInput->setInput(_playerID, iEntityInput::Forward, false);
         break;
 
     case iKeyCode::Down:
-        _entityDataInput->setInput(_playerID, iEntityInput::Backward, false);
         break;
     }
 }

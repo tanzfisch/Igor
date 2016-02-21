@@ -75,8 +75,8 @@ namespace Igor
             NewtonBodyGetVelocity(static_cast<const NewtonBody*>(body), vel.getData());
             NewtonBodyGetOmega(static_cast<const NewtonBody*>(body), omega.getData());
             bodyWrapper->_physicsBody->setTransformNodeMatrix(matrix);
-            bodyWrapper->_physicsBody->setVelocity(vel);
-            bodyWrapper->_physicsBody->setAngularVelocity(omega);
+            bodyWrapper->_physicsBody->setForce(vel);
+            bodyWrapper->_physicsBody->setTorque(omega);
         }
     }
 

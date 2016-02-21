@@ -164,7 +164,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Entity.cpp" />
     <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\Game.cpp" />
     <ClCompile Include="..\src\GameCore.cpp" />
@@ -172,7 +171,6 @@
     <ClCompile Include="..\src\Tiles.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Entity.h" />
     <ClInclude Include="..\src\EntityManager.h" />
     <ClInclude Include="..\src\Game.h" />
     <ClInclude Include="..\src\GameCore.h" />

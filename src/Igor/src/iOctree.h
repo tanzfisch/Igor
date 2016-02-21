@@ -51,7 +51,7 @@ namespace Igor
     \bug it does not work for bigger objects
     \todo does not merge efficiently
     */
-    class iOctree
+    class Igor_API iOctree
 	{
 
     public:
@@ -117,7 +117,7 @@ namespace Igor
 
         only use for debugging!
         */
-        void Igor_API draw();
+        void draw();
 
 	private:
 

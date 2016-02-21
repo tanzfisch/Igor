@@ -80,11 +80,11 @@ namespace Igor
         */
         float32 getMass();
 
-        const iaVector3f& getVelocity() const;
-        const iaVector3f& getAngularVelocity() const;
+        const iaVector3f& getForce() const;
+        void setForce(const iaVector3f& force);
 
-        void setVelocity(const iaVector3f& velocity);
-        void setAngularVelocity(const iaVector3f& angularVelocity);
+        const iaVector3f& getTorque() const;
+        void setTorque(const iaVector3f& torque);
 
         void setTransformNodeMatrix(const iaMatrixf& matrix);
         const iaMatrixf& getTransformNodeMatrix() const;
@@ -121,8 +121,8 @@ namespace Igor
         */
         float32 _mass = 0;
 
-        iaVector3f _velocity;
-        iaVector3f _angularVelocity; 
+        iaVector3f _force;
+        iaVector3f _torque;
 
         iaMatrixf _matrix;
 
