@@ -18,6 +18,25 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Enemy.h" />
+    <ClInclude Include="..\src\Entity.h" />
+    <ClInclude Include="..\src\EntityManager.h" />
+    <ClInclude Include="..\src\Game.h" />
+    <ClInclude Include="..\src\GameCore.h" />
+    <ClInclude Include="..\src\Player.h" />
+    <ClInclude Include="..\src\Tiles.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Enemy.cpp" />
+    <ClCompile Include="..\src\Entity.cpp" />
+    <ClCompile Include="..\src\EntityManager.cpp" />
+    <ClCompile Include="..\src\Game.cpp" />
+    <ClCompile Include="..\src\GameCore.cpp" />
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Player.cpp" />
+    <ClCompile Include="..\src\Tiles.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DE10D3FF-0276-4E49-8BBB-D935F15BA21F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -163,25 +182,6 @@
       <AdditionalLibraryDirectories>..\..\..\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\src\Enemy.cpp" />
-    <ClCompile Include="..\src\Entity.cpp" />
-    <ClCompile Include="..\src\EntityManager.cpp" />
-    <ClCompile Include="..\src\Game.cpp" />
-    <ClCompile Include="..\src\GameCore.cpp" />
-    <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\Player.cpp" />
-    <ClCompile Include="..\src\Tiles.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\src\Enemy.h" />
-    <ClInclude Include="..\src\Entity.h" />
-    <ClInclude Include="..\src\EntityManager.h" />
-    <ClInclude Include="..\src\Game.h" />
-    <ClInclude Include="..\src\GameCore.h" />
-    <ClInclude Include="..\src\Player.h" />
-    <ClInclude Include="..\src\Tiles.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

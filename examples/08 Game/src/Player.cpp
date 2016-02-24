@@ -8,8 +8,10 @@
 #include <iPhysics.h>
 #include <iPhysicsBody.h>
 #include <iPhysicsCollision.h>
+#include <iNodeCamera.h>
 using namespace Igor;
 
+#include <iaConsole.h>
 #include <iaString.h>
 using namespace IgorAux;
 
@@ -18,25 +20,51 @@ Player::Player(iScene* scene, const iaVector3f& pos)
 {
     _scene = scene;
 
+    iaMatrixf bodyMatrix;
+    bodyMatrix.translate(pos);
+
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformNode->setMatrix(bodyMatrix);
     _transformNodeID = transformNode->getID();
 
     iNodeModel* playerModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    playerModel->setModel("crate.ompf");
+    playerModel->setModel("cat.ompf");
 
-    transformNode->insertNode(playerModel);
-    transformNode->translate(pos);
-    _scene->getRoot()->insertNode(transformNode);
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    iNodeTransform* cameraDistance = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+
+    // camera
+    cameraHeading->insertNode(cameraPitch);
+    cameraPitch->insertNode(cameraDistance);
+    cameraDistance->insertNode(camera);
+
+    cameraPitch->rotate(-45.0f / 180.0f * M_PI, iaAxis::X);
+    cameraDistance->translate(0, 0, 15);
+
+    transformNode->insertNode(cameraHeading);
 
     iaMatrixf offset;
     iPhysicsCollision* collisionBox = iPhysics::getInstance().createBox(1, 1, 1, offset);
     iPhysicsBody* body = iPhysics::getInstance().createBody(collisionBox);
+    _bodyID = body->getID();
     body->setMass(10);
+    body->setMatrix(bodyMatrix);
     body->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
+    iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(0, 1, 0));
+    iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(1, 0, 0));
+    iPhysics::getInstance().destroyCollision(collisionBox);
+
+    transformNode->insertNode(playerModel);
+    _scene->getRoot()->insertNode(transformNode);
+
     iPhysics::getInstance().bindTransformNode(body, transformNode);
 
-    _bodyID = body->getID();
-    iPhysics::getInstance().destroyCollision(collisionBox);
+    camera->makeCurrent();
+
+    _sphere._center = bodyMatrix._pos;
+    syncPosition();
 }
 
 Player::~Player()

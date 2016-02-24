@@ -105,7 +105,7 @@
       <Filter>threading</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iOctree.cpp">
-      <Filter>scene\octree</Filter>
+      <Filter>scene\nodes\octree</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeVisitor.cpp">
       <Filter>scene\traversal</Filter>
@@ -442,7 +442,7 @@
       <Filter>threading</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iOctree.h">
-      <Filter>scene\octree</Filter>
+      <Filter>scene\nodes\octree</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitor.h">
       <Filter>scene\traversal</Filter>
@@ -821,9 +821,6 @@
     <Filter Include="threading\tasks">
       <UniqueIdentifier>{5473f40e-6e38-4c78-a977-b578420715cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="scene\octree">
-      <UniqueIdentifier>{104fa5da-7f85-4598-a502-c30f41d4f8b4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="scene\traversal">
       <UniqueIdentifier>{d24b4dfe-e782-4ee1-9e5f-8900c0f4c9d1}</UniqueIdentifier>
     </Filter>
@@ -850,6 +847,9 @@
     </Filter>
     <Filter Include="3rd\newton">
       <UniqueIdentifier>{42af59b1-beae-460f-8f88-b1e55abbf035}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scene\nodes\octree">
+      <UniqueIdentifier>{104fa5da-7f85-4598-a502-c30f41d4f8b4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

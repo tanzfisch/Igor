@@ -53,22 +53,6 @@ void GameCore::init()
 
     _view.setScene(_scene);
 
-    // camera
-    _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraDistance = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-
-    _cameraHeading->insertNode(_cameraPitch);
-    _cameraPitch->insertNode(_cameraDistance);
-    _cameraDistance->insertNode(_camera);
-
-    _cameraPitch->rotate(-45.0f / 180.0f * M_PI, iaAxis::X);
-    _cameraDistance->translate(0, 0, 7);
-
-    _scene->getRoot()->insertNode(_cameraHeading);
-    _camera->makeCurrent();
-
     // light
     _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _directionalLightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -112,11 +96,12 @@ void GameCore::init()
 
 void GameCore::initPlayer()
 {
-    _player = new Player(_scene, iaVector3f(0, 0, 0));
+    _player = new Player(_scene, iaVector3f(-2, 0, 0));
 
-    Enemy* enemy = new Enemy(_scene, iaVector3f(4, 0, 0));
-    
-    _enemies.push_back(enemy);
+    for (int i = 0; i < 100; ++i)
+    {
+        _enemies.push_back(new Enemy(_scene, iaVector3f(rand()%100 - 50, 0, rand() % 100 - 50)));
+    }
 }
 
 void GameCore::deinitPlayer()

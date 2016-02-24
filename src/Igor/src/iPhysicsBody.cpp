@@ -45,9 +45,6 @@ namespace Igor
         if (transformNode != nullptr)
         {
             _transformNodeID = transformNode->getID();
-            iaMatrixf matrix;
-            transformNode->getMatrix(matrix);
-            setMatrix(matrix);
         }
     }
 
@@ -107,7 +104,6 @@ namespace Igor
         iPhysics::getInstance().updateMatrix(_newtonBody, matrix);
     }
 
-
     const iaVector3f& iPhysicsBody::getForce() const
     {
         return _force;
@@ -126,6 +122,26 @@ namespace Igor
     void iPhysicsBody::setTorque(const iaVector3f& torque)
     {
         _torque = torque;
+    }
+
+    const iaVector3f& iPhysicsBody::getVelocity() const
+    {
+        return _velocity;
+    }
+
+    void iPhysicsBody::setVelocity(const iaVector3f& velocity)
+    {
+        _velocity = velocity;
+    }
+
+    const iaVector3f& iPhysicsBody::getOmega() const
+    {
+        return _omega;
+    }
+
+    void iPhysicsBody::setOmega(const iaVector3f& omega)
+    {
+        _omega = omega;
     }
 
     uint64 iPhysicsBody::getID()

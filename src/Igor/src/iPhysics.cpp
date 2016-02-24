@@ -71,12 +71,12 @@ namespace Igor
         {
             iaVector3f vel;
             iaVector3f omega;
-            
+
             NewtonBodyGetVelocity(static_cast<const NewtonBody*>(body), vel.getData());
             NewtonBodyGetOmega(static_cast<const NewtonBody*>(body), omega.getData());
             bodyWrapper->_physicsBody->setTransformNodeMatrix(matrix);
-            bodyWrapper->_physicsBody->setForce(vel);
-            bodyWrapper->_physicsBody->setTorque(omega);
+            bodyWrapper->_physicsBody->setVelocity(vel);
+            bodyWrapper->_physicsBody->setOmega(omega);
         }
     }
 
@@ -250,18 +250,24 @@ namespace Igor
 
     iPhysicsJoint* iPhysics::createUpVectorJoint(iPhysicsBody* body, const iaVector3f& upVector)
     {
-        NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
-        _createDestroyMutex.lock();
-        NewtonJoint* joint = NewtonConstraintCreateUpVector(static_cast<const NewtonWorld*>(_world), upVector.getData(), static_cast<const NewtonBody*>(body->_newtonBody));
-        _createDestroyMutex.unlock();
+        iPhysicsJoint* result = nullptr;
+        con_assert(body != nullptr, "zero pointer");
 
-        uint64 jointID = generateJointID();
+        if (body != nullptr)
+        {
+            NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
+            _createDestroyMutex.lock();
+            NewtonJoint* joint = NewtonConstraintCreateUpVector(static_cast<const NewtonWorld*>(_world), upVector.getData(), static_cast<const NewtonBody*>(body->_newtonBody));
+            _createDestroyMutex.unlock();
 
-        iPhysicsJoint* result = new iPhysicsJoint(joint, jointID);
+            uint64 jointID = generateJointID();
 
-        _jointListMutex.lock();
-        _joints[jointID] = result;
-        _jointListMutex.unlock();
+            result = new iPhysicsJoint(joint, jointID);
+
+            _jointListMutex.lock();
+            _joints[jointID] = result;
+            _jointListMutex.unlock();
+        }
 
         return result;
     }
@@ -289,10 +295,15 @@ namespace Igor
 
     void iPhysics::bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode)
     {
-        body->bindTransformNode(transformNode);
-        BodyWrapper* bodyWrapper = new BodyWrapper();
-        bodyWrapper->_physicsBody = body;
-        NewtonBodySetUserData(static_cast<const NewtonBody*>(body->_newtonBody), bodyWrapper);
+        con_assert(body != nullptr && transformNode != nullptr, "zero pointer");
+
+        if (body != nullptr && transformNode != nullptr)
+        {
+            body->bindTransformNode(transformNode);
+            BodyWrapper* bodyWrapper = new BodyWrapper();
+            bodyWrapper->_physicsBody = body;
+            NewtonBodySetUserData(static_cast<const NewtonBody*>(body->_newtonBody), bodyWrapper);
+        }
     }
 
     iPhysicsBody* iPhysics::getBody(uint64 bodyID)

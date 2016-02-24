@@ -148,7 +148,7 @@ namespace Igor
         }
         else
         {
-            con_err("out of bounds");
+            con_debug_endl(userDataID << " out of bounds " << sphere._center);
         }
     }
 
@@ -214,21 +214,23 @@ namespace Igor
     void iOctree::remove(uint64 userDataID)
     {
         con_assert(_objects.end() != _objects.find(userDataID), "object to remove is not registered");
-        con_assert(_nodes.end() != _nodes.find(_objects[userDataID]->_octreeNode), "node not found");
-
-        uint64 nodeID = _objects[userDataID]->_octreeNode;
-        OctreeNode* node = _nodes[nodeID];
-
-        auto iterObjectID = find(node->_objects.begin(), node->_objects.end(), userDataID);
-        if (node->_objects.end() != iterObjectID)
+        
+        if (_objects.end() != _objects.find(userDataID))
         {
-            node->_objects.erase(iterObjectID);
-            deleteObject(userDataID);
-        }
+            uint64 nodeID = _objects[userDataID]->_octreeNode;
+            OctreeNode* node = _nodes[nodeID];
 
-        if (node->_parent != 0)
-        {
-            tryMerge(node->_parent);
+            auto iterObjectID = find(node->_objects.begin(), node->_objects.end(), userDataID);
+            if (node->_objects.end() != iterObjectID)
+            {
+                node->_objects.erase(iterObjectID);
+                deleteObject(userDataID);
+            }
+
+            if (node->_parent != 0)
+            {
+                tryMerge(node->_parent);
+            }
         }
     }
 
@@ -292,18 +294,25 @@ namespace Igor
 
     void iOctree::update(uint64 userDataID, const iSpheref& sphere)
     {
-        iSphered sphered;
-        sphered._center.set(sphere._center._x, sphere._center._y, sphere._center._z);
-        sphered._radius = sphere._radius;
-
-        auto object = _objects[userDataID];
-        con_assert_sticky(object != nullptr, "corrupt data");
-        object->_sphere = sphered;
-
-        auto node = _nodes[object->_octreeNode];
-        if (!node->_box.intersects(sphered._center))
+        if (_objects.find(userDataID) != _objects.end())
         {
-            remove(userDataID);
+            iSphered sphered;
+            sphered._center.set(sphere._center._x, sphere._center._y, sphere._center._z);
+            sphered._radius = sphere._radius;
+
+            auto object = _objects[userDataID];
+            con_assert_sticky(object != nullptr, "corrupt data");
+            object->_sphere = sphered;
+
+            auto node = _nodes[object->_octreeNode];
+            if (!node->_box.intersects(sphered._center))
+            {
+                remove(userDataID);
+                insert(userDataID, sphere);
+            }
+        }
+        else
+        {
             insert(userDataID, sphere);
         }
     }

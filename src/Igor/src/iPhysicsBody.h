@@ -86,7 +86,10 @@ namespace Igor
         const iaVector3f& getTorque() const;
         void setTorque(const iaVector3f& torque);
 
-        void setTransformNodeMatrix(const iaMatrixf& matrix);
+        const iaVector3f& getVelocity() const;
+
+        const iaVector3f& getOmega() const;
+        
         const iaMatrixf& getTransformNodeMatrix() const;
 
         uint32 getTransformNode() const;
@@ -123,6 +126,8 @@ namespace Igor
 
         iaVector3f _force;
         iaVector3f _torque;
+        iaVector3f _velocity;
+        iaVector3f _omega;
 
         iaMatrixf _matrix;
 
@@ -133,6 +138,10 @@ namespace Igor
         /*! bound transform node
         */
         uint32 _transformNodeID = iNode::INVALID_NODE_ID;
+
+        void setTransformNodeMatrix(const iaMatrixf& matrix);
+        void setOmega(const iaVector3f& omega);
+        void setVelocity(const iaVector3f& velocity);
 
         /*!
         \todo implement an event for this

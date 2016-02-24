@@ -21,6 +21,7 @@ public:
 
 private:
 
+    uint32 _idleCounter = 0;
     uint32 _transformNodeID = 0;
     uint64 _bodyID = 0;
     iScene* _scene = nullptr;

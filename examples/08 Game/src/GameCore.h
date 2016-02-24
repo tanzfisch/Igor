@@ -66,11 +66,6 @@ private:
 
     iScene* _scene = nullptr;
 
-    iNodeCamera* _camera = nullptr;
-    iNodeTransform* _cameraHeading = nullptr;
-    iNodeTransform* _cameraPitch = nullptr;
-    iNodeTransform* _cameraDistance = nullptr;
-
     iNodeTransform* _directionalLightTranslate = nullptr;
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
