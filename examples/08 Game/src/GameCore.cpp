@@ -129,7 +129,6 @@ void GameCore::deinit()
 void GameCore::onHandle()
 {
     EntityManager::getInstance().handle();
-    _scene->handle();
 }
 
 bool GameCore::isRunning()

@@ -4,6 +4,7 @@
 
 #include <iNodePhysics.h>
 
+#include <iNodeTransform.h>
 #include <iScene.h>
 #include <iPhysics.h>
 
@@ -339,10 +340,10 @@ namespace Igor
     {
         if (isInitialized())
         {
-            iNode* nextTransformNode = _parent;
+            iNodeTransform* nextTransformNode = static_cast<iNodeTransform*>(_parent);
             while (nextTransformNode != nullptr && nextTransformNode->getType() != iNodeType::iNodeTransform)
             {
-                nextTransformNode = nextTransformNode->getParent();
+                nextTransformNode = static_cast<iNodeTransform*>(nextTransformNode->getParent());
             }
 
             if (nextTransformNode != nullptr &&
@@ -351,7 +352,12 @@ namespace Igor
                 if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
                 {
                     iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
-                    iPhysics::getInstance().bindTransformNode(body, reinterpret_cast<iNodeTransform*>(nextTransformNode));
+
+                    iaMatrixf matrix;
+                    nextTransformNode->getMatrix(matrix);
+                    body->setMatrix(matrix);
+
+                    iPhysics::getInstance().bindTransformNode(body, nextTransformNode);
                 }
                 else
                 {
