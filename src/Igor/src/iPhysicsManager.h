@@ -46,6 +46,9 @@ namespace Igor
     class iScene;
     class iNode;
 
+    /*!
+    \todo we have to rething that
+    */
     class Igor_API iPhysicsManager : public iaSingleton<iPhysicsManager>
     {
 

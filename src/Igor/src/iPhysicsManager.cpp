@@ -50,7 +50,7 @@ namespace Igor
                 iSphered camSphere;
                 camera->getWorldMatrix(camMatrix);
                 camSphere._center.set(camMatrix._pos._x, camMatrix._pos._y, camMatrix._pos._z);
-                camSphere._radius = 500.0;
+                camSphere._radius = 9999.0;
 
                 cullScene(camSphere); // BIG TODO
             }
