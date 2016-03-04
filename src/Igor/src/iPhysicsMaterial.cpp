@@ -2,27 +2,32 @@
 // (c) Copyright 2014-2015 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iPhysicsJoint.h>
+#include <iPhysicsMaterial.h>
 
 #include <iPhysics.h>
 
 namespace Igor
 {
 
-    iPhysicsJoint::iPhysicsJoint(void* joint, uint64 jointID)
+    iPhysicsMaterial::iPhysicsMaterial(int64 id)
     {
-        _joint = joint;
-        _jointID = jointID;
+        _id = id;
     }
 
-    uint64 iPhysicsJoint::getID()
+    int64 iPhysicsMaterial::getID()
     {
-        return _jointID;
+        return _id;
     }
 
-    void* iPhysicsJoint::getJoint() const
+    void iPhysicsMaterial::setName(const iaString& name)
     {
-        return _joint;
+        _name = name;
     }
+
+    const iaString& iPhysicsMaterial::getName() const
+    {
+        return _name;
+    }
+
 
 }

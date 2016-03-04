@@ -48,6 +48,8 @@ namespace Igor
     class iNodeTransform;
     class iPhysicsCollision;
     class iPhysicsJoint;
+    class iPhysicsMaterial;
+    class iPhysicsMaterialCombo;
     class iMesh;
 
     /*! wrapper for newton game dynamics
@@ -65,6 +67,7 @@ namespace Igor
         friend class iTaskPhysics;
         friend class iPhysicsBody; // needed so newton can call dtor on bodys by it self
         friend class iPhysicsPlayer;
+        friend class iPhysicsMaterialCombo;
 
     public:
 
@@ -144,6 +147,12 @@ namespace Igor
         */
         iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
 
+        /*! creates a material
+
+        \returns pointer to new material
+        */
+        iPhysicsMaterial* createMaterial(const iaString& name);
+
         /*! \returns collision by id
 
         \param collisionID the collision id
@@ -175,6 +184,8 @@ namespace Igor
         \param jointID the joint id
         */
         iPhysicsJoint* getJoint(uint64 jointID);
+
+        iPhysicsMaterial* getMaterial(int64 id);
 
         /*! destroy physics body
 
@@ -254,6 +265,8 @@ namespace Igor
         */
         void bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode);
 
+        void setMaterial(iPhysicsBody* body, int64 materialID);
+
     private:
 
         /*! next collision id
@@ -268,12 +281,11 @@ namespace Igor
         */
         uint64 _nextJointID = 1;
 
-
-
         mutex _idMutex;
 
         mutex _bodyListMutex;
         mutex _jointListMutex;
+        mutex _materialListMutex;
         mutex _collisionsListMutex;
         
         mutex _createDestroyMutex;
@@ -290,9 +302,7 @@ namespace Igor
         */
         map<uint64, iPhysicsJoint*> _joints;
 
-        uint64 generateCollisionID();
-        uint64 generateBodyID();
-        uint64 generateJointID();
+        map<int64, iPhysicsMaterial*> _materials;
 
         /*! handle to newton world
         */
@@ -311,6 +321,12 @@ namespace Igor
         /*! current simulation rate in Hz
         */
         static float32 _simulationRate;
+
+        uint64 generateCollisionID();
+        uint64 generateBodyID();
+        uint64 generateJointID();
+
+        void setCollisionCallback(iPhysicsMaterialCombo* materialCombo);
 
         /*! prepares a just created collision
 

@@ -137,6 +137,16 @@ namespace Igor
         */
         void resetForceAndTorqueDelegate();
 
+        /*! sets material id
+
+        \param materialID the material id
+        */
+        void setMaterial(int64 materialID);
+
+        /*! \returns material id
+        */
+        int64 getMaterial() const;
+
         /*! \returns the ID of the body if exists
         */
         uint64 getBodyID() const;
@@ -230,6 +240,10 @@ namespace Igor
         /*! the bodys mass
         */
         float32 _mass = 0;
+
+        /*! material id
+        */
+        int64 _materialID = 0;
 
         /*! handles ApplyForceAndTorque event
         */

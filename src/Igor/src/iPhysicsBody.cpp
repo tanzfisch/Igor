@@ -28,12 +28,24 @@ namespace Igor
         }
     }
 
+    void iPhysicsBody::setMaterial(int64 id)
+    {
+        _materialID = id;
+
+        iPhysics::getInstance().setMaterial(this, _materialID);
+    }
+
+    int64 iPhysicsBody::getMaterial() const
+    {
+        return _materialID;
+    }
+
     uint32 iPhysicsBody::getTransformNode() const
     {
         return _transformNodeID;
     }
 
-    void iPhysicsBody::ApplyForceAndTorque(float32 timestep, int threadIndex)
+    void iPhysicsBody::ApplyForceAndTorque(float64 timestep, int threadIndex)
     {
         _applyForceAndTorque(this, timestep, threadIndex);
     }

@@ -16,6 +16,8 @@
 #include <iPhysicsPlayer.h>
 #include <iPhysicsCollision.h>
 #include <iPhysicsJoint.h>
+#include <iPhysicsMaterial.h>
+#include <iPhysicsMaterialCombo.h>
 #include <iNodeTransform.h>
 #include <iMesh.h>
 
@@ -80,13 +82,42 @@ namespace Igor
         }
     }
 
-    void PhysicsApplyForceAndTorque(const void* body, float32 timestep, int threadIndex)
+    void PhysicsApplyForceAndTorque(const void* body, float64 timestep, int threadIndex)
     {
         BodyWrapper* bodyWrapper = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
         if (nullptr != bodyWrapper)
         {
             bodyWrapper->_physicsBody->ApplyForceAndTorque(timestep, threadIndex);
         }
+    }
+
+    void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex)
+    {
+        NewtonBody* body0 = NewtonJointGetBody0(static_cast<const NewtonJoint*>(newtonContactJoint));
+        NewtonBody* body1 = NewtonJointGetBody1(static_cast<const NewtonJoint*>(newtonContactJoint));
+
+        BodyWrapper* bodyWrapper0 = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body0)));
+        BodyWrapper* bodyWrapper1 = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body1)));
+
+        if (bodyWrapper0 != nullptr && bodyWrapper1 != nullptr)
+        {
+            iPhysicsBody* physicsBody0 = bodyWrapper0->_physicsBody;
+            iPhysicsBody* physicsBody1 = bodyWrapper1->_physicsBody;
+
+            void* contact = NewtonContactJointGetFirstContact(static_cast<const NewtonJoint*>(newtonContactJoint));
+            NewtonMaterial* materialCombo = NewtonContactGetMaterial(contact);
+            iPhysicsMaterialCombo* physicsMaterialCombo = static_cast<iPhysicsMaterialCombo*>(NewtonMaterialGetMaterialPairUserData(materialCombo));
+
+            if (physicsMaterialCombo != nullptr)
+            {
+                physicsMaterialCombo->contact(physicsBody0, physicsBody1);
+            }
+        }
+    }
+
+    void GenericContactProcess(const NewtonJoint* const newtonContactJoint, dFloat timestep, int threadIndex)
+    {
+        GenericContactProcessCompatible(static_cast<const void*>(newtonContactJoint), timestep, threadIndex);
     }
 
     iPhysics::iPhysics()
@@ -191,6 +222,11 @@ namespace Igor
         _createDestroyMutex.unlock();
     }
 
+    void iPhysics::setCollisionCallback(iPhysicsMaterialCombo* materialCombo)
+    {
+        NewtonMaterialSetCollisionCallback(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), materialCombo, NULL, GenericContactProcess);
+    }
+
     void iPhysics::onUpdate()
     {
         const float32 timeDelta = 1.0f / static_cast<float64>(_simulationRate);
@@ -216,6 +252,39 @@ namespace Igor
     uint32 iPhysics::getSimulationRate()
     {
         return _simulationRate;
+    }
+
+    iPhysicsMaterial* iPhysics::getMaterial(int64 id)
+    {
+        iPhysicsMaterial* result = nullptr;
+
+        _materialListMutex.lock();
+        auto iter = _materials.find(id);
+        if (iter != _materials.end())
+        {
+            result = (*iter).second;
+        }
+        _materialListMutex.unlock();
+
+        if (result == nullptr)
+        {
+            con_err("material id " << id << "not found");
+        }
+
+        return result;
+    }
+
+    iPhysicsMaterial* iPhysics::createMaterial(const iaString& name)
+    {
+        iPhysicsMaterial* result = nullptr;
+        result = new iPhysicsMaterial(NewtonMaterialCreateGroupID(static_cast<const NewtonWorld*>(_world)));
+        result->setName(name);
+
+        _materialListMutex.lock();
+        _materials[result->getID()] = result;
+        _materialListMutex.unlock();
+
+        return result;
     }
 
     iPhysicsBody* iPhysics::createBody(iPhysicsCollision* collisionVolume)
@@ -303,6 +372,16 @@ namespace Igor
             BodyWrapper* bodyWrapper = new BodyWrapper();
             bodyWrapper->_physicsBody = body;
             NewtonBodySetUserData(static_cast<const NewtonBody*>(body->_newtonBody), bodyWrapper);
+        }
+    }
+
+    void iPhysics::setMaterial(iPhysicsBody* body, int64 materialID)
+    {
+        con_assert(body != nullptr, "zero pointer");
+
+        if (body != nullptr)
+        {
+            NewtonBodySetMaterialGroupID(static_cast<const NewtonBody*>(body->_newtonBody), materialID);
         }
     }
 

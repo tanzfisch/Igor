@@ -26,50 +26,78 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iPHYSICSMATERIAL__
-#define __iPHYSICSMATERIAL__
+#ifndef __iPHYSICSMATERIALCOMBO__
+#define __iPHYSICSMATERIALCOMBO__
 
 #include <iDefines.h>
 
+#include <iaEvent.h>
 #include <iaString.h>
 using namespace IgorAux;
 
 namespace Igor
 {
 
-    class Igor_API iPhysicsMaterial
+    class iPhysicsBody;
+    class iPhysicsMaterial;
+
+    /*! event triggered if there was a contact detected
+    */
+    iaEVENT(iContactEvent, iContactDelegate, void, (iPhysicsBody* body0, iPhysicsBody* body1), (body0, body1));
+
+    /*! describes combination of two materials
+    */
+    class Igor_API iPhysicsMaterialCombo
     {
 
+        friend void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex);
         friend class iPhysics;
         
     public:
 
-        /*! \returns material ID
-        */
-        int64 getID();
+        /*! sets name of material combo
 
+        \param name the new name of this combo
+        */
         void setName(const iaString& name);
+
+        /*! \returns name of material combo
+        */
         const iaString& getName() const;
 
+        /*! register delegate to contact event
+
+        \param contactDelegate contact delegate to register
+        */
+        void registerContactDelegate(iContactDelegate contactDelegate);
+
+        /*! unregister delegate from contact event
+
+        \param contactDelegate contact delegate to unregister
+        */
+        void unregisterContactDelegate(iContactDelegate contactDelegate);
+
+        int64 getMaterial0() const;
+        int64 getMaterial1() const;
+
+        iPhysicsMaterialCombo(iPhysicsMaterial* material0, iPhysicsMaterial* material1);
+
+        virtual ~iPhysicsMaterialCombo();
+
     private:
+
+        int64 _material0 = 0;
+        int64 _material1 = 0;
+
+        /*! contact event
+        */
+        iContactEvent _contactEvent;
 
         /*! material name
         */
         iaString _name;
 
-        /*! id of material
-        */
-        int64 _id = 0;
-
-        /*! initializes members
-
-        \param collision handle to newton collision
-        */
-        iPhysicsMaterial(int64 id);
-
-        /*! does nothing
-        */
-        virtual ~iPhysicsMaterial() = default;
+        void contact(iPhysicsBody* body0, iPhysicsBody* body1);
 
     };
     

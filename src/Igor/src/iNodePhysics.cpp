@@ -43,6 +43,7 @@ namespace Igor
         _upVectorJoints = node->_upVectorJoints;
         _meshs = node->_meshs;
         _mass = node->_mass;
+        _materialID = node->_materialID;
 
         if (node->_applyForceAndTorqueDelegate != nullptr)
         {
@@ -276,6 +277,7 @@ namespace Igor
 
             iPhysicsBody* body = iPhysics::getInstance().createBody(resultingCollision);
             body->setMass(_mass);
+            body->setMaterial(_materialID);
 
             if (_applyForceAndTorqueDelegate != nullptr)
             {
@@ -334,6 +336,25 @@ namespace Igor
                 body->setMass(_mass);
             }
         }
+    }
+
+    void iNodePhysics::setMaterial(int64 materialID)
+    {
+        _materialID = materialID;
+
+        if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+        {
+            iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+            if (body != nullptr)
+            {
+                body->setMaterial(_materialID);
+            }
+        }
+    }
+
+    int64 iNodePhysics::getMaterial() const
+    {
+        return _materialID;
     }
 
     bool iNodePhysics::onUpdateData()

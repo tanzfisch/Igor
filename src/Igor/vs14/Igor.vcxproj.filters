@@ -335,6 +335,12 @@
     <ClCompile Include="..\src\iPhysicsManager.cpp">
       <Filter>physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iPhysicsMaterial.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsMaterialCombo.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -704,6 +710,12 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsManager.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsMaterial.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsMaterialCombo.h">
       <Filter>physics</Filter>
     </ClInclude>
   </ItemGroup>

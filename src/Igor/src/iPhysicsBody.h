@@ -57,7 +57,7 @@ namespace Igor
 
         friend class iPhysics;
         friend void PhysicsNodeDestructor(const void* body);
-        friend void PhysicsApplyForceAndTorque(const void* body, float32 timestep, int threadIndex);
+        friend void PhysicsApplyForceAndTorque(const void* body, float64 timestep, int threadIndex);
         friend void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex);
 
     public:
@@ -93,6 +93,9 @@ namespace Igor
         const iaMatrixf& getTransformNodeMatrix() const;
 
         uint32 getTransformNode() const;
+
+        void setMaterial(int64 id);
+        int64 getMaterial() const;
         
         /*! \returns body ID
         */
@@ -115,6 +118,8 @@ namespace Igor
         void unregisterForceAndTorqueDelegate(iApplyForceAndTorqueDelegate applyForceAndTorqueDelegate);
 
     protected:
+
+        int64 _materialID = 0;
 
         /*! body id
         */
@@ -146,7 +151,7 @@ namespace Igor
         /*!
         \todo implement an event for this
         */
-        virtual void ApplyForceAndTorque(float32 timestep, int threadIndex);        
+        virtual void ApplyForceAndTorque(float64 timestep, int threadIndex);        
 
         /*! initializes newton body handle
 
