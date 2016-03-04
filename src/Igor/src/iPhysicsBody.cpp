@@ -45,6 +45,16 @@ namespace Igor
         return _transformNodeID;
     }
 
+    void iPhysicsBody::setUserData(uint64 userID)
+    {
+        _userData = userID;
+    }
+
+    uint64 iPhysicsBody::getUserData() const
+    {
+        return _userData;
+    }
+
     void iPhysicsBody::ApplyForceAndTorque(float64 timestep, int threadIndex)
     {
         _applyForceAndTorque(this, timestep, threadIndex);

@@ -83,6 +83,9 @@ namespace Igor
         const iaVector3f& getForce() const;
         void setForce(const iaVector3f& force);
 
+        void setUserData(uint64 userID);
+        uint64 getUserData() const;
+
         const iaVector3f& getTorque() const;
         void setTorque(const iaVector3f& torque);
 
@@ -124,6 +127,8 @@ namespace Igor
         /*! body id
         */
         uint64 _id = 0;
+
+        uint64 _userData = 0;
 
         /*! the mass of this body
         */
