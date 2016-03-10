@@ -57,6 +57,12 @@ namespace Igor
         */
         iNode* getNode(uint32 id);
 
+        /*! \returns true if node ID exists
+
+        \param id the nodes ID
+        */
+        bool isNode(uint32 id);
+
         /*! creates a node
 
         \param nodeType determines which type of node shall be created

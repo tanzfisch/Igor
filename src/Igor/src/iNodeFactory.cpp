@@ -91,7 +91,7 @@ namespace Igor
 
     iNode* iNodeFactory::getNode(uint32 id)
     {
-        con_assert(id != iNode::INVALID_NODE_ID, "zero pointer");
+        con_assert(id != iNode::INVALID_NODE_ID, "invalid id");
 
         iNode* result = nullptr;
 
@@ -100,6 +100,21 @@ namespace Igor
         if (_nodes.end() != iter)
         {
             result = (*iter).second;
+        }
+        _mutexNodes.unlock();
+
+        return result;
+    }
+
+    bool iNodeFactory::isNode(uint32 id)
+    {
+        bool result = false;;
+
+        _mutexNodes.lock();
+        auto iter = _nodes.find(id);
+        if (_nodes.end() != iter)
+        {
+            result = true;
         }
         _mutexNodes.unlock();
 
