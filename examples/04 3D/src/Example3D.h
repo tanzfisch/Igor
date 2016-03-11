@@ -87,43 +87,86 @@ private:
     */
     iTextureFont* _font = nullptr;
 
-    iNodeTransform* _allObjectsHeading = nullptr;
-    iNodeTransform* _allObjectsPitch = nullptr;
+    /*! id to transform node used for manipulating the heading of all objects in scene
+    */
+    uint32 _allObjectsHeading = iNode::INVALID_NODE_ID;
 
-	iNodeTransform* _cameraHeading = nullptr;
-    iNodeTransform* _cameraPitch = nullptr;
-    iNodeTransform* _cameraTranslation = nullptr;
+    /*! id to transform node used for manipulating the pitch of all objects in scene
+    */
+    uint32 _allObjectsPitch = iNode::INVALID_NODE_ID;
 
-    iNodeTransform* _directionalLightTranslate = nullptr;
-    iNodeTransform* _directionalLightRotate = nullptr;
-    iNodeLight* _lightNode = nullptr;
+    /*! id to transform node used for manipulating the heading of the camera
+    */
+    uint32 _cameraHeading = iNode::INVALID_NODE_ID;
 
-    iNodeModel* _crateModel = nullptr;
-    iNodeModel* _catModel = nullptr;
-    iNodeModel* _teapotModel = nullptr;
+    /*! id to transform node used for manipulating the pitch of the camera
+    */
+    uint32 _cameraPitch = iNode::INVALID_NODE_ID;
 
-    iNodeSwitch* _switchNode = nullptr;
+    /*! id to transform node used for manipulating the distance of the camera to the origin
+    */
+    uint32 _cameraTranslation = iNode::INVALID_NODE_ID;
+
+    /*! id to transform node used for manipulating the distance of the light to the origin
+    */
+    uint32 _directionalLightTranslate = iNode::INVALID_NODE_ID;
+
+    /*! id to transform node used for manipulating the direction of the light relative to the origin
+    */
+    uint32 _directionalLightRotate = iNode::INVALID_NODE_ID;
+
+    /*! id to light node
+    */
+    uint32 _lightNode = iNode::INVALID_NODE_ID;
+
+    /*! timer handle to control the movement of the light source over time
+    */
+    iTimerHandle* _animationTimingHandle = nullptr;
+
+    /*! id to crate model node
+    */
+    uint32 _crateModel = iNode::INVALID_NODE_ID;
+
+    /*! id to cat model node
+    */
+    uint32 _catModel = iNode::INVALID_NODE_ID;
+
+    /*! id to teapot model node
+    */
+    uint32 _teapotModel = iNode::INVALID_NODE_ID;
+
+    /*! id to switch node
+    */
+    uint32 _switchNode = iNode::INVALID_NODE_ID;
+
+    /*! 
+    */
     int32 _activeNode = 0;
 
-    iNodeLODTrigger* _LODTrigger = nullptr;
-    iNodeLODSwitch* _LODSwitch = nullptr;
+    /*! id to lod trigger node
+    */
+    uint32 _LODTrigger = iNode::INVALID_NODE_ID;
 
-	iTimerHandle* _animationTimingHandle = nullptr;
+    /*! id to lod switch node
+    */
+    uint32 _LODSwitch = iNode::INVALID_NODE_ID;
 
+    /*! material definition for the sky box
+    */
     int32 _materialSkyBox = 0;
 
-	void keyPressed(iKeyCode key);
-	void handleAnimation();
+	void onKeyPressed(iKeyCode key);
+	void onWindowClosed();
+    void onWindowResized(int32 clientWidth, int32 clientHeight);
 
-	void windowClosed();
-    void windowResized(int32 clientWidth, int32 clientHeight);
+    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseWheel(int32 d);
 
-    void mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
-    void mouseWheel(int32 d);
+    void onRenderOrtho();
+    void onTimer();
+
 	void deinit();
 	void init();
-
-    void renderInfo();
 
 public:
 

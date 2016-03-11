@@ -50,8 +50,8 @@ void Example3D::init()
     _window.setTitle("Igor - 3D Example");
     _window.setSize(1280, 758);
     _window.setCentered();
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::windowClosed));
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::windowResized));
+    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
+    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
 
     _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
     _view.setPerspective(45);
@@ -60,7 +60,7 @@ void Example3D::init()
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Example3D::renderInfo));
+    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
 
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
@@ -71,26 +71,52 @@ void Example3D::init()
     _view.setScene(_scene);
 
     // create cam
-    _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraHeading->setName("_cameraHeading");
-    _cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraPitch->setName("_cameraPitch");
-    _cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraTranslation->setName("_cameraTranslation");
-    _cameraTranslation->translate(0, 0, 10);
+    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    cameraHeading->setName("camera heading");
+    _cameraHeading = cameraHeading->getID();
+
+    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    cameraPitch->setName("camera pitch");
+    _cameraPitch = cameraPitch->getID();
+
+    iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    cameraTranslation->setName("camera translation");
+    cameraTranslation->translate(0, 0, 10);
+    _cameraTranslation = cameraTranslation->getID();
+
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
     camera->setName("camera");
 
-    _allObjectsHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _allObjectsHeading->setName("allObjectsHeading");
-    _allObjectsPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _allObjectsPitch->setName("allObjectsPitch");
+    // create a single cat model
+    iNodeTransform* justCatTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    // give the transform node a name. naming is optional and ist jus for helping to debug. 
+    // Names do not have to be unique but since it is possible to find nodes by name they better are
+    justCatTransform->setName("just cat transform");
+    // create a cat model
+    iNodeModel* justCatModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    // no need to give the model an extra name. the name will be generated based on the file name
+    justCatModel->setModel("cat.ompf");
+    // building the created nodes together and insert them in the scene
+    _scene->getRoot()->insertNode(justCatTransform);
+    justCatTransform->insertNode(justCatModel);
+
+    // create a group of models that can be moved together due to being child to the same transform node
+    // creating transformation node used for the heading of it's children
+    iNodeTransform* allObjectsHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    allObjectsHeading->setName("all objects heading");
+    _allObjectsHeading = allObjectsHeading->getID();
+
+    // creating transformation node used for the pitch of it's children
+    iNodeTransform* allObjectsPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    allObjectsPitch->setName("all objects pitch");
+    _allObjectsPitch = allObjectsPitch->getID();
 
     iNodeTransform* catTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     catTransform->setName("catTransform");
     catTransform->translate(1, 0, 0);
-    _catModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    _catModel->setModel("cat.ompf");
+
+    iNodeModel* catModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    catModel->setModel("cat.ompf");
 
     iNodeTransform* teapotTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     teapotTransform->setName("teapotTransform");
@@ -128,6 +154,7 @@ void Example3D::init()
     iNodeLODSwitch* lodswitch = static_cast<iNodeLODSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODSwitch));
 
     _switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
+
 
     _scene->getRoot()->insertNode(_allObjectsHeading);
     _allObjectsHeading->insertNode(_allObjectsPitch);
@@ -228,10 +255,10 @@ void Example3D::deinit()
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::mouseWheel));
     iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(_scene, &iScene::handle));
 
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::windowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::windowResized));
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
+    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
 
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::renderInfo));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
 
     // deinit statistics
     if (_font != nullptr)
@@ -311,12 +338,12 @@ void Example3D::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _win
     }
 }
 
-void Example3D::windowClosed()
+void Example3D::onWindowClosed()
 {
     iApplication::getInstance().stop();
 }
 
-void Example3D::windowResized(int32 clientWidth, int32 clientHeight)
+void Example3D::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
@@ -365,7 +392,7 @@ void Example3D::handleAnimation()
     _directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
 
-void Example3D::renderInfo()
+void Example3D::onRenderOrtho()
 {
     if (_font != nullptr)
     {
