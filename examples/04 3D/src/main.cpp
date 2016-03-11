@@ -1,16 +1,19 @@
-#include "OpenGL3DExample.h"
+#include "Example3D.h"
 
 #include <Igor.h>
 using namespace Igor;
 
 int main()
 {
+    // first thing to do
 	Igor::startup();
 
-	OpenGL3DExample* example = new OpenGL3DExample();
+    // create and run example
+	Example3D* example = new Example3D();
 	example->run();
 	delete example;
 	
+    // last thing to do
 	Igor::shutdown();
 
 	return 0;

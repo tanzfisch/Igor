@@ -1,4 +1,4 @@
-#include "OpenGL3DExample.h"
+#include "Example3D.h"
 
 #include <iaConsole.h>
 #include <iaString.h>
@@ -18,13 +18,13 @@ using namespace IgorAux;
 #include <iScene.h>
 #include <iNodeFactory.h>
 #include <iMouse.h>
+#include <iKeyboard.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
 #include <iNodeLight.h>
 #include <iModelResourceFactory.h>
 #include <iTaskFlushModels.h>
 #include <iTaskFlushTextures.h>
-#include <iOctree.h>
 #include <iaString.h>
 #include <iMaterialResourceFactory.h>
 #include <iStatistics.h>
@@ -33,35 +33,34 @@ using namespace IgorAux;
 #include <iNodeLODTrigger.h>
 using namespace Igor;
 
-OpenGL3DExample::OpenGL3DExample()
+Example3D::Example3D()
 {
 	init();
 }
 
-OpenGL3DExample::~OpenGL3DExample()
+Example3D::~Example3D()
 {
     deinit();
 }
 
-void OpenGL3DExample::init()
+void Example3D::init()
 {
-	con(" -- OpenGL 3D Test --" << endl);    
+	con(" -- 3D Example --" << endl);    
     
-    _window.setTitle("Igor - OpenGL 3D Test");
+    _window.setTitle("Igor - 3D Example");
     _window.setSize(1280, 758);
     _window.setCentered();
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &OpenGL3DExample::windowClosed));
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &OpenGL3DExample::windowResized));
+    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::windowClosed));
+    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::windowResized));
 
     _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
     _view.setPerspective(45);
     _view.setClipPlanes(0.1f, 10000.f);
-    _view.registerRenderDelegate(RenderDelegate(this, &OpenGL3DExample::renderOctree));
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &OpenGL3DExample::renderInfo));
+    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Example3D::renderInfo));
 
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
@@ -198,12 +197,6 @@ void OpenGL3DExample::init()
     _directionalLightTranslate->insertNode(_lightNode);
     _scene->getRoot()->insertNode(_directionalLightRotate);
 
-    _octreeMaterial = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->setName("Octree");
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_octreeMaterial)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-     
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
@@ -211,7 +204,7 @@ void OpenGL3DExample::init()
     // animation
     _animationTimingHandle = new iTimerHandle();
     _animationTimingHandle->setIntervall(10);
-    _animationTimingHandle->registerTimerDelegate(TimerDelegate(this, &OpenGL3DExample::handleAnimation));
+    _animationTimingHandle->registerTimerDelegate(TimerDelegate(this, &Example3D::handleAnimation));
 
     // start model and texture loading tasks
     _taskFlushModels = new iTaskFlushModels(&_window);
@@ -221,25 +214,24 @@ void OpenGL3DExample::init()
     iTaskManager::getInstance().addTask(_taskFlushTextures);
 
     // register some callbacks
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &OpenGL3DExample::keyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Example3D::keyPressed));
+    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::mouseMoved));
+    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::mouseWheel));
     iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(_scene, &iScene::handle));
 }
 
-void OpenGL3DExample::deinit()
+void Example3D::deinit()
 {
     // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &OpenGL3DExample::keyPressed));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &OpenGL3DExample::mouseMoved));
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &OpenGL3DExample::mouseWheel));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Example3D::keyPressed));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::mouseMoved));
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::mouseWheel));
     iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(_scene, &iScene::handle));
 
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &OpenGL3DExample::windowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &OpenGL3DExample::windowResized));
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::windowClosed));
+    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::windowResized));
 
-    _view.unregisterRenderDelegate(RenderDelegate(this, &OpenGL3DExample::renderOctree));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &OpenGL3DExample::renderInfo));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::renderInfo));
 
     // deinit statistics
     if (_font != nullptr)
@@ -251,7 +243,7 @@ void OpenGL3DExample::deinit()
     // stop light animation
     if (_animationTimingHandle)
     {
-        _animationTimingHandle->unregisterTimerDelegate(TimerDelegate(this, &OpenGL3DExample::handleAnimation));
+        _animationTimingHandle->unregisterTimerDelegate(TimerDelegate(this, &Example3D::handleAnimation));
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
     }
@@ -273,7 +265,6 @@ void OpenGL3DExample::deinit()
     _scene = nullptr;
 
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
-    iMaterialResourceFactory::getInstance().destroyMaterial(_octreeMaterial);
 
     if (_window.isOpen())
     {
@@ -290,20 +281,7 @@ void OpenGL3DExample::deinit()
 
 }
 
-void OpenGL3DExample::renderOctree()
-{
-    if (_renderOctree)
-    {
-        iaMatrixf model;
-        iRenderer::getInstance().setModelMatrix(model);
-
-        iMaterialResourceFactory::getInstance().setMaterial(_octreeMaterial);
-        iRenderer::getInstance().setColor(0, 1.0f, 0, 0.5f);
-        _scene->getOctree()->draw();
-    }
-}
-
-void OpenGL3DExample::mouseWheel(int32 d)
+void Example3D::mouseWheel(int32 d)
 {
     if (d < 0)
     {
@@ -315,7 +293,7 @@ void OpenGL3DExample::mouseWheel(int32 d)
     }
 }
 
-void OpenGL3DExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void Example3D::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 { 
     if (iMouse::getInstance().getRightButton())
     {
@@ -333,17 +311,17 @@ void OpenGL3DExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow
     }
 }
 
-void OpenGL3DExample::windowClosed()
+void Example3D::windowClosed()
 {
     iApplication::getInstance().stop();
 }
 
-void OpenGL3DExample::windowResized(int32 clientWidth, int32 clientHeight)
+void Example3D::windowResized(int32 clientWidth, int32 clientHeight)
 {
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
 
-void OpenGL3DExample::keyPressed(iKeyCode key)
+void Example3D::keyPressed(iKeyCode key)
 {
 	if (key == iKeyCode::ESC)
     {		
@@ -357,11 +335,6 @@ void OpenGL3DExample::keyPressed(iKeyCode key)
         {
             printTree.printToConsole(_scene->getRoot());
         }
-    }
-
-    if (key == iKeyCode::F2)
-    {
-        _renderOctree = !_renderOctree;
     }
 
     if (key == iKeyCode::Space)
@@ -387,12 +360,12 @@ void OpenGL3DExample::keyPressed(iKeyCode key)
     }
 }
 
-void OpenGL3DExample::handleAnimation()
+void Example3D::handleAnimation()
 {  
     _directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
 
-void OpenGL3DExample::renderInfo()
+void Example3D::renderInfo()
 {
     if (_font != nullptr)
     {
@@ -400,7 +373,7 @@ void OpenGL3DExample::renderInfo()
     }
 }
 
-void OpenGL3DExample::run()
+void Example3D::run()
 {  
 	iApplication::getInstance().run();
 }

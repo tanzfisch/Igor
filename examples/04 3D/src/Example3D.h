@@ -26,15 +26,15 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __OPENGL3DEXAMPLE__
-#define __OPENGL3DEXAMPLE__
+#ifndef __EXAMPLE3D__
+#define __EXAMPLE3D__
 
 #include <Igor.h>
 #include <iWindow.h>
 #include <iView.h>
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
-#include <iKeyboard.h>
+#include <iKeyCodeMap.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -54,50 +54,63 @@ namespace Igor
     class iNodeModel;
 }
 
-class OpenGL3DExample
+class Example3D
 {
 
 private:
 
+    /*! the window
+    */
 	iWindow _window;
+
+    /*! the view we render 3D to
+    */
 	iView _view;
+
+    /*! the view we render 2D to
+    */
     iView _viewOrtho;
+
+    /*! the scene holding our 3d nodes
+    */
     iScene* _scene = nullptr;
 
-    bool _renderOctree = false;
-
+    /*! async loading of models
+    */
     iTaskFlushModels* _taskFlushModels = nullptr;
+
+    /*! async loading of textures
+    */
     iTaskFlushTextures* _taskFlushTextures = nullptr;
 
+    /*! texture fon we use to render statistics
+    */
     iTextureFont* _font = nullptr;
 
-    iNode* _myGroup = nullptr;
     iNodeTransform* _allObjectsHeading = nullptr;
     iNodeTransform* _allObjectsPitch = nullptr;
+
 	iNodeTransform* _cameraHeading = nullptr;
     iNodeTransform* _cameraPitch = nullptr;
     iNodeTransform* _cameraTranslation = nullptr;
+
     iNodeTransform* _directionalLightTranslate = nullptr;
     iNodeTransform* _directionalLightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
+
     iNodeModel* _crateModel = nullptr;
     iNodeModel* _catModel = nullptr;
     iNodeModel* _teapotModel = nullptr;
 
     iNodeSwitch* _switchNode = nullptr;
+    int32 _activeNode = 0;
+
     iNodeLODTrigger* _LODTrigger = nullptr;
     iNodeLODSwitch* _LODSwitch = nullptr;
 
-
 	iTimerHandle* _animationTimingHandle = nullptr;
 
-    uint32 _octreeMaterial = 0;
-
-    float32 _camPitch = 0;
-    float32 _camHeading = 0;
-
     int32 _materialSkyBox = 0;
-    int32 _activeNode = 0;
 
 	void keyPressed(iKeyCode key);
 	void handleAnimation();
@@ -111,12 +124,11 @@ private:
 	void init();
 
     void renderInfo();
-    void renderOctree();
 
 public:
 
-	OpenGL3DExample();
-	virtual ~OpenGL3DExample();
+    Example3D();
+	virtual ~Example3D();
 
 	void run();
 
