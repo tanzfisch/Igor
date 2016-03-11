@@ -1,4 +1,4 @@
-#include "OpenGL2DExample.h"
+#include "Example2D.h"
 
 #include <iaConsole.h>
 #include <iaString.h>
@@ -20,17 +20,17 @@ using namespace Igor;
 #include <sstream>
 using namespace std;
 
-OpenGL2DExample::OpenGL2DExample()
+Example2D::Example2D()
 {
     init();
 }
 
-OpenGL2DExample::~OpenGL2DExample()
+Example2D::~Example2D()
 {
     deinit();
 }
 
-void OpenGL2DExample::init()
+void Example2D::init()
 {
     // some console output
     con_endl(" -- Rendering 2D Example --");
@@ -40,9 +40,9 @@ void OpenGL2DExample::init()
     _window.setTitle("Rendering 2D Example");
     _window.setSize(1024, 768);
     // register calback to window close event so we can shutdown the application propperly
-    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &OpenGL2DExample::onWindowClosed));
+    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
     // register callback to window resize event so we can adopt the view to resolution
-    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &OpenGL2DExample::onWindowResize));
+    _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
 
     // define a view
     // switch of the clear color step because we will use a tiled background so there is no need to clear the framebuffer every frame
@@ -51,13 +51,16 @@ void OpenGL2DExample::init()
     // the client rectangle is the size of the actual rendering area
     _view.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
     // register callback to the rendering event of this view
-    _view.registerRenderDelegate(RenderDelegate(this, &OpenGL2DExample::onRender));
+    _view.registerRenderDelegate(RenderDelegate(this, &Example2D::onRender));
     // add the view to the window
     _window.addView(&_view);
 
     // open the window after you added the view to prevent a warning message that there was no view defined. 
     // but it is also allowed to add views after the window was already opened
     _window.open();
+
+    // load the background tile texture
+    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("WidgetThemePattern.png");
 
     // let's see what happens if we want Igor to load a texture that does not exist
     con_endl("!!! next statement will fail with an error message about a missing texture !!!");
@@ -66,8 +69,39 @@ void OpenGL2DExample::init()
     // by default Igor generates a dummy texture that will be returned instead
     // it is a checker texture with some gradients in color and alpha channels
 
-    // load the background tile texture
-    _backgroundTexture = iTextureResourceFactory::getInstance().loadFile("WidgetThemePattern.png");
+    // set up particle system
+    // load a texture for our particle system
+    _particleTexture = iTextureResourceFactory::getInstance().requestFile("simpleParticle.png");
+    // set the range of particle sizes at spawn
+    _particleSystem.setParticleSize(10.0f, 70.0f);
+    // set how much the particles should grow each frame
+    _particleSystem.setParticleSizeDelta(0.5f, 3.0f);
+    // set initial velocity vector of particles at spawn
+    _particleSystem.setInitialVelocity(iaVector2f(40, 0));
+    // make the animation endless. this causes the particles to be reused after their lifetime is over
+    _particleSystem.setLoopable(true);
+    // sets particle life time in frames
+    _particleSystem.setParticleLifetime(80);
+    // set the emission rate per frame
+    _particleSystem.setEmitRate(5);
+    // set maximal particle count. since the particle system is in loop mode we need at least as 
+    // much particles as the life time times the emission rate to have a constant stream of particles
+    _particleSystem.setMaxParticleCount(_particleSystem.getParticleLifetime() * _particleSystem.getEmitRate());
+    // set the spread factor to 5% of the distribution circle
+    // you can also interpret it as opening angle in percent
+    _particleSystem.setSpreadFactor(0.05f);
+    // don't want air drag
+    _particleSystem.setAirDrag(0.0f);
+    // apply external force. in this case something like gravity but positive because the y coordinate axis goes down the screen
+    _particleSystem.setExternalForce(iaVector2f(0, 0.2f));
+
+    // define a rainbow multi color gradient for our particles
+    _rainbow.insertColor(iaColor4f(1, 0, 1, 0.0), 0.0f);
+    _rainbow.insertColor(iaColor4f(0, 0, 1, 0.2), 0.2f);
+    _rainbow.insertColor(iaColor4f(0, 1, 1, 0.4), 0.4f);
+    _rainbow.insertColor(iaColor4f(0, 1, 0, 0.6), 0.6f);
+    _rainbow.insertColor(iaColor4f(1, 1, 0, 0.8), 0.8f);
+    _rainbow.insertColor(iaColor4f(1, 0, 0, 1.0), 1.0f);
 
     // load a texture font
     _font = new iTextureFont("StandardFont.png");
@@ -77,40 +111,20 @@ void OpenGL2DExample::init()
     _logo = new iSprite(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
     // set the center as the origin of the sprite
     _logo->setOrigin(iaVector2f(_logo->getTexture()->getWidth() * 0.5, _logo->getTexture()->getHeight() * 0.5));
-
-    // set up particle system
-    // set the range of particle sizes at spawn
-    _particleSystem.setParticleSize(10.0f, 70.0f);
-    // set how much the particles should grow each frame
-    _particleSystem.setParticleSizeDelta(0.5f, 3.0f);
-    // set initial velocity vector of particles at spawn
-    _particleSystem.setInitialVelocity(iaVector2f(40, 0));
-    // sets particle life time in frames
-    _particleSystem.setParticleLifetime(80);
-    // set the emittion rate per frame
-    _particleSystem.setEmitRate(5);
-    // set maximal particle count. since the particle system is in loop mode we need at least as 
-    // much particles as the life time times the emition rate to have a constand stream of particles
-    _particleSystem.setMaxParticleCount(_particleSystem.getParticleLifetime() * _particleSystem.getEmitRate());
-    // set the spread factor to 5% of the distribution circle
-    // you can also interpret it as opening angle in percent
-    _particleSystem.setSpreadFactor(0.05f);
-    // don't want air drag
-    _particleSystem.setAirDrag(0.0f);
-    // apply external force. in this case something like gravity but positive because the y coordinate axis goes down the screen
-    _particleSystem.setExternalForce(iaVector2f(0, 0.2f));
     
-    // load a texture for our particle system
-    _particleTexture = iTextureResourceFactory::getInstance().loadFile("simpleParticle.png");
+    // initalize a spline loop
+    _spline.addSupportPoint(iaVector3f(100, 100, 0));
+    _spline.addSupportPoint(iaVector3f(150, 80, 0));
+    _spline.addSupportPoint(iaVector3f(900, 600, 0));
+    _spline.addSupportPoint(iaVector3f(700, 500, 0));
+    _spline.addSupportPoint(iaVector3f(100, 700, 0));
+    _spline.addSupportPoint(iaVector3f(900, 300, 0));
+    _spline.addSupportPoint(iaVector3f(50, 150, 0));
+    // close the loop by having the end point at the same position as the start point
+    _spline.addSupportPoint(iaVector3f(100, 100, 0));
+    // defines the resolution of the output line strip if we later call getSpline
+    _spline.setResolution(20);
 
-    // define a rainbow multi color gradient for our particles
-    _rainbow.insertColor(iaColor4f(1, 0, 1, 0.0), 0.0f);
-    _rainbow.insertColor(iaColor4f(0, 0, 1, 0.2), 0.2f);
-    _rainbow.insertColor(iaColor4f(0, 1, 1, 0.4), 0.4f);
-    _rainbow.insertColor(iaColor4f(0, 1, 0, 0.6), 0.6f);
-    _rainbow.insertColor(iaColor4f(1, 1, 0, 0.8), 0.8f);
-    _rainbow.insertColor(iaColor4f(1, 0, 0, 1.0), 1.0f);
-    
     // create some materials
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
@@ -123,42 +137,32 @@ void OpenGL2DExample::init()
 
     _materialWithoutDepthTest = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithoutDepthTest)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
-    // initalize a spline loop
-    _spline.addSupportPoint(iaVector3f(100, 100, 0));
-    _spline.addSupportPoint(iaVector3f(150, 80, 0));
-    _spline.addSupportPoint(iaVector3f(900, 600, 0));
-    _spline.addSupportPoint(iaVector3f(700, 500, 0));
-    _spline.addSupportPoint(iaVector3f(100, 700, 0));
-    _spline.addSupportPoint(iaVector3f(900, 300, 0));
-    _spline.addSupportPoint(iaVector3f(50, 150, 0));
-    // close the loop by having the end point at the same position as the start point
-    _spline.addSupportPoint(iaVector3f(100, 100, 0)); 
-    // defines the resolution of the output line strip if we later call getSpline
-    _spline.setResolution(20);
     
+    // load requested textures
+    iTextureResourceFactory::getInstance().flush();
+
     // register callback to application handle event. the application handle event will be called every frame just before the rendering
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &OpenGL2DExample::onHandle));
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &Example2D::onHandle));
     // register callback to esc key pressed event
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &OpenGL2DExample::onKeyESCPressed), iKeyCode::ESC);
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
     // register callback to mosue moved event
-    iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &OpenGL2DExample::onMouseMove));
+    iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
 }
 
-void OpenGL2DExample::deinit()
+void Example2D::deinit()
 {
     // unregister some callbacks. otherwhise you will be reminded of callbacks that where not released
-    iApplication::getInstance().unregisterApplicationHandleDelegate(ApplicationHandleDelegate(this, &OpenGL2DExample::onHandle));
-    iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &OpenGL2DExample::onMouseMove));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &OpenGL2DExample::onKeyESCPressed), iKeyCode::ESC);
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &Example2D::onHandle));
+    iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
 
     // unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
-    _view.unregisterRenderDelegate(RenderDelegate(this, &OpenGL2DExample::onRender));
+    _view.unregisterRenderDelegate(RenderDelegate(this, &Example2D::onRender));
 
     // close the window, release callback and remove the view. if not you will get various reminders that you should
     _window.close();
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &OpenGL2DExample::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &OpenGL2DExample::onWindowResize));
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
+    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
     _window.removeView(&_view);
 
     // release materials (optional)
@@ -187,37 +191,37 @@ void OpenGL2DExample::deinit()
     _dummyTexture = nullptr;
 }
 
-void OpenGL2DExample::onMouseMove(int32 x, int32 y)
+void Example2D::onMouseMove(int32 x, int32 y)
 {
     // save mouse position for later
     _lastMousePos.set(x, y);
 }
 
-void OpenGL2DExample::run()
+void Example2D::run()
 {
     // calls the applications endless loop
     iApplication::getInstance().run();
 }
 
-void OpenGL2DExample::onWindowClosed()
+void Example2D::onWindowClosed()
 {
     // breaks the applications endless loop
     iApplication::getInstance().stop();
 }
 
-void OpenGL2DExample::onWindowResize(int32 clientWidth, int32 clientHeight)
+void Example2D::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
     // to keep pixel coordinates
     _view.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
 
-void OpenGL2DExample::onKeyESCPressed()
+void Example2D::onKeyESCPressed()
 {
     // breaks the applications endless loop
     iApplication::getInstance().stop();
 }
 
-void OpenGL2DExample::onHandle()
+void Example2D::onHandle()
 {
     // manipulate the rotation angle of the logo
     _logoRotationAngle += 0.01f;
@@ -236,7 +240,7 @@ void OpenGL2DExample::onHandle()
     updateParticles();
 }
 
-void OpenGL2DExample::updateParticles()
+void Example2D::updateParticles()
 {
     // manipulates particles initial velocity over time
     iaVector2f velocity(12, 0);
@@ -250,13 +254,14 @@ void OpenGL2DExample::updateParticles()
     _particleSystem.handle();
 }
 
-void OpenGL2DExample::onRender()
+void Example2D::onRender()
 {
     // since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero (e.g. -30 just a random number with no meaning)
-    iaMatrixf modelMatrix;
-    modelMatrix.translate(iaVector3f(0, 0, -30));
-    iRenderer::getInstance().setModelMatrix(modelMatrix);
+    iaMatrixf matrix;
+    iRenderer::getInstance().setViewMatrix(matrix);
+    matrix.translate(iaVector3f(0, 0, -30));
+    iRenderer::getInstance().setModelMatrix(matrix);
 
     // set a textured material and draw the tiles texture as background
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTexture);

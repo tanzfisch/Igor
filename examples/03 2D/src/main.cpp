@@ -1,4 +1,4 @@
-#include "OpenGL2DExample.h"
+#include "Example2D.h"
 
 #include <Igor.h>
 using namespace Igor;
@@ -9,7 +9,7 @@ int main(void)
 	Igor::startup();
 
     // create and run example
-	OpenGL2DExample *example = new OpenGL2DExample();
+    Example2D *example = new Example2D();
 	example->run();
 	delete example;
 	

@@ -173,11 +173,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Example2D.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\OpenGL2DExample.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\OpenGL2DExample.h" />
+    <ClInclude Include="..\src\Example2D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

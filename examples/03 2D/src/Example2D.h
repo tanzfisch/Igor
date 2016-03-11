@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __OPENGL2DEXAMPLE__
-#define __OPENGL2DEXAMPLE__
+#ifndef __EXAMPLE2D__
+#define __EXAMPLE2D__
 
 #include <iWindow.h>
 #include <iView.h>
@@ -55,18 +55,18 @@ namespace Igor
 
 /*! rendering 2d example
 */
-class OpenGL2DExample
+class Example2D
 {
 
 public:
 
     /*! initializes the example
     */
-    OpenGL2DExample();
+    Example2D();
 
     /*! deinitializes the example
     */
-    virtual ~OpenGL2DExample();
+    virtual ~Example2D();
 
     /*! run the example
     */
