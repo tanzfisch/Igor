@@ -73,20 +73,20 @@ void ModelViewer::deinit()
         delete _font;
     }
 
-    iMouse::getInstance().unregisterMouseWheelDelegate(MouseWheelDelegate(this, &ModelViewer::onMouseWheel));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(MouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(KeyDownDelegateExt(this, &ModelViewer::onKeyPressed));
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
 }
 
 void ModelViewer::init(iaString fileName)
 {
     con(" -- Model Viewer --" << endl);
 
-    iKeyboard::getInstance().registerKeyDownDelegate(KeyDownDelegateExt(this, &ModelViewer::onKeyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(MouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(MouseWheelDelegate(this, &ModelViewer::onMouseWheel));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
+    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
+    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
 
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &ModelViewer::handle));
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &ModelViewer::handle));
 
     _window.setSize(1280, 1024);
     _window.setCentered();
@@ -205,7 +205,7 @@ void ModelViewer::init(iaString fileName)
         _menuDialog->setActive();
         _menuDialog->setVisible();
     }
-    iStatistics::getInstance().setDrawMode(iRenderStatisticsVerbosity::FPSAndMetrics);
+    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     forceLoadingNow();
 

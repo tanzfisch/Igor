@@ -85,7 +85,7 @@ void PhysicsExample::init()
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
 
-	iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &PhysicsExample::handle));
+	iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &PhysicsExample::handle));
 
 	_view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
 	_view.setPerspective(45);
