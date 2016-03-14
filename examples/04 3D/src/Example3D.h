@@ -115,10 +115,6 @@ private:
     */
     uint32 _directionalLightRotate = iNode::INVALID_NODE_ID;
 
-    /*! id to light node
-    */
-    uint32 _lightNode = iNode::INVALID_NODE_ID;
-
     /*! timer handle to control the movement of the light source over time
     */
     iTimerHandle* _animationTimingHandle = nullptr;
