@@ -34,6 +34,7 @@
 #include <iaMatrix.h>
 #include <iaColor4.h>
 #include <iaColor3.h>
+#include <iaEvent.h>
 using namespace IgorAux;
 
 #include <iRectangle.h>
@@ -102,6 +103,16 @@ namespace Igor
 		uint32 _id;
 	};
 
+    /*! triggered when renderer is initialized. 
+    usually after a window was opened.
+    */
+    iaEVENT(iRendererInitializedEvent, iRendererInitializedDelegate, void, (), ());
+
+    /*! triggered when renderer is going to be deinitialized.
+    usually after a window was closed.
+    */
+    iaEVENT(iRendererPreDeinitializeEvent, iRendererPreDeinitializeDelegate, void, (), ());
+
     /*! abstraction class for the actuall renderer. curently only OpenGL
 
     \todo light handling is not done by far
@@ -145,7 +156,33 @@ namespace Igor
 
     public:
 
+        /*! renderer definition of an invalid id
+        */
         static const uint32 INVALID_ID = 0xffffffff;
+
+        /*! register delegate to renderer initialized event
+
+        \param initializedDelegate delegate to register
+        */
+        void registerInitializedDelegate(iRendererInitializedDelegate initializedDelegate);
+
+        /*! unregister delegate from renderer initialized event
+
+        \param initializedDelegate delegate to unregister
+        */
+        void unregisterInitializedDelegate(iRendererInitializedDelegate initializedDelegate);
+
+        /*! register delegate to pre renderer deinitialize event
+
+        \param preDeinitializeDelegate delegate to register
+        */
+        void registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate);
+
+        /*! unregister delegate from pre renderer deinitialize event
+
+        \param preDeinitializeDelegate delegate to unregister
+        */
+        void unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate);
         
         /*! projects a screen position in to world position
 
@@ -534,6 +571,14 @@ namespace Igor
         void getCounters(uint32& vertices, uint32& triangles, uint32& indices);
 
 	private:
+
+        /*! the pre renderer deinitialize event
+        */
+        iRendererPreDeinitializeEvent _rendererPreDeinitializeEvent;
+
+        /*! the renderer initialized event
+        */
+        iRendererInitializedEvent _rendererInitializedEvent;
 
         /*!
         \todo not sure if we need this

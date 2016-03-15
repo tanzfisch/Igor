@@ -214,15 +214,9 @@ void Example3D::init()
     // and add the lod trigger to the scene by attaching it to the camera. there can be multiple LOD triggers and any lod switch can react on any lod trigger
     camera->insertNode(lodtrigger);
 
-    // init sky box
-    // create a material for the sky box
-    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
-    // create the skybox
+    // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    // set it up with the default skybox texture
     skyBoxNode->setTextures(
         "skybox_default/front.png",
         "skybox_default/back.png",
@@ -230,17 +224,26 @@ void Example3D::init()
         "skybox_default/right.png",
         "skybox_default/top.png",
         "skybox_default/bottom.png");
+    // manipulate the texture scale so we can see the repeating pattern of the textures
     skyBoxNode->setTextureScale(10);
+    // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_EARLY);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
+    // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
+    // and add it to the scene
     _scene->getRoot()->insertNode(skyBoxNode);
 
     // setup light
     // transform node for the lights orientation
     iNodeTransform* directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    // keep transform node id so we can manipulate the light's position later
     _directionalLightRotate = directionalLightRotate->getID();
     // transform node for the lights distance to the origin
     iNodeTransform* directionalLightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _directionalLightTranslate = directionalLightTranslate->getID();
     directionalLightTranslate->translate(100, 100, 100);
     // the light node
     iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
@@ -280,10 +283,8 @@ void Example3D::deinit()
     iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &Example3D::onKeyPressed));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Example3D::onMouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &Example3D::onMouseWheel));
-
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
-
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
 
     // deinit statistics
@@ -326,12 +327,11 @@ void Example3D::deinit()
         _window.removeView(&_viewOrtho);
     }
 
-    if (_font)
+    if (_font != nullptr)
     {
         delete _font;
         _font = nullptr;
     }
-
 }
 
 void Example3D::onMouseWheel(int32 d)
@@ -352,7 +352,6 @@ void Example3D::onMouseWheel(int32 d)
 
 void Example3D::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
-
     if (iMouse::getInstance().getRightButton())
     {
         iNodeTransform* allObjectsPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_allObjectsPitch));

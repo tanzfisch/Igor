@@ -58,9 +58,30 @@ namespace Igor
 
     public:
 
+        /*! invalid material ID
+        */
         static const int32 INVALID_MATERIAL_ID = 0;
 
-        static const int32 DEFALT_ORDER = 100;
+        /*! early render order value
+        */
+        static const int32 RENDER_ORDER_EARLY = 100;
+
+        /*! default render order value
+        */
+        static const int32 RENDER_ORDER_DEFAULT = 200;
+
+        /*! late render order value
+        */
+        static const int32 RENDER_ORDER_LATE = 300;
+
+        /*! min render order value
+        */
+        static const int32 RENDER_ORDER_MIN = 0;
+
+        /*! max render order value
+        */
+        static const int32 RENDER_ORDER_MAX = 400;
+
 
         /*! \returns name of material
         */
@@ -97,17 +118,17 @@ namespace Igor
 
         /*! set render order
 
-        \param order the higher the value the later it get's rendered (default is iMaterial::DEFALT_ORDER)
+        \param order the higher the value the later it get's rendered (default is iMaterial::RENDER_ORDER_DEFAULT)
         */
-        void setOrder(int32 order = iMaterial::DEFALT_ORDER);
+        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
 
 	private:
 
         /*! oder that material groups get sorted by
 
-        default value is iMaterial::DEFALT_ORDER
+        default value is iMaterial::RENDER_ORDER_DEFAULT
         */
-        int32 _order = iMaterial::DEFALT_ORDER;
+        int32 _order = iMaterial::RENDER_ORDER_DEFAULT;
 
         /*! name of the material.
 

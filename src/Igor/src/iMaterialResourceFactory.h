@@ -30,6 +30,7 @@
 #define __iMATERIALRESOURCEFACTORY__
 
 #include <iDefines.h>
+#include <iMaterial.h>
 
 #include <iaString.h>
 #include <iaSingleton.h>
@@ -43,7 +44,6 @@ using namespace std;
 namespace Igor
 {
 
-    class iMaterial;
     class iMaterialGroup;
     class iTargetMaterial;
 
@@ -82,6 +82,8 @@ namespace Igor
         /*! set a material as the active material.
 
         changes render states as needed.
+
+        ATTENTION can only be used if window is open and renderer initialized
 
         \param materialID the materials id to be activated
         */
@@ -158,7 +160,7 @@ namespace Igor
 
         /*! default material ID
         */
-        uint32 _defaultID = 0;
+        uint32 _defaultID = iMaterial::INVALID_MATERIAL_ID;
 
         /*! sorts the materials if needed
         */

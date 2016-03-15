@@ -166,6 +166,16 @@ namespace Igor
 
     void iRenderer::deinit()
     {
+        if (_initialized)
+        {
+            _rendererPreDeinitializeEvent();
+
+            _initialized = false;
+        }
+        else
+        {
+            con_warn("renderer already deinitialized");
+        }
     }
 
     void iRenderer::init()
@@ -193,9 +203,35 @@ namespace Igor
             clearDepthBuffer();
 
             _initialized = true;
+
+            _rendererInitializedEvent();
+        }
+        else
+        {
+            con_warn("renderer already initialized");
         }
     }
 
+    void iRenderer::registerInitializedDelegate(iRendererInitializedDelegate initializedDelegate)
+    {
+        _rendererInitializedEvent.append(initializedDelegate);
+    }
+
+    void iRenderer::unregisterInitializedDelegate(iRendererInitializedDelegate initializedDelegate)
+    {
+        _rendererInitializedEvent.remove(initializedDelegate);
+    }
+
+    void iRenderer::registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate)
+    {
+        _rendererPreDeinitializeEvent.append(preDeinitializeDelegate);
+    }
+
+    void iRenderer::unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate)
+    {
+        _rendererPreDeinitializeEvent.remove(preDeinitializeDelegate);
+    }
+    
     iaString iRenderer::getVendor()
     {
         return _vendorOGL;

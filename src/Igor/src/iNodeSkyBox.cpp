@@ -120,15 +120,19 @@ namespace Igor
 			if(_alpha < 1.0f)
 			{
 				iMaterial* material = iMaterialResourceFactory::getInstance().getCurrentMaterial();
-				if(material)
+				if(material != nullptr)
 				{
-                    //! \todo that is evil and not ok to use like this
+                    //! \todo evil hack
 					if(material->getRenderStateSet().getRenderStateValue(iRenderState::Blend) == iRenderStateValue::On)
 					{
                         iRenderer::getInstance().setColor(1, 1, 1, _alpha);
 					}
 				}
 			}
+            else
+            {
+                iRenderer::getInstance().setColor(1, 1, 1, 1);
+            }
 
 			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,-boxsize),iaVector3f(-boxsize,0,0),iaVector3f(0,boxsize,0), _front, _textureScale, _textureScale);
 			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,boxsize),iaVector3f(boxsize,0,0),iaVector3f(0,boxsize,0), _back, _textureScale, _textureScale);
@@ -136,8 +140,6 @@ namespace Igor
 			iRenderer::getInstance().drawBillboard(iaVector3f(boxsize,0,0),iaVector3f(0,0,-boxsize),iaVector3f(0,boxsize,0), _right, _textureScale, _textureScale);
 			iRenderer::getInstance().drawBillboard(iaVector3f(0,boxsize,0),iaVector3f(boxsize,0,0),iaVector3f(0,0,-boxsize), _top, _textureScale, _textureScale);
 			iRenderer::getInstance().drawBillboard(iaVector3f(0,-boxsize,0),iaVector3f(boxsize,0,0),iaVector3f(0,0,boxsize), _bottom, _textureScale, _textureScale);
-
-			iRenderer::getInstance().setColor(1,1,1,1);
 		}
 		else
 		{

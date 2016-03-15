@@ -18,10 +18,37 @@ namespace Igor
 
     iTextureResourceFactory::iTextureResourceFactory()
     {
-        genDummyTexture();
+        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
+        iRenderer::getInstance().registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
     }
 
     iTextureResourceFactory::~iTextureResourceFactory()
+    {
+        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
+        iRenderer::getInstance().unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
+
+        if (iRenderer::getInstance().isReady())
+        {
+            // run a flush once more but only if renderer still exists
+            flush();
+        }
+
+        // now check if it was actually released
+        if (!_textures.empty())
+        {
+            con_err("possible mem leak. not all textures were released.");
+
+            con_endl("non released textures: ");
+            for (auto texture : _textures)
+            {
+                con_endl(texture.second->getFilename() << " ref:" << texture.second.use_count());
+            }
+        }
+
+        _textures.clear();
+    }
+
+    void iTextureResourceFactory::deinit()
     {
         // release dummy texture
         _dummyTexture = nullptr;
@@ -44,20 +71,6 @@ namespace Igor
 
         // than run a flush to clear all released data
         flush();
-
-        // no check if it was actually released
-        if (!_textures.empty())
-        {
-            con_err("possible mem leak. not all textures were released.");
-
-            con_endl("non released textures: ");
-            for (auto texture : _textures)
-            {
-                con_endl(texture.second->getFilename());
-            }
-        }
-
-        _textures.clear();
     }
 
     shared_ptr<iTexture> iTextureResourceFactory::getDummyTexture()
@@ -65,7 +78,7 @@ namespace Igor
         return _dummyTexture;
     }
 
-    void iTextureResourceFactory::genDummyTexture()
+    void iTextureResourceFactory::init()
     {
         const int width = 256;
         const int height = 256;
@@ -112,13 +125,9 @@ namespace Igor
         _dummyTexture->_width = width;
         _dummyTexture->_height = height;
         _dummyTexture->_valid = true;
-
         
-        if (iRenderer::getInstance().isReady())
-        {
-            _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, iTextureBuildMode::Mipmapped);
-            iRenderer::getInstance().setDummyTextureID(_dummyTexture->_rendererTexture->_id);
-        }
+        _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, iTextureBuildMode::Mipmapped);
+        iRenderer::getInstance().setDummyTextureID(_dummyTexture->_rendererTexture->_id);
 
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->getTextureBuildMode());
         _textures[hashValue] = _dummyTexture;
@@ -145,6 +154,12 @@ namespace Igor
 
     shared_ptr<iTexture> iTextureResourceFactory::loadFile(const iaString& filename, iTextureBuildMode mode)
     {
+        if (!iRenderer::getInstance().isReady())
+        {
+            con_warn("renderer not ready to load textures yet. queued you request.");
+            requestFile(filename, mode);
+        }
+
         iaString keyPath = iResourceManager::getInstance().getPath(filename);
         if (keyPath.isEmpty())
         {
@@ -207,51 +222,53 @@ namespace Igor
 
     void iTextureResourceFactory::flush()
     {
-        vector<shared_ptr<iTexture>> texturesToProcess;
-
-        _mutex.lock();
-        auto texture = _textures.begin();
-
-        while (texture != _textures.end())
+        if (iRenderer::getInstance().isReady())
         {
-            if ((*texture).second->isValid())
+            vector<shared_ptr<iTexture>> texturesToProcess;
+
+            _mutex.lock();
+            auto texture = _textures.begin();
+
+            while (texture != _textures.end())
             {
-                if ((*texture).second.use_count() == 1)
+                if ((*texture).second->isValid())
                 {
-                    iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
-                    con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
-                    texture = _textures.erase(texture);
-                    continue;
+                    if ((*texture).second.use_count() == 1)
+                    {
+                        iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
+                        con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
+                        texture = _textures.erase(texture);
+                        continue;
+                    }
+                }
+                else
+                {
+                    texturesToProcess.push_back((*texture).second);
+                }
+
+                texture++;
+            }
+
+            _mutex.unlock();
+
+            if (!_interrupLoading)
+            {
+                for (auto texture : texturesToProcess)
+                {
+                    loadTexture(texture);
                 }
             }
-            else
-            {
-                texturesToProcess.push_back((*texture).second);
-            }
 
-            texture++;
+            _interrupLoading = false;
         }
-
-        _mutex.unlock();
-
-        if (!_interrupLoading)
+        else
         {
-            for (auto texture: texturesToProcess)
-            {
-                loadTexture(texture);
-            }
+            con_warn("renderer not ready. try later");
         }
-
-        _interrupLoading = false;
     }
 
     void iTextureResourceFactory::loadTexture(shared_ptr<iTexture> texture)
     {
-        if (!iRenderer::getInstance().isReady())
-        {
-            return;
-        }
-
         int width = 0;
         int height = 0;
         int components = 0;

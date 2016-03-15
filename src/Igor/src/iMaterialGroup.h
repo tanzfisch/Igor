@@ -76,7 +76,7 @@ namespace Igor
 
         \param order the higher the value the later it get's rendered (default is iMaterial::DEFALT_ORDER)
         */
-        void setOrder(int32 order = iMaterial::DEFALT_ORDER);
+        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
 
         /*! \returns material group id
         */

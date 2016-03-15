@@ -48,6 +48,8 @@ namespace Igor
     class iRendererTexture;
 
     /*! handles texture resources
+
+    \bug not all textures released when used by iNodeModel and iNodeMesh
     */
     class Igor_API iTextureResourceFactory : public iaSingleton<iTextureResourceFactory>
     {
@@ -124,9 +126,13 @@ namespace Igor
         */
         shared_ptr<iTexture> _dummyTexture = nullptr;
 
+        /*! releases all textures
+        */
+        void deinit();
+
         /*! generates a dummy texture
         */
-        void genDummyTexture();
+        void init();
 
         /*! actually loads a texture
 

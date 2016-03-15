@@ -20,11 +20,15 @@ namespace Igor
         {
             _shaderProgram = iRenderer::getInstance().createShaderProgram();
         }
+        else
+        {
+            con_err("renderer was not ready yet");
+        }
     }
 
     iShader::~iShader()
     {
-        if (-1 != _shaderProgram)
+        if (iShader::INVALID_SHADER_ID != _shaderProgram)
         {
             if (iRenderer::getInstance().isReady())
             {
@@ -42,18 +46,25 @@ namespace Igor
     {
         if (iRenderer::getInstance().isReady())
         {
-            iRenderer::getInstance().linkShaderProgram(_shaderProgram, _shaderObjects);
-
-            auto object = _shaderObjects.begin();
-            while (_shaderObjects.end() != object)
+            if (iShader::INVALID_SHADER_ID != _shaderProgram)
             {
-                iRenderer::getInstance().destroyShaderObject((*object));
-                object++;
+                iRenderer::getInstance().linkShaderProgram(_shaderProgram, _shaderObjects);
+
+                auto object = _shaderObjects.begin();
+                while (_shaderObjects.end() != object)
+                {
+                    iRenderer::getInstance().destroyShaderObject((*object));
+                    object++;
+                }
+
+                _shaderObjects.clear();
+
+                _ready = true;
             }
-
-            _shaderObjects.clear();
-
-            _ready = true;
+        }
+        else
+        {
+            con_err("renderer was not ready");
         }
     }
 
@@ -62,14 +73,20 @@ namespace Igor
         if (iRenderer::getInstance().isReady())
         {
             int32 shaderObject = iRenderer::getInstance().createShaderObject(type);
-
-            if (!iRenderer::getInstance().compileShaderObject(shaderObject, source))
+            if (shaderObject != iRenderer::INVALID_ID)
             {
-                iRenderer::getInstance().destroyShaderObject(shaderObject);
-                return false;
-            }
+                if (!iRenderer::getInstance().compileShaderObject(shaderObject, source))
+                {
+                    iRenderer::getInstance().destroyShaderObject(shaderObject);
+                    return false;
+                }
 
-            _shaderObjects.push_back(shaderObject);
+                _shaderObjects.push_back(shaderObject);
+            }
+            else
+            {
+                con_err("failed to create shader object");
+            }
         }
         else
         {
@@ -123,7 +140,14 @@ namespace Igor
 	{
         if (iRenderer::getInstance().isReady())
         {
-            iRenderer::getInstance().useShaderProgram(_shaderProgram);
+            if (iShader::INVALID_SHADER_ID != _shaderProgram)
+            {
+                iRenderer::getInstance().useShaderProgram(_shaderProgram);
+            }
+        }
+        else
+        {
+            con_err("renderer is not ready");
         }
     }
 
@@ -132,6 +156,10 @@ namespace Igor
         if (iRenderer::getInstance().isReady())
         {
             iRenderer::getInstance().useShaderProgram(0);
+        }
+        else
+        {
+            con_err("renderer is not ready");
         }
     }
 

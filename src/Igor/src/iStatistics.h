@@ -174,13 +174,21 @@ namespace Igor
 
         uint32 _materialBlend = 0;
 
+        /*! initializes the materials in use
+        */
+        void initMaterials();
+
+        /*! deinitializes the materials in use
+        */
+        void deinitMaterials();
+
         /*! init
         */
         iStatistics();
 
         /*! deinit
         */
-        ~iStatistics();
+        virtual ~iStatistics();
 
     };
 

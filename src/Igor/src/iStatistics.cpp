@@ -18,6 +18,20 @@ namespace Igor
 
     iStatistics::iStatistics()
     {
+        _seconds = iTimer::getInstance().getSeconds();
+
+        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iStatistics::initMaterials));
+    }
+
+    iStatistics::~iStatistics()
+    {
+        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iStatistics::initMaterials));
+
+        deinitMaterials();
+    }
+
+    void iStatistics::initMaterials()
+    {
         _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
         iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
         iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
@@ -29,13 +43,13 @@ namespace Igor
         _materialBlend = iMaterialResourceFactory::getInstance().createMaterial();
         iMaterialResourceFactory::getInstance().getMaterial(_materialBlend)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
         iMaterialResourceFactory::getInstance().getMaterial(_materialBlend)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-
-        _seconds = iTimer::getInstance().getSeconds();
     }
 
-    iStatistics::~iStatistics()
+    void iStatistics::deinitMaterials()
     {
         iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
+        iMaterialResourceFactory::getInstance().destroyMaterial(_materialSolid);
+        iMaterialResourceFactory::getInstance().destroyMaterial(_materialBlend);
     }
 
     uint32 iStatistics::registerSection(const iaString& sectionName, const iaColor4f& color, uint64 groupIndex)

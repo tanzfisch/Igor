@@ -14,7 +14,7 @@ namespace Igor
 
 	iSceneFactory::~iSceneFactory()
 	{
-		if (sceneCount)
+		if (sceneCount > 0)
 		{
 			con_err("possible mem leak. scenes left: " << sceneCount);
 		}
@@ -23,14 +23,20 @@ namespace Igor
     iScene* iSceneFactory::createScene()
     {
         sceneCount++;
+
         return new iScene();
     }
 
     void iSceneFactory::destroyScene(iScene* scene)
     {
-        delete scene;
-        sceneCount--;
+        con_assert(scene != nullptr, "zero pointer");
 
+        if (scene != nullptr)
+        {
+            delete scene;
+        }
+
+        sceneCount--;
         if (0 > sceneCount)
         {
             con_err("scene count underflow");

@@ -62,34 +62,16 @@ namespace Igor
 
         friend class iRenderer;
 
-	private:
+    public:
 
-        /*! list of shader objects
-        */
-        vector<int32> _shaderObjects;
-
-        /*! id of glsl shader program
-        */
-        int32 _shaderProgram = -1;
-
-        /*! true: if ready to use
-        */
-        bool _ready = false;
-
-		/*! contains the names of the shadcers used
-
-		mostly filenames
-		*/
-		vector<iShaderSource> _shaderSources;
-
-	public:
+        static const int32 INVALID_SHADER_ID = -1;
 
         /*! load shader object from file
 
         \param filename file name to shader definition
         \param type the type of shader object
         */
-		void loadFile(iaString filename, iShaderObjectType type);
+        void loadFile(iaString filename, iShaderObjectType type);
 
         /*! loads shader from buffer
 
@@ -98,8 +80,8 @@ namespace Igor
         */
         bool loadSource(const char* source, iShaderObjectType type);
 
-		const vector<iShaderSource>& getShaderSources() const;
-        
+        const vector<iShaderSource>& getShaderSources() const;
+
         /*! compiles shader programm with shader objects
         */
         void compile();
@@ -110,11 +92,11 @@ namespace Igor
 
         /*! activates shader program
         */
-		void enable();
+        void enable();
 
         /*! deactivates shader program
         */
-		void disable();
+        void disable();
 
         /*! creates shader program
         */
@@ -123,6 +105,26 @@ namespace Igor
         /*! destroyes shader program
         */
         virtual ~iShader();
+
+	private:
+
+        /*! list of shader objects
+        */
+        vector<int32> _shaderObjects;
+
+        /*! id of glsl shader program
+        */
+        int32 _shaderProgram = iShader::INVALID_SHADER_ID;
+
+        /*! true: if ready to use
+        */
+        bool _ready = false;
+
+		/*! contains the names of the shadcers used
+
+		mostly filenames
+		*/
+		vector<iShaderSource> _shaderSources;
 
 	};
 

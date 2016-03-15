@@ -63,6 +63,8 @@ namespace Igor
 
     void iMaterial::setOrder(int32 order)
     {
+        con_assert(order >= RENDER_ORDER_MIN && order <= RENDER_ORDER_MAX, "out of bounds");
+
         _order = order;
     }
 

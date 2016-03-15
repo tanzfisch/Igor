@@ -301,7 +301,7 @@ namespace Igor
 
         _isOpen = true;
         iRenderer::getInstance().init();
-
+        
         SwapBuffers(_hDC);
 
         return true;

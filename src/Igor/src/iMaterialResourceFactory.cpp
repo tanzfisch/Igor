@@ -10,17 +10,23 @@
 #include <iRenderer.h>
 #include <iTargetMaterial.h>
 
+#include <iaConsole.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 
 	iMaterialResourceFactory::iMaterialResourceFactory()
 	{
-        initDefaultMaterial();
+        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this,&iMaterialResourceFactory::initDefaultMaterial));
 	}
 
 	iMaterialResourceFactory::~iMaterialResourceFactory()
 	{
-        destroyMaterial(_defaultID);
+        if (_defaultID != iMaterial::INVALID_MATERIAL_ID)
+        {
+            destroyMaterial(_defaultID);
+        }
 
         if (!_materials.empty())
         {
@@ -116,7 +122,7 @@ namespace Igor
         getMaterial(_defaultID)->compileShader();
         getMaterial(_defaultID)->getRenderStateSet().setRenderState(iRenderState::Lighting, iRenderStateValue::Off);
         getMaterial(_defaultID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::Off);
-        getMaterialGroup(_defaultID)->setOrder(100);
+        getMaterialGroup(_defaultID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         // set material to start with
         setMaterial(_defaultID);
@@ -181,9 +187,9 @@ namespace Igor
         }
         _mutexMaterial.unlock();
 
-        if (material &&
-            iRenderer::getInstance().isReady())
+        if (material)
         {
+            con_assert_sticky(iRenderer::getInstance().isReady(), "renderer not ready");
             iRenderer::getInstance().setMaterial(material);
         }
     }
