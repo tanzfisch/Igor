@@ -131,7 +131,7 @@ private:
     */
     uint32 _switchNode = iNode::INVALID_NODE_ID;
 
-    /*! 
+    /*! index of switch position
     */
     int32 _activeNode = 0;
 
@@ -147,24 +147,67 @@ private:
     */
     int32 _materialSkyBox = 0;
 
+    /*! called on key pressed event
+
+    \param key the key code of the pressed key
+    */
 	void onKeyPressed(iKeyCode key);
+
+    /*! called when window was closed
+    */
 	void onWindowClosed();
+
+    /*! called when window was resized
+
+    \param clientWidth the client rectangle width
+    \param clientHeight the client rectangle height
+    */
     void onWindowResized(int32 clientWidth, int32 clientHeight);
 
+    /*! called when the mouse was moved
+
+    \param x1 last horrizontal position
+    \param y1 last vertical position
+    \param x2 current horrizontal position
+    \param y2 current vertical position
+    \param window corresponding window
+    */
     void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+
+    /*! called when mouse wheel was turned
+
+    \param d mouse wheel delta
+    */
     void onMouseWheel(int32 d);
 
+    /*! called by orthogonal view
+    */
     void onRenderOrtho();
+
+    /*! called by timer
+    */
     void onTimer();
 
+    /*! deinit example
+    */
 	void deinit();
+
+    /*! init example
+    */
 	void init();
 
 public:
 
+    /*! init
+    */
     Example3D();
+
+    /*! deinit
+    */
 	virtual ~Example3D();
 
+    /*! run example
+    */
 	void run();
 
 };
