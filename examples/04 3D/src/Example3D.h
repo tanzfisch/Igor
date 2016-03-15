@@ -107,10 +107,6 @@ private:
     */
     uint32 _cameraTranslation = iNode::INVALID_NODE_ID;
 
-    /*! id to transform node used for manipulating the distance of the light to the origin
-    */
-    uint32 _directionalLightTranslate = iNode::INVALID_NODE_ID;
-
     /*! id to transform node used for manipulating the direction of the light relative to the origin
     */
     uint32 _directionalLightRotate = iNode::INVALID_NODE_ID;

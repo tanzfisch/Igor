@@ -53,6 +53,8 @@ namespace Igor
     iaEVENT(iTaskFinishedEvent, iTaskFinishedDelegate, void, (uint64 taskID), (taskID));
 
     /*! manages tasks to be done in parallel
+
+    \todo there should be IDs for tasks so we can sefely kill tasks later by ID
     */
 	class Igor_API iTaskManager : public iaSingleton<iTaskManager>
 	{
@@ -73,7 +75,6 @@ namespace Igor
             /*! flag to control the render context thread
             */
             bool _stopThread = false;
-
         };
 
     public:
