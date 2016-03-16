@@ -10,10 +10,13 @@ namespace Igor
 {
 
     uint64 iTask::_nextTaskID = 1;
+    mutex iTask::_mutexID;
 
     iTask::iTask(iWindow* window, uint32 priority, bool isRepeating, bool needsRenderContext)
     {
+        _mutexID.lock();
         _taskID = _nextTaskID++;
+        _mutexID.unlock();
 
         _needsRenderContext = needsRenderContext;
         _isRepeating = isRepeating;

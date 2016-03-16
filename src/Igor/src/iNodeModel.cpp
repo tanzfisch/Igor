@@ -23,8 +23,6 @@ using namespace std;
 namespace Igor
 {
 
-    
-
     iNodeModel::iNodeModel()
         : iNode()
 	{
@@ -53,6 +51,11 @@ namespace Igor
         }
 
         _model = nullptr;
+    }
+
+    bool iNodeModel::isLoaded()
+    {
+        return _initialized;
     }
 
     iaString iNodeModel::getModelName() const

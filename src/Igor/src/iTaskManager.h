@@ -84,8 +84,15 @@ namespace Igor
         !!! ATTENTION task get's consumed and later deleted by task manager
 
         \param task the task to be added
+        \returns the task's id
         */
-        void addTask(iTask* task);
+        uint64 addTask(iTask* task);
+
+        /*! \returns task by id
+
+        \param taskID the task ID to search for
+        */
+        iTask* getTask(uint64 taskID);
 
         /*! \returns thread count
         */
@@ -147,7 +154,11 @@ namespace Igor
 
         /*! list of queued tasks
         */
-		list<iTask*> _tasks;
+		list<iTask*> _tasksQueued;
+
+        /*! list of all tasks currently handeled by the task manager
+        */
+        map<uint64, iTask*> _tasks;
 
         /*! list of running tasks
         */
@@ -155,7 +166,7 @@ namespace Igor
 
         /*! list of queued tasks that need render context
         */
-		list<iTask*> _renderContextTasks;
+		list<iTask*> _renderContextTasksQueued;
 
         /*! list of running tasks that need render context
         */
@@ -208,7 +219,7 @@ namespace Igor
 
         \param task task to add
         */
-        void addTaskIntern(iTask* task);
+        void addTaskToQueue(iTask* task);
 
         /*! creates some regular threads and starts them
         */

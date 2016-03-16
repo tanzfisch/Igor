@@ -34,6 +34,9 @@
 #include <iaDelegate.h>
 using namespace IgorAux;
 
+#include <mutex>
+using namespace std;
+
 namespace Igor
 {
 
@@ -47,6 +50,8 @@ namespace Igor
         friend class iTaskManager;
 
     public:
+
+        static const uint64 INVALID_TASK_ID = 0;
 
         /*! default priority for a task to run
         */
@@ -109,7 +114,7 @@ namespace Igor
 
         zero is highest priority
         */
-        uint32 _priority = 0;
+        uint32 _priority = DEFAULT_PRIORITY;
 
         /*! optional pointer to window. only used by tasks that need the render context
         */
@@ -121,13 +126,17 @@ namespace Igor
 
     private:
 
+        /*! secure the task id generation
+        */
+        static mutex _mutexID;
+
         /*! counter for next task ID
         */
         static uint64 _nextTaskID;
 
         /*! the task id
         */
-        uint64 _taskID = 0;
+        uint64 _taskID = INVALID_TASK_ID;
 
         /*! if true: this task needs a render context
         */

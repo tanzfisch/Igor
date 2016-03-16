@@ -98,37 +98,19 @@ private:
 
     /*! heading of camera
     */
-    iNodeTransform* _cameraHeading = nullptr;
+    uint32 _cameraHeading = iNode::INVALID_NODE_ID;
 
     /*! pitch of camera
     */
-    iNodeTransform* _cameraPitch = nullptr;
-
-    /*! translation from origin of camera
-    */
-    iNodeTransform* _cameraTranslation = nullptr;
-
-    /*! the camera
-    */
-    iNodeCamera* _camera = nullptr;
-
-    /*! translation from origin of light
-    */
-    iNodeTransform* _lightTranslate = nullptr;
-
-    /*! rotation of light. since it is a directional light it's basically describing the direction
-    */
-    iNodeTransform* _lightRotate = nullptr;
-
-    /*! the light
-    */
-    iNodeLight* _lightNode = nullptr;
+    uint32 _cameraPitch = iNode::INVALID_NODE_ID;
 
     /*! the model that represents our voxel mesh
     */
-    iNodeModel* _voxelMeshModel = nullptr;
+    uint32 _voxelMeshModel = iNode::INVALID_NODE_ID;
 
-    iNodeTransform* _voxelMeshTransform = nullptr;
+    /*! transform node for voxel mesh
+    */
+    uint32 _voxelMeshTransform = iNode::INVALID_NODE_ID;
 
     /*! voxel mesh material
     */
@@ -146,6 +128,22 @@ private:
     */
     iPerlinNoise _perlinNoise;
 
+    /*! flag to show loading text
+    */
+    bool _loading = true;
+
+    /*! loading text material
+    */
+    int32 _materialWithTextureAndBlending = 0;
+
+    /*! id of flush model task
+    */
+    uint64 _flushModelTask = iTask::INVALID_TASK_ID;
+    
+    /*! id of flush textures task
+    */
+    uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
+
     /*! called when ESC key was pressed
     */
 	void onKeyESCPressed();
@@ -157,6 +155,10 @@ private:
     /*! called when window was closed
     */
 	void onWindowClosed();
+
+    /*! called before every frame
+    */
+    void onHandle();
 
     /*! called when window was resized
 

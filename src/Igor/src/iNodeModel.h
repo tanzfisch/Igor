@@ -42,6 +42,8 @@ namespace Igor
     class iModelDataInputParameter;
 
     /*! represents a model within the scene
+
+    \todo would be nice to have a callback if a model was asynchronously loaded
     */
 	class Igor_API iNodeModel : public iNode
 	{
@@ -66,6 +68,10 @@ namespace Igor
         /*! \returns filename of model
         */
         iaString getModelName() const;
+
+        /*! \returns true if model data is ready to use
+        */
+        bool isLoaded();
 
 	private:
 
