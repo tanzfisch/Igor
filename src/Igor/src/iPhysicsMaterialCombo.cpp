@@ -19,7 +19,6 @@ namespace Igor
 
     iPhysicsMaterialCombo::~iPhysicsMaterialCombo()
     {
-        // TODO iPhysics::getInstance().UN?setCollisionCallback(this);
     }
 
     void iPhysicsMaterialCombo::setName(const iaString& name)

@@ -267,6 +267,8 @@ namespace Igor
 
         void setMaterial(iPhysicsBody* body, int64 materialID);
 
+        iPhysicsMaterial* getDefaultMaterial();
+
     private:
 
         /*! next collision id
@@ -282,12 +284,10 @@ namespace Igor
         uint64 _nextJointID = 1;
 
         mutex _idMutex;
-
         mutex _bodyListMutex;
         mutex _jointListMutex;
         mutex _materialListMutex;
         mutex _collisionsListMutex;
-        
         mutex _createDestroyMutex;
 
         /*! list of collisions
@@ -302,7 +302,13 @@ namespace Igor
         */
         map<uint64, iPhysicsJoint*> _joints;
 
+        /*! map of materials
+        */
         map<int64, iPhysicsMaterial*> _materials;
+
+        /*! id of default material
+        */
+        int64 _defaultMaterial = 0;
 
         /*! handle to newton world
         */
@@ -325,8 +331,10 @@ namespace Igor
         uint64 generateCollisionID();
         uint64 generateBodyID();
         uint64 generateJointID();
-
+        
         void setCollisionCallback(iPhysicsMaterialCombo* materialCombo);
+
+        iPhysicsMaterial* createDefaultMaterial();
 
         /*! prepares a just created collision
 
