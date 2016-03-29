@@ -21,7 +21,7 @@
 #include <iNodeTransform.h>
 #include <iMesh.h>
 
-#include <Newton.h>
+#include <newton/Newton.h>
 
 namespace Igor
 {
@@ -237,7 +237,8 @@ namespace Igor
 
     void iPhysics::setCollisionCallback(iPhysicsMaterialCombo* materialCombo)
     {
-        NewtonMaterialSetCollisionCallback(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), materialCombo, NULL, GenericContactProcess);
+        NewtonMaterialSetCollisionCallback(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), NULL, GenericContactProcess);
+        NewtonMaterialSetCallbackUserData(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), materialCombo);
     }
 
     void iPhysics::onUpdate()
@@ -395,12 +396,19 @@ namespace Igor
         return result;
     }
 
-    void iPhysics::bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode)
+    void iPhysics::bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode, bool sync)
     {
         con_assert(body != nullptr && transformNode != nullptr, "zero pointer");
 
         if (body != nullptr && transformNode != nullptr)
         {
+            if (sync)
+            {
+                iaMatrixf matrix;
+                transformNode->getMatrix(matrix);
+                body->setMatrix(matrix);
+            }
+
             body->bindTransformNode(transformNode);
             BodyWrapper* bodyWrapper = new BodyWrapper();
             bodyWrapper->_physicsBody = body;
@@ -550,7 +558,7 @@ namespace Igor
     iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixf& offset)
     {
         _createDestroyMutex.lock();
-        NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(_shadowWorld), radius, height, 0, offset.getData());
+        NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(_shadowWorld), radius, height, 0, 0, offset.getData());
         _createDestroyMutex.unlock();
         return prepareCollision(collision, generateCollisionID());
     }
@@ -558,7 +566,7 @@ namespace Igor
     iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixf& offset)
     {
         _createDestroyMutex.lock();
-        NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(_shadowWorld), radius, height, 0, offset.getData());
+        NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(_shadowWorld), radius, height, 0, 0, offset.getData());
         _createDestroyMutex.unlock();
         return prepareCollision(collision, generateCollisionID());
     }

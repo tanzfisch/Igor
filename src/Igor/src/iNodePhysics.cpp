@@ -21,7 +21,7 @@ namespace Igor
         _nodeType = iNodeType::iNodePhysics;
         _nodeKind = iNodeKind::Physics;
 
-        setMaterial(iMaterial::INVALID_MATERIAL_ID); // physics should only render for debugging purposes
+        setMaterial(iMaterial::INVALID_MATERIAL_ID); // physics should only render for debugging purposes        
     }
 
     iNodePhysics::iNodePhysics(iNodePhysics* node)
@@ -33,7 +33,7 @@ namespace Igor
         _nodeKind = node->_nodeKind;
 
         setName(node->getName());
-        setBody(node->getBodyID());
+        _bodyID = node->getBodyID();
 
         _boxes = node->_boxes;
         _spheres = node->_spheres;
@@ -49,6 +49,8 @@ namespace Igor
         {
             _applyForceAndTorqueDelegate = new iApplyForceAndTorqueDelegate(*(node->_applyForceAndTorqueDelegate));
         }
+
+        setDataDirty();
     }
 
     iNodePhysics::~iNodePhysics()
@@ -64,23 +66,9 @@ namespace Igor
         return _physicsInitialized;
     }
 
-    void iNodePhysics::setBody(uint64 bodyID)
-    {
-        _bodyID = bodyID;
-    }
-
     uint64 iNodePhysics::getBodyID() const
     {
         return _bodyID;
-    }
-
-    void iNodePhysics::updatePhysics()
-    {
-        if (!_physicsInitialized)
-        {
-            initPhysics();
-            _physicsInitialized = true;            
-        }
     }
 
     void iNodePhysics::onUpdateTransform(iaMatrixf& matrix)
@@ -100,6 +88,8 @@ namespace Igor
             _capsules.clear();
             _cylinders.clear();
             _upVectorJoints.clear();
+
+            setDataDirty();
         }
         else
         {
@@ -110,12 +100,18 @@ namespace Igor
     void iNodePhysics::addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset)
     {
         con_assert(!isInitialized(), "already initialized");
-        Box box;
-        box._depth = depth;
-        box._height = height;
-        box._offset = offset;
-        box._width = width;
-        _boxes.push_back(box);
+
+        if (!isInitialized())
+        {
+            Box box;
+            box._depth = depth;
+            box._height = height;
+            box._offset = offset;
+            box._width = width;
+            _boxes.push_back(box);
+
+            setDataDirty();
+        }
     }
 
     void iNodePhysics::addSphere(float32 radius, const iaMatrixf& offset)
@@ -128,6 +124,8 @@ namespace Igor
             sphere._offset = offset;
             sphere._radius = radius;
             _spheres.push_back(sphere);
+
+            setDataDirty();
         }
     }
 
@@ -142,6 +140,8 @@ namespace Igor
             cone._offset = offset;
             cone._radius = radius;
             _cones.push_back(cone);
+
+            setDataDirty();
         }
     }
 
@@ -156,6 +156,8 @@ namespace Igor
             capsule._offset = offset;
             capsule._radius = radius;
             _capsules.push_back(capsule);
+
+            setDataDirty();
         }
     }
 
@@ -170,6 +172,8 @@ namespace Igor
             cylinder._offset = offset;
             cylinder._radius = radius;
             _cylinders.push_back(cylinder);
+
+            setDataDirty();
         }
     }
 
@@ -180,6 +184,8 @@ namespace Igor
         if (!isInitialized())
         {
             _upVectorJoints.push_back(upVector);
+
+            setDataDirty();
         }
     }
 
@@ -194,6 +200,8 @@ namespace Igor
             newMesh._faceAttribute = faceAttribute;
             newMesh._mesh = mesh;
             _meshs.push_back(newMesh);
+
+            setDataDirty();
         }
     }
 
@@ -210,6 +218,8 @@ namespace Igor
             }
 
             _applyForceAndTorqueDelegate = new iApplyForceAndTorqueDelegate(applyForceAndTorqueDelegate);
+
+            setDataDirty();
         }
     }
 
@@ -224,11 +234,18 @@ namespace Igor
                 delete _applyForceAndTorqueDelegate;
                 _applyForceAndTorqueDelegate = nullptr;
             }
+
+            setDataDirty();
         }
     }
 
     void iNodePhysics::initPhysics()
     {
+        if (_physicsInitialized)
+        {
+            return;
+        }
+
         int32 count = 0;
 
         iPhysicsCollision* resultingCollision = nullptr;
@@ -286,7 +303,7 @@ namespace Igor
                 _applyForceAndTorqueDelegate = nullptr;
             }
 
-            setBody(body->getID());
+            _bodyID = body->getID();
 
             for (auto upVector : _upVectorJoints)
             {
@@ -301,6 +318,8 @@ namespace Igor
         {
             con_warn("no collision objects defined");
         }
+
+        _physicsInitialized = true;
     }
 
     void iNodePhysics::onPreSetScene()
@@ -359,42 +378,36 @@ namespace Igor
 
     bool iNodePhysics::onUpdateData()
     {
-        if (isInitialized())
+        iNodeTransform* nextTransformNode = static_cast<iNodeTransform*>(_parent);
+        while (nextTransformNode != nullptr && nextTransformNode->getType() != iNodeType::iNodeTransform)
         {
-            iNodeTransform* nextTransformNode = static_cast<iNodeTransform*>(_parent);
-            while (nextTransformNode != nullptr && nextTransformNode->getType() != iNodeType::iNodeTransform)
+            nextTransformNode = static_cast<iNodeTransform*>(nextTransformNode->getParent());
+        }
+
+        if (nextTransformNode != nullptr &&
+            nextTransformNode->getType() == iNodeType::iNodeTransform)
+        {
+            initPhysics();
+
+            if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
             {
-                nextTransformNode = static_cast<iNodeTransform*>(nextTransformNode->getParent());
-            }
-
-            if (nextTransformNode != nullptr &&
-                nextTransformNode->getType() == iNodeType::iNodeTransform)
-            {
-                if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
-                {
-                    iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
-
-                    iaMatrixf matrix;
-                    nextTransformNode->getMatrix(matrix);
-                    body->setMatrix(matrix);
-
-                    iPhysics::getInstance().bindTransformNode(body, nextTransformNode);
-                }
-                else
-                {
-                    con_err("inconsistand data");
-                }
+                iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+                iPhysics::getInstance().bindTransformNode(body, nextTransformNode);
             }
             else
             {
-                con_err("need a transform node as ancester");
+                con_err("inconsistand data");
+                return false;
             }
-
-            setTransformationDirty();
-            return true;
+        }
+        else
+        {
+            con_warn("need a transform node as ancester");
+            return false;
         }
 
-        return false;
+        setTransformationDirty();
+        return true;
     }
 
     void iNodePhysics::draw()

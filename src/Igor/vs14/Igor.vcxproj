@@ -150,7 +150,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\Newton\include;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\Newton\source;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <SmallerTypeCheck>true</SmallerTypeCheck>
@@ -171,7 +171,7 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
       <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\Newton\lib;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\3rd\Newton\bin;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>false</LargeAddressAware>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -248,7 +248,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\Newton\include;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\Newton\source;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
@@ -263,7 +263,7 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
       <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\Newton\lib;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\3rd\Newton\bin;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SetChecksum>true</SetChecksum>
       <Profile>false</Profile>
@@ -282,7 +282,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd\GLee\include\GLee.h" />
-    <ClInclude Include="..\..\..\3rd\Newton\include\Newton.h" />
     <ClInclude Include="..\..\..\3rd\stb_image\stb_image.h" />
     <ClInclude Include="..\..\..\3rd\TinyXML\tinystr.h" />
     <ClInclude Include="..\..\..\3rd\TinyXML\tinyxml.h" />
@@ -359,8 +358,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iPhysicsBody.h" />
     <ClInclude Include="..\src\iPhysicsCollision.h" />
     <ClInclude Include="..\src\iPhysicsJoint.h" />
-    <ClInclude Include="..\src\iPhysicsManager.h" />
-    <ClInclude Include="..\src\iPhysicsManagerTask.h" />
     <ClInclude Include="..\src\iPhysicsMaterial.h" />
     <ClInclude Include="..\src\iPhysicsMaterialCombo.h" />
     <ClInclude Include="..\src\iPixmap.h" />
@@ -588,8 +585,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iPhysicsBody.cpp" />
     <ClCompile Include="..\src\iPhysicsCollision.cpp" />
     <ClCompile Include="..\src\iPhysicsJoint.cpp" />
-    <ClCompile Include="..\src\iPhysicsManager.cpp" />
-    <ClCompile Include="..\src\iPhysicsManagerTask.cpp" />
     <ClCompile Include="..\src\iPhysicsMaterial.cpp" />
     <ClCompile Include="..\src\iPhysicsMaterialCombo.cpp" />
     <ClCompile Include="..\src\iPixmap.cpp" />

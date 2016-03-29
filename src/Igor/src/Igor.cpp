@@ -36,15 +36,16 @@ using namespace IgorAux;
 	#pragma comment(lib, "alut.lib")
 	#pragma comment(lib, "OpenAL32.lib")
 #endif
-	#pragma comment(lib, "newton.lib")
 
-	#ifdef __IGOR_DEBUG__
-		#pragma comment(lib, "IgorAux_d.lib")
-        #pragma comment(lib, "OMPF_d.lib")
-	#else
-		#pragma comment(lib, "IgorAux.lib")
-        #pragma comment(lib, "OMPF.lib")
-	#endif
+#ifdef __IGOR_DEBUG__
+	#pragma comment(lib, "IgorAux_d.lib")
+    #pragma comment(lib, "OMPF_d.lib")
+    #pragma comment(lib, "newton_d.lib")
+#else
+	#pragma comment(lib, "IgorAux.lib")
+    #pragma comment(lib, "OMPF.lib")
+    #pragma comment(lib, "newton.lib")
+#endif
 #endif
 
 #ifdef __IGOR_WIN__

@@ -6,7 +6,6 @@
 
 #include <iWindow.h>
 #include <iStatistics.h>
-#include <iPhysicsManager.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -86,7 +85,6 @@ namespace Igor
     void iApplication::handle()
     {
         _handleEvent();
-        iPhysicsManager::getInstance().update();
 
         for (auto window : _windows.getList())
         {

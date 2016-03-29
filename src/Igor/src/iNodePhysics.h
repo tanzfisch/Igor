@@ -150,7 +150,7 @@ namespace Igor
         /*! \returns the ID of the body if exists
         */
         uint64 getBodyID() const;
-        
+
 	private:
 
         /*! structure to hold the data to initialize physics with a box
@@ -279,12 +279,6 @@ namespace Igor
         */
         bool onUpdateData();
 
-        /*! sets physic body id
-
-        \param bodyID the body id
-        */
-        void setBody(uint64 bodyID);
-
         /*! does nothing
         */
         void draw();
@@ -292,10 +286,6 @@ namespace Igor
         /*! \returns true if physics was already initialized
         */
         bool isInitialized();
-
-        /*! updates physics
-        */
-        void updatePhysics();
 
         /*! initializes member variables
         */

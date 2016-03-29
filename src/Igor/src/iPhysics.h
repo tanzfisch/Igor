@@ -262,8 +262,9 @@ namespace Igor
 
         \param body handle to newton body
         \param transformNode transform node to bind
+        \param sync if true the bodys matrix will be updated with the transform node one
         */
-        void bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode);
+        void bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode, bool sync = true);
 
         void setMaterial(iPhysicsBody* body, int64 materialID);
 
