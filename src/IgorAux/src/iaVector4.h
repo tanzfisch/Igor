@@ -35,6 +35,8 @@ namespace IgorAux
 {
 
     /*! 4d vector
+
+    \todo implement more operators
     */
     template <class T> class IgorAux_API_Template iaVector4
     {
