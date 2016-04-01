@@ -50,6 +50,7 @@ namespace Igor
     class iTaskFlushModels;
     class iTaskFlushTextures;
     class iPhysicsBody;
+    class iPhysicsJoint;
 }
 
 class PhysicsExample

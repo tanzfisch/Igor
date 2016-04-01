@@ -55,7 +55,7 @@ namespace Igor
         return _userData;
     }
 
-    void iPhysicsBody::ApplyForceAndTorque(float64 timestep, int threadIndex)
+    void iPhysicsBody::applyForceAndTorque(float64 timestep, int threadIndex)
     {
         _applyForceAndTorque(this, timestep, threadIndex);
     }

@@ -172,12 +172,9 @@ namespace Igor
         */
         iPhysicsBody* createBody(iPhysicsCollision* collisionVolume);
 
-        /*! creates up vector joint
-
-        \param body the body to connect with
-        \param upVector the up vector
+        /*! creates a joint
         */
-        iPhysicsJoint* createUpVectorJoint(iPhysicsBody* body, const iaVector3f& upVector);
+        iPhysicsJoint* createJoint(iPhysicsBody* body0, iPhysicsBody* body1 = nullptr, int dof = 6);
 
         /*! \returns joint by id
 
@@ -215,7 +212,7 @@ namespace Igor
         \param Iyy ???
         \param Izz ???
         */
-        void getMassMatrixFromBody(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz);
+        void getMassMatrixFromBody(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz);        
 
         /*! the mass matrix of newton body
 
@@ -258,6 +255,12 @@ namespace Igor
         */
         void updateMatrix(void* newtonBody, const iaMatrixf& matrix);
 
+        void getMatrix(void* newtonBody, iaMatrixf& matrix);
+
+        void setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3f& pin);
+        void setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction);
+        void setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float32 friction);
+
         /*! binds transform node to newton body
 
         \param body handle to newton body
@@ -279,10 +282,6 @@ namespace Igor
         /*! next body id
         */
         uint64 _nextBodyID = 1;
-
-        /*! next joint id
-        */
-        uint64 _nextJointID = 1;
 
         mutex _idMutex;
         mutex _bodyListMutex;
@@ -331,7 +330,6 @@ namespace Igor
 
         uint64 generateCollisionID();
         uint64 generateBodyID();
-        uint64 generateJointID();
         
         void setCollisionCallback(iPhysicsMaterialCombo* materialCombo);
 

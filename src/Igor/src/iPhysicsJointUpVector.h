@@ -26,84 +26,53 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iPHYSICSJOINT__
-#define __iPHYSICSJOINT__
+#ifndef __iPHYSICSJOINTUPVECTOR__
+#define __iPHYSICSJOINTUPVECTOR__
 
 #include <iDefines.h>
-
-#include <iaEvent.h>
-using namespace IgorAux;
-
-#include <mutex>
-using namespace std;
 
 namespace Igor
 {
 
-    class iPhysicsJoint;
-
-    iaEVENT(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, void, (iPhysicsJoint* joint, float32 timestep, int threadIndex), (joint, timestep, threadIndex));
-
     /*! wrapper for the NewtonJoint handle
     */
-    class Igor_API iPhysicsJoint
+    class iPhysicsJointUpVector
     {
 
         friend class iPhysics;
-        friend void SubmitConstraints(const void* const joint, float64 timestep, int threadIndex);
         
     public:
 
         /*! \returns pointer to newton joint
         */
-        void* getNewtonJoint() const;
+        void* getJoint() const;
 
         /*! \returns joint ID
         */
         uint64 getID();
 
-        uint64 getBody0ID();
-        uint64 getBody1ID();
-
-        void registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate submitConstraintsDelegate);
-        void unregisterSubmitConstraintsDelegate(iSubmitConstraintsDelegate submitConstraintsDelegate);
-
     private:
-
-        /*! next joint id
-        */
-        static uint64 _nextJointID;
-
-        static mutex _mutex;
 
         /*! id of joint object
         */
         uint64 _jointID = 0;
 
-        uint64 _bodyID0 = 0;
-        uint64 _bodyID1 = 0;
-
         /*! the handle to the newton joint
         */
         void* _joint = nullptr;
-
-        iSubmitConstraintsEvent _submitConstraints;
-
-        void submitConstraints(float64 timestep, int threadIndex);
 
         /*! initializes members
 
         \param collision handle to newton collision
         */
-        iPhysicsJoint(void* joint, uint64 body0, uint64 body1);
+        iPhysicsJointUpVector(void* joint, uint64 jointID);
 
         /*! does nothing
         */
-        virtual ~iPhysicsJoint() = default;
+        virtual ~iPhysicsJointUpVector() = default;
 
     };
     
 }
 
 #endif
-

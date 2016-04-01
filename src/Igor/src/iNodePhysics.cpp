@@ -40,7 +40,6 @@ namespace Igor
         _cones = node->_cones;
         _capsules = node->_capsules;
         _cylinders = node->_cylinders;
-        _upVectorJoints = node->_upVectorJoints;
         _meshs = node->_meshs;
         _mass = node->_mass;
         _materialID = node->_materialID;
@@ -87,7 +86,6 @@ namespace Igor
             _cones.clear();
             _capsules.clear();
             _cylinders.clear();
-            _upVectorJoints.clear();
 
             setDataDirty();
         }
@@ -172,18 +170,6 @@ namespace Igor
             cylinder._offset = offset;
             cylinder._radius = radius;
             _cylinders.push_back(cylinder);
-
-            setDataDirty();
-        }
-    }
-
-    void iNodePhysics::addUpVectorJoint(const iaVector3f& upVector)
-    {
-        con_assert(!isInitialized(), "already initialized");
-
-        if (!isInitialized())
-        {
-            _upVectorJoints.push_back(upVector);
 
             setDataDirty();
         }
@@ -304,11 +290,6 @@ namespace Igor
             }
 
             _bodyID = body->getID();
-
-            for (auto upVector : _upVectorJoints)
-            {
-                iPhysics::getInstance().createUpVectorJoint(body, upVector);
-            }
 
             iPhysics::getInstance().destroyCollision(resultingCollision);
 

@@ -28,18 +28,6 @@ namespace Igor
 
     float32 iPhysics::_simulationRate = 120.0f;
 
-    /*! internal helper strcuture for a physic body
-    */
-    struct BodyWrapper
-    {
-    public:
-
-        /*! physic body
-        */
-        iPhysicsBody* _physicsBody;
-    };
-
-
     void* AllocMemory(int sizeInBytes)
     {
         con_assert(sizeInBytes != 0, "can not alloc nothing");
@@ -57,37 +45,47 @@ namespace Igor
     // rigid body destructor
     void PhysicsNodeDestructor(const void* body)
     {
-        BodyWrapper* bodyWrapper = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
-        if (nullptr != bodyWrapper)
+        iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
+        if (nullptr != physicsBody)
         {
-            bodyWrapper->_physicsBody->release();
-            delete bodyWrapper;
+            physicsBody->release();
+            delete physicsBody;
         }
     }
 
     // set the transformation of a rigid body
     void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex)
     {
-        BodyWrapper* bodyWrapper = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
-        if (nullptr != bodyWrapper)
+        iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
+        if (nullptr != physicsBody)
         {
             iaVector3f vel;
             iaVector3f omega;
 
             NewtonBodyGetVelocity(static_cast<const NewtonBody*>(body), vel.getData());
             NewtonBodyGetOmega(static_cast<const NewtonBody*>(body), omega.getData());
-            bodyWrapper->_physicsBody->setTransformNodeMatrix(matrix);
-            bodyWrapper->_physicsBody->setVelocity(vel);
-            bodyWrapper->_physicsBody->setOmega(omega);
+            physicsBody->setTransformNodeMatrix(matrix);
+            physicsBody->setVelocity(vel);
+            physicsBody->setOmega(omega);
         }
     }
 
+
     void PhysicsApplyForceAndTorque(const void* body, float64 timestep, int threadIndex)
     {
-        BodyWrapper* bodyWrapper = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
-        if (nullptr != bodyWrapper)
+        iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
+        if (nullptr != physicsBody)
         {
-            bodyWrapper->_physicsBody->ApplyForceAndTorque(timestep, threadIndex);
+            physicsBody->applyForceAndTorque(timestep, threadIndex);
+        }
+    }
+
+    void SubmitConstraints(const void* const joint, float64 timestep, int threadIndex)
+    {
+        iPhysicsJoint* physicsJoint = static_cast<iPhysicsJoint*>(NewtonJointGetUserData(static_cast<const NewtonJoint*>(joint)));
+        if (physicsJoint != nullptr)
+        {
+            physicsJoint->submitConstraints(static_cast<float64>(timestep), threadIndex);
         }
     }
 
@@ -95,22 +93,15 @@ namespace Igor
     {
         con_assert(newtonContactJoint != nullptr, "zero pointer")
 
-        NewtonBody* body0 = NewtonJointGetBody0(static_cast<const NewtonJoint*>(newtonContactJoint));
+            NewtonBody* body0 = NewtonJointGetBody0(static_cast<const NewtonJoint*>(newtonContactJoint));
         NewtonBody* body1 = NewtonJointGetBody1(static_cast<const NewtonJoint*>(newtonContactJoint));
 
         con_assert(body0 != nullptr && body1 != nullptr, "zero pointers")
 
-        if(body0 != nullptr && body1 != nullptr)
-        {
-            BodyWrapper* bodyWrapper0 = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body0)));
-            BodyWrapper* bodyWrapper1 = static_cast<BodyWrapper*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body1)));
-
-            con_assert(bodyWrapper0 != nullptr && bodyWrapper1 != nullptr, "zero pointers")
-
-            if (bodyWrapper0 != nullptr && bodyWrapper1 != nullptr)
+            if (body0 != nullptr && body1 != nullptr)
             {
-                iPhysicsBody* physicsBody0 = bodyWrapper0->_physicsBody;
-                iPhysicsBody* physicsBody1 = bodyWrapper1->_physicsBody;
+                iPhysicsBody* physicsBody0 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body0)));
+                iPhysicsBody* physicsBody1 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body1)));
 
                 con_assert(physicsBody0 != nullptr && physicsBody1 != nullptr, "zero pointers");
 
@@ -123,7 +114,6 @@ namespace Igor
                     physicsMaterialCombo->contact(physicsBody0, physicsBody1);
                 }
             }
-        }
     }
 
     void GenericContactProcess(const NewtonJoint* const newtonContactJoint, dFloat timestep, int threadIndex)
@@ -351,25 +341,40 @@ namespace Igor
         return result;
     }
 
-    iPhysicsJoint* iPhysics::createUpVectorJoint(iPhysicsBody* body, const iaVector3f& upVector)
+    void iPhysics::setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3f& pin)
+    {
+        NewtonUserJointAddAngularRow(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), relativeAngleError, pin.getData());
+    }
+
+    void iPhysics::setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction)
+    {
+        NewtonUserJointSetRowMinimumFriction(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), friction);
+    }
+
+    void iPhysics::setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float32 friction)
+    {
+        NewtonUserJointSetRowMaximumFriction(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), friction);
+    }
+
+    iPhysicsJoint* iPhysics::createJoint(iPhysicsBody* body0, iPhysicsBody* body1, int dof)
     {
         iPhysicsJoint* result = nullptr;
-        con_assert(body != nullptr, "zero pointer");
+        con_assert(body0 != nullptr, "zero pointer");
 
-        if (body != nullptr)
+        if (body0 != nullptr)
         {
             NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
             _createDestroyMutex.lock();
-            NewtonJoint* joint = NewtonConstraintCreateUpVector(static_cast<const NewtonWorld*>(_world), upVector.getData(), static_cast<const NewtonBody*>(body->_newtonBody));
+            NewtonJoint * joint = NewtonConstraintCreateUserJoint(static_cast<NewtonWorld*>(_world), dof, reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints), nullptr, static_cast<NewtonBody*>(body0->getNewtonBody()), body1 != nullptr ? static_cast<NewtonBody*>(body1->getNewtonBody()) : nullptr);
             _createDestroyMutex.unlock();
 
-            uint64 jointID = generateJointID();
-
-            result = new iPhysicsJoint(joint, jointID);
+            result = new iPhysicsJoint(joint, body0->getID(), body1 != nullptr ? body1->getID() : 0);
 
             _jointListMutex.lock();
-            _joints[jointID] = result;
+            _joints[result->getID()] = result;
             _jointListMutex.unlock();
+
+            NewtonJointSetUserData(joint, result);
         }
 
         return result;
@@ -381,7 +386,7 @@ namespace Igor
 
         _jointListMutex.lock();
         auto iter = _joints.find(jointID);
-        
+
         if (iter != _joints.end())
         {
             result = (*iter).second;
@@ -410,9 +415,7 @@ namespace Igor
             }
 
             body->bindTransformNode(transformNode);
-            BodyWrapper* bodyWrapper = new BodyWrapper();
-            bodyWrapper->_physicsBody = body;
-            NewtonBodySetUserData(static_cast<const NewtonBody*>(body->_newtonBody), bodyWrapper);
+            NewtonBodySetUserData(static_cast<const NewtonBody*>(body->_newtonBody), body);
         }
     }
 
@@ -431,7 +434,7 @@ namespace Igor
         iPhysicsBody* result = nullptr;
         _bodyListMutex.lock();
         auto iter = _bodys.find(bodyID);
-        
+
         if (iter != _bodys.end())
         {
             result = (*iter).second;
@@ -601,15 +604,6 @@ namespace Igor
         return result;
     }
 
-    uint64 iPhysics::generateJointID()
-    {
-        uint64 result;
-        _idMutex.lock();
-        result = _nextJointID++;
-        _idMutex.unlock();
-        return result;
-    }
-
     iPhysicsCollision* iPhysics::getCollision(uint64 collisionID)
     {
         iPhysicsCollision* result;
@@ -633,6 +627,11 @@ namespace Igor
     void iPhysics::updateMatrix(void* newtonBody, const iaMatrixf& matrix)
     {
         NewtonBodySetMatrix(static_cast<const NewtonBody*>(newtonBody), matrix.getData());
+    }
+
+    void iPhysics::getMatrix(void* newtonBody, iaMatrixf& matrix)
+    {
+        NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), matrix.getData());
     }
 
     void iPhysics::setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz)
@@ -664,11 +663,11 @@ namespace Igor
         uint32* indexes = mesh->getIndexData();
         float32* vertexes = mesh->getVertexData();
 
-        uint32 vertexFloatCount =  mesh->getVertexSize() / 4;
+        uint32 vertexFloatCount = mesh->getVertexSize() / 4;
         uint32 vertexPos = 0;
         uint32 indexCount = mesh->getIndexesCount();
 
-        for (int i = 0; i < indexCount; i+= 3)
+        for (int i = 0; i < indexCount; i += 3)
         {
             vertexPos = (indexes[i + 0] * vertexFloatCount);
             temp[0] = vertexes[vertexPos++];

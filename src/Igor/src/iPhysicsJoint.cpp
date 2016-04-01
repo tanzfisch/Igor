@@ -9,10 +9,27 @@
 namespace Igor
 {
 
-    iPhysicsJoint::iPhysicsJoint(void* joint, uint64 jointID)
+    uint64 iPhysicsJoint::_nextJointID = 1;
+    mutex iPhysicsJoint::_mutex;
+
+    iPhysicsJoint::iPhysicsJoint(void* joint, uint64 body0, uint64 body1)
     {
+        _bodyID0 = body0;
+        _bodyID1 = body1;
         _joint = joint;
-        _jointID = jointID;
+        _mutex.lock();
+        _jointID = _nextJointID++;
+        _mutex.unlock();
+    }
+
+    uint64 iPhysicsJoint::getBody0ID()
+    {
+        return _bodyID0;
+    }
+
+    uint64 iPhysicsJoint::getBody1ID()
+    {
+        return _bodyID1;
     }
 
     uint64 iPhysicsJoint::getID()
@@ -20,9 +37,24 @@ namespace Igor
         return _jointID;
     }
 
-    void* iPhysicsJoint::getJoint() const
+    void* iPhysicsJoint::getNewtonJoint() const
     {
         return _joint;
+    }
+
+    void iPhysicsJoint::submitConstraints(float64 timestep, int threadIndex)
+    {
+        _submitConstraints(this, timestep, threadIndex);
+    }
+
+    void iPhysicsJoint::registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate submitConstraintsDelegate)
+    {
+        _submitConstraints.append(submitConstraintsDelegate);
+    }
+
+    void iPhysicsJoint::unregisterSubmitConstraintsDelegate(iSubmitConstraintsDelegate submitConstraintsDelegate)
+    {
+        _submitConstraints.remove(submitConstraintsDelegate);
     }
 
 }

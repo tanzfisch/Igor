@@ -109,12 +109,6 @@ namespace Igor
         */
         void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
 
-        /*! adds up vector joint
-
-        \param upVector the up vector
-        */
-        void addUpVectorJoint(const iaVector3f& upVector);
-
         /*! \returns mass of body
         */
         float32 getMass() const;
@@ -228,10 +222,6 @@ namespace Igor
         /*! lsit of cylinders
         */
         vector<Cylinder> _cylinders;
-
-        /*! lsit of up vector joints
-        */
-        vector<iaVector3f> _upVectorJoints;
 
         /*! lsit of meshs
         */

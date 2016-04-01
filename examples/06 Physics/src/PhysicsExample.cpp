@@ -23,6 +23,7 @@ using namespace IgorAux;
 #include <iNodePhysics.h>
 #include <iModelResourceFactory.h>
 #include <iPhysics.h>
+#include <iPhysicsJoint.h>
 #include <iTaskFlushModels.h>
 #include <iTaskFlushTextures.h>
 #include <iMaterialResourceFactory.h>

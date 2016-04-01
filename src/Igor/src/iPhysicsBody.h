@@ -156,7 +156,7 @@ namespace Igor
         /*!
         \todo implement an event for this
         */
-        virtual void ApplyForceAndTorque(float64 timestep, int threadIndex);        
+        virtual void applyForceAndTorque(float64 timestep, int threadIndex);        
 
         /*! initializes newton body handle
 
