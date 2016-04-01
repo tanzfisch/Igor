@@ -80,6 +80,9 @@ namespace Igor
         */
         float32 getMass();
 
+        void setAngularDamping(const iaVector3f& damping);
+        const iaVector3f& getAngularDamping() const;
+
         const iaVector3f& getForce() const;
         void setForce(const iaVector3f& force);
 
@@ -89,7 +92,7 @@ namespace Igor
         const iaVector3f& getTorque() const;
         void setTorque(const iaVector3f& torque);
 
-        const iaVector3f& getVelocity() const;
+        iaVector3f getVelocity() const;
 
         const iaVector3f& getOmega() const;
         
@@ -134,6 +137,8 @@ namespace Igor
         */
         float32 _mass = 0;
 
+        iaVector3f _damping;
+
         iaVector3f _force;
         iaVector3f _torque;
         iaVector3f _velocity;
@@ -151,7 +156,6 @@ namespace Igor
 
         void setTransformNodeMatrix(const iaMatrixf& matrix);
         void setOmega(const iaVector3f& omega);
-        void setVelocity(const iaVector3f& velocity);
 
         /*!
         \todo implement an event for this

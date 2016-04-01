@@ -59,17 +59,9 @@ namespace Igor
         iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
         if (nullptr != physicsBody)
         {
-            iaVector3f vel;
-            iaVector3f omega;
-
-            NewtonBodyGetVelocity(static_cast<const NewtonBody*>(body), vel.getData());
-            NewtonBodyGetOmega(static_cast<const NewtonBody*>(body), omega.getData());
             physicsBody->setTransformNodeMatrix(matrix);
-            physicsBody->setVelocity(vel);
-            physicsBody->setOmega(omega);
         }
     }
-
 
     void PhysicsApplyForceAndTorque(const void* body, float64 timestep, int threadIndex)
     {
@@ -171,6 +163,11 @@ namespace Igor
         NewtonDestroy(static_cast<const NewtonWorld*>(_world));
     }
 
+    void iPhysics::setAngularDamping(void* newtonBody, const iaVector3f& angularDamp)
+    {
+        NewtonBodySetAngularDamping(static_cast<const NewtonBody*>(newtonBody), angularDamp.getData());
+    }
+
     void iPhysics::getVelocity(void* newtonBody, iaVector3f& velocity)
     {
         NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), velocity.getData());
@@ -181,12 +178,12 @@ namespace Igor
         NewtonBodySetForce(static_cast<const NewtonBody*>(newtonBody), force.getData());
     }
 
-    void iPhysics::setAngularForce(void* newtonBody, const iaVector3f& force)
+    void iPhysics::setTorque(void* newtonBody, const iaVector3f& force)
     {
         NewtonBodySetTorque(static_cast<const NewtonBody*>(newtonBody), force.getData());
     }
 
-    void iPhysics::getMassMatrixFromBody(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz)
+    void iPhysics::getMassMatrix(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz)
     {
         NewtonBodyGetMassMatrix(static_cast<const NewtonBody*>(newtonBody), &mass, &Ixx, &Iyy, &Izz);
     }

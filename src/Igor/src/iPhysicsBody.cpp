@@ -134,6 +134,7 @@ namespace Igor
     void iPhysicsBody::setForce(const iaVector3f& force)
     {
         _force = force;
+        iPhysics::getInstance().setForce(_newtonBody, _force);
     }
 
     const iaVector3f& iPhysicsBody::getTorque() const
@@ -144,16 +145,14 @@ namespace Igor
     void iPhysicsBody::setTorque(const iaVector3f& torque)
     {
         _torque = torque;
+        iPhysics::getInstance().setTorque(_newtonBody, _torque);
     }
 
-    const iaVector3f& iPhysicsBody::getVelocity() const
+    iaVector3f iPhysicsBody::getVelocity() const
     {
-        return _velocity;
-    }
-
-    void iPhysicsBody::setVelocity(const iaVector3f& velocity)
-    {
-        _velocity = velocity;
+        iaVector3f velocity;
+        iPhysics::getInstance().getVelocity(_newtonBody, velocity);
+        return velocity;
     }
 
     const iaVector3f& iPhysicsBody::getOmega() const
@@ -169,6 +168,17 @@ namespace Igor
     uint64 iPhysicsBody::getID()
     {
         return _id;
+    }
+
+    void iPhysicsBody::setAngularDamping(const iaVector3f& damping)
+    {
+        _damping = damping;
+        iPhysics::getInstance().setAngularDamping(_newtonBody, _damping);
+    }
+
+    const iaVector3f& iPhysicsBody::getAngularDamping() const
+    {
+        return _damping;
     }
 
     void iPhysicsBody::setMass(float32 mass)

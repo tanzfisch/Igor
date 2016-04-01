@@ -212,7 +212,7 @@ namespace Igor
         \param Iyy ???
         \param Izz ???
         */
-        void getMassMatrixFromBody(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz);        
+        void getMassMatrix(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz);        
 
         /*! the mass matrix of newton body
 
@@ -225,37 +225,6 @@ namespace Igor
         \param Izz ???
         */
         void setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz);
-
-        /*! \returns pointer to user data in given newton body
-
-        \param newtonBody the nevton body
-        */
-        void* getUserDataFromBody(void* newtonBody);
-
-        /*! returns velocity for given nevton body
-
-        \param newtonBody given newvton body
-        \param velocity out value velocity
-        */
-        void getVelocity(void* newtonBody, iaVector3f& velocity);
-
-        /*! set or apply force on nevton body
-
-        \param newtonBody the body to apply the force to
-        \param force the force to apply
-        */
-        void setForce(void* newtonBody, const iaVector3f& force);
-
-        void setAngularForce(void* newtonBody, const iaVector3f& force);
-
-        /*! updates newton bodys matrix
-
-        \param newtonBody handle to newton body
-        \param matrix the matrix
-        */
-        void updateMatrix(void* newtonBody, const iaMatrixf& matrix);
-
-        void getMatrix(void* newtonBody, iaMatrixf& matrix);
 
         void setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3f& pin);
         void setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction);
@@ -353,6 +322,40 @@ namespace Igor
         \param collision handle to newton collision
         */
         void destroyNewtonCollision(void* collision);
+
+
+        /*! updates newton bodys matrix
+
+        \param newtonBody handle to newton body
+        \param matrix the matrix
+        */
+        void updateMatrix(void* newtonBody, const iaMatrixf& matrix);
+
+        void getMatrix(void* newtonBody, iaMatrixf& matrix);
+
+        /*! \returns pointer to user data in given newton body
+
+        \param newtonBody the nevton body
+        */
+        void* getUserDataFromBody(void* newtonBody);
+
+        /*! returns velocity for given nevton body
+
+        \param newtonBody given newvton body
+        \param velocity out value velocity
+        */
+        void getVelocity(void* newtonBody, iaVector3f& velocity);
+
+        /*! set or apply force on nevton body
+
+        \param newtonBody the body to apply the force to
+        \param force the force to apply
+        */
+        void setForce(void* newtonBody, const iaVector3f& force);
+
+        void setAngularDamping(void* newtonBody, const iaVector3f& angularDamp);
+
+        void setTorque(void* newtonBody, const iaVector3f& force);
 
         /*! update newton calculations
         */

@@ -262,7 +262,7 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep,
     iaVector3f force;
     iaVector3f angularForce;
 
-    iPhysics::getInstance().getMassMatrixFromBody(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
+    iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
     force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
 
     iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
