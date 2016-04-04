@@ -115,8 +115,7 @@ namespace Igor
 
     /*! abstraction class for the actuall renderer. curently only OpenGL
 
-    \todo light handling is not done by far
-    \todo a function like  iaVector3f unProject(iaVector3f &screenpos); would be nice to have too
+    \todo light handling is not done by far    
 
     Examples:
     \ref OpenGL3D/src/OpenGL3DExample.cpp "OpenGL3D usage example"
@@ -192,7 +191,7 @@ namespace Igor
         \param viewport the viewport
         \returns world position of projection screen position
         */
-        iaVector3f unProject(iaVector3f &screenpos, iaMatrixf &modelview, iaMatrixf &projection, iRectanglei &viewport);
+        iaVector3f unProject(const iaVector3f& screenpos, const iaMatrixf& modelview, const iaMatrixf& projection, const iRectanglei& viewport);
 
         /*! creates vertex buffer objects for specified mesh
 
@@ -431,6 +430,16 @@ namespace Igor
         */
         virtual void drawTexture(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
 
+        /*! draw a tiled texture
+
+        as drawTexture but with repeating UV coordinates based on texture resolution
+
+        \param x horrizontal position
+        \param y vertical position
+        \param width width of the rectangle
+        \param height height of the rectangle
+        \param texture the texture to render the rectangle with
+        */
         virtual void drawTextureTiled(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
 
         /*! draw a filled rectangle with texture.

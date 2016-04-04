@@ -135,10 +135,11 @@ namespace Igor
         _clearColor.set(r, g, b, a);
     }
 
-    void iView::draw(const iRectanglei& rect, float32 aspectRatio)
+    void iView::draw()
     {
+        float32 aspectRatio = _resultingRectangle.getWidth() / _resultingRectangle.getHeight();
         
-        iRenderer::getInstance().setViewport(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+        iRenderer::getInstance().setViewport(_resultingRectangle.getX(), _resultingRectangle.getY(), _resultingRectangle.getWidth(), _resultingRectangle.getHeight());
 
         iRenderer::getInstance().setClearColor(_clearColor);
         iRenderer::getInstance().setClearDepth(_clearDepth);
@@ -179,17 +180,14 @@ namespace Igor
         iStatistics::getInstance().endSection(_postRenderSectionID);
     }
 
-    void iView::draw(iWindow* window)
+    void iView::updateWindowRect(const iRectanglei& windowRect)
     {
-        float32 windowClientWidth = window->getClientWidth();
-        float32 windowClientHeight = window->getClientHeight();
+        _windowRect = windowRect;
 
-        iRectanglei resultingRectangle(_viewRect.getX() * windowClientWidth + 0.5f,
-            _viewRect.getY() * windowClientHeight + 0.5f,
-            _viewRect.getWidth() * windowClientWidth + 0.5f,
-            _viewRect.getHeight() * windowClientHeight + 0.5f);
-
-        draw(resultingRectangle, (_viewRect.getWidth() * windowClientWidth) / (_viewRect.getHeight() * windowClientHeight));
+        _resultingRectangle.setX(_viewRect.getX() * _windowRect.getWidth() + 0.5f);
+        _resultingRectangle.setY(_viewRect.getY() * _windowRect.getHeight() + 0.5f);
+        _resultingRectangle.setWidth(_viewRect.getWidth() * _windowRect.getWidth() + 0.5f);
+        _resultingRectangle.setHeight(_viewRect.getHeight() * _windowRect.getHeight() + 0.5f);
     }
 
     void iView::setScene(iScene* scene)
@@ -211,6 +209,16 @@ namespace Igor
     void iView::unregisterRenderDelegate(RenderDelegate render_delegate)
     {
         _renderEvent.remove(render_delegate);
+    }
+
+    iaVector3f iView::unProject(const iaVector3f& screenpos, const iaMatrixf& modelview)
+    {
+        float32 aspectRatio = _resultingRectangle.getWidth() / _resultingRectangle.getHeight();
+
+        iaMatrixf projectionMatrix;
+        projectionMatrix.perspective(_viewAngel, aspectRatio, _nearPlaneDistance, _farPlaneDistance);
+
+        return iRenderer::getInstance().unProject(screenpos, modelview, projectionMatrix, _resultingRectangle);
     }
 
     /*	iPixmap* iView::makeScreenshot(bool alphachannel)

@@ -99,7 +99,7 @@ __IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator * (iaVector4<T> &a)
 }
 
 template <class T>
-__IGOR_INLINE__ iaMatrix<T> iaMatrix<T>::operator* (iaMatrix<T> &m)
+__IGOR_INLINE__ iaMatrix<T> iaMatrix<T>::operator* (const iaMatrix<T>& m)
 {
     iaMatrix<T> matrix;
 
@@ -127,7 +127,7 @@ __IGOR_INLINE__ iaMatrix<T> iaMatrix<T>::operator* (iaMatrix<T> &m)
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::operator*= (iaMatrix<T> &m)
+__IGOR_INLINE__ void iaMatrix<T>::operator*= (const iaMatrix<T>& m)
 {
     iaMatrix<T> matrix;
 
@@ -177,6 +177,20 @@ __IGOR_INLINE__ iaMatrix<T>::iaMatrix(const T data[16])
 template <class T>
 __IGOR_INLINE__ iaMatrix<T>::~iaMatrix()
 {
+}
+
+template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::perspective(T fov, T aspect, T nearplain, T farplain)
+{
+    T xmin, xmax, ymin, ymax;
+
+    ymax = nearplain * tanf(fov * (T)M_PI / 360.0);
+    ymin = -ymax;
+
+    xmin = ymin * aspect;
+    xmax = ymax * aspect;
+
+    frustum(xmin, xmax, ymin, ymax, nearplain, farplain);
 }
 
 template <class T>

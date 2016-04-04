@@ -41,6 +41,8 @@ namespace IgorAux
 {
 
 	/*! 4x4 Matrix
+
+    \todo cont version for * and *= ?
 	*/
 	template <class T> class IgorAux_API_Template iaMatrix
 	{
@@ -87,13 +89,13 @@ namespace IgorAux
 		*/
 		__IGOR_INLINE__ iaVector4<T> operator*(iaVector4<T> &a);
 
-		/*! matrix multiplication
-		*/
-		__IGOR_INLINE__ iaMatrix operator*(iaMatrix &m);
+        /*! matrix multiplication
+        */
+        __IGOR_INLINE__ iaMatrix operator*(const iaMatrix& m);
 
-		/*! matrix multiplication
-		*/
-		__IGOR_INLINE__ void operator*=(iaMatrix &m);
+        /*! matrix multiplication
+        */
+        __IGOR_INLINE__ void operator*=(const iaMatrix& m);
 
 		/*! matrix component by index
 
@@ -138,7 +140,16 @@ namespace IgorAux
 		*/
 		__IGOR_INLINE__ void frustum( T left, T right, T bottom, T top, T nearplain, T farplain);
 
-		/*! calculates a othogonal matrix
+        /*! calculates a perspective projection matrix
+
+        \param fov field of view in degrees
+        \param aspect aspect ratio
+        \param nearplain near clipping plane distance
+        \param farplain far clipping plane distance
+        */
+        __IGOR_INLINE__ void perspective(T fov, T aspect, T nearplain, T farplain);
+
+		/*! calculates a othogonal projection matrix
 
 		\param left the left value
 		\param right the right value

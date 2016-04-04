@@ -458,11 +458,19 @@ namespace Igor
 
     void iWindow::addView(iView* view)
     {
+        con_assert_sticky(view != nullptr, "zero pointer");
+
         _views.add(view);
+        iRectanglei windowRect;
+        windowRect.setWidth(_clientWidth);
+        windowRect.setHeight(_clientHeight);
+        view->updateWindowRect(windowRect);
     }
 
     void iWindow::removeView(iView* view)
     {
+        con_assert_sticky(view != nullptr, "zero pointer");
+
         _views.remove(view);
     }
 
@@ -521,6 +529,15 @@ namespace Igor
         _height = height;
 
         updateClientSize();
+
+        iRectanglei windowRect;
+        windowRect.setWidth(_clientWidth);
+        windowRect.setHeight(_clientHeight);
+
+        for (iView* view : _views.getList())
+        {
+            view->updateWindowRect(windowRect);
+        }
 
         _windowResizeEvent(_clientWidth, _clientHeight);
     }
@@ -605,7 +622,11 @@ namespace Igor
         auto view = _views.getList().begin();
         while (view != _views.getList().end())
         {
-            (*view)->draw(this);
+            iRectanglei windowRect;
+            windowRect.setWidth(_clientWidth);
+            windowRect.setHeight(_clientHeight);
+            (*view)->updateWindowRect(windowRect);
+            (*view)->draw();
             view++;
         }
 

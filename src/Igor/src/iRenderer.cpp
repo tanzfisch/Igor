@@ -254,15 +254,7 @@ namespace Igor
 
     void iRenderer::setPerspective(float32 fov, float32 aspect, float32 nearplain, float32 farplain)
     {
-        float32 xmin, xmax, ymin, ymax;
-
-        ymax = nearplain * tanf(fov * M_PI / 360.0);
-        ymin = -ymax;
-
-        xmin = ymin * aspect;
-        xmax = ymax * aspect;
-
-        _projectionMatrix.frustum(xmin, xmax, ymin, ymax, nearplain, farplain);
+        _projectionMatrix.perspective(fov, aspect, nearplain, farplain);
 
         glMatrixMode(GL_PROJECTION);				GL_CHECK_ERROR();
         glLoadMatrixf(_projectionMatrix.getData());	GL_CHECK_ERROR();
@@ -1387,7 +1379,7 @@ namespace Igor
         }*/
 
 
-    iaVector3f iRenderer::unProject(iaVector3f &screenpos, iaMatrixf &modelview, iaMatrixf &projection, iRectanglei &viewport)
+    iaVector3f iRenderer::unProject(const iaVector3f& screenpos, const iaMatrixf& modelview, const iaMatrixf& projection, const iRectanglei& viewport)
     {
         iaVector4f in;
         iaVector4f out;
@@ -1398,11 +1390,12 @@ namespace Igor
         in[2] = 2.0f * screenpos[2] - 1.0f;
         in[3] = 1.0f;
 
-        iaMatrixf a = projection * modelview;
-        iaMatrixf b = a;
-        a.invert();
-        iaMatrixf c = b * a;
-        out = a * in;
+        iaMatrixf modelViewProjection = projection; 
+        modelViewProjection *= modelview;
+        modelViewProjection.invert();
+        out = modelViewProjection * in;
+
+        con_assert(out[3] != 0.0f, "out of range");
 
         if (out[3] != 0.0f)
         {

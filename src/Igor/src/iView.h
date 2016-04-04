@@ -36,6 +36,7 @@
 #include <iaColor4.h>
 #include <iaEvent.h>
 #include <iaString.h>
+#include <iaMatrix.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -149,7 +150,11 @@ namespace Igor
 
         \param depth the clear depth value
         */
-        void setClearDepth(float32 depth);        
+        void setClearDepth(float32 depth);
+
+        iaVector3f unProject(const iaVector3f& screenpos, const iaMatrixf& modelview);
+
+        void updateWindowRect(const iRectanglei& windowRect);
 
         /*! init
         */
@@ -171,6 +176,10 @@ namespace Igor
         /*! scene that is currently bound with this view
         */
         iScene* _scene = nullptr;
+
+        iRectanglei _windowRect;
+
+        iRectanglei _resultingRectangle;
 		
         /*! the viewing rectangle with values from 0.0-1.0 so it is independent form screen resolution
         */
@@ -234,17 +243,8 @@ namespace Igor
         iRenderEngine _renderEngine;
 
         /*! called every render frame by the parenting window
-
-        \param window pointer to parenting window
         */
-        void draw(iWindow* window);
-
-        /*! draw view
-
-        \param rect rectangle in pixel
-        \param aspectRatio the aspect ratio
-        */
-        void draw(const iRectanglei& rect, float32 aspectRatio);
+        void draw();
 
 	};
 
