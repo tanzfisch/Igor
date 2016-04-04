@@ -197,12 +197,13 @@ namespace Igor
 
     void iMouse::setCenter(bool supressMoveEvent)
 	{
-        setPosition(_window->getClientWidth() >> 1, _window->getClientHeight() >> 1);
-        _ignoreNextMoveEvent = supressMoveEvent;
+        setPosition(_window->getClientWidth() >> 1, _window->getClientHeight() >> 1, supressMoveEvent);
 	}
 
-	void iMouse::setPosition(int32 x, int32 y)
+	void iMouse::setPosition(int32 x, int32 y, bool supressMoveEvent)
 	{
+        _ignoreNextMoveEvent = supressMoveEvent;
+
 		if(_window->isFullscreen())
 		{
 			SetCursorPos(x, y);

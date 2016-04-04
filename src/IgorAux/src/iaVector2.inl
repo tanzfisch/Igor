@@ -209,7 +209,7 @@ void iaVector2<T>::normalize(void)
 }
 
 template <class T>
-void iaVector2<T>::conjugate(void)
+void iaVector2<T>::negate(void)
 {
     _x *= -1;
     _y *= -1;

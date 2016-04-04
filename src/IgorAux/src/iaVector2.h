@@ -206,7 +206,7 @@ namespace IgorAux
 
         /*! conjugates (or negates) the vector
         */
-        __IGOR_INLINE__ void  conjugate(void);
+        __IGOR_INLINE__ void  negate(void);
 
 		/*! default ctor
 

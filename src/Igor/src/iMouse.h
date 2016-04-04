@@ -283,6 +283,8 @@ namespace Igor
 		void unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
 
 		/*! set mouse to center of currently focused window
+
+        \param supressMoveEvent if true supress next mouse event
 		*/
 		virtual void setCenter(bool supressMoveEvent = false);
 
@@ -290,8 +292,9 @@ namespace Igor
 
 		\param x horrizontal position of the mouse cursor in pixel
 		\param y vertical position of the mouse cursor in pixel
+        \param supressMoveEvent if true supress next mouse event
 		*/
-		virtual void setPosition(int32 x, int32);
+		virtual void setPosition(int32 x, int32, bool supressMoveEvent = false);
 
 		/*! switches the cursor on or of
 

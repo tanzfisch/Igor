@@ -189,13 +189,20 @@ namespace IgorAux
         __IGOR_INLINE__ T angle(iaVector3<T> &a) const;
         __IGOR_INLINE__ T angleXZ() const;
 
-        __IGOR_INLINE__ iaVector3<T> getEuler(void);
-
+        /*! normalizes the vector
+        */
         __IGOR_INLINE__ iaVector3<T> normalize(void);
-        __IGOR_INLINE__ iaVector3<T> negate(void);
-        __IGOR_INLINE__ void conjugate(void);
 
+        /*! negates the vector
+        */
+        __IGOR_INLINE__ iaVector3<T> negate(void);
+
+        /*! \retruns pointer to internal data
+        */
         __IGOR_INLINE__ const T* getData() const;
+
+        /*! \returns pointer to internal data
+        */
         __IGOR_INLINE__ T* getData();
 
         /*! does nothing
@@ -225,3 +232,4 @@ namespace IgorAux
 };
 
 #endif
+ 

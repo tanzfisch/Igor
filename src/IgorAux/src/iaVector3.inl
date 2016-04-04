@@ -23,14 +23,6 @@ iaVector3<T> iaVector3<T>::operator + (const iaVector3<T> &a) const
 }
 
 template <class T>
-__IGOR_INLINE__ iaVector3<T> iaVector3<T>::getEuler(void)
-{
-    iaVector3<T> result;
-
-    return result;
-}
-
-template <class T>
 __IGOR_INLINE__ std::wostream& operator << (std::wostream &ostr, const iaVector3<T> &v)
 {
     ostr << "(" << v._x << ", " << v._y << ", " << v._z << ")";
@@ -191,14 +183,6 @@ void iaVector3<T>::set(T x, T y, T z)
     _x = x;
     _y = y;
     _z = z;
-}
-
-template <class T>
-void iaVector3<T>::conjugate(void)
-{
-    _x *= -1;
-    _y *= -1;
-    _z *= -1;
 }
 
 template <class T>
