@@ -4,7 +4,8 @@
 
 #include <iTask.h>
 
-#include <windows.h>
+#include <iaConsole.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -14,6 +15,11 @@ namespace Igor
 
     iTask::iTask(iWindow* window, uint32 priority, bool isRepeating, bool needsRenderContext)
     {
+        if (needsRenderContext)
+        {
+            con_assert(window != nullptr, "zero pointer, need window if render context is required");
+        }
+
         _mutexID.lock();
         _taskID = _nextTaskID++;
         _mutexID.unlock();
