@@ -106,6 +106,7 @@ void ModelViewer::init(iaString fileName)
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
     _window.addView(&_viewOrtho);
 
+    _window.setDoubleClick(true);
     _window.open(); // open after adding views to prevent warning message
 
     _scene = iSceneFactory::getInstance().createScene();
