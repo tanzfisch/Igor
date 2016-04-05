@@ -355,6 +355,8 @@ namespace Igor
 
         void setAngularDamping(void* newtonBody, const iaVector3f& angularDamp);
 
+        void setLinearDamping(void* newtonBody, float32 linearDamp);
+
         void setTorque(void* newtonBody, const iaVector3f& force);
 
         /*! update newton calculations

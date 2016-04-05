@@ -168,6 +168,11 @@ namespace Igor
         NewtonBodySetAngularDamping(static_cast<const NewtonBody*>(newtonBody), angularDamp.getData());
     }
 
+    void iPhysics::setLinearDamping(void* newtonBody, float32 linearDamp)
+    {
+        NewtonBodySetLinearDamping(static_cast<const NewtonBody*>(newtonBody), linearDamp);
+    }
+
     void iPhysics::getVelocity(void* newtonBody, iaVector3f& velocity)
     {
         NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), velocity.getData());
