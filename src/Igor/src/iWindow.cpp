@@ -43,23 +43,29 @@ namespace Igor
 
         if (window)
         {
-            //! \todo critical section
+            //! \todo critical section ?
+            //! \todo move code inside window class
             auto listener = window->_oseventlisteners.begin();
             while (listener != window->_oseventlisteners.end())
             {
                 if ((*listener)->onOSEvent(&os_event))
+                {
                     result = true;
+                }
 
                 listener++;
             };
         }
 
-        if (result) return true;
+        if (result)
+        {
+            return true;
+        }
 
         switch (uMsg)
         {
         case WM_DESTROY:
-            window->_hWnd = 0;
+            window->_hWnd = nullptr;
             PostQuitMessage(0);
             window->_windowCloseEvent();
             return true;
@@ -99,7 +105,15 @@ namespace Igor
         memset(&_msg, 0, sizeof(_msg));
 
         _hInstance = GetModuleHandle(NULL);
-        _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
+        if (_doubleClick)
+        {
+            _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
+        }
+        else
+        {
+            _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+        }
+        
         _wc.lpfnWndProc = (WNDPROC)WndProc;
         _wc.cbClsExtra = 0;
         _wc.cbWndExtra = 0;
@@ -108,7 +122,7 @@ namespace Igor
         _wc.hCursor = LoadCursor(NULL, IDC_ARROW);
         _wc.hbrBackground = NULL;
         _wc.lpszMenuName = NULL;
-        _wc.lpszClassName = TEXT("OpenDC");
+        _wc.lpszClassName = TEXT("Igor");
 
         RegisterClass(&_wc);
 
@@ -117,6 +131,37 @@ namespace Igor
         updateClientSize();
 
         _swapBufferSectionID = iStatistics::getInstance().registerSection("w_swap", iaColor4f(0.33, 0, 0, 1), 0);
+    }
+
+    void iWindow::setDoubleClick(bool doubleClick)
+    {
+        con_assert(!isOpen(), "window is open already");
+
+        if (!isOpen())
+        {
+            if (_doubleClick != doubleClick)
+            {
+                UnregisterClass(TEXT("Igor"), _wc.hInstance);
+
+                _doubleClick = doubleClick;
+
+                if (_doubleClick)
+                {
+                    _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
+                }
+                else
+                {
+                    _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+                }
+
+                RegisterClass(&_wc);
+            }
+        }
+    }
+
+    bool iWindow::getDoubleClick() const
+    {
+        return _doubleClick;
     }
 
     iWindow::~iWindow()
@@ -132,20 +177,14 @@ namespace Igor
             con_err("still views registered to this window");
         }
 
-        UnregisterClass(TEXT("OpenDC"), _hInstance);
+        UnregisterClass(TEXT("Igor"), _hInstance);
         _hInstance = 0;
     }
 
     void iWindow::handle()
     {
-        while (PeekMessage(&_msg, NULL, 0, 0, PM_NOREMOVE))
+        while (PeekMessage(&_msg, NULL, 0, 0, PM_REMOVE))
         {
-
-            if (!GetMessage(&_msg, NULL, 0, 0))
-            {
-                return;
-            }
-
             TranslateMessage(&_msg);
             DispatchMessage(&_msg);
         }
@@ -222,7 +261,7 @@ namespace Igor
         }
 
         // Create The Window
-        _hWnd = CreateWindowEx(_dwExStyle, TEXT("OpenDC"), _title.getData(), _dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, posx, posy, _width, _height, 0, 0, _hInstance, this);
+        _hWnd = CreateWindowEx(_dwExStyle, TEXT("Igor"), _title.getData(), _dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, posx, posy, _width, _height, 0, 0, _hInstance, this);
 
         if (!_hWnd)
         {

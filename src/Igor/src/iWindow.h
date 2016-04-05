@@ -82,6 +82,18 @@ namespace Igor
         */
         virtual ~iWindow();
 
+        /*! sets if the window understands double clicks
+
+        can only be called as long as window is closed
+
+        \param doubleClick if true window understands double clicks
+        */
+        void setDoubleClick(bool doubleClick);
+
+        /*! \returns true if the window understands double clicks
+        */
+        bool getDoubleClick() const;
+
         /*! sets title of window
 
         \param title the windows title
@@ -278,6 +290,10 @@ namespace Igor
 		/*! true if the window is opened
 		*/
 		bool _isOpen = false;
+
+        /*! flag if the window gets double click events from windows
+        */
+        bool _doubleClick = false;
 
 		/*! handle to be called in the main loop
 
