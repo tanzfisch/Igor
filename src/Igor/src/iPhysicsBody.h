@@ -83,6 +83,9 @@ namespace Igor
         void setAngularDamping(const iaVector3f& damping);
         const iaVector3f& getAngularDamping() const;
 
+        void setLinearDamping(float32 damping);
+        float32 getLinearDamping() const;
+
         const iaVector3f& getForce() const;
         void setForce(const iaVector3f& force);
 
@@ -137,7 +140,8 @@ namespace Igor
         */
         float32 _mass = 0;
 
-        iaVector3f _damping;
+        iaVector3f _angularDamping;
+        float32 _linearDamping;
 
         iaVector3f _force;
         iaVector3f _torque;

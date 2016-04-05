@@ -172,13 +172,24 @@ namespace Igor
 
     void iPhysicsBody::setAngularDamping(const iaVector3f& damping)
     {
-        _damping = damping;
-        iPhysics::getInstance().setAngularDamping(_newtonBody, _damping);
+        _angularDamping = damping;
+        iPhysics::getInstance().setAngularDamping(_newtonBody, _angularDamping);
     }
 
     const iaVector3f& iPhysicsBody::getAngularDamping() const
     {
-        return _damping;
+        return _angularDamping;
+    }
+
+    void iPhysicsBody::setLinearDamping(float32 damping)
+    {
+        _linearDamping = damping;
+        iPhysics::getInstance().setLinearDamping(_newtonBody, _linearDamping);
+    }
+
+    float32 iPhysicsBody::getLinearDamping() const
+    {
+        return _linearDamping;
     }
 
     void iPhysicsBody::setMass(float32 mass)
