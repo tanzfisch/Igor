@@ -1,5 +1,5 @@
 // OMPF 3d model file format
-// (c) Copyright 2014-2015 by Martin Loga
+// (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <ompfResourceSearchPathChunk.h>
