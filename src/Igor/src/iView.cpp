@@ -72,7 +72,7 @@ namespace Igor
         _postRenderSectionID = iStatistics::getInstance().registerSection(post, iaColor4f(0, 1, 0, 1), 3);
     }
 
-    const iaString& iView::gtName() const
+    const iaString& iView::getName() const
     {
         return _name;
     }
@@ -137,8 +137,6 @@ namespace Igor
 
     void iView::draw()
     {
-        float32 aspectRatio = _resultingRectangle.getWidth() / _resultingRectangle.getHeight();
-        
         iRenderer::getInstance().setViewport(_resultingRectangle.getX(), _resultingRectangle.getY(), _resultingRectangle.getWidth(), _resultingRectangle.getHeight());
 
         iRenderer::getInstance().setClearColor(_clearColor);
@@ -156,7 +154,7 @@ namespace Igor
 
         if (_perspective)
         {
-            iRenderer::getInstance().setPerspective(_viewAngel, aspectRatio, _nearPlaneDistance, _farPlaneDistance);
+            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
         }
         else
         {
@@ -211,12 +209,15 @@ namespace Igor
         _renderEvent.remove(render_delegate);
     }
 
+    float32 iView::getAspectRatio() const
+    {
+        return static_cast<float32>(_resultingRectangle.getWidth()) / static_cast<float32>(_resultingRectangle.getHeight());
+    }
+
     iaVector3f iView::unProject(const iaVector3f& screenpos, const iaMatrixf& modelview)
     {
-        float32 aspectRatio = _resultingRectangle.getWidth() / _resultingRectangle.getHeight();
-
         iaMatrixf projectionMatrix;
-        projectionMatrix.perspective(_viewAngel, aspectRatio, _nearPlaneDistance, _farPlaneDistance);
+        projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
         return iRenderer::getInstance().unProject(screenpos, modelview, projectionMatrix, _resultingRectangle);
     }

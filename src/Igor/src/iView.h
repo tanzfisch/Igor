@@ -74,8 +74,19 @@ namespace Igor
         */
         iScene* getScene();
 
+        /*! sets name of view
+
+        \param name name of the view
+        */
         void setName(const iaString& name);
-        const iaString& gtName() const;
+
+        /*! \returns name of the view
+        */
+        const iaString& getName() const;
+
+        /*! \returns aspect ratio
+        */
+        float32 getAspectRatio() const;
 
         /*! registers delegate to render event
 
