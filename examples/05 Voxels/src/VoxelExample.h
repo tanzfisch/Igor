@@ -150,7 +150,7 @@ private:
 
     /*! called when space key was released
     */
-    void onKeySpaceReleased();
+    void onKeySpacePressed();
 
     /*! called when window was closed
     */

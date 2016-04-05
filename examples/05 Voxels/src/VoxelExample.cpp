@@ -46,7 +46,7 @@ void VoxelExample::registerHandles()
 {
     // register callbacks to all the events that are of interest to us
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::onKeySpaceReleased), iKeyCode::Space);
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeySpacePressed), iKeyCode::Space);
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
     iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &VoxelExample::onHandle));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
@@ -61,7 +61,7 @@ void VoxelExample::unregisterHandles()
     iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &VoxelExample::onHandle));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpSpecificDelegate(this, &VoxelExample::onKeySpaceReleased), iKeyCode::Space);
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeySpacePressed), iKeyCode::Space);
 }
 
 void VoxelExample::initViews()
@@ -340,7 +340,7 @@ void VoxelExample::onWindowResized(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
 
-void VoxelExample::onKeySpaceReleased()
+void VoxelExample::onKeySpacePressed()
 {
     generateVoxelData();
 }
