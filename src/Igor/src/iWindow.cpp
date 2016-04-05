@@ -625,7 +625,6 @@ namespace Igor
             iRectanglei windowRect;
             windowRect.setWidth(_clientWidth);
             windowRect.setHeight(_clientHeight);
-            (*view)->updateWindowRect(windowRect);
             (*view)->draw();
             view++;
         }
