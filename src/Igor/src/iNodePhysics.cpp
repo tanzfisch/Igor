@@ -278,6 +278,11 @@ namespace Igor
                 resultingCollision = collisions[0];
             }
 
+            if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+            {
+                iPhysics::getInstance().destroyBody(_bodyID);
+            }
+
             iPhysicsBody* body = iPhysics::getInstance().createBody(resultingCollision);
             body->setMass(_mass);
             body->setMaterial(_materialID);
