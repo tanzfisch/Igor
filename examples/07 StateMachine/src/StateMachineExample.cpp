@@ -102,7 +102,7 @@ void StateMachineExample::init()
     _gameGateB = _stateMachine.createGate(_gameWinTransition);
     _gameGateC = _stateMachine.createGate(_gameWinTransition);
    
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
     _view.registerRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
 
     _stateMachine.start();
@@ -168,6 +168,11 @@ void StateMachineExample::onEnterWinState()
 {
     _backgroundText = "!!! YOU WIN !!!";
     _time = iTimer::getInstance().getTime();
+
+    for (int i = 0; i < 5; ++i)
+    {
+        _particleSystems[i].restart();
+    }
 }
 
 void StateMachineExample::onLeaveWinState()
@@ -335,7 +340,7 @@ void StateMachineExample::onHandleInitState()
 void StateMachineExample::onLeaveInitState()
 {
     // start spinning background after init
-    iApplication::getInstance().registerApplicationHandleDelegate(ApplicationHandleDelegate(this, &StateMachineExample::onHandle));
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &StateMachineExample::onHandle));
 }
 
 void StateMachineExample::onKeyReleasedMenuState(iKeyCode key)
