@@ -37,6 +37,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    /*! physics material
+    */
     class Igor_API iPhysicsMaterial
     {
 
@@ -48,7 +50,14 @@ namespace Igor
         */
         int64 getID();
 
+        /*! sets name of material
+
+        \param name the new name
+        */
         void setName(const iaString& name);
+
+        /*! \returns material name
+        */
         const iaString& getName() const;
 
     private:

@@ -233,6 +233,25 @@ namespace Igor
         NewtonMaterialSetCallbackUserData(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), materialCombo);
     }
 
+    void iPhysics::setSoftness(iPhysicsMaterialCombo* materialCombo, float32 value)
+    {
+        NewtonMaterialSetDefaultSoftness(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), value);
+    }
+
+    void iPhysics::setElasticity(iPhysicsMaterialCombo* materialCombo, float32 elasticCoef)
+    {
+        NewtonMaterialSetDefaultElasticity(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), elasticCoef);
+    }
+
+    void iPhysics::setFriction(iPhysicsMaterialCombo* materialCombo, float32 staticFriction, float32 kineticFriction)
+    {
+        con_assert(staticFriction > 0.0 && staticFriction < 2.0, "out of range");
+        con_assert(kineticFriction > 0.0 && kineticFriction < 2.0, "out of range");
+        con_assert(kineticFriction < staticFriction, "out of range");
+
+        NewtonMaterialSetDefaultFriction(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), staticFriction, kineticFriction);
+    }
+
     void iPhysics::onUpdate()
     {
         const float32 timeDelta = 1.0f / static_cast<float64>(_simulationRate);
@@ -654,6 +673,7 @@ namespace Igor
 
         _createDestroyMutex.lock();
         NewtonCollision* collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld*>(_shadowWorld), collisionID);
+        _createDestroyMutex.unlock();
 
         NewtonTreeCollisionBeginBuild(collision);
 
@@ -690,8 +710,6 @@ namespace Igor
         }
 
         NewtonTreeCollisionEndBuild(collision, 0);
-
-        _createDestroyMutex.unlock();
 
         return prepareCollision(collision, collisionID);
     }

@@ -17,10 +17,6 @@ namespace Igor
         iPhysics::getInstance().setCollisionCallback(this);
     }
 
-    iPhysicsMaterialCombo::~iPhysicsMaterialCombo()
-    {
-    }
-
     void iPhysicsMaterialCombo::setName(const iaString& name)
     {
         _name = name;
@@ -29,6 +25,21 @@ namespace Igor
     const iaString& iPhysicsMaterialCombo::getName() const
     {
         return _name;
+    }
+
+    void iPhysicsMaterialCombo::setSoftness(float32 value)
+    {
+        iPhysics::getInstance().setSoftness(this, value);
+    }
+
+    void iPhysicsMaterialCombo::setElasticity(float32 elasticCoef)
+    {
+        iPhysics::getInstance().setElasticity(this, elasticCoef);
+    }
+    
+    void iPhysicsMaterialCombo::setFriction(float32 staticFriction, float32 kineticFriction)
+    {
+        iPhysics::getInstance().setFriction(this, staticFriction, kineticFriction);
     }
 
     void iPhysicsMaterialCombo::contact(iPhysicsBody* body0, iPhysicsBody* body1)

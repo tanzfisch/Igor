@@ -77,16 +77,52 @@ namespace Igor
         */
         void unregisterContactDelegate(iContactDelegate contactDelegate);
 
+        /*! sets sofftness of collition between the two materials
+
+        \param value softness factor
+        */
+        void setSoftness(float32 value);
+
+        /*! sets elasticity coeficient between the two materials
+
+        \param elasticCoef elasticity coeficient
+        */
+        void setElasticity(float32 elasticCoef);
+
+        /*! sets friction between the two materials
+
+        \param staticFriction static friction value
+        \param kineticFriction kinetic friction value
+        */
+        void setFriction(float32 staticFriction, float32 kineticFriction);
+
+        /*! \returns id of first material
+        */
         int64 getMaterial0() const;
+
+        /*! \returns id of second material
+        */
         int64 getMaterial1() const;
 
+        /*! dtor material combo
+
+        \param material0 first material
+        \param material1 second material
+        */
         iPhysicsMaterialCombo(iPhysicsMaterial* material0, iPhysicsMaterial* material1);
 
-        virtual ~iPhysicsMaterialCombo();
+        /*! does nothing
+        */
+        virtual ~iPhysicsMaterialCombo() = default;
 
     private:
 
+        /*! first material
+        */
         int64 _material0 = 0;
+
+        /*! second material
+        */
         int64 _material1 = 0;
 
         /*! contact event
@@ -97,6 +133,10 @@ namespace Igor
         */
         iaString _name;
 
+        /*! triggers contact event
+
+        called by iPhysics
+        */
         void contact(iPhysicsBody* body0, iPhysicsBody* body1);
 
     };

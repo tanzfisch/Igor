@@ -302,6 +302,10 @@ namespace Igor
         
         void setCollisionCallback(iPhysicsMaterialCombo* materialCombo);
 
+        void setSoftness(iPhysicsMaterialCombo* materialCombo, float32 value);
+        void setElasticity(iPhysicsMaterialCombo* materialCombo, float32 elasticCoef);
+        void setFriction(iPhysicsMaterialCombo* materialCombo, float32 staticFriction, float32 kineticFriction);
+
         iPhysicsMaterial* createDefaultMaterial();
 
         /*! prepares a just created collision
