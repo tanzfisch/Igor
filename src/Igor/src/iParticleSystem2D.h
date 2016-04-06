@@ -195,6 +195,10 @@ namespace Igor
         */
         void setLoopable(bool loop);
 
+        /*! restarts the particle system
+        */
+        void restart();
+
         /*! sets particle emition rate
 
         emition rate is particles per frame

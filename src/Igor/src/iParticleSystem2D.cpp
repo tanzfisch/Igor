@@ -52,6 +52,14 @@ namespace Igor
         return _particles;
     }
 
+    void iParticleSystem2D::restart()
+    {
+        for (int i = 0; i < _particleCount; ++i)
+        {
+            resetParticle(_particles[i]);
+        }
+    }
+
     void iParticleSystem2D::handle()
     {
         iParticle2D *newparticle;
