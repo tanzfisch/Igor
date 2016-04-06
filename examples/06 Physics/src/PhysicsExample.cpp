@@ -265,7 +265,7 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep,
     iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
     force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
 
-    iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
+    body->setForce(force);
 }
 
 void PhysicsExample::mouseWheel(int32 d)
