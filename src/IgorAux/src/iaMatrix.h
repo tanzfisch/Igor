@@ -127,7 +127,7 @@ namespace IgorAux
 		\param coi center of interesst
 		\param top the ipvector of the camera
 		*/
-		__IGOR_INLINE__ void lookAt(iaVector3<T> &eye, iaVector3<T> &coi, iaVector3<T> &top);
+		__IGOR_INLINE__ void lookAt(const iaVector3<T> &eye, const iaVector3<T> &coi, const iaVector3<T> &top);
 
 		/*! calculates a frustum matrix
 
@@ -159,6 +159,26 @@ namespace IgorAux
 		\param farplain the far plain distance
 		*/
 		__IGOR_INLINE__ void ortho( T left, T right, T bottom, T top, T nearplain, T farplain);
+
+        /*! calculates a orthogonal matrix based on one direction
+
+        does only change the orientation of this matrix
+        the vector does not have top be normalized
+
+        \param depth the direction the matrix bases on
+        */
+        __IGOR_INLINE__ void grammSchmidt(iaVector3<T> &depth);
+
+        /*! calculates a orthogonal matrix based on a plane with primary direction depth
+
+        does only change the orientation of this matrix
+        the vectors do not have to be perpendicular
+        the vectors do not have to be normalized
+
+        \param depth the direction the matrix bases on
+        \param top the second vector to define the plane
+        */
+        __IGOR_INLINE__ void grammSchmidt(iaVector3<T> &depth, iaVector3<T> &top);
 
 		/*! translate the matrix by vector 3d
 

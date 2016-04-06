@@ -180,6 +180,50 @@ __IGOR_INLINE__ iaMatrix<T>::~iaMatrix()
 }
 
 template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T> &depth)
+{
+    _depth = depth;
+    _depth.normalize();
+
+    if (abs(_depth._z) > (T)0.57777)
+    {
+        _right = _depth % iaVector3<T>(-_depth._y, _depth._z, 0.0f);
+    }
+    else 
+    {
+        _right = _depth % iaVector3<T>(-_depth._y, _depth._x, 0.0f);
+    }
+
+    _right.normalize();
+    _top = _right % _depth;
+
+    _w0 = 0.0f;
+    _w1 = 0.0f;
+    _w2 = 0.0f;
+    _w3 = 1.0f;
+}
+
+template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T> &depth, iaVector3<T> &top)
+{
+    _top = top;
+    
+    _depth = depth;
+    _depth.normalize();
+
+    _right = _depth % _top;
+    _right.normalize();
+
+    _top = _right % _depth;
+    _top.normalize();
+
+    _w0 = 0.0f;
+    _w1 = 0.0f;
+    _w2 = 0.0f;
+    _w3 = 1.0f;
+}
+
+template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::perspective(T fov, T aspect, T nearplain, T farplain)
 {
     T xmin, xmax, ymin, ymax;
@@ -240,17 +284,19 @@ __IGOR_INLINE__ void iaMatrix<T>::ortho(T left, T _right, T bottom, T _top, T ne
 }
 
 template <class T>
-__IGOR_INLINE__ void iaMatrix<T>::lookAt(iaVector3<T> &eye, iaVector3<T> &coi, iaVector3<T> &_top)
+__IGOR_INLINE__ void iaMatrix<T>::lookAt(const iaVector3<T> &eye, const iaVector3<T> &coi, const iaVector3<T> &_top)
 {
     iaMatrix<T> lookat;
     iaVector3<T> x, y, z;
 
     z = eye - coi;
     z.normalize();
+
     y = _top;
     x = y % z;
-    y = z % x;
     x.normalize();
+
+    y = z % x;
     y.normalize();
 
     // Build resulting view matrix. 
