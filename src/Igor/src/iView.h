@@ -163,7 +163,7 @@ namespace Igor
         */
         void setClearDepth(float32 depth);
 
-        iaVector3f unProject(const iaVector3f& screenpos, const iaMatrixf& modelview);
+        iaVector3f unProject(const iaVector3f& screenpos, const iaMatrixf& modelMatrix);
 
         void updateWindowRect(const iRectanglei& windowRect);
 
