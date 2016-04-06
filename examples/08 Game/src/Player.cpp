@@ -52,8 +52,10 @@ Player::Player(iScene* scene, const iaVector3f& pos)
     body->setMass(10);
     body->setMatrix(bodyMatrix);
     body->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
-    iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(0, 1, 0));
-    iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(1, 0, 0));
+    body->setLinearDamping(200);
+    body->setAngularDamping(iaVector3f(200,200,200));
+//    iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(0, 1, 0));
+    //iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(1, 0, 0));
     iPhysics::getInstance().destroyCollision(collisionBox);
 
     transformNode->insertNode(playerModel);
@@ -74,30 +76,25 @@ Player::~Player()
 
 void Player::handle()
 {
-    iaVector3f force;
     const float32 speed = 1000;
+
+    _force.set(0, 0, 0);
 
     if (_up)
     {
-        force += iaVector3f(0,0,-speed);
+        _force += iaVector3f(0,0,-speed);
     }
     if (_down)
     {
-        force += iaVector3f(0, 0, speed);
+        _force += iaVector3f(0, 0, speed);
     }
     if (_left)
     {
-        force += iaVector3f(-speed, 0, 0);
+        _force += iaVector3f(-speed, 0, 0);
     }
     if (_right)
     {
-        force += iaVector3f(speed, 0, 0);
-    }
-
-    iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
-    if (body != nullptr)
-    {
-        body->setForce(force);
+        _force += iaVector3f(speed, 0, 0);
     }
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
@@ -153,20 +150,5 @@ void Player::stopRight()
 
 void Player::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex)
 {
-    iaVector3f force;
-    float32 Ixx;
-    float32 Iyy;
-    float32 Izz;
-    float32 mass;
-
-    //iPhysics::getInstance().getMassMatrixFromBody(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
-    //force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
-    force = body->getForce();
-
-    iaVector3<float32> velocity;
-    iPhysics::getInstance().getVelocity(body->getNewtonBody(), velocity);
-    velocity.negate();
-    force += (velocity / (1.0 / iPhysics::getSimulationRate())) * 0.5;
-
-    iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
+    body->setForce(_force);
 }

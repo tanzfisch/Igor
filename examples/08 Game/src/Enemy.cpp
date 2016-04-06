@@ -37,8 +37,8 @@ Enemy::Enemy(iScene* scene, const iaVector3f& pos)
     body->setMass(10);
     body->setMatrix(bodyMatrix);
     body->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Enemy::onApplyForceAndTorque));
-    iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(0, 1, 0));
-    iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(1, 0, 0));
+    //iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(0, 1, 0));
+    //iPhysics::getInstance().createUpVectorJoint(body, iaVector3f(1, 0, 0));
     iPhysics::getInstance().destroyCollision(collisionBox);
 
     transformNode->insertNode(playerModel);
@@ -135,5 +135,5 @@ void Enemy::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int thre
     velocity.negate();
     force += (velocity / (1.0 / iPhysics::getSimulationRate())) * 0.5;
 
-    iPhysics::getInstance().setForce(static_cast<void*>(body->getNewtonBody()), force);
+    body->setForce(force);
 }

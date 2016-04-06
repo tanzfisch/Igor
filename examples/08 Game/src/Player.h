@@ -3,6 +3,9 @@
 
 #include "Entity.h"
 
+#include <iaVector3.h>
+using namespace IgorAux;
+
 namespace Igor
 {
     class iScene;
@@ -34,6 +37,8 @@ private:
     bool _down = false;
     bool _left = false;
     bool _right = false;
+
+    iaVector3f _force;
 
     uint32 _transformNodeID = 0;
     uint64 _bodyID = 0;
