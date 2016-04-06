@@ -18,36 +18,36 @@ KeyboardExample::~KeyboardExample()
 	deinit();
 }
 
-    void KeyboardExample::init()
-    {
-        // print some helpfull text
-	    con_endl("--- Keyboard Example --- ");
-	    con_endl("press ESC - to exit");
-	    con_endl("press F1  - to switch output method");
-	    con_endl("Keep keyboard focus on \"Keyboard Example\" _window.");
-        con_endl("");
-        con_endl("!!! One Warning about a missing view is supposed to pop up. !!!");
-	    con_endl("");
+void KeyboardExample::init()
+{
+    // print some helpfull text
+	con_endl("--- Keyboard Example --- ");
+	con_endl("press ESC - to exit");
+	con_endl("press F1  - to switch output method");
+	con_endl("Keep keyboard focus on \"Keyboard Example\" _window.");
+    con_endl("");
+    con_endl("!!! One Warning about a missing view is supposed to pop up. !!!");
+	con_endl("");
 
-        // init window
-	    _window.setTitle("Keyboard Example");
-        // opening the window will result in a warning since we have no view to render to defined. but for this example we don't need anything to render
-	    _window.open(); 
-        // need to know when the window was closed so we can shut down the application
-        _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &KeyboardExample::onCloseWindow));
+    // init window
+	_window.setTitle("Keyboard Example");
+    // opening the window will result in a warning since we have no view to render to defined. but for this example we don't need anything to render
+	_window.open(); 
+    // need to know when the window was closed so we can shut down the application
+    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &KeyboardExample::onCloseWindow));
 
-        // registers a callback to the key pressed event. called when any key was pressed
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &KeyboardExample::onKeyPressed));
-        // registers a callback to the key release event. called when any key was released
-	    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &KeyboardExample::onKeyReleased));
-        // registers a callback to the specific key pressed event. In this case the ESC key. called only when the esc key was pressed
-        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &KeyboardExample::onKeyESCPressed), iKeyCode::ESC);
-        // registers a callback to the ASCII input event. called for every ascii input event
-	    iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &KeyboardExample::onKeyASCIIInput));
+    // registers a callback to the key pressed event. called when any key was pressed
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &KeyboardExample::onKeyPressed));
+    // registers a callback to the key release event. called when any key was released
+	iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &KeyboardExample::onKeyReleased));
+    // registers a callback to the specific key pressed event. In this case the ESC key. called only when the esc key was pressed
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &KeyboardExample::onKeyESCPressed), iKeyCode::ESC);
+    // registers a callback to the ASCII input event. called for every ascii input event
+	iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &KeyboardExample::onKeyASCIIInput));
 
-        // some more helpfull text
-	    con_endl(" --- starting with single key message output mode ---");
-    }
+    // some more helpfull text
+	con_endl(" --- starting with single key message output mode ---");
+}
 
 void KeyboardExample::deinit()
 {
