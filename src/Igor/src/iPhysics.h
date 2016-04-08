@@ -50,6 +50,7 @@ namespace Igor
     class iPhysicsJoint;
     class iPhysicsMaterial;
     class iPhysicsMaterialCombo;
+    class iPhysicsUserMeshCollisionHandler;
     class iMesh;
 
     /*! wrapper for newton game dynamics
@@ -105,6 +106,8 @@ namespace Igor
         /*! creates a collision shape based on a mesh
         */
         iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
+
+        iPhysicsCollision* createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler);
 
         /*! creates newton collision in shape of a sphere
 

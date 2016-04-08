@@ -20,6 +20,7 @@
 #include <iPhysicsMaterialCombo.h>
 #include <iNodeTransform.h>
 #include <iMesh.h>
+#include <iPhysicsUserMeshCollisionHandler.h>
 
 #include <newton/Newton.h>
 
@@ -555,6 +556,47 @@ namespace Igor
     {
         _createDestroyMutex.lock();
         NewtonCollision* collision = NewtonCreateBox(static_cast<const NewtonWorld*>(_shadowWorld), width, height, depth, 0, offset.getData());
+        _createDestroyMutex.unlock();
+        return prepareCollision(collision);
+    }
+
+    void CollideCallback(NewtonUserMeshCollisionCollideDesc* const collideDesc, const void* const continueCollisionHandle)
+    {
+        iPhysicsUserMeshCollisionHandler* userData = static_cast<iPhysicsUserMeshCollisionHandler*>(collideDesc->m_userData);
+        userData->collideCallback(collideDesc, continueCollisionHandle);
+    }
+
+    float32 RayHitCallback(NewtonUserMeshCollisionRayHitDesc* const rayDesc)
+    {
+        return 0;
+    }
+
+    void DestroyCallback(void* userData)
+    {
+        // tell it that it was destroyed
+    }
+
+    void GetCollisionInfo(void* const userData, NewtonCollisionInfoRecord* const infoRecord)
+    {
+
+    }
+
+    int AABBOverlapTest(void* userData, const float32* const box0, const float32* const box1)
+    {
+        return 0;
+    }
+
+    int GetFacesInAABB(void* me, const float32* p0, const float32* p1, const float32** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
+    {
+        return 0;
+    }
+
+    iPhysicsCollision* iPhysics::createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler)
+    {
+        _createDestroyMutex.lock();
+        NewtonCollision* collision = NewtonCreateUserMeshCollision(static_cast<const NewtonWorld*>(_shadowWorld), minBox.getData(), maxBox.getData(), handler, 
+            CollideCallback, reinterpret_cast<NewtonUserMeshCollisionRayHitCallback>(RayHitCallback), DestroyCallback, 
+            GetCollisionInfo, reinterpret_cast<NewtonUserMeshCollisionAABBTest>(AABBOverlapTest), GetFacesInAABB, nullptr, 0);
         _createDestroyMutex.unlock();
         return prepareCollision(collision);
     }
