@@ -31,6 +31,9 @@
 
 #include <iDefines.h>
 
+#include <mutex>
+using namespace std;
+
 namespace Igor
 {
 
@@ -43,6 +46,8 @@ namespace Igor
         
     public:
 
+        static const uint64 INVALID_PHYSICSCOLLISION_ID = 0;
+
         /*! \returns pointer to newton collision
         */
         void* getCollision() const;
@@ -53,9 +58,17 @@ namespace Igor
 
     private:
 
+        /*! next collision id
+        */
+        static uint64 _nextCollisionID;
+
+        /*! mutex to protec the id generation
+        */
+        mutex _mutex;
+
         /*! id of collision object
         */
-        uint64 _collisionID = 0;
+        uint64 _collisionID = INVALID_PHYSICSCOLLISION_ID;
 
         /*! the handle to the newton collision
         */
@@ -65,7 +78,7 @@ namespace Igor
 
         \param collision handle to newton collision
         */
-        iPhysicsCollision(void* collision, uint64 collisionID);
+        iPhysicsCollision(void* collision);
 
         /*! does nothing
         */

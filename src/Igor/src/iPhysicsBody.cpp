@@ -9,14 +9,19 @@
 #include <iNodeFactory.h>
 
 #include <iaConsole.h>
+using namespace IgorAux;
 
 namespace Igor
 {
 
-    iPhysicsBody::iPhysicsBody(void* newtonBody, uint64 bodyID)
+    uint64 iPhysicsBody::_nextBodyID = INVALID_PHYSICSBODY_ID + 1;
+
+    iPhysicsBody::iPhysicsBody(void* newtonBody)
         : _newtonBody(newtonBody)
     {
-        _id = bodyID;
+        _mutex.lock();
+        _id = _nextBodyID++;
+        _mutex.unlock();
     }
 
     iPhysicsBody::~iPhysicsBody()
@@ -40,17 +45,17 @@ namespace Igor
         return _materialID;
     }
 
-    uint32 iPhysicsBody::getTransformNode() const
+    uint32 iPhysicsBody::getTransformNodeID() const
     {
         return _transformNodeID;
     }
 
-    void iPhysicsBody::setUserData(uint64 userID)
+    void iPhysicsBody::setUserData(const void* userData)
     {
-        _userData = userID;
+        _userData = userData;
     }
 
-    uint64 iPhysicsBody::getUserData() const
+    const void* iPhysicsBody::getUserData() const
     {
         return _userData;
     }
@@ -93,10 +98,6 @@ namespace Igor
                 transformNode->setMatrix(matrix);
             }
         }
-        else
-        {
-            _matrix = matrix;
-        }
     }
 
     const iaMatrixf& iPhysicsBody::getTransformNodeMatrix() const
@@ -112,10 +113,6 @@ namespace Igor
             {
                 transformNode->getMatrix(result);
             }
-        }
-        else
-        {
-            result = _matrix;
         }
 
         return result;

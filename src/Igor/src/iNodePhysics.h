@@ -245,7 +245,7 @@ namespace Igor
 
         /*! physics body
         */
-        uint64 _bodyID = iPhysicsBody::INVALID_BODY_ID;
+        uint64 _bodyID = iPhysicsBody::INVALID_PHYSICSBODY_ID;
 
         virtual void initPhysics();
 

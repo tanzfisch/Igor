@@ -8,11 +8,15 @@
 
 namespace Igor
 {
+    uint64 iPhysicsCollision::_nextCollisionID = INVALID_PHYSICSCOLLISION_ID + 1;
 
-    iPhysicsCollision::iPhysicsCollision(void* collision, uint64 collisionID)
+    iPhysicsCollision::iPhysicsCollision(void* collision)
     {
         _collision = collision;
-        _collisionID = collisionID;
+
+        _mutex.lock();
+        _collisionID = _nextCollisionID++;
+        _mutex.unlock();
     }
 
     uint64 iPhysicsCollision::getID()

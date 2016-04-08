@@ -31,6 +31,7 @@
 
 #include <iDefines.h>
 #include <iNode.h>
+#include <iPhysicsMaterial.h>
 
 #include <iaEvent.h>
 #include <iaMatrix.h>
@@ -62,13 +63,22 @@ namespace Igor
 
     public:
 
-        static const uint64 INVALID_BODY_ID = 0;
+        /*! defines the invalid body id
+        */
+        static const uint64 INVALID_PHYSICSBODY_ID = 0;
 
-        /*! updates matrix of newton body
+        /*! sets matrix of newton body
 
-        \param matrix the matrix
+        \param matrix the matrix for the newton body
         */
         void setMatrix(const iaMatrixf& matrix);
+
+        /*! \returns the transform node materix
+
+        the transform node matrix is affected by the bodys movement within the physics context (see setTransformNodeMatrix)
+        returns identity materix if body is not bound to a transform node
+        */
+        const iaMatrixf& getTransformNodeMatrix() const;
 
         /*! changes the mass of the newton body
 
@@ -80,30 +90,78 @@ namespace Igor
         */
         float32 getMass();
 
+        /*! sets angular damping
+
+        \param damping damping values for all 3 axis
+        */
         void setAngularDamping(const iaVector3f& damping);
+
+        /*! \returns damping values for all 3 axis
+        */
         const iaVector3f& getAngularDamping() const;
 
+        /*! sets linear damping
+
+        \param damping damping value for all 3 dimensions
+        */
         void setLinearDamping(float32 damping);
+
+        /*! \returns linear damping value
+        */
         float32 getLinearDamping() const;
 
+        /*! \returns current force
+        */
         const iaVector3f& getForce() const;
+
+        /*! sets force
+
+        \param force the force that affect thos body
+        */
         void setForce(const iaVector3f& force);
 
-        void setUserData(uint64 userID);
-        uint64 getUserData() const;
+        /*! sets user data
 
+        \param userData pointer to user data
+        */
+        void setUserData(const void* userData);
+
+        /*! \retruns pointer to user data
+        */
+        const void* getUserData() const;
+
+        /*! \returns current torque
+        */
         const iaVector3f& getTorque() const;
+
+        /*! sets torque of the body
+
+        \param torque the torque to set
+        */
         void setTorque(const iaVector3f& torque);
 
+        /*! \returns current velocity
+        */
         iaVector3f getVelocity() const;
 
+        /*! \returns current omega (or rotation speed)
+        */
         const iaVector3f& getOmega() const;
         
-        const iaMatrixf& getTransformNodeMatrix() const;
+        /*! \returns transform node id
 
-        uint32 getTransformNode() const;
+        returns zero if body is not bound to a transform node
+        */
+        uint32 getTransformNodeID() const;
 
+        /*! sets material id
+
+        \param id physics material id
+        */
         void setMaterial(int64 id);
+
+        /*! \returns physics material id
+        */
         int64 getMaterial() const;
         
         /*! \returns body ID
@@ -128,27 +186,51 @@ namespace Igor
 
     protected:
 
-        int64 _materialID = 0;
+        /*! material id of body
+        */
+        int64 _materialID = iPhysicsMaterial::INVALID_PHYSICSMATERIAL_ID;
 
         /*! body id
         */
-        uint64 _id = 0;
+        uint64 _id = INVALID_PHYSICSBODY_ID;
 
-        uint64 _userData = 0;
+        /*! next body id
+        */
+        static uint64 _nextBodyID;
+
+        mutex _mutex;
+
+        /*! pointer to user data
+        */
+        const void* _userData = nullptr;
 
         /*! the mass of this body
         */
         float32 _mass = 0;
 
+        /*! current angular damping
+        */
         iaVector3f _angularDamping;
+
+        /*! current linear damping
+        */
         float32 _linearDamping;
 
+        /*! current force
+        */
         iaVector3f _force;
-        iaVector3f _torque;
-        iaVector3f _velocity;
-        iaVector3f _omega;
 
-        iaMatrixf _matrix;
+        /*! current tourque
+        */
+        iaVector3f _torque;
+
+        /*! current velocity
+        */
+        iaVector3f _velocity;
+
+        /*! current omega or angular speed
+        */
+        iaVector3f _omega;
 
         /*! handle to newton body
         */
@@ -158,19 +240,38 @@ namespace Igor
         */
         uint32 _transformNodeID = iNode::INVALID_NODE_ID;
 
+        /*! updates the transform node matrix by physics event
+
+        is called by iPhysics after the body changed it's position
+
+        \param matrix matrix to be set
+        */
         void setTransformNodeMatrix(const iaMatrixf& matrix);
+
+        /*! updates the omega by physics event
+
+        is called by iPhysics after the body changed it's position
+
+        \todo currently it's actually not called at all
+
+        \param omega the omega to set
+        */
         void setOmega(const iaVector3f& omega);
 
-        /*!
-        \todo implement an event for this
+        /*! triggers callback for user implementation of applyForceAndTorque
+        
+        called by iPhysics
+
+        \param timestep delta of time since last update
+        \param threadIndex thread index
         */
-        virtual void applyForceAndTorque(float64 timestep, int threadIndex);        
+        void applyForceAndTorque(float64 timestep, int threadIndex);        
 
         /*! initializes newton body handle
 
         \param newtonBody handle to newton body
         */
-        iPhysicsBody(void* newtonBody, uint64 bodyID);
+        iPhysicsBody(void* newtonBody);
 
 		/*! dtor
 

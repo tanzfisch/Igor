@@ -46,6 +46,8 @@ namespace Igor
         
     public:
 
+        static const int64 INVALID_PHYSICSMATERIAL_ID = 0;
+
         /*! \returns material ID
         */
         int64 getID();
@@ -68,11 +70,11 @@ namespace Igor
 
         /*! id of material
         */
-        int64 _id = 0;
+        int64 _id = INVALID_PHYSICSMATERIAL_ID;
 
         /*! initializes members
 
-        \param collision handle to newton collision
+        \param id newton material id
         */
         iPhysicsMaterial(int64 id);
 

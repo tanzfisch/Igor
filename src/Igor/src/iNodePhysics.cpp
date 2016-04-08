@@ -54,7 +54,7 @@ namespace Igor
 
     iNodePhysics::~iNodePhysics()
     {
-        if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+        if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
         {
             iPhysics::getInstance().destroyBody(_bodyID);
         }
@@ -278,7 +278,7 @@ namespace Igor
                 resultingCollision = collisions[0];
             }
 
-            if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+            if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
             {
                 iPhysics::getInstance().destroyBody(_bodyID);
             }
@@ -333,7 +333,7 @@ namespace Igor
     {
         _mass = mass;
 
-        if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+        if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
         {
             iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
             if (body != nullptr)
@@ -347,7 +347,7 @@ namespace Igor
     {
         _materialID = materialID;
 
-        if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+        if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
         {
             iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
             if (body != nullptr)
@@ -375,7 +375,7 @@ namespace Igor
         {
             initPhysics();
 
-            if (_bodyID != iPhysicsBody::INVALID_BODY_ID)
+            if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
             {
                 iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
                 iPhysics::getInstance().bindTransformNode(body, nextTransformNode);

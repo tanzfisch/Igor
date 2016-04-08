@@ -58,6 +58,7 @@ namespace Igor
     \ref Physics/src/PhysicsExample.cpp "Physics usage example"
 
     \todo way to many friends
+    \todo update Omega of bodys
     */
     class Igor_API iPhysics : public iaSingleton<iPhysics>
     {
@@ -244,15 +245,6 @@ namespace Igor
 
     private:
 
-        /*! next collision id
-        */
-        uint64 _nextCollisionID = 1;
-
-        /*! next body id
-        */
-        uint64 _nextBodyID = 1;
-
-        mutex _idMutex;
         mutex _bodyListMutex;
         mutex _jointListMutex;
         mutex _materialListMutex;
@@ -277,12 +269,14 @@ namespace Igor
 
         /*! id of default material
         */
-        int64 _defaultMaterial = 0;
+        int64 _defaultMaterial = iPhysicsMaterial::INVALID_PHYSICSMATERIAL_ID;
 
         /*! handle to newton world
         */
         void* _world;
 
+        /*! shadow world where we create all collisions
+        */
         void* _shadowWorld;
 
         /*! last frame time
@@ -296,10 +290,9 @@ namespace Igor
         /*! current simulation rate in Hz
         */
         static float32 _simulationRate;
-
-        uint64 generateCollisionID();
-        uint64 generateBodyID();
         
+        /*!
+        */
         void setCollisionCallback(iPhysicsMaterialCombo* materialCombo);
 
         void setSoftness(iPhysicsMaterialCombo* materialCombo, float32 value);
@@ -313,7 +306,7 @@ namespace Igor
         \param collision the newton collision
         \returns the physics collision
         */
-        iPhysicsCollision* prepareCollision(void* collision, uint64 collisionID);
+        iPhysicsCollision* prepareCollision(void* collision);
 
         /*! releases newton body
 
