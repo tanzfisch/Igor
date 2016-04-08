@@ -339,6 +339,11 @@ namespace IgorAux
 #define con_info(Type, Message) \
     iaConsole::getInstance() << LOCK << iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl << UNLOCK;
 
+    /*! just prints where we currently are. meant to be a quick thing to do for debugging
+    */
+#define con_trace() \
+    iaConsole::getInstance() << LOCK << iaForegroundColor::White << "TRACE " <<  __IGOR_FUNCTION__ << __IGOR_FILE_LINE__ << endl << UNLOCK;
+
     /*! prints an message to console and optionally to the log file
 
     \param Message message to be printed
