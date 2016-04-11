@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iAABOX__
-#define __iAABOX__
+#ifndef __iAACUBE__
+#define __iAACUBE__
 
 #include <iFrustum.h>
 #include <iSphere.h>
@@ -87,6 +87,10 @@ namespace Igor
         */
         __IGOR_INLINE__ bool intersects(const iFrustum<T> &frustum);
 
+        /*! intersection test with a sphere
+
+        \param sphere the sphere ti test against
+        */
         __IGOR_INLINE__ bool intersects(const iSphere<T> &sphere);
 	};
 
