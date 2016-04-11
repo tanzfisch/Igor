@@ -681,6 +681,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\..\..\3rd\stb_image\stb_image.h" />
     <ClInclude Include="..\..\..\3rd\TinyXML\tinystr.h" />
     <ClInclude Include="..\..\..\3rd\TinyXML\tinyxml.h" />
+    <ClInclude Include="..\src\iAABox.h" />
     <ClInclude Include="..\src\iAACube.h" />
     <ClInclude Include="..\src\iApplication.h" />
     <ClInclude Include="..\src\iCelestialNode.h" />
@@ -889,6 +890,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <CustomBuildStep Include="..\src\Widget.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\src\iAABox.inl" />
     <None Include="..\src\iAACube.inl" />
     <None Include="..\src\iFrustum.inl" />
     <None Include="..\src\iInstancer.inl" />

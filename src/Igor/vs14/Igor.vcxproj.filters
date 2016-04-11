@@ -1279,6 +1279,9 @@
     <ClInclude Include="..\src\iPhysicsUserMeshCollisionHandler.h">
       <Filter>physics</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iAABox.h">
+      <Filter>intersection</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -1316,6 +1319,9 @@
     </None>
     <None Include="..\src\iMeshBuffers.inl">
       <Filter>resources\mesh</Filter>
+    </None>
+    <None Include="..\src\iAABox.inl">
+      <Filter>intersection</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
