@@ -31,6 +31,8 @@
 
 #include <iDefines.h>
 
+#include <iAABox.h>
+
 #include <mutex>
 using namespace std;
 
@@ -46,6 +48,8 @@ namespace Igor
 
         virtual ~iPhysicsUserMeshCollisionHandler() = default;
 
+        void setAABB(const iaVector3f& min, const iaVector3f& max);
+
         virtual void collideCallback(void* const collideDesc, const void* const continueCollisionHandle);
         virtual float32 rayHitCallback(void* const rayDesc);
         virtual void destroyCallback();
@@ -55,8 +59,7 @@ namespace Igor
         
     protected:
 
-
-
+        iAABoxf _bb;
 
     };
     
