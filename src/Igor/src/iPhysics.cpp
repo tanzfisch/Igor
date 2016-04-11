@@ -562,33 +562,38 @@ namespace Igor
 
     void CollideCallback(NewtonUserMeshCollisionCollideDesc* const collideDesc, const void* const continueCollisionHandle)
     {
-        iPhysicsUserMeshCollisionHandler* userData = static_cast<iPhysicsUserMeshCollisionHandler*>(collideDesc->m_userData);
-        userData->collideCallback(collideDesc, continueCollisionHandle);
+        iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(collideDesc->m_userData);
+        handler->collideCallback(collideDesc, continueCollisionHandle);
     }
 
     float32 RayHitCallback(NewtonUserMeshCollisionRayHitDesc* const rayDesc)
     {
-        return 0;
+        iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(rayDesc->m_userData);
+        return handler->rayHitCallback(rayDesc);
     }
 
     void DestroyCallback(void* userData)
     {
-        // tell it that it was destroyed
+        iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(userData);
+        handler->destroyCallback();
     }
 
     void GetCollisionInfo(void* const userData, NewtonCollisionInfoRecord* const infoRecord)
     {
-
+        iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(userData);
+        handler->getCollisionInfo(infoRecord);
     }
 
     int AABBOverlapTest(void* userData, const float32* const box0, const float32* const box1)
     {
-        return 0;
+        iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(userData);
+        return handler->testOverlapAABB(box0, box1);
     }
 
-    int GetFacesInAABB(void* me, const float32* p0, const float32* p1, const float32** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
+    int GetFacesInAABB(void* userData, const float32* p0, const float32* p1, const float32** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
     {
-        return 0;
+        iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(userData);
+        return handler->getFacesInAABB(p0, p1, vertexArray, vertexCount, vertexStrideInBytes, indexList, maxIndexCount, userDataList);
     }
 
     iPhysicsCollision* iPhysics::createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler)
