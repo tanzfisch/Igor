@@ -614,6 +614,9 @@
     <ClCompile Include="..\src\iPhysicsContextThread.cpp">
       <Filter>threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iPhysicsCollisionConfig.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1287,6 +1290,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsContextThread.h">
       <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsCollisionConfig.h">
+      <Filter>physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
