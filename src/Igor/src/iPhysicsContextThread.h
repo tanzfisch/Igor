@@ -26,42 +26,35 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iTASKLOADMODEL__
-#define __iTASKLOADMODEL__
+#ifndef __iPHYSICSCONTEXTTHREAD__
+#define __iPHYSICSCONTEXTTHREAD__
 
-#include <iTask.h>
-#include <iModel.h>
-
-#include <memory>
-using namespace std;
+#include <iThread.h>
 
 namespace Igor
 {
 
-	class Igor_API iTaskLoadModel : public iTask
+    /*! thread that in addition has a render context
+
+    \todo for now we only have one thread max. later we need a newton world for every single context
+    */
+	class iPhysicsContextThread : public iThread
 	{
 
-	public:
+    public:
 
-        /*! initializes member variables
-
-        \param model the model to load
-        */
-        iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, iTaskContext taskContext, uint32 priority);
+        iPhysicsContextThread();
 
         /*! does nothing
         */
-		virtual ~iTaskLoadModel() = default;
+        virtual ~iPhysicsContextThread() = default;
+
+	protected:
+
+		void init();
+		void deinit();
 
     private:
-
-        /*! the model to load
-        */
-        shared_ptr<iModel> _model;
-
-        /*! runs the task
-        */
-        void run();
 
 	};
 

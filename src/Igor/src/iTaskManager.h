@@ -45,6 +45,7 @@ namespace Igor
 
 	class iTask;
 	class iRenderContextThread;
+    class iPhysicsContextThread;
 	class iThread;
 	class iWindow;
 
@@ -102,6 +103,10 @@ namespace Igor
         */
         uint32 getRenderContextThreadCount();
 
+        /*! \returns physics context thread count
+        */
+        uint32 getPhysicsContextThreadCount();
+
         /*! \returns tasks in queue count
         */
         uint32 getQueuedTaskCount();
@@ -117,6 +122,14 @@ namespace Igor
         /*! \returns running render context tasks count
         */
         uint32 getRunningRenderContextTaskCount();
+
+        /*! \returns physics context tasks in queue count
+        */
+        uint32 getQueuedPhysicsContextTaskCount();
+
+        /*! \returns running physics context tasks count
+        */
+        uint32 getRunningPhysicsContextTaskCount();
 
         /*! \returns true if the task manager is running
         */
@@ -152,6 +165,10 @@ namespace Igor
         */
         mutex _renderContextThreadsMutex;
 
+        /*! mutex to save the physics context threads
+        */
+        mutex _physicsContextThreadsMutex;
+
         /*! list of queued tasks
         */
 		list<iTask*> _tasksQueued;
@@ -164,6 +181,10 @@ namespace Igor
         */
 		list<iTask*> _tasksRunning;
 
+        /*! list of regular threads
+        */
+        vector<iThread*> _threads;
+
         /*! list of queued tasks that need render context
         */
 		list<iTask*> _renderContextTasksQueued;
@@ -173,12 +194,22 @@ namespace Igor
         list<iTask*> _renderContextTasksRunning;
 
         /*! list of render context threads
+
+        \todo check if we realy need the extra data. because the thread it self has that data too
         */
         map<iRenderContextThread*, ThreadContext> _renderContextThreads;
 
-        /*! list of regular threads
+        /*! list of queued tasks that need physics context
         */
-		vector<iThread*> _threads;
+        list<iTask*> _physicsContextTasksQueued;
+
+        /*! list of running tasks that need physics context
+        */
+        list<iTask*> _physicsContextTasksRunning;
+
+        /*! list of physics context threads
+        */
+        vector<iPhysicsContextThread*> _physicsContextThreads;
 
         /*! the method a regular thread is launched with
 
@@ -191,6 +222,16 @@ namespace Igor
         \param thread the thread this method is launched with
         */
         void workWithRenderContext(iThread* thread);
+
+        /*! the method a thread with physics context is launched with
+
+        \param thread the thread this method is launched with
+        */
+        void workWithPhysicsContext(iThread* thread);
+
+        /*! creates a physics context thread
+        */
+        void createPhysicsContextThread();
 		
         /*! creates a number of render context threads for a specified window
 

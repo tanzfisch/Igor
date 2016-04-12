@@ -186,7 +186,26 @@ namespace Igor
         */
         iPhysicsJoint* getJoint(uint64 jointID);
 
+        /*! \returns physics material by ID
+
+        \param id the id of the physics material
+        */
         iPhysicsMaterial* getMaterial(int64 id);
+
+        /*! configures material for body
+
+        \param body the body to configure the material
+        \param materialID the material's id to set
+        */
+        void setMaterial(iPhysicsBody* body, int64 materialID);
+
+        /*! \returns the default material
+        */
+        iPhysicsMaterial* getDefaultMaterial();
+
+        /*! \returns the default material id
+        */
+        int64 getDefaultMaterialID();
 
         /*! destroy physics body
 
@@ -230,6 +249,8 @@ namespace Igor
         */
         void setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz);
 
+        /*!
+        */
         void setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3f& pin);
         void setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction);
         void setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float32 friction);
@@ -242,9 +263,9 @@ namespace Igor
         */
         void bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode, bool sync = true);
 
-        void setMaterial(iPhysicsBody* body, int64 materialID);
+        
 
-        iPhysicsMaterial* getDefaultMaterial();
+       
 
     private:
 
@@ -272,7 +293,7 @@ namespace Igor
 
         /*! id of default material
         */
-        int64 _defaultMaterial = iPhysicsMaterial::INVALID_PHYSICSMATERIAL_ID;
+        int64 _defaultMaterialID = iPhysicsMaterial::INVALID_PHYSICSMATERIAL_ID;
 
         /*! handle to newton world
         */

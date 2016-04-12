@@ -302,7 +302,12 @@ namespace Igor
 
     iPhysicsMaterial* iPhysics::getDefaultMaterial()
     {
-        return getMaterial(_defaultMaterial);
+        return getMaterial(_defaultMaterialID);
+    }
+
+    int64 iPhysics::getDefaultMaterialID()
+    {
+        return _defaultMaterialID;
     }
 
     iPhysicsMaterial* iPhysics::createDefaultMaterial()
@@ -315,7 +320,7 @@ namespace Igor
         _materials[result->getID()] = result;
         _materialListMutex.unlock();
 
-        _defaultMaterial = result->getID();
+        _defaultMaterialID = result->getID();
 
         return result;
     }

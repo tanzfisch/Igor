@@ -8,6 +8,7 @@
 #include <iApplication.h>
 #include <iThread.h>
 #include <iRenderContextThread.h>
+#include <iPhysicsContextThread.h>
 #include <iaConsole.h>
 #include <iWindow.h>
 
@@ -32,6 +33,8 @@ namespace Igor
         {
             createThread();
         }
+
+        createPhysicsContextThread();
     }
 
     iTaskManager::~iTaskManager()
@@ -122,6 +125,11 @@ namespace Igor
         return _renderContextThreads.size();
     }
 
+    uint32 iTaskManager::getPhysicsContextThreadCount()
+    {
+        return _physicsContextThreads.size();
+    }
+
     uint32 iTaskManager::getQueuedTaskCount()
     {
         return _tasksQueued.size();
@@ -140,6 +148,16 @@ namespace Igor
     uint32 iTaskManager::getRunningRenderContextTaskCount()
     {
         return _renderContextTasksRunning.size();
+    }
+
+    uint32 iTaskManager::getQueuedPhysicsContextTaskCount()
+    {
+        return _physicsContextTasksQueued.size();
+    }
+
+    uint32 iTaskManager::getRunningPhysicsContextTaskCount()
+    {
+        return _physicsContextTasksRunning.size();
     }
 
     bool iTaskManager::isRunning()
@@ -176,6 +194,15 @@ namespace Igor
             createRenderContextThread(window);
             _sleep(10);
         }
+    }
+
+    void iTaskManager::createPhysicsContextThread()
+    {
+        iPhysicsContextThread* workerThread = new iPhysicsContextThread();
+
+        _physicsContextThreads.push_back(workerThread);
+
+        workerThread->run(ThreadDelegate(this, &iTaskManager::workWithPhysicsContext));
     }
 
     bool iTaskManager::createRenderContextThread(iWindow *window)
@@ -350,6 +377,73 @@ namespace Igor
         }
     }
 
+    void iTaskManager::workWithPhysicsContext(iThread* thread)
+    {
+        iTask* taskTodo = nullptr;
+
+        while (iTaskManager::isRunning())
+        {
+            taskTodo = nullptr;
+
+            _mutex.lock();
+            if (_physicsContextTasksQueued.size())
+            {
+                taskTodo = (*_physicsContextTasksQueued.begin());
+                _physicsContextTasksQueued.pop_front();
+                _physicsContextTasksRunning.push_back(taskTodo);
+            }
+            _mutex.unlock();
+
+            if (taskTodo)
+            {
+                taskTodo->run();
+
+                _mutex.lock();
+                list<iTask*>::iterator findIter = find(_physicsContextTasksRunning.begin(), _physicsContextTasksRunning.end(), taskTodo);
+                if (findIter != _physicsContextTasksRunning.end())
+                {
+                    _physicsContextTasksRunning.erase(findIter);
+
+                    if (taskTodo->isRepeating())
+                    {
+                        addTaskToQueue(taskTodo);
+                    }
+                    else
+                    {
+                        uint64 id = taskTodo->getID();
+
+                        auto iter = _tasks.find(taskTodo->getID());
+                        if (iter != _tasks.end())
+                        {
+                            _tasks.erase(iter);
+                        }
+                        else
+                        {
+                            con_err("inconsistent data");
+                        }
+
+                        delete taskTodo;
+
+                        _taskFinished(id);
+                    }
+
+                    taskTodo = nullptr;
+                }
+                else
+                {
+                    con_err("inconsistent data");
+                }
+
+                _mutex.unlock();
+            }
+            else
+            {
+                _sleep(0);
+            }
+        }
+    }
+
+
     void iTaskManager::work(iThread* thread)
     {
         iTask* taskTodo = nullptr;
@@ -418,15 +512,22 @@ namespace Igor
 
     void iTaskManager::addTaskToQueue(iTask* task)
     {
-        if (task->needsRenderContext())
+        switch (task->getContext())
         {
-            _renderContextTasksQueued.push_back(task);
-            _renderContextTasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
-        }
-        else
-        {
+        case iTaskContext::Default:
             _tasksQueued.push_back(task);
             _tasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
+            break;
+
+        case iTaskContext::RenderContext:
+            _renderContextTasksQueued.push_back(task);
+            _renderContextTasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
+            break;
+
+        case iTaskContext::PhysicsContext:
+            _physicsContextTasksQueued.push_back(task);
+            _physicsContextTasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
+            break;
         }
     }
 
