@@ -30,6 +30,11 @@ namespace Igor
         _window = window;
     }
 
+    void iTask::finishTask()
+    {
+        _isRunning = false;
+    }
+
     uint64 iTask::getID()
     {
         return _taskID;

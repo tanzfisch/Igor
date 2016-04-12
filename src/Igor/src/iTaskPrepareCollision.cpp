@@ -2,35 +2,24 @@
 // (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iTaskLoadModel.h>
-#include <iTaskManager.h>
-#include <iModelResourceFactory.h>
-#include <iNodeMesh.h>
-#include <iWindow.h>
+#include <iTaskPrepareCollision.h>
+
+#include <iPhysicsCollisionConfig.h>
 
 namespace Igor
 {
 
-    iTaskLoadModel::iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, iTaskContext taskContext, uint32 priority)
-        : iTask(window, priority, false, taskContext)
+    iTaskPrepareCollision::iTaskPrepareCollision(iPhysicsCollisionConfig* collisionConfig, uint32 priority)
+        : iTask(nullptr, priority, false, iTaskContext::PhysicsContext)
     {
-        _model = model;
+        _collisionConfig = collisionConfig;
     }
 
-    void iTaskLoadModel::run()
+    void iTaskPrepareCollision::run()
     {
-        iNode* node = iModelResourceFactory::getInstance().loadData(_model->getName(), _model->getParameters());
-        if (node != nullptr)
-        {
-            _model->setData(node);
-            _model->setState(iModelState::Loaded);
-        }
-        else
-        {
-            _model->setState(iModelState::LoadFailed);
-        }
+        _collisionConfig->finalize();
 
-        _isRunning = false;
+        finishTask();
     }
 
 };

@@ -801,6 +801,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iTaskFlushTextures.h" />
     <ClInclude Include="..\src\iTaskLoadModel.h" />
     <ClInclude Include="..\src\iTaskManager.h" />
+    <ClInclude Include="..\src\iTaskPrepareCollision.h" />
     <ClInclude Include="..\src\iTexture.h" />
     <ClInclude Include="..\src\iTextureFont.h" />
     <ClInclude Include="..\src\iTextureResourceFactory.h" />
@@ -1392,6 +1393,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iTaskFlushTextures.cpp" />
     <ClCompile Include="..\src\iTaskLoadModel.cpp" />
     <ClCompile Include="..\src\iTaskManager.cpp" />
+    <ClCompile Include="..\src\iTaskPrepareCollision.cpp" />
     <ClCompile Include="..\src\iTexture.cpp" />
     <ClCompile Include="..\src\iTextureFont.cpp" />
     <ClCompile Include="..\src\iTextureResourceFactory.cpp" />

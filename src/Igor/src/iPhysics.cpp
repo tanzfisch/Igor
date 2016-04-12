@@ -505,6 +505,16 @@ namespace Igor
         _createDestroyMutex.unlock();
     }
 
+    void iPhysics::destroyCollision(uint64 collisionID)
+    {
+        iPhysicsCollision* collision = getCollision(collisionID);
+
+        if (collision != nullptr)
+        {
+            destroyCollision(collision);
+        }
+    }
+
     void iPhysics::destroyCollision(iPhysicsCollision* collision)
     {
         con_assert(collision != nullptr, "zero pointer");

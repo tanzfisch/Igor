@@ -113,10 +113,6 @@ namespace Igor
         */
         bool _isRepeating = false;
 
-        /*! true: task is currently running
-        */
-        bool _isRunning = true;
-
         /*! priority of task
 
         zero is highest priority
@@ -131,7 +127,15 @@ namespace Igor
         */
         virtual void run() = 0;
 
+        /*! tells the task manager that the task is finished
+        */
+        void finishTask();
+
     private:
+
+        /*! true: task is currently running
+        */
+        bool _isRunning = true;
 
         /*! secure the task id generation
         */

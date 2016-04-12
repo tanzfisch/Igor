@@ -51,6 +51,7 @@ namespace Igor
     class iPhysicsMaterial;
     class iPhysicsMaterialCombo;
     class iPhysicsUserMeshCollisionHandler;
+    class iPhysicsCollisionConfig;
     class iMesh;
 
     /*! wrapper for newton game dynamics
@@ -70,6 +71,8 @@ namespace Igor
         friend class iPhysicsBody; // needed so newton can call dtor on bodys by it self
         friend class iPhysicsPlayer;
         friend class iPhysicsMaterialCombo;
+        friend class iPhysicsCollisionConfig;
+        friend class iNodePhysics; // todo remove later
 
     public:
 
@@ -93,64 +96,6 @@ namespace Igor
         */
         void stop();
 
-        /*! creates newton collision in shape of a box
-
-        \param width width of box
-        \param height height of box
-        \param depth depth of box
-        \param offset matrix as offset to origin
-        \returns shared pointer to newton collision
-        */
-        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
-
-        /*! creates a collision shape based on a mesh
-        */
-        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
-
-        iPhysicsCollision* createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler);
-
-        /*! creates newton collision in shape of a sphere
-
-        \param radius radius of sphere
-        \param offset matrix as offset to origin
-        \returns shared pointer to newton collision
-        */
-        iPhysicsCollision* createSphere(float32 radius, const iaMatrixf& offset);
-
-        /*! creates newton collision in shape of a cone
-
-        \param radius radius of cone
-        \param height height of cone
-        \param offset matrix as offset to origin
-        \returns shared pointer to newton collision
-        */
-        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixf& offset);
-
-        /*! creates newton collision in shape of a capsule
-
-        \param radius radius of capsule
-        \param height height of capsule
-        \param offset matrix as offset to origin
-        \returns shared pointer to newton collision
-        */
-        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixf& offset);
-
-        /*! creates newton collision in shape of a cylinder
-
-        \param radius radius of cylinder
-        \param height height of cylinder
-        \param offset matrix as offset to origin
-        \returns shared pointer to newton collision
-        */
-        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixf& offset);
-
-        /*! creates a collision compound from multiple collisions
-
-        \param collisions list od collisions
-        \returns a compound collision
-        */
-        iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
-
         /*! creates a material
 
         \returns pointer to new material
@@ -168,6 +113,12 @@ namespace Igor
         \param collision the collision to destroy
         */
         void destroyCollision(iPhysicsCollision* collision);
+
+        /*! destroys collision by id
+
+        \param collisionID the collisions id
+        */
+        void destroyCollision(uint64 collisionID);
 
         /*! creates a newton body and connects it with a newton collision
 
@@ -314,7 +265,69 @@ namespace Igor
         /*! current simulation rate in Hz
         */
         static float32 _simulationRate;
+
+    public:
+
+        /*! creates newton collision in shape of a box
+
+        \param width width of box
+        \param height height of box
+        \param depth depth of box
+        \param offset matrix as offset to origin
+        \returns shared pointer to newton collision
+        */
+        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
+
+        /*! creates a collision shape based on a mesh
+        */
+        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
+
+        iPhysicsCollision* createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler);
+
+        /*! creates newton collision in shape of a sphere
+
+        \param radius radius of sphere
+        \param offset matrix as offset to origin
+        \returns shared pointer to newton collision
+        */
+        iPhysicsCollision* createSphere(float32 radius, const iaMatrixf& offset);
+
+        /*! creates newton collision in shape of a cone
+
+        \param radius radius of cone
+        \param height height of cone
+        \param offset matrix as offset to origin
+        \returns shared pointer to newton collision
+        */
+        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixf& offset);
+
+        /*! creates newton collision in shape of a capsule
+
+        \param radius radius of capsule
+        \param height height of capsule
+        \param offset matrix as offset to origin
+        \returns shared pointer to newton collision
+        */
+        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixf& offset);
+
+        /*! creates newton collision in shape of a cylinder
+
+        \param radius radius of cylinder
+        \param height height of cylinder
+        \param offset matrix as offset to origin
+        \returns shared pointer to newton collision
+        */
+        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixf& offset);
+
+        /*! creates a collision compound from multiple collisions
+
+        \param collisions list od collisions
+        \returns a compound collision
+        */
+        iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
         
+    private:
+
         /*!
         */
         void setCollisionCallback(iPhysicsMaterialCombo* materialCombo);

@@ -26,19 +26,17 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iTASKLOADMODEL__
-#define __iTASKLOADMODEL__
+#ifndef __iTASKPREPARECOLLISION__
+#define __iTASKPREPARECOLLISION__
 
 #include <iTask.h>
-#include <iModel.h>
-
-#include <memory>
-using namespace std;
 
 namespace Igor
 {
 
-	class Igor_API iTaskLoadModel : public iTask
+    class iPhysicsCollisionConfig;
+
+	class Igor_API iTaskPrepareCollision : public iTask
 	{
 
 	public:
@@ -47,17 +45,17 @@ namespace Igor
 
         \param model the model to load
         */
-        iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, iTaskContext taskContext, uint32 priority);
+        iTaskPrepareCollision(iPhysicsCollisionConfig* collisionConfig, uint32 priority);
 
         /*! does nothing
         */
-		virtual ~iTaskLoadModel() = default;
+		virtual ~iTaskPrepareCollision() = default;
 
     private:
 
-        /*! the model to load
+        /*! the collision to configure
         */
-        shared_ptr<iModel> _model;
+        iPhysicsCollisionConfig* _collisionConfig = nullptr;
 
         /*! runs the task
         */

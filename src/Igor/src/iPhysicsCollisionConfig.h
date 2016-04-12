@@ -43,8 +43,13 @@ using namespace std;
 namespace Igor
 {
 
+    /*! collision configuration is to be finalized by iPhysics or iTaskPrepareCollision
+    */
     class Igor_API iPhysicsCollisionConfig
 	{
+
+        friend class iTaskPrepareCollision;
+        friend class iPhysics;
 
     public:
 
@@ -106,7 +111,7 @@ namespace Igor
 
         /*! \returns resulting collision ID
 
-        returns INVALID_PHYSICSCOLLISION_ID if collision config was not finalized
+        returns INVALID_PHYSICSCOLLISION_ID if collision config was not finalized yet
         */
         uint64 getCollisionID();
 
@@ -199,10 +204,6 @@ namespace Igor
         /*! collision id creted after finalisation
         */
         uint64 _collisionID = iPhysicsCollision::INVALID_PHYSICSCOLLISION_ID;
-
-        /*! removes all primitives that where added
-        */
-        void clear();
 
         /*! creates the collisions
         */
