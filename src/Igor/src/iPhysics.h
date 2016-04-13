@@ -119,10 +119,34 @@ namespace Igor
         */
         void destroyCollision(uint64 collisionID);
 
+        /*! creates a collision configuration
+
+        \returns pointer to collision configuration
+        */
         iPhysicsCollisionConfig* createCollisionConfig();
+
+        /*! \returns collision configuration by id
+
+        \param collisionConfigID collision configuration id
+        */
         iPhysicsCollisionConfig* getCollisionConfig(uint64 collisionConfigID);
+
+        /*! destroy collision configuration by id
+
+        \param collisionConfigID collision configuration id
+        */
         void destroyCollisionConfig(uint64 collisionConfigID);
+
+        /*! destroy collision configuration
+
+        \param physicsCollisionConfig the collision configuration to destroy
+        */
         void destroyCollisionConfig(iPhysicsCollisionConfig* physicsCollisionConfig);
+
+        /*! \returns true if id belongs to a collision configuration
+
+        \param collisionConfigID id of collision configuration
+        */
         bool isCollisionConfig(uint64 collisionConfigID);
 
         /*! creates a newton body and connects it with a newton collision
@@ -181,6 +205,8 @@ namespace Igor
         */
         iPhysicsBody* getBody(uint64 bodyID);
 
+        /*! \returns true if id belongs to a body
+        */
         bool isBody(uint64 bodyID);
 
         /*! returns the mass matrix from given body
@@ -221,19 +247,34 @@ namespace Igor
         */
         void bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode, bool sync = true);
 
-        
-
-       
-
     private:
 
+        /*! mutex to protect body list
+        */
         mutex _bodyListMutex;
+
+        /*! mutex to protect joint list
+        */
         mutex _jointListMutex;
+
+        /*! mutex to protect material list
+        */
         mutex _materialListMutex;
+
+        /*! mutex to protect collisions list
+        */
         mutex _collisionsListMutex;
+
+        /*! mutex to protect collision config list
+        */
         mutex _collisionsConfigListMutex;
+
+        /*! mutex to protect destruction and creation of newton objects
+        */
         mutex _createDestroyMutex;
 
+        /*! map of collision configs
+        */
         map<uint64, iPhysicsCollisionConfig*> _collisionConfigs;
 
         /*! list of collisions
@@ -275,7 +316,7 @@ namespace Igor
         /*! current simulation rate in Hz
         */
         static float32 _simulationRate;
-    public:
+
         /*! creates newton collision in shape of a box
 
         \param width width of box
@@ -287,9 +328,17 @@ namespace Igor
         iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
 
         /*! creates a collision shape based on a mesh
+
+        \param mesh the mesh 
+        \param faceAttribute an integer attribute associated with the faces
+        \param offset local offset matrix
         */
         iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
 
+        /*! creates a user mesh collision
+
+        \todo this is not done yet
+        */
         iPhysicsCollision* createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler);
 
         /*! creates newton collision in shape of a sphere
@@ -334,16 +383,38 @@ namespace Igor
         */
         iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
 
-    private:
+        /*! setup generic collision callback for specified material combination
 
-        /*!
+        \param materialCombo the material combination specified
         */
         void setCollisionCallback(iPhysicsMaterialCombo* materialCombo);
 
+        /*! sets softness between two materials
+
+        \param materialCombo the two materials
+        \param value softness value
+        */
         void setSoftness(iPhysicsMaterialCombo* materialCombo, float32 value);
+
+        /*! sets elasticity between two materials
+
+        \param materialCombo the two materials
+        \param elasticCoef elastic coefficient
+        */
         void setElasticity(iPhysicsMaterialCombo* materialCombo, float32 elasticCoef);
+
+        /*! sets friction between two materials
+
+        \param materialCombo the two materials
+        \param staticFriction static friction
+        \param kineticFriction kinetic friction
+        */
         void setFriction(iPhysicsMaterialCombo* materialCombo, float32 staticFriction, float32 kineticFriction);
 
+        /*! creates the default material
+
+        \returns pointer to default material
+        */
         iPhysicsMaterial* createDefaultMaterial();
 
         /*! prepares a just created collision
@@ -365,7 +436,6 @@ namespace Igor
         */
         void destroyNewtonCollision(void* collision);
 
-
         /*! updates newton bodys matrix
 
         \param newtonBody handle to newton body
@@ -373,6 +443,11 @@ namespace Igor
         */
         void updateMatrix(void* newtonBody, const iaMatrixf& matrix);
 
+        /*! returns body matrix
+
+        \param newtonBody the newton body
+        \param[in,out] matrix the returned matrix
+        */
         void getMatrix(void* newtonBody, iaMatrixf& matrix);
 
         /*! \returns pointer to user data in given newton body
@@ -395,11 +470,26 @@ namespace Igor
         */
         void setForce(void* newtonBody, const iaVector3f& force);
 
+        /*! sets angular damping of specified newton body
+
+        \param newtonBody specified newton body
+        \param angularDamp the angular damping
+        */
         void setAngularDamping(void* newtonBody, const iaVector3f& angularDamp);
 
+        /*! sets linear damping of specified newton body
+
+        \param newtonBody specified newton body
+        \param linearDamp the linear damping
+        */
         void setLinearDamping(void* newtonBody, float32 linearDamp);
 
-        void setTorque(void* newtonBody, const iaVector3f& force);
+        /*! sets torque of specified newton body
+
+        \param newtonBody specified newton body
+        \param torque the torque
+        */
+        void setTorque(void* newtonBody, const iaVector3f& torque);
 
         /*! update newton calculations
         */

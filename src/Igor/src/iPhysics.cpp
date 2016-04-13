@@ -250,9 +250,9 @@ namespace Igor
         NewtonBodySetForce(static_cast<const NewtonBody*>(newtonBody), force.getData());
     }
 
-    void iPhysics::setTorque(void* newtonBody, const iaVector3f& force)
+    void iPhysics::setTorque(void* newtonBody, const iaVector3f& torque)
     {
-        NewtonBodySetTorque(static_cast<const NewtonBody*>(newtonBody), force.getData());
+        NewtonBodySetTorque(static_cast<const NewtonBody*>(newtonBody), torque.getData());
     }
 
     void iPhysics::getMassMatrix(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz)
