@@ -147,17 +147,17 @@ namespace Igor
         return nullptr;
     }
 
-    uint32 iNode::getID()
+    uint32 iNode::getID() const
     {
         return _nodeID;
     }
 
-	iNodeKind iNode::getKind()
+	iNodeKind iNode::getKind() const
 	{
 		return _nodeKind;
 	}
 
-	iNodeType iNode::getType()
+	iNodeType iNode::getType() const
 	{
 		return _nodeType;
 	}
@@ -224,7 +224,7 @@ namespace Igor
 		_parent = parent;
 	}
 
-	iaString iNode::getName()
+	iaString iNode::getName() const
 	{
 		return _name;
 	}

@@ -107,19 +107,19 @@ namespace Igor
 
         /*! \returns kind (group) of the node
         */
-        iNodeKind getKind();
+        iNodeKind getKind() const;
 
         /*! \returns the type of the node
         */
-        iNodeType getType();
+        iNodeType getType() const;
 
         /*! \returns id of the node
         */
-        uint32 getID();
+        uint32 getID() const;
 
         /*! \returns name of the node
         */
-        iaString getName();
+        iaString getName() const;
 
         /*! sets name of the node
 
