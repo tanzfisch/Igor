@@ -760,6 +760,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iPhysicsMaterial.h" />
     <ClInclude Include="..\src\iPhysicsMaterialCombo.h" />
     <ClInclude Include="..\src\iPhysicsUserMeshCollisionHandler.h" />
+    <ClInclude Include="..\src\iPhysicsWorld.h" />
     <ClInclude Include="..\src\iPixmap.h" />
     <ClInclude Include="..\src\iPlane.h" />
     <ClInclude Include="..\src\iRainbow.h" />
@@ -1356,6 +1357,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iPhysicsMaterial.cpp" />
     <ClCompile Include="..\src\iPhysicsMaterialCombo.cpp" />
     <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp" />
+    <ClCompile Include="..\src\iPhysicsWorld.cpp" />
     <ClCompile Include="..\src\iPixmap.cpp" />
     <ClCompile Include="..\src\iRainbow.cpp" />
     <ClCompile Include="..\src\iRenderContextThread.cpp" />

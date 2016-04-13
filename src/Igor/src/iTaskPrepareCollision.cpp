@@ -9,10 +9,11 @@
 namespace Igor
 {
 
-    iTaskPrepareCollision::iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority)
+    iTaskPrepareCollision::iTaskPrepareCollision(uint64 collisionConfigID, uint64 worldID, uint32 priority)
         : iTask(nullptr, priority, false, iTaskContext::PhysicsContext)
     {
         _collisionConfigID = collisionConfigID;
+        _worldID = worldID;
     }
 
     void iTaskPrepareCollision::run()
@@ -20,7 +21,7 @@ namespace Igor
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_collisionConfigID);
         if (physicsCollisionConfig)
         {
-            physicsCollisionConfig->finalize();
+            physicsCollisionConfig->finalize(_worldID);
         }
         finishTask();
     }

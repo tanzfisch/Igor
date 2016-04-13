@@ -121,6 +121,10 @@ namespace Igor
         */
         uint64 getCollisionID();
 
+        /*! creates the collisions
+        */
+        void finalize(uint64 worldID);
+
         /*! \returns true if collision is finalized
         */
         bool isFinalized();
@@ -226,10 +230,6 @@ namespace Igor
         /*! collision id creted after finalisation
         */
         uint64 _collisionID = iPhysicsCollision::INVALID_PHYSICSCOLLISION_ID;
-
-        /*! creates the collisions
-        */
-        void finalize();
 		
         /*! init id
         */

@@ -30,6 +30,7 @@
 #define __iPHYSICSCOLLISION__
 
 #include <iDefines.h>
+#include <iPhysicsWorld.h>
 
 #include <mutex>
 using namespace std;
@@ -56,6 +57,10 @@ namespace Igor
         */
         uint64 getID();
 
+        /*! \returns world ID
+        */
+        uint64 getWorldID();
+
     private:
 
         /*! next collision id
@@ -74,11 +79,14 @@ namespace Igor
         */
         void* _collision = nullptr;
 
+        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
+
         /*! initializes members
 
         \param collision handle to newton collision
+        \param world the world this collision was created in
         */
-        iPhysicsCollision(void* collision);
+        iPhysicsCollision(void* collision, uint64 worldID);
 
         /*! does nothing
         */

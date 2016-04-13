@@ -244,10 +244,22 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::finalizeCollision()
+    void iNodePhysics::finalizeCollision(bool asynchronos)
     {
-        iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
-        _pendingTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID, 0));
+        if (asynchronos)
+        {
+            iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
+            _pendingTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID, 2, 0)); // TODO 2 dirty hack
+        }
+        else
+        {
+            iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
+            if (physicsCollisionConfig)
+            {
+                physicsCollisionConfig->finalize(iPhysics::getInstance().getDefaultWorldID());
+                setDataDirty();
+            }
+        }
     }
 
     void iNodePhysics::onTaskFinished(uint64 taskID)
@@ -322,7 +334,6 @@ namespace Igor
 
                 if (_applyForceAndTorqueDelegate != nullptr)
                 {
-                    con_trace();
                     body->registerForceAndTorqueDelegate(*_applyForceAndTorqueDelegate);
                     delete _applyForceAndTorqueDelegate;
                     _applyForceAndTorqueDelegate = nullptr;

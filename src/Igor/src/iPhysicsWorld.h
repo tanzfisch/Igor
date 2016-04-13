@@ -26,48 +26,66 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iTASKPREPARECOLLISION__
-#define __iTASKPREPARECOLLISION__
+#ifndef __iPHYSICSWORLD__
+#define __iPHYSICSWORLD__
 
-#include <iTask.h>
+#include <iDefines.h>
 
-#include <iPhysicsCollisionConfig.h>
-#include <iPhysicsWorld.h>
+#include <mutex>
+using namespace std;
 
 namespace Igor
 {
 
-	class Igor_API iTaskPrepareCollision : public iTask
-	{
+    class Igor_API iPhysicsWorld
+    {
 
-	public:
+        friend class iPhysics;
 
-        /*! initializes member variables
+    public:
 
-        \param model the model to load
+        /*! defines the invalid world id
         */
-        iTaskPrepareCollision(uint64 collisionConfigID, uint64 worldID, uint32 priority);
+        static const uint64 INVALID_WORLD_ID = 0;
 
-        /*! does nothing
+        /*! \returns body ID
         */
-		virtual ~iTaskPrepareCollision() = default;
+        uint64 getID();
+
+        /*! \returns pointer to newton world
+        */
+        void* getNewtonWorld();
 
     private:
 
-        /*! the collision to configure
+        /*! world id
         */
-        uint64 _collisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
+        uint64 _id = INVALID_WORLD_ID;
 
-        /*! world to create the collisions with
+        /*! next world id
         */
-        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
+        static uint64 _nextID;
 
-        /*! runs the task
+        /*! mutex to save the id generation
         */
-        void run();
+        mutex _mutex;
 
-	};
+        /*! handle to newton world
+        */
+        void* _newtonWorld = nullptr;
 
-};
+        /*! initializes members
+
+        \param newtonWorld handle to newton world
+        */
+        iPhysicsWorld(void* newtonWorld);
+
+        /*! does nothing
+        */
+        virtual ~iPhysicsWorld() = default;
+
+    };
+
+}
 
 #endif

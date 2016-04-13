@@ -620,6 +620,9 @@
     <ClCompile Include="..\src\iTaskPrepareCollision.cpp">
       <Filter>threading\tasks</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iPhysicsWorld.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1299,6 +1302,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iTaskPrepareCollision.h">
       <Filter>threading\tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsWorld.h">
+      <Filter>physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

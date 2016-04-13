@@ -34,6 +34,7 @@
 using namespace IgorAux;
 
 #include <iPhysicsBody.h>
+#include <iPhysicsWorld.h>
 #include <iaMatrix.h>
 using namespace Igor;
 
@@ -119,6 +120,40 @@ namespace Igor
         */
         void destroyCollision(uint64 collisionID);
 
+        /*! creates a world
+
+        \returns pointer to world
+        */
+        iPhysicsWorld* createWorld();
+
+        /*! \returns world by id
+
+        \param id world id
+        */
+        iPhysicsWorld* getWorld(uint64 id);
+
+        /*! \returns default world id
+        */
+        uint64 getDefaultWorldID();
+
+        /*! destroy world by id
+
+        \param id world id
+        */
+        void destroyWorld(uint64 id);
+
+        /*! destroy world
+
+        \param world the world to destroy
+        */
+        void destroyWorld(iPhysicsWorld* world);
+
+        /*! \returns true if id belongs to a world
+
+        \param id id of world
+        */
+        bool isWorld(uint64 id);
+
         /*! creates a collision configuration
 
         \returns pointer to collision configuration
@@ -165,6 +200,12 @@ namespace Igor
         \param jointID the joint id
         */
         iPhysicsJoint* getJoint(uint64 jointID);
+
+        /*! \returns true if id is a joint
+
+        \param jointID the joint id
+        */
+        bool isJoint(uint64 jointID);
 
         /*! \returns physics material by ID
 
@@ -249,6 +290,10 @@ namespace Igor
 
     private:
 
+        /*! mutex to protect world list
+        */
+        mutex _worldListMutex;
+
         /*! mutex to protect body list
         */
         mutex _bodyListMutex;
@@ -272,6 +317,18 @@ namespace Igor
         /*! mutex to protect destruction and creation of newton objects
         */
         mutex _createDestroyMutex;
+
+        /*! default world
+        */
+        void* _defaultWorld = nullptr;
+
+        /*! default world ID
+        */
+        uint64 _defaultWorldID = iPhysicsWorld::INVALID_WORLD_ID;
+
+        /*! map of worlds
+        */
+        map<uint64, iPhysicsWorld*> _worlds;
 
         /*! map of collision configs
         */
@@ -297,14 +354,6 @@ namespace Igor
         */
         int64 _defaultMaterialID = iPhysicsMaterial::INVALID_PHYSICSMATERIAL_ID;
 
-        /*! handle to newton world
-        */
-        void* _world;
-
-        /*! shadow world where we create all collisions
-        */
-        void* _shadowWorld;
-
         /*! last frame time
         */
         float64 _lastTime;
@@ -325,7 +374,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns shared pointer to newton collision
         */
-        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
+        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset, uint64 worldID);
 
         /*! creates a collision shape based on a mesh
 
@@ -333,13 +382,13 @@ namespace Igor
         \param faceAttribute an integer attribute associated with the faces
         \param offset local offset matrix
         */
-        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
+        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset, uint64 worldID);
 
         /*! creates a user mesh collision
 
         \todo this is not done yet
         */
-        iPhysicsCollision* createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler);
+        iPhysicsCollision* createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler, uint64 worldID);
 
         /*! creates newton collision in shape of a sphere
 
@@ -347,7 +396,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns shared pointer to newton collision
         */
-        iPhysicsCollision* createSphere(float32 radius, const iaMatrixf& offset);
+        iPhysicsCollision* createSphere(float32 radius, const iaMatrixf& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a cone
 
@@ -356,7 +405,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns shared pointer to newton collision
         */
-        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixf& offset);
+        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a capsule
 
@@ -365,7 +414,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns shared pointer to newton collision
         */
-        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixf& offset);
+        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a cylinder
 
@@ -374,14 +423,14 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns shared pointer to newton collision
         */
-        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixf& offset);
+        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID);
 
         /*! creates a collision compound from multiple collisions
 
         \param collisions list od collisions
         \returns a compound collision
         */
-        iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
+        iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions, uint64 worldID);
 
         /*! setup generic collision callback for specified material combination
 
@@ -392,7 +441,7 @@ namespace Igor
         /*! sets softness between two materials
 
         \param materialCombo the two materials
-        \param value softness value
+        \param value softness valueget
         */
         void setSoftness(iPhysicsMaterialCombo* materialCombo, float32 value);
 
@@ -412,17 +461,12 @@ namespace Igor
         void setFriction(iPhysicsMaterialCombo* materialCombo, float32 staticFriction, float32 kineticFriction);
 
         /*! creates the default material
-
-        \returns pointer to default material
         */
-        iPhysicsMaterial* createDefaultMaterial();
+        void createDefaultMaterial();
 
-        /*! prepares a just created collision
-
-        \param collision the newton collision
-        \returns the physics collision
+        /*! creates the default world
         */
-        iPhysicsCollision* prepareCollision(void* collision);
+        void createDefaultWorld();
 
         /*! releases newton body
 
@@ -434,7 +478,7 @@ namespace Igor
 
         \param collision handle to newton collision
         */
-        void destroyNewtonCollision(void* collision);
+        void destroyNewtonCollision(void* collision, uint64 worldID);
 
         /*! updates newton bodys matrix
 

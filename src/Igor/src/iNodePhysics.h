@@ -114,7 +114,7 @@ namespace Igor
 
         /*! finalizes the collisions
         */
-        void finalizeCollision();
+        void finalizeCollision(bool asynchronos = false);
 
         /*! \returns mass of body
         */
