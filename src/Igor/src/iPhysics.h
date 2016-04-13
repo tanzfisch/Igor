@@ -314,10 +314,6 @@ namespace Igor
         */
         mutex _collisionsConfigListMutex;
 
-        /*! mutex to protect destruction and creation of newton objects
-        */
-        mutex _createDestroyMutex;
-
         /*! default world
         */
         void* _defaultWorld = nullptr;

@@ -320,8 +320,6 @@ namespace Igor
             iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
             if (physicsCollisionConfig && physicsCollisionConfig->isFinalized())
             {
-                int32 count = 0;
-
                 iPhysicsCollision* collision = iPhysics::getInstance().getCollision(physicsCollisionConfig->getCollisionID());
                 iPhysicsBody* body = iPhysics::getInstance().createBody(collision);
                 body->setMass(_mass);
