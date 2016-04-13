@@ -30,6 +30,9 @@
 #define __iNODEPHYSICS__
 
 #include <iNodeVolume.h>
+
+#include <iTask.h>
+#include <iPhysicsCollisionConfig.h>
 #include <iaMatrix.h>
 #include <iPhysicsBody.h>
 #include <iMesh.h>
@@ -109,6 +112,10 @@ namespace Igor
         */
         void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
 
+        /*! finalizes the collisions
+        */
+        void finalizeCollision();
+
         /*! \returns mass of body
         */
         float32 getMass() const;
@@ -147,85 +154,9 @@ namespace Igor
 
 	private:
 
-        /*! structure to hold the data to initialize physics with a box
-        */
-        struct Box
-        {
-            /*! width of box
-            */
-            float32 _width;
-            float32 _height;
-            float32 _depth;
-            iaMatrixf _offset;
-        };
+        uint64 _physicsCollisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
 
-        /*! structure to hold the data to initialize physics with a sphere
-        */
-        struct Sphere
-        {
-            float32 _radius;
-            iaMatrixf _offset;
-        };
-
-        /*! structure to hold the data to initialize physics with a cone
-        */
-        struct Cone
-        {
-            float32 _radius;
-            float32 _height;
-            iaMatrixf _offset;
-        };
-
-        /*! structure to hold the data to initialize physics with a capsule
-        */
-        struct Capsule
-        {
-            float32 _radius;
-            float32 _height;
-            iaMatrixf _offset;
-        };
-
-        /*! structure to hold the data to initialize physics with a cylinder
-        */
-        struct Cylinder
-        {
-            float32 _radius;
-            float32 _height;
-            iaMatrixf _offset;
-        };
-
-        /*! structure to hold the data to initialize physics with a mesh
-        */
-        struct Mesh
-        {
-            shared_ptr<iMesh> _mesh = nullptr;
-            int64 _faceAttribute;
-            iaMatrixf _offset;
-        };
-
-        /*! lsit of boxes
-        */
-        vector<Box> _boxes;
-
-        /*! lsit of spheres
-        */
-        vector<Sphere> _spheres;
-
-        /*! lsit of cones
-        */
-        vector<Cone> _cones;
-        
-        /*! lsit of capsules
-        */
-        vector<Capsule> _capsules;
-
-        /*! lsit of cylinders
-        */
-        vector<Cylinder> _cylinders;
-
-        /*! lsit of meshs
-        */
-        vector<Mesh> _meshs;
+        uint64 _pendingTask = iTask::INVALID_TASK_ID;
 
         /*! the bodys mass
         */
@@ -247,6 +178,14 @@ namespace Igor
         */
         uint64 _bodyID = iPhysicsBody::INVALID_PHYSICSBODY_ID;
 
+        /*! called when a task was finished
+
+        \param taskID if of task that was just finished
+        */
+        void onTaskFinished(uint64 taskID);
+
+        /*! initialized physics
+        */
         virtual void initPhysics();
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
@@ -265,9 +204,9 @@ namespace Igor
 
         /*! checks if physics was created and forces tree to update
 
-        \returns true if physics data was present
+        \returns true update changed anything
         */
-        bool onUpdateData();
+        virtual bool onUpdateData();
 
         /*! does nothing
         */
@@ -283,13 +222,12 @@ namespace Igor
 
         /*! copy ctor
         */
-        iNodePhysics(iNodePhysics* node);
+        iNodePhysics(const iNodePhysics* node);
 
         /*! does nothing
         */
         virtual ~iNodePhysics();
 
-		
 	};
 
 };

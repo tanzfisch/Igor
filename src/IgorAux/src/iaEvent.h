@@ -72,9 +72,10 @@ namespace IgorAux
 																										\
 			__inline void operator() ParameterList const												\
 			{																							\
-				for (unsigned int i = 0; i<_delegates.size(); ++i)									    \
+                vector<DelegateName> delegates = _delegates;                                            \
+				for (unsigned int i = 0; i<delegates.size(); ++i)									    \
 				{																						\
-					_delegates[i] InnerParameterList;												    \
+                    delegates[i] InnerParameterList;												    \
 				}																						\
 			}																							\
 																										\

@@ -72,7 +72,6 @@ namespace Igor
         friend class iPhysicsPlayer;
         friend class iPhysicsMaterialCombo;
         friend class iPhysicsCollisionConfig;
-        friend class iNodePhysics; // todo remove later
 
     public:
 
@@ -119,6 +118,12 @@ namespace Igor
         \param collisionID the collisions id
         */
         void destroyCollision(uint64 collisionID);
+
+        iPhysicsCollisionConfig* createCollisionConfig();
+        iPhysicsCollisionConfig* getCollisionConfig(uint64 collisionConfigID);
+        void destroyCollisionConfig(uint64 collisionConfigID);
+        void destroyCollisionConfig(iPhysicsCollisionConfig* physicsCollisionConfig);
+        bool isCollisionConfig(uint64 collisionConfigID);
 
         /*! creates a newton body and connects it with a newton collision
 
@@ -176,6 +181,8 @@ namespace Igor
         */
         iPhysicsBody* getBody(uint64 bodyID);
 
+        bool isBody(uint64 bodyID);
+
         /*! returns the mass matrix from given body
 
         \todo have not realy understood that yet
@@ -224,7 +231,10 @@ namespace Igor
         mutex _jointListMutex;
         mutex _materialListMutex;
         mutex _collisionsListMutex;
+        mutex _collisionsConfigListMutex;
         mutex _createDestroyMutex;
+
+        map<uint64, iPhysicsCollisionConfig*> _collisionConfigs;
 
         /*! list of collisions
         */
@@ -265,9 +275,7 @@ namespace Igor
         /*! current simulation rate in Hz
         */
         static float32 _simulationRate;
-
     public:
-
         /*! creates newton collision in shape of a box
 
         \param width width of box
@@ -325,7 +333,7 @@ namespace Igor
         \returns a compound collision
         */
         iPhysicsCollision* createCompound(vector<iPhysicsCollision*>& collisions);
-        
+
     private:
 
         /*!

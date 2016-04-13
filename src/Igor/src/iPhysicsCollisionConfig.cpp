@@ -12,6 +12,46 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    uint64 iPhysicsCollisionConfig::_nextID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID + 1;
+
+    iPhysicsCollisionConfig::iPhysicsCollisionConfig()
+    {
+        _mutex.lock();
+        _id = _nextID;
+        _mutex.unlock();
+    }
+
+    iPhysicsCollisionConfig::iPhysicsCollisionConfig(const iPhysicsCollisionConfig* physicsCollisionConfig)
+    {
+        _mutex.lock();
+        _id = _nextID;
+        _mutex.unlock();
+
+        set(physicsCollisionConfig);
+    }
+
+    void iPhysicsCollisionConfig::set(const iPhysicsCollisionConfig* physicsCollisionConfig)
+    {
+        con_assert_sticky(physicsCollisionConfig != nullptr, "zero pointer");
+
+        _boxes = physicsCollisionConfig->_boxes;
+        _spheres = physicsCollisionConfig->_spheres;
+        _cones = physicsCollisionConfig->_cones;
+        _capsules = physicsCollisionConfig->_capsules;
+        _cylinders = physicsCollisionConfig->_cylinders;
+        _meshs = physicsCollisionConfig->_meshs;
+    }
+
+    uint64 iPhysicsCollisionConfig::getID()
+    {
+        return _id;
+    }
+
+    bool iPhysicsCollisionConfig::isFinalized()
+    {
+        return _finalized;
+    }
+
     void iPhysicsCollisionConfig::addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset)
     {
         con_assert(!_finalized, "already finalized");
@@ -148,12 +188,13 @@ namespace Igor
                 }
 
                 _collisionID = resultingCollision->getID();
-                _finalized = true;
             }
             else
             {
                 con_err("no collision objects defined");
             }
+
+            _finalized = true;
         }
     }
 

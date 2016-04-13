@@ -18,6 +18,7 @@
 #include <iPhysicsJoint.h>
 #include <iPhysicsMaterial.h>
 #include <iPhysicsMaterialCombo.h>
+#include <iPhysicsCollisionConfig.h>
 #include <iNodeTransform.h>
 #include <iMesh.h>
 #include <iPhysicsUserMeshCollisionHandler.h>
@@ -164,6 +165,71 @@ namespace Igor
         NewtonDestroy(static_cast<const NewtonWorld*>(_world));
     }
 
+    iPhysicsCollisionConfig* iPhysics::createCollisionConfig()
+    {
+        iPhysicsCollisionConfig* result = new iPhysicsCollisionConfig();
+
+        _collisionsConfigListMutex.lock();
+        _collisionConfigs[result->getID()] = result;
+        _collisionsConfigListMutex.unlock();
+
+        return result;
+    }
+
+    bool iPhysics::isCollisionConfig(uint64 collisionConfigID)
+    {
+        bool result = false;
+        _collisionsConfigListMutex.lock();
+        auto iter = _collisionConfigs.find(collisionConfigID);
+        if (iter != _collisionConfigs.end())
+        {
+            result = true;
+        }
+        _collisionsConfigListMutex.unlock();
+
+        return result;
+    }
+
+    iPhysicsCollisionConfig* iPhysics::getCollisionConfig(uint64 collisionConfigID)
+    {
+        iPhysicsCollisionConfig* result = nullptr;
+
+        _collisionsConfigListMutex.lock();
+        auto iter = _collisionConfigs.find(collisionConfigID);
+        if (iter != _collisionConfigs.end())
+        {
+            result = (*iter).second;
+        }
+        _collisionsConfigListMutex.unlock();
+
+        return result;
+    }
+
+    void iPhysics::destroyCollisionConfig(uint64 collisionConfigID)
+    {
+        destroyCollisionConfig(getCollisionConfig(collisionConfigID));
+    }
+
+    void iPhysics::destroyCollisionConfig(iPhysicsCollisionConfig* physicsCollisionConfig)
+    {
+        con_assert(physicsCollisionConfig != nullptr, "zero pointer");
+
+        if (physicsCollisionConfig != nullptr)
+        {
+            _collisionsConfigListMutex.lock();
+            auto iter = _collisionConfigs.find(physicsCollisionConfig->getID());
+            if (iter != _collisionConfigs.end())
+            {
+                _collisionConfigs.erase(iter);
+            }
+            else
+            {
+                con_err("collision config id " << physicsCollisionConfig->getID() << " not found");
+            }
+            _collisionsConfigListMutex.unlock();
+        }
+    }
+
     void iPhysics::setAngularDamping(void* newtonBody, const iaVector3f& angularDamp)
     {
         NewtonBodySetAngularDamping(static_cast<const NewtonBody*>(newtonBody), angularDamp.getData());
@@ -246,9 +312,9 @@ namespace Igor
 
     void iPhysics::setFriction(iPhysicsMaterialCombo* materialCombo, float32 staticFriction, float32 kineticFriction)
     {
-        con_assert(staticFriction > 0.0 && staticFriction < 2.0, "out of range");
-        con_assert(kineticFriction > 0.0 && kineticFriction < 2.0, "out of range");
-        con_assert(kineticFriction < staticFriction, "out of range");
+        con_assert(staticFriction >= 0.0 && staticFriction <= 2.0, "out of range");
+        con_assert(kineticFriction >= 0.0 && kineticFriction <= 2.0, "out of range");
+        con_assert(kineticFriction <= staticFriction, "out of range");
 
         NewtonMaterialSetDefaultFriction(static_cast<const NewtonWorld*>(_world), materialCombo->getMaterial0(), materialCombo->getMaterial1(), staticFriction, kineticFriction);
     }
@@ -294,7 +360,7 @@ namespace Igor
 
         if (result == nullptr)
         {
-            con_err("material id " << id << "not found");
+            con_err("material id " << id << " not found");
         }
 
         return result;
@@ -340,6 +406,9 @@ namespace Igor
 
     iPhysicsBody* iPhysics::createBody(iPhysicsCollision* collisionVolume)
     {
+        con_assert(collisionVolume != nullptr, "zero pointer");
+        con_assert(collisionVolume->_collision != nullptr, "zero pointer");
+
         iaMatrixf matrix;
 
         NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_world));
@@ -452,6 +521,21 @@ namespace Igor
         {
             NewtonBodySetMaterialGroupID(static_cast<const NewtonBody*>(body->_newtonBody), materialID);
         }
+    }
+
+    bool iPhysics::isBody(uint64 bodyID)
+    {
+        bool result = false;
+
+        _bodyListMutex.lock();
+        auto iter = _bodys.find(bodyID);
+        if (iter != _bodys.end())
+        {
+            result = true;
+        }
+        _bodyListMutex.unlock();
+
+        return result;
     }
 
     iPhysicsBody* iPhysics::getBody(uint64 bodyID)
@@ -614,8 +698,8 @@ namespace Igor
     iPhysicsCollision* iPhysics::createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler)
     {
         _createDestroyMutex.lock();
-        NewtonCollision* collision = NewtonCreateUserMeshCollision(static_cast<const NewtonWorld*>(_shadowWorld), minBox.getData(), maxBox.getData(), handler, 
-            CollideCallback, reinterpret_cast<NewtonUserMeshCollisionRayHitCallback>(RayHitCallback), DestroyCallback, 
+        NewtonCollision* collision = NewtonCreateUserMeshCollision(static_cast<const NewtonWorld*>(_shadowWorld), minBox.getData(), maxBox.getData(), handler,
+            CollideCallback, reinterpret_cast<NewtonUserMeshCollisionRayHitCallback>(RayHitCallback), DestroyCallback,
             GetCollisionInfo, reinterpret_cast<NewtonUserMeshCollisionAABBTest>(AABBOverlapTest), GetFacesInAABB, nullptr, 0);
         _createDestroyMutex.unlock();
         return prepareCollision(collision);
@@ -711,7 +795,6 @@ namespace Igor
     {
         _createDestroyMutex.lock();
         NewtonCollision* collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld*>(_shadowWorld), 0);
-        _createDestroyMutex.unlock();
 
         NewtonTreeCollisionBeginBuild(collision);
 
@@ -748,6 +831,7 @@ namespace Igor
         }
 
         NewtonTreeCollisionEndBuild(collision, 0);
+        _createDestroyMutex.unlock();
 
         return prepareCollision(collision);
     }

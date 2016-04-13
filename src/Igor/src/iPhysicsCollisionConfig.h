@@ -53,13 +53,19 @@ namespace Igor
 
     public:
 
-        /*! does nothing
+        /*! definition of invalid collision config id
         */
-        iPhysicsCollisionConfig() = default;
+        static const uint64 INVALID_COLLISIONCONFIG_ID = 0;
 
-        /*! does nothing
+        /*! \returns collision config id
         */
-        virtual ~iPhysicsCollisionConfig() = default;
+        uint64 getID();
+
+        /*! copy data from other config
+
+        \param physicsCollisionConfig source to copy data from
+        */
+        void set(const iPhysicsCollisionConfig* physicsCollisionConfig);
 
         /*! adds box
 
@@ -114,6 +120,10 @@ namespace Igor
         returns INVALID_PHYSICSCOLLISION_ID if collision config was not finalized yet
         */
         uint64 getCollisionID();
+
+        /*! \returns true if collision is finalized
+        */
+        bool isFinalized();
 
 	private:
 
@@ -173,6 +183,18 @@ namespace Igor
             iaMatrixf _offset;
         };
 
+        /*! next config id
+        */
+        static uint64 _nextID;
+
+        /*! collision config ID
+        */
+        uint64 _id = INVALID_COLLISIONCONFIG_ID;
+
+        /*! saves next id
+        */
+        mutex _mutex;
+
         /*! lsit of boxes
         */
         vector<Box> _boxes;
@@ -209,6 +231,17 @@ namespace Igor
         */
         void finalize();
 		
+        /*! init id
+        */
+        iPhysicsCollisionConfig();
+
+        /*! copy ctor
+        */
+        iPhysicsCollisionConfig(const iPhysicsCollisionConfig* physicsCollisionConfig);
+
+        /*! does nothing
+        */
+        virtual ~iPhysicsCollisionConfig() = default;
 	};
 
 };

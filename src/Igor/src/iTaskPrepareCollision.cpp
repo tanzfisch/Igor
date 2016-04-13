@@ -4,21 +4,24 @@
 
 #include <iTaskPrepareCollision.h>
 
-#include <iPhysicsCollisionConfig.h>
+#include <iPhysics.h>
 
 namespace Igor
 {
 
-    iTaskPrepareCollision::iTaskPrepareCollision(iPhysicsCollisionConfig* collisionConfig, uint32 priority)
+    iTaskPrepareCollision::iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority)
         : iTask(nullptr, priority, false, iTaskContext::PhysicsContext)
     {
-        _collisionConfig = collisionConfig;
+        _collisionConfigID = collisionConfigID;
     }
 
     void iTaskPrepareCollision::run()
     {
-        _collisionConfig->finalize();
-
+        iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_collisionConfigID);
+        if (physicsCollisionConfig)
+        {
+            physicsCollisionConfig->finalize();
+        }
         finishTask();
     }
 

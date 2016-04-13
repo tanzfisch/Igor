@@ -31,10 +31,10 @@
 
 #include <iTask.h>
 
+#include <iPhysicsCollisionConfig.h>
+
 namespace Igor
 {
-
-    class iPhysicsCollisionConfig;
 
 	class Igor_API iTaskPrepareCollision : public iTask
 	{
@@ -45,7 +45,7 @@ namespace Igor
 
         \param model the model to load
         */
-        iTaskPrepareCollision(iPhysicsCollisionConfig* collisionConfig, uint32 priority);
+        iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority);
 
         /*! does nothing
         */
@@ -55,7 +55,7 @@ namespace Igor
 
         /*! the collision to configure
         */
-        iPhysicsCollisionConfig* _collisionConfig = nullptr;
+        uint64 _collisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
 
         /*! runs the task
         */
