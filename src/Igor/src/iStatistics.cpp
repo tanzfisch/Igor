@@ -145,11 +145,16 @@ namespace Igor
                 if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndMT)
                 {
                     _lastThreadCount = iTaskManager::getInstance().getThreadCount();
-                    _lastRenderContextThreadCount = iTaskManager::getInstance().getRenderContextThreadCount();
                     _lastQueuedTaskCount = iTaskManager::getInstance().getQueuedTaskCount();
                     _lastRunningTaskCount = iTaskManager::getInstance().getRunningTaskCount();
+
+                    _lastRenderContextThreadCount = iTaskManager::getInstance().getRenderContextThreadCount();
                     _lastQueuedRenderContextTaskCount = iTaskManager::getInstance().getQueuedRenderContextTaskCount();
                     _lastRunningRenderContextTaskCount = iTaskManager::getInstance().getRunningRenderContextTaskCount();
+
+                    _lastPhysicsContextThreadCount = iTaskManager::getInstance().getPhysicsContextThreadCount();
+                    _lastQueuedPhysicsContextTaskCount = iTaskManager::getInstance().getQueuedPhysicsContextTaskCount();
+                    _lastRunningPhysicsContextTaskCount = iTaskManager::getInstance().getRunningPhysicsContextTaskCount();
                 }
             }
 
@@ -238,8 +243,16 @@ namespace Igor
                 rcthreads += " queued:";
                 rcthreads += iaString::itoa(_lastQueuedRenderContextTaskCount);
 
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, threads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, rcthreads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                iaString pcthreads = " physics context threads:";
+                pcthreads += iaString::itoa(_lastPhysicsContextThreadCount);
+                pcthreads += " tasks:";
+                pcthreads += iaString::itoa(_lastRunningPhysicsContextTaskCount);
+                pcthreads += " queued:";
+                pcthreads += iaString::itoa(_lastQueuedPhysicsContextTaskCount);
+
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 50, threads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, rcthreads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, pcthreads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
             }
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)

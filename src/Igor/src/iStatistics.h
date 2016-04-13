@@ -148,6 +148,10 @@ namespace Igor
         */
         uint32 _lastRenderContextThreadCount = 0;
 
+        /*! how many threads with physics context are running
+        */
+        uint32 _lastPhysicsContextThreadCount = 0;
+
         /*! amount of tasks in queue
         */
         uint32 _lastQueuedTaskCount = 0;
@@ -163,6 +167,14 @@ namespace Igor
         /*! amount of currently running tasks using render context threads
         */
         uint32 _lastRunningRenderContextTaskCount = 0;
+
+        /*! amount of tasks in queue that need render context threads
+        */
+        uint32 _lastQueuedPhysicsContextTaskCount = 0;
+
+        /*! amount of currently running tasks using render context threads
+        */
+        uint32 _lastRunningPhysicsContextTaskCount = 0;
 
         /*! rendering the statistic material id
         */
