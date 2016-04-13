@@ -174,7 +174,7 @@ namespace Igor
 
         \param fullscreen true: set window to full screen mode; false: set window to window mode
         */
-        void setFullscreen(bool fullscreen);
+        void setFullscreen(bool fullscreen = true);
 
         /*! centers the window relative to the desktop horrizontally and vertically
         */
