@@ -551,11 +551,6 @@ namespace Igor
 
         _bodyListMutex.unlock();
 
-        if (result == nullptr)
-        {
-            con_err("body id " << bodyID << "not found");
-        }
-
         return result;
     }
 

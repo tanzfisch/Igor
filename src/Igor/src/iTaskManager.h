@@ -64,6 +64,8 @@ namespace Igor
 		friend class iWindow;
 
         /*! some extra data we give the render context threads with
+
+        \todo can this be moved to iRenderContextThread?
         */
         struct ThreadContext
         {

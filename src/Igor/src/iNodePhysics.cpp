@@ -65,6 +65,111 @@ namespace Igor
         }
     }
 
+    void iNodePhysics::setUserData(const void* userData)
+    {
+        _userData = userData;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+        if (body != nullptr)
+        {
+            body->setUserData(_userData);
+        }
+    }
+
+    const void* iNodePhysics::getUserData() const
+    {
+        return _userData;
+    }
+    const iaVector3f& iNodePhysics::getForce() const
+    {
+        return _force;
+    }
+
+    void iNodePhysics::setForce(const iaVector3f& force)
+    {
+        _force = force;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+        if (body != nullptr)
+        {
+            body->setForce(_force);
+        }
+    }
+
+    const iaVector3f& iNodePhysics::getTorque() const
+    {
+        return _torque;
+    }
+
+    void iNodePhysics::setTorque(const iaVector3f& torque)
+    {
+        _torque = torque;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+        if (body != nullptr)
+        {
+            body->setTorque(_torque);
+        }
+    }
+
+    iaVector3f iNodePhysics::getVelocity() const
+    {
+        iaVector3f velocity;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+        if (body != nullptr)
+        {
+            velocity = body->getVelocity();
+        }
+        
+        return velocity;
+    }
+
+    const iaVector3f& iNodePhysics::getOmega() const
+    {
+        iaVector3f omega;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+        if (body != nullptr)
+        {
+            omega = body->getOmega();
+        }
+
+        return omega;
+    }
+
+    void iNodePhysics::setAngularDamping(const iaVector3f& damping)
+    {
+        _angularDamping = damping;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+        if (body != nullptr)
+        {
+            body->setAngularDamping(_angularDamping);
+        }
+    }
+
+    const iaVector3f& iNodePhysics::getAngularDamping() const
+    {
+        return _angularDamping;
+    }
+
+    void iNodePhysics::setLinearDamping(float32 damping)
+    {
+        _linearDamping = damping;
+
+        iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+        if (body != nullptr)
+        {
+            body->setLinearDamping(_linearDamping);
+        }
+    }
+
+    float32 iNodePhysics::getLinearDamping() const
+    {
+        return _linearDamping;
+    }
+
     bool iNodePhysics::isInitialized()
     {
         return _physicsInitialized;
@@ -167,6 +272,12 @@ namespace Igor
             }
 
             _applyForceAndTorqueDelegate = new iApplyForceAndTorqueDelegate(applyForceAndTorqueDelegate);
+
+            iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+            if (body != nullptr)
+            {
+                body->registerForceAndTorqueDelegate(*_applyForceAndTorqueDelegate);
+            }
         }
     }
 
@@ -178,6 +289,12 @@ namespace Igor
         {
             if (_applyForceAndTorqueDelegate != nullptr)
             {
+                iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+                if (body != nullptr)
+                {
+                    body->unregisterForceAndTorqueDelegate(*_applyForceAndTorqueDelegate);
+                }
+
                 delete _applyForceAndTorqueDelegate;
                 _applyForceAndTorqueDelegate = nullptr;
             }
@@ -197,9 +314,15 @@ namespace Igor
                 iPhysicsBody* body = iPhysics::getInstance().createBody(collision);
                 body->setMass(_mass);
                 body->setMaterial(_materialID);
+                body->setUserData(getUserData());
+                body->setLinearDamping(_linearDamping);
+                body->setAngularDamping(_angularDamping);
+                body->setForce(_force);
+                body->setTorque(_torque);
 
                 if (_applyForceAndTorqueDelegate != nullptr)
                 {
+                    con_trace();
                     body->registerForceAndTorqueDelegate(*_applyForceAndTorqueDelegate);
                     delete _applyForceAndTorqueDelegate;
                     _applyForceAndTorqueDelegate = nullptr;

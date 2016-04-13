@@ -152,11 +152,73 @@ namespace Igor
         */
         uint64 getBodyID() const;
 
+        /*! sets user data
+
+        \param userData pointer to user data
+        */
+        void setUserData(const void* userData);
+
+        /*! \retruns pointer to user data
+        */
+        const void* getUserData() const;
+
+        /*! \returns current torque
+        */
+        const iaVector3f& getTorque() const;
+
+        /*! sets torque of the body
+
+        \param torque the torque to set
+        */
+        void setTorque(const iaVector3f& torque);
+
+        /*! \returns current velocity
+        */
+        iaVector3f getVelocity() const;
+
+        /*! \returns current omega (or rotation speed)
+        */
+        const iaVector3f& getOmega() const;
+
+        /*! sets angular damping
+
+        \param damping damping values for all 3 axis
+        */
+        void setAngularDamping(const iaVector3f& damping);
+
+        /*! \returns damping values for all 3 axis
+        */
+        const iaVector3f& getAngularDamping() const;
+
+        /*! sets linear damping
+
+        \param damping damping value for all 3 dimensions
+        */
+        void setLinearDamping(float32 damping);
+
+        /*! \returns linear damping value
+        */
+        float32 getLinearDamping() const;
+
+        /*! \returns current force
+        */
+        const iaVector3f& getForce() const;
+
+        /*! sets force
+
+        \param force the force that affect thos body
+        */
+        void setForce(const iaVector3f& force);
+
 	private:
 
         uint64 _physicsCollisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
 
         uint64 _pendingTask = iTask::INVALID_TASK_ID;
+
+        /*! pointer to user data
+        */
+        const void* _userData = nullptr;
 
         /*! the bodys mass
         */
@@ -165,6 +227,26 @@ namespace Igor
         /*! material id
         */
         int64 _materialID = 0;
+
+        /*! current angular damping
+        */
+        iaVector3f _angularDamping;
+
+        /*! current linear damping
+        */
+        float32 _linearDamping;
+
+        /*! current force
+        */
+        iaVector3f _force;
+
+        /*! current tourque
+        */
+        iaVector3f _torque;
+
+        /*! current velocity
+        */
+        iaVector3f _velocity;
 
         /*! handles ApplyForceAndTorque event
         */
