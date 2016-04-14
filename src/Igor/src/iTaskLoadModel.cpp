@@ -3,6 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <iTaskLoadModel.h>
+
 #include <iTaskManager.h>
 #include <iModelResourceFactory.h>
 #include <iNodeMesh.h>

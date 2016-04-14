@@ -249,7 +249,7 @@ namespace Igor
         if (asynchronos)
         {
             iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
-            _pendingTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID, 2, 0)); // TODO 2 dirty hack
+            _pendingTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID, 0));
         }
         else
         {

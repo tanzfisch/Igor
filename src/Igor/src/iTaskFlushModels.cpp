@@ -17,7 +17,7 @@ namespace Igor
 
     void iTaskFlushModels::run()
     {
-        iModelResourceFactory::getInstance().flush(_window);
+        iModelResourceFactory::getInstance().flush(getWindow());
 
         finishTask();
     }
@@ -31,7 +31,7 @@ namespace Igor
             _sleep(1);
         }
 
-        _isRepeating = false;
+        setRepeating(false);
     }
 
 };

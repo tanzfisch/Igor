@@ -46,7 +46,7 @@ namespace Igor
 
         \param model the model to load
         */
-        iTaskPrepareCollision(uint64 collisionConfigID, uint64 worldID, uint32 priority);
+        iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority);
 
         /*! does nothing
         */
@@ -57,10 +57,6 @@ namespace Igor
         /*! the collision to configure
         */
         uint64 _collisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
-
-        /*! world to create the collisions with
-        */
-        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
 
         /*! runs the task
         */

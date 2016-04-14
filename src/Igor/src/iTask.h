@@ -30,6 +30,7 @@
 #define __iTASK__
 
 #include <iDefines.h>
+#include <iPhysicsWorld.h>
 
 #include <iaDelegate.h>
 using namespace IgorAux;
@@ -107,21 +108,27 @@ namespace Igor
         */
         uint64 getID();
 
+        /*! \returns world id if present
+        */
+        uint64 getWorldID();
+
+        /*! sets world id
+
+        \param worldID the world id
+        */
+        void setWorld(uint64 worldID);
+
+        /*! \returns pointer to window if present
+        */
+        iWindow* getWindow();
+
 	protected:
 
-        /*! true: task is a repeating task; false: task will only be run once
-        */
-        bool _isRepeating = false;
+        /*! sets if the task is repeating
 
-        /*! priority of task
-
-        zero is highest priority
+        \param repeat íf true the task will be repeated
         */
-        uint32 _priority = DEFAULT_PRIORITY;
-
-        /*! optional pointer to window. only used by tasks that need the render context
-        */
-        iWindow* _window = nullptr;
+        void setRepeating(bool repeat);
 
         /*! runs the actual task
         */
@@ -132,6 +139,24 @@ namespace Igor
         void finishTask();
 
     private:
+
+        /*! priority of task
+
+        zero is highest priority
+        */
+        uint32 _priority = DEFAULT_PRIORITY;
+
+        /*! true: task is a repeating task; false: task will only be run once
+        */
+        bool _isRepeating = false;
+
+        /*! optional pointer to window. only used by tasks that need the render context
+        */
+        iWindow* _window = nullptr;
+
+        /*! optional physics world id used by tasks within physics context
+        */
+        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
 
         /*! true: task is currently running
         */

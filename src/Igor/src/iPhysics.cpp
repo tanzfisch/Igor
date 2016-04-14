@@ -120,7 +120,6 @@ namespace Igor
     {
         NewtonSetMemorySystem(AllocMemory, FreeMemory);
         createDefaultWorld();
-        createWorld(); // todo workaround. should belong to physics context thread
         createDefaultMaterial();
     }
 

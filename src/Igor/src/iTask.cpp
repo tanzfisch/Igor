@@ -30,6 +30,26 @@ namespace Igor
         _window = window;
     }
 
+    void iTask::setWorld(uint64 worldID)
+    {
+        _worldID = worldID;
+    }
+
+    void iTask::setRepeating(bool repeat)
+    {
+        _isRepeating = repeat;
+    }
+
+    uint64 iTask::getWorldID()
+    {
+        return _worldID;
+    }
+
+    iWindow* iTask::getWindow()
+    {
+        return _window;
+    }
+
     void iTask::finishTask()
     {
         _isRunning = false;

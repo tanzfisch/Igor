@@ -31,7 +31,7 @@ namespace Igor
             _sleep(1);
         }
 
-        _isRepeating = false;
+        setRepeating(false);
     }
 
 };

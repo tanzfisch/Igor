@@ -34,7 +34,10 @@ namespace Igor
             createThread();
         }
 
-        createPhysicsContextThread();
+        for (int i = 0; i < numThreads; ++i)
+        {
+            createPhysicsContextThread();
+        }
     }
 
     iTaskManager::~iTaskManager()
@@ -380,6 +383,7 @@ namespace Igor
     void iTaskManager::workWithPhysicsContext(iThread* thread)
     {
         iTask* taskTodo = nullptr;
+        iPhysicsContextThread* physicsContextThread = static_cast<iPhysicsContextThread*>(thread);
 
         while (iTaskManager::isRunning())
         {
@@ -396,6 +400,7 @@ namespace Igor
 
             if (taskTodo)
             {
+                taskTodo->setWorld(physicsContextThread->getWorld());
                 taskTodo->run();
 
                 _mutex.lock();

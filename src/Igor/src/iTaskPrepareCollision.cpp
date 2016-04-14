@@ -5,24 +5,37 @@
 #include <iTaskPrepareCollision.h>
 
 #include <iPhysics.h>
+#include <iaConsole.h>
+using namespace IgorAux;
 
 namespace Igor
 {
 
-    iTaskPrepareCollision::iTaskPrepareCollision(uint64 collisionConfigID, uint64 worldID, uint32 priority)
+    iTaskPrepareCollision::iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority)
         : iTask(nullptr, priority, false, iTaskContext::PhysicsContext)
     {
         _collisionConfigID = collisionConfigID;
-        _worldID = worldID;
     }
 
     void iTaskPrepareCollision::run()
     {
-        iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_collisionConfigID);
-        if (physicsCollisionConfig)
+        if (getWorldID() != iPhysicsWorld::INVALID_WORLD_ID)
         {
-            physicsCollisionConfig->finalize(_worldID);
+            iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_collisionConfigID);
+            if (physicsCollisionConfig)
+            {
+                physicsCollisionConfig->finalize(getWorldID());
+            }
+            else
+            {
+                con_err("invalid collision config id");
+            }
         }
+        else
+        {
+            con_err("invalid world id");
+        }
+
         finishTask();
     }
 

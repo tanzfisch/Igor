@@ -3,7 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include <iPhysicsContextThread.h>
-
+#include <iPhysics.h>
 #include <iaConsole.h>
 
 namespace Igor
@@ -13,12 +13,19 @@ namespace Igor
 	{
 	}
 
+    uint64 iPhysicsContextThread::getWorld() const
+    {
+        return _worldID;
+    }
+
 	void iPhysicsContextThread::init()
 	{
+        _worldID = iPhysics::getInstance().createWorld()->getID();
 	}
 
 	void iPhysicsContextThread::deinit()
 	{
+        iPhysics::getInstance().destroyWorld(_worldID);
 	}
 
 };

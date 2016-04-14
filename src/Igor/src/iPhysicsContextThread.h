@@ -31,6 +31,8 @@
 
 #include <iThread.h>
 
+#include <iPhysicsWorld.h>
+
 namespace Igor
 {
 
@@ -49,12 +51,25 @@ namespace Igor
         */
         virtual ~iPhysicsContextThread() = default;
 
+        /*! \returns world id
+        */
+        uint64 getWorld() const;
+
 	protected:
 
+        /*! initialize
+        */
 		void init();
+
+        /*! deinitialize
+        */
 		void deinit();
 
     private:
+
+        /*! the world id
+        */
+        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
 
 	};
 
