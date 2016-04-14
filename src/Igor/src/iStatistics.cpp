@@ -229,25 +229,25 @@ namespace Igor
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndMT)
             {
-                iaString threads = " threads:";
+                iaString threads = "";
                 threads += iaString::itoa(_lastThreadCount);
-                threads += " tasks:";
+                threads += ":";
                 threads += iaString::itoa(_lastRunningTaskCount);
-                threads += " queued:";
+                threads += ":";
                 threads += iaString::itoa(_lastQueuedTaskCount);
 
-                iaString rcthreads = " render context threads:";
+                iaString rcthreads = "";
                 rcthreads += iaString::itoa(_lastRenderContextThreadCount);
-                rcthreads += " tasks:";
+                rcthreads += ":";
                 rcthreads += iaString::itoa(_lastRunningRenderContextTaskCount);
-                rcthreads += " queued:";
+                rcthreads += ":";
                 rcthreads += iaString::itoa(_lastQueuedRenderContextTaskCount);
 
-                iaString pcthreads = " physics context threads:";
+                iaString pcthreads = "";
                 pcthreads += iaString::itoa(_lastPhysicsContextThreadCount);
-                pcthreads += " tasks:";
+                pcthreads += ":";
                 pcthreads += iaString::itoa(_lastRunningPhysicsContextTaskCount);
-                pcthreads += " queued:";
+                pcthreads += ":";
                 pcthreads += iaString::itoa(_lastQueuedPhysicsContextTaskCount);
 
                 iRenderer::getInstance().drawString(10, window->getClientHeight() - 50, threads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
