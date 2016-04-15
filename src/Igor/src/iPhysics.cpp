@@ -177,6 +177,45 @@ namespace Igor
         iPhysicsWorld* world = createWorld();
         _defaultWorld = world->getNewtonWorld();
         _defaultWorldID = world->getID();
+
+        iPhysicsWorld* shadow = createWorld();
+        _shadowWorld = shadow->getNewtonWorld();
+        _shadowWorldID = shadow->getID();
+    }
+
+    iPhysicsCollision* iPhysics::createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset)
+    {
+        return createBox(width, height, depth, offset, _shadowWorldID);
+    }
+
+    iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset)
+    {
+        return createMesh(mesh, faceAttribute, offset, _shadowWorldID);
+    }
+
+    iPhysicsCollision* iPhysics::createSphere(float32 radius, const iaMatrixf& offset)
+    {
+        return createSphere(radius, offset, _shadowWorldID);
+    }
+
+    iPhysicsCollision* iPhysics::createCone(float32 radius, float32 height, const iaMatrixf& offset)
+    {
+        return createCone(radius, height, offset, _shadowWorldID);
+    }
+
+    iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixf& offset)
+    {
+        return createCapsule(radius, height, offset, _shadowWorldID);
+    }
+
+    iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixf& offset)
+    {
+        return createCylinder(radius, height, offset, _shadowWorldID);
+    }
+
+    iPhysicsCollision* iPhysics::createCompound(vector<iPhysicsCollision*>& collisions)
+    {
+        return createCompound(collisions, _shadowWorldID);
     }
 
     iPhysicsCollisionConfig* iPhysics::createCollisionConfig()

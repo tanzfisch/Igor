@@ -79,6 +79,8 @@ namespace Igor
         */
         void* _collision = nullptr;
 
+        /*! id of the world this collision was created with
+        */
         uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
 
         /*! initializes members
