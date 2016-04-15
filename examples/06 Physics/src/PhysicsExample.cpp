@@ -164,6 +164,7 @@ void PhysicsExample::init()
             {
                 iNodePhysics* nodePhysics = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
                 nodePhysics->addBox(1, 1, 1, offsetBox);
+                nodePhysics->finalizeCollision();
                 nodePhysics->setMass(100);
                 nodePhysics->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
 
