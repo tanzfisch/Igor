@@ -62,6 +62,7 @@ namespace Igor
         iNodeLODSwitch,
         iNodeLODTrigger,
         iNodePhysics,
+        iNodeParticleSystem,
 		Undefined
 	};
 

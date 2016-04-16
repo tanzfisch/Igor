@@ -6,6 +6,7 @@
 #include <iaConsole.h>
 #include <iRenderer.h>
 #include <iTextureResourceFactory.h>
+#include <iMaterialResourceFactory.h>
 #include <iRainbow.h>
 
 #include <iostream>
@@ -14,417 +15,383 @@ using namespace std;
 namespace Igor
 {
 
-	iParticleSystemNode::iParticleSystemNode()
+	iParticleSystem3D::iParticleSystem3D()
 	{
-		mustreset = true;
+		_lifeTimeStep = 1.0f / _lifeTime;
+		_particleCount = 1000;
+		_vortexCount = 10;
 
-		initframe = lifetime = 200;
-		lifetimedecrease = 1.0f / lifetime;
-		particlecount = 1000;
-		vortexcount = 10;
+		_minLift = 0.002f;
+		_maxLift = 0.004f;
+        
+		_reduceLiftStep = 0.000005f;
 
-		minlift = 0.002f;
-		maxlift = 0.004f;
+		_minWeight = 0.001f;
+		_maxWeight = 0.002f;
 
-		liftdecrease = 0.000005f;
+		_minSize = 10.0f;
+		_maxSize = 20.0f;
 
-		minweight = 0.001f;
-		maxweight = 0.002f;
+		_sizeIncreaseStep = 0.1f;
 
-		minsize = 10.0f;
-		maxsize = 20.0f;
+		_minVRot = 1.0f;
+		_maxVRot = 2.0f;
 
-		sizeincrease = 0.1f;
+		_minVRange = 30.0f;
+		_maxVRange = 60.0f;
 
-		minvrot = 1.0f;
-		maxvrot = 2.0f;
+		_vortexCheckRange = 30;
 
-		minvrange = 30.0f;
-		maxvrange = 60.0f;
+		_vorticityConfinement = 0.1f;
 
-		vortexcheckrange = 30;
+		_loopable = false;
+		_phaseShiftR1 = 0.0;
+		_phaseShiftR2 = 0.0;
 
-		vorticityconfinement = 0.1f;
-
-		loopable = false;
-		phaseshift_r1 = 0.0;
-		phaseshift_r2 = 0.0;
-
-		emitter = 0;
-
-		singlecolor = true;
-		color.set(1,1,1,1);
-
-		transparent = true;
-
-		textureA = 0;
-		textureB = 0;
-		textureC = 0;
-
-        renderer_state_set.setRenderState(iRenderState::Blend, iRenderStateValue::On);
-        renderer_state_set.setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-        renderer_state_set.setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-		renderer_state_set.setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-		renderer_state_set.setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
-        renderer_state_set.setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-        renderer_state_set.setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
-        renderer_state_set.setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
+		_singleColor = true;
+		_color.set(1,1,1,1);
 	}
 
-	iParticleSystemNode::~iParticleSystemNode()
+	iParticleSystem3D::~iParticleSystem3D()
 	{
-        textureA = 0;
-		textureB = 0;
-		textureC = 0;
 	}
 
-	bool iParticleSystemNode::getLoopAbility()
+	bool iParticleSystem3D::getLoopAbility()
 	{
-		return loopable;
+		return _loopable;
 	}
 
-	float32 iParticleSystemNode::getPhaseShift0()
+	float32 iParticleSystem3D::getPhaseShift0()
 	{
-		return phaseshift_r1;
+		return _phaseShiftR1;
 	}
 
-	float32 iParticleSystemNode::getPhaseShift1()
+	float32 iParticleSystem3D::getPhaseShift1()
 	{
-		return phaseshift_r2;
+		return _phaseShiftR2;
 	}
 
-	float32 iParticleSystemNode::getLiftMin()
+	float32 iParticleSystem3D::getLiftMin()
 	{
-		return minlift;
+		return _minLift;
 	}
 
-	float32 iParticleSystemNode::getLiftMax()
+	float32 iParticleSystem3D::getLiftMax()
 	{
-		return maxlift;
+		return _maxLift;
 	}
 
-	float32 iParticleSystemNode::getLiftDecrease()
+	float32 iParticleSystem3D::getLiftDecrease()
 	{
-		return liftdecrease;
+		return _reduceLiftStep;
 	}
 
-	float32 iParticleSystemNode::getWeightMin()
+	float32 iParticleSystem3D::getWeightMin()
 	{
-		return minweight;
+		return _minWeight;
 	}
 
-	float32 iParticleSystemNode::getWeightMax()
+	float32 iParticleSystem3D::getWeightMax()
 	{
-		return maxweight;
+		return _maxWeight;
 	}
 
-	float32 iParticleSystemNode::getSizeMin()
+	float32 iParticleSystem3D::getSizeMin()
 	{
-		return minsize;
+		return _minSize;
 	}
 
-	float32 iParticleSystemNode::getSizeMax()
+	float32 iParticleSystem3D::getSizeMax()
 	{
-		return maxsize;
+		return _maxSize;
 	}
 
-	float32 iParticleSystemNode::getSizeIncrease()
+	float32 iParticleSystem3D::getSizeIncrease()
 	{
-		return sizeincrease;
+		return _sizeIncreaseStep;
 	}
 
-	uint32 iParticleSystemNode::getParticleCount()
+	uint32 iParticleSystem3D::getParticleCount()
 	{
-		return particlecount;
+		return _particleCount;
 	}
 
-	shared_ptr<iTexture> iParticleSystemNode::getTextureA()
+	shared_ptr<iTexture> iParticleSystem3D::getTextureA()
 	{
-		return textureA;
+		return _textureA;
 	}
 
-	shared_ptr<iTexture> iParticleSystemNode::getTextureB()
+	shared_ptr<iTexture> iParticleSystem3D::getTextureB()
 	{
-		return textureB;
+		return _textureB;
 	}
 
-	shared_ptr<iTexture> iParticleSystemNode::getTextureC()
+	shared_ptr<iTexture> iParticleSystem3D::getTextureC()
 	{
-		return textureC;
+		return _textureC;
 	}
 
-	float32 iParticleSystemNode::getVorticityConfinement()
+	float32 iParticleSystem3D::getVorticityConfinement()
 	{
-		return vorticityconfinement;
+		return _vorticityConfinement;
 	}
 
-	uint32 iParticleSystemNode::getVortexParticleCount()
+	uint32 iParticleSystem3D::getVortexParticleCount()
 	{
-		return vortexcount;
+		return _vortexCount;
 	}
 
-	float32 iParticleSystemNode::getVortexRotationSpeedMin()
+	float32 iParticleSystem3D::getVortexRotationSpeedMin()
 	{
-		return minvrot;
+		return _minVRot;
 	}
 
-	float32 iParticleSystemNode::getVortexRotationSpeedMax()
+	float32 iParticleSystem3D::getVortexRotationSpeedMax()
 	{
-		return maxvrot;
+		return _maxVRot;
 	}
 
-	float32 iParticleSystemNode::getVortexRangeMin()
+	float32 iParticleSystem3D::getVortexRangeMin()
 	{
-		return minvrange;
+		return _minVRange;
 	}
 
-	float32 iParticleSystemNode::getVortexRangeMax()
+	float32 iParticleSystem3D::getVortexRangeMax()
 	{
-		return maxvrange;
+		return _maxVRange;
 	}
 
-	uint32 iParticleSystemNode::getVortexCheckRange()
+	uint32 iParticleSystem3D::getVortexCheckRange()
 	{
-		return vortexcheckrange;
+		return _vortexCheckRange;
 	}
 
-	void iParticleSystemNode::activateRainbow(bool b)
+	void iParticleSystem3D::activateRainbow(bool b)
 	{
-		singlecolor = !b;
+		_singleColor = !b;
 	}
 
-	iRenderStateSet* iParticleSystemNode::getRendererState()
+	void iParticleSystem3D::setPhaseShift(float32 r1, float32 r2)
 	{
-		return &renderer_state_set;
+		_phaseShiftR1 = r1;
+		_phaseShiftR2 = r2;
 	}
 
-	void iParticleSystemNode::setPhaseShift(float32 r1, float32 r2)
+	void iParticleSystem3D::setVortexCheckRange(uint32 _particles)
 	{
-		phaseshift_r1 = r1;
-		phaseshift_r2 = r2;
+		_vortexCheckRange = _particles;
 	}
 
-	void iParticleSystemNode::setVortexCheckRange(uint32 particles)
+	void iParticleSystem3D::setSizeIncrease(float32 si)
 	{
-		vortexcheckrange = particles;
+		_sizeIncreaseStep = si;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setSizeIncrease(float32 si)
+	void iParticleSystem3D::setLoopAbility(bool loop)
 	{
-		sizeincrease = si;
-		mustreset = true;
+		_loopable = loop;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setLoopAbility(bool loop)
+	void iParticleSystem3D::setParticleCount(uint32 count)
 	{
-		loopable = loop;
-		mustreset = true;
+		_particleCount = count;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setParticleCount(uint32 count)
+	void iParticleSystem3D::setParticleLifeTime(uint32 frames)
 	{
-		particlecount = count;
-		mustreset = true;
+		_lifeTime = frames;
+		_lifeTimeStep = 1.0f / _lifeTime;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setParticleLifeTime(uint32 frames)
+	void iParticleSystem3D::setTextureA(iaString texture)
 	{
-		lifetime = frames;
-		lifetimedecrease = 1.0f / lifetime;
-		mustreset = true;
+		_textureA = iTextureResourceFactory::getInstance().requestFile(texture);
 	}
 
-	void iParticleSystemNode::setTextureA(iaString texture)
+	void iParticleSystem3D::setTextureB(iaString texture)
 	{
-		textureA = iTextureResourceFactory::getInstance().requestFile(texture);
+		_textureB = iTextureResourceFactory::getInstance().requestFile(texture);
 	}
 
-	void iParticleSystemNode::setTextureB(iaString texture)
+	void iParticleSystem3D::setTextureC(iaString texture)
 	{
-		textureB = iTextureResourceFactory::getInstance().requestFile(texture);
+		_textureC = iTextureResourceFactory::getInstance().requestFile(texture);
 	}
 
-	void iParticleSystemNode::setTextureC(iaString texture)
+	uint32 iParticleSystem3D::getParticleLifeTime()
 	{
-		textureC = iTextureResourceFactory::getInstance().requestFile(texture);
+		return _lifeTime;
 	}
 
-	uint32 iParticleSystemNode::getParticleLifeTime()
+	void iParticleSystem3D::setLiftDecrease(float32 ld)
 	{
-		return lifetime;
+		_reduceLiftStep = ld;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setLiftDecrease(float32 ld)
+	void iParticleSystem3D::setVortexParticleCount(uint32 count)
 	{
-		liftdecrease = ld;
-		mustreset = true;
+		_vortexCount = count;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setVortexParticleCount(uint32 count)
+	void iParticleSystem3D::reset()
 	{
-		vortexcount = count;
-		mustreset = true;
-	}
-
-	void iParticleSystemNode::reset()
-	{
-		if(emitter==0)
+		if(_vortexCount > _particleCount)
 		{
-			con_err("no emitters defined" << endl;
+			con_err("more vortex _particles than normal _particles defined");
 			return;
 		}
 
-		if(vortexcount > particlecount)
+		if(_lifeTime == 0)
 		{
-			con_err("more vortex particles than normal particles defined" << endl;
+			con_err("_lifeTime 0 defined");
 			return;
 		}
 
-		if(lifetime == 0)
-		{
-			con_err("lifetime 0 defined" << endl;
-			return;
-		}
-
-		initframe = lifetime;
+		_initFrame = _lifeTime;
 
 		calcBirth();
-		mustreset = false;
+		_mustReset = false;
 	}
 
-	void iParticleSystemNode::setLift(float32 min, float32 max)
+	void iParticleSystem3D::setLift(float32 min, float32 max)
 	{
-		minlift = min;
-		maxlift = max;
-		mustreset = true;
+		_minLift = min;
+		_maxLift = max;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setWeight(float32 min, float32 max)
+	void iParticleSystem3D::setWeight(float32 min, float32 max)
 	{
-		minweight = min;
-		maxweight = max;
-		mustreset = true;
+		_minWeight = min;
+		_maxWeight = max;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setSize(float32 min, float32 max)
+	void iParticleSystem3D::setSize(float32 min, float32 max)
 	{
-		minsize = min;
-		maxsize = max;
-		mustreset = true;
+		_minSize = min;
+		_maxSize = max;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setVortexRotationSpeed(float32 min, float32 max)
+	void iParticleSystem3D::setVortexRotationSpeed(float32 min, float32 max)
 	{
-		minvrot = min;
-		maxvrot = max;
-		mustreset = true;
+		_minVRot = min;
+		_maxVRot = max;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::setVortexRange(float32 min, float32 max)
+	void iParticleSystem3D::setVortexRange(float32 min, float32 max)
 	{
-		minvrange = min;
-		maxvrange = max;
-		mustreset = true;
+		_minVRange = min;
+		_maxVRange = max;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::resetParticle(iParticle *particle, iaMatrixf &modelview)
+	void iParticleSystem3D::resetParticle(iParticle *particle, iaMatrixf &modelview)
 	{
-		if(!emitter) return;
+		/*if(!emitter) return;
 
 		emitter->calcRandomStart(particle, modelview);
+        */
+		particle->_lift = _minLift + (rand()%100/100.0f) * (_maxLift-_minLift);
+		particle->_weight = _minWeight + (rand()%100/100.0f) * (_maxWeight-_minWeight);
+		particle->_size = _minSize + (rand()%100/100.0f) * (_maxSize-_minSize);
 
-		particle->lift = minlift + (rand()%100/100.0f) * (maxlift-minlift);
-		particle->weight = minweight + (rand()%100/100.0f) * (maxweight-minweight);
-		particle->size = minsize + (rand()%100/100.0f) * (maxsize-minsize);
+		particle->_lifeTime = 1.0f;
+		particle->_visibleTime = 1.0f;
+		particle->_visibleTimeStep = (1.0f / _lifeTime) * (1+rand()%200/100.0f);
 
-		particle->lifetime = 1.0f;
-		particle->visibletime = 1.0f;
-		particle->visibletimedecrease = (1.0f / lifetime) * (1+rand()%200/100.0f);
-
-		particle->phase0.set(rand()%100/100.0f,rand()%100/100.0f);
-		particle->phase1.set(rand()%100/100.0f,rand()%100/100.0f);
+		particle->_phase0.set(rand()%100/100.0f,rand()%100/100.0f);
+		particle->_phase1.set(rand()%100/100.0f,rand()%100/100.0f);
 	}
 
-	void iParticleSystemNode::calcBirth()
+	void iParticleSystem3D::calcBirth()
 	{
 		iParticle *particle;
 		iVortexParticle *vortexparticle;
 
 		iaMatrixf modelview;
 
-		particlesbirth.clear();
-		particles.clear();
+		_particlesBirth.clear();
+		_particles.clear();
 
-		for(uint32 i=0;i<particlecount;++i)
+		for(uint32 i=0;i<_particleCount;++i)
 		{
-			if((i%(long)((float32)particlecount/(float32)vortexcount)) == 0)
+			if((i%(long)((float32)_particleCount/(float32)_vortexCount)) == 0)
 			{
 				vortexparticle = new iVortexParticle();
 
-				vortexparticle->force = minvrot + (rand()%100/100.0f) * (maxvrot-minvrot);
-				vortexparticle->forcerange = minvrange + (rand()%100/100.0f) * (maxvrange-minvrange);
-				vortexparticle->vortexnormal.set(rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f);
-				vortexparticle->vortexnormal.normalize();
-				vortexparticle->imune = true;
-				vortexparticle->particleid = i;
+				vortexparticle->_force = _minVRot + (rand()%100/100.0f) * (_maxVRot-_minVRot);
+				vortexparticle->_forceRange = _minVRange + (rand()%100/100.0f) * (_maxVRange-_minVRange);
+				vortexparticle->_vortexNormal.set(rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f);
+				vortexparticle->_vortexNormal.normalize();
+				vortexparticle->_imune = true;
+				vortexparticle->_particleid = i;
 
-				vortexparticles.push_back(vortexparticle);
+				_vortexParticles.push_back(vortexparticle);
 				particle = (iParticle*)vortexparticle;
 			}
 			else
 			{
 				particle = new iParticle();
-				particle->imune = false;
+				particle->_imune = false;
 			}
 
 			resetParticle(particle, modelview);
-			particle->visible = true;
-			particlesbirth.push_back(*particle);
-			particle->visible = false;
-			particles.push_back(particle);
+			particle->_visible = true;
+			_particlesBirth.push_back(*particle);
+			particle->_visible = false;
+			_particles.push_back(particle);
 		}
 	}
 
-	vector<iParticle*> iParticleSystemNode::getCurrentFrame()
+	vector<iParticle*> iParticleSystem3D::getCurrentFrame()
 	{
-		if(mustreset)
+		if(_mustReset)
 		{
 			reset();
 		}
-		return particles;
+		return _particles;
 	}
 
-	vector<iVortexParticle*> iParticleSystemNode::getCurrentFrameVortex()
+	vector<iVortexParticle*> iParticleSystem3D::getCurrentFrameVortex()
 	{
-		if(mustreset)
+		if(_mustReset)
 		{
 			reset();
 		}
-		return vortexparticles;
+		return _vortexParticles;
 	}
 
-	void iParticleSystemNode::calcNextFrame()
+	void iParticleSystem3D::calcNextFrame()
 	{
 		iaMatrixf modelview;
 		calcNextFrame(modelview);
 	}
 
-	void iParticleSystemNode::calcNextFrame(iaMatrixf &modelview)
+	void iParticleSystem3D::calcNextFrame(iaMatrixf &modelview)
 	{
-		if(mustreset)
+		if(_mustReset)
 		{
 			reset();
-			if(mustreset) return;
+			if(_mustReset) return;
 		}
 
-		uint32 simulate = particles.size();
-		uint32 simulatevortex = vortexparticles.size();
+		uint32 simulate = _particles.size();
+		uint32 simulatevortex = _vortexParticles.size();
 
-		if(initframe > 0)
+		if(_initFrame > 0)
 		{
-			initframe--;
-			simulate = (uint32)((float32)particles.size() / (float32)lifetime * ((float32)lifetime-(float32)initframe));
-			simulatevortex = (uint32)((float32)vortexparticles.size() / (float32)lifetime * ((float32)lifetime-(float32)initframe));
+			_initFrame--;
+			simulate = (uint32)((float32)_particles.size() / (float32)_lifeTime * ((float32)_lifeTime-(float32)_initFrame));
+			simulatevortex = (uint32)((float32)_vortexParticles.size() / (float32)_lifeTime * ((float32)_lifeTime-(float32)_initFrame));
 		}
 
 		iaVector3f a,b;
@@ -434,39 +401,39 @@ namespace Igor
 
 		for(uint32 j=0;j<simulatevortex;++j)
 		{
-			if(vortexparticles[j]->lifetime<0.1f)
+			if(_vortexParticles[j]->_lifeTime<0.1f)
 			{
-				vortexforce = vortexparticles[j]->force * vortexparticles[j]->lifetime * 10.0f;
+				vortexforce = _vortexParticles[j]->_force * _vortexParticles[j]->_lifeTime * 10.0f;
 			}
-			else if(vortexparticles[j]->lifetime > 0.9f)
+			else if(_vortexParticles[j]->_lifeTime > 0.9f)
 			{
-				vortexforce = vortexparticles[j]->force * (1-vortexparticles[j]->lifetime) * 10.0f;
+				vortexforce = _vortexParticles[j]->_force * (1-_vortexParticles[j]->_lifeTime) * 10.0f;
 			}
 			else
-				vortexforce = vortexparticles[j]->force;
+				vortexforce = _vortexParticles[j]->_force;
 
-			start = vortexparticles[j]->particleid - vortexcheckrange;
+			start = _vortexParticles[j]->_particleid - _vortexCheckRange;
 			if(start>0) start = 0;
 
-			end = vortexparticles[j]->particleid + vortexcheckrange;
+			end = _vortexParticles[j]->_particleid + _vortexCheckRange;
 			if(end>simulate) end=simulate;
 
 			for(uint32 i=start;i<end;++i)
 			{
-				if(particles[i]->imune) continue;
+				if(_particles[i]->_imune) continue;
 
-				a = vortexparticles[j]->position - particles[i]->position;
-				if(a.length()>vortexparticles[j]->forcerange) continue;
+				a = _vortexParticles[j]->_position - _particles[i]->_position;
+				if(a.length()>_vortexParticles[j]->_forceRange) continue;
 
-				b = a % vortexparticles[j]->vortexnormal;
+				b = a % _vortexParticles[j]->_vortexNormal;
 				b.normalize();
-				b *= (vortexparticles[j]->forcerange - a.length())/vortexparticles[j]->forcerange;
+				b *= (_vortexParticles[j]->_forceRange - a.length())/_vortexParticles[j]->_forceRange;
 				b *= vortexforce;
 				a.normalize();
-				a*=vorticityconfinement;
+				a*=_vorticityConfinement;
 				b+=a;
 
-				particles[i]->position += b * 0.1f;
+				_particles[i]->_position += b * 0.1f;
 			}
 		}
 
@@ -474,178 +441,96 @@ namespace Igor
 
 		for(uint32 i=0;i<simulate;++i)
 		{
-			particles[i]->velocity[1] += particles[i]->lift;
-			particles[i]->velocity[1] -= particles[i]->weight;
+			_particles[i]->_velocity[1] += _particles[i]->_lift;
+			_particles[i]->_velocity[1] -= _particles[i]->_weight;
 
-			particles[i]->position += particles[i]->velocity;
+			_particles[i]->_position += _particles[i]->_velocity;
 
-			if(particles[i]->visible == false)
+			if(_particles[i]->_visible == false)
 			{
-				particles[i]->position = modelview * particles[i]->position;
-				particles[i]->visible = true;
+				_particles[i]->_position = modelview * _particles[i]->_position;
+				_particles[i]->_visible = true;
 			}
 
-			particles[i]->lift -= liftdecrease;
-			particles[i]->size += sizeincrease;
+			_particles[i]->_lift -= _reduceLiftStep;
+			_particles[i]->_size += _sizeIncreaseStep;
 
-			particles[i]->visibletime -= particles[i]->visibletimedecrease;
-			if(particles[i]->visibletime<=0.0f) particles[i]->visible = false;
+			_particles[i]->_visibleTime -= _particles[i]->_visibleTimeStep;
+			if(_particles[i]->_visibleTime<=0.0f) _particles[i]->_visible = false;
 
-			particles[i]->lifetime -= lifetimedecrease;
-			if(particles[i]->lifetime <= 0.0f)
+			if(_particles[i]->_lifeTime <= 0.0f)
 			{
-				if(loopable)
+				if(_loopable)
 				{
-					particles[i]->position = particlesbirth[i].position;
-					particles[i]->velocity = particlesbirth[i].velocity;
+					_particles[i]->_position = _particlesBirth[i]._position;
+					_particles[i]->_velocity = _particlesBirth[i]._velocity;
 
-					particles[i]->lift = particlesbirth[i].lift;
-					particles[i]->weight = particlesbirth[i].weight;
-					particles[i]->lifetime = particlesbirth[i].lifetime;
-					particles[i]->size = particlesbirth[i].size;
+					_particles[i]->_lift = _particlesBirth[i]._lift;
+					_particles[i]->_weight = _particlesBirth[i]._weight;
+					_particles[i]->_lifeTime = _particlesBirth[i]._lifeTime;
+					_particles[i]->_size = _particlesBirth[i]._size;
 
-					particles[i]->visible = particlesbirth[i].visible;
-					particles[i]->visibletime = particlesbirth[i].visibletime;
+					_particles[i]->_visible = _particlesBirth[i]._visible;
+					_particles[i]->_visibleTime = _particlesBirth[i]._visibleTime;
 
-					particles[i]->imune = particlesbirth[i].imune;
+					_particles[i]->_imune = _particlesBirth[i]._imune;
 
-					particles[i]->phase0 = particlesbirth[i].phase0;
-					particles[i]->phase1 = particlesbirth[i].phase1;
+					_particles[i]->_phase0 = _particlesBirth[i]._phase0;
+					_particles[i]->_phase1 = _particlesBirth[i]._phase1;
 				}
 				else
 				{
-					resetParticle(particles[i], modelview);
+					resetParticle(_particles[i], modelview);
 				}
 			}
 		}
 
 		for(uint32 i=0;i<simulate;++i)
 		{
-			particles[i]->phase0.rotateXY(phaseshift_r1);
-			particles[i]->phase1.rotateXY(phaseshift_r2);
+			_particles[i]->_phase0.rotateXY(_phaseShiftR1);
+			_particles[i]->_phase1.rotateXY(_phaseShiftR2);
 		}
 	}
 
-	void iParticleSystemNode::setVorticityConfinement(float32 vc)
+	void iParticleSystem3D::setVorticityConfinement(float32 vc)
 	{
-		vorticityconfinement = vc;
-		mustreset = true;
+		_vorticityConfinement = vc;
+		_mustReset = true;
 	}
 
-	void iParticleSystemNode::activateEmitter(bool active)
+	void iParticleSystem3D::setColor(iaColor4f &_color)
 	{
-		activeemitter = active;
+		this->_color = _color;
 	}
 
-	bool iParticleSystemNode::emitterIsActive()
-	{
-		return activeemitter;
-	}
-
-	void iParticleSystemNode::setEmitter(iParticleEmitterNode *emitter)
-	{
-		this->emitter = emitter;
-		mustreset = true;
-	}
-
-	void iParticleSystemNode::setColor(iaColor4f &color)
-	{
-		this->color = color;
-	}
-
-    iRainbow& iParticleSystemNode::getRainbow()
+    iRainbow& iParticleSystem3D::getRainbow()
 	{
 		return _rainbow;
 	}
 
-	void iParticleSystemNode::preRenderCustom()
-	{
-
-	}
-
-	void iParticleSystemNode::doRenderCustom()
-	{
-		if(!emitter) return;
+/*		if(!emitter) return;
 		iaMatrixf temp = iRenderer::getInstance().getModelViewMatrix();
 		temp.invert();
 		temp = emitter->modelviewmatrix * temp;
-		calcNextFrame(temp);
-	}
-
-	void iParticleSystemNode::transRenderCustom()
-	{
-		iRenderer::getInstance().setRenderStateSet(renderer_state_set);
-
-//! \todo		if(textureA) textureA->bind(0);
-	//	if(textureB) textureB->bind(1);
-		//if(textureC) textureC->bind(2); 
-
-		if(singlecolor)
-		{
-			iRenderer::getInstance().setColor(color);
-			iRenderer::getInstance().setRainbow(0);
-		}
-		else
-		{
-			iRenderer::getInstance().setColor(iaColor4f(1,1,1,1));
-			iRenderer::getInstance().setRainbow(&_rainbow);
-		}
-
-		iRenderer::getInstance().drawParticles(&particles, iRenderer::getInstance().getCamMatrix());
-	}
-
-	// iParticleEmitterNode
-
-	iParticleEmitterNode::iParticleEmitterNode()
-	{
-	}
-
-	iParticleEmitterNode::~iParticleEmitterNode()
-	{
-	}
+		calcNextFrame(temp);*/
     
-	void iParticleEmitterNode::addTriangleEmitter(iTriangleEmitter emitter)
-	{
-		triangleemitters.push_back(emitter);
-	}
+        //    iRenderer::getInstance().setRenderStateSet(renderer_state_set);
 
-	void iParticleEmitterNode::calcRandomStart(iParticle *particle, iaMatrixf &modelview)
-	{
-		if(triangleemitters.size()==0) return;
-		iTriangleEmitter &emitter = triangleemitters[rand()%triangleemitters.size()];
+        //! \todo		if(textureA) textureA->bind(0);
+            //	if(textureB) textureB->bind(1);
+                //if(textureC) textureC->bind(2); 
 
-		float32 a,b;
+      /*  if (_singleColor)
+        {
+            iRenderer::getInstance().setColor(_color);
+            iRenderer::getInstance().setRainbow(0);
+        }
+        else
+        {
+            iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+            iRenderer::getInstance().setRainbow(&_rainbow);
+        }
 
-		do
-		{
-			a = rand()%100/100.0f;
-			b = rand()%100/100.0f;
-		}
-		while(a+b>1.0f);
-
-		iaVector3f ab = emitter.pos[1] - emitter.pos[0];
-		iaVector3f ac = emitter.pos[2] - emitter.pos[0];
-
-		particle->position = (ab*a) + (ac*b) + emitter.pos[0];
-		particle->position = modelview * particle->position;
-
-		ab = emitter.vel[0]*(1.0f-a) + emitter.vel[1]*a;
-		ac = emitter.vel[2]*(1.0f-a) + emitter.vel[1]*a;
-
-		particle->velocity = ab*(1.0f-b) + ac*b;
-	}
-
-	void iParticleEmitterNode::preRenderCustom()
-	{
-	}
-
-	void iParticleEmitterNode::doRenderCustom()
-	{
-        modelviewmatrix = iRenderer::getInstance().getModelViewMatrix();
-	}
-
-	void iParticleEmitterNode::transRenderCustom()
-	{
-	}
+        iRenderer::getInstance().drawParticles(&_particles, iRenderer::getInstance().getCamMatrix());*/
 
 };

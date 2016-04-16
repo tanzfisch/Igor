@@ -83,7 +83,7 @@ namespace Igor
         _targetMaterialMutex.unlock();
     }
 
-    int32 iMaterialResourceFactory::getDefaultMaterialID() const
+    uint64 iMaterialResourceFactory::getDefaultMaterialID() const
     {
         return _defaultID;
     }
@@ -128,7 +128,7 @@ namespace Igor
         setMaterial(_defaultID);
     }
 
-    int32 iMaterialResourceFactory::createMaterial(iaString name)
+    uint64 iMaterialResourceFactory::createMaterial(iaString name)
     {
         iMaterialGroup* materialGroup = new iMaterialGroup();
 
@@ -145,7 +145,7 @@ namespace Igor
         return materialGroup->getID();
     }
 
-    void iMaterialResourceFactory::destroyMaterial(int32 materialID)
+    void iMaterialResourceFactory::destroyMaterial(uint64 materialID)
     {
         _mutexMaterial.lock();
 
@@ -175,7 +175,7 @@ namespace Igor
         _mutexMaterial.unlock();
     }
 
-    void iMaterialResourceFactory::setMaterial(int32 materialID)
+    void iMaterialResourceFactory::setMaterial(uint64 materialID)
     {
         iMaterial* material = 0;
 
@@ -199,7 +199,7 @@ namespace Igor
         return getMaterial(_defaultID);
     }
 
-    iMaterial* iMaterialResourceFactory::getMaterial(int32 materialID)
+    iMaterial* iMaterialResourceFactory::getMaterial(uint64 materialID)
     {
         iMaterial* material = nullptr;
 
@@ -219,7 +219,7 @@ namespace Igor
         return material;
     }
 
-    iMaterialGroup* iMaterialResourceFactory::getMaterialGroup(int32 materialID)
+    iMaterialGroup* iMaterialResourceFactory::getMaterialGroup(uint64 materialID)
     {
         iMaterialGroup* materialGroup = nullptr;
 
@@ -239,7 +239,7 @@ namespace Igor
         return materialGroup;
     }
 
-    uint32 iMaterialResourceFactory::getMaterialID(iaString materialName)
+    uint64 iMaterialResourceFactory::getMaterialID(iaString materialName)
     {
         uint32 result = 0;
 

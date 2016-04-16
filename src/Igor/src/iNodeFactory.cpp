@@ -20,6 +20,7 @@ using namespace IgorAux;
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
 #include <iNodePhysics.h>
+#include <iNodeParticleSystem.h>
 
 #include <iApplication.h>
 
@@ -254,6 +255,10 @@ namespace Igor
                 result = new iNodePhysics(static_cast<iNodePhysics*>(node));
                 break;
 
+            case iNodeType::iNodeParticleSystem:
+                result = new iNodeParticleSystem(static_cast<iNodeParticleSystem*>(node));
+                break;
+
             case iNodeType::Undefined:
             default:
                 con_err("undefined node type");
@@ -326,6 +331,10 @@ namespace Igor
 
         case iNodeType::iNodePhysics:
             result = new iNodePhysics();
+            break;
+
+        case iNodeType::iNodeParticleSystem:
+            result = new iNodeParticleSystem();
             break;
 
         case iNodeType::Undefined:

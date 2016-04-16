@@ -46,7 +46,7 @@ using namespace std;
 
 namespace Igor
 {
-    /*! node that handles physics collisions boudn to one body
+    /*! node that handles physics collisions bound to one body
 
     \todo also need to remove things after adding them. maybe using IDs for that
     */

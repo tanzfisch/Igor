@@ -30,212 +30,170 @@
 #define __iPARTICLESYSTEM3D__
 
 #include <iRainbow.h>
+#include <iTexture.h>
+
 #include <iaVector3.h>
 #include <iaVector2.h>
 #include <iaColor4.h>
-#include <iTexture.h>
-#include <iScene.h>
+#include <iaMatrix.h>
+using namespace IgorAux;
 
+#include <memory>
 #include <vector>
 using namespace std;
 
 namespace Igor
 {
 
-	class Igor_API iParticle
-	{
-	public:
+    class Igor_API iParticle
+    {
+    public:
 
-		iaVector3f position;
-		iaVector3f velocity;
+        iaVector3f _position;
+        iaVector3f _velocity;
 
-		float32 lift;
-		float32 weight;
-		float32 lifetime;
-		float32 visibletime;
-		float32 visibletimedecrease;
-		float32 size;
+        float32 _lift;
+        float32 _weight;
+        float32 _lifeTime = 0;
+        float32 _visibleTime;
+        float32 _visibleTimeStep;
+        float32 _size;
 
-		bool visible;
-		bool imune;
+        bool _visible;
+        bool _imune;
 
-		iaVector2f phase0;
-		iaVector2f phase1;
-	};
+        iaVector2f _phase0;
+        iaVector2f _phase1;
+    };
 
-	class Igor_API iVortexParticle : public iParticle
-	{
-	public:
+    class Igor_API iVortexParticle : public iParticle
+    {
+    public:
 
-		iaVector3f vortexnormal;
+        iaVector3f _vortexNormal;
 
-		float32 force;
-		float32 forcerange;
-		long particleid;
-	};
+        float32 _force;
+        float32 _forceRange;
+        long _particleid;
+    };
 
-	class Igor_API iTriangleEmitter
-	{
-	public:
+    class Igor_API iParticleSystem3D
+    {
 
-		iaVector3f pos[3];
-		iaVector3f vel[3];
-	};
+    public:
 
-/*	class Igor_API iParticleEmitterNode : public iNode
-	{
-		friend class iParticleSystemNode;
+        void activateRainbow(bool b);
+        void setColor(iaColor4f &color);
+        iRainbow& getRainbow();
 
-	private:
+        void setParticleCount(uint32 count);
+        uint32 getParticleCount();
+        void setParticleLifeTime(uint32 frames);
+        uint32 getParticleLifeTime();
 
-		void preRenderCustom();
-		void doRenderCustom();
-		void transRenderCustom();
+        void setTextureA(iaString texture);
+        void setTextureB(iaString texture);
+        void setTextureC(iaString texture);
+        shared_ptr<iTexture> getTextureA();
+        shared_ptr<iTexture> getTextureB();
+        shared_ptr<iTexture> getTextureC();
 
-		void calcRandomStart(iParticle *particle, iaMatrixf &modelview);
+        void setVorticityConfinement(float32 vc);
+        float32 getVorticityConfinement();
 
-		iaMatrixf modelviewmatrix;
+        void setVortexParticleCount(uint32 count);
+        void setVortexRotationSpeed(float32 min, float32 max);
+        void setVortexRange(float32 min, float32 max);
+        void setVortexCheckRange(uint32 particles);
 
-		vector<iTriangleEmitter> triangleemitters;
+        uint32 getVortexParticleCount();
+        float32 getVortexRotationSpeedMin();
+        float32 getVortexRotationSpeedMax();
+        float32 getVortexRangeMin();
+        float32 getVortexRangeMax();
+        uint32 getVortexCheckRange();
 
-	public:
+        void setLoopAbility(bool loop);
+        void setPhaseShift(float32 r1, float32 r2);
+        void setLift(float32 min, float32 max);
+        void setLiftDecrease(float32 ld);
+        void setWeight(float32 min, float32 max);
+        void setSize(float32 min, float32 max);
+        void setSizeIncrease(float32 si);
 
-		void addTriangleEmitter(iTriangleEmitter emitter);
+        bool getLoopAbility();
+        float32 getPhaseShift0();
+        float32 getPhaseShift1();
+        float32 getLiftMin();
+        float32 getLiftMax();
+        float32 getLiftDecrease();
+        float32 getWeightMin();
+        float32 getWeightMax();
+        float32 getSizeMin();
+        float32 getSizeMax();
+        float32 getSizeIncrease();
 
-		iParticleEmitterNode();
-		virtual ~iParticleEmitterNode();
-	};
+        void reset();
 
-	class Igor_API iParticleSystemNode : public iNodeRender // todo volume node
-	{
+        vector<iParticle*> getCurrentFrame();
+        vector<iVortexParticle*> getCurrentFrameVortex();
+        void calcNextFrame();
+        void calcNextFrame(iaMatrixf &modelview);
 
-	public:
+        iParticleSystem3D();
+        virtual ~iParticleSystem3D();
 
-		void activateRainbow(bool b);
-		void setColor(iaColor4f &color);
-		iRainbow& getRainbow();
+    protected:
 
-		void setParticleCount(uint32 count);
-		uint32 getParticleCount();
-		void setParticleLifeTime(uint32 frames);
-		uint32 getParticleLifeTime();
+        bool _mustReset = true;
 
-		iRenderStateSet* getRendererState();
+        uint32 _particleCount;
+        uint32 _vortexCount;
 
-		void setTextureA(iaString texture);
-		void setTextureB(iaString texture);
-		void setTextureC(iaString texture);
-		shared_ptr<iTexture> getTextureA();
-		shared_ptr<iTexture> getTextureB();
-		shared_ptr<iTexture> getTextureC();
+        uint32 _lifeTime = 200;
+        uint32 _initFrame = 200;
+        float32 _lifeTimeStep = 0;
 
-		void setEmitter(iParticleEmitterNode *emitter);
+        float32 _minLift;
+        float32 _maxLift;
+        float32 _reduceLiftStep;
 
-		void setVorticityConfinement(float32 vc);
-		float32 getVorticityConfinement();
+        float32 _minWeight;
+        float32 _maxWeight;
 
-		void setVortexParticleCount(uint32 count);
-		void setVortexRotationSpeed(float32 min, float32 max);
-		void setVortexRange(float32 min, float32 max);
-		void setVortexCheckRange(uint32 particles);
+        float32 _minSize;
+        float32 _maxSize;
+        float32 _sizeIncreaseStep;
 
-		uint32 getVortexParticleCount();
-		float32 getVortexRotationSpeedMin();
-		float32 getVortexRotationSpeedMax();
-		float32 getVortexRangeMin();
-		float32 getVortexRangeMax();
-		uint32 getVortexCheckRange();
+        float32 _minVRot;
+        float32 _maxVRot;
+        float32 _minVRange;
+        float32 _maxVRange;
 
-		void setLoopAbility(bool loop);
-		void setPhaseShift(float32 r1, float32 r2);
-		void setLift(float32 min, float32 max);
-		void setLiftDecrease(float32 ld);
-		void setWeight(float32 min, float32 max);
-		void setSize(float32 min, float32 max);
-		void setSizeIncrease(float32 si);
+        bool _loopable;
+        float32 _phaseShiftR1;
+        float32 _phaseShiftR2;
 
-		bool getLoopAbility();
-		float32 getPhaseShift0();
-		float32 getPhaseShift1();
-		float32 getLiftMin();
-		float32 getLiftMax();
-		float32 getLiftDecrease();
-		float32 getWeightMin();
-		float32 getWeightMax();
-		float32 getSizeMin();
-		float32 getSizeMax();
-		float32 getSizeIncrease();
+        bool _singleColor;
+        iaColor4f _color;
+        iRainbow _rainbow;
 
-		void reset();
+        long _vortexCheckRange;
 
-		vector<iParticle*> getCurrentFrame();
-		vector<iVortexParticle*> getCurrentFrameVortex();
-		void calcNextFrame();
-		void calcNextFrame(iaMatrixf &modelview);
+        float32 _vorticityConfinement;
 
-		void activateEmitter(bool active);
-		bool emitterIsActive();
+        shared_ptr<iTexture> _textureA;
+        shared_ptr<iTexture> _textureB;
+        shared_ptr<iTexture> _textureC;
 
-		iParticleSystemNode();
-		virtual ~iParticleSystemNode();
+        vector<iParticle*> _particles;
+        vector<iParticle> _particlesBirth;
 
-        protected:
+        vector<iVortexParticle*> _vortexParticles;
 
         void calcBirth();
         void resetParticle(iParticle *particle, iaMatrixf &modelview);
-
-        void preRenderCustom();
-        void doRenderCustom();
-        void transRenderCustom();
-
-        vector<iParticle*> particles;
-        vector<iParticle> particlesbirth;
-
-        vector<iVortexParticle*> vortexparticles;
-
-        iRenderStateSet renderer_state_set;
-
-        bool mustreset;
-
-        //to serialize
-        iParticleEmitterNode *emitter;
-
-        uint32 particlecount;
-        uint32 vortexcount;
-
-        uint32 lifetime;
-        float32 lifetimedecrease;
-        uint32 initframe;
-
-        bool activeemitter;
-
-        float32 minlift,maxlift;
-        float32 liftdecrease;
-
-        float32 minweight,maxweight;
-
-        float32 minsize,maxsize;
-        float32 sizeincrease;
-
-        float32 minvrot,maxvrot;
-        float32 minvrange,maxvrange;
-
-        bool loopable;
-        float32 phaseshift_r1;
-        float32 phaseshift_r2;
-
-        bool singlecolor;
-        iaColor4f color;
-        iRainbow _rainbow;
-
-        long vortexcheckrange;
-
-        float32 vorticityconfinement;
-
-        shared_ptr<iTexture> textureA;
-        shared_ptr<iTexture> textureB;
-        shared_ptr<iTexture> textureC;
-	};*/
+    };
 
 };
 

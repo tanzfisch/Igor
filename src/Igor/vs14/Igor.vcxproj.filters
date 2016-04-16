@@ -35,9 +35,6 @@
     <ClCompile Include="..\src\iParticleSystem2D.cpp">
       <Filter>graphics\simulation</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iParticleSystem3D.cpp">
-      <Filter>todo</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iCelestialNode.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
@@ -623,6 +620,12 @@
     <ClCompile Include="..\src\iPhysicsWorld.cpp">
       <Filter>physics</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iParticleSystem3D.cpp">
+      <Filter>graphics\simulation</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iNodeParticleSystem.cpp">
+      <Filter>scene\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -656,9 +659,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iParticleSystem2D.h">
       <Filter>graphics\simulation</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iParticleSystem3D.h">
-      <Filter>todo</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iCelestialNode.h">
       <Filter>scene\nodes</Filter>
@@ -724,9 +724,6 @@
       <Filter>threading</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTaskManager.h">
-      <Filter>threading</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iThread.h">
       <Filter>threading</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iOctree.h">
@@ -1305,6 +1302,15 @@
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsWorld.h">
       <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iThread.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iParticleSystem3D.h">
+      <Filter>graphics\simulation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodeParticleSystem.h">
+      <Filter>scene\nodes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -17,6 +17,7 @@
 #include <iMaterial.h>
 #include <iTargetMaterial.h>
 #include <iMeshBuffers.h>
+#include <iParticleSystem3D.h>
 
 #include <GLee.h>
 #include <GL\glu.h>
@@ -231,7 +232,7 @@ namespace Igor
     {
         _rendererPreDeinitializeEvent.remove(preDeinitializeDelegate);
     }
-    
+
     iaString iRenderer::getVendor()
     {
         return _vendorOGL;
@@ -935,7 +936,7 @@ namespace Igor
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->getIndexBufferObject()); GL_CHECK_ERROR();
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->getIndexDataSize(), mesh->getIndexData(), GL_STATIC_DRAW); GL_CHECK_ERROR();
         }
-        
+
         glGenBuffers(1, &vbo); GL_CHECK_ERROR();
         result->setVertexBufferObject(vbo);
         glBindBuffer(GL_ARRAY_BUFFER, result->getVertexBufferObject()); GL_CHECK_ERROR();
@@ -1170,7 +1171,7 @@ namespace Igor
             bool changecolor = false;
             bool donotdraw = false;
             vector<iCharacterDimensions> characters = _font->getCharacters();
-            
+
             bindTexture(_font->getTexture(), 0);
 
             glPushMatrix();					GL_CHECK_ERROR();
@@ -1329,54 +1330,59 @@ namespace Igor
 
     }
 
-    /*	void iRenderer::drawParticles(vector<iParticle*> *particles, iaMatrixf modelview_matrix, iRainbow *_rainbow)
+    void iRenderer::drawParticles(vector<iParticle*> *particles, iaMatrixf modelview_matrix, iRainbow *rainbow)
+    {
+        modelview_matrix.invert();
+        modelview_matrix._pos.set(0, 0, 0);
+
+        iaVector3f right = _viewMatrix._right *0.1f;
+        iaVector3f top = _viewMatrix._top * 0.1f;
+
+        right = modelview_matrix * right;
+        top = modelview_matrix * top;
+
+        iaColor4f color;
+
+        glBegin(GL_QUADS);
+
+        for (uint32 i = 0; i < particles->size(); ++i)
         {
-            modelview_matrix.invert();
-            modelview_matrix.pos.set(0,0,0);
-
-            iaVector3f right = _viewMatrix.right *0.1f;
-            iaVector3f top = _viewMatrix.top * 0.1f;
-
-            right = modelview_matrix * right;
-            top = modelview_matrix * top;
-
-            glBegin(GL_QUADS);
-
-            for(uint32 i=0;i<particles->size();++i)
+            if ((*particles)[i]->_visible)
             {
-                if((*particles)[i]->visible)
+                if (rainbow != nullptr)
                 {
-                    if(_rainbow)
-                        glColor4fv(_rainbow->getColor((*particles)[i]->visibletime).getData());
-
-                    glMultiTexCoord2f(GL_TEXTURE0,0,0);
-                    glMultiTexCoord2f(GL_TEXTURE1,0+(*particles)[i]->phase0[0],0+(*particles)[i]->phase0[1]);
-                    glMultiTexCoord2f(GL_TEXTURE2,0+(*particles)[i]->phase1[0],0+(*particles)[i]->phase1[1]);
-
-                    glVertex3fv(((*particles)[i]->position-right*(*particles)[i]->size-top*(*particles)[i]->size).getData());
-
-                    glMultiTexCoord2f(GL_TEXTURE0,1,0);
-                    glMultiTexCoord2f(GL_TEXTURE1,1+(*particles)[i]->phase0[0],0+(*particles)[i]->phase0[1]);
-                    glMultiTexCoord2f(GL_TEXTURE2,1+(*particles)[i]->phase1[0],0+(*particles)[i]->phase1[1]);
-
-                    glVertex3fv(((*particles)[i]->position+right*(*particles)[i]->size-top*(*particles)[i]->size).getData());
-
-                    glMultiTexCoord2f(GL_TEXTURE0,1,1);
-                    glMultiTexCoord2f(GL_TEXTURE1,1+(*particles)[i]->phase0[0],1+(*particles)[i]->phase0[1]);
-                    glMultiTexCoord2f(GL_TEXTURE2,1+(*particles)[i]->phase1[0],1+(*particles)[i]->phase1[1]);
-
-                    glVertex3fv(((*particles)[i]->position+right*(*particles)[i]->size+top*(*particles)[i]->size).getData());
-
-                    glMultiTexCoord2f(GL_TEXTURE0,0,1);
-                    glMultiTexCoord2f(GL_TEXTURE1,0+(*particles)[i]->phase0[0],1+(*particles)[i]->phase0[1]);
-                    glMultiTexCoord2f(GL_TEXTURE2,0+(*particles)[i]->phase1[0],1+(*particles)[i]->phase1[1]);
-
-                    glVertex3fv(((*particles)[i]->position-right*(*particles)[i]->size+top*(*particles)[i]->size).getData());
+                    rainbow->getColor((*particles)[i]->_visibleTime, color);
+                    glColor4fv(color.getData());
                 }
-            }
 
-            glEnd();		GL_CHECK_ERROR();
-        }*/
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
+            }
+        }
+
+        glEnd();		GL_CHECK_ERROR();
+    }
 
 
     iaVector3f iRenderer::unProject(const iaVector3f& screenpos, const iaMatrixf& modelview, const iaMatrixf& projection, const iRectanglei& viewport)
@@ -1390,7 +1396,7 @@ namespace Igor
         in[2] = 2.0f * screenpos[2] - 1.0f;
         in[3] = 1.0f;
 
-        iaMatrixf modelViewProjection = projection; 
+        iaMatrixf modelViewProjection = projection;
         modelViewProjection *= modelview;
         modelViewProjection.invert();
         out = modelViewProjection * in;

@@ -99,12 +99,21 @@ namespace Igor
 		_textureScale = scale;
 	}
 
+    void iNodeSkyBox::setBoxSize(float32 boxSize)
+    {
+        _boxSize = boxSize;
+    }
+
+    float32 iNodeSkyBox::getBoxSize() const
+    {
+        return _boxSize;
+    }
+
 	void iNodeSkyBox::draw()
 	{
-		const float32 boxsize = 10.0f;
 		iNodeCamera* cameraNode = _scene->getCamera();
 
-		if(cameraNode)
+		if(cameraNode != nullptr)
 		{
 			iaMatrixf model;
             iaMatrixf camMatrix;
@@ -134,16 +143,12 @@ namespace Igor
                 iRenderer::getInstance().setColor(1, 1, 1, 1);
             }
 
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,-boxsize),iaVector3f(-boxsize,0,0),iaVector3f(0,boxsize,0), _front, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,boxsize),iaVector3f(boxsize,0,0),iaVector3f(0,boxsize,0), _back, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(-boxsize,0,0),iaVector3f(0,0,boxsize),iaVector3f(0,boxsize,0), _left,_textureScale,_textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(boxsize,0,0),iaVector3f(0,0,-boxsize),iaVector3f(0,boxsize,0), _right, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,boxsize,0),iaVector3f(boxsize,0,0),iaVector3f(0,0,-boxsize), _top, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,-boxsize,0),iaVector3f(boxsize,0,0),iaVector3f(0,0,boxsize), _bottom, _textureScale, _textureScale);
-		}
-		else
-		{
-			con_err("no camera node was set");
+			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,-_boxSize),iaVector3f(-_boxSize,0,0),iaVector3f(0,_boxSize,0), _front, _textureScale, _textureScale);
+			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,_boxSize),iaVector3f(_boxSize,0,0),iaVector3f(0,_boxSize,0), _back, _textureScale, _textureScale);
+			iRenderer::getInstance().drawBillboard(iaVector3f(-_boxSize,0,0),iaVector3f(0,0,_boxSize),iaVector3f(0,_boxSize,0), _left,_textureScale,_textureScale);
+			iRenderer::getInstance().drawBillboard(iaVector3f(_boxSize,0,0),iaVector3f(0,0,-_boxSize),iaVector3f(0,_boxSize,0), _right, _textureScale, _textureScale);
+			iRenderer::getInstance().drawBillboard(iaVector3f(0,_boxSize,0),iaVector3f(_boxSize,0,0),iaVector3f(0,0,-_boxSize), _top, _textureScale, _textureScale);
+			iRenderer::getInstance().drawBillboard(iaVector3f(0,-_boxSize,0),iaVector3f(_boxSize,0,0),iaVector3f(0,0,_boxSize), _bottom, _textureScale, _textureScale);
 		}
 	}
 

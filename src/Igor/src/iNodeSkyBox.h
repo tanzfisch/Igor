@@ -105,7 +105,19 @@ namespace Igor
         */
         void setTextures(iaString front, iaString back, iaString left, iaString right, iaString top, iaString bottom);
 
+        /*! sets the sky box size
+
+        \param boxSize the sky box size
+        */
+        void setBoxSize(float32 boxSize);
+
+        /*! \returns the sky box size
+        */
+        float32 getBoxSize() const;
+
 	private:
+
+        float32 _boxSize = 10.0f;
 
         /*! texture scaling
         */

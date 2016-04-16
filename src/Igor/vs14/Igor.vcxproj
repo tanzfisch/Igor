@@ -719,6 +719,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iNodeLODTrigger.h" />
     <ClInclude Include="..\src\iNodeMesh.h" />
     <ClInclude Include="..\src\iNodeModel.h" />
+    <ClInclude Include="..\src\iNodeParticleSystem.h" />
     <ClInclude Include="..\src\iNodePhysics.h" />
     <ClInclude Include="..\src\iNodeRender.h" />
     <ClInclude Include="..\src\iNodeSkyBox.h" />
@@ -742,9 +743,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iParticleSystem2D.h" />
     <ClInclude Include="..\src\iParticleSystem3D.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\src\iPerlinNoise.h" />
     <ClInclude Include="..\src\iPhysics.h">
@@ -1318,6 +1319,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iNodeLODTrigger.cpp" />
     <ClCompile Include="..\src\iNodeMesh.cpp" />
     <ClCompile Include="..\src\iNodeModel.cpp" />
+    <ClCompile Include="..\src\iNodeParticleSystem.cpp" />
     <ClCompile Include="..\src\iNodePhysics.cpp" />
     <ClCompile Include="..\src\iNodeRender.cpp" />
     <ClCompile Include="..\src\iNodeSkyBox.cpp" />
@@ -1339,9 +1341,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iParticleSystem2D.cpp" />
     <ClCompile Include="..\src\iParticleSystem3D.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\iPerlinNoise.cpp" />
     <ClCompile Include="..\src\iPhysics.cpp">

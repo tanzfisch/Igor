@@ -59,13 +59,13 @@ namespace Igor
 
         \returns id of new material
         */
-        int32 createMaterial(iaString name = L"");
+        uint64 createMaterial(iaString name = L"");
 
         /*! destoys material by id
 
         \param materialID the materials id
         */
-        void destroyMaterial(int32 materialID);
+        void destroyMaterial(uint64 materialID);
 
         /*! creates and returns a target material
 
@@ -87,12 +87,12 @@ namespace Igor
 
         \param materialID the materials id to be activated
         */
-        void setMaterial(int32 materialID);
+        void setMaterial(uint64 materialID);
 
         /*! \returns materials with given material id
         \param materialID the materials id
         */
-        iMaterial* getMaterial(int32 materialID);
+        iMaterial* getMaterial(uint64 materialID);
 
         /*! \returns default material
         */
@@ -100,7 +100,7 @@ namespace Igor
 
         /*! \returns default material ID
         */
-        int32 getDefaultMaterialID() const;
+        uint64 getDefaultMaterialID() const;
 
         /*! \returns materials with given material name
         \param materialName the materials name
@@ -110,7 +110,7 @@ namespace Igor
         /*! \retruns material id with given material name
         \param materialName the materials name
         */
-        uint32 getMaterialID(iaString materialName);
+        uint64 getMaterialID(iaString materialName);
 
         /*! \returns the currently activated material
         */
@@ -120,7 +120,7 @@ namespace Igor
 
         \param materialID the materials id
         */
-        iMaterialGroup* getMaterialGroup(int32 materialID);
+        iMaterialGroup* getMaterialGroup(uint64 materialID);
 
         /*! \returns list of all material groups
         */
@@ -160,7 +160,7 @@ namespace Igor
 
         /*! default material ID
         */
-        uint32 _defaultID = iMaterial::INVALID_MATERIAL_ID;
+        uint64 _defaultID = iMaterial::INVALID_MATERIAL_ID;
 
         /*! sorts the materials if needed
         */
