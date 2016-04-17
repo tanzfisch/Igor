@@ -1330,17 +1330,10 @@ namespace Igor
 
     }
 
-    void iRenderer::drawParticles(vector<iParticle*> *particles, iaMatrixf modelview_matrix, iRainbow *rainbow)
+    void iRenderer::drawParticles(vector<iParticle*> *particles, iRainbow *rainbow)
     {
-        modelview_matrix.invert();
-        modelview_matrix._pos.set(0, 0, 0);
-
-        iaVector3f right = _viewMatrix._right *0.1f;
-        iaVector3f top = _viewMatrix._top * 0.1f;
-
-        right = modelview_matrix * right;
-        top = modelview_matrix * top;
-
+        iaVector3f right = _camWorldMatrix._right;
+        iaVector3f top = _camWorldMatrix._top;
         iaColor4f color;
 
         glBegin(GL_QUADS);

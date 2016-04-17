@@ -91,7 +91,7 @@ void Particles::init()
     iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, 10);
+    cameraTranslation->translate(0, 0, 30);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -122,6 +122,9 @@ void Particles::init()
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     particleSystem->setMaterial(_particlesMaterial);
+    particleSystem->getParticleSystem().setTextureA("simpleParticle.png");
+    particleSystem->getParticleSystem().setTextureB("octave1.png");
+    particleSystem->getParticleSystem().setTextureC("octave2.png");
     _scene->getRoot()->insertNode(particleSystem);
 
     // create a skybox

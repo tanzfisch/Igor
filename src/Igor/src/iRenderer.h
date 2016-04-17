@@ -552,7 +552,7 @@ namespace Igor
         virtual void drawString(float32 x, float32 y, iaString text, iHorrizontalAlign horz, iVerticalAlign vert = iVerticalAlign::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
-        virtual void drawParticles(vector<iParticle*> *particles, iaMatrixf modelview_matrix, iRainbow *rainbow); // iaMatrix muss Kopie sein
+        virtual void drawParticles(vector<iParticle*> *particles, iRainbow *rainbow); // iaMatrix muss Kopie sein
         virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iRainbow *rainbow = 0);
 
         // attributes

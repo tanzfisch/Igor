@@ -15,42 +15,10 @@ using namespace std;
 namespace Igor
 {
 
-	iParticleSystem3D::iParticleSystem3D()
-	{
-		_lifeTimeStep = 1.0f / _lifeTime;
-		_particleCount = 1000;
-		_vortexCount = 10;
-
-		_minLift = 0.002f;
-		_maxLift = 0.004f;
-        
-		_reduceLiftStep = 0.000005f;
-
-		_minWeight = 0.001f;
-		_maxWeight = 0.002f;
-
-		_minSize = 10.0f;
-		_maxSize = 20.0f;
-
-		_sizeIncreaseStep = 0.1f;
-
-		_minVRot = 1.0f;
-		_maxVRot = 2.0f;
-
-		_minVRange = 30.0f;
-		_maxVRange = 60.0f;
-
-		_vortexCheckRange = 30;
-
-		_vorticityConfinement = 0.1f;
-
-		_loopable = false;
-		_phaseShiftR1 = 0.0;
-		_phaseShiftR2 = 0.0;
-
-		_singleColor = true;
-		_color.set(1,1,1,1);
-	}
+    iParticleSystem3D::iParticleSystem3D()
+    {
+        _lifeTimeStep = 1.0f / _lifeTime;
+    }
 
 	iParticleSystem3D::~iParticleSystem3D()
 	{
@@ -409,21 +377,35 @@ namespace Igor
 			{
 				vortexforce = _vortexParticles[j]->_force * (1-_vortexParticles[j]->_lifeTime) * 10.0f;
 			}
-			else
-				vortexforce = _vortexParticles[j]->_force;
+            else
+            {
+                vortexforce = _vortexParticles[j]->_force;
+            }
 
 			start = _vortexParticles[j]->_particleid - _vortexCheckRange;
-			if(start>0) start = 0;
+            if (start > 0)
+            {
+                start = 0;
+            }
 
 			end = _vortexParticles[j]->_particleid + _vortexCheckRange;
-			if(end>simulate) end=simulate;
+            if (end > simulate)
+            {
+                end = simulate;
+            }
 
 			for(uint32 i=start;i<end;++i)
 			{
-				if(_particles[i]->_imune) continue;
+                if (_particles[i]->_imune)
+                {
+                    continue;
+                }
 
 				a = _vortexParticles[j]->_position - _particles[i]->_position;
-				if(a.length()>_vortexParticles[j]->_forceRange) continue;
+                if (a.length() > _vortexParticles[j]->_forceRange)
+                {
+                    continue;
+                }
 
 				b = a % _vortexParticles[j]->_vortexNormal;
 				b.normalize();
@@ -456,7 +438,13 @@ namespace Igor
 			_particles[i]->_size += _sizeIncreaseStep;
 
 			_particles[i]->_visibleTime -= _particles[i]->_visibleTimeStep;
-			if(_particles[i]->_visibleTime<=0.0f) _particles[i]->_visible = false;
+            if (_particles[i]->_visibleTime <= 0.0f)
+            {
+                _particles[i]->_visible = false;
+            }
+
+            _particles[i]->_phase0.rotateXY(_phaseShiftR1);
+            _particles[i]->_phase1.rotateXY(_phaseShiftR2);
 
 			if(_particles[i]->_lifeTime <= 0.0f)
 			{
@@ -483,12 +471,6 @@ namespace Igor
 					resetParticle(_particles[i], modelview);
 				}
 			}
-		}
-
-		for(uint32 i=0;i<simulate;++i)
-		{
-			_particles[i]->_phase0.rotateXY(_phaseShiftR1);
-			_particles[i]->_phase1.rotateXY(_phaseShiftR2);
 		}
 	}
 

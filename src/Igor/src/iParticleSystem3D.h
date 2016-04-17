@@ -54,7 +54,7 @@ namespace Igor
 
         float32 _lift;
         float32 _weight;
-        float32 _lifeTime = 0;
+        float32 _lifeTime = 1.0;
         float32 _visibleTime;
         float32 _visibleTimeStep;
         float32 _size;
@@ -147,40 +147,40 @@ namespace Igor
 
         bool _mustReset = true;
 
-        uint32 _particleCount;
-        uint32 _vortexCount;
+        uint32 _particleCount = 100;
+        uint32 _vortexCount = 5;
 
         uint32 _lifeTime = 200;
         uint32 _initFrame = 200;
         float32 _lifeTimeStep = 0;
 
-        float32 _minLift;
-        float32 _maxLift;
-        float32 _reduceLiftStep;
+        float32 _minLift = 0.002f;
+        float32 _maxLift = 0.004f;
+        float32 _reduceLiftStep = 0.000005f;
 
-        float32 _minWeight;
-        float32 _maxWeight;
+        float32 _minWeight = 0.001;
+        float32 _maxWeight = 0.002;
 
-        float32 _minSize;
-        float32 _maxSize;
-        float32 _sizeIncreaseStep;
+        float32 _minSize = 1.0;
+        float32 _maxSize = 2.0;
+        float32 _sizeIncreaseStep = 0.01;
 
-        float32 _minVRot;
-        float32 _maxVRot;
-        float32 _minVRange;
-        float32 _maxVRange;
+        float32 _minVRot = 1.0;
+        float32 _maxVRot = 2.0;
+        float32 _minVRange = 30.0;
+        float32 _maxVRange = 60.0;
 
-        bool _loopable;
-        float32 _phaseShiftR1;
-        float32 _phaseShiftR2;
+        bool _loopable = false;
+        float32 _phaseShiftR1 = 0.001;
+        float32 _phaseShiftR2 = -0.001;
 
-        bool _singleColor;
+        bool _singleColor = true;
         iaColor4f _color;
         iRainbow _rainbow;
 
-        long _vortexCheckRange;
+        long _vortexCheckRange = 30;
 
-        float32 _vorticityConfinement;
+        float32 _vorticityConfinement = 0.1;
 
         shared_ptr<iTexture> _textureA;
         shared_ptr<iTexture> _textureB;

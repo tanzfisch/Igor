@@ -38,8 +38,22 @@ namespace Igor
         _particleSystem.calcNextFrame();
         iRenderer::getInstance().setColor(1,1,1,1);
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
-        //iRenderer::getInstance().drawBox(iaVector3f(-1, -1, -1), iaVector3f(1, 1, 1));
-        iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), iaMatrixf(), nullptr);
+        shared_ptr<iTexture> textureA = _particleSystem.getTextureA();
+        shared_ptr<iTexture> textureB = _particleSystem.getTextureB();
+        shared_ptr<iTexture> textureC = _particleSystem.getTextureC();
+        if (textureA != nullptr)
+        {
+            iRenderer::getInstance().bindTexture(textureA, 0);
+        }
+        if (textureB != nullptr)
+        {
+            iRenderer::getInstance().bindTexture(textureB, 1);
+        }
+        if (textureC != nullptr)
+        {
+            iRenderer::getInstance().bindTexture(textureC, 2);
+        }
+        iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
     }
 
 };
