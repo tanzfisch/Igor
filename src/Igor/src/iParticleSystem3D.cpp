@@ -84,17 +84,17 @@ namespace Igor
 		return _particleCount;
 	}
 
-	shared_ptr<iTexture> iParticleSystem3D::getTextureA()
+	shared_ptr<iTexture> iParticleSystem3D::getTextureA() const
 	{
 		return _textureA;
 	}
 
-	shared_ptr<iTexture> iParticleSystem3D::getTextureB()
+	shared_ptr<iTexture> iParticleSystem3D::getTextureB() const
 	{
 		return _textureB;
 	}
 
-	shared_ptr<iTexture> iParticleSystem3D::getTextureC()
+	shared_ptr<iTexture> iParticleSystem3D::getTextureC() const
 	{
 		return _textureC;
 	}
@@ -175,17 +175,17 @@ namespace Igor
 		_mustReset = true;
 	}
 
-	void iParticleSystem3D::setTextureA(iaString texture)
+	void iParticleSystem3D::setTextureA(const iaString& texture)
 	{
 		_textureA = iTextureResourceFactory::getInstance().requestFile(texture);
 	}
 
-	void iParticleSystem3D::setTextureB(iaString texture)
+	void iParticleSystem3D::setTextureB(const iaString& texture)
 	{
 		_textureB = iTextureResourceFactory::getInstance().requestFile(texture);
 	}
 
-	void iParticleSystem3D::setTextureC(iaString texture)
+	void iParticleSystem3D::setTextureC(const iaString& texture)
 	{
 		_textureC = iTextureResourceFactory::getInstance().requestFile(texture);
 	}

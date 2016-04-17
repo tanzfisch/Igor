@@ -713,6 +713,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iMouse.h" />
     <ClInclude Include="..\src\iNode.h" />
     <ClInclude Include="..\src\iNodeCamera.h" />
+    <ClInclude Include="..\src\iNodeEmitter.h" />
     <ClInclude Include="..\src\iNodeFactory.h" />
     <ClInclude Include="..\src\iNodeLight.h" />
     <ClInclude Include="..\src\iNodeLODSwitch.h" />
@@ -1313,6 +1314,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iMouse.cpp" />
     <ClCompile Include="..\src\iNode.cpp" />
     <ClCompile Include="..\src\iNodeCamera.cpp" />
+    <ClCompile Include="..\src\iNodeEmitter.cpp" />
     <ClCompile Include="..\src\iNodeFactory.cpp" />
     <ClCompile Include="..\src\iNodeLight.cpp" />
     <ClCompile Include="..\src\iNodeLODSwitch.cpp" />

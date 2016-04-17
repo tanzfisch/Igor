@@ -35,7 +35,8 @@ namespace Igor
 
     void iNodeParticleSystem::draw()
     {
-        _particleSystem.calcNextFrame();
+        _particleSystem.calcNextFrame(); // todo does not belong in draw function
+
         iRenderer::getInstance().setColor(1,1,1,1);
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
         shared_ptr<iTexture> textureA = _particleSystem.getTextureA();
@@ -54,6 +55,16 @@ namespace Igor
             iRenderer::getInstance().bindTexture(textureC, 2);
         }
         iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
+    }
+
+    void iNodeParticleSystem::setEmitter(uint64 emitterID)
+    {
+        _emitterID = emitterID;
+    }
+
+    uint64 iNodeParticleSystem::getEmitter() const
+    {
+        return _emitterID;
     }
 
 };

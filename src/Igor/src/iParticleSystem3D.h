@@ -91,12 +91,12 @@ namespace Igor
         void setParticleLifeTime(uint32 frames);
         uint32 getParticleLifeTime();
 
-        void setTextureA(iaString texture);
-        void setTextureB(iaString texture);
-        void setTextureC(iaString texture);
-        shared_ptr<iTexture> getTextureA();
-        shared_ptr<iTexture> getTextureB();
-        shared_ptr<iTexture> getTextureC();
+        void setTextureA(const iaString& texture);
+        void setTextureB(const iaString& texture);
+        void setTextureC(const iaString& texture);
+        shared_ptr<iTexture> getTextureA() const;
+        shared_ptr<iTexture> getTextureB() const;
+        shared_ptr<iTexture> getTextureC() const;
 
         void setVorticityConfinement(float32 vc);
         float32 getVorticityConfinement();

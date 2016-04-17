@@ -50,9 +50,16 @@ namespace Igor
 
         iParticleSystem3D& getParticleSystem();
 
+        void setEmitter(uint64 emitterID);
+        uint64 getEmitter() const;
+
         void draw();
 
     private:
+
+        /*! id of emitter node
+        */
+        uint64 _emitterID = iNode::INVALID_NODE_ID;
 
         iParticleSystem3D _particleSystem;
 

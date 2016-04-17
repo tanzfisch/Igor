@@ -626,6 +626,9 @@
     <ClCompile Include="..\src\iNodeParticleSystem.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNodeEmitter.cpp">
+      <Filter>scene\nodes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1310,6 +1313,9 @@
       <Filter>graphics\simulation</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeParticleSystem.h">
+      <Filter>scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodeEmitter.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
   </ItemGroup>
