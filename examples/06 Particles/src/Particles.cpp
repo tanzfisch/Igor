@@ -27,6 +27,7 @@
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
 #include <iNodeParticleSystem.h>
+#include <iNodeEmitter.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -125,7 +126,31 @@ void Particles::init()
     particleSystem->getParticleSystem().setTextureA("simpleParticle.png");
     particleSystem->getParticleSystem().setTextureB("octave1.png");
     particleSystem->getParticleSystem().setTextureC("octave2.png");
-    _scene->getRoot()->insertNode(particleSystem);
+
+    iNodeTransform* particleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    particleTransform->translate(0,5,0);
+
+    particleTransform->insertNode(particleSystem);
+    _scene->getRoot()->insertNode(particleTransform);
+
+    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+
+    iEmitterTriangle triangle;
+    triangle.pos[0] = iaVector3f(0, 0, 0);
+    triangle.pos[1] = iaVector3f(1, 0, 0);
+    triangle.pos[2] = iaVector3f(0, 0, 1);
+    emitter->addTriangleEmitter(triangle);
+    triangle.pos[0] = iaVector3f(1, 0, 0);
+    triangle.pos[1] = iaVector3f(1, 1, 0);
+    triangle.pos[2] = iaVector3f(0, 0, 1);
+    emitter->addTriangleEmitter(triangle);
+    iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    emitterTransform->translate(0,-10,0);
+
+    emitterTransform->insertNode(emitter);
+    _scene->getRoot()->insertNode(emitterTransform);
+
+    particleSystem->setEmitter(emitter->getID());
 
     // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));

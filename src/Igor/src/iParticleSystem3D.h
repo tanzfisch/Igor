@@ -54,7 +54,7 @@ namespace Igor
 
         float32 _lift;
         float32 _weight;
-        float32 _lifeTime = 1.0;
+        float32 _life = 1.0;
         float32 _visibleTime;
         float32 _visibleTimeStep;
         float32 _size;
@@ -75,6 +75,14 @@ namespace Igor
         float32 _force;
         float32 _forceRange;
         long _particleid;
+    };
+
+    class Igor_API iEmitterTriangle
+    {
+    public:
+
+        iaVector3f pos[3];
+        iaVector3f vel[3];
     };
 
     class Igor_API iParticleSystem3D
@@ -137,13 +145,23 @@ namespace Igor
 
         vector<iParticle*> getCurrentFrame();
         vector<iVortexParticle*> getCurrentFrameVortex();
+
+        void setEmitterData(vector<iEmitterTriangle>* emitterTriangles, const iaMatrixf& worldMatrix);
+        void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
         void calcNextFrame();
-        void calcNextFrame(iaMatrixf &modelview);
 
         iParticleSystem3D();
         virtual ~iParticleSystem3D();
 
     protected:
+
+        vector<iEmitterTriangle>* _emitterTriangles = nullptr;
+        iaMatrixf _emitterWorldMatrix;
+        bool _emitterPresent = false;
+
+        iaMatrixf _particleSystemInvWorldMatrix;
+
+        iaMatrixf _birthTransformationMatrix;
 
         bool _mustReset = true;
 
@@ -191,8 +209,14 @@ namespace Igor
 
         vector<iVortexParticle*> _vortexParticles;
 
+        /*! calculates random start point in emitter in world coordinates
+
+        also calculates the velocity at that start point
+        */
+        void calcRandomStart(iaVector3f& position, iaVector3f& velocity);
+
         void calcBirth();
-        void resetParticle(iParticle *particle, iaMatrixf &modelview);
+        void resetParticle(iParticle *particle);
     };
 
 };

@@ -30,21 +30,13 @@
 #define __iNODEEMITTER__
 
 #include <iNode.h>
-#include <iaVector3.h>
+#include <iParticleSystem3D.h>
 
 #include <vector>
 using namespace std;
 
 namespace Igor
 {
-
-    class Igor_API iEmitterTriangle
-	{
-	public:
-
-		iaVector3f pos[3];
-		iaVector3f vel[3];
-	};
 
 	class Igor_API iNodeEmitter : public iNode
 	{
@@ -53,25 +45,22 @@ namespace Igor
 	public:
 
         iNodeEmitter();
+        iNodeEmitter(iNodeEmitter* node);
         virtual ~iNodeEmitter();
 
         /*! 
         */
 		void addTriangleEmitter(const iEmitterTriangle& emitter);
 
-        /*! calculates random start point in emitter in world coordinates
+        vector<iEmitterTriangle>* getTriangles();
 
-        also calculates the velocity at that start point
-        */
-        void calcRandomStart(iaVector3f& position, iaVector3f& velocity);
+        const iaMatrixf& getWorldMatrix() const;
 
     private:
 
         /*! matrix including position an orientation of this emitter in world coordinates
         */
-        iaMatrixf _worldMatrixInv;
-
-        iaMatrixf _modelviewmatrix;
+        iaMatrixf _worldMatrix;
 
         /*! set the world matrix of the emitter
 

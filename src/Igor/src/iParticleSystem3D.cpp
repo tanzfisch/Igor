@@ -24,6 +24,39 @@ namespace Igor
 	{
 	}
 
+    void iParticleSystem3D::calcRandomStart(iaVector3f& position, iaVector3f& velocity)
+    {
+        if (_emitterTriangles != nullptr && 
+            !_emitterTriangles->empty())
+        {
+            iEmitterTriangle &emitter = (*_emitterTriangles)[rand() % _emitterTriangles->size()];
+            float32 u;
+            float32 v;
+
+            do
+            {
+                u = rand() % 100 / 100.0f;
+                v = rand() % 100 / 100.0f;
+            } while (u + v > 1.0f);
+
+            iaVector3f ab = emitter.pos[1] - emitter.pos[0];
+            iaVector3f ac = emitter.pos[2] - emitter.pos[0];
+
+            iaVector3f posOnEmitter = (ab*u) + (ac*v) + emitter.pos[0];
+            position = _birthTransformationMatrix * posOnEmitter;
+
+            // TODO refactor!!!!
+
+            ab = emitter.vel[0] * (1.0f - u) + emitter.vel[1] * u;
+            ac = emitter.vel[2] * (1.0f - u) + emitter.vel[1] * u;
+
+           /* iaVector3f velOnEmitter = ab*(1.0f - v) + ac*v;
+            velocity = _birthTransformationMatrix * velOnEmitter;
+            velocity -= _birthTransformationMatrix._pos;*/
+        }
+    }
+
+
 	bool iParticleSystem3D::getLoopAbility()
 	{
 		return _loopable;
@@ -262,19 +295,23 @@ namespace Igor
 		_mustReset = true;
 	}
 
-	void iParticleSystem3D::resetParticle(iParticle *particle, iaMatrixf &modelview)
+	void iParticleSystem3D::resetParticle(iParticle *particle)
 	{
-		/*if(!emitter) return;
+        iaVector3f position;
+        iaVector3f velocity;
+        calcRandomStart(position, velocity);
 
-		emitter->calcRandomStart(particle, modelview);
-        */
+        particle->_position = position;
+        particle->_velocity = velocity;
+
 		particle->_lift = _minLift + (rand()%100/100.0f) * (_maxLift-_minLift);
 		particle->_weight = _minWeight + (rand()%100/100.0f) * (_maxWeight-_minWeight);
 		particle->_size = _minSize + (rand()%100/100.0f) * (_maxSize-_minSize);
 
-		particle->_lifeTime = 1.0f;
+		particle->_life = 1.0f;
 		particle->_visibleTime = 1.0f;
-		particle->_visibleTimeStep = (1.0f / _lifeTime) * (1+rand()%200/100.0f);
+		particle->_visibleTimeStep = (1.0f / particle->_visibleTime) * (1+rand()%200/100.0f);
+        particle->_visible = true;
 
 		particle->_phase0.set(rand()%100/100.0f,rand()%100/100.0f);
 		particle->_phase1.set(rand()%100/100.0f,rand()%100/100.0f);
@@ -312,7 +349,7 @@ namespace Igor
 				particle->_imune = false;
 			}
 
-			resetParticle(particle, modelview);
+			resetParticle(particle);
 			particle->_visible = true;
 			_particlesBirth.push_back(*particle);
 			particle->_visible = false;
@@ -338,18 +375,30 @@ namespace Igor
 		return _vortexParticles;
 	}
 
+    void iParticleSystem3D::setParticleSystemMatrix(const iaMatrixf& worldInvMatrix)
+    {
+        _particleSystemInvWorldMatrix = worldInvMatrix;
+    }
+
+    void iParticleSystem3D::setEmitterData(vector<iEmitterTriangle>* emitterTriangles, const iaMatrixf& worldInvMatrix)
+    {
+        _emitterTriangles = emitterTriangles;
+        _emitterWorldMatrix = worldInvMatrix;
+        _emitterPresent = true;
+    }
+
 	void iParticleSystem3D::calcNextFrame()
 	{
-		iaMatrixf modelview;
-		calcNextFrame(modelview);
-	}
+        _birthTransformationMatrix = _emitterWorldMatrix;
+        _birthTransformationMatrix *= _particleSystemInvWorldMatrix;
 
-	void iParticleSystem3D::calcNextFrame(iaMatrixf &modelview)
-	{
 		if(_mustReset)
 		{
 			reset();
-			if(_mustReset) return;
+            if (_mustReset)
+            {
+                return;
+            }
 		}
 
 		uint32 simulate = _particles.size();
@@ -369,13 +418,13 @@ namespace Igor
 
 		for(uint32 j=0;j<simulatevortex;++j)
 		{
-			if(_vortexParticles[j]->_lifeTime<0.1f)
+			if(_vortexParticles[j]->_life<0.1f)
 			{
-				vortexforce = _vortexParticles[j]->_force * _vortexParticles[j]->_lifeTime * 10.0f;
+				vortexforce = _vortexParticles[j]->_force * _vortexParticles[j]->_life * 10.0f;
 			}
-			else if(_vortexParticles[j]->_lifeTime > 0.9f)
+			else if(_vortexParticles[j]->_life > 0.9f)
 			{
-				vortexforce = _vortexParticles[j]->_force * (1-_vortexParticles[j]->_lifeTime) * 10.0f;
+				vortexforce = _vortexParticles[j]->_force * (1-_vortexParticles[j]->_life) * 10.0f;
 			}
             else
             {
@@ -428,25 +477,21 @@ namespace Igor
 
 			_particles[i]->_position += _particles[i]->_velocity;
 
-			if(_particles[i]->_visible == false)
-			{
-				_particles[i]->_position = modelview * _particles[i]->_position;
-				_particles[i]->_visible = true;
-			}
-
 			_particles[i]->_lift -= _reduceLiftStep;
 			_particles[i]->_size += _sizeIncreaseStep;
 
 			_particles[i]->_visibleTime -= _particles[i]->_visibleTimeStep;
             if (_particles[i]->_visibleTime <= 0.0f)
             {
-                _particles[i]->_visible = false;
+     //           _particles[i]->_visible = false;
             }
 
             _particles[i]->_phase0.rotateXY(_phaseShiftR1);
             _particles[i]->_phase1.rotateXY(_phaseShiftR2);
 
-			if(_particles[i]->_lifeTime <= 0.0f)
+            _particles[i]->_life -= _lifeTimeStep;
+
+			if(_particles[i]->_life <= 0.0f)
 			{
 				if(_loopable)
 				{
@@ -455,11 +500,12 @@ namespace Igor
 
 					_particles[i]->_lift = _particlesBirth[i]._lift;
 					_particles[i]->_weight = _particlesBirth[i]._weight;
-					_particles[i]->_lifeTime = _particlesBirth[i]._lifeTime;
+					_particles[i]->_life = _particlesBirth[i]._life;
 					_particles[i]->_size = _particlesBirth[i]._size;
 
-					_particles[i]->_visible = _particlesBirth[i]._visible;
+					_particles[i]->_visible = true;
 					_particles[i]->_visibleTime = _particlesBirth[i]._visibleTime;
+                    _particles[i]->_visibleTimeStep = _particlesBirth[i]._visibleTimeStep;
 
 					_particles[i]->_imune = _particlesBirth[i]._imune;
 
@@ -468,10 +514,12 @@ namespace Igor
 				}
 				else
 				{
-					resetParticle(_particles[i], modelview);
+					resetParticle(_particles[i]);
 				}
 			}
 		}
+
+        _emitterPresent = false;
 	}
 
 	void iParticleSystem3D::setVorticityConfinement(float32 vc)

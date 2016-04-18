@@ -12,11 +12,31 @@ namespace Igor
 
 	iNodeEmitter::iNodeEmitter()
 	{
+        setName(L"iNodeEmitter");
+        _nodeType = iNodeType::iNodeEmitter;
+        _nodeKind = iNodeKind::Node;
 	}
+
+    iNodeEmitter::iNodeEmitter(iNodeEmitter* node)
+    {
+        con_assert(node != nullptr, "zero pointer");
+
+        _nodeType = node->_nodeType;
+        _nodeKind = node->_nodeKind;
+
+        setName(node->getName());
+
+        _emitterTriangles = node->_emitterTriangles;
+    }
 
 	iNodeEmitter::~iNodeEmitter()
 	{
 	}
+
+    const iaMatrixf& iNodeEmitter::getWorldMatrix() const
+    {
+        return _worldMatrix;
+    }
     
 	void iNodeEmitter::addTriangleEmitter(const iEmitterTriangle& emitterTriangle)
 	{
@@ -25,41 +45,12 @@ namespace Igor
 
     void iNodeEmitter::onUpdateTransform(iaMatrixf& matrix)
     {
-        _worldMatrixInv = matrix;
-        _worldMatrixInv.invert();
+        _worldMatrix = matrix;
     }
 
-	void iNodeEmitter::calcRandomStart(iaVector3f& position, iaVector3f& velocity)
-	{
-		con_assert(!_emitterTriangles.empty(), "no data");
-
-        if (!_emitterTriangles.empty())
-        {
-            iEmitterTriangle &emitter = _emitterTriangles[rand() % _emitterTriangles.size()];
-            float32 u;
-            float32 v;
-
-            do
-            {
-                u = rand() % 100 / 100.0f;
-                v = rand() % 100 / 100.0f;
-            } while (u + v > 1.0f);
-
-            iaVector3f ab = emitter.pos[1] - emitter.pos[0];
-            iaVector3f ac = emitter.pos[2] - emitter.pos[0];
-
-            iaVector3f posOnEmitter = (ab*u) + (ac*v) + emitter.pos[0];
-            position = _worldMatrixInv * posOnEmitter;
-
-            // TODO refactor!!!!
-
-            ab = emitter.vel[0] * (1.0f - u) + emitter.vel[1] * u;
-            ac = emitter.vel[2] * (1.0f - u) + emitter.vel[1] * u;
-
-            iaVector3f velOnEmitter = ab*(1.0f - v) + ac*v;
-            velocity = _worldMatrixInv * velOnEmitter;
-            velocity -= _worldMatrixInv._pos;
-        }
-	}
+    vector<iEmitterTriangle>* iNodeEmitter::getTriangles()
+    {
+        return &_emitterTriangles;
+    }
 
 };

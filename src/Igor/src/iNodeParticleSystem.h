@@ -57,11 +57,17 @@ namespace Igor
 
     private:
 
+        /*! inverted world matrix
+        */
+        iaMatrixf _worldMatrixInv;
+
         /*! id of emitter node
         */
         uint64 _emitterID = iNode::INVALID_NODE_ID;
 
         iParticleSystem3D _particleSystem;
+
+        void onUpdateTransform(iaMatrixf& matrix);
 
     };
 

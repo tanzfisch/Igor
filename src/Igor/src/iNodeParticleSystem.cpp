@@ -7,6 +7,8 @@
 #include <iRenderer.h>
 #include <iTextureResourceFactory.h>
 #include <iRainbow.h>
+#include <iNodeFactory.h>
+#include <iNodeEmitter.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -16,12 +18,21 @@ namespace Igor
 
     iNodeParticleSystem::iNodeParticleSystem()
 	{
-        
+        setName(L"iNodeParticleSystem");
+        _nodeType = iNodeType::iNodeParticleSystem;
+        _nodeKind = iNodeKind::Volume;
 	}
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem* node)
     {
+        con_assert(node != nullptr, "zero pointer");
 
+        _nodeType = node->_nodeType;
+        _nodeKind = node->_nodeKind;
+
+        setName(node->getName());
+
+        // TODO copy particle system config
     }
 
     iNodeParticleSystem::~iNodeParticleSystem()
@@ -35,7 +46,21 @@ namespace Igor
 
     void iNodeParticleSystem::draw()
     {
-        _particleSystem.calcNextFrame(); // todo does not belong in draw function
+        iNodeEmitter* emitter = nullptr;
+        if (_emitterID != iNode::INVALID_NODE_ID)
+        {
+            emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_emitterID));
+        }
+        if (emitter != nullptr)
+        {
+            _particleSystem.setParticleSystemMatrix(_worldMatrixInv);
+            _particleSystem.setEmitterData(emitter->getTriangles(), emitter->getWorldMatrix());
+            _particleSystem.calcNextFrame(); // todo does not belong in draw function
+        }
+        else
+        {
+            _particleSystem.calcNextFrame();
+        }
 
         iRenderer::getInstance().setColor(1,1,1,1);
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
@@ -55,6 +80,13 @@ namespace Igor
             iRenderer::getInstance().bindTexture(textureC, 2);
         }
         iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
+    }
+
+    void iNodeParticleSystem::onUpdateTransform(iaMatrixf& matrix)
+    {
+        _worldMatrix = matrix;
+        _worldMatrixInv = matrix;
+        _worldMatrixInv.invert();
     }
 
     void iNodeParticleSystem::setEmitter(uint64 emitterID)
