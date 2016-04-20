@@ -30,7 +30,6 @@
 #define __iPARTICLESYSTEM3D__
 
 #include <iRainbow.h>
-#include <iTexture.h>
 
 #include <iaVector3.h>
 #include <iaVector2.h>
@@ -44,6 +43,8 @@ using namespace std;
 
 namespace Igor
 {
+
+    class iParticleEmitter;
 
     class Igor_API iParticle
     {
@@ -77,34 +78,15 @@ namespace Igor
         long _particleid;
     };
 
-    class Igor_API iEmitterTriangle
-    {
-    public:
-
-        iaVector3f pos[3];
-        iaVector3f vel[3];
-    };
-
     class Igor_API iParticleSystem3D
     {
 
     public:
 
-        void activateRainbow(bool b);
-        void setColor(iaColor4f &color);
-        iRainbow& getRainbow();
-
         void setParticleCount(uint32 count);
         uint32 getParticleCount();
         void setParticleLifeTime(uint32 frames);
         uint32 getParticleLifeTime();
-
-        void setTextureA(const iaString& texture);
-        void setTextureB(const iaString& texture);
-        void setTextureC(const iaString& texture);
-        shared_ptr<iTexture> getTextureA() const;
-        shared_ptr<iTexture> getTextureB() const;
-        shared_ptr<iTexture> getTextureC() const;
 
         void setVorticityConfinement(float32 vc);
         float32 getVorticityConfinement();
@@ -141,23 +123,19 @@ namespace Igor
         float32 getSizeMax();
         float32 getSizeIncrease();
 
-        void reset();
+        void reset(const iParticleEmitter& emitter);
 
         vector<iParticle*> getCurrentFrame();
         vector<iVortexParticle*> getCurrentFrameVortex();
 
-        void setEmitterData(vector<iEmitterTriangle>* emitterTriangles, const iaMatrixf& worldMatrix);
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
-        void calcNextFrame();
+
+        void calcNextFrame(const iParticleEmitter& emitter);
 
         iParticleSystem3D();
         virtual ~iParticleSystem3D();
 
     protected:
-
-        vector<iEmitterTriangle>* _emitterTriangles = nullptr;
-        iaMatrixf _emitterWorldMatrix;
-        bool _emitterPresent = false;
 
         iaMatrixf _particleSystemInvWorldMatrix;
 
@@ -165,11 +143,11 @@ namespace Igor
 
         bool _mustReset = true;
 
-        uint32 _particleCount = 100;
-        uint32 _vortexCount = 5;
+        uint32 _particleCount = 300;
+        uint32 _vortexCount = 15;
 
         uint32 _lifeTime = 200;
-        uint32 _initFrame = 200;
+        uint32 _initFrame = 0;
         float32 _lifeTimeStep = 0;
 
         float32 _minLift = 0.002f;
@@ -183,40 +161,26 @@ namespace Igor
         float32 _maxSize = 2.0;
         float32 _sizeIncreaseStep = 0.01;
 
-        float32 _minVRot = 1.0;
-        float32 _maxVRot = 2.0;
-        float32 _minVRange = 30.0;
-        float32 _maxVRange = 60.0;
+        float32 _minVRot = 0.1;
+        float32 _maxVRot = 0.5;
+        float32 _minVRange = 10.0;
+        float32 _maxVRange = 20.0;
 
         bool _loopable = false;
         float32 _phaseShiftR1 = 0.001;
         float32 _phaseShiftR2 = -0.001;
 
-        bool _singleColor = true;
-        iaColor4f _color;
-        iRainbow _rainbow;
-
         long _vortexCheckRange = 30;
 
         float32 _vorticityConfinement = 0.1;
-
-        shared_ptr<iTexture> _textureA;
-        shared_ptr<iTexture> _textureB;
-        shared_ptr<iTexture> _textureC;
 
         vector<iParticle*> _particles;
         vector<iParticle> _particlesBirth;
 
         vector<iVortexParticle*> _vortexParticles;
 
-        /*! calculates random start point in emitter in world coordinates
-
-        also calculates the velocity at that start point
-        */
-        void calcRandomStart(iaVector3f& position, iaVector3f& velocity);
-
-        void calcBirth();
-        void resetParticle(iParticle *particle);
+        void calcBirth(const iParticleEmitter& emitter);
+        void resetParticle(iParticle *particle, const iParticleEmitter& emitter);
     };
 
 };

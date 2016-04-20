@@ -8,6 +8,7 @@
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
 #include <iRainbow.h>
+#include <iParticleEmitter.h>
 
 #include <iostream>
 using namespace std;
@@ -23,39 +24,6 @@ namespace Igor
 	iParticleSystem3D::~iParticleSystem3D()
 	{
 	}
-
-    void iParticleSystem3D::calcRandomStart(iaVector3f& position, iaVector3f& velocity)
-    {
-        if (_emitterTriangles != nullptr && 
-            !_emitterTriangles->empty())
-        {
-            iEmitterTriangle &emitter = (*_emitterTriangles)[rand() % _emitterTriangles->size()];
-            float32 u;
-            float32 v;
-
-            do
-            {
-                u = rand() % 100 / 100.0f;
-                v = rand() % 100 / 100.0f;
-            } while (u + v > 1.0f);
-
-            iaVector3f ab = emitter.pos[1] - emitter.pos[0];
-            iaVector3f ac = emitter.pos[2] - emitter.pos[0];
-
-            iaVector3f posOnEmitter = (ab*u) + (ac*v) + emitter.pos[0];
-            position = _birthTransformationMatrix * posOnEmitter;
-
-            // TODO refactor!!!!
-
-            ab = emitter.vel[0] * (1.0f - u) + emitter.vel[1] * u;
-            ac = emitter.vel[2] * (1.0f - u) + emitter.vel[1] * u;
-
-           /* iaVector3f velOnEmitter = ab*(1.0f - v) + ac*v;
-            velocity = _birthTransformationMatrix * velOnEmitter;
-            velocity -= _birthTransformationMatrix._pos;*/
-        }
-    }
-
 
 	bool iParticleSystem3D::getLoopAbility()
 	{
@@ -117,21 +85,6 @@ namespace Igor
 		return _particleCount;
 	}
 
-	shared_ptr<iTexture> iParticleSystem3D::getTextureA() const
-	{
-		return _textureA;
-	}
-
-	shared_ptr<iTexture> iParticleSystem3D::getTextureB() const
-	{
-		return _textureB;
-	}
-
-	shared_ptr<iTexture> iParticleSystem3D::getTextureC() const
-	{
-		return _textureC;
-	}
-
 	float32 iParticleSystem3D::getVorticityConfinement()
 	{
 		return _vorticityConfinement;
@@ -166,12 +119,7 @@ namespace Igor
 	{
 		return _vortexCheckRange;
 	}
-
-	void iParticleSystem3D::activateRainbow(bool b)
-	{
-		_singleColor = !b;
-	}
-
+    
 	void iParticleSystem3D::setPhaseShift(float32 r1, float32 r2)
 	{
 		_phaseShiftR1 = r1;
@@ -208,21 +156,6 @@ namespace Igor
 		_mustReset = true;
 	}
 
-	void iParticleSystem3D::setTextureA(const iaString& texture)
-	{
-		_textureA = iTextureResourceFactory::getInstance().requestFile(texture);
-	}
-
-	void iParticleSystem3D::setTextureB(const iaString& texture)
-	{
-		_textureB = iTextureResourceFactory::getInstance().requestFile(texture);
-	}
-
-	void iParticleSystem3D::setTextureC(const iaString& texture)
-	{
-		_textureC = iTextureResourceFactory::getInstance().requestFile(texture);
-	}
-
 	uint32 iParticleSystem3D::getParticleLifeTime()
 	{
 		return _lifeTime;
@@ -240,7 +173,7 @@ namespace Igor
 		_mustReset = true;
 	}
 
-	void iParticleSystem3D::reset()
+	void iParticleSystem3D::reset(const iParticleEmitter& emitter)
 	{
 		if(_vortexCount > _particleCount)
 		{
@@ -256,7 +189,7 @@ namespace Igor
 
 		_initFrame = _lifeTime;
 
-		calcBirth();
+		calcBirth(emitter);
 		_mustReset = false;
 	}
 
@@ -295,11 +228,11 @@ namespace Igor
 		_mustReset = true;
 	}
 
-	void iParticleSystem3D::resetParticle(iParticle *particle)
+	void iParticleSystem3D::resetParticle(iParticle *particle, const iParticleEmitter& emitter)
 	{
         iaVector3f position;
         iaVector3f velocity;
-        calcRandomStart(position, velocity);
+        emitter.calcRandomStart(position, velocity);
 
         particle->_position = position;
         particle->_velocity = velocity;
@@ -310,14 +243,14 @@ namespace Igor
 
 		particle->_life = 1.0f;
 		particle->_visibleTime = 1.0f;
-		particle->_visibleTimeStep = (1.0f / particle->_visibleTime) * (1+rand()%200/100.0f);
+		particle->_visibleTimeStep = (1.0f / _lifeTime) * (1+rand()%200/100.0f);
         particle->_visible = true;
 
 		particle->_phase0.set(rand()%100/100.0f,rand()%100/100.0f);
 		particle->_phase1.set(rand()%100/100.0f,rand()%100/100.0f);
 	}
 
-	void iParticleSystem3D::calcBirth()
+	void iParticleSystem3D::calcBirth(const iParticleEmitter& emitter)
 	{
 		iParticle *particle;
 		iVortexParticle *vortexparticle;
@@ -349,7 +282,7 @@ namespace Igor
 				particle->_imune = false;
 			}
 
-			resetParticle(particle);
+			resetParticle(particle, emitter);
 			particle->_visible = true;
 			_particlesBirth.push_back(*particle);
 			particle->_visible = false;
@@ -359,19 +292,11 @@ namespace Igor
 
 	vector<iParticle*> iParticleSystem3D::getCurrentFrame()
 	{
-		if(_mustReset)
-		{
-			reset();
-		}
 		return _particles;
 	}
 
 	vector<iVortexParticle*> iParticleSystem3D::getCurrentFrameVortex()
 	{
-		if(_mustReset)
-		{
-			reset();
-		}
 		return _vortexParticles;
 	}
 
@@ -380,21 +305,14 @@ namespace Igor
         _particleSystemInvWorldMatrix = worldInvMatrix;
     }
 
-    void iParticleSystem3D::setEmitterData(vector<iEmitterTriangle>* emitterTriangles, const iaMatrixf& worldInvMatrix)
-    {
-        _emitterTriangles = emitterTriangles;
-        _emitterWorldMatrix = worldInvMatrix;
-        _emitterPresent = true;
-    }
-
-	void iParticleSystem3D::calcNextFrame()
+	void iParticleSystem3D::calcNextFrame(const iParticleEmitter& emitter)
 	{
-        _birthTransformationMatrix = _emitterWorldMatrix;
+        _birthTransformationMatrix = emitter.getMatrix();
         _birthTransformationMatrix *= _particleSystemInvWorldMatrix;
 
 		if(_mustReset)
 		{
-			reset();
+			reset(emitter);
             if (_mustReset)
             {
                 return;
@@ -483,7 +401,7 @@ namespace Igor
 			_particles[i]->_visibleTime -= _particles[i]->_visibleTimeStep;
             if (_particles[i]->_visibleTime <= 0.0f)
             {
-     //           _particles[i]->_visible = false;
+                _particles[i]->_visible = false;
             }
 
             _particles[i]->_phase0.rotateXY(_phaseShiftR1);
@@ -514,12 +432,10 @@ namespace Igor
 				}
 				else
 				{
-					resetParticle(_particles[i]);
+					resetParticle(_particles[i], emitter);
 				}
 			}
 		}
-
-        _emitterPresent = false;
 	}
 
 	void iParticleSystem3D::setVorticityConfinement(float32 vc)
@@ -527,40 +443,5 @@ namespace Igor
 		_vorticityConfinement = vc;
 		_mustReset = true;
 	}
-
-	void iParticleSystem3D::setColor(iaColor4f &_color)
-	{
-		this->_color = _color;
-	}
-
-    iRainbow& iParticleSystem3D::getRainbow()
-	{
-		return _rainbow;
-	}
-
-/*		if(!emitter) return;
-		iaMatrixf temp = iRenderer::getInstance().getModelViewMatrix();
-		temp.invert();
-		temp = emitter->modelviewmatrix * temp;
-		calcNextFrame(temp);*/
-    
-        //    iRenderer::getInstance().setRenderStateSet(renderer_state_set);
-
-        //! \todo		if(textureA) textureA->bind(0);
-            //	if(textureB) textureB->bind(1);
-                //if(textureC) textureC->bind(2); 
-
-      /*  if (_singleColor)
-        {
-            iRenderer::getInstance().setColor(_color);
-            iRenderer::getInstance().setRainbow(0);
-        }
-        else
-        {
-            iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-            iRenderer::getInstance().setRainbow(&_rainbow);
-        }
-
-        iRenderer::getInstance().drawParticles(&_particles, iRenderer::getInstance().getCamMatrix());*/
 
 };

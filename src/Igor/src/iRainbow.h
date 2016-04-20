@@ -76,6 +76,8 @@ namespace Igor
         */
         void getColor(float32 at, iaColor4f& color);
 
+        uint64 getColorCount() const;
+
         /*! clears all color definitions
         */
 		void clear();

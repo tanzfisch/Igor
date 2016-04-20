@@ -26,12 +26,22 @@ namespace Igor
 
         setName(node->getName());
 
-        _emitterTriangles = node->_emitterTriangles;
+        _emitter.setType(node->_emitter.getType());
     }
 
 	iNodeEmitter::~iNodeEmitter()
 	{
 	}
+
+    void iNodeEmitter::setType(iEmitterType emitterType)
+    {
+        _emitter.setType(emitterType);
+    }
+
+    iEmitterType iNodeEmitter::getType() const
+    {
+        return _emitter.getType();
+    }
 
     const iaMatrixf& iNodeEmitter::getWorldMatrix() const
     {
@@ -40,17 +50,18 @@ namespace Igor
     
 	void iNodeEmitter::addTriangleEmitter(const iEmitterTriangle& emitterTriangle)
 	{
-		_emitterTriangles.push_back(emitterTriangle);
+		//_emitterTriangles.push_back(emitterTriangle);
 	}
 
     void iNodeEmitter::onUpdateTransform(iaMatrixf& matrix)
     {
         _worldMatrix = matrix;
+        _emitter.setMatrix(matrix);
     }
 
-    vector<iEmitterTriangle>* iNodeEmitter::getTriangles()
+    const iParticleEmitter& iNodeEmitter::getParticleEmitter() const
     {
-        return &_emitterTriangles;
+        return _emitter;
     }
 
 };

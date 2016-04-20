@@ -50,36 +50,21 @@ namespace Igor
         if (_emitterID != iNode::INVALID_NODE_ID)
         {
             emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_emitterID));
-        }
-        if (emitter != nullptr)
-        {
-            _particleSystem.setParticleSystemMatrix(_worldMatrixInv);
-            _particleSystem.setEmitterData(emitter->getTriangles(), emitter->getWorldMatrix());
-            _particleSystem.calcNextFrame(); // todo does not belong in draw function
-        }
-        else
-        {
-            _particleSystem.calcNextFrame();
-        }
 
-        iRenderer::getInstance().setColor(1,1,1,1);
-        iRenderer::getInstance().setModelMatrix(_worldMatrix);
-        shared_ptr<iTexture> textureA = _particleSystem.getTextureA();
-        shared_ptr<iTexture> textureB = _particleSystem.getTextureB();
-        shared_ptr<iTexture> textureC = _particleSystem.getTextureC();
-        if (textureA != nullptr)
-        {
-            iRenderer::getInstance().bindTexture(textureA, 0);
+            if (emitter != nullptr)
+            {
+                _particleSystem.setParticleSystemMatrix(_worldMatrixInv);
+                _particleSystem.calcNextFrame(emitter->getParticleEmitter());
+
+                iRenderer::getInstance().bindTexture(_textureA, 0);
+                iRenderer::getInstance().bindTexture(_textureB, 1);
+                iRenderer::getInstance().bindTexture(_textureC, 2);
+
+                iRenderer::getInstance().setModelMatrix(_worldMatrix);
+                iRenderer::getInstance().setColor(1, 1, 1, 1);
+                iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
+            }
         }
-        if (textureB != nullptr)
-        {
-            iRenderer::getInstance().bindTexture(textureB, 1);
-        }
-        if (textureC != nullptr)
-        {
-            iRenderer::getInstance().bindTexture(textureC, 2);
-        }
-        iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
     }
 
     void iNodeParticleSystem::onUpdateTransform(iaMatrixf& matrix)
@@ -97,6 +82,52 @@ namespace Igor
     uint64 iNodeParticleSystem::getEmitter() const
     {
         return _emitterID;
+    }
+
+
+    iaString iNodeParticleSystem::getTextureA() const
+    {
+        iaString result;
+        if (_textureA != nullptr)
+        {
+            result = _textureA->getFilename();
+        }
+        return result;
+    }
+
+    iaString iNodeParticleSystem::getTextureB() const
+    {
+        iaString result;
+        if (_textureB != nullptr)
+        {
+            result = _textureB->getFilename();
+        }
+        return result;
+    }
+
+    iaString iNodeParticleSystem::getTextureC() const
+    {
+        iaString result;
+        if (_textureC != nullptr)
+        {
+            result = _textureC->getFilename();
+        }
+        return result;
+    }
+
+    void iNodeParticleSystem::setTextureA(const iaString& texture)
+    {
+        _textureA = iTextureResourceFactory::getInstance().requestFile(texture);
+    }
+
+    void iNodeParticleSystem::setTextureB(const iaString& texture)
+    {
+        _textureB = iTextureResourceFactory::getInstance().requestFile(texture);
+    }
+
+    void iNodeParticleSystem::setTextureC(const iaString& texture)
+    {
+        _textureC = iTextureResourceFactory::getInstance().requestFile(texture);
     }
 
 };

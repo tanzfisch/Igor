@@ -39,7 +39,12 @@ namespace Igor
         }
 	}
 
-	__IGOR_INLINE__ float32 normalize(float32 from, float32 to, float32 t)
+    uint64 iRainbow::getColorCount() const
+    {
+        return colors.size();
+    }
+
+	__IGOR_INLINE__ float32 interpolate(float32 from, float32 to, float32 t)
 	{
 		return (t-from) / (to-from);
 	}
@@ -56,7 +61,7 @@ namespace Igor
             {
                 if (colors[i]._position > at)
                 {
-                    float32 t = normalize(colors[i - 1]._position, colors[i]._position, at);
+                    float32 t = interpolate(colors[i - 1]._position, colors[i]._position, at);
                     color = colors[i - 1]._color;
                     color *= (1.0f - t);
                     iaColor4f b = colors[i]._color;

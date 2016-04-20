@@ -83,11 +83,11 @@ namespace IgorAux
 
 		/*! matrix vector3 multiplication
 		*/
-		__IGOR_INLINE__ iaVector3<T> operator*(iaVector3<T> &a);
+		__IGOR_INLINE__ iaVector3<T> operator*(iaVector3<T> &a) const;
 
 		/*! matrix vector4 multiplication
 		*/
-		__IGOR_INLINE__ iaVector4<T> operator*(iaVector4<T> &a);
+		__IGOR_INLINE__ iaVector4<T> operator*(iaVector4<T> &a) const;
 
         /*! matrix multiplication
         */

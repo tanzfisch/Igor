@@ -30,7 +30,7 @@
 #define __iNODEEMITTER__
 
 #include <iNode.h>
-#include <iParticleSystem3D.h>
+#include <iParticleEmitter.h>
 
 #include <vector>
 using namespace std;
@@ -40,23 +40,25 @@ namespace Igor
 
 	class Igor_API iNodeEmitter : public iNode
 	{
-		friend class iNodeParticleSystem;
+
+        friend class iNodeFactory;
 
 	public:
 
-        iNodeEmitter();
-        iNodeEmitter(iNodeEmitter* node);
-        virtual ~iNodeEmitter();
+        void setType(iEmitterType emitterType);
+        iEmitterType getType() const;
 
         /*! 
         */
 		void addTriangleEmitter(const iEmitterTriangle& emitter);
 
-        vector<iEmitterTriangle>* getTriangles();
-
         const iaMatrixf& getWorldMatrix() const;
 
+        const iParticleEmitter& getParticleEmitter() const;
+
     private:
+
+        iParticleEmitter _emitter;
 
         /*! matrix including position an orientation of this emitter in world coordinates
         */
@@ -68,7 +70,9 @@ namespace Igor
         */
         void onUpdateTransform(iaMatrixf& matrix);
 
-        vector<iEmitterTriangle> _emitterTriangles;
+        iNodeEmitter();
+        iNodeEmitter(iNodeEmitter* node);
+        virtual ~iNodeEmitter();
 
 	};
 

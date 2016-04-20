@@ -576,13 +576,20 @@ namespace Igor
     {
         glActiveTexture(GL_TEXTURE0 + textureunit); GL_CHECK_ERROR();
 
-        if (!texture->isDummy())
+        if (texture != nullptr)
         {
-            glBindTexture(GL_TEXTURE_2D, (texture->_rendererTexture)->_id); GL_CHECK_ERROR();
+            if (!texture->isDummy())
+            {
+                glBindTexture(GL_TEXTURE_2D, (texture->_rendererTexture)->_id); GL_CHECK_ERROR();
+            }
+            else
+            {
+                glBindTexture(GL_TEXTURE_2D, _dummyTextureID); GL_CHECK_ERROR();
+            }
         }
         else
         {
-            glBindTexture(GL_TEXTURE_2D, _dummyTextureID); GL_CHECK_ERROR();
+            glBindTexture(GL_TEXTURE_2D, 0); GL_CHECK_ERROR();
         }
     }
 

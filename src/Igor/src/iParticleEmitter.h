@@ -26,12 +26,13 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iNODEPARTICLESYSTEM__
-#define __iNODEPARTICLESYSTEM__
+#ifndef __iPARTICLEEMITTER__
+#define __iPARTICLEEMITTER__
 
-#include <iNodeVolume.h>
-#include <iTexture.h>
-#include <iParticleSystem3D.h>
+#include <iDefines.h>
+
+#include <iaMatrix.h>
+using namespace IgorAux;
 
 #include <vector>
 using namespace std;
@@ -39,48 +40,44 @@ using namespace std;
 namespace Igor
 {
 
-	class Igor_API iNodeParticleSystem : public iNodeVolume
-	{
+    enum class Igor_API iEmitterType
+    {
+        Mesh,
+        Point
+    };
 
-        friend class iNodeFactory;
+    class Igor_API iEmitterTriangle
+    {
+    public:
 
-	public:
+        iaVector3f pos[3];
+        iaVector3f vel[3];
+    };
 
-        iParticleSystem3D& getParticleSystem();
+    class Igor_API iParticleEmitter
+    {
 
-        void setEmitter(uint64 emitterID);
-        uint64 getEmitter() const;
+    public:
 
-        void setTextureA(const iaString& texture);
-        void setTextureB(const iaString& texture);
-        void setTextureC(const iaString& texture);
-        iaString getTextureA() const;
-        iaString getTextureB() const;
-        iaString getTextureC() const;
+        iParticleEmitter();
+        virtual ~iParticleEmitter();
 
-        void draw();
+        void setMatrix(const iaMatrixf& matrix);
+        const iaMatrixf& getMatrix() const;
 
-    private:
+        void setType(iEmitterType emitterType);
+        iEmitterType getType() const;
 
-        /*! inverted world matrix
-        */
-        iaMatrixf _worldMatrixInv;
+        void calcRandomStart(iaVector3f& position, iaVector3f& velocity) const;
 
-        /*! id of emitter node
-        */
-        uint64 _emitterID = iNode::INVALID_NODE_ID;
+    protected:
 
-        iParticleSystem3D _particleSystem;
+        iEmitterType _type = iEmitterType::Point;
+        vector<iEmitterTriangle>* _emitterTriangles = nullptr;
+        iaMatrixf _matrix;
 
-        shared_ptr<iTexture> _textureA;
-        shared_ptr<iTexture> _textureB;
-        shared_ptr<iTexture> _textureC;
-
-        void onUpdateTransform(iaMatrixf& matrix);
-
-        iNodeParticleSystem();
-        iNodeParticleSystem(iNodeParticleSystem* node);
-        virtual ~iNodeParticleSystem();
+        void calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity) const;
+        void calcRandomStartFromMesh(iaVector3f& position, iaVector3f& velocity) const;
 
     };
 

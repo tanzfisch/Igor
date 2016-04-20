@@ -629,6 +629,9 @@
     <ClCompile Include="..\src\iNodeEmitter.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iParticleEmitter.cpp">
+      <Filter>graphics\simulation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1317,6 +1320,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iNodeEmitter.h">
       <Filter>scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iParticleEmitter.h">
+      <Filter>graphics\simulation</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

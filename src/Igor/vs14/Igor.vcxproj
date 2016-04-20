@@ -741,6 +741,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iOctree.h" />
     <ClInclude Include="..\src\iOSEvent.h" />
     <ClInclude Include="..\src\iOSEventListener.h" />
+    <ClInclude Include="..\src\iParticleEmitter.h" />
     <ClInclude Include="..\src\iParticleSystem2D.h" />
     <ClInclude Include="..\src\iParticleSystem3D.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -1340,6 +1341,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\iOctree.cpp" />
+    <ClCompile Include="..\src\iParticleEmitter.cpp" />
     <ClCompile Include="..\src\iParticleSystem2D.cpp" />
     <ClCompile Include="..\src\iParticleSystem3D.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

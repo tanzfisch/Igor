@@ -123,12 +123,11 @@ void Particles::init()
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     particleSystem->setMaterial(_particlesMaterial);
-    particleSystem->getParticleSystem().setTextureA("simpleParticle.png");
-    particleSystem->getParticleSystem().setTextureB("octave1.png");
-    particleSystem->getParticleSystem().setTextureC("octave2.png");
-
+    particleSystem->setTextureA("simpleParticle.png");
+  //  particleSystem->setTextureB("octave1.png");
+    //particleSystem->setTextureC("octave2.png");
     iNodeTransform* particleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    particleTransform->translate(0,5,0);
+    particleTransform->translate(0,0,0);
 
     particleTransform->insertNode(particleSystem);
     _scene->getRoot()->insertNode(particleTransform);
