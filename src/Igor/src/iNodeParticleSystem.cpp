@@ -32,12 +32,12 @@ namespace Igor
 
         setName(node->getName());
 
-        // TODO copy particle system config
-    }
+        _particleSystem = node->_particleSystem;
 
-    iNodeParticleSystem::~iNodeParticleSystem()
-	{
-	}
+        setTextureA(node->getTextureA());
+        setTextureB(node->getTextureB());
+        setTextureC(node->getTextureC());
+    }
 
     iParticleSystem3D& iNodeParticleSystem::getParticleSystem()
     {
@@ -67,6 +67,141 @@ namespace Igor
         }
     }
 
+    void iNodeParticleSystem::setParticleCount(uint32 count)
+    {
+        _particleSystem.setParticleCount(count);
+    }
+
+    uint32 iNodeParticleSystem::getParticleCount()
+    {
+        return _particleSystem.getParticleCount();
+    }
+
+    void iNodeParticleSystem::setParticleLifeTime(uint32 frames)
+    {
+        _particleSystem.setParticleLifeTime(frames);
+    }
+
+    uint32 iNodeParticleSystem::getParticleLifeTime()
+    {
+        return _particleSystem.getParticleLifeTime();
+    }
+
+    void iNodeParticleSystem::setVortexParticleCount(uint32 count)
+    {
+        _particleSystem.setVortexParticleCount(count);
+    }
+
+    uint32 iNodeParticleSystem::getVortexParticleCount()
+    {
+        return _particleSystem.getVortexParticleCount();
+    }
+
+    void iNodeParticleSystem::setVortexTorque(float32 min, float32 max)
+    {
+        _particleSystem.setVortexTorque(min, max);
+    }
+
+    float32 iNodeParticleSystem::getVortexTorqueMin()
+    {
+        return _particleSystem.getVortexTorqueMin();
+    }
+
+    float32 iNodeParticleSystem::getVortexTorqueMax()
+    {
+        return _particleSystem.getVortexTorqueMax();
+    }
+
+    void iNodeParticleSystem::setVortexRange(float32 min, float32 max)
+    {
+        _particleSystem.setVortexRange(min, max);
+    }
+
+    float32 iNodeParticleSystem::getVortexRangeMin()
+    {
+        return _particleSystem.getVortexRangeMin();
+    }
+
+    float32 iNodeParticleSystem::getVortexRangeMax()
+    {
+        return _particleSystem.getVortexRangeMax();
+    }
+
+    void iNodeParticleSystem::setLoop(bool loop)
+    {
+        _particleSystem.setLoop(loop);
+    }
+
+    bool iNodeParticleSystem::getLoop()
+    {
+        return _particleSystem.getLoop();
+    }
+
+    void iNodeParticleSystem::setLift(float32 min, float32 max)
+    {
+        _particleSystem.setLift(min, max);
+    }
+
+    float32 iNodeParticleSystem::getLiftMin()
+    {
+        return _particleSystem.getLiftMin();
+    }
+
+    float32 iNodeParticleSystem::getLiftMax()
+    {
+        return _particleSystem.getLiftMax();
+    }
+
+    void iNodeParticleSystem::setLiftDecrease(float32 decrease)
+    {
+        _particleSystem.setLiftDecrease(decrease);
+    }
+
+    float32 iNodeParticleSystem::getLiftDecrease()
+    {
+        return _particleSystem.getLiftDecrease();
+    }
+
+    void iNodeParticleSystem::setWeight(float32 min, float32 max)
+    {
+        _particleSystem.setWeight(min, max);
+    }
+
+    float32 iNodeParticleSystem::getWeightMin()
+    {
+        return _particleSystem.getWeightMin();
+    }
+
+    float32 iNodeParticleSystem::getWeightMax()
+    {
+        return _particleSystem.getWeightMax();
+    }
+
+    void iNodeParticleSystem::setSize(float32 min, float32 max)
+    {
+        _particleSystem.setSize(min, max);
+    }
+
+    float32 iNodeParticleSystem::getSizeMin()
+    {
+        return _particleSystem.getSizeMin();
+    }
+
+    float32 iNodeParticleSystem::getSizeMax()
+    {
+        return _particleSystem.getSizeMax();
+    }
+
+    void iNodeParticleSystem::setSizeIncrease(float32 increment)
+    {
+        _particleSystem.setSizeIncrease(increment);
+    }
+
+    float32 iNodeParticleSystem::getSizeIncrease()
+    {
+        return _particleSystem.getSizeIncrease();
+    }
+
     void iNodeParticleSystem::onUpdateTransform(iaMatrixf& matrix)
     {
         _worldMatrix = matrix;
@@ -83,7 +218,6 @@ namespace Igor
     {
         return _emitterID;
     }
-
 
     iaString iNodeParticleSystem::getTextureA() const
     {

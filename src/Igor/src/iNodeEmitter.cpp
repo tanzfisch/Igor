@@ -29,10 +29,6 @@ namespace Igor
         _emitter.setType(node->_emitter.getType());
     }
 
-	iNodeEmitter::~iNodeEmitter()
-	{
-	}
-
     void iNodeEmitter::setType(iEmitterType emitterType)
     {
         _emitter.setType(emitterType);
@@ -62,6 +58,16 @@ namespace Igor
     const iParticleEmitter& iNodeEmitter::getParticleEmitter() const
     {
         return _emitter;
+    }
+
+    void iNodeEmitter::setSize(float32 size)
+    {
+        _emitter.setSize(size);
+    }
+
+    float32 iNodeEmitter::getSize() const
+    {
+        return _emitter.getSize();
     }
 
 };

@@ -38,26 +38,57 @@ using namespace std;
 namespace Igor
 {
 
+    /*! node to control an emitter for a particle system
+    */
 	class Igor_API iNodeEmitter : public iNode
 	{
 
         friend class iNodeFactory;
+        friend class iNodeParticleSystem;
 
 	public:
 
+        /*! sets the type of the emitter
+
+        \param emitterType emitter type
+        */
         void setType(iEmitterType emitterType);
+
+        /*! \returns the type of the emitter
+        */
         iEmitterType getType() const;
 
-        /*! 
+        /*! sets size of emitter
+
+        how it's interpreted depends on type of emitter
+        Mesh -> none
+        Point -> none
+        Disc -> radius
+        Circle -> radius
+        Sphere -> radius
+        Square -> half edge lenght
+        Cube -> half edge lenght
+
+        \param size size of emitter
+        */
+        void setSize(float32 size);
+
+        /*! \returns size of emitter
+        */
+        float32 getSize() const;
+
+        /*! todo
         */
 		void addTriangleEmitter(const iEmitterTriangle& emitter);
 
+        /*! \returns current world matrix of this node
+        */
         const iaMatrixf& getWorldMatrix() const;
-
-        const iParticleEmitter& getParticleEmitter() const;
 
     private:
 
+        /*! the actual particle emitter strucure
+        */
         iParticleEmitter _emitter;
 
         /*! matrix including position an orientation of this emitter in world coordinates
@@ -70,9 +101,23 @@ namespace Igor
         */
         void onUpdateTransform(iaMatrixf& matrix);
 
+        /*! \returns internal particle emitter structure
+        */
+        const iParticleEmitter& getParticleEmitter() const;
+
+        /*! init members
+        */
         iNodeEmitter();
+
+        /*! copy ctor
+
+        \param node the node to copy from
+        */
         iNodeEmitter(iNodeEmitter* node);
-        virtual ~iNodeEmitter();
+
+        /*! does nothing
+        */
+        virtual ~iNodeEmitter() = default;
 
 	};
 

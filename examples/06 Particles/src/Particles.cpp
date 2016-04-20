@@ -124,8 +124,16 @@ void Particles::init()
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("simpleParticle.png");
-  //  particleSystem->setTextureB("octave1.png");
-    //particleSystem->setTextureC("octave2.png");
+    particleSystem->setTextureB("octave1.png");
+    particleSystem->setTextureC("octave2.png");
+    particleSystem->setParticleCount(1000);
+    particleSystem->setVortexTorque(0.1, 0.2);
+    particleSystem->setSize(3,6);
+    particleSystem->setLift(0,0);
+    particleSystem->setLiftDecrease(0);
+    particleSystem->setWeight(0,0);
+    particleSystem->setVortexParticleCount(0);
+
     iNodeTransform* particleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     particleTransform->translate(0,0,0);
 
@@ -133,7 +141,8 @@ void Particles::init()
     _scene->getRoot()->insertNode(particleTransform);
 
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-
+    emitter->setType(iEmitterType::Sphere);
+    emitter->setSize(10);
     iEmitterTriangle triangle;
     triangle.pos[0] = iaVector3f(0, 0, 0);
     triangle.pos[1] = iaVector3f(1, 0, 0);
@@ -144,7 +153,7 @@ void Particles::init()
     triangle.pos[2] = iaVector3f(0, 0, 1);
     emitter->addTriangleEmitter(triangle);
     iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    emitterTransform->translate(0,-10,0);
+    emitterTransform->translate(0,0,0);
 
     emitterTransform->insertNode(emitter);
     _scene->getRoot()->insertNode(emitterTransform);

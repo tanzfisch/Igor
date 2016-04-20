@@ -25,20 +25,30 @@ namespace Igor
 	{
 	}
 
-	bool iParticleSystem3D::getLoopAbility()
+	bool iParticleSystem3D::getLoop()
 	{
 		return _loopable;
 	}
 
-	float32 iParticleSystem3D::getPhaseShift0()
-	{
-		return _phaseShiftR1;
-	}
+    void iParticleSystem3D::setSecondTextureRotation(float32 angle)
+    {
+        _octave1Rotation = angle;
+    }
 
-	float32 iParticleSystem3D::getPhaseShift1()
-	{
-		return _phaseShiftR2;
-	}
+    void iParticleSystem3D::setThirdTextureRotation(float32 angle)
+    {
+        _octave2Rotation = angle;
+    }
+
+    float32 iParticleSystem3D::getSecondTextureRotation()
+    {
+        return _octave1Rotation;
+    }
+
+    float32 iParticleSystem3D::getThirdTextureRotation()
+    {
+        return _octave2Rotation;
+    }
 
 	float32 iParticleSystem3D::getLiftMin()
 	{
@@ -95,14 +105,14 @@ namespace Igor
 		return _vortexCount;
 	}
 
-	float32 iParticleSystem3D::getVortexRotationSpeedMin()
+	float32 iParticleSystem3D::getVortexTorqueMin()
 	{
-		return _minVRot;
+		return _minVortexTorque;
 	}
 
-	float32 iParticleSystem3D::getVortexRotationSpeedMax()
+	float32 iParticleSystem3D::getVortexTorqueMax()
 	{
-		return _maxVRot;
+		return _maxVortexTorque;
 	}
 
 	float32 iParticleSystem3D::getVortexRangeMin()
@@ -119,12 +129,6 @@ namespace Igor
 	{
 		return _vortexCheckRange;
 	}
-    
-	void iParticleSystem3D::setPhaseShift(float32 r1, float32 r2)
-	{
-		_phaseShiftR1 = r1;
-		_phaseShiftR2 = r2;
-	}
 
 	void iParticleSystem3D::setVortexCheckRange(uint32 _particles)
 	{
@@ -137,7 +141,7 @@ namespace Igor
 		_mustReset = true;
 	}
 
-	void iParticleSystem3D::setLoopAbility(bool loop)
+	void iParticleSystem3D::setLoop(bool loop)
 	{
 		_loopable = loop;
 		_mustReset = true;
@@ -151,9 +155,18 @@ namespace Igor
 
 	void iParticleSystem3D::setParticleLifeTime(uint32 frames)
 	{
-		_lifeTime = frames;
-		_lifeTimeStep = 1.0f / _lifeTime;
-		_mustReset = true;
+        con_assert(frames != 0, "can't set zero lifetime");
+
+        if (frames != 0)
+        {
+            _lifeTime = frames;
+            _lifeTimeStep = 1.0f / _lifeTime;
+            _mustReset = true;
+        }
+        else
+        {
+            con_err("can't set zero lifetime");
+        }
 	}
 
 	uint32 iParticleSystem3D::getParticleLifeTime()
@@ -175,22 +188,12 @@ namespace Igor
 
 	void iParticleSystem3D::reset(const iParticleEmitter& emitter)
 	{
-		if(_vortexCount > _particleCount)
-		{
-			con_err("more vortex _particles than normal _particles defined");
-			return;
-		}
+        con_assert_sticky(_vortexCount <= _particleCount, "can't have more vortex particles than particles");
 
-		if(_lifeTime == 0)
-		{
-			con_err("_lifeTime 0 defined");
-			return;
-		}
+        _initFrame = _lifeTime;
 
-		_initFrame = _lifeTime;
-
-		calcBirth(emitter);
-		_mustReset = false;
+        calcBirth(emitter);
+        _mustReset = false;
 	}
 
 	void iParticleSystem3D::setLift(float32 min, float32 max)
@@ -214,10 +217,10 @@ namespace Igor
 		_mustReset = true;
 	}
 
-	void iParticleSystem3D::setVortexRotationSpeed(float32 min, float32 max)
+	void iParticleSystem3D::setVortexTorque(float32 min, float32 max)
 	{
-		_minVRot = min;
-		_maxVRot = max;
+		_minVortexTorque = min;
+		_maxVortexTorque = max;
 		_mustReset = true;
 	}
 
@@ -266,10 +269,10 @@ namespace Igor
 			{
 				vortexparticle = new iVortexParticle();
 
-				vortexparticle->_force = _minVRot + (rand()%100/100.0f) * (_maxVRot-_minVRot);
-				vortexparticle->_forceRange = _minVRange + (rand()%100/100.0f) * (_maxVRange-_minVRange);
-				vortexparticle->_vortexNormal.set(rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f);
-				vortexparticle->_vortexNormal.normalize();
+				vortexparticle->_torque = _minVortexTorque + (rand()%100/100.0f) * (_maxVortexTorque-_minVortexTorque);
+				vortexparticle->_range = _minVRange + (rand()%100/100.0f) * (_maxVRange-_minVRange);
+				vortexparticle->_normal.set(rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f,rand()%100/100.0f-0.5f);
+				vortexparticle->_normal.normalize();
 				vortexparticle->_imune = true;
 				vortexparticle->_particleid = i;
 
@@ -332,21 +335,21 @@ namespace Igor
 		iaVector3f a,b;
 
 		uint32 start,end;
-		float32 vortexforce;
+		float32 vortexTorque;
 
 		for(uint32 j=0;j<simulatevortex;++j)
 		{
 			if(_vortexParticles[j]->_life<0.1f)
 			{
-				vortexforce = _vortexParticles[j]->_force * _vortexParticles[j]->_life * 10.0f;
+                vortexTorque = _vortexParticles[j]->_torque * _vortexParticles[j]->_life * 10.0f;
 			}
 			else if(_vortexParticles[j]->_life > 0.9f)
 			{
-				vortexforce = _vortexParticles[j]->_force * (1-_vortexParticles[j]->_life) * 10.0f;
+                vortexTorque = _vortexParticles[j]->_torque * (1-_vortexParticles[j]->_life) * 10.0f;
 			}
             else
             {
-                vortexforce = _vortexParticles[j]->_force;
+                vortexTorque = _vortexParticles[j]->_torque;
             }
 
 			start = _vortexParticles[j]->_particleid - _vortexCheckRange;
@@ -369,20 +372,20 @@ namespace Igor
                 }
 
 				a = _vortexParticles[j]->_position - _particles[i]->_position;
-                if (a.length() > _vortexParticles[j]->_forceRange)
+                if (a.length() > _vortexParticles[j]->_range)
                 {
                     continue;
                 }
 
-				b = a % _vortexParticles[j]->_vortexNormal;
+				b = a % _vortexParticles[j]->_normal;
 				b.normalize();
-				b *= (_vortexParticles[j]->_forceRange - a.length())/_vortexParticles[j]->_forceRange;
-				b *= vortexforce;
+				b *= (_vortexParticles[j]->_range - a.length())/_vortexParticles[j]->_range;
+				b *= vortexTorque;
 				a.normalize();
 				a*=_vorticityConfinement;
 				b+=a;
 
-				_particles[i]->_position += b * 0.1f;
+				_particles[i]->_position += b * 0.1f; // TODO 0.1 ???
 			}
 		}
 
@@ -404,8 +407,8 @@ namespace Igor
                 _particles[i]->_visible = false;
             }
 
-            _particles[i]->_phase0.rotateXY(_phaseShiftR1);
-            _particles[i]->_phase1.rotateXY(_phaseShiftR2);
+            _particles[i]->_phase0.rotateXY(_octave1Rotation);
+            _particles[i]->_phase1.rotateXY(_octave2Rotation);
 
             _particles[i]->_life -= _lifeTimeStep;
 

@@ -40,42 +40,120 @@ using namespace std;
 namespace Igor
 {
 
+    /*! type of emitter
+    */
     enum class Igor_API iEmitterType
     {
         Mesh,
-        Point
+        Point,
+        Disc,
+        Circle,
+        Sphere,
+        Square,
+        Cube
     };
 
+    /*! a triangle of an emitter mesh
+    */
     class Igor_API iEmitterTriangle
     {
     public:
 
+        /*! 3 times vertex position
+        */
         iaVector3f pos[3];
+
+        /*! 3 times particle velocity
+        */
         iaVector3f vel[3];
     };
 
+    /*! basically a structure that delivers start positions and velocities for any kind of objects
+
+    mainly used for particles
+    */
     class Igor_API iParticleEmitter
     {
 
     public:
 
-        iParticleEmitter();
-        virtual ~iParticleEmitter();
+        /*! does nothing
+        */
+        iParticleEmitter() = default;
 
+        /*! does nothing
+        */
+        virtual ~iParticleEmitter() = default;
+
+        /*! sets world matrix of emitter
+
+        \param matrix the matrix to be set
+        */
         void setMatrix(const iaMatrixf& matrix);
+
+        /*! \returns world matrix of emitter
+        */
         const iaMatrixf& getMatrix() const;
 
+        /*! sets size of emitter
+
+        how it's interpreted depends on type of emitter
+        Mesh -> none
+        Point -> none
+        Disc -> radius
+        Circle -> radius
+        Sphere -> radius
+        Square -> half edge lenght
+        Cube -> half edge lenght
+
+        \param size size of emitter
+        */
+        void setSize(float32 size);
+
+        /*! \returns size of emitter
+        */
+        float32 getSize() const;
+
+        /*! sets type of emitter
+
+        \param emitterType emitter type
+        */
         void setType(iEmitterType emitterType);
+
+        /*! \returns type of emitter
+        */
         iEmitterType getType() const;
 
+        /*! calculates a random start position and velocity from emitter
+
+        \param[out] position random position on emitter in world coordinates
+        \param[out] velocity velocity depending on position
+        */
         void calcRandomStart(iaVector3f& position, iaVector3f& velocity) const;
 
     protected:
 
+        /*! type of emitter
+        */
         iEmitterType _type = iEmitterType::Point;
+
+        /*! size of emitter
+        */
+        float32 _size = 1.0;
+
+        /*! mesh used as emitter
+        */
         vector<iEmitterTriangle>* _emitterTriangles = nullptr;
+
+        /*! world matrix of emitter
+        */
         iaMatrixf _matrix;
 
+        void calcRandomStartFromCube(iaVector3f& position, iaVector3f& velocity) const;
+        void calcRandomStartFromSquare(iaVector3f& position, iaVector3f& velocity) const;
+        void calcRandomStartFromSphere(iaVector3f& position, iaVector3f& velocity) const;
+        void calcRandomStartFromDisc(iaVector3f& position, iaVector3f& velocity) const;
+        void calcRandomStartFromCircle(iaVector3f& position, iaVector3f& velocity) const;
         void calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity) const;
         void calcRandomStartFromMesh(iaVector3f& position, iaVector3f& velocity) const;
 

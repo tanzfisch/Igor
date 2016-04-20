@@ -39,6 +39,8 @@ using namespace std;
 namespace Igor
 {
 
+    /*! node to control a 3d particle system
+    */
 	class Igor_API iNodeParticleSystem : public iNodeVolume
 	{
 
@@ -46,18 +48,193 @@ namespace Igor
 
 	public:
 
+        /*! sets particle count
+
+        \param count particle count
+        */
+        void setParticleCount(uint32 count);
+
+        /*! \returns particle count
+        */
+        uint32 getParticleCount();
+
+        /*! sets particles lifetime in frames
+
+        \param frames particle life time in frames
+        */
+        void setParticleLifeTime(uint32 frames);
+
+        /*! \returns particle lifetime in frames
+        */
+        uint32 getParticleLifeTime();
+
+        /*! sets vortex particle count
+
+        values can go from zero to particle count
+
+        \param count vortex particle count
+        */
+        void setVortexParticleCount(uint32 count);
+
+        /*! \returns vortex particle count
+        */
+        uint32 getVortexParticleCount();
+
+        /*! sets the range of vortex torque
+
+        \param min minimum vortex torque
+        \param max maximum vortex torque
+        */
+        void setVortexTorque(float32 min, float32 max);
+
+        /*! \returns minimum vortex torque
+        */
+        float32 getVortexTorqueMin();
+
+        /*! \returns maximum vortex torque
+        */
+        float32 getVortexTorqueMax();
+
+        /*! sets minimum and maximum range of vortexes
+
+        \param min minimum range of vortex
+        \param max maximum range of vortex
+        */
+        void setVortexRange(float32 min, float32 max);
+
+        /*! \returns minimum range of vortexes
+        */
+        float32 getVortexRangeMin();
+
+        /*! \returns maximum range of vortexes
+        */
+        float32 getVortexRangeMax();
+
+        /*! activates or deactivates loop ability
+
+        if loob ability is on the particle system will repeadetly apear the same in preiod of it's lifetime
+
+        \param loop flag if true loop ability will be switched on
+        */
+        void setLoop(bool loop = true);
+
+        /*! \returns true if loop ability is switched on
+        */
+        bool getLoop();
+
+        /*! sets the min and max values of how much the particles lift them selves agains gravity
+
+        \param min min lift of particles
+        \param max max lift of particles
+        */
+        void setLift(float32 min, float32 max);
+
+        /*! \returns min lift of particles
+        */
+        float32 getLiftMin();
+
+        /*! \returns min lift of particles
+        */
+        float32 getLiftMax();
+
+        /*! defines how much the lift of each particle decreases each frame
+
+        \param decrease decrease of lift per frame
+        */
+        void setLiftDecrease(float32 decrease);
+
+        /*! \returns the lift decrease per frame
+        */
+        float32 getLiftDecrease();
+
+        /*! sets min max weight of each particle
+
+        \param min min weight of a particle
+        \param max max weight of a particle
+        */
+        void setWeight(float32 min, float32 max);
+
+        /*! \returns min weight of a particle
+        */
+        float32 getWeightMin();
+
+        /*! \returns max weight of a particle
+        */
+        float32 getWeightMax();
+
+        /*! sets min max size of particles
+
+        \param min min size of particles
+        \param max max size of particles
+        */
+        void setSize(float32 min, float32 max);
+
+        /*! \returns min size of particles
+        */
+        float32 getSizeMin();
+
+        /*! \returns max size of particles
+        */
+        float32 getSizeMax();
+
+        /*! sets particle size increate per frame
+
+        negative values will decrease
+
+        \param increment size increment per frame
+        */
+        void setSizeIncrease(float32 increment);
+
+        /*! \returns particle size increment per frame
+        */
+        float32 getSizeIncrease();
+
+        /*! \deprecated don't want direct access to particle system here
+        */
         iParticleSystem3D& getParticleSystem();
 
+        /*! sets emitter node id
+
+        \param emitterID the emitter node's id
+        */
         void setEmitter(uint64 emitterID);
+
+        /*! \returns the emitter node's id
+        */
         uint64 getEmitter() const;
 
-        void setTextureA(const iaString& texture);
-        void setTextureB(const iaString& texture);
-        void setTextureC(const iaString& texture);
+        /*! sets first texture
+
+        \param filename file name of texture
+        */
+        void setTextureA(const iaString& filename);
+
+        /*! sets second texture
+
+        \param filename file name of texture
+        */
+        void setTextureB(const iaString& filename);
+
+        /*! sets third texture
+
+        \param filename file name of texture
+        */
+        void setTextureC(const iaString& filename);
+
+        /*! \returns file name of first texture
+        */
         iaString getTextureA() const;
+
+        /*! \returns file name of second texture
+        */
         iaString getTextureB() const;
+
+        /*! \returns file name of third texture
+        */
         iaString getTextureC() const;
 
+        /*! draw function
+        */
         void draw();
 
     private:
@@ -70,17 +247,41 @@ namespace Igor
         */
         uint64 _emitterID = iNode::INVALID_NODE_ID;
 
+        /*! the actual particle system implementation
+        */
         iParticleSystem3D _particleSystem;
 
+        /*! first texture 
+        */
         shared_ptr<iTexture> _textureA;
+
+        /*! second texture
+        */
         shared_ptr<iTexture> _textureB;
+        
+        /*! third texture
+        */
         shared_ptr<iTexture> _textureC;
 
+        /*! called when there is a new transformation matrix for this node
+
+        \param matrix the new world matrix
+        */
         void onUpdateTransform(iaMatrixf& matrix);
 
+        /*! init members
+        */
         iNodeParticleSystem();
+
+        /*! copy ctor
+
+        \param node make copy from this node
+        */
         iNodeParticleSystem(iNodeParticleSystem* node);
-        virtual ~iNodeParticleSystem();
+
+        /*! does nothing
+        */
+        virtual ~iNodeParticleSystem() = default;
 
     };
 

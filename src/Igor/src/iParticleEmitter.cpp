@@ -4,17 +4,12 @@
 
 #include <iParticleEmitter.h>
 
+#include <iaVector2.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 
-    iParticleEmitter::iParticleEmitter()
-    {
-    }
-
-	iParticleEmitter::~iParticleEmitter()
-	{
-	}
-    
     void iParticleEmitter::setMatrix(const iaMatrixf& matrix)
     {
         _matrix = matrix;
@@ -46,7 +41,92 @@ namespace Igor
             case iEmitterType::Mesh:
                 calcRandomStartFromMesh(position, velocity);
                 break;
+
+            case iEmitterType::Circle:
+                calcRandomStartFromCircle(position, velocity);
+                break;
+
+            case iEmitterType::Sphere:
+                calcRandomStartFromSphere(position, velocity);
+                break;
+
+            case iEmitterType::Disc:
+                calcRandomStartFromDisc(position, velocity);
+                break;
+
+            case iEmitterType::Square:
+                calcRandomStartFromSquare(position, velocity);
+                break;
+
+            case iEmitterType::Cube:
+                calcRandomStartFromCube(position, velocity);
+                break;
         }
+    }
+      
+    void iParticleEmitter::setSize(float32 size)
+    {
+        _size = size;
+    }
+
+    float32 iParticleEmitter::getSize() const
+    {
+        return _size;
+    }
+
+    void iParticleEmitter::calcRandomStartFromCube(iaVector3f& position, iaVector3f& velocity) const
+    {
+        float32 x = ((rand() % 10000) / 10000.0f) * _size * 2 - _size;
+        float32 y = ((rand() % 10000) / 10000.0f) * _size * 2 - _size;
+        float32 z = ((rand() % 10000) / 10000.0f) * _size * 2 - _size;
+        iaVector3f posOnEmitter(x, y, z);
+        position = _matrix * posOnEmitter;
+    }
+
+    void iParticleEmitter::calcRandomStartFromSquare(iaVector3f& position, iaVector3f& velocity) const
+    {
+        float32 x = ((rand() % 10000) / 10000.0f) * _size * 2 - _size;
+        float32 z = ((rand() % 10000) / 10000.0f) * _size * 2 - _size;
+        iaVector3f posOnEmitter(x, 0, z);
+        position = _matrix * posOnEmitter;
+    }
+
+    void iParticleEmitter::calcRandomStartFromSphere(iaVector3f& position, iaVector3f& velocity) const
+    {
+        // TODO optimize?
+        float32 x, y, z;
+        iaVector3f posOnEmitter;
+
+        do
+        {
+            x = ((rand() % 20000) / 10000.0f) - 1;
+            y = ((rand() % 20000) / 10000.0f) - 1;
+            z = ((rand() % 20000) / 10000.0f) - 1;
+            posOnEmitter.set(x, y, z);
+
+        } while (posOnEmitter.length2() > 1);
+
+        posOnEmitter *= _size;
+        position = _matrix * posOnEmitter;
+    }
+
+    void iParticleEmitter::calcRandomStartFromDisc(iaVector3f& position, iaVector3f& velocity) const
+    {
+        float32 angle = ((rand() % 10000) / 10000.0f) * M_PI * 2;
+        float32 distance = ((rand() % 10000) / 10000.0f) * _size;
+        iaVector2f temp(distance, 0);
+        temp.rotateXY(angle);
+        iaVector3f posOnEmitter(temp._x, 0, temp._y);
+        position = _matrix * posOnEmitter;
+    }
+
+    void iParticleEmitter::calcRandomStartFromCircle(iaVector3f& position, iaVector3f& velocity) const
+    {
+        float32 angle = ((rand() % 10000) / 10000.0f) * M_PI * 2;
+        iaVector2f temp(_size, 0);
+        temp.rotateXY(angle);
+        iaVector3f posOnEmitter(temp._x, 0, temp._y);
+        position = _matrix * posOnEmitter;
     }
 
     void iParticleEmitter::calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity) const

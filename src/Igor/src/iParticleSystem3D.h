@@ -71,10 +71,12 @@ namespace Igor
     {
     public:
 
-        iaVector3f _vortexNormal;
+        iaVector3f _normal;
 
-        float32 _force;
-        float32 _forceRange;
+        float32 _torque;
+
+        float32 _range;
+
         long _particleid;
     };
 
@@ -83,45 +85,166 @@ namespace Igor
 
     public:
 
+        /*! sets particle count
+
+        \param count particle count
+        */
         void setParticleCount(uint32 count);
+
+        /*! \returns particle count
+        */
         uint32 getParticleCount();
+
+        /*! sets particles lifetime in frames
+
+        \param frames particle life time in frames 
+        */
         void setParticleLifeTime(uint32 frames);
+
+        /*! \returns particle lifetime in frames
+        */
         uint32 getParticleLifeTime();
 
-        void setVorticityConfinement(float32 vc);
-        float32 getVorticityConfinement();
+        /*! sets vortex particle count
 
+        values can go from zero to particle count
+
+        \param count vortex particle count
+        */
         void setVortexParticleCount(uint32 count);
-        void setVortexRotationSpeed(float32 min, float32 max);
-        void setVortexRange(float32 min, float32 max);
-        void setVortexCheckRange(uint32 particles);
 
+        /*! \returns vortex particle count
+        */
         uint32 getVortexParticleCount();
-        float32 getVortexRotationSpeedMin();
-        float32 getVortexRotationSpeedMax();
+
+        /*! sets the range of vortex torque
+
+        \param min minimum vortex torque
+        \param max maximum vortex torque
+        */
+        void setVortexTorque(float32 min, float32 max);
+
+        /*! \returns minimum vortex torque
+        */
+        float32 getVortexTorqueMin();
+
+        /*! \returns maximum vortex torque
+        */
+        float32 getVortexTorqueMax();
+
+        /*! sets minimum and maximum range of vortexes
+
+        \param min minimum range of vortex
+        \param max maximum range of vortex
+        */
+        void setVortexRange(float32 min, float32 max);
+
+        /*! \returns minimum range of vortexes
+        */
         float32 getVortexRangeMin();
+
+        /*! \returns maximum range of vortexes
+        */
         float32 getVortexRangeMax();
-        uint32 getVortexCheckRange();
 
-        void setLoopAbility(bool loop);
-        void setPhaseShift(float32 r1, float32 r2);
+        /*! activates or deactivates loop ability
+
+        if loob ability is on the particle system will repeadetly apear the same in preiod of it's lifetime
+
+        \param loop flag if true loop ability will be switched on
+        */
+        void setLoop(bool loop = true);
+
+        /*! \returns true if loop ability is switched on
+        */
+        bool getLoop();
+
+        /*! sets the min and max values of how much the particles lift them selves agains gravity
+
+        \param min min lift of particles
+        \param max max lift of particles
+        */
         void setLift(float32 min, float32 max);
-        void setLiftDecrease(float32 ld);
-        void setWeight(float32 min, float32 max);
-        void setSize(float32 min, float32 max);
-        void setSizeIncrease(float32 si);
 
-        bool getLoopAbility();
-        float32 getPhaseShift0();
-        float32 getPhaseShift1();
+        /*! \returns min lift of particles
+        */
         float32 getLiftMin();
+
+        /*! \returns min lift of particles
+        */
         float32 getLiftMax();
+
+        /*! defines how much the lift of each particle decreases each frame
+
+        \param decrease decrease of lift per frame
+        */
+        void setLiftDecrease(float32 decrease);
+
+        /*! \returns the lift decrease per frame
+        */
         float32 getLiftDecrease();
+
+        /*! sets min max weight of each particle
+
+        \param min min weight of a particle
+        \param max max weight of a particle
+        */
+        void setWeight(float32 min, float32 max);
+
+        /*! \returns min weight of a particle
+        */
         float32 getWeightMin();
+
+        /*! \returns max weight of a particle
+        */
         float32 getWeightMax();
+
+        /*! sets min max size of particles
+
+        \param min min size of particles
+        \param max max size of particles
+        */
+        void setSize(float32 min, float32 max);
+
+        /*! \returns min size of particles
+        */
         float32 getSizeMin();
+
+        /*! \returns max size of particles
+        */
         float32 getSizeMax();
+
+        /*! sets particle size increate per frame
+
+        negative values will decrease
+
+        \param increment size increment per frame
+        */
+        void setSizeIncrease(float32 increment);
+
+        /*! \returns particle size increment per frame
+        */
         float32 getSizeIncrease();
+
+        /*! sets the rotation per frame of the second texture
+
+        \param angle rotation in rad per frame
+        */
+        void setSecondTextureRotation(float32 angle);
+
+        /*! \returns rotation speed of second texture in rad per frame
+        */
+        float32 getSecondTextureRotation();
+
+        /*! sets the rotation per frame of the third texture
+
+        \param angle rotation in rad per frame
+        */
+        void setThirdTextureRotation(float32 angle);
+
+        /*! \returns rotation speed of third texture in rad per frame
+        */
+        float32 getThirdTextureRotation();
 
         void reset(const iParticleEmitter& emitter);
 
@@ -131,6 +254,15 @@ namespace Igor
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
 
         void calcNextFrame(const iParticleEmitter& emitter);
+
+        /*!
+        */
+        void setVortexCheckRange(uint32 particles);
+        uint32 getVortexCheckRange();
+
+        void setVorticityConfinement(float32 vc);
+        float32 getVorticityConfinement();
+
 
         iParticleSystem3D();
         virtual ~iParticleSystem3D();
@@ -161,14 +293,18 @@ namespace Igor
         float32 _maxSize = 2.0;
         float32 _sizeIncreaseStep = 0.01;
 
-        float32 _minVRot = 0.1;
-        float32 _maxVRot = 0.5;
+        float32 _minVortexTorque = 0.1;
+        float32 _maxVortexTorque = 0.5;
         float32 _minVRange = 10.0;
         float32 _maxVRange = 20.0;
 
         bool _loopable = false;
-        float32 _phaseShiftR1 = 0.001;
-        float32 _phaseShiftR2 = -0.001;
+
+        iaVector2f _octave1Shift = { 0.001, 0.001 };
+        iaVector2f _octave2Shift = { 0.001, 0.001 };
+
+        float32 _octave1Rotation = 0.001;
+        float32 _octave2Rotation = -0.001;
 
         long _vortexCheckRange = 30;
 
