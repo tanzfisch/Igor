@@ -39,9 +39,36 @@ namespace Igor
         setTextureC(node->getTextureC());
     }
 
-    iParticleSystem3D& iNodeParticleSystem::getParticleSystem()
+    void iNodeParticleSystem::setColor(const iaColor4f& color)
     {
-        return _particleSystem;
+        _color = color;
+        _rainbowActive = false;
+    }
+
+    const iaColor4f& iNodeParticleSystem::getColor() const
+    {
+        return _color;
+    }
+
+    void iNodeParticleSystem::setRainbowAcive(bool flag)
+    {
+        _rainbowActive = flag;
+    }
+
+    bool iNodeParticleSystem::isRainbowActive() const
+    {
+        return _rainbowActive;
+    }
+
+    void iNodeParticleSystem::setRainbow(const iRainbow& rainbow)
+    {
+        _rainbow = rainbow;
+        _rainbowActive = true;
+    }
+
+    void iNodeParticleSystem::getRainbow(iRainbow& rainbow) const
+    {
+        rainbow = _rainbow;
     }
 
     void iNodeParticleSystem::draw()
@@ -61,8 +88,15 @@ namespace Igor
                 iRenderer::getInstance().bindTexture(_textureC, 2);
 
                 iRenderer::getInstance().setModelMatrix(_worldMatrix);
-                iRenderer::getInstance().setColor(1, 1, 1, 1);
-                iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
+                if (_rainbowActive)
+                {
+                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), &_rainbow);
+                }
+                else
+                {
+                    iRenderer::getInstance().setColor(_color);
+                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
+                }
             }
         }
     }

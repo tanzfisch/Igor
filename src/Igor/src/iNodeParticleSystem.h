@@ -189,10 +189,6 @@ namespace Igor
         */
         float32 getSizeIncrease();
 
-        /*! \deprecated don't want direct access to particle system here
-        */
-        iParticleSystem3D& getParticleSystem();
-
         /*! sets emitter node id
 
         \param emitterID the emitter node's id
@@ -202,6 +198,38 @@ namespace Igor
         /*! \returns the emitter node's id
         */
         uint64 getEmitter() const;
+
+        /*! sets color to use and deactivates raibow mode
+
+        \param color the collor to draw the particles with
+        */
+        void setColor(const iaColor4f& color);
+
+        /*! \returns configured single particle color
+        */
+        const iaColor4f& getColor() const;
+
+        /*! sets the rainbow mode active
+
+        \param flag if true the rainbow mode will be active
+        */
+        void setRainbowAcive(bool flag = true);
+
+        /*! \returns true if the rainbow mode is active
+        */
+        bool isRainbowActive() const;
+
+        /*! sets rainbow gradient for particles color
+
+        \param rainbow the rainbow gradient
+        */
+        void setRainbow(const iRainbow& rainbow);
+
+        /*! returns the rainbow gradient
+
+        \param[out] rainbow out value for the rainbow gradient
+        */
+        void getRainbow(iRainbow& rainbow) const;
 
         /*! sets first texture
 
@@ -262,6 +290,16 @@ namespace Igor
         /*! third texture
         */
         shared_ptr<iTexture> _textureC;
+
+        /*! color for particles
+        */
+        iaColor4f _color = { 1,1,1,1 };
+
+        bool _rainbowActive = false;
+
+        /*! color gradient for particles
+        */
+        iRainbow _rainbow;
 
         /*! called when there is a new transformation matrix for this node
 

@@ -121,6 +121,13 @@ void Particles::init()
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
+    iRainbow rainbow;
+    rainbow.insertColor(iaColor4f(0, 0, 1, 0), 0.0);
+    rainbow.insertColor(iaColor4f(0, 0, 1, 1), 0.1);
+    rainbow.insertColor(iaColor4f(0, 0, 1, 1), 0.3);
+    rainbow.insertColor(iaColor4f(0, 1, 1, 1), 0.9);
+    rainbow.insertColor(iaColor4f(0, 1, 1, 0), 1.0);
+
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("simpleParticle.png");
@@ -133,6 +140,8 @@ void Particles::init()
     particleSystem->setLiftDecrease(0);
     particleSystem->setWeight(0,0);
     particleSystem->setVortexParticleCount(0);
+    particleSystem->setColor(iaColor4f(1,0,0,1));
+    particleSystem->setRainbow(rainbow);
 
     iNodeTransform* particleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     particleTransform->translate(0,0,0);
