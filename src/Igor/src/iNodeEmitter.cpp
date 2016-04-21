@@ -39,6 +39,16 @@ namespace Igor
         return _emitter.getType();
     }
 
+    void iNodeEmitter::setVelocity(float32 velocity)
+    {
+        _emitter.setVelocity(velocity);
+    }
+
+    float32 iNodeEmitter::getVelocity() const
+    {
+        return _emitter.getVelocity();
+    }
+
     const iaMatrixf& iNodeEmitter::getWorldMatrix() const
     {
         return _worldMatrix;

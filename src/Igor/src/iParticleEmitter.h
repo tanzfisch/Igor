@@ -114,6 +114,23 @@ namespace Igor
         */
         float32 getSize() const;
 
+        /*! sets the start velocity
+
+        how it's interpreted depends on type of emitter
+        Mesh -> scales with the velocities in mesh
+        Point -> scales to 1 in random direction
+        Disc -> scales to 1 in Y direction
+        Circle -> scales to 1 in Y direction
+        Sphere -> scales to 1 in random direction
+        Square -> scales to 1 in Y direction
+        Cube -> scales to 1 in random direction
+        */
+        void setVelocity(float32 velocity);
+
+        /*! \returns start velocity
+        */
+        float32 getVelocity() const;
+
         /*! sets type of emitter
 
         \param emitterType emitter type
@@ -140,6 +157,10 @@ namespace Igor
         /*! size of emitter
         */
         float32 _size = 1.0;
+
+        /*! start velocity
+        */
+        float32 _velocity = 0.0;
 
         /*! mesh used as emitter
         */

@@ -92,7 +92,7 @@ void Particles::init()
     iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, 30);
+    cameraTranslation->translate(0, 0, 100);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -141,8 +141,9 @@ void Particles::init()
     _scene->getRoot()->insertNode(particleTransform);
 
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    emitter->setType(iEmitterType::Sphere);
+    emitter->setType(iEmitterType::Square);
     emitter->setSize(10);
+    emitter->setVelocity(0.3);
     iEmitterTriangle triangle;
     triangle.pos[0] = iaVector3f(0, 0, 0);
     triangle.pos[1] = iaVector3f(1, 0, 0);
