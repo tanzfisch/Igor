@@ -94,9 +94,27 @@ namespace Igor
         */
         float32 getVelocity() const;
 
-        /*! todo
+        /*! adds triangle to mesh emitter
+
+        \param triangle the triangle to add
         */
-		void addTriangleEmitter(const iEmitterTriangle& emitter);
+		void addTriangle(const iEmitterTriangle& triangle);
+
+        /*! removes all emitter triangles from mesh
+        */
+        void clearTriangles();
+
+        /*! start (or continue) emitting
+        */
+        void startEmitting();
+
+        /*! stop (or pause) emitting
+        */
+        void stopEmitting();
+
+        /*! \returns true if emitter is currently emitting
+        */
+        bool isEmitting() const;
 
         /*! \returns current world matrix of this node
         */

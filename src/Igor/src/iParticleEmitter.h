@@ -141,6 +141,28 @@ namespace Igor
         */
         iEmitterType getType() const;
 
+        /*! adds triangle to mesh emitter
+
+        \param triangle the triangle to add
+        */
+        void addTriangle(const iEmitterTriangle& triangle);
+
+        /*! removes all emitter triangles from mesh
+        */
+        void clearTriangles();
+
+        /*! start (or continue) emitting
+        */
+        void startEmitting();
+
+        /*! stop (or pause) emitting
+        */
+        void stopEmitting();
+
+        /*! \returns true if emitter is currently emitting
+        */
+        bool isEmitting() const;
+
         /*! calculates a random start position and velocity from emitter
 
         \param[out] position random position on emitter in world coordinates
@@ -149,6 +171,10 @@ namespace Igor
         void calcRandomStart(iaVector3f& position, iaVector3f& velocity) const;
 
     protected:
+
+        /*! true if emitter is emitting
+        */
+        bool _emitting = true;
 
         /*! type of emitter
         */
@@ -164,7 +190,7 @@ namespace Igor
 
         /*! mesh used as emitter
         */
-        vector<iEmitterTriangle>* _emitterTriangles = nullptr;
+        vector<iEmitterTriangle> _emitterTriangles;
 
         /*! world matrix of emitter
         */

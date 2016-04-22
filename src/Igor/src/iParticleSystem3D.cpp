@@ -246,8 +246,8 @@ namespace Igor
 
 		particle->_life = 1.0f;
 		particle->_visibleTime = 1.0f;
-		particle->_visibleTimeStep = (1.0f / _lifeTime) * (1+rand()%200/100.0f);
-        particle->_visible = true;
+		particle->_visibleTimeStep = (particle->_visibleTime / _lifeTime) * (0.9 + rand()%100/1000.0f);
+        particle->_visible = emitter.isEmitting();
 
 		particle->_phase0.set(rand()%100/100.0f,rand()%100/100.0f);
 		particle->_phase1.set(rand()%100/100.0f,rand()%100/100.0f);
@@ -286,9 +286,7 @@ namespace Igor
 			}
 
 			resetParticle(particle, emitter);
-			particle->_visible = true;
 			_particlesBirth.push_back(*particle);
-			particle->_visible = false;
 			_particles.push_back(particle);
 		}
 	}
@@ -424,7 +422,6 @@ namespace Igor
 					_particles[i]->_life = _particlesBirth[i]._life;
 					_particles[i]->_size = _particlesBirth[i]._size;
 
-					_particles[i]->_visible = true;
 					_particles[i]->_visibleTime = _particlesBirth[i]._visibleTime;
                     _particles[i]->_visibleTimeStep = _particlesBirth[i]._visibleTimeStep;
 
@@ -437,6 +434,8 @@ namespace Igor
 				{
 					resetParticle(_particles[i], emitter);
 				}
+
+                _particles[i]->_visible = emitter.isEmitting();
 			}
 		}
 	}

@@ -54,10 +54,30 @@ namespace Igor
         return _worldMatrix;
     }
     
-	void iNodeEmitter::addTriangleEmitter(const iEmitterTriangle& emitterTriangle)
-	{
-		//_emitterTriangles.push_back(emitterTriangle);
+	void iNodeEmitter::addTriangle(const iEmitterTriangle& triangle)
+    {
+        _emitter.addTriangle(triangle);
 	}
+
+    void iNodeEmitter::clearTriangles()
+    {
+        _emitter.clearTriangles();
+    }
+
+    void iNodeEmitter::startEmitting()
+    {
+        _emitter.startEmitting();
+    }
+
+    void iNodeEmitter::stopEmitting()
+    {
+        _emitter.stopEmitting();
+    }
+
+    bool iNodeEmitter::isEmitting() const
+    {
+        return _emitter.isEmitting();
+    }
 
     void iNodeEmitter::onUpdateTransform(iaMatrixf& matrix)
     {

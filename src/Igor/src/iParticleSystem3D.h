@@ -46,22 +46,37 @@ namespace Igor
 
     class iParticleEmitter;
 
+    /*! single particle
+    */
     class Igor_API iParticle
     {
     public:
 
+        /*! current position of particle
+        */
         iaVector3f _position;
+
+        /*! current velocity of particle
+        */
         iaVector3f _velocity;
 
-        float32 _lift;
-        float32 _weight;
-        float32 _life = 1.0;
-        float32 _visibleTime;
-        float32 _visibleTimeStep;
-        float32 _size;
+        /*! current lift value
+        */
+        float32 _lift = 0.0;
 
-        bool _visible;
-        bool _imune;
+        /*! weight of particle
+        */
+        float32 _weight = 0.0;
+
+        /*! life of particle
+        */
+        float32 _life = 1.0;
+        float32 _visibleTime = 0.0;
+        float32 _visibleTimeStep = 0.0;
+        float32 _size = 1.0;
+
+        bool _visible = true;
+        bool _imune = false;
 
         iaVector2f _phase0;
         iaVector2f _phase1;
@@ -276,22 +291,22 @@ namespace Igor
         bool _mustReset = true;
 
         uint32 _particleCount = 300;
-        uint32 _vortexCount = 15;
+        uint32 _vortexCount = 0;
 
         uint32 _lifeTime = 200;
         uint32 _initFrame = 0;
         float32 _lifeTimeStep = 0;
 
-        float32 _minLift = 0.002f;
-        float32 _maxLift = 0.004f;
-        float32 _reduceLiftStep = 0.000005f;
+        float32 _minLift = 0.0f;
+        float32 _maxLift = 0.0f;
+        float32 _reduceLiftStep = 0.0f;
 
-        float32 _minWeight = 0.001;
-        float32 _maxWeight = 0.002;
+        float32 _minWeight = 0.0;
+        float32 _maxWeight = 0.0;
 
         float32 _minSize = 1.0;
         float32 _maxSize = 2.0;
-        float32 _sizeIncreaseStep = 0.01;
+        float32 _sizeIncreaseStep = 0.0;
 
         float32 _minVortexTorque = 0.1;
         float32 _maxVortexTorque = 0.5;

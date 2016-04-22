@@ -147,7 +147,25 @@ namespace Igor
         temp.rotateXY(angle);
         iaVector3f posOnEmitter(temp._x, 0, temp._y);
         position = _matrix * posOnEmitter;
+
         velocity.set(0, _velocity, 0);
+        velocity = _matrix * velocity;
+        velocity -= _matrix._pos;
+    }
+
+    void iParticleEmitter::startEmitting()
+    {
+        _emitting = true;
+    }
+
+    void iParticleEmitter::stopEmitting()
+    {
+        _emitting = false;
+    }
+
+    bool iParticleEmitter::isEmitting() const
+    {
+        return _emitting;
     }
 
     void iParticleEmitter::calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity) const
@@ -162,12 +180,21 @@ namespace Igor
         velocity *= _velocity;
     }
 
+    void iParticleEmitter::addTriangle(const iEmitterTriangle& triangle)
+    {
+        _emitterTriangles.push_back(triangle);
+    }
+
+    void iParticleEmitter::clearTriangles()
+    {
+        _emitterTriangles.clear();
+    }
+
     void iParticleEmitter::calcRandomStartFromMesh(iaVector3f& position, iaVector3f& velocity) const
     {
-        if (_emitterTriangles != nullptr && 
-            !_emitterTriangles->empty())
+        if (!_emitterTriangles.empty())
         {
-            iEmitterTriangle &emitter = (*_emitterTriangles)[rand() % _emitterTriangles->size()];
+            const iEmitterTriangle &emitter = _emitterTriangles[rand() % _emitterTriangles.size()];
             float32 u;
             float32 v;
 
@@ -189,10 +216,9 @@ namespace Igor
             ac = emitter.vel[2] * (1.0f - u) + emitter.vel[1] * u;
 
             velocity.set(0, 0, 0);
-            // TODO
-           /* iaVector3f velOnEmitter = ab*(1.0f - v) + ac*v;
-            velocity = _birthTransformationMatrix * velOnEmitter;
-            velocity -= _birthTransformationMatrix._pos;*/
+            iaVector3f velOnEmitter = ab*(1.0f - v) + ac*v;
+            velocity = _matrix * velOnEmitter;
+            velocity -= _matrix._pos;
 
             velocity *= _velocity;
         }
