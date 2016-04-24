@@ -93,8 +93,6 @@ namespace Igor
 
     iNode* iNodeFactory::getNode(uint32 id)
     {
-        con_assert(id != iNode::INVALID_NODE_ID, "invalid id");
-
         iNode* result = nullptr;
 
         _mutexNodes.lock();

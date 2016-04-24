@@ -168,6 +168,16 @@ namespace Igor
         return _emitting;
     }
 
+    void iParticleEmitter::setEmissionRate(uint64 emissionRate)
+    {
+        _emissionRate = emissionRate;
+    }
+
+    uint64 iParticleEmitter::getEmissionRate() const
+    {
+        return _emissionRate;
+    }
+
     void iParticleEmitter::calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity) const
     {
         position = _matrix._pos;

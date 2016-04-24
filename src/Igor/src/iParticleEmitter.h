@@ -163,6 +163,16 @@ namespace Igor
         */
         bool isEmitting() const;
 
+        /*! sets particles per frame emission
+
+        \param particles particles per frame
+        */
+        void setEmissionRate(uint64 emissionRate);
+
+        /*! \returns the particle emission rate
+        */
+        uint64 getEmissionRate() const;
+
         /*! calculates a random start position and velocity from emitter
 
         \param[out] position random position on emitter in world coordinates
@@ -171,6 +181,10 @@ namespace Igor
         void calcRandomStart(iaVector3f& position, iaVector3f& velocity) const;
 
     protected:
+
+        /*! particle emission rate
+        */
+        uint64 _emissionRate = 10;
 
         /*! true if emitter is emitting
         */

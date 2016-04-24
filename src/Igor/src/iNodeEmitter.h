@@ -116,6 +116,16 @@ namespace Igor
         */
         bool isEmitting() const;
 
+        /*! sets particles per frame emission
+
+        \param particles particles per frame
+        */
+        void setEmissionRate(uint64 emissionRate);
+
+        /*! \returns the particle emission rate
+        */
+        uint64 getEmissionRate() const;
+
         /*! \returns current world matrix of this node
         */
         const iaMatrixf& getWorldMatrix() const;

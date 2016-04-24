@@ -153,7 +153,7 @@ void Particles::init()
     waveParticleSystem->setTextureB("octave1.png");
     waveParticleSystem->setTextureC("octave2.png");
     waveParticleSystem->setParticleCount(1000);
-    waveParticleSystem->setSize(4,7);
+    waveParticleSystem->setSize(4, 7);
     waveParticleSystem->setRainbow(greenGradient);
     _scene->getRoot()->insertNode(waveParticleSystem);
 
@@ -166,7 +166,7 @@ void Particles::init()
     for (int i = 0; i < 60; i++)
     {
         float32 h1 = sin(i * 0.3) * 5.0;
-        float32 h2 = sin((i+1) * 0.3) * 5.0;
+        float32 h2 = sin((i + 1) * 0.3) * 5.0;
 
         triangle.pos[0] = iaVector3f(0 + i, h1, 0);
         triangle.pos[1] = iaVector3f(1 + i, h2, 0);
@@ -186,7 +186,7 @@ void Particles::init()
     }
 
     iNodeTransform* waveEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    waveEmitterTransform->translate(-50,5, -15);
+    waveEmitterTransform->translate(-50, 5, -15);
     waveEmitterTransform->insertNode(waveEmitter);
     _scene->getRoot()->insertNode(waveEmitterTransform);
 
@@ -211,18 +211,21 @@ void Particles::init()
     iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     circleParticleSystem->setMaterial(_particlesMaterial);
     circleParticleSystem->setTextureA("simpleParticle.png");
-    circleParticleSystem->setParticleCount(500);
-    circleParticleSystem->setSize(2, 3);
+    circleParticleSystem->setParticleCount(200);
+    circleParticleSystem->setParticleLifeTime(10);
+    circleParticleSystem->setSize(4, 7);
     circleParticleSystem->setRainbow(blueGradient);
     _scene->getRoot()->insertNode(circleParticleSystem);
 
     iNodeEmitter* circleEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    _circleEmitterID = circleEmitter->getID();
     circleParticleSystem->setEmitter(circleEmitter->getID());
     circleEmitter->setType(iEmitterType::Circle);
-    circleEmitter->setVelocity(0.1); 
+    circleEmitter->setVelocity(2.0);
     circleEmitter->setSize(10);
 
     iNodeTransform* circleEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _circlEmitterTransformID = circleEmitterTransform->getID();
     circleEmitterTransform->translate(-30, 0, 40);
     circleEmitterTransform->rotate(-0.5 * M_PI, iaAxis::Z);
     circleEmitterTransform->insertNode(circleEmitter);
@@ -282,7 +285,7 @@ void Particles::init()
 
     // animation
     _animationTimingHandle = new iTimerHandle();
-    _animationTimingHandle->setIntervall(10);
+    _animationTimingHandle->setIntervall(100);
     _animationTimingHandle->registerTimerDelegate(TimerDelegate(this, &Particles::onTimer));
 
     _taskFlushTexturesID = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
@@ -402,6 +405,28 @@ void Particles::onKeyPressed(iKeyCode key)
 
 void Particles::onTimer()
 {
+    static int counter = 0;
+
+    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_circleEmitterID));
+    if (emitter != nullptr)
+    {
+        if (counter % 10 == 0)
+        {
+            emitter->startEmitting();
+        }
+
+        if (counter % 10 == 1)
+        {
+            emitter->stopEmitting();
+        }
+    }
+
+    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_circlEmitterTransformID));
+    transform->rotate(0.1, iaAxis::Z);
+    transform->rotate(0.2, iaAxis::X);
+    transform->rotate(0.3, iaAxis::Y);
+
+    counter++;
 }
 
 void Particles::onRenderOrtho()

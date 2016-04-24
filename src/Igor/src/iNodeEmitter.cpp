@@ -79,6 +79,16 @@ namespace Igor
         return _emitter.isEmitting();
     }
 
+    void iNodeEmitter::setEmissionRate(uint64 emissionRate)
+    {
+        _emitter.setEmissionRate(emissionRate);
+    }
+
+    uint64 iNodeEmitter::getEmissionRate() const
+    {
+        return _emitter.getEmissionRate();
+    }
+
     void iNodeEmitter::onUpdateTransform(iaMatrixf& matrix)
     {
         _worldMatrix = matrix;

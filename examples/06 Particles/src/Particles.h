@@ -107,6 +107,14 @@ private:
     */
     uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
 
+    /*! id of circle emitter ID
+    */
+    uint64 _circleEmitterID = iNode::INVALID_NODE_ID;
+
+    /*! id of circle emitter transform id
+    */
+    uint64 _circlEmitterTransformID = iNode::INVALID_NODE_ID;
+
     /*! called on key pressed event
 
     \param key the key code of the pressed key
