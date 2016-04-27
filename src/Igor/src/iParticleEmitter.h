@@ -89,11 +89,11 @@ namespace Igor
 
         \param matrix the matrix to be set
         */
-        void setMatrix(const iaMatrixf& matrix);
+        void setWorldMatrix(const iaMatrixf& matrix);
 
         /*! \returns world matrix of emitter
         */
-        const iaMatrixf& getMatrix() const;
+        const iaMatrixf& getWorldMatrix() const;
 
         /*! sets size of emitter
 
@@ -113,23 +113,6 @@ namespace Igor
         /*! \returns size of emitter
         */
         float32 getSize() const;
-
-        /*! sets the start velocity
-
-        how it's interpreted depends on type of emitter
-        Mesh -> scales with the velocities in mesh
-        Point -> scales to 1 in random direction
-        Disc -> scales to 1 in Y direction
-        Circle -> scales to 1 in Y direction
-        Sphere -> scales to 1 in random direction
-        Square -> scales to 1 in Y direction
-        Cube -> scales to 1 in random direction
-        */
-        void setVelocity(float32 velocity);
-
-        /*! \returns start velocity
-        */
-        float32 getVelocity() const;
 
         /*! sets type of emitter
 
@@ -151,28 +134,6 @@ namespace Igor
         */
         void clearTriangles();
 
-        /*! start (or continue) emitting
-        */
-        void startEmitting();
-
-        /*! stop (or pause) emitting
-        */
-        void stopEmitting();
-
-        /*! \returns true if emitter is currently emitting
-        */
-        bool isEmitting() const;
-
-        /*! sets particles per frame emission
-
-        \param particles particles per frame
-        */
-        void setEmissionRate(uint64 emissionRate);
-
-        /*! \returns the particle emission rate
-        */
-        uint64 getEmissionRate() const;
-
         /*! calculates a random start position and velocity from emitter
 
         \param[out] position random position on emitter in world coordinates
@@ -182,14 +143,6 @@ namespace Igor
 
     protected:
 
-        /*! particle emission rate
-        */
-        uint64 _emissionRate = 10;
-
-        /*! true if emitter is emitting
-        */
-        bool _emitting = true;
-
         /*! type of emitter
         */
         iEmitterType _type = iEmitterType::Point;
@@ -198,17 +151,13 @@ namespace Igor
         */
         float32 _size = 1.0;
 
-        /*! start velocity
-        */
-        float32 _velocity = 0.0;
-
         /*! mesh used as emitter
         */
         vector<iEmitterTriangle> _emitterTriangles;
 
         /*! world matrix of emitter
         */
-        iaMatrixf _matrix;
+        iaMatrixf _worldMatrix;
 
         void calcRandomStartFromCube(iaVector3f& position, iaVector3f& velocity) const;
         void calcRandomStartFromSquare(iaVector3f& position, iaVector3f& velocity) const;

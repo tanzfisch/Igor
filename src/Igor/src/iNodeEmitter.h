@@ -77,23 +77,6 @@ namespace Igor
         */
         float32 getSize() const;
 
-        /*! sets the start velocity
-
-        how it's interpreted depends on type of emitter
-        Mesh -> scales with the velocities in mesh
-        Point -> scales to 1 in random direction
-        Disc -> scales to 1 in Y direction
-        Circle -> scales to 1 in Y direction
-        Sphere -> scales to 1 in random direction
-        Square -> scales to 1 in Y direction
-        Cube -> scales to 1 in random direction
-        */
-        void setVelocity(float32 velocity);
-
-        /*! \returns start velocity
-        */
-        float32 getVelocity() const;
-
         /*! adds triangle to mesh emitter
 
         \param triangle the triangle to add
@@ -103,28 +86,6 @@ namespace Igor
         /*! removes all emitter triangles from mesh
         */
         void clearTriangles();
-
-        /*! start (or continue) emitting
-        */
-        void startEmitting();
-
-        /*! stop (or pause) emitting
-        */
-        void stopEmitting();
-
-        /*! \returns true if emitter is currently emitting
-        */
-        bool isEmitting() const;
-
-        /*! sets particles per frame emission
-
-        \param particles particles per frame
-        */
-        void setEmissionRate(uint64 emissionRate);
-
-        /*! \returns the particle emission rate
-        */
-        uint64 getEmissionRate() const;
 
         /*! \returns current world matrix of this node
         */

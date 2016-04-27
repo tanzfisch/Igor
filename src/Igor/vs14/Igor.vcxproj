@@ -695,6 +695,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iFileDialog.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
+    <ClInclude Include="..\src\iGradient.h" />
     <ClInclude Include="..\src\iInstancer.h" />
     <ClInclude Include="..\src\iKeyboard.h" />
     <ClInclude Include="..\src\iKeyCodeMap.h" />
@@ -766,7 +767,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iPhysicsWorld.h" />
     <ClInclude Include="..\src\iPixmap.h" />
     <ClInclude Include="..\src\iPlane.h" />
-    <ClInclude Include="..\src\iRainbow.h" />
     <ClInclude Include="..\src\iRectangle.h" />
     <ClInclude Include="..\src\iRenderContextThread.h" />
     <ClInclude Include="..\src\iRenderEngine.h" />
@@ -900,6 +900,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <None Include="..\src\iAABox.inl" />
     <None Include="..\src\iAACube.inl" />
     <None Include="..\src\iFrustum.inl" />
+    <None Include="..\src\iGradient.inl" />
     <None Include="..\src\iInstancer.inl" />
     <None Include="..\src\iMesh.inl" />
     <None Include="..\src\iMeshBuffers.inl" />
@@ -1365,7 +1366,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp" />
     <ClCompile Include="..\src\iPhysicsWorld.cpp" />
     <ClCompile Include="..\src\iPixmap.cpp" />
-    <ClCompile Include="..\src\iRainbow.cpp" />
     <ClCompile Include="..\src\iRenderContextThread.cpp" />
     <ClCompile Include="..\src\iRenderEngine.cpp" />
     <ClCompile Include="..\src\iRenderer.cpp" />

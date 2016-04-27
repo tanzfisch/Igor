@@ -29,6 +29,10 @@
 #ifndef __iRENDERER__
 #define __iRENDERER__
 
+#include <iRectangle.h>
+#include <iTexture.h>
+#include <iGradient.h>
+
 #include <iaSingleton.h>
 #include <iaString.h>
 #include <iaMatrix.h>
@@ -36,9 +40,6 @@
 #include <iaColor3.h>
 #include <iaEvent.h>
 using namespace IgorAux;
-
-#include <iRectangle.h>
-#include <iTexture.h>
 
 #include <mutex>
 #include <list>
@@ -53,7 +54,6 @@ namespace Igor
 	class iMesh;
 	class iParticle;
 	class iParticle2D;
-	class iRainbow;
 	class iSprite;
     class iVBOInstances;
     class iInstancer;
@@ -552,8 +552,9 @@ namespace Igor
         virtual void drawString(float32 x, float32 y, iaString text, iHorrizontalAlign horz, iVerticalAlign vert = iVerticalAlign::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
-        virtual void drawParticles(vector<iParticle*> *particles, iRainbow *rainbow); // iaMatrix muss Kopie sein
-        virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iRainbow *rainbow = 0);
+        virtual void drawParticles(vector<iParticle*> *particles);
+        virtual void drawParticles(vector<iParticle*> *particles, iGradientColor4f& rainbow);
+        virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iGradientColor4f *rainbow = 0);
 
         // attributes
         virtual void setLineWidth(float32 width);
@@ -655,7 +656,7 @@ namespace Igor
 
         /*! current rainbow palette in use
         */
-		iRainbow* _rainbow = nullptr;
+		iGradientColor4f* _rainbow = nullptr;
 
         /*! vendor iaString
         */

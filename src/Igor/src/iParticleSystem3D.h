@@ -29,7 +29,7 @@
 #ifndef __iPARTICLESYSTEM3D__
 #define __iPARTICLESYSTEM3D__
 
-#include <iRainbow.h>
+#include <iGradient.h>
 
 #include <iaVector3.h>
 #include <iaVector2.h>
@@ -161,18 +161,6 @@ namespace Igor
         /*! \returns maximum range of vortexes
         */
         float32 getVortexRangeMax();
-
-        /*! activates or deactivates loop ability
-
-        if loob ability is on the particle system will repeadetly apear the same in preiod of it's lifetime
-
-        \param loop flag if true loop ability will be switched on
-        */
-        void setLoop(bool loop = true);
-
-        /*! \returns true if loop ability is switched on
-        */
-        bool getLoop();
 
         /*! sets the min and max values of how much the particles lift them selves agains gravity
 
@@ -313,8 +301,6 @@ namespace Igor
         float32 _minVRange = 10.0;
         float32 _maxVRange = 20.0;
 
-        bool _loopable = false;
-
         iaVector2f _octave1Shift = { 0.001, 0.001 };
         iaVector2f _octave2Shift = { 0.001, 0.001 };
 
@@ -326,7 +312,6 @@ namespace Igor
         float32 _vorticityConfinement = 0.1;
 
         vector<iParticle*> _particles;
-        vector<iParticle> _particlesBirth;
 
         vector<iVortexParticle*> _vortexParticles;
 

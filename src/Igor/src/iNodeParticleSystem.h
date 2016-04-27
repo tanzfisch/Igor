@@ -32,6 +32,7 @@
 #include <iNodeVolume.h>
 #include <iTexture.h>
 #include <iParticleSystem3D.h>
+#include <iGradient.h>
 
 #include <vector>
 using namespace std;
@@ -109,18 +110,6 @@ namespace Igor
         /*! \returns maximum range of vortexes
         */
         float32 getVortexRangeMax();
-
-        /*! activates or deactivates loop ability
-
-        if loob ability is on the particle system will repeadetly apear the same in preiod of it's lifetime
-
-        \param loop flag if true loop ability will be switched on
-        */
-        void setLoop(bool loop = true);
-
-        /*! \returns true if loop ability is switched on
-        */
-        bool getLoop();
 
         /*! sets the min and max values of how much the particles lift them selves agains gravity
 
@@ -223,13 +212,13 @@ namespace Igor
 
         \param rainbow the rainbow gradient
         */
-        void setRainbow(const iRainbow& rainbow);
+        void setRainbow(const iGradientColor4f& rainbow);
 
         /*! returns the rainbow gradient
 
         \param[out] rainbow out value for the rainbow gradient
         */
-        void getRainbow(iRainbow& rainbow) const;
+        void getRainbow(iGradientColor4f& rainbow) const;
 
         /*! sets first texture
 
@@ -299,7 +288,7 @@ namespace Igor
 
         /*! color gradient for particles
         */
-        iRainbow _rainbow;
+        iGradientColor4f _rainbow;
 
         /*! called when there is a new transformation matrix for this node
 

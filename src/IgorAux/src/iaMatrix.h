@@ -119,6 +119,8 @@ namespace IgorAux
 		*/
 		__IGOR_INLINE__ bool invert();
 
+        /*! transposes the matrix
+        */
 		__IGOR_INLINE__ void transpose();
 
 		/*! calculates a view matrix
@@ -199,6 +201,13 @@ namespace IgorAux
 		\param s scale vector
 		*/
 		__IGOR_INLINE__ void scale(const iaVector3<T>& s);
+
+        /*! scales the matrix
+
+        \param x scale in x axis
+        \param y scale in y axis
+        \param z scale in z axis
+        */
 		__IGOR_INLINE__ void scale(T x, T y, T z);
 
 		/*! translate the matrix along it's own orientation vectors

@@ -9,7 +9,6 @@
 #include <iMesh.h>
 #include <iRenderStateSet.h>
 #include <iParticleSystem2D.h>
-#include <iRainbow.h>
 #include <iWindow.h>
 #include <iTextureResourceFactory.h>
 #include <iShader.h>
@@ -1273,7 +1272,7 @@ namespace Igor
     /*!
     \bug in debug mode the rainbow colors are wrong. it's changing back and forth
     */
-    void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iRainbow *rainbow)
+    void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iGradientColor4f *rainbow)
     {
         iaVector2f a, b, c, d, u, v;
         iaColor4f color;
@@ -1290,7 +1289,7 @@ namespace Igor
             {
                 if (rainbow != nullptr)
                 {
-                    rainbow->getColor(particles[i]._life, color);
+                    rainbow->getValue(particles[i]._life, color);
                     glColor4fv(color.getData());
                 }
 
@@ -1337,7 +1336,7 @@ namespace Igor
 
     }
 
-    void iRenderer::drawParticles(vector<iParticle*> *particles, iRainbow *rainbow)
+    void iRenderer::drawParticles(vector<iParticle*> *particles)
     {
         iaVector3f right = _camWorldMatrix._right;
         iaVector3f top = _camWorldMatrix._top;
@@ -1349,9 +1348,50 @@ namespace Igor
         {
             if ((*particles)[i]->_visible)
             {
-                if (rainbow != nullptr)
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
+
+                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
+            }
+        }
+
+        glEnd();		GL_CHECK_ERROR();
+    }
+
+    void iRenderer::drawParticles(vector<iParticle*> *particles, iGradientColor4f& rainbow)
+    {
+        iaVector3f right = _camWorldMatrix._right;
+        iaVector3f top = _camWorldMatrix._top;
+        iaColor4f color;
+
+        glBegin(GL_QUADS);
+
+        for (uint32 i = 0; i < particles->size(); ++i)
+        {
+            if ((*particles)[i]->_visible)
+            {
+                if (rainbow.isValid())
                 {
-                    rainbow->getColor((*particles)[i]->_visibleTime, color);
+                    rainbow.getValue((*particles)[i]->_visibleTime, color);
                     glColor4fv(color.getData());
                 }
 

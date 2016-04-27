@@ -28,6 +28,7 @@
 #include <iNodeLODTrigger.h>
 #include <iNodeParticleSystem.h>
 #include <iNodeEmitter.h>
+#include <iGradient.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -123,29 +124,29 @@ void Particles::init()
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
-    iRainbow redGradient;
-    redGradient.insertColor(iaColor4f(1, 0, 0, 0), 0.0);
-    redGradient.insertColor(iaColor4f(1, 0, 0, 1), 0.1);
-    redGradient.insertColor(iaColor4f(1, 0, 0, 1), 0.9);
-    redGradient.insertColor(iaColor4f(1, 0, 0, 0), 1.0);
+    iGradientColor4f redGradient;
+    redGradient.insertValue(0.0, iaColor4f(1, 0, 0, 0));
+    redGradient.insertValue(0.1, iaColor4f(1, 0, 0, 1));
+    redGradient.insertValue(0.9, iaColor4f(1, 0, 0, 1));
+    redGradient.insertValue(1.0, iaColor4f(1, 0, 0, 0));
 
-    iRainbow greenGradient;
-    greenGradient.insertColor(iaColor4f(0, 1, 0, 0), 0.0);
-    greenGradient.insertColor(iaColor4f(0, 1, 0, 1), 0.1);
-    greenGradient.insertColor(iaColor4f(0, 1, 0, 1), 0.9);
-    greenGradient.insertColor(iaColor4f(0, 1, 0, 0), 1.0);
+    iGradientColor4f greenGradient;
+    greenGradient.insertValue(0.0, iaColor4f(0, 1, 0, 0));
+    greenGradient.insertValue(0.1, iaColor4f(0, 1, 0, 1));
+    greenGradient.insertValue(0.9, iaColor4f(0, 1, 0, 1));
+    greenGradient.insertValue(1.0, iaColor4f(0, 1, 0, 0));
 
-    iRainbow blueGradient;
-    blueGradient.insertColor(iaColor4f(0, 0, 1, 0), 0.0);
-    blueGradient.insertColor(iaColor4f(0, 0, 1, 1), 0.1);
-    blueGradient.insertColor(iaColor4f(0, 0, 1, 1), 0.9);
-    blueGradient.insertColor(iaColor4f(0, 0, 1, 0), 1.0);
+    iGradientColor4f blueGradient;
+    blueGradient.insertValue(0.0, iaColor4f(0, 0, 1, 0));
+    blueGradient.insertValue(0.1, iaColor4f(0, 0, 1, 1));
+    blueGradient.insertValue(0.9, iaColor4f(0, 0, 1, 1));
+    blueGradient.insertValue(1.0, iaColor4f(0, 0, 1, 0));
 
-    iRainbow whiteGradient;
-    whiteGradient.insertColor(iaColor4f(1, 1, 1, 0), 0.0);
-    whiteGradient.insertColor(iaColor4f(1, 1, 1, 1), 0.1);
-    whiteGradient.insertColor(iaColor4f(1, 1, 1, 1), 0.9);
-    whiteGradient.insertColor(iaColor4f(1, 1, 1, 0), 1.0);
+    iGradientColor4f whiteGradient;
+    whiteGradient.insertValue(0.0, iaColor4f(1, 1, 1, 0));
+    whiteGradient.insertValue(0.1, iaColor4f(1, 1, 1, 1));
+    whiteGradient.insertValue(0.9, iaColor4f(1, 1, 1, 1));
+    whiteGradient.insertValue(1.0, iaColor4f(1, 1, 1, 0));
 
     iNodeParticleSystem* waveParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     waveParticleSystem->setMaterial(_particlesMaterial);
@@ -160,7 +161,6 @@ void Particles::init()
     iNodeEmitter* waveEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     waveParticleSystem->setEmitter(waveEmitter->getID());
     waveEmitter->setType(iEmitterType::Mesh);
-    waveEmitter->setVelocity(0.01);
 
     iEmitterTriangle triangle;
     for (int i = 0; i < 60; i++)
@@ -201,7 +201,6 @@ void Particles::init()
     iNodeEmitter* dotEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     dotParticleSystem->setEmitter(dotEmitter->getID());
     dotEmitter->setType(iEmitterType::Point);
-    dotEmitter->setVelocity(0.1);
 
     iNodeTransform* dotEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     dotEmitterTransform->translate(40, 0, 0);
@@ -221,7 +220,6 @@ void Particles::init()
     _circleEmitterID = circleEmitter->getID();
     circleParticleSystem->setEmitter(circleEmitter->getID());
     circleEmitter->setType(iEmitterType::Circle);
-    circleEmitter->setVelocity(2.0);
     circleEmitter->setSize(10);
 
     iNodeTransform* circleEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -248,7 +246,6 @@ void Particles::init()
     iNodeEmitter* smokeEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     smokeParticleSystem->setEmitter(smokeEmitter->getID());
     smokeEmitter->setType(iEmitterType::Disc);
-    smokeEmitter->setVelocity(0.0);
     smokeEmitter->setSize(7);
 
     iNodeTransform* smokeEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -410,15 +407,7 @@ void Particles::onTimer()
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_circleEmitterID));
     if (emitter != nullptr)
     {
-        if (counter % 10 == 0)
-        {
-            emitter->startEmitting();
-        }
 
-        if (counter % 10 == 1)
-        {
-            emitter->stopEmitting();
-        }
     }
 
     iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_circlEmitterTransformID));

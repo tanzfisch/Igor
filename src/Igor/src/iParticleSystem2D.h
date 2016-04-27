@@ -31,7 +31,7 @@
 
 #include <iTimerHandle.h>
 #include <iaVector2.h>
-#include <iRainbow.h>
+#include <iGradient.h>
 
 #include <vector>
 using namespace std;

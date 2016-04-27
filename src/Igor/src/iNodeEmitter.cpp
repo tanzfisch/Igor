@@ -39,16 +39,6 @@ namespace Igor
         return _emitter.getType();
     }
 
-    void iNodeEmitter::setVelocity(float32 velocity)
-    {
-        _emitter.setVelocity(velocity);
-    }
-
-    float32 iNodeEmitter::getVelocity() const
-    {
-        return _emitter.getVelocity();
-    }
-
     const iaMatrixf& iNodeEmitter::getWorldMatrix() const
     {
         return _worldMatrix;
@@ -64,35 +54,10 @@ namespace Igor
         _emitter.clearTriangles();
     }
 
-    void iNodeEmitter::startEmitting()
-    {
-        _emitter.startEmitting();
-    }
-
-    void iNodeEmitter::stopEmitting()
-    {
-        _emitter.stopEmitting();
-    }
-
-    bool iNodeEmitter::isEmitting() const
-    {
-        return _emitter.isEmitting();
-    }
-
-    void iNodeEmitter::setEmissionRate(uint64 emissionRate)
-    {
-        _emitter.setEmissionRate(emissionRate);
-    }
-
-    uint64 iNodeEmitter::getEmissionRate() const
-    {
-        return _emitter.getEmissionRate();
-    }
-
     void iNodeEmitter::onUpdateTransform(iaMatrixf& matrix)
     {
         _worldMatrix = matrix;
-        _emitter.setMatrix(matrix);
+        _emitter.setWorldMatrix(matrix);
     }
 
     const iParticleEmitter& iNodeEmitter::getParticleEmitter() const

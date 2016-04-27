@@ -128,9 +128,6 @@
     <ClCompile Include="..\src\iWindow.cpp">
       <Filter>devices</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iRainbow.cpp">
-      <Filter>graphics\types</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPixmap.cpp">
       <Filter>graphics\texture</Filter>
     </ClCompile>
@@ -768,9 +765,6 @@
     <ClInclude Include="..\src\iCullContext.h">
       <Filter>graphics\types</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iRainbow.h">
-      <Filter>graphics\types</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iRectangle.h">
       <Filter>graphics\types</Filter>
     </ClInclude>
@@ -1324,6 +1318,9 @@
     <ClInclude Include="..\src\iParticleEmitter.h">
       <Filter>graphics\simulation</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iGradient.h">
+      <Filter>graphics\types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -1364,6 +1361,9 @@
     </None>
     <None Include="..\src\iAABox.inl">
       <Filter>intersection</Filter>
+    </None>
+    <None Include="..\src\iGradient.inl">
+      <Filter>graphics\types</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

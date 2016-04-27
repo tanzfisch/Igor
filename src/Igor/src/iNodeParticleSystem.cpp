@@ -6,7 +6,6 @@
 
 #include <iRenderer.h>
 #include <iTextureResourceFactory.h>
-#include <iRainbow.h>
 #include <iNodeFactory.h>
 #include <iNodeEmitter.h>
 
@@ -60,15 +59,15 @@ namespace Igor
         return _rainbowActive;
     }
 
-    void iNodeParticleSystem::setRainbow(const iRainbow& rainbow)
+    void iNodeParticleSystem::setRainbow(const iGradientColor4f& rainbow)
     {
         _rainbow = rainbow;
         _rainbowActive = true;
     }
 
-    void iNodeParticleSystem::getRainbow(iRainbow& rainbow) const
+    void iNodeParticleSystem::getRainbow(iGradientColor4f& rainbow) const
     {
-        rainbow = _rainbow;
+      rainbow = _rainbow;
     }
 
     void iNodeParticleSystem::draw()
@@ -90,12 +89,12 @@ namespace Igor
                 iRenderer::getInstance().setModelMatrix(_worldMatrix);
                 if (_rainbowActive)
                 {
-                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), &_rainbow);
+                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), _rainbow);
                 }
                 else
                 {
                     iRenderer::getInstance().setColor(_color);
-                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), nullptr);
+                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()));
                 }
             }
         }
@@ -159,16 +158,6 @@ namespace Igor
     float32 iNodeParticleSystem::getVortexRangeMax()
     {
         return _particleSystem.getVortexRangeMax();
-    }
-
-    void iNodeParticleSystem::setLoop(bool loop)
-    {
-        _particleSystem.setLoop(loop);
-    }
-
-    bool iNodeParticleSystem::getLoop()
-    {
-        return _particleSystem.getLoop();
     }
 
     void iNodeParticleSystem::setLift(float32 min, float32 max)
