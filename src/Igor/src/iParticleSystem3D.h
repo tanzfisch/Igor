@@ -68,11 +68,13 @@ namespace Igor
         */
         float32 _weight = 0.0;
 
-        /*! life of particle
+        /*! life of particle in seconds
         */
         float32 _life = 1.0;
+
+        /*! visible time in seconds
+        */
         float32 _visibleTime = 0.0;
-        float32 _visibleTimeStep = 0.0;
         float32 _size = 1.0;
 
         bool _visible = true;
@@ -99,38 +101,6 @@ namespace Igor
     {
 
     public:
-
-        /*! sets particle count
-
-        \param count particle count
-        */
-        void setParticleCount(uint32 count);
-
-        /*! \returns particle count
-        */
-        uint32 getParticleCount();
-
-        /*! sets particles lifetime in frames
-
-        \param frames particle life time in frames 
-        */
-        void setParticleLifeTime(uint32 frames);
-
-        /*! \returns particle lifetime in frames
-        */
-        uint32 getParticleLifeTime();
-
-        /*! sets vortex particle count
-
-        values can go from zero to particle count
-
-        \param count vortex particle count
-        */
-        void setVortexParticleCount(uint32 count);
-
-        /*! \returns vortex particle count
-        */
-        uint32 getVortexParticleCount();
 
         /*! sets the range of vortex torque
 
@@ -249,12 +219,34 @@ namespace Igor
         */
         float32 getThirdTextureRotation();
 
-        void reset(const iParticleEmitter& emitter);
-
         vector<iParticle*> getCurrentFrame();
         vector<iVortexParticle*> getCurrentFrameVortex();
 
+        /*! clears all particles
+        */
+        void reset();
+
+        /*! starts or resumes particle system
+        */
+        void start();
+
+        /*! stops or pauses the particle system
+        */
+        void stop();
+        
+        /*! \returns true if particle system is currently running
+        */
+        bool isRunning();
+
+        bool isFinished() const;
+
+        void setLoop(bool loop = true);
+        bool getLoop() const;
+
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
+
+        void setVortexParticleLikeliness(float32 likeliness);
+        float32 getVortexParticleLikeliness() const;
 
         void calcNextFrame(const iParticleEmitter& emitter);
 
@@ -266,11 +258,74 @@ namespace Igor
         void setVorticityConfinement(float32 vc);
         float32 getVorticityConfinement();
 
+        /*! sets color gradient
+
+        the gradient must contain colors at given time in seconds
+
+        \param colorGradient the color gradient
+        */
+        void setColorGradient(const iGradientColor4f& colorGradient);
+
+        /*! returns the color gradient
+
+        the gradient contains colors at given time in seconds
+
+        \param[out] colorGradient out value for the color gradient
+        */
+        void getColorGradient(iGradientColor4f& colorGradient) const;
+
+        /*! \returns reference to color gradient
+        */
+        const iGradientColor4f& getColorGradient() const;
+
+        /*! sets emission gradient for particles per frame
+
+        \param emissionGradient the emission gradient
+        */
+        void setEmissionGradient(const iGradientui& emissionGradient);
+
+        /*! returns the emission gradient
+
+        \param[out] emissionGradient out value for the emission gradient
+        */
+        void getEmissionGradient(iGradientui& emissionGradient) const;
+
+        /*! sets visible gradient for particles per frame
+
+        \param visibleGradient the visible gradient
+        */
+        void setStartVisibleTimeGradient(const iGradientf& visibleGradient);
+
+        /*! returns the emission gradient
+
+        \param[out] visibleGradient out value for the visible gradient
+        */
+        void getStartVisibleTimeGradient(iGradientf& visibleGradient) const;
+
+        /*! sets size gradient for particles per frame
+
+        \param sizeGradient the size gradient
+        */
+        void setSizeModifierGradient(const iGradientf& sizeGradient);
+
+        /*! returns the emission gradient
+
+        \param[out] sizeGradient out value for the size gradient
+        */
+        void getSizeModifierGradient(iGradientf& sizeGradient) const;
 
         iParticleSystem3D();
         virtual ~iParticleSystem3D();
 
-    protected:
+    private:
+
+        bool _finished = false;
+
+        bool _loop = true;
+
+        bool _running = false;
+
+        float32 _vortexLikeliness = 0.1;
 
         iaMatrixf _particleSystemInvWorldMatrix;
 
@@ -278,11 +333,30 @@ namespace Igor
 
         bool _mustReset = true;
 
-        uint32 _particleCount = 300;
-        uint32 _vortexCount = 0;
+        /*! color gradient for particles during their lifetime
+        */
+        iGradientColor4f _colorGradient;
 
+        /*! start visible time gradient
+        */
+        iGradientf _startVisibleTimeGradient;
+
+        /*! emission rate gradient during particle system lifetime
+        */
+        iGradientui _emissionRateGradient;
+
+        /*! size modoification gradient during particle system lifetime
+        */
+        iGradientf _sizeModifierGradient;
+
+        /*! start sizes of particles during particles system lifetime
+        */
+        iGradientf _startSizeGradient;
+
+        iGradientVector3f _velocityGradient;
+
+        float32 _particleSystemPeriodTime = 0;
         uint32 _lifeTime = 200;
-        uint32 _initFrame = 0;
         float32 _lifeTimeStep = 0;
 
         float32 _minLift = 0.0f;
@@ -307,6 +381,9 @@ namespace Igor
         float32 _octave1Rotation = 0.001;
         float32 _octave2Rotation = -0.001;
 
+        float64 _startTime = 0;
+        float64 _time = 0;
+
         long _vortexCheckRange = 30;
 
         float32 _vorticityConfinement = 0.1;
@@ -315,8 +392,10 @@ namespace Igor
 
         vector<iVortexParticle*> _vortexParticles;
 
-        void calcBirth(const iParticleEmitter& emitter);
-        void resetParticle(iParticle *particle, const iParticleEmitter& emitter);
+        void initDefaultGradients();
+
+        void createParticles(uint32 particleCount, const iParticleEmitter& emitter, float32 particleSystemTime);
+        void resetParticle(iParticle *particle, const iParticleEmitter& emitter, float32 particleSystemTime);
     };
 
 };

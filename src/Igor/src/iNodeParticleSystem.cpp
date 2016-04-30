@@ -38,36 +38,14 @@ namespace Igor
         setTextureC(node->getTextureC());
     }
 
-    void iNodeParticleSystem::setColor(const iaColor4f& color)
+    void iNodeParticleSystem::setColorGradient(const iGradientColor4f& colorGradient)
     {
-        _color = color;
-        _rainbowActive = false;
+        _particleSystem.setColorGradient(colorGradient);
     }
 
-    const iaColor4f& iNodeParticleSystem::getColor() const
+    void iNodeParticleSystem::getColorGradient(iGradientColor4f& colorGradient) const
     {
-        return _color;
-    }
-
-    void iNodeParticleSystem::setRainbowAcive(bool flag)
-    {
-        _rainbowActive = flag;
-    }
-
-    bool iNodeParticleSystem::isRainbowActive() const
-    {
-        return _rainbowActive;
-    }
-
-    void iNodeParticleSystem::setRainbow(const iGradientColor4f& rainbow)
-    {
-        _rainbow = rainbow;
-        _rainbowActive = true;
-    }
-
-    void iNodeParticleSystem::getRainbow(iGradientColor4f& rainbow) const
-    {
-      rainbow = _rainbow;
+        _particleSystem.getColorGradient(colorGradient);
     }
 
     void iNodeParticleSystem::draw()
@@ -87,47 +65,29 @@ namespace Igor
                 iRenderer::getInstance().bindTexture(_textureC, 2);
 
                 iRenderer::getInstance().setModelMatrix(_worldMatrix);
-                if (_rainbowActive)
-                {
-                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), _rainbow);
-                }
-                else
-                {
-                    iRenderer::getInstance().setColor(_color);
-                    iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()));
-                }
+                iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), _particleSystem.getColorGradient());
             }
         }
     }
 
-    void iNodeParticleSystem::setParticleCount(uint32 count)
+    void iNodeParticleSystem::reset()
     {
-        _particleSystem.setParticleCount(count);
+        _particleSystem.reset();
     }
 
-    uint32 iNodeParticleSystem::getParticleCount()
+    void iNodeParticleSystem::start()
     {
-        return _particleSystem.getParticleCount();
+        _particleSystem.start();
     }
 
-    void iNodeParticleSystem::setParticleLifeTime(uint32 frames)
+    void iNodeParticleSystem::stop()
     {
-        _particleSystem.setParticleLifeTime(frames);
+        _particleSystem.stop();
     }
 
-    uint32 iNodeParticleSystem::getParticleLifeTime()
+    bool iNodeParticleSystem::isRunning()
     {
-        return _particleSystem.getParticleLifeTime();
-    }
-
-    void iNodeParticleSystem::setVortexParticleCount(uint32 count)
-    {
-        _particleSystem.setVortexParticleCount(count);
-    }
-
-    uint32 iNodeParticleSystem::getVortexParticleCount()
-    {
-        return _particleSystem.getVortexParticleCount();
+        return _particleSystem.isRunning();
     }
 
     void iNodeParticleSystem::setVortexTorque(float32 min, float32 max)
@@ -287,4 +247,23 @@ namespace Igor
         _textureC = iTextureResourceFactory::getInstance().requestFile(texture);
     }
 
-};
+    void iNodeParticleSystem::setEmissionGradient(const iGradientui& emissionGradient)
+    {
+        _particleSystem.setEmissionGradient(emissionGradient);
+    }
+
+    void iNodeParticleSystem::getEmissionGradient(iGradientui& emissionGradient) const
+    {
+        _particleSystem.getEmissionGradient(emissionGradient);
+    }
+
+    void iNodeParticleSystem::setStartVisibleTimeGradient(const iGradientf& visibleGradient)
+    {
+        _particleSystem.setStartVisibleTimeGradient(visibleGradient);
+    }
+
+    void iNodeParticleSystem::getStartVisibleTimeGradient(iGradientf& visibleGradient) const
+    {
+        _particleSystem.getStartVisibleTimeGradient(visibleGradient);
+    }
+}

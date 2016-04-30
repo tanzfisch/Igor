@@ -127,8 +127,10 @@ void Particles::init()
     iGradientColor4f redGradient;
     redGradient.insertValue(0.0, iaColor4f(1, 0, 0, 0));
     redGradient.insertValue(0.1, iaColor4f(1, 0, 0, 1));
-    redGradient.insertValue(0.9, iaColor4f(1, 0, 0, 1));
-    redGradient.insertValue(1.0, iaColor4f(1, 0, 0, 0));
+    redGradient.insertValue(1.0, iaColor4f(1, 0, 0, 1));
+    redGradient.insertValue(2.0, iaColor4f(1, 1, 0, 1));
+    redGradient.insertValue(2.9, iaColor4f(1, 0, 1, 1));
+    redGradient.insertValue(3.0, iaColor4f(1, 0, 1, 0));
 
     iGradientColor4f greenGradient;
     greenGradient.insertValue(0.0, iaColor4f(0, 1, 0, 0));
@@ -153,10 +155,10 @@ void Particles::init()
     waveParticleSystem->setTextureA("simpleParticle.png");
     waveParticleSystem->setTextureB("octave1.png");
     waveParticleSystem->setTextureC("octave2.png");
-    waveParticleSystem->setParticleCount(1000);
     waveParticleSystem->setSize(4, 7);
-    waveParticleSystem->setRainbow(greenGradient);
+    waveParticleSystem->setColorGradient(greenGradient);
     _scene->getRoot()->insertNode(waveParticleSystem);
+    waveParticleSystem->start();
 
     iNodeEmitter* waveEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     waveParticleSystem->setEmitter(waveEmitter->getID());
@@ -193,10 +195,10 @@ void Particles::init()
     iNodeParticleSystem* dotParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     dotParticleSystem->setMaterial(_particlesMaterial);
     dotParticleSystem->setTextureA("simpleParticle.png");
-    dotParticleSystem->setParticleCount(50);
     dotParticleSystem->setSize(4, 7);
-    dotParticleSystem->setRainbow(redGradient);
+    dotParticleSystem->setColorGradient(redGradient);
     _scene->getRoot()->insertNode(dotParticleSystem);
+    dotParticleSystem->start();
 
     iNodeEmitter* dotEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     dotParticleSystem->setEmitter(dotEmitter->getID());
@@ -210,11 +212,10 @@ void Particles::init()
     iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     circleParticleSystem->setMaterial(_particlesMaterial);
     circleParticleSystem->setTextureA("simpleParticle.png");
-    circleParticleSystem->setParticleCount(200);
-    circleParticleSystem->setParticleLifeTime(10);
     circleParticleSystem->setSize(4, 7);
-    circleParticleSystem->setRainbow(blueGradient);
+    circleParticleSystem->setColorGradient(blueGradient);
     _scene->getRoot()->insertNode(circleParticleSystem);
+    circleParticleSystem->start();
 
     iNodeEmitter* circleEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     _circleEmitterID = circleEmitter->getID();
@@ -234,14 +235,12 @@ void Particles::init()
     smokeParticleSystem->setTextureA("simpleParticle.png");
     smokeParticleSystem->setTextureB("octave1.png");
     smokeParticleSystem->setTextureC("octave2.png");
-    smokeParticleSystem->setParticleCount(500);
-    smokeParticleSystem->setVortexParticleCount(30);
-    smokeParticleSystem->setParticleLifeTime(300);
     smokeParticleSystem->setLift(0.001, 0.002);
     smokeParticleSystem->setSize(3, 6);
     smokeParticleSystem->setSizeIncrease(0.01);
-    smokeParticleSystem->setRainbow(whiteGradient);
+    smokeParticleSystem->setColorGradient(whiteGradient);
     _scene->getRoot()->insertNode(smokeParticleSystem);
+    smokeParticleSystem->start();
 
     iNodeEmitter* smokeEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     smokeParticleSystem->setEmitter(smokeEmitter->getID());

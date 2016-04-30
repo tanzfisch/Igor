@@ -49,37 +49,21 @@ namespace Igor
 
 	public:
 
-        /*! sets particle count
-
-        \param count particle count
+        /*! clears all particles
         */
-        void setParticleCount(uint32 count);
+        void reset();
 
-        /*! \returns particle count
+        /*! starts or resumes particle system
         */
-        uint32 getParticleCount();
+        void start();
 
-        /*! sets particles lifetime in frames
-
-        \param frames particle life time in frames
+        /*! stops or pauses the particle system
         */
-        void setParticleLifeTime(uint32 frames);
+        void stop();
 
-        /*! \returns particle lifetime in frames
+        /*! \returns true if particle system is currently running
         */
-        uint32 getParticleLifeTime();
-
-        /*! sets vortex particle count
-
-        values can go from zero to particle count
-
-        \param count vortex particle count
-        */
-        void setVortexParticleCount(uint32 count);
-
-        /*! \returns vortex particle count
-        */
-        uint32 getVortexParticleCount();
+        bool isRunning();
 
         /*! sets the range of vortex torque
 
@@ -188,37 +172,41 @@ namespace Igor
         */
         uint64 getEmitter() const;
 
-        /*! sets color to use and deactivates raibow mode
-
-        \param color the collor to draw the particles with
-        */
-        void setColor(const iaColor4f& color);
-
-        /*! \returns configured single particle color
-        */
-        const iaColor4f& getColor() const;
-
-        /*! sets the rainbow mode active
-
-        \param flag if true the rainbow mode will be active
-        */
-        void setRainbowAcive(bool flag = true);
-
-        /*! \returns true if the rainbow mode is active
-        */
-        bool isRainbowActive() const;
-
         /*! sets rainbow gradient for particles color
 
         \param rainbow the rainbow gradient
         */
-        void setRainbow(const iGradientColor4f& rainbow);
+        void setColorGradient(const iGradientColor4f& colorGradient);
 
         /*! returns the rainbow gradient
 
         \param[out] rainbow out value for the rainbow gradient
         */
-        void getRainbow(iGradientColor4f& rainbow) const;
+        void getColorGradient(iGradientColor4f& colorGradient) const;
+
+        /*! sets emission gradient for particles per frame
+
+        \param emissionGradient the emission gradient
+        */
+        void setEmissionGradient(const iGradientui& emissionGradient);
+
+        /*! returns the emission gradient
+
+        \param[out] emissionGradient out value for the emission gradient
+        */
+        void getEmissionGradient(iGradientui& emissionGradient) const;
+
+        /*! sets visible gradient for particles per frame
+
+        \param visibleGradient the visible gradient
+        */
+        void setStartVisibleTimeGradient(const iGradientf& visibleGradient);
+
+        /*! returns the emission gradient
+
+        \param[out] visibleGradient out value for the visible gradient
+        */
+        void getStartVisibleTimeGradient(iGradientf& visibleGradient) const;
 
         /*! sets first texture
 
@@ -279,16 +267,6 @@ namespace Igor
         /*! third texture
         */
         shared_ptr<iTexture> _textureC;
-
-        /*! color for particles
-        */
-        iaColor4f _color = { 1,1,1,1 };
-
-        bool _rainbowActive = false;
-
-        /*! color gradient for particles
-        */
-        iGradientColor4f _rainbow;
 
         /*! called when there is a new transformation matrix for this node
 

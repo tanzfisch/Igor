@@ -1336,7 +1336,7 @@ namespace Igor
 
     }
 
-    void iRenderer::drawParticles(vector<iParticle*> *particles)
+    void iRenderer::drawParticles(vector<iParticle*> *particles, const iGradientColor4f& rainbow)
     {
         iaVector3f right = _camWorldMatrix._right;
         iaVector3f top = _camWorldMatrix._top;
@@ -1348,52 +1348,8 @@ namespace Igor
         {
             if ((*particles)[i]->_visible)
             {
-                glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
-                glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
-
-                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
-                glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
-
-                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
-                glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
-
-                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
-
-                glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
-                glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
-                glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
-
-                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
-            }
-        }
-
-        glEnd();		GL_CHECK_ERROR();
-    }
-
-    void iRenderer::drawParticles(vector<iParticle*> *particles, iGradientColor4f& rainbow)
-    {
-        iaVector3f right = _camWorldMatrix._right;
-        iaVector3f top = _camWorldMatrix._top;
-        iaColor4f color;
-
-        glBegin(GL_QUADS);
-
-        for (uint32 i = 0; i < particles->size(); ++i)
-        {
-            if ((*particles)[i]->_visible)
-            {
-                if (rainbow.isValid())
-                {
-                    rainbow.getValue((*particles)[i]->_visibleTime, color);
-                    glColor4fv(color.getData());
-                }
+                rainbow.getValue((*particles)[i]->_visibleTime, color);
+                glColor4fv(color.getData());
 
                 glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);

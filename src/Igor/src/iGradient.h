@@ -31,7 +31,9 @@
 
 #include <iDefines.h>
 
-#include "iaColor4.h"
+#include <iaColor4.h>
+#include <iaVector3.h>
+#include <iaConsole.h>
 using namespace IgorAux;
 
 #include <vector>
@@ -63,15 +65,15 @@ namespace Igor
         \param[in,out] value the value at given position
         \param at the given position
         */
-        void getValue(float at, T& value);
-
-        /*! \returns if the gradient will return a valid value if you call getValue
-        */
-        bool isValid() const;
+        void getValue(float at, T& value) const;
 
         /*! clears gradient entries
         */
         void clear();
+
+        /*! \returns reference to values
+        */
+        const vector<pair<float, T>>& getValues() const;
 
         /*! does nothing
         */
@@ -87,75 +89,13 @@ namespace Igor
         */
         vector<pair<float, T>> _values;
 
-        float interpolate(float from, float to, float t);
-
-        //bool smaller(const iGradientEntry<T>& a, const iGradientEntry<T>& b);
     };
 
 #include <iGradient.inl>
 
-    template <class T>
-    void iGradient<T>::clear()
-    {
-        _values.clear();
-    }
-
-    /* template <typename T>
-    bool smaller(const pair<float, T>& a, const pair<float, T>& b)
-    {
-    return a.first < b.first;
-    }*/
-
-    template <class T>
-    void iGradient<T>::insertValue(float at, const T& value)
-    {
-        pair<float, T> temp;
-
-        temp.first = at;
-        temp.second = value;
-
-        _values.push_back(temp);
-
-        // TODO sort later    sort(_values.begin(), _values.end(), smaller);
-    }
-
-    template <class T>
-    bool iGradient<T>::isValid() const
-    {
-        return _values.size() >= 2 ? true : false;
-    }
-
-    template <class T>
-    float iGradient<T>::interpolate(float from, float to, float t)
-    {
-        return (t - from) / (to - from);
-    }
-
-    template <class T>
-    void iGradient<T>::getValue(float at, T& value)
-    {
-        if (_values.size() > 1)
-        {
-            value = _values[0].second;
-
-            for (int i = 1; i < _values.size(); ++i)
-            {
-                if (_values[i].first > at)
-                {
-                    float t = interpolate(_values[i - 1].first, _values[i].first, at);
-                    value = _values[i - 1].second;
-                    value *= (1.0f - t);
-                    T b = _values[i].second;
-                    b *= t;
-                    value += b;
-
-                    break;
-                }
-            }
-        }
-    }
-
-    typedef iGradient<float> iGradientf;
+    typedef iGradient<uint32> iGradientui;
+    typedef iGradient<float32> iGradientf;
+    typedef iGradient<iaVector3f> iGradientVector3f;
     typedef iGradient<iaColor4f> iGradientColor4f;
 
 };
