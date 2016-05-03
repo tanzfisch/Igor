@@ -701,13 +701,19 @@ namespace Igor
     {
         iPhysicsWorld* result = nullptr;
 
+#ifdef __IGOR_DEBUG__
+        _worldListMutex.lock(); // this is a workaround to prevent an assertion within the creation of a newton world
+#endif
+
         NewtonWorld* world = NewtonCreate();
         NewtonSetSolverModel(static_cast<const NewtonWorld*>(world), 1);
         NewtonSetThreadsCount(static_cast<const NewtonWorld*>(world), 4);
 
         result = new iPhysicsWorld(world);
-
-        _worldListMutex.lock();
+        
+#ifndef __IGOR_DEBUG__
+        _worldListMutex.lock(); // this is a workaround to prevent an assertion within the creation of a newton world
+#endif
         _worlds[result->getID()] = result;
         _worldListMutex.unlock();
 
