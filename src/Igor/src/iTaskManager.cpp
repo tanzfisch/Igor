@@ -36,7 +36,7 @@ namespace Igor
 
         for (int i = 0; i < numThreads; ++i)
         {
-  //          createPhysicsContextThread();
+            createPhysicsContextThread();
         }
     }
 
