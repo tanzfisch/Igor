@@ -65,9 +65,29 @@ namespace Igor
                 iRenderer::getInstance().bindTexture(_textureC, 2);
 
                 iRenderer::getInstance().setModelMatrix(_worldMatrix);
-                iRenderer::getInstance().drawParticles(&(_particleSystem.getCurrentFrame()), _particleSystem.getColorGradient());
+                iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
             }
         }
+    }
+
+    void iNodeParticleSystem::setStartVelocityGradient(const iGradientVector2f& velocityGradient)
+    {
+        _particleSystem.setStartVelocityGradient(velocityGradient);
+    }
+
+    void iNodeParticleSystem::getStartVelocityGradient(iGradientVector2f& velocityGradient) const
+    {
+        _particleSystem.getStartVelocityGradient(velocityGradient);
+    }
+
+    void iNodeParticleSystem::setVortexParticleLikeliness(float32 likeliness)
+    {
+        _particleSystem.setVortexParticleLikeliness(likeliness);
+    }
+
+    float32 iNodeParticleSystem::getVortexParticleLikeliness() const
+    {
+        return _particleSystem.getVortexParticleLikeliness();
     }
 
     void iNodeParticleSystem::reset()
@@ -88,6 +108,16 @@ namespace Igor
     bool iNodeParticleSystem::isRunning()
     {
         return _particleSystem.isRunning();
+    }
+
+    void iNodeParticleSystem::setVorticityConfinement(float32 vorticityConfinement)
+    {
+        _particleSystem.setVorticityConfinement(vorticityConfinement);
+    }
+
+    float32 iNodeParticleSystem::getVorticityConfinement()
+    {
+        return _particleSystem.getVorticityConfinement();
     }
 
     void iNodeParticleSystem::setVortexTorque(float32 min, float32 max)
@@ -252,12 +282,12 @@ namespace Igor
         _particleSystem.getEmissionGradient(emissionGradient);
     }
 
-    void iNodeParticleSystem::setStartVisibleTimeGradient(const iGradientf& visibleGradient)
+    void iNodeParticleSystem::setStartVisibleTimeGradient(const iGradientVector2f& visibleGradient)
     {
         _particleSystem.setStartVisibleTimeGradient(visibleGradient);
     }
 
-    void iNodeParticleSystem::getStartVisibleTimeGradient(iGradientf& visibleGradient) const
+    void iNodeParticleSystem::getStartVisibleTimeGradient(iGradientVector2f& visibleGradient) const
     {
         _particleSystem.getStartVisibleTimeGradient(visibleGradient);
     }

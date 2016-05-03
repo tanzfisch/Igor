@@ -57,6 +57,20 @@ namespace Igor
 class Particles
 {
 
+public:
+
+    /*! init
+    */
+    Particles();
+
+    /*! deinit
+    */
+    virtual ~Particles();
+
+    /*! run example
+    */
+    void run();
+
 private:
 
     /*! the window
@@ -95,10 +109,6 @@ private:
     */
     iTimerHandle* _animationTimingHandle = nullptr;
 
-    /*! material definition for the sky box
-    */
-    uint64 _materialSkyBox = 0;
-
     /*! particles material
     */
     uint64 _particlesMaterial = 0;
@@ -107,13 +117,37 @@ private:
     */
     uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
 
-    /*! id of circle emitter ID
+    /*! id of circle particle system
     */
-    uint64 _circleEmitterID = iNode::INVALID_NODE_ID;
+    uint64 _circleParticleSystemID = iNode::INVALID_NODE_ID;
+
+    /*! id of smoke particle system
+    */
+    uint64 _smokeParticleSystemID = iNode::INVALID_NODE_ID;
+
+    /*! id of dot particle system
+    */
+    uint64 _dotParticleSystemID = iNode::INVALID_NODE_ID;
 
     /*! id of circle emitter transform id
     */
     uint64 _circlEmitterTransformID = iNode::INVALID_NODE_ID;
+
+    /*! creates the dot shaped particle system
+    */
+    void createDotParticleSystem();
+
+    /*! creates smoke particle system
+    */
+    void createSmokeParticleSystem();
+
+    /*! creates ring shaped particle system
+    */
+    void createRingParticleSystem();
+
+    /*! crates wave shaped particle system
+    */
+    void waveRingParticleSystem();
 
     /*! called on key pressed event
 
@@ -163,20 +197,6 @@ private:
     /*! init example
     */
 	void init();
-
-public:
-
-    /*! init
-    */
-    Particles();
-
-    /*! deinit
-    */
-	virtual ~Particles();
-
-    /*! run example
-    */
-	void run();
 
 };
 

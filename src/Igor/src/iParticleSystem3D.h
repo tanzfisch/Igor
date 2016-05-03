@@ -38,7 +38,7 @@
 using namespace IgorAux;
 
 #include <memory>
-#include <vector>
+#include <queue>
 using namespace std;
 
 namespace Igor
@@ -76,6 +76,8 @@ namespace Igor
         */
         float32 _visibleTime = 0.0;
 
+        float32 _visibleTimeIncrease = 0.0;
+
         float32 _size = 1.0;
         float32 _sizeScale = 1.0;
 
@@ -84,19 +86,10 @@ namespace Igor
 
         iaVector2f _phase0;
         iaVector2f _phase1;
-    };
-
-    class Igor_API iVortexParticle : public iParticle
-    {
-    public:
 
         iaVector3f _normal;
-
-        float32 _torque;
-
-        float32 _range;
-
-        long _particleid;
+        float32 _torque = 0;
+        float32 _vortexRange = 0;
     };
 
     class Igor_API iParticleSystem3D
@@ -196,11 +189,7 @@ namespace Igor
 
         /*! \returns particles of current frame
         */
-        vector<iParticle*> getCurrentFrame();
-
-        /*! \returns vortex particles of current frame
-        */
-        vector<iVortexParticle*> getCurrentFrameVortex();
+        const deque<iParticle>& getCurrentFrame() const;
 
         /*! clears all particles
         */
@@ -234,17 +223,40 @@ namespace Igor
 
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
 
+        /*! sets the likeliness of a vortex particle to appear
+
+        \param likeliness value from 0 to 1
+        */
         void setVortexParticleLikeliness(float32 likeliness);
+
+        /*! \returns likeliness of vortex particle to appear
+        */
         float32 getVortexParticleLikeliness() const;
 
+        /*! calculates next frame
+
+        \param emitter the emitter to emitt particles from
+        */
         void calcNextFrame(const iParticleEmitter& emitter);
 
-        /*!
+        /*! sets vortex check range
+
+        \param particles distance in indexes from vortex particle
         */
         void setVortexCheckRange(uint32 particles);
+
+        /*! \return vortex check rangein indexes from vortex particle
+        */
         uint32 getVortexCheckRange();
 
-        void setVorticityConfinement(float32 vc);
+        /*! sets vorticity confinement force
+
+        \param vorticityConfinement the vorticity confinement force
+        */
+        void setVorticityConfinement(float32 vorticityConfinement);
+
+        /*! \returns vorticity confinement force
+        */
         float32 getVorticityConfinement();
 
         /*! sets color gradient
@@ -283,13 +295,13 @@ namespace Igor
 
         \param visibleGradient the visible gradient
         */
-        void setStartVisibleTimeGradient(const iGradientf& visibleGradient);
+        void setStartVisibleTimeGradient(const iGradientVector2f& visibleGradient);
 
         /*! returns the emission gradient
 
         \param[out] visibleGradient out value for the visible gradient
         */
-        void getStartVisibleTimeGradient(iGradientf& visibleGradient) const;
+        void getStartVisibleTimeGradient(iGradientVector2f& visibleGradient) const;
 
         /*! sets size scale gradient for particles per frame
 
@@ -344,10 +356,6 @@ namespace Igor
         */
         bool _running = false;
 
-        /*! 
-        */
-        float32 _vortexLikeliness = 0.1;
-
         iaMatrixf _particleSystemInvWorldMatrix;
 
         iaMatrixf _birthTransformationMatrix;
@@ -358,9 +366,11 @@ namespace Igor
         */
         iGradientColor4f _colorGradient;
 
+        iGradientf _torqueFactorGradient;
+
         /*! start visible time gradient
         */
-        iGradientf _startVisibleTimeGradient;
+        iGradientVector2f _startVisibleTimeGradient;
 
         /*! emission rate gradient during particle system lifetime
         */
@@ -380,7 +390,6 @@ namespace Igor
 
         float32 _particleSystemPeriodTime = 0;
         uint32 _lifeTime = 200;
-        float32 _lifeTimeStep = 0;
 
         float32 _minLift = 0.0f;
         float32 _maxLift = 0.0f;
@@ -388,11 +397,6 @@ namespace Igor
 
         float32 _minWeight = 0.0;
         float32 _maxWeight = 0.0;
-
-        float32 _minVortexTorque = 0.1;
-        float32 _maxVortexTorque = 0.5;
-        float32 _minVRange = 10.0;
-        float32 _maxVRange = 20.0;
 
         iaVector2f _octave1Shift = { 0.001, 0.001 };
         iaVector2f _octave2Shift = { 0.001, 0.001 };
@@ -403,18 +407,25 @@ namespace Igor
         float64 _startTime = 0;
         float64 _time = 0;
 
-        long _vortexCheckRange = 30;
+        /*!
+        */
+        float32 _vortexLikeliness = 0.0;
+
+        float32 _minVortexTorque = 0.1;
+        float32 _maxVortexTorque = 0.5;
+        float32 _minVortexRange = 10.0;
+        float32 _maxVortexRange = 20.0;
+
+        long _vortexCheckRange = 20;
 
         float32 _vorticityConfinement = 0.1;
 
-        vector<iParticle*> _particles;
-
-        vector<iVortexParticle*> _vortexParticles;
-
+        deque<iParticle> _particles;
+        
         void initDefaultGradients();
 
         void createParticles(uint32 particleCount, const iParticleEmitter& emitter, float32 particleSystemTime);
-        void resetParticle(iParticle *particle, const iParticleEmitter& emitter, float32 particleSystemTime);
+        void resetParticle(iParticle &particle, const iParticleEmitter& emitter, float32 particleSystemTime);
     };
 
 };

@@ -173,13 +173,13 @@ namespace Igor
 
         \param visibleGradient the visible gradient
         */
-        void setStartVisibleTimeGradient(const iGradientf& visibleGradient);
+        void setStartVisibleTimeGradient(const iGradientVector2f& visibleGradient);
 
         /*! returns the emission gradient
 
         \param[out] visibleGradient out value for the visible gradient
         */
-        void getStartVisibleTimeGradient(iGradientf& visibleGradient) const;
+        void getStartVisibleTimeGradient(iGradientVector2f& visibleGradient) const;
 
         /*! sets size scale gradient for particles per frame
 
@@ -204,6 +204,38 @@ namespace Igor
         \param[out] sizeGradient out value for the start size gradient
         */
         void getStartSizeGradient(iGradientVector2f& sizeGradient) const;
+
+        /*! sets min max start velocity gradient for particles at birth
+
+        \param velocityGradient the min max start velocity gradient
+        */
+        void setStartVelocityGradient(const iGradientVector2f& velocityGradient);
+
+        /*! returns the min max start velocity gradient for particles at birth
+
+        \param[out] velocityGradient out value for the start velocity gradient
+        */
+        void getStartVelocityGradient(iGradientVector2f& velocityGradient) const;
+
+        /*! sets the likeliness of a vortex particle to appear
+
+        \param likeliness value from 0 to 1
+        */
+        void setVortexParticleLikeliness(float32 likeliness);
+
+        /*! \returns likeliness of vortex particle to appear
+        */
+        float32 getVortexParticleLikeliness() const;
+
+        /*! sets vorticity confinement force
+
+        \param vorticityConfinement the vorticity confinement force
+        */
+        void setVorticityConfinement(float32 vorticityConfinement);
+
+        /*! \returns vorticity confinement force
+        */
+        float32 getVorticityConfinement();
 
         /*! sets first texture
 
