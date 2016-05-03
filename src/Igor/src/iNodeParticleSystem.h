@@ -135,33 +135,6 @@ namespace Igor
         */
         float32 getWeightMax();
 
-        /*! sets min max size of particles
-
-        \param min min size of particles
-        \param max max size of particles
-        */
-        void setSize(float32 min, float32 max);
-
-        /*! \returns min size of particles
-        */
-        float32 getSizeMin();
-
-        /*! \returns max size of particles
-        */
-        float32 getSizeMax();
-
-        /*! sets particle size increate per frame
-
-        negative values will decrease
-
-        \param increment size increment per frame
-        */
-        void setSizeIncrease(float32 increment);
-
-        /*! \returns particle size increment per frame
-        */
-        float32 getSizeIncrease();
-
         /*! sets emitter node id
 
         \param emitterID the emitter node's id
@@ -207,6 +180,30 @@ namespace Igor
         \param[out] visibleGradient out value for the visible gradient
         */
         void getStartVisibleTimeGradient(iGradientf& visibleGradient) const;
+
+        /*! sets size scale gradient for particles per frame
+
+        \param sizeScaleGradient the size gradient
+        */
+        void setSizeScaleGradient(const iGradientf& sizeScaleGradient);
+
+        /*! returns the size scale gradient
+
+        \param[out] sizeScaleGradient out value for the size gradient
+        */
+        void getSizeScaleGradient(iGradientf& sizeScaleGradient) const;
+
+        /*! sets start size gradient for particles at birth
+
+        \param sizeGradient the start size gradient with min and max values
+        */
+        void setStartSizeGradient(const iGradientVector2f& sizeGradient);
+
+        /*! returns the start size gradient for particles at birth
+
+        \param[out] sizeGradient out value for the start size gradient
+        */
+        void getStartSizeGradient(iGradientVector2f& sizeGradient) const;
 
         /*! sets first texture
 

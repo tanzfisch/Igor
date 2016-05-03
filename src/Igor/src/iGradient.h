@@ -33,6 +33,7 @@
 
 #include <iaColor4.h>
 #include <iaVector3.h>
+#include <iaVector2.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 
@@ -96,6 +97,7 @@ namespace Igor
     typedef iGradient<uint32> iGradientui;
     typedef iGradient<float32> iGradientf;
     typedef iGradient<iaVector3f> iGradientVector3f;
+    typedef iGradient<iaVector2f> iGradientVector2f;
     typedef iGradient<iaColor4f> iGradientColor4f;
 
 };

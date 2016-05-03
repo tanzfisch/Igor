@@ -160,29 +160,24 @@ namespace Igor
         return _particleSystem.getWeightMax();
     }
 
-    void iNodeParticleSystem::setSize(float32 min, float32 max)
+    void iNodeParticleSystem::setSizeScaleGradient(const iGradientf& sizeScaleGradient)
     {
-        _particleSystem.setSize(min, max);
+        _particleSystem.setSizeScaleGradient(sizeScaleGradient);
     }
 
-    float32 iNodeParticleSystem::getSizeMin()
+    void iNodeParticleSystem::getSizeScaleGradient(iGradientf& sizeScaleGradient) const
     {
-        return _particleSystem.getSizeMin();
+        _particleSystem.getSizeScaleGradient(sizeScaleGradient);
     }
 
-    float32 iNodeParticleSystem::getSizeMax()
+    void iNodeParticleSystem::setStartSizeGradient(const iGradientVector2f& sizeGradient)
     {
-        return _particleSystem.getSizeMax();
+        _particleSystem.setStartSizeGradient(sizeGradient);
     }
 
-    void iNodeParticleSystem::setSizeIncrease(float32 increment)
+    void iNodeParticleSystem::getStartSizeGradient(iGradientVector2f& sizeGradient) const
     {
-        _particleSystem.setSizeIncrease(increment);
-    }
-
-    float32 iNodeParticleSystem::getSizeIncrease()
-    {
-        return _particleSystem.getSizeIncrease();
+        _particleSystem.getStartSizeGradient(sizeGradient);
     }
 
     void iNodeParticleSystem::onUpdateTransform(iaMatrixf& matrix)

@@ -75,7 +75,9 @@ namespace Igor
         /*! visible time in seconds
         */
         float32 _visibleTime = 0.0;
+
         float32 _size = 1.0;
+        float32 _sizeScale = 1.0;
 
         bool _visible = true;
         bool _imune = false;
@@ -172,33 +174,6 @@ namespace Igor
         */
         float32 getWeightMax();
 
-        /*! sets min max size of particles
-
-        \param min min size of particles
-        \param max max size of particles
-        */
-        void setSize(float32 min, float32 max);
-
-        /*! \returns min size of particles
-        */
-        float32 getSizeMin();
-
-        /*! \returns max size of particles
-        */
-        float32 getSizeMax();
-
-        /*! sets particle size increate per frame
-
-        negative values will decrease
-
-        \param increment size increment per frame
-        */
-        void setSizeIncrease(float32 increment);
-
-        /*! \returns particle size increment per frame
-        */
-        float32 getSizeIncrease();
-
         /*! sets the rotation per frame of the second texture
 
         \param angle rotation in rad per frame
@@ -219,7 +194,12 @@ namespace Igor
         */
         float32 getThirdTextureRotation();
 
+        /*! \returns particles of current frame
+        */
         vector<iParticle*> getCurrentFrame();
+
+        /*! \returns vortex particles of current frame
+        */
         vector<iVortexParticle*> getCurrentFrameVortex();
 
         /*! clears all particles
@@ -238,9 +218,18 @@ namespace Igor
         */
         bool isRunning();
 
+        /*! \returns true if particle system is finished
+        */
         bool isFinished() const;
 
+        /*! sets if the particle system runs in a loop
+
+        \param loop if true particle system runs in loop
+        */
         void setLoop(bool loop = true);
+
+        /*! \returns true if particle system runs in loop
+        */
         bool getLoop() const;
 
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
@@ -302,29 +291,61 @@ namespace Igor
         */
         void getStartVisibleTimeGradient(iGradientf& visibleGradient) const;
 
-        /*! sets size gradient for particles per frame
+        /*! sets size scale gradient for particles per frame
 
-        \param sizeGradient the size gradient
+        \param sizeScaleGradient the size gradient
         */
-        void setSizeModifierGradient(const iGradientf& sizeGradient);
+        void setSizeScaleGradient(const iGradientf& sizeScaleGradient);
 
-        /*! returns the emission gradient
+        /*! returns the size scale gradient
 
-        \param[out] sizeGradient out value for the size gradient
+        \param[out] sizeScaleGradient out value for the size gradient
         */
-        void getSizeModifierGradient(iGradientf& sizeGradient) const;
+        void getSizeScaleGradient(iGradientf& sizeScaleGradient) const;
+
+        /*! sets min max start size gradient for particles at birth
+
+        \param sizeGradient the min max start size gradient
+        */
+        void setStartSizeGradient(const iGradientVector2f& sizeGradient);
+
+        /*! returns the min max start size gradient for particles at birth
+
+        \param[out] sizeGradient out value for the start size gradient
+        */
+        void getStartSizeGradient(iGradientVector2f& sizeGradient) const;
+
+        /*! sets min max start velocity gradient for particles at birth
+
+        \param velocityGradient the min max start velocity gradient
+        */
+        void setStartVelocityGradient(const iGradientVector2f& velocityGradient);
+
+        /*! returns the min max start velocity gradient for particles at birth
+
+        \param[out] velocityGradient out value for the start velocity gradient
+        */
+        void getStartVelocityGradient(iGradientVector2f& velocityGradient) const;
 
         iParticleSystem3D();
         virtual ~iParticleSystem3D();
 
     private:
 
+        /*! true if particle system is finished
+        */
         bool _finished = false;
 
+        /*! true if particle system runs in endless loop
+        */
         bool _loop = true;
 
+        /*! true if particle system is currently running. false if paused or finished
+        */
         bool _running = false;
 
+        /*! 
+        */
         float32 _vortexLikeliness = 0.1;
 
         iaMatrixf _particleSystemInvWorldMatrix;
@@ -347,13 +368,15 @@ namespace Igor
 
         /*! size modoification gradient during particle system lifetime
         */
-        iGradientf _sizeModifierGradient;
+        iGradientf _sizeScaleGradient;
 
-        /*! start sizes of particles during particles system lifetime
+        /*! min max start sizes of particles
         */
-        iGradientf _startSizeGradient;
+        iGradientVector2f _startSizeGradient;
 
-        iGradientVector3f _velocityGradient;
+        /*! min max start velocity of particles
+        */
+        iGradientVector2f _startVelocityGradient;
 
         float32 _particleSystemPeriodTime = 0;
         uint32 _lifeTime = 200;
@@ -365,10 +388,6 @@ namespace Igor
 
         float32 _minWeight = 0.0;
         float32 _maxWeight = 0.0;
-
-        float32 _minSize = 1.0;
-        float32 _maxSize = 2.0;
-        float32 _sizeIncreaseStep = 0.0;
 
         float32 _minVortexTorque = 0.1;
         float32 _maxVortexTorque = 0.5;

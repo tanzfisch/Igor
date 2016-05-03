@@ -155,7 +155,6 @@ void Particles::init()
     waveParticleSystem->setTextureA("simpleParticle.png");
     waveParticleSystem->setTextureB("octave1.png");
     waveParticleSystem->setTextureC("octave2.png");
-    waveParticleSystem->setSize(4, 7);
     waveParticleSystem->setColorGradient(greenGradient);
     _scene->getRoot()->insertNode(waveParticleSystem);
     waveParticleSystem->start();
@@ -195,7 +194,6 @@ void Particles::init()
     iNodeParticleSystem* dotParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     dotParticleSystem->setMaterial(_particlesMaterial);
     dotParticleSystem->setTextureA("simpleParticle.png");
-    dotParticleSystem->setSize(4, 7);
     dotParticleSystem->setColorGradient(redGradient);
     _scene->getRoot()->insertNode(dotParticleSystem);
     dotParticleSystem->start();
@@ -212,7 +210,6 @@ void Particles::init()
     iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     circleParticleSystem->setMaterial(_particlesMaterial);
     circleParticleSystem->setTextureA("simpleParticle.png");
-    circleParticleSystem->setSize(4, 7);
     circleParticleSystem->setColorGradient(blueGradient);
     _scene->getRoot()->insertNode(circleParticleSystem);
     circleParticleSystem->start();
@@ -236,8 +233,6 @@ void Particles::init()
     smokeParticleSystem->setTextureB("octave1.png");
     smokeParticleSystem->setTextureC("octave2.png");
     smokeParticleSystem->setLift(0.001, 0.002);
-    smokeParticleSystem->setSize(3, 6);
-    smokeParticleSystem->setSizeIncrease(0.01);
     smokeParticleSystem->setColorGradient(whiteGradient);
     _scene->getRoot()->insertNode(smokeParticleSystem);
     smokeParticleSystem->start();

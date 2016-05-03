@@ -1341,6 +1341,7 @@ namespace Igor
         iaVector3f right = _camWorldMatrix._right;
         iaVector3f top = _camWorldMatrix._top;
         iaColor4f color;
+        float32 size;
 
         glBegin(GL_QUADS);
 
@@ -1348,6 +1349,8 @@ namespace Igor
         {
             if ((*particles)[i]->_visible)
             {
+                size = (*particles)[i]->_size * (*particles)[i]->_sizeScale;
+
                 rainbow.getValue((*particles)[i]->_visibleTime, color);
                 glColor4fv(color.getData());
 
@@ -1355,25 +1358,25 @@ namespace Igor
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
 
-                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
+                glVertex3fv(((*particles)[i]->_position - right*size - top*size).getData());
 
                 glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
                 glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 0 + (*particles)[i]->_phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 0 + (*particles)[i]->_phase1[1]);
 
-                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size - top*(*particles)[i]->_size).getData());
+                glVertex3fv(((*particles)[i]->_position + right*size - top*size).getData());
 
                 glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
                 glMultiTexCoord2f(GL_TEXTURE1, 1 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
 
-                glVertex3fv(((*particles)[i]->_position + right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
+                glVertex3fv(((*particles)[i]->_position + right*size + top*size).getData());
 
                 glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + (*particles)[i]->_phase0[0], 1 + (*particles)[i]->_phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + (*particles)[i]->_phase1[0], 1 + (*particles)[i]->_phase1[1]);
 
-                glVertex3fv(((*particles)[i]->_position - right*(*particles)[i]->_size + top*(*particles)[i]->_size).getData());
+                glVertex3fv(((*particles)[i]->_position - right*size + top*size).getData());
             }
         }
 
