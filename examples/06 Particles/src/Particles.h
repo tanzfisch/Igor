@@ -131,7 +131,11 @@ private:
 
     /*! id of circle emitter transform id
     */
-    uint64 _circlEmitterTransformID = iNode::INVALID_NODE_ID;
+    uint64 _circleEmitterTransformID = iNode::INVALID_NODE_ID;
+
+    /*! id of wave emitter transform id
+    */
+    uint64 _waveEmitterTransformID = iNode::INVALID_NODE_ID;
 
     /*! creates the dot shaped particle system
     */
