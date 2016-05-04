@@ -147,7 +147,11 @@ private:
 
     /*! crates wave shaped particle system
     */
-    void waveRingParticleSystem();
+    void creasteWaveParticleSystem();
+
+    /*! crates a fontain look alike particle system
+    */
+    void creasteFontainParticleSystem();
 
     /*! called on key pressed event
 

@@ -64,10 +64,6 @@ namespace Igor
         */
         float32 _lift = 0.0;
 
-        /*! weight of particle
-        */
-        float32 _weight = 0.0;
-
         /*! life of particle in seconds
         */
         float32 _life = 1.0;
@@ -76,8 +72,12 @@ namespace Igor
         */
         float32 _visibleTime = 0.0;
 
+        /*! individual visible time increase
+        */
         float32 _visibleTimeIncrease = 0.0;
 
+        /*! 
+        */
         float32 _size = 1.0;
         float32 _sizeScale = 1.0;
 
@@ -127,21 +127,6 @@ namespace Igor
         */
         float32 getVortexRangeMax();
 
-        /*! sets the min and max values of how much the particles lift them selves agains gravity
-
-        \param min min lift of particles
-        \param max max lift of particles
-        */
-        void setLift(float32 min, float32 max);
-
-        /*! \returns min lift of particles
-        */
-        float32 getLiftMin();
-
-        /*! \returns min lift of particles
-        */
-        float32 getLiftMax();
-
         /*! defines how much the lift of each particle decreases each frame
 
         \param decrease decrease of lift per frame
@@ -151,21 +136,6 @@ namespace Igor
         /*! \returns the lift decrease per frame
         */
         float32 getLiftDecrease();
-
-        /*! sets min max weight of each particle
-
-        \param min min weight of a particle
-        \param max max weight of a particle
-        */
-        void setWeight(float32 min, float32 max);
-
-        /*! \returns min weight of a particle
-        */
-        float32 getWeightMin();
-
-        /*! \returns max weight of a particle
-        */
-        float32 getWeightMax();
 
         /*! sets the rotation per frame of the second texture
 
@@ -225,9 +195,9 @@ namespace Igor
 
         /*! sets the likeliness of a vortex particle to appear
 
-        \param likeliness value from 0 to 1
+        \param likeliness value from 0 to 100 in percent
         */
-        void setVortexParticleLikeliness(float32 likeliness);
+        void setVortexParticleLikeliness(uint64 likeliness);
 
         /*! \returns likeliness of vortex particle to appear
         */
@@ -339,6 +309,48 @@ namespace Igor
         */
         void getStartVelocityGradient(iGradientVector2f& velocityGradient) const;
 
+        /*! sets min max start lift gradient for particles at birth
+
+        negative values are basically extra weight on a particle
+
+        \param liftGradient the min max start lift gradient
+        */
+        void setStartLiftGradient(const iGradientVector2f& liftGradient);
+
+        /*! returns the min max start lift gradient for particles at birth
+
+        \param[out] liftGradient out value for the start lift gradient
+        */
+        void getStartLiftGradient(iGradientVector2f& liftGradient) const;
+
+        /*! sets the air drag
+
+        0.0-1.0
+        1.0 means basically no air drag
+        0.0 is a full stop
+        and about 0.99 is a usefull value for simulating air drag
+
+        \param airDrag the air drag factor (0.0 - 1.0)
+        */
+        void setAirDrag(float32 airDrag);
+
+        /*! \returns air drag factor
+        */
+        float32 getAirDrag() const;
+
+        /*! sets period time of this particle system
+
+        if loop is true. the particle system will be restarted after this time
+        if loop is false. the particle system simulation will be stopped
+
+        \param periodTime the period time in seconds
+        */
+        void setPeriodTime(float32 periodTime);
+
+        /*! \returns period time of this particle system in seconds
+        */
+        float32 getPeriodTime() const;
+
         iParticleSystem3D();
         virtual ~iParticleSystem3D();
 
@@ -360,12 +372,18 @@ namespace Igor
 
         iaMatrixf _birthTransformationMatrix;
 
+        /*! works like a dirty flag. if true all is set to beginning
+        */
         bool _mustReset = true;
 
         /*! color gradient for particles during their lifetime
         */
         iGradientColor4f _colorGradient;
 
+        /*! gradient how the torque of vortex particles changes over time
+        
+        for internal use only
+        */
         iGradientf _torqueFactorGradient;
 
         /*! start visible time gradient
@@ -388,15 +406,21 @@ namespace Igor
         */
         iGradientVector2f _startVelocityGradient;
 
-        float32 _particleSystemPeriodTime = 0;
-        uint32 _lifeTime = 200;
+        /*! min max start lift of particles
+        */
+        iGradientVector2f _startLiftGradient;
 
-        float32 _minLift = 0.0f;
-        float32 _maxLift = 0.0f;
-        float32 _reduceLiftStep = 0.0f;
+        /*! particle system period time in ms
+        */
+        float32 _particleSystemPeriodTime = 1000.0;
 
-        float32 _minWeight = 0.0;
-        float32 _maxWeight = 0.0;
+        /*! life time of any particle
+
+        calculated based on longest visible time
+        */
+        uint32 _lifeTime = 0;
+
+        float32 _airDrag = 1.0;
 
         iaVector2f _octave1Shift = { 0.001, 0.001 };
         iaVector2f _octave2Shift = { 0.001, 0.001 };
@@ -409,7 +433,8 @@ namespace Igor
 
         /*!
         */
-        float32 _vortexLikeliness = 0.0;
+        uint64 _vortexLikeliness = 0;
+        uint64 _particleCounter = 0;
 
         float32 _minVortexTorque = 0.1;
         float32 _maxVortexTorque = 0.5;

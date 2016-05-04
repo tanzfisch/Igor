@@ -95,45 +95,15 @@ namespace Igor
         */
         float32 getVortexRangeMax();
 
-        /*! sets the min and max values of how much the particles lift them selves agains gravity
+        /*! sets if the particle system runs in a loop
 
-        \param min min lift of particles
-        \param max max lift of particles
+        \param loop if true particle system runs in loop
         */
-        void setLift(float32 min, float32 max);
+        void setLoop(bool loop = true);
 
-        /*! \returns min lift of particles
+        /*! \returns true if particle system runs in loop
         */
-        float32 getLiftMin();
-
-        /*! \returns min lift of particles
-        */
-        float32 getLiftMax();
-
-        /*! defines how much the lift of each particle decreases each frame
-
-        \param decrease decrease of lift per frame
-        */
-        void setLiftDecrease(float32 decrease);
-
-        /*! \returns the lift decrease per frame
-        */
-        float32 getLiftDecrease();
-
-        /*! sets min max weight of each particle
-
-        \param min min weight of a particle
-        \param max max weight of a particle
-        */
-        void setWeight(float32 min, float32 max);
-
-        /*! \returns min weight of a particle
-        */
-        float32 getWeightMin();
-
-        /*! \returns max weight of a particle
-        */
-        float32 getWeightMax();
+        bool getLoop() const;
 
         /*! sets emitter node id
 
@@ -217,6 +187,18 @@ namespace Igor
         */
         void getStartVelocityGradient(iGradientVector2f& velocityGradient) const;
 
+        /*! sets min max start lift gradient for particles at birth
+
+        \param liftGradient the min max start lift gradient
+        */
+        void setStartLiftGradient(const iGradientVector2f& liftGradient);
+
+        /*! returns the min max start lift gradient for particles at birth
+
+        \param[out] liftGradient out value for the start lift gradient
+        */
+        void getStartLiftGradient(iGradientVector2f& liftGradient) const;
+
         /*! sets the likeliness of a vortex particle to appear
 
         \param likeliness value from 0 to 1
@@ -236,6 +218,34 @@ namespace Igor
         /*! \returns vorticity confinement force
         */
         float32 getVorticityConfinement();
+
+        /*! sets the air drag
+
+        0.0-1.0
+        1.0 means basically no air drag
+        0.0 is a full stop
+        and about 0.99 is a usefull value for simulating air drag
+
+        \param airDrag the air drag factor (0.0 - 1.0)
+        */
+        void setAirDrag(float32 airDrag);
+
+        /*! \returns air drag factor
+        */
+        float32 getAirDrag() const;
+
+        /*! sets period time of this particle system
+
+        if loop is true. the particle system will be restarted after this time
+        if loop is false. the particle system simulation will be stopped
+
+        \param periodTime the period time
+        */
+        void setPeriodTime(float32 periodTime);
+
+        /*! \returns period time of this particle system
+        */
+        float32 getPeriodTime() const;
 
         /*! sets first texture
 

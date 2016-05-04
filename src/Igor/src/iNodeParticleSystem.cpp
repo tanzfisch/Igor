@@ -105,6 +105,26 @@ namespace Igor
         _particleSystem.stop();
     }
 
+    void iNodeParticleSystem::setLoop(bool loop)
+    {
+        _particleSystem.setLoop(loop);
+    }
+
+    bool iNodeParticleSystem::getLoop() const
+    {
+        return _particleSystem.getLoop();
+    }
+
+    void iNodeParticleSystem::setPeriodTime(float32 periodTime)
+    {
+        _particleSystem.setPeriodTime(periodTime);
+    }
+
+    float32 iNodeParticleSystem::getPeriodTime() const
+    {
+        return _particleSystem.getPeriodTime();
+    }
+
     bool iNodeParticleSystem::isRunning()
     {
         return _particleSystem.isRunning();
@@ -150,46 +170,16 @@ namespace Igor
         return _particleSystem.getVortexRangeMax();
     }
 
-    void iNodeParticleSystem::setLift(float32 min, float32 max)
+    void iNodeParticleSystem::setStartLiftGradient(const iGradientVector2f& liftGradient)
     {
-        _particleSystem.setLift(min, max);
+        _particleSystem.setStartLiftGradient(liftGradient);
     }
-
-    float32 iNodeParticleSystem::getLiftMin()
+    
+    void iNodeParticleSystem::getStartLiftGradient(iGradientVector2f& liftGradient) const
     {
-        return _particleSystem.getLiftMin();
+        _particleSystem.getStartLiftGradient(liftGradient);
     }
-
-    float32 iNodeParticleSystem::getLiftMax()
-    {
-        return _particleSystem.getLiftMax();
-    }
-
-    void iNodeParticleSystem::setLiftDecrease(float32 decrease)
-    {
-        _particleSystem.setLiftDecrease(decrease);
-    }
-
-    float32 iNodeParticleSystem::getLiftDecrease()
-    {
-        return _particleSystem.getLiftDecrease();
-    }
-
-    void iNodeParticleSystem::setWeight(float32 min, float32 max)
-    {
-        _particleSystem.setWeight(min, max);
-    }
-
-    float32 iNodeParticleSystem::getWeightMin()
-    {
-        return _particleSystem.getWeightMin();
-    }
-
-    float32 iNodeParticleSystem::getWeightMax()
-    {
-        return _particleSystem.getWeightMax();
-    }
-
+    
     void iNodeParticleSystem::setSizeScaleGradient(const iGradientf& sizeScaleGradient)
     {
         _particleSystem.setSizeScaleGradient(sizeScaleGradient);
@@ -208,6 +198,16 @@ namespace Igor
     void iNodeParticleSystem::getStartSizeGradient(iGradientVector2f& sizeGradient) const
     {
         _particleSystem.getStartSizeGradient(sizeGradient);
+    }
+
+    void iNodeParticleSystem::setAirDrag(float32 airDrag)
+    {
+        _particleSystem.setAirDrag(airDrag);
+    }
+
+    float32 iNodeParticleSystem::getAirDrag() const
+    {
+        return _particleSystem.getAirDrag();
     }
 
     void iNodeParticleSystem::onUpdateTransform(iaMatrixf& matrix)

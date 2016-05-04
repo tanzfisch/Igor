@@ -44,6 +44,8 @@ namespace Igor
         _torqueFactorGradient.insertValue(0.1, 1.0);
         _torqueFactorGradient.insertValue(0.9, 1.0);
         _torqueFactorGradient.insertValue(1.0, 0.0);
+
+        _startLiftGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
     }
 
     void iParticleSystem3D::setColorGradient(const iGradientColor4f& colorGradient)
@@ -91,31 +93,6 @@ namespace Igor
         return _octave2Rotation;
     }
 
-    float32 iParticleSystem3D::getLiftMin()
-    {
-        return _minLift;
-    }
-
-    float32 iParticleSystem3D::getLiftMax()
-    {
-        return _maxLift;
-    }
-
-    float32 iParticleSystem3D::getLiftDecrease()
-    {
-        return _reduceLiftStep;
-    }
-
-    float32 iParticleSystem3D::getWeightMin()
-    {
-        return _minWeight;
-    }
-
-    float32 iParticleSystem3D::getWeightMax()
-    {
-        return _maxWeight;
-    }
-
     float32 iParticleSystem3D::getVorticityConfinement()
     {
         return _vorticityConfinement;
@@ -151,12 +128,6 @@ namespace Igor
         _vortexCheckRange = checkRange;
     }
 
-    void iParticleSystem3D::setLiftDecrease(float32 ld)
-    {
-        _reduceLiftStep = ld;
-        _mustReset = true;
-    }
-
     void iParticleSystem3D::start()
     {
         _startTime = iTimer::getInstance().getMilliSeconds();
@@ -187,27 +158,24 @@ namespace Igor
             }
         }
 
-        _particleSystemPeriodTime = 5000.0; // todo longest gradient definition
-
         _lifeTime = maxVisibleTime;
 
         _mustReset = false;
 
+        _particleCounter = 0;
+
         start();
     }
 
-    void iParticleSystem3D::setLift(float32 min, float32 max)
+    void iParticleSystem3D::setPeriodTime(float32 periodTime)
     {
-        _minLift = min;
-        _maxLift = max;
+        _particleSystemPeriodTime = periodTime * __IGOR_SECOND__;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::setWeight(float32 min, float32 max)
+    float32 iParticleSystem3D::getPeriodTime() const
     {
-        _minWeight = min;
-        _maxWeight = max;
-        _mustReset = true;
+        return _particleSystemPeriodTime / __IGOR_SECOND__;
     }
 
     void iParticleSystem3D::setVortexTorque(float32 min, float32 max)
@@ -226,33 +194,33 @@ namespace Igor
 
     void iParticleSystem3D::resetParticle(iParticle &particle, const iParticleEmitter& emitter, float32 particleSystemTime)
     {
-        iaVector2f minMaxVisibleTime;
-        iaVector2f minMaxSize;
-        iaVector2f minMaxVelocity;
+        iaVector2f minMax;
         iaVector3f position;
         iaVector3f velocity;
         emitter.calcRandomStart(position, velocity);
 
+        float32 randomFactor = (rand() % 1000 / 1000.0f);
+
         float32 vel = 0;
-        _startVelocityGradient.getValue(particleSystemTime, minMaxVelocity);
-        vel = minMaxVelocity._x + (rand() % 100 / 100.0f) * (minMaxVelocity._y - minMaxVelocity._x);
+        _startVelocityGradient.getValue(particleSystemTime, minMax);
+        vel = minMax._x + randomFactor * (minMax._y - minMax._x);
         velocity *= vel;
 
         particle._position = position;
         particle._velocity = velocity;
 
-        particle._lift = _minLift + (rand() % 100 / 100.0f) * (_maxLift - _minLift);
-        particle._weight = _minWeight + (rand() % 100 / 100.0f) * (_maxWeight - _minWeight);
+        _startLiftGradient.getValue(particleSystemTime, minMax);
+        particle._lift = minMax._x + (1-randomFactor) * (minMax._y - minMax._x);
 
-        _startSizeGradient.getValue(particleSystemTime, minMaxSize);
-        particle._size = minMaxSize._x + (rand() % 100 / 100.0f) * (minMaxSize._y - minMaxSize._x);
+        _startSizeGradient.getValue(particleSystemTime, minMax);
+        particle._size = minMax._x + randomFactor * (minMax._y - minMax._x);
 
         particle._life = _lifeTime;
 
-        _startVisibleTimeGradient.getValue(particleSystemTime, minMaxVisibleTime);
         particle._visibleTime = 0.0;
 
-        float32 visibleTime = (minMaxVisibleTime._x + (rand() % 100 / 100.0f) * (minMaxVisibleTime._y - minMaxVisibleTime._x));
+        _startVisibleTimeGradient.getValue(particleSystemTime, minMax);
+        float32 visibleTime = minMax._x + randomFactor * (minMax._y - minMax._x);
         visibleTime /= 0.02; // 50Hz
         particle._visibleTimeIncrease = 1.0 / visibleTime;
         particle._visible = true;
@@ -261,9 +229,9 @@ namespace Igor
         particle._phase1.set(rand() % 100 / 100.0f, rand() % 100 / 100.0f);
     }
 
-    void iParticleSystem3D::setVortexParticleLikeliness(float32 likeliness)
+    void iParticleSystem3D::setVortexParticleLikeliness(uint64 likeliness)
     {
-        con_assert(likeliness >= 0 && likeliness <= 1.0, "out of range");
+        con_assert(likeliness >= 0 && likeliness <= 100, "out of range");
 
         _vortexLikeliness = likeliness;
         _mustReset = true;
@@ -280,7 +248,7 @@ namespace Igor
         {
             iParticle particle;
 
-            if (rand() % 10000 / 10000.0f < _vortexLikeliness)
+            if (_vortexLikeliness != 0 && (_particleCounter % (long)(100.0f / static_cast<float32>(_vortexLikeliness))) == 0)
             {
                 particle._normal.set(rand() % 100 / 100.0f - 0.5f, rand() % 100 / 100.0f - 0.5f, rand() % 100 / 100.0f - 0.5f);
                 particle._normal.normalize();
@@ -294,6 +262,8 @@ namespace Igor
 
             resetParticle(particle, emitter, particleSystemTime);
             _particles.push_back(particle);
+
+            _particleCounter++;
         }
     }
 
@@ -390,11 +360,11 @@ namespace Igor
                     _sizeScaleGradient.getValue((*particle)._visibleTime, sizeScale);
 
                     (*particle)._velocity[1] += (*particle)._lift;
-                    (*particle)._velocity[1] -= (*particle)._weight;
+
+                    (*particle)._velocity *= _airDrag;
 
                     (*particle)._position += (*particle)._velocity;
 
-                    (*particle)._lift -= _reduceLiftStep;
                     (*particle)._sizeScale = sizeScale;
 
                     (*particle)._phase0.rotateXY(_octave1Rotation);
@@ -489,6 +459,27 @@ namespace Igor
     void iParticleSystem3D::getStartVelocityGradient(iGradientVector2f& velocityGradient) const
     {
         velocityGradient = _startVelocityGradient;
+    }
+
+    void iParticleSystem3D::setStartLiftGradient(const iGradientVector2f& liftGradient)
+    {
+        _startLiftGradient = liftGradient;
+        _mustReset = true;
+    }
+
+    void iParticleSystem3D::getStartLiftGradient(iGradientVector2f& liftGradient) const
+    {
+        liftGradient = _startLiftGradient;
+    }
+
+    void iParticleSystem3D::setAirDrag(float32 airDrag)
+    {
+        _airDrag = airDrag;
+    }
+
+    float32 iParticleSystem3D::getAirDrag() const
+    {
+        return _airDrag;
     }
 
     void iParticleSystem3D::setVorticityConfinement(float32 vc)
