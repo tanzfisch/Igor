@@ -126,7 +126,7 @@ void Particles::init()
     createDotParticleSystem();
     createSmokeParticleSystem();
     createRingParticleSystem();
-    creasteWaveParticleSystem();
+	createWaveParticleSystem();
     creasteFontainParticleSystem();
 
     // init render statistics
@@ -146,7 +146,7 @@ void Particles::init()
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Particles::onMouseWheel));
 }
 
-void Particles::creasteWaveParticleSystem()
+void Particles::createWaveParticleSystem()
 {
     iGradientColor4f colorGradient;
     colorGradient.insertValue(0.0, iaColor4f(1, 1, 0.5, 0));
@@ -168,21 +168,22 @@ void Particles::creasteWaveParticleSystem()
     iGradientui emission;
     emission.insertValue(0.0, 5);
 
-    iNodeParticleSystem* waveParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-    waveParticleSystem->setMaterial(_particlesMaterial);
-    waveParticleSystem->setTextureA("particleStar.png");
-    waveParticleSystem->setTextureB("octave1.png");
-    waveParticleSystem->setTextureC("octave2.png");
-    waveParticleSystem->setColorGradient(colorGradient);
-    waveParticleSystem->setStartVelocityGradient(dotVelocity);
-    waveParticleSystem->setStartVisibleTimeGradient(dotVisibility);
-    waveParticleSystem->setStartSizeGradient(size);
-    waveParticleSystem->setEmissionGradient(emission);
-    _scene->getRoot()->insertNode(waveParticleSystem);
-    waveParticleSystem->start();
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	_particleSystemIDs.push_back(particleSystem->getID());
+	particleSystem->setMaterial(_particlesMaterial);
+	particleSystem->setTextureA("particleStar.png");
+	particleSystem->setTextureB("octave1.png");
+	particleSystem->setTextureC("octave2.png");
+	particleSystem->setColorGradient(colorGradient);
+	particleSystem->setStartVelocityGradient(dotVelocity);
+	particleSystem->setStartVisibleTimeGradient(dotVisibility);
+	particleSystem->setStartSizeGradient(size);
+	particleSystem->setEmissionGradient(emission);
+    _scene->getRoot()->insertNode(particleSystem);
+	particleSystem->start();
 
     iNodeEmitter* waveEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    waveParticleSystem->setEmitter(waveEmitter->getID());
+	particleSystem->setEmitter(waveEmitter->getID());
     waveEmitter->setType(iEmitterType::Mesh);
 
     iEmitterTriangle triangle;
@@ -244,6 +245,7 @@ void Particles::creasteFontainParticleSystem()
     startSize.insertValue(0.0, iaVector2f(1.0, 3.0));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	_particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleDot.png");
     particleSystem->setColorGradient(colors);
@@ -288,7 +290,7 @@ void Particles::createRingParticleSystem()
     startSize.insertValue(4.0, iaVector2f(2.5, 3.0));
 
     iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-    _circleParticleSystemID = circleParticleSystem->getID();
+	_particleSystemIDs.push_back(circleParticleSystem->getID());
     circleParticleSystem->setMaterial(_particlesMaterial);
     circleParticleSystem->setTextureA("particleGem.png");
     circleParticleSystem->setTextureB("octave1.png");
@@ -333,26 +335,31 @@ void Particles::createSmokeParticleSystem()
     iGradientVector2f lift;
     lift.insertValue(0.0, iaVector2f(0.0007, 0.0015));
 
-    iNodeParticleSystem* smokeParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-    _smokeParticleSystemID = smokeParticleSystem->getID();
-    smokeParticleSystem->setMaterial(_particlesMaterial);
-    smokeParticleSystem->setTextureA("particleDot.png");
-    smokeParticleSystem->setTextureB("octave1.png");
-    smokeParticleSystem->setTextureC("octave2.png");
-    smokeParticleSystem->setVortexTorque(0.5, 0.7);
-    smokeParticleSystem->setVorticityConfinement(0.05);
-    smokeParticleSystem->setVortexRange(20.0, 40.0);
-    smokeParticleSystem->setVortexParticleLikeliness(1);
-    smokeParticleSystem->setStartSizeGradient(smokeSize);
-    smokeParticleSystem->setColorGradient(smokeGradient);
-    smokeParticleSystem->setStartVisibleTimeGradient(smokeVisibility);
-    smokeParticleSystem->setEmissionGradient(emission);
-    smokeParticleSystem->setStartLiftGradient(lift);
-    _scene->getRoot()->insertNode(smokeParticleSystem);
-    smokeParticleSystem->start();
+	iGradientf sizeScale;
+	sizeScale.insertValue(0.0, 1.0);
+	sizeScale.insertValue(10.0, 10.0);
+
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+	_particleSystemIDs.push_back(particleSystem->getID());
+	particleSystem->setMaterial(_particlesMaterial);
+	particleSystem->setTextureA("particleDot.png");
+	particleSystem->setTextureB("octave1.png");
+	particleSystem->setTextureC("octave2.png");
+	particleSystem->setVortexTorque(0.5, 0.7);
+	particleSystem->setVorticityConfinement(0.05);
+	particleSystem->setVortexRange(20.0, 40.0);
+	particleSystem->setVortexParticleLikeliness(1);
+	particleSystem->setStartSizeGradient(smokeSize);
+	particleSystem->setSizeScaleGradient(sizeScale);
+	particleSystem->setColorGradient(smokeGradient);
+	particleSystem->setStartVisibleTimeGradient(smokeVisibility);
+	particleSystem->setEmissionGradient(emission);
+	particleSystem->setStartLiftGradient(lift);
+    _scene->getRoot()->insertNode(particleSystem);
+	particleSystem->start();
 
     iNodeEmitter* smokeEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    smokeParticleSystem->setEmitter(smokeEmitter->getID());
+	particleSystem->setEmitter(smokeEmitter->getID());
     smokeEmitter->setType(iEmitterType::Sphere);
     smokeEmitter->setSize(6);
 
@@ -384,7 +391,7 @@ void Particles::createDotParticleSystem()
     size.insertValue(0.0, iaVector2f(1.0, 1.5));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-    _dotParticleSystemID = particleSystem->getID();
+	_particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
     particleSystem->setTextureA("particleDot.png");
     particleSystem->setColorGradient(colorGradient);
@@ -418,7 +425,7 @@ void Particles::createDotParticleSystem()
     size2.insertValue(0.0, iaVector2f(1.0, 4.0));
 
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-    //_dotParticleSystemID = dotParticleSystem->getID();
+	_particleSystemIDs.push_back(particleSystem2->getID());
     particleSystem2->setMaterial(_particlesMaterial);
     particleSystem2->setTextureA("particleDot.png");
     particleSystem2->setColorGradient(colorGradient2);
@@ -547,65 +554,33 @@ void Particles::onKeyPressed(iKeyCode key)
 
     if (key == iKeyCode::Space)
     {
-        iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_circleParticleSystemID));
-        if (circleParticleSystem != nullptr)
-        {
-            if (circleParticleSystem->isRunning())
-            {
-                circleParticleSystem->stop();
-            }
-            else
-            {
-                circleParticleSystem->start();
-            }
-        }
-
-        iNodeParticleSystem* smokeParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_smokeParticleSystemID));
-        if (smokeParticleSystem != nullptr)
-        {
-            if (smokeParticleSystem->isRunning())
-            {
-                smokeParticleSystem->stop();
-            }
-            else
-            {
-                smokeParticleSystem->start();
-            }
-        }
-
-        iNodeParticleSystem* dotParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_dotParticleSystemID));
-        if (dotParticleSystem != nullptr)
-        {
-            if (dotParticleSystem->isRunning())
-            {
-                dotParticleSystem->stop();
-            }
-            else
-            {
-                dotParticleSystem->start();
-            }
-        }
+		for (auto particleSystemID : _particleSystemIDs)
+		{
+			iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemID));
+			if (circleParticleSystem != nullptr)
+			{
+				if (circleParticleSystem->isRunning())
+				{
+					circleParticleSystem->stop();
+				}
+				else
+				{
+					circleParticleSystem->start();
+				}
+			}
+		}
     }
 
     if (key == iKeyCode::R)
     {
-        iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_circleParticleSystemID));
-        if (circleParticleSystem != nullptr)
-        {
-            circleParticleSystem->reset();
-        }
-
-        iNodeParticleSystem* smokeParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_smokeParticleSystemID));
-        if (smokeParticleSystem != nullptr)
-        {
-            smokeParticleSystem->reset();
-        }
-
-        iNodeParticleSystem* dotParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_dotParticleSystemID));
-        if (dotParticleSystem != nullptr)
-        {
-            dotParticleSystem->reset();
-        }
+		for (auto particleSystemID : _particleSystemIDs)
+		{
+			iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemID));
+			if (circleParticleSystem != nullptr)
+			{
+				circleParticleSystem->reset();
+			}
+		}
     }
 }
 

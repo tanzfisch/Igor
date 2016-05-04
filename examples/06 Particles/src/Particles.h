@@ -117,17 +117,9 @@ private:
     */
     uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
 
-    /*! id of circle particle system
+    /*! ids of particle systems
     */
-    uint64 _circleParticleSystemID = iNode::INVALID_NODE_ID;
-
-    /*! id of smoke particle system
-    */
-    uint64 _smokeParticleSystemID = iNode::INVALID_NODE_ID;
-
-    /*! id of dot particle system
-    */
-    uint64 _dotParticleSystemID = iNode::INVALID_NODE_ID;
+    vector<uint64> _particleSystemIDs;
 
     /*! id of circle emitter transform id
     */
@@ -151,7 +143,7 @@ private:
 
     /*! crates wave shaped particle system
     */
-    void creasteWaveParticleSystem();
+    void createWaveParticleSystem();
 
     /*! crates a fontain look alike particle system
     */
