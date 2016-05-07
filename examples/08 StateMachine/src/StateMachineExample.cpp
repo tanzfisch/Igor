@@ -115,7 +115,7 @@ void StateMachineExample::init()
 
     _font = new iTextureFont("StandardFont.png");
 
-    _particleTexture = iTextureResourceFactory::getInstance().loadFile("simpleParticle.png");
+    _particleTexture = iTextureResourceFactory::getInstance().loadFile("particleDot.png");
 
     for (int i = 0; i < 5; ++i)
     {
@@ -123,10 +123,10 @@ void StateMachineExample::init()
         _particleSystems[i].setInitialVelocity(iaVector2f(0, -(rand() % 10 + 2)));
         _particleSystems[i].setMaxParticleCount(100);
         _particleSystems[i].setEmitRate(20);
-        _particleSystems[i].setParticleLifetime(30);
+        _particleSystems[i].setParticleLifetime(60);
         _particleSystems[i].setSpreadFactor(1.0f);
-        _particleSystems[i].setAirDrag(0.03f);
-        _particleSystems[i].setExternalForce(iaVector2f(0.0f, 0.02f));
+        _particleSystems[i].setAirDrag(0.05f);
+        _particleSystems[i].setExternalForce(iaVector2f(0.0f, 0.05f));
         _particleSystems[i].setLoopable(false);
     }
 }
@@ -171,7 +171,7 @@ void StateMachineExample::onEnterWinState()
 
     for (int i = 0; i < 5; ++i)
     {
-        _particleSystems[i].restart();
+      _particleSystems[i].restart();
     }
 }
 

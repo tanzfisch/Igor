@@ -111,7 +111,6 @@ void PhysicsExample::init()
     srand(1337);
 
     int range = 10;
-    
 
     iPhysics::getInstance().setSimulationRate(60);
 

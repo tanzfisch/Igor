@@ -71,7 +71,7 @@ void Example2D::init()
 
     // set up particle system
     // load a texture for our particle system
-    _particleTexture = iTextureResourceFactory::getInstance().requestFile("simpleParticle.png");
+    _particleTexture = iTextureResourceFactory::getInstance().requestFile("particleDot.png");
     // set the range of particle sizes at spawn
     _particleSystem.setParticleSize(10.0f, 70.0f);
     // set how much the particles should grow each frame
@@ -96,12 +96,12 @@ void Example2D::init()
     _particleSystem.setExternalForce(iaVector2f(0, 0.2f));
 
     // define a rainbow multi color gradient for our particles
-    _rainbow.insertColor(iaColor4f(1, 0, 1, 0.0), 0.0f);
-    _rainbow.insertColor(iaColor4f(0, 0, 1, 0.2), 0.2f);
-    _rainbow.insertColor(iaColor4f(0, 1, 1, 0.4), 0.4f);
-    _rainbow.insertColor(iaColor4f(0, 1, 0, 0.6), 0.6f);
-    _rainbow.insertColor(iaColor4f(1, 1, 0, 0.8), 0.8f);
-    _rainbow.insertColor(iaColor4f(1, 0, 0, 1.0), 1.0f);
+    _rainbow.insertValue(0.0f, iaColor4f(1, 0, 1, 0.0));
+    _rainbow.insertValue(0.2f, iaColor4f(0, 0, 1, 0.2));
+    _rainbow.insertValue(0.4f, iaColor4f(0, 1, 1, 0.4));
+    _rainbow.insertValue(0.6f, iaColor4f(0, 1, 0, 0.6));
+    _rainbow.insertValue(0.8f, iaColor4f(1, 1, 0, 0.8));
+    _rainbow.insertValue(1.0f, iaColor4f(1, 0, 0, 1.0));
 
     // load a texture font
     _font = new iTextureFont("StandardFont.png");

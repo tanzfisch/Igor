@@ -354,23 +354,27 @@ void VoxelExample::onRenderOrtho()
 {
     iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-    if (_loading)
+	iaMatrixf identity;
+	iaMatrixf translation;
+	translation.translate(0, 0, -30);
+	iRenderer::getInstance().setViewMatrix(identity);
+	iRenderer::getInstance().setModelMatrix(translation);
+
+	iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+
+	iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+
+	iRenderer::getInstance().setFont(_font);
+	iRenderer::getInstance().setFontSize(25.0f);
+	
+	if (_loading)
     {
-        iaMatrixf identity;
-        iaMatrixf translation;
-        translation.translate(0, 0, -30);
-        iRenderer::getInstance().setViewMatrix(identity);
-        iRenderer::getInstance().setModelMatrix(translation);
-
-        iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-
-        iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
-
-        iRenderer::getInstance().setFont(_font);
-        iRenderer::getInstance().setFontSize(30.0f);
-
         iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorrizontalAlign::Center, iVerticalAlign::Center);
     }
+	else
+	{
+		iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.95, "press [Space] to recreate", iHorrizontalAlign::Center, iVerticalAlign::Center);
+	}
 }
 
 void VoxelExample::onHandle()

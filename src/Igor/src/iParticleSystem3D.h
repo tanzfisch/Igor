@@ -127,16 +127,6 @@ namespace Igor
         */
         float32 getVortexRangeMax();
 
-        /*! defines how much the lift of each particle decreases each frame
-
-        \param decrease decrease of lift per frame
-        */
-        void setLiftDecrease(float32 decrease);
-
-        /*! \returns the lift decrease per frame
-        */
-        float32 getLiftDecrease();
-
         /*! sets the rotation per frame of the second texture
 
         \param angle rotation in rad per frame

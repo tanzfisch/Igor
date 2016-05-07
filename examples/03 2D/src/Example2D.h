@@ -33,7 +33,7 @@
 #include <iView.h>
 #include <iParticleSystem2D.h>
 #include <iKeyCodeMap.h>
-#include <iRainbow.h>
+#include <iGradient.h>
 #include <iPerlinNoise.h>
 #include <iMaterial.h>
 using namespace Igor;
@@ -107,7 +107,7 @@ private:
 
     /*! multicolor gradient used for coloring the particles
     */
-    iRainbow _rainbow;
+    iGradientColor4f _rainbow;
 	
     /*! renderer logo
     */
