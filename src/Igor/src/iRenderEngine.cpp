@@ -129,10 +129,11 @@ namespace Igor
         for (auto nodeID : _cullResult)
         {
             iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(nodeID));
-            renderNode->_reached = true;
 
             if (renderNode != nullptr)
             {
+				renderNode->_reached = true;
+
                 uint32 materialID = renderNode->getMaterial();
                 if (materialID != iMaterial::INVALID_MATERIAL_ID)
                 {

@@ -35,6 +35,7 @@
 #include <iaVector2.h>
 #include <iaColor4.h>
 #include <iaMatrix.h>
+#include <iSphere.h>
 using namespace IgorAux;
 
 #include <memory>
@@ -341,10 +342,16 @@ namespace Igor
         */
         float32 getPeriodTime() const;
 
+		/*! \returns bounding sphere
+		*/
+		const iSpheref& getBoundingSphere() const;
+
         iParticleSystem3D();
         virtual ~iParticleSystem3D();
 
     private:
+
+		iSpheref _boundingSphere;
 
         /*! true if particle system is finished
         */

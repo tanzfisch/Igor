@@ -556,6 +556,8 @@ void Particles::onKeyPressed(iKeyCode key)
     {
 		for (auto particleSystemID : _particleSystemIDs)
 		{
+			iNodeFactory::getInstance().destroyNode(particleSystemID);
+
 			iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemID));
 			if (circleParticleSystem != nullptr)
 			{

@@ -67,6 +67,8 @@ namespace Igor
 
 	protected:
 
+		/*!
+		*/
         virtual void onUpdateTransform(iaMatrixf& matrix);
 
         /*! unregisters from scene
@@ -83,7 +85,7 @@ namespace Igor
 
         /*! updates octree if node is within a scene
         */
-		void update();
+		void updateTree();
 
         /*! initializes memeber variables
         */
@@ -95,7 +97,7 @@ namespace Igor
 
         /*! does nothing
         */
-		virtual ~iNodeVolume() = default;
+		virtual ~iNodeVolume() {};
 
     private:
 

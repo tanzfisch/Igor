@@ -65,6 +65,10 @@ namespace Igor
         */
         bool isRunning();
 
+		/*! \returns true if particle system is finished
+		*/
+		bool isFinished() const;
+
         /*! sets the range of vortex torque
 
         \param min minimum vortex torque
@@ -313,6 +317,11 @@ namespace Igor
         */
         void onUpdateTransform(iaMatrixf& matrix);
 
+		/*!
+		\todo this is just a workaround untill we calc the particle system frames in a seperate thread
+		*/
+		void handle();
+
         /*! init members
         */
         iNodeParticleSystem();
@@ -323,9 +332,9 @@ namespace Igor
         */
         iNodeParticleSystem(iNodeParticleSystem* node);
 
-        /*! does nothing
+        /*! 
         */
-        virtual ~iNodeParticleSystem() = default;
+        virtual ~iNodeParticleSystem();
 
     };
 

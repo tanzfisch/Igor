@@ -26,6 +26,11 @@ namespace Igor
     {
     }
 
+	const iSpheref& iParticleSystem3D::getBoundingSphere() const
+	{
+		return _boundingSphere;
+	}
+
     void iParticleSystem3D::initDefaultGradients()
     {
         _startVisibleTimeGradient.insertValue(0.0, iaVector2f(2.5, 3.5));
@@ -348,95 +353,105 @@ namespace Igor
                 }
             }
 
-            while (_time <= frameTime)
-            {
-                float32 sizeScale = 0;
-                uint64 index = 0;
-                float32 torqueFactor = 0;
+			while (_time <= frameTime)
+			{
+				float32 sizeScale = 0;
+				uint64 index = 0;
+				float32 torqueFactor = 0;
 
-                auto particle = _particles.begin();
-                while (particle != _particles.end())
-                {
-                    _sizeScaleGradient.getValue((*particle)._visibleTime, sizeScale);
+				auto particle = _particles.begin();
+				while (particle != _particles.end())
+				{
+					_sizeScaleGradient.getValue((*particle)._visibleTime, sizeScale);
 
-                    (*particle)._velocity[1] += (*particle)._lift;
+					(*particle)._velocity[1] += (*particle)._lift;
 
-                    (*particle)._velocity *= _airDrag;
+					(*particle)._velocity *= _airDrag;
 
-                    (*particle)._position += (*particle)._velocity;
+					(*particle)._position += (*particle)._velocity;
 
-                    (*particle)._sizeScale = sizeScale;
+					(*particle)._sizeScale = sizeScale;
 
-                    (*particle)._phase0.rotateXY(_octave1Rotation);
-                    (*particle)._phase1.rotateXY(_octave2Rotation);
+					(*particle)._phase0.rotateXY(_octave1Rotation);
+					(*particle)._phase1.rotateXY(_octave2Rotation);
 
-                    (*particle)._visibleTime += (*particle)._visibleTimeIncrease;
-                    if ((*particle)._visibleTime > 1.0f)
-                    {
-                        (*particle)._visible = false;
-                    }
+					(*particle)._visibleTime += (*particle)._visibleTimeIncrease;
+					if ((*particle)._visibleTime > 1.0f)
+					{
+						(*particle)._visible = false;
+					}
 
-                    if ((*particle)._torque != 0.0)
-                    {
-                        _torqueFactorGradient.getValue((*particle)._visibleTime, torqueFactor);
+					if ((*particle)._torque != 0.0)
+					{
+						_torqueFactorGradient.getValue((*particle)._visibleTime, torqueFactor);
 
-                        startIndex = index - _vortexCheckRange;
-                        if (startIndex > 0)
-                        {
-                            startIndex = 0;
-                        }
+						startIndex = index - _vortexCheckRange;
+						if (startIndex > 0)
+						{
+							startIndex = 0;
+						}
 
-                        endIndex = index + _vortexCheckRange;
-                        if (endIndex > _particles.size())
-                        {
-                            endIndex = _particles.size();
-                        }
+						endIndex = index + _vortexCheckRange;
+						if (endIndex > _particles.size())
+						{
+							endIndex = _particles.size();
+						}
 
-                        for (uint32 i = startIndex; i < endIndex; ++i)
-                        {
-                            if (index == i) // ignore your self
-                            {
-                                continue;
-                            }
+						for (uint32 i = startIndex; i < endIndex; ++i)
+						{
+							if (index == i) // ignore your self
+							{
+								continue;
+							}
 
-                            a = (*particle)._position - _particles[i]._position;
-                            if (a.length() > (*particle)._vortexRange)
-                            {
-                                continue;
-                            }
+							a = (*particle)._position - _particles[i]._position;
+							if (a.length() > (*particle)._vortexRange)
+							{
+								continue;
+							}
 
-                            b = a % (*particle)._normal;
-                            b.normalize();
-                            b *= ((*particle)._vortexRange - a.length()) / (*particle)._vortexRange;
-                            b *= (*particle)._torque * torqueFactor;
-                            a.normalize();
-                            a *= _vorticityConfinement;
-                            b += a;
+							b = a % (*particle)._normal;
+							b.normalize();
+							b *= ((*particle)._vortexRange - a.length()) / (*particle)._vortexRange;
+							b *= (*particle)._torque * torqueFactor;
+							a.normalize();
+							a *= _vorticityConfinement;
+							b += a;
 
-                            _particles[i]._position += b * 0.1f; // TODO 0.1 ???
-                        }
-                    }
+							_particles[i]._position += b * 0.1f; // TODO 0.1 ???
+						}
+					}
 
-                    (*particle)._life -= 0.02; // 50Hz
-                    if ((*particle)._life <= 0)
-                    {
-                        particle = _particles.erase(particle);
-                    }
-                    else
-                    {
-                        particle++;
-                        index++;
-                    }
-                }
+					(*particle)._life -= 0.02; // 50Hz
+					if ((*particle)._life <= 0)
+					{
+						particle = _particles.erase(particle);
+					}
+					else
+					{
+						particle++;
+						index++;
+					}
+				}
 
-                uint32 emissionRate = 0;
-                _emissionRateGradient.getValue(particleSystemTime / __IGOR_SECOND__, emissionRate); // TODO work with fractions
-                createParticles(emissionRate, emitter, particleSystemTime / __IGOR_SECOND__);
+				uint32 emissionRate = 0;
+				_emissionRateGradient.getValue(particleSystemTime / __IGOR_SECOND__, emissionRate); // TODO work with fractions
+				createParticles(emissionRate, emitter, particleSystemTime / __IGOR_SECOND__);
 
-                _time += 20.0; // particle system runs in 50Hz
-                particleSystemTime += 20; // TODO redundant
-            }
+				_time += 20.0; // particle system runs in 50Hz
+				particleSystemTime += 20; // TODO redundant
+			}
         }
+
+		if (!_particles.empty())
+		{
+			_boundingSphere._center = _particles[0]._position;
+			_boundingSphere._radius = _boundingSphere._center.distance(_particles[_particles.size() - 1]._position);
+			if (_boundingSphere._radius < 1.0)
+			{
+				_boundingSphere._radius = 1.0;
+			}
+		}
     }
 
     void iParticleSystem3D::setStartSizeGradient(const iGradientVector2f& sizeGradient)

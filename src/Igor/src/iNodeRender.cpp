@@ -29,13 +29,12 @@ namespace Igor
 
     iNodeRender::~iNodeRender()
     {
-        if (_materialID != iMaterial::INVALID_MATERIAL_ID)
+		con_endl(_materialID);
+        iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
+        if (materialGroup != nullptr)
         {
-            iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
-            if (materialGroup != nullptr)
-            {
-                materialGroup->removeRenderNode(this);
-            }
+			con_endl("remove");
+            materialGroup->removeRenderNode(this);
         }
     }
 

@@ -30,12 +30,20 @@ namespace Igor
 
     void iNodeVolume::setBoundingSphere(const iSpheref& sphere)
     {
-        _sphere._center = sphere._center;
-        _sphere._radius = sphere._radius;
+		if (_sphere._center != sphere._center ||
+			_sphere._radius != sphere._radius)
+		{
+			_sphere._center = sphere._center;
+			_sphere._radius = sphere._radius;
+
+			updateTree();
+		}
     }
 
 	void iNodeVolume::onPreSetScene()
 	{
+		iNodeRender::onPreSetScene();
+
 		if (getScene())
 		{
 			getScene()->unregisterVolume(this);
@@ -44,6 +52,8 @@ namespace Igor
 
 	void iNodeVolume::onPostSetScene()
 	{
+		iNodeRender::onPostSetScene();
+
 		if (getScene())
 		{
 			getScene()->registerVolume(this);
@@ -60,7 +70,7 @@ namespace Igor
         return _sphere._center;
     }
 
-	void iNodeVolume::update()
+	void iNodeVolume::updateTree()
 	{
 		if (getScene())
 		{
@@ -73,7 +83,7 @@ namespace Igor
         if (_worldMatrix != matrix)
         {
             _worldMatrix = matrix;
-            update();
+			updateTree();
         }
     }
 

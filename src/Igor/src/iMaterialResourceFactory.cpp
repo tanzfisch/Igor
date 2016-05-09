@@ -231,11 +231,6 @@ namespace Igor
         }
         _mutexMaterial.unlock();
 
-        if (!materialGroup)
-        {
-            con_err("material id: " << materialID << " does not exist");
-        }
-
         return materialGroup;
     }
 

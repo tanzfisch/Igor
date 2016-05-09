@@ -8,6 +8,7 @@
 #include <iTextureResourceFactory.h>
 #include <iNodeFactory.h>
 #include <iNodeEmitter.h>
+#include <iApplication.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -20,6 +21,8 @@ namespace Igor
         setName(L"iNodeParticleSystem");
         _nodeType = iNodeType::iNodeParticleSystem;
         _nodeKind = iNodeKind::Volume;
+
+		iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeParticleSystem::handle));
 	}
 
     iNodeParticleSystem::iNodeParticleSystem(iNodeParticleSystem* node)
@@ -36,7 +39,15 @@ namespace Igor
         setTextureA(node->getTextureA());
         setTextureB(node->getTextureB());
         setTextureC(node->getTextureC());
+
+		iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeParticleSystem::handle));
     }
+
+	iNodeParticleSystem::~iNodeParticleSystem()
+	{
+		con_trace();
+		iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeParticleSystem::handle));
+	}
 
     void iNodeParticleSystem::setColorGradient(const iGradientColor4f& colorGradient)
     {
@@ -48,26 +59,27 @@ namespace Igor
         _particleSystem.getColorGradient(colorGradient);
     }
 
+	void iNodeParticleSystem::handle()
+	{
+		iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_emitterID));
+
+		if (emitter != nullptr)
+		{
+			_particleSystem.setParticleSystemMatrix(_worldMatrixInv);
+			_particleSystem.calcNextFrame(emitter->getParticleEmitter());
+
+			setBoundingSphere(_particleSystem.getBoundingSphere());
+		}
+	}
+
     void iNodeParticleSystem::draw()
     {
-        iNodeEmitter* emitter = nullptr;
-        if (_emitterID != iNode::INVALID_NODE_ID)
-        {
-            emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_emitterID));
+        iRenderer::getInstance().bindTexture(_textureA, 0);
+        iRenderer::getInstance().bindTexture(_textureB, 1);
+        iRenderer::getInstance().bindTexture(_textureC, 2);
 
-            if (emitter != nullptr)
-            {
-                _particleSystem.setParticleSystemMatrix(_worldMatrixInv);
-                _particleSystem.calcNextFrame(emitter->getParticleEmitter());
-
-                iRenderer::getInstance().bindTexture(_textureA, 0);
-                iRenderer::getInstance().bindTexture(_textureB, 1);
-                iRenderer::getInstance().bindTexture(_textureC, 2);
-
-                iRenderer::getInstance().setModelMatrix(_worldMatrix);
-                iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
-            }
-        }
+        iRenderer::getInstance().setModelMatrix(_worldMatrix);
+        iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
     }
 
     void iNodeParticleSystem::setStartVelocityGradient(const iGradientVector2f& velocityGradient)
@@ -104,6 +116,11 @@ namespace Igor
     {
         _particleSystem.stop();
     }
+
+	bool iNodeParticleSystem::isFinished() const
+	{
+		return _particleSystem.isFinished();
+	}
 
     void iNodeParticleSystem::setLoop(bool loop)
     {
@@ -212,9 +229,14 @@ namespace Igor
 
     void iNodeParticleSystem::onUpdateTransform(iaMatrixf& matrix)
     {
-        _worldMatrix = matrix;
-        _worldMatrixInv = matrix;
-        _worldMatrixInv.invert();
+		if (_worldMatrix != matrix)
+		{
+			_worldMatrix = matrix;
+			_worldMatrixInv = matrix;
+			_worldMatrixInv.invert();
+
+			updateTree();
+		}
     }
 
     void iNodeParticleSystem::setEmitter(uint64 emitterID)
