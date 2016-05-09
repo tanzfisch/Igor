@@ -377,39 +377,42 @@ namespace Igor
 
 	void iNode::setScene(iScene* scene)
 	{
-		onPreSetScene();
-
-        if (_scene != nullptr)
+        if (_scene != scene)
         {
-            _scene->signalNodeRemoved(getID());
-        }
+            onPreSetScene();
 
-		if (scene != nullptr && 
-            _scene != nullptr)
-		{
-			con_err("node already belongs to scene \"" << scene->getName() << "\"");
-		}
-		else
-		{
-			if (scene != _scene)
-			{
-				_scene = scene;
+            if (_scene != nullptr)
+            {
+                _scene->signalNodeRemoved(getID());
+            }
 
-				if (hasChildren())
-				{
-					for (uint32 i = 0; i < _children.size(); ++i)
-					{
-						_children[i]->setScene(_scene);
-					}
-				}
-			}
-		}
+            if (scene != nullptr &&
+                _scene != nullptr)
+            {
+                con_err("node already belongs to scene \"" << scene->getName() << "\"");
+            }
+            else
+            {
+                if (scene != _scene)
+                {
+                    _scene = scene;
 
-		onPostSetScene();
+                    if (hasChildren())
+                    {
+                        for (uint32 i = 0; i < _children.size(); ++i)
+                        {
+                            _children[i]->setScene(_scene);
+                        }
+                    }
+                }
+            }
 
-        if (_scene != nullptr)
-        {
-            _scene->signalNodeAdded(getID());
+            onPostSetScene();
+
+            if (_scene != nullptr)
+            {
+                _scene->signalNodeAdded(getID());
+            }
         }
 	}
 
