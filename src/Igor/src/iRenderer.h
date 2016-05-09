@@ -186,7 +186,7 @@ namespace Igor
         
         /*! projects a screen position in to world position
 
-        \param screenpos the screen position
+        \param screenpos the screen position (vertical origin is at top of screen)
         \param modelview the model view matrix
         \param projection the projection matrix
         \param viewport the viewport

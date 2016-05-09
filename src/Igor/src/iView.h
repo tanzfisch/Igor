@@ -163,6 +163,12 @@ namespace Igor
         */
         void setClearDepth(float32 depth);
 
+        /*! unprojects screen position to object space
+
+        \param screenpos screen position in pixels (vertical origin is at top of window)
+        \param modelMatrix the model matrix to create the camera view from
+        \returns unprojected position in object space
+        */
         iaVector3f unProject(const iaVector3f& screenpos, const iaMatrixf& modelMatrix);
 
         void updateWindowRect(const iRectanglei& windowRect);
