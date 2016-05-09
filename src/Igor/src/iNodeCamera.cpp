@@ -31,6 +31,11 @@ namespace Igor
         setName(node->getName());
     }
 
+	iNodeCamera::~iNodeCamera()
+	{
+		setScene(nullptr);
+	}
+
 	void iNodeCamera::getWorldMatrix(iaMatrixf& matrix)
 	{
 		matrix = _worldMatrix;

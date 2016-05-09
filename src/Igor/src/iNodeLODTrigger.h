@@ -90,7 +90,7 @@ namespace Igor
 
         /*! does nothing
         */
-		virtual ~iNodeLODTrigger() = default;
+		virtual ~iNodeLODTrigger();
 		
 	};
 

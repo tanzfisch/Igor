@@ -33,6 +33,11 @@ namespace Igor
         setType(node->getType());
     }
 
+	iNodeLight::~iNodeLight()
+	{
+		setScene(nullptr);
+	}
+
     void iNodeLight::setType(iLightType type)
     {
         _type = type;

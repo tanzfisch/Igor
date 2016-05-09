@@ -23,6 +23,11 @@ namespace Igor
         _sphere = node->_sphere;
     }
 
+	iNodeVolume::~iNodeVolume()
+	{
+		setScene(nullptr);
+	}
+
     const iSpheref& iNodeVolume::getBoundingSphere() const
     {
         return _sphere;

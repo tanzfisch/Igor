@@ -95,9 +95,9 @@ namespace Igor
         */
         iNodeVolume(iNodeVolume* node);
 
-        /*! does nothing
+        /*! dtor
         */
-		virtual ~iNodeVolume() {};
+		virtual ~iNodeVolume();
 
     private:
 

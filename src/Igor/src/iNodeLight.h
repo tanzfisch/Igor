@@ -161,7 +161,7 @@ namespace Igor
 
         /*! does nothing
         */
-		virtual ~iNodeLight() = default;
+		virtual ~iNodeLight();
 		
 	};
 

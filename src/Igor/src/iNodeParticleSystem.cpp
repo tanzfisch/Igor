@@ -45,7 +45,7 @@ namespace Igor
 
 	iNodeParticleSystem::~iNodeParticleSystem()
 	{
-        setScene(nullptr); // todo workaround. we need a better solution to automatically unregister things from scene
+        setScene(nullptr);
 		iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeParticleSystem::handle));
 	}
 

@@ -43,6 +43,8 @@ namespace Igor
 
     iNodeModel::~iNodeModel()
     {
+		setScene(nullptr);
+
         if (_parameters != nullptr)
         {
             // if arrived here it was never given to iModel so we need to delete it now

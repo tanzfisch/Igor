@@ -35,6 +35,11 @@ namespace Igor
         setName(node->getName());
     }
 
+	iNodeLODSwitch::~iNodeLODSwitch()
+	{
+		setScene(nullptr);
+	}
+
     void iNodeLODSwitch::onUpdateTransform(iaMatrixf& matrix)
     {
         _worldPosition = matrix._pos;

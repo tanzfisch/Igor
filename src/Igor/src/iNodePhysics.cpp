@@ -54,6 +54,8 @@ namespace Igor
 
     iNodePhysics::~iNodePhysics()
     {
+		setScene(nullptr);
+
         if (iPhysics::getInstance().isCollisionConfig(_physicsCollisionConfigID))
         {
             iPhysics::getInstance().destroyCollisionConfig(_physicsCollisionConfigID);

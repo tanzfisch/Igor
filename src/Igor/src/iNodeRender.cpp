@@ -29,6 +29,8 @@ namespace Igor
 
     iNodeRender::~iNodeRender()
     {
+		setScene(nullptr);
+
         iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
         if (materialGroup != nullptr)
         {

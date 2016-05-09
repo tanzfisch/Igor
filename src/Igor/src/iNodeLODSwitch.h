@@ -165,6 +165,10 @@ namespace Igor
         */
         iNodeLODSwitch(iNodeLODSwitch* node);
 
+		/*! dtor
+		*/
+		virtual ~iNodeLODSwitch();
+
 	};
 
 };

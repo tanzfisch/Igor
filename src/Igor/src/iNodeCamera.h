@@ -99,6 +99,10 @@ namespace Igor
         */
         iNodeCamera(iNodeCamera* node);
 
+		/*! dtor
+		*/
+		virtual ~iNodeCamera();
+
 	};
 
 };
