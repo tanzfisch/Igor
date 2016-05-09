@@ -1392,16 +1392,15 @@ namespace Igor
         _renderedTriangles += particles.size() * 2;
     }
 
-
     iaVector3f iRenderer::unProject(const iaVector3f& screenpos, const iaMatrixf& modelview, const iaMatrixf& projection, const iRectanglei& viewport)
     {
         iaVector4f in;
         iaVector4f out;
         iaVector3f result;
 
-        in[0] = (screenpos[0] - (float32)viewport.getX()) * 2.0f / (float32)viewport.getWidth() - 1.0f;
-        in[1] = (screenpos[1] - (float32)viewport.getY()) * 2.0f / (float32)viewport.getHeight() - 1.0f;
-        in[2] = 2.0f * screenpos[2] - 1.0f;
+        in[0] = (screenpos[0] - (float32)viewport.getX()) / (float32)viewport.getWidth() * 2.0f - 1.0f;
+        in[1] = (((float32)viewport.getHeight() - screenpos[1]) - (float32)viewport.getY()) / (float32)viewport.getHeight() * 2.0f - 1.0f;
+        in[2] = screenpos[2] * 2.0f - 1.0f;
         in[3] = 1.0f;
 
         iaMatrixf modelViewProjection = projection;
