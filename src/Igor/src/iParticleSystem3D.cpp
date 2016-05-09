@@ -226,8 +226,8 @@ namespace Igor
 
         _startVisibleTimeGradient.getValue(particleSystemTime, minMax);
         float32 visibleTime = minMax._x + randomFactor * (minMax._y - minMax._x);
-        visibleTime /= 0.02; // 50Hz
-        particle._visibleTimeIncrease = 1.0 / visibleTime;
+        visibleTime /= 0.02f; // 50Hz
+        particle._visibleTimeIncrease = 1.0f / visibleTime;
         particle._visible = true;
 
         particle._phase0.set(rand() % 100 / 100.0f, rand() % 100 / 100.0f);
