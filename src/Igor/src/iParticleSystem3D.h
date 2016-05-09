@@ -415,7 +415,7 @@ namespace Igor
 
         calculated based on longest visible time
         */
-        uint32 _lifeTime = 0;
+        float32 _lifeTime = 0.0;
 
         float32 _airDrag = 1.0;
 
