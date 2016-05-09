@@ -211,10 +211,10 @@ __IGOR_INLINE__ void iaMatrix<T>::grammSchmidt(iaVector3<T> &depth, iaVector3<T>
     _depth = depth;
     _depth.normalize();
 
-    _right = _depth % _top;
+    _right = _top % _depth;
     _right.normalize();
 
-    _top = _right % _depth;
+    _top = _depth % _right;
     _top.normalize();
 
     _w0 = 0.0f;
