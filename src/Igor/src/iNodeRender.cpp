@@ -29,11 +29,9 @@ namespace Igor
 
     iNodeRender::~iNodeRender()
     {
-		con_endl(_materialID);
         iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
         if (materialGroup != nullptr)
         {
-			con_endl("remove");
             materialGroup->removeRenderNode(this);
         }
     }
