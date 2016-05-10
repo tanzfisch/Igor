@@ -79,7 +79,14 @@ namespace Igor
         iRenderer::getInstance().bindTexture(_textureC, 2);
 
         iRenderer::getInstance().setModelMatrix(_worldMatrix);
-        iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
+        if (_particleSystem.getVelocityOriented())
+        {
+            iRenderer::getInstance().drawVelocityOrientedParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
+        }
+        else
+        {
+            iRenderer::getInstance().drawParticles(_particleSystem.getCurrentFrame(), _particleSystem.getColorGradient());
+        }
     }
 
     void iNodeParticleSystem::setStartVelocityGradient(const iGradientVector2f& velocityGradient)
@@ -313,4 +320,35 @@ namespace Igor
     {
         _particleSystem.getStartVisibleTimeGradient(visibleGradient);
     }
+
+    void iNodeParticleSystem::setStartOrientationGradient(const iGradientVector2f& orientationGradient)
+    {
+        _particleSystem.setStartOrientationGradient(orientationGradient);
+    }
+
+    void iNodeParticleSystem::getStartOrientationGradient(iGradientVector2f& orientationGradient) const
+    {
+        _particleSystem.getStartOrientationGradient(orientationGradient);
+    }
+
+    void iNodeParticleSystem::setStartOrientationRateGradient(const iGradientVector2f& orientationRateGradient)
+    {
+        _particleSystem.setStartOrientationRateGradient(orientationRateGradient);
+    }
+
+    void iNodeParticleSystem::getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const
+    {
+        _particleSystem.getStartOrientationRateGradient(orientationRateGradient);
+    }
+
+    void iNodeParticleSystem::setVelocityOriented(bool velocityOriented)
+    {
+        _particleSystem.setVelocityOriented(velocityOriented);
+    }
+
+    bool iNodeParticleSystem::getVelocityOriented() const
+    {
+        return _particleSystem.getVelocityOriented();
+    }
+
 }

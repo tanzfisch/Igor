@@ -1347,6 +1347,12 @@ namespace Igor
         iaColor4f color;
         float32 size;
 
+        iaVector3f rightScale;
+        iaVector3f topScale;
+
+        iaVector2f x(1, 0);
+        iaVector2f y;
+
         glBegin(GL_QUADS);
 
         for(auto particle : particles)
@@ -1355,32 +1361,122 @@ namespace Igor
             {
                 size = particle._size * particle._sizeScale;
 
+                right = _camWorldMatrix._right;
+                right *= size;
+                top = _camWorldMatrix._top;
+                top *= size;
+
                 rainbow.getValue(particle._visibleTime, color);
                 glColor4fv(color.getData());
 
-                glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
+                x.set(1, 0);
+                x.rotateXY(particle._orientation);
+                y._x = -x._y;
+                y._y = x._x;
+
+                rightScale = right * x._x + top * x._y;
+                topScale = right * y._x + top * y._y;
+
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 0 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 0 + particle._phase1[1]);
 
-                glVertex3fv((particle._position - right*size - top*size).getData());
+                glVertex3fv((particle._position - rightScale - topScale).getData());
 
-                glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
                 glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 0 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 0 + particle._phase1[1]);
 
-                glVertex3fv((particle._position + right*size - top*size).getData());
+                glVertex3fv((particle._position + rightScale - topScale).getData());
 
-                glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
                 glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
 
-                glVertex3fv((particle._position + right*size + top*size).getData());
+                glVertex3fv((particle._position + rightScale + topScale).getData());
 
-                glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
 
-                glVertex3fv((particle._position - right*size + top*size).getData());
+                glVertex3fv((particle._position - rightScale + topScale).getData());
+            }
+        }
+
+        glEnd();		GL_CHECK_ERROR();
+
+        // todo maybe we should count this during cull process
+        _renderedVertices += particles.size() * 4;
+        _renderedIndexes += particles.size() * 4;
+        _renderedTriangles += particles.size() * 2;
+    }
+
+    void iRenderer::drawVelocityOrientedParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow)
+    {
+        iaVector3f right;
+        iaVector3f top = _camWorldMatrix._top;
+        iaVector3f depth = _camWorldMatrix._depth;
+        iaColor4f color;
+        float32 size;
+
+        iaVector3f rightScale;
+        iaVector3f topScale;
+        iaVector3f direction;
+
+        iaVector2f x(1, 0);
+        iaVector2f y;
+
+        glBegin(GL_QUADS);
+
+        for (auto particle : particles)
+        {
+            if (particle._visible)
+            {
+                size = particle._size * particle._sizeScale;
+
+                rainbow.getValue(particle._visibleTime, color);
+                glColor4fv(color.getData());
+
+                direction = particle._velocity;
+                direction.normalize();
+
+                right = direction % depth;
+                top = depth % right;
+
+                right *= size;
+                top *= size;
+
+                x.set(1, 0);
+                x.rotateXY(particle._orientation);
+                y._x = -x._y;
+                y._y = x._x;
+
+                rightScale = right * x._x + top * x._y;
+                topScale = right * y._x + top * y._y;
+
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 0 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 0 + particle._phase1[1]);
+
+                glVertex3fv((particle._position - rightScale - topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 0 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 0 + particle._phase1[1]);
+
+                glVertex3fv((particle._position + rightScale - topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
+                glMultiTexCoord2f(GL_TEXTURE1, 1 + particle._phase0[0], 1 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
+
+                glVertex3fv((particle._position + rightScale + topScale).getData());
+
+                glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
+                glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
+                glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
+
+                glVertex3fv((particle._position - rightScale + topScale).getData());
             }
         }
 

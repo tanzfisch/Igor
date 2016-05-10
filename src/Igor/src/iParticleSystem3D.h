@@ -57,19 +57,25 @@ namespace Igor
         */
         iaVector3f _position;
 
-        /*! current velocity of particle
+        /*! current velocity (also direction) of particle
         */
         iaVector3f _velocity;
 
         /*! current lift value
+
+        negative values are considered weight
         */
         float32 _lift = 0.0;
 
         /*! life of particle in seconds
         */
-        float32 _life = 1.0;
+        float32 _life = 0.0;
 
-        /*! visible time in seconds
+        /*! visible time of particles
+
+        the scale is basically seconds time goes by a little faster  
+        depending on the individual particle visible time wich is <= it's life time
+        thats why there is _visibleTimeIncrease
         */
         float32 _visibleTime = 0.0;
 
@@ -77,22 +83,53 @@ namespace Igor
         */
         float32 _visibleTimeIncrease = 0.0;
 
-        /*! 
+        /*! size of the particle given at birth
         */
         float32 _size = 1.0;
+
+        /*! size scale changes during life time of particle
+        */
         float32 _sizeScale = 1.0;
 
+        /*! orientation angle of particle in rad
+        */
+        float32 _orientation = 0.0;
+
+        /*! orientation / rotation rate in rad per frame
+        */
+        float32 _orientationRate = 0.0;
+
+        /*! if particle is actually visible
+        */
         bool _visible = true;
-        bool _imune = false;
 
         iaVector2f _phase0;
         iaVector2f _phase1;
 
+        /*! if particle is a vortex particle it will rotate around this axis
+        */
         iaVector3f _normal;
+
+        /*! the torque the vortex particle is rotating the other particles with
+
+        if value is zero it's not a vortex particle
+        */
         float32 _torque = 0;
+
+        /*! the range the vortex has an effect on other particles
+        */
         float32 _vortexRange = 0;
     };
 
+    /*! simulation of 3d particle systems
+
+    \todo fix problem with too many vortex particles and resulting performance problem
+    \todo something is wrong with negative orientation rate. maybe a iGadient problem?
+    \todo rotation of noise textures
+    \todo particle simulation should be parallel to rendering
+    \todo maybe we separate vortex particles from particles
+    \todo maybe we put all particles together in one global particles pool. than we can sort them and we can have global effects like shadowing etc. on each other
+    */
     class Igor_API iParticleSystem3D
     {
 
@@ -182,6 +219,11 @@ namespace Igor
         */
         bool getLoop() const;
 
+        /*! set's the inverse matrix of the particle system coordinate system
+        
+        \param worldInvMatrix the inverse of the particle system
+        \todo not fully implemented yet. usually particle systems run in world coordinates and not local
+        */
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
 
         /*! sets the likeliness of a vortex particle to appear
@@ -314,6 +356,43 @@ namespace Igor
         */
         void getStartLiftGradient(iGradientVector2f& liftGradient) const;
 
+        /*! sets min max start orientation gradient for particles at birth
+
+        \param orientationGradient the min max start orientation gradient
+        */
+        void setStartOrientationGradient(const iGradientVector2f& orientationGradient);
+
+        /*! returns the min max start lift gradient for particles at birth
+
+        \param[out] orientationGradient out value for the start orientation gradient
+        */
+        void getStartOrientationGradient(iGradientVector2f& orientationGradient) const;
+
+        /*! sets start min max orientation rate gradient for particles during visible time
+
+        \param orientationRateGradient the min max orientation rate gradient
+        */
+        void setStartOrientationRateGradient(const iGradientVector2f& orientationRateGradient);
+
+        /*! returns the start min max orientation offset gradient for particles during visuble time
+
+        \param[out] orientationRateGradient out value for the orientation rate gradient
+        */
+        void getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const;
+
+        /*! sets the velocity oriented flag
+        particles will be rendered oriented by thair velocity and screen
+
+        default id off
+
+        \param velocityOriented if true particles get rendered velocity oriented
+        */
+        void setVelocityOriented(bool velocityOriented = true);
+
+        /*! \returns velocity oriented flag
+        */
+        bool getVelocityOriented() const;
+
         /*! sets the air drag
 
         0.0-1.0
@@ -346,11 +425,22 @@ namespace Igor
 		*/
 		const iSpheref& getBoundingSphere() const;
 
+        /*! init default values
+        */
         iParticleSystem3D();
+
+        /*! clean up
+        */
         virtual ~iParticleSystem3D();
 
     private:
 
+        /*! flag that defines if particles get rendered velocity oriented
+        */
+        bool _velocityOriented = false;
+
+        /*! bounding sphere of particle system
+        */
 		iSpheref _boundingSphere;
 
         /*! true if particle system is finished
@@ -365,9 +455,9 @@ namespace Igor
         */
         bool _running = false;
 
+        /*! inverse of particle system coordinate system
+        */
         iaMatrixf _particleSystemInvWorldMatrix;
-
-        iaMatrixf _birthTransformationMatrix;
 
         /*! works like a dirty flag. if true all is set to beginning
         */
@@ -399,6 +489,14 @@ namespace Igor
         */
         iGradientVector2f _startSizeGradient;
 
+        /*! min max start orientation of particles
+        */
+        iGradientVector2f _startOrientationGradient;
+
+        /*! min max start orientation rate of particles
+        */
+        iGradientVector2f _startOrientationRateGradient;
+
         /*! min max start velocity of particles
         */
         iGradientVector2f _startVelocityGradient;
@@ -417,6 +515,8 @@ namespace Igor
         */
         float32 _lifeTime = 0.0;
 
+        /*! air drag for particles
+        */
         float32 _airDrag = 1.0;
 
         iaVector2f _octave1Shift = { 0.001, 0.001 };

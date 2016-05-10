@@ -203,6 +203,43 @@ namespace Igor
         */
         void getStartLiftGradient(iGradientVector2f& liftGradient) const;
 
+        /*! sets min max start orientation gradient for particles at birth
+
+        \param orientationGradient the min max start orientation gradient
+        */
+        void setStartOrientationGradient(const iGradientVector2f& orientationGradient);
+
+        /*! returns the min max start lift gradient for particles at birth
+
+        \param[out] orientationGradient out value for the start orientation gradient
+        */
+        void getStartOrientationGradient(iGradientVector2f& orientationGradient) const;
+
+        /*! sets start min max orientation rate gradient for particles during visible time
+
+        \param orientationRateGradient the min max orientation rate gradient
+        */
+        void setStartOrientationRateGradient(const iGradientVector2f& orientationRateGradient);
+
+        /*! returns the start min max orientation offset gradient for particles during visuble time
+
+        \param[out] orientationRateGradient out value for the orientation rate gradient
+        */
+        void getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const;
+
+        /*! sets the velocity oriented flag
+        particles will be rendered oriented by thair velocity and screen
+
+        default id off
+
+        \param velocityOriented if true particles get rendered velocity oriented
+        */
+        void setVelocityOriented(bool velocityOriented = true);
+
+        /*! \returns velocity oriented flag
+        */
+        bool getVelocityOriented() const;
+
         /*! sets the likeliness of a vortex particle to appear
 
         \param likeliness value from 0 to 1

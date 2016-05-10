@@ -45,12 +45,27 @@ namespace Igor
 
         _startVelocityGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
 
+        _startLiftGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+
+        _startOrientationGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+
+        _startOrientationRateGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+
+        // internal gradient
         _torqueFactorGradient.insertValue(0.0, 0.0);
         _torqueFactorGradient.insertValue(0.1, 1.0);
         _torqueFactorGradient.insertValue(0.9, 1.0);
         _torqueFactorGradient.insertValue(1.0, 0.0);
+    }
 
-        _startLiftGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+    void iParticleSystem3D::setVelocityOriented(bool velocityOriented)
+    {
+        _velocityOriented = velocityOriented;
+    }
+
+    bool iParticleSystem3D::getVelocityOriented() const
+    {
+        return _velocityOriented;
     }
 
     void iParticleSystem3D::setColorGradient(const iGradientColor4f& colorGradient)
@@ -230,6 +245,12 @@ namespace Igor
         particle._visibleTimeIncrease = 1.0f / visibleTime;
         particle._visible = true;
 
+        _startOrientationGradient.getValue(particleSystemTime, minMax);
+        particle._orientation = minMax._x + randomFactor * (minMax._y - minMax._x);
+
+        _startOrientationRateGradient.getValue(particleSystemTime, minMax);
+        particle._orientationRate = minMax._x + randomFactor * (minMax._y - minMax._x);
+
         particle._phase0.set(rand() % 100 / 100.0f, rand() % 100 / 100.0f);
         particle._phase1.set(rand() % 100 / 100.0f, rand() % 100 / 100.0f);
     }
@@ -329,9 +350,6 @@ namespace Igor
 
         if (_running)
         {
-            _birthTransformationMatrix = emitter.getWorldMatrix();
-            _birthTransformationMatrix *= _particleSystemInvWorldMatrix;
-
             iaVector3f a, b;
 
             uint32 startIndex;
@@ -369,6 +387,8 @@ namespace Igor
 					(*particle)._velocity *= _airDrag;
 
 					(*particle)._position += (*particle)._velocity;
+
+                    (*particle)._orientation += (*particle)._orientationRate;
 
 					(*particle)._sizeScale = sizeScale;
 
@@ -490,11 +510,34 @@ namespace Igor
     void iParticleSystem3D::setAirDrag(float32 airDrag)
     {
         _airDrag = airDrag;
+        _mustReset = true;
     }
 
     float32 iParticleSystem3D::getAirDrag() const
     {
         return _airDrag;
+    }
+
+    void iParticleSystem3D::setStartOrientationGradient(const iGradientVector2f& orientationGradient)
+    {
+        _startOrientationGradient = orientationGradient;
+        _mustReset = true;
+    }
+
+    void iParticleSystem3D::getStartOrientationGradient(iGradientVector2f& orientationGradient) const
+    {
+        orientationGradient = _startOrientationGradient;
+    }
+
+    void iParticleSystem3D::setStartOrientationRateGradient(const iGradientVector2f& orientationRateGradient)
+    {
+        _startOrientationRateGradient = orientationRateGradient;
+        _mustReset = true;
+    }
+
+    void iParticleSystem3D::getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const
+    {
+        orientationRateGradient = _startOrientationRateGradient;
     }
 
     void iParticleSystem3D::setVorticityConfinement(float32 vc)

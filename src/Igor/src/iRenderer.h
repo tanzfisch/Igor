@@ -554,6 +554,7 @@ namespace Igor
 
         // Particles
         virtual void drawParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow);
+        virtual void drawVelocityOrientedParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow);
         virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iGradientColor4f *rainbow = 0);
 
         // attributes
