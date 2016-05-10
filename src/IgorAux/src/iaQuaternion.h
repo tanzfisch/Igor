@@ -34,6 +34,10 @@
 namespace IgorAux
 {
 
+    /*!
+
+    \todo not in use yet
+    */
     template <class T>
     class iaQuaternion
     {
