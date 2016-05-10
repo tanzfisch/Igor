@@ -123,7 +123,7 @@ namespace Igor
 
     /*! simulation of 3d particle systems
 
-    \todo something is wrong with negative orientation rate. maybe a iGadient problem?
+    \todo something is wrong with negative orientation rate. maybe a iGradient problem?
     \todo rotation of noise textures
     \todo particle simulation should be parallel to rendering
     \todo maybe we separate vortex particles from particles

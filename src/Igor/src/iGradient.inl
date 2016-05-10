@@ -32,7 +32,7 @@ const vector<pair<float, T>>& iGradient<T>::getValues() const
 template <class T>
 void iGradient<T>::getValue(float at, T& value) const
 {
-    if (at >= _values[_values.size()-1].first)
+    if (at >= _values[_values.size() - 1].first)
     {
         value = _values[_values.size() - 1].second;
     }
