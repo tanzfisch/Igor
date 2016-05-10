@@ -195,8 +195,8 @@ void  iaVector2<T>::rotateXY(T angle)
     T c = (T)cos(angle);
     T s = (T)sin(angle);
 
-    T t = c*_x + s*_y;
-    _y = -s*_x + c*_y;
+    T t = c*_x - s*_y;
+    _y = s*_x + c*_y;
     _x = t;
 }
 
