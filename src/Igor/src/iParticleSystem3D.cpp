@@ -255,17 +255,15 @@ namespace Igor
         particle._phase1.set(rand() % 100 / 100.0f, rand() % 100 / 100.0f);
     }
 
-    void iParticleSystem3D::setVortexParticleLikeliness(uint64 likeliness)
+    void iParticleSystem3D::setVortexApperanceIntervall(uint64 apperanceRate)
     {
-        con_assert(likeliness >= 0 && likeliness <= 100, "out of range");
-
-        _vortexLikeliness = likeliness;
+        _vortexAperanceRate = apperanceRate;
         _mustReset = true;
     }
 
-    float32 iParticleSystem3D::getVortexParticleLikeliness() const
+    float32 iParticleSystem3D::getVortexApperanceIntervall() const
     {
-        return _vortexLikeliness;
+        return _vortexAperanceRate;
     }
 
     void iParticleSystem3D::createParticles(uint32 particleCount, const iParticleEmitter& emitter, float32 particleSystemTime)
@@ -274,22 +272,23 @@ namespace Igor
         {
             iParticle particle;
 
-            if (_vortexLikeliness != 0 && (_particleCounter % (long)(100.0f / static_cast<float32>(_vortexLikeliness))) == 0)
+            if (_vortexAperanceRate != 0 && 
+                _particleCounter == _vortexAperanceRate)
             {
                 particle._normal.set(rand() % 100 / 100.0f - 0.5f, rand() % 100 / 100.0f - 0.5f, rand() % 100 / 100.0f - 0.5f);
                 particle._normal.normalize();
                 particle._torque = _minVortexTorque + (rand() % 100 / 100.0f) * (_maxVortexTorque - _minVortexTorque);
                 particle._vortexRange = _minVortexRange + (rand() % 100 / 100.0f) * (_maxVortexRange - _minVortexRange);
+                _particleCounter = 0;
             }
             else
             {
                 particle._torque = 0.0;
+                _particleCounter++;
             }
 
             resetParticle(particle, emitter, particleSystemTime);
             _particles.push_back(particle);
-
-            _particleCounter++;
         }
     }
 

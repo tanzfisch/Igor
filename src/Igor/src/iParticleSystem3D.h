@@ -135,6 +135,36 @@ namespace Igor
 
     public:
 
+        /*! clears all particles
+        */
+        void reset();
+
+        /*! starts or resumes particle system
+        */
+        void start();
+
+        /*! stops or pauses the particle system
+        */
+        void stop();
+
+        /*! \returns true if particle system is currently running
+        */
+        bool isRunning();
+
+        /*! \returns true if particle system is finished
+        */
+        bool isFinished() const;
+
+        /*! sets if the particle system runs in a loop
+
+        \param loop if true particle system runs in loop
+        */
+        void setLoop(bool loop = true);
+
+        /*! \returns true if particle system runs in loop
+        */
+        bool getLoop() const;
+
         /*! sets the range of vortex torque
 
         \param min minimum vortex torque
@@ -165,6 +195,16 @@ namespace Igor
         */
         float32 getVortexRangeMax();
 
+        /*! sets vortex check range
+
+        \param particles distance in indexes from vortex particle
+        */
+        void setVortexCheckRange(uint32 particles);
+
+        /*! \return vortex check rangein indexes from vortex particle
+        */
+        uint32 getVortexCheckRange();
+
         /*! sets the rotation per frame of the second texture
 
         \param angle rotation in rad per frame
@@ -189,36 +229,6 @@ namespace Igor
         */
         const deque<iParticle>& getCurrentFrame() const;
 
-        /*! clears all particles
-        */
-        void reset();
-
-        /*! starts or resumes particle system
-        */
-        void start();
-
-        /*! stops or pauses the particle system
-        */
-        void stop();
-        
-        /*! \returns true if particle system is currently running
-        */
-        bool isRunning();
-
-        /*! \returns true if particle system is finished
-        */
-        bool isFinished() const;
-
-        /*! sets if the particle system runs in a loop
-
-        \param loop if true particle system runs in loop
-        */
-        void setLoop(bool loop = true);
-
-        /*! \returns true if particle system runs in loop
-        */
-        bool getLoop() const;
-
         /*! set's the inverse matrix of the particle system coordinate system
         
         \param worldInvMatrix the inverse of the particle system
@@ -226,31 +236,21 @@ namespace Igor
         */
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
 
-        /*! sets the likeliness of a vortex particle to appear
+        /*! sets the apperance intervall of a vortex particle
 
-        \param likeliness value from 0 to 100 in percent
+        \param apperanceRate the number of particles to create before the next vertex particle will be created
         */
-        void setVortexParticleLikeliness(uint64 likeliness);
+        void setVortexApperanceIntervall(uint64 apperanceRate);
 
         /*! \returns likeliness of vortex particle to appear
         */
-        float32 getVortexParticleLikeliness() const;
+        float32 getVortexApperanceIntervall() const;
 
         /*! calculates next frame
 
         \param emitter the emitter to emitt particles from
         */
         void calcNextFrame(const iParticleEmitter& emitter);
-
-        /*! sets vortex check range
-
-        \param particles distance in indexes from vortex particle
-        */
-        void setVortexCheckRange(uint32 particles);
-
-        /*! \return vortex check rangein indexes from vortex particle
-        */
-        uint32 getVortexCheckRange();
 
         /*! sets vorticity confinement force
 
@@ -530,7 +530,7 @@ namespace Igor
 
         /*!
         */
-        uint64 _vortexLikeliness = 0;
+        uint64 _vortexAperanceRate = 0;
         uint64 _particleCounter = 0;
 
         float32 _minVortexTorque = 0.1;

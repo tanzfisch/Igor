@@ -99,14 +99,14 @@ namespace Igor
         _particleSystem.getStartVelocityGradient(velocityGradient);
     }
 
-    void iNodeParticleSystem::setVortexParticleLikeliness(float32 likeliness)
+    void iNodeParticleSystem::setVortexApperanceIntervall(uint64 apperanceRate)
     {
-        _particleSystem.setVortexParticleLikeliness(likeliness);
+        _particleSystem.setVortexApperanceIntervall(apperanceRate);
     }
 
-    float32 iNodeParticleSystem::getVortexParticleLikeliness() const
+    float32 iNodeParticleSystem::getVortexApperanceIntervall() const
     {
-        return _particleSystem.getVortexParticleLikeliness();
+        return _particleSystem.getVortexApperanceIntervall();
     }
 
     void iNodeParticleSystem::reset()

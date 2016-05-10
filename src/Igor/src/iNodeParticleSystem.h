@@ -240,15 +240,15 @@ namespace Igor
         */
         bool getVelocityOriented() const;
 
-        /*! sets the likeliness of a vortex particle to appear
+        /*! sets the apperance rate of a vortex particles
 
-        \param likeliness value from 0 to 1
+        \param apperanceRate the number of particles to create before the next vertex particle will be created
         */
-        void setVortexParticleLikeliness(float32 likeliness);
+        void setVortexApperanceIntervall(uint64 apperanceRate);
 
         /*! \returns likeliness of vortex particle to appear
         */
-        float32 getVortexParticleLikeliness() const;
+        float32 getVortexApperanceIntervall() const;
 
         /*! sets vorticity confinement force
 

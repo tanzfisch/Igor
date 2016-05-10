@@ -362,7 +362,7 @@ void Particles::createSmokeParticleSystem()
     particleSystem->setStartOrientationRateGradient(startOrientationRate);
 	particleSystem->setVorticityConfinement(0.05);
 	particleSystem->setVortexRange(20.0, 40.0);
-	particleSystem->setVortexParticleLikeliness(1);
+	particleSystem->setVortexApperanceIntervall(10);
 	particleSystem->setStartSizeGradient(smokeSize);
 	particleSystem->setSizeScaleGradient(sizeScale);
 	particleSystem->setColorGradient(smokeGradient);
