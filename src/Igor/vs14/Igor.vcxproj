@@ -688,7 +688,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
     <ClInclude Include="..\src\iControl.h" />
-    <ClInclude Include="..\src\iCullContext.h" />
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDecisionBox.h" />
     <ClInclude Include="..\src\iDefines.h" />

@@ -103,9 +103,6 @@
     <ClInclude Include="..\src\iaEvent.h">
       <Filter>event handling</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iaQuaternion.h">
-      <Filter>data types</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iaFlushList.h">
       <Filter>data types</Filter>
     </ClInclude>
@@ -117,6 +114,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iaRLE.h">
       <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaQuaternion.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -138,11 +138,11 @@
     <None Include="..\src\iaMatrix3x3.inl">
       <Filter>math</Filter>
     </None>
-    <None Include="..\src\iaQuaternion.inl">
-      <Filter>data types</Filter>
-    </None>
     <None Include="..\src\iaRLE.inl">
       <Filter>data types</Filter>
+    </None>
+    <None Include="..\src\iaQuaternion.inl">
+      <Filter>math</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

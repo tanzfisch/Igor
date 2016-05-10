@@ -762,9 +762,6 @@
     <ClInclude Include="..\src\iWindow.h">
       <Filter>devices</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iCullContext.h">
-      <Filter>graphics\types</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iRectangle.h">
       <Filter>graphics\types</Filter>
     </ClInclude>
