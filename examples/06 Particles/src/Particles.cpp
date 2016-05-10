@@ -440,7 +440,6 @@ void Particles::createDotParticleSystem()
     iGradientVector2f size2;
     size2.insertValue(0.0, iaVector2f(1.0, 4.0));
 
-
     iGradientVector2f startOrientation;
     startOrientation.insertValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
 
