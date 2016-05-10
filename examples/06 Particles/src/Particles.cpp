@@ -149,11 +149,8 @@ void Particles::init()
 void Particles::createWaveParticleSystem()
 {
     iGradientColor4f colorGradient;
-    colorGradient.insertValue(0.0, iaColor4f(1, 1, 0.5, 0));
-    colorGradient.insertValue(0.3, iaColor4f(1, 0.8, 0.5, 1));
-    colorGradient.insertValue(0.7, iaColor4f(1, 0.5, 0, 1));
-    colorGradient.insertValue(0.8, iaColor4f(1, 0, 0, 1));
-    colorGradient.insertValue(0.9, iaColor4f(1, 0, 0, 0));
+    colorGradient.insertValue(0.0, iaColor4f(0, 0, 0, 0));
+    colorGradient.insertValue(0.5, iaColor4f(1, 1, 0, 0.5));
     colorGradient.insertValue(1.0, iaColor4f(0, 0, 0, 0));
 
     iGradientVector2f dotVelocity;
@@ -163,20 +160,18 @@ void Particles::createWaveParticleSystem()
     dotVisibility.insertValue(0.0, iaVector2f(0.7, 1.0));
 
     iGradientVector2f size;
-    size.insertValue(0.0, iaVector2f(3.0, 5.0));
+    size.insertValue(0.0, iaVector2f(2.0, 3.0));
 
     iGradientui emission;
     emission.insertValue(0.0, 5);
 
     iGradientVector2f startOrientation;
-    startOrientation.insertValue(0.0, iaVector2f(0.0, 0.25 * M_PI));
+    startOrientation.insertValue(0.0, iaVector2f(0.25 * M_PI, 0.25 * M_PI));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemIDs.push_back(particleSystem->getID());
 	particleSystem->setMaterial(_particlesMaterial);
 	particleSystem->setTextureA("particleStar.png");
-	particleSystem->setTextureB("octave1.png");
-	particleSystem->setTextureC("octave2.png");
 	particleSystem->setColorGradient(colorGradient);
 	particleSystem->setStartVelocityGradient(dotVelocity);
     particleSystem->setStartOrientationGradient(startOrientation);
@@ -245,7 +240,7 @@ void Particles::creasteFontainParticleSystem()
     lift.insertValue(0.0, iaVector2f(-0.002, -0.002));
 
     iGradientVector2f startSize;
-    startSize.insertValue(0.0, iaVector2f(0.3, 0.5));
+    startSize.insertValue(0.0, iaVector2f(0.5, 0.8));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemIDs.push_back(particleSystem->getID());
@@ -404,18 +399,20 @@ void Particles::createDotParticleSystem()
     velocity.insertValue(0.0, iaVector2f(0.05, 0.1));
 
     iGradientVector2f visibility;
-    visibility.insertValue(0.0, iaVector2f(0.6, 1.0));
+    visibility.insertValue(0.0, iaVector2f(1.5, 2.0));
 
     iGradientVector2f size;
     size.insertValue(0.0, iaVector2f(1.0, 1.5));
 
+
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemIDs.push_back(particleSystem->getID());
     particleSystem->setMaterial(_particlesMaterial);
-    particleSystem->setTextureA("particleDot.png");
+    particleSystem->setTextureA("particleTrail.png");
     particleSystem->setColorGradient(colorGradient);
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setStartVisibleTimeGradient(visibility);
+    particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
     particleSystem->setPeriodTime(3.0);
@@ -443,13 +440,24 @@ void Particles::createDotParticleSystem()
     iGradientVector2f size2;
     size2.insertValue(0.0, iaVector2f(1.0, 4.0));
 
+
+    iGradientVector2f startOrientation;
+    startOrientation.insertValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
+
+    iGradientVector2f startOrientationRate;
+    startOrientationRate.insertValue(0.0, iaVector2f(-0.1, 0.1));
+
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemIDs.push_back(particleSystem2->getID());
     particleSystem2->setMaterial(_particlesMaterial);
-    particleSystem2->setTextureA("particleDot.png");
+    particleSystem2->setTextureA("particleFlame.png");
+    particleSystem2->setTextureB("octave1.png");
+    particleSystem2->setTextureC("octave2.png");
     particleSystem2->setColorGradient(colorGradient2);
     particleSystem2->setStartVelocityGradient(velocity2);
     particleSystem2->setStartVisibleTimeGradient(visibility2);
+    particleSystem2->setStartOrientationGradient(startOrientation);
+    particleSystem2->setStartOrientationRateGradient(startOrientationRate);
     particleSystem2->setStartSizeGradient(size2);
     particleSystem2->setEmissionGradient(emission2);
     particleSystem2->setPeriodTime(3.0);
