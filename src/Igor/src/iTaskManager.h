@@ -97,6 +97,12 @@ namespace Igor
         */
         iTask* getTask(uint64 taskID);
 
+        /*! aborts a task by id
+
+        \param taskID the task id to abort
+        */
+        void abortTast(uint64 taskID);
+
         /*! \returns thread count
         */
         uint32 getThreadCount();

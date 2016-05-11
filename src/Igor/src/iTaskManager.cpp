@@ -10,6 +10,7 @@
 #include <iRenderContextThread.h>
 #include <iPhysicsContextThread.h>
 #include <iaConsole.h>
+#include <iTask.h>
 #include <iWindow.h>
 
 namespace Igor
@@ -116,6 +117,15 @@ namespace Igor
         _threads.clear();
 
         con_debug_endl("threading done");
+    }
+
+    void iTaskManager::abortTast(uint64 taskID)
+    {
+        iTask* task = getTask(taskID);
+        if (task != nullptr)
+        {
+            task->abort();
+        }
     }
 
     uint32 iTaskManager::getThreadCount()
