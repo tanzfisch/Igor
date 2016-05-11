@@ -434,6 +434,10 @@ namespace Igor
 
     private:
 
+        /*! current simulation rate in Hz
+        */
+        static float32 _simulationRate;
+
         /*! flag that defines if particles get rendered velocity oriented
         */
         bool _velocityOriented = false;

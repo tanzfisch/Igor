@@ -17,6 +17,8 @@ using namespace std;
 namespace Igor
 {
 
+    float32 iParticleSystem3D::_simulationRate = 120.0f;
+
     iParticleSystem3D::iParticleSystem3D()
     {
         initDefaultGradients();
@@ -167,7 +169,10 @@ namespace Igor
 
     void iParticleSystem3D::reset()
     {
-        _particles.clear();
+        if (!_particles.empty())
+        {
+            _particles.clear();
+        }
 
         float32 maxVisibleTime = 0;
         for (auto value : _startVisibleTimeGradient.getValues())
@@ -241,7 +246,7 @@ namespace Igor
 
         _startVisibleTimeGradient.getValue(particleSystemTime, minMax);
         float32 visibleTime = minMax._x + randomFactor * (minMax._y - minMax._x);
-        visibleTime /= 0.02f; // 50Hz
+        visibleTime /= 1.0 / _simulationRate;
         particle._visibleTimeIncrease = 1.0f / visibleTime;
         particle._visible = true;
 
@@ -441,7 +446,7 @@ namespace Igor
 						}
 					}
 
-					(*particle)._life -= 0.02; // 50Hz
+					(*particle)._life -= 1.0 / _simulationRate;
 					if ((*particle)._life <= 0)
 					{
 						particle = _particles.erase(particle);
@@ -457,8 +462,8 @@ namespace Igor
 				_emissionRateGradient.getValue(particleSystemTime / __IGOR_SECOND__, emissionRate); // TODO work with fractions
 				createParticles(emissionRate, emitter, particleSystemTime / __IGOR_SECOND__);
 
-				_time += 20.0; // particle system runs in 50Hz
-				particleSystemTime += 20; // TODO redundant
+				_time += 1000.0 / _simulationRate;
+				particleSystemTime += 1000.0 / _simulationRate; // TODO redundant
 			}
         }
 
