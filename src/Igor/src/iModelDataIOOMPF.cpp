@@ -95,10 +95,10 @@ namespace Igor
             iMesh* mesh = new iMesh();
             iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
 
-            meshNode->getTargetMaterial()->setAmbient(iaConvert::convert(meshChunk->getAmbient()));
-            meshNode->getTargetMaterial()->setDiffuse(iaConvert::convert(meshChunk->getDiffuse()));
-            meshNode->getTargetMaterial()->setSpecular(iaConvert::convert(meshChunk->getSpecular()));
-            meshNode->getTargetMaterial()->setEmissive(iaConvert::convert(meshChunk->getEmissive()));
+            meshNode->getTargetMaterial()->setAmbient(iaConvert::convert3f(meshChunk->getAmbient()));
+            meshNode->getTargetMaterial()->setDiffuse(iaConvert::convert3f(meshChunk->getDiffuse()));
+            meshNode->getTargetMaterial()->setSpecular(iaConvert::convert3f(meshChunk->getSpecular()));
+            meshNode->getTargetMaterial()->setEmissive(iaConvert::convert3f(meshChunk->getEmissive()));
             meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
 
             uint32 textureCount = meshChunk->getTextureCount();
@@ -207,26 +207,33 @@ namespace Igor
 
     void iModelDataIOOMPF::createMaterial(OMPF::ompfMaterialChunk* materialChunk)
     {
-        int32 materialID = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
-        iMaterial* material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
-        iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(materialID);
+        con_assert(materialChunk != nullptr, "zero pointer");
 
-        _materialMapping[materialChunk->getID()] = materialID;
-
-        materialGroup->setOrder(materialChunk->getOrder());
-
-        uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
-        for (int i = 0; i < shaderObjectCount; ++i)
+        if (materialChunk != nullptr)
         {
-            material->addShaderSource(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
-        }
+            int32 materialID = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
+            iMaterial* material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+            iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(materialID);
 
-        material->compileShader();
+            con_assert(material != nullptr, "zero pointer");
+            con_assert(materialGroup != nullptr, "zero pointer");
 
-        for (int i = 0; i < 41; ++i) // TODO magic number
-        {
-            OMPF::OMPFRenderStateValue value = materialChunk->getRenderStateValue(static_cast<OMPF::OMPFRenderState>(i));
-            material->getRenderStateSet().setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
+            _materialMapping[materialChunk->getID()] = materialID;
+            materialGroup->setOrder(materialChunk->getOrder());
+
+            uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
+            for (int i = 0; i < shaderObjectCount; ++i)
+            {
+                material->addShaderSource(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
+            }
+
+            material->compileShader();
+
+            for (int i = 0; i < 41; ++i) // TODO magic number
+            {
+                OMPF::OMPFRenderStateValue value = materialChunk->getRenderStateValue(static_cast<OMPF::OMPFRenderState>(i));
+                material->getRenderStateSet().setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
+            }
         }
     }
 
@@ -335,10 +342,10 @@ namespace Igor
     OMPF::ompfMeshChunk* iModelDataIOOMPF::createMeshChunk(iNodeMesh *node)
     {
         OMPF::ompfMeshChunk* result = _ompf->createMeshChunk();
-        result->setAmbient(iaConvert::convert(node->getAmbient()));
-        result->setDiffuse(iaConvert::convert(node->getDiffuse()));
-        result->setSpecular(iaConvert::convert(node->getSpecular()));
-        result->setEmissive(iaConvert::convert(node->getEmissive()));
+        result->setAmbient(iaConvert::convert3c(node->getAmbient()));
+        result->setDiffuse(iaConvert::convert3c(node->getDiffuse()));
+        result->setSpecular(iaConvert::convert3c(node->getSpecular()));
+        result->setEmissive(iaConvert::convert3c(node->getEmissive()));
         result->setShininess(node->getShininess());
 
         result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);

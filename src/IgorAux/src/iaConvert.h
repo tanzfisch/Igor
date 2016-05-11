@@ -30,6 +30,7 @@
 #define __iaConvert__
 
 #include <iaColor3.h>
+#include <iaVector3.h>
 
 namespace IgorAux
 {
@@ -39,8 +40,11 @@ namespace IgorAux
 
     public:
 
-        static iaColor3c convert(const iaColor3f& color);
-        static iaColor3f convert(const iaColor3c& color);
+        static iaColor3c convert3c(const iaColor3f& color);
+        static iaColor3f convert3f(const iaColor3c& color);
+
+        static iaVector3f convert3f(const iaVector3I& vector);
+        static iaVector3I convert3I(const iaVector3f& vector);
     };
 }
 
