@@ -17,7 +17,7 @@ using namespace std;
 namespace Igor
 {
 
-    float32 iParticleSystem3D::_simulationRate = 120.0f;
+    float32 iParticleSystem3D::_simulationRate = 60.0f;
 
     iParticleSystem3D::iParticleSystem3D()
     {
