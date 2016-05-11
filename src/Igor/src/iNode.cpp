@@ -171,7 +171,7 @@ namespace Igor
 	{
 		_transformationDirty = dirty;
 
-		if (dirty)
+		if (_transformationDirty)
 		{
 			if (isChild())
 			{
@@ -206,9 +206,9 @@ namespace Igor
 
 			if (hasChildren())
 			{
-				for (uint32 i = 0; i < _children.size(); ++i)
+				for (auto child : _children)
 				{
-                    _children[i]->setTransformationDirtyDown();
+                    child->setTransformationDirtyDown();
 				}
 			}
 		}

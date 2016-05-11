@@ -210,6 +210,8 @@ namespace Igor
 
         also sets the transformation flag of all children and parents dirty
 
+        \bug sometimes parents don't get dirty
+
         \param dirty true: this node, all parents and children will be set dirty; false: only this node will be set non dirty
         */
         void setTransformationDirty(bool dirty = true);
