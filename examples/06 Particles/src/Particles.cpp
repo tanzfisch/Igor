@@ -387,23 +387,22 @@ void Particles::createDotParticleSystem()
 {
     iGradientui emission;
     emission.insertValue(0.0, 60);
-    emission.insertValue(0.1, 0);
+    emission.insertValue(0.2, 0);
 
     iGradientColor4f colorGradient;
-    colorGradient.insertValue(0.0, iaColor4f(0, 1, 1, 0));
-    colorGradient.insertValue(0.5, iaColor4f(0, 0.8, 1.0, 1));
-    colorGradient.insertValue(0.8, iaColor4f(0, 0.3, 0.8, 1));
-    colorGradient.insertValue(1.0, iaColor4f(0, 0.3, 0.8, 0));
+    colorGradient.insertValue(0.0, iaColor4f(1, 1, 1, 0));
+    colorGradient.insertValue(0.5, iaColor4f(0.8, 0.8, 1.0, 1));
+    colorGradient.insertValue(0.8, iaColor4f(0.3, 0.3, 0.5, 1));
+    colorGradient.insertValue(1.0, iaColor4f(0.3, 0.3, 0.0, 0));
 
     iGradientVector2f velocity;
-    velocity.insertValue(0.0, iaVector2f(0.05, 0.1));
+    velocity.insertValue(0.0, iaVector2f(0.1, 0.3));
 
     iGradientVector2f visibility;
     visibility.insertValue(0.0, iaVector2f(1.5, 2.0));
 
     iGradientVector2f size;
     size.insertValue(0.0, iaVector2f(1.0, 1.5));
-
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemIDs.push_back(particleSystem->getID());
@@ -415,36 +414,37 @@ void Particles::createDotParticleSystem()
     particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
-    particleSystem->setPeriodTime(3.0);
-    _scene->getRoot()->insertNode(particleSystem);
+    particleSystem->setPeriodTime(3.0);    
     particleSystem->start();
 
     iGradientui emission2;
-    emission2.insertValue(0.0, 0);
-    emission2.insertValue(0.6, 0);
-    emission2.insertValue(0.7, 80);
-    emission2.insertValue(0.8, 0);
+    emission2.insertValue(0.0, 10);
+    emission2.insertValue(0.5, 0);
 
     iGradientColor4f colorGradient2;
-    colorGradient2.insertValue(0.0, iaColor4f(1, 1, 0, 0));
-    colorGradient2.insertValue(0.1, iaColor4f(1, 1, 0, 1));
-    colorGradient2.insertValue(0.4, iaColor4f(1, 0, 0, 1));
-    colorGradient2.insertValue(1.0, iaColor4f(0, 0, 0, 0));
+    colorGradient2.insertValue(0.0, iaColor4f(1, 1, 1, 0));
+    colorGradient2.insertValue(0.1, iaColor4f(1, 1, 1, 0.5));
+    colorGradient2.insertValue(0.4, iaColor4f(1, 1, 1, 0.25));
+    colorGradient2.insertValue(1.0, iaColor4f(1, 1, 1, 0));
 
     iGradientVector2f velocity2;
-    velocity2.insertValue(0.0, iaVector2f(0.1, 0.3));
+    velocity2.insertValue(0.0, iaVector2f(0.05, 0.3));
 
     iGradientVector2f visibility2;
-    visibility2.insertValue(0.0, iaVector2f(0.9, 1.4));
+    visibility2.insertValue(0.0, iaVector2f(0.5, 1.0));
 
     iGradientVector2f size2;
-    size2.insertValue(0.0, iaVector2f(1.0, 4.0));
+    size2.insertValue(0.0, iaVector2f(1.0, 2.5));
+
+    iGradientf sizeScale2;
+    sizeScale2.insertValue(0.0, 1.0);
+    sizeScale2.insertValue(3.0, 20.0);
 
     iGradientVector2f startOrientation;
     startOrientation.insertValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
 
     iGradientVector2f startOrientationRate;
-    startOrientationRate.insertValue(0.0, iaVector2f(-0.1, 0.1));
+    startOrientationRate.insertValue(0.0, iaVector2f(-0.01, 0.01));
 
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemIDs.push_back(particleSystem2->getID());
@@ -458,9 +458,9 @@ void Particles::createDotParticleSystem()
     particleSystem2->setStartOrientationGradient(startOrientation);
     particleSystem2->setStartOrientationRateGradient(startOrientationRate);
     particleSystem2->setStartSizeGradient(size2);
+    particleSystem2->setSizeScaleGradient(sizeScale2);
     particleSystem2->setEmissionGradient(emission2);
     particleSystem2->setPeriodTime(3.0);
-    _scene->getRoot()->insertNode(particleSystem2);
     particleSystem2->start();
     
     iNodeEmitter* dotEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
@@ -470,6 +470,10 @@ void Particles::createDotParticleSystem()
 
     iNodeTransform* dotEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     dotEmitterTransform->translate(10, 0, 20);
+
+    _scene->getRoot()->insertNode(particleSystem);
+    _scene->getRoot()->insertNode(particleSystem2);
+
     dotEmitterTransform->insertNode(dotEmitter);
     _scene->getRoot()->insertNode(dotEmitterTransform);
 }
