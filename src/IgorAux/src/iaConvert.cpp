@@ -40,9 +40,9 @@ namespace IgorAux
     {
         iaVector3I result;
 
-        result._x = static_cast<uint64>(vector._x);
-        result._y = static_cast<uint64>(vector._y);
-        result._z = static_cast<uint64>(vector._z);
+        result._x = static_cast<int64>(vector._x);
+        result._y = static_cast<int64>(vector._y);
+        result._z = static_cast<int64>(vector._z);
 
         return result;
     }

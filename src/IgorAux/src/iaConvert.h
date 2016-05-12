@@ -35,15 +35,39 @@
 namespace IgorAux
 {
 
+    /*! contains some simple converters
+    */
     class IgorAux_API iaConvert
     {
 
     public:
 
+        /*! converts float based color to byte
+
+        \param color float based color
+        \returns byte based color
+        */
         static iaColor3c convert3c(const iaColor3f& color);
+
+        /*! converts byte based color to float
+
+        \param color byte based color
+        \returns float based color
+        */
         static iaColor3f convert3f(const iaColor3c& color);
 
+        /*! converts int64 based 3 dimensional vector in float base
+
+        \param vector int64 based vector
+        \returns float based vector 
+        */
         static iaVector3f convert3f(const iaVector3I& vector);
+
+        /*! converts float32 based 3 dimensional vector in int64 base
+
+        \param vector float32 based vector
+        \returns int64 based vector
+        */
         static iaVector3I convert3I(const iaVector3f& vector);
     };
 }
