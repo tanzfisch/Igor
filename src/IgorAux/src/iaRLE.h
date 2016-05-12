@@ -82,7 +82,7 @@ namespace IgorAux
         \param value tehe value to set
         \todo not implemented
         */
-//        __IGOR_INLINE__ void setValue(TIndex index, TIndex length, TValue value);
+        __IGOR_INLINE__ void setValue(TIndex index, TIndex length, TValue value);
 
         /*! \returns value at given index
 

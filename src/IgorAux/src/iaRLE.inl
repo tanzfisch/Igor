@@ -44,34 +44,76 @@ __IGOR_INLINE__ TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
     return static_cast<TValue>(0);
 }
 
-/*template <typename TValue, typename TIndex>
+template <typename TValue, typename TIndex>
 __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length, TValue value)
 {
-    TIndex currentBlockPos = static_cast<TIndex>(0);
-    auto blockIter = _blocks.begin();
-    while (blockIter != _blocks.end())
+    if (length == 1)
     {
-        if (index < (*blockIter)._length + currentBlockPos)
-        {
-            if (index == currentBlockPos) // beginning of a block
-            {
-                if (length == (*blockIter)._length) // covers the whole block
-                {
-                    (*blockIter)._value = value;
-                    break;
-                }
-                else if (length < (*blockIter)._length)
-                {
+        setValue(index, value);
+    }
+    else
+    {
+        auto blocks = _blocks;
+        _blocks.clear();
 
+        bool blockInserted = false;
+        iaRLEBlock<TValue, TIndex> block;
+        block._value = value;
+        block._length = length;
+
+        TIndex currentBlockPos = static_cast<TIndex>(0);
+        TIndex currentBlockLength = static_cast<TIndex>(0);
+        auto blockIter = blocks.begin();
+        while (blockIter != blocks.end())
+        {
+            currentBlockLength = (*blockIter)._length;
+
+            if (currentBlockPos < index)
+            {
+                if (currentBlockPos + currentBlockLength - 1 < index)
+                {
+                    _blocks.push_back((*blockIter));
+                }
+                else
+                {
+                    (*blockIter)._length = index - currentBlockPos;
+                    _blocks.push_back((*blockIter));
+
+                    if (!blockInserted)
+                    {
+                        _blocks.push_back(block);
+                        blockInserted = true;
+                    }
                 }
             }
+            else
+            {
+                if (!blockInserted)
+                {
+                    _blocks.push_back(block);
+                    blockInserted = true;
+                }
+
+                if (currentBlockPos < index + length)
+                {
+                    if (currentBlockPos + currentBlockLength - 1 > index + length - 1)
+                    {
+                        (*blockIter)._length = (currentBlockPos + currentBlockLength - 1) - (index + length - 1);
+                        _blocks.push_back((*blockIter));
+                    }
+                    // else skip this ones
+                }
+                else
+                {
+                    _blocks.push_back((*blockIter));
+                }
+            }
+
+            currentBlockPos += currentBlockLength;
+            blockIter++;
         }
-
-        currentBlockPos += (*blockIter)._length;
-        blockIter++;
     }
-
-}*/
+}
 
 template <typename TValue, typename TIndex> 
 __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TValue value)
