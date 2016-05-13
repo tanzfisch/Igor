@@ -21,15 +21,7 @@ namespace Igor
     {
         if (getWorldID() != iPhysicsWorld::INVALID_WORLD_ID)
         {
-            iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_collisionConfigID);
-            if (physicsCollisionConfig)
-            {
-                physicsCollisionConfig->finalize(getWorldID());
-            }
-            else
-            {
-                con_err("invalid collision config id");
-            }
+            iPhysics::getInstance().finalizeCollisionConfig(_collisionConfigID, getWorldID());
         }
         else
         {

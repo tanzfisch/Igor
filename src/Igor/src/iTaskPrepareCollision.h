@@ -46,7 +46,7 @@ namespace Igor
 
         \param model the model to load
         */
-        iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority);
+        iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority = 0);
 
         /*! does nothing
         */
