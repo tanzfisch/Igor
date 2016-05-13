@@ -39,7 +39,7 @@ namespace Igor
         setName(node->getName());
         _bodyID = node->getBodyID();
 
-        _physicsCollisionConfigID = node->_physicsCollisionConfigID;
+        _physicsCollisionConfigID = node->_physicsCollisionConfigID; // todo create copy here
 
         _mass = node->_mass;
         _materialID = node->_materialID;
@@ -54,6 +54,8 @@ namespace Igor
 
     iNodePhysics::~iNodePhysics()
     {
+        iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
+
 		setScene(nullptr);
 
         if (iPhysics::getInstance().isCollisionConfig(_physicsCollisionConfigID))
@@ -251,16 +253,12 @@ namespace Igor
         if (asynchronos)
         {
             iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
-            _pendingTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID, 0));
+            _pendingTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID));
         }
         else
         {
-            iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
-            if (physicsCollisionConfig)
-            {
-                physicsCollisionConfig->finalize(iPhysics::getInstance().getDefaultWorldID());
-                setDataDirty();
-            }
+            iPhysics::getInstance().finalizeCollisionConfig(_physicsCollisionConfigID, iPhysics::getInstance().getDefaultWorldID());
+            setDataDirty();
         }
     }
 
@@ -270,6 +268,8 @@ namespace Igor
         {
             setDataDirty();
             iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
+
+            _pendingTask = iTask::INVALID_TASK_ID;
         }
     }
 
