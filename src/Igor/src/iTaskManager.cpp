@@ -119,7 +119,7 @@ namespace Igor
         con_debug_endl("threading done");
     }
 
-    void iTaskManager::abortTast(uint64 taskID)
+    void iTaskManager::abortTask(uint64 taskID)
     {
         iTask* task = getTask(taskID);
         if (task != nullptr)

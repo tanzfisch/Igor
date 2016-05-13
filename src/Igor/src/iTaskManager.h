@@ -101,7 +101,7 @@ namespace Igor
 
         \param taskID the task id to abort
         */
-        void abortTast(uint64 taskID);
+        void abortTask(uint64 taskID);
 
         /*! \returns thread count
         */

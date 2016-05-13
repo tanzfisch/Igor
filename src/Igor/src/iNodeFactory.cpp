@@ -123,7 +123,21 @@ namespace Igor
 
     void iNodeFactory::destroyNode(uint32 nodeID)
     {
-        destroyNode(getNode(nodeID));
+        iNode* node = nullptr;
+
+        _mutexNodes.lock();
+        auto iter = _nodes.find(nodeID);
+        if (_nodes.end() != iter)
+        {
+            node = (*iter).second;
+            _nodes.erase(iter);
+        }
+        _mutexNodes.unlock();
+
+        if (node != nullptr)
+        {
+            delete node;
+        }
     }
 
     void iNodeFactory::destroyNode(iNode* node)
@@ -132,20 +146,7 @@ namespace Igor
 
         if (nullptr != node)
         {
-            bool del = false;
-            _mutexNodes.lock();
-            auto iter = _nodes.find(node->getID());
-            if (_nodes.end() != iter)
-            {
-                del = true;
-                _nodes.erase(iter);
-            }
-            _mutexNodes.unlock();
-
-            if (del)
-            {
-                delete node;
-            }
+            destroyNode(node->getID());
         }
         else
         {
@@ -155,7 +156,11 @@ namespace Igor
 
     void iNodeFactory::destroyNodeAsync(uint32 nodeID)
     {
-        destroyNodeAsync(getNode(nodeID));
+        con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
+
+        _mutexQueueDelete.lock();
+        _queueDelete.push_back(nodeID);
+        _mutexQueueDelete.unlock();
     }
 
     void iNodeFactory::destroyNodeAsync(iNode* node)
