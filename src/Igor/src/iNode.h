@@ -216,6 +216,14 @@ namespace Igor
         */
         void setTransformationDirty(bool dirty = true);
 
+        /*! gets the world transformation for any node
+
+        quite expensive. see if there is an other interface from specialized nodes like iNodeCamera::getWorldMatrix
+
+        \param[out] returns world matrix of this node
+        */
+        void calcWorldTransformation(iaMatrixf& matrix);
+
         /*! \returns true: if node is active
         */
         bool isActive() const;
@@ -341,6 +349,10 @@ namespace Igor
         /*! id of this node
         */
         uint32 _nodeID = INVALID_NODE_ID;
+
+        /*!
+        */
+        void calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix);
 
 	};
 

@@ -7,6 +7,7 @@
 #include <iScene.h>
 #include <iaConsole.h>
 #include <iNodeFactory.h>
+#include <iNodeTransform.h>
 
 namespace Igor
 {
@@ -213,6 +214,28 @@ namespace Igor
 			}
 		}
 	}
+
+    void iNode::calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix)
+    {
+        if (currentNode->getType() == iNodeType::iNodeTransform)
+        {
+            iNodeTransform* tranformNode = static_cast<iNodeTransform*>(currentNode);
+            iaMatrixf currentMatrix;
+            tranformNode->getMatrix(currentMatrix);
+            matrix = currentMatrix * matrix;
+        }
+
+        if (currentNode->isChild())
+        {
+            calcWorldTransformation(currentNode->getParent(), matrix);
+        }
+    }
+
+    void iNode::calcWorldTransformation(iaMatrixf& matrix)
+    {
+        matrix.identity();
+        calcWorldTransformation(this, matrix);
+    }
 
 	iNode* iNode::getParent()
 	{
