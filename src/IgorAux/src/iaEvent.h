@@ -35,14 +35,13 @@
 #include <iaDelegate.h>
 
 #include <vector>
+#include <mutex>
 using namespace std;
 
 namespace IgorAux
 {
 
     /*! event
-
-    \todo remove queue and flush! why again?
     */
 #define iaEVENT(EventName,DelegateName,ReturnValue,ParameterList,InnerParameterList)				    \
 	iaDELEGATE(DelegateName, ReturnValue, ParameterList, InnerParameterList);							\
@@ -54,11 +53,14 @@ namespace IgorAux
 																										\
 			void append(const DelegateName &fpDelegate)													\
 			{																							\
+                _mutex.lock();                                                                          \
 				_delegates.push_back(fpDelegate);													    \
+                _mutex.unlock();                                                                        \
 			}																							\
 																										\
 			void remove(const DelegateName &fpDelegate)													\
 			{																							\
+                _mutex.lock();                                                                          \
 				vector<DelegateName>::iterator it;														\
 				for(it = _delegates.begin();it != _delegates.end();it++)						        \
 				{																						\
@@ -68,11 +70,14 @@ namespace IgorAux
 						break;																			\
 					}																					\
 				}																						\
+                _mutex.unlock();                                                                        \
 			}																							\
 																										\
-			__inline void operator() ParameterList const												\
+			__inline void operator() ParameterList												        \
 			{																							\
+                _mutex.lock();                                                                          \
                 vector<DelegateName> delegates = _delegates;                                            \
+                _mutex.unlock();                                                                        \
 				for (unsigned int i = 0; i<delegates.size(); ++i)									    \
 				{																						\
                     delegates[i] InnerParameterList;												    \
@@ -81,7 +86,9 @@ namespace IgorAux
 																										\
 			void clear()																				\
 			{																							\
+                _mutex.lock();                                                                          \
 				_delegates.clear();																        \
+                _mutex.unlock();                                                                        \
 			}																							\
 																										\
 			bool hasDelegates()																			\
@@ -91,8 +98,9 @@ namespace IgorAux
 																										\
 		protected:																						\
 																										\
-			vector<DelegateName> _delegates;															\
-	};
+            mutex _mutex;                                                                               \
+			vector<DelegateName> _delegates;														    \
+    };
 
 };
 
