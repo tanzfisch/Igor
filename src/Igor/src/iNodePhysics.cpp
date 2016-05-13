@@ -257,8 +257,12 @@ namespace Igor
         }
         else
         {
-            iPhysics::getInstance().finalizeCollisionConfig(_physicsCollisionConfigID, iPhysics::getInstance().getDefaultWorldID());
-            setDataDirty();
+            iPhysicsCollisionConfig* collisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
+            if (collisionConfig != nullptr)
+            {
+                collisionConfig->finalize(iPhysics::getInstance().getDefaultWorldID());
+                setDataDirty();
+            }
         }
     }
 

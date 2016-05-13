@@ -166,12 +166,6 @@ namespace Igor
         */
         iPhysicsCollisionConfig* getCollisionConfig(uint64 collisionConfigID);
 
-        /*! finalizes physics config by id
-
-        \param collisionConfigID if of  physics config
-        */
-        void finalizeCollisionConfig(uint64 collisionConfigID, uint64 worldID);
-
         /*! destroy collision configuration by id
 
         \param collisionConfigID collision configuration id

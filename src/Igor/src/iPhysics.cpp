@@ -258,17 +258,6 @@ namespace Igor
         return result;
     }
 
-    void iPhysics::finalizeCollisionConfig(uint64 collisionConfigID, uint64 worldID)
-    {
-        _collisionsConfigListMutex.lock();
-        auto iter = _collisionConfigs.find(collisionConfigID);
-        if (iter != _collisionConfigs.end())
-        {
-            (*iter).second->finalize(worldID);
-        }
-        _collisionsConfigListMutex.unlock();
-    }
-
     void iPhysics::destroyCollisionConfig(uint64 collisionConfigID)
     {
         destroyCollisionConfig(getCollisionConfig(collisionConfigID));
