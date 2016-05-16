@@ -206,6 +206,10 @@ namespace Igor
 		{
 			return readGroup(attributes);
 		}
+		else if (attributes[0] == "o")	// objects are also groups
+		{
+			return readGroup(attributes);
+		}
 		else if(attributes[0] == "usemtl") // use material
 		{
 			return readUseMaterial(attributes);
@@ -340,27 +344,31 @@ namespace Igor
 	bool iModelDataIOOBJ::readMaterialFile(iaString filename)
 	{
 		ifstream file;
-        file.open(iResourceManager::getInstance().getPath(filename).getData(), ifstream::in);
-		vector<iaString> attributes;
-
-		if(file.is_open())
+		if (iaFile::exist(filename))
 		{
-			string line;
+			file.open(iResourceManager::getInstance().getPath(filename).getData(), ifstream::in);
+			vector<iaString> attributes;
 
-			while(getline(file,line,'\n'))
+			if (file.is_open())
 			{
-				attributes.clear();
+				string line;
 
-                iaString result(line.c_str());
-                result.split(L" \n\r\t", attributes);
-				analyseAttributes(attributes);
+				while (getline(file, line, '\n'))
+				{
+					attributes.clear();
+
+					iaString result(line.c_str());
+					result.split(L" \n\r\t", attributes);
+					analyseAttributes(attributes);
+				}
+
+				file.close();
+
+				return true;
 			}
-
-			file.close();
 		}
-		else return false;
-
-		return true;
+		
+		return false;
 	}
 
 	bool iModelDataIOOBJ::readGroup(vector<iaString> &attributes)
@@ -402,8 +410,6 @@ namespace Igor
 
 	bool iModelDataIOOBJ::readFace(vector<iaString> &attributes)
 	{
-        con_assert(attributes.size() == 4, "unexpected attribute count");
-
 		OBJPolygon result;
 
         for (uint32 i = 1; i < attributes.size(); i++)
