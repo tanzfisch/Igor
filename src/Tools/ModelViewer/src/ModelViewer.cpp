@@ -199,7 +199,7 @@ void ModelViewer::init(iaString fileName)
 
     if (fileName.isEmpty())
     {
-        _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "..\\data\\models");        
+        _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "..\\data\\models");
     }
     else
     {
@@ -450,12 +450,6 @@ void ModelViewer::initGUI()
 
 void ModelViewer::deinitGUI()
 {
-    if (_widgetTheme != nullptr)
-    {
-        delete _widgetTheme;
-        _widgetTheme = nullptr;
-    }
-
     if (_menuDialog != nullptr)
     {
         _menuDialog->unregisterOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
@@ -485,6 +479,13 @@ void ModelViewer::deinitGUI()
     {
         delete _messageBox;
         _messageBox = nullptr;
+    }
+
+    iWidgetManager::getInstance().setTheme(nullptr);
+    if (_widgetTheme != nullptr)
+    {
+        delete _widgetTheme;
+        _widgetTheme = nullptr;
     }
 }
 
