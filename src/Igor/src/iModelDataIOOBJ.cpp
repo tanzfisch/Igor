@@ -60,6 +60,7 @@ namespace Igor
 
 		if(getMaterialCount()==0)
 		{
+            con_debug_endl("no materials loaded");
             vector<iMeshBuilder*> meshes;
             iMeshBuilder* meshBuilder = new iMeshBuilder();
             if (parameter != nullptr)

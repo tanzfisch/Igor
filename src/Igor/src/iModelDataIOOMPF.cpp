@@ -179,7 +179,7 @@ namespace Igor
 
         if (_ompf->getRoot()->getChildren().size() == 0)
         {
-            return 0;
+            return nullptr;
         }
 
         createMaterials();
