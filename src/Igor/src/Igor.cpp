@@ -18,6 +18,7 @@ using namespace IgorAux;
 #include <iResourceManager.h>
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
+#include <iWidgetManager.h>
 #ifdef __USE_OPENAL__
     #include <iSoundResourceFactory.h>
 #endif
@@ -205,6 +206,11 @@ namespace Igor
 		{
 			iNodeFactory::destroyInstance();
 		}
+
+        if (iWidgetManager::isInstantiated())
+        {
+            iWidgetManager::destroyInstance();
+        }
 
         if (iResourceManager::isInstantiated())
         {
