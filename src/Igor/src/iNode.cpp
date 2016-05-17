@@ -13,145 +13,145 @@ namespace Igor
 {
 
 	uint32 iNode::_nextID = iNode::INVALID_NODE_ID + 1;
-    mutex iNode::_mutexID;
+	mutex iNode::_mutexID;
 
 	iNode::iNode()
 	{
-        iNode::_mutexID.lock();
+		iNode::_mutexID.lock();
 		_nodeID = iNode::_nextID++;
-        iNode::_mutexID.unlock();
+		iNode::_mutexID.unlock();
 	}
 
-    iNode::iNode(iNode* node)
-    {
-        con_assert(node != nullptr, "zero pointer");
+	iNode::iNode(iNode* node)
+	{
+		con_assert(node != nullptr, "zero pointer");
 
-        _nodeID = iNode::_nextID++;
-        setName(node->getName());
-    }
+		_nodeID = iNode::_nextID++;
+		setName(node->getName());
+	}
 
 	iNode::~iNode()
 	{
-        if (_parent != nullptr)
-        {
-            _parent->removeNode(this);
-        }
+		if (_parent != nullptr)
+		{
+			_parent->removeNode(this);
+		}
 
-        vector<iNode*> childrenCopy(_children);
+		vector<iNode*> childrenCopy(_children);
 		for (uint32 i = 0; i < childrenCopy.size(); ++i)
 		{
 			iNodeFactory::getInstance().destroyNode(childrenCopy[i]);
 		}
 		_children.clear();
 
-        vector<iNode*> inactiveChildrenCopy(_inactiveChildren);
-        for (uint32 i = 0; i < inactiveChildrenCopy.size(); ++i)
-        {
-            iNodeFactory::getInstance().destroyNode(inactiveChildrenCopy[i]);
-        }
-        _inactiveChildren.clear();
+		vector<iNode*> inactiveChildrenCopy(_inactiveChildren);
+		for (uint32 i = 0; i < inactiveChildrenCopy.size(); ++i)
+		{
+			iNodeFactory::getInstance().destroyNode(inactiveChildrenCopy[i]);
+		}
+		_inactiveChildren.clear();
 	}
 
-    bool iNode::isDataDirty()
-    {
-        return _queueToDirtyData;
-    }
+	bool iNode::isDataDirty()
+	{
+		return _queueToDirtyData;
+	}
 
-    void iNode::setDataDirty()
-    {
-        _queueToDirtyData = true;
+	void iNode::setDataDirty()
+	{
+		_queueToDirtyData = true;
 
-        if (_scene != nullptr)
-        {
-            _scene->addToDataUpdateQueue(this);            
-        }
-    }
+		if (_scene != nullptr)
+		{
+			_scene->addToDataUpdateQueue(this);
+		}
+	}
 
-    bool iNode::onUpdateData()
-    {
-        // does nothing
-        return true;
-    }
+	bool iNode::onUpdateData()
+	{
+		// does nothing
+		return true;
+	}
 
-    bool iNode::isChild(iNode* child)
-    {
-        auto iter = _children.begin();
-        while (iter != _children.end())
-        {
-            if ((*iter) == child)
-            {
-                return true;
-            }
-            iter++;
-        }
+	bool iNode::isChild(iNode* child)
+	{
+		auto iter = _children.begin();
+		while (iter != _children.end())
+		{
+			if ((*iter) == child)
+			{
+				return true;
+			}
+			iter++;
+		}
 
-        iter = _inactiveChildren.begin();
-        while (iter != _inactiveChildren.end())
-        {
-            if ((*iter) == child)
-            {
-                return true;
-            }
-            iter++;
-        }
+		iter = _inactiveChildren.begin();
+		while (iter != _inactiveChildren.end())
+		{
+			if ((*iter) == child)
+			{
+				return true;
+			}
+			iter++;
+		}
 
-        return false;
-    }
+		return false;
+	}
 
-    iNode* iNode::getChild(uint32 id)
-    {
-        auto iter = _children.begin();
-        while (iter != _children.end())
-        {
-            if ((*iter)->getID() == id)
-            {
-                return (*iter);
-            }
-            iter++;
-        }
+	iNode* iNode::getChild(uint32 id)
+	{
+		auto iter = _children.begin();
+		while (iter != _children.end())
+		{
+			if ((*iter)->getID() == id)
+			{
+				return (*iter);
+			}
+			iter++;
+		}
 
-        iter = _inactiveChildren.begin();
-        while (iter != _inactiveChildren.end())
-        {
-            if ((*iter)->getID() == id)
-            {
-                return (*iter);
-            }
-            iter++;
-        }
+		iter = _inactiveChildren.begin();
+		while (iter != _inactiveChildren.end())
+		{
+			if ((*iter)->getID() == id)
+			{
+				return (*iter);
+			}
+			iter++;
+		}
 
-        return 0;
-    }
+		return 0;
+	}
 
-    iNode* iNode::getChild(iaString name)
-    {
-        auto iter = _children.begin();
-        while (iter != _children.end())
-        {
-            if ((*iter)->getName() == name)
-            {
-                return (*iter);
-            }
-            iter++;
-        }
+	iNode* iNode::getChild(iaString name)
+	{
+		auto iter = _children.begin();
+		while (iter != _children.end())
+		{
+			if ((*iter)->getName() == name)
+			{
+				return (*iter);
+			}
+			iter++;
+		}
 
-        iter = _inactiveChildren.begin();
-        while (iter != _inactiveChildren.end())
-        {
-            if ((*iter)->getName() == name)
-            {
-                return (*iter);
-            }
-            iter++;
-        }
+		iter = _inactiveChildren.begin();
+		while (iter != _inactiveChildren.end())
+		{
+			if ((*iter)->getName() == name)
+			{
+				return (*iter);
+			}
+			iter++;
+		}
 
-        return nullptr;
-    }
+		return nullptr;
+	}
 
-    uint32 iNode::getID() const
-    {
-        return _nodeID;
-    }
+	uint32 iNode::getID() const
+	{
+		return _nodeID;
+	}
 
 	iNodeKind iNode::getKind() const
 	{
@@ -162,13 +162,13 @@ namespace Igor
 	{
 		return _nodeType;
 	}
-	
-    bool iNode::isTransformationDirty()
+
+	bool iNode::isTransformationDirty()
 	{
 		return _transformationDirty;
 	}
 
-    void iNode::setTransformationDirty(bool dirty)
+	void iNode::setTransformationDirty(bool dirty)
 	{
 		_transformationDirty = dirty;
 
@@ -176,17 +176,17 @@ namespace Igor
 		{
 			if (isChild())
 			{
-                getParent()->setTransformationDirtyUp();
+				getParent()->setTransformationDirtyUp();
 			}
 
 			for (uint32 i = 0; i < _children.size(); ++i)
 			{
-                _children[i]->setTransformationDirtyDown();
+				_children[i]->setTransformationDirtyDown();
 			}
 		}
 	}
 
-    void iNode::setTransformationDirtyUp()
+	void iNode::setTransformationDirtyUp()
 	{
 		if (!_transformationDirty)
 		{
@@ -194,12 +194,12 @@ namespace Igor
 
 			if (getParent())
 			{
-                getParent()->setTransformationDirtyUp();
+				getParent()->setTransformationDirtyUp();
 			}
 		}
 	}
 
-    void iNode::setTransformationDirtyDown()
+	void iNode::setTransformationDirtyDown()
 	{
 		if (!_transformationDirty)
 		{
@@ -209,33 +209,33 @@ namespace Igor
 			{
 				for (auto child : _children)
 				{
-                    child->setTransformationDirtyDown();
+					child->setTransformationDirtyDown();
 				}
 			}
 		}
 	}
 
-    void iNode::calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix)
-    {
-        if (currentNode->getType() == iNodeType::iNodeTransform)
-        {
-            iNodeTransform* tranformNode = static_cast<iNodeTransform*>(currentNode);
-            iaMatrixf currentMatrix;
-            tranformNode->getMatrix(currentMatrix);
-            matrix = currentMatrix * matrix;
-        }
+	void iNode::calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix)
+	{
+		if (currentNode->getType() == iNodeType::iNodeTransform)
+		{
+			iNodeTransform* tranformNode = static_cast<iNodeTransform*>(currentNode);
+			iaMatrixf currentMatrix;
+			tranformNode->getMatrix(currentMatrix);
+			matrix = currentMatrix * matrix;
+		}
 
-        if (currentNode->isChild())
-        {
-            calcWorldTransformation(currentNode->getParent(), matrix);
-        }
-    }
+		if (currentNode->isChild())
+		{
+			calcWorldTransformation(currentNode->getParent(), matrix);
+		}
+	}
 
-    void iNode::calcWorldTransformation(iaMatrixf& matrix)
-    {
-        matrix.identity();
-        calcWorldTransformation(this, matrix);
-    }
+	void iNode::calcWorldTransformation(iaMatrixf& matrix)
+	{
+		matrix.identity();
+		calcWorldTransformation(this, matrix);
+	}
 
 	iNode* iNode::getParent()
 	{
@@ -257,24 +257,24 @@ namespace Igor
 		_name = name;
 	}
 
-    void iNode::insertNodeAsync(iNode* node)
-    {
-        iNodeFactory::getInstance().insertNodeAsync(this, node);
-    }
+	void iNode::insertNodeAsync(iNode* node)
+	{
+		iNodeFactory::getInstance().insertNodeAsync(this, node);
+	}
 
-    void iNode::removeNodeAsync(iNode* node)
-    {
-        iNodeFactory::getInstance().removeNodeAsync(this, node);
-    }
+	void iNode::removeNodeAsync(iNode* node)
+	{
+		iNodeFactory::getInstance().removeNodeAsync(this, node);
+	}
 
 	void iNode::insertNode(iNode* node)
 	{
 		if (!node->isChild())
 		{
-            node->_active = true;
+			node->_active = true;
 			node->setParent(this);
 			node->setScene(_scene);
-            node->setTransformationDirty();
+			node->setTransformationDirty();
 			_children.push_back(node);
 		}
 		else
@@ -288,29 +288,29 @@ namespace Igor
 		return _parent ? true : false;
 	}
 
-    void iNode::onUpdateTransform(iaMatrixf& matrix)
-    {
-        // does nothing
-    }
+	void iNode::onUpdateTransform(iaMatrixf& matrix)
+	{
+		// does nothing
+	}
 
 	void iNode::removeNode(iNode* node)
 	{
 		auto iter = _children.begin();
 
-        while (iter != _children.end())
+		while (iter != _children.end())
 		{
-            if ((*iter) == node)
+			if ((*iter) == node)
 			{
-                node->setTransformationDirty();
+				node->setTransformationDirty();
 
 				node->setParent(nullptr);
 				node->setScene(nullptr);
-                
-                _children.erase(iter);
+
+				_children.erase(iter);
 				break;
 			}
 
-            iter++;
+			iter++;
 		}
 	}
 
@@ -319,124 +319,124 @@ namespace Igor
 		return _children.size() ? true : false;
 	}
 
-    vector<iNode*>& iNode::getInactiveChildren()
-    {
-        return _inactiveChildren;
-    }
+	vector<iNode*>& iNode::getInactiveChildren()
+	{
+		return _inactiveChildren;
+	}
 
 	vector<iNode*>& iNode::getChildren()
 	{
 		return _children;
 	}
 
-    bool iNode::isActive() const
-    {
-        return _active;
-    }
+	bool iNode::isActive() const
+	{
+		return _active;
+	}
 
-    void iNode::setActive(bool active)
-    {
-        if (_active != active)
-        {
-            _active = active;
+	void iNode::setActive(bool active)
+	{
+		if (_active != active)
+		{
+			_active = active;
 
-            if (!_active)
-            {
-                if (_parent != nullptr)
-                {
-                    bool result = false;
-                    
-                    auto iter = _parent->_children.begin();
-                    while (iter != _parent->_children.end())
-                    {
-                        if ((*iter) == this)
-                        {
-                            setTransformationDirty();
-                            setScene(nullptr);
+			if (!_active)
+			{
+				if (_parent != nullptr)
+				{
+					bool result = false;
 
-                            _parent->_children.erase(iter);
-                            _parent->_inactiveChildren.push_back(this);
+					auto iter = _parent->_children.begin();
+					while (iter != _parent->_children.end())
+					{
+						if ((*iter) == this)
+						{
+							setTransformationDirty();
+							setScene(nullptr);
 
-                            result = true;
-                            break;
-                        }
+							_parent->_children.erase(iter);
+							_parent->_inactiveChildren.push_back(this);
 
-                        iter++;
-                    }
+							result = true;
+							break;
+						}
 
-                    con_assert(result, "inconsistant data");
-                }
-            }
-            else
-            {
-                if (_parent != nullptr)
-                {
-                    bool result = false;
+						iter++;
+					}
 
-                    auto iter = _parent->_inactiveChildren.begin();
-                    while (iter != _parent->_inactiveChildren.end())
-                    {
-                        if ((*iter) == this)
-                        {
-                            setScene(_parent->getScene());
-                            setTransformationDirty();
-                            
-                            _parent->_inactiveChildren.erase(iter);
-                            _parent->_children.push_back(this);
+					con_assert(result, "inconsistant data");
+				}
+			}
+			else
+			{
+				if (_parent != nullptr)
+				{
+					bool result = false;
 
-                            result = true;
-                            break;
-                        }
+					auto iter = _parent->_inactiveChildren.begin();
+					while (iter != _parent->_inactiveChildren.end())
+					{
+						if ((*iter) == this)
+						{
+							setScene(_parent->getScene());
+							setTransformationDirty();
 
-                        iter++;
-                    }
+							_parent->_inactiveChildren.erase(iter);
+							_parent->_children.push_back(this);
 
-                    con_assert(result, "inconsistant data");
-                }
+							result = true;
+							break;
+						}
 
-            }
-        }
-    }
+						iter++;
+					}
+
+					con_assert(result, "inconsistant data");
+				}
+
+			}
+		}
+	}
 
 	void iNode::setScene(iScene* scene)
 	{
-        if (_scene != scene)
-        {
-            onPreSetScene();
+		if (_scene != scene)
+		{
+			onPreSetScene();
 
-            if (_scene != nullptr)
-            {
-                _scene->signalNodeRemoved(getID());
-            }
+			if (_scene != nullptr)
+			{
+				_scene->signalNodeRemoved(getID());
+			}
 
-            if (scene != nullptr &&
-                _scene != nullptr)
-            {
-                con_err("node already belongs to scene \"" << scene->getName() << "\"");
-            }
-            else
-            {
-                if (scene != _scene)
-                {
-                    _scene = scene;
+			if (scene != nullptr &&
+				_scene != nullptr)
+			{
+				con_err("node already belongs to scene \"" << scene->getName() << "\"");
+			}
+			else
+			{
+				if (scene != _scene)
+				{
+					_scene = scene;
 
-                    if (hasChildren())
-                    {
-                        for (uint32 i = 0; i < _children.size(); ++i)
-                        {
-                            _children[i]->setScene(_scene);
-                        }
-                    }
-                }
-            }
+					if (hasChildren())
+					{
+						for (uint32 i = 0; i < _children.size(); ++i)
+						{
+							_children[i]->setScene(_scene);
+						}
+					}
+				}
+			}
 
-            onPostSetScene();
+			onPostSetScene();
 
-            if (_scene != nullptr)
-            {
-                _scene->signalNodeAdded(getID());
-            }
-        }
+			if (_scene != nullptr)
+			{
+				_scene->signalNodeAdded(getID());
+			}
+		}
 	}
 
 	iScene* iNode::getScene()
@@ -444,12 +444,59 @@ namespace Igor
 		return _scene;
 	}
 
-    void iNode::onPreSetScene()
-    {
-    }
+	void iNode::onPreSetScene()
+	{
+	}
 
-    void iNode::onPostSetScene()
-    {
-    }
+	void iNode::onPostSetScene()
+	{
+	}
+
+	wostream& operator<<(wostream& stream, const iNodeType& nodeType)
+	{
+		static iaString text[] = {
+			"iNode",
+			"iNodeCamera",
+			"iCelestialNode",
+			"iNodeLight",
+			"iNodeMesh",
+			"iNodeModel",
+			"iNodeRender",
+			"iNodeSkyBox",
+			"iSkyLightNode",
+			"iNodeTransform",
+			"iNodeSwitch",
+			"iNodeLODSwitch",
+			"iNodeLODTrigger",
+			"iNodePhysics",
+			"iNodeParticleSystem",
+			"iNodeEmitter",
+			"Undefined"
+		};
+
+		con_assert(static_cast<int>(nodeType) >= 0 && static_cast<int>(nodeType) < 17, "out of range");
+
+		stream << text[static_cast<int>(nodeType)].getData();
+		return stream;
+	}
+
+	wostream& operator<<(wostream& stream, const iNodeKind& nodeKind)
+	{
+		static iaString text[] = {
+			"Node",
+			"Renderable",
+			"Volume",
+			"Physics",
+			"Light",
+			"Camera",
+			"Transformation",
+			"Undefined"
+		};
+
+		con_assert(static_cast<int>(nodeKind) >= 0 && static_cast<int>(nodeKind) < 8, "out of range");
+
+		stream << text[static_cast<int>(nodeKind)].getData();
+		return stream;
+	}
 
 };

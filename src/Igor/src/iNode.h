@@ -36,6 +36,7 @@
 #include <iaMatrix.h>
 using namespace IgorAux;
 
+#include <ostream>
 #include <vector>
 #include <memory>
 #include <mutex>
@@ -355,6 +356,22 @@ namespace Igor
         void calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix);
 
 	};
+
+	/*! stream operator
+
+	\param stream the destination
+	\param nodeType the node type to stream
+	\returns the resulting stream
+	*/
+	IgorAux_API wostream& operator<<(wostream& stream, const iNodeType& nodeType);
+
+	/*! stream operator
+
+	\param stream the destination
+	\param nodeKind the node kind to stream
+	\returns the resulting stream
+	*/
+	IgorAux_API wostream& operator<<(wostream& stream, const iNodeKind& nodeKind);
 
 };
 
