@@ -43,8 +43,12 @@ namespace Igor
             }
             else
             {
-                float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                _height = static_cast<int32>(widget->getHeight() + _border * 2.0 + fontSize * 0.75);
+                con_assert(iWidgetManager::getInstance().getTheme() != nullptr, "zero pointer");
+                if (iWidgetManager::getInstance().getTheme() != nullptr)
+                {
+                    float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+                    _height = static_cast<int32>(widget->getHeight() + _border * 2.0 + fontSize * 0.75);
+                }
             }
         }
 
