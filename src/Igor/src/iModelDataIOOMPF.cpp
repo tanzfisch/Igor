@@ -341,33 +341,44 @@ namespace Igor
 
     OMPF::ompfMeshChunk* iModelDataIOOMPF::createMeshChunk(iNodeMesh *node)
     {
-        OMPF::ompfMeshChunk* result = _ompf->createMeshChunk();
-        result->setAmbient(iaConvert::convert3c(node->getAmbient()));
-        result->setDiffuse(iaConvert::convert3c(node->getDiffuse()));
-        result->setSpecular(iaConvert::convert3c(node->getSpecular()));
-        result->setEmissive(iaConvert::convert3c(node->getEmissive()));
-        result->setShininess(node->getShininess());
+		con_assert(node != nullptr, "zero pointer");
+		
+		OMPF::ompfMeshChunk* result = _ompf->createMeshChunk();
 
-        result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);
-        result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
-        result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
+		if (node != nullptr)
+		{
+			con_assert(node->getMesh() != nullptr, "zero pointer");
 
-        result->setBoundingSphere(node->getBoundingSphere()._center, node->getBoundingSphere()._radius);
+			result->setAmbient(iaConvert::convert3c(node->getAmbient()));
+			result->setDiffuse(iaConvert::convert3c(node->getDiffuse()));
+			result->setSpecular(iaConvert::convert3c(node->getSpecular()));
+			result->setEmissive(iaConvert::convert3c(node->getEmissive()));
+			result->setShininess(node->getShininess());
 
-        result->setVertexCount(node->getMesh()->getVertexCount());
-        result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
+			if (node->getMesh() != nullptr)
+			{
+				result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);
+				result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
+				result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
 
-        result->setIndexCount(node->getMesh()->getIndexesCount());
-        result->setIndexData(reinterpret_cast<char*>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());
+				result->setBoundingSphere(node->getBoundingSphere()._center, node->getBoundingSphere()._radius);
 
-        for (int i = 0; i < node->getMesh()->getTextureUnitCount(); ++i)
-        {
-            iaString relative = iaDirectory::getRelativePath(_filename, node->getTargetMaterial()->getTexture(i)->getFilename());
-            result->setTexture(relative, i);
-        }
+				result->setVertexCount(node->getMesh()->getVertexCount());
+				result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
 
-        uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
-        result->setMaterialChunkID(materialChunkID);
+				result->setIndexCount(node->getMesh()->getIndexesCount());
+				result->setIndexData(reinterpret_cast<char*>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());
+
+				for (int i = 0; i < node->getMesh()->getTextureUnitCount(); ++i)
+				{
+					iaString relative = iaDirectory::getRelativePath(_filename, node->getTargetMaterial()->getTexture(i)->getFilename());
+					result->setTexture(relative, i);
+				}
+			}
+
+			uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
+			result->setMaterialChunkID(materialChunkID);
+		}
 
         return result;
     }
