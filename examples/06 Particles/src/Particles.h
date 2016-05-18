@@ -147,7 +147,11 @@ private:
 
     /*! crates a fontain look alike particle system
     */
-    void creasteFontainParticleSystem();
+    void createFontainParticleSystem();
+
+    /*! crates a fire particle system
+    */
+    void createFireParticleSystem();
 
     /*! called on key pressed event
 
