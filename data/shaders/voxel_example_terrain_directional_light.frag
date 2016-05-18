@@ -28,10 +28,7 @@ void main()
 	vec3 N = normalize(VertexNormal);
 	vec3 P = VertexWorld;
 	
-	vec3 texSelector = abs(N);
-	texSelector = normalize(max(texSelector, 0.00001));
-	float b = (texSelector.x + texSelector.y + texSelector.z);
-	texSelector /= vec3(b, b, b);
+	vec3 texSelector = vec3(N.x*N.x, N.y*N.y, N.z*N.z);
 		
 	float scale = 0.1;
 	
