@@ -521,7 +521,6 @@ namespace Igor
             ab = _vertexes[b]; ab -= _vertexes[a];
 
             n = ab % ac;
-            n.normalize();
             trianglenormals[triangleIndex] = n;
         }
 
