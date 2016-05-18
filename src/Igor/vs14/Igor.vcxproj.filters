@@ -273,10 +273,10 @@
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iContouringCubes.cpp">
-      <Filter>algorythms</Filter>
+      <Filter>graphics\algorythms</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPerlinNoise.cpp">
-      <Filter>algorythms</Filter>
+      <Filter>graphics\algorythms</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iNodeTransformControl.cpp">
       <Filter>controls</Filter>
@@ -928,10 +928,10 @@
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iContouringCubes.h">
-      <Filter>algorythms</Filter>
+      <Filter>graphics\algorythms</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPerlinNoise.h">
-      <Filter>algorythms</Filter>
+      <Filter>graphics\algorythms</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeTransformControl.h">
       <Filter>controls</Filter>
@@ -1351,7 +1351,7 @@
       <Filter>resources\material</Filter>
     </None>
     <None Include="..\src\iPerlinNoise.inl">
-      <Filter>algorythms</Filter>
+      <Filter>graphics\algorythms</Filter>
     </None>
     <None Include="..\src\iMeshBuffers.inl">
       <Filter>resources\mesh</Filter>
@@ -1457,9 +1457,6 @@
     <Filter Include="GUI\user controls">
       <UniqueIdentifier>{2f0e59f2-09be-454c-bbc6-0c709a633d7e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="algorythms">
-      <UniqueIdentifier>{2c949176-de8e-4a4e-9e9e-dc9b70155d86}</UniqueIdentifier>
-    </Filter>
     <Filter Include="controls">
       <UniqueIdentifier>{461333aa-caa3-4cdd-a7d4-1daa80e74710}</UniqueIdentifier>
     </Filter>
@@ -1486,6 +1483,9 @@
     </Filter>
     <Filter Include="3rd\newton\source\physics">
       <UniqueIdentifier>{fbc5f972-afac-4113-ab72-0dab6e56fd03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\algorythms">
+      <UniqueIdentifier>{2c949176-de8e-4a4e-9e9e-dc9b70155d86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
