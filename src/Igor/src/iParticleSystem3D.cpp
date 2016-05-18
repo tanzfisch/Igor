@@ -95,6 +95,27 @@ namespace Igor
         emissionGradient = _emissionRateGradient;
     }
 
+    void iParticleSystem3D::setFirstTextureTiling(uint32 columns, uint32 rows)
+    {
+        con_assert(columns > 0 && rows > 0, "out of range");
+
+        if (columns > 0 && rows > 0)
+        {
+            _firstTextureColumns = columns;
+            _firstTextureRows = rows;
+        }
+    }
+
+    uint32 iParticleSystem3D::getFirstTextureColumns() const
+    {
+        return _firstTextureColumns;
+    }
+
+    uint32 iParticleSystem3D::getFirstTextureRows() const
+    {
+        return _firstTextureRows;
+    }
+
     void iParticleSystem3D::setSecondTextureRotation(float32 angle)
     {
         _octave1Rotation = angle;
@@ -224,6 +245,11 @@ namespace Igor
         iaVector3f velocity;
         emitter.calcRandomStart(position, velocity);
 
+        position = _particleSystemInvWorldMatrix * position;
+
+        velocity = _particleSystemInvWorldMatrix * velocity;
+        velocity -= _particleSystemInvWorldMatrix._pos;
+
         float32 randomFactor = (rand() % 1000 / 1000.0f);
 
         float32 vel = 0;
@@ -255,6 +281,24 @@ namespace Igor
 
         _startOrientationRateGradient.getValue(particleSystemTime, minMax);
         particle._orientationRate = minMax._x + randomFactor * (minMax._y - minMax._x);
+
+        if (_firstTextureColumns == 1 && _firstTextureRows == 1)
+        {
+            particle._texturefrom.set(0, 0);
+            particle._textureto.set(1, 1);
+        }
+        else
+        {
+            uint32 col = rand() % _firstTextureColumns;
+            uint32 row = rand() % _firstTextureRows;
+
+            float32 width = 1.0f / static_cast<float32>(_firstTextureColumns);
+            float32 height = 1.0f / static_cast<float32>(_firstTextureRows);
+
+            particle._texturefrom.set(col * width, row * height);
+            particle._textureto._x = particle._texturefrom._x + width;
+            particle._textureto._y = particle._texturefrom._y + width;
+        }
 
         particle._phase0.set(rand() % 100 / 100.0f, rand() % 100 / 100.0f);
         particle._phase1.set(rand() % 100 / 100.0f, rand() % 100 / 100.0f);

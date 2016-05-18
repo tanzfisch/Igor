@@ -99,6 +99,21 @@ namespace Igor
         */
         float32 getVortexRangeMax();
 
+        /*! sets the tiling resolution of the first texture layer
+
+        \param columns column count (<= 1)
+        \param rows row count (<= 1)
+        */
+        void setFirstTextureTiling(uint32 columns, uint32 rows);
+
+        /*! \returns the horrizontal tiling resolution of the first texture layer
+        */
+        uint32 getFirstTextureColumns() const;
+
+        /*! \returns the vertical tiling resolution of the first texture layer
+        */
+        uint32 getFirstTextureRows() const;
+
         /*! sets if the particle system runs in a loop
 
         \param loop if true particle system runs in loop

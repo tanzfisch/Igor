@@ -103,6 +103,14 @@ namespace Igor
         */
         bool _visible = true;
 
+        /*! lower left coordinates in first texture layer
+        */
+        iaVector2f _texturefrom;
+
+        /*! upper right coordinates in first texture layer
+        */
+        iaVector2f _textureto;
+
         iaVector2f _phase0;
         iaVector2f _phase1;
 
@@ -203,6 +211,21 @@ namespace Igor
         /*! \return vortex check rangein indexes from vortex particle
         */
         uint32 getVortexCheckRange();
+
+        /*! sets the tiling resolution of the first texture layer
+
+        \param columns column count (<= 1)
+        \param rows row count (<= 1)
+        */
+        void setFirstTextureTiling(uint32 columns, uint32 rows);
+
+        /*! \returns the horrizontal tiling resolution of the first texture layer
+        */
+        uint32 getFirstTextureColumns() const;
+
+        /*! \returns the vertical tiling resolution of the first texture layer
+        */
+        uint32 getFirstTextureRows() const;
 
         /*! sets the rotation per frame of the second texture
 
@@ -437,6 +460,14 @@ namespace Igor
         /*! current simulation rate in Hz
         */
         static float32 _simulationRate;
+
+        /*! column count of first texture tiling
+        */
+        uint32 _firstTextureColumns = 1;
+
+        /*! row count of first texture tiling
+        */
+        uint32 _firstTextureRows = 1;
 
         /*! flag that defines if particles get rendered velocity oriented
         */
