@@ -104,7 +104,10 @@ namespace Igor
                 iNodeMesh* mesh = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh)); 
                 mesh->setName(stream.str().data());
                 mesh->setMesh(meshBuilders[i]->createMesh());
-                mesh->setKeepMesh(parameter->_keepMesh);
+                if (parameter != nullptr)
+                {
+                    mesh->setKeepMesh(parameter->_keepMesh);
+                }
 				result->insertNode(mesh);
 
                 mesh->getTargetMaterial()->setAmbient(getMaterial(i)->_ambient);
