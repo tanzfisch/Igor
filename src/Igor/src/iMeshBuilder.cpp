@@ -158,6 +158,7 @@ namespace Igor
 
     bool iMeshBuilder::checkConsistency()
     {
+#ifdef __IGOR_DEBUG__
         if (_triangles.size() == 0)
         {
             return false;
@@ -209,7 +210,7 @@ namespace Igor
 
             iterIndex++;
         }
-
+#endif
         return true;
     }
 
@@ -292,7 +293,7 @@ namespace Igor
 
         sphere._center.set(0, 0, 0);
 
-        for (uint32 i = 0; i < _vertexes.size(); i++) //! \todo check for bouncing bubble algorithm
+        for (uint32 i = 0; i < _vertexes.size(); i++)
         {
             sphere._center += _vertexes[i];
         }
@@ -529,16 +530,7 @@ namespace Igor
             //        separateTriangles(trianglenormals);
         }
 
-        if (_normals.size() != 0)
-        {
-            _normals.clear();
-        }
-
-        iaVector3f fill;
-        for (uint32 i = 0; i < _vertexes.size(); i++)
-        {
-            _normals.push_back(fill);
-        }
+        _normals.resize(_vertexes.size());
 
         for (uint32 triangleIndex = 0; triangleIndex < _triangles.size(); ++triangleIndex)
         {

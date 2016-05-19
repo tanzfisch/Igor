@@ -103,6 +103,8 @@ namespace Igor
         ~iMeshBuilder();
 
         /*! calculating the bounding sphere
+
+        \todo implement bouncing bubble algorithm
         */
         void calcBoundingSphere(iSpheref& sphere) const;
 
