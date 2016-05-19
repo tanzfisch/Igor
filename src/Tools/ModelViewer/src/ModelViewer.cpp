@@ -191,7 +191,15 @@ void ModelViewer::init(iaString fileName)
     if (!fileName.isEmpty())
     {
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        model->setModel(fileName);
+        iModelDataInputParameter* parameter = new iModelDataInputParameter();
+        parameter->_identifier = "";
+        parameter->_modelSourceType = iModelSourceType::File;
+        parameter->_needsRenderContext = true;
+        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
+        parameter->_joinVertexes = true;
+        parameter->_keepMesh = true;
+
+        model->setModel(fileName, parameter);
         _groupNode->insertNode(model);
     }
 
@@ -401,7 +409,15 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         iaString filename = _fileDialog->getFullPath();
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        model->setModel(filename);
+        iModelDataInputParameter* parameter = new iModelDataInputParameter();
+        parameter->_identifier = "";
+        parameter->_modelSourceType = iModelSourceType::File;
+        parameter->_needsRenderContext = true;
+        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
+        parameter->_joinVertexes = true;
+        parameter->_keepMesh = true;
+
+        model->setModel(filename, parameter);
         _groupNode->insertNode(model);
         forceLoadingNow();
     }
@@ -430,7 +446,15 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         }
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        model->setModel(filename);
+        iModelDataInputParameter* parameter = new iModelDataInputParameter();
+        parameter->_identifier = "";
+        parameter->_modelSourceType = iModelSourceType::File;
+        parameter->_needsRenderContext = true;
+        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
+        parameter->_joinVertexes = true;
+        parameter->_keepMesh = true;
+
+        model->setModel(filename, parameter);
         _groupNode->insertNode(model);
 
         _mouseOverDialogs = false;
