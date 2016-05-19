@@ -200,6 +200,8 @@ namespace Igor
         shared_ptr<iModel> result;
         iaString hashKey;
 
+        con_assert_sticky(filename != "", "invalid parameter");
+
         if (parameter != nullptr &&
             parameter->_modelSourceType != iModelSourceType::File)
         {
@@ -208,6 +210,12 @@ namespace Igor
         else
         {
             hashKey = iResourceManager::getInstance().getPath(filename);
+
+            if (hashKey == "")
+            {
+                con_err("file not found " << filename);
+                return result;
+            }
         }
 
         int64 hashValue = calcHashValue(hashKey);
