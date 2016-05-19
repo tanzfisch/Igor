@@ -173,6 +173,14 @@ void MenuDialog::initGUI()
     _addEmitterButton->setTexture("icons\\addEmitter.png");
     _addEmitterButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddEmitter));
 
+    _addParticleSystemButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allwidgets.push_back(_addParticleSystemButton);
+    _addParticleSystemButton->setText("");
+    _addParticleSystemButton->setWidth(30);
+    _addParticleSystemButton->setHeight(30);
+    _addParticleSystemButton->setTexture("icons\\addParticleSystem.png");
+    _addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddParticleSystem));
+
     _addSwitchButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allwidgets.push_back(_addSwitchButton);
     _addSwitchButton->setText("");
@@ -180,7 +188,6 @@ void MenuDialog::initGUI()
     _addSwitchButton->setHeight(30);
     _addSwitchButton->setTexture("icons\\addSwitch.png");
     _addSwitchButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddSwitch));
-
 
     _userControlGraphView = new UserControlGraphView();
     _userControlGraphView->registerOnSelectionChange(SelectionChangeDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
@@ -207,6 +214,7 @@ void MenuDialog::initGUI()
     _gridButtons2->addWidget(_addSwitchButton, 2, 0);
     _gridButtons2->addWidget(_addModelButton, 3, 0);
     _gridButtons2->addWidget(_addEmitterButton, 4, 0);
+    _gridButtons2->addWidget(_addParticleSystemButton, 5, 0);
     
     _grid->addWidget(_userControlGraphView->getWidget(), 0, 1);
     _grid->addWidget(_userControlProperties->getWidget(), 0, 2);
@@ -281,6 +289,11 @@ void MenuDialog::onAddGroup(iWidget* source)
 void MenuDialog::onAddEmitter(iWidget* source)
 {
     _addEmitter(_userControlGraphView->getSelectedNode());
+}
+
+void MenuDialog::onAddParticleSystem(iWidget* source)
+{
+    _addParticleSystem(_userControlGraphView->getSelectedNode());
 }
 
 void MenuDialog::onAddSwitch(iWidget* source)
@@ -489,6 +502,16 @@ void MenuDialog::registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
 void MenuDialog::unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
 {
     _addEmitter.remove(addEmitterDelegate);
+}
+
+void MenuDialog::registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
+{
+    _addParticleSystem.append(addParticleSystemDelegate);
+}
+
+void MenuDialog::unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
+{
+    _addParticleSystem.remove(addParticleSystemDelegate);
 }
 
 void MenuDialog::registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate)

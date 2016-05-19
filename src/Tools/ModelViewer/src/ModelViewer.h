@@ -121,6 +121,7 @@ private:
     void onAddTransformation(uint32 atNodeID);
     void onAddGroup(uint32 atNodeID);
     void onAddEmitter(uint32 atNodeID);
+    void onAddParticleSystem(uint32 atNodeID);
     void onAddSwitch(uint32 atNodeID);
 
     void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);

@@ -116,6 +116,8 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
         return "icons\\transformation.png";
     case iNodeType::iNodeEmitter:
         return "icons\\emitter.png";
+    case iNodeType::iNodeParticleSystem:
+        return "icons\\ParticleSystem.png";
 
     case iNodeType::iSkyLightNode:
     case iNodeType::iCelestialNode:

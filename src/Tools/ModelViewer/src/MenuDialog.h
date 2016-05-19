@@ -58,6 +58,7 @@ iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint32 nodeID), (no
 iaEVENT(AddGroup, AddGroupDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(AddSwitch, AddSwitchDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint32 nodeID), (nodeID));
 
 iaEVENT(CopyNode, CopyNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, void, (uint32 nodeID), (nodeID));
@@ -99,6 +100,9 @@ public:
     void registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
     void unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
 
+    void registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
+    void unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
+
     void registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
     void unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
 
@@ -121,6 +125,7 @@ private:
     AddTransformation _addTransformation;
     AddGroup _addGroup;
     AddEmitter _addEmitter;
+    AddParticleSystem _addParticleSystem;
     AddSwitch _addSwitch;
     CopyNode _copyNode;
     CutNode _cutNode;
@@ -147,6 +152,7 @@ private:
     iWidgetButton* _addTransformationButton = nullptr;
     iWidgetButton* _addGroupButton = nullptr;
     iWidgetButton* _addEmitterButton = nullptr;
+    iWidgetButton* _addParticleSystemButton = nullptr;
 
     vector<iWidget*> _allwidgets;
 
@@ -171,6 +177,7 @@ private:
     void onAddSwitch(iWidget* source);
     void onAddGroup(iWidget* source);
     void onAddEmitter(iWidget* source);
+    void onAddParticleSystem(iWidget* source);
 
     void onCopy(iWidget* source);
     void onPaste(iWidget* source);
@@ -183,3 +190,4 @@ private:
 
 
 #endif
+

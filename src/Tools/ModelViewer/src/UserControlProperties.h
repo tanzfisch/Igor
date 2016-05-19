@@ -52,6 +52,7 @@ class UserControlTransformation;
 class UserControlNode;
 class UserControlModel;
 class UserControlEmitter;
+class UserControlParticleSystem;
 
 iaEVENT(PropertiesChangedEvent, PropertiesChangedDelegate, void, (), ());
 iaEVENT(StructureChangedEvent, StructureChangedDelegate, void, (), ());
@@ -102,6 +103,9 @@ private:
     void initEmitter();
     void deinitEmitter();
 
+    void initParticleSystem();
+    void deinitParticleSystem();
+
     void onNodeNameChanged();
 
     uint32 _nodeID = 0;
@@ -117,6 +121,7 @@ private:
     UserControlMesh* _userControlMesh = nullptr;
     UserControlModel* _userControlModel = nullptr;
     UserControlEmitter* _userControlEmitter = nullptr;
+    UserControlParticleSystem* _userControlParticleSystem = nullptr;
     UserControlNode* _userControlNode = nullptr;
 
 };

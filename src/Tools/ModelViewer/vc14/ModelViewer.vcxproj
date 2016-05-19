@@ -181,6 +181,7 @@
     <ClCompile Include="..\src\UserControlMesh.cpp" />
     <ClCompile Include="..\src\UserControlModel.cpp" />
     <ClCompile Include="..\src\UserControlNode.cpp" />
+    <ClCompile Include="..\src\UserControlParticleSystem.cpp" />
     <ClCompile Include="..\src\UserControlProperties.cpp" />
     <ClCompile Include="..\src\UserControlTransformation.cpp" />
   </ItemGroup>
@@ -193,6 +194,7 @@
     <ClInclude Include="..\src\UserControlMesh.h" />
     <ClInclude Include="..\src\UserControlModel.h" />
     <ClInclude Include="..\src\UserControlNode.h" />
+    <ClInclude Include="..\src\UserControlParticleSystem.h" />
     <ClInclude Include="..\src\UserControlProperties.h" />
     <ClInclude Include="..\src\UserControlTransformation.h" />
   </ItemGroup>

@@ -17,6 +17,7 @@ using namespace IgorAux;
 #include <iNodeModel.h> 
 #include <iNodeSwitch.h>
 #include <iNodeEmitter.h>
+#include <iNodeParticleSystem.h>
 #include <iNodeTransform.h>
 #include <iRenderer.h>
 #include <iApplication.h>
@@ -268,6 +269,21 @@ void ModelViewer::onAddEmitter(uint32 atNodeID)
     _menuDialog->updateGraph();
 }
 
+void ModelViewer::onAddParticleSystem(uint32 atNodeID)
+{
+    iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
+
+    if (destination == nullptr)
+    {
+        destination = _groupNode;
+    }
+
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    particleSystem->setName("ParticleSystem");
+    destination->insertNode(particleSystem);
+    _menuDialog->updateGraph();
+}
+
 void ModelViewer::onAddSwitch(uint32 atNodeID)
 {
     iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
@@ -503,6 +519,7 @@ void ModelViewer::initGUI()
     _menuDialog->registerOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
     _menuDialog->registerOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
     _menuDialog->registerOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
+    _menuDialog->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
 
     _fileDialog = new iFileDialog();
     _fileDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
@@ -526,6 +543,7 @@ void ModelViewer::deinitGUI()
         _menuDialog->unregisterOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
         _menuDialog->unregisterOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
         _menuDialog->unregisterOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
+        _menuDialog->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
 
         delete _menuDialog;
         _menuDialog = nullptr;

@@ -22,6 +22,7 @@ using namespace IgorAux;
 #include "UserControlNode.h"
 #include "UserControlModel.h"
 #include "UserControlEmitter.h"
+#include "UserControlParticleSystem.h"
 
 UserControlProperties::UserControlProperties()
 {
@@ -124,6 +125,10 @@ void UserControlProperties::setNode(uint32 id)
         case iNodeType::iNodeEmitter:
             deinitEmitter();
             break;
+
+        case iNodeType::iNodeParticleSystem:
+            deinitParticleSystem();
+            break;
         }
 
         _currentNodeType = iNodeType::Undefined;
@@ -160,6 +165,10 @@ void UserControlProperties::setNode(uint32 id)
 
         case iNodeType::iNodeEmitter:
             initEmitter();
+            break;
+
+        case iNodeType::iNodeParticleSystem:
+            initParticleSystem();
             break;
 
         default:
@@ -241,6 +250,26 @@ void UserControlProperties::deinitEmitter()
 
         delete _userControlEmitter;
         _userControlEmitter = nullptr;
+    }
+}
+
+void UserControlProperties::initParticleSystem()
+{
+    con_assert(_userControlParticleSystem == nullptr, "mem allocation error");
+
+    _userControlParticleSystem = new UserControlParticleSystem();
+    _grid->addWidget(_userControlParticleSystem->getWidget(), 0, 1);
+    _userControlParticleSystem->setNode(_nodeID);
+}
+
+void UserControlProperties::deinitParticleSystem()
+{
+    if (_userControlParticleSystem != nullptr)
+    {
+        _grid->removeWidget(_userControlParticleSystem->getWidget());
+
+        delete _userControlParticleSystem;
+        _userControlParticleSystem = nullptr;
     }
 }
 
