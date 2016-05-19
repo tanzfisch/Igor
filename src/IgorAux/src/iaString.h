@@ -344,6 +344,8 @@ namespace IgorAux
 
         /*! transforms a float to a iaString
 
+        \todo would be nice to have a version that detects it self how many after points make sense
+
         \param value the float value
         \param afterPoint defines how many digits after the point
         \returns isString
