@@ -53,7 +53,8 @@ namespace Igor
     enum class iModelSourceType
     {
         File,
-        Generated
+        Generated,
+        Unknown
     };
 
     /*! optional parameters hwo to load or generate data
@@ -66,7 +67,7 @@ namespace Igor
 
         /*! the general type of model source
         */
-        iModelSourceType _modelSourceType = iModelSourceType::Generated;
+        iModelSourceType _modelSourceType = iModelSourceType::Unknown;
 
         /*! where or not we need the render context to load this kind of data
         */
@@ -83,6 +84,10 @@ namespace Igor
         /*! custom parameters for loader or generator
         */
         iaMemBlock _parameters;
+
+        /*! keep mesh flag. if true the mesh will not be deleted after buffer creation
+        */
+        bool _keepMesh = false;
     };
 	
     /*! Represents model data loaded from filesystem.

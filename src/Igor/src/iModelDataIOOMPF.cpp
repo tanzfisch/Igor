@@ -95,6 +95,11 @@ namespace Igor
             iMesh* mesh = new iMesh();
             iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
 
+            if (_parameter != nullptr)
+            {
+                meshNode->setKeepMesh(_parameter->_keepMesh);
+            }
+
             meshNode->getTargetMaterial()->setAmbient(iaConvert::convert3f(meshChunk->getAmbient()));
             meshNode->getTargetMaterial()->setDiffuse(iaConvert::convert3f(meshChunk->getDiffuse()));
             meshNode->getTargetMaterial()->setSpecular(iaConvert::convert3f(meshChunk->getSpecular()));
@@ -175,6 +180,8 @@ namespace Igor
     }
     iNode* iModelDataIOOMPF::importData(const iaString& filename, iModelDataInputParameter* parameter)
     {
+        _parameter = parameter;
+
         _ompf->loadFile(filename);
 
         if (_ompf->getRoot()->getChildren().size() == 0)

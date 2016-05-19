@@ -96,6 +96,38 @@ namespace Igor
 
 	private:
 
+        /*! the ompf loader it self
+        */
+        OMPF::OMPF* _ompf = nullptr;
+
+        /*! chunk stack used while traversing the node tree
+        */
+        vector<OMPF::ompfBaseChunk*> _chunkStack;
+
+        /*! mode to use while exporting model data
+        */
+        iSaveMode _saveMode;
+
+        /*! file name in use while exporting
+
+        needed to create relative paths to referenced resources
+        */
+        iaString _filename;
+
+        /*! maps chunk material id to materil id
+        */
+        map<uint32, uint32> _materialMapping;
+
+        /*! map of materials currently in use
+        */
+        map<uint32, OMPF::ompfMaterialChunk*> _materialsInUse;
+
+        /*! additional input parameter
+
+        do not delete. it does not belong to you
+        */
+        iModelDataInputParameter* _parameter = nullptr;
+
         /*! handles start of traversal
         */
         virtual void preTraverse();
@@ -166,32 +198,6 @@ namespace Igor
         /*! clears internal material list
         */
 		void clearMaterials();
-		
-        /*! the ompf loader it self
-        */
-        OMPF::OMPF* _ompf = nullptr;
-
-        /*! chunk stack used while traversing the node tree
-        */
-		vector<OMPF::ompfBaseChunk*> _chunkStack;
-
-        /*! mode to use while exporting model data
-        */
-        iSaveMode _saveMode;
-
-        /*! file name in use while exporting
-
-        needed to create relative paths to referenced resources
-        */
-        iaString _filename;
-
-        /*! maps chunk material id to materil id
-        */
-        map<uint32, uint32> _materialMapping;
-
-		/*! map of materials currently in use
-		*/
-		map<uint32, OMPF::ompfMaterialChunk*> _materialsInUse;
 
 	};
 

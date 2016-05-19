@@ -110,7 +110,24 @@ namespace Igor
         */
         void setTargetMaterial(const iTargetMaterial* const targetMaterial);
 
+        /*! sets the keep mesh flag
+
+        if the keep mesh flag is true. meshs will not be released after creation of buffers for rendering
+        this is needed if the mesh is supposed to be manipulated or exported later
+
+        \param keepMesh keep mesh flag. if true mesh will not be released after buffer creation
+        */
+        void setKeepMesh(bool keepMesh = true);
+
+        /*! \retruns keep mesh flag. if true mesh will not be released after buffer creation
+        */
+        bool getKeepMesh() const;
+
 	private:
+
+        /*! flag where to keep mesh after creating buffers or not
+        */
+        bool _keepMesh = false;
 
         /*! target material
         */

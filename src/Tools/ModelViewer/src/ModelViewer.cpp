@@ -321,7 +321,22 @@ void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturn
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
-        iModelResourceFactory::getInstance().exportModelData(filename, _groupNode);
+
+        vector<iNode*> children = _groupNode->getChildren();
+        children.insert(children.end(), _groupNode->getInactiveChildren().begin(), _groupNode->getInactiveChildren().end());
+
+        if (children.empty())
+        {
+            con_warn("nothing to save");
+        }
+        else if (children.size() == 1)
+        {
+            iModelResourceFactory::getInstance().exportModelData(filename, children[0]);
+        }
+        else
+        {
+            iModelResourceFactory::getInstance().exportModelData(filename, _groupNode);
+        }
     }
 }
 
@@ -332,7 +347,15 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         iaString filename = _fileDialog->getFullPath();
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        model->setModel(filename);
+        iModelDataInputParameter* parameter = new iModelDataInputParameter();
+        parameter->_identifier = "";
+        parameter->_modelSourceType = iModelSourceType::File;
+        parameter->_needsRenderContext = true;
+        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
+        parameter->_joinVertexes = true;
+        parameter->_keepMesh = true;
+
+        model->setModel(filename, parameter);
         _scene->getRoot()->insertNode(model);
         forceLoadingNow();
         _scene->getRoot()->removeNode(model);
@@ -348,20 +371,16 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             groupNode->setName(groupName);
             _groupNode->insertNode(groupNode);
         }
+        else
+        {
+            groupNode = _groupNode;
+        }
 
         auto child = children.begin();
         while (child != children.end())
         {
             model->removeNode((*child));
-
-            if (groupNode != nullptr)
-            {
-                groupNode->insertNode((*child));
-            }
-            else
-            {
-                _groupNode->insertNode((*child));
-            }
+            groupNode->insertNode((*child));
             child++;
         }
 

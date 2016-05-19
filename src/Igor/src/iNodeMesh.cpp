@@ -40,6 +40,7 @@ namespace Igor
         setMesh(node->getMesh());
         setMeshBuffers(node->getMeshBuffers());
         setBoundingSphere(node->getBoundingSphere());
+        setKeepMesh(node->getKeepMesh());
 
         _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
         setTargetMaterial(node->getTargetMaterial());
@@ -85,6 +86,16 @@ namespace Igor
         return _mesh;
     }
 
+    void iNodeMesh::setKeepMesh(bool keepMesh)
+    {
+        _keepMesh = keepMesh;
+    }
+
+    bool iNodeMesh::getKeepMesh() const
+    {
+        return _keepMesh;
+    }
+
     void iNodeMesh::draw()
     {
         if (_meshBuffers == nullptr)
@@ -92,7 +103,11 @@ namespace Igor
             if (_mesh != nullptr)
             {
                 _meshBuffers = iRenderer::getInstance().createBuffers(_mesh);
-                _mesh = nullptr;
+
+                if (!_keepMesh)
+                {
+                    _mesh = nullptr;
+                }
             }
         }
 
@@ -111,6 +126,8 @@ namespace Igor
         if (_meshBuffers != nullptr)
         {
             setTransformationDirty();
+
+            con_assert(_keepMesh == false, "inconsitant data");
             _mesh = nullptr;
         }
     }

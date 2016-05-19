@@ -92,6 +92,8 @@ namespace Igor
         iaFile file(filename);
         if (iaDirectory::directoryIsAbsolute(file.getPath()))
         {
+            con_assert(node != nullptr, "zero pointer");
+
             if (node != nullptr)
             {
                 iModelDataIO* modelDataIO = getModelDataIO(formatIdentifier);
@@ -199,7 +201,7 @@ namespace Igor
         iaString hashKey;
 
         if (parameter != nullptr &&
-            parameter->_modelSourceType == iModelSourceType::Generated)
+            parameter->_modelSourceType != iModelSourceType::File)
         {
             hashKey = filename;
         }
