@@ -51,6 +51,7 @@ class UserControlMesh;
 class UserControlTransformation;
 class UserControlNode;
 class UserControlModel;
+class UserControlEmitter;
 
 iaEVENT(PropertiesChangedEvent, PropertiesChangedDelegate, void, (), ());
 iaEVENT(StructureChangedEvent, StructureChangedDelegate, void, (), ());
@@ -98,6 +99,9 @@ private:
     void initModel();
     void deinitModel();
 
+    void initEmitter();
+    void deinitEmitter();
+
     void onNodeNameChanged();
 
     uint32 _nodeID = 0;
@@ -112,6 +116,7 @@ private:
     UserControlLight* _userControlLight = nullptr;
     UserControlMesh* _userControlMesh = nullptr;
     UserControlModel* _userControlModel = nullptr;
+    UserControlEmitter* _userControlEmitter = nullptr;
     UserControlNode* _userControlNode = nullptr;
 
 };

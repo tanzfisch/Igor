@@ -141,6 +141,14 @@ void MenuDialog::initGUI()
     _deleteButton->setTexture("icons\\delete.png");
     _deleteButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onDelete));
 
+    _addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allwidgets.push_back(_addTransformationButton);
+    _addTransformationButton->setText("");
+    _addTransformationButton->setWidth(30);
+    _addTransformationButton->setHeight(30);
+    _addTransformationButton->setTexture("icons\\addTransformation.png");
+    _addTransformationButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddTransformation));
+
     _addModelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allwidgets.push_back(_addModelButton);
     _addModelButton->setText("");
@@ -149,13 +157,21 @@ void MenuDialog::initGUI()
     _addModelButton->setTexture("icons\\addModel.png");
     _addModelButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddModel));
 
-    _addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addTransformationButton);
-    _addTransformationButton->setText("");
-    _addTransformationButton->setWidth(30);
-    _addTransformationButton->setHeight(30);
-    _addTransformationButton->setTexture("icons\\addTransformation.png");
-    _addTransformationButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddTransformation));
+    _addGroupButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allwidgets.push_back(_addGroupButton);
+    _addGroupButton->setText("");
+    _addGroupButton->setWidth(30);
+    _addGroupButton->setHeight(30);
+    _addGroupButton->setTexture("icons\\addGroup.png");
+    _addGroupButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddGroup));
+
+    _addEmitterButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allwidgets.push_back(_addEmitterButton);
+    _addEmitterButton->setText("");
+    _addEmitterButton->setWidth(30);
+    _addEmitterButton->setHeight(30);
+    _addEmitterButton->setTexture("icons\\addEmitter.png");
+    _addEmitterButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddEmitter));
 
     _addSwitchButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allwidgets.push_back(_addSwitchButton);
@@ -165,13 +181,6 @@ void MenuDialog::initGUI()
     _addSwitchButton->setTexture("icons\\addSwitch.png");
     _addSwitchButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddSwitch));
 
-    _addGroupButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addGroupButton);
-    _addGroupButton->setText("");
-    _addGroupButton->setWidth(30);
-    _addGroupButton->setHeight(30);
-    _addGroupButton->setTexture("icons\\addGroup.png");
-    _addGroupButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddGroup));
 
     _userControlGraphView = new UserControlGraphView();
     _userControlGraphView->registerOnSelectionChange(SelectionChangeDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
@@ -192,10 +201,13 @@ void MenuDialog::initGUI()
     _gridButtons1->addWidget(_copyButton, 6, 0);
     _gridButtons1->addWidget(_spacer2, 7, 0);
     _gridButtons1->addWidget(_deleteButton, 8, 0);
-    _gridButtons2->addWidget(_addModelButton, 0, 0);
-    _gridButtons2->addWidget(_addTransformationButton, 1, 0);
+
+    _gridButtons2->addWidget(_addTransformationButton, 0, 0);
+    _gridButtons2->addWidget(_addGroupButton, 1, 0);
     _gridButtons2->addWidget(_addSwitchButton, 2, 0);
-    _gridButtons2->addWidget(_addGroupButton, 3, 0);
+    _gridButtons2->addWidget(_addModelButton, 3, 0);
+    _gridButtons2->addWidget(_addEmitterButton, 4, 0);
+    
     _grid->addWidget(_userControlGraphView->getWidget(), 0, 1);
     _grid->addWidget(_userControlProperties->getWidget(), 0, 2);
 }
@@ -264,6 +276,11 @@ void MenuDialog::onAddTransformation(iWidget* source)
 void MenuDialog::onAddGroup(iWidget* source)
 {
     _addGroup(_userControlGraphView->getSelectedNode());
+}
+
+void MenuDialog::onAddEmitter(iWidget* source)
+{
+    _addEmitter(_userControlGraphView->getSelectedNode());
 }
 
 void MenuDialog::onAddSwitch(iWidget* source)
@@ -462,6 +479,16 @@ void MenuDialog::registerOnAddGroup(AddGroupDelegate addGroupDelegate)
 void MenuDialog::unregisterOnAddGroup(AddGroupDelegate addGroupDelegate)
 {
     _addGroup.remove(addGroupDelegate);
+}
+
+void MenuDialog::registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
+{
+    _addEmitter.append(addEmitterDelegate);
+}
+
+void MenuDialog::unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
+{
+    _addEmitter.remove(addEmitterDelegate);
 }
 
 void MenuDialog::registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate)

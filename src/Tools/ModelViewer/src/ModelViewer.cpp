@@ -16,6 +16,7 @@ using namespace IgorAux;
 #include <iNodeCamera.h>
 #include <iNodeModel.h> 
 #include <iNodeSwitch.h>
+#include <iNodeEmitter.h>
 #include <iNodeTransform.h>
 #include <iRenderer.h>
 #include <iApplication.h>
@@ -232,6 +233,7 @@ void ModelViewer::onAddTransformation(uint32 atNodeID)
     }
 
     iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transform->setName("Transformation");
     destination->insertNode(transform);
     _menuDialog->updateGraph();
 }
@@ -246,7 +248,23 @@ void ModelViewer::onAddGroup(uint32 atNodeID)
     }
 
     iNode* group = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+    group->setName("Group");
     destination->insertNode(group);
+    _menuDialog->updateGraph();
+}
+
+void ModelViewer::onAddEmitter(uint32 atNodeID)
+{
+    iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
+
+    if (destination == nullptr)
+    {
+        destination = _groupNode;
+    }
+
+    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    emitter->setName("Emitter");
+    destination->insertNode(emitter);
     _menuDialog->updateGraph();
 }
 
@@ -260,6 +278,7 @@ void ModelViewer::onAddSwitch(uint32 atNodeID)
     }
 
     iNodeSwitch* switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
+    switchNode->setName("Switch");
     destination->insertNode(switchNode);
     _menuDialog->updateGraph();
 }
@@ -483,6 +502,7 @@ void ModelViewer::initGUI()
     _menuDialog->registerOnAddTransformation(AddTransformationDelegate(this, &ModelViewer::onAddTransformation));
     _menuDialog->registerOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
     _menuDialog->registerOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
+    _menuDialog->registerOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
 
     _fileDialog = new iFileDialog();
     _fileDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
@@ -505,6 +525,7 @@ void ModelViewer::deinitGUI()
         _menuDialog->unregisterOnAddTransformation(AddTransformationDelegate(this, &ModelViewer::onAddTransformation));
         _menuDialog->unregisterOnAddSwitch(AddSwitchDelegate(this, &ModelViewer::onAddSwitch));
         _menuDialog->unregisterOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
+        _menuDialog->unregisterOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
 
         delete _menuDialog;
         _menuDialog = nullptr;

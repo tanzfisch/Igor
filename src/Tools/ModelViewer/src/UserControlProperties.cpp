@@ -21,6 +21,7 @@ using namespace IgorAux;
 #include "UserControlMesh.h"
 #include "UserControlNode.h"
 #include "UserControlModel.h"
+#include "UserControlEmitter.h"
 
 UserControlProperties::UserControlProperties()
 {
@@ -119,6 +120,10 @@ void UserControlProperties::setNode(uint32 id)
         case iNodeType::iNodeModel:
             deinitModel();
             break;
+
+        case iNodeType::iNodeEmitter:
+            deinitEmitter();
+            break;
         }
 
         _currentNodeType = iNodeType::Undefined;
@@ -151,6 +156,10 @@ void UserControlProperties::setNode(uint32 id)
 
         case iNodeType::iNodeModel:
             initModel();
+            break;
+
+        case iNodeType::iNodeEmitter:
+            initEmitter();
             break;
 
         default:
@@ -212,6 +221,26 @@ void UserControlProperties::deinitModel()
 
         delete _userControlModel;
         _userControlModel = nullptr;
+    }
+}
+
+void UserControlProperties::initEmitter()
+{
+    con_assert(_userControlEmitter == nullptr, "mem allocation error");
+
+    _userControlEmitter = new UserControlEmitter();
+    _grid->addWidget(_userControlEmitter->getWidget(), 0, 1);
+    _userControlEmitter->setNode(_nodeID);
+}
+
+void UserControlProperties::deinitEmitter()
+{
+    if (_userControlEmitter != nullptr)
+    {
+        _grid->removeWidget(_userControlEmitter->getWidget());
+
+        delete _userControlEmitter;
+        _userControlEmitter = nullptr;
     }
 }
 

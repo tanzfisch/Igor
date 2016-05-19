@@ -57,6 +57,7 @@ iaEVENT(ExitModelViewer, ExitModelViewerDelegate, void, (), ());
 iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(AddGroup, AddGroupDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(AddSwitch, AddSwitchDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint32 nodeID), (nodeID));
 
 iaEVENT(CopyNode, CopyNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, void, (uint32 nodeID), (nodeID));
@@ -95,6 +96,9 @@ public:
     void registerOnAddGroup(AddGroupDelegate addGroupDelegate);
     void unregisterOnAddGroup(AddGroupDelegate addGroupDelegate);
 
+    void registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
+    void unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
+
     void registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
     void unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
 
@@ -116,6 +120,7 @@ private:
     ExitModelViewer _exitModelViewer;
     AddTransformation _addTransformation;
     AddGroup _addGroup;
+    AddEmitter _addEmitter;
     AddSwitch _addSwitch;
     CopyNode _copyNode;
     CutNode _cutNode;
@@ -141,6 +146,7 @@ private:
     iWidgetButton* _addSwitchButton = nullptr;
     iWidgetButton* _addTransformationButton = nullptr;
     iWidgetButton* _addGroupButton = nullptr;
+    iWidgetButton* _addEmitterButton = nullptr;
 
     vector<iWidget*> _allwidgets;
 
@@ -164,6 +170,7 @@ private:
     void onAddTransformation(iWidget* source);
     void onAddSwitch(iWidget* source);
     void onAddGroup(iWidget* source);
+    void onAddEmitter(iWidget* source);
 
     void onCopy(iWidget* source);
     void onPaste(iWidget* source);
