@@ -132,6 +132,10 @@ private:
     */
     bool _loading = true;
 
+    /*! measure some time
+    */
+    float64 _time = 0;
+
     /*! loading text material
     */
     int32 _materialWithTextureAndBlending = 0;

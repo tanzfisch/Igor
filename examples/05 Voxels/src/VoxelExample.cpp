@@ -262,6 +262,8 @@ void VoxelExample::generateVoxelData()
 
     // set loading flag to true so we can display the loading text on screen
     _loading = true;
+
+    _time = iTimer::getInstance().getTime();
 }
 
 void VoxelExample::init()
@@ -387,7 +389,11 @@ void VoxelExample::onHandle()
         if (voxelMeshModel != nullptr &&
             voxelMeshModel->isLoaded())
         {
-            _loading = false;
+            if (_loading)
+            {
+                _loading = false;
+                con_endl("generation time: " << iTimer::getInstance().getTime() - _time << "ms");
+            }
         }
     }
 }
