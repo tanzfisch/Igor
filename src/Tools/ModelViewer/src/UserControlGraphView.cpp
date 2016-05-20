@@ -140,7 +140,7 @@ void UserControlGraphView::OnSelectionChange(iWidget* widget)
     }
 
     _selectedNode = nodeID;
-    _selectionChange();
+    _selectionChange(_selectedNode);
 }
 
 uint32 UserControlGraphView::getSelectedNode()

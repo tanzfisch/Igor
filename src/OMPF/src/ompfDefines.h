@@ -62,7 +62,9 @@ enum class OMPFChunkTypes
     External = 0x04,
     ResourceSearchPath = 0x05,
     Mesh = 0x06,
-    Material = 0x07
+    Material = 0x07,
+    Emitter = 0x08,
+    ParticleSystem = 0x09
 };
 
 /*! ompf path types

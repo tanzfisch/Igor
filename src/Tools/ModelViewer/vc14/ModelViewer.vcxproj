@@ -175,6 +175,7 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\MenuDialog.cpp" />
     <ClCompile Include="..\src\ModelViewer.cpp" />
+    <ClCompile Include="..\src\PropertiesDialog.cpp" />
     <ClCompile Include="..\src\UserControlEmitter.cpp" />
     <ClCompile Include="..\src\UserControlGraphView.cpp" />
     <ClCompile Include="..\src\UserControlLight.cpp" />
@@ -188,6 +189,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\MenuDialog.h" />
     <ClInclude Include="..\src\ModelViewer.h" />
+    <ClInclude Include="..\src\PropertiesDialog.h" />
     <ClInclude Include="..\src\UserControlEmitter.h" />
     <ClInclude Include="..\src\UserControlGraphView.h" />
     <ClInclude Include="..\src\UserControlLight.h" />

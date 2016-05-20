@@ -116,7 +116,7 @@ namespace Igor
 
         /*! material id to render with
         */
-        uint32 _materialID = 0;
+        uint32 _materialID = iMaterial::INVALID_MATERIAL_ID;
 
 	};
 

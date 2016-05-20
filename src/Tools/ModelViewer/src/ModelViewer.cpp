@@ -40,6 +40,7 @@ using namespace IgorAux;
 using namespace Igor;
 
 #include "MenuDialog.h"
+#include "PropertiesDialog.h"
 
 ModelViewer::ModelViewer()
 {
@@ -215,6 +216,9 @@ void ModelViewer::init(iaString fileName)
     {
         _menuDialog->setActive();
         _menuDialog->setVisible();
+
+        _propertiesDialog->setActive();
+        _propertiesDialog->setVisible();
     }
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
@@ -435,6 +439,9 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
     _menuDialog->setActive();
     _menuDialog->setVisible();
     _menuDialog->updateGraph();
+
+    _propertiesDialog->setActive();
+    _propertiesDialog->setVisible();
 }
 
 void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
@@ -460,6 +467,9 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
     _menuDialog->setActive();
     _menuDialog->setVisible();
     _menuDialog->updateGraph();
+
+    _propertiesDialog->setActive();
+    _propertiesDialog->setVisible();
 }
 
 void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
@@ -499,6 +509,9 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
     _menuDialog->setActive();
     _menuDialog->setVisible();
     _menuDialog->updateGraph();
+
+    _propertiesDialog->setActive();
+    _propertiesDialog->setVisible();
 }
 
 void ModelViewer::initGUI()
@@ -526,12 +539,18 @@ void ModelViewer::initGUI()
     _fileDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
 
     _messageBox = new iMessageBox();
+
+    _propertiesDialog = new PropertiesDialog();
+
+    _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
 }
 
 void ModelViewer::deinitGUI()
 {
     if (_menuDialog != nullptr)
     {
+        _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+
         _menuDialog->unregisterOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
         _menuDialog->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
         _menuDialog->unregisterOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
@@ -547,6 +566,12 @@ void ModelViewer::deinitGUI()
 
         delete _menuDialog;
         _menuDialog = nullptr;
+    }
+
+    if (_propertiesDialog != nullptr)
+    {
+        delete _propertiesDialog;
+        _propertiesDialog = nullptr;
     }
 
     if (_fileDialog != nullptr)

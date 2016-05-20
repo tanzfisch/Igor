@@ -1445,18 +1445,6 @@
     <Filter Include="resources\material">
       <UniqueIdentifier>{638ae758-7383-4864-852e-b29ff69ccf82}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GUI">
-      <UniqueIdentifier>{b62dc271-c0f3-416d-970b-09c15311a96f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI\widgets">
-      <UniqueIdentifier>{63bf3126-5565-433e-9fd3-b112a8f7e2a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI\dialogs">
-      <UniqueIdentifier>{649c416c-f9bb-43d8-a399-9705d77e47dd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GUI\user controls">
-      <UniqueIdentifier>{2f0e59f2-09be-454c-bbc6-0c709a633d7e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="controls">
       <UniqueIdentifier>{461333aa-caa3-4cdd-a7d4-1daa80e74710}</UniqueIdentifier>
     </Filter>
@@ -1486,6 +1474,18 @@
     </Filter>
     <Filter Include="graphics\algorythms">
       <UniqueIdentifier>{2c949176-de8e-4a4e-9e9e-dc9b70155d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI">
+      <UniqueIdentifier>{b62dc271-c0f3-416d-970b-09c15311a96f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\widgets">
+      <UniqueIdentifier>{63bf3126-5565-433e-9fd3-b112a8f7e2a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\dialogs">
+      <UniqueIdentifier>{649c416c-f9bb-43d8-a399-9705d77e47dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GUI\user controls">
+      <UniqueIdentifier>{2f0e59f2-09be-454c-bbc6-0c709a633d7e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

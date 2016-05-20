@@ -52,7 +52,7 @@ namespace Igor
     class iWidgetGroupBox;
 }
 
-iaEVENT(SelectionChange, SelectionChangeDelegate, void, (), ());
+iaEVENT(SelectionChange, SelectionChangeDelegate, void, (uint32 nodeID), (nodeID));
 
 class UserControlGraphView : public iWidgetUserControl, public iNodeVisitor
 {

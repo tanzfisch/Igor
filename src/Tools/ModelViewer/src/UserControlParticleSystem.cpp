@@ -81,9 +81,68 @@ void UserControlParticleSystem::initGUI()
     _textSize->setActive(false);
     _textSize->setText("...");
 
-    _grid->addWidget(_labelType, 0, 0);
-    _grid->addWidget(_labelSize, 0, 1);
-    _grid->addWidget(_textSize, 1, 1);
+    _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(_gridButtons);
+    _gridButtons->appendCollumns(2);
+    _gridButtons->setBorder(2);
+    _gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _buttonStart = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_buttonStart);
+    _buttonStart->setText("Start");
+    _buttonStart->setWidth(85);
+    _buttonStart->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
+
+    _buttonStop = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_buttonStop);
+    _buttonStop->setText("Stop");
+    _buttonStop->setWidth(85);
+    _buttonStop->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
+
+    _buttonReset = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_buttonReset);
+    _buttonReset->setText("Reset");
+    _buttonReset->setWidth(85);
+    _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
+
+    _gridButtons->addWidget(_buttonStart, 0, 0);
+    _gridButtons->addWidget(_buttonStop, 1, 0);
+    _gridButtons->addWidget(_buttonReset, 2, 0);
+
+    _grid->addWidget(_gridButtons, 0, 0);
+    //_grid->addWidget(_labelSize, 0, 1);
+    //_grid->addWidget(_textSize, 1, 1);
+}
+
+void UserControlParticleSystem::onStart(iWidget* source)
+{
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+
+    if (node != nullptr)
+    {
+        node->start();
+    }
+}
+
+void UserControlParticleSystem::onStop(iWidget* source)
+{
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+
+    if (node != nullptr)
+    {
+        node->stop();
+    }
+}
+
+void UserControlParticleSystem::onReset(iWidget* source)
+{
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+
+    if (node != nullptr)
+    {
+        node->reset();
+    }
 }
 
 void UserControlParticleSystem::deinitGUI()
@@ -99,9 +158,14 @@ void UserControlParticleSystem::deinitGUI()
     _labelType = nullptr;
     _labelSize = nullptr;
     _textSize = nullptr;
+    _gridButtons = nullptr;
+    _buttonStart = nullptr;
+    _buttonStop = nullptr;
+    _buttonReset = nullptr;
 }
 
 iWidget* UserControlParticleSystem::getWidget()
 {
     return _grid;
 }
+

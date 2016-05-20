@@ -8,6 +8,9 @@
 #include <iMaterialGroup.h>
 #include <iScene.h>
 
+#include <iaConsole.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 	
@@ -31,6 +34,7 @@ namespace Igor
     {
 		setScene(nullptr);
 
+        // TODO bad design iRenderEngine should do that
         iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
         if (materialGroup != nullptr)
         {
@@ -77,7 +81,17 @@ namespace Igor
 	
     void iNodeRender::setMaterial(uint32 materialID)
 	{
-        _materialID = materialID;
+        if (_materialID != materialID)
+        {
+            // TODO bad design iRenderEngine should do that
+            iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
+            if (materialGroup != nullptr)
+            {
+                materialGroup->removeRenderNode(this);
+            }
+
+            _materialID = materialID;
+        }
 	}
 
 	uint32 iNodeRender::getMaterial()

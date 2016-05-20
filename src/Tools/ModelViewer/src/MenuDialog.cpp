@@ -39,9 +39,7 @@ void MenuDialog::initGUI()
     _messageBox = new iMessageBox();
 
     getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    getDialog()->setVerticalAlignment(iVerticalAlignment::Top);
-    getDialog()->setWidth(10);
-    getDialog()->setHeight(10);
+    getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allwidgets.push_back(_grid);
@@ -49,7 +47,7 @@ void MenuDialog::initGUI()
     _grid->setCellSpacing(8);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->appendRows(3);
+    _grid->appendRows(2);
     
     _gridButtons1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid)); 
     _allwidgets.push_back(_gridButtons1);
@@ -192,9 +190,6 @@ void MenuDialog::initGUI()
     _userControlGraphView = new UserControlGraphView();
     _userControlGraphView->registerOnSelectionChange(SelectionChangeDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
 
-    _userControlProperties = new UserControlProperties();
-    _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &MenuDialog::onStructureChanged));
-
     getDialog()->addWidget(_grid);
     _grid->addWidget(_gridButtons, 0, 0);
     _gridButtons->addWidget(_gridButtons1, 0, 0);
@@ -217,7 +212,6 @@ void MenuDialog::initGUI()
     _gridButtons2->addWidget(_addParticleSystemButton, 5, 0);
     
     _grid->addWidget(_userControlGraphView->getWidget(), 0, 1);
-    _grid->addWidget(_userControlProperties->getWidget(), 0, 2);
 }
 
 void MenuDialog::onStructureChanged()
@@ -227,7 +221,7 @@ void MenuDialog::onStructureChanged()
 
 void MenuDialog::onDelete(iWidget* source)
 {
-    _userControlProperties->setNode(iNode::INVALID_NODE_ID);
+    // TODO clear properties
 
     iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
     if (node != nullptr)
@@ -379,21 +373,14 @@ void MenuDialog::onCut(iWidget* source)
     }
 }
 
-void MenuDialog::onGraphViewSelectionChanged()
+void MenuDialog::onGraphViewSelectionChanged(uint32 nodeID)
 {
-    _userControlProperties->setNode(_userControlGraphView->getSelectedNode());
+    _graphSelectionChanged(nodeID);
 }
 
 void MenuDialog::deinitGUI()
 {
     getDialog()->removeWidget(_grid);
-
-    if (_userControlProperties != nullptr)
-    {
-        _userControlProperties->unregisterStructureChangedDelegate(StructureChangedDelegate(this, &MenuDialog::onStructureChanged));
-        delete _userControlProperties;
-        _userControlProperties = nullptr;
-    }
 
     _loadButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onLoadFile));
     _saveButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onSaveFile));
@@ -425,8 +412,8 @@ void MenuDialog::setRootNode(iNode* root)
 
 void MenuDialog::updateGraph()
 {
-    _userControlProperties->clear();
     _userControlGraphView->updateGraph();
+    // todo clear properties
 }
 
 void MenuDialog::onLoadFile(iWidget* source)
@@ -462,6 +449,16 @@ void MenuDialog::registerOnPasteNode(PasteNodeDelegate pasteNodeDelegate)
 void MenuDialog::unregisterOnPasteNode(PasteNodeDelegate pasteNodeDelegate)
 {
     _pasteNode.remove(pasteNodeDelegate);
+}
+
+void MenuDialog::registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
+{
+    _graphSelectionChanged.append(graphSelectionChangedDelegate);
+}
+
+void MenuDialog::unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate)
+{
+    _graphSelectionChanged.remove(graphSelectionChangedDelegate);
 }
 
 void MenuDialog::registerOnCutNode(CutNodeDelegate cutNodeDelegate)

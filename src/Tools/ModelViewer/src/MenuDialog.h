@@ -33,7 +33,6 @@
 using namespace Igor;
 
 #include "UserControlGraphView.h"
-#include "UserControlProperties.h"
 
 namespace Igor
 {
@@ -63,6 +62,8 @@ iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint32 nodeID), (no
 iaEVENT(CopyNode, CopyNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(CutNode, CutNodeDelegate, void, (uint32 nodeID), (nodeID));
+
+iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, void, (uint32 nodeID), (nodeID));
 
 /*! menu dialog
 */
@@ -115,6 +116,9 @@ public:
     void registerOnCutNode(CutNodeDelegate cutNodeDelegate);
     void unregisterOnCutNode(CutNodeDelegate cutNodeDelegate);
 
+    void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
+    void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
+
 private:
 
     LoadFile _loadFile;
@@ -130,6 +134,7 @@ private:
     CopyNode _copyNode;
     CutNode _cutNode;
     PasteNode _pasteNode;
+    GraphSelectionChanged _graphSelectionChanged;
 
     iMessageBox* _messageBox = nullptr;
     iDecisionBox* _decisionBoxModelRef = nullptr;
@@ -157,7 +162,6 @@ private:
     vector<iWidget*> _allwidgets;
 
     UserControlGraphView* _userControlGraphView = nullptr;
-    UserControlProperties* _userControlProperties = nullptr;
 
     uint32 _copiedNodeID = 0;
     uint32 _cutNodeID = 0;
@@ -183,7 +187,7 @@ private:
     void onPaste(iWidget* source);
     void onCut(iWidget* source);
 
-    void onGraphViewSelectionChanged();
+    void onGraphViewSelectionChanged(uint32 nodeID);
     void onStructureChanged();
 
 };

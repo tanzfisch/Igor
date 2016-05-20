@@ -478,6 +478,8 @@ namespace Igor
 
     void iWidget::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
     {
+        con_assert(horrizontalAlignment != iHorrizontalAlignment::Strech, "Strech alignment currently only supported for dialogs");
+
         _horrizontalAlignment = horrizontalAlignment;
         update();
     }
@@ -489,6 +491,8 @@ namespace Igor
 
     void iWidget::setVerticalAlignment(iVerticalAlignment verticalAlignment)
     {
+        con_assert(verticalAlignment != iVerticalAlignment::Strech, "Strech alignment currently only supported for dialogs");
+
         _verticalAlignment = verticalAlignment;
         update();
     }
@@ -526,6 +530,7 @@ namespace Igor
         switch (_horrizontalAlignment)
         {
         case iHorrizontalAlignment::Left:
+        case iHorrizontalAlignment::Strech:
             _posx = 0;
             break;
 
@@ -545,6 +550,7 @@ namespace Igor
         switch (_verticalAlignment)
         {
         case iVerticalAlignment::Top:
+        case iVerticalAlignment::Strech:
             _posy = 0;
             break;
 

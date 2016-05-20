@@ -33,7 +33,7 @@ namespace Igor
 
     void iWidgetDialog::update()
     {
-        if(!_widgets.empty())
+        if (!_widgets.empty())
         {
             iWidget* widget = _widgets[0];
             if (widget->getWidth() + _border * 2 > _width)
@@ -46,16 +46,19 @@ namespace Igor
                 _height = widget->getHeight() + _border * 2;
             }
         }
-    }
-
-    void iWidgetDialog::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
-    {
-        iWidget::setHorrizontalAlignment(horrizontalAlignment);
 
         switch (iWidget::getHorrizontalAlignment())
         {
         case iHorrizontalAlignment::Left:
             _posx = 0;
+            break;
+
+        case iHorrizontalAlignment::Strech:
+            _posx = 0;
+            if (iWidgetManager::getInstance().getDesktopWidth() > _width)
+            {
+                _width = iWidgetManager::getInstance().getDesktopWidth();
+            }
             break;
 
         case iHorrizontalAlignment::Center:
@@ -73,17 +76,18 @@ namespace Igor
         default:;
         };
 
-        update();
-    }
-
-    void iWidgetDialog::setVerticalAlignment(iVerticalAlignment verticalAlignment)
-    {
-        iWidget::setVerticalAlignment(verticalAlignment);
-
         switch (iWidget::getVerticalAlignment())
         {
         case iVerticalAlignment::Top:
             _posy = 0;
+            break;
+
+        case iVerticalAlignment::Strech:
+            _posy = 0;
+            if (iWidgetManager::getInstance().getDesktopHeight() > _height)
+            {
+                _height = iWidgetManager::getInstance().getDesktopHeight();
+            }
             break;
 
         case iVerticalAlignment::Center:
@@ -100,6 +104,18 @@ namespace Igor
 
         default:;
         };
+    }
+
+    void iWidgetDialog::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
+    {
+        _horrizontalAlignment = horrizontalAlignment;
+        
+        update();
+    }
+
+    void iWidgetDialog::setVerticalAlignment(iVerticalAlignment verticalAlignment)
+    {
+        _verticalAlignment = verticalAlignment;
 
         update();
     }

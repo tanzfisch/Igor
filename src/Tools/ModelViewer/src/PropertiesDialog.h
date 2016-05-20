@@ -26,64 +26,53 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __USERCONTROLPARTICLESYSTEM__
-#define __USERCONTROLPARTICLESYSTEM__
+#ifndef __PROPERTIESDIALOG__
+#define __PROPERTIESDIALOG__
 
-#include <iNodeModel.h>
-#include <iWidgetUserControl.h>
+#include <iWidgetUserDialog.h>
 using namespace Igor;
+
+#include "UserControlProperties.h"
 
 namespace Igor
 {
+    class iNode;
+    class iWidgetDialog;
     class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
+    class iWidgetScroll;
     class iWidgetButton;
-    class iUserControlColorChooser;
-    class iWidgetSlider;
-    class iWidgetNumberChooser;
+    class iWidgetGroupBox;
+    class iWidgetSpacer;
+    class iMessageBox;
+    class iDecisionBox;
 }
 
-class UserControlParticleSystem : public iWidgetUserControl
+/*! menu dialog
+*/
+class PropertiesDialog : public iWidgetUserDialog
 {
 public:
 
-    UserControlParticleSystem();
-    ~UserControlParticleSystem();
+    PropertiesDialog();
+    ~PropertiesDialog();
 
-    iWidget* getWidget();
-
-    void setNode(uint32 id);
-    uint32 getNode();
+    void onGraphViewSelectionChanged(uint32 nodeID);
 
 private:
 
     iWidgetGrid* _grid = nullptr;
-    iWidgetGrid* _gridButtons = nullptr;
 
-    iWidgetLabel* _labelType = nullptr;
-    iWidgetLabel* _labelSize = nullptr;
-    //iWidgetTextEdit* _textType = nullptr;
-    iWidgetTextEdit* _textSize = nullptr;
+    vector<iWidget*> _allwidgets;
 
-    iWidgetButton* _buttonStart = nullptr;
-    iWidgetButton* _buttonStop = nullptr;
-    iWidgetButton* _buttonReset = nullptr;
-
-    vector<iWidget*> _allWidgets;
-
-    uint32 _nodeId = 0;
-
-    void onStart(iWidget* source);
-    void onStop(iWidget* source);
-    void onReset(iWidget* source);
-
-    void updateGUI();
-    void updateNode();
+    UserControlProperties* _userControlProperties = nullptr;
 
     void initGUI();
     void deinitGUI();
+    
+    void onStructureChanged();
 
 };
 
+
 #endif
+

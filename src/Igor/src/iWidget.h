@@ -49,6 +49,7 @@ namespace Igor
 		Center,
 		Right,
         Absolut,
+        Strech, // currently only supported by dialogs
 		Undefined
 	};
 
@@ -60,6 +61,7 @@ namespace Igor
 		Center,
 		Bottom,
         Absolut,
+        Strech, // currently only supported by dialogs
 		Undefined
 	};
 
