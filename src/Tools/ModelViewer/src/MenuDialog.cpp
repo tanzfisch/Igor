@@ -221,7 +221,7 @@ void MenuDialog::onStructureChanged()
 
 void MenuDialog::onDelete(iWidget* source)
 {
-    // TODO clear properties
+	_graphSelectionChanged(iNode::INVALID_NODE_ID);
 
     iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
     if (node != nullptr)

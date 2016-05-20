@@ -541,16 +541,22 @@ void ModelViewer::initGUI()
     _messageBox = new iMessageBox();
 
     _propertiesDialog = new PropertiesDialog();
+	_propertiesDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
+	_propertiesDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
 
     _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
 }
 
 void ModelViewer::deinitGUI()
 {
+	if (_menuDialog != nullptr &&
+		_propertiesDialog != nullptr)
+	{
+		_menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+	}
+
     if (_menuDialog != nullptr)
     {
-        _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-
         _menuDialog->unregisterOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
         _menuDialog->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
         _menuDialog->unregisterOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
@@ -570,6 +576,9 @@ void ModelViewer::deinitGUI()
 
     if (_propertiesDialog != nullptr)
     {
+		_propertiesDialog->unregisterOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
+		_propertiesDialog->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
+
         delete _propertiesDialog;
         _propertiesDialog = nullptr;
     }
