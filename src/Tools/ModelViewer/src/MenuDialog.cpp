@@ -45,8 +45,8 @@ void MenuDialog::initGUI()
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _grid->setVerticalAlignment(iVerticalAlignment::Top);
+    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _grid->setVerticalAlignment(iVerticalAlignment::Strech);
     _grid->appendRows(2);
     
     _gridButtons1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid)); 

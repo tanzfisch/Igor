@@ -250,7 +250,7 @@ namespace Igor
 
         for( auto dialog : _dialogs)
 		{
-            dialog->draw();
+            dialog->draw(0, 0);
 		}
 	}
 

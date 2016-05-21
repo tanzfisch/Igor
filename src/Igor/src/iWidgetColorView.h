@@ -55,9 +55,13 @@ namespace Igor
 
 	public:
 
-        void setWidth(int32 width);
-        void setHeight(int32 height);
+		/*! sets color
+		\param color color value in rgba
+		*/
         void setColor(const iaColor4f& color);
+
+		/*! \returns current color value
+		*/
         const iaColor4f& getColor() const;
 
 	private:
@@ -72,9 +76,12 @@ namespace Igor
 
         void update();
 
-        /*! draws widget
-        */
-        void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
         /*! ctor initializes member variables
         */

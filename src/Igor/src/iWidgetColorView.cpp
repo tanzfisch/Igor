@@ -18,6 +18,9 @@ namespace Igor
 	iWidgetColorView::iWidgetColorView()
 		: iWidget(iWidgetType::Label)
 	{
+		_configuredWidth = 60;
+		_configuredHeight = 20;
+
 		setHorrizontalAlignment(iHorrizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
 
@@ -28,18 +31,6 @@ namespace Igor
     iWidgetColorView::~iWidgetColorView()
     {
         _texture = nullptr;
-    }
-
-    void iWidgetColorView::setWidth(int32 width)
-    {
-        _width = width;
-        update();
-    }
-
-    void iWidgetColorView::setHeight(int32 height)
-    {
-        _height = height;
-        update();
     }
 
     void iWidgetColorView::setColor(const iaColor4f& color)
@@ -54,23 +45,25 @@ namespace Igor
 
 	void iWidgetColorView::update()
 	{
-		updateParent();
+		iWidget::update(_configuredWidth, _configuredHeight);
 	}
 
-	void iWidgetColorView::draw()
+	void iWidgetColorView::draw(int32 parentPosX, int32 parentPosY)
 	{
+		updatePosition(parentPosX, parentPosY);
+
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(_posx, _posy, _width, _height, _texture);
+			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture);
 
-            int32 halfWidth = static_cast<int32>((static_cast<float64>(_width) / 2.0) + 0.5);
+            int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
 
-            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(_posx, _posy, halfWidth, _height, _color);
+            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX(), getActualPosY(), halfWidth, getActualHeight(), _color);
             iaColor4f colorNoAlpha = _color;
             colorNoAlpha._a = 1.0f;
-            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(_posx + halfWidth, _posy, halfWidth, _height, colorNoAlpha);
+            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight(), colorNoAlpha);
 
-            iWidgetManager::getInstance().getTheme()->drawRectangle(_posx, _posy, _width, _height);
+            iWidgetManager::getInstance().getTheme()->drawRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
 		}
 	}
 

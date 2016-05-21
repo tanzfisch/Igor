@@ -14,13 +14,11 @@ namespace Igor
 	iWidgetTextEdit::iWidgetTextEdit()
 		: iWidget(iWidgetType::TextEdit)
 	{
-		_width = 80;
-		_height = 20;
 	}
 
 	void iWidgetTextEdit::update()
 	{
-		updateParent();
+		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
 	}
 
     void iWidgetTextEdit::setWriteProtected(bool writeProtected)
@@ -96,23 +94,13 @@ namespace Igor
 		_verticalTextAlignment = valign;
 	}
 
-	void iWidgetTextEdit::setWidth(int32 width)
+	void iWidgetTextEdit::draw(int32 parentPosX, int32 parentPosY)
 	{
-		_width = width;
-		update();
-	}
+		updatePosition(parentPosX, parentPosY);
 
-	void iWidgetTextEdit::setHeight(int32 height)
-	{
-		_height = height;
-		update();
-	}
-
-	void iWidgetTextEdit::draw()
-	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(_posx, _posy, _width, _height, _text, _horrizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horrizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
 		}
 	}
 

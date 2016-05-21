@@ -125,14 +125,24 @@ namespace Igor
         */
 		friend class iWidgetManager;
 
-		friend class iWidgetDialog; // todo why can't we access protected members of iWidget there?
-		friend class iWidgetGroupBox;
+		/*! has to be friend so it can manipulate actual size and position
+
+		\todo maybe design problem
+		*/
+		friend class iWidgetDialog; 
+
+		/*! has to be friend so it can fake actual size and position for it's children
+		*/
 		friend class iWidgetGrid;
+
+		/*! has to be friend so it can fake actual size and position for it's children
+		*/
+		friend class iWidgetScroll;
+
+		friend class iWidgetGroupBox;
+		
 		friend class iWidgetCheckBox;
 		friend class iWidgetNumberChooser;
-		friend class iWidgetScroll;
-        friend class iWidgetButton;
-        friend class iWidgetSpacer;
         friend class iWidgetPicture;
         friend class iWidgetTextEdit;
         friend class iWidgetSlider;
@@ -257,19 +267,58 @@ namespace Igor
 
         /*! \returns actual width
         */
-        __IGOR_INLINE__ int32 getWidth();
+        __IGOR_INLINE__ int32 getActualWidth() const;
 
         /*! \returns actual height
         */
-        __IGOR_INLINE__ int32 getHeight();
+        __IGOR_INLINE__ int32 getActualHeight() const;
+
+		/*! \returns actual absolute horizontal position
+		*/
+		__IGOR_INLINE__ int32 getActualPosX() const;
+
+		/*! \returns actual absolute vertical position
+		*/
+		__IGOR_INLINE__ int32 getActualPosY() const;
+
+		/*! \returns actual relative horizontal position
+		*/
+		__IGOR_INLINE__ int32 getRelativePosX() const;
+
+		/*! \returns actual relative vertical position
+		*/
+		__IGOR_INLINE__ int32 getRelativePosY() const;
+
+		/*! \returns actual width
+		*/
+		__IGOR_INLINE__ int32 getConfiguredWidth() const;
+
+		/*! \returns actual height
+		*/
+		__IGOR_INLINE__ int32 getConfiguredHeight() const;
+
+		/*! sets the configured width
+
+		\param width configured width
+		*/
+		void setWidth(int32 width);
+
+		/*! sets the configured height
+
+		\param width configured height
+		*/
+		void setHeight(int32 height);
 
         /*! \returns type of widget
         */
         __IGOR_INLINE__ iWidgetType getType() const;
 
-        /*! draws the widget on screen
-        */
-		virtual void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		virtual void draw(int32 parentPosX, int32 parentPosY);
 
         /*! \returns horrizontal alignment relative to parent widget
         */
@@ -283,13 +332,13 @@ namespace Igor
 
         \param horrizontalAlignment the horrizontal alignment
         */
-        virtual void setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment);
+        void setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment);
 
         /*! set vertical alignment relative to parent widget
 
         \param verticalAlignment the horrizontal vertical
         */
-        virtual void setVerticalAlignment(iVerticalAlignment verticalAlignment);
+        void setVerticalAlignment(iVerticalAlignment verticalAlignment);
 
         /*! set this widget exclusively modal
         */
@@ -369,33 +418,39 @@ namespace Igor
         */
         virtual void removeWidget(uint64 id);
 
+		/*! \returns true if has parent
+		*/
+		bool hasParent() const;
+
+		/*! sets the grow by content flag
+
+		\param grow if true the widget will grow if it's content is bigger than the configured size
+		*/
+		void setGrowingByContent(bool grow = true);
+
+		/*! \returns if the widget grows by content
+		*/
+		bool isGrowingByContent() const;
+
 	protected:
 
-        vector<iWidget*> _widgets;
+        vector<iWidget*> _children;
 
         /*! flag if widget accepts drop
         */
-        bool _acceptDrop = false;
+        bool _acceptDrop = false;		
 
         /*! true: if currently mouse is over widget
         */
         bool _isMouseOver = false;
 
-        /*! width of the widget
-        */
-		int32 _width = 100;
+		/*! configured width of the widget
+		*/
+		int32 _configuredWidth = 100;
 
-        /*! height of the widget
-        */
-		int32 _height = 20;
-
-        /*! horrizontal position of the widget relative to parent
-        */
-		int32 _posx = 0;
-
-        /*! vertical position of the widget relative to parent
-        */
-        int32 _posy = 0;
+		/*! configured height of the widget
+		*/
+		int32 _configuredHeight = 20;
 
         /*! click event
         */
@@ -429,6 +484,10 @@ namespace Igor
         */
         iWheelDownEvent _wheelDown;
 
+		/*! updates horrizontal ans vertical alignment relative to parent
+		*/
+		void updateAlignment();
+
         /*! handles incomming mouse wheel event
 
         \param d mouse wheel delta
@@ -440,7 +499,7 @@ namespace Igor
 
         \param key the key that was pressed
         \returns true: if event was consumed and therefore ignored by the parent
-        */
+        */ 
         virtual bool handleMouseKeyDown(iKeyCode key);
 
         /*! handles incomming double click
@@ -480,11 +539,18 @@ namespace Igor
 
         /*! updates the widget
         */
-		virtual void update() = 0;
+		void update(int32 width, int32 height);
 
-        /*! updates the widget parent
-        */
-		void updateParent();
+		/*! updates the absolute position
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void updatePosition(int32 parentPosX, int32 parentPosY);
+
+		/*! individual update of deriving widgets
+		*/
+		virtual void update() = 0;
 
         /*! set parent of widget
 
@@ -500,15 +566,6 @@ namespace Igor
         */
         void resetKeyboardFocus();
 
-        /*! calculates absolute position and size based on parent position and size
-
-        \param parentPosX horrizontal position of parent
-        \param parentPosY vertical position of parent
-        \param parentWidth width of parent
-        \param parentHeight height of parent
-        */
-        void calcPosition(int32 parentPosX, int32 parentPosY, int32 parentWidth, int32 parentHeight);
-
 		/*! initializes members
 
 		\param widgetType the tpe of the widget created
@@ -520,6 +577,34 @@ namespace Igor
 		virtual ~iWidget();
 
 	private:
+
+		/*! actual (or rendered) width of the widget
+		*/
+		int32 _actualWidth = 0;
+
+		/*! actual (or rendered) height of the widget
+		*/
+		int32 _actualHeight = 0;
+
+		/*! horrizontal position of the widget relative to parent
+		*/
+		int32 _relativeX = 0;
+
+		/*! vertical position of the widget relative to parent
+		*/
+		int32 _relativeY = 0;
+
+		/*! absolute horrizontal position of the widget
+		*/
+		int32 _absoluteX = 0;
+
+		/*! absolute vertical position of the widget
+		*/
+		int32 _absoluteY = 0;
+
+		/*! grow by content flag
+		*/
+		bool _growsByContent = true;
 
         /*! here you get the next id from
         */
@@ -564,6 +649,10 @@ namespace Igor
         /*! modal marker
         */
         static iWidget* _modal;
+
+		/*! updates the widget's parent
+		*/
+		void updateParent();
 
 	};
 

@@ -52,18 +52,6 @@ namespace Igor
 
 	public:
 
-        /*! sets scroll widget width
-
-        \param width the width
-        */
-		void setWidth(int32 width);
-
-        /*! sets scroll widget height
-
-        \param height the height
-        */
-        void setHeight(int32 height);
-
         /*! sets the width or thikness of the scrollbars
         */
 		void setScollbarWidth(int32 width);
@@ -138,9 +126,12 @@ namespace Igor
         */
 		void update();
 
-        /*! draws the widget
-        */
-		void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
         /*! calculates the translation of the child widget
         */

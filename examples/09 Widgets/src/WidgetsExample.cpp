@@ -48,7 +48,7 @@ void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
 
 void WidgetsExample::init()
 {
-    con(" -- OpenGL 3D Test --" << endl);
+    con(" -- Widget Example --" << endl);
 
     _viewOrtho.setClearColor(true);
     _viewOrtho.setClearDepth(true);
@@ -79,29 +79,110 @@ void WidgetsExample::initGUI()
 	iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
 	_dialog1 = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createWidget(iWidgetType::Dialog));
-    _dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Center);
+	_allWidgets.push_back(_dialog1);
+    _dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _dialog1->setVerticalAlignment(iVerticalAlignment::Center);
     _dialog1->setWidth(100);
-    _dialog1->setHeight(100);
+    _dialog1->setHeight(200);
     _dialog1->setActive();
     _dialog1->setVisible();
 
-	_grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _grid1->appendCollumns(2);
-    _grid1->appendRows(2);
-    _grid1->setSelectMode(iSelectionMode::NoSelection);
+	_groupBox1 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+	_allWidgets.push_back(_groupBox1);
+	_groupBox1->setText("Hello World!");
+	_groupBox1->setWidth(300);
+	_groupBox1->setHorrizontalAlignment(iHorrizontalAlignment::Center);
+	_groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
+
+	_groupBox2 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+	_allWidgets.push_back(_groupBox2);
+	_groupBox2->setText("2nd Group Box");
+	_groupBox2->setWidth(300);
+	_groupBox2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_groupBox2->setVerticalAlignment(iVerticalAlignment::Top);
 
 	_widgetScoll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
-	_widgetScoll->setWidth(200);
+	_allWidgets.push_back(_groupBox1);
+	_widgetScoll->setWidth(100);
 	_widgetScoll->setHeight(400);
-    _grid1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _grid1->setVerticalAlignment(iVerticalAlignment::Top);
-	_widgetScoll->addWidget(_grid1);
+
+	_grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+	_allWidgets.push_back(_grid1);
+	_grid1->appendCollumns(2);
+	_grid1->appendRows(2);
+	_grid1->setCellSpacing(10);
+	_grid1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_grid1->setVerticalAlignment(iVerticalAlignment::Top);
+	_grid1->setSelectMode(iSelectionMode::NoSelection);
 
 	_label1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-	_label1->setText("foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla ");
-	_label1->setMaxTextWidth(150);
-	_grid1->addWidget(_label1, 0, 0);
+	_allWidgets.push_back(_label1);
+	_label1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_label1->setVerticalAlignment(iVerticalAlignment::Top);
+	_label1->setText("foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla ");
+	_label1->setMaxTextWidth(200);
+
+	_label2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+	_allWidgets.push_back(_label2);
+	_label2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_label2->setVerticalAlignment(iVerticalAlignment::Top);
+	_label2->setText("foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla foobar blub bla ");
+	_label2->setMaxTextWidth(200);
+
+	_label3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+	_allWidgets.push_back(_label3);
+	_label3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_label3->setVerticalAlignment(iVerticalAlignment::Top);
+	_label3->setText("this label is supposed to apper in the lower right this label is supposed to apper in the lower right this label is supposed to apper in the lower right this label is supposed to apper in the lower right ");
+	_label3->setMaxTextWidth(200);
+
+	_grid2 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+	_allWidgets.push_back(_grid2);
+	_grid2->appendCollumns(1);
+	_grid2->appendRows(1);
+	_grid2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_grid2->setVerticalAlignment(iVerticalAlignment::Top);
+	_grid2->setSelectMode(iSelectionMode::NoSelection);
+
+	_labelNum1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+	_allWidgets.push_back(_labelNum1);
+	_labelNum1->setText("0, 0");
+
+	_labelNum2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+	_allWidgets.push_back(_labelNum2);
+	_labelNum2->setText("1, 0");
+
+	_labelNum3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+	_allWidgets.push_back(_labelNum3);
+	_labelNum3->setText("0, 1");
+
+	_labelNum4 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+	_allWidgets.push_back(_labelNum4);
+	_labelNum4->setText("1, 1");
+
+	_dialog1->addWidget(_groupBox1);
+	_groupBox1->addWidget(_grid1);
+	
+	//_grid1->addWidget(_label1, 0, 0);
+	_grid1->addWidget(_grid2, 1, 1);
+	_grid1->addWidget(_groupBox2, 1, 2);
+	_grid1->addWidget(_widgetScoll, 0, 1);
+
+	/*_grid2->addWidget(_labelNum1, 0, 0);
+	_grid2->addWidget(_labelNum2, 1, 0);
+	_grid2->addWidget(_labelNum3, 0, 1);
+	_grid2->addWidget(_labelNum4, 1, 1);*/
+
+	_groupBox2->addWidget(_label3);
+
+	//_widgetScoll->addWidget(_label2);
+
+/*	
+
+
+
+
+
 
 	_label2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
 	_label2->setText("foobar2");
@@ -159,15 +240,12 @@ void WidgetsExample::initGUI()
 
 	_grid1->addWidget(_grid2, 2, 0);
 
-	_groupBox1 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
-	_groupBox1->setText("HALLO WELT");
-	_dialog1->addWidget(_groupBox1);
 	//_groupBox1->addWidget(_grid1);
 	_groupBox1->addWidget(_widgetScoll);
 
     _picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
     _picture->setTexture("OpenGL-Logo.jpg");
-    _grid1->addWidget(_picture, 1, 2);
+    _grid1->addWidget(_picture, 1, 2);*/
 
     _messageBox = new iMessageBox();
 }
@@ -179,23 +257,10 @@ void WidgetsExample::deinitGUI()
 		delete _widgetDefaultTheme;
 	}
 
-	iWidgetManager::getInstance().destroyWidget(_dialog1);
-	iWidgetManager::getInstance().destroyWidget(_label1);
-	iWidgetManager::getInstance().destroyWidget(_label2);
-	iWidgetManager::getInstance().destroyWidget(_button1);
-	iWidgetManager::getInstance().destroyWidget(_button2);
-	iWidgetManager::getInstance().destroyWidget(_groupBox1);
-
-	iWidgetManager::getInstance().destroyWidget(_grid1);
-	iWidgetManager::getInstance().destroyWidget(_grid2);
-	iWidgetManager::getInstance().destroyWidget(_radio1);
-	iWidgetManager::getInstance().destroyWidget(_radio2);
-	iWidgetManager::getInstance().destroyWidget(_radio3);
-	iWidgetManager::getInstance().destroyWidget(_checkBox1);
-	iWidgetManager::getInstance().destroyWidget(_numberChooser);
-	iWidgetManager::getInstance().destroyWidget(_textEdit);
-    iWidgetManager::getInstance().destroyWidget(_picture);
-	iWidgetManager::getInstance().destroyWidget(_widgetScoll);
+	for (auto widget : _allWidgets)
+	{
+		iWidgetManager::getInstance().destroyWidget(widget);
+	}
 
     if (_messageBox != nullptr)
     {

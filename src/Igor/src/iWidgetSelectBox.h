@@ -26,87 +26,93 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iWIDGETDIALOG__
-#define __iWIDGETDIALOG__
+#ifndef __iWIDGETSELECTBOX__
+#define __iWIDGETSELECTBOX__
 
 #include <iWidget.h>
 
 namespace Igor
 {
 
-    class iWidgetUserControl;
+	class iTextureFont;
+	class iWidgetManager;
 
-    /*! dialog widget
+	/*!
+
+	\todo replace stringstream
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
-    */
-    class Igor_API iWidgetDialog : public iWidget
-    {
+	*/
+	class Igor_API iWidgetSelectBox : public iWidget
+	{
 
         /*! needs to be friend because it's the factory that creates this widget
         */
         friend class iWidgetManager;
 
-    public:
+	public:
+		
+        void setWidth(int32 width);
+        
+		void setHeight(int32 height);
 
-        /*! set horrizontal position of dialog and horrizontal alignment to absolute
+		void setSelectedKey(uint32 key);
+		void setSelectedValue(const iaString& value);
 
-        \param x horrizontal position
+		uint32 getSelectedKey() const;
+		iaString getSelectedValue() const;
+
+	private:
+
+        iWidgetAppearanceState _appearanceState = iWidgetAppearanceState::Standby;
+
+        /*! handles incomming mouse wheel event
+
+        \param d mouse wheel delta
+        \returns true: if event was consumed and therefore ignored by the parent
         */
-        void setX(int32 x);
+        bool handleMouseWheel(int32 d);
 
-        /*! set vertical position of dialog and vertical alignment to absolute
+        /*! handles incomming mouse key down events
 
-        \param y vertical position
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore will be ignored by the parent
         */
-        void setY(int32 y);
+        bool handleMouseKeyDown(iKeyCode key);
 
-        /*! set size of border
+        /*! handles mouse key up events
 
-        \param border border size
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore will be ignored by the parent
         */
-        void setBorder(int32 border);
+        bool handleMouseKeyUp(iKeyCode key);
 
-        /*! \retruns border size
+        /*! handles incomming mouse move events
+
+        \param x horrizontal mouse position
+        \param y horrizontal mouse position
         */
-        int32 getBorder();
+        void handleMouseMove(int32 x, int32 y);
 
-    private:
-
-        /*! horrizontal position relative to parent if horrizontal alignment is absolute
+        /*! updates widget
         */
-        int32 _offsetX = 0;
+		void update();
 
-        /*! vertical position relative to parent if horrizontal alignment is absolute
+        /*! renders widget
         */
-        int32 _offsetY = 0;
+        void draw();
 
-        /*! size of border
+        /*! ctro initializes member variables
         */
-        int32 _border = 1;
+		iWidgetSelectBox();
 
-        /*! update the widget
+        /*! does nothing
         */
-        void update();
-
-		/*! draws the button
-
-		\param parentPosX parent absolute horrizontal position
-		\param parentPosY parent absolute vertical position
-		*/
-		void draw(int32 parentPosX, int32 parentPosY);
-
-        /*! ctor initializes member variables and registers mouse events
-        */
-        iWidgetDialog();
-
-        /*! dtor unregisters mouse events
-        */
-        virtual ~iWidgetDialog();
-
-    };
+		virtual ~iWidgetSelectBox() = default;
+	};
 }
 
 #endif
+

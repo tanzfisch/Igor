@@ -101,9 +101,12 @@ namespace Igor
         */
         void update();
 
-        /*! draws widget
-        */
-        void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
         /*! ctor initializes member variables
         */

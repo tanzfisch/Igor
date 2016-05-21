@@ -268,11 +268,7 @@ namespace Igor
         /*! mode of selection
         */
         iSelectionMode _selectMode = iSelectionMode::NoSelection;
-
-        /*! recalculates widht and height of this widget depending on all the children
-        */
-        void recalcWidthHeight();
-
+		
         /*! handles incomming mouse wheel event
 
         \param d mouse wheel delta
@@ -312,9 +308,12 @@ namespace Igor
         */
         void update();
 
-        /*! draw grid widget ant it's children
-        */
-        void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
         /*! initializes an empty grid with default size of one row and collumn
         */

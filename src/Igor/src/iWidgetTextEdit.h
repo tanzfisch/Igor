@@ -49,18 +49,6 @@ namespace Igor
 
 	public:
 
-        /*! stes width of widget
-
-        \param width new width of widget
-        */
-		void setWidth(int32 width);
-
-        /*! stes height of widget
-
-        \param height new height of widget
-        */
-        void setHeight(int32 height);
-
         /*! sets horrizotnal text aligment
 
         \param align the horrizontal allignment of the text
@@ -149,9 +137,12 @@ namespace Igor
         */
 		void update();
 
-        /*! draws widget
-        */
-		void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
 	private:
 

@@ -8,7 +8,7 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-#define DEBUG_OUTPUT 0
+#define DEBUG_OUTPUT 1
 
 #if DEBUG_OUTPUT == 1
     iaColor4f MOUSEOVER(1,1,1,0.5f);
@@ -132,6 +132,11 @@ namespace Igor
         iRenderer::getInstance().setColor(_specular);
         iRenderer::getInstance().drawRectangle(posx, posy, width, height);
     }
+
+	void iWidgetDefaultTheme::drawGridField(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state)
+	{
+		DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
+	}
 
     void iWidgetDefaultTheme::drawBackgroundFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
@@ -434,6 +439,8 @@ namespace Igor
         iRenderer::getInstance().setFontSize(_fontSize);
         iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
         iRenderer::getInstance().drawString(posx, posy, text, false, textwidth);
+
+		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
     void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState state, bool active)
@@ -450,7 +457,6 @@ namespace Igor
         }
 
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
-
         iRenderer::getInstance().setColor(_ambient);
 
         if (text == "")
@@ -459,15 +465,15 @@ namespace Igor
         }
         else
         {
-            iRenderer::getInstance().drawLine(x, y, x + 9, y);
-            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, _fontSize) + 11, y, x + width, y);
+            iRenderer::getInstance().drawLine(x, y, x + _fontSize * 0.4f, y);
+            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, _fontSize) + _fontSize * 0.6f, y, x + width, y);
         }
 
-        iRenderer::getInstance().drawLine(x, y, x, y + height);
-        iRenderer::getInstance().drawLine(x, y + height, x + width, y + height);
-        iRenderer::getInstance().drawLine(x + width, y, x + width, y + height);
+        iRenderer::getInstance().drawLine(x, y, x, y + h);
+        iRenderer::getInstance().drawLine(x, y + h, x + width, y + h);
+        iRenderer::getInstance().drawLine(x + width, y, x + width, y + h);
 
-        drawText(posx + 10, posy, text, 0);
+        drawText(posx + _fontSize * 0.5f, posy + _fontSize * 0.25f, text, 0);
 
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }

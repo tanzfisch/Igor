@@ -60,6 +60,7 @@ namespace Igor
 
         void drawTiledRectangle(int32 posx, int32 posy, int32 width, int32 height, shared_ptr<iTexture> texture);
         
+		void drawGridField(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state);
         void drawGridHighlight(int32 posx, int32 posy, int32 width, int32 height);
         void drawGridSelection(int32 posx, int32 posy, int32 width, int32 height);
         void drawBackgroundFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active);

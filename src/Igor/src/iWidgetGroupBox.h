@@ -54,18 +54,6 @@ namespace Igor
 
 	public:
 
-        /*! sets width of widget
-
-        \param width width of widget
-        */
-		void setWidth(int32 width);
-
-        /*! sets height of widget
-
-        \param height height of widget
-        */
-        void setHeight(int32 height);
-
         /*! sets text of widget
 
         \param text new text
@@ -96,9 +84,12 @@ namespace Igor
         */
 		iaString _text = "...";
 
-        /*! renders widget
-        */
-        void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
         /*! updates widget
         */

@@ -100,15 +100,15 @@ namespace Igor
 
 		/*! texture
 		*/
-		shared_ptr<iTexture> texture;
+		shared_ptr<iTexture> _texture;
 
 		/*! pixmap of the the texture
 		*/
-		iPixmap *pixmap;
+		iPixmap* _pixmap;
 
 		/*! character set of the font
 		*/
-		vector<iCharacterDimensions> characters;
+		vector<iCharacterDimensions> _characters;
 
 	public:
 

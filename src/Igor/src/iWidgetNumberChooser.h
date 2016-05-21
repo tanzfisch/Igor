@@ -54,19 +54,6 @@ namespace Igor
 
 	public:
 		
-        /*! set width of number chooser
-
-        \param width new width
-        */
-        void setWidth(int32 width);
-
-
-        /*! set height of number chooser
-
-        \param height new height
-        */
-        void setHeight(int32 height);
-
         /*! sets post fix that will be displayed right after the number
 
         \param text the post fix
@@ -226,9 +213,12 @@ namespace Igor
         */
 		void update();
 
-        /*! renders widget
-        */
-        void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
         /*! ctro initializes member variables
         */

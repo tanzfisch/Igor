@@ -46,31 +46,46 @@ namespace Igor
 
 	void iWidgetPicture::update()
 	{
-        if (_texture != nullptr)
-        {
-            _width = _texture->getWidth();
-            _height = _texture->getHeight();
+		int32 width = _configuredWidth;
+		int32 height = _configuredHeight;
 
-            if (_width > _maxWidth)
-            {
-                _width = _maxWidth;
-            }
+		if (isGrowingByContent())
+		{
+			if (_texture != nullptr)
+			{
+				if (_texture->getWidth() > width)
+				{
+					width = _texture->getWidth();
+				}
 
-            if (_height > _maxHeight)
-            {
-                _height = _maxHeight;
-            }
-        }
+				if (_texture->getHeight() > height)
+				{
+					height = _texture->getHeight();
+				}
+			}
+		}
 
-		updateParent();
+		if (width > _maxWidth)
+		{
+			width = _maxWidth;
+		}
+
+		if (height > _maxHeight)
+		{
+			height = _maxHeight;
+		}
+
+		iWidget::update(width, height);
 	}
 
-	void iWidgetPicture::draw()
+	void iWidgetPicture::draw(int32 parentPosX, int32 parentPosY)
 	{
+		updatePosition(parentPosX, parentPosY);
+
 		if (isVisible() &&
             _texture != nullptr)
 		{
-			iWidgetManager::getInstance().getTheme()->drawPicture(_posx, _posy, _width, _height, _texture, _widgetAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawPicture(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture, _widgetAppearanceState, isActive());
 		}
 	}
 

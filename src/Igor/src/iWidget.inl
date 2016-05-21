@@ -45,24 +45,44 @@ bool iWidget::isVisible()
     return _visible;
 }
 
-int32 iWidget::getWidth()
+int32 iWidget::getConfiguredWidth() const
 {
-    return _width;
+	return _configuredWidth;
 }
 
-int32 iWidget::getHeight()
+int32 iWidget::getConfiguredHeight() const
 {
-    return _height;
+	return _configuredHeight;
 }
 
-int32 iWidget::getX()
+int32 iWidget::getActualWidth() const
 {
-    return _posx;
+    return _actualWidth;
 }
 
-int32 iWidget::getY()
+int32 iWidget::getActualHeight() const
 {
-    return _posy;
+    return _actualHeight;
+}
+
+int32 iWidget::getActualPosX() const
+{
+	return _absoluteX;
+}
+
+int32 iWidget::getActualPosY() const
+{
+	return _absoluteY;
+}
+
+int32 iWidget::getRelativePosX() const
+{
+	return _relativeX;
+}
+
+int32 iWidget::getRelativePosY() const
+{
+	return _relativeY;
 }
 
 bool iWidget::isActive()

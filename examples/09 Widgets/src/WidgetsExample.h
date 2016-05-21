@@ -77,9 +77,17 @@ private:
 	iWidgetDialog* _dialog1 = nullptr;
 	iWidgetLabel* _label1 = nullptr;
 	iWidgetLabel* _label2 = nullptr;
+	iWidgetLabel* _label3 = nullptr;
+	iWidgetLabel* _labelNum1 = nullptr;
+	iWidgetLabel* _labelNum2 = nullptr;
+	iWidgetLabel* _labelNum3 = nullptr;
+	iWidgetLabel* _labelNum4 = nullptr;
+	iWidgetGroupBox* _groupBox1 = nullptr;
+	iWidgetGroupBox* _groupBox2 = nullptr;
+
 	iWidgetButton* _button1 = nullptr;
 	iWidgetButton* _button2 = nullptr;
-	iWidgetGroupBox* _groupBox1 = nullptr;
+	
 	iWidgetGrid* _grid1 = nullptr;
 	iWidgetGrid* _grid2 = nullptr;
 	iWidgetCheckBox* _radio1 = nullptr;
@@ -92,6 +100,8 @@ private:
 	iWidgetScroll* _widgetScoll = nullptr;
 
     iMessageBox* _messageBox = nullptr;
+
+	vector<iWidget*> _allWidgets;
 
     void render();
     void drawFPS();

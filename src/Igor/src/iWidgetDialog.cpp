@@ -19,9 +19,8 @@ namespace Igor
     {
         setActive(false);
         setVisible(false);
-        _width = 100;
-        _height = 100;
-
+        setWidth(100);
+		setHeight(100);
         setHorrizontalAlignment(iHorrizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
     }
@@ -33,44 +32,48 @@ namespace Igor
 
     void iWidgetDialog::update()
     {
-        if (!_widgets.empty())
+		int32 width = getConfiguredWidth();
+		int32 height = getConfiguredHeight();
+
+        if (isGrowingByContent() &&
+			!_children.empty())
         {
-            iWidget* widget = _widgets[0];
-            if (widget->getWidth() + _border * 2 > _width)
+            iWidget* widget = _children[0];
+            if (widget->getActualWidth() + _border * 2 > width)
             {
-                _width = widget->getWidth() + _border * 2;
+                width = widget->getActualWidth() + _border * 2;
             }
 
-            if (widget->getHeight() + _border * 2 > _height)
+            if (widget->getActualHeight() + _border * 2 > height)
             {
-                _height = widget->getHeight() + _border * 2;
+                height = widget->getActualHeight() + _border * 2;
             }
         }
 
         switch (iWidget::getHorrizontalAlignment())
         {
         case iHorrizontalAlignment::Left:
-            _posx = 0;
+            _relativeX = 0;
             break;
 
         case iHorrizontalAlignment::Strech:
-            _posx = 0;
-            if (iWidgetManager::getInstance().getDesktopWidth() > _width)
+			_relativeX = 0;
+            if (iWidgetManager::getInstance().getDesktopWidth() > width)
             {
-                _width = iWidgetManager::getInstance().getDesktopWidth();
+                width = iWidgetManager::getInstance().getDesktopWidth();
             }
             break;
 
         case iHorrizontalAlignment::Center:
-            _posx = (iWidgetManager::getInstance().getDesktopWidth() - _width) / 2;
+			_relativeX = (iWidgetManager::getInstance().getDesktopWidth() - width) / 2;
             break;
 
         case iHorrizontalAlignment::Right:
-            _posx = iWidgetManager::getInstance().getDesktopWidth() - _width;
+			_relativeX = iWidgetManager::getInstance().getDesktopWidth() - width;
             break;
 
         case iHorrizontalAlignment::Absolut:
-            _posx = _offsetX;
+			_relativeX = _offsetX;
             break;
 
         default:;
@@ -79,45 +82,34 @@ namespace Igor
         switch (iWidget::getVerticalAlignment())
         {
         case iVerticalAlignment::Top:
-            _posy = 0;
+			_relativeY = 0;
             break;
 
         case iVerticalAlignment::Strech:
-            _posy = 0;
-            if (iWidgetManager::getInstance().getDesktopHeight() > _height)
+			_relativeY = 0;
+            if (iWidgetManager::getInstance().getDesktopHeight() > height)
             {
-                _height = iWidgetManager::getInstance().getDesktopHeight();
+                height = iWidgetManager::getInstance().getDesktopHeight();
             }
             break;
 
         case iVerticalAlignment::Center:
-            _posy = (iWidgetManager::getInstance().getDesktopHeight() - _height) / 2;
+			_relativeY = (iWidgetManager::getInstance().getDesktopHeight() - height) / 2;
             break;
 
         case iVerticalAlignment::Bottom:
-            _posy = iWidgetManager::getInstance().getDesktopHeight() - _height;
+			_relativeY = iWidgetManager::getInstance().getDesktopHeight() - height;
             break;
 
         case iVerticalAlignment::Absolut:
-            _posy = _offsetY;
+			_relativeY = _offsetY;
             break;
 
         default:;
         };
-    }
 
-    void iWidgetDialog::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
-    {
-        _horrizontalAlignment = horrizontalAlignment;
-        
-        update();
-    }
-
-    void iWidgetDialog::setVerticalAlignment(iVerticalAlignment verticalAlignment)
-    {
-        _verticalAlignment = verticalAlignment;
-
-        update();
+		_actualWidth = width;
+		_actualHeight = height;
     }
 
     void iWidgetDialog::setBorder(int32 border)
@@ -131,36 +123,19 @@ namespace Igor
         return _border;
     }
     
-    void iWidgetDialog::draw()
+    void iWidgetDialog::draw(int32 parentPosX, int32 parentPosY)
     {
+		updatePosition(parentPosX, parentPosY);
+
         if (isVisible())
-        {
-            calcPosition(0, 0, iWidgetManager::getInstance().getDesktopWidth(), iWidgetManager::getInstance().getDesktopHeight());
-            iWidgetManager::getInstance().getTheme()->drawDialog(_posx, _posy, _width, _height, _widgetAppearanceState, isActive());
+        {            
+            iWidgetManager::getInstance().getTheme()->drawDialog(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
 
-            int32 posx2 = _posx + _border;
-            int32 posy2 = _posy + _border;
-            int32 width2 = _width - _border - _border;
-            int32 height2 = _height - _border - _border;
-
-            for (auto widget : _widgets)
+            for (auto widget : _children)
             {
-                widget->calcPosition(posx2, posy2, width2, height2);
-                widget->draw();
+                widget->draw(getActualPosX(), getActualPosY());
             }
         }
-    }
-
-    void iWidgetDialog::setWidth(int32 width)
-    {
-        _width = width;
-        update();
-    }
-
-    void iWidgetDialog::setHeight(int32 height)
-    {
-        _height = height;
-        update();
     }
 
     void iWidgetDialog::setX(int32 x)

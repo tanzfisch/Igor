@@ -20,55 +20,47 @@ namespace Igor
 	iWidgetNumberChooser::iWidgetNumberChooser()
 		: iWidget(iWidgetType::NumberChooser)
 	{
-		_height = 20;
-		_width = 60;
-	}
-
-	void iWidgetNumberChooser::setWidth(int32 width)
-	{
-		_width = width;
-		update();
-	}
-
-	void iWidgetNumberChooser::setHeight(int32 height)
-	{
-		_height = height;
-		update();
 	}
 
 	void iWidgetNumberChooser::update()
 	{
-		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+		int32 width = _configuredWidth;
+		int32 height = _configuredHeight;
 
-		stringstream str;
-		str << _max;
-
-		iaString displayString = str.str().c_str();
-		displayString += _postFix;
-
-		int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(displayString, fontSize));
-
-		if (_height < fontSize * 1.5f)
+		if (isGrowingByContent())
 		{
-			_height = static_cast<int32>(fontSize * 1.5f);
+			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+
+			stringstream str;
+			str << _max;
+
+			iaString displayString = str.str().c_str();
+			displayString += _postFix;
+
+			int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(displayString, fontSize));
+
+			if (height < fontSize * 1.5f)
+			{
+				height = static_cast<int32>(fontSize * 1.5f);
+			}
+
+			if (width < textWidth + height + fontSize)
+			{
+				width = textWidth + height + static_cast<int32>(fontSize);
+			}
 		}
 
-		if (_width < textWidth + _height + fontSize)
-		{
-			_width = textWidth + _height + static_cast<int32>(fontSize);
-		}
-
-        _buttonUpRctangle.setX(_width - _height - 1);
+        _buttonUpRctangle.setX(width - height - 1);
         _buttonUpRctangle.setY(1);
-        _buttonUpRctangle.setWidth(_height);
-        _buttonUpRctangle.setHeight(_height / 2 - 1);
+        _buttonUpRctangle.setWidth(height);
+        _buttonUpRctangle.setHeight(height / 2 - 1);
 
-        _buttonDownRctangle.setX(_width - _height - 1);
-        _buttonDownRctangle.setY(_height / 2);
-        _buttonDownRctangle.setWidth(_height);
-        _buttonDownRctangle.setHeight(_height / 2 - 1);
+        _buttonDownRctangle.setX(width - height - 1);
+        _buttonDownRctangle.setY(height / 2);
+        _buttonDownRctangle.setWidth(height);
+        _buttonDownRctangle.setHeight(height / 2 - 1);
 		
-        updateParent();
+		iWidget::update(width, height);
 	}
 
     void iWidgetNumberChooser::cullBoundings()
@@ -127,8 +119,8 @@ namespace Igor
 
         iWidget::handleMouseMove(x, y);
 
-		int32 mx = x - _posx;
-		int32 my = y - _posy;
+		int32 mx = x - getActualPosX();
+		int32 my = y - getActualPosY();
 
 		if (mx >= _buttonUpRctangle.getX() && 
             mx < _buttonUpRctangle.getX() + _buttonUpRctangle.getWidth() &&
@@ -274,14 +266,16 @@ namespace Igor
 		_stepDownWheel = down;
 	}
 
-	void iWidgetNumberChooser::draw()
+	void iWidgetNumberChooser::draw(int32 parentPosX, int32 parentPosY)
 	{
+		updatePosition(parentPosX, parentPosY);
+
 		if (isVisible())
 		{
             iaString displayString = iaString::ftoa(_value, _afterPoint);
 			displayString += _postFix;
 
-			iWidgetManager::getInstance().getTheme()->drawNumberChooser(_posx, _posy, _width, _height, displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
 		}
 	}
 

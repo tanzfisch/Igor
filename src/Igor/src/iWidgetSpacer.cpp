@@ -16,35 +16,22 @@ namespace Igor
 	iWidgetSpacer::iWidgetSpacer()
 		: iWidget(iWidgetType::Spacer)
 	{
-		_height = 20;
-		_width = 60;
-
         setHorrizontalAlignment(iHorrizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
 	}
 
 	void iWidgetSpacer::update()
 	{
-		updateParent();
+		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
 	}
 
-	void iWidgetSpacer::setWidth(int32 width)
+	void iWidgetSpacer::draw(int32 parentPosX, int32 parentPosY)
 	{
-		_width = width;
-		update();
-	}
+		updatePosition(parentPosX, parentPosY);
 
-	void iWidgetSpacer::setHeight(int32 height)
-	{
-		_height = height;
-		update();
-	}
-
-	void iWidgetSpacer::draw()
-	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawSpacer(_posx, _posy, _width, _height, _widgetAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
 		}
 	}
 

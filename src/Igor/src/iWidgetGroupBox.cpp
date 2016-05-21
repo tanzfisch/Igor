@@ -17,13 +17,14 @@ namespace Igor
 	iWidgetGroupBox::iWidgetGroupBox()
 		: iWidget(iWidgetType::GroupBox)
 	{
-		_height = 20;
-		_width = 60;
+		_configuredWidth = 60;
+		_configuredHeight = 20;
 	}
 
 	void iWidgetGroupBox::setBorder(int32 border)
 	{
 		_border = border;
+		update();
 	}
 
 	int32 iWidgetGroupBox::getBorder()
@@ -33,13 +34,27 @@ namespace Igor
 
 	void iWidgetGroupBox::update()
 	{
-        if (!_widgets.empty())
+		int32 width = _configuredWidth;
+		int32 height = _configuredHeight;
+
+		if (isGrowingByContent() &&
+			!_children.empty())
         {
-            iWidget* widget = _widgets[0];
-            _width = widget->getWidth() + _border * 2;
+            iWidget* widget = _children[0];
+            int32 childWidth = widget->getActualWidth() + _border * 2;
+
+			if (childWidth > width)
+			{
+				width = childWidth;
+			}
+
             if (_text.isEmpty())
             {
-                _height = widget->getHeight() + _border * 2;
+                int32 childHeight = widget->getActualHeight() + _border * 2;
+				if (childHeight > height)
+				{
+					height = childHeight;
+				}
             }
             else
             {
@@ -47,24 +62,17 @@ namespace Igor
                 if (iWidgetManager::getInstance().getTheme() != nullptr)
                 {
                     float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                    _height = static_cast<int32>(widget->getHeight() + _border * 2.0 + fontSize * 0.75);
+					int32 childHeight = static_cast<int32>(widget->getActualHeight() + _border * 2.0 + fontSize * 0.75);
+
+					if (childHeight > height)
+					{
+						height = childHeight;
+					}
                 }
             }
         }
 
-		updateParent();
-	}
-
-	void iWidgetGroupBox::setWidth(int32 width)
-	{
-		_width = width;
-		update();
-	}
-
-	void iWidgetGroupBox::setHeight(int32 height)
-	{
-		_height = height;
-		update();
+		iWidget::update(width, height);
 	}
 
 	void iWidgetGroupBox::setText(const iaString& text)
@@ -78,32 +86,18 @@ namespace Igor
 		return _text;
 	}
 
-	void iWidgetGroupBox::draw()
+	void iWidgetGroupBox::draw(int32 parentPosX, int32 parentPosY)
 	{
+		updatePosition(parentPosX, parentPosY);
+
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawGroupBox(_posx, _posy, _width, _height, _text, _widgetAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, getAppearanceState(), isActive());
 
-            if (!_widgets.empty())
+            if (!_children.empty())
 			{
-                iWidget* widget = _widgets[0];
-
-				float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-
-				int32 posx2 = _posx + _border;
-				int32 posy2 = static_cast<int32>(_posy + _border + fontSize * 0.75);
-
-				int32 width2 = _width - _border * 2;
-				int32 height2 = static_cast<int32>(_height - _border - fontSize * 0.75);
-				
-				if (_text.isEmpty())
-				{
-					posy2 = _posy + _border;
-					height2 = _height - _border * 2;
-				}
-
-                widget->calcPosition(posx2, posy2, width2, height2);
-                widget->draw();
+				iWidget* widget = _children[0];
+                widget->draw(getActualPosX(), getActualPosY());
 			}
 		}
 	}

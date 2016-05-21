@@ -56,18 +56,6 @@ namespace Igor
 
 	public:
 
-        /*! sets the width of the widget
-
-        \param width new width
-        */
-		void setWidth(int32 width);
-
-        /*! sets the height of the widget
-
-        \param height new height
-        */
-        void setHeight(int32 height);
-
         /*! sets the texture to use for the button
 
         \param texturePath path to texture
@@ -176,9 +164,12 @@ namespace Igor
         */
 		void update();
 
-        /*! draws the button
-        */
-        void draw();
+		/*! draws the button
+
+		\param parentPosX parent absolute horrizontal position
+		\param parentPosY parent absolute vertical position
+		*/
+		void draw(int32 parentPosX, int32 parentPosY);
 
 	private:
 

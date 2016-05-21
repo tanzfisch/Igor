@@ -17,8 +17,8 @@ namespace Igor
 	iWidgetCheckBox::iWidgetCheckBox()
 		: iWidget(iWidgetType::CheckBox)
 	{
-		_height = 20;
-		_width = 60;
+		_configuredHeight = 20;
+		_configuredWidth = 60;
 
 		if (_generatingRadioButtonGroup)
 		{
@@ -98,11 +98,28 @@ namespace Igor
 
 	void iWidgetCheckBox::update()
 	{
-		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-		_height = fontSize*1.5f;
-		_width = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize) + (_height - fontSize) / 2 + fontSize * 3;
+		int32 width = _configuredWidth;
+		int32 height = _configuredHeight;
 
-		updateParent();
+		if (_growsByContent &&
+			!_text.isEmpty())
+		{
+
+			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+			if (fontSize*1.5f > height)
+			{
+				height = fontSize*1.5f;
+			}
+
+			int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize) + (height - fontSize) / 2 + fontSize * 3;
+
+			if (textWidth > width)
+			{
+				width = textWidth;
+			}
+		}
+
+		iWidget::update(width, height);
 	}
 
 	const iaString& iWidgetCheckBox::getText() const
@@ -110,11 +127,13 @@ namespace Igor
 		return _text;
 	}
 
-	void iWidgetCheckBox::draw()
+	void iWidgetCheckBox::draw(int32 parentPosX, int32 parentPosY)
 	{
+		updatePosition(parentPosX, parentPosY);
+
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawCheckBox(_posx, _posy, _width, _height, _text, _checked, _widgetAppearanceState, isActive());
+			iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _checked, getAppearanceState(), isActive());
 		}
 	}
 

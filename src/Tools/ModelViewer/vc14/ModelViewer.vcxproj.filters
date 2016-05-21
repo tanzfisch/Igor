@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\ModelViewer.cpp" />
+    <ClCompile Include="..\src\UserControlEmitter.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlLight.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlMesh.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlModel.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlParticleSystem.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlTransformation.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlNode.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MenuDialog.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PropertiesDialog.cpp">
+      <Filter>Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlGraphView.cpp">
+      <Filter>UserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\UserControlProperties.cpp">
+      <Filter>UserControls</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\ModelViewer.h" />
+    <ClInclude Include="..\src\UserControlEmitter.h">
+      <Filter>Node UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlLight.h">
+      <Filter>Node UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlMesh.h">
+      <Filter>Node UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlModel.h">
+      <Filter>Node UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlParticleSystem.h">
+      <Filter>Node UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlTransformation.h">
+      <Filter>Node UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlNode.h">
+      <Filter>Node UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MenuDialog.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\PropertiesDialog.h">
+      <Filter>Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlGraphView.h">
+      <Filter>UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlProperties.h">
+      <Filter>UserControls</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Node UserControls">
+      <UniqueIdentifier>{33896c03-0579-4335-90a5-2bddde084c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dialogs">
+      <UniqueIdentifier>{aab3b26f-6d0e-4971-bbb5-c445f31a69fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserControls">
+      <UniqueIdentifier>{787f2285-56d5-41a1-88d0-9b8869265710}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -17,8 +17,6 @@ namespace Igor
 	iWidgetSlider::iWidgetSlider()
 		: iWidget(iWidgetType::Button)
 	{
-		_height = 20;
-		_width = 60;
 	}
 
     iWidgetSlider::~iWidgetSlider()
@@ -56,9 +54,12 @@ namespace Igor
 
     void iWidgetSlider::setValue(float32 value)
     {
-        _value = value;
-        cullBoundings();
-        update();
+		if (_value != value)
+		{
+			_value = value;
+			cullBoundings();
+			_change(this);
+		}
     }
 
     float32 iWidgetSlider::getValue()
@@ -92,18 +93,24 @@ namespace Igor
 
     void iWidgetSlider::increaseNumber(float32 value)
     {
-        _value += value;
-        cullBoundings();
+		if (value != 0.0f)
+		{
+			_value += value;
+			cullBoundings();
 
-        _change(this);
+			_change(this);
+		}
     }
 
     void iWidgetSlider::decreaseNumber(float32 value)
     {
-        _value -= value;
-        cullBoundings();
+		if (value != 0.0f)
+		{
+			_value -= value;
+			cullBoundings();
 
-        _change(this);
+			_change(this);
+		}
     }
 
     bool iWidgetSlider::handleMouseWheel(int32 d)
@@ -139,20 +146,8 @@ namespace Igor
 
 	void iWidgetSlider::update()
 	{
-		updateParent();
+		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
 	}
-
-	void iWidgetSlider::setWidth(int32 width)
-	{
-		_width = width;
-		update();
-	}
-
-	void iWidgetSlider::setHeight(int32 height)
-	{
-		_height = height;
-		update();
-    }
 
     bool iWidgetSlider::handleMouseKeyDown(iKeyCode key)
     {
@@ -172,7 +167,7 @@ namespace Igor
     void iWidgetSlider::handleMouseInput(int32 mouseX)
     {
         float32 oldValue = _value;
-        float32 factor = static_cast<float32>(mouseX - (_posx + 5)) / static_cast<float32>(_width - 10);
+        float32 factor = static_cast<float32>(mouseX - (getActualPosX() + 5)) / static_cast<float32>(getActualWidth() - 10);
 
         if (factor < 0.0f)
         {
@@ -223,35 +218,36 @@ namespace Igor
         }
     }
 
-	void iWidgetSlider::draw()
+	void iWidgetSlider::draw(int32 parentPosX, int32 parentPosY)
 	{
         con_assert(_min < _max, "invalid configuration");
+
+		updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{
             if (_backgroundTexture != nullptr)
             {
-                iWidgetManager::getInstance().getTheme()->drawTiledRectangle(_posx, _posy + _height / 4, _width, _height / 2, _backgroundTexture);
+                iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2, _backgroundTexture);
             }
             
             if (_texture != nullptr)
             {
-                iWidgetManager::getInstance().getTheme()->drawPicture(_posx, _posy + _height / 4, _width, _height / 2, _texture, _widgetAppearanceState, isActive());
+                iWidgetManager::getInstance().getTheme()->drawPicture(getActualPosX(), getActualPosY() + getActualHeight() / 4, getActualWidth(), getActualHeight() / 2, _texture, getAppearanceState(), isActive());
             }
 
             if(_backgroundTexture == nullptr &&
                 _texture == nullptr)
             {
                 
-                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(_posx, _posy + _height / 2 - 2, _width, 4);
-                iWidgetManager::getInstance().getTheme()->drawRectangle(_posx, _posy + _height / 2 - 2, _width, 4);
+                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX(), getActualPosY() + getActualHeight() / 2 -2 , getActualWidth(), 4);
+                iWidgetManager::getInstance().getTheme()->drawRectangle(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4);
             }
 
             float32 factor = _value / (_max - _min);
-            float32 offset = (_width - 10) * factor;
-            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(_posx + offset, _posy, 10, _height);
-            iWidgetManager::getInstance().getTheme()->drawRectangle(_posx + offset, _posy, 10, _height);
-
+            float32 offset = (getActualWidth() - 10) * factor;
+            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX() + offset, getActualPosY(), 10, getActualHeight());
+            iWidgetManager::getInstance().getTheme()->drawRectangle(getActualPosX() + offset, getActualPosY(), 10, getActualHeight());
 		}
 	}
 

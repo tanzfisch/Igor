@@ -18,15 +18,15 @@ namespace Igor
         valid = false;
 
         font_file = iResourceManager::getInstance().getPath(font_file);
-        texture = iTextureResourceFactory::getInstance().loadFile(font_file, iTextureBuildMode::Normal);
+        _texture = iTextureResourceFactory::getInstance().loadFile(font_file, iTextureBuildMode::Normal);
 
-        if (texture->isValid())
+        if (_texture->isValid())
         {
-            pixmap = iTextureResourceFactory::getInstance().loadFileAsPixmap(font_file);
+            _pixmap = iTextureResourceFactory::getInstance().loadFileAsPixmap(font_file);
 
-            if (pixmap)
+            if (_pixmap)
             {
-                //! \todo this depends on the texture color format
+                //! \todo this depends on the _texture color format
                 uint8 borderchannel = 0;
                 switch (mask_channels)
                 {
@@ -48,11 +48,11 @@ namespace Igor
 
                 for (unsigned short i = 0; i < CHARACTERINTEXWIDTH*CHARACTERINTEXHEIGHT; i++)
                 {
-                    characters.push_back(tempchar);
+                    _characters.push_back(tempchar);
                 }
 
-                long offx = pixmap->getWidth() / CHARACTERINTEXWIDTH;
-                long offy = pixmap->getHeight() / CHARACTERINTEXHEIGHT;
+                long offx = _pixmap->getWidth() / CHARACTERINTEXWIDTH;
+                long offy = _pixmap->getHeight() / CHARACTERINTEXHEIGHT;
 
                 uint32 character = 0;
 
@@ -64,10 +64,10 @@ namespace Igor
                 {
                     for (long tex_x = 0; tex_x < CHARACTERINTEXWIDTH; tex_x++)
                     {
-                        characters[character].rect.setY(float32(tex_y*offy));
-                        characters[character].rect.setHeight(float32(offy));
+                        _characters[character].rect.setY(float32(tex_y*offy));
+                        _characters[character].rect.setHeight(float32(offy));
 
-                        characters[character].rect.setX(float32(tex_x*offx));
+                        _characters[character].rect.setX(float32(tex_x*offx));
 
                         if (!fixed_width)
                         {
@@ -76,11 +76,11 @@ namespace Igor
                             {
                                 for (long pos_y = tex_y*offy; pos_y<tex_y*offy + offy; pos_y++)
                                 {
-                                    if (pixmap->getPixel(pos_x, pos_y, borderchannel)>mask_threashold)
+                                    if (_pixmap->getPixel(pos_x, pos_y, borderchannel)>mask_threashold)
                                     {
                                         if (!firstfound)
                                         {
-                                            characters[character].rect.setX((float32)pos_x - 1);
+                                            _characters[character].rect.setX((float32)pos_x - 1);
                                             firstfound = true;
                                         }
                                     }
@@ -88,23 +88,23 @@ namespace Igor
                             }
                         }
 
-                        characters[character].rect.setWidth((float32)tex_x*offx + offx - characters[character].rect.getX());
+                        _characters[character].rect.setWidth((float32)tex_x*offx + offx - _characters[character].rect.getX());
 
                         if (!fixed_width)
                         {
-                            float32 reducedWidth = characters[character].rect.getWidth() / 3.0f;
-                            characters[character].rect.setWidth(reducedWidth); // damit freizeichen nicht übertrieben breit sind
+                            float32 reducedWidth = _characters[character].rect.getWidth() / 3.0f;
+                            _characters[character].rect.setWidth(reducedWidth); // damit freizeichen nicht übertrieben breit sind
 
                             firstfound = false;
                             for (long pos_x = tex_x*offx + offx; pos_x > tex_x*offx; pos_x--)
                             {
                                 for (long pos_y = tex_y*offy; pos_y < tex_y*offy + offy; pos_y++)
                                 {
-                                    if (pixmap->getPixel(pos_x, pos_y, 3) != 0)
+                                    if (_pixmap->getPixel(pos_x, pos_y, 3) != 0)
                                     {
                                         if (!firstfound)
                                         {
-                                            characters[character].rect.setWidth(pos_x - (float32)characters[character].rect.getX() + 2);
+                                            _characters[character].rect.setWidth(pos_x - (float32)_characters[character].rect.getX() + 2);
                                             firstfound = true;
                                         }
                                     }
@@ -112,12 +112,12 @@ namespace Igor
                             }
                         }
 
-                        characters[character].relRenderWidth = characters[character].rect.getWidth() / (float32)offx;
+                        _characters[character].relRenderWidth = _characters[character].rect.getWidth() / (float32)offx;
 
-                        characters[character].rect.setX(characters[character].rect.getX() / (float32)pixmap->getWidth());
-                        characters[character].rect.setWidth(characters[character].rect.getWidth() / (float32)pixmap->getWidth());
-                        characters[character].rect.setY(characters[character].rect.getY() / (float32)pixmap->getHeight());
-                        characters[character].rect.setHeight(characters[character].rect.getHeight() / (float32)pixmap->getHeight());
+                        _characters[character].rect.setX(_characters[character].rect.getX() / (float32)_pixmap->getWidth());
+                        _characters[character].rect.setWidth(_characters[character].rect.getWidth() / (float32)_pixmap->getWidth());
+                        _characters[character].rect.setY(_characters[character].rect.getY() / (float32)_pixmap->getHeight());
+                        _characters[character].rect.setHeight(_characters[character].rect.getHeight() / (float32)_pixmap->getHeight());
 
                         character++;
                     }
@@ -135,10 +135,10 @@ namespace Igor
                     break;
                 }
 
-                if (pixmap)
+                if (_pixmap)
                 {
-                    delete pixmap;
-                    pixmap = 0;
+                    delete _pixmap;
+                    _pixmap = 0;
                 }
 
                 valid = true;
@@ -149,18 +149,18 @@ namespace Igor
 
     iTextureFont::~iTextureFont()
     {
-        texture = 0;
-        characters.clear();
+        _texture = nullptr;
+        _characters.clear();
     }
 
     shared_ptr<iTexture> iTextureFont::getTexture()
     {
-        return texture;
+        return _texture;
     }
 
     vector<iCharacterDimensions>& iTextureFont::getCharacters()
     {
-        return characters;
+        return _characters;
     }
 
     void iTextureFont::makeFixedWidth()
@@ -168,18 +168,18 @@ namespace Igor
         float32 maxWidth = 0;
         float32 relRenderWidth = 0;
 
-        for (uint32 i = 0; i<characters.size(); i++)
+        for (uint32 i = 0; i<_characters.size(); i++)
         {
-            if (characters[i].rect.getWidth() > maxWidth)
+            if (_characters[i].rect.getWidth() > maxWidth)
             {
-                maxWidth = characters[i].rect.getWidth();
-                relRenderWidth = characters[i].relRenderWidth;
+                maxWidth = _characters[i].rect.getWidth();
+                relRenderWidth = _characters[i].relRenderWidth;
             }
         }
 
-        for (uint32 i = 0; i<characters.size(); i++)
+        for (uint32 i = 0; i<_characters.size(); i++)
         {
-            modifyWidth(characters[i], maxWidth, relRenderWidth);
+            modifyWidth(_characters[i], maxWidth, relRenderWidth);
         }
     }
 
@@ -190,25 +190,25 @@ namespace Igor
 
         for (unsigned char i = 8; i <= 30; i++)
         {
-            if (characters[i].rect.getWidth() > maxdigitwidth)
+            if (_characters[i].rect.getWidth() > maxdigitwidth)
             {
-                maxdigitwidth = characters[i].rect.getWidth();
-                temp_render_width_relative = characters[i].relRenderWidth;
+                maxdigitwidth = _characters[i].rect.getWidth();
+                temp_render_width_relative = _characters[i].relRenderWidth;
             }
         }
 
-        if (characters[0].rect.getWidth() > maxdigitwidth) // Freizeichen
+        if (_characters[0].rect.getWidth() > maxdigitwidth) // Freizeichen
         {
-            maxdigitwidth = characters[0].rect.getWidth();
-            temp_render_width_relative = characters[0].relRenderWidth;
+            maxdigitwidth = _characters[0].rect.getWidth();
+            temp_render_width_relative = _characters[0].relRenderWidth;
         }
 
         for (unsigned char i = 8; i <= 30; i++)
         {
-            modifyWidth(characters[i], maxdigitwidth, temp_render_width_relative);
+            modifyWidth(_characters[i], maxdigitwidth, temp_render_width_relative);
         }
 
-        modifyWidth(characters[0], maxdigitwidth, temp_render_width_relative); // Freizeichen
+        modifyWidth(_characters[0], maxdigitwidth, temp_render_width_relative); // Freizeichen
     }
 
     void iTextureFont::modifyWidth(iCharacterDimensions &character, float32 newWidth, float32 newRelRenderWidth)
@@ -234,9 +234,9 @@ namespace Igor
             for (uint32 i = 0; i < text.getSize(); i++)
             {
                 if (text[i] > 0 &&
-                    text[i] < characters.size())
+                    text[i] < _characters.size())
                 {
-                    lenght += characters[((unsigned char)text[i]) - 32].relRenderWidth*size;
+                    lenght += _characters[((unsigned char)text[i]) - 32].relRenderWidth*size;
                 }
             }
             return lenght;
@@ -258,7 +258,7 @@ namespace Igor
 
             for (uint32 i = 0; i < text.getSize(); i++)
             {
-                length += characters[((unsigned char)text[i]) - 32].relRenderWidth*size;
+                length += _characters[((unsigned char)text[i]) - 32].relRenderWidth*size;
                 if ((unsigned char)text[i] == ' ')
                 {
                     if (length > maxWidth)
