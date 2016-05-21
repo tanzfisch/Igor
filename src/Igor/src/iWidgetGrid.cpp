@@ -472,22 +472,20 @@ namespace Igor
 	{
 		con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-		int row = 0;
-		int col = 0;
+		int rowNum = 0;
+		int colNum = 0;
 		_mouseOverRow = -1;
 		_mouseOverCollumn = -1;
 
-		auto iterRow = _widgetRows.begin();
-		while (iterRow != _widgetRows.end())
+		for(auto row : _widgetRows)
 		{
-			col = 0;
+			colNum = 0;
 
-			auto iterCollumn = (*iterRow)._widgetCollumn.begin();
-			while (iterCollumn != (*iterRow)._widgetCollumn.end())
+			for(auto col : row._widgetCollumn)
 			{
-				if ((*iterCollumn)._widgetID != iWidget::INVALID_WIDGET_ID)
+				if (col._widgetID != iWidget::INVALID_WIDGET_ID)
 				{
-					iWidget* widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
+					iWidget* widget = iWidgetManager::getInstance().getWidget(col._widgetID);
 
 					if (widget != nullptr)
 					{
@@ -495,21 +493,19 @@ namespace Igor
 					}
 				}
 
-				if (x >= (*iterCollumn)._x &&
-					x < (*iterCollumn)._x + (*iterCollumn)._width &&
-					y >= (*iterCollumn)._y  &&
-					y < (*iterCollumn)._y + (*iterCollumn)._height)
+				if (x >= col._absoluteX &&
+					x < col._absoluteX + col._width &&
+					y >= col._absoluteY  &&
+					y < col._absoluteY + col._height)
 				{
-					_mouseOverRow = row;
-					_mouseOverCollumn = col;
+					_mouseOverRow = rowNum;
+					_mouseOverCollumn = colNum;
 				}
 
-				iterCollumn++;
-				col++;
+				colNum++;
 			}
 
-			iterRow++;
-			row++;
+			rowNum++;
 		}
 
 		if (isActive())
@@ -612,6 +608,8 @@ namespace Igor
 				auto iterCollumn = (*iterRow)._widgetCollumn.begin();
 				while (iterCollumn != (*iterRow)._widgetCollumn.end())
 				{
+					(*iterCollumn)._absoluteX = realX + (*iterCollumn)._x;
+					(*iterCollumn)._absoluteY = realY + (*iterCollumn)._y;
 					_absoluteX = realX + (*iterCollumn)._x;
 					_absoluteY = realY + (*iterCollumn)._y;
 					_actualWidth = (*iterCollumn)._width;
@@ -682,6 +680,7 @@ namespace Igor
 						// updating childrens alignment once more but this time with fake parent boundaries
 						widget->updateAlignment();
 						widget->draw(getActualPosX(), getActualPosY());
+						widget->updatePosition(_absoluteX, _absoluteY);
 					}
 
 					iterCollumn++;

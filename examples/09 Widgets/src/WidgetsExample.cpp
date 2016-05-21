@@ -103,14 +103,15 @@ void WidgetsExample::initGUI()
 
 	_widgetScoll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
 	_allWidgets.push_back(_groupBox1);
-	_widgetScoll->setWidth(100);
+	_widgetScoll->setWidth(400);
 	_widgetScoll->setHeight(400);
 
 	_grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
 	_allWidgets.push_back(_grid1);
 	_grid1->appendCollumns(2);
 	_grid1->appendRows(2);
-	_grid1->setCellSpacing(10);
+	_grid1->setBorder(10);
+	_grid1->setCellSpacing(0);
 	_grid1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 	_grid1->setVerticalAlignment(iVerticalAlignment::Top);
 	_grid1->setSelectMode(iSelectionMode::NoSelection);
@@ -160,20 +161,28 @@ void WidgetsExample::initGUI()
 	_allWidgets.push_back(_labelNum4);
 	_labelNum4->setText("1, 1");
 
-	_dialog1->addWidget(_groupBox1);
-	_groupBox1->addWidget(_grid1);
+	_button1 = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+	_allWidgets.push_back(_button1);
+	_button1->setWidth(500);
+	_button1->setHeight(30);
+	_button1->setText("1");
+	_button1->setVerticalAlignment(iVerticalAlignment::Top);
+	_button1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onMessageBox));
+
+	_dialog1->addWidget(_widgetScoll);
+	_widgetScoll->addWidget(_grid1);
 	
 	//_grid1->addWidget(_label1, 0, 0);
-	_grid1->addWidget(_grid2, 1, 1);
-	_grid1->addWidget(_groupBox2, 1, 2);
-	_grid1->addWidget(_widgetScoll, 0, 1);
+	_grid1->addWidget(_button1, 1, 2);
+	
 
 	/*_grid2->addWidget(_labelNum1, 0, 0);
 	_grid2->addWidget(_labelNum2, 1, 0);
 	_grid2->addWidget(_labelNum3, 0, 1);
 	_grid2->addWidget(_labelNum4, 1, 1);*/
 
-	_groupBox2->addWidget(_label3);
+	//_groupBox2->addWidget(_label3);
 
 	//_widgetScoll->addWidget(_label2);
 
@@ -287,7 +296,10 @@ void WidgetsExample::deinit()
 
 void WidgetsExample::onMessageBox(iWidget* source)
 {
-    _messageBox->show("bla bla arfg aeg aeg arth aethg", iMessageBoxButtons::YesNoCancel);
+	if (_messageBox != nullptr)
+	{
+		_messageBox->show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+	}
 }
 
 void WidgetsExample::onExitClick(iWidget* source)
