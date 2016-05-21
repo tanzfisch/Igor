@@ -83,7 +83,7 @@ void WidgetsExample::initGUI()
     _dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _dialog1->setVerticalAlignment(iVerticalAlignment::Center);
     _dialog1->setWidth(100);
-    _dialog1->setHeight(200);
+    _dialog1->setHeight(300);
     _dialog1->setActive();
     _dialog1->setVisible();
 
@@ -91,8 +91,8 @@ void WidgetsExample::initGUI()
 	_allWidgets.push_back(_groupBox1);
 	_groupBox1->setText("Hello World!");
 	_groupBox1->setWidth(300);
-	_groupBox1->setHorrizontalAlignment(iHorrizontalAlignment::Center);
-	_groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
+	_groupBox1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+	_groupBox1->setVerticalAlignment(iVerticalAlignment::Center);
 
 	_groupBox2 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
 	_allWidgets.push_back(_groupBox2);
@@ -109,11 +109,12 @@ void WidgetsExample::initGUI()
 	_grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
 	_allWidgets.push_back(_grid1);
 	_grid1->appendCollumns(2);
-	_grid1->appendRows(2);
+	_grid1->appendRows(4);
 	_grid1->setBorder(10);
-	_grid1->setCellSpacing(0);
-	_grid1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-	_grid1->setVerticalAlignment(iVerticalAlignment::Top);
+	_grid1->setCellSpacing(5);
+	_grid1->setHorrizontalAlignment(iHorrizontalAlignment::Center);
+	_grid1->setStrechRow(2);
+	_grid1->setVerticalAlignment(iVerticalAlignment::Strech);
 	_grid1->setSelectMode(iSelectionMode::NoSelection);
 
 	_label1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
@@ -147,46 +148,38 @@ void WidgetsExample::initGUI()
 
 	_labelNum1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
 	_allWidgets.push_back(_labelNum1);
-	_labelNum1->setText("0, 0");
+	_labelNum1->setText("Label");
 
 	_labelNum2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
 	_allWidgets.push_back(_labelNum2);
-	_labelNum2->setText("1, 0");
+	_labelNum2->setText("foo bar");
 
 	_labelNum3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
 	_allWidgets.push_back(_labelNum3);
-	_labelNum3->setText("0, 1");
+	_labelNum3->setText("yet another Label");
 
 	_labelNum4 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
 	_allWidgets.push_back(_labelNum4);
-	_labelNum4->setText("1, 1");
+	_labelNum4->setText("Hello Label");
 
 	_button1 = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
 	_allWidgets.push_back(_button1);
-	_button1->setWidth(500);
+	_button1->setWidth(150);
 	_button1->setHeight(30);
-	_button1->setText("1");
-	_button1->setVerticalAlignment(iVerticalAlignment::Top);
-	_button1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_button1->setText("Open Message Box");
+	_button1->setVerticalAlignment(iVerticalAlignment::Strech);
+	_button1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
 	_button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onMessageBox));
 
-	_dialog1->addWidget(_widgetScoll);
-	_widgetScoll->addWidget(_grid1);
+	_dialog1->addWidget(_grid1);
 	
-	//_grid1->addWidget(_label1, 0, 0);
+	_grid1->addWidget(_label1, 0, 0);
+	_grid1->addWidget(_labelNum1, 2, 1);
 	_grid1->addWidget(_button1, 1, 2);
+	_grid1->addWidget(_labelNum2, 0, 3);
 	
-
-	/*_grid2->addWidget(_labelNum1, 0, 0);
-	_grid2->addWidget(_labelNum2, 1, 0);
-	_grid2->addWidget(_labelNum3, 0, 1);
-	_grid2->addWidget(_labelNum4, 1, 1);*/
-
-	//_groupBox2->addWidget(_label3);
-
-	//_widgetScoll->addWidget(_label2);
-
-/*	
+	
+/*	2
 
 
 

@@ -106,12 +106,12 @@ namespace Igor
 			return;
 		}
 
-		uint32 collumnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+		uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
 
 		for (uint32 i = 0; i < count; ++i)
 		{
 			GridCollumn gridCollumn;
-			gridCollumn._widgetCollumn.resize(collumnCount);
+			gridCollumn._widgetCollumn.resize(columnCount);
 			_widgetRows.push_back(gridCollumn);
 		}
 
@@ -157,8 +157,8 @@ namespace Igor
 	void iWidgetGrid::removeCollumn(uint32 at)
 	{
 		con_assert(!_widgetRows.empty(), "grid can't be empty");
-		uint32 collumnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
-		con_assert(at < collumnCount, "out of range");
+		uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+		con_assert(at < columnCount, "out of range");
 
 		auto iterRow = _widgetRows.begin();
 		while (iterRow != _widgetRows.end())
@@ -204,9 +204,9 @@ namespace Igor
 		}
 		else
 		{
-			uint32 collumnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+			uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
 			GridCollumn gridCollumn;
-			gridCollumn._widgetCollumn.resize(collumnCount);
+			gridCollumn._widgetCollumn.resize(columnCount);
 
 			auto iter = _widgetRows.begin();
 			for (uint32 i = 0; i < at; ++i)
@@ -222,10 +222,10 @@ namespace Igor
 	void iWidgetGrid::insertCollumn(uint32 at)
 	{
 		con_assert(!_widgetRows.empty(), "grid can't be empty");
-		uint32 collumnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
-		con_assert(at <= collumnCount, "out of range");
+		uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+		con_assert(at <= columnCount, "out of range");
 
-		if (at == collumnCount)
+		if (at == columnCount)
 		{
 			appendCollumns(1);
 			// no additional update needed here
@@ -283,9 +283,9 @@ namespace Igor
 		int32 height = 0;
 
 		uint32 rowCount = static_cast<uint32>(_widgetRows.size());
-		uint32 collumnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+		uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
 
-		for (uint32 x = 0; x < collumnCount; ++x)
+		for (uint32 x = 0; x < columnCount; ++x)
 		{
 			biggestsize = 0;
 
@@ -315,7 +315,7 @@ namespace Igor
 		{
 			biggestsize = 0;
 
-			for (uint32 x = 0; x < collumnCount; ++x)
+			for (uint32 x = 0; x < columnCount; ++x)
 			{
 				iWidget* widget = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
 
@@ -328,7 +328,7 @@ namespace Igor
 				}
 			}
 
-			for (uint32 x = 0; x < collumnCount; ++x)
+			for (uint32 x = 0; x < columnCount; ++x)
 			{
 				_widgetRows[y]._widgetCollumn[x]._height = biggestsize;
 			}
@@ -339,7 +339,7 @@ namespace Igor
 		int32 posx = 0;
 		int32 posy = 0;
 
-		for (uint32 x = 0; x < collumnCount; ++x)
+		for (uint32 x = 0; x < columnCount; ++x)
 		{
 			posy = _border;
 
@@ -355,7 +355,7 @@ namespace Igor
 		{
 			posx = _border;
 
-			for (uint32 x = 0; x < collumnCount; ++x)
+			for (uint32 x = 0; x < columnCount; ++x)
 			{
 				_widgetRows[y]._widgetCollumn[x]._x = posx;
 
@@ -363,10 +363,70 @@ namespace Igor
 			}
 		}
 
-		width += collumnCount*_cellspacing - _cellspacing + _border * 2;
+		width += columnCount*_cellspacing - _cellspacing + _border * 2;
 		height += rowCount*_cellspacing - _cellspacing + _border * 2;
 
 		iWidget::update(width, height);
+
+		bool updateAgain = false;
+		if (_strechRow > -1 &&
+			getVerticalAlignment() == iVerticalAlignment::Strech &&
+			getActualHeight() > height &&
+			_strechRow < rowCount)
+		{
+			int32 diff = getActualHeight() - height;
+
+			for (uint32 x = 0; x < columnCount; ++x)
+			{
+				_widgetRows[_strechRow]._widgetCollumn[x]._height += diff;
+			}
+
+			if (_strechRow + 1 < rowCount)
+			{
+				for (uint32 x = 0; x < columnCount; ++x)
+				{
+					for (uint32 y = _strechRow + 1; y < rowCount; ++y)
+					{
+						_widgetRows[y]._widgetCollumn[x]._y += diff;
+					}
+				}
+			}
+
+			height += diff;
+			updateAgain = true;
+		}
+
+		if (_strechCol > -1 &&
+			getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
+			getActualWidth() > width &&
+			_strechCol < columnCount)
+		{
+			int32 diff = getActualWidth() - width;
+
+			for (uint32 y = 0; y < rowCount; ++y)
+			{
+				_widgetRows[y]._widgetCollumn[_strechCol]._width += diff;
+			}
+
+			if (_strechCol + 1 < columnCount)
+			{
+				for (uint32 y = 0; y < rowCount; ++y)
+				{
+					for (uint32 x = _strechCol + 1; x < columnCount; ++x)
+					{
+						_widgetRows[y]._widgetCollumn[x]._x += diff;
+					}
+				}
+			}
+
+			width += diff;
+			updateAgain = true;
+		}
+
+		if (updateAgain)
+		{
+			iWidget::update(width, height);
+		}
 	}
 
 	int32 iWidgetGrid::getBorder()
@@ -378,6 +438,26 @@ namespace Igor
 	{
 		_border = border;
 		update();
+	}
+
+	void iWidgetGrid::setStrechRow(int32 row)
+	{
+		_strechRow = row;
+	}
+
+	int32 iWidgetGrid::getStrechRow() const
+	{
+		return _strechRow;
+	}
+
+	void iWidgetGrid::setStrechColumn(int32 col)
+	{
+		_strechCol = col;
+	}
+
+	int32 iWidgetGrid::getStrechColumn() const
+	{
+		return _strechCol;
 	}
 
 	bool iWidgetGrid::handleMouseDoubleClick(iKeyCode key)
@@ -703,7 +783,7 @@ namespace Igor
 		return static_cast<uint32>(_widgetRows.size());
 	}
 
-	uint32 iWidgetGrid::getCollumnCount()
+	uint32 iWidgetGrid::getColumnCount()
 	{
 		con_assert(!_widgetRows.empty(), "grid can't be empty");
 

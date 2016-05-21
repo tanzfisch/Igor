@@ -43,7 +43,6 @@ namespace Igor
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
     */
 	class Igor_API iWidgetGroupBox : public iWidget
 	{

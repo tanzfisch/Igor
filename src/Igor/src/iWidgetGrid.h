@@ -158,7 +158,7 @@ namespace Igor
 
         /*! \returns collumn count
         */
-        uint32 getCollumnCount();
+        uint32 getColumnCount();
 
         /*! \returns cell spacing
         */
@@ -243,7 +243,15 @@ namespace Igor
         */
         void* getUserData(int32 col, int32 row);
 
+		void setStrechRow(int32 row);
+		int32 getStrechRow() const;
+		void setStrechColumn(int32 col);
+		int32 getStrechColumn() const;
+
     private:
+
+		int32 _strechRow = -1;
+		int32 _strechCol = -1;
 
         /*! the child widgets
         */

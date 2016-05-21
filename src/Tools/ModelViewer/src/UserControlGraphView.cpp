@@ -66,7 +66,6 @@ void UserControlGraphView::initGUI()
     _groupBox->setText("Graph");
     _groupBox->setWidth(10);
     _groupBox->setHeight(10);
-	_groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
 	_groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));

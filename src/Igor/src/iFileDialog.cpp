@@ -282,7 +282,7 @@ namespace Igor
 
     void iFileDialog::addToFileGrid(int32 col, int32 row, iaString path, iaString displayName, bool isFolder)
     {
-        if (col >= _fileGrid->getCollumnCount())
+        if (col >= _fileGrid->getColumnCount())
         {
             _fileGrid->appendCollumns(1);
         }
@@ -327,7 +327,7 @@ namespace Igor
 
         for (int row = 0; row < _fileGrid->getRowCount(); ++row)
         {
-            for (int col = 0; col < _fileGrid->getCollumnCount(); ++col)
+            for (int col = 0; col < _fileGrid->getColumnCount(); ++col)
             {
                 void* data = _fileGrid->getUserData(col, row);
                 if (data != nullptr)
