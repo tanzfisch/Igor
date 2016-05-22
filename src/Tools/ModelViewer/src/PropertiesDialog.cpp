@@ -36,6 +36,7 @@ PropertiesDialog::~PropertiesDialog()
 
 void PropertiesDialog::initGUI()
 {
+	getDialog()->setWidth(300);
     getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 
@@ -43,8 +44,9 @@ void PropertiesDialog::initGUI()
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Right);
-    _grid->setVerticalAlignment(iVerticalAlignment::Top);
+	_grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _grid->setVerticalAlignment(iVerticalAlignment::Strech);
+	_grid->setStrechRow(0);
     
     _userControlProperties = new UserControlProperties();
     _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));

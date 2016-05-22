@@ -43,13 +43,12 @@ void UserControlProperties::initGUI()
 {
     _groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
     _groupBox->setText("Properties");
-    _groupBox->setWidth(300);
+	_groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+	_groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
-    _scroll->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _scroll->setVerticalAlignment(iVerticalAlignment::Top);
-    _scroll->setWidth(360);
-    _scroll->setHeight(400);
+    _scroll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _scroll->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _grid->appendRows(1);

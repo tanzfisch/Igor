@@ -38,15 +38,18 @@ void MenuDialog::initGUI()
 {
     _messageBox = new iMessageBox();
 
-    getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
+	getDialog()->setWidth(300);
+	getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
+	_grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
     _grid->appendRows(2);
+	_grid->setStrechRow(2);
     
     _gridButtons1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid)); 
     _allwidgets.push_back(_gridButtons1);

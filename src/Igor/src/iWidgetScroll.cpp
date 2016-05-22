@@ -138,6 +138,49 @@ namespace Igor
 		_scrollbarWidth = width;
 	}
 
+	void iWidgetScroll::update()
+	{
+		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
+
+		if (!_children.empty())
+		{
+			iWidget* widget = _children[0];
+
+			con_assert(widget->getVerticalAlignment() == iVerticalAlignment::Top && widget->getHorrizontalAlignment() == iHorrizontalAlignment::Left, "only top left alignment is supported for children of iWidgetScroll");
+
+			int32 childWidth = widget->getActualWidth();
+			int32 childHeight = widget->getActualHeight();
+
+			if (getActualWidth() - 4 < childWidth) // h scrollbar
+			{
+				_hscrollActive = true;
+			}
+			else
+			{
+				_hscrollActive = false;
+			}
+
+			if (getActualHeight() - 4 < childHeight) // v scrollbar
+			{
+				_vscrollActive = true;
+			}
+			else
+			{
+				_vscrollActive = false;
+			}
+
+			calcChildFrame();
+			calcScrollButtons();
+			calcTranslation();
+
+			/* TODO
+			up_button;
+			down_button;
+			left_button;
+			right_button;*/
+		}
+	}
+
 	void iWidgetScroll::calcScrollButtons()
 	{
 		int32 scrollspace;
@@ -152,16 +195,16 @@ namespace Igor
 			// v scroll button
 			if (_hscrollActive)
 			{
-				scrollspace = getConfiguredHeight() - 6 - _scrollbarWidth * 3;
+				scrollspace = getActualHeight() - 6 - _scrollbarWidth * 3;
 			}
 			else
 			{
-				scrollspace = getConfiguredHeight() - 6 - _scrollbarWidth * 2;
+				scrollspace = getActualHeight() - 6 - _scrollbarWidth * 2;
 			}
 
-			_vscrollButton.setHeight(((float32)getConfiguredHeight() / childHeight) * scrollspace);
+			_vscrollButton.setHeight(((float32)getActualHeight() / childHeight) * scrollspace);
 			_vscrollButton.setY((scrollspace - _vscrollButton.getHeight()) * _vscroll + 3 + _scrollbarWidth);
-			_vscrollButton.setX(getConfiguredWidth() - _scrollbarWidth - 2);
+			_vscrollButton.setX(getActualWidth() - _scrollbarWidth - 2);
 			_vscrollButton.setWidth(_scrollbarWidth);
 		}
 
@@ -170,61 +213,18 @@ namespace Igor
 			// h scroll button
 			if (_vscrollActive)
 			{
-				scrollspace = getConfiguredWidth() - 6 - _scrollbarWidth * 3;
+				scrollspace = getActualWidth() - 6 - _scrollbarWidth * 3;
 			}
 			else
 			{
-				scrollspace = getConfiguredWidth() - 6 - _scrollbarWidth * 2;
+				scrollspace = getActualWidth() - 6 - _scrollbarWidth * 2;
 			}
 
-			_hscrollButton.setWidth(((float32)getConfiguredWidth() / childWidth) * scrollspace);
+			_hscrollButton.setWidth(((float32)getActualWidth() / childWidth) * scrollspace);
 			_hscrollButton.setX((scrollspace - _hscrollButton.getWidth()) * _hscroll + 4 + _scrollbarWidth);
-			_hscrollButton.setY(getConfiguredHeight() - _scrollbarWidth - 2);
+			_hscrollButton.setY(getActualHeight() - _scrollbarWidth - 2);
 			_hscrollButton.setHeight(_scrollbarWidth);
 		}
-	}
-
-	void iWidgetScroll::update()
-	{
-		if (!_children.empty())
-		{
-			iWidget* widget = _children[0];
-
-			con_assert(widget->getVerticalAlignment() == iVerticalAlignment::Top && widget->getHorrizontalAlignment() == iHorrizontalAlignment::Left, "only top left alignment is supported for children of iWidgetScroll");
-
-			int32 childWidth = widget->getActualWidth();
-			int32 childHeight = widget->getActualHeight();
-
-			if (getConfiguredWidth() - 4 < childWidth) // h scrollbar
-			{
-				_hscrollActive = true;
-			}
-			else
-			{
-				_hscrollActive = false;
-			}
-
-			if (getConfiguredHeight() - 4 < childHeight) // v scrollbar
-			{
-				_vscrollActive = true;
-			}
-			else
-			{
-				_vscrollActive = false;
-			}
-
-			calcScrollButtons();
-			calcChildFrame();
-			calcTranslation();
-
-			/* TODO
-			up_button;
-				down_button;
-				left_button;
-				right_button;*/
-		}
-
-		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
 	}
 
 	void iWidgetScroll::calcTranslation()
@@ -235,12 +235,12 @@ namespace Igor
 
 		if (_hscrollActive)
 		{
-			_translate.translate(-_hscroll * (widget->getActualWidth() - getConfiguredWidth() + 4), 0, 0);
+			_translate.translate(-_hscroll * (widget->getActualWidth() - getActualWidth() + 4), 0, 0);
 		}
 
 		if (_vscrollActive)
 		{
-			_translate.translate(0, -_vscroll * (widget->getActualHeight() - getConfiguredHeight() + 4), 0);
+			_translate.translate(0, -_vscroll * (widget->getActualHeight() - getActualHeight() + 4), 0);
 		}
 	}
 
@@ -250,29 +250,29 @@ namespace Igor
 		{
 			_childFrame.setX(2);
 			_childFrame.setY(2);
-			_childFrame.setWidth(getConfiguredWidth() - 4 - _scrollbarWidth);
-			_childFrame.setHeight(getConfiguredHeight() - 4 - _scrollbarWidth);
+			_childFrame.setWidth(getActualWidth() - 4 - _scrollbarWidth);
+			_childFrame.setHeight(getActualHeight() - 4 - _scrollbarWidth);
 		}
 		else if (_hscrollActive)
 		{
 			_childFrame.setX(2);
 			_childFrame.setY(2);
-			_childFrame.setWidth(getConfiguredWidth() - 4);
-			_childFrame.setHeight(getConfiguredHeight() - 4 - _scrollbarWidth);
+			_childFrame.setWidth(getActualWidth() - 4);
+			_childFrame.setHeight(getActualHeight() - 4 - _scrollbarWidth);
 		}
 		else if (_vscrollActive)
 		{
 			_childFrame.setX(2);
 			_childFrame.setY(2);
-			_childFrame.setWidth(getConfiguredWidth() - 4 - _scrollbarWidth);
-			_childFrame.setHeight(getConfiguredHeight() - 4);
+			_childFrame.setWidth(getActualWidth() - 4 - _scrollbarWidth);
+			_childFrame.setHeight(getActualHeight() - 4);
 		}
 		else // no scrollbars
 		{
 			_childFrame.setX(2);
 			_childFrame.setY(2);
-			_childFrame.setWidth(getConfiguredWidth() - 4);
-			_childFrame.setHeight(getConfiguredHeight() - 4);
+			_childFrame.setWidth(getActualWidth() - 4);
+			_childFrame.setHeight(getActualHeight() - 4);
 		}
 	}
 

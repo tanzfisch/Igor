@@ -64,15 +64,12 @@ void UserControlGraphView::initGUI()
 {
     _groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
     _groupBox->setText("Graph");
-    _groupBox->setWidth(10);
-    _groupBox->setHeight(10);
+	_groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
 	_groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
-    _scroll->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _scroll->setVerticalAlignment(iVerticalAlignment::Top);
-    _scroll->setWidth(360);
-    _scroll->setHeight(350);
+    _scroll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _scroll->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _grid->setBorder(0);

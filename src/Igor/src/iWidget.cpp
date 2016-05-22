@@ -574,7 +574,7 @@ namespace Igor
 				break;
 
 			case iHorrizontalAlignment::Absolut:
-				con_err("absolut positioning not supported for widgets");
+				con_err("absolut positioning only supported for dialogs");
 				break;
 
 			default:;
@@ -603,7 +603,7 @@ namespace Igor
 				break;
 
 			case iVerticalAlignment::Absolut:
-				con_err("absolut positioning not supported for widgets");
+				con_err("absolut positioning only supported for dialogs");
 				break;
 
 			default:;
