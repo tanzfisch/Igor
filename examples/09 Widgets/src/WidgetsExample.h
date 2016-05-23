@@ -79,6 +79,7 @@ private:
 	iWidgetLabel* _label1 = nullptr;
 	iWidgetLabel* _label2 = nullptr;
 	iWidgetLabel* _label3 = nullptr;
+	iWidgetLabel* _labelMousePos = nullptr;
 	iWidgetLabel* _labelNum1 = nullptr;
 	iWidgetLabel* _labelNum2 = nullptr;
 	iWidgetLabel* _labelNum3 = nullptr;
@@ -113,6 +114,7 @@ private:
 
     void onExitClick(iWidget* source);
     void onMessageBox(iWidget* source);
+	void onMouseMove(int32 x, int32 y);
 
     void onWindowClosed();
     void onWindowResize(int32 clientWidth, int32 clientHeight);

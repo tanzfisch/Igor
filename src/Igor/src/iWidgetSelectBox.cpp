@@ -134,8 +134,8 @@ namespace Igor
                 }
 
                 // TODO insuficcient if select box is within a iWidgetScroll. maybe the widget system needs an other big redesign :-(
-                // _selectBox->setX(getActualPosX());
-                // _selectBox->setY(getActualPosY());
+                 _selectBox->setX(getActualPosX() + 2);
+                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);
                 _selectBox->show(_texts, iSelectBoxCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
             }
 

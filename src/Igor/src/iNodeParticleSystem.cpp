@@ -62,12 +62,9 @@ namespace Igor
 	void iNodeParticleSystem::handle()
 	{
 		iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_emitterID));
-
 		if (emitter != nullptr)
 		{
-			_particleSystem.setParticleSystemMatrix(_worldMatrixInv);
 			_particleSystem.calcNextFrame(emitter->getParticleEmitter());
-
 			setBoundingSphere(_particleSystem.getBoundingSphere());
 		}
 	}
@@ -241,9 +238,10 @@ namespace Igor
 			_worldMatrix = matrix;
 			_worldMatrixInv = matrix;
 			_worldMatrixInv.invert();
-
-			updateTree();
+			_particleSystem.setParticleSystemMatrix(_worldMatrixInv);
 		}
+
+		updateTree();
     }
 
     void iNodeParticleSystem::setEmitter(uint64 emitterID)

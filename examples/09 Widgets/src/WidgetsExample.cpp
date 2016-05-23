@@ -71,6 +71,8 @@ void WidgetsExample::init()
     _modelViewOrtho.translate(iaVector3f(0, 0, -30));
 
     initGUI();
+
+	iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 }
 
 void WidgetsExample::initGUI()
@@ -137,6 +139,9 @@ void WidgetsExample::initGUI()
 	_label3->setText("this label is supposed to apper in the lower right this label is supposed to apper in the lower right this label is supposed to apper in the lower right this label is supposed to apper in the lower right ");
 	_label3->setMaxTextWidth(200);
 
+	_labelMousePos = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+	_allWidgets.push_back(_labelMousePos);
+
 	_grid2 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
 	_allWidgets.push_back(_grid2);
 	_grid2->appendCollumns(1);
@@ -193,6 +198,7 @@ void WidgetsExample::initGUI()
 	_grid1->addWidget(_button1, 0, 0);
     _grid1->addWidget(_selectBox, 1, 1);
     _grid1->addWidget(_numberChooser, 2, 2);
+	_grid1->addWidget(_labelMousePos, 0, 3);
 	
 /*
 	_label2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
@@ -276,6 +282,8 @@ void WidgetsExample::deinitGUI()
 
 void WidgetsExample::deinit()
 {
+	iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
+
     deinitGUI();
 
     iMaterialResourceFactory::getInstance().destroyMaterial(_fontMaterial);
@@ -288,6 +296,19 @@ void WidgetsExample::deinit()
 	if (_font)
 	{
 		delete _font;
+	}
+}
+
+void WidgetsExample::onMouseMove(int32 x, int32 y)
+{
+	if (_labelMousePos != nullptr)
+	{
+		iaString text;
+		text += iaString::itoa(x);
+		text += ":";
+		text += iaString::itoa(y);
+
+		_labelMousePos->setText(text);
 	}
 }
 

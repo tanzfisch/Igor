@@ -33,7 +33,7 @@ namespace Igor
 
 			for (auto widget : widgets)
 			{
-				widget->handleMouseMove(x - _translate._pos._x, y - _translate._pos._y);
+				widget->handleMouseMove(x, y);
 			}
 
 			if (x >= _absoluteX &&
@@ -378,11 +378,11 @@ namespace Igor
 
 					iaMatrixf matrix;
 					matrix.translate(-getActualPosX(), -getActualPosY(), -30);
-					matrix._pos += _translate._pos;
+					//matrix._pos += _translate._pos;
 
 					iRenderer::getInstance().setModelMatrix(matrix);
 
-					widget->draw(getActualPosX(), getActualPosY());
+					widget->draw(getActualPosX() + _translate._pos._x, getActualPosY() + _translate._pos._y);
 
 					iRenderer::getInstance().setModelMatrix(modelMatrix);
 					iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
