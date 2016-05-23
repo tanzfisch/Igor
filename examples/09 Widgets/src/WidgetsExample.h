@@ -60,6 +60,7 @@ namespace Igor
     class iWidgetPicture;
 	class iWidgetScroll;
     class iMessageBox;
+    class iWidgetSelectBox;
 }
 
 class WidgetsExample
@@ -84,6 +85,7 @@ private:
 	iWidgetLabel* _labelNum4 = nullptr;
 	iWidgetGroupBox* _groupBox1 = nullptr;
 	iWidgetGroupBox* _groupBox2 = nullptr;
+    iWidgetSelectBox* _selectBox = nullptr;
 
 	iWidgetButton* _button1 = nullptr;
 	iWidgetButton* _button2 = nullptr;

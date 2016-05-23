@@ -279,8 +279,8 @@ namespace Igor
 		int32 biggestsize = 0;
 
 		// ignores configured size
-		int32 width = 0;
-		int32 height = 0;
+		int32 width = getConfiguredWidth();
+		int32 height = getConfiguredHeight();
 
 		uint32 rowCount = static_cast<uint32>(_widgetRows.size());
 		uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());

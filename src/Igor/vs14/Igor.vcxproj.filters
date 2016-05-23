@@ -629,6 +629,12 @@
     <ClCompile Include="..\src\iParticleEmitter.cpp">
       <Filter>graphics\simulation</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iWidgetSelectBox.cpp">
+      <Filter>GUI\widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iSelectBox.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1317,6 +1323,12 @@
     </ClInclude>
     <ClInclude Include="..\src\iGradient.h">
       <Filter>graphics\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetSelectBox.h">
+      <Filter>GUI\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSelectBox.h">
+      <Filter>GUI\dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

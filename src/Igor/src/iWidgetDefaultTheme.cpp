@@ -8,7 +8,7 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-#define DEBUG_OUTPUT 1
+#define DEBUG_OUTPUT 0
 
 #if DEBUG_OUTPUT == 1
     iaColor4f MOUSEOVER(1,1,1,0.5f);
@@ -329,20 +329,47 @@ namespace Igor
         iRenderer::getInstance().drawLine(posx, posy, posx + width, posy);
         iRenderer::getInstance().drawLine(posx, posy, posx, posy + height);
 
-        drawButtonFrame(posx + width - height - 1, posy + 1, height, height / 2 - 1, state_button_up, active);
-        drawButtonFrame(posx + width - height - 1, posy + height / 2, height, height / 2 - 1, state_button_down, active);
+        drawButton(posx + width - height - 1, posy + 1, height, height / 2 - 1, "+", iHorrizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_up, active);
+        drawButton(posx + width - height - 1, posy + height / 2, height, height / 2 - 1, "-", iHorrizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_down, active);
+    }
+
+    void iWidgetDefaultTheme::drawSelectBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active)
+    {
+        drawSelectBoxFrame(posx, posy, width, height, buttonAppearance, active);
+        drawText(posx + (height - _fontSize) * 0.5f, posy + (height - _fontSize) * 0.5f + 1, text, 0);
+
+        DRAW_DEBUG_OUTPUT(posx, posy, width, height, buttonAppearance);
+    }
+
+    void iWidgetDefaultTheme::drawSelectBoxFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState buttonState, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+
+        iRenderer::getInstance().setColor(_lightDiffuse);
+        iRenderer::getInstance().drawRectangle(posx, posy, width, height);
+
+        iRenderer::getInstance().setColor(_specular);
+        iRenderer::getInstance().drawLine(posx, posy + height, posx + width, posy + height);
+        iRenderer::getInstance().drawLine(posx + width, posy, posx + width, posy + height);
 
         iRenderer::getInstance().setColor(_ambient);
+        iRenderer::getInstance().drawLine(posx, posy, posx + width, posy);
+        iRenderer::getInstance().drawLine(posx, posy, posx, posy + height);
 
-        iRenderer::getInstance().drawLine(posx + width - height / 2 - 2, posy + 2,
-            posx + width - height + 1, posy + height / 2 - 3);
-        iRenderer::getInstance().drawLine(posx + width - height / 2 - 2, posy + 2,
-            posx + width - 4, posy + height / 2 - 3);
+        drawButton(posx + width - height, posy + 1, height - 1, height - 2, "V", iHorrizontalAlignment::Center, iVerticalAlignment::Center, nullptr, buttonState, active);
+    }
 
-        iRenderer::getInstance().drawLine(posx + width - height / 2 - 2, posy + height - 3,
-            posx + width - height + 1, posy + height - height / 2 + 2);
-        iRenderer::getInstance().drawLine(posx + width - height / 2 - 2, posy + height - 3,
-            posx + width - 4, posy + height - height / 2 + 2);
+    void iWidgetDefaultTheme::drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+
+        iRenderer::getInstance().setColor(_lightDiffuse);
+        iRenderer::getInstance().drawRectangle(posx, posy + height - 1, width - height, height * text.size());
+
+        iRenderer::getInstance().setColor(_ambient);
+        iRenderer::getInstance().drawLine(posx, posy + height - 1, posx, posy + height * (text.size() + 1));
+        iRenderer::getInstance().drawLine(posx + width - height, posy + height - 1, posx + width - height, posy + height * (text.size() + 1));
+        iRenderer::getInstance().drawLine(posx, posy + height * (text.size() + 1), posx + width - height, posy + height * (text.size() + 1));
     }
 
     float32 iWidgetDefaultTheme::getFontSize()

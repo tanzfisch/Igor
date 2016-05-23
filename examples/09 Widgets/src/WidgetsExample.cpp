@@ -23,6 +23,7 @@ using namespace IgorAux;
 #include <iWidgetTextEdit.h>
 #include <iWidgetPicture.h>
 #include <iWidgetScroll.h>
+#include <iWidgetSelectBox.h>
 #include <iMessageBox.h>
 #include <iWidgetDefaultTheme.h>
 using namespace Igor;
@@ -80,16 +81,17 @@ void WidgetsExample::initGUI()
 
 	_dialog1 = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createWidget(iWidgetType::Dialog));
 	_allWidgets.push_back(_dialog1);
-    _dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Right);
-    _dialog1->setVerticalAlignment(iVerticalAlignment::Strech);
-    _dialog1->setWidth(300);
+    _dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _dialog1->setVerticalAlignment(iVerticalAlignment::Center);
+    _dialog1->setHeight(300);
     _dialog1->setActive();
     _dialog1->setVisible();
 
 	_groupBox1 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
 	_allWidgets.push_back(_groupBox1);
 	_groupBox1->setText("Hello World!");
-	_groupBox1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _groupBox1->setWidth(600);
+	_groupBox1->setHorrizontalAlignment(iHorrizontalAlignment::Center);
 	_groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
 
 	_groupBox2 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
@@ -145,7 +147,7 @@ void WidgetsExample::initGUI()
 
 	_labelNum1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
 	_allWidgets.push_back(_labelNum1);
-	_labelNum1->setText("Label");
+	_labelNum1->setText("Label Label Label");
 
 	_labelNum2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
 	_allWidgets.push_back(_labelNum2);
@@ -162,12 +164,24 @@ void WidgetsExample::initGUI()
 
 	_button1 = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
 	_allWidgets.push_back(_button1);
-	_button1->setWidth(10);
-	_button1->setHeight(1000);
+	_button1->setWidth(70);
+	_button1->setHeight(20);
 	_button1->setText("Open Message Box");
 	_button1->setVerticalAlignment(iVerticalAlignment::Strech);
 	_button1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
 	_button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onMessageBox));
+
+    _selectBox = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
+    _allWidgets.push_back(_selectBox);
+    _selectBox->appendEntry("bla");
+    _selectBox->appendEntry("blub haha bla blub");
+    _selectBox->appendEntry("haha");
+    _selectBox->setSelection(1);
+
+    _numberChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_numberChooser);
+    _numberChooser->setPostFix("%");
+    _numberChooser->setValue(50);
 
 	_dialog1->addWidget(_groupBox1);
 	_groupBox1->addWidget(_widgetScoll);
@@ -177,6 +191,8 @@ void WidgetsExample::initGUI()
 	_grid1->addWidget(_labelNum3, 1, 2);
 	_grid1->addWidget(_labelNum4, 0, 4);
 	_grid1->addWidget(_button1, 0, 0);
+    _grid1->addWidget(_selectBox, 1, 1);
+    _grid1->addWidget(_numberChooser, 2, 2);
 	
 /*
 	_label2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
@@ -197,11 +213,6 @@ void WidgetsExample::initGUI()
     _button2->setHeight(64);
     _button2->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
 	_grid1->addWidget(_button2, 1, 1);
-
-	_numberChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
-	_numberChooser->setPostFix("%");
-    _numberChooser->setValue(50);
-	_grid1->addWidget(_numberChooser, 2, 1);
 
 	_textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
 	_textEdit->setText("bla");

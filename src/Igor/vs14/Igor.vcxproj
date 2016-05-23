@@ -774,6 +774,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iResourceManager.h" />
     <ClInclude Include="..\src\iScene.h" />
     <ClInclude Include="..\src\iSceneFactory.h" />
+    <ClInclude Include="..\src\iSelectBox.h" />
     <ClInclude Include="..\src\iShader.h" />
     <ClInclude Include="..\src\iSkyLightNode.h" />
     <ClInclude Include="..\src\iSkySimulation.h">
@@ -832,6 +833,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iWidgetNumberChooser.h" />
     <ClInclude Include="..\src\iWidgetPicture.h" />
     <ClInclude Include="..\src\iWidgetScroll.h" />
+    <ClInclude Include="..\src\iWidgetSelectBox.h" />
     <ClInclude Include="..\src\iWidgetSlider.h" />
     <ClInclude Include="..\src\iWidgetSpacer.h" />
     <ClInclude Include="..\src\iWidgetTextEdit.h" />
@@ -1372,6 +1374,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iResourceManager.cpp" />
     <ClCompile Include="..\src\iScene.cpp" />
     <ClCompile Include="..\src\iSceneFactory.cpp" />
+    <ClCompile Include="..\src\iSelectBox.cpp" />
     <ClCompile Include="..\src\iShader.cpp" />
     <ClCompile Include="..\src\iSkyLightNode.cpp" />
     <ClCompile Include="..\src\iSkySimulation.cpp">
@@ -1426,6 +1429,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iWidgetNumberChooser.cpp" />
     <ClCompile Include="..\src\iWidgetPicture.cpp" />
     <ClCompile Include="..\src\iWidgetScroll.cpp" />
+    <ClCompile Include="..\src\iWidgetSelectBox.cpp" />
     <ClCompile Include="..\src\iWidgetSlider.cpp" />
     <ClCompile Include="..\src\iWidgetSpacer.cpp" />
     <ClCompile Include="..\src\iWidgetTextEdit.cpp" />

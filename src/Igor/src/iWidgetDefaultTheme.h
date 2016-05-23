@@ -72,6 +72,8 @@ namespace Igor
         void drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, iaString text, bool checked, iWidgetAppearanceState state, bool active);
         void drawLabel(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState state, bool active);
         void drawNumberChooser(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState button_up_state, iWidgetAppearanceState button_down_state, bool active);
+        void drawSelectBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active);
+        void drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active);
         void drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, iaString text, iHorrizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active);
         void drawText(int32 posx, int32 posy, iaString text, long textwidth);
 
@@ -118,6 +120,7 @@ namespace Igor
 		void drawCheckBoxFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active);
 		void drawCheckBox(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active, bool checked);
 		void drawNumberChooserFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state_button_up, iWidgetAppearanceState state_button_down, bool active);
+        void drawSelectBoxFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState buttonState, bool active);
 
 	};
 }

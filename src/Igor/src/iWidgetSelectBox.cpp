@@ -7,6 +7,7 @@
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iTextureFont.h>
+#include <iSelectBox.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -20,47 +21,57 @@ namespace Igor
 	iWidgetSelectBox::iWidgetSelectBox()
 		: iWidget(iWidgetType::NumberChooser)
 	{
-		_height = 20;
-		_width = 80;
+
 	}
 
-	void iWidgetSelectBox::setWidth(int32 width)
-	{
-		_width = width;
-		update();
-	}
-
-	void iWidgetSelectBox::setHeight(int32 height)
-	{
-		_height = height;
-		update();
-	}
+    iWidgetSelectBox::~iWidgetSelectBox()
+    {
+        // TODO mem leak: deletion and callback conflict
+     /*   if (_selectBox != nullptr)
+        {
+            delete _selectBox;
+            _selectBox = nullptr;
+        }*/
+    }
 
 	void iWidgetSelectBox::update()
 	{
-/*		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+        int32 width = _configuredWidth;
+        int32 height = _configuredHeight;
 
-		iaString displayString = str.str().c_str();
-		displayString += _postFix;
+        if (isGrowingByContent() &&
+            !_texts.empty())
+        {
+            float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+            int32 maxTextWidth = 0;
+            for (auto text : _texts)
+            {
+                int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(text, fontSize);
+                if (textWidth > maxTextWidth)
+                {
+                    maxTextWidth = textWidth;
+                }
+            }
 
-		int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(displayString, fontSize));
+            if (fontSize * 1.5 > height)
+            {
+                height = fontSize * 1.5;
+            }
 
-		if (_height < fontSize * 1.5f)
-		{
-			_height = static_cast<int32>(fontSize * 1.5f);
-		}
+            maxTextWidth += height + fontSize;
 
-		if (_width < textWidth + _height + fontSize)
-		{
-			_width = textWidth + _height + static_cast<int32>(fontSize);
-		}*/
+            if (maxTextWidth > width)
+            {
+                width = maxTextWidth;
+            }
+        }
 
-		_buttonRectangle.setX(_width - _height - 1);
-		_buttonRectangle.setY(_height);
-		_buttonRectangle.setWidth(_height);
-		_buttonRectangle.setHeight(_height - 1);
-		
-        updateParent();
+        iWidget::update(width, height);
+
+        _buttonRectangle.setX(getActualWidth() - getActualHeight() - 1);
+        _buttonRectangle.setY(0);
+        _buttonRectangle.setWidth(getActualHeight());
+        _buttonRectangle.setHeight(getActualHeight() - 1);
 	}
 
 	bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
@@ -70,10 +81,10 @@ namespace Igor
 			return false;
 		}
 
-		if (_mouseOverButton)
-		{
-            _appearanceState = iWidgetAppearanceState::Pressed;
-		}
+        if (_mouseOverButton)
+        {
+            _buttonAppearanceState = iWidgetAppearanceState::Pressed;
+        }
 
 		return iWidget::handleMouseKeyDown(key);
 	}
@@ -87,21 +98,21 @@ namespace Igor
 
         iWidget::handleMouseMove(x, y);
 
-		int32 mx = x - _posx;
-		int32 my = y - _posy;
+		int32 mx = x - getActualPosX();
+		int32 my = y - getActualPosY();
 
 		if (mx >= _buttonRectangle.getX() &&
             mx < _buttonRectangle.getX() + _buttonRectangle.getWidth() &&
 			my >= _buttonRectangle.getY() &&
             my < _buttonRectangle.getY() + _buttonRectangle.getHeight())
 		{
-			_mouseOverButton = true;
-			_appearanceState = iWidgetAppearanceState::Highlighted;
+            _mouseOverButton = true;
+            _buttonAppearanceState = iWidgetAppearanceState::Highlighted;
 		}
 		else
 		{
-			_mouseOverButton = false;
-			_appearanceState = iWidgetAppearanceState::Standby;
+            _mouseOverButton = false;
+            _buttonAppearanceState = iWidgetAppearanceState::Standby;
 		}
 	}
 
@@ -116,9 +127,17 @@ namespace Igor
 		{
             if (key == iKeyCode::MouseLeft)
             {
-				_appearanceState = iWidgetAppearanceState::Standby;
+                _buttonAppearanceState = iWidgetAppearanceState::Standby;
 
-				// todo open drop down
+                if (_selectBox == nullptr)
+                {
+                    _selectBox = new iSelectBox();
+                }
+
+                // TODO insuficcient if select box is within a iWidgetScroll. maybe the widget system needs an other big redesign :-(
+                // _selectBox->setX(getActualPosX());
+                // _selectBox->setY(getActualPosY());
+                _selectBox->show(_texts, iSelectBoxCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
             }
 
             setKeyboardFocus();
@@ -127,6 +146,16 @@ namespace Igor
 
         return iWidget::handleMouseKeyUp(key);
 	}
+
+    void iWidgetSelectBox::onSelectionChanged(int32 value)
+    {
+        if (value > -1)
+        {
+            _key = value;
+        }
+
+        _change(this);
+    }
 
 	bool iWidgetSelectBox::handleMouseWheel(int32 d)
 	{
@@ -154,34 +183,55 @@ namespace Igor
         return false;
 	}
 
-	void iWidgetSelectBox::setSelectedKey(uint32 key)
+	void iWidgetSelectBox::setSelection(uint32 key)
 	{
+        con_assert(key < _texts.size() ||key == 0, "out of range");
 
+        if (key < _texts.size() || key == 0)
+        {
+            _key = key;
+        }
 	}
 
-	void iWidgetSelectBox::setSelectedValue(const iaString& value)
-	{
+    void iWidgetSelectBox::clear()
+    {
+        _texts.clear();
+        _key = 0;
+    }
 
-	}
+    void iWidgetSelectBox::appendEntry(const iaString& entryText)
+    {
+        _texts.push_back(entryText);
+    }
 
 	uint32 iWidgetSelectBox::getSelectedKey() const
 	{
+        uint32 result = 0;
 
+        return result;
 	}
 
 	iaString iWidgetSelectBox::getSelectedValue() const
 	{
+        iaString result;
 
+        return result;
 	}
 
-	void iWidgetSelectBox::draw()
-	{
+	void iWidgetSelectBox::draw(int32 parentPosX, int32 parentPosY)
+    {
+        updatePosition(parentPosX, parentPosY);
+
 		if (isVisible())
 		{
-            iaString displayString = iaString::ftoa(_value, _afterPoint);
-			displayString += _postFix;
+            iaString displayString;
 
-			iWidgetManager::getInstance().getTheme()->drawNumberChooser(_posx, _posy, _width, _height, displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
+            if(_key < _texts.size())
+            { 
+                displayString = _texts[_key];
+            }
+
+			iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonAppearanceState, isActive());
 		}
 	}
 

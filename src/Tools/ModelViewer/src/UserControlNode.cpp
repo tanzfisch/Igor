@@ -84,12 +84,12 @@ void UserControlNode::initGUI()
 
     _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textName);
-    _textName->setWidth(300);
+    _textName->setWidth(200);
     _textName->setMaxTextLength(256);
     _textName->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
+    _textName->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textName->setText("");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlNode::onNameChanged));
-    _textName->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _labelActive = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelActive);

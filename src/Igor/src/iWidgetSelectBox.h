@@ -36,6 +36,7 @@ namespace Igor
 
 	class iTextureFont;
 	class iWidgetManager;
+    class iSelectBox;
 
 	/*!
 
@@ -53,20 +54,32 @@ namespace Igor
         friend class iWidgetManager;
 
 	public:
-		
-        void setWidth(int32 width);
-        
-		void setHeight(int32 height);
 
-		void setSelectedKey(uint32 key);
-		void setSelectedValue(const iaString& value);
+        void clear();
+        void appendEntry(const iaString& entryText);
+		
+		void setSelection(uint32 key);
 
 		uint32 getSelectedKey() const;
 		iaString getSelectedValue() const;
 
 	private:
 
-        iWidgetAppearanceState _appearanceState = iWidgetAppearanceState::Standby;
+        vector<iaString> _texts;
+
+        uint32 _key = 0;
+
+        iRectanglef _buttonRectangle;
+
+        bool _mouseOverButton = false;
+
+        bool _openSelectBox = false;
+
+        iSelectBox* _selectBox = nullptr;
+
+        iWidgetAppearanceState _buttonAppearanceState = iWidgetAppearanceState::Standby;
+
+        void onSelectionChanged(int32 value);
 
         /*! handles incomming mouse wheel event
 
@@ -102,15 +115,15 @@ namespace Igor
 
         /*! renders widget
         */
-        void draw();
+        void draw(int32 parentPosX, int32 parentPosY);
 
         /*! ctro initializes member variables
         */
 		iWidgetSelectBox();
 
-        /*! does nothing
+        /*! clean up
         */
-		virtual ~iWidgetSelectBox() = default;
+		virtual ~iWidgetSelectBox();
 	};
 }
 

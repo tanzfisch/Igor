@@ -76,6 +76,8 @@ namespace Igor
 		virtual void drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, iaString text, bool checked, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawLabel(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawNumberChooser(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState buttonUp, iWidgetAppearanceState buttonDown, bool active) = 0;
+        virtual void drawSelectBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active) = 0;
+        virtual void drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active) = 0;
 		virtual void drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, iaString text, iHorrizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawText(int32 posx, int32 posy, iaString text, long textwidth) = 0;
 

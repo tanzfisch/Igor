@@ -17,6 +17,7 @@
 #include <iWidgetSpacer.h>
 #include <iWidgetColorView.h>
 #include <iWidgetSlider.h>
+#include <iWidgetSelectBox.h>
 #include <iKeyboard.h>
 
 #include <iMaterialResourceFactory.h>
@@ -106,7 +107,6 @@ namespace Igor
             for (auto dialog : dialogs)
             {
                 dialog->handleMouseKeyUp(key);
-                int x = 0;
             }
         }
     }
@@ -316,6 +316,10 @@ namespace Igor
 
         case iWidgetType::Slider:
             result = new iWidgetSlider();
+            break;
+
+        case iWidgetType::SelectBox:
+            result = new iWidgetSelectBox();
             break;
 
         case iWidgetType::Undefined:

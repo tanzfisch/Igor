@@ -12,6 +12,7 @@
 #include <iWidgetSlider.h>
 #include <iWidgetNumberChooser.h>
 #include <iNodeEmitter.h>
+#include <iWidgetSelectBox.h>
 #include <iMesh.h>
 #include <iNodeFactory.h>
 #include <iTargetMaterial.h>
@@ -39,6 +40,7 @@ void UserControlEmitter::updateGUI()
     if (node != nullptr)
     {
         _textSize->setText(iaString::ftoa(node->getSize(), 4));
+        _selectType->setSelection(static_cast<uint32>(node->getType()));
     }
 }
 
@@ -68,6 +70,18 @@ void UserControlEmitter::initGUI()
     _labelType->setText("Type");
     _labelType->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
+    _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
+    _allWidgets.push_back(_selectType);
+    // see iEmitterTypes
+    _selectType->appendEntry("Mesh");
+    _selectType->appendEntry("Point");
+    _selectType->appendEntry("Disc");
+    _selectType->appendEntry("Circle");
+    _selectType->appendEntry("Sphere");
+    _selectType->appendEntry("Square");
+    _selectType->appendEntry("Cube");
+    _selectType->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+
     _labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelSize);
     _labelSize->setText("Size");
@@ -82,6 +96,7 @@ void UserControlEmitter::initGUI()
     _textSize->setText("...");
 
     _grid->addWidget(_labelType, 0, 0);
+    _grid->addWidget(_selectType, 1, 0);
     _grid->addWidget(_labelSize, 0, 1);
     _grid->addWidget(_textSize, 1, 1);
 }
@@ -89,7 +104,7 @@ void UserControlEmitter::initGUI()
 void UserControlEmitter::deinitGUI()
 {
     auto iter = _allWidgets.begin();
-    while(iter != _allWidgets.end())
+    while (iter != _allWidgets.end())
     {
         iWidgetManager::getInstance().destroyWidget((*iter));
         iter++;

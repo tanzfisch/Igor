@@ -43,6 +43,18 @@ namespace Igor
 
     public:
 
+        /*! set horrizontal position of dialog and horrizontal alignment to absolute
+
+        \param x horrizontal position
+        */
+        void setX(int32 x);
+
+        /*! set vertical position of dialog and vertical alignment to absolute
+
+        \param y vertical position
+        */
+        void setY(int32 y);
+
         /*! registers delegate to click event (click is left mouse button)
 
         \param clickDelegate the delegate to register

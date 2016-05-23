@@ -94,6 +94,7 @@ namespace Igor
         Spacer,
         ColorView,
         Slider,
+        SelectBox,
 		Undefined
     };
 

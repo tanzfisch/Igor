@@ -42,6 +42,7 @@ namespace Igor
     class iUserControlColorChooser;
     class iWidgetSlider;
     class iWidgetNumberChooser;
+    class iWidgetSelectBox;
 }
 
 class UserControlEmitter : public iWidgetUserControl
@@ -62,7 +63,7 @@ private:
 
     iWidgetLabel* _labelType = nullptr;
     iWidgetLabel* _labelSize = nullptr;
-    //iWidgetTextEdit* _textType = nullptr;
+    iWidgetSelectBox* _selectType = nullptr;
     iWidgetTextEdit* _textSize = nullptr;
 
     vector<iWidget*> _allWidgets;

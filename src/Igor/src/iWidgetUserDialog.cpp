@@ -22,6 +22,16 @@ namespace Igor
         }
     }
 
+    void iWidgetUserDialog::setX(int32 x)
+    {
+        getDialog()->setX(x);
+    }
+
+    void iWidgetUserDialog::setY(int32 y)
+    {
+        getDialog()->setX(y);
+    }
+
     bool iWidgetUserDialog::isVisible()
     {
         return getDialog()->isVisible();
