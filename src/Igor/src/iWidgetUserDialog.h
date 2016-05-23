@@ -55,6 +55,18 @@ namespace Igor
         */
         void setY(int32 y);
 
+		/*! sets the configured width
+
+		\param width configured width
+		*/
+		void setWidth(int32 width);
+
+		/*! sets the configured height
+
+		\param width configured height
+		*/
+		void setHeight(int32 height);
+
         /*! registers delegate to click event (click is left mouse button)
 
         \param clickDelegate the delegate to register

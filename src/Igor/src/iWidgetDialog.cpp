@@ -58,10 +58,7 @@ namespace Igor
 
         case iHorrizontalAlignment::Strech:
 			_relativeX = 0;
-            if (iWidgetManager::getInstance().getDesktopWidth() > width)
-            {
-                width = iWidgetManager::getInstance().getDesktopWidth();
-            }
+            width = iWidgetManager::getInstance().getDesktopWidth();
             break;
 
         case iHorrizontalAlignment::Center:
@@ -87,10 +84,7 @@ namespace Igor
 
         case iVerticalAlignment::Strech:
 			_relativeY = 0;
-            if (iWidgetManager::getInstance().getDesktopHeight() > height)
-            {
-                height = iWidgetManager::getInstance().getDesktopHeight();
-            }
+            height = iWidgetManager::getInstance().getDesktopHeight();
             break;
 
         case iVerticalAlignment::Center:

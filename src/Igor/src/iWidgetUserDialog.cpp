@@ -32,6 +32,16 @@ namespace Igor
         getDialog()->setY(y);
     }
 
+	void iWidgetUserDialog::setWidth(int32 width)
+	{
+		getDialog()->setWidth(width);
+	}
+
+	void iWidgetUserDialog::setHeight(int32 height)
+	{
+		getDialog()->setHeight(height);
+	}
+
     bool iWidgetUserDialog::isVisible()
     {
         return getDialog()->isVisible();

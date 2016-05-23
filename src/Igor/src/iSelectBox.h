@@ -57,6 +57,11 @@ namespace Igor
         */
         ~iSelectBox();
 
+		/*! opens dialog
+
+		\param texts the texts to put in the selection list
+		\param closeDelegate delegate for closing event
+		*/
         void show(vector<iaString>& texts, iSelectBoxCloseDelegate closeDelegate);
 
     private:
@@ -81,9 +86,15 @@ namespace Igor
 
         /*! handles change event
 
-        \param source the source of the event (should be the the grid)
+        \param source the source of the event (should be the grid)
         */
         void onChange(iWidget* source);
+
+		/*! handle mouse off event
+
+		\param source the source of the event (should be the dialog)
+		*/
+		void onMouseOff(iWidget* source);
 
         /*! closes the dialog and sends closed event
 

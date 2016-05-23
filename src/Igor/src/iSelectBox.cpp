@@ -22,6 +22,8 @@ namespace Igor
 
     void iSelectBox::deinitGUI()
     {
+		getDialog()->registerOnMouseOffEvent(iMouseOffDelegate(this, &iSelectBox::onMouseOff));
+
         if (_grid != nullptr)
         {
             _grid->unregisterOnChangeEvent(iChangeDelegate(this, &iSelectBox::onChange));
@@ -52,8 +54,8 @@ namespace Igor
         getDialog()->setModal();
         getDialog()->setActive();
         getDialog()->setVisible();
-        getDialog()->setWidth(20);
-        getDialog()->setHeight(20);
+
+		getDialog()->registerOnMouseOffEvent(iMouseOffDelegate(this, &iSelectBox::onMouseOff));
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _allWidgets.push_back(_grid);
@@ -75,6 +77,11 @@ namespace Igor
             _grid->addWidget(label, 0, i);
         }
     }
+
+	void iSelectBox::onMouseOff(iWidget* source)
+	{
+		// TODO close();
+	}
 
     void iSelectBox::onChange(iWidget* source)
     {
