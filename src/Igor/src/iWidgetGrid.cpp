@@ -797,6 +797,25 @@ namespace Igor
 
 	void iWidgetGrid::removeWidget(iWidget* widget)
 	{
+        uint32 rowCount = static_cast<uint32>(_widgetRows.size());
+        uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+        bool removed = false;
+        for (uint32 x = 0; x < columnCount, removed == false; ++x)
+        {
+            for (uint32 y = 0; y < rowCount, removed == false; y++)
+            {
+                iWidget* temp = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
+
+                if (widget == temp)
+                {
+                    _widgetRows[y]._widgetCollumn[x]._widgetID = iWidget::INVALID_WIDGET_ID;
+                    _widgetRows[y]._widgetCollumn[x]._userData = nullptr;
+                    removed = true;
+                }
+            }
+        }
+
+        con_assert(removed == true, "inconsistant data");
 		iWidget::removeWidget(widget);
 	}
 

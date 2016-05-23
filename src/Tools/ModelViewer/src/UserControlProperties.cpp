@@ -214,6 +214,17 @@ void UserControlProperties::initMeshNode()
     _userControlMesh->setNode(_nodeID);
 }
 
+void UserControlProperties::deinitMeshNode()
+{
+    if (_userControlMesh != nullptr)
+    {
+        _grid->removeWidget(_userControlMesh->getWidget());
+
+        delete _userControlMesh;
+        _userControlMesh = nullptr;
+    }
+}
+
 void UserControlProperties::initModel()
 {
     con_assert(_userControlModel == nullptr, "mem allocation error");
@@ -277,17 +288,6 @@ void UserControlProperties::deinitParticleSystem()
 void UserControlProperties::clear()
 {
     setNode(iNode::INVALID_NODE_ID);
-}
-
-void UserControlProperties::deinitMeshNode()
-{
-    if (_userControlMesh != nullptr)
-    {
-        _grid->removeWidget(_userControlMesh->getWidget());
-
-        delete _userControlMesh;
-        _userControlMesh = nullptr;
-    }
 }
 
 void UserControlProperties::initLightNode()

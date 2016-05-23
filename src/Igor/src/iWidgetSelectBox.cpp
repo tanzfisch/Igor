@@ -26,12 +26,11 @@ namespace Igor
 
     iWidgetSelectBox::~iWidgetSelectBox()
     {
-        // TODO mem leak: deletion and callback conflict
-     /*   if (_selectBox != nullptr)
+        if (_selectBox != nullptr)
         {
             delete _selectBox;
             _selectBox = nullptr;
-        }*/
+        }
     }
 
 	void iWidgetSelectBox::update()

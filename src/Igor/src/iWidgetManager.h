@@ -132,6 +132,10 @@ namespace Igor
         */
         vector<iWidgetDialog*> _dialogs;
 
+        /*! list of widgets to delete
+        */
+        vector<iWidget*> _toDelete;
+
         /*! current desktop width
         */
 		uint32 _desktopWidth = 0;
@@ -139,6 +143,10 @@ namespace Igor
         /*! current desktop height
         */
 		uint32 _desktopHeight = 0;
+
+        /*! destroyes widgets
+        */
+        void destroyWidgets();
 
         /*! handle for mouse key down event
 
@@ -175,6 +183,10 @@ namespace Igor
         */
         void onASCII(char c);
 
+        /*! periodically called by application handle
+        */
+        void onHandle();
+
         /*! registers to mouse and keyboard evetns
         */
         void registerIOEvents();
@@ -189,9 +201,9 @@ namespace Igor
         */
         void updateDialogs();
 
-        /*! does nothing
+        /*! init
         */
-        iWidgetManager() = default;
+        iWidgetManager();
 
         /*! checks for mem leaks and releases all left over widgets
         */

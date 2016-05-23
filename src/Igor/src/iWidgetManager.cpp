@@ -19,6 +19,7 @@
 #include <iWidgetSlider.h>
 #include <iWidgetSelectBox.h>
 #include <iKeyboard.h>
+#include <iApplication.h>
 
 #include <iMaterialResourceFactory.h>
 
@@ -28,8 +29,17 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetManager::iWidgetManager()
+    {
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+    }
+
 	iWidgetManager::~iWidgetManager()
 	{
+        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+
+        destroyWidgets();
+
 		if (_widgets.size() != 0)
 		{
 			con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
@@ -42,6 +52,11 @@ namespace Igor
 
 		_widgets.clear();
 	}
+
+    void iWidgetManager::onHandle()
+    {
+    //    destroyWidgets();
+    }
 
     void iWidgetManager::registerIOEvents()
     {
@@ -366,35 +381,45 @@ namespace Igor
             return;
         }
 
-        if (widget->getType() == iWidgetType::Dialog)
-        {
-            auto iter = find(_dialogs.begin(), _dialogs.end(), static_cast<iWidgetDialog*>(widget));
-            if (iter != _dialogs.end())
-            {
-                _dialogs.erase(iter);
+        _toDelete.push_back(widget);
+	}
 
-                if (_dialogs.empty())
+    void iWidgetManager::destroyWidgets()
+    {
+        for (auto widget : _toDelete)
+        {
+            if (widget->getType() == iWidgetType::Dialog)
+            {
+                auto iter = find(_dialogs.begin(), _dialogs.end(), static_cast<iWidgetDialog*>(widget));
+                if (iter != _dialogs.end())
                 {
-                    unregisterIOEvents();
+                    _dialogs.erase(iter);
+
+                    if (_dialogs.empty())
+                    {
+                        unregisterIOEvents();
+                    }
                 }
+                else
+                {
+                    con_err("inconsistent dialog list");
+                }
+            }
+
+            auto iter = _widgets.find(widget->getID());
+            con_assert(iter != _widgets.end(), "possible mem leak. widget does not exist");
+            if (iter != _widgets.end())
+            {
+                delete (*iter).second;
+                _widgets.erase(iter);
             }
             else
             {
-                con_err("inconsistent dialog list");
+                con_err("widget does not exist");
             }
         }
 
-		auto iter = _widgets.find(widget->getID());
-        con_assert(iter != _widgets.end(), "possible mem leak. widget does not exist");
-		if (iter != _widgets.end())
-		{
-			delete (*iter).second;
-			_widgets.erase(iter);
-		}
-		else
-		{
-            con_err("widget does not exist");
-		}
-	}
+        _toDelete.clear();
+    }
 
 }
