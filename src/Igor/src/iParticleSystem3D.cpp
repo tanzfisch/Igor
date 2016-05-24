@@ -45,7 +45,7 @@ namespace Igor
 
         _startSizeGradient.insertValue(0.0, iaVector2f(1.0, 1.2));
 
-        _startVelocityGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+        _startVelocityGradient.insertValue(0.0, iaVector2f(0.01, 0.02));
 
         _startLiftGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
 
