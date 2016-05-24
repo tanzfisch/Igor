@@ -185,9 +185,9 @@ namespace Igor
 
 	void iWidgetSelectBox::setSelection(uint32 key)
 	{
-        con_assert(key < _texts.size() ||key == 0, "out of range");
+        con_assert(key < _texts.size() || key == -1, "out of range");
 
-        if (key < _texts.size() || key == 0)
+        if (key < _texts.size() || key == -1)
         {
             _key = key;
         }
@@ -196,7 +196,7 @@ namespace Igor
     void iWidgetSelectBox::clear()
     {
         _texts.clear();
-        _key = 0;
+        _key = -1;
     }
 
     void iWidgetSelectBox::appendEntry(const iaString& entryText)
@@ -206,16 +206,12 @@ namespace Igor
 
 	uint32 iWidgetSelectBox::getSelectedKey() const
 	{
-        uint32 result = 0;
-
-        return result;
+        return _key;
 	}
 
 	iaString iWidgetSelectBox::getSelectedValue() const
 	{
-        iaString result;
-
-        return result;
+        return _texts[_key];
 	}
 
 	void iWidgetSelectBox::draw(int32 parentPosX, int32 parentPosY)
@@ -226,7 +222,7 @@ namespace Igor
 		{
             iaString displayString;
 
-            if(_key < _texts.size())
+            if(_key >= 0 && _key < _texts.size())
             { 
                 displayString = _texts[_key];
             }

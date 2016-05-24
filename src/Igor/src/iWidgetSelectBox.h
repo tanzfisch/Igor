@@ -67,7 +67,7 @@ namespace Igor
 
         vector<iaString> _texts;
 
-        uint32 _key = 0;
+        int32 _key = -1;
 
         iRectanglef _buttonRectangle;
 
