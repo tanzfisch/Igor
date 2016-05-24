@@ -57,6 +57,12 @@ namespace Igor
         */
         iNode* getNode(uint32 id);
 
+        /*! \returns list of all nodes of a certain type
+
+        \param nodeType type of nodes
+        */
+        vector<iNode*> getNodes(iNodeType nodeType);
+
         /*! \returns true if node ID exists
 
         \param id the nodes ID
@@ -153,7 +159,10 @@ namespace Igor
         */
         map<uint32, iNode*> _nodes;
 
-        /*!
+        /*! internal copy function for nodes
+
+        \param node the source node
+        \returns a copy of the source node
         */
         iNode* createCopyInternal(iNode* node);
 

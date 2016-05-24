@@ -7,6 +7,7 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+#include <iNode.h>
 #include <iNodeCamera.h>
 #include <iCelestialNode.h>
 #include <iNodeTransform.h>
@@ -89,6 +90,21 @@ namespace Igor
         {
             destroyNode(getNode(nodeID));
         }
+    }
+
+    vector<iNode*> iNodeFactory::getNodes(iNodeType nodeType)
+    {
+        vector<iNode*> result;
+
+        for (auto node : _nodes)
+        {
+            if (node.second->getType() == nodeType)
+            {
+                result.push_back(node.second);
+            }
+        }
+
+        return result;
     }
 
     iNode* iNodeFactory::getNode(uint32 id)
