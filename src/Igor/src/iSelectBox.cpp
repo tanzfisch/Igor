@@ -54,6 +54,7 @@ namespace Igor
         getDialog()->setModal();
         getDialog()->setActive();
         getDialog()->setVisible();
+        getDialog()->setHeight(0);
 
 		getDialog()->registerOnMouseOffEvent(iMouseOffDelegate(this, &iSelectBox::onMouseOff));
 
