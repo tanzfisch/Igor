@@ -109,12 +109,14 @@ private:
 
     bool _mouseOverDialogs = false;
 
+	uint32 _cursorNodeID = iNode::INVALID_NODE_ID;
+
     void onKeyPressed(iKeyCode key);
     void onWindowClosed();
 
     void onLoadFile();
-    void onImportFile();
-    void onImportFileReference();
+    void onImportFile(uint32 nodeID);
+    void onImportFileReference(uint32 nodeID);
     void onSaveFile();
     void onExitModelViewer();
 

@@ -343,13 +343,15 @@ void ModelViewer::forceLoadingNow()
     updateCamDistance();
 }
 
-void ModelViewer::onImportFile()
+void ModelViewer::onImportFile(uint32 nodeID)
 {
+	_cursorNodeID = nodeID;
     _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "");
 }
 
-void ModelViewer::onImportFileReference()
+void ModelViewer::onImportFileReference(uint32 nodeID)
 {
+	_cursorNodeID = nodeID;
     _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileReferenceDialogClosed), "");
 }
 
@@ -416,11 +418,28 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             iaString groupName = "group:";
             groupName += filename;
             groupNode->setName(groupName);
-            _groupNode->insertNode(groupNode);
+
+			iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+			if (cursorNode != nullptr)
+			{
+				cursorNode->insertNode(groupNode);
+			}
+			else
+			{
+				_groupNode->insertNode(groupNode);
+			}
         }
         else
         {
-            groupNode = _groupNode;
+			iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+			if (cursorNode != nullptr)
+			{
+				groupNode = cursorNode;
+			}
+			else
+			{
+				groupNode = _groupNode;
+			}
         }
 
         auto child = children.begin();
@@ -460,7 +479,16 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         parameter->_keepMesh = true;
 
         model->setModel(filename, parameter);
-        _groupNode->insertNode(model);
+
+		iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+		if (cursorNode != nullptr)
+		{
+			cursorNode->insertNode(model);
+		}
+		else
+		{
+			_groupNode->insertNode(model);
+		}
         forceLoadingNow();
     }
 

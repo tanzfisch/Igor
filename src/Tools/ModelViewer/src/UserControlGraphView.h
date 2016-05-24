@@ -50,9 +50,16 @@ namespace Igor
     class iWidget;
     class iWidgetScroll;
     class iWidgetGroupBox;
+	class iWidgetButton;
 }
 
-iaEVENT(SelectionChange, SelectionChangeDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddModel, AddModelDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddGroup, AddGroupDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddSwitch, AddSwitchDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, void, (uint32 nodeID), (nodeID));
 
 class UserControlGraphView : public iWidgetUserControl, public iNodeVisitor
 {
@@ -69,19 +76,55 @@ public:
 
     iWidget* getWidget();
     
-    void registerOnSelectionChange(SelectionChangeDelegate selectionChangeDelegate);
-    void unregisterOnSelectionChange(SelectionChangeDelegate selectionChangeDelegate);
+    void registerOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
+    void unregisterOnSelectionChange(GraphSelectionChangedDelegate selectionChangeDelegate);
+
+	void registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
+	void unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate);
+
+	void registerOnAddGroup(AddGroupDelegate addGroupDelegate);
+	void unregisterOnAddGroup(AddGroupDelegate addGroupDelegate);
+
+	void registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
+	void unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate);
+
+	void registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
+	void unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate);
+
+	void registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
+	void unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate);
     
+	void registerOnAddModel(AddModelDelegate addModelDelegate);
+	void unregisterOnAddModel(AddModelDelegate addModelDelegate);
+
 private:
 
-    uint32 _root = iNode::INVALID_NODE_ID;
-    SelectionChange _selectionChange;
+	AddModel _addModel;
+	AddTransformation _addTransformation;
+	AddGroup _addGroup;
+	AddEmitter _addEmitter;
+	AddParticleSystem _addParticleSystem;
+	AddSwitch _addSwitch;
+	GraphSelectionChanged _graphSelectionChanged;
 
+    uint32 _root = iNode::INVALID_NODE_ID;
+	GraphSelectionChanged _selectionChange;
+
+	iWidgetGrid* _grid = nullptr;
     iWidgetGroupBox* _groupBox = nullptr;
-    iWidgetGrid* _grid = nullptr;
+    iWidgetGrid* _gridGraph = nullptr;
     iWidgetScroll* _scroll = nullptr;
 
-    vector<iWidget*> _widgets;
+	iWidgetGrid* _gridButtons = nullptr;
+	iWidgetButton* _addModelButton = nullptr;
+	iWidgetButton* _addSwitchButton = nullptr;
+	iWidgetButton* _addTransformationButton = nullptr;
+	iWidgetButton* _addGroupButton = nullptr;
+	iWidgetButton* _addEmitterButton = nullptr;
+	iWidgetButton* _addParticleSystemButton = nullptr;
+
+	vector<iWidget*> _gridEntryWidgets;
+	vector<iWidget*> _allwidgets;
 
     int32 _indentation = 0;
     bool _firstNode = true;
@@ -98,6 +141,13 @@ private:
 
     void initGUI();
     void deinitGUI();
+
+	void onAddModel(iWidget* source);
+	void onAddTransformation(iWidget* source);
+	void onAddSwitch(iWidget* source);
+	void onAddGroup(iWidget* source);
+	void onAddEmitter(iWidget* source);
+	void onAddParticleSystem(iWidget* source);
 
     virtual void preTraverse();
     virtual bool preOrderVisit(iNode* node);

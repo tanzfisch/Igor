@@ -51,29 +51,13 @@ void MenuDialog::initGUI()
     _grid->appendRows(2);
 	_grid->setStrechRow(2);
     
-    _gridButtons1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid)); 
-    _allwidgets.push_back(_gridButtons1);
-    _gridButtons1->setBorder(0);
-    _gridButtons1->setCellSpacing(2);
-    _gridButtons1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _gridButtons1->setVerticalAlignment(iVerticalAlignment::Top);
-    _gridButtons1->appendCollumns(9);
-
-    _gridButtons2 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allwidgets.push_back(_gridButtons2);
-    _gridButtons2->setBorder(0);
-    _gridButtons2->setCellSpacing(2);
-    _gridButtons2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _gridButtons2->setVerticalAlignment(iVerticalAlignment::Top);
-    _gridButtons2->appendCollumns(9);
-    
     _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allwidgets.push_back(_gridButtons);
     _gridButtons->setBorder(0);
     _gridButtons->setCellSpacing(2);
     _gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
-    _gridButtons->appendRows(1);
+	_gridButtons->appendCollumns(8);
 
     _loadButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allwidgets.push_back(_loadButton);
@@ -141,79 +125,38 @@ void MenuDialog::initGUI()
     _deleteButton->setTexture("icons\\delete.png");
     _deleteButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onDelete));
 
-    _addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addTransformationButton);
-    _addTransformationButton->setText("");
-    _addTransformationButton->setWidth(30);
-    _addTransformationButton->setHeight(30);
-    _addTransformationButton->setTexture("icons\\addTransformation.png");
-    _addTransformationButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddTransformation));
-
-    _addModelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addModelButton);
-    _addModelButton->setText("");
-    _addModelButton->setWidth(30);
-    _addModelButton->setHeight(30);
-    _addModelButton->setTexture("icons\\addModel.png");
-    _addModelButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddModel));
-
-    _addGroupButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addGroupButton);
-    _addGroupButton->setText("");
-    _addGroupButton->setWidth(30);
-    _addGroupButton->setHeight(30);
-    _addGroupButton->setTexture("icons\\addGroup.png");
-    _addGroupButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddGroup));
-
-    _addEmitterButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addEmitterButton);
-    _addEmitterButton->setText("");
-    _addEmitterButton->setWidth(30);
-    _addEmitterButton->setHeight(30);
-    _addEmitterButton->setTexture("icons\\addEmitter.png");
-    _addEmitterButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddEmitter));
-
-    _addParticleSystemButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addParticleSystemButton);
-    _addParticleSystemButton->setText("");
-    _addParticleSystemButton->setWidth(30);
-    _addParticleSystemButton->setHeight(30);
-    _addParticleSystemButton->setTexture("icons\\addParticleSystem.png");
-    _addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddParticleSystem));
-
-    _addSwitchButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allwidgets.push_back(_addSwitchButton);
-    _addSwitchButton->setText("");
-    _addSwitchButton->setWidth(30);
-    _addSwitchButton->setHeight(30);
-    _addSwitchButton->setTexture("icons\\addSwitch.png");
-    _addSwitchButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onAddSwitch));
-
-    _userControlGraphView = new UserControlGraphView();
-    _userControlGraphView->registerOnSelectionChange(SelectionChangeDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
-
     getDialog()->addWidget(_grid);
     _grid->addWidget(_gridButtons, 0, 0);
-    _gridButtons->addWidget(_gridButtons1, 0, 0);
-    _gridButtons->addWidget(_gridButtons2, 0, 1);
-    _gridButtons1->addWidget(_loadButton, 0, 0);
-    _gridButtons1->addWidget(_saveButton, 1, 0);
-    _gridButtons1->addWidget(_exitButton, 2, 0);
-    _gridButtons1->addWidget(_spacer1, 3, 0);
-    _gridButtons1->addWidget(_pasteButton, 4, 0);
-    _gridButtons1->addWidget(_cutButton, 5, 0);
-    _gridButtons1->addWidget(_copyButton, 6, 0);
-    _gridButtons1->addWidget(_spacer2, 7, 0);
-    _gridButtons1->addWidget(_deleteButton, 8, 0);
+    _gridButtons->addWidget(_loadButton, 0, 0);
+    _gridButtons->addWidget(_saveButton, 1, 0);
+    _gridButtons->addWidget(_exitButton, 2, 0);
+    _gridButtons->addWidget(_spacer1, 3, 0);
+    _gridButtons->addWidget(_pasteButton, 4, 0);
+    _gridButtons->addWidget(_cutButton, 5, 0);
+    _gridButtons->addWidget(_copyButton, 6, 0);
+    _gridButtons->addWidget(_spacer2, 7, 0);
+    _gridButtons->addWidget(_deleteButton, 8, 0);
 
-    _gridButtons2->addWidget(_addTransformationButton, 0, 0);
-    _gridButtons2->addWidget(_addGroupButton, 1, 0);
-    _gridButtons2->addWidget(_addSwitchButton, 2, 0);
-    _gridButtons2->addWidget(_addModelButton, 3, 0);
-    _gridButtons2->addWidget(_addEmitterButton, 4, 0);
-    _gridButtons2->addWidget(_addParticleSystemButton, 5, 0);
-    
-    _grid->addWidget(_userControlGraphView->getWidget(), 0, 1);
+	initGraphView();
+}
+
+void MenuDialog::deinitGraphView()
+{
+
+}
+
+void MenuDialog::initGraphView()
+{
+	_userControlGraphView = new UserControlGraphView();
+	_userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
+	_userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &MenuDialog::onAddEmitter));
+	_userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &MenuDialog::onAddGroup));
+	_userControlGraphView->registerOnAddModel(AddModelDelegate(this, &MenuDialog::onAddModel));
+	_userControlGraphView->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &MenuDialog::onAddParticleSystem));
+	_userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &MenuDialog::onAddSwitch));
+	_userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &MenuDialog::onAddTransformation));
+
+	_grid->addWidget(_userControlGraphView->getWidget(), 0, 1);
 }
 
 void MenuDialog::onStructureChanged()
@@ -240,61 +183,6 @@ void MenuDialog::onDelete(iWidget* source)
             _messageBox->show("can't delete root node");
         }
     }
-}
-
-void MenuDialog::onAddModel(iWidget* source)
-{
-    if (_decisionBoxModelRef == nullptr)
-    {
-        _decisionBoxModelRef = new iDecisionBox();
-    }
-
-    _decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &MenuDialog::onAddModelDecision), { "embedded", "as reference" }, 0);
-}
-
-void MenuDialog::onAddModelDecision(bool ok, int32 selection)
-{
-    if (ok)
-    {
-        switch (selection)
-        {
-        case 0:
-            _importFile();
-            break;
-
-        case 1:
-            _importFileReference();
-            break;
-
-        default:
-            con_assert(false, "invalid selection");
-        }
-    }
-}
-
-void MenuDialog::onAddTransformation(iWidget* source)
-{
-    _addTransformation(_userControlGraphView->getSelectedNode());
-}
-
-void MenuDialog::onAddGroup(iWidget* source)
-{
-    _addGroup(_userControlGraphView->getSelectedNode());
-}
-
-void MenuDialog::onAddEmitter(iWidget* source)
-{
-    _addEmitter(_userControlGraphView->getSelectedNode());
-}
-
-void MenuDialog::onAddParticleSystem(iWidget* source)
-{
-    _addParticleSystem(_userControlGraphView->getSelectedNode());
-}
-
-void MenuDialog::onAddSwitch(iWidget* source)
-{
-    _addSwitch(_userControlGraphView->getSelectedNode());
 }
 
 void MenuDialog::onCopy(iWidget* source)
@@ -395,7 +283,7 @@ void MenuDialog::deinitGUI()
 
     if (_userControlGraphView)
     {
-        _userControlGraphView->unregisterOnSelectionChange(SelectionChangeDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
+        _userControlGraphView->unregisterOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
         delete _userControlGraphView;
         _userControlGraphView = nullptr;
     }
@@ -571,4 +459,59 @@ void MenuDialog::registerOnExitModelViewer(ExitModelViewerDelegate exitModelView
 void MenuDialog::unregisterOnExitModelViewer(ExitModelViewerDelegate exitModelViewerDelegate)
 {
     _exitModelViewer.remove(exitModelViewerDelegate);
+}
+
+void MenuDialog::onAddModel(uint32 addAt)
+{
+	if (_decisionBoxModelRef == nullptr)
+	{
+		_decisionBoxModelRef = new iDecisionBox();
+	}
+
+	_decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &MenuDialog::onAddModelDecision), { "embedded", "as reference" }, 0);
+}
+
+void MenuDialog::onAddModelDecision(bool ok, int32 selection)
+{
+	if (ok)
+	{
+		switch (selection)
+		{
+		case 0:
+			_importFile(_userControlGraphView->getSelectedNode());
+			break;
+
+		case 1:
+			_importFileReference(_userControlGraphView->getSelectedNode());
+			break;
+
+		default:
+			con_assert(false, "invalid selection");
+		}
+	}
+}
+
+void MenuDialog::onAddTransformation(uint32 addAt)
+{
+	_addTransformation(addAt);
+}
+
+void MenuDialog::onAddGroup(uint32 addAt)
+{
+	_addGroup(addAt);
+}
+
+void MenuDialog::onAddEmitter(uint32 addAt)
+{
+	_addEmitter(addAt);
+}
+
+void MenuDialog::onAddParticleSystem(uint32 addAt)
+{
+	_addParticleSystem(addAt);
+}
+
+void MenuDialog::onAddSwitch(uint32 addAt)
+{
+	_addSwitch(addAt);
 }

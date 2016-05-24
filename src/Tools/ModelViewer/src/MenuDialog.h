@@ -48,22 +48,14 @@ namespace Igor
 }
 
 iaEVENT(LoadFile, LoadFileDelegate, void, (), ());
-iaEVENT(ImportFile, ImportFileDelegate, void, (), ());
-iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (), ());
+iaEVENT(ImportFile, ImportFileDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(SaveFile, SaveFileDelegate, void, (), ());
 iaEVENT(ExitModelViewer, ExitModelViewerDelegate, void, (), ());
-
-iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddGroup, AddGroupDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddSwitch, AddSwitchDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint32 nodeID), (nodeID));
 
 iaEVENT(CopyNode, CopyNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(CutNode, CutNodeDelegate, void, (uint32 nodeID), (nodeID));
-
-iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, void, (uint32 nodeID), (nodeID));
 
 /*! menu dialog
 */
@@ -126,23 +118,23 @@ private:
     ImportFileReference _importFileReference;
     SaveFile _saveFile;
     ExitModelViewer _exitModelViewer;
-    AddTransformation _addTransformation;
+    
+	AddTransformation _addTransformation;
     AddGroup _addGroup;
     AddEmitter _addEmitter;
     AddParticleSystem _addParticleSystem;
     AddSwitch _addSwitch;
+	GraphSelectionChanged _graphSelectionChanged;
+
     CopyNode _copyNode;
     CutNode _cutNode;
     PasteNode _pasteNode;
-    GraphSelectionChanged _graphSelectionChanged;
 
     iMessageBox* _messageBox = nullptr;
-    iDecisionBox* _decisionBoxModelRef = nullptr;
 
     iWidgetGrid* _grid = nullptr;
     iWidgetGrid* _gridButtons = nullptr;
-    iWidgetGrid* _gridButtons1 = nullptr;
-    iWidgetGrid* _gridButtons2 = nullptr;
+
     iWidgetButton* _exitButton = nullptr;
     iWidgetButton* _loadButton = nullptr;
     iWidgetButton* _saveButton = nullptr;
@@ -152,16 +144,12 @@ private:
     iWidgetButton* _copyButton = nullptr;
     iWidgetButton* _pasteButton = nullptr;
     iWidgetButton* _deleteButton = nullptr;
-    iWidgetButton* _addModelButton = nullptr;
-    iWidgetButton* _addSwitchButton = nullptr;
-    iWidgetButton* _addTransformationButton = nullptr;
-    iWidgetButton* _addGroupButton = nullptr;
-    iWidgetButton* _addEmitterButton = nullptr;
-    iWidgetButton* _addParticleSystemButton = nullptr;
 
     vector<iWidget*> _allwidgets;
 
     UserControlGraphView* _userControlGraphView = nullptr;
+
+	iDecisionBox* _decisionBoxModelRef = nullptr;
 
     uint32 _copiedNodeID = 0;
     uint32 _cutNodeID = 0;
@@ -169,19 +157,22 @@ private:
     void initGUI();
     void deinitGUI();
 
+	void deinitGraphView();
+	void initGraphView();
+
     void onLoadFile(iWidget* source);
     void onSaveFile(iWidget* source);
     void onExitModelViewer(iWidget* source);
 
     void onDelete(iWidget* source);
-
-    void onAddModel(iWidget* source);
-    void onAddModelDecision(bool ok, int32 selection);
-    void onAddTransformation(iWidget* source);
-    void onAddSwitch(iWidget* source);
-    void onAddGroup(iWidget* source);
-    void onAddEmitter(iWidget* source);
-    void onAddParticleSystem(iWidget* source);
+    
+	void onAddModel(uint32 addAt);
+	void onAddModelDecision(bool ok, int32 selection);
+	void onAddTransformation(uint32 addAt);
+	void onAddSwitch(uint32 addAt);
+	void onAddGroup(uint32 addAt);
+	void onAddEmitter(uint32 addAt);
+	void onAddParticleSystem(uint32 addAt);
 
     void onCopy(iWidget* source);
     void onPaste(iWidget* source);
