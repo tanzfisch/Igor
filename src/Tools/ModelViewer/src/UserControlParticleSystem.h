@@ -42,6 +42,7 @@ namespace Igor
     class iUserControlColorChooser;
     class iWidgetSlider;
     class iWidgetNumberChooser;
+    class iWidgetSelectBox;
 }
 
 class UserControlParticleSystem : public iWidgetUserControl
@@ -60,20 +61,23 @@ private:
 
     iWidgetGrid* _grid = nullptr;
     iWidgetGrid* _gridButtons = nullptr;
+    iWidgetGrid* _gridProperties = nullptr;
 
-    iWidgetLabel* _labelType = nullptr;
-    iWidgetLabel* _labelSize = nullptr;
-    //iWidgetTextEdit* _textType = nullptr;
-    iWidgetTextEdit* _textSize = nullptr;
+    iWidgetLabel* _labelEmitter = nullptr;
 
     iWidgetButton* _buttonStart = nullptr;
     iWidgetButton* _buttonStop = nullptr;
     iWidgetButton* _buttonReset = nullptr;
 
+    iWidgetSelectBox* _emitterSelection = nullptr;
+
     vector<iWidget*> _allWidgets;
+
+    vector<iNode*> _emitters;
 
     uint32 _nodeId = 0;
 
+    void onEmitterChanged(iWidget* source);
     void onStart(iWidget* source);
     void onStop(iWidget* source);
     void onReset(iWidget* source);

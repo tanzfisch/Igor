@@ -15,6 +15,7 @@
 #include <iMesh.h>
 #include <iNodeFactory.h>
 #include <iTargetMaterial.h>
+#include <iWidgetSelectBox.h>
 using namespace Igor;
 
 UserControlParticleSystem::UserControlParticleSystem()
@@ -29,16 +30,45 @@ UserControlParticleSystem::~UserControlParticleSystem()
 
 void UserControlParticleSystem::updateNode()
 {
-    // nothing to do
-}
-
-void UserControlParticleSystem::updateGUI()
-{
     iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
-        //_textSize->setText(iaString::ftoa(node->getSize(), 4));
+        uint32 emitterID = _emitters[_emitterSelection->getSelectedKey()]->getID();
+        if (emitterID != iNode::INVALID_NODE_ID)
+        {
+            node->setEmitter(emitterID);
+        }
+        else
+        {
+            con_err("invalid emitter id");
+        }
+    }
+}
+
+void UserControlParticleSystem::updateGUI()
+{
+    _emitterSelection->clear();
+    _emitters = iNodeFactory::getInstance().getNodes(iNodeType::iNodeEmitter);
+    for (auto emitter : _emitters)
+    {
+        _emitterSelection->appendEntry(emitter->getName());
+    }
+
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+
+    if (node != nullptr)
+    {
+        int i = 0;
+        for (auto emitter : _emitters)
+        {
+            if (emitter->getID() == node->getEmitter())
+            {
+                _emitterSelection->setSelection(i);
+                break;
+            }
+            i++;
+        }
     }
 }
 
@@ -63,23 +93,18 @@ void UserControlParticleSystem::initGUI()
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    _labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelType);
-    _labelType->setText("Type");
-    _labelType->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _gridProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(_gridProperties);
+    _gridProperties->appendCollumns(1);
+    _gridProperties->appendRows(1);
+    _gridProperties->setBorder(2);
+    _gridProperties->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _gridProperties->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelSize);
-    _labelSize->setText("Size");
-    _labelSize->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-
-    _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
-    _allWidgets.push_back(_textSize);
-    _textSize->setWidth(50);
-    _textSize->setHorrizontalAlignment(iHorrizontalAlignment::Right);
-    _textSize->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
-    _textSize->setActive(false);
-    _textSize->setText("...");
+    _labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(_labelEmitter);
+    _labelEmitter->setText("Emitter");
+    _labelEmitter->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_gridButtons);
@@ -106,13 +131,24 @@ void UserControlParticleSystem::initGUI()
     _buttonReset->setWidth(85);
     _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
 
+    _emitterSelection = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
+    _allWidgets.push_back(_emitterSelection);
+    _emitterSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onEmitterChanged));
+
     _gridButtons->addWidget(_buttonStart, 0, 0);
     _gridButtons->addWidget(_buttonStop, 1, 0);
     _gridButtons->addWidget(_buttonReset, 2, 0);
 
     _grid->addWidget(_gridButtons, 0, 0);
-    //_grid->addWidget(_labelSize, 0, 1);
-    //_grid->addWidget(_textSize, 1, 1);
+    _grid->addWidget(_gridProperties, 0, 1);
+
+    _gridProperties->addWidget(_labelEmitter, 0, 0);
+    _gridProperties->addWidget(_emitterSelection, 1, 0);
+}
+
+void UserControlParticleSystem::onEmitterChanged(iWidget* source)
+{
+    updateNode();
 }
 
 void UserControlParticleSystem::onStart(iWidget* source)
@@ -147,6 +183,11 @@ void UserControlParticleSystem::onReset(iWidget* source)
 
 void UserControlParticleSystem::deinitGUI()
 {
+    _buttonReset->unregisterOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
+    _buttonStop->unregisterOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
+    _buttonStart->unregisterOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
+    _emitterSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onEmitterChanged));
+
     auto iter = _allWidgets.begin();
     while(iter != _allWidgets.end())
     {
@@ -155,9 +196,6 @@ void UserControlParticleSystem::deinitGUI()
     }
 
     _grid = nullptr;
-    _labelType = nullptr;
-    _labelSize = nullptr;
-    _textSize = nullptr;
     _gridButtons = nullptr;
     _buttonStart = nullptr;
     _buttonStop = nullptr;

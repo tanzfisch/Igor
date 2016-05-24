@@ -30,7 +30,15 @@ UserControlEmitter::~UserControlEmitter()
 
 void UserControlEmitter::updateNode()
 {
-    // nothing to do
+    iNodeEmitter* node = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(_nodeId));
+
+    if (node != nullptr)
+    {
+        float32 size = iaString::atof(_textSize->getText());
+        node->setSize(size);
+
+        node->setType(static_cast<iEmitterType>(_selectType->getSelectedKey()));
+    }
 }
 
 void UserControlEmitter::updateGUI()
@@ -81,6 +89,7 @@ void UserControlEmitter::initGUI()
     _selectType->appendEntry("Square");
     _selectType->appendEntry("Cube");
     _selectType->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
     _labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelSize);
@@ -89,11 +98,12 @@ void UserControlEmitter::initGUI()
 
     _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textSize);
-    _textSize->setWidth(50);
+    _textSize->setWidth(100);
+    _textSize->setWriteProtected(false);
     _textSize->setHorrizontalAlignment(iHorrizontalAlignment::Right);
-    _textSize->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
-    _textSize->setActive(false);
+    _textSize->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
     _textSize->setText("...");
+    _textSize->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onSizeChanged));
 
     _grid->addWidget(_labelType, 0, 0);
     _grid->addWidget(_selectType, 1, 0);
@@ -101,8 +111,21 @@ void UserControlEmitter::initGUI()
     _grid->addWidget(_textSize, 1, 1);
 }
 
+void UserControlEmitter::onTypeChanged(iWidget* source)
+{
+    updateNode();
+}
+
+void UserControlEmitter::onSizeChanged(iWidget* source)
+{
+    updateNode();
+}
+
 void UserControlEmitter::deinitGUI()
 {
+    _selectType->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
+    _textSize->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onSizeChanged));
+
     auto iter = _allWidgets.begin();
     while (iter != _allWidgets.end())
     {

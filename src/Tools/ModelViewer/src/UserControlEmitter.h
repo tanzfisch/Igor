@@ -70,6 +70,9 @@ private:
 
     uint32 _nodeId = 0;
 
+    void onTypeChanged(iWidget* source);
+    void onSizeChanged(iWidget* source);
+
     void updateGUI();
     void updateNode();
 
