@@ -45,6 +45,7 @@ namespace Igor
     class iWidgetSpacer;
     class iMessageBox;
     class iDecisionBox;
+	class iWidgetCheckBox;
 }
 
 iaEVENT(LoadFile, LoadFileDelegate, void, (), ());
@@ -134,6 +135,10 @@ private:
 
     iWidgetGrid* _grid = nullptr;
     iWidgetGrid* _gridButtons = nullptr;
+
+	iWidgetGrid* _gridRadioButtons = nullptr;
+	iWidgetCheckBox* _checkBoxGraph = nullptr;
+	iWidgetCheckBox* _checkBoxMaterial = nullptr;
 
     iWidgetButton* _exitButton = nullptr;
     iWidgetButton* _loadButton = nullptr;

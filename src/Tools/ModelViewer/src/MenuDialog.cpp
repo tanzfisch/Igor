@@ -14,6 +14,7 @@
 #include <iWidgetButton.h>
 #include <iWidgetGroupBox.h>
 #include <iWidgetSpacer.h>
+#include <iWidgetCheckBox.h>
 #include <iMessageBox.h>
 #include <iDecisionBox.h>
 using namespace Igor;
@@ -58,6 +59,22 @@ void MenuDialog::initGUI()
     _gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 	_gridButtons->appendCollumns(8);
+
+	_gridRadioButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+	_allwidgets.push_back(_gridRadioButtons);
+	_gridRadioButtons->setBorder(0);
+	_gridRadioButtons->setCellSpacing(2);
+	_gridRadioButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
+	_gridRadioButtons->appendCollumns(1);
+
+	iWidgetCheckBox::beginRadioButtonGroup();
+	_checkBoxGraph = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+	_checkBoxGraph->setText("Graph");
+	_checkBoxMaterial = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+	_checkBoxMaterial->setText("Material");
+	iWidgetCheckBox::endRadioButtonGroup();
+	_checkBoxGraph->setChecked();
 
     _loadButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allwidgets.push_back(_loadButton);
@@ -127,15 +144,19 @@ void MenuDialog::initGUI()
 
     getDialog()->addWidget(_grid);
     _grid->addWidget(_gridButtons, 0, 0);
-    _gridButtons->addWidget(_loadButton, 0, 0);
-    _gridButtons->addWidget(_saveButton, 1, 0);
-    _gridButtons->addWidget(_exitButton, 2, 0);
-    _gridButtons->addWidget(_spacer1, 3, 0);
-    _gridButtons->addWidget(_pasteButton, 4, 0);
-    _gridButtons->addWidget(_cutButton, 5, 0);
-    _gridButtons->addWidget(_copyButton, 6, 0);
-    _gridButtons->addWidget(_spacer2, 7, 0);
-    _gridButtons->addWidget(_deleteButton, 8, 0);
+	_gridButtons->addWidget(_loadButton, 0, 0);
+	_gridButtons->addWidget(_saveButton, 1, 0);
+	_gridButtons->addWidget(_exitButton, 2, 0);
+	_gridButtons->addWidget(_spacer1, 3, 0);
+	_gridButtons->addWidget(_pasteButton, 4, 0);
+	_gridButtons->addWidget(_cutButton, 5, 0);
+	_gridButtons->addWidget(_copyButton, 6, 0);
+	_gridButtons->addWidget(_spacer2, 7, 0);
+	_gridButtons->addWidget(_deleteButton, 8, 0);
+
+	_grid->addWidget(_gridRadioButtons, 0, 1);
+	_gridRadioButtons->addWidget(_checkBoxGraph, 0, 0);
+	_gridRadioButtons->addWidget(_checkBoxMaterial, 1, 0);
 
 	initGraphView();
 }
@@ -156,7 +177,7 @@ void MenuDialog::initGraphView()
 	_userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &MenuDialog::onAddSwitch));
 	_userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &MenuDialog::onAddTransformation));
 
-	_grid->addWidget(_userControlGraphView->getWidget(), 0, 1);
+	_grid->addWidget(_userControlGraphView->getWidget(), 0, 2);
 }
 
 void MenuDialog::onStructureChanged()
