@@ -821,7 +821,7 @@ namespace Igor
 
 	void iWidgetGrid::addWidget(iWidget* widget, int32 col, int32 row, void* userData)
 	{
-		con_assert(_widgetRows.size() > row, "out of range");
+		con_assert(_widgetRows.size() > row && _widgetRows[row]._widgetCollumn.size() > col, "out of range " << col << "," << row);
 
 		uint64 widgetID = (widget != nullptr) ? widget->getID() : iWidget::INVALID_WIDGET_ID;
 
