@@ -33,6 +33,7 @@
 using namespace Igor;
 
 #include "UserControlGraphView.h"
+#include "UserControlMaterialView.h"
 
 namespace Igor
 {
@@ -57,6 +58,12 @@ iaEVENT(ExitModelViewer, ExitModelViewerDelegate, void, (), ());
 iaEVENT(CopyNode, CopyNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(PasteNode, PasteNodeDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(CutNode, CutNodeDelegate, void, (uint32 nodeID), (nodeID));
+
+enum class ViewType
+{
+    GraphView,
+    MaterialView
+};
 
 /*! menu dialog
 */
@@ -153,17 +160,27 @@ private:
     vector<iWidget*> _allwidgets;
 
     UserControlGraphView* _userControlGraphView = nullptr;
+    UserControlMaterialView* _userControlMaterialView = nullptr;
 
 	iDecisionBox* _decisionBoxModelRef = nullptr;
 
+    ViewType _currentView = ViewType::GraphView;
+
     uint32 _copiedNodeID = 0;
     uint32 _cutNodeID = 0;
+
+    uint32 _rootNodeID = 0;
+
+    void setViewType(ViewType viewType);
 
     void initGUI();
     void deinitGUI();
 
 	void deinitGraphView();
 	void initGraphView();
+
+    void deinitMaterialView();
+    void initMaterialView();
 
     void onLoadFile(iWidget* source);
     void onSaveFile(iWidget* source);
@@ -185,6 +202,9 @@ private:
 
     void onGraphViewSelectionChanged(uint32 nodeID);
     void onStructureChanged();
+
+    void onGraphViewSelected(iWidget* source);
+    void onMaterialViewSelected(iWidget* source);
 
 };
 

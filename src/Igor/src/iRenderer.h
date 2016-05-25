@@ -739,7 +739,7 @@ namespace Igor
 
         /*! does nothing
         */
-        virtual ~iRenderer() = default;
+        virtual ~iRenderer();
 
 	};
 

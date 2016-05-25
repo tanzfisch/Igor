@@ -372,7 +372,6 @@ namespace Igor
             if (iRenderer::isInstantiated())
             {
                 iRenderer::getInstance().deinit();
-                iRenderer::destroyInstance();
             }
 
             iTaskManager::getInstance().killRenderContextThreads(this);

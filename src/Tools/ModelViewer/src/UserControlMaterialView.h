@@ -26,62 +26,64 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __PROPERTIESDIALOG__
-#define __PROPERTIESDIALOG__
+#ifndef __USERCONTROLMATERIALVIEW__
+#define __USERCONTROLMATERIALVIEW__
 
-#include <iWidgetUserDialog.h>
+#include <iaEvent.h>
+using namespace IgorAux;
+
+#include <iNodeModel.h>
+#include <iWidgetUserControl.h>
 using namespace Igor;
-
-#include "UserControlProperties.h"
 
 namespace Igor
 {
-    class iNode;
-    class iWidgetDialog;
     class iWidgetGrid;
-    class iWidgetScroll;
+    class iWidgetTextEdit;
+    class iWidgetLabel;
     class iWidgetButton;
-    class iWidgetGroupBox;
-    class iWidgetSpacer;
-    class iMessageBox;
-    class iDecisionBox;
+    class iUserControlColorChooser;
+    class iWidgetSlider;
+    class iWidgetNumberChooser;
+    class iWidgetSelectBox;
 }
 
-/*! menu dialog
-*/
-class PropertiesDialog : public iWidgetUserDialog
+iaEVENT(AddMaterial, AddMaterialDelegate, void, (), ());
+
+class UserControlMaterialView : public iWidgetUserControl
 {
 public:
 
-    PropertiesDialog();
-    ~PropertiesDialog();
+    UserControlMaterialView();
+    ~UserControlMaterialView();
 
-    void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
-    void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
+    void refresh();
+    iWidget* getWidget();
 
-    void registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
-    void unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
-
-    void onGraphViewSelectionChanged(uint32 nodeID);
+    void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
+    void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
 
 private:
 
-    PropertiesChangedEvent _propertiesChangedEvent;
-    StructureChangedEvent _structureChangedEvent;
+    AddMaterial _addMaterial;
 
-    iWidgetGrid* _grid = nullptr;
+    iWidget* _rootWidget = nullptr;
+    iWidgetGrid* _gridGraph = nullptr;
+    vector<uint32*> _userData;
 
-    vector<iWidget*> _allwidgets;
+    vector<iWidget*> _allWidgets;
+    vector<iWidget*> _gridEntryWidgets;
 
-    UserControlProperties* _userControlProperties = nullptr;
+    uint32 _nodeId = 0;
 
     void initGUI();
     void deinitGUI();
-    
-    void onStructureChanged();
 
+    void clear();
+
+    void OnSelectionChange(iWidget* widget);
+
+    void onAddMaterial(iWidget* source);
 };
 
-
 #endif
-

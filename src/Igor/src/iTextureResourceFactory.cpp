@@ -29,6 +29,7 @@ namespace Igor
 
     iTextureResourceFactory::~iTextureResourceFactory()
     {
+        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
         iRenderer::getInstance().unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
 
         if (iRenderer::getInstance().isReady())
@@ -136,9 +137,7 @@ namespace Igor
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->getTextureBuildMode());
         _textures[hashValue] = _dummyTexture;
 
-        con_info("loaded texture", "\"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");
-
-        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
+        con_info("loaded texture", "\"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");        
     }
 
     int64 iTextureResourceFactory::calcHashValue(const iaString& name, iTextureBuildMode mode)

@@ -57,7 +57,7 @@ void PropertiesDialog::initGUI()
 
 void PropertiesDialog::onStructureChanged()
 {
-    // TODO trigger graph update
+    _structureChangedEvent();
 }
 
 void PropertiesDialog::onGraphViewSelectionChanged(uint32 nodeID)
@@ -80,4 +80,24 @@ void PropertiesDialog::deinitGUI()
     {
         iWidgetManager::getInstance().destroyWidget(widget);
     }
+}
+
+void PropertiesDialog::registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
+{
+    _propertiesChangedEvent.append(propertiesChangedDelegate);
+}
+
+void PropertiesDialog::unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate)
+{
+    _propertiesChangedEvent.remove(propertiesChangedDelegate);
+}
+
+void PropertiesDialog::registerStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
+{
+    _structureChangedEvent.append(structureChangedDelegate);
+}
+
+void PropertiesDialog::unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate)
+{
+    _structureChangedEvent.remove(structureChangedDelegate);
 }

@@ -71,8 +71,10 @@ void MenuDialog::initGUI()
 	iWidgetCheckBox::beginRadioButtonGroup();
 	_checkBoxGraph = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
 	_checkBoxGraph->setText("Graph");
+    _checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onGraphViewSelected));
 	_checkBoxMaterial = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
 	_checkBoxMaterial->setText("Material");
+    _checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onMaterialViewSelected));
 	iWidgetCheckBox::endRadioButtonGroup();
 	_checkBoxGraph->setChecked();
 
@@ -158,114 +160,212 @@ void MenuDialog::initGUI()
 	_gridRadioButtons->addWidget(_checkBoxGraph, 0, 0);
 	_gridRadioButtons->addWidget(_checkBoxMaterial, 1, 0);
 
-	initGraphView();
+    setViewType(ViewType::GraphView);
+}
+
+void MenuDialog::onGraphViewSelected(iWidget* source)
+{
+    setViewType(ViewType::GraphView);
+}
+
+void MenuDialog::onMaterialViewSelected(iWidget* source)
+{
+    setViewType(ViewType::MaterialView);
+}
+
+void MenuDialog::setViewType(ViewType viewType)
+{
+    switch (_currentView)
+    {
+    case ViewType::GraphView:
+        deinitGraphView();
+        break;
+
+    case ViewType::MaterialView:
+        deinitMaterialView();
+        break;
+
+    default:
+        con_err("internal error");
+    }
+
+    _currentView = viewType;
+
+    switch (_currentView)
+    {
+    case ViewType::GraphView:
+        initGraphView();
+        break;
+
+    case ViewType::MaterialView:
+        initMaterialView();
+        break;
+
+    default:
+        con_err("internal error");
+    }
+}
+
+void MenuDialog::deinitMaterialView()
+{
+    if (_userControlMaterialView != nullptr)
+    {
+        delete _userControlMaterialView;
+        _userControlMaterialView = nullptr;
+    }
+}
+
+void MenuDialog::initMaterialView()
+{
+    if (_userControlMaterialView == nullptr)
+    {
+        _userControlMaterialView = new UserControlMaterialView();
+
+        _grid->addWidget(_userControlMaterialView->getWidget(), 0, 2);
+    }
+    else
+    {
+        con_err("internal error");
+    }
 }
 
 void MenuDialog::deinitGraphView()
 {
-
+    if (_userControlGraphView != nullptr)
+    {
+        _userControlGraphView->unregisterOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
+        _userControlGraphView->unregisterOnAddEmitter(AddEmitterDelegate(this, &MenuDialog::onAddEmitter));
+        _userControlGraphView->unregisterOnAddGroup(AddGroupDelegate(this, &MenuDialog::onAddGroup));
+        _userControlGraphView->unregisterOnAddModel(AddModelDelegate(this, &MenuDialog::onAddModel));
+        _userControlGraphView->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &MenuDialog::onAddParticleSystem));
+        _userControlGraphView->unregisterOnAddSwitch(AddSwitchDelegate(this, &MenuDialog::onAddSwitch));
+        _userControlGraphView->unregisterOnAddTransformation(AddTransformationDelegate(this, &MenuDialog::onAddTransformation));
+        delete _userControlGraphView;
+        _userControlGraphView = nullptr;
+    }
 }
 
 void MenuDialog::initGraphView()
 {
-	_userControlGraphView = new UserControlGraphView();
-	_userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
-	_userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &MenuDialog::onAddEmitter));
-	_userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &MenuDialog::onAddGroup));
-	_userControlGraphView->registerOnAddModel(AddModelDelegate(this, &MenuDialog::onAddModel));
-	_userControlGraphView->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &MenuDialog::onAddParticleSystem));
-	_userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &MenuDialog::onAddSwitch));
-	_userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &MenuDialog::onAddTransformation));
+    if (_userControlGraphView == nullptr)
+    {
+        _userControlGraphView = new UserControlGraphView();
+        _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
+        _userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &MenuDialog::onAddEmitter));
+        _userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &MenuDialog::onAddGroup));
+        _userControlGraphView->registerOnAddModel(AddModelDelegate(this, &MenuDialog::onAddModel));
+        _userControlGraphView->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &MenuDialog::onAddParticleSystem));
+        _userControlGraphView->registerOnAddSwitch(AddSwitchDelegate(this, &MenuDialog::onAddSwitch));
+        _userControlGraphView->registerOnAddTransformation(AddTransformationDelegate(this, &MenuDialog::onAddTransformation));
 
-	_grid->addWidget(_userControlGraphView->getWidget(), 0, 2);
+        _grid->addWidget(_userControlGraphView->getWidget(), 0, 2);
+
+        updateGraph();
+    }
+    else
+    {
+        con_err("internal error");
+    }
 }
 
 void MenuDialog::onStructureChanged()
 {
-    _userControlGraphView->updateGraph();
+    if (_userControlGraphView != nullptr)
+    {
+        _userControlGraphView->refresh();
+    }
 }
 
 void MenuDialog::onDelete(iWidget* source)
 {
-	_graphSelectionChanged(iNode::INVALID_NODE_ID);
-
-    iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
-    if (node != nullptr)
+    if (_userControlGraphView != nullptr)
     {
-        iNode* parent = node->getParent();
-        if (parent != nullptr)
+        _graphSelectionChanged(iNode::INVALID_NODE_ID);
+
+        iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        if (node != nullptr)
         {
-            parent->removeNode(node);
-            iNodeFactory::getInstance().destroyNode(node);
-            updateGraph();
-        }
-        else
-        {
-            _messageBox->show("can't delete root node");
+            iNode* parent = node->getParent();
+            if (parent != nullptr)
+            {
+                parent->removeNode(node);
+                iNodeFactory::getInstance().destroyNode(node);
+                updateGraph();
+            }
+            else
+            {
+                _messageBox->show("can't delete root node");
+            }
         }
     }
 }
 
 void MenuDialog::onCopy(iWidget* source)
 {
-    _cutNodeID = 0;
+    if (_userControlGraphView != nullptr)
+    {
+        _cutNodeID = 0;
 
-    iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
-    if (node != nullptr)
-    {
-        _copiedNodeID = node->getID();
-    }
-    else
-    {
-        _copiedNodeID = 0;
+        iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        if (node != nullptr)
+        {
+            _copiedNodeID = node->getID();
+        }
+        else
+        {
+            _copiedNodeID = 0;
+        }
     }
 }
 
 void MenuDialog::onPaste(iWidget* source)
 {
-    if (_copiedNodeID != 0)
+    if (_userControlGraphView != nullptr)
     {
-        iNode* pasteNode = nullptr;
-        iNode* copiedNode = iNodeFactory::getInstance().getNode(_copiedNodeID);
-        if (copiedNode != nullptr)
+        if (_copiedNodeID != 0)
         {
-            pasteNode = iNodeFactory::getInstance().createCopy(copiedNode);
-        }
-
-        if (pasteNode != nullptr)
-        {
-            iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
-
-            if (destination != nullptr)
+            iNode* pasteNode = nullptr;
+            iNode* copiedNode = iNodeFactory::getInstance().getNode(_copiedNodeID);
+            if (copiedNode != nullptr)
             {
-                destination->insertNode(pasteNode);
-                updateGraph();
+                pasteNode = iNodeFactory::getInstance().createCopy(copiedNode);
             }
-        }
-    }
-    else if (_cutNodeID != 0)
-    {
-        iNode* cutNode = iNodeFactory::getInstance().getNode(_cutNodeID);
-        if (cutNode != nullptr)
-        {
-            iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
-            if (destination != nullptr)
+            if (pasteNode != nullptr)
             {
-                iNode* parent = cutNode->getParent();
-                if (parent != nullptr)
-                {
-                    parent->removeNode(cutNode);
+                iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
-                    destination->insertNode(cutNode);
+                if (destination != nullptr)
+                {
+                    destination->insertNode(pasteNode);
                     updateGraph();
                 }
             }
         }
-    }
-    else
-    {
-        _messageBox->show("clipboard is empty");
+        else if (_cutNodeID != 0)
+        {
+            iNode* cutNode = iNodeFactory::getInstance().getNode(_cutNodeID);
+            if (cutNode != nullptr)
+            {
+                iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+
+                if (destination != nullptr)
+                {
+                    iNode* parent = cutNode->getParent();
+                    if (parent != nullptr)
+                    {
+                        parent->removeNode(cutNode);
+
+                        destination->insertNode(cutNode);
+                        updateGraph();
+                    }
+                }
+            }
+        }
+        else
+        {
+            _messageBox->show("clipboard is empty");
+        }
     }
 }
 
@@ -273,14 +373,17 @@ void MenuDialog::onCut(iWidget* source)
 {
     _copiedNodeID = 0;
 
-    iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
-    if (node != nullptr)
+    if (_userControlGraphView != nullptr)
     {
-        _cutNodeID = node->getID();
-    }
-    else
-    {
-        _cutNodeID = iNode::INVALID_NODE_ID;
+        iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        if (node != nullptr)
+        {
+            _cutNodeID = node->getID();
+        }
+        else
+        {
+            _cutNodeID = iNode::INVALID_NODE_ID;
+        }
     }
 }
 
@@ -291,22 +394,25 @@ void MenuDialog::onGraphViewSelectionChanged(uint32 nodeID)
 
 void MenuDialog::deinitGUI()
 {
-    getDialog()->removeWidget(_grid);
-
+    _checkBoxGraph->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onGraphViewSelected));
+    _checkBoxMaterial->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onMaterialViewSelected));
     _loadButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onLoadFile));
     _saveButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onSaveFile));
     _exitButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onExitModelViewer));
 
+    _cutButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onCut));
+    _copyButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onCopy));
+    _pasteButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onPaste));
+    _deleteButton->unregisterOnClickEvent(iClickDelegate(this, &MenuDialog::onDelete));
+
+    deinitGraphView();
+    deinitMaterialView();
+
+    getDialog()->removeWidget(_grid);
+
     for (auto widget : _allwidgets)
     {
         iWidgetManager::getInstance().destroyWidget(widget);
-    }
-
-    if (_userControlGraphView)
-    {
-        _userControlGraphView->unregisterOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
-        delete _userControlGraphView;
-        _userControlGraphView = nullptr;
     }
 
     if (_messageBox != nullptr)
@@ -318,13 +424,26 @@ void MenuDialog::deinitGUI()
 
 void MenuDialog::setRootNode(iNode* root)
 {
-    _userControlGraphView->setRootNode(root->getID());
+    con_assert(root != nullptr, "zero pointer");
+
+    if (root != nullptr)
+    {
+        _rootNodeID = root->getID();
+        if (_userControlGraphView != nullptr)
+        {
+            _userControlGraphView->setRootNode(_rootNodeID);
+        }
+    }
 }
 
 void MenuDialog::updateGraph()
 {
-    _userControlGraphView->updateGraph();
-    // todo clear properties
+    if (_userControlGraphView != nullptr)
+    {
+        _userControlGraphView->refresh();
+        _userControlGraphView->setRootNode(_rootNodeID);
+        // todo clear properties
+    }
 }
 
 void MenuDialog::onLoadFile(iWidget* source)
@@ -494,22 +613,25 @@ void MenuDialog::onAddModel(uint32 addAt)
 
 void MenuDialog::onAddModelDecision(bool ok, int32 selection)
 {
-	if (ok)
-	{
-		switch (selection)
-		{
-		case 0:
-			_importFile(_userControlGraphView->getSelectedNode());
-			break;
+    if (_userControlGraphView != nullptr)
+    {
+        if (ok)
+        {
+            switch (selection)
+            {
+            case 0:
+                _importFile(_userControlGraphView->getSelectedNode());
+                break;
 
-		case 1:
-			_importFileReference(_userControlGraphView->getSelectedNode());
-			break;
+            case 1:
+                _importFileReference(_userControlGraphView->getSelectedNode());
+                break;
 
-		default:
-			con_assert(false, "invalid selection");
-		}
-	}
+            default:
+                con_assert(false, "invalid selection");
+            }
+        }
+    }
 }
 
 void MenuDialog::onAddTransformation(uint32 addAt)

@@ -19,6 +19,7 @@ using namespace IgorAux;
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
 #include <iWidgetManager.h>
+#include <iStatistics.h>
 #ifdef __USE_OPENAL__
     #include <iSoundResourceFactory.h>
 #endif
@@ -190,6 +191,11 @@ namespace Igor
         if (iModelResourceFactory::isInstantiated())
         {
             iModelResourceFactory::destroyInstance();
+        }
+
+        if (iStatistics::isInstantiated())
+        {
+            iStatistics::destroyInstance();
         }
 
         if(iTaskManager::isInstantiated())

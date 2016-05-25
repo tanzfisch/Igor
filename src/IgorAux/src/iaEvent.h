@@ -33,6 +33,7 @@
 
 #include <iaDefines.h>
 #include <iaDelegate.h>
+#include <iaConsole.h>
 
 #include <vector>
 #include <mutex>

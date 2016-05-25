@@ -72,7 +72,7 @@ public:
     uint32 getSelectedNode();
     void setRootNode(uint32 root);
     uint32 getRootNode();
-    void updateGraph();
+    void refresh();
 
     iWidget* getWidget();
     
@@ -110,37 +110,27 @@ private:
     uint32 _root = iNode::INVALID_NODE_ID;
 	GraphSelectionChanged _selectionChange;
 
-	iWidgetGrid* _grid = nullptr;
-    iWidgetGroupBox* _groupBox = nullptr;
-    iWidgetGrid* _gridGraph = nullptr;
-    iWidgetScroll* _scroll = nullptr;
-
-	iWidgetGrid* _gridButtons = nullptr;
-	iWidgetButton* _addModelButton = nullptr;
-	iWidgetButton* _addSwitchButton = nullptr;
-	iWidgetButton* _addTransformationButton = nullptr;
-	iWidgetButton* _addGroupButton = nullptr;
-	iWidgetButton* _addEmitterButton = nullptr;
-	iWidgetButton* _addParticleSystemButton = nullptr;
-
 	vector<iWidget*> _gridEntryWidgets;
-	vector<iWidget*> _allwidgets;
+	vector<iWidget*> _allWidgets;
 
     int32 _indentation = 0;
     bool _firstNode = true;
 
     uint32 _selectedNode = iNode::INVALID_NODE_ID;
 
+    iWidget* _rootWidget = nullptr;
+    iWidgetGrid* _gridGraph = nullptr;
+
     vector<uint32*> _userData;
 
-    void clear();
+    void clearGraph();
 
     iaString getIconTexture(iNodeType type);
 
-    void OnSelectionChange(iWidget* widget);
-
     void initGUI();
     void deinitGUI();
+
+    void OnSelectionChange(iWidget* widget);
 
 	void onAddModel(iWidget* source);
 	void onAddTransformation(iWidget* source);

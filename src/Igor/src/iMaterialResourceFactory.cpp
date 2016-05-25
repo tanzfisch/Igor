@@ -23,6 +23,8 @@ namespace Igor
 
 	iMaterialResourceFactory::~iMaterialResourceFactory()
 	{
+        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterial));
+
         if (_defaultID != iMaterial::INVALID_MATERIAL_ID)
         {
             destroyMaterial(_defaultID);

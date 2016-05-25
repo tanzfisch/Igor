@@ -61,6 +61,11 @@ namespace Igor
 #define GL_CHECK_ERROR() 1
 #endif
 
+    iRenderer::~iRenderer()
+    {
+        deinit();
+    }
+
     void iRenderer::resetCounters()
     {
         _renderedVertices = 0;
