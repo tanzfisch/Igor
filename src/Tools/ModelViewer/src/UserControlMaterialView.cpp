@@ -107,7 +107,15 @@ void UserControlMaterialView::onAddMaterial(iWidget* source)
 
 void UserControlMaterialView::OnSelectionChange(iWidget* widget)
 {
+	uint32* materialIDPtr = static_cast<uint32*>(_gridGraph->getSelectedUserData());
+	uint32 materialID = iMaterial::INVALID_MATERIAL_ID;
+	if (materialIDPtr != nullptr)
+	{
+		materialID = *materialIDPtr;
+	}
 
+	_selectedMaterial = materialID;
+	_materialSelectionChanged(_selectedMaterial);
 }
 
 void UserControlMaterialView::clear()
@@ -171,6 +179,16 @@ void UserControlMaterialView::registerOnAddMaterial(AddMaterialDelegate addMater
 void UserControlMaterialView::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 {
     _addMaterial.remove(addMaterialDelegate);
+}
+
+void UserControlMaterialView::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+{
+	_materialSelectionChanged.append(materialSelectionChangedDelegate);
+}
+
+void UserControlMaterialView::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+{
+	_materialSelectionChanged.remove(materialSelectionChangedDelegate);
 }
 
 iWidget* UserControlMaterialView::getWidget()

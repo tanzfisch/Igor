@@ -572,7 +572,8 @@ void ModelViewer::initGUI()
 	_propertiesDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
 	_propertiesDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
 
-    _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+	_menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+	_menuDialog->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 }
 
 void ModelViewer::deinitGUI()
@@ -581,6 +582,7 @@ void ModelViewer::deinitGUI()
 		_propertiesDialog != nullptr)
 	{
 		_menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+		_menuDialog->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 	}
 
     if (_menuDialog != nullptr)

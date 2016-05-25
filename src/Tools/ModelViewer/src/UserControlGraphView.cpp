@@ -217,7 +217,7 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
 void UserControlGraphView::OnSelectionChange(iWidget* widget)
 {
     uint32* nodeIDPtr = static_cast<uint32*>(_gridGraph->getSelectedUserData());
-    uint32 nodeID = 0;
+    uint32 nodeID = iNode::INVALID_NODE_ID;
     if (nodeIDPtr != nullptr)
     {
         nodeID = *nodeIDPtr;

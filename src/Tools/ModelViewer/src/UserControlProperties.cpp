@@ -59,28 +59,16 @@ void UserControlProperties::initGUI()
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    _userControlNode = new UserControlNode();
-    _userControlNode->registerNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNodeNameChanged));
-    _userControlNode->getWidget()->setVisible(false);
-
     _groupBox->addWidget(_scroll);
     _scroll->addWidget(_grid);
-    _grid->addWidget(_userControlNode->getWidget(), 0, 0);
 }
 
 void UserControlProperties::deinitGUI()
 {
-    setNode(iNode::INVALID_NODE_ID);
+	setProperty(0, PropertyType::Undefined);
     iWidgetManager::getInstance().destroyWidget(_grid);
     iWidgetManager::getInstance().destroyWidget(_scroll);
     iWidgetManager::getInstance().destroyWidget(_groupBox);
-
-    if (_userControlNode != nullptr)
-    {
-        _userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNodeNameChanged));
-        delete _userControlNode;
-        _userControlNode = nullptr;
-    }
 }
 
 iWidgetDialog* UserControlProperties::getDialog()
@@ -88,96 +76,132 @@ iWidgetDialog* UserControlProperties::getDialog()
     return _dialog;
 }
 
-uint32 UserControlProperties::getNode()
+void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 {
-    return _nodeID;
-}
+	iNodeTransform* node = nullptr;
 
-void UserControlProperties::setNode(uint32 id)
-{
-    if (_nodeID == id)
-    {
-        return;
-    }
+	switch (_propertyType)
+	{
+	case PropertyType::Node:
+		node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(static_cast<uint32>(_propertyID)));
+		if (node != nullptr)
+		{
+			switch (_currentNodeType)
+			{
+			case iNodeType::iNodeTransform:
+				deinitTransformNode();
+				break;
 
-    _userControlNode->getWidget()->setVisible();
+			case iNodeType::iNodeLight:
+				deinitLightNode();
+				break;
 
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeID));
-    if (node != nullptr)
-    {
-        switch (_currentNodeType)
-        {
-        case iNodeType::iNodeTransform:
-            deinitTransformNode();
-            break;
+			case iNodeType::iNodeMesh:
+				deinitMeshNode();
+				break;
 
-        case iNodeType::iNodeLight:
-            deinitLightNode();
-            break;
+			case iNodeType::iNodeModel:
+				deinitModel();
+				break;
 
-        case iNodeType::iNodeMesh:
-            deinitMeshNode();
-            break;
+			case iNodeType::iNodeEmitter:
+				deinitEmitter();
+				break;
 
-        case iNodeType::iNodeModel:
-            deinitModel();
-            break;
+			case iNodeType::iNodeParticleSystem:
+				deinitParticleSystem();
+				break;
+			}
 
-        case iNodeType::iNodeEmitter:
-            deinitEmitter();
-            break;
+			_currentNodeType = iNodeType::Undefined;
 
-        case iNodeType::iNodeParticleSystem:
-            deinitParticleSystem();
-            break;
-        }
+			if (_userControlNode != nullptr)
+			{
+				_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNodeNameChanged));
+				delete _userControlNode;
+				_userControlNode = nullptr;
+			}
+		}
+		break;
 
-        _currentNodeType = iNodeType::Undefined;
-    }
+	case PropertyType::Material:
+		break;
 
-    _nodeID = id;
+	case PropertyType::Undefined:
+		// nothing to do
+		break;
+
+	default:
+		con_err("unknown type");
+	}
+
+	_propertyType = propertyType;
+    _propertyID = id;
+
+	switch (_propertyType)
+	{
+	case PropertyType::Node:
+		node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_propertyID));
+		if (node != nullptr)
+		{
+			_currentNodeType = node->getType();
+
+			switch (_currentNodeType)
+			{
+			case iNodeType::iNode:
+				// nothing to do
+				break;
+
+			case iNodeType::iNodeTransform:
+				initTransformNode();
+				break;
+
+			case iNodeType::iNodeLight:
+				initLightNode();
+				break;
+
+			case iNodeType::iNodeMesh:
+				initMeshNode();
+				break;
+
+			case iNodeType::iNodeModel:
+				initModel();
+				break;
+
+			case iNodeType::iNodeEmitter:
+				initEmitter();
+				break;
+
+			case iNodeType::iNodeParticleSystem:
+				initParticleSystem();
+				break;
+
+			default:
+				con_warn("not implemented");
+			}
+
+			if (_userControlNode == nullptr)
+			{
+				_userControlNode = new UserControlNode();
+				_userControlNode->registerNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNodeNameChanged));
+				_userControlNode->setNode(_propertyID);
+				_grid->addWidget(_userControlNode->getWidget(), 0, 0);
+			}
+		}
+		break;
+
+	case PropertyType::Material:
+		break;
+
+	case PropertyType::Undefined:
+		// nothing to do
+		break;
+
+	default:
+		con_err("unknown type");
+	}
     
-    node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeID));
-    if (node != nullptr)
-    {
-        _currentNodeType = node->getType();
-
-        switch (_currentNodeType)
-        {
-        case iNodeType::iNode:
-            // nothing to do
-            break;
-
-        case iNodeType::iNodeTransform:
-            initTransformNode();
-            break;
-
-        case iNodeType::iNodeLight:
-            initLightNode();
-            break;
-
-        case iNodeType::iNodeMesh:
-            initMeshNode();
-            break;
-
-        case iNodeType::iNodeModel:
-            initModel();
-            break;
-
-        case iNodeType::iNodeEmitter:
-            initEmitter();
-            break;
-
-        case iNodeType::iNodeParticleSystem:
-            initParticleSystem();
-            break;
-
-        default:
-            con_warn("not implemented");
-        }
-
-        _userControlNode->setNode(_nodeID);
-    }
+    
 }
 
 void UserControlProperties::onNodeNameChanged()
@@ -211,7 +235,7 @@ void UserControlProperties::initMeshNode()
 
     _userControlMesh = new UserControlMesh();
     _grid->addWidget(_userControlMesh->getWidget(), 0, 1);
-    _userControlMesh->setNode(_nodeID);
+    _userControlMesh->setNode(static_cast<uint32>(_propertyID));
 }
 
 void UserControlProperties::deinitMeshNode()
@@ -231,7 +255,7 @@ void UserControlProperties::initModel()
 
     _userControlModel = new UserControlModel();
     _grid->addWidget(_userControlModel->getWidget(), 0, 1);
-    _userControlModel->setNode(_nodeID);
+    _userControlModel->setNode(static_cast<uint32>(_propertyID));
 }
 
 void UserControlProperties::deinitModel()
@@ -251,7 +275,7 @@ void UserControlProperties::initEmitter()
 
     _userControlEmitter = new UserControlEmitter();
     _grid->addWidget(_userControlEmitter->getWidget(), 0, 1);
-    _userControlEmitter->setNode(_nodeID);
+    _userControlEmitter->setNode(static_cast<uint32>(_propertyID));
 }
 
 void UserControlProperties::deinitEmitter()
@@ -271,7 +295,7 @@ void UserControlProperties::initParticleSystem()
 
     _userControlParticleSystem = new UserControlParticleSystem();
     _grid->addWidget(_userControlParticleSystem->getWidget(), 0, 1);
-    _userControlParticleSystem->setNode(_nodeID);
+    _userControlParticleSystem->setNode(static_cast<uint32>(_propertyID));
 }
 
 void UserControlProperties::deinitParticleSystem()
@@ -287,7 +311,7 @@ void UserControlProperties::deinitParticleSystem()
 
 void UserControlProperties::clear()
 {
-    setNode(iNode::INVALID_NODE_ID);
+    setProperty(0, PropertyType::Undefined);
 }
 
 void UserControlProperties::initLightNode()
@@ -296,7 +320,7 @@ void UserControlProperties::initLightNode()
 
     _userControlLight = new UserControlLight();
     _grid->addWidget(_userControlLight->getWidget(), 0, 1);
-    _userControlLight->setNode(_nodeID);
+    _userControlLight->setNode(static_cast<uint32>(_propertyID));
 }
 
 void UserControlProperties::deinitLightNode()
@@ -316,7 +340,7 @@ void UserControlProperties::initTransformNode()
 
     _userControlTransformation = new UserControlTransformation();
     _grid->addWidget(_userControlTransformation->getWidget(), 0, 1);
-    _userControlTransformation->setNode(_nodeID);
+    _userControlTransformation->setNode(static_cast<uint32>(_propertyID));
 }
 
 void UserControlProperties::deinitTransformNode()

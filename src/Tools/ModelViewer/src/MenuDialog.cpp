@@ -210,6 +210,9 @@ void MenuDialog::deinitMaterialView()
 {
     if (_userControlMaterialView != nullptr)
     {
+		_userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
+		_userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
+
         delete _userControlMaterialView;
         _userControlMaterialView = nullptr;
     }
@@ -220,6 +223,8 @@ void MenuDialog::initMaterialView()
     if (_userControlMaterialView == nullptr)
     {
         _userControlMaterialView = new UserControlMaterialView();
+		_userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
+		_userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
 
         _grid->addWidget(_userControlMaterialView->getWidget(), 0, 2);
     }
@@ -233,7 +238,7 @@ void MenuDialog::deinitGraphView()
 {
     if (_userControlGraphView != nullptr)
     {
-        _userControlGraphView->unregisterOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
+        _userControlGraphView->unregisterOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphSelectionChanged));
         _userControlGraphView->unregisterOnAddEmitter(AddEmitterDelegate(this, &MenuDialog::onAddEmitter));
         _userControlGraphView->unregisterOnAddGroup(AddGroupDelegate(this, &MenuDialog::onAddGroup));
         _userControlGraphView->unregisterOnAddModel(AddModelDelegate(this, &MenuDialog::onAddModel));
@@ -250,7 +255,7 @@ void MenuDialog::initGraphView()
     if (_userControlGraphView == nullptr)
     {
         _userControlGraphView = new UserControlGraphView();
-        _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphViewSelectionChanged));
+        _userControlGraphView->registerOnSelectionChange(GraphSelectionChangedDelegate(this, &MenuDialog::onGraphSelectionChanged));
         _userControlGraphView->registerOnAddEmitter(AddEmitterDelegate(this, &MenuDialog::onAddEmitter));
         _userControlGraphView->registerOnAddGroup(AddGroupDelegate(this, &MenuDialog::onAddGroup));
         _userControlGraphView->registerOnAddModel(AddModelDelegate(this, &MenuDialog::onAddModel));
@@ -387,9 +392,19 @@ void MenuDialog::onCut(iWidget* source)
     }
 }
 
-void MenuDialog::onGraphViewSelectionChanged(uint32 nodeID)
+void MenuDialog::onGraphSelectionChanged(uint32 nodeID)
 {
     _graphSelectionChanged(nodeID);
+}
+
+void MenuDialog::onMaterialSelectionChanged(uint32 materialID)
+{
+	_materialSelectionChanged(materialID);
+}
+
+void MenuDialog::onAddMaterial()
+{
+	_addMaterial();
 }
 
 void MenuDialog::deinitGUI()
@@ -657,4 +672,24 @@ void MenuDialog::onAddParticleSystem(uint32 addAt)
 void MenuDialog::onAddSwitch(uint32 addAt)
 {
 	_addSwitch(addAt);
+}
+
+void MenuDialog::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+{
+	_materialSelectionChanged.append(materialSelectionChangedDelegate);
+}
+
+void MenuDialog::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
+{
+	_materialSelectionChanged.remove(materialSelectionChangedDelegate);
+}
+
+void MenuDialog::registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
+{
+	_addMaterial.append(addMaterialDelegate);
+}
+
+void MenuDialog::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
+{
+	_addMaterial.remove(addMaterialDelegate);
 }

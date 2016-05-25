@@ -63,6 +63,7 @@ public:
     void unregisterStructureChangedDelegate(StructureChangedDelegate structureChangedDelegate);
 
     void onGraphViewSelectionChanged(uint32 nodeID);
+	void onMaterialSelectionChanged(uint32 materialID);
 
 private:
 

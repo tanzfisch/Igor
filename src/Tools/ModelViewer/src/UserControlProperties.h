@@ -57,6 +57,13 @@ class UserControlParticleSystem;
 iaEVENT(PropertiesChangedEvent, PropertiesChangedDelegate, void, (), ());
 iaEVENT(StructureChangedEvent, StructureChangedDelegate, void, (), ());
 
+enum class PropertyType
+{
+	Node,
+	Material,
+	Undefined
+};
+
 class UserControlProperties : public iWidgetUserControl
 {
 public:
@@ -64,8 +71,8 @@ public:
     UserControlProperties();
     ~UserControlProperties();
 
-    void setNode(uint32 id);
-    uint32 getNode();
+    void setProperty(uint64 id, PropertyType propertyType);
+
     iWidgetDialog* getDialog();
 
     void clear();
@@ -108,7 +115,8 @@ private:
 
     void onNodeNameChanged();
 
-    uint32 _nodeID = 0;
+    uint64 _propertyID = 0;
+	PropertyType _propertyType = PropertyType::Undefined;
 
     iWidgetDialog* _dialog = nullptr;
     iWidgetScroll* _scroll = nullptr;

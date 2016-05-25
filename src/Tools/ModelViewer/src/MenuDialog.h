@@ -119,6 +119,12 @@ public:
     void registerOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
     void unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate graphSelectionChangedDelegate);
 
+	void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
+	void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
+
+	void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+	void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+
 private:
 
     LoadFile _loadFile;
@@ -133,6 +139,9 @@ private:
     AddParticleSystem _addParticleSystem;
     AddSwitch _addSwitch;
 	GraphSelectionChanged _graphSelectionChanged;
+
+	AddMaterial _addMaterial;
+	MaterialSelectionChanged _materialSelectionChanged;
 
     CopyNode _copyNode;
     CutNode _cutNode;
@@ -200,8 +209,10 @@ private:
     void onPaste(iWidget* source);
     void onCut(iWidget* source);
 
-    void onGraphViewSelectionChanged(uint32 nodeID);
-    void onStructureChanged();
+    void onGraphSelectionChanged(uint32 nodeID);
+	void onAddMaterial();
+	void onMaterialSelectionChanged(uint32 materialID);
+	void onStructureChanged();
 
     void onGraphViewSelected(iWidget* source);
     void onMaterialViewSelected(iWidget* source);

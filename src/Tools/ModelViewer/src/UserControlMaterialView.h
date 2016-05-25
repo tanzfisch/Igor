@@ -49,6 +49,7 @@ namespace Igor
 }
 
 iaEVENT(AddMaterial, AddMaterialDelegate, void, (), ());
+iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, void, (uint32 materialID), (materialID));
 
 class UserControlMaterialView : public iWidgetUserControl
 {
@@ -63,18 +64,21 @@ public:
     void registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
     void unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate);
 
+	void registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+	void unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate);
+
 private:
 
+	MaterialSelectionChanged _materialSelectionChanged;
     AddMaterial _addMaterial;
 
     iWidget* _rootWidget = nullptr;
     iWidgetGrid* _gridGraph = nullptr;
-    vector<uint32*> _userData;
-
     vector<iWidget*> _allWidgets;
     vector<iWidget*> _gridEntryWidgets;
+	vector<uint32*> _userData;
 
-    uint32 _nodeId = 0;
+	uint32 _selectedMaterial = 0;
 
     void initGUI();
     void deinitGUI();
