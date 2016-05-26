@@ -236,7 +236,7 @@ namespace IgorAux
 
 		/*! \returns position of first occurence of specified characters
 
-		if not found INVALID_POSITION will be returned
+		if not found iaString::INVALID_POSITION will be returned
 
 		\param characters the characters to search for
 		\param from optional parameter to define start index to search from
