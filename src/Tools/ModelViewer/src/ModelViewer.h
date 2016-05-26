@@ -107,7 +107,11 @@ private:
 
     int32 _materialSkyBox;
 
-    bool _mouseOverDialogs = false;
+    bool _mouseKey0Pressed = false;
+    bool _mouseKey1Pressed = false;
+    bool _mouseKey2Pressed = false;
+    bool _mouseKey3Pressed = false;
+    bool _mouseKey4Pressed = false;
 
 	uint32 _cursorNodeID = iNode::INVALID_NODE_ID;
 
@@ -128,14 +132,15 @@ private:
 
     void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
     void onMouseWheel(int32 d);
+    void onMouseKeyDown(iKeyCode key);
+    void onMouseKeyUp(iKeyCode key);
+
     void onWindowResize(int32 clientWidth, int32 clientHeight);
 
     void deinit();
     void init(iaString fileName);
     void updateCamDistance();
 
-    void onMouseOffDialogs(iWidget* source);
-    void onMouseOverDialogs(iWidget* source);
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue);

@@ -63,7 +63,7 @@ namespace Igor
         iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
         iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
         iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
-        iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &iWidgetManager::onMouseMove));
+        iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
     }
@@ -73,14 +73,14 @@ namespace Igor
         iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
         iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
         iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &iWidgetManager::onMouseDoubleClick));
-        iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &iWidgetManager::onMouseMove));
+        iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
     }
 
     void iWidgetManager::onMouseKeyDown(iKeyCode key)
     {
-        bool foundModal = false;
+        bool consumed = false;
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -88,23 +88,32 @@ namespace Igor
             if (dialog->isModal())
             {
                 dialog->handleMouseKeyDown(key);
-                foundModal = true;
+                consumed = true;
                 break;
             }
         }
 
-        if (!foundModal)
+        if (!consumed)
         {
             for (auto dialog : dialogs)
             {
-                dialog->handleMouseKeyDown(key);
+                if (dialog->handleMouseKeyDown(key))
+                {
+                    consumed = true;
+                    break;
+                }
             }
+        }
+
+        if (!consumed)
+        {
+            _keyDownEvent(key);
         }
     }
 
     void iWidgetManager::onMouseKeyUp(iKeyCode key)
     {
-        bool foundModal = false;
+        bool consumed = false;
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -112,23 +121,32 @@ namespace Igor
             if (dialog->isModal())
             {
                 dialog->handleMouseKeyUp(key);
-                foundModal = true;
+                consumed = true;
                 break;
             }
         }
 
-        if (!foundModal)
+        if (!consumed)
         {
             for (auto dialog : dialogs)
             {
-                dialog->handleMouseKeyUp(key);
+                if (dialog->handleMouseKeyUp(key))
+                {
+                    consumed = true;
+                    break;
+                }
             }
+        }
+
+        if (!consumed)
+        {
+            _keyUpEvent(key);
         }
     }
 
     void iWidgetManager::onMouseDoubleClick(iKeyCode key)
     {
-        bool foundModal = false;
+        bool consumed = false;        
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -136,30 +154,39 @@ namespace Igor
             if (dialog->isModal())
             {
                 dialog->handleMouseDoubleClick(key);
-                foundModal = true;
+                consumed = true;
                 break;
             }
         }
 
-        if (!foundModal)
+        if (!consumed)
         {
             for (auto dialog : dialogs)
             {
-                dialog->handleMouseDoubleClick(key);
+                if (dialog->handleMouseDoubleClick(key))
+                {
+                    consumed = true;
+                    break;
+                }
             }
+        }
+
+        if (!consumed)
+        {
+            _doubleClickEvent(key);
         }
     }
 
-    void iWidgetManager::onMouseMove(int32 x, int32 y)
+    void iWidgetManager::onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
     {
-        bool foundModal = false;
+        bool foundModal = false;        
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
             if (dialog->isModal())
             {
-                dialog->handleMouseMove(x, y);
+                dialog->handleMouseMove(x2, y2);
                 foundModal = true;
                 break;
             }
@@ -169,14 +196,17 @@ namespace Igor
         {
             for (auto dialog : dialogs)
             {
-                dialog->handleMouseMove(x, y);
+                dialog->handleMouseMove(x2, y2);
             }
+
+            _moveFullEvent(x1, y1, x2, y2, window);
+            _moveEvent(x2, y2);
         }
     }
 
     void iWidgetManager::onMouseWheel(int32 d)
     {
-        bool foundModal = false;
+        bool consumed = false;
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -184,17 +214,25 @@ namespace Igor
             if (dialog->isModal())
             {
                 dialog->handleMouseWheel(d);
-                foundModal = true;
+                consumed = true;
                 break;
             }
         }
 
-        if (!foundModal)
+        if (!consumed)
         {
             for (auto dialog : dialogs)
             {
-                dialog->handleMouseWheel(d);
+                if (dialog->handleMouseWheel(d))
+                {
+                    consumed = true;
+                }
             }
+        }
+
+        if (!consumed)
+        {
+            _wheelEvent(d);
         }
     }
 
@@ -428,6 +466,66 @@ namespace Igor
         }
 
         _toDelete.clear();
+    }
+
+    void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)
+    {
+        _doubleClickEvent.append(doubleClickDelegate);
+    }
+
+    void iWidgetManager::unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)
+    {
+        _doubleClickEvent.remove(doubleClickDelegate);
+    }
+
+    void iWidgetManager::registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate)
+    {
+        _keyDownEvent.append(keydown_delegate);
+    }
+
+    void iWidgetManager::registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate)
+    {
+        _keyUpEvent.append(keyup_delegate);
+    }
+
+    void iWidgetManager::registerMouseMoveDelegate(iMouseMoveDelegate move_delegate)
+    {
+        _moveEvent.append(move_delegate);
+    }
+
+    void iWidgetManager::unregisterMouseMoveDelegate(iMouseMoveDelegate move_delegate)
+    {
+        _moveEvent.remove(move_delegate);
+    }
+
+    void iWidgetManager::registerMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate)
+    {
+        _moveFullEvent.append(move_delegate);
+    }
+
+    void iWidgetManager::registerMouseWheelDelegate(iMouseWheelDelegate wheel_delegate)
+    {
+        _wheelEvent.append(wheel_delegate);
+    }
+
+    void iWidgetManager::unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate)
+    {
+        _keyDownEvent.remove(keydown_delegate);
+    }
+
+    void iWidgetManager::unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate)
+    {
+        _keyUpEvent.remove(keyup_delegate);
+    }
+
+    void iWidgetManager::unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate)
+    {
+        _moveFullEvent.remove(move_delegate);
+    }
+
+    void iWidgetManager::unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate)
+    {
+        _wheelEvent.remove(wheel_delegate);
     }
 
 }

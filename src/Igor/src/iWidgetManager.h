@@ -118,7 +118,103 @@ namespace Igor
         */
         void draw();
 
+        /*! register delegate to "redirected" mouse double click event
+
+        \param doubleClickDelegate the delegate to register
+        */
+        void registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate);
+
+        /*! unregister delegate from "redirected" mouse key down event
+
+        \param doubleClickDelegate the delegate to unregister
+        */
+        void unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate);
+
+        /*! register delegate to "redirected" mouse key down event
+
+        \param keydown_delegate the delegate to register
+        */
+        void registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
+
+        /*! unregister delegate from "redirected" mouse key down event
+
+        \param keydown_delegate the delegate to unregister
+        */
+        void unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
+
+        /*! register delegate to "redirected" mouse key up event
+
+        \param keyup_delegate the delegate to register
+        */
+        void registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
+
+        /*! unregister delegate from "redirected" mouse key up event
+
+        \param keyup_delegate the delegate to unregister
+        */
+        void unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
+
+        /*! register delegate to "redirected" mouse move full data event
+
+        \param move_delegate the delegate to register
+        */
+        void registerMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate);
+
+        /*! unregister delegate from "redirected" mouse move full data event
+
+        \param move_delegate the delegate to unregister
+        */
+        void unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate move_delegate);
+
+        /*! register delegate to "redirected" mouse move event
+
+        \param move_delegate the delegate to register
+        */
+        void registerMouseMoveDelegate(iMouseMoveDelegate move_delegate);
+
+        /*! unregister delegate from "redirected" mouse move event
+
+        \param move_delegate the delegate to unregister
+        */
+        void unregisterMouseMoveDelegate(iMouseMoveDelegate move_delegate);
+
+        /*! register delegate to "redirected" mouse wheel event
+
+        \param wheel_delegate the delegate to register
+        */
+        void registerMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
+
+        /*! unregister delegate from "redirected" mouse wheel event
+
+        \param wheel_delegate the delegate to unregister
+        */
+        void unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
+
 	private:
+
+        /*! mouse key down event
+        */
+        iMouseKeyDownEvent _keyDownEvent;
+
+        /*! mouse key up event
+        */
+        iMouseKeyUpEvent _keyUpEvent;
+
+        /*! mouse double click event
+        */
+        iMouseKeyDoubleClickEvent _doubleClickEvent;
+
+        /*! mouse move event
+        */
+        iMouseMoveFullEvent _moveFullEvent;
+
+        /*! mouse move event
+        */
+        iMouseMoveEvent _moveEvent;
+
+        /*! mouse wheel event
+        */
+        iMouseWheelEvent _wheelEvent;
 
         /*! pointer to current theme
         */
@@ -170,8 +266,9 @@ namespace Igor
 
         \param x horrizontal mouse position
         \param y vertical mouse position
+        \todo docu
         */
-        void onMouseMove(int32 x, int32 y);
+        void onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
 
         /*! handle for mouse wheel event
 

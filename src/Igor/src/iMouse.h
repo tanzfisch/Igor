@@ -106,108 +106,6 @@ namespace Igor
 
 		friend class iaSingleton<iMouse>;
 
-	private:
-
-        /*! size of buffer needed to receive raw input messages
-        */
-		uint32 _rawInputBufferSize = 0;
-
-        /*! pointer to the buffer to receive raw input messages
-        */
-		uint8* _rawInputBuffer = nullptr;
-
-        /*! configuration of raw input device
-        */
-		RAWINPUTDEVICE _rawInputDevice;
-
-        /*! x position of mouse in pixel from the last update message
-        */
-		int32 _xPos = 0;
-
-        /*! y position of mouse in pixel from the last update message
-        */
-        int32 _yPos = 0;
-
-        /*! old x position of mouse in pixel
-        */
-        int32 _xPosOld = 0;
-
-        /*! old y position of mouse in pixel
-        */
-        int32 _yPosOld = 0;
-
-        /*! wheel delta from the last update message
-        */
-		int32 _wheelDelta = 0;
-
-        /*! right mouse button state since the last update message
-        */
-		bool _rButton = false;
-
-        /*! left mouse button state since the last update message
-        */
-        bool _lButton = false;
-
-        /*! middle mouse button state since the last update message
-        */
-        bool _mButton = false;
-
-        /*! state of mouse button 4 since the last update message
-        */
-		bool _button4 = false;
-
-        /*! state of mouse button 5 since the last update message
-        */
-        bool _button5 = false;
-
-        /*! if true the next mouse move event will be ignored.
-
-        This is used e.g. to center the mouse cursor
-        */
-		bool _ignoreNextMoveEvent = false;
-
-        /*! mouse key down event
-        */
-		iMouseKeyDownEvent _keyDownEvent;
-
-        /*! mouse key up event
-        */
-        iMouseKeyUpEvent _keyUpEvent;
-
-        /*! mouse double click event
-        */
-        iMouseKeyDoubleClickEvent _doubleClickEvent;
-
-        /*! mouse move event
-        */
-		iMouseMoveFullEvent _moveFullEvent;
-
-        /*! mouse move event
-        */
-        iMouseMoveEvent _moveEvent;
-
-        /*! mouse wheel event
-        */
-        iMouseWheelEvent _wheelEvent;
-
-		/*! handles incomming OS messages
-		*/
-		bool onOSEvent(const void *data);
-
-		/*! registers raw input device for mouse usage
-		*/
-		bool registerDevice();
-
-	private:
-
-		/*! initializes member variables
-		*/
-		iMouse();
-
-		/*! clean up and release memory
-		*/
-		virtual ~iMouse();
-
 	public:
 
 		/*! register delegate to mouse double click event
@@ -333,6 +231,106 @@ namespace Igor
         /*! \returns true: mouse button 5 is pressed; false: mouse button 5 is not pressed
         */
         bool getButton5();
+
+    private:
+
+        /*! size of buffer needed to receive raw input messages
+        */
+        uint32 _rawInputBufferSize = 0;
+
+        /*! pointer to the buffer to receive raw input messages
+        */
+        uint8* _rawInputBuffer = nullptr;
+
+        /*! configuration of raw input device
+        */
+        RAWINPUTDEVICE _rawInputDevice;
+
+        /*! x position of mouse in pixel from the last update message
+        */
+        int32 _xPos = 0;
+
+        /*! y position of mouse in pixel from the last update message
+        */
+        int32 _yPos = 0;
+
+        /*! old x position of mouse in pixel
+        */
+        int32 _xPosOld = 0;
+
+        /*! old y position of mouse in pixel
+        */
+        int32 _yPosOld = 0;
+
+        /*! wheel delta from the last update message
+        */
+        int32 _wheelDelta = 0;
+
+        /*! right mouse button state since the last update message
+        */
+        bool _rButton = false;
+
+        /*! left mouse button state since the last update message
+        */
+        bool _lButton = false;
+
+        /*! middle mouse button state since the last update message
+        */
+        bool _mButton = false;
+
+        /*! state of mouse button 4 since the last update message
+        */
+        bool _button4 = false;
+
+        /*! state of mouse button 5 since the last update message
+        */
+        bool _button5 = false;
+
+        /*! if true the next mouse move event will be ignored.
+
+        This is used e.g. to center the mouse cursor
+        */
+        bool _ignoreNextMoveEvent = false;
+
+        /*! mouse key down event
+        */
+        iMouseKeyDownEvent _keyDownEvent;
+
+        /*! mouse key up event
+        */
+        iMouseKeyUpEvent _keyUpEvent;
+
+        /*! mouse double click event
+        */
+        iMouseKeyDoubleClickEvent _doubleClickEvent;
+
+        /*! mouse move event
+        */
+        iMouseMoveFullEvent _moveFullEvent;
+
+        /*! mouse move event
+        */
+        iMouseMoveEvent _moveEvent;
+
+        /*! mouse wheel event
+        */
+        iMouseWheelEvent _wheelEvent;
+
+        /*! handles incomming OS messages
+        */
+        bool onOSEvent(const void *data);
+
+        /*! registers raw input device for mouse usage
+        */
+        bool registerDevice();
+
+        /*! initializes member variables
+        */
+        iMouse();
+
+        /*! clean up and release memory
+        */
+        virtual ~iMouse();
 	};
 
 	/*! \example Mouse/src/MouseExample.cpp

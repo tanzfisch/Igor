@@ -523,7 +523,9 @@ void UserControlMesh::onDoUpdateNode(iWidget* source)
 
 void UserControlMesh::onTexture0Button(iWidget* source)
 {
-
+   /* _fileDialog = new iFileDialog();
+    _fileDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
+    _fileDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));*/
 }
 
 void UserControlMesh::onTexture1Button(iWidget* source)

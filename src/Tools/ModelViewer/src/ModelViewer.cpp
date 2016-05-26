@@ -24,7 +24,6 @@ using namespace IgorAux;
 #include <iSceneFactory.h>
 #include <iScene.h>
 #include <iNodeFactory.h>
-#include <iMouse.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
 #include <iNodeLight.h>
@@ -76,8 +75,11 @@ void ModelViewer::deinit()
         delete _font;
     }
 
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
+    iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
+    iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
+    iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
+    iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
+
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
 }
 
@@ -86,8 +88,10 @@ void ModelViewer::init(iaString fileName)
     con(" -- Model Viewer --" << endl);
 
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
+    iWidgetManager::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
+    iWidgetManager::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
+    iWidgetManager::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
+    iWidgetManager::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
 
     iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &ModelViewer::handle));
 
@@ -308,7 +312,7 @@ void ModelViewer::forceLoadingNow()
     // want everything to be loaded now!
     con_endl("loading data synchronously ... ");
 
-    while(true)
+    while (true)
     {
         _scene->handle();
         iTextureResourceFactory::getInstance().flush();
@@ -345,13 +349,13 @@ void ModelViewer::forceLoadingNow()
 
 void ModelViewer::onImportFile(uint32 nodeID)
 {
-	_cursorNodeID = nodeID;
+    _cursorNodeID = nodeID;
     _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "");
 }
 
 void ModelViewer::onImportFileReference(uint32 nodeID)
 {
-	_cursorNodeID = nodeID;
+    _cursorNodeID = nodeID;
     _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileReferenceDialogClosed), "");
 }
 
@@ -419,27 +423,27 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             groupName += filename;
             groupNode->setName(groupName);
 
-			iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
-			if (cursorNode != nullptr)
-			{
-				cursorNode->insertNode(groupNode);
-			}
-			else
-			{
-				_groupNode->insertNode(groupNode);
-			}
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            if (cursorNode != nullptr)
+            {
+                cursorNode->insertNode(groupNode);
+            }
+            else
+            {
+                _groupNode->insertNode(groupNode);
+            }
         }
         else
         {
-			iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
-			if (cursorNode != nullptr)
-			{
-				groupNode = cursorNode;
-			}
-			else
-			{
-				groupNode = _groupNode;
-			}
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            if (cursorNode != nullptr)
+            {
+                groupNode = cursorNode;
+            }
+            else
+            {
+                groupNode = _groupNode;
+            }
         }
 
         auto child = children.begin();
@@ -480,15 +484,15 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
 
         model->setModel(filename, parameter);
 
-		iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
-		if (cursorNode != nullptr)
-		{
-			cursorNode->insertNode(model);
-		}
-		else
-		{
-			_groupNode->insertNode(model);
-		}
+        iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+        if (cursorNode != nullptr)
+        {
+            cursorNode->insertNode(model);
+        }
+        else
+        {
+            _groupNode->insertNode(model);
+        }
         forceLoadingNow();
     }
 
@@ -530,7 +534,6 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         model->setModel(filename, parameter);
         _groupNode->insertNode(model);
 
-        _mouseOverDialogs = false;
         forceLoadingNow();
     }
 
@@ -549,8 +552,6 @@ void ModelViewer::initGUI()
     iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
     _menuDialog = new MenuDialog();
-    _menuDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
-    _menuDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
     _menuDialog->registerOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
     _menuDialog->registerOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
     _menuDialog->registerOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
@@ -563,32 +564,24 @@ void ModelViewer::initGUI()
     _menuDialog->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
 
     _fileDialog = new iFileDialog();
-    _fileDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
-    _fileDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
-
     _messageBox = new iMessageBox();
-
     _propertiesDialog = new PropertiesDialog();
-	_propertiesDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
-	_propertiesDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
 
-	_menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-	_menuDialog->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
+    _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+    _menuDialog->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 }
 
 void ModelViewer::deinitGUI()
 {
-	if (_menuDialog != nullptr &&
-		_propertiesDialog != nullptr)
-	{
-		_menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
-		_menuDialog->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
-	}
+    if (_menuDialog != nullptr &&
+        _propertiesDialog != nullptr)
+    {
+        _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+        _menuDialog->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
+    }
 
     if (_menuDialog != nullptr)
     {
-        _menuDialog->unregisterOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
-        _menuDialog->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
         _menuDialog->unregisterOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
         _menuDialog->unregisterOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
         _menuDialog->unregisterOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
@@ -606,17 +599,12 @@ void ModelViewer::deinitGUI()
 
     if (_propertiesDialog != nullptr)
     {
-		_propertiesDialog->unregisterOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
-		_propertiesDialog->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
-
         delete _propertiesDialog;
         _propertiesDialog = nullptr;
     }
 
     if (_fileDialog != nullptr)
     {
-        _fileDialog->unregisterOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
-        _fileDialog->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));
         delete _fileDialog;
         _fileDialog = nullptr;
     }
@@ -635,16 +623,6 @@ void ModelViewer::deinitGUI()
     }
 }
 
-void ModelViewer::onMouseOffDialogs(iWidget* source)
-{
-    _mouseOverDialogs = false;
-}
-
-void ModelViewer::onMouseOverDialogs(iWidget* source)
-{
-    _mouseOverDialogs = true;
-}
-
 void ModelViewer::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
     iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
@@ -657,49 +635,86 @@ void ModelViewer::updateCamDistance()
     _cameraTranslation->translate(0, 0, _camDistance);
 }
 
+void ModelViewer::onMouseKeyDown(iKeyCode key)
+{
+    switch (key)
+    {
+    case iKeyCode::MouseLeft:
+        _mouseKey0Pressed = true;
+        break;
+    case iKeyCode::MouseRight:
+        _mouseKey1Pressed = true;
+        break;
+    case iKeyCode::MouseMiddle:
+        _mouseKey2Pressed = true;
+        break;
+    case iKeyCode::MouseButton4:
+        _mouseKey3Pressed = true;
+        break;
+    case iKeyCode::MouseButton5:
+        _mouseKey4Pressed = true;
+        break;
+    }
+}
+
+void ModelViewer::onMouseKeyUp(iKeyCode key)
+{
+    switch (key)
+    {
+    case iKeyCode::MouseLeft:
+        _mouseKey0Pressed = false;
+        break;
+    case iKeyCode::MouseRight:
+        _mouseKey1Pressed = false;
+        break;
+    case iKeyCode::MouseMiddle:
+        _mouseKey2Pressed = false;
+        break;
+    case iKeyCode::MouseButton4:
+        _mouseKey3Pressed = false;
+        break;
+    case iKeyCode::MouseButton5:
+        _mouseKey4Pressed = false;
+        break;
+    }
+}
+
 void ModelViewer::onMouseWheel(int32 d)
 {
-    if (!_mouseOverDialogs)
+    if (d < 0)
     {
-        if (d < 0)
+        if (_camDistance < _camMaxDistance)
         {
-            if (_camDistance < _camMaxDistance)
-            {
-                _camDistance *= 2.0f;
-            }
+            _camDistance *= 2.0f;
         }
-        else
-        {
-            if (_camDistance > _camMinDistance)
-            {
-                _camDistance *= 0.5f;
-            }
-        }
-
-        updateCamDistance();
     }
+    else
+    {
+        if (_camDistance > _camMinDistance)
+        {
+            _camDistance *= 0.5f;
+        }
+    }
+
+    updateCamDistance();
 }
 
 void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
-    if (!_mouseOverDialogs)
+    if (_mouseKey0Pressed)
     {
-        if (iMouse::getInstance().getLeftButton())
-        {
+        _cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
+        _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
 
-            _cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
-            _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+        iMouse::getInstance().setCenter(true);
+    }
 
-            iMouse::getInstance().setCenter(true);
-        }
+    if (_mouseKey1Pressed)
+    {
+        float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
+        _directionalLightRotate->rotate(dx, iaAxis::Y);
 
-        if (iMouse::getInstance().getRightButton())
-        {
-            float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
-            _directionalLightRotate->rotate(dx, iaAxis::Y);
-
-            iMouse::getInstance().setCenter(true);
-        }
+        iMouse::getInstance().setCenter(true);
     }
 }
 
@@ -745,7 +760,7 @@ void ModelViewer::renderOrtho()
 
     iWidgetManager::getInstance().draw();
 
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0,0,0,1));
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 0, 0, 1));
 
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 }
