@@ -69,6 +69,11 @@ private:
     iWidgetTextEdit* _textTexture2 = nullptr;
     iWidgetTextEdit* _textTexture3 = nullptr;
 
+    iWidgetButton* _texture0Button = nullptr;
+    iWidgetButton* _texture1Button = nullptr;
+    iWidgetButton* _texture2Button = nullptr;
+    iWidgetButton* _texture3Button = nullptr;
+
     iWidgetTextEdit* _textVertices = nullptr;
     iWidgetTextEdit* _textTriangles = nullptr;
     iWidgetTextEdit* _textIndexes = nullptr;
@@ -97,10 +102,12 @@ private:
     void onSpecularChange(const iaColor4f& color);
     void onEmissiveChange(const iaColor4f& color);
 
-    void onTexture0Change(iWidget* source);
-    void onTexture1Change(iWidget* source);
-    void onTexture2Change(iWidget* source);
-    void onTexture3Change(iWidget* source);
+    void onDoUpdateNode(iWidget* source);
+
+    void onTexture0Button(iWidget* source);
+    void onTexture1Button(iWidget* source);
+    void onTexture2Button(iWidget* source);
+    void onTexture3Button(iWidget* source);
 
     void onTextChangedShininess(iWidget* source);
     void onSliderChangedShininess(iWidget* source);

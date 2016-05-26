@@ -343,7 +343,7 @@ void UserControlMesh::initGUI()
     iWidgetGrid* gridTextures = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridTextures);
     gridTextures->appendRows(3);
-    gridTextures->appendCollumns(1);
+    gridTextures->appendCollumns(2);
     gridTextures->setBorder(2);
     gridTextures->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
@@ -375,7 +375,7 @@ void UserControlMesh::initGUI()
     _textTexture0->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture0->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture0->setText("");
-    _textTexture0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture0Change));
+    _textTexture0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     _textTexture1 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture1);
@@ -384,7 +384,7 @@ void UserControlMesh::initGUI()
     _textTexture1->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture1->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture1->setText("");
-    _textTexture1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture1Change));
+    _textTexture1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     _textTexture2 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture2);
@@ -393,7 +393,7 @@ void UserControlMesh::initGUI()
     _textTexture2->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture2->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture2->setText("");
-    _textTexture2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture2Change));
+    _textTexture2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     _textTexture3 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture3);
@@ -402,7 +402,35 @@ void UserControlMesh::initGUI()
     _textTexture3->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture3->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture3->setText("");
-    _textTexture3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture3Change));
+    _textTexture3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+
+    _texture0Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_texture0Button);
+    _texture0Button->setWidth(20);
+    _texture0Button->setHeight(20);
+    _texture0Button->setText("...");
+    _texture0Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
+
+    _texture1Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_texture1Button);
+    _texture1Button->setWidth(20);
+    _texture1Button->setHeight(20);
+    _texture1Button->setText("...");
+    _texture1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
+
+    _texture2Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_texture2Button);
+    _texture2Button->setWidth(20);
+    _texture2Button->setHeight(20);
+    _texture2Button->setText("...");
+    _texture2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
+
+    _texture3Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_texture3Button);
+    _texture3Button->setWidth(20);
+    _texture3Button->setHeight(20);
+    _texture3Button->setText("...");
+    _texture3Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
 
     gridShininess->addWidget(labelShininess, 1, 0);
     gridShininess->addWidget(_sliderShininess, 1, 1);
@@ -425,6 +453,10 @@ void UserControlMesh::initGUI()
     gridTextures->addWidget(_textTexture1, 1, 1);
     gridTextures->addWidget(_textTexture2, 1, 2);
     gridTextures->addWidget(_textTexture3, 1, 3);
+    gridTextures->addWidget(_texture0Button, 2, 0);
+    gridTextures->addWidget(_texture1Button, 2, 1);
+    gridTextures->addWidget(_texture2Button, 2, 2);
+    gridTextures->addWidget(_texture3Button, 2, 3);
 
     _grid->addWidget(detailsGrid, 0, 0);
     _grid->addWidget(_ambientColorChooser->getWidget(), 0, 1);
@@ -484,22 +516,27 @@ iWidget* UserControlMesh::getWidget()
     return _grid;
 }
 
-void UserControlMesh::onTexture0Change(iWidget* source)
+void UserControlMesh::onDoUpdateNode(iWidget* source)
 {
     updateNode();
 }
 
-void UserControlMesh::onTexture1Change(iWidget* source)
+void UserControlMesh::onTexture0Button(iWidget* source)
 {
-    updateNode();
+
 }
 
-void UserControlMesh::onTexture2Change(iWidget* source)
+void UserControlMesh::onTexture1Button(iWidget* source)
 {
-    updateNode();
+
 }
 
-void UserControlMesh::onTexture3Change(iWidget* source)
+void UserControlMesh::onTexture2Button(iWidget* source)
 {
-    updateNode();
+
+}
+
+void UserControlMesh::onTexture3Button(iWidget* source)
+{
+
 }
