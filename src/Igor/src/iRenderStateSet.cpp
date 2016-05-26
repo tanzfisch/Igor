@@ -15,15 +15,6 @@ namespace Igor
 		_renderStates[static_cast<unsigned int>(iRenderState::Blend)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::CullFace)] = iRenderStateValue::On;
 		_renderStates[static_cast<unsigned int>(iRenderState::Fog)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Lighting)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light0)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light1)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light2)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light3)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light4)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light5)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light6)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Light7)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D1)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D2)] = iRenderStateValue::Off;

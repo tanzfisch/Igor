@@ -34,7 +34,7 @@ void UserControlParticleSystem::updateNode()
 
     if (node != nullptr)
     {
-        uint32 emitterID = _emitters[_emitterSelection->getSelectedKey()]->getID();
+        uint32 emitterID = _emitters[_emitterSelection->getSelectedIndex()]->getID();
         if (emitterID != iNode::INVALID_NODE_ID)
         {
             node->setEmitter(emitterID);
@@ -52,7 +52,7 @@ void UserControlParticleSystem::updateGUI()
     _emitters = iNodeFactory::getInstance().getNodes(iNodeType::iNodeEmitter);
     for (auto emitter : _emitters)
     {
-        _emitterSelection->appendEntry(emitter->getName());
+        _emitterSelection->addSelectionEntry(emitter->getName());
     }
 
     iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));

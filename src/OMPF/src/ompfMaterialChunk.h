@@ -42,7 +42,7 @@ namespace OMPF
         Blend = 0x02,
         CullFace = 0x03,
         Fog = 0x04,
-        Lighting = 0x05,
+        Lighting = 0x05, // deprecated
         Light0 = 0x06,
         Light1 = 0x07,
         Light2 = 0x08,
@@ -158,7 +158,14 @@ namespace OMPF
         */
         iaString getMaterialName() const;
 
+        /*! sets render order index
+
+        \param order render order index
+        */
         void setOrder(int32 order);
+
+        /*! \returns render order index
+        */
         int32 getOrder() const;
 
         /*! \returns size of chunk
@@ -235,6 +242,8 @@ namespace OMPF
         */
         iaString _materialName;
 
+        /*! render order index
+        */
         int32 _order = 100;
 
         /*! list of shaders stored

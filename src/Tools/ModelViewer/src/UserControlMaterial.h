@@ -46,6 +46,7 @@ namespace Igor
     class iUserControlColorChooser;
     class iWidgetSlider;
     class iWidgetNumberChooser;
+    class iWidgetCheckBox;
 }
 
 iaEVENT(MaterialNameChangedEvent, MaterialNameChangedDelegate, void, (), ());
@@ -72,13 +73,14 @@ private:
     iWidgetGrid* _grid = nullptr;
     iWidgetTextEdit* _textName = nullptr;
     iWidgetNumberChooser* _renderingOrder = nullptr;
+    iWidgetCheckBox* _checkBoxCullFace = nullptr;
 
     vector<iWidget*> _allWidgets;
 
     uint32 _materialID = 0;
 
     void onTextChangedName(iWidget* source);
-    void onChangedRenderOrder(iWidget* source);
+    void onDoUpdateMaterial(iWidget* source);
 
     void updateGUI();
     void updateMaterial();

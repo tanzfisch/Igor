@@ -236,7 +236,7 @@ void UserControlMesh::updateGUI()
         }
         _userDataMaterialID.clear();
         _selectMaterial->clear();
-
+        
         auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
         auto materialGroupIter = materialGroups->begin();
         while (materialGroupIter != materialGroups->end())
@@ -245,8 +245,13 @@ void UserControlMesh::updateGUI()
             iaString materialName = (*materialGroupIter)->getMaterial()->getName();
 
             uint32* ptrmaterialID = new uint32(materialID);
-            _selectMaterial->appendEntry(materialName, ptrmaterialID);
+            _selectMaterial->addSelectionEntry(materialName, ptrmaterialID);
             _userDataMaterialID.push_back(ptrmaterialID);
+
+            if (materialID == node->getMaterial())
+            {
+                _selectMaterial->setSelection(_selectMaterial->getSelectionEntryCount() - 1);
+            }
 
             materialGroupIter++;
         }

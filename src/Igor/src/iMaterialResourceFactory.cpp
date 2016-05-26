@@ -122,7 +122,6 @@ namespace Igor
         getMaterial(_defaultID)->addShaderSource("default.vert", iShaderObjectType::Vertex);
         getMaterial(_defaultID)->addShaderSource("default_directional_light.frag", iShaderObjectType::Fragment);
         getMaterial(_defaultID)->compileShader();
-        getMaterial(_defaultID)->getRenderStateSet().setRenderState(iRenderState::Lighting, iRenderStateValue::Off);
         getMaterial(_defaultID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::Off);
         getMaterialGroup(_defaultID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 

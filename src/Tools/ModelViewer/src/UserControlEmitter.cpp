@@ -37,7 +37,7 @@ void UserControlEmitter::updateNode()
         float32 size = iaString::atof(_textSize->getText());
         node->setSize(size);
 
-        node->setType(static_cast<iEmitterType>(_selectType->getSelectedKey()));
+        node->setType(static_cast<iEmitterType>(_selectType->getSelectedIndex()));
     }
 }
 
@@ -81,13 +81,13 @@ void UserControlEmitter::initGUI()
     _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
     _allWidgets.push_back(_selectType);
     // see iEmitterTypes
-    _selectType->appendEntry("Mesh");
-    _selectType->appendEntry("Point");
-    _selectType->appendEntry("Disc");
-    _selectType->appendEntry("Circle");
-    _selectType->appendEntry("Sphere");
-    _selectType->appendEntry("Square");
-    _selectType->appendEntry("Cube");
+    _selectType->addSelectionEntry("Mesh");
+    _selectType->addSelectionEntry("Point");
+    _selectType->addSelectionEntry("Disc");
+    _selectType->addSelectionEntry("Circle");
+    _selectType->addSelectionEntry("Sphere");
+    _selectType->addSelectionEntry("Square");
+    _selectType->addSelectionEntry("Cube");
     _selectType->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 

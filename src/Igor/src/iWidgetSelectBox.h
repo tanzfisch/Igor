@@ -55,31 +55,73 @@ namespace Igor
 
 	public:
 
-        void clear();
-        void appendEntry(const iaString& entryText, void* userData = nullptr);
-		
-		void setSelection(uint32 key);
+        /*! adds entry to select box
 
-		uint32 getSelectedKey() const;
-		iaString getSelectedValue() const;
+        \param entryText the entry text
+        \param userData optional pointer to user data
+        */
+        void addSelectionEntry(const iaString& entryText, void* userData = nullptr);
+
+        /*! clears all entries
+
+        Attention! if you used user data you have to delete it your self
+        */
+        void clear();
+        
+		/*! sets selection by index
+        */
+		void setSelection(uint32 index);
+
+        /*! \returns ammount of select box entries
+        */
+        uint32 getSelectionEntryCount() const;
+
+        /*! \returns index of selected entry
+        */
+		uint32 getSelectedIndex() const;
+
+        /*! \returns text of selected entry
+        */
+        iaString getSelectedValue() const;
+
+        /*! \returns user data pointer of selected entry
+        */
         void* getSelectedUserData() const;
 
 	private:
 
+        /*! list of selct box entries
+        */
         vector<pair<iaString, void*>> _entries;
 
-        int32 _key = -1;
+        /*! current selected index
 
+        -1 stand for no selection
+        */
+        int32 _currentSelection = -1;
+
+        /*! rectangle of select box button area
+        */
         iRectanglef _buttonRectangle;
 
+        /*! true: if the mouse cursor is over the button
+        */
         bool _mouseOverButton = false;
 
+        /*! true: if the select box is unfoldet
+        */
         bool _openSelectBox = false;
 
+        /*! select box dialog used for the unfold effect
+        */
         iSelectBox* _selectBox = nullptr;
 
+        /*! appearance state of the button
+        */
         iWidgetAppearanceState _buttonAppearanceState = iWidgetAppearanceState::Standby;
 
+        /*! triggered when selection has changed
+        */
         void onSelectionChanged(int32 value);
 
         /*! handles incomming mouse wheel event

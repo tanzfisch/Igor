@@ -46,15 +46,15 @@ namespace Igor
 		Blend,
 		CullFace,
 		Fog,
-		Lighting,
-		Light0,
-		Light1,
-		Light2,
-		Light3,
-		Light4,
-		Light5,
-		Light6,
-		Light7,
+		Lighting, // deprecated
+		Light0, // deprecated
+		Light1, // deprecated
+		Light2, // deprecated
+		Light3, // deprecated
+		Light4, // deprecated
+		Light5, // deprecated
+		Light6, // deprecated
+		Light7, // deprecated
 		Texture2D0,
 		Texture2D1,
 		Texture2D2,

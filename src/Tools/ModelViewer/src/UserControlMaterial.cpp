@@ -15,6 +15,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
+#include <iWidgetCheckBox.h>
 using namespace Igor;
 
 UserControlMaterial::UserControlMaterial()
@@ -35,6 +36,7 @@ void UserControlMaterial::updateMaterial()
     {
         material->setName(_textName->getText());
         material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
+        material->getRenderStateSet().setRenderState(iRenderState::CullFace, _checkBoxCullFace->isChecked() ? iRenderStateValue::On : iRenderStateValue::Off);
     }
 }
 
@@ -45,6 +47,7 @@ void UserControlMaterial::updateGUI()
     if (material != nullptr)
     {
         _textName->setText(material->getName());
+        _checkBoxCullFace->setChecked(material->getRenderStateSet().getRenderStateValue(iRenderState::CullFace) == iRenderStateValue::On ? true : false);
     }
 }
 
@@ -64,7 +67,7 @@ void UserControlMaterial::initGUI()
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
-    _grid->appendRows(1);
+    _grid->appendRows(2);
     _grid->setBorder(2);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -83,6 +86,14 @@ void UserControlMaterial::initGUI()
     _textName->setText("...");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
 
+    iWidgetLabel* labelCullFace = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelCullFace);
+    labelCullFace->setText("Cull Face");
+    labelCullFace->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    _checkBoxCullFace = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _checkBoxCullFace->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+
     iWidgetLabel* labelRenderingOrder = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelRenderingOrder);
     labelRenderingOrder->setText("Rendering Order");
@@ -96,15 +107,17 @@ void UserControlMaterial::initGUI()
     _renderingOrder->setWidth(80);
     _renderingOrder->setSteppingWheel(10.0f, 10.0f);
     _renderingOrder->setStepping(1.0f, 1.0f);
-    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onChangedRenderOrder));
+    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _grid->addWidget(labelName, 0, 0);
     _grid->addWidget(_textName, 1, 0);
-    _grid->addWidget(labelRenderingOrder, 0, 1);
-    _grid->addWidget(_renderingOrder, 1, 1);
+    _grid->addWidget(labelCullFace, 0, 1);
+    _grid->addWidget(_checkBoxCullFace, 1, 1);
+    _grid->addWidget(labelRenderingOrder, 0, 2);
+    _grid->addWidget(_renderingOrder, 1, 2);
 }
 
-void UserControlMaterial::onChangedRenderOrder(iWidget* source)
+void UserControlMaterial::onDoUpdateMaterial(iWidget* source)
 {
     updateMaterial();
 }
@@ -117,7 +130,7 @@ void UserControlMaterial::onTextChangedName(iWidget* source)
 
 void UserControlMaterial::deinitGUI()
 {
-    _renderingOrder->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onChangedRenderOrder));
+    _renderingOrder->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
     _textName->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
 
     for(auto widget : _allWidgets)

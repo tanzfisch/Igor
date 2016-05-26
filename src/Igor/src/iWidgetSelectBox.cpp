@@ -158,7 +158,7 @@ namespace Igor
     {
         if (value > -1)
         {
-            _key = value;
+            _currentSelection = value;
         }
 
         _change(this);
@@ -196,17 +196,22 @@ namespace Igor
 
         if (key < _entries.size() || key == -1)
         {
-            _key = key;
+            _currentSelection = key;
         }
 	}
+
+    uint32 iWidgetSelectBox::getSelectionEntryCount() const
+    {
+        return _entries.size();
+    }
 
     void iWidgetSelectBox::clear()
     {
         _entries.clear();
-        _key = -1;
+        _currentSelection = -1;
     }
 
-    void iWidgetSelectBox::appendEntry(const iaString& entryText, void* userData)
+    void iWidgetSelectBox::addSelectionEntry(const iaString& entryText, void* userData)
     {
         pair<iaString, void*> entry;
         entry.first = entryText;
@@ -216,17 +221,17 @@ namespace Igor
 
     void* iWidgetSelectBox::getSelectedUserData() const
     {
-        return _entries[_key].second;
+        return _entries[_currentSelection].second;
     }
 
-	uint32 iWidgetSelectBox::getSelectedKey() const
+	uint32 iWidgetSelectBox::getSelectedIndex() const
 	{
-        return _key;
+        return _currentSelection;
 	}
 
 	iaString iWidgetSelectBox::getSelectedValue() const
 	{
-        return _entries[_key].first;
+        return _entries[_currentSelection].first;
 	}
 
 	void iWidgetSelectBox::draw(int32 parentPosX, int32 parentPosY)
@@ -237,9 +242,9 @@ namespace Igor
 		{
             iaString displayString;
 
-            if(_key >= 0 && _key < _entries.size())
+            if(_currentSelection >= 0 && _currentSelection < _entries.size())
             { 
-                displayString = _entries[_key].first;
+                displayString = _entries[_currentSelection].first;
             }
 
 			iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonAppearanceState, isActive());
