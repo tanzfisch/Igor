@@ -322,10 +322,20 @@ namespace IgorAux
     {
         iaString result;
 
-        iaDirectory dirFrom(from);
-        iaFile fileTo(to);
+        iaString fromPath;
 
-        iaString fromPath = dirFrom.getFullDirectoryName();
+        if (iaFile::exist(from))
+        {
+            iaFile file(from);
+            fromPath = file.getPath();
+        }
+        else
+        {
+            iaDirectory dirFrom(from);
+            fromPath = dirFrom.getFullDirectoryName();
+        }
+        
+        iaFile fileTo(to);
         vector<iaString> elementsFrom;
         fromPath.split(iaDirectory::getPathSeperator(), elementsFrom);
 
