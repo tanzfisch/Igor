@@ -51,26 +51,8 @@ namespace Igor
 
         friend class iaSingleton<iResourceManager>;
 
-    private:
-
-        /*! mutex to manage access to internal data
-        */
-        mutex _mutex;
-
-        /*! list of search paths
-        */
-        vector<iaString> _searchPaths;
-
-        /*! does nothing
-        */
-        iResourceManager() = default;
-
-        /*! does nothing
-        */
-        ~iResourceManager() = default;
-
     public:
-		
+
         /*! adds search path to list
 
         \param folder search path to add
@@ -92,6 +74,30 @@ namespace Igor
         \param filename file name to search for in search paths
         */
         iaString getPath(const iaString& filename);
+
+        /*! \returns relative path to search path. returns full path if no matching search path found
+
+        \param filename full path to file
+        */
+        iaString getRelativePath(const iaString& filename);
+
+    private:
+
+        /*! mutex to manage access to internal data
+        */
+        mutex _mutex;
+
+        /*! list of search paths
+        */
+        vector<iaString> _searchPaths;
+
+        /*! does nothing
+        */
+        iResourceManager() = default;
+
+        /*! does nothing
+        */
+        ~iResourceManager() = default;
         
     };
 

@@ -111,4 +111,20 @@ namespace Igor
         return result;
     }
 
+    iaString iResourceManager::getRelativePath(const iaString& filename)
+    {
+        iaString result = filename;
+        for (auto path : _searchPaths)
+        {
+            iaDirectory dir(path);
+            if (filename.findFirstOf(dir.getFullDirectoryName().getData()) != iaString::INVALID_POSITION)
+            {
+                result = iaDirectory::getRelativePath(dir.getFullDirectoryName().getData(), filename);
+                break;
+            }
+        }
+
+        return result;
+    }
+
 }
