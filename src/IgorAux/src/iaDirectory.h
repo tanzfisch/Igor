@@ -65,6 +65,11 @@ namespace IgorAux
         */
 		iaString getFullParentDirectoryName() const;
 
+        /*! \returns relative path from path to path
+
+        \param from the path from where the relative path comes from
+        \param to the path the relative path will point to
+        */
         static iaString getRelativePath(const iaString& from, const iaString& to);
 
 		/*! \returns all subdirectorys

@@ -322,10 +322,10 @@ namespace IgorAux
     {
         iaString result;
 
-        iaFile fileFrom(from);
+        iaDirectory dirFrom(from);
         iaFile fileTo(to);
 
-        iaString fromPath = fileFrom.getPath();
+        iaString fromPath = dirFrom.getFullDirectoryName();
         vector<iaString> elementsFrom;
         fromPath.split(iaDirectory::getPathSeperator(), elementsFrom);
 
@@ -373,7 +373,7 @@ namespace IgorAux
         }
         else
         {
-            con_err("paths are not on the same drive");
+            con_warn("paths are not on the same drive");
         }
 
         return result;
