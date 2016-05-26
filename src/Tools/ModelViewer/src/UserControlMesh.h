@@ -29,12 +29,14 @@
 #ifndef __USERCONTROLMESH__
 #define __USERCONTROLMESH__
 
-#include <iNodeMesh.h>
+
 #include <iaColor4.h>
 using namespace IgorAux;
 
+#include <iNodeMesh.h>
 #include <iWidgetUserControl.h>
 #include <iUserControlColorChooser.h>
+#include <iFileDialog.h>
 using namespace Igor;
 
 namespace Igor
@@ -94,8 +96,11 @@ private:
     iUserControlColorChooser* _diffuseColorChooser = nullptr;
     iUserControlColorChooser* _specularColorChooser = nullptr;
 
+    iFileDialog* _fileDialog = nullptr;
+
     uint32 _nodeId = 0;
     bool _ignoreNodeUpdate = false;
+    uint32 _loadTextureTexUnit = 0;
 
     void onAmbientChange(const iaColor4f& color);
     void onDiffuseChange(const iaColor4f& color);
@@ -111,6 +116,8 @@ private:
 
     void onTextChangedShininess(iWidget* source);
     void onSliderChangedShininess(iWidget* source);
+
+    void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
 
     void updateGUI();
     void updateNode();

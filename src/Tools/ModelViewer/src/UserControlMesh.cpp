@@ -17,6 +17,7 @@
 #include <iTargetMaterial.h>
 #include <iTextureResourceFactory.h>
 #include <iResourceManager.h>
+#include <iFileDialog.h>
 using namespace Igor;
 
 UserControlMesh::UserControlMesh()
@@ -416,21 +417,21 @@ void UserControlMesh::initGUI()
     _texture1Button->setWidth(20);
     _texture1Button->setHeight(20);
     _texture1Button->setText("...");
-    _texture1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
+    _texture1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture1Button));
 
     _texture2Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_texture2Button);
     _texture2Button->setWidth(20);
     _texture2Button->setHeight(20);
     _texture2Button->setText("...");
-    _texture2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
+    _texture2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture2Button));
 
     _texture3Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_texture3Button);
     _texture3Button->setWidth(20);
     _texture3Button->setHeight(20);
     _texture3Button->setText("...");
-    _texture3Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
+    _texture3Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture3Button));
 
     gridShininess->addWidget(labelShininess, 1, 0);
     gridShininess->addWidget(_sliderShininess, 1, 1);
@@ -465,12 +466,20 @@ void UserControlMesh::initGUI()
     _grid->addWidget(_emissiveColorChooser->getWidget(), 0, 4);
     _grid->addWidget(gridShininess, 0, 5);
     _grid->addWidget(gridTextures, 0, 6);
+
+    _fileDialog = new iFileDialog();
 }
 
 void UserControlMesh::deinitGUI()
 {
     _sliderShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onSliderChangedShininess));
     _textShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
+
+    if (_fileDialog != nullptr)
+    {
+        delete _fileDialog;
+        _fileDialog = nullptr;
+    }
 
     auto iter = _allWidgets.begin();
     while (iter != _allWidgets.end())
@@ -521,24 +530,56 @@ void UserControlMesh::onDoUpdateNode(iWidget* source)
     updateNode();
 }
 
+void UserControlMesh::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+{
+    if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+    {
+        iaString filename = iResourceManager::getInstance().getRelativePath(_fileDialog->getFullPath());
+        switch (_loadTextureTexUnit)
+        {
+        case 0:
+            _textTexture0->setText(filename);
+            break;
+
+        case 1:
+            _textTexture1->setText(filename);
+            break;
+
+        case 2:
+            _textTexture2->setText(filename);
+            break;
+
+        case 3:
+            _textTexture3->setText(filename);
+            break;
+
+        default:
+            con_err("out of range");
+        }
+        updateNode();
+    }
+}
+
 void UserControlMesh::onTexture0Button(iWidget* source)
 {
-   /* _fileDialog = new iFileDialog();
-    _fileDialog->registerOnMouseOverEvent(iMouseOverDelegate(this, &ModelViewer::onMouseOverDialogs));
-    _fileDialog->registerOnMouseOffEvent(iMouseOffDelegate(this, &ModelViewer::onMouseOffDialogs));*/
+    _loadTextureTexUnit = 0;
+    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }
 
 void UserControlMesh::onTexture1Button(iWidget* source)
 {
-
+    _loadTextureTexUnit = 1;
+    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }
 
 void UserControlMesh::onTexture2Button(iWidget* source)
 {
-
+    _loadTextureTexUnit = 2;
+    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }
 
 void UserControlMesh::onTexture3Button(iWidget* source)
 {
-
+    _loadTextureTexUnit = 3;
+    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }
