@@ -53,6 +53,7 @@ class UserControlNode;
 class UserControlModel;
 class UserControlEmitter;
 class UserControlParticleSystem;
+class UserControlMaterial;
 
 iaEVENT(PropertiesChangedEvent, PropertiesChangedDelegate, void, (), ());
 iaEVENT(StructureChangedEvent, StructureChangedDelegate, void, (), ());
@@ -113,6 +114,9 @@ private:
     void initParticleSystem();
     void deinitParticleSystem();
 
+    void initMaterial();
+    void deinitMaterial();
+
     void onNodeNameChanged();
 
     uint64 _propertyID = 0;
@@ -131,6 +135,7 @@ private:
     UserControlEmitter* _userControlEmitter = nullptr;
     UserControlParticleSystem* _userControlParticleSystem = nullptr;
     UserControlNode* _userControlNode = nullptr;
+    UserControlMaterial* _userControlMaterial = nullptr;
 
 };
 

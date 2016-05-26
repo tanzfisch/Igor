@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __USERCONTROLMESH__
-#define __USERCONTROLMESH__
+#ifndef __USERCONTROLMATERIAL__
+#define __USERCONTROLMATERIAL__
 
 #include <iNodeMesh.h>
 #include <iaColor4.h>
@@ -48,62 +48,28 @@ namespace Igor
     class iWidgetNumberChooser;
 }
 
-class UserControlMesh : public iWidgetUserControl
+class UserControlMaterial : public iWidgetUserControl
 {
 public:
 
-    UserControlMesh();
-    ~UserControlMesh();
+    UserControlMaterial();
+    ~UserControlMaterial();
 
     iWidget* getWidget();
 
-    void setNode(uint32 id);
-    uint32 getNode();
+    void setMaterial(uint32 id);
+    uint32 getMaterial();
 
 private:
 
     iWidgetGrid* _grid = nullptr;
-
-    iWidgetTextEdit* _textTexture0 = nullptr;
-    iWidgetTextEdit* _textTexture1 = nullptr;
-    iWidgetTextEdit* _textTexture2 = nullptr;
-    iWidgetTextEdit* _textTexture3 = nullptr;
-
-    iWidgetTextEdit* _textVertices = nullptr;
-    iWidgetTextEdit* _textTriangles = nullptr;
-    iWidgetTextEdit* _textIndexes = nullptr;
-
-    iWidgetNumberChooser* _textShininess = nullptr;
-    iWidgetSlider* _sliderShininess = nullptr;
+    iWidgetTextEdit* _textName = nullptr;
 
     vector<iWidget*> _allWidgets;
 
-    iaColor4f _ambient;
-    iaColor4f _emissive;
-    iaColor4f _diffuse;
-    iaColor4f _specular;
-    float32 _shininess;
+    uint32 _materialID = 0;
 
-    iUserControlColorChooser* _ambientColorChooser = nullptr;
-    iUserControlColorChooser* _emissiveColorChooser = nullptr;
-    iUserControlColorChooser* _diffuseColorChooser = nullptr;
-    iUserControlColorChooser* _specularColorChooser = nullptr;
-
-    uint32 _nodeId = 0;
-    bool _ignoreNodeUpdate = false;
-
-    void onAmbientChange(const iaColor4f& color);
-    void onDiffuseChange(const iaColor4f& color);
-    void onSpecularChange(const iaColor4f& color);
-    void onEmissiveChange(const iaColor4f& color);
-
-    void onTexture0Change(iWidget* source);
-    void onTexture1Change(iWidget* source);
-    void onTexture2Change(iWidget* source);
-    void onTexture3Change(iWidget* source);
-
-    void onTextChangedShininess(iWidget* source);
-    void onSliderChangedShininess(iWidget* source);
+    void onTextChangedName(iWidget* source);
 
     void updateGUI();
     void updateNode();

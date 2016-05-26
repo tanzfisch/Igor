@@ -15,6 +15,7 @@
 #include <iMesh.h>
 #include <iNodeFactory.h>
 #include <iTargetMaterial.h>
+#include <iTextureResourceFactory.h>
 using namespace Igor;
 
 UserControlMesh::UserControlMesh()
@@ -25,26 +26,6 @@ UserControlMesh::UserControlMesh()
 UserControlMesh::~UserControlMesh()
 {
     deinitGUI();
-}
-
-void UserControlMesh::updateNode()
-{
-    iNodeMesh* node = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
-    {
-        iaColor3f ambient(_ambient._r, _ambient._g, _ambient._b);
-        iaColor3f diffuse(_diffuse._r, _diffuse._g, _diffuse._b);
-        iaColor3f specular(_specular._r, _specular._g, _specular._b);
-        iaColor3f emissive(_emissive._r, _emissive._g, _emissive._b);
-
-        node->getTargetMaterial()->setAmbient(ambient);
-        node->getTargetMaterial()->setDiffuse(diffuse);
-        node->getTargetMaterial()->setSpecular(specular);
-        node->getTargetMaterial()->setEmissive(emissive);
-        node->getTargetMaterial()->setShininess(_shininess);
-        // TODO node->getTargetMaterial()->setTexture();
-    }
 }
 
 void UserControlMesh::onAmbientChange(const iaColor4f& color)
@@ -85,12 +66,84 @@ void UserControlMesh::onSliderChangedShininess(iWidget* source)
     updateNode();
 }
 
+void UserControlMesh::updateNode()
+{
+    if (!_ignoreNodeUpdate)
+    {
+        iNodeMesh* node = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
+
+        if (node != nullptr)
+        {
+            iaColor3f ambient(_ambient._r, _ambient._g, _ambient._b);
+            iaColor3f diffuse(_diffuse._r, _diffuse._g, _diffuse._b);
+            iaColor3f specular(_specular._r, _specular._g, _specular._b);
+            iaColor3f emissive(_emissive._r, _emissive._g, _emissive._b);
+
+            node->getTargetMaterial()->setAmbient(ambient);
+            node->getTargetMaterial()->setDiffuse(diffuse);
+            node->getTargetMaterial()->setSpecular(specular);
+            node->getTargetMaterial()->setEmissive(emissive);
+            node->getTargetMaterial()->setShininess(_shininess);
+
+            if (!_textTexture0->getText().isEmpty())
+            {
+                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture0->getText()), 0);
+            }
+            else
+            {
+                if (node->getTargetMaterial()->hasTextureUnit(0))
+                {
+                    node->getTargetMaterial()->setTexture(nullptr, 0);
+                }
+            }
+
+            if (!_textTexture1->getText().isEmpty())
+            {
+                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture1->getText()), 1);
+            }
+            else
+            {
+                if (node->getTargetMaterial()->hasTextureUnit(1))
+                {
+                    node->getTargetMaterial()->setTexture(nullptr, 1);
+                }
+            }
+
+            if (!_textTexture2->getText().isEmpty())
+            {
+                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture2->getText()), 2);
+            }
+            else
+            {
+                if (node->getTargetMaterial()->hasTextureUnit(2))
+                {
+                    node->getTargetMaterial()->setTexture(nullptr, 2);
+                }
+            }
+
+            if (!_textTexture3->getText().isEmpty())
+            {
+                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture3->getText()), 3);
+            }
+            else
+            {
+                if (node->getTargetMaterial()->hasTextureUnit(3))
+                {
+                    node->getTargetMaterial()->setTexture(nullptr, 3);
+                }
+            }
+        }
+    }
+}
+
 void UserControlMesh::updateGUI()
 {
     iNodeMesh* node = static_cast<iNodeMesh*>(iNodeFactory::getInstance().getNode(_nodeId));
 
     if (node != nullptr)
     {
+        _ignoreNodeUpdate = true;
+
         iaColor3f ambient = node->getAmbient();
         _ambient.set(ambient._r, ambient._g, ambient._b, 1.0f);
 
@@ -115,6 +168,28 @@ void UserControlMesh::updateGUI()
         _textVertices->setText(iaString::itoa(node->getVertexCount()));
         _textTriangles->setText(iaString::itoa(node->getTrianglesCount()));
         _textIndexes->setText(iaString::itoa(node->getIndexesCount()));
+
+        if (node->getTargetMaterial()->hasTextureUnit(0))
+        {
+            _textTexture0->setText(node->getTargetMaterial()->getTexture(0)->getFilename());
+        }
+
+        if (node->getTargetMaterial()->hasTextureUnit(1))
+        {
+            _textTexture1->setText(node->getTargetMaterial()->getTexture(1)->getFilename());
+        }
+
+        if (node->getTargetMaterial()->hasTextureUnit(2))
+        {
+            _textTexture2->setText(node->getTargetMaterial()->getTexture(2)->getFilename());
+        }
+
+        if (node->getTargetMaterial()->hasTextureUnit(3))
+        {
+            _textTexture3->setText(node->getTargetMaterial()->getTexture(3)->getFilename());
+        }
+
+        _ignoreNodeUpdate = false;
     }
 }
 
@@ -133,9 +208,9 @@ void UserControlMesh::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
-    _grid->appendRows(5);
+    _grid->appendRows(6);
     _grid->setBorder(2);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
     _ambientColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);
@@ -154,26 +229,26 @@ void UserControlMesh::initGUI()
     _emissiveColorChooser->setText("Emissive");
     _emissiveColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onEmissiveChange));
 
-    _detailsGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allWidgets.push_back(_detailsGrid);
-    _detailsGrid->appendCollumns(1);
-    _detailsGrid->appendRows(2);
-    _detailsGrid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    iWidgetGrid* detailsGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(detailsGrid);
+    detailsGrid->appendCollumns(1);
+    detailsGrid->appendRows(2);
+    detailsGrid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    _labelVertexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelVertexes);
-    _labelVertexes->setText("Vertexes");
-    _labelVertexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    iWidgetLabel* labelVertexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelVertexes);
+    labelVertexes->setText("Vertexes");
+    labelVertexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    _labelTriangles = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelTriangles);
-    _labelTriangles->setText("Triangles");
-    _labelTriangles->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    iWidgetLabel* labelTriangles = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelTriangles);
+    labelTriangles->setText("Triangles");
+    labelTriangles->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    _labelIndexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelIndexes);
-    _labelIndexes->setText("Indexes");
-    _labelIndexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    iWidgetLabel* labelIndexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelIndexes);
+    labelIndexes->setText("Indexes");
+    labelIndexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _textVertices = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textVertices);
@@ -199,21 +274,21 @@ void UserControlMesh::initGUI()
     _textIndexes->setActive(false);
     _textIndexes->setText("0");
 
-    _gridShininess = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allWidgets.push_back(_gridShininess);
-    _gridShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _gridShininess->appendCollumns(2);
-    _gridShininess->appendRows(1);
+    iWidgetGrid* gridShininess = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridShininess);
+    gridShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridShininess->appendCollumns(2);
+    gridShininess->appendRows(1);
 
-    _labelShininess = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelShininess);
-    _labelShininess->setText("Shininess");
-    _labelShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    iWidgetLabel* labelShininess = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelShininess);
+    labelShininess->setText("Shininess");
+    labelShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    _labelShininessShort = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelShininessShort);
-    _labelShininessShort->setText("S");
-    _labelShininessShort->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    iWidgetLabel* labelShininessShort = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelShininessShort);
+    labelShininessShort->setText("S");
+    labelShininessShort->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _sliderShininess = static_cast<iWidgetSlider*>(iWidgetManager::getInstance().createWidget(iWidgetType::Slider));
     _allWidgets.push_back(_sliderShininess);
@@ -236,25 +311,95 @@ void UserControlMesh::initGUI()
     _textShininess->setStepping(0.01f, 0.01f);
     _textShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
 
-    _gridShininess->addWidget(_labelShininess, 1, 0);
-    _gridShininess->addWidget(_sliderShininess, 1, 1);
-    _gridShininess->addWidget(_labelShininessShort, 0, 1);
-    _gridShininess->addWidget(_textShininess, 2, 1);
+    iWidgetGrid* gridTextures = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridTextures);
+    gridTextures->appendRows(3);
+    gridTextures->appendCollumns(1);
+    gridTextures->setBorder(2);
+    gridTextures->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
-    _detailsGrid->addWidget(_labelVertexes, 0, 0);
-    _detailsGrid->addWidget(_labelTriangles, 0, 1);
-    _detailsGrid->addWidget(_labelIndexes, 0, 2);
+    iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelTextureUnit0);
+    labelTextureUnit0->setText("Texture 0");
+    labelTextureUnit0->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    _detailsGrid->addWidget(_textVertices, 1, 0);
-    _detailsGrid->addWidget(_textTriangles, 1, 1);
-    _detailsGrid->addWidget(_textIndexes, 1, 2);
+    iWidgetLabel* labelTextureUnit1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelTextureUnit1);
+    labelTextureUnit1->setText("Texture 1");
+    labelTextureUnit1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    _grid->addWidget(_detailsGrid, 0, 0);
+    iWidgetLabel* labelTextureUnit2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelTextureUnit2);
+    labelTextureUnit2->setText("Texture 2");
+    labelTextureUnit2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    iWidgetLabel* labelTextureUnit3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelTextureUnit3);
+    labelTextureUnit3->setText("Texture 3");
+    labelTextureUnit3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    _textTexture0 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _allWidgets.push_back(_textTexture0);
+    _textTexture0->setWidth(200);
+    _textTexture0->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture0->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
+    _textTexture0->setText("");
+    _textTexture0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture0Change));
+
+    _textTexture1 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _allWidgets.push_back(_textTexture1);
+    _textTexture1->setWidth(200);
+    _textTexture1->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture1->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
+    _textTexture1->setText("");
+    _textTexture1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture1Change));
+
+    _textTexture2 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _allWidgets.push_back(_textTexture2);
+    _textTexture2->setWidth(200);
+    _textTexture2->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture2->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
+    _textTexture2->setText("");
+    _textTexture2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture2Change));
+
+    _textTexture3 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _allWidgets.push_back(_textTexture3);
+    _textTexture3->setWidth(200);
+    _textTexture3->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture3->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
+    _textTexture3->setText("");
+    _textTexture3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTexture3Change));
+
+    gridShininess->addWidget(labelShininess, 1, 0);
+    gridShininess->addWidget(_sliderShininess, 1, 1);
+    gridShininess->addWidget(labelShininessShort, 0, 1);
+    gridShininess->addWidget(_textShininess, 2, 1);
+
+    detailsGrid->addWidget(labelVertexes, 0, 0);
+    detailsGrid->addWidget(labelTriangles, 0, 1);
+    detailsGrid->addWidget(labelIndexes, 0, 2);
+
+    detailsGrid->addWidget(_textVertices, 1, 0);
+    detailsGrid->addWidget(_textTriangles, 1, 1);
+    detailsGrid->addWidget(_textIndexes, 1, 2);
+
+    gridTextures->addWidget(labelTextureUnit0, 0, 0);
+    gridTextures->addWidget(labelTextureUnit1, 0, 1);
+    gridTextures->addWidget(labelTextureUnit2, 0, 2);
+    gridTextures->addWidget(labelTextureUnit3, 0, 3);
+    gridTextures->addWidget(_textTexture0, 1, 0);
+    gridTextures->addWidget(_textTexture1, 1, 1);
+    gridTextures->addWidget(_textTexture2, 1, 2);
+    gridTextures->addWidget(_textTexture3, 1, 3);
+
+    _grid->addWidget(detailsGrid, 0, 0);
     _grid->addWidget(_ambientColorChooser->getWidget(), 0, 1);
     _grid->addWidget(_diffuseColorChooser->getWidget(), 0, 2);
     _grid->addWidget(_specularColorChooser->getWidget(), 0, 3);
     _grid->addWidget(_emissiveColorChooser->getWidget(), 0, 4);
-    _grid->addWidget(_gridShininess, 0, 5);
+    _grid->addWidget(gridShininess, 0, 5);
+    _grid->addWidget(gridTextures, 0, 6);
 }
 
 void UserControlMesh::deinitGUI()
@@ -263,25 +408,17 @@ void UserControlMesh::deinitGUI()
     _textShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
 
     auto iter = _allWidgets.begin();
-    while(iter != _allWidgets.end())
+    while (iter != _allWidgets.end())
     {
         iWidgetManager::getInstance().destroyWidget((*iter));
         iter++;
     }
 
     _grid = nullptr;
-    _detailsGrid = nullptr;
-    _labelVertexes = nullptr;
-    _labelTriangles = nullptr;
-    _labelIndexes = nullptr;
     _textVertices = nullptr;
     _textTriangles = nullptr;
     _textIndexes = nullptr;
-
-    _gridShininess = nullptr;
     _textShininess = nullptr;
-    _labelShininess = nullptr;
-    _labelShininessShort = nullptr;
     _sliderShininess = nullptr;
 
     if (_ambientColorChooser != nullptr)
@@ -312,4 +449,24 @@ void UserControlMesh::deinitGUI()
 iWidget* UserControlMesh::getWidget()
 {
     return _grid;
+}
+
+void UserControlMesh::onTexture0Change(iWidget* source)
+{
+    updateNode();
+}
+
+void UserControlMesh::onTexture1Change(iWidget* source)
+{
+    updateNode();
+}
+
+void UserControlMesh::onTexture2Change(iWidget* source)
+{
+    updateNode();
+}
+
+void UserControlMesh::onTexture3Change(iWidget* source)
+{
+    updateNode();
 }

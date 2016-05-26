@@ -179,6 +179,7 @@
     <ClCompile Include="..\src\UserControlEmitter.cpp" />
     <ClCompile Include="..\src\UserControlGraphView.cpp" />
     <ClCompile Include="..\src\UserControlLight.cpp" />
+    <ClCompile Include="..\src\UserControlMaterial.cpp" />
     <ClCompile Include="..\src\UserControlMaterialView.cpp" />
     <ClCompile Include="..\src\UserControlMesh.cpp" />
     <ClCompile Include="..\src\UserControlModel.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="..\src\UserControlEmitter.h" />
     <ClInclude Include="..\src\UserControlGraphView.h" />
     <ClInclude Include="..\src\UserControlLight.h" />
+    <ClInclude Include="..\src\UserControlMaterial.h" />
     <ClInclude Include="..\src\UserControlMaterialView.h" />
     <ClInclude Include="..\src\UserControlMesh.h" />
     <ClInclude Include="..\src\UserControlModel.h" />

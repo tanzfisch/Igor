@@ -34,7 +34,16 @@ bool iTargetMaterial::hasTextures() const
 
 bool iTargetMaterial::hasTextureUnit(uint32 unit) const
 {
-    return _textures.find(unit) != _textures.end() ? true : false;
+    auto iter = _textures.find(unit);
+    if (iter != _textures.end())
+    {
+        if ((*iter).second != nullptr)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 uint32 iTargetMaterial::getTextureUnitCount() const

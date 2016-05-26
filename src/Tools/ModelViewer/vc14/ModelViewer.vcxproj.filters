@@ -39,6 +39,9 @@
     <ClCompile Include="..\src\UserControlMaterialView.cpp">
       <Filter>UserControls</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\UserControlMaterial.cpp">
+      <Filter>Node UserControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ModelViewer.h" />
@@ -77,6 +80,9 @@
     </ClInclude>
     <ClInclude Include="..\src\UserControlMaterialView.h">
       <Filter>UserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\UserControlMaterial.h">
+      <Filter>Node UserControls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

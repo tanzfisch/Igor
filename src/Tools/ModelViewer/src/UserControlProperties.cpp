@@ -23,6 +23,7 @@ using namespace IgorAux;
 #include "UserControlModel.h"
 #include "UserControlEmitter.h"
 #include "UserControlParticleSystem.h"
+#include "UserControlMaterial.h"
 
 UserControlProperties::UserControlProperties()
 {
@@ -117,6 +118,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 
 			if (_userControlNode != nullptr)
 			{
+                _grid->removeWidget(_userControlNode->getWidget());
 				_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNodeNameChanged));
 				delete _userControlNode;
 				_userControlNode = nullptr;
@@ -125,6 +127,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 		break;
 
 	case PropertyType::Material:
+        deinitMaterial();
 		break;
 
 	case PropertyType::Undefined:
@@ -191,6 +194,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 		break;
 
 	case PropertyType::Material:
+        initMaterial();
 		break;
 
 	case PropertyType::Undefined:
@@ -233,9 +237,12 @@ void UserControlProperties::initMeshNode()
 {
     con_assert(_userControlMesh == nullptr, "mem allocation error");
 
-    _userControlMesh = new UserControlMesh();
-    _grid->addWidget(_userControlMesh->getWidget(), 0, 1);
-    _userControlMesh->setNode(static_cast<uint32>(_propertyID));
+    if (_userControlMesh == nullptr)
+    {
+        _userControlMesh = new UserControlMesh();
+        _grid->addWidget(_userControlMesh->getWidget(), 0, 1);
+        _userControlMesh->setNode(static_cast<uint32>(_propertyID));
+    }
 }
 
 void UserControlProperties::deinitMeshNode()
@@ -253,9 +260,12 @@ void UserControlProperties::initModel()
 {
     con_assert(_userControlModel == nullptr, "mem allocation error");
 
-    _userControlModel = new UserControlModel();
-    _grid->addWidget(_userControlModel->getWidget(), 0, 1);
-    _userControlModel->setNode(static_cast<uint32>(_propertyID));
+    if (_userControlModel == nullptr)
+    {
+        _userControlModel = new UserControlModel();
+        _grid->addWidget(_userControlModel->getWidget(), 0, 1);
+        _userControlModel->setNode(static_cast<uint32>(_propertyID));
+    }
 }
 
 void UserControlProperties::deinitModel()
@@ -273,9 +283,12 @@ void UserControlProperties::initEmitter()
 {
     con_assert(_userControlEmitter == nullptr, "mem allocation error");
 
-    _userControlEmitter = new UserControlEmitter();
-    _grid->addWidget(_userControlEmitter->getWidget(), 0, 1);
-    _userControlEmitter->setNode(static_cast<uint32>(_propertyID));
+    if (_userControlEmitter == nullptr)
+    {
+        _userControlEmitter = new UserControlEmitter();
+        _grid->addWidget(_userControlEmitter->getWidget(), 0, 1);
+        _userControlEmitter->setNode(static_cast<uint32>(_propertyID));
+    }
 }
 
 void UserControlProperties::deinitEmitter()
@@ -293,9 +306,12 @@ void UserControlProperties::initParticleSystem()
 {
     con_assert(_userControlParticleSystem == nullptr, "mem allocation error");
 
-    _userControlParticleSystem = new UserControlParticleSystem();
-    _grid->addWidget(_userControlParticleSystem->getWidget(), 0, 1);
-    _userControlParticleSystem->setNode(static_cast<uint32>(_propertyID));
+    if (_userControlParticleSystem == nullptr)
+    {
+        _userControlParticleSystem = new UserControlParticleSystem();
+        _grid->addWidget(_userControlParticleSystem->getWidget(), 0, 1);
+        _userControlParticleSystem->setNode(static_cast<uint32>(_propertyID));
+    }
 }
 
 void UserControlProperties::deinitParticleSystem()
@@ -306,6 +322,30 @@ void UserControlProperties::deinitParticleSystem()
 
         delete _userControlParticleSystem;
         _userControlParticleSystem = nullptr;
+    }
+}
+
+void UserControlProperties::initMaterial()
+{
+    con_assert(_userControlMaterial == nullptr, "mem allocation error");
+
+    if (_userControlMaterial == nullptr)
+    {
+        _userControlMaterial = new UserControlMaterial();
+        _grid->addWidget(_userControlMaterial->getWidget(), 0, 1);
+        _userControlMaterial->setMaterial(static_cast<uint32>(_propertyID));
+    }
+    
+}
+
+void UserControlProperties::deinitMaterial()
+{
+    if (_userControlMaterial != nullptr)
+    {
+        _grid->removeWidget(_userControlMaterial->getWidget());
+
+        delete _userControlMaterial;
+        _userControlMaterial = nullptr;
     }
 }
 

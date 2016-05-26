@@ -127,7 +127,7 @@ namespace Igor
 
         /*! max text lenght in characters
         */
-		int32 _maxTextLenght = 8;
+		int32 _maxTextLenght = 20;
 
         /*! if true text field is write protected
         */

@@ -74,7 +74,7 @@ void UserControlNode::initGUI()
     _grid->appendRows(1);
     _grid->setBorder(2);
     _grid->setCellSpacing(2);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
     _labelName = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
