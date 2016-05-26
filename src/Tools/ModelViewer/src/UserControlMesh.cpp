@@ -16,6 +16,7 @@
 #include <iNodeFactory.h>
 #include <iTargetMaterial.h>
 #include <iTextureResourceFactory.h>
+#include <iResourceManager.h>
 using namespace Igor;
 
 UserControlMesh::UserControlMesh()
@@ -171,22 +172,50 @@ void UserControlMesh::updateGUI()
 
         if (node->getTargetMaterial()->hasTextureUnit(0))
         {
-            _textTexture0->setText(node->getTargetMaterial()->getTexture(0)->getFilename());
+            iaString filename = node->getTargetMaterial()->getTexture(0)->getFilename();
+            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+            if (!shortName.isEmpty())
+            {
+                filename = shortName;
+            }
+             
+            _textTexture0->setText(filename);
         }
 
         if (node->getTargetMaterial()->hasTextureUnit(1))
         {
-            _textTexture1->setText(node->getTargetMaterial()->getTexture(1)->getFilename());
+            iaString filename = node->getTargetMaterial()->getTexture(1)->getFilename();
+            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+            if (!shortName.isEmpty())
+            {
+                filename = shortName;
+            }
+
+            _textTexture1->setText(filename);
         }
 
         if (node->getTargetMaterial()->hasTextureUnit(2))
         {
-            _textTexture2->setText(node->getTargetMaterial()->getTexture(2)->getFilename());
+            iaString filename = node->getTargetMaterial()->getTexture(2)->getFilename();
+            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+            if (!shortName.isEmpty())
+            {
+                filename = shortName;
+            }
+
+            _textTexture2->setText(filename);
         }
 
         if (node->getTargetMaterial()->hasTextureUnit(3))
         {
-            _textTexture3->setText(node->getTargetMaterial()->getTexture(3)->getFilename());
+            iaString filename = node->getTargetMaterial()->getTexture(3)->getFilename();
+            iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
+            if (!shortName.isEmpty())
+            {
+                filename = shortName;
+            }
+
+            _textTexture3->setText(filename);
         }
 
         _ignoreNodeUpdate = false;
@@ -342,6 +371,7 @@ void UserControlMesh::initGUI()
     _textTexture0 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture0);
     _textTexture0->setWidth(200);
+    _textTexture0->setMaxTextLength(200);
     _textTexture0->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture0->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture0->setText("");
@@ -350,6 +380,7 @@ void UserControlMesh::initGUI()
     _textTexture1 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture1);
     _textTexture1->setWidth(200);
+    _textTexture1->setMaxTextLength(200);
     _textTexture1->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture1->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture1->setText("");
@@ -358,6 +389,7 @@ void UserControlMesh::initGUI()
     _textTexture2 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture2);
     _textTexture2->setWidth(200);
+    _textTexture2->setMaxTextLength(200);
     _textTexture2->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture2->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture2->setText("");
@@ -366,6 +398,7 @@ void UserControlMesh::initGUI()
     _textTexture3 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture3);
     _textTexture3->setWidth(200);
+    _textTexture3->setMaxTextLength(200);
     _textTexture3->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     _textTexture3->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture3->setText("");
