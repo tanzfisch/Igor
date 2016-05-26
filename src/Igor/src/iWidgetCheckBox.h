@@ -86,7 +86,7 @@ namespace Igor
 
         /*! check box text
         */
-		iaString _text = "...";
+		iaString _text;
 
         /*! boolean if check box is checked or not
         */

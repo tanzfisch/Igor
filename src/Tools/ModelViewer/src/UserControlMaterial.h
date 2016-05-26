@@ -39,14 +39,15 @@ using namespace Igor;
 
 namespace Igor
 {
-    class iWidgetGrid;
-    class iWidgetTextEdit;
-    class iWidgetLabel;
-    class iWidgetButton;
-    class iUserControlColorChooser;
-    class iWidgetSlider;
-    class iWidgetNumberChooser;
-    class iWidgetCheckBox;
+	class iWidgetGrid;
+	class iWidgetTextEdit;
+	class iWidgetLabel;
+	class iWidgetButton;
+	class iUserControlColorChooser;
+	class iWidgetSlider;
+	class iWidgetNumberChooser;
+	class iWidgetCheckBox;
+	class iWidgetSelectBox;
 }
 
 iaEVENT(MaterialNameChangedEvent, MaterialNameChangedDelegate, void, (), ());
@@ -55,38 +56,55 @@ class UserControlMaterial : public iWidgetUserControl
 {
 public:
 
-    UserControlMaterial();
-    ~UserControlMaterial();
+	UserControlMaterial();
+	~UserControlMaterial();
 
-    iWidget* getWidget();
+	iWidget* getWidget();
 
-    void setMaterial(uint32 id);
-    uint32 getMaterial();
+	void setMaterial(uint32 id);
+	uint32 getMaterial();
 
-    void registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
-    void unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
+	void registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
+	void unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
 
 private:
 
-    MaterialNameChangedEvent _materialNameChangedEvent;
+	MaterialNameChangedEvent _materialNameChangedEvent;
 
-    iWidgetGrid* _grid = nullptr;
-    iWidgetTextEdit* _textName = nullptr;
-    iWidgetNumberChooser* _renderingOrder = nullptr;
-    iWidgetCheckBox* _checkBoxCullFace = nullptr;
+	iWidgetGrid* _grid = nullptr;
+	iWidgetTextEdit* _textName = nullptr;
+	iWidgetNumberChooser* _renderingOrder = nullptr;
 
-    vector<iWidget*> _allWidgets;
+	iWidgetCheckBox* _checkBoxCullFace = nullptr;
+	iWidgetCheckBox* _checkBoxDepthTest = nullptr;
+	iWidgetCheckBox* _checkBoxDepthMask = nullptr;
+	iWidgetCheckBox* _checkBoxBlend = nullptr;
+	iWidgetCheckBox* _checkBoxTexture2D0 = nullptr;
+	iWidgetCheckBox* _checkBoxTexture2D1 = nullptr;
+	iWidgetCheckBox* _checkBoxTexture2D2 = nullptr;
+	iWidgetCheckBox* _checkBoxTexture2D3 = nullptr;
+	iWidgetCheckBox* _checkBoxWireframe = nullptr;
+	iWidgetCheckBox* _checkBoxInstanced = nullptr;
+	iWidgetSelectBox* _selectBoxDepthFunc = nullptr;
+	iWidgetSelectBox* _selectBoxCullFaceFunc = nullptr;
+	iWidgetSelectBox* _selectBoxBlendFuncSource = nullptr;
+	iWidgetSelectBox* _selectBoxBlendFuncDestination = nullptr;
+	iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;
 
-    uint32 _materialID = 0;
+	vector<iWidget*> _allWidgets;
 
-    void onTextChangedName(iWidget* source);
-    void onDoUpdateMaterial(iWidget* source);
+	uint32 _materialID = 0;
 
-    void updateGUI();
-    void updateMaterial();
+	bool _ignoreMaterialUpdate = false;
 
-    void initGUI();
-    void deinitGUI();
+	void onTextChangedName(iWidget* source);
+	void onDoUpdateMaterial(iWidget* source);
+
+	void updateGUI();
+	void updateMaterial();
+
+	void initGUI();
+	void deinitGUI();
 
 };
 

@@ -45,7 +45,7 @@ namespace Igor
 		DepthMask,
 		Blend,
 		CullFace,
-		Fog,
+		Fog, // deprecated
 		Lighting, // deprecated
 		Light0, // deprecated
 		Light1, // deprecated
@@ -71,10 +71,10 @@ namespace Igor
 		Texture1D5,
 		Texture1D6,
 		Texture1D7,
-		ColorMaskRed,
-		ColorMaskGreen,
-		ColorMaskBlue,
-		ColorMaskAlpha,
+		ColorMaskRed, // deprecated
+		ColorMaskGreen, // deprecated
+		ColorMaskBlue, // deprecated
+		ColorMaskAlpha, // deprecated
 		Wireframe,
 		DepthFunc,
 		CullFaceFunc,
@@ -98,7 +98,7 @@ namespace Igor
 		SourceAlpha,
 		OneMinusSourceAlpha,
 		DestinationAlpha,
-		OneMinusDEstinationAlpha,
+		OneMinusDestinationAlpha,
 		SourceColor,
 		OneMinusSourceColor,
 		Never,
