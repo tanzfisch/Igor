@@ -77,7 +77,7 @@ void UserControlMaterial::initGUI()
     _textName->setMaxTextLength(100);
     _textName->setWidth(200);
     _textName->setHorrizontalAlignment(iHorrizontalAlignment::Right);
-    _textName->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+    _textName->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textName->setText("...");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
 
@@ -88,6 +88,7 @@ void UserControlMaterial::initGUI()
 void UserControlMaterial::onTextChangedName(iWidget* source)
 {
     updateNode();
+    _materialNameChangedEvent();
 }
 
 void UserControlMaterial::deinitGUI()
@@ -106,4 +107,14 @@ void UserControlMaterial::deinitGUI()
 iWidget* UserControlMaterial::getWidget()
 {
     return _grid;
+}
+
+void UserControlMaterial::registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate)
+{
+    _materialNameChangedEvent.append(nameChangedDelegate);
+}
+
+void UserControlMaterial::unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate)
+{
+    _materialNameChangedEvent.remove(nameChangedDelegate);
 }

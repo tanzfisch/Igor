@@ -226,7 +226,7 @@ void MenuDialog::initMaterialView()
 		_userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
 		_userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
 
-        _grid->addWidget(_userControlMaterialView->getWidget(), 0, 2);
+        _grid->addWidget(_userControlMaterialView->getWidget(), 0, 2);        
     }
     else
     {
@@ -265,19 +265,11 @@ void MenuDialog::initGraphView()
 
         _grid->addWidget(_userControlGraphView->getWidget(), 0, 2);
 
-        updateGraph();
+        refreshView();
     }
     else
     {
         con_err("internal error");
-    }
-}
-
-void MenuDialog::onStructureChanged()
-{
-    if (_userControlGraphView != nullptr)
-    {
-        _userControlGraphView->refresh();
     }
 }
 
@@ -295,7 +287,7 @@ void MenuDialog::onDelete(iWidget* source)
             {
                 parent->removeNode(node);
                 iNodeFactory::getInstance().destroyNode(node);
-                updateGraph();
+                refreshView();
             }
             else
             {
@@ -343,7 +335,7 @@ void MenuDialog::onPaste(iWidget* source)
                 if (destination != nullptr)
                 {
                     destination->insertNode(pasteNode);
-                    updateGraph();
+                    refreshView();
                 }
             }
         }
@@ -362,7 +354,7 @@ void MenuDialog::onPaste(iWidget* source)
                         parent->removeNode(cutNode);
 
                         destination->insertNode(cutNode);
-                        updateGraph();
+                        refreshView();
                     }
                 }
             }
@@ -451,13 +443,16 @@ void MenuDialog::setRootNode(iNode* root)
     }
 }
 
-void MenuDialog::updateGraph()
+void MenuDialog::refreshView()
 {
     if (_userControlGraphView != nullptr)
     {
-        _userControlGraphView->refresh();
         _userControlGraphView->setRootNode(_rootNodeID);
-        // todo clear properties
+    }
+
+    if (_userControlMaterialView != nullptr)
+    {
+        _userControlMaterialView->refresh();
     }
 }
 

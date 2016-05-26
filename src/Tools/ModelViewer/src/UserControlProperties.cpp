@@ -119,7 +119,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 			if (_userControlNode != nullptr)
 			{
                 _grid->removeWidget(_userControlNode->getWidget());
-				_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNodeNameChanged));
+				_userControlNode->unregisterNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
 				delete _userControlNode;
 				_userControlNode = nullptr;
 			}
@@ -186,7 +186,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
 			if (_userControlNode == nullptr)
 			{
 				_userControlNode = new UserControlNode();
-				_userControlNode->registerNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNodeNameChanged));
+				_userControlNode->registerNameChangeDelegate(NameChangedDelegate(this, &UserControlProperties::onNameChanged));
 				_userControlNode->setNode(_propertyID);
 				_grid->addWidget(_userControlNode->getWidget(), 0, 0);
 			}
@@ -208,7 +208,7 @@ void UserControlProperties::setProperty(uint64 id, PropertyType propertyType)
     
 }
 
-void UserControlProperties::onNodeNameChanged()
+void UserControlProperties::onNameChanged()
 {
     _structureChangedEvent();
 }
@@ -334,6 +334,7 @@ void UserControlProperties::initMaterial()
         _userControlMaterial = new UserControlMaterial();
         _grid->addWidget(_userControlMaterial->getWidget(), 0, 1);
         _userControlMaterial->setMaterial(static_cast<uint32>(_propertyID));
+        _userControlMaterial->registerNameChangeDelegate(MaterialNameChangedDelegate(this, &UserControlProperties::onNameChanged));
     }
     
 }
@@ -342,6 +343,8 @@ void UserControlProperties::deinitMaterial()
 {
     if (_userControlMaterial != nullptr)
     {
+        _userControlMaterial->unregisterNameChangeDelegate(MaterialNameChangedDelegate(this, &UserControlProperties::onNameChanged));
+
         _grid->removeWidget(_userControlMaterial->getWidget());
 
         delete _userControlMaterial;

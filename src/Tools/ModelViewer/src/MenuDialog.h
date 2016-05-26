@@ -75,7 +75,7 @@ public:
     ~MenuDialog();
 
     void setRootNode(iNode* root);
-    void updateGraph();
+    void refreshView();
 
     void registerOnLoadFile(LoadFileDelegate loadFileDelegate);
     void unregisterOnLoadFile(LoadFileDelegate loadFileDelegate);
@@ -212,7 +212,6 @@ private:
     void onGraphSelectionChanged(uint32 nodeID);
 	void onAddMaterial();
 	void onMaterialSelectionChanged(uint32 materialID);
-	void onStructureChanged();
 
     void onGraphViewSelected(iWidget* source);
     void onMaterialViewSelected(iWidget* source);

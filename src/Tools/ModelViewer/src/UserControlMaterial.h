@@ -48,6 +48,8 @@ namespace Igor
     class iWidgetNumberChooser;
 }
 
+iaEVENT(MaterialNameChangedEvent, MaterialNameChangedDelegate, void, (), ());
+
 class UserControlMaterial : public iWidgetUserControl
 {
 public:
@@ -60,7 +62,12 @@ public:
     void setMaterial(uint32 id);
     uint32 getMaterial();
 
+    void registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
+    void unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
+
 private:
+
+    MaterialNameChangedEvent _materialNameChangedEvent;
 
     iWidgetGrid* _grid = nullptr;
     iWidgetTextEdit* _textName = nullptr;

@@ -229,7 +229,7 @@ void ModelViewer::init(iaString fileName)
     forceLoadingNow();
 
     _menuDialog->setRootNode(_groupNode);
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 }
 
 void ModelViewer::onAddTransformation(uint32 atNodeID)
@@ -244,7 +244,7 @@ void ModelViewer::onAddTransformation(uint32 atNodeID)
     iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transform->setName("Transformation");
     destination->insertNode(transform);
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 }
 
 void ModelViewer::onAddGroup(uint32 atNodeID)
@@ -259,7 +259,7 @@ void ModelViewer::onAddGroup(uint32 atNodeID)
     iNode* group = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     group->setName("Group");
     destination->insertNode(group);
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 }
 
 void ModelViewer::onAddEmitter(uint32 atNodeID)
@@ -274,7 +274,7 @@ void ModelViewer::onAddEmitter(uint32 atNodeID)
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     emitter->setName("Emitter");
     destination->insertNode(emitter);
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 }
 
 void ModelViewer::onAddParticleSystem(uint32 atNodeID)
@@ -289,7 +289,7 @@ void ModelViewer::onAddParticleSystem(uint32 atNodeID)
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     particleSystem->setName("ParticleSystem");
     destination->insertNode(particleSystem);
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 }
 
 void ModelViewer::onAddSwitch(uint32 atNodeID)
@@ -304,7 +304,7 @@ void ModelViewer::onAddSwitch(uint32 atNodeID)
     iNodeSwitch* switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
     switchNode->setName("Switch");
     destination->insertNode(switchNode);
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 }
 
 void ModelViewer::forceLoadingNow()
@@ -461,7 +461,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
 
     _menuDialog->setActive();
     _menuDialog->setVisible();
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
@@ -498,7 +498,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
 
     _menuDialog->setActive();
     _menuDialog->setVisible();
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
@@ -539,7 +539,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
 
     _menuDialog->setActive();
     _menuDialog->setVisible();
-    _menuDialog->updateGraph();
+    _menuDialog->refreshView();
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
@@ -567,6 +567,8 @@ void ModelViewer::initGUI()
     _messageBox = new iMessageBox();
     _propertiesDialog = new PropertiesDialog();
 
+    _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));
+
     _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
     _menuDialog->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
 }
@@ -576,6 +578,7 @@ void ModelViewer::deinitGUI()
     if (_menuDialog != nullptr &&
         _propertiesDialog != nullptr)
     {
+        _propertiesDialog->unregisterStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));
         _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
         _menuDialog->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
     }

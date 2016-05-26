@@ -117,7 +117,7 @@ private:
     void initMaterial();
     void deinitMaterial();
 
-    void onNodeNameChanged();
+    void onNameChanged();
 
     uint64 _propertyID = 0;
 	PropertyType _propertyType = PropertyType::Undefined;
