@@ -34,28 +34,28 @@ namespace Igor
         iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
-	iWidgetManager::~iWidgetManager()
-	{
+    iWidgetManager::~iWidgetManager()
+    {
         iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
 
         destroyWidgets();
 
-		if (_widgets.size() != 0)
-		{
-			con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
-		}
+        if (_widgets.size() != 0)
+        {
+            con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
+        }
 
         for (auto iter : _widgets)
-		{
-			delete iter.second;
-		}
+        {
+            delete iter.second;
+        }
 
-		_widgets.clear();
-	}
+        _widgets.clear();
+    }
 
     void iWidgetManager::onHandle()
     {
-    //    destroyWidgets();
+        //    destroyWidgets();
     }
 
     void iWidgetManager::registerIOEvents()
@@ -232,95 +232,103 @@ namespace Igor
         }
     }
 
-	void iWidgetManager::setDesktopDimensions(uint32 width, uint32 height)
-	{
-		_desktopWidth = width;
-		_desktopHeight = height;
+    void iWidgetManager::setDesktopDimensions(uint32 width, uint32 height)
+    {
+        _desktopWidth = width;
+        _desktopHeight = height;
         updateDialogs();
-	}
+    }
 
-	uint32 iWidgetManager::getDesktopWidth() const
-	{
-		return _desktopWidth;
-	}
+    uint32 iWidgetManager::getDesktopWidth() const
+    {
+        return _desktopWidth;
+    }
 
-	uint32 iWidgetManager::getDesktopHeight() const
-	{
-		return _desktopHeight;
-	}
+    uint32 iWidgetManager::getDesktopHeight() const
+    {
+        return _desktopHeight;
+    }
 
-	iWidgetBaseTheme* iWidgetManager::getTheme()
-	{
-		return _currentTheme;
-	}
+    iWidgetBaseTheme* iWidgetManager::getTheme()
+    {
+        return _currentTheme;
+    }
 
-	void iWidgetManager::setTheme(iWidgetBaseTheme *theme)
-	{
-		_currentTheme = theme;
-	}
+    void iWidgetManager::setTheme(iWidgetBaseTheme *theme)
+    {
+        _currentTheme = theme;
+    }
 
-	void iWidgetManager::draw()
-	{
-		con_assert(_currentTheme != nullptr, "no theme defined");
+    void iWidgetManager::draw()
+    {
+        con_assert(_currentTheme != nullptr, "no theme defined");
 
-        for( auto dialog : _dialogs)
-		{
-            dialog->draw(0, 0);
-		}
-	}
+        for (auto dialog : _dialogs)
+        {
+            if (!dialog->isModal())
+            {
+                dialog->draw(0, 0);
+            }
+        }
 
-	iWidget* iWidgetManager::createWidget(iWidgetType widgetType)
-	{
-		iWidget* result = nullptr;
+        if (iWidget::getModal())
+        {
+            iWidget::getModal()->draw(0, 0);
+        }
+    }
 
-		switch (widgetType)
-		{
-		case iWidgetType::Dialog:
+    iWidget* iWidgetManager::createWidget(iWidgetType widgetType)
+    {
+        iWidget* result = nullptr;
+
+        switch (widgetType)
+        {
+        case iWidgetType::Dialog:
             if (_dialogs.empty())
             {
                 registerIOEvents();
             }
 
-			result = new iWidgetDialog();
+            result = new iWidgetDialog();
             _dialogs.push_back(static_cast<iWidgetDialog*>(result));
-			break;
+            break;
 
-		case iWidgetType::Label:
-			result = new iWidgetLabel();
-			break;
+        case iWidgetType::Label:
+            result = new iWidgetLabel();
+            break;
 
-		case iWidgetType::Button:
-			result = new iWidgetButton();
-			break;
+        case iWidgetType::Button:
+            result = new iWidgetButton();
+            break;
 
-		case iWidgetType::GroupBox:
-			result = new iWidgetGroupBox();
-			break;
+        case iWidgetType::GroupBox:
+            result = new iWidgetGroupBox();
+            break;
 
-		case iWidgetType::Grid:
-			result = new iWidgetGrid();
-			break;
+        case iWidgetType::Grid:
+            result = new iWidgetGrid();
+            break;
 
-		case iWidgetType::CheckBox:
-			result = new iWidgetCheckBox();
-			break;
+        case iWidgetType::CheckBox:
+            result = new iWidgetCheckBox();
+            break;
 
-		case iWidgetType::NumberChooser:
-			result = new iWidgetNumberChooser();
-			break;
+        case iWidgetType::NumberChooser:
+            result = new iWidgetNumberChooser();
+            break;
 
-		case iWidgetType::TextEdit:
-			result = new iWidgetTextEdit();
-			break;
+        case iWidgetType::TextEdit:
+            result = new iWidgetTextEdit();
+            break;
 
         case iWidgetType::Picture:
             result = new iWidgetPicture();
             break;
 
-		case iWidgetType::Scroll:
-			result = new iWidgetScroll();
-			break;
-		
+        case iWidgetType::Scroll:
+            result = new iWidgetScroll();
+            break;
+
         case iWidgetType::Spacer:
             result = new iWidgetSpacer();
             break;
@@ -338,13 +346,13 @@ namespace Igor
             break;
 
         case iWidgetType::Undefined:
-		default:
-			con_assert(false, "unexpected widget type");
-		}
+        default:
+            con_assert(false, "unexpected widget type");
+        }
 
-		_widgets[result->getID()] = result;
-		return result;
-	}
+        _widgets[result->getID()] = result;
+        return result;
+    }
 
     iWidget* iWidgetManager::getWidget(uint64 id)
     {
@@ -372,8 +380,8 @@ namespace Igor
         }
     }
 
-	void iWidgetManager::destroyWidget(iWidget* widget)
-	{
+    void iWidgetManager::destroyWidget(iWidget* widget)
+    {
         con_assert(widget != nullptr, "zero pointer");
 
         if (widget == nullptr)
@@ -382,7 +390,7 @@ namespace Igor
         }
 
         _toDelete.push_back(widget);
-	}
+    }
 
     void iWidgetManager::destroyWidgets()
     {

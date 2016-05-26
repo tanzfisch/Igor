@@ -55,6 +55,11 @@ namespace Igor
 		}
 	}
 
+    iWidget* iWidget::getModal()
+    {
+        return _modal;
+    }
+
 	void iWidget::resetModal()
 	{
 		con_assert(_modal == this, "can't unset modal because it was not modal before");

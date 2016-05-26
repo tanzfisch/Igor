@@ -345,6 +345,10 @@ namespace Igor
         */
         void setModal();
 
+        /*! \returns current modal widget
+        */
+        static iWidget* getModal();
+
         /*! reset modal flag
         */
         void resetModal();
