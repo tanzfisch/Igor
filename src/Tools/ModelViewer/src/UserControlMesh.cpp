@@ -4,6 +4,7 @@
 
 #include "UserControlMesh.h"
 
+#include <iWidgetSelectBox.h>
 #include <iWidgetManager.h>
 #include <iWidgetGrid.h>
 #include <iWidgetTextEdit.h>
@@ -18,6 +19,9 @@
 #include <iTextureResourceFactory.h>
 #include <iResourceManager.h>
 #include <iFileDialog.h>
+#include <iMaterialResourceFactory.h>
+#include <iMaterialGroup.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 UserControlMesh::UserControlMesh()
@@ -134,6 +138,13 @@ void UserControlMesh::updateNode()
                     node->getTargetMaterial()->setTexture(nullptr, 3);
                 }
             }
+
+            if (_selectMaterial->getSelectedUserData() != nullptr)
+            {
+                uint32 materialID = *(static_cast<uint32*>(_selectMaterial->getSelectedUserData()));
+
+                node->setMaterial(materialID);
+            }
         }
     }
 }
@@ -219,6 +230,27 @@ void UserControlMesh::updateGUI()
             _textTexture3->setText(filename);
         }
 
+        for (auto entry : _userDataMaterialID)
+        {
+            delete entry;
+        }
+        _userDataMaterialID.clear();
+        _selectMaterial->clear();
+
+        auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
+        auto materialGroupIter = materialGroups->begin();
+        while (materialGroupIter != materialGroups->end())
+        {
+            uint32 materialID = (*materialGroupIter)->getID();
+            iaString materialName = (*materialGroupIter)->getMaterial()->getName();
+
+            uint32* ptrmaterialID = new uint32(materialID);
+            _selectMaterial->appendEntry(materialName, ptrmaterialID);
+            _userDataMaterialID.push_back(ptrmaterialID);
+
+            materialGroupIter++;
+        }
+
         _ignoreNodeUpdate = false;
     }
 }
@@ -238,7 +270,7 @@ void UserControlMesh::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
-    _grid->appendRows(6);
+    _grid->appendRows(7);
     _grid->setBorder(2);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -433,6 +465,23 @@ void UserControlMesh::initGUI()
     _texture3Button->setText("...");
     _texture3Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture3Button));
 
+    iWidgetGrid* gridMaterial = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridMaterial);
+    gridMaterial->appendCollumns(1);
+    gridMaterial->setBorder(2);
+    gridMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetLabel* labelMaterial = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelMaterial);
+    labelMaterial->setText("Material");
+    labelMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    _selectMaterial = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
+    _allWidgets.push_back(_selectMaterial);
+    _selectMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _selectMaterial->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
+
     gridShininess->addWidget(labelShininess, 1, 0);
     gridShininess->addWidget(_sliderShininess, 1, 1);
     gridShininess->addWidget(labelShininessShort, 0, 1);
@@ -459,6 +508,9 @@ void UserControlMesh::initGUI()
     gridTextures->addWidget(_texture2Button, 2, 2);
     gridTextures->addWidget(_texture3Button, 2, 3);
 
+    gridMaterial->addWidget(labelMaterial, 0, 0);
+    gridMaterial->addWidget(_selectMaterial, 1, 0);
+
     _grid->addWidget(detailsGrid, 0, 0);
     _grid->addWidget(_ambientColorChooser->getWidget(), 0, 1);
     _grid->addWidget(_diffuseColorChooser->getWidget(), 0, 2);
@@ -466,12 +518,18 @@ void UserControlMesh::initGUI()
     _grid->addWidget(_emissiveColorChooser->getWidget(), 0, 4);
     _grid->addWidget(gridShininess, 0, 5);
     _grid->addWidget(gridTextures, 0, 6);
+    _grid->addWidget(gridMaterial, 0, 7);
 
     _fileDialog = new iFileDialog();
 }
 
 void UserControlMesh::deinitGUI()
 {
+    _texture0Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
+    _texture1Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture1Button));
+    _texture2Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture2Button));
+    _texture3Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture3Button));
+    _selectMaterial->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
     _sliderShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onSliderChangedShininess));
     _textShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
 
@@ -494,6 +552,7 @@ void UserControlMesh::deinitGUI()
     _textIndexes = nullptr;
     _textShininess = nullptr;
     _sliderShininess = nullptr;
+    _selectMaterial = nullptr;
 
     if (_ambientColorChooser != nullptr)
     {
@@ -523,6 +582,11 @@ void UserControlMesh::deinitGUI()
 iWidget* UserControlMesh::getWidget()
 {
     return _grid;
+}
+
+void UserControlMesh::onMaterialChanged(iWidget* source)
+{
+    updateNode();
 }
 
 void UserControlMesh::onDoUpdateNode(iWidget* source)

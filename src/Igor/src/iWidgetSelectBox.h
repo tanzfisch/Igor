@@ -56,16 +56,17 @@ namespace Igor
 	public:
 
         void clear();
-        void appendEntry(const iaString& entryText);
+        void appendEntry(const iaString& entryText, void* userData = nullptr);
 		
 		void setSelection(uint32 key);
 
 		uint32 getSelectedKey() const;
 		iaString getSelectedValue() const;
+        void* getSelectedUserData() const;
 
 	private:
 
-        vector<iaString> _texts;
+        vector<pair<iaString, void*>> _entries;
 
         int32 _key = -1;
 

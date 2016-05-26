@@ -39,13 +39,13 @@ namespace Igor
         int32 height = _configuredHeight;
 
         if (isGrowingByContent() &&
-            !_texts.empty())
+            !_entries.empty())
         {
             float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
             int32 maxTextWidth = 0;
-            for (auto text : _texts)
+            for (auto text : _entries)
             {
-                int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(text, fontSize);
+                int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(text.first, fontSize);
                 if (textWidth > maxTextWidth)
                 {
                     maxTextWidth = textWidth;
@@ -137,7 +137,14 @@ namespace Igor
 				_selectBox->setWidth(getActualWidth() - getActualHeight());
                 _selectBox->setX(getActualPosX() + 2);
                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);
-                _selectBox->show(_texts, iSelectBoxCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
+
+                vector<iaString> entries;
+                for (auto entry : _entries)
+                {
+                    entries.push_back(entry.first);
+                }
+
+                _selectBox->show(entries, iSelectBoxCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
             }
 
             setKeyboardFocus();
@@ -185,9 +192,9 @@ namespace Igor
 
 	void iWidgetSelectBox::setSelection(uint32 key)
 	{
-        con_assert(key < _texts.size() || key == -1, "out of range");
+        con_assert(key < _entries.size() || key == -1, "out of range");
 
-        if (key < _texts.size() || key == -1)
+        if (key < _entries.size() || key == -1)
         {
             _key = key;
         }
@@ -195,13 +202,21 @@ namespace Igor
 
     void iWidgetSelectBox::clear()
     {
-        _texts.clear();
+        _entries.clear();
         _key = -1;
     }
 
-    void iWidgetSelectBox::appendEntry(const iaString& entryText)
+    void iWidgetSelectBox::appendEntry(const iaString& entryText, void* userData)
     {
-        _texts.push_back(entryText);
+        pair<iaString, void*> entry;
+        entry.first = entryText;
+        entry.second = userData;
+        _entries.push_back(entry);
+    }
+
+    void* iWidgetSelectBox::getSelectedUserData() const
+    {
+        return _entries[_key].second;
     }
 
 	uint32 iWidgetSelectBox::getSelectedKey() const
@@ -211,7 +226,7 @@ namespace Igor
 
 	iaString iWidgetSelectBox::getSelectedValue() const
 	{
-        return _texts[_key];
+        return _entries[_key].first;
 	}
 
 	void iWidgetSelectBox::draw(int32 parentPosX, int32 parentPosY)
@@ -222,9 +237,9 @@ namespace Igor
 		{
             iaString displayString;
 
-            if(_key >= 0 && _key < _texts.size())
+            if(_key >= 0 && _key < _entries.size())
             { 
-                displayString = _texts[_key];
+                displayString = _entries[_key].first;
             }
 
 			iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonAppearanceState, isActive());

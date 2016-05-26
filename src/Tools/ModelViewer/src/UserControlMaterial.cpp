@@ -27,13 +27,14 @@ UserControlMaterial::~UserControlMaterial()
     deinitGUI();
 }
 
-void UserControlMaterial::updateNode()
+void UserControlMaterial::updateMaterial()
 {
     iMaterial* material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
     if (material != nullptr)
     {
         material->setName(_textName->getText());
+        material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
     }
 }
 
@@ -63,6 +64,7 @@ void UserControlMaterial::initGUI()
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
+    _grid->appendRows(1);
     _grid->setBorder(2);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -81,18 +83,41 @@ void UserControlMaterial::initGUI()
     _textName->setText("...");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
 
+    iWidgetLabel* labelRenderingOrder = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelRenderingOrder);
+    labelRenderingOrder->setText("Rendering Order");
+    labelRenderingOrder->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    _renderingOrder = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_renderingOrder);
+    _renderingOrder->setMinMaxNumber(iMaterial::RENDER_ORDER_MIN, iMaterial::RENDER_ORDER_MAX);
+    _renderingOrder->setAfterPoint(0);
+    _renderingOrder->setValue(iMaterial::RENDER_ORDER_DEFAULT);
+    _renderingOrder->setWidth(80);
+    _renderingOrder->setSteppingWheel(10.0f, 10.0f);
+    _renderingOrder->setStepping(1.0f, 1.0f);
+    _renderingOrder->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onChangedRenderOrder));
+
     _grid->addWidget(labelName, 0, 0);
     _grid->addWidget(_textName, 1, 0);
+    _grid->addWidget(labelRenderingOrder, 0, 1);
+    _grid->addWidget(_renderingOrder, 1, 1);
+}
+
+void UserControlMaterial::onChangedRenderOrder(iWidget* source)
+{
+    updateMaterial();
 }
 
 void UserControlMaterial::onTextChangedName(iWidget* source)
 {
-    updateNode();
+    updateMaterial();
     _materialNameChangedEvent();
 }
 
 void UserControlMaterial::deinitGUI()
 {
+    _renderingOrder->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onChangedRenderOrder));
     _textName->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onTextChangedName));
 
     for(auto widget : _allWidgets)
@@ -102,6 +127,7 @@ void UserControlMaterial::deinitGUI()
 
     _grid = nullptr;
     _textName = nullptr;
+    _renderingOrder = nullptr;
 }
 
 iWidget* UserControlMaterial::getWidget()

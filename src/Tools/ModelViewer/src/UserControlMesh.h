@@ -48,6 +48,7 @@ namespace Igor
     class iUserControlColorChooser;
     class iWidgetSlider;
     class iWidgetNumberChooser;
+    class iWidgetSelectBox;
 }
 
 class UserControlMesh : public iWidgetUserControl
@@ -96,11 +97,15 @@ private:
     iUserControlColorChooser* _diffuseColorChooser = nullptr;
     iUserControlColorChooser* _specularColorChooser = nullptr;
 
+    iWidgetSelectBox* _selectMaterial = nullptr;
+
     iFileDialog* _fileDialog = nullptr;
 
     uint32 _nodeId = 0;
     bool _ignoreNodeUpdate = false;
     uint32 _loadTextureTexUnit = 0;
+
+    vector<uint32*> _userDataMaterialID;
 
     void onAmbientChange(const iaColor4f& color);
     void onDiffuseChange(const iaColor4f& color);
@@ -118,6 +123,8 @@ private:
     void onSliderChangedShininess(iWidget* source);
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+
+    void onMaterialChanged(iWidget* source);
 
     void updateGUI();
     void updateNode();

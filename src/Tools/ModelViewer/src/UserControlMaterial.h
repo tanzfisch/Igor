@@ -71,15 +71,17 @@ private:
 
     iWidgetGrid* _grid = nullptr;
     iWidgetTextEdit* _textName = nullptr;
+    iWidgetNumberChooser* _renderingOrder = nullptr;
 
     vector<iWidget*> _allWidgets;
 
     uint32 _materialID = 0;
 
     void onTextChangedName(iWidget* source);
+    void onChangedRenderOrder(iWidget* source);
 
     void updateGUI();
-    void updateNode();
+    void updateMaterial();
 
     void initGUI();
     void deinitGUI();
