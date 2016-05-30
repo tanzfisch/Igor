@@ -112,6 +112,14 @@ namespace Igor
         */
         void compileShader();
 
+        /*! destroyes shaders and removes all information about them
+        */
+        void clearShader();
+
+        /*! \returns true if this material uses shaders
+        */
+        bool hasShader();
+
         /*! \returns render order
         */
         int32 getOrder();

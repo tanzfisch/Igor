@@ -18,7 +18,6 @@
 #include <iTargetMaterial.h>
 #include <iTextureResourceFactory.h>
 #include <iResourceManager.h>
-#include <iFileDialog.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterialGroup.h>
 #include <iMaterial.h>

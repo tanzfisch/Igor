@@ -19,11 +19,17 @@ namespace Igor
 
 	iMaterial::~iMaterial()
 	{
-		if(_shader != nullptr)
-		{
-			delete _shader;
-		}
+        clearShader();
 	}
+
+    void iMaterial::clearShader()
+    {
+        if (_shader != nullptr)
+        {
+            delete _shader;
+            _shader = nullptr;
+        }
+    }
 
     void iMaterial::compileShader()
     {
@@ -49,6 +55,11 @@ namespace Igor
         {
             return _shader->getShaderSources();
         }
+    }
+
+    bool iMaterial::hasShader()
+    {
+        return _shader != nullptr ? true : false;
     }
 
 	iShader* iMaterial::getShader()

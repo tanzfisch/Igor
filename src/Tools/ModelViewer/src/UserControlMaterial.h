@@ -35,6 +35,7 @@ using namespace IgorAux;
 
 #include <iWidgetUserControl.h>
 #include <iUserControlColorChooser.h>
+#include <iFileDialog.h>
 using namespace Igor;
 
 namespace Igor
@@ -91,14 +92,37 @@ private:
 	iWidgetSelectBox* _selectBoxBlendFuncDestination = nullptr;
 	iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;
 
+    iWidgetTextEdit* _textShader0 = nullptr;
+    iWidgetTextEdit* _textShader1 = nullptr;
+    iWidgetTextEdit* _textShader2 = nullptr;
+
+    iWidgetButton* _shader0Button = nullptr;
+    iWidgetButton* _shader1Button = nullptr;
+    iWidgetButton* _shader2Button = nullptr;
+
+    iWidgetButton* _shaderReload = nullptr;
+
 	vector<iWidget*> _allWidgets;
 
 	uint32 _materialID = 0;
 
+    uint32 _loadShaderNumber = 0;
+
+    iFileDialog* _fileDialog = nullptr;
+
 	bool _ignoreMaterialUpdate = false;
+
+    void onShader0Button(iWidget* source);
+    void onShader1Button(iWidget* source);
+    void onShader2Button(iWidget* source);
+    void onReloadShader(iWidget* source);
 
 	void onTextChangedName(iWidget* source);
 	void onDoUpdateMaterial(iWidget* source);
+
+    void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
+
+    void reloadShader(iMaterial* material);
 
 	void updateGUI();
 	void updateMaterial();
