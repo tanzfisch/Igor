@@ -221,7 +221,14 @@ namespace Igor
 
     void* iWidgetSelectBox::getSelectedUserData() const
     {
-        return _entries[_currentSelection].second;
+        if (_currentSelection != -1)
+        {
+            return _entries[_currentSelection].second;
+        }
+        else
+        {
+            return nullptr;
+        }
     }
 
 	uint32 iWidgetSelectBox::getSelectedIndex() const

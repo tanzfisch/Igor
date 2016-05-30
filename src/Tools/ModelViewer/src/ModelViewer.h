@@ -96,12 +96,11 @@ private:
     MenuDialog* _menuDialog = nullptr;
     iRenderStatistics* _renderStatistics = nullptr;
 
-    uint32 _materialWithTextureAndBlending = 0;
-    uint32 _octreeMaterial = 0;
-
     float32 _camDistance = 0;
     float32 _camMinDistance = 0;
     float32 _camMaxDistance = 0;
+
+    uint64 _taskFlushTextures = 0;
 
     iNode* _groupNode = nullptr;
 
@@ -129,6 +128,8 @@ private:
     void onAddEmitter(uint32 atNodeID);
     void onAddParticleSystem(uint32 atNodeID);
     void onAddSwitch(uint32 atNodeID);
+
+    void onAddMaterial();
 
     void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
     void onMouseWheel(int32 d);

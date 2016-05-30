@@ -43,6 +43,7 @@ namespace Igor
     class iWidgetSlider;
     class iWidgetNumberChooser;
     class iWidgetSelectBox;
+    class iUserControlFileChooser;
 }
 
 class UserControlParticleSystem : public iWidgetUserControl
@@ -60,24 +61,36 @@ public:
 private:
 
     iWidgetGrid* _grid = nullptr;
-    iWidgetGrid* _gridButtons = nullptr;
-    iWidgetGrid* _gridProperties = nullptr;
-
-    iWidgetLabel* _labelEmitter = nullptr;
 
     iWidgetButton* _buttonStart = nullptr;
     iWidgetButton* _buttonStop = nullptr;
     iWidgetButton* _buttonReset = nullptr;
 
+    iUserControlFileChooser* _textureChooser0 = nullptr;
+    iUserControlFileChooser* _textureChooser1 = nullptr;
+    iUserControlFileChooser* _textureChooser2 = nullptr;
+    iUserControlFileChooser* _textureChooser3 = nullptr;
+
     iWidgetSelectBox* _emitterSelection = nullptr;
+    iWidgetSelectBox* _materialSelection = nullptr;
 
     vector<iWidget*> _allWidgets;
 
     vector<iNode*> _emitters;
 
-    uint32 _nodeId = 0;
+    vector<uint32*> _userDataMaterialID;
 
-    void onEmitterChanged(iWidget* source);
+    uint32 _nodeId = 0;
+    uint32 _loadTextureTexUnit = 0;
+
+    bool _ignoreNodeUpdate = false;
+
+    void onDoUpdateNode(iWidget* source);
+    void onTexture0Button(iWidget* source);
+    void onTexture1Button(iWidget* source);
+    void onTexture2Button(iWidget* source);
+    void onTexture3Button(iWidget* source);
+
     void onStart(iWidget* source);
     void onStop(iWidget* source);
     void onReset(iWidget* source);

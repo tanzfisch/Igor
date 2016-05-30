@@ -159,63 +159,73 @@ namespace Igor
 
     shared_ptr<iTexture> iTextureResourceFactory::loadFile(const iaString& filename, iTextureBuildMode mode)
     {
-        if (!iRenderer::getInstance().isReady())
-        {
-            con_warn("renderer not ready to load textures yet. queued you request.");
-            requestFile(filename, mode);
-        }
-
-        iaString keyPath = iResourceManager::getInstance().getPath(filename);
-        if (keyPath.isEmpty())
-        {
-            keyPath = filename;
-        }
-
         shared_ptr<iTexture> result;
-        int64 hashValue = calcHashValue(filename, mode);
 
-        _mutex.lock();
-        auto textureIter = _textures.find(hashValue);
-        if(textureIter != _textures.end())
+        if (!filename.isEmpty())
         {
-            result = (*textureIter).second;
-        }
+            if (!iRenderer::getInstance().isReady())
+            {
+                con_warn("renderer not ready to load textures yet. queued you request.");
+                requestFile(filename, mode);
+            }
 
-        if (nullptr == result.get())
-        {
-            result = shared_ptr<iTexture>(new iTexture(keyPath, mode), iTexture::private_deleter());
-            loadTexture(result);
-            _textures[hashValue] = result;
+            iaString keyPath = iResourceManager::getInstance().getPath(filename);
+            if (keyPath.isEmpty())
+            {
+                keyPath = filename;
+            }
+
+
+            int64 hashValue = calcHashValue(filename, mode);
+
+            _mutex.lock();
+            auto textureIter = _textures.find(hashValue);
+            if (textureIter != _textures.end())
+            {
+                result = (*textureIter).second;
+            }
+
+            if (nullptr == result.get())
+            {
+                result = shared_ptr<iTexture>(new iTexture(keyPath, mode), iTexture::private_deleter());
+                loadTexture(result);
+                _textures[hashValue] = result;
+            }
+            _mutex.unlock();
         }
-        _mutex.unlock();
 
         return result;
     }
 
     shared_ptr<iTexture> iTextureResourceFactory::requestFile(const iaString& filename, iTextureBuildMode mode)
     {
-        iaString keyPath = iResourceManager::getInstance().getPath(filename);
-        if (keyPath.isEmpty())
-        {
-            keyPath = filename;
-        }
-
         shared_ptr<iTexture> result;
-        int64 hashValue = calcHashValue(filename, mode);
 
-        _mutex.lock();
-        auto textureIter = _textures.find(hashValue);
-        if (textureIter != _textures.end())
+        if (!filename.isEmpty())
         {
-            result = (*textureIter).second;
-        }
+            iaString keyPath = iResourceManager::getInstance().getPath(filename);
+            if (keyPath.isEmpty())
+            {
+                keyPath = filename;
+            }
 
-        if (nullptr == result.get())
-        {
-            result = shared_ptr<iTexture>(new iTexture(keyPath, mode), iTexture::private_deleter());
-            _textures[hashValue] = result;
+
+            int64 hashValue = calcHashValue(filename, mode);
+
+            _mutex.lock();
+            auto textureIter = _textures.find(hashValue);
+            if (textureIter != _textures.end())
+            {
+                result = (*textureIter).second;
+            }
+
+            if (nullptr == result.get())
+            {
+                result = shared_ptr<iTexture>(new iTexture(keyPath, mode), iTexture::private_deleter());
+                _textures[hashValue] = result;
+            }
+            _mutex.unlock();
         }
-        _mutex.unlock();
 
         return result;
     }

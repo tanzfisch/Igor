@@ -813,6 +813,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iTimer.h" />
     <ClInclude Include="..\src\iTimerHandle.h" />
     <ClInclude Include="..\src\iUserControlColorChooser.h" />
+    <ClInclude Include="..\src\iUserControlFileChooser.h" />
     <ClInclude Include="..\src\iVersion.h" />
     <ClInclude Include="..\src\iView.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -1411,6 +1412,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iTimer.cpp" />
     <ClCompile Include="..\src\iTimerHandle.cpp" />
     <ClCompile Include="..\src\iUserControlColorChooser.cpp" />
+    <ClCompile Include="..\src\iUserControlFileChooser.cpp" />
     <ClCompile Include="..\src\iView.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>

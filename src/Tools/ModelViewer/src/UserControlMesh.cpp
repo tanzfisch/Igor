@@ -141,7 +141,6 @@ void UserControlMesh::updateNode()
             if (_selectMaterial->getSelectedUserData() != nullptr)
             {
                 uint32 materialID = *(static_cast<uint32*>(_selectMaterial->getSelectedUserData()));
-
                 node->setMaterial(materialID);
             }
         }
@@ -536,6 +535,12 @@ void UserControlMesh::deinitGUI()
     _selectMaterial->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
     _sliderShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onSliderChangedShininess));
     _textShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
+
+    for (auto entry : _userDataMaterialID)
+    {
+        delete entry;
+    }
+    _userDataMaterialID.clear();
 
     if (_fileDialog != nullptr)
     {

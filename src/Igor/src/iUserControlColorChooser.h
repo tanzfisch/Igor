@@ -81,13 +81,13 @@ namespace Igor
         */
         const iaString& getText() const;
 
-        /*! returns ambient material color
+        /*! returns color
         */
         const iaColor4f& getColor() const;
 
-        /*! set ambient material color
+        /*! set color
 
-        \param color ambient color
+        \param color color
         */
         void setColor(const iaColor4f& color);
 

@@ -36,6 +36,8 @@ using namespace IgorAux;
 #include <iWidgetScroll.h>
 #include <iMessageBox.h>
 #include <iStatistics.h>
+#include <iMaterialResourceFactory.h>
+#include <iTaskFlushTextures.h>
 using namespace Igor;
 
 #include "MenuDialog.h"
@@ -81,6 +83,8 @@ void ModelViewer::deinit()
     iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
 
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
+
+    iTaskManager::getInstance().abortTask(_taskFlushTextures);
 }
 
 void ModelViewer::init(iaString fileName)
@@ -188,11 +192,6 @@ void ModelViewer::init(iaString fileName)
     _directionalLightRotate->insertNode(_directionalLightTranslate);
     _directionalLightTranslate->insertNode(_lightNode);
 
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
     _modelViewOrtho.translate(iaVector3f(0, 0, -30));
 
     if (!fileName.isEmpty())
@@ -230,6 +229,8 @@ void ModelViewer::init(iaString fileName)
 
     _menuDialog->setRootNode(_groupNode);
     _menuDialog->refreshView();
+
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 }
 
 void ModelViewer::onAddTransformation(uint32 atNodeID)
@@ -289,6 +290,12 @@ void ModelViewer::onAddParticleSystem(uint32 atNodeID)
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     particleSystem->setName("ParticleSystem");
     destination->insertNode(particleSystem);
+    _menuDialog->refreshView();
+}
+
+void ModelViewer::onAddMaterial()
+{
+    iMaterialResourceFactory::getInstance().createMaterial("new Material");
     _menuDialog->refreshView();
 }
 
@@ -562,6 +569,7 @@ void ModelViewer::initGUI()
     _menuDialog->registerOnAddGroup(AddGroupDelegate(this, &ModelViewer::onAddGroup));
     _menuDialog->registerOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
     _menuDialog->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
+    _menuDialog->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
 
     _fileDialog = new iFileDialog();
     _messageBox = new iMessageBox();

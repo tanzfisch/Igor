@@ -102,7 +102,7 @@ void UserControlMaterialView::deinitGUI()
 
 void UserControlMaterialView::onAddMaterial(iWidget* source)
 {
-    // TODO
+    _addMaterial();
 }
 
 void UserControlMaterialView::OnSelectionChange(iWidget* widget)
@@ -158,7 +158,14 @@ void UserControlMaterialView::refresh()
         iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
         label->setHorrizontalAlignment(iHorrizontalAlignment::Right);
         label->setVerticalAlignment(iVerticalAlignment::Center);
-        label->setText((*materialGroupIter)->getMaterial()->getName());
+        if ((*materialGroupIter)->getMaterial()->getName() != "")
+        {
+            label->setText((*materialGroupIter)->getMaterial()->getName());
+        }
+        else
+        {
+            label->setText("<internal>");
+        }
 
         entry->addWidget(label, 0, 0);
         _gridGraph->addWidget(entry, 0, currentRowIndex++, userData);
