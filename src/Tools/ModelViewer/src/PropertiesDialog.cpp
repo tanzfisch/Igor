@@ -36,7 +36,7 @@ PropertiesDialog::~PropertiesDialog()
 
 void PropertiesDialog::initGUI()
 {
-	getDialog()->setWidth(360);
+	getDialog()->setWidth(350);
     getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 

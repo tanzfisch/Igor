@@ -17,8 +17,8 @@ namespace Igor
 	iWidgetLabel::iWidgetLabel()
 		: iWidget(iWidgetType::Label)
 	{
-		setWidth(0);
-		setHeight(20);
+        _configuredHeight = 20;
+        _configuredWidth = 0;
 		setHorrizontalAlignment(iHorrizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
 	}

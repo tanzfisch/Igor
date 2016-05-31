@@ -84,6 +84,7 @@
     <ClInclude Include="..\src\UserControlMaterial.h">
       <Filter>Node UserControls</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\ModelViewerDefines.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Node UserControls">

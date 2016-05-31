@@ -160,7 +160,7 @@ namespace Igor
         iRenderer::getInstance().drawLine(posx + width - 1, posy + 1, posx + width - 1, posy + height - 1);
     }
 
-    void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, iaString text, iHorrizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorrizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
     {
         const int32 reduction = 2;
         int32 offset = 0;
@@ -228,9 +228,11 @@ namespace Igor
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }
 
-    void iWidgetDefaultTheme::drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, iaString text, iHorrizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorrizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
     {
-        float32 textwidth = _font->measureWidth(text, _fontSize);
+        iaString modText = text;
+
+        float32 textwidth = _font->measureWidth(modText, _fontSize);
 
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
 
@@ -256,7 +258,7 @@ namespace Igor
 
         if (keyboardFocus)
         {
-            text = text + "|";
+            modText = modText + "|";
             iRenderer::getInstance().setColor(_textColorDark);
         }
         else
@@ -303,12 +305,12 @@ namespace Igor
             break;
         };
 
-        iRenderer::getInstance().drawString(textPosX, textPosY, text);
+        iRenderer::getInstance().drawString(textPosX, textPosY, modText);
 
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }
 
-    void iWidgetDefaultTheme::drawNumberChooser(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState button_up_state, iWidgetAppearanceState button_down_state, bool active)
+    void iWidgetDefaultTheme::drawNumberChooser(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState button_up_state, iWidgetAppearanceState button_down_state, bool active)
     {
         drawNumberChooserFrame(posx, posy, width, height, button_up_state, button_down_state, active);
         drawText(posx + (height - _fontSize) / 2, posy + (height - _fontSize) / 2, text, 0);
@@ -390,7 +392,7 @@ namespace Igor
         _fontLineHeight = lineHeight;
     }
 
-    void iWidgetDefaultTheme::drawLabel(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active)
     {
         drawText(posx + (height - _fontSize) * 0.5f, posy + (height - _fontSize) * 0.5f, text, 0);
 
@@ -450,7 +452,7 @@ namespace Igor
         }
     }
 
-    void iWidgetDefaultTheme::drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, iaString text, bool checked, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, bool checked, iWidgetAppearanceState state, bool active)
     {
         drawCheckBoxFrame(posx, posy, width, height, state, active);
         drawCheckBox(posx + (height - _fontSize) / 2, posy + (height - _fontSize) / 2, _fontSize, _fontSize, state, active, checked);
@@ -459,7 +461,7 @@ namespace Igor
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }
 
-    void iWidgetDefaultTheme::drawText(int32 posx, int32 posy, iaString text, long textwidth)
+    void iWidgetDefaultTheme::drawText(int32 posx, int32 posy, const iaString& text, long textwidth)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
 
@@ -472,7 +474,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
-    void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, iaString text, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active)
     {
         int32 x = posx;
         int32 y = posy;
@@ -532,7 +534,7 @@ namespace Igor
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }
 
-    void iWidgetDefaultTheme::drawButtonText(int32 posx, int32 posy, iaString text)
+    void iWidgetDefaultTheme::drawButtonText(int32 posx, int32 posy, const iaString& text)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
 
@@ -621,7 +623,7 @@ namespace Igor
 
     /*
 
-    void iWidgetDefaultTheme::drawTextEditField(long width, long height, iWidgetAppearanceState state, bool active, iaString text, float32 _fontSize, float32 _fontLineHeight, WidgetAlign align, WidgetVAlign valign, bool keyboard_focus)
+    void iWidgetDefaultTheme::drawTextEditField(long width, long height, iWidgetAppearanceState state, bool active, const iaString& text, float32 _fontSize, float32 _fontLineHeight, WidgetAlign align, WidgetVAlign valign, bool keyboard_focus)
     {
     if(!standard_font) return;
 

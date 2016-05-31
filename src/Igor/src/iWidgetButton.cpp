@@ -17,8 +17,8 @@ namespace Igor
 	iWidgetButton::iWidgetButton()
 		: iWidget(iWidgetType::Button)
 	{
-		_configuredHeight = 20;
-		_configuredWidth = 60;
+		_configuredHeight = 10;
+		_configuredWidth = 20;
 	}
 
     iWidgetButton::~iWidgetButton()
@@ -63,9 +63,9 @@ namespace Igor
 			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 			int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
 
-			if (textWidth + fontSize * 2 > width)
+			if (textWidth + fontSize * 1.5 > width)
 			{
-				width = textWidth + fontSize * 2;
+				width = textWidth + fontSize * 1.5;
 			}
 
 			if (fontSize * 1.5 > height)

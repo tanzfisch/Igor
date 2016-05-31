@@ -18,6 +18,8 @@
 #include <iTargetMaterial.h>
 using namespace Igor;
 
+#include "ModelViewerDefines.h"
+
 UserControlEmitter::UserControlEmitter()
 {
     initGUI();
@@ -69,13 +71,14 @@ void UserControlEmitter::initGUI()
     _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
     _grid->appendRows(1);
-    _grid->setBorder(2);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
+    _grid->setStrechColumn(1);
 
     _labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelType);
     _labelType->setText("Type");
+    _labelType->setWidth(MV_REGULARBUTTON_SIZE);
     _labelType->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
@@ -88,21 +91,21 @@ void UserControlEmitter::initGUI()
     _selectType->addSelectionEntry("Sphere");
     _selectType->addSelectionEntry("Square");
     _selectType->addSelectionEntry("Cube");
-    _selectType->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _selectType->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
     _labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelSize);
     _labelSize->setText("Size");
+    _labelSize->setWidth(MV_REGULARBUTTON_SIZE);
     _labelSize->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textSize);
     _textSize->setWidth(100);
     _textSize->setWriteProtected(false);
-    _textSize->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textSize->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _textSize->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
-    _textSize->setText("...");
     _textSize->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onSizeChanged));
 
     _grid->addWidget(_labelType, 0, 0);

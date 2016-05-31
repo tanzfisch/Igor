@@ -41,6 +41,9 @@ namespace Igor
 
     /*! group box widget
 
+    \todo need group box without side lines. just header
+    \todo collapsable group box would be nice
+
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
     */
@@ -77,11 +80,11 @@ namespace Igor
 
         /*! border size
         */
-		int32 _border = 4;
+		int32 _border = 5;
 
         /*! group box text
         */
-		iaString _text = "...";
+		iaString _text;
 
 		/*! draws the button
 

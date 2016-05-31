@@ -89,7 +89,36 @@ void WidgetsExample::initGUI()
     _dialog1->setActive();
     _dialog1->setVisible();
 
-	_groupBox1 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    _grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(_grid1);
+    _grid1->appendRows(2);
+    _grid1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _grid1->setVerticalAlignment(iVerticalAlignment::Strech);
+    _grid1->setBorder(10);
+    _grid1->setCellSpacing(5);
+    _grid1->setSelectMode(iSelectionMode::NoSelection);
+
+    iWidgetGrid* grid0 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    grid0->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+
+    _labelNum1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(_labelNum1);
+    _labelNum1->setText("Label Label Label");
+
+    _labelNum2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(_labelNum2);
+    _labelNum2->setText("foo bar");
+
+    _labelNum3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(_labelNum3);
+    _labelNum3->setText("yet another Label");
+
+    _labelNum4 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(_labelNum4);
+    _labelNum4->setText("Hello Label");
+    _labelNum4->setVerticalAlignment(iVerticalAlignment::Bottom);
+
+/*	_groupBox1 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
 	_allWidgets.push_back(_groupBox1);
 	_groupBox1->setText("Hello World!");
     _groupBox1->setWidth(600);
@@ -198,7 +227,7 @@ void WidgetsExample::initGUI()
 	_grid1->addWidget(_button1, 0, 0);
     _grid1->addWidget(_selectBox, 1, 1);
     _grid1->addWidget(_numberChooser, 2, 2);
-	_grid1->addWidget(_labelMousePos, 0, 3);
+	_grid1->addWidget(_labelMousePos, 0, 3);*/
 	
 /*
 	_label2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));

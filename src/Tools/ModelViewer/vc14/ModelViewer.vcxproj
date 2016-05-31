@@ -191,6 +191,7 @@
   <ItemGroup>
     <ClInclude Include="..\src\MenuDialog.h" />
     <ClInclude Include="..\src\ModelViewer.h" />
+    <ClInclude Include="..\src\ModelViewerDefines.h" />
     <ClInclude Include="..\src\PropertiesDialog.h" />
     <ClInclude Include="..\src\UserControlEmitter.h" />
     <ClInclude Include="..\src\UserControlGraphView.h" />

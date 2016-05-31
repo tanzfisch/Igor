@@ -58,22 +58,21 @@ void UserControlModel::initGUI()
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
-    _grid->setBorder(2);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
+    _grid->setStrechColumn(1);
 
     _labelFilename = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelFilename);
+    _labelFilename->setWidth(80);
     _labelFilename->setText("Filename");
     _labelFilename->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _textFilename = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textFilename);
-    _textFilename->setWidth(290);
-    _textFilename->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textFilename->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _textFilename->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textFilename->setActive(false);
-    _textFilename->setText("...");
 
     _grid->addWidget(_labelFilename, 0, 0);
     _grid->addWidget(_textFilename, 1, 0);

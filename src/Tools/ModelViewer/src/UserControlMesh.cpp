@@ -23,6 +23,8 @@
 #include <iMaterial.h>
 using namespace Igor;
 
+#include "ModelViewerDefines.h"
+
 UserControlMesh::UserControlMesh()
 {
     initGUI();
@@ -274,7 +276,6 @@ void UserControlMesh::initGUI()
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
     _grid->appendRows(7);
-    _grid->setBorder(2);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -303,22 +304,25 @@ void UserControlMesh::initGUI()
     iWidgetLabel* labelVertexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelVertexes);
     labelVertexes->setText("Vertexes");
+    labelVertexes->setWidth(MV_REGULARBUTTON_SIZE);
     labelVertexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     iWidgetLabel* labelTriangles = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTriangles);
     labelTriangles->setText("Triangles");
+    labelTriangles->setWidth(MV_REGULARBUTTON_SIZE);
     labelTriangles->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     iWidgetLabel* labelIndexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelIndexes);
     labelIndexes->setText("Indexes");
+    labelIndexes->setWidth(MV_REGULARBUTTON_SIZE);
     labelIndexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _textVertices = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textVertices);
     _textVertices->setWidth(100);
-    _textVertices->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textVertices->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _textVertices->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
     _textVertices->setActive(false);
     _textVertices->setText("0");
@@ -326,7 +330,7 @@ void UserControlMesh::initGUI()
     _textTriangles = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTriangles);
     _textTriangles->setWidth(100);
-    _textTriangles->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTriangles->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _textTriangles->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
     _textTriangles->setActive(false);
     _textTriangles->setText("0");
@@ -334,7 +338,7 @@ void UserControlMesh::initGUI()
     _textIndexes = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textIndexes);
     _textIndexes->setWidth(100);
-    _textIndexes->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textIndexes->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _textIndexes->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
     _textIndexes->setActive(false);
     _textIndexes->setText("0");
@@ -380,28 +384,31 @@ void UserControlMesh::initGUI()
     _allWidgets.push_back(gridTextures);
     gridTextures->appendRows(3);
     gridTextures->appendCollumns(2);
-    gridTextures->setBorder(2);
     gridTextures->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit0);
     labelTextureUnit0->setText("Texture 0");
+    labelTextureUnit0->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit0->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit1);
     labelTextureUnit1->setText("Texture 1");
+    labelTextureUnit1->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit2);
     labelTextureUnit2->setText("Texture 2");
+    labelTextureUnit2->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit3);
     labelTextureUnit3->setText("Texture 3");
+    labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _textTexture0 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
@@ -471,7 +478,6 @@ void UserControlMesh::initGUI()
     iWidgetGrid* gridMaterial = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridMaterial);
     gridMaterial->appendCollumns(1);
-    gridMaterial->setBorder(2);
     gridMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
 

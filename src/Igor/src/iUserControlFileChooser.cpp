@@ -68,7 +68,7 @@ namespace Igor
         _grid->appendCollumns(1);
         _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
-        _grid->setStrechColumn(0);
+        //_grid->setStrechColumn(0);
 
         _fileNameTextEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
         _allWidgets.push_back(_fileNameTextEdit);
@@ -80,7 +80,7 @@ namespace Igor
         _fileSelectButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
         _allWidgets.push_back(_fileSelectButton);
         _fileSelectButton->setText("...");
-        _fileSelectButton->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _fileSelectButton->setHorrizontalAlignment(iHorrizontalAlignment::Right);
         _fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFileChooser::onFileSelectButtonPressed));
 
         _grid->addWidget(_fileNameTextEdit, 0, 0);

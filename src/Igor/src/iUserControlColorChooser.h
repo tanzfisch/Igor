@@ -57,6 +57,10 @@ namespace Igor
         RGBA
     };
 
+    /*!
+
+    \bug color chooser disapperas when unfolded and folded again
+    */
     class Igor_API iUserControlColorChooser : public iWidgetUserControl
     {
     public:

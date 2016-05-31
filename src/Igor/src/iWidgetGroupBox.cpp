@@ -14,47 +14,47 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetGroupBox::iWidgetGroupBox()
-		: iWidget(iWidgetType::GroupBox)
-	{
-		_configuredWidth = 60;
-		_configuredHeight = 20;
-	}
+    iWidgetGroupBox::iWidgetGroupBox()
+        : iWidget(iWidgetType::GroupBox)
+    {
+        _configuredWidth = 60;
+        _configuredHeight = 20;
+    }
 
-	void iWidgetGroupBox::setBorder(int32 border)
-	{
-		_border = border;
-		update();
-	}
+    void iWidgetGroupBox::setBorder(int32 border)
+    {
+        _border = border;
+        update();
+    }
 
-	int32 iWidgetGroupBox::getBorder()
-	{
-		return _border;
-	}
+    int32 iWidgetGroupBox::getBorder()
+    {
+        return _border;
+    }
 
-	void iWidgetGroupBox::update()
-	{
-		int32 width = _configuredWidth;
-		int32 height = _configuredHeight;
+    void iWidgetGroupBox::update()
+    {
+        int32 width = _configuredWidth;
+        int32 height = _configuredHeight;
 
-		if (isGrowingByContent() &&
-			!_children.empty())
+        if (isGrowingByContent() &&
+            !_children.empty())
         {
             iWidget* widget = _children[0];
-            int32 childWidth = widget->getActualWidth() + _border * 2;
+            int32 tempWidth = widget->getActualWidth() + _border * 2;
 
-			if (childWidth > width)
-			{
-				width = childWidth;
-			}
+            if (tempWidth > width)
+            {
+                width = tempWidth;
+            }
 
             if (_text.isEmpty())
             {
-                int32 childHeight = widget->getActualHeight() + _border * 2;
-				if (childHeight > height)
-				{
-					height = childHeight;
-				}
+                int32 tempHeight = widget->getActualHeight() + _border * 2;
+                if (tempHeight > height)
+                {
+                    height = tempHeight;
+                }
             }
             else
             {
@@ -62,44 +62,69 @@ namespace Igor
                 if (iWidgetManager::getInstance().getTheme() != nullptr)
                 {
                     float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-					int32 childHeight = static_cast<int32>(widget->getActualHeight() + _border * 2.0 + fontSize * 0.75);
+                    int32 tempHeight = static_cast<int32>(widget->getActualHeight() + _border * 2.0 + fontSize);
 
-					if (childHeight > height)
-					{
-						height = childHeight;
-					}
+                    if (tempHeight > height)
+                    {
+                        height = tempHeight;
+                    }
                 }
             }
         }
 
-		iWidget::update(width, height);
-	}
+        iWidget::update(width, height);
+    }
 
-	void iWidgetGroupBox::setText(const iaString& text)
-	{
-		_text = text;
-		update();
-	}
+    void iWidgetGroupBox::setText(const iaString& text)
+    {
+        _text = text;
+        update();
+    }
 
-	const iaString& iWidgetGroupBox::getText() const
-	{
-		return _text;
-	}
+    const iaString& iWidgetGroupBox::getText() const
+    {
+        return _text;
+    }
 
-	void iWidgetGroupBox::draw(int32 parentPosX, int32 parentPosY)
-	{
-		updatePosition(parentPosX, parentPosY);
+    void iWidgetGroupBox::draw(int32 parentPosX, int32 parentPosY)
+    {
+        updatePosition(parentPosX, parentPosY);
 
-		if (isVisible())
-		{
-			iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, getAppearanceState(), isActive());
+        if (isVisible())
+        {
+            iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, getAppearanceState(), isActive());
 
             if (!_children.empty())
-			{
-				iWidget* widget = _children[0];
+            {
+                int32 realX = _absoluteX;
+                int32 realY = _absoluteY;
+                int32 realWidth = _actualWidth;
+                int32 realHeight = _actualHeight;
+
+                _absoluteX = realX + _border;
+                _absoluteY = realY + _border;
+                _actualWidth = realWidth - _border * 2;
+                _actualHeight = realHeight - _border * 2;
+
+                if (iWidgetManager::getInstance().getTheme() != nullptr)
+                {
+                    float32 fontHeight = iWidgetManager::getInstance().getTheme()->getFontSize();
+                    _actualHeight -= fontHeight;
+                    _absoluteY += fontHeight;
+                }
+
+                // updating childrens alignment once more but this time with fake parent boundaries
+                iWidget* widget = _children[0];
+                widget->updateAlignment();
                 widget->draw(getActualPosX(), getActualPosY());
-			}
-		}
-	}
+                widget->updatePosition(_absoluteX, _absoluteY);
+
+                _absoluteX = realX;
+                _absoluteY = realY;
+                _actualWidth = realWidth;
+                _actualHeight = realHeight;
+            }
+        }
+    }
 
 }

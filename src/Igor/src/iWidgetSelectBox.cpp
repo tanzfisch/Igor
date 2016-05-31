@@ -66,11 +66,6 @@ namespace Igor
         }
 
         iWidget::update(width, height);
-
-        _buttonRectangle.setX(getActualWidth() - getActualHeight() - 1);
-        _buttonRectangle.setY(0);
-        _buttonRectangle.setWidth(getActualHeight());
-        _buttonRectangle.setHeight(getActualHeight() - 1);
 	}
 
 	bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
@@ -244,6 +239,11 @@ namespace Igor
 	void iWidgetSelectBox::draw(int32 parentPosX, int32 parentPosY)
     {
         updatePosition(parentPosX, parentPosY);
+
+        _buttonRectangle.setX(getActualWidth() - getActualHeight() - 1);
+        _buttonRectangle.setY(0);
+        _buttonRectangle.setWidth(getActualHeight());
+        _buttonRectangle.setHeight(getActualHeight() - 1);
 
 		if (isVisible())
 		{

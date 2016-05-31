@@ -13,6 +13,8 @@
 #include <iNodeFactory.h>
 using namespace Igor;
 
+#include "ModelViewerDefines.h"
+
 UserControlTransformation::UserControlTransformation()
 {
     initGUI();
@@ -105,37 +107,37 @@ void UserControlTransformation::initGUI()
     _buttonApplyTranlation = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_buttonApplyTranlation);
     _buttonApplyTranlation->setText("Translate");
-    _buttonApplyTranlation->setWidth(85);
+    _buttonApplyTranlation->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyTranlation->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onTranslation));
 
     _buttonApplyScale = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_buttonApplyScale);
     _buttonApplyScale->setText("Scale");
-    _buttonApplyScale->setWidth(85);
+    _buttonApplyScale->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyScale->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onScale));
 
     _buttonApplyID = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_buttonApplyID);
     _buttonApplyID->setText("Identity");
-    _buttonApplyID->setWidth(85);
+    _buttonApplyID->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyID->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onID));
 
     _buttonApplyRotateX = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_buttonApplyRotateX);
     _buttonApplyRotateX->setText("Rotate X");
-    _buttonApplyRotateX->setWidth(85);
+    _buttonApplyRotateX->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyRotateX->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationX));
 
     _buttonApplyRotateY = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_buttonApplyRotateY);
     _buttonApplyRotateY->setText("Rotate Y");
-    _buttonApplyRotateY->setWidth(85);
+    _buttonApplyRotateY->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyRotateY->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationY));
 
     _buttonApplyRotateZ = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
     _allWidgets.push_back(_buttonApplyRotateZ);
     _buttonApplyRotateZ->setText("Rotate Z");
-    _buttonApplyRotateZ->setWidth(85);
+    _buttonApplyRotateZ->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyRotateZ->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationZ));
 
     for (int i = 0; i < 3; ++i)
@@ -146,7 +148,7 @@ void UserControlTransformation::initGUI()
 
         textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
         textEdit->setText("");
-        textEdit->setWidth(85);
+        textEdit->setWidth(MV_REGULARBUTTON_SIZE);
         textEdit->setMaxTextLength(11);
         textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         textEdit->setVerticalAlignment(iVerticalAlignment::Top);
@@ -162,7 +164,7 @@ void UserControlTransformation::initGUI()
 
         textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
         textEdit->setText("");
-        textEdit->setWidth(85);
+        textEdit->setWidth(MV_REGULARBUTTON_SIZE);
         textEdit->setMaxTextLength(11);
         textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         textEdit->setVerticalAlignment(iVerticalAlignment::Top);
@@ -178,7 +180,7 @@ void UserControlTransformation::initGUI()
 
         textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
         textEdit->setText("");
-        textEdit->setWidth(85);
+        textEdit->setWidth(MV_REGULARBUTTON_SIZE);
         textEdit->setMaxTextLength(11);
         textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         textEdit->setVerticalAlignment(iVerticalAlignment::Top);
@@ -196,7 +198,7 @@ void UserControlTransformation::initGUI()
 
             textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
             textEdit->setText("");
-            textEdit->setWidth(85);
+            textEdit->setWidth(MV_REGULARBUTTON_SIZE);
             textEdit->setWriteProtected(true);
             textEdit->setMaxTextLength(11);
             textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
