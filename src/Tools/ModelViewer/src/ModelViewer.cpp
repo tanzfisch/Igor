@@ -213,7 +213,7 @@ void ModelViewer::init(iaString fileName)
 
     if (fileName.isEmpty())
     {
-        _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "..\\data\\models");
+        _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "..\\data\\models");
     }
     else
     {
@@ -539,7 +539,52 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         parameter->_keepMesh = true;
 
         model->setModel(filename, parameter);
-        _groupNode->insertNode(model);
+        _scene->getRoot()->insertNode(model);
+        forceLoadingNow();
+        _scene->getRoot()->removeNode(model);
+
+        iNode* groupNode = nullptr;
+
+        auto children = model->getChildren();
+        if (children.size() > 1)
+        {
+            groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+            iaString groupName = "group:";
+            groupName += filename;
+            groupNode->setName(groupName);
+
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            if (cursorNode != nullptr)
+            {
+                cursorNode->insertNode(groupNode);
+            }
+            else
+            {
+                _groupNode->insertNode(groupNode);
+            }
+        }
+        else
+        {
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            if (cursorNode != nullptr)
+            {
+                groupNode = cursorNode;
+            }
+            else
+            {
+                groupNode = _groupNode;
+            }
+        }
+
+        auto child = children.begin();
+        while (child != children.end())
+        {
+            model->removeNode((*child));
+            groupNode->insertNode((*child));
+            child++;
+        }
+
+        iNodeFactory::getInstance().destroyNode(model);
 
         forceLoadingNow();
     }
