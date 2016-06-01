@@ -107,7 +107,7 @@ namespace OMPF
     \param chunkType the chunk type to stream
     \returns the resulting stream
     */
-    OMPF_API wostream& operator<<(wostream& stream, const OMPFChunkType& chunkType);
+    OMPF_API wostream& operator<<(wostream& stream, const OMPFChunkType chunkType);
 
     /*! stream operator for chunk type
 
@@ -117,7 +117,7 @@ namespace OMPF
     \param pathType the path type to stream
     \returns the resulting stream
     */
-    OMPF_API wostream& operator<<(wostream& stream, const OMPFPathType& pathType);
+    OMPF_API wostream& operator<<(wostream& stream, const OMPFPathType pathType);
 
 }
 

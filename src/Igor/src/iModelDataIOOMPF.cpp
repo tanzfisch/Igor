@@ -236,7 +236,7 @@ namespace Igor
 
             material->compileShader();
 
-            for (int i = 0; i < 41; ++i) // TODO magic number
+            for (int i = 0; i < 19; ++i) // TODO magic number
             {
                 OMPF::OMPFRenderStateValue value = materialChunk->getRenderStateValue(static_cast<OMPF::OMPFRenderState>(i));
                 material->getRenderStateSet().setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));

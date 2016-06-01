@@ -192,7 +192,7 @@ namespace OMPF
 
         /*! constant to define how many render state we have
         */
-        static const uint32 _renderStateSetCount = 19 + 11; // 11 reserve
+        static const uint32 _renderStateSetCount = 30; // 11 reserve
 
         /*! writes data to file stream
 

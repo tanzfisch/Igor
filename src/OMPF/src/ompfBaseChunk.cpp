@@ -207,7 +207,7 @@ namespace OMPF
         return true;
     }
 
-    wostream& operator<<(wostream& stream, const OMPFChunkType& chunkType)
+    wostream& operator<<(wostream& stream, const OMPFChunkType chunkType)
     {
         static iaString text[] = {
             "Invalid",
@@ -222,11 +222,13 @@ namespace OMPF
             "ParticleSystem"
         };
 
+        con_assert(static_cast<int>(chunkType) >= 0 && static_cast<int>(chunkType) < 10, "out of range");
+
         stream << text[static_cast<int>(chunkType)].getData();
         return stream;
     }
 
-    wostream& operator<<(wostream& stream, const OMPFPathType& pathType)
+    wostream& operator<<(wostream& stream, const OMPFPathType pathType)
     {
         static iaString text[] = {
             "RelativeToModel",
@@ -235,6 +237,8 @@ namespace OMPF
             "Absolute",
             "Undefined"
         };
+
+        con_assert(static_cast<int>(pathType) >= 0 && static_cast<int>(pathType) < 5, "out of range");
 
         stream << text[static_cast<int>(pathType)].getData();
         return stream;
