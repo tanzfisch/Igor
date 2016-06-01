@@ -22,7 +22,7 @@ namespace Igor
 
     void iSelectBox::deinitGUI()
     {
-		getDialog()->registerOnMouseOffEvent(iMouseOffDelegate(this, &iSelectBox::onMouseOff));
+		getDialog()->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &iSelectBox::onMouseOff));
 
         if (_grid != nullptr)
         {
@@ -81,7 +81,7 @@ namespace Igor
 
 	void iSelectBox::onMouseOff(iWidget* source)
 	{
-		// TODO close();
+		close();
 	}
 
     void iSelectBox::onChange(iWidget* source)

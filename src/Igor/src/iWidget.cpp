@@ -518,6 +518,7 @@ namespace Igor
 		if (!isActive())
 		{
 			_widgetAppearanceState = iWidgetAppearanceState::Standby;
+            _isMouseOver = false;
 		}
 	}
 
