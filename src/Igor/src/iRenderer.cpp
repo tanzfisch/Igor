@@ -743,33 +743,6 @@ namespace Igor
         (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthMask)] == iRenderStateValue::On) ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);	        GL_CHECK_ERROR();
         (stateset._renderStates[static_cast<unsigned int>(iRenderState::Blend)] == iRenderStateValue::On) ? glEnable(GL_BLEND) : glDisable(GL_BLEND);	                GL_CHECK_ERROR();
         (stateset._renderStates[static_cast<unsigned int>(iRenderState::CullFace)] == iRenderStateValue::On) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);	    GL_CHECK_ERROR();
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Fog)] == iRenderStateValue::On) ? glEnable(GL_FOG) : glDisable(GL_FOG);							GL_CHECK_ERROR();
-        /*        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Lighting)] == iRenderStateValue::On) ? glEnable(GL_LIGHTING) : glDisable(GL_LIGHTING);	        GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light0)] == iRenderStateValue::On) ? glEnable(GL_LIGHT0) : glDisable(GL_LIGHT0);	            GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light1)] == iRenderStateValue::On) ? glEnable(GL_LIGHT1) : glDisable(GL_LIGHT1);	            GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light2)] == iRenderStateValue::On) ? glEnable(GL_LIGHT2) : glDisable(GL_LIGHT2);	            GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light3)] == iRenderStateValue::On) ? glEnable(GL_LIGHT3) : glDisable(GL_LIGHT3);	            GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light4)] == iRenderStateValue::On) ? glEnable(GL_LIGHT4) : glDisable(GL_LIGHT4);	            GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light5)] == iRenderStateValue::On) ? glEnable(GL_LIGHT5) : glDisable(GL_LIGHT5);	            GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light6)] == iRenderStateValue::On) ? glEnable(GL_LIGHT6) : glDisable(GL_LIGHT6);	            GL_CHECK_ERROR();
-                (stateset._renderStates[static_cast<unsigned int>(iRenderState::Light7)] == iRenderStateValue::On) ? glEnable(GL_LIGHT7) : glDisable(GL_LIGHT7);	            GL_CHECK_ERROR();*/
-
-        glActiveTexture(GL_TEXTURE0);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D0)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE1);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D1)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE2);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D2)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE3);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D3)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE4);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D4)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE5);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D5)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE6);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D6)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE7);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture1D7)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_1D) : glDisable(GL_TEXTURE_1D);	GL_CHECK_ERROR();
 
         glActiveTexture(GL_TEXTURE0);
         (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
@@ -787,11 +760,6 @@ namespace Igor
         (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D6)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
         glActiveTexture(GL_TEXTURE7);
         (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-
-        glColorMask(stateset._renderStates[static_cast<unsigned int>(iRenderState::ColorMaskRed)] == iRenderStateValue::On,
-            stateset._renderStates[static_cast<unsigned int>(iRenderState::ColorMaskGreen)] == iRenderStateValue::On,
-            stateset._renderStates[static_cast<unsigned int>(iRenderState::ColorMaskBlue)] == iRenderStateValue::On,
-            stateset._renderStates[static_cast<unsigned int>(iRenderState::ColorMaskAlpha)] == iRenderStateValue::On);											GL_CHECK_ERROR();
 
         glDepthFunc(GL_LESS);   GL_CHECK_ERROR();
         glCullFace(GL_BACK);    GL_CHECK_ERROR();

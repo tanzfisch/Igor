@@ -41,47 +41,21 @@ namespace OMPF
         DepthMask = 0x01,
         Blend = 0x02,
         CullFace = 0x03,
-        Fog = 0x04,
-        Lighting = 0x05, // deprecated
-        Light0 = 0x06,
-        Light1 = 0x07,
-        Light2 = 0x08,
-        Light3 = 0x09,
-
-        Light4 = 0x0a,
-        Light5 = 0x0b,
-        Light6 = 0x0c,
-        Light7 = 0x0d,
-        Texture2D0 = 0x0e,
-        Texture2D1 = 0x0f,
-        Texture2D2 = 0x10,
-        Texture2D3 = 0x11,
-        Texture2D4 = 0x12,
-        Texture2D5 = 0x13,
-
-        Texture2D6 = 0x14,
-        Texture2D7 = 0x15,
-        Texture1D0 = 0x16,
-        Texture1D1 = 0x17,
-        Texture1D2 = 0x18,
-        Texture1D3 = 0x19,
-        Texture1D4 = 0x1a,
-        Texture1D5 = 0x1b,
-        Texture1D6 = 0x1c,
-        Texture1D7 = 0x1d,
-
-        ColorMaskRed = 0x1e,
-        ColorMaskGreen = 0x1f,
-        ColorMaskBlue = 0x20,
-        ColorMaskAlpha = 0x21,
-        Wireframe = 0x22,
-        DepthFunc = 0x23,
-        CullFaceFunc = 0x24,
-        BlendFuncSource = 0x25,
-        BlendFuncDestination = 0x26,
-        Instanced = 0x27,
-
-        InstancedFunc = 0x28
+        Texture2D0 = 0x04,
+        Texture2D1 = 0x05,
+        Texture2D2 = 0x06,
+        Texture2D3 = 0x07,
+        Texture2D4 = 0x08,
+        Texture2D5 = 0x09,
+        Texture2D6 = 0x0a,
+        Texture2D7 = 0x0b,
+        Wireframe = 0x0c,
+        DepthFunc = 0x0d,
+        CullFaceFunc = 0x0e,
+        BlendFuncSource = 0x0f,
+        BlendFuncDestination = 0x10,
+        Instanced = 0x11,
+        InstancedFunc = 0x12
     };
 
     /*! possible values for render states
@@ -218,7 +192,7 @@ namespace OMPF
 
         /*! constant to define how many render state we have
         */
-        static const uint32 _renderStateSetCount = 41;
+        static const uint32 _renderStateSetCount = 19 + 11; // 11 reserve
 
         /*! writes data to file stream
 

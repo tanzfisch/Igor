@@ -42,7 +42,7 @@ namespace IgorAux
 
         /*! does nothing
         */
-        iaMemBlock() = default;
+        iaMemBlock();
 
         /*! frees memory
         */

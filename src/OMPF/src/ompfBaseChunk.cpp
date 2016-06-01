@@ -10,16 +10,16 @@
 
 namespace OMPF
 {
-	ompfBaseChunk::ompfBaseChunk(OMPFChunkTypes typeID)
+	ompfBaseChunk::ompfBaseChunk(OMPFChunkType typeID)
 	{
-        con_assert(OMPFChunkTypes::Invalid != typeID, "can't use invalid type id");
+        con_assert(OMPFChunkType::Invalid != typeID, "can't use invalid type id");
 
 		_type = typeID;
 	}
 
 	void ompfBaseChunk::insertChunk(ompfBaseChunk* chunk)
 	{
-        con_assert(chunk->getType() != OMPFChunkTypes::Material, "can't add material chunk as child");
+        con_assert(chunk->getType() != OMPFChunkType::Material, "can't add material chunk as child");
         con_assert(chunk != nullptr, "zero pointer");
 
 		if(chunk != nullptr)
@@ -42,7 +42,7 @@ namespace OMPF
         }
 	}
 
-    OMPFChunkTypes ompfBaseChunk::getType() const
+    OMPFChunkType ompfBaseChunk::getType() const
     {
         return _type;
     }
@@ -156,7 +156,7 @@ namespace OMPF
             return false;
         }
 
-        con_debug_endl("wrote chunk type:0x" << hex << static_cast<uint64>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent:" << _parentID);
+        con_debug_endl("writing chunk type:0x" << hex << static_cast<uint64>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent:" << _parentID);
 
         return true;
     }
@@ -168,7 +168,7 @@ namespace OMPF
         {
             return false;
         }
-        _type = static_cast<OMPFChunkTypes>(value);
+        _type = static_cast<OMPFChunkType>(value);
 
 #ifdef __IGOR_DEBUG__
         value = 0;
@@ -202,9 +202,42 @@ namespace OMPF
             return false;
         }
         
-        con_debug_endl("read chunk type:0x" << hex << static_cast<uint32>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID);
+        con_debug_endl("read chunk type: 0x" << hex << static_cast<uint32>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID);
         
         return true;
+    }
+
+    wostream& operator<<(wostream& stream, const OMPFChunkType& chunkType)
+    {
+        static iaString text[] = {
+            "Invalid",
+            "Header",
+            "Group",
+            "Transform",
+            "External",
+            "ResourceSearchPath",
+            "Mesh",
+            "Material",
+            "Emitter",
+            "ParticleSystem"
+        };
+
+        stream << text[static_cast<int>(chunkType)].getData();
+        return stream;
+    }
+
+    wostream& operator<<(wostream& stream, const OMPFPathType& pathType)
+    {
+        static iaString text[] = {
+            "RelativeToModel",
+            "RelativeToApplication",
+            "RelativeToCurrentDirectory",
+            "Absolute",
+            "Undefined"
+        };
+
+        stream << text[static_cast<int>(pathType)].getData();
+        return stream;
     }
 
 }

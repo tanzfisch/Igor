@@ -9,7 +9,7 @@ using namespace std;
 namespace OMPF
 {
     ompfMeshChunk::ompfMeshChunk()
-        : ompfBaseChunk(OMPFChunkTypes::Mesh)
+        : ompfBaseChunk(OMPFChunkType::Mesh)
     {
     }
 

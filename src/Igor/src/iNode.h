@@ -363,7 +363,7 @@ namespace Igor
 	\param nodeType the node type to stream
 	\returns the resulting stream
 	*/
-	IgorAux_API wostream& operator<<(wostream& stream, const iNodeType& nodeType);
+    Igor_API wostream& operator<<(wostream& stream, const iNodeType& nodeType);
 
 	/*! stream operator
 
@@ -371,7 +371,7 @@ namespace Igor
 	\param nodeKind the node kind to stream
 	\returns the resulting stream
 	*/
-	IgorAux_API wostream& operator<<(wostream& stream, const iNodeKind& nodeKind);
+    Igor_API wostream& operator<<(wostream& stream, const iNodeKind& nodeKind);
 
 };
 

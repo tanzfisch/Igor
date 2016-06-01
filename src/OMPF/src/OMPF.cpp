@@ -195,7 +195,7 @@ namespace OMPF
             return false;
         }
 
-        OMPFChunkTypes typeID;
+        OMPFChunkType typeID;
         uint32 chunkSize;
         uint32 tempType;
         ompfBaseChunk* chunk = nullptr;
@@ -211,40 +211,40 @@ namespace OMPF
                 return true;
             }
 
-            typeID = static_cast<OMPFChunkTypes>(tempType);
+            typeID = static_cast<OMPFChunkType>(tempType);
 
             switch (typeID)
             {
-            case OMPFChunkTypes::Header:
+            case OMPFChunkType::Header:
                 con_assert(false, "can't have second header chunk");
                 return false;
 
-            case OMPFChunkTypes::Transform:
+            case OMPFChunkType::Transform:
                 chunk = new ompfTransformChunk();
                 chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkTypes::External:
+            case OMPFChunkType::External:
                 chunk = new ompfExternalReferenceChunk();
                 chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkTypes::Group:
+            case OMPFChunkType::Group:
                 chunk = new ompfGroupChunk();
                 chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkTypes::ResourceSearchPath:
+            case OMPFChunkType::ResourceSearchPath:
                 chunk = new ompfResourceSearchPathChunk();
                 chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkTypes::Mesh:
+            case OMPFChunkType::Mesh:
                 chunk = new ompfMeshChunk();
                 chunk->read(file, _settings);
                 break;
 
-            case OMPFChunkTypes::Material:
+            case OMPFChunkType::Material:
                 chunk = new ompfMaterialChunk();
                 chunk->read(file, _settings);
 

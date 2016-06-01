@@ -35,6 +35,7 @@ using namespace IgorAux;
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <ostream>
 using namespace std;
 
 namespace OMPF
@@ -51,7 +52,7 @@ namespace OMPF
 
         /*! ctor 
         */
-        ompfBaseChunk(OMPFChunkTypes typeID);
+        ompfBaseChunk(OMPFChunkType typeID);
 
         /*! dtor does nothing
         */
@@ -81,14 +82,14 @@ namespace OMPF
         */
 		virtual uint32 getSize(const ompfSettings& settings);
 
-        OMPFChunkTypes getType() const;
+        OMPFChunkType getType() const;
 
         void setName(const iaString& name);
         iaString getName() const;
 
     private:
 
-        OMPFChunkTypes _type = OMPFChunkTypes::Invalid;
+        OMPFChunkType _type = OMPFChunkType::Invalid;
         uint32 _chunkSize = 0;
         uint32 _ID = OMPFDefaultConfiguration::InvalidChunkID;
         uint32 _parentID = OMPFDefaultConfiguration::InvalidChunkID;
@@ -97,6 +98,26 @@ namespace OMPF
         vector<ompfBaseChunk*> _children;
 
 	};
+
+    /*! stream operator for chunk type
+
+    \todo fix that
+
+    \param stream the destination
+    \param chunkType the chunk type to stream
+    \returns the resulting stream
+    */
+    OMPF_API wostream& operator<<(wostream& stream, const OMPFChunkType& chunkType);
+
+    /*! stream operator for chunk type
+
+    \todo fix that
+
+    \param stream the destination
+    \param pathType the path type to stream
+    \returns the resulting stream
+    */
+    OMPF_API wostream& operator<<(wostream& stream, const OMPFPathType& pathType);
 
 }
 

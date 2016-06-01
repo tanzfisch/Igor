@@ -10,7 +10,7 @@ namespace OMPF
 {
 
 	ompfTransformChunk::ompfTransformChunk()
-		: ompfBaseChunk(OMPFChunkTypes::Transform)
+		: ompfBaseChunk(OMPFChunkType::Transform)
 	{
 	}
 	

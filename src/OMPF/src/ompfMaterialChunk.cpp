@@ -8,22 +8,17 @@ namespace OMPF
 {
 
     ompfMaterialChunk::ompfMaterialChunk()
-        : ompfBaseChunk(OMPFChunkTypes::Material)
+        : ompfBaseChunk(OMPFChunkType::Material)
     {
+        for (int i = 0; i < _renderStateSetCount; ++i)
+        {
+            _renderStates[i] = 0;
+        }
+
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthTest)] = static_cast<uint8>(OMPFRenderStateValue::On);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthMask)] = static_cast<uint8>(OMPFRenderStateValue::On);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Blend)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::CullFace)] = static_cast<uint8>(OMPFRenderStateValue::On);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Fog)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Lighting)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light0)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light1)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light2)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light3)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light4)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light5)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light6)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Light7)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D0)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D1)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D2)] = static_cast<uint8>(OMPFRenderStateValue::Off);
@@ -32,18 +27,6 @@ namespace OMPF
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D5)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D6)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture2D7)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D0)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D1)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D2)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D3)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D4)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D5)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D6)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::Texture1D7)] = static_cast<uint8>(OMPFRenderStateValue::Off);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::ColorMaskRed)] = static_cast<uint8>(OMPFRenderStateValue::On);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::ColorMaskGreen)] = static_cast<uint8>(OMPFRenderStateValue::On);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::ColorMaskBlue)] = static_cast<uint8>(OMPFRenderStateValue::On);
-        _renderStates[static_cast<unsigned int>(OMPFRenderState::ColorMaskAlpha)] = static_cast<uint8>(OMPFRenderStateValue::On);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::Wireframe)] = static_cast<uint8>(OMPFRenderStateValue::Off);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::DepthFunc)] = static_cast<uint8>(OMPFRenderStateValue::Less);
         _renderStates[static_cast<unsigned int>(OMPFRenderState::CullFaceFunc)] = static_cast<uint8>(OMPFRenderStateValue::Back);
@@ -147,6 +130,19 @@ namespace OMPF
             con_debug_endl("shader " << ((*iterShader)._filename));
             iterShader++;
         }
+
+        con_debug_endl("render states count " << _renderStateSetCount);
+        con_debug("render states ");
+        for (int i = 0; i < _renderStateSetCount; ++i)
+        {
+            con_debug(_renderStates[i]);
+
+            if (i < _renderStateSetCount - 1)
+            {
+                con_debug(", ");
+            }
+        }
+        con_debug_endl("");
     }
 
     uint32 ompfMaterialChunk::getSize(const ompfSettings& settings)
@@ -204,7 +200,7 @@ namespace OMPF
             iterShader++;
         }
 
-        if (!iaSerializable::write(file, reinterpret_cast<char*>(_renderStates), 0x28))
+        if (!iaSerializable::write(file, reinterpret_cast<char*>(_renderStates), _renderStateSetCount))
         {
             return false;
         }
@@ -256,7 +252,7 @@ namespace OMPF
             addShader(filename, static_cast<OMPFShaderType>(type));
         }
 
-        if (!iaSerializable::read(file, reinterpret_cast<char*>(_renderStates), 0x28))
+        if (!iaSerializable::read(file, reinterpret_cast<char*>(_renderStates), _renderStateSetCount))
         {
             return false;
         }

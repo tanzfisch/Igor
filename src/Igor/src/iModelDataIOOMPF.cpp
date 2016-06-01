@@ -54,7 +54,7 @@ namespace Igor
 
         switch (currentChunk->getType())
         {
-        case OMPFChunkTypes::Transform:
+        case OMPFChunkType::Transform:
         {
             OMPF::ompfTransformChunk* transformChunk = static_cast<OMPF::ompfTransformChunk*>(currentChunk);
             iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -67,7 +67,7 @@ namespace Igor
             break;
         }
 
-        case OMPFChunkTypes::External:
+        case OMPFChunkType::External:
         {
             OMPF::ompfExternalReferenceChunk* externalRefChunk = static_cast<OMPF::ompfExternalReferenceChunk*>(currentChunk);
             iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
@@ -76,18 +76,18 @@ namespace Igor
             break;
         }
 
-        case OMPFChunkTypes::Group:
+        case OMPFChunkType::Group:
         {
             result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
             break;
         }
 
-        case OMPFChunkTypes::ResourceSearchPath:
+        case OMPFChunkType::ResourceSearchPath:
             // OMPF::ompfResourceSearchPathChunk* resourceSearchPathChunk = static_cast<OMPF::ompfResourceSearchPathChunk*>(currentChunk);
             // TODO
             break;
 
-        case OMPFChunkTypes::Mesh:
+        case OMPFChunkType::Mesh:
         {
             // TODO we should use the iMeshBuilder here!
             OMPF::ompfMeshChunk* meshChunk = static_cast<OMPF::ompfMeshChunk*>(currentChunk);
@@ -149,8 +149,8 @@ namespace Igor
             break;
         }
 
-        case OMPFChunkTypes::Header:
-        case OMPFChunkTypes::Invalid:
+        case OMPFChunkType::Header:
+        case OMPFChunkType::Invalid:
             con_err("unexpected chunk type with id 0x" << hex << static_cast<uint64>(currentChunk->getType()));
             return result;
 

@@ -14,7 +14,6 @@ namespace Igor
 		_renderStates[static_cast<unsigned int>(iRenderState::DepthMask)] = iRenderStateValue::On;
 		_renderStates[static_cast<unsigned int>(iRenderState::Blend)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::CullFace)] = iRenderStateValue::On;
-		_renderStates[static_cast<unsigned int>(iRenderState::Fog)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D1)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D2)] = iRenderStateValue::Off;
@@ -23,18 +22,6 @@ namespace Igor
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D5)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D6)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D0)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D1)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D2)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D3)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D4)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D5)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D6)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::Texture1D7)] = iRenderStateValue::Off;
-		_renderStates[static_cast<unsigned int>(iRenderState::ColorMaskRed)] = iRenderStateValue::On;
-		_renderStates[static_cast<unsigned int>(iRenderState::ColorMaskGreen)] = iRenderStateValue::On;
-		_renderStates[static_cast<unsigned int>(iRenderState::ColorMaskBlue)] = iRenderStateValue::On;
-		_renderStates[static_cast<unsigned int>(iRenderState::ColorMaskAlpha)] = iRenderStateValue::On;
 		_renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] = iRenderStateValue::Off;
 		_renderStates[static_cast<unsigned int>(iRenderState::DepthFunc)] = iRenderStateValue::Less;
 		_renderStates[static_cast<unsigned int>(iRenderState::CullFaceFunc)] = iRenderStateValue::Back;

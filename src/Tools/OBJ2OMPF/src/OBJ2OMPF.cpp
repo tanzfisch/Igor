@@ -86,17 +86,16 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource(L"textured.vert", iShaderObjectType::Vertex);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource(L"textured_directional_light.frag", iShaderObjectType::Fragment);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->getRenderStateSet().setRenderState(iRenderState::Lighting, iRenderStateValue::On);
         iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->setOrder(100);
 
-        iModelDataInputParameter parameters;
-        parameters._joinVertexes = _joinVertexes;
-        parameters._identifier = "obj";
-        parameters._modelSourceType = iModelSourceType::File;
-        parameters._needsRenderContext = false;
+        iModelDataInputParameter* parameters = new iModelDataInputParameter();
+        parameters->_joinVertexes = _joinVertexes;
+        parameters->_identifier = "obj";
+        parameters->_modelSourceType = iModelSourceType::File;
+        parameters->_needsRenderContext = false;
 
         iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        modelNode->setModel(_src, &parameters); // force him to use the textured material
+        modelNode->setModel(_src, parameters); // force him to use the textured material
 
         iScene* scene = iSceneFactory::getInstance().createScene();
         scene->getRoot()->insertNode(modelNode);

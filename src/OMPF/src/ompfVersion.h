@@ -36,7 +36,11 @@
 // Version Informations
 #define OMPF_VERSION_MAJOR 1 // always the same number as the underlying OMPF definitions
 #define OMPF_VERSION_MINOR 0
-#define OMPF_VERSION_PATCH 0
+#define OMPF_VERSION_PATCH 1
+
+/* 1.0.1
+ - removed unused render states
+*/
 
 #define STR2(x) #x
 #define STR(x) STR2(x)

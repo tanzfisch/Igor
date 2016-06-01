@@ -8,7 +8,7 @@ namespace OMPF
 {
 
 	ompfGroupChunk::ompfGroupChunk()
-		: ompfBaseChunk(OMPFChunkTypes::Group)
+		: ompfBaseChunk(OMPFChunkType::Group)
 	{
 	}
 	

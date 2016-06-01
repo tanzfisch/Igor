@@ -8,6 +8,9 @@
 
 namespace IgorAux
 {
+    iaMemBlock::iaMemBlock()
+    {
+    }
 
     iaMemBlock::~iaMemBlock()
     {

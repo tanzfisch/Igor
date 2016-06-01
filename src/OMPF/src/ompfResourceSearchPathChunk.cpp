@@ -11,7 +11,7 @@ namespace OMPF
 {
 
     ompfResourceSearchPathChunk::ompfResourceSearchPathChunk()
-        : ompfBaseChunk(OMPFChunkTypes::ResourceSearchPath)
+        : ompfBaseChunk(OMPFChunkType::ResourceSearchPath)
 	{
 	}
 	

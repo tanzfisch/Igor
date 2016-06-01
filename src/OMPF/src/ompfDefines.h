@@ -53,7 +53,7 @@ public:
 
 /*! ompf chunk types
 */
-enum class OMPFChunkTypes
+enum class OMPFChunkType
 {
     Invalid = 0x00,
     Header = 0x01,
@@ -77,6 +77,5 @@ enum class OMPFPathType
     Absolute = 3,
     Undefined = 100
 };
-
 
 #endif

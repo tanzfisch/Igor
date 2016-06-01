@@ -15,7 +15,7 @@ namespace OMPF
 {
 
 	ompfHeaderChunk::ompfHeaderChunk()
-		: ompfBaseChunk(OMPFChunkTypes::Header)
+		: ompfBaseChunk(OMPFChunkType::Header)
 	{
 
 	}
