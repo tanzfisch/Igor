@@ -14,8 +14,8 @@
 #include <iWidgetButton.h>
 #include <iWidgetGroupBox.h>
 #include <iWidgetSpacer.h>
-#include <iMessageBox.h>
-#include <iDecisionBox.h>
+#include <iDialogMessageBox.h>
+#include <iDialogDecisionBox.h>
 using namespace Igor;
 
 #include <iaConsole.h>

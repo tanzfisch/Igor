@@ -43,8 +43,8 @@ namespace Igor
     class iWidgetButton;
     class iWidgetGroupBox;
     class iWidgetSpacer;
-    class iMessageBox;
-    class iDecisionBox;
+    class iDialogMessageBox;
+    class iDialogDecisionBox;
 }
 
 /*! menu dialog

@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iFILEDIALOG__
-#define __iFILEDIALOG__
+#ifndef __iDIALOGFILESELECT__
+#define __iDIALOGFILESELECT__
 
 #include <iWidgetUserDialog.h>
 
@@ -58,38 +58,38 @@ namespace Igor
 
     /*! event triggered after file dialog was closed
     */
-    iaEVENT(FileDialogCloseEvent, FileDialogCloseDelegate, void, (iFileDialogReturnValue value), (value));
+    iaEVENT(iDialogFileSelectCloseEvent, iDialogFileSelectCloseDelegate, void, (iFileDialogReturnValue value), (value));
 
     /*!
 
     \todo need User Dialog Base class with some convinient methods
     */
-    class Igor_API iFileDialog : public iWidgetUserDialog
+    class Igor_API iDialogFileSelect : public iWidgetUserDialog
     {
 
     public:
 
         /*! initializes gui elements
         */
-        iFileDialog();
+        iDialogFileSelect();
 
         /*! deinitializes gui elements
         */
-        ~iFileDialog();
+        ~iDialogFileSelect();
 
         /*! opens dialog in load mode
 
         \param closeDelegate delegate called after dialog was closed
         \param path the path to start with
         */
-        void load(FileDialogCloseDelegate closeDelegate, iaString path = "");
+        void load(iDialogFileSelectCloseDelegate closeDelegate, iaString path = "");
 
         /*! opens dialog in save mode
 
         \param closeDelegate delegate called after dialog was closed
         \param filepath the file path to start with
         */
-        void save(FileDialogCloseDelegate closeDelegate, iaString filepath = "");
+        void save(iDialogFileSelectCloseDelegate closeDelegate, iaString filepath = "");
 
         /*! \returns full path currently selected by dialog
         */
@@ -131,7 +131,7 @@ namespace Igor
 
         /*! file dialog close event
         */
-        FileDialogCloseEvent _fileDialogCloseEvent;
+        iDialogFileSelectCloseEvent _fileDialogCloseEvent;
 
         /*! file dialog return value
         */

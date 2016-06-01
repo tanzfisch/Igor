@@ -34,7 +34,7 @@ using namespace IgorAux;
 #include <iWidgetDialog.h>
 #include <iWidgetGrid.h>
 #include <iWidgetScroll.h>
-#include <iMessageBox.h>
+#include <iDialogMessageBox.h>
 #include <iStatistics.h>
 #include <iMaterialResourceFactory.h>
 #include <iTaskFlushTextures.h>
@@ -213,7 +213,7 @@ void ModelViewer::init(iaString fileName)
 
     if (fileName.isEmpty())
     {
-        _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "..\\data\\models");
+        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "..\\data\\models");
     }
     else
     {
@@ -357,23 +357,23 @@ void ModelViewer::forceLoadingNow()
 void ModelViewer::onImportFile(uint32 nodeID)
 {
     _cursorNodeID = nodeID;
-    _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "");
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "");
 }
 
 void ModelViewer::onImportFileReference(uint32 nodeID)
 {
     _cursorNodeID = nodeID;
-    _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onImportFileReferenceDialogClosed), "");
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileReferenceDialogClosed), "");
 }
 
 void ModelViewer::onLoadFile()
 {
-    _fileDialog->load(FileDialogCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "");
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "");
 }
 
 void ModelViewer::onSaveFile()
 {
-    _fileDialog->save(FileDialogCloseDelegate(this, &ModelViewer::onFileSaveDialogClosed), "");
+    _fileDialog->save(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileSaveDialogClosed), "");
 }
 
 void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
@@ -616,8 +616,8 @@ void ModelViewer::initGUI()
     _menuDialog->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
     _menuDialog->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
 
-    _fileDialog = new iFileDialog();
-    _messageBox = new iMessageBox();
+    _fileDialog = new iDialogFileSelect();
+    _messageBox = new iDialogMessageBox();
     _propertiesDialog = new PropertiesDialog();
 
     _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));

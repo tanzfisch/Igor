@@ -230,14 +230,8 @@
     <ClCompile Include="..\src\iWidgetTextEdit.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iMessageBox.cpp">
-      <Filter>GUI\dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iWidgetSpacer.cpp">
       <Filter>GUI\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iFileDialog.cpp">
-      <Filter>GUI\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iUserControlColorChooser.cpp">
       <Filter>GUI\user controls</Filter>
@@ -268,9 +262,6 @@
     </ClCompile>
     <ClCompile Include="..\src\iTargetMaterial.cpp">
       <Filter>resources\material</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iDecisionBox.cpp">
-      <Filter>GUI\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iContouringCubes.cpp">
       <Filter>graphics\algorythms</Filter>
@@ -632,11 +623,20 @@
     <ClCompile Include="..\src\iWidgetSelectBox.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSelectBox.cpp">
-      <Filter>GUI\dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iUserControlFileChooser.cpp">
       <Filter>GUI\user controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogMessageBox.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogDecisionBox.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogFileSelect.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogMenu.cpp">
+      <Filter>GUI\dialogs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -897,14 +897,8 @@
     <ClInclude Include="..\src\iWidgetTextEdit.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iMessageBox.h">
-      <Filter>GUI\dialogs</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iWidgetSpacer.h">
       <Filter>GUI\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iFileDialog.h">
-      <Filter>GUI\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iUserControlColorChooser.h">
       <Filter>GUI\user controls</Filter>
@@ -932,9 +926,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iTargetMaterial.h">
       <Filter>resources\material</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iDecisionBox.h">
-      <Filter>GUI\dialogs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iContouringCubes.h">
       <Filter>graphics\algorythms</Filter>
@@ -1330,11 +1321,20 @@
     <ClInclude Include="..\src\iWidgetSelectBox.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSelectBox.h">
-      <Filter>GUI\dialogs</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iUserControlFileChooser.h">
       <Filter>GUI\user controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogMessageBox.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogDecisionBox.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogFileSelect.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogMenu.h">
+      <Filter>GUI\dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

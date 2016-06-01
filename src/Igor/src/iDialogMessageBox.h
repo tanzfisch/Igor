@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iDECISIONBOX__
-#define __iDECISIONBOX__
+#ifndef __iDIALOGMESSAGEBOX__
+#define __iDIALOGMESSAGEBOX__
 
 #include <iWidgetUserDialog.h>
 
@@ -43,41 +43,83 @@ namespace Igor
     class iWidgetLabel;
     class iWidget;
     class iWidgetSpacer;
-    class iWidgetCheckBox;
 
-    /*! event triggered when decision box was closed
+    /*! message box return values
     */
-    iaEVENT(iDecisionBoxCloseEvent, iDecisionBoxCloseDelegate, void, (bool ok, int32 selection), (ok, selection));
+    enum class iMessageBoxReturnValue
+    {
+        No = 0,
+        Yes = 1,
+        Ok = 1,
+        Cancel = 2
+    };
 
-    /*! the decision box dialog
+    /*! message box button configuration
     */
-    class Igor_API iDecisionBox : public iWidgetUserDialog
+    enum class iMessageBoxButtons
+    {
+        Ok,
+        CancelOk,
+        YesNo,
+        YesNoCancel
+    };
+
+    /*! message box close event
+
+    \param value the return value of the message box
+    */
+    iaEVENT(iDialogMessageBoxCloseEvent, iDialogMessageBoxCloseDelegate, void, (iMessageBoxReturnValue value), (value));
+
+    /*! the message box
+    */
+    class Igor_API iDialogMessageBox : public iWidgetUserDialog
     {
     public:
 
         /*! does nothing
         */
-        iDecisionBox() = default;
+        iDialogMessageBox() = default;
 
         /*! deinitializes gui
         */
-        ~iDecisionBox();
+        ~iDialogMessageBox();
 
-        void show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> values, int32 preSelection = -1);
+        /*! initializes gui and opens the message box dialog
+
+        \param message the message to display
+        \param buttons the button configuration to use
+        */
+        void show(iaString message, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
+
+        /*! initializes gui and opens the message box dialog
+
+        \param message the message to display
+        \param closeDelegate the delegate to be called when closed
+        \param buttons the button configuration to use
+        */
+        void show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons = iMessageBoxButtons::Ok);
 
     private:
 
         /*! the close event
         */
-        iDecisionBoxCloseEvent _decisionBoxCloseEvent;
+        iDialogMessageBoxCloseEvent _messageBoxCloseEvent;
 
-        /*! the selesction made by the user
+        /*! the return value of the message box
         */
-        int32 _selection = -1;
+        iMessageBoxReturnValue _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
 
         /*! the ok button
         */
         iWidgetButton* _okButton = nullptr;
+
+        /*! the yes button
+        */
+        iWidgetButton* _yesButton = nullptr;
+
+        /*! the no button
+        */
+        iWidgetButton* _noButton = nullptr;
 
         /*! the cancel button
         */
@@ -85,11 +127,7 @@ namespace Igor
 
         /*! a spacer line
         */
-        iWidgetSpacer* _spacerLineTop = nullptr;
-
-        /*! a spacer line
-        */
-        iWidgetSpacer* _spacerLineBottom = nullptr;
+        iWidgetSpacer* _spacerLine = nullptr;
 
         /*! an other spacer
         */
@@ -102,16 +140,12 @@ namespace Igor
         /*! grid for the buttons
         */
         iWidgetGrid* _buttonGrid = nullptr;
-
-        /*! grid for radio buttons
-        */
-        iWidgetGrid* _radioGrid = nullptr;
         
         /*! label for the message text
         */
         iWidgetLabel* _messageLabel = nullptr;
 
-        vector<iWidgetCheckBox*> _radioButtons;
+        vector<iWidget*> _allWidgets;
 
         /*! handles ok button clicked event
 
@@ -125,11 +159,30 @@ namespace Igor
         */
         void onCancel(iWidget* source);
 
+        /*! handles yes button clicked event
+
+        \param source the yes button it self
+        */
+        void onYes(iWidget* source);
+
+        /*! handles no button clicked event
+
+        \param source the no button it self
+        */
+        void onNo(iWidget* source);
+
         /*! closes the dialog and sends closed event
 
         will be triggered by any button
         */
         void close();
+
+        /*! initializes the gui
+
+        \param message the message text
+        \param buttons the button configuration
+        */
+        void initGUI(iaString message, iMessageBoxButtons buttons);
 
         /*! deinitializes the gui elements
         */

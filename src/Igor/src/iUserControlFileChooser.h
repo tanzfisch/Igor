@@ -31,7 +31,7 @@
 
 #include <iWidgetUserControl.h>
 #include <iWidget.h>
-#include <iFileDialog.h>
+#include <iDialogFileSelect.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -137,7 +137,7 @@ namespace Igor
 
         /*! file dialog used to select files
         */
-        iFileDialog* _fileDialog = nullptr;
+        iDialogFileSelect* _fileDialog = nullptr;
 
         /*! store all created widgets here so we can clean up easily
         */

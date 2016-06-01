@@ -2,7 +2,7 @@
 // (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iDecisionBox.h>
+#include <iDialogDecisionBox.h>
 
 #include <iWidgetDialog.h>
 #include <iWidgetManager.h>
@@ -18,12 +18,12 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iDecisionBox::~iDecisionBox()
+    iDialogDecisionBox::~iDialogDecisionBox()
     {
         deinitGUI();
     }
 
-    void iDecisionBox::deinitGUI()
+    void iDialogDecisionBox::deinitGUI()
     {
         if (_okButton != nullptr)
         {
@@ -79,7 +79,7 @@ namespace Igor
         }
     }
 
-    void iDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> values, int32 preSelection)
+    void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> values, int32 preSelection)
     {
         _decisionBoxCloseEvent.append(closeDelegate);
 
@@ -118,11 +118,11 @@ namespace Igor
         
         _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
         _okButton->setText("OK");
-        _okButton->registerOnClickEvent(iClickDelegate(this, &iDecisionBox::onOK));
+        _okButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onOK));
 
         _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
         _cancelButton->setText("Cancel");
-        _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDecisionBox::onCancel));
+        _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
         _radioGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _radioGrid->appendRows(values.size() - 1);
@@ -162,7 +162,7 @@ namespace Igor
         _buttonGrid->addWidget(_cancelButton, 1, 0);
     }
 
-    void iDecisionBox::onOK(iWidget* source)
+    void iDialogDecisionBox::onOK(iWidget* source)
     {
         close();
 
@@ -188,7 +188,7 @@ namespace Igor
         _decisionBoxCloseEvent.clear();
     }
 
-    void iDecisionBox::onCancel(iWidget* source)
+    void iDialogDecisionBox::onCancel(iWidget* source)
     {
         close();
 
@@ -196,7 +196,7 @@ namespace Igor
         _decisionBoxCloseEvent.clear();
     }
 
-    void iDecisionBox::close()
+    void iDialogDecisionBox::close()
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);

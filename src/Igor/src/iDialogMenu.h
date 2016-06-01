@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSELECTBOX__
-#define __iSELECTBOX__
+#ifndef __iDIALOGMENU__
+#define __iDIALOGMENU__
 
 #include <iWidgetUserDialog.h>
 
@@ -41,34 +41,34 @@ namespace Igor
     class iWidgetGrid;
     class iWidgetLabel;
 
-    iaEVENT(iSelectBoxCloseEvent, iSelectBoxCloseDelegate, void, (int32 value), (value));
+    iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 value), (value));
 
     /*! the message box
     */
-    class Igor_API iSelectBox : public iWidgetUserDialog
+    class Igor_API iDialogMenu : public iWidgetUserDialog
     {
     public:
 
         /*! does nothing
         */
-        iSelectBox() = default;
+        iDialogMenu() = default;
 
         /*! deinitializes gui
         */
-        ~iSelectBox();
+        ~iDialogMenu();
 
 		/*! opens dialog
 
 		\param texts the texts to put in the selection list
 		\param closeDelegate delegate for closing event
 		*/
-        void show(vector<iaString>& texts, iSelectBoxCloseDelegate closeDelegate);
+        void show(vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
 
     private:
 
         /*! the close event
         */
-        iSelectBoxCloseEvent _selectBoxCloseEvent;
+        iDialogMenuCloseEvent _selectBoxCloseEvent;
 
         /*! the return value of the selection box
 

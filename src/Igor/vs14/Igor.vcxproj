@@ -689,9 +689,11 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iContouringCubes.h" />
     <ClInclude Include="..\src\iControl.h" />
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
-    <ClInclude Include="..\src\iDecisionBox.h" />
     <ClInclude Include="..\src\iDefines.h" />
-    <ClInclude Include="..\src\iFileDialog.h" />
+    <ClInclude Include="..\src\iDialogDecisionBox.h" />
+    <ClInclude Include="..\src\iDialogFileSelect.h" />
+    <ClInclude Include="..\src\iDialogMenu.h" />
+    <ClInclude Include="..\src\iDialogMessageBox.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iGradient.h" />
@@ -704,7 +706,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iMesh.h" />
     <ClInclude Include="..\src\iMeshBuffers.h" />
     <ClInclude Include="..\src\iMeshBuilder.h" />
-    <ClInclude Include="..\src\iMessageBox.h" />
     <ClInclude Include="..\src\iModel.h" />
     <ClInclude Include="..\src\iModelDataIO.h" />
     <ClInclude Include="..\src\iModelDataIOOBJ.h" />
@@ -774,7 +775,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iResourceManager.h" />
     <ClInclude Include="..\src\iScene.h" />
     <ClInclude Include="..\src\iSceneFactory.h" />
-    <ClInclude Include="..\src\iSelectBox.h" />
     <ClInclude Include="..\src\iShader.h" />
     <ClInclude Include="..\src\iSkyLightNode.h" />
     <ClInclude Include="..\src\iSkySimulation.h">
@@ -1297,8 +1297,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iContouringCubes.cpp" />
     <ClCompile Include="..\src\iControl.cpp" />
     <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
-    <ClCompile Include="..\src\iDecisionBox.cpp" />
-    <ClCompile Include="..\src\iFileDialog.cpp" />
+    <ClCompile Include="..\src\iDialogDecisionBox.cpp" />
+    <ClCompile Include="..\src\iDialogFileSelect.cpp" />
+    <ClCompile Include="..\src\iDialogMenu.cpp" />
+    <ClCompile Include="..\src\iDialogMessageBox.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
     <ClCompile Include="..\src\iKeyboard.cpp" />
@@ -1309,7 +1311,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iMesh.cpp" />
     <ClCompile Include="..\src\iMeshBuffers.cpp" />
     <ClCompile Include="..\src\iMeshBuilder.cpp" />
-    <ClCompile Include="..\src\iMessageBox.cpp" />
     <ClCompile Include="..\src\iModel.cpp" />
     <ClCompile Include="..\src\iModelDataIO.cpp" />
     <ClCompile Include="..\src\iModelDataIOOBJ.cpp" />
@@ -1375,7 +1376,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iResourceManager.cpp" />
     <ClCompile Include="..\src\iScene.cpp" />
     <ClCompile Include="..\src\iSceneFactory.cpp" />
-    <ClCompile Include="..\src\iSelectBox.cpp" />
     <ClCompile Include="..\src\iShader.cpp" />
     <ClCompile Include="..\src\iSkyLightNode.cpp" />
     <ClCompile Include="..\src\iSkySimulation.cpp">

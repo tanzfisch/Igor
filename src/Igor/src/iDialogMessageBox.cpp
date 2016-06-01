@@ -2,7 +2,7 @@
 // (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iMessageBox.h>
+#include <iDialogMessageBox.h>
 
 #include <iWidgetDialog.h>
 #include <iWidgetManager.h>
@@ -17,12 +17,12 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iMessageBox::~iMessageBox()
+    iDialogMessageBox::~iDialogMessageBox()
     {
         deinitGUI();
     }
 
-    void iMessageBox::deinitGUI()
+    void iDialogMessageBox::deinitGUI()
     {
         if (_grid != nullptr && 
             _grid->hasParent())
@@ -38,19 +38,19 @@ namespace Igor
         _allWidgets.clear();
     }
 
-    void iMessageBox::show(iaString message, MessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons)
+    void iDialogMessageBox::show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons)
     {
         _messageBoxCloseEvent.append(closeDelegate);
         initGUI(message, buttons);
     }
 
-    void iMessageBox::show(iaString message, iMessageBoxButtons buttons)
+    void iDialogMessageBox::show(iaString message, iMessageBoxButtons buttons)
     {
         deinitGUI();
         initGUI(message, buttons);
     }
 
-    void iMessageBox::initGUI(iaString message, iMessageBoxButtons buttons)
+    void iDialogMessageBox::initGUI(iaString message, iMessageBoxButtons buttons)
     {
         getDialog()->setModal();
         getDialog()->setActive();
@@ -95,7 +95,7 @@ namespace Igor
             _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
             _allWidgets.push_back(_okButton);
             _okButton->setText("OK");
-            _okButton->registerOnClickEvent(iClickDelegate(this, &iMessageBox::onOK));
+            _okButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onOK));
             _buttonGrid->addWidget(_okButton, i--, 0);
         }
 
@@ -104,7 +104,7 @@ namespace Igor
             _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
             _allWidgets.push_back(_cancelButton);
             _cancelButton->setText("Cancel");
-            _cancelButton->registerOnClickEvent(iClickDelegate(this, &iMessageBox::onCancel));
+            _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onCancel));
             _buttonGrid->addWidget(_cancelButton, i--, 0);
 
             _spacerLittle = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
@@ -120,7 +120,7 @@ namespace Igor
             _noButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
             _allWidgets.push_back(_noButton);
             _noButton->setText("No");
-            _noButton->registerOnClickEvent(iClickDelegate(this, &iMessageBox::onNo));
+            _noButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onNo));
             _buttonGrid->addWidget(_noButton, i--, 0);
         }
 
@@ -129,36 +129,36 @@ namespace Igor
             _yesButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
             _allWidgets.push_back(_yesButton);
             _yesButton->setText("Yes");
-            _yesButton->registerOnClickEvent(iClickDelegate(this, &iMessageBox::onYes));
+            _yesButton->registerOnClickEvent(iClickDelegate(this, &iDialogMessageBox::onYes));
             _buttonGrid->addWidget(_yesButton, i--, 0);
         }
     }
 
-    void iMessageBox::onOK(iWidget* source)
+    void iDialogMessageBox::onOK(iWidget* source)
     {
         _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
         close();
     }
 
-    void iMessageBox::onCancel(iWidget* source)
+    void iDialogMessageBox::onCancel(iWidget* source)
     {
         _messageBoxReturnValue = iMessageBoxReturnValue::Cancel;
         close();
     }
 
-    void iMessageBox::onYes(iWidget* source)
+    void iDialogMessageBox::onYes(iWidget* source)
     {
         _messageBoxReturnValue = iMessageBoxReturnValue::Yes;
         close();
     }
 
-    void iMessageBox::onNo(iWidget* source)
+    void iDialogMessageBox::onNo(iWidget* source)
     {
         _messageBoxReturnValue = iMessageBoxReturnValue::No;
         close();
     }
 
-    void iMessageBox::close()
+    void iDialogMessageBox::close()
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);

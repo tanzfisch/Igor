@@ -2,7 +2,7 @@
 // (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iSelectBox.h>
+#include <iDialogMenu.h>
 
 #include <iWidgetDialog.h>
 #include <iWidgetManager.h>
@@ -15,18 +15,18 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iSelectBox::~iSelectBox()
+    iDialogMenu::~iDialogMenu()
     {
         deinitGUI();
     }
 
-    void iSelectBox::deinitGUI()
+    void iDialogMenu::deinitGUI()
     {
-		getDialog()->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &iSelectBox::onMouseOff));
+		getDialog()->unregisterOnMouseOffEvent(iMouseOffDelegate(this, &iDialogMenu::onMouseOff));
 
         if (_grid != nullptr)
         {
-            _grid->unregisterOnChangeEvent(iChangeDelegate(this, &iSelectBox::onChange));
+            _grid->unregisterOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
 
             if (_grid->hasParent())
             {
@@ -42,21 +42,21 @@ namespace Igor
         _allWidgets.clear();
     }
 
-    void iSelectBox::show(vector<iaString>& texts, iSelectBoxCloseDelegate closeDelegate)
+    void iDialogMenu::show(vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate)
     {
         deinitGUI();
         _selectBoxCloseEvent.append(closeDelegate);
         initGUI(texts);
     }
 
-    void iSelectBox::initGUI(vector<iaString>& texts)
+    void iDialogMenu::initGUI(vector<iaString>& texts)
     {
         getDialog()->setModal();
         getDialog()->setActive();
         getDialog()->setVisible();
         getDialog()->setHeight(0);
 
-		getDialog()->registerOnMouseOffEvent(iMouseOffDelegate(this, &iSelectBox::onMouseOff));
+		getDialog()->registerOnMouseOffEvent(iMouseOffDelegate(this, &iDialogMenu::onMouseOff));
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _allWidgets.push_back(_grid);
@@ -66,7 +66,7 @@ namespace Igor
         _grid->setSelectMode(iSelectionMode::Row);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
-        _grid->registerOnChangeEvent(iChangeDelegate(this, &iSelectBox::onChange));
+        _grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
         getDialog()->addWidget(_grid);
 
         for (int i = 0; i < texts.size(); ++i)
@@ -79,12 +79,12 @@ namespace Igor
         }
     }
 
-	void iSelectBox::onMouseOff(iWidget* source)
+	void iDialogMenu::onMouseOff(iWidget* source)
 	{
 		close();
 	}
 
-    void iSelectBox::onChange(iWidget* source)
+    void iDialogMenu::onChange(iWidget* source)
     {
         con_assert(_grid == source, "unexpected source");
 
@@ -96,7 +96,7 @@ namespace Igor
         close();
     }
 
-    void iSelectBox::close()
+    void iDialogMenu::close()
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);

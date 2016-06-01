@@ -35,7 +35,7 @@ using namespace IgorAux;
 
 #include <iWidgetUserControl.h>
 #include <iUserControlColorChooser.h>
-#include <iFileDialog.h>
+#include <iDialogFileSelect.h>
 using namespace Igor;
 
 namespace Igor
@@ -108,7 +108,7 @@ private:
 
     uint32 _loadShaderNumber = 0;
 
-    iFileDialog* _fileDialog = nullptr;
+    iDialogFileSelect* _fileDialog = nullptr;
 
 	bool _ignoreMaterialUpdate = false;
 

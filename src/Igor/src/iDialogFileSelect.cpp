@@ -2,7 +2,7 @@
 // (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iFileDialog.h>
+#include <iDialogFileSelect.h>
 
 #include <iWidgetDialog.h>
 #include <iWidgetManager.h>
@@ -22,20 +22,20 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iaString iFileDialog::_lastLoadPath;
-    iaString iFileDialog::_lastSavePath;
+    iaString iDialogFileSelect::_lastLoadPath;
+    iaString iDialogFileSelect::_lastSavePath;
 
-    iFileDialog::iFileDialog()
+    iDialogFileSelect::iDialogFileSelect()
     {
         initGUI();
     }
 
-    iFileDialog::~iFileDialog()
+    iDialogFileSelect::~iDialogFileSelect()
     {
         deinitGUI();
     }
 
-    void iFileDialog::initGUI()
+    void iDialogFileSelect::initGUI()
     {
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _grid->setBorder(4);
@@ -55,7 +55,7 @@ namespace Igor
         _pathEdit->setMaxTextLength(1024);
         _pathEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         _pathEdit->setVerticalAlignment(iVerticalAlignment::Top);
-        _pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iFileDialog::onPathEditChange));
+        _pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
         _grid->addWidget(_pathEdit, 0, 1);
 
         _scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
@@ -67,7 +67,7 @@ namespace Igor
         _fileGrid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         _fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _fileGrid->setSelectMode(iSelectionMode::Field);
-        _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iFileDialog::onDoubleClick));
+        _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
         _scroll->addWidget(_fileGrid);
 
         _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
@@ -78,41 +78,41 @@ namespace Igor
         _grid->addWidget(_buttonGrid, 0, 3);
 
         _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-        _okButton->registerOnClickEvent(iClickDelegate(this, &iFileDialog::onOK));
+        _okButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
         _buttonGrid->addWidget(_okButton, 0, 0);
 
         _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
         _cancelButton->setText("Cancel");
-        _cancelButton->registerOnClickEvent(iClickDelegate(this, &iFileDialog::onCancel));
+        _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
         _buttonGrid->addWidget(_cancelButton, 1, 0);
     }
 
-    void iFileDialog::deinitGUI()
+    void iDialogFileSelect::deinitGUI()
     {
         getDialog()->removeWidget(_grid);
 
         if (_fileGrid)
         {
-            _fileGrid->unregisterOnDoubleClickEvent(iDoubleClickDelegate(this, &iFileDialog::onDoubleClick));
+            _fileGrid->unregisterOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
             clearFileGrid();
             iWidgetManager::getInstance().destroyWidget(_fileGrid);
         }
 
         if (_pathEdit != nullptr)
         {
-            _pathEdit->unregisterOnChangeEvent(iChangeDelegate(this, &iFileDialog::onPathEditChange));
+            _pathEdit->unregisterOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
             iWidgetManager::getInstance().destroyWidget(_pathEdit);
         }
 
         if (_okButton != nullptr)
         {
-            _okButton->unregisterOnClickEvent(iClickDelegate(this, &iFileDialog::onOK));
+            _okButton->unregisterOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
             iWidgetManager::getInstance().destroyWidget(_okButton);
         }
 
         if (_cancelButton != nullptr)
         {
-            _cancelButton->unregisterOnClickEvent(iClickDelegate(this, &iFileDialog::onCancel));
+            _cancelButton->unregisterOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
             iWidgetManager::getInstance().destroyWidget(_cancelButton);
         }
 
@@ -137,7 +137,7 @@ namespace Igor
         }
     }
 
-    void iFileDialog::load(FileDialogCloseDelegate closeDelegate, iaString path)
+    void iDialogFileSelect::load(iDialogFileSelectCloseDelegate closeDelegate, iaString path)
     {
         _load = true;
 
@@ -147,7 +147,7 @@ namespace Igor
         }
         else
         {
-            _directory = iFileDialog::_lastLoadPath;
+            _directory = iDialogFileSelect::_lastLoadPath;
         }
 
         initFileDir();
@@ -163,7 +163,7 @@ namespace Igor
         updateFileGrid();
     }
 
-    void iFileDialog::save(FileDialogCloseDelegate closeDelegate, iaString path)
+    void iDialogFileSelect::save(iDialogFileSelectCloseDelegate closeDelegate, iaString path)
     {
         _load = false;
 
@@ -173,7 +173,7 @@ namespace Igor
         }
         else
         {
-            _directory = iFileDialog::_lastSavePath;
+            _directory = iDialogFileSelect::_lastSavePath;
         }
 
         initFileDir();
@@ -189,17 +189,17 @@ namespace Igor
         updateFileGrid();
     }
 
-    const iaString& iFileDialog::getDirectory() const
+    const iaString& iDialogFileSelect::getDirectory() const
     {
         return _directory;
     }
 
-    const iaString& iFileDialog::getFilename() const
+    const iaString& iDialogFileSelect::getFilename() const
     {
         return _filename;
     }
 
-    iaString iFileDialog::getFullPath()
+    iaString iDialogFileSelect::getFullPath()
     {
         iaString temp;
 
@@ -215,7 +215,7 @@ namespace Igor
         return temp;
     }
 
-    void iFileDialog::initFileDir()
+    void iDialogFileSelect::initFileDir()
     {
         _filename = "";
         iaFile checkFile(_directory);
@@ -229,7 +229,7 @@ namespace Igor
         }
     }
 
-    void iFileDialog::updateFileGrid()
+    void iDialogFileSelect::updateFileGrid()
     {
         clearFileGrid();
 
@@ -262,7 +262,7 @@ namespace Igor
         _scroll->setVerticalScroll(0);
     }
 
-    void iFileDialog::onPathEditChange(iWidget* source)
+    void iDialogFileSelect::onPathEditChange(iWidget* source)
     {
         _directory = _pathEdit->getText();
         initFileDir();
@@ -280,7 +280,7 @@ namespace Igor
         updateFileGrid();
     }
 
-    void iFileDialog::addToFileGrid(int32 col, int32 row, iaString path, iaString displayName, bool isFolder)
+    void iDialogFileSelect::addToFileGrid(int32 col, int32 row, iaString path, iaString displayName, bool isFolder)
     {
         if (col >= _fileGrid->getColumnCount())
         {
@@ -316,7 +316,7 @@ namespace Igor
         _fileGridWidgets.push_back(label);
     }
 
-    void iFileDialog::clearFileGrid()
+    void iDialogFileSelect::clearFileGrid()
     {
         for (auto iter : _fileGridWidgets)
         {
@@ -340,7 +340,7 @@ namespace Igor
         _fileGrid->clear();
     }
 
-    void iFileDialog::onDoubleClick(iWidget* source)
+    void iDialogFileSelect::onDoubleClick(iWidget* source)
     {
         iaString* userData = static_cast<iaString*>(_fileGrid->getSelectedUserData());
         if (userData != nullptr)
@@ -363,24 +363,24 @@ namespace Igor
         _pathEdit->setText(getFullPath());
     }
 
-    iFileDialogReturnValue iFileDialog::getReturnState()
+    iFileDialogReturnValue iDialogFileSelect::getReturnState()
     {
         return _fileDialogReturnValue;
     }
 
-    void iFileDialog::onOK(iWidget* source)
+    void iDialogFileSelect::onOK(iWidget* source)
     {
         _fileDialogReturnValue = iFileDialogReturnValue::Ok;
         close();
     }
 
-    void iFileDialog::onCancel(iWidget* source)
+    void iDialogFileSelect::onCancel(iWidget* source)
     {
         _fileDialogReturnValue = iFileDialogReturnValue::Cancel;
         close();
     }
 
-    void iFileDialog::close()
+    void iDialogFileSelect::close()
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);
@@ -388,11 +388,11 @@ namespace Igor
 
         if (_load)
         {
-            iFileDialog::_lastLoadPath = _directory;
+            iDialogFileSelect::_lastLoadPath = _directory;
         }
         else
         {
-            iFileDialog::_lastSavePath = _directory;
+            iDialogFileSelect::_lastSavePath = _directory;
         }
 
         _fileDialogCloseEvent(_fileDialogReturnValue);

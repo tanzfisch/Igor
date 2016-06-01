@@ -529,7 +529,7 @@ void UserControlMesh::initGUI()
     _grid->addWidget(gridTextures, 0, 6);
     _grid->addWidget(gridMaterial, 0, 7);
 
-    _fileDialog = new iFileDialog();
+    _fileDialog = new iDialogFileSelect();
 }
 
 void UserControlMesh::deinitGUI()
@@ -642,23 +642,23 @@ void UserControlMesh::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogRe
 void UserControlMesh::onTexture0Button(iWidget* source)
 {
     _loadTextureTexUnit = 0;
-    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }
 
 void UserControlMesh::onTexture1Button(iWidget* source)
 {
     _loadTextureTexUnit = 1;
-    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }
 
 void UserControlMesh::onTexture2Button(iWidget* source)
 {
     _loadTextureTexUnit = 2;
-    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }
 
 void UserControlMesh::onTexture3Button(iWidget* source)
 {
     _loadTextureTexUnit = 3;
-    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }

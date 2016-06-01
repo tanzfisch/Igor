@@ -36,7 +36,7 @@ namespace Igor
 
 	class iTextureFont;
 	class iWidgetManager;
-    class iSelectBox;
+    class iDialogMenu;
 
 	/*!
 
@@ -114,7 +114,7 @@ namespace Igor
 
         /*! select box dialog used for the unfold effect
         */
-        iSelectBox* _selectBox = nullptr;
+        iDialogMenu* _selectBox = nullptr;
 
         /*! appearance state of the button
         */

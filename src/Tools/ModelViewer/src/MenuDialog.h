@@ -44,8 +44,8 @@ namespace Igor
     class iWidgetButton;
     class iWidgetGroupBox;
     class iWidgetSpacer;
-    class iMessageBox;
-    class iDecisionBox;
+    class iDialogMessageBox;
+    class iDialogDecisionBox;
 	class iWidgetCheckBox;
 }
 
@@ -147,7 +147,7 @@ private:
     CutNode _cutNode;
     PasteNode _pasteNode;
 
-    iMessageBox* _messageBox = nullptr;
+    iDialogMessageBox* _messageBox = nullptr;
 
     iWidgetGrid* _grid = nullptr;
     iWidgetGrid* _gridButtons = nullptr;
@@ -171,7 +171,7 @@ private:
     UserControlGraphView* _userControlGraphView = nullptr;
     UserControlMaterialView* _userControlMaterialView = nullptr;
 
-	iDecisionBox* _decisionBoxModelRef = nullptr;
+	iDialogDecisionBox* _decisionBoxModelRef = nullptr;
 
     ViewType _currentView = ViewType::GraphView;
 

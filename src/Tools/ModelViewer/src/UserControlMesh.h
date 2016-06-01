@@ -36,7 +36,7 @@ using namespace IgorAux;
 #include <iNodeMesh.h>
 #include <iWidgetUserControl.h>
 #include <iUserControlColorChooser.h>
-#include <iFileDialog.h>
+#include <iDialogFileSelect.h>
 using namespace Igor;
 
 namespace Igor
@@ -99,7 +99,7 @@ private:
 
     iWidgetSelectBox* _selectMaterial = nullptr;
 
-    iFileDialog* _fileDialog = nullptr;
+    iDialogFileSelect* _fileDialog = nullptr;
 
     uint32 _nodeId = 0;
     bool _ignoreNodeUpdate = false;

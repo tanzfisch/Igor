@@ -37,7 +37,7 @@
 #include <iKeyboard.h>
 #include <iaMatrix.h>
 #include <iWidgetManager.h>
-#include <iFileDialog.h>
+#include <iDialogFileSelect.h>
 using namespace Igor;
 
 namespace Igor
@@ -50,7 +50,7 @@ namespace Igor
     class iWidgetDefaultTheme;
     class iWidgetDialog;
     class iWidgetScroll;
-    class iMessageBox;
+    class iDialogMessageBox;
     class iRenderStatistics;
 }
 
@@ -77,8 +77,8 @@ private:
     iTextureFont* _font = nullptr;
     iScene* _scene = nullptr;
 
-    iFileDialog* _fileDialog = nullptr;
-    iMessageBox* _messageBox = nullptr;
+    iDialogFileSelect* _fileDialog = nullptr;
+    iDialogMessageBox* _messageBox = nullptr;
 
     iNodeTransform* _cameraCOI = nullptr;
     iNodeTransform* _cameraHeading = nullptr;

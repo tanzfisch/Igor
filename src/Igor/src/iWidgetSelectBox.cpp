@@ -7,7 +7,7 @@
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iTextureFont.h>
-#include <iSelectBox.h>
+#include <iDialogMenu.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -125,7 +125,7 @@ namespace Igor
 
                 if (_selectBox == nullptr)
                 {
-                    _selectBox = new iSelectBox();
+                    _selectBox = new iDialogMenu();
                 }
 
                 // TODO insuficcient if select box is within a iWidgetScroll. maybe the widget system needs an other big redesign :-(
@@ -139,7 +139,7 @@ namespace Igor
                     entries.push_back(entry.first);
                 }
 
-                _selectBox->show(entries, iSelectBoxCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
+                _selectBox->show(entries, iDialogMenuCloseDelegate(this, &iWidgetSelectBox::onSelectionChanged));
             }
 
             setKeyboardFocus();

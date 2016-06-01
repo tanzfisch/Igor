@@ -15,7 +15,7 @@
 #include <iWidgetScroll.h>
 #include <iWidgetDialog.h>
 #include <iWidgetGroupBox.h>
-#include <iDecisionBox.h>
+#include <iDialogDecisionBox.h>
 using namespace Igor;
 
 #include <IgorAux.h>

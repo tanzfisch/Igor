@@ -55,7 +55,7 @@ namespace Igor
 
     void iUserControlFileChooser::onFileSelectButtonPressed(iWidget* source)
     {
-        _fileDialog->load(FileDialogCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), _preselectedPath);
+        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), _preselectedPath);
     }
 
     /*! 
@@ -86,7 +86,7 @@ namespace Igor
         _grid->addWidget(_fileNameTextEdit, 0, 0);
         _grid->addWidget(_fileSelectButton, 1, 0);
 
-        _fileDialog = new iFileDialog();
+        _fileDialog = new iDialogFileSelect();
     }
 
     void iUserControlFileChooser::deinitGUI()

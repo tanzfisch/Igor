@@ -15,8 +15,8 @@
 #include <iWidgetGroupBox.h>
 #include <iWidgetSpacer.h>
 #include <iWidgetCheckBox.h>
-#include <iMessageBox.h>
-#include <iDecisionBox.h>
+#include <iDialogMessageBox.h>
+#include <iDialogDecisionBox.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -37,7 +37,7 @@ MenuDialog::~MenuDialog()
 
 void MenuDialog::initGUI()
 {
-    _messageBox = new iMessageBox();
+    _messageBox = new iDialogMessageBox();
 
 	getDialog()->setWidth(350);
 	getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Left);
@@ -615,7 +615,7 @@ void MenuDialog::onAddModel(uint32 addAt)
 {
 	if (_decisionBoxModelRef == nullptr)
 	{
-		_decisionBoxModelRef = new iDecisionBox();
+		_decisionBoxModelRef = new iDialogDecisionBox();
 	}
 
 	_decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &MenuDialog::onAddModelDecision), { "embedded", "as reference" }, 0);

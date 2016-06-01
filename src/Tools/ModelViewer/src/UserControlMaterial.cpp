@@ -578,7 +578,7 @@ void UserControlMaterial::initGUI()
     _grid->addWidget(paramGroupBox, 0, 0);
     _grid->addWidget(shaderGroupBox, 0, 1);
 
-    _fileDialog = new iFileDialog();
+    _fileDialog = new iDialogFileSelect();
 }
 
 void UserControlMaterial::onDoUpdateMaterial(iWidget* source)
@@ -625,19 +625,19 @@ void UserControlMaterial::unregisterNameChangeDelegate(MaterialNameChangedDelega
 void UserControlMaterial::onShader0Button(iWidget* source)
 {
     _loadShaderNumber = 0;
-    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
 }
 
 void UserControlMaterial::onShader1Button(iWidget* source)
 {
     _loadShaderNumber = 1;
-    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
 }
 
 void UserControlMaterial::onShader2Button(iWidget* source)
 {
     _loadShaderNumber = 2;
-    _fileDialog->load(FileDialogCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMaterial::onFileLoadDialogClosed), "..\\data\\shaders"); // TODO hard coded path
 }
 
 void UserControlMaterial::onReloadShader(iWidget* source)
