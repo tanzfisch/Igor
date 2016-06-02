@@ -15,7 +15,8 @@
 #include <iWidgetScroll.h>
 #include <iWidgetDialog.h>
 #include <iWidgetGroupBox.h>
-#include <iDialogDecisionBox.h>
+#include <iDialogMenu.h>
+#include <iMouse.h>
 using namespace Igor;
 
 #include <IgorAux.h>
@@ -65,23 +66,23 @@ void UserControlGraphView::initGUI()
 {
     iWidgetGrid* grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _rootWidget = grid;
-	_allWidgets.push_back(grid);
-	grid->setBorder(0);
-	grid->appendRows(1);
-	grid->setCellSpacing(2);
-	grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-	grid->setVerticalAlignment(iVerticalAlignment::Strech);
+    _allWidgets.push_back(grid);
+    grid->setBorder(0);
+    grid->appendRows(1);
+    grid->setCellSpacing(2);
+    grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-	_allWidgets.push_back(gridButtons);
-	gridButtons->setBorder(0);
-	gridButtons->appendCollumns(10);
-	gridButtons->setCellSpacing(2);
-	gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-	gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
+    _allWidgets.push_back(gridButtons);
+    gridButtons->setBorder(0);
+    gridButtons->appendCollumns(10);
+    gridButtons->setCellSpacing(2);
+    gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetButton* addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-	_allWidgets.push_back(addTransformationButton);
+    _allWidgets.push_back(addTransformationButton);
     addTransformationButton->setText("");
     addTransformationButton->setWidth(30);
     addTransformationButton->setHeight(30);
@@ -89,7 +90,7 @@ void UserControlGraphView::initGUI()
     addTransformationButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddTransformation));
 
     iWidgetButton* addModelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-	_allWidgets.push_back(addModelButton);
+    _allWidgets.push_back(addModelButton);
     addModelButton->setText("");
     addModelButton->setWidth(30);
     addModelButton->setHeight(30);
@@ -97,7 +98,7 @@ void UserControlGraphView::initGUI()
     addModelButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddModel));
 
     iWidgetButton* addGroupButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-	_allWidgets.push_back(addGroupButton);
+    _allWidgets.push_back(addGroupButton);
     addGroupButton->setText("");
     addGroupButton->setWidth(30);
     addGroupButton->setHeight(30);
@@ -105,7 +106,7 @@ void UserControlGraphView::initGUI()
     addGroupButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddGroup));
 
     iWidgetButton* addEmitterButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-	_allWidgets.push_back(addEmitterButton);
+    _allWidgets.push_back(addEmitterButton);
     addEmitterButton->setText("");
     addEmitterButton->setWidth(30);
     addEmitterButton->setHeight(30);
@@ -113,7 +114,7 @@ void UserControlGraphView::initGUI()
     addEmitterButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddEmitter));
 
     iWidgetButton* addParticleSystemButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-	_allWidgets.push_back(addParticleSystemButton);
+    _allWidgets.push_back(addParticleSystemButton);
     addParticleSystemButton->setText("");
     addParticleSystemButton->setWidth(30);
     addParticleSystemButton->setHeight(30);
@@ -121,7 +122,7 @@ void UserControlGraphView::initGUI()
     addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddParticleSystem));
 
     iWidgetButton* addSwitchButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-	_allWidgets.push_back(addSwitchButton);
+    _allWidgets.push_back(addSwitchButton);
     addSwitchButton->setText("");
     addSwitchButton->setWidth(30);
     addSwitchButton->setHeight(30);
@@ -147,23 +148,57 @@ void UserControlGraphView::initGUI()
     _gridGraph->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _gridGraph->setVerticalAlignment(iVerticalAlignment::Top);
     _gridGraph->registerOnChangeEvent(iChangeDelegate(this, &UserControlGraphView::OnSelectionChange));
+    _gridGraph->registerOnContextMenuEvent(iContextMenuDelegate(this, &UserControlGraphView::OnContextMenu));
 
-	gridButtons->addWidget(addTransformationButton, 0, 0);
-	gridButtons->addWidget(addGroupButton, 1, 0);
-	gridButtons->addWidget(addSwitchButton, 2, 0);
-	gridButtons->addWidget(addModelButton, 3, 0);
-	gridButtons->addWidget(addEmitterButton, 4, 0);
-	gridButtons->addWidget(addParticleSystemButton, 5, 0);
+    gridButtons->addWidget(addTransformationButton, 0, 0);
+    gridButtons->addWidget(addGroupButton, 1, 0);
+    gridButtons->addWidget(addSwitchButton, 2, 0);
+    gridButtons->addWidget(addModelButton, 3, 0);
+    gridButtons->addWidget(addEmitterButton, 4, 0);
+    gridButtons->addWidget(addParticleSystemButton, 5, 0);
 
-	grid->addWidget(gridButtons, 0, 0);
-	grid->addWidget(groupBox, 0, 1);
+    grid->addWidget(gridButtons, 0, 0);
+    grid->addWidget(groupBox, 0, 1);
     groupBox->addWidget(scroll);
     scroll->addWidget(_gridGraph);
+
+    _dialogMenu = new iDialogMenu();
+    _dialogMenu->setWidth(24);
+    _dialogMenuTexts.push_back("Cut");
+    _dialogMenuPictures.push_back("icons\\cut.png");
+
+    _dialogMenuTexts.push_back("Copy");
+    _dialogMenuPictures.push_back("icons\\copy.png");
+
+    _dialogMenuTexts.push_back("Paste");
+    _dialogMenuPictures.push_back("icons\\paste.png");
+
+    _dialogMenuTexts.push_back("Delete");
+    _dialogMenuPictures.push_back("icons\\delete.png");
+
+    _dialogMenuTexts.push_back("Add Transformation");
+    _dialogMenuPictures.push_back("icons\\Transformation.png");
+
+    _dialogMenuTexts.push_back("Add Group");
+    _dialogMenuPictures.push_back("icons\\Group.png");
+
+    _dialogMenuTexts.push_back("Add Switch");
+    _dialogMenuPictures.push_back("icons\\Switch.png");
+
+    _dialogMenuTexts.push_back("Add Model");
+    _dialogMenuPictures.push_back("icons\\Model.png");
+
+    _dialogMenuTexts.push_back("Add Emitter");
+    _dialogMenuPictures.push_back("icons\\Emitter.png");
+
+    _dialogMenuTexts.push_back("Add Particle System");
+    _dialogMenuPictures.push_back("icons\\ParticleSystem.png");
 }
 
 void UserControlGraphView::deinitGUI()
 {
     _gridGraph->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlGraphView::OnSelectionChange));
+    _gridGraph->unregisterOnContextMenuEvent(iContextMenuDelegate(this, &UserControlGraphView::OnContextMenu));
 
     clearGraph();
 
@@ -176,6 +211,11 @@ void UserControlGraphView::deinitGUI()
 
     _rootWidget = nullptr;
     _gridGraph = nullptr;
+
+    if (_dialogMenu != nullptr)
+    {
+        delete _dialogMenu;
+    }
 }
 
 iaString UserControlGraphView::getIconTexture(iNodeType type)
@@ -227,6 +267,71 @@ void UserControlGraphView::OnSelectionChange(iWidget* widget)
     _selectionChange(_selectedNode);
 }
 
+void UserControlGraphView::OnContextMenu(iWidget* widget)
+{
+    iaVector2i pos = iMouse::getInstance().getPos();
+    _dialogMenu->setX(pos._x);
+    _dialogMenu->setY(pos._y);
+    _dialogMenu->show(_dialogMenuTexts, _dialogMenuPictures, iDialogMenuCloseDelegate(this, &UserControlGraphView::OnContextMenuClose));
+}
+
+void UserControlGraphView::OnContextMenuClose(int32 value)
+{
+    const int32 cutID = 0;
+    const int32 copyID = 1;
+    const int32 pasteID = 2;
+    const int32 deleteID = 3;
+    const int32 addTransformID = 4;
+    const int32 addGroupID = 5;
+    const int32 addSwitchID = 6;
+    const int32 addModelID = 7;
+    const int32 addEmitterID = 8;
+    const int32 addParticleSystemID = 9;
+
+    switch (value)
+    {
+    case cutID:
+        // TODO
+        break;
+
+    case copyID:
+        // TODO
+        break;
+
+    case pasteID:
+        // TODO
+        break;
+
+    case deleteID:
+        // TODO
+        break;
+
+    case addTransformID:
+        _addTransformation(_selectedNode);
+        break;
+
+    case addGroupID:
+        _addGroup(_selectedNode);
+        break;
+
+    case addSwitchID:
+        _addSwitch(_selectedNode);
+        break;
+
+    case addModelID:
+        _addModel(_selectedNode);
+        break;
+
+    case addEmitterID:
+        _addEmitter(_selectedNode);
+        break;
+
+    case addParticleSystemID:
+        _addParticleSystem(_selectedNode);
+        break;
+    }
+}
+
 uint32 UserControlGraphView::getSelectedNode()
 {
     return _selectedNode;
@@ -248,18 +353,18 @@ void UserControlGraphView::clearGraph()
 
     for (auto iter : _userData)
     {
-        delete [] iter;
+        delete[] iter;
     }
 
     _userData.clear();
 
-    for(auto widget : _gridEntryWidgets)
+    for (auto widget : _gridEntryWidgets)
     {
         iWidgetManager::getInstance().destroyWidget(widget);
     }
 
     _gridEntryWidgets.clear();
-    
+
     _selectedNode = iNode::INVALID_NODE_ID;
 }
 
@@ -284,6 +389,7 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
         entry->setCellSpacing(2);
         entry->appendCollumns(2);
         entry->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        entry->setWidth(340);
         uint32* userData = new uint32();
         _userData.push_back(userData);
         *userData = node->getID();
@@ -347,90 +453,90 @@ void UserControlGraphView::postTraverse()
 
 void UserControlGraphView::registerOnAddTransformation(AddTransformationDelegate addTransformationDelegate)
 {
-	_addTransformation.append(addTransformationDelegate);
+    _addTransformation.append(addTransformationDelegate);
 }
 
 void UserControlGraphView::unregisterOnAddTransformation(AddTransformationDelegate addTransformationDelegate)
 {
-	_addTransformation.remove(addTransformationDelegate);
+    _addTransformation.remove(addTransformationDelegate);
 }
 
 void UserControlGraphView::registerOnAddGroup(AddGroupDelegate addGroupDelegate)
 {
-	_addGroup.append(addGroupDelegate);
+    _addGroup.append(addGroupDelegate);
 }
 
 void UserControlGraphView::unregisterOnAddGroup(AddGroupDelegate addGroupDelegate)
 {
-	_addGroup.remove(addGroupDelegate);
+    _addGroup.remove(addGroupDelegate);
 }
 
 void UserControlGraphView::registerOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
 {
-	_addEmitter.append(addEmitterDelegate);
+    _addEmitter.append(addEmitterDelegate);
 }
 
 void UserControlGraphView::unregisterOnAddEmitter(AddEmitterDelegate addEmitterDelegate)
 {
-	_addEmitter.remove(addEmitterDelegate);
+    _addEmitter.remove(addEmitterDelegate);
 }
 
 void UserControlGraphView::registerOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
 {
-	_addParticleSystem.append(addParticleSystemDelegate);
+    _addParticleSystem.append(addParticleSystemDelegate);
 }
 
 void UserControlGraphView::unregisterOnAddParticleSystem(AddParticleSystemDelegate addParticleSystemDelegate)
 {
-	_addParticleSystem.remove(addParticleSystemDelegate);
+    _addParticleSystem.remove(addParticleSystemDelegate);
 }
 
 void UserControlGraphView::registerOnAddSwitch(AddSwitchDelegate addSwitchDelegate)
 {
-	_addSwitch.append(addSwitchDelegate);
+    _addSwitch.append(addSwitchDelegate);
 }
 
 void UserControlGraphView::unregisterOnAddSwitch(AddSwitchDelegate addSwitchDelegate)
 {
-	_addSwitch.remove(addSwitchDelegate);
+    _addSwitch.remove(addSwitchDelegate);
 }
 
 void UserControlGraphView::registerOnAddModel(AddModelDelegate addModelDelegate)
 {
-	_addModel.append(addModelDelegate);
+    _addModel.append(addModelDelegate);
 }
 
 void UserControlGraphView::unregisterOnAddModel(AddModelDelegate addModelDelegate)
 {
-	_addModel.remove(addModelDelegate);
+    _addModel.remove(addModelDelegate);
 }
 
 void UserControlGraphView::onAddTransformation(iWidget* source)
 {
-	_addTransformation(_selectedNode);
+    _addTransformation(_selectedNode);
 }
 
 void UserControlGraphView::onAddGroup(iWidget* source)
 {
-	_addGroup(_selectedNode);
+    _addGroup(_selectedNode);
 }
 
 void UserControlGraphView::onAddEmitter(iWidget* source)
 {
-	_addEmitter(_selectedNode);
+    _addEmitter(_selectedNode);
 }
 
 void UserControlGraphView::onAddParticleSystem(iWidget* source)
 {
-	_addParticleSystem(_selectedNode);
+    _addParticleSystem(_selectedNode);
 }
 
 void UserControlGraphView::onAddSwitch(iWidget* source)
 {
-	_addSwitch(_selectedNode);
+    _addSwitch(_selectedNode);
 }
 
 void UserControlGraphView::onAddModel(iWidget* source)
 {
-	_addModel(_selectedNode);
+    _addModel(_selectedNode);
 }

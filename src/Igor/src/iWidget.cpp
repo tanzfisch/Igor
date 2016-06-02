@@ -205,6 +205,16 @@ namespace Igor
 		_doubleClick.remove(doubleClickDelegate);
 	}
 
+    void iWidget::registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
+    {
+        _contextMenu.append(contextMenuDelegate);
+    }
+    
+    void iWidget::unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate)
+    {
+        _contextMenu.remove(contextMenuDelegate);
+    }
+
 	void iWidget::setKeyboardFocus()
 	{
 		if (_keyboardFocus != this)
@@ -375,13 +385,21 @@ namespace Igor
 				}
 				else
 				{
-					if (key == iKeyCode::MouseLeft)
+					if (key == iKeyCode::MouseLeft ||
+                        key == iKeyCode::MouseRight)
 					{
 						if (_widgetAppearanceState == iWidgetAppearanceState::Pressed)
 						{
 							_widgetAppearanceState = iWidgetAppearanceState::Clicked;
 							setKeyboardFocus();
+
 							_click(this);
+
+                            if (key == iKeyCode::MouseRight)
+                            {
+                                _contextMenu(this);
+                            }
+
 							return true;
 						}
 					}
@@ -414,7 +432,8 @@ namespace Igor
 				}
 				else
 				{
-					if (key == iKeyCode::MouseLeft)
+					if (key == iKeyCode::MouseLeft ||
+                        key == iKeyCode::MouseRight)
 					{
 						_widgetAppearanceState = iWidgetAppearanceState::Pressed;
 						return true;

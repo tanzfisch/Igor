@@ -59,12 +59,36 @@ namespace Igor
 
 		/*! opens dialog
 
+        leave the pictures list empty if you don't want pictures or call the alternative implementation of show
+
 		\param texts the texts to put in the selection list
+        \param pictures paths to textures used as icons next to the text (optional)
 		\param closeDelegate delegate for closing event
 		*/
+        void show(vector<iaString>& texts, vector<iaString>& pictures, iDialogMenuCloseDelegate closeDelegate);
+
+        /*! opens dialog
+
+        \param texts the texts to put in the selection list
+        \param closeDelegate delegate for closing event
+        */
         void show(vector<iaString>& texts, iDialogMenuCloseDelegate closeDelegate);
 
+        /*! sets the height of an entry
+
+        it's interpreted as max height and width for pictures
+
+        \param height the entry height in pixel
+        */
+        void setEntryHeight(int32 height);
+
+        /*! \returns height of an entry
+        */
+        int32 getEntryHeight() const;
+
     private:
+
+        int32 _entryHeight = 20;
 
         /*! the close event
         */
@@ -104,10 +128,16 @@ namespace Igor
 
         /*! initializes the gui
 
-        \param message the message text
-        \param buttons the button configuration
+        \param texts the texts for the menu
         */
         void initGUI(vector<iaString>& texts);
+
+        /*! initializes the gui
+
+        \param texts the texts for the menu
+        \param pictures the pictures for the menu
+        */
+        void initGUI(vector<iaString>& texts, vector<iaString>& pictures);
 
         /*! deinitializes the gui elements
         */

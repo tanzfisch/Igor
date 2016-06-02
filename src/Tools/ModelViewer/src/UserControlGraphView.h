@@ -51,6 +51,7 @@ namespace Igor
     class iWidgetScroll;
     class iWidgetGroupBox;
 	class iWidgetButton;
+    class iDialogMenu;
 }
 
 iaEVENT(AddModel, AddModelDelegate, void, (uint32 nodeID), (nodeID));
@@ -121,6 +122,10 @@ private:
     iWidget* _rootWidget = nullptr;
     iWidgetGrid* _gridGraph = nullptr;
 
+    iDialogMenu* _dialogMenu = nullptr;
+    vector<iaString> _dialogMenuTexts;
+    vector<iaString> _dialogMenuPictures;
+
     vector<uint32*> _userData;
 
     void clearGraph();
@@ -131,6 +136,8 @@ private:
     void deinitGUI();
 
     void OnSelectionChange(iWidget* widget);
+    void OnContextMenu(iWidget* widget);
+    void OnContextMenuClose(int32 value);
 
 	void onAddModel(iWidget* source);
 	void onAddTransformation(iWidget* source);

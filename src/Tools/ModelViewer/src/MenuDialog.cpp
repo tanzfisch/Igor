@@ -150,9 +150,9 @@ void MenuDialog::initGUI()
 	_gridButtons->addWidget(_saveButton, 1, 0);
 	_gridButtons->addWidget(_exitButton, 2, 0);
 	_gridButtons->addWidget(_spacer1, 3, 0);
-	_gridButtons->addWidget(_pasteButton, 4, 0);
-	_gridButtons->addWidget(_cutButton, 5, 0);
-	_gridButtons->addWidget(_copyButton, 6, 0);
+	_gridButtons->addWidget(_cutButton, 4, 0);
+	_gridButtons->addWidget(_copyButton, 5, 0);
+    _gridButtons->addWidget(_pasteButton, 6, 0);
 	_gridButtons->addWidget(_spacer2, 7, 0);
 	_gridButtons->addWidget(_deleteButton, 8, 0);
 

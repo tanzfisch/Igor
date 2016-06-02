@@ -38,9 +38,9 @@ namespace Igor
 	class iWidgetManager;
     class iDialogMenu;
 
-	/*!
+	/*! select box widget
 
-	\todo replace stringstream
+    \todo it should close if we click outside of the dialog and not by a mouse off event
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"

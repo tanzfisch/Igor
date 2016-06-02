@@ -101,6 +101,7 @@ namespace Igor
     class iWidget;
 
     iaEVENT(iClickEvent, iClickDelegate, void, (iWidget* source), (source));
+    iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (iWidget* source), (source));
     iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (iWidget* source), (source));
     iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (iWidget* source), (source));
     iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (iWidget* source), (source));
@@ -257,6 +258,18 @@ namespace Igor
         \param focusDelegate the delegate to unregister
         */
         void unregisterOnFocusEvent(iFocusDelegate focusDelegate);
+
+        /*! registers delegate to context menu event
+
+        \param contextMenuDelegate the delegate to register
+        */
+        void registerOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
+
+        /*! unregister delegate from context menu event
+
+        \param contextMenuDelegate the delegate to unregister
+        */
+        void unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
 
         /*! \returns actual horrizontal position
         */
@@ -460,6 +473,10 @@ namespace Igor
         /*! click event
         */
 		iClickEvent _click;
+
+        /*! context menu event
+        */
+        iContextMenuEvent _contextMenu;
 
         /*! double click event
         */

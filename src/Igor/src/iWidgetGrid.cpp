@@ -538,7 +538,8 @@ namespace Igor
 			return result;
 		}
 
-		if (key == iKeyCode::MouseLeft)
+		if (key == iKeyCode::MouseLeft || 
+            key == iKeyCode::MouseRight)
 		{
 			if (_selectedCollumn != _mouseOverCollumn ||
 				_selectedRow != _mouseOverRow)
@@ -549,6 +550,11 @@ namespace Igor
 			}
 
 			_click(this);
+
+            if (key == iKeyCode::MouseRight)
+            {
+                _contextMenu(this);
+            }
 
 			return true;
 		}
