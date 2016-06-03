@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{2a13e08f-281c-4d2a-b742-0903e55efd71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Ascent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Enemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Entity.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EntityManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VoxelTerrainGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Granade.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Turret.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BulletHit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EnemyDestroyed.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DigEffect.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MuzzleFlash.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\Ascent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Enemy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EntityManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskGenerateVoxels.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VoxelTerrainGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Bullet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Granade.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Turret.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BulletHit.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EnemyDestroyed.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DigEffect.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MuzzleFlash.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
