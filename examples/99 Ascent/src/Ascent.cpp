@@ -132,6 +132,27 @@ void Ascent::initScene()
     _lightRotate->insertNode(_lightTranslate);
     _lightTranslate->insertNode(_lightNode);
     _scene->getRoot()->insertNode(_lightRotate);
+
+    // reate a sky box and add it to scene
+    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    skyBoxNode->setTextures(
+        "skybox_stars/front.jpg",
+        "skybox_stars/back.jpg",
+        "skybox_stars/left.jpg",
+        "skybox_stars/right.jpg",
+        "skybox_stars/top.jpg",
+        "skybox_stars/bottom.jpg");
+    skyBoxNode->setTextureScale(1);
+    // create a sky box material
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
+    // and set the sky box material
+    skyBoxNode->setMaterial(_materialSkyBox);
+    // insert sky box to scene
+    _scene->getRoot()->insertNode(skyBoxNode);
 }
 
 void Ascent::initPlayer()

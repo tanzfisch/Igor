@@ -1,15 +1,14 @@
-render in general from front to back
 
-switch all transformations from float to double
-make octree floating
 
-!!! paging !!! everything !!!! generated data as loaded !!!
+Ascent:
 
-bug: material switch e.g. from cat to teapot
+primär waffe laser
+secundär waffe rakete
+buddeln
 
-reintegrate 3DS import
-
-ModelViewer:
-add material editing functionality
-add MeshNode target material editing functionality
-add MeshNode material selection functionality
+items sammeln:
+	shield
+	health
+	ammo
+	
+asteroid, rein, core zerstören, raus bevor er explodiert (spricht die roboter sind dann noch aktiv)

@@ -19,15 +19,83 @@ TaskGenerateVoxels::TaskGenerateVoxels(VoxelBlock* voxelBlock, uint32 priority)
     _voxelBlock = voxelBlock;
 }
 
+__IGOR_INLINE__ float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
+{
+    return 1.0f / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
+}
+
 void TaskGenerateVoxels::run()
 {
     iPerlinNoise perlinNoise;
+    iaVector3I playerStartPos(10000, 9400, 10000); // TODO
 
     iVoxelData* voxelData = _voxelBlock->_voxelData;
     iaVector3I& offset = _voxelBlock->_offset;
     iaVector3i& size = _voxelBlock->_size;
 
     voxelData->initData(size._x, size._y, size._z);
+
+    const float64 from = 0.444;
+    const float64 to = 0.45;
+    float64 factor = 1.0 / (to - from);
+
+    vector<iaVector3f> metaballs;
+    for (int i = 0; i < 300; ++i)
+    {
+        metaballs.push_back(iaVector3f(playerStartPos._x + (rand() % 400) - 200, playerStartPos._y + (rand() % 300) - 150, playerStartPos._z + (rand() % 200) - 100 - 200));
+    }
+
+    float32 scaleToVoxelSize = 1000.0f;
+    float32 metaballThreashold = 0.02 * scaleToVoxelSize;
+    float32 surfaceThreashold = 1.0;
+
+    for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
+    {
+        for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
+        {
+            for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
+            {
+                // first figure out if a voxel is outside the sphere
+                iaVector3f pos(x + offset._x, y + offset._y, z + offset._z);
+
+                float32 distance = 0;
+                for (auto metaball : metaballs)
+                {
+                    distance += metaballFunction(metaball, pos);
+                }
+
+                distance *= scaleToVoxelSize;
+
+                if (distance < metaballThreashold + surfaceThreashold)
+                {
+                    if (distance < metaballThreashold)
+                    {
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    }
+                    else
+                    {
+                        float32 denstity = (surfaceThreashold - (distance - metaballThreashold)) / surfaceThreashold;
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
+                    }
+                }
+
+                float64 onoff = perlinNoise.getValue(iaVector3d(pos._x * 0.02, pos._y * 0.02, pos._z * 0.02), 4, 0.5);
+
+                if (onoff <= from)
+                {
+                    if (onoff >= to)
+                    {
+                        float64 gradient = 1.0 - ((onoff - from) * factor);
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), (gradient * 254) + 1);
+                    }
+                    else
+                    {
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    }
+                }
+            }
+        }
+    }/**/
 
     /*    for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
         {
@@ -45,10 +113,10 @@ void TaskGenerateVoxels::run()
             }
         }/**/
 
-    const float64 from = 0.444;
+/*    const float64 from = 0.444;
     const float64 to = 0.45;
     float64 factor = 1.0 / (to - from);
-    iaVector3I playerStartPos(10000, 9400, 10000);
+    
     const float64 maxHeight = 10000.0f;
     const float64 lowerSurface = 9750.0f;
 

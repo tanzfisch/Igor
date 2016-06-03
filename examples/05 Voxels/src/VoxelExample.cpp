@@ -7,6 +7,7 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+#include <iSphere.h>
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
 #include <iTaskManager.h>
@@ -162,6 +163,11 @@ void VoxelExample::initScene()
 
 }
 
+float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
+{
+    return 1.0f / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
+}
+
 void VoxelExample::generateVoxelData()
 {
     // if there is none create it
@@ -181,7 +187,18 @@ void VoxelExample::generateVoxelData()
 
     // so we want a sphere with a center and radius
     iaVector3f center(_voxelData->getWidth() / 2.0f, _voxelData->getHeight() / 2.0f, _voxelData->getDepth() / 2.0f);
-    float32 radius = center._x - 4.0f;
+
+    vector<iaVector3f> metaballs;
+    for (int i = 0; i < 25; ++i)
+    {
+        metaballs.push_back(iaVector3f(rand() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
+            rand() % static_cast<int>(_voxelData->getHeight()*0.6) + (_voxelData->getHeight()* 0.2),
+            rand() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)));
+    }
+
+    float32 scaleToVoxelSize = 1000.0f;
+    float32 metaballThreashold = 0.02 * scaleToVoxelSize;
+    float32 surfaceThreashold = 1.0;
 
     // now iterate though all the voxels and define thair density
     for (int64 x = 0; x < _voxelData->getWidth(); ++x)
@@ -192,21 +209,28 @@ void VoxelExample::generateVoxelData()
             {
                 // first figure out if a voxel is outside the sphere
                 iaVector3f pos(x, y, z);
-                float32 distance = center.distance(pos);
 
-                if (distance > radius - 1.0f)
+                float32 distance = 0;
+                for (auto metaball : metaballs)
                 {
-                    if (distance > radius)
+                    distance += metaballFunction(metaball, pos);
+                }
+
+                distance *= scaleToVoxelSize;
+
+                if (distance < metaballThreashold + surfaceThreashold)
+                {
+                    if (distance < metaballThreashold)
                     {
                         // outside sphere
                         _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
                     }
                     else
                     {
-                        // at the edge of the sphere. 
+                        // at the edge of the sphere.
                         // now we can use the fractional part of the distance to determine how much more than a full voxel we are away from the center
                         // and use this to set the density. this way we get a smooth sphere.
-                        float32 denstity = 1 - (distance - (radius - 1.0f));
+                        float32 denstity = (surfaceThreashold - (distance - metaballThreashold)) / surfaceThreashold;
 
                         // the density by the way goes from 0-255 but the zero is interpreted as outside ans the 1 is inside but with zero density
                         // so to calculate a propper density we need to multiply the density with 254 and to make it alwasy beein "inside" we add one
@@ -216,7 +240,7 @@ void VoxelExample::generateVoxelData()
 
                 // using some perline noise to cut holes in the sphere. this time we skip the smoothing part due to much effort and cluttering the tutorial 
                 // with bad understandable code. Ask the author if you'd like to know about smoothing the values
-                float64 onoff = _perlinNoise.getValue(iaVector3d(x * 0.03, y * 0.03, z * 0.03), 3, 0.5);
+                float64 onoff = _perlinNoise.getValue(iaVector3d(x * 0.06, y * 0.06, z * 0.06), 3, 0.5);
                 if (onoff < 0.5)
                 {
                     _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
@@ -356,27 +380,27 @@ void VoxelExample::onRenderOrtho()
 {
     iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
 
-	iaMatrixf identity;
-	iaMatrixf translation;
-	translation.translate(0, 0, -30);
-	iRenderer::getInstance().setViewMatrix(identity);
-	iRenderer::getInstance().setModelMatrix(translation);
+    iaMatrixf identity;
+    iaMatrixf translation;
+    translation.translate(0, 0, -30);
+    iRenderer::getInstance().setViewMatrix(identity);
+    iRenderer::getInstance().setModelMatrix(translation);
 
-	iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
 
-	iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
 
-	iRenderer::getInstance().setFont(_font);
-	iRenderer::getInstance().setFontSize(25.0f);
-	
-	if (_loading)
+    iRenderer::getInstance().setFont(_font);
+    iRenderer::getInstance().setFontSize(25.0f);
+
+    if (_loading)
     {
         iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorrizontalAlign::Center, iVerticalAlign::Center);
     }
-	else
-	{
-		iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.95, "press [Space] to recreate", iHorrizontalAlign::Center, iVerticalAlign::Center);
-	}
+    else
+    {
+        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.95, "press [Space] to recreate", iHorrizontalAlign::Center, iVerticalAlign::Center);
+    }
 }
 
 void VoxelExample::onHandle()
