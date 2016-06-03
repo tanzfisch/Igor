@@ -41,7 +41,7 @@ namespace Igor
     class iWidgetGrid;
     class iWidgetLabel;
 
-    iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 value), (value));
+    iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 index), (index));
 
     /*! the message box
     */
