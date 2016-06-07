@@ -19,9 +19,9 @@ TaskGenerateVoxels::TaskGenerateVoxels(VoxelBlock* voxelBlock, uint32 priority)
     _voxelBlock = voxelBlock;
 }
 
-__IGOR_INLINE__ float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
+__IGOR_INLINE__ float64 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
 {
-    return 1.0f / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
+    return 1.0 / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
 }
 
 void TaskGenerateVoxels::run()
@@ -39,15 +39,15 @@ void TaskGenerateVoxels::run()
     const float64 to = 0.45;
     float64 factor = 1.0 / (to - from);
 
-    vector<iaVector3f> metaballs;
-    for (int i = 0; i < 300; ++i)
-    {
-        metaballs.push_back(iaVector3f(playerStartPos._x + (rand() % 400) - 200, playerStartPos._y + (rand() % 300) - 150, playerStartPos._z + (rand() % 200) - 100 - 200));
-    }
+    const float64 fromMeta = 0.017;
+    const float64 toMeta = 0.0175;
+    float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
-    float32 scaleToVoxelSize = 1000.0f;
-    float32 metaballThreashold = 0.02 * scaleToVoxelSize;
-    float32 surfaceThreashold = 1.0;
+    vector<pair<iaVector3f, float64>> metaballs;
+    for (int i = 0; i < 500; ++i)
+    {
+        metaballs.push_back(pair<iaVector3f, float64>(iaVector3f(playerStartPos._x + (rand() % 300) - 150, playerStartPos._y + (rand() % 300) - 150, playerStartPos._z + (rand() % 300) - 150 - 200), (rand() % 90 + 10) / 100.0));
+    }
 
     for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
     {
@@ -58,28 +58,26 @@ void TaskGenerateVoxels::run()
                 // first figure out if a voxel is outside the sphere
                 iaVector3f pos(x + offset._x, y + offset._y, z + offset._z);
 
-                float32 distance = 0;
+                float64 distance = 0;
                 for (auto metaball : metaballs)
                 {
-                    distance += metaballFunction(metaball, pos);
+                    distance += metaballFunction(metaball.first, pos) * metaball.second * 1.5;
                 }
 
-                distance *= scaleToVoxelSize;
-
-                if (distance < metaballThreashold + surfaceThreashold)
+                if (distance <= toMeta)
                 {
-                    if (distance < metaballThreashold)
+                    if (distance >= fromMeta)
                     {
-                        voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                        float32 denstity = ((distance - fromMeta) * factorMeta);
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
                     }
                     else
                     {
-                        float32 denstity = (surfaceThreashold - (distance - metaballThreashold)) / surfaceThreashold;
-                        voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
                     }
                 }
 
-                float64 onoff = perlinNoise.getValue(iaVector3d(pos._x * 0.02, pos._y * 0.02, pos._z * 0.02), 4, 0.5);
+                float64 onoff = perlinNoise.getValue(iaVector3d(pos._x * 0.03, pos._y * 0.03, pos._z * 0.03), 4, 0.5);
 
                 if (onoff <= from)
                 {

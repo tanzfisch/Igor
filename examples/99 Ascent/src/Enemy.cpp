@@ -35,7 +35,7 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix)
     _transformNodeID = transformNode->getID();
 
     iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    bodyScale->scale(2,1,2);
+    bodyScale->scale(1,0.25,1);
     iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     bodyModel->setModel("crate.ompf", nullptr);
 
@@ -57,30 +57,17 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix)
     transformNode->insertNode(physicsNode);
 
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    turretATransform->translate(0.5, 0.5, 0);
+    turretATransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretATransform);
     Turret* turretA = new Turret(_scene, turretATransform, getFraction());
     _turretAID = turretA->getID();
 
-    iNodeTransform* turretCTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    turretCTransform->translate(-0.5, 0.5, 0);
-    transformNode->insertNode(turretCTransform);
-    Turret* turretC = new Turret(_scene, turretCTransform, getFraction());
-    _turretCID = turretC->getID();
-
     iNodeTransform* turretBTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    turretBTransform->rotate(M_PI * 0.5, iaAxis::Z);
-    turretBTransform->translate(0, 1.0, 0);
+    turretBTransform->rotate(M_PI, iaAxis::Z);
+    turretBTransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretBTransform);
     Turret* turretB = new Turret(_scene, turretBTransform, getFraction());
     _turretBID = turretB->getID();
-
-   iNodeTransform* turretDTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    turretDTransform->rotate(M_PI, iaAxis::Z);
-    turretDTransform->translate(-0.5, 0.5, 0);
-    transformNode->insertNode(turretDTransform);
-    Turret* turretD = new Turret(_scene, turretDTransform, getFraction());
-    _turretDID = turretD->getID();
 }
 
 Enemy::~Enemy()
@@ -95,18 +82,6 @@ Enemy::~Enemy()
     if (turretB != nullptr)
     {
         turretB->kill();
-    }
-
-    Entity* turretC = EntityManager::getInstance().getEntity(_turretCID);
-    if (turretC != nullptr)
-    {
-        turretC->kill();
-    }
-
-    Entity* turretD = EntityManager::getInstance().getEntity(_turretDID);
-    if (turretD != nullptr)
-    {
-        turretD->kill();
     }
 
     iNodeFactory::getInstance().destroyNode(_transformNodeID);

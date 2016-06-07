@@ -22,8 +22,6 @@ private:
 
     uint64 _turretAID = 0;
     uint64 _turretBID = 0;
-    uint64 _turretCID = 0;
-    uint64 _turretDID = 0;
 
     uint32 _idleCounter = 0;
     uint32 _transformNodeID = 0;

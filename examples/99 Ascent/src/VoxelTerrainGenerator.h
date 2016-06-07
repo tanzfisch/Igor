@@ -122,6 +122,8 @@ private:
     */
     iScene* _scene = nullptr;
 
+    iScene* _effectScene = nullptr;
+
     /*! terrain material id
     */
     uint32 _terrainMaterialID = 0;

@@ -74,24 +74,20 @@ void Turret::handle()
             {
                 if (turret->hasChildren())
                 {
-                    iNode* child = turret->getChildren()[0];
-                    if (child != nullptr)
+                    iNodeTransform* platformTransform = static_cast<iNodeTransform*>(turret->getChild("platformTransform"));
+                    if (platformTransform != nullptr)
                     {
-                        iNodeTransform* platformTransform = static_cast<iNodeTransform*>(child->getChild("platformTransform"));
-                        if (platformTransform != nullptr)
+                        _platformID = platformTransform->getID();
+
+                        iNodeTransform* towerTransform = static_cast<iNodeTransform*>(platformTransform->getChild("towerTransform"));
+                        if (towerTransform != nullptr)
                         {
-                            _platformID = platformTransform->getID();
+                            _headingID = towerTransform->getID();
 
-                            iNodeTransform* towerTransform = static_cast<iNodeTransform*>(platformTransform->getChild("towerTransform"));
-                            if (towerTransform != nullptr)
+                            iNodeTransform* gunTransform = static_cast<iNodeTransform*>(towerTransform->getChild("gunTransform"));
+                            if (gunTransform != nullptr)
                             {
-                                _headingID = towerTransform->getID();
-
-                                iNodeTransform* gunTransform = static_cast<iNodeTransform*>(towerTransform->getChild("gunTransform"));
-                                if (gunTransform != nullptr)
-                                {
-                                    _pitchID = gunTransform->getID();
-                                }
+                                _pitchID = gunTransform->getID();
                             }
                         }
                     }

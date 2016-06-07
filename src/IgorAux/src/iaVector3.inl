@@ -200,7 +200,7 @@ T iaVector3<T>::length2(void) const
 template <class T>
 T iaVector3<T>::distance(const iaVector3<T> &V) const
 {
-    return (T)sqrt((_x - V._x)*(_x - V._x) + (_y - V._y)*(_y - V._y) + (_z - V._z)*(_z - V._z));
+    return static_cast<T>(sqrt((_x - V._x)*(_x - V._x) + (_y - V._y)*(_y - V._y) + (_z - V._z)*(_z - V._z)));
 }
 
 template <class T>

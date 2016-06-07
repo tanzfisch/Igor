@@ -174,44 +174,51 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
     diff = max;
     diff -= min;
 
+    srand(min._x + min._y + min._z);
+
     iaMatrixf enemyMatrix;
 	Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
 	int count = 0;
 
-    for (int i = 0; i < 50; ++i)
+    iaVector3I center(10000, 9400, 10000 - 200);
+
+    for (int i = 0; i < 200; ++i)
     {
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
 
-        bool addEnemy = true;
-
-        for (int x = -2; x < 3; x++)
+        if (center.distance(pos) < 150)
         {
-            for (int y = -2; y < 3; y++)
+            bool addEnemy = true;
+
+            for (int x = -1; x < 2; x++)
             {
-                for (int z = -2; z < 3; z++)
+                for (int y = -1; y < 2; y++)
                 {
-                    if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
+                    for (int z = -1; z < 2; z++)
                     {
-                        addEnemy = false;
-						break;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
+                        {
+                            addEnemy = false;
+                            break;
+                        }
                     }
-			    }
+                }
+            }
+
+            if (addEnemy)
+            {
+                enemyMatrix._pos.set(pos._x, pos._y, pos._z);
+                Enemy* enemy = new Enemy(_scene, enemyMatrix);
+                count++;
+            }
+
+            if (count >= 30)
+            {
+                break;
             }
         }
-
-        if(addEnemy)
-        {
-            enemyMatrix._pos.set(pos._x, pos._y, pos._z);
-            Enemy* enemy = new Enemy(_scene, enemyMatrix);
-			count++;
-        }
-
-		if (count >= 1)
-		{
-			break;
-		}
     }/**/
 }
 
