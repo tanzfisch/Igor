@@ -33,13 +33,13 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixf& matrix)
 	colorGradient.insertValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
 
 	iGradientVector2f velocity;
-	velocity.insertValue(0.0, iaVector2f(0.2, 0.7));
+	velocity.insertValue(0.0, iaVector2f(0.2, 0.6));
 
 	iGradientVector2f visibility;
 	visibility.insertValue(0.0, iaVector2f(0.1, 0.2));
 
 	iGradientVector2f size;
-	size.insertValue(0.0, iaVector2f(0.5, 0.9));
+	size.insertValue(0.0, iaVector2f(0.3, 0.5));
 
 	iGradientui emission;
 	emission.insertValue(0.0, 20);

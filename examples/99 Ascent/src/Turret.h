@@ -16,11 +16,12 @@ class Turret : public Entity
 
 public:
 
-    Turret(iScene* scene, iNodeTransform* ancor, Fraction fraction);
+    Turret(iScene* scene, iNodeTransform* ancor, Fraction fraction, uint64 playerID);
     virtual ~Turret();
 
 private:
 
+    uint64 _playerID;
     uint32 _turretNodeID = 0;
     bool _initilized = false;
 

@@ -54,6 +54,9 @@
     <ClCompile Include="..\src\MuzzleFlash.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\StaticEnemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -99,6 +102,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MuzzleFlash.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\StaticEnemy.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

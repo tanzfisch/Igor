@@ -28,7 +28,7 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
     _force = matrix._depth;
     _force.negate();
     _force.normalize();
-    _force *= 15.0;
+    _force *= 7.5;
     _force += addForce;
 
     setHealth(100.0);
@@ -82,7 +82,7 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
     physicsNode->addSphere(0.5, offset);
     physicsNode->finalizeCollision();
-    physicsNode->setMass(0.1);
+    physicsNode->setMass(0.01);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
     physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
     physicsNode->setUserData(&_id);

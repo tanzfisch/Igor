@@ -43,6 +43,8 @@ void TaskGenerateVoxels::run()
     const float64 toMeta = 0.0175;
     float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
+    srand(1234);
+
     vector<pair<iaVector3f, float64>> metaballs;
     for (int i = 0; i < 500; ++i)
     {
@@ -95,15 +97,13 @@ void TaskGenerateVoxels::run()
         }
     }/**/
 
-    /*    for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
+      /*  for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
         {
             for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
             {
                 for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
                 {
-                    if (x < 40 || x > 80 ||
-                        y<40 || y > 80 ||
-                        z<40 || z > 80)
+                    if (y<60 || y > 70)
                     {
                         voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
                     }

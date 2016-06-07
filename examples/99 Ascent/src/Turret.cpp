@@ -18,9 +18,10 @@ using namespace IgorAux;
 #include "Granade.h"
 #include "VoxelTerrainGenerator.h"
 
-Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction)
+Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 playerID)
     : Entity(fraction, EntityType::None)
 {
+    _playerID = playerID;
     _scene = scene;
 
     setHealth(100.0);
@@ -107,101 +108,79 @@ void Turret::handle()
     bool fired = false;
     bool canFire = false;
 
-    Entity* identifiedTarget = nullptr;
-    vector<uint64> detectedEntities;
-    iSphered detectionSphere;
-    detectionSphere._center.set(getSphere()._center._x, getSphere()._center._y, getSphere()._center._z);
-    detectionSphere._radius = detectionDistance;
+    Entity* identifiedTarget = EntityManager::getInstance().getEntity(_playerID);
 
-    EntityManager::getInstance().getEntities(detectionSphere, detectedEntities);
-
-    if (detectedEntities.size() > 0)
+    if (identifiedTarget != nullptr)
     {
-        for (auto entityID : detectedEntities)
+        iaVector3f targetPos = identifiedTarget->getSphere()._center;
+        iaVector3f dir = targetPos;
+        dir -= getSphere()._center;
+        float32 distance = dir.length();
+
+        if (distance < detectionDistance)
         {
-            if (entityID != getID())
+            iNodeTransform* platform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_platformID));
+            if (platform != nullptr)
             {
-                Entity* target = EntityManager::getInstance().getEntity(entityID);
-                if (target->getFraction() != getFraction() &&
-                    target->getType() == EntityType::Vehicle)
+                iaMatrixf world;
+                platform->setTransformationDirty(); // todo workaround because dirty flags don't get set right :-(
+                platform->calcWorldTransformation(world);
+
+                iaVector3f worldPos = world._pos;
+                world._pos.set(0,0,0);
+
+                iaMatrixf worldInverse;
+                worldInverse = world;
+                worldInverse.invert();
+                iaVector3f localdir = worldInverse * dir;
+
+                iaVector3f upVector(0, 1, 0);
+                upVector = world * upVector;
+
+                iNodeTransform* headingNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headingID));
+                iNodeTransform* pitchNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_pitchID));
+
+                float32 heading = localdir.angleXZ();
+                headingNode->identity();
+                headingNode->rotate(heading - (M_PI * 0.5f), iaAxis::Y);
+
+                float32 pitch = (M_PI * 0.5f) - localdir.angle(iaVector3f(0, 1, 0));
+                if (pitch > 0)
                 {
-                    identifiedTarget = target;
-                    break;
+                    pitchNode->identity();
+                    pitchNode->rotate(pitch, iaAxis::X);
+                    canFire = true;
                 }
-            }
-        }
 
-        if (identifiedTarget != nullptr)
-        {
-            iaVector3f targetPos = identifiedTarget->getSphere()._center;
-            iaVector3f dir = targetPos;
-            dir -= getSphere()._center;
-            float32 distance = dir.length();
+                iaVector3I outside, inside;
+                VoxelTerrainGenerator::getInstance().castRay(iaConvert::convert3I(getSphere()._center), iaConvert::convert3I(targetPos), outside, inside);
 
-            if (distance < detectionDistance)
-            {
-                iNodeTransform* platform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_platformID));
-                if (platform != nullptr)
+                float32 distanceToWall = iaConvert::convert3f(outside).distance(getSphere()._center) + 5;
+
+                if (canFire && 
+                    distanceToWall > distance &&
+                    distance < fireDistance)
                 {
-                    iaMatrixf world;
-                    platform->setTransformationDirty(); // todo workaround because dirty flags don't get set right :-(
-                    platform->calcWorldTransformation(world);
-
-                    iaVector3f worldPos = world._pos;
-                    world._pos.set(0,0,0);
-
-                    iaMatrixf worldInverse;
-                    worldInverse = world;
-                    worldInverse.invert();
-                    iaVector3f localdir = worldInverse * dir;
-
-                    iaVector3f upVector(0, 1, 0);
-                    upVector = world * upVector;
-
-                    iNodeTransform* headingNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headingID));
-                    iNodeTransform* pitchNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_pitchID));
-
-                    float32 heading = localdir.angleXZ();
-                    headingNode->identity();
-                    headingNode->rotate(heading - (M_PI * 0.5f), iaAxis::Y);
-
-                    float32 pitch = (M_PI * 0.5f) - localdir.angle(iaVector3f(0, 1, 0));
-                    if (pitch > 0)
+                    if (_time + 1000 < iTimer::getInstance().getTime())
                     {
-                        pitchNode->identity();
-                        pitchNode->rotate(pitch, iaAxis::X);
-                        canFire = true;
-                    }
+                        iaMatrixf matrixOrientation;
+                        matrixOrientation._depth = dir;
+                        matrixOrientation._depth.negate();
+                        matrixOrientation._depth.normalize();
+                        matrixOrientation._top = upVector;
+                        matrixOrientation._top.normalize();
+                        matrixOrientation._right = matrixOrientation._top % matrixOrientation._depth;
+                        matrixOrientation._right.normalize();
+                        matrixOrientation._top = matrixOrientation._depth % matrixOrientation._right;
+                        matrixOrientation._top.normalize();
 
-                    iaVector3I outside, inside;
-                    VoxelTerrainGenerator::getInstance().castRay(iaConvert::convert3I(getSphere()._center), iaConvert::convert3I(targetPos), outside, inside);
+                        matrixOrientation._pos = worldPos;
+                        matrixOrientation._pos -= matrixOrientation._depth * 2.0;
 
-                    float32 distanceToWall = iaConvert::convert3f(outside).distance(getSphere()._center) + 5;
+                        Bullet* bullet = new Bullet(_scene, iaVector3f(), matrixOrientation, getFraction());
+                        _time = iTimer::getInstance().getTime();
 
-                    if (canFire && 
-                        distanceToWall > distance &&
-                        distance < fireDistance)
-                    {
-                        if (_time + 1000 < iTimer::getInstance().getTime())
-                        {
-                            iaMatrixf matrixOrientation;
-                            matrixOrientation._depth = dir;
-                            matrixOrientation._depth.negate();
-                            matrixOrientation._depth.normalize();
-                            matrixOrientation._top = upVector;
-                            matrixOrientation._top.normalize();
-                            matrixOrientation._right = matrixOrientation._top % matrixOrientation._depth;
-                            matrixOrientation._right.normalize();
-                            matrixOrientation._top = matrixOrientation._depth % matrixOrientation._right;
-                            matrixOrientation._top.normalize();
-
-                            matrixOrientation._pos = worldPos;
-
-                            Bullet* bullet = new Bullet(_scene, iaVector3f(), matrixOrientation, getFraction());
-                            _time = iTimer::getInstance().getTime();
-
-                            fired = true;
-                        }
+                        fired = true;
                     }
                 }
             }

@@ -42,6 +42,7 @@ using namespace Igor;
 
 #include "Player.h"
 #include "Enemy.h"
+#include "StaticEnemy.h"
 #include "EntityManager.h"
 
 Ascent::Ascent()
@@ -188,7 +189,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
 
-        if (center.distance(pos) < 150)
+        if (center.distance(pos) < 170)
         {
             bool addEnemy = true;
 
@@ -210,11 +211,70 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
             if (addEnemy)
             {
                 enemyMatrix._pos.set(pos._x, pos._y, pos._z);
-                Enemy* enemy = new Enemy(_scene, enemyMatrix);
+                Enemy* enemy = new Enemy(_scene, enemyMatrix, _playerID);
                 count++;
             }
 
-            if (count >= 30)
+            if (count >= 50)
+            {
+                break;
+            }
+        }
+    }/**/
+
+    count = 0;
+
+   /* for (int i = 0; i < 200; ++i)
+    {
+        pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
+        pos += min;
+
+        if (center.distance(pos) < 170)
+        {
+            bool addEnemy = true;
+
+            for (int x = -1; x < 2; x++)
+            {
+                for (int y = -1; y < 2; y++)
+                {
+                    for (int z = -1; z < 2; z++)
+                    {
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
+                        {
+                            addEnemy = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (addEnemy)
+            {
+                iaVector3I outside, inside;
+                VoxelTerrainGenerator::getInstance().castRay(pos, pos + iaVector3I(0,-200,0), outside, inside);
+
+                if (outside.distance(pos) < 190)
+                {
+                    enemyMatrix.identity();
+                    enemyMatrix._pos.set(inside._x, inside._y, inside._z);
+                    StaticEnemy* enemy = new StaticEnemy(_scene, enemyMatrix, _playerID);
+                    count++;
+                }
+                else
+                {
+                    VoxelTerrainGenerator::getInstance().castRay(pos, pos + iaVector3I(0, 200, 0), outside, inside);
+                    if (outside.distance(pos) < 190)
+                    {
+                        enemyMatrix.identity();
+                        enemyMatrix.rotate(M_PI, iaAxis::Z);
+                        enemyMatrix._pos.set(inside._x, inside._y, inside._z);
+                        StaticEnemy* enemy = new StaticEnemy(_scene, enemyMatrix, _playerID);
+                        count++;
+                    }
+                }
+            }
+
+            if (count >= 50)
             {
                 break;
             }

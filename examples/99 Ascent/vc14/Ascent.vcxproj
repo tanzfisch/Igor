@@ -31,6 +31,7 @@
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\MuzzleFlash.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
+    <ClCompile Include="..\src\StaticEnemy.cpp" />
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp" />
     <ClCompile Include="..\src\Turret.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -51,6 +52,7 @@
     <ClInclude Include="..\src\Granade.h" />
     <ClInclude Include="..\src\MuzzleFlash.h" />
     <ClInclude Include="..\src\Player.h" />
+    <ClInclude Include="..\src\StaticEnemy.h" />
     <ClInclude Include="..\src\TaskGenerateVoxels.h" />
     <ClInclude Include="..\src\Turret.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
