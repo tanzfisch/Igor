@@ -181,8 +181,6 @@ namespace OMPF
         }
         chunkSize = static_cast<uint32>(value);
 
-        con_debug_endl("found next chunk type:" << typeID << " size:" << chunkSize);
-
         file.seekg(pos);
 
         return true;

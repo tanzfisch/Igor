@@ -202,7 +202,7 @@ namespace OMPF
             return false;
         }
         
-        con_debug_endl("read chunk type: 0x" << hex << static_cast<uint32>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID);
+        con_debug_endl("reading chunk type: 0x" << hex << static_cast<uint32>(_type) << dec << " size:" << _chunkSize << " ID:" << _ID << " parent: " << _parentID << " name:" << _name);
         
         return true;
     }
