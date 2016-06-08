@@ -17,8 +17,11 @@ namespace Igor
     uint64 iPhysicsBody::_nextBodyID = INVALID_PHYSICSBODY_ID + 1;
 
     iPhysicsBody::iPhysicsBody(void* newtonBody)
-        : _newtonBody(newtonBody)
     {
+        con_assert(newtonBody != nullptr, "zero pointer");
+
+        _newtonBody = newtonBody;
+
         _mutex.lock();
         _id = _nextBodyID++;
         _mutex.unlock();

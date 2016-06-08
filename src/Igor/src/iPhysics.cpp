@@ -310,7 +310,7 @@ namespace Igor
 
     void iPhysics::getMassMatrix(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz)
     {
-        NewtonBodyGetMassMatrix(static_cast<const NewtonBody*>(newtonBody), &mass, &Ixx, &Iyy, &Izz);
+        NewtonBodyGetMass(static_cast<const NewtonBody*>(newtonBody), &mass, &Ixx, &Iyy, &Izz);
     }
 
     void* iPhysics::getUserDataFromBody(void* newtonBody)
@@ -607,10 +607,19 @@ namespace Igor
 
     void iPhysics::destroyBody(iPhysicsBody* body)
     {
-        con_assert_sticky(body != nullptr, "zero pointer");
+        con_assert(body != nullptr, "zero pointer");
 
         if (body != nullptr)
         {
+            _bodyListMutex.lock();
+            auto iter = _bodys.find(body->_id);
+            con_assert(iter != _bodys.end(), "corrupt data");
+            if (iter != _bodys.end())
+            {
+                _bodys.erase(iter);
+            }
+            _bodyListMutex.unlock();
+
             if (body->_newtonBody != nullptr)
             {
                 destroyNewtonBody(body->_newtonBody);
