@@ -115,8 +115,8 @@ private:
     static const int64 _tileCreationDistance = 200 * 200;
     static const int64 _tileDestructionDistance = 400 * 400;
 
-    static const int64 _voxelBlockCreationDistance = 400 * 400;
-    static const int64 _voxelBlockScanDistance = 3;
+    static const int64 _voxelBlockCreationDistance = 300 * 300;
+    static const int64 _voxelBlockScanDistance = 2;
 
     /*! scene
     */

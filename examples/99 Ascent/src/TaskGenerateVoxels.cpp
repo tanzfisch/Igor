@@ -63,11 +63,11 @@ void TaskGenerateVoxels::run()
 		holes.push_back(iSpheref(iaVector3f(playerStartPos._x + (rand() % 50) - 25,
 			playerStartPos._y + (rand() % 50) - 25,
 			playerStartPos._z + (rand() % 50) - 25 - 200),
-			((rand() % 90 + 10) / 100.0) * 0.15));
+			((rand() % 90 + 10) / 100.0) * 0.3));
 	}
 
 	// hole where the boss sits
-	holes.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 0.2));
+	holes.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 0.8));
 
 	for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
 	{

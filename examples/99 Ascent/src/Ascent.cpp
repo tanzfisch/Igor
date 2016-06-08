@@ -42,6 +42,7 @@ using namespace Igor;
 
 #include "Player.h"
 #include "Enemy.h"
+#include "BossEnemy.h"
 #include "StaticEnemy.h"
 #include "EntityManager.h"
 
@@ -163,9 +164,9 @@ void Ascent::initPlayer()
     Player* player = new Player(_scene, matrix);
     _playerID = player->getID();
 
-	/*iaMatrixf enemyMatrix;
-	enemyMatrix._pos.set(10000, 9400, 10000 - 20);
-	Enemy* enemy = new Enemy(_scene, enemyMatrix);/**/
+	iaMatrixf enemyMatrix;
+	enemyMatrix._pos.set(10000, 9400, 10000 - 200);
+	BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
 }
 
 void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
