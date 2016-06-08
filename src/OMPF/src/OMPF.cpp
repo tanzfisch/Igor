@@ -214,7 +214,7 @@ namespace OMPF
             switch (typeID)
             {
             case OMPFChunkType::Header:
-                con_assert(false, "can't have second header chunk");
+                con_err("can't have second header chunk");
                 return false;
 
             case OMPFChunkType::Transform:

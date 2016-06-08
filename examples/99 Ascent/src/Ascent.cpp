@@ -189,7 +189,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
 
-        if (center.distance(pos) < 170)
+        if (center.distance(pos) < 60)
         {
             bool addEnemy = true;
 
@@ -229,7 +229,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
 
-        if (center.distance(pos) < 200)
+        if (center.distance(pos) < 60)
         {
             bool addEnemy = true;
 
@@ -330,7 +330,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 }
             }
 
-            if (count >= 30)
+            if (count >= 10)
             {
                 break;
             }
@@ -571,21 +571,24 @@ void Ascent::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _wind
 
 void Ascent::onMouseDown(iKeyCode key)
 {
-    Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
-    if (player != nullptr)
-    {
-        if (key == iKeyCode::MouseRight)
-        {            
-            iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-            player->shootSecondaryWeapon(_view, updown);
-        }
+	if (!_loading)
+	{
+		Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+		if (player != nullptr)
+		{
+			if (key == iKeyCode::MouseRight)
+			{
+				iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+				player->shootSecondaryWeapon(_view, updown);
+			}
 
-        if (key == iKeyCode::MouseLeft)
-        {
-            iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-            player->shootPrimaryWeapon(_view, updown);
-        }
-    }
+			if (key == iKeyCode::MouseLeft)
+			{
+				iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+				player->shootPrimaryWeapon(_view, updown);
+			}
+		}
+	}
 }
 
 void Ascent::onMouseUp(iKeyCode key)

@@ -92,6 +92,7 @@ namespace Igor
     void iOctree::insert(uint64 nodeID, uint64 userDataID, const iSphered& sphere)
     {
         OctreeNode* node = _nodes[nodeID];
+		con_assert(node != nullptr, "zero pointer"); 
 
         if (nullptr != node->_children)
         {
@@ -127,6 +128,7 @@ namespace Igor
     void iOctree::trySplit(uint64 nodeID)
     {
         OctreeNode* node = _nodes[nodeID];
+		con_assert(node != nullptr, "zero pointer");
 
         if (node->_box._halfEdgeLength > _halfMinResolution &&
             node->_objects.size() >= _objectCountMaxThreashold)

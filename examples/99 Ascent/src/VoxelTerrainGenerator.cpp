@@ -54,6 +54,8 @@ void VoxelTerrainGenerator::init()
     iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("ascent_terrain_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->compileShader();
     iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+	//iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::Off);
+	//iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
 
     iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &VoxelTerrainGenerator::onTaskFinished));
 }
@@ -556,7 +558,7 @@ void VoxelTerrainGenerator::handleVoxelBlocks()
                         if (distance < _voxelBlockCreationDistance)
                         {
                             block->_voxelData = new iVoxelData();
-                            block->_voxelData->setClearValue(255);
+                            block->_voxelData->setClearValue(0);
                             block->_offset = blockPos;
                             block->_size.set(_voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap);
 
