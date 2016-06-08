@@ -337,8 +337,8 @@ namespace Igor
         uint32 matKey = 0;
 
         iaVector3f transformed_cube_position(_cubePosition._x, _cubePosition._y, _cubePosition._z);
-        transformed_cube_position._x -= _cubeStartPosition._x;
-        transformed_cube_position._y -= _cubeStartPosition._y;
+        transformed_cube_position._x -= _cubeStartPosition._x - 1; // TODO workaround
+        transformed_cube_position._y -= _cubeStartPosition._y + 2; // TODO workaround
         transformed_cube_position._z -= _cubeStartPosition._z;
 
         if (_density[13] > 0.0f)

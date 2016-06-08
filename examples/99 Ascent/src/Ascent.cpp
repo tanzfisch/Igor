@@ -215,7 +215,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 count++;
             }
 
-            if (count >= 50)
+            if (count >= 5)
             {
                 break;
             }
@@ -224,20 +224,20 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
     count = 0;
 
-   /* for (int i = 0; i < 200; ++i)
+    for (int i = 0; i < 400; ++i)
     {
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
 
-        if (center.distance(pos) < 170)
+        if (center.distance(pos) < 200)
         {
             bool addEnemy = true;
 
-            for (int x = -1; x < 2; x++)
+            for (int x = -2; x < 3; x++)
             {
-                for (int y = -1; y < 2; y++)
+                for (int y = -2; y < 3; y++)
                 {
-                    for (int z = -1; z < 2; z++)
+                    for (int z = -2; z < 3; z++)
                     {
                         if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
                         {
@@ -250,31 +250,87 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
             if (addEnemy)
             {
+                iaVector3f from(pos._x, pos._y, pos._z);
+                
+                iaMatrixf matrix;
+
+                switch (rand() % 6)
+                {
+                case 0:
+                    // nothing
+                    break;
+
+                case 1:
+                    matrix.rotate(M_PI * 0.5, iaAxis::Z);
+                    break;
+
+                case 2:
+                    matrix.rotate(M_PI * -0.5, iaAxis::Z);
+                    break;
+
+                case 3:
+                    matrix.rotate(M_PI, iaAxis::Z);
+                    break;
+
+                case 4:
+                    matrix.rotate(M_PI * 0.5, iaAxis::X);
+                    break;
+
+                case 5:
+                    matrix.rotate(M_PI * -0.5, iaAxis::X);
+                    break;
+                }
+
+                iaVector3f to = from + matrix._top * -200;
+
+                iaVector3I right(matrix._right._x, matrix._right._y, matrix._right._z);
+                iaVector3I top(matrix._top._x, matrix._top._y, matrix._top._z);
+                iaVector3I depth(matrix._depth._x, matrix._depth._y, matrix._depth._z);
                 iaVector3I outside, inside;
-                VoxelTerrainGenerator::getInstance().castRay(pos, pos + iaVector3I(0,-200,0), outside, inside);
+
+                VoxelTerrainGenerator::getInstance().castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside);
+
+                int rating = 0;
 
                 if (outside.distance(pos) < 190)
                 {
-                    enemyMatrix.identity();
-                    enemyMatrix._pos.set(inside._x, inside._y, inside._z);
-                    StaticEnemy* enemy = new StaticEnemy(_scene, enemyMatrix, _playerID);
-                    count++;
-                }
-                else
-                {
-                    VoxelTerrainGenerator::getInstance().castRay(pos, pos + iaVector3I(0, 200, 0), outside, inside);
-                    if (outside.distance(pos) < 190)
+                    iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
+                    vector<uint64> result;
+                    EntityManager::getInstance().getEntities(sphere, result);
+                    if (result.empty())
                     {
-                        enemyMatrix.identity();
-                        enemyMatrix.rotate(M_PI, iaAxis::Z);
-                        enemyMatrix._pos.set(inside._x, inside._y, inside._z);
-                        StaticEnemy* enemy = new StaticEnemy(_scene, enemyMatrix, _playerID);
-                        count++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + right) != 0) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - right) != 0) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + right + depth) != 0) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - right + depth) != 0) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + right - depth) != 0) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - right - depth) != 0) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + depth) != 0) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - depth) != 0) rating++;
+
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + right) < 50) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - right) < 50) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + right + depth) < 50) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - right + depth) < 50) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + right - depth) < 50) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - right - depth) < 50) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + depth) < 50) rating++;
+                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - depth) < 50) rating++;
+
+                        if (rating > 10)
+                        {
+                            enemyMatrix.identity();
+                            enemyMatrix = matrix;
+                            enemyMatrix._pos.set(outside._x, outside._y, outside._z);
+                            StaticEnemy* enemy = new StaticEnemy(_scene, enemyMatrix, _playerID);
+                            
+                            count++;
+                        }
                     }
                 }
             }
 
-            if (count >= 50)
+            if (count >= 30)
             {
                 break;
             }
@@ -565,19 +621,6 @@ void Ascent::handleMouse()
         Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-/*            iaVector3f center(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
-            iaVector3f delta = center;
-            delta -= _mousePos;
-            _mousePos += (delta * 0.03);
-
-            float32 headingDelta = delta._x * 0.001;
-            float32 pitchDelta = delta._y * 0.001;
-            player->rotate(headingDelta, pitchDelta);
-
-            iaVector3f weaponDelta = _mousePos;
-            weaponDelta -= _weaponPos;
-            _weaponPos += weaponDelta * 0.15f;*/
-
 			_weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
 
 			float32 headingDelta = _mouseDelta._x * 0.002;

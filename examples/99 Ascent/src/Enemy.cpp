@@ -151,8 +151,8 @@ void Enemy::handle()
     }
     else
     {
-        const float32 detectionDistance = 90;
-        const float32 approachDistance = 20;
+        const float32 detectionDistance = 50;
+        const float32 approachDistance = 40;
         bool upperGunActive = true;
 
         Entity* identifiedTarget = EntityManager::getInstance().getEntity(_playerID);

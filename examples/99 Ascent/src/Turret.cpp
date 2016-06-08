@@ -103,8 +103,8 @@ void Turret::handle()
         }
     }
 
-    const float32 detectionDistance = 90;
-    const float32 fireDistance = 60;
+    const float32 detectionDistance = 60;
+    const float32 fireDistance = 55;
     bool fired = false;
     bool canFire = false;
 

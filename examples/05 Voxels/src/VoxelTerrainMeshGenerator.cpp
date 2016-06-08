@@ -56,8 +56,8 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("dirt.png"), 0);
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 1);
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
-        targetMaterial->setAmbient(iaColor3f(0.5f, 0.5f, 0.5f));
-        targetMaterial->setDiffuse(iaColor3f(0.7f, 0.7f, 0.7f));
+        targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
+        targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
         targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
         targetMaterial->setShininess(100.0f);

@@ -35,6 +35,8 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID
     transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
+    iNodeTransform* bodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    bodyTransform->translate(0, 0, 0);
     iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     bodyScale->scale(1, 2, 1);
 
@@ -53,7 +55,8 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID
     physicsNode->setLinearDamping(100);
 
     _scene->getRoot()->insertNode(transformNode);
-    transformNode->insertNode(bodyScale);
+    transformNode->insertNode(bodyTransform);
+    bodyTransform->insertNode(bodyScale);
     bodyScale->insertNode(bodyModel);
 
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));

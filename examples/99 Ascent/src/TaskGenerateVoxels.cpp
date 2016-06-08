@@ -48,7 +48,10 @@ void TaskGenerateVoxels::run()
     vector<pair<iaVector3f, float64>> metaballs;
     for (int i = 0; i < 500; ++i)
     {
-        metaballs.push_back(pair<iaVector3f, float64>(iaVector3f(playerStartPos._x + (rand() % 300) - 150, playerStartPos._y + (rand() % 300) - 150, playerStartPos._z + (rand() % 300) - 150 - 200), (rand() % 90 + 10) / 100.0));
+        metaballs.push_back(pair<iaVector3f, float64>(iaVector3f(playerStartPos._x + (rand() % 300) - 150, 
+            playerStartPos._y + (rand() % 300) - 150, 
+            playerStartPos._z + (rand() % 300) - 150 - 200), 
+            (rand() % 90 + 10) / 100.0));
     }
 
     for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
@@ -63,7 +66,7 @@ void TaskGenerateVoxels::run()
                 float64 distance = 0;
                 for (auto metaball : metaballs)
                 {
-                    distance += metaballFunction(metaball.first, pos) * metaball.second * 1.5;
+                    distance += metaballFunction(metaball.first, pos) * metaball.second * 1.2;
                 }
 
                 if (distance <= toMeta)

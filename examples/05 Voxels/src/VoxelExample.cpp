@@ -176,7 +176,7 @@ void VoxelExample::generateVoxelData()
         _voxelData = new iVoxelData();
         // all voxels have a full density as default. so afterwars we need to cut holes in it
         _voxelData->setClearValue(255);
-        _voxelData->initData(100, 100, 100);
+        _voxelData->initData(120, 120, 120);
     }
 
     // generate new random base with time based seed
@@ -185,20 +185,24 @@ void VoxelExample::generateVoxelData()
     // clear the voxel data
     _voxelData->clear();
 
-    // so we want a sphere with a center and radius
-    iaVector3f center(_voxelData->getWidth() / 2.0f, _voxelData->getHeight() / 2.0f, _voxelData->getDepth() / 2.0f);
+    // define some threasholds to describe the surface of caves
+    const float64 from = 0.444;
+    const float64 to = 0.45;
+    float64 factor = 1.0 / (to - from);
 
-    vector<iaVector3f> metaballs;
-    for (int i = 0; i < 25; ++i)
+    // define some threasholds to describe the surface of metaballs
+    const float64 fromMeta = 0.017;
+    const float64 toMeta = 0.0175;
+    float64 factorMeta = 1.0 / (toMeta - fromMeta);
+
+    // define some metaballs
+    vector<pair<iaVector3f, float32>> metaballs;
+    for (int i = 0; i < 20; ++i)
     {
-        metaballs.push_back(iaVector3f(rand() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
+        metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(rand() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
             rand() % static_cast<int>(_voxelData->getHeight()*0.6) + (_voxelData->getHeight()* 0.2),
-            rand() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)));
+            rand() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)), (((rand() % 90) + 10) / 100.0) + 0.6));
     }
-
-    float32 scaleToVoxelSize = 1000.0f;
-    float32 metaballThreashold = 0.02 * scaleToVoxelSize;
-    float32 surfaceThreashold = 1.0;
 
     // now iterate though all the voxels and define thair density
     for (int64 x = 0; x < _voxelData->getWidth(); ++x)
@@ -213,37 +217,45 @@ void VoxelExample::generateVoxelData()
                 float32 distance = 0;
                 for (auto metaball : metaballs)
                 {
-                    distance += metaballFunction(metaball, pos);
+                    distance += metaballFunction(metaball.first, pos) * metaball.second;
                 }
 
-                distance *= scaleToVoxelSize;
-
-                if (distance < metaballThreashold + surfaceThreashold)
+                if (distance <= toMeta)
                 {
-                    if (distance < metaballThreashold)
-                    {
-                        // outside sphere
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-                    }
-                    else
+                    if (distance >= fromMeta)
                     {
                         // at the edge of the sphere.
                         // now we can use the fractional part of the distance to determine how much more than a full voxel we are away from the center
                         // and use this to set the density. this way we get a smooth sphere.
-                        float32 denstity = (surfaceThreashold - (distance - metaballThreashold)) / surfaceThreashold;
+                        float32 denstity = ((distance - fromMeta) * factorMeta);
 
                         // the density by the way goes from 0-255 but the zero is interpreted as outside ans the 1 is inside but with zero density
                         // so to calculate a propper density we need to multiply the density with 254 and to make it alwasy beein "inside" we add one
                         _voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
                     }
+                    else
+                    {
+                        // outside metaball
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    }
                 }
 
                 // using some perline noise to cut holes in the sphere. this time we skip the smoothing part due to much effort and cluttering the tutorial 
                 // with bad understandable code. Ask the author if you'd like to know about smoothing the values
-                float64 onoff = _perlinNoise.getValue(iaVector3d(x * 0.06, y * 0.06, z * 0.06), 3, 0.5);
-                if (onoff < 0.5)
+                float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.03, pos._y * 0.03, pos._z * 0.03), 4, 0.5);
+
+                // we do the same here as with the metaball surface so it a pears a little smoother
+                if (onoff <= from)
                 {
-                    _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    if (onoff >= to)
+                    {
+                        float64 gradient = 1.0 - ((onoff - from) * factor);
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), (gradient * 254) + 1);
+                    }
+                    else
+                    {
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    }
                 }
             }
         }
