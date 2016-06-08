@@ -5,6 +5,8 @@
 #include <iWindow.h>
 #include <iPerlinNoise.h>
 #include <iVoxelData.h>
+#include <iSphere.h>
+#include <iTimer.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -43,16 +45,37 @@ void TaskGenerateVoxels::run()
     const float64 toMeta = 0.0175;
     float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
-    srand(1234);
+    static mutex mutex;
+    static int seed = 0;
+    static vector<iSpheref> metaballs;
+    static vector<iSpheref> holes;
 
-    vector<pair<iaVector3f, float64>> metaballs;
-    for (int i = 0; i < 500; ++i)
+    mutex.lock();
+    if (seed == 0)
     {
-        metaballs.push_back(pair<iaVector3f, float64>(iaVector3f(playerStartPos._x + (rand() % 300) - 150, 
-            playerStartPos._y + (rand() % 300) - 150, 
-            playerStartPos._z + (rand() % 300) - 150 - 200), 
-            (rand() % 90 + 10) / 100.0));
+        seed = iTimer::getInstance().getTime();
+        srand(seed);
+
+        for (int i = 0; i < 400; ++i)
+        {
+            metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x + (rand() % 300) - 150,
+                playerStartPos._y + (rand() % 300) - 150,
+                playerStartPos._z + (rand() % 300) - 150 - 200),
+                (rand() % 90 + 10) / 100.0));
+        }
+
+        for (int i = 0; i < 30; ++i)
+        {
+            holes.push_back(iSpheref(iaVector3f(playerStartPos._x + (rand() % 200) - 100,
+                playerStartPos._y + (rand() % 200) - 100,
+                playerStartPos._z + (rand() % 200) - 100 - 200),
+                ((rand() % 90 + 10) / 100.0) * 4));
+        }
     }
+    mutex.unlock();
+
+    // hole where the boss sits
+    holes.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 15));
 
     for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
     {
@@ -66,7 +89,7 @@ void TaskGenerateVoxels::run()
                 float64 distance = 0;
                 for (auto metaball : metaballs)
                 {
-                    distance += metaballFunction(metaball.first, pos) * metaball.second * 1.2;
+                    distance += metaballFunction(metaball._center, pos) * metaball._radius * 1.3;
                 }
 
                 if (distance <= toMeta)
@@ -81,6 +104,26 @@ void TaskGenerateVoxels::run()
                         voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
                     }
                 }
+
+                distance = 0;
+                for (auto hole : holes)
+                {
+                    distance += metaballFunction(hole._center, pos) * hole._radius * 0.5;
+                }
+
+                if (distance >= fromMeta)
+                {
+                    if (distance <= toMeta)
+                    {
+                        float32 denstity = 1 - ((distance - fromMeta) * factorMeta);
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
+                    }
+                    else
+                    {
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                    }
+                }
+
 
                 float64 onoff = perlinNoise.getValue(iaVector3d(pos._x * 0.03, pos._y * 0.03, pos._z * 0.03), 4, 0.5);
 
@@ -100,13 +143,15 @@ void TaskGenerateVoxels::run()
         }
     }/**/
 
-      /*  for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
+    /*    for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
         {
             for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
             {
                 for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
                 {
-                    if (y<60 || y > 70)
+                    if (x<60 || x > 70 ||
+                        y<60 || y > 70 ||
+                        z<60 || z > 70)
                     {
                         voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
                     }

@@ -6,6 +6,7 @@
 
 #include <iAACube.h>
 #include <iRenderer.h>
+#include <iNodeFactory.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -142,13 +143,21 @@ namespace Igor
 
         OctreeNode* rootNode = _nodes[_rootNode];
 
-        if (rootNode->_box.intersects(sphered._center))
+        bool intersects = rootNode->_box.intersects(sphered._center);
+        con_assert(intersects, userDataID << " out of bounds " << sphere._center);
+        if (intersects)
         {
             insert(_rootNode, userDataID, sphered);
         }
         else
         {
-            con_debug_endl(userDataID << " out of bounds " << sphere._center);
+            iNode* node = iNodeFactory::getInstance().getNode(userDataID);
+            if (node != nullptr)
+            {
+                con_endl("name " << node->getName());
+            }
+
+            con_err(userDataID << " out of bounds " << sphere._center);
         }
     }
 
