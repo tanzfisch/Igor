@@ -134,7 +134,8 @@ Player::~Player()
 void Player::hitBy(uint64 entityID)
 {
     Entity* target = EntityManager::getInstance().getEntity(entityID);
-    if (target->getFraction() != getFraction())
+    if (target != nullptr && 
+        target->getFraction() != getFraction())
     {
         float32 shield = getShield();
         float32 health = getHealth();
@@ -303,8 +304,8 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3f& screenCoordinates
         iaMatrixf offsetRight = matrix;
         offsetRight.translate(0.5, -0.4, -1.0);
 
-        new Bullet(_scene, _force * 0.01, offsetLeft, getFraction());
-        new Bullet(_scene, _force * 0.01, offsetRight, getFraction());
+        new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
+        new Bullet(_scene, _force * 0.001, offsetRight, getFraction());
 
         new MuzzleFlash(_scene, _emitterLeftGunNodeID);
         new MuzzleFlash(_scene, _emitterRightGunNodeID);

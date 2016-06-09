@@ -12,6 +12,11 @@ using namespace Igor;
 #include <iaConsole.h>
 using namespace IgorAux;
 
+int32 TaskGenerateVoxels::_seed = 0;
+vector<iSpheref> TaskGenerateVoxels::_metaballs;
+vector<iSpheref> TaskGenerateVoxels::_holes;
+mutex TaskGenerateVoxels::_initMutex;
+
 TaskGenerateVoxels::TaskGenerateVoxels(VoxelBlock* voxelBlock, uint32 priority)
 	: iTask(nullptr, priority, false, iTaskContext::Default)
 {
@@ -26,10 +31,44 @@ __IGOR_INLINE__ float64 metaballFunction(iaVector3f metaballPos, iaVector3f chec
 	return 1.0 / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
 }
 
+void TaskGenerateVoxels::prepareLevel()
+{
+    _initMutex.lock();
+    if (_seed == 0)
+    {
+        iaVector3I playerStartPos(10000, 9400, 10000); // TODO
+        int32 seed = iTimer::getInstance().getTime();
+        srand(seed);
+
+        for (int i = 0; i < 30; ++i)
+        {
+            _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x + (rand() % 100) - 50,
+                playerStartPos._y + (rand() % 100) - 50,
+                playerStartPos._z + (rand() % 100) - 50 - 200),
+                ((rand() % 90 + 10) / 100.0) * 2.6));
+        }
+
+        for (int i = 0; i < 7; ++i)
+        {
+            _holes.push_back(iSpheref(iaVector3f(playerStartPos._x + (rand() % 50) - 25,
+                playerStartPos._y + (rand() % 50) - 25,
+                playerStartPos._z + (rand() % 50) - 25 - 200),
+                ((rand() % 90 + 10) / 100.0) * 0.5));
+        }
+
+        // hole where the boss sits
+        _holes.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 1.4));
+
+        _seed = seed;
+    }
+    _initMutex.unlock();
+}
+
 void TaskGenerateVoxels::run()
 {
+    prepareLevel();
+
 	iPerlinNoise perlinNoise;
-	iaVector3I playerStartPos(10000, 9400, 10000); // TODO
 
 	iVoxelData* voxelData = _voxelBlock->_voxelData;
 	iaVector3I& offset = _voxelBlock->_offset;
@@ -45,30 +84,6 @@ void TaskGenerateVoxels::run()
 	const float64 toMeta = 0.0175;
 	float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
-	vector<iSpheref> metaballs;
-	vector<iSpheref> holes;
-
-	srand(1234);
-
-	for (int i = 0; i < 30; ++i)
-	{
-		metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x + (rand() % 100) - 50,
-			playerStartPos._y + (rand() % 100) - 50,
-			playerStartPos._z + (rand() % 100) - 50 - 200),
-			((rand() % 90 + 10) / 100.0) * 2.6));
-	}
-
-	for (int i = 0; i < 5; ++i)
-	{
-		holes.push_back(iSpheref(iaVector3f(playerStartPos._x + (rand() % 50) - 25,
-			playerStartPos._y + (rand() % 50) - 25,
-			playerStartPos._z + (rand() % 50) - 25 - 200),
-			((rand() % 90 + 10) / 100.0) * 0.3));
-	}
-
-	// hole where the boss sits
-	holes.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 0.8));
-
 	for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
 	{
 		for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
@@ -78,8 +93,11 @@ void TaskGenerateVoxels::run()
 				// first figure out if a voxel is outside the sphere
 				iaVector3f pos(x + offset._x, y + offset._y, z + offset._z);
 
+                // generate some detail noise we will add every where
+                float64 detailNoise = perlinNoise.getValue(iaVector3d(pos._x * 0.5, pos._y * 0.5, pos._z * 0.5), 1) - 0.5;
+
 				float64 distance = 0;
-				for (auto metaball : metaballs)
+				for (auto metaball : _metaballs)
 				{
 					distance += metaballFunction(metaball._center, pos) * metaball._radius;
 				}
@@ -92,13 +110,15 @@ void TaskGenerateVoxels::run()
 				{
 					if (distance >= fromMeta)
 					{
-						float32 denstity = ((distance - fromMeta) * factorMeta);
+						float32 denstity = ((distance - fromMeta) * factorMeta) + detailNoise;
+                        if (denstity > 1.0) { denstity = 1.0; }
+                        if (denstity < 0.0) { denstity = 0.0; }
 						voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
 					}
 				}
 
 				distance = 0;
-				for (auto hole : holes)
+				for (auto hole : _holes)
 				{
 					distance += metaballFunction(hole._center, pos) * hole._radius;
 				}
@@ -111,8 +131,11 @@ void TaskGenerateVoxels::run()
 				{
 					if (distance >= fromMeta)
 					{
-						float32 denstity = 1 - ((distance - fromMeta) * factorMeta);
-						voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
+                        if (voxelData->getVoxelDensity(iaVector3I(x, y, z)) != 0)
+                        {
+                            float32 denstity = 1 - ((distance - fromMeta) * factorMeta);
+                            voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
+                        }
 					}
 				}
 
@@ -149,155 +172,6 @@ void TaskGenerateVoxels::run()
 				}
 			}
 		}/**/
-
-		/*    const float64 from = 0.444;
-			const float64 to = 0.45;
-			float64 factor = 1.0 / (to - from);
-
-			const float64 maxHeight = 10000.0f;
-			const float64 lowerSurface = 9750.0f;
-
-			for (int64 x = 0; x < voxelData->getWidth(); ++x)
-			{
-				for (int64 y = 0; y < voxelData->getHeight(); ++y)
-				{
-					for (int64 z = 0; z < voxelData->getDepth(); ++z)
-					{
-						float64 yn = (y + offset._y);
-
-						if (yn < maxHeight)
-						{
-							float64 xn = (x + offset._x);
-							float64 zn = (z + offset._z);
-
-							float64 onoff = perlinNoise.getValue(iaVector3d(xn * 0.02, yn * 0.02, zn * 0.02), 4, 0.5);
-
-							if (onoff <= from)
-							{
-								if (onoff >= to)
-								{
-									float64 gradient = 1.0 - ((onoff - from) * factor);
-									voxelData->setVoxelDensity(iaVector3I(x, y, z), (gradient * 254) + 1);
-								}
-								else
-								{
-									voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-								}
-							}
-
-							iaVector3I pos(xn, yn, zn);
-
-							// create a hole were the player starts
-							if (playerStartPos.distance2(pos) < 50 * 50)
-							{
-								voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-							}
-
-							if (yn >= lowerSurface)
-							{
-								float64 maxHeight = perlinNoise.getValue(iaVector3d(xn * 0.005, 0, zn * 0.005), 6, 0.5) * 250.0;
-								int64 maxInt = maxHeight;
-
-								if (yn > maxInt + lowerSurface)
-								{
-									if (yn > maxInt + lowerSurface + 1)
-									{
-										voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-									}
-									else
-									{
-										if (voxelData->getVoxelDensity(iaVector3I(x, y, z)) != 0)
-										{
-											float32 density = maxHeight - static_cast<float32>(maxInt);
-											voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254.0f) + 1.0f);
-										}
-									}
-								}
-
-							}
-						}
-						else
-						{
-							voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-						}
-					}
-				}
-			}/**/
-
-			/*
-				const float64 from = 0.444;
-				const float64 to = 0.45;
-				float64 factor = 1.0 / (to - from);
-				iaVector3I playerStartPos(10000, 9400, 10000);
-				const float64 maxHeight = 10000.0f;
-				const float64 lowerSurface = 9750.0f;
-
-				for (int64 x = 0; x < voxelData->getWidth(); ++x)
-				{
-					for (int64 y = 0; y < voxelData->getHeight(); ++y)
-					{
-						for (int64 z = 0; z < voxelData->getDepth(); ++z)
-						{
-							float64 yn = (y + offset._y);
-
-							if (yn < maxHeight)
-							{
-								float64 xn = (x + offset._x);
-								float64 zn = (z + offset._z);
-
-								float64 onoff = perlinNoise.getValue(iaVector3d(xn * 0.02, yn * 0.02, zn * 0.02), 4, 0.5);
-
-								if (onoff <= from)
-								{
-									if (onoff >= to)
-									{
-										float64 gradient = 1.0 - ((onoff - from) * factor);
-										voxelData->setVoxelDensity(iaVector3I(x, y, z), (gradient * 254) + 1);
-									}
-									else
-									{
-										voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-									}
-								}
-
-								iaVector3I pos(xn, yn, zn);
-
-								// create a hole were the player starts
-								if (playerStartPos.distance2(pos) < 50 * 50)
-								{
-									voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-								}
-
-								if (yn >= lowerSurface)
-								{
-									float64 maxHeight = perlinNoise.getValue(iaVector3d(xn * 0.005, 0, zn * 0.005), 6, 0.5) * 250.0;
-									int64 maxInt = maxHeight;
-
-									if (yn > maxInt + lowerSurface)
-									{
-										if (yn > maxInt + lowerSurface + 1)
-										{
-											voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-										}
-										else
-										{
-											if (voxelData->getVoxelDensity(iaVector3I(x, y, z)) != 0)
-											{
-												float32 density = maxHeight - static_cast<float32>(maxInt);
-												voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254.0f) + 1.0f);
-											}
-										}
-									}
-
-								}
-							}
-							else
-							{
-								voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
-							}
-						}
-					}
-				}/**/
 
 	_voxelBlock->_generatedVoxels = true;
 

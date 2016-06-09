@@ -44,12 +44,14 @@ public:
 private:
 
     bool _loading = true;
+    bool _activeControls = false;
 
     iWindow _window;
     iView _view;
     iView _viewOrtho;
 
     uint64 _playerID = 0;
+    uint64 _bossID = 0;
 
     iTextureFont* _font = nullptr;
 

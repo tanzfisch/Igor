@@ -54,6 +54,7 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
 
     _scene->getRoot()->insertNode(transformNode);
     transformNode->insertNode(bodyTransform);
+    transformNode->insertNode(physicsNode);
     bodyTransform->insertNode(bodyScale);
     bodyScale->insertNode(bodyModel);
 
@@ -102,17 +103,40 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
 BossEnemy::~BossEnemy()
 {
     Entity* turretA = EntityManager::getInstance().getEntity(_turretAID);
-    if (turretA != nullptr) { turretA->kill(); }
-	Entity* turretB = EntityManager::getInstance().getEntity(_turretBID);
-	if (turretB != nullptr) { turretB->kill(); }
+    if (turretA != nullptr) 
+    { 
+        turretA->kill(); 
+    }
+	
+    Entity* turretB = EntityManager::getInstance().getEntity(_turretBID);
+	if (turretB != nullptr) 
+    { 
+        turretB->kill(); 
+    }
+
 	Entity* turretC = EntityManager::getInstance().getEntity(_turretCID);
-	if (turretC != nullptr) { turretC->kill(); }
+	if (turretC != nullptr) 
+    { 
+        turretC->kill(); 
+    }
+
 	Entity* turretD = EntityManager::getInstance().getEntity(_turretDID);
-	if (turretD != nullptr) { turretD->kill(); }
+	if (turretD != nullptr) 
+    { 
+        turretD->kill(); 
+    }
+
 	Entity* turretE = EntityManager::getInstance().getEntity(_turretEID);
-	if (turretE != nullptr) { turretE->kill(); }
+	if (turretE != nullptr) 
+    { 
+        turretE->kill(); 
+    }
+
 	Entity* turretF = EntityManager::getInstance().getEntity(_turretFID);
-	if (turretF != nullptr) { turretF->kill(); }
+	if (turretF != nullptr) 
+    { 
+        turretF->kill(); 
+    }
 
     iNodeFactory::getInstance().destroyNode(_transformNodeID);
 }

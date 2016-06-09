@@ -51,11 +51,10 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID
     physicsNode->setMass(0);
     physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
     physicsNode->setUserData(&_id);
-    physicsNode->setAngularDamping(iaVector3f(10000, 10000, 10000));
-    physicsNode->setLinearDamping(100);
 
     _scene->getRoot()->insertNode(transformNode);
     transformNode->insertNode(bodyTransform);
+    transformNode->insertNode(physicsNode);
     bodyTransform->insertNode(bodyScale);
     bodyScale->insertNode(bodyModel);
 

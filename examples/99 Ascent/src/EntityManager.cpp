@@ -65,6 +65,14 @@ void EntityManager::getEntities(const iSphered& sphere, vector<uint64>& result)
     _octree->getResult(result);
 }
 
+void EntityManager::getEntities(vector<uint64>& result)
+{
+    for (auto entity : _entities)
+    {
+        result.push_back(entity.second->getID());
+    }
+}
+
 void EntityManager::initPhysics()
 {
     iPhysicsMaterial* materialTerrain = iPhysics::getInstance().createMaterial("terrain");

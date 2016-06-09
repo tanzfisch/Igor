@@ -28,6 +28,7 @@ public:
     Entity* getEntity(uint64 entityID);
 
     void getEntities(const iSphered& sphere, vector<uint64>& result);
+    void getEntities(vector<uint64>& result);
 
     void handle();
 

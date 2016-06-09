@@ -2,10 +2,14 @@
 #define __TASKGENERATEVOXELS__
 
 #include <iTask.h>
+#include <iSphere.h>
 using namespace Igor;
 
 #include <iaVector3.h>
 using namespace IgorAux;
+
+#include <vector>
+using namespace std;
 
 namespace Igor
 {
@@ -44,9 +48,16 @@ protected:
 
 private:
 
+    static vector<iSpheref> _metaballs;
+    static vector<iSpheref> _holes;
+    static int32 _seed;
+    static mutex _initMutex;
+
     /*! the data to work with
     */
     VoxelBlock* _voxelBlock = nullptr;
+
+    void prepareLevel();
 
 };
 

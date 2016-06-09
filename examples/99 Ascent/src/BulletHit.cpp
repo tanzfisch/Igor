@@ -68,9 +68,10 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixf& matrix)
 	transformNode->setMatrix(matrix);
 	_pos = matrix._pos;
 
-	scene->getRoot()->insertNode(particleSystem);
+	scene->getRoot()->insertNodeAsync(particleSystem);
+
     transformNode->insertNode(emitter);
-	scene->getRoot()->insertNode(transformNode);
+	scene->getRoot()->insertNodeAsync(transformNode);
 }
 
 BulletHit::~BulletHit()

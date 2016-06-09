@@ -443,6 +443,18 @@ namespace Igor
         */
         float32 getPeriodTime() const;
 
+        /*! sets the maximum particle count
+
+        set to zero if you don't want a limit of created particles
+
+        \param max the maximum count of particles used
+        */
+        void setMaxParticleCount(uint32 max);
+
+        /*! \returns the maximum particle count used
+        */
+        uint32 getMaxParticleCount() const;
+
 		/*! \returns bounding sphere
 		*/
 		const iSpheref& getBoundingSphere() const;
@@ -460,6 +472,12 @@ namespace Igor
         /*! current simulation rate in Hz
         */
         static float32 _simulationRate;
+
+        /*! to prevent endless generation of particles
+
+        set to zero if you don't want a limit
+        */
+        uint32 _maxParticleCount = 1000;
 
         /*! column count of first texture tiling
         */

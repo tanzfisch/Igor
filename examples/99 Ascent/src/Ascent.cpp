@@ -64,7 +64,7 @@ void Ascent::registerHandles()
     iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &Ascent::onMouseUp));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &Ascent::onMouseWheel));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &Ascent::onMouseMoved));
-    
+
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Ascent::onWindowResized));
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Ascent::onWindowClosed));
 
@@ -164,9 +164,10 @@ void Ascent::initPlayer()
     Player* player = new Player(_scene, matrix);
     _playerID = player->getID();
 
-	iaMatrixf enemyMatrix;
-	enemyMatrix._pos.set(10000, 9400, 10000 - 200);
-	BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
+    iaMatrixf enemyMatrix;
+    enemyMatrix._pos.set(10000, 9400, 10000 - 200);
+    BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
+    _bossID = boss->getID();
 }
 
 void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
@@ -179,9 +180,9 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
     srand(min._x + min._y + min._z);
 
     iaMatrixf enemyMatrix;
-	Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+    Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
-	int count = 0;
+    int count = 0;
 
     iaVector3I center(10000, 9400, 10000 - 200);
 
@@ -252,7 +253,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
             if (addEnemy)
             {
                 iaVector3f from(pos._x, pos._y, pos._z);
-                
+
                 iaMatrixf matrix;
 
                 switch (rand() % 6)
@@ -324,7 +325,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                             enemyMatrix = matrix;
                             enemyMatrix._pos.set(outside._x, outside._y, outside._z);
                             StaticEnemy* enemy = new StaticEnemy(_scene, enemyMatrix, _playerID);
-                            
+
                             count++;
                         }
                     }
@@ -363,16 +364,16 @@ void Ascent::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::None);
 
-	uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
-	iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
+    uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
+    iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
 
     // launch resource handlers
@@ -409,7 +410,7 @@ void Ascent::deinit()
 
 void Ascent::onKeyPressed(iKeyCode key)
 {
-    if (!_loading)
+    if (_activeControls)
     {
         Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
@@ -467,29 +468,29 @@ void Ascent::onKeyPressed(iKeyCode key)
         break;
 
     case iKeyCode::F3:
+    {
+        iRenderStatisticsVerbosity level = iStatistics::getInstance().getVerbosity();
+
+        if (level == iRenderStatisticsVerbosity::All)
         {
-            iRenderStatisticsVerbosity level = iStatistics::getInstance().getVerbosity();
-
-            if (level == iRenderStatisticsVerbosity::All)
-            {
-                level = iRenderStatisticsVerbosity::None;
-            }
-            else
-            {
-                int value = static_cast<int>(level);
-                value++;
-                level = static_cast<iRenderStatisticsVerbosity>(value);
-            }
-
-            iStatistics::getInstance().setVerbosity(level);
+            level = iRenderStatisticsVerbosity::None;
         }
-        break;
+        else
+        {
+            int value = static_cast<int>(level);
+            value++;
+            level = static_cast<iRenderStatisticsVerbosity>(value);
+        }
+
+        iStatistics::getInstance().setVerbosity(level);
+    }
+    break;
     }
 }
 
 void Ascent::onKeyReleased(iKeyCode key)
 {
-    if (!_loading)
+    if (_activeControls)
     {
         Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
@@ -538,7 +539,7 @@ void Ascent::onKeyReleased(iKeyCode key)
 
 void Ascent::onMouseWheel(int d)
 {
-    if (!_loading)
+    if (_activeControls)
     {
         if (d > 0)
         {
@@ -562,34 +563,37 @@ void Ascent::onMouseWheel(int d)
 
 void Ascent::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
-	_mouseDelta.set(x2 - x1, y2 - y1);
-
-    if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
+    if (_activeControls)
     {
-        iMouse::getInstance().setCenter(true);
+        _mouseDelta.set(x2 - x1, y2 - y1);
+
+        if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
+        {
+            iMouse::getInstance().setCenter(true);
+        }
     }
 }
 
 void Ascent::onMouseDown(iKeyCode key)
 {
-	if (!_loading)
-	{
-		Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
-		if (player != nullptr)
-		{
-			if (key == iKeyCode::MouseRight)
-			{
-				iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-				player->shootSecondaryWeapon(_view, updown);
-			}
+    if (_activeControls)
+    {
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        if (player != nullptr)
+        {
+            if (key == iKeyCode::MouseRight)
+            {
+                iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                player->shootSecondaryWeapon(_view, updown);
+            }
 
-			if (key == iKeyCode::MouseLeft)
-			{
-				iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-				player->shootPrimaryWeapon(_view, updown);
-			}
-		}
-	}
+            if (key == iKeyCode::MouseLeft)
+            {
+                iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                player->shootPrimaryWeapon(_view, updown);
+            }
+        }
+    }
 }
 
 void Ascent::onMouseUp(iKeyCode key)
@@ -620,38 +624,54 @@ void Ascent::initVoxelData()
 
 void Ascent::handleMouse()
 {
-    if (!_loading)
+    if (_activeControls)
     {
         Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-			_weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
+            _weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
 
-			float32 headingDelta = _mouseDelta._x * 0.002;
-			float32 pitchDelta = _mouseDelta._y * 0.002;
-			player->rotate(-headingDelta, -pitchDelta);
+            float32 headingDelta = _mouseDelta._x * 0.002;
+            float32 pitchDelta = _mouseDelta._y * 0.002;
+            player->rotate(-headingDelta, -pitchDelta);
         }
     }
-} 
+}
 
 void Ascent::onHandle()
 {
-    if (!_loading)
-    {
-        EntityManager::getInstance().handle();
-
-        handleMouse();
-    }
-    else
+    if (_loading)
     {
         if (iTaskManager::getInstance().getQueuedPhysicsContextTaskCount() < 1 &&
             iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 2 &&
             iTaskManager::getInstance().getQueuedTaskCount() < 4)
         {
             _loading = false;
-            _mouseDelta.set(0,0);
+            _activeControls = true;
+            _mouseDelta.set(0, 0);
         }
     }
+    else
+    {
+        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        if (boss == nullptr)
+        {
+            vector<uint64> ids;
+            EntityManager::getInstance().getEntities(ids);
+
+            for (auto id : ids)
+            {
+                if (_playerID != id)
+                {
+                    EntityManager::getInstance().getEntity(id)->kill();
+                }
+            }
+        }
+
+        EntityManager::getInstance().handle();
+    }
+
+    handleMouse();
 }
 
 void Ascent::onRender()
@@ -667,52 +687,50 @@ void Ascent::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(iaVector3f(0, 0, -30));
     iRenderer::getInstance().setModelMatrix(matrix);
-
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
-
-    Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
-    float32 health = 0;
-    float32 shield = 0;
-    if (player != nullptr)
-    {
-        health = player->getHealth();
-        shield = player->getShield();
-    }
-
-    iaString healthText = iaString::ftoa(health, 0);
-    iaString shieldText = iaString::ftoa(shield, 0);
-
     iRenderer::getInstance().setFont(_font);
-    iRenderer::getInstance().setFontSize(15.0f);
 
-    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawString(_window.getClientWidth() * 0.05, _window.getClientHeight() * 0.05, healthText);
-
-    iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-    iRenderer::getInstance().drawString(_window.getClientWidth() * 0.10, _window.getClientHeight() * 0.05, shieldText);
-
-    if (!_loading)
+    if (_loading)
     {
+        iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+        iRenderer::getInstance().setFontSize(40.0f);
+        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "generating level ...", iHorrizontalAlign::Center, iVerticalAlign::Center);
+    }
+    else
+    {
+        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        if (boss == nullptr)
+        {
+            iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+            iRenderer::getInstance().setFontSize(40.0f);
+            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorrizontalAlign::Center, iVerticalAlign::Center);            
+        }
+
         Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
+            iaString healthText = iaString::ftoa(player->getHealth(), 0);
+            iaString shieldText = iaString::ftoa(player->getShield(), 0);
+
+            iRenderer::getInstance().setFontSize(15.0f);
+            iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.05, _window.getClientHeight() * 0.05, healthText);
+
+            iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.10, _window.getClientHeight() * 0.05, shieldText);
+
             player->drawReticle(_window);
         }
         else
         {
             iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().setFontSize(50.0f);
+            iRenderer::getInstance().setFontSize(40.0f);
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you are dead :-P", iHorrizontalAlign::Center, iVerticalAlign::Center);
+            _activeControls = false;
         }
     }
-    else
-    {
-        iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-        iRenderer::getInstance().setFontSize(50.0f);
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorrizontalAlign::Center, iVerticalAlign::Center);
-    }
 
-	iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 }
 
 void Ascent::run()

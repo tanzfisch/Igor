@@ -88,9 +88,10 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
     physicsNode->setUserData(&_id);
 
     _scene->getRoot()->insertNode(particleSystem);
+
     _scene->getRoot()->insertNode(transformNode);
-    emitterTransform->insertNode(emitter);
     transformNode->insertNode(emitterTransform);
+    emitterTransform->insertNode(emitter);
     transformNode->insertNode(physicsNode);
 }
 
