@@ -116,13 +116,13 @@ void TaskGenerateVoxels::run()
             {
                 for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
                 {
-                    float32 denstity = 0;
+                    float32 density = 0;
 
                     // first figure out if a voxel is outside the sphere
                     iaVector3f pos(x + offset._x, y + offset._y, z + offset._z);
 
                     // generate some detail noise we will add every where
-                    float64 detailNoise = perlinNoise.getValue(iaVector3d(pos._x * 0.5, pos._y * 0.5, pos._z * 0.5), 1) - 0.5;
+                    // float64 detailNoise = perlinNoise.getValue(iaVector3d(pos._x * 0.5, pos._y * 0.5, pos._z * 0.5), 1) - 0.5;
 
                     float64 distance = 0;
                     for (auto metaball : _metaballs)
@@ -132,13 +132,13 @@ void TaskGenerateVoxels::run()
 
                     if (distance >= toMeta)
                     {
-                        denstity = 1.0;
+                        density = 1.0;
                     }
                     else
                     {
                         if (distance >= fromMeta)
                         {
-                            denstity = ((distance - fromMeta) * factorMeta) + detailNoise;
+                            density = ((distance - fromMeta) * factorMeta); // +detailNoise;
                         }
                     }
 
@@ -150,15 +150,15 @@ void TaskGenerateVoxels::run()
 
                     if (distance >= toMeta)
                     {
-                        denstity = 0.0;
+                        density = 0.0;
                     }
                     else
                     {
                         if (distance >= fromMeta)
                         {
-                            if (denstity > 0)
+                            if (density > 0)
                             {
-                                denstity = 1 - ((distance - fromMeta) * factorMeta);
+                                density = 1 - ((distance - fromMeta) * factorMeta);
                             }
                         }
                     }
@@ -169,27 +169,27 @@ void TaskGenerateVoxels::run()
                     {
                         if (onoff >= to)
                         {
-                            denstity = 1.0 - ((onoff - from) * factor);
+                            density = 1.0 - ((onoff - from) * factor);
                         }
                         else
                         {
-                            denstity = 0.0;
+                            density = 0.0;
                         }
                     }
 
-                    if (denstity > 1.0) 
+                    if (density > 1.0) 
                     { 
-                        denstity = 1.0; 
+                        density = 1.0; 
                     }
                     
-                    if (denstity < 0.0) 
+                    if (density < 0.0) 
                     { 
-                        denstity = 0.0; 
+                        density = 0.0; 
                     }
 
-                    if (denstity > 0.0)
+                    if (density > 0.0)
                     {
-                        voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
+                        voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254) + 1);
                     }
                 }
             }
