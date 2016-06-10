@@ -47,6 +47,7 @@ namespace Igor
     (only the first 5 keys of the mouse)
 
     \pram key the key code of the key that was pressed
+    \todo use ClipCursor to kleep the cursor inside the window
 	*/
 	iaEVENT(iMouseKeyDownEvent, iMouseKeyDownDelegate, void, (iKeyCode key), (key));
 
