@@ -80,6 +80,8 @@ private:
     uint32 _emitterRightGunNodeID = iNode::INVALID_NODE_ID;
     uint32 _emitterLeftGunNodeID = iNode::INVALID_NODE_ID;
 
+    float64 _primaryWeaponTime = 0;
+
     uint32 _materialSolid = 0;
 
     iScene* _scene = nullptr;

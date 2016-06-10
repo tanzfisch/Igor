@@ -17,6 +17,7 @@
 #include <iWindow.h>
 #include <iMaterialResourceFactory.h>
 #include <iNodeEmitter.h>
+#include <iTimer.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -122,6 +123,8 @@ Player::Player(iScene* scene, const iaMatrixf& matrix)
     _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+
+    _primaryWeaponTime = iTimer::getInstance().getTime();
 }
 
 Player::~Player()
@@ -273,58 +276,64 @@ void Player::shootSecondaryWeapon(iView& view, const iaVector3f& screenCoordinat
 
 void Player::shootPrimaryWeapon(iView& view, const iaVector3f& screenCoordinates)
 {
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-    if (transformNode != nullptr)
+    float64 currentTime = iTimer::getInstance().getTime();
+    if (currentTime > _primaryWeaponTime + 100)
     {
-        iaMatrixf worldMatrix;
-        transformNode->calcWorldTransformation(worldMatrix);
-
-        iaVector3f pos = view.unProject(screenCoordinates, worldMatrix);
-
-        iaVector3f topScreen = screenCoordinates;
-        topScreen._y -= 1;
-        iaVector3f top = view.unProject(topScreen, worldMatrix);
-        top -= pos;
-
-        iaVector3f depthScreen = screenCoordinates;
-        depthScreen._z = -1;
-        iaVector3f depth = view.unProject(depthScreen, worldMatrix);
-        depth -= pos;
-
-        iaMatrixf matrix;
-
-        matrix.grammSchmidt(depth, top);
-        matrix._pos = pos;
-
-        matrix = worldMatrix * matrix;
-
-        iaMatrixf offsetLeft = matrix;
-        offsetLeft.translate(-0.5, -0.4, -1.0);
-
-        iaMatrixf offsetRight = matrix;
-        offsetRight.translate(0.5, -0.4, -1.0);
-
-        new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
-        new Bullet(_scene, _force * 0.001, offsetRight, getFraction());
-
-        new MuzzleFlash(_scene, _emitterLeftGunNodeID);
-        new MuzzleFlash(_scene, _emitterRightGunNodeID);
-
-        iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
-        iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
-
-        if (transformRecoilLeftGun != nullptr &&
-            transformRecoilRightGun != nullptr)
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        if (transformNode != nullptr)
         {
-            iaMatrixf matrix;
-            transformRecoilLeftGun->getMatrix(matrix);
-            matrix._pos += iaVector3f(0, 0, 0.25);
-            transformRecoilLeftGun->setMatrix(matrix);
+            iaMatrixf worldMatrix;
+            transformNode->calcWorldTransformation(worldMatrix);
 
-            transformRecoilRightGun->getMatrix(matrix);
-            matrix._pos += iaVector3f(0, 0, 0.25);
-            transformRecoilRightGun->setMatrix(matrix);
+            iaVector3f pos = view.unProject(screenCoordinates, worldMatrix);
+
+            iaVector3f topScreen = screenCoordinates;
+            topScreen._y -= 1;
+            iaVector3f top = view.unProject(topScreen, worldMatrix);
+            top -= pos;
+
+            iaVector3f depthScreen = screenCoordinates;
+            depthScreen._z = -1;
+            iaVector3f depth = view.unProject(depthScreen, worldMatrix);
+            depth -= pos;
+
+            iaMatrixf matrix;
+
+            matrix.grammSchmidt(depth, top);
+            matrix._pos = pos;
+
+            matrix = worldMatrix * matrix;
+
+            iaMatrixf offsetLeft = matrix;
+            offsetLeft.translate(-0.5, -0.4, -1.0);
+
+            iaMatrixf offsetRight = matrix;
+            offsetRight.translate(0.5, -0.4, -1.0);
+
+            new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
+            new Bullet(_scene, _force * 0.001, offsetRight, getFraction());
+
+            new MuzzleFlash(_scene, _emitterLeftGunNodeID);
+            new MuzzleFlash(_scene, _emitterRightGunNodeID);
+
+            iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
+            iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
+
+            if (transformRecoilLeftGun != nullptr &&
+                transformRecoilRightGun != nullptr)
+            {
+                iaMatrixf matrix;
+                transformRecoilLeftGun->getMatrix(matrix);
+                matrix._pos += iaVector3f(0, 0, 0.25);
+                transformRecoilLeftGun->setMatrix(matrix);
+
+                transformRecoilRightGun->getMatrix(matrix);
+                matrix._pos += iaVector3f(0, 0, 0.25);
+                transformRecoilRightGun->setMatrix(matrix);
+            }
         }
+
+        _primaryWeaponTime = currentTime;
     }
 }
 

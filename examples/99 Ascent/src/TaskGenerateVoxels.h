@@ -57,7 +57,7 @@ private:
     */
     VoxelBlock* _voxelBlock = nullptr;
 
-    void prepareLevel();
+    void prepareLevel(iaVector3I playerStartPos);
 
 };
 
