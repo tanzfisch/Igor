@@ -39,6 +39,9 @@
 #include <iostream>
 using namespace std;
 
+// #define __IGOR_NO_ASSERTIONS__ uncomment the following line if you don't want any assertion checks not even the sticky ones.
+// #define __IGOR_NO_ASSERTIONS__
+
 namespace IgorAux
 {
     class IgorAux_API iaConsole;
@@ -220,6 +223,7 @@ namespace IgorAux
     \param Condition a condition that returns false in case of an error
     \param Message additional message output
     */
+#ifndef __IGOR_NO_ASSERTIONS__
 #define con_assert(Condition, Message) \
     if (!(Condition)) \
     { \
@@ -233,12 +237,16 @@ namespace IgorAux
         iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
         std::exit(EXIT_FAILURE); \
     }
+#else
+#define con_assert(Condition, Message)
+#endif
 
     /*! works similar to an assert but opens the debugger instead of stopping the application in debug mode and stays in the release build
 
     \param Condition a condition that returns false in case of an error
     \param Message additional message output
     */
+#ifndef __IGOR_NO_ASSERTIONS__
 #define con_assert_sticky(Condition, Message) \
     if (!(Condition)) \
     { \
@@ -252,6 +260,9 @@ namespace IgorAux
         iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
         __debugbreak(); \
     }
+#else
+#define con_assert_sticky(Condition, Message)
+#endif
 
     /*! only called in debug mode
 
@@ -273,6 +284,7 @@ namespace IgorAux
 
 #define con_assert(Condition, Message)
 
+#ifndef __IGOR_NO_ASSERTIONS__
 #define con_assert_sticky(Condition, Message) \
     if (!(Condition)) \
     { \
@@ -286,6 +298,9 @@ namespace IgorAux
         iaConsole::getInstance() << iaForegroundColor::Yellow << __IGOR_TAB__         << "me the error log so I can improve Igor for you!" << iaForegroundColor::White << " martinloga@gmx.de" << endl; \
         iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
     } 
+#else
+#define con_assert_sticky(Condition, Message)
+#endif
 
 #define con_debug(Message)
 #define con_debug_endl(Message)
