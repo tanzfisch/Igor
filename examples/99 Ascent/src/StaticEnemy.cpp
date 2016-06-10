@@ -73,7 +73,7 @@ StaticEnemy::~StaticEnemy()
         turretA->kill();
     }
 
-    iNodeFactory::getInstance().destroyNode(_transformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void StaticEnemy::hitBy(uint64 entityID)

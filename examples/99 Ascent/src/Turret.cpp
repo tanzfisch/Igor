@@ -41,10 +41,7 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 
 
 Turret::~Turret()
 {
-    if (iNodeFactory::getInstance().isNode(_turretNodeID))
-    {
-        iNodeFactory::getInstance().destroyNode(_turretNodeID);
-    }
+    iNodeFactory::getInstance().destroyNodeAsync(_turretNodeID);
 }
 
 void Turret::hitBy(uint64 entityID)

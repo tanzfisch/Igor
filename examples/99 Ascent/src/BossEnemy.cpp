@@ -138,7 +138,7 @@ BossEnemy::~BossEnemy()
         turretF->kill(); 
     }
 
-    iNodeFactory::getInstance().destroyNode(_transformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void BossEnemy::hitBy(uint64 entityID)

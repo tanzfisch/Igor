@@ -88,7 +88,11 @@ namespace Igor
 
         for (auto nodeID : deleteQueue)
         {
-            destroyNode(getNode(nodeID));
+            iNode* node = getNode(nodeID);
+            if (node != nullptr)
+            {
+                destroyNode(node);
+            }
         }
     }
 

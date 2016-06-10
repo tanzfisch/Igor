@@ -97,6 +97,8 @@ namespace Igor
 
         /*! destroys node and all its children
 
+        if Id does not exist it does nothing
+
         \param nodeID id of node
         */
         void destroyNode(uint32 nodeID);

@@ -76,15 +76,8 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixf& matrix)
 
 BulletHit::~BulletHit()
 {
-	if (_particleSystemNodeID != iNode::INVALID_NODE_ID)
-	{
-		iNodeFactory::getInstance().destroyNode(_particleSystemNodeID);
-	}
-
-	if (_transformNodeID != iNode::INVALID_NODE_ID)
-	{
-		iNodeFactory::getInstance().destroyNode(_transformNodeID);
-	}
+	iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void BulletHit::hitBy(uint64 entityID)

@@ -663,7 +663,11 @@ void Ascent::onHandle()
             {
                 if (_playerID != id)
                 {
-                    EntityManager::getInstance().getEntity(id)->kill();
+                    Entity* entity = EntityManager::getInstance().getEntity(id);
+                    if (entity != nullptr)
+                    {
+                        EntityManager::getInstance().getEntity(id)->kill();
+                    }
                 }
             }
         }

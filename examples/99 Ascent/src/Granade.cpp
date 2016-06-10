@@ -61,7 +61,7 @@ Granade::Granade(iScene* scene, const iaMatrixf& matrix, Fraction fraction)
 
 Granade::~Granade()
 {
-    iNodeFactory::getInstance().destroyNode(_transformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void Granade::hitBy(uint64 entityID)

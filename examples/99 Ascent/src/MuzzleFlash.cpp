@@ -27,30 +27,30 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
     setDamage(0.0);
     setShieldDamage(0.0);
 
-	iGradientColor4f colorGradient;
-	colorGradient.insertValue(0.0, iaColor4f(1.0, 1.0, 1.0, 0));
+    iGradientColor4f colorGradient;
+    colorGradient.insertValue(0.0, iaColor4f(1.0, 1.0, 1.0, 0));
     colorGradient.insertValue(0.1, iaColor4f(1.0, 1.0, 1.0, 1));
     colorGradient.insertValue(1.0, iaColor4f(1.0, 1.0, 1.0, 0));
 
-	iGradientVector2f velocity;
-	velocity.insertValue(0.0, iaVector2f(0.0, 0.0));
+    iGradientVector2f velocity;
+    velocity.insertValue(0.0, iaVector2f(0.0, 0.0));
 
-	iGradientVector2f visibility;
-	visibility.insertValue(0.0, iaVector2f(0.1, 0.2));
+    iGradientVector2f visibility;
+    visibility.insertValue(0.0, iaVector2f(0.1, 0.2));
 
-	iGradientVector2f size;
-	size.insertValue(0.0, iaVector2f(0.1, 0.1));
+    iGradientVector2f size;
+    size.insertValue(0.0, iaVector2f(0.1, 0.1));
 
     iGradientf sizeScale;
     sizeScale.insertValue(0.0, 1.0);
     sizeScale.insertValue(0.2, 5.0);
-    
+
     iGradientui emission;
-	emission.insertValue(0.0, 1);
+    emission.insertValue(0.0, 1);
     emission.insertValue(0.1, 0);
 
-	iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-	_particleSystemNodeID1 = particleSystem1->getID();
+    iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+    _particleSystemNodeID1 = particleSystem1->getID();
     particleSystem1->setLoop(false);
     particleSystem1->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem1->setTextureA("particleFlash.png");
@@ -116,38 +116,31 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
 
 MuzzleFlash::~MuzzleFlash()
 {
-	if (_particleSystemNodeID1 != iNode::INVALID_NODE_ID)
-	{
-		iNodeFactory::getInstance().destroyNode(_particleSystemNodeID1);
-	}
-
-    if (_particleSystemNodeID2 != iNode::INVALID_NODE_ID)
-    {
-        iNodeFactory::getInstance().destroyNode(_particleSystemNodeID2);
-    }
+    iNodeFactory::getInstance().destroyNode(_particleSystemNodeID1);
+    iNodeFactory::getInstance().destroyNode(_particleSystemNodeID2);
 }
 
 void MuzzleFlash::hitBy(uint64 entityID)
 {
-	// nothing to do
+    // nothing to do
 }
 
 iaVector3f MuzzleFlash::updatePos()
 {
-	return _pos;
+    return _pos;
 }
 
 void MuzzleFlash::handle()
 {
-	iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_particleSystemNodeID1));
+    iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_particleSystemNodeID1));
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_particleSystemNodeID2));
-	if (particleSystem1 != nullptr &&
+    if (particleSystem1 != nullptr &&
         particleSystem2 != nullptr)
-	{
-		if (particleSystem1->isFinished() &&
+    {
+        if (particleSystem1->isFinished() &&
             particleSystem2->isFinished())
-		{
-			kill();
-		}
-	}
+        {
+            kill();
+        }
+    }
 }

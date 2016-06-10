@@ -47,7 +47,7 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixf& matrix)
     size.insertValue(0.0, iaVector2f(3.0, 4.0));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-    _traceNodeID = particleSystem->getID();
+    _particleSystemNodeID = particleSystem->getID();
     particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
     particleSystem->setTextureA("particleSmoke.png");
     particleSystem->setTextureB("octave1.png");
@@ -67,6 +67,7 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixf& matrix)
 	particleSystem->setEmitter(emitter->getID());
 
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _transformNodeID = transformNode->getID();
 	transformNode->setMatrix(matrix);
 	_pos = matrix._pos;
 
@@ -78,15 +79,8 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixf& matrix)
 
 DigEffect::~DigEffect()
 {
-    if (_traceNodeID != iNode::INVALID_NODE_ID)
-    {
-        iNodeFactory::getInstance().destroyNode(_traceNodeID);
-    }
-
-	if (_transformNodeID != iNode::INVALID_NODE_ID)
-	{
-		iNodeFactory::getInstance().destroyNode(_transformNodeID);
-	}
+    iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void DigEffect::hitBy(uint64 entityID)
@@ -101,7 +95,7 @@ iaVector3f DigEffect::updatePos()
 
 void DigEffect::handle()
 {
-    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_traceNodeID));
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_particleSystemNodeID));
 
 	if (particleSystem != nullptr)
 	{

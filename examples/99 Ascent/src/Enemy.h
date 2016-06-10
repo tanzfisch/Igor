@@ -25,7 +25,6 @@ private:
 
     uint32 _idleCounter = 0;
     uint32 _transformNodeID = 0;
-	uint32 _physicsNodeID = 0;
     iScene* _scene = nullptr;
 
     iaVector3f _force;

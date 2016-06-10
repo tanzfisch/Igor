@@ -19,7 +19,7 @@ public:
 
 private:
 
-    uint32 _traceNodeID = iNode::INVALID_NODE_ID;
+    uint32 _particleSystemNodeID = iNode::INVALID_NODE_ID;
 	uint32 _transformNodeID = iNode::INVALID_NODE_ID;
 
 	iaVector3f _pos;

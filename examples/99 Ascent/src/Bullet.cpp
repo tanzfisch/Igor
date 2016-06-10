@@ -97,8 +97,8 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
 
 Bullet::~Bullet()
 {
-    iNodeFactory::getInstance().destroyNode(_transformNodeID);
-    iNodeFactory::getInstance().destroyNode(_particleSystemNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
 }
 
 void Bullet::hitBy(uint64 entityID)

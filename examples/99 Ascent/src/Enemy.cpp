@@ -42,7 +42,6 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
 
     iaMatrixf offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
-	_physicsNodeID = physicsNode->getID();
     physicsNode->addSphere(2.0, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
@@ -85,7 +84,7 @@ Enemy::~Enemy()
         turretB->kill();
     }
 
-    iNodeFactory::getInstance().destroyNode(_transformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void Enemy::hitBy(uint64 entityID)

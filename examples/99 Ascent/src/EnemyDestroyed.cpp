@@ -152,73 +152,59 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     particleSystem3->setPeriodTime(3.0);
     particleSystem3->start();
 
-	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-	emitter->setType(iEmitterType::Sphere);
+    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    emitter->setType(iEmitterType::Sphere);
     emitter->setSize(1);
-	particleSystem->setEmitter(emitter->getID());
+    particleSystem->setEmitter(emitter->getID());
     particleSystem2->setEmitter(emitter->getID());
     particleSystem3->setEmitter(emitter->getID());
 
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-	transformNode->setMatrix(matrix);
-	_pos = matrix._pos;
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _transformNodeID = transformNode->getID();
+    transformNode->setMatrix(matrix);
+    _pos = matrix._pos;
 
     scene->getRoot()->insertNode(particleSystem2);
     scene->getRoot()->insertNode(particleSystem3);
-	scene->getRoot()->insertNode(particleSystem);
-    
+    scene->getRoot()->insertNode(particleSystem);
+
     transformNode->insertNode(emitter);
-	scene->getRoot()->insertNode(transformNode);
+    scene->getRoot()->insertNode(transformNode);
 }
 
 EnemyDestroyed::~EnemyDestroyed()
 {
-	if (_fireBallNodeID != iNode::INVALID_NODE_ID)
-	{
-		iNodeFactory::getInstance().destroyNode(_fireBallNodeID);
-	}
-
-    if (_smokeNodeID != iNode::INVALID_NODE_ID)
-    {
-        iNodeFactory::getInstance().destroyNode(_smokeNodeID);
-    }
-
-    if (_traceNodeID != iNode::INVALID_NODE_ID)
-    {
-        iNodeFactory::getInstance().destroyNode(_traceNodeID);
-    }
-
-	if (_transformNodeID != iNode::INVALID_NODE_ID)
-	{
-		iNodeFactory::getInstance().destroyNode(_transformNodeID);
-	}
+    iNodeFactory::getInstance().destroyNodeAsync(_fireBallNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_smokeNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_traceNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void EnemyDestroyed::hitBy(uint64 entityID)
 {
-	// nothing to do
+    // nothing to do
 }
 
 iaVector3f EnemyDestroyed::updatePos()
 {
-	return _pos;
+    return _pos;
 }
 
 void EnemyDestroyed::handle()
 {
-	iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_fireBallNodeID));
+    iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_fireBallNodeID));
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_smokeNodeID));
     iNodeParticleSystem* particleSystem3 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_traceNodeID));
 
-	if (particleSystem1 != nullptr && 
+    if (particleSystem1 != nullptr &&
         particleSystem2 != nullptr &&
         particleSystem3 != nullptr)
-	{
-		if (particleSystem1->isFinished() &&
+    {
+        if (particleSystem1->isFinished() &&
             particleSystem2->isFinished() &&
             particleSystem3->isFinished())
-		{
-			kill();
-		}
-	}
+        {
+            kill();
+        }
+    }
 }
