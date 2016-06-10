@@ -186,7 +186,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
     iaVector3I center(10000, 9400, 10000 - 200);
 
-    for (int i = 0; i < 200; ++i)
+    for (int i = 0; i < 300; ++i)
     {
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
@@ -217,7 +217,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 count++;
             }
 
-            if (count >= 5)
+            if (count >= 10)
             {
                 break;
             }
@@ -226,7 +226,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
     count = 0;
 
-    for (int i = 0; i < 400; ++i)
+    for (int i = 0; i < 600; ++i)
     {
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
@@ -332,7 +332,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 }
             }
 
-            if (count >= 10)
+            if (count >= 30)
             {
                 break;
             }
