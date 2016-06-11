@@ -29,7 +29,7 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
     _scene = scene;
 
     setHealth(100.0);
-    setShield(0.0);
+    setShield(50.0);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(matrix);
@@ -150,8 +150,8 @@ void Enemy::handle()
     }
     else
     {
-        const float32 detectionDistance = 50;
-        const float32 approachDistance = 40;
+        const float32 detectionDistance = 40;
+        const float32 approachDistance = 20;
         bool upperGunActive = true;
 
         Entity* identifiedTarget = EntityManager::getInstance().getEntity(_playerID);

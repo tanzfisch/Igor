@@ -36,7 +36,7 @@ Granade::Granade(iScene* scene, const iaMatrixf& matrix, Fraction fraction)
     setHealth(100.0);
     setShield(100.0);
     setDamage(100.0);
-    setShieldDamage(100.0);
+    setShieldDamage(0.0);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(startMatrix);

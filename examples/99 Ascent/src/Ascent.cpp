@@ -104,7 +104,7 @@ void Ascent::initViews()
     _window.setTitle("Ascent");
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
-#if 1
+#if 0
     _window.setSize(800, 600);
 #else
     _window.setSizeByDesktop();
@@ -195,11 +195,11 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
         {
             bool addEnemy = true;
 
-            for (int x = -1; x < 2; x++)
+            for (int x = -2; x < 3; x++)
             {
-                for (int y = -1; y < 2; y++)
+                for (int y = -2; y < 3; y++)
                 {
-                    for (int z = -1; z < 2; z++)
+                    for (int z = -2; z < 3; z++)
                     {
                         if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
                         {
@@ -217,7 +217,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 count++;
             }
 
-            if (count >= 10)
+            if (count >= 20)
             {
                 break;
             }
@@ -226,7 +226,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
     count = 0;
 
-    for (int i = 0; i < 600; ++i)
+    for (int i = 0; i < 800; ++i)
     {
         pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
         pos += min;
@@ -235,11 +235,11 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
         {
             bool addEnemy = true;
 
-            for (int x = -2; x < 3; x++)
+            for (int x = -1; x < 2; x++)
             {
-                for (int y = -2; y < 3; y++)
+                for (int y = -1; y < 2; y++)
                 {
-                    for (int z = -2; z < 3; z++)
+                    for (int z = -1; z < 2; z++)
                     {
                         if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
                         {
@@ -332,7 +332,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 }
             }
 
-            if (count >= 30)
+            if (count >= 100)
             {
                 break;
             }
