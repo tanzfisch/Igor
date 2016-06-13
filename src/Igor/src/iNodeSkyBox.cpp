@@ -9,6 +9,7 @@
 #include <iMaterial.h>
 #include <iScene.h>
 #include <iNodeCamera.h>
+#include <iNodeFactory.h>
 #include <iMaterialResourceFactory.h>
 
 namespace Igor
@@ -111,8 +112,7 @@ namespace Igor
 
 	void iNodeSkyBox::draw()
 	{
-		iNodeCamera* cameraNode = _scene->getCamera();
-
+        iNodeCamera* cameraNode = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
 		if(cameraNode != nullptr)
 		{
 			iaMatrixf model;

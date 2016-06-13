@@ -34,6 +34,7 @@
 using namespace IgorAux;
 
 #include <iDefines.h>
+#include <iNode.h>
 #include <iNodeVisitorUpdateTransform.h>
 #include <iDataUpdateQueue.h>
 
@@ -106,7 +107,7 @@ namespace Igor
 
         /*! \returns current camera
         */
-        iNodeCamera* getCamera();
+        uint32 getCamera();
 
         /*! \returns list of registerred lights
         */
@@ -195,13 +196,13 @@ namespace Igor
         */
         iOctree* _octree = nullptr;
 
-        /*! current camera in use
+        /*! id of current camera
         */
-		iNodeCamera* _camera = nullptr;
+		uint32 _cameraID = iNode::INVALID_NODE_ID;
 
         /*! list of registered cameras to the scene
         */
-		vector<iNodeCamera*> _cameras;
+		vector<uint32> _cameras;
 
         /*! list of registered lod triggers
         */
@@ -250,6 +251,14 @@ namespace Igor
         \param camera pointer to camera that is the current one now
         */
 		void setCamera(iNodeCamera* camera);
+
+        /*! set a camera as default camera by id
+
+        does print error if camera is not registered to scene
+
+        \param cameraID id to camera
+        */
+        void setCamera(uint32 cameraID);
 
         /*! registers a LOD trigger node
 

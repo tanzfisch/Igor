@@ -74,11 +74,11 @@ namespace Igor
 
     void iRenderEngine::render()
     {
-        if (_scene)
+        if (_scene != nullptr)
         {
-            iNodeCamera* camera = _scene->getCamera();
-
-            if (camera)
+            iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
+            
+            if (camera != nullptr)
             {
                 iStatistics::getInstance().beginSection(_cullSectionID);
                 cullScene(camera);
