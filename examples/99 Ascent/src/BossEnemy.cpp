@@ -19,7 +19,7 @@ using namespace IgorAux;
 
 #include "EntityManager.h"
 #include "Turret.h"
-#include "EnemyDestroyed.h"
+#include "BossDestroyed.h"
 #include "VoxelTerrainGenerator.h"
 
 BossEnemy::BossEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
@@ -102,6 +102,14 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
 
 BossEnemy::~BossEnemy()
 {
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    if (transformNode != nullptr)
+    {
+        iaMatrixf matrix;
+        transformNode->getMatrix(matrix);
+        BossDestroyed* effect = new BossDestroyed(_scene, matrix);
+    }
+
     Entity* turretA = EntityManager::getInstance().getEntity(_turretAID);
     if (turretA != nullptr) 
     { 
@@ -165,17 +173,6 @@ void BossEnemy::hitBy(uint64 entityID)
 
         setShield(shield);
         setHealth(health);
-    }
-
-    if (getHealth() <= 0.0)
-    {
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-        if (transformNode != nullptr)
-        {
-            iaMatrixf matrix;
-            transformNode->getMatrix(matrix);
-            EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
-        }
     }
 }
 

@@ -1,4 +1,4 @@
-#include "EnemyDestroyed.h"
+#include "BossDestroyed.h"
 
 #include <iNodeFactory.h>
 #include <iNodeTransform.h>
@@ -20,7 +20,7 @@ using namespace IgorAux;
 
 #include "EntityManager.h"
 
-EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
+BossDestroyed::BossDestroyed(iScene* scene, const iaMatrixf& matrix)
     : Entity(Fraction::None, EntityType::None)
 {
     setHealth(100.0);
@@ -34,18 +34,18 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     emission.insertValue(0.4, 0);
 
     iGradientColor4f colorGradient;
-    colorGradient.insertValue(0.0, iaColor4f(1.0, 1.0, 0.1, 1));
-    colorGradient.insertValue(0.5, iaColor4f(0.9, 0.5, 0.1, 0.7));
-    colorGradient.insertValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
+    colorGradient.insertValue(0.0, iaColor4f(0.1, 0.8, 0.9, 1));
+    colorGradient.insertValue(0.5, iaColor4f(0.2, 0.7, 1.0, 0.7));
+    colorGradient.insertValue(1.0, iaColor4f(0.3, 0.3, 0.7, 0));
 
     iGradientVector2f velocity;
-    velocity.insertValue(0.0, iaVector2f(0.1, 0.2));
+    velocity.insertValue(0.0, iaVector2f(0.8, 1.2));
 
     iGradientVector2f visibility;
-    visibility.insertValue(0.0, iaVector2f(0.6, 1.0));
+    visibility.insertValue(0.0, iaVector2f(1.0, 3.0));
 
     iGradientVector2f size;
-    size.insertValue(0.0, iaVector2f(0.3, 0.5));
+    size.insertValue(0.0, iaVector2f(1.4, 2.0));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _traceNodeID = particleSystem->getID();
@@ -58,7 +58,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
-    particleSystem->setPeriodTime(3.0);
+    particleSystem->setPeriodTime(5.0);
     particleSystem->start();
 
     iGradientui emission2;
@@ -72,17 +72,17 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     colorGradient2.insertValue(1.0, iaColor4f(0.25, 0.25, 0.25, 0));
 
     iGradientVector2f velocity2;
-    velocity2.insertValue(0.0, iaVector2f(0.01, 0.8));
+    velocity2.insertValue(0.0, iaVector2f(0.1, 0.9));
 
     iGradientVector2f visibility2;
-    visibility2.insertValue(0.0, iaVector2f(3.0, 5.0));
+    visibility2.insertValue(0.0, iaVector2f(12.0, 15.0));
 
     iGradientVector2f size2;
-    size2.insertValue(0.0, iaVector2f(1.0, 2.0));
+    size2.insertValue(0.0, iaVector2f(3.0, 5.0));
 
     iGradientf sizeScale2;
     sizeScale2.insertValue(0.0, 1.0);
-    sizeScale2.insertValue(5.0, 5.0);
+    sizeScale2.insertValue(20.0, 10.0);
 
     iGradientVector2f startOrientation2;
     startOrientation2.insertValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
@@ -106,7 +106,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     particleSystem2->setSizeScaleGradient(sizeScale2);
     particleSystem2->setEmissionGradient(emission2);
     particleSystem2->setAirDrag(0.95);
-    particleSystem2->setPeriodTime(5.0);
+    particleSystem2->setPeriodTime(15.0);
     particleSystem2->start();
 
     iGradientui emission3;
@@ -126,7 +126,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     visibility3.insertValue(0.0, iaVector2f(0.2, 0.4));
 
     iGradientVector2f size3;
-    size3.insertValue(0.0, iaVector2f(1.0, 2.0));
+    size3.insertValue(0.0, iaVector2f(2.0, 4.0));
 
     iGradientVector2f startOrientation3;
     startOrientation3.insertValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
@@ -149,7 +149,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     particleSystem3->setAirDrag(0.98);
     particleSystem3->setStartSizeGradient(size3);
     particleSystem3->setEmissionGradient(emission3);
-    particleSystem3->setPeriodTime(3.0);
+    particleSystem3->setPeriodTime(5.0);
     particleSystem3->start();
 
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
@@ -172,7 +172,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     scene->getRoot()->insertNode(transformNode);
 }
 
-EnemyDestroyed::~EnemyDestroyed()
+BossDestroyed::~BossDestroyed()
 {
     iNodeFactory::getInstance().destroyNodeAsync(_fireBallNodeID);
     iNodeFactory::getInstance().destroyNodeAsync(_smokeNodeID);
@@ -180,17 +180,17 @@ EnemyDestroyed::~EnemyDestroyed()
     iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
-void EnemyDestroyed::hitBy(uint64 entityID)
+void BossDestroyed::hitBy(uint64 entityID)
 {
     // nothing to do
 }
 
-iaVector3f EnemyDestroyed::updatePos()
+iaVector3f BossDestroyed::updatePos()
 {
     return _pos;
 }
 
-void EnemyDestroyed::handle()
+void BossDestroyed::handle()
 {
     iNodeParticleSystem* particleSystem1 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_fireBallNodeID));
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_smokeNodeID));

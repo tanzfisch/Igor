@@ -72,6 +72,14 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
 
 Enemy::~Enemy()
 {
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    if (transformNode != nullptr)
+    {
+        iaMatrixf matrix;
+        transformNode->getMatrix(matrix);
+        EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
+    }
+
     Entity* turretA = EntityManager::getInstance().getEntity(_turretAID);
     if (turretA != nullptr)
     {
@@ -111,17 +119,6 @@ void Enemy::hitBy(uint64 entityID)
 
         setShield(shield);
         setHealth(health);
-    }
-
-    if (getHealth() <= 0.0)
-    {
-        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-        if (transformNode != nullptr)
-        {
-            iaMatrixf matrix;
-            transformNode->getMatrix(matrix);
-            EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
-        }
     }
 }
 

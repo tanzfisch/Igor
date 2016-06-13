@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp" />
+    <ClCompile Include="..\src\BossDestroyed.cpp" />
     <ClCompile Include="..\src\BossEnemy.cpp" />
     <ClCompile Include="..\src\Bullet.cpp" />
     <ClCompile Include="..\src\BulletHit.cpp" />
@@ -43,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h" />
+    <ClInclude Include="..\src\BossDestroyed.h" />
     <ClInclude Include="..\src\BossEnemy.h" />
     <ClInclude Include="..\src\Bullet.h" />
     <ClInclude Include="..\src\BulletHit.h" />

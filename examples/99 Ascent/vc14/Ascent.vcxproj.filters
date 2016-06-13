@@ -60,6 +60,9 @@
     <ClCompile Include="..\src\BossEnemy.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\BossDestroyed.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -111,6 +114,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\BossEnemy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BossDestroyed.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

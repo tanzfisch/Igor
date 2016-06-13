@@ -664,7 +664,8 @@ void Ascent::onHandle()
                 if (_playerID != id)
                 {
                     Entity* entity = EntityManager::getInstance().getEntity(id);
-                    if (entity != nullptr)
+                    if (entity != nullptr &&
+                        entity->getType() == EntityType::Vehicle)
                     {
                         EntityManager::getInstance().getEntity(id)->kill();
                     }
