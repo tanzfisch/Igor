@@ -104,10 +104,10 @@ Bullet::~Bullet()
 void Bullet::hitBy(uint64 entityID)
 {
 	bool killit = false;
-	Entity* target = EntityManager::getInstance().getEntity(entityID);
-	if (target != nullptr)
+	Entity* entity = EntityManager::getInstance().getEntity(entityID);
+	if (entity != nullptr)
 	{
-		if (target->getFraction() != getFraction())
+		if (entity->getFraction() != getFraction())
 		{
 			killit = true;
 		}
