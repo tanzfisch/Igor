@@ -42,6 +42,9 @@ using namespace std;
 // #define __IGOR_NO_ASSERTIONS__ uncomment the following line if you don't want any assertion checks not even the sticky ones.
 // #define __IGOR_NO_ASSERTIONS__
 
+// #define __IGOR_NO_DEBUGBREAK__ uncomment the following line if you want no debug break within an assertion
+// #define __IGOR_NO_DEBUGBREAK__
+
 namespace IgorAux
 {
     class IgorAux_API iaConsole;
@@ -116,6 +119,10 @@ namespace IgorAux
         /*! prints a tombstone in the log
         */
         void printTombstone();
+
+        /*! exits application or calls debug break
+        */
+        void exit();
 
         /*! prints a birthday cake in the log
         */
@@ -235,7 +242,7 @@ namespace IgorAux
         iaConsole::getInstance().printCallStack(); \
         iaConsole::getInstance().printTombstone(); \
         iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
-        std::exit(EXIT_FAILURE); \
+        iaConsole::getInstance().exit(); \
     }
 #else
 #define con_assert(Condition, Message)
@@ -258,7 +265,7 @@ namespace IgorAux
         iaConsole::getInstance().printCallStack(10); \
         iaConsole::getInstance().printTombstone(); \
         iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
-        __debugbreak(); \
+        iaConsole::getInstance().exit(); \
     }
 #else
 #define con_assert_sticky(Condition, Message)
@@ -297,6 +304,7 @@ namespace IgorAux
         iaConsole::getInstance() << endl << iaForegroundColor::Yellow << __IGOR_TAB__ << "Igor might not recover from an internal error. Please feel free to send" << endl; \
         iaConsole::getInstance() << iaForegroundColor::Yellow << __IGOR_TAB__         << "me the error log so I can improve Igor for you!" << iaForegroundColor::White << " martinloga@gmx.de" << endl; \
         iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
+        iaConsole::getInstance().exit(); \
     } 
 #else
 #define con_assert_sticky(Condition, Message)

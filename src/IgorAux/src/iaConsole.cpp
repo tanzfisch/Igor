@@ -80,6 +80,15 @@ namespace IgorAux
         }
     }
 
+    void iaConsole::exit()
+    {
+#ifndef __IGOR_NO_DEBUGBREAK__
+        __debugbreak();
+#else
+        std::exit(EXIT_FAILURE);
+#endif
+    }
+
     void iaConsole::printTombstone()
     {
         *this << endl;
