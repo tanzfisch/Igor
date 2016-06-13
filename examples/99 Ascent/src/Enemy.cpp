@@ -89,19 +89,20 @@ Enemy::~Enemy()
 
 void Enemy::hitBy(uint64 entityID)
 {
-    Entity* target = EntityManager::getInstance().getEntity(entityID);
-    if (target->getFraction() != getFraction())
+    Entity* entity = EntityManager::getInstance().getEntity(entityID);
+    if (entity != nullptr &&
+        entity->getFraction() != getFraction())
     {
         float32 shield = getShield();
         float32 health = getHealth();
 
-        shield -= target->getShieldDamage();
+        shield -= entity->getShieldDamage();
         
         if (shield <= 0)
         {
             shield = 0;
 
-            health -= target->getDamage();
+            health -= entity->getDamage();
             if (health <= 0)
             {
                 health = 0;
