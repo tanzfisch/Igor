@@ -5,6 +5,9 @@
 #include <iApplication.h>
 
 #include <iWindow.h>
+#include <iNodeFactory.h>
+#include <iTimer.h>
+#include <iPhysics.h>
 #include <iStatistics.h>
 
 #include <iaConsole.h>
@@ -51,7 +54,12 @@ namespace Igor
         do
         {
             iStatistics::getInstance().beginSection(_frameSectionID);
+            iTimer::getInstance().handle();
+
             _windows.flush();
+            
+            iNodeFactory::getInstance().handle();
+            iPhysics::getInstance().handle();
 
             iStatistics::getInstance().beginSection(_handleSectionID);
             handle();

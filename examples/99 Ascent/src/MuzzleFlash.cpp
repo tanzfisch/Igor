@@ -116,8 +116,8 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
 
 MuzzleFlash::~MuzzleFlash()
 {
-    iNodeFactory::getInstance().destroyNode(_particleSystemNodeID1);
-    iNodeFactory::getInstance().destroyNode(_particleSystemNodeID2);
+    iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID1);
+    iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID2);
 }
 
 void MuzzleFlash::hitBy(uint64 entityID)

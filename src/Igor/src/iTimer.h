@@ -48,6 +48,7 @@ namespace Igor
     class Igor_API iTimer : public iaSingleton<iTimer>
     {
         friend class iTimerHandle;
+        friend class iApplication;
 		friend class iaSingleton<iTimer>;
 
     public:

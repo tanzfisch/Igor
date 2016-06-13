@@ -323,7 +323,6 @@ namespace Igor
     {
         if (!_handleRegistered)
         {
-            iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iPhysics::onUpdate));
             _lastTime = iTimer::getInstance().getSeconds();
             _handleRegistered = true;
         }
@@ -333,7 +332,6 @@ namespace Igor
     {
         if (_handleRegistered)
         {
-            iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iPhysics::onUpdate));
             _handleRegistered = false;
         }
     }
@@ -373,7 +371,7 @@ namespace Igor
         NewtonMaterialSetDefaultFriction(static_cast<const NewtonWorld*>(_defaultWorld), materialCombo->getMaterial0(), materialCombo->getMaterial1(), staticFriction, kineticFriction);
     }
 
-    void iPhysics::onUpdate()
+    void iPhysics::handle()
     {
         const float32 timeDelta = 1.0f / static_cast<float64>(_simulationRate);
         const uint32 maxUpdateCount = 2;

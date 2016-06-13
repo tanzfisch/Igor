@@ -73,6 +73,7 @@ namespace Igor
         friend class iPhysicsPlayer;
         friend class iPhysicsMaterialCombo;
         friend class iPhysicsCollisionConfig;
+        friend class iApplication;
 
     public:
 
@@ -613,7 +614,7 @@ namespace Igor
 
         /*! update newton calculations
         */
-        void onUpdate();
+        void handle();
 
         /*! initializes newton world
         */

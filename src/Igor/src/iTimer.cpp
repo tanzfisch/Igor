@@ -14,8 +14,6 @@ namespace Igor
 
     iTimer::iTimer()
     {
-		iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iTimer::handle));
-
         if(QueryPerformanceFrequency((LARGE_INTEGER*)&_performance))
         {
             _usingPerformanceCounter=true;
@@ -40,8 +38,6 @@ namespace Igor
 		{
 			con_err("unregister all timer handles first");
 		}
-
-		iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iTimer::handle));
     }
 
 	float64 iTimer::getTime() const

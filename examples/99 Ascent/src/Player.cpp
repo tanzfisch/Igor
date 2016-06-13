@@ -129,7 +129,7 @@ Player::Player(iScene* scene, const iaMatrixf& matrix)
 
 Player::~Player()
 {
-    iNodeFactory::getInstance().destroyNode(_transformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 
     con_endl("player dead");
 }

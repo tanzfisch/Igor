@@ -47,6 +47,7 @@ namespace Igor
 	class Igor_API iNodeFactory : public iaSingleton<iNodeFactory>
 	{
 		friend class iaSingleton<iNodeFactory>;
+        friend class iApplication;
 
     public:
 
@@ -170,7 +171,7 @@ namespace Igor
 
         /*! flushing queues
         */
-        void flush();
+        void handle();
 
         /*! does nothing
         */

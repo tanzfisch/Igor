@@ -31,13 +31,10 @@ namespace Igor
 
     iNodeFactory::iNodeFactory()
     {
-        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeFactory::flush));
     }
 
     iNodeFactory::~iNodeFactory()
     {
-        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeFactory::flush));
-
         if (_nodes.size())
         {
             con_err("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
@@ -58,7 +55,7 @@ namespace Igor
         _mutexQueueRemove.unlock();
     }
 
-    void iNodeFactory::flush()
+    void iNodeFactory::handle()
     {
         _mutexQueueRemove.lock();
         auto removeQueue = std::move(_queueRemove);
