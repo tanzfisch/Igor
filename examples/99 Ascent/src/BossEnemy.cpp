@@ -28,8 +28,8 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
     _playerID = playerID;
     _scene = scene;
 
-    setHealth(1000.0);
-    setShield(500.0);
+    setHealth(1.0);
+    setShield(0.0);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(matrix);
@@ -143,19 +143,20 @@ BossEnemy::~BossEnemy()
 
 void BossEnemy::hitBy(uint64 entityID)
 {
-    Entity* target = EntityManager::getInstance().getEntity(entityID);
-    if (target->getFraction() != getFraction())
+    Entity* entity = EntityManager::getInstance().getEntity(entityID);
+    if (entity != nullptr &&
+        entity->getFraction() != getFraction())
     {
         float32 shield = getShield();
         float32 health = getHealth();
 
-        shield -= target->getShieldDamage();
+        shield -= entity->getShieldDamage();
         
         if (shield <= 0)
         {
             shield = 0;
 
-            health -= target->getDamage();
+            health -= entity->getDamage();
             if (health <= 0)
             {
                 health = 0;

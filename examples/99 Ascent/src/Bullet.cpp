@@ -70,9 +70,6 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
 	particleSystem->setAirDrag(0.0);
 	particleSystem->start();
 
-	iNodeModel* cat = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-	cat->setModel("cat.ompf");
-
 	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
 	emitter->setType(iEmitterType::Disc);
 	emitter->setSize(0.0);
@@ -90,13 +87,12 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
 	physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
 	physicsNode->setUserData(&_id);
 
-	//_scene->getRoot()->insertNode(particleSystem);
+	_scene->getRoot()->insertNode(particleSystem);
 
 	_scene->getRoot()->insertNode(transformNode);
 	transformNode->insertNode(emitterTransform);
 	emitterTransform->insertNode(emitter);
 	transformNode->insertNode(physicsNode);
-	transformNode->insertNode(cat);
 }
 
 Bullet::~Bullet()
