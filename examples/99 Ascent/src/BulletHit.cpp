@@ -77,7 +77,6 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixf& matrix)
 BulletHit::~BulletHit()
 {
 	iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 }
 
 void BulletHit::hitBy(uint64 entityID)
