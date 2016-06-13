@@ -39,6 +39,9 @@ public:
 private:
 
     map<uint64, Entity*> _entities;
+    vector<pair<uint64, uint64>> _hitList;
+
+    mutex _hitListMutex;
 
     int64 _terrainMaterialID = 0;
     int64 _bulletMaterialID = 0;

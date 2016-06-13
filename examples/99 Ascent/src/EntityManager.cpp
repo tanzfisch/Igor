@@ -114,22 +114,17 @@ void EntityManager::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* bo
         if (body0->getUserData() != nullptr)
         {
             uint64 id0 = static_cast<uint64>(*static_cast<const uint64*>(body0->getUserData()));
-            Entity* entity0 = getEntity(id0);
+            _hitListMutex.lock();
+            _hitList.push_back(pair<uint64, uint64>(id0, 0));
+            _hitListMutex.unlock();
 
-            if (entity0 != nullptr)
-            {
-                entity0->hitBy(0);
-            }
         }
         else if (body1->getUserData() != nullptr)
         {
             uint64 id1 = static_cast<uint64>(*static_cast<const uint64*>(body1->getUserData()));
-            Entity* entity1 = getEntity(id1);
-
-            if (entity1 != nullptr)
-            {
-                entity1->hitBy(0);
-            }
+            _hitListMutex.lock();
+            _hitList.push_back(pair<uint64, uint64>(id1, 0));
+            _hitListMutex.unlock();
         }
     }
 }
@@ -142,21 +137,29 @@ void EntityManager::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
     {
         uint64 id0 = static_cast<uint64>(*static_cast<const uint64*>(body0->getUserData()));
         uint64 id1 = static_cast<uint64>(*static_cast<const uint64*>(body1->getUserData()));
-
-        Entity* entity0 = getEntity(id0);
-        Entity* entity1 = getEntity(id1);
-
-        if (entity0 != nullptr &&
-            entity1 != nullptr)
-        {
-            entity0->hitBy(entity1->getID());
-            entity1->hitBy(entity0->getID());
-        }
+        _hitListMutex.lock();
+        _hitList.push_back(pair<uint64, uint64>(id0, id1));
+        _hitList.push_back(pair<uint64, uint64>(id1, id0));
+        _hitListMutex.unlock();
     }
 }
 
 void EntityManager::handle()
 {
+    _hitListMutex.lock();
+    vector<pair<uint64, uint64>> hitList = _hitList;
+    _hitList.clear();
+    _hitListMutex.unlock();
+
+    for (auto hit : hitList)
+    {
+        Entity* entity = getEntity(hit.first);
+        if (entity != nullptr)
+        {
+            entity->hitBy(hit.second);
+        }
+    }
+
     for (auto entity : _entities)
     {
         entity.second->_sphere._center = entity.second->updatePos();
