@@ -88,14 +88,6 @@ namespace Igor
                 drawScene(camera);
                 iStatistics::getInstance().endSection(_drawSectionID);
             }
-            else
-            {
-                con_warn("no camera specified");
-            }
-        }
-        else
-        {
-            con_warn("no scene set");
         }
     }
 
