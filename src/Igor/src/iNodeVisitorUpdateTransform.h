@@ -55,8 +55,6 @@ namespace Igor
         */
         virtual ~iNodeVisitorUpdateTransform() = default;
 
-        uint64 getUpdatedTransformationCount() const;
-    
     protected:
 
         /*! called before starting traversation
@@ -76,10 +74,6 @@ namespace Igor
         virtual void postTraverse();
 
     private:
-
-        /*! counting updated transformations
-        */
-        uint64 _updatedTransformations = 0;
 
         /*! holds a stack of matrices while traversion tree
         */
