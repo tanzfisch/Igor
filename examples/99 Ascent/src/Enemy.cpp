@@ -42,7 +42,7 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
 
     iaMatrixf offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
-    physicsNode->addSphere(2.0, offset);
+    physicsNode->addBox(1,0.5,1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
     physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());

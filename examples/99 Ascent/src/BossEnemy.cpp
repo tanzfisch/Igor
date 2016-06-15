@@ -28,8 +28,8 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
     _playerID = playerID;
     _scene = scene;
 
-    setHealth(1.0);
-    setShield(0.0);
+    setHealth(500.0);
+    setShield(200.0);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(matrix);
