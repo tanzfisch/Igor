@@ -66,7 +66,12 @@ namespace Igor
         return _clearValue;
     }
 
-    void iVoxelData::setVoxelLine(iaVector3I pos1, iaVector3I pos2, uint8 value)
+	void iVoxelData::setVoxelPole(iaVector3I pos, int64 height, uint8 density)
+	{
+		_data[pos._z * _depth + pos._x]._density.setValue(pos._y, height, density);
+	}
+
+    void iVoxelData::setVoxelLine(iaVector3I pos1, iaVector3I pos2, uint8 density)
     {
         iaVector3I u(pos1._x, pos1._y, pos1._z);
         iaVector3I delta(pos2._x - pos1._x, pos2._y - pos1._y, pos2._z - pos1._z);
@@ -87,7 +92,7 @@ namespace Igor
 
         for (int i = 0; i < dist; i++)
         {
-            setVoxelDensity(iaVector3I(u._x, u._y, u._z), value);
+            setVoxelDensity(iaVector3I(u._x, u._y, u._z), density);
 
             err += delta;
 
@@ -110,7 +115,7 @@ namespace Igor
             }
         }
 
-        setVoxelDensity(iaVector3I(pos2._x, pos2._y, pos2._z), value);
+        setVoxelDensity(iaVector3I(pos2._x, pos2._y, pos2._z), density);
     }
 
     vector<uint8> iVoxelData::getVoxelLine(iaVector3I pos1, iaVector3I pos2)

@@ -106,8 +106,16 @@ namespace Igor
         iaRLE<uint8, uint8>& getDensityBlocks(int64 xDir, int64 zDir);
         iaRLE<uint8, uint8>& getMaterialBlocks(int64 xDir, int64 zDir);
 
+		/*! sets a line of voxels to a target denstity
+
+		\param pos1 the from pos
+		\param pos2 the to pos
+		\param density the density to set
+		*/
         void setVoxelLine(iaVector3I pos1, iaVector3I pos2, uint8 density);
         vector<uint8> getVoxelLine(iaVector3I pos1, iaVector3I pos2);
+
+		void setVoxelPole(iaVector3I pos, int64 height, uint8 density);
 
         bool getIntersection(iaVector3I pos, iaVector3I dir, iaVector3I &returnPos, uint8 &returnValue);
 
