@@ -39,7 +39,7 @@ namespace Igor
     {
         iTaskManager::_running = false;
 
-        _mutex.lock();
+        _mutexTasks.lock();
         // first clear all tasks left in queue
         for (auto task : _renderContextTasksQueued)
         {
@@ -84,12 +84,12 @@ namespace Igor
         }
         _tasksRunning.clear();
 
-        _mutex.unlock();
+        _mutexTasks.unlock();
 
         con_debug_endl("waiting for " << _renderContextThreads.size() << " render context threads to join");
 
         // now stop and kill all threads
-        _renderContextThreadsMutex.lock();
+        _mutexRenderThreads.lock();
         auto threadIter = _renderContextThreads.begin();
         while (_renderContextThreads.end() != threadIter)
         {
@@ -99,16 +99,18 @@ namespace Igor
             threadIter++;
         }
         _renderContextThreads.clear();
-        _renderContextThreadsMutex.unlock();
+        _mutexRenderThreads.unlock();
 
         con_debug_endl("waiting for " << _threads.size() << " regular threads to join");
 
+        _mutexThreads.lock();
         for (auto thread : _threads)
         {
             thread->join();
             delete thread;
         }
         _threads.clear();
+        _mutexThreads.unlock();
 
         con_debug_endl("threading done");
     }
@@ -196,9 +198,9 @@ namespace Igor
             ThreadContext context;
             context._window = window;
 
-            _renderContextThreadsMutex.lock();
+            _mutexRenderThreads.lock();
             _renderContextThreads[workerThread] = context;
-            _renderContextThreadsMutex.unlock();
+            _mutexRenderThreads.unlock();
 
             workerThread->run(ThreadDelegate(this, &iTaskManager::workWithRenderContext));
             return true;
@@ -219,7 +221,7 @@ namespace Igor
 
     void iTaskManager::killRenderContextThreads(iWindow *window)
     {
-        _mutex.lock();
+        _mutexTasks.lock();
 
         for (auto task : _renderContextTasksQueued)
         {
@@ -263,9 +265,9 @@ namespace Igor
             }
         }
 
-        _mutex.unlock();
+        _mutexTasks.unlock();
 
-        _renderContextThreadsMutex.lock();
+        _mutexRenderThreads.lock();
         auto threadIter = _renderContextThreads.begin();
         while (_renderContextThreads.end() != threadIter)
         {
@@ -281,7 +283,7 @@ namespace Igor
                 ++threadIter;
             }
         }
-        _renderContextThreadsMutex.unlock();
+        _mutexRenderThreads.unlock();
     }
 
     void iTaskManager::workWithRenderContext(iThread* thread)
@@ -289,7 +291,7 @@ namespace Igor
         iTask* taskTodo = nullptr;
         ThreadContext* context = nullptr;
 
-        _renderContextThreadsMutex.lock();
+        _mutexRenderThreads.lock();
         auto threadIter = _renderContextThreads.begin();
         while (_renderContextThreads.end() != threadIter)
         {
@@ -300,26 +302,28 @@ namespace Igor
             }
             ++threadIter;
         }
-        _renderContextThreadsMutex.unlock();
+        _mutexRenderThreads.unlock();
 
         while (iTaskManager::isRunning() && !context->_stopThread)
         {
             taskTodo = nullptr;
 
-            _mutex.lock();
+            flushIncomming();
+
+            _mutexTasks.lock();
             if (_renderContextTasksQueued.size())
             {
                 taskTodo = (*_renderContextTasksQueued.begin());
                 _renderContextTasksQueued.pop_front();
                 _renderContextTasksRunning.push_back(taskTodo);
             }
-            _mutex.unlock();
+            _mutexTasks.unlock();
 
             if (taskTodo)
             {
                 taskTodo->run();
 
-                _mutex.lock();
+                _mutexTasks.lock();
                 list<iTask*>::iterator findIter = find(_renderContextTasksRunning.begin(), _renderContextTasksRunning.end(), taskTodo);
                 if (findIter != _renderContextTasksRunning.end())
                 {
@@ -327,7 +331,7 @@ namespace Igor
 
                     if (taskTodo->isRepeating())
                     {
-                        addTaskToQueue(taskTodo);
+                        _renderContextTasksQueued.push_back(taskTodo);
                     }
                     else
                     {
@@ -350,7 +354,7 @@ namespace Igor
 
                     taskTodo = nullptr;
                 }
-                _mutex.unlock();
+                _mutexTasks.unlock();
 
             }
             else
@@ -368,21 +372,23 @@ namespace Igor
         {
             taskTodo = nullptr;
 
-            _mutex.lock();
+            flushIncomming();
+
+            _mutexTasks.lock();
             if (_tasksQueued.size())
             {
                 taskTodo = (*_tasksQueued.begin());
                 _tasksQueued.pop_front();
                 _tasksRunning.push_back(taskTodo);
             }
-            _mutex.unlock();
+            _mutexTasks.unlock();
 
             if (taskTodo)
             {
                 taskTodo->setWorld(thread->getWorld());
                 taskTodo->run();
 
-                _mutex.lock();
+                _mutexTasks.lock();
                 list<iTask*>::iterator findIter = find(_tasksRunning.begin(), _tasksRunning.end(), taskTodo);
                 if (findIter != _tasksRunning.end())
                 {
@@ -390,7 +396,7 @@ namespace Igor
 
                     if (taskTodo->isRepeating())
                     {
-                        addTaskToQueue(taskTodo);
+                        _tasksQueued.push_back(taskTodo);
                     }
                     else
                     {
@@ -418,7 +424,7 @@ namespace Igor
                     con_err("inconsistent data");
                 }
 
-                _mutex.unlock();
+                _mutexTasks.unlock();
             }
             else
             {
@@ -427,20 +433,42 @@ namespace Igor
         }
     }
 
-    void iTaskManager::addTaskToQueue(iTask* task)
+    void iTaskManager::flushIncomming()
     {
-        switch (task->getContext())
-        {
-        case iTaskContext::Default:
-            _tasksQueued.push_back(task);
-            _tasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
-            break;
+        _mutexIncommingTasks.lock();
+        list<iTask*> incomming = _tasksIncomming;
+        _tasksIncomming.clear();
+        _mutexIncommingTasks.unlock();
 
-        case iTaskContext::RenderContext:
-            _renderContextTasksQueued.push_back(task);
-            _renderContextTasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
-            break;
+        _mutexTasks.lock();
+        for (auto incommingTask : incomming)
+        {
+            uint64 taskID = incommingTask->getID();
+            auto iter = _tasks.find(taskID);
+            if (iter == _tasks.end())
+            {
+                _tasks[taskID] = incommingTask;
+
+                switch (incommingTask->getContext())
+                {
+                case iTaskContext::Default:
+                    _tasksQueued.push_back(incommingTask);
+                    break;
+
+                case iTaskContext::RenderContext:
+                    _renderContextTasksQueued.push_back(incommingTask);
+                    break;
+                }
+            }
+            else
+            {
+                con_warn("task already managed by task manager (id:" << taskID << ")");
+            }
         }
+
+        _tasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
+        _renderContextTasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
+        _mutexTasks.unlock();
     }
 
     uint64 iTaskManager::addTask(iTask* task)
@@ -451,21 +479,11 @@ namespace Igor
         if (task != nullptr)
         {
             taskID = task->getID();
-
-            _mutex.lock();
-            auto iter = _tasks.find(taskID);
-            if (iter == _tasks.end())
-            {
-                _tasks[taskID] = task;
-                addTaskToQueue(task);
-            }
-            else
-            {
-                con_warn("task already managed by task manager (id:" << taskID << ")");
-            }
-            _mutex.unlock();
+            _mutexIncommingTasks.lock();
+            _tasksIncomming.push_back(task);
+            _mutexIncommingTasks.unlock();
         }
-
+        
         return taskID;
     }
 

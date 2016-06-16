@@ -152,17 +152,17 @@ namespace Igor
         */
 		static bool _running;
 
-        /*! mutex to save the tasks
-        */
-		mutex _mutex;
+        mutex _mutexIncommingTasks;
+        mutex _mutexTasks;
 
-        /*! mutex to save the render context threads
-        */
-        mutex _renderContextThreadsMutex;
+		mutex _mutexThreads;
+        mutex _mutexRenderThreads;
 
         /*! list of queued tasks
         */
 		list<iTask*> _tasksQueued;
+
+        list<iTask*> _tasksIncomming;
 
         /*! list of all tasks currently handeled by the task manager
         */
@@ -225,11 +225,7 @@ namespace Igor
         */
 		void createThread();
 
-        /*! internal add task function with no thread safety
-
-        \param task task to add
-        */
-        void addTaskToQueue(iTask* task);
+        void flushIncomming();
 
         /*! creates some regular threads and starts them
         */
