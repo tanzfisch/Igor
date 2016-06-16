@@ -11,7 +11,7 @@ namespace Igor
 {
 
     iTaskFlushModels::iTaskFlushModels(iWindow* window)
-        : iTask(window, iTask::DEFAULT_PRIORITY, true)
+        : iTask(window, iTask::DEFAULT_PRIORITY, true, iTaskContext::Default)
     {
     }
 

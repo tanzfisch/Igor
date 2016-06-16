@@ -314,7 +314,7 @@ namespace IgorAux
 #define con_debug_endl(Message)
 
 #endif
-    
+
     /*! prints an error message to console and optionally to the log file
 
     \param Message message to be printed

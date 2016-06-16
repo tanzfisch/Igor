@@ -322,7 +322,7 @@ namespace Igor
             return false;
         }
 
-        iTaskManager::getInstance().createThreads(this);
+        iTaskManager::getInstance().createRenderContextThreads(this);
 
         if (!wglMakeCurrent(_hDC, _renderContext))
         {
@@ -374,7 +374,7 @@ namespace Igor
                 iRenderer::getInstance().deinit();
             }
 
-            iTaskManager::getInstance().killThreads(this);
+            iTaskManager::getInstance().killRenderContextThreads(this);
 
             if (_fullscreen)
             {

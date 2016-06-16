@@ -330,14 +330,15 @@ namespace Igor
 
             for(auto model :modelsToProcess)
             {
+                iTaskContext taskContext = iTaskContext::RenderContext;
                 uint32 priority = iTask::DEFAULT_PRIORITY;
                 if (model->getParameters() != nullptr)
                 {
-                    // TODO no need anymore taskContext = model->getParameters()->_needsRenderContext ? iTaskContext::RenderContext : iTaskContext::Default;
+                    taskContext = model->getParameters()->_needsRenderContext ? iTaskContext::RenderContext : iTaskContext::Default;
                     priority = model->getParameters()->_loadPriority;
                 }
 
-                iTaskLoadModel* task = new iTaskLoadModel(window, model, priority);
+                iTaskLoadModel* task = new iTaskLoadModel(window, model, taskContext, priority);
                 iTaskManager::getInstance().addTask(task);
 
                 _mutexRunningTasks.lock();

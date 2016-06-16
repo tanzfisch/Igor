@@ -11,7 +11,7 @@ namespace Igor
 {
 
     iTaskFlushTextures::iTaskFlushTextures(iWindow* window)
-        : iTask(window, iTask::DEFAULT_PRIORITY, true)
+        : iTask(window, iTask::DEFAULT_PRIORITY, true, iTaskContext::RenderContext)
     {
     }
 

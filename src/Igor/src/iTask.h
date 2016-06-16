@@ -43,6 +43,13 @@ namespace Igor
 
     class iWindow;
 
+    enum class iTaskContext
+    {
+        Default,
+        RenderContext,
+        PhysicsContext
+    };
+
     /*! need a task to be done in parallel? than derive from this base class
     */
 	class Igor_API iTask
@@ -65,7 +72,7 @@ namespace Igor
         \param isRepeating if true the task will be triggered repeadetly
         \param needsRenderContext if true the task needs the render context e.g. to create a texture using the renderer
         */
-        iTask(iWindow* window = nullptr, uint32 priority = iTask::DEFAULT_PRIORITY, bool isRepeating = false);
+        iTask(iWindow* window = nullptr, uint32 priority = iTask::DEFAULT_PRIORITY, bool isRepeating = false, iTaskContext taskContext = iTaskContext::Default);
 
         /*! does nothing
         */
@@ -78,6 +85,10 @@ namespace Igor
         /*! \returns true: if task is still running; false: if it has stopped or not started yet
         */
         bool isRunning();
+
+        /*! \returns context needed for this task
+        */
+        iTaskContext getContext();
 
         /*! \returns priority of task
         */
@@ -162,6 +173,10 @@ namespace Igor
         /*! the task id
         */
         uint64 _taskID = INVALID_TASK_ID;
+
+        /*! task context
+        */
+        iTaskContext _taskContext = iTaskContext::Default;
 
 	};
 

@@ -26,42 +26,59 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iTASKLOADMODEL__
-#define __iTASKLOADMODEL__
+#ifndef __iRENDERCONTEXTTHREAD__
+#define __iRENDERCONTEXTTHREAD__
 
-#include <iTask.h>
-#include <iModel.h>
-
-#include <memory>
-using namespace std;
+#include <iThread.h>
+#include <Windows.h>
 
 namespace Igor
 {
 
-	class Igor_API iTaskLoadModel : public iTask
+	class iWindow;
+
+    /*! thread that in addition has a render context
+    */
+	class iRenderContextThread : public iThread
 	{
 
-	public:
+    public:
 
-        /*! initializes member variables
-
-        \param model the model to load
+        /*! creates render context and starts sharing lists with parent thread
         */
-        iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, iTaskContext taskContext, uint32 priority);
+        iRenderContextThread(iWindow* window);
 
         /*! does nothing
         */
-		virtual ~iTaskLoadModel() = default;
+        virtual ~iRenderContextThread() = default;
+
+        /* \returns true if the context was correctly created and initialized
+        */
+        bool isValid();
+
+	protected:
+
+        /*! init render context
+        */
+		void init();
+
+        /*! deletes render context
+        */
+		void deinit();
 
     private:
 
-        /*! the model to load
+        /*! pointer to window to get the device context from
         */
-        shared_ptr<iModel> _model;
+        iWindow* _window = nullptr;
 
-        /*! runs the task
+        /*! handle to render context
         */
-        void run();
+        HGLRC _renderContext = nullptr;
+
+        /*! was this thread correctly created
+        */
+        bool _isValid = true;
 
 	};
 

@@ -30,7 +30,6 @@
 #define __iTHREAD__
 
 #include <iDefines.h>
-#include <iPhysicsWorld.h>
 
 #include <iaDelegate.h>
 using namespace IgorAux;
@@ -38,14 +37,11 @@ using namespace IgorAux;
 #include <thread>
 using namespace std;
 
-#include <Windows.h>
-
 namespace Igor
 {
 
 	class iThreadHandle;
     class iThread;
-    class iWindow;
 
     /*! thread delegate calls the actuall function run by this thread
     */
@@ -68,43 +64,7 @@ namespace Igor
 
 		friend void* threadFunc(void* data);
 
-    public:
-
-        /*! \returns world id
-        */
-        uint64 getWorld() const;
-
-        /*! \returns true: if thread is initialized; false: if not
-        */
-        iThreadState getState();
-
-        /*! creates render context and starts sharing lists with parent thread
-        */
-        iThread(iWindow* window);
-
-        /*! delete thread handle
-        */
-        virtual ~iThread();
-
-        /*! start thread with a specified delegate
-
-        \param threadDelegate the specified delegate
-        */
-        void run(ThreadDelegate threadDelegate);
-
-        /*! waits for the thread to finish
-        */
-        void join();
-
 	private:
-
-        /*! pointer to window to get the device context from
-        */
-        iWindow* _window = nullptr;
-
-        /*! handle to render context
-        */
-        HGLRC _renderContext = nullptr;
 
         iThreadState _currentState = iThreadState::Init;
 
@@ -116,9 +76,7 @@ namespace Igor
         */
 		ThreadDelegate _threadDelegate;
 
-        /*! the world id
-        */
-        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
+	protected:
 
         /*! init function will be called as first by the thread
         */
@@ -127,6 +85,30 @@ namespace Igor
         /*! deinit function is called last by the thread. right before join
         */
 		virtual void deinit();		
+
+	public:
+
+        /*! \returns true: if thread is initialized; false: if not
+        */
+        iThreadState getState();
+
+        /*! does nothing
+        */
+		iThread() = default;
+
+        /*! delete thread handle
+        */
+		virtual ~iThread();
+
+        /*! start thread with a specified delegate
+
+        \param threadDelegate the specified delegate 
+        */
+		void run(ThreadDelegate threadDelegate);
+
+        /*! waits for the thread to finish
+        */
+        void join();
         
 	};
 

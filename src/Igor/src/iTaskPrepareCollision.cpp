@@ -12,7 +12,7 @@ namespace Igor
 {
 
     iTaskPrepareCollision::iTaskPrepareCollision(uint64 collisionConfigID, uint32 priority)
-        : iTask(nullptr, priority, false)
+        : iTask(nullptr, priority, false, iTaskContext::PhysicsContext)
     {
         _collisionConfigID = collisionConfigID;
     }
