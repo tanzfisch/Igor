@@ -64,7 +64,7 @@ namespace Igor
 	class Igor_API iWindow
 	{
 		friend class iApplication;
-		friend class iRenderContextThread;
+		friend class iThread;
 
 		friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 

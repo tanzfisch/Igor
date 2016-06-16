@@ -47,7 +47,7 @@ namespace Igor
 
         \param model the model to load
         */
-        iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, iTaskContext taskContext, uint32 priority);
+        iTaskLoadModel(iWindow* window, shared_ptr<iModel> model, uint32 priority);
 
         /*! does nothing
         */

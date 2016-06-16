@@ -759,7 +759,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iPhysicsBody.h" />
     <ClInclude Include="..\src\iPhysicsCollision.h" />
     <ClInclude Include="..\src\iPhysicsCollisionConfig.h" />
-    <ClInclude Include="..\src\iPhysicsContextThread.h" />
     <ClInclude Include="..\src\iPhysicsJoint.h" />
     <ClInclude Include="..\src\iPhysicsMaterial.h" />
     <ClInclude Include="..\src\iPhysicsMaterialCombo.h" />
@@ -768,7 +767,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iPixmap.h" />
     <ClInclude Include="..\src\iPlane.h" />
     <ClInclude Include="..\src\iRectangle.h" />
-    <ClInclude Include="..\src\iRenderContextThread.h" />
     <ClInclude Include="..\src\iRenderEngine.h" />
     <ClInclude Include="..\src\iRenderer.h" />
     <ClInclude Include="..\src\iRenderStateSet.h" />
@@ -1362,14 +1360,12 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iPhysicsBody.cpp" />
     <ClCompile Include="..\src\iPhysicsCollision.cpp" />
     <ClCompile Include="..\src\iPhysicsCollisionConfig.cpp" />
-    <ClCompile Include="..\src\iPhysicsContextThread.cpp" />
     <ClCompile Include="..\src\iPhysicsJoint.cpp" />
     <ClCompile Include="..\src\iPhysicsMaterial.cpp" />
     <ClCompile Include="..\src\iPhysicsMaterialCombo.cpp" />
     <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp" />
     <ClCompile Include="..\src\iPhysicsWorld.cpp" />
     <ClCompile Include="..\src\iPixmap.cpp" />
-    <ClCompile Include="..\src\iRenderContextThread.cpp" />
     <ClCompile Include="..\src\iRenderEngine.cpp" />
     <ClCompile Include="..\src\iRenderer.cpp" />
     <ClCompile Include="..\src\iRenderStateSet.cpp" />

@@ -44,8 +44,6 @@ namespace Igor
 {
 
 	class iTask;
-	class iRenderContextThread;
-    class iPhysicsContextThread;
 	class iThread;
 	class iWindow;
 
@@ -107,14 +105,6 @@ namespace Igor
         */
         uint32 getThreadCount();
 
-        /*! \returns render context thread count
-        */
-        uint32 getRenderContextThreadCount();
-
-        /*! \returns physics context thread count
-        */
-        uint32 getPhysicsContextThreadCount();
-
         /*! \returns tasks in queue count
         */
         uint32 getQueuedTaskCount();
@@ -122,22 +112,6 @@ namespace Igor
         /*! \returns running tasks count
         */
         uint32 getRunningTaskCount();
-
-        /*! \returns render context tasks in queue count
-        */
-        uint32 getQueuedRenderContextTaskCount();
-
-        /*! \returns running render context tasks count
-        */
-        uint32 getRunningRenderContextTaskCount();
-
-        /*! \returns physics context tasks in queue count
-        */
-        uint32 getQueuedPhysicsContextTaskCount();
-
-        /*! \returns running physics context tasks count
-        */
-        uint32 getRunningPhysicsContextTaskCount();
 
         /*! \returns true if the task manager is running
         */
@@ -169,14 +143,6 @@ namespace Igor
         */
 		mutex _mutex;
 
-        /*! mutex to save the render context threads
-        */
-        mutex _renderContextThreadsMutex;
-
-        /*! mutex to save the physics context threads
-        */
-        mutex _physicsContextThreadsMutex;
-
         /*! list of queued tasks
         */
 		list<iTask*> _tasksQueued;
@@ -189,86 +155,36 @@ namespace Igor
         */
 		list<iTask*> _tasksRunning;
 
-        /*! list of regular threads
-        */
-        vector<iThread*> _threads;
-
-        /*! list of queued tasks that need render context
-        */
-		list<iTask*> _renderContextTasksQueued;
-
-        /*! list of running tasks that need render context
-        */
-        list<iTask*> _renderContextTasksRunning;
-
         /*! list of render context threads
 
         \todo check if we realy need the extra data. because the thread it self has that data too
         */
-        map<iRenderContextThread*, ThreadContext> _renderContextThreads;
-
-        /*! list of queued tasks that need physics context
-        */
-        list<iTask*> _physicsContextTasksQueued;
-
-        /*! list of running tasks that need physics context
-        */
-        list<iTask*> _physicsContextTasksRunning;
-
-        /*! list of physics context threads
-        */
-        vector<iPhysicsContextThread*> _physicsContextThreads;
+        map<iThread*, ThreadContext> _threads;
 
         /*! the method a regular thread is launched with
 
         \param thread the thread this method is launched with
         */
         void work(iThread* thread);
-
-        /*! the method a thread with render context is launched with
-
-        \param thread the thread this method is launched with
-        */
-        void workWithRenderContext(iThread* thread);
-
-        /*! the method a thread with physics context is launched with
-
-        \param thread the thread this method is launched with
-        */
-        void workWithPhysicsContext(iThread* thread);
-
-        /*! creates a physics context thread
-        */
-        void createPhysicsContextThread();
 		
-        /*! creates a number of render context threads for a specified window
+        /*! creates a number of threads for a specified window
 
         \param window the window thes render contexts are connected with
         */
-        void createRenderContextThreads(iWindow *window);
+        void createThreads(iWindow *window);
 
-        /*! creates a render context thread
+        /*! creates one thread
 
         \param window the window this render context is connected to
         \returns true if success
         */
-        bool createRenderContextThread(iWindow *window);
+        void createThread(iWindow *window);
 
-        /*! kills all render context tasks and threads that are associated with a specified window
+        /*! kills all tasks and threads that are associated with a specified window
 
         \param window the window these tasks and threads are associated with 
         */
-        void killRenderContextThreads(iWindow *window);
-
-        /*! creates a regular thread
-        */
-		void createThread();
-
-        /*! internal add task function with no thread safety
-
-        \param task task to add
-        */
-        void addTaskToQueue(iTask* task);
+        void killThreads(iWindow *window);
 
         /*! creates some regular threads and starts them
         */

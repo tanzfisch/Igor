@@ -3,11 +3,31 @@
 // see copyright notice in corresponding header file
 
 #include <iThread.h>
+#include <iPhysics.h>
 
+#include <iWindow.h>
 #include <iaConsole.h>
 
 namespace Igor
 {
+
+    iThread::iThread(iWindow* window)
+    {
+        con_assert(nullptr != window, "window is missing");
+        _window = window;
+
+        if (!(_renderContext = wglCreateContext(_window->getDeviceContext())))
+        {
+            con_err_win("can't create render context");
+        }
+        else
+        {
+            if (!wglShareLists(_window->getRenderContext(), _renderContext))
+            {
+                con_err_win("can't share lists");
+            }
+        }
+    }
 
 	iThread::~iThread()
 	{
@@ -19,12 +39,34 @@ namespace Igor
 
 	void iThread::init()
 	{
-		// base implementation does nothing here
+        // init render context
+        if (!wglMakeCurrent(_window->getDeviceContext(), _renderContext))
+        {
+            con_err_win("can't make render context current");
+        }
+
+        // init physics context
+        _worldID = iPhysics::getInstance().createWorld()->getID();
 	}
 
 	void iThread::deinit()
 	{
-		// base implementation does nothing here
+        // deinit render context
+        if (!wglMakeCurrent(nullptr, nullptr))
+        {
+            con_err_win("can't set current to zero");
+            return;
+        }
+
+        if (!wglDeleteContext(_renderContext))
+        {
+            con_err_win("can't delete render context");
+            return;
+        }
+
+        // deinit physics context
+        iPhysics::getInstance().destroyWorld(_worldID);
+        _worldID = iPhysicsWorld::INVALID_WORLD_ID;
 	}
 
     iThreadState iThread::getState()
@@ -44,6 +86,11 @@ namespace Igor
         thread->_currentState = iThreadState::Done;
 		return 0;
 	}
+
+    uint64 iThread::getWorld() const
+    {
+        return _worldID;
+    }
 
 	void iThread::run(ThreadDelegate threadDelegate)
 	{

@@ -13,18 +13,12 @@ namespace Igor
     uint64 iTask::_nextTaskID = 1;
     mutex iTask::_mutexID;
 
-    iTask::iTask(iWindow* window, uint32 priority, bool isRepeating, iTaskContext taskContext)
+    iTask::iTask(iWindow* window, uint32 priority, bool isRepeating)
     {
-        if (taskContext == iTaskContext::RenderContext)
-        {
-            con_assert(window != nullptr, "zero pointer, need window if render context is required");
-        }
-
         _mutexID.lock();
         _taskID = _nextTaskID++;
         _mutexID.unlock();
 
-        _taskContext = taskContext;
         _isRepeating = isRepeating;
         _priority = priority;
         _window = window;
@@ -64,11 +58,6 @@ namespace Igor
     {
         return _priority;
     }
-
-    iTaskContext iTask::getContext()
-	{
-        return _taskContext;
-	}
 
     bool iTask::isRunning()
     {
