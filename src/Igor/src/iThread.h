@@ -37,6 +37,8 @@ using namespace IgorAux;
 #include <thread>
 using namespace std;
 
+#include <iPhysicsWorld.h>
+
 namespace Igor
 {
 
@@ -64,7 +66,49 @@ namespace Igor
 
 		friend void* threadFunc(void* data);
 
+    public:
+
+        /*! does nothing
+        */
+        iThread() = default;
+
+        /*! delete thread handle
+        */
+        virtual ~iThread();
+
+        /*! \returns true: if thread is initialized; false: if not
+        */
+        iThreadState getState();
+
+        /*! \returns world id
+        */
+        uint64 getWorld() const;
+
+        /*! start thread with a specified delegate
+
+        \param threadDelegate the specified delegate
+        */
+        void run(ThreadDelegate threadDelegate);
+
+        /*! waits for the thread to finish
+        */
+        void join();
+
+    protected:
+
+        /*! init function will be called as first by the thread
+        */
+        virtual void init();
+
+        /*! deinit function is called last by the thread. right before join
+        */
+        virtual void deinit();
+
 	private:
+
+        /*! the world id
+        */
+        uint64 _worldID = iPhysicsWorld::INVALID_WORLD_ID;
 
         iThreadState _currentState = iThreadState::Init;
 
@@ -75,40 +119,6 @@ namespace Igor
         /*! the delegate to be called by the thread
         */
 		ThreadDelegate _threadDelegate;
-
-	protected:
-
-        /*! init function will be called as first by the thread
-        */
-		virtual void init();
-
-        /*! deinit function is called last by the thread. right before join
-        */
-		virtual void deinit();		
-
-	public:
-
-        /*! \returns true: if thread is initialized; false: if not
-        */
-        iThreadState getState();
-
-        /*! does nothing
-        */
-		iThread() = default;
-
-        /*! delete thread handle
-        */
-		virtual ~iThread();
-
-        /*! start thread with a specified delegate
-
-        \param threadDelegate the specified delegate 
-        */
-		void run(ThreadDelegate threadDelegate);
-
-        /*! waits for the thread to finish
-        */
-        void join();
         
 	};
 

@@ -596,9 +596,6 @@
     <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp">
       <Filter>physics</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iPhysicsContextThread.cpp">
-      <Filter>threading</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPhysicsCollisionConfig.cpp">
       <Filter>physics</Filter>
     </ClCompile>
@@ -1288,9 +1285,6 @@
     <ClInclude Include="..\src\iAABox.h">
       <Filter>intersection</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iPhysicsContextThread.h">
-      <Filter>threading</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iPhysicsCollisionConfig.h">
       <Filter>physics</Filter>
     </ClInclude>
@@ -1299,9 +1293,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsWorld.h">
       <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iThread.h">
-      <Filter>todo</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iParticleSystem3D.h">
       <Filter>graphics\simulation</Filter>
@@ -1335,6 +1326,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iDialogMenu.h">
       <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iThread.h">
+      <Filter>threading</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,6 +4,7 @@
 
 #include <iThread.h>
 
+#include <iPhysics.h>
 #include <iaConsole.h>
 
 namespace Igor
@@ -17,14 +18,19 @@ namespace Igor
         }
 	}
 
+    uint64 iThread::getWorld() const
+    {
+        return _worldID;
+    }
+
 	void iThread::init()
 	{
-		// base implementation does nothing here
+        _worldID = iPhysics::getInstance().createWorld()->getID();
 	}
 
 	void iThread::deinit()
 	{
-		// base implementation does nothing here
+        iPhysics::getInstance().destroyWorld(_worldID);
 	}
 
     iThreadState iThread::getState()

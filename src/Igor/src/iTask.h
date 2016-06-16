@@ -46,8 +46,7 @@ namespace Igor
     enum class iTaskContext
     {
         Default,
-        RenderContext,
-        PhysicsContext
+        RenderContext
     };
 
     /*! need a task to be done in parallel? than derive from this base class

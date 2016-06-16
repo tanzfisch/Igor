@@ -154,10 +154,6 @@ namespace Igor
                     _lastRenderContextThreadCount = iTaskManager::getInstance().getRenderContextThreadCount();
                     _lastQueuedRenderContextTaskCount = iTaskManager::getInstance().getQueuedRenderContextTaskCount();
                     _lastRunningRenderContextTaskCount = iTaskManager::getInstance().getRunningRenderContextTaskCount();
-
-                    _lastPhysicsContextThreadCount = iTaskManager::getInstance().getPhysicsContextThreadCount();
-                    _lastQueuedPhysicsContextTaskCount = iTaskManager::getInstance().getQueuedPhysicsContextTaskCount();
-                    _lastRunningPhysicsContextTaskCount = iTaskManager::getInstance().getRunningPhysicsContextTaskCount();
                 }
             }
 
@@ -246,16 +242,8 @@ namespace Igor
                 rcthreads += ":";
                 rcthreads += iaString::itoa(_lastQueuedRenderContextTaskCount);
 
-                iaString pcthreads = "";
-                pcthreads += iaString::itoa(_lastPhysicsContextThreadCount);
-                pcthreads += ":";
-                pcthreads += iaString::itoa(_lastRunningPhysicsContextTaskCount);
-                pcthreads += ":";
-                pcthreads += iaString::itoa(_lastQueuedPhysicsContextTaskCount);
-
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 50, threads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, rcthreads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, pcthreads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, threads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, rcthreads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
             }
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)
@@ -288,7 +276,7 @@ namespace Igor
                 {
                     float32 groupOffset = i * groupTotalHeight;
 
-                    iRenderer::getInstance().setColor(iaColor4f(0.4,0.4,0.4,1));
+                    iRenderer::getInstance().setColor(iaColor4f(0.4, 0.4, 0.4, 1));
                     iRenderer::getInstance().drawRectangle(x, totalHeight - groupOffset - 3, window->getClientWidth() - x - x, 3);
                     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
                     iRenderer::getInstance().drawLine(x, totalHeight - sixtyHz - groupOffset, window->getClientWidth() - x, totalHeight - sixtyHz - groupOffset);
