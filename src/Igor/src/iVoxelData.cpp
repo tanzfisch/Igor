@@ -68,6 +68,11 @@ namespace Igor
 
 	void iVoxelData::setVoxelPole(iaVector3I pos, int64 height, uint8 density)
 	{
+		con_assert(height > 0, "zero height");
+		con_assert(height + pos._y - 1 < _height, "zero height");
+		con_assert(pos._x >= 0 && pos._x < _width, "out of range");
+		con_assert(pos._y >= 0 && pos._y < _height, "out of range");
+		con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
 		_data[pos._z * _depth + pos._x]._density.setValue(pos._y, height, density);
 	}
 
@@ -277,6 +282,9 @@ namespace Igor
 
     void iVoxelData::setVoxelDensity(iaVector3I pos, uint8 density)
     {
+		con_assert(pos._x >= 0 && pos._x < _width, "out of range");
+		con_assert(pos._y >= 0 && pos._y < _height, "out of range");
+		con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         _data[pos._z * _depth + pos._x]._density.setValue(pos._y, density);
     }
 
