@@ -121,9 +121,8 @@ namespace Igor
         */
         uint32 addVertexSnapped(const iaVector3f& vertex);
 
-        /*! sets normal of specified vertex by it's index
+        /*! sets normal of last added vertex
 
-        \param index the vertex index
         \param normal the normal to add
         */
         void setNormal(uint32 index, const iaVector3f& normal);

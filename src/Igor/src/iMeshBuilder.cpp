@@ -530,7 +530,6 @@ namespace Igor
             //        separateTriangles(trianglenormals);
         }
 
-        _normals.clear();
         _normals.resize(_vertexes.size());
 
         for (uint32 triangleIndex = 0; triangleIndex < _triangles.size(); ++triangleIndex)
