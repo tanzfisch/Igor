@@ -67,6 +67,7 @@ private:
     iNodeTransform* _lightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
+    float64 _startTime;
     
     uint32 _materialWithTextureAndBlending = 0;
     uint32 _octreeMaterial = 0;

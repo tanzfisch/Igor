@@ -60,8 +60,6 @@ namespace Igor
 
     0 -> density is zero therefore it is outside the object
     1 -> is also integpreted als density zero (1-255 -> 0.0-1.0)
-
-    \todo hmm maybe this is wrong. because 0 density in one block falls on the same position as full density on the next.
     */
 #define rescale(value) ((value - 1.0) / 254.0)
 
@@ -77,161 +75,185 @@ namespace Igor
     Z
 
     */
-    iaVector3f iContouringCubes::calculateVertex(float32 density0, float32 density1, float32 density2, float32 density3, float32 density4, float32 density5, float32 density6, float32 density7)
+    iaVector3f iContouringCubes::calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7)
     {
         int div = 0;
         iaVector3f calcPos;
 
-        float32 d0 = rescale(density1);
-        float32 d1 = rescale(density1);
-        float32 d2 = rescale(density2);
-        float32 d3 = rescale(density3);
-        float32 d4 = rescale(density4);
-        float32 d5 = rescale(density5);
-        float32 d6 = rescale(density6);
-        float32 d7 = rescale(density7);
+        float32 d0 = rescale(static_cast<float32>(density1));
+        float32 d1 = rescale(static_cast<float32>(density1));
+        float32 d2 = rescale(static_cast<float32>(density2));
+        float32 d3 = rescale(static_cast<float32>(density3));
+        float32 d4 = rescale(static_cast<float32>(density4));
+        float32 d5 = rescale(static_cast<float32>(density5));
+        float32 d6 = rescale(static_cast<float32>(density6));
+        float32 d7 = rescale(static_cast<float32>(density7));
 
         if (density0 != 0 && density1 == 0)
         {
-            calcPos += iaVector3f(d0, 0, 0);
+            calcPos._x += d0;
             div++;
         }
 
         if (density1 != 0 && density0 == 0)
         {
-            calcPos += iaVector3f(1 - d1, 0, 0);
+            calcPos._x += 1 - d1;
             div++;
         }
 
         if (density0 != 0 && density2 == 0)
         {
-            calcPos += iaVector3f(0, 0, d0);
+            calcPos._z += d0;
             div++;
         }
 
         if (density2 != 0 && density0 == 0)
         {
-            calcPos += iaVector3f(0, 0, 1 - d2);
+            calcPos._z += 1 - d2;
             div++;
         }
 
         if (density0 != 0 && density4 == 0)
         {
-            calcPos += iaVector3f(0, d0, 0);
+            calcPos._y += d0;
             div++;
         }
 
         if (density4 != 0 && density0 == 0)
         {
-            calcPos += iaVector3f(0, 1 - d4, 0);
+            calcPos._y += 1 - d4;
             div++;
         }
 
         if (density7 != 0 && density6 == 0)
         {
-            calcPos += iaVector3f(1 - d7, 1, 1);
+            calcPos._x += 1 - d7;
+            calcPos._y += 1;
+            calcPos._z += 1;
             div++;
         }
 
         if (density6 != 0 && density7 == 0)
         {
-            calcPos += iaVector3f(d6, 1, 1);
+            calcPos._x += d6;
+            calcPos._y += 1;
+            calcPos._z += 1;
             div++;
         }
 
         if (density7 != 0 && density5 == 0)
         {
-            calcPos += iaVector3f(1, 1, 1 - d7);
+            calcPos._x += 1;
+            calcPos._y += 1;
+            calcPos._z += 1 - d7;
             div++;
         }
 
         if (density5 != 0 && density7 == 0)
         {
-            calcPos += iaVector3f(1, 1, d5);
+            calcPos._x += 1;
+            calcPos._y += 1;
+            calcPos._z += d5;
             div++;
         }
 
         if (density7 != 0 && density3 == 0)
         {
-            calcPos += iaVector3f(1, 1 - d7, 1);
+            calcPos._x += 1;
+            calcPos._y += 1 - d7;
+            calcPos._z += 1;
             div++;
         }
 
         if (density3 != 0 && density7 == 0)
         {
-            calcPos += iaVector3f(1, d3, 1);
+            calcPos._x += 1;
+            calcPos._y += d3;
+            calcPos._z += 1;
             div++;
         }
 
         if (density4 != 0 && density5 == 0)
         {
-            calcPos += iaVector3f(d4, 1, 0);
+            calcPos._x += d4;
+            calcPos._y += 1;
             div++;
         }
 
         if (density5 != 0 && density4 == 0)
         {
-            calcPos += iaVector3f(1 - d5, 1, 0);
+            calcPos._x += 1 - d5;
+            calcPos._y += 1;
             div++;
         }
 
         if (density5 != 0 && density1 == 0)
         {
-            calcPos += iaVector3f(1, 1 - d5, 0);
+            calcPos._x += 1;
+            calcPos._y += 1 - d5;
             div++;
         }
 
         if (density1 != 0 && density5 == 0)
         {
-            calcPos += iaVector3f(1, d1, 0);
+            calcPos._x += 1;
+            calcPos._y += d1;
             div++;
         }
 
         if (density1 != 0 && density3 == 0)
         {
-            calcPos += iaVector3f(1, 0, d1);
+            calcPos._x += 1;
+            calcPos._z += d1;
             div++;
         }
 
         if (density3 != 0 && density1 == 0)
         {
-            calcPos += iaVector3f(1, 0, 1 - d3);
+            calcPos._x += 1;
+            calcPos._z += 1 - d3;
             div++;
         }
 
         if (density3 != 0 && density2 == 0)
         {
-            calcPos += iaVector3f(1 - d3, 0, 1);
+            calcPos._x += 1 - d3;
+            calcPos._z += 1;
             div++;
         }
 
         if (density2 != 0 && density3 == 0)
         {
-            calcPos += iaVector3f(d2, 0, 1);
+            calcPos._x += d2;
+            calcPos._z += 1;
             div++;
         }
 
         if (density2 != 0 && density6 == 0)
         {
-            calcPos += iaVector3f(0, d2, 1);
+            calcPos._y += d2;
+            calcPos._z += 1;
             div++;
         }
 
         if (density6 != 0 && density2 == 0)
         {
-            calcPos += iaVector3f(0, 1 - d6, 1);
+            calcPos._y += 1 - d6;
+            calcPos._z += 1;
             div++;
         }
 
         if (density6 != 0 && density4 == 0)
         {
-            calcPos += iaVector3f(0, 1, 1 - d6);
+            calcPos._y += 1;
+            calcPos._z += 1 - d6;
             div++;
         }
 
         if (density4 != 0 && density6 == 0)
         {
-            calcPos += iaVector3f(0, 1, d4);
+            calcPos._y += 1;
+            calcPos._z += d4;
             div++;
         }
 
@@ -323,8 +345,7 @@ namespace Igor
         iaVector3f vc;
         iaVector3f vd;
 
-        iaVector3f n1;
-        iaVector3f n2;
+        iaVector3f normal;
         iaVector3f ab;
         iaVector3f ac;
         iaVector3f ad;
@@ -366,9 +387,16 @@ namespace Igor
                 vd = transformed_cube_position;
                 vd += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
 
+                ab = vb - va;
+                ac = vc - va;
+                normal = ac % ab;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
                 c = _meshBuilder.addVertex(vc);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
@@ -378,9 +406,16 @@ namespace Igor
                     _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
+                ab = vb - va;
+                ad = vd - va;
+                normal = ad % ab;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vc);
                 c = _meshBuilder.addVertex(vd);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
@@ -418,9 +453,16 @@ namespace Igor
                 vd += dirs[0];
                 vd += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
 
+                ab = vb - va;
+                ac = vc - va;
+                normal = ac % ab;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
                 c = _meshBuilder.addVertex(vc);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
@@ -430,9 +472,16 @@ namespace Igor
                     _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
+                ab = vb - va;
+                ad = vd - va;
+                normal = ad % ab;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vc);
                 c = _meshBuilder.addVertex(vd);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
@@ -466,9 +515,16 @@ namespace Igor
                 vd += dirs[3];
                 vd += calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22]);
 
+                ab = vb - va;
+                ac = vc - va;
+                normal = ac % ab;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
                 c = _meshBuilder.addVertex(vc);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
@@ -478,9 +534,16 @@ namespace Igor
                     _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
+                ab = vb - va;
+                ad = vd - va;
+                normal = ad % ab;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vc);
                 c = _meshBuilder.addVertex(vd);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
@@ -517,9 +580,16 @@ namespace Igor
                 vd = transformed_cube_position;
                 vd += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
 
+                ab = vb - va;
+                ac = vc - va;
+                normal = ab % ac;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
                 c = _meshBuilder.addVertex(vc);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
@@ -529,9 +599,16 @@ namespace Igor
                     _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
+                ab = vb - va;
+                ad = vd - va;
+                normal = ab % ad;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vc);
                 c = _meshBuilder.addVertex(vd);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
@@ -569,9 +646,16 @@ namespace Igor
                 vd += dirs[0];
                 vd += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
 
+                ab = vb - va;
+                ac = vc - va;
+                normal = ab % ac;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
                 c = _meshBuilder.addVertex(vc);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
@@ -581,9 +665,16 @@ namespace Igor
                     _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
+                ab = vb - va;
+                ad = vd - va;
+                normal = ab % ad;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vc);
                 c = _meshBuilder.addVertex(vd);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
@@ -617,9 +708,16 @@ namespace Igor
                 vd += dirs[3];
                 vd += calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22]);
 
+                ab = vb - va;
+                ac = vc - va;
+                normal = ab % ac;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
                 c = _meshBuilder.addVertex(vc);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
@@ -629,9 +727,16 @@ namespace Igor
                     _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
+                ab = vb - va;
+                ad = vd - va;
+                normal = ab % ad;
+
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vc);
                 c = _meshBuilder.addVertex(vd);
+                _meshBuilder.accumulateNormal(a, normal);
+                _meshBuilder.accumulateNormal(b, normal);
+                _meshBuilder.accumulateNormal(c, normal);
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
                 _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
@@ -855,7 +960,7 @@ namespace Igor
 
         if (_meshBuilder.getTrianglesCount() != 0)
         {
-            _meshBuilder.calcNormals(false);
+            _meshBuilder.normalizeNormals();
 
             for (auto iter : _trianglesToKeep)
             {

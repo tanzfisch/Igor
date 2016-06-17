@@ -49,6 +49,8 @@ using namespace Igor;
 Ascent::Ascent()
 {
     init();
+
+    _startTime = iTimer::getInstance().getTime();
 }
 
 Ascent::~Ascent()
@@ -104,7 +106,7 @@ void Ascent::initViews()
     _window.setTitle("Ascent");
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
-#if 1
+#if 0
     _window.setSize(1024, 768);
 #else
     _window.setSizeByDesktop();
@@ -642,13 +644,14 @@ void Ascent::onHandle()
 {
     if (_loading)
     {
-        if (iTaskManager::getInstance().getQueuedPhysicsContextTaskCount() < 1 &&
-            iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 2 &&
-            iTaskManager::getInstance().getQueuedTaskCount() < 4)
+        if (_startTime + 2000 < iTimer::getInstance().getTime())
         {
-            _loading = false;
-            _activeControls = true;
-            _mouseDelta.set(0, 0);
+            if (iTaskManager::getInstance().getQueuedTaskCount() < 4)
+            {
+                _loading = false;
+                _activeControls = true;
+                _mouseDelta.set(0, 0);
+            }
         }
     }
     else

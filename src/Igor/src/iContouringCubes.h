@@ -100,7 +100,7 @@ namespace Igor
 
         /*! density cache
         */
-        float32 _density[3*3*3];
+        uint8 _density[3*3*3];
 
         /*! material cache
         */
@@ -135,7 +135,7 @@ namespace Igor
         \param pos out value vertex position
         \param normal out value vertex normal
         */
-        iaVector3f calculateVertex(float32 density0, float32 density1, float32 density2, float32 density3, float32 density4, float32 density5, float32 density6, float32 density7);
+        iaVector3f calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7);
 
         /*! creates triangles for the resulting mesh
 
