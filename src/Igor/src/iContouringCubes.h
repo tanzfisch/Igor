@@ -135,7 +135,7 @@ namespace Igor
         \param pos out value vertex position
         \param normal out value vertex normal
         */
-        iaVector3f calculateVertex(float32 density0, float32 density1, float32 density2, float32 density3, float32 density4, float32 density5, float32 density6, float32 density7);
+        void calculateVertex(float32 density0, float32 density1, float32 density2, float32 density3, float32 density4, float32 density5, float32 density6, float32 density7, iaVector3f& pos, iaVector3f& normal);
 
         /*! creates triangles for the resulting mesh
 
