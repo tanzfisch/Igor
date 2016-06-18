@@ -127,6 +127,8 @@ namespace Igor
         */
         void setNormal(uint32 index, const iaVector3f& normal);
 
+        void accumulateNormal(uint32 index, const iaVector3f& normal);
+
         /*! sets color of last added vertex
 
         \param color the color to add
@@ -156,6 +158,8 @@ namespace Igor
         \param joinVertexes on off flag 
         */
         void setJoinVertexes(bool joinVertexes = true);
+
+        void normalizeNormals();
 
         /*! \returns join vertexes flag
         */

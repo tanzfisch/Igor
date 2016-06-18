@@ -111,38 +111,71 @@ namespace Igor
 
     void iMeshBuilder::setNormal(uint32 index, const iaVector3f& normal)
     {
-        while(_vertexes.size() > _normals.size())
+        if (_vertexes.size() > _normals.size())
         {
-            _normals.push_back(normal);
+            while (_vertexes.size() > _normals.size())
+            {
+                _normals.push_back(normal);
+            }
         }
+        else
+        {
+            _normals[index] = normal;
+        }
+    }
 
-        _normals[index]._x = normal._x;
-        _normals[index]._y = normal._y;
-        _normals[index]._z = normal._z;
+    void iMeshBuilder::normalizeNormals()
+    {
+        for (auto &normal : _normals)
+        {
+            normal.normalize();
+        }
+    }
+
+    void iMeshBuilder::accumulateNormal(uint32 index, const iaVector3f& normal)
+    {
+        if (_vertexes.size() > _normals.size())
+        {
+            while (_vertexes.size() > _normals.size())
+            {
+                _normals.push_back(normal);
+            }
+        }
+        else
+        {
+            _normals[index] += normal;
+        }
     }
 
     void iMeshBuilder::setColor(uint32 index, const iaColor4f& color)
     {
-        while (_vertexes.size() > _colors.size())
+        if (_vertexes.size() > _colors.size())
         {
-            _colors.push_back(color);
+            while (_vertexes.size() > _colors.size())
+            {
+                _colors.push_back(color);
+            }
         }
-
-        _colors[index]._r = color._r;
-        _colors[index]._g = color._g;
-        _colors[index]._b = color._b;
-        _colors[index]._a = color._a;
+        else
+        {
+            _colors[index] = color;
+        }
     }
 
     void iMeshBuilder::setTexCoord(uint32 index, const iaVector2f& texCoord, uint32 unit)
     {
-        while (_vertexes.size() > _texCoords[unit].size())
+        if (_vertexes.size() > _texCoords[unit].size())
         {
-            _texCoords[unit].push_back(texCoord);
+            while (_vertexes.size() > _texCoords[unit].size())
+            {
+                _texCoords[unit].push_back(texCoord);
+            }
         }
-
-        _texCoords[unit][index]._x = texCoord._x;
-        _texCoords[unit][index]._y = texCoord._y;
+        else
+        {
+            _texCoords[unit][index]._x = texCoord._x;
+            _texCoords[unit][index]._y = texCoord._y;
+        }
     }
 
     uint32 iMeshBuilder::addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC)
@@ -530,6 +563,11 @@ namespace Igor
             //        separateTriangles(trianglenormals);
         }
 
+        if (!_normals.empty())
+        {
+            _normals.clear();
+        }
+
         _normals.resize(_vertexes.size());
 
         for (uint32 triangleIndex = 0; triangleIndex < _triangles.size(); ++triangleIndex)
@@ -543,10 +581,7 @@ namespace Igor
             _normals[c] += trianglenormals[triangleIndex];
         }
 
-        for (uint32 i = 0; i < _normals.size(); i++)
-        {
-            _normals[i].normalize();
-        }
+        normalizeNormals();
 
         delete[] trianglenormals;
     }
