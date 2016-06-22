@@ -49,23 +49,15 @@ namespace Igor
 
         /*! pole (as in vertically arranged voxels) iterator
         */
-        struct DensityPoleIterator
+        struct DensityPole
         {
-            /*! current density block in pole
+            /*! current density pole
             */
-            vector<iaRLEBlock<uint8, uint8>>::const_iterator _currentDensityBlock;
-
-            /*! current density position as index
+            iaRLE<uint8, uint8>* _currentDensityPole = nullptr;
+            
+            /*! current density pole
             */
-            uint64 _currentDensityBlockPosition;
-
-            /*! current density block in pole
-            */
-            vector<iaRLEBlock<uint8, uint8>>::const_iterator _currentMaterialBlock;
-
-            /*! current density position as index
-            */
-            uint64 _currentMaterialBlockPosition;
+            iaRLE<uint8, uint8>* _currentMaterialPole = nullptr;
         };
 
     public:
@@ -96,7 +88,7 @@ namespace Igor
 
         /*! current poles (3 times 3) for iterating through the voxel data
         */
-        vector<DensityPoleIterator> _currentPoles;
+        vector<DensityPole> _currentPoles;
 
         /*! density cache
         */
@@ -151,7 +143,7 @@ namespace Igor
 
         \param startPosition defines which poles to use next
         */
-		void getPoles(iaVector3I &startPosition);
+		void startClimb(iaVector3I &startPosition);
 
 	};
 

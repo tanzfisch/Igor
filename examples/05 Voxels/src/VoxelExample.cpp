@@ -184,6 +184,8 @@ void VoxelExample::generateVoxelData()
 
     // clear the voxel data
     _voxelData->clear();
+    // switch to uncompressed voxel data. a little more speed for much more memory usage
+    _voxelData->setMode(iaRLEMode::Uncompressed);
 
     // define some threasholds to describe the surface of caves
     const float64 from = 0.444;
@@ -261,6 +263,10 @@ void VoxelExample::generateVoxelData()
         }
     }
 
+    // just for demonstration we switch back to compressed mode. 
+    // It makes sense to do that e.g. if we want to keep the data after working with it but need to save memory. In our verry small case here it's irrelevant
+    _voxelData->setMode(iaRLEMode::Compressed);
+    
     if (_voxelMeshTransform != iNode::INVALID_NODE_ID)
     {
         // this will also kill all the children of that node

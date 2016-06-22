@@ -46,6 +46,15 @@ namespace IgorAux
         TValue _value = static_cast<TValue>(0);
     };
 
+    /*! mode of compression
+    */
+    enum class iaRLEMode
+    {
+        Compressed,
+        Uncompressed,
+        Undefined
+    };
+
     /*! run lenght encoded buffer
 
     \todo a set value range method would be nice
@@ -55,6 +64,8 @@ namespace IgorAux
     {
 
     public:
+
+        ~iaRLE();
 
         /*! sets size of rle buffer
 
@@ -92,19 +103,67 @@ namespace IgorAux
         */
         __IGOR_INLINE__ TValue getValue(TIndex index) const;
 
+        /*! \returns first value 
+        */
+        __IGOR_INLINE__ TValue getFirstValue();
+
+        /*! \returns next value 
+        */
+        __IGOR_INLINE__ TValue getNextValue();
+
+        __IGOR_INLINE__ TValue getCurrentValue() const;
+
+        __IGOR_INLINE__ TValue getCurrentIndex() const;
+
+        __IGOR_INLINE__ void setCurrentIndex(TIndex index);
+
         /*! \retruns list of blocks
         */
-        const vector<iaRLEBlock<TValue, TIndex>>& getBlocks() const;
+        //const vector<iaRLEBlock<TValue, TIndex>>& getBlocks() const;
+
+        /*! sets mode of compression
+
+        \param mode compression mode
+        */
+        void setMode(iaRLEMode mode);
+
+        iaRLEMode getMode() const;
 
     private:
+
+        /*! dirty flag if data was changed
+        */
+        bool _dirty = false;
 
         /*! size of buffer
         */
         TIndex _size = 0;
 
+        /*! uncompressed data
+        */
+        TValue* _data = nullptr;
+
+        /*! current mode of compression
+        */
+        iaRLEMode _mode = iaRLEMode::Compressed;
+
+        uint32 _currentBlock = 0;
+
+        TIndex _currentIndex = 0;
+
+        TIndex _currentBlockOffset = 0;
+
         /*! blocks storing the RLE information
         */
         vector<iaRLEBlock<TValue, TIndex>> _blocks;
+
+        /*! compress data
+        */
+        void compress();
+
+        /*! uncompress data
+        */
+        void uncompress();
     };
 
 #include <iaRLE.inl>

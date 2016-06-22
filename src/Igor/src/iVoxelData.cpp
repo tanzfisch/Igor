@@ -20,6 +20,28 @@ namespace Igor
         }
     }
 
+    void iVoxelData::setMode(iaRLEMode mode)
+    {
+        if (_data != nullptr)
+        {
+            for (int i = 0; i < _width * _depth; ++i)
+            {
+                _data[i]._density.setMode(mode);
+                _data[i]._material.setMode(mode);
+            }
+        }
+    }
+
+    iaRLEMode iVoxelData::getMode() const
+    {
+        if (_data != nullptr)
+        {
+            return _data[0]._density.getMode();
+        }
+
+        return iaRLEMode::Undefined;
+    }
+
     void iVoxelData::initData(int64 width, int64 height, int64 depth)
     {
         con_assert(width > 1 && height > 1 && depth > 1, "voxel grid too small");
@@ -270,12 +292,12 @@ namespace Igor
         return false;
     }
 
-    iaRLE<uint8, uint8>& iVoxelData::getDensityBlocks(int64 xDir, int64 zDir)
+    iaRLE<uint8, uint8>& iVoxelData::getDensityPole(int64 xDir, int64 zDir)
     {
         return _data[zDir * _depth + xDir]._density;
     }
 
-    iaRLE<uint8, uint8>& iVoxelData::getMaterialBlocks(int64 xDir, int64 zDir)
+    iaRLE<uint8, uint8>& iVoxelData::getMaterialPole(int64 xDir, int64 zDir)
     {
         return _data[zDir * _depth + xDir]._material;
     }

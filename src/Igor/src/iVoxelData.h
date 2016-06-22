@@ -103,8 +103,8 @@ namespace Igor
         void setVoxelMaterial(iaVector3I pos, uint8 material);
         uint8 getVoxelMaterial(iaVector3I pos);
 
-        iaRLE<uint8, uint8>& getDensityBlocks(int64 xDir, int64 zDir);
-        iaRLE<uint8, uint8>& getMaterialBlocks(int64 xDir, int64 zDir);
+        iaRLE<uint8, uint8>& getDensityPole(int64 xDir, int64 zDir);
+        iaRLE<uint8, uint8>& getMaterialPole(int64 xDir, int64 zDir);
 
 		/*! sets a line of voxels to a target denstity
 
@@ -121,6 +121,11 @@ namespace Igor
 
         void setClearValue(uint8 clearValue);
         uint8 getClearValue() const;
+
+        /*! sets compressed or uncompressed mode
+        */
+        void setMode(iaRLEMode mode);
+        iaRLEMode getMode() const;
 
     private:
 

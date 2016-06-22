@@ -49,7 +49,7 @@ namespace Igor
     {
         for (int i = 0; i < 9; ++i)
         {
-            DensityPoleIterator pole;
+            DensityPole pole;
             _currentPoles.push_back(pole);
         }
 
@@ -765,30 +765,18 @@ namespace Igor
     //   a(0)--------b(1)--------c(2)
 
     */
-
+    
     void iContouringCubes::climb()
     {
         for (int i = 0; i < 9; ++i)
         {
             _density[i + 0] = _density[i + 9];
             _density[i + 9] = _density[i + 18];
-            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityBlock->_value);
-
-            if (_currentPoles[i]._currentDensityBlock->_length + _currentPoles[i]._currentDensityBlockPosition - 1 <= _cubePosition._y)
-            {
-                _currentPoles[i]._currentDensityBlockPosition += _currentPoles[i]._currentDensityBlock->_length;
-                _currentPoles[i]._currentDensityBlock++;
-            }
+            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getNextValue());
 
             _material[i + 0] = _material[i + 9];
             _material[i + 9] = _material[i + 18];
-            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialBlock->_value);
-
-            if (_currentPoles[i]._currentMaterialBlock->_length + _currentPoles[i]._currentMaterialBlockPosition - 1 <= _cubePosition._y)
-            {
-                _currentPoles[i]._currentMaterialBlockPosition += _currentPoles[i]._currentMaterialBlock->_length;
-                _currentPoles[i]._currentMaterialBlock++;
-            }
+            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getNextValue());
         }
 
         _cubePosition._y++;
@@ -810,65 +798,50 @@ namespace Igor
 
     */
 
-    void iContouringCubes::getPoles(iaVector3I &startPosition)
+    void iContouringCubes::startClimb(iaVector3I &startPosition)
     {
         _cubePosition = startPosition;
 
-        _currentPoles[0]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x, _cubePosition._z).getBlocks().begin();
-        _currentPoles[1]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x + 1, _cubePosition._z).getBlocks().begin();
-        _currentPoles[2]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x + 2, _cubePosition._z).getBlocks().begin();
+        _currentPoles[0]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x, _cubePosition._z);
+        _currentPoles[1]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 1, _cubePosition._z);
+        _currentPoles[2]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 2, _cubePosition._z);
 
-        _currentPoles[3]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x, _cubePosition._z + 1).getBlocks().begin();
-        _currentPoles[4]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x + 1, _cubePosition._z + 1).getBlocks().begin();
-        _currentPoles[5]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x + 2, _cubePosition._z + 1).getBlocks().begin();
+        _currentPoles[3]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x, _cubePosition._z + 1);
+        _currentPoles[4]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 1, _cubePosition._z + 1);
+        _currentPoles[5]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 2, _cubePosition._z + 1);
 
-        _currentPoles[6]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x, _cubePosition._z + 2).getBlocks().begin();
-        _currentPoles[7]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x + 1, _cubePosition._z + 2).getBlocks().begin();
-        _currentPoles[8]._currentDensityBlock = _voxelData->getDensityBlocks(_cubePosition._x + 2, _cubePosition._z + 2).getBlocks().begin();
+        _currentPoles[6]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x, _cubePosition._z + 2);
+        _currentPoles[7]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 1, _cubePosition._z + 2);
+        _currentPoles[8]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 2, _cubePosition._z + 2);
 
-        _currentPoles[0]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x, _cubePosition._z).getBlocks().begin();
-        _currentPoles[1]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x + 1, _cubePosition._z).getBlocks().begin();
-        _currentPoles[2]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x + 2, _cubePosition._z).getBlocks().begin();
+        _currentPoles[0]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x, _cubePosition._z);
+        _currentPoles[1]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 1, _cubePosition._z);
+        _currentPoles[2]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 2, _cubePosition._z);
 
-        _currentPoles[3]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x, _cubePosition._z + 1).getBlocks().begin();
-        _currentPoles[4]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x + 1, _cubePosition._z + 1).getBlocks().begin();
-        _currentPoles[5]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x + 2, _cubePosition._z + 1).getBlocks().begin();
+        _currentPoles[3]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x, _cubePosition._z + 1);
+        _currentPoles[4]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 1, _cubePosition._z + 1);
+        _currentPoles[5]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 2, _cubePosition._z + 1);
 
-        _currentPoles[6]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x, _cubePosition._z + 2).getBlocks().begin();
-        _currentPoles[7]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x + 1, _cubePosition._z + 2).getBlocks().begin();
-        _currentPoles[8]._currentMaterialBlock = _voxelData->getMaterialBlocks(_cubePosition._x + 2, _cubePosition._z + 2).getBlocks().begin();
-
-        auto poleIter = _currentPoles.begin();
-        while (poleIter != _currentPoles.end())
-        {
-            uint64 nextBlockPosition = 0;
-
-            do
-            {
-                (*poleIter)._currentDensityBlockPosition = nextBlockPosition;
-                nextBlockPosition += (*(*poleIter)._currentDensityBlock)._length;
-                (*poleIter)._currentDensityBlock++;
-            } while (nextBlockPosition <= _cubePosition._y);
-            (*poleIter)._currentDensityBlock--;
-
-            nextBlockPosition = 0;
-
-            do
-            {
-                (*poleIter)._currentMaterialBlockPosition = nextBlockPosition;
-                nextBlockPosition += (*(*poleIter)._currentMaterialBlock)._length;
-                (*poleIter)._currentMaterialBlock++;
-            } while (nextBlockPosition <= _cubePosition._y);
-            (*poleIter)._currentMaterialBlock--;
-
-            poleIter++;
-        }
+        _currentPoles[6]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x, _cubePosition._z + 2);
+        _currentPoles[7]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 1, _cubePosition._z + 2);
+        _currentPoles[8]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 2, _cubePosition._z + 2);
 
         for (int i = 0; i < 27; ++i)
         {
             _density[i] = 0;
             _material[i] = 0;
         }
+
+        for (int i = 0; i < 9; ++i)
+        {
+            _currentPoles[i]._currentDensityPole->setCurrentIndex(_cubePosition._y);
+            _currentPoles[i]._currentMaterialPole->setCurrentIndex(_cubePosition._y);
+
+            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getCurrentValue());
+            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getCurrentValue());
+        }
+
+        _cubePosition._y++;
     }
 
     void iContouringCubes::setVoxelData(iVoxelData* voxelData)
@@ -927,7 +900,7 @@ namespace Igor
                 currentPosition._z = _cubeStartPosition._z + z;
 
                 // process pole
-                getPoles(currentPosition);
+                startClimb(currentPosition);
                 climb();
                 climb();
 

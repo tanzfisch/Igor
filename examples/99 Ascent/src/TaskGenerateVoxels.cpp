@@ -98,6 +98,7 @@ void TaskGenerateVoxels::run()
     
     voxelData->setClearValue(0);
 	voxelData->initData(size._x, size._y, size._z);
+    voxelData->setMode(iaRLEMode::Uncompressed); // uncompressed works fine as long a the terrain stays verry small
 
     // skip all the voxel blocks that are too far away
     if (iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200).distance(iaVector3f(offset._x + size._x * 0.5, offset._y + size._y * 0.5, offset._z + size._z * 0.5)) < 250)
@@ -121,9 +122,6 @@ void TaskGenerateVoxels::run()
                     // first figure out if a voxel is outside the sphere
                     iaVector3f pos(x + offset._x, y + offset._y, z + offset._z);
 
-                    // generate some detail noise we will add every where
-                    // float64 detailNoise = perlinNoise.getValue(iaVector3d(pos._x * 0.5, pos._y * 0.5, pos._z * 0.5), 1) - 0.5;
-
                     float64 distance = 0;
                     for (auto metaball : _metaballs)
                     {
@@ -138,7 +136,7 @@ void TaskGenerateVoxels::run()
                     {
                         if (distance >= fromMeta)
                         {
-                            density = ((distance - fromMeta) * factorMeta); // +detailNoise;
+                            density = ((distance - fromMeta) * factorMeta);
                         }
                     }
 
