@@ -772,11 +772,11 @@ namespace Igor
         {
             _density[i + 0] = _density[i + 9];
             _density[i + 9] = _density[i + 18];
-            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getNextValue());
+            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
 
             _material[i + 0] = _material[i + 9];
             _material[i + 9] = _material[i + 18];
-            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getNextValue());
+            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getValue(_cubePosition._y));
         }
 
         _cubePosition._y++;
@@ -834,11 +834,8 @@ namespace Igor
 
         for (int i = 0; i < 9; ++i)
         {
-            _currentPoles[i]._currentDensityPole->setCurrentIndex(_cubePosition._y);
-            _currentPoles[i]._currentMaterialPole->setCurrentIndex(_cubePosition._y);
-
-            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getCurrentValue());
-            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getCurrentValue());
+            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
+            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getValue(_cubePosition._y));
         }
 
         _cubePosition._y++;

@@ -103,20 +103,6 @@ namespace IgorAux
         */
         __IGOR_INLINE__ TValue getValue(TIndex index) const;
 
-        /*! \returns first value 
-        */
-        __IGOR_INLINE__ TValue getFirstValue();
-
-        /*! \returns next value 
-        */
-        __IGOR_INLINE__ TValue getNextValue();
-
-        __IGOR_INLINE__ TValue getCurrentValue() const;
-
-        __IGOR_INLINE__ TValue getCurrentIndex() const;
-
-        __IGOR_INLINE__ void setCurrentIndex(TIndex index);
-
         /*! \retruns list of blocks
         */
         //const vector<iaRLEBlock<TValue, TIndex>>& getBlocks() const;
