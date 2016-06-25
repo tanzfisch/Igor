@@ -78,7 +78,7 @@ namespace Igor
         \param volume the size of the are to be compiled
         \returns mesh
         */
-        shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume);
+		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, float64 scale = 1.0);
 
 	private:
 
@@ -113,6 +113,10 @@ namespace Igor
         /*! meshbuilder to work with
         */
         iMeshBuilder _meshBuilder;
+
+		/*! model scale
+		*/
+		float64 _scale = 1.0;
 
         /*! calculates vertex position allong iso surface
 
