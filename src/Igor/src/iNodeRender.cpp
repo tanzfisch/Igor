@@ -28,6 +28,7 @@ namespace Igor
         : iNode()
     {
         _materialID = node->_materialID;
+        _visible = node->_visible;
     }
 
     iNodeRender::~iNodeRender()
@@ -40,6 +41,26 @@ namespace Igor
         {
             materialGroup->removeRenderNode(this);
         }
+    }
+
+    void iNodeRender::setVisible(bool visible)
+    {
+        _visible = visible;
+
+        if (!_visible)
+        {
+            // TODO bad design iRenderEngine should do that ... somehow
+            iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
+            if (materialGroup != nullptr)
+            {
+                materialGroup->removeRenderNode(this);
+            }
+        }
+    }
+
+    bool iNodeRender::isVisible() const
+    {
+        return _visible;
     }
 
     bool iNodeRender::onUpdateData()

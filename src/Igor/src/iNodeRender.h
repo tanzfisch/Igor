@@ -69,6 +69,16 @@ namespace Igor
         */
         uint32 getMaterial();
 
+        /*! sets visibility of this node
+
+        \param visible if true node will be rendered
+        */
+        void setVisible(bool visible = true);
+
+        /*! \returns true if node is visible
+        */
+        bool isVisible() const;
+
         /*! abstract method draw
         */
         virtual void draw() = 0;
@@ -82,6 +92,10 @@ namespace Igor
         /*! true if if was not filtered by culling process
         */
         bool _reached = false;
+
+        /*! if node will be rendered
+        */
+        bool _visible = true;
 
         /*! called by update transform run
 

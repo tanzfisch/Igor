@@ -129,7 +129,10 @@ namespace Igor
                 uint32 materialID = renderNode->getMaterial();
                 if (materialID != iMaterial::INVALID_MATERIAL_ID)
                 {
-                    iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
+                    if (renderNode->isVisible())
+                    {
+                        iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
+                    }
                 }
             }
         }
@@ -142,15 +145,16 @@ namespace Igor
             uint32 materialID = renderNode->getMaterial();
             if (materialID != iMaterial::INVALID_MATERIAL_ID)
             {
-                iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
+                if (renderNode->isVisible())
+                {
+                    iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
+                }
             }
 
             iterRenderables++;
         }
     }
 
-    /*! \todo clean up
-    */
     void iRenderEngine::drawScene(iNodeCamera* camera)
     {
         //! \todo not sure yet how to handle multiple lights

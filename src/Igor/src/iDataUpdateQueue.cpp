@@ -18,11 +18,7 @@ namespace Igor
         _mutex.lock();
 
         auto iter = find(_loadingQueue.begin(), _loadingQueue.end(), nodeID);
-        if (iter != _loadingQueue.end())
-        {
-            con_err("this node was already added to update queue");
-        }
-        else
+        if (iter == _loadingQueue.end())
         {
             _loadingQueue.push_back(nodeID);
         }
