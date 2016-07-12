@@ -878,11 +878,20 @@ namespace Igor
 
     shared_ptr<iMesh> iContouringCubes::compile(iaVector3I pos, iaVector3I volume, float64 scale)
     {
+        shared_ptr<iMesh> result;
+
 		con_assert(scale > 0, "scale out of range");
 		_scale = scale;
-
-        shared_ptr<iMesh> result;
+        if (scale <= 0)
+        {
+            return result;
+        }
+        
         con_assert(_voxelData != nullptr, "no voxel data defined");
+        if (_voxelData == nullptr)
+        {
+            return result;
+        }
 
         if (pos._x < 0 ||
             pos._y < 0 ||
@@ -894,9 +903,9 @@ namespace Igor
 
         iaVector3I max = pos;
         max += volume;
-        if (max._x >= _voxelData->getWidth() ||
-            max._y >= _voxelData->getHeight() ||
-            max._z >= _voxelData->getDepth())
+        if (max._x > _voxelData->getWidth() ||
+            max._y > _voxelData->getHeight() ||
+            max._z > _voxelData->getDepth())
         {
             con_err("out of range");
             return result;
@@ -906,14 +915,15 @@ namespace Igor
 
         iaVector3I marchingVolume;
 
-        marchingVolume._x = volume._x - 2;
+        marchingVolume._x = volume._x - 1;
         marchingVolume._y = volume._y;
-        marchingVolume._z = volume._z - 2;
+        marchingVolume._z = volume._z - 1;
 
         _cubeStartPosition.set(pos._x, pos._y, pos._z);
 
         iaVector3I currentPosition;
         currentPosition._y = _cubeStartPosition._y;
+
         bool keepTriangles = false;
         uint32 nextTriangleIndex = 0;
 
@@ -932,32 +942,13 @@ namespace Igor
                 // process pole
                 startClimb(currentPosition);
                 climb();
-                climb();
-
-                int y = 0;
 
                 do
                 {
                     climb();
+                    generateGeometry(true);
 
-                    if (x > 0 &&
-                        x < marchingVolume._x - 1 &&
-                        y > 0 &&
-                        y < marchingVolume._y - 3 &&
-                        z > 0 &&
-                        z < marchingVolume._z - 1)
-                    {
-                        keepTriangles = true;
-                    }
-                    else
-                    {
-                        keepTriangles = false;
-                    }
-
-                    generateGeometry(keepTriangles);
-
-                    y++;
-                } while (!(_cubePosition._y >= marchingVolume._y + _cubeStartPosition._y));
+                } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
             }
         }
 
