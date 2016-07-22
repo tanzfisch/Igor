@@ -387,10 +387,10 @@ namespace Igor
                 vd = transformed_cube_position;
                 vd += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
 
-				va *= _scale;
-				vb *= _scale;
-				vc *= _scale;
-				vd *= _scale;
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
 
                 ab = vb - va;
                 ac = vc - va;
@@ -457,11 +457,11 @@ namespace Igor
                 vd = transformed_cube_position;
                 vd += dirs[0];
                 vd += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
-				
-				va *= _scale;
-				vb *= _scale;
-				vc *= _scale;
-				vd *= _scale;
+
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
 
                 ab = vb - va;
                 ac = vc - va;
@@ -525,10 +525,10 @@ namespace Igor
                 vd += dirs[3];
                 vd += calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22]);
 
-				va *= _scale;
-				vb *= _scale;
-				vc *= _scale;
-				vd *= _scale;
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
 
                 ab = vb - va;
                 ac = vc - va;
@@ -595,10 +595,10 @@ namespace Igor
                 vd = transformed_cube_position;
                 vd += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
 
-				va *= _scale;
-				vb *= _scale;
-				vc *= _scale;
-				vd *= _scale;
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
 
                 ab = vb - va;
                 ac = vc - va;
@@ -666,10 +666,10 @@ namespace Igor
                 vd += dirs[0];
                 vd += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
 
-				va *= _scale;
-				vb *= _scale;
-				vc *= _scale;
-				vd *= _scale;
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
 
                 ab = vb - va;
                 ac = vc - va;
@@ -733,10 +733,10 @@ namespace Igor
                 vd += dirs[3];
                 vd += calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22]);
 
-				va *= _scale;
-				vb *= _scale;
-				vc *= _scale;
-				vd *= _scale;
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
 
                 ab = vb - va;
                 ac = vc - va;
@@ -795,7 +795,7 @@ namespace Igor
     //   a(0)--------b(1)--------c(2)
 
     */
-    
+
     void iContouringCubes::climb()
     {
         for (int i = 0; i < 9; ++i)
@@ -880,13 +880,13 @@ namespace Igor
     {
         shared_ptr<iMesh> result;
 
-		con_assert(scale > 0, "scale out of range");
-		_scale = scale;
+        con_assert(scale > 0, "scale out of range");
+        _scale = scale;
         if (scale <= 0)
         {
             return result;
         }
-        
+
         con_assert(_voxelData != nullptr, "no voxel data defined");
         if (_voxelData == nullptr)
         {
@@ -942,11 +942,28 @@ namespace Igor
                 // process pole
                 startClimb(currentPosition);
                 climb();
+                int y = 0;
 
                 do
                 {
                     climb();
-                    generateGeometry(true);
+
+                    if (x > 0 &&
+                        x < marchingVolume._x - 1 &&
+                        y > 0 &&
+                        y < marchingVolume._y - 1 &&
+                        z > 0 &&
+                        z < marchingVolume._z - 1)
+                    {
+                        keepTriangles = true;
+                    }
+                    else
+                    {
+                        keepTriangles = false;
+                    }
+
+                    generateGeometry(keepTriangles);
+                    y++;
 
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
             }
