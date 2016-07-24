@@ -991,6 +991,7 @@ namespace Igor
 			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
 		}
 
+		/*
 		if (neighbors & NEIGHBOR_XNEGATIVE == 0)
 		{
 			uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 0));
@@ -1045,7 +1046,6 @@ namespace Igor
 
 		if (neighbors & NEIGHBOR_ZNEGATIVE == 0)
 		{
-			con_trace();
 			uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 0));
 			uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 0, 0));
 			uint32 c = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 32 * scale * 0.5, 0));
@@ -1056,6 +1056,7 @@ namespace Igor
 			_meshBuilder.addTriangle(a, c, d);
 			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
 		}
+		*/
 
         if (_meshBuilder.getTrianglesCount() != 0)
         {
