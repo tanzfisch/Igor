@@ -694,6 +694,7 @@ namespace Igor
                 ad = vd - va;
                 normal = ab % ad;
 
+				// TODO optimize and just add 4 vertexes
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vc);
                 c = _meshBuilder.addVertex(vd);
@@ -876,7 +877,14 @@ namespace Igor
         _voxelData = voxelData;
     }
 
-    shared_ptr<iMesh> iContouringCubes::compile(iaVector3I pos, iaVector3I volume, float64 scale)
+#define NEIGHBOR_XPOSITIVE 0x20
+#define NEIGHBOR_XNEGATIVE 0x10
+#define NEIGHBOR_YPOSITIVE 0x08
+#define NEIGHBOR_YNEGATIVE 0x04
+#define NEIGHBOR_ZPOSITIVE 0x02
+#define NEIGHBOR_ZNEGATIVE 0x01
+
+    shared_ptr<iMesh> iContouringCubes::compile(iaVector3I pos, iaVector3I volume, float64 scale, uint32 neighbors)
     {
         shared_ptr<iMesh> result;
 
@@ -968,6 +976,86 @@ namespace Igor
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
             }
         }
+
+
+		if (neighbors & NEIGHBOR_XPOSITIVE == 0)
+		{
+			uint32 a = _meshBuilder.addVertex(iaVector3f(32 * scale, 0, 0));
+			uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale, 32 * scale * 0.5, 0));
+			uint32 c = _meshBuilder.addVertex(iaVector3f(32 * scale, 32 * scale * 0.5, 32 * scale * 0.5));
+			uint32 d = _meshBuilder.addVertex(iaVector3f(32 * scale, 0, 32 * scale * 0.5));
+
+			_meshBuilder.addTriangle(a, b, c);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+			_meshBuilder.addTriangle(a, c, d);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+		}
+
+		if (neighbors & NEIGHBOR_XNEGATIVE == 0)
+		{
+			uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 0));
+			uint32 b = _meshBuilder.addVertex(iaVector3f(0, 32 * scale * 0.5, 0));
+			uint32 c = _meshBuilder.addVertex(iaVector3f(0, 32 * scale * 0.5, 32 * scale * 0.5));
+			uint32 d = _meshBuilder.addVertex(iaVector3f(0, 0, 32 * scale * 0.5));
+
+			_meshBuilder.addTriangle(a, b, c);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+			_meshBuilder.addTriangle(a, c, d);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+		}
+
+		if (neighbors & NEIGHBOR_YPOSITIVE == 0)
+		{
+			uint32 a = _meshBuilder.addVertex(iaVector3f(0, 32 * scale, 0));
+			uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 32 * scale,  0));
+			uint32 c = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 32 * scale, 32 * scale * 0.5));
+			uint32 d = _meshBuilder.addVertex(iaVector3f(0, 32 * scale, 32 * scale * 0.5));
+
+			_meshBuilder.addTriangle(a, b, c);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+			_meshBuilder.addTriangle(a, c, d);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+		}
+
+		if (neighbors & NEIGHBOR_YNEGATIVE == 0)
+		{
+			uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 0));
+			uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 0, 0));
+			uint32 c = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 0, 32 * scale * 0.5));
+			uint32 d = _meshBuilder.addVertex(iaVector3f(0, 0, 32 * scale * 0.5));
+
+			_meshBuilder.addTriangle(a, b, c);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+			_meshBuilder.addTriangle(a, c, d);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+		}
+
+		if (neighbors & NEIGHBOR_ZPOSITIVE == 0)
+		{
+			uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 32 * scale));
+			uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 0, 32 * scale));
+			uint32 c = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 32 * scale * 0.5, 32 * scale));
+			uint32 d = _meshBuilder.addVertex(iaVector3f(0, 32 * scale * 0.5, 32 * scale));
+
+			_meshBuilder.addTriangle(a, b, c);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+			_meshBuilder.addTriangle(a, c, d);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+		}
+
+		if (neighbors & NEIGHBOR_ZNEGATIVE == 0)
+		{
+			con_trace();
+			uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 0));
+			uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 0, 0));
+			uint32 c = _meshBuilder.addVertex(iaVector3f(32 * scale * 0.5, 32 * scale * 0.5, 0));
+			uint32 d = _meshBuilder.addVertex(iaVector3f(0, 32 * scale * 0.5, 0));
+
+			_meshBuilder.addTriangle(a, b, c);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+			_meshBuilder.addTriangle(a, c, d);
+			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
+		}
 
         if (_meshBuilder.getTrianglesCount() != 0)
         {

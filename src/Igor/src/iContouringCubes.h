@@ -78,7 +78,7 @@ namespace Igor
         \param volume the size of the are to be compiled
         \returns mesh
         */
-		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, float64 scale = 1.0);
+		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, float64 scale = 1.0, uint32 neighbors = 0);
 
 	private:
 
