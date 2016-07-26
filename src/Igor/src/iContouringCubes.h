@@ -72,6 +72,20 @@ namespace Igor
         */
         void setVoxelData(iVoxelData* voxelData);
 
+        /*! sets voxel data of next LOD level (lower resolution)
+
+        voxel data to next LOD is optional
+
+        \param voxelData the voxel data of the next LOD
+        */
+        void setVoxelDataNextLOD(iVoxelData* voxelData);
+
+        /*! sets the offset of the voxel data within the next LOD voxel data
+
+        \param offset the offset of voxels relative to next LOD voxels
+        */
+        void setNextLODOffset(const iaVector3I& offset);
+
         /*! compile mesh out of voxel data
 
         \param pos location in voxel data to be compiled
@@ -85,6 +99,14 @@ namespace Igor
         /*! pointer to voxel data
         */
 		iVoxelData* _voxelData = nullptr;
+
+        /*! pointer to voxel data of next LOD with lesser resolution
+        */
+        iVoxelData* _voxelDataNextLOD = nullptr;
+
+        /*! offset to use on accessing next LOD voxel data
+        */
+        iaVector3I _nextLODOffset;
 
         /*! current poles (3 times 3) for iterating through the voxel data
         */
@@ -137,7 +159,7 @@ namespace Igor
 
         \param keepTriangles if the triangles created are to keep
         */
-		void generateGeometry(bool keepTriangles);
+		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighbors);
 
         /*! climbs up the pole
         */

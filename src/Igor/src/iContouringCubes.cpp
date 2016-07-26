@@ -336,7 +336,7 @@ namespace Igor
     //   0------1------2       z
 
     */
-    void iContouringCubes::generateGeometry(bool keepTriangles)
+    void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighbors)
     {
 #define chooseMaterial(mat0, mat1, mat2, mat3) max(mat0, max(mat1, max(mat2, mat3)))
 
@@ -357,35 +357,30 @@ namespace Igor
         uint8 matd;
         uint32 matKey = 0;
 
-        iaVector3f transformed_cube_position(_cubePosition._x, _cubePosition._y, _cubePosition._z);
-        transformed_cube_position._x -= _cubeStartPosition._x - 1; // TODO workaround
-        transformed_cube_position._y -= _cubeStartPosition._y + 2; // TODO workaround
-        transformed_cube_position._z -= _cubeStartPosition._z;
-
         if (_density[13] > 0.0f)
         {
             if (_density[14] <= 0.0f)
             {
-                mata = chooseMaterial(_material[1], _material[4], _material[10], _material[13]);
-                matb = chooseMaterial(_material[4], _material[7], _material[13], _material[16]);
-                matc = chooseMaterial(_material[13], _material[16], _material[22], _material[25]);
-                matd = chooseMaterial(_material[13], _material[16], _material[22], _material[25]);
+                mata = chooseMaterial(material[1], material[4], material[10], material[13]);
+                matb = chooseMaterial(material[4], material[7], material[13], material[16]);
+                matc = chooseMaterial(material[13], material[16], material[22], material[25]);
+                matd = chooseMaterial(material[13], material[16], material[22], material[25]);
 
-                va = transformed_cube_position;
+                va = transformedCubePosition;
                 va += dirs[5];
-                va += calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14]);
+                va += calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14]);
 
-                vb = transformed_cube_position;
+                vb = transformedCubePosition;
                 vb += dirs[5];
                 vb += dirs[0];
-                vb += calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17]);
+                vb += calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17]);
 
-                vc = transformed_cube_position;
+                vc = transformedCubePosition;
                 vc += dirs[0];
-                vc += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
+                vc += calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26]);
 
-                vd = transformed_cube_position;
-                vd += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
+                vd = transformedCubePosition;
+                vd += calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23]);
 
                 va *= _scale;
                 vb *= _scale;
@@ -431,32 +426,32 @@ namespace Igor
                 }
             }
 
-            if (_density[16] <= 0.0f)
+            if (density[16] <= 0.0f)
             {
-                mata = chooseMaterial(_material[4], _material[5], _material[13], _material[14]);
-                matb = chooseMaterial(_material[3], _material[4], _material[12], _material[13]);
-                matc = chooseMaterial(_material[12], _material[13], _material[21], _material[22]);
-                matd = chooseMaterial(_material[13], _material[14], _material[22], _material[23]);
+                mata = chooseMaterial(material[4], material[5], material[13], material[14]);
+                matb = chooseMaterial(material[3], material[4], material[12], material[13]);
+                matc = chooseMaterial(material[12], material[13], material[21], material[22]);
+                matd = chooseMaterial(material[13], material[14], material[22], material[23]);
 
-                va = transformed_cube_position;
+                va = transformedCubePosition;
                 va += dirs[5];
                 va += dirs[0];
-                va += calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17]);
+                va += calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17]);
 
-                vb = transformed_cube_position;
+                vb = transformedCubePosition;
                 vb += dirs[5];
                 vb += dirs[3];
                 vb += dirs[0];
-                vb += calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16]);
+                vb += calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16]);
 
-                vc = transformed_cube_position;
+                vc = transformedCubePosition;
                 vc += dirs[3];
                 vc += dirs[0];
-                vc += calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25]);
+                vc += calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25]);
 
-                vd = transformed_cube_position;
+                vd = transformedCubePosition;
                 vd += dirs[0];
-                vd += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
+                vd += calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26]);
 
                 va *= _scale;
                 vb *= _scale;
@@ -502,28 +497,28 @@ namespace Igor
                 }
             }
 
-            if (_density[22] <= 0.0f)
+            if (density[22] <= 0.0f)
             {
-                mata = chooseMaterial(_material[19], _material[11], _material[13], _material[14]);
-                matb = chooseMaterial(_material[13], _material[14], _material[16], _material[17]);
-                matc = chooseMaterial(_material[12], _material[13], _material[15], _material[16]);
-                matd = chooseMaterial(_material[9], _material[10], _material[12], _material[13]);
+                mata = chooseMaterial(material[19], material[11], material[13], material[14]);
+                matb = chooseMaterial(material[13], material[14], material[16], material[17]);
+                matc = chooseMaterial(material[12], material[13], material[15], material[16]);
+                matd = chooseMaterial(material[9], material[10], material[12], material[13]);
 
-                va = transformed_cube_position;
-                va += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
+                va = transformedCubePosition;
+                va += calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23]);
 
-                vb = transformed_cube_position;
+                vb = transformedCubePosition;
                 vb += dirs[0];
-                vb += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
+                vb += calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26]);
 
-                vc = transformed_cube_position;
+                vc = transformedCubePosition;
                 vc += dirs[3];
                 vc += dirs[0];
-                vc += calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25]);
+                vc += calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25]);
 
-                vd = transformed_cube_position;
+                vd = transformedCubePosition;
                 vd += dirs[3];
-                vd += calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22]);
+                vd += calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22]);
 
                 va *= _scale;
                 vb *= _scale;
@@ -572,28 +567,28 @@ namespace Igor
         else
         { // TODO optimize copy paste code here
 
-            if (_density[14] > 0.0f)
+            if (density[14] > 0.0f)
             {
-                mata = chooseMaterial(_material[1], _material[4], _material[10], _material[13]);
-                matb = chooseMaterial(_material[4], _material[7], _material[13], _material[16]);
-                matc = chooseMaterial(_material[13], _material[16], _material[22], _material[25]);
-                matd = chooseMaterial(_material[13], _material[16], _material[22], _material[25]);
+                mata = chooseMaterial(material[1], material[4], material[10], material[13]);
+                matb = chooseMaterial(material[4], material[7], material[13], material[16]);
+                matc = chooseMaterial(material[13], material[16], material[22], material[25]);
+                matd = chooseMaterial(material[13], material[16], material[22], material[25]);
 
-                va = transformed_cube_position;
+                va = transformedCubePosition;
                 va += dirs[5];
-                va += calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14]);
+                va += calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14]);
 
-                vb = transformed_cube_position;
+                vb = transformedCubePosition;
                 vb += dirs[0];
                 vb += dirs[5];
-                vb += calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17]);
+                vb += calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17]);
 
-                vc = transformed_cube_position;
+                vc = transformedCubePosition;
                 vc += dirs[0];
-                vc += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
+                vc += calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26]);
 
-                vd = transformed_cube_position;
-                vd += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
+                vd = transformedCubePosition;
+                vd += calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23]);
 
                 va *= _scale;
                 vb *= _scale;
@@ -639,32 +634,32 @@ namespace Igor
                 }
             }
 
-            if (_density[16] > 0.0f)
+            if (density[16] > 0.0f)
             {
-                mata = chooseMaterial(_material[4], _material[5], _material[13], _material[14]);
-                matb = chooseMaterial(_material[3], _material[4], _material[12], _material[13]);
-                matc = chooseMaterial(_material[12], _material[13], _material[21], _material[22]);
-                matd = chooseMaterial(_material[13], _material[14], _material[22], _material[23]);
+                mata = chooseMaterial(material[4], material[5], material[13], material[14]);
+                matb = chooseMaterial(material[3], material[4], material[12], material[13]);
+                matc = chooseMaterial(material[12], material[13], material[21], material[22]);
+                matd = chooseMaterial(material[13], material[14], material[22], material[23]);
 
-                va = transformed_cube_position;
+                va = transformedCubePosition;
                 va += dirs[5];
                 va += dirs[0];
-                va += calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17]);
+                va += calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17]);
 
-                vb = transformed_cube_position;
+                vb = transformedCubePosition;
                 vb += dirs[5];
                 vb += dirs[3];
                 vb += dirs[0];
-                vb += calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16]);
+                vb += calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16]);
 
-                vc = transformed_cube_position;
+                vc = transformedCubePosition;
                 vc += dirs[3];
                 vc += dirs[0];
-                vc += calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25]);
+                vc += calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25]);
 
-                vd = transformed_cube_position;
+                vd = transformedCubePosition;
                 vd += dirs[0];
-                vd += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
+                vd += calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26]);
 
                 va *= _scale;
                 vb *= _scale;
@@ -711,28 +706,28 @@ namespace Igor
                 }
             }
 
-            if (_density[22] > 0.0f)
+            if (density[22] > 0.0f)
             {
-                mata = chooseMaterial(_material[19], _material[11], _material[13], _material[14]);
-                matb = chooseMaterial(_material[13], _material[14], _material[16], _material[17]);
-                matc = chooseMaterial(_material[12], _material[13], _material[15], _material[16]);
-                matd = chooseMaterial(_material[9], _material[10], _material[12], _material[13]);
+                mata = chooseMaterial(material[19], material[11], material[13], material[14]);
+                matb = chooseMaterial(material[13], material[14], material[16], material[17]);
+                matc = chooseMaterial(material[12], material[13], material[15], material[16]);
+                matd = chooseMaterial(material[9], material[10], material[12], material[13]);
 
-                va = transformed_cube_position;
-                va += calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23]);
+                va = transformedCubePosition;
+                va += calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23]);
 
-                vb = transformed_cube_position;
+                vb = transformedCubePosition;
                 vb += dirs[0];
-                vb += calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26]);
+                vb += calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26]);
 
-                vc = transformed_cube_position;
+                vc = transformedCubePosition;
                 vc += dirs[3];
                 vc += dirs[0];
-                vc += calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25]);
+                vc += calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25]);
 
-                vd = transformed_cube_position;
+                vd = transformedCubePosition;
                 vd += dirs[3];
-                vd += calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22]);
+                vd += calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22]);
 
                 va *= _scale;
                 vb *= _scale;
@@ -877,6 +872,16 @@ namespace Igor
         _voxelData = voxelData;
     }
 
+    void iContouringCubes::setVoxelDataNextLOD(iVoxelData* voxelData)
+    {
+        _voxelDataNextLOD = voxelData;
+    }
+
+    void iContouringCubes::setNextLODOffset(const iaVector3I& offset)
+    {
+        _nextLODOffset = offset;
+    }
+
 #define NEIGHBOR_XPOSITIVE 0x20
 #define NEIGHBOR_XNEGATIVE 0x10
 #define NEIGHBOR_YPOSITIVE 0x08
@@ -970,7 +975,12 @@ namespace Igor
                         keepTriangles = false;
                     }
 
-                    generateGeometry(keepTriangles);
+                    iaVector3f transformedCubePosition(_cubePosition._x, _cubePosition._y, _cubePosition._z);
+                    transformedCubePosition._x -= _cubeStartPosition._x - 1; // TODO workaround I don't fully understand
+                    transformedCubePosition._y -= _cubeStartPosition._y + 2; // TODO workaround
+                    transformedCubePosition._z -= _cubeStartPosition._z;
+
+                    generateGeometry(transformedCubePosition, _density, _material, keepTriangles, neighbors);
                     y++;
 
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
