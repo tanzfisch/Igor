@@ -281,10 +281,12 @@ namespace Igor
             calcPos /= static_cast<float32>(div);
         }
 
+        //calcPos.set(0.5, 0.5, 0.5);
+
         vertex = calcPos;
 
 //#define lerp(v0, v1, t) v0 + t*(v1-v0)
-/*#define lerp(v0, v1, t) (1.0f-t)*v0 + t*v1
+#define lerp(v0, v1, t) (1.0f-t)*v0 + t*v1
 
         float32 delta0 = d0 - d1;
         float32 delta1 = d2 - d3;
@@ -311,9 +313,9 @@ namespace Igor
 
         temp1 = lerp(delta8, delta9, calcPos._y);
         temp2 = lerp(delta10, delta11, calcPos._y);
-        normal._z = lerp(temp1, temp2, calcPos._x);*/
+        normal._z = lerp(temp1, temp2, calcPos._x);
 
-        //normal.normalize();
+        normal.normalize();
     }
 
     uint32 calcMaterialKey(uint8 mat0, uint8 mat1, uint8 mat2)
@@ -387,6 +389,8 @@ namespace Igor
     //   0------1------2       z
 
     */
+
+#define CALC_NORMALS
     void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighbors)
     {
 #define chooseMaterial(mat0, mat1, mat2, mat3) max(mat0, max(mat1, max(mat2, mat3)))
@@ -449,6 +453,7 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
+#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -462,6 +467,12 @@ namespace Igor
                 _meshBuilder.accumulateNormal(a, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(d, normalB);
+#else
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
+#endif
 
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
@@ -518,6 +529,7 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
+#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -531,6 +543,12 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
+#endif
 
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
@@ -583,6 +601,7 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
+#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -596,6 +615,12 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
+#endif
 
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
@@ -651,6 +676,7 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
+#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -664,6 +690,12 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
+#endif
 
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
@@ -720,6 +752,7 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
+#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -733,6 +766,12 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
+#endif
 
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
@@ -785,6 +824,7 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
+#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -798,6 +838,12 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
+#endif
 
                 _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
                 _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
@@ -1177,7 +1223,9 @@ namespace Igor
 
         if (_meshBuilder.getTrianglesCount() != 0)
         {
+#ifdef CALC_NORMALS
             _meshBuilder.normalizeNormals();
+#endif
 
             for (auto iter : _trianglesToKeep)
             {
