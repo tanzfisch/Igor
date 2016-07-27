@@ -17,7 +17,7 @@ void main()
 	VertexWorld = (in_modelMatrix * vec4(in_position, 1)).xyz;
 	
 	mat4 norm = transpose(inverse(in_modelMatrix));
-	VertexNormal = (norm * vec4(in_normal, 1)).xzy;
+	VertexNormal = (norm * vec4(in_normal, 1)).xyz;
 	
 	VertexTexCoord = in_texCoord;
 	

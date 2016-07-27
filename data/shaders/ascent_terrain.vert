@@ -14,7 +14,7 @@ void main()
 	VertexWorld = (model_matrix * vec4(in_position, 1)).xyz;
 
 	mat4 norm = transpose(inverse(model_matrix));
-	VertexNormal = (norm * vec4(in_normal, 1)).xzy;	
+	VertexNormal = (norm * vec4(in_normal, 1)).xyz;	
 	
 	gl_Position = mvp_matrix * vec4(in_position,1);
 }
