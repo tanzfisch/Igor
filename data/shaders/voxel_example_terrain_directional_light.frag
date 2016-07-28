@@ -34,17 +34,17 @@ void main()
 	
 	vec3 diffuseTextureColor1;
 	
-	if(N.z > 0)
+	if(N.y > 0)
 	{
-		diffuseTextureColor1 = texture2D(tex1, P.xz * scale).rgb * texSelector.z;
+		diffuseTextureColor1 = texture2D(tex1, P.xz * scale).rgb * texSelector.y;
 	}
 	else
 	{
-		diffuseTextureColor1 = texture2D(tex2, P.xz * scale).rgb * texSelector.z;
+		diffuseTextureColor1 = texture2D(tex2, P.xz * scale).rgb * texSelector.y;
 	}
 	
 	vec3 diffuseTextureColor0 = texture2D(tex0, P.yz * scale).rgb * texSelector.x;
-	vec3 diffuseTextureColor2 = texture2D(tex0, P.xy * scale).rgb * texSelector.y;
+	vec3 diffuseTextureColor2 = texture2D(tex0, P.xy * scale).rgb * texSelector.z;
 	
 	vec3 diffuseTextureColor = diffuseTextureColor0 + diffuseTextureColor1 + diffuseTextureColor2;
 	
