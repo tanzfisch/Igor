@@ -84,7 +84,7 @@ namespace Igor
 
         \param offset the offset of voxels relative to next LOD voxels
         */
-        void setNextLODOffset(const iaVector3I& offset);
+        void setNextLODOffset(const iaVector3I& voxelOffset, const iaVector3f& worldOffset);
 
         /*! compile mesh out of voxel data
 
@@ -92,7 +92,7 @@ namespace Igor
         \param volume the size of the are to be compiled
         \returns mesh
         */
-		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, float64 scale = 1.0, uint32 neighbors = 0);
+		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, uint32 lod, uint32 neighbors = 0);
 
 	private:
 
@@ -106,7 +106,9 @@ namespace Igor
 
         /*! offset to use on accessing next LOD voxel data
         */
-        iaVector3I _nextLODOffset;
+        iaVector3I _nextLODVoxelOffset;
+
+        iaVector3f _nextLODWorldOffset;
 
         /*! current poles (3 times 3) for iterating through the voxel data
         */
@@ -138,7 +140,10 @@ namespace Igor
 
 		/*! model scale
 		*/
-		float64 _scale = 1.0;
+		uint32 _lod = 0;
+
+        float64 _scale = 0;
+        float64 _scaleNextLOD = 0;
 
         /*! calculates vertex position allong iso surface
 
@@ -159,7 +164,7 @@ namespace Igor
 
         \param keepTriangles if the triangles created are to keep
         */
-		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighbors);
+		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighborLODs);
 
         /*! climbs up the pole
         */

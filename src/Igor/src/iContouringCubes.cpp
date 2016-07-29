@@ -9,6 +9,13 @@
 #include <iaMatrix3x3.h>
 using namespace IgorAux;
 
+#define NEIGHBOR_XPOSITIVE 0x20
+#define NEIGHBOR_XNEGATIVE 0x10
+#define NEIGHBOR_YPOSITIVE 0x08
+#define NEIGHBOR_YNEGATIVE 0x04
+#define NEIGHBOR_ZPOSITIVE 0x02
+#define NEIGHBOR_ZNEGATIVE 0x01
+
 namespace Igor
 {
 
@@ -94,6 +101,8 @@ namespace Igor
 
 
     */
+#define CALC_NORMALS
+
     void iContouringCubes::calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex, iaVector3f& normal)
     {
         int div = 0;
@@ -281,11 +290,11 @@ namespace Igor
             calcPos /= static_cast<float32>(div);
         }
 
-        //calcPos.set(0.5, 0.5, 0.5);
-
+        calcPos.set(0.5, 0.5, 0.5);
         vertex = calcPos;
 
 //#define lerp(v0, v1, t) v0 + t*(v1-v0)
+#ifndef CALC_NORMALS
 #define lerp(v0, v1, t) (1.0f-t)*v0 + t*v1
 
         float32 delta0 = d0 - d1;
@@ -316,6 +325,7 @@ namespace Igor
         normal._z = lerp(temp1, temp2, calcPos._x);
 
         normal.normalize();
+#endif
     }
 
     uint32 calcMaterialKey(uint8 mat0, uint8 mat1, uint8 mat2)
@@ -388,22 +398,47 @@ namespace Igor
     //   |/     |/     |/       /
     //   0------1------2       z
 
+
+    // next lod density
+    //      
+    //     18-----19
+    //    /|     /|
+    //   16-----17|
+    //   | | 14-|-|-15
+    //   | |/|  | |/|
+    //   | 11---|-12-----13
+    //   |/| |  |/| |   /| 
+    //   8------9------10| 
+    //   | | 6--|-|-7  | |
+    //   | |/   | |/   | |
+    //   | 3----|-4----|-5
+    //   |/     |/     |/ 
+    //   0------1------2  
+
     */
 
-#define CALC_NORMALS
-    void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighbors)
-    {
-#define chooseMaterial(mat0, mat1, mat2, mat3) max(mat0, max(mat1, max(mat2, mat3)))
 
+    void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighborLODs)
+    {
         iaVector3f va;
         iaVector3f vb;
         iaVector3f vc;
         iaVector3f vd;
 
+        iaVector3f v0;
+        iaVector3f v1;
+        iaVector3f v2;
+        iaVector3f v3;
+
         iaVector3f na;
         iaVector3f nb;
         iaVector3f nc;
         iaVector3f nd;
+
+        iaVector3f n0;
+        iaVector3f n1;
+        iaVector3f n2;
+        iaVector3f n3;
 
         iaVector3f normal;
         iaVector3f normalA, normalB;
@@ -418,15 +453,80 @@ namespace Igor
         uint8 matd;
         uint32 matKey = 0;
 
+        uint8 nextLODDensity[20];
+
+        if (neighborLODs != 0)
+        {
+            iaVector3I blockPos = _cubePosition;
+            blockPos._x = blockPos._x >> 1;
+            blockPos._y = blockPos._y >> 1;
+            blockPos._z = blockPos._z >> 1;
+            blockPos += _nextLODVoxelOffset;
+
+            iaVector3I pos = blockPos;
+            nextLODDensity[0] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[1] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[2] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z += 1;
+            nextLODDensity[5] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[4] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[3] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._y += 1;
+            nextLODDensity[11] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z += 1;
+            nextLODDensity[14] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[15] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z -= 1;
+            nextLODDensity[12] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[13] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z -= 1;
+            nextLODDensity[10] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[9] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[8] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._y += 1;
+            nextLODDensity[16] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[17] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z += 1;
+            nextLODDensity[19] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[18] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[8], nextLODDensity[9], nextLODDensity[11], nextLODDensity[12], v0, n0);
+            calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], v1, n1);
+            calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[11], nextLODDensity[12], nextLODDensity[14], nextLODDensity[15], v2, n2);
+            calculateVertex(nextLODDensity[8], nextLODDensity[9], nextLODDensity[11], nextLODDensity[12], nextLODDensity[16], nextLODDensity[17], nextLODDensity[18], nextLODDensity[19], v3, n3);
+        }
+        
         if (_density[13] > 0.0f)
         {
             if (_density[14] <= 0.0f)
             {
-                mata = chooseMaterial(material[1], material[4], material[10], material[13]);
-                matb = chooseMaterial(material[4], material[7], material[13], material[16]);
-                matc = chooseMaterial(material[13], material[16], material[22], material[25]);
-                matd = chooseMaterial(material[13], material[16], material[22], material[25]);
-
                 calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va, na);
                 va += transformedCubePosition;
                 va += dirs[5];
@@ -473,11 +573,6 @@ namespace Igor
                 _meshBuilder.setNormal(c, nc);
                 _meshBuilder.setNormal(d, nd);
 #endif
-
-                _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
-                _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
-                _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
-                _meshBuilder.setTexCoord(d, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
 
                 _meshBuilder.addTriangle(c, b, a);
                 if (keepTriangles)
@@ -494,11 +589,6 @@ namespace Igor
 
             if (density[16] <= 0.0f)
             {
-                mata = chooseMaterial(material[4], material[5], material[13], material[14]);
-                matb = chooseMaterial(material[3], material[4], material[12], material[13]);
-                matc = chooseMaterial(material[12], material[13], material[21], material[22]);
-                matd = chooseMaterial(material[13], material[14], material[22], material[23]);
-
                 calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va, na);
                 va += transformedCubePosition;
                 va += dirs[5];
@@ -550,11 +640,6 @@ namespace Igor
                 _meshBuilder.setNormal(d, nd);
 #endif
 
-                _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
-                _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
-                _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
-                _meshBuilder.setTexCoord(d, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
-
                 _meshBuilder.addTriangle(c, b, a);
                 if (keepTriangles)
                 {
@@ -570,32 +655,93 @@ namespace Igor
 
             if (density[22] <= 0.0f)
             {
-                mata = chooseMaterial(material[19], material[11], material[13], material[14]);
-                matb = chooseMaterial(material[13], material[14], material[16], material[17]);
-                matc = chooseMaterial(material[12], material[13], material[15], material[16]);
-                matd = chooseMaterial(material[9], material[10], material[12], material[13]);
+                /*
+                // voxel space
+                  ^ z
+                  |
+                  c-b
+                  | |  x
+                  d-a ->
+
+                  //     18-----19
+                  //    /|     /|
+                  //   16-----17|
+                  //   | | 14-|-|-15
+                  //   | |/|  | |/|
+                  //   | 11---|-12-----13
+                  //   |/| |  |/| |   /|
+                  //   8------9------10|
+                  //   | | 6--|-|-7  | |
+                  //   | |/   | |/   | |
+                  //   | 3----|-4----|-5
+                  //   |/     |/     |/
+                  //   0------1------2
+
+                  v3 v2
+                  | /
+                  v0-v1
+                */
 
                 calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va, na);
                 va += transformedCubePosition;
-                
+                va *= _scale;
+
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb, nb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
-                
+                vb *= _scale;
+
                 calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc, nc);
                 vc += transformedCubePosition;
                 vc += dirs[3];
                 vc += dirs[0];
-                
+                vc *= _scale;
+
                 calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd, nd);
                 vd += transformedCubePosition;
                 vd += dirs[3];
-
-                va *= _scale;
-                vb *= _scale;
-                vc *= _scale;
                 vd *= _scale;
 
+                if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
+                {
+                    v1 += transformedCubePosition;
+                    v1._z -= 2.0;
+                    v0 += transformedCubePosition;
+                                        
+                    if (_cubePosition._z % 2 != 0)
+                    {
+                        v1 += v0;
+                        v1 *= 0.5;
+
+                        na += nb;
+                        na *= 0.5;
+                    }
+                    else
+                    {
+                        v1._z += 1.0;
+                        v0._z += 1.0;
+
+                        v0 += v1;
+                        v0 *= 0.5;
+
+                        n0 += n1;
+                        n0 *= 0.5;
+                    }
+
+                    v1 += _nextLODWorldOffset;
+                    v0 += _nextLODWorldOffset;
+
+                    v1 *= _scale;
+                    v0 *= _scale;
+
+                    va = v1;
+                    vb = v0;
+                }
+                else
+                {
+
+                }
+                
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
                 c = _meshBuilder.addVertex(vc);
@@ -622,11 +768,6 @@ namespace Igor
                 _meshBuilder.setNormal(d, nd);
 #endif
 
-                _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
-                _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
-                _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
-                _meshBuilder.setTexCoord(d, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
-
                 _meshBuilder.addTriangle(c, b, a);
                 if (keepTriangles)
                 {
@@ -641,15 +782,10 @@ namespace Igor
             }
         }
         else
-        { // TODO optimize copy paste code here
+        {
 
             if (density[14] > 0.0f)
             {
-                mata = chooseMaterial(material[1], material[4], material[10], material[13]);
-                matb = chooseMaterial(material[4], material[7], material[13], material[16]);
-                matc = chooseMaterial(material[13], material[16], material[22], material[25]);
-                matd = chooseMaterial(material[13], material[16], material[22], material[25]);
-
                 calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va, na);
                 va += transformedCubePosition;
                 va += dirs[5];
@@ -697,11 +833,6 @@ namespace Igor
                 _meshBuilder.setNormal(d, nd);
 #endif
 
-                _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
-                _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
-                _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
-                _meshBuilder.setTexCoord(d, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
-
                 _meshBuilder.addTriangle(a, b, c);
                 if (keepTriangles)
                 {
@@ -717,11 +848,6 @@ namespace Igor
 
             if (density[16] > 0.0f)
             {
-                mata = chooseMaterial(material[4], material[5], material[13], material[14]);
-                matb = chooseMaterial(material[3], material[4], material[12], material[13]);
-                matc = chooseMaterial(material[12], material[13], material[21], material[22]);
-                matd = chooseMaterial(material[13], material[14], material[22], material[23]);
-
                 calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va, na);
                 va += transformedCubePosition;
                 va += dirs[5];
@@ -773,11 +899,6 @@ namespace Igor
                 _meshBuilder.setNormal(d, nd);
 #endif
 
-                _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
-                _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
-                _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
-                _meshBuilder.setTexCoord(d, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
-
                 _meshBuilder.addTriangle(a, b, c);
                 if (keepTriangles)
                 {
@@ -793,11 +914,6 @@ namespace Igor
 
             if (density[22] > 0.0f)
             {
-                mata = chooseMaterial(material[19], material[11], material[13], material[14]);
-                matb = chooseMaterial(material[13], material[14], material[16], material[17]);
-                matc = chooseMaterial(material[12], material[13], material[15], material[16]);
-                matd = chooseMaterial(material[9], material[10], material[12], material[13]);
-
                 calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va, na);
                 va += transformedCubePosition;
                 
@@ -844,11 +960,6 @@ namespace Igor
                 _meshBuilder.setNormal(c, nc);
                 _meshBuilder.setNormal(d, nd);
 #endif
-
-                _meshBuilder.setTexCoord(a, iaVector2f(static_cast<float32>(mata), 0.0f), 0);
-                _meshBuilder.setTexCoord(b, iaVector2f(static_cast<float32>(matb), 0.0f), 0);
-                _meshBuilder.setTexCoord(c, iaVector2f(static_cast<float32>(matc), 0.0f), 0);
-                _meshBuilder.setTexCoord(d, iaVector2f(static_cast<float32>(matd), 0.0f), 0);
 
                 _meshBuilder.addTriangle(a, b, c);
                 if (keepTriangles)
@@ -967,27 +1078,23 @@ namespace Igor
         _voxelDataNextLOD = voxelData;
     }
 
-    void iContouringCubes::setNextLODOffset(const iaVector3I& offset)
+    void iContouringCubes::setNextLODOffset(const iaVector3I& voxelOffset, const iaVector3f& worldOffset)
     {
-        _nextLODOffset = offset;
+        _nextLODVoxelOffset = voxelOffset;
+        _nextLODWorldOffset = worldOffset;
     }
 
-#define NEIGHBOR_XPOSITIVE 0x20
-#define NEIGHBOR_XNEGATIVE 0x10
-#define NEIGHBOR_YPOSITIVE 0x08
-#define NEIGHBOR_YNEGATIVE 0x04
-#define NEIGHBOR_ZPOSITIVE 0x02
-#define NEIGHBOR_ZNEGATIVE 0x01
-
-    shared_ptr<iMesh> iContouringCubes::compile(iaVector3I pos, iaVector3I volume, float64 scale, uint32 neighbors)
+    shared_ptr<iMesh> iContouringCubes::compile(iaVector3I pos, iaVector3I volume, uint32 lod, uint32 neighborLODs)
     {
         shared_ptr<iMesh> result;
 
-        con_assert(scale > 0, "scale out of range");
-        _scale = scale;
-        if (scale <= 0)
+        _lod = lod;
+        _scale = pow(2, _lod);
+        _scaleNextLOD = pow(2, _lod + 1);
+
+        if (neighborLODs != 0)
         {
-            return result;
+            con_assert_sticky(_voxelDataNextLOD != nullptr, "no data available");
         }
 
         con_assert(_voxelData != nullptr, "no voxel data defined");
@@ -1032,28 +1139,64 @@ namespace Igor
 
         _trianglesToKeep.clear();
 
+        uint32 LODs = 0;
+
         // run through collumns
         for (int x = 0; x < marchingVolume._x; ++x)
         {
+            if (x == 0)
+            {
+                LODs |= (neighborLODs & NEIGHBOR_XNEGATIVE);
+            }
+            else
+            {
+                LODs &= ~NEIGHBOR_XNEGATIVE;
+            }
+                
+            if (x == marchingVolume._x - 1)
+            {
+                LODs |= (neighborLODs & NEIGHBOR_XPOSITIVE);
+            }
+            else
+            {
+                LODs &= ~NEIGHBOR_XPOSITIVE;
+            }
+
             currentPosition._x = _cubeStartPosition._x + x;
 
             // run through rows
             for (int z = 0; z < marchingVolume._z; ++z)
             {
+                if (z == 0)
+                {
+                    LODs |= (neighborLODs & NEIGHBOR_ZNEGATIVE);
+                }
+                else
+                {
+                    LODs &= ~NEIGHBOR_ZNEGATIVE;
+                }
+
+                if (z == marchingVolume._z - 1)
+                {
+                    LODs |= (neighborLODs & NEIGHBOR_ZPOSITIVE);
+                }
+                else
+                {
+                    LODs &= ~NEIGHBOR_ZPOSITIVE;
+                }
+
                 currentPosition._z = _cubeStartPosition._z + z;
 
                 int y = 0;
                 // process pole
                 startClimb(currentPosition);
                 climb();
-                y++;
 
                 do
                 {
                     climb();
-                    y++;
 
-                    if (x > 0 &&
+                  /*  if (x > 0 &&
                         x < marchingVolume._x - 1 &&
                         y > 0 &&
                         y < marchingVolume._y - 1 &&
@@ -1065,19 +1208,39 @@ namespace Igor
                     else
                     {
                         keepTriangles = false;
-                    }
+                    }*/
 
                     iaVector3f transformedCubePosition(_cubePosition._x, _cubePosition._y, _cubePosition._z);
                     transformedCubePosition._x -= _cubeStartPosition._x - 1; // TODO workaround I don't understand
                     transformedCubePosition._y -= _cubeStartPosition._y + 2; // TODO workaround I don't understand
                     transformedCubePosition._z -= _cubeStartPosition._z;
 
-                    generateGeometry(transformedCubePosition, _density, _material, keepTriangles, neighbors);
+                    if (y == 0)
+                    {
+                        LODs |= (neighborLODs & NEIGHBOR_YNEGATIVE);
+                    }
+                    else
+                    {
+                        LODs &= ~NEIGHBOR_YNEGATIVE;
+                    }
+
+                    if (y == marchingVolume._y - 1)
+                    {
+                        LODs |= (neighborLODs & NEIGHBOR_YPOSITIVE);
+                    }
+                    else
+                    {
+                        LODs &= ~NEIGHBOR_YPOSITIVE;
+                    }
+
+                    generateGeometry(transformedCubePosition, _density, _material, true, LODs);
+
+                    y++;
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
             }
         }
                 
-		/*if ((neighbors & NEIGHBOR_XPOSITIVE) != 0)
+		/*if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
 		{
 			uint32 a = _meshBuilder.addVertex(iaVector3f(32 * scale - 2, 0, 0));
 			uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale - 2, 18 * scale, 0));
@@ -1101,7 +1264,7 @@ namespace Igor
 			_trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
 		}
 
-        if ((neighbors & NEIGHBOR_XNEGATIVE) != 0)
+        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
         {
             uint32 a = _meshBuilder.addVertex(iaVector3f(2, 0, 0));
             uint32 b = _meshBuilder.addVertex(iaVector3f(2, 16 * scale, 0));
@@ -1125,7 +1288,7 @@ namespace Igor
             _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
         }
 
-        if ((neighbors & NEIGHBOR_YPOSITIVE) != 0)
+        if ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0)
         {
             uint32 a = _meshBuilder.addVertex(iaVector3f(0, 32 * scale - 2, 0));
             uint32 b = _meshBuilder.addVertex(iaVector3f(18 * scale, 32 * scale - 2, 0));
@@ -1149,7 +1312,7 @@ namespace Igor
             _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
         }
 
-        if ((neighbors & NEIGHBOR_YNEGATIVE) != 0)
+        if ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0)
         {
             uint32 a = _meshBuilder.addVertex(iaVector3f(0, 2, 0));
             uint32 b = _meshBuilder.addVertex(iaVector3f(16 * scale, 2, 0));
@@ -1173,7 +1336,7 @@ namespace Igor
             _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
         }
 
-        if ((neighbors & NEIGHBOR_ZPOSITIVE) != 0)
+        if ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
         {
             uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 32 * scale - 2));
             uint32 b = _meshBuilder.addVertex(iaVector3f(18 * scale, 0, 32 * scale - 2));
@@ -1197,7 +1360,7 @@ namespace Igor
             _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
         }
 
-        if ((neighbors & NEIGHBOR_ZNEGATIVE) != 0)
+        if ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
         {
             uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 2));
             uint32 b = _meshBuilder.addVertex(iaVector3f(16 * scale, 0, 2));
