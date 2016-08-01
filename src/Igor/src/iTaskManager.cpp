@@ -163,10 +163,23 @@ namespace Igor
     {
         iTask* result = nullptr;
 
-        auto iter = _tasks.find(taskID);
-        if (iter != _tasks.end())
+		_mutexIncommingTasks.lock();
+		auto iterIncomming = _tasksIncomming.begin();
+		while (iterIncomming != _tasksIncomming.end())
+		{
+			if ((*iterIncomming)->getID() == taskID)
+			{
+				result = (*iterIncomming);
+				break;
+			}
+			iterIncomming++;
+		}
+		_mutexIncommingTasks.unlock();
+        
+		auto iterTasks = _tasks.find(taskID);
+        if (iterTasks != _tasks.end())
         {
-            result = (*iter).second;
+            result = (*iterTasks).second;
         }
 
         return result;

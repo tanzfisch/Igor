@@ -225,6 +225,8 @@ namespace Igor
         */
 		void createThread();
 
+		/*! flush incomming tasks queue to task list
+		*/
         void flushIncomming();
 
         /*! creates some regular threads and starts them
