@@ -290,7 +290,6 @@ namespace Igor
             calcPos /= static_cast<float32>(div);
         }
 
-        calcPos.set(0.5, 0.5, 0.5);
         vertex = calcPos;
 
 //#define lerp(v0, v1, t) v0 + t*(v1-v0)
@@ -328,24 +327,6 @@ namespace Igor
 #endif
     }
 
-    uint32 calcMaterialKey(uint8 mat0, uint8 mat1, uint8 mat2)
-    {
-        return 0;
-        /*if (mat0 > mat1)
-        {
-            std::swap(mat0, mat1);
-        }
-        if (mat0 > mat2)
-        {
-            std::swap(mat0, mat2);
-        }
-        if (mat1 > mat2)
-        {
-            std::swap(mat1, mat2);
-        }
-
-        return ((static_cast<uint32>(mat0) << 16) + (static_cast<uint32>(mat1) << 8) + static_cast<uint32>(mat2));*/
-    }
 
     /*
 
@@ -418,7 +399,7 @@ namespace Igor
     */
 
 
-    void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighborLODs)
+    void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, bool keepTriangles, uint32 neighborLODs)
     {
         iaVector3f va;
         iaVector3f vb;
@@ -452,76 +433,6 @@ namespace Igor
         uint8 matc;
         uint8 matd;
         uint32 matKey = 0;
-
-        uint8 nextLODDensity[20];
-
-        if (neighborLODs != 0)
-        {
-            iaVector3I blockPos = _cubePosition;
-            blockPos._x = blockPos._x >> 1;
-            blockPos._y = blockPos._y >> 1;
-            blockPos._z = blockPos._z >> 1;
-            blockPos += _nextLODVoxelOffset;
-
-            iaVector3I pos = blockPos;
-            nextLODDensity[0] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x += 1;
-            nextLODDensity[1] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x += 1;
-            nextLODDensity[2] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._z += 1;
-            nextLODDensity[5] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x -= 1;
-            nextLODDensity[4] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x -= 1;
-            nextLODDensity[3] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._y += 1;
-            nextLODDensity[11] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._z += 1;
-            nextLODDensity[14] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x += 1;
-            nextLODDensity[15] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._z -= 1;
-            nextLODDensity[12] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x += 1;
-            nextLODDensity[13] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._z -= 1;
-            nextLODDensity[10] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x -= 1;
-            nextLODDensity[9] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x -= 1;
-            nextLODDensity[8] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._y += 1;
-            nextLODDensity[16] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x += 1;
-            nextLODDensity[17] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._z += 1;
-            nextLODDensity[19] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            pos._x -= 1;
-            nextLODDensity[18] = _voxelDataNextLOD->getVoxelDensity(pos);
-
-            calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[8], nextLODDensity[9], nextLODDensity[11], nextLODDensity[12], v0, n0);
-            calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], v1, n1);
-            calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[11], nextLODDensity[12], nextLODDensity[14], nextLODDensity[15], v2, n2);
-            calculateVertex(nextLODDensity[8], nextLODDensity[9], nextLODDensity[11], nextLODDensity[12], nextLODDensity[16], nextLODDensity[17], nextLODDensity[18], nextLODDensity[19], v3, n3);
-        }
         
         if (_density[13] > 0.0f)
         {
@@ -577,13 +488,13 @@ namespace Igor
                 _meshBuilder.addTriangle(c, b, a);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
                 _meshBuilder.addTriangle(d, c, a);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matc, matd)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
             }
 
@@ -643,13 +554,13 @@ namespace Igor
                 _meshBuilder.addTriangle(c, b, a);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
                 _meshBuilder.addTriangle(d, c, a);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matc, matd)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
             }
 
@@ -701,46 +612,6 @@ namespace Igor
                 vd += transformedCubePosition;
                 vd += dirs[3];
                 vd *= _scale;
-
-                if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
-                {
-                    v1 += transformedCubePosition;
-                    v1._z -= 2.0;
-                    v0 += transformedCubePosition;
-                                        
-                    if (_cubePosition._z % 2 != 0)
-                    {
-                        v1 += v0;
-                        v1 *= 0.5;
-
-                        na += nb;
-                        na *= 0.5;
-                    }
-                    else
-                    {
-                        v1._z += 1.0;
-                        v0._z += 1.0;
-
-                        v0 += v1;
-                        v0 *= 0.5;
-
-                        n0 += n1;
-                        n0 *= 0.5;
-                    }
-
-                    v1 += _nextLODWorldOffset;
-                    v0 += _nextLODWorldOffset;
-
-                    v1 *= _scale;
-                    v0 *= _scale;
-
-                    va = v1;
-                    vb = v0;
-                }
-                else
-                {
-
-                }
                 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -771,13 +642,13 @@ namespace Igor
                 _meshBuilder.addTriangle(c, b, a);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
                 _meshBuilder.addTriangle(d, c, a);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matc, matd)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
             }
         }
@@ -836,13 +707,13 @@ namespace Igor
                 _meshBuilder.addTriangle(a, b, c);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
                 _meshBuilder.addTriangle(a, c, d);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matc, matd)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
             }
 
@@ -902,13 +773,13 @@ namespace Igor
                 _meshBuilder.addTriangle(a, b, c);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
                 _meshBuilder.addTriangle(a, c, d);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matc, matd)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
             }
 
@@ -964,13 +835,13 @@ namespace Igor
                 _meshBuilder.addTriangle(a, b, c);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matb, matc)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
 
                 _meshBuilder.addTriangle(a, c, d);
                 if (keepTriangles)
                 {
-                    _trianglesToKeep[calcMaterialKey(mata, matc, matd)].push_back(_meshBuilder.getTrianglesCount() - 1);
+                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
                 }
             }
         }
@@ -1000,10 +871,6 @@ namespace Igor
             _density[i + 0] = _density[i + 9];
             _density[i + 9] = _density[i + 18];
             _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
-
-            _material[i + 0] = _material[i + 9];
-            _material[i + 9] = _material[i + 18];
-            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getValue(_cubePosition._y));
         }
 
         _cubePosition._y++;
@@ -1041,28 +908,14 @@ namespace Igor
         _currentPoles[7]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 1, _cubePosition._z + 2);
         _currentPoles[8]._currentDensityPole = &_voxelData->getDensityPole(_cubePosition._x + 2, _cubePosition._z + 2);
 
-        _currentPoles[0]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x, _cubePosition._z);
-        _currentPoles[1]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 1, _cubePosition._z);
-        _currentPoles[2]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 2, _cubePosition._z);
-
-        _currentPoles[3]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x, _cubePosition._z + 1);
-        _currentPoles[4]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 1, _cubePosition._z + 1);
-        _currentPoles[5]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 2, _cubePosition._z + 1);
-
-        _currentPoles[6]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x, _cubePosition._z + 2);
-        _currentPoles[7]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 1, _cubePosition._z + 2);
-        _currentPoles[8]._currentMaterialPole = &_voxelData->getMaterialPole(_cubePosition._x + 2, _cubePosition._z + 2);
-
         for (int i = 0; i < 27; ++i)
         {
             _density[i] = 0;
-            _material[i] = 0;
         }
 
         for (int i = 0; i < 9; ++i)
         {
             _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
-            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getValue(_cubePosition._y));
         }
 
         _cubePosition._y++;
@@ -1233,7 +1086,7 @@ namespace Igor
                         LODs &= ~NEIGHBOR_YPOSITIVE;
                     }
 
-                    generateGeometry(transformedCubePosition, _density, _material, true, LODs);
+                    generateGeometry(transformedCubePosition, _density, true, LODs);
 
                     y++;
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));

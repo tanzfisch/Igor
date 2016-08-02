@@ -118,10 +118,6 @@ namespace Igor
         */
         uint8 _density[3*3*3];
 
-        /*! material cache
-        */
-        uint8 _material[3*3*3];
-
         /*! current interation position
         */
 		iaVector3I _cubePosition;
@@ -164,7 +160,7 @@ namespace Igor
 
         \param keepTriangles if the triangles created are to keep
         */
-		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighborLODs);
+		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, bool keepTriangles, uint32 neighborLODs);
 
         /*! climbs up the pole
         */
