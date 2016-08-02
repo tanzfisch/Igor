@@ -20,17 +20,17 @@ namespace Igor
 {
 
     /*
-    //             4
-    //             |   2
-    //             |  /
-    //             | /
-    //             |/
-    //   3---------*---------1
-    //            /|
-    //           / |
-    //          /  |
-    //         0   |
-    //             5
+                 4
+                 |   2
+                 |  /
+                 | /
+                 |/
+       3---------*---------1
+                /|
+               / |
+              /  |
+             0   |
+                 5
 
         Y
         |
@@ -101,7 +101,7 @@ namespace Igor
 
 
     */
-//#define CALC_NORMALS
+#define CALC_NORMALS
 
     void iContouringCubes::calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex, iaVector3f& normal)
     {
@@ -290,10 +290,8 @@ namespace Igor
             calcPos /= static_cast<float32>(div);
         }
 
-        
+        calcPos.set(0.5, 0.5, 0.5);
         vertex = calcPos;
-
-		calcPos.set(0.5, 0.5, 0.5);
 
 //#define lerp(v0, v1, t) v0 + t*(v1-v0)
 #ifndef CALC_NORMALS
@@ -401,10 +399,26 @@ namespace Igor
     //   0------1------2       z
 
 
+    // next lod density
+    //      
+    //     18-----19
+    //    /|     /|
+    //   16-----17|
+    //   | | 14-|-|-15
+    //   | |/|  | |/|
+    //   | 11---|-12-----13
+    //   |/| |  |/| |   /| 
+    //   8------9------10| 
+    //   | | 6--|-|-7  | |
+    //   | |/   | |/   | |
+    //   | 3----|-4----|-5
+    //   |/     |/     |/ 
+    //   0------1------2  
+
     */
 
 
-    void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, bool keepTriangles, uint32 neighborLODs)
+    void iContouringCubes::generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighborLODs)
     {
         iaVector3f va;
         iaVector3f vb;
@@ -438,15 +452,106 @@ namespace Igor
         uint8 matc;
         uint8 matd;
         uint32 matKey = 0;
+
+        uint8 nextLODDensity[20];
+
+        if (neighborLODs != 0)
+        {
+            iaVector3I blockPos = _cubePosition;
+            blockPos._x = blockPos._x >> 1;
+            blockPos._y = blockPos._y >> 1;
+            blockPos._z = blockPos._z >> 1;
+            blockPos += _nextLODVoxelOffset;
+
+            iaVector3I pos = blockPos;
+            nextLODDensity[0] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[1] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[2] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z += 1;
+            nextLODDensity[5] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[4] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[3] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._y += 1;
+            nextLODDensity[11] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z += 1;
+            nextLODDensity[14] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[15] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z -= 1;
+            nextLODDensity[12] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[13] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z -= 1;
+            nextLODDensity[10] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[9] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[8] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._y += 1;
+            nextLODDensity[16] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x += 1;
+            nextLODDensity[17] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._z += 1;
+            nextLODDensity[19] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            pos._x -= 1;
+            nextLODDensity[18] = _voxelDataNextLOD->getVoxelDensity(pos);
+
+            calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[8], nextLODDensity[9], nextLODDensity[11], nextLODDensity[12], v0, n0);
+            calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], v1, n1);
+            calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[11], nextLODDensity[12], nextLODDensity[14], nextLODDensity[15], v2, n2);
+            calculateVertex(nextLODDensity[8], nextLODDensity[9], nextLODDensity[11], nextLODDensity[12], nextLODDensity[16], nextLODDensity[17], nextLODDensity[18], nextLODDensity[19], v3, n3);
+        }
         
         if (_density[13] > 0.0f)
         {
             if (_density[14] <= 0.0f)
             {
-                a = _meshBuilder.addVertex(_vertexPositions[1]);
-                b = _meshBuilder.addVertex(_vertexPositions[3]);
-                c = _meshBuilder.addVertex(_vertexPositions[7]);
-                d = _meshBuilder.addVertex(_vertexPositions[5]);
+                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va, na);
+                va += transformedCubePosition;
+                va += dirs[5];
+
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb, nb);
+                vb += transformedCubePosition;
+                vb += dirs[5];
+                vb += dirs[0];
+                
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc, nc);
+                vc += transformedCubePosition;
+                vc += dirs[0];
+                
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd, nd);
+                vd += transformedCubePosition;
+                
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
                 ab = vb; ab -= va;
@@ -463,10 +568,10 @@ namespace Igor
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(d, normalB);
 #else
-                _meshBuilder.setNormal(a, _vertexNormals[1]);
-				_meshBuilder.setNormal(b, _vertexNormals[3]);
-				_meshBuilder.setNormal(c, _vertexNormals[7]);
-				_meshBuilder.setNormal(d, _vertexNormals[5]);
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
 #endif
 
                 _meshBuilder.addTriangle(c, b, a);
@@ -484,10 +589,35 @@ namespace Igor
 
             if (density[16] <= 0.0f)
             {
-				a = _meshBuilder.addVertex(_vertexPositions[3]);
-				b = _meshBuilder.addVertex(_vertexPositions[2]);
-				c = _meshBuilder.addVertex(_vertexPositions[6]);
-				d = _meshBuilder.addVertex(_vertexPositions[7]);
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va, na);
+                va += transformedCubePosition;
+                va += dirs[5];
+                va += dirs[0];
+                
+                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb, nb);
+                vb += transformedCubePosition;
+                vb += dirs[5];
+                vb += dirs[3];
+                vb += dirs[0];
+                
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc, nc);
+                vc += transformedCubePosition;
+                vc += dirs[3];
+                vc += dirs[0];
+                
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd, nd);
+                vd += transformedCubePosition;
+                vd += dirs[0];
+
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
                 ab = vb; ab -= va;
@@ -504,10 +634,10 @@ namespace Igor
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
 #else
-				_meshBuilder.setNormal(a, _vertexNormals[3]);
-				_meshBuilder.setNormal(b, _vertexNormals[2]);
-				_meshBuilder.setNormal(c, _vertexNormals[6]);
-				_meshBuilder.setNormal(d, _vertexNormals[7]);
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
 #endif
 
                 _meshBuilder.addTriangle(c, b, a);
@@ -525,10 +655,97 @@ namespace Igor
 
             if (density[22] <= 0.0f)
             {
-				a = _meshBuilder.addVertex(_vertexPositions[5]);
-				b = _meshBuilder.addVertex(_vertexPositions[7]);
-				c = _meshBuilder.addVertex(_vertexPositions[6]);
-				d = _meshBuilder.addVertex(_vertexPositions[4]);
+                /*
+                // voxel space
+                  ^ z
+                  |
+                  c-b
+                  | |  x
+                  d-a ->
+
+                  //     18-----19
+                  //    /|     /|
+                  //   16-----17|
+                  //   | | 14-|-|-15
+                  //   | |/|  | |/|
+                  //   | 11---|-12-----13
+                  //   |/| |  |/| |   /|
+                  //   8------9------10|
+                  //   | | 6--|-|-7  | |
+                  //   | |/   | |/   | |
+                  //   | 3----|-4----|-5
+                  //   |/     |/     |/
+                  //   0------1------2
+
+                  v3 v2
+                  | /
+                  v0-v1
+                */
+
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va, na);
+                va += transformedCubePosition;
+                va *= _scale;
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb, nb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb *= _scale;
+
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc, nc);
+                vc += transformedCubePosition;
+                vc += dirs[3];
+                vc += dirs[0];
+                vc *= _scale;
+
+                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd, nd);
+                vd += transformedCubePosition;
+                vd += dirs[3];
+                vd *= _scale;
+
+                if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
+                {
+                    v1 += transformedCubePosition;
+                    v1._z -= 2.0;
+                    v0 += transformedCubePosition;
+                                        
+                    if (_cubePosition._z % 2 != 0)
+                    {
+                        v1 += v0;
+                        v1 *= 0.5;
+
+                        na += nb;
+                        na *= 0.5;
+                    }
+                    else
+                    {
+                        v1._z += 1.0;
+                        v0._z += 1.0;
+
+                        v0 += v1;
+                        v0 *= 0.5;
+
+                        n0 += n1;
+                        n0 *= 0.5;
+                    }
+
+                    v1 += _nextLODWorldOffset;
+                    v0 += _nextLODWorldOffset;
+
+                    v1 *= _scale;
+                    v0 *= _scale;
+
+                    va = v1;
+                    vb = v0;
+                }
+                else
+                {
+
+                }
+                
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
                 ab = vb; ab -= va;
@@ -545,10 +762,10 @@ namespace Igor
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
 #else
-				_meshBuilder.setNormal(a, _vertexNormals[5]);
-				_meshBuilder.setNormal(b, _vertexNormals[7]);
-				_meshBuilder.setNormal(c, _vertexNormals[6]);
-				_meshBuilder.setNormal(d, _vertexNormals[4]);
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
 #endif
 
                 _meshBuilder.addTriangle(c, b, a);
@@ -569,10 +786,31 @@ namespace Igor
 
             if (density[14] > 0.0f)
             {
-				a = _meshBuilder.addVertex(_vertexPositions[1]);
-				b = _meshBuilder.addVertex(_vertexPositions[3]);
-				c = _meshBuilder.addVertex(_vertexPositions[7]);
-				d = _meshBuilder.addVertex(_vertexPositions[5]);
+                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va, na);
+                va += transformedCubePosition;
+                va += dirs[5];
+                
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb, nb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb += dirs[5];
+                
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc, nc);
+                vc += transformedCubePosition;
+                vc += dirs[0];
+                
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd, nd);
+                vd += transformedCubePosition;
+
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
                 ab = vb; ab -= va;
@@ -589,10 +827,10 @@ namespace Igor
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
 #else
-				_meshBuilder.setNormal(a, _vertexNormals[1]);
-				_meshBuilder.setNormal(b, _vertexNormals[3]);
-				_meshBuilder.setNormal(c, _vertexNormals[7]);
-				_meshBuilder.setNormal(d, _vertexNormals[5]);
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
 #endif
 
                 _meshBuilder.addTriangle(a, b, c);
@@ -610,10 +848,35 @@ namespace Igor
 
             if (density[16] > 0.0f)
             {
-				a = _meshBuilder.addVertex(_vertexPositions[3]);
-				b = _meshBuilder.addVertex(_vertexPositions[2]);
-				c = _meshBuilder.addVertex(_vertexPositions[6]);
-				d = _meshBuilder.addVertex(_vertexPositions[7]);
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va, na);
+                va += transformedCubePosition;
+                va += dirs[5];
+                va += dirs[0];
+                
+                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb, nb);
+                vb += transformedCubePosition;
+                vb += dirs[5];
+                vb += dirs[3];
+                vb += dirs[0];
+                
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc, nc);
+                vc += transformedCubePosition;
+                vc += dirs[3];
+                vc += dirs[0];
+                
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd, nd);
+                vd += transformedCubePosition;
+                vd += dirs[0];
+
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
                 ab = vb; ab -= va;
@@ -630,10 +893,10 @@ namespace Igor
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
 #else
-				_meshBuilder.setNormal(a, _vertexNormals[3]);
-				_meshBuilder.setNormal(b, _vertexNormals[2]);
-				_meshBuilder.setNormal(c, _vertexNormals[6]);
-				_meshBuilder.setNormal(d, _vertexNormals[7]);
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
 #endif
 
                 _meshBuilder.addTriangle(a, b, c);
@@ -651,10 +914,31 @@ namespace Igor
 
             if (density[22] > 0.0f)
             {
-				a = _meshBuilder.addVertex(_vertexPositions[5]);
-				b = _meshBuilder.addVertex(_vertexPositions[7]);
-				c = _meshBuilder.addVertex(_vertexPositions[6]);
-				d = _meshBuilder.addVertex(_vertexPositions[4]);
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va, na);
+                va += transformedCubePosition;
+                
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb, nb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc, nc);
+                vc += transformedCubePosition;
+                vc += dirs[3];
+                vc += dirs[0];
+                
+                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd, nd);
+                vd += transformedCubePosition;
+                vd += dirs[3];
+
+                va *= _scale;
+                vb *= _scale;
+                vc *= _scale;
+                vd *= _scale;
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
                 ab = vb; ab -= va;
@@ -671,10 +955,10 @@ namespace Igor
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
 #else
-				_meshBuilder.setNormal(a, _vertexNormals[5]);
-				_meshBuilder.setNormal(b, _vertexNormals[7]);
-				_meshBuilder.setNormal(c, _vertexNormals[6]);
-				_meshBuilder.setNormal(d, _vertexNormals[4]);
+                _meshBuilder.setNormal(a, na);
+                _meshBuilder.setNormal(b, nb);
+                _meshBuilder.setNormal(c, nc);
+                _meshBuilder.setNormal(d, nd);
 #endif
 
                 _meshBuilder.addTriangle(a, b, c);
@@ -711,114 +995,19 @@ namespace Igor
 
     void iContouringCubes::climb()
     {
-		climbVoxel();
-		climbPositionAndNormals();
+        for (int i = 0; i < 9; ++i)
+        {
+            _density[i + 0] = _density[i + 9];
+            _density[i + 9] = _density[i + 18];
+            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
+
+            _material[i + 0] = _material[i + 9];
+            _material[i + 9] = _material[i + 18];
+            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getValue(_cubePosition._y));
+        }
+
+        _cubePosition._y++;
     }
-
-	void iContouringCubes::climbVoxel()
-	{
-		for (int i = 0; i < 9; ++i)
-		{
-			_density[i + 0] = _density[i + 9];
-			_density[i + 9] = _density[i + 18];
-			_density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
-		}
-
-		_cubePosition._y++;
-	}
-
-	/*
-
-	//             4
-	//             |   2
-	//             |  /
-	//             | /
-	//             |/
-	//   3---------*---------1
-	//            /|
-	//           / |
-	//          /  |
-	//         0   |
-	//             5
-
-	//       24-----25-----26
-	//      /|     /|     /|
-	//     21-----22-----23|
-	//    /| |   /| |   /| |
-	//   18-----19-----20| |
-	//   | | 15-|-|-16-|-|-17
-	//   | |/|  | |/|  | |/|
-	//   | 12---|-13---|-14|      y
-	//   |/| |  |/| |  |/| |      |
-	//   9------10-----11| |      |
-	//   | | 6--|-|-7--|-|-8      |
-	//   | |/   | |/   | |/       0---X
-	//   | 3----|-4----|-5       /
-	//   |/     |/     |/       /
-	//   0------1------2       z
-
-	//
-	//     6------7
-	//    /|     /|
-	//   4------5 |
-	//   | |    | |
-	//   | |    | |
-	//   | 2----|-3
-	//   |/     |/
-	//   0------1
-	*/
-
-	void iContouringCubes::climbPositionAndNormals()
-	{
-		// TODO
-		iaVector3f transformedCubePosition(_cubePosition._x, _cubePosition._y, _cubePosition._z);
-		transformedCubePosition._x -= _cubeStartPosition._x - 1; // TODO workaround I don't understand
-		transformedCubePosition._y -= _cubeStartPosition._y + 2; // TODO workaround I don't understand
-		transformedCubePosition._z -= _cubeStartPosition._z;
-
-		// TODO maybe this one is never used?!
-		calculateVertex(_density[0], _density[1], _density[3], _density[4], _density[9], _density[10], _density[12], _density[13], _vertexPositions[0], _vertexNormals[0]);
-		_vertexPositions[0] += transformedCubePosition;
-		_vertexPositions[0] += dirs[5];
-		_vertexPositions[0] += dirs[3];
-
-		calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], _vertexPositions[1], _vertexNormals[1]);
-		_vertexPositions[1] += transformedCubePosition;
-		_vertexPositions[1] += dirs[5];
-
-		calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], _vertexPositions[2], _vertexNormals[2]);
-		_vertexPositions[2] += transformedCubePosition;
-		_vertexPositions[2] += dirs[5];
-		_vertexPositions[2] += dirs[3];
-		_vertexPositions[2] += dirs[0];
-
-		calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], _vertexPositions[3], _vertexNormals[3]);
-		_vertexPositions[3] += transformedCubePosition;
-		_vertexPositions[3] += dirs[5];
-		_vertexPositions[3] += dirs[0];
-
-		calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], _vertexPositions[4], _vertexNormals[4]);
-		_vertexPositions[4] += transformedCubePosition;
-		_vertexPositions[4] += dirs[3];
-
-		calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], _vertexPositions[5], _vertexNormals[5]);
-		_vertexPositions[5] += transformedCubePosition;
-
-		calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], _vertexPositions[6], _vertexNormals[6]);
-		_vertexPositions[6] += transformedCubePosition;
-		_vertexPositions[6] += dirs[3];
-		_vertexPositions[6] += dirs[0];
-
-		calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], _vertexPositions[7], _vertexNormals[7]);
-		_vertexPositions[7] += transformedCubePosition;
-		_vertexPositions[7] += dirs[0];
-
-		for (int i = 0; i < 8; ++i)
-		{
-			_vertexPositions[i] *= _scale;
-		}
-	}
-
 
     /*
     //           ^           ^           ^
@@ -867,11 +1056,13 @@ namespace Igor
         for (int i = 0; i < 27; ++i)
         {
             _density[i] = 0;
+            _material[i] = 0;
         }
 
         for (int i = 0; i < 9; ++i)
         {
             _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
+            _material[i + 18] = static_cast<float32>(_currentPoles[i]._currentMaterialPole->getValue(_cubePosition._y));
         }
 
         _cubePosition._y++;
@@ -882,12 +1073,29 @@ namespace Igor
         _voxelData = voxelData;
     }
 
+    void iContouringCubes::setVoxelDataNextLOD(iVoxelData* voxelData)
+    {
+        _voxelDataNextLOD = voxelData;
+    }
+
+    void iContouringCubes::setNextLODOffset(const iaVector3I& voxelOffset, const iaVector3f& worldOffset)
+    {
+        _nextLODVoxelOffset = voxelOffset;
+        _nextLODWorldOffset = worldOffset;
+    }
+
     shared_ptr<iMesh> iContouringCubes::compile(iaVector3I pos, iaVector3I volume, uint32 lod, uint32 neighborLODs)
     {
         shared_ptr<iMesh> result;
 
         _lod = lod;
         _scale = pow(2, _lod);
+        _scaleNextLOD = pow(2, _lod + 1);
+
+        if (neighborLODs != 0)
+        {
+            con_assert_sticky(_voxelDataNextLOD != nullptr, "no data available");
+        }
 
         con_assert(_voxelData != nullptr, "no voxel data defined");
         if (_voxelData == nullptr)
@@ -983,7 +1191,7 @@ namespace Igor
                 // process pole
                 startClimb(currentPosition);
                 climb();
-				
+
                 do
                 {
                     climb();
@@ -1001,6 +1209,11 @@ namespace Igor
                     {
                         keepTriangles = false;
                     }*/
+
+                    iaVector3f transformedCubePosition(_cubePosition._x, _cubePosition._y, _cubePosition._z);
+                    transformedCubePosition._x -= _cubeStartPosition._x - 1; // TODO workaround I don't understand
+                    transformedCubePosition._y -= _cubeStartPosition._y + 2; // TODO workaround I don't understand
+                    transformedCubePosition._z -= _cubeStartPosition._z;
 
                     if (y == 0)
                     {
@@ -1020,12 +1233,7 @@ namespace Igor
                         LODs &= ~NEIGHBOR_YPOSITIVE;
                     }
 
-					iaVector3f transformedCubePosition(_cubePosition._x, _cubePosition._y, _cubePosition._z);
-					transformedCubePosition._x -= _cubeStartPosition._x - 1; // TODO workaround I don't understand
-					transformedCubePosition._y -= _cubeStartPosition._y + 2; // TODO workaround I don't understand
-					transformedCubePosition._z -= _cubeStartPosition._z;
-
-                    generateGeometry(transformedCubePosition, _density, true, LODs);
+                    generateGeometry(transformedCubePosition, _density, _material, true, LODs);
 
                     y++;
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));

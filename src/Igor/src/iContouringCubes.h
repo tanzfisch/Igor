@@ -72,6 +72,20 @@ namespace Igor
         */
         void setVoxelData(iVoxelData* voxelData);
 
+        /*! sets voxel data of next LOD level (lower resolution)
+
+        voxel data to next LOD is optional
+
+        \param voxelData the voxel data of the next LOD
+        */
+        void setVoxelDataNextLOD(iVoxelData* voxelData);
+
+        /*! sets the offset of the voxel data within the next LOD voxel data
+
+        \param offset the offset of voxels relative to next LOD voxels
+        */
+        void setNextLODOffset(const iaVector3I& voxelOffset, const iaVector3f& worldOffset);
+
         /*! compile mesh out of voxel data
 
         \param pos location in voxel data to be compiled
@@ -86,22 +100,31 @@ namespace Igor
         */
 		iVoxelData* _voxelData = nullptr;
 
+        /*! pointer to voxel data of next LOD with lesser resolution
+        */
+        iVoxelData* _voxelDataNextLOD = nullptr;
+
+        /*! offset to use on accessing next LOD voxel data
+        */
+        iaVector3I _nextLODVoxelOffset;
+
+        iaVector3f _nextLODWorldOffset;
+
         /*! current poles (3 times 3) for iterating through the voxel data
         */
         vector<DensityPole> _currentPoles;
 
         /*! density cache
         */
-        uint8 _density[3 * 3 * 3];
+        uint8 _density[3*3*3];
 
-		iaVector3f _vertexPositions[2 * 2 * 2];
-
-		iaVector3f _vertexNormals[2 * 2 * 2];
+        /*! material cache
+        */
+        uint8 _material[3*3*3];
 
         /*! current interation position
         */
 		iaVector3I _cubePosition;
-
 
         /*! start position within the pole
         */
@@ -115,13 +138,12 @@ namespace Igor
         */
         iMeshBuilder _meshBuilder;
 
-		/*! model lod
+		/*! model scale
 		*/
 		uint32 _lod = 0;
 
-		/*! model scale
-		*/
         float64 _scale = 0;
+        float64 _scaleNextLOD = 0;
 
         /*! calculates vertex position allong iso surface
 
@@ -142,13 +164,11 @@ namespace Igor
 
         \param keepTriangles if the triangles created are to keep
         */
-		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, bool keepTriangles, uint32 neighborLODs);
+		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, const uint8* material, bool keepTriangles, uint32 neighborLODs);
 
         /*! climbs up the pole
         */
         void climb();
-		void climbVoxel();
-		void climbPositionAndNormals();
 
         /*! initializes start position on bottom of pole at specified position
 
