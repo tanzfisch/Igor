@@ -54,10 +54,6 @@ namespace Igor
             /*! current density pole
             */
             iaRLE<uint8, uint8>* _currentDensityPole = nullptr;
-            
-            /*! current density pole
-            */
-            iaRLE<uint8, uint8>* _currentMaterialPole = nullptr;
         };
 
     public:
@@ -80,11 +76,7 @@ namespace Igor
         */
         void setVoxelDataNextLOD(iVoxelData* voxelData);
 
-        /*! sets the offset of the voxel data within the next LOD voxel data
-
-        \param offset the offset of voxels relative to next LOD voxels
-        */
-        void setNextLODOffset(const iaVector3I& voxelOffset, const iaVector3f& worldOffset);
+        void setNextLODVoxelOffset(const iaVector3I& offset);
 
         /*! compile mesh out of voxel data
 
@@ -104,12 +96,6 @@ namespace Igor
         */
         iVoxelData* _voxelDataNextLOD = nullptr;
 
-        /*! offset to use on accessing next LOD voxel data
-        */
-        iaVector3I _nextLODVoxelOffset;
-
-        iaVector3f _nextLODWorldOffset;
-
         /*! current poles (3 times 3) for iterating through the voxel data
         */
         vector<DensityPole> _currentPoles;
@@ -117,6 +103,10 @@ namespace Igor
         /*! density cache
         */
         uint8 _density[3*3*3];
+
+        iaVector3I _nextLODVoxelOffset;
+
+        iaVector3f _vertexPositionsNextLOD[3 * 3 * 3];
 
         /*! current interation position
         */
@@ -154,13 +144,21 @@ namespace Igor
         \param pos out value vertex position
         \param normal out value vertex normal
         */
-        void calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex, iaVector3f& normal);
+        void calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex);
+
+        void calculateNextLOD();
+
+        float64 calcLODScale(uint32 lod) const;
+        iaVector3f calcLODOffset(uint32 lod) const;
+
+        iaVector3f _offset;
+        iaVector3f _offsetNextLOD;
 
         /*! creates triangles for the resulting mesh
 
         \param keepTriangles if the triangles created are to keep
         */
-		void generateGeometry(const iaVector3f& transformedCubePosition, const uint8* density, bool keepTriangles, uint32 neighborLODs);
+		void generateGeometry(const uint8* density, bool keepTriangles, uint32 neighborLODs);
 
         /*! climbs up the pole
         */
