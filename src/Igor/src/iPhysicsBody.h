@@ -78,7 +78,7 @@ namespace Igor
         the transform node matrix is affected by the bodys movement within the physics context (see setTransformNodeMatrix)
         returns identity materix if body is not bound to a transform node
         */
-        const iaMatrixf& getTransformNodeMatrix() const;
+        iaMatrixf getTransformNodeMatrix() const;
 
         /*! changes the mass of the newton body
 

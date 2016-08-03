@@ -103,7 +103,7 @@ namespace Igor
         }
     }
 
-    const iaMatrixf& iPhysicsBody::getTransformNodeMatrix() const
+    iaMatrixf iPhysicsBody::getTransformNodeMatrix() const
     {
         iaMatrixf result;
 
