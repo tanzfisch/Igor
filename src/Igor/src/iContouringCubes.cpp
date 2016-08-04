@@ -292,7 +292,7 @@ namespace Igor
 
         vertex = calcPos;
 
-        //vertex.set(0.5,0.5,0.5);
+        vertex.set(0.5, 0.5, 0.5);
     }
 
     void iContouringCubes::setNextLODVoxelOffset(const iaVector3I& offset)
@@ -359,7 +359,7 @@ namespace Igor
         blockPos._x = blockPos._x >> 1;
         blockPos._y = blockPos._y >> 1;
         blockPos._z = blockPos._z >> 1;
-        // blockPos += _nextLODVoxelOffset;
+        blockPos += _nextLODVoxelOffset;
 
         iaVector3I pos;
         int i = 0;
@@ -376,6 +376,8 @@ namespace Igor
         }
 
         calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], _vertexPositionsNextLOD[0]);
+        _vertexPositionsNextLOD[0] += dirs[5];
+        _vertexPositionsNextLOD[0] += dirs[3];
 
         calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], _vertexPositionsNextLOD[2]);
         _vertexPositionsNextLOD[2] += dirs[5];
@@ -686,73 +688,34 @@ namespace Igor
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
                 vb += dirs[0];
 
+
+             /*   if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
+                {
+                    if ((_cubePosition._z % 2) == 0)
+                    {
+                        if ((_cubePosition._x % 2) == 0)
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vc = _vertexPositionsNextLOD[9];
+
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                    vc += dirs[3];
+                    vc += dirs[0];
+                }*/
+
                 calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
                 vc += dirs[3];
                 vc += dirs[0];
 
                 if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
                 {
-                /*    if ((_cubePosition._z % 2) == 0)
-                    {
-                        if ((_cubePosition._x % 2) == 0)
-                        {
-                            if ((_cubePosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[18];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[9];
-                                vc._y -= 1;
-                            }
-                        }
-                        else
-                        {
-                            if (_cubePosition._y % 2 == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[10];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[19];
-                                vc._y -= 1;
-                            }
-
-                            vc._x -= 1;
-                        }
-                    }
-                    else
-                    {
-                        if ((_cubePosition._x % 2) == 0)
-                        {
-                            if ((_cubePosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[12];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[21];
-                                vc._y -= 1;
-                            }
-                        }
-                        else
-                        {
-                            if ((_cubePosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[22];
-                                vc._y -= 1;
-                            }
-
-                            vc._x -= 1;
-                        }
-
-                        vc._z -= 1;
-                    }*/
-
                     if ((_cubePosition._z % 2) == 0)
                     {
                         if ((_cubePosition._x % 2) == 0)
@@ -764,10 +727,63 @@ namespace Igor
                         }
                     }
                 }
+                 /*               else
+                                {
+                                    vc = _vertexPositionsNextLOD[18];
+                                    vc._y -= 1;
+                                }
+                            }
+                            else
+                            {
+                                if (_cubePosition._y % 2 == 0)
+                                {
+                                    vc = _vertexPositionsNextLOD[10];
+                                }
+                                else
+                                {
+                                    vc = _vertexPositionsNextLOD[19];
+                                    vc._y -= 1;
+                                }
+
+                                vc._x -= 1;
+                            }
+                        }
+                        else
+                        {
+                            if ((_cubePosition._x % 2) == 0)
+                            {
+                                if ((_cubePosition._y % 2) == 0)
+                                {
+                                    vc = _vertexPositionsNextLOD[12];
+                                }
+                                else
+                                {
+                                    vc = _vertexPositionsNextLOD[21];
+                                    vc._y -= 1;
+                                }
+                            }
+                            else
+                            {
+                                if ((_cubePosition._y % 2) == 0)
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                                else
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                    vc._y -= 1;
+                                }
+
+                                vc._x -= 1;
+                            }
+
+                            vc._z -= 1;
+                        }
+                }
                 else
                 {
-      
-                }
+
+                }*/
 
                 /* if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
                  {
@@ -1147,7 +1163,7 @@ namespace Igor
 
     iaVector3f iContouringCubes::calcLODOffset(uint32 lod) const
     {
-        iaVector3f result(0,0,0);
+        iaVector3f result(0, 0, 0);
         if (lod > 0)
         {
             float32 value = pow(2, lod - 1) - 0.5;
@@ -1202,7 +1218,7 @@ namespace Igor
         iaVector3I marchingVolume;
 
         marchingVolume._x = volume._x - 1;
-        marchingVolume._y = volume._y;
+        marchingVolume._y = volume._y - 1;
         marchingVolume._z = volume._z - 1;
 
         _cubeStartPosition.set(pos._x, pos._y, pos._z);
@@ -1272,21 +1288,19 @@ namespace Igor
                 {
                     climb();
 
-                    /*  if (x > 0 &&
-                          x < marchingVolume._x - 1 &&
-                          y > 0 &&
-                          y < marchingVolume._y - 1 &&
-                          z > 0 &&
-                          z < marchingVolume._z - 1)
-                      {
-                          keepTriangles = true;
-                      }
-                      else
-                      {
-                          keepTriangles = false;
-                      }*/
-
-
+                    if (x >= 0 &&
+                        x < marchingVolume._x - 1 &&
+                        y >= 0 &&
+                        y < marchingVolume._y - 1 &&
+                        z >= 0 &&
+                        z < marchingVolume._z - 1)
+                    {
+                        keepTriangles = true;
+                    }
+                    else
+                    {
+                        keepTriangles = false;
+                    }
 
                     if (y == 0)
                     {
@@ -1306,7 +1320,7 @@ namespace Igor
                         LODs &= ~NEIGHBOR_YPOSITIVE;
                     }
 
-                    generateGeometry(_density, true, LODs);
+                    generateGeometry(_density, keepTriangles, LODs);
 
                     y++;
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
