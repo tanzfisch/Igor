@@ -20,25 +20,25 @@ namespace Igor
 {
 
     /*
-                 4
-                 |   2
-                 |  /
-                 | /
-                 |/
-       3---------*---------1
-                /|
-               / |
-              /  |
-             0   |
-                 5
+    //             4
+    //             |   2
+    //             |  /
+    //             | /
+    //             |/
+    //   3---------*---------1
+    //            /|
+    //           / |
+    //          /  |
+    //         0   |
+    //             5
 
-        Y
-        |
-        |
-        0---X
-       /
-      /
-     Z
+    //    Y
+    //    |
+    //    |
+    //    0---X
+    //   /
+    //  /
+    // Z
 
     */
     iaVector3f dirs[] =
@@ -70,37 +70,6 @@ namespace Igor
     */
 #define rescale(value) ((value > 0 ? value - 1 : value) / 254.0)
 
-
-    /*
-
-    // orientation in this function
-    // Y  z
-    // | /
-    // |/
-    // 0---X
-
-    // densities
-    //     6------7
-    //    /|     /|
-    //   4------5 |
-    //   | |    | |
-    //   | |    | |
-    //   | 2----|-3
-    //   |/     |/
-    //   0------1
-
-    // deltas
-    //     *---3--*
-    //   10|    11|
-    //   *--2---* |
-    //   | 6    | 7
-    //   4 |    5 |
-    //   | *--1-|-*
-    //   |8     |9
-    //   *--0---*
-
-
-    */
 #define CALC_NORMALS
 
     void iContouringCubes::calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex)
@@ -289,6 +258,10 @@ namespace Igor
         {
             calcPos /= static_cast<float32>(div);
         }
+        else
+        {
+            calcPos.set(0.5, 0.5, 0.5);
+        }
 
         vertex = calcPos;
 
@@ -300,63 +273,68 @@ namespace Igor
         _nextLODVoxelOffset = offset;
     }
 
-
     /*
 
     //
     //           ^           ^           ^
     //           |           |           |
     //           |           |           |
-    //           g(6)--------h(7)--------i(8)
+    //           0-----------1-----------2 --x
     //       ^  /        ^  /        ^  /
     //       | /         | /         | /
     //       |/          |/          |/
-    //       d(3)--------e(4)--------f(5)
+    //       3-----------4-----------5
     //   ^  /        ^  /        ^  /
-    //   | /     0   | /     1   | /
+    //   | /         | /         | /
     //   |/          |/          |/
-    //   a(0)--------b(1)--------c(2)
-    //
+    //   6-----------7-----------8
+    //  /
+    // z
 
-    d --- c
-    |    /|
-    |   / |
-    |  /  |
-    | /   |
-    |/    |
-    a-----b
 
-    d --- c
-    |\   /|
-    | \ / |
-    |  e  |
-    | / \ |
-    |/   \|
-    a-----b
 
-    //       24-----25-----26
+    //       18-----19-----20
     //      /|     /|     /|
     //     21-----22-----23|
     //    /| |   /| |   /| |
-    //   18-----19-----20| |
-    //   | | 15-|-|-16-|-|-17
+    //   24-----25-----26| |
+    //   | | 9--|-|-10-|-|-11
     //   | |/|  | |/|  | |/|
-    //   | 12---|-13---|-14|      y
-    //   |/| |  |/| |  |/| |      |  z
-    //   9------10-----11| |      | /
-    //   | | 6--|-|-7--|-|-8      |/
-    //   | |/   | |/   | |/       0---X
+    //   | 12---|-13---|-14|
+    //   |/| |  |/| |  |/| |
+    //   15-----16-----17| |
+    //   | | 0--|-|-1--|-|-2
+    //   | |/   | |/   | |/
     //   | 3----|-4----|-5
     //   |/     |/     |/
-    //   0------1------2
+    //   6------7------8
 
+    //             4
+    //             |   2
+    //             |  /
+    //             | /
+    //             |/
+    //   3---------*---------1
+    //            /|
+    //           / |
+    //          /  |
+    //         0   |
+    //             5
+
+    //    Y
+    //    |
+    //    |
+    //    0---X
+    //   /
+    //  /
+    // Z
     */
-    void iContouringCubes::calculateNextLOD(const iaVector3f& transformedCubePosition)
+    void iContouringCubes::calculateNextLOD()
     {
         uint8 nextLODDensity[3 * 3 * 3];
 
         iaVector3I blockPos = _cubePosition;
-        blockPos._y -= 3;
+        blockPos._y -= 2;
         blockPos._x = blockPos._x >> 1;
         blockPos._y = blockPos._y >> 1;
         blockPos._z = blockPos._z >> 1;
@@ -376,33 +354,61 @@ namespace Igor
             }
         }
 
+        //       18-----19-----20
+        //      /|     /|     /|
+        //     21-----22-----23|
+        //    /| |   /| |   /| |
+        //   24-----25-----26| |
+        //   | | 9--|-|-10-|-|-11
+        //   | |/|  | |/|  | |/|
+        //   | 12---|-13---|-14|
+        //   |/| |  |/| |  |/| |
+        //   15-----16-----17| |
+        //   | | 0--|-|-1--|-|-2
+        //   | |/   | |/   | |/
+        //   | 3----|-4----|-5
+        //   |/     |/     |/
+        //   6------7------8
+
+        //             4
+        //             |   2
+        //             |  /
+        //             | /
+        //             |/
+        //   3---------*---------1
+        //            /|
+        //           / |
+        //          /  |
+        //         0   |
+        //             5
+
         calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], _vertexPositionsNextLOD[0]);
-        _vertexPositionsNextLOD[0] += dirs[5];
-        _vertexPositionsNextLOD[0] += dirs[3];
 
         calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], _vertexPositionsNextLOD[2]);
-        _vertexPositionsNextLOD[2] += dirs[5];
+        _vertexPositionsNextLOD[2] += dirs[1];
 
         calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], _vertexPositionsNextLOD[6]);
-        _vertexPositionsNextLOD[6] += dirs[5];
-        _vertexPositionsNextLOD[6] += dirs[3];
         _vertexPositionsNextLOD[6] += dirs[0];
 
         calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], _vertexPositionsNextLOD[8]);
-        _vertexPositionsNextLOD[8] += dirs[5];
+        _vertexPositionsNextLOD[8] += dirs[1];
         _vertexPositionsNextLOD[8] += dirs[0];
 
         calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], _vertexPositionsNextLOD[18]);
-        _vertexPositionsNextLOD[18] += dirs[3];
+        _vertexPositionsNextLOD[18] += dirs[4];
 
         calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], _vertexPositionsNextLOD[20]);
+        _vertexPositionsNextLOD[20] += dirs[1];
+        _vertexPositionsNextLOD[20] += dirs[4];
 
         calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], _vertexPositionsNextLOD[24]);
-        _vertexPositionsNextLOD[24] += dirs[3];
+        _vertexPositionsNextLOD[24] += dirs[4];
         _vertexPositionsNextLOD[24] += dirs[0];
 
         calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], _vertexPositionsNextLOD[26]);
         _vertexPositionsNextLOD[26] += dirs[0];
+        _vertexPositionsNextLOD[26] += dirs[1];
+        _vertexPositionsNextLOD[26] += dirs[4];
 
         _vertexPositionsNextLOD[1] = _vertexPositionsNextLOD[0];
         _vertexPositionsNextLOD[1] += _vertexPositionsNextLOD[2];
@@ -480,12 +486,18 @@ namespace Igor
         _vertexPositionsNextLOD[22] += _vertexPositionsNextLOD[23];
         _vertexPositionsNextLOD[22] *= 0.5;
 
-        iaVector3f temp = transformedCubePosition;
-        temp *= 0.5;
+        iaVector3f transformedCubePosition;
+        transformedCubePosition._x = static_cast<float32>(_cubePosition._x >> 1);
+        transformedCubePosition._y = static_cast<float32>(_cubePosition._y >> 1);
+        transformedCubePosition._z = static_cast<float32>(_cubePosition._z >> 1);
+
+        transformedCubePosition._x -= _cubeStartPosition._x;
+        transformedCubePosition._y -= _cubeStartPosition._y + 2; // this I understand
+        transformedCubePosition._z -= _cubeStartPosition._z;
 
         for (int i = 0; i < (3 * 3 * 3); ++i)
         {
-            _vertexPositionsNextLOD[i] += temp;
+            _vertexPositionsNextLOD[i] += transformedCubePosition;
             _vertexPositionsNextLOD[i] *= _scaleNextLOD;
             _vertexPositionsNextLOD[i] += _offsetNextLOD;
         }
@@ -534,7 +546,7 @@ namespace Igor
         //if (neighborLODs != 0)
         if (_voxelDataNextLOD != nullptr)
         {
-            calculateNextLOD(transformedCubePosition);
+            calculateNextLOD();
         }
 
         if (_density[13] > 0.0f)
@@ -543,19 +555,23 @@ namespace Igor
             {
                 calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
                 va += transformedCubePosition;
-                va += dirs[5];
+                va += dirs[1];
 
                 calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
                 vb += transformedCubePosition;
-                vb += dirs[5];
+                vb += dirs[1];
                 vb += dirs[0];
 
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
                 vc += transformedCubePosition;
+                vc += dirs[1];
                 vc += dirs[0];
+                vc += dirs[4];
 
                 calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
                 vd += transformedCubePosition;
+                vd += dirs[1];
+                vd += dirs[4];
 
                 va *= _scale;
                 vb *= _scale;
@@ -610,23 +626,23 @@ namespace Igor
             {
                 calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
                 va += transformedCubePosition;
-                va += dirs[5];
+                va += dirs[1];
                 va += dirs[0];
 
                 calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
                 vb += transformedCubePosition;
-                vb += dirs[5];
-                vb += dirs[3];
                 vb += dirs[0];
 
                 calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
                 vc += transformedCubePosition;
-                vc += dirs[3];
+                vc += dirs[4];
                 vc += dirs[0];
 
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
                 vd += transformedCubePosition;
                 vd += dirs[0];
+                vd += dirs[1];
+                vd += dirs[4];
 
                 va *= _scale;
                 vb *= _scale;
@@ -681,6 +697,8 @@ namespace Igor
             {
                 calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
                 va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[4];
                 va *= _scale;
                 va += _offset;
 
@@ -751,6 +769,8 @@ namespace Igor
 
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
                 vb += dirs[0];
+                vb += dirs[1];
+                vb += dirs[4];
                 vb += transformedCubePosition;
                 vb *= _scale;
                 vb += _offset;
@@ -821,14 +841,15 @@ namespace Igor
                 }*/
 
                 calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                vc += dirs[3];
+                vc += dirs[4];
                 vc += dirs[0];
                 vc += transformedCubePosition;
                 vc *= _scale;
                 vc += _offset;
 
-        /*        if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0))
+                    /*||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))*/
                 {
                     if ((_cubePosition._z % 2) == 0)
                     {
@@ -841,7 +862,6 @@ namespace Igor
                             else
                             {
                                 vc = _vertexPositionsNextLOD[21];
-                                vc._y -= 1;
                             }
                         }
                         else
@@ -853,10 +873,7 @@ namespace Igor
                             else
                             {
                                 vc = _vertexPositionsNextLOD[22];
-                                vc._y -= 1;
                             }
-
-                            vc._x -= 1;
                         }
                     }
                     else
@@ -870,7 +887,6 @@ namespace Igor
                             else
                             {
                                 vc = _vertexPositionsNextLOD[24];
-                                vc._y -= 1;
                             }
                         }
                         else
@@ -882,25 +898,21 @@ namespace Igor
                             else
                             {
                                 vc = _vertexPositionsNextLOD[25];
-                                vc._y -= 1;
                             }
-
-                            vc._x -= 1;
                         }
-
-                        vc._z -= 1;
                     }
-                }*/
+                }
 
                 calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
-                vd += dirs[3];
+                vd += dirs[4];
 
                 vd += transformedCubePosition;
                 vd *= _scale;
                 vd += _offset;
 
-          /*      if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) || 
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0))
+                    /*|| 
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))*/
                 {
                     if ((_cubePosition._z % 2) == 0)
                     {
@@ -913,7 +925,6 @@ namespace Igor
                             else
                             {
                                 vd = _vertexPositionsNextLOD[18];
-                                vd._y -= 1;
                             }
                         }
                         else
@@ -925,10 +936,7 @@ namespace Igor
                             else
                             {
                                 vd = _vertexPositionsNextLOD[19];
-                                vd._y -= 1;
                             }
-
-                            vc._x -= 1;
                         }
                     }
                     else
@@ -942,7 +950,6 @@ namespace Igor
                             else
                             {
                                 vd = _vertexPositionsNextLOD[21];
-                                vd._y -= 1;
                             }
                         }
                         else
@@ -954,15 +961,10 @@ namespace Igor
                             else
                             {
                                 vd = _vertexPositionsNextLOD[22];
-                                vd._y -= 1;
                             }
-
-                            vc._x -= 1;
                         }
-
-                        vd._z -= 1;
                     }
-                }*/
+                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -1009,20 +1011,24 @@ namespace Igor
             if (density[14] > 0.0f)
             {
                 calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
+                va += dirs[1];
                 va += transformedCubePosition;
-                va += dirs[5];
 
                 calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
-                vb += dirs[5];
+                vb += dirs[1];
 
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
                 vc += transformedCubePosition;
                 vc += dirs[0];
+                vc += dirs[1];
+                vc += dirs[4];
 
                 calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
                 vd += transformedCubePosition;
+                vd += dirs[1];
+                vd += dirs[4];
 
                 va *= _scale;
                 vb *= _scale;
@@ -1077,23 +1083,23 @@ namespace Igor
             {
                 calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
                 va += transformedCubePosition;
-                va += dirs[5];
+                va += dirs[1];
                 va += dirs[0];
 
                 calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
                 vb += transformedCubePosition;
-                vb += dirs[5];
-                vb += dirs[3];
                 vb += dirs[0];
 
                 calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
                 vc += transformedCubePosition;
-                vc += dirs[3];
+                vc += dirs[4];
                 vc += dirs[0];
 
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
                 vd += transformedCubePosition;
                 vd += dirs[0];
+                vd += dirs[1];
+                vd += dirs[4];
 
                 va *= _scale;
                 vb *= _scale;
@@ -1148,19 +1154,23 @@ namespace Igor
             {
                 calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
                 va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[4];
 
                 calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
+                vb += dirs[1];
+                vb += dirs[4];
 
                 calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
                 vc += transformedCubePosition;
-                vc += dirs[3];
+                vc += dirs[4];
                 vc += dirs[0];
 
                 calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
                 vd += transformedCubePosition;
-                vd += dirs[3];
+                vd += dirs[4];
 
                 va *= _scale;
                 vb *= _scale;
@@ -1213,52 +1223,17 @@ namespace Igor
         }
     }
 
-
-
-    /*!
-
-    //           ^           ^           ^
-    //           |           |           |
-    //           |           |           |
-    //           g(6)--------h(7)--------i(8)
-    //       ^  /        ^  /        ^  /
-    //       | /         | /         | /   Y  Z
-    //       |/          |/          |/    | /
-    //       d(3)--------e(4)--------f(5)  |/
-    //   ^  /        ^  /        ^  /      0---X
-    //   | /         | /         | /
-    //   |/          |/          |/
-    //   a(0)--------b(1)--------c(2)
-
-    */
-
     void iContouringCubes::climb()
     {
+        _cubePosition._y++;
+
         for (int i = 0; i < 9; ++i)
         {
             _density[i + 0] = _density[i + 9];
             _density[i + 9] = _density[i + 18];
             _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
         }
-
-        _cubePosition._y++;
     }
-
-    /*
-    //           ^           ^           ^
-    //           |           |           |
-    //           |           |           |
-    //           g(6)--------h(7)--------i(8)
-    //       ^  /        ^  /        ^  /
-    //       | /         | /         | /   Y  Z
-    //       |/          |/          |/    | /
-    //       d(3)--------e(4)--------f(5)  |/
-    //   ^  /        ^  /        ^  /      0---X
-    //   | /         | /         | /
-    //   |/          |/          |/
-    //   a(0)--------b(1)--------c(2)
-
-    */
 
     void iContouringCubes::startClimb(iaVector3I &startPosition)
     {
@@ -1285,8 +1260,6 @@ namespace Igor
         {
             _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
         }
-
-        _cubePosition._y++;
     }
 
     void iContouringCubes::setVoxelData(iVoxelData* voxelData)
@@ -1329,7 +1302,7 @@ namespace Igor
 
         if (neighborLODs != 0)
         {
-            con_assert_sticky(_voxelDataNextLOD != nullptr, "no data available");
+            con_assert(_voxelDataNextLOD != nullptr, "no data available");
         }
 
         con_assert(_voxelData != nullptr, "no voxel data defined");
@@ -1360,9 +1333,9 @@ namespace Igor
 
         iaVector3I marchingVolume;
 
-        marchingVolume._x = volume._x - 1;
-        marchingVolume._y = volume._y - 1;
-        marchingVolume._z = volume._z - 1;
+        marchingVolume._x = volume._x - 2;
+        marchingVolume._y = volume._y - 2;
+        marchingVolume._z = volume._z - 2;
 
         _cubeStartPosition.set(pos._x, pos._y, pos._z);
 
@@ -1426,6 +1399,7 @@ namespace Igor
                 // process pole
                 startClimb(currentPosition);
                 climb();
+                
 
                 do
                 {
@@ -1452,7 +1426,7 @@ namespace Igor
                     generateGeometry(_density, true, LODs);
 
                     y++;
-                } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
+                } while (y < marchingVolume._y);
             }
         }
 
