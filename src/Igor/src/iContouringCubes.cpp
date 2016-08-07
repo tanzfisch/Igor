@@ -292,7 +292,7 @@ namespace Igor
 
         vertex = calcPos;
 
-        vertex.set(0.5, 0.5, 0.5);
+        //vertex.set(0.5, 0.5, 0.5);
     }
 
     void iContouringCubes::setNextLODVoxelOffset(const iaVector3I& offset)
@@ -342,20 +342,21 @@ namespace Igor
     //   | | 15-|-|-16-|-|-17
     //   | |/|  | |/|  | |/|
     //   | 12---|-13---|-14|      y
-    //   |/| |  |/| |  |/| |      |
-    //   9------10-----11| |      |
-    //   | | 6--|-|-7--|-|-8      |
+    //   |/| |  |/| |  |/| |      |  z
+    //   9------10-----11| |      | /
+    //   | | 6--|-|-7--|-|-8      |/
     //   | |/   | |/   | |/       0---X
-    //   | 3----|-4----|-5       /
-    //   |/     |/     |/       /
-    //   0------1------2       z
+    //   | 3----|-4----|-5
+    //   |/     |/     |/
+    //   0------1------2
 
     */
-    void iContouringCubes::calculateNextLOD()
+    void iContouringCubes::calculateNextLOD(const iaVector3f& transformedCubePosition)
     {
         uint8 nextLODDensity[3 * 3 * 3];
 
         iaVector3I blockPos = _cubePosition;
+        blockPos._y -= 3;
         blockPos._x = blockPos._x >> 1;
         blockPos._y = blockPos._y >> 1;
         blockPos._z = blockPos._z >> 1;
@@ -479,19 +480,22 @@ namespace Igor
         _vertexPositionsNextLOD[22] += _vertexPositionsNextLOD[23];
         _vertexPositionsNextLOD[22] *= 0.5;
 
+        iaVector3f temp = transformedCubePosition;
+        temp *= 0.5;
+
         for (int i = 0; i < (3 * 3 * 3); ++i)
         {
+            _vertexPositionsNextLOD[i] += temp;
             _vertexPositionsNextLOD[i] *= _scaleNextLOD;
-            _vertexPositionsNextLOD[i] += _offset;
-            _vertexPositionsNextLOD[i] -= _offsetNextLOD;
+            _vertexPositionsNextLOD[i] += _offsetNextLOD;
         }
     }
 
     void iContouringCubes::generateGeometry(const uint8* density, bool keepTriangles, uint32 neighborLODs)
     {
         iaVector3f transformedCubePosition(_cubePosition._x, _cubePosition._y, _cubePosition._z);
-        transformedCubePosition._x -= _cubeStartPosition._x - 1; // TODO workaround I don't understand
-        transformedCubePosition._y -= _cubeStartPosition._y + 2; // TODO workaround I don't understand
+        transformedCubePosition._x -= _cubeStartPosition._x;
+        transformedCubePosition._y -= _cubeStartPosition._y + 2; // this I understand
         transformedCubePosition._z -= _cubeStartPosition._z;
 
         iaVector3f va;
@@ -527,9 +531,10 @@ namespace Igor
         uint8 matd;
         uint32 matKey = 0;
 
-        if (neighborLODs != 0)
+        //if (neighborLODs != 0)
+        if (_voxelDataNextLOD != nullptr)
         {
-            calculateNextLOD();
+            calculateNextLOD(transformedCubePosition);
         }
 
         if (_density[13] > 0.0f)
@@ -674,22 +679,13 @@ namespace Igor
 
             if (density[22] <= 0.0f)
             {
-                /*   if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
-                   {
-                       va = _vertexPositionsNextLOD[5];
-                       va += _vertexPositionsNextLOD[7];
-                       va *= 0.5;
-                   }
-                   else*/
-                {
-                    calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
-                }
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
+                va += transformedCubePosition;
+                va *= _scale;
+                va += _offset;
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
-                vb += dirs[0];
-
-
-             /*   if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
+            /*    if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
                 {
                     if ((_cubePosition._z % 2) == 0)
                     {
@@ -697,24 +693,142 @@ namespace Igor
                         {
                             if ((_cubePosition._y % 2) == 0)
                             {
-                                vc = _vertexPositionsNextLOD[9];
-
+                                va = _vertexPositionsNextLOD[10];
+                            }
+                            else
+                            {
+                                va = _vertexPositionsNextLOD[19];
+                                va._y -= 1;
                             }
                         }
+                        else
+                        {
+                            if (_cubePosition._y % 2 == 0)
+                            {
+                                va = _vertexPositionsNextLOD[11];
+                            }
+                            else
+                            {
+                                va = _vertexPositionsNextLOD[20];
+                                va._y -= 1;
+                            }
+
+                            va._x -= 1;
+                        }
                     }
-                }
-                else
+                    else
+                    {
+                        if ((_cubePosition._x % 2) == 0)
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                va = _vertexPositionsNextLOD[13];
+                            }
+                            else
+                            {
+                                va = _vertexPositionsNextLOD[22];
+                                va._y -= 1;
+                            }
+                        }
+                        else
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                va = _vertexPositionsNextLOD[14];
+                            }
+                            else
+                            {
+                                va = _vertexPositionsNextLOD[23];
+                                va._y -= 1;
+                            }
+
+                            va._x -= 1;
+                        }
+
+                        va._z -= 1;
+                    }
+                }*/
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
+                vb += dirs[0];
+                vb += transformedCubePosition;
+                vb *= _scale;
+                vb += _offset;
+
+               /* if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                    vc += dirs[3];
-                    vc += dirs[0];
+                    if ((_cubePosition._z % 2) == 0)
+                    {
+                        if ((_cubePosition._x % 2) == 0)
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vb = _vertexPositionsNextLOD[13];
+                            }
+                            else
+                            {
+                                vb = _vertexPositionsNextLOD[22];
+                                vb._y -= 1;
+                            }
+                        }
+                        else
+                        {
+                            if (_cubePosition._y % 2 == 0)
+                            {
+                                vb = _vertexPositionsNextLOD[14];
+                            }
+                            else
+                            {
+                                vb = _vertexPositionsNextLOD[23];
+                                vb._y -= 1;
+                            }
+
+                            vb._x -= 1;
+                        }
+                    }
+                    else
+                    {
+                        if ((_cubePosition._x % 2) == 0)
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vb = _vertexPositionsNextLOD[16];
+                            }
+                            else
+                            {
+                                vb = _vertexPositionsNextLOD[25];
+                                vb._y -= 1;
+                            }
+                        }
+                        else
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vb = _vertexPositionsNextLOD[17];
+                            }
+                            else
+                            {
+                                vb = _vertexPositionsNextLOD[26];
+                                vb._y -= 1;
+                            }
+
+                            vb._x -= 1;
+                        }
+
+                        vb._z -= 1;
+                    }
                 }*/
 
                 calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
                 vc += dirs[3];
                 vc += dirs[0];
+                vc += transformedCubePosition;
+                vc *= _scale;
+                vc += _offset;
 
-                if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
+        /*        if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
                     if ((_cubePosition._z % 2) == 0)
                     {
@@ -722,104 +836,133 @@ namespace Igor
                         {
                             if ((_cubePosition._y % 2) == 0)
                             {
-                                vc = _vertexPositionsNextLOD[9];
-                            }
-                        }
-                    }
-                }
-                 /*               else
-                                {
-                                    vc = _vertexPositionsNextLOD[18];
-                                    vc._y -= 1;
-                                }
+                                vc = _vertexPositionsNextLOD[12];
                             }
                             else
                             {
-                                if (_cubePosition._y % 2 == 0)
-                                {
-                                    vc = _vertexPositionsNextLOD[10];
-                                }
-                                else
-                                {
-                                    vc = _vertexPositionsNextLOD[19];
-                                    vc._y -= 1;
-                                }
-
-                                vc._x -= 1;
+                                vc = _vertexPositionsNextLOD[21];
+                                vc._y -= 1;
                             }
                         }
                         else
                         {
-                            if ((_cubePosition._x % 2) == 0)
+                            if (_cubePosition._y % 2 == 0)
                             {
-                                if ((_cubePosition._y % 2) == 0)
-                                {
-                                    vc = _vertexPositionsNextLOD[12];
-                                }
-                                else
-                                {
-                                    vc = _vertexPositionsNextLOD[21];
-                                    vc._y -= 1;
-                                }
+                                vc = _vertexPositionsNextLOD[13];
                             }
                             else
                             {
-                                if ((_cubePosition._y % 2) == 0)
-                                {
-                                    vc = _vertexPositionsNextLOD[13];
-                                }
-                                else
-                                {
-                                    vc = _vertexPositionsNextLOD[22];
-                                    vc._y -= 1;
-                                }
-
-                                vc._x -= 1;
+                                vc = _vertexPositionsNextLOD[22];
+                                vc._y -= 1;
                             }
 
-                            vc._z -= 1;
+                            vc._x -= 1;
                         }
-                }
-                else
-                {
+                    }
+                    else
+                    {
+                        if ((_cubePosition._x % 2) == 0)
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vc = _vertexPositionsNextLOD[15];
+                            }
+                            else
+                            {
+                                vc = _vertexPositionsNextLOD[24];
+                                vc._y -= 1;
+                            }
+                        }
+                        else
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vc = _vertexPositionsNextLOD[15];
+                            }
+                            else
+                            {
+                                vc = _vertexPositionsNextLOD[25];
+                                vc._y -= 1;
+                            }
 
+                            vc._x -= 1;
+                        }
+
+                        vc._z -= 1;
+                    }
                 }*/
 
-                /* if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
-                 {
-                     if (_cubePosition._z % 2 == 0)
-                     {
-                         vd = _vertexPositionsNextLOD[4];
-                         vd += _vertexPositionsNextLOD[6];
-                         vd *= 0.5;
-                     }
-                     else
-                     {
-                         vd = _vertexPositionsNextLOD[6];
-                     }
-                 }
-                 else*/
-                {
-                    calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
-                    vd += dirs[3];
-                }
-
-                va += transformedCubePosition;
-                va *= _scale;
-
-                vb += transformedCubePosition;
-                vb *= _scale;
-
-                vc += transformedCubePosition;
-                vc *= _scale;
+                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
+                vd += dirs[3];
 
                 vd += transformedCubePosition;
                 vd *= _scale;
-
-                va += _offset;
-                vb += _offset;
-                vc += _offset;
                 vd += _offset;
+
+          /*      if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) || 
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+                {
+                    if ((_cubePosition._z % 2) == 0)
+                    {
+                        if ((_cubePosition._x % 2) == 0)
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vd = _vertexPositionsNextLOD[9];
+                            }
+                            else
+                            {
+                                vd = _vertexPositionsNextLOD[18];
+                                vd._y -= 1;
+                            }
+                        }
+                        else
+                        {
+                            if (_cubePosition._y % 2 == 0)
+                            {
+                                vd = _vertexPositionsNextLOD[10];
+                            }
+                            else
+                            {
+                                vd = _vertexPositionsNextLOD[19];
+                                vd._y -= 1;
+                            }
+
+                            vc._x -= 1;
+                        }
+                    }
+                    else
+                    {
+                        if ((_cubePosition._x % 2) == 0)
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vd = _vertexPositionsNextLOD[12];
+                            }
+                            else
+                            {
+                                vd = _vertexPositionsNextLOD[21];
+                                vd._y -= 1;
+                            }
+                        }
+                        else
+                        {
+                            if ((_cubePosition._y % 2) == 0)
+                            {
+                                vd = _vertexPositionsNextLOD[13];
+                            }
+                            else
+                            {
+                                vd = _vertexPositionsNextLOD[22];
+                                vd._y -= 1;
+                            }
+
+                            vc._x -= 1;
+                        }
+
+                        vd._z -= 1;
+                    }
+                }*/
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -1288,20 +1431,6 @@ namespace Igor
                 {
                     climb();
 
-                    if (x >= 0 &&
-                        x < marchingVolume._x - 1 &&
-                        y >= 0 &&
-                        y < marchingVolume._y - 1 &&
-                        z >= 0 &&
-                        z < marchingVolume._z - 1)
-                    {
-                        keepTriangles = true;
-                    }
-                    else
-                    {
-                        keepTriangles = false;
-                    }
-
                     if (y == 0)
                     {
                         LODs |= (neighborLODs & NEIGHBOR_YNEGATIVE);
@@ -1320,7 +1449,7 @@ namespace Igor
                         LODs &= ~NEIGHBOR_YPOSITIVE;
                     }
 
-                    generateGeometry(_density, keepTriangles, LODs);
+                    generateGeometry(_density, true, LODs);
 
                     y++;
                 } while (!(_cubePosition._y > marchingVolume._y + _cubeStartPosition._y));
