@@ -86,6 +86,9 @@ namespace Igor
         */
 		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, uint32 lod = 0, uint32 neighbors = 0);
 
+        static float64 calcLODScale(uint32 lod);
+        static iaVector3f calcLODOffset(uint32 lod);
+
 	private:
 
         /*! pointer to voxel data
@@ -147,9 +150,6 @@ namespace Igor
         void calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex);
 
         void calculateNextLOD();
-
-        float64 calcLODScale(uint32 lod) const;
-        iaVector3f calcLODOffset(uint32 lod) const;
 
         iaVector3f _offset;
         iaVector3f _offsetNextLOD;
