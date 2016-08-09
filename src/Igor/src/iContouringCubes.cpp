@@ -488,13 +488,9 @@ namespace Igor
         _vertexPositionsNextLOD[22] *= 0.5;
 
         iaVector3f transformedCubePosition;
-        transformedCubePosition._x = static_cast<float32>(_cubePosition._x >> 1);
-        transformedCubePosition._y = static_cast<float32>(_cubePosition._y >> 1);
-        transformedCubePosition._z = static_cast<float32>(_cubePosition._z >> 1);
-
-        transformedCubePosition._x -= _cubeStartPosition._x;
-        transformedCubePosition._y -= _cubeStartPosition._y + 2; // _cubePosition._y is always off by 2 compared to actual position
-        transformedCubePosition._z -= _cubeStartPosition._z;
+        transformedCubePosition._x = static_cast<float32>((_cubePosition._x - _cubeStartPosition._x) >> 1);
+        transformedCubePosition._y = static_cast<float32>((_cubePosition._y - 2 - _cubeStartPosition._y) >> 1);
+        transformedCubePosition._z = static_cast<float32>((_cubePosition._z - _cubeStartPosition._z) >> 1);
 
         for (int i = 0; i < (3 * 3 * 3); ++i)
         {
@@ -827,8 +823,9 @@ namespace Igor
                 vc *= _scale;
                 vc += _offset;
 
-             /*   if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0))
+                    /*||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))*/
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -872,7 +869,7 @@ namespace Igor
                         {
                             if ((geometryPosition._y % 2) == 0)
                             {
-                                vc = _vertexPositionsNextLOD[15];
+                                vc = _vertexPositionsNextLOD[16];
                             }
                             else
                             {
@@ -880,17 +877,17 @@ namespace Igor
                             }
                         }
                     }
-                }*/
+                }
 
                 calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
                 vd += dirs[4];
-
                 vd += transformedCubePosition;
                 vd *= _scale;
                 vd += _offset;
 
-            /*    if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0))
+                    /*||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))*/
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -942,7 +939,7 @@ namespace Igor
                             }
                         }
                     }
-                }*/
+                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -1247,7 +1244,7 @@ namespace Igor
 
     void iContouringCubes::setVoxelDataNextLOD(iVoxelData* voxelData)
     {
-        //_voxelDataNextLOD = voxelData;
+        _voxelDataNextLOD = voxelData;
     }
 
     float64 iContouringCubes::calcLODScale(uint32 lod)
@@ -1279,10 +1276,10 @@ namespace Igor
         _offset = calcLODOffset(_lod);
         _offsetNextLOD = calcLODOffset(_lod + 1);
 
-     /*   if (neighborLODs != 0)
+        if (neighborLODs != 0)
         {
             con_assert(_voxelDataNextLOD != nullptr, "no data available");
-        }*/
+        }
 
         con_assert(_voxelData != nullptr, "no voxel data defined");
         if (_voxelData == nullptr)
