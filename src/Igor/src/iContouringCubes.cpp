@@ -538,9 +538,9 @@ namespace Igor
         uint8 matc;
         uint8 matd;
         uint32 matKey = 0;
-
-        //if (neighborLODs != 0)
-        if (_voxelDataNextLOD != nullptr)
+        
+        if (neighborLODs != 0 &&
+            _voxelDataNextLOD != nullptr)
         {
             calculateNextLOD();
         }
