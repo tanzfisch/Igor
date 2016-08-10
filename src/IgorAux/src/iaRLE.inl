@@ -54,30 +54,38 @@ __IGOR_INLINE__ TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
 {
     con_assert(index < _size, "out of bounds");
 
-    if (_mode == iaRLEMode::Compressed)
+    if (index < _size)
     {
-        TIndex currentBlockPos = static_cast<TIndex>(0);
-        auto blockIter = _blocks.begin();
-        while (blockIter != _blocks.end())
+        if (_mode == iaRLEMode::Compressed)
         {
-            if (index < (*blockIter)._length + currentBlockPos)
+            TIndex currentBlockPos = static_cast<TIndex>(0);
+            auto blockIter = _blocks.begin();
+            while (blockIter != _blocks.end())
             {
-                return (*blockIter)._value;
+                if (index < (*blockIter)._length + currentBlockPos)
+                {
+                    return (*blockIter)._value;
+                }
+
+                currentBlockPos += (*blockIter)._length;
+
+                blockIter++;
             }
 
-            currentBlockPos += (*blockIter)._length;
-
-            blockIter++;
+            con_err("invalid data index " << index << " size " << _size << " block count " << _blocks.size());
+            return static_cast<TValue>(0);
         }
+        else
+        {
+            con_assert(_data != nullptr, "zero pointer");
 
-        con_err("invalid data");
-        return static_cast<TValue>(0);
+            return _data[index];
+        }
     }
     else
     {
-        con_assert(_data != nullptr, "zero pointer");
-
-        return _data[index];
+        con_err("out of bounds");
+        return static_cast<TValue>(0);
     }
 }
 

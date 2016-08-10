@@ -294,11 +294,15 @@ namespace Igor
 
     iaRLE<uint8, uint8>& iVoxelData::getDensityPole(int64 xDir, int64 zDir)
     {
+        con_assert(xDir >= 0 && xDir < _width, "out of range");
+        con_assert(zDir >= 0 && zDir < _depth, "out of range");
         return _data[zDir * _depth + xDir]._density;
     }
 
     iaRLE<uint8, uint8>& iVoxelData::getMaterialPole(int64 xDir, int64 zDir)
     {
+        con_assert(xDir >= 0 && xDir < _width, "out of range");
+        con_assert(zDir >= 0 && zDir < _depth, "out of range");
         return _data[zDir * _depth + xDir]._material;
     }
 
@@ -312,16 +316,25 @@ namespace Igor
 
     uint8 iVoxelData::getVoxelDensity(iaVector3I pos)
     {
+        con_assert(pos._x >= 0 && pos._x < _width, "out of range");
+        con_assert(pos._y >= 0 && pos._y < _height, "out of range");
+        con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         return _data[pos._z * _depth + pos._x]._density.getValue(pos._y);
     }
 
     void iVoxelData::setVoxelMaterial(iaVector3I pos, uint8 material)
     {
+        con_assert(pos._x >= 0 && pos._x < _width, "out of range");
+        con_assert(pos._y >= 0 && pos._y < _height, "out of range");
+        con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         _data[pos._z * _depth + pos._x]._material.setValue(pos._y, material);
     }
 
     uint8 iVoxelData::getVoxelMaterial(iaVector3I pos)
     {
+        con_assert(pos._x >= 0 && pos._x < _width, "out of range");
+        con_assert(pos._y >= 0 && pos._y < _height, "out of range");
+        con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         return _data[pos._z * _depth + pos._x]._material.getValue(pos._y);
     }
 
