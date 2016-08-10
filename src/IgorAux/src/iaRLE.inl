@@ -72,7 +72,7 @@ __IGOR_INLINE__ TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
                 blockIter++;
             }
 
-            con_err("invalid data index " << index << " size " << _size << " block count " << _blocks.size());
+            con_err("invalid data. index " << index << ", size " << _size << ", block count " << _blocks.size());
             return static_cast<TValue>(0);
         }
         else

@@ -319,6 +319,7 @@ namespace Igor
         con_assert(pos._x >= 0 && pos._x < _width, "out of range");
         con_assert(pos._y >= 0 && pos._y < _height, "out of range");
         con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
+        con_assert(_data != nullptr, "zero pointer");
         return _data[pos._z * _depth + pos._x]._density.getValue(pos._y);
     }
 

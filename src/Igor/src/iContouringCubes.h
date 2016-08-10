@@ -149,6 +149,8 @@ namespace Igor
         */
         void calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex);
 
+        bool checkForGradient(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7);
+
         void calculateNextLOD();
 
         iaVector3f _offset;
