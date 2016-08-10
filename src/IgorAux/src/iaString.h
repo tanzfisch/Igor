@@ -54,7 +54,7 @@ namespace IgorAux
 
 		/*! this defines a position that is out of range
 		*/
-		static const uint16 INVALID_POSITION = 0xffff;
+		static const size_t INVALID_POSITION = 0xffffffffffffffff;
 
 		/*! default ctor does nothing
 		*/
@@ -65,14 +65,14 @@ namespace IgorAux
 		\param text multipbyte string
 		\param lenght if input string is not zero terminated or a custom lenght is needed
 		*/
-		iaString(const char* text, const uint16 lenght = INVALID_POSITION);
+		iaString(const char* text, const size_t lenght = INVALID_POSITION);
 
 		/*! copies unicode string
 
 		\param text unicode string
 		\param lenght if input string is not zero terminated or a custom lenght is needed
 		*/
-		iaString(const wchar_t* text, const uint16 lenght = INVALID_POSITION);
+		iaString(const wchar_t* text, const size_t lenght = INVALID_POSITION);
 
         /*! creates a string with only one character
 
@@ -199,19 +199,19 @@ namespace IgorAux
 		/*! \returns charachter at given position for manipulation
 		\param index the position to get the character from
 		*/
-		wchar_t& operator[](const uint16 index);
+		wchar_t& operator[](const size_t index);
 
 		/*! \returns charachter at given position
 		\param index the position to get the character from
 		*/
-		const wchar_t& operator[](const uint16 index) const;
+		const wchar_t& operator[](const size_t index) const;
 
 		/*! \returns specified substring
 
 		\param pos substring from
 		\param len substring lenght
 		*/
-		iaString getSubString(const uint16 pos, const uint16 len = INVALID_POSITION) const;
+		iaString getSubString(const size_t pos, const size_t len = INVALID_POSITION) const;
 
         /*! plsits a string based on delimiter in to tokens (or substrings)
 
@@ -241,7 +241,7 @@ namespace IgorAux
 		\param characters the characters to search for
 		\param from optional parameter to define start index to search from
 		*/
-		uint16 findFirstOf(const wchar_t* characters, const uint16 from = INVALID_POSITION) const;
+		size_t findFirstOf(const wchar_t* characters, const size_t from = INVALID_POSITION) const;
 
         /*! \returns position of first occurence of specified character
 
@@ -250,7 +250,7 @@ namespace IgorAux
         \param character the character to search for
         \param from optional parameter to define start index to search from
         */
-        uint16 findFirstOf(const wchar_t character, const uint16 from = INVALID_POSITION) const;
+        size_t findFirstOf(const wchar_t character, const size_t from = INVALID_POSITION) const;
 
 		/*! \returns position of first occurence NOT of specified characters
 
@@ -259,7 +259,7 @@ namespace IgorAux
 		\param characters the characters to NOT search for
 		\param from optional parameter to define start index to search from
 		*/
-		uint16 findFirstNotOf(const wchar_t* characters, const uint16 from = INVALID_POSITION) const;
+		size_t findFirstNotOf(const wchar_t* characters, const size_t from = INVALID_POSITION) const;
 
         /*! \returns position of first occurence NOT of specified character
 
@@ -268,7 +268,7 @@ namespace IgorAux
         \param character the character to NOT search for
         \param from optional parameter to define start index to search from
         */
-        uint16 findFirstNotOf(const wchar_t character, const uint16 from = INVALID_POSITION) const;
+        size_t findFirstNotOf(const wchar_t character, const size_t from = INVALID_POSITION) const;
 
 		/*! \returns position of last occurence of specified character
 
@@ -276,7 +276,7 @@ namespace IgorAux
 
 		\param character the character to search for
 		*/
-		uint16 findLastOf(const wchar_t character) const;
+		size_t findLastOf(const wchar_t character) const;
 
         /*! \returns position of last occurence of specified characters
 
@@ -284,7 +284,7 @@ namespace IgorAux
 
         \param characters the characters to search for
         */
-        uint16 findLastOf(const wchar_t* characters) const;
+        size_t findLastOf(const wchar_t* characters) const;
 
 		/*! empties the string
 		*/
@@ -296,7 +296,7 @@ namespace IgorAux
 
 		/*! \returns the size (aka character count) of the string without ending zero
 		*/
-		uint16 getSize() const;
+		size_t getSize() const;
 
 		/*! \returns pointer to raw data
 		*/
@@ -308,7 +308,7 @@ namespace IgorAux
 		\param size size of preallocated buffer
 		\returns actual size of written data including ending zero
 		*/
-		uint16 getData(char* buffer, const uint16 size) const;
+		size_t getData(char* buffer, const size_t size) const;
 
         /*! returns utf8 encoded string
 
@@ -316,20 +316,20 @@ namespace IgorAux
         \param size the size of the destination buffer
         \returns bytes written to destination buffer
         */
-        uint16 getUTF8(char* buffer, const uint16 size) const;
+        size_t getUTF8(char* buffer, const size_t size) const;
 
         /*! calclates the size in bytes of the string encoded in utf8
 
         \returns size in bytes
         */
-        uint16 getUTF8Size() const;
+        size_t getUTF8Size() const;
 
         /*! set string with utf8 encoded string
 
         \param buffer source buffer with utf8 string
         \param size the size of the source buffer
         */
-        void setUTF8(const char* buffer, const uint16 size);
+        void setUTF8(const char* buffer, const size_t size);
 
         /*! reverses the string
         */
@@ -363,7 +363,7 @@ namespace IgorAux
 
         /*! string lenght without ending zero
         */
-        uint16 _charCount = 0;
+        size_t _charCount = 0;
 
         /*! pointer to actual data
         */
@@ -374,14 +374,14 @@ namespace IgorAux
 		\param text the data to set
         \param size the size of the buffer
 		*/
-		void setData(const wchar_t* text, const uint16 size = INVALID_POSITION);
+		void setData(const wchar_t* text, const size_t size = INVALID_POSITION);
 
 		/*! converts multibyte string to unicode string
 
 		\param text the data to set
 		\param size the size of the buffer
 		*/
-		void setData(const char* text, const uint16 size = INVALID_POSITION);
+		void setData(const char* text, const size_t size = INVALID_POSITION);
 
         static iaString intToStrInternal(int32 x, int d);
 

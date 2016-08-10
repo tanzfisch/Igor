@@ -15,6 +15,7 @@
 /*! dll main entry point
 gets called for events like loading, unloading
 */
+#pragma warning(disable:4100)
 bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
 	switch(fdwReason)
@@ -34,6 +35,7 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
 	return true;
 }
+#pragma warning(default:4100)
 #endif
 
 #include <ctime>

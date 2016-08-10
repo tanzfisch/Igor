@@ -31,7 +31,7 @@ namespace OMPF
 
     uint32 ompfResourceSearchPathChunk::getSize(const ompfSettings& settings)
     {
-        return _path.getUTF8Size() + 2 + ompfBaseChunk::getSize(settings);
+        return static_cast<uint32>(_path.getUTF8Size() + 2) + static_cast<uint32>(ompfBaseChunk::getSize(settings));
     }
 
     void ompfResourceSearchPathChunk::setPathType(OMPFPathType pathType)

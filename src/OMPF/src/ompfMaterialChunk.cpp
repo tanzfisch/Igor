@@ -148,13 +148,13 @@ namespace OMPF
     uint32 ompfMaterialChunk::getSize(const ompfSettings& settings)
     {
         uint32 size = ompfBaseChunk::getSize(settings);
-        size += _materialName.getUTF8Size() + 2;
+        size += static_cast<uint32>(_materialName.getUTF8Size()) + 2;
         size += 1; // shader count
         
         for (int i = 0; i < static_cast<int>(_shaders.size()); ++i)
         {
             size += 1; // shader type size
-            size += _shaders[i]._filename.getUTF8Size() + 2;
+            size += static_cast<uint32>(_shaders[i]._filename.getUTF8Size()) + 2;
         }
 
         size += _renderStateSetCount; // render states count

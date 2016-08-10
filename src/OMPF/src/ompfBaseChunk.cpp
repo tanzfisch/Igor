@@ -110,7 +110,7 @@ namespace OMPF
 
 	uint32 ompfBaseChunk::getSize(const ompfSettings& settings)
 	{
-		return settings.getTypeIDSize() + settings.getChunkIDSize() * 2 + settings.getChunkSizeSize() + _name.getUTF8Size() + 2;
+		return static_cast<uint32>(settings.getTypeIDSize()) + static_cast<uint32>(settings.getChunkIDSize() * 2) + static_cast<uint32>(settings.getChunkSizeSize()) + static_cast<uint32>(_name.getUTF8Size() + 2);
 	}
 
     void ompfBaseChunk::setName(const iaString& name)

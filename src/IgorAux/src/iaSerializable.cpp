@@ -74,10 +74,10 @@ namespace IgorAux
     {
         con_assert(value.getUTF8Size() <= 0xffff, "string size out of range");
 
-        uint16 utf8Size = value.getUTF8Size();
+        size_t utf8Size = value.getUTF8Size();
         if (utf8Size <= 0xffff)
         {
-            if (iaSerializable::writeUInt16(file, utf8Size))
+            if (iaSerializable::writeUInt16(file, static_cast<uint16>(utf8Size)))
             {
                 if (utf8Size != 0)
                 {
@@ -87,18 +87,19 @@ namespace IgorAux
 #endif
                     value.getUTF8(buffer, utf8Size);
 
-                    bool result = iaSerializable::write(file, buffer, utf8Size);
+                    bool result = iaSerializable::write(file, buffer, static_cast<uint16>(utf8Size));
                     delete[] buffer;
                     return result;
                 }
                 else
                 {
+                    // nothing to write
                     return true;
                 }
-
             }
             else
             {
+                con_err("failed to write buffer lenght");
                 return false;
             }
         }
@@ -107,8 +108,6 @@ namespace IgorAux
             con_err("string size out of range");
             return false;
         }
-
-        return true;
     }
 
     bool iaSerializable::readUTF8(ifstream& file, iaString& value)

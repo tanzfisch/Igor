@@ -180,7 +180,7 @@ namespace OMPF
         auto iterTex = _textures.begin();
         while (iterTex != _textures.end())
         {
-            textures += (*iterTex).second.getSize() + 2;
+            textures += static_cast<uint32>((*iterTex).second.getSize()) + 2;
             iterTex++;
         }
 
@@ -335,7 +335,7 @@ namespace OMPF
         iaSerializable::writeFloat32(file, _boundingSphereRadius);
         con_debug_endl("bounding sphere " << _boundingSpherePos << " radius " << _boundingSphereRadius);
 
-        iaSerializable::writeUInt8(file, getTextureCount());
+        iaSerializable::writeUInt8(file, static_cast<uint8>(getTextureCount()));
         con_debug_endl("textureCount " << getTextureCount());
 
         int i = 0;

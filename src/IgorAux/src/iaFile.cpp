@@ -123,7 +123,7 @@ namespace IgorAux
 
     iaString iaFile::getPath() const
     {
-        uint16 pos = _filename.findLastOf(iaDirectory::getPathSeperator());
+        size_t pos = _filename.findLastOf(iaDirectory::getPathSeperator());
 
         if (pos != iaString::INVALID_POSITION)
         {
@@ -137,7 +137,7 @@ namespace IgorAux
 
 	iaString iaFile::getFileName() const
 	{
-        uint16 pos = _filename.findLastOf(iaDirectory::getPathSeperator());
+        size_t pos = _filename.findLastOf(iaDirectory::getPathSeperator());
 
         if (pos != iaString::INVALID_POSITION)
         {
@@ -302,16 +302,21 @@ namespace IgorAux
         }
 	}
 
+#pragma warning(disable:4100)
     void __stdcall iaFile::writeCompletionCallback(uint32 errorCode, uint32 size, void* overlapped)
 	{
+        con_err("not implemented");
 		//! \todo: maybe pass some function pointer to execute after read/write
 	}
+#pragma warning(default:4100)
 
+#pragma warning(disable:4100)
     void __stdcall iaFile::readCompletionCallback(uint32 errorCode, uint32 size, void* overlapped)
     {
+        con_err("not implemented");
         //! \todo: maybe pass some function pointer to execute after read/write
     }
-
+#pragma warning(default:4100)
 }
 
 #endif

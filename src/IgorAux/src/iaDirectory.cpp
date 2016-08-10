@@ -274,7 +274,6 @@ namespace IgorAux
 		}
 
 		// crops the current path for every .. and double slash we find
-		int last_pos = 0;
 		vector<iaString> path;
 
         temp.split(iaDirectory::getPathSeperator(), path);

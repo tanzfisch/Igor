@@ -24,7 +24,7 @@ namespace OMPF
 
     uint32 ompfExternalReferenceChunk::getSize(const ompfSettings& settings)
     {
-        return _filename.getUTF8Size() + 2 + ompfBaseChunk::getSize(settings);
+        return static_cast<uint32>(_filename.getUTF8Size() + 2) + static_cast<uint32>(ompfBaseChunk::getSize(settings));
     }
 
     bool ompfExternalReferenceChunk::write(ofstream& file, const ompfSettings& settings)

@@ -29,6 +29,7 @@ using namespace std;
 #include <windows.h>
 
 //! gets called when the dll is loaded into memory
+#pragma warning(disable:4100)
 bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
     switch (fdwReason)
@@ -48,6 +49,7 @@ bool WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 
     return true;
 }
+#pragma warning(default:4100)
 #endif
 namespace OMPF
 {
