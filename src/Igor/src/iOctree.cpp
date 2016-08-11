@@ -153,12 +153,6 @@ namespace Igor
         }
         else
         {
-            iNode* node = iNodeFactory::getInstance().getNode(userDataID);
-            if (node != nullptr)
-            {
-                con_endl("name " << node->getName());
-            }
-
             con_err(userDataID << " out of bounds " << sphere._center);
         }
     }
