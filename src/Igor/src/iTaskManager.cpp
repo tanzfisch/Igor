@@ -176,11 +176,13 @@ namespace Igor
 		}
 		_mutexIncommingTasks.unlock();
         
+        _mutexTasks.lock();
 		auto iterTasks = _tasks.find(taskID);
         if (iterTasks != _tasks.end())
         {
             result = (*iterTasks).second;
         }
+        _mutexTasks.unlock();
 
         return result;
     }
