@@ -61,7 +61,7 @@ namespace Igor
 
     void iMeshBuilder::setJoinVertexes(bool joinVertexes)
     {
-        con_assert(_vertexes.empty(), "can't change this setting unless no vertexes present");
+        con_assert(_vertexes.empty(), "can't change this setting if already vertexes inserted");
 
         if (_vertexes.empty())
         {
@@ -84,6 +84,10 @@ namespace Igor
 
     uint32 iMeshBuilder::addVertex(const iaVector3f& vertex)
     {
+        con_assert(vertex._x > -1000000 && vertex._x < 1000000, "out of bounds");
+        con_assert(vertex._y > -1000000 && vertex._y < 1000000, "out of bounds");
+        con_assert(vertex._z > -1000000 && vertex._z < 1000000, "out of bounds");
+
         uint32 result = 0;
 
         if (_joinVertexes)
@@ -322,6 +326,8 @@ namespace Igor
 
     void iMeshBuilder::calcBoundingSphere(iSpheref& sphere) const
     {
+        con_assert(_vertexes.size() > 0, "no vertexes");
+
         sphere._radius = 0;
 
         sphere._center.set(0, 0, 0);
