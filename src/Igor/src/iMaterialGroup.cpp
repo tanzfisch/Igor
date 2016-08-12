@@ -7,16 +7,17 @@
 #include <iNodeRender.h>
 #include <iNodeMesh.h>
 #include <iMesh.h>
+#include <iNodeFactory.h>
 
 namespace Igor
 {
 
-	uint32 iMaterialGroup::_nextId = 1;
+    uint32 iMaterialGroup::_nextId = 1;
 
-	iMaterialGroup::iMaterialGroup()
-	{
-		_id = _nextId++;
-	}
+    iMaterialGroup::iMaterialGroup()
+    {
+        _id = _nextId++;
+    }
 
     iMaterialGroup::~iMaterialGroup()
     {
@@ -29,74 +30,82 @@ namespace Igor
         }
     }
 
-    void iMaterialGroup::removeRenderNode(iNodeRender* renderNode)
+    void iMaterialGroup::removeRenderNode(uint32 renderNodeID)
     {
-        if (iRenderStateValue::On == _material.getRenderStateSet().getRenderStateValue(iRenderState::Instanced) &&
-            iNodeType::iNodeMesh == renderNode->getType())
+        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+        if (renderNode != nullptr)
         {
-            auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();
-            auto iter = find(_instancedRenderNodes[meshBuffers]._nodes.begin(), _instancedRenderNodes[meshBuffers]._nodes.end(), renderNode);
-            if (iter != _instancedRenderNodes[meshBuffers]._nodes.end())
+            if (iRenderStateValue::On == _material.getRenderStateSet().getRenderStateValue(iRenderState::Instanced) &&
+                iNodeType::iNodeMesh == renderNode->getType())
             {
-                _instancedRenderNodes[meshBuffers]._nodes.erase(iter);
+                auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();
+                auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);
+                if (iter != _instancedRenderNodes[meshBuffers]._renderNodeIDs.end())
+                {
+                    _instancedRenderNodes[meshBuffers]._renderNodeIDs.erase(iter);
+                }
             }
-        }
-        else
-        {
-            auto iter = find(_renderNodes.begin(), _renderNodes.end(), renderNode);
-            if (iter != _renderNodes.end())
+            else
             {
-                _renderNodes.erase(iter);
+                auto iter = find(_renderNodeIDs.begin(), _renderNodeIDs.end(), renderNodeID);
+                if (iter != _renderNodeIDs.end())
+                {
+                    _renderNodeIDs.erase(iter);
+                }
             }
         }
     }
 
-    void iMaterialGroup::addRenderNode(iNodeRender* renderNode)
+    void iMaterialGroup::addRenderNode(uint32 renderNodeID)
     {
-        if (iRenderStateValue::On == _material.getRenderStateSet().getRenderStateValue(iRenderState::Instanced) &&
-            iNodeType::iNodeMesh == renderNode->getType())
+        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+        if (renderNode != nullptr)
         {
-            auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();
-            if (_instancedRenderNodes[meshBuffers]._instancer == nullptr)
+            if (iRenderStateValue::On == _material.getRenderStateSet().getRenderStateValue(iRenderState::Instanced) &&
+                iNodeType::iNodeMesh == renderNode->getType())
             {
-                _instancedRenderNodes[meshBuffers]._instancer = new iInstancer(64, 10000);
-            }
+                auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();
+                if (_instancedRenderNodes[meshBuffers]._instancer == nullptr)
+                {
+                    _instancedRenderNodes[meshBuffers]._instancer = new iInstancer(64, 10000); // big TODO 
+                }
 
-            auto iter = find(_instancedRenderNodes[meshBuffers]._nodes.begin(), _instancedRenderNodes[meshBuffers]._nodes.end(), renderNode);
-            if (_instancedRenderNodes[meshBuffers]._nodes.end() == iter)
+                auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);
+                if (_instancedRenderNodes[meshBuffers]._renderNodeIDs.end() == iter)
+                {
+                    _instancedRenderNodes[meshBuffers]._renderNodeIDs.push_back(renderNodeID);
+                }
+            }
+            else
             {
-                _instancedRenderNodes[meshBuffers]._nodes.push_back(static_cast<iNodeMesh*>(renderNode));
+                auto iter = find(_renderNodeIDs.begin(), _renderNodeIDs.end(), renderNodeID);
+                if (_renderNodeIDs.end() == iter)
+                {
+                    _renderNodeIDs.push_back(renderNodeID);
+                }
             }
         }
-        else
-        {
-            auto iter = find(_renderNodes.begin(), _renderNodes.end(), renderNode);
-            if (_renderNodes.end() == iter)
-            {
-                _renderNodes.push_back(renderNode);
-            }
-        }
-	}
+    }
 
-	iMaterial* iMaterialGroup::getMaterial()
-	{
-		return &_material;
-	}
+    iMaterial* iMaterialGroup::getMaterial()
+    {
+        return &_material;
+    }
 
-	int32 iMaterialGroup::getOrder()
-	{
-		return _material.getOrder();
-	}
+    int32 iMaterialGroup::getOrder()
+    {
+        return _material.getOrder();
+    }
 
-	void iMaterialGroup::setOrder(int32 order)
-	{
-		_material.setOrder(order);
-	}
+    void iMaterialGroup::setOrder(int32 order)
+    {
+        _material.setOrder(order);
+    }
 
-	uint32 iMaterialGroup::getID()
-	{
-		return _id;
-	}
+    uint32 iMaterialGroup::getID()
+    {
+        return _id;
+    }
 
 }
 

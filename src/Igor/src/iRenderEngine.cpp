@@ -131,7 +131,7 @@ namespace Igor
                 {
                     if (renderNode->isVisible())
                     {
-                        iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
+                        iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode->getID());
                     }
                 }
             }
@@ -147,7 +147,7 @@ namespace Igor
             {
                 if (renderNode->isVisible())
                 {
-                    iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode);
+                    iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->addRenderNode(renderNode->getID());
                 }
             }
 
@@ -196,7 +196,7 @@ namespace Igor
                     auto instanceIter = materialGroup->_instancedRenderNodes.begin();
                     while (instanceIter != materialGroup->_instancedRenderNodes.end())
                     {
-                        auto instanceList = (*instanceIter).second._nodes;
+                        auto instanceList = (*instanceIter).second._renderNodeIDs;
                         auto elementIter = instanceList.begin();
                         uint32 instanceCount = instanceList.size();
                         uint32 index = 0;
@@ -206,17 +206,25 @@ namespace Igor
 
                         while (instanceList.end() != elementIter)
                         {
-                            if ((*elementIter)->wasReached())
+                            iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*elementIter)));
+                            if (node != nullptr)
                             {
-                                instancer->addInstance((*elementIter)->getWorldMatrix().getData());
+                                if (node->wasReached())
+                                {
+                                    instancer->addInstance(node->getWorldMatrix().getData());
 
-                                (*elementIter)->_reached = false;
-                                ++elementIter;
+                                    node->_reached = false;
+                                    ++elementIter;
+                                }
+                                else
+                                {
+                                    elementIter = instanceList.erase(elementIter);
+                                    instanceCount--;
+                                }
                             }
                             else
                             {
-                                elementIter = instanceList.erase(elementIter);
-                                instanceCount--;
+                                ++elementIter;
                             }
                         }
 
@@ -239,22 +247,30 @@ namespace Igor
             }
             else
             {
-                if (materialGroup->_renderNodes.size() > 0)
+                if (materialGroup->_renderNodeIDs.size() > 0)
                 {
                     iRenderer::getInstance().setMaterial(materialGroup->getMaterial());
 
-                    auto iter = materialGroup->_renderNodes.begin();
-                    while (iter != materialGroup->_renderNodes.end())
+                    auto iter = materialGroup->_renderNodeIDs.begin();
+                    while (iter != materialGroup->_renderNodeIDs.end())
                     {
-                        if ((*iter)->wasReached())
+                        iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*iter)));
+                        if (node != nullptr)
                         {
-                            (*iter)->draw();
-                            (*iter)->_reached = false;
-                            ++iter;
+                            if (node->wasReached())
+                            {
+                                node->draw();
+                                node->_reached = false;
+                                ++iter;
+                            }
+                            else
+                            {
+                                iter = materialGroup->_renderNodeIDs.erase(iter);
+                            }
                         }
                         else
                         {
-                            iter = materialGroup->_renderNodes.erase(iter);
+                            ++iter;
                         }
                     }
                 }

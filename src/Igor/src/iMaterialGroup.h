@@ -45,7 +45,7 @@ namespace Igor
     class iMeshBuffers;
     class iNodeMesh;
 
-    /*! material group describes a group of render nodes that user the same material
+    /*! material group describes a group of render nodes that use the same material
     */
     class Igor_API iMaterialGroup
 	{
@@ -58,7 +58,7 @@ namespace Igor
         */
         struct Instanced
         {
-            vector<iNodeMesh*> _nodes;
+            vector<uint32> _renderNodeIDs;
             iInstancer* _instancer = nullptr;
         };
 
@@ -96,9 +96,9 @@ namespace Igor
         */
 		iMaterial _material;
 
-        /*! render nodes registred to this material
+        /*! render node IDs registred to this material
         */
-        vector<iNodeRender*> _renderNodes;
+        vector<uint32> _renderNodeIDs;
 
         /*! render nodes registred to this material that are also using instancing
         */
@@ -110,13 +110,13 @@ namespace Igor
 
         \todo when does a mesh get removed from this group? reference count?
         */
-        void addRenderNode(iNodeRender* renderNode);
+        void addRenderNode(uint32 renderNodeID);
 
 		/*! removes render node from material group
 		
 		\param renderNode node to be removed
 		*/
-        void removeRenderNode(iNodeRender* renderNode);
+        void removeRenderNode(uint32 renderNodeID);
 
         /*! init id
         */

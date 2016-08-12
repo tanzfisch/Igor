@@ -39,7 +39,7 @@ namespace Igor
         iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
         if (materialGroup != nullptr)
         {
-            materialGroup->removeRenderNode(this);
+            materialGroup->removeRenderNode(getID());
         }
     }
 
@@ -53,7 +53,7 @@ namespace Igor
             iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
             if (materialGroup != nullptr)
             {
-                materialGroup->removeRenderNode(this);
+                materialGroup->removeRenderNode(getID());
             }
         }
     }
@@ -108,7 +108,7 @@ namespace Igor
             iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
             if (materialGroup != nullptr)
             {
-                materialGroup->removeRenderNode(this);
+                materialGroup->removeRenderNode(getID());
             }
 
             _materialID = materialID;
