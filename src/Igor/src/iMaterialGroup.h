@@ -52,7 +52,6 @@ namespace Igor
 
 		friend class iMaterialResourceFactory;
         friend class iRenderEngine;
-        friend class iNodeRender;
 
         /*! structure for handling instanced rendered nodes
         */
@@ -78,7 +77,7 @@ namespace Igor
         */
         void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
 
-        /*! \returns material group id
+        /*! \returns material id (also used as group id)
         */
         uint32 getID();
 

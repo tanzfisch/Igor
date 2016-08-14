@@ -34,28 +34,11 @@ namespace Igor
     iNodeRender::~iNodeRender()
     {
 		setScene(nullptr);
-
-        // TODO bad design iRenderEngine should do that
-        iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
-        if (materialGroup != nullptr)
-        {
-            materialGroup->removeRenderNode(getID());
-        }
     }
 
     void iNodeRender::setVisible(bool visible)
     {
         _visible = visible;
-
-        if (!_visible)
-        {
-            // TODO bad design iRenderEngine should do that ... somehow
-            iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
-            if (materialGroup != nullptr)
-            {
-                materialGroup->removeRenderNode(getID());
-            }
-        }
     }
 
     bool iNodeRender::isVisible() const
@@ -104,13 +87,6 @@ namespace Igor
 	{
         if (_materialID != materialID)
         {
-            // TODO bad design iRenderEngine should do that
-            iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(_materialID);
-            if (materialGroup != nullptr)
-            {
-                materialGroup->removeRenderNode(getID());
-            }
-
             _materialID = materialID;
         }
 	}

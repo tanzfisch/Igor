@@ -209,7 +209,9 @@ namespace Igor
                             iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*elementIter)));
                             if (node != nullptr)
                             {
-                                if (node->wasReached())
+                                if (node->wasReached() && 
+                                    node->isVisible() &&
+                                    node->getMaterial() == materialGroup->getID())
                                 {
                                     instancer->addInstance(node->getWorldMatrix().getData());
 
@@ -224,7 +226,7 @@ namespace Igor
                             }
                             else
                             {
-                                ++elementIter;
+                                elementIter = instanceList.erase(elementIter);
                             }
                         }
 
@@ -236,6 +238,7 @@ namespace Igor
                             {
                                 delete (*instanceIter).second._instancer;
                             }
+
                             instanceIter = materialGroup->_instancedRenderNodes.erase(instanceIter);
                         }
                         else
@@ -257,7 +260,9 @@ namespace Igor
                         iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*iter)));
                         if (node != nullptr)
                         {
-                            if (node->wasReached())
+                            if (node->wasReached() && 
+                                node->isVisible() &&
+                                node->getMaterial() == materialGroup->getID())
                             {
                                 node->draw();
                                 node->_reached = false;
@@ -270,7 +275,7 @@ namespace Igor
                         }
                         else
                         {
-                            ++iter;
+                            iter = materialGroup->_renderNodeIDs.erase(iter);
                         }
                     }
                 }
