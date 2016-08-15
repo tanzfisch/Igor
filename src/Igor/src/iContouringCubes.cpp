@@ -482,8 +482,6 @@ namespace Igor
             }
         }
 
-
-
         bool calc[8];
 
         calc[0] = checkForGradient(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13]);
