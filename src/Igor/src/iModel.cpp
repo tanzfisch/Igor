@@ -23,9 +23,9 @@ namespace Igor
 
 	iModel::~iModel()
 	{
-        if (nullptr != _data)
+        if (nullptr != _node)
         {
-            iNodeFactory::getInstance().destroyNode(_data);
+            iNodeFactory::getInstance().destroyNode(_node);
         }
 
         if (_parameter != nullptr)
@@ -55,28 +55,35 @@ namespace Igor
 		_state = state;
 	}
 
-	void iModel::setData(iNode* node)
+	void iModel::setNode(iNode* node)
 	{
         con_assert(node != nullptr, "zero pointer");
-        con_assert(_data == nullptr, "can't override data");
+        con_assert(_node == nullptr, "can't override data");
 
         if (node != nullptr &&
-            _data == nullptr)
+            _node == nullptr)
         {
-            _data = node;
+            _node = node;
         }
 	}
 
-    iNode* iModel::getDataCopy()
+    iNode* iModel::getNodeCopy()
     {
-        con_assert(_data != nullptr, "zero pointer. data not ready");
+        con_assert(_node != nullptr, "zero pointer. data not ready");
          
-        return iNodeFactory::getInstance().createCopy(_data);
+        if (_node != nullptr)
+        {
+            return iNodeFactory::getInstance().createCopy(_node);
+        }
+        else
+        {
+            return nullptr;
+        }
     }
 
-	iNode* iModel::getData()
+	iNode* iModel::getNode()
 	{
-		return _data;
+		return _node;
 	}
 	
 

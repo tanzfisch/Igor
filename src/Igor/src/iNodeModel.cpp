@@ -102,7 +102,7 @@ namespace Igor
             _model != nullptr &&
 			_model->getState() == iModelState::Loaded)
 		{
-            insertNode(_model->getDataCopy());
+            insertNode(_model->getNodeCopy());
 			_initialized = true;
             return true;
 		}

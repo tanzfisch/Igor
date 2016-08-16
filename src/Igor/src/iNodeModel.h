@@ -58,7 +58,7 @@ namespace Igor
         \todo more docu here!
 
         \param modelName can be a filename or any unique identity name
-        \param parameters optional loading parameters (must be mem on heap and will be consumed by library)
+        \param parameters optional loading parameters (must be allocated on heap and will be consumed by library)
 
         \todo instancing is for now limited to 20k objects. we need this variable
 

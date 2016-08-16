@@ -23,7 +23,7 @@ namespace Igor
         iNode* node = iModelResourceFactory::getInstance().loadData(_model->getName(), _model->getParameters());
         if (node != nullptr)
         {
-            _model->setData(node);
+            _model->setNode(node);
             _model->setState(iModelState::Loaded);
         }
         else

@@ -50,6 +50,8 @@ namespace Igor
 		Loaded
 	};
 
+    /*! source type of model
+    */
     enum class iModelSourceType
     {
         File,
@@ -90,7 +92,9 @@ namespace Igor
         bool _keepMesh = false;
     };
 	
-    /*! Represents model data loaded from filesystem.
+    /*! represents model data loaded or generated
+
+    \todo maybe we should replace pointers to nodes with IDs here
     */
 	class iModel
 	{
@@ -104,13 +108,13 @@ namespace Igor
         */
         const iaString& getName() const;
 
-        /*! \returns optional loading or generation parameters
+        /*! \returns optional loading or generation parameters. returns zero if non present
         */
         iModelDataInputParameter* getParameters();
 
         /*! \returns copy to node tree data
         */
-        iNode* getDataCopy();
+        iNode* getNodeCopy();
 
         /*! \returns model state
         */
@@ -124,7 +128,7 @@ namespace Igor
         
 		/*! node data
 		*/
-		iNode* _data = nullptr;
+		iNode* _node = nullptr;
 
         /*! optional load or generate parameter
         */
@@ -134,13 +138,13 @@ namespace Igor
         */
 		iModelState _state = iModelState::NotLoaded;
 
-		/*! set data
+		/*! set node
 		*/
-		void setData(iNode* node);
+		void setNode(iNode* node);
 
         /*! \returns pointer to node tree data
         */
-        iNode* getData();
+        iNode* getNode();
 
         /*! sets model state
 

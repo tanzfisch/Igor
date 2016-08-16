@@ -274,7 +274,7 @@ namespace Igor
             if (node != nullptr)
             {
                 result = shared_ptr<iModel>(new iModel(hashKey, parameter), iModel::private_deleter());
-                result->setData(node);
+                result->setNode(node);
                 result->setState(iModelState::Loaded);
                 _models[hashValue] = result;
             }
