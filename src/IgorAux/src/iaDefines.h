@@ -268,6 +268,42 @@ namespace IgorAux
 */
 #define __IGOR_GRAVITY__ 9.81
 
+#define __IGOR_BIT_0__ 0x00000001
+#define __IGOR_BIT_1__ 0x00000002
+#define __IGOR_BIT_2__ 0x00000004
+#define __IGOR_BIT_3__ 0x00000008
+#define __IGOR_BIT_4__ 0x00000010
+#define __IGOR_BIT_5__ 0x00000020
+#define __IGOR_BIT_6__ 0x00000040
+#define __IGOR_BIT_7__ 0x00000080
+
+#define __IGOR_BIT_8__ 0x00000100
+#define __IGOR_BIT_9__ 0x00000200
+#define __IGOR_BIT_10__ 0x00000400
+#define __IGOR_BIT_11__ 0x00000800
+#define __IGOR_BIT_12__ 0x00001000
+#define __IGOR_BIT_13__ 0x00002000
+#define __IGOR_BIT_14__ 0x00004000
+#define __IGOR_BIT_15__ 0x00008000
+
+#define __IGOR_BIT_16__ 0x00010000
+#define __IGOR_BIT_17__ 0x00020000
+#define __IGOR_BIT_18__ 0x00040000
+#define __IGOR_BIT_19__ 0x00080000
+#define __IGOR_BIT_20__ 0x00100000
+#define __IGOR_BIT_21__ 0x00200000
+#define __IGOR_BIT_22__ 0x00400000
+#define __IGOR_BIT_23__ 0x00800000
+
+#define __IGOR_BIT_24__ 0x01000000
+#define __IGOR_BIT_25__ 0x02000000
+#define __IGOR_BIT_26__ 0x04000000
+#define __IGOR_BIT_27__ 0x08000000
+#define __IGOR_BIT_28__ 0x10000000
+#define __IGOR_BIT_29__ 0x20000000
+#define __IGOR_BIT_30__ 0x40000000
+#define __IGOR_BIT_31__ 0x80000000
+
 #ifndef _UNICODE
 #error Igor needs unicode!
 #endif

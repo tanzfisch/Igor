@@ -962,9 +962,9 @@ namespace Igor
             calculateNextLOD();
         }
 
-        if (_density[13] > 0.0f)
+        if (density[13] > 0.0f)
         {
-            if (_density[14] <= 0.0f)
+            if (density[14] <= 0.0f)
             {
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
