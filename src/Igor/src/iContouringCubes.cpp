@@ -3,6 +3,7 @@
 // see copyright notice in corresponding header file
 
 #include "iContouringCubes.h"
+#include "iContouringCubesLookup.h"
 
 #include <iTimer.h>
 
@@ -71,133 +72,7 @@ namespace Igor
 #define rescale(value) ((value > 0 ? value - 1 : value) / 254.0)
 
 #define CALC_NORMALS
-
-    bool iContouringCubes::checkForGradient(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7)
-    {
-        if (density0 != 0 && density1 == 0)
-        {
-            return true;
-        }
-
-        if (density1 != 0 && density0 == 0)
-        {
-            return true;
-        }
-
-        if (density0 != 0 && density2 == 0)
-        {
-            return true;
-        }
-
-        if (density2 != 0 && density0 == 0)
-        {
-            return true;
-        }
-
-        if (density0 != 0 && density4 == 0)
-        {
-            return true;
-        }
-
-        if (density4 != 0 && density0 == 0)
-        {
-            return true;
-        }
-
-        if (density7 != 0 && density6 == 0)
-        {
-            return true;
-        }
-
-        if (density6 != 0 && density7 == 0)
-        {
-            return true;
-        }
-
-        if (density7 != 0 && density5 == 0)
-        {
-            return true;
-        }
-
-        if (density5 != 0 && density7 == 0)
-        {
-            return true;
-        }
-
-        if (density7 != 0 && density3 == 0)
-        {
-            return true;
-        }
-
-        if (density3 != 0 && density7 == 0)
-        {
-            return true;
-        }
-
-        if (density4 != 0 && density5 == 0)
-        {
-            return true;
-        }
-
-        if (density5 != 0 && density4 == 0)
-        {
-            return true;
-        }
-
-        if (density5 != 0 && density1 == 0)
-        {
-            return true;
-        }
-
-        if (density1 != 0 && density5 == 0)
-        {
-            return true;
-        }
-
-        if (density1 != 0 && density3 == 0)
-        {
-            return true;
-        }
-
-        if (density3 != 0 && density1 == 0)
-        {
-            return true;
-        }
-
-        if (density3 != 0 && density2 == 0)
-        {
-            return true;
-        }
-
-        if (density2 != 0 && density3 == 0)
-        {
-            return true;
-        }
-
-        if (density2 != 0 && density6 == 0)
-        {
-            return true;
-        }
-
-        if (density6 != 0 && density2 == 0)
-        {
-            return true;
-        }
-
-        if (density6 != 0 && density4 == 0)
-        {
-            return true;
-        }
-
-        if (density4 != 0 && density6 == 0)
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    void iContouringCubes::calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex)
+    bool iContouringCubes::calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex)
     {
         int div = 0;
         iaVector3f calcPos;
@@ -385,13 +260,12 @@ namespace Igor
         }
         else
         {
-            vertex.set(0.5, 0.5, 0.5);
-            con_err("no gradient found");
+            calcPos.set(0, 0, 0);
         }
 
         vertex = calcPos;
 
-        //vertex.set(0.5, 0.5, 0.5);
+        return div != 0 ? true : false;
     }
 
     void iContouringCubes::setNextLODVoxelOffset(const iaVector3I& offset)
@@ -476,331 +350,69 @@ namespace Igor
             {
                 for (int x = 0; x < 3; ++x)
                 {
-                    _vertexPositionsNextLOD[i].set(0,0,0);
                     nextLODDensity[i++] = _voxelDataNextLOD->getVoxelDensity(iaVector3I(blockPos._x + x, blockPos._y + y, blockPos._z + z));
                 }
             }
         }
 
-        bool calc[8];
-
-        calc[0] = checkForGradient(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13]);
-        calc[1] = checkForGradient(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14]);
-        calc[2] = checkForGradient(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16]);
-        calc[3] = checkForGradient(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17]);
-        calc[4] = checkForGradient(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22]);
-        calc[5] = checkForGradient(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23]);
-        calc[6] = checkForGradient(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25]);
-        calc[7] = checkForGradient(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26]);
-
-        if (calc[0])
+        uint8 calc = 0;
+        if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], _vertexPositionsNextLOD[0]))
         {
-            calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], _vertexPositionsNextLOD[0]);
+            calc |= __IGOR_BIT_0__;
         }
 
-        if (calc[1])
+        if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], _vertexPositionsNextLOD[2]))
         {
-            calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], _vertexPositionsNextLOD[2]);
+            calc |= __IGOR_BIT_1__;
             _vertexPositionsNextLOD[2] += dirs[1];
         }
 
-        if (calc[2])
+        if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], _vertexPositionsNextLOD[6]))
         {
-            calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], _vertexPositionsNextLOD[6]);
+            calc |= __IGOR_BIT_2__;
             _vertexPositionsNextLOD[6] += dirs[0];
         }
 
-        if (calc[3])
+        if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], _vertexPositionsNextLOD[8]))
         {
-            calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], _vertexPositionsNextLOD[8]);
+            calc |= __IGOR_BIT_3__;
             _vertexPositionsNextLOD[8] += dirs[1];
             _vertexPositionsNextLOD[8] += dirs[0];
         }
 
-        if (calc[4])
+        if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], _vertexPositionsNextLOD[18]))
         {
-            calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], _vertexPositionsNextLOD[18]);
+            calc |= __IGOR_BIT_4__;
             _vertexPositionsNextLOD[18] += dirs[4];
         }
 
-        if (calc[5])
+        if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], _vertexPositionsNextLOD[20]))
         {
-            calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], _vertexPositionsNextLOD[20]);
+            calc |= __IGOR_BIT_5__;
             _vertexPositionsNextLOD[20] += dirs[1];
             _vertexPositionsNextLOD[20] += dirs[4];
         }
 
-        if (calc[6])
+        if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], _vertexPositionsNextLOD[24]))
         {
-            calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], _vertexPositionsNextLOD[24]);
+            calc |= __IGOR_BIT_6__;
             _vertexPositionsNextLOD[24] += dirs[4];
             _vertexPositionsNextLOD[24] += dirs[0];
         }
 
-        if (calc[7])
+        if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], _vertexPositionsNextLOD[26]))
         {
-            calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], _vertexPositionsNextLOD[26]);
+            calc |= __IGOR_BIT_7__;
             _vertexPositionsNextLOD[26] += dirs[0];
             _vertexPositionsNextLOD[26] += dirs[1];
             _vertexPositionsNextLOD[26] += dirs[4];
         }
 
-        if (!calc[0])
+        for (int i = 0; i < 8; ++i)
         {
-            if (calc[4])
-            {
-                _vertexPositionsNextLOD[0] = _vertexPositionsNextLOD[18];
-            }
-            else if (calc[1])
-            {
-                _vertexPositionsNextLOD[0] = _vertexPositionsNextLOD[2];
-            }
-            else if (calc[2])
-            {
-                _vertexPositionsNextLOD[0] = _vertexPositionsNextLOD[6];
-            }
-            else if (calc[5])
-            {
-                _vertexPositionsNextLOD[0] = _vertexPositionsNextLOD[20];
-            }
-            else if (calc[6])
-            {
-                _vertexPositionsNextLOD[0] = _vertexPositionsNextLOD[24];
-            }
-            else if (calc[3])
-            {
-                _vertexPositionsNextLOD[0] = _vertexPositionsNextLOD[8];
-            }
-            else if (calc[7])
-            {
-                _vertexPositionsNextLOD[0] = _vertexPositionsNextLOD[26];
-            }
+            _vertexPositionsNextLOD[indexLookup[i]] = _vertexPositionsNextLOD[indexLookup[offsetLookup[calc * 8 + i]]];
         }
-
-        if (!calc[1])
-        {
-            if (calc[5])
-            {
-                _vertexPositionsNextLOD[2] = _vertexPositionsNextLOD[20];
-            }
-            else if (calc[0])
-            {
-                _vertexPositionsNextLOD[2] = _vertexPositionsNextLOD[0];
-            }
-            else if (calc[3])
-            {
-                _vertexPositionsNextLOD[2] = _vertexPositionsNextLOD[8];
-            }
-            else if (calc[4])
-            {
-                _vertexPositionsNextLOD[2] = _vertexPositionsNextLOD[18];
-            }
-            else if (calc[7])
-            {
-                _vertexPositionsNextLOD[2] = _vertexPositionsNextLOD[26];
-            }
-            else if (calc[2])
-            {
-                _vertexPositionsNextLOD[2] = _vertexPositionsNextLOD[6];
-            }
-            else if (calc[6])
-            {
-                _vertexPositionsNextLOD[2] = _vertexPositionsNextLOD[24];
-            }
-        }
-
-        if (!calc[2])
-        {
-            if (calc[6])
-            {
-                _vertexPositionsNextLOD[6] = _vertexPositionsNextLOD[18];
-            }
-            else if (calc[3])
-            {
-                _vertexPositionsNextLOD[6] = _vertexPositionsNextLOD[8];
-            }
-            else if (calc[0])
-            {
-                _vertexPositionsNextLOD[6] = _vertexPositionsNextLOD[0];
-            }
-            else if (calc[4])
-            {
-                _vertexPositionsNextLOD[6] = _vertexPositionsNextLOD[18];
-            }
-            else if (calc[7])
-            {
-                _vertexPositionsNextLOD[6] = _vertexPositionsNextLOD[26];
-            }
-            else if (calc[1])
-            {
-                _vertexPositionsNextLOD[6] = _vertexPositionsNextLOD[2];
-            }
-            else if (calc[5])
-            {
-                _vertexPositionsNextLOD[6] = _vertexPositionsNextLOD[20];
-            }
-        }
-
-        if (!calc[3])
-        {
-            if (calc[7])
-            {
-                _vertexPositionsNextLOD[8] = _vertexPositionsNextLOD[26];
-            }
-            else if (calc[1])
-            {
-                _vertexPositionsNextLOD[8] = _vertexPositionsNextLOD[2];
-            }
-            else if (calc[2])
-            {
-                _vertexPositionsNextLOD[8] = _vertexPositionsNextLOD[6];
-            }
-            else if (calc[5])
-            {
-                _vertexPositionsNextLOD[8] = _vertexPositionsNextLOD[20];
-            }
-            else if (calc[6])
-            {
-                _vertexPositionsNextLOD[8] = _vertexPositionsNextLOD[24];
-            }
-            else if (calc[0])
-            {
-                _vertexPositionsNextLOD[8] = _vertexPositionsNextLOD[0];
-            }
-            else if (calc[4])
-            {
-                _vertexPositionsNextLOD[8] = _vertexPositionsNextLOD[18];
-            }
-        }
-
-        if (!calc[4])
-        {
-            if (calc[0])
-            {
-                _vertexPositionsNextLOD[18] = _vertexPositionsNextLOD[0];
-            }
-            else if (calc[5])
-            {
-                _vertexPositionsNextLOD[18] = _vertexPositionsNextLOD[20];
-            }
-            else if (calc[6])
-            {
-                _vertexPositionsNextLOD[18] = _vertexPositionsNextLOD[24];
-            }
-            else if (calc[1])
-            {
-                _vertexPositionsNextLOD[18] = _vertexPositionsNextLOD[2];
-            }
-            else if (calc[2])
-            {
-                _vertexPositionsNextLOD[18] = _vertexPositionsNextLOD[24];
-            }
-            else if (calc[7])
-            {
-                _vertexPositionsNextLOD[18] = _vertexPositionsNextLOD[26];
-            }
-            else if (calc[3])
-            {
-                _vertexPositionsNextLOD[18] = _vertexPositionsNextLOD[8];
-            }
-        }
-
-        if (!calc[5])
-        {
-            if (calc[1])
-            {
-                _vertexPositionsNextLOD[20] = _vertexPositionsNextLOD[2];
-            }
-            else if (calc[7])
-            {
-                _vertexPositionsNextLOD[20] = _vertexPositionsNextLOD[26];
-            }
-            else if (calc[4])
-            {
-                _vertexPositionsNextLOD[20] = _vertexPositionsNextLOD[18];
-            }
-            else if (calc[0])
-            {
-                _vertexPositionsNextLOD[20] = _vertexPositionsNextLOD[0];
-            }
-            else if (calc[3])
-            {
-                _vertexPositionsNextLOD[20] = _vertexPositionsNextLOD[8];
-            }
-            else if (calc[6])
-            {
-                _vertexPositionsNextLOD[20] = _vertexPositionsNextLOD[24];
-            }
-            else if (calc[2])
-            {
-                _vertexPositionsNextLOD[20] = _vertexPositionsNextLOD[6];
-            }
-        }
-
-        if (!calc[6])
-        {
-            if (calc[2])
-            {
-                _vertexPositionsNextLOD[24] = _vertexPositionsNextLOD[6];
-            }
-            else if (calc[4])
-            {
-                _vertexPositionsNextLOD[24] = _vertexPositionsNextLOD[18];
-            }
-            else if (calc[7])
-            {
-                _vertexPositionsNextLOD[24] = _vertexPositionsNextLOD[26];
-            }
-            else if (calc[0])
-            {
-                _vertexPositionsNextLOD[24] = _vertexPositionsNextLOD[0];
-            }
-            else if (calc[3])
-            {
-                _vertexPositionsNextLOD[24] = _vertexPositionsNextLOD[8];
-            }
-            else if (calc[5])
-            {
-                _vertexPositionsNextLOD[24] = _vertexPositionsNextLOD[20];
-            }
-            else if (calc[1])
-            {
-                _vertexPositionsNextLOD[24] = _vertexPositionsNextLOD[2];
-            }
-        }
-
-        if (!calc[7])
-        {
-            if (calc[3])
-            {
-                _vertexPositionsNextLOD[26] = _vertexPositionsNextLOD[8];
-            }
-            else if (calc[5])
-            {
-                _vertexPositionsNextLOD[26] = _vertexPositionsNextLOD[20];
-            }
-            else if (calc[6])
-            {
-                _vertexPositionsNextLOD[26] = _vertexPositionsNextLOD[24];
-            }
-            else if (calc[2])
-            {
-                _vertexPositionsNextLOD[26] = _vertexPositionsNextLOD[6];
-            }
-            else if (calc[1])
-            {
-                _vertexPositionsNextLOD[26] = _vertexPositionsNextLOD[2];
-            }
-            else if (calc[4])
-            {
-                _vertexPositionsNextLOD[26] = _vertexPositionsNextLOD[18];
-            }
-            else if (calc[0])
-            {
-                _vertexPositionsNextLOD[26] = _vertexPositionsNextLOD[0];
-            }
-        }
-
+        
         //  
         //     4------5
         //    /|     /|
@@ -3192,4 +2804,4 @@ namespace Igor
 
         return result;
     }
-}
+                }

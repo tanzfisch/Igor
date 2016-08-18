@@ -1330,6 +1330,9 @@
     <ClInclude Include="..\src\iThread.h">
       <Filter>threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iContouringCubesLookup.h">
+      <Filter>graphics\algorythms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
