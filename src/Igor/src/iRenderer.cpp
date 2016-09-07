@@ -63,7 +63,10 @@ namespace Igor
 
     iRenderer::~iRenderer()
     {
-        deinit();
+        if (_initialized)
+        {
+            deinit();
+        }
     }
 
     void iRenderer::resetCounters()
@@ -179,7 +182,7 @@ namespace Igor
         }
         else
         {
-            con_warn("renderer already deinitialized");
+            con_warn("renderer not initialized");
         }
     }
 
