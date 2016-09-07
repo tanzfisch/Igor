@@ -244,7 +244,7 @@ void Example2D::updateParticles()
 {
     // manipulates particles initial velocity over time
     iaVector2f velocity(12, 0);
-    float32 emitangle = _perlinNoise.getValue(_particleAnimatioValue * 0.05, 3) + 0.1;
+    float32 emitangle = _perlinNoise.getValue(_particleAnimatioValue * 0.05, 3) - 1.0;
     
     velocity.rotateXY(emitangle);
     _particleSystem.setInitialVelocity(velocity);
