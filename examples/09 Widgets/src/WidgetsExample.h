@@ -59,7 +59,7 @@ namespace Igor
 	class iWidgetTextEdit;
     class iWidgetPicture;
 	class iWidgetScroll;
-    class iMessageBox;
+    class iDialogMessageBox;
     class iWidgetSelectBox;
 }
 
@@ -102,7 +102,7 @@ private:
     iWidgetPicture* _picture = nullptr;
 	iWidgetScroll* _widgetScoll = nullptr;
 
-    iMessageBox* _messageBox = nullptr;
+    iDialogMessageBox* _messageBox = nullptr;
 
 	vector<iWidget*> _allWidgets;
 

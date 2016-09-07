@@ -24,7 +24,7 @@ using namespace IgorAux;
 #include <iWidgetPicture.h>
 #include <iWidgetScroll.h>
 #include <iWidgetSelectBox.h>
-#include <iMessageBox.h>
+#include <iDialogMessageBox.h>
 #include <iWidgetDefaultTheme.h>
 using namespace Igor;
 
@@ -288,7 +288,7 @@ void WidgetsExample::initGUI()
     _picture->setTexture("OpenGL-Logo.jpg");
     _grid1->addWidget(_picture, 1, 2);*/
 
-    _messageBox = new iMessageBox();
+    _messageBox = new iDialogMessageBox();
 }
 
 void WidgetsExample::deinitGUI()
