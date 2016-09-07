@@ -387,13 +387,19 @@ void Ascent::deinit()
 {
     unregisterHandles();
 
-    iTaskManager::getInstance().abortTask(_taskFlushModels);
-    iTaskManager::getInstance().abortTask(_taskFlushTextures);
+    if (_font)
+    {
+        delete _font;
+        _font = nullptr;
+    }
+
+    iSceneFactory::getInstance().destroyScene(_scene);
 
     VoxelTerrainGenerator::getInstance().unregisterVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
     VoxelTerrainGenerator::getInstance().destroyInstance();
 
-    iSceneFactory::getInstance().destroyScene(_scene);
+    iTaskManager::getInstance().abortTask(_taskFlushModels);
+    iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
     _view.unregisterRenderDelegate(RenderDelegate(this, &Ascent::onRender));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Ascent::onRenderOrtho));
@@ -401,11 +407,6 @@ void Ascent::deinit()
     _window.close();
     _window.removeView(&_view);
     _window.removeView(&_viewOrtho);
-
-    if (_font)
-    {
-        delete _font;
-    }
 }
 
 void Ascent::onKeyPressed(iKeyCode key)
