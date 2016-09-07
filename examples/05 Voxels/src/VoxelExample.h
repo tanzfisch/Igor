@@ -142,7 +142,7 @@ private:
 
     /*! id of flush model task
     */
-    uint64 _flushModelTask = iTask::INVALID_TASK_ID;
+    uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
     
     /*! id of flush textures task
     */

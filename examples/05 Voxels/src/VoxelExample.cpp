@@ -320,7 +320,7 @@ void VoxelExample::init()
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     // launch resource handlers
-    _flushModelTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
+    _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     registerHandles();
@@ -336,10 +336,19 @@ void VoxelExample::deinit()
 
     iSceneFactory::getInstance().destroyScene(_scene);
 
-    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelTask);
-    modelTask->abort();
+    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
+    if (modelTask != nullptr)
+    {
+        modelTask->abort();
+        _flushModelsTask = iTask::INVALID_TASK_ID;
+    }
+
     iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
-    textureTask->abort();
+    if (textureTask != nullptr)
+    {
+        textureTask->abort();
+        _flushTexturesTask = iTask::INVALID_TASK_ID;
+    }
 
     unregisterHandles();
 
