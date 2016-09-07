@@ -332,15 +332,16 @@ void VoxelExample::init()
 
 void VoxelExample::deinit()
 {
+    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
+
+    iSceneFactory::getInstance().destroyScene(_scene);
+
     iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelTask);
     modelTask->abort();
     iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
     textureTask->abort();
 
-    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
     unregisterHandles();
-
-    iSceneFactory::getInstance().destroyScene(_scene);
 
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
 
