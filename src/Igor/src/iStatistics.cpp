@@ -18,15 +18,29 @@ namespace Igor
 
     iStatistics::iStatistics()
     {
-        _seconds = iTimer::getInstance().getSeconds();
+        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iStatistics::init));
+        iRenderer::getInstance().registerPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iStatistics::deinit));
 
-        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iStatistics::initMaterials));
+        if (iRenderer::getInstance().isReady())
+        {
+            init();
+        }
     }
 
     iStatistics::~iStatistics()
     {
-        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iStatistics::initMaterials));
+        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iStatistics::init));
+        iRenderer::getInstance().unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iStatistics::deinit));
+    }
 
+    void iStatistics::init()
+    {
+        initMaterials();
+        _seconds = iTimer::getInstance().getSeconds();
+    }
+
+    void iStatistics::deinit()
+    {
         deinitMaterials();
     }
 
@@ -125,7 +139,8 @@ namespace Igor
     // todo refactor
     void iStatistics::drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color)
     {
-        if (_renderStatisticsMode > iRenderStatisticsVerbosity::None)
+        if (iRenderer::getInstance().isReady() && 
+            _renderStatisticsMode > iRenderStatisticsVerbosity::None)
         {
             iaMatrixf identity;
             iaMatrixf translation;

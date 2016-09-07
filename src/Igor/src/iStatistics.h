@@ -182,6 +182,9 @@ namespace Igor
         */
         void deinitMaterials();
 
+        void init();
+        void deinit();
+
         /*! init
         */
         iStatistics();
