@@ -136,7 +136,10 @@ void StateMachineExample::deinit()
     if (_font)
     {
         delete _font;
+        _font = nullptr;
     }
+
+    _particleTexture = nullptr;
 
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
     _materialWithTextureAndBlending = 0;
@@ -146,6 +149,8 @@ void StateMachineExample::deinit()
 
     _view.unregisterRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
     _view.unregisterRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &StateMachineExample::onHandle));
 }
 
 void StateMachineExample::onEnterLooseState()
