@@ -344,15 +344,15 @@ void VoxelExample::deinit()
 
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
 
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
-
     if (_font != nullptr)
     {
         delete _font;
         _font = nullptr;
     }
+
+    _window.close();
+    _window.removeView(&_view);
+    _window.removeView(&_viewOrtho);
 }
 
 void VoxelExample::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
