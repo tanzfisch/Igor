@@ -61,8 +61,8 @@ private:
 	iView _view;
     iView _viewOrtho;
     iaMatrixf _modelViewOrtho;
-    iTaskFlushModels* _taskFlushModels = nullptr;
-    iTaskFlushTextures* _taskFlushTextures = nullptr;
+    uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
+    uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
 
     iTextureFont* _font = nullptr;
 

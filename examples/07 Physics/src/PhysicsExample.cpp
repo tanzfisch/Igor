@@ -42,18 +42,6 @@ PhysicsExample::~PhysicsExample()
 
 void PhysicsExample::deinit()
 {
-    if (_taskFlushModels != nullptr)
-    {
-        _taskFlushModels->abort();
-        _taskFlushModels = nullptr;
-    }
-
-    if (_taskFlushTextures != nullptr)
-    {
-        _taskFlushTextures->abort();
-        _taskFlushTextures = nullptr;
-    }
-
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
 
     for (auto bodyID : _bodyIDs)
@@ -65,14 +53,29 @@ void PhysicsExample::deinit()
 
     iSceneFactory::getInstance().destroyScene(_scene);
 
-	_window.close();
-	_window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
-
     if (_font)
     {
         delete _font;
+        _font = nullptr;
     }
+
+    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
+    if (modelTask != nullptr)
+    {
+        modelTask->abort();
+        _flushModelsTask = iTask::INVALID_TASK_ID;
+    }
+
+    iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
+    if (textureTask != nullptr)
+    {
+        textureTask->abort();
+        _flushTexturesTask = iTask::INVALID_TASK_ID;
+    }
+
+	_window.close();
+	_window.removeView(&_view);
+    _window.removeView(&_viewOrtho);
 
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
@@ -244,11 +247,9 @@ void PhysicsExample::init()
 
     _modelViewOrtho.translate(iaVector3f(0, 0, -30));
 
-    _taskFlushModels = new iTaskFlushModels(&_window);
-    iTaskManager::getInstance().addTask(_taskFlushModels);
-
-    _taskFlushTextures = new iTaskFlushTextures(&_window);
-    iTaskManager::getInstance().addTask(_taskFlushTextures);
+    // launch resource handlers
+    _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
+    _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 }
