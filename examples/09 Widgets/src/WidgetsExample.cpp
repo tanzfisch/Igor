@@ -119,7 +119,7 @@ void WidgetsExample::initGUI()
     _widgetScoll->setHeight(100);
 
     _grid3 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allWidgets.push_back(_grid2);
+    _allWidgets.push_back(_grid3);
     _grid3->appendCollumns(3);
     _grid3->appendRows(4);
     _grid3->setCellSpacing(10);
@@ -171,6 +171,7 @@ void WidgetsExample::initGUI()
     _allWidgets.push_back(_labelMousePos);
 
     _button2 = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(_button2);
     _button2->setText("");
     _button2->setTexture("icons\\exit.png");
     _button2->setVerticalTextAlignment(iVerticalAlignment::Bottom);
@@ -195,22 +196,27 @@ void WidgetsExample::initGUI()
     _numberChooser->setHorrizontalAlignment(iHorrizontalAlignment::Right);
 
     _textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _allWidgets.push_back(_textEdit);
     _textEdit->setText("bla");
     _textEdit->setMaxTextLength(20);
 
     _picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
+    _allWidgets.push_back(_picture);
     _picture->setTexture("OpenGL-Logo.jpg");
 
     iWidgetCheckBox::beginRadioButtonGroup();
     _radio1 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _allWidgets.push_back(_radio1);
     _radio1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _radio1->setText("radio1");
 
     _radio2 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _allWidgets.push_back(_radio2);
     _radio2->setText("radio2");
     _radio2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     _radio3 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _allWidgets.push_back(_radio3);
     _radio3->setText("radio3");
     _radio3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     iWidgetCheckBox::endRadioButtonGroup();
@@ -272,15 +278,16 @@ void WidgetsExample::deinit()
 
     iMaterialResourceFactory::getInstance().destroyMaterial(_fontMaterial);
 
+    if (_font)
+    {
+        delete _font;
+        _font = nullptr;
+    }
+
 	_viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &WidgetsExample::render));
 
 	_window.close();
 	_window.removeView(&_viewOrtho);
-
-	if (_font)
-	{
-		delete _font;
-	}
 }
 
 void WidgetsExample::onMouseMove(int32 x, int32 y)

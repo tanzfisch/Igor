@@ -83,10 +83,6 @@ private:
     iWidgetLabel* _label5 = nullptr;
 
 	iWidgetLabel* _labelMousePos = nullptr;
-	iWidgetLabel* _labelNum1 = nullptr;
-	iWidgetLabel* _labelNum2 = nullptr;
-	iWidgetLabel* _labelNum3 = nullptr;
-	iWidgetLabel* _labelNum4 = nullptr;
 	iWidgetGroupBox* _groupBox1 = nullptr;
 	iWidgetGroupBox* _groupBox2 = nullptr;
     iWidgetSelectBox* _selectBox = nullptr;
@@ -102,7 +98,6 @@ private:
 	iWidgetCheckBox* _radio1 = nullptr;
 	iWidgetCheckBox* _radio2 = nullptr;
 	iWidgetCheckBox* _radio3 = nullptr;
-	iWidgetCheckBox* _checkBox1 = nullptr;
 	iWidgetNumberChooser* _numberChooser = nullptr;
 	iWidgetTextEdit* _textEdit = nullptr;
     iWidgetPicture* _picture = nullptr;
