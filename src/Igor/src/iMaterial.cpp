@@ -51,10 +51,10 @@ namespace Igor
 
     const vector<iShaderSource>& iMaterial::getShaderSources() const
     {
-        if (_shader != nullptr)
-        {
-            return _shader->getShaderSources();
-        }
+        con_assert(_shader != nullptr, "zero pointer");
+
+        // if you end up here with a zero pointer use hasShader() to check first
+        return _shader->getShaderSources();
     }
 
     bool iMaterial::hasShader()
