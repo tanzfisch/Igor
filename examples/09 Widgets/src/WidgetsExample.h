@@ -72,13 +72,16 @@ private:
     iaMatrixf _modelViewOrtho;
 
     iTextureFont* _font = 0;
-    uint32 _fontMaterial = 0;
+    uint64 _fontMaterial = 0;
 
 	iWidgetDefaultTheme* _widgetDefaultTheme = nullptr;
 	iWidgetDialog* _dialog1 = nullptr;
 	iWidgetLabel* _label1 = nullptr;
 	iWidgetLabel* _label2 = nullptr;
 	iWidgetLabel* _label3 = nullptr;
+    iWidgetLabel* _label4 = nullptr;
+    iWidgetLabel* _label5 = nullptr;
+
 	iWidgetLabel* _labelMousePos = nullptr;
 	iWidgetLabel* _labelNum1 = nullptr;
 	iWidgetLabel* _labelNum2 = nullptr;
@@ -93,6 +96,9 @@ private:
 	
 	iWidgetGrid* _grid1 = nullptr;
 	iWidgetGrid* _grid2 = nullptr;
+    iWidgetGrid* _grid3 = nullptr;
+    iWidgetGrid* _grid4 = nullptr;
+
 	iWidgetCheckBox* _radio1 = nullptr;
 	iWidgetCheckBox* _radio2 = nullptr;
 	iWidgetCheckBox* _radio3 = nullptr;
