@@ -32,10 +32,8 @@
 #include <Igor.h>
 #include <iWindow.h>
 #include <iView.h>
-#include <iTimerHandle.h>
-#include <iModelResourceFactory.h>
-#include <iKeyboard.h>
-#include <iWidgetManager.h>
+#include <iWidgetDialog.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -43,92 +41,119 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	class iScene;
-	class iTransformNode;
-	class iLightNode;
     class iTextureFont;
-	class iTaskFlushResources;
-	class iWidgetDialog;
-	class iWidgetLabel;
-	class iWidgetButton;
-	class iWidgetGroupBox;
-	class iWidgetGrid;
 	class iWidgetDefaultTheme;
-	class iWidgetCheckBox;
-	class iWidgetNumberChooser;
-	class iWidgetTextEdit;
-    class iWidgetPicture;
-	class iWidgetScroll;
     class iDialogMessageBox;
-    class iWidgetSelectBox;
+    class iWidgetLabel;
 }
 
+/*! this example shows how to use Igor Widgets
+*/
 class WidgetsExample
 {
-private:
-
-	iWindow _window;
-    iView _viewOrtho;
-    iaMatrixf _modelViewOrtho;
-
-    iTextureFont* _font = 0;
-    uint64 _fontMaterial = 0;
-
-	iWidgetDefaultTheme* _widgetDefaultTheme = nullptr;
-	iWidgetDialog* _dialog1 = nullptr;
-	iWidgetLabel* _label1 = nullptr;
-	iWidgetLabel* _label2 = nullptr;
-	iWidgetLabel* _label3 = nullptr;
-    iWidgetLabel* _label4 = nullptr;
-    iWidgetLabel* _label5 = nullptr;
-
-	iWidgetLabel* _labelMousePos = nullptr;
-	iWidgetGroupBox* _groupBox1 = nullptr;
-	iWidgetGroupBox* _groupBox2 = nullptr;
-    iWidgetSelectBox* _selectBox = nullptr;
-
-	iWidgetButton* _button1 = nullptr;
-	iWidgetButton* _button2 = nullptr;
-	
-	iWidgetGrid* _grid1 = nullptr;
-	iWidgetGrid* _grid2 = nullptr;
-    iWidgetGrid* _grid3 = nullptr;
-    iWidgetGrid* _grid4 = nullptr;
-
-	iWidgetCheckBox* _radio1 = nullptr;
-	iWidgetCheckBox* _radio2 = nullptr;
-	iWidgetCheckBox* _radio3 = nullptr;
-	iWidgetNumberChooser* _numberChooser = nullptr;
-	iWidgetTextEdit* _textEdit = nullptr;
-    iWidgetPicture* _picture = nullptr;
-	iWidgetScroll* _widgetScoll = nullptr;
-
-    iDialogMessageBox* _messageBox = nullptr;
-
-	vector<iWidget*> _allWidgets;
-
-    void render();
-    void drawFPS();
-
-    void initGUI();
-    void deinitGUI();
-
-    void onExitClick(iWidget* source);
-    void onMessageBox(iWidget* source);
-	void onMouseMove(int32 x, int32 y);
-
-    void onWindowClosed();
-    void onWindowResize(int32 clientWidth, int32 clientHeight);
-
-    void init();
-    void deinit();
 
 public:
 
+    /*! ctor initializes widgets
+    */
     WidgetsExample();
-	virtual ~WidgetsExample();
 
-	void run();
+    /*! dtor clean up
+    */
+    virtual ~WidgetsExample();
+
+    /*! runs main loop
+    */
+    void run();
+
+private:
+
+    /*! the window it self
+    */
+	iWindow _window;
+
+    /*! orthogonal view port
+    */
+    iView _viewOrtho;
+
+    /*! font handle
+    */
+    iTextureFont* _font = nullptr;
+
+    /*! material for drawing textured fonts
+    */
+    uint64 _fontMaterial = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! using the default widget theme
+    */
+	iWidgetDefaultTheme* _widgetDefaultTheme = nullptr;
+
+    /*! the main dialog
+    */
+	iWidgetDialog* _dialog = nullptr;
+
+    /*! mouse position label
+    */
+	iWidgetLabel* _labelMousePos = nullptr;
+
+    /*! instance of a message box
+    */
+    iDialogMessageBox* _messageBox = nullptr;
+
+    /*! just put all widgets in here for a easy clean up later
+    */
+	vector<iWidget*> _allWidgets;
+
+    /*! render function
+    */
+    void onRender();
+
+    /*! draws frames per second on screen
+    */
+    void drawFPS();
+
+    /*! initializes GUI
+    */
+    void initGUI();
+
+    /*! deinitializes GUI
+    */
+    void deinitGUI();
+
+    /*! triggered by exit button. will shut down application
+
+    \param source the source widget of this event
+    */
+    void onExitClick(iWidget* source);
+
+    /*! triggered by message box button. will open message box
+
+    \param source the source widget of this event
+    */
+    void onMessageBox(iWidget* source);
+
+    /*! triggered by mouse move event
+
+    \param x horrizontal position of mouse cursor
+    \param y vertical position of mouse cursor
+    */
+	void onMouseMove(int32 x, int32 y);
+
+    /*! triggred if window was closed
+    */
+    void onWindowClosed();
+
+    /*! triggered if window was resized
+    */
+    void onWindowResize(int32 clientWidth, int32 clientHeight);
+
+    /*! initialize example
+    */
+    void init();
+
+    /*! deinitialize example
+    */
+    void deinit();
 
 };
 
