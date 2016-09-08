@@ -36,19 +36,21 @@ namespace Igor
         {
             // run a flush once more but only if renderer still exists
             flush();
-        }
 
-        // now check if it was actually released
-        if (!_textures.empty())
-        {
-            con_err("possible mem leak. not all textures were released.");
-
-            con_endl("non released textures: ");
-            for (auto texture : _textures)
+            // now check if it was actually released
+            if (!_textures.empty())
             {
-                con_endl(texture.second->getFilename() << " ref:" << texture.second.use_count());
+                con_err("possible mem leak. not all textures were released.");
+
+                con_endl("non released textures: ");
+                for (auto texture : _textures)
+                {
+                    con_endl(texture.second->getFilename() << " ref:" << texture.second.use_count());
+                }
             }
         }
+
+        // if renderer does not exist anymore there is no point in releasing textures anymore
 
         _textures.clear();
     }
