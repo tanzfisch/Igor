@@ -98,7 +98,7 @@ namespace Igor
 
         /*! font line height
         */
-		float32 _fontLineHeight = 1.1;
+		float32 _fontLineHeight = 1.1f;
 
         iaColor4f _ambient;
 		iaColor4f _darkDiffuse;
