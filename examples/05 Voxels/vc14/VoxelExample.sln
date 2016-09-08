@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VoxelExample", "VoxelExample.vcxproj", "{A22023DF-A529-488E-97A7-6B40F2CB5292}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,6 +22,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Igor", "..\..\..\src\Igor\v
 		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {E6761A09-13E3-42C5-94CD-636A5CDF5C5A}
 		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {879EBAB3-D7D7-473D-BB32-6A07964F12F9}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{C2E96BF0-31E3-47F2-8CB2-434525A35C39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{779D3CC8-D579-4C84-9489-E90FF634AA72}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,5 +68,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{A22023DF-A529-488E-97A7-6B40F2CB5292} = {C2E96BF0-31E3-47F2-8CB2-434525A35C39}
+		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {779D3CC8-D579-4C84-9489-E90FF634AA72}
+		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {779D3CC8-D579-4C84-9489-E90FF634AA72}
+		{4BFF697B-A2DC-472B-BA1A-4169BCEFA532} = {779D3CC8-D579-4C84-9489-E90FF634AA72}
 	EndGlobalSection
 EndGlobal
