@@ -213,6 +213,10 @@ private:
     */
     void generateVoxelData();
 
+    /*! triggers mesh generation
+    */
+    void prepareMeshGeneration();
+
 };
 
 #endif

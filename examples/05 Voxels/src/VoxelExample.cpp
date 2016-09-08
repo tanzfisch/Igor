@@ -43,6 +43,63 @@ VoxelExample::~VoxelExample()
     deinit();
 }
 
+void VoxelExample::init()
+{
+    con_endl("--- Voxel Example ---");
+
+    initViews();
+    initScene();
+
+    // load font for statistics display
+    _font = new iTextureFont("StandardFont.png");
+    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+
+    // launch resource handlers
+    _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
+    _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+
+    registerHandles();
+
+    iModelResourceFactory::getInstance().registerModelDataIO("vtg", &VoxelTerrainMeshGenerator::createInstance);
+
+    generateVoxelData();
+}
+
+void VoxelExample::deinit()
+{
+    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
+
+    iSceneFactory::getInstance().destroyScene(_scene);
+
+    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
+    if (modelTask != nullptr)
+    {
+        modelTask->abort();
+        _flushModelsTask = iTask::INVALID_TASK_ID;
+    }
+
+    iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
+    if (textureTask != nullptr)
+    {
+        textureTask->abort();
+        _flushTexturesTask = iTask::INVALID_TASK_ID;
+    }
+
+    unregisterHandles();
+
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
+
+    if (_font != nullptr)
+    {
+        delete _font;
+        _font = nullptr;
+    }
+
+    _window.close();
+    _window.removeView(&_view);
+    _window.removeView(&_viewOrtho);
+}
+
 void VoxelExample::registerHandles()
 {
     // register callbacks to all the events that are of interest to us
@@ -206,7 +263,7 @@ void VoxelExample::generateVoxelData()
             rand() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)), (((rand() % 90) + 10) / 100.0) + 0.6));
     }
 
-    // now iterate though all the voxels and define thair density
+    // now iterate through all the voxels and define their density
     for (int64 x = 0; x < _voxelData->getWidth(); ++x)
     {
         for (int64 y = 0; y < _voxelData->getHeight(); ++y)
@@ -267,6 +324,7 @@ void VoxelExample::generateVoxelData()
     // It makes sense to do that e.g. if we want to keep the data after working with it but need to save memory. In our verry small case here it's irrelevant
     _voxelData->setMode(iaRLEMode::Compressed);
     
+    // clean up current scene before we generate a new mesh
     if (_voxelMeshTransform != iNode::INVALID_NODE_ID)
     {
         // this will also kill all the children of that node
@@ -276,7 +334,17 @@ void VoxelExample::generateVoxelData()
     }
 
     // !!!! now you should first have a look at the VoxelTerrainMeshGenerator class before you continue !!!!
+    prepareMeshGeneration();
 
+    // set loading flag to true so we can display the loading text on screen
+    _loading = true;
+
+    // get current time so we can measure how long it took to generate the mesh
+    _time = iTimer::getInstance().getTime();
+}
+
+void VoxelExample::prepareMeshGeneration()
+{
     // prepar special tile information for the VoxelTerrainMeshGenerator
     TileInformation tileInformation;
     tileInformation._materialID = _voxelMeshMaterialID;
@@ -301,68 +369,6 @@ void VoxelExample::generateVoxelData()
     // and add to scene
     voxelMeshTransform->insertNode(voxelMeshModel);
     _scene->getRoot()->insertNode(voxelMeshTransform);
-
-    // set loading flag to true so we can display the loading text on screen
-    _loading = true;
-
-    _time = iTimer::getInstance().getTime();
-}
-
-void VoxelExample::init()
-{
-    con_endl("--- Voxel Example ---");
-
-    initViews();
-    initScene();
-
-    // load font for statistics display
-    _font = new iTextureFont("StandardFont.png");
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
-
-    // launch resource handlers
-    _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-    _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
-
-    registerHandles();
-
-    iModelResourceFactory::getInstance().registerModelDataIO("vtg", &VoxelTerrainMeshGenerator::createInstance);
-
-    generateVoxelData();
-}
-
-void VoxelExample::deinit()
-{
-    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-
-    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
-    if (modelTask != nullptr)
-    {
-        modelTask->abort();
-        _flushModelsTask = iTask::INVALID_TASK_ID;
-    }
-
-    iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
-    if (textureTask != nullptr)
-    {
-        textureTask->abort();
-        _flushTexturesTask = iTask::INVALID_TASK_ID;
-    }
-
-    unregisterHandles();
-
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &VoxelExample::onRenderOrtho));
-
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
 }
 
 void VoxelExample::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)

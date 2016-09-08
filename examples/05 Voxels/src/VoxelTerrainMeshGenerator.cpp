@@ -43,7 +43,6 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
 
     iContouringCubes contouringCubes;
     contouringCubes.setVoxelData(voxelData);
-
     shared_ptr<iMesh> mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
 
     if (mesh.get() != nullptr)
