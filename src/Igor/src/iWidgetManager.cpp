@@ -81,6 +81,8 @@ namespace Igor
     void iWidgetManager::onMouseKeyDown(iKeyCode key)
     {
         bool consumed = false;
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -114,6 +116,8 @@ namespace Igor
     void iWidgetManager::onMouseKeyUp(iKeyCode key)
     {
         bool consumed = false;
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -147,6 +151,8 @@ namespace Igor
     void iWidgetManager::onMouseDoubleClick(iKeyCode key)
     {
         bool consumed = false;        
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -180,7 +186,9 @@ namespace Igor
     void iWidgetManager::onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
     {
         bool foundModal = false;        
-        vector<iWidgetDialog*> dialogs = _dialogs;
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
+        vector<iWidgetDialog*> dialogs = _dialogs; 
 
         for (auto dialog : dialogs)
         {
@@ -207,6 +215,8 @@ namespace Igor
     void iWidgetManager::onMouseWheel(int32 d)
     {
         bool consumed = false;
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -239,6 +249,8 @@ namespace Igor
     void iWidgetManager::onASCII(char c)
     {
         bool foundModal = false;
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -262,6 +274,7 @@ namespace Igor
 
     void iWidgetManager::updateDialogs()
     {
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
         vector<iWidgetDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
@@ -400,7 +413,6 @@ namespace Igor
         {
             return (*iter).second;
         }
-
         return nullptr;
     }
 

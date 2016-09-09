@@ -117,7 +117,7 @@ namespace Igor
         make sure you have set up an orthogonal coordinate system with the same dimensions as set via setDesktopDimensions
         */
         void draw();
-
+        
         /*! register delegate to "redirected" mouse double click event
 
         \param doubleClickDelegate the delegate to register
@@ -264,9 +264,11 @@ namespace Igor
 
         /*! handle for mouse move event
 
-        \param x horrizontal mouse position
-        \param y vertical mouse position
-        \todo docu
+        \param x1 last horrizontal mouse position
+        \param y1 last vertical mouse position
+        \param x2 current horrizontal mouse position
+        \param y2 current vertical mouse position
+        \param window parent window of mouse event
         */
         void onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
 
