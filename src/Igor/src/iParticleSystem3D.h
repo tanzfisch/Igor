@@ -131,11 +131,11 @@ namespace Igor
 
     /*! simulation of 3d particle systems
 
-    \todo something is wrong with negative orientation rate. maybe a iGradient problem?
     \todo rotation of noise textures
     \todo particle simulation should be parallel to rendering
     \todo maybe we separate vortex particles from particles
     \todo maybe we put all particles together in one global particles pool. than we can sort them and we can have global effects like shadowing etc. on each other
+    \todo would be nice to be able to show tiles sequencially and not just random
     */
     class Igor_API iParticleSystem3D
     {
