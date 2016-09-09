@@ -21,7 +21,6 @@ namespace Igor
 	iWidgetSelectBox::iWidgetSelectBox()
 		: iWidget(iWidgetType::NumberChooser)
 	{
-
 	}
 
     iWidgetSelectBox::~iWidgetSelectBox()
@@ -212,6 +211,8 @@ namespace Igor
         entry.first = entryText;
         entry.second = userData;
         _entries.push_back(entry);
+
+        update();
     }
 
     void* iWidgetSelectBox::getSelectedUserData() const
