@@ -113,6 +113,7 @@ void Particles::init()
     // wich we achived by adding all those nodes on to an other starting with the root node
     camera->makeCurrent();
 
+    // set up a meterial for the particles
     _particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
@@ -123,6 +124,7 @@ void Particles::init()
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncSource, iRenderStateValue::SourceAlpha);
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
+    // create the various particle systems
     createDotParticleSystem();
     createSmokeParticleSystem();
     createRingParticleSystem();
@@ -149,16 +151,17 @@ void Particles::init()
 
 void Particles::createWaveParticleSystem()
 {
+    // create the particle system
     iGradientColor4f colorGradient;
     colorGradient.insertValue(0.0, iaColor4f(0, 0, 0, 0));
     colorGradient.insertValue(0.5, iaColor4f(1, 1, 0, 1.0));
     colorGradient.insertValue(1.0, iaColor4f(0, 0, 0, 0));
 
-    iGradientVector2f dotVelocity;
-    dotVelocity.insertValue(0.0, iaVector2f(0.2, 0.4));
+    iGradientVector2f velocity;
+    velocity.insertValue(0.0, iaVector2f(0.2, 0.4));
 
-    iGradientVector2f dotVisibility;
-    dotVisibility.insertValue(0.0, iaVector2f(0.7, 1.0));
+    iGradientVector2f visibility;
+    visibility.insertValue(0.0, iaVector2f(0.7, 1.0));
 
     iGradientVector2f size;
     size.insertValue(0.0, iaVector2f(2.0, 3.0));
@@ -175,17 +178,18 @@ void Particles::createWaveParticleSystem()
     particleSystem->setTextureA("particleKreuzHerzPikKaro.png");
     particleSystem->setFirstTextureTiling(2, 2);
     particleSystem->setColorGradient(colorGradient);
-    particleSystem->setStartVelocityGradient(dotVelocity);
+    particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setStartOrientationGradient(startOrientation);
-    particleSystem->setStartVisibleTimeGradient(dotVisibility);
+    particleSystem->setStartVisibleTimeGradient(visibility);
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
     _scene->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
-    iNodeEmitter* waveEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    particleSystem->setEmitter(waveEmitter->getID());
-    waveEmitter->setType(iEmitterType::Mesh);
+    // create an mesh emitter with the shape of a cos wave
+    iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    particleSystem->setEmitter(emitter->getID());
+    emitter->setType(iEmitterType::Mesh);
 
     iEmitterTriangle triangle;
     for (int i = 0; i < 65; i++)
@@ -199,7 +203,7 @@ void Particles::createWaveParticleSystem()
         triangle.vel[0] = iaVector3f(0, 1, 0);
         triangle.vel[1] = iaVector3f(0, 1, 0);
         triangle.vel[2] = iaVector3f(0, 1, 0);
-        waveEmitter->addTriangle(triangle);
+        emitter->addTriangle(triangle);
 
         triangle.pos[0] = iaVector3f(1 + i, h2, 0);
         triangle.pos[1] = iaVector3f(1 + i, h2, 10);
@@ -207,14 +211,15 @@ void Particles::createWaveParticleSystem()
         triangle.vel[0] = iaVector3f(0, 1, 0);
         triangle.vel[1] = iaVector3f(0, 1, 0);
         triangle.vel[2] = iaVector3f(0, 1, 0);
-        waveEmitter->addTriangle(triangle);
+        emitter->addTriangle(triangle);
     }
 
-    iNodeTransform* waveEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _waveEmitterTransformID = waveEmitterTransform->getID();
-    waveEmitterTransform->translate(-60, 15, -15);
-    waveEmitterTransform->insertNode(waveEmitter);
-    _scene->getRoot()->insertNode(waveEmitterTransform);
+    // position the emitter in scene using a transform node
+    iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _waveEmitterTransformID = emitterTransform->getID();
+    emitterTransform->translate(-60, 15, -15);
+    emitterTransform->insertNode(emitter);
+    _scene->getRoot()->insertNode(emitterTransform);
 }
 
 void Particles::createFireParticleSystem()

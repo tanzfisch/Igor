@@ -54,6 +54,8 @@ namespace Igor
     class iNodeModel;
 }
 
+/*! the particles example class
+*/
 class Particles
 {
 
@@ -141,7 +143,7 @@ private:
     */
     void createRingParticleSystem();
 
-    /*! crates wave shaped particle system
+    /*! crates a particle system with a wave shaped emitter
     */
     void createWaveParticleSystem();
 
