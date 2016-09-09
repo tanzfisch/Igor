@@ -297,6 +297,7 @@ namespace Igor
     {
         _desktopWidth = width;
         _desktopHeight = height;
+
         update();
     }
 

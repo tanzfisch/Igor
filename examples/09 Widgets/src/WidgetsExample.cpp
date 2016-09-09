@@ -200,6 +200,7 @@ void WidgetsExample::initGUI()
     iWidgetPicture* picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
     _allWidgets.push_back(picture);
     picture->setTexture("OpenGL-Logo.jpg");
+    picture->setMaxSize(100, 50);
 
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();
@@ -248,6 +249,9 @@ void WidgetsExample::initGUI()
 
     grid4->addWidget(button2, 0, 0);
     grid4->addWidget(picture, 3, 0);
+
+    // just a work arround for now because the widgets don't update properly. Im afraid it's a design flaw :-(
+    iWidgetManager::getInstance().update();
 }
 
 void WidgetsExample::deinit()
