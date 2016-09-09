@@ -272,14 +272,24 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::updateDialogs()
+    void iWidgetManager::update()
     {
-        // this copy is not because of a race condition but because the original list might be changed while handling the event
-        vector<iWidgetDialog*> dialogs = _dialogs;
-
-        for (auto dialog : dialogs)
+        for (auto dialog : _dialogs)
         {
-            dialog->update();
+            updateWidget(dialog);
+        }
+    }
+
+    void iWidgetManager::updateWidget(iWidget* widget)
+    {
+        if (widget != nullptr)
+        {
+            widget->update();
+
+            for (auto child : widget->_children)
+            {
+                updateWidget(child);
+            }
         }
     }
 
@@ -287,7 +297,7 @@ namespace Igor
     {
         _desktopWidth = width;
         _desktopHeight = height;
-        updateDialogs();
+        update();
     }
 
     uint32 iWidgetManager::getDesktopWidth() const

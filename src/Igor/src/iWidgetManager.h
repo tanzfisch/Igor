@@ -63,7 +63,7 @@ namespace Igor
 
         \param type type of widget to create
         */
-		iWidget* createWidget(iWidgetType type);
+		iWidget* createWidget(iWidgetType type);        
 
         /*! destroyes widget
 
@@ -117,7 +117,11 @@ namespace Igor
         make sure you have set up an orthogonal coordinate system with the same dimensions as set via setDesktopDimensions
         */
         void draw();
-        
+
+        /*! updates recursively all widgets
+        */
+        void update();
+
         /*! register delegate to "redirected" mouse double click event
 
         \param doubleClickDelegate the delegate to register
@@ -240,6 +244,8 @@ namespace Igor
         */
 		uint32 _desktopHeight = 0;
 
+        void updateWidget(iWidget* widget);
+
         /*! destroyes widgets
         */
         void destroyWidgets();
@@ -293,12 +299,6 @@ namespace Igor
         /*! unregister from mouse and keyboard evetns
         */
         void unregisterIOEvents();
-
-        /*! updates all widgets
-
-        \todo actually only the dialogs need to be updated here
-        */
-        void updateDialogs();
 
         /*! init
         */

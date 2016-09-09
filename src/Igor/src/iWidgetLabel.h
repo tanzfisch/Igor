@@ -80,7 +80,7 @@ namespace Igor
 
         /*! label text
         */
-		iaString _text = "...";
+		iaString _text;
 
         /*! max label width
         */
