@@ -286,6 +286,7 @@ void UserControlMaterial::initGUI()
     _selectBoxDepthFunc->addSelectionEntry("GreaterOrEqual");
     _selectBoxDepthFunc->addSelectionEntry("Always");
     _selectBoxDepthFunc->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _selectBoxDepthFunc->setWidth(200);
 
     iWidgetLabel* labelDepthMask = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelDepthMask);
@@ -322,6 +323,7 @@ void UserControlMaterial::initGUI()
     _selectBoxBlendFuncSource->addSelectionEntry("DestinationAlpha");
     _selectBoxBlendFuncSource->addSelectionEntry("OneMinusDestinationAlpha");
     _selectBoxBlendFuncSource->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _selectBoxBlendFuncSource->setWidth(200);
 
     iWidgetLabel* labelBlendFuncDestination = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelBlendFuncDestination);
@@ -340,6 +342,7 @@ void UserControlMaterial::initGUI()
     _selectBoxBlendFuncDestination->addSelectionEntry("DestinationAlpha");
     _selectBoxBlendFuncDestination->addSelectionEntry("OneMinusDestinationAlpha");
     _selectBoxBlendFuncDestination->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _selectBoxBlendFuncDestination->setWidth(200);
 
     iWidgetLabel* labelCullFace = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelCullFace);
@@ -359,6 +362,7 @@ void UserControlMaterial::initGUI()
     _selectBoxCullFaceFunc->addSelectionEntry("Front");
     _selectBoxCullFaceFunc->addSelectionEntry("Back");
     _selectBoxCullFaceFunc->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _selectBoxCullFaceFunc->setWidth(200);
 
     iWidgetLabel* labelTexture2D0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTexture2D0);

@@ -191,6 +191,7 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(_emitterSelection);
     _emitterSelection->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _emitterSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _emitterSelection->setWidth(200);
 
     iWidgetLabel* labelMaterial = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelMaterial);
@@ -202,6 +203,8 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(_materialSelection);
     _materialSelection->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _materialSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _materialSelection->setGrowingByContent();
+    _materialSelection->setWidth(200);
 
     iWidgetGrid* gridTextures = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridTextures);
