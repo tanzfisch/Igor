@@ -31,13 +31,10 @@ namespace Igor
 
     iWidgetManager::iWidgetManager()
     {
-        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
     iWidgetManager::~iWidgetManager()
     {
-        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
-
         destroyWidgets();
 
         if (_widgets.size() != 0)
@@ -51,11 +48,6 @@ namespace Igor
         }
 
         _widgets.clear();
-    }
-
-    void iWidgetManager::onHandle()
-    {
-        //    destroyWidgets();
     }
 
     void iWidgetManager::registerIOEvents()

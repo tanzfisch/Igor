@@ -288,10 +288,6 @@ namespace Igor
         */
         void onASCII(char c);
 
-        /*! periodically called by application handle
-        */
-        void onHandle();
-
         /*! registers to mouse and keyboard evetns
         */
         void registerIOEvents();
