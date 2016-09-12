@@ -101,6 +101,7 @@ namespace Igor
     class iWidget;
 
     iaEVENT(iClickEvent, iClickDelegate, void, (iWidget* source), (source));
+    iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (iWidget* source), (source));
     iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (iWidget* source), (source));
     iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (iWidget* source), (source));
     iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (iWidget* source), (source));
@@ -169,6 +170,12 @@ namespace Igor
         */
 		void registerOnClickEvent(iClickDelegate clickDelegate);
 
+        /*! registers delegate to mouse out of bounds click events
+
+        \param clickDelegate the delegate to register
+        */
+        void registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
+
         /*! registers delegate to double click event
 
         \param doubleClickDelegate the delegate to register
@@ -228,6 +235,12 @@ namespace Igor
         \param clickDelegate the delegate to unregister
         */
         void unregisterOnClickEvent(iClickDelegate clickDelegate);
+
+        /*! unregisters delegate from mouse off click event
+
+        \param clickDelegate the delegate to unregister
+        */
+        void unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate);
 
         /*! unregisters delegate from double click event
 
@@ -322,6 +335,16 @@ namespace Igor
 		\param width configured height
 		*/
 		void setHeight(int32 height);
+
+        /*! sets if the widget accepts mouse clicks outside of the widget's area
+
+        \param acceptOutOfBoundsClick if true mouse clicks outside will result in iMouseOffClickEvent
+        */
+        void setAcceptOutOfBoundsClicks(bool acceptOutOfBoundsClick = true);
+
+        /*! \returns true if out of bound mouse clicks will be handeled
+        */
+        bool getAcceptOutOfBoundsClicks() const;
 
         /*! \returns type of widget
         */
@@ -452,6 +475,12 @@ namespace Igor
 
 	protected:
 
+        /*! if true this widget will process mouse clicks outside of the widgets boundings
+        */
+        bool _acceptOutOfBoundsClicks = false;
+
+        /*! list of children
+        */
         vector<iWidget*> _children;
 
         /*! flag if widget accepts drop
@@ -473,6 +502,10 @@ namespace Igor
         /*! click event
         */
 		iClickEvent _click;
+
+        /*! mouse off click event
+        */
+        iMouseOffClickEvent _mouseOffClick;
 
         /*! context menu event
         */

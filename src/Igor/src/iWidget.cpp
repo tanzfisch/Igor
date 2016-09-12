@@ -150,6 +150,11 @@ namespace Igor
 		_click.remove(iClickDelegate);
 	}
 
+    void iWidget::unregisterOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
+    {
+        _mouseOffClick.remove(clickDelegate);
+    }
+
 	void iWidget::unregisterOnMouseOverEvent(iMouseOverDelegate iMouseOverDelegate)
 	{
 		_mouseOver.remove(iMouseOverDelegate);
@@ -174,6 +179,11 @@ namespace Igor
 	{
 		_click.append(iClickDelegate);
 	}
+
+    void iWidget::registerOnMouseOffClickEvent(iMouseOffClickDelegate clickDelegate)
+    {
+        _mouseOffClick.append(clickDelegate);
+    }
 
 	void iWidget::registerOnMouseOverEvent(iMouseOverDelegate iMouseOverDelegate)
 	{
@@ -405,9 +415,23 @@ namespace Igor
 					}
 				}
 			}
+            else if (_acceptOutOfBoundsClicks)
+            {
+                _mouseOffClick(this);
+            }
 		}
 		return false;
 	}
+
+    void iWidget::setAcceptOutOfBoundsClicks(bool acceptOutOfBoundsClick)
+    {
+        _acceptOutOfBoundsClicks = acceptOutOfBoundsClick;
+    }
+
+    bool iWidget::getAcceptOutOfBoundsClicks() const
+    {
+        return _acceptOutOfBoundsClicks;
+    }
 
 	bool iWidget::handleMouseKeyDown(iKeyCode key)
 	{
