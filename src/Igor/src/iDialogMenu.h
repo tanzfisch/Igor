@@ -114,11 +114,11 @@ namespace Igor
         */
         void onChange(iWidget* source);
 
-		/*! handle mouse off event
+		/*! handle mouse off click event
 
-		\param source the source of the event (should be the dialog)
+        \param source the source of that event
 		*/
-		void onMouseOff(iWidget* source);
+        void onMouseOffClick(iWidget* source);
 
         /*! closes the dialog and sends closed event
 
