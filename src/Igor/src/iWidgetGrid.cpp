@@ -115,7 +115,7 @@ namespace Igor
 			_widgetRows.push_back(gridCollumn);
 		}
 
-		update();
+		//update();
 	}
 
 	void iWidgetGrid::removeRow(uint32 at)
@@ -151,7 +151,7 @@ namespace Igor
 			initGrid();
 		}
 
-		update();
+		//update();
 	}
 
 	void iWidgetGrid::removeCollumn(uint32 at)
@@ -189,7 +189,7 @@ namespace Igor
 			initGrid();
 		}
 
-		update();
+		//update();
 	}
 
 	void iWidgetGrid::insertRow(uint32 at)
@@ -215,7 +215,7 @@ namespace Igor
 			}
 
 			_widgetRows.insert(iter, gridCollumn);
-			update();
+			//update();
 		}
 	}
 
@@ -247,7 +247,7 @@ namespace Igor
 				iterRow++;
 			}
 
-			update();
+			//update();
 		}
 	}
 
@@ -269,10 +269,10 @@ namespace Igor
 			iter++;
 		}
 
-		update();
+		//update();
 	}
 
-	void iWidgetGrid::update()
+	void iWidgetGrid::updateContentSize()
 	{
 		con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -374,7 +374,7 @@ namespace Igor
             height = getConfiguredHeight();
         }
 
-		iWidget::update(width, height);
+		setContentSize(width, height);
 
 		bool updateAgain = false;
 		if (_strechRow > -1 &&
@@ -433,7 +433,7 @@ namespace Igor
 
 		if (updateAgain)
 		{
-			iWidget::update(width, height);
+            setContentSize(width, height);
 		}
 	}
 
@@ -445,7 +445,7 @@ namespace Igor
 	void iWidgetGrid::setBorder(int32 border)
 	{
 		_border = border;
-		update();
+		//update();
 	}
 
 	void iWidgetGrid::setStrechRow(int32 row)
@@ -675,14 +675,14 @@ namespace Igor
 	void iWidgetGrid::setCellSpacing(int32 cellSpacing)
 	{
 		_cellspacing = cellSpacing;
-		update();
+		//update();
 	}
 
 	void iWidgetGrid::draw(int32 parentPosX, int32 parentPosY)
 	{
 		con_assert(!_widgetRows.empty(), "grid can't be empty");
 
-		updatePosition(parentPosX, parentPosY);
+		//updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{
@@ -772,9 +772,9 @@ namespace Igor
 					if (widget != nullptr)
 					{
 						// updating childrens alignment once more but this time with fake parent boundaries
-						widget->updateAlignment();
+						// TODO widget->updateAlignment();
 						widget->draw(getActualPosX(), getActualPosY());
-						widget->updatePosition(_absoluteX, _absoluteY);
+						// TODO widget->updatePosition(_absoluteX, _absoluteY);
 					}
 
 					iterCollumn++;
@@ -860,7 +860,7 @@ namespace Igor
 
 					_widgetRows[row]._widgetCollumn[col]._userData = userData;
 					_widgetRows[row]._widgetCollumn[col]._widgetID = widgetID;
-					update();
+					//update();
 				}
 				else
 				{

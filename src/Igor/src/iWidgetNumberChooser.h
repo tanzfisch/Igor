@@ -159,11 +159,11 @@ namespace Igor
 
         /*! button up rectangle
         */
-        iRectanglei _buttonUpRctangle;
+        iRectanglei _buttonUpRectangle;
 
         /*! button down rectangle
         */
-        iRectanglei _buttonDownRctangle;
+        iRectanglei _buttonDownRectangle;
 
         /*! culls number agains min max boundings
         */
@@ -209,9 +209,9 @@ namespace Igor
         */
         void decreaseNumber(float32 value);
 
-        /*! updates widget
+        /*! updates size based on it's content
         */
-		void update();
+        void updateContentSize();
 
 		/*! draws the button
 

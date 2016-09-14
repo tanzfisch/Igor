@@ -43,14 +43,14 @@ namespace Igor
         return _color;
     }
 
-	void iWidgetColorView::update()
+	void iWidgetColorView::updateContentSize()
 	{
-		iWidget::update(_configuredWidth, _configuredHeight);
+        setContentSize(_configuredWidth, _configuredHeight);
 	}
 
 	void iWidgetColorView::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		//updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{

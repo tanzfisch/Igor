@@ -31,10 +31,13 @@ namespace Igor
 
     iWidgetManager::iWidgetManager()
     {
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
     iWidgetManager::~iWidgetManager()
     {
+        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+
         destroyWidgets();
 
         if (_widgets.size() != 0)
@@ -293,24 +296,27 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::update()
+    void iWidgetManager::onHandle()
     {
         for (auto dialog : _dialogs)
         {
-            updateWidget(dialog);
+            traverse(dialog);
         }
     }
 
-    void iWidgetManager::updateWidget(iWidget* widget)
+    void iWidgetManager::traverse(iWidget* widget)
     {
         if (widget != nullptr)
         {
-            widget->update();
+            widget->updateContentSize();
 
             for (auto child : widget->_children)
             {
-                updateWidget(child);
+                traverse(child);
             }
+
+            //widget->updateAlignment();
+            //widget->updatePosition();
         }
     }
 
@@ -318,8 +324,6 @@ namespace Igor
     {
         _desktopWidth = width;
         _desktopHeight = height;
-
-        update();
     }
 
     uint32 iWidgetManager::getDesktopWidth() const

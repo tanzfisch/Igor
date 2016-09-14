@@ -111,9 +111,9 @@ namespace Igor
         */
 		static vector<iWidgetCheckBox*> _currentRadioButtons;
 
-        /*! updated the widget
+        /*! updates size based on it's content
         */
-		void update();
+        void updateContentSize();
 
 		/*! draws the button
 

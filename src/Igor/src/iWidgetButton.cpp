@@ -29,7 +29,7 @@ namespace Igor
 	void iWidgetButton::setText(const iaString& text)
 	{
 		_text = text;
-		update();
+		//update();
 	}
 
 	const iaString& iWidgetButton::getText() const
@@ -43,7 +43,7 @@ namespace Igor
         {
             _texturePath = texturePath;
             _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
-            update();
+            //update();
         }
     }
 
@@ -52,7 +52,7 @@ namespace Igor
         return _texturePath;
     }
 
-	void iWidgetButton::update()
+	void iWidgetButton::updateContentSize()
 	{
 		int32 width = _configuredWidth;
 		int32 height = _configuredHeight;
@@ -74,7 +74,7 @@ namespace Igor
 			}
 		}
 
-		iWidget::update(width, height);
+        setContentSize(width, height);
 	}
 
     iHorrizontalAlignment iWidgetButton::getHorrizontalTextAlignment() const
@@ -99,7 +99,7 @@ namespace Igor
 
 	void iWidgetButton::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+//		updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{

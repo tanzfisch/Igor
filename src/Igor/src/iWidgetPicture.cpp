@@ -31,7 +31,7 @@ namespace Igor
     {
         _maxWidth = width;
         _maxHeight = height;
-        update();
+        //update();
     }
 
     int32 iWidgetPicture::getMaxWidth()
@@ -44,7 +44,7 @@ namespace Igor
         return _maxHeight;
     }
 
-	void iWidgetPicture::update()
+	void iWidgetPicture::updateContentSize()
 	{
 		int32 width = _configuredWidth;
 		int32 height = _configuredHeight;
@@ -75,12 +75,12 @@ namespace Igor
 			height = _maxHeight;
 		}
 
-		iWidget::update(width, height);
+		setContentSize(width, height);
 	}
 
 	void iWidgetPicture::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		//updatePosition(parentPosX, parentPosY);
 
 		if (isVisible() &&
             _texture != nullptr)
@@ -101,7 +101,7 @@ namespace Igor
             _texturePath = texturePath;
             _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
 
-            update();
+            //update();
         }
 	}
 

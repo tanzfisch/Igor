@@ -523,10 +523,6 @@ namespace Igor
         */
         iWheelDownEvent _wheelDown;
 
-		/*! updates horrizontal ans vertical alignment relative to parent
-		*/
-		void updateAlignment();
-
         /*! handles incomming mouse wheel event
 
         \param d mouse wheel delta
@@ -576,20 +572,26 @@ namespace Igor
         */
         virtual void handleGainedKeyboardFocus();
 
-        /*! updates the widget
+        /*! sets the widget's actual size
         */
-		void update(int32 width, int32 height);
+		void setContentSize(int32 width, int32 height);
 
 		/*! updates the absolute position
 
 		\param parentPosX parent absolute horrizontal position
 		\param parentPosY parent absolute vertical position
 		*/
-		void updatePosition(int32 parentPosX, int32 parentPosY);
+		//void updatePosition(int32 parentPosX, int32 parentPosY);
 
-		/*! individual update of deriving widgets
-		*/
-		virtual void update() = 0;
+        /*! updates horrizontal ans vertical alignment relative to parent
+        */
+        //void updateAlignment();
+
+        /*! updates size based on widgets content
+
+        all widgets have to derive from this
+        */
+        virtual void updateContentSize() = 0;
 
         /*! set parent of widget
 
@@ -616,6 +618,14 @@ namespace Igor
 		virtual ~iWidget();
 
 	private:
+
+        /*! content width of the widget
+        */
+        int32 _contentWidth = 0;
+
+        /*! content height of the widget
+        */
+        int32 _contentHeight = 0;
 
 		/*! actual (or rendered) width of the widget
 		*/
@@ -684,10 +694,6 @@ namespace Igor
         /*! pointer to widget that owns the keyboard focus
         */
 		static iWidget* _keyboardFocus;
-
-		/*! updates the widget's parent
-		*/
-		void updateParent();
 
 	};
 

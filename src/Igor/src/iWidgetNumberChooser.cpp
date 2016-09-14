@@ -22,7 +22,7 @@ namespace Igor
 	{
 	}
 
-	void iWidgetNumberChooser::update()
+	void iWidgetNumberChooser::updateContentSize()
 	{
 		int32 width = _configuredWidth;
 		int32 height = _configuredHeight;
@@ -50,17 +50,17 @@ namespace Igor
 			}
 		}
 
-        _buttonUpRctangle.setX(width - height - 1);
-        _buttonUpRctangle.setY(1);
-        _buttonUpRctangle.setWidth(height);
-        _buttonUpRctangle.setHeight(height / 2 - 1);
+        _buttonUpRectangle.setX(width - height - 1);
+        _buttonUpRectangle.setY(1);
+        _buttonUpRectangle.setWidth(height);
+        _buttonUpRectangle.setHeight(height / 2 - 1);
 
-        _buttonDownRctangle.setX(width - height - 1);
-        _buttonDownRctangle.setY(height / 2);
-        _buttonDownRctangle.setWidth(height);
-        _buttonDownRctangle.setHeight(height / 2 - 1);
+        _buttonDownRectangle.setX(width - height - 1);
+        _buttonDownRectangle.setY(height / 2);
+        _buttonDownRectangle.setWidth(height);
+        _buttonDownRectangle.setHeight(height / 2 - 1);
 		
-		iWidget::update(width, height);
+		setContentSize(width, height);
 	}
 
     void iWidgetNumberChooser::cullBoundings()
@@ -122,10 +122,10 @@ namespace Igor
 		int32 mx = x - getActualPosX();
 		int32 my = y - getActualPosY();
 
-		if (mx >= _buttonUpRctangle.getX() && 
-            mx < _buttonUpRctangle.getX() + _buttonUpRctangle.getWidth() &&
-			my >= _buttonUpRctangle.getY() && 
-            my < _buttonUpRctangle.getY() + _buttonUpRctangle.getHeight())
+		if (mx >= _buttonUpRectangle.getX() && 
+            mx < _buttonUpRectangle.getX() + _buttonUpRectangle.getWidth() &&
+			my >= _buttonUpRectangle.getY() && 
+            my < _buttonUpRectangle.getY() + _buttonUpRectangle.getHeight())
 		{
 			
             _mouseOverButtonUp = true;
@@ -137,10 +137,10 @@ namespace Igor
             _buttonUpAppearanceState = iWidgetAppearanceState::Standby;
 		}
 
-        if (mx >= _buttonDownRctangle.getX() &&
-            mx < _buttonDownRctangle.getX() + _buttonDownRctangle.getWidth() &&
-            my >= _buttonDownRctangle.getY() &&
-            my < _buttonDownRctangle.getY() + _buttonDownRctangle.getHeight())
+        if (mx >= _buttonDownRectangle.getX() &&
+            mx < _buttonDownRectangle.getX() + _buttonDownRectangle.getWidth() &&
+            my >= _buttonDownRectangle.getY() &&
+            my < _buttonDownRectangle.getY() + _buttonDownRectangle.getHeight())
 		{
             _mouseOverButtonDown = true;
             _buttonDownAppearanceState = iWidgetAppearanceState::Highlighted;
@@ -215,7 +215,7 @@ namespace Igor
 	void iWidgetNumberChooser::setPostFix(const iaString& text)
 	{
 		_postFix = text;
-		update();
+		//update();
 	}
 
     const iaString& iWidgetNumberChooser::getPostFix() const
@@ -241,7 +241,7 @@ namespace Igor
 		_min = min;
 		_max = max;
         cullBoundings();
-		update();
+		//update();
 	}
 
     void iWidgetNumberChooser::setAfterPoint(int32 afterPoint)
@@ -268,7 +268,7 @@ namespace Igor
 
 	void iWidgetNumberChooser::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		//updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{

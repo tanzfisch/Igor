@@ -88,9 +88,9 @@ namespace Igor
 
 	private:
 
-        /*! updates label
+        /*! updates size based on it's content
         */
-        void update();
+        void updateContentSize();
 
 		/*! draws the button
 

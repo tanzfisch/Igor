@@ -66,14 +66,14 @@ namespace Igor
 	{
 		con_assert(value >= 0.0f && value <= 1.0f, "out od range");
 		_hscroll = value;
-		update();
+		//update();
 	}
 
 	void iWidgetScroll::setVerticalScroll(float32 value)
 	{
 		con_assert(value >= 0.0f && value <= 1.0f, "out od range");
 		_vscroll = value;
-		update();
+		//update();
 	}
 
 	bool iWidgetScroll::handleMouseWheel(int32 d)
@@ -105,7 +105,7 @@ namespace Igor
 				_vscroll = 1.0f;
 			}
 
-			update();
+			//update();
 			return true;
 		}
 		else if (_hscrollActive)
@@ -121,7 +121,7 @@ namespace Igor
 				_hscroll = 1.0f;
 			}
 
-			update();
+			//update();
 			return true;
 		}
 
@@ -138,9 +138,9 @@ namespace Igor
 		_scrollbarWidth = width;
 	}
 
-	void iWidgetScroll::update()
+	void iWidgetScroll::updateContentSize()
 	{
-		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
+        setContentSize(_configuredWidth, _configuredHeight);
 
 		if (!_children.empty())
 		{
@@ -278,7 +278,7 @@ namespace Igor
 
 	void iWidgetScroll::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		//updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{

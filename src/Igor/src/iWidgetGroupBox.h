@@ -93,9 +93,9 @@ namespace Igor
 		*/
 		void draw(int32 parentPosX, int32 parentPosY);
 
-        /*! updates widget
+        /*! updates size based on it's content
         */
-        void update();
+        void updateContentSize();
 
         /*! ctor initializes member variables
         */

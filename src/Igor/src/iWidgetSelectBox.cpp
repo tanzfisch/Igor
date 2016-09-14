@@ -32,7 +32,7 @@ namespace Igor
         }
     }
 
-	void iWidgetSelectBox::update()
+	void iWidgetSelectBox::updateContentSize()
 	{
         int32 width = _configuredWidth;
         int32 height = _configuredHeight;
@@ -64,7 +64,7 @@ namespace Igor
             }
         }
 
-        iWidget::update(width, height);
+        setContentSize(width, height);
 	}
 
 	bool iWidgetSelectBox::handleMouseKeyDown(iKeyCode key)
@@ -212,7 +212,7 @@ namespace Igor
         entry.second = userData;
         _entries.push_back(entry);
 
-        update();
+        //update();
     }
 
     void* iWidgetSelectBox::getSelectedUserData() const
@@ -239,7 +239,7 @@ namespace Igor
 
 	void iWidgetSelectBox::draw(int32 parentPosX, int32 parentPosY)
     {
-        updatePosition(parentPosX, parentPosY);
+        //updatePosition(parentPosX, parentPosY);
 
         _buttonRectangle.setX(getActualWidth() - getActualHeight() - 1);
         _buttonRectangle.setY(0);

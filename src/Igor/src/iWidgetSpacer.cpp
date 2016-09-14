@@ -20,14 +20,14 @@ namespace Igor
         setVerticalAlignment(iVerticalAlignment::Center);
 	}
 
-	void iWidgetSpacer::update()
+	void iWidgetSpacer::updateContentSize()
 	{
-		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
+        setContentSize(_configuredWidth, _configuredHeight);
 	}
 
 	void iWidgetSpacer::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		// updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{

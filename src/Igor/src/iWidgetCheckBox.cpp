@@ -93,10 +93,10 @@ namespace Igor
 	void iWidgetCheckBox::setText(const iaString& text)
 	{
 		_text = text;
-		update();
+		//update();
 	}
 
-	void iWidgetCheckBox::update()
+	void iWidgetCheckBox::updateContentSize()
 	{
 		int32 width = _configuredWidth;
 		int32 height = _configuredHeight;
@@ -119,7 +119,7 @@ namespace Igor
 			}
 		}
 
-		iWidget::update(width, height);
+        setContentSize(width, height);
 	}
 
 	const iaString& iWidgetCheckBox::getText() const
@@ -129,7 +129,7 @@ namespace Igor
 
 	void iWidgetCheckBox::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+//		updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{

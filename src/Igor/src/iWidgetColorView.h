@@ -74,7 +74,9 @@ namespace Igor
         */
         shared_ptr<iTexture> _texture = nullptr;
 
-        void update();
+        /*! updates size based on it's content
+        */
+        void updateContentSize();
 
 		/*! draws the button
 

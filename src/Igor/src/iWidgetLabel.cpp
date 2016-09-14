@@ -23,7 +23,7 @@ namespace Igor
 		setVerticalAlignment(iVerticalAlignment::Center);
 	}
 
-	void iWidgetLabel::update()
+	void iWidgetLabel::updateContentSize()
 	{
 		int32 width = _configuredWidth;
 		int32 height = _configuredHeight;
@@ -60,12 +60,12 @@ namespace Igor
 			}
 		}
 
-		iWidget::update(width, height);
+		setContentSize(width, height);
 	}
 
 	void iWidgetLabel::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		//updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{
@@ -81,7 +81,7 @@ namespace Igor
 	void iWidgetLabel::setMaxTextWidth(int32 width)
 	{
 		_maxTextWidth = width;
-		update();
+		//update();
 	}
 
 	int32 iWidgetLabel::getMaxTextWidth()
@@ -92,7 +92,7 @@ namespace Igor
 	void iWidgetLabel::setText(const iaString& text)
 	{
 		_text = text;
-		update();
+		//update();
 	}
 
 }

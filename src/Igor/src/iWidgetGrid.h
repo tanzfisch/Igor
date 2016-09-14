@@ -320,9 +320,9 @@ namespace Igor
         */
         void handleMouseMove(int32 x, int32 y);
 
-        /*! updates grid and it's children
+        /*! updates size based on it's content
         */
-        void update();
+        void updateContentSize();
 
 		/*! draws the button
 

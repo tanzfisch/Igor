@@ -33,7 +33,7 @@ namespace Igor
         }
     }
 
-    void iWidgetDialog::update()
+    void iWidgetDialog::updateContentSize()
     {
 		int32 width = getConfiguredWidth();
 		int32 height = getConfiguredHeight();
@@ -53,7 +53,7 @@ namespace Igor
             }
         }
 
-        switch (iWidget::getHorrizontalAlignment())
+       /* switch (iWidget::getHorrizontalAlignment())
         {
         case iHorrizontalAlignment::Left:
             _relativeX = 0;
@@ -103,16 +103,15 @@ namespace Igor
             break;
 
         default:;
-        };
+        };*/
 
-		_actualWidth = width;
-		_actualHeight = height;
+        setContentSize(width, height);
     }
 
     void iWidgetDialog::setBorder(int32 border)
     {
         _border = border;
-        update();
+        //update();
     }
 
     int32 iWidgetDialog::getBorder()
@@ -122,7 +121,7 @@ namespace Igor
     
     void iWidgetDialog::draw(int32 parentPosX, int32 parentPosY)
     {
-		updatePosition(parentPosX, parentPosY);
+		//updatePosition(parentPosX, parentPosY);
 
         if (isVisible())
         {            

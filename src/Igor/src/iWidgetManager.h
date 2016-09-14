@@ -118,10 +118,6 @@ namespace Igor
         */
         void draw();
 
-        /*! updates recursively all widgets
-        */
-        void update();
-
         /*! set this widget exclusively modal
         */
         void setModal(iWidgetDialog* dialog);
@@ -266,7 +262,15 @@ namespace Igor
         */
 		uint32 _desktopHeight = 0;
 
-        void updateWidget(iWidget* widget);
+        /*! traverse widget tree and updates positions and sizes
+
+        \param widget current widget to update
+        */
+        void traverse(iWidget* widget);
+
+        /*! updates recursively all widgets
+        */
+        void onHandle();
 
         /*! destroyes widgets
         */

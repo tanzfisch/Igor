@@ -249,9 +249,6 @@ void WidgetsExample::initGUI()
 
     grid4->addWidget(button2, 0, 0);
     grid4->addWidget(picture, 3, 0);
-
-    // just a work arround for now because the widgets don't update properly. Im afraid it's a design flaw :-(
-    iWidgetManager::getInstance().update();
 }
 
 void WidgetsExample::deinit()

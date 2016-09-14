@@ -44,7 +44,7 @@ namespace Igor
 			{
 				_children.push_back(widget);
 				widget->_parent = this;
-				widget->update();
+				//widget->update();
 			}
 			else
 			{
@@ -67,7 +67,7 @@ namespace Igor
 				widget->setActive(false);
 				widget->setVisible(false);
 				_children.erase(iter);
-				update();
+				//update();
 			}
 			else
 			{
@@ -207,7 +207,7 @@ namespace Igor
 
 	void iWidget::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		// updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{
@@ -486,7 +486,7 @@ namespace Igor
 	void iWidget::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
 	{
 		_horrizontalAlignment = horrizontalAlignment;
-		update();
+		//update();
 	}
 
 	iVerticalAlignment iWidget::getVerticalAlignment()
@@ -497,7 +497,7 @@ namespace Igor
 	void iWidget::setVerticalAlignment(iVerticalAlignment verticalAlignment)
 	{
 		_verticalAlignment = verticalAlignment;
-		update();
+		//update();
 	}
 
 	void iWidget::setVisible(bool visible)
@@ -521,30 +521,22 @@ namespace Igor
 		}
 	}
 
-	void iWidget::updateParent()
-	{
-		if (_parent != nullptr)
-		{
-			_parent->update();
-		}
-	}
-
 	void iWidget::setWidth(int32 width)
 	{
 		_configuredWidth = width;
-		update();
+		//update();
 	}
 
 	void iWidget::setHeight(int32 height)
 	{
 		_configuredHeight = height;
-		update();
+		//update();
 	}
 
 	void iWidget::setGrowingByContent(bool grow)
 	{
 		_growsByContent = grow;
-		update();
+		//update();
 	}
 
 	bool iWidget::isGrowingByContent() const
@@ -552,7 +544,7 @@ namespace Igor
 		return _growsByContent;
 	}
 
-	void iWidget::updateAlignment()
+	/*void iWidget::updateAlignment()
 	{
 		if (hasParent())
 		{
@@ -614,21 +606,21 @@ namespace Igor
 			default:;
 			}
 		}
-	}
+	}*/
 
-	void iWidget::updatePosition(int32 parentPosX, int32 parentPosY)
+	/*void iWidget::updatePosition(int32 parentPosX, int32 parentPosY)
 	{
 		_absoluteX = _relativeX + parentPosX;
 		_absoluteY = _relativeY + parentPosY;
-	}
+	}*/
 
-	void iWidget::update(int32 width, int32 height)
+	void iWidget::setContentSize(int32 width, int32 height)
 	{
-		_actualWidth = width;
-		_actualHeight = height;
+		_contentWidth = width;
+		_contentHeight = height;
 
-		updateParent();
-		updateAlignment();
+	//	updateParent();
+		//updateAlignment();
 	}
 
 	bool iWidget::hasParent() const

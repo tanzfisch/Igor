@@ -24,7 +24,7 @@ namespace Igor
     void iWidgetGroupBox::setBorder(int32 border)
     {
         _border = border;
-        update();
+        // update();
     }
 
     int32 iWidgetGroupBox::getBorder()
@@ -32,7 +32,7 @@ namespace Igor
         return _border;
     }
 
-    void iWidgetGroupBox::update()
+    void iWidgetGroupBox::updateContentSize()
     {
         int32 width = _configuredWidth;
         int32 height = _configuredHeight;
@@ -72,13 +72,13 @@ namespace Igor
             }
         }
 
-        iWidget::update(width, height);
+        setContentSize(width, height);
     }
 
     void iWidgetGroupBox::setText(const iaString& text)
     {
         _text = text;
-        update();
+        //update();
     }
 
     const iaString& iWidgetGroupBox::getText() const
@@ -88,7 +88,7 @@ namespace Igor
 
     void iWidgetGroupBox::draw(int32 parentPosX, int32 parentPosY)
     {
-        updatePosition(parentPosX, parentPosY);
+        //updatePosition(parentPosX, parentPosY);
 
         if (isVisible())
         {
@@ -115,9 +115,9 @@ namespace Igor
 
                 // updating childrens alignment once more but this time with fake parent boundaries
                 iWidget* widget = _children[0];
-                widget->updateAlignment();
+               // TODO widget->updateAlignment();
                 widget->draw(getActualPosX(), getActualPosY());
-                widget->updatePosition(_absoluteX, _absoluteY);
+                // TODO widget->updatePosition(_absoluteX, _absoluteY);
 
                 _absoluteX = realX;
                 _absoluteY = realY;

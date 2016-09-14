@@ -16,9 +16,9 @@ namespace Igor
 	{
 	}
 
-	void iWidgetTextEdit::update()
+	void iWidgetTextEdit::updateContentSize()
 	{
-		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
+        setContentSize(_configuredWidth, _configuredHeight);
 	}
 
     void iWidgetTextEdit::setWriteProtected(bool writeProtected)
@@ -96,7 +96,7 @@ namespace Igor
 
 	void iWidgetTextEdit::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
+		// updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{
