@@ -15,7 +15,6 @@ namespace Igor
 
 	uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
 	iWidget* iWidget::_keyboardFocus = nullptr;
-	iWidget* iWidget::_modal = nullptr;
 
 	iWidget::iWidget(iWidgetType widgetType)
 		: _type(widgetType)
@@ -29,51 +28,8 @@ namespace Igor
 		{
 			_keyboardFocus = nullptr;
 		}
-
-		if (isModal())
-		{
-			_modal = nullptr;
-		}
-	}
-
-	void iWidget::setModal()
-	{
-		con_assert(_modal == nullptr, "an other dialog is alsready modal");
-
-		if (_modal == nullptr)
-		{
-			con_assert(getType() == iWidgetType::Dialog, "only dialogs can be modal");
-
-			if (getType() == iWidgetType::Dialog)
-			{
-				_modal = this;
-			}
-		}
-		else
-		{
-			con_err("an other dialog is alsready modal");
-		}
-	}
-
-    iWidget* iWidget::getModal()
-    {
-        return _modal;
     }
-
-	void iWidget::resetModal()
-	{
-		con_assert(_modal == this, "can't unset modal because it was not modal before");
-
-		if (_modal == this)
-		{
-			_modal = nullptr;
-		}
-		else
-		{
-			con_err("can't unset modal because it was not modal before");
-		}
-	}
-
+    
 	void iWidget::addWidget(iWidget* widget)
 	{
 		con_assert(widget != nullptr, "zero pointer");

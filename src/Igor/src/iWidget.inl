@@ -12,11 +12,6 @@ bool iWidget::hasKeyboardFocus()
     return (_keyboardFocus == this) ? true : false;
 }
 
-bool iWidget::isModal()
-{
-    return (_modal == this) ? true : false;
-}
-
 iWidgetAppearanceState iWidget::getAppearanceState()
 {
     return _widgetAppearanceState;

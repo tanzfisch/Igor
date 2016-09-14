@@ -156,7 +156,7 @@ namespace Igor
         _headerLabel->setText("Load File");
         _okButton->setText("Load");
 
-        getDialog()->setModal();
+        iWidgetManager::getInstance().setModal(getDialog());
         getDialog()->setActive();
         getDialog()->setVisible();
 
@@ -182,7 +182,7 @@ namespace Igor
         _headerLabel->setText("Save File");
         _okButton->setText("Save");
 
-        getDialog()->setModal();
+        iWidgetManager::getInstance().setModal(getDialog());
         getDialog()->setActive();
         getDialog()->setVisible();
 
@@ -384,7 +384,7 @@ namespace Igor
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);
-        getDialog()->resetModal();
+        iWidgetManager::getInstance().resetModal();
 
         if (_load)
         {

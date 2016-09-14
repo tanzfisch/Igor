@@ -377,22 +377,6 @@ namespace Igor
         */
         void setVerticalAlignment(iVerticalAlignment verticalAlignment);
 
-        /*! set this widget exclusively modal
-        */
-        void setModal();
-
-        /*! \returns current modal widget
-        */
-        static iWidget* getModal();
-
-        /*! reset modal flag
-        */
-        void resetModal();
-
-        /*! \returns true: if widget is modal
-        */
-        __IGOR_INLINE__ bool isModal();
-
         /*! \returns true if visible
         */
         __IGOR_INLINE__ bool isVisible();
@@ -700,10 +684,6 @@ namespace Igor
         /*! pointer to widget that owns the keyboard focus
         */
 		static iWidget* _keyboardFocus;
-
-        /*! modal marker
-        */
-        static iWidget* _modal;
 
 		/*! updates the widget's parent
 		*/

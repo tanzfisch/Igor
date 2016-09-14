@@ -11,6 +11,7 @@
 #include <iWidgetGrid.h>
 #include <iWidgetSpacer.h>
 #include <iWidgetCheckBox.h>
+#include <iWidgetManager.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -83,7 +84,7 @@ namespace Igor
     {
         _decisionBoxCloseEvent.append(closeDelegate);
 
-        getDialog()->setModal();
+        iWidgetManager::getInstance().setModal(getDialog());
         getDialog()->setActive();
         getDialog()->setVisible();
         getDialog()->setWidth(20);
@@ -200,6 +201,6 @@ namespace Igor
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);
-        getDialog()->resetModal();
+        iWidgetManager::getInstance().resetModal();
     }
 }

@@ -95,7 +95,7 @@ namespace Igor
 
         /*! sets the desktop dimensions
 
-        you should update this when window size changes
+        you should update this e.g. when the window size changes
 
         \param width width of desktop
         \param height height of desktop
@@ -121,6 +121,24 @@ namespace Igor
         /*! updates recursively all widgets
         */
         void update();
+
+        /*! set this widget exclusively modal
+        */
+        void setModal(iWidgetDialog* dialog);
+
+        /*! \returns current modal widget
+        */
+        iWidgetDialog* getModal();
+
+        /*! \returns true: if widget is modal
+
+        \param dialog the dialog to check if it is modal
+        */
+        bool isModal(iWidgetDialog* dialog);
+
+        /*! reset modal flag
+        */
+        void resetModal();
 
         /*! register delegate to "redirected" mouse double click event
 
@@ -195,6 +213,10 @@ namespace Igor
         void unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
 
 	private:
+
+        /*! modal marker
+        */
+        iWidgetDialog* _modal = nullptr;
 
         /*! mouse key down event
         */

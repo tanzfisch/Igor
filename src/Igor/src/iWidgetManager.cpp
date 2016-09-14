@@ -50,6 +50,35 @@ namespace Igor
         _widgets.clear();
     }
 
+    bool iWidgetManager::isModal(iWidgetDialog* dialog)
+    {
+        return (_modal == dialog) ? true : false;
+    }
+
+    void iWidgetManager::setModal(iWidgetDialog* dialog)
+    {
+        con_assert(_modal == nullptr, "an other dialog is alsready modal");
+
+        if (_modal == nullptr)
+        {
+            _modal = dialog;
+        }
+        else
+        {
+            con_err("an other dialog is already modal");
+        }
+    }
+
+    iWidgetDialog* iWidgetManager::getModal()
+    {
+        return _modal;
+    }
+
+    void iWidgetManager::resetModal()
+    {
+        _modal = nullptr;
+    }
+
     void iWidgetManager::registerIOEvents()
     {
         iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
@@ -79,7 +108,7 @@ namespace Igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->isModal())
+            if (isModal(dialog))
             {
                 dialog->handleMouseKeyDown(key);
                 consumed = true;
@@ -114,7 +143,7 @@ namespace Igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->isModal())
+            if (isModal(dialog))
             {
                 dialog->handleMouseKeyUp(key);
                 consumed = true;
@@ -149,7 +178,7 @@ namespace Igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->isModal())
+            if (isModal(dialog))
             {
                 dialog->handleMouseDoubleClick(key);
                 consumed = true;
@@ -184,7 +213,7 @@ namespace Igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->isModal())
+            if (isModal(dialog))
             {
                 dialog->handleMouseMove(x2, y2);
                 foundModal = true;
@@ -213,7 +242,7 @@ namespace Igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->isModal())
+            if (isModal(dialog))
             {
                 dialog->handleMouseWheel(d);
                 consumed = true;
@@ -247,7 +276,7 @@ namespace Igor
 
         for (auto dialog : dialogs)
         {
-            if (dialog->isModal())
+            if (isModal(dialog))
             {
                 dialog->handleASCII(c);
                 foundModal = true;
@@ -319,15 +348,15 @@ namespace Igor
 
         for (auto dialog : _dialogs)
         {
-            if (!dialog->isModal())
+            if (!isModal(dialog))
             {
                 dialog->draw(0, 0);
             }
         }
 
-        if (iWidget::getModal())
+        if (_modal != nullptr)
         {
-            iWidget::getModal()->draw(0, 0);
+            _modal->draw(0, 0);
         }
     }
 
