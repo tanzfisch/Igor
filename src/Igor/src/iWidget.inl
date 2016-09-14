@@ -60,6 +60,16 @@ int32 iWidget::getActualHeight() const
     return _actualHeight;
 }
 
+int32 iWidget::getContentWidth() const
+{
+    return _contentWidth;
+}
+
+int32 iWidget::getContentHeight() const
+{
+    return _contentHeight;
+}
+
 int32 iWidget::getActualPosX() const
 {
 	return _absoluteX;

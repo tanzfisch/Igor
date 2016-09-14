@@ -544,10 +544,13 @@ namespace Igor
 		return _growsByContent;
 	}
 
-	/*void iWidget::updateAlignment()
+	void iWidget::updateAlignment()
 	{
 		if (hasParent())
 		{
+            int32 width = _contentWidth;
+            int32 height = _contentHeight;
+
 			switch (iWidget::getHorrizontalAlignment())
 			{
 			case iHorrizontalAlignment::Left:
@@ -556,18 +559,18 @@ namespace Igor
 
 			case iHorrizontalAlignment::Strech:
 				_relativeX = 0;
-				if (_parent->getActualWidth() > _actualWidth)
+				if (_parent->getActualWidth() > width)
 				{
-					_actualWidth = _parent->getActualWidth();
+                    width = _parent->getActualWidth();
 				}
 				break;
 
 			case iHorrizontalAlignment::Center:
-				_relativeX = (_parent->getActualWidth() - _actualWidth) / 2;
+				_relativeX = (_parent->getActualWidth() - width) / 2;
 				break;
 
 			case iHorrizontalAlignment::Right:
-				_relativeX = _parent->getActualWidth() - _actualWidth;
+				_relativeX = _parent->getActualWidth() - width;
 				break;
 
 			case iHorrizontalAlignment::Absolut:
@@ -585,18 +588,18 @@ namespace Igor
 
 			case iVerticalAlignment::Strech:
 				_relativeY = 0;
-				if (_parent->getActualHeight() > _actualHeight)
+				if (_parent->getActualHeight() > height)
 				{
-					_actualHeight = _parent->getActualHeight();
+                    height = _parent->getActualHeight();
 				}
 				break;
 
 			case iVerticalAlignment::Center:
-				_relativeY = (_parent->getActualHeight() - _actualHeight) / 2;
+				_relativeY = (_parent->getActualHeight() - height) / 2;
 				break;
 
 			case iVerticalAlignment::Bottom:
-				_relativeY = _parent->getActualHeight() - _actualHeight;
+				_relativeY = _parent->getActualHeight() - height;
 				break;
 
 			case iVerticalAlignment::Absolut:
@@ -605,14 +608,17 @@ namespace Igor
 
 			default:;
 			}
-		}
-	}*/
 
-	/*void iWidget::updatePosition(int32 parentPosX, int32 parentPosY)
+            _actualWidth = width;
+            _actualHeight = height;
+		}
+	}
+
+	void iWidget::updatePosition(int32 parentPosX, int32 parentPosY)
 	{
 		_absoluteX = _relativeX + parentPosX;
 		_absoluteY = _relativeY + parentPosY;
-	}*/
+	}
 
 	void iWidget::setContentSize(int32 width, int32 height)
 	{

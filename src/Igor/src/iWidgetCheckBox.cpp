@@ -104,7 +104,6 @@ namespace Igor
 		if (_growsByContent &&
 			!_text.isEmpty())
 		{
-
 			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 			if (fontSize*1.5f > height)
 			{

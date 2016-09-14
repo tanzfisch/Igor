@@ -300,23 +300,35 @@ namespace Igor
     {
         for (auto dialog : _dialogs)
         {
-            traverse(dialog);
+            traverseContentSize(dialog);
+            traverseAlignment(dialog, 0, 0);
         }
     }
 
-    void iWidgetManager::traverse(iWidget* widget)
+    void iWidgetManager::traverseContentSize(iWidget* widget)
     {
         if (widget != nullptr)
         {
+            for (auto child : widget->_children)
+            {
+                traverseContentSize(child);
+            }
+
             widget->updateContentSize();
+        }
+    }
+
+    void iWidgetManager::traverseAlignment(iWidget* widget, int32 parentX, int32 parentY)
+    {
+        if (widget != nullptr)
+        {
+            widget->updateAlignment();
+            widget->updatePosition(parentX, parentY);
 
             for (auto child : widget->_children)
             {
-                traverse(child);
+                traverseAlignment(child, widget->getActualPosX(), widget->getActualPosY());
             }
-
-            //widget->updateAlignment();
-            //widget->updatePosition();
         }
     }
 

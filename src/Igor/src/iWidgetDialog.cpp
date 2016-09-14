@@ -35,25 +35,33 @@ namespace Igor
 
     void iWidgetDialog::updateContentSize()
     {
-		int32 width = getConfiguredWidth();
-		int32 height = getConfiguredHeight();
+        int32 width = getConfiguredWidth();
+        int32 height = getConfiguredHeight();
 
         if (isGrowingByContent() &&
-			!_children.empty())
+            !_children.empty())
         {
             iWidget* widget = _children[0];
-            if (widget->getActualWidth() + _border * 2 > width)
+            if (widget->getContentWidth() + _border * 2 > width)
             {
-                width = widget->getActualWidth() + _border * 2;
+                width = widget->getContentWidth() + _border * 2;
             }
 
-            if (widget->getActualHeight() + _border * 2 > height)
+            if (widget->getContentHeight() + _border * 2 > height)
             {
-                height = widget->getActualHeight() + _border * 2;
+                height = widget->getContentHeight() + _border * 2;
             }
         }
 
-       /* switch (iWidget::getHorrizontalAlignment())
+        setContentSize(width, height);
+    }
+
+    void iWidgetDialog::updateAlignment()
+    {
+        int32 width = getContentWidth();
+        int32 height = getContentHeight();
+
+        switch (iWidget::getHorrizontalAlignment())
         {
         case iHorrizontalAlignment::Left:
             _relativeX = 0;
@@ -103,9 +111,10 @@ namespace Igor
             break;
 
         default:;
-        };*/
+        };    
 
-        setContentSize(width, height);
+        _actualWidth = width;
+        _actualHeight = height;
     }
 
     void iWidgetDialog::setBorder(int32 border)

@@ -93,6 +93,10 @@ namespace Igor
         */
         void updateContentSize();
 
+        /*! updates alignment to desktop
+        */
+        void updateAlignment();
+
 		/*! draws the button
 
 		\param parentPosX parent absolute horrizontal position

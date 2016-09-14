@@ -41,7 +41,7 @@ namespace Igor
             !_children.empty())
         {
             iWidget* widget = _children[0];
-            int32 tempWidth = widget->getActualWidth() + _border * 2;
+            int32 tempWidth = widget->getContentWidth() + _border * 2;
 
             if (tempWidth > width)
             {
@@ -50,7 +50,7 @@ namespace Igor
 
             if (_text.isEmpty())
             {
-                int32 tempHeight = widget->getActualHeight() + _border * 2;
+                int32 tempHeight = widget->getContentHeight() + _border * 2;
                 if (tempHeight > height)
                 {
                     height = tempHeight;
@@ -62,7 +62,7 @@ namespace Igor
                 if (iWidgetManager::getInstance().getTheme() != nullptr)
                 {
                     float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                    int32 tempHeight = static_cast<int32>(widget->getActualHeight() + _border * 2.0 + fontSize);
+                    int32 tempHeight = static_cast<int32>(widget->getContentHeight() + _border * 2.0 + fontSize);
 
                     if (tempHeight > height)
                     {

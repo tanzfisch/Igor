@@ -266,7 +266,11 @@ namespace Igor
 
         \param widget current widget to update
         */
-        void traverse(iWidget* widget);
+        void traverseContentSize(iWidget* widget);
+
+        /*! traverse widget tree and updates alignment
+        */
+        void traverseAlignment(iWidget* widget, int32 parentX, int32 parentY);
 
         /*! updates recursively all widgets
         */

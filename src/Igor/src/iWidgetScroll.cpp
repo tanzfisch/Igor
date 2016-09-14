@@ -148,10 +148,10 @@ namespace Igor
 
 			con_assert(widget->getVerticalAlignment() == iVerticalAlignment::Top && widget->getHorrizontalAlignment() == iHorrizontalAlignment::Left, "only top left alignment is supported for children of iWidgetScroll");
 
-			int32 childWidth = widget->getActualWidth();
-			int32 childHeight = widget->getActualHeight();
+			int32 childWidth = widget->getContentWidth();
+			int32 childHeight = widget->getContentHeight();
 
-			if (getActualWidth() - 4 < childWidth) // h scrollbar
+			if (getContentWidth() - 4 < childWidth) // h scrollbar
 			{
 				_hscrollActive = true;
 			}
@@ -160,7 +160,7 @@ namespace Igor
 				_hscrollActive = false;
 			}
 
-			if (getActualHeight() - 4 < childHeight) // v scrollbar
+			if (getContentHeight() - 4 < childHeight) // v scrollbar
 			{
 				_vscrollActive = true;
 			}

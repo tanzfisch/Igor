@@ -300,6 +300,14 @@ namespace Igor
         */
         __IGOR_INLINE__ int32 getActualHeight() const;
 
+        /*! \returns content width
+        */
+        __IGOR_INLINE__ int32 getContentWidth() const;
+
+        /*! \returns content height
+        */
+        __IGOR_INLINE__ int32 getContentHeight() const;
+
 		/*! \returns actual absolute horizontal position
 		*/
 		__IGOR_INLINE__ int32 getActualPosX() const;
@@ -576,23 +584,6 @@ namespace Igor
         */
 		void setContentSize(int32 width, int32 height);
 
-		/*! updates the absolute position
-
-		\param parentPosX parent absolute horrizontal position
-		\param parentPosY parent absolute vertical position
-		*/
-		//void updatePosition(int32 parentPosX, int32 parentPosY);
-
-        /*! updates horrizontal ans vertical alignment relative to parent
-        */
-        //void updateAlignment();
-
-        /*! updates size based on widgets content
-
-        all widgets have to derive from this
-        */
-        virtual void updateContentSize() = 0;
-
         /*! set parent of widget
 
         \parem parent pointer to parent
@@ -694,6 +685,23 @@ namespace Igor
         /*! pointer to widget that owns the keyboard focus
         */
 		static iWidget* _keyboardFocus;
+
+        /*! updates size based on widgets content
+
+        all widgets have to derive from this
+        */
+        virtual void updateContentSize() = 0;
+
+        /*! updates horrizontal and vertical alignment relative to parent
+        */
+        virtual void updateAlignment();
+
+        /*! updates the absolute position
+
+        \param parentPosX parent absolute horrizontal position
+        \param parentPosY parent absolute vertical position
+        */
+        void updatePosition(int32 parentPosX, int32 parentPosY);
 
 	};
 

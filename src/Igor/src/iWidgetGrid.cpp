@@ -294,9 +294,9 @@ namespace Igor
 
 				if (widget != nullptr)
 				{
-					if (widget->getActualWidth() > biggestsize)
+					if (widget->getContentWidth() > biggestsize)
 					{
-						biggestsize = widget->getActualWidth();
+						biggestsize = widget->getContentWidth();
 					}
 				}
 			}
@@ -319,9 +319,9 @@ namespace Igor
 
 				if (widget != nullptr)
 				{
-					if (widget->getActualHeight() > biggestsize)
+					if (widget->getContentHeight() > biggestsize)
 					{
-						biggestsize = widget->getActualHeight();
+						biggestsize = widget->getContentHeight();
 					}
 				}
 			}
@@ -379,10 +379,10 @@ namespace Igor
 		bool updateAgain = false;
 		if (_strechRow > -1 &&
 			getVerticalAlignment() == iVerticalAlignment::Strech &&
-			getActualHeight() > height &&
+			getContentHeight() > height &&
 			_strechRow < rowCount)
 		{
-			int32 diff = getActualHeight() - height;
+			int32 diff = getContentHeight() - height;
 
 			for (uint32 x = 0; x < columnCount; ++x)
 			{
@@ -406,10 +406,10 @@ namespace Igor
 
 		if (_strechCol > -1 &&
 			getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
-			getActualWidth() > width &&
+			getContentWidth() > width &&
 			_strechCol < columnCount)
 		{
-			int32 diff = getActualWidth() - width;
+			int32 diff = getContentWidth() - width;
 
 			for (uint32 y = 0; y < rowCount; ++y)
 			{
