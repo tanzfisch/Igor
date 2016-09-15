@@ -31,10 +31,7 @@ namespace Igor
         {
             float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 
-            stringstream str;
-            str << _max;
-
-            iaString displayString = str.str().c_str();
+            iaString displayString = iaString::ftoa(_max, _afterPoint);
             displayString += _postFix;
 
             int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(displayString, fontSize));
