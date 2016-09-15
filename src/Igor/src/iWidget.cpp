@@ -558,6 +558,9 @@ namespace Igor
             int32 width = _minWidth;
             int32 height = _minHeight;
 
+            int32 clientWidth = _parent->getActualWidth() - _parent->_marginLeft - _parent->_marginRight;
+            int32 clientHeight = _parent->getActualHeight() - _parent->_marginTop - _parent->_marginBottom;
+
 			switch (iWidget::getHorrizontalAlignment())
 			{
 			case iHorrizontalAlignment::Left:
@@ -566,18 +569,15 @@ namespace Igor
 
 			case iHorrizontalAlignment::Strech:
 				_relativeX = 0;
-				if (_parent->getActualWidth() > width)
-				{
-                    width = _parent->getActualWidth();
-				}
+                width = clientWidth;
 				break;
 
 			case iHorrizontalAlignment::Center:
-				_relativeX = (_parent->getActualWidth() - width) / 2;
+				_relativeX = (clientWidth - width) / 2;
 				break;
 
 			case iHorrizontalAlignment::Right:
-				_relativeX = _parent->getActualWidth() - width;
+				_relativeX = clientWidth - width;
 				break;
 
 			case iHorrizontalAlignment::Absolut:
@@ -595,18 +595,15 @@ namespace Igor
 
 			case iVerticalAlignment::Strech:
 				_relativeY = 0;
-				if (_parent->getActualHeight() > height)
-				{
-                    height = _parent->getActualHeight();
-				}
+                height = clientHeight;
 				break;
 
 			case iVerticalAlignment::Center:
-				_relativeY = (_parent->getActualHeight() - height) / 2;
+				_relativeY = (clientHeight - height) / 2;
 				break;
 
 			case iVerticalAlignment::Bottom:
-				_relativeY = _parent->getActualHeight() - height;
+				_relativeY = clientHeight - height;
 				break;
 
 			case iVerticalAlignment::Absolut:
@@ -616,8 +613,8 @@ namespace Igor
 			default:;
 			}
 
-            _actualWidth = width - _parent->_marginLeft - _parent->_marginRight;
-            _actualHeight = height - _parent->_marginTop - _parent->_marginBottom;
+            _actualWidth = width;
+            _actualHeight = height;
 		}
 	}
 
