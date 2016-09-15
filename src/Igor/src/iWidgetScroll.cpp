@@ -138,9 +138,9 @@ namespace Igor
 		_scrollbarWidth = width;
 	}
 
-	void iWidgetScroll::updateContentSize()
+	void iWidgetScroll::calcMinSize()
 	{
-        setContentSize(_configuredWidth, _configuredHeight);
+        setMinSize(0, 0);
 
 		if (!_children.empty())
 		{
@@ -148,10 +148,11 @@ namespace Igor
 
 			con_assert(widget->getVerticalAlignment() == iVerticalAlignment::Top && widget->getHorrizontalAlignment() == iHorrizontalAlignment::Left, "only top left alignment is supported for children of iWidgetScroll");
 
-			int32 childWidth = widget->getContentWidth();
-			int32 childHeight = widget->getContentHeight();
+			int32 childWidth = widget->getMinWidth();
+            int32 childHeight = widget->getMinHeight();
 
-			if (getContentWidth() - 4 < childWidth) // h scrollbar
+            // why 4 ?
+			if (getMinWidth() - 4 < childWidth) // h scrollbar
 			{
 				_hscrollActive = true;
 			}
@@ -160,7 +161,7 @@ namespace Igor
 				_hscrollActive = false;
 			}
 
-			if (getContentHeight() - 4 < childHeight) // v scrollbar
+			if (getMinHeight() - 4 < childHeight) // v scrollbar
 			{
 				_vscrollActive = true;
 			}
@@ -278,8 +279,6 @@ namespace Igor
 
 	void iWidgetScroll::draw(int32 parentPosX, int32 parentPosY)
 	{
-		//updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			// begin rendering

@@ -20,7 +20,7 @@ namespace Igor
         setActive(false);
         setVisible(false);
         setWidth(100);
-		setHeight(100);
+        setHeight(100);
         setHorrizontalAlignment(iHorrizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
     }
@@ -33,33 +33,27 @@ namespace Igor
         }
     }
 
-    void iWidgetDialog::updateContentSize()
+    void iWidgetDialog::calcMinSize()
     {
-        int32 width = getConfiguredWidth();
-        int32 height = getConfiguredHeight();
+        int32 minWidth = 0;
+        int32 minHeight = 0;
 
         if (isGrowingByContent() &&
             !_children.empty())
         {
             iWidget* widget = _children[0];
-            if (widget->getContentWidth() + _border * 2 > width)
-            {
-                width = widget->getContentWidth() + _border * 2;
-            }
-
-            if (widget->getContentHeight() + _border * 2 > height)
-            {
-                height = widget->getContentHeight() + _border * 2;
-            }
+            minWidth = widget->getMinWidth();
+            minHeight = widget->getMinHeight();
         }
 
-        setContentSize(width, height);
+        setMargin(_border, _border, _border, _border);
+        setMinSize(minWidth, minHeight);
     }
 
     void iWidgetDialog::updateAlignment()
     {
-        int32 width = getContentWidth();
-        int32 height = getContentHeight();
+        int32 width = getMinWidth();
+        int32 height = getMinHeight();
 
         switch (iWidget::getHorrizontalAlignment())
         {
@@ -68,20 +62,20 @@ namespace Igor
             break;
 
         case iHorrizontalAlignment::Strech:
-			_relativeX = 0;
+            _relativeX = 0;
             width = iWidgetManager::getInstance().getDesktopWidth();
             break;
 
         case iHorrizontalAlignment::Center:
-			_relativeX = (iWidgetManager::getInstance().getDesktopWidth() - width) / 2;
+            _relativeX = (iWidgetManager::getInstance().getDesktopWidth() - width) / 2;
             break;
 
         case iHorrizontalAlignment::Right:
-			_relativeX = iWidgetManager::getInstance().getDesktopWidth() - width;
+            _relativeX = iWidgetManager::getInstance().getDesktopWidth() - width;
             break;
 
         case iHorrizontalAlignment::Absolut:
-			_relativeX = _offsetX;
+            _relativeX = _offsetX;
             break;
 
         default:;
@@ -90,28 +84,28 @@ namespace Igor
         switch (iWidget::getVerticalAlignment())
         {
         case iVerticalAlignment::Top:
-			_relativeY = 0;
+            _relativeY = 0;
             break;
 
         case iVerticalAlignment::Strech:
-			_relativeY = 0;
+            _relativeY = 0;
             height = iWidgetManager::getInstance().getDesktopHeight();
             break;
 
         case iVerticalAlignment::Center:
-			_relativeY = (iWidgetManager::getInstance().getDesktopHeight() - height) / 2;
+            _relativeY = (iWidgetManager::getInstance().getDesktopHeight() - height) / 2;
             break;
 
         case iVerticalAlignment::Bottom:
-			_relativeY = iWidgetManager::getInstance().getDesktopHeight() - height;
+            _relativeY = iWidgetManager::getInstance().getDesktopHeight() - height;
             break;
 
         case iVerticalAlignment::Absolut:
-			_relativeY = _offsetY;
+            _relativeY = _offsetY;
             break;
 
         default:;
-        };    
+        };
 
         _actualWidth = width;
         _actualHeight = height;
@@ -120,20 +114,17 @@ namespace Igor
     void iWidgetDialog::setBorder(int32 border)
     {
         _border = border;
-        //update();
     }
 
     int32 iWidgetDialog::getBorder()
     {
         return _border;
     }
-    
+
     void iWidgetDialog::draw(int32 parentPosX, int32 parentPosY)
     {
-		//updatePosition(parentPosX, parentPosY);
-
         if (isVisible())
-        {            
+        {
             iWidgetManager::getInstance().getTheme()->drawDialog(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
 
             for (auto widget : _children)

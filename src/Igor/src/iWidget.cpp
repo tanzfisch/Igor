@@ -207,8 +207,6 @@ namespace Igor
 
 	void iWidget::draw(int32 parentPosX, int32 parentPosY)
 	{
-		// updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			for (auto widget : _children)
@@ -533,6 +531,14 @@ namespace Igor
 		//update();
 	}
 
+    void iWidget::setMargin(int32 marginLeft, int32 marginRight, int32 marginTop, int32 marginBottom)
+    {
+        _marginLeft = marginLeft;
+        _marginRight = marginRight;
+        _marginTop = marginTop;
+        _marginBottom = marginBottom;
+    }
+
 	void iWidget::setGrowingByContent(bool grow)
 	{
 		_growsByContent = grow;
@@ -548,8 +554,8 @@ namespace Igor
 	{
 		if (hasParent())
 		{
-            int32 width = _contentWidth;
-            int32 height = _contentHeight;
+            int32 width = _minWidth;
+            int32 height = _minHeight;
 
 			switch (iWidget::getHorrizontalAlignment())
 			{
@@ -609,24 +615,34 @@ namespace Igor
 			default:;
 			}
 
-            _actualWidth = width;
-            _actualHeight = height;
+            _actualWidth = width - _parent->_marginLeft - _parent->_marginRight;
+            _actualHeight = height - _parent->_marginTop - _parent->_marginBottom;
 		}
 	}
 
-	void iWidget::updatePosition(int32 parentPosX, int32 parentPosY)
+	void iWidget::updatePosition(int32 offsetX, int32 offsetY)
 	{
-		_absoluteX = _relativeX + parentPosX;
-		_absoluteY = _relativeY + parentPosY;
+		_absoluteX = _relativeX + offsetX;
+		_absoluteY = _relativeY + offsetY;
 	}
 
-	void iWidget::setContentSize(int32 width, int32 height)
+	void iWidget::setMinSize(int32 width, int32 height)
 	{
-		_contentWidth = width;
-		_contentHeight = height;
+        int32 minWidth = width + _marginLeft + _marginRight;
+        int32 minHeight = height + _marginTop + _marginBottom;
 
-	//	updateParent();
-		//updateAlignment();
+        if (minWidth < _configuredWidth)
+        {
+            minWidth = _configuredWidth;
+        }
+
+        if (minHeight < _configuredHeight)
+        {
+            minHeight = _configuredHeight;
+        }
+
+		_minWidth = minWidth;
+		_minHeight = minHeight;
 	}
 
 	bool iWidget::hasParent() const

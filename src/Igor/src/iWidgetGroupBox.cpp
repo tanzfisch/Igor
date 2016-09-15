@@ -32,53 +32,51 @@ namespace Igor
         return _border;
     }
 
-    void iWidgetGroupBox::updateContentSize()
+    void iWidgetGroupBox::calcMinSize()
     {
-        int32 width = _configuredWidth;
-        int32 height = _configuredHeight;
-
+        int32 minWidth = 0;
+        int32 minHeight = 0;
+        
         if (isGrowingByContent() &&
             !_children.empty())
         {
             iWidget* widget = _children[0];
-            int32 tempWidth = widget->getContentWidth() + _border * 2;
 
-            if (tempWidth > width)
+            if (widget->getMinWidth() > minWidth)
             {
-                width = tempWidth;
+                minWidth = widget->getMinWidth();
             }
 
-            if (_text.isEmpty())
+            if (widget->getMinHeight() > minHeight)
             {
-                int32 tempHeight = widget->getContentHeight() + _border * 2;
-                if (tempHeight > height)
-                {
-                    height = tempHeight;
-                }
+                minHeight = widget->getMinHeight();
             }
-            else
+
+            if (!_text.isEmpty())
             {
                 con_assert(iWidgetManager::getInstance().getTheme() != nullptr, "zero pointer");
                 if (iWidgetManager::getInstance().getTheme() != nullptr)
                 {
                     float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                    int32 tempHeight = static_cast<int32>(widget->getContentHeight() + _border * 2.0 + fontSize);
-
-                    if (tempHeight > height)
-                    {
-                        height = tempHeight;
-                    }
+                    setMargin(_border, _border, _border + fontSize * 0.5, _border);
                 }
             }
+            else
+            {
+                setMargin(_border, _border, _border, _border);
+            }
+        }
+        else
+        {
+            setMargin(_border, _border, _border, _border);
         }
 
-        setContentSize(width, height);
+        setMinSize(minWidth, minHeight);
     }
 
     void iWidgetGroupBox::setText(const iaString& text)
     {
         _text = text;
-        //update();
     }
 
     const iaString& iWidgetGroupBox::getText() const
@@ -88,8 +86,6 @@ namespace Igor
 
     void iWidgetGroupBox::draw(int32 parentPosX, int32 parentPosY)
     {
-        //updatePosition(parentPosX, parentPosY);
-
         if (isVisible())
         {
             iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _border, _text, getAppearanceState(), isActive());

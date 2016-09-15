@@ -284,13 +284,13 @@ namespace Igor
         */
         void unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
 
-        /*! \returns actual horrizontal position
+        /*! \returns actual absolute horizontal position
         */
-        __IGOR_INLINE__ int32 getX();
+        __IGOR_INLINE__ int32 getActualPosX() const;
 
-        /*! \returns actual vertical position
+        /*! \returns actual absolute vertical position
         */
-        __IGOR_INLINE__ int32 getY();
+        __IGOR_INLINE__ int32 getActualPosY() const;
 
         /*! \returns actual width
         */
@@ -300,29 +300,21 @@ namespace Igor
         */
         __IGOR_INLINE__ int32 getActualHeight() const;
 
-        /*! \returns content width
+        /*! \returns actual relative horizontal position
         */
-        __IGOR_INLINE__ int32 getContentWidth() const;
+        __IGOR_INLINE__ int32 getRelativePosX() const;
 
-        /*! \returns content height
+        /*! \returns actual relative vertical position
         */
-        __IGOR_INLINE__ int32 getContentHeight() const;
+        __IGOR_INLINE__ int32 getRelativePosY() const;
 
-		/*! \returns actual absolute horizontal position
-		*/
-		__IGOR_INLINE__ int32 getActualPosX() const;
+        /*! \returns minimum width
+        */
+        __IGOR_INLINE__ int32 getMinWidth() const;
 
-		/*! \returns actual absolute vertical position
-		*/
-		__IGOR_INLINE__ int32 getActualPosY() const;
-
-		/*! \returns actual relative horizontal position
-		*/
-		__IGOR_INLINE__ int32 getRelativePosX() const;
-
-		/*! \returns actual relative vertical position
-		*/
-		__IGOR_INLINE__ int32 getRelativePosY() const;
+        /*! \returns minimum height
+        */
+        __IGOR_INLINE__ int32 getMinHeight() const;
 
 		/*! \returns actual width
 		*/
@@ -362,6 +354,7 @@ namespace Igor
 
 		\param parentPosX parent absolute horrizontal position
 		\param parentPosY parent absolute vertical position
+        \todo remove parent pos?
 		*/
 		virtual void draw(int32 parentPosX, int32 parentPosY);
 
@@ -580,9 +573,9 @@ namespace Igor
         */
         virtual void handleGainedKeyboardFocus();
 
-        /*! sets the widget's actual size
+        /*! sets the widget's min size
         */
-		void setContentSize(int32 width, int32 height);
+		void setMinSize(int32 width, int32 height);
 
         /*! set parent of widget
 
@@ -598,6 +591,8 @@ namespace Igor
         */
         void resetKeyboardFocus();
 
+        void setMargin(int32 marginLeft, int32 marginRight, int32 marginTop, int32 marginBottom);
+
 		/*! initializes members
 
 		\param widgetType the tpe of the widget created
@@ -610,13 +605,13 @@ namespace Igor
 
 	private:
 
-        /*! content width of the widget
+        /*! min size to make also children fit in
         */
-        int32 _contentWidth = 0;
+        int32 _minWidth = 0;
 
-        /*! content height of the widget
+        /*! min size to make also children fit in
         */
-        int32 _contentHeight = 0;
+        int32 _minHeight = 0;
 
 		/*! actual (or rendered) width of the widget
 		*/
@@ -641,6 +636,11 @@ namespace Igor
 		/*! absolute vertical position of the widget
 		*/
 		int32 _absoluteY = 0;
+
+        int32 _marginLeft = 0;
+        int32 _marginRight = 0;
+        int32 _marginTop = 0; 
+        int32 _marginBottom = 0;
 
 		/*! grow by content flag
 		*/
@@ -690,7 +690,7 @@ namespace Igor
 
         all widgets have to derive from this
         */
-        virtual void updateContentSize() = 0;
+        virtual void calcMinSize() = 0;
 
         /*! updates horrizontal and vertical alignment relative to parent
         */
@@ -698,10 +698,10 @@ namespace Igor
 
         /*! updates the absolute position
 
-        \param parentPosX parent absolute horrizontal position
-        \param parentPosY parent absolute vertical position
+        \param offsetX absolute horrizontal offset based on parents positions
+        \param offsetY absolute vertical offset based on parents positions
         */
-        void updatePosition(int32 parentPosX, int32 parentPosY);
+        void updatePosition(int32 offsetX, int32 offsetY);
 
 	};
 

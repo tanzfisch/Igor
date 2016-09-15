@@ -144,9 +144,9 @@ namespace Igor
         return _texturePath;
     }
 
-	void iWidgetSlider::updateContentSize()
+	void iWidgetSlider::calcMinSize()
 	{
-        setContentSize(_configuredWidth, _configuredHeight);
+        setMinSize(0, 0);
 	}
 
     bool iWidgetSlider::handleMouseKeyDown(iKeyCode key)
@@ -221,8 +221,6 @@ namespace Igor
 	void iWidgetSlider::draw(int32 parentPosX, int32 parentPosY)
 	{
         con_assert(_min < _max, "invalid configuration");
-
-		// updatePosition(parentPosX, parentPosY);
 
 		if (isVisible())
 		{

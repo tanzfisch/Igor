@@ -43,15 +43,13 @@ namespace Igor
         return _color;
     }
 
-	void iWidgetColorView::updateContentSize()
+	void iWidgetColorView::calcMinSize()
 	{
-        setContentSize(_configuredWidth, _configuredHeight);
+        setMinSize(0, 0);
 	}
 
 	void iWidgetColorView::draw(int32 parentPosX, int32 parentPosY)
 	{
-		//updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture);

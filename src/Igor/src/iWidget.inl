@@ -60,14 +60,14 @@ int32 iWidget::getActualHeight() const
     return _actualHeight;
 }
 
-int32 iWidget::getContentWidth() const
+int32 iWidget::getMinWidth() const
 {
-    return _contentWidth;
+    return _minWidth;
 }
 
-int32 iWidget::getContentHeight() const
+int32 iWidget::getMinHeight() const
 {
-    return _contentHeight;
+    return _minHeight;
 }
 
 int32 iWidget::getActualPosX() const

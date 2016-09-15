@@ -16,9 +16,9 @@ namespace Igor
 	{
 	}
 
-	void iWidgetTextEdit::updateContentSize()
+	void iWidgetTextEdit::calcMinSize()
 	{
-        setContentSize(_configuredWidth, _configuredHeight);
+        setMinSize(0, 0);
 	}
 
     void iWidgetTextEdit::setWriteProtected(bool writeProtected)
@@ -96,8 +96,6 @@ namespace Igor
 
 	void iWidgetTextEdit::draw(int32 parentPosX, int32 parentPosY)
 	{
-		// updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horrizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);

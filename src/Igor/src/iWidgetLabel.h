@@ -90,7 +90,7 @@ namespace Igor
 
         /*! updates size based on it's content
         */
-        void updateContentSize();
+        void calcMinSize();
 
 		/*! draws the button
 

@@ -316,20 +316,20 @@ namespace Igor
                 traverseContentSize(child);
             }
 
-            widget->updateContentSize();
+            widget->calcMinSize();
         }
     }
 
-    void iWidgetManager::traverseAlignment(iWidget* widget, int32 parentX, int32 parentY)
+    void iWidgetManager::traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY)
     {
         if (widget != nullptr)
         {
             widget->updateAlignment();
-            widget->updatePosition(parentX, parentY);
+            widget->updatePosition(offsetX, offsetY);
 
             for (auto child : widget->_children)
             {
-                traverseAlignment(child, widget->getActualPosX(), widget->getActualPosY());
+                traverseAlignment(child, widget->getActualPosX() + widget->_marginLeft, widget->getActualPosY() + widget->_marginTop);
             }
         }
     }

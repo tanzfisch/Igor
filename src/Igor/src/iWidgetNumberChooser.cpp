@@ -17,51 +17,44 @@ using namespace std;
 namespace Igor
 {
 
-	iWidgetNumberChooser::iWidgetNumberChooser()
-		: iWidget(iWidgetType::NumberChooser)
-	{
-	}
+    iWidgetNumberChooser::iWidgetNumberChooser()
+        : iWidget(iWidgetType::NumberChooser)
+    {
+    }
 
-	void iWidgetNumberChooser::updateContentSize()
-	{
-		int32 width = _configuredWidth;
-		int32 height = _configuredHeight;
+    void iWidgetNumberChooser::calcMinSize()
+    {
+        int32 minWidth = 0;
+        int32 minHeight = 0;
 
-		if (isGrowingByContent())
-		{
-			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+        if (isGrowingByContent())
+        {
+            float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 
-			stringstream str;
-			str << _max;
+            stringstream str;
+            str << _max;
 
-			iaString displayString = str.str().c_str();
-			displayString += _postFix;
+            iaString displayString = str.str().c_str();
+            displayString += _postFix;
 
-			int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(displayString, fontSize));
+            int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(displayString, fontSize));
+            minHeight = static_cast<int32>(fontSize * 1.5f);
+            minWidth = textWidth + minHeight + static_cast<int32>(fontSize);
+        }
 
-			if (height < fontSize * 1.5f)
-			{
-				height = static_cast<int32>(fontSize * 1.5f);
-			}
-
-			if (width < textWidth + height + fontSize)
-			{
-				width = textWidth + height + static_cast<int32>(fontSize);
-			}
-		}
-
-        _buttonUpRectangle.setX(width - height - 1);
+        // todo use real buttons
+        _buttonUpRectangle.setX(minWidth - minHeight - 1);
         _buttonUpRectangle.setY(1);
-        _buttonUpRectangle.setWidth(height);
-        _buttonUpRectangle.setHeight(height / 2 - 1);
+        _buttonUpRectangle.setWidth(minHeight);
+        _buttonUpRectangle.setHeight(minHeight / 2 - 1);
 
-        _buttonDownRectangle.setX(width - height - 1);
-        _buttonDownRectangle.setY(height / 2);
-        _buttonDownRectangle.setWidth(height);
-        _buttonDownRectangle.setHeight(height / 2 - 1);
-		
-		setContentSize(width, height);
-	}
+        _buttonDownRectangle.setX(minWidth - minHeight - 1);
+        _buttonDownRectangle.setY(minHeight / 2);
+        _buttonDownRectangle.setWidth(minHeight);
+        _buttonDownRectangle.setHeight(minHeight / 2 - 1);
+
+        setMinSize(minWidth, minHeight);
+    }
 
     void iWidgetNumberChooser::cullBoundings()
     {
@@ -76,91 +69,91 @@ namespace Igor
         }
     }
 
-	void iWidgetNumberChooser::increaseNumber(float32 value)
-	{
-		_value += value;
+    void iWidgetNumberChooser::increaseNumber(float32 value)
+    {
+        _value += value;
         cullBoundings();
-		_change(this);
-	}
+        _change(this);
+    }
 
-	void iWidgetNumberChooser::decreaseNumber(float32 value)
-	{
-		_value -= value;
+    void iWidgetNumberChooser::decreaseNumber(float32 value)
+    {
+        _value -= value;
         cullBoundings();
-		_change(this);
-	}
+        _change(this);
+    }
 
-	bool iWidgetNumberChooser::handleMouseKeyDown(iKeyCode key)
-	{
-		if (!isActive())
-		{
-			return false;
-		}
+    bool iWidgetNumberChooser::handleMouseKeyDown(iKeyCode key)
+    {
+        if (!isActive())
+        {
+            return false;
+        }
 
-		if (_mouseOverButtonUp)
-		{
+        if (_mouseOverButtonUp)
+        {
             _buttonUpAppearanceState = iWidgetAppearanceState::Pressed;
-		}
+        }
 
-		if (_mouseOverButtonDown)
-		{
+        if (_mouseOverButtonDown)
+        {
             _buttonDownAppearanceState = iWidgetAppearanceState::Pressed;
-		}
+        }
 
-		return iWidget::handleMouseKeyDown(key);
-	}
+        return iWidget::handleMouseKeyDown(key);
+    }
 
-	void iWidgetNumberChooser::handleMouseMove(int32 x, int32 y)
-	{
-		if (!isActive())
-		{
-			return;
-		}
+    void iWidgetNumberChooser::handleMouseMove(int32 x, int32 y)
+    {
+        if (!isActive())
+        {
+            return;
+        }
 
         iWidget::handleMouseMove(x, y);
 
-		int32 mx = x - getActualPosX();
-		int32 my = y - getActualPosY();
+        int32 mx = x - getActualPosX();
+        int32 my = y - getActualPosY();
 
-		if (mx >= _buttonUpRectangle.getX() && 
+        if (mx >= _buttonUpRectangle.getX() &&
             mx < _buttonUpRectangle.getX() + _buttonUpRectangle.getWidth() &&
-			my >= _buttonUpRectangle.getY() && 
+            my >= _buttonUpRectangle.getY() &&
             my < _buttonUpRectangle.getY() + _buttonUpRectangle.getHeight())
-		{
-			
+        {
+
             _mouseOverButtonUp = true;
             _buttonUpAppearanceState = iWidgetAppearanceState::Highlighted;
-		}
-		else
-		{
+        }
+        else
+        {
             _mouseOverButtonUp = false;
             _buttonUpAppearanceState = iWidgetAppearanceState::Standby;
-		}
+        }
 
         if (mx >= _buttonDownRectangle.getX() &&
             mx < _buttonDownRectangle.getX() + _buttonDownRectangle.getWidth() &&
             my >= _buttonDownRectangle.getY() &&
             my < _buttonDownRectangle.getY() + _buttonDownRectangle.getHeight())
-		{
+        {
             _mouseOverButtonDown = true;
             _buttonDownAppearanceState = iWidgetAppearanceState::Highlighted;
-		}
-		else
-		{
+        }
+        else
+        {
             _mouseOverButtonDown = false;
             _buttonDownAppearanceState = iWidgetAppearanceState::Standby;
-		}
-	}
+        }
+    }
 
-	bool iWidgetNumberChooser::handleMouseKeyUp(iKeyCode key)
-	{
-		if (!isActive())
-		{
-			return false;
-		}
+    bool iWidgetNumberChooser::handleMouseKeyUp(iKeyCode key)
+    {
+        if (!isActive())
+        {
+            return false;
+        }
 
-		if (_mouseOverButtonUp)
-		{
+        if (_mouseOverButtonUp)
+        {
             if (key == iKeyCode::MouseLeft)
             {
                 _buttonUpAppearanceState = iWidgetAppearanceState::Standby;
@@ -169,80 +162,78 @@ namespace Igor
 
             setKeyboardFocus();
             return true;
-		}
+        }
 
-		if (_mouseOverButtonDown)
-		{
+        if (_mouseOverButtonDown)
+        {
             if (key == iKeyCode::MouseLeft)
             {
                 _buttonDownAppearanceState = iWidgetAppearanceState::Standby;
                 decreaseNumber(_stepDown);
             }
 
-			setKeyboardFocus();
+            setKeyboardFocus();
             return true;
-		}
+        }
 
         return iWidget::handleMouseKeyUp(key);
-	}
+    }
 
-	bool iWidgetNumberChooser::handleMouseWheel(int32 d)
-	{
-		if (!isActive())
-		{
-			return false;
-		}
+    bool iWidgetNumberChooser::handleMouseWheel(int32 d)
+    {
+        if (!isActive())
+        {
+            return false;
+        }
 
         iWidget::handleMouseWheel(d);
 
-		if (isMouseOver())
-		{
-			if (d < 0)
-			{
-				decreaseNumber(_stepDownWheel);
-			}
-			else
-			{
-				increaseNumber(_stepUpWheel);
-			}
+        if (isMouseOver())
+        {
+            if (d < 0)
+            {
+                decreaseNumber(_stepDownWheel);
+            }
+            else
+            {
+                increaseNumber(_stepUpWheel);
+            }
 
             return true;
-		}
+        }
 
         return false;
-	}
+    }
 
-	void iWidgetNumberChooser::setPostFix(const iaString& text)
-	{
-		_postFix = text;
-		//update();
-	}
+    void iWidgetNumberChooser::setPostFix(const iaString& text)
+    {
+        _postFix = text;
+    }
 
     const iaString& iWidgetNumberChooser::getPostFix() const
     {
         return _postFix;
     }
 
-	float32 iWidgetNumberChooser::getValue()
-	{
-		return _value;
-	}
+    float32 iWidgetNumberChooser::getValue()
+    {
+        return _value;
+    }
 
-	void iWidgetNumberChooser::setValue(float32 value)
-	{
+    void iWidgetNumberChooser::setValue(float32 value)
+    {
         con_assert(value <= _max, "value out of range");
         con_assert(value >= _min, "value out of range");
 
         _value = value;
-	}
+    }
 
-	void iWidgetNumberChooser::setMinMaxNumber(float32 min, float32 max)
-	{
-		_min = min;
-		_max = max;
+    void iWidgetNumberChooser::setMinMaxNumber(float32 min, float32 max)
+    {
+        _min = min;
+        _max = max;
         cullBoundings();
-		//update();
-	}
+    }
 
     void iWidgetNumberChooser::setAfterPoint(int32 afterPoint)
     {
@@ -254,29 +245,27 @@ namespace Igor
         return _afterPoint;
     }
 
-	void iWidgetNumberChooser::setStepping(float32 up, float32 down)
-	{
-		_stepUp = up;
-		_stepDown = down;
-	}
+    void iWidgetNumberChooser::setStepping(float32 up, float32 down)
+    {
+        _stepUp = up;
+        _stepDown = down;
+    }
 
-	void iWidgetNumberChooser::setSteppingWheel(float32 up, float32 down)
-	{
-		_stepUpWheel = up;
-		_stepDownWheel = down;
-	}
+    void iWidgetNumberChooser::setSteppingWheel(float32 up, float32 down)
+    {
+        _stepUpWheel = up;
+        _stepDownWheel = down;
+    }
 
-	void iWidgetNumberChooser::draw(int32 parentPosX, int32 parentPosY)
-	{
-		//updatePosition(parentPosX, parentPosY);
-
-		if (isVisible())
-		{
+    void iWidgetNumberChooser::draw(int32 parentPosX, int32 parentPosY)
+    {
+        if (isVisible())
+        {
             iaString displayString = iaString::ftoa(_value, _afterPoint);
-			displayString += _postFix;
+            displayString += _postFix;
 
-			iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
-		}
-	}
+            iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
+        }
+    }
 
 }

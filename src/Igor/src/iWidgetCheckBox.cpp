@@ -11,40 +11,40 @@
 namespace Igor
 {
 
-	bool iWidgetCheckBox::_generatingRadioButtonGroup = false;
-	vector<iWidgetCheckBox*> iWidgetCheckBox::_currentRadioButtons;
+    bool iWidgetCheckBox::_generatingRadioButtonGroup = false;
+    vector<iWidgetCheckBox*> iWidgetCheckBox::_currentRadioButtons;
 
-	iWidgetCheckBox::iWidgetCheckBox()
-		: iWidget(iWidgetType::CheckBox)
-	{
-		_configuredHeight = 20;
-		_configuredWidth = 60;
+    iWidgetCheckBox::iWidgetCheckBox()
+        : iWidget(iWidgetType::CheckBox)
+    {
+        _configuredHeight = 20;
+        _configuredWidth = 60;
 
-		if (_generatingRadioButtonGroup)
-		{
-			for (int i = 0; i < _currentRadioButtons.size(); ++i)
-			{
-				_currentRadioButtons[i]->_radioButtons.push_back(this);
-				_radioButtons.push_back(_currentRadioButtons[i]);
-			}
+        if (_generatingRadioButtonGroup)
+        {
+            for (int i = 0; i < _currentRadioButtons.size(); ++i)
+            {
+                _currentRadioButtons[i]->_radioButtons.push_back(this);
+                _radioButtons.push_back(_currentRadioButtons[i]);
+            }
 
-			_currentRadioButtons.push_back(this);
-		}
-	}
+            _currentRadioButtons.push_back(this);
+        }
+    }
 
-	void iWidgetCheckBox::beginRadioButtonGroup()
-	{
-		_generatingRadioButtonGroup = true;
-	}
+    void iWidgetCheckBox::beginRadioButtonGroup()
+    {
+        _generatingRadioButtonGroup = true;
+    }
 
-	void iWidgetCheckBox::endRadioButtonGroup()
-	{
-		_generatingRadioButtonGroup = false;
-		_currentRadioButtons.clear();
-	}
+    void iWidgetCheckBox::endRadioButtonGroup()
+    {
+        _generatingRadioButtonGroup = false;
+        _currentRadioButtons.clear();
+    }
 
-	bool iWidgetCheckBox::handleMouseKeyUp(iKeyCode key)
-	{
+    bool iWidgetCheckBox::handleMouseKeyUp(iKeyCode key)
+    {
         if (!isActive())
         {
             return false;
@@ -52,88 +52,78 @@ namespace Igor
 
         iWidget::handleMouseKeyUp(key);
 
-		if (_widgetAppearanceState == iWidgetAppearanceState::Clicked)
-		{
-			if (_radioButtons.size())
-			{
-				if (!isChecked())
-				{
-					_checked = true;
-					_change(this);
+        if (_widgetAppearanceState == iWidgetAppearanceState::Clicked)
+        {
+            if (_radioButtons.size())
+            {
+                if (!isChecked())
+                {
+                    _checked = true;
+                    _change(this);
 
-					for (int i = 0; i < _radioButtons.size(); ++i)
-					{
-						_radioButtons[i]->setChecked(false);
-					}
-				}
-			}
-			else
-			{
-				_checked = !_checked;
-				_change(this);
-			}
+                    for (int i = 0; i < _radioButtons.size(); ++i)
+                    {
+                        _radioButtons[i]->setChecked(false);
+                    }
+                }
+            }
+            else
+            {
+                _checked = !_checked;
+                _change(this);
+            }
 
             return true;
-		}
+        }
 
         return false;
-	}
+    }
 
-	void iWidgetCheckBox::setChecked(bool check)
-	{
-		_checked = check;
-		_change(this);
-	}
+    void iWidgetCheckBox::setChecked(bool check)
+    {
+        _checked = check;
+        _change(this);
+    }
 
-	bool iWidgetCheckBox::isChecked()
-	{
-		return _checked;
-	}
+    bool iWidgetCheckBox::isChecked()
+    {
+        return _checked;
+    }
 
-	void iWidgetCheckBox::setText(const iaString& text)
-	{
-		_text = text;
-		//update();
-	}
+    void iWidgetCheckBox::setText(const iaString& text)
+    {
+        _text = text;
+    }
 
-	void iWidgetCheckBox::updateContentSize()
-	{
-		int32 width = _configuredWidth;
-		int32 height = _configuredHeight;
+    void iWidgetCheckBox::calcMinSize()
+    {
+        int32 minWidth = 0;
+        int32 minHeight = 0;
 
-		if (_growsByContent &&
-			!_text.isEmpty())
-		{
-			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-			if (fontSize*1.5f > height)
-			{
-				height = fontSize*1.5f;
-			}
+        if (_growsByContent &&
+            !_text.isEmpty())
+        {
+            float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+            minHeight = fontSize * 1.5f;
 
-			int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize) + (height - fontSize) / 2 + fontSize * 3;
+            int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize) + fontSize * 3;
+            minWidth = textWidth;
+        }
 
-			if (textWidth > width)
-			{
-				width = textWidth;
-			}
-		}
+        setMinSize(minWidth, minHeight);
+    }
 
-        setContentSize(width, height);
-	}
+    const iaString& iWidgetCheckBox::getText() const
+    {
+        return _text;
+    }
 
-	const iaString& iWidgetCheckBox::getText() const
-	{
-		return _text;
-	}
-
-	void iWidgetCheckBox::draw(int32 parentPosX, int32 parentPosY)
-	{
-//		updatePosition(parentPosX, parentPosY);
-
-		if (isVisible())
-		{
-			iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _checked, getAppearanceState(), isActive());
-		}
-	}
+    void iWidgetCheckBox::draw(int32 parentPosX, int32 parentPosY)
+    {
+        if (isVisible())
+        {
+            iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _checked, getAppearanceState(), isActive());
+        }
+    }
 
 }
