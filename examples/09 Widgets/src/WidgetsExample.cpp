@@ -91,13 +91,16 @@ void WidgetsExample::initGUI()
     grid1->setVerticalAlignment(iVerticalAlignment::Strech);
     grid1->setBorder(10);
     grid1->setCellSpacing(5);
+    grid1->setStrechRow(0);
+    grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
     _allWidgets.push_back(groupBox);
     groupBox->setText("Hello World. This is a group box!");
     groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    groupBox->setVerticalAlignment(iVerticalAlignment::Top);
+    groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
+    groupBox->setBorder(10);
     groupBox->setHeight(100);
 
     iWidgetGrid* grid2 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
@@ -112,8 +115,7 @@ void WidgetsExample::initGUI()
     iWidgetScroll* widgetScoll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
     _allWidgets.push_back(widgetScoll);
     widgetScoll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    widgetScoll->setVerticalAlignment(iVerticalAlignment::Top);
-    widgetScoll->setHeight(100);
+    widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGrid* grid3 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid3);
@@ -161,6 +163,8 @@ void WidgetsExample::initGUI()
     _allWidgets.push_back(button1);
     button1->setWidth(70);
     button1->setHeight(20);
+    button1->setVerticalAlignment(iVerticalAlignment::Strech);
+    button1->setHorrizontalAlignment(iHorrizontalAlignment::Center);
     button1->setText("Open Message Box");
     button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onMessageBox));
 
@@ -201,6 +205,8 @@ void WidgetsExample::initGUI()
     _allWidgets.push_back(picture);
     picture->setTexture("OpenGL-Logo.jpg");
     picture->setMaxSize(100, 50);
+    picture->setVerticalAlignment(iVerticalAlignment::Top);
+    picture->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();
@@ -385,4 +391,3 @@ void WidgetsExample::run()
     // call application main loop. will not stop until application was shut down
 	iApplication::getInstance().run();
 }
-

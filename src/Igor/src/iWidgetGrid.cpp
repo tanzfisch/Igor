@@ -114,8 +114,6 @@ namespace Igor
             gridCollumn._widgetCollumn.resize(columnCount);
             _widgetRows.push_back(gridCollumn);
         }
-
-        //update();
     }
 
     void iWidgetGrid::removeRow(uint32 at)
@@ -246,8 +244,6 @@ namespace Igor
 
                 iterRow++;
             }
-
-            //update();
         }
     }
 
@@ -268,8 +264,6 @@ namespace Igor
             (*iter)._widgetCollumn.resize(currentCollumnSize + count);
             iter++;
         }
-
-        //update();
     }
 
     void iWidgetGrid::calcMinSize()
@@ -379,7 +373,6 @@ namespace Igor
         bool updateAgain = false;
         if (_strechRow > -1 &&
             getVerticalAlignment() == iVerticalAlignment::Strech &&
-            getMinHeight() > minHeight &&
             _strechRow < rowCount)
         {
             int32 diff = getMinHeight() - minHeight;
@@ -406,7 +399,6 @@ namespace Igor
 
         if (_strechCol > -1 &&
             getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
-            getMinWidth() > minWidth &&
             _strechCol < columnCount)
         {
             int32 diff = getMinWidth() - minWidth;
@@ -445,7 +437,6 @@ namespace Igor
     void iWidgetGrid::setBorder(int32 border)
     {
         _border = border;
-        //update();
     }
 
     void iWidgetGrid::setStrechRow(int32 row)
@@ -675,7 +666,6 @@ namespace Igor
     void iWidgetGrid::setCellSpacing(int32 cellSpacing)
     {
         _cellspacing = cellSpacing;
-        //update();
     }
 
     void iWidgetGrid::draw(int32 parentPosX, int32 parentPosY)
@@ -770,7 +760,7 @@ namespace Igor
                     if (widget != nullptr)
                     {
                         // updating childrens alignment once more but this time with fake parent boundaries
-                        // TODO widget->updateAlignment();
+                        widget->updateAlignment();
                         widget->draw(getActualPosX(), getActualPosY());
                         // TODO widget->updatePosition(_absoluteX, _absoluteY);
                     }
