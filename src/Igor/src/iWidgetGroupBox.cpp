@@ -92,7 +92,7 @@ namespace Igor
 
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _border, _text, getAppearanceState(), isActive());
 
             if (!_children.empty())
             {
