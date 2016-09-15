@@ -641,9 +641,20 @@ namespace Igor
 		*/
 		int32 _absoluteY = 0;
 
+        /*! margin left for internal user only
+        */
         int32 _marginLeft = 0;
+
+        /*! margin right for internal user only
+        */
         int32 _marginRight = 0;
+
+        /*! margin top for internal user only
+        */
         int32 _marginTop = 0; 
+
+        /*! margin bottom for internal user only
+        */
         int32 _marginBottom = 0;
 
 		/*! grow by content flag
