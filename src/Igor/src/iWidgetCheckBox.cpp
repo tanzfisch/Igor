@@ -19,6 +19,7 @@ namespace Igor
     {
         _configuredHeight = 20;
         _configuredWidth = 60;
+        _reactOnMouseWheel = false;
 
         if (_generatingRadioButtonGroup)
         {

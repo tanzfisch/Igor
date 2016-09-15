@@ -19,6 +19,7 @@ namespace Igor
 	{
 		_configuredHeight = 10;
 		_configuredWidth = 20;
+        _reactOnMouseWheel = false;
 	}
 
     iWidgetButton::~iWidgetButton()

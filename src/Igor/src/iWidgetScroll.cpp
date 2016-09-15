@@ -141,45 +141,6 @@ namespace Igor
 	void iWidgetScroll::calcMinSize()
 	{
         setMinSize(0, 0);
-
-		if (!_children.empty())
-		{
-			iWidget* widget = _children[0];
-
-			con_assert(widget->getVerticalAlignment() == iVerticalAlignment::Top && widget->getHorrizontalAlignment() == iHorrizontalAlignment::Left, "only top left alignment is supported for children of iWidgetScroll");
-
-			int32 childWidth = widget->getMinWidth();
-            int32 childHeight = widget->getMinHeight();
-
-            // why 4 ?
-			if (getMinWidth() - 4 < childWidth) // h scrollbar
-			{
-				_hscrollActive = true;
-			}
-			else
-			{
-				_hscrollActive = false;
-			}
-
-			if (getMinHeight() - 4 < childHeight) // v scrollbar
-			{
-				_vscrollActive = true;
-			}
-			else
-			{
-				_vscrollActive = false;
-			}
-
-			calcChildFrame();
-			calcScrollButtons();
-			calcTranslation();
-
-			/* TODO
-			up_button;
-			down_button;
-			left_button;
-			right_button;*/
-		}
 	}
 
 	void iWidgetScroll::calcScrollButtons()
@@ -281,6 +242,45 @@ namespace Igor
 	{
 		if (isVisible())
 		{
+            if (!_children.empty())
+            {
+                iWidget* widget = _children[0];
+
+                con_assert(widget->getVerticalAlignment() == iVerticalAlignment::Top && widget->getHorrizontalAlignment() == iHorrizontalAlignment::Left, "only top left alignment is supported for children of iWidgetScroll");
+
+                int32 childWidth = widget->getMinWidth();
+                int32 childHeight = widget->getMinHeight();
+
+                // why 4 ?
+                if (getActualWidth() - 4 < childWidth) // h scrollbar
+                {
+                    _hscrollActive = true;
+                }
+                else
+                {
+                    _hscrollActive = false;
+                }
+
+                if (getActualHeight() - 4 < childHeight) // v scrollbar
+                {
+                    _vscrollActive = true;
+                }
+                else
+                {
+                    _vscrollActive = false;
+                }
+
+                calcChildFrame();
+                calcScrollButtons();
+                calcTranslation();
+
+                /* TODO
+                up_button;
+                down_button;
+                left_button;
+                right_button;*/
+            }
+
 			// begin rendering
 			iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _widgetAppearanceState, isActive());
 
@@ -377,7 +377,7 @@ namespace Igor
 
 					iaMatrixf matrix;
 					matrix.translate(-getActualPosX(), -getActualPosY(), -30);
-					//matrix._pos += _translate._pos;
+					matrix._pos += _translate._pos;
 
 					iRenderer::getInstance().setModelMatrix(matrix);
 

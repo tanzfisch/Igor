@@ -524,6 +524,10 @@ namespace Igor
         */
         iWheelDownEvent _wheelDown;
 
+        /*! if true widget will react on mouse wheel
+        */
+        bool _reactOnMouseWheel = true;
+
         /*! handles incomming mouse wheel event
 
         \param d mouse wheel delta

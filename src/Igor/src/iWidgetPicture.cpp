@@ -20,6 +20,7 @@ namespace Igor
     {
         setHorrizontalAlignment(iHorrizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
+        _reactOnMouseWheel = false;
     }
 
     iWidgetPicture::~iWidgetPicture()

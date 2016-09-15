@@ -19,6 +19,8 @@ namespace Igor
     {
         _configuredHeight = 20;
         _configuredWidth = 0;
+        _reactOnMouseWheel = false;
+
         setHorrizontalAlignment(iHorrizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
     }

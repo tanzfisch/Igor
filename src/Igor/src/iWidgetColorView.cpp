@@ -20,6 +20,7 @@ namespace Igor
 	{
 		_configuredWidth = 60;
 		_configuredHeight = 20;
+        _reactOnMouseWheel = false;
 
 		setHorrizontalAlignment(iHorrizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);

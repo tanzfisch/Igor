@@ -21,6 +21,7 @@ namespace Igor
     iWidgetSelectBox::iWidgetSelectBox()
         : iWidget(iWidgetType::NumberChooser)
     {
+        _reactOnMouseWheel = false;
     }
 
     iWidgetSelectBox::~iWidgetSelectBox()

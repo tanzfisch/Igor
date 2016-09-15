@@ -253,7 +253,7 @@ namespace Igor
 
 	bool iWidget::handleMouseWheel(int32 d)
 	{
-		if (isActive())
+		if (isActive() && _reactOnMouseWheel)
 		{
 			if (_isMouseOver)
 			{
@@ -274,16 +274,17 @@ namespace Igor
 				}
 				else
 				{
+                    bool handeled = false;
 					if (d > 0)
 					{
-						_wheelUp(this);
+                        _wheelUp(this);
 					}
 					else
 					{
-						_wheelDown(this);
+                        _wheelDown(this);
 					}
-
-					return true;
+                    
+					return handeled;
 				}
 			}
 		}
