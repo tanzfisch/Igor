@@ -350,7 +350,7 @@ namespace IgorAux
         \param afterPoint defines how many digits after the point
         \returns isString
         */
-        static iaString ftoa(float32 value, int afterPoint);
+        static iaString ftoa(float32 value, int afterPoint = 0);
 
         /*! transforms a iaString to a float
 
