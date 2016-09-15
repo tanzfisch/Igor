@@ -29,6 +29,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetDialog* iWidgetManager::_modal = nullptr;
+
     iWidgetManager::iWidgetManager()
     {
         iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));

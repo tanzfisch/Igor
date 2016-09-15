@@ -18,7 +18,7 @@ namespace Igor
 
     void iDialogMenu::initGUI(vector<iaString>& texts)
     {
-        iWidgetManager::getInstance().setModal(getDialog());
+        iWidgetManager::setModal(getDialog());
         getDialog()->setActive();
         getDialog()->setVisible();
         getDialog()->setHeight(0);
@@ -51,7 +51,7 @@ namespace Igor
     {
         con_assert_sticky(texts.size() == pictures.size(), "invalid data");
 
-        iWidgetManager::getInstance().setModal(getDialog());
+        iWidgetManager::setModal(getDialog());
         getDialog()->setActive();
         getDialog()->setVisible();
         getDialog()->setHeight(0);
@@ -160,7 +160,7 @@ namespace Igor
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);
-        iWidgetManager::getInstance().resetModal();
+        iWidgetManager::resetModal();
 
         _selectBoxCloseEvent(_returnValue);
         _selectBoxCloseEvent.clear();

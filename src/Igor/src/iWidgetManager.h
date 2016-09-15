@@ -120,21 +120,21 @@ namespace Igor
 
         /*! set this widget exclusively modal
         */
-        void setModal(iWidgetDialog* dialog);
+        static void setModal(iWidgetDialog* dialog);
 
         /*! \returns current modal widget
         */
-        iWidgetDialog* getModal();
+        static iWidgetDialog* getModal();
 
         /*! \returns true: if widget is modal
 
         \param dialog the dialog to check if it is modal
         */
-        bool isModal(iWidgetDialog* dialog);
+        static bool isModal(iWidgetDialog* dialog);
 
         /*! reset modal flag
         */
-        void resetModal();
+        static void resetModal();
 
         /*! register delegate to "redirected" mouse double click event
 
@@ -212,7 +212,7 @@ namespace Igor
 
         /*! modal marker
         */
-        iWidgetDialog* _modal = nullptr;
+        static iWidgetDialog* _modal;
 
         /*! mouse key down event
         */

@@ -27,9 +27,9 @@ namespace Igor
 
     iWidgetDialog::~iWidgetDialog()
     {
-        if (iWidgetManager::getInstance().isModal(this))
+        if (iWidgetManager::isModal(this))
         {
-            iWidgetManager::getInstance().resetModal();
+            iWidgetManager::resetModal();
         }
     }
 

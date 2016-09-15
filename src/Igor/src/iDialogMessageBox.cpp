@@ -52,7 +52,7 @@ namespace Igor
 
     void iDialogMessageBox::initGUI(iaString message, iMessageBoxButtons buttons)
     {
-        iWidgetManager::getInstance().setModal(getDialog());
+        iWidgetManager::setModal(getDialog());
         getDialog()->setActive();
         getDialog()->setVisible();
         getDialog()->setWidth(20);
@@ -162,7 +162,7 @@ namespace Igor
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);
-        iWidgetManager::getInstance().resetModal();
+        iWidgetManager::resetModal();
 
         _messageBoxCloseEvent(_messageBoxReturnValue);
         _messageBoxCloseEvent.clear();
