@@ -363,7 +363,7 @@ namespace Igor
             minHeight = getConfiguredHeight();
         }
 
-        setMargin(_border, _border, _border, _border);
+        setClientArea(_border, _border, _border, _border);
         setMinSize(minWidth, minHeight);
     }
 
@@ -397,8 +397,8 @@ namespace Igor
 
                 if (foundIndex != -1)
                 {
-                    pos._x = _marginLeft + (*iterCollumn)._x;
-                    pos._y = _marginTop + (*iterCollumn)._y;
+                    pos._x = _clientAreaLeft + (*iterCollumn)._x;
+                    pos._y = _clientAreaTop + (*iterCollumn)._y;
 
                     offsets[foundIndex] = pos;
                 }
@@ -421,7 +421,7 @@ namespace Igor
             getVerticalAlignment() == iVerticalAlignment::Strech &&
             _strechRow < rowCount)
         {
-            int32 diff = _actualHeight - _minHeight - _parent->_marginBottom - _parent->_marginTop;
+            int32 diff = _actualHeight - _minHeight - _parent->_clientAreaBottom - _parent->_clientAreaTop;
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
@@ -444,7 +444,7 @@ namespace Igor
             getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
             _strechCol < columnCount)
         {
-            int32 diff = _actualWidth - _minWidth - _parent->_marginLeft - _parent->_marginRight;
+            int32 diff = _actualWidth - _minWidth - _parent->_clientAreaLeft - _parent->_clientAreaRight;
 
             for (uint32 y = 0; y < rowCount; ++y)
             {

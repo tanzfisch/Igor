@@ -58,17 +58,17 @@ namespace Igor
                 if (iWidgetManager::getInstance().getTheme() != nullptr)
                 {
                     float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                    setMargin(_border, _border, _border + fontSize * 0.5, _border);
+                    setClientArea(_border, _border, _border + fontSize * 0.5, _border);
                 }
             }
             else
             {
-                setMargin(_border, _border, _border, _border);
+                setClientArea(_border, _border, _border, _border);
             }
         }
         else
         {
-            setMargin(_border, _border, _border, _border);
+            setClientArea(_border, _border, _border, _border);
         }
 
         setMinSize(minWidth, minHeight);

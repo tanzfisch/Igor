@@ -528,12 +528,12 @@ namespace Igor
 		_configuredHeight = height;
 	}
 
-    void iWidget::setMargin(int32 marginLeft, int32 marginRight, int32 marginTop, int32 marginBottom)
+    void iWidget::setClientArea(int32 left, int32 right, int32 top, int32 bottom)
     {
-        _marginLeft = marginLeft;
-        _marginRight = marginRight;
-        _marginTop = marginTop;
-        _marginBottom = marginBottom;
+        _clientAreaLeft = left;
+        _clientAreaRight = right;
+        _clientAreaTop = top;
+        _clientAreaBottom = bottom;
     }
 
 	void iWidget::setGrowingByContent(bool grow)
@@ -553,8 +553,8 @@ namespace Igor
             int32 width = _minWidth;
             int32 height = _minHeight;
 
-            int32 clientWidth = _parent->getActualWidth() - _parent->_marginLeft - _parent->_marginRight;
-            int32 clientHeight = _parent->getActualHeight() - _parent->_marginTop - _parent->_marginBottom;
+            int32 clientWidth = _parent->getActualWidth() - _parent->_clientAreaLeft - _parent->_clientAreaRight;
+            int32 clientHeight = _parent->getActualHeight() - _parent->_clientAreaTop - _parent->_clientAreaBottom;
 
 			switch (iWidget::getHorrizontalAlignment())
 			{
@@ -625,14 +625,14 @@ namespace Igor
 
         for (auto widget : _children)
         {
-            offsets.push_back(iaVector2i(_marginLeft,_marginTop));
+            offsets.push_back(iaVector2i(_clientAreaLeft,_clientAreaTop));
         }
     }
 
 	void iWidget::setMinSize(int32 width, int32 height)
 	{
-        int32 minWidth = width + _marginLeft + _marginRight;
-        int32 minHeight = height + _marginTop + _marginBottom;
+        int32 minWidth = width + _clientAreaLeft + _clientAreaRight;
+        int32 minHeight = height + _clientAreaTop + _clientAreaBottom;
 
         if (minWidth < _configuredWidth)
         {

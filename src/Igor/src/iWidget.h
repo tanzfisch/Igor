@@ -598,7 +598,7 @@ namespace Igor
         */
         void resetKeyboardFocus();
 
-        void setMargin(int32 marginLeft, int32 marginRight, int32 marginTop, int32 marginBottom);
+        void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
 
 		/*! initializes members
 
@@ -646,19 +646,19 @@ namespace Igor
 
         /*! margin left for internal user only
         */
-        int32 _marginLeft = 0;
+        int32 _clientAreaLeft = 0;
 
         /*! margin right for internal user only
         */
-        int32 _marginRight = 0;
+        int32 _clientAreaRight = 0;
 
         /*! margin top for internal user only
         */
-        int32 _marginTop = 0; 
+        int32 _clientAreaTop = 0; 
 
         /*! margin bottom for internal user only
         */
-        int32 _marginBottom = 0;
+        int32 _clientAreaBottom = 0;
 
 		/*! grow by content flag
 		*/

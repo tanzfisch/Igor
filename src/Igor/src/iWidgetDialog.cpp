@@ -46,7 +46,7 @@ namespace Igor
             minHeight = widget->getMinHeight();
         }
 
-        setMargin(_border, _border, _border, _border);
+        setClientArea(_border, _border, _border, _border);
         setMinSize(minWidth, minHeight);
     }
 
