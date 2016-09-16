@@ -148,8 +148,6 @@ namespace Igor
         {
             initGrid();
         }
-
-        //update();
     }
 
     void iWidgetGrid::removeCollumn(uint32 at)
@@ -186,8 +184,6 @@ namespace Igor
         {
             initGrid();
         }
-
-        //update();
     }
 
     void iWidgetGrid::insertRow(uint32 at)
@@ -213,7 +209,6 @@ namespace Igor
             }
 
             _widgetRows.insert(iter, gridCollumn);
-            //update();
         }
     }
 
@@ -369,13 +364,66 @@ namespace Igor
         }
 
         setMinSize(minWidth, minHeight);
+    }
 
-        bool updateAgain = false;
+
+    void iWidgetGrid::calcChildOffsets(vector<iaVector2i>& offsets)
+    {
+        offsets.clear();
+        offsets.resize(_children.size());
+
+        iaVector2i pos;
+
+        auto iterRow = _widgetRows.begin();
+        while (iterRow != _widgetRows.end())
+        {
+            auto iterCollumn = (*iterRow)._widgetCollumn.begin();
+            while (iterCollumn != (*iterRow)._widgetCollumn.end())
+            {
+                int index = 0;
+                int foundIndex = -1;
+
+                auto iter = _children.begin();
+                while (iter != _children.end())
+                {
+                    if ((*iter)->getID() == (*iterCollumn)._widgetID)
+                    {
+                        foundIndex = index;
+                        break;
+                    }
+                    index++;
+                    iter++;
+                }
+
+                if (foundIndex != -1)
+                {
+                    pos._x = _marginLeft + (*iterCollumn)._x;
+                    pos._y = _marginTop + (*iterCollumn)._y;
+
+                    offsets[foundIndex] = pos;
+                }
+
+                iterCollumn++;
+            }
+
+            iterRow++;
+        }
+    }
+
+    void iWidgetGrid::updateAlignment()
+    {
+        iWidget::updateAlignment();
+
+        int32 minWidth = _minWidth;
+        int32 minHeight = _minHeight;
+        uint32 rowCount = static_cast<uint32>(_widgetRows.size());
+        uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+
         if (_strechRow > -1 &&
             getVerticalAlignment() == iVerticalAlignment::Strech &&
             _strechRow < rowCount)
         {
-            int32 diff = getMinHeight() - minHeight;
+            int32 diff = _actualHeight - minHeight;
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
@@ -394,14 +442,13 @@ namespace Igor
             }
 
             minHeight += diff;
-            updateAgain = true;
         }
 
         if (_strechCol > -1 &&
             getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
             _strechCol < columnCount)
         {
-            int32 diff = getMinWidth() - minWidth;
+            int32 diff = _actualWidth - minWidth;
 
             for (uint32 y = 0; y < rowCount; ++y)
             {
@@ -420,12 +467,6 @@ namespace Igor
             }
 
             minWidth += diff;
-            updateAgain = true;
-        }
-
-        if (updateAgain)
-        {
-            setMinSize(minWidth, minHeight);
         }
     }
 
@@ -848,7 +889,6 @@ namespace Igor
 
                     _widgetRows[row]._widgetCollumn[col]._userData = userData;
                     _widgetRows[row]._widgetCollumn[col]._widgetID = widgetID;
-                    //update();
                 }
                 else
                 {

@@ -32,6 +32,9 @@
 #include <iMouse.h>
 #include <iStopWatch.h>
 
+#include <iaVector2.h>
+using namespace IgorAux;
+
 #include <vector>
 using namespace std;
 
@@ -717,6 +720,8 @@ namespace Igor
         \param offsetY absolute vertical offset based on parents positions
         */
         void updatePosition(int32 offsetX, int32 offsetY);
+
+        virtual void calcChildOffsets(vector<iaVector2i>& offsets);
 
 	};
 

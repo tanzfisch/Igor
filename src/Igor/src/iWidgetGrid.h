@@ -30,7 +30,6 @@
 #define __iWIDGETGRID__
 
 #include <iWidget.h>
-
 #include <vector>
 using namespace std;
 
@@ -334,6 +333,10 @@ namespace Igor
         /*! initializes an empty grid with default size of one row and collumn
         */
         void initGrid();
+
+        void updateAlignment();
+
+        void calcChildOffsets(vector<iaVector2i>& offsets);
 
         /*! ctor initializes member variables
         */

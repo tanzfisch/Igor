@@ -485,7 +485,6 @@ namespace Igor
 	void iWidget::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
 	{
 		_horrizontalAlignment = horrizontalAlignment;
-		//update();
 	}
 
 	iVerticalAlignment iWidget::getVerticalAlignment()
@@ -496,7 +495,6 @@ namespace Igor
 	void iWidget::setVerticalAlignment(iVerticalAlignment verticalAlignment)
 	{
 		_verticalAlignment = verticalAlignment;
-		//update();
 	}
 
 	void iWidget::setVisible(bool visible)
@@ -523,13 +521,11 @@ namespace Igor
 	void iWidget::setWidth(int32 width)
 	{
 		_configuredWidth = width;
-		//update();
 	}
 
 	void iWidget::setHeight(int32 height)
 	{
 		_configuredHeight = height;
-		//update();
 	}
 
     void iWidget::setMargin(int32 marginLeft, int32 marginRight, int32 marginTop, int32 marginBottom)
@@ -543,7 +539,6 @@ namespace Igor
 	void iWidget::setGrowingByContent(bool grow)
 	{
 		_growsByContent = grow;
-		//update();
 	}
 
 	bool iWidget::isGrowingByContent() const
@@ -623,6 +618,16 @@ namespace Igor
 		_absoluteX = _relativeX + offsetX;
 		_absoluteY = _relativeY + offsetY;
 	}
+
+    void iWidget::calcChildOffsets(vector<iaVector2i>& offsets)
+    {
+        offsets.clear();
+
+        for (auto widget : _children)
+        {
+            offsets.push_back(iaVector2i(_marginLeft,_marginTop));
+        }
+    }
 
 	void iWidget::setMinSize(int32 width, int32 height)
 	{

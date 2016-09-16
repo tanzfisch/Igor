@@ -327,9 +327,14 @@ namespace Igor
             widget->updateAlignment();
             widget->updatePosition(offsetX, offsetY);
 
-            for (auto child : widget->_children)
+            vector<iaVector2i> offsets;
+            widget->calcChildOffsets(offsets);
+
+            con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
+
+            for (int i = 0; i < offsets.size();++i)
             {
-                traverseAlignment(child, widget->getActualPosX() + widget->_marginLeft, widget->getActualPosY() + widget->_marginTop);
+                traverseAlignment(widget->_children[i], widget->getActualPosX() + offsets[i]._x, widget->getActualPosY() + offsets[i]._y);
             }
         }
     }
