@@ -397,8 +397,8 @@ namespace Igor
 
                 if (foundIndex != -1)
                 {
-                    pos._x = _clientAreaLeft + (*iterCollumn)._x;
-                    pos._y = _clientAreaTop + (*iterCollumn)._y;
+                    pos._x = (*iterCollumn)._x;
+                    pos._y = (*iterCollumn)._y;
 
                     offsets[foundIndex] = pos;
                 }
@@ -421,7 +421,7 @@ namespace Igor
             getVerticalAlignment() == iVerticalAlignment::Strech &&
             _strechRow < rowCount)
         {
-            int32 diff = _actualHeight - _minHeight - _parent->_clientAreaBottom - _parent->_clientAreaTop;
+            int32 diff = _actualHeight - _minHeight;
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
@@ -444,7 +444,7 @@ namespace Igor
             getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
             _strechCol < columnCount)
         {
-            int32 diff = _actualWidth - _minWidth - _parent->_clientAreaLeft - _parent->_clientAreaRight;
+            int32 diff = _actualWidth - _minWidth;
 
             for (uint32 y = 0; y < rowCount; ++y)
             {
@@ -712,10 +712,7 @@ namespace Igor
             int32 row = 0;
             int32 col = 0;
 
-            int32 realX = _absoluteX;
-            int32 realY = _absoluteY;
-            int32 realWidth = _actualWidth;
-            int32 realHeight = _actualHeight;
+            iWidgetManager::getInstance().getTheme()->drawGridField(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState());
 
             auto iterRow = _widgetRows.begin();
             while (iterRow != _widgetRows.end())
@@ -725,14 +722,11 @@ namespace Igor
                 auto iterCollumn = (*iterRow)._widgetCollumn.begin();
                 while (iterCollumn != (*iterRow)._widgetCollumn.end())
                 {
-                    (*iterCollumn)._absoluteX = realX + (*iterCollumn)._x;
-                    (*iterCollumn)._absoluteY = realY + (*iterCollumn)._y;
-                    _absoluteX = realX + (*iterCollumn)._x;
-                    _absoluteY = realY + (*iterCollumn)._y;
-                    _actualWidth = (*iterCollumn)._width;
-                    _actualHeight = (*iterCollumn)._height;
+                    (*iterCollumn)._absoluteX = getActualPosX() + (*iterCollumn)._x;
+                    (*iterCollumn)._absoluteY = getActualPosY() + (*iterCollumn)._y;
 
-                    iWidgetManager::getInstance().getTheme()->drawGridField(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState());
+                    iWidgetManager::getInstance().getTheme()->drawGridField((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY, 
+                        (*iterCollumn)._width, (*iterCollumn)._height, getAppearanceState());
 
                     if (_selectMode != iSelectionMode::NoSelection)
                     {
@@ -782,11 +776,13 @@ namespace Igor
 
                         if (drawSelected)
                         {
-                            iWidgetManager::getInstance().getTheme()->drawGridSelection(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+                            iWidgetManager::getInstance().getTheme()->drawGridSelection((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY,
+                                (*iterCollumn)._width, (*iterCollumn)._height);
                         }
                         else if (drawHighlight)
                         {
-                            iWidgetManager::getInstance().getTheme()->drawGridHighlight(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+                            iWidgetManager::getInstance().getTheme()->drawGridHighlight((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY,
+                                (*iterCollumn)._width, (*iterCollumn)._height);
                         }
                     }
 
@@ -795,9 +791,10 @@ namespace Igor
                     if (widget != nullptr)
                     {
                         // updating childrens alignment once more but this time with fake parent boundaries
-                        widget->updateAlignment();
+                        widget->updateAlignment((*iterCollumn)._width, (*iterCollumn)._height);
+                        widget->updatePosition((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY);
+
                         widget->draw(getActualPosX(), getActualPosY());
-                        // TODO widget->updatePosition(_absoluteX, _absoluteY);
                     }
 
                     iterCollumn++;
@@ -807,11 +804,6 @@ namespace Igor
                 iterRow++;
                 row++;
             }
-
-            _absoluteX = realX;
-            _absoluteY = realY;
-            _actualWidth = realWidth;
-            _actualHeight = realHeight;
         }
     }
 

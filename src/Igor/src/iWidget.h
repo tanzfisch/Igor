@@ -714,6 +714,8 @@ namespace Igor
         */
         virtual void updateAlignment();
 
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
+
         /*! updates the absolute position
 
         \param offsetX absolute horrizontal offset based on parents positions

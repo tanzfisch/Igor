@@ -317,6 +317,8 @@ namespace Igor
             }
 
             widget->calcMinSize();
+
+            // con_endl("size " << widget->getMinWidth() << ", " << widget->getMinHeight()); // TODO remove 
         }
     }
 

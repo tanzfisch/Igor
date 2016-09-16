@@ -546,71 +546,76 @@ namespace Igor
 		return _growsByContent;
 	}
 
-	void iWidget::updateAlignment()
-	{
-		if (hasParent())
-		{
-            int32 width = _minWidth;
-            int32 height = _minHeight;
-
+    void iWidget::updateAlignment()
+    {
+        if (hasParent())
+        {
             int32 clientWidth = _parent->getActualWidth() - _parent->_clientAreaLeft - _parent->_clientAreaRight;
             int32 clientHeight = _parent->getActualHeight() - _parent->_clientAreaTop - _parent->_clientAreaBottom;
 
-			switch (iWidget::getHorrizontalAlignment())
-			{
-			case iHorrizontalAlignment::Left:
-				_relativeX = 0;
-				break;
+            updateAlignment(clientWidth, clientHeight);
+        }
+    }
 
-			case iHorrizontalAlignment::Strech:
-				_relativeX = 0;
-                width = clientWidth;
-				break;
+	void iWidget::updateAlignment(int32 clientWidth, int32 clientHeight)
+	{
+        int32 width = getMinWidth();
+        int32 height = getMinHeight();
 
-			case iHorrizontalAlignment::Center:
-				_relativeX = (clientWidth - width) / 2;
-				break;
+		switch (iWidget::getHorrizontalAlignment())
+		{
+		case iHorrizontalAlignment::Left:
+			_relativeX = 0;
+			break;
 
-			case iHorrizontalAlignment::Right:
-				_relativeX = clientWidth - width;
-				break;
+		case iHorrizontalAlignment::Strech:
+			_relativeX = 0;
+            width = clientWidth;
+			break;
 
-			case iHorrizontalAlignment::Absolut:
-				con_err("absolut positioning only supported for dialogs");
-				break;
+		case iHorrizontalAlignment::Center:
+			_relativeX = (clientWidth - width) / 2;
+			break;
 
-			default:;
-			};
+		case iHorrizontalAlignment::Right:
+			_relativeX = clientWidth - width;
+			break;
 
-			switch (iWidget::getVerticalAlignment())
-			{
-			case iVerticalAlignment::Top:
-				_relativeY = 0;
-				break;
+		case iHorrizontalAlignment::Absolut:
+			con_err("absolut positioning only supported for dialogs");
+			break;
 
-			case iVerticalAlignment::Strech:
-				_relativeY = 0;
-                height = clientHeight;
-				break;
+		default:;
+		};
 
-			case iVerticalAlignment::Center:
-				_relativeY = (clientHeight - height) / 2;
-				break;
+		switch (iWidget::getVerticalAlignment())
+		{
+		case iVerticalAlignment::Top:
+			_relativeY = 0;
+			break;
 
-			case iVerticalAlignment::Bottom:
-				_relativeY = clientHeight - height;
-				break;
+		case iVerticalAlignment::Strech:
+			_relativeY = 0;
+            height = clientHeight;
+			break;
 
-			case iVerticalAlignment::Absolut:
-				con_err("absolut positioning only supported for dialogs");
-				break;
+		case iVerticalAlignment::Center:
+			_relativeY = (clientHeight - height) / 2;
+			break;
 
-			default:;
-			}
+		case iVerticalAlignment::Bottom:
+			_relativeY = clientHeight - height;
+			break;
 
-            _actualWidth = width;
-            _actualHeight = height;
+		case iVerticalAlignment::Absolut:
+			con_err("absolut positioning only supported for dialogs");
+			break;
+
+		default:;
 		}
+
+        _actualWidth = width;
+        _actualHeight = height;
 	}
 
 	void iWidget::updatePosition(int32 offsetX, int32 offsetY)
