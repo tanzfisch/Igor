@@ -363,9 +363,9 @@ namespace Igor
             minHeight = getConfiguredHeight();
         }
 
+        setMargin(_border, _border, _border, _border);
         setMinSize(minWidth, minHeight);
     }
-
 
     void iWidgetGrid::calcChildOffsets(vector<iaVector2i>& offsets)
     {
@@ -414,8 +414,6 @@ namespace Igor
     {
         iWidget::updateAlignment();
 
-        int32 minWidth = _minWidth;
-        int32 minHeight = _minHeight;
         uint32 rowCount = static_cast<uint32>(_widgetRows.size());
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
 
@@ -423,7 +421,7 @@ namespace Igor
             getVerticalAlignment() == iVerticalAlignment::Strech &&
             _strechRow < rowCount)
         {
-            int32 diff = _actualHeight - minHeight;
+            int32 diff = _actualHeight - _minHeight - _parent->_marginBottom - _parent->_marginTop;
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
@@ -440,15 +438,13 @@ namespace Igor
                     }
                 }
             }
-
-            minHeight += diff;
         }
 
         if (_strechCol > -1 &&
             getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
             _strechCol < columnCount)
         {
-            int32 diff = _actualWidth - minWidth;
+            int32 diff = _actualWidth - _minWidth - _parent->_marginLeft - _parent->_marginRight;
 
             for (uint32 y = 0; y < rowCount; ++y)
             {
@@ -465,8 +461,6 @@ namespace Igor
                     }
                 }
             }
-
-            minWidth += diff;
         }
     }
 
