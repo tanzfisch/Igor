@@ -33,7 +33,7 @@ namespace Igor
 
 			for (auto widget : widgets)
 			{
-				widget->handleMouseMove(x, y);
+				widget->handleMouseMove(x - _translate._pos._x, y - _translate._pos._y);
 			}
 
 			if (x >= _absoluteX &&
