@@ -97,9 +97,9 @@ namespace Igor
         */
         int32 _maxHeight = MAXINT32;
 
-        /*! updates picture widget
+        /*! updates size based on it's content
         */
-        void update();
+        void calcMinSize();
 
 		/*! draws the button
 

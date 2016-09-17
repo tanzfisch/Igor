@@ -84,7 +84,7 @@ namespace Igor
     {
         _decisionBoxCloseEvent.append(closeDelegate);
 
-        iWidgetManager::getInstance().setModal(getDialog());
+        iWidgetManager::setModal(getDialog());
         getDialog()->setActive();
         getDialog()->setVisible();
         getDialog()->setWidth(20);
@@ -201,6 +201,6 @@ namespace Igor
     {
         getDialog()->setActive(false);
         getDialog()->setVisible(false);
-        iWidgetManager::getInstance().resetModal();
+        iWidgetManager::resetModal();
     }
 }

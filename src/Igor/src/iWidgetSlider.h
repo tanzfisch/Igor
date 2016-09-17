@@ -160,9 +160,9 @@ namespace Igor
 
         void cullBoundings();
 
-        /*! updates dimensions of button
+        /*! updates size based on it's content
         */
-		void update();
+        void calcMinSize();
 
 		/*! draws the button
 

@@ -118,27 +118,23 @@ namespace Igor
         */
         void draw();
 
-        /*! updates recursively all widgets
-        */
-        void update();
-
         /*! set this widget exclusively modal
         */
-        void setModal(iWidgetDialog* dialog);
+        static void setModal(iWidgetDialog* dialog);
 
         /*! \returns current modal widget
         */
-        iWidgetDialog* getModal();
+        static iWidgetDialog* getModal();
 
         /*! \returns true: if widget is modal
 
         \param dialog the dialog to check if it is modal
         */
-        bool isModal(iWidgetDialog* dialog);
+        static bool isModal(iWidgetDialog* dialog);
 
         /*! reset modal flag
         */
-        void resetModal();
+        static void resetModal();
 
         /*! register delegate to "redirected" mouse double click event
 
@@ -216,7 +212,7 @@ namespace Igor
 
         /*! modal marker
         */
-        iWidgetDialog* _modal = nullptr;
+        static iWidgetDialog* _modal;
 
         /*! mouse key down event
         */
@@ -266,7 +262,19 @@ namespace Igor
         */
 		uint32 _desktopHeight = 0;
 
-        void updateWidget(iWidget* widget);
+        /*! traverse widget tree and updates positions and sizes
+
+        \param widget current widget to update
+        */
+        void traverseContentSize(iWidget* widget);
+
+        /*! traverse widget tree and updates alignment
+        */
+        void traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
+
+        /*! updates recursively all widgets
+        */
+        void onHandle();
 
         /*! destroyes widgets
         */

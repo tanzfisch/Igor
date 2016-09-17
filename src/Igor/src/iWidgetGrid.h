@@ -30,7 +30,6 @@
 #define __iWIDGETGRID__
 
 #include <iWidget.h>
-
 #include <vector>
 using namespace std;
 
@@ -320,9 +319,9 @@ namespace Igor
         */
         void handleMouseMove(int32 x, int32 y);
 
-        /*! updates grid and it's children
+        /*! updates size based on it's content
         */
-        void update();
+        void calcMinSize();
 
 		/*! draws the button
 
@@ -334,6 +333,10 @@ namespace Igor
         /*! initializes an empty grid with default size of one row and collumn
         */
         void initGrid();
+
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
+
+        void calcChildOffsets(vector<iRectanglei>& offsets);
 
         /*! ctor initializes member variables
         */

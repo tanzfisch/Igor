@@ -133,9 +133,9 @@ namespace Igor
         */
         bool _writeProtected = false;
 
-        /*! updates widget
+        /*! updates size based on it's content
         */
-		void update();
+        void calcMinSize();
 
 		/*! draws the button
 

@@ -476,15 +476,15 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active)
     {
-        int32 x = posx;
-        int32 y = posy;
-        int32 w = width;
-        int32 h = height;
+        float32 x = static_cast<float32>(posx);
+        float32 y = static_cast<float32>(posy);
+        float32 w = static_cast<float32>(width);
+        float32 h = static_cast<float32>(height);
 
         if (text != "")
         {
-            y = posy + _fontSize * 0.5f;
-            h = height - _fontSize * 0.5f;
+            y += _fontSize * 0.5f;
+            h -= _fontSize * 0.5f;
         }
 
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
@@ -492,19 +492,19 @@ namespace Igor
 
         if (text == "")
         {
-            iRenderer::getInstance().drawLine(x, y, x + width, y);
+            iRenderer::getInstance().drawLine(x, y, x + w, y);
         }
         else
         {
-            iRenderer::getInstance().drawLine(x, y, x + _fontSize * 0.4f, y);
-            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, _fontSize) + _fontSize * 0.6f, y, x + width, y);
+            iRenderer::getInstance().drawLine(x, y, x + _fontSize, y);
+            iRenderer::getInstance().drawLine(x + _font->measureWidth(text, _fontSize) + _fontSize * 2.0f, y, x + w, y);
         }
-
+        
         iRenderer::getInstance().drawLine(x, y, x, y + h);
-        iRenderer::getInstance().drawLine(x, y + h, x + width, y + h);
-        iRenderer::getInstance().drawLine(x + width, y, x + width, y + h);
+        iRenderer::getInstance().drawLine(x, y + h, x + w, y + h);
+        iRenderer::getInstance().drawLine(x + w, y, x + w, y + h);
 
-        drawText(posx + _fontSize * 0.5f, posy + _fontSize * 0.25f, text, 0);
+        drawText(x + _fontSize * 1.5, y - _fontSize * 0.5f, text, 0);
 
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }

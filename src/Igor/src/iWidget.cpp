@@ -44,7 +44,7 @@ namespace Igor
 			{
 				_children.push_back(widget);
 				widget->_parent = this;
-				widget->update();
+				//widget->update();
 			}
 			else
 			{
@@ -67,7 +67,7 @@ namespace Igor
 				widget->setActive(false);
 				widget->setVisible(false);
 				_children.erase(iter);
-				update();
+				//update();
 			}
 			else
 			{
@@ -207,8 +207,6 @@ namespace Igor
 
 	void iWidget::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			for (auto widget : _children)
@@ -255,7 +253,7 @@ namespace Igor
 
 	bool iWidget::handleMouseWheel(int32 d)
 	{
-		if (isActive())
+		if (isActive() && _reactOnMouseWheel)
 		{
 			if (_isMouseOver)
 			{
@@ -276,16 +274,17 @@ namespace Igor
 				}
 				else
 				{
+                    bool handeled = false;
 					if (d > 0)
 					{
-						_wheelUp(this);
+                        _wheelUp(this);
 					}
 					else
 					{
-						_wheelDown(this);
+                        _wheelDown(this);
 					}
-
-					return true;
+                    
+					return handeled;
 				}
 			}
 		}
@@ -486,7 +485,6 @@ namespace Igor
 	void iWidget::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
 	{
 		_horrizontalAlignment = horrizontalAlignment;
-		update();
 	}
 
 	iVerticalAlignment iWidget::getVerticalAlignment()
@@ -497,7 +495,6 @@ namespace Igor
 	void iWidget::setVerticalAlignment(iVerticalAlignment verticalAlignment)
 	{
 		_verticalAlignment = verticalAlignment;
-		update();
 	}
 
 	void iWidget::setVisible(bool visible)
@@ -521,30 +518,27 @@ namespace Igor
 		}
 	}
 
-	void iWidget::updateParent()
-	{
-		if (_parent != nullptr)
-		{
-			_parent->update();
-		}
-	}
-
 	void iWidget::setWidth(int32 width)
 	{
 		_configuredWidth = width;
-		update();
 	}
 
 	void iWidget::setHeight(int32 height)
 	{
 		_configuredHeight = height;
-		update();
 	}
+
+    void iWidget::setClientArea(int32 left, int32 right, int32 top, int32 bottom)
+    {
+        _clientAreaLeft = left;
+        _clientAreaRight = right;
+        _clientAreaTop = top;
+        _clientAreaBottom = bottom;
+    }
 
 	void iWidget::setGrowingByContent(bool grow)
 	{
 		_growsByContent = grow;
-		update();
 	}
 
 	bool iWidget::isGrowingByContent() const
@@ -552,83 +546,103 @@ namespace Igor
 		return _growsByContent;
 	}
 
-	void iWidget::updateAlignment()
+	void iWidget::updateAlignment(int32 clientWidth, int32 clientHeight)
 	{
-		if (hasParent())
+        int32 width = getMinWidth();
+        int32 height = getMinHeight();
+
+		switch (iWidget::getHorrizontalAlignment())
 		{
-			switch (iWidget::getHorrizontalAlignment())
-			{
-			case iHorrizontalAlignment::Left:
-				_relativeX = 0;
-				break;
+		case iHorrizontalAlignment::Left:
+			_relativeX = 0;
+			break;
 
-			case iHorrizontalAlignment::Strech:
-				_relativeX = 0;
-				if (_parent->getActualWidth() > _actualWidth)
-				{
-					_actualWidth = _parent->getActualWidth();
-				}
-				break;
+		case iHorrizontalAlignment::Strech:
+			_relativeX = 0;
+            width = clientWidth;
+			break;
 
-			case iHorrizontalAlignment::Center:
-				_relativeX = (_parent->getActualWidth() - _actualWidth) / 2;
-				break;
+		case iHorrizontalAlignment::Center:
+			_relativeX = (clientWidth - width) / 2;
+			break;
 
-			case iHorrizontalAlignment::Right:
-				_relativeX = _parent->getActualWidth() - _actualWidth;
-				break;
+		case iHorrizontalAlignment::Right:
+			_relativeX = clientWidth - width;
+			break;
 
-			case iHorrizontalAlignment::Absolut:
-				con_err("absolut positioning only supported for dialogs");
-				break;
+		case iHorrizontalAlignment::Absolut:
+			con_err("absolut positioning only supported for dialogs");
+			break;
 
-			default:;
-			};
+		default:;
+		};
 
-			switch (iWidget::getVerticalAlignment())
-			{
-			case iVerticalAlignment::Top:
-				_relativeY = 0;
-				break;
+		switch (iWidget::getVerticalAlignment())
+		{
+		case iVerticalAlignment::Top:
+			_relativeY = 0;
+			break;
 
-			case iVerticalAlignment::Strech:
-				_relativeY = 0;
-				if (_parent->getActualHeight() > _actualHeight)
-				{
-					_actualHeight = _parent->getActualHeight();
-				}
-				break;
+		case iVerticalAlignment::Strech:
+			_relativeY = 0;
+            height = clientHeight;
+			break;
 
-			case iVerticalAlignment::Center:
-				_relativeY = (_parent->getActualHeight() - _actualHeight) / 2;
-				break;
+		case iVerticalAlignment::Center:
+			_relativeY = (clientHeight - height) / 2;
+			break;
 
-			case iVerticalAlignment::Bottom:
-				_relativeY = _parent->getActualHeight() - _actualHeight;
-				break;
+		case iVerticalAlignment::Bottom:
+			_relativeY = clientHeight - height;
+			break;
 
-			case iVerticalAlignment::Absolut:
-				con_err("absolut positioning only supported for dialogs");
-				break;
+		case iVerticalAlignment::Absolut:
+			con_err("absolut positioning only supported for dialogs");
+			break;
 
-			default:;
-			}
+		default:;
 		}
+
+        _actualWidth = width;
+        _actualHeight = height;
 	}
 
-	void iWidget::updatePosition(int32 parentPosX, int32 parentPosY)
+	void iWidget::updatePosition(int32 offsetX, int32 offsetY)
 	{
-		_absoluteX = _relativeX + parentPosX;
-		_absoluteY = _relativeY + parentPosY;
+		_absoluteX = _relativeX + offsetX;
+		_absoluteY = _relativeY + offsetY;
 	}
 
-	void iWidget::update(int32 width, int32 height)
-	{
-		_actualWidth = width;
-		_actualHeight = height;
+    void iWidget::calcChildOffsets(vector<iRectanglei>& offsets)
+    {
+        offsets.clear();
 
-		updateParent();
-		updateAlignment();
+        for (auto widget : _children)
+        {
+            int32 clientWidth = _actualWidth - _clientAreaLeft - _clientAreaRight;
+            int32 clientHeight = _actualHeight - _clientAreaTop - _clientAreaBottom;
+
+            offsets.push_back(iRectanglei(_clientAreaLeft, _clientAreaTop, clientWidth, clientHeight));
+        }
+    }
+
+	void iWidget::setMinSize(int32 width, int32 height)
+	{
+        int32 minWidth = width + _clientAreaLeft + _clientAreaRight;
+        int32 minHeight = height + _clientAreaTop + _clientAreaBottom;
+
+        if (minWidth < _configuredWidth)
+        {
+            minWidth = _configuredWidth;
+        }
+
+        if (minHeight < _configuredHeight)
+        {
+            minHeight = _configuredHeight;
+        }
+
+		_minWidth = minWidth;
+		_minHeight = minHeight;
 	}
 
 	bool iWidget::hasParent() const

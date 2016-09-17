@@ -89,9 +89,13 @@ namespace Igor
         */
         int32 _border = 1;
 
-        /*! update the widget
+        /*! updates size based on it's content
         */
-        void update();
+        void calcMinSize();
+
+        /*! updates alignment to desktop
+        */
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
 
 		/*! draws the button
 

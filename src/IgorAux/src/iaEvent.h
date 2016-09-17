@@ -44,8 +44,8 @@ namespace IgorAux
 
     /*! event
     */
-#define iaEVENT(EventName,DelegateName,ReturnValue,ParameterList,InnerParameterList)				    \
-	iaDELEGATE(DelegateName, ReturnValue, ParameterList, InnerParameterList);							\
+#define iaEVENT(EventName,DelegateName,ReturnType,ParameterList,InnerParameterList)				    \
+	iaDELEGATE(DelegateName, ReturnType, ParameterList, InnerParameterList);							\
 																										\
 	class EventName                 																	\
 	{																									\
@@ -74,7 +74,7 @@ namespace IgorAux
                 _mutex.unlock();                                                                        \
 			}																							\
 																										\
-			__inline void operator() ParameterList												        \
+			__inline ReturnType operator() ParameterList												\
 			{																							\
                 _mutex.lock();                                                                          \
                 vector<DelegateName> delegates = _delegates;                                            \

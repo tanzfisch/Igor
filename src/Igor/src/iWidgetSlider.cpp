@@ -33,13 +33,13 @@ namespace Igor
     void iWidgetSlider::setMinValue(float32 min)
     {
         _min = min;
-        update();
+        //update();
     }
 
     void iWidgetSlider::setMaxValue(float32 max)
     {
         _max = max;
-        update();
+        //update();
     }
 
     float32 iWidgetSlider::getMinValue()
@@ -74,7 +74,7 @@ namespace Igor
             _texturePath = texturePath;
             _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
 
-            update();
+            //update();
         }
     }
 
@@ -144,9 +144,9 @@ namespace Igor
         return _texturePath;
     }
 
-	void iWidgetSlider::update()
+	void iWidgetSlider::calcMinSize()
 	{
-		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
+        setMinSize(0, 0);
 	}
 
     bool iWidgetSlider::handleMouseKeyDown(iKeyCode key)
@@ -222,8 +222,6 @@ namespace Igor
 	{
         con_assert(_min < _max, "invalid configuration");
 
-		updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
             if (_backgroundTexture != nullptr)
@@ -258,7 +256,7 @@ namespace Igor
             _backgroundTexturePath = texturePath;
             _backgroundTexture = iTextureResourceFactory::getInstance().loadFile(_backgroundTexturePath);
 
-            update();
+            // update();
         }
     }
 

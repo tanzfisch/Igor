@@ -29,12 +29,17 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iWidgetDialog* iWidgetManager::_modal = nullptr;
+
     iWidgetManager::iWidgetManager()
     {
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
     iWidgetManager::~iWidgetManager()
     {
+        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+
         destroyWidgets();
 
         if (_widgets.size() != 0)
@@ -293,23 +298,43 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::update()
+    void iWidgetManager::onHandle()
     {
         for (auto dialog : _dialogs)
         {
-            updateWidget(dialog);
+            traverseContentSize(dialog);
+            traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
         }
     }
 
-    void iWidgetManager::updateWidget(iWidget* widget)
+    void iWidgetManager::traverseContentSize(iWidget* widget)
     {
         if (widget != nullptr)
         {
-            widget->update();
-
             for (auto child : widget->_children)
             {
-                updateWidget(child);
+                traverseContentSize(child);
+            }
+
+            widget->calcMinSize();
+        }
+    }
+
+    void iWidgetManager::traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)
+    {
+        if (widget != nullptr)
+        {
+            widget->updateAlignment(clientRectWidth, clientRectHeight);
+            widget->updatePosition(offsetX, offsetY);
+
+            vector<iRectanglei> offsets;
+            widget->calcChildOffsets(offsets);
+
+            con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
+
+            for (int i = 0; i < offsets.size();++i)
+            {
+                traverseAlignment(widget->_children[i], widget->getActualPosX() + offsets[i].getX(), widget->getActualPosY() + offsets[i].getY(), offsets[i].getWidth(), offsets[i].getHeight());
             }
         }
     }
@@ -318,8 +343,6 @@ namespace Igor
     {
         _desktopWidth = width;
         _desktopHeight = height;
-
-        update();
     }
 
     uint32 iWidgetManager::getDesktopWidth() const

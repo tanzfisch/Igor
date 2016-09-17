@@ -15,12 +15,13 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetPicture::iWidgetPicture()
-		: iWidget(iWidgetType::Label)
-	{
-		setHorrizontalAlignment(iHorrizontalAlignment::Center);
-		setVerticalAlignment(iVerticalAlignment::Center);
-	}
+    iWidgetPicture::iWidgetPicture()
+        : iWidget(iWidgetType::Label)
+    {
+        setHorrizontalAlignment(iHorrizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
+        _reactOnMouseWheel = false;
+    }
 
     iWidgetPicture::~iWidgetPicture()
     {
@@ -31,7 +32,7 @@ namespace Igor
     {
         _maxWidth = width;
         _maxHeight = height;
-        update();
+        //update();
     }
 
     int32 iWidgetPicture::getMaxWidth()
@@ -44,65 +45,54 @@ namespace Igor
         return _maxHeight;
     }
 
-	void iWidgetPicture::update()
-	{
-		int32 width = _configuredWidth;
-		int32 height = _configuredHeight;
+    void iWidgetPicture::calcMinSize()
+    {
+        int32 minWidth = 0;
+        int32 minHeight = 0;
 
-		if (isGrowingByContent())
-		{
-			if (_texture != nullptr)
-			{
-				if (_texture->getWidth() > width)
-				{
-					width = _texture->getWidth();
-				}
+        if (isGrowingByContent())
+        {
+            if (_texture != nullptr)
+            {
+                minWidth = _texture->getWidth();
+                minHeight = _texture->getHeight();
+            }
+        }
 
-				if (_texture->getHeight() > height)
-				{
-					height = _texture->getHeight();
-				}
-			}
-		}
+        if (minWidth > _maxWidth)
+        {
+            minWidth = _maxWidth;
+        }
 
-		if (width > _maxWidth)
-		{
-			width = _maxWidth;
-		}
+        if (minHeight > _maxHeight)
+        {
+            minHeight = _maxHeight;
+        }
 
-		if (height > _maxHeight)
-		{
-			height = _maxHeight;
-		}
+        setMinSize(minWidth, minHeight);
+    }
 
-		iWidget::update(width, height);
-	}
-
-	void iWidgetPicture::draw(int32 parentPosX, int32 parentPosY)
-	{
-		updatePosition(parentPosX, parentPosY);
-
-		if (isVisible() &&
+    void iWidgetPicture::draw(int32 parentPosX, int32 parentPosY)
+    {
+        if (isVisible() &&
             _texture != nullptr)
-		{
-			iWidgetManager::getInstance().getTheme()->drawPicture(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture, _widgetAppearanceState, isActive());
-		}
-	}
+        {
+            iWidgetManager::getInstance().getTheme()->drawPicture(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture, _widgetAppearanceState, isActive());
+        }
+    }
 
-	const iaString& iWidgetPicture::getTexture() const
-	{
-		return _texturePath;
-	}
-	
+    const iaString& iWidgetPicture::getTexture() const
+    {
+        return _texturePath;
+    }
+
     void iWidgetPicture::setTexture(const iaString& texturePath)
-	{
+    {
         if (_texturePath != texturePath)
         {
             _texturePath = texturePath;
             _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
-
-            update();
         }
-	}
+    }
 
 }

@@ -20,6 +20,7 @@ namespace Igor
 	{
 		_configuredWidth = 60;
 		_configuredHeight = 20;
+        _reactOnMouseWheel = false;
 
 		setHorrizontalAlignment(iHorrizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
@@ -43,15 +44,13 @@ namespace Igor
         return _color;
     }
 
-	void iWidgetColorView::update()
+	void iWidgetColorView::calcMinSize()
 	{
-		iWidget::update(_configuredWidth, _configuredHeight);
+        setMinSize(0, 0);
 	}
 
 	void iWidgetColorView::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture);

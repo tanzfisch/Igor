@@ -128,7 +128,7 @@ namespace Igor
 
         _renderContext = 0;
 
-        updateClientSize();
+        calcMinSize();
 
         _swapBufferSectionID = iStatistics::getInstance().registerSection("w_swap", iaColor4f(0.33, 0, 0, 1), 0);
     }
@@ -431,7 +431,7 @@ namespace Igor
         {
             _width = width;
             _height = height;
-            updateClientSize();
+            calcMinSize();
 
             if (_isOpen)
             {
@@ -469,7 +469,7 @@ namespace Igor
         if (!_isOpen)
         {
             _fullscreen = fullscreen;
-            updateClientSize();
+            calcMinSize();
         }
         else
         {
@@ -566,7 +566,7 @@ namespace Igor
         _width = width;
         _height = height;
 
-        updateClientSize();
+        calcMinSize();
 
         iRectanglei windowRect;
         windowRect.setWidth(_clientWidth);
@@ -586,7 +586,7 @@ namespace Igor
         _yPos = y;
     }
 
-    void iWindow::updateClientSize()
+    void iWindow::calcMinSize()
     {
         if (_fullscreen)
         {

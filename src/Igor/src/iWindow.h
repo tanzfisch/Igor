@@ -355,7 +355,7 @@ namespace Igor
 
         If the window is not open yet the client size will be calculated
         */
-        void updateClientSize();
+        void calcMinSize();
 		
     private:
 

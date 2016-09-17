@@ -19,6 +19,7 @@ namespace Igor
 	{
 		_configuredHeight = 10;
 		_configuredWidth = 20;
+        _reactOnMouseWheel = false;
 	}
 
     iWidgetButton::~iWidgetButton()
@@ -29,7 +30,7 @@ namespace Igor
 	void iWidgetButton::setText(const iaString& text)
 	{
 		_text = text;
-		update();
+		//update();
 	}
 
 	const iaString& iWidgetButton::getText() const
@@ -43,7 +44,7 @@ namespace Igor
         {
             _texturePath = texturePath;
             _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
-            update();
+            //update();
         }
     }
 
@@ -52,10 +53,10 @@ namespace Igor
         return _texturePath;
     }
 
-	void iWidgetButton::update()
+	void iWidgetButton::calcMinSize()
 	{
-		int32 width = _configuredWidth;
-		int32 height = _configuredHeight;
+		int32 minWidth = 0;
+		int32 minHeight = 0;
 
 		if (isGrowingByContent() &&
 			!_text.isEmpty())
@@ -63,18 +64,11 @@ namespace Igor
 			float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
 			int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
 
-			if (textWidth + fontSize * 1.5 > width)
-			{
-				width = textWidth + fontSize * 1.5;
-			}
-
-			if (fontSize * 1.5 > height)
-			{
-				height = fontSize * 1.5;
-			}
+            minWidth = textWidth + fontSize * 2.5;
+            minHeight = fontSize * 1.5;
 		}
 
-		iWidget::update(width, height);
+        setMinSize(minWidth, minHeight);
 	}
 
     iHorrizontalAlignment iWidgetButton::getHorrizontalTextAlignment() const
@@ -99,8 +93,6 @@ namespace Igor
 
 	void iWidgetButton::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horrizontalTextAlignment, _verticalTextAlignment, _texture, getAppearanceState(), isActive());

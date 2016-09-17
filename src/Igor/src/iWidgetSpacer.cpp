@@ -18,17 +18,16 @@ namespace Igor
 	{
         setHorrizontalAlignment(iHorrizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
+        _reactOnMouseWheel = false;
 	}
 
-	void iWidgetSpacer::update()
+	void iWidgetSpacer::calcMinSize()
 	{
-		iWidget::update(getConfiguredWidth(), getConfiguredHeight());
+        setMinSize(0, 0);
 	}
 
 	void iWidgetSpacer::draw(int32 parentPosX, int32 parentPosY)
 	{
-		updatePosition(parentPosX, parentPosY);
-
 		if (isVisible())
 		{
 			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
