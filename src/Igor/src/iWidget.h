@@ -32,7 +32,7 @@
 #include <iMouse.h>
 #include <iStopWatch.h>
 
-#include <iaVector2.h>
+#include <iaVector4.h>
 using namespace IgorAux;
 
 #include <vector>
@@ -712,7 +712,7 @@ namespace Igor
 
         /*! updates horrizontal and vertical alignment relative to parent
         */
-        virtual void updateAlignment();
+        //virtual void updateAlignment();
 
         virtual void updateAlignment(int32 clientWidth, int32 clientHeight);
 
@@ -723,7 +723,7 @@ namespace Igor
         */
         void updatePosition(int32 offsetX, int32 offsetY);
 
-        virtual void calcChildOffsets(vector<iaVector2i>& offsets);
+        virtual void calcChildOffsets(vector<iRectanglei>& offsets);
 
 	};
 

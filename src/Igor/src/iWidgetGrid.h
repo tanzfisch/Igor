@@ -334,9 +334,9 @@ namespace Igor
         */
         void initGrid();
 
-        void updateAlignment();
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
 
-        void calcChildOffsets(vector<iaVector2i>& offsets);
+        void calcChildOffsets(vector<iRectanglei>& offsets);
 
         /*! ctor initializes member variables
         */

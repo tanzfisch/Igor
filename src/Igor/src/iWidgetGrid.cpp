@@ -369,12 +369,12 @@ namespace Igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetGrid::calcChildOffsets(vector<iaVector2i>& offsets)
+    void iWidgetGrid::calcChildOffsets(vector<iRectanglei>& offsets)
     {
         offsets.clear();
         offsets.resize(_children.size());
 
-        iaVector2i pos;
+        iRectanglei clientRect;
 
         auto iterRow = _widgetRows.begin();
         while (iterRow != _widgetRows.end())
@@ -399,10 +399,12 @@ namespace Igor
 
                 if (foundIndex != -1)
                 {
-                    pos._x = (*iterCollumn)._x;
-                    pos._y = (*iterCollumn)._y;
+                    clientRect.setX((*iterCollumn)._x);
+                    clientRect.setY((*iterCollumn)._y);
+                    clientRect.setWidth((*iterCollumn)._width);
+                    clientRect.setHeight((*iterCollumn)._height);
 
-                    offsets[foundIndex] = pos;
+                    offsets[foundIndex] = clientRect;
                 }
 
                 iterCollumn++;
@@ -412,9 +414,9 @@ namespace Igor
         }
     }
 
-    void iWidgetGrid::updateAlignment()
+    void iWidgetGrid::updateAlignment(int32 clientWidth, int32 clientHeight)
     {
-        iWidget::updateAlignment();
+        iWidget::updateAlignment(clientWidth, clientHeight);
 
         uint32 rowCount = static_cast<uint32>(_widgetRows.size());
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());

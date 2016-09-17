@@ -546,17 +546,6 @@ namespace Igor
 		return _growsByContent;
 	}
 
-    void iWidget::updateAlignment()
-    {
-        if (hasParent())
-        {
-            int32 clientWidth = _parent->getActualWidth() - _parent->_clientAreaLeft - _parent->_clientAreaRight;
-            int32 clientHeight = _parent->getActualHeight() - _parent->_clientAreaTop - _parent->_clientAreaBottom;
-
-            updateAlignment(clientWidth, clientHeight);
-        }
-    }
-
 	void iWidget::updateAlignment(int32 clientWidth, int32 clientHeight)
 	{
         int32 width = getMinWidth();
@@ -624,13 +613,16 @@ namespace Igor
 		_absoluteY = _relativeY + offsetY;
 	}
 
-    void iWidget::calcChildOffsets(vector<iaVector2i>& offsets)
+    void iWidget::calcChildOffsets(vector<iRectanglei>& offsets)
     {
         offsets.clear();
 
         for (auto widget : _children)
         {
-            offsets.push_back(iaVector2i(_clientAreaLeft,_clientAreaTop));
+            int32 clientWidth = _actualWidth - _clientAreaLeft - _clientAreaRight;
+            int32 clientHeight = _actualHeight - _clientAreaTop - _clientAreaBottom;
+
+            offsets.push_back(iRectanglei(_clientAreaLeft, _clientAreaTop, clientWidth, clientHeight));
         }
     }
 

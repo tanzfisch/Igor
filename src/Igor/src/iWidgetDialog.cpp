@@ -50,7 +50,7 @@ namespace Igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetDialog::updateAlignment()
+    void iWidgetDialog::updateAlignment(int32 clientWidth, int32 clientHeight)
     {
         int32 width = getMinWidth();
         int32 height = getMinHeight();
@@ -63,15 +63,15 @@ namespace Igor
 
         case iHorrizontalAlignment::Strech:
             _relativeX = 0;
-            width = iWidgetManager::getInstance().getDesktopWidth();
+            width = clientWidth;
             break;
 
         case iHorrizontalAlignment::Center:
-            _relativeX = (iWidgetManager::getInstance().getDesktopWidth() - width) / 2;
+            _relativeX = (clientWidth - width) / 2;
             break;
 
         case iHorrizontalAlignment::Right:
-            _relativeX = iWidgetManager::getInstance().getDesktopWidth() - width;
+            _relativeX = clientWidth - width;
             break;
 
         case iHorrizontalAlignment::Absolut:
@@ -89,15 +89,15 @@ namespace Igor
 
         case iVerticalAlignment::Strech:
             _relativeY = 0;
-            height = iWidgetManager::getInstance().getDesktopHeight();
+            height = clientHeight;
             break;
 
         case iVerticalAlignment::Center:
-            _relativeY = (iWidgetManager::getInstance().getDesktopHeight() - height) / 2;
+            _relativeY = (clientHeight - height) / 2;
             break;
 
         case iVerticalAlignment::Bottom:
-            _relativeY = iWidgetManager::getInstance().getDesktopHeight() - height;
+            _relativeY = clientHeight - height;
             break;
 
         case iVerticalAlignment::Absolut:

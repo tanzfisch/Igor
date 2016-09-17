@@ -100,7 +100,6 @@ void WidgetsExample::initGUI()
     groupBox->setText("Hello World. This is a group box!");
     groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
-    groupBox->setBorder(10);
     groupBox->setHeight(30);
 
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget 
@@ -124,6 +123,7 @@ void WidgetsExample::initGUI()
     iWidgetGrid* grid4 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid4);
     grid4->appendCollumns(3);
+    grid4->setStrechColumn(1);
     grid4->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Strech);
     grid4->setSelectMode(iSelectionMode::NoSelection);
@@ -198,9 +198,9 @@ void WidgetsExample::initGUI()
     iWidgetPicture* picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
     _allWidgets.push_back(picture);
     picture->setTexture("OpenGL-Logo.jpg");
-    picture->setMaxSize(100, 50);
+    picture->setMaxSize(200, 64);
     picture->setVerticalAlignment(iVerticalAlignment::Top);
-    picture->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    picture->setHorrizontalAlignment(iHorrizontalAlignment::Right);
 
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();

@@ -95,7 +95,7 @@ namespace Igor
 
         /*! updates alignment to desktop
         */
-        void updateAlignment();
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
 
 		/*! draws the button
 

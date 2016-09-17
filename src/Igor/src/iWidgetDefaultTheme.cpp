@@ -474,12 +474,12 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
-    void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, int32 border, const iaString& text, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active)
     {
-        float32 x = static_cast<float32>(posx) + static_cast<float32>(border) * 0.5f;
-        float32 y = static_cast<float32>(posy) + static_cast<float32>(border) * 0.5f;
-        float32 w = static_cast<float32>(width) - static_cast<float32>(border);
-        float32 h = static_cast<float32>(height) - static_cast<float32>(border);
+        float32 x = static_cast<float32>(posx);
+        float32 y = static_cast<float32>(posy);
+        float32 w = static_cast<float32>(width);
+        float32 h = static_cast<float32>(height);
 
         if (text != "")
         {

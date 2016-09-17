@@ -72,7 +72,7 @@ namespace Igor
 		virtual void drawDialog(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active) = 0;
         virtual void drawSpacer(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorrizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active) = 0;
-		virtual void drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, int32 border, const iaString& text, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, bool checked, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawNumberChooser(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonUp, iWidgetAppearanceState buttonDown, bool active) = 0;

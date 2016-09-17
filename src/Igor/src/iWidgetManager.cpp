@@ -303,7 +303,7 @@ namespace Igor
         for (auto dialog : _dialogs)
         {
             traverseContentSize(dialog);
-            traverseAlignment(dialog, 0, 0);
+            traverseAlignment(dialog, 0, 0, getDesktopWidth(), getDesktopHeight());
         }
     }
 
@@ -320,26 +320,21 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY)
+    void iWidgetManager::traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight)
     {
         if (widget != nullptr)
         {
-            if (widget->_parent == nullptr ||
-                widget->_parent->getType() != iWidgetType::Grid ||
-                widget->getType() == iWidgetType::Grid)
-            {
-                widget->updateAlignment();
-                widget->updatePosition(offsetX, offsetY);
-            }
+            widget->updateAlignment(clientRectWidth, clientRectHeight);
+            widget->updatePosition(offsetX, offsetY);
 
-            vector<iaVector2i> offsets;
+            vector<iRectanglei> offsets;
             widget->calcChildOffsets(offsets);
 
             con_assert(offsets.size() == widget->_children.size(), "inconsistant data");
 
             for (int i = 0; i < offsets.size();++i)
             {
-                traverseAlignment(widget->_children[i], widget->getActualPosX() + offsets[i]._x, widget->getActualPosY() + offsets[i]._y);
+                traverseAlignment(widget->_children[i], widget->getActualPosX() + offsets[i].getX(), widget->getActualPosY() + offsets[i].getY(), offsets[i].getWidth(), offsets[i].getHeight());
             }
         }
     }

@@ -270,7 +270,7 @@ namespace Igor
 
         /*! traverse widget tree and updates alignment
         */
-        void traverseAlignment(iWidget* widget, int32 parentX, int32 parentY);
+        void traverseAlignment(iWidget* widget, int32 offsetX, int32 offsetY, int32 clientRectWidth, int32 clientRectHeight);
 
         /*! updates recursively all widgets
         */
