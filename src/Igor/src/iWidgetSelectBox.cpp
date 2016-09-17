@@ -120,7 +120,7 @@ namespace Igor
                     _selectBox = new iDialogMenu();
                 }
 
-                // TODO insuficcient if select box is within a iWidgetScroll. maybe the widget system needs an other big redesign :-(
+                // TODO insuficcient if select box is within a iWidgetScroll
                 _selectBox->setWidth(getActualWidth() - getActualHeight());
                 _selectBox->setX(getActualPosX() + 2);
                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);

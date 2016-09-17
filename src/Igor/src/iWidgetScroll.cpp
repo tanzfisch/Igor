@@ -66,14 +66,12 @@ namespace Igor
 	{
 		con_assert(value >= 0.0f && value <= 1.0f, "out od range");
 		_hscroll = value;
-		//update();
 	}
 
 	void iWidgetScroll::setVerticalScroll(float32 value)
 	{
 		con_assert(value >= 0.0f && value <= 1.0f, "out od range");
 		_vscroll = value;
-		//update();
 	}
 
 	bool iWidgetScroll::handleMouseWheel(int32 d)
@@ -105,7 +103,6 @@ namespace Igor
 				_vscroll = 1.0f;
 			}
 
-			//update();
 			return true;
 		}
 		else if (_hscrollActive)
@@ -121,7 +118,6 @@ namespace Igor
 				_hscroll = 1.0f;
 			}
 
-			//update();
 			return true;
 		}
 

@@ -213,6 +213,8 @@ namespace Igor
         */
         void calcMinSize();
 
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
+
 		/*! draws the button
 
 		\param parentPosX parent absolute horrizontal position

@@ -39,18 +39,22 @@ namespace Igor
             minWidth = textWidth + minHeight + static_cast<int32>(fontSize);
         }
 
-        // todo use real buttons
-        _buttonUpRectangle.setX(minWidth - minHeight - 1);
-        _buttonUpRectangle.setY(1);
-        _buttonUpRectangle.setWidth(minHeight);
-        _buttonUpRectangle.setHeight(minHeight / 2 - 1);
-
-        _buttonDownRectangle.setX(minWidth - minHeight - 1);
-        _buttonDownRectangle.setY(minHeight / 2);
-        _buttonDownRectangle.setWidth(minHeight);
-        _buttonDownRectangle.setHeight(minHeight / 2 - 1);
-
         setMinSize(minWidth, minHeight);
+    }
+
+    void iWidgetNumberChooser::updateAlignment(int32 clientWidth, int32 clientHeight)
+    {
+        iWidget::updateAlignment(clientWidth, clientHeight);
+
+        _buttonUpRectangle.setX(_actualWidth - _actualHeight - 1);
+        _buttonUpRectangle.setY(1);
+        _buttonUpRectangle.setWidth(_actualHeight);
+        _buttonUpRectangle.setHeight(_actualHeight / 2 - 1);
+
+        _buttonDownRectangle.setX(_actualWidth - _actualHeight - 1);
+        _buttonDownRectangle.setY(_actualHeight / 2);
+        _buttonDownRectangle.setWidth(_actualHeight);
+        _buttonDownRectangle.setHeight(_actualHeight / 2 - 1);
     }
 
     void iWidgetNumberChooser::cullBoundings()
