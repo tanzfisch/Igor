@@ -363,7 +363,9 @@ namespace Igor
             minHeight = getConfiguredHeight();
         }
 
-        setClientArea(_border, _border, _border, _border);
+        // no client area definition needed becasue every child has it's individual field
+        setClientArea(0, 0, 0, 0);
+        
         setMinSize(minWidth, minHeight);
     }
 
