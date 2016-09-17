@@ -325,7 +325,8 @@ namespace Igor
         if (widget != nullptr)
         {
             if (widget->_parent == nullptr ||
-                widget->_parent->getType() != iWidgetType::Grid)
+                widget->_parent->getType() != iWidgetType::Grid ||
+                widget->getType() == iWidgetType::Grid)
             {
                 widget->updateAlignment();
                 widget->updatePosition(offsetX, offsetY);

@@ -86,7 +86,7 @@ void WidgetsExample::initGUI()
 
     iWidgetGrid* grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid1);
-    grid1->appendRows(2);
+    grid1->appendRows(1);
     grid1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     grid1->setVerticalAlignment(iVerticalAlignment::Strech);
     grid1->setBorder(10);
@@ -101,19 +101,13 @@ void WidgetsExample::initGUI()
     groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
     groupBox->setBorder(10);
-    groupBox->setHeight(100);
-
-    iWidgetGrid* grid2 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allWidgets.push_back(grid2);
-    grid2->appendCollumns(1);
-    grid2->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    grid2->setVerticalAlignment(iVerticalAlignment::Strech);
-    grid2->setSelectMode(iSelectionMode::NoSelection);
+    groupBox->setHeight(30);
 
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget 
     // shows vertical and or horizontal sliders and allows to scroll the child.
     iWidgetScroll* widgetScoll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
     _allWidgets.push_back(widgetScoll);
+    widgetScoll->setHeight(100);
     widgetScoll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
 
@@ -231,9 +225,13 @@ void WidgetsExample::initGUI()
     dialog->addWidget(grid1);
 
     grid1->addWidget(groupBox, 0, 0);
-    grid1->addWidget(grid2, 0, 1);
 
-    grid2->addWidget(widgetScoll, 0, 0);
+    groupBox->addWidget(grid4);
+
+    grid4->addWidget(button2, 0, 0);
+    grid4->addWidget(picture, 3, 0);
+
+    grid1->addWidget(widgetScoll, 0, 1);
 
     widgetScoll->addWidget(grid3);
 
@@ -250,11 +248,6 @@ void WidgetsExample::initGUI()
     grid3->addWidget(radio1, 0, 4);
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
-
-    groupBox->addWidget(grid4);
-
-    grid4->addWidget(button2, 0, 0);
-    grid4->addWidget(picture, 3, 0);
 }
 
 void WidgetsExample::deinit()
