@@ -317,8 +317,6 @@ namespace Igor
             }
 
             widget->calcMinSize();
-
-            // con_endl("size " << widget->getMinWidth() << ", " << widget->getMinHeight()); // TODO remove 
         }
     }
 
@@ -326,8 +324,12 @@ namespace Igor
     {
         if (widget != nullptr)
         {
-            widget->updateAlignment();
-            widget->updatePosition(offsetX, offsetY);
+            if (widget->_parent == nullptr ||
+                widget->_parent->getType() != iWidgetType::Grid)
+            {
+                widget->updateAlignment();
+                widget->updatePosition(offsetX, offsetY);
+            }
 
             vector<iaVector2i> offsets;
             widget->calcChildOffsets(offsets);
