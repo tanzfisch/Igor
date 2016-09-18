@@ -39,7 +39,7 @@ void MenuDialog::initGUI()
 {
     _messageBox = new iDialogMessageBox();
 
-	getDialog()->setWidth(350);
+	getDialog()->setWidth(360);
 	getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 	getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 

@@ -8,7 +8,7 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-#define DEBUG_OUTPUT 1
+#define DEBUG_OUTPUT 0
 
 #if DEBUG_OUTPUT == 1
     iaColor4f MOUSEOVER(1,1,1,0.5f);
