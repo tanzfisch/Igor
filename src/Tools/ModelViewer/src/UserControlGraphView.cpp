@@ -70,6 +70,8 @@ void UserControlGraphView::initGUI()
     grid->setBorder(0);
     grid->appendRows(1);
     grid->setCellSpacing(2);
+    grid->setStrechRow(1);
+    grid->setStrechColumn(0);
     grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
 

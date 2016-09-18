@@ -51,6 +51,7 @@ void MenuDialog::initGUI()
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
     _grid->appendRows(2);
 	_grid->setStrechRow(2);
+    _grid->setStrechColumn(0);
     
     _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allwidgets.push_back(_gridButtons);

@@ -32,7 +32,6 @@ namespace Igor
     {
         _maxWidth = width;
         _maxHeight = height;
-        //update();
     }
 
     int32 iWidgetPicture::getMaxWidth()
@@ -59,17 +58,17 @@ namespace Igor
             }
         }
 
-        if (minWidth > _maxWidth)
-        {
-            minWidth = _maxWidth;
-        }
-
-        if (minHeight > _maxHeight)
-        {
-            minHeight = _maxHeight;
-        }
-
         setMinSize(minWidth, minHeight);
+
+        if (_minWidth > _maxWidth)
+        {
+            _minWidth = _maxWidth;
+        }
+
+        if (_minHeight > _maxHeight)
+        {
+            _minHeight = _maxHeight;
+        }
     }
 
     void iWidgetPicture::draw(int32 parentPosX, int32 parentPosY)

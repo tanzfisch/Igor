@@ -38,11 +38,12 @@ void UserControlMaterialView::initGUI()
     iWidgetGrid* grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _rootWidget = grid;
     _allWidgets.push_back(grid);
-    grid->appendCollumns(1);
     grid->appendRows(1);
     grid->setBorder(2);
     grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid->setStrechColumn(0);
+    grid->setStrechRow(1);
 
     iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridButtons);
@@ -80,8 +81,8 @@ void UserControlMaterialView::initGUI()
     _gridGraph->setVerticalAlignment(iVerticalAlignment::Top);
     _gridGraph->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterialView::OnSelectionChange));
 
-    gridButtons->addWidget(addMaterialButton, 0, 0);
     grid->addWidget(gridButtons, 0, 0);
+    gridButtons->addWidget(addMaterialButton, 0, 0);
     grid->addWidget(groupBox, 0, 1);
     groupBox->addWidget(scroll);
     scroll->addWidget(_gridGraph);
