@@ -78,12 +78,9 @@ namespace Igor
         */
         void calcMinSize();
 
-		/*! draws the button
-
-		\param parentPosX parent absolute horrizontal position
-		\param parentPosY parent absolute vertical position
+		/*! draws the widget
 		*/
-		void draw(int32 parentPosX, int32 parentPosY);
+		void draw();
 
         /*! ctor initializes member variables
         */

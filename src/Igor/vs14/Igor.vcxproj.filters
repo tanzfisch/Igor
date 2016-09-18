@@ -891,9 +891,6 @@
     <ClInclude Include="..\src\iWidgetScroll.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iWidgetTextEdit.h">
-      <Filter>GUI\widgets</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iWidgetSpacer.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
@@ -1332,6 +1329,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iContouringCubesLookup.h">
       <Filter>graphics\algorythms</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetTextEdit.h">
+      <Filter>GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

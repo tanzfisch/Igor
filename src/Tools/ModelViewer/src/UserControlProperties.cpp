@@ -54,7 +54,7 @@ void UserControlProperties::initGUI()
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _grid->appendRows(1);
     _grid->setCellSpacing(2);
-    _grid->setWidth(330);
+    _grid->setWidth(320);
     _grid->setHeight(0);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);

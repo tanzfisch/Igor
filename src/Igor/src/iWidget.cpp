@@ -205,13 +205,13 @@ namespace Igor
 		_keyboardFocus = nullptr;
 	}
 
-	void iWidget::draw(int32 parentPosX, int32 parentPosY)
+	void iWidget::draw()
 	{
 		if (isVisible())
 		{
 			for (auto widget : _children)
 			{
-				widget->draw(getActualPosX(), getActualPosY());
+				widget->draw();
 			}
 		}
 	}

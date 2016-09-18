@@ -49,7 +49,7 @@ namespace Igor
         setMinSize(0, 0);
 	}
 
-	void iWidgetColorView::draw(int32 parentPosX, int32 parentPosY)
+	void iWidgetColorView::draw()
 	{
 		if (isVisible())
 		{

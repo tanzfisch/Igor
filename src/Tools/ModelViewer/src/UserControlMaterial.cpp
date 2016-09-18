@@ -229,9 +229,9 @@ void UserControlMaterial::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
-    _grid->appendCollumns(0);
     _grid->appendRows(1);
     _grid->setBorder(2);
+    _grid->setStrechColumn(0);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -239,6 +239,7 @@ void UserControlMaterial::initGUI()
     _allWidgets.push_back(paramGroupBox);
     paramGroupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     paramGroupBox->setText("Render States");
+    paramGroupBox->setHeaderOnly();
 
     iWidgetGrid* gridParam = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridParam);
@@ -440,6 +441,7 @@ void UserControlMaterial::initGUI()
     _allWidgets.push_back(shaderGroupBox);
     shaderGroupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     shaderGroupBox->setText("Shader Settings");
+    shaderGroupBox->setHeaderOnly();
 
     iWidgetGrid* gridShadersGroup = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridShadersGroup);
@@ -447,7 +449,7 @@ void UserControlMaterial::initGUI()
     gridShadersGroup->setBorder(2);
     gridShadersGroup->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     gridShadersGroup->setVerticalAlignment(iVerticalAlignment::Top);
-    gridShadersGroup->setStrechColumn(1);
+    gridShadersGroup->setStrechColumn(0);
 
     iWidgetGrid* gridShaders = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridShaders);

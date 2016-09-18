@@ -258,7 +258,7 @@ namespace Igor
         _stepDownWheel = down;
     }
 
-    void iWidgetNumberChooser::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetNumberChooser::draw()
     {
         if (isVisible())
         {

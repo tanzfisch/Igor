@@ -474,7 +474,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
-    void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, bool headerOnly, const iaString& text, iWidgetAppearanceState state, bool active)
     {
         float32 x = static_cast<float32>(posx);
         float32 y = static_cast<float32>(posy);
@@ -500,9 +500,12 @@ namespace Igor
             iRenderer::getInstance().drawLine(x + _font->measureWidth(text, _fontSize) + _fontSize * 2.0f, y, x + w, y);
         }
         
-        iRenderer::getInstance().drawLine(x, y, x, y + h);
-        iRenderer::getInstance().drawLine(x, y + h, x + w, y + h);
-        iRenderer::getInstance().drawLine(x + w, y, x + w, y + h);
+        if (!headerOnly)
+        {
+            iRenderer::getInstance().drawLine(x, y, x, y + h);
+            iRenderer::getInstance().drawLine(x, y + h, x + w, y + h);
+            iRenderer::getInstance().drawLine(x + w, y, x + w, y + h);
+        }
 
         drawText(x + _fontSize * 1.5, y - _fontSize * 0.5f, text, 0);
 

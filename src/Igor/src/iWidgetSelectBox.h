@@ -158,7 +158,7 @@ namespace Igor
 
         /*! renders widget
         */
-        void draw(int32 parentPosX, int32 parentPosY);
+        void draw();
 
         /*! ctro initializes member variables
         */

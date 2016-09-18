@@ -91,7 +91,7 @@ namespace Igor
         _verticalTextAlignment = valign;
     }
 
-	void iWidgetButton::draw(int32 parentPosX, int32 parentPosY)
+	void iWidgetButton::draw()
 	{
 		if (isVisible())
 		{

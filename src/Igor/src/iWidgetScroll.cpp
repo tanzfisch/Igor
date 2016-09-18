@@ -234,7 +234,7 @@ namespace Igor
 		}
 	}
 
-	void iWidgetScroll::draw(int32 parentPosX, int32 parentPosY)
+	void iWidgetScroll::draw()
 	{
 		if (isVisible())
 		{
@@ -377,7 +377,7 @@ namespace Igor
 
 					iRenderer::getInstance().setModelMatrix(matrix);
 
-					widget->draw(getActualPosX() + _translate._pos._x, getActualPosY() + _translate._pos._y);
+					widget->draw();
 
 					iRenderer::getInstance().setModelMatrix(modelMatrix);
 					iRenderer::getInstance().setProjectionMatrix(projectionMatrix);

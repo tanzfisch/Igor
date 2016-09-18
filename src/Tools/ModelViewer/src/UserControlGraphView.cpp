@@ -159,10 +159,10 @@ void UserControlGraphView::initGUI()
     gridButtons->addWidget(addEmitterButton, 4, 0);
     gridButtons->addWidget(addParticleSystemButton, 5, 0);
 
-    grid->addWidget(gridButtons, 0, 0);
-    grid->addWidget(groupBox, 0, 1);
-    groupBox->addWidget(scroll);
-    scroll->addWidget(_gridGraph);
+    //grid->addWidget(gridButtons, 0, 0);
+    //grid->addWidget(groupBox, 0, 1);
+    /*groupBox->addWidget(scroll);
+    scroll->addWidget(_gridGraph);*/
 
     _dialogMenu = new iDialogMenu();
     _dialogMenu->setWidth(24);

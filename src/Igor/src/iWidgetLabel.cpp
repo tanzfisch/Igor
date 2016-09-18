@@ -51,7 +51,7 @@ namespace Igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetLabel::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetLabel::draw()
     {
         if (isVisible())
         {

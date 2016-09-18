@@ -32,6 +32,16 @@ namespace Igor
         return _border;
     }
 
+    void iWidgetGroupBox::setHeaderOnly(bool headerOnly)
+    {
+        _headerOnly = headerOnly;
+    }
+
+    bool iWidgetGroupBox::getHeaderOnly() const
+    {
+        return _headerOnly;
+    }
+
     void iWidgetGroupBox::calcMinSize()
     {
         int32 minWidth = 0;
@@ -58,17 +68,40 @@ namespace Igor
                 if (iWidgetManager::getInstance().getTheme() != nullptr)
                 {
                     float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-                    setClientArea(_border, _border, _border + fontSize * 0.5, _border);
+
+                    if (_headerOnly)
+                    {
+                        setClientArea(0, 0, _border + fontSize * 0.5, 0);
+                    }
+                    else
+                    {
+                        setClientArea(_border, _border, _border + fontSize * 0.5, _border);
+                    }
                 }
+            }
+            else
+            {
+                if (_headerOnly)
+                {
+                    setClientArea(0, 0, _border, 0);
+                }
+                else
+                {
+                    setClientArea(_border, _border, _border, _border);
+                }
+            }
+        }
+        else
+        {
+            // TODO copy paste code
+            if (_headerOnly)
+            {
+                setClientArea(0, 0, _border, 0);
             }
             else
             {
                 setClientArea(_border, _border, _border, _border);
             }
-        }
-        else
-        {
-            setClientArea(_border, _border, _border, _border);
         }
 
         setMinSize(minWidth, minHeight);
@@ -84,42 +117,20 @@ namespace Igor
         return _text;
     }
 
-    void iWidgetGroupBox::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetGroupBox::draw()
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _headerOnly, _text, getAppearanceState(), isActive());
 
             if (!_children.empty())
             {
-                int32 realX = _absoluteX;
-                int32 realY = _absoluteY;
-                int32 realWidth = _actualWidth;
-                int32 realHeight = _actualHeight;
-
-                _absoluteX = realX + _border;
-                _absoluteY = realY + _border;
-                _actualWidth = realWidth - _border * 2;
-                _actualHeight = realHeight - _border * 2;
-
-                if (iWidgetManager::getInstance().getTheme() != nullptr)
-                {
-                    float32 fontHeight = iWidgetManager::getInstance().getTheme()->getFontSize();
-                    _actualHeight -= fontHeight;
-                    _absoluteY += fontHeight;
-                }
-
                 iWidget* widget = _children[0];
 
                 if (widget != nullptr)
                 {
-                    widget->draw(getActualPosX(), getActualPosY());
+                    widget->draw();
                 }
-
-                _absoluteX = realX;
-                _absoluteY = realY;
-                _actualWidth = realWidth;
-                _actualHeight = realHeight;
             }
         }
     }

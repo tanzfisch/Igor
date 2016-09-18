@@ -12,7 +12,6 @@
 #include <iWidgetGrid.h>
 #include <iWidgetDialog.h>
 #include <iWidgetButton.h>
-#include <iWidgetGroupBox.h>
 #include <iWidgetSpacer.h>
 #include <iDialogMessageBox.h>
 #include <iDialogDecisionBox.h>
@@ -36,7 +35,7 @@ PropertiesDialog::~PropertiesDialog()
 
 void PropertiesDialog::initGUI()
 {
-	getDialog()->setWidth(360);
+	getDialog()->setWidth(350);
     getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Right);
     getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 

@@ -218,7 +218,7 @@ namespace Igor
         }
     }
 
-	void iWidgetSlider::draw(int32 parentPosX, int32 parentPosY)
+	void iWidgetSlider::draw()
 	{
         con_assert(_min < _max, "invalid configuration");
 

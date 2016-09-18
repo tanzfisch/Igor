@@ -26,7 +26,7 @@ namespace Igor
         setMinSize(0, 0);
 	}
 
-	void iWidgetSpacer::draw(int32 parentPosX, int32 parentPosY)
+	void iWidgetSpacer::draw()
 	{
 		if (isVisible())
 		{

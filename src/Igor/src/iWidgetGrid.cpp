@@ -421,49 +421,61 @@ namespace Igor
         uint32 rowCount = static_cast<uint32>(_widgetRows.size());
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
 
-        if (_strechRow > -1 &&
-            getVerticalAlignment() == iVerticalAlignment::Strech &&
-            _strechRow < rowCount)
+        if (getVerticalAlignment() == iVerticalAlignment::Strech)
         {
-            int32 diff = _actualHeight - _minHeight;
-
-            for (uint32 x = 0; x < columnCount; ++x)
+            if (_strechRow > -1 &&
+                _strechRow < rowCount)
             {
-                _widgetRows[_strechRow]._widgetCollumn[x]._height += diff;
-            }
+                int32 diff = _actualHeight - _minHeight;
 
-            if (_strechRow + 1 < rowCount)
-            {
                 for (uint32 x = 0; x < columnCount; ++x)
                 {
-                    for (uint32 y = _strechRow + 1; y < rowCount; ++y)
+                    _widgetRows[_strechRow]._widgetCollumn[x]._height += diff;
+                }
+
+                if (_strechRow + 1 < rowCount)
+                {
+                    for (uint32 x = 0; x < columnCount; ++x)
                     {
-                        _widgetRows[y]._widgetCollumn[x]._y += diff;
+                        for (uint32 y = _strechRow + 1; y < rowCount; ++y)
+                        {
+                            _widgetRows[y]._widgetCollumn[x]._y += diff;
+                        }
                     }
                 }
+            }
+            else
+            {
+                con_warn("vertical strech is configured but an invalid strech row index was defined");
             }
         }
 
-        if (_strechCol > -1 &&
-            getHorrizontalAlignment() == iHorrizontalAlignment::Strech &&
-            _strechCol < columnCount)
+        if (getHorrizontalAlignment() == iHorrizontalAlignment::Strech)
         {
-            int32 diff = _actualWidth - _minWidth;
-
-            for (uint32 y = 0; y < rowCount; ++y)
+            if (_strechCol > -1 &&
+                _strechCol < columnCount)
             {
-                _widgetRows[y]._widgetCollumn[_strechCol]._width += diff;
-            }
+                int32 diff = _actualWidth - _minWidth;
 
-            if (_strechCol + 1 < columnCount)
-            {
                 for (uint32 y = 0; y < rowCount; ++y)
                 {
-                    for (uint32 x = _strechCol + 1; x < columnCount; ++x)
+                    _widgetRows[y]._widgetCollumn[_strechCol]._width += diff;
+                }
+
+                if (_strechCol + 1 < columnCount)
+                {
+                    for (uint32 y = 0; y < rowCount; ++y)
                     {
-                        _widgetRows[y]._widgetCollumn[x]._x += diff;
+                        for (uint32 x = _strechCol + 1; x < columnCount; ++x)
+                        {
+                            _widgetRows[y]._widgetCollumn[x]._x += diff;
+                        }
                     }
                 }
+            }
+            else
+            {
+                con_warn("horizontal strech is configured but an invalid strech collumn index was defined");
             }
         }
 
@@ -731,7 +743,7 @@ namespace Igor
         _cellspacing = cellSpacing;
     }
 
-    void iWidgetGrid::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetGrid::draw()
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -818,11 +830,7 @@ namespace Igor
 
                     if (widget != nullptr)
                     {
-                        // updating childrens alignment once more but this time with fake parent boundaries
-                       // widget->updateAlignment((*iterCollumn)._width, (*iterCollumn)._height);
-                        //widget->updatePosition((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY);
-
-                        widget->draw(getActualPosX(), getActualPosY());
+                        widget->draw();
                     }
 
                     iterCollumn++;

@@ -228,7 +228,7 @@ namespace Igor
         return _entries[_currentSelection].first;
     }
 
-    void iWidgetSelectBox::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetSelectBox::draw()
     {
         _buttonRectangle.setX(getActualWidth() - getActualHeight() - 1);
         _buttonRectangle.setY(0);

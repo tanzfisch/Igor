@@ -353,13 +353,9 @@ namespace Igor
         */
         __IGOR_INLINE__ iWidgetType getType() const;
 
-		/*! draws the button
-
-		\param parentPosX parent absolute horrizontal position
-		\param parentPosY parent absolute vertical position
-        \todo remove parent pos?
+		/*! draws the widget
 		*/
-		virtual void draw(int32 parentPosX, int32 parentPosY);
+		virtual void draw();
 
         /*! \returns horrizontal alignment relative to parent widget
         */

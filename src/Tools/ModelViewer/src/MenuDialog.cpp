@@ -12,7 +12,6 @@
 #include <iWidgetGrid.h>
 #include <iWidgetDialog.h>
 #include <iWidgetButton.h>
-#include <iWidgetGroupBox.h>
 #include <iWidgetSpacer.h>
 #include <iWidgetCheckBox.h>
 #include <iDialogMessageBox.h>
@@ -39,7 +38,7 @@ void MenuDialog::initGUI()
 {
     _messageBox = new iDialogMessageBox();
 
-	getDialog()->setWidth(360);
+	getDialog()->setWidth(350);
 	getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 	getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 

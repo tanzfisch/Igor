@@ -71,7 +71,7 @@ namespace Igor
         }
     }
 
-    void iWidgetPicture::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetPicture::draw()
     {
         if (isVisible() &&
             _texture != nullptr)

@@ -76,7 +76,15 @@ namespace Igor
         */
 		int32 getBorder();
 
+        void setHeaderOnly(bool headerOnly = true);
+
+        bool getHeaderOnly() const;
+
     private:
+
+        /*! if true only the header of the group box will be drawn
+        */
+        bool _headerOnly = false;
 
         /*! border size
         */
@@ -86,12 +94,9 @@ namespace Igor
         */
 		iaString _text;
 
-		/*! draws the button
-
-		\param parentPosX parent absolute horrizontal position
-		\param parentPosY parent absolute vertical position
+		/*! draws the widget
 		*/
-		void draw(int32 parentPosX, int32 parentPosY);
+		void draw();
 
         /*! updates size based on it's content
         */

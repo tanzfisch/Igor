@@ -373,13 +373,13 @@ namespace Igor
         {
             if (!isModal(dialog))
             {
-                dialog->draw(0, 0);
+                dialog->draw();
             }
         }
 
         if (_modal != nullptr)
         {
-            _modal->draw(0, 0);
+            _modal->draw();
         }
     }
 

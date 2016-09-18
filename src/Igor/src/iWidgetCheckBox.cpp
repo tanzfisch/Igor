@@ -119,7 +119,7 @@ namespace Igor
         return _text;
     }
 
-    void iWidgetCheckBox::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetCheckBox::draw()
     {
         if (isVisible())
         {

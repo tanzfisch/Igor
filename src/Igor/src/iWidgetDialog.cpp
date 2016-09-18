@@ -121,7 +121,7 @@ namespace Igor
         return _border;
     }
 
-    void iWidgetDialog::draw(int32 parentPosX, int32 parentPosY)
+    void iWidgetDialog::draw()
     {
         if (isVisible())
         {
@@ -129,7 +129,7 @@ namespace Igor
 
             for (auto widget : _children)
             {
-                widget->draw(getActualPosX(), getActualPosY());
+                widget->draw();
             }
         }
     }
