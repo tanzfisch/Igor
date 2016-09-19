@@ -26,7 +26,6 @@
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
 #include <iGradient.h>
-#include <iLSystem.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -58,6 +57,7 @@ void LSystems::init()
     _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1));
     _view.setPerspective(45);
     _view.setClipPlanes(0.1f, 10000.f);
+    _view.registerRenderDelegate(RenderDelegate(this, &LSystems::onRender));
     _window.addView(&_view);
 
     // setup orthogonal view
@@ -83,7 +83,6 @@ void LSystems::init()
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
     cameraHeading->rotate(0.1, iaAxis::Y);
-    cameraHeading->rotate(-0.5, iaAxis::X);
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
     iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -113,14 +112,32 @@ void LSystems::init()
     camera->makeCurrent();
 
     // TODO
-    iLSystem lsystem;
-    lsystem.addRule('_', "_ _");
-    lsystem.addRule(' ', "   ");
-    con_endl(lsystem.generate("_", 1));
-    con_endl(lsystem.generate("_", 2));
-    con_endl(lsystem.generate("_", 3));
-    con_endl(lsystem.generate("_", 4));
-    con_endl(lsystem.generate("_", 5));
+    /*_lSystem.addRule('F', "F[+F]F[-F]F");
+    _lSystemResult = _lSystem.generate("F", 6);*/
+
+    /*
+    _lSystem.addRule('X', "F[+X]F[-X]+X");
+    _lSystem.addRule('F', "FF");
+    _lSystemResult = _lSystem.generate("X", 6);
+    */
+
+    vector<pair<float32, iaString>> weightedRule1;
+    weightedRule1.push_back(pair<float32, iaString>(0.4, "F[+LX]F[-RX]+RX"));
+    weightedRule1.push_back(pair<float32, iaString>(0.4, "F[+RX]F[-LX]"));
+    weightedRule1.push_back(pair<float32, iaString>(0.1, "F[-Rx]+LX"));
+    weightedRule1.push_back(pair<float32, iaString>(0.1, "F[-Rx]+Lx"));
+    _lSystem.addRule('X', weightedRule1);
+
+    vector<pair<float32, iaString>> weightedRule2;
+    weightedRule2.push_back(pair<float32, iaString>(0.4, "FF"));
+    weightedRule2.push_back(pair<float32, iaString>(0.15, "FRFL"));
+    weightedRule2.push_back(pair<float32, iaString>(0.15, "FLFR"));
+    weightedRule2.push_back(pair<float32, iaString>(0.15, "F+F-"));
+    weightedRule2.push_back(pair<float32, iaString>(0.15, "F-F+"));
+    _lSystem.addRule('F', weightedRule2);
+
+    _lSystemMaterialID = iMaterialResourceFactory::getInstance().createMaterial();
+    //iMaterialResourceFactory::getInstance().getMaterial(materialID)->getRenderStateSet()
 
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
@@ -142,6 +159,7 @@ void LSystems::deinit()
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
+    _view.unregisterRenderDelegate(RenderDelegate(this, &LSystems::onRender));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
 
     // deinit statistics
@@ -167,6 +185,111 @@ void LSystems::deinit()
     {
         delete _font;
         _font = nullptr;
+    }
+}
+
+void LSystems::onRender()
+{
+    const float32 lenght = 0.5;
+    const float32 angle = 0.4485;
+
+    srand(123);
+
+    for (int x = 0; x < 10; ++x)
+    {
+        iaMatrixf matrix;
+        matrix.translate(-5, -30, 0);
+        matrix.translate(rand()%10, 0, -rand()%10);
+        
+        iRenderer::getInstance().setModelMatrix(matrix);
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_lSystemMaterialID));
+        iRenderer::getInstance().setLineWidth(2);
+
+        _lSystemResult = _lSystem.generate("X", 6);
+
+        vector<pair<iaVector3f, iaVector3f>> stack;
+        iaVector3f pos;
+        iaVector3f dir(0, lenght, 0);
+
+        iaMatrixf rotateRight;
+        rotateRight.rotate(angle, iaAxis::Z);
+
+        iaMatrixf rotateLeft;
+        rotateLeft.rotate(-angle, iaAxis::Z);
+
+        iaMatrixf rotateRightLess;
+        rotateRightLess.rotate(angle, iaAxis::X);
+
+        iaMatrixf rotateLeftLess;
+        rotateLeftLess.rotate(-angle, iaAxis::X);
+
+        for (int i = 0; i < _lSystemResult.getSize(); ++i)
+        {
+            float32 variation = 1.2 - (((rand() % 100) / 100.0f) * 0.4);
+
+            switch (_lSystemResult[i])
+            {
+            case 'F':
+                iRenderer::getInstance().setColor(iaColor4f(0, 0.9, 0, 1));
+                iRenderer::getInstance().drawLine(pos, pos + dir);
+                pos += dir * variation;
+                break;
+
+            case 'x':
+                iRenderer::getInstance().setColor(iaColor4f(0.6 * variation, 0.2, 0, 1));
+                iRenderer::getInstance().setPointSize(5 * variation);
+                iRenderer::getInstance().drawPoint(pos);
+                break;
+
+            case 'X':
+                iRenderer::getInstance().setColor(iaColor4f(0.9 * variation, 0, 0, 1));
+                iRenderer::getInstance().setPointSize(10 * variation);
+                iRenderer::getInstance().drawPoint(pos);
+                break;
+
+            case 'R':
+            {
+                iaMatrixf matrix;
+                matrix.rotate(angle * variation, iaAxis::X);
+                dir = matrix * dir;
+            }
+            break;
+
+            case 'L':
+            {
+                iaMatrixf matrix;
+                matrix.rotate(-angle * variation, iaAxis::X);
+                dir = matrix * dir;
+            }
+            break;
+
+            case '+':
+            {
+                iaMatrixf matrix;
+                matrix.rotate(angle * variation, iaAxis::Z);
+                dir = matrix * dir;
+            }
+            break;
+
+            case '-':
+            {
+                iaMatrixf matrix;
+                matrix.rotate(-angle * variation, iaAxis::Z);
+                dir = matrix * dir;
+            }
+            break;
+
+            case '[':
+                stack.push_back(pair<iaVector3f, iaVector3f>(pos, dir));
+                break;
+
+            case ']':
+                pos = stack.back().first;
+                dir = stack.back().second;
+                stack.pop_back();
+                break;
+            }
+        }
     }
 }
 
@@ -196,9 +319,7 @@ void LSystems::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _wi
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
             cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
-
             iMouse::getInstance().setCenter(true);
         }
     }

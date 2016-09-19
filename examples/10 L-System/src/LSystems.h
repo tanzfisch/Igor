@@ -35,6 +35,8 @@
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
 #include <iKeyCodeMap.h>
+#include <iLSystem.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -115,6 +117,16 @@ private:
     */
     uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
 
+    /*! the l-system
+    */
+    iLSystem _lSystem;
+
+    /*! resulting string of L-System
+    */
+    iaString _lSystemResult;
+
+    uint32 _lSystemMaterialID = iMaterial::INVALID_MATERIAL_ID;
+
     /*! called on key pressed event
 
     \param key the key code of the pressed key
@@ -124,6 +136,10 @@ private:
     /*! called when window was closed
     */
 	void onWindowClosed();
+
+    /*! rendering scene
+    */
+    void onRender();
 
     /*! called when window was resized
 
