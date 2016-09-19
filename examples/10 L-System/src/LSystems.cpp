@@ -130,9 +130,9 @@ void LSystems::init()
 
     vector<pair<float32, iaString>> weightedRule2;
     weightedRule2.push_back(pair<float32, iaString>(0.4, "FF"));
-    weightedRule2.push_back(pair<float32, iaString>(0.15, "FRFL"));
+    weightedRule2.push_back(pair<float32, iaString>(0.15, "FR[+FO]FL"));
     weightedRule2.push_back(pair<float32, iaString>(0.15, "FLFR"));
-    weightedRule2.push_back(pair<float32, iaString>(0.15, "F+F-"));
+    weightedRule2.push_back(pair<float32, iaString>(0.15, "F+[RFO]F-"));
     weightedRule2.push_back(pair<float32, iaString>(0.15, "F-F+"));
     _lSystem.addRule('F', weightedRule2);
 
@@ -195,7 +195,7 @@ void LSystems::onRender()
 
     srand(123);
 
-    for (int x = 0; x < 10; ++x)
+    for (int x = 0; x < 25; ++x)
     {
         iaMatrixf matrix;
         matrix.translate(-5, -30, 0);
@@ -205,7 +205,7 @@ void LSystems::onRender()
         iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_lSystemMaterialID));
         iRenderer::getInstance().setLineWidth(2);
 
-        _lSystemResult = _lSystem.generate("X", 6);
+        _lSystemResult = _lSystem.generate("X", rand()%5+2);
 
         vector<pair<iaVector3f, iaVector3f>> stack;
         iaVector3f pos;
@@ -230,7 +230,7 @@ void LSystems::onRender()
             switch (_lSystemResult[i])
             {
             case 'F':
-                iRenderer::getInstance().setColor(iaColor4f(0, 0.9, 0, 1));
+                iRenderer::getInstance().setColor(iaColor4f(0, 0.75, 0, 1));
                 iRenderer::getInstance().drawLine(pos, pos + dir);
                 pos += dir * variation;
                 break;
@@ -244,6 +244,12 @@ void LSystems::onRender()
             case 'X':
                 iRenderer::getInstance().setColor(iaColor4f(0.9 * variation, 0, 0, 1));
                 iRenderer::getInstance().setPointSize(10 * variation);
+                iRenderer::getInstance().drawPoint(pos);
+                break;
+
+            case 'O':
+                iRenderer::getInstance().setColor(iaColor4f(0, 0.9 * variation, 0, 1));
+                iRenderer::getInstance().setPointSize(8 * variation);
                 iRenderer::getInstance().drawPoint(pos);
                 break;
 
