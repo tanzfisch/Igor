@@ -26,6 +26,7 @@
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
 #include <iGradient.h>
+#include <iLSystem.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -112,6 +113,14 @@ void LSystems::init()
     camera->makeCurrent();
 
     // TODO
+    iLSystem lsystem;
+    lsystem.addRule('_', "_ _");
+    lsystem.addRule(' ', "   ");
+    con_endl(lsystem.generate("_", 1));
+    con_endl(lsystem.generate("_", 2));
+    con_endl(lsystem.generate("_", 3));
+    con_endl(lsystem.generate("_", 4));
+    con_endl(lsystem.generate("_", 5));
 
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
