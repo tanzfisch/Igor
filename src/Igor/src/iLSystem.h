@@ -53,11 +53,15 @@ namespace Igor
 
         void addRule(wchar_t in, iaString out);
 
+        void addRule(wchar_t in, vector<pair<float32, iaString>> out);
+
+        void clear();
+
     private:
 
         wchar_t _axiom;
         iaString _sentence;
-        map<wchar_t, iaString> _rules;
+        map<wchar_t, vector<pair<float32, iaString>>> _rules;
 
     };
 
