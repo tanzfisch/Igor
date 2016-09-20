@@ -703,6 +703,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iInstancer.h" />
     <ClInclude Include="..\src\iKeyboard.h" />
     <ClInclude Include="..\src\iKeyCodeMap.h" />
+    <ClInclude Include="..\src\iLSystem.h" />
     <ClInclude Include="..\src\iMaterial.h" />
     <ClInclude Include="..\src\iMaterialGroup.h" />
     <ClInclude Include="..\src\iMaterialResourceFactory.h" />
@@ -1307,6 +1308,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iInstancer.cpp" />
     <ClCompile Include="..\src\iKeyboard.cpp" />
     <ClCompile Include="..\src\iKeyCodeMap.cpp" />
+    <ClCompile Include="..\src\iLSystem.cpp" />
     <ClCompile Include="..\src\iMaterial.cpp" />
     <ClCompile Include="..\src\iMaterialGroup.cpp" />
     <ClCompile Include="..\src\iMaterialResourceFactory.cpp" />

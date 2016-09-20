@@ -18,7 +18,13 @@ namespace Igor
 
 	iMaterialResourceFactory::iMaterialResourceFactory()
 	{
-        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this,&iMaterialResourceFactory::initDefaultMaterial));
+        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterial));
+
+        // if already ready just use it now
+        if (iRenderer::getInstance().isReady())
+        {
+            initDefaultMaterial();
+        }
 	}
 
 	iMaterialResourceFactory::~iMaterialResourceFactory()

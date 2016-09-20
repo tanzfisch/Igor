@@ -635,6 +635,9 @@
     <ClCompile Include="..\src\iDialogMenu.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iLSystem.cpp">
+      <Filter>graphics\algorythms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1332,6 +1335,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iWidgetTextEdit.h">
       <Filter>GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iLSystem.h">
+      <Filter>graphics\algorythms</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
