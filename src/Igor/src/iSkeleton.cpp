@@ -69,8 +69,9 @@ namespace Igor
 
     void iSkeleton::pop()
     {
-        iBone* bone = iBoneFactory::getInstance().getBone(_boneStack.back());
+        _lastBone = _boneStack.back();
         _boneStack.pop_back();
+        iBone* bone = iBoneFactory::getInstance().getBone(_lastBone);
         _currentJoint = bone->getTopJoint();
     }
 

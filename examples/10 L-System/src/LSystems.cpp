@@ -145,6 +145,10 @@ void LSystems::generateLSystem()
     // TODO read http://www.mdpi.com/1424-8220/15/2/4019/htm
     iLSystem lSystem;
 
+#if 1
+    float32 length = 0.5;
+    const float32 angle = 0.3;
+
     lSystem.addRule('F', "FF");
 
     vector<iLSystemRule> weightedRule1;
@@ -163,9 +167,52 @@ void LSystems::generateLSystem()
     weightedRule3.push_back(iLSystemRule(0.5, "o", iAgeFunction::Greater, 4));
     weightedRule3.push_back(iLSystemRule(0.5, "O"));
     lSystem.addRule('o', weightedRule3);
-
+#endif
+#if 0
     float32 length = 0.5;
-    const float32 angle = 0.3;
+    const float32 angle = 0.25;
+
+    lSystem.addRule('F', "FF");
+
+    vector<iLSystemRule> weightedRule1;
+    weightedRule1.push_back(iLSystemRule(0.25, "F-[[X]+X]+F[+FX]-X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F+[[X]-X]-F[-FX]+X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "FR[[X]LX]LF[LFX]RX*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "FL[[X]RX]RF[RFX]LX*"));
+    lSystem.addRule('X', weightedRule1);
+
+    vector<iLSystemRule> weightedRule2;
+    weightedRule2.push_back(iLSystemRule(0.7, "*", iAgeFunction::Greater, 2));
+    weightedRule2.push_back(iLSystemRule(0.3, "o"));
+    lSystem.addRule('*', weightedRule2);
+
+    vector<iLSystemRule> weightedRule3;
+    weightedRule3.push_back(iLSystemRule(0.5, "o", iAgeFunction::Greater, 4));
+    weightedRule3.push_back(iLSystemRule(0.5, "O"));
+    lSystem.addRule('o', weightedRule3);
+#endif
+#if 0
+    float32 length = 0.5;
+    const float32 angle = 0.5;
+
+    lSystem.addRule('F', "FF");
+
+    vector<iLSystemRule> weightedRule1;
+    weightedRule1.push_back(iLSystemRule(0.5, "F[+X][-X]FX*"));
+    weightedRule1.push_back(iLSystemRule(0.5, "F[RX][LX]FX*"));
+    lSystem.addRule('X', weightedRule1);
+
+    vector<iLSystemRule> weightedRule2;
+    weightedRule2.push_back(iLSystemRule(0.7, "*", iAgeFunction::Greater, 2));
+    weightedRule2.push_back(iLSystemRule(0.3, "o"));
+    lSystem.addRule('*', weightedRule2);
+
+    vector<iLSystemRule> weightedRule3;
+    weightedRule3.push_back(iLSystemRule(0.5, "o", iAgeFunction::Greater, 4));
+    weightedRule3.push_back(iLSystemRule(0.5, "O"));
+    lSystem.addRule('o', weightedRule3);
+#endif
+
     iaMatrixf currentMatrix;
 
     uint64 seed = iTimer::getInstance().getTime();
