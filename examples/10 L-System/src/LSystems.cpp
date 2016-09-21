@@ -155,10 +155,14 @@ void LSystems::generateLSystem()
     lSystem.addRule('X', weightedRule1);
 
     vector<iLSystemRule> weightedRule2;
-    weightedRule2.push_back(iLSystemRule(0.4, "*"));
+    weightedRule2.push_back(iLSystemRule(0.7, "*", iAgeFunction::Greater, 2));
     weightedRule2.push_back(iLSystemRule(0.3, "o"));
-    weightedRule2.push_back(iLSystemRule(0.2, "O"));
     lSystem.addRule('*', weightedRule2);
+
+    vector<iLSystemRule> weightedRule3;
+    weightedRule3.push_back(iLSystemRule(0.5, "o", iAgeFunction::Greater, 4));
+    weightedRule3.push_back(iLSystemRule(0.5, "O"));
+    lSystem.addRule('o', weightedRule3);
 
     float32 length = 0.5;
     const float32 angle = 0.3;
@@ -311,20 +315,16 @@ void LSystems::drawLSystem(iJoint* joint)
                 switch (value)
                 {
                 case 1:
-                    iRenderer::getInstance().setColor(iaColor4f(0.5, 0.2, 0.0, 1));
+                    iRenderer::getInstance().setColor(iaColor4f(0.2, 0.5, 0.0, 1));
                     iRenderer::getInstance().setPointSize(6);
                     break;
                 case 2:
-                    iRenderer::getInstance().setColor(iaColor4f(0.8, 0, 0.3, 1));
+                    iRenderer::getInstance().setColor(iaColor4f(0.8, 0.7, 0.0, 1));
                     iRenderer::getInstance().setPointSize(10);
                     break;
                 case 3:
                     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
                     iRenderer::getInstance().setPointSize(15);
-                    break;
-                case 4:
-                    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-                    iRenderer::getInstance().setPointSize(10);
                     break;
                 }
 

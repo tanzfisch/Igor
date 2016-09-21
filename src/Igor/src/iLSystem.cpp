@@ -23,6 +23,18 @@ namespace Igor
         addRule(input, ruleWeighting);
     }
 
+    void iLSystem::addRule(wchar_t input, iaString output, iAgeFunction ageFunction, int32 ageFilter)
+    {
+        iLSystemRule rule;
+        rule._output = output;
+        rule._ageFunction = ageFunction;
+        rule._ageFilter = ageFilter;
+        vector<iLSystemRule> ruleWeighting;
+        ruleWeighting.push_back(rule);
+        addRule(input, ruleWeighting);
+
+    }
+
     void iLSystem::addRule(wchar_t input, vector<iLSystemRule> rules)
     {
         // TODO check weighting
@@ -32,16 +44,69 @@ namespace Igor
     iaString iLSystem::generate(iaString in, int32 iterations)
     {
         iaString sentence = in;
-        iaString next;
-
-        for (int i = 0; i < iterations; ++i)
+        
+        for (int age = 0; age < iterations; ++age)
         {
-            next.clear();
+            sentence = generateIteration(sentence, age);
+        }
 
-            for (int c = 0; c < sentence.getSize(); ++c)
+        return sentence;
+    }
+
+    iaString iLSystem::generateIteration(iaString sentence, int age)
+    {
+        iaString result;
+
+        for (int c = 0; c < sentence.getSize(); ++c)
+        {
+            bool skiped = true;
+
+            auto iter = _rules.find(sentence[c]);
+            if (iter != _rules.end() && (*iter).second.size() > 0)
             {
-                auto iter = _rules.find(sentence[c]);
-                if (iter != _rules.end())
+                bool validAge = true;
+                if ((*iter).second[0]._ageFunction != iAgeFunction::None)
+                {
+                    switch ((*iter).second[0]._ageFunction)
+                    {
+                    case iAgeFunction::Less:
+                        if (age >= (*iter).second[0]._ageFilter)
+                        {
+                            validAge = false;
+                        }
+                        break;
+
+                    case iAgeFunction::LessOrEqual:
+                        if (age > (*iter).second[0]._ageFilter)
+                        {
+                            validAge = false;
+                        }
+                        break;
+
+                    case iAgeFunction::Equal:
+                        if (age != (*iter).second[0]._ageFilter)
+                        {
+                            validAge = false;
+                        }
+                        break;
+
+                    case iAgeFunction::GreaterOrEqual:
+                        if (age < (*iter).second[0]._ageFilter)
+                        {
+                            validAge = false;
+                        }
+                        break;
+
+                    case iAgeFunction::Greater:
+                        if (age <= (*iter).second[0]._ageFilter)
+                        {
+                            validAge = false;
+                        }
+                        break;
+                    }
+                }
+
+                if (validAge)
                 {
                     if ((*iter).second.size() > 1)
                     {
@@ -52,26 +117,29 @@ namespace Igor
                             threashold += iter._likelihood;
                             if (value < threashold)
                             {
-                                next += iter._output;
+                                result += iter._output;
                                 break;
                             }
                         }
+
+                        skiped = false;
                     }
                     else
                     {
-                        next += (*iter).second[0]._output;
+                        result += (*iter).second[0]._output;
+
+                        skiped = false;
                     }
-                }
-                else
-                {
-                    next += sentence[c];
                 }
             }
 
-            sentence = next;
+            if(skiped)
+            {
+                result += sentence[c];
+            }
         }
 
-        return sentence;
+        return result;
     }
 
     void iLSystem::clear()

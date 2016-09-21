@@ -112,6 +112,15 @@ namespace Igor
         */
         void addRule(wchar_t input, iaString output);
 
+        /*! adds a rule to replace a character with a string
+
+        \param input the input character
+        \param output the output string for that rule
+        \param ageFunction the age function definition
+        \param ageFilter the age filter threashold
+        */
+        void addRule(wchar_t input, iaString output, iAgeFunction ageFunction, int32 ageFilter);
+
         /*! adds a rule to replace a character with a couple string
 
         \param input the input character
@@ -128,6 +137,14 @@ namespace Igor
         /*! the saved replacement rules
         */
         map<wchar_t, vector<iLSystemRule>> _rules;
+
+        /*! generates next iteration
+
+        \param sentence input sentence
+        \param age current age/iteration
+        \returns generated string
+        */
+        iaString generateIteration(iaString sentence, int age);
 
     };
 
