@@ -43,6 +43,8 @@ namespace Igor
     class iBone;
     class iJoint;
 
+    /*! factory and central storage for bones and joints
+    */
     class Igor_API iBoneFactory : public iaSingleton<iBoneFactory>
     {
 

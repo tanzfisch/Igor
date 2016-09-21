@@ -40,27 +40,51 @@ using namespace std;
 namespace Igor
 {
 
+    /*! string based L-System implementation
+    */
     class Igor_API iLSystem
     {
 
     public:
         
+        /*! nothing to do
+        */
         iLSystem() = default;
         
-        ~iLSystem() = default;
+        /*! nothing to do
+        */
+        virtual ~iLSystem() = default;
 
-        iaString generate(iaString in, int iterations);
+        /*! generates string based on input string and rule set
 
-        void addRule(wchar_t in, iaString out);
+        \param input the input string
+        \param iterations the amount of iterations to alter the string
+        \returns the generated string
+        */
+        iaString generate(iaString input, int iterations);
 
-        void addRule(wchar_t in, vector<pair<float32, iaString>> out);
+        /*! adds a rule to replace a character with a string
 
+        \param input the input character
+        \param output the output string to replace the input character
+        */
+        void addRule(wchar_t input, iaString output);
+
+        /*! adds a rule to replace a character with a couple string
+
+        \param input the input character
+        \param output a weighted list of strings to choose from
+        */
+        void addRule(wchar_t input, vector<pair<float32, iaString>> output);
+
+        /*! clears all data
+        */
         void clear();
 
     private:
 
-        wchar_t _axiom;
-        iaString _sentence;
+        /*! the saved replacement rules
+        */
         map<wchar_t, vector<pair<float32, iaString>>> _rules;
 
     };

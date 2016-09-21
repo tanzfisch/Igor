@@ -40,6 +40,10 @@ using namespace std;
 namespace Igor
 {
 
+    /*! a bone of a skeleton
+
+    \see iSkeleton
+    */
     class Igor_API iBone
     {
 

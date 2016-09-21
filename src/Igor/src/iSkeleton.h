@@ -41,30 +41,60 @@ using namespace std;
 namespace Igor
 {
 
+    /*! skeleton that contains joints and bones
+    */
     class Igor_API iSkeleton
     {
 
     public:
 
+        /*! does nothing
+        */
         iSkeleton() = default;
 
+        /*! does nothing
+        */
         virtual ~iSkeleton() = default;
 
+        /*! \returns the ID of the root joint
+        */
         uint64 getRootJoint() const;
 
+        /*! adds a bone at current position
+
+        \param matrix the orientation and offset of the bone
+        \param lenght the lenght of the bone
+        */
         void addBone(const iaMatrixf& matrix, float64 lenght);
+
+        /*! pushes current position in skeleton
+        */
         void push();
+
+        /*! pops back to last pushed position in skeleton
+        */
         void pop();
 
+        /*! clears all data
+        */
         void clear();
 
+        /*! \returns last created bone
+        */
         uint64 getLastBone() const;
 
     private:
 
+        /*! internal bone stack. handles push and pop
+        */
         vector<uint64> _boneStack;
 
+        /*! list of all bones in use
+        */
         vector<uint64> _bones;
+
+        /*! list of all joints in use
+        */
         vector<uint64> _joints;
 
         /*! root joint id
