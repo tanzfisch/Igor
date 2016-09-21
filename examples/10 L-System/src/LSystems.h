@@ -119,16 +119,28 @@ private:
     */
     uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
 
-    shared_ptr<iTexture> _leaf = nullptr;
-
     vector<iSkeleton> _skeletons;
 
     uint32 _lSystemMaterialID = iMaterial::INVALID_MATERIAL_ID;
+
+    uint32 _styleCounter = 0;
+
+    iLSystem _lSystem;
+    float32 _segmentLength = 0.5;
+    float32 _angle = 0.3;
+    iaColor4f _stemColor;
+    iaColor4f _shotColor;
+    iaColor4f _budColor;
+    iaColor4f _blossomColor;
 
     void generateLSystem();
 
     void drawLSystem(iJoint* joint);
     void generateMesh(iJoint* joint);
+
+    void initStyle1();
+    void initStyle2();
+    void initStyle3();
 
     /*! called on key pressed event
 
