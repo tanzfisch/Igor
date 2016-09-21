@@ -636,7 +636,19 @@
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iLSystem.cpp">
-      <Filter>graphics\algorythms</Filter>
+      <Filter>graphics\types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iBone.cpp">
+      <Filter>graphics\types\bones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iBoneFactory.cpp">
+      <Filter>graphics\types\bones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iSkeleton.cpp">
+      <Filter>graphics\types\bones</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iJoint.cpp">
+      <Filter>graphics\types\bones</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1337,7 +1349,19 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iLSystem.h">
-      <Filter>graphics\algorythms</Filter>
+      <Filter>graphics\types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iBone.h">
+      <Filter>graphics\types\bones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iBoneFactory.h">
+      <Filter>graphics\types\bones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSkeleton.h">
+      <Filter>graphics\types\bones</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iJoint.h">
+      <Filter>graphics\types\bones</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1507,6 +1531,9 @@
     </Filter>
     <Filter Include="scene\octree">
       <UniqueIdentifier>{104fa5da-7f85-4598-a502-c30f41d4f8b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\types\bones">
+      <UniqueIdentifier>{0f96c3a3-c80d-41c3-b0ba-c7cd9045209f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

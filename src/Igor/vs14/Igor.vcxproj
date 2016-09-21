@@ -686,6 +686,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iAABox.h" />
     <ClInclude Include="..\src\iAACube.h" />
     <ClInclude Include="..\src\iApplication.h" />
+    <ClInclude Include="..\src\iBone.h" />
+    <ClInclude Include="..\src\iBoneFactory.h" />
     <ClInclude Include="..\src\iCelestialNode.h" />
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
@@ -701,6 +703,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iGradient.h" />
     <ClInclude Include="..\src\iInstancer.h" />
+    <ClInclude Include="..\src\iJoint.h" />
     <ClInclude Include="..\src\iKeyboard.h" />
     <ClInclude Include="..\src\iKeyCodeMap.h" />
     <ClInclude Include="..\src\iLSystem.h" />
@@ -779,6 +782,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iScene.h" />
     <ClInclude Include="..\src\iSceneFactory.h" />
     <ClInclude Include="..\src\iShader.h" />
+    <ClInclude Include="..\src\iSkeleton.h" />
     <ClInclude Include="..\src\iSkyLightNode.h" />
     <ClInclude Include="..\src\iSkySimulation.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -1295,6 +1299,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlerror.cpp" />
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="..\src\iApplication.cpp" />
+    <ClCompile Include="..\src\iBone.cpp" />
+    <ClCompile Include="..\src\iBoneFactory.cpp" />
     <ClCompile Include="..\src\iCelestialNode.cpp" />
     <ClCompile Include="..\src\iConfigReader.cpp" />
     <ClCompile Include="..\src\iContouringCubes.cpp" />
@@ -1306,6 +1312,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iDialogMessageBox.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
+    <ClCompile Include="..\src\iJoint.cpp" />
     <ClCompile Include="..\src\iKeyboard.cpp" />
     <ClCompile Include="..\src\iKeyCodeMap.cpp" />
     <ClCompile Include="..\src\iLSystem.cpp" />
@@ -1380,6 +1387,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iScene.cpp" />
     <ClCompile Include="..\src\iSceneFactory.cpp" />
     <ClCompile Include="..\src\iShader.cpp" />
+    <ClCompile Include="..\src\iSkeleton.cpp" />
     <ClCompile Include="..\src\iSkyLightNode.cpp" />
     <ClCompile Include="..\src\iSkySimulation.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
