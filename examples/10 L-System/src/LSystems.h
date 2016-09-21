@@ -138,9 +138,13 @@ private:
     void drawLSystem(iJoint* joint);
     void generateMesh(iJoint* joint);
 
+    uint32 _groupNodeID = iNode::INVALID_NODE_ID;
+
     void initStyle1();
     void initStyle2();
     void initStyle3();
+
+    void triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
 
     /*! called on key pressed event
 
