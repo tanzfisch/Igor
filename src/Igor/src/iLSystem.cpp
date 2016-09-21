@@ -7,21 +7,29 @@
 namespace Igor
 {
 
-    void iLSystem::addRule(wchar_t in, iaString out)
+    void iLSystem::addRule(wchar_t input, iLSystemRule rule)
     {
-        vector<pair<float32, iaString>> ruleWeighting;
-
-        ruleWeighting.push_back(pair<float32, iaString>(1.0f, out));
-
-        addRule(in, ruleWeighting);
+        vector<iLSystemRule> ruleWeighting;
+        ruleWeighting.push_back(rule);
+        addRule(input, ruleWeighting);
     }
 
-    void iLSystem::addRule(wchar_t in, vector<pair<float32, iaString>> out)
+    void iLSystem::addRule(wchar_t input, iaString output)
     {
-        _rules[in] = out;
+        iLSystemRule rule;
+        rule._output = output;
+        vector<iLSystemRule> ruleWeighting;
+        ruleWeighting.push_back(rule);
+        addRule(input, ruleWeighting);
     }
 
-    iaString iLSystem::generate(iaString in, int iterations)
+    void iLSystem::addRule(wchar_t input, vector<iLSystemRule> rules)
+    {
+        // TODO check weighting
+        _rules[input] = rules;
+    }
+
+    iaString iLSystem::generate(iaString in, int32 iterations)
     {
         iaString sentence = in;
         iaString next;
@@ -41,17 +49,17 @@ namespace Igor
                         float32 threashold = 0.0f;
                         for (auto iter : (*iter).second)
                         {
-                            threashold += iter.first;
+                            threashold += iter._likelihood;
                             if (value < threashold)
                             {
-                                next += iter.second;
+                                next += iter._output;
                                 break;
                             }
                         }
                     }
                     else
                     {
-                        next += (*iter).second[0].second;
+                        next += (*iter).second[0]._output;
                     }
                 }
                 else

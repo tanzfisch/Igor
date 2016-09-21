@@ -40,6 +40,41 @@ using namespace std;
 namespace Igor
 {
 
+    /*! age function that defines of a rule is true depending on age of the l-system
+    */
+    enum class iAgeFunction
+    {
+        Less,
+        LessOrEqual,
+        Equal,
+        GreaterOrEqual,
+        Greater,
+        None
+    };
+
+    /*! l-system rule
+    */
+    struct Igor_API iLSystemRule
+    {
+        float64 _likelihood = 1.0;
+        iaString _output;
+        iAgeFunction _ageFunction = iAgeFunction::None;
+        int32 _ageFilter = 0;
+
+        iLSystemRule()
+        {
+
+        }
+
+        iLSystemRule(float64 likelihood, iaString output, iAgeFunction ageFunction = iAgeFunction::None, int32 ageFilter = 0)
+        {
+            _likelihood = likelihood;
+            _output = output;
+            _ageFunction = ageFunction;
+            _ageFilter = ageFilter;
+        }
+    };
+
     /*! string based L-System implementation
     */
     class Igor_API iLSystem
@@ -61,21 +96,28 @@ namespace Igor
         \param iterations the amount of iterations to alter the string
         \returns the generated string
         */
-        iaString generate(iaString input, int iterations);
+        iaString generate(iaString input, int32 iterations);
 
         /*! adds a rule to replace a character with a string
 
         \param input the input character
-        \param output the output string to replace the input character
+        \param rule the output rule
+        */
+        void addRule(wchar_t input, iLSystemRule rule);
+
+        /*! adds a rule to replace a character with a string
+
+        \param input the input character
+        \param output the output string for that rule
         */
         void addRule(wchar_t input, iaString output);
 
         /*! adds a rule to replace a character with a couple string
 
         \param input the input character
-        \param output a weighted list of strings to choose from
+        \param rules weighted rules
         */
-        void addRule(wchar_t input, vector<pair<float32, iaString>> output);
+        void addRule(wchar_t input, vector<iLSystemRule> rules);
 
         /*! clears all data
         */
@@ -85,7 +127,7 @@ namespace Igor
 
         /*! the saved replacement rules
         */
-        map<wchar_t, vector<pair<float32, iaString>>> _rules;
+        map<wchar_t, vector<iLSystemRule>> _rules;
 
     };
 

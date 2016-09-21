@@ -147,17 +147,17 @@ void LSystems::generateLSystem()
 
     lSystem.addRule('F', "FF");
 
-    vector<pair<float32, iaString>> weightedRule1;
-    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[+X]F[-X]+X*"));
-    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[-X]F[+X]-X*"));
-    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[RX]F[LX]RX*"));
-    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[LX]F[RX]LX*"));
+    vector<iLSystemRule> weightedRule1;
+    weightedRule1.push_back(iLSystemRule(0.25, "F[+X]F[-X]+X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F[-X]F[+X]-X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F[RX]F[LX]RX*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F[LX]F[RX]LX*"));
     lSystem.addRule('X', weightedRule1);
 
-    vector<pair<float32, iaString>> weightedRule2;
-    weightedRule2.push_back(pair<float32, iaString>(0.4, "*"));
-    weightedRule2.push_back(pair<float32, iaString>(0.3, "o"));
-    weightedRule2.push_back(pair<float32, iaString>(0.2, "O"));
+    vector<iLSystemRule> weightedRule2;
+    weightedRule2.push_back(iLSystemRule(0.4, "*"));
+    weightedRule2.push_back(iLSystemRule(0.3, "o"));
+    weightedRule2.push_back(iLSystemRule(0.2, "O"));
     lSystem.addRule('*', weightedRule2);
 
     float32 length = 0.5;
@@ -171,7 +171,7 @@ void LSystems::generateLSystem()
         _skeletons[s].clear();
 
         srand(seed);
-        iaString result = lSystem.generate("X", s +2);
+        iaString result = lSystem.generate("X", s+2);
 
         for (int i = 0; i < result.getSize(); ++i)
         {
