@@ -37,6 +37,8 @@
 #include <iKeyCodeMap.h>
 #include <iLSystem.h>
 #include <iMaterial.h>
+#include <iTexture.h>
+#include <iSkeleton.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -117,15 +119,16 @@ private:
     */
     uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
 
-    /*! the l-system
-    */
-    iLSystem _lSystem;
+    shared_ptr<iTexture> _leaf = nullptr;
 
-    /*! resulting string of L-System
-    */
-    iaString _lSystemResult;
+    vector<iSkeleton> _skeletons;
 
     uint32 _lSystemMaterialID = iMaterial::INVALID_MATERIAL_ID;
+
+    void generateLSystem();
+
+    void drawLSystem(iJoint* joint);
+    void generateMesh(iJoint* joint);
 
     /*! called on key pressed event
 

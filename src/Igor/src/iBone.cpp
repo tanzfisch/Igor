@@ -46,17 +46,25 @@ namespace Igor
         return _lenght;
     }
 
-    iaVector3f iBone::getBasePosition() const
+    uint64 iBone::getTopJoint() const
     {
-        return _matrix._pos;
+        return _jointTop;
     }
 
-    iaVector3f iBone::getTipPosition() const
+    uint64 iBone::getBottomJoint() const
     {
-        iaVector3f result = _matrix._depth;
-        result *= _lenght;
-        result += _matrix._pos;
-        return result;
+        return _jointBottom;
     }
+
+    void iBone::setCustomData(void* data)
+    {
+        _customData = data;
+    }
+
+    void* iBone::getCustomData() const
+    {
+        return _customData;
+    }
+
 
 }

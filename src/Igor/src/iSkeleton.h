@@ -29,9 +29,13 @@
 #ifndef __iSKELETON__
 #define __iSKELETON__
 
+#include <iJoint.h>
 #include <iBone.h>
 
-#include <map>
+#include <iaMatrix.h>
+using namespace IgorAux;
+
+#include <vector>
 using namespace std;
 
 namespace Igor
@@ -42,17 +46,38 @@ namespace Igor
 
     public:
 
-
-
         iSkeleton() = default;
 
         virtual ~iSkeleton() = default;
 
+        uint64 getRootJoint() const;
+
+        void addBone(const iaMatrixf& matrix, float64 lenght);
+        void push();
+        void pop();
+
+        void clear();
+
+        uint64 getLastBone() const;
+
     private:
 
-        /*! root bone id
+        vector<uint64> _boneStack;
+
+        vector<uint64> _bones;
+        vector<uint64> _joints;
+
+        /*! root joint id
         */
-        uint64 _root = iBone::INVALID_BONE_ID;
+        uint64 _rootJoint = iJoint::INVALID_JOINT_ID;
+
+        /*! current joint
+        */
+        uint64 _currentJoint = iJoint::INVALID_JOINT_ID;
+
+        /*! last created bone
+        */
+        uint64 _lastBone = iBone::INVALID_BONE_ID;
 
     };
 

@@ -49,6 +49,10 @@ namespace Igor
 
     public:
 
+        /*! invalid joint ID
+        */
+        static const uint64 INVALID_JOINT_ID = 0;
+
         /*! sets base bone of this joint
 
         \param boneID the bones id
@@ -71,11 +75,37 @@ namespace Igor
         */
         vector<uint64> getChildren() const;
 
+        /*! \returns joint id
+        */
+        uint64 getID() const;
+
+        /*! sets custom data
+
+        \param data pointer to custom data
+        */
+        void setCustomData(void* data);
+
+        /*! \returns pointer to custom data
+        */
+        void* getCustomData() const;
+
     private:
+
+        /*! unique joint id
+        */
+        uint64 _id = INVALID_JOINT_ID;
+
+        /*! holds next bone id
+        */
+        static uint64 _nextID;
+
+        /*! pointer to custom data
+        */
+        void* _customData = nullptr;
 
         /*! id of base bone
         */
-        uint64 _baseBoneID;
+        uint64 _baseBoneID = 0;
 
         /*! ids of bones connected to the base bone in this joint
         */

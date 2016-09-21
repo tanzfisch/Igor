@@ -4,18 +4,32 @@
 
 #include <iJoint.h>
 
+#include <iBone.h>
+#include <iBoneFactory.h>
+
 #include <iaConsole.h>
 using namespace IgorAux;
 
 namespace Igor
 {
 
+    uint64 iJoint::_nextID = iJoint::INVALID_JOINT_ID + 1;
+
     iJoint::iJoint()
     {
+        _id = _nextID++;
+    }
+
+    uint64 iJoint::getID() const
+    {
+        return _id;
     }
 
     void iJoint::setBaseBone(uint64 boneID)
     {
+        iBone* bone = iBoneFactory::getInstance().getBone(boneID);
+        bone->_jointTop = _id;
+
         _baseBoneID = boneID;
     }
 
@@ -30,6 +44,9 @@ namespace Igor
         if (iter == _childBones.end())
         {
             _childBones.push_back(boneID);
+
+            iBone* bone = iBoneFactory::getInstance().getBone(boneID);
+            bone->_jointBottom = _id;
         }
         else
         {
@@ -43,6 +60,9 @@ namespace Igor
         if (iter != _childBones.end())
         {
             _childBones.erase(iter);
+
+            iBone* bone = iBoneFactory::getInstance().getBone(boneID);
+            bone->_jointBottom = iJoint::INVALID_JOINT_ID;
         }
         else
         {
@@ -53,6 +73,16 @@ namespace Igor
     vector<uint64> iJoint::getChildren() const
     {
         return _childBones;
+    }
+
+    void iJoint::setCustomData(void* data)
+    {
+        _customData = data;
+    }
+
+    void* iJoint::getCustomData() const
+    {
+        return _customData;
     }
 
 }

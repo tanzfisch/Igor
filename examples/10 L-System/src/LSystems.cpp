@@ -26,6 +26,9 @@
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
 #include <iGradient.h>
+#include <iSkeleton.h>
+#include <iBoneFactory.h>
+#include <iTextureResourceFactory.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -111,30 +114,16 @@ void LSystems::init()
     // wich we achived by adding all those nodes on to an other starting with the root node
     camera->makeCurrent();
 
-    // TODO
-    /*_lSystem.addRule('F', "F[+F]F[-F]F");
-    _lSystemResult = _lSystem.generate("F", 6);*/
+    // generate the L-System
+    _skeletons.push_back(iSkeleton());
+    _skeletons.push_back(iSkeleton());
+    _skeletons.push_back(iSkeleton());
+    _skeletons.push_back(iSkeleton());
+    _skeletons.push_back(iSkeleton());
 
-    /*
-    _lSystem.addRule('X', "F[+X]F[-X]+X");
-    _lSystem.addRule('F', "FF");
-    _lSystemResult = _lSystem.generate("X", 6);
-    */
+    generateLSystem();
 
-    vector<pair<float32, iaString>> weightedRule1;
-    weightedRule1.push_back(pair<float32, iaString>(0.4, "F[+LX]F[-RX]+RX"));
-    weightedRule1.push_back(pair<float32, iaString>(0.4, "F[+RX]F[-LX]"));
-    weightedRule1.push_back(pair<float32, iaString>(0.1, "F[-Rx]+LX"));
-    weightedRule1.push_back(pair<float32, iaString>(0.1, "F[-Rx]+Lx"));
-    _lSystem.addRule('X', weightedRule1);
-
-    vector<pair<float32, iaString>> weightedRule2;
-    weightedRule2.push_back(pair<float32, iaString>(0.4, "FF"));
-    weightedRule2.push_back(pair<float32, iaString>(0.15, "FR[+FO]FL"));
-    weightedRule2.push_back(pair<float32, iaString>(0.15, "FLFR"));
-    weightedRule2.push_back(pair<float32, iaString>(0.15, "F+[RFO]F-"));
-    weightedRule2.push_back(pair<float32, iaString>(0.15, "F-F+"));
-    _lSystem.addRule('F', weightedRule2);
+    _leaf = iTextureResourceFactory::getInstance().loadFile("");
 
     _lSystemMaterialID = iMaterialResourceFactory::getInstance().createMaterial();
     //iMaterialResourceFactory::getInstance().getMaterial(materialID)->getRenderStateSet()
@@ -149,6 +138,208 @@ void LSystems::init()
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
+}
+
+void LSystems::generateLSystem()
+{
+    // TODO read http://www.mdpi.com/1424-8220/15/2/4019/htm
+    iLSystem lSystem;
+
+    lSystem.addRule('F', "FF");
+
+    vector<pair<float32, iaString>> weightedRule1;
+    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[+X]F[-X]+X*"));
+    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[-X]F[+X]-X*"));
+    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[RX]F[LX]RX*"));
+    weightedRule1.push_back(pair<float32, iaString>(0.25, "F[LX]F[RX]LX*"));
+    lSystem.addRule('X', weightedRule1);
+
+    vector<pair<float32, iaString>> weightedRule2;
+    weightedRule2.push_back(pair<float32, iaString>(0.4, "*"));
+    weightedRule2.push_back(pair<float32, iaString>(0.3, "o"));
+    weightedRule2.push_back(pair<float32, iaString>(0.2, "O"));
+    lSystem.addRule('*', weightedRule2);
+
+    float32 length = 0.5;
+    const float32 angle = 0.3;
+    iaMatrixf currentMatrix;
+
+    uint64 seed = iTimer::getInstance().getTime();
+
+    for (int s = 0; s < _skeletons.size(); ++s)
+    {
+        _skeletons[s].clear();
+
+        srand(seed);
+        iaString result = lSystem.generate("X", s +2);
+
+        for (int i = 0; i < result.getSize(); ++i)
+        {
+            float32 variation = 1.5 - (((rand() % 100) / 100.0f));
+
+            switch (result[i])
+            {
+            case 'F':
+            case 'X':
+                _skeletons[s].addBone(currentMatrix, length * variation);
+                currentMatrix.identity();
+                break;
+
+            case '*':
+            {
+                iBone* bone = iBoneFactory::getInstance().getBone(_skeletons[s].getLastBone());
+                if (bone != nullptr)
+                {
+                    bone->setCustomData((void*)0x01);
+                }
+            }
+            break;
+
+            case 'o':
+            {
+                iBone* bone = iBoneFactory::getInstance().getBone(_skeletons[s].getLastBone());
+                if (bone != nullptr)
+                {
+                    bone->setCustomData((void*)0x02);
+                }
+            }
+            break;
+
+            case 'O':
+            {
+                iBone* bone = iBoneFactory::getInstance().getBone(_skeletons[s].getLastBone());
+                if (bone != nullptr)
+                {
+                    bone->setCustomData((void*)0x03);
+                }
+            }
+            break;
+
+            case 'R':
+            {
+                currentMatrix.rotate(angle * variation, iaAxis::X);
+            }
+            break;
+
+            case 'L':
+            {
+                currentMatrix.rotate(-angle * variation, iaAxis::X);
+            }
+            break;
+
+            case '+':
+            {
+                currentMatrix.rotate(angle * variation, iaAxis::Z);
+            }
+            break;
+
+            case '-':
+            {
+                currentMatrix.rotate(-angle * variation, iaAxis::Z);
+            }
+            break;
+
+            case '[':
+                _skeletons[s].push();
+                break;
+
+            case ']':
+                _skeletons[s].pop();
+                break;
+            }
+        }
+    }
+}
+
+void LSystems::generateMesh(iJoint* joint)
+{
+
+}
+
+void LSystems::onRender()
+{
+    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_lSystemMaterialID));
+    iRenderer::getInstance().setLineWidth(2);
+
+    for (int i = 0;i < _skeletons.size(); ++i)
+    {
+        iJoint* joint = iBoneFactory::getInstance().getJoint(_skeletons[i].getRootJoint());
+
+        iaMatrixf matrix;
+        matrix.translate(-20 + i * 10, -30, 0);
+        iRenderer::getInstance().setModelMatrix(matrix);
+
+        drawLSystem(joint);
+    }
+}
+
+void LSystems::drawLSystem(iJoint* joint)
+{
+    if (joint != nullptr)
+    {
+        iaVector3f dir;
+
+        vector<uint64> children = joint->getChildren();
+        for (auto childBone : children)
+        {
+            iaMatrixf modelMatrix;
+            iRenderer::getInstance().getModelMatrix(modelMatrix);
+            iaMatrixf saveModelMatrix = modelMatrix;
+
+            iBone* bone = iBoneFactory::getInstance().getBone(childBone);
+            dir._y = bone->getLenght();
+
+            iaMatrixf matrixRotate;
+            bone->getMatrix(matrixRotate);
+
+            iRenderer::getInstance().getModelMatrix(modelMatrix);
+            modelMatrix *= matrixRotate;
+            iRenderer::getInstance().setModelMatrix(modelMatrix);
+
+            iRenderer::getInstance().setColor(iaColor4f(0, 0.8, 0, 1));
+            iRenderer::getInstance().drawLine(iaVector3f(), dir);
+
+            iaMatrixf matrixTranslate;
+            matrixTranslate.translate(dir);
+
+            modelMatrix *= matrixTranslate;
+            iRenderer::getInstance().setModelMatrix(modelMatrix);
+
+            int value = reinterpret_cast<int>(bone->getCustomData());
+            if (value != 0)
+            {
+                switch (value)
+                {
+                case 1:
+                    iRenderer::getInstance().setColor(iaColor4f(0.5, 0.2, 0.0, 1));
+                    iRenderer::getInstance().setPointSize(6);
+                    break;
+                case 2:
+                    iRenderer::getInstance().setColor(iaColor4f(0.8, 0, 0.3, 1));
+                    iRenderer::getInstance().setPointSize(10);
+                    break;
+                case 3:
+                    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+                    iRenderer::getInstance().setPointSize(15);
+                    break;
+                case 4:
+                    iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
+                    iRenderer::getInstance().setPointSize(10);
+                    break;
+                }
+
+                iRenderer::getInstance().drawPoint(iaVector3f());
+            }
+
+            if (bone->getTopJoint() != iJoint::INVALID_JOINT_ID)
+            {
+                iJoint* joint = iBoneFactory::getInstance().getJoint(bone->getTopJoint());
+                drawLSystem(joint);
+            }
+
+            iRenderer::getInstance().setModelMatrix(saveModelMatrix);
+        }
+    }
 }
 
 void LSystems::deinit()
@@ -185,117 +376,6 @@ void LSystems::deinit()
     {
         delete _font;
         _font = nullptr;
-    }
-}
-
-void LSystems::onRender()
-{
-    const float32 lenght = 0.5;
-    const float32 angle = 0.4485;
-
-    srand(123);
-
-    for (int x = 0; x < 25; ++x)
-    {
-        iaMatrixf matrix;
-        matrix.translate(-5, -30, 0);
-        matrix.translate(rand()%10, 0, -rand()%10);
-        
-        iRenderer::getInstance().setModelMatrix(matrix);
-        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_lSystemMaterialID));
-        iRenderer::getInstance().setLineWidth(2);
-
-        _lSystemResult = _lSystem.generate("X", rand()%5+2);
-
-        vector<pair<iaVector3f, iaVector3f>> stack;
-        iaVector3f pos;
-        iaVector3f dir(0, lenght, 0);
-
-        iaMatrixf rotateRight;
-        rotateRight.rotate(angle, iaAxis::Z);
-
-        iaMatrixf rotateLeft;
-        rotateLeft.rotate(-angle, iaAxis::Z);
-
-        iaMatrixf rotateRightLess;
-        rotateRightLess.rotate(angle, iaAxis::X);
-
-        iaMatrixf rotateLeftLess;
-        rotateLeftLess.rotate(-angle, iaAxis::X);
-
-        for (int i = 0; i < _lSystemResult.getSize(); ++i)
-        {
-            float32 variation = 1.2 - (((rand() % 100) / 100.0f) * 0.4);
-
-            switch (_lSystemResult[i])
-            {
-            case 'F':
-                iRenderer::getInstance().setColor(iaColor4f(0, 0.75, 0, 1));
-                iRenderer::getInstance().drawLine(pos, pos + dir);
-                pos += dir * variation;
-                break;
-
-            case 'x':
-                iRenderer::getInstance().setColor(iaColor4f(0.6 * variation, 0.2, 0, 1));
-                iRenderer::getInstance().setPointSize(5 * variation);
-                iRenderer::getInstance().drawPoint(pos);
-                break;
-
-            case 'X':
-                iRenderer::getInstance().setColor(iaColor4f(0.9 * variation, 0, 0, 1));
-                iRenderer::getInstance().setPointSize(10 * variation);
-                iRenderer::getInstance().drawPoint(pos);
-                break;
-
-            case 'O':
-                iRenderer::getInstance().setColor(iaColor4f(0, 0.9 * variation, 0, 1));
-                iRenderer::getInstance().setPointSize(8 * variation);
-                iRenderer::getInstance().drawPoint(pos);
-                break;
-
-            case 'R':
-            {
-                iaMatrixf matrix;
-                matrix.rotate(angle * variation, iaAxis::X);
-                dir = matrix * dir;
-            }
-            break;
-
-            case 'L':
-            {
-                iaMatrixf matrix;
-                matrix.rotate(-angle * variation, iaAxis::X);
-                dir = matrix * dir;
-            }
-            break;
-
-            case '+':
-            {
-                iaMatrixf matrix;
-                matrix.rotate(angle * variation, iaAxis::Z);
-                dir = matrix * dir;
-            }
-            break;
-
-            case '-':
-            {
-                iaMatrixf matrix;
-                matrix.rotate(-angle * variation, iaAxis::Z);
-                dir = matrix * dir;
-            }
-            break;
-
-            case '[':
-                stack.push_back(pair<iaVector3f, iaVector3f>(pos, dir));
-                break;
-
-            case ']':
-                pos = stack.back().first;
-                dir = stack.back().second;
-                stack.pop_back();
-                break;
-            }
-        }
     }
 }
 
@@ -355,6 +435,11 @@ void LSystems::onKeyPressed(iKeyCode key)
         {
             printTree.printToConsole(_scene->getRoot());
         }
+    }
+
+    if (key == iKeyCode::Space)
+    {
+        generateLSystem();
     }
 }
 

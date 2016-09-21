@@ -41,6 +41,7 @@ namespace Igor
 {
 
     class iBone;
+    class iJoint;
 
     class Igor_API iBoneFactory : public iaSingleton<iBoneFactory>
     {
@@ -63,15 +64,37 @@ namespace Igor
 
         /*! \returns bone by id (nullptr if not found)
 
-        \param bonID the bones id
+        \param boneID the bone's id
         */
         iBone* getBone(uint64 boneID);
+
+        /*! creates a a joint and returns the joint's id
+
+        \returns the joint id
+        */
+        uint64 createJoint();
+
+        /*! destroyes joint by id
+
+        \param jointID the joint's id
+        */
+        void destroyJoint(uint64 jointID);
+
+        /*! \returns joint by id (nullptr if not found)
+
+        \param jointID the joint's id
+        */
+        iJoint* getJoint(uint64 jointID);
 
     private:
 
         /*! map of all bones
         */
         map<uint64, iBone*> _bones;
+
+        /*! map of all joints
+        */
+        map<uint64, iJoint*> _joints;
 
         /*! init id
         */

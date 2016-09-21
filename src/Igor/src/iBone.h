@@ -44,6 +44,8 @@ namespace Igor
     {
 
         friend class iBoneFactory;
+        friend class iSkeleton;
+        friend class iJoint;
 
     public:
 
@@ -73,17 +75,27 @@ namespace Igor
         */
         float64 getLenght()const;
 
-        /*! \returns base position of bone
-        */
-        iaVector3f getBasePosition() const;
-
-        /*! \returns tip position of bone
-        */
-        iaVector3f getTipPosition() const;
-
         /*! \returns bone id
         */
         uint64 getID() const;
+
+        /*! \returns top joint id (aka child joint)
+        */
+        uint64 getTopJoint() const;
+
+        /*! \returns bottom joint id (aka parenting joint)
+        */
+        uint64 getBottomJoint() const;
+
+        /*! sets custom data
+
+        \param data pointer to custom data
+        */
+        void setCustomData(void* data);
+
+        /*! \returns pointer to custom data
+        */
+        void* getCustomData() const;
 
     private:
 
@@ -94,6 +106,18 @@ namespace Igor
         /*! holds next bone id 
         */
         static uint64 _nextID;
+
+        /*! pointer to custom data
+        */
+        void* _customData = nullptr;
+
+        /*! the top joint id
+        */
+        uint64 _jointTop = 0;
+
+        /*! the bottom joint id
+        */
+        uint64 _jointBottom = 0;
 
         /*! position and oriantation to parenting bone
         */
