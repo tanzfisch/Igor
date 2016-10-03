@@ -10,7 +10,6 @@
 #include <iNodeLODSwitch.h>
 #include <iModel.h>
 #include <iaMemBlock.h>
-#include <iMeshBuilder.h>
 #include <iMaterialResourceFactory.h>
 #include <iTextureResourceFactory.h>
 #include <iTargetMaterial.h>
@@ -22,6 +21,7 @@ PlantMeshGenerator::PlantMeshGenerator()
 {
     _identifier = "pg";
     _name = "Plant Generator";
+    _meshBuilder.setJoinVertexes();
 }
 
 iModelDataIO* PlantMeshGenerator::createInstance()
@@ -46,20 +46,15 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
     iJoint* joint = iBoneFactory::getInstance().getJoint(_skeleton.getRootJoint());
     generateMesh(joint);
 
-    /*iContouringCubes contouringCubes;
-    contouringCubes.setVoxelData(voxelData);
-    shared_ptr<iMesh> mesh = contouringCubes.compile(iaVector3I(), iaVector3I(width, height, depth));
+    iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    shared_ptr<iMesh> mesh = _meshBuilder.createMesh();
 
     if (mesh.get() != nullptr)
     {
-        iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
         meshNode->setMesh(mesh);
-        meshNode->setMaterial(tileInformation->_materialID);
+        meshNode->setMaterial(plantInformation->_materialID);
 
         iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
-        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("dirt.png"), 0);
-        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 1);
-        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
         targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
@@ -67,74 +62,66 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
         targetMaterial->setShininess(100.0f);
 
         result->insertNode(meshNode);
-    }*/
-
+    }
     return result;
 }
 
 void PlantMeshGenerator::generateMesh(iJoint* joint)
 {
- /*   if (joint != nullptr)
+    if (joint != nullptr)
     {
-        iaVector3f dir;
+        iaMatrixf matrixRotate;
+        iaMatrixf saveModelMatrix;
 
         vector<uint64> children = joint->getChildren();
         for (auto childBone : children)
         {
-            iaMatrixf modelMatrix;
-            iRenderer::getInstance().getModelMatrix(modelMatrix);
-            iaMatrixf saveModelMatrix = modelMatrix;
+            saveModelMatrix = _modelMatrix;
 
             iBone* bone = iBoneFactory::getInstance().getBone(childBone);
-            dir._y = bone->getLenght();
-
-            iaMatrixf matrixRotate;
+            iaVector3f dir(0, bone->getLenght(), 0);
             bone->getMatrix(matrixRotate);
 
-            iRenderer::getInstance().getModelMatrix(modelMatrix);
-            modelMatrix *= matrixRotate;
-            iRenderer::getInstance().setModelMatrix(modelMatrix);
+            _modelMatrix *= matrixRotate;
 
-            iRenderer::getInstance().setColor(_stemColor);
-            iRenderer::getInstance().drawLine(iaVector3f(), dir);
-
-            iaMatrixf matrixTranslate;
-            matrixTranslate.translate(dir);
-
-            modelMatrix *= matrixTranslate;
-            iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-            int value = reinterpret_cast<int>(bone->getCustomData());
-            if (value != 0)
-            {
-                switch (value)
-                {
-                case 1:
-                    iRenderer::getInstance().setColor(_shotColor);
-                    iRenderer::getInstance().setPointSize(6);
-                    break;
-                case 2:
-                    iRenderer::getInstance().setColor(_budColor);
-                    iRenderer::getInstance().setPointSize(10);
-                    break;
-                case 3:
-                    iRenderer::getInstance().setColor(_blossomColor);
-                    iRenderer::getInstance().setPointSize(15);
-                    break;
-                }
-
-                iRenderer::getInstance().drawPoint(iaVector3f());
-            }
+            // generate actual mesh now
+            generateMesh(reinterpret_cast<int>(bone->getCustomData()), dir);
+            
+            _modelMatrix.translate(dir);
 
             if (bone->getTopJoint() != iJoint::INVALID_JOINT_ID)
             {
                 iJoint* joint = iBoneFactory::getInstance().getJoint(bone->getTopJoint());
-                drawLSystem(joint);
+                generateMesh(joint);
             }
 
-            iRenderer::getInstance().setModelMatrix(saveModelMatrix);
+            _modelMatrix = saveModelMatrix;
         }
-    }*/
+    }
+}
+
+void PlantMeshGenerator::generateMesh(int customValue, const iaVector3f& dir)
+{
+    // TODO this is just a rapid prototype now
+    iaVector3f a(0, 0, -1);
+    iaVector3f b(1, 0, 0);
+    iaVector3f c(0, 0, 1);
+    iaVector3f d(-1, 0, 0);
+
+    uint32 ai = _meshBuilder.addVertex(_modelMatrix * a);
+    uint32 bi = _meshBuilder.addVertex(_modelMatrix * b);
+    uint32 ci = _meshBuilder.addVertex(_modelMatrix * c);
+    uint32 di = _meshBuilder.addVertex(_modelMatrix * d);
+
+    uint32 ati = _meshBuilder.addVertex(_modelMatrix * (a + dir));
+    uint32 bti = _meshBuilder.addVertex(_modelMatrix * (b + dir));
+    uint32 cti = _meshBuilder.addVertex(_modelMatrix * (c + dir));
+    uint32 dti = _meshBuilder.addVertex(_modelMatrix * (d + dir));
+    
+    _meshBuilder.addTriangle(ai, ci, cti);
+    _meshBuilder.addTriangle(cti, ati, ai);
+    _meshBuilder.addTriangle(di, bi, bti);
+    _meshBuilder.addTriangle(bti, dti, di);
 }
 
 

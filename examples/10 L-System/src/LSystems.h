@@ -91,6 +91,14 @@ private:
     */
     iView _viewOrtho;
 
+    /*! id of flush model task
+    */
+    uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
+
+    /*! id of flush textures task
+    */
+    uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
+
     /*! the scene holding our 3d nodes
     */
     iScene* _scene = nullptr;

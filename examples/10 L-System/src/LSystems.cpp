@@ -54,7 +54,7 @@ LSystems::~LSystems()
 void LSystems::init()
 {
     con(" -- 3D Example --" << endl);
-
+    
     // setup window
     _window.setTitle("Igor - LSystems");
     _window.setSize(1280, 758);
@@ -132,6 +132,8 @@ void LSystems::init()
     generateLSystem();
 
     _lSystemMaterialID = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_lSystemMaterialID)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_lSystemMaterialID)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
@@ -143,6 +145,10 @@ void LSystems::init()
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
+
+    // launch resource handlers
+    _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
+    _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 }
 
 void LSystems::initStyle1()
@@ -238,8 +244,15 @@ void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, 
 {
     PlantInformation plantInformation;
     plantInformation._lSystem = &_lSystem;
-    plantInformation._axiom = axiom;
+    for (int i = 0; i < 10, i < axiom.getSize(); ++i)
+    {
+        plantInformation._axiom[i] = axiom[i];
+    }
     plantInformation._iterations = iterations;
+    plantInformation._materialID = _lSystemMaterialID;
+    plantInformation._seed = seed;
+    plantInformation._segmentAngle = _angle;
+    plantInformation._segmentLenght = _segmentLength;
 
     iModelDataInputParameter* inputParam = new iModelDataInputParameter();
     inputParam->_identifier = "pg";
@@ -250,7 +263,7 @@ void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, 
     inputParam->_parameters.setData(reinterpret_cast<const char*>(&plantInformation), sizeof(PlantInformation));
 
     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    modelNode->setModel("plant", inputParam);
+    modelNode->setModel(iaString("plant") + iaString::itoa(iterations), inputParam);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(matrix);
@@ -294,11 +307,10 @@ void LSystems::generateLSystem()
     _groupNodeID = groupNode->getID();
     _scene->getRoot()->insertNode(groupNode);
 
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 1; ++i)
     {
         iaMatrixf matrix;
-        matrix.translate(-30 + i * 15, -30, 0);
-        iRenderer::getInstance().setModelMatrix(matrix);
+        matrix.translate(-30 + i * 15, -50, 0);
 
         triggerMeshGeneration(groupNode, matrix, "X", i + 2, seed);
     }

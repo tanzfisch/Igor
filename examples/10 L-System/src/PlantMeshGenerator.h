@@ -32,7 +32,9 @@
 #include <iaVector3.h>
 using namespace IgorAux;
 
+#include <iMeshBuilder.h>
 #include <iModelDataIO.h>
+#include <iMaterial.h>
 #include <iSkeleton.h>
 using namespace Igor;
 
@@ -46,11 +48,12 @@ namespace Igor
 struct PlantInformation
 {
     iLSystem* _lSystem = nullptr;
-    iaString _axiom;
+    wchar_t _axiom[10];
     uint32 _iterations = 0;
     uint64 _seed = 0;
     float64 _segmentLenght = 0;
     float64 _segmentAngle = 0;
+    int32 _materialID = iMaterial::INVALID_MATERIAL_ID;
 };
 
 class PlantMeshGenerator : public iModelDataIO
@@ -86,9 +89,13 @@ private:
     float64 _segmentLength = 0;
     float64 _segmentAngle = 0;
 
+    iMeshBuilder _meshBuilder;
     iSkeleton _skeleton;
+    
+    iaMatrixf _modelMatrix;
 
     void generateMesh(iJoint* joint);
+    void generateMesh(int customValue, const iaVector3f& dir);
     void generateSkeleton(const iaString& sentence);
 
 };
