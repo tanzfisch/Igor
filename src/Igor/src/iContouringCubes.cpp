@@ -17,6 +17,9 @@ using namespace IgorAux;
 #define NEIGHBOR_ZPOSITIVE 0x02
 #define NEIGHBOR_ZNEGATIVE 0x01
 
+#define FILL_LOD_GAPS
+#define CALC_NORMALS
+
 namespace Igor
 {
 
@@ -71,7 +74,19 @@ namespace Igor
     */
 #define rescale(value) ((value > 0 ? value - 1 : value) / 254.0)
 
-#define CALC_NORMALS
+    void iContouringCubes::addCheckedTriangle(uint32 a, uint32 b, uint32 c, bool keep)
+    {
+        if (a != b && b != c && c != a)
+        {
+            uint32 triangleIndex = _meshBuilder.addTriangle(a, b, c);
+
+            if (keep)
+            {
+                _trianglesToKeep[0].push_back(triangleIndex);
+            }
+        }
+    }
+
     bool iContouringCubes::calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex)
     {
         int div = 0;
@@ -355,172 +370,67 @@ namespace Igor
             }
         }
 
-        uint8 calc = 0;
-        if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], _vertexPositionsNextLOD[0]))
+        _vertexPositionsNextLOD.clear();
+        iaVector3f position;
+        if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], position))
         {
-            calc |= __IGOR_BIT_0__;
+            _vertexPositionsNextLOD.push_back(position);
         }
 
-        if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], _vertexPositionsNextLOD[2]))
+        if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], position))
         {
-            calc |= __IGOR_BIT_1__;
-            _vertexPositionsNextLOD[2] += dirs[1];
+
+            position += dirs[1];
+            _vertexPositionsNextLOD.push_back(position);
         }
 
-        if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], _vertexPositionsNextLOD[6]))
+        if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], position))
         {
-            calc |= __IGOR_BIT_2__;
-            _vertexPositionsNextLOD[6] += dirs[0];
+            position += dirs[0];
+            _vertexPositionsNextLOD.push_back(position);
         }
 
-        if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], _vertexPositionsNextLOD[8]))
+        if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], position))
         {
-            calc |= __IGOR_BIT_3__;
-            _vertexPositionsNextLOD[8] += dirs[1];
-            _vertexPositionsNextLOD[8] += dirs[0];
+            position += dirs[1];
+            position += dirs[0];
+            _vertexPositionsNextLOD.push_back(position);
         }
 
-        if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], _vertexPositionsNextLOD[18]))
+        if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], position))
         {
-            calc |= __IGOR_BIT_4__;
-            _vertexPositionsNextLOD[18] += dirs[4];
+            position += dirs[4];
+            _vertexPositionsNextLOD.push_back(position);
         }
 
-        if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], _vertexPositionsNextLOD[20]))
+        if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], position))
         {
-            calc |= __IGOR_BIT_5__;
-            _vertexPositionsNextLOD[20] += dirs[1];
-            _vertexPositionsNextLOD[20] += dirs[4];
+            position += dirs[1];
+            position += dirs[4];
+            _vertexPositionsNextLOD.push_back(position);
         }
 
-        if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], _vertexPositionsNextLOD[24]))
+        if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], position))
         {
-            calc |= __IGOR_BIT_6__;
-            _vertexPositionsNextLOD[24] += dirs[4];
-            _vertexPositionsNextLOD[24] += dirs[0];
+            position += dirs[4];
+            position += dirs[0];
+            _vertexPositionsNextLOD.push_back(position);
         }
 
-        if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], _vertexPositionsNextLOD[26]))
+        if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], position))
         {
-            calc |= __IGOR_BIT_7__;
-            _vertexPositionsNextLOD[26] += dirs[0];
-            _vertexPositionsNextLOD[26] += dirs[1];
-            _vertexPositionsNextLOD[26] += dirs[4];
+            position += dirs[0];
+            position += dirs[1];
+            position += dirs[4];
+            _vertexPositionsNextLOD.push_back(position);
         }
-
-        for (int i = 0; i < 8; ++i)
-        {
-            _vertexPositionsNextLOD[indexLookup[i]] = _vertexPositionsNextLOD[indexLookup[offsetLookup[calc * 8 + i]]];
-        }
-        
-        //  
-        //     4------5
-        //    /|     /|
-        //   6------7 |
-        //   | |    | |
-        //   | |    | |
-        //   | 0----|-1
-        //   |/     |/ 
-        //   2------3
-
-        //       18-----19-----20
-        //      /|     /|     /|
-        //     21-----22-----23|
-        //    /| |   /| |   /| |
-        //   24-----25-----26| |
-        //   | | 9--|-|-10-|-|-11
-        //   | |/|  | |/|  | |/|
-        //   | 12---|-13---|-14|
-        //   |/| |  |/| |  |/| |
-        //   15-----16-----17| |
-        //   | | 0--|-|-1--|-|-2
-        //   | |/   | |/   | |/
-        //   | 3----|-4----|-5
-        //   |/     |/     |/
-        //   6------7------8
-
-        _vertexPositionsNextLOD[1] = _vertexPositionsNextLOD[0];
-        _vertexPositionsNextLOD[1] += _vertexPositionsNextLOD[2];
-        _vertexPositionsNextLOD[1] *= 0.5;
-
-        _vertexPositionsNextLOD[5] = _vertexPositionsNextLOD[2];
-        _vertexPositionsNextLOD[5] += _vertexPositionsNextLOD[8];
-        _vertexPositionsNextLOD[5] *= 0.5;
-
-        _vertexPositionsNextLOD[7] = _vertexPositionsNextLOD[6];
-        _vertexPositionsNextLOD[7] += _vertexPositionsNextLOD[8];
-        _vertexPositionsNextLOD[7] *= 0.5;
-
-        _vertexPositionsNextLOD[3] = _vertexPositionsNextLOD[0];
-        _vertexPositionsNextLOD[3] += _vertexPositionsNextLOD[6];
-        _vertexPositionsNextLOD[3] *= 0.5;
-
-        _vertexPositionsNextLOD[4] = _vertexPositionsNextLOD[3];
-        _vertexPositionsNextLOD[4] += _vertexPositionsNextLOD[5];
-        _vertexPositionsNextLOD[4] *= 0.5;
-
-        _vertexPositionsNextLOD[9] = _vertexPositionsNextLOD[0];
-        _vertexPositionsNextLOD[9] += _vertexPositionsNextLOD[18];
-        _vertexPositionsNextLOD[9] *= 0.5;
-
-        _vertexPositionsNextLOD[11] = _vertexPositionsNextLOD[2];
-        _vertexPositionsNextLOD[11] += _vertexPositionsNextLOD[20];
-        _vertexPositionsNextLOD[11] *= 0.5;
-
-        _vertexPositionsNextLOD[17] = _vertexPositionsNextLOD[8];
-        _vertexPositionsNextLOD[17] += _vertexPositionsNextLOD[26];
-        _vertexPositionsNextLOD[17] *= 0.5;
-
-        _vertexPositionsNextLOD[15] = _vertexPositionsNextLOD[6];
-        _vertexPositionsNextLOD[15] += _vertexPositionsNextLOD[24];
-        _vertexPositionsNextLOD[15] *= 0.5;
-
-        _vertexPositionsNextLOD[10] = _vertexPositionsNextLOD[9];
-        _vertexPositionsNextLOD[10] += _vertexPositionsNextLOD[11];
-        _vertexPositionsNextLOD[10] *= 0.5;
-
-        _vertexPositionsNextLOD[14] = _vertexPositionsNextLOD[11];
-        _vertexPositionsNextLOD[14] += _vertexPositionsNextLOD[17];
-        _vertexPositionsNextLOD[14] *= 0.5;
-
-        _vertexPositionsNextLOD[16] = _vertexPositionsNextLOD[15];
-        _vertexPositionsNextLOD[16] += _vertexPositionsNextLOD[17];
-        _vertexPositionsNextLOD[16] *= 0.5;
-
-        _vertexPositionsNextLOD[12] = _vertexPositionsNextLOD[9];
-        _vertexPositionsNextLOD[12] += _vertexPositionsNextLOD[15];
-        _vertexPositionsNextLOD[12] *= 0.5;
-
-        _vertexPositionsNextLOD[13] = _vertexPositionsNextLOD[12];
-        _vertexPositionsNextLOD[13] += _vertexPositionsNextLOD[14];
-        _vertexPositionsNextLOD[13] *= 0.5;
-
-        _vertexPositionsNextLOD[19] = _vertexPositionsNextLOD[18];
-        _vertexPositionsNextLOD[19] += _vertexPositionsNextLOD[20];
-        _vertexPositionsNextLOD[19] *= 0.5;
-
-        _vertexPositionsNextLOD[23] = _vertexPositionsNextLOD[20];
-        _vertexPositionsNextLOD[23] += _vertexPositionsNextLOD[26];
-        _vertexPositionsNextLOD[23] *= 0.5;
-
-        _vertexPositionsNextLOD[25] = _vertexPositionsNextLOD[24];
-        _vertexPositionsNextLOD[25] += _vertexPositionsNextLOD[26];
-        _vertexPositionsNextLOD[25] *= 0.5;
-
-        _vertexPositionsNextLOD[21] = _vertexPositionsNextLOD[24];
-        _vertexPositionsNextLOD[21] += _vertexPositionsNextLOD[18];
-        _vertexPositionsNextLOD[21] *= 0.5;
-
-        _vertexPositionsNextLOD[22] = _vertexPositionsNextLOD[21];
-        _vertexPositionsNextLOD[22] += _vertexPositionsNextLOD[23];
-        _vertexPositionsNextLOD[22] *= 0.5;
 
         iaVector3f transformedCubePosition;
         transformedCubePosition._x = static_cast<float32>((_cubePosition._x - _cubeStartPosition._x) >> 1);
         transformedCubePosition._y = static_cast<float32>((_cubePosition._y - 2 - _cubeStartPosition._y) >> 1);
         transformedCubePosition._z = static_cast<float32>((_cubePosition._z - _cubeStartPosition._z) >> 1);
 
-        for (int i = 0; i < (3 * 3 * 3); ++i)
+        for (int i = 0; i < _vertexPositionsNextLOD.size(); ++i)
         {
             _vertexPositionsNextLOD[i] += transformedCubePosition;
             _vertexPositionsNextLOD[i] *= _scaleNextLOD;
@@ -528,7 +438,30 @@ namespace Igor
         }
     }
 
-#define FILL_LOD_GAPS
+    iaVector3f iContouringCubes::getClosest(const iaVector3f& in)
+    {
+        iaVector3f result = in;
+        float64 min = 999999999;
+        int foundIndex = -1;
+
+        for (int i = 0; i < _vertexPositionsNextLOD.size();++i)
+        {
+            float64 diff = in.distance(_vertexPositionsNextLOD[i]);
+            if (diff < min)
+            {
+                min = diff;
+                foundIndex = i;
+            }
+        }
+
+        if (foundIndex != -1)
+        {
+            result = _vertexPositionsNextLOD[foundIndex];
+        }
+
+        return result;
+    }
+
     void iContouringCubes::generateGeometry(const uint8* density, bool keepTriangles, uint32 neighborLODs)
     {
         iaVector3I geometryPosition(_cubePosition._x, _cubePosition._y - 2, _cubePosition._z);
@@ -578,273 +511,70 @@ namespace Igor
         {
             if (density[14] <= 0.0f)
             {
+
+                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va *= _scale;
+                va += _offset;
+
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[1];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[10];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                va = _vertexPositionsNextLOD[2];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[11];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[5];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[14];
-                            }
-                        }
-                    }
+                    va = getClosest(va);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va *= _scale;
-                    va += _offset;
-                }
+
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
+                vb += transformedCubePosition;
+                vb += dirs[1];
+                vb += dirs[0];
+                vb *= _scale;
+                vb += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[5];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[14];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[7];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[16];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[8];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[17];
-                            }
-                        }
-                    }
+                    vb = getClosest(vb);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[1];
-                    vb += dirs[0];
-                    vb *= _scale;
-                    vb += _offset;
-                }
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
+                vc += transformedCubePosition;
+                vc += dirs[1];
+                vc += dirs[0];
+                vc += dirs[4];
+                vc *= _scale;
+                vc += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[17];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[26];
-                            }
-                        }
-                    }
+                    vc = getClosest(vc);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[1];
-                    vc += dirs[0];
-                    vc += dirs[4];
-                    vc *= _scale;
-                    vc += _offset;
-                }
+
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
+                vd += transformedCubePosition;
+                vd += dirs[1];
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[10];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[19];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[11];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[20];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
+                    vd = getClosest(vd);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -872,288 +602,76 @@ namespace Igor
                 _meshBuilder.setNormal(d);
 #endif
 
-                _meshBuilder.addTriangle(c, b, a);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
-
-                _meshBuilder.addTriangle(d, c, a);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
+                addCheckedTriangle(c, b, a, keepTriangles);
+                addCheckedTriangle(d, c, a, keepTriangles);
             }
 
             if (density[16] <= 0.0f)
             {
+
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[0];
+                va *= _scale;
+                va += _offset;
+
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[1];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[10];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                va = _vertexPositionsNextLOD[2];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[11];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[5];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[14];
-                            }
-                        }
-                    }
+                    va = getClosest(va);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[0];
-                    va *= _scale;
-                    va += _offset;
-                }
+
+                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb *= _scale;
+                vb += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[3];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[12];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[6];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[15];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[7];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[16];
-                            }
-                        }
-                    }
+                    vb = getClosest(vb);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb *= _scale;
-                    vb += _offset;
-                }
+
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                vc += transformedCubePosition;
+                vc += dirs[4];
+                vc += dirs[0];
+                vc *= _scale;
+                vc += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[12];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[21];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[15];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[24];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                    }
+                    vc = getClosest(vc);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc *= _scale;
-                    vc += _offset;
-                }
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
+                vd += transformedCubePosition;
+                vd += dirs[0];
+                vd += dirs[1];
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[17];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[26];
-                            }
-                        }
-                    }
+                    vd = getClosest(vd);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[0];
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -1181,289 +699,75 @@ namespace Igor
                 _meshBuilder.setNormal(d);
 #endif
 
-                _meshBuilder.addTriangle(c, b, a);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
-
-                _meshBuilder.addTriangle(d, c, a);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
+                addCheckedTriangle(c, b, a, keepTriangles);
+                addCheckedTriangle(d, c, a, keepTriangles);
             }
 
             if (density[22] <= 0.0f)
             {
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[4];
+                va *= _scale;
+                va += _offset;
+
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[10];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[19];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                va = _vertexPositionsNextLOD[11];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[20];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
+                    va = getClosest(va);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[4];
-                    va *= _scale;
-                    va += _offset;
-                }
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
+                vb += dirs[0];
+                vb += dirs[1];
+                vb += dirs[4];
+                vb += transformedCubePosition;
+                vb *= _scale;
+                vb += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[17];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[26];
-                            }
-                        }
-                    }
+                    vb = getClosest(vb);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
-                    vb += dirs[0];
-                    vb += dirs[1];
-                    vb += dirs[4];
-                    vb += transformedCubePosition;
-                    vb *= _scale;
-                    vb += _offset;
-                }
+
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                vc += dirs[4];
+                vc += dirs[0];
+                vc += transformedCubePosition;
+                vc *= _scale;
+                vc += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[12];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[21];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[15];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[24];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                    }
+                    vc = getClosest(vc);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc += transformedCubePosition;
-                    vc *= _scale;
-                    vc += _offset;
-                }
+
+                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
+                vd += dirs[4];
+                vd += transformedCubePosition;
+                vd *= _scale;
+                vd += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[9];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[18];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[10];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[19];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[12];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[21];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                    }
+                    vd = getClosest(vd);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
-                    vd += dirs[4];
-                    vd += transformedCubePosition;
-                    vd *= _scale;
-                    vd += _offset;
-                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -1491,17 +795,8 @@ namespace Igor
                 _meshBuilder.setNormal(d);
 #endif
 
-                _meshBuilder.addTriangle(c, b, a);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
-
-                _meshBuilder.addTriangle(d, c, a);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
+                addCheckedTriangle(c, b, a, keepTriangles);
+                addCheckedTriangle(d, c, a, keepTriangles);
             }
         }
         else
@@ -1509,273 +804,69 @@ namespace Igor
 
             if (density[14] > 0.0f)
             {
+                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
+                va += dirs[1];
+                va += transformedCubePosition;
+                va *= _scale;
+                va += _offset;
+
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[1];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[10];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                va = _vertexPositionsNextLOD[2];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[11];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[5];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[14];
-                            }
-                        }
-                    }
+                    va = getClosest(va);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
-                    va += dirs[1];
-                    va += transformedCubePosition;
-                    va *= _scale;
-                    va += _offset;
-                }
+
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb += dirs[1];
+                vb *= _scale;
+                vb += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[5];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[14];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[7];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[16];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[8];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[17];
-                            }
-                        }
-                    }
+                    vb = getClosest(vb);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb += dirs[1];
-                    vb *= _scale;
-                    vb += _offset;
-                }
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
+                vc += transformedCubePosition;
+                vc += dirs[0];
+                vc += dirs[1];
+                vc += dirs[4];
+                vc *= _scale;
+                vc += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[17];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[26];
-                            }
-                        }
-                    }
+                    vc = getClosest(vc);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[0];
-                    vc += dirs[1];
-                    vc += dirs[4];
-                    vc *= _scale;
-                    vc += _offset;
-                }
+
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
+                vd += transformedCubePosition;
+                vd += dirs[1];
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[10];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[19];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[11];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[20];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
+                    vd = getClosest(vd);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -1803,288 +894,75 @@ namespace Igor
                 _meshBuilder.setNormal(d);
 #endif
 
-                _meshBuilder.addTriangle(a, b, c);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
-
-                _meshBuilder.addTriangle(a, c, d);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
+                addCheckedTriangle(a, b, c, keepTriangles);
+                addCheckedTriangle(a, c, d, keepTriangles);
             }
 
             if (density[16] > 0.0f)
             {
+                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[0];
+                va *= _scale;
+                va += _offset;
+
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[1];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[10];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                va = _vertexPositionsNextLOD[2];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[11];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[5];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[14];
-                            }
-                        }
-                    }
+                    va = getClosest(va);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[0];
-                    va *= _scale;
-                    va += _offset;
-                }
+
+                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb *= _scale;
+                vb += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[3];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[12];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[4];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[13];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[6];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[15];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[7];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[16];
-                            }
-                        }
-                    }
+                    vb = getClosest(vb);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb *= _scale;
-                    vb += _offset;
-                }
+
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                vc += transformedCubePosition;
+                vc += dirs[4];
+                vc += dirs[0];
+                vc *= _scale;
+                vc += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[12];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[21];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[15];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[24];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                    }
+                    vc = getClosest(vc);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc *= _scale;
-                    vc += _offset;
-                }
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
+                vd += transformedCubePosition;
+                vd += dirs[0];
+                vd += dirs[1];
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[17];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[26];
-                            }
-                        }
-                    }
+                    vd = getClosest(vd);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[0];
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -2112,289 +990,75 @@ namespace Igor
                 _meshBuilder.setNormal(d);
 #endif
 
-                _meshBuilder.addTriangle(a, b, c);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
-
-                _meshBuilder.addTriangle(a, c, d);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
+                addCheckedTriangle(a, b, c, keepTriangles);
+                addCheckedTriangle(a, c, d, keepTriangles);
             }
 
             if (density[22] > 0.0f)
             {
+                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[4];
+                va *= _scale;
+                va += _offset;
+
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[10];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[19];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                va = _vertexPositionsNextLOD[11];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[20];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                va = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                va = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
+                    va = getClosest(va);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[4];
-                    va *= _scale;
-                    va += _offset;
-                }
+
+                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb += dirs[1];
+                vb += dirs[4];
+                vb *= _scale;
+                vb += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[14];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[23];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vb = _vertexPositionsNextLOD[17];
-                            }
-                            else
-                            {
-                                vb = _vertexPositionsNextLOD[26];
-                            }
-                        }
-                    }
+                    vb = getClosest(vb);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb += dirs[1];
-                    vb += dirs[4];
-                    vb *= _scale;
-                    vb += _offset;
-                }
+
+                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                vc += transformedCubePosition;
+                vc += dirs[4];
+                vc += dirs[0];
+                vc *= _scale;
+                vc += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[12];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[21];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[15];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[24];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vc = _vertexPositionsNextLOD[16];
-                            }
-                            else
-                            {
-                                vc = _vertexPositionsNextLOD[25];
-                            }
-                        }
-                    }
+                    vc = getClosest(vc);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc *= _scale;
-                    vc += _offset;
-                }
+
+                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
+                vd += transformedCubePosition;
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
 
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-
-                    if ((geometryPosition._z % 2) == 0)
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[9];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[18];
-                            }
-                        }
-                        else
-                        {
-                            if (geometryPosition._y % 2 == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[10];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[19];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if ((geometryPosition._x % 2) == 0)
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[12];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[21];
-                            }
-                        }
-                        else
-                        {
-                            if ((geometryPosition._y % 2) == 0)
-                            {
-                                vd = _vertexPositionsNextLOD[13];
-                            }
-                            else
-                            {
-                                vd = _vertexPositionsNextLOD[22];
-                            }
-                        }
-                    }
+                    vd = getClosest(vd);
                 }
-                else
 #endif
-                {
-                    calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-                }
 
                 a = _meshBuilder.addVertex(va);
                 b = _meshBuilder.addVertex(vb);
@@ -2422,17 +1086,8 @@ namespace Igor
                 _meshBuilder.setNormal(d);
 #endif
 
-                _meshBuilder.addTriangle(a, b, c);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
-
-                _meshBuilder.addTriangle(a, c, d);
-                if (keepTriangles)
-                {
-                    _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-                }
+                addCheckedTriangle(a, b, c, keepTriangles);
+                addCheckedTriangle(a, c, d, keepTriangles);
             }
         }
     }
@@ -2644,151 +1299,7 @@ namespace Igor
                 } while (y < marchingVolume._y);
             }
         }
-
-        /*if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
-        {
-            uint32 a = _meshBuilder.addVertex(iaVector3f(32 * scale - 2, 0, 0));
-            uint32 b = _meshBuilder.addVertex(iaVector3f(32 * scale - 2, 18 * scale, 0));
-            uint32 c = _meshBuilder.addVertex(iaVector3f(32 * scale - 2, 18 * scale, 18 * scale));
-            uint32 d = _meshBuilder.addVertex(iaVector3f(32 * scale - 2, 0, 18 * scale));
-
-            iaVector3f normal(1,0,0);
-
-            _meshBuilder.accumulateNormal(a, normal);
-            _meshBuilder.accumulateNormal(b, normal);
-            _meshBuilder.accumulateNormal(c, normal);
-            _meshBuilder.accumulateNormal(d, normal);
-            _meshBuilder.setTexCoord(a, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(b, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(c, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(d, iaVector2f(0.0, 0.0f), 0);
-
-            _meshBuilder.addTriangle(a, b, c);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-            _meshBuilder.addTriangle(a, c, d);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-        }
-
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
-        {
-            uint32 a = _meshBuilder.addVertex(iaVector3f(2, 0, 0));
-            uint32 b = _meshBuilder.addVertex(iaVector3f(2, 16 * scale, 0));
-            uint32 c = _meshBuilder.addVertex(iaVector3f(2, 16 * scale, 16 * scale));
-            uint32 d = _meshBuilder.addVertex(iaVector3f(2, 0, 16 * scale));
-
-            iaVector3f normal(-1, 0, 0);
-
-            _meshBuilder.accumulateNormal(a, normal);
-            _meshBuilder.accumulateNormal(b, normal);
-            _meshBuilder.accumulateNormal(c, normal);
-            _meshBuilder.accumulateNormal(d, normal);
-            _meshBuilder.setTexCoord(a, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(b, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(c, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(d, iaVector2f(0.0, 0.0f), 0);
-
-            _meshBuilder.addTriangle(a, b, c);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-            _meshBuilder.addTriangle(a, c, d);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-        }
-
-        if ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0)
-        {
-            uint32 a = _meshBuilder.addVertex(iaVector3f(0, 32 * scale - 2, 0));
-            uint32 b = _meshBuilder.addVertex(iaVector3f(18 * scale, 32 * scale - 2, 0));
-            uint32 c = _meshBuilder.addVertex(iaVector3f(18 * scale, 32 * scale - 2, 18 * scale));
-            uint32 d = _meshBuilder.addVertex(iaVector3f(0, 32 * scale - 2, 18 * scale));
-
-            iaVector3f normal(0, 1, 0);
-
-            _meshBuilder.accumulateNormal(a, normal);
-            _meshBuilder.accumulateNormal(b, normal);
-            _meshBuilder.accumulateNormal(c, normal);
-            _meshBuilder.accumulateNormal(d, normal);
-            _meshBuilder.setTexCoord(a, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(b, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(c, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(d, iaVector2f(0.0, 0.0f), 0);
-
-            _meshBuilder.addTriangle(a, b, c);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-            _meshBuilder.addTriangle(a, c, d);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-        }
-
-        if ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0)
-        {
-            uint32 a = _meshBuilder.addVertex(iaVector3f(0, 2, 0));
-            uint32 b = _meshBuilder.addVertex(iaVector3f(16 * scale, 2, 0));
-            uint32 c = _meshBuilder.addVertex(iaVector3f(16 * scale, 2, 16 * scale));
-            uint32 d = _meshBuilder.addVertex(iaVector3f(0, 2, 16 * scale));
-
-            iaVector3f normal(0, -1, 0);
-
-            _meshBuilder.accumulateNormal(a, normal);
-            _meshBuilder.accumulateNormal(b, normal);
-            _meshBuilder.accumulateNormal(c, normal);
-            _meshBuilder.accumulateNormal(d, normal);
-            _meshBuilder.setTexCoord(a, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(b, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(c, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(d, iaVector2f(0.0, 0.0f), 0);
-
-            _meshBuilder.addTriangle(a, b, c);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-            _meshBuilder.addTriangle(a, c, d);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-        }
-
-        if ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
-        {
-            uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 32 * scale - 2));
-            uint32 b = _meshBuilder.addVertex(iaVector3f(18 * scale, 0, 32 * scale - 2));
-            uint32 c = _meshBuilder.addVertex(iaVector3f(18 * scale, 18 * scale, 32 * scale - 2));
-            uint32 d = _meshBuilder.addVertex(iaVector3f(0, 18 * scale, 32 * scale - 2));
-
-            iaVector3f normal(0, 0, 1);
-
-            _meshBuilder.accumulateNormal(a, normal);
-            _meshBuilder.accumulateNormal(b, normal);
-            _meshBuilder.accumulateNormal(c, normal);
-            _meshBuilder.accumulateNormal(d, normal);
-            _meshBuilder.setTexCoord(a, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(b, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(c, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(d, iaVector2f(0.0, 0.0f), 0);
-
-            _meshBuilder.addTriangle(a, b, c);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-            _meshBuilder.addTriangle(a, c, d);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-        }
-
-        if ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
-        {
-            uint32 a = _meshBuilder.addVertex(iaVector3f(0, 0, 2));
-            uint32 b = _meshBuilder.addVertex(iaVector3f(16 * scale, 0, 2));
-            uint32 c = _meshBuilder.addVertex(iaVector3f(16 * scale, 16 * scale, 2));
-            uint32 d = _meshBuilder.addVertex(iaVector3f(0, 16 * scale, 2));
-
-            iaVector3f normal(0, 0, -1);
-
-            _meshBuilder.accumulateNormal(a, normal);
-            _meshBuilder.accumulateNormal(b, normal);
-            _meshBuilder.accumulateNormal(c, normal);
-            _meshBuilder.accumulateNormal(d, normal);
-            _meshBuilder.setTexCoord(a, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(b, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(c, iaVector2f(0.0, 0.0f), 0);
-            _meshBuilder.setTexCoord(d, iaVector2f(0.0, 0.0f), 0);
-
-            _meshBuilder.addTriangle(a, b, c);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-            _meshBuilder.addTriangle(a, c, d);
-            _trianglesToKeep[0].push_back(_meshBuilder.getTrianglesCount() - 1);
-        }/**/
-
+        
         if (_meshBuilder.getTrianglesCount() != 0)
         {
 #ifdef CALC_NORMALS
@@ -2804,4 +1315,4 @@ namespace Igor
 
         return result;
     }
-                }
+}
