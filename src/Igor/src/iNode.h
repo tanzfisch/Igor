@@ -65,6 +65,7 @@ namespace Igor
         iNodePhysics,
         iNodeParticleSystem,
         iNodeEmitter,
+        iNodeWater,
 		Undefined
 	};
 

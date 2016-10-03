@@ -345,18 +345,18 @@ namespace Igor
         glEnd(); GL_CHECK_ERROR();
     }
 
-    void iRenderer::drawBillboard(iaVector3f &o, iaVector3f &u, iaVector3f &v, shared_ptr<iTexture> texture, float32 texscaleu, float32 texscalev)
+    void iRenderer::drawBillboard(iaVector3f &o, iaVector3f &u, iaVector3f &v, shared_ptr<iTexture> texture, float32 texScaleU, float32 texScaleV)
     {
         bindTexture(texture, 0);
-
+        
         glBegin(GL_QUADS);
-        glTexCoord2f(texscaleu, 0);
+        glTexCoord2f(texScaleU, 0);
         glVertex3fv((o + v + u).getData());
 
-        glTexCoord2f(texscaleu, texscalev);
+        glTexCoord2f(texScaleU, texScaleV);
         glVertex3fv((o - v + u).getData());
 
-        glTexCoord2f(0, texscalev);
+        glTexCoord2f(0, texScaleV);
         glVertex3fv((o - v - u).getData());
 
         glTexCoord2f(0, 0);
@@ -525,39 +525,51 @@ namespace Igor
         };
     }
 
-    iRendererTexture* iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode mode)
+    iRendererTexture* iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         int32 glformat = convertToOGL(format);
         if (!glformat) return 0;
 
-        iRendererTexture *texture = 0;
+        iRendererTexture *result =  nullptr;
+        
+        result = new iRendererTexture();
+        glGenTextures(1, (GLuint*)&(result->_id));													    GL_CHECK_ERROR();
+        glBindTexture(GL_TEXTURE_2D, result->_id);													    GL_CHECK_ERROR();
 
-        switch (mode)
+        switch (wrapMode)
         {
-        case iTextureBuildMode::Mipmapped:
-            texture = new iRendererTexture();
-            glGenTextures(1, (GLuint*)&(texture->_id));													GL_CHECK_ERROR();
-            glBindTexture(GL_TEXTURE_2D, texture->_id);													GL_CHECK_ERROR();
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);								GL_CHECK_ERROR();
+        case  iTextureWrapMode::Repeat:
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);                               GL_CHECK_ERROR();
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);                               GL_CHECK_ERROR();
+            break;
+
+        case iTextureWrapMode::Clamp:
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);                        GL_CHECK_ERROR();
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);                        GL_CHECK_ERROR();
+            break;
+
+        case iTextureWrapMode::MirrorRepeat:
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);                      GL_CHECK_ERROR();
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);                      GL_CHECK_ERROR();
+            break;
+        }
+
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);							    GL_CHECK_ERROR();
+
+        if (buildMode == iTextureBuildMode::Normal)
+        {
+            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);				            GL_CHECK_ERROR();
+            glTexImage2D(GL_TEXTURE_2D, 0, bytepp, width, height, 0, glformat, GL_UNSIGNED_BYTE, data); GL_CHECK_ERROR();
+        }
+        else
+        {
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);				GL_CHECK_ERROR();
             gluBuild2DMipmaps(GL_TEXTURE_2D, bytepp, width, height, glformat, GL_UNSIGNED_BYTE, data);	GL_CHECK_ERROR();
-            glFinish();																					GL_CHECK_ERROR();
-            return texture;
+        }
+        glFinish();																					    GL_CHECK_ERROR();
 
-        case iTextureBuildMode::Normal:
-            texture = new iRendererTexture();
-            glGenTextures(1, (GLuint*)&(texture->_id));													GL_CHECK_ERROR();
-            glBindTexture(GL_TEXTURE_2D, texture->_id);													GL_CHECK_ERROR();
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);								GL_CHECK_ERROR();
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);								GL_CHECK_ERROR();
-            glTexImage2D(GL_TEXTURE_2D, 0, bytepp, width, height, 0, glformat, GL_UNSIGNED_BYTE, data); GL_CHECK_ERROR();
-            glFinish();																					GL_CHECK_ERROR();
-            return texture;
+        return result;
 
-        default:
-            con_err("unknown build mode");
-            return 0;
-        };
     }
 
     void iRenderer::setDummyTextureID(uint32 id)

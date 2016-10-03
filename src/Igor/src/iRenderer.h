@@ -506,10 +506,10 @@ namespace Igor
         \param u first of two axis defining a plane
         \param v second of two axis defining a plane
         \param texture texture to draw with
-        \param texscaleu scale of texture coordinates along the u axis
-        \param texscalev scale of texture coordinates along the v axis
+        \param texScaleU scale of texture coordinates along the u axis
+        \param texScaleV scale of texture coordinates along the v axis
         */
-        virtual void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture, float32 texscaleu, float32 texscalev);
+        virtual void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture, float32 texScaleU, float32 texScaleV);
 
         /*! draws a mesh
 
@@ -698,10 +698,11 @@ namespace Igor
         \param bytepp bytes per pixel
         \param format color format of texture
         \param data pointer to the actual data used for the texture
-        \param mode generation mode of texture like mimapping or not
+        \param buildMode generation mode of texture like mimapping or not
+        \param wrapMode wrap mode of texture 
         \returns pointer to renderer texture
         */
-        virtual iRendererTexture* createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8* data, iTextureBuildMode mode);
+        virtual iRendererTexture* createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8* data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
 
         /*! releases texture
 

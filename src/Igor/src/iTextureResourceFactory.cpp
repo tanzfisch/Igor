@@ -128,12 +128,12 @@ namespace Igor
             }
         }
 
-        _dummyTexture = shared_ptr<iTexture>(new iTexture("dummyTexture", iTextureBuildMode::Mipmapped), iTexture::private_deleter());
+        _dummyTexture = shared_ptr<iTexture>(new iTexture("dummyTexture", iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat), iTexture::private_deleter());
         _dummyTexture->_width = width;
         _dummyTexture->_height = height;
         _dummyTexture->_valid = true;
         
-        _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, iTextureBuildMode::Mipmapped);
+        _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         iRenderer::getInstance().setDummyTextureID(_dummyTexture->_rendererTexture->_id);
 
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->getTextureBuildMode());
@@ -142,16 +142,33 @@ namespace Igor
         con_info("loaded texture", "\"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");        
     }
 
-    int64 iTextureResourceFactory::calcHashValue(const iaString& name, iTextureBuildMode mode)
+    int64 iTextureResourceFactory::calcHashValue(const iaString& name, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         con_assert(!name.isEmpty(), "invalid parameter");
 
         std::hash<wstring> hashFunc;
 
         iaString combined = name;
-        if (mode == iTextureBuildMode::Mipmapped)
+        if (buildMode == iTextureBuildMode::Mipmapped)
         {
             combined += "M";
+        }
+        else
+        {
+            combined += "N";
+        }
+
+        switch(wrapMode)
+        {
+        case iTextureWrapMode::Repeat:
+            combined += "R";
+            break;
+        case iTextureWrapMode::Clamp:
+            combined += "C";
+            break;
+        case iTextureWrapMode::MirrorRepeat:
+            combined += "M";
+            break;
         }
 
         wstring keyVal = combined.getData();
@@ -159,7 +176,7 @@ namespace Igor
         return hashFunc(keyVal);
     }
 
-    shared_ptr<iTexture> iTextureResourceFactory::loadFile(const iaString& filename, iTextureBuildMode mode)
+    shared_ptr<iTexture> iTextureResourceFactory::loadFile(const iaString& filename, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         shared_ptr<iTexture> result;
 
@@ -168,7 +185,7 @@ namespace Igor
             if (!iRenderer::getInstance().isReady())
             {
                 con_warn("renderer not ready to load textures yet. queued you request.");
-                requestFile(filename, mode);
+                requestFile(filename, buildMode, wrapMode);
             }
 
             iaString keyPath = iResourceManager::getInstance().getPath(filename);
@@ -178,7 +195,7 @@ namespace Igor
             }
 
 
-            int64 hashValue = calcHashValue(filename, mode);
+            int64 hashValue = calcHashValue(filename, buildMode, wrapMode);
 
             _mutex.lock();
             auto textureIter = _textures.find(hashValue);
@@ -189,7 +206,7 @@ namespace Igor
 
             if (nullptr == result.get())
             {
-                result = shared_ptr<iTexture>(new iTexture(keyPath, mode), iTexture::private_deleter());
+                result = shared_ptr<iTexture>(new iTexture(keyPath, buildMode, wrapMode), iTexture::private_deleter());
                 loadTexture(result);
                 _textures[hashValue] = result;
             }
@@ -199,7 +216,7 @@ namespace Igor
         return result;
     }
 
-    shared_ptr<iTexture> iTextureResourceFactory::requestFile(const iaString& filename, iTextureBuildMode mode)
+    shared_ptr<iTexture> iTextureResourceFactory::requestFile(const iaString& filename, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         shared_ptr<iTexture> result;
 
@@ -212,7 +229,7 @@ namespace Igor
             }
 
 
-            int64 hashValue = calcHashValue(filename, mode);
+            int64 hashValue = calcHashValue(filename, buildMode, wrapMode);
 
             _mutex.lock();
             auto textureIter = _textures.find(hashValue);
@@ -223,7 +240,7 @@ namespace Igor
 
             if (nullptr == result.get())
             {
-                result = shared_ptr<iTexture>(new iTexture(keyPath, mode), iTexture::private_deleter());
+                result = shared_ptr<iTexture>(new iTexture(keyPath, buildMode, wrapMode), iTexture::private_deleter());
                 _textures[hashValue] = result;
             }
             _mutex.unlock();
@@ -321,7 +338,7 @@ namespace Igor
                 con_assert(false, "unsupported color format");
             };
 
-            texture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorFormat, textureData, texture->_mode);
+            texture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorFormat, textureData, texture->_buildMode, texture->_wrapMode);
             texture->_width = width;
             texture->_height = height;
             texture->_dummy = false;
@@ -329,16 +346,38 @@ namespace Igor
             texture->_colorFormat = colorFormat;
             texture->_bpp = bpp;
 
-            con_info("loaded texture", "\"" << texture->getFilename() << "\" [" << width << ":" << height << "] " << ((texture->getTextureBuildMode() == iTextureBuildMode::Mipmapped) ? "mipmapped" : ""));
+            iaString build = ".not mipmapped";
+            if (texture->getTextureBuildMode() == iTextureBuildMode::Mipmapped)
+            {
+                build = ".mipmapped";
+            }
+
+            iaString wrap;
+            switch (texture->getTextureWrapMode())
+            {
+            case iTextureWrapMode::Repeat:
+                wrap = ".repeat";
+                break;
+
+            case iTextureWrapMode::Clamp:
+                wrap = ".clamp";
+                break;
+
+            case iTextureWrapMode::MirrorRepeat:
+                wrap = ".mirror repeat";
+                break;
+            }
+
+            con_info("loaded texture", "\"" << texture->getFilename() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
 
             delete[] textureData;
         }
     }
 
-    shared_ptr<iTexture> iTextureResourceFactory::loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iTextureBuildMode mode)
+    shared_ptr<iTexture> iTextureResourceFactory::loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
         shared_ptr<iTexture> result;
-        int64 hashValue = calcHashValue(pixmapname, mode);
+        int64 hashValue = calcHashValue(pixmapname, buildMode, wrapMode);
 
         _mutex.lock();
         auto texture = _textures.find(hashValue);
@@ -371,8 +410,8 @@ namespace Igor
                 con_err("unknown color format");
             };
 
-            result = shared_ptr<iTexture>(new iTexture(pixmapname, mode), iTexture::private_deleter());
-            result->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorformat, data, mode);
+            result = shared_ptr<iTexture>(new iTexture(pixmapname, buildMode, wrapMode), iTexture::private_deleter());
+            result->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorformat, data, buildMode, wrapMode);
 
             _mutex.lock();
             _textures[hashValue] = result;

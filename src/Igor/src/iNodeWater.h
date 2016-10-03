@@ -26,73 +26,78 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iDEFINES__
-#define __iDEFINES__
+#ifndef __iNODEWATER__
+#define __iNODEWATER__
 
-#include <iaDefines.h>
-
-#ifdef __IGOR_MSCOMPILER__
-	#ifdef __IGOR_BUILDING_DLL__
-		#define Igor_API __declspec(dllexport)
-		#define Igor_API_Template __declspec(dllexport)
-	#else
-		#define Igor_API __declspec(dllimport)
-		#define Igor_API_Template
-	#endif
-#endif
-
-#ifdef __IGOR_DEBUG__
-    #define __IGOR_CONFIG_STR__ debug
-#else
-    #define __IGOR_CONFIG_STR__ release
-#endif
-
-#ifdef __IGOR_X64__
-    #define __IGOR_BIT_STR__ x64
-#endif
-
-#ifdef __IGOR_X32__
-    #define __IGOR_BIT_STR__ x32
-#endif
-
-#define IGOR_DFAULT_WINDOW_TITLE TEXT("#Igor")
+#include <iNodeRender.h>
+#include <iTextureResourceFactory.h>
 
 namespace Igor
 {
 
-    /*! color format of textures pixmaps etc.
+    /*! renders a enless water plane relative to current camera
     */
-    enum class iColorFormat
-    {
-        Undefined,
-        RGB,
-        RGBA,
-        RED,
-        GREEN,
-        BLUE,
-        ALPHA,
-        DEPTH,
-        BGR,
-        BGRA
-    };
+	class Igor_API iNodeWater : public iNodeRender
+	{
 
-    /*! how to generate a texture
-    */
-    enum class iTextureBuildMode
-    {
-        Normal,
-        Mipmapped
-    };
+		friend class iNodeFactory;
 
-    /*! texture wrap mode
-    */
-    enum class iTextureWrapMode
-    {
-        Repeat,
-        Clamp,
-        MirrorRepeat
-    };
+    public:
 
-};
+        /*! \returns true if this node was reached by culling
+
+        the sky box node is always reached!
+        */
+        virtual bool wasReached();
+
+        /*! draw the sky box
+        */
+        virtual void draw();
+
+        /*! y position of water plane
+
+        \param yPos the position of the water plane on the Y axis
+        */
+        void setWaterPosition(float32 yPos);
+
+        /*! \returns y position of water plane
+        */
+        float32 getWaterPosition() const;
+
+        /*! set ambient color of water plane
+
+        \param color the ambient color
+        */
+        void setAmbient(const iaColor4f& color);
+
+        /*! \returns ambient color of water plane
+        */
+        iaColor4f getAmbient() const;
+
+	private:
+
+        /*! y position of water plane
+        */
+        float32 _yPos = 0;
+
+        /*! ambient color of water plane
+        */
+        iaColor4f _ambient;
+
+        /*! initializes member variables
+        */
+        iNodeWater();
+
+        /*! copy ctor
+        */
+        iNodeWater(iNodeWater* node);
+
+        /*! releases resources
+        */
+		virtual ~iNodeWater();
+
+	};
+
+}
 
 #endif

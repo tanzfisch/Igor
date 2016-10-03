@@ -62,12 +62,12 @@ namespace Igor
 
 	void iNodeSkyBox::setTextures(iaString front, iaString back, iaString left, iaString right, iaString top, iaString bottom)
 	{
-		_front = iTextureResourceFactory::getInstance().requestFile(front);
-		_back = iTextureResourceFactory::getInstance().requestFile(back);
-		_left = iTextureResourceFactory::getInstance().requestFile(left);
-		_right = iTextureResourceFactory::getInstance().requestFile(right);
-		_top = iTextureResourceFactory::getInstance().requestFile(top);
-		_bottom = iTextureResourceFactory::getInstance().requestFile(bottom);
+		_front = iTextureResourceFactory::getInstance().requestFile(front, iTextureBuildMode::Normal, iTextureWrapMode::Clamp);
+		_back = iTextureResourceFactory::getInstance().requestFile(back, iTextureBuildMode::Normal, iTextureWrapMode::Clamp);
+		_left = iTextureResourceFactory::getInstance().requestFile(left, iTextureBuildMode::Normal, iTextureWrapMode::Clamp);
+		_right = iTextureResourceFactory::getInstance().requestFile(right, iTextureBuildMode::Normal, iTextureWrapMode::Clamp);
+		_top = iTextureResourceFactory::getInstance().requestFile(top, iTextureBuildMode::Normal, iTextureWrapMode::Clamp);
+		_bottom = iTextureResourceFactory::getInstance().requestFile(bottom, iTextureBuildMode::Normal, iTextureWrapMode::Clamp);
 	}
 
     void iNodeSkyBox::setOffsetMatrix(iaMatrixf& offsetMatrix)

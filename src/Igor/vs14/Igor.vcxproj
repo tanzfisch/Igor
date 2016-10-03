@@ -740,6 +740,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iNodeVisitorPrintTree.h" />
     <ClInclude Include="..\src\iNodeVisitorUpdateTransform.h" />
     <ClInclude Include="..\src\iNodeVolume.h" />
+    <ClInclude Include="..\src\iNodeWater.h" />
     <ClInclude Include="..\src\Intersection2D.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -1349,6 +1350,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iNodeVisitorPrintTree.cpp" />
     <ClCompile Include="..\src\iNodeVisitorUpdateTransform.cpp" />
     <ClCompile Include="..\src\iNodeVolume.cpp" />
+    <ClCompile Include="..\src\iNodeWater.cpp" />
     <ClCompile Include="..\src\Intersection3D.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>

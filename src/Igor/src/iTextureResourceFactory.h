@@ -64,10 +64,11 @@ namespace Igor
         /*! requests a file to be loaded asynchronously.
 
         \param filename name of file to load
-        \param mode default ist mipmapped
+        \param buildMode default ist mipmapped
+        \param wrapMode wrap mode of texture
         \returns shared pointer to texture
         */
-        shared_ptr<iTexture> requestFile(const iaString& filename, iTextureBuildMode mode = iTextureBuildMode::Mipmapped);
+        shared_ptr<iTexture> requestFile(const iaString& filename, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! load texture synchronously
 
@@ -75,7 +76,7 @@ namespace Igor
         \param mode default ist mipmapped
         \returns shared pointer to texture
         */
-        shared_ptr<iTexture> loadFile(const iaString& filename, iTextureBuildMode mode = iTextureBuildMode::Mipmapped);
+        shared_ptr<iTexture> loadFile(const iaString& filename, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! works like a garbage collector.
 
@@ -95,7 +96,7 @@ namespace Igor
         \param pixmapname artificial filename used as identifier (has to be a uNiQue)
         \param mode default ist mipmapped
         */
-        shared_ptr<iTexture> loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iTextureBuildMode mode = iTextureBuildMode::Mipmapped);
+        shared_ptr<iTexture> loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! synchronously loading a texture and returning a iPixmap
 
@@ -145,7 +146,7 @@ namespace Igor
         \param name the file name or just virtual name of the texture
         \param mode the build mode of the texture
         */
-        int64 calcHashValue(const iaString& name, iTextureBuildMode mode);
+        int64 calcHashValue(const iaString& name, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! initialisation of members 3rd party lib
         */

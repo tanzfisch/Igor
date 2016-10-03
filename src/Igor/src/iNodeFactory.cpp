@@ -23,6 +23,7 @@ using namespace IgorAux;
 #include <iNodePhysics.h>
 #include <iNodeParticleSystem.h>
 #include <iNodeEmitter.h>
+#include <iNodeWater.h>
 
 #include <iApplication.h>
 
@@ -284,6 +285,9 @@ namespace Igor
                 result = new iNodeEmitter(static_cast<iNodeEmitter*>(node));
                 break;
                 
+            case iNodeType::iNodeWater:
+                result = new iNodeWater(static_cast<iNodeWater*>(node));
+                break;
 
             case iNodeType::Undefined:
             default:
@@ -365,6 +369,10 @@ namespace Igor
 
         case iNodeType::iNodeEmitter:
             result = new iNodeEmitter();
+            break;
+
+        case iNodeType::iNodeWater:
+            result = new iNodeWater();
             break;
 
         case iNodeType::Undefined:

@@ -74,7 +74,11 @@ namespace Igor
 
         /*! returns the texture build mode
         */
-        iTextureBuildMode getTextureBuildMode();
+        iTextureBuildMode getTextureBuildMode() const;
+
+        /*! \returns texture wrap mode
+        */
+        iTextureWrapMode getTextureWrapMode() const;
 
         /*! returns the filename
         */
@@ -98,7 +102,11 @@ namespace Igor
 
 		/*! build mode
 		*/
-		iTextureBuildMode _mode = iTextureBuildMode::Mipmapped;
+		iTextureBuildMode _buildMode = iTextureBuildMode::Mipmapped;
+
+        /*! wrap mode
+        */
+        iTextureWrapMode _wrapMode = iTextureWrapMode::Repeat;
 
 		/*! the width
 		*/
@@ -124,7 +132,7 @@ namespace Igor
 
 		initializes member variables
 		*/
-		iTexture(iaString name, iTextureBuildMode mode);
+		iTexture(iaString name, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
 
         /*! dtor
 
