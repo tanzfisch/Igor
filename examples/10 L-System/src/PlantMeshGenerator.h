@@ -95,7 +95,7 @@ private:
     iaMatrixf _modelMatrix;
 
     void generateMesh(iJoint* joint);
-    void generateMesh(int customValue, const iaVector3f& dir);
+    void generateMesh(int customValue, const iaVector3f& dir, float32 size);
     void generateSkeleton(const iaString& sentence);
 
 };

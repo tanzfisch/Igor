@@ -55,8 +55,9 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
         meshNode->setMaterial(plantInformation->_materialID);
 
         iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
-        targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
-        targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+        targetMaterial->setTexture(iTextureResourceFactory::getInstance().loadFile("blue.png"), 0);
+        targetMaterial->setAmbient(iaColor3f(0.2f, 0.7f, 0.1f));
+        targetMaterial->setDiffuse(iaColor3f(0.3f, 0.9f, 0.2f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
         targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
         targetMaterial->setShininess(100.0f);
@@ -85,7 +86,7 @@ void PlantMeshGenerator::generateMesh(iJoint* joint)
             _modelMatrix *= matrixRotate;
 
             // generate actual mesh now
-            generateMesh(reinterpret_cast<int>(bone->getCustomData()), dir);
+            generateMesh(reinterpret_cast<int>(bone->getCustomData()), dir, 0.05);
             
             _modelMatrix.translate(dir);
 
@@ -100,28 +101,54 @@ void PlantMeshGenerator::generateMesh(iJoint* joint)
     }
 }
 
-void PlantMeshGenerator::generateMesh(int customValue, const iaVector3f& dir)
+void PlantMeshGenerator::generateMesh(int customValue, const iaVector3f& dir, float32 size)
 {
-    // TODO this is just a rapid prototype now
-    iaVector3f a(0, 0, -1);
-    iaVector3f b(1, 0, 0);
-    iaVector3f c(0, 0, 1);
-    iaVector3f d(-1, 0, 0);
+    iaVector3f a(1, 0, 1);
+    iaVector3f b(1, 0, -1);
+    iaVector3f c(-1, 0, -1);
+    iaVector3f d(-1, 0, 1);
+
+    a *= size;
+    b *= size;
+    c *= size;
+    d *= size;
 
     uint32 ai = _meshBuilder.addVertex(_modelMatrix * a);
     uint32 bi = _meshBuilder.addVertex(_modelMatrix * b);
     uint32 ci = _meshBuilder.addVertex(_modelMatrix * c);
     uint32 di = _meshBuilder.addVertex(_modelMatrix * d);
 
-    uint32 ati = _meshBuilder.addVertex(_modelMatrix * (a + dir));
-    uint32 bti = _meshBuilder.addVertex(_modelMatrix * (b + dir));
-    uint32 cti = _meshBuilder.addVertex(_modelMatrix * (c + dir));
-    uint32 dti = _meshBuilder.addVertex(_modelMatrix * (d + dir));
-    
-    _meshBuilder.addTriangle(ai, ci, cti);
-    _meshBuilder.addTriangle(cti, ati, ai);
-    _meshBuilder.addTriangle(di, bi, bti);
-    _meshBuilder.addTriangle(bti, dti, di);
+    a += dir;
+    b += dir;
+    c += dir;
+    d += dir;
+
+    uint32 ati = _meshBuilder.addVertex(_modelMatrix * a);
+    uint32 bti = _meshBuilder.addVertex(_modelMatrix * b);
+    uint32 cti = _meshBuilder.addVertex(_modelMatrix * c);
+    uint32 dti = _meshBuilder.addVertex(_modelMatrix * d);
+
+    _meshBuilder.setNormal(ai, iaVector3f(1, 0, 1));
+    _meshBuilder.setNormal(bi, iaVector3f(1, 0, -1));
+    _meshBuilder.setNormal(ci, iaVector3f(-1, 0, -1));
+    _meshBuilder.setNormal(di, iaVector3f(-1, 0, 1));
+
+    _meshBuilder.setNormal(ati, iaVector3f(1, 0, 1));
+    _meshBuilder.setNormal(bti, iaVector3f(1, 0, -1));
+    _meshBuilder.setNormal(cti, iaVector3f(-1, 0, -1));
+    _meshBuilder.setNormal(dti, iaVector3f(-1, 0, 1));
+
+    _meshBuilder.addTriangle(ai, bi, bti);
+    _meshBuilder.addTriangle(ai, bti, ati);
+
+    _meshBuilder.addTriangle(ai, ati, dti);
+    _meshBuilder.addTriangle(dti, di, ai);
+
+    _meshBuilder.addTriangle(bi, ci, cti);
+    _meshBuilder.addTriangle(cti, bti, bi);
+
+    _meshBuilder.addTriangle(ci, di, dti);
+    _meshBuilder.addTriangle(dti, cti, ci);
 }
 
 
