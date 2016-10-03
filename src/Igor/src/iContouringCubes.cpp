@@ -17,7 +17,7 @@ using namespace IgorAux;
 #define NEIGHBOR_ZPOSITIVE 0x02
 #define NEIGHBOR_ZNEGATIVE 0x01
 
-#define FILL_LOD_GAPS
+//#define FILL_LOD_GAPS
 #define CALC_NORMALS
 
 namespace Igor

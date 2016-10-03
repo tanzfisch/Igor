@@ -85,9 +85,9 @@ namespace Igor
 
             float32 f = 7000;
 
-            for (int x = -2; x < 3; ++x)
+            for (int x = -3; x < 4; ++x)
             {
-                for (int z = -2; z < 3; ++z)
+                for (int z = -3; z < 4; ++z)
                 {
                     iRenderer::getInstance().drawBillboard(iaVector3f(f * 2.0f * x, 0, f * 2.0 * z), iaVector3f(f, 0, 0), iaVector3f(0, 0, f), nullptr, 10, 10);
                 }
