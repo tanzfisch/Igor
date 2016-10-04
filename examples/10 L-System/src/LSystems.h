@@ -139,8 +139,6 @@ private:
 
     void generateLSystem();
 
-    void drawLSystem(iJoint* joint);
-
     uint32 _groupNodeID = iNode::INVALID_NODE_ID;
 
     void initStyle1();

@@ -174,9 +174,9 @@ void LSystems::initStyle1()
     _lSystem.addRule('*', weightedRule2);
 
     vector<iLSystemRule> weightedRule3;
-    weightedRule3.push_back(iLSystemRule(0.5, "o", iAgeFunction::Greater, 4));
-    weightedRule3.push_back(iLSystemRule(0.5, "O"));
-    _lSystem.addRule('o', weightedRule3);
+    weightedRule3.push_back(iLSystemRule(0.9, "F", iAgeFunction::Greater, 4));
+    weightedRule3.push_back(iLSystemRule(0.1, "O"));
+    _lSystem.addRule('F', weightedRule3);
 
     _stemColor.set(0, 0.8, 0, 1);
     _shotColor.set(0.2, 0.5, 0.0, 1);
@@ -216,7 +216,7 @@ void LSystems::initStyle2()
 
 void LSystems::initStyle3()
 {
-    _segmentLength = 0.5;
+    _segmentLength = 3.5;
     _angle = 0.5;
 
     _lSystem.addRule('F', "FF");
@@ -251,7 +251,8 @@ void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, 
         plantInformation._axiom[i] = axiom[i];
     }
     plantInformation._iterations = iterations;
-    plantInformation._materialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID(); //_lSystemMaterialID;
+    plantInformation._trunkMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+    plantInformation._flowerMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
     plantInformation._seed = seed;
     plantInformation._segmentAngle = _angle;
     plantInformation._segmentLenght = _segmentLength;
@@ -312,74 +313,9 @@ void LSystems::generateLSystem()
     for (int i = 0; i < 1; ++i)
     {
         iaMatrixf matrix;
-        matrix.translate(0, -20, 0);
+        matrix.translate(0, -10, 0);
 
-        triggerMeshGeneration(groupNode, matrix, "X", 3 + 2, seed);
-    }
-}
-
-void LSystems::drawLSystem(iJoint* joint)
-{
-    if (joint != nullptr)
-    {
-        iaVector3f dir;
-
-        vector<uint64> children = joint->getChildren();
-        for (auto childBone : children)
-        {
-            iaMatrixf modelMatrix;
-            iRenderer::getInstance().getModelMatrix(modelMatrix);
-            iaMatrixf saveModelMatrix = modelMatrix;
-
-            iBone* bone = iBoneFactory::getInstance().getBone(childBone);
-            dir._y = bone->getLenght();
-
-            iaMatrixf matrixRotate;
-            bone->getMatrix(matrixRotate);
-
-            iRenderer::getInstance().getModelMatrix(modelMatrix);
-            modelMatrix *= matrixRotate;
-            iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-            iRenderer::getInstance().setColor(_stemColor);
-            iRenderer::getInstance().drawLine(iaVector3f(), dir);
-
-            iaMatrixf matrixTranslate;
-            matrixTranslate.translate(dir);
-
-            modelMatrix *= matrixTranslate;
-            iRenderer::getInstance().setModelMatrix(modelMatrix);
-
-            int value = reinterpret_cast<int>(bone->getCustomData());
-            if (value != 0)
-            {
-                switch (value)
-                {
-                case 1:
-                    iRenderer::getInstance().setColor(_shotColor);
-                    iRenderer::getInstance().setPointSize(6);
-                    break;
-                case 2:
-                    iRenderer::getInstance().setColor(_budColor);
-                    iRenderer::getInstance().setPointSize(10);
-                    break;
-                case 3:
-                    iRenderer::getInstance().setColor(_blossomColor);
-                    iRenderer::getInstance().setPointSize(15);
-                    break;
-                }
-
-                iRenderer::getInstance().drawPoint(iaVector3f());
-            }
-
-            if (bone->getTopJoint() != iJoint::INVALID_JOINT_ID)
-            {
-                iJoint* joint = iBoneFactory::getInstance().getJoint(bone->getTopJoint());
-                drawLSystem(joint);
-            }
-
-            iRenderer::getInstance().setModelMatrix(saveModelMatrix);
-        }
+        triggerMeshGeneration(groupNode, matrix, "X", 4 + 2, seed);
     }
 }
 

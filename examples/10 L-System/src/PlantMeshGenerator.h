@@ -53,11 +53,22 @@ struct PlantInformation
     uint64 _seed = 0;
     float64 _segmentLenght = 0;
     float64 _segmentAngle = 0;
-    int32 _materialID = iMaterial::INVALID_MATERIAL_ID;
+    int32 _flowerMaterialID = iMaterial::INVALID_MATERIAL_ID;
+    int32 _trunkMaterialID = iMaterial::INVALID_MATERIAL_ID;
 };
 
 class PlantMeshGenerator : public iModelDataIO
 {
+
+    enum SectionType
+    {
+        Trunk,
+        Branch,
+        Sproud,
+        Leaf,
+        Bud,
+        Flower
+    };
 
 public:
 
@@ -89,13 +100,25 @@ private:
     float64 _segmentLength = 0;
     float64 _segmentAngle = 0;
 
-    iMeshBuilder _meshBuilder;
+    iMeshBuilder _meshBuilderTrunk;
+    iMeshBuilder _meshBuilderBranches;
+    iMeshBuilder _meshBuilderFlowers;
+    iMeshBuilder _meshBuilderLeaves;
     iSkeleton _skeleton;
+
+    float32 _lastSize = 0;
+    float32 _currentSize = 0;
     
     iaMatrixf _modelMatrix;
 
     void generateMesh(iJoint* joint);
-    void generateMesh(int customValue, const iaVector3f& dir, float32 size);
+    void generateMesh(SectionType sectionType, const iaVector3f& dir);
+
+    void generateTrunk(const iaVector3f& dir);
+    void generateFlower(const iaVector3f& dir);
+    void generateBud(const iaVector3f& dir);
+    void generateLeaf(const iaVector3f& dir);
+
     void generateSkeleton(const iaString& sentence);
 
 };
