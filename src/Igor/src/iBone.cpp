@@ -10,11 +10,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    uint64 iBone::_nextID = iBone::INVALID_BONE_ID + 1;
-
     iBone::iBone()
     {
-        _id = _nextID++;
     }
 
     void iBone::setMatrix(const iaMatrixf& matrix)
@@ -25,11 +22,6 @@ namespace Igor
     void iBone::getMatrix(iaMatrixf& matrix) const
     {
         matrix = _matrix;
-    }
-
-    uint64 iBone::getID() const
-    {
-        return _id;
     }
 
     void iBone::setLenght(float64 lenght)
@@ -46,12 +38,12 @@ namespace Igor
         return _lenght;
     }
 
-    uint64 iBone::getTopJoint() const
+    iJoint* iBone::getTopJoint() const
     {
         return _jointTop;
     }
 
-    uint64 iBone::getBottomJoint() const
+    iJoint* iBone::getBottomJoint() const
     {
         return _jointBottom;
     }

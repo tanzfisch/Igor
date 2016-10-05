@@ -31,7 +31,6 @@
 #include <iNodeLODTrigger.h>
 #include <iGradient.h>
 #include <iSkeleton.h>
-#include <iBoneFactory.h>
 #include <iTextureResourceFactory.h>
 using namespace Igor;
 
@@ -90,17 +89,18 @@ void LSystems::init()
     // give the transform node a name. naming is optional and ist jus for helping to debug. 
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
-    cameraHeading->rotate(0.1, iaAxis::Y);
+    cameraHeading->rotate(-0.5, iaAxis::Y);
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
     iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraPitch->setName("camera pitch");
+    cameraPitch->rotate(0.3, iaAxis::X);
     _cameraPitch = cameraPitch->getID();
     // and one is for translation or distance from the origin
     iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, 20);
+    cameraTranslation->translate(0, 0, 50);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -155,47 +155,41 @@ void LSystems::init()
 
 void LSystems::initStyle1()
 {
-    _segmentLength = 0.5;
+    _segmentLength = 0.25;
     _angle = 0.3;
 
     _lSystem.addRule('F', "FF");
 
     vector<iLSystemRule> weightedRule1;
-    weightedRule1.push_back(iLSystemRule(0.25, "F[+X]F[-X]+X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "F[-X]F[+X]-X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "F[RX]F[LX]RX*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "F[LX]F[RX]LX*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F[+X]OF[-X]+X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "FO[-X]F[+X]-X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F[RX]F[LX]ORX*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F[LX]FO[RX]LX*"));
     _lSystem.addRule('X', weightedRule1);
 
     vector<iLSystemRule> weightedRule2;
-    weightedRule2.push_back(iLSystemRule(0.5, "*", iAgeFunction::Greater, 2));
+    weightedRule2.push_back(iLSystemRule(0.7, "*", iAgeFunction::Greater, 2));
     weightedRule2.push_back(iLSystemRule(0.3, "o"));
-    weightedRule2.push_back(iLSystemRule(0.2, "z"));
     _lSystem.addRule('*', weightedRule2);
 
-    vector<iLSystemRule> weightedRule3;
-    weightedRule3.push_back(iLSystemRule(0.9, "F", iAgeFunction::Greater, 4));
-    weightedRule3.push_back(iLSystemRule(0.1, "O"));
-    _lSystem.addRule('F', weightedRule3);
-
-    _stemColor.set(0, 0.8, 0, 1);
-    _shotColor.set(0.2, 0.5, 0.0, 1);
-    _budColor.set(0.8, 0.7, 0.0, 1);
-    _blossomColor.set(1, 0, 0, 1);
+    _trunkColor.set(0, 0.8, 0);
+    _budColor.set(0.8, 0.7, 0.0);
+    _flowerColor.set(1, 0, 0);
+    _leafColor.set(0, 0.7, 0);
 }
 
 void LSystems::initStyle2()
 {
-    _segmentLength = 0.5;
+    _segmentLength = 0.25;
     _angle = 0.25;
 
     _lSystem.addRule('F', "FF");
 
     vector<iLSystemRule> weightedRule1;
-    weightedRule1.push_back(iLSystemRule(0.25, "F-[[X]+X]+F[+FX]-X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "F+[[X]-X]-F[-FX]+X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "FR[[X]LX]LF[LFX]RX*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "FL[[X]RX]RF[RFX]LX*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F-[[X]+X]O+F[+FX]-X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "F+[[X]-X]-F[-FX]O+X*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "FR[[X]LX]LFO[LFX]RX*"));
+    weightedRule1.push_back(iLSystemRule(0.25, "FL[[X]RX]ORF[RFX]LX*"));
     _lSystem.addRule('X', weightedRule1);
 
     vector<iLSystemRule> weightedRule2;
@@ -203,43 +197,33 @@ void LSystems::initStyle2()
     weightedRule2.push_back(iLSystemRule(0.3, "o"));
     _lSystem.addRule('*', weightedRule2);
 
-    vector<iLSystemRule> weightedRule3;
-    weightedRule3.push_back(iLSystemRule(0.5, "o", iAgeFunction::Greater, 4));
-    weightedRule3.push_back(iLSystemRule(0.5, "O"));
-    _lSystem.addRule('o', weightedRule3);
-
-    _stemColor.set(0, 0.7, 0, 1);
-    _shotColor.set(0.0, 0.5, 0.0, 1);
-    _budColor.set(0.8, 0.0, 0.5, 1);
-    _blossomColor.set(1, 0, 1, 1);
+    _trunkColor.set(0, 0.7, 0);
+    _budColor.set(0.8, 0.0, 0.5);
+    _flowerColor.set(1, 0, 1);
+    _leafColor.set(0, 0.6, 0);
 }
 
 void LSystems::initStyle3()
 {
-    _segmentLength = 3.5;
+    _segmentLength = 0.25;
     _angle = 0.5;
 
     _lSystem.addRule('F', "FF");
 
     vector<iLSystemRule> weightedRule1;
-    weightedRule1.push_back(iLSystemRule(0.5, "F[+X][-X]FX*"));
-    weightedRule1.push_back(iLSystemRule(0.5, "F[RX][LX]FX*"));
+    weightedRule1.push_back(iLSystemRule(0.5, "F[+X]O[-X]FX*"));
+    weightedRule1.push_back(iLSystemRule(0.5, "F[RX]O[LX]FX*"));
     _lSystem.addRule('X', weightedRule1);
 
     vector<iLSystemRule> weightedRule2;
-    weightedRule2.push_back(iLSystemRule(0.7, "*", iAgeFunction::Greater, 2));
-    weightedRule2.push_back(iLSystemRule(0.3, "o"));
+    weightedRule2.push_back(iLSystemRule(0.6, "*", iAgeFunction::Greater, 2));
+    weightedRule2.push_back(iLSystemRule(0.4, "o"));
     _lSystem.addRule('*', weightedRule2);
 
-    vector<iLSystemRule> weightedRule3;
-    weightedRule3.push_back(iLSystemRule(0.5, "o", iAgeFunction::Greater, 4));
-    weightedRule3.push_back(iLSystemRule(0.5, "O"));
-    _lSystem.addRule('o', weightedRule3);
-
-    _stemColor.set(0, 0.8, 0, 1);
-    _shotColor.set(0.0, 0.5, 0.0, 1);
-    _budColor.set(0.8, 0.8, 0.5, 1);
-    _blossomColor.set(1, 1, 1, 1);
+    _trunkColor.set(0, 0.8, 0);
+    _budColor.set(0.8, 0.8, 0.5);
+    _flowerColor.set(1, 1, 1);
+    _leafColor.set(0, 0.7, 0);
 }
 
 void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
@@ -251,11 +235,15 @@ void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, 
         plantInformation._axiom[i] = axiom[i];
     }
     plantInformation._iterations = iterations;
-    plantInformation._trunkMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
-    plantInformation._flowerMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+    plantInformation._materialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
     plantInformation._seed = seed;
     plantInformation._segmentAngle = _angle;
     plantInformation._segmentLenght = _segmentLength;
+    plantInformation._branchColor = _branchColor;
+    plantInformation._trunkColor = _trunkColor;
+    plantInformation._budColor = _budColor;
+    plantInformation._leafColor = _leafColor;
+    plantInformation._flowerColor = _flowerColor;
 
     iModelDataInputParameter* inputParam = new iModelDataInputParameter();
     inputParam->_identifier = "pg";
@@ -310,12 +298,12 @@ void LSystems::generateLSystem()
     _groupNodeID = groupNode->getID();
     _scene->getRoot()->insertNode(groupNode);
 
-    for (int i = 0; i < 1; ++i)
+    for (int i = 0; i < 7; ++i)
     {
         iaMatrixf matrix;
-        matrix.translate(0, -10, 0);
+        matrix.translate(-15 + i* 5, -15, 0);
 
-        triggerMeshGeneration(groupNode, matrix, "X", 4 + 2, seed);
+        triggerMeshGeneration(groupNode, matrix, "X", i, seed);
     }
 }
 
@@ -381,7 +369,7 @@ void LSystems::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _wi
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraHeading->rotate((y1 - y2) * 0.005f, iaAxis::X);
+            cameraPitch->rotate((y1 - y2) * 0.005f, iaAxis::X);
             cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
             iMouse::getInstance().setCenter(true);
         }

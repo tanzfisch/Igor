@@ -132,10 +132,12 @@ private:
     iLSystem _lSystem;
     float32 _segmentLength = 0.5;
     float32 _angle = 0.3;
-    iaColor4f _stemColor;
-    iaColor4f _shotColor;
-    iaColor4f _budColor;
-    iaColor4f _blossomColor;
+
+    iaColor3f _trunkColor;
+    iaColor3f _branchColor;
+    iaColor3f _budColor;
+    iaColor3f _flowerColor;
+    iaColor3f _leafColor;
 
     void generateLSystem();
 

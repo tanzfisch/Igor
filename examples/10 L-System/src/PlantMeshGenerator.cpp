@@ -14,7 +14,6 @@
 #include <iTextureResourceFactory.h>
 #include <iTargetMaterial.h>
 #include <iNodeTransform.h>
-#include <iBoneFactory.h>
 using namespace Igor;
 
 PlantMeshGenerator::PlantMeshGenerator()
@@ -22,6 +21,10 @@ PlantMeshGenerator::PlantMeshGenerator()
     _identifier = "pg";
     _name = "Plant Generator";
     _meshBuilderTrunk.setJoinVertexes();
+    _meshBuilderLeaves.setJoinVertexes();
+    _meshBuilderBranches.setJoinVertexes();
+    _meshBuilderBuds.setJoinVertexes();
+    _meshBuilderFlowers.setJoinVertexes();
 }
 
 iModelDataIO* PlantMeshGenerator::createInstance()
@@ -43,12 +46,10 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
     iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations);
     generateSkeleton(sentence);
 
-    iJoint* joint = iBoneFactory::getInstance().getJoint(_skeleton.getRootJoint());
+    _lastSize = 0.03;
+    _currentSize = 0.03;
 
-    _lastSize = 0.05;
-    _currentSize = 0.05;
-
-    generateMesh(joint);
+    generateMesh(_skeleton.getRootJoint());
 
     iNodeMesh* meshNodeTrunk = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     shared_ptr<iMesh> meshTrunk = _meshBuilderTrunk.createMesh();
@@ -56,11 +57,11 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
     if (meshTrunk.get() != nullptr)
     {
         meshNodeTrunk->setMesh(meshTrunk);
-        meshNodeTrunk->setMaterial(plantInformation->_trunkMaterialID);
+        meshNodeTrunk->setMaterial(plantInformation->_materialID);
 
         iTargetMaterial* targetMaterial = meshNodeTrunk->getTargetMaterial();
-        targetMaterial->setAmbient(iaColor3f(0.2f, 0.7f, 0.1f));
-        targetMaterial->setDiffuse(iaColor3f(0.3f, 0.9f, 0.2f));
+        targetMaterial->setAmbient(plantInformation->_trunkColor);
+        targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
         targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
         targetMaterial->setShininess(100.0f);
@@ -74,16 +75,53 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
     if (meshFlowers.get() != nullptr)
     {
         meshNodeFlowers->setMesh(meshFlowers);
-        meshNodeFlowers->setMaterial(plantInformation->_flowerMaterialID);
+        meshNodeFlowers->setMaterial(plantInformation->_materialID);
 
         iTargetMaterial* targetMaterial = meshNodeFlowers->getTargetMaterial();
-        targetMaterial->setAmbient(iaColor3f(0.9f, 0.2f, 0.1f));
-        targetMaterial->setDiffuse(iaColor3f(1.0f, 0.6f, 0.2f));
+        targetMaterial->setAmbient(plantInformation->_flowerColor);
+        targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
         targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
         targetMaterial->setShininess(100.0f);
 
         result->insertNode(meshNodeFlowers);
+    }
+
+    iNodeMesh* meshNodeBuds = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    shared_ptr<iMesh> meshBuds = _meshBuilderBuds.createMesh();
+
+    if (meshBuds.get() != nullptr)
+    {
+        meshNodeBuds->setMesh(meshBuds);
+        meshNodeBuds->setMaterial(plantInformation->_materialID);
+
+        iTargetMaterial* targetMaterial = meshNodeBuds->getTargetMaterial();
+        targetMaterial->setAmbient(plantInformation->_budColor);
+        targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
+        targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
+        targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
+        targetMaterial->setShininess(100.0f);
+
+        result->insertNode(meshNodeBuds);
+    }
+
+    iNodeMesh* meshNodeLeafs = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    _meshBuilderLeaves.calcNormals();
+    shared_ptr<iMesh> meshLeafs = _meshBuilderLeaves.createMesh();
+
+    if (meshLeafs.get() != nullptr)
+    {
+        meshNodeLeafs->setMesh(meshLeafs);
+        meshNodeLeafs->setMaterial(plantInformation->_materialID);
+
+        iTargetMaterial* targetMaterial = meshNodeLeafs->getTargetMaterial();
+        targetMaterial->setAmbient(plantInformation->_leafColor);
+        targetMaterial->setDiffuse(iaColor3f(0.5f, 0.5f, 0.5f));
+        targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
+        targetMaterial->setEmissive(iaColor3f(0.01f, 0.01f, 0.01f));
+        targetMaterial->setShininess(100.0f);
+
+        result->insertNode(meshNodeLeafs);
     }
 
     return result;
@@ -96,12 +134,11 @@ void PlantMeshGenerator::generateMesh(iJoint* joint)
         iaMatrixf matrixRotate;
         iaMatrixf saveModelMatrix;
 
-        vector<uint64> children = joint->getChildren();
-        for (auto childBone : children)
+        vector<iBone*> children = joint->getChildren();
+        for (auto bone : children)
         {
             saveModelMatrix = _modelMatrix;
-
-            iBone* bone = iBoneFactory::getInstance().getBone(childBone);
+            
             iaVector3f dir(0, bone->getLenght(), 0);
             bone->getMatrix(matrixRotate);
 
@@ -112,10 +149,9 @@ void PlantMeshGenerator::generateMesh(iJoint* joint)
 
             _modelMatrix.translate(dir);
 
-            if (bone->getTopJoint() != iJoint::INVALID_JOINT_ID)
+            if (bone->getTopJoint() != nullptr)
             {
-                iJoint* joint = iBoneFactory::getInstance().getJoint(bone->getTopJoint());
-                generateMesh(joint);
+                generateMesh(bone->getTopJoint());
             }
 
             _modelMatrix = saveModelMatrix;
@@ -191,7 +227,7 @@ void PlantMeshGenerator::generateFlower(const iaVector3f& dir)
     iaMatrixf scale;
     iaMatrixf current;
 
-    scale.scale(0.5, 0.5, 0.5);
+    scale.scale(0.6, 0.6, 0.6);
 
     const iaVector3f vecs[4] = { { 0,0,0 },{ 1, 0.2f, 0 } ,{ 0.75f, 0.4f, -0.2f },{ 0.75f, 0.4f, 0.2f } };
 
@@ -232,7 +268,7 @@ void PlantMeshGenerator::generateBud(const iaVector3f& dir)
     iaMatrixf scale;
     iaMatrixf current;
 
-    scale.scale(0.15, 0.15, 0.15);
+    scale.scale(0.2, 0.2, 0.2);
 
     const iaVector3f vecs[4] = { { 0,0,0 },{ 1, 1.2f, 0 } ,{ 0, 1.2f, 1 },{ 0, 2, 0 } };
 
@@ -252,18 +288,18 @@ void PlantMeshGenerator::generateBud(const iaVector3f& dir)
         current *= rotate;
         rotate.rotate(M_PI * 0.5, iaAxis::Y);
 
-        uint32 ai = _meshBuilderFlowers.addVertex(current * a);
-        uint32 bi = _meshBuilderFlowers.addVertex(current * b);
-        uint32 ci = _meshBuilderFlowers.addVertex(current * c);
-        uint32 di = _meshBuilderFlowers.addVertex(current * d);
+        uint32 ai = _meshBuilderBuds.addVertex(current * a);
+        uint32 bi = _meshBuilderBuds.addVertex(current * b);
+        uint32 ci = _meshBuilderBuds.addVertex(current * c);
+        uint32 di = _meshBuilderBuds.addVertex(current * d);
 
-        _meshBuilderFlowers.setNormal(ai, iaVector3f(0, -1, 0));
-        _meshBuilderFlowers.setNormal(bi, iaVector3f(1, 0, 0));
-        _meshBuilderFlowers.setNormal(ci, iaVector3f(0, 0, 1));
-        _meshBuilderFlowers.setNormal(di, iaVector3f(0, 1, 0));
+        _meshBuilderBuds.setNormal(ai, iaVector3f(0, -1, 0));
+        _meshBuilderBuds.setNormal(bi, iaVector3f(1, 0, 0));
+        _meshBuilderBuds.setNormal(ci, iaVector3f(0, 0, 1));
+        _meshBuilderBuds.setNormal(di, iaVector3f(0, 1, 0));
 
-        _meshBuilderFlowers.addTriangle(ai, bi, ci);
-        _meshBuilderFlowers.addTriangle(ci, bi, di);
+        _meshBuilderBuds.addTriangle(ai, bi, ci);
+        _meshBuilderBuds.addTriangle(ci, bi, di);
     }
 }
 
@@ -273,7 +309,7 @@ void PlantMeshGenerator::generateLeaf(const iaVector3f& dir)
     iaMatrixf scale;
     iaMatrixf current;
 
-    scale.scale(0.5, 0.5, 0.5);
+    scale.scale(0.9, 0.9, 0.9);
 
     const iaVector3f vecs[4] = { { 0,0,0 },{ 1, 0.2f, 0 } ,{ 0.75f, 0.4f, -0.2f },{ 0.75f, 0.4f, 0.2f } };
 
@@ -291,18 +327,18 @@ void PlantMeshGenerator::generateLeaf(const iaVector3f& dir)
     current = _modelMatrix;
     current *= rotate;
 
-    uint32 ai = _meshBuilderTrunk.addVertex(current * a);
-    uint32 bi = _meshBuilderTrunk.addVertex(current * b);
-    uint32 ci = _meshBuilderTrunk.addVertex(current * c);
-    uint32 di = _meshBuilderTrunk.addVertex(current * d);
+    uint32 ai = _meshBuilderLeaves.addVertex(current * a);
+    uint32 bi = _meshBuilderLeaves.addVertex(current * b);
+    uint32 ci = _meshBuilderLeaves.addVertex(current * c);
+    uint32 di = _meshBuilderLeaves.addVertex(current * d);
 
-    _meshBuilderTrunk.setNormal(ai, iaVector3f(0, 1, 0));
-    _meshBuilderTrunk.setNormal(bi, iaVector3f(0, 1, 0));
-    _meshBuilderTrunk.setNormal(ci, iaVector3f(0, 1, 0));
-    _meshBuilderTrunk.setNormal(di, iaVector3f(0, 1, 0));
+    _meshBuilderLeaves.setNormal(ai, iaVector3f(0, 1, 0));
+    _meshBuilderLeaves.setNormal(bi, iaVector3f(0, 1, 0));
+    _meshBuilderLeaves.setNormal(ci, iaVector3f(0, 1, 0));
+    _meshBuilderLeaves.setNormal(di, iaVector3f(0, 1, 0));
 
-    _meshBuilderTrunk.addTriangle(ai, di, bi);
-    _meshBuilderTrunk.addTriangle(ai, bi, ci);
+    _meshBuilderLeaves.addTriangle(ai, di, bi);
+    _meshBuilderLeaves.addTriangle(ai, bi, ci);
 }
 
 void PlantMeshGenerator::generateMesh(SectionType sectionType, const iaVector3f& dir)
@@ -342,7 +378,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
         case 'X':
         {
             _skeleton.addBone(rotationMatrix, _segmentLength * variation);
-            iBone* bone = iBoneFactory::getInstance().getBone(_skeleton.getLastBone());
+            iBone* bone = _skeleton.getLastBone();
             if (bone != nullptr)
             {
                 bone->setCustomData((void*)(int)SectionType::Trunk);
@@ -355,7 +391,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
         case 'x':
         {
             _skeleton.addBone(rotationMatrix, _segmentLength * variation);
-            iBone* bone = iBoneFactory::getInstance().getBone(_skeleton.getLastBone());
+            iBone* bone = _skeleton.getLastBone();
             if (bone != nullptr)
             {
                 bone->setCustomData((void*)(int)SectionType::Branch);
@@ -367,9 +403,10 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
 
         case '*':
         {
-            iBone* bone = iBoneFactory::getInstance().getBone(_skeleton.getLastBone());
+            iBone* bone = _skeleton.getLastBone();
             if (bone != nullptr)
             {
+                bone->setLenght(0);
                 bone->setCustomData((void*)(int)SectionType::Bud);
             }
         }
@@ -377,9 +414,10 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
 
         case 'o':
         {
-            iBone* bone = iBoneFactory::getInstance().getBone(_skeleton.getLastBone());
+            iBone* bone = _skeleton.getLastBone();
             if (bone != nullptr)
             {
+                bone->setLenght(0);
                 bone->setCustomData((void*)(int)SectionType::Flower);
             }
         }
@@ -387,9 +425,10 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
 
         case 'O':
         {
-            iBone* bone = iBoneFactory::getInstance().getBone(_skeleton.getLastBone());
+            iBone* bone = _skeleton.getLastBone();
             if (bone != nullptr)
             {
+                bone->setLenght(0);
                 bone->setCustomData((void*)(int)SectionType::Leaf);
             }
         }

@@ -53,8 +53,12 @@ struct PlantInformation
     uint64 _seed = 0;
     float64 _segmentLenght = 0;
     float64 _segmentAngle = 0;
-    int32 _flowerMaterialID = iMaterial::INVALID_MATERIAL_ID;
-    int32 _trunkMaterialID = iMaterial::INVALID_MATERIAL_ID;
+    iaColor3f _trunkColor;
+    iaColor3f _branchColor;
+    iaColor3f _budColor;
+    iaColor3f _flowerColor;
+    iaColor3f _leafColor;
+    int32 _materialID = iMaterial::INVALID_MATERIAL_ID;
 };
 
 class PlantMeshGenerator : public iModelDataIO
@@ -103,6 +107,7 @@ private:
     iMeshBuilder _meshBuilderTrunk;
     iMeshBuilder _meshBuilderBranches;
     iMeshBuilder _meshBuilderFlowers;
+    iMeshBuilder _meshBuilderBuds;
     iMeshBuilder _meshBuilderLeaves;
     iSkeleton _skeleton;
 

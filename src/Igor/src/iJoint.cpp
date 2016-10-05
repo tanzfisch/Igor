@@ -5,7 +5,6 @@
 #include <iJoint.h>
 
 #include <iBone.h>
-#include <iBoneFactory.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -13,64 +12,58 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    uint64 iJoint::_nextID = iJoint::INVALID_JOINT_ID + 1;
-
     iJoint::iJoint()
     {
-        _id = _nextID++;
     }
 
-    uint64 iJoint::getID() const
+    void iJoint::setBaseBone(iBone* bone)
     {
-        return _id;
+        con_assert(bone != nullptr, "zero pointer");
+
+        bone->_jointTop = this;
+        _baseBone = bone;
     }
 
-    void iJoint::setBaseBone(uint64 boneID)
+    iBone* iJoint::getBaseBone() const
     {
-        iBone* bone = iBoneFactory::getInstance().getBone(boneID);
-        bone->_jointTop = _id;
-
-        _baseBoneID = boneID;
+        return _baseBone;
     }
 
-    uint64 iJoint::getBaseBone() const
+    void iJoint::addChildBone(iBone* bone)
     {
-        return _baseBoneID;
-    }
+        con_assert(bone != nullptr, "zero pointer");
 
-    void iJoint::addChildBone(uint64 boneID)
-    {
-        auto iter = std::find(_childBones.begin(), _childBones.end(), boneID);
+        auto iter = std::find(_childBones.begin(), _childBones.end(), bone);
         if (iter == _childBones.end())
         {
-            _childBones.push_back(boneID);
+            _childBones.push_back(bone);
 
-            iBone* bone = iBoneFactory::getInstance().getBone(boneID);
-            bone->_jointBottom = _id;
+            bone->_jointBottom = this;
         }
         else
         {
-            con_err("bone id " << boneID << " already joined");
+            con_err("bone already joined");
         }
     }
 
-    void iJoint::removeChildBone(uint64 boneID)
+    void iJoint::removeChildBone(iBone* bone)
     {
-        auto iter = std::find(_childBones.begin(), _childBones.end(), boneID);
+        con_assert(bone != nullptr, "zero pointer");
+
+        auto iter = std::find(_childBones.begin(), _childBones.end(), bone);
         if (iter != _childBones.end())
         {
             _childBones.erase(iter);
 
-            iBone* bone = iBoneFactory::getInstance().getBone(boneID);
-            bone->_jointBottom = iJoint::INVALID_JOINT_ID;
+            bone->_jointBottom = nullptr;
         }
         else
         {
-            con_err("bone id " << boneID << " was not joined");
+            con_err("bone was not joined");
         }
     }
 
-    vector<uint64> iJoint::getChildren() const
+    vector<iBone*> iJoint::getChildren() const
     {
         return _childBones;
     }
