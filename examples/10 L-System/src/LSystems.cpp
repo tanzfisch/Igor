@@ -89,18 +89,18 @@ void LSystems::init()
     // give the transform node a name. naming is optional and ist jus for helping to debug. 
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
-    cameraHeading->rotate(-0.5, iaAxis::Y);
+    cameraHeading->rotate(-0.8, iaAxis::Y);
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
     iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraPitch->setName("camera pitch");
-    cameraPitch->rotate(0.3, iaAxis::X);
+    cameraPitch->rotate(0.25, iaAxis::X);
     _cameraPitch = cameraPitch->getID();
     // and one is for translation or distance from the origin
     iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, 50);
+    cameraTranslation->translate(0, 0, 45);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
