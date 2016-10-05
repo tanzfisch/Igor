@@ -41,6 +41,9 @@ using namespace std;
 namespace Igor
 {
 
+    class iBone;
+    class iJoint;
+
     /*! skeleton that contains joints and bones
     */
     class Igor_API iSkeleton
@@ -56,9 +59,9 @@ namespace Igor
         */
         virtual ~iSkeleton() = default;
 
-        /*! \returns the ID of the root joint
+         /*! \returns the ID of the root joint
         */
-        uint64 getRootJoint() const;
+        iJoint* getRootJoint() const;
 
         /*! adds a bone at current position
 
@@ -81,33 +84,57 @@ namespace Igor
 
         /*! \returns last created bone
         */
-        uint64 getLastBone() const;
+        iBone* getLastBone() const;
 
     private:
 
+        /*! map of all bones
+        */
+        vector<iBone*> _bones;
+
+        /*! map of all joints
+        */
+        vector<iJoint*> _joints;
+
         /*! internal bone stack. handles push and pop
         */
-        vector<uint64> _boneStack;
-
-        /*! list of all bones in use
-        */
-        vector<uint64> _bones;
-
-        /*! list of all joints in use
-        */
-        vector<uint64> _joints;
+        vector<iBone*> _boneStack;
 
         /*! root joint id
         */
-        uint64 _rootJoint = iJoint::INVALID_JOINT_ID;
+        iJoint* _rootJoint = nullptr;
 
         /*! current joint
         */
-        uint64 _currentJoint = iJoint::INVALID_JOINT_ID;
+        iJoint* _currentJoint = nullptr;
 
         /*! last created bone
         */
-        uint64 _lastBone = iBone::INVALID_BONE_ID;
+        iBone* _lastBone = nullptr;
+
+        /*! creates a bone and returns the bone's id
+
+        \returns pointer to bone
+        */
+        iBone* createBone();
+
+        /*! destroyes specified bone
+
+        \param bone pointer to bone
+        */
+        void destroyBone(iBone* bone);
+
+        /*! creates a a joint and returns the pointer
+
+        \returns pointer to joint
+        */
+        iJoint* createJoint();
+
+        /*! destroyes specified joint
+
+        \param joint pointer to the joint
+        */
+        void destroyJoint(iJoint* joint);
 
     };
 

@@ -35,49 +35,44 @@
 using namespace IgorAux;
 
 #include <vector>
+#include <mutex>
 using namespace std;
 
 namespace Igor
 {
+
+    class iBone;
 
     /*! joining bones togehter
     */
     class Igor_API iJoint
     {
 
-        friend class iBoneFactory;
+        friend class iSkeleton;
 
     public:
 
-        /*! invalid joint ID
-        */
-        static const uint64 INVALID_JOINT_ID = 0;
-
         /*! sets base bone of this joint
 
-        \param boneID the bones id
+        \param bone pointer to bone
         */
-        void setBaseBone(uint64 boneID);
+        void setBaseBone(iBone* bone);
 
-        /*! \returns the base bone's ID
+        /*! \returns the base bone
         */
-        uint64 getBaseBone() const;
+        iBone* getBaseBone() const;
 
         /*! adds cild bone to joint
         */
-        void addChildBone(uint64 boneID);
+        void addChildBone(iBone* bone);
 
         /*! removes child bone from joint
         */
-        void removeChildBone(uint64 boneID);
+        void removeChildBone(iBone* bone);
 
         /*! \returns reference of child bones list
         */
-        vector<uint64> getChildren() const;
-
-        /*! \returns joint id
-        */
-        uint64 getID() const;
+        vector<iBone*> getChildren() const;
 
         /*! sets custom data
 
@@ -91,25 +86,17 @@ namespace Igor
 
     private:
 
-        /*! unique joint id
-        */
-        uint64 _id = INVALID_JOINT_ID;
-
-        /*! holds next bone id
-        */
-        static uint64 _nextID;
-
         /*! pointer to custom data
         */
         void* _customData = nullptr;
 
-        /*! id of base bone
+        /*! base bone
         */
-        uint64 _baseBoneID = 0;
+        iBone* _baseBone = nullptr;
 
         /*! ids of bones connected to the base bone in this joint
         */
-        vector<uint64> _childBones;
+        vector<iBone*> _childBones;
 
         /*! init id
         */

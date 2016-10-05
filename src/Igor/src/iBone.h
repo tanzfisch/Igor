@@ -35,10 +35,13 @@
 using namespace IgorAux;
 
 #include <vector>
+#include <mutex>
 using namespace std;
 
 namespace Igor
 {
+
+    class iJoint;
 
     /*! a bone of a skeleton
 
@@ -47,15 +50,10 @@ namespace Igor
     class Igor_API iBone
     {
 
-        friend class iBoneFactory;
         friend class iSkeleton;
         friend class iJoint;
 
     public:
-
-        /*! invalid bone ID
-        */
-        static const uint64 INVALID_BONE_ID = 0;
 
         /*! sets matrix of bone
 
@@ -79,17 +77,13 @@ namespace Igor
         */
         float64 getLenght()const;
 
-        /*! \returns bone id
-        */
-        uint64 getID() const;
-
         /*! \returns top joint id (aka child joint)
         */
-        uint64 getTopJoint() const;
+        iJoint* getTopJoint() const;
 
         /*! \returns bottom joint id (aka parenting joint)
         */
-        uint64 getBottomJoint() const;
+        iJoint* getBottomJoint() const;
 
         /*! sets custom data
 
@@ -103,25 +97,17 @@ namespace Igor
 
     private:
 
-        /*! unique bone id
-        */
-        uint64 _id = INVALID_BONE_ID;
-
-        /*! holds next bone id 
-        */
-        static uint64 _nextID;
-
         /*! pointer to custom data
         */
         void* _customData = nullptr;
 
         /*! the top joint id
         */
-        uint64 _jointTop = 0;
+        iJoint* _jointTop = 0;
 
         /*! the bottom joint id
         */
-        uint64 _jointBottom = 0;
+        iJoint* _jointBottom = 0;
 
         /*! position and oriantation to parenting bone
         */

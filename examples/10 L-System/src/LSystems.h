@@ -52,9 +52,6 @@ namespace Igor
     class iNodeSwitch;
     class iTextureFont;
     class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
     class iNodeModel;
 }
 
@@ -91,6 +88,14 @@ private:
     */
     iView _viewOrtho;
 
+    /*! id of flush model task
+    */
+    uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
+
+    /*! id of flush textures task
+    */
+    uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
+
     /*! the scene holding our 3d nodes
     */
     iScene* _scene = nullptr;
@@ -114,33 +119,71 @@ private:
     /*! timer handle to control the movement of the light source over time
     */
     iTimerHandle* _animationTimingHandle = nullptr;
-
-    /*! id of task to load textures
+    
+    /*! counter to switch between styles of L-Systems
     */
-    uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
-
-    vector<iSkeleton> _skeletons;
-
-    uint32 _lSystemMaterialID = iMaterial::INVALID_MATERIAL_ID;
-
     uint32 _styleCounter = 0;
 
+    /*! the L-System
+    */
     iLSystem _lSystem;
-    float32 _segmentLength = 0.5;
-    float32 _angle = 0.3;
-    iaColor4f _stemColor;
-    iaColor4f _shotColor;
-    iaColor4f _budColor;
-    iaColor4f _blossomColor;
 
-    void generateLSystem();
+    /*! segment lenght
+    */
+    float32 _segmentLength = 0;
 
-    void drawLSystem(iJoint* joint);
-    void generateMesh(iJoint* joint);
+    /*! angle between bones
+    */
+    float32 _angle = 0;
 
+    /*! color of trunk
+    */
+    iaColor3f _trunkColor;
+
+    /*! color of branch
+    */
+    iaColor3f _branchColor;
+
+    /*! color of bud
+    */
+    iaColor3f _budColor;
+
+    /*! color of flower
+    */
+    iaColor3f _flowerColor;
+
+    /*! color of leaf
+    */
+    iaColor3f _leafColor;
+
+    /*! group node where we put the L-System model nodes in so we can delete them all at once
+    */
+    uint32 _groupNodeID = iNode::INVALID_NODE_ID;
+
+    /*! generates L-Systems
+    */
+    void generateLSystems();
+
+    /*! init L-System with style 1
+    */
     void initStyle1();
+
+    /*! init L-System with style 2
+    */
     void initStyle2();
+
+    /*! init L-System with style 3
+    */
     void initStyle3();
+
+    /*! generates plant at specified position
+
+    \param matrix matrix to position the plant
+    \param axiom start string to generate L-System
+    \param iterations iteration count
+    \param seed random seed
+    */
+    void generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
 
     /*! called on key pressed event
 
@@ -151,10 +194,6 @@ private:
     /*! called when window was closed
     */
 	void onWindowClosed();
-
-    /*! rendering scene
-    */
-    void onRender();
 
     /*! called when window was resized
 

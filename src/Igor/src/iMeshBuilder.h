@@ -115,6 +115,15 @@ namespace Igor
         */
         uint32 addVertex(const iaVector3f& vertex);
 
+        /*! adds vertex to data
+
+        ignores the 4th component
+
+        \param vertex the vertex to add
+        \returns index of vertex added
+        */
+        uint32 addVertex(const iaVector4f& vertex);
+
         /*! snappes vertex position to a raster before adding to the mesh
 
         \param vertex vertex position to add
@@ -186,7 +195,6 @@ namespace Igor
         /*! \returns texture unit count
         */
         uint32 getTextureUnitCount() const;
-
 
         const vector<iaVector3f>& getVertexes() const;
 

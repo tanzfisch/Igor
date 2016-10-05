@@ -67,8 +67,10 @@ void VoxelExample::init()
 
 void VoxelExample::deinit()
 {
+    // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
 
+    // destroy scene
     iSceneFactory::getInstance().destroyScene(_scene);
 
     iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
@@ -95,9 +97,12 @@ void VoxelExample::deinit()
         _font = nullptr;
     }
 
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
+    if (_window.isOpen())
+    {
+        _window.close();
+        _window.removeView(&_view);
+        _window.removeView(&_viewOrtho);
+    }
 }
 
 void VoxelExample::registerHandles()
@@ -217,7 +222,6 @@ void VoxelExample::initScene()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)

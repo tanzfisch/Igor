@@ -76,6 +76,9 @@ __IGOR_INLINE__ bool iaMatrix<T>::operator != (const iaMatrix<T> &a) const
     return false;
 }
 
+/*!
+\todo const version would be nice
+*/
 template <class T>
 __IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator * (iaVector3<T> &a) const
 {

@@ -82,6 +82,12 @@ namespace Igor
         return addVertex(vertex);
     }
 
+    uint32 iMeshBuilder::addVertex(const iaVector4f& vertex)
+    {
+        iaVector3f v(vertex._vec._x, vertex._vec._y, vertex._vec._z);
+        return addVertex(v);
+    }
+
     uint32 iMeshBuilder::addVertex(const iaVector3f& vertex)
     {
         con_assert(vertex._x > -1000000 && vertex._x < 1000000, "out of bounds");
@@ -363,14 +369,17 @@ namespace Igor
 
     shared_ptr<iMesh> iMeshBuilder::createMesh()
     {
-        iMesh* mesh = new iMesh();
+        iMesh* mesh = nullptr;
+        if (_vertexes.size() > 0)
+        {
+            mesh = new iMesh();
 
-        compile(mesh);
+            compile(mesh);
 
-        iSpheref boundingSphere;
-        calcBoundingSphere(boundingSphere);
-        mesh->setBoundingSphere(boundingSphere);
-
+            iSpheref boundingSphere;
+            calcBoundingSphere(boundingSphere);
+            mesh->setBoundingSphere(boundingSphere);
+        }
         return shared_ptr<iMesh>(mesh);
     }
 

@@ -4,7 +4,6 @@
 
 #include <iSkeleton.h>
 
-#include <iBoneFactory.h>
 #include <iBone.h>
 #include <iJoint.h>
 
@@ -14,56 +13,98 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iBone* iSkeleton::createBone()
+    {
+        iBone* bone = new iBone();
+        _bones.push_back(bone);
+        return bone;
+    }
+
+    void iSkeleton::destroyBone(iBone* bone)
+    {
+        con_assert(bone != nullptr, "zero pointer");
+
+        auto iter = std::find(_bones.begin(), _bones.end(), bone);
+        if (iter != _bones.end())
+        {
+            delete (*iter);
+            _bones.erase(iter);
+        }
+        else
+        {
+            con_err("bone not found");
+        }
+    }
+
+    iJoint* iSkeleton::createJoint()
+    {
+        iJoint* joint = new iJoint();
+        _joints.push_back(joint);
+        return joint;
+    }
+
+    void iSkeleton::destroyJoint(iJoint* joint)
+    {
+        con_assert(joint != nullptr, "zero pointer");
+
+        auto iter = std::find(_joints.begin(), _joints.end(), joint);
+        if (iter != _joints.end())
+        {
+            delete (*iter);
+            _joints.erase(iter);
+        }
+        else
+        {
+            con_err("joint not found");
+        }
+    }
+
     void iSkeleton::addBone(const iaMatrixf& matrix, float64 lenght)
     {
         iJoint* currentJoint = nullptr;
 
-        if (_rootJoint == iJoint::INVALID_JOINT_ID)
+        if (_rootJoint == nullptr)
         {
-            _rootJoint = iBoneFactory::getInstance().createJoint();
-            _joints.push_back(_rootJoint);
+            _rootJoint = createJoint();
             _currentJoint = _rootJoint;
         }
 
-        if (_currentJoint != iJoint::INVALID_JOINT_ID)
+        if (_currentJoint != nullptr)
         {
-            currentJoint = iBoneFactory::getInstance().getJoint(_currentJoint);
+            currentJoint = _currentJoint;
         }
 
         if (currentJoint == nullptr)
         {
-            _currentJoint = iBoneFactory::getInstance().createJoint();
-            _joints.push_back(_currentJoint);
-            currentJoint = iBoneFactory::getInstance().getJoint(_currentJoint);
+            _currentJoint = createJoint();
+            currentJoint = _currentJoint;
 
-            con_assert(_lastBone != iBone::INVALID_BONE_ID, "inconsistant data");
+            con_assert(_lastBone != nullptr, "inconsistant data");
             currentJoint->setBaseBone(_lastBone);
         }
 
-        _lastBone = iBoneFactory::getInstance().createBone();
-        _bones.push_back(_lastBone);
-        iBone* bone = iBoneFactory::getInstance().getBone(_lastBone);
-        bone->setMatrix(matrix);
-        bone->setLenght(lenght);
+        _lastBone = createBone();
+        _lastBone->setMatrix(matrix);
+        _lastBone->setLenght(lenght);
 
         currentJoint->addChildBone(_lastBone);
 
-        _currentJoint = iJoint::INVALID_JOINT_ID;
+        _currentJoint = nullptr;
     }
 
-    uint64 iSkeleton::getRootJoint() const
+    iJoint* iSkeleton::getRootJoint() const
     {
         return _rootJoint;
     }
 
-    uint64 iSkeleton::getLastBone() const
+    iBone* iSkeleton::getLastBone() const
     {
         return _lastBone;
     }
 
     void iSkeleton::push()
     {
-        con_assert(_lastBone > 0, "invalid bone id");
+        con_assert(_lastBone != nullptr, "zero pointer");
         _boneStack.push_back(_lastBone);
     }
 
@@ -71,28 +112,27 @@ namespace Igor
     {
         _lastBone = _boneStack.back();
         _boneStack.pop_back();
-        iBone* bone = iBoneFactory::getInstance().getBone(_lastBone);
-        _currentJoint = bone->getTopJoint();
+        _currentJoint = _lastBone->getTopJoint();
     }
 
     void iSkeleton::clear()
     {
         for (auto bone : _bones)
         {
-            iBoneFactory::getInstance().destroyBone(bone);
+            delete bone;
         }
 
         for (auto joint : _joints)
         {
-            iBoneFactory::getInstance().destroyJoint(joint);
+            delete joint;
         }
 
         _bones.clear();
         _joints.clear();
         _boneStack.clear();
-        _rootJoint = iJoint::INVALID_JOINT_ID;
-        _currentJoint = iJoint::INVALID_JOINT_ID;
-        _lastBone = iBone::INVALID_BONE_ID;
+        _rootJoint = nullptr;
+        _currentJoint = nullptr;
+        _lastBone = nullptr;
     }
 
 }

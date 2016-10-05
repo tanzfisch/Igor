@@ -638,9 +638,6 @@
     <ClCompile Include="..\src\iBone.cpp">
       <Filter>graphics\types\bones</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iBoneFactory.cpp">
-      <Filter>graphics\types\bones</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iSkeleton.cpp">
       <Filter>graphics\types\bones</Filter>
     </ClCompile>
@@ -1352,9 +1349,6 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iBone.h">
-      <Filter>graphics\types\bones</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iBoneFactory.h">
       <Filter>graphics\types\bones</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSkeleton.h">

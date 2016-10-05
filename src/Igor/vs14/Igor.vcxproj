@@ -152,7 +152,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
       <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\Newton\source;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;__IGOR_BUILDING_DLL__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>false</MinimalRebuild>
+      <MinimalRebuild>true</MinimalRebuild>
       <SmallerTypeCheck>false</SmallerTypeCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -687,7 +687,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iAACube.h" />
     <ClInclude Include="..\src\iApplication.h" />
     <ClInclude Include="..\src\iBone.h" />
-    <ClInclude Include="..\src\iBoneFactory.h" />
     <ClInclude Include="..\src\iCelestialNode.h" />
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
@@ -1301,7 +1300,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
     <ClCompile Include="..\src\iApplication.cpp" />
     <ClCompile Include="..\src\iBone.cpp" />
-    <ClCompile Include="..\src\iBoneFactory.cpp" />
     <ClCompile Include="..\src\iCelestialNode.cpp" />
     <ClCompile Include="..\src\iConfigReader.cpp" />
     <ClCompile Include="..\src\iContouringCubes.cpp" />
