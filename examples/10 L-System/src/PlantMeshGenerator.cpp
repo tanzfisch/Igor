@@ -22,7 +22,6 @@ PlantMeshGenerator::PlantMeshGenerator()
     _name = "Plant Generator";
     _meshBuilderTrunk.setJoinVertexes();
     _meshBuilderLeaves.setJoinVertexes();
-    _meshBuilderBranches.setJoinVertexes();
     _meshBuilderBuds.setJoinVertexes();
     _meshBuilderFlowers.setJoinVertexes();
 }
@@ -45,9 +44,6 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
     srand(plantInformation->_seed);
     iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations);
     generateSkeleton(sentence);
-
-    _lastSize = 0.03;
-    _currentSize = 0.03;
 
     generateMesh(_skeleton.getRootJoint());
 
@@ -168,10 +164,10 @@ void PlantMeshGenerator::generateTrunk(const iaVector3f& dir)
     iaVector3f c = vecs[2];
     iaVector3f d = vecs[3];
 
-    a *= _lastSize;
-    b *= _lastSize;
-    c *= _lastSize;
-    d *= _lastSize;
+    a *= 0.03;
+    b *= 0.03;
+    c *= 0.03;
+    d *= 0.03;
 
     uint32 ai = _meshBuilderTrunk.addVertex(_modelMatrix * a);
     uint32 bi = _meshBuilderTrunk.addVertex(_modelMatrix * b);
@@ -183,10 +179,10 @@ void PlantMeshGenerator::generateTrunk(const iaVector3f& dir)
     c = vecs[2];
     d = vecs[3];
 
-    a *= _currentSize;
-    b *= _currentSize;
-    c *= _currentSize;
-    d *= _currentSize;
+    a *= 0.03;
+    b *= 0.03;
+    c *= 0.03;
+    d *= 0.03;
 
     a += dir;
     b += dir;

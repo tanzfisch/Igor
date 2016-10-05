@@ -67,8 +67,10 @@ void VoxelExample::init()
 
 void VoxelExample::deinit()
 {
+    // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
 
+    // destroy scene
     iSceneFactory::getInstance().destroyScene(_scene);
 
     iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
@@ -95,9 +97,12 @@ void VoxelExample::deinit()
         _font = nullptr;
     }
 
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
+    if (_window.isOpen())
+    {
+        _window.close();
+        _window.removeView(&_view);
+        _window.removeView(&_viewOrtho);
+    }
 }
 
 void VoxelExample::registerHandles()

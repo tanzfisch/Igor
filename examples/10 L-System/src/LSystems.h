@@ -52,9 +52,6 @@ namespace Igor
     class iNodeSwitch;
     class iTextureFont;
     class iTaskFlushModels;
-    class iTaskFlushTextures;
-    class iNodeLODTrigger;
-    class iNodeLODSwitch;
     class iNodeModel;
 }
 
@@ -122,32 +119,71 @@ private:
     /*! timer handle to control the movement of the light source over time
     */
     iTimerHandle* _animationTimingHandle = nullptr;
-
-    /*! id of task to load textures
+    
+    /*! counter to switch between styles of L-Systems
     */
-    uint64 _taskFlushTexturesID = iTask::INVALID_TASK_ID;
-
     uint32 _styleCounter = 0;
 
+    /*! the L-System
+    */
     iLSystem _lSystem;
-    float32 _segmentLength = 0.5;
-    float32 _angle = 0.3;
 
+    /*! segment lenght
+    */
+    float32 _segmentLength = 0;
+
+    /*! angle between bones
+    */
+    float32 _angle = 0;
+
+    /*! color of trunk
+    */
     iaColor3f _trunkColor;
+
+    /*! color of branch
+    */
     iaColor3f _branchColor;
+
+    /*! color of bud
+    */
     iaColor3f _budColor;
+
+    /*! color of flower
+    */
     iaColor3f _flowerColor;
+
+    /*! color of leaf
+    */
     iaColor3f _leafColor;
 
-    void generateLSystem();
-
+    /*! group node where we put the L-System model nodes in so we can delete them all at once
+    */
     uint32 _groupNodeID = iNode::INVALID_NODE_ID;
 
+    /*! generates L-Systems
+    */
+    void generateLSystems();
+
+    /*! init L-System with style 1
+    */
     void initStyle1();
+
+    /*! init L-System with style 2
+    */
     void initStyle2();
+
+    /*! init L-System with style 3
+    */
     void initStyle3();
 
-    void triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
+    /*! generates plant at specified position
+
+    \param matrix matrix to position the plant
+    \param axiom start string to generate L-System
+    \param iterations iteration count
+    \param seed random seed
+    */
+    void generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
 
     /*! called on key pressed event
 

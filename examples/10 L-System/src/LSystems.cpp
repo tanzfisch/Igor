@@ -73,7 +73,6 @@ void LSystems::init()
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
     _window.addView(&_viewOrtho);
-
     _window.open();
 
     // init scene
@@ -89,7 +88,7 @@ void LSystems::init()
     // give the transform node a name. naming is optional and ist jus for helping to debug. 
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
-    cameraHeading->rotate(-0.8, iaAxis::Y);
+    cameraHeading->rotate(M_PI * 0.7, iaAxis::Y);
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
     iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -100,7 +99,7 @@ void LSystems::init()
     iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, 45);
+    cameraTranslation->translate(0, 0, 50);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -132,16 +131,15 @@ void LSystems::init()
     _scene->getRoot()->insertNode(lightTranslate);
     lightTranslate->insertNode(lightNode);
 
-    // generate the L-System
+    // register plant mesh generator
     iModelResourceFactory::getInstance().registerModelDataIO("pg", &PlantMeshGenerator::createInstance);
 
-    generateLSystem();
+    // generate the L-System
+    generateLSystems();
 
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
-
-    _taskFlushTexturesID = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
@@ -226,7 +224,7 @@ void LSystems::initStyle3()
     _leafColor.set(0, 0.7, 0);
 }
 
-void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
+void LSystems::generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
 {
     PlantInformation plantInformation;
     plantInformation._lSystem = &_lSystem;
@@ -234,6 +232,7 @@ void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, 
     {
         plantInformation._axiom[i] = axiom[i];
     }
+
     plantInformation._iterations = iterations;
     plantInformation._materialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
     plantInformation._seed = seed;
@@ -261,17 +260,19 @@ void LSystems::triggerMeshGeneration(iNode* groupNode, const iaMatrixf& matrix, 
 
     // and add to scene
     transformNode->insertNode(modelNode);
+
+    iNode* groupNode = static_cast<iNode*>(iNodeFactory::getInstance().getNode(_groupNodeID));
     groupNode->insertNode(transformNode);
 }
 
-void LSystems::generateLSystem()
+void LSystems::generateLSystems()
 {
     if (_groupNodeID != iNode::INVALID_NODE_ID)
     {
         iNodeFactory::getInstance().destroyNode(_groupNodeID);
         _groupNodeID = iNode::INVALID_NODE_ID;
     }
-
+    
     // TODO read http://www.mdpi.com/1424-8220/15/2/4019/htm
     _styleCounter = (++_styleCounter) % 3;
 
@@ -302,13 +303,18 @@ void LSystems::generateLSystem()
     {
         iaMatrixf matrix;
         matrix.translate(-15 + i* 5, -15, 0);
-
-        triggerMeshGeneration(groupNode, matrix, "X", i, seed);
+        generatePlant(matrix, "X", i, seed);
     }
 }
 
 void LSystems::deinit()
 {
+    // unregister plant mesh generator
+    iModelResourceFactory::getInstance().unregisterModelDataIO("pg");
+
+    // destroy scene
+    iSceneFactory::getInstance().destroyScene(_scene);
+
     // unregister some callbacks
     iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
@@ -324,22 +330,11 @@ void LSystems::deinit()
         _font = nullptr;
     }
 
-    iTaskManager::getInstance().getTask(_taskFlushTexturesID)->abort();
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-    _scene = nullptr;
-
     if (_window.isOpen())
     {
         _window.close();
         _window.removeView(&_view);
         _window.removeView(&_viewOrtho);
-    }
-
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
     }
 }
 
@@ -404,7 +399,7 @@ void LSystems::onKeyPressed(iKeyCode key)
 
     if (key == iKeyCode::Space)
     {
-        generateLSystem();
+        generateLSystems();
     }
 }
 

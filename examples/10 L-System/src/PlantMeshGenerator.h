@@ -45,25 +45,66 @@ namespace Igor
     class iTargetMaterial;
 }
 
+/*! struct to store generation information
+*/
 struct PlantInformation
 {
+    /*! pointer to L-System to use
+    */
     iLSystem* _lSystem = nullptr;
+
+    /*! starting sentence for L-System
+    */
     wchar_t _axiom[10];
+
+    /*! iteration count
+    */
     uint32 _iterations = 0;
+
+    /*! random seed
+    */
     uint64 _seed = 0;
+
+    /*! segemnt lenght
+    */
     float64 _segmentLenght = 0;
+
+    /*! segment rotation angle
+    */
     float64 _segmentAngle = 0;
+
+    /*! trunk color
+    */
     iaColor3f _trunkColor;
+
+    /*! branch color
+    */
     iaColor3f _branchColor;
+
+    /*! bud color
+    */
     iaColor3f _budColor;
+
+    /*! flower color
+    */
     iaColor3f _flowerColor;
+
+    /*! leaf color
+    */
     iaColor3f _leafColor;
+
+    /*! material ID
+    */
     int32 _materialID = iMaterial::INVALID_MATERIAL_ID;
 };
 
+/*! plant mesh generator
+*/
 class PlantMeshGenerator : public iModelDataIO
 {
 
+    /*! type of bone / section
+    */
     enum SectionType
     {
         Trunk,
@@ -101,29 +142,79 @@ public:
 
 private:
 
+    /*! segment lenght
+    */
     float64 _segmentLength = 0;
+
+    /*! segment angle
+    */
     float64 _segmentAngle = 0;
 
+    /*! mesh builder for trunk segments
+    */
     iMeshBuilder _meshBuilderTrunk;
-    iMeshBuilder _meshBuilderBranches;
+
+    /*! mesh builder for flowes
+    */
     iMeshBuilder _meshBuilderFlowers;
+
+    /*! mesh builder for buds
+    */
     iMeshBuilder _meshBuilderBuds;
+
+    /*! mesh builder for leafs
+    */
     iMeshBuilder _meshBuilderLeaves;
+
+    /*! skeleton
+    */
     iSkeleton _skeleton;
 
-    float32 _lastSize = 0;
-    float32 _currentSize = 0;
-    
+    /*! model matrix
+    */  
     iaMatrixf _modelMatrix;
 
+    /*! generate mesh
+
+    \param joint current joint to generate the mesh for
+    */
     void generateMesh(iJoint* joint);
+
+    /*! generate mesh
+
+    \param sectionType type of current section to generate mesh for
+    \param dir direction and lenght of current section
+    */
     void generateMesh(SectionType sectionType, const iaVector3f& dir);
 
+    /*! generates trunk mesh
+
+    \param dir direction and lenght of current section
+    */
     void generateTrunk(const iaVector3f& dir);
+
+    /*! generates flower mesh
+
+    \param dir direction and lenght of current section
+    */
     void generateFlower(const iaVector3f& dir);
+
+    /*! generates bud mesh
+
+    \param dir direction and lenght of current section
+    */
     void generateBud(const iaVector3f& dir);
+
+    /*! generates leaf mesh
+
+    \param dir direction and lenght of current section
+    */
     void generateLeaf(const iaVector3f& dir);
 
+    /*! generate skeleton for specified sentence
+
+    \param sentence the L-System sentence
+    */
     void generateSkeleton(const iaString& sentence);
 
 };
