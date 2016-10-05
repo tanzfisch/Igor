@@ -38,6 +38,7 @@
 #include <iPerlinNoise.h>
 using namespace Igor;
 
+#include <iaRandomNumberGenerator.h>
 #include <iaMatrix.h>
 using namespace IgorAux;
 
@@ -135,6 +136,10 @@ private:
     /*! measure some time
     */
     float64 _time = 0;
+
+    /*! random number generator
+    */
+    iaRandomNumberGenerator _rand;
 
     /*! loading text material
     */

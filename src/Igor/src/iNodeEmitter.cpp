@@ -60,7 +60,7 @@ namespace Igor
         _emitter.setWorldMatrix(matrix);
     }
 
-    const iParticleEmitter& iNodeEmitter::getParticleEmitter() const
+    iParticleEmitter& iNodeEmitter::getParticleEmitter()
     {
         return _emitter;
     }

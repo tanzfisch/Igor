@@ -32,6 +32,7 @@
 #include <iDefines.h>
 
 #include <iaString.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <map>
@@ -94,9 +95,10 @@ namespace Igor
 
         \param input the input string
         \param iterations the amount of iterations to alter the string
+        \param seed random seed
         \returns the generated string
         */
-        iaString generate(iaString input, int32 iterations);
+        iaString generate(iaString input, int32 iterations, uint32 seed = 1337);
 
         /*! adds a rule to replace a character with a string
 
@@ -137,6 +139,10 @@ namespace Igor
         /*! the saved replacement rules
         */
         map<wchar_t, vector<iLSystemRule>> _rules;
+
+        /*! random number generator
+        */
+        iaRandomNumberGenerator _rand;
 
         /*! generates next iteration
 

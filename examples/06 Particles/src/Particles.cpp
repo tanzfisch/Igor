@@ -125,10 +125,10 @@ void Particles::init()
     iMaterialResourceFactory::getInstance().getMaterial(_particlesMaterial)->getRenderStateSet().setRenderState(iRenderState::BlendFuncDestination, iRenderStateValue::OneMinusSourceAlpha);
 
     // create the various particle systems
+    createWaveParticleSystem();
     createDotParticleSystem();
     createSmokeParticleSystem();
     createRingParticleSystem();
-    createWaveParticleSystem();
     createFontainParticleSystem();
     createFireParticleSystem();
 

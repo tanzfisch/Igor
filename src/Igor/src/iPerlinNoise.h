@@ -32,6 +32,7 @@
 #include <iDefines.h>
 
 #include <iaVector3.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -106,6 +107,10 @@ namespace Igor
         double the size for simpler access code
         */
         uint8 p[RANDOM_NUMBERS_COUNT * 2];
+
+        /*! random number generator
+        */
+        iaRandomNumberGenerator _rand;
 
         /*! linear interpolation between two values
 

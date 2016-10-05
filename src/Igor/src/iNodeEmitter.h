@@ -109,7 +109,7 @@ namespace Igor
 
         /*! \returns internal particle emitter structure
         */
-        const iParticleEmitter& getParticleEmitter() const;
+        iParticleEmitter& getParticleEmitter();
 
         /*! init members
         */

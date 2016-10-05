@@ -41,6 +41,7 @@ using namespace Igor;
 #include <iaMatrix.h>
 #include <iaVector2.h>
 #include <iaBSpline.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <memory>
@@ -148,6 +149,10 @@ private:
     /*! a B-Spline
     */
     iaBSpline _spline;
+
+    /*! random number generator
+    */
+    iaRandomNumberGenerator _rand;
 
     /*! mouse move event with minimum data
 

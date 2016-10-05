@@ -30,6 +30,7 @@
 #define __PLANTMESHGENERATOR__
 
 #include <iaVector3.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <iMeshBuilder.h>
@@ -173,6 +174,8 @@ private:
     /*! model matrix
     */  
     iaMatrixf _modelMatrix;
+
+    iaRandomNumberGenerator _rand;
 
     /*! generate mesh
 

@@ -38,6 +38,7 @@
     <ClCompile Include="..\src\iaString.cpp">
       <Filter>data types</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iaRandomNumberGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iaDefines.h" />
@@ -118,6 +119,7 @@
     <ClInclude Include="..\src\iaQuaternion.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaRandomNumberGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">

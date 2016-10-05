@@ -30,12 +30,13 @@
 #define __iPARTICLESYSTEM3D__
 
 #include <iGradient.h>
+#include <iSphere.h>
 
 #include <iaVector3.h>
 #include <iaVector2.h>
 #include <iaColor4.h>
 #include <iaMatrix.h>
-#include <iSphere.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <memory>
@@ -272,7 +273,7 @@ namespace Igor
 
         \param emitter the emitter to emitt particles from
         */
-        void calcNextFrame(const iParticleEmitter& emitter);
+        void calcNextFrame(iParticleEmitter& emitter);
 
         /*! sets vorticity confinement force
 
@@ -590,6 +591,10 @@ namespace Igor
         float32 _minVortexRange = 10.0;
         float32 _maxVortexRange = 20.0;
 
+        /*! random number generator
+        */
+        iaRandomNumberGenerator _rand;
+
         long _vortexCheckRange = 20;
 
         float32 _vorticityConfinement = 0.1;
@@ -598,8 +603,8 @@ namespace Igor
         
         void initDefaultGradients();
 
-        void createParticles(uint32 particleCount, const iParticleEmitter& emitter, float32 particleSystemTime);
-        void resetParticle(iParticle &particle, const iParticleEmitter& emitter, float32 particleSystemTime);
+        void createParticles(uint32 particleCount, iParticleEmitter& emitter, float32 particleSystemTime);
+        void resetParticle(iParticle &particle, iParticleEmitter& emitter, float32 particleSystemTime);
     };
 
 };

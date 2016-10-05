@@ -32,6 +32,7 @@
 #include <iDefines.h>
 
 #include <iaMatrix.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <vector>
@@ -79,7 +80,7 @@ namespace Igor
 
         /*! does nothing
         */
-        iParticleEmitter() = default;
+        iParticleEmitter();
 
         /*! does nothing
         */
@@ -139,7 +140,7 @@ namespace Igor
         \param[out] position random position on emitter in world coordinates
         \param[out] velocity velocity depending on position
         */
-        void calcRandomStart(iaVector3f& position, iaVector3f& velocity) const;
+        void calcRandomStart(iaVector3f& position, iaVector3f& velocity);
 
     protected:
 
@@ -159,13 +160,17 @@ namespace Igor
         */
         iaMatrixf _worldMatrix;
 
-        void calcRandomStartFromCube(iaVector3f& position, iaVector3f& velocity) const;
-        void calcRandomStartFromSquare(iaVector3f& position, iaVector3f& velocity) const;
-        void calcRandomStartFromSphere(iaVector3f& position, iaVector3f& velocity) const;
-        void calcRandomStartFromDisc(iaVector3f& position, iaVector3f& velocity) const;
-        void calcRandomStartFromCircle(iaVector3f& position, iaVector3f& velocity) const;
-        void calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity) const;
-        void calcRandomStartFromMesh(iaVector3f& position, iaVector3f& velocity) const;
+        /*! random number generator
+        */
+        iaRandomNumberGenerator _rand;
+
+        void calcRandomStartFromCube(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStartFromSquare(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStartFromSphere(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStartFromDisc(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStartFromCircle(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStartFromMesh(iaVector3f& position, iaVector3f& velocity);
 
     };
 

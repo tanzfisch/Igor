@@ -147,6 +147,9 @@ void Example2D::init()
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
     // register callback to mosue moved event
     iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
+
+    // generate a random seed
+    _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
 }
 
 void Example2D::deinit()
@@ -287,7 +290,7 @@ void Example2D::onRender()
     {
         for (int y = 0; y < 14; ++y)
         {
-            iRenderer::getInstance().setPointSize(rand() % 5 + 1);
+            iRenderer::getInstance().setPointSize(_rand.getNext() % 5 + 1);
             iRenderer::getInstance().drawPoint(230 + x * 10, 20 + y * 10);
         }
     }

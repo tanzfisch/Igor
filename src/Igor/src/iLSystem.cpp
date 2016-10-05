@@ -32,7 +32,6 @@ namespace Igor
         vector<iLSystemRule> ruleWeighting;
         ruleWeighting.push_back(rule);
         addRule(input, ruleWeighting);
-
     }
 
     void iLSystem::addRule(wchar_t input, vector<iLSystemRule> rules)
@@ -41,8 +40,10 @@ namespace Igor
         _rules[input] = rules;
     }
 
-    iaString iLSystem::generate(iaString in, int32 iterations)
+    iaString iLSystem::generate(iaString in, int32 iterations, uint32 seed)
     {
+        _rand.setSeed(seed);
+
         iaString sentence = in;
         
         for (int age = 0; age < iterations; ++age)
@@ -110,7 +111,7 @@ namespace Igor
                 {
                     if ((*iter).second.size() > 1)
                     {
-                        float32 value = rand() % 100 / 100.0f;
+                        float32 value = _rand.getNext() % 100 / 100.0f;
                         float32 threashold = 0.0f;
                         for (auto iter : (*iter).second)
                         {

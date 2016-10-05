@@ -41,8 +41,8 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
 
     iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 
-    srand(plantInformation->_seed);
-    iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations);
+    _rand.setSeed(plantInformation->_seed);
+    iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations, _rand.getNext());
     generateSkeleton(sentence);
 
     generateMesh(_skeleton.getRootJoint());
@@ -309,7 +309,7 @@ void PlantMeshGenerator::generateLeaf(const iaVector3f& dir)
     c = scale * c;
     d = scale * d;
 
-    rotate.rotate(rand() % 100 / 100.0 * M_PI * 2, iaAxis::Y);
+    rotate.rotate(_rand.getNext() % 100 / 100.0 * M_PI * 2, iaAxis::Y);
     current = _modelMatrix;
     current *= rotate;
 
@@ -356,7 +356,7 @@ void PlantMeshGenerator::generateSkeleton(const iaString& sentence)
 
     for (int i = 0; i < sentence.getSize(); ++i)
     {
-        float32 variation = 1.5 - (((rand() % 100) / 100.0f));
+        float32 variation = 1.5 - (((_rand.getNext() % 100) / 100.0f));
 
         switch (sentence[i])
         {

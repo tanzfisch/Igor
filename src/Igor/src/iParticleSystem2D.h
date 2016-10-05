@@ -36,6 +36,9 @@
 #include <vector>
 using namespace std;
 
+#include <iaRandomNumberGenerator.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 
@@ -329,6 +332,10 @@ namespace Igor
         /*! if true particle system has stopped and does not emitt particles enymore
         */
 		bool _done = false;
+
+        /*! random number generator
+        */
+        iaRandomNumberGenerator _rand;
 
         /*! reset a particle to start values in order to reuse it
 

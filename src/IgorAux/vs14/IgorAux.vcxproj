@@ -344,6 +344,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\iaMemBlock.h" />
     <ClInclude Include="..\src\iaMemBlockControl.h" />
     <ClInclude Include="..\src\iaQuaternion.h" />
+    <ClInclude Include="..\src\iaRandomNumberGenerator.h" />
     <ClInclude Include="..\src\iaRLE.h" />
     <ClInclude Include="..\src\iaSerializable.h" />
     <ClInclude Include="..\src\iaState.h" />
@@ -365,6 +366,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClCompile Include="..\src\iaFile.cpp" />
     <ClCompile Include="..\src\iaMemBlock.cpp" />
     <ClCompile Include="..\src\iaMemBlockControl.cpp" />
+    <ClCompile Include="..\src\iaRandomNumberGenerator.cpp" />
     <ClCompile Include="..\src\iaSerializable.cpp" />
     <ClCompile Include="..\src\iaState.cpp" />
     <ClCompile Include="..\src\iaStateMachine.cpp" />

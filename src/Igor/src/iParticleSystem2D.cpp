@@ -4,6 +4,8 @@
 
 #include "iParticleSystem2D.h"
 
+#include <iTimer.h>
+
 #include <iaConsole.h>
 using namespace IgorAux;
 
@@ -12,6 +14,8 @@ namespace Igor
 
     iParticleSystem2D::iParticleSystem2D()
     {
+        _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
+
         setMaxParticleCount(100);
     }
 
@@ -31,7 +35,7 @@ namespace Igor
             particle._position = _emitterPos;
             particle._velocity = _initialVelocity;
 
-            float32 spread = ((rand() % 100 / 50.0f) - 1.0f) * _spreadFactor * 0.5f;
+            float32 spread = ((_rand.getNext() % 100 / 50.0f) - 1.0f) * _spreadFactor * 0.5f;
 
             particle._velocity.rotateXY(spread * 2.0 * M_PI);
         }
@@ -40,10 +44,10 @@ namespace Igor
             //! \todo
         }
 
-        particle._size = _minSize + (rand() % 100 / 100.0f) * (_maxSize - _minSize);
-        particle._angle = _minRotation + (rand() % 100 / 100.0f) * (_maxRotation - _minRotation);
-        particle._sizeDelta = _minSizeDelta + (rand() % 100 / 100.0f) * (_maxSizeDelta - _minSizeDelta);
-        particle._angleDelta = _minRotationDelta + (rand() % 100 / 100.0f) * (_maxRotationDelta - _minRotationDelta);
+        particle._size = _minSize + (_rand.getNext() % 100 / 100.0f) * (_maxSize - _minSize);
+        particle._angle = _minRotation + (_rand.getNext() % 100 / 100.0f) * (_maxRotation - _minRotation);
+        particle._sizeDelta = _minSizeDelta + (_rand.getNext() % 100 / 100.0f) * (_maxSizeDelta - _minSizeDelta);
+        particle._angleDelta = _minRotationDelta + (_rand.getNext() % 100 / 100.0f) * (_maxRotationDelta - _minRotationDelta);
         particle._life = 1.0f;
     }
 

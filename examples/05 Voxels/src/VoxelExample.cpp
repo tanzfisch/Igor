@@ -231,6 +231,8 @@ float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
 
 void VoxelExample::generateVoxelData()
 {
+    _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
+
     // if there is none create it
     if (_voxelData == nullptr)
     {
@@ -241,7 +243,7 @@ void VoxelExample::generateVoxelData()
     }
 
     // generate new random base with time based seed
-    _perlinNoise.generateBase(static_cast<uint32>(iTimer::getInstance().getTime()));
+    _perlinNoise.generateBase(_rand.getNext());
 
     // clear the voxel data
     _voxelData->clear();
@@ -262,9 +264,9 @@ void VoxelExample::generateVoxelData()
     vector<pair<iaVector3f, float32>> metaballs;
     for (int i = 0; i < 20; ++i)
     {
-        metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(rand() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
-            rand() % static_cast<int>(_voxelData->getHeight()*0.6) + (_voxelData->getHeight()* 0.2),
-            rand() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)), (((rand() % 90) + 10) / 100.0) + 0.6));
+        metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(_rand.getNext() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
+            _rand.getNext() % static_cast<int>(_voxelData->getHeight()*0.6) + (_voxelData->getHeight()* 0.2),
+            _rand.getNext() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)), (((_rand.getNext() % 90) + 10) / 100.0) + 0.6));
     }
 
     // now iterate through all the voxels and define their density

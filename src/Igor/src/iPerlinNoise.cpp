@@ -16,7 +16,7 @@ namespace Igor
 
     void iPerlinNoise::generateBase(uint32 seed)
     {
-        srand(seed);
+        _rand.setSeed(seed);
 
         for (int64 i = 0; i < RANDOM_NUMBERS_COUNT; ++i)
         {
@@ -25,8 +25,8 @@ namespace Igor
 
         for (int64 i = 0; i < 5000; ++i)
         {
-            int64 src = rand() % RANDOM_NUMBERS_COUNT;
-            int64 dst = rand() % RANDOM_NUMBERS_COUNT;
+            int64 src = _rand.getNext() % RANDOM_NUMBERS_COUNT;
+            int64 dst = _rand.getNext() % RANDOM_NUMBERS_COUNT;
 
             int64 value = p[dst];
             p[dst] = p[src];

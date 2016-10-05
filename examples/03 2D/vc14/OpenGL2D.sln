@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenGL2DExample", "OpenGL2D.vcxproj", "{DE10D3FF-0276-4E49-8BBB-D935F15BA21F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,6 +22,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OMPF", "..\..\..\src\OMPF\v
 	ProjectSection(ProjectDependencies) = postProject
 		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {879EBAB3-D7D7-473D-BB32-6A07964F12F9}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Engine", "Engine", "{D3C33991-1425-44D9-A9DA-7B26D78D1021}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,5 +60,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {D3C33991-1425-44D9-A9DA-7B26D78D1021}
+		{4BFF697B-A2DC-472B-BA1A-4169BCEFA532} = {D3C33991-1425-44D9-A9DA-7B26D78D1021}
+		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {D3C33991-1425-44D9-A9DA-7B26D78D1021}
 	EndGlobalSection
 EndGlobal
