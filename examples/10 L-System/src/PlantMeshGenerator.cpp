@@ -174,16 +174,6 @@ void PlantMeshGenerator::generateTrunk(const iaVector3f& dir)
     uint32 ci = _meshBuilderTrunk.addVertex(_modelMatrix * c);
     uint32 di = _meshBuilderTrunk.addVertex(_modelMatrix * d);
 
-    a = vecs[0];
-    b = vecs[1];
-    c = vecs[2];
-    d = vecs[3];
-
-    a *= 0.03;
-    b *= 0.03;
-    c *= 0.03;
-    d *= 0.03;
-
     a += dir;
     b += dir;
     c += dir;

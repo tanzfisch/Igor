@@ -153,9 +153,6 @@ void LSystems::init()
 
 void LSystems::initStyle1()
 {
-    _segmentLength = 0.25;
-    _angle = 0.3;
-
     _lSystem.addRule('F', "FF");
 
     vector<iLSystemRule> weightedRule1;
@@ -170,6 +167,8 @@ void LSystems::initStyle1()
     weightedRule2.push_back(iLSystemRule(0.3, "o"));
     _lSystem.addRule('*', weightedRule2);
 
+    _segmentLength = 0.25;
+    _angle = 0.3;
     _trunkColor.set(0, 0.8, 0);
     _budColor.set(0.8, 0.7, 0.0);
     _flowerColor.set(1, 0, 0);
@@ -178,9 +177,6 @@ void LSystems::initStyle1()
 
 void LSystems::initStyle2()
 {
-    _segmentLength = 0.25;
-    _angle = 0.25;
-
     _lSystem.addRule('F', "FF");
 
     vector<iLSystemRule> weightedRule1;
@@ -195,6 +191,8 @@ void LSystems::initStyle2()
     weightedRule2.push_back(iLSystemRule(0.3, "o"));
     _lSystem.addRule('*', weightedRule2);
 
+    _segmentLength = 0.25;
+    _angle = 0.25;
     _trunkColor.set(0, 0.7, 0);
     _budColor.set(0.8, 0.0, 0.5);
     _flowerColor.set(1, 0, 1);
@@ -203,9 +201,6 @@ void LSystems::initStyle2()
 
 void LSystems::initStyle3()
 {
-    _segmentLength = 0.25;
-    _angle = 0.5;
-
     _lSystem.addRule('F', "FF");
 
     vector<iLSystemRule> weightedRule1;
@@ -218,6 +213,8 @@ void LSystems::initStyle3()
     weightedRule2.push_back(iLSystemRule(0.4, "o"));
     _lSystem.addRule('*', weightedRule2);
 
+    _segmentLength = 0.25;
+    _angle = 0.5;
     _trunkColor.set(0, 0.8, 0);
     _budColor.set(0.8, 0.8, 0.5);
     _flowerColor.set(1, 1, 1);
@@ -273,8 +270,9 @@ void LSystems::generateLSystems()
         _groupNodeID = iNode::INVALID_NODE_ID;
     }
     
-    // TODO read http://www.mdpi.com/1424-8220/15/2/4019/htm
     _styleCounter = (++_styleCounter) % 3;
+
+    _lSystem.clear();
 
     switch (_styleCounter)
     {
