@@ -153,7 +153,7 @@ namespace Igor
 
         void addCheckedTriangle(uint32 a, uint32 b, uint32 c, bool keep);
 
-        void calculateNextLOD(uint32 neighborLODs);
+        void calculateNextLOD(const uint8* density, uint32 neighborLODs);
 
         iaVector3f _offset;
         iaVector3f _offsetNextLOD;

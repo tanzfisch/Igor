@@ -278,6 +278,8 @@ namespace Igor
             calcPos.set(0, 0, 0);
         }
 
+        //calcPos.set(0.5, 0.5, 0.5);
+
         vertex = calcPos;
 
         return div != 0 ? true : false;
@@ -345,7 +347,7 @@ namespace Igor
     //  /
     // Z
     */
-    void iContouringCubes::calculateNextLOD(uint32 neighborLODs)
+    void iContouringCubes::calculateNextLOD(const uint8* density, uint32 neighborLODs)
     {
         uint8 nextLODDensity[3 * 3 * 3];
 
@@ -658,7 +660,7 @@ namespace Igor
         if (neighborLODs != 0 &&
             _voxelDataNextLOD != nullptr)
         {
-            calculateNextLOD(neighborLODs);
+            calculateNextLOD(density, neighborLODs);
         }
 
         if (density[13] > 0.0f)
