@@ -75,7 +75,7 @@ namespace OMPF
 				if((*it) == chunk)
 				{
 					_children.erase(it);
-					(*it)->_parentID = OMPFDefaultConfiguration::InvalidChunkID;
+					(*it)->_parentID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 					return;
 				}
 
@@ -100,7 +100,7 @@ namespace OMPF
 
     bool ompfBaseChunk::hasParent() const
     {
-        return (_parentID != OMPFDefaultConfiguration::InvalidChunkID) ? true : false;
+        return (_parentID != OMPFDefaultConfiguration::INVALID_CHUNK_ID) ? true : false;
     }
 
     uint32 ompfBaseChunk::getParentID() const
@@ -123,35 +123,35 @@ namespace OMPF
         return _name;
     }
 
-    bool ompfBaseChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfBaseChunk::write(ofstream& stream, const ompfSettings& settings)
     {
         _chunkSize = getSize(settings);
 
         uint64 value = static_cast<uint64>(_type);
-        if (!iaSerializable::writeUInt(file, value, settings.getTypeIDSize()))
+        if (!iaSerializable::writeUInt(stream, value, settings.getTypeIDSize()))
         {
             return false;
         }
 
         value = static_cast<uint64>(_chunkSize);
-        if (!iaSerializable::writeUInt(file, value, settings.getChunkSizeSize()))
+        if (!iaSerializable::writeUInt(stream, value, settings.getChunkSizeSize()))
         {
             return false;
         }
 
         value = static_cast<uint64>(_ID);
-        if (!iaSerializable::writeUInt(file, value, settings.getChunkIDSize()))
+        if (!iaSerializable::writeUInt(stream, value, settings.getChunkIDSize()))
         {
             return false;
         }
 
         value = static_cast<uint64>(_parentID);
-        if (!iaSerializable::writeUInt(file, value, settings.getChunkIDSize()))
+        if (!iaSerializable::writeUInt(stream, value, settings.getChunkIDSize()))
         {
             return false;
         }
         
-        if (!iaSerializable::writeUTF8(file, _name))
+        if (!iaSerializable::writeUTF8(stream, _name))
         {
             return false;
         }
@@ -161,10 +161,10 @@ namespace OMPF
         return true;
     }
 
-    bool ompfBaseChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfBaseChunk::read(ifstream& stream, ompfSettings& settings)
     {
         uint64 value = 0;
-        if (!iaSerializable::readUInt(file, value, settings.getTypeIDSize()))
+        if (!iaSerializable::readUInt(stream, value, settings.getTypeIDSize()))
         {
             return false;
         }
@@ -173,7 +173,7 @@ namespace OMPF
 #ifdef __IGOR_DEBUG__
         value = 0;
 #endif
-        if (!iaSerializable::readUInt(file, value, settings.getChunkSizeSize()))
+        if (!iaSerializable::readUInt(stream, value, settings.getChunkSizeSize()))
         {
             return false;
         }
@@ -182,7 +182,7 @@ namespace OMPF
 #ifdef __IGOR_DEBUG__
         value = 0;
 #endif
-        if (!iaSerializable::readUInt(file, value, settings.getChunkIDSize()))
+        if (!iaSerializable::readUInt(stream, value, settings.getChunkIDSize()))
         {
             return false;
         }
@@ -191,13 +191,13 @@ namespace OMPF
 #ifdef __IGOR_DEBUG__
         value = 0;
 #endif
-        if (!iaSerializable::readUInt(file, value, settings.getChunkIDSize()))
+        if (!iaSerializable::readUInt(stream, value, settings.getChunkIDSize()))
         {
             return false;
         }
         _parentID = static_cast<uint32>(value);
 
-        if (!iaSerializable::readUTF8(file, _name))
+        if (!iaSerializable::readUTF8(stream, _name))
         {
             return false;
         }

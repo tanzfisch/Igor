@@ -194,24 +194,6 @@ namespace OMPF
         */
         static const uint32 _renderStateSetCount = 30; // 11 reserve
 
-        /*! writes data to file stream
-
-        \param file the file stream to write to
-        \param settings ompf settings that apply for this export
-        */
-        virtual bool write(ofstream& file, const ompfSettings& settings);
-
-        /*! read data from file stream
-
-        \param file the file stream to read from
-        \param settings ompf settings that apply for this import
-        */
-        virtual bool read(ifstream& file, ompfSettings& settings);
-
-        /*! debug output
-        */
-        void printInfo();
-
         /*! name of the material
         */
         iaString _materialName;
@@ -227,6 +209,24 @@ namespace OMPF
         /*! render states
         */
         uint8 _renderStates[_renderStateSetCount];
+
+        /*! debug output
+        */
+        void printInfo();
+
+        /*! writes data to file stream
+
+        \param file the file stream to write to
+        \param settings ompf settings that apply for this export
+        */
+        virtual bool write(ofstream& stream, const ompfSettings& settings);
+
+        /*! read data from file stream
+
+        \param file the file stream to read from
+        \param settings ompf settings that apply for this import
+        */
+        virtual bool read(ifstream& stream, ompfSettings& settings);
 
 	};
 

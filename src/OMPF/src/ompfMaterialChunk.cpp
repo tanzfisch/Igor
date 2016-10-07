@@ -162,25 +162,25 @@ namespace OMPF
         return size;
     }
 
-    bool ompfMaterialChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfMaterialChunk::write(ofstream& stream, const ompfSettings& settings)
     {
-        if (!ompfBaseChunk::write(file, settings))
+        if (!ompfBaseChunk::write(stream, settings))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUTF8(file, _materialName))
+        if (!iaSerializable::writeUTF8(stream, _materialName))
         {
             return false;
         }
 
-        if (!iaSerializable::writeInt32(file, _order))
+        if (!iaSerializable::writeInt32(stream, _order))
         {
             return false;
         }
 
         uint8 shaderCount = static_cast<uint8>(_shaders.size());
-        if (!iaSerializable::writeUInt8(file, shaderCount))
+        if (!iaSerializable::writeUInt8(stream, shaderCount))
         {
             return false;
         }
@@ -188,19 +188,19 @@ namespace OMPF
         auto iterShader = _shaders.begin();
         while (iterShader != _shaders.end())
         {
-            if (!iaSerializable::writeUInt8(file, static_cast<uint8>((*iterShader)._type)))
+            if (!iaSerializable::writeUInt8(stream, static_cast<uint8>((*iterShader)._type)))
             {
                 return false;
             }
 
-            if (!iaSerializable::writeUTF8(file, (*iterShader)._filename))
+            if (!iaSerializable::writeUTF8(stream, (*iterShader)._filename))
             {
                 return false;
             }
             iterShader++;
         }
 
-        if (!iaSerializable::write(file, reinterpret_cast<char*>(_renderStates), _renderStateSetCount))
+        if (!iaSerializable::write(stream, reinterpret_cast<char*>(_renderStates), _renderStateSetCount))
         {
             return false;
         }
@@ -212,25 +212,25 @@ namespace OMPF
         return true;
     }
 
-    bool ompfMaterialChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfMaterialChunk::read(ifstream& stream, ompfSettings& settings)
     {
-        if (!ompfBaseChunk::read(file, settings))
+        if (!ompfBaseChunk::read(stream, settings))
         {
             return false;
         }
 
-        if (!iaSerializable::readUTF8(file, _materialName))
+        if (!iaSerializable::readUTF8(stream, _materialName))
         {
             return false;
         }
 
-        if (!iaSerializable::readInt32(file, _order))
+        if (!iaSerializable::readInt32(stream, _order))
         {
             return false;
         }
 
         uint8 shaderCount = 0;
-        if (!iaSerializable::readUInt8(file, shaderCount))
+        if (!iaSerializable::readUInt8(stream, shaderCount))
         {
             return false;
         }
@@ -238,13 +238,13 @@ namespace OMPF
         for (int i = 0; i < shaderCount; ++i)
         {
             uint8 type = 0;
-            if (!iaSerializable::readUInt8(file, type))
+            if (!iaSerializable::readUInt8(stream, type))
             {
                 return false;
             }
 
             iaString filename;
-            if (!iaSerializable::readUTF8(file, filename))
+            if (!iaSerializable::readUTF8(stream, filename))
             {
                 return false;
             }
@@ -252,7 +252,7 @@ namespace OMPF
             addShader(filename, static_cast<OMPFShaderType>(type));
         }
 
-        if (!iaSerializable::read(file, reinterpret_cast<char*>(_renderStates), _renderStateSetCount))
+        if (!iaSerializable::read(stream, reinterpret_cast<char*>(_renderStates), _renderStateSetCount))
         {
             return false;
         }

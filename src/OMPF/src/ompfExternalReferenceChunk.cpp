@@ -27,14 +27,14 @@ namespace OMPF
         return static_cast<uint32>(_filename.getUTF8Size() + 2) + static_cast<uint32>(ompfBaseChunk::getSize(settings));
     }
 
-    bool ompfExternalReferenceChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfExternalReferenceChunk::write(ofstream& stream, const ompfSettings& settings)
     {
-        if (!ompfBaseChunk::write(file, settings))
+        if (!ompfBaseChunk::write(stream, settings))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUTF8(file, _filename))
+        if (!iaSerializable::writeUTF8(stream, _filename))
         {
             return false;
         }
@@ -42,14 +42,14 @@ namespace OMPF
         return true;
     }
 
-    bool ompfExternalReferenceChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfExternalReferenceChunk::read(ifstream& stream, ompfSettings& settings)
     {
-		if (!ompfBaseChunk::read(file, settings))
+		if (!ompfBaseChunk::read(stream, settings))
 		{
 			return false;
 		}
         
-        if (!iaSerializable::readUTF8(file, _filename))
+        if (!iaSerializable::readUTF8(stream, _filename))
         {
             return false;
         }

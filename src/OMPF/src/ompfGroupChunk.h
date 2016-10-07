@@ -30,20 +30,42 @@
 namespace OMPF
 {
 
+    /*! group chunk wich simply groups other chunks
+    */
 	class OMPF_API ompfGroupChunk : public ompfBaseChunk
 	{
 
     public:
 
+        /*! does nothing
+        */
         ompfGroupChunk();
-        virtual ~ompfGroupChunk();
 
+        /*! does nothing
+        */
+        virtual ~ompfGroupChunk() = default;
+
+        /*! \returns size of chunk
+
+        \param settings the settings to use to calculate the size
+        */
         virtual uint32 getSize(const ompfSettings& settings);
 
     private:
 
-        virtual bool write(ofstream& file, const ompfSettings& settings);
-        virtual bool read(ifstream& file, ompfSettings& settings);
+        /*! writes chunk to stream
+
+        \param stream destination stream
+        \param settings the settings how to write the chunk
+        */
+        virtual bool write(ofstream& stream, const ompfSettings& settings);
+
+        /*! reads chunk from stream
+
+        \param stream source stream
+        \param settings the settings how to read the chunk
+        */
+        virtual bool read(ifstream& stream, ompfSettings& settings);
 
 	};
 

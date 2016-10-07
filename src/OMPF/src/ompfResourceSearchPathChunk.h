@@ -30,29 +30,70 @@
 namespace OMPF
 {
 
+    /*! search path chunk
+    */
 	class OMPF_API ompfResourceSearchPathChunk : public ompfBaseChunk
 	{
 
 	public:
 
+        /*! does nothing
+        */
         ompfResourceSearchPathChunk();
-		virtual ~ompfResourceSearchPathChunk();
 
+        /*! does nothing
+        */
+        virtual ~ompfResourceSearchPathChunk() = default;
+
+        /*! \returns size of chunk in bytes
+
+        \param settings the settings the size calculation is based on
+        */
         virtual uint32 getSize(const ompfSettings& settings);
 
-		void setPath(iaString filename);
+        /*! sets the search path
+
+        \param path a path we later can search in
+        */
+		void setPath(iaString path);
+
+        /*! \returns the search path
+        */
 		iaString getPath() const;
 
+        /*! sets path type
+
+        \param pathType path type
+        */
         void setPathType(OMPFPathType pathType);
+
+        /*! \returns path type
+        */
         OMPFPathType getPathType() const;
 
     private:
 
-        virtual bool write(ofstream& file, const ompfSettings& settings);
-        virtual bool read(ifstream& file, ompfSettings& settings);
+        /*! path
+        */
+        iaString _path;
 
-		iaString _path;
+        /*! path type
+        */
         OMPFPathType _pathType = OMPFPathType::Undefined;
+
+        /*! writes chunk to stream
+
+        \param stream destination stream
+        \param settings the settings how to write the chunk
+        */
+        virtual bool write(ofstream& stream, const ompfSettings& settings);
+
+        /*! reads chunk from stream
+
+        \param stream source stream
+        \param settings the settings how to read the chunk
+        */
+        virtual bool read(ifstream& stream, ompfSettings& settings);
 
 	};
 

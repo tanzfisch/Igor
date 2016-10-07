@@ -212,7 +212,7 @@ namespace OMPF
         memcpy(_indexData, data, _indexDataSize);
     }
 
-    const char* ompfMeshChunk::getIndexData() const
+    const void* ompfMeshChunk::getIndexData() const
     {
         return _indexData;
     }
@@ -240,7 +240,7 @@ namespace OMPF
         return _indexDataSize;
     }
 
-    const char* ompfMeshChunk::getVertexData() const
+    const void* ompfMeshChunk::getVertexData() const
     {
         return _vertexData;
     }
@@ -352,11 +352,11 @@ namespace OMPF
         }
                 
         iaSerializable::writeUInt32(file, _vertexCount);
-        iaSerializable::write(file, _vertexData, _vertexDataSize);
+        iaSerializable::write(file, static_cast<char*>(_vertexData), _vertexDataSize);
         con_debug_endl("vertexCount " << _vertexCount << " vertexDataSize " << _vertexDataSize);
 
         iaSerializable::writeUInt32(file, _indexCount);
-        iaSerializable::write(file, _indexData, _indexDataSize);
+        iaSerializable::write(file, static_cast<char*>(_indexData), _indexDataSize);
         con_debug_endl("indexCount " << _indexCount << " indexDataSize " << _indexDataSize);
 
         return true;
@@ -453,7 +453,7 @@ namespace OMPF
             delete[] _vertexData;
         }
         _vertexData = new char[_vertexDataSize];
-        iaSerializable::read(file, _vertexData, _vertexDataSize);
+        iaSerializable::read(file, static_cast<char*>(_vertexData), _vertexDataSize);
         con_debug_endl("vertexCount " << _vertexCount << " vertexDataSize " << _vertexDataSize);
 
         iaSerializable::readUInt32(file, _indexCount);
@@ -463,7 +463,7 @@ namespace OMPF
             delete[] _indexData;
         }
         _indexData = new char[_indexDataSize];
-        iaSerializable::read(file, _indexData, _indexDataSize);
+        iaSerializable::read(file, static_cast<char*>(_indexData), _indexDataSize);
         con_debug_endl("indexCount " << _indexCount << " indexDataSize " << _indexDataSize);
 
         return true;

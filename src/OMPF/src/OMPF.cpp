@@ -69,7 +69,7 @@ namespace OMPF
         resetChunkID();
 
         _root = new ompfHeaderChunk();
-        _root->setID(OMPFDefaultConfiguration::InvalidChunkID);
+        _root->setID(OMPFDefaultConfiguration::INVALID_CHUNK_ID);
         _chunks[_root->getID()] = _root;
     }
 
@@ -88,7 +88,7 @@ namespace OMPF
 
     void OMPF::resetChunkID()
     {
-        _nextChunkID = OMPFDefaultConfiguration::InvalidChunkID;
+        _nextChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
     }
 
     uint32 OMPF::getNextChunkID()
@@ -134,7 +134,7 @@ namespace OMPF
     ompfMaterialChunk* OMPF::createMaterialChunk()
     {
         ompfMaterialChunk* result = new ompfMaterialChunk();
-        result->setID(OMPFDefaultConfiguration::InvalidChunkID);
+        result->setID(OMPFDefaultConfiguration::INVALID_CHUNK_ID);
         result->setID(getNextChunkID());
         _materialChunks.push_back(result);
         return result;
@@ -293,7 +293,7 @@ namespace OMPF
             while (iter != _chunks.end())
             {
                 // skip header chunk. has no ID
-                if ((*iter).second->getID() != OMPFDefaultConfiguration::InvalidChunkID)
+                if ((*iter).second->getID() != OMPFDefaultConfiguration::INVALID_CHUNK_ID)
                 {
                     if (_chunks[(*iter).second->getParentID()] != nullptr)
                     {

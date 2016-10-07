@@ -20,58 +20,54 @@ namespace OMPF
 
 	}
 	
-	ompfHeaderChunk::~ompfHeaderChunk()
-	{
-	}
-
-    bool ompfHeaderChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfHeaderChunk::write(ofstream& stream, const ompfSettings& settings)
     {
-        if (!iaSerializable::write(file, "OMPF", 4))
+        if (!iaSerializable::write(stream, "OMPF", 4))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getMajorVersion()))
+        if (!iaSerializable::writeUInt8(stream, settings.getMajorVersion()))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getMinorVersion()))
+        if (!iaSerializable::writeUInt8(stream, settings.getMinorVersion()))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getPatchVersion()))
+        if (!iaSerializable::writeUInt8(stream, settings.getPatchVersion()))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getTypeIDSize()))
+        if (!iaSerializable::writeUInt8(stream, settings.getTypeIDSize()))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getChunkIDSize()))
+        if (!iaSerializable::writeUInt8(stream, settings.getChunkIDSize()))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getChunkSizeSize()))
+        if (!iaSerializable::writeUInt8(stream, settings.getChunkSizeSize()))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getCustomDataSizeSize()))
+        if (!iaSerializable::writeUInt8(stream, settings.getCustomDataSizeSize()))
         {
             return false;
         }
 
-        if (!iaSerializable::writeUInt8(file, settings.getStringSizeSize()))
+        if (!iaSerializable::writeUInt8(stream, settings.getStringSizeSize()))
         {
             return false;
         }
 
-        if (!iaSerializable::write(file, "I\3Igor", 6)) // I?IGOR
+        if (!iaSerializable::write(stream, "I\3Igor", 6)) // I?IGOR
         {
             return false;
         }
@@ -82,16 +78,16 @@ namespace OMPF
             << "ChunkSizeSize:" << settings.getChunkSizeSize() << endl << "CustomDataSizeSize:" << settings.getCustomDataSizeSize() << endl \
             << "StringSizeSize:" << settings.getStringSizeSize());
 
-        return ompfBaseChunk::write(file, settings);
+        return ompfBaseChunk::write(stream, settings);
     }
     
-    bool ompfHeaderChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfHeaderChunk::read(ifstream& stream, ompfSettings& settings)
     {
         char magicNumber[5];
 #ifdef __IGOR_DEBUG__
         memset(magicNumber, '#', 5);
 #endif
-        iaSerializable::read(file, magicNumber, 4);
+        iaSerializable::read(stream, magicNumber, 4);
         magicNumber[4] = 0;
 
         if (string(magicNumber) != "OMPF")
@@ -104,9 +100,9 @@ namespace OMPF
         uint8 minorVersion = 0;
         uint8 patchVersion = 0;
 
-        iaSerializable::readUInt8(file, majorVersion);
-        iaSerializable::readUInt8(file, minorVersion);
-        iaSerializable::readUInt8(file, patchVersion);
+        iaSerializable::readUInt8(stream, majorVersion);
+        iaSerializable::readUInt8(stream, minorVersion);
+        iaSerializable::readUInt8(stream, patchVersion);
 
         uint32 version = (static_cast<uint32>(majorVersion) << 16) | (static_cast<uint32>(minorVersion) << 8) | static_cast<uint32>(patchVersion);
         
@@ -118,7 +114,7 @@ namespace OMPF
         }
 
         uint8 typeIDSize = 0;
-        if (!iaSerializable::readUInt8(file, typeIDSize))
+        if (!iaSerializable::readUInt8(stream, typeIDSize))
         {
             return false;
         }
@@ -126,7 +122,7 @@ namespace OMPF
         settings.setTypeIDSize(typeIDSize);
 
         uint8 chunkIDSize = 0;
-        if (!iaSerializable::readUInt8(file, chunkIDSize))
+        if (!iaSerializable::readUInt8(stream, chunkIDSize))
         {
             return false;
         }
@@ -134,7 +130,7 @@ namespace OMPF
         settings.setChunkIDSize(chunkIDSize);
 
         uint8 chunkSizeSize = 0;
-        if (!iaSerializable::readUInt8(file, chunkSizeSize))
+        if (!iaSerializable::readUInt8(stream, chunkSizeSize))
         {
             return false;
         }
@@ -142,7 +138,7 @@ namespace OMPF
         settings.setChunkSizeSize(chunkSizeSize);
 
         uint8 customdataSizeSize = 0;
-        if (!iaSerializable::readUInt8(file, customdataSizeSize))
+        if (!iaSerializable::readUInt8(stream, customdataSizeSize))
         {
             return false;
         }
@@ -150,7 +146,7 @@ namespace OMPF
         settings.setCustomDataSizeSize(customdataSizeSize);
 
         uint8 stringSizeSize = 0;
-        if (!iaSerializable::readUInt8(file, stringSizeSize))
+        if (!iaSerializable::readUInt8(stream, stringSizeSize))
         {
             return false;
         }
@@ -164,9 +160,9 @@ namespace OMPF
             << "StringSizeSize:" << settings.getStringSizeSize());
 
         char buffer[6];
-        iaSerializable::read(file, buffer, 6);
+        iaSerializable::read(stream, buffer, 6);
 
-        return ompfBaseChunk::read(file, settings);
+        return ompfBaseChunk::read(stream, settings);
     }
 
     uint32 ompfHeaderChunk::getSize(const ompfSettings& settings)
