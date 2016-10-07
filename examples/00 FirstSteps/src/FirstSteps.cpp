@@ -1,20 +1,25 @@
+// Igor game engine
+// (c) Copyright 2014-2016 by Martin Loga
+// see copyright notice in corresponding header file
+
 #include "FirstSteps.h"
 
 #include <iApplication.h>
 #include <iTimer.h>
 using namespace Igor;
 
-// let's use the console to see what happens
 #include <iaConsole.h>
 using namespace IgorAux;
 
 FirstSteps::FirstSteps()
 {
+    // mark class generation
     con_endl("ctor");
 
     // registers our handle to the application handle event. it will be called every frame
     iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &FirstSteps::onHandle));
 
+    // save current time
     _time = iTimer::getInstance().getTime();
 }
 
@@ -23,11 +28,13 @@ FirstSteps::~FirstSteps()
     // unregister our handle again for a clean shutdown
     iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &FirstSteps::onHandle));
 
+    // mark class destruction
     con_endl("dtor");
 }
 
 void FirstSteps::run()
 {
+    // mark the application start
     con_endl("run");
 
     // starts the applications endless loop
@@ -49,6 +56,9 @@ void FirstSteps::onHandle()
     {
         // breaks the applications endless loop
         iApplication::getInstance().stop();
+
+        // print some information about the time
         con_endl("ms since the programm started " << iTimer::getInstance().getTime() - _time);
+        con_endl("the frame rate was " << iTimer::getInstance().getFPS());
     }
 }

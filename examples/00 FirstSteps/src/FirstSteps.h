@@ -32,7 +32,9 @@
 // Include this to have all the bysic types in Igor fashion
 #include <iDefines.h>
 
-/*! first steps
+/*! the first steps example class
+
+it shows how to register to the application handle event.
 */
 class FirstSteps
 {
@@ -57,6 +59,8 @@ private:
     */
     uint32 _counter = 0;
 
+    /*! for measuring time
+    */
     float64 _time = 0;
 
     /*! called every frame

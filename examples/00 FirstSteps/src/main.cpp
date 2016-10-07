@@ -1,22 +1,24 @@
-    #include "FirstSteps.h"
+// Igor game engine
+// (c) Copyright 2014-2016 by Martin Loga
+// see copyright notice in corresponding header file
 
-    #include <Igor.h>
-    using namespace Igor;
+#include "FirstSteps.h"
 
-    int main(void)
-    {
-        /*! call this before you call anything else of Igor
-        */
-	    Igor::startup();
+#include <Igor.h>
+using namespace Igor;
 
-        // create and run first steps class
-        FirstSteps* firstSteps = new FirstSteps();
-        firstSteps->run();
-	    delete firstSteps;
+int main(void)
+{
+    // call this before you call anything else of Igor
+    Igor::startup();
 
-        /*! call this after you are done with using Igor
-        */
-        Igor::shutdown();
+    // create and run first steps class
+    FirstSteps* firstSteps = new FirstSteps();
+    firstSteps->run();
+    delete firstSteps;
 
-	    return 0;
-    }
+    // call this after you are done with using Igor
+    Igor::shutdown();
+
+    return 0;
+}
