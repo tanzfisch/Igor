@@ -221,7 +221,7 @@ void LSystems::initStyle3()
     _leafColor.set(0, 0.7, 0);
 }
 
-void LSystems::generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
+uint32 LSystems::generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
 {
     PlantInformation plantInformation;
     plantInformation._lSystem = &_lSystem;
@@ -260,10 +260,32 @@ void LSystems::generatePlant(const iaMatrixf& matrix, const iaString& axiom, uin
 
     iNode* groupNode = static_cast<iNode*>(iNodeFactory::getInstance().getNode(_groupNodeID));
     groupNode->insertNode(transformNode);
+
+    return modelNode->getID();
+}
+
+bool LSystems::checkIfDone()
+{
+    bool result = true;
+    for (auto id : _plantsInProgress)
+    {
+        iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(id));
+        if (!model->isLoaded())
+        {
+            result = false;
+        }
+    }
+
+    return result;
 }
 
 void LSystems::generateLSystems()
 {
+    if (!checkIfDone())
+    {
+        return;
+    }
+
     if (_groupNodeID != iNode::INVALID_NODE_ID)
     {
         iNodeFactory::getInstance().destroyNode(_groupNodeID);
@@ -297,11 +319,13 @@ void LSystems::generateLSystems()
     _groupNodeID = groupNode->getID();
     _scene->getRoot()->insertNode(groupNode);
 
+    _plantsInProgress.clear();
+
     for (int i = 0; i < 7; ++i)
     {
         iaMatrixf matrix;
         matrix.translate(-15 + i* 5, -15, 0);
-        generatePlant(matrix, "X", i, seed);
+        _plantsInProgress.push_back(generatePlant(matrix, "X", i, seed));
     }
 }
 
