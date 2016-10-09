@@ -109,7 +109,8 @@ namespace Igor
 
         iaVector3I _nextLODVoxelOffset;
 
-        vector<iaVector3f> _vertexPositionsNextLOD;
+        iaVector3f _vertexPositionsNextLOD[27];
+        bool _vertexPositionsNextLODVisible[27];
 
         /*! current interation position
         */

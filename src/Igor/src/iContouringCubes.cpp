@@ -65,6 +65,11 @@ namespace Igor
         }
 
         _meshBuilder.setJoinVertexes(true);
+
+        for (int i = 0; i < 27; ++i)
+        {
+            _vertexPositionsNextLODVisible[i] = false;
+        }
     }
 
     /*! helper macro to map density values from 0&1-255 to lenght 0.0-1.0
@@ -372,10 +377,13 @@ namespace Igor
             }
         }
 
-        _vertexPositionsNextLOD.clear();
-        bool values[8] = { false, false, false, false, false, false, false, false };
+        for (int i=0;i<27;++i)
+        {
+            _vertexPositionsNextLODVisible[i] = false;
+            _vertexPositionsNextLOD[i] = iaVector3f();
+        }
+
         iaVector3f position;
-        iaVector3f positions[8];
 
         if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
             (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
@@ -383,9 +391,8 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], position))
             {
-                values[0] = true;
-                positions[0] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[0] = true;
+                _vertexPositionsNextLOD[0] = position;
             }
         }
 
@@ -395,10 +402,9 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], position))
             {
-                values[1] = true;
                 position += dirs[1];
-                positions[1] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[2] = true;
+                _vertexPositionsNextLOD[2] = position;
             }
         }
 
@@ -408,10 +414,9 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], position))
             {
-                values[2] = true;
                 position += dirs[0];
-                positions[2] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[6] = true;
+                _vertexPositionsNextLOD[6] = position;
             }
         }
 
@@ -421,11 +426,10 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], position))
             {
-                values[3] = true;
                 position += dirs[1];
                 position += dirs[0];
-                positions[3] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[8]= true;
+                _vertexPositionsNextLOD[8] = position;
             }
         }
 
@@ -435,10 +439,9 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], position))
             {
-                values[4] = true;
                 position += dirs[4];
-                positions[4] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[18] = true;
+                _vertexPositionsNextLOD[18] = position;
             }
         }
 
@@ -448,11 +451,10 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], position))
             {
-                values[5] = true;
                 position += dirs[1];
                 position += dirs[4];
-                positions[5] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[20] = true;
+                _vertexPositionsNextLOD[20] = position;
             }
         }
 
@@ -462,11 +464,10 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], position))
             {
-                values[6] = true;
                 position += dirs[4];
                 position += dirs[0];
-                positions[6] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[24] = true;
+                _vertexPositionsNextLOD[24] = position;
             }
         }
 
@@ -476,121 +477,164 @@ namespace Igor
         {
             if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], position))
             {
-                values[7] = true;
                 position += dirs[0];
                 position += dirs[1];
                 position += dirs[4];
-                positions[7] = position;
-                _vertexPositionsNextLOD.push_back(position);
+                _vertexPositionsNextLODVisible[26] = true;
+                _vertexPositionsNextLOD[26] = position;
             }
         }
 
-        if (values[0] && values[1])
+        if (_vertexPositionsNextLODVisible[0] && _vertexPositionsNextLODVisible[2])
         {
-            position = positions[0];
-            position += positions[1];
+            position = _vertexPositionsNextLOD[0];
+            position += _vertexPositionsNextLOD[2];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[1] = true;
+            _vertexPositionsNextLOD[1] = position;
         }
 
-        if (values[1] && values[3])
+        if (_vertexPositionsNextLODVisible[0] && _vertexPositionsNextLODVisible[6])
         {
-            position = positions[1];
-            position += positions[3];
+            position = _vertexPositionsNextLOD[0];
+            position += _vertexPositionsNextLOD[6];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[3] = true;
+            _vertexPositionsNextLOD[3] = position;
         }
 
-        if (values[3] && values[2])
+        if (_vertexPositionsNextLODVisible[2] && _vertexPositionsNextLODVisible[8])
         {
-            position = positions[3];
-            position += positions[2];
+            position = _vertexPositionsNextLOD[2];
+            position += _vertexPositionsNextLOD[8];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[5] = true;
+            _vertexPositionsNextLOD[5] = position;
         }
 
-        if (values[2] && values[0])
+        if (_vertexPositionsNextLODVisible[6] && _vertexPositionsNextLODVisible[8])
         {
-            position = positions[2];
-            position += positions[0];
+            position = _vertexPositionsNextLOD[6];
+            position += _vertexPositionsNextLOD[8];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[7] = true;
+            _vertexPositionsNextLOD[7] = position;
         }
 
-        if (values[0] && values[4])
+        if (_vertexPositionsNextLODVisible[0] && _vertexPositionsNextLODVisible[18])
         {
-            position = positions[0];
-            position += positions[4];
+            position = _vertexPositionsNextLOD[0];
+            position += _vertexPositionsNextLOD[18];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[9] = true;
+            _vertexPositionsNextLOD[9] = position;
         }
 
-        if (values[1] && values[5])
+        if (_vertexPositionsNextLODVisible[2] && _vertexPositionsNextLODVisible[20])
         {
-            position = positions[1];
-            position += positions[5];
+            position = _vertexPositionsNextLOD[2];
+            position += _vertexPositionsNextLOD[20];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[11] = true;
+            _vertexPositionsNextLOD[11] = position;
         }
 
-        if (values[3] && values[7])
+        if (_vertexPositionsNextLODVisible[8] && _vertexPositionsNextLODVisible[26])
         {
-            position = positions[3];
-            position += positions[7];
+            position = _vertexPositionsNextLOD[8];
+            position += _vertexPositionsNextLOD[26];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[17] = true;
+            _vertexPositionsNextLOD[17] = position;
         }
 
-        if (values[2] && values[6])
+        if (_vertexPositionsNextLODVisible[6] && _vertexPositionsNextLODVisible[24])
         {
-            position = positions[2];
-            position += positions[6];
+            position = _vertexPositionsNextLOD[6];
+            position += _vertexPositionsNextLOD[24];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[15] = true;
+            _vertexPositionsNextLOD[15] = position;
         }
 
-        if (values[4] && values[5])
+        if (_vertexPositionsNextLODVisible[18] && _vertexPositionsNextLODVisible[20])
         {
-            position = positions[4];
-            position += positions[5];
+            position = _vertexPositionsNextLOD[18];
+            position += _vertexPositionsNextLOD[20];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[19] = true;
+            _vertexPositionsNextLOD[19] = position;
         }
 
-        if (values[5] && values[7])
+        if (_vertexPositionsNextLODVisible[18] && _vertexPositionsNextLODVisible[24])
         {
-            position = positions[5];
-            position += positions[7];
+            position = _vertexPositionsNextLOD[18];
+            position += _vertexPositionsNextLOD[24];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[21] = true;
+            _vertexPositionsNextLOD[21] = position;
         }
 
-        if (values[7] && values[6])
+        if (_vertexPositionsNextLODVisible[20] && _vertexPositionsNextLODVisible[26])
         {
-            position = positions[7];
-            position += positions[6];
+            position = _vertexPositionsNextLOD[20];
+            position += _vertexPositionsNextLOD[26];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[23] = true;
+            _vertexPositionsNextLOD[23] = position;
         }
 
-        if (values[6] && values[4])
+        if (_vertexPositionsNextLODVisible[24] && _vertexPositionsNextLODVisible[26])
         {
-            position = positions[2];
-            position += positions[0];
+            position = _vertexPositionsNextLOD[24];
+            position += _vertexPositionsNextLOD[26];
             position *= 0.5;
-            _vertexPositionsNextLOD.push_back(position);
+            _vertexPositionsNextLODVisible[25] = true;
+            _vertexPositionsNextLOD[25] = position;
         }
+
+        bool oddX = static_cast<bool>(_cubePosition._x % 2);
+        bool oddY = static_cast<bool>(_cubePosition._y % 2);
+        bool oddZ = static_cast<bool>(_cubePosition._z % 2);
+
+        /*if (oddY)
+        {
+            _vertexPositionsNextLODVisible[18] = false;
+            _vertexPositionsNextLODVisible[19] = false;
+            _vertexPositionsNextLODVisible[20] = false;
+            _vertexPositionsNextLODVisible[21] = false;
+            _vertexPositionsNextLODVisible[22] = false;
+            _vertexPositionsNextLODVisible[23] = false;
+            _vertexPositionsNextLODVisible[24] = false;
+            _vertexPositionsNextLODVisible[25] = false;
+            _vertexPositionsNextLODVisible[26] = false;
+        }
+        else
+        {
+            _vertexPositionsNextLODVisible[0] = false;
+            _vertexPositionsNextLODVisible[1] = false;
+            _vertexPositionsNextLODVisible[2] = false;
+            _vertexPositionsNextLODVisible[3] = false;
+            _vertexPositionsNextLODVisible[4] = false;
+            _vertexPositionsNextLODVisible[5] = false;
+            _vertexPositionsNextLODVisible[6] = false;
+            _vertexPositionsNextLODVisible[7] = false;
+            _vertexPositionsNextLODVisible[8] = false;
+        }*/
 
         iaVector3f transformedCubePosition;
         transformedCubePosition._x = static_cast<float32>((_cubePosition._x - _cubeStartPosition._x) >> 1);
         transformedCubePosition._y = static_cast<float32>((_cubePosition._y - 2 - _cubeStartPosition._y) >> 1);
         transformedCubePosition._z = static_cast<float32>((_cubePosition._z - _cubeStartPosition._z) >> 1);
 
-        for (int i = 0; i < _vertexPositionsNextLOD.size(); ++i)
+        for (int i = 0; i < 27; ++i)
         {
-            _vertexPositionsNextLOD[i] += transformedCubePosition;
-            _vertexPositionsNextLOD[i] *= _scaleNextLOD;
-            _vertexPositionsNextLOD[i] += _offsetNextLOD;
+            if (_vertexPositionsNextLODVisible[i])
+            {
+                _vertexPositionsNextLOD[i] += transformedCubePosition;
+                _vertexPositionsNextLOD[i] *= _scaleNextLOD;
+                _vertexPositionsNextLOD[i] += _offsetNextLOD;
+            }
         }
     }
 
@@ -600,13 +644,36 @@ namespace Igor
         float64 min = 999999999;
         int foundIndex = -1;
 
-        for (int i = 0; i < _vertexPositionsNextLOD.size(); ++i)
+        for (int i = 0; i < 27; ++i)
         {
-            float64 diff = in.distance(_vertexPositionsNextLOD[i]);
-            if (diff < min)
+            if (_vertexPositionsNextLODVisible[i])
             {
-                min = diff;
-                foundIndex = i;
+                float64 diff = in.distance(_vertexPositionsNextLOD[i]);
+                if (diff < min)
+                {
+                    min = diff;
+                    foundIndex = i;
+                }
+            }
+        }
+
+        for (int i = 0; i < 27; ++i)
+        {    
+            if (_vertexPositionsNextLODVisible[i])
+            {
+                iaVector3f pos = _vertexPositionsNextLOD[i];
+                uint32 a = _meshBuilder.addVertex(pos + iaVector3f(0.1, 0, 0));
+                uint32 b = _meshBuilder.addVertex(pos + iaVector3f(0, 0.1, 0));
+                uint32 c = _meshBuilder.addVertex(pos + iaVector3f(-0.1, 0, 0));
+                uint32 d = _meshBuilder.addVertex(pos + iaVector3f(0, -0.1, 0));
+
+                _meshBuilder.accumulateNormal(a, iaVector3f(0, 1, 0));
+                _meshBuilder.accumulateNormal(b, iaVector3f(0, 1, 0));
+                _meshBuilder.accumulateNormal(c, iaVector3f(0, 1, 0));
+                _meshBuilder.accumulateNormal(d, iaVector3f(0, 1, 0));
+
+                addCheckedTriangle(a, b, c, true);
+                addCheckedTriangle(c, d, a, true);
             }
         }
 
