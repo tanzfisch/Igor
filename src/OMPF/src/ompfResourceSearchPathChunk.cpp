@@ -14,14 +14,10 @@ namespace OMPF
         : ompfBaseChunk(OMPFChunkType::ResourceSearchPath)
 	{
 	}
-	
-    ompfResourceSearchPathChunk::~ompfResourceSearchPathChunk()
-	{
-	}
 
-	void ompfResourceSearchPathChunk::setPath(iaString filename)
+	void ompfResourceSearchPathChunk::setPath(iaString path)
 	{
-		_path = filename;
+		_path = path;
 	}
 
 	iaString ompfResourceSearchPathChunk::getPath() const

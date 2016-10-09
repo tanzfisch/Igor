@@ -156,9 +156,17 @@ private:
     */
     iaColor3f _leafColor;
 
+    /*! node ids of plants in progress
+    */
+    vector<uint32> _plantsInProgress;
+
     /*! group node where we put the L-System model nodes in so we can delete them all at once
     */
     uint32 _groupNodeID = iNode::INVALID_NODE_ID;
+
+    /*! \returns true if all plants are done creating
+    */
+    bool checkIfDone();
 
     /*! generates L-Systems
     */
@@ -182,8 +190,9 @@ private:
     \param axiom start string to generate L-System
     \param iterations iteration count
     \param seed random seed
+    \retruns id of generated plant node
     */
-    void generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
+    uint32 generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
 
     /*! called on key pressed event
 

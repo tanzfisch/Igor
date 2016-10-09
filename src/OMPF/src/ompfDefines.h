@@ -43,12 +43,40 @@ using namespace IgorAux;
 struct OMPFDefaultConfiguration
 {
 public:
+
+    /*! default type id size in bytes
+    */
     static const uint32 TypeIDSize = 1;
+
+    /*! default chunk id size in bytes
+    */
     static const uint32 ChunkIDSize = 4;
+
+    /*! default chunk size size in bytes. 
+    
+    thats the size in bytes of the chunk size field
+    */
     static const uint32 ChunkSizeSize = 4;
-    static const uint32 CustomDataSizeSize = 2; //! \todo only 2 possible right now. see implementation of iaMemBlock
-    static const uint32 StringSizeSize = 2; //! \todo only 2 possible right now. see implementation of iaString
-    static const uint32 InvalidChunkID = 0;
+
+    /*! default custom data size size in bytes.
+
+    thats the size in bytes of the custom data size field
+
+    \todo only 2 possible right now. see implementation of iaMemBlock
+    */
+    static const uint32 CustomDataSizeSize = 2;
+
+    /*! default string size size in bytes.
+
+    thats the size in bytes of the string size field
+
+    \todo only 2 possible right now.see implementation of iaString
+    */
+    static const uint32 StringSizeSize = 2;
+
+    /*! definition of invalid chunk id
+    */
+    static const uint32 INVALID_CHUNK_ID = 0;
 };
 
 /*! ompf chunk types

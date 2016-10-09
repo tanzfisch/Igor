@@ -198,7 +198,7 @@ namespace OMPF
         
         /*! internal counter for chunk IDs
         */
-		uint32 _nextChunkID = OMPFDefaultConfiguration::InvalidChunkID;
+		uint32 _nextChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 
         /*! the root chunk
         */

@@ -12,23 +12,19 @@ namespace OMPF
 	{
 	}
 	
-	ompfGroupChunk::~ompfGroupChunk()
-	{
-	}
-
     uint32 ompfGroupChunk::getSize(const ompfSettings& settings)
     {
         return ompfBaseChunk::getSize(settings);
     }
 
-    bool ompfGroupChunk::write(ofstream& file, const ompfSettings& settings)
+    bool ompfGroupChunk::write(ofstream& stream, const ompfSettings& settings)
     {
-        return ompfBaseChunk::write(file, settings);
+        return ompfBaseChunk::write(stream, settings);
     }
 
-    bool ompfGroupChunk::read(ifstream& file, ompfSettings& settings)
+    bool ompfGroupChunk::read(ifstream& stream, ompfSettings& settings)
     {
-        return ompfBaseChunk::read(file, settings);
+        return ompfBaseChunk::read(stream, settings);
     }
 
 }

@@ -33,24 +33,58 @@ using namespace IgorAux;
 namespace OMPF
 {
 
+    /*! transformation chunk
+    */
 	class OMPF_API ompfTransformChunk : public ompfBaseChunk
 	{
 
     public:
 
+        /*! does nothing
+        */
         ompfTransformChunk();
+
+        /*! does nothing
+        */
         virtual ~ompfTransformChunk() = default;
 
+        /*! \returns size of chunk in bytes
+
+        \param settings the settings the size calculation is based on
+        */
         virtual uint32 getSize(const ompfSettings& settings);
+
+        /*! sets transformation matrix
+
+        \param matrix transformation matrix
+        */
         void setMatrix(const iaMatrixf& matrix);
+
+        /*! returns transformation matrix
+
+        \param[out] matrix returned transformation matrix
+        */
         void getMatrix(iaMatrixf& matrix) const;
 
 	private:
 
+        /*! transformation matrix
+        */
         iaMatrixf _matrix;
 
-        virtual bool write(ofstream& file, const ompfSettings& settings);
-        virtual bool read(ifstream& file, ompfSettings& settings);
+        /*! writes chunk to stream
+
+        \param stream destination stream
+        \param settings the settings how to write the chunk
+        */
+        virtual bool write(ofstream& stream, const ompfSettings& settings);
+
+        /*! reads chunk from stream
+
+        \param stream source stream
+        \param settings the settings how to read the chunk
+        */
+        virtual bool read(ifstream& stream, ompfSettings& settings);
 
 	};
 

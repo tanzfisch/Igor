@@ -31,18 +31,40 @@
 namespace OMPF
 {
 
+    /*! header chunk the represents the header in an ompf file
+    */
 	class ompfHeaderChunk : public ompfBaseChunk
 	{
 
     public:
         
+        /*! does nothing
+        */
         ompfHeaderChunk();
-        virtual ~ompfHeaderChunk();
+
+        /*! does nothing
+        */
+        virtual ~ompfHeaderChunk() = default;
         
+        /*! \returns size of chunk
+
+        \param settigns the settings to calculate the size
+        */
         virtual uint32 getSize(const ompfSettings& settings);
 
-        virtual bool write(ofstream& file, const ompfSettings& settings);
-        virtual bool read(ifstream& file, ompfSettings& settings);
+        /*! writes chunk to stream
+
+        \param stream destination stream
+        \param settings the settings how to write the chunk
+        */
+        virtual bool write(ofstream& stream, const ompfSettings& settings);
+
+        /*! reads chunk from stream
+
+        \param stream source stream
+        \param settings the settings how to read the chunk
+        */
+        virtual bool read(ifstream& stream, ompfSettings& settings);
 
 	};
 

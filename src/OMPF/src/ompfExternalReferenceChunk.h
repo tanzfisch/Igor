@@ -30,25 +30,56 @@
 namespace OMPF
 {
 
+    /*! chunk that contains an external reference to an other file
+    */
 	class OMPF_API ompfExternalReferenceChunk : public ompfBaseChunk
 	{
 
 	public:
 
+        /*! does nothing
+        */
 		ompfExternalReferenceChunk();
+
+        /*! does nothing
+        */
 		virtual ~ompfExternalReferenceChunk() = default;
 
+        /*! \returns size of chunk in bytes
+
+        \param settings the settings the chunk's size depends on
+        */
         virtual uint32 getSize(const ompfSettings& settings);
 
+        /*! sets file name of external reference
+
+        \param filename the file name
+        */
 		void setFilename(const iaString& filename);
+
+        /*! \returns file name of external reference
+        */
 		iaString getFilename() const;
 
     private:
 
-        virtual bool write(ofstream& file, const ompfSettings& settings);
-        virtual bool read(ifstream& file, ompfSettings& settings);
+        /*! file name of external reference
+        */
+        iaString _filename;
 
-		iaString _filename;
+        /*! writes chunk to stream
+
+        \param stream destination stream
+        \param settings the settings how to write the chunk
+        */
+        virtual bool write(ofstream& stream, const ompfSettings& settings);
+
+        /*! reads chunk from stream
+
+        \param stream source stream
+        \param settings the settings how to read the chunk
+        */
+        virtual bool read(ifstream& stream, ompfSettings& settings);
 
 	};
 

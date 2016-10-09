@@ -58,20 +58,64 @@ namespace OMPF
         */
         virtual ~ompfBaseChunk() = default;
         
-        virtual bool write(ofstream& file, const ompfSettings& settings);
-        virtual bool read(ifstream& file, ompfSettings& settings);
+        /*! writes current this cunk to specified stream
 
+        \param stream destination stream
+        \param settings the settings used to write the ompf file
+        \returns true if there was no error
+        */
+        virtual bool write(ofstream& stream, const ompfSettings& settings);
+
+        /*! reads a chunk from stream
+
+        \param stream source stream
+        \param settings the settings used to read the stream
+        \returns true if there was no error
+        */
+        virtual bool read(ifstream& stream, ompfSettings& settings);
+
+        /*! insert chunk in chunk
+
+        \param chunk the child chunk to insert
+        */
 		void insertChunk(ompfBaseChunk* chunk);
+
+        /*! removes chunk from chunk
+
+        \param chunk the child chunk to remove
+        */
 		void removeChunk(ompfBaseChunk* chunk);
 
+        /*! \returns true if chunk has a parent chunk
+        */
         bool hasParent() const;
+
+        /*! \returns parent chunk id. returns INVALID_CHUNK_ID if there is no parent
+        */
         uint32 getParentID() const;
+
+        /*! sets parent id
+
+        \param parentID the parents ID
+        */
         void setParentID(const uint32 parentID);
 
+        /*! \returns true if chunk has children
+        */
 		bool hasChildren() const;
+
+        /*! \returns list of children
+        */
 		const vector<ompfBaseChunk*>& getChildren() const;
 
+        /*! sets chunk id
+
+        \param chunkID
+        */
         void setID(const uint32 chunkID);
+
+        /*! \returns chunk id
+        */
 		uint32 getID() const;
 
         /*! \returns chunk size in bytes
@@ -82,19 +126,44 @@ namespace OMPF
         */
 		virtual uint32 getSize(const ompfSettings& settings);
 
+        /*! \returns chunk type id
+        */
         OMPFChunkType getType() const;
 
+        /*! sets name of chunk
+
+        \param name the name of the chunk
+        */
         void setName(const iaString& name);
+
+        /*! \returns name of chunk
+        */
         iaString getName() const;
 
     private:
 
+        /*! chunk type id
+        */
         OMPFChunkType _type = OMPFChunkType::Invalid;
+
+        /*! chunk size in bytes
+        */
         uint32 _chunkSize = 0;
-        uint32 _ID = OMPFDefaultConfiguration::InvalidChunkID;
-        uint32 _parentID = OMPFDefaultConfiguration::InvalidChunkID;
+
+        /*! chunk id
+        */
+        uint32 _ID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
+
+        /*! parent chunk id
+        */
+        uint32 _parentID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
+
+        /*! chunk's name
+        */
         iaString _name;
 
+        /*! children of chunk
+        */
         vector<ompfBaseChunk*> _children;
 
 	};
