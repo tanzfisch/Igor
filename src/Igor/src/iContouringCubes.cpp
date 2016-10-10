@@ -17,7 +17,7 @@ using namespace IgorAux;
 #define NEIGHBOR_ZPOSITIVE 0x02
 #define NEIGHBOR_ZNEGATIVE 0x01
 
-//#define FILL_LOD_GAPS
+#define FILL_LOD_GAPS
 #define CALC_NORMALS
 
 namespace Igor
@@ -389,10 +389,15 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], position))
+            if ((nextLODDensity[12] != nextLODDensity[13]) ||
+                (nextLODDensity[10] != nextLODDensity[13]) ||
+                (nextLODDensity[4] != nextLODDensity[13]))
             {
-                _vertexPositionsNextLODVisible[0] = true;
-                _vertexPositionsNextLOD[0] = position;
+                if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], position))
+                {
+                    _vertexPositionsNextLODVisible[0] = true;
+                    _vertexPositionsNextLOD[0] = position;
+                }
             }
         }
 
@@ -400,11 +405,16 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], position))
+            if ((nextLODDensity[14] != nextLODDensity[13]) ||
+                (nextLODDensity[10] != nextLODDensity[13]) ||
+                (nextLODDensity[4] != nextLODDensity[13]))
             {
-                position += dirs[1];
-                _vertexPositionsNextLODVisible[2] = true;
-                _vertexPositionsNextLOD[2] = position;
+                if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], position))
+                {
+                    position += dirs[1];
+                    _vertexPositionsNextLODVisible[2] = true;
+                    _vertexPositionsNextLOD[2] = position;
+                }
             }
         }
 
@@ -412,11 +422,16 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], position))
+            if ((nextLODDensity[4] != nextLODDensity[13]) ||
+                (nextLODDensity[12] != nextLODDensity[13]) ||
+                (nextLODDensity[16] != nextLODDensity[13]))
             {
-                position += dirs[0];
-                _vertexPositionsNextLODVisible[6] = true;
-                _vertexPositionsNextLOD[6] = position;
+                if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], position))
+                {
+                    position += dirs[0];
+                    _vertexPositionsNextLODVisible[6] = true;
+                    _vertexPositionsNextLOD[6] = position;
+                }
             }
         }
 
@@ -424,12 +439,17 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], position))
+            if ((nextLODDensity[14] != nextLODDensity[13]) ||
+                (nextLODDensity[16] != nextLODDensity[13]) ||
+                (nextLODDensity[4] != nextLODDensity[13]))
             {
-                position += dirs[1];
-                position += dirs[0];
-                _vertexPositionsNextLODVisible[8]= true;
-                _vertexPositionsNextLOD[8] = position;
+                if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], position))
+                {
+                    position += dirs[1];
+                    position += dirs[0];
+                    _vertexPositionsNextLODVisible[8] = true;
+                    _vertexPositionsNextLOD[8] = position;
+                }
             }
         }
 
@@ -437,11 +457,16 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], position))
+            if ((nextLODDensity[10] != nextLODDensity[13]) ||
+                (nextLODDensity[12] != nextLODDensity[13]) ||
+                (nextLODDensity[22] != nextLODDensity[13]))
             {
-                position += dirs[4];
-                _vertexPositionsNextLODVisible[18] = true;
-                _vertexPositionsNextLOD[18] = position;
+                if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], position))
+                {
+                    position += dirs[4];
+                    _vertexPositionsNextLODVisible[18] = true;
+                    _vertexPositionsNextLOD[18] = position;
+                }
             }
         }
 
@@ -449,12 +474,17 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], position))
+            if ((nextLODDensity[10] != nextLODDensity[13]) ||
+                (nextLODDensity[14] != nextLODDensity[13]) ||
+                (nextLODDensity[22] != nextLODDensity[13]))
             {
-                position += dirs[1];
-                position += dirs[4];
-                _vertexPositionsNextLODVisible[20] = true;
-                _vertexPositionsNextLOD[20] = position;
+                if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], position))
+                {
+                    position += dirs[1];
+                    position += dirs[4];
+                    _vertexPositionsNextLODVisible[20] = true;
+                    _vertexPositionsNextLOD[20] = position;
+                }
             }
         }
 
@@ -462,12 +492,17 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], position))
+            if ((nextLODDensity[12] != nextLODDensity[13]) ||
+                (nextLODDensity[16] != nextLODDensity[13]) ||
+                (nextLODDensity[22] != nextLODDensity[13]))
             {
-                position += dirs[4];
-                position += dirs[0];
-                _vertexPositionsNextLODVisible[24] = true;
-                _vertexPositionsNextLOD[24] = position;
+                if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], position))
+                {
+                    position += dirs[4];
+                    position += dirs[0];
+                    _vertexPositionsNextLODVisible[24] = true;
+                    _vertexPositionsNextLOD[24] = position;
+                }
             }
         }
 
@@ -475,13 +510,18 @@ namespace Igor
             (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
             (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
         {
-            if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], position))
+            if ((nextLODDensity[14] != nextLODDensity[13]) ||
+                (nextLODDensity[16] != nextLODDensity[13]) ||
+                (nextLODDensity[22] != nextLODDensity[13]))
             {
-                position += dirs[0];
-                position += dirs[1];
-                position += dirs[4];
-                _vertexPositionsNextLODVisible[26] = true;
-                _vertexPositionsNextLOD[26] = position;
+                if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], position))
+                {
+                    position += dirs[0];
+                    position += dirs[1];
+                    position += dirs[4];
+                    _vertexPositionsNextLODVisible[26] = true;
+                    _vertexPositionsNextLOD[26] = position;
+                }
             }
         }
 
@@ -593,34 +633,6 @@ namespace Igor
             _vertexPositionsNextLOD[25] = position;
         }
 
-        bool oddX = static_cast<bool>(_cubePosition._x % 2);
-        bool oddY = static_cast<bool>(_cubePosition._y % 2);
-        bool oddZ = static_cast<bool>(_cubePosition._z % 2);
-
-        /*if (oddY)
-        {
-            _vertexPositionsNextLODVisible[18] = false;
-            _vertexPositionsNextLODVisible[19] = false;
-            _vertexPositionsNextLODVisible[20] = false;
-            _vertexPositionsNextLODVisible[21] = false;
-            _vertexPositionsNextLODVisible[22] = false;
-            _vertexPositionsNextLODVisible[23] = false;
-            _vertexPositionsNextLODVisible[24] = false;
-            _vertexPositionsNextLODVisible[25] = false;
-            _vertexPositionsNextLODVisible[26] = false;
-        }
-        else
-        {
-            _vertexPositionsNextLODVisible[0] = false;
-            _vertexPositionsNextLODVisible[1] = false;
-            _vertexPositionsNextLODVisible[2] = false;
-            _vertexPositionsNextLODVisible[3] = false;
-            _vertexPositionsNextLODVisible[4] = false;
-            _vertexPositionsNextLODVisible[5] = false;
-            _vertexPositionsNextLODVisible[6] = false;
-            _vertexPositionsNextLODVisible[7] = false;
-            _vertexPositionsNextLODVisible[8] = false;
-        }*/
 
         iaVector3f transformedCubePosition;
         transformedCubePosition._x = static_cast<float32>((_cubePosition._x - _cubeStartPosition._x) >> 1);
