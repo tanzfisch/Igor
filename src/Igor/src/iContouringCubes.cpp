@@ -17,7 +17,6 @@ using namespace IgorAux;
 #define NEIGHBOR_ZPOSITIVE 0x02
 #define NEIGHBOR_ZNEGATIVE 0x01
 
-#define FILL_LOD_GAPS
 #define CALC_NORMALS
 
 namespace Igor
@@ -317,26 +316,6 @@ namespace Igor
     //       |
     //       18-----19-----20
     //      /|     /|     /|
-    //     21-----22|    / |
-    //    /| |   /| |   /  |
-    //   24-----25-----26  |
-    //   | | 9--|-|-10 |   |
-    //   | |/|  | |/|  |   |
-    //   | 12---|-13|  |   |
-    //   |/| |  |/| |  |   |
-    //   15-----16| |  |   |
-    //   | | 0--|-|-1--|---2--x
-    //   | |/   | |/   |  /
-    //   | 3----|-4    | /
-    //   |/     |/     |/
-    //   6------7------8
-    //  /
-    // z
-
-    //       y
-    //       |
-    //       18-----19-----20
-    //      /|     /|     /|
     //     21-----22-----23|
     //    /| |   /| |   /| |
     //   24-----25-----26| |
@@ -372,9 +351,9 @@ namespace Igor
     //  /
     // Z
     */
-    void iContouringCubes::calculateNextLOD(const uint8* density, uint32 neighborLODs)
+    void iContouringCubes::calculateNextLOD()
     {
-        uint8 nextLODDensity[3 * 3 * 3];
+        // the whole thing here is written verry inefficient. fix later please
 
         iaVector3I blockPos = _cubePosition;
         blockPos._y -= 2;
@@ -392,12 +371,12 @@ namespace Igor
             {
                 for (int x = 0; x < 3; ++x)
                 {
-                    nextLODDensity[i++] = _voxelDataNextLOD->getVoxelDensity(iaVector3I(blockPos._x + x, blockPos._y + y, blockPos._z + z));
+                    _nextLODDensity[i++] = _voxelDataNextLOD->getVoxelDensity(iaVector3I(blockPos._x + x, blockPos._y + y, blockPos._z + z));
                 }
             }
         }
 
-        for (int i=0;i<27;++i)
+        for (int i = 0; i < 27; ++i)
         {
             _vertexPositionsNextLODVisible[i] = false;
             _vertexPositionsNextLOD[i] = iaVector3f();
@@ -405,143 +384,103 @@ namespace Igor
 
         iaVector3f position;
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if ((_nextLODDensity[12] != _nextLODDensity[13]) ||
+            (_nextLODDensity[10] != _nextLODDensity[13]) ||
+            (_nextLODDensity[4] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[4] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[0], _nextLODDensity[1], _nextLODDensity[3], _nextLODDensity[4], _nextLODDensity[9], _nextLODDensity[10], _nextLODDensity[12], _nextLODDensity[13], position))
             {
-                if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], position))
-                {
-                    _vertexPositionsNextLODVisible[0] = true;
-                    _vertexPositionsNextLOD[0] = position;
-                }
+                _vertexPositionsNextLODVisible[0] = true;
+                _vertexPositionsNextLOD[0] = position;
             }
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if ((_nextLODDensity[14] != _nextLODDensity[13]) ||
+            (_nextLODDensity[10] != _nextLODDensity[13]) ||
+            (_nextLODDensity[4] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[4] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[1], _nextLODDensity[2], _nextLODDensity[4], _nextLODDensity[5], _nextLODDensity[10], _nextLODDensity[11], _nextLODDensity[13], _nextLODDensity[14], position))
             {
-                if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], position))
-                {
-                    position += dirs[1];
-                    _vertexPositionsNextLODVisible[2] = true;
-                    _vertexPositionsNextLOD[2] = position;
-                }
+                position += dirs[1];
+                _vertexPositionsNextLODVisible[2] = true;
+                _vertexPositionsNextLOD[2] = position;
             }
         }
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if ((_nextLODDensity[4] != _nextLODDensity[13]) ||
+            (_nextLODDensity[12] != _nextLODDensity[13]) ||
+            (_nextLODDensity[16] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[4] != nextLODDensity[13]) ||
-                (nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[3], _nextLODDensity[4], _nextLODDensity[6], _nextLODDensity[7], _nextLODDensity[12], _nextLODDensity[13], _nextLODDensity[15], _nextLODDensity[16], position))
             {
-                if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], position))
-                {
-                    position += dirs[0];
-                    _vertexPositionsNextLODVisible[6] = true;
-                    _vertexPositionsNextLOD[6] = position;
-                }
+                position += dirs[0];
+                _vertexPositionsNextLODVisible[6] = true;
+                _vertexPositionsNextLOD[6] = position;
             }
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if ((_nextLODDensity[14] != _nextLODDensity[13]) ||
+            (_nextLODDensity[16] != _nextLODDensity[13]) ||
+            (_nextLODDensity[4] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]) ||
-                (nextLODDensity[4] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[4], _nextLODDensity[5], _nextLODDensity[7], _nextLODDensity[8], _nextLODDensity[13], _nextLODDensity[14], _nextLODDensity[16], _nextLODDensity[17], position))
             {
-                if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], position))
-                {
-                    position += dirs[1];
-                    position += dirs[0];
-                    _vertexPositionsNextLODVisible[8] = true;
-                    _vertexPositionsNextLOD[8] = position;
-                }
+                position += dirs[1];
+                position += dirs[0];
+                _vertexPositionsNextLODVisible[8] = true;
+                _vertexPositionsNextLOD[8] = position;
             }
         }
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if ((_nextLODDensity[10] != _nextLODDensity[13]) ||
+            (_nextLODDensity[12] != _nextLODDensity[13]) ||
+            (_nextLODDensity[22] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[9], _nextLODDensity[10], _nextLODDensity[12], _nextLODDensity[13], _nextLODDensity[18], _nextLODDensity[19], _nextLODDensity[21], _nextLODDensity[22], position))
             {
-                if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], position))
-                {
-                    position += dirs[4];
-                    _vertexPositionsNextLODVisible[18] = true;
-                    _vertexPositionsNextLOD[18] = position;
-                }
+                position += dirs[4];
+                _vertexPositionsNextLODVisible[18] = true;
+                _vertexPositionsNextLOD[18] = position;
             }
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if ((_nextLODDensity[10] != _nextLODDensity[13]) ||
+            (_nextLODDensity[14] != _nextLODDensity[13]) ||
+            (_nextLODDensity[22] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[10], _nextLODDensity[11], _nextLODDensity[13], _nextLODDensity[14], _nextLODDensity[19], _nextLODDensity[20], _nextLODDensity[22], _nextLODDensity[23], position))
             {
-                if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], position))
-                {
-                    position += dirs[1];
-                    position += dirs[4];
-                    _vertexPositionsNextLODVisible[20] = true;
-                    _vertexPositionsNextLOD[20] = position;
-                }
+                position += dirs[1];
+                position += dirs[4];
+                _vertexPositionsNextLODVisible[20] = true;
+                _vertexPositionsNextLOD[20] = position;
             }
         }
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if ((_nextLODDensity[12] != _nextLODDensity[13]) ||
+            (_nextLODDensity[16] != _nextLODDensity[13]) ||
+            (_nextLODDensity[22] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[12], _nextLODDensity[13], _nextLODDensity[15], _nextLODDensity[16], _nextLODDensity[21], _nextLODDensity[22], _nextLODDensity[24], _nextLODDensity[25], position))
             {
-                if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], position))
-                {
-                    position += dirs[4];
-                    position += dirs[0];
-                    _vertexPositionsNextLODVisible[24] = true;
-                    _vertexPositionsNextLOD[24] = position;
-                }
+                position += dirs[4];
+                position += dirs[0];
+                _vertexPositionsNextLODVisible[24] = true;
+                _vertexPositionsNextLOD[24] = position;
             }
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if ((_nextLODDensity[14] != _nextLODDensity[13]) ||
+            (_nextLODDensity[16] != _nextLODDensity[13]) ||
+            (_nextLODDensity[22] != _nextLODDensity[13]))
         {
-            if ((nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
+            if (calculateVertex(_nextLODDensity[13], _nextLODDensity[14], _nextLODDensity[16], _nextLODDensity[17], _nextLODDensity[22], _nextLODDensity[23], _nextLODDensity[25], _nextLODDensity[26], position))
             {
-                if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], position))
-                {
-                    position += dirs[0];
-                    position += dirs[1];
-                    position += dirs[4];
-                    _vertexPositionsNextLODVisible[26] = true;
-                    _vertexPositionsNextLOD[26] = position;
-                }
+                position += dirs[0];
+                position += dirs[1];
+                position += dirs[4];
+                _vertexPositionsNextLODVisible[26] = true;
+                _vertexPositionsNextLOD[26] = position;
             }
         }
 
@@ -690,7 +629,7 @@ namespace Igor
         }
 
         for (int i = 0; i < 27; ++i)
-        {    
+        {
             if (_vertexPositionsNextLODVisible[i])
             {
                 iaVector3f pos = _vertexPositionsNextLOD[i];
@@ -717,7 +656,37 @@ namespace Igor
         return result;
     }
 
-    void iContouringCubes::generateGeometry(const uint8* density, bool keepTriangles, uint32 neighborLODs)
+    //       y
+    //       |
+    //       18-----19-----20
+    //      /|     /|     /|
+    //     21-----22|    / |
+    //    /| |   /| |   /  |
+    //   24-----25-----26  |
+    //   | | 9--|-|-10 |   |
+    //   | |/|  | |/|  |   |
+    //   | 12---|-13|  |   |
+    //   |/| |  |/| |  |   |
+    //   15-----16| |  |   |
+    //   | | 0--|-|-1--|---2--x
+    //   | |/   | |/   |  /
+    //   | 3----|-4    | /
+    //   |/     |/     |/
+    //   6------7------8
+    //  /
+    // z
+
+    void iContouringCubes::fillGapXPositive()
+    {
+        //if (_density[13] > 0.0f)
+        //{
+        //    if (_density[22] <= 0.0f)
+        //    {
+        //    }
+        //}
+    }
+
+    void iContouringCubes::generateGeometry(bool keepTriangles, uint32 neighborLODs)
     {
         iaVector3I geometryPosition(_cubePosition._x, _cubePosition._y - 2, _cubePosition._z);
         geometryPosition -= _cubeStartPosition;
@@ -759,590 +728,384 @@ namespace Igor
         if (neighborLODs != 0 &&
             _voxelDataNextLOD != nullptr)
         {
-            calculateNextLOD(density, neighborLODs);
-        }
+            calculateNextLOD();
 
-        if (density[13] > 0.0f)
-        {
-            if (density[14] <= 0.0f)
+            if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) &&
+                !((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) &&
+                !((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) &&
+                !((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) &&
+                !((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
             {
-
-                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
-                va += transformedCubePosition;
-                va += dirs[1];
-                va *= _scale;
-                va += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
-                {
-                    va = getClosest(va);
-                }
-#endif
-
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
-                vb += transformedCubePosition;
-                vb += dirs[1];
-                vb += dirs[0];
-                vb *= _scale;
-                vb += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vb = getClosest(vb);
-                }
-#endif
-
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
-                vc += transformedCubePosition;
-                vc += dirs[1];
-                vc += dirs[0];
-                vc += dirs[4];
-                vc *= _scale;
-                vc += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vc = getClosest(vc);
-                }
-#endif
-
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
-                vd += transformedCubePosition;
-                vd += dirs[1];
-                vd += dirs[4];
-                vd *= _scale;
-                vd += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vd = getClosest(vd);
-                }
-#endif
-
-                a = _meshBuilder.addVertex(va);
-                b = _meshBuilder.addVertex(vb);
-                c = _meshBuilder.addVertex(vc);
-                d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                ab = vb; ab -= va;
-                ac = vc; ac -= va;
-                ad = vd; ad -= va;
-                normalA = ac % ab;
-                normalB = ad % ab;
-
-                _meshBuilder.accumulateNormal(a, normalA);
-                _meshBuilder.accumulateNormal(b, normalA);
-                _meshBuilder.accumulateNormal(c, normalA);
-
-                _meshBuilder.accumulateNormal(a, normalB);
-                _meshBuilder.accumulateNormal(c, normalB);
-                _meshBuilder.accumulateNormal(d, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
-
-                addCheckedTriangle(c, b, a, keepTriangles);
-                addCheckedTriangle(d, c, a, keepTriangles);
-            }
-
-            if (density[16] <= 0.0f)
-            {
-
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
-                va += transformedCubePosition;
-                va += dirs[1];
-                va += dirs[0];
-                va *= _scale;
-                va += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    va = getClosest(va);
-                }
-#endif
-
-                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
-                vb += transformedCubePosition;
-                vb += dirs[0];
-                vb *= _scale;
-                vb += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vb = getClosest(vb);
-                }
-#endif
-
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                vc += transformedCubePosition;
-                vc += dirs[4];
-                vc += dirs[0];
-                vc *= _scale;
-                vc += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vc = getClosest(vc);
-                }
-#endif
-
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
-                vd += transformedCubePosition;
-                vd += dirs[0];
-                vd += dirs[1];
-                vd += dirs[4];
-                vd *= _scale;
-                vd += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vd = getClosest(vd);
-                }
-#endif
-
-                a = _meshBuilder.addVertex(va);
-                b = _meshBuilder.addVertex(vb);
-                c = _meshBuilder.addVertex(vc);
-                d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                ab = vb; ab -= va;
-                ac = vc; ac -= va;
-                ad = vd; ad -= va;
-                normalA = ac % ab;
-                normalB = ad % ab;
-
-                _meshBuilder.accumulateNormal(a, normalA);
-                _meshBuilder.accumulateNormal(b, normalA);
-                _meshBuilder.accumulateNormal(c, normalA);
-
-                _meshBuilder.accumulateNormal(d, normalB);
-                _meshBuilder.accumulateNormal(c, normalB);
-                _meshBuilder.accumulateNormal(a, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
-
-                addCheckedTriangle(c, b, a, keepTriangles);
-                addCheckedTriangle(d, c, a, keepTriangles);
-            }
-
-            if (density[22] <= 0.0f)
-            {
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
-                va += transformedCubePosition;
-                va += dirs[1];
-                va += dirs[4];
-                va *= _scale;
-                va += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    va = getClosest(va);
-                }
-#endif
-
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
-                vb += dirs[0];
-                vb += dirs[1];
-                vb += dirs[4];
-                vb += transformedCubePosition;
-                vb *= _scale;
-                vb += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vb = getClosest(vb);
-                }
-#endif
-
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                vc += dirs[4];
-                vc += dirs[0];
-                vc += transformedCubePosition;
-                vc *= _scale;
-                vc += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vc = getClosest(vc);
-                }
-#endif
-
-                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
-                vd += dirs[4];
-                vd += transformedCubePosition;
-                vd *= _scale;
-                vd += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vd = getClosest(vd);
-                }
-#endif
-
-                a = _meshBuilder.addVertex(va);
-                b = _meshBuilder.addVertex(vb);
-                c = _meshBuilder.addVertex(vc);
-                d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                ab = vb; ab -= va;
-                ac = vc; ac -= va;
-                ad = vd; ad -= va;
-                normalA = ac % ab;
-                normalB = ad % ab;
-
-                _meshBuilder.accumulateNormal(a, normalA);
-                _meshBuilder.accumulateNormal(b, normalA);
-                _meshBuilder.accumulateNormal(c, normalA);
-
-                _meshBuilder.accumulateNormal(d, normalB);
-                _meshBuilder.accumulateNormal(c, normalB);
-                _meshBuilder.accumulateNormal(a, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
-
-                addCheckedTriangle(c, b, a, keepTriangles);
-                addCheckedTriangle(d, c, a, keepTriangles);
+                fillGapXPositive();
             }
         }
         else
         {
-
-            if (density[14] > 0.0f)
+            if (_density[13] > 0.0f)
             {
-                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
-                va += dirs[1];
-                va += transformedCubePosition;
-                va *= _scale;
-                va += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+                if (_density[14] <= 0.0f)
                 {
-                    va = getClosest(va);
-                }
-#endif
+                    calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
+                    va += transformedCubePosition;
+                    va += dirs[1];
+                    va *= _scale;
+                    va += _offset;
 
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
-                vb += transformedCubePosition;
-                vb += dirs[0];
-                vb += dirs[1];
-                vb *= _scale;
-                vb += _offset;
+                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
+                    vb += transformedCubePosition;
+                    vb += dirs[1];
+                    vb += dirs[0];
+                    vb *= _scale;
+                    vb += _offset;
 
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vb = getClosest(vb);
-                }
-#endif
+                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
+                    vc += transformedCubePosition;
+                    vc += dirs[1];
+                    vc += dirs[0];
+                    vc += dirs[4];
+                    vc *= _scale;
+                    vc += _offset;
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
-                vc += transformedCubePosition;
-                vc += dirs[0];
-                vc += dirs[1];
-                vc += dirs[4];
-                vc *= _scale;
-                vc += _offset;
+                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
+                    vd += transformedCubePosition;
+                    vd += dirs[1];
+                    vd += dirs[4];
+                    vd *= _scale;
+                    vd += _offset;
 
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vc = getClosest(vc);
-                }
-#endif
-
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
-                vd += transformedCubePosition;
-                vd += dirs[1];
-                vd += dirs[4];
-                vd *= _scale;
-                vd += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vd = getClosest(vd);
-                }
-#endif
-
-                a = _meshBuilder.addVertex(va);
-                b = _meshBuilder.addVertex(vb);
-                c = _meshBuilder.addVertex(vc);
-                d = _meshBuilder.addVertex(vd);
+                    a = _meshBuilder.addVertex(va);
+                    b = _meshBuilder.addVertex(vb);
+                    c = _meshBuilder.addVertex(vc);
+                    d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
-                ab = vb; ab -= va;
-                ac = vc; ac -= va;
-                ad = vd; ad -= va;
-                normalA = ab % ac;
-                normalB = ab % ad;
+                    ab = vb; ab -= va;
+                    ac = vc; ac -= va;
+                    ad = vd; ad -= va;
+                    normalA = ac % ab;
+                    normalB = ad % ab;
 
-                _meshBuilder.accumulateNormal(a, normalA);
-                _meshBuilder.accumulateNormal(b, normalA);
-                _meshBuilder.accumulateNormal(c, normalA);
+                    _meshBuilder.accumulateNormal(a, normalA);
+                    _meshBuilder.accumulateNormal(b, normalA);
+                    _meshBuilder.accumulateNormal(c, normalA);
 
-                _meshBuilder.accumulateNormal(d, normalB);
-                _meshBuilder.accumulateNormal(c, normalB);
-                _meshBuilder.accumulateNormal(a, normalB);
+                    _meshBuilder.accumulateNormal(a, normalB);
+                    _meshBuilder.accumulateNormal(c, normalB);
+                    _meshBuilder.accumulateNormal(d, normalB);
 #else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
+                    _meshBuilder.setNormal(a);
+                    _meshBuilder.setNormal(b);
+                    _meshBuilder.setNormal(c);
+                    _meshBuilder.setNormal(d);
 #endif
 
-                addCheckedTriangle(a, b, c, keepTriangles);
-                addCheckedTriangle(a, c, d, keepTriangles);
+                    addCheckedTriangle(c, b, a, keepTriangles);
+                    addCheckedTriangle(d, c, a, keepTriangles);
+                }
+
+                if (_density[16] <= 0.0f)
+                {
+
+                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
+                    va += transformedCubePosition;
+                    va += dirs[1];
+                    va += dirs[0];
+                    va *= _scale;
+                    va += _offset;
+
+                    calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
+                    vb += transformedCubePosition;
+                    vb += dirs[0];
+                    vb *= _scale;
+                    vb += _offset;
+
+                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                    vc += transformedCubePosition;
+                    vc += dirs[4];
+                    vc += dirs[0];
+                    vc *= _scale;
+                    vc += _offset;
+
+                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
+                    vd += transformedCubePosition;
+                    vd += dirs[0];
+                    vd += dirs[1];
+                    vd += dirs[4];
+                    vd *= _scale;
+                    vd += _offset;
+
+                    a = _meshBuilder.addVertex(va);
+                    b = _meshBuilder.addVertex(vb);
+                    c = _meshBuilder.addVertex(vc);
+                    d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                    ab = vb; ab -= va;
+                    ac = vc; ac -= va;
+                    ad = vd; ad -= va;
+                    normalA = ac % ab;
+                    normalB = ad % ab;
+
+                    _meshBuilder.accumulateNormal(a, normalA);
+                    _meshBuilder.accumulateNormal(b, normalA);
+                    _meshBuilder.accumulateNormal(c, normalA);
+
+                    _meshBuilder.accumulateNormal(d, normalB);
+                    _meshBuilder.accumulateNormal(c, normalB);
+                    _meshBuilder.accumulateNormal(a, normalB);
+#else
+                    _meshBuilder.setNormal(a);
+                    _meshBuilder.setNormal(b);
+                    _meshBuilder.setNormal(c);
+                    _meshBuilder.setNormal(d);
+#endif
+
+                    addCheckedTriangle(c, b, a, keepTriangles);
+                    addCheckedTriangle(d, c, a, keepTriangles);
+                }
+
+                if (_density[22] <= 0.0f)
+                {
+                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
+                    va += transformedCubePosition;
+                    va += dirs[1];
+                    va += dirs[4];
+                    va *= _scale;
+                    va += _offset;
+
+                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
+                    vb += dirs[0];
+                    vb += dirs[1];
+                    vb += dirs[4];
+                    vb += transformedCubePosition;
+                    vb *= _scale;
+                    vb += _offset;
+
+                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                    vc += dirs[4];
+                    vc += dirs[0];
+                    vc += transformedCubePosition;
+                    vc *= _scale;
+                    vc += _offset;
+
+                    calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
+                    vd += dirs[4];
+                    vd += transformedCubePosition;
+                    vd *= _scale;
+                    vd += _offset;
+
+                    a = _meshBuilder.addVertex(va);
+                    b = _meshBuilder.addVertex(vb);
+                    c = _meshBuilder.addVertex(vc);
+                    d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                    ab = vb; ab -= va;
+                    ac = vc; ac -= va;
+                    ad = vd; ad -= va;
+                    normalA = ac % ab;
+                    normalB = ad % ab;
+
+                    _meshBuilder.accumulateNormal(a, normalA);
+                    _meshBuilder.accumulateNormal(b, normalA);
+                    _meshBuilder.accumulateNormal(c, normalA);
+
+                    _meshBuilder.accumulateNormal(d, normalB);
+                    _meshBuilder.accumulateNormal(c, normalB);
+                    _meshBuilder.accumulateNormal(a, normalB);
+#else
+                    _meshBuilder.setNormal(a);
+                    _meshBuilder.setNormal(b);
+                    _meshBuilder.setNormal(c);
+                    _meshBuilder.setNormal(d);
+#endif
+
+                    addCheckedTriangle(c, b, a, keepTriangles);
+                    addCheckedTriangle(d, c, a, keepTriangles);
+                }
             }
-
-            if (density[16] > 0.0f)
+            else
             {
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
-                va += transformedCubePosition;
-                va += dirs[1];
-                va += dirs[0];
-                va *= _scale;
-                va += _offset;
 
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                if (_density[14] > 0.0f)
                 {
-                    va = getClosest(va);
-                }
-#endif
+                    calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
+                    va += dirs[1];
+                    va += transformedCubePosition;
+                    va *= _scale;
+                    va += _offset;
 
-                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
-                vb += transformedCubePosition;
-                vb += dirs[0];
-                vb *= _scale;
-                vb += _offset;
+                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
+                    vb += transformedCubePosition;
+                    vb += dirs[0];
+                    vb += dirs[1];
+                    vb *= _scale;
+                    vb += _offset;
 
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vb = getClosest(vb);
-                }
-#endif
+                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
+                    vc += transformedCubePosition;
+                    vc += dirs[0];
+                    vc += dirs[1];
+                    vc += dirs[4];
+                    vc *= _scale;
+                    vc += _offset;
 
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                vc += transformedCubePosition;
-                vc += dirs[4];
-                vc += dirs[0];
-                vc *= _scale;
-                vc += _offset;
+                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
+                    vd += transformedCubePosition;
+                    vd += dirs[1];
+                    vd += dirs[4];
+                    vd *= _scale;
+                    vd += _offset;
 
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
-                {
-                    vc = getClosest(vc);
-                }
-#endif
-
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
-                vd += transformedCubePosition;
-                vd += dirs[0];
-                vd += dirs[1];
-                vd += dirs[4];
-                vd *= _scale;
-                vd += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vd = getClosest(vd);
-                }
-#endif
-
-                a = _meshBuilder.addVertex(va);
-                b = _meshBuilder.addVertex(vb);
-                c = _meshBuilder.addVertex(vc);
-                d = _meshBuilder.addVertex(vd);
+                    a = _meshBuilder.addVertex(va);
+                    b = _meshBuilder.addVertex(vb);
+                    c = _meshBuilder.addVertex(vc);
+                    d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
-                ab = vb; ab -= va;
-                ac = vc; ac -= va;
-                ad = vd; ad -= va;
-                normalA = ab % ac;
-                normalB = ab % ad;
+                    ab = vb; ab -= va;
+                    ac = vc; ac -= va;
+                    ad = vd; ad -= va;
+                    normalA = ab % ac;
+                    normalB = ab % ad;
 
-                _meshBuilder.accumulateNormal(a, normalA);
-                _meshBuilder.accumulateNormal(b, normalA);
-                _meshBuilder.accumulateNormal(c, normalA);
+                    _meshBuilder.accumulateNormal(a, normalA);
+                    _meshBuilder.accumulateNormal(b, normalA);
+                    _meshBuilder.accumulateNormal(c, normalA);
 
-                _meshBuilder.accumulateNormal(d, normalB);
-                _meshBuilder.accumulateNormal(c, normalB);
-                _meshBuilder.accumulateNormal(a, normalB);
+                    _meshBuilder.accumulateNormal(d, normalB);
+                    _meshBuilder.accumulateNormal(c, normalB);
+                    _meshBuilder.accumulateNormal(a, normalB);
 #else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
+                    _meshBuilder.setNormal(a);
+                    _meshBuilder.setNormal(b);
+                    _meshBuilder.setNormal(c);
+                    _meshBuilder.setNormal(d);
 #endif
 
-                addCheckedTriangle(a, b, c, keepTriangles);
-                addCheckedTriangle(a, c, d, keepTriangles);
-            }
-
-            if (density[22] > 0.0f)
-            {
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
-                va += transformedCubePosition;
-                va += dirs[1];
-                va += dirs[4];
-                va *= _scale;
-                va += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    va = getClosest(va);
+                    addCheckedTriangle(a, b, c, keepTriangles);
+                    addCheckedTriangle(a, c, d, keepTriangles);
                 }
-#endif
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
-                vb += transformedCubePosition;
-                vb += dirs[0];
-                vb += dirs[1];
-                vb += dirs[4];
-                vb *= _scale;
-                vb += _offset;
-
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                if (_density[16] > 0.0f)
                 {
-                    vb = getClosest(vb);
-                }
-#endif
+                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
+                    va += transformedCubePosition;
+                    va += dirs[1];
+                    va += dirs[0];
+                    va *= _scale;
+                    va += _offset;
 
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
-                vc += transformedCubePosition;
-                vc += dirs[4];
-                vc += dirs[0];
-                vc *= _scale;
-                vc += _offset;
+                    calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
+                    vb += transformedCubePosition;
+                    vb += dirs[0];
+                    vb *= _scale;
+                    vb += _offset;
 
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vc = getClosest(vc);
-                }
-#endif
+                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                    vc += transformedCubePosition;
+                    vc += dirs[4];
+                    vc += dirs[0];
+                    vc *= _scale;
+                    vc += _offset;
 
-                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
-                vd += transformedCubePosition;
-                vd += dirs[4];
-                vd *= _scale;
-                vd += _offset;
+                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
+                    vd += transformedCubePosition;
+                    vd += dirs[0];
+                    vd += dirs[1];
+                    vd += dirs[4];
+                    vd *= _scale;
+                    vd += _offset;
 
-#ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
-                {
-                    vd = getClosest(vd);
-                }
-#endif
-
-                a = _meshBuilder.addVertex(va);
-                b = _meshBuilder.addVertex(vb);
-                c = _meshBuilder.addVertex(vc);
-                d = _meshBuilder.addVertex(vd);
+                    a = _meshBuilder.addVertex(va);
+                    b = _meshBuilder.addVertex(vb);
+                    c = _meshBuilder.addVertex(vc);
+                    d = _meshBuilder.addVertex(vd);
 
 #ifdef CALC_NORMALS
-                ab = vb; ab -= va;
-                ac = vc; ac -= va;
-                ad = vd; ad -= va;
-                normalA = ab % ac;
-                normalB = ab % ad;
+                    ab = vb; ab -= va;
+                    ac = vc; ac -= va;
+                    ad = vd; ad -= va;
+                    normalA = ab % ac;
+                    normalB = ab % ad;
 
-                _meshBuilder.accumulateNormal(a, normalA);
-                _meshBuilder.accumulateNormal(b, normalA);
-                _meshBuilder.accumulateNormal(c, normalA);
+                    _meshBuilder.accumulateNormal(a, normalA);
+                    _meshBuilder.accumulateNormal(b, normalA);
+                    _meshBuilder.accumulateNormal(c, normalA);
 
-                _meshBuilder.accumulateNormal(d, normalB);
-                _meshBuilder.accumulateNormal(c, normalB);
-                _meshBuilder.accumulateNormal(a, normalB);
+                    _meshBuilder.accumulateNormal(d, normalB);
+                    _meshBuilder.accumulateNormal(c, normalB);
+                    _meshBuilder.accumulateNormal(a, normalB);
 #else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
+                    _meshBuilder.setNormal(a);
+                    _meshBuilder.setNormal(b);
+                    _meshBuilder.setNormal(c);
+                    _meshBuilder.setNormal(d);
 #endif
 
-                addCheckedTriangle(a, b, c, keepTriangles);
-                addCheckedTriangle(a, c, d, keepTriangles);
+                    addCheckedTriangle(a, b, c, keepTriangles);
+                    addCheckedTriangle(a, c, d, keepTriangles);
+                }
+
+                if (_density[22] > 0.0f)
+                {
+                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
+                    va += transformedCubePosition;
+                    va += dirs[1];
+                    va += dirs[4];
+                    va *= _scale;
+                    va += _offset;
+
+                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
+                    vb += transformedCubePosition;
+                    vb += dirs[0];
+                    vb += dirs[1];
+                    vb += dirs[4];
+                    vb *= _scale;
+                    vb += _offset;
+
+                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                    vc += transformedCubePosition;
+                    vc += dirs[4];
+                    vc += dirs[0];
+                    vc *= _scale;
+                    vc += _offset;
+
+                    calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
+                    vd += transformedCubePosition;
+                    vd += dirs[4];
+                    vd *= _scale;
+                    vd += _offset;
+
+                    a = _meshBuilder.addVertex(va);
+                    b = _meshBuilder.addVertex(vb);
+                    c = _meshBuilder.addVertex(vc);
+                    d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                    ab = vb; ab -= va;
+                    ac = vc; ac -= va;
+                    ad = vd; ad -= va;
+                    normalA = ab % ac;
+                    normalB = ab % ad;
+
+                    _meshBuilder.accumulateNormal(a, normalA);
+                    _meshBuilder.accumulateNormal(b, normalA);
+                    _meshBuilder.accumulateNormal(c, normalA);
+
+                    _meshBuilder.accumulateNormal(d, normalB);
+                    _meshBuilder.accumulateNormal(c, normalB);
+                    _meshBuilder.accumulateNormal(a, normalB);
+#else
+                    _meshBuilder.setNormal(a);
+                    _meshBuilder.setNormal(b);
+                    _meshBuilder.setNormal(c);
+                    _meshBuilder.setNormal(d);
+#endif
+
+                    addCheckedTriangle(a, b, c, keepTriangles);
+                    addCheckedTriangle(a, c, d, keepTriangles);
+                }
             }
         }
     }
@@ -1548,7 +1311,7 @@ namespace Igor
                         LODs &= ~NEIGHBOR_YPOSITIVE;
                     }
 
-                    generateGeometry(_density, true, LODs);
+                    generateGeometry(true, LODs);
 
                     y++;
                 } while (y < marchingVolume._y);

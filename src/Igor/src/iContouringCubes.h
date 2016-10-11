@@ -105,7 +105,9 @@ namespace Igor
 
         /*! density cache
         */
-        uint8 _density[3*3*3];
+        uint8 _density[3 * 3 * 3];
+
+        uint8 _nextLODDensity[3 * 3 * 3];
 
         iaVector3I _nextLODVoxelOffset;
 
@@ -154,16 +156,18 @@ namespace Igor
 
         void addCheckedTriangle(uint32 a, uint32 b, uint32 c, bool keep);
 
-        void calculateNextLOD(const uint8* density, uint32 neighborLODs);
+        void calculateNextLOD();
 
         iaVector3f _offset;
         iaVector3f _offsetNextLOD;
+
+        void fillGapXPositive();
 
         /*! creates triangles for the resulting mesh
 
         \param keepTriangles if the triangles created are to keep
         */
-		void generateGeometry(const uint8* density, bool keepTriangles, uint32 neighborLODs);
+		void generateGeometry(bool keepTriangles, uint32 neighborLODs);
 
         /*! climbs up the pole
         */
