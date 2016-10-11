@@ -17,6 +17,7 @@ using namespace IgorAux;
 #define NEIGHBOR_ZPOSITIVE 0x02
 #define NEIGHBOR_ZNEGATIVE 0x01
 
+#define FILL_LOD_GAPS
 #define CALC_NORMALS
 
 namespace Igor
@@ -282,7 +283,7 @@ namespace Igor
             calcPos.set(0, 0, 0);
         }
 
-        //calcPos.set(0.5, 0.5, 0.5);
+        calcPos.set(0.5, 0.5, 0.5);
 
         vertex = calcPos;
 
@@ -353,7 +354,7 @@ namespace Igor
     */
     void iContouringCubes::calculateNextLOD()
     {
-        // the whole thing here is written verry inefficient. fix later please
+        // the whole thing here is written very inefficient. fix later please
 
         iaVector3I blockPos = _cubePosition;
         blockPos._y -= 2;
@@ -592,6 +593,51 @@ namespace Igor
             _vertexPositionsNextLOD[25] = position;
         }
 
+        if (_vertexPositionsNextLODVisible[11] && _vertexPositionsNextLODVisible[17])
+        {
+            position = _vertexPositionsNextLOD[11];
+            position += _vertexPositionsNextLOD[17];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[14] = true;
+            _vertexPositionsNextLOD[14] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[9] && _vertexPositionsNextLODVisible[15])
+        {
+            position = _vertexPositionsNextLOD[9];
+            position += _vertexPositionsNextLOD[15];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[12] = true;
+            _vertexPositionsNextLOD[12] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[19] && _vertexPositionsNextLODVisible[25])
+        {
+            position = _vertexPositionsNextLOD[19];
+            position += _vertexPositionsNextLOD[25];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[22] = true;
+            _vertexPositionsNextLOD[22] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[1] && _vertexPositionsNextLODVisible[7])
+        {
+            position = _vertexPositionsNextLOD[1];
+            position += _vertexPositionsNextLOD[7];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[4] = true;
+            _vertexPositionsNextLOD[4] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[12] && _vertexPositionsNextLODVisible[14])
+        {
+            position = _vertexPositionsNextLOD[12];
+            position += _vertexPositionsNextLOD[14];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[13] = true;
+            _vertexPositionsNextLOD[13] = position;
+        }
+
 
         iaVector3f transformedCubePosition;
         transformedCubePosition._x = static_cast<float32>((_cubePosition._x - _cubeStartPosition._x) >> 1);
@@ -628,26 +674,6 @@ namespace Igor
             }
         }
 
-        for (int i = 0; i < 27; ++i)
-        {
-            if (_vertexPositionsNextLODVisible[i])
-            {
-                iaVector3f pos = _vertexPositionsNextLOD[i];
-                uint32 a = _meshBuilder.addVertex(pos + iaVector3f(0.1, 0, 0));
-                uint32 b = _meshBuilder.addVertex(pos + iaVector3f(0, 0.1, 0));
-                uint32 c = _meshBuilder.addVertex(pos + iaVector3f(-0.1, 0, 0));
-                uint32 d = _meshBuilder.addVertex(pos + iaVector3f(0, -0.1, 0));
-
-                _meshBuilder.accumulateNormal(a, iaVector3f(0, 1, 0));
-                _meshBuilder.accumulateNormal(b, iaVector3f(0, 1, 0));
-                _meshBuilder.accumulateNormal(c, iaVector3f(0, 1, 0));
-                _meshBuilder.accumulateNormal(d, iaVector3f(0, 1, 0));
-
-                addCheckedTriangle(a, b, c, true);
-                addCheckedTriangle(c, d, a, true);
-            }
-        }
-
         if (foundIndex != -1)
         {
             result = _vertexPositionsNextLOD[foundIndex];
@@ -675,16 +701,6 @@ namespace Igor
     //   6------7------8
     //  /
     // z
-
-    void iContouringCubes::fillGapXPositive()
-    {
-        //if (_density[13] > 0.0f)
-        //{
-        //    if (_density[22] <= 0.0f)
-        //    {
-        //    }
-        //}
-    }
 
     void iContouringCubes::generateGeometry(bool keepTriangles, uint32 neighborLODs)
     {
@@ -725,387 +741,1542 @@ namespace Igor
         uint8 matd;
         uint32 matKey = 0;
 
+        memcpy(_mixedDensity, _density, 27);
+
         if (neighborLODs != 0 &&
             _voxelDataNextLOD != nullptr)
         {
             calculateNextLOD();
 
-            if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) &&
-                !((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) &&
-                !((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) &&
-                !((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) &&
-                !((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+            if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
             {
-                fillGapXPositive();
+                _mixedDensity[2] = _nextLODDensity[14];
+                _mixedDensity[5] = _nextLODDensity[14];
+                _mixedDensity[8] = _nextLODDensity[14];
+
+                _mixedDensity[11] = _nextLODDensity[14];
+                _mixedDensity[14] = _nextLODDensity[14];
+                _mixedDensity[17] = _nextLODDensity[14];
+
+                _mixedDensity[20] = _nextLODDensity[14];
+                _mixedDensity[23] = _nextLODDensity[14];
+                _mixedDensity[26] = _nextLODDensity[14];
+            }
+
+            /*if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
+            {
+                _mixedDensity[0] = _nextLODDensity[12];
+                _mixedDensity[3] = _nextLODDensity[12];
+                _mixedDensity[6] = _nextLODDensity[12];
+
+                _mixedDensity[9] = _nextLODDensity[12];
+                _mixedDensity[12] = _nextLODDensity[12];
+                _mixedDensity[15] = _nextLODDensity[12];
+
+                _mixedDensity[18] = _nextLODDensity[12];
+                _mixedDensity[21] = _nextLODDensity[12];
+                _mixedDensity[24] = _nextLODDensity[12];
+            }*/
+
+            if ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0)
+            {
+                _mixedDensity[18] = _nextLODDensity[22];
+                _mixedDensity[19] = _nextLODDensity[22];
+                _mixedDensity[20] = _nextLODDensity[22];
+
+                _mixedDensity[21] = _nextLODDensity[22];
+                _mixedDensity[22] = _nextLODDensity[22];
+                _mixedDensity[23] = _nextLODDensity[22];
+
+                _mixedDensity[24] = _nextLODDensity[22];
+                _mixedDensity[25] = _nextLODDensity[22];
+                _mixedDensity[16] = _nextLODDensity[22];
+            }
+
+            if ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+            {
+                _mixedDensity[6] = _nextLODDensity[16];
+                _mixedDensity[7] = _nextLODDensity[16];
+                _mixedDensity[8] = _nextLODDensity[16];
+
+                _mixedDensity[15] = _nextLODDensity[16];
+                _mixedDensity[16] = _nextLODDensity[16];
+                _mixedDensity[17] = _nextLODDensity[16];
+
+                _mixedDensity[24] = _nextLODDensity[16];
+                _mixedDensity[25] = _nextLODDensity[16];
+                _mixedDensity[26] = _nextLODDensity[16];
+            }
+
+            for (int i = 0; i < 27; ++i)
+            {
+                if (_vertexPositionsNextLODVisible[i])
+                {
+                    iaVector3f pos = _vertexPositionsNextLOD[i];
+                    uint32 a = _meshBuilder.addVertex(pos + iaVector3f(0.1, 0, 0));
+                    uint32 b = _meshBuilder.addVertex(pos + iaVector3f(0, 0.1, 0));
+                    uint32 c = _meshBuilder.addVertex(pos + iaVector3f(-0.1, 0, 0));
+                    uint32 d = _meshBuilder.addVertex(pos + iaVector3f(0, -0.1, 0));
+
+                    _meshBuilder.accumulateNormal(a, iaVector3f(0, 1, 0));
+                    _meshBuilder.accumulateNormal(b, iaVector3f(0, 1, 0));
+                    _meshBuilder.accumulateNormal(c, iaVector3f(0, 1, 0));
+                    _meshBuilder.accumulateNormal(d, iaVector3f(0, 1, 0));
+
+                    addCheckedTriangle(a, b, c, true);
+                    addCheckedTriangle(c, d, a, true);
+                }
+            }
+        }
+
+        if (_mixedDensity[13] > 0.0f)
+        {
+            if (_mixedDensity[14] <= 0.0f)
+            {
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[1])
+                                {
+                                    va = _vertexPositionsNextLOD[1];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    va = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[2])
+                                {
+                                    va = _vertexPositionsNextLOD[2];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    va = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    va = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    va = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
+                }
+                else
+#endif
+                {
+                    calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
+                    va += transformedCubePosition;
+                    va += dirs[1];
+                    va *= _scale;
+                    va += _offset;
+                }
+
+#ifdef FILL_LOD_GAPS
+               /* if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    vb = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    vb = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vb = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    vb = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[8])
+                                {
+                                    vb = _vertexPositionsNextLOD[8];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vb = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                        }
+                    }
+                }
+                else*/
+#endif
+                {
+                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
+                    vb += transformedCubePosition;
+                    vb += dirs[1];
+                    vb += dirs[0];
+                    vb *= _scale;
+                    vb += _offset;
+                }
+
+#ifdef FILL_LOD_GAPS
+              /*  if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vc = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vc = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vc = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vc = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
+                }
+                else*/
+#endif
+                {
+                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
+                    vc += transformedCubePosition;
+                    vc += dirs[1];
+                    vc += dirs[0];
+                    vc += dirs[4];
+                    vc *= _scale;
+                    vc += _offset;
+                }
+
+#ifdef FILL_LOD_GAPS
+            /*    if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    vd = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    vd = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    vd = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[20])
+                                {
+                                    vd = _vertexPositionsNextLOD[20];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vd = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vd = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                }
+                else*/
+#endif
+                {
+                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
+                    vd += transformedCubePosition;
+                    vd += dirs[1];
+                    vd += dirs[4];
+                    vd *= _scale;
+                    vd += _offset;
+                }
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                ab = vb; ab -= va;
+                ac = vc; ac -= va;
+                ad = vd; ad -= va;
+                normalA = ac % ab;
+                normalB = ad % ab;
+
+                _meshBuilder.accumulateNormal(a, normalA);
+                _meshBuilder.accumulateNormal(b, normalA);
+                _meshBuilder.accumulateNormal(c, normalA);
+
+                _meshBuilder.accumulateNormal(a, normalB);
+                _meshBuilder.accumulateNormal(c, normalB);
+                _meshBuilder.accumulateNormal(d, normalB);
+#else
+                _meshBuilder.setNormal(a);
+                _meshBuilder.setNormal(b);
+                _meshBuilder.setNormal(c);
+                _meshBuilder.setNormal(d);
+#endif
+
+                addCheckedTriangle(c, b, a, keepTriangles);
+                addCheckedTriangle(d, c, a, keepTriangles);
+            }
+
+            if (_mixedDensity[16] <= 0.0f)
+            {
+                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[0];
+                va *= _scale;
+                va += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[1])
+                                {
+                                    va = _vertexPositionsNextLOD[1];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    va = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[2])
+                                {
+                                    va = _vertexPositionsNextLOD[2];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    va = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    va = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    va = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+
+                calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb *= _scale;
+                vb += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[3])
+                                {
+                                    vb = _vertexPositionsNextLOD[3];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vb = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    vb = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[6])
+                                {
+                                    vb = _vertexPositionsNextLOD[6];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vb = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    vb = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                vc += transformedCubePosition;
+                vc += dirs[4];
+                vc += dirs[0];
+                vc *= _scale;
+                vc += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._x % 2) == 0)
+                    {
+                        if ((geometryPosition._y % 2) == 0)
+                        {
+                            if (_vertexPositionsNextLODVisible[12])
+                            {
+                                vc = _vertexPositionsNextLOD[12];
+                            }
+                        }
+                        else
+                        {
+                            if (_vertexPositionsNextLODVisible[21])
+                            {
+                                vc = _vertexPositionsNextLOD[21];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (geometryPosition._y % 2 == 0)
+                        {
+                            if (_vertexPositionsNextLODVisible[13])
+                            {
+                                vc = _vertexPositionsNextLOD[13];
+                            }
+                        }
+                        else
+                        {
+                            if (_vertexPositionsNextLODVisible[22])
+                            {
+                                vc = _vertexPositionsNextLOD[22];
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if ((geometryPosition._x % 2) == 0)
+                    {
+                        if ((geometryPosition._y % 2) == 0)
+                        {
+                            if (_vertexPositionsNextLODVisible[15])
+                            {
+                                vc = _vertexPositionsNextLOD[15];
+                            }
+                        }
+                        else
+                        {
+                            if (_vertexPositionsNextLODVisible[24])
+                            {
+                                vc = _vertexPositionsNextLOD[24];
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._y % 2) == 0)
+                        {
+                            if (_vertexPositionsNextLODVisible[16])
+                            {
+                                vc = _vertexPositionsNextLOD[16];
+                            }
+                        }
+                        else
+                        {
+                            if (_vertexPositionsNextLODVisible[25])
+                            {
+                                vc = _vertexPositionsNextLOD[25];
+                            }
+                        }
+                    }
+                }
+#endif
+
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
+                vd += transformedCubePosition;
+                vd += dirs[0];
+                vd += dirs[1];
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vd = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vd = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vd = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vd = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vd = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vd = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                ab = vb; ab -= va;
+                ac = vc; ac -= va;
+                ad = vd; ad -= va;
+                normalA = ac % ab;
+                normalB = ad % ab;
+
+                _meshBuilder.accumulateNormal(a, normalA);
+                _meshBuilder.accumulateNormal(b, normalA);
+                _meshBuilder.accumulateNormal(c, normalA);
+
+                _meshBuilder.accumulateNormal(d, normalB);
+                _meshBuilder.accumulateNormal(c, normalB);
+                _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a);
+                _meshBuilder.setNormal(b);
+                _meshBuilder.setNormal(c);
+                _meshBuilder.setNormal(d);
+#endif
+
+                addCheckedTriangle(c, b, a, keepTriangles);
+                addCheckedTriangle(d, c, a, keepTriangles);
+            }
+
+            if (_mixedDensity[22] <= 0.0f)
+            {
+                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[4];
+                va *= _scale;
+                va += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    va = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    va = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    va = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[20])
+                                {
+                                    va = _vertexPositionsNextLOD[20];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    va = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    va = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
+                vb += dirs[0];
+                vb += dirs[1];
+                vb += dirs[4];
+                vb += transformedCubePosition;
+                vb *= _scale;
+                vb += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vb = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vb = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vb = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vb = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vb = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vb = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                vc += dirs[4];
+                vc += dirs[0];
+                vc += transformedCubePosition;
+                vc *= _scale;
+                vc += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vc = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vc = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vc = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[24])
+                                {
+                                    vc = _vertexPositionsNextLOD[24];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+
+                calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
+                vd += dirs[4];
+                vd += transformedCubePosition;
+                vd *= _scale;
+                vd += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[9])
+                                {
+                                    vd = _vertexPositionsNextLOD[9];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[18])
+                                {
+                                    vd = _vertexPositionsNextLOD[18];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    vd = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    vd = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vd = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vd = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
+                }
+#endif
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                ab = vb; ab -= va;
+                ac = vc; ac -= va;
+                ad = vd; ad -= va;
+                normalA = ac % ab;
+                normalB = ad % ab;
+
+                _meshBuilder.accumulateNormal(a, normalA);
+                _meshBuilder.accumulateNormal(b, normalA);
+                _meshBuilder.accumulateNormal(c, normalA);
+
+                _meshBuilder.accumulateNormal(d, normalB);
+                _meshBuilder.accumulateNormal(c, normalB);
+                _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a);
+                _meshBuilder.setNormal(b);
+                _meshBuilder.setNormal(c);
+                _meshBuilder.setNormal(d);
+#endif
+
+                addCheckedTriangle(c, b, a, keepTriangles);
+                addCheckedTriangle(d, c, a, keepTriangles);
             }
         }
         else
         {
-            if (_density[13] > 0.0f)
+
+            if (_mixedDensity[14] > 0.0f)
             {
-                if (_density[14] <= 0.0f)
+                calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
+                va += dirs[1];
+                va += transformedCubePosition;
+                va *= _scale;
+                va += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
                 {
-                    calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va *= _scale;
-                    va += _offset;
-
-                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[1];
-                    vb += dirs[0];
-                    vb *= _scale;
-                    vb += _offset;
-
-                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[1];
-                    vc += dirs[0];
-                    vc += dirs[4];
-                    vc *= _scale;
-                    vc += _offset;
-
-                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-
-                    a = _meshBuilder.addVertex(va);
-                    b = _meshBuilder.addVertex(vb);
-                    c = _meshBuilder.addVertex(vc);
-                    d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                    ab = vb; ab -= va;
-                    ac = vc; ac -= va;
-                    ad = vd; ad -= va;
-                    normalA = ac % ab;
-                    normalB = ad % ab;
-
-                    _meshBuilder.accumulateNormal(a, normalA);
-                    _meshBuilder.accumulateNormal(b, normalA);
-                    _meshBuilder.accumulateNormal(c, normalA);
-
-                    _meshBuilder.accumulateNormal(a, normalB);
-                    _meshBuilder.accumulateNormal(c, normalB);
-                    _meshBuilder.accumulateNormal(d, normalB);
-#else
-                    _meshBuilder.setNormal(a);
-                    _meshBuilder.setNormal(b);
-                    _meshBuilder.setNormal(c);
-                    _meshBuilder.setNormal(d);
+                }
 #endif
 
-                    addCheckedTriangle(c, b, a, keepTriangles);
-                    addCheckedTriangle(d, c, a, keepTriangles);
-                }
+                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb += dirs[1];
+                vb *= _scale;
+                vb += _offset;
 
-                if (_density[16] <= 0.0f)
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-
-                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[0];
-                    va *= _scale;
-                    va += _offset;
-
-                    calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb *= _scale;
-                    vb += _offset;
-
-                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc *= _scale;
-                    vc += _offset;
-
-                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[0];
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-
-                    a = _meshBuilder.addVertex(va);
-                    b = _meshBuilder.addVertex(vb);
-                    c = _meshBuilder.addVertex(vc);
-                    d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                    ab = vb; ab -= va;
-                    ac = vc; ac -= va;
-                    ad = vd; ad -= va;
-                    normalA = ac % ab;
-                    normalB = ad % ab;
-
-                    _meshBuilder.accumulateNormal(a, normalA);
-                    _meshBuilder.accumulateNormal(b, normalA);
-                    _meshBuilder.accumulateNormal(c, normalA);
-
-                    _meshBuilder.accumulateNormal(d, normalB);
-                    _meshBuilder.accumulateNormal(c, normalB);
-                    _meshBuilder.accumulateNormal(a, normalB);
-#else
-                    _meshBuilder.setNormal(a);
-                    _meshBuilder.setNormal(b);
-                    _meshBuilder.setNormal(c);
-                    _meshBuilder.setNormal(d);
+                }
 #endif
 
-                    addCheckedTriangle(c, b, a, keepTriangles);
-                    addCheckedTriangle(d, c, a, keepTriangles);
-                }
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
+                vc += transformedCubePosition;
+                vc += dirs[0];
+                vc += dirs[1];
+                vc += dirs[4];
+                vc *= _scale;
+                vc += _offset;
 
-                if (_density[22] <= 0.0f)
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[4];
-                    va *= _scale;
-                    va += _offset;
-
-                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
-                    vb += dirs[0];
-                    vb += dirs[1];
-                    vb += dirs[4];
-                    vb += transformedCubePosition;
-                    vb *= _scale;
-                    vb += _offset;
-
-                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc += transformedCubePosition;
-                    vc *= _scale;
-                    vc += _offset;
-
-                    calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
-                    vd += dirs[4];
-                    vd += transformedCubePosition;
-                    vd *= _scale;
-                    vd += _offset;
-
-                    a = _meshBuilder.addVertex(va);
-                    b = _meshBuilder.addVertex(vb);
-                    c = _meshBuilder.addVertex(vc);
-                    d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                    ab = vb; ab -= va;
-                    ac = vc; ac -= va;
-                    ad = vd; ad -= va;
-                    normalA = ac % ab;
-                    normalB = ad % ab;
-
-                    _meshBuilder.accumulateNormal(a, normalA);
-                    _meshBuilder.accumulateNormal(b, normalA);
-                    _meshBuilder.accumulateNormal(c, normalA);
-
-                    _meshBuilder.accumulateNormal(d, normalB);
-                    _meshBuilder.accumulateNormal(c, normalB);
-                    _meshBuilder.accumulateNormal(a, normalB);
-#else
-                    _meshBuilder.setNormal(a);
-                    _meshBuilder.setNormal(b);
-                    _meshBuilder.setNormal(c);
-                    _meshBuilder.setNormal(d);
+                }
 #endif
 
-                    addCheckedTriangle(c, b, a, keepTriangles);
-                    addCheckedTriangle(d, c, a, keepTriangles);
+                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
+                vd += transformedCubePosition;
+                vd += dirs[1];
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
                 }
+#endif
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                ab = vb; ab -= va;
+                ac = vc; ac -= va;
+                ad = vd; ad -= va;
+                normalA = ab % ac;
+                normalB = ab % ad;
+
+                _meshBuilder.accumulateNormal(a, normalA);
+                _meshBuilder.accumulateNormal(b, normalA);
+                _meshBuilder.accumulateNormal(c, normalA);
+
+                _meshBuilder.accumulateNormal(d, normalB);
+                _meshBuilder.accumulateNormal(c, normalB);
+                _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a);
+                _meshBuilder.setNormal(b);
+                _meshBuilder.setNormal(c);
+                _meshBuilder.setNormal(d);
+#endif
+
+                addCheckedTriangle(a, b, c, keepTriangles);
+                addCheckedTriangle(a, c, d, keepTriangles);
             }
-            else
+
+            if (_mixedDensity[16] > 0.0f)
             {
+                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[0];
+                va *= _scale;
+                va += _offset;
 
-                if (_density[14] > 0.0f)
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
-                    va += dirs[1];
-                    va += transformedCubePosition;
-                    va *= _scale;
-                    va += _offset;
-
-                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb += dirs[1];
-                    vb *= _scale;
-                    vb += _offset;
-
-                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[0];
-                    vc += dirs[1];
-                    vc += dirs[4];
-                    vc *= _scale;
-                    vc += _offset;
-
-                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-
-                    a = _meshBuilder.addVertex(va);
-                    b = _meshBuilder.addVertex(vb);
-                    c = _meshBuilder.addVertex(vc);
-                    d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                    ab = vb; ab -= va;
-                    ac = vc; ac -= va;
-                    ad = vd; ad -= va;
-                    normalA = ab % ac;
-                    normalB = ab % ad;
-
-                    _meshBuilder.accumulateNormal(a, normalA);
-                    _meshBuilder.accumulateNormal(b, normalA);
-                    _meshBuilder.accumulateNormal(c, normalA);
-
-                    _meshBuilder.accumulateNormal(d, normalB);
-                    _meshBuilder.accumulateNormal(c, normalB);
-                    _meshBuilder.accumulateNormal(a, normalB);
-#else
-                    _meshBuilder.setNormal(a);
-                    _meshBuilder.setNormal(b);
-                    _meshBuilder.setNormal(c);
-                    _meshBuilder.setNormal(d);
+                }
 #endif
 
-                    addCheckedTriangle(a, b, c, keepTriangles);
-                    addCheckedTriangle(a, c, d, keepTriangles);
-                }
+                calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb *= _scale;
+                vb += _offset;
 
-                if (_density[16] > 0.0f)
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[0];
-                    va *= _scale;
-                    va += _offset;
-
-                    calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb *= _scale;
-                    vb += _offset;
-
-                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc *= _scale;
-                    vc += _offset;
-
-                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[0];
-                    vd += dirs[1];
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-
-                    a = _meshBuilder.addVertex(va);
-                    b = _meshBuilder.addVertex(vb);
-                    c = _meshBuilder.addVertex(vc);
-                    d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                    ab = vb; ab -= va;
-                    ac = vc; ac -= va;
-                    ad = vd; ad -= va;
-                    normalA = ab % ac;
-                    normalB = ab % ad;
-
-                    _meshBuilder.accumulateNormal(a, normalA);
-                    _meshBuilder.accumulateNormal(b, normalA);
-                    _meshBuilder.accumulateNormal(c, normalA);
-
-                    _meshBuilder.accumulateNormal(d, normalB);
-                    _meshBuilder.accumulateNormal(c, normalB);
-                    _meshBuilder.accumulateNormal(a, normalB);
-#else
-                    _meshBuilder.setNormal(a);
-                    _meshBuilder.setNormal(b);
-                    _meshBuilder.setNormal(c);
-                    _meshBuilder.setNormal(d);
+                }
 #endif
 
-                    addCheckedTriangle(a, b, c, keepTriangles);
-                    addCheckedTriangle(a, c, d, keepTriangles);
-                }
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                vc += transformedCubePosition;
+                vc += dirs[4];
+                vc += dirs[0];
+                vc *= _scale;
+                vc += _offset;
 
-                if (_density[22] > 0.0f)
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
-                    va += transformedCubePosition;
-                    va += dirs[1];
-                    va += dirs[4];
-                    va *= _scale;
-                    va += _offset;
-
-                    calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
-                    vb += transformedCubePosition;
-                    vb += dirs[0];
-                    vb += dirs[1];
-                    vb += dirs[4];
-                    vb *= _scale;
-                    vb += _offset;
-
-                    calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
-                    vc += transformedCubePosition;
-                    vc += dirs[4];
-                    vc += dirs[0];
-                    vc *= _scale;
-                    vc += _offset;
-
-                    calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
-                    vd += transformedCubePosition;
-                    vd += dirs[4];
-                    vd *= _scale;
-                    vd += _offset;
-
-                    a = _meshBuilder.addVertex(va);
-                    b = _meshBuilder.addVertex(vb);
-                    c = _meshBuilder.addVertex(vc);
-                    d = _meshBuilder.addVertex(vd);
-
-#ifdef CALC_NORMALS
-                    ab = vb; ab -= va;
-                    ac = vc; ac -= va;
-                    ad = vd; ad -= va;
-                    normalA = ab % ac;
-                    normalB = ab % ad;
-
-                    _meshBuilder.accumulateNormal(a, normalA);
-                    _meshBuilder.accumulateNormal(b, normalA);
-                    _meshBuilder.accumulateNormal(c, normalA);
-
-                    _meshBuilder.accumulateNormal(d, normalB);
-                    _meshBuilder.accumulateNormal(c, normalB);
-                    _meshBuilder.accumulateNormal(a, normalB);
-#else
-                    _meshBuilder.setNormal(a);
-                    _meshBuilder.setNormal(b);
-                    _meshBuilder.setNormal(c);
-                    _meshBuilder.setNormal(d);
+                }
 #endif
 
-                    addCheckedTriangle(a, b, c, keepTriangles);
-                    addCheckedTriangle(a, c, d, keepTriangles);
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
+                vd += transformedCubePosition;
+                vd += dirs[0];
+                vd += dirs[1];
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
                 }
+#endif
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                ab = vb; ab -= va;
+                ac = vc; ac -= va;
+                ad = vd; ad -= va;
+                normalA = ab % ac;
+                normalB = ab % ad;
+
+                _meshBuilder.accumulateNormal(a, normalA);
+                _meshBuilder.accumulateNormal(b, normalA);
+                _meshBuilder.accumulateNormal(c, normalA);
+
+                _meshBuilder.accumulateNormal(d, normalB);
+                _meshBuilder.accumulateNormal(c, normalB);
+                _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a);
+                _meshBuilder.setNormal(b);
+                _meshBuilder.setNormal(c);
+                _meshBuilder.setNormal(d);
+#endif
+
+                addCheckedTriangle(a, b, c, keepTriangles);
+                addCheckedTriangle(a, c, d, keepTriangles);
+            }
+
+            if (_mixedDensity[22] > 0.0f)
+            {
+                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
+                va += transformedCubePosition;
+                va += dirs[1];
+                va += dirs[4];
+                va *= _scale;
+                va += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                }
+#endif
+
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
+                vb += transformedCubePosition;
+                vb += dirs[0];
+                vb += dirs[1];
+                vb += dirs[4];
+                vb *= _scale;
+                vb += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                }
+#endif
+
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                vc += transformedCubePosition;
+                vc += dirs[4];
+                vc += dirs[0];
+                vc *= _scale;
+                vc += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                }
+#endif
+
+                calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
+                vd += transformedCubePosition;
+                vd += dirs[4];
+                vd *= _scale;
+                vd += _offset;
+
+#ifdef FILL_LOD_GAPS
+                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                {
+                }
+#endif
+
+                a = _meshBuilder.addVertex(va);
+                b = _meshBuilder.addVertex(vb);
+                c = _meshBuilder.addVertex(vc);
+                d = _meshBuilder.addVertex(vd);
+
+#ifdef CALC_NORMALS
+                ab = vb; ab -= va;
+                ac = vc; ac -= va;
+                ad = vd; ad -= va;
+                normalA = ab % ac;
+                normalB = ab % ad;
+
+                _meshBuilder.accumulateNormal(a, normalA);
+                _meshBuilder.accumulateNormal(b, normalA);
+                _meshBuilder.accumulateNormal(c, normalA);
+
+                _meshBuilder.accumulateNormal(d, normalB);
+                _meshBuilder.accumulateNormal(c, normalB);
+                _meshBuilder.accumulateNormal(a, normalB);
+#else
+                _meshBuilder.setNormal(a);
+                _meshBuilder.setNormal(b);
+                _meshBuilder.setNormal(c);
+                _meshBuilder.setNormal(d);
+#endif
+
+                addCheckedTriangle(a, b, c, keepTriangles);
+                addCheckedTriangle(a, c, d, keepTriangles);
             }
         }
     }
@@ -1171,7 +2342,7 @@ namespace Igor
         if (lod > 0)
         {
             float32 value = pow(2, lod - 1) - 0.5;
-            result.set(-value, value * 2, -value);
+            result.set(-value, -value, -value);
         }
 
         return result;

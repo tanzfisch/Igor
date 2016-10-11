@@ -108,6 +108,7 @@ namespace Igor
         uint8 _density[3 * 3 * 3];
 
         uint8 _nextLODDensity[3 * 3 * 3];
+        uint8 _mixedDensity[3 * 3 * 3];
 
         iaVector3I _nextLODVoxelOffset;
 
@@ -160,8 +161,6 @@ namespace Igor
 
         iaVector3f _offset;
         iaVector3f _offsetNextLOD;
-
-        void fillGapXPositive();
 
         /*! creates triangles for the resulting mesh
 
