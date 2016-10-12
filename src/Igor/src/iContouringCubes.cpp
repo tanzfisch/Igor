@@ -360,7 +360,7 @@ namespace Igor
         // the whole thing here is written very inefficient. fix later please
 
         iaVector3I blockPos = _cubePosition;
-        blockPos._y -= 4;
+        blockPos._y -= 2;
         blockPos._x = blockPos._x >> 1;
         blockPos._y = blockPos._y >> 1;
         blockPos._z = blockPos._z >> 1;
@@ -644,7 +644,7 @@ namespace Igor
 
         iaVector3f transformedCubePosition;
         transformedCubePosition._x = static_cast<float32>((_cubePosition._x - _cubeStartPosition._x) >> 1);
-        transformedCubePosition._y = static_cast<float32>((_cubePosition._y - 4 - _cubeStartPosition._y) >> 1);
+        transformedCubePosition._y = static_cast<float32>((_cubePosition._y - 2 - _cubeStartPosition._y) >> 1);
         transformedCubePosition._z = static_cast<float32>((_cubePosition._z - _cubeStartPosition._z) >> 1);
 
         for (int i = 0; i < 27; ++i)
@@ -741,9 +741,9 @@ namespace Igor
 
             if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
             {
-                _mixedDensity[0] = _nextLODDensity[12];
+              /*  _mixedDensity[0] = _nextLODDensity[12];
                 _mixedDensity[3] = _nextLODDensity[12];
-                _mixedDensity[6] = _nextLODDensity[12];
+                _mixedDensity[7] = _nextLODDensity[12];
 
                 _mixedDensity[9] = _nextLODDensity[12];
                 _mixedDensity[12] = _nextLODDensity[12];
@@ -752,6 +752,54 @@ namespace Igor
                 _mixedDensity[18] = _nextLODDensity[12];
                 _mixedDensity[21] = _nextLODDensity[12];
                 _mixedDensity[24] = _nextLODDensity[12];
+
+                _mixedDensity[1] = _nextLODDensity[13];
+                _mixedDensity[4] = _nextLODDensity[13];
+                _mixedDensity[7] = _nextLODDensity[13];
+
+                _mixedDensity[10] = _nextLODDensity[13];
+                _mixedDensity[13] = _nextLODDensity[13];
+                _mixedDensity[16] = _nextLODDensity[13];
+
+                _mixedDensity[19] = _nextLODDensity[13];
+                _mixedDensity[22] = _nextLODDensity[13];
+                _mixedDensity[25] = _nextLODDensity[13];
+
+                /*_mixedDensity[2] = _nextLODDensity[13];
+                _mixedDensity[5] = _nextLODDensity[13];
+                _mixedDensity[8] = _nextLODDensity[13];
+
+                _mixedDensity[11] = _nextLODDensity[13];
+                _mixedDensity[14] = _nextLODDensity[13];
+                _mixedDensity[17] = _nextLODDensity[13];
+
+                _mixedDensity[20] = _nextLODDensity[13];
+                _mixedDensity[23] = _nextLODDensity[13];
+                _mixedDensity[26] = _nextLODDensity[13];*/
+
+                /*_mixedDensity[0] = _nextLODDensity[12];
+                _mixedDensity[3] = _nextLODDensity[12];
+                _mixedDensity[7] = _nextLODDensity[12];
+
+                _mixedDensity[9] = _nextLODDensity[12];
+                _mixedDensity[12] = _nextLODDensity[12];
+                _mixedDensity[15] = _nextLODDensity[12];
+
+                _mixedDensity[18] = _nextLODDensity[12];
+                _mixedDensity[21] = _nextLODDensity[12];
+                _mixedDensity[24] = _nextLODDensity[12];*/
+
+                /*_mixedDensity[1] = _nextLODDensity[13];
+                _mixedDensity[4] = _nextLODDensity[13];
+                _mixedDensity[7] = _nextLODDensity[13];
+
+                _mixedDensity[10] = _nextLODDensity[13];
+                _mixedDensity[13] = _nextLODDensity[13];
+                _mixedDensity[16] = _nextLODDensity[13];
+
+                _mixedDensity[19] = _nextLODDensity[13];
+                _mixedDensity[22] = _nextLODDensity[13];
+                _mixedDensity[25] = _nextLODDensity[13];*/
             }
 
             if ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0)
@@ -3013,9 +3061,9 @@ namespace Igor
             float32 value = pow(2, lod - 1) - 0.5;
 
 #ifdef DEV_CUBIFY
-            result.set(-value, 2*value, -value);
+            result.set(-value, -value, -value);
 #else
-            result.set(-value, 2*value, -value);
+            result.set(-value, -value, -value);
 #endif
         }
 
@@ -3066,9 +3114,9 @@ namespace Igor
 
         iaVector3I marchingVolume;
 
-        marchingVolume._x = volume._x - 4;
-        marchingVolume._y = volume._y - 4;
-        marchingVolume._z = volume._z - 4;
+        marchingVolume._x = volume._x - 2;
+        marchingVolume._y = volume._y - 2;
+        marchingVolume._z = volume._z - 2;
 
         _cubeStartPosition.set(pos._x, pos._y, pos._z);
 
@@ -3131,8 +3179,6 @@ namespace Igor
                 int y = 0;
                 // process pole
                 startClimb(currentPosition);
-                climb();
-                climb();
                 climb();
 
                 do
