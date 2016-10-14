@@ -19,6 +19,7 @@ using namespace IgorAux;
 
 #define FILL_LOD_GAPS
 #define CALC_NORMALS
+//#define DEV_CUBIFY
 
 namespace Igor
 {
@@ -283,7 +284,9 @@ namespace Igor
             calcPos.set(0, 0, 0);
         }
 
-        //calcPos.set(0.5, 0.5, 0.5);
+#ifdef DEV_CUBIFY
+        calcPos.set(0.5, 0.5, 0.5);
+#endif
 
         vertex = calcPos;
 
@@ -310,26 +313,6 @@ namespace Igor
     //   | /         | /         | /
     //   |/          |/          |/
     //   6-----------7-----------8
-    //  /
-    // z
-
-    //       y
-    //       |
-    //       18-----19-----20
-    //      /|     /|     /|
-    //     21-----22|    / |
-    //    /| |   /| |   /  |
-    //   24-----25-----26  |
-    //   | | 9--|-|-10 |   |
-    //   | |/|  | |/|  |   |
-    //   | 12---|-13|  |   |
-    //   |/| |  |/| |  |   |
-    //   15-----16| |  |   |
-    //   | | 0--|-|-1--|---2--x
-    //   | |/   | |/   |  /
-    //   | 3----|-4    | /
-    //   |/     |/     |/
-    //   6------7------8
     //  /
     // z
 
@@ -372,9 +355,9 @@ namespace Igor
     //  /
     // Z
     */
-    void iContouringCubes::calculateNextLOD(const uint8* density, uint32 neighborLODs)
+    void iContouringCubes::calculateNextLOD()
     {
-        uint8 nextLODDensity[3 * 3 * 3];
+        // the whole thing here is written very inefficient. fix later please
 
         iaVector3I blockPos = _cubePosition;
         blockPos._y -= 2;
@@ -392,12 +375,12 @@ namespace Igor
             {
                 for (int x = 0; x < 3; ++x)
                 {
-                    nextLODDensity[i++] = _voxelDataNextLOD->getVoxelDensity(iaVector3I(blockPos._x + x, blockPos._y + y, blockPos._z + z));
+                    _nextLODDensity[i++] = _voxelDataNextLOD->getVoxelDensity(iaVector3I(blockPos._x + x, blockPos._y + y, blockPos._z + z));
                 }
             }
         }
 
-        for (int i=0;i<27;++i)
+        for (int i = 0; i < 27; ++i)
         {
             _vertexPositionsNextLODVisible[i] = false;
             _vertexPositionsNextLOD[i] = iaVector3f();
@@ -405,144 +388,64 @@ namespace Igor
 
         iaVector3f position;
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if (calculateVertex(_nextLODDensity[0], _nextLODDensity[1], _nextLODDensity[3], _nextLODDensity[4], _nextLODDensity[9], _nextLODDensity[10], _nextLODDensity[12], _nextLODDensity[13], position))
         {
-            if ((nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[4] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[0], nextLODDensity[1], nextLODDensity[3], nextLODDensity[4], nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], position))
-                {
-                    _vertexPositionsNextLODVisible[0] = true;
-                    _vertexPositionsNextLOD[0] = position;
-                }
-            }
+            _vertexPositionsNextLODVisible[0] = true;
+            _vertexPositionsNextLOD[0] = position;
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if (calculateVertex(_nextLODDensity[1], _nextLODDensity[2], _nextLODDensity[4], _nextLODDensity[5], _nextLODDensity[10], _nextLODDensity[11], _nextLODDensity[13], _nextLODDensity[14], position))
         {
-            if ((nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[4] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[1], nextLODDensity[2], nextLODDensity[4], nextLODDensity[5], nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], position))
-                {
-                    position += dirs[1];
-                    _vertexPositionsNextLODVisible[2] = true;
-                    _vertexPositionsNextLOD[2] = position;
-                }
-            }
+            position += dirs[1];
+            _vertexPositionsNextLODVisible[2] = true;
+            _vertexPositionsNextLOD[2] = position;
         }
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if (calculateVertex(_nextLODDensity[3], _nextLODDensity[4], _nextLODDensity[6], _nextLODDensity[7], _nextLODDensity[12], _nextLODDensity[13], _nextLODDensity[15], _nextLODDensity[16], position))
         {
-            if ((nextLODDensity[4] != nextLODDensity[13]) ||
-                (nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[3], nextLODDensity[4], nextLODDensity[6], nextLODDensity[7], nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], position))
-                {
-                    position += dirs[0];
-                    _vertexPositionsNextLODVisible[6] = true;
-                    _vertexPositionsNextLOD[6] = position;
-                }
-            }
+            position += dirs[0];
+            _vertexPositionsNextLODVisible[6] = true;
+            _vertexPositionsNextLOD[6] = position;
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if (calculateVertex(_nextLODDensity[4], _nextLODDensity[5], _nextLODDensity[7], _nextLODDensity[8], _nextLODDensity[13], _nextLODDensity[14], _nextLODDensity[16], _nextLODDensity[17], position))
         {
-            if ((nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]) ||
-                (nextLODDensity[4] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[4], nextLODDensity[5], nextLODDensity[7], nextLODDensity[8], nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], position))
-                {
-                    position += dirs[1];
-                    position += dirs[0];
-                    _vertexPositionsNextLODVisible[8] = true;
-                    _vertexPositionsNextLOD[8] = position;
-                }
-            }
+            position += dirs[1];
+            position += dirs[0];
+            _vertexPositionsNextLODVisible[8] = true;
+            _vertexPositionsNextLOD[8] = position;
         }
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if (calculateVertex(_nextLODDensity[9], _nextLODDensity[10], _nextLODDensity[12], _nextLODDensity[13], _nextLODDensity[18], _nextLODDensity[19], _nextLODDensity[21], _nextLODDensity[22], position))
         {
-            if ((nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[9], nextLODDensity[10], nextLODDensity[12], nextLODDensity[13], nextLODDensity[18], nextLODDensity[19], nextLODDensity[21], nextLODDensity[22], position))
-                {
-                    position += dirs[4];
-                    _vertexPositionsNextLODVisible[18] = true;
-                    _vertexPositionsNextLOD[18] = position;
-                }
-            }
+            position += dirs[4];
+            _vertexPositionsNextLODVisible[18] = true;
+            _vertexPositionsNextLOD[18] = position;
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+        if (calculateVertex(_nextLODDensity[10], _nextLODDensity[11], _nextLODDensity[13], _nextLODDensity[14], _nextLODDensity[19], _nextLODDensity[20], _nextLODDensity[22], _nextLODDensity[23], position))
         {
-            if ((nextLODDensity[10] != nextLODDensity[13]) ||
-                (nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[10], nextLODDensity[11], nextLODDensity[13], nextLODDensity[14], nextLODDensity[19], nextLODDensity[20], nextLODDensity[22], nextLODDensity[23], position))
-                {
-                    position += dirs[1];
-                    position += dirs[4];
-                    _vertexPositionsNextLODVisible[20] = true;
-                    _vertexPositionsNextLOD[20] = position;
-                }
-            }
+            position += dirs[1];
+            position += dirs[4];
+            _vertexPositionsNextLODVisible[20] = true;
+            _vertexPositionsNextLOD[20] = position;
         }
 
-        if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if (calculateVertex(_nextLODDensity[12], _nextLODDensity[13], _nextLODDensity[15], _nextLODDensity[16], _nextLODDensity[21], _nextLODDensity[22], _nextLODDensity[24], _nextLODDensity[25], position))
         {
-            if ((nextLODDensity[12] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[12], nextLODDensity[13], nextLODDensity[15], nextLODDensity[16], nextLODDensity[21], nextLODDensity[22], nextLODDensity[24], nextLODDensity[25], position))
-                {
-                    position += dirs[4];
-                    position += dirs[0];
-                    _vertexPositionsNextLODVisible[24] = true;
-                    _vertexPositionsNextLOD[24] = position;
-                }
-            }
+            position += dirs[4];
+            position += dirs[0];
+            _vertexPositionsNextLODVisible[24] = true;
+            _vertexPositionsNextLOD[24] = position;
         }
 
-        if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_YPOSITIVE) != 0 ||
-            (neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+        if (calculateVertex(_nextLODDensity[13], _nextLODDensity[14], _nextLODDensity[16], _nextLODDensity[17], _nextLODDensity[22], _nextLODDensity[23], _nextLODDensity[25], _nextLODDensity[26], position))
         {
-            if ((nextLODDensity[14] != nextLODDensity[13]) ||
-                (nextLODDensity[16] != nextLODDensity[13]) ||
-                (nextLODDensity[22] != nextLODDensity[13]))
-            {
-                if (calculateVertex(nextLODDensity[13], nextLODDensity[14], nextLODDensity[16], nextLODDensity[17], nextLODDensity[22], nextLODDensity[23], nextLODDensity[25], nextLODDensity[26], position))
-                {
-                    position += dirs[0];
-                    position += dirs[1];
-                    position += dirs[4];
-                    _vertexPositionsNextLODVisible[26] = true;
-                    _vertexPositionsNextLOD[26] = position;
-                }
-            }
+            position += dirs[0];
+            position += dirs[1];
+            position += dirs[4];
+            _vertexPositionsNextLODVisible[26] = true;
+            _vertexPositionsNextLOD[26] = position;
         }
 
         if (_vertexPositionsNextLODVisible[0] && _vertexPositionsNextLODVisible[2])
@@ -653,6 +556,51 @@ namespace Igor
             _vertexPositionsNextLOD[25] = position;
         }
 
+        if (_vertexPositionsNextLODVisible[11] && _vertexPositionsNextLODVisible[17])
+        {
+            position = _vertexPositionsNextLOD[11];
+            position += _vertexPositionsNextLOD[17];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[14] = true;
+            _vertexPositionsNextLOD[14] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[9] && _vertexPositionsNextLODVisible[15])
+        {
+            position = _vertexPositionsNextLOD[9];
+            position += _vertexPositionsNextLOD[15];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[12] = true;
+            _vertexPositionsNextLOD[12] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[19] && _vertexPositionsNextLODVisible[25])
+        {
+            position = _vertexPositionsNextLOD[19];
+            position += _vertexPositionsNextLOD[25];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[22] = true;
+            _vertexPositionsNextLOD[22] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[1] && _vertexPositionsNextLODVisible[7])
+        {
+            position = _vertexPositionsNextLOD[1];
+            position += _vertexPositionsNextLOD[7];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[4] = true;
+            _vertexPositionsNextLOD[4] = position;
+        }
+
+        if (_vertexPositionsNextLODVisible[12] && _vertexPositionsNextLODVisible[14])
+        {
+            position = _vertexPositionsNextLOD[12];
+            position += _vertexPositionsNextLOD[14];
+            position *= 0.5;
+            _vertexPositionsNextLODVisible[13] = true;
+            _vertexPositionsNextLOD[13] = position;
+        }
+
 
         iaVector3f transformedCubePosition;
         transformedCubePosition._x = static_cast<float32>((_cubePosition._x - _cubeStartPosition._x) >> 1);
@@ -670,54 +618,7 @@ namespace Igor
         }
     }
 
-    iaVector3f iContouringCubes::getClosest(const iaVector3f& in)
-    {
-        iaVector3f result = in;
-        float64 min = 999999999;
-        int foundIndex = -1;
-
-        for (int i = 0; i < 27; ++i)
-        {
-            if (_vertexPositionsNextLODVisible[i])
-            {
-                float64 diff = in.distance(_vertexPositionsNextLOD[i]);
-                if (diff < min)
-                {
-                    min = diff;
-                    foundIndex = i;
-                }
-            }
-        }
-
-        for (int i = 0; i < 27; ++i)
-        {    
-            if (_vertexPositionsNextLODVisible[i])
-            {
-                iaVector3f pos = _vertexPositionsNextLOD[i];
-                uint32 a = _meshBuilder.addVertex(pos + iaVector3f(0.1, 0, 0));
-                uint32 b = _meshBuilder.addVertex(pos + iaVector3f(0, 0.1, 0));
-                uint32 c = _meshBuilder.addVertex(pos + iaVector3f(-0.1, 0, 0));
-                uint32 d = _meshBuilder.addVertex(pos + iaVector3f(0, -0.1, 0));
-
-                _meshBuilder.accumulateNormal(a, iaVector3f(0, 1, 0));
-                _meshBuilder.accumulateNormal(b, iaVector3f(0, 1, 0));
-                _meshBuilder.accumulateNormal(c, iaVector3f(0, 1, 0));
-                _meshBuilder.accumulateNormal(d, iaVector3f(0, 1, 0));
-
-                addCheckedTriangle(a, b, c, true);
-                addCheckedTriangle(c, d, a, true);
-            }
-        }
-
-        if (foundIndex != -1)
-        {
-            result = _vertexPositionsNextLOD[foundIndex];
-        }
-
-        return result;
-    }
-
-    void iContouringCubes::generateGeometry(const uint8* density, bool keepTriangles, uint32 neighborLODs)
+    void iContouringCubes::generateGeometry(bool keepTriangles, uint32 neighborLODs)
     {
         iaVector3I geometryPosition(_cubePosition._x, _cubePosition._y - 2, _cubePosition._z);
         geometryPosition -= _cubeStartPosition;
@@ -756,18 +657,336 @@ namespace Igor
         uint8 matd;
         uint32 matKey = 0;
 
+        memcpy(_mixedDensity, _density, 27);
+
         if (neighborLODs != 0 &&
             _voxelDataNextLOD != nullptr)
         {
-            calculateNextLOD(density, neighborLODs);
+            calculateNextLOD();
+
+            if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
+            {
+                _mixedDensity[2] = _nextLODDensity[14];
+                _mixedDensity[5] = _nextLODDensity[14];
+                _mixedDensity[8] = _nextLODDensity[14];
+
+                _mixedDensity[11] = _nextLODDensity[14];
+                _mixedDensity[14] = _nextLODDensity[14];
+                _mixedDensity[17] = _nextLODDensity[14];
+
+                _mixedDensity[20] = _nextLODDensity[14];
+                _mixedDensity[23] = _nextLODDensity[14];
+                _mixedDensity[26] = _nextLODDensity[14];
+            }
+
+            if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
+            {
+                //       y
+                //       |
+                //       19
+                //      /|
+                //     22|
+                //    /| |
+                //   25| |
+                //   | | 10
+                //   | |/|
+                //   | 13|
+                //   |/| |
+                //   16| |
+                //   | | 1
+                //   | |/
+                //   | 4
+                //   |/
+                //   7
+                //  /
+                // z
+
+                if ((geometryPosition._z % 2) == 0)
+                {
+                    if ((geometryPosition._y % 2) == 0)
+                    {
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[16] = _nextLODDensity[13];
+                        _mixedDensity[22] = _nextLODDensity[13];
+                        _mixedDensity[25] = _nextLODDensity[13];
+
+                        _mixedDensity[4] = _nextLODDensity[4];
+                        _mixedDensity[7] = _nextLODDensity[4];
+
+                        _mixedDensity[1] = _nextLODDensity[1];
+
+                        _mixedDensity[10] = _nextLODDensity[10];
+                        _mixedDensity[19] = _nextLODDensity[10];
+                    }
+                    else
+                    {
+                        _mixedDensity[4] = _nextLODDensity[13];
+                        _mixedDensity[7] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[16] = _nextLODDensity[13];
+
+                        _mixedDensity[19] = _nextLODDensity[19];
+
+                        _mixedDensity[10] = _nextLODDensity[10];
+                        _mixedDensity[1] = _nextLODDensity[10];
+
+                        _mixedDensity[22] = _nextLODDensity[22];
+                        _mixedDensity[25] = _nextLODDensity[22];
+                    }
+                }
+                else
+                {
+                    if ((geometryPosition._y % 2) == 0)
+                    {
+                        _mixedDensity[10] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[19] = _nextLODDensity[13];
+                        _mixedDensity[22] = _nextLODDensity[13];
+
+                        _mixedDensity[7] = _nextLODDensity[7];
+
+                        _mixedDensity[1] = _nextLODDensity[4];
+                        _mixedDensity[4] = _nextLODDensity[4];
+
+                        _mixedDensity[16] = _nextLODDensity[16];
+                        _mixedDensity[25] = _nextLODDensity[16];
+                    }
+                    else
+                    {
+                        _mixedDensity[1] = _nextLODDensity[13];
+                        _mixedDensity[4] = _nextLODDensity[13];
+                        _mixedDensity[10] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+
+                        _mixedDensity[25] = _nextLODDensity[25];
+
+                        _mixedDensity[19] = _nextLODDensity[22];
+                        _mixedDensity[22] = _nextLODDensity[22];
+
+                        _mixedDensity[7] = _nextLODDensity[16];
+                        _mixedDensity[16] = _nextLODDensity[16];
+                    }
+                }
+            }
+
+            if ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0)
+            {
+                _mixedDensity[18] = _nextLODDensity[22];
+                _mixedDensity[19] = _nextLODDensity[22];
+                _mixedDensity[20] = _nextLODDensity[22];
+
+                _mixedDensity[21] = _nextLODDensity[22];
+                _mixedDensity[22] = _nextLODDensity[22];
+                _mixedDensity[23] = _nextLODDensity[22];
+
+                _mixedDensity[24] = _nextLODDensity[22];
+                _mixedDensity[25] = _nextLODDensity[22];
+                _mixedDensity[16] = _nextLODDensity[22];
+            }
+
+            if ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0)
+            {
+                //       9------10-----11 - x
+                //      /      /      / 
+                //     12-----13-----14
+                //    /      /      /
+                //   15-----16-----17
+                //  /
+                // z
+
+                if ((geometryPosition._x % 2) == 0)
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[14] = _nextLODDensity[13];
+                        _mixedDensity[16] = _nextLODDensity[13];
+                        _mixedDensity[17] = _nextLODDensity[13];
+
+                        _mixedDensity[9] = _nextLODDensity[9];
+
+                        _mixedDensity[10] = _nextLODDensity[10];
+                        _mixedDensity[11] = _nextLODDensity[10];
+
+                        _mixedDensity[12] = _nextLODDensity[12];
+                        _mixedDensity[15] = _nextLODDensity[12];
+                    }
+                    else
+                    {
+                        _mixedDensity[10] = _nextLODDensity[13];
+                        _mixedDensity[11] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[14] = _nextLODDensity[13];
+
+                        _mixedDensity[15] = _nextLODDensity[15];
+
+                        _mixedDensity[9] = _nextLODDensity[12];
+                        _mixedDensity[12] = _nextLODDensity[12];
+
+                        _mixedDensity[16] = _nextLODDensity[16];
+                        _mixedDensity[17] = _nextLODDensity[16];
+                    }
+                }
+                else
+                {
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        _mixedDensity[12] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[15] = _nextLODDensity[13];
+                        _mixedDensity[16] = _nextLODDensity[13];
+
+                        _mixedDensity[11] = _nextLODDensity[11];
+
+                        _mixedDensity[9] = _nextLODDensity[10];
+                        _mixedDensity[10] = _nextLODDensity[10];
+
+                        _mixedDensity[14] = _nextLODDensity[14];
+                        _mixedDensity[17] = _nextLODDensity[14];
+                    }
+                    else
+                    {
+                        _mixedDensity[9] = _nextLODDensity[13];
+                        _mixedDensity[10] = _nextLODDensity[13];
+                        _mixedDensity[12] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+
+                        _mixedDensity[17] = _nextLODDensity[17];
+
+                        _mixedDensity[11] = _nextLODDensity[14];
+                        _mixedDensity[14] = _nextLODDensity[14];
+
+                        _mixedDensity[15] = _nextLODDensity[16];
+                        _mixedDensity[16] = _nextLODDensity[16];
+                    }
+                }
+            }
+
+            if ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+            {
+                _mixedDensity[6] = _nextLODDensity[16];
+                _mixedDensity[7] = _nextLODDensity[16];
+                _mixedDensity[8] = _nextLODDensity[16];
+
+                _mixedDensity[15] = _nextLODDensity[16];
+                _mixedDensity[16] = _nextLODDensity[16];
+                _mixedDensity[17] = _nextLODDensity[16];
+
+                _mixedDensity[24] = _nextLODDensity[16];
+                _mixedDensity[25] = _nextLODDensity[16];
+                _mixedDensity[26] = _nextLODDensity[16];
+            }
+
+            if ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+            {
+                //   y
+                //   |
+                //   21-----22-----23
+                //   |      |      |
+                //   |      |      |
+                //   |      |      |
+                //   |      |      |
+                //   12-----13-----14
+                //   |      |      |
+                //   |      |      |
+                //   |      |      |
+                //   |      |      |
+                //   3------4------5 - x
+
+                if ((geometryPosition._x % 2) == 0)
+                {
+                    if ((geometryPosition._y % 2) == 0)
+                    {
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[14] = _nextLODDensity[13];
+                        _mixedDensity[22] = _nextLODDensity[13];
+                        _mixedDensity[23] = _nextLODDensity[13];
+
+                        _mixedDensity[4] = _nextLODDensity[4];
+                        _mixedDensity[5] = _nextLODDensity[4];
+
+                        _mixedDensity[3] = _nextLODDensity[3];
+
+                        _mixedDensity[12] = _nextLODDensity[12];
+                        _mixedDensity[21] = _nextLODDensity[12];
+                    }
+                    else
+                    {
+                        _mixedDensity[4] = _nextLODDensity[13];
+                        _mixedDensity[5] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[14] = _nextLODDensity[13];
+
+                        _mixedDensity[21] = _nextLODDensity[21];
+
+                        _mixedDensity[12] = _nextLODDensity[12];
+                        _mixedDensity[3] = _nextLODDensity[12];
+
+                        _mixedDensity[22] = _nextLODDensity[22];
+                        _mixedDensity[23] = _nextLODDensity[22];
+                    }
+                }
+                else
+                {
+                    if ((geometryPosition._y % 2) == 0)
+                    {
+                        _mixedDensity[21] = _nextLODDensity[13];
+                        _mixedDensity[22] = _nextLODDensity[13];
+                        _mixedDensity[12] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+
+                        _mixedDensity[23] = _nextLODDensity[14];
+                        _mixedDensity[14] = _nextLODDensity[14];
+
+                        _mixedDensity[5] = _nextLODDensity[5];
+
+                        _mixedDensity[3] = _nextLODDensity[4];
+                        _mixedDensity[4] = _nextLODDensity[4];
+                    }
+                    else
+                    {
+                        _mixedDensity[12] = _nextLODDensity[13];
+                        _mixedDensity[13] = _nextLODDensity[13];
+                        _mixedDensity[3] = _nextLODDensity[13];
+                        _mixedDensity[4] = _nextLODDensity[13];
+
+                        _mixedDensity[5] = _nextLODDensity[14];
+                        _mixedDensity[14] = _nextLODDensity[14];
+
+                        _mixedDensity[23] = _nextLODDensity[23];
+
+                        _mixedDensity[21] = _nextLODDensity[22];
+                        _mixedDensity[22] = _nextLODDensity[22];
+                    }
+                }
+            }
+
+            /*for (int i = 0; i < 27; ++i)
+            {
+                if (_vertexPositionsNextLODVisible[i])
+                {
+                    iaVector3f pos = _vertexPositionsNextLOD[i];
+                    uint32 a = _meshBuilder.addVertex(pos + iaVector3f(0.1, 0, 0));
+                    uint32 b = _meshBuilder.addVertex(pos + iaVector3f(0, 0.1, 0));
+                    uint32 c = _meshBuilder.addVertex(pos + iaVector3f(-0.1, 0, 0));
+                    uint32 d = _meshBuilder.addVertex(pos + iaVector3f(0, -0.1, 0));
+
+                    _meshBuilder.accumulateNormal(a, iaVector3f(0, 1, 0));
+                    _meshBuilder.accumulateNormal(b, iaVector3f(0, 1, 0));
+                    _meshBuilder.accumulateNormal(c, iaVector3f(0, 1, 0));
+                    _meshBuilder.accumulateNormal(d, iaVector3f(0, 1, 0));
+
+                    addCheckedTriangle(a, b, c, true);
+                    addCheckedTriangle(c, d, a, true);
+                }
+            }*/
         }
 
-        if (density[13] > 0.0f)
+        if (_mixedDensity[13] > 0.0f)
         {
-            if (density[14] <= 0.0f)
+            if (_mixedDensity[14] <= 0.0f)
             {
-
-                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
+                calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va *= _scale;
@@ -778,11 +997,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
                 {
-                    va = getClosest(va);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[1])
+                                {
+                                    va = _vertexPositionsNextLOD[1];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    va = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[2])
+                                {
+                                    va = _vertexPositionsNextLOD[2];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    va = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    va = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    va = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
+                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
                 vb += transformedCubePosition;
                 vb += dirs[1];
                 vb += dirs[0];
@@ -794,11 +1086,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vb = getClosest(vb);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    vb = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    vb = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vb = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    vb = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[8])
+                                {
+                                    vb = _vertexPositionsNextLOD[8];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vb = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
                 vc += transformedCubePosition;
                 vc += dirs[1];
                 vc += dirs[0];
@@ -811,11 +1176,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vc = getClosest(vc);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vc = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vc = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vc = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vc = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
+                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
                 vd += transformedCubePosition;
                 vd += dirs[1];
                 vd += dirs[4];
@@ -827,7 +1265,80 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vd = getClosest(vd);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    vd = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    vd = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    vd = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[20])
+                                {
+                                    vd = _vertexPositionsNextLOD[20];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vd = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vd = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
@@ -861,10 +1372,9 @@ namespace Igor
                 addCheckedTriangle(d, c, a, keepTriangles);
             }
 
-            if (density[16] <= 0.0f)
+            if (_mixedDensity[16] <= 0.0f)
             {
-
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
+                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[0];
@@ -876,11 +1386,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    va = getClosest(va);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    va = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    va = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    va = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    va = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[8])
+                                {
+                                    va = _vertexPositionsNextLOD[8];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    va = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
+                calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb *= _scale;
@@ -891,11 +1474,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vb = getClosest(vb);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[3])
+                                {
+                                    vb = _vertexPositionsNextLOD[3];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vb = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    vb = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[6])
+                                {
+                                    vb = _vertexPositionsNextLOD[6];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vb = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    vb = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += transformedCubePosition;
                 vc += dirs[4];
                 vc += dirs[0];
@@ -907,11 +1563,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vc = getClosest(vc);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vc = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vc = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vc = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[24])
+                                {
+                                    vc = _vertexPositionsNextLOD[24];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
                 vd += transformedCubePosition;
                 vd += dirs[0];
                 vd += dirs[1];
@@ -924,7 +1653,80 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vd = getClosest(vd);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vd = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vd = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vd = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vd = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vd = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vd = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
@@ -958,9 +1760,9 @@ namespace Igor
                 addCheckedTriangle(d, c, a, keepTriangles);
             }
 
-            if (density[22] <= 0.0f)
+            if (_mixedDensity[22] <= 0.0f)
             {
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
+                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[4];
@@ -972,11 +1774,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    va = getClosest(va);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    va = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    va = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    va = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[20])
+                                {
+                                    va = _vertexPositionsNextLOD[20];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    va = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    va = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
                 vb += dirs[0];
                 vb += dirs[1];
                 vb += dirs[4];
@@ -989,11 +1864,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vb = getClosest(vb);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vb = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vb = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vb = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vb = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vb = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vb = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += dirs[4];
                 vc += dirs[0];
                 vc += transformedCubePosition;
@@ -1005,11 +1953,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vc = getClosest(vc);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vc = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vc = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vc = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[24])
+                                {
+                                    vc = _vertexPositionsNextLOD[24];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
+                calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
                 vd += dirs[4];
                 vd += transformedCubePosition;
                 vd *= _scale;
@@ -1020,7 +2041,80 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vd = getClosest(vd);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[9])
+                                {
+                                    vd = _vertexPositionsNextLOD[9];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[18])
+                                {
+                                    vd = _vertexPositionsNextLOD[18];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    vd = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    vd = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vd = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vd = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
@@ -1056,10 +2150,9 @@ namespace Igor
         }
         else
         {
-
-            if (density[14] > 0.0f)
+            if (_mixedDensity[14] > 0.0f)
             {
-                calculateVertex(density[1], density[2], density[4], density[5], density[10], density[11], density[13], density[14], va);
+                calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
                 va += dirs[1];
                 va += transformedCubePosition;
                 va *= _scale;
@@ -1070,11 +2163,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
                 {
-                    va = getClosest(va);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[1])
+                                {
+                                    va = _vertexPositionsNextLOD[1];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    va = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[2])
+                                {
+                                    va = _vertexPositionsNextLOD[2];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    va = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    va = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    va = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], vb);
+                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb += dirs[1];
@@ -1086,11 +2252,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vb = getClosest(vb);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    vb = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    vb = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vb = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    vb = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    va = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[8])
+                                {
+                                    vb = _vertexPositionsNextLOD[8];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vb = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vc);
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
                 vc += transformedCubePosition;
                 vc += dirs[0];
                 vc += dirs[1];
@@ -1103,11 +2342,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vc = getClosest(vc);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vc = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vc = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vc = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vc = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], vd);
+                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
                 vd += transformedCubePosition;
                 vd += dirs[1];
                 vd += dirs[4];
@@ -1119,7 +2431,81 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vd = getClosest(vd);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    vd = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    vd = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    vd = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[20])
+                                {
+                                    vd = _vertexPositionsNextLOD[20];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vd = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vd = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+
                 }
 #endif
 
@@ -1153,25 +2539,118 @@ namespace Igor
                 addCheckedTriangle(a, c, d, keepTriangles);
             }
 
-            if (density[16] > 0.0f)
+            if (_mixedDensity[16] > 0.0f)
             {
-                calculateVertex(density[4], density[5], density[7], density[8], density[13], density[14], density[16], density[17], va);
+                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[0];
                 va *= _scale;
                 va += _offset;
 
+                //       y
+                //       |
+                //       18-----19-----20
+                //      /|     /|     /|
+                //     21-----22-----23|
+                //    /| |   /| |   /| |
+                //   24-----25-----26| |
+                //   | | 9--|-|-10-|-|-11
+                //   | |/|  | |/|  | |/|
+                //   | 12---|-13---|-14|
+                //   |/| |  |/| |  |/| |
+                //   15-----16-----17| |
+                //   | | 0--|-|-1--|-|-2--x
+                //   | |/   | |/   | |/
+                //   | 3----|-4----|-5
+                //   |/     |/     |/
+                //   6------7------8
+                //  /
+                // z
+
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    va = getClosest(va);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    va = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[5])
+                                {
+                                    va = _vertexPositionsNextLOD[5];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    va = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    va = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[8])
+                                {
+                                    va = _vertexPositionsNextLOD[8];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    va = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[3], density[4], density[6], density[7], density[12], density[13], density[15], density[16], vb);
+                calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb *= _scale;
@@ -1182,11 +2661,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vb = getClosest(vb);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[3])
+                                {
+                                    vb = _vertexPositionsNextLOD[3];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vb = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[4])
+                                {
+                                    vb = _vertexPositionsNextLOD[4];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[6])
+                                {
+                                    vb = _vertexPositionsNextLOD[6];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vb = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[7])
+                                {
+                                    vb = _vertexPositionsNextLOD[7];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += transformedCubePosition;
                 vc += dirs[4];
                 vc += dirs[0];
@@ -1198,11 +2750,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
                 {
-                    vc = getClosest(vc);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vc = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vc = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vc = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[24])
+                                {
+                                    vc = _vertexPositionsNextLOD[24];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vd);
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
                 vd += transformedCubePosition;
                 vd += dirs[0];
                 vd += dirs[1];
@@ -1215,7 +2840,80 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vd = getClosest(vd);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vd = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vd = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vd = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vd = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vd = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vd = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
@@ -1249,9 +2947,9 @@ namespace Igor
                 addCheckedTriangle(a, c, d, keepTriangles);
             }
 
-            if (density[22] > 0.0f)
+            if (_mixedDensity[22] > 0.0f)
             {
-                calculateVertex(density[10], density[11], density[13], density[14], density[19], density[20], density[22], density[23], va);
+                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[4];
@@ -1263,11 +2961,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    va = getClosest(va);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    va = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    va = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[11])
+                                {
+                                    va = _vertexPositionsNextLOD[11];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[20])
+                                {
+                                    va = _vertexPositionsNextLOD[20];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    va = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    va = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    va = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    va = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[13], density[14], density[16], density[17], density[22], density[23], density[25], density[26], vb);
+                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb += dirs[1];
@@ -1280,11 +3051,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vb = getClosest(vb);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vb = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vb = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[14])
+                                {
+                                    vb = _vertexPositionsNextLOD[14];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[23])
+                                {
+                                    vb = _vertexPositionsNextLOD[23];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vb = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vb = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[17])
+                                {
+                                    vb = _vertexPositionsNextLOD[17];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[26])
+                                {
+                                    vb = _vertexPositionsNextLOD[26];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[12], density[13], density[15], density[16], density[21], density[22], density[24], density[25], vc);
+                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += transformedCubePosition;
                 vc += dirs[4];
                 vc += dirs[0];
@@ -1296,11 +3140,84 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vc = getClosest(vc);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vc = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vc = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vc = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vc = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[15])
+                                {
+                                    vc = _vertexPositionsNextLOD[15];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[24])
+                                {
+                                    vc = _vertexPositionsNextLOD[24];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[16])
+                                {
+                                    vc = _vertexPositionsNextLOD[16];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[25])
+                                {
+                                    vc = _vertexPositionsNextLOD[25];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
-                calculateVertex(density[9], density[10], density[12], density[13], density[18], density[19], density[21], density[22], vd);
+                calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
                 vd += transformedCubePosition;
                 vd += dirs[4];
                 vd *= _scale;
@@ -1311,7 +3228,80 @@ namespace Igor
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
                 {
-                    vd = getClosest(vd);
+                    if ((geometryPosition._z % 2) == 0)
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[9])
+                                {
+                                    vd = _vertexPositionsNextLOD[9];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[18])
+                                {
+                                    vd = _vertexPositionsNextLOD[18];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (geometryPosition._y % 2 == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[10])
+                                {
+                                    vd = _vertexPositionsNextLOD[10];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[19])
+                                {
+                                    vd = _vertexPositionsNextLOD[19];
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if ((geometryPosition._x % 2) == 0)
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[12])
+                                {
+                                    vd = _vertexPositionsNextLOD[12];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[21])
+                                {
+                                    vd = _vertexPositionsNextLOD[21];
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if ((geometryPosition._y % 2) == 0)
+                            {
+                                if (_vertexPositionsNextLODVisible[13])
+                                {
+                                    vd = _vertexPositionsNextLOD[13];
+                                }
+                            }
+                            else
+                            {
+                                if (_vertexPositionsNextLODVisible[22])
+                                {
+                                    vd = _vertexPositionsNextLOD[22];
+                                }
+                            }
+                        }
+                    }
                 }
 #endif
 
@@ -1408,7 +3398,7 @@ namespace Igor
         if (lod > 0)
         {
             float32 value = pow(2, lod - 1) - 0.5;
-            result.set(-value, value * 2, -value);
+            result.set(-value, -value, -value);
         }
 
         return result;
@@ -1525,7 +3515,6 @@ namespace Igor
                 startClimb(currentPosition);
                 climb();
 
-
                 do
                 {
                     climb();
@@ -1548,7 +3537,7 @@ namespace Igor
                         LODs &= ~NEIGHBOR_YPOSITIVE;
                     }
 
-                    generateGeometry(_density, true, LODs);
+                    generateGeometry(true, LODs);
 
                     y++;
                 } while (y < marchingVolume._y);
@@ -1571,3 +3560,4 @@ namespace Igor
         return result;
     }
 }
+

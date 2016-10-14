@@ -105,7 +105,10 @@ namespace Igor
 
         /*! density cache
         */
-        uint8 _density[3*3*3];
+        uint8 _density[3 * 3 * 3];
+
+        uint8 _nextLODDensity[3 * 3 * 3];
+        uint8 _mixedDensity[3 * 3 * 3];
 
         iaVector3I _nextLODVoxelOffset;
 
@@ -149,12 +152,10 @@ namespace Igor
         \param normal out value vertex normal
         */
         bool calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex);
-
-        iaVector3f getClosest(const iaVector3f& in);
-
+        
         void addCheckedTriangle(uint32 a, uint32 b, uint32 c, bool keep);
 
-        void calculateNextLOD(const uint8* density, uint32 neighborLODs);
+        void calculateNextLOD();
 
         iaVector3f _offset;
         iaVector3f _offsetNextLOD;
@@ -163,7 +164,7 @@ namespace Igor
 
         \param keepTriangles if the triangles created are to keep
         */
-		void generateGeometry(const uint8* density, bool keepTriangles, uint32 neighborLODs);
+		void generateGeometry(bool keepTriangles, uint32 neighborLODs);
 
         /*! climbs up the pole
         */
