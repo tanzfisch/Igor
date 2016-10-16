@@ -982,11 +982,13 @@ namespace Igor
             }*/
         }
 
+        bool lookupResult = false;
+
         if (_mixedDensity[13] > 0.0f)
         {
             if (_mixedDensity[14] <= 0.0f)
             {
-                calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
+                lookupResult = calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va *= _scale;
@@ -995,7 +997,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1074,7 +1077,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
+                lookupResult = calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
                 vb += transformedCubePosition;
                 vb += dirs[1];
                 vb += dirs[0];
@@ -1084,7 +1087,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1163,7 +1167,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
+                lookupResult = calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
                 vc += transformedCubePosition;
                 vc += dirs[1];
                 vc += dirs[0];
@@ -1174,7 +1178,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1253,7 +1258,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
+                lookupResult = calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
                 vd += transformedCubePosition;
                 vd += dirs[1];
                 vd += dirs[4];
@@ -1263,7 +1268,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1374,7 +1380,7 @@ namespace Igor
 
             if (_mixedDensity[16] <= 0.0f)
             {
-                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
+                lookupResult = calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[0];
@@ -1384,7 +1390,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1463,7 +1470,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
+                lookupResult = calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb *= _scale;
@@ -1472,7 +1479,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1551,7 +1559,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                lookupResult = calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += transformedCubePosition;
                 vc += dirs[4];
                 vc += dirs[0];
@@ -1561,7 +1569,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1640,7 +1649,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
+                lookupResult = calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
                 vd += transformedCubePosition;
                 vd += dirs[0];
                 vd += dirs[1];
@@ -1651,7 +1660,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1762,7 +1772,7 @@ namespace Igor
 
             if (_mixedDensity[22] <= 0.0f)
             {
-                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
+                lookupResult = calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[4];
@@ -1772,7 +1782,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1851,7 +1862,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
+                lookupResult = calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
                 vb += dirs[0];
                 vb += dirs[1];
                 vb += dirs[4];
@@ -1862,7 +1873,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -1941,7 +1953,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                lookupResult = calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += dirs[4];
                 vc += dirs[0];
                 vc += transformedCubePosition;
@@ -1951,7 +1963,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2030,7 +2043,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
+                lookupResult = calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
                 vd += dirs[4];
                 vd += transformedCubePosition;
                 vd *= _scale;
@@ -2039,7 +2052,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2152,7 +2166,7 @@ namespace Igor
         {
             if (_mixedDensity[14] > 0.0f)
             {
-                calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
+                lookupResult = calculateVertex(_density[1], _density[2], _density[4], _density[5], _density[10], _density[11], _density[13], _density[14], va);
                 va += dirs[1];
                 va += transformedCubePosition;
                 va *= _scale;
@@ -2161,7 +2175,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2240,7 +2255,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
+                lookupResult = calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb += dirs[1];
@@ -2250,7 +2265,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2329,7 +2345,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
+                lookupResult = calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vc);
                 vc += transformedCubePosition;
                 vc += dirs[0];
                 vc += dirs[1];
@@ -2340,7 +2356,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2419,7 +2436,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
+                lookupResult = calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], vd);
                 vd += transformedCubePosition;
                 vd += dirs[1];
                 vd += dirs[4];
@@ -2429,7 +2446,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2505,7 +2523,6 @@ namespace Igor
                             }
                         }
                     }
-
                 }
 #endif
 
@@ -2541,7 +2558,7 @@ namespace Igor
 
             if (_mixedDensity[16] > 0.0f)
             {
-                calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
+                lookupResult = calculateVertex(_density[4], _density[5], _density[7], _density[8], _density[13], _density[14], _density[16], _density[17], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[0];
@@ -2571,7 +2588,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2650,7 +2668,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
+                lookupResult = calculateVertex(_density[3], _density[4], _density[6], _density[7], _density[12], _density[13], _density[15], _density[16], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb *= _scale;
@@ -2659,7 +2677,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2738,7 +2757,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                lookupResult = calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += transformedCubePosition;
                 vc += dirs[4];
                 vc += dirs[0];
@@ -2748,7 +2767,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2827,7 +2847,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
+                lookupResult = calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vd);
                 vd += transformedCubePosition;
                 vd += dirs[0];
                 vd += dirs[1];
@@ -2838,7 +2858,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -2949,7 +2970,7 @@ namespace Igor
 
             if (_mixedDensity[22] > 0.0f)
             {
-                calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
+                lookupResult = calculateVertex(_density[10], _density[11], _density[13], _density[14], _density[19], _density[20], _density[22], _density[23], va);
                 va += transformedCubePosition;
                 va += dirs[1];
                 va += dirs[4];
@@ -2959,7 +2980,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -3038,7 +3060,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
+                lookupResult = calculateVertex(_density[13], _density[14], _density[16], _density[17], _density[22], _density[23], _density[25], _density[26], vb);
                 vb += transformedCubePosition;
                 vb += dirs[0];
                 vb += dirs[1];
@@ -3049,7 +3071,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -3128,7 +3151,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
+                lookupResult = calculateVertex(_density[12], _density[13], _density[15], _density[16], _density[21], _density[22], _density[24], _density[25], vc);
                 vc += transformedCubePosition;
                 vc += dirs[4];
                 vc += dirs[0];
@@ -3138,7 +3161,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
@@ -3217,7 +3241,7 @@ namespace Igor
                 }
 #endif
 
-                calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
+                lookupResult = calculateVertex(_density[9], _density[10], _density[12], _density[13], _density[18], _density[19], _density[21], _density[22], vd);
                 vd += transformedCubePosition;
                 vd += dirs[4];
                 vd *= _scale;
@@ -3226,7 +3250,8 @@ namespace Igor
 #ifdef FILL_LOD_GAPS
                 if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
                     ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0))
+                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                    !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
                     {
