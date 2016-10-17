@@ -295,7 +295,7 @@ void PlantMeshGenerator::generateLeaf(const iaVector3f& dir)
     iaMatrixf scale;
     iaMatrixf current;
 
-    scale.scale(0.9, 0.9, 0.9);
+    scale.scale(0.7, 0.7, 0.7);
 
     const iaVector3f vecs[4] = { { 0,0,0 },{ 1, 0.2f, 0 } ,{ 0.75f, 0.4f, -0.2f },{ 0.75f, 0.4f, 0.2f } };
 

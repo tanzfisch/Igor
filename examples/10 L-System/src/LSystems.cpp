@@ -153,19 +153,26 @@ void LSystems::init()
 
 void LSystems::initStyle1()
 {
-    _lSystem.addRule('F', "FF");
+    _lSystem.setRule('F', "FF");
 
-    vector<iLSystemRule> weightedRule1;
-    weightedRule1.push_back(iLSystemRule(0.25, "F[+X]OF[-X]+X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "FO[-X]F[+X]-X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "F[RX]F[LX]ORX*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "F[LX]FO[RX]LX*"));
-    _lSystem.addRule('X', weightedRule1);
+    vector<pair<float64, iaString>> weightedRule1;
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "F[+X]OF[-X]+X."));
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "FO[-X]F[+X]-X."));
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "F[RX]F[LX]ORX."));
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "F[LX]FO[RX]LX."));
+    _lSystem.setRule('X', weightedRule1);
 
-    vector<iLSystemRule> weightedRule2;
-    weightedRule2.push_back(iLSystemRule(0.7, "*", iAgeFunction::Greater, 2));
-    weightedRule2.push_back(iLSystemRule(0.3, "o"));
-    _lSystem.addRule('*', weightedRule2);
+    vector<pair<float64, iaString>> weightedRule2;
+    weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
+    weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+    _lSystem.setRule('.', weightedRule2);
+    _lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
+
+    vector<pair<float64, iaString>> weightedRule3;
+    weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
+    weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+    _lSystem.setRule('*', weightedRule3);
+    _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
     _segmentLength = 0.25;
     _angle = 0.3;
@@ -177,41 +184,55 @@ void LSystems::initStyle1()
 
 void LSystems::initStyle2()
 {
-    _lSystem.addRule('F', "FF");
+    _lSystem.setRule('F', "FF");
 
-    vector<iLSystemRule> weightedRule1;
-    weightedRule1.push_back(iLSystemRule(0.25, "F-[[X]+X]O+F[+FX]-X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "F+[[X]-X]-F[-FX]O+X*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "FR[[X]LX]LFO[LFX]RX*"));
-    weightedRule1.push_back(iLSystemRule(0.25, "FL[[X]RX]ORF[RFX]LX*"));
-    _lSystem.addRule('X', weightedRule1);
+    vector<pair<float64, iaString>> weightedRule1;
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "F-[[X]+X]O+F[+FX]-X."));
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "F+[[X]-X]-F[-FX]O+X."));
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "FR[[X]LX]LFO[LFX]RX."));
+    weightedRule1.push_back(pair<float64, iaString>(0.25, "FL[[X]RX]ORF[RFX]LX."));
+    _lSystem.setRule('X', weightedRule1);
 
-    vector<iLSystemRule> weightedRule2;
-    weightedRule2.push_back(iLSystemRule(0.7, "*", iAgeFunction::Greater, 2));
-    weightedRule2.push_back(iLSystemRule(0.3, "o"));
-    _lSystem.addRule('*', weightedRule2);
+    vector<pair<float64, iaString>> weightedRule2;
+    weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
+    weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+    _lSystem.setRule('.', weightedRule2);
+    _lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
+
+    vector<pair<float64, iaString>> weightedRule3;
+    weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
+    weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+    _lSystem.setRule('*', weightedRule3);
+    _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
     _segmentLength = 0.25;
     _angle = 0.25;
     _trunkColor.set(0, 0.7, 0);
-    _budColor.set(0.8, 0.0, 0.5);
+    _budColor.set(0.5, 0.5, 0.9);
     _flowerColor.set(1, 0, 1);
     _leafColor.set(0, 0.6, 0);
 }
 
 void LSystems::initStyle3()
 {
-    _lSystem.addRule('F', "FF");
+    _lSystem.setRule('F', "FF");
 
-    vector<iLSystemRule> weightedRule1;
-    weightedRule1.push_back(iLSystemRule(0.5, "F[+X]O[-X]FX*"));
-    weightedRule1.push_back(iLSystemRule(0.5, "F[RX]O[LX]FX*"));
-    _lSystem.addRule('X', weightedRule1);
+    vector<pair<float64, iaString>> weightedRule1;
+    weightedRule1.push_back(pair<float64, iaString>(0.5, "F[+X]O[-X]FX."));
+    weightedRule1.push_back(pair<float64, iaString>(0.5, "F[RX]O[LX]FX."));
+    _lSystem.setRule('X', weightedRule1);
 
-    vector<iLSystemRule> weightedRule2;
-    weightedRule2.push_back(iLSystemRule(0.6, "*", iAgeFunction::Greater, 2));
-    weightedRule2.push_back(iLSystemRule(0.4, "o"));
-    _lSystem.addRule('*', weightedRule2);
+    vector<pair<float64, iaString>> weightedRule2;
+    weightedRule2.push_back(pair<float64, iaString>(0.3, "."));
+    weightedRule2.push_back(pair<float64, iaString>(0.7, "*"));
+    _lSystem.setRule('.', weightedRule2);
+    _lSystem.setAgeFilter('.', iLSystemAgeFunction::Greater, 2);
+
+    vector<pair<float64, iaString>> weightedRule3;
+    weightedRule3.push_back(pair<float64, iaString>(0.3, "*"));
+    weightedRule3.push_back(pair<float64, iaString>(0.7, "o"));
+    _lSystem.setRule('*', weightedRule3);
+    _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
     _segmentLength = 0.25;
     _angle = 0.5;
@@ -325,7 +346,7 @@ void LSystems::generateLSystems()
     {
         iaMatrixf matrix;
         matrix.translate(-15 + i* 5, -15, 0);
-        _plantsInProgress.push_back(generatePlant(matrix, "X", i, seed));
+        _plantsInProgress.push_back(generatePlant(matrix, "X.", i, seed));
     }
 }
 
