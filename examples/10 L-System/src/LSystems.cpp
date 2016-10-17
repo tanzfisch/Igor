@@ -62,7 +62,7 @@ void LSystems::init()
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
 
     // setup perspective view
-    _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1));
+    _view.setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 1));
     _view.setPerspective(45);
     _view.setClipPlanes(0.1f, 10000.f);
     _window.addView(&_view);
