@@ -4,6 +4,9 @@
     <Filter Include="src">
       <UniqueIdentifier>{2a13e08f-281c-4d2a-b742-0903e55efd71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Terrain">
+      <UniqueIdentifier>{fe2a421c-1114-474b-8170-b94ac4fcc266}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp">
@@ -22,15 +25,6 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Player.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\VoxelTerrainGenerator.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Bullet.cpp">
@@ -63,6 +57,15 @@
     <ClCompile Include="..\src\BossDestroyed.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\VoxelTerrainGenerator.cpp">
+      <Filter>src\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp">
+      <Filter>src\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
+      <Filter>src\Terrain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -78,15 +81,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Player.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\TaskGenerateVoxels.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\VoxelTerrainGenerator.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Bullet.h">
@@ -118,6 +112,15 @@
     </ClInclude>
     <ClInclude Include="..\src\BossDestroyed.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VoxelTerrainGenerator.h">
+      <Filter>src\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h">
+      <Filter>src\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskGenerateVoxels.h">
+      <Filter>src\Terrain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

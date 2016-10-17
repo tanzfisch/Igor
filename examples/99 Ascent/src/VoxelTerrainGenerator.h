@@ -105,7 +105,7 @@ private:
 
     /*! tile overlap
     */
-    static constexpr float32 _tileOverlap = 4;
+    static constexpr float32 _tileOverlap = 2;
 
     /*! overlapping of voxel blocks
     */

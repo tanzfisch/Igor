@@ -138,12 +138,12 @@ void Ascent::initScene()
     // reate a sky box and add it to scene
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     skyBoxNode->setTextures(
-        "skybox_stars/front.jpg",
-        "skybox_stars/back.jpg",
-        "skybox_stars/left.jpg",
-        "skybox_stars/right.jpg",
-        "skybox_stars/top.jpg",
-        "skybox_stars/bottom.jpg");
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/front.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/back.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/left.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/right.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/top.jpg"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_stars/bottom.jpg"));
     skyBoxNode->setTextureScale(1);
     // create a sky box material
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
