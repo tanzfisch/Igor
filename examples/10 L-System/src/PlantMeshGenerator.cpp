@@ -43,8 +43,8 @@ iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInp
 
     _rand.setSeed(plantInformation->_seed);
     iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations, _rand.getNext());
-    generateSkeleton(sentence);
 
+    generateSkeleton(sentence);
     generateMesh(_skeleton.getRootJoint());
 
     iNodeMesh* meshNodeTrunk = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
