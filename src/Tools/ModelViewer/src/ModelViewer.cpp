@@ -162,12 +162,12 @@ void ModelViewer::init(iaString fileName)
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     skyBoxNode->setName("sky box");
     skyBoxNode->setTextures(
-        "skybox_default/front.png",
-        "skybox_default/back.png",
-        "skybox_default/left.png",
-        "skybox_default/right.png",
-        "skybox_default/top.png",
-        "skybox_default/bottom.png");
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
     skyBoxNode->setTextureScale(10);
     skyBoxNode->setMaterial(_materialSkyBox);
     _scene->getRoot()->insertNode(skyBoxNode);
