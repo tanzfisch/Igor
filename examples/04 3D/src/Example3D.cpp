@@ -218,12 +218,12 @@ void Example3D::init()
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     // set it up with the default skybox texture
     skyBoxNode->setTextures(
-        "skybox_default/front.png",
-        "skybox_default/back.png",
-        "skybox_default/left.png",
-        "skybox_default/right.png",
-        "skybox_default/top.png",
-        "skybox_default/bottom.png");
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
+        iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
     // manipulate the texture scale so we can see the repeating pattern of the textures
     skyBoxNode->setTextureScale(10);
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
