@@ -18,7 +18,6 @@ using namespace IgorAux;
 #define NEIGHBOR_ZNEGATIVE 0x01
 
 #define FILL_LOD_GAPS
-#define CALC_NORMALS
 //#define DEV_CUBIFY
 
 namespace Igor
@@ -1353,7 +1352,6 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
-#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -1367,12 +1365,6 @@ namespace Igor
                 _meshBuilder.accumulateNormal(a, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(d, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
 
                 addCheckedTriangle(c, b, a, keepTriangles);
                 addCheckedTriangle(d, c, a, keepTriangles);
@@ -1745,7 +1737,6 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
-#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -1759,12 +1750,6 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
 
                 addCheckedTriangle(c, b, a, keepTriangles);
                 addCheckedTriangle(d, c, a, keepTriangles);
@@ -2137,7 +2122,6 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
-#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -2151,12 +2135,6 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
 
                 addCheckedTriangle(c, b, a, keepTriangles);
                 addCheckedTriangle(d, c, a, keepTriangles);
@@ -2531,7 +2509,6 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
-#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -2545,12 +2522,6 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
 
                 addCheckedTriangle(a, b, c, keepTriangles);
                 addCheckedTriangle(a, c, d, keepTriangles);
@@ -2943,7 +2914,6 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
-#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -2957,12 +2927,6 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
 
                 addCheckedTriangle(a, b, c, keepTriangles);
                 addCheckedTriangle(a, c, d, keepTriangles);
@@ -3335,7 +3299,6 @@ namespace Igor
                 c = _meshBuilder.addVertex(vc);
                 d = _meshBuilder.addVertex(vd);
 
-#ifdef CALC_NORMALS
                 ab = vb; ab -= va;
                 ac = vc; ac -= va;
                 ad = vd; ad -= va;
@@ -3349,12 +3312,6 @@ namespace Igor
                 _meshBuilder.accumulateNormal(d, normalB);
                 _meshBuilder.accumulateNormal(c, normalB);
                 _meshBuilder.accumulateNormal(a, normalB);
-#else
-                _meshBuilder.setNormal(a);
-                _meshBuilder.setNormal(b);
-                _meshBuilder.setNormal(c);
-                _meshBuilder.setNormal(d);
-#endif
 
                 addCheckedTriangle(a, b, c, keepTriangles);
                 addCheckedTriangle(a, c, d, keepTriangles);
@@ -3571,9 +3528,7 @@ namespace Igor
 
         if (_meshBuilder.getTrianglesCount() != 0)
         {
-#ifdef CALC_NORMALS
             _meshBuilder.normalizeNormals();
-#endif
 
             for (auto iter : _trianglesToKeep)
             {
