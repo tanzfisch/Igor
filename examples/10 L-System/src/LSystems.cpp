@@ -346,7 +346,7 @@ void LSystems::generateLSystems()
     {
         iaMatrixf matrix;
         matrix.translate(-15 + i* 5, -15, 0);
-        _plantsInProgress.push_back(generatePlant(matrix, "X.", i, seed));
+        _plantsInProgress.push_back(generatePlant(matrix, "X", i, seed));
     }
 }
 
