@@ -103,7 +103,7 @@ namespace Igor
         \param top top texture
         \param bottom bottom texture
         */
-        void setTextures(iaString front, iaString back, iaString left, iaString right, iaString top, iaString bottom);
+        void setTextures(shared_ptr<iTexture> front, shared_ptr<iTexture> back, shared_ptr<iTexture> left, shared_ptr<iTexture> right, shared_ptr<iTexture> top, shared_ptr<iTexture> bottom);
 
         /*! sets the sky box size
 
