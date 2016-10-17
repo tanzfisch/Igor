@@ -36,14 +36,15 @@
 using namespace IgorAux;
 
 #include <map>
+#include <vector>
 using namespace std;
 
 namespace Igor
 {
 
-    /*! age function that defines of a rule is true depending on age of the l-system
+    /*! age function that defines if a rule is true depending on age of the l-system
     */
-    enum class iAgeFunction
+    enum class iLSystemAgeFunction
     {
         Less,
         LessOrEqual,
@@ -53,33 +54,19 @@ namespace Igor
         None
     };
 
-    /*! l-system rule
-    */
-    struct Igor_API iLSystemRule
-    {
-        float64 _likelihood = 1.0;
-        iaString _output;
-        iAgeFunction _ageFunction = iAgeFunction::None;
-        int32 _ageFilter = 0;
-
-        iLSystemRule()
-        {
-
-        }
-
-        iLSystemRule(float64 likelihood, iaString output, iAgeFunction ageFunction = iAgeFunction::None, int32 ageFilter = 0)
-        {
-            _likelihood = likelihood;
-            _output = output;
-            _ageFunction = ageFunction;
-            _ageFilter = ageFilter;
-        }
-    };
-
     /*! string based L-System implementation
     */
     class Igor_API iLSystem
     {
+
+        /*! l-system rule
+        */
+        struct iLSystemRule
+        {
+            vector<pair<float64, iaString>> _output;
+            iLSystemAgeFunction _ageFunction = iLSystemAgeFunction::None;
+            int32 _ageFilter = 0;
+        };
 
     public:
         
@@ -103,32 +90,30 @@ namespace Igor
         /*! adds a rule to replace a character with a string
 
         \param input the input character
-        \param rule the output rule
-        */
-        void addRule(wchar_t input, iLSystemRule rule);
-
-        /*! adds a rule to replace a character with a string
-
-        \param input the input character
         \param output the output string for that rule
         */
-        void addRule(wchar_t input, iaString output);
-
-        /*! adds a rule to replace a character with a string
-
-        \param input the input character
-        \param output the output string for that rule
-        \param ageFunction the age function definition
-        \param ageFilter the age filter threashold
-        */
-        void addRule(wchar_t input, iaString output, iAgeFunction ageFunction, int32 ageFilter);
+        void setRule(wchar_t input, iaString output);
 
         /*! adds a rule to replace a character with a couple string
 
         \param input the input character
         \param rules weighted rules
         */
-        void addRule(wchar_t input, vector<iLSystemRule> rules);
+        void setRule(wchar_t input, vector<pair<float64, iaString>> output);
+
+        /*! clears rule for specified input character
+
+        \param input the input character
+        */
+        void clearRule(wchar_t input);
+
+        /*! sets age filter for specified rule
+        
+        \param input the input character
+        \param ageFunction the age function definition
+        \param ageFilter the age filter threashold
+        */
+        void setAgeFilter(wchar_t input, iLSystemAgeFunction ageFunction, int32 ageFilter);
 
         /*! clears all data
         */
@@ -138,7 +123,7 @@ namespace Igor
 
         /*! the saved replacement rules
         */
-        map<wchar_t, vector<iLSystemRule>> _rules;
+        map<wchar_t, iLSystemRule> _rules;
 
         /*! random number generator
         */

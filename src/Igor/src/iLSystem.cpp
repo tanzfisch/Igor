@@ -7,37 +7,43 @@
 namespace Igor
 {
 
-    void iLSystem::addRule(wchar_t input, iLSystemRule rule)
+    void iLSystem::setRule(wchar_t input, iaString output)
     {
-        vector<iLSystemRule> ruleWeighting;
-        ruleWeighting.push_back(rule);
-        addRule(input, ruleWeighting);
+        iLSystemRule rule;
+        rule._output.push_back(pair<float64, iaString>(1.0, output));
+
+        _rules[input] = rule;
     }
 
-    void iLSystem::addRule(wchar_t input, iaString output)
+    void iLSystem::clearRule(wchar_t input)
+    {
+        auto iter = _rules.find(input);
+        if (iter != _rules.end())
+        {
+            _rules.erase(iter);
+        }
+    }
+
+    void iLSystem::clear()
+    {
+        _rules.clear();
+    }
+
+    void iLSystem::setRule(wchar_t input, vector<pair<float64, iaString>> output)
     {
         iLSystemRule rule;
         rule._output = output;
-        vector<iLSystemRule> ruleWeighting;
-        ruleWeighting.push_back(rule);
-        addRule(input, ruleWeighting);
+        _rules[input] = rule;
     }
 
-    void iLSystem::addRule(wchar_t input, iaString output, iAgeFunction ageFunction, int32 ageFilter)
+    void iLSystem::setAgeFilter(wchar_t input, iLSystemAgeFunction ageFunction, int32 ageFilter)
     {
-        iLSystemRule rule;
-        rule._output = output;
-        rule._ageFunction = ageFunction;
-        rule._ageFilter = ageFilter;
-        vector<iLSystemRule> ruleWeighting;
-        ruleWeighting.push_back(rule);
-        addRule(input, ruleWeighting);
-    }
-
-    void iLSystem::addRule(wchar_t input, vector<iLSystemRule> rules)
-    {
-        // TODO check weighting
-        _rules[input] = rules;
+        auto iter = _rules.find(input);
+        if (iter != _rules.end())
+        {
+            (*iter).second._ageFilter = ageFilter;
+            (*iter).second._ageFunction = ageFunction;
+        }
     }
 
     iaString iLSystem::generate(iaString in, int32 iterations, uint32 seed)
@@ -46,9 +52,9 @@ namespace Igor
 
         iaString sentence = in;
         
-        for (int age = 0; age < iterations; ++age)
+        for (int i = 0; i < iterations; ++i)
         {
-            sentence = generateIteration(sentence, age);
+            sentence = generateIteration(sentence, i);
         }
 
         return sentence;
@@ -63,43 +69,43 @@ namespace Igor
             bool skiped = true;
 
             auto iter = _rules.find(sentence[c]);
-            if (iter != _rules.end() && (*iter).second.size() > 0)
+            if (iter != _rules.end())
             {
                 bool validAge = true;
-                if ((*iter).second[0]._ageFunction != iAgeFunction::None)
+                if ((*iter).second._ageFunction != iLSystemAgeFunction::None)
                 {
-                    switch ((*iter).second[0]._ageFunction)
+                    switch ((*iter).second._ageFunction)
                     {
-                    case iAgeFunction::Less:
-                        if (age >= (*iter).second[0]._ageFilter)
+                    case iLSystemAgeFunction::Less:
+                        if (age >= (*iter).second._ageFilter - 1)
                         {
                             validAge = false;
                         }
                         break;
 
-                    case iAgeFunction::LessOrEqual:
-                        if (age > (*iter).second[0]._ageFilter)
+                    case iLSystemAgeFunction::LessOrEqual:
+                        if (age > (*iter).second._ageFilter - 1)
                         {
                             validAge = false;
                         }
                         break;
 
-                    case iAgeFunction::Equal:
-                        if (age != (*iter).second[0]._ageFilter)
+                    case iLSystemAgeFunction::Equal:
+                        if (age != (*iter).second._ageFilter - 1)
                         {
                             validAge = false;
                         }
                         break;
 
-                    case iAgeFunction::GreaterOrEqual:
-                        if (age < (*iter).second[0]._ageFilter)
+                    case iLSystemAgeFunction::GreaterOrEqual:
+                        if (age < (*iter).second._ageFilter - 1)
                         {
                             validAge = false;
                         }
                         break;
 
-                    case iAgeFunction::Greater:
-                        if (age <= (*iter).second[0]._ageFilter)
+                    case iLSystemAgeFunction::Greater:
+                        if (age <= (*iter).second._ageFilter - 1)
                         {
                             validAge = false;
                         }
@@ -109,16 +115,16 @@ namespace Igor
 
                 if (validAge)
                 {
-                    if ((*iter).second.size() > 1)
+                    if ((*iter).second._output.size() > 1)
                     {
                         float32 value = _rand.getNext() % 100 / 100.0f;
                         float32 threashold = 0.0f;
-                        for (auto iter : (*iter).second)
+                        for (auto iter : (*iter).second._output)
                         {
-                            threashold += iter._likelihood;
+                            threashold += iter.first;
                             if (value < threashold)
                             {
-                                result += iter._output;
+                                result += iter.second;
                                 break;
                             }
                         }
@@ -127,7 +133,7 @@ namespace Igor
                     }
                     else
                     {
-                        result += (*iter).second[0]._output;
+                        result += (*iter).second._output[0].second;
 
                         skiped = false;
                     }
@@ -141,10 +147,5 @@ namespace Igor
         }
 
         return result;
-    }
-
-    void iLSystem::clear()
-    {
-        _rules.clear();
     }
 }
