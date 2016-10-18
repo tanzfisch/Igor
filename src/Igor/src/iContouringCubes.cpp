@@ -658,6 +658,7 @@ namespace Igor
 
         memcpy(_mixedDensity, _density, 27);
 
+#ifdef FILL_LOD_GAPS
         if (neighborLODs != 0 &&
             _voxelDataNextLOD != nullptr)
         {
@@ -980,6 +981,7 @@ namespace Igor
                 }
             }*/
         }
+#endif
 
         bool lookupResult = false;
 
