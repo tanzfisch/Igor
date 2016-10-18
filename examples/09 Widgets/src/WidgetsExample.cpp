@@ -124,6 +124,7 @@ void WidgetsExample::initGUI()
     _allWidgets.push_back(grid4);
     grid4->appendCollumns(3);
     grid4->setStrechColumn(1);
+    grid4->setStrechRow(0);
     grid4->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Strech);
     grid4->setSelectMode(iSelectionMode::NoSelection);
