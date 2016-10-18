@@ -139,12 +139,17 @@ void UserControlGraphView::initGUI()
 
     iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
     _allWidgets.push_back(scroll);
-    scroll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     scroll->setVerticalAlignment(iVerticalAlignment::Strech);
+    // TODO WORKAROUND use strech here. but there is a bug that generated the wrong width so we set ist fix to 335
+    // also the vertical strech does not work here
+    scroll->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    scroll->setWidth(335);
+    // end WORKAROUND
 
     _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_gridGraph);
     _gridGraph->setBorder(0);
+    _gridGraph->setWidth(300);
     _gridGraph->setSelectMode(iSelectionMode::Row);
     _gridGraph->setCellSpacing(0);
     _gridGraph->setHorrizontalAlignment(iHorrizontalAlignment::Left);
@@ -279,6 +284,7 @@ void UserControlGraphView::OnContextMenu(iWidget* widget)
 
 void UserControlGraphView::OnContextMenuClose(int32 value)
 {
+    // TODO ???
     const int32 cutID = 0;
     const int32 copyID = 1;
     const int32 pasteID = 2;
@@ -391,7 +397,7 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
         entry->setCellSpacing(2);
         entry->appendCollumns(2);
         entry->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-        entry->setWidth(340);
+        entry->setWidth(330);
         uint32* userData = new uint32();
         _userData.push_back(userData);
         *userData = node->getID();
