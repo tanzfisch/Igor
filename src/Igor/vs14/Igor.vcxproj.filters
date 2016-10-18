@@ -1345,9 +1345,6 @@
     <ClInclude Include="..\src\iContouringCubesLookup.h">
       <Filter>graphics\generation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iWidgetTextEdit.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iBone.h">
       <Filter>graphics\types\bones</Filter>
     </ClInclude>
@@ -1362,6 +1359,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iNodeWater.h">
       <Filter>scene\nodes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetTextEdit.h">
+      <Filter>GUI\widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -95,7 +95,7 @@ namespace Igor
 		_verticalTextAlignment = valign;
 	}
 
-	void iWidgetTextEdit::draw(int32 parentPosX, int32 parentPosY)
+	void iWidgetTextEdit::draw()
 	{
 		if (isVisible())
 		{
