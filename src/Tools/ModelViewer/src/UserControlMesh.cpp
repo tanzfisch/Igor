@@ -276,6 +276,7 @@ void UserControlMesh::initGUI()
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
     _grid->appendRows(7);
+    _grid->setWidth(330);
     _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -384,6 +385,7 @@ void UserControlMesh::initGUI()
     _allWidgets.push_back(gridTextures);
     gridTextures->appendRows(3);
     gridTextures->appendCollumns(2);
+    gridTextures->setWidth(330);
     gridTextures->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -413,36 +415,36 @@ void UserControlMesh::initGUI()
 
     _textTexture0 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture0);
-    _textTexture0->setWidth(200);
+    _textTexture0->setWidth(180);
     _textTexture0->setMaxTextLength(200);
-    _textTexture0->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture0->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _textTexture0->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture0->setText("");
     _textTexture0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     _textTexture1 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture1);
-    _textTexture1->setWidth(200);
+    _textTexture1->setWidth(180);
     _textTexture1->setMaxTextLength(200);
-    _textTexture1->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _textTexture1->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture1->setText("");
     _textTexture1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     _textTexture2 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture2);
-    _textTexture2->setWidth(200);
+    _textTexture2->setWidth(180);
     _textTexture2->setMaxTextLength(200);
-    _textTexture2->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _textTexture2->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture2->setText("");
     _textTexture2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     _textTexture3 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTexture3);
-    _textTexture3->setWidth(200);
+    _textTexture3->setWidth(180);
     _textTexture3->setMaxTextLength(200);
-    _textTexture3->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _textTexture3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     _textTexture3->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
     _textTexture3->setText("");
     _textTexture3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
