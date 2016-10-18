@@ -109,6 +109,7 @@ namespace Igor
         {
             _collapsedGrid->setActive(false);
             _expandedGrid->setActive(true);
+            _expandedGrid->setVisible(true);
             _grid->addWidget(_expandedGrid, 0, 1);
             _expandButton->setTexture("icons\\minus.png");
         }
@@ -116,6 +117,7 @@ namespace Igor
         {
             _expandedGrid->setActive(false);
             _collapsedGrid->setActive(true);
+            _collapsedGrid->setVisible(true);
             _grid->addWidget(_collapsedGrid, 0, 1);
             _expandButton->setTexture("icons\\plus.png");
         }
