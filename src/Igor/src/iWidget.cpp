@@ -44,7 +44,6 @@ namespace Igor
 			{
 				_children.push_back(widget);
 				widget->_parent = this;
-				//widget->update();
 			}
 			else
 			{
@@ -67,7 +66,6 @@ namespace Igor
 				widget->setActive(false);
 				widget->setVisible(false);
 				_children.erase(iter);
-				//update();
 			}
 			else
 			{
