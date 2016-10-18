@@ -150,6 +150,10 @@ namespace Igor
         iWidgetNumberChooser* _valueChooserG = nullptr;
         iWidgetNumberChooser* _valueChooserB = nullptr;
         iWidgetNumberChooser* _valueChooserA = nullptr;
+        iWidgetNumberChooser* _valueChooserRExpanded = nullptr;
+        iWidgetNumberChooser* _valueChooserGExpanded = nullptr;
+        iWidgetNumberChooser* _valueChooserBExpanded = nullptr;
+        iWidgetNumberChooser* _valueChooserAExpanded = nullptr;
 
         iWidgetLabel* _labelH = nullptr;
         iWidgetLabel* _labelS = nullptr;
@@ -177,6 +181,11 @@ namespace Igor
         void onTextChangedG(iWidget* source);
         void onTextChangedB(iWidget* source);
         void onTextChangedA(iWidget* source);
+
+        void onTextChangedRExpanded(iWidget* source);
+        void onTextChangedGExpanded(iWidget* source);
+        void onTextChangedBExpanded(iWidget* source);
+        void onTextChangedAExpanded(iWidget* source);
 
         void onSliderChangedH(iWidget* source);
         void onSliderChangedS(iWidget* source);
