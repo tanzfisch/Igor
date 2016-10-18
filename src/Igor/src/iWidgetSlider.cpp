@@ -58,7 +58,6 @@ namespace Igor
 		{
 			_value = value;
 			cullBoundings();
-			_change(this);
 		}
     }
 
@@ -73,8 +72,6 @@ namespace Igor
         {
             _texturePath = texturePath;
             _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
-
-            //update();
         }
     }
 
@@ -97,8 +94,6 @@ namespace Igor
 		{
 			_value += value;
 			cullBoundings();
-
-			_change(this);
 		}
     }
 
@@ -108,8 +103,6 @@ namespace Igor
 		{
 			_value -= value;
 			cullBoundings();
-
-			_change(this);
 		}
     }
 
