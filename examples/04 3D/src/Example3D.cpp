@@ -172,20 +172,20 @@ void Example3D::init()
     switchNode->setActiveChild("crate transform");
 
     // now we basically do the same again. creating three models and tree transform nodes but this time we add them not to a switch node but to an level of detail node
-    // the cat as LOD0
+    // the teapot as LOD0
     iNodeTransform* lod0Transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     lod0Transform->setName("lod0 transform");
     lod0Transform->translate(-1, -1, 0);
+    lod0Transform->scale(0.33, 0.33, 0.33);
     iNodeModel* lod0Model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    lod0Model->setModel("cat.ompf");
+    lod0Model->setModel("teapot.ompf");
     lod0Transform->insertNode(lod0Model);
-    // the teapot as LOD1
+    // the cat as LOD1
     iNodeTransform* lod1Transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     lod1Transform->setName("lod1 transform");
     lod1Transform->translate(-1, -1, 0);
-    lod1Transform->scale(0.33, 0.33, 0.33);
     iNodeModel* lod1Model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    lod1Model->setModel("teapot.ompf");
+    lod1Model->setModel("cat.ompf");
     lod1Transform->insertNode(lod1Model);
     // the create as LOD2
     iNodeTransform* lod2Transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -255,9 +255,16 @@ void Example3D::init()
     directionalLightRotate->insertNode(directionalLightTranslate);
     directionalLightTranslate->insertNode(lightNode);
 
-    // init render statistics
+    // init font for render statistics
     _font = new iTextureFont("StandardFont.png");
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+
+    // load texture for igor logo
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
+    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     // animation
     _animationTimingHandle = new iTimerHandle();
@@ -443,11 +450,32 @@ void Example3D::onTimer()
 
 void Example3D::onRenderOrtho()
 {
-    if (_font != nullptr)
-    {
-        iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1, 1, 1, 1));
-    }
+    iaMatrixf viewMatrix;
+    iRenderer::getInstance().setViewMatrix(viewMatrix);
+
+    iaMatrixf modelMatrix;
+    modelMatrix.translate(0,0,-30);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
+
+    drawLogo();
+
+    // draw frame rate in lower right corner
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
+
+void Example3D::drawLogo()
+{
+    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    float32 width = _igorLogo->getWidth() * 0.6;
+    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 x = _window.getClientWidth() - width;
+    float32 y = _window.getClientHeight() - height;
+
+    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
+}
+
 
 void Example3D::run()
 {

@@ -35,6 +35,7 @@
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
 #include <iKeyCodeMap.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -145,7 +146,15 @@ private:
 
     /*! material definition for the sky box
     */
-    int32 _materialSkyBox = 0;
+    uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! material for igor logo
+    */
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! igor logo
+    */
+    shared_ptr<iTexture> _igorLogo = nullptr;
 
     /*! called on key pressed event
 
@@ -183,6 +192,10 @@ private:
     /*! called by orthogonal view
     */
     void onRenderOrtho();
+
+    /*! draw igor logo
+    */
+    void drawLogo();
 
     /*! called by timer
     */
