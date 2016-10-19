@@ -24,6 +24,7 @@ using namespace IgorAux;
 #include <iWidgetSelectBox.h>
 #include <iDialogMessageBox.h>
 #include <iWidgetDefaultTheme.h>
+#include <iWidgetSpacer.h>
 using namespace Igor;
 
 WidgetsExample::WidgetsExample()
@@ -75,14 +76,24 @@ void WidgetsExample::initGUI()
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    iWidgetDialog* dialog = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createWidget(iWidgetType::Dialog));
+    iWidgetDialog* dialog1 = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createWidget(iWidgetType::Dialog));
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
-    _allWidgets.push_back(dialog);
-    dialog->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    dialog->setVerticalAlignment(iVerticalAlignment::Center);
-    dialog->setHeight(200);
-    dialog->setActive();
-    dialog->setVisible();
+    _allWidgets.push_back(dialog1);
+    dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    dialog1->setVerticalAlignment(iVerticalAlignment::Absolut);
+    dialog1->setHeight(300);
+    dialog1->setY(40);
+    dialog1->setActive();
+    dialog1->setVisible();
+
+    iWidgetDialog* dialog2 = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createWidget(iWidgetType::Dialog));
+    // put all widgets in one list for easier later cleanup. this method might not always be suitable
+    _allWidgets.push_back(dialog2);
+    dialog2->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    dialog2->setVerticalAlignment(iVerticalAlignment::Bottom);
+    dialog2->setHeight(150);
+    dialog2->setActive();
+    dialog2->setVisible();
 
     iWidgetGrid* grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid1);
@@ -95,20 +106,31 @@ void WidgetsExample::initGUI()
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
-    iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
-    _allWidgets.push_back(groupBox);
-    groupBox->setText("Hello World. This is a group box!");
-    groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
-    groupBox->setHeight(30);
+    iWidgetGroupBox* groupBox1 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    _allWidgets.push_back(groupBox1);
+    groupBox1->setText("Hello World. This is a group box!");
+    groupBox1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
 
+    iWidgetGroupBox* groupBox2 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    _allWidgets.push_back(groupBox2);
+    groupBox2->setText("An other group box");
+    groupBox2->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    groupBox2->setVerticalAlignment(iVerticalAlignment::Strech);
+    
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget 
     // shows vertical and or horizontal sliders and allows to scroll the child.
-    iWidgetScroll* widgetScoll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
-    _allWidgets.push_back(widgetScoll);
-    widgetScoll->setHeight(100);
-    widgetScoll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    widgetScoll->setVerticalAlignment(iVerticalAlignment::Strech);
+    iWidgetScroll* widgetScoll1 = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
+    _allWidgets.push_back(widgetScoll1);
+    widgetScoll1->setHeight(100);
+    widgetScoll1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    widgetScoll1->setVerticalAlignment(iVerticalAlignment::Strech);
+
+    iWidgetScroll* widgetScoll2 = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
+    _allWidgets.push_back(widgetScoll2);
+    widgetScoll2->setWidth(100);
+    widgetScoll2->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    widgetScoll2->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGrid* grid3 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid3);
@@ -122,12 +144,20 @@ void WidgetsExample::initGUI()
 
     iWidgetGrid* grid4 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid4);
-    grid4->appendCollumns(3);
-    grid4->setStrechColumn(1);
-    grid4->setStrechRow(0);
+    grid4->appendRows(1);
+    grid4->setStrechColumn(0);
+    grid4->setStrechRow(1);
     grid4->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Strech);
     grid4->setSelectMode(iSelectionMode::NoSelection);
+
+    iWidgetGrid* grid5 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(grid5);
+    grid5->appendCollumns(2);
+    grid5->setStrechColumn(2);
+    grid5->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    grid5->setVerticalAlignment(iVerticalAlignment::Top);
+    grid5->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetLabel* label1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(label1);
@@ -163,6 +193,10 @@ void WidgetsExample::initGUI()
     button1->setText("Open Message Box");
     button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onMessageBox));
 
+    iWidgetSpacer* spacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
+    spacer->setHeight(30);
+    spacer->setWidth(2); 
+
     _labelMousePos = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelMousePos);
 
@@ -196,12 +230,19 @@ void WidgetsExample::initGUI()
     textEdit->setText("bla");
     textEdit->setMaxTextLength(20);
 
-    iWidgetPicture* picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
-    _allWidgets.push_back(picture);
-    picture->setTexture("OpenGL-Logo.jpg");
-    picture->setMaxSize(200, 64);
-    picture->setVerticalAlignment(iVerticalAlignment::Top);
-    picture->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    iWidgetPicture* picture1 = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
+    _allWidgets.push_back(picture1);
+    picture1->setTexture("OpenGL-Logo.jpg");
+    picture1->setMaxSize(200, 64);
+    picture1->setVerticalAlignment(iVerticalAlignment::Top);
+    picture1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    iWidgetPicture* picture2 = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
+    _allWidgets.push_back(picture2);
+    picture2->setTexture("Igor.png");
+    picture2->setMaxSize(450, 150);
+    picture2->setVerticalAlignment(iVerticalAlignment::Top);
+    picture2->setHorrizontalAlignment(iHorrizontalAlignment::Right);
 
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();
@@ -223,18 +264,25 @@ void WidgetsExample::initGUI()
     iWidgetCheckBox::endRadioButtonGroup();
 
     // assemble all the widgets with their parents
-    dialog->addWidget(grid1);
+    dialog1->addWidget(grid1);
 
-    grid1->addWidget(groupBox, 0, 0);
+    grid1->addWidget(groupBox1, 0, 0);
 
-    groupBox->addWidget(grid4);
+    groupBox1->addWidget(grid4);
 
-    grid4->addWidget(button2, 0, 0);
-    grid4->addWidget(picture, 3, 0);
+    grid4->addWidget(grid5, 0, 0);
+    grid4->addWidget(groupBox2, 0, 1);
 
-    grid1->addWidget(widgetScoll, 0, 1);
+    grid5->addWidget(button2, 0, 0);
+    grid5->addWidget(spacer, 1, 0);
+    grid5->addWidget(picture1, 2, 0);
+    
 
-    widgetScoll->addWidget(grid3);
+    groupBox2->addWidget(widgetScoll2);
+    //widgetScoll2->addWidget(picture2);
+
+    grid1->addWidget(widgetScoll1, 0, 1);
+    widgetScoll1->addWidget(grid3);
 
     grid3->addWidget(label1, 0, 0);
     grid3->addWidget(_labelMousePos, 1, 0);
@@ -249,6 +297,8 @@ void WidgetsExample::initGUI()
     grid3->addWidget(radio1, 0, 4);
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
+
+    dialog2->addWidget(picture2);
 }
 
 void WidgetsExample::deinit()
