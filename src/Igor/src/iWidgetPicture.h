@@ -79,11 +79,25 @@ namespace Igor
         */
         int32 getMaxHeight();
 
+        /*! sets if the aspect ratio of the picture must be kept
+
+        \paran keep if true the aspect ratio must be kept
+        */
+        void setKeepAspectRatio(bool keep = true);
+
+        /*! \returns true if aspect ratio will be kept
+        */
+        bool getKeepAspectRatio() const;
+
 	private:
 
         /*! texture path
         */
         iaString _texturePath;
+
+        /*! flag if the aspect ratio must be kept when resized
+        */
+        bool _keepAspectRatio = true;
 
         /*! shared pointer to texture
         */

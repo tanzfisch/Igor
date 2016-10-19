@@ -48,6 +48,7 @@ namespace Igor
     {
         int32 minWidth = 0;
         int32 minHeight = 0;
+        
 
         if (isGrowingByContent())
         {
@@ -60,15 +61,37 @@ namespace Igor
 
         setMinSize(minWidth, minHeight);
 
+        float32 aspect = static_cast<float32>(minHeight) / static_cast<float32>(minWidth);
+
         if (_minWidth > _maxWidth)
         {
             _minWidth = _maxWidth;
+
+            if (_keepAspectRatio)
+            {
+                _minHeight = static_cast<float32>(_minWidth) * aspect;
+            }
         }
 
         if (_minHeight > _maxHeight)
         {
             _minHeight = _maxHeight;
+
+            if (_keepAspectRatio)
+            {
+                _minWidth = static_cast<float32>(_minHeight) * (1.0 / aspect);
+            }
         }
+    }
+
+    void iWidgetPicture::setKeepAspectRatio(bool keep)
+    {
+        _keepAspectRatio = keep;
+    }
+
+    bool iWidgetPicture::getKeepAspectRatio() const
+    {
+        return _keepAspectRatio;
     }
 
     void iWidgetPicture::draw()
