@@ -225,7 +225,15 @@ void PhysicsExample::init()
     skyBoxNode->setMaterial(_materialSkyBox);
 	_scene->getRoot()->insertNode(skyBoxNode);
 
+    // load font for statistics
     _font = new iTextureFont("StandardFont.png");
+
+    // prepare igor logo
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
+    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     
 	// light
     _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -239,11 +247,6 @@ void PhysicsExample::init()
     
     _directionalLightTranslate->insertNode(_lightNode);
     _scene->getRoot()->insertNode(_directionalLightRotate);
-
-    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
     _modelViewOrtho.translate(iaVector3f(0, 0, -30));
 
@@ -331,7 +334,30 @@ void PhysicsExample::handle()
 
 void PhysicsExample::renderOrtho()
 {
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1, 1, 1, 1));
+    iaMatrixf viewMatrix;
+    iRenderer::getInstance().setViewMatrix(viewMatrix);
+
+    iaMatrixf modelMatrix;
+    modelMatrix.translate(0, 0, -30);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
+
+    drawLogo();
+
+    // draw frame rate in lower right corner
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+}
+
+void PhysicsExample::drawLogo()
+{
+    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    float32 width = _igorLogo->getWidth() * 0.6;
+    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 x = _window.getClientWidth() - width;
+    float32 y = _window.getClientHeight() - height;
+
+    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
 void PhysicsExample::run()

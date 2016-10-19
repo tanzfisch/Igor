@@ -35,6 +35,7 @@
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -51,6 +52,7 @@ namespace Igor
     class iTaskFlushTextures;
     class iPhysicsBody;
     class iPhysicsJoint;
+    class iTexture;
 }
 
 class PhysicsExample
@@ -78,13 +80,20 @@ private:
 
 	TimerDelegate _timerDelegate;
 
-    uint32 _materialWithTextureAndBlending = 0;
     uint32 _octreeMaterial = 0;
 
     float32 _camPitch = -0.4;
     float32 _camHeading = 0.2;
 
 	int32 _materialSkyBox = 0;
+
+    /*! material for igor logo
+    */
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! igor logo
+    */
+    shared_ptr<iTexture> _igorLogo = nullptr;
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);
 
@@ -96,8 +105,18 @@ private:
     void init();
 
     void updateCameraPosition();
+
+    /*! 
+    */
 	void handle();
+
+    /*! renders orthogonal stuff
+    */
     void renderOrtho();
+
+    /*! renders igor logo
+    */
+    void drawLogo();
 
 public:
 
