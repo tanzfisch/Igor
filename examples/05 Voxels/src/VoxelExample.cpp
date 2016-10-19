@@ -227,7 +227,7 @@ void VoxelExample::initScene()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
     // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png",iTextureBuildMode::Normal);
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -458,8 +458,8 @@ void VoxelExample::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth() * 0.6;
-    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 width = _igorLogo->getWidth();
+    float32 height = _igorLogo->getHeight();
     float32 x = _window.getClientWidth() - width;
     float32 y = _window.getClientHeight() - height;
 

@@ -56,7 +56,7 @@ void LSystems::init()
     
     // setup window
     _window.setTitle("Igor - LSystems");
-    _window.setSize(1280, 758);
+    _window.setSize(1024, 768);
     _window.setCentered();
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
@@ -88,7 +88,7 @@ void LSystems::init()
     // give the transform node a name. naming is optional and ist jus for helping to debug. 
     // Names do not have to be unique but since it is possible to find nodes by name they better are
     cameraHeading->setName("camera heading");
-    cameraHeading->rotate(M_PI * 0.7, iaAxis::Y);
+    cameraHeading->rotate(M_PI * 4.0, iaAxis::Y);
     _cameraHeading = cameraHeading->getID();
     // one is for the pitch
     iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -151,7 +151,7 @@ void LSystems::init()
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
@@ -473,8 +473,8 @@ void LSystems::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth() * 0.6;
-    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 width = _igorLogo->getWidth();
+    float32 height = _igorLogo->getHeight();
     float32 x = _window.getClientWidth() - width;
     float32 y = _window.getClientHeight() - height;
 

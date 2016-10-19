@@ -149,7 +149,7 @@ void Example2D::init()
     iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
 
     // load an other texture with the Igor Logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iTextureBuildMode::Normal);
 
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
@@ -353,8 +353,8 @@ void Example2D::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth() * 0.6;
-    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 width = _igorLogo->getWidth();
+    float32 height = _igorLogo->getHeight();
     float32 x = _window.getClientWidth() - width;
     float32 y = _window.getClientHeight() - height;
 
