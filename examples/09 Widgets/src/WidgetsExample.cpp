@@ -25,6 +25,8 @@ using namespace IgorAux;
 #include <iDialogMessageBox.h>
 #include <iWidgetDefaultTheme.h>
 #include <iWidgetSpacer.h>
+#include <iTextureResourceFactory.h>
+#include <iStatistics.h>
 using namespace Igor;
 
 WidgetsExample::WidgetsExample()
@@ -57,11 +59,13 @@ void WidgetsExample::init()
     // set up font for FPS display
     _font = new iTextureFont("StandardFont.png");
 
-    // create a material for the font
-    _fontMaterial = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
-    iMaterialResourceFactory::getInstance().getMaterial(_fontMaterial)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_fontMaterial)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_fontMaterial)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    // create a material for the font and logo
+    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
 
     // initialize the GUI
     initGUI();
@@ -80,20 +84,10 @@ void WidgetsExample::initGUI()
     // put all widgets in one list for easier later cleanup. this method might not always be suitable
     _allWidgets.push_back(dialog1);
     dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    dialog1->setVerticalAlignment(iVerticalAlignment::Absolut);
+    dialog1->setVerticalAlignment(iVerticalAlignment::Center);
     dialog1->setHeight(300);
-    dialog1->setY(40);
     dialog1->setActive();
     dialog1->setVisible();
-
-    iWidgetDialog* dialog2 = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createWidget(iWidgetType::Dialog));
-    // put all widgets in one list for easier later cleanup. this method might not always be suitable
-    _allWidgets.push_back(dialog2);
-    dialog2->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    dialog2->setVerticalAlignment(iVerticalAlignment::Bottom);
-    dialog2->setHeight(150);
-    dialog2->setActive();
-    dialog2->setVisible();
 
     iWidgetGrid* grid1 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid1);
@@ -237,13 +231,6 @@ void WidgetsExample::initGUI()
     picture1->setVerticalAlignment(iVerticalAlignment::Top);
     picture1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    iWidgetPicture* picture2 = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
-    _allWidgets.push_back(picture2);
-    picture2->setTexture("Igor.png");
-    picture2->setMaxSize(450, 150);
-    picture2->setVerticalAlignment(iVerticalAlignment::Top);
-    picture2->setHorrizontalAlignment(iHorrizontalAlignment::Right);
-
     // if check boxes are supposed to be connected as radio buttons tell the widget manager by starting a radio button group
     iWidgetCheckBox::beginRadioButtonGroup();
     iWidgetCheckBox* radio1 = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
@@ -279,7 +266,7 @@ void WidgetsExample::initGUI()
     
 
     groupBox2->addWidget(widgetScoll2);
-    //widgetScoll2->addWidget(picture2);
+    //widgetScoll2->addWidget(picture2); // TODO
 
     grid1->addWidget(widgetScoll1, 0, 1);
     widgetScoll1->addWidget(grid3);
@@ -297,17 +284,17 @@ void WidgetsExample::initGUI()
     grid3->addWidget(radio1, 0, 4);
     grid3->addWidget(radio2, 1, 4);
     grid3->addWidget(radio3, 2, 4);
-
-    dialog2->addWidget(picture2);
 }
 
 void WidgetsExample::deinit()
 {
+    _igorLogo = nullptr;
+
     iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &WidgetsExample::onMouseMove));
 
     deinitGUI();
 
-    iMaterialResourceFactory::getInstance().destroyMaterial(_fontMaterial);
+    iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
 
     if (_font)
     {
@@ -397,37 +384,30 @@ void WidgetsExample::onRender()
 
     // move scene between near and far plane so be ca actually see what we render
     // any value between near and far plane would do the trick
-    iaMatrixf modelViewOrtho;
-    modelViewOrtho.translate(iaVector3f(0, 0, -30)); 
-    iRenderer::getInstance().setModelMatrix(modelViewOrtho);
+    iaMatrixf modelMatrix;
+    modelMatrix.translate(iaVector3f(0, 0, -30));
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     // tell the widget manager to draw the widgets
     iWidgetManager::getInstance().draw();
+    
+    // draw Igor Logo
+    drawLogo();
 
-    // draw framerate
-    drawFPS();
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
-void WidgetsExample::drawFPS()
+void WidgetsExample::drawLogo()
 {
-    // set the texture font material to render text
-    iMaterialResourceFactory::getInstance().setMaterial(_fontMaterial);
-
-    // set the color to render
+    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    // set the font to use
-    iRenderer::getInstance().setFont(_font);
+    float32 width = _igorLogo->getWidth() * 0.6;
+    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 x = _window.getClientWidth() - width;
+    float32 y = _window.getClientHeight() - height;
 
-    // set the font size
-    iRenderer::getInstance().setFontSize(15.0f);
-
-    // assemble some text with framerate
-    iaString fps = "fps ";
-    fps += iaString::ftoa(iTimer::getInstance().getFPS(), 2);
-
-    // render framerate
-    iRenderer::getInstance().drawString(0, 0, fps);
+    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
 void WidgetsExample::run()

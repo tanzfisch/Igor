@@ -45,6 +45,7 @@ namespace Igor
 	class iWidgetDefaultTheme;
     class iDialogMessageBox;
     class iWidgetLabel;
+    class iTexture;
 }
 
 /*! this example shows how to use Igor Widgets
@@ -80,9 +81,9 @@ private:
     */
     iTextureFont* _font = nullptr;
 
-    /*! material for drawing textured fonts
+    /*! material for drawing igor logo
     */
-    uint64 _fontMaterial = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
     /*! using the default widget theme
     */
@@ -104,13 +105,17 @@ private:
     */
 	vector<iWidget*> _allWidgets;
 
+    /*! splash texture
+    */
+    shared_ptr<iTexture> _igorLogo = nullptr;
+
     /*! render function
     */
     void onRender();
 
-    /*! draws frames per second on screen
+    /*! draw Igor logo
     */
-    void drawFPS();
+    void drawLogo();
 
     /*! initializes GUI
     */
