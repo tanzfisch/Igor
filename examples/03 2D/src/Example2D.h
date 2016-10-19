@@ -110,9 +110,13 @@ private:
     */
     iGradientColor4f _rainbow;
 	
-    /*! renderer logo
+    /*! opengl logo
     */
-	iSprite* _logo = nullptr;
+	iSprite* _openGLLogo = nullptr;
+
+    /*! Igor logo
+    */
+    shared_ptr<iTexture> _igorLogo = nullptr;
 
     /*! current position of renderer logo 
     */
@@ -187,6 +191,10 @@ private:
     here we render everyting
     */
 	void onRender();
+
+    /*! draw Igor Logo
+    */
+    void drawLogo();
 
     /*! call the particles system handle to update particle positions
 

@@ -108,9 +108,9 @@ void Example2D::init()
 
     // load a texture as a sprite
     // sprites are basically textures that have some additional meta data that help you to place and orientate them
-    _logo = new iSprite(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
+    _openGLLogo = new iSprite(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
     // set the center as the origin of the sprite
-    _logo->setOrigin(iaVector2f(_logo->getTexture()->getWidth() * 0.5, _logo->getTexture()->getHeight() * 0.5));
+    _openGLLogo->setOrigin(iaVector2f(_openGLLogo->getTexture()->getWidth() * 0.5, _openGLLogo->getTexture()->getHeight() * 0.5));
     
     // initalize a spline loop
     _spline.addSupportPoint(iaVector3f(100, 100, 0));
@@ -148,6 +148,9 @@ void Example2D::init()
     // register callback to mosue moved event
     iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
 
+    // load an other texture with the Igor Logo
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
+
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
 }
@@ -177,10 +180,10 @@ void Example2D::deinit()
     _materialWithoutDepthTest = 0;
 
     // release some textures. otherwhise you will get a reminder of possible mem leak
-    if (_logo != nullptr)
+    if (_openGLLogo != nullptr)
     {
-        delete _logo;
-        _logo = nullptr;
+        delete _openGLLogo;
+        _openGLLogo = nullptr;
     }
 
     if (_font != nullptr)
@@ -298,7 +301,7 @@ void Example2D::onRender()
     // change material again to textured an draw the logo
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawSprite(_logo, _logoPosition._x, _logoPosition._y, _logoRotationAngle, 1.5f, 1.5f);
+    iRenderer::getInstance().drawSprite(_openGLLogo, _logoPosition._x, _logoPosition._y, _logoRotationAngle, 1.5f, 1.5f);
 
     // draw the texture that we could not load at startup
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
@@ -339,8 +342,23 @@ void Example2D::onRender()
 
     offset += 1.0f;
 
+    drawLogo();
+
     // draw frame rate in lower right corner
     iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+}
+
+void Example2D::drawLogo()
+{
+    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    float32 width = _igorLogo->getWidth() * 0.6;
+    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 x = _window.getClientWidth() - width;
+    float32 y = _window.getClientHeight() - height;
+
+    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
 
