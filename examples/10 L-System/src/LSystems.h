@@ -53,6 +53,7 @@ namespace Igor
     class iTextureFont;
     class iTaskFlushModels;
     class iNodeModel;
+    class iTexture;
 }
 
 /*! the LSystems example class
@@ -164,6 +165,14 @@ private:
     */
     uint32 _groupNodeID = iNode::INVALID_NODE_ID;
 
+    /*! material for igor logo
+    */
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! igor logo
+    */
+    shared_ptr<iTexture> _igorLogo = nullptr;
+
     /*! \returns true if all plants are done creating
     */
     bool checkIfDone();
@@ -230,6 +239,10 @@ private:
     /*! called by orthogonal view
     */
     void onRenderOrtho();
+
+    /*! draw igor logo
+    */
+    void drawLogo();
 
     /*! deinit example
     */

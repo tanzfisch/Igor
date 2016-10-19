@@ -149,6 +149,13 @@ void LSystems::init()
     // launch resource handlers
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+
+    // prepare igor logo
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
+    _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 }
 
 void LSystems::initStyle1()
@@ -448,10 +455,30 @@ void LSystems::onKeyPressed(iKeyCode key)
 
 void LSystems::onRenderOrtho()
 {
-    if (_font != nullptr)
-    {
-        iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1, 1, 1, 1));
-    }
+    iaMatrixf viewMatrix;
+    iRenderer::getInstance().setViewMatrix(viewMatrix);
+
+    iaMatrixf modelMatrix;
+    modelMatrix.translate(0, 0, -30);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
+
+    drawLogo();
+
+    // draw frame rate in lower right corner
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+}
+
+void LSystems::drawLogo()
+{
+    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    float32 width = _igorLogo->getWidth() * 0.6;
+    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 x = _window.getClientWidth() - width;
+    float32 y = _window.getClientHeight() - height;
+
+    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
 void LSystems::run()
