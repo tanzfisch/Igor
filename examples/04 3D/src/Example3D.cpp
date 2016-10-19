@@ -259,7 +259,7 @@ void Example3D::init()
     _font = new iTextureFont("StandardFont.png");
     iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
-    // load texture for igor logo
+    // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
