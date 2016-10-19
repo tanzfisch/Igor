@@ -58,10 +58,13 @@ void VoxelExample::init()
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
+    // register some keayboard and mouse handles
     registerHandles();
 
+    // register model data io
     iModelResourceFactory::getInstance().registerModelDataIO("vtg", &VoxelTerrainMeshGenerator::createInstance);
 
+    // generating voxels
     generateVoxelData();
 }
 
@@ -222,6 +225,9 @@ void VoxelExample::initScene()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+
+    // prepare igor logo
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png");
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -418,13 +424,12 @@ void VoxelExample::onKeyESCPressed()
 
 void VoxelExample::onRenderOrtho()
 {
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    iaMatrixf viewMatrix;
+    iRenderer::getInstance().setViewMatrix(viewMatrix);
 
-    iaMatrixf identity;
-    iaMatrixf translation;
-    translation.translate(0, 0, -30);
-    iRenderer::getInstance().setViewMatrix(identity);
-    iRenderer::getInstance().setModelMatrix(translation);
+    iaMatrixf modelMatrix;
+    modelMatrix.translate(0, 0, -30);
+    iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
 
@@ -439,8 +444,26 @@ void VoxelExample::onRenderOrtho()
     }
     else
     {
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.95, "press [Space] to recreate", iHorrizontalAlign::Center, iVerticalAlign::Center);
+        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.1, "press [Space] to recreate", iHorrizontalAlign::Center, iVerticalAlign::Center);
     }
+
+    drawLogo();
+
+    // draw frame rate in lower right corner
+    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+}
+
+void VoxelExample::drawLogo()
+{
+    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    float32 width = _igorLogo->getWidth() * 0.6;
+    float32 height = _igorLogo->getHeight() * 0.6;
+    float32 x = _window.getClientWidth() - width;
+    float32 y = _window.getClientHeight() - height;
+
+    iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
 void VoxelExample::onHandle()

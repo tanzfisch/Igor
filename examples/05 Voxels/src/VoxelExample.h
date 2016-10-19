@@ -36,6 +36,7 @@
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
 #include <iPerlinNoise.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 #include <iaRandomNumberGenerator.h>
@@ -54,6 +55,7 @@ namespace Igor
     class iMesh;
     class iTargetMaterial;
     class iNodeTransformControl;
+    class iTexture;
 }
 
 /*! the voxel example
@@ -115,7 +117,7 @@ private:
 
     /*! voxel mesh material
     */
-    int32 _voxelMeshMaterialID = 0;
+    uint64 _voxelMeshMaterialID = iMaterial::INVALID_MATERIAL_ID;
 
     /*! the actual voxel data
     */
@@ -123,7 +125,7 @@ private:
 
     /*! material for the sky box
     */
-    int32 _materialSkyBox = 0;
+    uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
     /*! perlin noise generator
     */
@@ -141,10 +143,6 @@ private:
     */
     iaRandomNumberGenerator _rand;
 
-    /*! loading text material
-    */
-    int32 _materialWithTextureAndBlending = 0;
-
     /*! id of flush model task
     */
     uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
@@ -152,6 +150,14 @@ private:
     /*! id of flush textures task
     */
     uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
+
+    /*! igor logo
+    */
+    shared_ptr<iTexture> _igorLogo = nullptr;
+
+    /*! igor logo materil
+    */
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
     /*! called when ESC key was pressed
     */
@@ -189,6 +195,10 @@ private:
     /*! called when orthogonal view was rendred
     */
     void onRenderOrtho();
+
+    /*! draw igor logo
+    */
+    void drawLogo();
 
     /*! initialize everything
     */
