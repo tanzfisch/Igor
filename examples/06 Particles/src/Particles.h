@@ -35,6 +35,7 @@
 #include <iTimerHandle.h>
 #include <iModelResourceFactory.h>
 #include <iKeyCodeMap.h>
+#include <iMaterial.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -52,6 +53,7 @@ namespace Igor
     class iNodeLODTrigger;
     class iNodeLODSwitch;
     class iNodeModel;
+    class iTexture;
 }
 
 /*! the particles example class
@@ -131,6 +133,14 @@ private:
     */
     uint64 _waveEmitterTransformID = iNode::INVALID_NODE_ID;
 
+    /*! igor logo
+    */
+    shared_ptr<iTexture> _igorLogo = nullptr;
+
+    /*! igor logo material
+    */
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+
     /*! creates the dot shaped particle system
     */
     void createDotParticleSystem();
@@ -191,6 +201,10 @@ private:
     /*! called by orthogonal view
     */
     void onRenderOrtho();
+
+    /*! draws igor logo
+    */
+    void drawLogo();
 
     /*! called by timer
     */

@@ -476,7 +476,6 @@ void Example3D::drawLogo()
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
-
 void Example3D::run()
 {
     iApplication::getInstance().run();
