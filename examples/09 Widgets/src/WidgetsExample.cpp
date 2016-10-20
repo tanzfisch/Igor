@@ -84,7 +84,7 @@ void WidgetsExample::initGUI()
     _allWidgets.push_back(dialog1);
     dialog1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     dialog1->setVerticalAlignment(iVerticalAlignment::Center);
-    dialog1->setHeight(300);
+    dialog1->setHeight(200);
     dialog1->setActive();
     dialog1->setVisible();
 
@@ -95,7 +95,7 @@ void WidgetsExample::initGUI()
     grid1->setVerticalAlignment(iVerticalAlignment::Strech);
     grid1->setBorder(10);
     grid1->setCellSpacing(5);
-    grid1->setStrechRow(0);
+    grid1->setStrechRow(1);
     grid1->setStrechColumn(0);
     grid1->setSelectMode(iSelectionMode::NoSelection);
 
@@ -105,17 +105,10 @@ void WidgetsExample::initGUI()
     groupBox1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     groupBox1->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    iWidgetGroupBox* groupBox2 = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
-    _allWidgets.push_back(groupBox2);
-    groupBox2->setText("An other group box");
-    groupBox2->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    groupBox2->setVerticalAlignment(iVerticalAlignment::Strech);
-    
     // a scroll widget can contain a child that is bigger than it self. if so the scroll widget 
     // shows vertical and or horizontal sliders and allows to scroll the child.
     iWidgetScroll* widgetScoll1 = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
     _allWidgets.push_back(widgetScoll1);
-    widgetScoll1->setHeight(100);
     widgetScoll1->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
     widgetScoll1->setVerticalAlignment(iVerticalAlignment::Strech);
 
@@ -137,20 +130,11 @@ void WidgetsExample::initGUI()
 
     iWidgetGrid* grid4 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid4);
-    grid4->appendRows(1);
-    grid4->setStrechColumn(0);
-    grid4->setStrechRow(1);
+    grid4->appendCollumns(2);
+    grid4->setStrechColumn(2);
     grid4->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    grid4->setVerticalAlignment(iVerticalAlignment::Strech);
+    grid4->setVerticalAlignment(iVerticalAlignment::Top);
     grid4->setSelectMode(iSelectionMode::NoSelection);
-
-    iWidgetGrid* grid5 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allWidgets.push_back(grid5);
-    grid5->appendCollumns(2);
-    grid5->setStrechColumn(2);
-    grid5->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    grid5->setVerticalAlignment(iVerticalAlignment::Top);
-    grid5->setSelectMode(iSelectionMode::NoSelection);
 
     iWidgetLabel* label1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(label1);
@@ -253,20 +237,11 @@ void WidgetsExample::initGUI()
     dialog1->addWidget(grid1);
 
     grid1->addWidget(groupBox1, 0, 0);
-
     groupBox1->addWidget(grid4);
-
-    grid4->addWidget(grid5, 0, 0);
-    grid4->addWidget(groupBox2, 0, 1);
-
-    grid5->addWidget(button2, 0, 0);
-    grid5->addWidget(spacer, 1, 0);
-    grid5->addWidget(picture1, 2, 0);
+    grid4->addWidget(button2, 0, 0);
+    grid4->addWidget(spacer, 1, 0);
+    grid4->addWidget(picture1, 2, 0);
     
-
-    groupBox2->addWidget(widgetScoll2);
-    //widgetScoll2->addWidget(picture2); // TODO
-
     grid1->addWidget(widgetScoll1, 0, 1);
     widgetScoll1->addWidget(grid3);
 
