@@ -315,13 +315,13 @@ namespace Igor
         particle._phase1.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
     }
 
-    void iParticleSystem3D::setVortexApperanceIntervall(uint64 apperanceRate)
+    void iParticleSystem3D::setVortexApperanceRate(uint64 apperanceRate)
     {
         _vortexAperanceRate = apperanceRate;
         _mustReset = true;
     }
 
-    float32 iParticleSystem3D::getVortexApperanceIntervall() const
+    float32 iParticleSystem3D::getVortexApperanceRate() const
     {
         return _vortexAperanceRate;
     }

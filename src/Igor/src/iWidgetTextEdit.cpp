@@ -75,9 +75,9 @@ namespace Igor
         return false;
 	}
 
-    iHorrizontalAlignment iWidgetTextEdit::getHorrizontalTextAlignment() const
+    iHorizontalAlignment iWidgetTextEdit::getHorizontalTextAlignment() const
     {
-        return _horrizontalTextAlignment;
+        return _horizontalTextAlignment;
     }
         
     iVerticalAlignment iWidgetTextEdit::getVerticalTextAlignment() const
@@ -85,9 +85,9 @@ namespace Igor
         return _verticalTextAlignment;
     }
 
-	void iWidgetTextEdit::setHorrizontalTextAlignment(iHorrizontalAlignment align)
+	void iWidgetTextEdit::setHorizontalTextAlignment(iHorizontalAlignment align)
 	{
-		_horrizontalTextAlignment = align;
+		_horizontalTextAlignment = align;
 	}
 
 	void iWidgetTextEdit::setVerticalTextAlignment(iVerticalAlignment valign)
@@ -99,7 +99,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horrizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
 		}
 	}
 

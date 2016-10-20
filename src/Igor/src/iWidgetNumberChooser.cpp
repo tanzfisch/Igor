@@ -11,9 +11,6 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-#include <sstream>
-using namespace std;
-
 namespace Igor
 {
 

@@ -60,11 +60,11 @@ namespace Igor
         */
 		int32 getScollbarWidth();
 
-        /*! sets horrizontal scroll value
+        /*! sets horizontal scroll value
 
-        \param value new value for horrizontal scroll
+        \param value new value for horizontal scroll
         */
-        void setHorrizontalScroll(float32 value);
+        void setHorizontalScroll(float32 value);
 
         /*! sets vertical scroll value
 
@@ -86,7 +86,7 @@ namespace Igor
         */
 		float32 _vscroll = 0;
 
-        /*! horrizontal scroll factor 0.0 - 1.0
+        /*! horizontal scroll factor 0.0 - 1.0
         */
         float32 _hscroll = 0;
 
@@ -94,11 +94,11 @@ namespace Igor
         */
 		bool _vscrollActive = false;
 
-        /*! horrizontal scrollbar active aka visible
+        /*! horizontal scrollbar active aka visible
         */
         bool _hscrollActive = false;
 
-        /*! rectangle of horrizontal scroll button
+        /*! rectangle of horizontal scroll button
         */
 		iRectanglei _hscrollButton;
 		iRectanglei _vscrollButton;
@@ -117,8 +117,8 @@ namespace Igor
 
         /*! handles incomming mouse move events
 
-        \param x horrizontal mouse position
-        \param y horrizontal mouse position
+        \param x horizontal mouse position
+        \param y horizontal mouse position
         */
         void handleMouseMove(int32 x, int32 y);
 

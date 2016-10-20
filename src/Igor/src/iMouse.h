@@ -72,7 +72,7 @@ namespace Igor
 
     mouse coordinates have their origin in the upper left corner of the parenting window
 
-    \param x current horrizontal coordinate of mouse cursor
+    \param x current horizontal coordinate of mouse cursor
     \param y current vertical coordinate of mouse cursor
     */
     iaEVENT(iMouseMoveEvent, iMouseMoveDelegate, void, (int32 x, int32 y), (x, y));
@@ -81,9 +81,9 @@ namespace Igor
 
     mouse coordinates have their origin in the upper left corner of the parenting window
 
-    \param x1 last horrizontal coordinate
+    \param x1 last horizontal coordinate
     \param y1 last vertical coordinate
-    \param x2 current horrizontal coordinate
+    \param x2 current horizontal coordinate
     \param y2 current vertical coordinate
     \param window the window the coordinates are related to
     */
@@ -189,7 +189,7 @@ namespace Igor
 
 		/*! set mouse to a position relative to currently focussed window
 
-		\param x horrizontal position of the mouse cursor in pixel
+		\param x horizontal position of the mouse cursor in pixel
 		\param y vertical position of the mouse cursor in pixel
         \param supressMoveEvent if true supress next mouse event
 		*/

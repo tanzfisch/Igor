@@ -22,7 +22,7 @@ namespace Igor
 		_configuredHeight = 20;
         _reactOnMouseWheel = false;
 
-		setHorrizontalAlignment(iHorrizontalAlignment::Center);
+		setHorizontalAlignment(iHorizontalAlignment::Center);
 		setVerticalAlignment(iVerticalAlignment::Center);
 
         _texture = iTextureResourceFactory::getInstance().loadFile("special\\checker.png");

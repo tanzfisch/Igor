@@ -21,7 +21,7 @@ namespace Igor
         _configuredWidth = 0;
         _reactOnMouseWheel = false;
 
-        setHorrizontalAlignment(iHorrizontalAlignment::Center);
+        setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
     }
 

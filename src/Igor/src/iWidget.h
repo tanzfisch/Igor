@@ -44,9 +44,9 @@ namespace Igor
 	class iWidgetBaseTheme;
 	class iWidgetManager;
 
-    /*! horrizontal alignment relative to parent widget
+    /*! horizontal alignment relative to parent widget
     */
-	enum class iHorrizontalAlignment
+	enum class iHorizontalAlignment
 	{
 		Left,
 		Center,
@@ -357,23 +357,23 @@ namespace Igor
 		*/
 		virtual void draw();
 
-        /*! \returns horrizontal alignment relative to parent widget
+        /*! \returns horizontal alignment relative to parent widget
         */
-		iHorrizontalAlignment getHorrizontalAlignment();
+		iHorizontalAlignment getHorizontalAlignment();
 
         /*! \returns vertical alignment relative to parent widget
         */
         iVerticalAlignment getVerticalAlignment();
 
-        /*! set horrizontal alignment relative to parent widget
+        /*! set horizontal alignment relative to parent widget
 
-        \param horrizontalAlignment the horrizontal alignment
+        \param horizontalAlignment the horizontal alignment
         */
-        void setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment);
+        void setHorizontalAlignment(iHorizontalAlignment horizontalAlignment);
 
         /*! set vertical alignment relative to parent widget
 
-        \param verticalAlignment the horrizontal vertical
+        \param verticalAlignment the horizontal vertical
         */
         void setVerticalAlignment(iVerticalAlignment verticalAlignment);
 
@@ -557,8 +557,8 @@ namespace Igor
 
         /*! handles incomming mouse move events
 
-        \param x horrizontal mouse position
-        \param y horrizontal mouse position
+        \param x horizontal mouse position
+        \param y horizontal mouse position
         */
         virtual void handleMouseMove(int32 x, int32 y);
 
@@ -624,7 +624,7 @@ namespace Igor
 		*/
 		int32 _actualHeight = 0;
 
-		/*! horrizontal position of the widget relative to parent
+		/*! horizontal position of the widget relative to parent
 		*/
 		int32 _relativeX = 0;
 
@@ -632,7 +632,7 @@ namespace Igor
 		*/
 		int32 _relativeY = 0;
 
-		/*! absolute horrizontal position of the widget
+		/*! absolute horizontal position of the widget
 		*/
 		int32 _absoluteX = 0;
 
@@ -684,9 +684,9 @@ namespace Igor
         */
 		bool _visible = true;
 
-        /*! horrizontal alignment relative to parent
+        /*! horizontal alignment relative to parent
         */
-		iHorrizontalAlignment _horrizontalAlignment = iHorrizontalAlignment::Center;
+		iHorizontalAlignment _horizontalAlignment = iHorizontalAlignment::Center;
         
         /*! vertical alignment relative to parent
         */
@@ -706,15 +706,16 @@ namespace Igor
         */
         virtual void calcMinSize() = 0;
 
-        /*! updates horrizontal and vertical alignment relative to parent
-        */
-        //virtual void updateAlignment();
+        /*! updates widget alignment
 
+        \param clientWidth maximum width this widget can align to
+        \param clientHeight maximum height this widget can align to
+        */
         virtual void updateAlignment(int32 clientWidth, int32 clientHeight);
 
         /*! updates the absolute position
 
-        \param offsetX absolute horrizontal offset based on parents positions
+        \param offsetX absolute horizontal offset based on parents positions
         \param offsetY absolute vertical offset based on parents positions
         */
         void updatePosition(int32 offsetX, int32 offsetY);

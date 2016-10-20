@@ -40,7 +40,7 @@ void UserControlMaterialView::initGUI()
     _allWidgets.push_back(grid);
     grid->appendRows(1);
     grid->setBorder(2);
-    grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
     grid->setStrechColumn(0);
     grid->setStrechRow(1);
@@ -50,7 +50,7 @@ void UserControlMaterialView::initGUI()
     gridButtons->setBorder(0);
     gridButtons->appendCollumns(10);
     gridButtons->setCellSpacing(2);
-    gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetButton* addMaterialButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
@@ -64,12 +64,12 @@ void UserControlMaterialView::initGUI()
     iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
     _allWidgets.push_back(groupBox);
     groupBox->setText("Graph");
-    groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
     _allWidgets.push_back(scroll);
-    scroll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
     scroll->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
@@ -77,7 +77,7 @@ void UserControlMaterialView::initGUI()
     _gridGraph->setBorder(0);
     _gridGraph->setSelectMode(iSelectionMode::Row);
     _gridGraph->setCellSpacing(0);
-    _gridGraph->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _gridGraph->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridGraph->setVerticalAlignment(iVerticalAlignment::Top);
     _gridGraph->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterialView::OnSelectionChange));
 
@@ -151,13 +151,13 @@ void UserControlMaterialView::refresh()
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);
-        entry->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         uint32* userData = new uint32();
         _userData.push_back(userData);
         *userData = materialID;
 
         iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-        label->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+        label->setHorizontalAlignment(iHorizontalAlignment::Right);
         label->setVerticalAlignment(iVerticalAlignment::Center);
         if ((*materialGroupIter)->getMaterial()->getName() != "")
         {

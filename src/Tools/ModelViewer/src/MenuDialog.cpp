@@ -39,14 +39,14 @@ void MenuDialog::initGUI()
     _messageBox = new iDialogMessageBox();
 
 	getDialog()->setWidth(350);
-	getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	getDialog()->setHorizontalAlignment(iHorizontalAlignment::Left);
 	getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
-	_grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+	_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
     _grid->appendRows(2);
 	_grid->setStrechRow(2);
@@ -56,7 +56,7 @@ void MenuDialog::initGUI()
     _allwidgets.push_back(_gridButtons);
     _gridButtons->setBorder(0);
     _gridButtons->setCellSpacing(2);
-    _gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 	_gridButtons->appendCollumns(8);
 
@@ -64,7 +64,7 @@ void MenuDialog::initGUI()
 	_allwidgets.push_back(_gridRadioButtons);
 	_gridRadioButtons->setBorder(0);
 	_gridRadioButtons->setCellSpacing(2);
-	_gridRadioButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+	_gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
 	_gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
 	_gridRadioButtons->appendCollumns(1);
 

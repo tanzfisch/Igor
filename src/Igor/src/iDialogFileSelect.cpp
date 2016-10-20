@@ -44,7 +44,7 @@ namespace Igor
         getDialog()->addWidget(_grid);
 
         _headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-        _headerLabel->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->addWidget(_headerLabel, 0, 0);
 
         _pathEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
@@ -53,7 +53,7 @@ namespace Igor
         _pathEdit->setWriteProtected(false);
         _pathEdit->setChangeEventOnEnterAndLosFocus();
         _pathEdit->setMaxTextLength(1024);
-        _pathEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _pathEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
         _pathEdit->setVerticalAlignment(iVerticalAlignment::Top);
         _pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
         _grid->addWidget(_pathEdit, 0, 1);
@@ -64,14 +64,14 @@ namespace Igor
         _grid->addWidget(_scroll, 0, 2);
 
         _fileGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-        _fileGrid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _fileGrid->setSelectMode(iSelectionMode::Field);
         _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
         _scroll->addWidget(_fileGrid);
 
         _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-        _buttonGrid->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+        _buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         _buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         _buttonGrid->appendCollumns(1);
         _buttonGrid->setCellSpacing(4);
@@ -258,7 +258,7 @@ namespace Igor
             index++;
         }
 
-        _scroll->setHorrizontalScroll(0);
+        _scroll->setHorizontalScroll(0);
         _scroll->setVerticalScroll(0);
     }
 
@@ -289,7 +289,7 @@ namespace Igor
 
         iaString* userData = new iaString(path);
         iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-        entry->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->appendCollumns(1);
 
         iWidgetPicture* icon = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
@@ -305,7 +305,7 @@ namespace Igor
         entry->addWidget(icon, 0, 0);
 
         iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-        label->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        label->setHorizontalAlignment(iHorizontalAlignment::Left);
         label->setText(displayName);
         entry->addWidget(label, 1, 0);
 

@@ -106,7 +106,7 @@ namespace Igor
         */
         void setFirstTextureTiling(uint32 columns, uint32 rows);
 
-        /*! \returns the horrizontal tiling resolution of the first texture layer
+        /*! \returns the horizontal tiling resolution of the first texture layer
         */
         uint32 getFirstTextureColumns() const;
 
@@ -242,28 +242,15 @@ namespace Igor
         */
         void getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const;
 
-        /*! sets the velocity oriented flag
-        particles will be rendered oriented by thair velocity and screen
-
-        default id off
-
-        \param velocityOriented if true particles get rendered velocity oriented
-        */
-        void setVelocityOriented(bool velocityOriented = true);
-
-        /*! \returns velocity oriented flag
-        */
-        bool getVelocityOriented() const;
-
         /*! sets the apperance rate of a vortex particles
 
         \param apperanceRate the number of particles to create before the next vertex particle will be created
         */
-        void setVortexApperanceIntervall(uint64 apperanceRate);
+        void setVortexApperanceRate(uint64 apperanceRate);
 
         /*! \returns likeliness of vortex particle to appear
         */
-        float32 getVortexApperanceIntervall() const;
+        float32 getVortexApperanceRate() const;
 
         /*! sets vorticity confinement force
 
@@ -302,6 +289,19 @@ namespace Igor
         /*! \returns period time of this particle system
         */
         float32 getPeriodTime() const;
+
+        /*! sets the velocity oriented flag
+        particles will be rendered oriented by thair velocity and screen
+
+        default id off
+
+        \param velocityOriented if true particles get rendered velocity oriented
+        */
+        void setVelocityOriented(bool velocityOriented = true);
+
+        /*! \returns velocity oriented flag
+        */
+        bool getVelocityOriented() const;
 
         /*! sets first texture
 

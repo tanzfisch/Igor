@@ -61,7 +61,7 @@ namespace Igor
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _allWidgets.push_back(_grid);
         _grid->appendRows(2);
-        _grid->setHorrizontalAlignment(iHorrizontalAlignment::Center);
+        _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
         _grid->setVerticalAlignment(iVerticalAlignment::Center);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
@@ -83,7 +83,7 @@ namespace Igor
         _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _allWidgets.push_back(_buttonGrid);
         _buttonGrid->appendCollumns(3);
-        _buttonGrid->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+        _buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         _buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         _buttonGrid->setCellSpacing(4);
         _grid->addWidget(_buttonGrid, 0, 2);

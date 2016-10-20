@@ -76,7 +76,13 @@ private:
     iWidgetSelectBox* _materialSelection = nullptr;
 
     iWidgetCheckBox* _loopCheckBox = nullptr;
+    iWidgetCheckBox* _velocityOrientedCheckBox = nullptr;
     iWidgetNumberChooser* _periodChooser = nullptr;
+    iWidgetNumberChooser* _airDragChooser = nullptr;
+    iWidgetNumberChooser* _vorticityConfinementChooser = nullptr;
+    iWidgetNumberChooser* _vorticityAppearanceRateChooser = nullptr;
+    iWidgetNumberChooser* _tilingVerticalChooser = nullptr;
+    iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
 
     vector<iWidget*> _allWidgets;
 

@@ -1106,17 +1106,17 @@ namespace Igor
         _fontLineHeight = lineheight;
     }
 
-    void iRenderer::drawString(float32 x, float32 y, iaString text, iHorrizontalAlign horz, iVerticalAlign vert, float32 angle, float32 maxWidth)
+    void iRenderer::drawString(float32 x, float32 y, iaString text, iHorizontalAlign horz, iVerticalAlign vert, float32 angle, float32 maxWidth)
     {
         if (nullptr != _font)
         {
             float32 posx, posy;
 
-            if (horz == iHorrizontalAlign::Left)
+            if (horz == iHorizontalAlign::Left)
             {
                 posx = x;
             }
-            else if (horz == iHorrizontalAlign::Right)
+            else if (horz == iHorizontalAlign::Right)
             {
                 if (maxWidth == 0.0f)
                 {
@@ -1127,7 +1127,7 @@ namespace Igor
                     posx = x - maxWidth;
                 }
             }
-            else if (horz == iHorrizontalAlign::Center)
+            else if (horz == iHorizontalAlign::Center)
             {
                 if (maxWidth == 0.0f)
                 {

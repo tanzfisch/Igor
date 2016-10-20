@@ -92,9 +92,9 @@ namespace Igor
         void onHandle();
 
         /*! called when mouse moves
-        \param x1 last horrizontal position of mouse
+        \param x1 last horizontal position of mouse
         \param y1 last vertical position of mouse
-        \param x2 current horrizontal position of mouse
+        \param x2 current horizontal position of mouse
         \param y2 current vertical position of mouse
         */
         void onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);

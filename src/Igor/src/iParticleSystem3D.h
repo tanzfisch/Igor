@@ -220,7 +220,7 @@ namespace Igor
         */
         void setFirstTextureTiling(uint32 columns, uint32 rows);
 
-        /*! \returns the horrizontal tiling resolution of the first texture layer
+        /*! \returns the horizontal tiling resolution of the first texture layer
         */
         uint32 getFirstTextureColumns() const;
 
@@ -263,11 +263,11 @@ namespace Igor
 
         \param apperanceRate the number of particles to create before the next vertex particle will be created
         */
-        void setVortexApperanceIntervall(uint64 apperanceRate);
+        void setVortexApperanceRate(uint64 apperanceRate);
 
         /*! \returns likeliness of vortex particle to appear
         */
-        float32 getVortexApperanceIntervall() const;
+        float32 getVortexApperanceRate() const;
 
         /*! calculates next frame
 

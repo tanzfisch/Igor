@@ -180,7 +180,7 @@ namespace Igor
                 voffset = 20;
             }
 
-            iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10 - voffset, fpsText, iHorrizontalAlign::Right, iVerticalAlign::Bottom);
+            iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10 - voffset, fpsText, iHorizontalAlign::Right, iVerticalAlign::Bottom);
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSAndMetrics)
             {
@@ -237,7 +237,7 @@ namespace Igor
                     dataText += "mio";
                 }
 
-                iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10, dataText, iHorrizontalAlign::Right, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10, dataText, iHorizontalAlign::Right, iVerticalAlign::Bottom);
                 iRenderer::getInstance().resetCounters();
             }
 
@@ -257,8 +257,8 @@ namespace Igor
                 rcthreads += ":";
                 rcthreads += iaString::itoa(_lastQueuedRenderContextTaskCount);
 
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, threads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, rcthreads, iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, threads, iHorizontalAlign::Left, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, rcthreads, iHorizontalAlign::Left, iVerticalAlign::Bottom);
             }
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)
@@ -269,7 +269,7 @@ namespace Igor
                 float64 scale = groupTotalHeight / 100;
                 float64 x = 10;
                 uint32 textOffsetX[5]{ 0,0,0,0,0 };
-                float64 horrizontalScale = static_cast<float64>(window->getClientWidth() - x - x) / static_cast<float64>(iStatisticsSection::BUFFER_SIZE);
+                float64 horizontalScale = static_cast<float64>(window->getClientWidth() - x - x) / static_cast<float64>(iStatisticsSection::BUFFER_SIZE);
                 float32 thirtyHz = 33.3333 * scale;
                 float32 sixtyHz = 66.6666 * scale;
 
@@ -310,7 +310,7 @@ namespace Igor
                     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
 
                     iRenderer::getInstance().setColor(section.second.getColor());
-                    iRenderer::getInstance().drawString(10 + textOffsetX[section.second.getGroup()], yPos + 20, section.second.getName(), iHorrizontalAlign::Left, iVerticalAlign::Bottom);
+                    iRenderer::getInstance().drawString(10 + textOffsetX[section.second.getGroup()], yPos + 20, section.second.getName(), iHorizontalAlign::Left, iVerticalAlign::Bottom);
                     textOffsetX[section.second.getGroup()] += 130;
 
                     iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
@@ -323,7 +323,7 @@ namespace Igor
                     {
                         currentIndex = (currentFrame + i) % iStatisticsSection::BUFFER_SIZE;
                         value = (end[currentIndex] - begin[currentIndex]) * scale;
-                        iRenderer::getInstance().drawLine((static_cast<float64>(i)*horrizontalScale) + x, yPos - lastValue, (static_cast<float64>(i + 1)*horrizontalScale) + x, yPos - value);
+                        iRenderer::getInstance().drawLine((static_cast<float64>(i)*horizontalScale) + x, yPos - lastValue, (static_cast<float64>(i + 1)*horizontalScale) + x, yPos - value);
                         lastValue = value;
                     }
                 }

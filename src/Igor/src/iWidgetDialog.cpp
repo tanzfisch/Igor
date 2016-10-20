@@ -21,7 +21,7 @@ namespace Igor
         setVisible(false);
         setWidth(100);
         setHeight(100);
-        setHorrizontalAlignment(iHorrizontalAlignment::Center);
+        setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
     }
 
@@ -55,26 +55,26 @@ namespace Igor
         int32 width = getMinWidth();
         int32 height = getMinHeight();
 
-        switch (iWidget::getHorrizontalAlignment())
+        switch (iWidget::getHorizontalAlignment())
         {
-        case iHorrizontalAlignment::Left:
+        case iHorizontalAlignment::Left:
             _relativeX = 0;
             break;
 
-        case iHorrizontalAlignment::Strech:
+        case iHorizontalAlignment::Strech:
             _relativeX = 0;
             width = clientWidth;
             break;
 
-        case iHorrizontalAlignment::Center:
+        case iHorizontalAlignment::Center:
             _relativeX = (clientWidth - width) / 2;
             break;
 
-        case iHorrizontalAlignment::Right:
+        case iHorizontalAlignment::Right:
             _relativeX = clientWidth - width;
             break;
 
-        case iHorrizontalAlignment::Absolut:
+        case iHorizontalAlignment::Absolut:
             _relativeX = _offsetX;
             break;
 
@@ -137,7 +137,7 @@ namespace Igor
     void iWidgetDialog::setX(int32 x)
     {
         _offsetX = x;
-        setHorrizontalAlignment(iHorrizontalAlignment::Absolut);
+        setHorizontalAlignment(iHorizontalAlignment::Absolut);
     }
 
     void iWidgetDialog::setY(int32 y)

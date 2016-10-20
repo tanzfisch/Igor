@@ -16,7 +16,7 @@ namespace Igor
 	iWidgetSpacer::iWidgetSpacer()
 		: iWidget(iWidgetType::Spacer)
 	{
-        setHorrizontalAlignment(iHorrizontalAlignment::Center);
+        setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
         _reactOnMouseWheel = false;
 	}

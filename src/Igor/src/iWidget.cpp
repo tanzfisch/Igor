@@ -475,14 +475,14 @@ namespace Igor
 		}
 	}
 
-	iHorrizontalAlignment iWidget::getHorrizontalAlignment()
+	iHorizontalAlignment iWidget::getHorizontalAlignment()
 	{
-		return _horrizontalAlignment;
+		return _horizontalAlignment;
 	}
 
-	void iWidget::setHorrizontalAlignment(iHorrizontalAlignment horrizontalAlignment)
+	void iWidget::setHorizontalAlignment(iHorizontalAlignment horizontalAlignment)
 	{
-		_horrizontalAlignment = horrizontalAlignment;
+		_horizontalAlignment = horizontalAlignment;
 	}
 
 	iVerticalAlignment iWidget::getVerticalAlignment()
@@ -549,26 +549,26 @@ namespace Igor
         int32 width = getMinWidth();
         int32 height = getMinHeight();
 
-		switch (iWidget::getHorrizontalAlignment())
+		switch (iWidget::getHorizontalAlignment())
 		{
-		case iHorrizontalAlignment::Left:
+		case iHorizontalAlignment::Left:
 			_relativeX = 0;
 			break;
 
-		case iHorrizontalAlignment::Strech:
+		case iHorizontalAlignment::Strech:
 			_relativeX = 0;
             width = clientWidth;
 			break;
 
-		case iHorrizontalAlignment::Center:
+		case iHorizontalAlignment::Center:
 			_relativeX = (clientWidth - width) / 2;
 			break;
 
-		case iHorrizontalAlignment::Right:
+		case iHorizontalAlignment::Right:
 			_relativeX = clientWidth - width;
 			break;
 
-		case iHorrizontalAlignment::Absolut:
+		case iHorizontalAlignment::Absolut:
 			con_err("absolut positioning only supported for dialogs");
 			break;
 

@@ -300,9 +300,9 @@ namespace Igor
 
         /*! handle for mouse move event
 
-        \param x1 last horrizontal mouse position
+        \param x1 last horizontal mouse position
         \param y1 last vertical mouse position
-        \param x2 current horrizontal mouse position
+        \param x2 current horizontal mouse position
         \param y2 current vertical mouse position
         \param window parent window of mouse event
         */

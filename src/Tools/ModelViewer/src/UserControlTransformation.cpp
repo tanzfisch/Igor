@@ -88,7 +88,7 @@ void UserControlTransformation::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->appendRows(1);
 
@@ -96,11 +96,11 @@ void UserControlTransformation::initGUI()
     _allWidgets.push_back(_gridMatrix);
     _gridMatrix->appendCollumns(3);
     _gridMatrix->appendRows(3);
-    _gridMatrix->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _gridMatrix->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _gridModifiers = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_gridModifiers);
-    _gridModifiers->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _gridModifiers->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridModifiers->appendCollumns(3);
     _gridModifiers->appendRows(5);
 
@@ -146,11 +146,11 @@ void UserControlTransformation::initGUI()
         _allWidgets.push_back(textEdit);
         _translateText.push_back(textEdit);
 
-        textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+        textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
         textEdit->setText("");
         textEdit->setWidth(MV_REGULARBUTTON_SIZE);
         textEdit->setMaxTextLength(11);
-        textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
         textEdit->setVerticalAlignment(iVerticalAlignment::Top);
 
         _gridModifiers->addWidget(textEdit, i + 1, 1);
@@ -162,11 +162,11 @@ void UserControlTransformation::initGUI()
         _allWidgets.push_back(textEdit);
         _scaleText.push_back(textEdit);
 
-        textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+        textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
         textEdit->setText("");
         textEdit->setWidth(MV_REGULARBUTTON_SIZE);
         textEdit->setMaxTextLength(11);
-        textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
         textEdit->setVerticalAlignment(iVerticalAlignment::Top);
 
         _gridModifiers->addWidget(textEdit, i + 1, 2);
@@ -178,11 +178,11 @@ void UserControlTransformation::initGUI()
         _allWidgets.push_back(textEdit);
         _rotateText.push_back(textEdit);
 
-        textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+        textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
         textEdit->setText("");
         textEdit->setWidth(MV_REGULARBUTTON_SIZE);
         textEdit->setMaxTextLength(11);
-        textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
         textEdit->setVerticalAlignment(iVerticalAlignment::Top);
 
         _gridModifiers->addWidget(textEdit, 1, 3 + i);
@@ -196,12 +196,12 @@ void UserControlTransformation::initGUI()
             _allWidgets.push_back(textEdit);
             _matrixText.push_back(textEdit);
 
-            textEdit->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+            textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
             textEdit->setText("");
             textEdit->setWidth(MV_REGULARBUTTON_SIZE);
             textEdit->setWriteProtected(true);
             textEdit->setMaxTextLength(11);
-            textEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+            textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
             textEdit->setVerticalAlignment(iVerticalAlignment::Top);
 
             _gridMatrix->addWidget(textEdit, col, row);

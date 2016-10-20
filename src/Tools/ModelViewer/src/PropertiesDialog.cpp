@@ -36,14 +36,14 @@ PropertiesDialog::~PropertiesDialog()
 void PropertiesDialog::initGUI()
 {
 	getDialog()->setWidth(350);
-    getDialog()->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    getDialog()->setHorizontalAlignment(iHorizontalAlignment::Right);
     getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
-	_grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+	_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
 	_grid->setStrechRow(0);
     _grid->setStrechColumn(0);

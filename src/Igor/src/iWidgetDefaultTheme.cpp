@@ -160,7 +160,7 @@ namespace Igor
         iRenderer::getInstance().drawLine(posx + width - 1, posy + 1, posx + width - 1, posy + height - 1);
     }
 
-    void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorrizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
     {
         const int32 reduction = 2;
         int32 offset = 0;
@@ -195,15 +195,15 @@ namespace Igor
         int32 textY = posy;
         switch (align)
         {
-        case iHorrizontalAlignment::Left:
+        case iHorizontalAlignment::Left:
             textX += 2;
             break;
 
-        case iHorrizontalAlignment::Center:
+        case iHorizontalAlignment::Center:
             textX += (width - textwidth) / 2.0f;
             break;
 
-        case iHorrizontalAlignment::Right:
+        case iHorizontalAlignment::Right:
             textX += width - 2 - textwidth;
             break;
         };
@@ -228,7 +228,7 @@ namespace Igor
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }
 
-    void iWidgetDefaultTheme::drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorrizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
+    void iWidgetDefaultTheme::drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
     {
         iaString modText = text;
 
@@ -277,15 +277,15 @@ namespace Igor
 
         switch (align)
         {
-        case iHorrizontalAlignment::Left:
+        case iHorizontalAlignment::Left:
             textPosX += 2;
             break;
 
-        case iHorrizontalAlignment::Right:
+        case iHorizontalAlignment::Right:
             textPosX += width - 2 - textwidth;
             break;
 
-        case iHorrizontalAlignment::Center:
+        case iHorizontalAlignment::Center:
             textPosX += (width - textwidth) / 2.0f;
             break;
         };
@@ -333,8 +333,8 @@ namespace Igor
         iRenderer::getInstance().drawLine(posx, posy, posx + width, posy);
         iRenderer::getInstance().drawLine(posx, posy, posx, posy + height);
 
-        drawButton(posx + width - height - 1, posy + 1, height, height / 2 - 1, "+", iHorrizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_up, active);
-        drawButton(posx + width - height - 1, posy + height / 2, height, height / 2 - 1, "-", iHorrizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_down, active);
+        drawButton(posx + width - height - 1, posy + 1, height, height / 2 - 1, "+", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_up, active);
+        drawButton(posx + width - height - 1, posy + height / 2, height, height / 2 - 1, "-", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, state_button_down, active);
     }
 
     void iWidgetDefaultTheme::drawSelectBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active)
@@ -360,7 +360,7 @@ namespace Igor
         iRenderer::getInstance().drawLine(posx, posy, posx + width, posy);
         iRenderer::getInstance().drawLine(posx, posy, posx, posy + height);
 
-        drawButton(posx + width - height, posy + 1, height - 1, height - 2, "V", iHorrizontalAlignment::Center, iVerticalAlignment::Center, nullptr, buttonState, active);
+        drawButton(posx + width - height, posy + 1, height - 1, height - 2, "V", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, buttonState, active);
     }
 
     void iWidgetDefaultTheme::drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active)

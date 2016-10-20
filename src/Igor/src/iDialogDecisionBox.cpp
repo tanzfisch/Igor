@@ -92,7 +92,7 @@ namespace Igor
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _grid->appendRows(4);
-        _grid->setHorrizontalAlignment(iHorrizontalAlignment::Center);
+        _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
         _grid->setVerticalAlignment(iVerticalAlignment::Center);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
@@ -113,7 +113,7 @@ namespace Igor
 
         _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _buttonGrid->appendCollumns(3);
-        _buttonGrid->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+        _buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         _buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         _buttonGrid->setCellSpacing(4);
         
@@ -127,7 +127,7 @@ namespace Igor
 
         _radioGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _radioGrid->appendRows(values.size() - 1);
-        _radioGrid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _radioGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _radioGrid->setCellSpacing(4);
 
@@ -138,7 +138,7 @@ namespace Igor
         {
             iWidgetCheckBox* checkBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
             _radioButtons.push_back(checkBox);
-            checkBox->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+            checkBox->setHorizontalAlignment(iHorizontalAlignment::Left);
             checkBox->setText((*iter));
             _radioGrid->addWidget(checkBox, 0, i);
 

@@ -18,7 +18,7 @@ namespace Igor
     iWidgetPicture::iWidgetPicture()
         : iWidget(iWidgetType::Label)
     {
-        setHorrizontalAlignment(iHorrizontalAlignment::Center);
+        setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
         _reactOnMouseWheel = false;
     }

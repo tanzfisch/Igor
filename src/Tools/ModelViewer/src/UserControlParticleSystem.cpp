@@ -22,6 +22,8 @@
 #include <iMaterialGroup.h>
 #include <iUserControlFileChooser.h>
 #include <iResourceManager.h>
+#include <iWidgetSpacer.h>
+#include <iWidgetGroupBox.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -69,6 +71,11 @@ void UserControlParticleSystem::updateNode()
 
             node->setLoop(_loopCheckBox->isChecked());
             node->setPeriodTime(_periodChooser->getValue());
+            node->setAirDrag(_airDragChooser->getValue());
+            node->setVelocityOriented(_velocityOrientedCheckBox->isChecked());
+            node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
+            node->setVortexApperanceRate(_vorticityAppearanceRateChooser->getValue());
+            node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
         }
     }
 }
@@ -98,41 +105,47 @@ void UserControlParticleSystem::updateGUI()
             }
             i++;
         }
-    }
 
-    for (auto entry : _userDataMaterialID)
-    {
-        delete entry;
-    }
-    _userDataMaterialID.clear();
-    _materialSelection->clear();
-
-    auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
-    auto materialGroupIter = materialGroups->begin();
-    while (materialGroupIter != materialGroups->end())
-    {
-        uint32 materialID = (*materialGroupIter)->getID();
-        iaString materialName = (*materialGroupIter)->getMaterial()->getName();
-
-        uint32* ptrmaterialID = new uint32(materialID);
-        _materialSelection->addSelectionEntry(materialName, ptrmaterialID);
-        _userDataMaterialID.push_back(ptrmaterialID);
-
-        if (materialID == node->getMaterial())
+        for (auto entry : _userDataMaterialID)
         {
-            _materialSelection->setSelection(_materialSelection->getSelectionEntryCount() - 1);
+            delete entry;
+        }
+        _userDataMaterialID.clear();
+        _materialSelection->clear();
+
+        auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
+        auto materialGroupIter = materialGroups->begin();
+        while (materialGroupIter != materialGroups->end())
+        {
+            uint32 materialID = (*materialGroupIter)->getID();
+            iaString materialName = (*materialGroupIter)->getMaterial()->getName();
+
+            uint32* ptrmaterialID = new uint32(materialID);
+            _materialSelection->addSelectionEntry(materialName, ptrmaterialID);
+            _userDataMaterialID.push_back(ptrmaterialID);
+
+            if (materialID == node->getMaterial())
+            {
+                _materialSelection->setSelection(_materialSelection->getSelectionEntryCount() - 1);
+            }
+
+            materialGroupIter++;
         }
 
-        materialGroupIter++;
+        _textureChooser0->setFileName(node->getTextureA());
+        _textureChooser1->setFileName(node->getTextureB());
+        _textureChooser2->setFileName(node->getTextureC());
+
+        _loopCheckBox->setChecked(node->getLoop());
+        _periodChooser->setValue(node->getPeriodTime());
+        _periodChooser->setActive(!_loopCheckBox->isChecked());
+        _airDragChooser->setValue(node->getAirDrag());
+        _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
+        _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
+        _vorticityAppearanceRateChooser->setValue(node->getVortexApperanceRate());
+        _tilingHorizontalChooser->setValue(node->getFirstTextureColumns());
+        _tilingVerticalChooser->setValue(node->getFirstTextureRows());
     }
-
-    _textureChooser0->setFileName(node->getTextureA());
-    _textureChooser1->setFileName(node->getTextureB());
-    _textureChooser2->setFileName(node->getTextureC());
-
-    _periodChooser->setValue(node->getPeriodTime());
-    _loopCheckBox->setChecked(node->getLoop());
-    _periodChooser->setActive(!_loopCheckBox->isChecked());
 
     _ignoreNodeUpdate = false;
 }
@@ -153,65 +166,22 @@ void UserControlParticleSystem::initGUI()
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
     _grid->appendRows(1);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid* gridProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridProperties);
     gridProperties->appendCollumns(0);
-    gridProperties->appendRows(5);
-    gridProperties->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    gridProperties->appendRows(2);
+    gridProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridProperties->setStrechColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
-
-    iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allWidgets.push_back(gridSimulationProperties);
-    gridSimulationProperties->appendCollumns(1);
-    gridSimulationProperties->appendRows(5);
-    gridSimulationProperties->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    gridSimulationProperties->setStrechColumn(1);
-    gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
-
-    iWidgetLabel* labelLoop = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(labelLoop);
-    labelLoop->setText("Loop");
-    labelLoop->setWidth(80);
-    labelLoop->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-
-    _loopCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
-    _loopCheckBox->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _loopCheckBox->setVerticalAlignment(iVerticalAlignment::Top);
-    _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onLoopChanged));
-
-    iWidgetLabel* labelPeriod = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(labelPeriod);
-    labelPeriod->setText("Period");
-    labelPeriod->setWidth(80);
-    labelPeriod->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-
-    _periodChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
-    _periodChooser->setMinMaxNumber(0.0f, 120.0f);
-    _periodChooser->setStepping(0.1f, 0.1f);
-    _periodChooser->setSteppingWheel(1.0f, 1.0f);
-    _periodChooser->setPostFix("s");
-    _periodChooser->setAfterPoint(1);
-    _periodChooser->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _periodChooser->setVerticalAlignment(iVerticalAlignment::Top);
-    _periodChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-
-    iWidgetGrid* gridAppearanceProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-    _allWidgets.push_back(gridAppearanceProperties);
-    gridAppearanceProperties->appendCollumns(1);
-    gridAppearanceProperties->appendRows(5);
-    gridAppearanceProperties->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    gridAppearanceProperties->setStrechColumn(1);
-    gridAppearanceProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridButtons);
     gridButtons->appendCollumns(2);
     gridButtons->setBorder(2);
-    gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
     _buttonStart = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
@@ -232,15 +202,187 @@ void UserControlParticleSystem::initGUI()
     _buttonReset->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
 
+    ///////////////
+    iWidgetGroupBox* simulationGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    _allWidgets.push_back(simulationGroupBox);
+    simulationGroupBox->setText("Simulation");
+    simulationGroupBox->setHeaderOnly();
+    simulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    simulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridSimulationProperties);
+    gridSimulationProperties->appendCollumns(1);
+    gridSimulationProperties->appendRows(5);
+    gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    gridSimulationProperties->setStrechColumn(1);
+    gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetLabel* labelLoop = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelLoop);
+    labelLoop->setText("Loop");
+    labelLoop->setWidth(80);
+    labelLoop->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _loopCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _allWidgets.push_back(_loopCheckBox);
+    _loopCheckBox->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _loopCheckBox->setVerticalAlignment(iVerticalAlignment::Top);
+    _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onLoopChanged));
+
+    iWidgetLabel* labelPeriod = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelPeriod);
+    labelPeriod->setText("Period");
+    labelPeriod->setWidth(80);
+    labelPeriod->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _periodChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_periodChooser);
+    _periodChooser->setMinMaxNumber(0.0f, 120.0f);
+    _periodChooser->setStepping(0.1f, 0.1f);
+    _periodChooser->setSteppingWheel(1.0f, 1.0f);
+    _periodChooser->setPostFix("s");
+    _periodChooser->setAfterPoint(1);
+    _periodChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _periodChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _periodChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelAirDrag = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelAirDrag);
+    labelAirDrag->setText("Air Drag");
+    labelAirDrag->setWidth(80);
+    labelAirDrag->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _airDragChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_airDragChooser);
+    _airDragChooser->setMinMaxNumber(0.0f, 1.0f);
+    _airDragChooser->setStepping(0.001f, 0.001f);
+    _airDragChooser->setSteppingWheel(0.01f, 0.01f);
+    _airDragChooser->setPostFix("");
+    _airDragChooser->setAfterPoint(3);
+    _airDragChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _airDragChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _airDragChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    ///////////
+    iWidgetGroupBox* vortexSimulationGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    _allWidgets.push_back(vortexSimulationGroupBox);
+    vortexSimulationGroupBox->setText("Vortex Simulation");
+    vortexSimulationGroupBox->setHeaderOnly();
+    vortexSimulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    vortexSimulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetGrid* gridVortexSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridVortexSimulationProperties);
+    gridVortexSimulationProperties->appendCollumns(1);
+    gridVortexSimulationProperties->appendRows(5);
+    gridVortexSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    gridVortexSimulationProperties->setStrechColumn(1);
+    gridVortexSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetLabel* labelVortexRate = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelVortexRate);
+    labelVortexRate->setText("Crea. Rate");
+    labelVortexRate->setWidth(80);
+    labelVortexRate->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _vorticityAppearanceRateChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_vorticityAppearanceRateChooser);
+    _vorticityAppearanceRateChooser->setMinMaxNumber(0.0f, 100.0f);
+    _vorticityAppearanceRateChooser->setStepping(1.0f, 1.0f);
+    _vorticityAppearanceRateChooser->setSteppingWheel(1.0f, 1.0f);
+    _vorticityAppearanceRateChooser->setPostFix(" v/f");
+    _vorticityAppearanceRateChooser->setAfterPoint(0);
+    _vorticityAppearanceRateChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vorticityAppearanceRateChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vorticityAppearanceRateChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVorticityConfinement = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelVorticityConfinement);
+    labelVorticityConfinement->setText("Confinement");
+    labelVorticityConfinement->setWidth(80);
+    labelVorticityConfinement->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _vorticityConfinementChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_vorticityConfinementChooser);
+    _vorticityConfinementChooser->setMinMaxNumber(0.0f, 100.0f);
+    _vorticityConfinementChooser->setStepping(0.1f, 0.1f);
+    _vorticityConfinementChooser->setSteppingWheel(1.0f, 1.0f);
+    _vorticityConfinementChooser->setPostFix("");
+    _vorticityConfinementChooser->setAfterPoint(1);
+    _vorticityConfinementChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vorticityConfinementChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vorticityConfinementChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    ///////////
+    iWidgetGroupBox* appearanceGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    _allWidgets.push_back(appearanceGroupBox);
+    appearanceGroupBox->setText("Appearance");
+    appearanceGroupBox->setHeaderOnly();
+    appearanceGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    appearanceGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetGrid* gridAppearanceProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridAppearanceProperties);
+    gridAppearanceProperties->appendCollumns(1);
+    gridAppearanceProperties->appendRows(15);
+    gridAppearanceProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    gridAppearanceProperties->setStrechColumn(1);
+    gridAppearanceProperties->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetLabel* labelVerticalTiling = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelVerticalTiling);
+    labelVerticalTiling->setText("V Tiling");
+    labelVerticalTiling->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVerticalTiling->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _tilingVerticalChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_tilingVerticalChooser);
+    _tilingVerticalChooser->setMinMaxNumber(1.0f, 32.0f);
+    _tilingVerticalChooser->setStepping(1.0f, 1.0f);
+    _tilingVerticalChooser->setSteppingWheel(1.0f, 1.0f);
+    _tilingVerticalChooser->setPostFix("");
+    _tilingVerticalChooser->setAfterPoint(0);
+    _tilingVerticalChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _tilingVerticalChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _tilingVerticalChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelHorizontalTiling = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelHorizontalTiling);
+    labelHorizontalTiling->setText("H Tiling");
+    labelHorizontalTiling->setWidth(MV_REGULARBUTTON_SIZE);
+    labelHorizontalTiling->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _tilingHorizontalChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _allWidgets.push_back(_tilingHorizontalChooser);
+    _tilingHorizontalChooser->setMinMaxNumber(1.0f, 32.0f);
+    _tilingHorizontalChooser->setStepping(1.0f, 1.0f);
+    _tilingHorizontalChooser->setSteppingWheel(1.0f, 1.0f);
+    _tilingHorizontalChooser->setPostFix("");
+    _tilingHorizontalChooser->setAfterPoint(0);
+    _tilingHorizontalChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _tilingHorizontalChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _tilingHorizontalChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVelocityOriented = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelVelocityOriented);
+    labelVelocityOriented->setText("Vel. Ori.");
+    labelVelocityOriented->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVelocityOriented->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _velocityOrientedCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _velocityOrientedCheckBox->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _velocityOrientedCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
     iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelEmitter);
     labelEmitter->setText("Emitter");
     labelEmitter->setWidth(MV_REGULARBUTTON_SIZE);
-    labelEmitter->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelEmitter->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _emitterSelection = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
     _allWidgets.push_back(_emitterSelection);
-    _emitterSelection->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _emitterSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _emitterSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _emitterSelection->setWidth(200);
 
@@ -248,11 +390,11 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(labelMaterial);
     labelMaterial->setText("Material");
     labelMaterial->setWidth(MV_REGULARBUTTON_SIZE);
-    labelMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _materialSelection = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
     _allWidgets.push_back(_materialSelection);
-    _materialSelection->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _materialSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _materialSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _materialSelection->setGrowingByContent();
     _materialSelection->setWidth(200);
@@ -262,32 +404,32 @@ void UserControlParticleSystem::initGUI()
     gridTextures->appendCollumns(1);
     gridTextures->appendRows(3);
     gridTextures->setBorder(2);
-    gridTextures->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    gridTextures->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit0);
     labelTextureUnit0->setText("Texture 0");
     labelTextureUnit0->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit0->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit1);
     labelTextureUnit1->setText("Texture 1");
     labelTextureUnit1->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit2);
     labelTextureUnit2->setText("Texture 2");
     labelTextureUnit2->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit3);
     labelTextureUnit3->setText("Texture 3");
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textureChooser0 = new iUserControlFileChooser();
     _textureChooser0->setPreselectedPath("..\\data\\textures");
@@ -312,7 +454,10 @@ void UserControlParticleSystem::initGUI()
     _grid->addWidget(gridButtons, 0, 0);
     _grid->addWidget(gridProperties, 0, 1);
 
-    gridProperties->addWidget(gridSimulationProperties, 0, 0);
+    gridProperties->addWidget(simulationGroupBox, 0, 0);
+    
+    ///////
+    simulationGroupBox->addWidget(gridSimulationProperties);
 
     gridSimulationProperties->addWidget(labelLoop, 0, 0);
     gridSimulationProperties->addWidget(_loopCheckBox, 1, 0);
@@ -320,25 +465,49 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->addWidget(labelPeriod, 0, 1);
     gridSimulationProperties->addWidget(_periodChooser, 1, 1);
 
-    gridProperties->addWidget(gridAppearanceProperties, 0, 1);
+    gridSimulationProperties->addWidget(labelAirDrag, 0, 2);
+    gridSimulationProperties->addWidget(_airDragChooser, 1, 2);
 
-    gridAppearanceProperties->addWidget(labelEmitter, 0, 0);
-    gridAppearanceProperties->addWidget(_emitterSelection, 1, 0);
+    gridProperties->addWidget(vortexSimulationGroupBox, 0, 1);
+    vortexSimulationGroupBox->addWidget(gridVortexSimulationProperties);
 
-    gridAppearanceProperties->addWidget(labelMaterial, 0, 1);
-    gridAppearanceProperties->addWidget(_materialSelection, 1, 1);
+    gridVortexSimulationProperties->addWidget(labelVortexRate, 0, 0);
+    gridVortexSimulationProperties->addWidget(_vorticityAppearanceRateChooser, 1, 0);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 2);
-    gridAppearanceProperties->addWidget(_textureChooser0->getWidget(), 1, 2);
+    gridVortexSimulationProperties->addWidget(labelVorticityConfinement, 0, 1);
+    gridVortexSimulationProperties->addWidget(_vorticityConfinementChooser, 1, 1);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 3);
-    gridAppearanceProperties->addWidget(_textureChooser1->getWidget(), 1, 3);
+    /////////////////
+    gridProperties->addWidget(appearanceGroupBox, 0, 2);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 4);
-    gridAppearanceProperties->addWidget(_textureChooser2->getWidget(), 1, 4);
+    appearanceGroupBox->addWidget(gridAppearanceProperties);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 5);
-    gridAppearanceProperties->addWidget(_textureChooser3->getWidget(), 1, 5);
+    gridAppearanceProperties->addWidget(labelVerticalTiling, 0, 0);
+    gridAppearanceProperties->addWidget(_tilingVerticalChooser, 1, 0);
+
+    gridAppearanceProperties->addWidget(labelHorizontalTiling, 0, 1);
+    gridAppearanceProperties->addWidget(_tilingHorizontalChooser, 1, 1);
+
+    gridAppearanceProperties->addWidget(labelVelocityOriented, 0, 2);
+    gridAppearanceProperties->addWidget(_velocityOrientedCheckBox, 1, 2);
+
+    gridAppearanceProperties->addWidget(labelEmitter, 0, 3);
+    gridAppearanceProperties->addWidget(_emitterSelection, 1, 3);
+
+    gridAppearanceProperties->addWidget(labelMaterial, 0, 4);
+    gridAppearanceProperties->addWidget(_materialSelection, 1, 4);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 5);
+    gridAppearanceProperties->addWidget(_textureChooser0->getWidget(), 1, 5);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 6);
+    gridAppearanceProperties->addWidget(_textureChooser1->getWidget(), 1, 6);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 7);
+    gridAppearanceProperties->addWidget(_textureChooser2->getWidget(), 1, 7);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 8);
+    gridAppearanceProperties->addWidget(_textureChooser3->getWidget(), 1, 8);
 
     updateNode();
 }
@@ -393,6 +562,12 @@ void UserControlParticleSystem::deinitGUI()
     _emitterSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _materialSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));    
     _periodChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _airDragChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _velocityOrientedCheckBox->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vorticityConfinementChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vorticityAppearanceRateChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _tilingHorizontalChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _tilingVerticalChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     _textureChooser0->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _textureChooser1->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));

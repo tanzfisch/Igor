@@ -86,7 +86,7 @@ void UserControlLight::initGUI()
     //_grid->appendCollumns(5);
     _grid->appendRows(2);
     _grid->setBorder(2);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
     _ambientColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);

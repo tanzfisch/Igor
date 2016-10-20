@@ -66,13 +66,13 @@ namespace Igor
 
         /*! sets horrizotnal text aligment
 
-        \param align the horrizontal allignment of the text
+        \param align the horizontal allignment of the text
         */
-        void setHorrizontalTextAlignment(iHorrizontalAlignment align);
+        void setHorizontalTextAlignment(iHorizontalAlignment align);
 
-        /*! \returns horrizontal text alignment
+        /*! \returns horizontal text alignment
         */
-        iHorrizontalAlignment getHorrizontalTextAlignment() const;
+        iHorizontalAlignment getHorizontalTextAlignment() const;
 
         /*! sets vertical text aligment
 
@@ -96,9 +96,9 @@ namespace Igor
 
 	protected:
 
-        /*! the horrizontal alignment
+        /*! the horizontal alignment
         */
-        iHorrizontalAlignment _horrizontalTextAlignment = iHorrizontalAlignment::Center;
+        iHorizontalAlignment _horizontalTextAlignment = iHorizontalAlignment::Center;
 
         /*! the vertical alignment
         */

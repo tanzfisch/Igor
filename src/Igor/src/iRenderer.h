@@ -73,11 +73,11 @@ namespace Igor
 		Undefined
     };
 
-    /*! horrizontal alllignment
+    /*! horizontal alllignment
 
-    \todo there is an other definition of that iHorrizontalAligment
+    \todo there is an other definition of that iHorizontalAligment
     */
-    enum class iHorrizontalAlign
+    enum class iHorizontalAlign
     {
         Center,
         Left,
@@ -222,7 +222,7 @@ namespace Igor
 
         /*! set the viewport
 
-        \param x horrizontal position of viewport in pixel
+        \param x horizontal position of viewport in pixel
         \param x vertical position of viewport in pixel
         \param with with of viewport in pixel
         \param height height of viewport in pixel
@@ -331,7 +331,7 @@ namespace Igor
 
         /*! reads rectangular area from screen buffer
 
-        \param x horrizontal position in pixel
+        \param x horizontal position in pixel
         \parma y vertical position in pixel
         \param width width in pixel
         \param height height in pixel
@@ -342,7 +342,7 @@ namespace Igor
 
         /*! reads rectangular area from screen buffer (float data)
 
-        \param x horrizontal position in pixel
+        \param x horizontal position in pixel
         \parma y vertical position in pixel
         \param width width in pixel
         \param height height in pixel
@@ -396,23 +396,23 @@ namespace Igor
 
         /*! draws a point
 
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         */
         virtual void drawPoint(float32 x, float32 y);
 
         /*! draw a line between two points
 
-        \param x1 horrizontal position of first point
+        \param x1 horizontal position of first point
         \param y1 vertical position of first point
-        \param x2 horrizontal position of second point
+        \param x2 horizontal position of second point
         \param y2 vertical position of second point
         */
         virtual void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
 
         /*! draw a filled rectangle.
 
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         \param width width of the rectangle
         \param height height of the rectangle
@@ -423,7 +423,7 @@ namespace Igor
 
         Texture coordinates fill the rectangle once from 0-1 and 0-1.
 
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         \param width width of the rectangle
         \param height height of the rectangle
@@ -435,7 +435,7 @@ namespace Igor
 
         as drawTexture but with repeating UV coordinates based on texture resolution
 
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         \param width width of the rectangle
         \param height height of the rectangle
@@ -448,7 +448,7 @@ namespace Igor
         Texture coordinates fill the rectangle once from 0-1 and 0-1.
         Values for Width and Height are taken from the textures size.
 
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         \param texture the texture to render the rectangle with
         */
@@ -457,10 +457,10 @@ namespace Igor
         /*! draws a sprite at given position, orientation and scale
 
         \param sprite the sprite to render
-        \param x horrizontal position
+        \param x horizontal position
         \param y vertical position
         \param angle orientation in rad
-        \param scalex horrizontal scale
+        \param scalex horizontal scale
         \param scaley vertical scale
         */
         virtual void drawSprite(iSprite* sprite, float32 x, float32 y, float32 angle = 0.0f, float32 scalex = 1.0f, float32 scaley = 1.0f);
@@ -550,7 +550,7 @@ namespace Igor
         virtual void setFontSize(float32 size);							// setzt die aktuelle Schriftgröße
         virtual void setFontLineHeight(float32 lineheight);				// setzt die aktuelle Zeilenhöhe
         virtual void drawString(float32 x, float32 y, iaString text, float32 angle = 0.0f, float32 maxWidth = 0.0f);
-        virtual void drawString(float32 x, float32 y, iaString text, iHorrizontalAlign horz, iVerticalAlign vert = iVerticalAlign::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
+        virtual void drawString(float32 x, float32 y, iaString text, iHorizontalAlign horz, iVerticalAlign vert = iVerticalAlign::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
         virtual void drawParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow);

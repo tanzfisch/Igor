@@ -453,7 +453,7 @@ namespace Igor
             }
         }
 
-        if (getHorrizontalAlignment() == iHorrizontalAlignment::Strech)
+        if (getHorizontalAlignment() == iHorizontalAlignment::Strech)
         {
             if (_strechCol < columnCount)
             {

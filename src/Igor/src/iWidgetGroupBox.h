@@ -76,8 +76,14 @@ namespace Igor
         */
 		int32 getBorder();
 
+        /*! setter for header only mode
+
+        \param headerOnly if true there will only the header be visible
+        */
         void setHeaderOnly(bool headerOnly = true);
 
+        /*! \returns if true: header only mode is on
+        */
         bool getHeaderOnly() const;
 
     private:

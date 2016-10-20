@@ -86,7 +86,7 @@ namespace Igor
             */
             int32 _configuredHeight = 10;
 
-            /*! horrizontal position of child
+            /*! horizontal position of child
             */
             int32 _x = 0;
 
@@ -94,7 +94,7 @@ namespace Igor
             */
             int32 _y = 0;
 
-			/*! absolute horrizontal position of child
+			/*! absolute horizontal position of child
 			*/
 			int32 _absoluteX = 0;
 
@@ -322,8 +322,8 @@ namespace Igor
 
         /*! handles incomming mouse move events
 
-        \param x horrizontal mouse position
-        \param y horrizontal mouse position
+        \param x horizontal mouse position
+        \param y horizontal mouse position
         */
         void handleMouseMove(int32 x, int32 y);
 
@@ -339,6 +339,11 @@ namespace Igor
         */
         void initGrid();
 
+        /*! updates widget's alignment
+
+        \param clientWidth maximum width this widget can align to
+        \param clientHeight maximum height this widget can align to
+        */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
         void calcChildOffsets(vector<iRectanglei>& offsets);

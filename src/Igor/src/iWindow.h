@@ -120,7 +120,7 @@ namespace Igor
         */
         uint32 getClientHeight() const;
 
-        /*! \returns horrizontal position of window
+        /*! \returns horizontal position of window
         */
         uint32 getXPos() const;
 
@@ -154,7 +154,7 @@ namespace Igor
 
         set indirect the size of the window
 
-        \param width horrizontal width in pixel
+        \param width horizontal width in pixel
         \param height vertical height in pixel
         */
         void setSize(uint32 width, uint32 height);
@@ -165,7 +165,7 @@ namespace Igor
 
         /*! set position of window relative to desktop
 
-        \param x horrizontal position in pixel
+        \param x horizontal position in pixel
         \param y vertical position in pixel
         */
         void setPosition(uint32 x, uint32 y);
@@ -176,7 +176,7 @@ namespace Igor
         */
         void setFullscreen(bool fullscreen = true);
 
-        /*! centers the window relative to the desktop horrizontally and vertically
+        /*! centers the window relative to the desktop horizontally and vertically
         */
         void setCentered();
 

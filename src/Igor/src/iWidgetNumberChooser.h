@@ -37,9 +37,7 @@ namespace Igor
 	class iTextureFont;
 	class iWidgetManager;
 
-	/*!
-
-	\todo replace stringstream
+	/*! number chooser widget
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
@@ -192,8 +190,8 @@ namespace Igor
 
         /*! handles incomming mouse move events
 
-        \param x horrizontal mouse position
-        \param y horrizontal mouse position
+        \param x horizontal mouse position
+        \param y horizontal mouse position
         */
         void handleMouseMove(int32 x, int32 y);
 
@@ -213,6 +211,11 @@ namespace Igor
         */
         void calcMinSize();
 
+        /*! updates widget alignment
+
+        \param clientWidth maximum width this widget can align to
+        \param clientHeight maximum height this widget can align to
+        */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
 		/*! draws the button

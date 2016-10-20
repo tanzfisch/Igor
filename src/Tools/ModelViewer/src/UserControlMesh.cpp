@@ -235,7 +235,7 @@ void UserControlMesh::initGUI()
     _allWidgets.push_back(_grid);
     _grid->appendRows(7);
     _grid->setWidth(330);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
     _ambientColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);
@@ -258,74 +258,74 @@ void UserControlMesh::initGUI()
     _allWidgets.push_back(detailsGrid);
     detailsGrid->appendCollumns(1);
     detailsGrid->appendRows(2);
-    detailsGrid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelVertexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelVertexes);
     labelVertexes->setText("Vertexes");
     labelVertexes->setWidth(MV_REGULARBUTTON_SIZE);
-    labelVertexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelVertexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTriangles = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTriangles);
     labelTriangles->setText("Triangles");
     labelTriangles->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTriangles->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTriangles->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelIndexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelIndexes);
     labelIndexes->setText("Indexes");
     labelIndexes->setWidth(MV_REGULARBUTTON_SIZE);
-    labelIndexes->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelIndexes->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textVertices = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textVertices);
     _textVertices->setWidth(100);
-    _textVertices->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    _textVertices->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+    _textVertices->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textVertices->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textVertices->setActive(false);
     _textVertices->setText("0");
 
     _textTriangles = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTriangles);
     _textTriangles->setWidth(100);
-    _textTriangles->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    _textTriangles->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+    _textTriangles->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textTriangles->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textTriangles->setActive(false);
     _textTriangles->setText("0");
 
     _textIndexes = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textIndexes);
     _textIndexes->setWidth(100);
-    _textIndexes->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    _textIndexes->setHorrizontalTextAlignment(iHorrizontalAlignment::Right);
+    _textIndexes->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textIndexes->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textIndexes->setActive(false);
     _textIndexes->setText("0");
 
     iWidgetGrid* gridShininess = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridShininess);
-    gridShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridShininess->appendCollumns(2);
     gridShininess->appendRows(1);
 
     iWidgetLabel* labelShininess = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelShininess);
     labelShininess->setText("Shininess");
-    labelShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelShininessShort = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelShininessShort);
     labelShininessShort->setText("S");
-    labelShininessShort->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelShininessShort->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _sliderShininess = static_cast<iWidgetSlider*>(iWidgetManager::getInstance().createWidget(iWidgetType::Slider));
     _allWidgets.push_back(_sliderShininess);
-    _sliderShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _sliderShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
     _sliderShininess->setMinValue(0.0f);
     _sliderShininess->setMaxValue(1000.0f);
     _sliderShininess->setSteppingWheel(0.1f, 0.1f);
     _sliderShininess->setValue(0.0f);
-    _sliderShininess->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _sliderShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
     _sliderShininess->setWidth(235);
     _sliderShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onSliderChangedShininess));
 
@@ -344,32 +344,32 @@ void UserControlMesh::initGUI()
     gridTextures->appendRows(3);
     gridTextures->appendCollumns(1);
     gridTextures->setWidth(330);
-    gridTextures->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridTextures->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit0);
     labelTextureUnit0->setText("Texture 0");
     labelTextureUnit0->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit0->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit1);
     labelTextureUnit1->setText("Texture 1");
     labelTextureUnit1->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit2);
     labelTextureUnit2->setText("Texture 2");
     labelTextureUnit2->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit3);
     labelTextureUnit3->setText("Texture 3");
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
-    labelTextureUnit3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textureChooser0 = new iUserControlFileChooser();
     _textureChooser0->setPreselectedPath("..\\data\\textures");
@@ -390,17 +390,17 @@ void UserControlMesh::initGUI()
     iWidgetGrid* gridMaterial = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridMaterial);
     gridMaterial->appendCollumns(1);
-    gridMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridMaterial->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel* labelMaterial = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelMaterial);
     labelMaterial->setText("Material");
-    labelMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _selectMaterial = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
     _allWidgets.push_back(_selectMaterial);
-    _selectMaterial->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+    _selectMaterial->setHorizontalAlignment(iHorizontalAlignment::Right);
     _selectMaterial->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
 
     gridShininess->addWidget(labelShininess, 1, 0);

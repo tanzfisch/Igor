@@ -73,7 +73,7 @@ void UserControlNode::initGUI()
     _grid->appendCollumns(1);
     _grid->appendRows(1);
     _grid->setCellSpacing(2);
-    _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
 
@@ -81,14 +81,14 @@ void UserControlNode::initGUI()
     _allWidgets.push_back(_labelName);
     _labelName->setText("Name");
     _labelName->setWidth(80);
-    _labelName->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textName);
     _textName->setWidth(200);
     _textName->setMaxTextLength(256);
-    _textName->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
-    _textName->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textName->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textName->setText("");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlNode::onNameChanged));
 
@@ -96,13 +96,13 @@ void UserControlNode::initGUI()
     _allWidgets.push_back(_labelActive);
     _labelActive->setText("Active");
     _labelActive->setWidth(80);
-    _labelActive->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxActive = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
     _allWidgets.push_back(_checkBoxActive);
     _checkBoxActive->setText("");
     _checkBoxActive->setActive(false);
-    _checkBoxActive->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _checkBoxActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _grid->addWidget(_labelName, 0, 0);
     _grid->addWidget(_textName, 1, 0);

@@ -72,7 +72,7 @@ void UserControlGraphView::initGUI()
     grid->setCellSpacing(2);
     grid->setStrechRow(1);
     grid->setStrechColumn(0);
-    grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
@@ -80,7 +80,7 @@ void UserControlGraphView::initGUI()
     gridButtons->setBorder(0);
     gridButtons->appendCollumns(10);
     gridButtons->setCellSpacing(2);
-    gridButtons->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetButton* addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
@@ -134,13 +134,13 @@ void UserControlGraphView::initGUI()
     iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
     _allWidgets.push_back(groupBox);
     groupBox->setText("Graph");
-    groupBox->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
     iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
     _allWidgets.push_back(scroll);
     scroll->setVerticalAlignment(iVerticalAlignment::Strech);
-    scroll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
     _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_gridGraph);
@@ -148,7 +148,7 @@ void UserControlGraphView::initGUI()
     _gridGraph->setWidth(300);
     _gridGraph->setSelectMode(iSelectionMode::Row);
     _gridGraph->setCellSpacing(0);
-    _gridGraph->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _gridGraph->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridGraph->setVerticalAlignment(iVerticalAlignment::Top);
     _gridGraph->registerOnChangeEvent(iChangeDelegate(this, &UserControlGraphView::OnSelectionChange));
     _gridGraph->registerOnContextMenuEvent(iContextMenuDelegate(this, &UserControlGraphView::OnContextMenu));
@@ -392,7 +392,7 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
         entry->setBorder(0);
         entry->setCellSpacing(2);
         entry->appendCollumns(2);
-        entry->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->setWidth(330);
         uint32* userData = new uint32();
         _userData.push_back(userData);
@@ -400,12 +400,12 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
         _gridGraph->addWidget(entry, 0, currentRowIndex, userData);
 
         iWidgetLabel* indentLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-        indentLabel->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        indentLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         indentLabel->setVerticalAlignment(iVerticalAlignment::Center);
         indentLabel->setText(indentString);
 
         iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-        label->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+        label->setHorizontalAlignment(iHorizontalAlignment::Right);
         label->setVerticalAlignment(iVerticalAlignment::Center);
 
         iWidgetPicture* icon = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));

@@ -29,7 +29,7 @@ namespace Igor
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _allWidgets.push_back(_grid);
         _grid->appendRows(texts.size() - 1);
-        _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
         _grid->setSelectMode(iSelectionMode::Row);
         _grid->setCellSpacing(4);
@@ -40,7 +40,7 @@ namespace Igor
         for (int i = 0; i < texts.size(); ++i)
         {
             iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-            label->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+            label->setHorizontalAlignment(iHorizontalAlignment::Left);
             _allWidgets.push_back(label);
             label->setText(texts[i]);
             _grid->addWidget(label, 0, i);
@@ -63,7 +63,7 @@ namespace Igor
         _allWidgets.push_back(_grid);
         _grid->appendCollumns(1);
         _grid->appendRows(texts.size() - 1);
-        _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
         _grid->setSelectMode(iSelectionMode::Row);
         _grid->setCellSpacing(4);
@@ -84,7 +84,7 @@ namespace Igor
 
             iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
             _allWidgets.push_back(label);
-            label->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+            label->setHorizontalAlignment(iHorizontalAlignment::Left);
             label->setText(texts[i]);
             _grid->addWidget(label, 1, i);
         }

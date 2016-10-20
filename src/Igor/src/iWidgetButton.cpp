@@ -71,9 +71,9 @@ namespace Igor
         setMinSize(minWidth, minHeight);
 	}
 
-    iHorrizontalAlignment iWidgetButton::getHorrizontalTextAlignment() const
+    iHorizontalAlignment iWidgetButton::getHorizontalTextAlignment() const
     {
-        return _horrizontalTextAlignment;
+        return _horizontalTextAlignment;
     }
 
     iVerticalAlignment iWidgetButton::getVerticalTextAlignment() const
@@ -81,9 +81,9 @@ namespace Igor
         return _verticalTextAlignment;
     }
 
-    void iWidgetButton::setHorrizontalTextAlignment(iHorrizontalAlignment align)
+    void iWidgetButton::setHorizontalTextAlignment(iHorizontalAlignment align)
     {
-        _horrizontalTextAlignment = align;
+        _horizontalTextAlignment = align;
     }
 
     void iWidgetButton::setVerticalTextAlignment(iVerticalAlignment valign)
@@ -95,7 +95,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horrizontalTextAlignment, _verticalTextAlignment, _texture, getAppearanceState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getAppearanceState(), isActive());
 		}
 	}
 

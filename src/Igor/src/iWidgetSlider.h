@@ -151,8 +151,8 @@ namespace Igor
 
         /*! handles incomming mouse move events
 
-        \param x horrizontal mouse position
-        \param y horrizontal mouse position
+        \param x horizontal mouse position
+        \param y horizontal mouse position
         */
         void handleMouseMove(int32 x, int32 y);
 
@@ -170,7 +170,7 @@ namespace Igor
 
 	private:
 
-        /*! last known horrizontal mouse position
+        /*! last known horizontal mouse position
         */
         int32 _mouseX = 0;
 

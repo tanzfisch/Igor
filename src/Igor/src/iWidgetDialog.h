@@ -53,9 +53,9 @@ namespace Igor
 
     public:
 
-        /*! set horrizontal position of dialog and horrizontal alignment to absolute
+        /*! set horizontal position of dialog and horizontal alignment to absolute
 
-        \param x horrizontal position
+        \param x horizontal position
         */
         void setX(int32 x);
 
@@ -77,11 +77,11 @@ namespace Igor
 
     private:
 
-        /*! horrizontal position relative to parent if horrizontal alignment is absolute
+        /*! horizontal position relative to parent if horizontal alignment is absolute
         */
         int32 _offsetX = 0;
 
-        /*! vertical position relative to parent if horrizontal alignment is absolute
+        /*! vertical position relative to parent if horizontal alignment is absolute
         */
         int32 _offsetY = 0;
 
@@ -93,7 +93,10 @@ namespace Igor
         */
         void calcMinSize();
 
-        /*! updates alignment to desktop
+        /*! updates dialog's alignment
+
+        \param clientWidth maximum width this widget can align to
+        \param clientHeight maximum height this widget can align to
         */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 

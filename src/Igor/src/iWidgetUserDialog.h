@@ -43,9 +43,9 @@ namespace Igor
 
     public:
 
-        /*! set horrizontal position of dialog and horrizontal alignment to absolute
+        /*! set horizontal position of dialog and horizontal alignment to absolute
 
-        \param x horrizontal position
+        \param x horizontal position
         */
         void setX(int32 x);
 
