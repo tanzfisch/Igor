@@ -140,11 +140,7 @@ void UserControlGraphView::initGUI()
     iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
     _allWidgets.push_back(scroll);
     scroll->setVerticalAlignment(iVerticalAlignment::Strech);
-    // TODO WORKAROUND use strech here. but there is a bug that generated the wrong width so we set ist fix to 335
-    // also the vertical strech does not work here
-    scroll->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    scroll->setWidth(335);
-    // end WORKAROUND
+    scroll->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
 
     _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_gridGraph);

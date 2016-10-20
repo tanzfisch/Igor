@@ -72,11 +72,19 @@ namespace Igor
 
             /*! width of child
             */
-            int32 _width = 10;
+            int32 _actualWidth = 10;
 
             /*! height of child
             */
-            int32 _height = 10;
+            int32 _actualHeight = 10;
+
+            /*! configured width of child
+            */
+            int32 _configuredWidth = 10;
+
+            /*! configured height of child
+            */
+            int32 _configuredHeight = 10;
 
             /*! horrizontal position of child
             */
@@ -249,8 +257,8 @@ namespace Igor
 
     private:
 
-		int32 _strechRow = -1;
-		int32 _strechCol = -1;
+		int32 _strechRow = 0;
+		int32 _strechCol = 0;
 
         /*! the child widgets
         */

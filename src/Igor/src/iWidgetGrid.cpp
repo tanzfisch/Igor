@@ -266,7 +266,7 @@ namespace Igor
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
         int32 biggestsize = 0;
-
+        
         int32 minWidth = 0;
         int32 minHeight = 0;
 
@@ -292,7 +292,8 @@ namespace Igor
 
             for (uint32 y = 0; y < rowCount; ++y)
             {
-                _widgetRows[y]._widgetCollumn[x]._width = biggestsize;
+                _widgetRows[y]._widgetCollumn[x]._configuredWidth = biggestsize;
+                _widgetRows[y]._widgetCollumn[x]._actualWidth = biggestsize;
             }
 
             minWidth += biggestsize;
@@ -317,7 +318,8 @@ namespace Igor
 
             for (uint32 x = 0; x < columnCount; ++x)
             {
-                _widgetRows[y]._widgetCollumn[x]._height = biggestsize;
+                _widgetRows[y]._widgetCollumn[x]._configuredHeight = biggestsize;
+                _widgetRows[y]._widgetCollumn[x]._actualHeight = biggestsize;
             }
 
             minHeight += biggestsize;
@@ -334,7 +336,7 @@ namespace Igor
             {
                 _widgetRows[y]._widgetCollumn[x]._y = posy;
 
-                posy += _widgetRows[y]._widgetCollumn[x]._height + _cellspacing;
+                posy += _widgetRows[y]._widgetCollumn[x]._configuredHeight + _cellspacing;
             }
         }
 
@@ -346,7 +348,7 @@ namespace Igor
             {
                 _widgetRows[y]._widgetCollumn[x]._x = posx;
 
-                posx += _widgetRows[y]._widgetCollumn[x]._width + _cellspacing;
+                posx += _widgetRows[y]._widgetCollumn[x]._configuredWidth + _cellspacing;
             }
         }
 
@@ -401,8 +403,8 @@ namespace Igor
                 {
                     clientRect.setX((*iterCollumn)._x);
                     clientRect.setY((*iterCollumn)._y);
-                    clientRect.setWidth((*iterCollumn)._width);
-                    clientRect.setHeight((*iterCollumn)._height);
+                    clientRect.setWidth((*iterCollumn)._actualWidth);
+                    clientRect.setHeight((*iterCollumn)._actualHeight);
 
                     offsets[foundIndex] = clientRect;
                 }
@@ -416,6 +418,8 @@ namespace Igor
 
     void iWidgetGrid::updateAlignment(int32 clientWidth, int32 clientHeight)
     {
+        con_assert(!_widgetRows.empty(), "grid can't be empty");
+
         iWidget::updateAlignment(clientWidth, clientHeight);
 
         uint32 rowCount = static_cast<uint32>(_widgetRows.size());
@@ -423,14 +427,13 @@ namespace Igor
 
         if (getVerticalAlignment() == iVerticalAlignment::Strech)
         {
-            if (_strechRow > -1 &&
-                _strechRow < rowCount)
+            if (_strechRow < rowCount)
             {
                 int32 diff = _actualHeight - _minHeight;
 
                 for (uint32 x = 0; x < columnCount; ++x)
                 {
-                    _widgetRows[_strechRow]._widgetCollumn[x]._height += diff;
+                    _widgetRows[_strechRow]._widgetCollumn[x]._actualHeight = _widgetRows[_strechRow]._widgetCollumn[x]._configuredHeight + diff;
                 }
 
                 if (_strechRow + 1 < rowCount)
@@ -452,14 +455,13 @@ namespace Igor
 
         if (getHorrizontalAlignment() == iHorrizontalAlignment::Strech)
         {
-            if (_strechCol > -1 &&
-                _strechCol < columnCount)
+            if (_strechCol < columnCount)
             {
                 int32 diff = _actualWidth - _minWidth;
 
                 for (uint32 y = 0; y < rowCount; ++y)
                 {
-                    _widgetRows[y]._widgetCollumn[_strechCol]._width += diff;
+                    _widgetRows[y]._widgetCollumn[_strechCol]._actualWidth = _widgetRows[y]._widgetCollumn[_strechCol]._configuredWidth + diff;
                 }
 
                 if (_strechCol + 1 < columnCount)
@@ -493,7 +495,7 @@ namespace Igor
 
                 if (widget != nullptr)
                 {
-                    widget->updateAlignment((*iterCollumn)._width, (*iterCollumn)._height);
+                    widget->updateAlignment((*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight);
                     widget->updatePosition((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY);
                 }
 
@@ -654,9 +656,9 @@ namespace Igor
                 }
 
                 if (x >= col._absoluteX &&
-                    x < col._absoluteX + col._width &&
+                    x < col._absoluteX + col._actualWidth &&
                     y >= col._absoluteY  &&
-                    y < col._absoluteY + col._height)
+                    y < col._absoluteY + col._actualHeight)
                 {
                     _mouseOverRow = rowNum;
                     _mouseOverCollumn = colNum;
@@ -762,11 +764,8 @@ namespace Igor
                 auto iterCollumn = (*iterRow)._widgetCollumn.begin();
                 while (iterCollumn != (*iterRow)._widgetCollumn.end())
                 {
-//                    (*iterCollumn)._absoluteX = getActualPosX() + (*iterCollumn)._x;
-  //                  (*iterCollumn)._absoluteY = getActualPosY() + (*iterCollumn)._y;
-
                     iWidgetManager::getInstance().getTheme()->drawGridField((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY, 
-                        (*iterCollumn)._width, (*iterCollumn)._height, getAppearanceState());
+                        (*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight, getAppearanceState());
 
                     if (_selectMode != iSelectionMode::NoSelection)
                     {
@@ -817,12 +816,12 @@ namespace Igor
                         if (drawSelected)
                         {
                             iWidgetManager::getInstance().getTheme()->drawGridSelection((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY,
-                                (*iterCollumn)._width, (*iterCollumn)._height);
+                                (*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight);
                         }
                         else if (drawHighlight)
                         {
                             iWidgetManager::getInstance().getTheme()->drawGridHighlight((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY,
-                                (*iterCollumn)._width, (*iterCollumn)._height);
+                                (*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight);
                         }
                     }
 
