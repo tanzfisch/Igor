@@ -44,6 +44,7 @@ namespace Igor
     class iWidgetNumberChooser;
     class iWidgetSelectBox;
     class iUserControlFileChooser;
+    class iWidgetCheckBox;
 }
 
 class UserControlParticleSystem : public iWidgetUserControl
@@ -74,6 +75,9 @@ private:
     iWidgetSelectBox* _emitterSelection = nullptr;
     iWidgetSelectBox* _materialSelection = nullptr;
 
+    iWidgetCheckBox* _loopCheckBox = nullptr;
+    iWidgetNumberChooser* _periodChooser = nullptr;
+
     vector<iWidget*> _allWidgets;
 
     vector<iNode*> _emitters;
@@ -86,10 +90,7 @@ private:
     bool _ignoreNodeUpdate = false;
 
     void onDoUpdateNode(iWidget* source);
-    void onTexture0Button(iWidget* source);
-    void onTexture1Button(iWidget* source);
-    void onTexture2Button(iWidget* source);
-    void onTexture3Button(iWidget* source);
+    void onLoopChanged(iWidget* source);
 
     void onStart(iWidget* source);
     void onStop(iWidget* source);

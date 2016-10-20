@@ -333,10 +333,6 @@ namespace Igor
         */
         iaString getTextureC() const;
 
-        /*! draw function
-        */
-        void draw();
-
     private:
 
         /*! inverted world matrix
@@ -363,6 +359,10 @@ namespace Igor
         */
         shared_ptr<iTexture> _textureC;
 
+        /*! draw function
+        */
+        void draw();
+
         /*! called when there is a new transformation matrix for this node
 
         \param matrix the new world matrix
@@ -384,7 +384,7 @@ namespace Igor
         */
         iNodeParticleSystem(iNodeParticleSystem* node);
 
-        /*! 
+        /*! clean up
         */
         virtual ~iNodeParticleSystem();
 

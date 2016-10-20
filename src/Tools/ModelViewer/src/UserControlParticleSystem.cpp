@@ -16,6 +16,7 @@
 #include <iNodeFactory.h>
 #include <iTargetMaterial.h>
 #include <iWidgetSelectBox.h>
+#include <iWidgetCheckBox.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
 #include <iMaterialGroup.h>
@@ -65,6 +66,9 @@ void UserControlParticleSystem::updateNode()
             node->setTextureA(_textureChooser0->getFileName());
             node->setTextureB(_textureChooser1->getFileName());
             node->setTextureC(_textureChooser2->getFileName());
+
+            node->setLoop(_loopCheckBox->isChecked());
+            node->setPeriodTime(_periodChooser->getValue());
         }
     }
 }
@@ -126,6 +130,10 @@ void UserControlParticleSystem::updateGUI()
     _textureChooser1->setFileName(node->getTextureB());
     _textureChooser2->setFileName(node->getTextureC());
 
+    _periodChooser->setValue(node->getPeriodTime());
+    _loopCheckBox->setChecked(node->getLoop());
+    _periodChooser->setActive(!_loopCheckBox->isChecked());
+
     _ignoreNodeUpdate = false;
 }
 
@@ -150,11 +158,54 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetGrid* gridProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridProperties);
-    gridProperties->appendCollumns(1);
+    gridProperties->appendCollumns(0);
     gridProperties->appendRows(5);
     gridProperties->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
-    gridProperties->setStrechColumn(1);
+    gridProperties->setStrechColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridSimulationProperties);
+    gridSimulationProperties->appendCollumns(1);
+    gridSimulationProperties->appendRows(5);
+    gridSimulationProperties->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    gridSimulationProperties->setStrechColumn(1);
+    gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetLabel* labelLoop = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelLoop);
+    labelLoop->setText("Loop");
+    labelLoop->setWidth(80);
+    labelLoop->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    _loopCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _loopCheckBox->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _loopCheckBox->setVerticalAlignment(iVerticalAlignment::Top);
+    _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onLoopChanged));
+
+    iWidgetLabel* labelPeriod = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelPeriod);
+    labelPeriod->setText("Period");
+    labelPeriod->setWidth(80);
+    labelPeriod->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+
+    _periodChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _periodChooser->setMinMaxNumber(0.0f, 120.0f);
+    _periodChooser->setStepping(0.1f, 0.1f);
+    _periodChooser->setSteppingWheel(1.0f, 1.0f);
+    _periodChooser->setPostFix("s");
+    _periodChooser->setAfterPoint(1);
+    _periodChooser->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+    _periodChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _periodChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetGrid* gridAppearanceProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _allWidgets.push_back(gridAppearanceProperties);
+    gridAppearanceProperties->appendCollumns(1);
+    gridAppearanceProperties->appendRows(5);
+    gridAppearanceProperties->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
+    gridAppearanceProperties->setStrechColumn(1);
+    gridAppearanceProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridButtons);
@@ -261,23 +312,33 @@ void UserControlParticleSystem::initGUI()
     _grid->addWidget(gridButtons, 0, 0);
     _grid->addWidget(gridProperties, 0, 1);
 
-    gridProperties->addWidget(labelEmitter, 0, 0);
-    gridProperties->addWidget(_emitterSelection, 1, 0);
+    gridProperties->addWidget(gridSimulationProperties, 0, 0);
 
-    gridProperties->addWidget(labelMaterial, 0, 1);
-    gridProperties->addWidget(_materialSelection, 1, 1);
+    gridSimulationProperties->addWidget(labelLoop, 0, 0);
+    gridSimulationProperties->addWidget(_loopCheckBox, 1, 0);
 
-    gridProperties->addWidget(labelTextureUnit0, 0, 2);
-    gridProperties->addWidget(_textureChooser0->getWidget(), 1, 2);
+    gridSimulationProperties->addWidget(labelPeriod, 0, 1);
+    gridSimulationProperties->addWidget(_periodChooser, 1, 1);
 
-    gridProperties->addWidget(labelTextureUnit1, 0, 3);
-    gridProperties->addWidget(_textureChooser1->getWidget(), 1, 3);
+    gridProperties->addWidget(gridAppearanceProperties, 0, 1);
 
-    gridProperties->addWidget(labelTextureUnit2, 0, 4);
-    gridProperties->addWidget(_textureChooser2->getWidget(), 1, 4);
+    gridAppearanceProperties->addWidget(labelEmitter, 0, 0);
+    gridAppearanceProperties->addWidget(_emitterSelection, 1, 0);
 
-    gridProperties->addWidget(labelTextureUnit3, 0, 5);
-    gridProperties->addWidget(_textureChooser3->getWidget(), 1, 5);
+    gridAppearanceProperties->addWidget(labelMaterial, 0, 1);
+    gridAppearanceProperties->addWidget(_materialSelection, 1, 1);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 2);
+    gridAppearanceProperties->addWidget(_textureChooser0->getWidget(), 1, 2);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 3);
+    gridAppearanceProperties->addWidget(_textureChooser1->getWidget(), 1, 3);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 4);
+    gridAppearanceProperties->addWidget(_textureChooser2->getWidget(), 1, 4);
+
+    gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 5);
+    gridAppearanceProperties->addWidget(_textureChooser3->getWidget(), 1, 5);
 
     updateNode();
 }
@@ -286,6 +347,13 @@ void UserControlParticleSystem::onDoUpdateNode(iWidget* source)
 {
     updateNode();
 }
+
+void UserControlParticleSystem::onLoopChanged(iWidget* source)
+{
+    _periodChooser->setActive(!_loopCheckBox->isChecked());
+    updateNode();
+}
+
 
 void UserControlParticleSystem::onStart(iWidget* source)
 {
@@ -323,7 +391,13 @@ void UserControlParticleSystem::deinitGUI()
     _buttonStop->unregisterOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
     _buttonStart->unregisterOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
     _emitterSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-    _materialSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _materialSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));    
+    _periodChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    _textureChooser0->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _textureChooser1->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _textureChooser2->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _textureChooser3->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     for (auto entry : _userDataMaterialID)
     {
@@ -347,20 +421,4 @@ void UserControlParticleSystem::deinitGUI()
 iWidget* UserControlParticleSystem::getWidget()
 {
     return _grid;
-}
-
-void UserControlParticleSystem::onTexture0Button(iWidget* source)
-{
-}
-
-void UserControlParticleSystem::onTexture1Button(iWidget* source)
-{
-}
-
-void UserControlParticleSystem::onTexture2Button(iWidget* source)
-{
-}
-
-void UserControlParticleSystem::onTexture3Button(iWidget* source)
-{
 }

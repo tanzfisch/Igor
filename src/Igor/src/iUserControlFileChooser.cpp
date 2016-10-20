@@ -66,21 +66,21 @@ namespace Igor
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
         _allWidgets.push_back(_grid);
         _grid->appendCollumns(1);
-        _grid->setHorrizontalAlignment(iHorrizontalAlignment::Left);
+        _grid->setStrechColumn(0);
+        _grid->setHorrizontalAlignment(iHorrizontalAlignment::Strech);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
-        //_grid->setStrechColumn(0);
 
         _fileNameTextEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
         _allWidgets.push_back(_fileNameTextEdit);
         _fileNameTextEdit->setMaxTextLength(256);
-        _fileNameTextEdit->setWidth(200);
+        _fileNameTextEdit->setWidth(180); // todo why does strech not work here?
         _fileNameTextEdit->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         _fileNameTextEdit->registerOnChangeEvent(iChangeDelegate(this, &iUserControlFileChooser::onTextChanged));
 
         _fileSelectButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
         _allWidgets.push_back(_fileSelectButton);
         _fileSelectButton->setText("...");
-        _fileSelectButton->setHorrizontalAlignment(iHorrizontalAlignment::Right);
+        _fileSelectButton->setHorrizontalAlignment(iHorrizontalAlignment::Left);
         _fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFileChooser::onFileSelectButtonPressed));
 
         _grid->addWidget(_fileNameTextEdit, 0, 0);

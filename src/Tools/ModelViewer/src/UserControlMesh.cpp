@@ -21,6 +21,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iMaterialGroup.h>
 #include <iMaterial.h>
+#include <iUserControlFileChooser.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -92,53 +93,10 @@ void UserControlMesh::updateNode()
             node->getTargetMaterial()->setEmissive(emissive);
             node->getTargetMaterial()->setShininess(_shininess);
 
-            if (!_textTexture0->getText().isEmpty())
-            {
-                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture0->getText()), 0);
-            }
-            else
-            {
-                if (node->getTargetMaterial()->hasTextureUnit(0))
-                {
-                    node->getTargetMaterial()->setTexture(nullptr, 0);
-                }
-            }
-
-            if (!_textTexture1->getText().isEmpty())
-            {
-                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture1->getText()), 1);
-            }
-            else
-            {
-                if (node->getTargetMaterial()->hasTextureUnit(1))
-                {
-                    node->getTargetMaterial()->setTexture(nullptr, 1);
-                }
-            }
-
-            if (!_textTexture2->getText().isEmpty())
-            {
-                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture2->getText()), 2);
-            }
-            else
-            {
-                if (node->getTargetMaterial()->hasTextureUnit(2))
-                {
-                    node->getTargetMaterial()->setTexture(nullptr, 2);
-                }
-            }
-
-            if (!_textTexture3->getText().isEmpty())
-            {
-                node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textTexture3->getText()), 3);
-            }
-            else
-            {
-                if (node->getTargetMaterial()->hasTextureUnit(3))
-                {
-                    node->getTargetMaterial()->setTexture(nullptr, 3);
-                }
-            }
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser0->getFileName()), 0);
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser1->getFileName()), 1);
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser2->getFileName()), 2);
+            node->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().loadFile(_textureChooser3->getFileName()), 3);
 
             if (_selectMaterial->getSelectedUserData() != nullptr)
             {
@@ -191,9 +149,9 @@ void UserControlMesh::updateGUI()
                 filename = shortName;
             }
              
-            _textTexture0->setText(filename);
+            _textureChooser0->setFileName(filename);
         }
-
+        
         if (node->getTargetMaterial()->hasTextureUnit(1))
         {
             iaString filename = node->getTargetMaterial()->getTexture(1)->getFilename();
@@ -203,7 +161,7 @@ void UserControlMesh::updateGUI()
                 filename = shortName;
             }
 
-            _textTexture1->setText(filename);
+            _textureChooser1->setFileName(filename);
         }
 
         if (node->getTargetMaterial()->hasTextureUnit(2))
@@ -215,7 +173,7 @@ void UserControlMesh::updateGUI()
                 filename = shortName;
             }
 
-            _textTexture2->setText(filename);
+            _textureChooser2->setFileName(filename);
         }
 
         if (node->getTargetMaterial()->hasTextureUnit(3))
@@ -227,7 +185,7 @@ void UserControlMesh::updateGUI()
                 filename = shortName;
             }
 
-            _textTexture3->setText(filename);
+            _textureChooser3->setFileName(filename);
         }
 
         for (auto entry : _userDataMaterialID)
@@ -384,7 +342,7 @@ void UserControlMesh::initGUI()
     iWidgetGrid* gridTextures = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridTextures);
     gridTextures->appendRows(3);
-    gridTextures->appendCollumns(2);
+    gridTextures->appendCollumns(1);
     gridTextures->setWidth(330);
     gridTextures->setHorrizontalAlignment(iHorrizontalAlignment::Left);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
@@ -413,69 +371,21 @@ void UserControlMesh::initGUI()
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
 
-    _textTexture0 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
-    _allWidgets.push_back(_textTexture0);
-    _textTexture0->setWidth(180);
-    _textTexture0->setMaxTextLength(200);
-    _textTexture0->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _textTexture0->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
-    _textTexture0->setText("");
-    _textTexture0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+    _textureChooser0 = new iUserControlFileChooser();
+    _textureChooser0->setPreselectedPath("..\\data\\textures");
+    _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textTexture1 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
-    _allWidgets.push_back(_textTexture1);
-    _textTexture1->setWidth(180);
-    _textTexture1->setMaxTextLength(200);
-    _textTexture1->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _textTexture1->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
-    _textTexture1->setText("");
-    _textTexture1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+    _textureChooser1 = new iUserControlFileChooser();
+    _textureChooser1->setPreselectedPath("..\\data\\textures");
+    _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textTexture2 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
-    _allWidgets.push_back(_textTexture2);
-    _textTexture2->setWidth(180);
-    _textTexture2->setMaxTextLength(200);
-    _textTexture2->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _textTexture2->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
-    _textTexture2->setText("");
-    _textTexture2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+    _textureChooser2 = new iUserControlFileChooser();
+    _textureChooser2->setPreselectedPath("..\\data\\textures");
+    _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textTexture3 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
-    _allWidgets.push_back(_textTexture3);
-    _textTexture3->setWidth(180);
-    _textTexture3->setMaxTextLength(200);
-    _textTexture3->setHorrizontalAlignment(iHorrizontalAlignment::Left);
-    _textTexture3->setHorrizontalTextAlignment(iHorrizontalAlignment::Left);
-    _textTexture3->setText("");
-    _textTexture3->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
-
-    _texture0Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allWidgets.push_back(_texture0Button);
-    _texture0Button->setWidth(20);
-    _texture0Button->setHeight(20);
-    _texture0Button->setText("...");
-    _texture0Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
-
-    _texture1Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allWidgets.push_back(_texture1Button);
-    _texture1Button->setWidth(20);
-    _texture1Button->setHeight(20);
-    _texture1Button->setText("...");
-    _texture1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture1Button));
-
-    _texture2Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allWidgets.push_back(_texture2Button);
-    _texture2Button->setWidth(20);
-    _texture2Button->setHeight(20);
-    _texture2Button->setText("...");
-    _texture2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture2Button));
-
-    _texture3Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allWidgets.push_back(_texture3Button);
-    _texture3Button->setWidth(20);
-    _texture3Button->setHeight(20);
-    _texture3Button->setText("...");
-    _texture3Button->registerOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture3Button));
+    _textureChooser3 = new iUserControlFileChooser();
+    _textureChooser3->setPreselectedPath("..\\data\\textures");
+    _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
     iWidgetGrid* gridMaterial = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridMaterial);
@@ -510,14 +420,10 @@ void UserControlMesh::initGUI()
     gridTextures->addWidget(labelTextureUnit1, 0, 1);
     gridTextures->addWidget(labelTextureUnit2, 0, 2);
     gridTextures->addWidget(labelTextureUnit3, 0, 3);
-    gridTextures->addWidget(_textTexture0, 1, 0);
-    gridTextures->addWidget(_textTexture1, 1, 1);
-    gridTextures->addWidget(_textTexture2, 1, 2);
-    gridTextures->addWidget(_textTexture3, 1, 3);
-    gridTextures->addWidget(_texture0Button, 2, 0);
-    gridTextures->addWidget(_texture1Button, 2, 1);
-    gridTextures->addWidget(_texture2Button, 2, 2);
-    gridTextures->addWidget(_texture3Button, 2, 3);
+    gridTextures->addWidget(_textureChooser0->getWidget(), 1, 0);
+    gridTextures->addWidget(_textureChooser1->getWidget(), 1, 1);
+    gridTextures->addWidget(_textureChooser2->getWidget(), 1, 2);
+    gridTextures->addWidget(_textureChooser3->getWidget(), 1, 3);
 
     gridMaterial->addWidget(labelMaterial, 0, 0);
     gridMaterial->addWidget(_selectMaterial, 1, 0);
@@ -536,10 +442,10 @@ void UserControlMesh::initGUI()
 
 void UserControlMesh::deinitGUI()
 {
-    _texture0Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture0Button));
-    _texture1Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture1Button));
-    _texture2Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture2Button));
-    _texture3Button->unregisterOnClickEvent(iClickDelegate(this, &UserControlMesh::onTexture3Button));
+    _textureChooser0->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+    _textureChooser1->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+    _textureChooser2->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
+    _textureChooser3->unregisterOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
     _selectMaterial->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
     _sliderShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onSliderChangedShininess));
     _textShininess->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onTextChangedShininess));
@@ -609,58 +515,4 @@ void UserControlMesh::onMaterialChanged(iWidget* source)
 void UserControlMesh::onDoUpdateNode(iWidget* source)
 {
     updateNode();
-}
-
-void UserControlMesh::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
-{
-    if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
-    {
-        iaString filename = iResourceManager::getInstance().getRelativePath(_fileDialog->getFullPath());
-        switch (_loadTextureTexUnit)
-        {
-        case 0:
-            _textTexture0->setText(filename);
-            break;
-
-        case 1:
-            _textTexture1->setText(filename);
-            break;
-
-        case 2:
-            _textTexture2->setText(filename);
-            break;
-
-        case 3:
-            _textTexture3->setText(filename);
-            break;
-
-        default:
-            con_err("out of range");
-        }
-        updateNode();
-    }
-}
-
-void UserControlMesh::onTexture0Button(iWidget* source)
-{
-    _loadTextureTexUnit = 0;
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
-}
-
-void UserControlMesh::onTexture1Button(iWidget* source)
-{
-    _loadTextureTexUnit = 1;
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
-}
-
-void UserControlMesh::onTexture2Button(iWidget* source)
-{
-    _loadTextureTexUnit = 2;
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
-}
-
-void UserControlMesh::onTexture3Button(iWidget* source)
-{
-    _loadTextureTexUnit = 3;
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &UserControlMesh::onFileLoadDialogClosed), "..\\data\\textures"); // TODO hard coded path
 }

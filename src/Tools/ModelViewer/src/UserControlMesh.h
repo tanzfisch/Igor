@@ -49,6 +49,7 @@ namespace Igor
     class iWidgetSlider;
     class iWidgetNumberChooser;
     class iWidgetSelectBox;
+    class iUserControlFileChooser;
 }
 
 class UserControlMesh : public iWidgetUserControl
@@ -67,15 +68,10 @@ private:
 
     iWidgetGrid* _grid = nullptr;
 
-    iWidgetTextEdit* _textTexture0 = nullptr;
-    iWidgetTextEdit* _textTexture1 = nullptr;
-    iWidgetTextEdit* _textTexture2 = nullptr;
-    iWidgetTextEdit* _textTexture3 = nullptr;
-
-    iWidgetButton* _texture0Button = nullptr;
-    iWidgetButton* _texture1Button = nullptr;
-    iWidgetButton* _texture2Button = nullptr;
-    iWidgetButton* _texture3Button = nullptr;
+    iUserControlFileChooser* _textureChooser0 = nullptr;
+    iUserControlFileChooser* _textureChooser1 = nullptr;
+    iUserControlFileChooser* _textureChooser2 = nullptr;
+    iUserControlFileChooser* _textureChooser3 = nullptr;
 
     iWidgetTextEdit* _textVertices = nullptr;
     iWidgetTextEdit* _textTriangles = nullptr;
@@ -114,15 +110,8 @@ private:
 
     void onDoUpdateNode(iWidget* source);
 
-    void onTexture0Button(iWidget* source);
-    void onTexture1Button(iWidget* source);
-    void onTexture2Button(iWidget* source);
-    void onTexture3Button(iWidget* source);
-
     void onTextChangedShininess(iWidget* source);
     void onSliderChangedShininess(iWidget* source);
-
-    void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
 
     void onMaterialChanged(iWidget* source);
 
