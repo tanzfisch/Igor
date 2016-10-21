@@ -98,6 +98,7 @@ namespace Igor
         ColorView,
         Slider,
         SelectBox,
+        Graph,
 		Undefined
     };
 

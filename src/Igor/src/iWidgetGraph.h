@@ -26,53 +26,81 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iWIDGETCOLORVIEW__
-#define __iWIDGETCOLORVIEW__
+#ifndef __iWIDGETGRAPH__
+#define __iWIDGETGRAPH__
 
 #include <iWidget.h>
 
 #include <iaString.h>
 #include <iaColor4.h>
+#include <iaVector2.h>
 using namespace IgorAux;
+
+#include <vector>
+using namespace std;
 
 namespace Igor
 {
 
     class iTexture;
 
-    /*! color view widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
-    */
-	class Igor_API iWidgetColorView : public iWidget
+	class Igor_API iWidgetGraph : public iWidget
 	{
 
         /*! needs to be friend because it's the factory that creates this widget
         */
         friend class iWidgetManager;
 
+        /*! graph data
+        */
+        struct GraphData
+        {
+            /*! list of points in graph
+            */
+            vector<iaVector2f> _points;
+
+            /*! the line color
+            */
+            iaColor4f _lineColor;
+        };
+
 	public:
 
-		/*! sets color
-		\param color color value in rgba
-		*/
-        void setColor(const iaColor4f& color);
+        /*! clears all data
+        */
+        void clear();
 
-		/*! \returns current color value
-		*/
-        const iaColor4f& getColor() const;
+        /*! sets color for specified graph
+
+        \param id identifier of graph
+        \param color color of graph
+        */
+        void setColor(uint64 id, const iaColor4f& color);
+
+        /*! \returns color of specified graph
+
+        \param name name of graph
+        */
+        iaColor4f getColor(uint64 id);
+
+        /*! sets points of graph
+
+        \param id the graphs id
+        \param points list of points for the graph
+        */
+        void setPoints(uint64 id, vector<iaVector2f> points);
+
+        /*! \returns points of specified graph
+
+        \param id the graphs id
+        */
+        vector<iaVector2f> getPoints(uint64 id);
 
 	private:
 
-        /*! the collor to present
+        /*! maps with all graphs
         */
-        iaColor4f _color;
-
-        /*! shared pointer to texture
-        */
-        shared_ptr<iTexture> _texture = nullptr;
+        map<uint64, GraphData> _graphs;
 
         /*! updates size based on it's content
         */
@@ -84,11 +112,11 @@ namespace Igor
 
         /*! ctor initializes member variables
         */
-        iWidgetColorView();
+        iWidgetGraph();
 
         /*! release texture
         */
-		virtual ~iWidgetColorView();
+		virtual ~iWidgetGraph();
 	};
 }
 

@@ -834,6 +834,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iWidgetColorView.h" />
     <ClInclude Include="..\src\iWidgetDefaultTheme.h" />
     <ClInclude Include="..\src\iWidgetDialog.h" />
+    <ClInclude Include="..\src\iWidgetGraph.h" />
     <ClInclude Include="..\src\iWidgetGrid.h" />
     <ClInclude Include="..\src\iWidgetGroupBox.h" />
     <ClInclude Include="..\src\iWidgetLabel.h" />
@@ -1435,6 +1436,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iWidgetColorView.cpp" />
     <ClCompile Include="..\src\iWidgetDefaultTheme.cpp" />
     <ClCompile Include="..\src\iWidgetDialog.cpp" />
+    <ClCompile Include="..\src\iWidgetGraph.cpp" />
     <ClCompile Include="..\src\iWidgetGrid.cpp" />
     <ClCompile Include="..\src\iWidgetGroupBox.cpp" />
     <ClCompile Include="..\src\iWidgetLabel.cpp" />

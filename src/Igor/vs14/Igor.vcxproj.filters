@@ -650,6 +650,9 @@
     <ClCompile Include="..\src\iNodeWater.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iWidgetGraph.cpp">
+      <Filter>GUI\widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1361,6 +1364,9 @@
       <Filter>scene\nodes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetTextEdit.h">
+      <Filter>GUI\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetGraph.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
   </ItemGroup>

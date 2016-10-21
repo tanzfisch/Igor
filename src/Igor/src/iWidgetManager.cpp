@@ -20,6 +20,7 @@
 #include <iWidgetSelectBox.h>
 #include <iKeyboard.h>
 #include <iApplication.h>
+#include <iWidgetGraph.h>
 
 #include <iMaterialResourceFactory.h>
 
@@ -449,6 +450,10 @@ namespace Igor
 
         case iWidgetType::SelectBox:
             result = new iWidgetSelectBox();
+            break;
+
+        case iWidgetType::Graph:
+            result = new iWidgetGraph();
             break;
 
         case iWidgetType::Undefined:
