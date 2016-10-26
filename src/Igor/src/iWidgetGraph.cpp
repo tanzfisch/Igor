@@ -48,6 +48,7 @@ namespace Igor
     void iWidgetGraph::setPoints(uint64 id, vector<iaVector2f> points)
     {
         _graphs[id]._points = points;
+        _dirty = false;
     }
 
     vector<iaVector2f> iWidgetGraph::getPoints(uint64 id)
@@ -60,10 +61,58 @@ namespace Igor
         setMinSize(0, 0);
 	}
 
+    void iWidgetGraph::prepareDraw()
+    {
+        if (_dirty)
+        {
+            float32 minX = 999999;
+            float32 maxX = -999999;
+            float32 minY = 999999;
+            float32 maxY = -999999;
+
+            for (auto graph : _graphs)
+            {
+                for (auto point : graph.second._points)
+                {
+                    if (point._x < minX)
+                    {
+                        minX = point._x;
+                    }
+
+                    if (point._x > maxX)
+                    {
+                        maxX = point._x;
+                    }
+
+                    if (point._y < minY)
+                    {
+                        minY = point._y;
+                    }
+
+                    if (point._y > maxY)
+                    {
+                        maxY = point._y;
+                    }
+                }
+            }
+
+            _boundings.setX(minX);
+            _boundings.setY(minY);
+            _boundings.setWidth(maxX - minX);
+            _boundings.setHeight(maxY - minY);
+
+            _dirty = false;
+        }
+    }
+
 	void iWidgetGraph::draw()
 	{
 		if (isVisible())
 		{
+            prepareDraw();
+
+            iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), "graph", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, getAppearanceState(), isActive());
+
             // TODO
 		}
 	}

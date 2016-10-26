@@ -250,14 +250,34 @@ namespace Igor
         */
         void* getUserData(int32 col, int32 row);
 
+        /*! defines which row will be streched if the grid is vertically streched
+
+        \param row row number to be streched
+        */
 		void setStrechRow(int32 row);
-		int32 getStrechRow() const;
+
+        /*! \returns row number to be streched
+        */
+        int32 getStrechRow() const;
+
+        /*! defines which column will be streched if the grid is horrizontally streched
+
+        \param col column number to be streched
+        */
 		void setStrechColumn(int32 col);
+
+        /*! \retruns column number to be streched
+        */
 		int32 getStrechColumn() const;
 
     private:
 
+        /*! row number to be streched
+        */
 		int32 _strechRow = 0;
+
+        /*! column number to be streched
+        */
 		int32 _strechCol = 0;
 
         /*! the child widgets
@@ -346,6 +366,10 @@ namespace Igor
         */
         void updateAlignment(int32 clientWidth, int32 clientHeight);
 
+        /*! calculates childrens ofsets relative to thair parent
+
+        \param offsets vector to be filled with childrens offsets
+        */
         void calcChildOffsets(vector<iRectanglei>& offsets);
 
         /*! ctor initializes member variables

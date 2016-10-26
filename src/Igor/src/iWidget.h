@@ -721,6 +721,10 @@ namespace Igor
         */
         void updatePosition(int32 offsetX, int32 offsetY);
 
+        /*! calculates childrens ofsets relative to thair parent
+
+        \param offsets vector to be filled with childrens offsets
+        */
         virtual void calcChildOffsets(vector<iRectanglei>& offsets);
 
 	};

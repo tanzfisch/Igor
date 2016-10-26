@@ -98,9 +98,19 @@ namespace Igor
 
 	private:
 
+        /*! dirty flag if graph data was changed
+        */
+        bool _dirty = true;
+
+        iRectanglef _boundings;
+
         /*! maps with all graphs
         */
         map<uint64, GraphData> _graphs;
+
+        /*! makes some calculations before we can draw
+        */
+        void prepareDraw();
 
         /*! updates size based on it's content
         */
