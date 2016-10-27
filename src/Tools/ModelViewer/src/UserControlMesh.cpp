@@ -233,10 +233,11 @@ void UserControlMesh::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(_grid);
-    _grid->appendRows(7);
-    _grid->setWidth(330);
-    _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _grid->setVerticalAlignment(iVerticalAlignment::Top);
+    _grid->appendRows(8);
+    _grid->setStrechRow(8);
+    _grid->setStrechColumn(0);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
     _ambientColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
@@ -258,7 +259,8 @@ void UserControlMesh::initGUI()
     _allWidgets.push_back(detailsGrid);
     detailsGrid->appendCollumns(1);
     detailsGrid->appendRows(2);
-    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
+    detailsGrid->setStrechColumn(1);
+    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
     iWidgetLabel* labelVertexes = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelVertexes);
@@ -280,7 +282,6 @@ void UserControlMesh::initGUI()
 
     _textVertices = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textVertices);
-    _textVertices->setWidth(100);
     _textVertices->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textVertices->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textVertices->setActive(false);
@@ -288,7 +289,6 @@ void UserControlMesh::initGUI()
 
     _textTriangles = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textTriangles);
-    _textTriangles->setWidth(100);
     _textTriangles->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textTriangles->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textTriangles->setActive(false);
@@ -296,7 +296,6 @@ void UserControlMesh::initGUI()
 
     _textIndexes = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textIndexes);
-    _textIndexes->setWidth(100);
     _textIndexes->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textIndexes->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textIndexes->setActive(false);
@@ -304,9 +303,9 @@ void UserControlMesh::initGUI()
 
     iWidgetGrid* gridShininess = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(gridShininess);
-    gridShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridShininess->appendCollumns(2);
     gridShininess->appendRows(1);
+    gridShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelShininess = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelShininess);
@@ -325,8 +324,8 @@ void UserControlMesh::initGUI()
     _sliderShininess->setMaxValue(1000.0f);
     _sliderShininess->setSteppingWheel(0.1f, 0.1f);
     _sliderShininess->setValue(0.0f);
+    _sliderShininess->setWidth(220);
     _sliderShininess->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _sliderShininess->setWidth(235);
     _sliderShininess->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onSliderChangedShininess));
 
     _textShininess = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
@@ -343,8 +342,8 @@ void UserControlMesh::initGUI()
     _allWidgets.push_back(gridTextures);
     gridTextures->appendRows(3);
     gridTextures->appendCollumns(1);
-    gridTextures->setWidth(330);
-    gridTextures->setHorizontalAlignment(iHorizontalAlignment::Left);
+    gridTextures->setStrechColumn(1);
+    gridTextures->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
@@ -404,8 +403,8 @@ void UserControlMesh::initGUI()
     _selectMaterial->registerOnChangeEvent(iChangeDelegate(this, &UserControlMesh::onMaterialChanged));
 
     gridShininess->addWidget(labelShininess, 1, 0);
-    gridShininess->addWidget(_sliderShininess, 1, 1);
     gridShininess->addWidget(labelShininessShort, 0, 1);
+    gridShininess->addWidget(_sliderShininess, 1, 1);
     gridShininess->addWidget(_textShininess, 2, 1);
 
     detailsGrid->addWidget(labelVertexes, 0, 0);
