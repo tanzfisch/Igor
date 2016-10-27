@@ -63,9 +63,17 @@ namespace Igor
             */
             iaColor4f _lineColor = {1.0, 1.0, 1.0, 1.0};
 
+            /*! the points color
+            */
+            iaColor4f _pointColor = { 1.0, 1.0, 1.0, 1.0 };
+
             /*! line width of graph
             */
             float32 _lineWidth = 1.0;
+
+            /*! size of points. if zero no points will be drawn
+            */
+            float32 _pointSize = 0.0;
         };
 
 	public:
@@ -74,18 +82,31 @@ namespace Igor
         */
         void clear();
 
-        /*! sets color for specified graph
+        /*! sets line color for specified graph
 
         \param id identifier of graph
         \param color color of graph
         */
-        void setColor(uint64 id, const iaColor4f& color);
+        void setLineColor(uint64 id, const iaColor4f& color);
 
-        /*! \returns color of specified graph
+        /*! \returns line color of specified graph
 
         \param name name of graph
         */
-        iaColor4f getColor(uint64 id);
+        iaColor4f getLineColor(uint64 id);
+
+        /*! sets points color for specified graph
+
+        \param id identifier of graph
+        \param color color of graph
+        */
+        void setPointColor(uint64 id, const iaColor4f& color);
+
+        /*! \returns points color of specified graph
+
+        \param name name of graph
+        */
+        iaColor4f getPointColor(uint64 id);
 
         /*! sets line width of specified graph
 
@@ -100,6 +121,19 @@ namespace Igor
         */
         float32 getLineWidth(uint64 id);
 
+        /*! sets points size for specified graph
+
+        \param id id of graph
+        \param pointSize the point size to set
+        */
+        void setPointSize(uint64 id, float32 pointSize);
+
+        /*! \returns point size of specified graph
+
+        \param id graph id
+        */
+        float32 getPointSize(uint64 id);
+
         /*! sets points of graph
 
         \param id the graphs id
@@ -113,13 +147,38 @@ namespace Igor
         */
         vector<iaVector2f> getPoints(uint64 id);
 
+        /*! set user specified boudings / range of graph coordinate system
+
+        \param boundings the boundings
+        */
         void setBoundings(const iRectanglef& boundings);
 
+        /*! \returns user specified boudings / range of graph
+        */
         iRectanglef getBoundings();
 
+        /*! activated user defined boundings / range of graph
+
+        \param useBoundings if true user specified boundings will be used
+        */
         void setUseBoundings(bool useBoundings = true);
 
+        /*! \returns if true user specified boundings are in use
+        */
         bool isUsingBoundings();
+
+        /*! set data wrap flag
+
+        if true and a graph does not reach the bounding it will be extended up to the boundings
+
+        \param extendData if true wrap data will be activated
+        */
+        void setExtendData(bool extendData = true);
+
+        /*! \returns true if data will be extended
+        */
+        bool getExtendData();
+
 
 	private:
 
@@ -135,7 +194,13 @@ namespace Igor
         */
         iRectanglef _boundings = { 0, 0, 1, 1 };
 
-        bool useUserBoudings = false;
+        /*! if true user specified boundings will be used
+        */
+        bool _useUserBoudings = false;
+
+        /*! if true graphs that are smaller then the boundings will be extended to bounding size
+        */
+        bool _extendData = false;
 
         /*! maps with all graphs
         */

@@ -474,13 +474,13 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
-    void iWidgetDefaultTheme::drawGraph(int32 posx, int32 posy, const iaColor4f& color, float32 lineWidth, const vector<iaVector2f>& points)
+    void iWidgetDefaultTheme::drawGraph(int32 posx, int32 posy, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points)
     {
         iaVector2f currentPoint;
         iaVector2f lastPoint;
 
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
-        iRenderer::getInstance().setColor(color);
+        iRenderer::getInstance().setColor(lineColor);
         iRenderer::getInstance().setLineWidth(lineWidth);
 
         for (int i = 0; i < points.size(); ++i)
@@ -495,6 +495,21 @@ namespace Igor
 
             lastPoint = currentPoint;
         }
+
+        if (pointSize > 0.0)
+        {
+            iRenderer::getInstance().setColor(pointColor);
+            iRenderer::getInstance().setPointSize(pointSize);
+
+            for (int i = 0; i < points.size(); ++i)
+            {
+                currentPoint._x = points[i]._x + posx;
+                currentPoint._y = points[i]._y + posy;
+                
+                iRenderer::getInstance().drawPoint(currentPoint._x, currentPoint._y);
+            }
+        }
+
 
         DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }

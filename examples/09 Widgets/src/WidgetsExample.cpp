@@ -245,21 +245,23 @@ void WidgetsExample::initGUI()
     points.push_back(iaVector2f(0.8, 0.4));
     points.push_back(iaVector2f(1.0, 0.8));
     graph->setPoints(0, points);
-    graph->setColor(0, iaColor4f(1,0,0,1));
+    graph->setLineColor(0, iaColor4f(1,0,0,1));
+    graph->setPointSize(0, 3.0);
 
     vector<iaVector2f> points2;
-    points2.push_back(iaVector2f(0.0, 0.5));
-    points2.push_back(iaVector2f(0.2, 0.3));
+    points2.push_back(iaVector2f(0.2, 0.5));
+    points2.push_back(iaVector2f(0.3, 0.3));
     points2.push_back(iaVector2f(0.4, 0.2));
     points2.push_back(iaVector2f(0.5, 0.4));
     points2.push_back(iaVector2f(0.6, 0.7));
     points2.push_back(iaVector2f(0.7, 0.1));
-    points2.push_back(iaVector2f(1.0, 1.0));
+    points2.push_back(iaVector2f(0.8, 1.0));
     graph->setPoints(1, points2);
-    graph->setColor(1, iaColor4f(0, 1, 0, 1));
+    graph->setLineColor(1, iaColor4f(0, 1, 0, 1));
+    graph->setPointSize(1, 3.0);
 
     vector<iaVector2f> points3;
-    points3.push_back(iaVector2f(0.0, 0.5));
+    points3.push_back(iaVector2f(0.0, 0.9));
     points3.push_back(iaVector2f(0.1, 0.5));
     points3.push_back(iaVector2f(0.2, 0.6));
     points3.push_back(iaVector2f(0.3, 0.7));
@@ -267,10 +269,13 @@ void WidgetsExample::initGUI()
     points3.push_back(iaVector2f(0.9, 0.6));
     points3.push_back(iaVector2f(1.0, 0.7));
     graph->setPoints(2, points3);
-    graph->setColor(2, iaColor4f(0, 0, 1, 1));
+    graph->setLineColor(2, iaColor4f(0, 0, 1, 1));
+    graph->setPointSize(2, 3.0);
 
+    graph->setExtendData();
     graph->setBoundings(iRectanglef(0,0,1,1));
     graph->setUseBoundings();
+    
 
     // assemble all the widgets with their parents
     dialog1->addWidget(grid1);
