@@ -392,13 +392,6 @@ namespace Igor
         _fontLineHeight = lineHeight;
     }
 
-    void iWidgetDefaultTheme::drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState state, bool active)
-    {
-        drawText(posx + (height - _fontSize) * 0.5f, posy + (height - _fontSize) * 0.5f, text, 0);
-
-        DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
-    }
-
     void iWidgetDefaultTheme::drawCheckBoxFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
@@ -457,6 +450,13 @@ namespace Igor
         drawCheckBoxFrame(posx, posy, width, height, state, active);
         drawCheckBox(posx + (height - _fontSize) / 2, posy + (height - _fontSize) / 2, _fontSize, _fontSize, state, active, checked);
         drawText(posx + (height - _fontSize) / 2 + _fontSize * 2, posy + (height - _fontSize) / 2, text, 0);
+
+        DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
+    }
+
+    void iWidgetDefaultTheme::drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, long textwidth, iWidgetAppearanceState state, bool active)
+    {
+        drawText(posx, posy, text, textwidth);
 
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }

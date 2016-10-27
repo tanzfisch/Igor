@@ -17,7 +17,7 @@ namespace Igor
     iWidgetLabel::iWidgetLabel()
         : iWidget(iWidgetType::Label)
     {
-        _configuredHeight = 20;
+        _configuredHeight = 0;
         _configuredWidth = 0;
         _reactOnMouseWheel = false;
 
@@ -55,7 +55,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawText(getActualPosX(), getActualPosY(), _text, _maxTextWidth);
+            iWidgetManager::getInstance().getTheme()->drawLabel(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _maxTextWidth, getAppearanceState(), isActive());
         }
     }
 
