@@ -61,7 +61,11 @@ namespace Igor
 
             /*! the line color
             */
-            iaColor4f _lineColor;
+            iaColor4f _lineColor = {1.0, 1.0, 1.0, 1.0};
+
+            /*! line width of graph
+            */
+            float32 _lineWidth = 1.0;
         };
 
 	public:
@@ -83,6 +87,19 @@ namespace Igor
         */
         iaColor4f getColor(uint64 id);
 
+        /*! sets line width of specified graph
+
+        \param id graph id
+        \param lineWidth the new line width
+        */
+        void setLineWidth(uint64 id, float32 lineWidth);
+
+        /*! \returns line width of specified graph
+
+        \param id graph id
+        */
+        float32 getLineWidth(uint64 id);
+
         /*! sets points of graph
 
         \param id the graphs id
@@ -96,13 +113,29 @@ namespace Igor
         */
         vector<iaVector2f> getPoints(uint64 id);
 
+        void setBoundings(const iRectanglef& boundings);
+
+        iRectanglef getBoundings();
+
+        void setUseBoundings(bool useBoundings = true);
+
+        bool isUsingBoundings();
+
 	private:
 
         /*! dirty flag if graph data was changed
         */
         bool _dirty = true;
 
-        iRectanglef _boundings;
+        /*! calculated data boudings
+        */
+        iRectanglef _dataBoundings;
+
+        /*! user defined boudings
+        */
+        iRectanglef _boundings = { 0, 0, 1, 1 };
+
+        bool useUserBoudings = false;
 
         /*! maps with all graphs
         */

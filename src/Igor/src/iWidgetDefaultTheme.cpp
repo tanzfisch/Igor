@@ -184,9 +184,9 @@ namespace Igor
             }
         }
 
-        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
         if (texture != nullptr)
         {
+            iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
             drawPicture(posx + offset + reduction / 2, posy + offset + reduction / 2, width - reduction, height - reduction, texture, state, active);
         }
 
@@ -472,6 +472,31 @@ namespace Igor
         iRenderer::getInstance().drawString(posx, posy, text, false, textwidth);
 
 		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
+    }
+
+    void iWidgetDefaultTheme::drawGraph(int32 posx, int32 posy, const iaColor4f& color, float32 lineWidth, const vector<iaVector2f>& points)
+    {
+        iaVector2f currentPoint;
+        iaVector2f lastPoint;
+
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setColor(color);
+        iRenderer::getInstance().setLineWidth(lineWidth);
+
+        for (int i = 0; i < points.size(); ++i)
+        {
+            currentPoint._x = points[i]._x + posx;
+            currentPoint._y = points[i]._y + posy;
+
+            if (i > 0)
+            {
+                iRenderer::getInstance().drawLine(lastPoint._x, lastPoint._y, currentPoint._x, currentPoint._y);
+            }
+
+            lastPoint = currentPoint;
+        }
+
+        DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
     void iWidgetDefaultTheme::drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, bool headerOnly, const iaString& text, iWidgetAppearanceState state, bool active)

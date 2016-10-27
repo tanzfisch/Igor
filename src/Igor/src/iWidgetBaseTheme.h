@@ -80,6 +80,7 @@ namespace Igor
         virtual void drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active) = 0;
 		virtual void drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawText(int32 posx, int32 posy, const iaString& text, long textwidth) = 0;
+        virtual void drawGraph(int32 posx, int32 posy, const iaColor4f& color, float32 lineWidth, const vector<iaVector2f>& points) = 0;
 
 		/*
 				virtual void drawVSlider() = 0;

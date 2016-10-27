@@ -11,6 +11,8 @@ using namespace IgorAux;
 #include <iWidgetBaseTheme.h>
 #include <iTextureFont.h>
 #include <iTextureResourceFactory.h>
+#include <iRenderer.h>
+#include <iMaterialResourceFactory.h>
 
 namespace Igor
 {
@@ -40,15 +42,25 @@ namespace Igor
         _graphs[id]._lineColor = color;
     }
 
-    iaColor4f iWidgetGraph::getColor(uint64 id)
+    iaColor4f iWidgetGraph::getColor(uint64 id) 
     {
         return _graphs[id]._lineColor;
+    }
+
+    void iWidgetGraph::setLineWidth(uint64 id, float32 lineWidth)
+    {
+        _graphs[id]._lineWidth = lineWidth;
+    }
+
+    float32 iWidgetGraph::getLineWidth(uint64 id) 
+    {
+        return _graphs[id]._lineWidth;
     }
 
     void iWidgetGraph::setPoints(uint64 id, vector<iaVector2f> points)
     {
         _graphs[id]._points = points;
-        _dirty = false;
+        _dirty = true;
     }
 
     vector<iaVector2f> iWidgetGraph::getPoints(uint64 id)
@@ -96,10 +108,10 @@ namespace Igor
                 }
             }
 
-            _boundings.setX(minX);
-            _boundings.setY(minY);
-            _boundings.setWidth(maxX - minX);
-            _boundings.setHeight(maxY - minY);
+            _dataBoundings.setX(minX);
+            _dataBoundings.setY(minY);
+            _dataBoundings.setWidth(maxX - minX);
+            _dataBoundings.setHeight(maxY - minY);
 
             _dirty = false;
         }
@@ -111,10 +123,60 @@ namespace Igor
 		{
             prepareDraw();
 
+            iRectanglef boudings;
+
+            if (useUserBoudings)
+            {
+                boudings = _boundings;
+            }
+            else
+            {
+                boudings = _dataBoundings;
+            }
+
             iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), "graph", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, getAppearanceState(), isActive());
 
-            // TODO
+            iMaterialResourceFactory::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterialID());
+
+            float32 scaleX = getActualWidth() / boudings._width;
+            float32 scaleY = getActualHeight() / boudings._height;
+
+            for (auto graph : _graphs)
+            {
+                vector<iaVector2f> points;
+                iaVector2f currentPoint;
+
+                for (auto point : graph.second._points)
+                {
+                    currentPoint._x = ((point._x - boudings._x) * scaleX);
+                    currentPoint._y = boudings._height - ((point._y - boudings._y) * scaleY) + getActualHeight();
+                    points.push_back(currentPoint);
+                }
+
+                iWidgetManager::getInstance().getTheme()->drawGraph(getActualPosX(), getActualPosY(), graph.second._lineColor, graph.second._lineWidth, points);
+            }
+
 		}
 	}
+
+    void iWidgetGraph::setBoundings(const iRectanglef& boundings)
+    {
+        _boundings = boundings;
+    }
+
+    iRectanglef iWidgetGraph::getBoundings()
+    {
+        return _boundings;
+    }
+
+    void iWidgetGraph::setUseBoundings(bool useBoundings)
+    {
+        useUserBoudings = useBoundings;
+    }
+
+    bool iWidgetGraph::isUsingBoundings()
+    {
+        return useUserBoudings;
+    }
 
 }

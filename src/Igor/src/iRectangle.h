@@ -38,13 +38,6 @@ namespace Igor
     template <class T> class iRectangle
     {
 
-    private:
-
-        T _x = (T)0;
-        T _y = (T)0;
-        T _width = (T)0;
-        T _height = (T)0;
-
     public:
 
         iRectangle() = default;
@@ -68,6 +61,11 @@ namespace Igor
         void setHeight(T height);
 
         __IGOR_INLINE__ iRectangle<T> operator= (const iRectangle<T> &rectangle);
+
+        T _x = (T)0;
+        T _y = (T)0;
+        T _width = (T)0;
+        T _height = (T)0;
 
     };
 
