@@ -36,29 +36,29 @@ namespace Igor
 
     void iParticleSystem3D::initDefaultGradients()
     {
-        _startVisibleTimeGradient.insertValue(0.0, iaVector2f(2.5, 3.5));
+        _startVisibleTimeGradient.setValue(0.0, iaVector2f(2.5, 3.5));
 
-        _colorGradient.insertValue(0.0, iaColor4f(1, 1, 1, 1));
+        _colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 1));
 
-        _emissionRateGradient.insertValue(0.0, 2);
+        _emissionRateGradient.setValue(0.0, 2);
 
-        _sizeScaleGradient.insertValue(0.0, 1.0);
+        _sizeScaleGradient.setValue(0.0, 1.0);
 
-        _startSizeGradient.insertValue(0.0, iaVector2f(1.0, 1.2));
+        _startSizeGradient.setValue(0.0, iaVector2f(1.0, 1.2));
 
-        _startVelocityGradient.insertValue(0.0, iaVector2f(0.01, 0.02));
+        _startVelocityGradient.setValue(0.0, iaVector2f(0.01, 0.02));
 
-        _startLiftGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+        _startLiftGradient.setValue(0.0, iaVector2f(0.0, 0.0));
 
-        _startOrientationGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+        _startOrientationGradient.setValue(0.0, iaVector2f(0.0, 0.0));
 
-        _startOrientationRateGradient.insertValue(0.0, iaVector2f(0.0, 0.0));
+        _startOrientationRateGradient.setValue(0.0, iaVector2f(0.0, 0.0));
 
         // internal gradient
-        _torqueFactorGradient.insertValue(0.0, 0.0);
-        _torqueFactorGradient.insertValue(0.1, 1.0);
-        _torqueFactorGradient.insertValue(0.9, 1.0);
-        _torqueFactorGradient.insertValue(1.0, 0.0);
+        _torqueFactorGradient.setValue(0.0, 0.0);
+        _torqueFactorGradient.setValue(0.1, 1.0);
+        _torqueFactorGradient.setValue(0.9, 1.0);
+        _torqueFactorGradient.setValue(1.0, 0.0);
     }
 
     void iParticleSystem3D::setVelocityOriented(bool velocityOriented)

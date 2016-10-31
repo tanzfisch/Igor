@@ -96,12 +96,12 @@ void Example2D::init()
     _particleSystem.setExternalForce(iaVector2f(0, 0.2f));
 
     // define a rainbow multi color gradient for our particles
-    _rainbow.insertValue(0.0f, iaColor4f(1, 0, 1, 0.0));
-    _rainbow.insertValue(0.2f, iaColor4f(0, 0, 1, 0.2));
-    _rainbow.insertValue(0.4f, iaColor4f(0, 1, 1, 0.4));
-    _rainbow.insertValue(0.6f, iaColor4f(0, 1, 0, 0.6));
-    _rainbow.insertValue(0.8f, iaColor4f(1, 1, 0, 0.8));
-    _rainbow.insertValue(1.0f, iaColor4f(1, 0, 0, 1.0));
+    _rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
+    _rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
+    _rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
+    _rainbow.setValue(0.6f, iaColor4f(0, 1, 0, 0.6));
+    _rainbow.setValue(0.8f, iaColor4f(1, 1, 0, 0.8));
+    _rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
 
     // load a texture font
     _font = new iTextureFont("StandardFont.png");

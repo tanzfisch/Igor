@@ -4,23 +4,35 @@ void iGradient<T>::clear()
     _values.clear();
 }
 
-/* template <typename T>
-bool smaller(const pair<float, T>& a, const pair<float, T>& b)
-{
-return a.first < b.first;
-}*/
-
 template <class T>
-void iGradient<T>::insertValue(float at, const T& value)
+void iGradient<T>::setValue(float at, const T& value)
 {
-    pair<float, T> temp;
+    if (_values.size() == 0)
+    {
+        _values.push_back(pair<float, T>(at, value));
+        return;
+    }
 
-    temp.first = at;
-    temp.second = value;
+    auto iter = _values.begin();
 
-    _values.push_back(temp);
+    while (iter != _values.end())
+    {
+        if ((*iter).first == at)
+        {
+            (*iter).second = value;
+            return;
+        }
 
-    // TODO sort later    sort(_values.begin(), _values.end(), smaller);
+        if ((*iter).first > at)
+        {
+            _values.insert(iter, pair<float, T>(at, value));
+            return;
+        }
+
+        iter++;
+    }
+
+    _values.push_back(pair<float, T>(at, value));
 }
 
 template <class T>

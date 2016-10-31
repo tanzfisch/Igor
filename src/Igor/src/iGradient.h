@@ -54,12 +54,12 @@ namespace Igor
 
     public:
 
-        /*! insert a value at given position
+        /*! sets or if not present inserts a value at given position
 
         \param value the value
         \param at the given position
         */
-        void insertValue(float at, const T& value);
+        void setValue(float at, const T& value);
 
         /*! returns value at given position
 
