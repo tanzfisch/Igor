@@ -68,6 +68,7 @@ namespace Igor
         virtual void drawGridHighlight(int32 posx, int32 posy, int32 width, int32 height) = 0;
         virtual void drawGridSelection(int32 posx, int32 posy, int32 width, int32 height) = 0;
         virtual void drawBackgroundFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active) = 0;
+        virtual void drawFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active) = 0;
         virtual void drawPicture(int32 posx, int32 posy, int32 width, int32 height, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawDialog(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active) = 0;
         virtual void drawSpacer(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active) = 0;
@@ -81,6 +82,7 @@ namespace Igor
 		virtual void drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawText(int32 posx, int32 posy, const iaString& text, long textwidth) = 0;
         virtual void drawGraph(int32 posx, int32 posy, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points) = 0;
+        virtual void drawGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<float32>& verticalLines, const vector<float32>& horizontalLines, bool active) = 0;
 
 		/*
 				virtual void drawVSlider() = 0;

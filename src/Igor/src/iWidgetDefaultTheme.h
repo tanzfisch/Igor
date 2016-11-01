@@ -63,6 +63,7 @@ namespace Igor
 		void drawGridField(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state);
         void drawGridHighlight(int32 posx, int32 posy, int32 width, int32 height);
         void drawGridSelection(int32 posx, int32 posy, int32 width, int32 height);
+        void drawFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active);
         void drawBackgroundFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active);
         void drawPicture(int32 posx, int32 posy, int32 width, int32 height, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active);
         void drawDialog(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active);
@@ -77,6 +78,7 @@ namespace Igor
         void drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active);
         void drawText(int32 posx, int32 posy, const iaString& text, long textwidth);
         void drawGraph(int32 posx, int32 posy, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points);
+        void drawGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<float32>& verticalLines, const vector<float32>& horizontalLines, bool active);
 
         void setFontMetrics(const float32 font_size, const float32 line_height);
         float32 getFontSize();
@@ -115,6 +117,9 @@ namespace Igor
 
 		int32 _defaultMaterial = 0;
 		int32 _texturedMaterial = 0;
+        float32 _defaultLineWidth = 1.0;
+
+        void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
 
 		void drawButtonFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active);
 		void drawButtonText(int32 posx, int32 posy, const iaString& text);

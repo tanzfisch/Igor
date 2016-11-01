@@ -154,8 +154,43 @@ namespace Igor
                 boundings = _dataBoundings;
             }
 
-            float32 scaleX = getActualWidth() / boundings._width;
-            float32 scaleY = getActualHeight() / boundings._height;
+            iRectanglef graphRenderArea;
+            graphRenderArea._x = getActualPosX();
+            graphRenderArea._y = getActualPosY();
+            graphRenderArea._width = getActualWidth();
+            graphRenderArea._height = getActualHeight();
+
+            if (_viewFrame)
+            {
+                graphRenderArea._x += 4;
+                graphRenderArea._y += 4;
+                graphRenderArea._width -= 8;
+                graphRenderArea._height -= 8;
+                iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
+            }
+
+            if (_viewGrid)
+            {
+                float32 stepX = graphRenderArea._width / (_gridResolution._x - 1);
+                float32 stepY = graphRenderArea._height / (_gridResolution._y - 1);
+
+                vector<float32> verticalLines;
+                for (int i = 0; i < _gridResolution._x; ++i)
+                {
+                    verticalLines.push_back(static_cast<float32>(i) * stepX);
+                }
+
+                vector<float32> horizontalLines;
+                for (int i = 0; i < _gridResolution._y; ++i)
+                {
+                    horizontalLines.push_back(static_cast<float32>(i) * stepY);
+                }
+
+                iWidgetManager::getInstance().getTheme()->drawGridlines(graphRenderArea._x, graphRenderArea._y, graphRenderArea._width, graphRenderArea._height, 1.0, verticalLines, horizontalLines, isActive());
+            }
+
+            float32 scaleX = graphRenderArea._width / boundings._width;
+            float32 scaleY = graphRenderArea._height / boundings._height;
 
             for (auto graph : _graphs)
             {
@@ -164,38 +199,81 @@ namespace Igor
                     vector<iaVector2f> points;
                     iaVector2f currentPoint;
 
-                    if (_extendData &&
+                    if (_extrapolateData &&
                         graph.second._points[0]._x > boundings._x)
                     {
                         currentPoint._x = boundings._x;
                         currentPoint._y = graph.second._points[0]._y;
                         currentPoint._x = ((currentPoint._x - boundings._x) * scaleX);
-                        currentPoint._y = boundings._height - ((currentPoint._y - boundings._y) * scaleY) + getActualHeight();
+                        currentPoint._y = boundings._height - ((currentPoint._y - boundings._y) * scaleY) + graphRenderArea._height;
                         points.push_back(currentPoint);
                     }
 
                     for (auto point : graph.second._points)
                     {
                         currentPoint._x = ((point._x - boundings._x) * scaleX);
-                        currentPoint._y = boundings._height - ((point._y - boundings._y) * scaleY) + getActualHeight();
+                        currentPoint._y = boundings._height - ((point._y - boundings._y) * scaleY) + graphRenderArea._height;
                         points.push_back(currentPoint);
                     }
 
-                    if (_extendData &&
+                    if (_extrapolateData &&
                         graph.second._points[graph.second._points.size() - 1]._x < boundings._x + boundings._width)
                     {
                         currentPoint._x = boundings._x + boundings._width;
                         currentPoint._y = graph.second._points[graph.second._points.size() - 1]._y;
                         currentPoint._x = ((currentPoint._x - boundings._x) * scaleX);
-                        currentPoint._y = boundings._height - ((currentPoint._y - boundings._y) * scaleY) + getActualHeight();
+                        currentPoint._y = boundings._height - ((currentPoint._y - boundings._y) * scaleY) + graphRenderArea._height;
                         points.push_back(currentPoint);
                     }
 
-                    iWidgetManager::getInstance().getTheme()->drawGraph(getActualPosX(), getActualPosY(), graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
+                    iWidgetManager::getInstance().getTheme()->drawGraph(graphRenderArea._x, graphRenderArea._y, graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
                 }
             }
-
         }
+    }
+
+    void iWidgetGraph::setGridResolution(uint32 x, uint32 y)
+    {
+        con_assert(x >= 2 && y >= 2, "invalid parameters");
+
+        if (x >= 2 && y >= 2)
+        {
+            _gridResolution.set(static_cast<int32>(x), static_cast<int32>(y));
+        }
+        else
+        {
+            con_err("invalid parameters");
+        }
+    }
+
+    uint32 iWidgetGraph::getGridXResolution() const
+    {
+        return static_cast<uint32>(_gridResolution._x);
+    }
+
+    uint32 iWidgetGraph::getGridYResolution() const
+    {
+        return static_cast<uint32>(_gridResolution._y);
+    }
+
+    void iWidgetGraph::setViewGrid(bool viewGrid)
+    {
+        _viewGrid = viewGrid;
+    }
+
+    bool iWidgetGraph::getViewGrid() const
+    {
+        return _viewGrid;
+    }
+
+    void iWidgetGraph::setViewFrame(bool viewFrame)
+    {
+        _viewFrame = viewFrame;
+    }
+
+    bool iWidgetGraph::getViewFrame() const
+    {
+        return _viewFrame;
     }
 
     void iWidgetGraph::setBoundings(const iRectanglef& boundings)
@@ -218,14 +296,14 @@ namespace Igor
         return _useUserBoudings;
     }
 
-    void iWidgetGraph::setExtendData(bool wrapData)
+    void iWidgetGraph::setExtrapolateData(bool wrapData)
     {
-        _extendData = wrapData;
+        _extrapolateData = wrapData;
     }
 
-    bool iWidgetGraph::getExtendData()
+    bool iWidgetGraph::getExtrapolateData()
     {
-        return _extendData;
+        return _extrapolateData;
     }
 
 }

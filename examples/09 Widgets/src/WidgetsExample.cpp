@@ -235,6 +235,8 @@ void WidgetsExample::initGUI()
     iWidgetCheckBox::endRadioButtonGroup();
 
     iWidgetGraph* graph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget(iWidgetType::Graph));
+    graph->setWidth(300);
+    graph->setHeight(50);
 
     vector<iaVector2f> points;
     points.push_back(iaVector2f(0.0, 0.2));
@@ -246,7 +248,9 @@ void WidgetsExample::initGUI()
     points.push_back(iaVector2f(1.0, 0.8));
     graph->setPoints(0, points);
     graph->setLineColor(0, iaColor4f(1,0,0,1));
-    graph->setPointSize(0, 3.0);
+    graph->setPointColor(0, iaColor4f(1, 0.5, 0.5, 1));
+    graph->setPointSize(0, 4.0);
+    graph->setLineWidth(0, 2.0);
 
     vector<iaVector2f> points2;
     points2.push_back(iaVector2f(0.2, 0.5));
@@ -258,7 +262,9 @@ void WidgetsExample::initGUI()
     points2.push_back(iaVector2f(0.8, 1.0));
     graph->setPoints(1, points2);
     graph->setLineColor(1, iaColor4f(0, 1, 0, 1));
-    graph->setPointSize(1, 3.0);
+    graph->setPointColor(1, iaColor4f(0.5, 1, 0.5, 1));
+    graph->setPointSize(1, 4.0);
+    graph->setLineWidth(1, 2.0);
 
     vector<iaVector2f> points3;
     points3.push_back(iaVector2f(0.0, 0.9));
@@ -270,11 +276,15 @@ void WidgetsExample::initGUI()
     points3.push_back(iaVector2f(1.0, 0.7));
     graph->setPoints(2, points3);
     graph->setLineColor(2, iaColor4f(0, 0, 1, 1));
-    graph->setPointSize(2, 3.0);
+    graph->setPointColor(2, iaColor4f(0.5, 0.5, 1, 1));
+    graph->setPointSize(2, 4.0);
+    graph->setLineWidth(2, 2.0);
 
-    graph->setExtendData();
+    graph->setExtrapolateData();
     graph->setBoundings(iRectanglef(0,0,1,1));
     graph->setUseBoundings();
+    graph->setViewFrame();
+    graph->setViewGrid();
     
 
     // assemble all the widgets with their parents

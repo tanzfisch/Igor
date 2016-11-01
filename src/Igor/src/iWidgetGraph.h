@@ -167,18 +167,27 @@ namespace Igor
         */
         bool isUsingBoundings();
 
-        /*! set data wrap flag
+        /*! set data extend flag
 
         if true and a graph does not reach the bounding it will be extended up to the boundings
 
         \param extendData if true wrap data will be activated
         */
-        void setExtendData(bool extendData = true);
+        void setExtrapolateData(bool extendData = true);
 
         /*! \returns true if data will be extended
         */
-        bool getExtendData();
+        bool getExtrapolateData();
 
+        void setViewGrid(bool viewGrid = true);
+        bool getViewGrid() const;
+
+        void setGridResolution(uint32 x, uint32 y);
+        uint32 getGridXResolution() const;
+        uint32 getGridYResolution() const;
+
+        void setViewFrame(bool viewFrame = true);
+        bool getViewFrame() const;
 
 	private:
 
@@ -200,11 +209,21 @@ namespace Igor
 
         /*! if true graphs that are smaller then the boundings will be extended to bounding size
         */
-        bool _extendData = false;
+        bool _extrapolateData = false;
 
         /*! maps with all graphs
         */
         map<uint64, GraphData> _graphs;
+
+        iaVector2i _gridResolution = {5, 3};
+
+        /*! flag if true we render a grid
+        */
+        bool _viewGrid = false;
+
+        /*! flag if true we render a frame
+        */
+        bool _viewFrame = false;
 
         /*! makes some calculations before we can draw
         */
