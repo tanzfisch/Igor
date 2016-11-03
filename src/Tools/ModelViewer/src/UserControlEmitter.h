@@ -45,38 +45,80 @@ namespace Igor
     class iWidgetSelectBox;
 }
 
+/*! user control to configure an emitter node
+*/
 class UserControlEmitter : public iWidgetUserControl
 {
 public:
 
+    /*! ctor initializes gui
+    */
     UserControlEmitter();
+
+    /*! dtor deinitializes gui
+    */
     ~UserControlEmitter();
 
+    /*! \returns root widget
+    */
     iWidget* getWidget();
 
+    /*! set node id of emitter to configure
+    */
     void setNode(uint32 id);
+
+    /*! \returns node id
+    */
     uint32 getNode();
 
 private:
 
+    /*! base grid and root widget
+    */
     iWidgetGrid* _grid = nullptr;
 
-    iWidgetLabel* _labelType = nullptr;
-    iWidgetLabel* _labelSize = nullptr;
+    /*! select box for emitter type
+    */
     iWidgetSelectBox* _selectType = nullptr;
+
+    /*! text box for emitter size
+    */
     iWidgetTextEdit* _textSize = nullptr;
 
+    /*! list of all widgets for later release
+    */
     vector<iWidget*> _allWidgets;
 
+    /*! current selected node
+    */
     uint32 _nodeId = 0;
 
+    /*! triggered when type of emitter changes
+
+    \param source the source widget
+    */
     void onTypeChanged(iWidget* source);
+
+    /*! triggered when size of emitter changes
+
+    \param source the source widget
+    */
     void onSizeChanged(iWidget* source);
 
+    /*! updates gui based on settings from node
+    */
     void updateGUI();
+
+    /*! updates node based on settings from gui
+    */
     void updateNode();
 
+    /*! initialize gui elements
+    */
     void initGUI();
+
+    /*! release gui elements
+    */
     void deinitGUI();
 
 };

@@ -155,6 +155,7 @@ namespace Igor
 
     \todo to many friends
     \todo fix one click and double click handling
+    \todo maybe we should have a widget base class on top so we can treat widgets usercontrols and dialogs more equaly
     */
 	class Igor_API iWidget
 	{

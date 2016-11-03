@@ -56,8 +56,16 @@ void UserControlEmitter::updateGUI()
 
 void UserControlEmitter::setNode(uint32 id)
 {
-    _nodeId = id;
-    updateGUI();
+    iNode* node = iNodeFactory::getInstance().getNode(_nodeId);
+    if (node->getType() == iNodeType::iNodeEmitter)
+    {
+        _nodeId = id;
+        updateGUI();
+    }
+    else
+    {
+        con_err("node type is not iNodeEmitter");
+    }
 }
 
 uint32 UserControlEmitter::getNode()
@@ -75,11 +83,11 @@ void UserControlEmitter::initGUI()
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
 
-    _labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelType);
-    _labelType->setText("Type");
-    _labelType->setWidth(MV_REGULARBUTTON_SIZE);
-    _labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetLabel* labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelType);
+    labelType->setText("Type");
+    labelType->setWidth(MV_REGULARBUTTON_SIZE);
+    labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
     _allWidgets.push_back(_selectType);
@@ -94,11 +102,11 @@ void UserControlEmitter::initGUI()
     _selectType->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
-    _labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-    _allWidgets.push_back(_labelSize);
-    _labelSize->setText("Size");
-    _labelSize->setWidth(MV_REGULARBUTTON_SIZE);
-    _labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
+    iWidgetLabel* labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelSize);
+    labelSize->setText("Size");
+    labelSize->setWidth(MV_REGULARBUTTON_SIZE);
+    labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
     _allWidgets.push_back(_textSize);
@@ -108,9 +116,9 @@ void UserControlEmitter::initGUI()
     _textSize->setHorizontalTextAlignment(iHorizontalAlignment::Right);
     _textSize->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onSizeChanged));
 
-    _grid->addWidget(_labelType, 0, 0);
+    _grid->addWidget(labelType, 0, 0);
     _grid->addWidget(_selectType, 1, 0);
-    _grid->addWidget(_labelSize, 0, 1);
+    _grid->addWidget(labelSize, 0, 1);
     _grid->addWidget(_textSize, 1, 1);
 }
 
@@ -137,9 +145,8 @@ void UserControlEmitter::deinitGUI()
     }
 
     _grid = nullptr;
-    _labelType = nullptr;
-    _labelSize = nullptr;
     _textSize = nullptr;
+    _selectType = nullptr;
 }
 
 iWidget* UserControlEmitter::getWidget()
