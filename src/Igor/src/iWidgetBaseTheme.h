@@ -45,8 +45,7 @@ namespace Igor
 
     \todo need to make a better concept for this interface
     \todo replace int32 posx, int32 posy, int32 width, int32 height with iRectanglei
-    \todo maybe we should go from int32 to float32
-
+    
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
@@ -83,11 +82,6 @@ namespace Igor
 		virtual void drawText(int32 posx, int32 posy, const iaString& text, long textwidth) = 0;
         virtual void drawGraph(int32 posx, int32 posy, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points) = 0;
         virtual void drawGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<float32>& verticalLines, const vector<float32>& horizontalLines, bool active) = 0;
-
-		/*
-				virtual void drawVSlider() = 0;
-				virtual void drawHSlider() = 0;
-		*/
 
         virtual void setFontMetrics(const float32 fontSize, const float32 lineHeight) = 0;
 		virtual float32 getFontSize() = 0;

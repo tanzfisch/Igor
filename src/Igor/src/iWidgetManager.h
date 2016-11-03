@@ -44,7 +44,7 @@ namespace Igor
 	class iWidgetBaseTheme;
     class iWidgetDialog;
 
-    /*! manages the widgets in use
+    /*! manages the widgets in use and is a singleton
 
     is also a factory that creates and destroys all the widgets
 
@@ -55,6 +55,8 @@ namespace Igor
 	class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
 	{
 
+        /*! needs to be friends with singleton base class in order to be a singleton
+        */
         friend class iaSingleton<iWidgetManager>;
 
 	public:

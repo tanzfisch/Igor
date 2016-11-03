@@ -53,8 +53,6 @@ namespace Igor
         */
         iWidgetUserControl() = default;
 
-    private:
-
     };
 
 }
