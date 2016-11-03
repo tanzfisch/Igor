@@ -44,6 +44,8 @@ namespace Igor
 
     class iTexture;
 
+    /*! graph widget. to display graphs
+    */
 	class Igor_API iWidgetGraph : public iWidget
 	{
 
@@ -179,14 +181,39 @@ namespace Igor
         */
         bool getExtrapolateData();
 
+        /*! sets the grid visibility
+
+        \param viewGrid if true the grid is visible
+        */
         void setViewGrid(bool viewGrid = true);
+
+        /*! \returns true if the grid is visible
+        */
         bool getViewGrid() const;
 
+        /*! configures the resolution of the grid
+
+        \param x amount of vertical grid lines (2 minimum)
+        \param y amount of horizontal grid lines (2 minimum)
+        */
         void setGridResolution(uint32 x, uint32 y);
+
+        /*! \returns amount of vertical grid lines
+        */
         uint32 getGridXResolution() const;
+
+        /*! \returns amount of horizontal grid lines
+        */
         uint32 getGridYResolution() const;
 
+        /*! sets if the background frame is visible or not
+
+        \param viewFrame if true the background frame is visible
+        */
         void setViewFrame(bool viewFrame = true);
+
+        /*! \returns true if the background frame is visible
+        */
         bool getViewFrame() const;
 
 	private:
@@ -215,6 +242,8 @@ namespace Igor
         */
         map<uint64, GraphData> _graphs;
 
+        /*! the grid resolution
+        */
         iaVector2i _gridResolution = {5, 3};
 
         /*! flag if true we render a grid

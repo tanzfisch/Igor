@@ -80,7 +80,7 @@ namespace Igor
         }
     }
 
-    void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> values, int32 preSelection)
+    void iDialogDecisionBox::show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection)
     {
         _decisionBoxCloseEvent.append(closeDelegate);
 
@@ -126,15 +126,15 @@ namespace Igor
         _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
         _radioGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-        _radioGrid->appendRows(values.size() - 1);
+        _radioGrid->appendRows(radioButtonTexts.size() - 1);
         _radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _radioGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _radioGrid->setCellSpacing(4);
 
         iWidgetCheckBox::beginRadioButtonGroup();
         int i = 0;
-        auto iter = values.begin();
-        while (iter != values.end())
+        auto iter = radioButtonTexts.begin();
+        while (iter != radioButtonTexts.end())
         {
             iWidgetCheckBox* checkBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
             _radioButtons.push_back(checkBox);

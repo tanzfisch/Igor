@@ -161,7 +161,12 @@ namespace Igor
         */
         void onFileSelectButtonPressed(iWidget* source);
 
+        /*! initialize gui elements
+        */
         void initGUI();
+
+        /*! release resources
+        */
         void deinitGUI();
 
     };

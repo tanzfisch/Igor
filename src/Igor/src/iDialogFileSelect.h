@@ -60,9 +60,9 @@ namespace Igor
     */
     iaEVENT(iDialogFileSelectCloseEvent, iDialogFileSelectCloseDelegate, void, (iFileDialogReturnValue value), (value));
 
-    /*!
+    /*! file select dialog
 
-    \todo need User Dialog Base class with some convinient methods
+    \todo need some sort of UserDialogBaseClass with some convinient methods
     */
     class Igor_API iDialogFileSelect : public iWidgetUserDialog
     {

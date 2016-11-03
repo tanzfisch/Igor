@@ -104,15 +104,46 @@ namespace Igor
 
     class iWidget;
 
+    /*! widget click event
+    */
     iaEVENT(iClickEvent, iClickDelegate, void, (iWidget* source), (source));
+
+    /*! mouse off click event
+
+    so when there was a click outside the range of a widget
+    */
     iaEVENT(iMouseOffClickEvent, iMouseOffClickDelegate, void, (iWidget* source), (source));
+    
+    /*! context menu event
+    */
     iaEVENT(iContextMenuEvent, iContextMenuDelegate, void, (iWidget* source), (source));
+
+    /*! wheel up event
+    */
     iaEVENT(iWheelUpEvent, iWheelUpDelegate, void, (iWidget* source), (source));
+    
+    /*! wheel down event
+    */
     iaEVENT(iWheelDownEvent, iWheelDownDelegate, void, (iWidget* source), (source));
+
+    /*! double click event
+    */
     iaEVENT(iDoubleClickEvent, iDoubleClickDelegate, void, (iWidget* source), (source));
+
+    /*! mouse over event
+    */
 	iaEVENT(iMouseOverEvent, iMouseOverDelegate, void, (iWidget* source), (source));
+
+    /*! mouse off event
+    */
 	iaEVENT(iMouseOffEvent, iMouseOffDelegate, void, (iWidget* source), (source));
+
+    /*! change event
+    */
 	iaEVENT(iChangeEvent, iChangeDelegate, void, (iWidget* source), (source));
+
+    /*! keyboard focus changed event
+    */
 	iaEVENT(iFocusEvent, iFocusDelegate, void, (iWidget* source), (source));
 
     /*! GUI widget base class
@@ -595,6 +626,13 @@ namespace Igor
         */
         void resetKeyboardFocus();
 
+        /*! sets client area. it's something like a margin but the parent defines it
+
+        \param left left client area border
+        \param right right client area border
+        \param top top client area border
+        \param bottom bottom client area border
+        */
         void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
 
 		/*! initializes members

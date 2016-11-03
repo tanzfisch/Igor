@@ -33,13 +33,11 @@ namespace Igor
     void iWidgetSlider::setMinValue(float32 min)
     {
         _min = min;
-        //update();
     }
 
     void iWidgetSlider::setMaxValue(float32 max)
     {
         _max = max;
-        //update();
     }
 
     float32 iWidgetSlider::getMinValue()
@@ -248,8 +246,6 @@ namespace Igor
         {
             _backgroundTexturePath = texturePath;
             _backgroundTexture = iTextureResourceFactory::getInstance().loadFile(_backgroundTexturePath);
-
-            // update();
         }
     }
 

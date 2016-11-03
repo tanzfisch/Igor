@@ -105,6 +105,8 @@ namespace Igor
 
 	private:
 
+        /*! defines how many digits are displayed after the point
+        */
         int32 _afterPoint = 0;
 
         /*! post fix that will be displayed right nixet to the number

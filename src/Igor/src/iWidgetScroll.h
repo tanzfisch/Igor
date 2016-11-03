@@ -42,6 +42,8 @@ namespace Igor
     /*! scroll widget
 
     basically allows to have a child that is bigger an ads some srcoll bars then
+
+    \todo need to use actual buttons for the scroll bars, or a scroll bar widget
     */
 	class Igor_API iWidgetScroll : public iWidget
 	{
@@ -101,11 +103,29 @@ namespace Igor
         /*! rectangle of horizontal scroll button
         */
 		iRectanglei _hscrollButton;
-		iRectanglei _vscrollButton;
+
+        /*! rectangle of vertical scroll button
+        */
+        iRectanglei _vscrollButton;
+
+        /*! rectangle of up button
+        */
 		iRectanglei _upButton;
-		iRectanglei _downButton;
-		iRectanglei _leftButton;
-		iRectanglei _rightButton;
+		
+        /*! rectangle of down button
+        */
+        iRectanglei _downButton;
+		
+        /*! rectangle of left button
+        */
+        iRectanglei _leftButton;
+		
+        /*! rectangle of right button
+        */
+        iRectanglei _rightButton;
+
+        /*! rectangle of child frame
+        */
 		iRectanglei _childFrame;
 
         /*! handles incomming mouse wheel event
@@ -134,11 +154,15 @@ namespace Igor
         */
         void calcTranslation();
 
-        /*! 
+        /*! calculate position and size of scroll buttons
         */
 		void calcScrollButtons();
-		void calcChildFrame();
 
+        /*! calc child frame
+
+        it's similar to the client area but it can vary if scroll bars are visible
+        */
+		void calcChildFrame();
 
 		/*! ctor initializes membervariables
 		*/

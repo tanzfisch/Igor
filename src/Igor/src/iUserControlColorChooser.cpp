@@ -19,14 +19,17 @@ namespace Igor
 
     iUserControlColorChooser::iUserControlColorChooser(iColorChooserMode mode)
     {
-        _mode = mode;
-        if (_mode == iColorChooserMode::RGBA)
+        if (mode == iColorChooserMode::RGBA)
         {
             _components = 4;
         }
-        else
+        else if (mode == iColorChooserMode::RGB)
         {
             _components = 3;
+        }
+        else
+        {
+            con_err("invalid mode");
         }
 
         initGUI();
@@ -37,10 +40,6 @@ namespace Igor
         deinitGUI();
     }
 
-    void iUserControlColorChooser::onTextEditChange(iWidget* source)
-    {
-    }
-
     void iUserControlColorChooser::onExpandButtonPressed(iWidget* source)
     {
         setExpanded(!_expanded);
@@ -49,38 +48,42 @@ namespace Igor
     void iUserControlColorChooser::initGUI()
     {
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _allWidgets.push_back(_grid);
         _grid->appendRows(1);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
         _headlineGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _allWidgets.push_back(_headlineGrid);
         _headlineGrid->appendCollumns(2);
         _headlineGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _headlineGrid->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
-        _label->setText(_text);
-        _label->setHorizontalAlignment(iHorizontalAlignment::Left);
-        _label->setVerticalAlignment(iVerticalAlignment::Top);
+        _titleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        _allWidgets.push_back(_titleLabel);
+        _titleLabel->setText(_text);
+        _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
+        _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
         _expandButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        _allWidgets.push_back(_expandButton);
         _expandButton->setTexture("icons\\plus.png");
         _expandButton->setText("");
         _expandButton->setWidth(12);
         _expandButton->setHeight(12);
         _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColorChooser::onExpandButtonPressed));
 
-        _valueChooserH = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedH));
-        _valueChooserS = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedS));
-        _valueChooserV = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedV));
-        _valueChooserR = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedR));
-        _valueChooserG = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedG));
-        _valueChooserB = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedB));
-        _valueChooserA = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedA));
-        _valueChooserRExpanded = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedRExpanded));
-        _valueChooserGExpanded = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedGExpanded));
-        _valueChooserBExpanded = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedBExpanded));
-        _valueChooserAExpanded = createTextBox(iChangeDelegate(this, &iUserControlColorChooser::onTextChangedAExpanded));
+        _valueChooserH = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedH));
+        _valueChooserS = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedS));
+        _valueChooserV = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedV));
+        _valueChooserR = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedR));
+        _valueChooserG = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedG));
+        _valueChooserB = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedB));
+        _valueChooserA = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedA));
+        _valueChooserRExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedRExpanded));
+        _valueChooserGExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedGExpanded));
+        _valueChooserBExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedBExpanded));
+        _valueChooserAExpanded = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedAExpanded));
 
         _labelH = createLabel("H");
         _labelS = createLabel("S");
@@ -91,7 +94,7 @@ namespace Igor
         _labelA = createLabel("A");
 
         _headlineGrid->addWidget(_expandButton, 0, 0);
-        _headlineGrid->addWidget(_label, 1, 0);
+        _headlineGrid->addWidget(_titleLabel, 1, 0);
 
         _grid->addWidget(_headlineGrid, 0, 0);
         
@@ -123,109 +126,109 @@ namespace Igor
         }
     }
 
-    void iUserControlColorChooser::onTextChangedH(iWidget* source)
+    void iUserControlColorChooser::onValueChangedH(iWidget* source)
     {
         _sliderH->setValue(_valueChooserH->getValue());
-        updateColorHSV();
+        updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedS(iWidget* source)
+    void iUserControlColorChooser::onValueChangedS(iWidget* source)
     {
         _sliderS->setValue(_valueChooserS->getValue());
-        updateColorHSV();
+        updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedV(iWidget* source)
+    void iUserControlColorChooser::onValueChangedV(iWidget* source)
     {
         _sliderV->setValue(_valueChooserV->getValue());
-        updateColorHSV();
+        updateColorRGB();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedR(iWidget* source)
+    void iUserControlColorChooser::onValueChangedR(iWidget* source)
     {
         _sliderR->setValue(_valueChooserR->getValue());
         _valueChooserRExpanded->setValue(_valueChooserR->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedG(iWidget* source)
+    void iUserControlColorChooser::onValueChangedG(iWidget* source)
     {
         _sliderG->setValue(_valueChooserG->getValue());
         _valueChooserGExpanded->setValue(_valueChooserG->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedB(iWidget* source)
+    void iUserControlColorChooser::onValueChangedB(iWidget* source)
     {
         _sliderB->setValue(_valueChooserB->getValue());
         _valueChooserBExpanded->setValue(_valueChooserB->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedA(iWidget* source)
+    void iUserControlColorChooser::onValueChangedA(iWidget* source)
     {
         _sliderA->setValue(_valueChooserA->getValue());
         _valueChooserAExpanded->setValue(_valueChooserA->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedRExpanded(iWidget* source)
+    void iUserControlColorChooser::onValueChangedRExpanded(iWidget* source)
     {
         _sliderR->setValue(_valueChooserRExpanded->getValue());
         _valueChooserR->setValue(_valueChooserRExpanded->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedGExpanded(iWidget* source)
+    void iUserControlColorChooser::onValueChangedGExpanded(iWidget* source)
     {
         _sliderG->setValue(_valueChooserGExpanded->getValue());
         _valueChooserG->setValue(_valueChooserGExpanded->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedBExpanded(iWidget* source)
+    void iUserControlColorChooser::onValueChangedBExpanded(iWidget* source)
     {
         _sliderB->setValue(_valueChooserBExpanded->getValue());
         _valueChooserB->setValue(_valueChooserBExpanded->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
-    void iUserControlColorChooser::onTextChangedAExpanded(iWidget* source)
+    void iUserControlColorChooser::onValueChangedAExpanded(iWidget* source)
     {
         _sliderA->setValue(_valueChooserAExpanded->getValue());
         _valueChooserA->setValue(_valueChooserAExpanded->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
     void iUserControlColorChooser::onSliderChangedH(iWidget* source)
     {
         _valueChooserH->setValue(_sliderH->getValue());
-        updateColorHSV();
+        updateColorRGB();
         updateWidgets();
     }
 
     void iUserControlColorChooser::onSliderChangedS(iWidget* source)
     {
         _valueChooserS->setValue(_sliderS->getValue());
-        updateColorHSV();
+        updateColorRGB();
         updateWidgets();
     }
 
     void iUserControlColorChooser::onSliderChangedV(iWidget* source)
     {
         _valueChooserV->setValue(_sliderV->getValue());
-        updateColorHSV();
+        updateColorRGB();
         updateWidgets();
     }
 
@@ -233,7 +236,7 @@ namespace Igor
     {
         _valueChooserR->setValue(_sliderR->getValue());
         _valueChooserRExpanded->setValue(_sliderR->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
@@ -241,7 +244,7 @@ namespace Igor
     {
         _valueChooserG->setValue(_sliderG->getValue());
         _valueChooserGExpanded->setValue(_sliderR->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
@@ -249,7 +252,7 @@ namespace Igor
     {
         _valueChooserB->setValue(_sliderB->getValue());
         _valueChooserBExpanded->setValue(_sliderR->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
@@ -257,7 +260,7 @@ namespace Igor
     {
         _valueChooserA->setValue(_sliderA->getValue());
         _valueChooserAExpanded->setValue(_sliderR->getValue());
-        updateColorRGB();
+        updateColorHSV();
         updateWidgets();
     }
 
@@ -291,7 +294,7 @@ namespace Igor
         _colorChanged(_colorRGBA);
     }
 
-    void iUserControlColorChooser::updateColorRGB()
+    void iUserControlColorChooser::updateColorHSV()
     {
         _colorRGBA._r = _valueChooserR->getValue() / 255.0f;
         _colorRGBA._g = _valueChooserG->getValue() / 255.0f;
@@ -309,7 +312,7 @@ namespace Igor
         _colorHSV = iaColor4f::convertRGBtoHSV(_colorRGBA);
     }
 
-    void iUserControlColorChooser::updateColorHSV()
+    void iUserControlColorChooser::updateColorRGB()
     {
         _colorHSV._r = _valueChooserH->getValue() / 255.0f;
         _colorHSV._g = _valueChooserS->getValue() / 255.0f;
@@ -328,13 +331,15 @@ namespace Igor
     iWidgetLabel* iUserControlColorChooser::createLabel(const iaString& text)
     {
         iWidgetLabel* result = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        _allWidgets.push_back(result);
         result->setText(text);
         return result;
     }
 
-    iWidgetNumberChooser* iUserControlColorChooser::createTextBox(iChangeDelegate changeDelegate)
+    iWidgetNumberChooser* iUserControlColorChooser::createNumberChooser(iChangeDelegate changeDelegate)
     {
         iWidgetNumberChooser* result = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+        _allWidgets.push_back(result);
         result->setMinMaxNumber(0, 255);
         result->setValue(123);
         result->setWidth(35);
@@ -347,6 +352,7 @@ namespace Igor
     iWidgetSlider* iUserControlColorChooser::createSlider(iaString textureFileName, iChangeDelegate changeDelegate)
     {
         iWidgetSlider* result = static_cast<iWidgetSlider*>(iWidgetManager::getInstance().createWidget(iWidgetType::Slider));
+        _allWidgets.push_back(result);
         result->setWidth(260);
         result->setMinValue(0.0f);
         result->setMaxValue(255.0f);
@@ -361,13 +367,15 @@ namespace Igor
     void iUserControlColorChooser::initExpanded()
     {
         _expandedGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _allWidgets.push_back(_expandedGrid);
         _expandedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _expandedGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _expandedGrid->setBorder(0);
         _expandedGrid->setCellSpacing(4);
         _expandedGrid->appendRows(1);
 
-        _expandedSliderGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _expandedSliderGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid)); 
+        _allWidgets.push_back(_expandedSliderGrid);
         _expandedSliderGrid->appendCollumns(2);
         _expandedSliderGrid->appendRows(_components + 3);
         _expandedSliderGrid->setBorder(0);
@@ -384,6 +392,7 @@ namespace Igor
         _sliderA->setBackgroundTexture("special\\checker.png");
 
         _colorViewExpanded = static_cast<iWidgetColorView*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorView));
+        _allWidgets.push_back(_colorViewExpanded);
         _colorViewExpanded->setWidth(54);
         _colorViewExpanded->setHorizontalAlignment(iHorizontalAlignment::Right);
         _colorViewExpanded->setHeight(21);
@@ -431,16 +440,19 @@ namespace Igor
     void iUserControlColorChooser::initCollapsed()
     {
         _collapsedGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _allWidgets.push_back(_collapsedGrid);
         _collapsedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _collapsedGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _collapsedGrid->appendCollumns(_components == 4 ? 8 : 7);
         _collapsedGrid->setCellSpacing(4);
 
         _collapsedSpacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
+        _allWidgets.push_back(_collapsedSpacer);
         _collapsedSpacer->setWidth(65);
         _collapsedSpacer->setHeight(0);
 
         _colorViewCollapsed = static_cast<iWidgetColorView*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorView));
+        _allWidgets.push_back(_colorViewCollapsed);
         _colorViewCollapsed->setWidth(54);
         _colorViewCollapsed->setHeight(21);
         
@@ -466,160 +478,14 @@ namespace Igor
 
     void iUserControlColorChooser::deinitGUI()
     {
-        if (_colorViewExpanded != nullptr)
+        for (auto widget : _allWidgets)
         {
-            iWidgetManager::getInstance().destroyWidget(_colorViewExpanded);
+            iWidgetManager::getInstance().destroyWidget(widget);
         }
 
-        if (_colorViewCollapsed != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_colorViewCollapsed);
-        }
+        _allWidgets.clear();
 
-        if (_grid != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_grid);
-        }
-
-        if (_headlineGrid != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_headlineGrid);
-        }
-
-        if (_label != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_label);
-        }
-
-        if (_expandButton != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_expandButton);
-        }
-
-        if (_valueChooserH != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserH);
-        }
-
-        if (_valueChooserS != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserS);
-        }
-
-        if (_valueChooserV != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserV);
-        }
-
-        if (_valueChooserR != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserR);
-        }
-
-        if (_valueChooserG != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserG);
-        }
-
-        if (_valueChooserB != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserB);
-        }
-
-        if (_valueChooserA != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserA);
-        }
-
-        if (_valueChooserRExpanded != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserRExpanded);
-        }
-
-        if (_valueChooserGExpanded != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserGExpanded);
-        }
-
-        if (_valueChooserBExpanded != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserBExpanded);
-        }
-
-        if (_valueChooserAExpanded != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_valueChooserAExpanded);
-        }
-
-        if (_labelH != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_labelH);
-        }
-
-        if (_labelS != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_labelS);
-        }
-
-        if (_labelV != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_labelV);
-        }
-
-        if (_labelR != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_labelR);
-        }
-
-        if (_labelG != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_labelG);
-        }
-
-        if (_labelB != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_labelB);
-        }
-
-        if (_labelA != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_labelA);
-        }
-
-        if (_sliderH != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_sliderH);
-        }
-
-        if (_sliderS != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_sliderS);
-        }
-
-        if (_sliderV != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_sliderV);
-        }
-
-        if (_sliderR != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_sliderR);
-        }
-
-        if (_sliderG != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_sliderG);
-        }
-
-        if (_sliderB != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_sliderB);
-        }
-
-        if (_sliderA != nullptr)
-        {
-            iWidgetManager::getInstance().destroyWidget(_sliderA);
-        }
+        _grid = nullptr;
     }
 
     void iUserControlColorChooser::registerOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate)
@@ -636,9 +502,9 @@ namespace Igor
     {
         _text = text;
 
-        if (_label != nullptr)
+        if (_titleLabel != nullptr)
         {
-            _label->setText(_text);
+            _titleLabel->setText(_text);
         }
     }
 

@@ -145,6 +145,8 @@ namespace Igor
         */
         iWidgetLabel* _messageLabel = nullptr;
 
+        /*! collect all widgets here so we can clean up faster later
+        */
         vector<iWidget*> _allWidgets;
 
         /*! handles ok button clicked event

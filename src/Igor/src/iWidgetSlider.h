@@ -42,6 +42,7 @@ namespace Igor
     /*! button widget
 
     \todo non linear slider would be nice e.g. logarithmic for setting shininess in phong shading
+    \todo would be nice to also have vertical sliders
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
@@ -86,10 +87,24 @@ namespace Igor
         */
         float32 getValue();
 
+        /*! sets minimum value of slider 
+
+        \param min minimum value
+        */
         void setMinValue(float32 min);
+
+        /*! sets maximum value of slider
+
+        \param max maximum value
+        */
         void setMaxValue(float32 max);
 
+        /*! \returns minimum value
+        */
         float32 getMinValue();
+
+        /*! \returns maximum value
+        */
         float32 getMaxValue();
 
         /*! sets the stepping for mouse wheel
@@ -101,10 +116,24 @@ namespace Igor
 
 	protected:
 
+        /*! minimum value
+        */
         float32 _min = 0.0f;
+
+        /*! maximum value
+        */
         float32 _max = 1.0f;
+
+        /*! current value
+        */
         float32 _value = 0.5f;
+
+        /*! mouse wheel up value change stepping 
+        */
         float32 _wheelStepUp = 0.1f;
+        
+        /*! mouse wheel down value change stepping
+        */
         float32 _wheelStepDown = 0.1f;
 
         /*! the texture
@@ -156,8 +185,12 @@ namespace Igor
         */
         void handleMouseMove(int32 x, int32 y);
 
+        /*! translates the horizontal mouse position in the a value
+        */
         void handleMouseInput(int32 mouseX);
 
+        /*! cull value with boundings
+        */
         void cullBoundings();
 
         /*! updates size based on it's content

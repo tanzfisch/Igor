@@ -38,6 +38,8 @@ namespace Igor
 
     class iWidgetUserControl;
 
+    /*! grid selection mode
+    */
     enum class iSelectionMode
     {
         Field,
@@ -115,7 +117,6 @@ namespace Igor
             */
             vector<Field> _widgetCollumn;
         };
-
 
     public:
 

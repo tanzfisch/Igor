@@ -63,7 +63,14 @@ namespace Igor
         */
         ~iDialogDecisionBox();
 
-        void show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> values, int32 preSelection = -1);
+        /*! show/open the decision box
+
+        \param message the message
+        \param closeDelegate delegate to handle the close desicion box event
+        \param radioButtonTexts besides the message you can add a selection of radio buttons
+        \param preSelection optional preselection of radio buttons
+        */
+        void show(const iaString& message, iDecisionBoxCloseDelegate closeDelegate, std::initializer_list<iaString> radioButtonTexts, int32 preSelection = -1);
 
     private:
 

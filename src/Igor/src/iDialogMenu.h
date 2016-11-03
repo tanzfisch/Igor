@@ -43,7 +43,7 @@ namespace Igor
 
     iaEVENT(iDialogMenuCloseEvent, iDialogMenuCloseDelegate, void, (int32 index), (index));
 
-    /*! the message box
+    /*! pull down menu
     */
     class Igor_API iDialogMenu : public iWidgetUserDialog
     {
@@ -88,6 +88,8 @@ namespace Igor
 
     private:
 
+        /*! menu entry height in pixel
+        */
         int32 _entryHeight = 20;
 
         /*! the close event

@@ -41,8 +41,7 @@ namespace Igor
 
     /*! group box widget
 
-    \todo need group box without side lines. just header
-    \todo collapsable group box would be nice
+    \todo collapsable group box would be nice/interessting
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
