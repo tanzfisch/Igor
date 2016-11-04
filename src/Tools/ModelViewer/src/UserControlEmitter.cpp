@@ -56,15 +56,18 @@ void UserControlEmitter::updateGUI()
 
 void UserControlEmitter::setNode(uint32 id)
 {
-    iNode* node = iNodeFactory::getInstance().getNode(_nodeId);
-    if (node->getType() == iNodeType::iNodeEmitter)
+    iNode* node = iNodeFactory::getInstance().getNode(id);
+    if (node != nullptr)
     {
-        _nodeId = id;
-        updateGUI();
-    }
-    else
-    {
-        con_err("node type is not iNodeEmitter");
+        if (node->getType() == iNodeType::iNodeEmitter)
+        {
+            _nodeId = id;
+            updateGUI();
+        }
+        else
+        {
+            con_err("node type is not iNodeEmitter");
+        }
     }
 }
 
