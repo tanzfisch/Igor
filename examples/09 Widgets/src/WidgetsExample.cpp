@@ -28,6 +28,8 @@ using namespace IgorAux;
 #include <iTextureResourceFactory.h>
 #include <iStatistics.h>
 #include <iWidgetGraph.h>
+#include <iDialogColorChooser.h>
+#include <iWidgetColorView.h>
 using namespace Igor;
 
 WidgetsExample::WidgetsExample()
@@ -131,7 +133,7 @@ void WidgetsExample::initGUI()
 
     iWidgetGrid* grid4 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
     _allWidgets.push_back(grid4);
-    grid4->appendCollumns(3);
+    grid4->appendCollumns(5);
     grid4->setStrechColumn(2);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
@@ -169,7 +171,20 @@ void WidgetsExample::initGUI()
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
     button1->setText("Open Message Box");
-    button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onMessageBox));
+    button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenMessageBox));
+
+    iWidgetButton* colorChooserButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(colorChooserButton);
+    colorChooserButton->setWidth(70);
+    colorChooserButton->setHeight(20);
+    colorChooserButton->setVerticalAlignment(iVerticalAlignment::Center);
+    colorChooserButton->setHorizontalAlignment(iHorizontalAlignment::Center);
+    colorChooserButton->setText("Open Color Chooser");
+    colorChooserButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
+
+    _colorView = static_cast<iWidgetColorView*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorView));
+    _allWidgets.push_back(_colorView);
+    _colorView->setColor(iaColor4f(1,1,1,0.5));
 
     iWidgetSpacer* spacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
     spacer->setHeight(30);
@@ -178,16 +193,16 @@ void WidgetsExample::initGUI()
     _labelMousePos = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(_labelMousePos);
 
-    iWidgetButton* button2 = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
-    _allWidgets.push_back(button2);
-    button2->setText("");
-    button2->setTexture("icons\\exit.png");
-    button2->setVerticalTextAlignment(iVerticalAlignment::Bottom);
-    button2->setVerticalAlignment(iVerticalAlignment::Center);
-    button2->setHorizontalAlignment(iHorizontalAlignment::Center);
-    button2->setWidth(64);
-    button2->setHeight(64);
-    button2->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
+    iWidgetButton* exitButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _allWidgets.push_back(exitButton);
+    exitButton->setText("");
+    exitButton->setTexture("icons\\exit.png");
+    exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
+    exitButton->setVerticalAlignment(iVerticalAlignment::Center);
+    exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);
+    exitButton->setWidth(64);
+    exitButton->setHeight(64);
+    exitButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
 
     iWidgetSelectBox* selectBox = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
     _allWidgets.push_back(selectBox);
@@ -292,10 +307,12 @@ void WidgetsExample::initGUI()
 
     grid1->addWidget(groupBox1, 0, 0);
     groupBox1->addWidget(grid4);
-    grid4->addWidget(button2, 0, 0);
+    grid4->addWidget(exitButton, 0, 0);
     grid4->addWidget(spacer, 1, 0);
     grid4->addWidget(picture1, 2, 0);
-    grid4->addWidget(graph, 3, 0);
+    grid4->addWidget(_colorView, 3, 0);
+    grid4->addWidget(colorChooserButton, 4, 0);
+    grid4->addWidget(graph, 5, 0);
     
     grid1->addWidget(widgetScoll1, 0, 1);
     widgetScoll1->addWidget(grid3);
@@ -354,6 +371,14 @@ void WidgetsExample::deinitGUI()
         delete _messageBox;
         _messageBox = nullptr;
     }
+
+    if (_colorChooserDialog != nullptr)
+    {
+        delete _colorChooserDialog;
+        _colorChooserDialog = nullptr;
+    }
+
+    _colorView = nullptr;
 }
 
 void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
@@ -379,7 +404,23 @@ void WidgetsExample::onMouseMove(int32 x, int32 y)
 	}
 }
 
-void WidgetsExample::onMessageBox(iWidget* source)
+void WidgetsExample::onOpenColorChooser(iWidget* source)
+{
+    // create message box instance on demant
+    if (_colorChooserDialog == nullptr)
+    {
+        _colorChooserDialog = new iDialogColorChooser();
+    }
+
+    _colorChooserDialog->show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _colorView->getColor(), true);
+}
+
+void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
+{
+    _colorView->setColor(color);
+}
+
+void WidgetsExample::onOpenMessageBox(iWidget* source)
 {
     // create message box instance on demant
     if (_messageBox == nullptr)

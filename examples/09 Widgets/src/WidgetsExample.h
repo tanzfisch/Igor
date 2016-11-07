@@ -46,6 +46,8 @@ namespace Igor
     class iDialogMessageBox;
     class iWidgetLabel;
     class iTexture;
+    class iDialogColorChooser;
+    class iWidgetColorView;
 }
 
 /*! this example shows how to use Igor Widgets
@@ -101,6 +103,14 @@ private:
     */
     iDialogMessageBox* _messageBox = nullptr;
 
+    /*! color chooser dialog
+    */
+    iDialogColorChooser* _colorChooserDialog = nullptr;
+
+    /*! color view to display the color selected in color chooser
+    */
+    iWidgetColorView* _colorView = nullptr;
+
     /*! just put all widgets in here for a easy clean up later
     */
 	vector<iWidget*> _allWidgets;
@@ -135,7 +145,20 @@ private:
 
     \param source the source widget of this event
     */
-    void onMessageBox(iWidget* source);
+    void onOpenMessageBox(iWidget* source);
+
+    /*! triggered by open color chooser button
+
+    \param source the source widget
+    */
+    void onOpenColorChooser(iWidget* source);
+
+    /*! triggered when closing color chooser dialog
+
+    \param ok if true value ok, if false dialog was canceled
+    \param color the resulting color
+    */
+    void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color);
 
     /*! triggered by mouse move event
 
