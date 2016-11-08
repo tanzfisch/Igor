@@ -26,13 +26,13 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iWIDGETCOLORVIEW__
-#define __iWIDGETCOLORVIEW__
+#ifndef __iWIDGETCOLORGRADIENT__
+#define __iWIDGETCOLORGRADIENT__
 
 #include <iWidget.h>
 
 #include <iaString.h>
-#include <iaColor4.h>
+#include <iGradient.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -46,7 +46,7 @@ namespace Igor
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
     */
-	class Igor_API iWidgetColorView : public iWidget
+	class Igor_API iWidgetColorGradient : public iWidget
 	{
 
         /*! needs to be friend because it's the factory that creates this widget
@@ -55,22 +55,34 @@ namespace Igor
 
 	public:
 
-		/*! sets color
+		/*! sets color gradient
 		\param color color value in rgba
 		*/
-        void setColor(const iaColor4f& color);
+        void setGradient(const iGradientColor4f& gradient);
 
-		/*! \returns current color value
+		/*! \returns color gradient
 		*/
-        const iaColor4f& getColor() const;
+        const iGradientColor4f& getGradient() const;
+
+        /*! sets if alpha values are displayed
+        */
+        void setUseAlpha(bool useAlpha = true);
+
+        /*! \returns true if alpha values are displayed
+        */
+        bool isUsingAlpha() const;
 
 	private:
 
-        /*! the collor to present
+        /*! color gradient
         */
-        iaColor4f _color;
+        iGradientColor4f _gradient;
 
-        /*! shared pointer to texture
+        /*! flag if alpha is displayed
+        */
+        bool _useAlpha = true;
+
+        /*! shared pointer to background texture
         */
         shared_ptr<iTexture> _texture = nullptr;
 
@@ -84,11 +96,11 @@ namespace Igor
 
         /*! ctor initializes member variables
         */
-        iWidgetColorView();
+        iWidgetColorGradient();
 
         /*! release texture
         */
-		virtual ~iWidgetColorView();
+		virtual ~iWidgetColorGradient();
 	};
 }
 

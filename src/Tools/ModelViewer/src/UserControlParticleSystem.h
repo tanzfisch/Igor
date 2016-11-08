@@ -45,6 +45,7 @@ namespace Igor
     class iWidgetSelectBox;
     class iUserControlFileChooser;
     class iWidgetCheckBox;
+    class iWidgetColorGradient;
 }
 
 class UserControlParticleSystem : public iWidgetUserControl
@@ -83,6 +84,7 @@ private:
     iWidgetNumberChooser* _vorticityAppearanceRateChooser = nullptr;
     iWidgetNumberChooser* _tilingVerticalChooser = nullptr;
     iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
+    iWidgetColorGradient* _colorGradient = nullptr;
 
     vector<iWidget*> _allWidgets;
 

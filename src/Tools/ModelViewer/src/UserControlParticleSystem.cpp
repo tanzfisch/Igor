@@ -24,6 +24,7 @@
 #include <iResourceManager.h>
 #include <iWidgetSpacer.h>
 #include <iWidgetGroupBox.h>
+#include <iWidgetColorGradient.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -380,6 +381,18 @@ void UserControlParticleSystem::initGUI()
     labelColorGradient->setWidth(MV_REGULARBUTTON_SIZE);
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
+    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorGradient));
+    _allWidgets.push_back(_colorGradient);
+    iGradientColor4f rainbow;
+    rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
+    rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
+    rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
+    rainbow.setValue(0.6f, iaColor4f(0, 1, 0, 0.6));
+    rainbow.setValue(0.8f, iaColor4f(1, 1, 0, 0.8));
+    rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
+    _colorGradient->setGradient(rainbow);
+    _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
+
     iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelEmitter);
     labelEmitter->setText("Emitter");
@@ -515,6 +528,7 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(_velocityOrientedCheckBox, 1, 7);
 
     gridAppearanceProperties->addWidget(labelColorGradient, 0, 8);
+    gridAppearanceProperties->addWidget(_colorGradient, 1, 8);
 
     updateNode();
 }

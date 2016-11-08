@@ -16,6 +16,7 @@
 #include <iWidgetScroll.h>
 #include <iWidgetSpacer.h>
 #include <iWidgetColor.h>
+#include <iWidgetColorGradient.h>
 #include <iWidgetSlider.h>
 #include <iWidgetSelectBox.h>
 #include <iKeyboard.h>
@@ -442,6 +443,10 @@ namespace Igor
 
         case iWidgetType::Color:
             result = new iWidgetColor();
+            break;
+
+        case iWidgetType::ColorGradient:
+            result = new iWidgetColorGradient();
             break;
 
         case iWidgetType::Slider:

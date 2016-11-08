@@ -64,6 +64,7 @@ namespace Igor
     /*! color chooser user control
 
     \bug color chooser disapperas when unfolded and folded again
+    \todo use drawGradient instead of textures for the color componenbt sliders than we could manipulate them dynamically
     */
     class Igor_API iUserControlColorChooser : public iWidgetUserControl
     {
@@ -125,8 +126,14 @@ namespace Igor
         */
         bool getExpand() const;
 
+        /*! sets expand button visible state
+
+        \param showExpand if true expand button is visible
+        */
         void setExpandButtonVisible(bool showExpand = true);
 
+        /*! \returns if expand button is visible
+        */
         bool isExpandButtonVisible() const;
 
     private:

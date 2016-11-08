@@ -102,6 +102,21 @@ namespace Igor
         drawFilledRectangle(posx, posy, width, height, _diffuse);
     }
 
+    void iWidgetDefaultTheme::drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iGradientColor4f& gradient)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+
+        iaColor4f color;
+
+        for (int i = 0; i < width; ++i)
+        {
+            gradient.getValue(static_cast<float32>(i) / static_cast<float32>(width), color);
+            iRenderer::getInstance().setColor(color);
+            iRenderer::getInstance().drawLine(posx + i + 0.5, posy, posx + i + 0.5, posy + height);
+        }
+    }
+
     void iWidgetDefaultTheme::drawLine(float32 x1, float32 y1, float32 x2, float32 y2)
     {
         // sub pixel position correction

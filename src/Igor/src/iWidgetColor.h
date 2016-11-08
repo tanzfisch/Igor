@@ -66,11 +66,11 @@ namespace Igor
 
 	private:
 
-        /*! the collor to present
+        /*! the color to present
         */
         iaColor4f _color;
 
-        /*! shared pointer to texture
+        /*! shared pointer to background texture
         */
         shared_ptr<iTexture> _texture = nullptr;
 
