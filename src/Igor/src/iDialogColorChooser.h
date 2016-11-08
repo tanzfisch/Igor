@@ -68,17 +68,13 @@ namespace Igor
         \param radioButtonTexts besides the message you can add a selection of radio buttons
         \param preSelection optional preselection of radio buttons
         */
-        void show(iColorChooserCloseDelegate closeDelegate, iaColor4f color, bool useAlpha = true);
+        void show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha = true);
 
     private:
 
         /*! the close event
         */
         iColorChooserCloseEvent _closeEvent;
-
-        /*! selected color
-        */
-        iaColor4f _color;
 
         /*! old color
         */
@@ -88,12 +84,12 @@ namespace Igor
         */
         iWidgetGrid* _grid = nullptr;
 
+        /*! actual color chooser
+        */
         iUserControlColorChooser* _userControlColorChooser = nullptr;
 
-        iWidgetButton* _okButton = nullptr;
-        iWidgetButton* _cancelButton = nullptr;
-        iWidgetButton* _resetButton = nullptr;
-        
+        /*! all widgets
+        */
         vector<iWidget*> _allWidgets;
 
         /*! handles ok button clicked event
@@ -108,6 +104,12 @@ namespace Igor
         */
         void onCancel(iWidget* source);
 
+        /*! handles reset button click event
+
+        \param source the reset button it self
+        */
+        void onReset(iWidget* source);
+
         /*! closes the dialog and sends closed event
 
         will be triggered by any button
@@ -117,6 +119,13 @@ namespace Igor
         /*! deinitializes the gui elements
         */
         void deinitGUI();
+
+        /*! initializes gui elements
+
+        \param color the color to init with
+        \param useAlpha if true alpha value will be edited too
+        */
+        void initGUI(const iaColor4f& color, bool useAlpha);
 
     };
 

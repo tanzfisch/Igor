@@ -30,7 +30,6 @@ namespace Igor
 	void iWidgetButton::setText(const iaString& text)
 	{
 		_text = text;
-		//update();
 	}
 
 	const iaString& iWidgetButton::getText() const
@@ -44,7 +43,6 @@ namespace Igor
         {
             _texturePath = texturePath;
             _texture = iTextureResourceFactory::getInstance().loadFile(_texturePath);
-            //update();
         }
     }
 

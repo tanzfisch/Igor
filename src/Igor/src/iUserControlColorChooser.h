@@ -115,6 +115,20 @@ namespace Igor
         */
         void unregisterOnColorChangedEvent(iColorChangedDelegate colorChangedDelegate);
 
+        /*! sets the expand mode
+
+        \param expand if true expand mode is on
+        */
+        void setExpand(bool expand = true);
+
+        /*! \returns expand mode state
+        */
+        bool getExpand() const;
+
+        void setExpandButtonVisible(bool showExpand = true);
+
+        bool isExpandButtonVisible() const;
+
     private:
 
         /*! current color on RGBA format
@@ -128,6 +142,10 @@ namespace Igor
         /*! if true color chooser is displayed in expanded mode
         */
         bool _expanded = false;
+
+        /*! if true expand button will be shown
+        */
+        bool _showExpand = true;
 
         /*! amount of components based on the mode the color chooser was started with
         */
@@ -248,6 +266,22 @@ namespace Igor
         /*! label for alpha component
         */
         iWidgetLabel* _labelA = nullptr;
+
+        /*! label for red component
+        */
+        iWidgetLabel* _labelRExpanded = nullptr;
+
+        /*! label for green component
+        */
+        iWidgetLabel* _labelGExpanded = nullptr;
+
+        /*! label for blue component
+        */
+        iWidgetLabel* _labelBExpanded = nullptr;
+
+        /*! label for alpha component
+        */
+        iWidgetLabel* _labelAExpanded = nullptr;
 
         /*! slider for hue component
         */

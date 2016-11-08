@@ -45,6 +45,32 @@ namespace Igor
         setExpanded(!_expanded);
     }
 
+    void iUserControlColorChooser::setExpand(bool expand)
+    {
+        setExpanded(expand);
+    }
+
+    bool iUserControlColorChooser::getExpand() const
+    {
+        return _expanded;
+    }
+
+    void iUserControlColorChooser::setExpandButtonVisible(bool showExpand)
+    {
+        _showExpand = showExpand;
+
+        if (_expandButton != nullptr)
+        {
+            _expandButton->setVisible(_showExpand);
+            _expandButton->setActive(_showExpand);
+        }
+    }
+
+    bool iUserControlColorChooser::isExpandButtonVisible() const
+    {
+        return _showExpand;
+    }
+
     void iUserControlColorChooser::initGUI()
     {
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
@@ -62,6 +88,7 @@ namespace Igor
         _titleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
         _allWidgets.push_back(_titleLabel);
         _titleLabel->setText(_text);
+        _titleLabel->setHeight(0);
         _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -72,6 +99,8 @@ namespace Igor
         _expandButton->setWidth(12);
         _expandButton->setHeight(12);
         _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColorChooser::onExpandButtonPressed));
+        _expandButton->setVisible(_showExpand);
+        _expandButton->setActive(_showExpand);
 
         _valueChooserH = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedH));
         _valueChooserS = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedS));
@@ -92,6 +121,10 @@ namespace Igor
         _labelG = createLabel("G");
         _labelB = createLabel("B");
         _labelA = createLabel("A");
+        _labelRExpanded = createLabel("R");
+        _labelGExpanded = createLabel("G");
+        _labelBExpanded = createLabel("B");
+        _labelAExpanded = createLabel("A");
 
         _headlineGrid->addWidget(_expandButton, 0, 0);
         _headlineGrid->addWidget(_titleLabel, 1, 0);
@@ -400,13 +433,13 @@ namespace Igor
         _expandedSliderGrid->addWidget(_labelH, 0, 0);
         _expandedSliderGrid->addWidget(_labelS, 0, 1);
         _expandedSliderGrid->addWidget(_labelV, 0, 2);
-        _expandedSliderGrid->addWidget(_labelR, 0, 3);
-        _expandedSliderGrid->addWidget(_labelG, 0, 4);
-        _expandedSliderGrid->addWidget(_labelB, 0, 5);
+        _expandedSliderGrid->addWidget(_labelRExpanded, 0, 3);
+        _expandedSliderGrid->addWidget(_labelGExpanded, 0, 4);
+        _expandedSliderGrid->addWidget(_labelBExpanded, 0, 5);
 
         if (_components == 4)
         {
-            _expandedSliderGrid->addWidget(_labelA, 0, 6);
+            _expandedSliderGrid->addWidget(_labelAExpanded, 0, 6);
         }
 
         _expandedSliderGrid->addWidget(_sliderH, 1, 0);
@@ -484,6 +517,8 @@ namespace Igor
         }
 
         _allWidgets.clear();
+
+        _expandButton = nullptr;
 
         _grid = nullptr;
     }

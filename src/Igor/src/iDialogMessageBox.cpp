@@ -41,6 +41,7 @@ namespace Igor
     void iDialogMessageBox::show(iaString message, iDialogMessageBoxCloseDelegate closeDelegate, iMessageBoxButtons buttons)
     {
         _messageBoxCloseEvent.append(closeDelegate);
+        deinitGUI();
         initGUI(message, buttons);
     }
 

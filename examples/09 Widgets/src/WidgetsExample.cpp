@@ -185,6 +185,7 @@ void WidgetsExample::initGUI()
     _colorView = static_cast<iWidgetColorView*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorView));
     _allWidgets.push_back(_colorView);
     _colorView->setColor(iaColor4f(1,1,1,0.5));
+    _colorView->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
 
     iWidgetSpacer* spacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
     spacer->setHeight(30);
@@ -417,7 +418,10 @@ void WidgetsExample::onOpenColorChooser(iWidget* source)
 
 void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
 {
-    _colorView->setColor(color);
+    if (ok)
+    {
+        _colorView->setColor(color);
+    }
 }
 
 void WidgetsExample::onOpenMessageBox(iWidget* source)
