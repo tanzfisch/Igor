@@ -236,9 +236,6 @@
     <ClCompile Include="..\src\iUserControlColorChooser.cpp">
       <Filter>GUI\user controls</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iWidgetColorView.cpp">
-      <Filter>GUI\widgets</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iWidgetSlider.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
@@ -656,6 +653,9 @@
     <ClCompile Include="..\src\iDialogColorChooser.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iWidgetColor.cpp">
+      <Filter>GUI\widgets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -917,9 +917,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iUserControlColorChooser.h">
       <Filter>GUI\user controls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iWidgetColorView.h">
-      <Filter>GUI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetSlider.h">
       <Filter>GUI\widgets</Filter>
@@ -1374,6 +1371,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iDialogColorChooser.h">
       <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iWidgetColor.h">
+      <Filter>GUI\widgets</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

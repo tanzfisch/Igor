@@ -10,7 +10,7 @@
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetSpacer.h>
-#include <iWidgetColorView.h>
+#include <iWidgetColor.h>
 #include <iWidgetSlider.h>
 #include <iWidgetNumberChooser.h>
 #include <iResourceManager.h>

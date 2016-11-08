@@ -95,7 +95,7 @@ namespace Igor
         Picture,
 		Scroll,
         Spacer,
-        ColorView,
+        Color,
         Slider,
         SelectBox,
         Graph,

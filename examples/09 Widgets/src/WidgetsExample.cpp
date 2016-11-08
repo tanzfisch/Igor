@@ -29,7 +29,7 @@ using namespace IgorAux;
 #include <iStatistics.h>
 #include <iWidgetGraph.h>
 #include <iDialogColorChooser.h>
-#include <iWidgetColorView.h>
+#include <iWidgetColor.h>
 using namespace Igor;
 
 WidgetsExample::WidgetsExample()
@@ -182,7 +182,7 @@ void WidgetsExample::initGUI()
     colorChooserButton->setText("Open Color Chooser");
     colorChooserButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
 
-    _colorView = static_cast<iWidgetColorView*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorView));
+    _colorView = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget(iWidgetType::Color));
     _allWidgets.push_back(_colorView);
     _colorView->setColor(iaColor4f(1,1,1,0.5));
     _colorView->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));

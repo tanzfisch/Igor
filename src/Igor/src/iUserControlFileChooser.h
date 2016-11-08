@@ -45,7 +45,7 @@ namespace Igor
     class iWidgetTextEdit;
     class iWidgetButton;
     class iWidgetSpacer;
-    class iWidgetColorView;
+    class iWidgetColor;
     class iWidgetSlider;
     class iWidgetNumberChooser;
     

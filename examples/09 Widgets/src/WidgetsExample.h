@@ -47,7 +47,7 @@ namespace Igor
     class iWidgetLabel;
     class iTexture;
     class iDialogColorChooser;
-    class iWidgetColorView;
+    class iWidgetColor;
 }
 
 /*! this example shows how to use Igor Widgets
@@ -109,7 +109,7 @@ private:
 
     /*! color view to display the color selected in color chooser
     */
-    iWidgetColorView* _colorView = nullptr;
+    iWidgetColor* _colorView = nullptr;
 
     /*! just put all widgets in here for a easy clean up later
     */

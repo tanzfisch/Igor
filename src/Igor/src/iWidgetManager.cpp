@@ -15,7 +15,7 @@
 #include <iWidgetPicture.h>
 #include <iWidgetScroll.h>
 #include <iWidgetSpacer.h>
-#include <iWidgetColorView.h>
+#include <iWidgetColor.h>
 #include <iWidgetSlider.h>
 #include <iWidgetSelectBox.h>
 #include <iKeyboard.h>
@@ -440,8 +440,8 @@ namespace Igor
             result = new iWidgetSpacer();
             break;
 
-        case iWidgetType::ColorView:
-            result = new iWidgetColorView();
+        case iWidgetType::Color:
+            result = new iWidgetColor();
             break;
 
         case iWidgetType::Slider:

@@ -832,7 +832,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iWidgetBaseTheme.h" />
     <ClInclude Include="..\src\iWidgetButton.h" />
     <ClInclude Include="..\src\iWidgetCheckBox.h" />
-    <ClInclude Include="..\src\iWidgetColorView.h" />
+    <ClInclude Include="..\src\iWidgetColor.h" />
     <ClInclude Include="..\src\iWidgetDefaultTheme.h" />
     <ClInclude Include="..\src\iWidgetDialog.h" />
     <ClInclude Include="..\src\iWidgetGraph.h" />
@@ -1435,7 +1435,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iWidget.cpp" />
     <ClCompile Include="..\src\iWidgetButton.cpp" />
     <ClCompile Include="..\src\iWidgetCheckBox.cpp" />
-    <ClCompile Include="..\src\iWidgetColorView.cpp" />
+    <ClCompile Include="..\src\iWidgetColor.cpp" />
     <ClCompile Include="..\src\iWidgetDefaultTheme.cpp" />
     <ClCompile Include="..\src\iWidgetDialog.cpp" />
     <ClCompile Include="..\src\iWidgetGraph.cpp" />

@@ -45,7 +45,7 @@ namespace Igor
     class iWidgetTextEdit;
     class iWidgetButton;
     class iWidgetSpacer;
-    class iWidgetColorView;
+    class iWidgetColor;
     class iWidgetSlider;
     class iWidgetNumberChooser;
 
@@ -313,11 +313,11 @@ namespace Igor
 
         /*! color viewer used in expanded mode
         */
-        iWidgetColorView* _colorViewExpanded = nullptr;
+        iWidgetColor* _colorViewExpanded = nullptr;
 
         /*! color viewer used in collapsed mode
         */
-        iWidgetColorView* _colorViewCollapsed = nullptr;
+        iWidgetColor* _colorViewCollapsed = nullptr;
 
         /*! triggered when hue component changed
 

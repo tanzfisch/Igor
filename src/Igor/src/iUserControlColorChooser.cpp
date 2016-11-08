@@ -10,7 +10,7 @@
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetSpacer.h>
-#include <iWidgetColorView.h>
+#include <iWidgetColor.h>
 #include <iWidgetSlider.h>
 #include <iWidgetNumberChooser.h>
 
@@ -424,7 +424,7 @@ namespace Igor
         _sliderA = createSlider("special\\gradientA.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedA));
         _sliderA->setBackgroundTexture("special\\checker.png");
 
-        _colorViewExpanded = static_cast<iWidgetColorView*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorView));
+        _colorViewExpanded = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget(iWidgetType::Color));
         _allWidgets.push_back(_colorViewExpanded);
         _colorViewExpanded->setWidth(54);
         _colorViewExpanded->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -484,7 +484,7 @@ namespace Igor
         _collapsedSpacer->setWidth(65);
         _collapsedSpacer->setHeight(0);
 
-        _colorViewCollapsed = static_cast<iWidgetColorView*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorView));
+        _colorViewCollapsed = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget(iWidgetType::Color));
         _allWidgets.push_back(_colorViewCollapsed);
         _colorViewCollapsed->setWidth(54);
         _colorViewCollapsed->setHeight(21);

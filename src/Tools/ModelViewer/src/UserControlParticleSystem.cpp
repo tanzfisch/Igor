@@ -374,6 +374,12 @@ void UserControlParticleSystem::initGUI()
     _velocityOrientedCheckBox->setHorizontalAlignment(iHorizontalAlignment::Left);
     _velocityOrientedCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
+    iWidgetLabel* labelColorGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _allWidgets.push_back(labelColorGradient);
+    labelColorGradient->setText("Color");
+    labelColorGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+
     iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelEmitter);
     labelEmitter->setText("Emitter");
@@ -409,25 +415,25 @@ void UserControlParticleSystem::initGUI()
 
     iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit0);
-    labelTextureUnit0->setText("Texture 0");
+    labelTextureUnit0->setText("Texture");
     labelTextureUnit0->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit1);
-    labelTextureUnit1->setText("Texture 1");
+    labelTextureUnit1->setText("Noise 0");
     labelTextureUnit1->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit2);
-    labelTextureUnit2->setText("Texture 2");
+    labelTextureUnit2->setText("Noise 1");
     labelTextureUnit2->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     iWidgetLabel* labelTextureUnit3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
     _allWidgets.push_back(labelTextureUnit3);
-    labelTextureUnit3->setText("Texture 3");
+    labelTextureUnit3->setText("Noise 3");
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
@@ -454,20 +460,23 @@ void UserControlParticleSystem::initGUI()
     _grid->addWidget(gridButtons, 0, 0);
     _grid->addWidget(gridProperties, 0, 1);
 
-    gridProperties->addWidget(simulationGroupBox, 0, 0);
-    
     ///////
+    gridProperties->addWidget(simulationGroupBox, 0, 0);
     simulationGroupBox->addWidget(gridSimulationProperties);
 
-    gridSimulationProperties->addWidget(labelLoop, 0, 0);
-    gridSimulationProperties->addWidget(_loopCheckBox, 1, 0);
+    gridSimulationProperties->addWidget(labelEmitter, 0, 0);
+    gridSimulationProperties->addWidget(_emitterSelection, 1, 0);
 
-    gridSimulationProperties->addWidget(labelPeriod, 0, 1);
-    gridSimulationProperties->addWidget(_periodChooser, 1, 1);
+    gridSimulationProperties->addWidget(labelLoop, 0, 1);
+    gridSimulationProperties->addWidget(_loopCheckBox, 1, 1);
 
-    gridSimulationProperties->addWidget(labelAirDrag, 0, 2);
-    gridSimulationProperties->addWidget(_airDragChooser, 1, 2);
+    gridSimulationProperties->addWidget(labelPeriod, 0, 2);
+    gridSimulationProperties->addWidget(_periodChooser, 1, 2);
 
+    gridSimulationProperties->addWidget(labelAirDrag, 0, 3);
+    gridSimulationProperties->addWidget(_airDragChooser, 1, 3);
+
+    ///////////////
     gridProperties->addWidget(vortexSimulationGroupBox, 0, 1);
     vortexSimulationGroupBox->addWidget(gridVortexSimulationProperties);
 
@@ -479,35 +488,33 @@ void UserControlParticleSystem::initGUI()
 
     /////////////////
     gridProperties->addWidget(appearanceGroupBox, 0, 2);
-
     appearanceGroupBox->addWidget(gridAppearanceProperties);
 
-    gridAppearanceProperties->addWidget(labelVerticalTiling, 0, 0);
-    gridAppearanceProperties->addWidget(_tilingVerticalChooser, 1, 0);
+    gridAppearanceProperties->addWidget(labelMaterial, 0, 0);
+    gridAppearanceProperties->addWidget(_materialSelection, 1, 0);
 
-    gridAppearanceProperties->addWidget(labelHorizontalTiling, 0, 1);
-    gridAppearanceProperties->addWidget(_tilingHorizontalChooser, 1, 1);
+    gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 1);
+    gridAppearanceProperties->addWidget(_textureChooser0->getWidget(), 1, 1);
 
-    gridAppearanceProperties->addWidget(labelVelocityOriented, 0, 2);
-    gridAppearanceProperties->addWidget(_velocityOrientedCheckBox, 1, 2);
+    gridAppearanceProperties->addWidget(labelHorizontalTiling, 0, 2);
+    gridAppearanceProperties->addWidget(_tilingHorizontalChooser, 1, 2);
 
-    gridAppearanceProperties->addWidget(labelEmitter, 0, 3);
-    gridAppearanceProperties->addWidget(_emitterSelection, 1, 3);
+    gridAppearanceProperties->addWidget(labelVerticalTiling, 0, 3);
+    gridAppearanceProperties->addWidget(_tilingVerticalChooser, 1, 3);
 
-    gridAppearanceProperties->addWidget(labelMaterial, 0, 4);
-    gridAppearanceProperties->addWidget(_materialSelection, 1, 4);
+    gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 4);
+    gridAppearanceProperties->addWidget(_textureChooser1->getWidget(), 1, 4);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 5);
-    gridAppearanceProperties->addWidget(_textureChooser0->getWidget(), 1, 5);
+    gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 5);
+    gridAppearanceProperties->addWidget(_textureChooser2->getWidget(), 1, 5);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 6);
-    gridAppearanceProperties->addWidget(_textureChooser1->getWidget(), 1, 6);
+    gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 6);
+    gridAppearanceProperties->addWidget(_textureChooser3->getWidget(), 1, 6);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 7);
-    gridAppearanceProperties->addWidget(_textureChooser2->getWidget(), 1, 7);
+    gridAppearanceProperties->addWidget(labelVelocityOriented, 0, 7);
+    gridAppearanceProperties->addWidget(_velocityOrientedCheckBox, 1, 7);
 
-    gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 8);
-    gridAppearanceProperties->addWidget(_textureChooser3->getWidget(), 1, 8);
+    gridAppearanceProperties->addWidget(labelColorGradient, 0, 8);
 
     updateNode();
 }
