@@ -140,6 +140,25 @@ namespace Igor
         setMinSize(0, 0);
 	}
 
+    void iWidgetSlider::handleMouseMove(int32 x, int32 y)
+    {
+        if (!isActive())
+        {
+            return;
+        }
+
+        _mouseX = x;
+        _mouseY = y;
+
+        iWidget::handleMouseMove(x, y);
+
+        if (isMouseOver() &&
+            iMouse::getInstance().getLeftButton())
+        {
+            handleMouseInput(_mouseX);
+        }
+    }
+
     bool iWidgetSlider::handleMouseKeyDown(iKeyCode key)
     {
         if (!isActive())
@@ -190,25 +209,6 @@ namespace Igor
         }
     }
 
-    void iWidgetSlider::handleMouseMove(int32 x, int32 y)
-    {
-        if (!isActive())
-        {
-            return;
-        }
-
-        _mouseX = x;
-        _mouseY = y;
-
-        iWidget::handleMouseMove(x, y);
-
-        if (isMouseOver() &&
-            iMouse::getInstance().getLeftButton())
-        {
-            handleMouseInput(_mouseX);
-        }
-    }
-
 	void iWidgetSlider::draw()
 	{
         con_assert(_min < _max, "invalid configuration");
@@ -234,9 +234,8 @@ namespace Igor
             }
 
             float32 factor = _value / (_max - _min);
-            float32 offset = (getActualWidth() - 10) * factor;
-            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX() + offset, getActualPosY(), 10, getActualHeight());
-            iWidgetManager::getInstance().getTheme()->drawRectangle(getActualPosX() + offset, getActualPosY(), 10, getActualHeight());
+            float32 offset = (getActualWidth() - 9) * factor;
+            iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + offset, getActualPosY(), 9, getActualHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, getAppearanceState(), isActive());
 		}
 	}
 
