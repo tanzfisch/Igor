@@ -55,20 +55,35 @@ namespace Igor
         return _expanded;
     }
 
-    void iUserControlColorChooser::setExpandButtonVisible(bool showExpand)
+    void iUserControlColorChooser::setHeadlineVisible(bool headlineVisible)
     {
-        _showExpand = showExpand;
+        _showHeadline = headlineVisible;
 
         if (_expandButton != nullptr)
         {
-            _expandButton->setVisible(_showExpand);
-            _expandButton->setActive(_showExpand);
+            _expandButton->setVisible(_showHeadline);
+            _expandButton->setActive(_showHeadline);
+
+            if (_showHeadline)
+            {
+                if (!_headlineGrid->hasParent())
+                {
+                    _grid->addWidget(_headlineGrid, 0, 0);
+                }
+            }
+            else
+            {
+                if (_headlineGrid->hasParent())
+                {
+                    _grid->removeWidget(_headlineGrid);
+                }
+            }
         }
     }
 
-    bool iUserControlColorChooser::isExpandButtonVisible() const
+    bool iUserControlColorChooser::isHeadlineVisible() const
     {
-        return _showExpand;
+        return _showHeadline;
     }
 
     void iUserControlColorChooser::initGUI()
@@ -99,8 +114,8 @@ namespace Igor
         _expandButton->setWidth(12);
         _expandButton->setHeight(12);
         _expandButton->registerOnClickEvent(iClickDelegate(this, &iUserControlColorChooser::onExpandButtonPressed));
-        _expandButton->setVisible(_showExpand);
-        _expandButton->setActive(_showExpand);
+        _expandButton->setVisible(_showHeadline);
+        _expandButton->setActive(_showHeadline);
 
         _valueChooserH = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedH));
         _valueChooserS = createNumberChooser(iChangeDelegate(this, &iUserControlColorChooser::onValueChangedS));
@@ -129,7 +144,10 @@ namespace Igor
         _headlineGrid->addWidget(_expandButton, 0, 0);
         _headlineGrid->addWidget(_titleLabel, 1, 0);
 
-        _grid->addWidget(_headlineGrid, 0, 0);
+        if (_showHeadline)
+        {
+            _grid->addWidget(_headlineGrid, 0, 0);
+        }
         
         initExpanded();
         initCollapsed();

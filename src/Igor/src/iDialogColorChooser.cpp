@@ -78,7 +78,7 @@ namespace Igor
 
         _userControlColorChooser = new iUserControlColorChooser(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
         _userControlColorChooser->setExpand();
-        _userControlColorChooser->setExpandButtonVisible(false);
+        _userControlColorChooser->setHeadlineVisible(false);
         _userControlColorChooser->setColor(color);
 
         iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));

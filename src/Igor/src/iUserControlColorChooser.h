@@ -126,15 +126,15 @@ namespace Igor
         */
         bool getExpand() const;
 
-        /*! sets expand button visible state
+        /*! sets headline (including expand button) visible state
 
-        \param showExpand if true expand button is visible
+        \param headlineVisible if true healdine and expand button are visible
         */
-        void setExpandButtonVisible(bool showExpand = true);
+        void setHeadlineVisible(bool headlineVisible = true);
 
-        /*! \returns if expand button is visible
+        /*! \returns true if headline and expand button are visible
         */
-        bool isExpandButtonVisible() const;
+        bool isHeadlineVisible() const;
 
     private:
 
@@ -152,7 +152,7 @@ namespace Igor
 
         /*! if true expand button will be shown
         */
-        bool _showExpand = true;
+        bool _showHeadline = true;
 
         /*! amount of components based on the mode the color chooser was started with
         */
