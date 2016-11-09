@@ -35,19 +35,24 @@ namespace Igor
         deinitGUI();
     }
 
+    iWidgetDialog* iDialogFileSelect::createInstance()
+    {
+        return new iDialogFileSelect();
+    }
+
     void iDialogFileSelect::initGUI()
     {
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _grid->setBorder(4);
         _grid->setCellSpacing(4);
         _grid->appendRows(3);
-        getDialog()->addWidget(_grid);
+        addWidget(_grid);
 
-        _headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        _headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         _headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->addWidget(_headerLabel, 0, 0);
 
-        _pathEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+        _pathEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
         _pathEdit->setText(getFullPath());
         _pathEdit->setWidth(600);
         _pathEdit->setWriteProtected(false);
@@ -58,30 +63,30 @@ namespace Igor
         _pathEdit->registerOnChangeEvent(iChangeDelegate(this, &iDialogFileSelect::onPathEditChange));
         _grid->addWidget(_pathEdit, 0, 1);
 
-        _scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
+        _scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget("Scroll"));
         _scroll->setWidth(600);
         _scroll->setHeight(300);
         _grid->addWidget(_scroll, 0, 2);
 
-        _fileGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _fileGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _fileGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _fileGrid->setSelectMode(iSelectionMode::Field);
         _fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
         _scroll->addWidget(_fileGrid);
 
-        _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         _buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         _buttonGrid->appendCollumns(1);
         _buttonGrid->setCellSpacing(4);
         _grid->addWidget(_buttonGrid, 0, 3);
 
-        _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _okButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onOK));
         _buttonGrid->addWidget(_okButton, 0, 0);
 
-        _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _cancelButton->setText("Cancel");
         _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onCancel));
         _buttonGrid->addWidget(_cancelButton, 1, 0);
@@ -89,7 +94,7 @@ namespace Igor
 
     void iDialogFileSelect::deinitGUI()
     {
-        getDialog()->removeWidget(_grid);
+        removeWidget(_grid);
 
         if (_fileGrid)
         {
@@ -156,9 +161,9 @@ namespace Igor
         _headerLabel->setText("Load File");
         _okButton->setText("Load");
 
-        iWidgetManager::setModal(getDialog());
-        getDialog()->setActive();
-        getDialog()->setVisible();
+        iWidgetManager::setModal(this);
+        setActive();
+        setVisible();
 
         updateFileGrid();
     }
@@ -182,9 +187,9 @@ namespace Igor
         _headerLabel->setText("Save File");
         _okButton->setText("Save");
 
-        iWidgetManager::setModal(getDialog());
-        getDialog()->setActive();
-        getDialog()->setVisible();
+        iWidgetManager::setModal(this);
+        setActive();
+        setVisible();
 
         updateFileGrid();
     }
@@ -282,17 +287,17 @@ namespace Igor
 
     void iDialogFileSelect::addToFileGrid(int32 col, int32 row, iaString path, iaString displayName, bool isFolder)
     {
-        if (col >= _fileGrid->getColumnCount())
+        if (col >= static_cast<int32>(_fileGrid->getColumnCount()))
         {
             _fileGrid->appendCollumns(1);
         }
 
         iaString* userData = new iaString(path);
-        iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->appendCollumns(1);
 
-        iWidgetPicture* icon = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
+        iWidgetPicture* icon = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget("Picture"));
         icon->setMaxSize(24, 24);
         if (isFolder)
         {
@@ -304,7 +309,7 @@ namespace Igor
         }
         entry->addWidget(icon, 0, 0);
 
-        iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         label->setHorizontalAlignment(iHorizontalAlignment::Left);
         label->setText(displayName);
         entry->addWidget(label, 1, 0);
@@ -325,9 +330,9 @@ namespace Igor
 
         _fileGridWidgets.clear();
 
-        for (int row = 0; row < _fileGrid->getRowCount(); ++row)
+        for (uint32 row = 0; row < _fileGrid->getRowCount(); ++row)
         {
-            for (int col = 0; col < _fileGrid->getColumnCount(); ++col)
+            for (uint32 col = 0; col < _fileGrid->getColumnCount(); ++col)
             {
                 void* data = _fileGrid->getUserData(col, row);
                 if (data != nullptr)
@@ -382,8 +387,8 @@ namespace Igor
 
     void iDialogFileSelect::close()
     {
-        getDialog()->setActive(false);
-        getDialog()->setVisible(false);
+        setActive(false);
+        setVisible(false);
         iWidgetManager::resetModal();
 
         if (_load)

@@ -82,7 +82,7 @@ uint32 UserControlLight::getNode()
 
 void UserControlLight::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     //_grid->appendCollumns(5);
     _grid->appendRows(2);
     _grid->setBorder(2);

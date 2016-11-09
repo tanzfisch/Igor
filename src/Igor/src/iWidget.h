@@ -80,29 +80,6 @@ namespace Igor
         Standby
 	};
 
-    /*! type of widget. needed for factory functionality
-    */
-	enum class iWidgetType
-	{
-		Dialog,
-		Label,
-		Button,
-		GroupBox,
-		Grid,
-		CheckBox,
-		NumberChooser,
-		TextEdit,
-        Picture,
-		Scroll,
-        Spacer,
-        Color,
-        ColorGradient,
-        Slider,
-        SelectBox,
-        Graph,
-		Undefined
-    };
-
     class iWidget;
 
     /*! widget click event
@@ -383,10 +360,6 @@ namespace Igor
         */
         bool getAcceptOutOfBoundsClicks() const;
 
-        /*! \returns type of widget
-        */
-        __IGOR_INLINE__ iWidgetType getType() const;
-
 		/*! draws the widget
 		*/
 		virtual void draw();
@@ -638,10 +611,8 @@ namespace Igor
         void setClientArea(int32 left, int32 right, int32 top, int32 bottom);
 
 		/*! initializes members
-
-		\param widgetType the tpe of the widget created
 		*/
-		iWidget(iWidgetType widgetType);
+		iWidget();
 
 		/*! clean up
 		*/
@@ -712,10 +683,6 @@ namespace Igor
         /*! pointer to parent widget
         */
 		iWidget* _parent = nullptr;
-
-        /*! type of widget
-        */
-		iWidgetType _type = iWidgetType::Undefined;
 
         /*! flag if widget is active
         */

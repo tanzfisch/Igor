@@ -19,7 +19,6 @@ namespace Igor
 {
 
     iWidgetSelectBox::iWidgetSelectBox()
-        : iWidget(iWidgetType::NumberChooser)
     {
         _reactOnMouseWheel = false;
     }
@@ -28,9 +27,14 @@ namespace Igor
     {
         if (_selectBox != nullptr)
         {
-            delete _selectBox;
+            iWidgetManager::getInstance().destroyDialog(_selectBox);
             _selectBox = nullptr;
         }
+    }
+
+    iWidget* iWidgetSelectBox::createInstance()
+    {
+        return new iWidgetSelectBox();
     }
 
     void iWidgetSelectBox::calcMinSize()
@@ -45,15 +49,15 @@ namespace Igor
             int32 maxTextWidth = 0;
             for (auto text : _entries)
             {
-                int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(text.first, fontSize);
+                int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(text.first, fontSize));
                 if (textWidth > maxTextWidth)
                 {
                     maxTextWidth = textWidth;
                 }
             }
 
-            minHeight = fontSize * 1.5;
-            maxTextWidth += minHeight + fontSize;
+            minHeight = static_cast<int32>(fontSize * 1.5f);
+            maxTextWidth += static_cast<int32>(static_cast<float32>(minHeight) + fontSize);
             minWidth = maxTextWidth;
         }
 
@@ -117,7 +121,7 @@ namespace Igor
 
                 if (_selectBox == nullptr)
                 {
-                    _selectBox = new iDialogMenu();
+                    _selectBox = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("Menu"));
                 }
 
                 // TODO insuficcient if select box is within a iWidgetScroll
@@ -189,7 +193,7 @@ namespace Igor
 
     uint32 iWidgetSelectBox::getSelectionEntryCount() const
     {
-        return _entries.size();
+        return static_cast<uint32>(_entries.size());
     }
 
     void iWidgetSelectBox::clear()
@@ -230,10 +234,10 @@ namespace Igor
 
     void iWidgetSelectBox::draw()
     {
-        _buttonRectangle.setX(getActualWidth() - getActualHeight() - 1);
-        _buttonRectangle.setY(0);
-        _buttonRectangle.setWidth(getActualHeight());
-        _buttonRectangle.setHeight(getActualHeight() - 1);
+        _buttonRectangle.setX(static_cast<float32>(getActualWidth() - getActualHeight() - 1));
+        _buttonRectangle.setY(0.0f);
+        _buttonRectangle.setWidth(static_cast<float32>(getActualHeight()));
+        _buttonRectangle.setHeight(static_cast<float32>(getActualHeight() - 1));
 
         if (isVisible())
         {

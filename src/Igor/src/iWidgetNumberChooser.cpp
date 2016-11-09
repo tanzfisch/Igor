@@ -15,8 +15,12 @@ namespace Igor
 {
 
     iWidgetNumberChooser::iWidgetNumberChooser()
-        : iWidget(iWidgetType::NumberChooser)
     {
+    }
+
+    iWidget* iWidgetNumberChooser::createInstance()
+    {
+        return new iWidgetNumberChooser();
     }
 
     void iWidgetNumberChooser::calcMinSize()

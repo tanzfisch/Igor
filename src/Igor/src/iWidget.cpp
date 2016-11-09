@@ -16,8 +16,7 @@ namespace Igor
 	uint64 iWidget::_nextID = iWidget::INVALID_WIDGET_ID + 1;
 	iWidget* iWidget::_keyboardFocus = nullptr;
 
-	iWidget::iWidget(iWidgetType widgetType)
-		: _type(widgetType)
+	iWidget::iWidget()
 	{
 		_id = _nextID++;
 	}

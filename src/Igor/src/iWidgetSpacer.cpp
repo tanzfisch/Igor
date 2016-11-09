@@ -14,12 +14,16 @@ using namespace IgorAux;
 namespace Igor
 {
 	iWidgetSpacer::iWidgetSpacer()
-		: iWidget(iWidgetType::Spacer)
 	{
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
         _reactOnMouseWheel = false;
 	}
+
+    iWidget* iWidgetSpacer::createInstance()
+    {
+        return new iWidgetSpacer();
+    }
 
 	void iWidgetSpacer::calcMinSize()
 	{

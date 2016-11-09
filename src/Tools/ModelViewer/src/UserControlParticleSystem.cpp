@@ -164,13 +164,13 @@ uint32 UserControlParticleSystem::getNode()
 
 void UserControlParticleSystem::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_grid);
     _grid->appendRows(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid* gridProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* gridProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridProperties);
     gridProperties->appendCollumns(0);
     gridProperties->appendRows(2);
@@ -178,40 +178,40 @@ void UserControlParticleSystem::initGUI()
     gridProperties->setStrechColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridButtons);
     gridButtons->appendCollumns(2);
     gridButtons->setBorder(2);
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
-    _buttonStart = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonStart = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonStart);
     _buttonStart->setText("Start");
     _buttonStart->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonStart->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
 
-    _buttonStop = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonStop = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonStop);
     _buttonStop->setText("Stop");
     _buttonStop->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonStop->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
 
-    _buttonReset = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonReset = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonReset);
     _buttonReset->setText("Reset");
     _buttonReset->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
 
     ///////////////
-    iWidgetGroupBox* simulationGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    iWidgetGroupBox* simulationGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
     _allWidgets.push_back(simulationGroupBox);
     simulationGroupBox->setText("Simulation");
     simulationGroupBox->setHeaderOnly();
     simulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     simulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridSimulationProperties);
     gridSimulationProperties->appendCollumns(1);
     gridSimulationProperties->appendRows(5);
@@ -219,25 +219,25 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->setStrechColumn(1);
     gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel* labelLoop = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelLoop = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelLoop);
     labelLoop->setText("Loop");
     labelLoop->setWidth(80);
     labelLoop->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _loopCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _loopCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
     _allWidgets.push_back(_loopCheckBox);
     _loopCheckBox->setHorizontalAlignment(iHorizontalAlignment::Left);
     _loopCheckBox->setVerticalAlignment(iVerticalAlignment::Top);
     _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onLoopChanged));
 
-    iWidgetLabel* labelPeriod = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelPeriod = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelPeriod);
     labelPeriod->setText("Period");
     labelPeriod->setWidth(80);
     labelPeriod->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _periodChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _periodChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
     _allWidgets.push_back(_periodChooser);
     _periodChooser->setMinMaxNumber(0.0f, 120.0f);
     _periodChooser->setStepping(0.1f, 0.1f);
@@ -248,13 +248,13 @@ void UserControlParticleSystem::initGUI()
     _periodChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _periodChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    iWidgetLabel* labelAirDrag = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelAirDrag = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelAirDrag);
     labelAirDrag->setText("Air Drag");
     labelAirDrag->setWidth(80);
     labelAirDrag->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _airDragChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _airDragChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
     _allWidgets.push_back(_airDragChooser);
     _airDragChooser->setMinMaxNumber(0.0f, 1.0f);
     _airDragChooser->setStepping(0.001f, 0.001f);
@@ -266,14 +266,14 @@ void UserControlParticleSystem::initGUI()
     _airDragChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     ///////////
-    iWidgetGroupBox* vortexSimulationGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    iWidgetGroupBox* vortexSimulationGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
     _allWidgets.push_back(vortexSimulationGroupBox);
     vortexSimulationGroupBox->setText("Vortex Simulation");
     vortexSimulationGroupBox->setHeaderOnly();
     vortexSimulationGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     vortexSimulationGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid* gridVortexSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* gridVortexSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridVortexSimulationProperties);
     gridVortexSimulationProperties->appendCollumns(1);
     gridVortexSimulationProperties->appendRows(5);
@@ -281,13 +281,13 @@ void UserControlParticleSystem::initGUI()
     gridVortexSimulationProperties->setStrechColumn(1);
     gridVortexSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel* labelVortexRate = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelVortexRate = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVortexRate);
     labelVortexRate->setText("Crea. Rate");
     labelVortexRate->setWidth(80);
     labelVortexRate->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _vorticityAppearanceRateChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _vorticityAppearanceRateChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
     _allWidgets.push_back(_vorticityAppearanceRateChooser);
     _vorticityAppearanceRateChooser->setMinMaxNumber(0.0f, 100.0f);
     _vorticityAppearanceRateChooser->setStepping(1.0f, 1.0f);
@@ -298,13 +298,13 @@ void UserControlParticleSystem::initGUI()
     _vorticityAppearanceRateChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vorticityAppearanceRateChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    iWidgetLabel* labelVorticityConfinement = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelVorticityConfinement = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVorticityConfinement);
     labelVorticityConfinement->setText("Confinement");
     labelVorticityConfinement->setWidth(80);
     labelVorticityConfinement->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _vorticityConfinementChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _vorticityConfinementChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
     _allWidgets.push_back(_vorticityConfinementChooser);
     _vorticityConfinementChooser->setMinMaxNumber(0.0f, 100.0f);
     _vorticityConfinementChooser->setStepping(0.1f, 0.1f);
@@ -316,14 +316,14 @@ void UserControlParticleSystem::initGUI()
     _vorticityConfinementChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     ///////////
-    iWidgetGroupBox* appearanceGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    iWidgetGroupBox* appearanceGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
     _allWidgets.push_back(appearanceGroupBox);
     appearanceGroupBox->setText("Appearance");
     appearanceGroupBox->setHeaderOnly();
     appearanceGroupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     appearanceGroupBox->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetGrid* gridAppearanceProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* gridAppearanceProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridAppearanceProperties);
     gridAppearanceProperties->appendCollumns(1);
     gridAppearanceProperties->appendRows(15);
@@ -331,13 +331,13 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->setStrechColumn(1);
     gridAppearanceProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel* labelVerticalTiling = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelVerticalTiling = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVerticalTiling);
     labelVerticalTiling->setText("V Tiling");
     labelVerticalTiling->setWidth(MV_REGULARBUTTON_SIZE);
     labelVerticalTiling->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _tilingVerticalChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _tilingVerticalChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
     _allWidgets.push_back(_tilingVerticalChooser);
     _tilingVerticalChooser->setMinMaxNumber(1.0f, 32.0f);
     _tilingVerticalChooser->setStepping(1.0f, 1.0f);
@@ -348,13 +348,13 @@ void UserControlParticleSystem::initGUI()
     _tilingVerticalChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _tilingVerticalChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    iWidgetLabel* labelHorizontalTiling = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelHorizontalTiling = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelHorizontalTiling);
     labelHorizontalTiling->setText("H Tiling");
     labelHorizontalTiling->setWidth(MV_REGULARBUTTON_SIZE);
     labelHorizontalTiling->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _tilingHorizontalChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+    _tilingHorizontalChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
     _allWidgets.push_back(_tilingHorizontalChooser);
     _tilingHorizontalChooser->setMinMaxNumber(1.0f, 32.0f);
     _tilingHorizontalChooser->setStepping(1.0f, 1.0f);
@@ -365,23 +365,23 @@ void UserControlParticleSystem::initGUI()
     _tilingHorizontalChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _tilingHorizontalChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    iWidgetLabel* labelVelocityOriented = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelVelocityOriented = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVelocityOriented);
     labelVelocityOriented->setText("Vel. Ori.");
     labelVelocityOriented->setWidth(MV_REGULARBUTTON_SIZE);
     labelVelocityOriented->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _velocityOrientedCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _velocityOrientedCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
     _velocityOrientedCheckBox->setHorizontalAlignment(iHorizontalAlignment::Left);
     _velocityOrientedCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    iWidgetLabel* labelColorGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelColorGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelColorGradient);
     labelColorGradient->setText("Color");
     labelColorGradient->setWidth(MV_REGULARBUTTON_SIZE);
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget(iWidgetType::ColorGradient));
+    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
     _allWidgets.push_back(_colorGradient);
     iGradientColor4f rainbow;
     rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
@@ -393,32 +393,32 @@ void UserControlParticleSystem::initGUI()
     _colorGradient->setGradient(rainbow);
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
-    iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelEmitter);
     labelEmitter->setText("Emitter");
     labelEmitter->setWidth(MV_REGULARBUTTON_SIZE);
     labelEmitter->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _emitterSelection = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
+    _emitterSelection = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
     _allWidgets.push_back(_emitterSelection);
     _emitterSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _emitterSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _emitterSelection->setWidth(200);
 
-    iWidgetLabel* labelMaterial = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelMaterial = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelMaterial);
     labelMaterial->setText("Material");
     labelMaterial->setWidth(MV_REGULARBUTTON_SIZE);
     labelMaterial->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _materialSelection = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
+    _materialSelection = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
     _allWidgets.push_back(_materialSelection);
     _materialSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _materialSelection->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _materialSelection->setGrowingByContent();
     _materialSelection->setWidth(200);
 
-    iWidgetGrid* gridTextures = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* gridTextures = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridTextures);
     gridTextures->appendCollumns(1);
     gridTextures->appendRows(3);
@@ -426,25 +426,25 @@ void UserControlParticleSystem::initGUI()
     gridTextures->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridTextures->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelTextureUnit0 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelTextureUnit0);
     labelTextureUnit0->setText("Texture");
     labelTextureUnit0->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit0->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelTextureUnit1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelTextureUnit1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelTextureUnit1);
     labelTextureUnit1->setText("Noise 0");
     labelTextureUnit1->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit1->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelTextureUnit2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelTextureUnit2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelTextureUnit2);
     labelTextureUnit2->setText("Noise 1");
     labelTextureUnit2->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    iWidgetLabel* labelTextureUnit3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelTextureUnit3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelTextureUnit3);
     labelTextureUnit3->setText("Noise 3");
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);

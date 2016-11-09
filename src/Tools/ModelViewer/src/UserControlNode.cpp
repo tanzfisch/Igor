@@ -68,7 +68,7 @@ void UserControlNode::deinitGUI()
 
 void UserControlNode::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
     _grid->appendRows(1);
@@ -77,13 +77,13 @@ void UserControlNode::initGUI()
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
 
-    _labelName = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _labelName = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(_labelName);
     _labelName->setText("Name");
     _labelName->setWidth(80);
     _labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
     _allWidgets.push_back(_textName);
     _textName->setWidth(200);
     _textName->setMaxTextLength(256);
@@ -92,13 +92,13 @@ void UserControlNode::initGUI()
     _textName->setText("");
     _textName->registerOnChangeEvent(iChangeDelegate(this, &UserControlNode::onNameChanged));
 
-    _labelActive = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _labelActive = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(_labelActive);
     _labelActive->setText("Active");
     _labelActive->setWidth(80);
     _labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _checkBoxActive = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+    _checkBoxActive = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
     _allWidgets.push_back(_checkBoxActive);
     _checkBoxActive->setText("");
     _checkBoxActive->setActive(false);

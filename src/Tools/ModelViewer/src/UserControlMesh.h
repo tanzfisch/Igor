@@ -95,8 +95,6 @@ private:
 
     iWidgetSelectBox* _selectMaterial = nullptr;
 
-    iDialogFileSelect* _fileDialog = nullptr;
-
     uint32 _nodeId = 0;
     bool _ignoreNodeUpdate = false;
     uint32 _loadTextureTexUnit = 0;

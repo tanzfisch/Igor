@@ -44,6 +44,9 @@ namespace Igor
 	class iWidgetBaseTheme;
     class iWidgetDialog;
 
+    iaDELEGATE(iInstanciateWidgetDelegate, iWidget*, (), ());
+    iaDELEGATE(iInstanciateDialogDelegate, iWidgetDialog*, (), ());
+
     /*! manages the widgets in use and is a singleton
 
     is also a factory that creates and destroys all the widgets
@@ -65,7 +68,7 @@ namespace Igor
 
         \param type type of widget to create
         */
-		iWidget* createWidget(iWidgetType type);        
+		iWidget* createWidget(const iaString& type);
 
         /*! destroyes widget
 
@@ -79,11 +82,61 @@ namespace Igor
         */
         void destroyWidget(uint64 id);
 
+        /*! registers a widget type to the widget manager
+
+        \param widgetType name of widget type
+        \param instanciateWidgetDelegate delegate to instanciate the type
+        */
+        void registerWidgetType(const iaString& widgetType, iInstanciateWidgetDelegate instanciateWidgetDelegate);
+
+        /*! unregister widget type
+
+        \param widgetType name of widget type to unregister
+        */
+        void unregisterWidgetType(const iaString& widgetType);
+
+        /*! creates a dialog of given type
+
+        \param type type of dialog to create
+        */
+        iWidgetDialog* createDialog(const iaString& type);
+
+        /*! destroyes dialog
+
+        \param dialog the dialog to destroy
+        */
+        void destroyDialog(iWidgetDialog* dialog);
+
+        /*! destroyes dialog by id
+
+        \param id id of the dialog to be destroyed
+        */
+        void destroyDialog(uint64 id);
+
+        /*! registers a dialog type to the widget manager
+
+        \param dialogType name of dialog type
+        \param instanciateWidgetDelegate delegate to instanciate the type
+        */
+        void registerDialogType(const iaString& dialogType, iInstanciateDialogDelegate instanciateDialogDelegate);
+
+        /*! unregister widget type
+
+        \param dialogType name of dialog type to unregister
+        */
+        void unregisterDialogType(const iaString& dialogType);
+
         /*! \returns widget by id
 
         \param id id of widget
         */
         iWidget* getWidget(uint64 id);
+
+        /*! \returns dialog by id
+
+        \param id id of dialog
+        */
+        iWidgetDialog* getDialog(uint64 id);
 
         /*! \returns the theme in use
         */
@@ -212,6 +265,14 @@ namespace Igor
 
 	private:
 
+        /*! registered widget types
+        */
+        map<uint64, iInstanciateWidgetDelegate> _widgetTypes;
+
+        /*! registered dialog types
+        */
+        map<uint64, iInstanciateDialogDelegate> _dialogTypes;
+
         /*! modal marker
         */
         static iWidgetDialog* _modal;
@@ -250,11 +311,15 @@ namespace Igor
 
         /*! list of all dialogs
         */
-        vector<iWidgetDialog*> _dialogs;
+        map<uint64, iWidgetDialog*> _dialogs;
 
         /*! list of widgets to delete
         */
-        vector<iWidget*> _toDelete;
+        vector<iWidget*> _toDeleteWidgets;
+
+        /*! list of dialogs to delete
+        */
+        vector<iWidgetDialog*> _toDeleteDialogs;
 
         /*! current desktop width
         */

@@ -55,20 +55,20 @@ uint32 UserControlModel::getNode()
 
 void UserControlModel::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
 
-    _labelFilename = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    _labelFilename = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(_labelFilename);
     _labelFilename->setWidth(80);
     _labelFilename->setText("Filename");
     _labelFilename->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textFilename = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _textFilename = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
     _allWidgets.push_back(_textFilename);
     _textFilename->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _textFilename->setHorizontalTextAlignment(iHorizontalAlignment::Left);

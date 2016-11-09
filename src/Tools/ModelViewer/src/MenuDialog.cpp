@@ -34,15 +34,20 @@ MenuDialog::~MenuDialog()
     deinitGUI();
 }
 
+iWidgetDialog* MenuDialog::createInstance()
+{
+    return new MenuDialog();
+}
+
 void MenuDialog::initGUI()
 {
-    _messageBox = new iDialogMessageBox();
+    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("MessageBox"));
 
-	getDialog()->setWidth(350);
-	getDialog()->setHorizontalAlignment(iHorizontalAlignment::Left);
-	getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
+	setWidth(350);
+	setHorizontalAlignment(iHorizontalAlignment::Left);
+	setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
@@ -52,7 +57,7 @@ void MenuDialog::initGUI()
 	_grid->setStrechRow(2);
     _grid->setStrechColumn(0);
     
-    _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allwidgets.push_back(_gridButtons);
     _gridButtons->setBorder(0);
     _gridButtons->setCellSpacing(2);
@@ -60,7 +65,7 @@ void MenuDialog::initGUI()
     _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 	_gridButtons->appendCollumns(8);
 
-	_gridRadioButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+	_gridRadioButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
 	_allwidgets.push_back(_gridRadioButtons);
 	_gridRadioButtons->setBorder(0);
 	_gridRadioButtons->setCellSpacing(2);
@@ -69,16 +74,16 @@ void MenuDialog::initGUI()
 	_gridRadioButtons->appendCollumns(1);
 
 	iWidgetCheckBox::beginRadioButtonGroup();
-	_checkBoxGraph = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+	_checkBoxGraph = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
 	_checkBoxGraph->setText("Graph");
     _checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onGraphViewSelected));
-	_checkBoxMaterial = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+	_checkBoxMaterial = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
 	_checkBoxMaterial->setText("Material");
     _checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onMaterialViewSelected));
 	iWidgetCheckBox::endRadioButtonGroup();
 	_checkBoxGraph->setChecked();
 
-    _loadButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _loadButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_loadButton);
     _loadButton->setText("");
     _loadButton->setWidth(30);
@@ -86,7 +91,7 @@ void MenuDialog::initGUI()
     _loadButton->setTexture("icons\\load.png");
     _loadButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onLoadFile));
     
-    _saveButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _saveButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_saveButton);
     _saveButton->setText("");
     _saveButton->setWidth(30);
@@ -94,7 +99,7 @@ void MenuDialog::initGUI()
     _saveButton->setTexture("icons\\save.png");
     _saveButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onSaveFile));
 
-    _exitButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _exitButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_exitButton);
     _exitButton->setText("");
     _exitButton->setWidth(30);
@@ -102,17 +107,17 @@ void MenuDialog::initGUI()
     _exitButton->setTexture("icons\\exit.png");
     _exitButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onExitModelViewer));
 
-    _spacer1 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
+    _spacer1 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
     _allwidgets.push_back(_spacer1);
     _spacer1->setWidth(2);
     _spacer1->setHeight(20);
 
-    _spacer2 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
+    _spacer2 = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
     _allwidgets.push_back(_spacer2);
     _spacer2->setWidth(2);
     _spacer2->setHeight(20);
 
-    _cutButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _cutButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_cutButton);
     _cutButton->setText("");
     _cutButton->setWidth(30);
@@ -120,7 +125,7 @@ void MenuDialog::initGUI()
     _cutButton->setTexture("icons\\cut.png");
     _cutButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onCut));
 
-    _copyButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _copyButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_copyButton);
     _copyButton->setText("");
     _copyButton->setWidth(30);
@@ -128,7 +133,7 @@ void MenuDialog::initGUI()
     _copyButton->setTexture("icons\\copy.png");
     _copyButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onCopy));
 
-    _pasteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _pasteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_pasteButton);
     _pasteButton->setText("");
     _pasteButton->setWidth(30);
@@ -136,7 +141,7 @@ void MenuDialog::initGUI()
     _pasteButton->setTexture("icons\\paste.png");
     _pasteButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onPaste));
 
-    _deleteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _deleteButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_deleteButton);
     _deleteButton->setText("");
     _deleteButton->setWidth(30);
@@ -144,7 +149,7 @@ void MenuDialog::initGUI()
     _deleteButton->setTexture("icons\\delete.png");
     _deleteButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onDelete));
 
-    getDialog()->addWidget(_grid);
+    addWidget(_grid);
     _grid->addWidget(_gridButtons, 0, 0);
 	_gridButtons->addWidget(_loadButton, 0, 0);
 	_gridButtons->addWidget(_saveButton, 1, 0);
@@ -415,7 +420,7 @@ void MenuDialog::deinitGUI()
     deinitGraphView();
     deinitMaterialView();
 
-    getDialog()->removeWidget(_grid);
+    removeWidget(_grid);
 
     for (auto widget : _allwidgets)
     {
@@ -424,8 +429,14 @@ void MenuDialog::deinitGUI()
 
     if (_messageBox != nullptr)
     {
-        delete _messageBox;
+        iWidgetManager::getInstance().destroyDialog(_messageBox);
         _messageBox = nullptr;
+    }
+
+    if (_decisionBoxModelRef != nullptr)
+    {
+        iWidgetManager::getInstance().destroyDialog(_decisionBoxModelRef);
+        _decisionBoxModelRef = nullptr;
     }
 }
 
@@ -615,7 +626,7 @@ void MenuDialog::onAddModel(uint32 addAt)
 {
 	if (_decisionBoxModelRef == nullptr)
 	{
-		_decisionBoxModelRef = new iDialogDecisionBox();
+		_decisionBoxModelRef = static_cast<iDialogDecisionBox*>(iWidgetManager::getInstance().createDialog("DecisionBox"));
 	}
 
 	_decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &MenuDialog::onAddModelDecision), { "embedded", "as reference" }, 0);

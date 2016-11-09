@@ -239,9 +239,6 @@
     <ClCompile Include="..\src\iWidgetSlider.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iWidgetUserDialog.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iWidgetGrid.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
@@ -923,9 +920,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iWidgetSlider.h">
       <Filter>GUI\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iWidgetUserDialog.h">
-      <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVoxelData.h">
       <Filter>resources\special data</Filter>

@@ -89,6 +89,10 @@ namespace Igor
         /*! release texture
         */
 		virtual ~iWidgetColor();
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
 	};
 }
 

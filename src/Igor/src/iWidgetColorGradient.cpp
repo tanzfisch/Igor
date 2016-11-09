@@ -17,7 +17,6 @@ namespace Igor
 {
 
 	iWidgetColorGradient::iWidgetColorGradient()
-		: iWidget(iWidgetType::Label)
 	{
 		_configuredWidth = 60;
 		_configuredHeight = 20;
@@ -33,6 +32,11 @@ namespace Igor
     iWidgetColorGradient::~iWidgetColorGradient()
     {
         _texture = nullptr;
+    }
+
+    iWidget* iWidgetColorGradient::createInstance()
+    {
+        return new iWidgetColorGradient();
     }
 
 	void iWidgetColorGradient::calcMinSize()

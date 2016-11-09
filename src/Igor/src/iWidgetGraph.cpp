@@ -18,7 +18,6 @@ namespace Igor
 {
 
     iWidgetGraph::iWidgetGraph()
-        : iWidget(iWidgetType::Graph)
     {
         _configuredWidth = 100;
         _configuredHeight = 50;
@@ -28,8 +27,9 @@ namespace Igor
         setVerticalAlignment(iVerticalAlignment::Center);
     }
 
-    iWidgetGraph::~iWidgetGraph()
+    iWidget* iWidgetGraph::createInstance()
     {
+        return new iWidgetGraph();
     }
 
     void iWidgetGraph::clear()
@@ -155,10 +155,10 @@ namespace Igor
             }
 
             iRectanglef graphRenderArea;
-            graphRenderArea._x = getActualPosX();
-            graphRenderArea._y = getActualPosY();
-            graphRenderArea._width = getActualWidth();
-            graphRenderArea._height = getActualHeight();
+            graphRenderArea._x = static_cast<float32>(getActualPosX());
+            graphRenderArea._y = static_cast<float32>(getActualPosY());
+            graphRenderArea._width = static_cast<float32>(getActualWidth());
+            graphRenderArea._height = static_cast<float32>(getActualHeight());
 
             if (_viewFrame)
             {
@@ -186,7 +186,8 @@ namespace Igor
                     horizontalLines.push_back(static_cast<float32>(i) * stepY);
                 }
 
-                iWidgetManager::getInstance().getTheme()->drawGridlines(graphRenderArea._x, graphRenderArea._y, graphRenderArea._width, graphRenderArea._height, 1.0, verticalLines, horizontalLines, isActive());
+                iWidgetManager::getInstance().getTheme()->drawGridlines(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y), 
+                    static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height), 1.0, verticalLines, horizontalLines, isActive());
             }
 
             float32 scaleX = graphRenderArea._width / boundings._width;
@@ -226,7 +227,8 @@ namespace Igor
                         points.push_back(currentPoint);
                     }
 
-                    iWidgetManager::getInstance().getTheme()->drawGraph(graphRenderArea._x, graphRenderArea._y, graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
+                    iWidgetManager::getInstance().getTheme()->drawGraph(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y), 
+                        graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
                 }
             }
         }

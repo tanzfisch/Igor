@@ -64,7 +64,7 @@ iWidget* UserControlGraphView::getWidget()
 
 void UserControlGraphView::initGUI()
 {
-    iWidgetGrid* grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _rootWidget = grid;
     _allWidgets.push_back(grid);
     grid->setBorder(0);
@@ -75,7 +75,7 @@ void UserControlGraphView::initGUI()
     grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridButtons);
     gridButtons->setBorder(0);
     gridButtons->appendCollumns(10);
@@ -83,7 +83,7 @@ void UserControlGraphView::initGUI()
     gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
 
-    iWidgetButton* addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    iWidgetButton* addTransformationButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(addTransformationButton);
     addTransformationButton->setText("");
     addTransformationButton->setWidth(30);
@@ -91,7 +91,7 @@ void UserControlGraphView::initGUI()
     addTransformationButton->setTexture("icons\\addTransformation.png");
     addTransformationButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddTransformation));
 
-    iWidgetButton* addModelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    iWidgetButton* addModelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(addModelButton);
     addModelButton->setText("");
     addModelButton->setWidth(30);
@@ -99,7 +99,7 @@ void UserControlGraphView::initGUI()
     addModelButton->setTexture("icons\\addModel.png");
     addModelButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddModel));
 
-    iWidgetButton* addGroupButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    iWidgetButton* addGroupButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(addGroupButton);
     addGroupButton->setText("");
     addGroupButton->setWidth(30);
@@ -107,7 +107,7 @@ void UserControlGraphView::initGUI()
     addGroupButton->setTexture("icons\\addGroup.png");
     addGroupButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddGroup));
 
-    iWidgetButton* addEmitterButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    iWidgetButton* addEmitterButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(addEmitterButton);
     addEmitterButton->setText("");
     addEmitterButton->setWidth(30);
@@ -115,7 +115,7 @@ void UserControlGraphView::initGUI()
     addEmitterButton->setTexture("icons\\addEmitter.png");
     addEmitterButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddEmitter));
 
-    iWidgetButton* addParticleSystemButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    iWidgetButton* addParticleSystemButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(addParticleSystemButton);
     addParticleSystemButton->setText("");
     addParticleSystemButton->setWidth(30);
@@ -123,7 +123,7 @@ void UserControlGraphView::initGUI()
     addParticleSystemButton->setTexture("icons\\addParticleSystem.png");
     addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddParticleSystem));
 
-    iWidgetButton* addSwitchButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    iWidgetButton* addSwitchButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(addSwitchButton);
     addSwitchButton->setText("");
     addSwitchButton->setWidth(30);
@@ -131,18 +131,18 @@ void UserControlGraphView::initGUI()
     addSwitchButton->setTexture("icons\\addSwitch.png");
     addSwitchButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddSwitch));
 
-    iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::GroupBox));
+    iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
     _allWidgets.push_back(groupBox);
     groupBox->setText("Graph");
     groupBox->setHorizontalAlignment(iHorizontalAlignment::Strech);
     groupBox->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget(iWidgetType::Scroll));
+    iWidgetScroll* scroll = static_cast<iWidgetScroll*>(iWidgetManager::getInstance().createWidget("Scroll"));
     _allWidgets.push_back(scroll);
     scroll->setVerticalAlignment(iVerticalAlignment::Strech);
     scroll->setHorizontalAlignment(iHorizontalAlignment::Strech);
 
-    _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _gridGraph = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_gridGraph);
     _gridGraph->setBorder(0);
     _gridGraph->setWidth(300);
@@ -165,7 +165,7 @@ void UserControlGraphView::initGUI()
     groupBox->addWidget(scroll);
     scroll->addWidget(_gridGraph);
 
-    _dialogMenu = new iDialogMenu();
+    _dialogMenu = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("Menu"));
     _dialogMenu->setWidth(24);
     _dialogMenuTexts.push_back("Cut");
     _dialogMenuPictures.push_back("icons\\cut.png");
@@ -217,7 +217,8 @@ void UserControlGraphView::deinitGUI()
 
     if (_dialogMenu != nullptr)
     {
-        delete _dialogMenu;
+        iWidgetManager::getInstance().destroyDialog(_dialogMenu);
+        _dialogMenu = nullptr;
     }
 }
 
@@ -387,7 +388,7 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
         uint32 currentRowIndex = _gridGraph->getRowCount() - 1;
         uint32 currentCollumnIndex = _indentation;
 
-        iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
         entry->setCellSpacing(2);
@@ -399,16 +400,16 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
         *userData = node->getID();
         _gridGraph->addWidget(entry, 0, currentRowIndex, userData);
 
-        iWidgetLabel* indentLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        iWidgetLabel* indentLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         indentLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         indentLabel->setVerticalAlignment(iVerticalAlignment::Center);
         indentLabel->setText(indentString);
 
-        iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         label->setHorizontalAlignment(iHorizontalAlignment::Right);
         label->setVerticalAlignment(iVerticalAlignment::Center);
 
-        iWidgetPicture* icon = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
+        iWidgetPicture* icon = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget("Picture"));
         icon->setMaxSize(24, 24);
 
         if (node->getParent() != nullptr)

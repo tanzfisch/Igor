@@ -231,6 +231,11 @@ namespace Igor
         /*! does nothing
         */
 		virtual ~iWidgetNumberChooser() = default;
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
 	};
 }
 

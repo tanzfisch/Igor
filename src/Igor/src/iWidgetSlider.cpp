@@ -15,13 +15,17 @@ using namespace IgorAux;
 namespace Igor
 {
 	iWidgetSlider::iWidgetSlider()
-		: iWidget(iWidgetType::Button)
 	{
 	}
 
     iWidgetSlider::~iWidgetSlider()
     {
         _texture = nullptr;
+    }
+
+    iWidget* iWidgetSlider::createInstance()
+    {
+        return new iWidgetSlider();
     }
 
     void iWidgetSlider::setSteppingWheel(float32 up, float32 down)

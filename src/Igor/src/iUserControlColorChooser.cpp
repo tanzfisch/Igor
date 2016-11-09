@@ -88,26 +88,26 @@ namespace Igor
 
     void iUserControlColorChooser::initGUI()
     {
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_grid);
         _grid->appendRows(1);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _headlineGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _headlineGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_headlineGrid);
         _headlineGrid->appendCollumns(2);
         _headlineGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _headlineGrid->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _titleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        _titleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         _allWidgets.push_back(_titleLabel);
         _titleLabel->setText(_text);
         _titleLabel->setHeight(0);
         _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         _titleLabel->setVerticalAlignment(iVerticalAlignment::Top);
 
-        _expandButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        _expandButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(_expandButton);
         _expandButton->setTexture("icons\\plus.png");
         _expandButton->setText("");
@@ -381,7 +381,7 @@ namespace Igor
 
     iWidgetLabel* iUserControlColorChooser::createLabel(const iaString& text)
     {
-        iWidgetLabel* result = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        iWidgetLabel* result = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         _allWidgets.push_back(result);
         result->setText(text);
         return result;
@@ -389,7 +389,7 @@ namespace Igor
 
     iWidgetNumberChooser* iUserControlColorChooser::createNumberChooser(iChangeDelegate changeDelegate)
     {
-        iWidgetNumberChooser* result = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget(iWidgetType::NumberChooser));
+        iWidgetNumberChooser* result = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
         _allWidgets.push_back(result);
         result->setMinMaxNumber(0, 255);
         result->setValue(123);
@@ -402,7 +402,7 @@ namespace Igor
 
     iWidgetSlider* iUserControlColorChooser::createSlider(iaString textureFileName, iChangeDelegate changeDelegate)
     {
-        iWidgetSlider* result = static_cast<iWidgetSlider*>(iWidgetManager::getInstance().createWidget(iWidgetType::Slider));
+        iWidgetSlider* result = static_cast<iWidgetSlider*>(iWidgetManager::getInstance().createWidget("Slider"));
         _allWidgets.push_back(result);
         result->setWidth(260);
         result->setMinValue(0.0f);
@@ -417,7 +417,7 @@ namespace Igor
 
     void iUserControlColorChooser::initExpanded()
     {
-        _expandedGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _expandedGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_expandedGrid);
         _expandedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _expandedGrid->setVerticalAlignment(iVerticalAlignment::Top);
@@ -425,7 +425,7 @@ namespace Igor
         _expandedGrid->setCellSpacing(4);
         _expandedGrid->appendRows(1);
 
-        _expandedSliderGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid)); 
+        _expandedSliderGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid")); 
         _allWidgets.push_back(_expandedSliderGrid);
         _expandedSliderGrid->appendCollumns(2);
         _expandedSliderGrid->appendRows(_components + 3);
@@ -442,7 +442,7 @@ namespace Igor
         _sliderA = createSlider("special\\gradientA.png", iChangeDelegate(this, &iUserControlColorChooser::onSliderChangedA));
         _sliderA->setBackgroundTexture("special\\checker.png");
 
-        _colorViewExpanded = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget(iWidgetType::Color));
+        _colorViewExpanded = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget("Color"));
         _allWidgets.push_back(_colorViewExpanded);
         _colorViewExpanded->setWidth(54);
         _colorViewExpanded->setHorizontalAlignment(iHorizontalAlignment::Right);
@@ -490,19 +490,19 @@ namespace Igor
 
     void iUserControlColorChooser::initCollapsed()
     {
-        _collapsedGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _collapsedGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_collapsedGrid);
         _collapsedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _collapsedGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _collapsedGrid->appendCollumns(_components == 4 ? 8 : 7);
         _collapsedGrid->setCellSpacing(4);
 
-        _collapsedSpacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
+        _collapsedSpacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
         _allWidgets.push_back(_collapsedSpacer);
         _collapsedSpacer->setWidth(65);
         _collapsedSpacer->setHeight(0);
 
-        _colorViewCollapsed = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget(iWidgetType::Color));
+        _colorViewCollapsed = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget("Color"));
         _allWidgets.push_back(_colorViewCollapsed);
         _colorViewCollapsed->setWidth(54);
         _colorViewCollapsed->setHeight(21);

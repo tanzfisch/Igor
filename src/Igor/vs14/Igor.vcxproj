@@ -849,7 +849,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iWidgetSpacer.h" />
     <ClInclude Include="..\src\iWidgetTextEdit.h" />
     <ClInclude Include="..\src\iWidgetUserControl.h" />
-    <ClInclude Include="..\src\iWidgetUserDialog.h" />
     <ClInclude Include="..\src\iWindow.h" />
     <ClInclude Include="..\src\Intersection3D.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -1453,7 +1452,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iWidgetSpacer.cpp" />
     <ClCompile Include="..\src\iWidgetTextEdit.cpp" />
     <ClCompile Include="..\src\iWidgetUserControl.cpp" />
-    <ClCompile Include="..\src\iWidgetUserDialog.cpp" />
     <ClCompile Include="..\src\iWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

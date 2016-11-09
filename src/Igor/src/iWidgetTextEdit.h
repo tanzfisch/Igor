@@ -156,6 +156,11 @@ namespace Igor
         /*! deinitializes member variables
         */
 		virtual ~iWidgetTextEdit() = default;
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
 	};
 
 }

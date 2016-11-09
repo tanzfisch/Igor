@@ -86,55 +86,55 @@ void UserControlTransformation::deinitGUI()
 
 void UserControlTransformation::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_grid);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->appendRows(1);
 
-    _gridMatrix = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _gridMatrix = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_gridMatrix);
     _gridMatrix->appendCollumns(3);
     _gridMatrix->appendRows(3);
     _gridMatrix->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _gridModifiers = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _gridModifiers = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_gridModifiers);
     _gridModifiers->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridModifiers->appendCollumns(3);
     _gridModifiers->appendRows(5);
 
-    _buttonApplyTranlation = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonApplyTranlation = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonApplyTranlation);
     _buttonApplyTranlation->setText("Translate");
     _buttonApplyTranlation->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyTranlation->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onTranslation));
 
-    _buttonApplyScale = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonApplyScale = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonApplyScale);
     _buttonApplyScale->setText("Scale");
     _buttonApplyScale->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyScale->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onScale));
 
-    _buttonApplyID = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonApplyID = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonApplyID);
     _buttonApplyID->setText("Identity");
     _buttonApplyID->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyID->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onID));
 
-    _buttonApplyRotateX = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonApplyRotateX = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonApplyRotateX);
     _buttonApplyRotateX->setText("Rotate X");
     _buttonApplyRotateX->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyRotateX->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationX));
 
-    _buttonApplyRotateY = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonApplyRotateY = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonApplyRotateY);
     _buttonApplyRotateY->setText("Rotate Y");
     _buttonApplyRotateY->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonApplyRotateY->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationY));
 
-    _buttonApplyRotateZ = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+    _buttonApplyRotateZ = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonApplyRotateZ);
     _buttonApplyRotateZ->setText("Rotate Z");
     _buttonApplyRotateZ->setWidth(MV_REGULARBUTTON_SIZE);
@@ -142,7 +142,7 @@ void UserControlTransformation::initGUI()
 
     for (int i = 0; i < 3; ++i)
     {
-        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
         _allWidgets.push_back(textEdit);
         _translateText.push_back(textEdit);
 
@@ -158,7 +158,7 @@ void UserControlTransformation::initGUI()
 
     for (int i = 0; i < 3; ++i)
     {
-        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
         _allWidgets.push_back(textEdit);
         _scaleText.push_back(textEdit);
 
@@ -174,7 +174,7 @@ void UserControlTransformation::initGUI()
 
     for (int i = 0; i < 3; ++i)
     {
-        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
         _allWidgets.push_back(textEdit);
         _rotateText.push_back(textEdit);
 
@@ -192,7 +192,7 @@ void UserControlTransformation::initGUI()
     {
         for (int row = 0; row < 4; ++row)
         {
-            iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+            iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
             _allWidgets.push_back(textEdit);
             _matrixText.push_back(textEdit);
 

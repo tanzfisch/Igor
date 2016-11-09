@@ -15,7 +15,6 @@ namespace Igor
 {
 
     iWidgetDialog::iWidgetDialog()
-        : iWidget(iWidgetType::Dialog)
     {
         setActive(false);
         setVisible(false);
@@ -31,6 +30,11 @@ namespace Igor
         {
             iWidgetManager::resetModal();
         }
+    }
+
+    iWidgetDialog* iWidgetDialog::createInstance()
+    {
+        return new iWidgetDialog();
     }
 
     void iWidgetDialog::calcMinSize()

@@ -29,7 +29,7 @@
 #ifndef __iDIALOGMESSAGEBOX__
 #define __iDIALOGMESSAGEBOX__
 
-#include <iWidgetUserDialog.h>
+#include <iWidgetDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -72,17 +72,12 @@ namespace Igor
 
     /*! the message box
     */
-    class Igor_API iDialogMessageBox : public iWidgetUserDialog
+    class Igor_API iDialogMessageBox : public iWidgetDialog
     {
+
+        friend class iWidgetManager;
+
     public:
-
-        /*! does nothing
-        */
-        iDialogMessageBox() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogMessageBox();
 
         /*! initializes gui and opens the message box dialog
 
@@ -189,6 +184,18 @@ namespace Igor
         /*! deinitializes the gui elements
         */
         void deinitGUI();
+
+        /*! does nothing
+        */
+        iDialogMessageBox() = default;
+
+        /*! deinitializes gui
+        */
+        ~iDialogMessageBox();
+
+        /*! creates instance of this widget type
+        */
+        static iWidgetDialog* createInstance();
 
     };
 

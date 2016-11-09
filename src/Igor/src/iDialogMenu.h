@@ -29,7 +29,7 @@
 #ifndef __iDIALOGMENU__
 #define __iDIALOGMENU__
 
-#include <iWidgetUserDialog.h>
+#include <iWidgetDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -45,17 +45,12 @@ namespace Igor
 
     /*! pull down menu
     */
-    class Igor_API iDialogMenu : public iWidgetUserDialog
+    class Igor_API iDialogMenu : public iWidgetDialog
     {
+
+        friend class iWidgetManager;
+
     public:
-
-        /*! does nothing
-        */
-        iDialogMenu() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogMenu();
 
 		/*! opens dialog
 
@@ -144,6 +139,18 @@ namespace Igor
         /*! deinitializes the gui elements
         */
         void deinitGUI();
+
+        /*! does nothing
+        */
+        iDialogMenu() = default;
+
+        /*! deinitializes gui
+        */
+        ~iDialogMenu();
+
+        /*! creates instance of this widget type
+        */
+        static iWidgetDialog* createInstance();
 
     };
 

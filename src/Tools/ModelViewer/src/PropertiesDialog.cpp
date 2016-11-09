@@ -33,13 +33,18 @@ PropertiesDialog::~PropertiesDialog()
     deinitGUI();
 }
 
+iWidgetDialog* PropertiesDialog::createInstance()
+{
+    return new PropertiesDialog();
+}
+
 void PropertiesDialog::initGUI()
 {
-	getDialog()->setWidth(350);
-    getDialog()->setHorizontalAlignment(iHorizontalAlignment::Right);
-    getDialog()->setVerticalAlignment(iVerticalAlignment::Strech);
+	setWidth(350);
+    setHorizontalAlignment(iHorizontalAlignment::Right);
+    setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
@@ -51,7 +56,7 @@ void PropertiesDialog::initGUI()
     _userControlProperties = new UserControlProperties();
     _userControlProperties->registerStructureChangedDelegate(StructureChangedDelegate(this, &PropertiesDialog::onStructureChanged));
 
-    getDialog()->addWidget(_grid);
+    addWidget(_grid);
     _grid->addWidget(_userControlProperties->getWidget(), 0, 0);
 }
 
@@ -72,7 +77,7 @@ void PropertiesDialog::onMaterialSelectionChanged(uint32 materialID)
 
 void PropertiesDialog::deinitGUI()
 {
-    getDialog()->removeWidget(_grid);
+    removeWidget(_grid);
 
     if (_userControlProperties != nullptr)
     {

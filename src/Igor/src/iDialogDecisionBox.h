@@ -29,7 +29,7 @@
 #ifndef __iDIALOGDECISIONBOX__
 #define __iDIALOGDECISIONBOX__
 
-#include <iWidgetUserDialog.h>
+#include <iWidgetDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -51,17 +51,12 @@ namespace Igor
 
     /*! the decision box dialog
     */
-    class Igor_API iDialogDecisionBox : public iWidgetUserDialog
+    class Igor_API iDialogDecisionBox : public iWidgetDialog
     {
+
+        friend class iWidgetManager;
+
     public:
-
-        /*! does nothing
-        */
-        iDialogDecisionBox() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogDecisionBox();
 
         /*! show/open the decision box
 
@@ -141,6 +136,18 @@ namespace Igor
         /*! deinitializes the gui elements
         */
         void deinitGUI();
+
+        /*! does nothing
+        */
+        iDialogDecisionBox() = default;
+
+        /*! deinitializes gui
+        */
+        ~iDialogDecisionBox();
+
+        /*! creates instance of this widget type
+        */
+        static iWidgetDialog* createInstance();
 
     };
 

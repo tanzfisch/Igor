@@ -115,6 +115,10 @@ namespace Igor
         */
 		~iWidgetGroupBox() = default;
 
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
 	};
 }
 

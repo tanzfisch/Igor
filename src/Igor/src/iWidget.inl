@@ -17,11 +17,6 @@ iWidgetAppearanceState iWidget::getAppearanceState()
     return _widgetAppearanceState;
 }
 
-iWidgetType iWidget::getType() const
-{
-    return _type;
-}
-
 bool iWidget::hasParent()
 {
     return (_parent != nullptr) ? true : false;

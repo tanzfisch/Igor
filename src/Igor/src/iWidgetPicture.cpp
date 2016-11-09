@@ -16,7 +16,6 @@ namespace Igor
 {
 
     iWidgetPicture::iWidgetPicture()
-        : iWidget(iWidgetType::Label)
     {
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
@@ -26,6 +25,11 @@ namespace Igor
     iWidgetPicture::~iWidgetPicture()
     {
         _texture = nullptr;
+    }
+
+    iWidget* iWidgetPicture::createInstance()
+    {
+        return new iWidgetPicture();
     }
 
     void iWidgetPicture::setMaxSize(int32 width, int32 height)
@@ -69,7 +73,7 @@ namespace Igor
 
             if (_keepAspectRatio)
             {
-                _minHeight = static_cast<float32>(_minWidth) * aspect;
+                _minHeight = static_cast<int32>(static_cast<float32>(_minWidth) * aspect);
             }
         }
 
@@ -79,7 +83,7 @@ namespace Igor
 
             if (_keepAspectRatio)
             {
-                _minWidth = static_cast<float32>(_minHeight) * (1.0 / aspect);
+                _minWidth = static_cast<int32>(static_cast<float32>(_minHeight) * (1.0f / aspect));
             }
         }
     }

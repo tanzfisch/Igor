@@ -29,7 +29,7 @@
 #ifndef __MENUDIALOG__
 #define __MENUDIALOG__
 
-#include <iWidgetUserDialog.h>
+#include <iWidgetDialog.h>
 using namespace Igor;
 
 #include "UserControlGraphView.h"
@@ -67,12 +67,14 @@ enum class ViewType
 
 /*! menu dialog
 */
-class MenuDialog : public iWidgetUserDialog
+class MenuDialog : public iWidgetDialog
 {
+
 public:
 
-    MenuDialog();
-    ~MenuDialog();
+    /*! creates instance of this widget type
+    */
+    static iWidgetDialog* createInstance();
 
     void setRootNode(iNode* root);
     void refreshView();
@@ -215,6 +217,9 @@ private:
 
     void onGraphViewSelected(iWidget* source);
     void onMaterialViewSelected(iWidget* source);
+
+    MenuDialog();
+    ~MenuDialog();
 
 };
 

@@ -103,6 +103,11 @@ namespace Igor
         /*! does nothing
         */
 		virtual ~iWidgetLabel() = default;
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
 	};
 }
 

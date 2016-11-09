@@ -15,10 +15,14 @@ namespace Igor
 {
 
     iWidgetGroupBox::iWidgetGroupBox()
-        : iWidget(iWidgetType::GroupBox)
     {
         _configuredWidth = 60;
         _configuredHeight = 20;
+    }
+
+    iWidget* iWidgetGroupBox::createInstance()
+    {
+        return new iWidgetGroupBox();
     }
 
     void iWidgetGroupBox::setBorder(int32 border)
@@ -70,11 +74,11 @@ namespace Igor
 
                     if (_headerOnly)
                     {
-                        setClientArea(0, 0, _border + fontSize * 0.75, 0);
+                        setClientArea(0, 0, static_cast<int32>(static_cast<float32>(_border) + fontSize * 0.75f), 0);
                     }
                     else
                     {
-                        setClientArea(_border, _border, _border + fontSize * 0.75, _border);
+                        setClientArea(_border, _border, static_cast<int32>(static_cast<float32>(_border) + fontSize * 0.75), _border);
                     }
                 }
             }

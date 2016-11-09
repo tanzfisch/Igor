@@ -126,6 +126,11 @@ namespace Igor
         /*! release texture
         */
 		virtual ~iWidgetPicture();
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
 	};
 }
 

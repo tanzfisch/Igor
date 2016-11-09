@@ -16,7 +16,6 @@ namespace Igor
 {
 
 	iWidgetColor::iWidgetColor()
-		: iWidget(iWidgetType::Label)
 	{
 		_configuredWidth = 60;
 		_configuredHeight = 20;
@@ -32,6 +31,11 @@ namespace Igor
     iWidgetColor::~iWidgetColor()
     {
         _texture = nullptr;
+    }
+
+    iWidget* iWidgetColor::createInstance()
+    {
+        return new iWidgetColor();
     }
 
     void iWidgetColor::setColor(const iaColor4f& color)

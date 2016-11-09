@@ -25,6 +25,11 @@ namespace Igor
         deinitGUI();
     }
 
+    iWidgetDialog* iDialogColorChooser::createInstance()
+    {
+        return new iDialogColorChooser();
+    }
+
     void iDialogColorChooser::show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha)
     {
         _oldColor = color;
@@ -39,7 +44,7 @@ namespace Igor
         if (_grid != nullptr &&
             _grid->hasParent())
         {
-            getDialog()->removeWidget(_grid);
+            removeWidget(_grid);
         }
 
         if (_userControlColorChooser != nullptr)
@@ -57,13 +62,13 @@ namespace Igor
 
     void iDialogColorChooser::initGUI(const iaColor4f& color, bool useAlpha)
     {
-        iWidgetManager::setModal(getDialog());
-        getDialog()->setActive();
-        getDialog()->setVisible();
-        getDialog()->setWidth(200);
-        getDialog()->setHeight(200);
+        iWidgetManager::setModal(this);
+        setActive();
+        setVisible();
+        setWidth(200);
+        setHeight(200);
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_grid);
         _grid->appendRows(2);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -71,7 +76,7 @@ namespace Igor
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
 
-        iWidgetLabel* headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        iWidgetLabel* headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         _allWidgets.push_back(headerLabel);
         headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         headerLabel->setText("Choose Color");
@@ -81,27 +86,27 @@ namespace Igor
         _userControlColorChooser->setHeadlineVisible(false);
         _userControlColorChooser->setColor(color);
 
-        iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(buttonGrid);
         buttonGrid->appendCollumns(2);
         buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-        iWidgetButton* okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        iWidgetButton* okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(okButton);
         okButton->setText("OK");
         okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onOK));
 
-        iWidgetButton* cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        iWidgetButton* cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(cancelButton);
         cancelButton->setText("Cancel");
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onCancel));
 
-        iWidgetButton* resetButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        iWidgetButton* resetButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(resetButton);
         resetButton->setText("Reset");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));
 
-        getDialog()->addWidget(_grid);
+        addWidget(_grid);
 
         _grid->addWidget(headerLabel, 0, 0);
         _grid->addWidget(_userControlColorChooser->getWidget(), 0, 1);
@@ -135,8 +140,8 @@ namespace Igor
 
     void iDialogColorChooser::close()
     {
-        getDialog()->setActive(false);
-        getDialog()->setVisible(false);
+        setActive(false);
+        setVisible(false);
         iWidgetManager::resetModal();
     }
 }

@@ -78,7 +78,7 @@ uint32 UserControlEmitter::getNode()
 
 void UserControlEmitter::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_grid);
     _grid->appendCollumns(1);
     _grid->appendRows(1);
@@ -86,13 +86,13 @@ void UserControlEmitter::initGUI()
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
     _grid->setStrechColumn(1);
 
-    iWidgetLabel* labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelType = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelType);
     labelType->setText("Type");
     labelType->setWidth(MV_REGULARBUTTON_SIZE);
     labelType->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::SelectBox));
+    _selectType = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
     _allWidgets.push_back(_selectType);
     // see iEmitterTypes
     _selectType->addSelectionEntry("Mesh");
@@ -105,13 +105,13 @@ void UserControlEmitter::initGUI()
     _selectType->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _selectType->registerOnChangeEvent(iChangeDelegate(this, &UserControlEmitter::onTypeChanged));
 
-    iWidgetLabel* labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+    iWidgetLabel* labelSize = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelSize);
     labelSize->setText("Size");
     labelSize->setWidth(MV_REGULARBUTTON_SIZE);
     labelSize->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget(iWidgetType::TextEdit));
+    _textSize = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
     _allWidgets.push_back(_textSize);
     _textSize->setWidth(100);
     _textSize->setWriteProtected(false);

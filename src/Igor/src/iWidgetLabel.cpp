@@ -15,7 +15,6 @@ namespace Igor
 {
 
     iWidgetLabel::iWidgetLabel()
-        : iWidget(iWidgetType::Label)
     {
         _configuredHeight = 0;
         _configuredWidth = 0;
@@ -23,6 +22,11 @@ namespace Igor
 
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
+    }
+
+    iWidget* iWidgetLabel::createInstance()
+    {
+        return new iWidgetLabel();
     }
 
     void iWidgetLabel::calcMinSize()
@@ -38,7 +42,7 @@ namespace Igor
             {
                 int32 textWidth = (int32)iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
                 minWidth = textWidth;
-                minHeight = fontSize;
+                minHeight = static_cast<int32>(fontSize);
             }
             else
             {

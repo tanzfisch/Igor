@@ -45,6 +45,8 @@ using namespace Igor;
 
 ModelViewer::ModelViewer()
 {
+    iWidgetManager::getInstance().registerDialogType("MenuDialog", iInstanciateDialogDelegate(MenuDialog::createInstance));
+    iWidgetManager::getInstance().registerDialogType("PropertiesDialog", iInstanciateDialogDelegate(PropertiesDialog::createInstance));
 }
 
 ModelViewer::~ModelViewer()
@@ -603,7 +605,7 @@ void ModelViewer::initGUI()
     iWidgetManager::getInstance().setTheme(_widgetTheme);
     iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
-    _menuDialog = new MenuDialog();
+    _menuDialog = static_cast<MenuDialog*>(iWidgetManager::getInstance().createDialog("MenuDialog"));
     _menuDialog->registerOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
     _menuDialog->registerOnLoadFile(LoadFileDelegate(this, &ModelViewer::onLoadFile));
     _menuDialog->registerOnImportFile(ImportFileDelegate(this, &ModelViewer::onImportFile));
@@ -616,9 +618,9 @@ void ModelViewer::initGUI()
     _menuDialog->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
     _menuDialog->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
 
-    _fileDialog = new iDialogFileSelect();
-    _messageBox = new iDialogMessageBox();
-    _propertiesDialog = new PropertiesDialog();
+    _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("FileSelect"));
+    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("MessageBox"));
+    _propertiesDialog = static_cast<PropertiesDialog*>(iWidgetManager::getInstance().createDialog("PropertiesDialog"));
 
     _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));
 
@@ -649,25 +651,25 @@ void ModelViewer::deinitGUI()
         _menuDialog->unregisterOnAddEmitter(AddEmitterDelegate(this, &ModelViewer::onAddEmitter));
         _menuDialog->unregisterOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
 
-        delete _menuDialog;
+        iWidgetManager::getInstance().destroyDialog(_menuDialog);
         _menuDialog = nullptr;
     }
 
     if (_propertiesDialog != nullptr)
     {
-        delete _propertiesDialog;
+        iWidgetManager::getInstance().destroyDialog(_propertiesDialog);
         _propertiesDialog = nullptr;
     }
 
     if (_fileDialog != nullptr)
     {
-        delete _fileDialog;
+        iWidgetManager::getInstance().destroyDialog(_fileDialog);
         _fileDialog = nullptr;
     }
 
     if (_messageBox != nullptr)
     {
-        delete _messageBox;
+        iWidgetManager::getInstance().destroyDialog(_messageBox);
         _messageBox = nullptr;
     }
 

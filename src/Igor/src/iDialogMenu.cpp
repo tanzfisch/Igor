@@ -16,30 +16,40 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    iDialogMenu::~iDialogMenu()
+    {
+        deinitGUI();
+    }
+
+    iWidgetDialog* iDialogMenu::createInstance()
+    {
+        return new iDialogMenu();
+    }
+
     void iDialogMenu::initGUI(vector<iaString>& texts)
     {
-        iWidgetManager::setModal(getDialog());
-        getDialog()->setActive();
-        getDialog()->setVisible();
-        getDialog()->setHeight(0);
-        getDialog()->setAcceptOutOfBoundsClicks();
+        iWidgetManager::setModal(this);
+        setActive();
+        setVisible();
+        setHeight(0);
+        setAcceptOutOfBoundsClicks();
 
-        getDialog()->registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
+        registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_grid);
-        _grid->appendRows(texts.size() - 1);
+        _grid->appendRows(static_cast<uint32>(texts.size()) - 1);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
         _grid->setSelectMode(iSelectionMode::Row);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
         _grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
-        getDialog()->addWidget(_grid);
+        addWidget(_grid);
 
         for (int i = 0; i < texts.size(); ++i)
         {
-            iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+            iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
             label->setHorizontalAlignment(iHorizontalAlignment::Left);
             _allWidgets.push_back(label);
             label->setText(texts[i]);
@@ -51,38 +61,38 @@ namespace Igor
     {
         con_assert_sticky(texts.size() == pictures.size(), "invalid data");
 
-        iWidgetManager::setModal(getDialog());
-        getDialog()->setActive();
-        getDialog()->setVisible();
-        getDialog()->setHeight(0);
-        getDialog()->setAcceptOutOfBoundsClicks();
+        iWidgetManager::setModal(this);
+        setActive();
+        setVisible();
+        setHeight(0);
+        setAcceptOutOfBoundsClicks();
 
-        getDialog()->registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
+        registerOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_grid);
         _grid->appendCollumns(1);
-        _grid->appendRows(texts.size() - 1);
+        _grid->appendRows(static_cast<uint32>(texts.size()) - 1);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _grid->setVerticalAlignment(iVerticalAlignment::Top);
         _grid->setSelectMode(iSelectionMode::Row);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
         _grid->registerOnChangeEvent(iChangeDelegate(this, &iDialogMenu::onChange));
-        getDialog()->addWidget(_grid);
+        addWidget(_grid);
 
         for (int i = 0; i < texts.size(); ++i)
         {
             if (!pictures[i].isEmpty())
             {
-                iWidgetPicture* picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget(iWidgetType::Picture));
+                iWidgetPicture* picture = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget("Picture"));
                 _allWidgets.push_back(picture);
                 picture->setTexture(pictures[i]);
                 picture->setMaxSize(_entryHeight, _entryHeight);
                 _grid->addWidget(picture, 0, i);
             }
 
-            iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+            iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
             _allWidgets.push_back(label);
             label->setHorizontalAlignment(iHorizontalAlignment::Left);
             label->setText(texts[i]);
@@ -90,14 +100,9 @@ namespace Igor
         }
     }
 
-    iDialogMenu::~iDialogMenu()
-    {
-        deinitGUI();
-    }
-
     void iDialogMenu::deinitGUI()
     {
-        getDialog()->unregisterOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
+        unregisterOnMouseOffClickEvent(iMouseOffClickDelegate(this, &iDialogMenu::onMouseOffClick));
 
         if (_grid != nullptr)
         {
@@ -105,7 +110,7 @@ namespace Igor
 
             if (_grid->hasParent())
             {
-                getDialog()->removeWidget(_grid);
+                removeWidget(_grid);
             }
         }
 
@@ -158,8 +163,8 @@ namespace Igor
 
     void iDialogMenu::close()
     {
-        getDialog()->setActive(false);
-        getDialog()->setVisible(false);
+        setActive(false);
+        setVisible(false);
         iWidgetManager::resetModal();
 
         _selectBoxCloseEvent(_returnValue);

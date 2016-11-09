@@ -270,9 +270,14 @@ namespace Igor
         */
         iWidgetGraph();
 
-        /*! release texture
+        /*! does nothing
         */
-		virtual ~iWidgetGraph();
+		virtual ~iWidgetGraph() = default;
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
 	};
 }
 

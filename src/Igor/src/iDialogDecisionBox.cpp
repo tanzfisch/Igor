@@ -24,6 +24,11 @@ namespace Igor
         deinitGUI();
     }
 
+    iWidgetDialog* iDialogDecisionBox::createInstance()
+    {
+        return new iDialogDecisionBox();
+    }
+
     void iDialogDecisionBox::deinitGUI()
     {
         if (_okButton != nullptr)
@@ -84,49 +89,49 @@ namespace Igor
     {
         _decisionBoxCloseEvent.append(closeDelegate);
 
-        iWidgetManager::setModal(getDialog());
-        getDialog()->setActive();
-        getDialog()->setVisible();
-        getDialog()->setWidth(20);
-        getDialog()->setHeight(20);
+        iWidgetManager::setModal(this);
+        setActive();
+        setVisible();
+        setWidth(20);
+        setHeight(20);
 
-        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _grid->appendRows(4);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Center);
         _grid->setVerticalAlignment(iVerticalAlignment::Center);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
 
-        _messageLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget(iWidgetType::Label));
+        _messageLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         _messageLabel->setText(message);
         _messageLabel->setMaxTextWidth(280);
         
-        _spacerLineTop = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
+        _spacerLineTop = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
         _spacerLineTop->setWidth(280);
         _spacerLineTop->setHeight(1);
         _spacerLineTop->setVisible(true);
 
-        _spacerLineBottom = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget(iWidgetType::Spacer));
+        _spacerLineBottom = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
         _spacerLineBottom->setWidth(280);
         _spacerLineBottom->setHeight(1);
         _spacerLineBottom->setVisible(true);
 
-        _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
+        _buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _buttonGrid->appendCollumns(3);
         _buttonGrid->setHorizontalAlignment(iHorizontalAlignment::Right);
         _buttonGrid->setVerticalAlignment(iVerticalAlignment::Bottom);
         _buttonGrid->setCellSpacing(4);
         
-        _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        _okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _okButton->setText("OK");
         _okButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onOK));
 
-        _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget(iWidgetType::Button));
+        _cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _cancelButton->setText("Cancel");
         _cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogDecisionBox::onCancel));
 
-        _radioGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget(iWidgetType::Grid));
-        _radioGrid->appendRows(radioButtonTexts.size() - 1);
+        _radioGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _radioGrid->appendRows(static_cast<uint32>(radioButtonTexts.size()) - 1);
         _radioGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _radioGrid->setVerticalAlignment(iVerticalAlignment::Top);
         _radioGrid->setCellSpacing(4);
@@ -136,7 +141,7 @@ namespace Igor
         auto iter = radioButtonTexts.begin();
         while (iter != radioButtonTexts.end())
         {
-            iWidgetCheckBox* checkBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget(iWidgetType::CheckBox));
+            iWidgetCheckBox* checkBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
             _radioButtons.push_back(checkBox);
             checkBox->setHorizontalAlignment(iHorizontalAlignment::Left);
             checkBox->setText((*iter));
@@ -152,7 +157,7 @@ namespace Igor
         }
         iWidgetCheckBox::endRadioButtonGroup();
 
-        getDialog()->addWidget(_grid);
+        addWidget(_grid);
         _grid->addWidget(_messageLabel, 0, 0);
         _grid->addWidget(_spacerLineTop, 0, 1);
         _grid->addWidget(_radioGrid, 0, 2);
@@ -199,8 +204,8 @@ namespace Igor
 
     void iDialogDecisionBox::close()
     {
-        getDialog()->setActive(false);
-        getDialog()->setVisible(false);
+        setActive(false);
+        setVisible(false);
         iWidgetManager::resetModal();
     }
 }

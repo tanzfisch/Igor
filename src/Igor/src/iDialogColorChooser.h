@@ -29,7 +29,7 @@
 #ifndef __iDIALOGCOLORCHOOSER__
 #define __iDIALOGCOLORCHOOSER__
 
-#include <iWidgetUserDialog.h>
+#include <iWidgetDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -49,17 +49,12 @@ namespace Igor
 
     /*! the color chooser dialog
     */
-    class Igor_API iDialogColorChooser : public iWidgetUserDialog
+    class Igor_API iDialogColorChooser : public iWidgetDialog
     {
+
+        friend class iWidgetManager;
+
     public:
-
-        /*! does nothing
-        */
-        iDialogColorChooser() = default;
-
-        /*! deinitializes gui
-        */
-        ~iDialogColorChooser();
 
         /*! show/open the decision box
 
@@ -126,6 +121,18 @@ namespace Igor
         \param useAlpha if true alpha value will be edited too
         */
         void initGUI(const iaColor4f& color, bool useAlpha);
+
+        /*! does nothing
+        */
+        iDialogColorChooser() = default;
+
+        /*! deinitializes gui
+        */
+        ~iDialogColorChooser();
+
+        /*! creates instance of this widget type
+        */
+        static iWidgetDialog* createInstance();
 
     };
 

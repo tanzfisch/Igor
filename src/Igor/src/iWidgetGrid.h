@@ -380,6 +380,11 @@ namespace Igor
         /*! does nothing
         */
         ~iWidgetGrid() = default;
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
     };
 }
 

@@ -167,6 +167,11 @@ namespace Igor
         /*! clean up
         */
 		virtual ~iWidgetSelectBox();
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
+
 	};
 }
 

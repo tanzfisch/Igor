@@ -75,6 +75,16 @@ namespace Igor
         */
         int32 getBorder();
 
+    protected:
+
+        /*! ctor initializes member variables and registers mouse events
+        */
+        iWidgetDialog();
+
+        /*! dtor unregisters mouse events
+        */
+        virtual ~iWidgetDialog();
+
     private:
 
         /*! horizontal position relative to parent if horizontal alignment is absolute
@@ -104,13 +114,9 @@ namespace Igor
 		*/
 		void draw();
 
-        /*! ctor initializes member variables and registers mouse events
+        /*! creates instance of this widget type
         */
-        iWidgetDialog();
-
-        /*! dtor unregisters mouse events
-        */
-        virtual ~iWidgetDialog();
+        static iWidgetDialog* createInstance();
 
     };
 }

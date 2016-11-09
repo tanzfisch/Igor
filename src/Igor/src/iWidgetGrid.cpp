@@ -14,11 +14,15 @@ using namespace IgorAux;
 namespace Igor
 {
     iWidgetGrid::iWidgetGrid()
-        : iWidget(iWidgetType::Grid)
     {
         _configuredWidth = 0;
         _configuredHeight = 0;
         initGrid();
+    }
+
+    iWidget* iWidgetGrid::createInstance()
+    {
+        return new iWidgetGrid();
     }
 
     void iWidgetGrid::clear()
@@ -422,8 +426,8 @@ namespace Igor
 
         iWidget::updateAlignment(clientWidth, clientHeight);
 
-        uint32 rowCount = static_cast<uint32>(_widgetRows.size());
-        uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
+        int32 rowCount = static_cast<int32>(_widgetRows.size());
+        int32 columnCount = static_cast<int32>(_widgetRows[0]._widgetCollumn.size());
 
         if (getVerticalAlignment() == iVerticalAlignment::Strech)
         {
@@ -431,16 +435,16 @@ namespace Igor
             {
                 int32 diff = _actualHeight - _minHeight;
 
-                for (uint32 x = 0; x < columnCount; ++x)
+                for (int32 x = 0; x < columnCount; ++x)
                 {
                     _widgetRows[_strechRow]._widgetCollumn[x]._actualHeight = _widgetRows[_strechRow]._widgetCollumn[x]._configuredHeight + diff;
                 }
 
                 if (_strechRow + 1 < rowCount)
                 {
-                    for (uint32 x = 0; x < columnCount; ++x)
+                    for (int32 x = 0; x < columnCount; ++x)
                     {
-                        for (uint32 y = _strechRow + 1; y < rowCount; ++y)
+                        for (int32 y = _strechRow + 1; y < rowCount; ++y)
                         {
                             _widgetRows[y]._widgetCollumn[x]._y += diff;
                         }
@@ -459,16 +463,16 @@ namespace Igor
             {
                 int32 diff = _actualWidth - _minWidth;
 
-                for (uint32 y = 0; y < rowCount; ++y)
+                for (int32 y = 0; y < rowCount; ++y)
                 {
                     _widgetRows[y]._widgetCollumn[_strechCol]._actualWidth = _widgetRows[y]._widgetCollumn[_strechCol]._configuredWidth + diff;
                 }
 
                 if (_strechCol + 1 < columnCount)
                 {
-                    for (uint32 y = 0; y < rowCount; ++y)
+                    for (int32 y = 0; y < rowCount; ++y)
                     {
-                        for (uint32 x = _strechCol + 1; x < columnCount; ++x)
+                        for (int32 x = _strechCol + 1; x < columnCount; ++x)
                         {
                             _widgetRows[y]._widgetCollumn[x]._x += diff;
                         }

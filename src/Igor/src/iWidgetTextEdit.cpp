@@ -12,10 +12,14 @@ namespace Igor
 {
 
 	iWidgetTextEdit::iWidgetTextEdit()
-		: iWidget(iWidgetType::TextEdit)
 	{
         _reactOnMouseWheel = false;
 	}
+
+    iWidget* iWidgetTextEdit::createInstance()
+    {
+        return new iWidgetTextEdit();
+    }
 
 	void iWidgetTextEdit::calcMinSize()
 	{

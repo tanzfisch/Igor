@@ -101,6 +101,10 @@ namespace Igor
         /*! release texture
         */
 		virtual ~iWidgetColorGradient();
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
 	};
 }
 

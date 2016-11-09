@@ -20,10 +20,14 @@ namespace Igor
 {
 
 	iWidgetScroll::iWidgetScroll()
-		: iWidget(iWidgetType::Scroll)
 	{
 		setGrowingByContent(false);
 	}
+
+    iWidget* iWidgetScroll::createInstance()
+    {
+        return new iWidgetScroll();
+    }
 
 	void iWidgetScroll::handleMouseMove(int32 x, int32 y)
 	{

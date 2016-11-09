@@ -29,7 +29,7 @@
 #ifndef __iDIALOGFILESELECT__
 #define __iDIALOGFILESELECT__
 
-#include <iWidgetUserDialog.h>
+#include <iWidgetDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -64,18 +64,12 @@ namespace Igor
 
     \todo need some sort of UserDialogBaseClass with some convinient methods
     */
-    class Igor_API iDialogFileSelect : public iWidgetUserDialog
+    class Igor_API iDialogFileSelect : public iWidgetDialog
     {
 
+        friend class iWidgetManager;
+
     public:
-
-        /*! initializes gui elements
-        */
-        iDialogFileSelect();
-
-        /*! deinitializes gui elements
-        */
-        ~iDialogFileSelect();
 
         /*! opens dialog in load mode
 
@@ -230,6 +224,18 @@ namespace Igor
         /*! updates file grid entries
         */
         void updateFileGrid();
+
+        /*! initializes gui elements
+        */
+        iDialogFileSelect();
+
+        /*! deinitializes gui elements
+        */
+        ~iDialogFileSelect();
+
+        /*! creates instance of this widget type
+        */
+        static iWidgetDialog* createInstance();
 
     };
 

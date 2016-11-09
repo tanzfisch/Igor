@@ -15,7 +15,6 @@ namespace Igor
     vector<iWidgetCheckBox*> iWidgetCheckBox::_currentRadioButtons;
 
     iWidgetCheckBox::iWidgetCheckBox()
-        : iWidget(iWidgetType::CheckBox)
     {
         _configuredHeight = 20;
         _configuredWidth = 60;
@@ -31,6 +30,11 @@ namespace Igor
 
             _currentRadioButtons.push_back(this);
         }
+    }
+
+    iWidget* iWidgetCheckBox::createInstance()
+    {
+        return new iWidgetCheckBox();
     }
 
     void iWidgetCheckBox::beginRadioButtonGroup()
@@ -105,9 +109,9 @@ namespace Igor
             !_text.isEmpty())
         {
             float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-            minHeight = fontSize * 1.5f;
+            minHeight = static_cast<int32>(fontSize * 1.5f);
 
-            int32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize) + fontSize * 3;
+            int32 textWidth = static_cast<int32>(iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize) + fontSize * 3.0f);
             minWidth = textWidth;
         }
 
