@@ -39,6 +39,8 @@ namespace Igor
     /*! use control base class
 
     mostly used to combine some of the standard widgets to apear as one
+
+    \todo get rid of user control or derive from iWidget
     */
     class Igor_API iWidgetUserControl
     {

@@ -695,6 +695,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDefines.h" />
     <ClInclude Include="..\src\iDialogColorChooser.h" />
+    <ClInclude Include="..\src\iDialogColorGradient.h" />
     <ClInclude Include="..\src\iDialogDecisionBox.h" />
     <ClInclude Include="..\src\iDialogFileSelect.h" />
     <ClInclude Include="..\src\iDialogMenu.h" />
@@ -1308,6 +1309,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iControl.cpp" />
     <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
     <ClCompile Include="..\src\iDialogColorChooser.cpp" />
+    <ClCompile Include="..\src\iDialogColorGradient.cpp" />
     <ClCompile Include="..\src\iDialogDecisionBox.cpp" />
     <ClCompile Include="..\src\iDialogFileSelect.cpp" />
     <ClCompile Include="..\src\iDialogMenu.cpp" />

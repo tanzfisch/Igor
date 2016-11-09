@@ -656,6 +656,9 @@
     <ClCompile Include="..\src\iWidgetColorGradient.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iDialogColorGradient.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1374,6 +1377,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iWidgetColorGradient.h">
       <Filter>GUI\widgets</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogColorGradient.h">
+      <Filter>GUI\dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

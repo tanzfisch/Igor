@@ -65,8 +65,8 @@ namespace Igor
         iWidgetManager::setModal(this);
         setActive();
         setVisible();
-        setWidth(200);
-        setHeight(200);
+        setWidth(20);
+        setHeight(20);
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_grid);

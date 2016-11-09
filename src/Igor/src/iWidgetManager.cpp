@@ -28,6 +28,7 @@
 #include <iDialogFileSelect.h>
 #include <iDialogMenu.h>
 #include <iDialogMessageBox.h>
+#include <iDialogColorGradient.h>
 
 #include <iMaterialResourceFactory.h>
 
@@ -63,6 +64,7 @@ namespace Igor
         registerDialogType("FileSelect", iInstanciateDialogDelegate(iDialogFileSelect::createInstance));
         registerDialogType("Menu", iInstanciateDialogDelegate(iDialogMenu::createInstance));
         registerDialogType("MessageBox", iInstanciateDialogDelegate(iDialogMessageBox::createInstance));
+        registerDialogType("ColorGradient", iInstanciateDialogDelegate(iDialogColorGradient::createInstance));
 
         iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }

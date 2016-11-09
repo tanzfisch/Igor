@@ -31,6 +31,7 @@
 
 #include <iNodeModel.h>
 #include <iWidgetUserControl.h>
+#include <iGradient.h>
 using namespace Igor;
 
 namespace Igor
@@ -46,6 +47,7 @@ namespace Igor
     class iUserControlFileChooser;
     class iWidgetCheckBox;
     class iWidgetColorGradient;
+    class iDialogColorGradient;
 }
 
 class UserControlParticleSystem : public iWidgetUserControl
@@ -86,6 +88,8 @@ private:
     iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
     iWidgetColorGradient* _colorGradient = nullptr;
 
+    iDialogColorGradient* _colorGradientDialog = nullptr;
+
     vector<iWidget*> _allWidgets;
 
     vector<iNode*> _emitters;
@@ -99,6 +103,9 @@ private:
 
     void onDoUpdateNode(iWidget* source);
     void onLoopChanged(iWidget* source);
+
+    void onOpenColorGradientEditor(iWidget* source);
+    void onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient);
 
     void onStart(iWidget* source);
     void onStop(iWidget* source);

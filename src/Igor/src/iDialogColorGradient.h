@@ -26,14 +26,14 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iDIALOGCOLORCHOOSER__
-#define __iDIALOGCOLORCHOOSER__
+#ifndef __iDIALOGCOLORGRADIENT__
+#define __iDIALOGCOLORGRADIENT__
 
 #include <iWidgetDialog.h>
+#include <iGradient.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
-#include <iaColor4.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -42,14 +42,15 @@ namespace Igor
     class iWidgetGrid;
     class iWidgetButton;
     class iUserControlColorChooser;
+    class iWidgetColorGradient;
 
     /*! event triggered when color chooser was closed
     */
-    iaEVENT(iColorChooserCloseEvent, iColorChooserCloseDelegate, void, (bool ok, const iaColor4f& color), (ok, color));
+    iaEVENT(iColorGradientCloseEvent, iColorGradientCloseDelegate, void, (bool ok, const iGradientColor4f& gradient), (ok, gradient));
 
     /*! the color chooser dialog
     */
-    class Igor_API iDialogColorChooser : public iWidgetDialog
+    class Igor_API iDialogColorGradient : public iWidgetDialog
     {
 
         friend class iWidgetManager;
@@ -58,29 +59,33 @@ namespace Igor
 
         /*! show/open the decision box
 
-        \param closeDelegate the closing delegate
-        \param color the color to start with
-        \param useAlpha if true also use the alpha channel
+        \param closeDelegate closing delegate
+        \param gradient to start with
+        \param useAlpha if true use alpha channel too
         */
-        void show(iColorChooserCloseDelegate closeDelegate, const iaColor4f& color, bool useAlpha = true);
+        void show(iColorGradientCloseDelegate closeDelegate, const iGradientColor4f& gradient, bool useAlpha = true);
 
     private:
 
         /*! the close event
         */
-        iColorChooserCloseEvent _closeEvent;
+        iColorGradientCloseEvent _closeEvent;
 
-        /*! old color
+        /*! the old gradient
         */
-        iaColor4f _oldColor;
+        iGradientColor4f _oldGradient;
+
+        /*! the current gradient
+        */
+        iGradientColor4f _gradient;
 
         /*! over all grid
         */
         iWidgetGrid* _grid = nullptr;
 
-        /*! actual color chooser
+        /*! the widget to visualize the gradient
         */
-        iUserControlColorChooser* _userControlColorChooser = nullptr;
+        iWidgetColorGradient* _gradientWidget = nullptr;
 
         /*! all widgets
         */
@@ -119,15 +124,15 @@ namespace Igor
         \param color the color to init with
         \param useAlpha if true alpha value will be edited too
         */
-        void initGUI(const iaColor4f& color, bool useAlpha);
+        void initGUI(const iGradientColor4f& gradient, bool useAlpha);
 
         /*! does nothing
         */
-        iDialogColorChooser() = default;
+        iDialogColorGradient() = default;
 
         /*! deinitializes gui
         */
-        ~iDialogColorChooser();
+        ~iDialogColorGradient();
 
         /*! creates instance of this widget type
         */

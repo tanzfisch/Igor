@@ -25,6 +25,7 @@
 #include <iWidgetSpacer.h>
 #include <iWidgetGroupBox.h>
 #include <iWidgetColorGradient.h>
+#include <iDialogColorGradient.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -392,6 +393,7 @@ void UserControlParticleSystem::initGUI()
     rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
     _colorGradient->setGradient(rainbow);
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
 
     iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelEmitter);
@@ -530,7 +532,22 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(labelColorGradient, 0, 8);
     gridAppearanceProperties->addWidget(_colorGradient, 1, 8);
 
+    _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("ColorGradient"));
+
     updateNode();
+}
+
+void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient)
+{
+    if (ok)
+    {
+        _colorGradient->setGradient(gradient);
+    }
+}
+
+void UserControlParticleSystem::onOpenColorGradientEditor(iWidget* source)
+{
+    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
 }
 
 void UserControlParticleSystem::onDoUpdateNode(iWidget* source)
@@ -543,7 +560,6 @@ void UserControlParticleSystem::onLoopChanged(iWidget* source)
     _periodChooser->setActive(!_loopCheckBox->isChecked());
     updateNode();
 }
-
 
 void UserControlParticleSystem::onStart(iWidget* source)
 {
