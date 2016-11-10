@@ -6,7 +6,7 @@
 
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;

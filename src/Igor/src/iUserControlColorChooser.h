@@ -29,7 +29,7 @@
 #ifndef __iUSERCONTROLCOLORCHOOSER__
 #define __iUSERCONTROLCOLORCHOOSER__
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iWidget.h>
 
 #include <iaEvent.h>
@@ -66,7 +66,7 @@ namespace Igor
     \bug color chooser disapperas when unfolded and folded again
     \todo use drawGradient instead of textures for the color componenbt sliders than we could manipulate them dynamically
     */
-    class Igor_API iUserControlColorChooser : public iWidgetUserControl
+    class Igor_API iUserControlColorChooser : public iUserControl
     {
     public:
 

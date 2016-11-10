@@ -36,7 +36,7 @@ using namespace std;
 namespace Igor
 {
 
-    class iWidgetUserControl;
+    class iUserControl;
 
     /*! grid selection mode
     */

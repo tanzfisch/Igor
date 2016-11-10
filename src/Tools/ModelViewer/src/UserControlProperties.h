@@ -39,7 +39,7 @@ namespace Igor
 }
 
 #include <iNode.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 using namespace Igor;
 
 #include <iaEvent.h>
@@ -65,7 +65,7 @@ enum class PropertyType
 	Undefined
 };
 
-class UserControlProperties : public iWidgetUserControl
+class UserControlProperties : public iUserControl
 {
 public:
 

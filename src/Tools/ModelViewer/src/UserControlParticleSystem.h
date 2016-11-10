@@ -30,7 +30,7 @@
 #define __USERCONTROLPARTICLESYSTEM__
 
 #include <iNodeModel.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iGradient.h>
 using namespace Igor;
 
@@ -50,7 +50,7 @@ namespace Igor
     class iDialogColorGradient;
 }
 
-class UserControlParticleSystem : public iWidgetUserControl
+class UserControlParticleSystem : public iUserControl
 {
 public:
 

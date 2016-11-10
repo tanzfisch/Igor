@@ -33,7 +33,7 @@
 #include <iaColor4.h>
 using namespace IgorAux;
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iUserControlColorChooser.h>
 using namespace Igor;
 
@@ -46,7 +46,7 @@ namespace Igor
     class iUserControlColorChooser;
 }
 
-class UserControlLight : public iWidgetUserControl
+class UserControlLight : public iUserControl
 {
 public:
 

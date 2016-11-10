@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iWIDGETUSERCONTROL__
-#define __iWIDGETUSERCONTROL__
+#ifndef __iUSERCONTROL__
+#define __iUSERCONTROL__
 
 #include <iDefines.h>
 
@@ -42,7 +42,7 @@ namespace Igor
 
     \todo get rid of user control or derive from iWidget
     */
-    class Igor_API iWidgetUserControl
+    class Igor_API iUserControl
     {
 
     public:
@@ -53,7 +53,7 @@ namespace Igor
 
         /*! does nothing
         */
-        iWidgetUserControl() = default;
+        iUserControl() = default;
 
     };
 

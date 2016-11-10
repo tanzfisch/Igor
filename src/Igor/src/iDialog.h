@@ -34,7 +34,7 @@
 namespace Igor
 {
 
-    class iWidgetUserControl;
+    class iUserControl;
 
     /*! dialog widget
 

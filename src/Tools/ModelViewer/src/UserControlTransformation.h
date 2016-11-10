@@ -32,7 +32,7 @@
 #include <iaMatrix.h>
 using namespace IgorAux;
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 using namespace Igor;
 
 #include <vector>
@@ -46,7 +46,7 @@ namespace Igor
     class iWidgetButton;
 }
 
-class UserControlTransformation : public iWidgetUserControl
+class UserControlTransformation : public iUserControl
 {
 public:
 

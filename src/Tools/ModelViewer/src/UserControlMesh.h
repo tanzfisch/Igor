@@ -34,7 +34,7 @@
 using namespace IgorAux;
 
 #include <iNodeMesh.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iUserControlColorChooser.h>
 #include <iDialogFileSelect.h>
 using namespace Igor;
@@ -52,7 +52,7 @@ namespace Igor
     class iUserControlFileChooser;
 }
 
-class UserControlMesh : public iWidgetUserControl
+class UserControlMesh : public iUserControl
 {
 public:
 

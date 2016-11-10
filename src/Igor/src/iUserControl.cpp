@@ -1,4 +1,4 @@
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 
 #include <iWidgetManager.h>
 

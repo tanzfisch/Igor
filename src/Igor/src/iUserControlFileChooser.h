@@ -29,7 +29,7 @@
 #ifndef __iUSERCONTROLFILECHOOSER__
 #define __iUSERCONTROLFILECHOOSER__
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iWidget.h>
 #include <iDialogFileSelect.h>
 
@@ -49,7 +49,7 @@ namespace Igor
     class iWidgetSlider;
     class iWidgetNumberChooser;
     
-    class Igor_API iUserControlFileChooser : public iWidgetUserControl
+    class Igor_API iUserControlFileChooser : public iUserControl
     {
     public:
 

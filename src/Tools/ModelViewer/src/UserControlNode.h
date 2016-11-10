@@ -34,7 +34,7 @@ using namespace IgorAux;
 
 #include <iNode.h>
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 using namespace Igor;
 
 namespace Igor
@@ -48,7 +48,7 @@ namespace Igor
 
 iaEVENT(NameChangedEvent, NameChangedDelegate, void, (), ());
 
-class UserControlNode : public iWidgetUserControl
+class UserControlNode : public iUserControl
 {
 public:
 

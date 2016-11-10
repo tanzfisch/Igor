@@ -37,7 +37,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWidgetUserControl;
+    class iUserControl;
 
     /*! scroll widget
 

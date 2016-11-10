@@ -176,9 +176,6 @@
     <ClCompile Include="..\src\iWidgetManager.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iWidgetUserControl.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iNodeCamera.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
@@ -659,6 +656,9 @@
     <ClCompile Include="..\src\iDialog.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iUserControl.cpp">
+      <Filter>GUI\user controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -859,9 +859,6 @@
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetManager.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iWidgetUserControl.h">
       <Filter>GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeCamera.h">
@@ -1380,6 +1377,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iDialog.h">
       <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iUserControl.h">
+      <Filter>GUI\user controls</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
