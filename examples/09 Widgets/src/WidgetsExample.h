@@ -48,6 +48,8 @@ namespace Igor
     class iTexture;
     class iDialogColorChooser;
     class iWidgetColor;
+    class iWidgetColorGradient;
+    class iDialogColorGradient;
 }
 
 /*! this example shows how to use Igor Widgets
@@ -107,9 +109,17 @@ private:
     */
     iDialogColorChooser* _colorChooserDialog = nullptr;
 
+    /*! color gradient editor dialog
+    */
+    iDialogColorGradient* _colorGradientDialog = nullptr;
+
     /*! color view to display the color selected in color chooser
     */
-    iWidgetColor* _colorView = nullptr;
+    iWidgetColor* _color = nullptr;
+
+    /*! color gradient
+    */
+    iWidgetColorGradient* _colorGradient = nullptr;
 
     /*! just put all widgets in here for a easy clean up later
     */
@@ -153,12 +163,23 @@ private:
     */
     void onOpenColorChooser(iWidget* source);
 
+    /*! triggered by cllicking on color gradient
+    */
+    void onOpenColorGradientEditor(iWidget* source);
+
     /*! triggered when closing color chooser dialog
 
     \param ok if true value ok, if false dialog was canceled
     \param color the resulting color
     */
-    void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color);
+    void onCloseColorChooser(bool ok, const iaColor4f& color);
+
+    /*! triggered when color gradient editor was closed
+
+    \param ok if true the ok button was closing the dialog
+    \param gradient the resulting gradient
+    */
+    void onCloseColorGradient(bool ok, const iGradientColor4f& gradient);
 
     /*! triggered by mouse move event
 
