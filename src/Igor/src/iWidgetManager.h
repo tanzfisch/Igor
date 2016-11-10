@@ -42,10 +42,10 @@ namespace Igor
 {
 
 	class iWidgetBaseTheme;
-    class iWidgetDialog;
+    class iDialog;
 
     iaDELEGATE(iInstanciateWidgetDelegate, iWidget*, (), ());
-    iaDELEGATE(iInstanciateDialogDelegate, iWidgetDialog*, (), ());
+    iaDELEGATE(iInstanciateDialogDelegate, iDialog*, (), ());
 
     /*! manages the widgets in use and is a singleton
 
@@ -99,13 +99,13 @@ namespace Igor
 
         \param type type of dialog to create
         */
-        iWidgetDialog* createDialog(const iaString& type);
+        iDialog* createDialog(const iaString& type);
 
         /*! destroyes dialog
 
         \param dialog the dialog to destroy
         */
-        void destroyDialog(iWidgetDialog* dialog);
+        void destroyDialog(iDialog* dialog);
 
         /*! destroyes dialog by id
 
@@ -136,7 +136,7 @@ namespace Igor
 
         \param id id of dialog
         */
-        iWidgetDialog* getDialog(uint64 id);
+        iDialog* getDialog(uint64 id);
 
         /*! \returns the theme in use
         */
@@ -175,17 +175,17 @@ namespace Igor
 
         /*! set this widget exclusively modal
         */
-        static void setModal(iWidgetDialog* dialog);
+        static void setModal(iDialog* dialog);
 
         /*! \returns current modal widget
         */
-        static iWidgetDialog* getModal();
+        static iDialog* getModal();
 
         /*! \returns true: if widget is modal
 
         \param dialog the dialog to check if it is modal
         */
-        static bool isModal(iWidgetDialog* dialog);
+        static bool isModal(iDialog* dialog);
 
         /*! reset modal flag
         */
@@ -275,7 +275,7 @@ namespace Igor
 
         /*! modal marker
         */
-        static iWidgetDialog* _modal;
+        static iDialog* _modal;
 
         /*! mouse key down event
         */
@@ -311,7 +311,7 @@ namespace Igor
 
         /*! list of all dialogs
         */
-        map<uint64, iWidgetDialog*> _dialogs;
+        map<uint64, iDialog*> _dialogs;
 
         /*! list of widgets to delete
         */
@@ -319,7 +319,7 @@ namespace Igor
 
         /*! list of dialogs to delete
         */
-        vector<iWidgetDialog*> _toDeleteDialogs;
+        vector<iDialog*> _toDeleteDialogs;
 
         /*! current desktop width
         */

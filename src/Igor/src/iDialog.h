@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iWIDGETDIALOG__
-#define __iWIDGETDIALOG__
+#ifndef __iDIALOG__
+#define __iDIALOG__
 
 #include <iWidget.h>
 
@@ -44,7 +44,7 @@ namespace Igor
     \todo need more than one apperance type of dialogs e.g. for iWidgetSelectBox
 
     */
-    class Igor_API iWidgetDialog : public iWidget
+    class Igor_API iDialog : public iWidget
     {
 
         /*! needs to be friend because it's the factory that creates this widget
@@ -79,11 +79,11 @@ namespace Igor
 
         /*! ctor initializes member variables and registers mouse events
         */
-        iWidgetDialog();
+        iDialog();
 
         /*! dtor unregisters mouse events
         */
-        virtual ~iWidgetDialog();
+        virtual ~iDialog();
 
     private:
 
@@ -116,7 +116,7 @@ namespace Igor
 
         /*! creates instance of this widget type
         */
-        static iWidgetDialog* createInstance();
+        static iDialog* createInstance();
 
     };
 }

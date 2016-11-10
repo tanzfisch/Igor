@@ -6,14 +6,14 @@
 
 #include <iNode.h>
 #include <iWidgetGrid.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetPicture.h>
 #include <iNodeFactory.h>
 #include <iWidgetScroll.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetGroupBox.h>
 #include <iDialogMenu.h>
 #include <iMouse.h>

@@ -29,7 +29,7 @@
 #ifndef __iDIALOGMESSAGEBOX__
 #define __iDIALOGMESSAGEBOX__
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -72,7 +72,7 @@ namespace Igor
 
     /*! the message box
     */
-    class Igor_API iDialogMessageBox : public iWidgetDialog
+    class Igor_API iDialogMessageBox : public iDialog
     {
 
         friend class iWidgetManager;
@@ -195,7 +195,7 @@ namespace Igor
 
         /*! creates instance of this widget type
         */
-        static iWidgetDialog* createInstance();
+        static iDialog* createInstance();
 
     };
 

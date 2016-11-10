@@ -29,7 +29,7 @@
 #ifndef __PROPERTIESDIALOG__
 #define __PROPERTIESDIALOG__
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 using namespace Igor;
 
 #include "UserControlProperties.h"
@@ -37,7 +37,7 @@ using namespace Igor;
 namespace Igor
 {
     class iNode;
-    class iWidgetDialog;
+    class iDialog;
     class iWidgetGrid;
     class iWidgetScroll;
     class iWidgetButton;
@@ -49,14 +49,14 @@ namespace Igor
 
 /*! menu dialog
 */
-class PropertiesDialog : public iWidgetDialog
+class PropertiesDialog : public iDialog
 {
 
 public:
 
     /*! creates instance of this widget type
     */
-    static iWidgetDialog* createInstance();
+    static iDialog* createInstance();
 
     void registerPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);
     void unregisterPropertiesChangedDelegate(PropertiesChangedDelegate propertiesChangedDelegate);

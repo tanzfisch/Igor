@@ -1,7 +1,7 @@
 #include "MenuDialog.h"
 
 #include <iWidgetManager.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iNode.h>
 #include <iNodeTransform.h>
 #include <iNodeLight.h>
@@ -10,7 +10,7 @@
 
 #include <iWidgetScroll.h>
 #include <iWidgetGrid.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetButton.h>
 #include <iWidgetSpacer.h>
 #include <iWidgetCheckBox.h>
@@ -34,7 +34,7 @@ MenuDialog::~MenuDialog()
     deinitGUI();
 }
 
-iWidgetDialog* MenuDialog::createInstance()
+iDialog* MenuDialog::createInstance()
 {
     return new MenuDialog();
 }

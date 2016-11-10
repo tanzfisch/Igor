@@ -11,7 +11,7 @@ using namespace IgorAux;
 #include <iMaterialResourceFactory.h>
 
 #include <iWidgetManager.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetGroupBox.h>
@@ -82,7 +82,7 @@ void WidgetsExample::initGUI()
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    _dialog = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createDialog("Dialog"));
+    _dialog = static_cast<iDialog*>(iWidgetManager::getInstance().createDialog("Dialog"));
     _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _dialog->setVerticalAlignment(iVerticalAlignment::Center);
     _dialog->setHeight(200);

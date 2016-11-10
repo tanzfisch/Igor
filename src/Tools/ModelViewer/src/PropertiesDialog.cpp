@@ -1,7 +1,7 @@
 #include "PropertiesDialog.h"
 
 #include <iWidgetManager.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iNode.h>
 #include <iNodeTransform.h>
 #include <iNodeLight.h>
@@ -10,7 +10,7 @@
 
 #include <iWidgetScroll.h>
 #include <iWidgetGrid.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetButton.h>
 #include <iWidgetSpacer.h>
 #include <iDialogMessageBox.h>
@@ -33,7 +33,7 @@ PropertiesDialog::~PropertiesDialog()
     deinitGUI();
 }
 
-iWidgetDialog* PropertiesDialog::createInstance()
+iDialog* PropertiesDialog::createInstance()
 {
     return new PropertiesDialog();
 }

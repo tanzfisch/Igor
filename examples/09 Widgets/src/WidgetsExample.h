@@ -32,7 +32,7 @@
 #include <Igor.h>
 #include <iWindow.h>
 #include <iView.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iMaterial.h>
 using namespace Igor;
 
@@ -93,7 +93,7 @@ private:
 
     /*! the main dialog
     */
-	iWidgetDialog* _dialog = nullptr;
+	iDialog* _dialog = nullptr;
 
     /*! mouse position label
     */

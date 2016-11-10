@@ -29,7 +29,7 @@
 #ifndef __iDIALOGCOLORGRADIENT__
 #define __iDIALOGCOLORGRADIENT__
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iGradient.h>
 
 #include <iaEvent.h>
@@ -50,7 +50,7 @@ namespace Igor
 
     /*! the color chooser dialog
     */
-    class Igor_API iDialogColorGradient : public iWidgetDialog
+    class Igor_API iDialogColorGradient : public iDialog
     {
 
         friend class iWidgetManager;
@@ -136,7 +136,7 @@ namespace Igor
 
         /*! creates instance of this widget type
         */
-        static iWidgetDialog* createInstance();
+        static iDialog* createInstance();
 
     };
 

@@ -31,7 +31,7 @@ using namespace IgorAux;
 #include <iNodeVisitorBoundings.h>
 #include <iMaterialResourceFactory.h>
 #include <iWidgetDefaultTheme.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetGrid.h>
 #include <iWidgetScroll.h>
 #include <iDialogMessageBox.h>

@@ -4,7 +4,7 @@
 
 #include <iDialogColorChooser.h>
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
@@ -25,7 +25,7 @@ namespace Igor
         deinitGUI();
     }
 
-    iWidgetDialog* iDialogColorChooser::createInstance()
+    iDialog* iDialogColorChooser::createInstance()
     {
         return new iDialogColorChooser();
     }

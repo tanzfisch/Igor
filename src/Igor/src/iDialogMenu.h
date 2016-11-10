@@ -29,7 +29,7 @@
 #ifndef __iDIALOGMENU__
 #define __iDIALOGMENU__
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -45,7 +45,7 @@ namespace Igor
 
     /*! pull down menu
     */
-    class Igor_API iDialogMenu : public iWidgetDialog
+    class Igor_API iDialogMenu : public iDialog
     {
 
         friend class iWidgetManager;
@@ -150,7 +150,7 @@ namespace Igor
 
         /*! creates instance of this widget type
         */
-        static iWidgetDialog* createInstance();
+        static iDialog* createInstance();
 
     };
 

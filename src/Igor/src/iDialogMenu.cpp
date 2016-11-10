@@ -4,7 +4,7 @@
 
 #include <iDialogMenu.h>
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetPicture.h>
@@ -21,7 +21,7 @@ namespace Igor
         deinitGUI();
     }
 
-    iWidgetDialog* iDialogMenu::createInstance()
+    iDialog* iDialogMenu::createInstance()
     {
         return new iDialogMenu();
     }

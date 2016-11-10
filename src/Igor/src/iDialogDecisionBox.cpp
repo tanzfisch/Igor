@@ -4,7 +4,7 @@
 
 #include <iDialogDecisionBox.h>
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
@@ -24,7 +24,7 @@ namespace Igor
         deinitGUI();
     }
 
-    iWidgetDialog* iDialogDecisionBox::createInstance()
+    iDialog* iDialogDecisionBox::createInstance()
     {
         return new iDialogDecisionBox();
     }

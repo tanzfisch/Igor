@@ -694,6 +694,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iControl.h" />
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDefines.h" />
+    <ClInclude Include="..\src\iDialog.h" />
     <ClInclude Include="..\src\iDialogColorChooser.h" />
     <ClInclude Include="..\src\iDialogColorGradient.h" />
     <ClInclude Include="..\src\iDialogDecisionBox.h" />
@@ -836,7 +837,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iWidgetColor.h" />
     <ClInclude Include="..\src\iWidgetColorGradient.h" />
     <ClInclude Include="..\src\iWidgetDefaultTheme.h" />
-    <ClInclude Include="..\src\iWidgetDialog.h" />
     <ClInclude Include="..\src\iWidgetGraph.h" />
     <ClInclude Include="..\src\iWidgetGrid.h" />
     <ClInclude Include="..\src\iWidgetGroupBox.h" />
@@ -1308,6 +1308,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iContouringCubes.cpp" />
     <ClCompile Include="..\src\iControl.cpp" />
     <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
+    <ClCompile Include="..\src\iDialog.cpp" />
     <ClCompile Include="..\src\iDialogColorChooser.cpp" />
     <ClCompile Include="..\src\iDialogColorGradient.cpp" />
     <ClCompile Include="..\src\iDialogDecisionBox.cpp" />
@@ -1440,7 +1441,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iWidgetColor.cpp" />
     <ClCompile Include="..\src\iWidgetColorGradient.cpp" />
     <ClCompile Include="..\src\iWidgetDefaultTheme.cpp" />
-    <ClCompile Include="..\src\iWidgetDialog.cpp" />
     <ClCompile Include="..\src\iWidgetGraph.cpp" />
     <ClCompile Include="..\src\iWidgetGrid.cpp" />
     <ClCompile Include="..\src\iWidgetGroupBox.cpp" />

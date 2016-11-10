@@ -4,7 +4,7 @@
 
 #include <iDialogFileSelect.h>
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
@@ -35,7 +35,7 @@ namespace Igor
         deinitGUI();
     }
 
-    iWidgetDialog* iDialogFileSelect::createInstance()
+    iDialog* iDialogFileSelect::createInstance()
     {
         return new iDialogFileSelect();
     }

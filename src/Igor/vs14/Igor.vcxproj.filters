@@ -209,9 +209,6 @@
     <ClCompile Include="..\src\iWidgetCheckBox.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iWidgetDialog.cpp">
-      <Filter>GUI\widgets</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iWidgetGroupBox.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
@@ -659,6 +656,9 @@
     <ClCompile Include="..\src\iDialogColorGradient.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iDialog.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -892,9 +892,6 @@
       <Filter>GUI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetCheckBox.h">
-      <Filter>GUI\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iWidgetDialog.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetGrid.h">
@@ -1379,6 +1376,9 @@
       <Filter>GUI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogColorGradient.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialog.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
   </ItemGroup>

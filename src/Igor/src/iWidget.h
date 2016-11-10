@@ -146,7 +146,7 @@ namespace Igor
 
 		\todo maybe design problem
 		*/
-		friend class iWidgetDialog; 
+		friend class iDialog; 
 
 		/*! has to be friend so it can fake actual size and position for it's children
 		*/

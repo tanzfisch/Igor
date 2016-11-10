@@ -4,7 +4,7 @@
 
 #include <iWidgetManager.h>
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetGroupBox.h>
@@ -38,7 +38,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetDialog* iWidgetManager::_modal = nullptr;
+    iDialog* iWidgetManager::_modal = nullptr;
 
     iWidgetManager::iWidgetManager()
     {
@@ -58,7 +58,7 @@ namespace Igor
         registerWidgetType("Spacer", iInstanciateWidgetDelegate(iWidgetSpacer::createInstance));
         registerWidgetType("TextEdit", iInstanciateWidgetDelegate(iWidgetTextEdit::createInstance));
 
-        registerDialogType("Dialog", iInstanciateDialogDelegate(iWidgetDialog::createInstance));
+        registerDialogType("Dialog", iInstanciateDialogDelegate(iDialog::createInstance));
         registerDialogType("ColorChooser", iInstanciateDialogDelegate(iDialogColorChooser::createInstance));
         registerDialogType("DecisionBox", iInstanciateDialogDelegate(iDialogDecisionBox::createInstance));
         registerDialogType("FileSelect", iInstanciateDialogDelegate(iDialogFileSelect::createInstance));
@@ -88,12 +88,12 @@ namespace Igor
         _widgets.clear();
     }
 
-    bool iWidgetManager::isModal(iWidgetDialog* dialog)
+    bool iWidgetManager::isModal(iDialog* dialog)
     {
         return (_modal == dialog) ? true : false;
     }
 
-    void iWidgetManager::setModal(iWidgetDialog* dialog)
+    void iWidgetManager::setModal(iDialog* dialog)
     {
         con_assert(_modal == nullptr, "an other dialog is alsready modal");
 
@@ -107,7 +107,7 @@ namespace Igor
         }
     }
 
-    iWidgetDialog* iWidgetManager::getModal()
+    iDialog* iWidgetManager::getModal()
     {
         return _modal;
     }
@@ -142,7 +142,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -177,7 +177,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -212,7 +212,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -247,7 +247,7 @@ namespace Igor
         bool foundModal = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -276,7 +276,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -310,7 +310,7 @@ namespace Igor
         bool foundModal = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -472,9 +472,9 @@ namespace Igor
         }
     }
 
-    iWidgetDialog* iWidgetManager::createDialog(const iaString& type)
+    iDialog* iWidgetManager::createDialog(const iaString& type)
     {
-        iWidgetDialog* result = nullptr;
+        iDialog* result = nullptr;
 
         uint64 key = type.getHashValue();
         auto iter = _dialogTypes.find(key);
@@ -497,7 +497,7 @@ namespace Igor
         return result;
     }
 
-    void iWidgetManager::destroyDialog(iWidgetDialog* dialog)
+    void iWidgetManager::destroyDialog(iDialog* dialog)
     {
         con_assert(dialog != nullptr, "zero pointer");
 
@@ -569,7 +569,7 @@ namespace Igor
         _toDeleteWidgets.push_back(widget);
     }
 
-    iWidgetDialog* iWidgetManager::getDialog(uint64 id)
+    iDialog* iWidgetManager::getDialog(uint64 id)
     {
         auto iter = _dialogs.find(id);
 
