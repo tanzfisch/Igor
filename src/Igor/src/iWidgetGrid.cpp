@@ -868,9 +868,9 @@ namespace Igor
         uint32 rowCount = static_cast<uint32>(_widgetRows.size());
         uint32 columnCount = static_cast<uint32>(_widgetRows[0]._widgetCollumn.size());
         bool removed = false;
-        for (uint32 x = 0; x < columnCount, removed == false; ++x)
+        for (uint32 x = 0; x < columnCount && removed == false; ++x)
         {
-            for (uint32 y = 0; y < rowCount, removed == false; y++)
+            for (uint32 y = 0; y < rowCount && removed == false; y++)
             {
                 iWidget* temp = iWidgetManager::getInstance().getWidget(_widgetRows[y]._widgetCollumn[x]._widgetID);
 

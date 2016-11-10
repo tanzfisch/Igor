@@ -17,27 +17,124 @@
 namespace Igor
 {
 
-    iUserControlColorChooser::iUserControlColorChooser(iColorChooserMode mode)
+    iUserControlColorChooser::iUserControlColorChooser()
     {
-        if (mode == iColorChooserMode::RGBA)
-        {
-            _components = 4;
-        }
-        else if (mode == iColorChooserMode::RGB)
-        {
-            _components = 3;
-        }
-        else
-        {
-            con_err("invalid mode");
-        }
-
         initGUI();
+
+        updateMode();
     }
 
     iUserControlColorChooser::~iUserControlColorChooser()
     {
         deinitGUI();
+    }
+
+    iWidget* iUserControlColorChooser::createInstance()
+    {
+        return new iUserControlColorChooser();
+    }
+
+    void iUserControlColorChooser::setMode(iColorChooserMode mode)
+    {
+        _mode = mode;
+
+        updateMode();
+    }
+
+    iColorChooserMode iUserControlColorChooser::getMode()
+    {
+        return _mode;
+    }
+
+    void iUserControlColorChooser::updateMode()
+    {
+        if (_mode == iColorChooserMode::RGBA)
+        {
+            if (!_labelA->hasParent())
+            {
+                _collapsedGrid->addWidget(_labelA, 6, 0);
+            }
+            
+            if (!_valueChooserA->hasParent())
+            {
+                _collapsedGrid->addWidget(_valueChooserA, 7, 0);
+            }
+
+            if (_colorViewCollapsed->hasParent())
+            {
+                _collapsedGrid->removeWidget(_colorViewCollapsed);
+            }
+         
+            _collapsedGrid->addWidget(_colorViewCollapsed, 8, 0);
+
+            if (_collapsedSpacer->hasParent())
+            {
+                _collapsedGrid->removeWidget(_collapsedSpacer);
+            }
+
+            if (_colorViewCollapsed->hasParent())
+            {
+                _collapsedGrid->removeWidget(_colorViewCollapsed);
+            }
+        }
+        else
+        {
+            if (_labelA->hasParent())
+            {
+                _collapsedGrid->removeWidget(_labelA);
+            }
+
+            if (_valueChooserA->hasParent())
+            {
+                _collapsedGrid->removeWidget(_valueChooserA);
+            }
+
+            if (!_collapsedSpacer->hasParent())
+            {
+                _collapsedGrid->addWidget(_collapsedSpacer, 6, 0);
+            }
+
+            if (!_colorViewCollapsed->hasParent())
+            {
+                _collapsedGrid->addWidget(_colorViewCollapsed, 7, 0);
+            }
+        }
+
+
+        if (_mode == iColorChooserMode::RGBA)
+        {
+            if (!_labelAExpanded->hasParent())
+            {
+                _expandedSliderGrid->addWidget(_labelAExpanded, 0, 6);
+            }
+
+            if (!_sliderA->hasParent())
+            {
+                _expandedSliderGrid->addWidget(_sliderA, 1, 6);
+            }
+
+            if (!_valueChooserAExpanded->hasParent())
+            {
+                _expandedSliderGrid->addWidget(_valueChooserAExpanded, 2, 6);
+            }
+        }
+        else
+        {
+            if (_labelAExpanded->hasParent())
+            {
+                _expandedSliderGrid->removeWidget(_labelAExpanded);
+            }
+
+            if (_sliderA->hasParent())
+            {
+                _expandedSliderGrid->removeWidget(_sliderA);
+            }
+
+            if (_valueChooserAExpanded->hasParent())
+            {
+                _expandedSliderGrid->removeWidget(_valueChooserAExpanded);
+            }
+        }
     }
 
     void iUserControlColorChooser::onExpandButtonPressed(iWidget* source)
@@ -140,6 +237,8 @@ namespace Igor
         _labelGExpanded = createLabel("G");
         _labelBExpanded = createLabel("B");
         _labelAExpanded = createLabel("A");
+
+        addWidget(_grid);
 
         _headlineGrid->addWidget(_expandButton, 0, 0);
         _headlineGrid->addWidget(_titleLabel, 1, 0);
@@ -351,7 +450,7 @@ namespace Igor
         _colorRGBA._g = _valueChooserG->getValue() / 255.0f;
         _colorRGBA._b = _valueChooserB->getValue() / 255.0f;
 
-        if (_components == 4)
+        if (_mode == iColorChooserMode::RGBA)
         {
             _colorRGBA._a = _valueChooserA->getValue() / 255.0f;
         }
@@ -428,7 +527,7 @@ namespace Igor
         _expandedSliderGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid")); 
         _allWidgets.push_back(_expandedSliderGrid);
         _expandedSliderGrid->appendCollumns(2);
-        _expandedSliderGrid->appendRows(_components + 3);
+        _expandedSliderGrid->appendRows(7);
         _expandedSliderGrid->setBorder(0);
         _expandedSliderGrid->setCellSpacing(4);
         _expandedSliderGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -455,10 +554,6 @@ namespace Igor
         _expandedSliderGrid->addWidget(_labelGExpanded, 0, 4);
         _expandedSliderGrid->addWidget(_labelBExpanded, 0, 5);
 
-        if (_components == 4)
-        {
-            _expandedSliderGrid->addWidget(_labelAExpanded, 0, 6);
-        }
 
         _expandedSliderGrid->addWidget(_sliderH, 1, 0);
         _expandedSliderGrid->addWidget(_sliderS, 1, 1);
@@ -467,22 +562,12 @@ namespace Igor
         _expandedSliderGrid->addWidget(_sliderG, 1, 4);
         _expandedSliderGrid->addWidget(_sliderB, 1, 5);
 
-        if (_components == 4)
-        {
-            _expandedSliderGrid->addWidget(_sliderA, 1, 6);
-        }
-
         _expandedSliderGrid->addWidget(_valueChooserH, 2, 0);
         _expandedSliderGrid->addWidget(_valueChooserS, 2, 1);
         _expandedSliderGrid->addWidget(_valueChooserV, 2, 2);
         _expandedSliderGrid->addWidget(_valueChooserRExpanded, 2, 3);
         _expandedSliderGrid->addWidget(_valueChooserGExpanded, 2, 4);
         _expandedSliderGrid->addWidget(_valueChooserBExpanded, 2, 5);
-
-        if (_components == 4)
-        {
-            _expandedSliderGrid->addWidget(_valueChooserAExpanded, 2, 6);
-        }
 
         _expandedGrid->addWidget(_expandedSliderGrid, 0, 0);
         _expandedGrid->addWidget(_colorViewExpanded, 0, 1);
@@ -494,7 +579,7 @@ namespace Igor
         _allWidgets.push_back(_collapsedGrid);
         _collapsedGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
         _collapsedGrid->setVerticalAlignment(iVerticalAlignment::Top);
-        _collapsedGrid->appendCollumns(_components == 4 ? 8 : 7);
+        _collapsedGrid->appendCollumns(8);
         _collapsedGrid->setCellSpacing(4);
 
         _collapsedSpacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
@@ -513,18 +598,6 @@ namespace Igor
         _collapsedGrid->addWidget(_valueChooserG, 3, 0);
         _collapsedGrid->addWidget(_labelB, 4, 0);
         _collapsedGrid->addWidget(_valueChooserB, 5, 0);
-
-        if (_components == 4)
-        {
-            _collapsedGrid->addWidget(_labelA, 6, 0);
-            _collapsedGrid->addWidget(_valueChooserA, 7, 0);
-            _collapsedGrid->addWidget(_colorViewCollapsed, 8, 0);
-        }
-        else
-        {
-            _collapsedGrid->addWidget(_collapsedSpacer, 6, 0);
-            _collapsedGrid->addWidget(_colorViewCollapsed, 7, 0);
-        }
     }
 
     void iUserControlColorChooser::deinitGUI()
@@ -564,11 +637,6 @@ namespace Igor
     const iaString& iUserControlColorChooser::getText() const
     {
         return _text;
-    }
-
-    iWidget* iUserControlColorChooser::getWidget()
-    {
-        return _grid;
     }
 
     const iaColor4f& iUserControlColorChooser::getColor() const

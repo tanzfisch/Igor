@@ -452,19 +452,23 @@ void UserControlParticleSystem::initGUI()
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textureChooser0 = new iUserControlFileChooser();
+    _textureChooser0 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _allWidgets.push_back(_textureChooser0);
     _textureChooser0->setPreselectedPath("..\\data\\textures");
     _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser1 = new iUserControlFileChooser();
+    _textureChooser1 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _allWidgets.push_back(_textureChooser1);
     _textureChooser1->setPreselectedPath("..\\data\\textures");
     _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser2 = new iUserControlFileChooser();
+    _textureChooser2 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _allWidgets.push_back(_textureChooser2);
     _textureChooser2->setPreselectedPath("..\\data\\textures");
     _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser3 = new iUserControlFileChooser();
+    _textureChooser3 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _allWidgets.push_back(_textureChooser3);
     _textureChooser3->setPreselectedPath("..\\data\\textures");
     _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -509,7 +513,7 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(_materialSelection, 1, 0);
 
     gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 1);
-    gridAppearanceProperties->addWidget(_textureChooser0->getWidget(), 1, 1);
+    gridAppearanceProperties->addWidget(_textureChooser0, 1, 1);
 
     gridAppearanceProperties->addWidget(labelHorizontalTiling, 0, 2);
     gridAppearanceProperties->addWidget(_tilingHorizontalChooser, 1, 2);
@@ -518,13 +522,13 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(_tilingVerticalChooser, 1, 3);
 
     gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 4);
-    gridAppearanceProperties->addWidget(_textureChooser1->getWidget(), 1, 4);
+    gridAppearanceProperties->addWidget(_textureChooser1, 1, 4);
 
     gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 5);
-    gridAppearanceProperties->addWidget(_textureChooser2->getWidget(), 1, 5);
+    gridAppearanceProperties->addWidget(_textureChooser2, 1, 5);
 
     gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 6);
-    gridAppearanceProperties->addWidget(_textureChooser3->getWidget(), 1, 6);
+    gridAppearanceProperties->addWidget(_textureChooser3, 1, 6);
 
     gridAppearanceProperties->addWidget(labelVelocityOriented, 0, 7);
     gridAppearanceProperties->addWidget(_velocityOrientedCheckBox, 1, 7);

@@ -29,7 +29,7 @@
 #ifndef __iUSERCONTROL__
 #define __iUSERCONTROL__
 
-#include <iDefines.h>
+#include <iWidget.h>
 
 namespace Igor
 {
@@ -38,22 +38,28 @@ namespace Igor
 
     /*! use control base class
 
-    mostly used to combine some of the standard widgets to apear as one
-
-    \todo get rid of user control or derive from iWidget
+    mostly used as a container to combine some of the standard widgets to apear as one
     */
-    class Igor_API iUserControl
+    class Igor_API iUserControl : public iWidget
     {
 
     public:
 
-        /*! \returns root widget that is supposed to be integrated in a bigger form
-        */
-        virtual iWidget* getWidget() = 0;
-
         /*! does nothing
         */
         iUserControl() = default;
+
+        /*! does nothing
+        */
+        virtual ~iUserControl() = default;
+
+    private:
+
+        /*! updates size based on widgets content
+
+        all widgets have to derive from this
+        */
+        void calcMinSize();
 
     };
 

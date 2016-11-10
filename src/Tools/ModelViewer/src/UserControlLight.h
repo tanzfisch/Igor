@@ -60,6 +60,8 @@ public:
 
 private:
 
+    vector<iWidget*> _allWidgets;
+
     iWidgetGrid* _grid = nullptr;
 
     iUserControlColorChooser* _ambientColorChooser = nullptr;
