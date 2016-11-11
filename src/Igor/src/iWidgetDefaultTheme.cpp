@@ -183,6 +183,14 @@ namespace Igor
         drawLine(posx + width - 1, posy + 1, posx + width - 1, posy + height - 1);
     }
 
+    void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        drawButtonFrame(posx, posy, width, height, color, state, active);
+
+        DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
+    }
+
     void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
     {
         const int32 reduction = 2;
@@ -685,6 +693,54 @@ namespace Igor
         case iWidgetAppearanceState::DoubleClicked:
             diffuse = _lightDiffuse;
 
+        case iWidgetAppearanceState::Standby:
+        default:
+            iRenderer::getInstance().setColor(diffuse);
+            iRenderer::getInstance().drawRectangle(x, y, width, height);
+
+            iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+            iRenderer::getInstance().setColor(_specular);
+            drawLine(x, y, width + x, y);
+            drawLine(x, y, x, height + y);
+
+            iRenderer::getInstance().setColor(_ambient);
+            drawLine(x, height + y, width + x, height + y);
+            drawLine(width + x, y, width + x, height + y);
+        };
+    }
+
+    void iWidgetDefaultTheme::drawButtonFrame(int32 x, int32 y, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+
+        iaColor4f diffuse = color;
+        if (!active)
+        {
+            diffuse = color;
+            diffuse._r *= 0.7;
+            diffuse._g *= 0.7;
+            diffuse._b *= 0.7;
+        }
+
+        switch (state)
+        {
+        case iWidgetAppearanceState::Pressed:
+            iRenderer::getInstance().setColor(diffuse);
+            iRenderer::getInstance().drawRectangle(x, y, width, height);
+
+            iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+            iRenderer::getInstance().setColor(_ambient);
+            drawLine(x, y, width + x, y);
+            drawLine(x, y, x, height + y);
+
+            iRenderer::getInstance().setColor(_specular);
+            drawLine(width + x, y, width + x, height + y);
+            drawLine(x, height + y, width + x, height + y);
+            break;
+
+        case iWidgetAppearanceState::Highlighted:
+        case iWidgetAppearanceState::Clicked:
+        case iWidgetAppearanceState::DoubleClicked:
         case iWidgetAppearanceState::Standby:
         default:
             iRenderer::getInstance().setColor(diffuse);

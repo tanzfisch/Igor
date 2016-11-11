@@ -16,18 +16,18 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetColorGradient::iWidgetColorGradient()
-	{
-		_configuredWidth = 60;
-		_configuredHeight = 20;
+    iWidgetColorGradient::iWidgetColorGradient()
+    {
+        _configuredWidth = 60;
+        _configuredHeight = 20;
         _reactOnMouseWheel = false;
 
-		setHorizontalAlignment(iHorizontalAlignment::Center);
-		setVerticalAlignment(iVerticalAlignment::Center);
+        setHorizontalAlignment(iHorizontalAlignment::Center);
+        setVerticalAlignment(iVerticalAlignment::Center);
 
         _texture = iTextureResourceFactory::getInstance().loadFile("special\\checker.png");
         _gradient.setValue(0.0, iaColor4f(1, 1, 1, 1));
-	}
+    }
 
     iWidgetColorGradient::~iWidgetColorGradient()
     {
@@ -39,10 +39,20 @@ namespace Igor
         return new iWidgetColorGradient();
     }
 
-	void iWidgetColorGradient::calcMinSize()
-	{
+    void iWidgetColorGradient::setInteractive(bool interactive)
+    {
+        _interactive = interactive;
+    }
+
+    bool iWidgetColorGradient::isInteractive()
+    {
+        return _interactive;
+    }
+
+    void iWidgetColorGradient::calcMinSize()
+    {
         setMinSize(0, 0);
-	}
+    }
 
     void iWidgetColorGradient::setGradient(const iGradientColor4f& gradient)
     {
@@ -64,14 +74,42 @@ namespace Igor
         return _useAlpha;
     }
 
-	void iWidgetColorGradient::draw()
-	{
-		if (isVisible())
-		{
-            iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture);
-            iWidgetManager::getInstance().getTheme()->drawGradient(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _gradient);
-            iWidgetManager::getInstance().getTheme()->drawRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
-		}
-	}
+    void iWidgetColorGradient::draw()
+    {
+        if (isVisible())
+        {
+            iRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+
+            if (_interactive)
+            {
+                gradientRect._x += 5;
+                gradientRect._width -= 10;
+                gradientRect._height *= 0.5;
+            }
+
+            iWidgetManager::getInstance().getTheme()->drawTiledRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _texture);
+            iWidgetManager::getInstance().getTheme()->drawGradient(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _gradient);
+            iWidgetManager::getInstance().getTheme()->drawRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height);
+
+            if (_interactive)
+            {
+                const vector<pair<float, iaColor4f>> gradient = _gradient.getValues();
+
+                iRectanglei buttonRect(0, 0, 0, 0);
+                buttonRect._height = getActualHeight() - gradientRect._height - 1;
+                buttonRect._width = 9;
+                buttonRect._y = gradientRect._height + gradientRect._y + 1;
+
+                iaColor4f color;
+
+                for (auto entry : gradient)
+                {
+                    _gradient.getValue(entry.first, color);
+                    buttonRect._x = (entry.first * gradientRect._width) + gradientRect._x - 4;
+                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, color, iWidgetAppearanceState::Standby, isActive());
+                }
+            }
+        }
+    }
 
 }

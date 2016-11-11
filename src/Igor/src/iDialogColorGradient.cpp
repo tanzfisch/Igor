@@ -65,36 +65,12 @@ namespace Igor
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_grid);
-        _grid->appendRows(2);
+        _grid->appendRows(3);
+        _grid->setStrechRow(2);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _grid->setVerticalAlignment(iVerticalAlignment::Strech);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
-
-        iWidgetGrid* centerGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _allWidgets.push_back(centerGrid);
-        centerGrid->appendRows(1);
-        centerGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        centerGrid->setVerticalAlignment(iVerticalAlignment::Strech);
-
-        // used to fake a margin left and right
-        iWidgetGrid* gradientMarginGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _allWidgets.push_back(gradientMarginGrid);
-        gradientMarginGrid->appendCollumns(2);
-        gradientMarginGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        gradientMarginGrid->setVerticalAlignment(iVerticalAlignment::Strech);
-
-        iWidgetSpacer* spacerLeft = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
-        _allWidgets.push_back(spacerLeft);
-        spacerLeft->setVisible(true);
-        spacerLeft->setWidth(5);
-        spacerLeft->setHeight(1);
-
-        iWidgetSpacer* spacerRight = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
-        _allWidgets.push_back(spacerRight);
-        spacerRight->setVisible(true);
-        spacerRight->setWidth(5);
-        spacerRight->setHeight(1);
 
         iWidgetLabel* headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         _allWidgets.push_back(headerLabel);
@@ -106,6 +82,14 @@ namespace Igor
         _gradientWidget->setGradient(gradient);
         _gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _gradientWidget->setVerticalAlignment(iVerticalAlignment::Strech);
+        _gradientWidget->setUseAlpha(useAlpha);
+        _gradientWidget->setInteractive();
+        _gradientWidget->setHeight(40);
+
+        iWidgetGrid* controlGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _allWidgets.push_back(controlGrid);
+        controlGrid->appendCollumns(4);
+        controlGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 
         iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(buttonGrid);
@@ -130,15 +114,9 @@ namespace Igor
         addWidget(_grid);
 
         _grid->addWidget(headerLabel, 0, 0);
-        _grid->addWidget(centerGrid, 0, 1);
-        _grid->addWidget(buttonGrid, 0, 2);
-
-        centerGrid->addWidget(gradientMarginGrid, 0, 0);
-        //gradientGrid->addWidget(TODO, 0, 1);
-
-        gradientMarginGrid->addWidget(spacerLeft, 0, 0);
-        gradientMarginGrid->addWidget(_gradientWidget, 1, 0);
-        gradientMarginGrid->addWidget(spacerRight, 2, 0);
+        _grid->addWidget(_gradientWidget, 0, 1);
+        _grid->addWidget(controlGrid, 0, 2);
+        _grid->addWidget(buttonGrid, 0, 3);
 
         buttonGrid->addWidget(resetButton, 0, 0);
         buttonGrid->addWidget(cancelButton, 1, 0);

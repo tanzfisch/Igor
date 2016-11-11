@@ -70,6 +70,7 @@ namespace Igor
         void drawDialog(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active);
         void drawSpacer(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active);
         void drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active);
+        void drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active);
         void drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, bool headerOnly, const iaString& text, iWidgetAppearanceState state, bool active);
         void drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, bool checked, iWidgetAppearanceState state, bool active);
         void drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, long textWidth, iWidgetAppearanceState state, bool active);
@@ -122,7 +123,8 @@ namespace Igor
 
         void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
 
-		void drawButtonFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active);
+        void drawButtonFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active);
+		void drawButtonFrame(int32 x, int32 y, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active);
 		void drawButtonText(int32 posx, int32 posy, const iaString& text);
 		void drawCheckBoxFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active);
 		void drawCheckBox(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active, bool checked);

@@ -72,6 +72,16 @@ namespace Igor
         */
         bool isUsingAlpha() const;
 
+        /*! sets the interactive feature
+
+        \param interactive if true gradient will be interactive
+        */
+        void setInteractive(bool interactive = true);
+
+        /*! \returns true if gradient is interactive
+        */
+        bool isInteractive();
+
 	private:
 
         /*! color gradient
@@ -81,6 +91,10 @@ namespace Igor
         /*! flag if alpha is displayed
         */
         bool _useAlpha = true;
+
+        /*! flag if gradient is interactive
+        */
+        bool _interactive = false;
 
         /*! shared pointer to background texture
         */
