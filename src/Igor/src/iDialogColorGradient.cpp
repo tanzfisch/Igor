@@ -69,7 +69,7 @@ namespace Igor
             iWidgetManager::setModal(this);
             setActive();
             setVisible();
-            setWidth(400);
+            setWidth(350);
             setHeight(100);
 
             _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
@@ -85,6 +85,12 @@ namespace Igor
             _allWidgets.push_back(headerLabel);
             headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
             headerLabel->setText("Edit Gradient");
+
+            iWidgetGroupBox* groupBoxGradient = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+            _allWidgets.push_back(groupBoxGradient);
+            groupBoxGradient->setText("Gradient");
+            groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
+            groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
 
             _gradientWidget = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
             _allWidgets.push_back(_gradientWidget);
@@ -105,7 +111,7 @@ namespace Igor
 
             iWidgetGrid* controlGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
             _allWidgets.push_back(controlGrid);
-            controlGrid->appendRows(4);
+            controlGrid->appendRows(3);
             controlGrid->setHorizontalAlignment(iHorizontalAlignment::Left);
 
             iWidgetGrid* positionGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
@@ -132,14 +138,15 @@ namespace Igor
 
             iWidgetButton* delButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
             _allWidgets.push_back(delButton);
-            delButton->setText("Delete Current Color");
+            delButton->setText("Delete Color");
             delButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onDelete));
-            delButton->setHorizontalAlignment(iHorizontalAlignment::Left);
+            delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
 
             _colorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser"));
             _allWidgets.push_back(_colorChooser);
             _colorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
-            _colorChooser->setText("Color");
+            _colorChooser->setExpand();
+            _colorChooser->setHeadlineVisible(false);
             _colorChooser->setColor(_gradient.getValues()[0].second);
             _colorChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
             _colorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &iDialogColorGradient::onColorChanged));
@@ -169,9 +176,11 @@ namespace Igor
             addWidget(_grid);
 
             _grid->addWidget(headerLabel, 0, 0);
-            _grid->addWidget(_gradientWidget, 0, 1);
+            _grid->addWidget(groupBoxGradient, 0, 1);
             _grid->addWidget(groupBox, 0, 2);
             _grid->addWidget(buttonGrid, 0, 3);
+
+            groupBoxGradient->addWidget(_gradientWidget);
 
             groupBox->addWidget(controlGrid);
 
@@ -279,7 +288,7 @@ namespace Igor
 
     void iDialogColorGradient::onDelete(iWidget* source)
     {
-        if (_gradient.getValues().size() > 0)
+        if (_gradient.getValues().size() > 1)
         {
             _gradient.removeIndex(_selectedColor);
 

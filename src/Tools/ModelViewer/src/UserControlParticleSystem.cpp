@@ -78,6 +78,7 @@ void UserControlParticleSystem::updateNode()
             node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
             node->setVortexApperanceRate(_vorticityAppearanceRateChooser->getValue());
             node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
+            node->setColorGradient(_colorGradient->getGradient());
         }
     }
 }
@@ -147,6 +148,10 @@ void UserControlParticleSystem::updateGUI()
         _vorticityAppearanceRateChooser->setValue(node->getVortexApperanceRate());
         _tilingHorizontalChooser->setValue(node->getFirstTextureColumns());
         _tilingVerticalChooser->setValue(node->getFirstTextureRows());
+
+        iGradientColor4f gradient;
+        node->getColorGradient(gradient);
+        _colorGradient->setGradient(gradient);
     }
 
     _ignoreNodeUpdate = false;
@@ -383,15 +388,7 @@ void UserControlParticleSystem::initGUI()
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
-    _allWidgets.push_back(_colorGradient);
-    iGradientColor4f rainbow;
-    rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
-    rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
-    rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
-    rainbow.setValue(0.6f, iaColor4f(0, 1, 0, 0.6));
-    rainbow.setValue(0.8f, iaColor4f(1, 1, 0, 0.8));
-    rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
-    _colorGradient->setGradient(rainbow);
+    _allWidgets.push_back(_colorGradient);    
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
 
@@ -546,6 +543,7 @@ void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradi
     if (ok)
     {
         _colorGradient->setGradient(gradient);
+        updateNode();
     }
 }
 
