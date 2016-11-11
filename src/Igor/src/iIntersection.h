@@ -26,75 +26,35 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __INTERACTION2D__
-#define __INTERACTION2D__
+#ifndef __INTERSECTION__
+#define __INTERSECTION__
 
-#include <Mathematics.h>
+#include <iRectangle.h>
 
-namespace Intersection2D
+#include <iaVector2.h>
+using namespace IgorAux;
+
+namespace Igor
 {
-	// POINT
-	template <class T> class Point
-	{
-		public:
 
-			iaVector2<T> pos;
-	};
+    // TODO read http://noonat.github.io/intersect/
 
-	typedef Point<float32> Pointf;
-	typedef Point<double> Pointd;
-
-	// SHAPE
-	template <class T> class Shape
-	{
-		public:
-
-			vector<iaVector2<T>> positions;
-	};
-
-	typedef Shape<float32> Shapef;
-	typedef Shape<double> Shaped;
-
-	// RECTANGLE
-	template <class T> class Rectangle
-	{
-		public:
-
-			T x;
-			T y;
-			T width;
-			T height;
-
-			Rectangle()
-			{
-				x = (T)0;
-				y = (T)0;
-				width = (T)0;
-				height = (T)0;
-			}
-			
-	};
-
-	typedef Rectangle<float32> Rectanglef;
-	typedef Rectangle<double> Rectangled;
-	typedef Rectangle<int> Rectanglei;
-	typedef Rectangle<long> Rectanglel;
-
-	// INTERSECTIONS
-	template<typename T>
-	bool intersection(Point<T> point, Shape<T> shape)
+    class Igor_API iIntersection
     {
-		int i, j;
-		bool result = false;
-		for (i = 0, j = shape.positions.size()-1; i < shape.positions.size(); j = i++)
-		{
-			if ((((shape.positions[i].y <= point.pos.y) && (point.pos.y < shape.positions[j].y)) ||
-				((shape.positions[j].y <= point.pos.y) && (point.pos.y < shape.positions[i].y))) &&
-				(point.pos.x < (shape.positions[j].x - shape.positions[i].x) * (point.pos.y - shape.positions[i].y) / (shape.positions[j].y - shape.positions[i].y) + shape.positions[i].x))
-					result = !result;
-		}
-		return result;
-    }
+
+    public:
+        /*! intersection test between rectangle and point
+
+        \param rectangle the rectangle to test
+        \param point the point to test
+        \returns true if intersecting
+        */
+        template< typename T>
+        static bool isIntersecting(iRectangle<T> rectangle, iaVector2<T> point);
+
+    };
+
+    #include <iIntersection.inl>
 
 };
 

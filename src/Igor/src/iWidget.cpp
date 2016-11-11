@@ -472,7 +472,20 @@ namespace Igor
 				_isMouseOver = false;
 			}
 		}
+
+        _lastMouseX = x;
+        _lastMouseY = y;
 	}
+
+    int32 iWidget::getLastMouseX()
+    {
+        return _lastMouseX;
+    }
+
+    int32 iWidget::getLastMouseY()
+    {
+        return _lastMouseY;
+    }
 
 	iHorizontalAlignment iWidget::getHorizontalAlignment()
 	{

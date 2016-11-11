@@ -39,15 +39,15 @@ namespace Igor
 
     \todo check if frustum planes are percise
     */
-	template <class T> 
-	class Igor_API_Template iFrustum
-	{
+    template <class T>
+    class Igor_API_Template iFrustum
+    {
 
-	public:
+    public:
 
         /*! left plane of frustum
         */
-		iPlane<T> _leftPlane;
+        iPlane<T> _leftPlane;
 
         /*! right plane of frustum
         */
@@ -75,23 +75,23 @@ namespace Igor
 
         \param viewProjection projection matrix
         */
-		void set(iaMatrix<T>& viewProjection);
+        void set(iaMatrix<T>& viewProjection);
 
         /*! does nothing
         */
-		iFrustum() = default;
+        iFrustum() = default;
 
         /*! does nothing
         */
         virtual ~iFrustum() = default;
 
-	};
+    };
 
-	#include <iFrustum.inl>
+    #include <iFrustum.inl>
 
     /*! float32 specialization of iFrustum
     */
-	typedef iFrustum<float32> iFrustumf;
+    typedef iFrustum<float32> iFrustumf;
 
     /*! float64 specialization of iFrustum
     */

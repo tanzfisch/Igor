@@ -408,6 +408,10 @@ namespace Igor
         */
         __IGOR_INLINE__ uint64 getID();
 
+        /*! \returns id of parenting widget
+        */
+        __IGOR_INLINE__ uint64 getParentID();
+
         /*! \returns true if has parent
         */
         __IGOR_INLINE__ bool hasParent();
@@ -618,6 +622,16 @@ namespace Igor
 		*/
 		virtual ~iWidget();
 
+    protected:
+
+        /*! \returns last horrizontal mouse position
+        */
+        int32 getLastMouseX();
+
+        /*! \returns last vertical mouse position
+        */
+        int32 getLastMouseY();
+
 	private:
 
         /*! min size to make also children fit in
@@ -671,6 +685,14 @@ namespace Igor
 		/*! grow by content flag
 		*/
 		bool _growsByContent = true;
+
+        /*! last horrizontal mouse position
+        */
+        int32 _lastMouseX = 0;
+
+        /*! last vertical mouse position
+        */
+        int32 _lastMouseY = 0;
 
         /*! here you get the next id from
         */

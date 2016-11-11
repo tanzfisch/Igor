@@ -705,6 +705,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iGradient.h" />
     <ClInclude Include="..\src\iInstancer.h" />
+    <ClInclude Include="..\src\iIntersection.h" />
     <ClInclude Include="..\src\iJoint.h" />
     <ClInclude Include="..\src\iKeyboard.h" />
     <ClInclude Include="..\src\iKeyCodeMap.h" />
@@ -743,12 +744,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iNodeVisitorUpdateTransform.h" />
     <ClInclude Include="..\src\iNodeVolume.h" />
     <ClInclude Include="..\src\iNodeWater.h" />
-    <ClInclude Include="..\src\Intersection2D.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\src\iOctree.h" />
     <ClInclude Include="..\src\iOSEvent.h" />
     <ClInclude Include="..\src\iOSEventListener.h" />
@@ -914,6 +909,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <None Include="..\src\iFrustum.inl" />
     <None Include="..\src\iGradient.inl" />
     <None Include="..\src\iInstancer.inl" />
+    <None Include="..\src\iIntersection.inl" />
     <None Include="..\src\iMesh.inl" />
     <None Include="..\src\iMeshBuffers.inl" />
     <None Include="..\src\iPerlinNoise.inl" />

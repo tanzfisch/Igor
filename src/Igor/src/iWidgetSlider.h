@@ -203,14 +203,6 @@ namespace Igor
 
 	private:
 
-        /*! last known horizontal mouse position
-        */
-        int32 _mouseX = 0;
-
-        /*! last known vertical mouse position
-        */
-        int32 _mouseY = 0;
-
         /*! ctor initializes member variables
         */
         iWidgetSlider();

@@ -20,8 +20,6 @@ namespace Igor
     iUserControlColorChooser::iUserControlColorChooser()
     {
         initGUI();
-
-        updateMode();
     }
 
     iUserControlColorChooser::~iUserControlColorChooser()
@@ -36,9 +34,11 @@ namespace Igor
 
     void iUserControlColorChooser::setMode(iColorChooserMode mode)
     {
-        _mode = mode;
-
-        updateMode();
+        if (_mode != mode)
+        {
+            _mode = mode;
+            updateMode();
+        }
     }
 
     iColorChooserMode iUserControlColorChooser::getMode()
@@ -50,90 +50,39 @@ namespace Igor
     {
         if (_mode == iColorChooserMode::RGBA)
         {
-            if (!_labelA->hasParent())
-            {
-                _collapsedGrid->addWidget(_labelA, 6, 0);
-            }
+            _valueChooserA->setActive(true);
+            _valueChooserA->setVisible(true);
+            _labelA->setActive(true);
+            _labelA->setVisible(true);
+
+            _valueChooserAExpanded->setActive(true);
+            _valueChooserAExpanded->setVisible(true);
+            _labelAExpanded->setActive(true);
+            _labelAExpanded->setVisible(true);
+            _sliderA->setActive(true);
+            _sliderA->setVisible(true);
             
-            if (!_valueChooserA->hasParent())
-            {
-                _collapsedGrid->addWidget(_valueChooserA, 7, 0);
-            }
-
-            if (_colorViewCollapsed->hasParent())
-            {
-                _collapsedGrid->removeWidget(_colorViewCollapsed);
-            }
-         
-            _collapsedGrid->addWidget(_colorViewCollapsed, 8, 0);
-
-            if (_collapsedSpacer->hasParent())
-            {
-                _collapsedGrid->removeWidget(_collapsedSpacer);
-            }
-
-            if (_colorViewCollapsed->hasParent())
-            {
-                _collapsedGrid->removeWidget(_colorViewCollapsed);
-            }
+            _expandedSliderGrid->addWidget(_labelAExpanded, 0, 6);
+            _expandedSliderGrid->addWidget(_sliderA, 1, 6);
+            _expandedSliderGrid->addWidget(_valueChooserAExpanded, 2, 6);
         }
         else
         {
-            if (_labelA->hasParent())
-            {
-                _collapsedGrid->removeWidget(_labelA);
-            }
+            _valueChooserA->setActive(false);
+            _valueChooserA->setVisible(false);
+            _labelA->setActive(false);
+            _labelA->setVisible(false);
 
-            if (_valueChooserA->hasParent())
-            {
-                _collapsedGrid->removeWidget(_valueChooserA);
-            }
+            _valueChooserAExpanded->setActive(false);
+            _valueChooserAExpanded->setVisible(false);
+            _labelAExpanded->setActive(false);
+            _labelAExpanded->setVisible(false);
+            _sliderA->setActive(false);
+            _sliderA->setVisible(false);
 
-            if (!_collapsedSpacer->hasParent())
-            {
-                _collapsedGrid->addWidget(_collapsedSpacer, 6, 0);
-            }
-
-            if (!_colorViewCollapsed->hasParent())
-            {
-                _collapsedGrid->addWidget(_colorViewCollapsed, 7, 0);
-            }
-        }
-
-
-        if (_mode == iColorChooserMode::RGBA)
-        {
-            if (!_labelAExpanded->hasParent())
-            {
-                _expandedSliderGrid->addWidget(_labelAExpanded, 0, 6);
-            }
-
-            if (!_sliderA->hasParent())
-            {
-                _expandedSliderGrid->addWidget(_sliderA, 1, 6);
-            }
-
-            if (!_valueChooserAExpanded->hasParent())
-            {
-                _expandedSliderGrid->addWidget(_valueChooserAExpanded, 2, 6);
-            }
-        }
-        else
-        {
-            if (_labelAExpanded->hasParent())
-            {
-                _expandedSliderGrid->removeWidget(_labelAExpanded);
-            }
-
-            if (_sliderA->hasParent())
-            {
-                _expandedSliderGrid->removeWidget(_sliderA);
-            }
-
-            if (_valueChooserAExpanded->hasParent())
-            {
-                _expandedSliderGrid->removeWidget(_valueChooserAExpanded);
-            }
+            _expandedSliderGrid->removeWidget(_valueChooserAExpanded);
+            _expandedSliderGrid->removeWidget(_labelAExpanded);
+            _expandedSliderGrid->removeWidget(_sliderA);
         }
     }
 
@@ -247,7 +196,7 @@ namespace Igor
         {
             _grid->addWidget(_headlineGrid, 0, 0);
         }
-        
+
         initExpanded();
         initCollapsed();
 
@@ -524,7 +473,7 @@ namespace Igor
         _expandedGrid->setCellSpacing(4);
         _expandedGrid->appendRows(1);
 
-        _expandedSliderGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid")); 
+        _expandedSliderGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_expandedSliderGrid);
         _expandedSliderGrid->appendCollumns(2);
         _expandedSliderGrid->appendRows(7);
@@ -546,14 +495,14 @@ namespace Igor
         _colorViewExpanded->setWidth(54);
         _colorViewExpanded->setHorizontalAlignment(iHorizontalAlignment::Right);
         _colorViewExpanded->setHeight(21);
-        
+
         _expandedSliderGrid->addWidget(_labelH, 0, 0);
         _expandedSliderGrid->addWidget(_labelS, 0, 1);
         _expandedSliderGrid->addWidget(_labelV, 0, 2);
         _expandedSliderGrid->addWidget(_labelRExpanded, 0, 3);
         _expandedSliderGrid->addWidget(_labelGExpanded, 0, 4);
         _expandedSliderGrid->addWidget(_labelBExpanded, 0, 5);
-
+        _expandedSliderGrid->addWidget(_labelAExpanded, 0, 6);
 
         _expandedSliderGrid->addWidget(_sliderH, 1, 0);
         _expandedSliderGrid->addWidget(_sliderS, 1, 1);
@@ -561,6 +510,7 @@ namespace Igor
         _expandedSliderGrid->addWidget(_sliderR, 1, 3);
         _expandedSliderGrid->addWidget(_sliderG, 1, 4);
         _expandedSliderGrid->addWidget(_sliderB, 1, 5);
+        _expandedSliderGrid->addWidget(_sliderA, 1, 6);
 
         _expandedSliderGrid->addWidget(_valueChooserH, 2, 0);
         _expandedSliderGrid->addWidget(_valueChooserS, 2, 1);
@@ -568,6 +518,7 @@ namespace Igor
         _expandedSliderGrid->addWidget(_valueChooserRExpanded, 2, 3);
         _expandedSliderGrid->addWidget(_valueChooserGExpanded, 2, 4);
         _expandedSliderGrid->addWidget(_valueChooserBExpanded, 2, 5);
+        _expandedSliderGrid->addWidget(_valueChooserAExpanded, 2, 6);
 
         _expandedGrid->addWidget(_expandedSliderGrid, 0, 0);
         _expandedGrid->addWidget(_colorViewExpanded, 0, 1);
@@ -591,13 +542,17 @@ namespace Igor
         _allWidgets.push_back(_colorViewCollapsed);
         _colorViewCollapsed->setWidth(54);
         _colorViewCollapsed->setHeight(21);
-        
+
         _collapsedGrid->addWidget(_labelR, 0, 0);
         _collapsedGrid->addWidget(_valueChooserR, 1, 0);
         _collapsedGrid->addWidget(_labelG, 2, 0);
         _collapsedGrid->addWidget(_valueChooserG, 3, 0);
         _collapsedGrid->addWidget(_labelB, 4, 0);
         _collapsedGrid->addWidget(_valueChooserB, 5, 0);
+
+        _collapsedGrid->addWidget(_labelA, 6, 0);
+        _collapsedGrid->addWidget(_valueChooserA, 7, 0);
+        _collapsedGrid->addWidget(_colorViewCollapsed, 8, 0);
     }
 
     void iUserControlColorChooser::deinitGUI()
@@ -643,7 +598,7 @@ namespace Igor
     {
         return _colorRGBA;
     }
-    
+
     void iUserControlColorChooser::setColor(const iaColor4f& color)
     {
         _colorRGBA = color;
@@ -651,6 +606,6 @@ namespace Igor
         updateWidgets();
     }
 
-    
+
 
 }

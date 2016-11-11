@@ -40,6 +40,14 @@ namespace Igor
 
     class iTexture;
 
+    /*! selection changed event
+    */
+    iaEVENT(iColorGradientSelectionChangedEvent, iColorGradientSelectionChangedDelegate, void, (int32 index), (index));
+
+    /*! color created/added event
+    */
+    iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f& color), (at, color));
+
     /*! color view widget
 
     Example:
@@ -82,6 +90,30 @@ namespace Igor
         */
         bool isInteractive();
 
+        /*! registers delegate to selection changed event
+
+        \param delegate the delegate to register
+        */
+        void registerOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate delegate);
+
+        /*! unregisters delegate from seleciton changed event
+
+        \param delegate the delegate to unregister
+        */
+        void unregisterOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate delegate);
+
+        /*! registers delegate to color created event
+
+        \param delegate the delegate to register
+        */
+        void registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate);
+
+        /*! unregisters delegate from color created event
+
+        \param delegate the delegate to unregister
+        */
+        void unregisterOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate);
+
 	private:
 
         /*! color gradient
@@ -99,6 +131,21 @@ namespace Igor
         /*! shared pointer to background texture
         */
         shared_ptr<iTexture> _texture = nullptr;
+
+        /*! selection changed event
+        */
+        iColorGradientSelectionChangedEvent _selectionChanged;
+
+        /*! color created event
+        */
+        iColorGradientColorCreatedEvent _colorCreated;
+
+        /*! handles incomming mouse key down events
+
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool handleMouseKeyDown(iKeyCode key);
 
         /*! updates size based on it's content
         */

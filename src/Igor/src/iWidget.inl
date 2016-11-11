@@ -7,6 +7,18 @@ uint64 iWidget::getID()
     return _id;
 }
 
+uint64 iWidget::getParentID()
+{
+    if (_parent != nullptr)
+    {
+        return _parent->_id;
+    }
+    else
+    {
+        return iWidget::INVALID_WIDGET_ID;
+    }
+}
+
 bool iWidget::hasKeyboardFocus()
 {
     return (_keyboardFocus == this) ? true : false;

@@ -36,6 +36,34 @@ void iGradient<T>::setValue(float at, const T& value)
 }
 
 template <class T>
+void iGradient<T>::removeIndex(int32 index)
+{
+    if (index < _values.size())
+    {
+        _values.erase(_values.begin() + index);
+    }
+}
+
+template <class T>
+void iGradient<T>::setValueAtIndex(int32 index, const T& value)
+{
+    if (index < _values.size())
+    {
+        _values[index] = pair<float, T>(_values[index].first, value);
+    }
+}
+
+template <class T>
+void iGradient<T>::getValueAtIndex(int32 index, float& at, T& value)
+{
+    if (index < _values.size())
+    {
+        at = _values[index].first;
+        value = _values[index].second;
+    }
+}
+
+template <class T>
 const vector<pair<float, T>>& iGradient<T>::getValues() const
 {
     return _values;

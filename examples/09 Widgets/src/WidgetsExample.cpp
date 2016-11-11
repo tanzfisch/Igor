@@ -432,7 +432,7 @@ void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
         _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("ColorGradient"));
     }
 
-    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), true);
+    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
 }
 
 
