@@ -113,7 +113,7 @@ namespace Igor
         {
             gradient.getValue(static_cast<float32>(i) / static_cast<float32>(width), color);
             iRenderer::getInstance().setColor(color);
-            iRenderer::getInstance().drawLine(posx + i + 0.5, posy, posx + i + 0.5, posy + height);
+            iRenderer::getInstance().drawLine(posx + i + 0.5, posy + 0.5, posx + i + 0.5, posy + height + 0.5);
         }
     }
 

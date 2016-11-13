@@ -86,6 +86,9 @@ private:
     iWidgetNumberChooser* _vorticityAppearanceRateChooser = nullptr;
     iWidgetNumberChooser* _tilingVerticalChooser = nullptr;
     iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
+
+    /*! color 
+    */
     iWidgetColorGradient* _colorGradient = nullptr;
 
     iDialogColorGradient* _colorGradientDialog = nullptr;
