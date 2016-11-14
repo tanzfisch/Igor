@@ -264,6 +264,11 @@ namespace Igor
         }
     }
 
+    int32 iWidgetGraph::getGraphCount() const
+    {
+        return static_cast<int32>(_graphs.size());
+    }
+
     void iWidgetGraph::setGridResolution(uint32 x, uint32 y)
     {
         con_assert(x >= 2 && y >= 2, "invalid parameters");

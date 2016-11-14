@@ -92,7 +92,7 @@ namespace Igor
             groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
             groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
 
-            _gradientWidget = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
+            _gradientWidget = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("DialogColorGradient"));
             _allWidgets.push_back(_gradientWidget);
             _gradientWidget->setGradient(_gradient);
             _gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -142,7 +142,7 @@ namespace Igor
             delButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorGradient::onDelete));
             delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-            _colorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser"));
+            _colorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser"));
             _allWidgets.push_back(_colorChooser);
             _colorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
             _colorChooser->setExpand();

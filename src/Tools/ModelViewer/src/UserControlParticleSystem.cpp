@@ -27,6 +27,7 @@
 #include <iWidgetColorGradient.h>
 #include <iDialogColorGradient.h>
 #include <iWidgetGraph.h>
+#include <iDialogGraph.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -443,7 +444,7 @@ void UserControlParticleSystem::initGUI()
     labelColorGradient->setWidth(MV_REGULARBUTTON_SIZE);
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
+    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("DialogColorGradient"));
     _allWidgets.push_back(_colorGradient);    
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
@@ -475,7 +476,7 @@ void UserControlParticleSystem::initGUI()
     _scaleSizeGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
     _allWidgets.push_back(_scaleSizeGraph);
     _scaleSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
+    _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenScaleSizeGradientEditor));
     _scaleSizeGraph->setViewFrame();
     _scaleSizeGraph->setExtrapolateData();
     _scaleSizeGraph->setViewGrid();
@@ -556,22 +557,22 @@ void UserControlParticleSystem::initGUI()
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textureChooser0 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser0 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser0);
     _textureChooser0->setPreselectedPath("..\\data\\textures");
     _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser1 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser1 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser1);
     _textureChooser1->setPreselectedPath("..\\data\\textures");
     _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser2 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser2 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser2);
     _textureChooser2->setPreselectedPath("..\\data\\textures");
     _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser3 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser3 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser3);
     _textureChooser3->setPreselectedPath("..\\data\\textures");
     _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
@@ -649,9 +650,55 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(labelVisibilityGradient, 0, 11);
     gridAppearanceProperties->addWidget(_visibilityGraph, 1, 11);
 
-    _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("ColorGradient"));
+    _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
+    _dialogGraph = static_cast<iDialogGraph*>(iWidgetManager::getInstance().createDialog("DialogGraph"));
 
     updateNode();
+}
+
+void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _startSizeGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _startSizeGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->setConfigurationXAxis(0.0f, 100.0f, 0.1f); // todo max should depend on particle lifetime 
+    _dialogGraph->setConfigurationYAxis(0.0f, 100.0f, 0.1f);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartSizeGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        //_colorGradient->setGradient(gradient);
+        //updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _scaleSizeGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _scaleSizeGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseScaleSizeGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        //_colorGradient->setGradient(gradient);
+        //updateNode();
+    }
 }
 
 void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient)
@@ -668,10 +715,8 @@ void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
 
 }
 
-void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
-{
-    // TODO
-}
+
+
 
 void UserControlParticleSystem::onOpenColorGradientEditor(iWidget* source)
 {
@@ -756,6 +801,18 @@ void UserControlParticleSystem::deinitGUI()
     _buttonStart = nullptr;
     _buttonStop = nullptr;
     _buttonReset = nullptr;
+
+    if (_colorGradientDialog != nullptr)
+    {
+        iWidgetManager::getInstance().destroyDialog(_colorGradientDialog);
+        _colorGradientDialog = nullptr;
+    }
+
+    if (_dialogGraph != nullptr)
+    {
+        iWidgetManager::getInstance().destroyDialog(_dialogGraph);
+        _dialogGraph = nullptr;
+    }
 }
 
 iWidget* UserControlParticleSystem::getWidget()

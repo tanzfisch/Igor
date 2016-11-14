@@ -89,19 +89,19 @@ void UserControlLight::initGUI()
     _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
-    _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser"));
+    _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser"));
     _allWidgets.push_back(_ambientColorChooser);
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onAmbientChange));
 
-    _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser")); 
+    _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
     _allWidgets.push_back(_diffuseColorChooser);
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlLight::onDiffuseChange));
 
-    _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser")); 
+    _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
     _allWidgets.push_back(_specularColorChooser);
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");

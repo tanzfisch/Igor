@@ -45,6 +45,8 @@ namespace Igor
         _sizeScaleGradient.setValue(0.0, 1.0);
 
         _startSizeGradient.setValue(0.0, iaVector2f(1.0, 1.2));
+        _startSizeGradient.setValue(1.0, iaVector2f(1.5, 1.7));
+        _startSizeGradient.setValue(2.0, iaVector2f(0.9, 1.1));
 
         _startVelocityGradient.setValue(0.0, iaVector2f(0.01, 0.02));
 

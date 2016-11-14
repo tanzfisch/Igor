@@ -29,6 +29,7 @@
 #include <iDialogMenu.h>
 #include <iDialogMessageBox.h>
 #include <iDialogColorGradient.h>
+#include <iDialogGraph.h>
 
 #include <iUserControlColorChooser.h>
 #include <iUserControlFileChooser.h>
@@ -48,7 +49,7 @@ namespace Igor
         registerWidgetType("Button", iInstanciateWidgetDelegate(iWidgetButton::createInstance));
         registerWidgetType("CheckBox", iInstanciateWidgetDelegate(iWidgetCheckBox::createInstance));
         registerWidgetType("Color", iInstanciateWidgetDelegate(iWidgetColor::createInstance));
-        registerWidgetType("ColorGradient", iInstanciateWidgetDelegate(iWidgetColorGradient::createInstance));
+        registerWidgetType("DialogColorGradient", iInstanciateWidgetDelegate(iWidgetColorGradient::createInstance));
         registerWidgetType("Graph", iInstanciateWidgetDelegate(iWidgetGraph::createInstance));
         registerWidgetType("Grid", iInstanciateWidgetDelegate(iWidgetGrid::createInstance));
         registerWidgetType("GroupBox", iInstanciateWidgetDelegate(iWidgetGroupBox::createInstance));
@@ -62,15 +63,16 @@ namespace Igor
         registerWidgetType("TextEdit", iInstanciateWidgetDelegate(iWidgetTextEdit::createInstance));
 
         registerDialogType("Dialog", iInstanciateDialogDelegate(iDialog::createInstance));
-        registerDialogType("ColorChooser", iInstanciateDialogDelegate(iDialogColorChooser::createInstance));
-        registerDialogType("DecisionBox", iInstanciateDialogDelegate(iDialogDecisionBox::createInstance));
-        registerDialogType("FileSelect", iInstanciateDialogDelegate(iDialogFileSelect::createInstance));
-        registerDialogType("Menu", iInstanciateDialogDelegate(iDialogMenu::createInstance));
-        registerDialogType("MessageBox", iInstanciateDialogDelegate(iDialogMessageBox::createInstance));
-        registerDialogType("ColorGradient", iInstanciateDialogDelegate(iDialogColorGradient::createInstance));
+        registerDialogType("DialogColorChooser", iInstanciateDialogDelegate(iDialogColorChooser::createInstance));
+        registerDialogType("DialogDecisionBox", iInstanciateDialogDelegate(iDialogDecisionBox::createInstance));
+        registerDialogType("DialogFileSelect", iInstanciateDialogDelegate(iDialogFileSelect::createInstance));
+        registerDialogType("DialogMenu", iInstanciateDialogDelegate(iDialogMenu::createInstance));
+        registerDialogType("DialogMessageBox", iInstanciateDialogDelegate(iDialogMessageBox::createInstance));
+        registerDialogType("DialogColorGradient", iInstanciateDialogDelegate(iDialogColorGradient::createInstance));
+        registerDialogType("DialogGraph", iInstanciateDialogDelegate(iDialogGraph::createInstance));
 
-        registerWidgetType("ColorChooser", iInstanciateWidgetDelegate(iUserControlColorChooser::createInstance));
-        registerWidgetType("FileChooser", iInstanciateWidgetDelegate(iUserControlFileChooser::createInstance));
+        registerWidgetType("UserControlColorChooser", iInstanciateWidgetDelegate(iUserControlColorChooser::createInstance));
+        registerWidgetType("UserControlFileChooser", iInstanciateWidgetDelegate(iUserControlFileChooser::createInstance));
 
         registerHandles();
     }

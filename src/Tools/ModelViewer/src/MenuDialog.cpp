@@ -41,7 +41,7 @@ iDialog* MenuDialog::createInstance()
 
 void MenuDialog::initGUI()
 {
-    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("MessageBox"));
+    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
 
 	setWidth(350);
 	setHorizontalAlignment(iHorizontalAlignment::Left);
@@ -626,7 +626,7 @@ void MenuDialog::onAddModel(uint32 addAt)
 {
 	if (_decisionBoxModelRef == nullptr)
 	{
-		_decisionBoxModelRef = static_cast<iDialogDecisionBox*>(iWidgetManager::getInstance().createDialog("DecisionBox"));
+		_decisionBoxModelRef = static_cast<iDialogDecisionBox*>(iWidgetManager::getInstance().createDialog("DialogDecisionBox"));
 	}
 
 	_decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &MenuDialog::onAddModelDecision), { "embedded", "as reference" }, 0);

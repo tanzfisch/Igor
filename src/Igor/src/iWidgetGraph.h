@@ -226,6 +226,10 @@ namespace Igor
         */
         bool getViewLabels() const;
 
+        /*! \returns count of graphs
+        */
+        int32 getGraphCount() const;        
+
 	private:
 
         /*! dirty flag if graph data was changed

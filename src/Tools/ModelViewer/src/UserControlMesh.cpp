@@ -239,25 +239,25 @@ void UserControlMesh::initGUI()
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser"));
+    _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser"));
     _allWidgets.push_back(_ambientColorChooser);
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onAmbientChange));
 
-    _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser")); 
+    _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
     _allWidgets.push_back(_diffuseColorChooser);
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onDiffuseChange));
 
-    _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser")); 
+    _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
     _allWidgets.push_back(_specularColorChooser);
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
     _specularColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onSpecularChange));
 
-    _emissiveColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("ColorChooser")); 
+    _emissiveColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
     _allWidgets.push_back(_emissiveColorChooser);
     _emissiveColorChooser->setMode(iColorChooserMode::RGB);
     _emissiveColorChooser->setText("Emissive");
@@ -378,22 +378,22 @@ void UserControlMesh::initGUI()
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textureChooser0 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser0 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser0);
     _textureChooser0->setPreselectedPath("..\\data\\textures");
     _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textureChooser1 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser1 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser1);
     _textureChooser1->setPreselectedPath("..\\data\\textures");
     _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textureChooser2 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser2 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser2);
     _textureChooser2->setPreselectedPath("..\\data\\textures");
     _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textureChooser3 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("FileChooser"));
+    _textureChooser3 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
     _allWidgets.push_back(_textureChooser3);
     _textureChooser3->setPreselectedPath("..\\data\\textures");
     _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));

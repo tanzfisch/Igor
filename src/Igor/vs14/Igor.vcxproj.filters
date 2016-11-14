@@ -659,6 +659,9 @@
     <ClCompile Include="..\src\iUserControl.cpp">
       <Filter>GUI\user controls</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iDialogGraph.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1380,6 +1383,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iIntersection.h">
       <Filter>bodies &amp; shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogGraph.h">
+      <Filter>GUI\dialogs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

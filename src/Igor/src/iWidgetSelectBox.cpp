@@ -121,7 +121,7 @@ namespace Igor
 
                 if (_selectBox == nullptr)
                 {
-                    _selectBox = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("Menu"));
+                    _selectBox = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("DialogMenu"));
                 }
 
                 // TODO insuficcient if select box is within a iWidgetScroll
