@@ -387,11 +387,11 @@ namespace Igor
 
         /*! registers to mouse and keyboard evetns
         */
-        void registerIOEvents();
+        void registerHandles();
 
         /*! unregister from mouse and keyboard evetns
         */
-        void unregisterIOEvents();
+        void unregisterHandles();
 
         /*! init
         */

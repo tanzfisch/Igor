@@ -151,7 +151,7 @@ namespace Igor
             {
                 gradientRect._x += 5;
                 gradientRect._width -= 10;
-                gradientRect._height *= 0.5;
+                gradientRect._height *= 2.0f / 3.0f;
             }
 
             iWidgetManager::getInstance().getTheme()->drawTiledRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _texture);
@@ -172,6 +172,7 @@ namespace Igor
                 for (auto entry : gradient)
                 {
                     _gradient.getValue(entry.first, color);
+                    color._a = 1.0;
                     buttonRect._x = (entry.first * gradientRect._width) + gradientRect._x - 4;
                     iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, color, iWidgetAppearanceState::Standby, isActive());
                 }

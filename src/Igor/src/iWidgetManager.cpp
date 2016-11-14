@@ -72,12 +72,12 @@ namespace Igor
         registerWidgetType("ColorChooser", iInstanciateWidgetDelegate(iUserControlColorChooser::createInstance));
         registerWidgetType("FileChooser", iInstanciateWidgetDelegate(iUserControlFileChooser::createInstance));
 
-        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+        registerHandles();
     }
 
     iWidgetManager::~iWidgetManager()
     {
-        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+        unregisterHandles();
 
         destroyWidgets();
 
@@ -123,7 +123,7 @@ namespace Igor
         _modal = nullptr;
     }
 
-    void iWidgetManager::registerIOEvents()
+    void iWidgetManager::registerHandles()
     {
         iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
         iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
@@ -131,9 +131,11 @@ namespace Igor
         iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
+
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
-    void iWidgetManager::unregisterIOEvents()
+    void iWidgetManager::unregisterHandles()
     {
         iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
         iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
@@ -141,6 +143,8 @@ namespace Igor
         iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
+
+        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
     void iWidgetManager::onMouseKeyDown(iKeyCode key)
@@ -487,11 +491,6 @@ namespace Igor
         con_assert(iter != _dialogTypes.end(), "dialog type not found");
         if (iter != _dialogTypes.end())
         {
-            if (_dialogs.empty())
-            {
-                registerIOEvents();
-            }
-
             result = (*iter).second();
             _dialogs[result->getID()] = result;
         }
@@ -632,11 +631,6 @@ namespace Igor
         }
 
         _toDeleteDialogs.clear();
-
-        if (_dialogs.empty())
-        {
-            unregisterIOEvents();
-        }
     }
 
     void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)

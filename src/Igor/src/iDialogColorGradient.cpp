@@ -99,7 +99,7 @@ namespace Igor
             _gradientWidget->setVerticalAlignment(iVerticalAlignment::Strech);
             _gradientWidget->setUseAlpha(useAlpha);
             _gradientWidget->setInteractive();
-            _gradientWidget->setHeight(40);
+            _gradientWidget->setHeight(60);
             _gradientWidget->registerOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
             _gradientWidget->registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate(this, &iDialogColorGradient::onColorCreated));
 
@@ -309,6 +309,9 @@ namespace Igor
     {
         _gradient = _oldGradient;
         _gradientWidget->setGradient(_gradient);
+
+        _selectedColor = 0;
+        updateSelection();
     }
 
     void iDialogColorGradient::close()

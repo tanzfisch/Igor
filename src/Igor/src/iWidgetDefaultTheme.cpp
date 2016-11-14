@@ -105,15 +105,21 @@ namespace Igor
     void iWidgetDefaultTheme::drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iGradientColor4f& gradient)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().setLineWidth(1);
 
         iaColor4f color;
 
         for (int i = 0; i < width; ++i)
         {
+            float32 posX = static_cast<float32>(posx + i) + 0.5f;
+            float32 halfHeight = static_cast<float32>(height) * 0.5f;
+
             gradient.getValue(static_cast<float32>(i) / static_cast<float32>(width), color);
             iRenderer::getInstance().setColor(color);
-            iRenderer::getInstance().drawLine(posx + i + 0.5, posy + 0.5, posx + i + 0.5, posy + height + 0.5);
+            iRenderer::getInstance().drawLine(posX, static_cast<float32>(posy) + halfHeight + 0.5f, posX, static_cast<float32>(posy+ height) + 0.5);
+            color._a = 1.0;
+            iRenderer::getInstance().setColor(color);
+            iRenderer::getInstance().drawLine(posX, static_cast<float32>(posy) + 0.5f, posX, static_cast<float32>(posy) + halfHeight + 0.5);
         }
     }
 

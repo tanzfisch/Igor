@@ -216,11 +216,25 @@ namespace Igor
         */
         bool getViewFrame() const;
 
+        /*! sets if labels are visible
+
+        \param viewLabels if true labels are visible
+        */
+        void setViewLabels(bool viewLabels = true);
+
+        /*! \returns if labels are visible
+        */
+        bool getViewLabels() const;
+
 	private:
 
         /*! dirty flag if graph data was changed
         */
         bool _dirty = true;
+
+        /*! flag if labels are visible
+        */
+        bool _viewLabels = false;
 
         /*! calculated data boudings
         */

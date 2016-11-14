@@ -26,6 +26,7 @@
 #include <iWidgetGroupBox.h>
 #include <iWidgetColorGradient.h>
 #include <iDialogColorGradient.h>
+#include <iWidgetGraph.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -79,6 +80,8 @@ void UserControlParticleSystem::updateNode()
             node->setVortexApperanceRate(_vorticityAppearanceRateChooser->getValue());
             node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
             node->setColorGradient(_colorGradient->getGradient());
+
+            //node->setStartSizeGradient(_startSizeGraph->get);
         }
     }
 }
@@ -152,9 +155,62 @@ void UserControlParticleSystem::updateGUI()
         iGradientColor4f gradient;
         node->getColorGradient(gradient);
         _colorGradient->setGradient(gradient);
+
+        convertGradientsToUI(node);
     }
 
     _ignoreNodeUpdate = false;
+}
+
+void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
+{
+    // start size
+    iGradientVector2f startSizeGradient;
+    node->getStartSizeGradient(startSizeGradient);
+
+    vector<iaVector2f> minStartSize;
+    vector<iaVector2f> maxStartSize;
+
+    vector<pair<float, iaVector2f>> startSizeValues = startSizeGradient.getValues();
+    for (auto value : startSizeValues)
+    {
+        minStartSize.push_back(iaVector2f(value.first, value.second._x));
+        maxStartSize.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startSizeGraph->setPoints(0, minStartSize);
+    _startSizeGraph->setPoints(1, maxStartSize);
+
+    // scale size
+    iGradientf sizeScaleGradient;
+    node->getSizeScaleGradient(sizeScaleGradient);
+
+    vector<iaVector2f> scaleSize;
+
+    vector<pair<float, float32>> scaleSizeValues = sizeScaleGradient.getValues();
+    for (auto value : scaleSizeValues)
+    {
+        scaleSize.push_back(iaVector2f(value.first, value.second));
+    }
+
+    _scaleSizeGraph->setPoints(0, scaleSize);
+
+    // visibility
+    iGradientVector2f visibilityGradient;
+    node->getStartVisibleTimeGradient(visibilityGradient);
+
+    vector<iaVector2f> minVisibility;
+    vector<iaVector2f> maxVisibility;
+
+    vector<pair<float, iaVector2f>> visibilityValues = visibilityGradient.getValues();
+    for (auto value : visibilityValues)
+    {
+        minVisibility.push_back(iaVector2f(value.first, value.second._x));
+        maxVisibility.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _visibilityGraph->setPoints(0, minVisibility);
+    _visibilityGraph->setPoints(1, maxVisibility);
 }
 
 void UserControlParticleSystem::setNode(uint32 id)
@@ -392,6 +448,57 @@ void UserControlParticleSystem::initGUI()
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
 
+    iWidgetLabel* labelSizeGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelSizeGradient);
+    labelSizeGradient->setText("Size");
+    labelSizeGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelSizeGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelSizeGradient->setVerticalAlignment(iVerticalAlignment::Top);
+    
+    _startSizeGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_startSizeGraph);
+    _startSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
+    _startSizeGraph->setViewFrame();
+    _startSizeGraph->setExtrapolateData();
+    _startSizeGraph->setViewGrid();
+    _startSizeGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _startSizeGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+    iWidgetLabel* labelSizeScaleGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelSizeScaleGradient);
+    labelSizeScaleGradient->setText("Size Scale");
+    labelSizeScaleGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelSizeScaleGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelSizeScaleGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _scaleSizeGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_scaleSizeGraph);
+    _scaleSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
+    _scaleSizeGraph->setViewFrame();
+    _scaleSizeGraph->setExtrapolateData();
+    _scaleSizeGraph->setViewGrid();
+    _scaleSizeGraph->setBoundings(iRectanglef(0, 0, 1, 1));
+    _scaleSizeGraph->setLineColor(0, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
+
+    iWidgetLabel* labelVisibilityGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVisibilityGradient);
+    labelVisibilityGradient->setText("Visibility");
+    labelVisibilityGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVisibilityGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelVisibilityGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _visibilityGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_visibilityGraph);
+    _visibilityGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _visibilityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenVisibilityGradientEditor));
+    _visibilityGraph->setViewFrame();
+    _visibilityGraph->setExtrapolateData();
+    _visibilityGraph->setViewGrid();
+    _visibilityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _visibilityGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
     iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelEmitter);
     labelEmitter->setText("Emitter");
@@ -533,6 +640,15 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(labelColorGradient, 0, 8);
     gridAppearanceProperties->addWidget(_colorGradient, 1, 8);
 
+    gridAppearanceProperties->addWidget(labelSizeGradient, 0, 9);
+    gridAppearanceProperties->addWidget(_startSizeGraph, 1, 9);
+
+    gridAppearanceProperties->addWidget(labelSizeScaleGradient, 0, 10);
+    gridAppearanceProperties->addWidget(_scaleSizeGraph, 1, 10);
+
+    gridAppearanceProperties->addWidget(labelVisibilityGradient, 0, 11);
+    gridAppearanceProperties->addWidget(_visibilityGraph, 1, 11);
+
     _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("ColorGradient"));
 
     updateNode();
@@ -545,6 +661,16 @@ void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradi
         _colorGradient->setGradient(gradient);
         updateNode();
     }
+}
+
+void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
+{
+
+}
+
+void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
+{
+    // TODO
 }
 
 void UserControlParticleSystem::onOpenColorGradientEditor(iWidget* source)

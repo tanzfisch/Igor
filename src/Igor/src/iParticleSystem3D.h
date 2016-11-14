@@ -520,27 +520,28 @@ namespace Igor
         */
         iGradientColor4f _colorGradient;
 
+        /*! min max start sizes of particles
+        */
+        iGradientVector2f _startSizeGradient;
+
+        /*! size modification gradient during particle system lifetime
+        */
+        iGradientf _sizeScaleGradient;
+
+        /*! start visible time gradient
+        */
+        iGradientVector2f _startVisibleTimeGradient;
+
+
         /*! gradient how the torque of vortex particles changes over time
         
         for internal use only
         */
         iGradientf _torqueFactorGradient;
 
-        /*! start visible time gradient
-        */
-        iGradientVector2f _startVisibleTimeGradient;
-
         /*! emission rate gradient during particle system lifetime
         */
         iGradientui _emissionRateGradient;
-
-        /*! size modoification gradient during particle system lifetime
-        */
-        iGradientf _sizeScaleGradient;
-
-        /*! min max start sizes of particles
-        */
-        iGradientVector2f _startSizeGradient;
 
         /*! min max start orientation of particles
         */

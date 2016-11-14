@@ -20,7 +20,7 @@ namespace Igor
     iWidgetGraph::iWidgetGraph()
     {
         _configuredWidth = 100;
-        _configuredHeight = 50;
+        _configuredHeight = 40;
         _reactOnMouseWheel = false;
 
         setHorizontalAlignment(iHorizontalAlignment::Center);
@@ -133,8 +133,28 @@ namespace Igor
             _dataBoundings.setWidth(maxX - minX);
             _dataBoundings.setHeight(maxY - minY);
 
+            if (_dataBoundings.getWidth() <= 0)
+            {
+                _dataBoundings.setWidth(1.0);
+            }
+
+            if (_dataBoundings.getHeight() <= 0)
+            {
+                _dataBoundings.setHeight(1.0);
+            }
+
             _dirty = false;
         }
+    }
+
+    void iWidgetGraph::setViewLabels(bool viewLabels)
+    {
+        _viewLabels = viewLabels;
+    }
+
+    bool iWidgetGraph::getViewLabels() const
+    {
+        return _viewLabels;
     }
 
     void iWidgetGraph::draw()
@@ -154,6 +174,16 @@ namespace Igor
                 boundings = _dataBoundings;
             }
 
+            if (boundings._width < _dataBoundings._width)
+            {
+                boundings._width = _dataBoundings._width;
+            }
+
+            if (boundings._height < _dataBoundings._height)
+            {
+                boundings._height = _dataBoundings._height;
+            }
+
             iRectanglef graphRenderArea;
             graphRenderArea._x = static_cast<float32>(getActualPosX());
             graphRenderArea._y = static_cast<float32>(getActualPosY());
@@ -168,7 +198,7 @@ namespace Igor
                 graphRenderArea._height -= 8;
                 iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
             }
-
+            
             if (_viewGrid)
             {
                 float32 stepX = graphRenderArea._width / (_gridResolution._x - 1);

@@ -48,6 +48,8 @@ namespace Igor
     class iWidgetCheckBox;
     class iWidgetColorGradient;
     class iDialogColorGradient;
+    class iWidgetGraph;
+    class iNodeParticleSystem;
 }
 
 class UserControlParticleSystem : public iUserControl
@@ -86,12 +88,16 @@ private:
     iWidgetNumberChooser* _vorticityAppearanceRateChooser = nullptr;
     iWidgetNumberChooser* _tilingVerticalChooser = nullptr;
     iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
-
     /*! color 
     */
+
     iWidgetColorGradient* _colorGradient = nullptr;
 
     iDialogColorGradient* _colorGradientDialog = nullptr;
+
+    iWidgetGraph* _startSizeGraph = nullptr;
+    iWidgetGraph* _scaleSizeGraph = nullptr;
+    iWidgetGraph* _visibilityGraph = nullptr;
 
     vector<iWidget*> _allWidgets;
 
@@ -109,6 +115,10 @@ private:
 
     void onOpenColorGradientEditor(iWidget* source);
     void onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient);
+
+    void onOpenStartSizeGradientEditor(iWidget* source);
+    void onOpenVisibilityGradientEditor(iWidget* source);
+    void convertGradientsToUI(iNodeParticleSystem* node);
 
     void onStart(iWidget* source);
     void onStop(iWidget* source);
