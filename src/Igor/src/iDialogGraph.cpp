@@ -14,6 +14,7 @@
 #include <iWidgetManager.h>
 #include <iWidgetGraph.h>
 #include <iWidgetNumberChooser.h>
+#include <iWidgetGroupBox.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -31,14 +32,14 @@ namespace Igor
         return new iDialogGraph();
     }
 
-    void iDialogGraph::setConfigurationXAxis(float32 xMin, float32 xMax, float32 xStepping)
+    void iDialogGraph::configureXAxis(float32 xMin, float32 xMax, float32 xStepping)
     {
         _xMin = xMin;
         _xMax = xMax;
         _xStepping = xStepping;
     }
 
-    void iDialogGraph::setConfigurationYAxis(float32 yMin, float32 yMax, float32 yStepping)
+    void iDialogGraph::configureYAxis(float32 yMin, float32 yMax, float32 yStepping)
     {
         _yMin = yMin;
         _yMax = yMax;
@@ -92,28 +93,129 @@ namespace Igor
         iWidgetManager::setModal(this);
         setActive();
         setVisible();
-        setWidth(300);
+        setWidth(420);
         setHeight(20);
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(_grid);
-        _grid->appendRows(3);
+        _grid->appendRows(4);
         _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _grid->setVerticalAlignment(iVerticalAlignment::Strech);
         _grid->setCellSpacing(4);
         _grid->setBorder(4);
 
-        iWidgetLabel* headerLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
-        _allWidgets.push_back(headerLabel);
-        headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
-        headerLabel->setText("Graph Editor");
+        _titleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        _allWidgets.push_back(_titleLabel);
+        _titleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
+        _titleLabel->setText(_title);
+
+        iWidgetGroupBox* groupBoxGradient = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+        _allWidgets.push_back(groupBoxGradient);
+        groupBoxGradient->setText("Gradient");
+        groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
 
         _graph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
         _allWidgets.push_back(_graph);
         _graph->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        _graph->setViewFrame();
+        _graph->setHeight(80);
+        _graph->setInteractive();
         _graph->setExtrapolateData();
         _graph->setViewGrid();
+
+        iWidgetGroupBox* groupBoxSelection = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
+        _allWidgets.push_back(groupBoxSelection);
+        groupBoxSelection->setText("Selected Value");
+        groupBoxSelection->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        groupBoxSelection->setVerticalAlignment(iVerticalAlignment::Strech);
+
+        iWidgetGrid* axisGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+        _allWidgets.push_back(axisGrid);
+        axisGrid->appendRows(_graphs.size() + 1);
+        axisGrid->appendCollumns(1);
+        axisGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        axisGrid->setVerticalAlignment(iVerticalAlignment::Strech);
+        axisGrid->setStrechColumn(1);
+        axisGrid->setCellSpacing(4);
+        axisGrid->setBorder(4);
+
+        iWidgetLabel* labelX = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        _allWidgets.push_back(labelX);
+        labelX->setHorizontalAlignment(iHorizontalAlignment::Left);
+        labelX->setText(_axisNames[0]);
+        labelX->setWidth(100);
+
+        _axisNumberChooser[0] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+        _allWidgets.push_back(_axisNumberChooser[0]);
+        _axisNumberChooser[0]->setMinMaxNumber(_xMin, _xMax);
+        _axisNumberChooser[0]->setStepping(_xStepping, _xStepping);
+        _axisNumberChooser[0]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
+        _axisNumberChooser[0]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _axisNumberChooser[0]->setValue(_graphs[0][0]._x);
+        _axisNumberChooser[0]->setAfterPoint(2);
+
+        axisGrid->addWidget(labelX, 0, 0);
+        axisGrid->addWidget(_axisNumberChooser[0], 1, 0);
+
+        iWidgetLabel* labelY1 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+        _allWidgets.push_back(labelY1);
+        labelY1->setHorizontalAlignment(iHorizontalAlignment::Left);
+        labelY1->setText(_axisNames[1]);
+        labelY1->setWidth(100);
+
+        _axisNumberChooser[1] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+        _allWidgets.push_back(_axisNumberChooser[1]);
+        _axisNumberChooser[1]->setMinMaxNumber(_xMin, _xMax);
+        _axisNumberChooser[1]->setStepping(_xStepping, _xStepping);
+        _axisNumberChooser[1]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
+        _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+        _axisNumberChooser[1]->setValue(_graphs[0][0]._y);
+        _axisNumberChooser[1]->setAfterPoint(2);
+
+        axisGrid->addWidget(labelY1, 0, 1);
+        axisGrid->addWidget(_axisNumberChooser[1], 1, 1);
+
+        if (_graphs.size() > 1)
+        {
+            iWidgetLabel* labelY2 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+            _allWidgets.push_back(labelY2);
+            labelY2->setHorizontalAlignment(iHorizontalAlignment::Left);
+            labelY2->setText(_axisNames[2]);
+            labelY2->setWidth(100);
+
+            _axisNumberChooser[2] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+            _allWidgets.push_back(_axisNumberChooser[2]);
+            _axisNumberChooser[2]->setMinMaxNumber(_xMin, _xMax);
+            _axisNumberChooser[2]->setStepping(_xStepping, _xStepping);
+            _axisNumberChooser[2]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
+            _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+            _axisNumberChooser[2]->setValue(_graphs[1][0]._y);
+            _axisNumberChooser[2]->setAfterPoint(2);
+            
+            axisGrid->addWidget(labelY2, 0, 2);
+            axisGrid->addWidget(_axisNumberChooser[2], 1, 2);
+        }
+
+        if (_graphs.size() > 2)
+        {
+            iWidgetLabel* labelY3 = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+            _allWidgets.push_back(labelY3);
+            labelY3->setHorizontalAlignment(iHorizontalAlignment::Left);
+            labelY3->setText(_axisNames[3]);
+            labelY3->setWidth(100);
+
+            _axisNumberChooser[3] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+            _allWidgets.push_back(_axisNumberChooser[3]);
+            _axisNumberChooser[3]->setMinMaxNumber(_xMin, _xMax);
+            _axisNumberChooser[3]->setStepping(_xStepping, _xStepping);
+            _axisNumberChooser[3]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
+            _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Strech);
+            _axisNumberChooser[3]->setValue(_graphs[2][0]._y);
+            _axisNumberChooser[3]->setAfterPoint(2);
+
+            axisGrid->addWidget(labelY3, 0, 3);
+            axisGrid->addWidget(_axisNumberChooser[3], 1, 3);
+        }
 
         iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(buttonGrid);
@@ -137,16 +239,38 @@ namespace Igor
 
         addWidget(_grid);
 
-        _grid->addWidget(headerLabel, 0, 0);
-        _grid->addWidget(_graph, 0, 1);        
+        _grid->addWidget(_titleLabel, 0, 0);
+        _grid->addWidget(groupBoxGradient, 0, 1);
+        _grid->addWidget(groupBoxSelection, 0, 2);
         _grid->addWidget(buttonGrid, 0, 3);
+
+        groupBoxGradient->addWidget(_graph);
+        groupBoxSelection->addWidget(axisGrid);
 
         buttonGrid->addWidget(resetButton, 0, 0);
         buttonGrid->addWidget(cancelButton, 1, 0);
         buttonGrid->addWidget(okButton, 2, 0);
 
         updateGraph();
-        updateEntries();
+    }
+
+    void iDialogGraph::setAxisName(uint32 index, const iaString& name)
+    {
+        _axisNames[index] = name;
+    }
+    
+    void iDialogGraph::setTitle(const iaString& title)
+    {
+        _title = title;
+        if (_titleLabel != nullptr)
+        {
+            _titleLabel->setText(_title);
+        }
+    }
+
+    iaString iDialogGraph::getTitle() const
+    {
+        return _title;
     }
 
     void iDialogGraph::updateGraph()
@@ -169,92 +293,6 @@ namespace Igor
         {
             _graph->setPoints(i++, graph);
         }
-    }
-
-    void iDialogGraph::updateEntries()
-    {
-        // clear grid 
-        for (auto widget : _dataGridEntryWidgets)
-        {
-            iWidgetManager::getInstance().destroyWidget(widget);
-        }
-        _dataGridEntryWidgets.clear();
-
-        _widgetLocationMatrix.clear();
-
-        // build up grid again
-        _dataGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-        _dataGridEntryWidgets.push_back(_dataGrid);
-        _dataGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        _dataGrid->setVerticalAlignment(iVerticalAlignment::Strech);
-        _dataGrid->setCellSpacing(4);
-        _dataGrid->setBorder(4);
-        _dataGrid->appendRows(_graphs[0].size());
-
-        for (int row = 0; row < _graphs[0].size(); ++row)
-        {
-            iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-            entry->setSelectMode(iSelectionMode::NoSelection);
-            entry->setBorder(0);
-            entry->setCellSpacing(2);
-            entry->appendCollumns(3);
-            entry->setHorizontalAlignment(iHorizontalAlignment::Left);
-            entry->setWidth(330);
-
-            iWidgetNumberChooser* x = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
-            _dataGridEntryWidgets.push_back(x);
-            x->setMinMaxNumber(_xMin, _xMax);
-            x->setStepping(_xStepping, _xStepping);
-            x->setSteppingWheel(_xStepping * 10, _xStepping * 10);
-            x->setValue(_graphs[0][row]._x);
-            x->setAfterPoint(2);
-            x->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphUpdate));
-            _widgetLocationMatrix[x->getID()] = iaVector2i(0, row);
-            entry->addWidget(x, 0, 0);
-
-            iWidgetNumberChooser* y1 = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
-            _dataGridEntryWidgets.push_back(y1);
-            y1->setMinMaxNumber(_yMin, _yMax);
-            y1->setStepping(_yStepping, _yStepping);
-            y1->setSteppingWheel(_yStepping * 10, _yStepping * 10);
-            y1->setValue(_graphs[0][row]._y);
-            y1->setAfterPoint(2);
-            y1->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphUpdate));
-            _widgetLocationMatrix[y1->getID()] = iaVector2i(1, row);
-            entry->addWidget(y1, 1, 0);
-
-            if (_graphs.size() > 1)
-            {
-                iWidgetNumberChooser* y2 = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
-                _dataGridEntryWidgets.push_back(y2);
-                y2->setMinMaxNumber(_yMin, _yMax);
-                y2->setStepping(_yStepping, _yStepping);
-                y2->setSteppingWheel(_yStepping * 10, _yStepping * 10);
-                y2->setValue(_graphs[1][row]._y);
-                y2->setAfterPoint(2);
-                y2->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphUpdate));
-                _widgetLocationMatrix[y2->getID()] = iaVector2i(2, row);
-                entry->addWidget(y2, 2, 0);
-            }
-
-            if (_graphs.size() > 2)
-            {
-                iWidgetNumberChooser* y3 = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
-                _dataGridEntryWidgets.push_back(y3);
-                y3->setMinMaxNumber(_yMin, _yMax);
-                y3->setStepping(_yStepping, _yStepping);
-                y3->setSteppingWheel(_yStepping * 10, _yStepping * 10);
-                y3->setValue(_graphs[2][row]._y);
-                y3->setAfterPoint(2);
-                y3->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphUpdate));
-                _widgetLocationMatrix[y3->getID()] = iaVector2i(3, row);
-                entry->addWidget(y3, 2, 0);
-            }
-
-            _dataGrid->addWidget(entry, 0, row);
-        }
-
-        _grid->addWidget(_dataGrid, 0, 2);
     }
 
     void iDialogGraph::retriveGraphs(vector<vector<iaVector2f>>& graphs)
@@ -317,7 +355,7 @@ namespace Igor
     void iDialogGraph::onReset(iWidget* source)
     {
         _graphs = _oldGraphs;
-        updateEntries();
+        // TODO
     }
 
     void iDialogGraph::close()

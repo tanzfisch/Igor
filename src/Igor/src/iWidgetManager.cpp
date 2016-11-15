@@ -62,6 +62,9 @@ namespace Igor
         registerWidgetType("Spacer", iInstanciateWidgetDelegate(iWidgetSpacer::createInstance));
         registerWidgetType("TextEdit", iInstanciateWidgetDelegate(iWidgetTextEdit::createInstance));
 
+        registerWidgetType("UserControlColorChooser", iInstanciateWidgetDelegate(iUserControlColorChooser::createInstance));
+        registerWidgetType("UserControlFileChooser", iInstanciateWidgetDelegate(iUserControlFileChooser::createInstance));
+
         registerDialogType("Dialog", iInstanciateDialogDelegate(iDialog::createInstance));
         registerDialogType("DialogColorChooser", iInstanciateDialogDelegate(iDialogColorChooser::createInstance));
         registerDialogType("DialogDecisionBox", iInstanciateDialogDelegate(iDialogDecisionBox::createInstance));
@@ -70,9 +73,6 @@ namespace Igor
         registerDialogType("DialogMessageBox", iInstanciateDialogDelegate(iDialogMessageBox::createInstance));
         registerDialogType("DialogColorGradient", iInstanciateDialogDelegate(iDialogColorGradient::createInstance));
         registerDialogType("DialogGraph", iInstanciateDialogDelegate(iDialogGraph::createInstance));
-
-        registerWidgetType("UserControlColorChooser", iInstanciateWidgetDelegate(iUserControlColorChooser::createInstance));
-        registerWidgetType("UserControlFileChooser", iInstanciateWidgetDelegate(iUserControlFileChooser::createInstance));
 
         registerHandles();
     }

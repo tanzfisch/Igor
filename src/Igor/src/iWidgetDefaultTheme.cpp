@@ -524,11 +524,11 @@ namespace Igor
 
             if (active)
             {
-                iRenderer::getInstance().setColor(_darkDiffuse);
+                iRenderer::getInstance().setColor(_ambient);
             }
             else
             {
-                iRenderer::getInstance().setColor(_lightDiffuse);
+                iRenderer::getInstance().setColor(_darkDiffuse);
             }
                 
             iRenderer::getInstance().setLineWidth(lineWidth);
@@ -769,11 +769,11 @@ namespace Igor
 
         if (active)
         {
-            iRenderer::getInstance().setColor(_darkDiffuse);
+            iRenderer::getInstance().setColor(_ambient);
         }
         else
         {
-            iRenderer::getInstance().setColor(_lightDiffuse);
+            iRenderer::getInstance().setColor(_darkDiffuse);
         }
 
         iRenderer::getInstance().setLineWidth(_defaultLineWidth);

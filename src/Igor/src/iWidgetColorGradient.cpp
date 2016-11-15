@@ -143,6 +143,8 @@ namespace Igor
 
     void iWidgetColorGradient::draw()
     {
+        const float32 buttonHeight = 20;
+
         if (isVisible())
         {
             iRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
@@ -151,7 +153,7 @@ namespace Igor
             {
                 gradientRect._x += 5;
                 gradientRect._width -= 10;
-                gradientRect._height *= 2.0f / 3.0f;
+                gradientRect._height -= buttonHeight;
             }
 
             iWidgetManager::getInstance().getTheme()->drawTiledRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _texture);
@@ -163,7 +165,7 @@ namespace Igor
                 const vector<pair<float, iaColor4f>> gradient = _gradient.getValues();
 
                 iRectanglei buttonRect(0, 0, 0, 0);
-                buttonRect._height = getActualHeight() - gradientRect._height - 1;
+                buttonRect._height = buttonHeight;
                 buttonRect._width = 9;
                 buttonRect._y = gradientRect._height + gradientRect._y + 1;
 

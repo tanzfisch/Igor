@@ -32,6 +32,16 @@ namespace Igor
         return new iWidgetGraph();
     }
 
+    void iWidgetGraph::setInteractive(bool interactive)
+    {
+        _interactive = interactive;
+    }
+
+    bool iWidgetGraph::isInteractive()
+    {
+        return _interactive;
+    }
+
     void iWidgetGraph::clear()
     {
         _graphs.clear();
@@ -159,6 +169,8 @@ namespace Igor
 
     void iWidgetGraph::draw()
     {
+        const float32 buttonHeight = 20;
+
         if (isVisible())
         {
             prepareDraw();
@@ -196,7 +208,15 @@ namespace Igor
                 graphRenderArea._y += 4;
                 graphRenderArea._width -= 8;
                 graphRenderArea._height -= 8;
-                iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
+                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+                iWidgetManager::getInstance().getTheme()->drawFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
+            }
+
+            if (_interactive)
+            {
+                graphRenderArea._x += 5;
+                graphRenderArea._width -= 10;
+                graphRenderArea._height -= (buttonHeight + 2);
             }
             
             if (_viewGrid)
@@ -261,7 +281,71 @@ namespace Igor
                         graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
                 }
             }
+
+            if (_interactive)
+            {
+                vector<iaVector2f> points = _graphs[0]._points;
+
+                iRectanglei buttonRect(0, 0, 0, 0);
+                buttonRect._height = buttonHeight;
+                buttonRect._width = 9;
+                buttonRect._y = graphRenderArea._height + graphRenderArea._y + 1;
+
+                iaColor4f color;
+
+                for (auto point : points)
+                {
+                    buttonRect._x = ((point._x / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4;
+                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetAppearanceState::Standby, isActive());
+                }
+            }
         }
+    }
+
+    bool iWidgetGraph::handleMouseKeyDown(iKeyCode key)
+    {
+     /*   iaVector2i mousePos(getLastMouseX(), getLastMouseY());
+
+        if (_interactive)
+        {
+            iRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+            gradientRect._x += 5;
+            gradientRect._width -= 10;
+            gradientRect._height /= 2;
+
+            const vector<pair<float, iaColor4f>> gradient = _gradient.getValues();
+
+            iRectanglei buttonRect(0, 0, 0, 0);
+            buttonRect._height = getActualHeight() - gradientRect._height - 1;
+            buttonRect._width = 9;
+            buttonRect._y = gradientRect._height + gradientRect._y + 1;
+
+            iaColor4f color;
+            int index = 0;
+
+            for (auto entry : gradient)
+            {
+                buttonRect._x = (entry.first * gradientRect._width) + gradientRect._x - 4;
+
+                if (iIntersection::isIntersecting(buttonRect, mousePos))
+                {
+                    _selectionChanged(index);
+                    _change(this);
+                }
+
+                index++;
+            }
+
+            if (iIntersection::isIntersecting(gradientRect, mousePos))
+            {
+                float32 value = (static_cast<float32>(mousePos._x - gradientRect._x) / static_cast<float32>(gradientRect._width));
+                iaColor4f color;
+                _gradient.getValue(value, color);
+                _colorCreated(value, color);
+            }
+        }*/
+
+        return iWidget::handleMouseKeyDown(key);
     }
 
     int32 iWidgetGraph::getGraphCount() const

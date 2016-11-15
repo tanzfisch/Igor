@@ -665,8 +665,12 @@ void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
         graphs.push_back(temp);
     }
 
-    _dialogGraph->setConfigurationXAxis(0.0f, 100.0f, 0.1f); // todo max should depend on particle lifetime 
-    _dialogGraph->setConfigurationYAxis(0.0f, 100.0f, 0.1f);
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.1f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.1f);
+    _dialogGraph->setTitle("Edit Start Size Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
 
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartSizeGradientEditor), graphs);
 }

@@ -228,9 +228,23 @@ namespace Igor
 
         /*! \returns count of graphs
         */
-        int32 getGraphCount() const;        
+        int32 getGraphCount() const;
+
+        /*! sets the interactive feature
+
+        \param interactive if true graph will be interactive
+        */
+        void setInteractive(bool interactive = true);
+
+        /*! \returns true if graph is interactive
+        */
+        bool isInteractive();
 
 	private:
+
+        /*! flag if graph is interactive
+        */
+        bool _interactive = false;
 
         /*! dirty flag if graph data was changed
         */
@@ -283,6 +297,13 @@ namespace Igor
 		/*! draws the widget
 		*/
 		void draw();
+
+        /*! handles incomming mouse key down events
+
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool handleMouseKeyDown(iKeyCode key);
 
         /*! ctor initializes member variables
         */

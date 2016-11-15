@@ -42,6 +42,7 @@ namespace Igor
     class iWidgetGrid;
     class iWidgetButton;
     class iWidgetGraph;
+    class iWidgetLabel;
 
     /*! event triggered when color chooser was closed
     */
@@ -64,10 +65,50 @@ namespace Igor
         */
         void show(iDialogGraphCloseDelegate closeDelegate, const vector<vector<iaVector2f>>& graphs);
 
-        void setConfigurationXAxis(float32 xMin, float32 xMax, float32 xStepping);
-        void setConfigurationYAxis(float32 yMin, float32 yMax, float32 yStepping);
+        /*! configures x axis
+
+        \param xMin minimum value on x axis
+        \param xMax maximum value on x axis
+        \param xStepping the number chooser stepping for the x axis
+        */
+        void configureXAxis(float32 xMin, float32 xMax, float32 xStepping);
+
+        /*! configures y axis
+
+        \param yMin minimum value on y axis
+        \param yMax maximum value on y axis
+        \param yStepping the number chooser stepping for the y axis
+        */
+        void configureYAxis(float32 yMin, float32 yMax, float32 yStepping);
+
+        /*! sets dialog title
+
+        \param title the new title
+        */
+        void setTitle(const iaString& title);
+
+        /*! \returns dialog title
+        */
+        iaString getTitle() const;
+
+        /*! set name of axis
+
+        \param index axis index
+        \param name name of axis
+        */
+        void setAxisName(uint32 index, const iaString& name);
 
     private:
+
+        /*! dialog title
+        */
+        iaString _title;
+
+        /*! axis names
+        */
+        map<uint32, iaString> _axisNames;
+
+        map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
 
         /*! the close event
         */
@@ -80,6 +121,10 @@ namespace Igor
         /*! current graphs
         */
         vector<vector<iaVector2f>> _graphs;
+
+        /*! title label
+        */
+        iWidgetLabel* _titleLabel = nullptr;
 
         /*! min value on x axis
         */
@@ -108,9 +153,7 @@ namespace Igor
         /*! root widget
         */
         iWidgetGrid* _grid = nullptr;
-
-        iWidgetGrid* _dataGrid = nullptr;
-
+        
         /*! all widgets
         */
         vector<iWidget*> _allWidgets;
@@ -142,9 +185,6 @@ namespace Igor
         void onGraphUpdate(iWidget* source);
         void onFullUpdate(iWidget* source);
 
-        /*! updates gui with current graph data
-        */
-        void updateEntries();
         void updateGraph();
 
         void retriveGraphs(vector<vector<iaVector2f>>& graphs);
