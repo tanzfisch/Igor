@@ -170,9 +170,9 @@ namespace Igor
 
         _axisNumberChooser[1] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
         _allWidgets.push_back(_axisNumberChooser[1]);
-        _axisNumberChooser[1]->setMinMaxNumber(_xMin, _xMax);
-        _axisNumberChooser[1]->setStepping(_xStepping, _xStepping);
-        _axisNumberChooser[1]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
+        _axisNumberChooser[1]->setMinMaxNumber(_yMin, _yMax);
+        _axisNumberChooser[1]->setStepping(_yStepping, _yStepping);
+        _axisNumberChooser[1]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
         _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _axisNumberChooser[1]->setValue(_graphs[0][0]._y);
         _axisNumberChooser[1]->setAfterPoint(2);
@@ -191,9 +191,9 @@ namespace Igor
 
             _axisNumberChooser[2] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
             _allWidgets.push_back(_axisNumberChooser[2]);
-            _axisNumberChooser[2]->setMinMaxNumber(_xMin, _xMax);
-            _axisNumberChooser[2]->setStepping(_xStepping, _xStepping);
-            _axisNumberChooser[2]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
+            _axisNumberChooser[2]->setMinMaxNumber(_yMin, _yMax);
+            _axisNumberChooser[2]->setStepping(_yStepping, _yStepping);
+            _axisNumberChooser[2]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
             _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Strech);
             _axisNumberChooser[2]->setValue(_graphs[1][0]._y);
             _axisNumberChooser[2]->setAfterPoint(2);
@@ -213,9 +213,9 @@ namespace Igor
 
             _axisNumberChooser[3] = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
             _allWidgets.push_back(_axisNumberChooser[3]);
-            _axisNumberChooser[3]->setMinMaxNumber(_xMin, _xMax);
-            _axisNumberChooser[3]->setStepping(_xStepping, _xStepping);
-            _axisNumberChooser[3]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
+            _axisNumberChooser[3]->setMinMaxNumber(_yMin, _yMax);
+            _axisNumberChooser[3]->setStepping(_yStepping, _yStepping);
+            _axisNumberChooser[3]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
             _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Strech);
             _axisNumberChooser[3]->setValue(_graphs[2][0]._y);
             _axisNumberChooser[3]->setAfterPoint(2);

@@ -103,6 +103,14 @@ void UserControlParticleSystem::updateNode()
                 startVisibilityGradient.setValue(_visibilityGraph->getPoints(0)[i]._x, iaVector2f(_visibilityGraph->getPoints(0)[i]._y, _visibilityGraph->getPoints(1)[i]._y));
             }
             node->setStartVisibleTimeGradient(startVisibilityGradient);
+
+            iGradientVector2f orientationGradient;
+            for (int i = 0; i < _orientationGraph->getPoints(0).size(); ++i)
+            {
+                orientationGradient.setValue(_orientationGraph->getPoints(0)[i]._x, 
+                    iaVector2f(_orientationGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationGraph->getPoints(1)[i]._y / 180.0f * M_PI));
+            }
+            node->setStartOrientationGradient(orientationGradient);
         }
     }
 }
@@ -229,6 +237,23 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
 
     _visibilityGraph->setPoints(0, minVisibility);
     _visibilityGraph->setPoints(1, maxVisibility);
+
+    // start orientation
+    iGradientVector2f startOrientationGradient;
+    node->getStartOrientationGradient(startOrientationGradient);
+
+    vector<iaVector2f> minStartOrientation;
+    vector<iaVector2f> maxStartOrientation;
+
+    vector<pair<float, iaVector2f>> startOrientationValues = startOrientationGradient.getValues();
+    for (auto value : startOrientationValues)
+    {
+        minStartOrientation.push_back(iaVector2f(value.first, value.second._x));
+        maxStartOrientation.push_back(iaVector2f(value.first, value.second._y * 180.0f / M_PI));
+    }
+
+    _orientationGraph->setPoints(0, minStartOrientation);
+    _orientationGraph->setPoints(1, maxStartOrientation);
 }
 
 void UserControlParticleSystem::setNode(uint32 id)
@@ -514,6 +539,22 @@ void UserControlParticleSystem::initGUI()
     _visibilityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
     _visibilityGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
 
+    iWidgetLabel* labelOrientationGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelOrientationGradient);
+    labelOrientationGradient->setText("Orientation");
+    labelOrientationGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelOrientationGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelOrientationGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _orientationGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_orientationGraph);
+    _orientationGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _orientationGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationGradientEditor));
+    _orientationGraph->setExtrapolateData();
+    _orientationGraph->setViewGrid();
+    _orientationGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _orientationGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
     iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelEmitter);
     labelEmitter->setText("Emitter");
@@ -664,6 +705,9 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(labelVisibilityGradient, 0, 11);
     gridAppearanceProperties->addWidget(_visibilityGraph, 1, 11);
 
+    gridAppearanceProperties->addWidget(labelOrientationGradient, 0, 12);
+    gridAppearanceProperties->addWidget(_orientationGraph, 1, 12);
+
     _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
     _dialogGraph = static_cast<iDialogGraph*>(iWidgetManager::getInstance().createDialog("DialogGraph"));
 
@@ -698,6 +742,38 @@ void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const ve
         for (auto points : graphs)
         {
             _startSizeGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _orientationGraph->getGraphCount(); ++i)
+    {
+        graphs.push_back(_orientationGraph->getPoints(i));
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(-360.0f, 360.0f, 1.0f);
+    _dialogGraph->setTitle("Edit Start Orientation Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartOrientationGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _orientationGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _orientationGraph->setPoints(i++, points);
         }
         updateNode();
     }

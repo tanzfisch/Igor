@@ -532,16 +532,6 @@ namespace Igor
         */
         iGradientVector2f _startVisibleTimeGradient;
 
-        /*! gradient how the torque of vortex particles changes over time
-        
-        for internal use only
-        */
-        iGradientf _torqueFactorGradient;
-
-        /*! emission rate gradient during particle system lifetime
-        */
-        iGradientui _emissionRateGradient;
-
         /*! min max start orientation of particles
         */
         iGradientVector2f _startOrientationGradient;
@@ -557,6 +547,18 @@ namespace Igor
         /*! min max start lift of particles
         */
         iGradientVector2f _startLiftGradient;
+
+        /*! emission rate gradient during particle system lifetime
+        */
+        iGradientui _emissionRateGradient;
+
+
+
+        /*! gradient how the torque of vortex particles changes over time
+
+        for internal use only
+        */
+        iGradientf _torqueFactorGradient;
 
         /*! particle system period time in ms
         */
