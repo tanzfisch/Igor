@@ -98,7 +98,21 @@ namespace Igor
         */
         void setAxisName(uint32 index, const iaString& name);
 
+        /*! defines how many after points will be displayed
+
+        \param afterPoint amount of digits after point
+        */
+        void setAfterPoint(int32 afterPoint);
+
+        /*! \returns amount of after point
+        */
+        int32 getAfterPoint() const;
+
     private:
+
+        /*! after point digit amount
+        */
+        int32 _afterPoint = 2;
 
         /*! dialog title
         */

@@ -156,7 +156,7 @@ namespace Igor
         _axisNumberChooser[0]->setSteppingWheel(_xStepping * 10, _xStepping * 10);
         _axisNumberChooser[0]->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _axisNumberChooser[0]->setValue(_graphs[0][0]._x);
-        _axisNumberChooser[0]->setAfterPoint(2);
+        _axisNumberChooser[0]->setAfterPoint(_afterPoint);
         _axisNumberChooser[0]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelX, 0, 0);
@@ -175,7 +175,7 @@ namespace Igor
         _axisNumberChooser[1]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
         _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _axisNumberChooser[1]->setValue(_graphs[0][0]._y);
-        _axisNumberChooser[1]->setAfterPoint(2);
+        _axisNumberChooser[1]->setAfterPoint(_afterPoint);
         _axisNumberChooser[1]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelY1, 0, 1);
@@ -196,7 +196,7 @@ namespace Igor
             _axisNumberChooser[2]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
             _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Strech);
             _axisNumberChooser[2]->setValue(_graphs[1][0]._y);
-            _axisNumberChooser[2]->setAfterPoint(2);
+            _axisNumberChooser[2]->setAfterPoint(_afterPoint);
             _axisNumberChooser[2]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
             
             axisGrid->addWidget(labelY2, 0, 2);
@@ -218,7 +218,7 @@ namespace Igor
             _axisNumberChooser[3]->setSteppingWheel(_yStepping * 10, _yStepping * 10);
             _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Strech);
             _axisNumberChooser[3]->setValue(_graphs[2][0]._y);
-            _axisNumberChooser[3]->setAfterPoint(2);
+            _axisNumberChooser[3]->setAfterPoint(_afterPoint);
             _axisNumberChooser[3]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
             axisGrid->addWidget(labelY3, 0, 3);
@@ -267,6 +267,16 @@ namespace Igor
         buttonGrid->addWidget(okButton, 2, 0);
 
         updateGraph();
+    }
+
+    void iDialogGraph::setAfterPoint(int32 afterPoint)
+    {
+        _afterPoint = afterPoint;
+    }
+
+    int32 iDialogGraph::getAfterPoint() const
+    {
+        return _afterPoint;
     }
 
     void iDialogGraph::onGraphChanged(iWidget* source)

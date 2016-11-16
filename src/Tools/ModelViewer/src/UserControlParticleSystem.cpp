@@ -126,6 +126,13 @@ void UserControlParticleSystem::updateNode()
                 startVelocityGradient.setValue(_startVelocityGraph->getPoints(0)[i]._x, iaVector2f(_startVelocityGraph->getPoints(0)[i]._y, _startVelocityGraph->getPoints(1)[i]._y));
             }
             node->setStartVelocityGradient(startVelocityGradient);
+
+            iGradientVector2f startLiftGradient;
+            for (int i = 0; i < _startLiftGraph->getPoints(0).size(); ++i)
+            {
+                startLiftGradient.setValue(_startLiftGraph->getPoints(0)[i]._x, iaVector2f(_startLiftGraph->getPoints(0)[i]._y, _startLiftGraph->getPoints(1)[i]._y));
+            }
+            node->setStartLiftGradient(startLiftGradient);
         }
     }
 }
@@ -303,6 +310,23 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
 
     _startVelocityGraph->setPoints(0, minStartVelocity);
     _startVelocityGraph->setPoints(1, maxStartVelocity);
+
+    // start Lift
+    iGradientVector2f startLiftGradient;
+    node->getStartLiftGradient(startLiftGradient);
+
+    vector<iaVector2f> minStartLift;
+    vector<iaVector2f> maxStartLift;
+
+    vector<pair<float, iaVector2f>> startLiftValues = startLiftGradient.getValues();
+    for (auto value : startLiftValues)
+    {
+        minStartLift.push_back(iaVector2f(value.first, value.second._x));
+        maxStartLift.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startLiftGraph->setPoints(0, minStartLift);
+    _startLiftGraph->setPoints(1, maxStartLift);
 }
 
 void UserControlParticleSystem::setNode(uint32 id)
@@ -485,6 +509,23 @@ void UserControlParticleSystem::initGUI()
     _startVelocityGraph->setViewGrid();
     _startVelocityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
     _startVelocityGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+    iWidgetLabel* labelLiftGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelLiftGradient);
+    labelLiftGradient->setText("Lift/Weight");
+    labelLiftGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelLiftGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelLiftGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelLiftGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _startLiftGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_startLiftGraph);
+    _startLiftGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startLiftGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartLiftGradientEditor));
+    _startLiftGraph->setExtrapolateData();
+    _startLiftGraph->setViewGrid();
+    _startLiftGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _startLiftGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
 
     ///////////
     iWidgetGroupBox* appearanceGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
@@ -745,6 +786,9 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->addWidget(labelVelocityGradient, 0, 4);
     gridSimulationProperties->addWidget(_startVelocityGraph, 1, 4);
 
+    gridSimulationProperties->addWidget(labelLiftGradient, 0, 5);
+    gridSimulationProperties->addWidget(_startLiftGraph, 1, 5);
+
     ///////////////
     gridProperties->addWidget(vortexSimulationGroupBox, 0, 1);
     vortexSimulationGroupBox->addWidget(gridVortexSimulationProperties);
@@ -808,6 +852,40 @@ void UserControlParticleSystem::initGUI()
     updateNode();
 }
 
+void UserControlParticleSystem::onOpenStartLiftGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _startLiftGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _startLiftGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(-5.0f, 5.0f, 0.001f);
+    _dialogGraph->setTitle("Edit Start Lift/Weight Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(4);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartLiftGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartLiftGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _startLiftGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _startLiftGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
 void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidget* source)
 {
     vector<vector<iaVector2f>> graphs;
@@ -818,11 +896,12 @@ void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidget* sourc
     }
 
     _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->configureYAxis(0.0f, 5.0f, 0.001f);
     _dialogGraph->setTitle("Edit Start Velocity Gradient");
     _dialogGraph->setAxisName(0, "Time");
     _dialogGraph->setAxisName(1, "Min");
     _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(4);
 
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartVelocityGradientEditor), graphs);
 }
@@ -856,6 +935,7 @@ void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
     _dialogGraph->setAxisName(0, "Time");
     _dialogGraph->setAxisName(1, "Min");
     _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
 
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartSizeGradientEditor), graphs);
 }
@@ -888,6 +968,7 @@ void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(iWidget
     _dialogGraph->setAxisName(0, "Time");
     _dialogGraph->setAxisName(1, "Min");
     _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
 
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationRateGradientEditor), graphs);
 }
@@ -920,6 +1001,7 @@ void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidget* so
     _dialogGraph->setAxisName(0, "Time");
     _dialogGraph->setAxisName(1, "Min");
     _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
 
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationGradientEditor), graphs);
 }
@@ -952,6 +1034,7 @@ void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidget* source)
     _dialogGraph->setTitle("Edit Size Scale Gradient");
     _dialogGraph->setAxisName(0, "Time");
     _dialogGraph->setAxisName(1, "Factor");
+    _dialogGraph->setAfterPoint(2);
 
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseScaleSizeGradientEditor), graphs);
 }
@@ -985,6 +1068,7 @@ void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
     _dialogGraph->setAxisName(0, "Time");
     _dialogGraph->setAxisName(1, "Min");
     _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
 
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseVisibilityGradientEditor), graphs);
 }
