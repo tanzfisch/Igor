@@ -165,7 +165,6 @@ void UserControlParticleSystem::updateGUI()
 
         _loopCheckBox->setChecked(node->getLoop());
         _periodChooser->setValue(node->getPeriodTime());
-        _periodChooser->setActive(!_loopCheckBox->isChecked());
         _airDragChooser->setValue(node->getAirDrag());
         _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
         _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
@@ -791,7 +790,6 @@ void UserControlParticleSystem::onDoUpdateNode(iWidget* source)
 
 void UserControlParticleSystem::onLoopChanged(iWidget* source)
 {
-    _periodChooser->setActive(!_loopCheckBox->isChecked());
     updateNode();
 }
 

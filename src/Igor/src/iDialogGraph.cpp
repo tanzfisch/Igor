@@ -48,12 +48,13 @@ namespace Igor
 
     void iDialogGraph::show(iDialogGraphCloseDelegate closeDelegate, const vector<vector<iaVector2f>>& graphs)
     {
-        con_assert(graphs.size() > 0 && graphs[0].size() > 0 && graphs[0].size() < 4, "invalid data");
+        con_assert(graphs.size() > 0 && graphs[0].size() > 0, "invalid data");
 
         if (graphs.size() > 0 && 
-            graphs[0].size() > 0 && 
-            graphs[0].size() < 4)
+            graphs[0].size() > 0)
         {
+            _selectedValueIndex = 0;
+
             _oldGraphs = graphs;
             _graphs = graphs;
             _closeEvent.append(closeDelegate);
@@ -414,5 +415,7 @@ namespace Igor
         setActive(false);
         setVisible(false);
         iWidgetManager::resetModal();
+
+        _selectedValueIndex = 0;
     }
 }

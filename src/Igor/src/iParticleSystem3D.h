@@ -532,7 +532,6 @@ namespace Igor
         */
         iGradientVector2f _startVisibleTimeGradient;
 
-
         /*! gradient how the torque of vortex particles changes over time
         
         for internal use only
