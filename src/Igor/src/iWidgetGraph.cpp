@@ -232,14 +232,14 @@ namespace Igor
                         currentPoint._x = boundings._x;
                         currentPoint._y = graph.second._points[0]._y;
                         currentPoint._x = ((currentPoint._x - boundings._x) * scaleX);
-                        currentPoint._y = boundings._height - ((currentPoint._y - boundings._y) * scaleY) + graphRenderArea._height;
+                        currentPoint._y = graphRenderArea._height - ((currentPoint._y - boundings._y) * scaleY);
                         points.push_back(currentPoint);
                     }
 
                     for (auto point : graph.second._points)
                     {
                         currentPoint._x = ((point._x - boundings._x) * scaleX);
-                        currentPoint._y = boundings._height - ((point._y - boundings._y) * scaleY) + graphRenderArea._height;
+                        currentPoint._y = graphRenderArea._height - ((point._y - boundings._y) * scaleY);
                         points.push_back(currentPoint);
                     }
 
@@ -249,7 +249,7 @@ namespace Igor
                         currentPoint._x = boundings._x + boundings._width;
                         currentPoint._y = graph.second._points[graph.second._points.size() - 1]._y;
                         currentPoint._x = ((currentPoint._x - boundings._x) * scaleX);
-                        currentPoint._y = boundings._height - ((currentPoint._y - boundings._y) * scaleY) + graphRenderArea._height;
+                        currentPoint._y = graphRenderArea._height - ((currentPoint._y - boundings._y) * scaleY);
                         points.push_back(currentPoint);
                     }
 
