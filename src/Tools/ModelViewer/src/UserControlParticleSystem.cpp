@@ -75,7 +75,7 @@ void UserControlParticleSystem::updateNode()
 
             node->setLoop(_loopCheckBox->isChecked());
             node->setPeriodTime(_periodChooser->getValue());
-            node->setAirDrag(_airDragChooser->getValue());
+            node->setAirDrag(1.0f - _airDragChooser->getValue());
             node->setVelocityOriented(_velocityOrientedCheckBox->isChecked());
             node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
             node->setVortexApperanceRate(_vorticityAppearanceRateChooser->getValue());
@@ -195,7 +195,7 @@ void UserControlParticleSystem::updateGUI()
 
         _loopCheckBox->setChecked(node->getLoop());
         _periodChooser->setValue(node->getPeriodTime());
-        _airDragChooser->setValue(node->getAirDrag());
+        _airDragChooser->setValue(1.0f - node->getAirDrag());
         _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
         _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
         _vorticityAppearanceRateChooser->setValue(node->getVortexApperanceRate());
@@ -210,6 +210,11 @@ void UserControlParticleSystem::updateGUI()
     }
 
     _ignoreNodeUpdate = false;
+}
+
+iWidget* UserControlParticleSystem::getWidget()
+{
+    return _grid;
 }
 
 void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
@@ -407,7 +412,7 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(_loopCheckBox);
     _loopCheckBox->setHorizontalAlignment(iHorizontalAlignment::Left);
     _loopCheckBox->setVerticalAlignment(iVerticalAlignment::Top);
-    _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onLoopChanged));
+    _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel* labelPeriod = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelPeriod);
@@ -1107,11 +1112,6 @@ void UserControlParticleSystem::onDoUpdateNode(iWidget* source)
     updateNode();
 }
 
-void UserControlParticleSystem::onLoopChanged(iWidget* source)
-{
-    updateNode();
-}
-
 void UserControlParticleSystem::onStart(iWidget* source)
 {
     iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
@@ -1191,9 +1191,4 @@ void UserControlParticleSystem::deinitGUI()
         iWidgetManager::getInstance().destroyDialog(_dialogGraph);
         _dialogGraph = nullptr;
     }
-}
-
-iWidget* UserControlParticleSystem::getWidget()
-{
-    return _grid;
 }

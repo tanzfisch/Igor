@@ -57,70 +57,176 @@ class UserControlParticleSystem : public iUserControl
 {
 public:
 
+    /*! init gui
+    */
     UserControlParticleSystem();
+
+    /*! deinit gui
+    */ 
     ~UserControlParticleSystem();
 
+    /*! \returns root widget
+
+    \todo remove later. but fix the widget mechanism first
+    */
     iWidget* getWidget();
 
+    /*! sets the current scene node to work with
+
+    \param id id of node to work with
+    */
     void setNode(uint32 id);
+
+    /*! \returns the current node
+    */
     uint32 getNode();
 
 private:
 
+    /*! root grid
+    */
     iWidgetGrid* _grid = nullptr;
 
+    /*! button to start or continue the particle system
+    */
     iWidgetButton* _buttonStart = nullptr;
+
+    /*! button to stop or pause the particle system
+    */
     iWidgetButton* _buttonStop = nullptr;
+
+    /*! button to restart the particle system
+    */
     iWidgetButton* _buttonReset = nullptr;
 
+    /*! texture chooser for primary texture
+    */
     iUserControlFileChooser* _textureChooser0 = nullptr;
+
+    /*! texture chooser for first noise texture
+    */
     iUserControlFileChooser* _textureChooser1 = nullptr;
+
+    /*! texture chooser for second noise texture
+    */
     iUserControlFileChooser* _textureChooser2 = nullptr;
+
+    /*! \deprecated currently unused
+    */
     iUserControlFileChooser* _textureChooser3 = nullptr;
 
+    /*! select box for selecting the emitter to connect the particle system to
+    */
     iWidgetSelectBox* _emitterSelection = nullptr;
+
+    /*! select box for selecting the material to use with the particle system
+    */
     iWidgetSelectBox* _materialSelection = nullptr;
 
+    /*! check box to switch on/off the particle system loop
+    */
     iWidgetCheckBox* _loopCheckBox = nullptr;
+
+    /*! check box to switch on/off the particle to velocity orientation
+    */
     iWidgetCheckBox* _velocityOrientedCheckBox = nullptr;
+
+    /*! number chooser for particle period time
+    */
     iWidgetNumberChooser* _periodChooser = nullptr;
+
+    /*! number chooser for air drag effect on particle system
+    */
     iWidgetNumberChooser* _airDragChooser = nullptr;
+
     iWidgetNumberChooser* _vorticityConfinementChooser = nullptr;
     iWidgetNumberChooser* _vorticityAppearanceRateChooser = nullptr;
-    iWidgetNumberChooser* _tilingVerticalChooser = nullptr;
-    iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
-    /*! color 
-    */
 
+    /*! number chooser for vertical tiling of primary texture
+    */
+    iWidgetNumberChooser* _tilingVerticalChooser = nullptr;
+
+    /*! number chooser for horizontal tiling of primary texture
+    */
+    iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
+
+    /*! color gradient display
+    */
     iWidgetColorGradient* _colorGradient = nullptr;
 
+    /*! color gradient dialog
+    */
     iDialogColorGradient* _colorGradientDialog = nullptr;
 
+    /*! graph dialog. Reused for all the gradients we want to edit
+    */
     iDialogGraph* _dialogGraph = nullptr;
 
+    /*! start size graph
+    */
     iWidgetGraph* _startSizeGraph = nullptr;
+
+    /*! scale over time size scale graph
+    */
     iWidgetGraph* _scaleSizeGraph = nullptr;
+
+    /*! visibility graph
+    */
     iWidgetGraph* _visibilityGraph = nullptr;
+
+    /*! orientation graph
+    */
     iWidgetGraph* _orientationGraph = nullptr;
+
+    /*! orientation rate graph
+    */
     iWidgetGraph* _orientationRateGraph = nullptr;
+
+    /*! velocity graph
+    */
     iWidgetGraph* _startVelocityGraph = nullptr;
+
+    /*! start lift / weight graph
+    */
     iWidgetGraph* _startLiftGraph = nullptr;
 
+    /*! list with all widgets for easy cleanup
+    */
     vector<iWidget*> _allWidgets;
 
+    /*! list with all available emitters in all scenes
+    */
     vector<iNode*> _emitters;
 
+    /*! contains user data that has to be deleted after use in the widgets
+    */
     vector<uint32*> _userDataMaterialID;
 
-    uint32 _nodeId = 0;
-    uint32 _loadTextureTexUnit = 0;
+    /*! current node
+    */
+    uint32 _nodeId = iNode::INVALID_NODE_ID;
 
+    /*! prevents updating the node while we are updating the gui
+    */
     bool _ignoreNodeUpdate = false;
 
+    /*! triggered from various sources to update the node
+    
+    \param source the source widget of this event
+    */
     void onDoUpdateNode(iWidget* source);
-    void onLoopChanged(iWidget* source);
 
+    /*! triggered when the color gradient editor is to open
+
+    \param source the source widget
+    */
     void onOpenColorGradientEditor(iWidget* source);
+
+    /*! triggered when color gradient editor was closed
+
+    \param ok if true the ok button was pressed to close
+    \param gradient the resulting color gradient
+    */
     void onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient);
 
     void onOpenStartSizeGradientEditor(iWidget* source);
