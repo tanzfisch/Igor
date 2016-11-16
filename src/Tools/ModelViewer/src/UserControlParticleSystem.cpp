@@ -461,7 +461,7 @@ void UserControlParticleSystem::initGUI()
     labelColorGradient->setWidth(MV_REGULARBUTTON_SIZE);
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("DialogColorGradient"));
+    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
     _allWidgets.push_back(_colorGradient);    
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));

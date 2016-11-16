@@ -49,7 +49,7 @@ namespace Igor
         registerWidgetType("Button", iInstanciateWidgetDelegate(iWidgetButton::createInstance));
         registerWidgetType("CheckBox", iInstanciateWidgetDelegate(iWidgetCheckBox::createInstance));
         registerWidgetType("Color", iInstanciateWidgetDelegate(iWidgetColor::createInstance));
-        registerWidgetType("DialogColorGradient", iInstanciateWidgetDelegate(iWidgetColorGradient::createInstance));
+        registerWidgetType("ColorGradient", iInstanciateWidgetDelegate(iWidgetColorGradient::createInstance));
         registerWidgetType("Graph", iInstanciateWidgetDelegate(iWidgetGraph::createInstance));
         registerWidgetType("Grid", iInstanciateWidgetDelegate(iWidgetGrid::createInstance));
         registerWidgetType("GroupBox", iInstanciateWidgetDelegate(iWidgetGroupBox::createInstance));

@@ -92,7 +92,7 @@ namespace Igor
             groupBoxGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
             groupBoxGradient->setVerticalAlignment(iVerticalAlignment::Strech);
 
-            _gradientWidget = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("DialogColorGradient"));
+            _gradientWidget = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
             _allWidgets.push_back(_gradientWidget);
             _gradientWidget->setGradient(_gradient);
             _gradientWidget->setHorizontalAlignment(iHorizontalAlignment::Strech);

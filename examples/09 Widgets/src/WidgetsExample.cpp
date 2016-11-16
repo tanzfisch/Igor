@@ -266,7 +266,7 @@ void WidgetsExample::initGUI()
     points.push_back(iaVector2f(0.5, 0.1));
     points.push_back(iaVector2f(0.6, 0.2));
     points.push_back(iaVector2f(0.8, 0.4));
-    points.push_back(iaVector2f(1.0, 0.8));
+    points.push_back(iaVector2f(1.0, 10.0));
     graph->setPoints(0, points);
     graph->setLineColor(0, iaColor4f(1,0,0,1));
     graph->setPointColor(0, iaColor4f(1, 0.5, 0.5, 1));
@@ -304,7 +304,6 @@ void WidgetsExample::initGUI()
     graph->setExtrapolateData();
     graph->setBoundings(iRectanglef(0,0,1,1));
     graph->setUseBoundings();
-    graph->setViewFrame();
     graph->setViewGrid();
     
     // assemble all the widgets with their parents
