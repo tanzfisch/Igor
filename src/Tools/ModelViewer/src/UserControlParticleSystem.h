@@ -103,6 +103,7 @@ private:
     iWidgetGraph* _visibilityGraph = nullptr;
     iWidgetGraph* _orientationGraph = nullptr;
     iWidgetGraph* _orientationRateGraph = nullptr;
+    iWidgetGraph* _startVelocityGraph = nullptr;
 
     vector<iWidget*> _allWidgets;
 
@@ -135,6 +136,9 @@ private:
 
     void onOpenStartOrientationRateGradientEditor(iWidget* source);
     void onCloseStartOrientationRateGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+
+    void onOpenStartVelocityGradientEditor(iWidget* source);
+    void onCloseStartVelocityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
     
     void convertGradientsToUI(iNodeParticleSystem* node);
 

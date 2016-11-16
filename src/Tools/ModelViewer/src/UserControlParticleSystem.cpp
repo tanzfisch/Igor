@@ -119,6 +119,13 @@ void UserControlParticleSystem::updateNode()
                     iaVector2f(_orientationRateGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationRateGraph->getPoints(1)[i]._y / 180.0f * M_PI));
             }
             node->setStartOrientationRateGradient(orientationRateGradient);
+
+            iGradientVector2f startVelocityGradient;
+            for (int i = 0; i < _startVelocityGraph->getPoints(0).size(); ++i)
+            {
+                startVelocityGradient.setValue(_startVelocityGraph->getPoints(0)[i]._x, iaVector2f(_startVelocityGraph->getPoints(0)[i]._y, _startVelocityGraph->getPoints(1)[i]._y));
+            }
+            node->setStartVelocityGradient(startVelocityGradient);
         }
     }
 }
@@ -279,6 +286,23 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
 
     _orientationRateGraph->setPoints(0, minStartOrientationRate);
     _orientationRateGraph->setPoints(1, maxStartOrientationRate);
+
+    // start velocity
+    iGradientVector2f startVelocityGradient;
+    node->getStartVelocityGradient(startVelocityGradient);
+
+    vector<iaVector2f> minStartVelocity;
+    vector<iaVector2f> maxStartVelocity;
+
+    vector<pair<float, iaVector2f>> startVelocityValues = startVelocityGradient.getValues();
+    for (auto value : startVelocityValues)
+    {
+        minStartVelocity.push_back(iaVector2f(value.first, value.second._x));
+        maxStartVelocity.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startVelocityGraph->setPoints(0, minStartVelocity);
+    _startVelocityGraph->setPoints(1, maxStartVelocity);
 }
 
 void UserControlParticleSystem::setNode(uint32 id)
@@ -344,7 +368,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridSimulationProperties);
     gridSimulationProperties->appendCollumns(1);
-    gridSimulationProperties->appendRows(5);
+    gridSimulationProperties->appendRows(10);
     gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridSimulationProperties->setStrechColumn(1);
     gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
@@ -444,6 +468,23 @@ void UserControlParticleSystem::initGUI()
     _vorticityConfinementChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _vorticityConfinementChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vorticityConfinementChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVelocityGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVelocityGradient);
+    labelVelocityGradient->setText("Velocity");
+    labelVelocityGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVelocityGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVelocityGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelVelocityGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _startVelocityGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_startVelocityGraph);
+    _startVelocityGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startVelocityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartVelocityGradientEditor));
+    _startVelocityGraph->setExtrapolateData();
+    _startVelocityGraph->setViewGrid();
+    _startVelocityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _startVelocityGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
 
     ///////////
     iWidgetGroupBox* appearanceGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
@@ -701,6 +742,9 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->addWidget(labelAirDrag, 0, 3);
     gridSimulationProperties->addWidget(_airDragChooser, 1, 3);
 
+    gridSimulationProperties->addWidget(labelVelocityGradient, 0, 4);
+    gridSimulationProperties->addWidget(_startVelocityGraph, 1, 4);
+
     ///////////////
     gridProperties->addWidget(vortexSimulationGroupBox, 0, 1);
     vortexSimulationGroupBox->addWidget(gridVortexSimulationProperties);
@@ -756,11 +800,45 @@ void UserControlParticleSystem::initGUI()
 
     gridAppearanceProperties->addWidget(labelOrientationRateGradient, 0, 13);
     gridAppearanceProperties->addWidget(_orientationRateGraph, 1, 13);
+    
 
     _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
     _dialogGraph = static_cast<iDialogGraph*>(iWidgetManager::getInstance().createDialog("DialogGraph"));
 
     updateNode();
+}
+
+void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _startVelocityGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _startVelocityGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Start Velocity Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartVelocityGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartVelocityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _startVelocityGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _startVelocityGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
 }
 
 void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
