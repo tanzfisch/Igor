@@ -229,7 +229,7 @@ namespace Igor
         delButton->setText("Delete Value");
         delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
         delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
-        axisGrid->addWidget(delButton, 1, 4);
+        axisGrid->addWidget(delButton, 1, _graphs.size() + 1);
 
         iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(buttonGrid);

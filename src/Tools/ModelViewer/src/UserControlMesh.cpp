@@ -239,25 +239,25 @@ void UserControlMesh::initGUI()
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser"));
+    _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser"));
     _allWidgets.push_back(_ambientColorChooser);
     _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onAmbientChange));
 
-    _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
+    _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
     _allWidgets.push_back(_diffuseColorChooser);
     _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onDiffuseChange));
 
-    _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
+    _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
     _allWidgets.push_back(_specularColorChooser);
     _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
     _specularColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onSpecularChange));
 
-    _emissiveColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser")); 
+    _emissiveColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
     _allWidgets.push_back(_emissiveColorChooser);
     _emissiveColorChooser->setMode(iColorChooserMode::RGB);
     _emissiveColorChooser->setText("Emissive");

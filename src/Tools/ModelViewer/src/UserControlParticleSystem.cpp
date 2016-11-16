@@ -88,6 +88,21 @@ void UserControlParticleSystem::updateNode()
                 startSizeGradient.setValue(_startSizeGraph->getPoints(0)[i]._x, iaVector2f(_startSizeGraph->getPoints(0)[i]._y, _startSizeGraph->getPoints(1)[i]._y));
             }
             node->setStartSizeGradient(startSizeGradient);
+
+            iGradientf sizeScaleGradient;
+            auto scaleSizePoints = _scaleSizeGraph->getPoints(0);
+            for (auto point : scaleSizePoints)
+            {
+                sizeScaleGradient.setValue(point._x, point._y);
+            }
+            node->setSizeScaleGradient(sizeScaleGradient);
+
+            iGradientVector2f startVisibilityGradient;
+            for (int i = 0; i < _visibilityGraph->getPoints(0).size(); ++i)
+            {
+                startVisibilityGradient.setValue(_visibilityGraph->getPoints(0)[i]._x, iaVector2f(_visibilityGraph->getPoints(0)[i]._y, _visibilityGraph->getPoints(1)[i]._y));
+            }
+            node->setStartVisibleTimeGradient(startVisibilityGradient);
         }
     }
 }
@@ -192,13 +207,11 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     node->getSizeScaleGradient(sizeScaleGradient);
 
     vector<iaVector2f> scaleSize;
-
     vector<pair<float, float32>> scaleSizeValues = sizeScaleGradient.getValues();
     for (auto value : scaleSizeValues)
     {
         scaleSize.push_back(iaVector2f(value.first, value.second));
     }
-
     _scaleSizeGraph->setPoints(0, scaleSize);
 
     // visibility
@@ -700,6 +713,12 @@ void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidget* source)
         graphs.push_back(temp);
     }
 
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Size Scale Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Factor");
+
     _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseScaleSizeGradientEditor), graphs);
 }
 
@@ -707,9 +726,53 @@ void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const ve
 {
     if (ok)
     {
-        //_colorGradient->setGradient(gradient);
+        _scaleSizeGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _scaleSizeGraph->setPoints(i++, points);
+        }
         updateNode();
     }
+}
+
+void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _visibilityGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _visibilityGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Visibility Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseVisibilityGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseVisibilityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _visibilityGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _visibilityGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+
+void UserControlParticleSystem::onOpenColorGradientEditor(iWidget* source)
+{
+    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
 }
 
 void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient)
@@ -719,19 +782,6 @@ void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradi
         _colorGradient->setGradient(gradient);
         updateNode();
     }
-}
-
-void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
-{
-
-}
-
-
-
-
-void UserControlParticleSystem::onOpenColorGradientEditor(iWidget* source)
-{
-    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
 }
 
 void UserControlParticleSystem::onDoUpdateNode(iWidget* source)

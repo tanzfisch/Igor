@@ -124,6 +124,7 @@ private:
 
     void onOpenScaleSizeGradientEditor(iWidget* source);
     void onCloseScaleSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+    void onCloseVisibilityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
     
     void onOpenVisibilityGradientEditor(iWidget* source);
     void convertGradientsToUI(iNodeParticleSystem* node);

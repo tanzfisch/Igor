@@ -81,7 +81,7 @@ namespace Igor
         headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         headerLabel->setText("Choose Color");
 
-        _userControlColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("DialogColorChooser"));
+        _userControlColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser"));
         _userControlColorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
         _userControlColorChooser->setExpand();
         _userControlColorChooser->setHeadlineVisible(false);
