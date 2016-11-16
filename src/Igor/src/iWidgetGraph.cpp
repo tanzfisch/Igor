@@ -4,15 +4,16 @@
 
 #include <iWidgetGraph.h>
 
-#include <iaConsole.h>
-using namespace IgorAux;
-
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iTextureFont.h>
 #include <iTextureResourceFactory.h>
 #include <iRenderer.h>
 #include <iMaterialResourceFactory.h>
+#include <iIntersection.h>
+
+#include <iaConsole.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -42,9 +43,13 @@ namespace Igor
         return _interactive;
     }
 
-    void iWidgetGraph::clear()
+    void iWidgetGraph::clearPoints()
     {
-        _graphs.clear();
+        for (auto& graph : _graphs)
+        {
+            graph.second._points.clear();
+        }
+        _dirty = true;
     }
 
     void iWidgetGraph::setLineColor(uint64 id, const iaColor4f& color)
@@ -169,75 +174,46 @@ namespace Igor
 
     void iWidgetGraph::draw()
     {
-        const float32 buttonHeight = 20;
-
         if (isVisible())
         {
             prepareDraw();
 
             iRectanglef boundings;
-
-            if (_useUserBoudings)
-            {
-                boundings = _boundings;
-            }
-            else
-            {
-                boundings = _dataBoundings;
-            }
-
-            if (boundings._width < _dataBoundings._width)
-            {
-                boundings._width = _dataBoundings._width;
-            }
-
-            if (boundings._height < _dataBoundings._height)
-            {
-                boundings._height = _dataBoundings._height;
-            }
+            calcBoundings(boundings);
 
             iRectanglef graphRenderArea;
-            graphRenderArea._x = static_cast<float32>(getActualPosX());
-            graphRenderArea._y = static_cast<float32>(getActualPosY());
-            graphRenderArea._width = static_cast<float32>(getActualWidth());
-            graphRenderArea._height = static_cast<float32>(getActualHeight());
+            calcRenderArea(graphRenderArea);
 
-            if (_viewFrame)
-            {
-                graphRenderArea._x += 4;
-                graphRenderArea._y += 4;
-                graphRenderArea._width -= 8;
-                graphRenderArea._height -= 8;
-                iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
-                iWidgetManager::getInstance().getTheme()->drawFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
-            }
+            iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
 
-            if (_interactive)
-            {
-                graphRenderArea._x += 5;
-                graphRenderArea._width -= 10;
-                graphRenderArea._height -= (buttonHeight + 2);
-            }
-            
             if (_viewGrid)
             {
                 float32 stepX = graphRenderArea._width / (_gridResolution._x - 1);
                 float32 stepY = graphRenderArea._height / (_gridResolution._y - 1);
 
-                vector<float32> verticalLines;
+                float32 stepXData = boundings._width / (_gridResolution._x - 1);
+                float32 stepYData = boundings._height / (_gridResolution._y - 1);
+
+                vector<iaVector2f> verticalLines;
                 for (int i = 0; i < _gridResolution._x; ++i)
                 {
-                    verticalLines.push_back(static_cast<float32>(i) * stepX);
+                    verticalLines.push_back(iaVector2f(static_cast<float32>(i) * stepX, static_cast<float32>(i) * stepXData + boundings._x));
                 }
 
-                vector<float32> horizontalLines;
+                vector<iaVector2f> horizontalLines;
                 for (int i = 0; i < _gridResolution._y; ++i)
                 {
-                    horizontalLines.push_back(static_cast<float32>(i) * stepY);
+                    horizontalLines.push_back(iaVector2f(static_cast<float32>(i) * stepY, (boundings._y + boundings._height) - static_cast<float32>(i) * stepYData));
                 }
 
-                iWidgetManager::getInstance().getTheme()->drawGridlines(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y), 
+                iWidgetManager::getInstance().getTheme()->drawGraphGridlines(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                     static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height), 1.0, verticalLines, horizontalLines, isActive());
+
+                if (_viewLabels)
+                {
+                    iWidgetManager::getInstance().getTheme()->drawGraphLabels(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                        static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height), verticalLines, horizontalLines, isActive());
+                }
             }
 
             float32 scaleX = graphRenderArea._width / boundings._width;
@@ -277,7 +253,7 @@ namespace Igor
                         points.push_back(currentPoint);
                     }
 
-                    iWidgetManager::getInstance().getTheme()->drawGraph(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y), 
+                    iWidgetManager::getInstance().getTheme()->drawGraph(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
                         graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
                 }
             }
@@ -287,45 +263,84 @@ namespace Igor
                 vector<iaVector2f> points = _graphs[0]._points;
 
                 iRectanglei buttonRect(0, 0, 0, 0);
-                buttonRect._height = buttonHeight;
+                buttonRect._height = _buttonHeight;
                 buttonRect._width = 9;
                 buttonRect._y = graphRenderArea._height + graphRenderArea._y + 1;
 
-                iaColor4f color;
-
                 for (auto point : points)
                 {
-                    buttonRect._x = ((point._x / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4;
+                    buttonRect._x = (((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4;
                     iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetAppearanceState::Standby, isActive());
                 }
             }
         }
     }
 
-    bool iWidgetGraph::handleMouseKeyDown(iKeyCode key)
+    void iWidgetGraph::calcBoundings(iRectanglef& boundings)
     {
-     /*   iaVector2i mousePos(getLastMouseX(), getLastMouseY());
+        if (_useUserBoudings)
+        {
+            boundings = _boundings;
+        }
+        else
+        {
+            boundings = _dataBoundings;
+        }
+
+        if (boundings._width < _dataBoundings._width)
+        {
+            boundings._width = _dataBoundings._width;
+        }
+
+        if (boundings._height < _dataBoundings._height)
+        {
+            boundings._height = _dataBoundings._height;
+        }
+    }
+
+    void iWidgetGraph::calcRenderArea(iRectanglef& graphRenderArea)
+    {
+        graphRenderArea._x = static_cast<float32>(getActualPosX());
+        graphRenderArea._y = static_cast<float32>(getActualPosY());
+        graphRenderArea._width = static_cast<float32>(getActualWidth());
+        graphRenderArea._height = static_cast<float32>(getActualHeight());
+
+        graphRenderArea._x += 4;
+        graphRenderArea._y += 4;
+        graphRenderArea._width -= 8;
+        graphRenderArea._height -= 8;
 
         if (_interactive)
         {
-            iRectanglei gradientRect(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
-            gradientRect._x += 5;
-            gradientRect._width -= 10;
-            gradientRect._height /= 2;
+            graphRenderArea._x += 5;
+            graphRenderArea._width -= 10;
+            graphRenderArea._height -= (_buttonHeight + 2);
+        }
+    }
 
-            const vector<pair<float, iaColor4f>> gradient = _gradient.getValues();
+    bool iWidgetGraph::handleMouseKeyDown(iKeyCode key)
+    {
+        iaVector2f mousePos(getLastMouseX(), getLastMouseY());
 
-            iRectanglei buttonRect(0, 0, 0, 0);
-            buttonRect._height = getActualHeight() - gradientRect._height - 1;
+        if (_interactive)
+        {
+            iRectanglef graphRenderArea;
+            calcRenderArea(graphRenderArea);
+
+            iRectanglef boundings;
+            calcBoundings(boundings);
+
+            vector<iaVector2f> points = _graphs[0]._points;
+
+            iRectanglef buttonRect(0, 0, 0, 0);
+            buttonRect._height = _buttonHeight;
             buttonRect._width = 9;
-            buttonRect._y = gradientRect._height + gradientRect._y + 1;
+            buttonRect._y = graphRenderArea._height + graphRenderArea._y + 1;
 
-            iaColor4f color;
             int index = 0;
-
-            for (auto entry : gradient)
+            for (auto point : points)
             {
-                buttonRect._x = (entry.first * gradientRect._width) + gradientRect._x - 4;
+                buttonRect._x = (((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4;
 
                 if (iIntersection::isIntersecting(buttonRect, mousePos))
                 {
@@ -336,14 +351,44 @@ namespace Igor
                 index++;
             }
 
-            if (iIntersection::isIntersecting(gradientRect, mousePos))
+            if (iIntersection::isIntersecting(graphRenderArea, mousePos))
             {
-                float32 value = (static_cast<float32>(mousePos._x - gradientRect._x) / static_cast<float32>(gradientRect._width));
-                iaColor4f color;
-                _gradient.getValue(value, color);
-                _colorCreated(value, color);
+                float32 value = (static_cast<float32>(mousePos._x - graphRenderArea._x) / static_cast<float32>(graphRenderArea._width)) * boundings._width;
+
+                for (auto& graph : _graphs)
+                {
+                    if (graph.second._points.size() == 1)
+                    {
+                        auto iter = graph.second._points.begin();
+                        if ((*iter)._x > value)
+                        {
+                            graph.second._points.insert(iter, iaVector2f(value, (*iter)._y));
+                        }
+                        else
+                        {
+                            graph.second._points.push_back(iaVector2f(value, (*iter)._y));
+                        }
+                    }
+                    else
+                    {
+                        auto iter = graph.second._points.begin();
+                        while (iter != graph.second._points.end())
+                        {
+                            if ((*iter)._x > value)
+                            {
+                                auto lastIter = iter - 1;
+                                graph.second._points.insert(iter, iaVector2f(value, ((*lastIter)._y + (*iter)._y) * 0.5f));
+                                break;
+                            }
+
+                            iter++;
+                        }
+                    }
+                }
+
+                _change(this);
             }
-        }*/
+        }
 
         return iWidget::handleMouseKeyDown(key);
     }
@@ -385,16 +430,6 @@ namespace Igor
     bool iWidgetGraph::getViewGrid() const
     {
         return _viewGrid;
-    }
-
-    void iWidgetGraph::setViewFrame(bool viewFrame)
-    {
-        _viewFrame = viewFrame;
-    }
-
-    bool iWidgetGraph::getViewFrame() const
-    {
-        return _viewFrame;
     }
 
     void iWidgetGraph::setBoundings(const iRectanglef& boundings)

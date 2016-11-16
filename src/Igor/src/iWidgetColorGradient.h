@@ -40,15 +40,13 @@ namespace Igor
 
     class iTexture;
 
-    /*! selection changed event
-    */
-    iaEVENT(iColorGradientSelectionChangedEvent, iColorGradientSelectionChangedDelegate, void, (int32 index), (index));
-
     /*! color created/added event
     */
     iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f& color), (at, color));
 
     /*! color view widget
+
+    \todo highlight selection
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
@@ -90,18 +88,6 @@ namespace Igor
         */
         bool isInteractive();
 
-        /*! registers delegate to selection changed event
-
-        \param delegate the delegate to register
-        */
-        void registerOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate delegate);
-
-        /*! unregisters delegate from seleciton changed event
-
-        \param delegate the delegate to unregister
-        */
-        void unregisterOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate delegate);
-
         /*! registers delegate to color created event
 
         \param delegate the delegate to register
@@ -131,10 +117,6 @@ namespace Igor
         /*! shared pointer to background texture
         */
         shared_ptr<iTexture> _texture = nullptr;
-
-        /*! selection changed event
-        */
-        iColorGradientSelectionChangedEvent _selectionChanged;
 
         /*! color created event
         */

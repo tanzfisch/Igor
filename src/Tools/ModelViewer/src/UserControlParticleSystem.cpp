@@ -82,7 +82,12 @@ void UserControlParticleSystem::updateNode()
             node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
             node->setColorGradient(_colorGradient->getGradient());
 
-            //node->setStartSizeGradient(_startSizeGraph->get);
+            iGradientVector2f startSizeGradient;
+            for (int i = 0; i < _startSizeGraph->getPoints(0).size(); ++i)
+            {
+                startSizeGradient.setValue(_startSizeGraph->getPoints(0)[i]._x, iaVector2f(_startSizeGraph->getPoints(0)[i]._y, _startSizeGraph->getPoints(1)[i]._y));
+            }
+            node->setStartSizeGradient(startSizeGradient);
         }
     }
 }
@@ -460,7 +465,6 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(_startSizeGraph);
     _startSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _startSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
-    _startSizeGraph->setViewFrame();
     _startSizeGraph->setExtrapolateData();
     _startSizeGraph->setViewGrid();
     _startSizeGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
@@ -477,7 +481,6 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(_scaleSizeGraph);
     _scaleSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenScaleSizeGradientEditor));
-    _scaleSizeGraph->setViewFrame();
     _scaleSizeGraph->setExtrapolateData();
     _scaleSizeGraph->setViewGrid();
     _scaleSizeGraph->setBoundings(iRectanglef(0, 0, 1, 1));
@@ -494,7 +497,6 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(_visibilityGraph);
     _visibilityGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _visibilityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenVisibilityGradientEditor));
-    _visibilityGraph->setViewFrame();
     _visibilityGraph->setExtrapolateData();
     _visibilityGraph->setViewGrid();
     _visibilityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
@@ -665,8 +667,8 @@ void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
         graphs.push_back(temp);
     }
 
-    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.1f); // todo max should depend on particle lifetime 
-    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.1f);
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
     _dialogGraph->setTitle("Edit Start Size Gradient");
     _dialogGraph->setAxisName(0, "Time");
     _dialogGraph->setAxisName(1, "Min");
@@ -679,8 +681,13 @@ void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const ve
 {
     if (ok)
     {
-        //_colorGradient->setGradient(gradient);
-        //updateNode();
+        _startSizeGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _startSizeGraph->setPoints(i++, points);
+        }
+        updateNode();
     }
 }
 
@@ -701,7 +708,7 @@ void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const ve
     if (ok)
     {
         //_colorGradient->setGradient(gradient);
-        //updateNode();
+        updateNode();
     }
 }
 

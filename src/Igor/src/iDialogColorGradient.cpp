@@ -100,7 +100,7 @@ namespace Igor
             _gradientWidget->setUseAlpha(useAlpha);
             _gradientWidget->setInteractive();
             _gradientWidget->setHeight(60);
-            _gradientWidget->registerOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
+            _gradientWidget->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogColorGradient::onSelectionChanged));
             _gradientWidget->registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate(this, &iDialogColorGradient::onColorCreated));
 
             iWidgetGroupBox* groupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));

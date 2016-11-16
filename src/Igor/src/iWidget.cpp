@@ -385,6 +385,16 @@ namespace Igor
         return _acceptOutOfBoundsClicks;
     }
 
+    void iWidget::registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
+    {
+        _selectionChanged.append(delegate);
+    }
+
+    void iWidget::unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
+    {
+        _selectionChanged.remove(delegate);
+    }
+
 	bool iWidget::handleMouseKeyDown(iKeyCode key)
 	{
 		if (isActive())

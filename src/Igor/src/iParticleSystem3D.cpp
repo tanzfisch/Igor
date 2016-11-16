@@ -38,15 +38,16 @@ namespace Igor
     {
         _startVisibleTimeGradient.setValue(0.0, iaVector2f(2.5, 3.5));
 
-        _colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 1));
+        _colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 0.0f));
+        _colorGradient.setValue(0.1, iaColor4f(1, 1, 1, 1));
+        _colorGradient.setValue(0.9, iaColor4f(1, 1, 1, 1));
+        _colorGradient.setValue(1.0, iaColor4f(1, 1, 1, 0.01));
 
         _emissionRateGradient.setValue(0.0, 2);
 
         _sizeScaleGradient.setValue(0.0, 1.0);
 
         _startSizeGradient.setValue(0.0, iaVector2f(1.0, 1.2));
-        _startSizeGradient.setValue(1.0, iaVector2f(1.5, 1.7));
-        _startSizeGradient.setValue(2.0, iaVector2f(0.9, 1.1));
 
         _startVelocityGradient.setValue(0.0, iaVector2f(0.01, 0.02));
 

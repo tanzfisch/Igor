@@ -86,16 +86,6 @@ namespace Igor
         return iWidget::handleMouseKeyDown(key);
     }
 
-    void iWidgetColorGradient::registerOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate delegate)
-    {
-        _selectionChanged.append(delegate);
-    }
-    
-    void iWidgetColorGradient::unregisterOnSelectionChangedEvent(iColorGradientSelectionChangedDelegate delegate)
-    {
-        _selectionChanged.remove(delegate);
-    }
-
     void iWidgetColorGradient::registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate)
     {
         _colorCreated.append(delegate);

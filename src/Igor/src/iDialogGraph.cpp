@@ -93,7 +93,7 @@ namespace Igor
         iWidgetManager::setModal(this);
         setActive();
         setVisible();
-        setWidth(420);
+        setWidth(450);
         setHeight(20);
 
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
@@ -118,10 +118,13 @@ namespace Igor
         _graph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
         _allWidgets.push_back(_graph);
         _graph->setHorizontalAlignment(iHorizontalAlignment::Strech);
-        _graph->setHeight(80);
+        _graph->setHeight(120);
         _graph->setInteractive();
         _graph->setExtrapolateData();
         _graph->setViewGrid();
+        _graph->setViewLabels();
+        _graph->registerOnSelectionChangedEvent(iSelectionChangedDelegate(this, &iDialogGraph::onSelectionChanged));
+        _graph->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onGraphChanged));
 
         iWidgetGroupBox* groupBoxSelection = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
         _allWidgets.push_back(groupBoxSelection);
@@ -131,7 +134,7 @@ namespace Igor
 
         iWidgetGrid* axisGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(axisGrid);
-        axisGrid->appendRows(_graphs.size() + 1);
+        axisGrid->appendRows(_graphs.size() + 2);
         axisGrid->appendCollumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         axisGrid->setVerticalAlignment(iVerticalAlignment::Strech);
@@ -153,6 +156,7 @@ namespace Igor
         _axisNumberChooser[0]->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _axisNumberChooser[0]->setValue(_graphs[0][0]._x);
         _axisNumberChooser[0]->setAfterPoint(2);
+        _axisNumberChooser[0]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelX, 0, 0);
         axisGrid->addWidget(_axisNumberChooser[0], 1, 0);
@@ -171,6 +175,7 @@ namespace Igor
         _axisNumberChooser[1]->setHorizontalAlignment(iHorizontalAlignment::Strech);
         _axisNumberChooser[1]->setValue(_graphs[0][0]._y);
         _axisNumberChooser[1]->setAfterPoint(2);
+        _axisNumberChooser[1]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
         axisGrid->addWidget(labelY1, 0, 1);
         axisGrid->addWidget(_axisNumberChooser[1], 1, 1);
@@ -191,6 +196,7 @@ namespace Igor
             _axisNumberChooser[2]->setHorizontalAlignment(iHorizontalAlignment::Strech);
             _axisNumberChooser[2]->setValue(_graphs[1][0]._y);
             _axisNumberChooser[2]->setAfterPoint(2);
+            _axisNumberChooser[2]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
             
             axisGrid->addWidget(labelY2, 0, 2);
             axisGrid->addWidget(_axisNumberChooser[2], 1, 2);
@@ -212,10 +218,18 @@ namespace Igor
             _axisNumberChooser[3]->setHorizontalAlignment(iHorizontalAlignment::Strech);
             _axisNumberChooser[3]->setValue(_graphs[2][0]._y);
             _axisNumberChooser[3]->setAfterPoint(2);
+            _axisNumberChooser[3]->registerOnChangeEvent(iChangeDelegate(this, &iDialogGraph::onValueChanged));
 
             axisGrid->addWidget(labelY3, 0, 3);
             axisGrid->addWidget(_axisNumberChooser[3], 1, 3);
         }
+
+        iWidgetButton* delButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
+        _allWidgets.push_back(delButton);
+        delButton->setText("Delete Value");
+        delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
+        delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
+        axisGrid->addWidget(delButton, 1, 4);
 
         iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(buttonGrid);
@@ -254,6 +268,53 @@ namespace Igor
         updateGraph();
     }
 
+    void iDialogGraph::onGraphChanged(iWidget* source)
+    {
+        for (int i = 0; i < _graph->getGraphCount(); ++i)
+        {
+            _graphs[i] = _graph->getPoints(i);
+        }
+
+        updateGraph();
+        updateSelection();
+    }
+
+    void iDialogGraph::onSelectionChanged(int32 index)
+    {
+        con_assert(index >= 0 && index < _graphs[0].size(), "out of range");
+
+        if (index >= 0 && index < _graphs[0].size())
+        {
+            _selectedValueIndex = index;
+            updateSelection();
+        }
+    }
+
+    void iDialogGraph::onValueChanged(iWidget* source)
+    {
+        if (_axisNumberChooser[0] == source)
+        {
+            for (int i = 0; i < _graphs.size(); ++i)
+            {
+                _graphs[i][_selectedValueIndex]._x = _axisNumberChooser[0]->getValue();
+            }
+        }
+        else if (_axisNumberChooser[1] == source)
+        {
+            _graphs[0][_selectedValueIndex]._y = _axisNumberChooser[1]->getValue();
+        }
+        else if (_axisNumberChooser[2] == source)
+        {
+            _graphs[1][_selectedValueIndex]._y = _axisNumberChooser[2]->getValue();
+        }
+        else if (_axisNumberChooser[3] == source)
+        {
+            _graphs[2][_selectedValueIndex]._y = _axisNumberChooser[3]->getValue();
+        }
+
+        updateGraph();
+    }
+
     void iDialogGraph::setAxisName(uint32 index, const iaString& name)
     {
         _axisNames[index] = name;
@@ -275,7 +336,7 @@ namespace Igor
 
     void iDialogGraph::updateGraph()
     {
-        _graph->clear();
+        _graph->clearPoints();
         _graph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
 
         if (_graphs.size() > 1)
@@ -295,47 +356,20 @@ namespace Igor
         }
     }
 
-    void iDialogGraph::retriveGraphs(vector<vector<iaVector2f>>& graphs)
+    void iDialogGraph::updateSelection()
     {
-        for (int i = 0; i < _graph->getGraphCount(); ++i)
+        _axisNumberChooser[0]->setValue(_graphs[0][_selectedValueIndex]._x);
+        _axisNumberChooser[1]->setValue(_graphs[0][_selectedValueIndex]._y);
+
+        if (_graphs.size() > 1)
         {
-            vector<iaVector2f> temp = _graph->getPoints(i);
-            graphs.push_back(temp);
+            _axisNumberChooser[2]->setValue(_graphs[1][_selectedValueIndex]._y);
         }
-    }
 
-    void iDialogGraph::onGraphUpdate(iWidget* source)
-    {
-        auto widgetMeta = _widgetLocationMatrix.find(source->getID());
-        if (widgetMeta != _widgetLocationMatrix.end())
+        if (_graphs.size() > 2)
         {
-            iWidgetNumberChooser* numberChooser = static_cast<iWidgetNumberChooser*>(source);
-            float32 newValue = numberChooser->getValue();
-
-            if ((*widgetMeta).second._x == 0)
-            {
-                int32 index = (*widgetMeta).second._y;
-
-                for (int i = 0; i < _graphs.size(); ++i)
-                {
-                    _graphs[i][index]._x = newValue;
-                }
-            }
-            else
-            {
-                _graphs[(*widgetMeta).second._x - 1][(*widgetMeta).second._y]._y = newValue;
-            }
-
-            updateGraph();
+            _axisNumberChooser[3]->setValue(_graphs[2][_selectedValueIndex]._y);
         }
-        else
-        {
-            con_err("internal error");
-        }
-    }
-
-    void iDialogGraph::onFullUpdate(iWidget* source)
-    {
     }
 
     void iDialogGraph::onOK(iWidget* source)
@@ -343,6 +377,21 @@ namespace Igor
         close();
         _closeEvent(true, _graphs);
         _closeEvent.clear();
+    }
+
+    void iDialogGraph::onDelete(iWidget* source)
+    {
+        if (_graphs[0].size() > 1)
+        {
+            for (int i = 0; i < _graphs.size(); ++i)
+            {
+                _graphs[i].erase(_graphs[i].begin() + _selectedValueIndex);
+            }
+
+            _selectedValueIndex = 0;
+            updateGraph();
+            updateSelection();
+        }
     }
 
     void iDialogGraph::onCancel(iWidget* source)
@@ -355,7 +404,9 @@ namespace Igor
     void iDialogGraph::onReset(iWidget* source)
     {
         _graphs = _oldGraphs;
-        // TODO
+        _selectedValueIndex = 0;
+        updateGraph();
+        updateSelection();
     }
 
     void iDialogGraph::close()

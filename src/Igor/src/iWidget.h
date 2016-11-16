@@ -124,6 +124,10 @@ namespace Igor
     */
 	iaEVENT(iFocusEvent, iFocusDelegate, void, (iWidget* source), (source));
 
+    /*! selection changed event
+    */
+    iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, void, (int32 index), (index));
+
     /*! GUI widget base class
 
     coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
@@ -297,6 +301,18 @@ namespace Igor
         \param contextMenuDelegate the delegate to unregister
         */
         void unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
+
+        /*! registers delegate to selection changed event
+
+        \param delegate the delegate to register
+        */
+        void registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
+
+        /*! unregisters delegate from seleciton changed event
+
+        \param delegate the delegate to unregister
+        */
+        void unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
 
         /*! \returns actual absolute horizontal position
         */
@@ -533,6 +549,10 @@ namespace Igor
         /*! wheel down event
         */
         iWheelDownEvent _wheelDown;
+
+        /*! selection changed event
+        */
+        iSelectionChangedEvent _selectionChanged;
 
         /*! if true widget will react on mouse wheel
         */

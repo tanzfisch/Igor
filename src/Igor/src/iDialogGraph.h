@@ -48,7 +48,7 @@ namespace Igor
     */
     iaEVENT(iDialogGraphCloseEvent, iDialogGraphCloseDelegate, void, (bool ok, const vector<vector<iaVector2f>>& graphs), (ok, graphs));
 
-    /*! the color chooser dialog
+    /*! the graph edit dialog
     */
     class Igor_API iDialogGraph : public iDialog
     {
@@ -134,6 +134,8 @@ namespace Igor
         */
         float32 _xMax = 1;
 
+        /*! up down stepping of number choosers for x axis values
+        */
         float32 _xStepping = 0.1;
 
         /*! min value on y axis
@@ -144,9 +146,15 @@ namespace Igor
         */
         float32 _yMax = 1;
 
+        /*! up down stepping of number choosers for y axis values
+        */
         float32 _yStepping = 0.1;
 
-        /*! actual graph
+        /*! index of selected value
+        */
+        int32 _selectedValueIndex = 0;
+
+        /*! widget graph
         */
         iWidgetGraph* _graph = nullptr;
 
@@ -162,13 +170,17 @@ namespace Igor
         */
         vector<iWidget*> _dataGridEntryWidgets;
 
-        map<uint32, iaVector2i> _widgetLocationMatrix;
-
         /*! handles ok button clicked event
 
         \param source the ok button it self
         */
         void onOK(iWidget* source);
+
+        /*! triggered when value is to delete
+
+        \param source the source widget
+        */
+        void onDelete(iWidget* source);
 
         /*! handles cancel button clicked event
 
@@ -182,12 +194,31 @@ namespace Igor
         */
         void onReset(iWidget* source);
 
-        void onGraphUpdate(iWidget* source);
-        void onFullUpdate(iWidget* source);
+        /*! triggered by all the number choosers
 
+        \param source the source widget
+        */
+        void onValueChanged(iWidget* source);
+
+        /*! updates gui by selected value
+        */
+        void updateSelection();
+
+        /*! updates the graph
+        */
         void updateGraph();
 
-        void retriveGraphs(vector<vector<iaVector2f>>& graphs);
+        /*! triggered when graph selection changed
+
+        \param index the index of selection
+        */
+        void onSelectionChanged(int32 index);
+
+        /*! triggered when graph content changed
+
+        \param source the source widget
+        */
+        void onGraphChanged(iWidget* source);
 
         /*! closes the dialog and sends closed event
 

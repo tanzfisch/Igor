@@ -168,6 +168,23 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
 	}
 
+    void iWidgetDefaultTheme::drawGraphFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+
+        iRenderer::getInstance().setColor(_diffuseTransparent);
+        iRenderer::getInstance().drawRectangle(posx, posy, width, height);
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+
+        iRenderer::getInstance().setColor(_ambient);
+        drawLine(posx, posy, posx + width, posy);
+        drawLine(posx, posy, posx, posy + height);
+
+        iRenderer::getInstance().setColor(_specular);
+        drawLine(posx, posy + height, posx + width, posy + height);
+        drawLine(posx + width, posy, posx + width, posy + height);
+    }
+
     void iWidgetDefaultTheme::drawBackgroundFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
@@ -516,7 +533,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
-    void iWidgetDefaultTheme::drawGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<float32>& verticalLines, const vector<float32>& horizontalLines, bool active)
+    void iWidgetDefaultTheme::drawGraphGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active)
     {
         if (lineWidth > 0.0)
         {
@@ -535,15 +552,64 @@ namespace Igor
 
             for (auto verticalLine : verticalLines)
             {
-                drawLine(posx + verticalLine, posy, posx + verticalLine, posy + height);
+                drawLine(posx + verticalLine._x, posy, posx + verticalLine._x, posy + height);
             }
 
             for (auto horizontalLine : horizontalLines)
             {
-                drawLine(posx, posy + horizontalLine, posx + width, posy + horizontalLine);
+                drawLine(posx, posy + horizontalLine._x, posx + width, posy + horizontalLine._x);
             }
 
             iRenderer::getInstance().setLineWidth(1.0);
+        }
+    }
+
+    void iWidgetDefaultTheme::drawGraphLabels(int32 posx, int32 posy, int32 width, int32 height, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+
+        if (active)
+        {
+            iRenderer::getInstance().setColor(_ambient);
+        }
+        else
+        {
+            iRenderer::getInstance().setColor(_darkDiffuse);
+        }
+
+        iRenderer::getInstance().setFont(_font);
+        float32 fontSize = _fontSize * 0.75;
+        iRenderer::getInstance().setFontSize(fontSize);
+        iaString value;
+
+        for (int i = 0; i < verticalLines.size();++i)
+        {
+            value = iaString::ftoa(verticalLines[i]._y, 2);
+
+            if (i < verticalLines.size() - 1)
+            {
+                iRenderer::getInstance().drawString(posx + verticalLines[i]._x + 2, posy + height - 2 - fontSize, value, 90);
+            }
+            else
+            {
+                iRenderer::getInstance().drawString(posx + verticalLines[i]._x - fontSize - 2, posy + height - 2 - fontSize, value, 90);
+            }
+        }
+
+        bool first = true;
+        for (auto horizontalLine : horizontalLines)
+        {
+            value = iaString::ftoa(horizontalLine._y, 2);
+
+            if (first)
+            {
+                iRenderer::getInstance().drawString(posx + 2 + fontSize, posy + horizontalLine._x + 2, value);
+                first = false;
+            }
+            else
+            {
+                iRenderer::getInstance().drawString(posx + 2 + fontSize, posy + horizontalLine._x - fontSize, value);
+            }
         }
     }
 

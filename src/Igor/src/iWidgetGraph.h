@@ -45,6 +45,8 @@ namespace Igor
     class iTexture;
 
     /*! graph widget. to display graphs
+
+    \todo highlight selection
     */
 	class Igor_API iWidgetGraph : public iWidget
 	{
@@ -78,11 +80,11 @@ namespace Igor
             float32 _pointSize = 0.0;
         };
 
-	public:
+	public:        
 
-        /*! clears all data
+        /*! clears all point data
         */
-        void clear();
+        void clearPoints();
 
         /*! sets line color for specified graph
 
@@ -206,16 +208,6 @@ namespace Igor
         */
         uint32 getGridYResolution() const;
 
-        /*! sets if the background frame is visible or not
-
-        \param viewFrame if true the background frame is visible
-        */
-        void setViewFrame(bool viewFrame = true);
-
-        /*! \returns true if the background frame is visible
-        */
-        bool getViewFrame() const;
-
         /*! sets if labels are visible
 
         \param viewLabels if true labels are visible
@@ -282,9 +274,9 @@ namespace Igor
         */
         bool _viewGrid = false;
 
-        /*! flag if true we render a frame
+        /*! button height definition
         */
-        bool _viewFrame = false;
+        const float32 _buttonHeight = 20;
 
         /*! makes some calculations before we can draw
         */
@@ -297,6 +289,18 @@ namespace Igor
 		/*! draws the widget
 		*/
 		void draw();
+
+        /*! calculates the render area of the graph
+
+        \param[out] graphRenderArea the render area
+        */
+        void calcRenderArea(iRectanglef& graphRenderArea);
+
+        /*! calculates data boundings
+
+        \param[out] boundings the calculates data boundings
+        */
+        void calcBoundings(iRectanglef& boundings);
 
         /*! handles incomming mouse key down events
 
