@@ -266,7 +266,7 @@ void WidgetsExample::initGUI()
     points.push_back(iaVector2f(0.5, 0.1));
     points.push_back(iaVector2f(0.6, 0.2));
     points.push_back(iaVector2f(0.8, 0.4));
-    points.push_back(iaVector2f(1.0, 10.0));
+    points.push_back(iaVector2f(1.0, 0.2));
     graph->setPoints(0, points);
     graph->setLineColor(0, iaColor4f(1,0,0,1));
     graph->setPointColor(0, iaColor4f(1, 0.5, 0.5, 1));
@@ -280,7 +280,7 @@ void WidgetsExample::initGUI()
     points2.push_back(iaVector2f(0.5, 0.4));
     points2.push_back(iaVector2f(0.6, 0.7));
     points2.push_back(iaVector2f(0.7, 0.1));
-    points2.push_back(iaVector2f(0.8, 1.0));
+    points2.push_back(iaVector2f(0.8, 0.9));
     graph->setPoints(1, points2);
     graph->setLineColor(1, iaColor4f(0, 1, 0, 1));
     graph->setPointColor(1, iaColor4f(0.5, 1, 0.5, 1));
@@ -418,7 +418,7 @@ void WidgetsExample::onOpenColorChooser(iWidget* source)
 {
     if (_colorChooserDialog == nullptr)
     {
-        _colorChooserDialog = static_cast<iDialogColorChooser*>(iWidgetManager::getInstance().createDialog("ColorChooser"));
+        _colorChooserDialog = static_cast<iDialogColorChooser*>(iWidgetManager::getInstance().createDialog("DialogColorChooser"));
     }
 
     _colorChooserDialog->show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
@@ -428,7 +428,7 @@ void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
 {
     if (_colorGradientDialog == nullptr)
     {
-        _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("ColorGradient"));
+        _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
     }
 
     _colorGradientDialog->show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
@@ -457,7 +457,7 @@ void WidgetsExample::onOpenMessageBox(iWidget* source)
     // create message box instance on demant
     if (_messageBox == nullptr)
     {
-        _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("MessageBox"));
+        _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
     }
 
     // open a message box with some text
