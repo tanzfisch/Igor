@@ -43,6 +43,7 @@ namespace OMPF
     class ompfTransformChunk;
     class ompfExternalReferenceChunk;
     class ompfMeshChunk;
+    class ompfEmitterChunk;
     class ompfMaterialChunk;
     class OMPF;
     class ompfBaseChunk;
@@ -54,6 +55,7 @@ namespace Igor
 	class iNodeTransform;
     class iNodeModel;
     class iNodeMesh;
+    class iNodeEmitter;
 
     /*! OMPF loader
     
@@ -182,6 +184,12 @@ namespace Igor
         \param node the node the chunk is created from
         */
         OMPF::ompfMeshChunk* createMeshChunk(iNodeMesh *node);
+
+        /*! creates emitter chunk
+
+        \param node the node the chunk is created from
+        */
+        OMPF::ompfEmitterChunk* createEmitterChunk(iNodeEmitter *node);
 
         /*! creates material chunk
 

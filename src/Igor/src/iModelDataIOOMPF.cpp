@@ -17,6 +17,7 @@
 #include <iShader.h>
 #include <iTargetMaterial.h>
 #include <iNodeFactory.h>
+#include <iNodeEmitter.h>
 
 #include <iaConvert.h>
 #include <iaDirectory.h>
@@ -31,6 +32,7 @@ using namespace IgorAux;
 #include <ompfTransformChunk.h>
 #include <ompfExternalReferenceChunk.h>
 #include <ompfMaterialChunk.h>
+#include <ompfEmitterChunk.h>
 #include <OMPF.h>
 
 namespace Igor
@@ -79,6 +81,16 @@ namespace Igor
         case OMPFChunkType::Group:
         {
             result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+            break;
+        }
+
+        case OMPFChunkType::Emitter:
+        {
+            OMPF::ompfEmitterChunk* emitterChunk = static_cast<OMPF::ompfEmitterChunk*>(currentChunk);
+            iNodeEmitter* emitterNode = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+            emitterNode->setSize(emitterChunk->getSize());
+            emitterNode->setType(static_cast<iEmitterType>(emitterChunk->getType()));
+            result = emitterNode;
             break;
         }
 
@@ -296,6 +308,10 @@ namespace Igor
             nextChunk = static_cast<OMPF::ompfBaseChunk*>(createTransformChunk(static_cast<iNodeTransform*>(node)));
             break;
 
+        case iNodeType::iNodeEmitter:
+            nextChunk = static_cast<OMPF::ompfBaseChunk*>(createEmitterChunk(static_cast<iNodeEmitter*>(node)));
+            break;
+
         case iNodeType::iNodeRender:
         case iNodeType::iNodeSkyBox:
         case iNodeType::iSkyLightNode:
@@ -344,6 +360,14 @@ namespace Igor
     {
         iModelDataIOOMPF* result = new iModelDataIOOMPF();
         return static_cast<iModelDataIO*>(result);
+    }
+
+    OMPF::ompfEmitterChunk* iModelDataIOOMPF::createEmitterChunk(iNodeEmitter *node)
+    {
+        OMPF::ompfEmitterChunk* result = _ompf->createEmitterChunk();
+        result->setSize(node->getSize());
+        result->setType(static_cast<OMPF::OMPFEmitterType>(node->getType()));
+        return result;
     }
 
     OMPF::ompfMeshChunk* iModelDataIOOMPF::createMeshChunk(iNodeMesh *node)

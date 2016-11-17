@@ -54,7 +54,7 @@ namespace OMPF
 
 	public:
 
-        /*! does nothing
+        /*! init base class
         */
 		ompfMeshChunk();
 

@@ -26,7 +26,6 @@
 #define __OMPF__
 
 #include <ompfDefines.h>
-
 #include <ompfSettings.h>
 
 #include <iaString.h>
@@ -47,6 +46,7 @@ namespace OMPF
 	class ompfMeshChunk;
 	class ompfExternalReferenceChunk;
 	class ompfMaterialChunk;
+    class ompfEmitterChunk;
 
     /*! this is the OMPF file format reference implementation
 
@@ -113,6 +113,12 @@ namespace OMPF
         \returns pointer to new mesh chunk
         */
         ompfMeshChunk* createMeshChunk();
+
+        /*! creates a emitter chunk
+
+        \returns pointer to emitter chunk
+        */
+        ompfEmitterChunk* createEmitterChunk();
 
         /*! creates a external reference chunk
 
