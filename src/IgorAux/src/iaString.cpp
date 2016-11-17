@@ -519,7 +519,7 @@ namespace IgorAux
                 break;
 
             default:
-                con_assert(false, "unknown split mode");
+                con_err("unknown split mode");
                 break;
             }
         }
