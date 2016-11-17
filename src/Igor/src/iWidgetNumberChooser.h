@@ -39,6 +39,8 @@ namespace Igor
 
 	/*! number chooser widget
 
+    \todo need to be able to edit via keyboard
+
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 

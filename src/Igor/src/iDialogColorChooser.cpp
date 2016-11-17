@@ -4,7 +4,7 @@
 
 #include <iDialogColorChooser.h>
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
@@ -25,7 +25,7 @@ namespace Igor
         deinitGUI();
     }
 
-    iWidgetDialog* iDialogColorChooser::createInstance()
+    iDialog* iDialogColorChooser::createInstance()
     {
         return new iDialogColorChooser();
     }
@@ -49,7 +49,7 @@ namespace Igor
 
         if (_userControlColorChooser != nullptr)
         {
-            delete _userControlColorChooser;
+            iWidgetManager::getInstance().destroyWidget(_userControlColorChooser);
             _userControlColorChooser = nullptr;
         }
 
@@ -81,7 +81,8 @@ namespace Igor
         headerLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
         headerLabel->setText("Choose Color");
 
-        _userControlColorChooser = new iUserControlColorChooser(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
+        _userControlColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser"));
+        _userControlColorChooser->setMode(useAlpha ? iColorChooserMode::RGBA : iColorChooserMode::RGB);
         _userControlColorChooser->setExpand();
         _userControlColorChooser->setHeadlineVisible(false);
         _userControlColorChooser->setColor(color);
@@ -109,7 +110,7 @@ namespace Igor
         addWidget(_grid);
 
         _grid->addWidget(headerLabel, 0, 0);
-        _grid->addWidget(_userControlColorChooser->getWidget(), 0, 1);
+        _grid->addWidget(_userControlColorChooser, 0, 1);
         _grid->addWidget(buttonGrid, 0, 2);
 
         buttonGrid->addWidget(resetButton, 0, 0);

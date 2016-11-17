@@ -105,15 +105,21 @@ namespace Igor
     void iWidgetDefaultTheme::drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iGradientColor4f& gradient)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
-        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+        iRenderer::getInstance().setLineWidth(1);
 
         iaColor4f color;
 
         for (int i = 0; i < width; ++i)
         {
+            float32 posX = static_cast<float32>(posx + i) + 0.5f;
+            float32 halfHeight = static_cast<float32>(height) * 0.5f;
+
             gradient.getValue(static_cast<float32>(i) / static_cast<float32>(width), color);
             iRenderer::getInstance().setColor(color);
-            iRenderer::getInstance().drawLine(posx + i + 0.5, posy, posx + i + 0.5, posy + height);
+            iRenderer::getInstance().drawLine(posX, static_cast<float32>(posy) + halfHeight + 0.5f, posX, static_cast<float32>(posy+ height) + 0.5);
+            color._a = 1.0;
+            iRenderer::getInstance().setColor(color);
+            iRenderer::getInstance().drawLine(posX, static_cast<float32>(posy) + 0.5f, posX, static_cast<float32>(posy) + halfHeight + 0.5);
         }
     }
 
@@ -162,6 +168,23 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
 	}
 
+    void iWidgetDefaultTheme::drawGraphFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+
+        iRenderer::getInstance().setColor(_diffuseTransparent);
+        iRenderer::getInstance().drawRectangle(posx, posy, width, height);
+        iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+
+        iRenderer::getInstance().setColor(_ambient);
+        drawLine(posx, posy, posx + width, posy);
+        drawLine(posx, posy, posx, posy + height);
+
+        iRenderer::getInstance().setColor(_specular);
+        drawLine(posx, posy + height, posx + width, posy + height);
+        drawLine(posx + width, posy, posx + width, posy + height);
+    }
+
     void iWidgetDefaultTheme::drawBackgroundFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
@@ -181,6 +204,14 @@ namespace Igor
         drawLine(posx + width, posy, posx + width, posy + height);
         drawLine(posx + 1, posy + height - 1, posx + width - 1, posy + height - 1);
         drawLine(posx + width - 1, posy + 1, posx + width - 1, posy + height - 1);
+    }
+
+    void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        drawButtonFrame(posx, posy, width, height, color, state, active);
+
+        DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
     }
 
     void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
@@ -502,7 +533,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(posx, posy, 10, 10, iWidgetAppearanceState::Pressed);
     }
 
-    void iWidgetDefaultTheme::drawGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<float32>& verticalLines, const vector<float32>& horizontalLines, bool active)
+    void iWidgetDefaultTheme::drawGraphGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active)
     {
         if (lineWidth > 0.0)
         {
@@ -510,26 +541,75 @@ namespace Igor
 
             if (active)
             {
-                iRenderer::getInstance().setColor(_darkDiffuse);
+                iRenderer::getInstance().setColor(_ambient);
             }
             else
             {
-                iRenderer::getInstance().setColor(_lightDiffuse);
+                iRenderer::getInstance().setColor(_darkDiffuse);
             }
                 
             iRenderer::getInstance().setLineWidth(lineWidth);
 
             for (auto verticalLine : verticalLines)
             {
-                drawLine(posx + verticalLine, posy, posx + verticalLine, posy + height);
+                drawLine(posx + verticalLine._x, posy, posx + verticalLine._x, posy + height);
             }
 
             for (auto horizontalLine : horizontalLines)
             {
-                drawLine(posx, posy + horizontalLine, posx + width, posy + horizontalLine);
+                drawLine(posx, posy + horizontalLine._x, posx + width, posy + horizontalLine._x);
             }
 
             iRenderer::getInstance().setLineWidth(1.0);
+        }
+    }
+
+    void iWidgetDefaultTheme::drawGraphLabels(int32 posx, int32 posy, int32 width, int32 height, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+
+        if (active)
+        {
+            iRenderer::getInstance().setColor(_ambient);
+        }
+        else
+        {
+            iRenderer::getInstance().setColor(_darkDiffuse);
+        }
+
+        iRenderer::getInstance().setFont(_font);
+        float32 fontSize = _fontSize * 0.75;
+        iRenderer::getInstance().setFontSize(fontSize);
+        iaString value;
+
+        for (int i = 0; i < verticalLines.size();++i)
+        {
+            value = iaString::ftoa(verticalLines[i]._y, 2);
+
+            if (i < verticalLines.size() - 1)
+            {
+                iRenderer::getInstance().drawString(posx + verticalLines[i]._x + 2, posy + height - 2 - fontSize, value, 90);
+            }
+            else
+            {
+                iRenderer::getInstance().drawString(posx + verticalLines[i]._x - fontSize - 2, posy + height - 2 - fontSize, value, 90);
+            }
+        }
+
+        bool first = true;
+        for (auto horizontalLine : horizontalLines)
+        {
+            value = iaString::ftoa(horizontalLine._y, 2);
+
+            if (first)
+            {
+                iRenderer::getInstance().drawString(posx + 2 + fontSize, posy + horizontalLine._x + 2, value);
+                first = false;
+            }
+            else
+            {
+                iRenderer::getInstance().drawString(posx + 2 + fontSize, posy + horizontalLine._x - fontSize, value);
+            }
         }
     }
 
@@ -701,17 +781,65 @@ namespace Igor
         };
     }
 
+    void iWidgetDefaultTheme::drawButtonFrame(int32 x, int32 y, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active)
+    {
+        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+
+        iaColor4f diffuse = color;
+        if (!active)
+        {
+            diffuse = color;
+            diffuse._r *= 0.7;
+            diffuse._g *= 0.7;
+            diffuse._b *= 0.7;
+        }
+
+        switch (state)
+        {
+        case iWidgetAppearanceState::Pressed:
+            iRenderer::getInstance().setColor(diffuse);
+            iRenderer::getInstance().drawRectangle(x, y, width, height);
+
+            iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+            iRenderer::getInstance().setColor(_ambient);
+            drawLine(x, y, width + x, y);
+            drawLine(x, y, x, height + y);
+
+            iRenderer::getInstance().setColor(_specular);
+            drawLine(width + x, y, width + x, height + y);
+            drawLine(x, height + y, width + x, height + y);
+            break;
+
+        case iWidgetAppearanceState::Highlighted:
+        case iWidgetAppearanceState::Clicked:
+        case iWidgetAppearanceState::DoubleClicked:
+        case iWidgetAppearanceState::Standby:
+        default:
+            iRenderer::getInstance().setColor(diffuse);
+            iRenderer::getInstance().drawRectangle(x, y, width, height);
+
+            iRenderer::getInstance().setLineWidth(_defaultLineWidth);
+            iRenderer::getInstance().setColor(_specular);
+            drawLine(x, y, width + x, y);
+            drawLine(x, y, x, height + y);
+
+            iRenderer::getInstance().setColor(_ambient);
+            drawLine(x, height + y, width + x, height + y);
+            drawLine(width + x, y, width + x, height + y);
+        };
+    }
+
     void iWidgetDefaultTheme::drawFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
 
         if (active)
         {
-            iRenderer::getInstance().setColor(_darkDiffuse);
+            iRenderer::getInstance().setColor(_ambient);
         }
         else
         {
-            iRenderer::getInstance().setColor(_lightDiffuse);
+            iRenderer::getInstance().setColor(_darkDiffuse);
         }
 
         iRenderer::getInstance().setLineWidth(_defaultLineWidth);

@@ -327,11 +327,15 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\OMPF.h" />
     <ClInclude Include="..\src\ompfBaseChunk.h" />
     <ClInclude Include="..\src\ompfDefines.h" />
+    <ClInclude Include="..\src\ompfEmitterChunk.h" />
     <ClInclude Include="..\src\ompfExternalReferenceChunk.h" />
     <ClInclude Include="..\src\ompfGroupChunk.h" />
     <ClInclude Include="..\src\ompfHeaderChunk.h" />
     <ClInclude Include="..\src\ompfMaterialChunk.h" />
-    <ClInclude Include="..\src\ompfMeshChunk.h" />
+    <ClInclude Include="..\src\ompfMeshChunk.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\src\ompfResourceSearchPathChunk.h" />
     <ClInclude Include="..\src\ompfSettings.h" />
     <ClInclude Include="..\src\ompfTransformChunk.h" />
@@ -340,11 +344,15 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
   <ItemGroup>
     <ClCompile Include="..\src\OMPF.cpp" />
     <ClCompile Include="..\src\ompfBaseChunk.cpp" />
+    <ClCompile Include="..\src\ompfEmitterChunk.cpp" />
     <ClCompile Include="..\src\ompfExternalReferenceChunk.cpp" />
     <ClCompile Include="..\src\ompfGroupChunk.cpp" />
     <ClCompile Include="..\src\ompfHeaderChunk.cpp" />
     <ClCompile Include="..\src\ompfMaterialChunk.cpp" />
-    <ClCompile Include="..\src\ompfMeshChunk.cpp" />
+    <ClCompile Include="..\src\ompfMeshChunk.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\src\ompfResourceSearchPathChunk.cpp" />
     <ClCompile Include="..\src\ompfSettings.cpp" />
     <ClCompile Include="..\src\ompfTransformChunk.cpp" />

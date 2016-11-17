@@ -28,6 +28,11 @@ namespace Igor
         deinitGUI();
     }
 
+    iWidget* iUserControlFileChooser::createInstance()
+    {
+        return new iUserControlFileChooser();
+    }
+
     void iUserControlFileChooser::setOptimizePath(bool optimizePath)
     {
         _optimizePath = optimizePath;
@@ -58,9 +63,6 @@ namespace Igor
         _fileDialog->load(iDialogFileSelectCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), _preselectedPath);
     }
 
-    /*! 
-    \todo implement strech
-    */
     void iUserControlFileChooser::initGUI()
     {
         _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
@@ -83,10 +85,12 @@ namespace Igor
         _fileSelectButton->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFileChooser::onFileSelectButtonPressed));
 
+        addWidget(_grid);
+
         _grid->addWidget(_fileNameTextEdit, 0, 0);
         _grid->addWidget(_fileSelectButton, 1, 0);
 
-        _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("FileSelect"));
+        _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("DialogFileSelect"));
     }
 
     void iUserControlFileChooser::deinitGUI()
@@ -136,11 +140,6 @@ namespace Igor
     const iaString& iUserControlFileChooser::getFileName() const
     {
         return _fileNameTextEdit->getText();
-    }
-
-    iWidget* iUserControlFileChooser::getWidget()
-    {
-        return _grid;
     }
 
     void iUserControlFileChooser::registerOnChangedDelegate(iChangeDelegate changeDelegate)

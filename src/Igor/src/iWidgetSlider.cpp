@@ -151,15 +151,12 @@ namespace Igor
             return;
         }
 
-        _mouseX = x;
-        _mouseY = y;
-
         iWidget::handleMouseMove(x, y);
 
         if (isMouseOver() &&
             iMouse::getInstance().getLeftButton())
         {
-            handleMouseInput(_mouseX);
+            handleMouseInput(x);
         }
     }
 
@@ -172,7 +169,7 @@ namespace Igor
 
         if (isMouseOver())
         {
-            handleMouseInput(_mouseX);
+            handleMouseInput(getLastMouseX());
         }
 
         return iWidget::handleMouseKeyDown(key);

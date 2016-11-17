@@ -31,7 +31,7 @@
 
 namespace Igor
 {
-    class iWidgetDialog;
+    class iDialog;
     class iWidgetGrid;
     class iWidgetScroll;
     class iWidgetGroupBox;
@@ -39,7 +39,7 @@ namespace Igor
 }
 
 #include <iNode.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 using namespace Igor;
 
 #include <iaEvent.h>
@@ -65,7 +65,7 @@ enum class PropertyType
 	Undefined
 };
 
-class UserControlProperties : public iWidgetUserControl
+class UserControlProperties : public iUserControl
 {
 public:
 
@@ -74,7 +74,7 @@ public:
 
     void setProperty(uint64 id, PropertyType propertyType);
 
-    iWidgetDialog* getDialog();
+    iDialog* getDialog();
 
     void clear();
 
@@ -122,7 +122,7 @@ private:
     uint64 _propertyID = 0;
 	PropertyType _propertyType = PropertyType::Undefined;
 
-    iWidgetDialog* _dialog = nullptr;
+    iDialog* _dialog = nullptr;
     iWidgetScroll* _scroll = nullptr;
     iWidgetGrid* _grid = nullptr;
     iWidgetGroupBox* _groupBox = nullptr;

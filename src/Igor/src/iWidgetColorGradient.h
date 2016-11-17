@@ -40,7 +40,13 @@ namespace Igor
 
     class iTexture;
 
+    /*! color created/added event
+    */
+    iaEVENT(iColorGradientColorCreatedEvent, iColorGradientColorCreatedDelegate, void, (float32 at, const iaColor4f& color), (at, color));
+
     /*! color view widget
+
+    \todo highlight selection
 
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
@@ -72,6 +78,28 @@ namespace Igor
         */
         bool isUsingAlpha() const;
 
+        /*! sets the interactive feature
+
+        \param interactive if true gradient will be interactive
+        */
+        void setInteractive(bool interactive = true);
+
+        /*! \returns true if gradient is interactive
+        */
+        bool isInteractive();
+
+        /*! registers delegate to color created event
+
+        \param delegate the delegate to register
+        */
+        void registerOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate);
+
+        /*! unregisters delegate from color created event
+
+        \param delegate the delegate to unregister
+        */
+        void unregisterOnColorCreatedEvent(iColorGradientColorCreatedDelegate delegate);
+
 	private:
 
         /*! color gradient
@@ -82,9 +110,24 @@ namespace Igor
         */
         bool _useAlpha = true;
 
+        /*! flag if gradient is interactive
+        */
+        bool _interactive = false;
+
         /*! shared pointer to background texture
         */
         shared_ptr<iTexture> _texture = nullptr;
+
+        /*! color created event
+        */
+        iColorGradientColorCreatedEvent _colorCreated;
+
+        /*! handles incomming mouse key down events
+
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool handleMouseKeyDown(iKeyCode key);
 
         /*! updates size based on it's content
         */

@@ -96,14 +96,14 @@ namespace Igor
         _particleSystem.getStartVelocityGradient(velocityGradient);
     }
 
-    void iNodeParticleSystem::setVortexApperanceRate(uint64 apperanceRate)
+    void iNodeParticleSystem::setVortexToParticleRate(float32 rate)
     {
-        _particleSystem.setVortexApperanceRate(apperanceRate);
+        _particleSystem.setVortexToParticleRate(rate);
     }
 
-    float32 iNodeParticleSystem::getVortexApperanceRate() const
+    float32 iNodeParticleSystem::getVortexToParticleRate() const
     {
-        return _particleSystem.getVortexApperanceRate();
+        return _particleSystem.getVortexToParticleRate();
     }
 
     void iNodeParticleSystem::reset()
@@ -299,12 +299,12 @@ namespace Igor
         _textureC = iTextureResourceFactory::getInstance().requestFile(texture);
     }
 
-    void iNodeParticleSystem::setEmissionGradient(const iGradientui& emissionGradient)
+    void iNodeParticleSystem::setEmissionGradient(const iGradientf& emissionGradient)
     {
         _particleSystem.setEmissionGradient(emissionGradient);
     }
 
-    void iNodeParticleSystem::getEmissionGradient(iGradientui& emissionGradient) const
+    void iNodeParticleSystem::getEmissionGradient(iGradientf& emissionGradient) const
     {
         _particleSystem.getEmissionGradient(emissionGradient);
     }

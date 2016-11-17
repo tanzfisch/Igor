@@ -124,6 +124,10 @@ namespace Igor
     */
 	iaEVENT(iFocusEvent, iFocusDelegate, void, (iWidget* source), (source));
 
+    /*! selection changed event
+    */
+    iaEVENT(iSelectionChangedEvent, iSelectionChangedDelegate, void, (int32 index), (index));
+
     /*! GUI widget base class
 
     coordinatesystems origin within widgets is the upper left corner with x positive to the right and y positive down
@@ -146,7 +150,7 @@ namespace Igor
 
 		\todo maybe design problem
 		*/
-		friend class iWidgetDialog; 
+		friend class iDialog; 
 
 		/*! has to be friend so it can fake actual size and position for it's children
 		*/
@@ -298,6 +302,18 @@ namespace Igor
         */
         void unregisterOnContextMenuEvent(iContextMenuDelegate contextMenuDelegate);
 
+        /*! registers delegate to selection changed event
+
+        \param delegate the delegate to register
+        */
+        void registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
+
+        /*! unregisters delegate from seleciton changed event
+
+        \param delegate the delegate to unregister
+        */
+        void unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
+
         /*! \returns actual absolute horizontal position
         */
         __IGOR_INLINE__ int32 getActualPosX() const;
@@ -407,6 +423,10 @@ namespace Igor
         /*! \returns id of widget
         */
         __IGOR_INLINE__ uint64 getID();
+
+        /*! \returns id of parenting widget
+        */
+        __IGOR_INLINE__ uint64 getParentID();
 
         /*! \returns true if has parent
         */
@@ -530,6 +550,10 @@ namespace Igor
         */
         iWheelDownEvent _wheelDown;
 
+        /*! selection changed event
+        */
+        iSelectionChangedEvent _selectionChanged;
+
         /*! if true widget will react on mouse wheel
         */
         bool _reactOnMouseWheel = true;
@@ -618,6 +642,16 @@ namespace Igor
 		*/
 		virtual ~iWidget();
 
+    protected:
+
+        /*! \returns last horrizontal mouse position
+        */
+        int32 getLastMouseX();
+
+        /*! \returns last vertical mouse position
+        */
+        int32 getLastMouseY();
+
 	private:
 
         /*! min size to make also children fit in
@@ -671,6 +705,14 @@ namespace Igor
 		/*! grow by content flag
 		*/
 		bool _growsByContent = true;
+
+        /*! last horrizontal mouse position
+        */
+        int32 _lastMouseX = 0;
+
+        /*! last vertical mouse position
+        */
+        int32 _lastMouseY = 0;
 
         /*! here you get the next id from
         */

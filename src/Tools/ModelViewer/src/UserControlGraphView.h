@@ -33,7 +33,7 @@
 #include <iaEvent.h>
 using namespace IgorAux;
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iNodeVisitor.h>
 #include <iDefines.h>
 #include <iNode.h>
@@ -62,7 +62,7 @@ iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint32 nodeID), (nodeID));
 iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, void, (uint32 nodeID), (nodeID));
 
-class UserControlGraphView : public iWidgetUserControl, public iNodeVisitor
+class UserControlGraphView : public iUserControl, public iNodeVisitor
 {
 
 public:

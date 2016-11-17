@@ -49,6 +49,8 @@ namespace Igor
     class iParticleEmitter;
 
     /*! single particle
+
+    \todo phase is broken ... or better we need to define what it actually should do
     */
     class Igor_API iParticle
     {
@@ -134,9 +136,8 @@ namespace Igor
 
     \todo rotation of noise textures
     \todo particle simulation should be parallel to rendering
-    \todo maybe we separate vortex particles from particles
     \todo maybe we put all particles together in one global particles pool. than we can sort them and we can have global effects like shadowing etc. on each other
-    \todo would be nice to be able to show tiles sequencially and not just random
+    \todo would be nice to be able to show tiles sequencially and not just random aka animated texture
     */
     class Igor_API iParticleSystem3D
     {
@@ -259,15 +260,15 @@ namespace Igor
         */
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
 
-        /*! sets the apperance intervall of a vortex particle
+        /*! sets the vortex to particle ratio
 
-        \param apperanceRate the number of particles to create before the next vertex particle will be created
+        \param rate the rate of vortex particles to particles. default 0.01 = 1%
         */
-        void setVortexApperanceRate(uint64 apperanceRate);
+        void setVortexToParticleRate(float32 rate);
 
         /*! \returns likeliness of vortex particle to appear
         */
-        float32 getVortexApperanceRate() const;
+        float32 getVortexToParticleRate() const;
 
         /*! calculates next frame
 
@@ -309,13 +310,13 @@ namespace Igor
 
         \param emissionGradient the emission gradient
         */
-        void setEmissionGradient(const iGradientui& emissionGradient);
+        void setEmissionGradient(const iGradientf& emissionGradient);
 
         /*! returns the emission gradient
 
         \param[out] emissionGradient out value for the emission gradient
         */
-        void getEmissionGradient(iGradientui& emissionGradient) const;
+        void getEmissionGradient(iGradientf& emissionGradient) const;
 
         /*! sets visible gradient for particles per frame
 
@@ -460,6 +461,10 @@ namespace Igor
 		*/
 		const iSpheref& getBoundingSphere() const;
 
+        /*! \returns simulation rate in frames per scond or Hz
+        */
+        static float32 getSimulationRate();
+
         /*! init default values
         */
         iParticleSystem3D();
@@ -478,7 +483,7 @@ namespace Igor
 
         set to zero if you don't want a limit
         */
-        uint32 _maxParticleCount = 1000;
+        uint32 _maxParticleCount = 500;
 
         /*! column count of first texture tiling
         */
@@ -520,27 +525,17 @@ namespace Igor
         */
         iGradientColor4f _colorGradient;
 
-        /*! gradient how the torque of vortex particles changes over time
-        
-        for internal use only
+        /*! min max start sizes of particles
         */
-        iGradientf _torqueFactorGradient;
+        iGradientVector2f _startSizeGradient;
+
+        /*! size modification gradient during particle system lifetime
+        */
+        iGradientf _sizeScaleGradient;
 
         /*! start visible time gradient
         */
         iGradientVector2f _startVisibleTimeGradient;
-
-        /*! emission rate gradient during particle system lifetime
-        */
-        iGradientui _emissionRateGradient;
-
-        /*! size modoification gradient during particle system lifetime
-        */
-        iGradientf _sizeScaleGradient;
-
-        /*! min max start sizes of particles
-        */
-        iGradientVector2f _startSizeGradient;
 
         /*! min max start orientation of particles
         */
@@ -558,6 +553,22 @@ namespace Igor
         */
         iGradientVector2f _startLiftGradient;
 
+        /*! stacks emission impulses
+        */
+        float32 _emissionImpulseStack = 0.0f;
+
+        /*! emission rate gradient during particle system lifetime
+
+        emitting particles per 1/60 of a second
+        */
+        iGradientf _emissionRateGradient;
+
+        /*! gradient how the torque of vortex particles changes over time
+
+        for internal use only
+        */
+        iGradientf _torqueFactorGradient;
+
         /*! particle system period time in ms
         */
         float32 _particleSystemPeriodTime = 1000.0;
@@ -572,38 +583,77 @@ namespace Igor
         */
         float32 _airDrag = 1.0;
 
-        iaVector2f _octave1Shift = { 0.001, 0.001 };
-        iaVector2f _octave2Shift = { 0.001, 0.001 };
+        float32 _octave1Rotation = 0.01;
+        float32 _octave2Rotation = -0.01;
 
-        float32 _octave1Rotation = 0.001;
-        float32 _octave2Rotation = -0.001;
-
+        /*! time when the particle system was started last time
+        */
         float64 _startTime = 0;
+
+        /*! current time in a simulation rate grid
+        */
         float64 _time = 0;
 
-        /*!
+        /*! vortex to particle rate
+
+        default 0%
         */
-        uint64 _vortexAperanceRate = 0;
+        float32 _vortexToParticleRate = 0.00;
+        
+        /*! particle coutner to figure out when to create the next vortex particle
+        */
         uint64 _particleCounter = 0;
 
-        float32 _minVortexTorque = 0.1;
-        float32 _maxVortexTorque = 0.5;
-        float32 _minVortexRange = 10.0;
-        float32 _maxVortexRange = 20.0;
+        /*! minimum votex torque
+        */
+        float32 _minVortexTorque = 0.5;
+
+        /*! maximum votex torque
+        */
+        float32 _maxVortexTorque = 0.7;
+        
+        /*! minimum votex range
+        */
+        float32 _minVortexRange = 20.0;
+
+        /*! maximum votex range
+        */
+        float32 _maxVortexRange = 40.0;
 
         /*! random number generator
         */
         iaRandomNumberGenerator _rand;
 
+        /*! vortex check range
+        */
         long _vortexCheckRange = 20;
 
-        float32 _vorticityConfinement = 0.1;
+        /*! vorticity confinement
+        */
+        float32 _vorticityConfinement = 0.05;
 
+        /*! actual particles
+        */
         deque<iParticle> _particles;
         
+        /*! initializes default gradients
+        */
         void initDefaultGradients();
 
+        /*! creates particles
+
+        \param particleCount the amount of particles to create
+        \param emitter the emitter to emitt the particles from
+        \param particleSystemTime the particle system time in seconds
+        */
         void createParticles(uint32 particleCount, iParticleEmitter& emitter, float32 particleSystemTime);
+
+        /*! reset a particle
+
+        \param particle the particle to reset / reuse
+        \param emitter the emitter to emitt the particles from
+        \param particleSystemTime the particle system time in seconds
+        */
         void resetParticle(iParticle &particle, iParticleEmitter& emitter, float32 particleSystemTime);
     };
 

@@ -1,7 +1,7 @@
 #include "UserControlProperties.h"
 
 #include <iWidgetManager.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iNode.h>
 #include <iNodeTransform.h>
 #include <iNodeLight.h>
@@ -71,7 +71,7 @@ void UserControlProperties::deinitGUI()
     iWidgetManager::getInstance().destroyWidget(_groupBox);
 }
 
-iWidgetDialog* UserControlProperties::getDialog()
+iDialog* UserControlProperties::getDialog()
 {
     return _dialog;
 }

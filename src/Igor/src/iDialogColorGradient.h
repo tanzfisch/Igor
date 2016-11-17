@@ -29,7 +29,7 @@
 #ifndef __iDIALOGCOLORGRADIENT__
 #define __iDIALOGCOLORGRADIENT__
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iGradient.h>
 
 #include <iaEvent.h>
@@ -39,10 +39,12 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    class iWidgetColor;
     class iWidgetGrid;
     class iWidgetButton;
     class iUserControlColorChooser;
     class iWidgetColorGradient;
+    class iUserControlColorChooser;
 
     /*! event triggered when color chooser was closed
     */
@@ -50,7 +52,7 @@ namespace Igor
 
     /*! the color chooser dialog
     */
-    class Igor_API iDialogColorGradient : public iWidgetDialog
+    class Igor_API iDialogColorGradient : public iDialog
     {
 
         friend class iWidgetManager;
@@ -79,6 +81,18 @@ namespace Igor
         */
         iGradientColor4f _gradient;
 
+        /*! current selected color index
+        */
+        int32 _selectedColor = 0;
+
+        /*! color chooser
+        */
+        iUserControlColorChooser* _colorChooser = nullptr;
+
+        /*! position number chooser
+        */
+        iWidgetNumberChooser* _position = nullptr;
+
         /*! over all grid
         */
         iWidgetGrid* _grid = nullptr;
@@ -90,6 +104,35 @@ namespace Igor
         /*! all widgets
         */
         vector<iWidget*> _allWidgets;
+
+        /*! updates gui part if selection changed
+        */
+        void updateSelection();
+
+        /*! triggered by selection changed event
+        */
+        void onSelectionChanged(int index);
+
+        /*! triggred when position number chooser was changed
+
+        \param source source widget
+        */
+        void onPositionChanged(iWidget* source);
+
+        /*! triggered when color chooser was manipulated
+        */
+        void onColorChanged(const iaColor4f& color);
+
+        /*! triggered when color in gradient was created
+
+        \param at position of color
+        \param color the value of the color
+        */
+        void onColorCreated(float32 at, const iaColor4f& color);
+
+        /*! triggered by clicking delete button
+        */
+        void onDelete(iWidget* source);
 
         /*! handles ok button clicked event
 
@@ -136,7 +179,7 @@ namespace Igor
 
         /*! creates instance of this widget type
         */
-        static iWidgetDialog* createInstance();
+        static iDialog* createInstance();
 
     };
 

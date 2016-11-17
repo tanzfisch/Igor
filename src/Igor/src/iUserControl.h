@@ -26,76 +26,44 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __INTERACTION2D__
-#define __INTERACTION2D__
+#ifndef __iUSERCONTROL__
+#define __iUSERCONTROL__
 
-#include <Mathematics.h>
+#include <iWidget.h>
 
-namespace Intersection2D
+namespace Igor
 {
-	// POINT
-	template <class T> class Point
-	{
-		public:
 
-			iaVector2<T> pos;
-	};
+    class iWidget;
 
-	typedef Point<float32> Pointf;
-	typedef Point<double> Pointd;
+    /*! use control base class
 
-	// SHAPE
-	template <class T> class Shape
-	{
-		public:
-
-			vector<iaVector2<T>> positions;
-	};
-
-	typedef Shape<float32> Shapef;
-	typedef Shape<double> Shaped;
-
-	// RECTANGLE
-	template <class T> class Rectangle
-	{
-		public:
-
-			T x;
-			T y;
-			T width;
-			T height;
-
-			Rectangle()
-			{
-				x = (T)0;
-				y = (T)0;
-				width = (T)0;
-				height = (T)0;
-			}
-			
-	};
-
-	typedef Rectangle<float32> Rectanglef;
-	typedef Rectangle<double> Rectangled;
-	typedef Rectangle<int> Rectanglei;
-	typedef Rectangle<long> Rectanglel;
-
-	// INTERSECTIONS
-	template<typename T>
-	bool intersection(Point<T> point, Shape<T> shape)
+    mostly used as a container to combine some of the standard widgets to apear as one
+    */
+    class Igor_API iUserControl : public iWidget
     {
-		int i, j;
-		bool result = false;
-		for (i = 0, j = shape.positions.size()-1; i < shape.positions.size(); j = i++)
-		{
-			if ((((shape.positions[i].y <= point.pos.y) && (point.pos.y < shape.positions[j].y)) ||
-				((shape.positions[j].y <= point.pos.y) && (point.pos.y < shape.positions[i].y))) &&
-				(point.pos.x < (shape.positions[j].x - shape.positions[i].x) * (point.pos.y - shape.positions[i].y) / (shape.positions[j].y - shape.positions[i].y) + shape.positions[i].x))
-					result = !result;
-		}
-		return result;
-    }
 
-};
+    public:
+
+        /*! does nothing
+        */
+        iUserControl() = default;
+
+        /*! does nothing
+        */
+        virtual ~iUserControl() = default;
+
+    private:
+
+        /*! updates size based on widgets content
+
+        all widgets have to derive from this
+        */
+        void calcMinSize();
+
+    };
+
+}
 
 #endif
+

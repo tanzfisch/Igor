@@ -30,7 +30,7 @@
 #define __USERCONTROLMODEL__
 
 #include <iNodeModel.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 using namespace Igor;
 
 namespace Igor
@@ -44,7 +44,7 @@ namespace Igor
     class iWidgetNumberChooser;
 }
 
-class UserControlModel : public iWidgetUserControl
+class UserControlModel : public iUserControl
 {
 public:
 

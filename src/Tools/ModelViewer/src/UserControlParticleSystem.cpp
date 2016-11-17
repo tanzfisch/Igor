@@ -26,6 +26,8 @@
 #include <iWidgetGroupBox.h>
 #include <iWidgetColorGradient.h>
 #include <iDialogColorGradient.h>
+#include <iWidgetGraph.h>
+#include <iDialogGraph.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -73,11 +75,74 @@ void UserControlParticleSystem::updateNode()
 
             node->setLoop(_loopCheckBox->isChecked());
             node->setPeriodTime(_periodChooser->getValue());
-            node->setAirDrag(_airDragChooser->getValue());
+            node->setAirDrag(1.0f - _airDragChooser->getValue());
             node->setVelocityOriented(_velocityOrientedCheckBox->isChecked());
             node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
-            node->setVortexApperanceRate(_vorticityAppearanceRateChooser->getValue());
+            node->setVortexToParticleRate(_vortextoParticleRateChooser->getValue() / 100.0f);
+            node->setVortexTorque(_vortexTorqueMinChooser->getValue(), _vortexTorqueMaxChooser->getValue());
+            node->setVortexRange(_vortexRangeMinChooser->getValue(), _vortexRangeMaxChooser->getValue());
             node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
+            node->setColorGradient(_colorGradient->getGradient());
+
+            iGradientVector2f startSizeGradient;
+            for (int i = 0; i < _startSizeGraph->getPoints(0).size(); ++i)
+            {
+                startSizeGradient.setValue(_startSizeGraph->getPoints(0)[i]._x, iaVector2f(_startSizeGraph->getPoints(0)[i]._y, _startSizeGraph->getPoints(1)[i]._y));
+            }
+            node->setStartSizeGradient(startSizeGradient);
+
+            iGradientf sizeScaleGradient;
+            auto scaleSizePoints = _scaleSizeGraph->getPoints(0);
+            for (auto point : scaleSizePoints)
+            {
+                sizeScaleGradient.setValue(point._x, point._y);
+            }
+            node->setSizeScaleGradient(sizeScaleGradient);
+
+            iGradientVector2f startVisibilityGradient;
+            for (int i = 0; i < _visibilityGraph->getPoints(0).size(); ++i)
+            {
+                startVisibilityGradient.setValue(_visibilityGraph->getPoints(0)[i]._x, iaVector2f(_visibilityGraph->getPoints(0)[i]._y, _visibilityGraph->getPoints(1)[i]._y));
+            }
+            node->setStartVisibleTimeGradient(startVisibilityGradient);
+
+            iGradientVector2f orientationGradient;
+            for (int i = 0; i < _orientationGraph->getPoints(0).size(); ++i)
+            {
+                orientationGradient.setValue(_orientationGraph->getPoints(0)[i]._x, 
+                    iaVector2f(_orientationGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationGraph->getPoints(1)[i]._y / 180.0f * M_PI));
+            }
+            node->setStartOrientationGradient(orientationGradient);
+
+            iGradientVector2f orientationRateGradient;
+            for (int i = 0; i < _orientationRateGraph->getPoints(0).size(); ++i)
+            {
+                orientationRateGradient.setValue(_orientationRateGraph->getPoints(0)[i]._x,
+                    iaVector2f(_orientationRateGraph->getPoints(0)[i]._y / 180.0f * M_PI, _orientationRateGraph->getPoints(1)[i]._y / 180.0f * M_PI));
+            }
+            node->setStartOrientationRateGradient(orientationRateGradient);
+
+            iGradientVector2f startVelocityGradient;
+            for (int i = 0; i < _startVelocityGraph->getPoints(0).size(); ++i)
+            {
+                startVelocityGradient.setValue(_startVelocityGraph->getPoints(0)[i]._x, iaVector2f(_startVelocityGraph->getPoints(0)[i]._y, _startVelocityGraph->getPoints(1)[i]._y));
+            }
+            node->setStartVelocityGradient(startVelocityGradient);
+
+            iGradientVector2f startLiftGradient;
+            for (int i = 0; i < _startLiftGraph->getPoints(0).size(); ++i)
+            {
+                startLiftGradient.setValue(_startLiftGraph->getPoints(0)[i]._x, iaVector2f(_startLiftGraph->getPoints(0)[i]._y, _startLiftGraph->getPoints(1)[i]._y));
+            }
+            node->setStartLiftGradient(startLiftGradient);
+
+            iGradientf emissionGradient;
+            auto emissionPoints = _emissionGraph->getPoints(0);
+            for (auto point : emissionPoints)
+            {
+                emissionGradient.setValue(point._x, point._y);
+            }
+            node->setEmissionGradient(emissionGradient);
         }
     }
 }
@@ -140,16 +205,159 @@ void UserControlParticleSystem::updateGUI()
 
         _loopCheckBox->setChecked(node->getLoop());
         _periodChooser->setValue(node->getPeriodTime());
-        _periodChooser->setActive(!_loopCheckBox->isChecked());
-        _airDragChooser->setValue(node->getAirDrag());
+        _airDragChooser->setValue(1.0f - node->getAirDrag());
         _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
         _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
-        _vorticityAppearanceRateChooser->setValue(node->getVortexApperanceRate());
+        _vortextoParticleRateChooser->setValue(node->getVortexToParticleRate() * 100.0f);
+        _vortexTorqueMinChooser->setValue(node->getVortexTorqueMin());
+        _vortexTorqueMaxChooser->setValue(node->getVortexTorqueMax());
+        _vortexRangeMinChooser->setValue(node->getVortexRangeMin());
+        _vortexRangeMaxChooser->setValue(node->getVortexRangeMax());
         _tilingHorizontalChooser->setValue(node->getFirstTextureColumns());
         _tilingVerticalChooser->setValue(node->getFirstTextureRows());
+
+        iGradientColor4f gradient;
+        node->getColorGradient(gradient);
+        _colorGradient->setGradient(gradient);
+
+        convertGradientsToUI(node);
     }
 
     _ignoreNodeUpdate = false;
+}
+
+iWidget* UserControlParticleSystem::getWidget()
+{
+    return _grid;
+}
+
+void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
+{
+    // start size
+    iGradientVector2f startSizeGradient;
+    node->getStartSizeGradient(startSizeGradient);
+
+    vector<iaVector2f> minStartSize;
+    vector<iaVector2f> maxStartSize;
+
+    vector<pair<float, iaVector2f>> startSizeValues = startSizeGradient.getValues();
+    for (auto value : startSizeValues)
+    {
+        minStartSize.push_back(iaVector2f(value.first, value.second._x));
+        maxStartSize.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startSizeGraph->setPoints(0, minStartSize);
+    _startSizeGraph->setPoints(1, maxStartSize);
+
+    // scale size
+    iGradientf sizeScaleGradient;
+    node->getSizeScaleGradient(sizeScaleGradient);
+
+    vector<iaVector2f> scaleSize;
+    vector<pair<float, float32>> scaleSizeValues = sizeScaleGradient.getValues();
+    for (auto value : scaleSizeValues)
+    {
+        scaleSize.push_back(iaVector2f(value.first, value.second));
+    }
+    _scaleSizeGraph->setPoints(0, scaleSize);
+
+    // visibility
+    iGradientVector2f visibilityGradient;
+    node->getStartVisibleTimeGradient(visibilityGradient);
+
+    vector<iaVector2f> minVisibility;
+    vector<iaVector2f> maxVisibility;
+
+    vector<pair<float, iaVector2f>> visibilityValues = visibilityGradient.getValues();
+    for (auto value : visibilityValues)
+    {
+        minVisibility.push_back(iaVector2f(value.first, value.second._x));
+        maxVisibility.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _visibilityGraph->setPoints(0, minVisibility);
+    _visibilityGraph->setPoints(1, maxVisibility);
+
+    // start orientation
+    iGradientVector2f startOrientationGradient;
+    node->getStartOrientationGradient(startOrientationGradient);
+
+    vector<iaVector2f> minStartOrientation;
+    vector<iaVector2f> maxStartOrientation;
+
+    vector<pair<float, iaVector2f>> startOrientationValues = startOrientationGradient.getValues();
+    for (auto value : startOrientationValues)
+    {
+        minStartOrientation.push_back(iaVector2f(value.first, value.second._x));
+        maxStartOrientation.push_back(iaVector2f(value.first, value.second._y * 180.0f / M_PI));
+    }
+
+    _orientationGraph->setPoints(0, minStartOrientation);
+    _orientationGraph->setPoints(1, maxStartOrientation);
+
+    // start orientation rate
+    iGradientVector2f startOrientationRateGradient;
+    node->getStartOrientationRateGradient(startOrientationRateGradient);
+
+    vector<iaVector2f> minStartOrientationRate;
+    vector<iaVector2f> maxStartOrientationRate;
+
+    vector<pair<float, iaVector2f>> startOrientationRateValues = startOrientationRateGradient.getValues();
+    for (auto value : startOrientationRateValues)
+    {
+        minStartOrientationRate.push_back(iaVector2f(value.first, value.second._x));
+        maxStartOrientationRate.push_back(iaVector2f(value.first, value.second._y * 180.0f / M_PI));
+    }
+
+    _orientationRateGraph->setPoints(0, minStartOrientationRate);
+    _orientationRateGraph->setPoints(1, maxStartOrientationRate);
+
+    // start velocity
+    iGradientVector2f startVelocityGradient;
+    node->getStartVelocityGradient(startVelocityGradient);
+
+    vector<iaVector2f> minStartVelocity;
+    vector<iaVector2f> maxStartVelocity;
+
+    vector<pair<float, iaVector2f>> startVelocityValues = startVelocityGradient.getValues();
+    for (auto value : startVelocityValues)
+    {
+        minStartVelocity.push_back(iaVector2f(value.first, value.second._x));
+        maxStartVelocity.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startVelocityGraph->setPoints(0, minStartVelocity);
+    _startVelocityGraph->setPoints(1, maxStartVelocity);
+
+    // start Lift
+    iGradientVector2f startLiftGradient;
+    node->getStartLiftGradient(startLiftGradient);
+
+    vector<iaVector2f> minStartLift;
+    vector<iaVector2f> maxStartLift;
+
+    vector<pair<float, iaVector2f>> startLiftValues = startLiftGradient.getValues();
+    for (auto value : startLiftValues)
+    {
+        minStartLift.push_back(iaVector2f(value.first, value.second._x));
+        maxStartLift.push_back(iaVector2f(value.first, value.second._y));
+    }
+
+    _startLiftGraph->setPoints(0, minStartLift);
+    _startLiftGraph->setPoints(1, maxStartLift);
+
+    // emission
+    iGradientf emissionGradient;
+    node->getEmissionGradient(emissionGradient);
+
+    vector<iaVector2f> emissionGraph;
+    vector<pair<float, float32>> emissionValues = emissionGradient.getValues();
+    for (auto value : emissionValues)
+    {
+        emissionGraph.push_back(iaVector2f(value.first, value.second));
+    }
+    _emissionGraph->setPoints(0, emissionGraph);
 }
 
 void UserControlParticleSystem::setNode(uint32 id)
@@ -215,7 +423,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridSimulationProperties);
     gridSimulationProperties->appendCollumns(1);
-    gridSimulationProperties->appendRows(5);
+    gridSimulationProperties->appendRows(6);
     gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridSimulationProperties->setStrechColumn(1);
     gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
@@ -223,19 +431,19 @@ void UserControlParticleSystem::initGUI()
     iWidgetLabel* labelLoop = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelLoop);
     labelLoop->setText("Loop");
-    labelLoop->setWidth(80);
+    labelLoop->setWidth(MV_REGULARBUTTON_SIZE);
     labelLoop->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _loopCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
     _allWidgets.push_back(_loopCheckBox);
     _loopCheckBox->setHorizontalAlignment(iHorizontalAlignment::Left);
     _loopCheckBox->setVerticalAlignment(iVerticalAlignment::Top);
-    _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onLoopChanged));
+    _loopCheckBox->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel* labelPeriod = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelPeriod);
     labelPeriod->setText("Period");
-    labelPeriod->setWidth(80);
+    labelPeriod->setWidth(MV_REGULARBUTTON_SIZE);
     labelPeriod->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _periodChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
@@ -249,10 +457,26 @@ void UserControlParticleSystem::initGUI()
     _periodChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _periodChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
+    iWidgetLabel* labelEmission = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelEmission);
+    labelEmission->setText("Emission Rate");
+    labelEmission->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelEmission->setWidth(MV_REGULARBUTTON_SIZE);
+    labelEmission->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _emissionGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_emissionGraph);
+    _emissionGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _emissionGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenEmissionGradientEditor));
+    _emissionGraph->setExtrapolateData();
+    _emissionGraph->setViewGrid();
+    _emissionGraph->setBoundings(iRectanglef(0, 0, 1, 1));
+    _emissionGraph->setLineColor(0, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
+
     iWidgetLabel* labelAirDrag = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelAirDrag);
     labelAirDrag->setText("Air Drag");
-    labelAirDrag->setWidth(80);
+    labelAirDrag->setWidth(MV_REGULARBUTTON_SIZE);
     labelAirDrag->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _airDragChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
@@ -277,44 +501,152 @@ void UserControlParticleSystem::initGUI()
     iWidgetGrid* gridVortexSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridVortexSimulationProperties);
     gridVortexSimulationProperties->appendCollumns(1);
-    gridVortexSimulationProperties->appendRows(5);
+    gridVortexSimulationProperties->appendRows(6);
     gridVortexSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridVortexSimulationProperties->setStrechColumn(1);
     gridVortexSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
 
     iWidgetLabel* labelVortexRate = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVortexRate);
-    labelVortexRate->setText("Crea. Rate");
-    labelVortexRate->setWidth(80);
+    labelVortexRate->setText("Vortex Particle Rate");
+    labelVortexRate->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexRate->setWidth(MV_REGULARBUTTON_SIZE);
     labelVortexRate->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _vorticityAppearanceRateChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
-    _allWidgets.push_back(_vorticityAppearanceRateChooser);
-    _vorticityAppearanceRateChooser->setMinMaxNumber(0.0f, 100.0f);
-    _vorticityAppearanceRateChooser->setStepping(1.0f, 1.0f);
-    _vorticityAppearanceRateChooser->setSteppingWheel(1.0f, 1.0f);
-    _vorticityAppearanceRateChooser->setPostFix(" v/f");
-    _vorticityAppearanceRateChooser->setAfterPoint(0);
-    _vorticityAppearanceRateChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _vorticityAppearanceRateChooser->setVerticalAlignment(iVerticalAlignment::Top);
-    _vorticityAppearanceRateChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortextoParticleRateChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_vortextoParticleRateChooser);
+    _vortextoParticleRateChooser->setMinMaxNumber(0.0f, 100.0f);
+    _vortextoParticleRateChooser->setStepping(1.0f, 1.0f);
+    _vortextoParticleRateChooser->setSteppingWheel(1.0f, 1.0f);
+    _vortextoParticleRateChooser->setPostFix(" %");
+    _vortextoParticleRateChooser->setAfterPoint(0);
+    _vortextoParticleRateChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortextoParticleRateChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vortextoParticleRateChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVortexMinTorque = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVortexMinTorque);
+    labelVortexMinTorque->setText("Min Tourque");
+    labelVortexMinTorque->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMinTorque->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMinTorque->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _vortexTorqueMinChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_vortexTorqueMinChooser);
+    _vortexTorqueMinChooser->setMinMaxNumber(0.0f, 10.0f);
+    _vortexTorqueMinChooser->setStepping(0.001f, 0.001f);
+    _vortexTorqueMinChooser->setSteppingWheel(0.01f, 0.01f);
+    _vortexTorqueMinChooser->setPostFix("");
+    _vortexTorqueMinChooser->setAfterPoint(4);
+    _vortexTorqueMinChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexTorqueMinChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vortexTorqueMinChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVortexMaxTorque = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVortexMaxTorque);
+    labelVortexMaxTorque->setText("Max Tourque");
+    labelVortexMaxTorque->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMaxTorque->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMaxTorque->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _vortexTorqueMaxChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_vortexTorqueMaxChooser);
+    _vortexTorqueMaxChooser->setMinMaxNumber(0.0f, 10.0f);
+    _vortexTorqueMaxChooser->setStepping(0.001f, 0.001f);
+    _vortexTorqueMaxChooser->setSteppingWheel(0.01f, 0.01f);
+    _vortexTorqueMaxChooser->setPostFix("");
+    _vortexTorqueMaxChooser->setAfterPoint(4);
+    _vortexTorqueMaxChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexTorqueMaxChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vortexTorqueMaxChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVortexMinRange = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVortexMinRange);
+    labelVortexMinRange->setText("Min Range");
+    labelVortexMinRange->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMinRange->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMinRange->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _vortexRangeMinChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_vortexRangeMinChooser);
+    _vortexRangeMinChooser->setMinMaxNumber(0.0f, 100.0f);
+    _vortexRangeMinChooser->setStepping(0.1f, 0.1f);
+    _vortexRangeMinChooser->setSteppingWheel(1.0f, 1.0f);
+    _vortexRangeMinChooser->setPostFix("");
+    _vortexRangeMinChooser->setAfterPoint(2);
+    _vortexRangeMinChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexRangeMinChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vortexRangeMinChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVortexMaxRange = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVortexMaxRange);
+    labelVortexMaxRange->setText("Max Range");
+    labelVortexMaxRange->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMaxRange->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexMaxRange->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _vortexRangeMaxChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_vortexRangeMaxChooser);
+    _vortexRangeMaxChooser->setMinMaxNumber(0.0f, 100.0f);
+    _vortexRangeMaxChooser->setStepping(0.1f, 0.1f);
+    _vortexRangeMaxChooser->setSteppingWheel(1.0f, 1.0f);
+    _vortexRangeMaxChooser->setPostFix("");
+    _vortexRangeMaxChooser->setAfterPoint(2);
+    _vortexRangeMaxChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexRangeMaxChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vortexRangeMaxChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel* labelVorticityConfinement = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVorticityConfinement);
     labelVorticityConfinement->setText("Confinement");
-    labelVorticityConfinement->setWidth(80);
+    labelVorticityConfinement->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVorticityConfinement->setWidth(MV_REGULARBUTTON_SIZE);
     labelVorticityConfinement->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _vorticityConfinementChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
     _allWidgets.push_back(_vorticityConfinementChooser);
-    _vorticityConfinementChooser->setMinMaxNumber(0.0f, 100.0f);
-    _vorticityConfinementChooser->setStepping(0.1f, 0.1f);
-    _vorticityConfinementChooser->setSteppingWheel(1.0f, 1.0f);
+    _vorticityConfinementChooser->setMinMaxNumber(0.0f, 10.0f);
+    _vorticityConfinementChooser->setStepping(0.001f, 0.001f);
+    _vorticityConfinementChooser->setSteppingWheel(0.01f, 0.01f);
     _vorticityConfinementChooser->setPostFix("");
-    _vorticityConfinementChooser->setAfterPoint(1);
+    _vorticityConfinementChooser->setAfterPoint(4);
     _vorticityConfinementChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _vorticityConfinementChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vorticityConfinementChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVelocityGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVelocityGradient);
+    labelVelocityGradient->setText("Initial Velocity");
+    labelVelocityGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVelocityGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVelocityGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelVelocityGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _startVelocityGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_startVelocityGraph);
+    _startVelocityGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startVelocityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartVelocityGradientEditor));
+    _startVelocityGraph->setExtrapolateData();
+    _startVelocityGraph->setViewGrid();
+    _startVelocityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _startVelocityGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+    iWidgetLabel* labelLiftGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelLiftGradient);
+    labelLiftGradient->setText("Initial Lift/Weight");
+    labelLiftGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelLiftGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelLiftGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelLiftGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _startLiftGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_startLiftGraph);
+    _startLiftGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startLiftGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartLiftGradientEditor));
+    _startLiftGraph->setExtrapolateData();
+    _startLiftGraph->setViewGrid();
+    _startLiftGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _startLiftGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
 
     ///////////
     iWidgetGroupBox* appearanceGroupBox = static_cast<iWidgetGroupBox*>(iWidgetManager::getInstance().createWidget("GroupBox"));
@@ -383,17 +715,94 @@ void UserControlParticleSystem::initGUI()
     labelColorGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
-    _allWidgets.push_back(_colorGradient);
-    iGradientColor4f rainbow;
-    rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
-    rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
-    rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
-    rainbow.setValue(0.6f, iaColor4f(0, 1, 0, 0.6));
-    rainbow.setValue(0.8f, iaColor4f(1, 1, 0, 0.8));
-    rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
-    _colorGradient->setGradient(rainbow);
+    _allWidgets.push_back(_colorGradient);    
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenColorGradientEditor));
+
+    iWidgetLabel* labelSizeGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelSizeGradient);
+    labelSizeGradient->setText("Size");
+    labelSizeGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelSizeGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelSizeGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelSizeGradient->setVerticalAlignment(iVerticalAlignment::Top);
+    
+    _startSizeGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_startSizeGraph);
+    _startSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _startSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartSizeGradientEditor));
+    _startSizeGraph->setExtrapolateData();
+    _startSizeGraph->setViewGrid();
+    _startSizeGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _startSizeGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+    iWidgetLabel* labelSizeScaleGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelSizeScaleGradient);
+    labelSizeScaleGradient->setText("Size Scale over Time");
+    labelSizeScaleGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelSizeScaleGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelSizeScaleGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelSizeScaleGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _scaleSizeGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_scaleSizeGraph);
+    _scaleSizeGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _scaleSizeGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenScaleSizeGradientEditor));
+    _scaleSizeGraph->setExtrapolateData();
+    _scaleSizeGraph->setViewGrid();
+    _scaleSizeGraph->setBoundings(iRectanglef(0, 0, 1, 1));
+    _scaleSizeGraph->setLineColor(0, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
+
+    iWidgetLabel* labelVisibilityGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVisibilityGradient);
+    labelVisibilityGradient->setText("Visibility");
+    labelVisibilityGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVisibilityGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVisibilityGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelVisibilityGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _visibilityGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_visibilityGraph);
+    _visibilityGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _visibilityGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenVisibilityGradientEditor));
+    _visibilityGraph->setExtrapolateData();
+    _visibilityGraph->setViewGrid();
+    _visibilityGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _visibilityGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+    iWidgetLabel* labelOrientationGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelOrientationGradient);
+    labelOrientationGradient->setText("Orientation");
+    labelOrientationGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelOrientationGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelOrientationGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelOrientationGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _orientationGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_orientationGraph);
+    _orientationGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _orientationGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationGradientEditor));
+    _orientationGraph->setExtrapolateData();
+    _orientationGraph->setViewGrid();
+    _orientationGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _orientationGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+
+    iWidgetLabel* labelOrientationRateGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelOrientationRateGradient);
+    labelOrientationRateGradient->setText("Orientation Rate");
+    labelOrientationRateGradient->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelOrientationRateGradient->setWidth(MV_REGULARBUTTON_SIZE);
+    labelOrientationRateGradient->setHorizontalAlignment(iHorizontalAlignment::Left);
+    labelOrientationRateGradient->setVerticalAlignment(iVerticalAlignment::Top);
+
+    _orientationRateGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_orientationRateGraph);
+    _orientationRateGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _orientationRateGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenStartOrientationRateGradientEditor));
+    _orientationRateGraph->setExtrapolateData();
+    _orientationRateGraph->setViewGrid();
+    _orientationRateGraph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    _orientationRateGraph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
 
     iWidgetLabel* labelEmitter = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelEmitter);
@@ -452,19 +861,23 @@ void UserControlParticleSystem::initGUI()
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textureChooser0 = new iUserControlFileChooser();
+    _textureChooser0 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser0);
     _textureChooser0->setPreselectedPath("..\\data\\textures");
     _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser1 = new iUserControlFileChooser();
+    _textureChooser1 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser1);
     _textureChooser1->setPreselectedPath("..\\data\\textures");
     _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser2 = new iUserControlFileChooser();
+    _textureChooser2 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser2);
     _textureChooser2->setPreselectedPath("..\\data\\textures");
     _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
-    _textureChooser3 = new iUserControlFileChooser();
+    _textureChooser3 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser3);
     _textureChooser3->setPreselectedPath("..\\data\\textures");
     _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -488,18 +901,39 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->addWidget(labelPeriod, 0, 2);
     gridSimulationProperties->addWidget(_periodChooser, 1, 2);
 
-    gridSimulationProperties->addWidget(labelAirDrag, 0, 3);
-    gridSimulationProperties->addWidget(_airDragChooser, 1, 3);
+    gridSimulationProperties->addWidget(labelEmission, 0, 3);
+    gridSimulationProperties->addWidget(_emissionGraph, 1, 3);
+
+    gridSimulationProperties->addWidget(labelAirDrag, 0, 4);
+    gridSimulationProperties->addWidget(_airDragChooser, 1, 4);
+
+    gridSimulationProperties->addWidget(labelVelocityGradient, 0, 5);
+    gridSimulationProperties->addWidget(_startVelocityGraph, 1, 5);
+
+    gridSimulationProperties->addWidget(labelLiftGradient, 0, 6);
+    gridSimulationProperties->addWidget(_startLiftGraph, 1, 6);
 
     ///////////////
     gridProperties->addWidget(vortexSimulationGroupBox, 0, 1);
     vortexSimulationGroupBox->addWidget(gridVortexSimulationProperties);
 
     gridVortexSimulationProperties->addWidget(labelVortexRate, 0, 0);
-    gridVortexSimulationProperties->addWidget(_vorticityAppearanceRateChooser, 1, 0);
+    gridVortexSimulationProperties->addWidget(_vortextoParticleRateChooser, 1, 0);
 
-    gridVortexSimulationProperties->addWidget(labelVorticityConfinement, 0, 1);
-    gridVortexSimulationProperties->addWidget(_vorticityConfinementChooser, 1, 1);
+    gridVortexSimulationProperties->addWidget(labelVortexMinTorque, 0, 1);
+    gridVortexSimulationProperties->addWidget(_vortexTorqueMinChooser, 1, 1);
+
+    gridVortexSimulationProperties->addWidget(labelVortexMaxTorque, 0, 2);
+    gridVortexSimulationProperties->addWidget(_vortexTorqueMaxChooser, 1, 2);
+
+    gridVortexSimulationProperties->addWidget(labelVortexMinRange, 0, 3);
+    gridVortexSimulationProperties->addWidget(_vortexRangeMinChooser, 1, 3);
+
+    gridVortexSimulationProperties->addWidget(labelVortexMaxRange, 0, 4);
+    gridVortexSimulationProperties->addWidget(_vortexRangeMaxChooser, 1, 4);
+
+    gridVortexSimulationProperties->addWidget(labelVorticityConfinement, 0, 5);
+    gridVortexSimulationProperties->addWidget(_vorticityConfinementChooser, 1, 5);
 
     /////////////////
     gridProperties->addWidget(appearanceGroupBox, 0, 2);
@@ -509,7 +943,7 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(_materialSelection, 1, 0);
 
     gridAppearanceProperties->addWidget(labelTextureUnit0, 0, 1);
-    gridAppearanceProperties->addWidget(_textureChooser0->getWidget(), 1, 1);
+    gridAppearanceProperties->addWidget(_textureChooser0, 1, 1);
 
     gridAppearanceProperties->addWidget(labelHorizontalTiling, 0, 2);
     gridAppearanceProperties->addWidget(_tilingHorizontalChooser, 1, 2);
@@ -518,13 +952,13 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(_tilingVerticalChooser, 1, 3);
 
     gridAppearanceProperties->addWidget(labelTextureUnit1, 0, 4);
-    gridAppearanceProperties->addWidget(_textureChooser1->getWidget(), 1, 4);
+    gridAppearanceProperties->addWidget(_textureChooser1, 1, 4);
 
     gridAppearanceProperties->addWidget(labelTextureUnit2, 0, 5);
-    gridAppearanceProperties->addWidget(_textureChooser2->getWidget(), 1, 5);
+    gridAppearanceProperties->addWidget(_textureChooser2, 1, 5);
 
     gridAppearanceProperties->addWidget(labelTextureUnit3, 0, 6);
-    gridAppearanceProperties->addWidget(_textureChooser3->getWidget(), 1, 6);
+    gridAppearanceProperties->addWidget(_textureChooser3, 1, 6);
 
     gridAppearanceProperties->addWidget(labelVelocityOriented, 0, 7);
     gridAppearanceProperties->addWidget(_velocityOrientedCheckBox, 1, 7);
@@ -532,9 +966,298 @@ void UserControlParticleSystem::initGUI()
     gridAppearanceProperties->addWidget(labelColorGradient, 0, 8);
     gridAppearanceProperties->addWidget(_colorGradient, 1, 8);
 
-    _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("ColorGradient"));
+    gridAppearanceProperties->addWidget(labelSizeGradient, 0, 9);
+    gridAppearanceProperties->addWidget(_startSizeGraph, 1, 9);
+
+    gridAppearanceProperties->addWidget(labelSizeScaleGradient, 0, 10);
+    gridAppearanceProperties->addWidget(_scaleSizeGraph, 1, 10);
+
+    gridAppearanceProperties->addWidget(labelVisibilityGradient, 0, 11);
+    gridAppearanceProperties->addWidget(_visibilityGraph, 1, 11);
+
+    gridAppearanceProperties->addWidget(labelOrientationGradient, 0, 12);
+    gridAppearanceProperties->addWidget(_orientationGraph, 1, 12);
+
+    gridAppearanceProperties->addWidget(labelOrientationRateGradient, 0, 13);
+    gridAppearanceProperties->addWidget(_orientationRateGraph, 1, 13);
+    
+
+    _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
+    _dialogGraph = static_cast<iDialogGraph*>(iWidgetManager::getInstance().createDialog("DialogGraph"));
 
     updateNode();
+}
+
+void UserControlParticleSystem::onOpenStartLiftGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _startLiftGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _startLiftGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.001f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(-5.0f, 5.0f, 0.0001f);
+    _dialogGraph->setTitle("Edit Start Lift/Weight Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(4);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartLiftGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartLiftGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _startLiftGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _startLiftGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenEmissionGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _emissionGraph->getGraphCount(); ++i)
+    {
+        graphs.push_back(_emissionGraph->getPoints(i));
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Emission Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Rate");
+    _dialogGraph->setAfterPoint(2);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseEmissionGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseEmissionGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _emissionGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _emissionGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenStartVelocityGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _startVelocityGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _startVelocityGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 5.0f, 0.001f);
+    _dialogGraph->setTitle("Edit Initial Velocity Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(4);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartVelocityGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartVelocityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _startVelocityGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _startVelocityGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenStartSizeGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _startSizeGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _startSizeGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Start Size Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartSizeGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _startSizeGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _startSizeGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenStartOrientationRateGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _orientationRateGraph->getGraphCount(); ++i)
+    {
+        graphs.push_back(_orientationRateGraph->getPoints(i));
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(-360.0f, 360.0f, 0.1f);
+    _dialogGraph->setTitle("Edit Start Orientation Rate Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationRateGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartOrientationRateGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _orientationRateGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _orientationRateGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenStartOrientationGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _orientationGraph->getGraphCount(); ++i)
+    {
+        graphs.push_back(_orientationGraph->getPoints(i));
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(-360.0f, 360.0f, 1.0f);
+    _dialogGraph->setTitle("Edit Start Orientation Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseStartOrientationGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseStartOrientationGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _orientationGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _orientationGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _scaleSizeGraph->getGraphCount(); ++i)
+    {
+        graphs.push_back(_scaleSizeGraph->getPoints(i));
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Size Scale Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Factor");
+    _dialogGraph->setAfterPoint(2);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseScaleSizeGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseScaleSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _scaleSizeGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _scaleSizeGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenVisibilityGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _visibilityGraph->getGraphCount(); ++i)
+    {
+        vector<iaVector2f> temp = _visibilityGraph->getPoints(i);
+        graphs.push_back(temp);
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Visibility Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Min");
+    _dialogGraph->setAxisName(2, "Max");
+    _dialogGraph->setAfterPoint(2);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseVisibilityGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseVisibilityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _visibilityGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _visibilityGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+
+void UserControlParticleSystem::onOpenColorGradientEditor(iWidget* source)
+{
+    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
 }
 
 void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient)
@@ -542,22 +1265,12 @@ void UserControlParticleSystem::onCloseColorGradientEditor(bool ok, const iGradi
     if (ok)
     {
         _colorGradient->setGradient(gradient);
+        updateNode();
     }
-}
-
-void UserControlParticleSystem::onOpenColorGradientEditor(iWidget* source)
-{
-    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &UserControlParticleSystem::onCloseColorGradientEditor), _colorGradient->getGradient(), true);
 }
 
 void UserControlParticleSystem::onDoUpdateNode(iWidget* source)
 {
-    updateNode();
-}
-
-void UserControlParticleSystem::onLoopChanged(iWidget* source)
-{
-    _periodChooser->setActive(!_loopCheckBox->isChecked());
     updateNode();
 }
 
@@ -602,7 +1315,11 @@ void UserControlParticleSystem::deinitGUI()
     _airDragChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _velocityOrientedCheckBox->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vorticityConfinementChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-    _vorticityAppearanceRateChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortextoParticleRateChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortexTorqueMinChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortexTorqueMaxChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortexRangeMinChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortexRangeMaxChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _tilingHorizontalChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _tilingVerticalChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
@@ -628,9 +1345,16 @@ void UserControlParticleSystem::deinitGUI()
     _buttonStart = nullptr;
     _buttonStop = nullptr;
     _buttonReset = nullptr;
-}
 
-iWidget* UserControlParticleSystem::getWidget()
-{
-    return _grid;
+    if (_colorGradientDialog != nullptr)
+    {
+        iWidgetManager::getInstance().destroyDialog(_colorGradientDialog);
+        _colorGradientDialog = nullptr;
+    }
+
+    if (_dialogGraph != nullptr)
+    {
+        iWidgetManager::getInstance().destroyDialog(_dialogGraph);
+        _dialogGraph = nullptr;
+    }
 }

@@ -29,7 +29,7 @@
 #ifndef __iUSERCONTROLCOLORCHOOSER__
 #define __iUSERCONTROLCOLORCHOOSER__
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iWidget.h>
 
 #include <iaEvent.h>
@@ -66,19 +66,12 @@ namespace Igor
     \bug color chooser disapperas when unfolded and folded again
     \todo use drawGradient instead of textures for the color componenbt sliders than we could manipulate them dynamically
     */
-    class Igor_API iUserControlColorChooser : public iWidgetUserControl
+    class Igor_API iUserControlColorChooser : public iUserControl
     {
+
+        friend class iWidgetManager;
+
     public:
-
-        /*! ctor initializes member variables
-
-        \param mode the mode this color chooser is configured for
-        */
-        iUserControlColorChooser(iColorChooserMode mode);
-
-        /*! clean up
-        */
-        ~iUserControlColorChooser();
 
         /*! sets the headline text
 
@@ -99,10 +92,6 @@ namespace Igor
         \param color color
         */
         void setColor(const iaColor4f& color);
-
-        /*! \returns root widget of user control
-        */
-        iWidget* getWidget();
 
         /*! register on color change event
 
@@ -136,7 +125,20 @@ namespace Igor
         */
         bool isHeadlineVisible() const;
 
+        /*! sets color chooser mode
+        \param mode the mode this color chooser is configured for
+        */
+        void setMode(iColorChooserMode mode);
+
+        /*! \returns color chooser mode
+        */
+        iColorChooserMode getMode();
+
     private:
+
+        /*! current color chooser mode
+        */
+        iColorChooserMode _mode = iColorChooserMode::RGBA;
 
         /*! current color on RGBA format
         */
@@ -153,10 +155,6 @@ namespace Igor
         /*! if true expand button will be shown
         */
         bool _showHeadline = true;
-
-        /*! amount of components based on the mode the color chooser was started with
-        */
-        int32 _components = 0;
 
         /*! headline text
         */
@@ -326,6 +324,10 @@ namespace Igor
         */
         iWidgetColor* _colorViewCollapsed = nullptr;
 
+        /*! updates color choose mode
+        */
+        void updateMode();
+
         /*! triggered when hue component changed
 
         \param source source widget
@@ -494,6 +496,18 @@ namespace Igor
         /*! releases resources
         */
         void deinitGUI();
+
+        /*! ctor initializes member variables
+        */
+        iUserControlColorChooser();
+
+        /*! clean up
+        */
+        virtual ~iUserControlColorChooser();
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
 
     };
 }

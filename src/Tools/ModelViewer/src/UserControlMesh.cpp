@@ -239,19 +239,27 @@ void UserControlMesh::initGUI()
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
 
-    _ambientColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);
+    _ambientColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser"));
+    _allWidgets.push_back(_ambientColorChooser);
+    _ambientColorChooser->setMode(iColorChooserMode::RGB);
     _ambientColorChooser->setText("Ambient");
     _ambientColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onAmbientChange));
 
-    _diffuseColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);
+    _diffuseColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
+    _allWidgets.push_back(_diffuseColorChooser);
+    _diffuseColorChooser->setMode(iColorChooserMode::RGB);
     _diffuseColorChooser->setText("Diffuse");
     _diffuseColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onDiffuseChange));
 
-    _specularColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);
+    _specularColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
+    _allWidgets.push_back(_specularColorChooser);
+    _specularColorChooser->setMode(iColorChooserMode::RGB);
     _specularColorChooser->setText("Specular");
     _specularColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onSpecularChange));
 
-    _emissiveColorChooser = new iUserControlColorChooser(iColorChooserMode::RGB);
+    _emissiveColorChooser = static_cast<iUserControlColorChooser*>(iWidgetManager::getInstance().createWidget("UserControlColorChooser")); 
+    _allWidgets.push_back(_emissiveColorChooser);
+    _emissiveColorChooser->setMode(iColorChooserMode::RGB);
     _emissiveColorChooser->setText("Emissive");
     _emissiveColorChooser->registerOnColorChangedEvent(iColorChangedDelegate(this, &UserControlMesh::onEmissiveChange));
 
@@ -370,19 +378,23 @@ void UserControlMesh::initGUI()
     labelTextureUnit3->setWidth(MV_REGULARBUTTON_SIZE);
     labelTextureUnit3->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textureChooser0 = new iUserControlFileChooser();
+    _textureChooser0 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser0);
     _textureChooser0->setPreselectedPath("..\\data\\textures");
     _textureChooser0->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textureChooser1 = new iUserControlFileChooser();
+    _textureChooser1 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser1);
     _textureChooser1->setPreselectedPath("..\\data\\textures");
     _textureChooser1->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textureChooser2 = new iUserControlFileChooser();
+    _textureChooser2 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser2);
     _textureChooser2->setPreselectedPath("..\\data\\textures");
     _textureChooser2->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
-    _textureChooser3 = new iUserControlFileChooser();
+    _textureChooser3 = static_cast<iUserControlFileChooser*>(iWidgetManager::getInstance().createWidget("UserControlFileChooser"));
+    _allWidgets.push_back(_textureChooser3);
     _textureChooser3->setPreselectedPath("..\\data\\textures");
     _textureChooser3->registerOnChangedDelegate(iChangeDelegate(this, &UserControlMesh::onDoUpdateNode));
 
@@ -419,19 +431,19 @@ void UserControlMesh::initGUI()
     gridTextures->addWidget(labelTextureUnit1, 0, 1);
     gridTextures->addWidget(labelTextureUnit2, 0, 2);
     gridTextures->addWidget(labelTextureUnit3, 0, 3);
-    gridTextures->addWidget(_textureChooser0->getWidget(), 1, 0);
-    gridTextures->addWidget(_textureChooser1->getWidget(), 1, 1);
-    gridTextures->addWidget(_textureChooser2->getWidget(), 1, 2);
-    gridTextures->addWidget(_textureChooser3->getWidget(), 1, 3);
+    gridTextures->addWidget(_textureChooser0, 1, 0);
+    gridTextures->addWidget(_textureChooser1, 1, 1);
+    gridTextures->addWidget(_textureChooser2, 1, 2);
+    gridTextures->addWidget(_textureChooser3, 1, 3);
 
     gridMaterial->addWidget(labelMaterial, 0, 0);
     gridMaterial->addWidget(_selectMaterial, 1, 0);
 
     _grid->addWidget(detailsGrid, 0, 0);
-    _grid->addWidget(_ambientColorChooser->getWidget(), 0, 1);
-    _grid->addWidget(_diffuseColorChooser->getWidget(), 0, 2);
-    _grid->addWidget(_specularColorChooser->getWidget(), 0, 3);
-    _grid->addWidget(_emissiveColorChooser->getWidget(), 0, 4);
+    _grid->addWidget(_ambientColorChooser, 0, 1);
+    _grid->addWidget(_diffuseColorChooser, 0, 2);
+    _grid->addWidget(_specularColorChooser, 0, 3);
+    _grid->addWidget(_emissiveColorChooser, 0, 4);
     _grid->addWidget(gridShininess, 0, 5);
     _grid->addWidget(gridTextures, 0, 6);
     _grid->addWidget(gridMaterial, 0, 7);
@@ -467,30 +479,6 @@ void UserControlMesh::deinitGUI()
     _textShininess = nullptr;
     _sliderShininess = nullptr;
     _selectMaterial = nullptr;
-
-    if (_ambientColorChooser != nullptr)
-    {
-        delete _ambientColorChooser;
-        _ambientColorChooser = nullptr;
-    }
-
-    if (_emissiveColorChooser != nullptr)
-    {
-        delete _emissiveColorChooser;
-        _emissiveColorChooser = nullptr;
-    }
-
-    if (_diffuseColorChooser != nullptr)
-    {
-        delete _diffuseColorChooser;
-        _diffuseColorChooser = nullptr;
-    }
-
-    if (_specularColorChooser != nullptr)
-    {
-        delete _specularColorChooser;
-        _specularColorChooser = nullptr;
-    }
 }
 
 iWidget* UserControlMesh::getWidget()

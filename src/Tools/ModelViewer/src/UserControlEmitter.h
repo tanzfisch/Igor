@@ -30,7 +30,7 @@
 #define __USERCONTROLEMITTER__
 
 #include <iNodeModel.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 using namespace Igor;
 
 namespace Igor
@@ -47,7 +47,7 @@ namespace Igor
 
 /*! user control to configure an emitter node
 */
-class UserControlEmitter : public iWidgetUserControl
+class UserControlEmitter : public iUserControl
 {
 public:
 

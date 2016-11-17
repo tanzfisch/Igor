@@ -694,16 +694,19 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iControl.h" />
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDefines.h" />
+    <ClInclude Include="..\src\iDialog.h" />
     <ClInclude Include="..\src\iDialogColorChooser.h" />
     <ClInclude Include="..\src\iDialogColorGradient.h" />
     <ClInclude Include="..\src\iDialogDecisionBox.h" />
     <ClInclude Include="..\src\iDialogFileSelect.h" />
+    <ClInclude Include="..\src\iDialogGraph.h" />
     <ClInclude Include="..\src\iDialogMenu.h" />
     <ClInclude Include="..\src\iDialogMessageBox.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iGradient.h" />
     <ClInclude Include="..\src\iInstancer.h" />
+    <ClInclude Include="..\src\iIntersection.h" />
     <ClInclude Include="..\src\iJoint.h" />
     <ClInclude Include="..\src\iKeyboard.h" />
     <ClInclude Include="..\src\iKeyCodeMap.h" />
@@ -742,12 +745,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iNodeVisitorUpdateTransform.h" />
     <ClInclude Include="..\src\iNodeVolume.h" />
     <ClInclude Include="..\src\iNodeWater.h" />
-    <ClInclude Include="..\src\Intersection2D.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\src\iOctree.h" />
     <ClInclude Include="..\src\iOSEvent.h" />
     <ClInclude Include="..\src\iOSEventListener.h" />
@@ -821,6 +818,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iThread.h" />
     <ClInclude Include="..\src\iTimer.h" />
     <ClInclude Include="..\src\iTimerHandle.h" />
+    <ClInclude Include="..\src\iUserControl.h" />
     <ClInclude Include="..\src\iUserControlColorChooser.h" />
     <ClInclude Include="..\src\iUserControlFileChooser.h" />
     <ClInclude Include="..\src\iVersion.h" />
@@ -836,7 +834,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iWidgetColor.h" />
     <ClInclude Include="..\src\iWidgetColorGradient.h" />
     <ClInclude Include="..\src\iWidgetDefaultTheme.h" />
-    <ClInclude Include="..\src\iWidgetDialog.h" />
     <ClInclude Include="..\src\iWidgetGraph.h" />
     <ClInclude Include="..\src\iWidgetGrid.h" />
     <ClInclude Include="..\src\iWidgetGroupBox.h" />
@@ -849,7 +846,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iWidgetSlider.h" />
     <ClInclude Include="..\src\iWidgetSpacer.h" />
     <ClInclude Include="..\src\iWidgetTextEdit.h" />
-    <ClInclude Include="..\src\iWidgetUserControl.h" />
     <ClInclude Include="..\src\iWindow.h" />
     <ClInclude Include="..\src\Intersection3D.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -914,6 +910,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <None Include="..\src\iFrustum.inl" />
     <None Include="..\src\iGradient.inl" />
     <None Include="..\src\iInstancer.inl" />
+    <None Include="..\src\iIntersection.inl" />
     <None Include="..\src\iMesh.inl" />
     <None Include="..\src\iMeshBuffers.inl" />
     <None Include="..\src\iPerlinNoise.inl" />
@@ -1308,10 +1305,12 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iContouringCubes.cpp" />
     <ClCompile Include="..\src\iControl.cpp" />
     <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
+    <ClCompile Include="..\src\iDialog.cpp" />
     <ClCompile Include="..\src\iDialogColorChooser.cpp" />
     <ClCompile Include="..\src\iDialogColorGradient.cpp" />
     <ClCompile Include="..\src\iDialogDecisionBox.cpp" />
     <ClCompile Include="..\src\iDialogFileSelect.cpp" />
+    <ClCompile Include="..\src\iDialogGraph.cpp" />
     <ClCompile Include="..\src\iDialogMenu.cpp" />
     <ClCompile Include="..\src\iDialogMessageBox.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
@@ -1427,6 +1426,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iThread.cpp" />
     <ClCompile Include="..\src\iTimer.cpp" />
     <ClCompile Include="..\src\iTimerHandle.cpp" />
+    <ClCompile Include="..\src\iUserControl.cpp" />
     <ClCompile Include="..\src\iUserControlColorChooser.cpp" />
     <ClCompile Include="..\src\iUserControlFileChooser.cpp" />
     <ClCompile Include="..\src\iView.cpp">
@@ -1440,7 +1440,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iWidgetColor.cpp" />
     <ClCompile Include="..\src\iWidgetColorGradient.cpp" />
     <ClCompile Include="..\src\iWidgetDefaultTheme.cpp" />
-    <ClCompile Include="..\src\iWidgetDialog.cpp" />
     <ClCompile Include="..\src\iWidgetGraph.cpp" />
     <ClCompile Include="..\src\iWidgetGrid.cpp" />
     <ClCompile Include="..\src\iWidgetGroupBox.cpp" />
@@ -1453,7 +1452,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iWidgetSlider.cpp" />
     <ClCompile Include="..\src\iWidgetSpacer.cpp" />
     <ClCompile Include="..\src\iWidgetTextEdit.cpp" />
-    <ClCompile Include="..\src\iWidgetUserControl.cpp" />
     <ClCompile Include="..\src\iWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

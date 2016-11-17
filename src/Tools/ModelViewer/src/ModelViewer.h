@@ -48,7 +48,7 @@ namespace Igor
     class iTextureFont;
 
     class iWidgetDefaultTheme;
-    class iWidgetDialog;
+    class iDialog;
     class iWidgetScroll;
     class iDialogMessageBox;
     class iRenderStatistics;

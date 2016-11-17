@@ -68,6 +68,27 @@ namespace Igor
         */
         void getValue(float at, T& value) const;
 
+        /*! sets value at specified index
+
+        \param index index to modify
+        \param value the new value
+        */
+        void setValueAtIndex(int32 index, const T& value);
+
+        /*! returns location and value from specified index
+
+        \param index index to retrive data from
+        \param[out] at location at index
+        \param[out] value value at index
+        */
+        void getValueAtIndex(int32 index, float& at, T& value);
+
+        /*! removes specified index
+
+        \param index the index to remove
+        */
+        void removeIndex(int32 index);
+
         /*! clears gradient entries
         */
         void clear();

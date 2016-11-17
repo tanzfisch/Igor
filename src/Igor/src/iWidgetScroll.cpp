@@ -7,7 +7,7 @@
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iMaterialResourceFactory.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iMaterial.h>
 #include <iRenderer.h>
 

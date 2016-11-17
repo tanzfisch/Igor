@@ -38,13 +38,16 @@ namespace Igor
     {
         _startVisibleTimeGradient.setValue(0.0, iaVector2f(2.5, 3.5));
 
-        _colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 1));
+        _colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 0.0f));
+        _colorGradient.setValue(0.2, iaColor4f(1, 1, 1, 1));
+        _colorGradient.setValue(0.5, iaColor4f(1, 1, 1, 1));
+        _colorGradient.setValue(1.0, iaColor4f(1, 1, 1, 0.0f));
 
-        _emissionRateGradient.setValue(0.0, 2);
+        _emissionRateGradient.setValue(0.0, 1.0f/60.0f);
 
         _sizeScaleGradient.setValue(0.0, 1.0);
 
-        _startSizeGradient.setValue(0.0, iaVector2f(1.0, 1.2));
+        _startSizeGradient.setValue(0.0, iaVector2f(0.1, 0.3));
 
         _startVelocityGradient.setValue(0.0, iaVector2f(0.01, 0.02));
 
@@ -86,12 +89,12 @@ namespace Igor
         return _colorGradient;
     }
 
-    void iParticleSystem3D::setEmissionGradient(const iGradientui& emissionGradient)
+    void iParticleSystem3D::setEmissionGradient(const iGradientf& emissionGradient)
     {
         _emissionRateGradient = emissionGradient;
     }
 
-    void iParticleSystem3D::getEmissionGradient(iGradientui& emissionGradient) const
+    void iParticleSystem3D::getEmissionGradient(iGradientf& emissionGradient) const
     {
         emissionGradient = _emissionRateGradient;
     }
@@ -310,20 +313,20 @@ namespace Igor
             particle._textureto._x = particle._texturefrom._x + width;
             particle._textureto._y = particle._texturefrom._y + width;
         }
-
+        
         particle._phase0.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
         particle._phase1.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
     }
 
-    void iParticleSystem3D::setVortexApperanceRate(uint64 apperanceRate)
+    void iParticleSystem3D::setVortexToParticleRate(float32 rate)
     {
-        _vortexAperanceRate = apperanceRate;
+        _vortexToParticleRate = rate;
         _mustReset = true;
     }
 
-    float32 iParticleSystem3D::getVortexApperanceRate() const
+    float32 iParticleSystem3D::getVortexToParticleRate() const
     {
-        return _vortexAperanceRate;
+        return _vortexToParticleRate;
     }
 
     void iParticleSystem3D::createParticles(uint32 particleCount, iParticleEmitter& emitter, float32 particleSystemTime)
@@ -338,8 +341,8 @@ namespace Igor
         {
             iParticle particle;
 
-            if (_vortexAperanceRate != 0 && 
-                _particleCounter == _vortexAperanceRate)
+            if (_vortexToParticleRate != 0.0 &&
+                _particleCounter == static_cast<uint64>((1.0f - _vortexToParticleRate) * 100.0f))
             {
                 particle._normal.set(_rand.getNext() % 100 / 100.0f - 0.5f, _rand.getNext() % 100 / 100.0f - 0.5f, _rand.getNext() % 100 / 100.0f - 0.5f);
                 particle._normal.normalize();
@@ -456,9 +459,7 @@ namespace Igor
 
                     (*particle)._velocity[1] += (*particle)._lift;
 
-                    (*particle)._velocity *= _airDrag;
-
-                    (*particle)._position += (*particle)._velocity;
+                    (*particle)._velocity *= _airDrag;                    
 
                     (*particle)._orientation += (*particle)._orientationRate;
 
@@ -510,9 +511,11 @@ namespace Igor
                             a *= _vorticityConfinement;
                             b += a;
 
-                            _particles[i]._position += b * 0.1f; // TODO 0.1 ???
+                            _particles[i]._velocity += b * 0.001f; // TODO 0.001 ???
                         }
                     }
+
+                    (*particle)._position += (*particle)._velocity;
 
                     (*particle)._life -= 1.0 / _simulationRate;
                     if ((*particle)._life <= 0)
@@ -526,9 +529,12 @@ namespace Igor
                     }
                 }
 
-                uint32 emissionRate = 0;
-                _emissionRateGradient.getValue(particleSystemTime / __IGOR_SECOND__, emissionRate); // TODO work with fractions
-                createParticles(emissionRate, emitter, particleSystemTime / __IGOR_SECOND__);
+                float32 emissionRate = 0.0f;
+                _emissionRateGradient.getValue(particleSystemTime / __IGOR_SECOND__, emissionRate);
+                _emissionImpulseStack += emissionRate;
+                int32 createCount = static_cast<int32>(_emissionImpulseStack);
+                _emissionImpulseStack -= static_cast<float32>(createCount);
+                createParticles(createCount, emitter, particleSystemTime / __IGOR_SECOND__);
 
                 _time += 1000.0 / _simulationRate;
                 particleSystemTime += 1000.0 / _simulationRate; // TODO redundant
@@ -544,6 +550,11 @@ namespace Igor
 				_boundingSphere._radius = 1.0;
 			}
 		}
+    }
+
+    float32 iParticleSystem3D::getSimulationRate()
+    {
+        return _simulationRate;
     }
 
     void iParticleSystem3D::setStartSizeGradient(const iGradientVector2f& sizeGradient)

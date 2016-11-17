@@ -45,6 +45,8 @@ namespace Igor
     class iTexture;
 
     /*! graph widget. to display graphs
+
+    \todo highlight selection
     */
 	class Igor_API iWidgetGraph : public iWidget
 	{
@@ -78,11 +80,11 @@ namespace Igor
             float32 _pointSize = 0.0;
         };
 
-	public:
+	public:        
 
-        /*! clears all data
+        /*! clears all point data
         */
-        void clear();
+        void clearPoints();
 
         /*! sets line color for specified graph
 
@@ -206,21 +208,43 @@ namespace Igor
         */
         uint32 getGridYResolution() const;
 
-        /*! sets if the background frame is visible or not
+        /*! sets if labels are visible
 
-        \param viewFrame if true the background frame is visible
+        \param viewLabels if true labels are visible
         */
-        void setViewFrame(bool viewFrame = true);
+        void setViewLabels(bool viewLabels = true);
 
-        /*! \returns true if the background frame is visible
+        /*! \returns if labels are visible
         */
-        bool getViewFrame() const;
+        bool getViewLabels() const;
+
+        /*! \returns count of graphs
+        */
+        int32 getGraphCount() const;
+
+        /*! sets the interactive feature
+
+        \param interactive if true graph will be interactive
+        */
+        void setInteractive(bool interactive = true);
+
+        /*! \returns true if graph is interactive
+        */
+        bool isInteractive();
 
 	private:
+
+        /*! flag if graph is interactive
+        */
+        bool _interactive = false;
 
         /*! dirty flag if graph data was changed
         */
         bool _dirty = true;
+
+        /*! flag if labels are visible
+        */
+        bool _viewLabels = false;
 
         /*! calculated data boudings
         */
@@ -250,9 +274,9 @@ namespace Igor
         */
         bool _viewGrid = false;
 
-        /*! flag if true we render a frame
+        /*! button height definition
         */
-        bool _viewFrame = false;
+        const float32 _buttonHeight = 20;
 
         /*! makes some calculations before we can draw
         */
@@ -265,6 +289,25 @@ namespace Igor
 		/*! draws the widget
 		*/
 		void draw();
+
+        /*! calculates the render area of the graph
+
+        \param[out] graphRenderArea the render area
+        */
+        void calcRenderArea(iRectanglef& graphRenderArea);
+
+        /*! calculates data boundings
+
+        \param[out] boundings the calculates data boundings
+        */
+        void calcBoundings(iRectanglef& boundings);
+
+        /*! handles incomming mouse key down events
+
+        \param key the key that was pressed
+        \returns true: if event was consumed and therefore ignored by the parent
+        */
+        bool handleMouseKeyDown(iKeyCode key);
 
         /*! ctor initializes member variables
         */

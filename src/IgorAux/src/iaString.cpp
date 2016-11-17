@@ -184,7 +184,7 @@ namespace IgorAux
                 result = static_cast<size_t>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), buffer, static_cast<int>(measuredSize), nullptr, nullptr));
 
                 con_assert(result != 0, "conversion failed");
-                if (result != 0)
+                if (result == 0)
                 {
                     con_err("conversion failed");
                 }

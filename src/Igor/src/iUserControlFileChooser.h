@@ -29,7 +29,7 @@
 #ifndef __iUSERCONTROLFILECHOOSER__
 #define __iUSERCONTROLFILECHOOSER__
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iWidget.h>
 #include <iDialogFileSelect.h>
 
@@ -49,17 +49,12 @@ namespace Igor
     class iWidgetSlider;
     class iWidgetNumberChooser;
     
-    class Igor_API iUserControlFileChooser : public iWidgetUserControl
+    class Igor_API iUserControlFileChooser : public iUserControl
     {
+
+        friend class iWidgetManager;
+
     public:
-
-        /*! ctor initializes member variables
-        */
-        iUserControlFileChooser();
-
-        /*! clean up
-        */
-        ~iUserControlFileChooser();
 
         /*! sets the filename
 
@@ -80,10 +75,6 @@ namespace Igor
         /*! \returns the path where the file dialog starts from
         */
         const iaString& getPreselectedPath() const;
-
-        /*! \returns root widget of user control
-        */
-        iWidget* getWidget();
 
         /*! register on filename change event
 
@@ -168,6 +159,18 @@ namespace Igor
         /*! release resources
         */
         void deinitGUI();
+
+        /*! ctor initializes member variables
+        */
+        iUserControlFileChooser();
+
+        /*! clean up
+        */
+        ~iUserControlFileChooser();
+
+        /*! creates instance of this widget type
+        */
+        static iWidget* createInstance();
 
     };
 }

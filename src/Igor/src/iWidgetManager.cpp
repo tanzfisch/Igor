@@ -4,7 +4,7 @@
 
 #include <iWidgetManager.h>
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetGroupBox.h>
@@ -29,6 +29,10 @@
 #include <iDialogMenu.h>
 #include <iDialogMessageBox.h>
 #include <iDialogColorGradient.h>
+#include <iDialogGraph.h>
+
+#include <iUserControlColorChooser.h>
+#include <iUserControlFileChooser.h>
 
 #include <iMaterialResourceFactory.h>
 
@@ -38,7 +42,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetDialog* iWidgetManager::_modal = nullptr;
+    iDialog* iWidgetManager::_modal = nullptr;
 
     iWidgetManager::iWidgetManager()
     {
@@ -58,20 +62,24 @@ namespace Igor
         registerWidgetType("Spacer", iInstanciateWidgetDelegate(iWidgetSpacer::createInstance));
         registerWidgetType("TextEdit", iInstanciateWidgetDelegate(iWidgetTextEdit::createInstance));
 
-        registerDialogType("Dialog", iInstanciateDialogDelegate(iWidgetDialog::createInstance));
-        registerDialogType("ColorChooser", iInstanciateDialogDelegate(iDialogColorChooser::createInstance));
-        registerDialogType("DecisionBox", iInstanciateDialogDelegate(iDialogDecisionBox::createInstance));
-        registerDialogType("FileSelect", iInstanciateDialogDelegate(iDialogFileSelect::createInstance));
-        registerDialogType("Menu", iInstanciateDialogDelegate(iDialogMenu::createInstance));
-        registerDialogType("MessageBox", iInstanciateDialogDelegate(iDialogMessageBox::createInstance));
-        registerDialogType("ColorGradient", iInstanciateDialogDelegate(iDialogColorGradient::createInstance));
+        registerWidgetType("UserControlColorChooser", iInstanciateWidgetDelegate(iUserControlColorChooser::createInstance));
+        registerWidgetType("UserControlFileChooser", iInstanciateWidgetDelegate(iUserControlFileChooser::createInstance));
 
-        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+        registerDialogType("Dialog", iInstanciateDialogDelegate(iDialog::createInstance));
+        registerDialogType("DialogColorChooser", iInstanciateDialogDelegate(iDialogColorChooser::createInstance));
+        registerDialogType("DialogDecisionBox", iInstanciateDialogDelegate(iDialogDecisionBox::createInstance));
+        registerDialogType("DialogFileSelect", iInstanciateDialogDelegate(iDialogFileSelect::createInstance));
+        registerDialogType("DialogMenu", iInstanciateDialogDelegate(iDialogMenu::createInstance));
+        registerDialogType("DialogMessageBox", iInstanciateDialogDelegate(iDialogMessageBox::createInstance));
+        registerDialogType("DialogColorGradient", iInstanciateDialogDelegate(iDialogColorGradient::createInstance));
+        registerDialogType("DialogGraph", iInstanciateDialogDelegate(iDialogGraph::createInstance));
+
+        registerHandles();
     }
 
     iWidgetManager::~iWidgetManager()
     {
-        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
+        unregisterHandles();
 
         destroyWidgets();
 
@@ -88,12 +96,12 @@ namespace Igor
         _widgets.clear();
     }
 
-    bool iWidgetManager::isModal(iWidgetDialog* dialog)
+    bool iWidgetManager::isModal(iDialog* dialog)
     {
         return (_modal == dialog) ? true : false;
     }
 
-    void iWidgetManager::setModal(iWidgetDialog* dialog)
+    void iWidgetManager::setModal(iDialog* dialog)
     {
         con_assert(_modal == nullptr, "an other dialog is alsready modal");
 
@@ -107,7 +115,7 @@ namespace Igor
         }
     }
 
-    iWidgetDialog* iWidgetManager::getModal()
+    iDialog* iWidgetManager::getModal()
     {
         return _modal;
     }
@@ -117,7 +125,7 @@ namespace Igor
         _modal = nullptr;
     }
 
-    void iWidgetManager::registerIOEvents()
+    void iWidgetManager::registerHandles()
     {
         iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
         iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
@@ -125,9 +133,11 @@ namespace Igor
         iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
+
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
-    void iWidgetManager::unregisterIOEvents()
+    void iWidgetManager::unregisterHandles()
     {
         iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &iWidgetManager::onMouseKeyDown));
         iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &iWidgetManager::onMouseKeyUp));
@@ -135,6 +145,8 @@ namespace Igor
         iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
+
+        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iWidgetManager::onHandle));
     }
 
     void iWidgetManager::onMouseKeyDown(iKeyCode key)
@@ -142,7 +154,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -177,7 +189,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -212,7 +224,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -247,7 +259,7 @@ namespace Igor
         bool foundModal = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -276,7 +288,7 @@ namespace Igor
         bool consumed = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -310,7 +322,7 @@ namespace Igor
         bool foundModal = false;
 
         // this copy is not because of a race condition but because the original list might be changed while handling the event
-        map<uint64, iWidgetDialog*> dialogs = _dialogs;
+        map<uint64, iDialog*> dialogs = _dialogs;
 
         for (auto dialog : dialogs)
         {
@@ -472,20 +484,15 @@ namespace Igor
         }
     }
 
-    iWidgetDialog* iWidgetManager::createDialog(const iaString& type)
+    iDialog* iWidgetManager::createDialog(const iaString& type)
     {
-        iWidgetDialog* result = nullptr;
+        iDialog* result = nullptr;
 
         uint64 key = type.getHashValue();
         auto iter = _dialogTypes.find(key);
         con_assert(iter != _dialogTypes.end(), "dialog type not found");
         if (iter != _dialogTypes.end())
         {
-            if (_dialogs.empty())
-            {
-                registerIOEvents();
-            }
-
             result = (*iter).second();
             _dialogs[result->getID()] = result;
         }
@@ -497,7 +504,7 @@ namespace Igor
         return result;
     }
 
-    void iWidgetManager::destroyDialog(iWidgetDialog* dialog)
+    void iWidgetManager::destroyDialog(iDialog* dialog)
     {
         con_assert(dialog != nullptr, "zero pointer");
 
@@ -569,7 +576,7 @@ namespace Igor
         _toDeleteWidgets.push_back(widget);
     }
 
-    iWidgetDialog* iWidgetManager::getDialog(uint64 id)
+    iDialog* iWidgetManager::getDialog(uint64 id)
     {
         auto iter = _dialogs.find(id);
 
@@ -626,11 +633,6 @@ namespace Igor
         }
 
         _toDeleteDialogs.clear();
-
-        if (_dialogs.empty())
-        {
-            unregisterIOEvents();
-        }
     }
 
     void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)

@@ -27,6 +27,7 @@ namespace Igor
         setName(node->getName());
 
         _emitter.setType(node->_emitter.getType());
+        _emitter.setSize(node->_emitter.getSize());
     }
 
     void iNodeEmitter::setType(iEmitterType emitterType)

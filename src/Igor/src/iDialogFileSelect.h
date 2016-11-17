@@ -29,7 +29,7 @@
 #ifndef __iDIALOGFILESELECT__
 #define __iDIALOGFILESELECT__
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -42,7 +42,7 @@ namespace Igor
     class iWidgetGrid;
     class iWidgetLabel;
     class iWidget;
-    class iWidgetDialog;
+    class iDialog;
     class iWidgetSpacer;
     class iWidgetTextEdit;
     class iWidgetScroll;
@@ -64,7 +64,7 @@ namespace Igor
 
     \todo need some sort of UserDialogBaseClass with some convinient methods
     */
-    class Igor_API iDialogFileSelect : public iWidgetDialog
+    class Igor_API iDialogFileSelect : public iDialog
     {
 
         friend class iWidgetManager;
@@ -235,7 +235,7 @@ namespace Igor
 
         /*! creates instance of this widget type
         */
-        static iWidgetDialog* createInstance();
+        static iDialog* createInstance();
 
     };
 

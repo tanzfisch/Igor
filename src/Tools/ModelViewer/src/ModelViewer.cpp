@@ -31,7 +31,7 @@ using namespace IgorAux;
 #include <iNodeVisitorBoundings.h>
 #include <iMaterialResourceFactory.h>
 #include <iWidgetDefaultTheme.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetGrid.h>
 #include <iWidgetScroll.h>
 #include <iDialogMessageBox.h>
@@ -618,8 +618,8 @@ void ModelViewer::initGUI()
     _menuDialog->registerOnAddParticleSystem(AddParticleSystemDelegate(this, &ModelViewer::onAddParticleSystem));
     _menuDialog->registerOnAddMaterial(AddMaterialDelegate(this, &ModelViewer::onAddMaterial));
 
-    _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("FileSelect"));
-    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("MessageBox"));
+    _fileDialog = static_cast<iDialogFileSelect*>(iWidgetManager::getInstance().createDialog("DialogFileSelect"));
+    _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
     _propertiesDialog = static_cast<PropertiesDialog*>(iWidgetManager::getInstance().createDialog("PropertiesDialog"));
 
     _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));

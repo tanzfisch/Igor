@@ -33,7 +33,7 @@
 using namespace IgorAux;
 
 #include <iNodeModel.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 using namespace Igor;
 
 namespace Igor
@@ -51,7 +51,7 @@ namespace Igor
 iaEVENT(AddMaterial, AddMaterialDelegate, void, (), ());
 iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, void, (uint32 materialID), (materialID));
 
-class UserControlMaterialView : public iWidgetUserControl
+class UserControlMaterialView : public iUserControl
 {
 public:
 

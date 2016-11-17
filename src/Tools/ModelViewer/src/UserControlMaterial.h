@@ -33,7 +33,7 @@
 #include <iaColor4.h>
 using namespace IgorAux;
 
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 #include <iUserControlColorChooser.h>
 #include <iDialogFileSelect.h>
 using namespace Igor;
@@ -53,7 +53,7 @@ namespace Igor
 
 iaEVENT(MaterialNameChangedEvent, MaterialNameChangedDelegate, void, (), ());
 
-class UserControlMaterial : public iWidgetUserControl
+class UserControlMaterial : public iUserControl
 {
 public:
 

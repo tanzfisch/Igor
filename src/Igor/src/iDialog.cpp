@@ -2,11 +2,11 @@
 // (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 
 #include <iWidgetBaseTheme.h>
 #include <iWidgetManager.h>
-#include <iWidgetUserControl.h>
+#include <iUserControl.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -14,7 +14,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iWidgetDialog::iWidgetDialog()
+    iDialog::iDialog()
     {
         setActive(false);
         setVisible(false);
@@ -24,7 +24,7 @@ namespace Igor
         setVerticalAlignment(iVerticalAlignment::Center);
     }
 
-    iWidgetDialog::~iWidgetDialog()
+    iDialog::~iDialog()
     {
         if (iWidgetManager::isModal(this))
         {
@@ -32,12 +32,12 @@ namespace Igor
         }
     }
 
-    iWidgetDialog* iWidgetDialog::createInstance()
+    iDialog* iDialog::createInstance()
     {
-        return new iWidgetDialog();
+        return new iDialog();
     }
 
-    void iWidgetDialog::calcMinSize()
+    void iDialog::calcMinSize()
     {
         int32 minWidth = 0;
         int32 minHeight = 0;
@@ -54,7 +54,7 @@ namespace Igor
         setMinSize(minWidth, minHeight);
     }
 
-    void iWidgetDialog::updateAlignment(int32 clientWidth, int32 clientHeight)
+    void iDialog::updateAlignment(int32 clientWidth, int32 clientHeight)
     {
         int32 width = getMinWidth();
         int32 height = getMinHeight();
@@ -115,17 +115,17 @@ namespace Igor
         _actualHeight = height;
     }
 
-    void iWidgetDialog::setBorder(int32 border)
+    void iDialog::setBorder(int32 border)
     {
         _border = border;
     }
 
-    int32 iWidgetDialog::getBorder()
+    int32 iDialog::getBorder()
     {
         return _border;
     }
 
-    void iWidgetDialog::draw()
+    void iDialog::draw()
     {
         if (isVisible())
         {
@@ -138,13 +138,13 @@ namespace Igor
         }
     }
 
-    void iWidgetDialog::setX(int32 x)
+    void iDialog::setX(int32 x)
     {
         _offsetX = x;
         setHorizontalAlignment(iHorizontalAlignment::Absolut);
     }
 
-    void iWidgetDialog::setY(int32 y)
+    void iDialog::setY(int32 y)
     {
         _offsetY = y;
         setVerticalAlignment(iVerticalAlignment::Absolut);

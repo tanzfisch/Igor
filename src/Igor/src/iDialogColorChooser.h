@@ -29,7 +29,7 @@
 #ifndef __iDIALOGCOLORCHOOSER__
 #define __iDIALOGCOLORCHOOSER__
 
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -49,7 +49,7 @@ namespace Igor
 
     /*! the color chooser dialog
     */
-    class Igor_API iDialogColorChooser : public iWidgetDialog
+    class Igor_API iDialogColorChooser : public iDialog
     {
 
         friend class iWidgetManager;
@@ -131,7 +131,7 @@ namespace Igor
 
         /*! creates instance of this widget type
         */
-        static iWidgetDialog* createInstance();
+        static iDialog* createInstance();
 
     };
 

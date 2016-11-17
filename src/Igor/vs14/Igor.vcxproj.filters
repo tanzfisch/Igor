@@ -176,9 +176,6 @@
     <ClCompile Include="..\src\iWidgetManager.cpp">
       <Filter>GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iWidgetUserControl.cpp">
-      <Filter>GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iNodeCamera.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
@@ -207,9 +204,6 @@
       <Filter>GUI\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetCheckBox.cpp">
-      <Filter>GUI\widgets</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iWidgetDialog.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iWidgetGroupBox.cpp">
@@ -659,6 +653,15 @@
     <ClCompile Include="..\src\iDialogColorGradient.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iDialog.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iUserControl.cpp">
+      <Filter>GUI\user controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iDialogGraph.cpp">
+      <Filter>GUI\dialogs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -738,9 +741,6 @@
     <ClInclude Include="..\src\iPhysicsCollision.h">
       <Filter>physics</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Intersection2D.h">
-      <Filter>todo</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Intersection3D.h">
       <Filter>todo</Filter>
     </ClInclude>
@@ -792,9 +792,6 @@
     <ClInclude Include="..\src\iWindow.h">
       <Filter>devices</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iRectangle.h">
-      <Filter>graphics\types</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iPixmap.h">
       <Filter>graphics\texture</Filter>
     </ClInclude>
@@ -820,16 +817,16 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAACube.h">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iFrustum.h">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPlane.h">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSphere.h">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVolume.h">
       <Filter>scene\nodes</Filter>
@@ -861,9 +858,6 @@
     <ClInclude Include="..\src\iWidgetManager.h">
       <Filter>GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iWidgetUserControl.h">
-      <Filter>GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iNodeCamera.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
@@ -892,9 +886,6 @@
       <Filter>GUI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetCheckBox.h">
-      <Filter>GUI\widgets</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iWidgetDialog.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iWidgetGrid.h">
@@ -1298,7 +1289,7 @@
       <Filter>physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAABox.h">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsCollisionConfig.h">
       <Filter>physics</Filter>
@@ -1381,25 +1372,37 @@
     <ClInclude Include="..\src\iDialogColorGradient.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iDialog.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iUserControl.h">
+      <Filter>GUI\user controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iRectangle.h">
+      <Filter>bodies &amp; shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iIntersection.h">
+      <Filter>bodies &amp; shapes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iDialogGraph.h">
+      <Filter>GUI\dialogs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
       <Filter>graphics\texture</Filter>
     </None>
     <None Include="..\src\iAACube.inl">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </None>
     <None Include="..\src\iFrustum.inl">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </None>
     <None Include="..\src\iPlane.inl">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </None>
     <None Include="..\src\iSphere.inl">
-      <Filter>intersection</Filter>
-    </None>
-    <None Include="..\src\iRectangle.inl">
-      <Filter>graphics\types</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </None>
     <None Include="..\src\iMesh.inl">
       <Filter>resources\mesh</Filter>
@@ -1420,10 +1423,16 @@
       <Filter>resources\mesh</Filter>
     </None>
     <None Include="..\src\iAABox.inl">
-      <Filter>intersection</Filter>
+      <Filter>bodies &amp; shapes</Filter>
     </None>
     <None Include="..\src\iGradient.inl">
       <Filter>graphics\types</Filter>
+    </None>
+    <None Include="..\src\iRectangle.inl">
+      <Filter>bodies &amp; shapes</Filter>
+    </None>
+    <None Include="..\src\iIntersection.inl">
+      <Filter>bodies &amp; shapes</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -1447,9 +1456,6 @@
     </Filter>
     <Filter Include="graphics">
       <UniqueIdentifier>{9c9458da-a174-40b8-a62e-0d736743c77f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="intersection">
-      <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
     </Filter>
     <Filter Include="physics">
       <UniqueIdentifier>{6405a0c4-3aae-45af-a01f-b6fb7526eaf0}</UniqueIdentifier>
@@ -1552,6 +1558,9 @@
     </Filter>
     <Filter Include="graphics\generation">
       <UniqueIdentifier>{2c949176-de8e-4a4e-9e9e-dc9b70155d86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="bodies &amp; shapes">
+      <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

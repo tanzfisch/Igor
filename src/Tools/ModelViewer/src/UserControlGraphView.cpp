@@ -6,14 +6,14 @@
 
 #include <iNode.h>
 #include <iWidgetGrid.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetManager.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetPicture.h>
 #include <iNodeFactory.h>
 #include <iWidgetScroll.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetGroupBox.h>
 #include <iDialogMenu.h>
 #include <iMouse.h>
@@ -165,7 +165,7 @@ void UserControlGraphView::initGUI()
     groupBox->addWidget(scroll);
     scroll->addWidget(_gridGraph);
 
-    _dialogMenu = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("Menu"));
+    _dialogMenu = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("DialogMenu"));
     _dialogMenu->setWidth(24);
     _dialogMenuTexts.push_back("Cut");
     _dialogMenuPictures.push_back("icons\\cut.png");

@@ -26,38 +26,36 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iWIDGETUSERCONTROL__
-#define __iWIDGETUSERCONTROL__
+#ifndef __INTERSECTION__
+#define __INTERSECTION__
 
-#include <iDefines.h>
+#include <iRectangle.h>
+
+#include <iaVector2.h>
+using namespace IgorAux;
 
 namespace Igor
 {
 
-    class iWidget;
+    // TODO read http://noonat.github.io/intersect/
 
-    /*! use control base class
-
-    mostly used to combine some of the standard widgets to apear as one
-
-    \todo get rid of user control or derive from iWidget
-    */
-    class Igor_API iWidgetUserControl
+    class Igor_API iIntersection
     {
 
     public:
+        /*! intersection test between rectangle and point
 
-        /*! \returns root widget that is supposed to be integrated in a bigger form
+        \param rectangle the rectangle to test
+        \param point the point to test
+        \returns true if intersecting
         */
-        virtual iWidget* getWidget() = 0;
-
-        /*! does nothing
-        */
-        iWidgetUserControl() = default;
+        template< typename T>
+        static bool isIntersecting(iRectangle<T> rectangle, iaVector2<T> point);
 
     };
 
-}
+    #include <iIntersection.inl>
+
+};
 
 #endif
-

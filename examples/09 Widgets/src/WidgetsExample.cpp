@@ -11,7 +11,7 @@ using namespace IgorAux;
 #include <iMaterialResourceFactory.h>
 
 #include <iWidgetManager.h>
-#include <iWidgetDialog.h>
+#include <iDialog.h>
 #include <iWidgetLabel.h>
 #include <iWidgetButton.h>
 #include <iWidgetGroupBox.h>
@@ -30,6 +30,8 @@ using namespace IgorAux;
 #include <iWidgetGraph.h>
 #include <iDialogColorChooser.h>
 #include <iWidgetColor.h>
+#include <iWidgetColorGradient.h>
+#include <iDialogColorGradient.h>
 using namespace Igor;
 
 WidgetsExample::WidgetsExample()
@@ -82,7 +84,7 @@ void WidgetsExample::initGUI()
     _widgetDefaultTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetDefaultTheme);
 
-    _dialog = static_cast<iWidgetDialog*>(iWidgetManager::getInstance().createDialog("Dialog"));
+    _dialog = static_cast<iDialog*>(iWidgetManager::getInstance().createDialog("Dialog"));
     _dialog->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _dialog->setVerticalAlignment(iVerticalAlignment::Center);
     _dialog->setHeight(200);
@@ -133,7 +135,7 @@ void WidgetsExample::initGUI()
     iWidgetGrid* grid4 = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(grid4);
     grid4->appendCollumns(5);
-    grid4->setStrechColumn(2);
+    grid4->setStrechColumn(4);
     grid4->setHorizontalAlignment(iHorizontalAlignment::Strech);
     grid4->setVerticalAlignment(iVerticalAlignment::Top);
     grid4->setSelectMode(iSelectionMode::NoSelection);
@@ -172,19 +174,23 @@ void WidgetsExample::initGUI()
     button1->setText("Open Message Box");
     button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenMessageBox));
 
-    iWidgetButton* colorChooserButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(colorChooserButton);
-    colorChooserButton->setWidth(70);
-    colorChooserButton->setHeight(20);
-    colorChooserButton->setVerticalAlignment(iVerticalAlignment::Center);
-    colorChooserButton->setHorizontalAlignment(iHorizontalAlignment::Center);
-    colorChooserButton->setText("Open Color Chooser");
-    colorChooserButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
+    _color = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget("Color"));
+    _allWidgets.push_back(_color);
+    _color->setColor(iaColor4f(1,1,1,0.5));
+    _color->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
 
-    _colorView = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget("Color"));
-    _allWidgets.push_back(_colorView);
-    _colorView->setColor(iaColor4f(1,1,1,0.5));
-    _colorView->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
+    _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
+    _allWidgets.push_back(_colorGradient);
+    iGradientColor4f rainbow;
+    rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
+    rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
+    rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
+    rainbow.setValue(0.6f, iaColor4f(0, 1, 0, 0.6));
+    rainbow.setValue(0.8f, iaColor4f(1, 1, 0, 0.8));
+    rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
+    _colorGradient->setGradient(rainbow);
+    _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
     iWidgetSpacer* spacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
     spacer->setHeight(30);
@@ -260,7 +266,7 @@ void WidgetsExample::initGUI()
     points.push_back(iaVector2f(0.5, 0.1));
     points.push_back(iaVector2f(0.6, 0.2));
     points.push_back(iaVector2f(0.8, 0.4));
-    points.push_back(iaVector2f(1.0, 0.8));
+    points.push_back(iaVector2f(1.0, 0.2));
     graph->setPoints(0, points);
     graph->setLineColor(0, iaColor4f(1,0,0,1));
     graph->setPointColor(0, iaColor4f(1, 0.5, 0.5, 1));
@@ -274,7 +280,7 @@ void WidgetsExample::initGUI()
     points2.push_back(iaVector2f(0.5, 0.4));
     points2.push_back(iaVector2f(0.6, 0.7));
     points2.push_back(iaVector2f(0.7, 0.1));
-    points2.push_back(iaVector2f(0.8, 1.0));
+    points2.push_back(iaVector2f(0.8, 0.9));
     graph->setPoints(1, points2);
     graph->setLineColor(1, iaColor4f(0, 1, 0, 1));
     graph->setPointColor(1, iaColor4f(0.5, 1, 0.5, 1));
@@ -298,7 +304,6 @@ void WidgetsExample::initGUI()
     graph->setExtrapolateData();
     graph->setBoundings(iRectanglef(0,0,1,1));
     graph->setUseBoundings();
-    graph->setViewFrame();
     graph->setViewGrid();
     
     // assemble all the widgets with their parents
@@ -309,8 +314,8 @@ void WidgetsExample::initGUI()
     grid4->addWidget(exitButton, 0, 0);
     grid4->addWidget(spacer, 1, 0);
     grid4->addWidget(picture1, 2, 0);
-    grid4->addWidget(_colorView, 3, 0);
-    grid4->addWidget(colorChooserButton, 4, 0);
+    grid4->addWidget(_color, 3, 0);
+    grid4->addWidget(_colorGradient, 4, 0);
     grid4->addWidget(graph, 5, 0);
     
     grid1->addWidget(widgetScoll1, 0, 1);
@@ -383,7 +388,7 @@ void WidgetsExample::deinitGUI()
         _colorChooserDialog = nullptr;
     }
 
-    _colorView = nullptr;
+    _color = nullptr;
 }
 
 void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
@@ -411,20 +416,39 @@ void WidgetsExample::onMouseMove(int32 x, int32 y)
 
 void WidgetsExample::onOpenColorChooser(iWidget* source)
 {
-    // create message box instance on demant
     if (_colorChooserDialog == nullptr)
     {
-        _colorChooserDialog = static_cast<iDialogColorChooser*>(iWidgetManager::getInstance().createDialog("ColorChooser"));
+        _colorChooserDialog = static_cast<iDialogColorChooser*>(iWidgetManager::getInstance().createDialog("DialogColorChooser"));
     }
 
-    _colorChooserDialog->show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _colorView->getColor(), true);
+    _colorChooserDialog->show(iColorChooserCloseDelegate(this, &WidgetsExample::onCloseColorChooser), _color->getColor(), true);
 }
+
+void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
+{
+    if (_colorGradientDialog == nullptr)
+    {
+        _colorGradientDialog = static_cast<iDialogColorGradient*>(iWidgetManager::getInstance().createDialog("DialogColorGradient"));
+    }
+
+    _colorGradientDialog->show(iColorGradientCloseDelegate(this, &WidgetsExample::onCloseColorGradient), _colorGradient->getGradient(), false);
+}
+
+
+void WidgetsExample::onCloseColorGradient(bool ok, const iGradientColor4f& gradient)
+{
+    if (ok)
+    {
+        _colorGradient->setGradient(gradient);
+    }
+}
+
 
 void WidgetsExample::onCloseColorChooser(bool ok, const iaColor4f& color)
 {
     if (ok)
     {
-        _colorView->setColor(color);
+        _color->setColor(color);
     }
 }
 
@@ -433,7 +457,7 @@ void WidgetsExample::onOpenMessageBox(iWidget* source)
     // create message box instance on demant
     if (_messageBox == nullptr)
     {
-        _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("MessageBox"));
+        _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
     }
 
     // open a message box with some text

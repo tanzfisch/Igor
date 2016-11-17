@@ -150,7 +150,7 @@ namespace Igor
 
         /*! size of emitter
         */
-        float32 _size = 1.0;
+        float32 _size = 0.0;
 
         /*! mesh used as emitter
         */

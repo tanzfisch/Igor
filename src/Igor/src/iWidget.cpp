@@ -385,6 +385,16 @@ namespace Igor
         return _acceptOutOfBoundsClicks;
     }
 
+    void iWidget::registerOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
+    {
+        _selectionChanged.append(delegate);
+    }
+
+    void iWidget::unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate)
+    {
+        _selectionChanged.remove(delegate);
+    }
+
 	bool iWidget::handleMouseKeyDown(iKeyCode key)
 	{
 		if (isActive())
@@ -472,7 +482,20 @@ namespace Igor
 				_isMouseOver = false;
 			}
 		}
+
+        _lastMouseX = x;
+        _lastMouseY = y;
 	}
+
+    int32 iWidget::getLastMouseX()
+    {
+        return _lastMouseX;
+    }
+
+    int32 iWidget::getLastMouseY()
+    {
+        return _lastMouseY;
+    }
 
 	iHorizontalAlignment iWidget::getHorizontalAlignment()
 	{
