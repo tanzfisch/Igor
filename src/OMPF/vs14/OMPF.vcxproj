@@ -336,6 +336,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\src\ompfParticleSystemChunk.h" />
     <ClInclude Include="..\src\ompfResourceSearchPathChunk.h" />
     <ClInclude Include="..\src\ompfSettings.h" />
     <ClInclude Include="..\src\ompfTransformChunk.h" />
@@ -353,6 +354,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\src\ompfParticleSystemChunk.cpp" />
     <ClCompile Include="..\src\ompfResourceSearchPathChunk.cpp" />
     <ClCompile Include="..\src\ompfSettings.cpp" />
     <ClCompile Include="..\src\ompfTransformChunk.cpp" />

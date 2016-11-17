@@ -47,6 +47,7 @@ namespace OMPF
 	class ompfExternalReferenceChunk;
 	class ompfMaterialChunk;
     class ompfEmitterChunk;
+    class ompfParticleSystemChunk;
 
     /*! this is the OMPF file format reference implementation
 
@@ -119,6 +120,12 @@ namespace OMPF
         \returns pointer to emitter chunk
         */
         ompfEmitterChunk* createEmitterChunk();
+
+        /*! creates particle system chunk
+
+        \returns pointer to particle system chunk
+        */
+        ompfParticleSystemChunk* createParticleSystemChunk();
 
         /*! creates a external reference chunk
 

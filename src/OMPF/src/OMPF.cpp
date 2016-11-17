@@ -14,6 +14,7 @@
 #include <ompfMeshChunk.h>
 #include <ompfMaterialChunk.h>
 #include <ompfEmitterChunk.h>
+#include <ompfParticleSystemChunk.h>
 
 #include <iostream>
 using namespace std;
@@ -157,6 +158,14 @@ namespace OMPF
         return result;
     }
 
+    ompfParticleSystemChunk* OMPF::createParticleSystemChunk()
+    {
+        ompfParticleSystemChunk* result = new ompfParticleSystemChunk();
+        result->setID(getNextChunkID());
+        _chunks[result->getID()] = result;
+        return result;
+    }
+
     ompfExternalReferenceChunk* OMPF::createExternalReferenceChunk()
     {
         ompfExternalReferenceChunk* result = new ompfExternalReferenceChunk();
@@ -255,6 +264,11 @@ namespace OMPF
 
             case OMPFChunkType::Emitter:
                 chunk = new ompfEmitterChunk();
+                chunk->read(file, _settings);
+                break;
+
+            case OMPFChunkType::ParticleSystem:
+                chunk = new ompfParticleSystemChunk();
                 chunk->read(file, _settings);
                 break;
 

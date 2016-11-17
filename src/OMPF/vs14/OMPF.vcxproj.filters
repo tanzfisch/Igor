@@ -30,6 +30,9 @@
     <ClCompile Include="..\src\ompfEmitterChunk.cpp">
       <Filter>chunks</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\ompfParticleSystemChunk.cpp">
+      <Filter>chunks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\OMPF.h" />
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="..\src\ompfVersion.h" />
     <ClInclude Include="..\src\ompfEmitterChunk.h">
+      <Filter>chunks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ompfParticleSystemChunk.h">
       <Filter>chunks</Filter>
     </ClInclude>
   </ItemGroup>
