@@ -78,7 +78,7 @@ void UserControlParticleSystem::updateNode()
             node->setAirDrag(1.0f - _airDragChooser->getValue());
             node->setVelocityOriented(_velocityOrientedCheckBox->isChecked());
             node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
-            node->setVortexToParticleRate(_vortextoParticleRateChooser->getValue() / 100.0f);
+            node->setVortexToParticleRate(_vortexToParticleRateChooser->getValue() / 100.0f);
             node->setVortexTorque(_vortexTorqueMinChooser->getValue(), _vortexTorqueMaxChooser->getValue());
             node->setVortexRange(_vortexRangeMinChooser->getValue(), _vortexRangeMaxChooser->getValue());
             node->setFirstTextureTiling(_tilingHorizontalChooser->getValue(), _tilingVerticalChooser->getValue());
@@ -208,7 +208,7 @@ void UserControlParticleSystem::updateGUI()
         _airDragChooser->setValue(1.0f - node->getAirDrag());
         _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
         _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
-        _vortextoParticleRateChooser->setValue(node->getVortexToParticleRate() * 100.0f);
+        _vortexToParticleRateChooser->setValue(node->getVortexToParticleRate() * 100.0f);
         _vortexTorqueMinChooser->setValue(node->getVortexTorqueMin());
         _vortexTorqueMaxChooser->setValue(node->getVortexTorqueMax());
         _vortexRangeMinChooser->setValue(node->getVortexRangeMin());
@@ -513,16 +513,16 @@ void UserControlParticleSystem::initGUI()
     labelVortexRate->setWidth(MV_REGULARBUTTON_SIZE);
     labelVortexRate->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _vortextoParticleRateChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
-    _allWidgets.push_back(_vortextoParticleRateChooser);
-    _vortextoParticleRateChooser->setMinMaxNumber(0.0f, 100.0f);
-    _vortextoParticleRateChooser->setStepping(1.0f, 1.0f);
-    _vortextoParticleRateChooser->setSteppingWheel(1.0f, 1.0f);
-    _vortextoParticleRateChooser->setPostFix(" %");
-    _vortextoParticleRateChooser->setAfterPoint(0);
-    _vortextoParticleRateChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
-    _vortextoParticleRateChooser->setVerticalAlignment(iVerticalAlignment::Top);
-    _vortextoParticleRateChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortexToParticleRateChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_vortexToParticleRateChooser);
+    _vortexToParticleRateChooser->setMinMaxNumber(0.0f, 100.0f);
+    _vortexToParticleRateChooser->setStepping(1.0f, 1.0f);
+    _vortexToParticleRateChooser->setSteppingWheel(1.0f, 1.0f);
+    _vortexToParticleRateChooser->setPostFix(" %");
+    _vortexToParticleRateChooser->setAfterPoint(0);
+    _vortexToParticleRateChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexToParticleRateChooser->setVerticalAlignment(iVerticalAlignment::Top);
+    _vortexToParticleRateChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel* labelVortexMinTorque = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVortexMinTorque);
@@ -918,7 +918,7 @@ void UserControlParticleSystem::initGUI()
     vortexSimulationGroupBox->addWidget(gridVortexSimulationProperties);
 
     gridVortexSimulationProperties->addWidget(labelVortexRate, 0, 0);
-    gridVortexSimulationProperties->addWidget(_vortextoParticleRateChooser, 1, 0);
+    gridVortexSimulationProperties->addWidget(_vortexToParticleRateChooser, 1, 0);
 
     gridVortexSimulationProperties->addWidget(labelVortexMinTorque, 0, 1);
     gridVortexSimulationProperties->addWidget(_vortexTorqueMinChooser, 1, 1);
@@ -1315,7 +1315,7 @@ void UserControlParticleSystem::deinitGUI()
     _airDragChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _velocityOrientedCheckBox->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vorticityConfinementChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
-    _vortextoParticleRateChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortexToParticleRateChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vortexTorqueMinChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vortexTorqueMaxChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vortexRangeMinChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));

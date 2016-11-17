@@ -145,9 +145,9 @@ private:
     */
     iWidgetNumberChooser* _vorticityConfinementChooser = nullptr;
 
-    /*! number chooser for 
+    /*! number chooser for vortex to particle rate
     */
-    iWidgetNumberChooser* _vortextoParticleRateChooser = nullptr;
+    iWidgetNumberChooser* _vortexToParticleRateChooser = nullptr;
 
     /*! vortex minimum torque number chooser
     */
