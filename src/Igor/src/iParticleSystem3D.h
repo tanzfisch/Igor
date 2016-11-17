@@ -136,7 +136,6 @@ namespace Igor
 
     \todo rotation of noise textures
     \todo particle simulation should be parallel to rendering
-    \todo maybe we separate vortex particles from particles
     \todo maybe we put all particles together in one global particles pool. than we can sort them and we can have global effects like shadowing etc. on each other
     \todo would be nice to be able to show tiles sequencially and not just random aka animated texture
     */
@@ -311,13 +310,13 @@ namespace Igor
 
         \param emissionGradient the emission gradient
         */
-        void setEmissionGradient(const iGradientui& emissionGradient);
+        void setEmissionGradient(const iGradientf& emissionGradient);
 
         /*! returns the emission gradient
 
         \param[out] emissionGradient out value for the emission gradient
         */
-        void getEmissionGradient(iGradientui& emissionGradient) const;
+        void getEmissionGradient(iGradientf& emissionGradient) const;
 
         /*! sets visible gradient for particles per frame
 
@@ -462,6 +461,10 @@ namespace Igor
 		*/
 		const iSpheref& getBoundingSphere() const;
 
+        /*! \returns simulation rate in frames per scond or Hz
+        */
+        static float32 getSimulationRate();
+
         /*! init default values
         */
         iParticleSystem3D();
@@ -550,9 +553,15 @@ namespace Igor
         */
         iGradientVector2f _startLiftGradient;
 
-        /*! emission rate gradient during particle system lifetime
+        /*! stacks emission impulses
         */
-        iGradientui _emissionRateGradient;
+        float32 _emissionImpulseStack = 0.0f;
+
+        /*! emission rate gradient during particle system lifetime
+
+        emitting particles per 1/60 of a second
+        */
+        iGradientf _emissionRateGradient;
 
         /*! gradient how the torque of vortex particles changes over time
 

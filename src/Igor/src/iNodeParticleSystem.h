@@ -150,13 +150,13 @@ namespace Igor
 
         \param emissionGradient the emission gradient
         */
-        void setEmissionGradient(const iGradientui& emissionGradient);
+        void setEmissionGradient(const iGradientf& emissionGradient);
 
         /*! returns the emission gradient
 
         \param[out] emissionGradient out value for the emission gradient
         */
-        void getEmissionGradient(iGradientui& emissionGradient) const;
+        void getEmissionGradient(iGradientf& emissionGradient) const;
 
         /*! sets visible gradient for particles per frame
 

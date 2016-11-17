@@ -213,6 +213,10 @@ private:
     */
     iWidgetGraph* _startLiftGraph = nullptr;
 
+    /*! particle emission graph
+    */
+    iWidgetGraph* _emissionGraph = nullptr;
+
     /*! list with all widgets for easy cleanup
     */
     vector<iWidget*> _allWidgets;
@@ -342,6 +346,19 @@ private:
     \param graphs the resulting graphs
     */
     void onCloseStartLiftGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
+
+    /*! triggered when clicked on particle emission gradient graph
+
+    \param source the source widget
+    */
+    void onOpenEmissionGradientEditor(iWidget* source);
+
+    /*! triggered when closed the emission gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
+    void onCloseEmissionGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
     
     /*! converts particle system gradients to GUI graphs
 

@@ -135,6 +135,14 @@ void UserControlParticleSystem::updateNode()
                 startLiftGradient.setValue(_startLiftGraph->getPoints(0)[i]._x, iaVector2f(_startLiftGraph->getPoints(0)[i]._y, _startLiftGraph->getPoints(1)[i]._y));
             }
             node->setStartLiftGradient(startLiftGradient);
+
+            iGradientf emissionGradient;
+            auto emissionPoints = _emissionGraph->getPoints(0);
+            for (auto point : emissionPoints)
+            {
+                emissionGradient.setValue(point._x, point._y);
+            }
+            node->setEmissionGradient(emissionGradient);
         }
     }
 }
@@ -338,6 +346,18 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
 
     _startLiftGraph->setPoints(0, minStartLift);
     _startLiftGraph->setPoints(1, maxStartLift);
+
+    // emission
+    iGradientf emissionGradient;
+    node->getEmissionGradient(emissionGradient);
+
+    vector<iaVector2f> emissionGraph;
+    vector<pair<float, float32>> emissionValues = emissionGradient.getValues();
+    for (auto value : emissionValues)
+    {
+        emissionGraph.push_back(iaVector2f(value.first, value.second));
+    }
+    _emissionGraph->setPoints(0, emissionGraph);
 }
 
 void UserControlParticleSystem::setNode(uint32 id)
@@ -403,7 +423,7 @@ void UserControlParticleSystem::initGUI()
     iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridSimulationProperties);
     gridSimulationProperties->appendCollumns(1);
-    gridSimulationProperties->appendRows(5);
+    gridSimulationProperties->appendRows(6);
     gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridSimulationProperties->setStrechColumn(1);
     gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
@@ -436,6 +456,22 @@ void UserControlParticleSystem::initGUI()
     _periodChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _periodChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _periodChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelEmission = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelEmission);
+    labelEmission->setText("Emission Rate");
+    labelEmission->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelEmission->setWidth(MV_REGULARBUTTON_SIZE);
+    labelEmission->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _emissionGraph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(_emissionGraph);
+    _emissionGraph->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _emissionGraph->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onOpenEmissionGradientEditor));
+    _emissionGraph->setExtrapolateData();
+    _emissionGraph->setViewGrid();
+    _emissionGraph->setBoundings(iRectanglef(0, 0, 1, 1));
+    _emissionGraph->setLineColor(0, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
 
     iWidgetLabel* labelAirDrag = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelAirDrag);
@@ -865,14 +901,17 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->addWidget(labelPeriod, 0, 2);
     gridSimulationProperties->addWidget(_periodChooser, 1, 2);
 
-    gridSimulationProperties->addWidget(labelAirDrag, 0, 3);
-    gridSimulationProperties->addWidget(_airDragChooser, 1, 3);
+    gridSimulationProperties->addWidget(labelEmission, 0, 3);
+    gridSimulationProperties->addWidget(_emissionGraph, 1, 3);
 
-    gridSimulationProperties->addWidget(labelVelocityGradient, 0, 4);
-    gridSimulationProperties->addWidget(_startVelocityGraph, 1, 4);
+    gridSimulationProperties->addWidget(labelAirDrag, 0, 4);
+    gridSimulationProperties->addWidget(_airDragChooser, 1, 4);
 
-    gridSimulationProperties->addWidget(labelLiftGradient, 0, 5);
-    gridSimulationProperties->addWidget(_startLiftGraph, 1, 5);
+    gridSimulationProperties->addWidget(labelVelocityGradient, 0, 5);
+    gridSimulationProperties->addWidget(_startVelocityGraph, 1, 5);
+
+    gridSimulationProperties->addWidget(labelLiftGradient, 0, 6);
+    gridSimulationProperties->addWidget(_startLiftGraph, 1, 6);
 
     ///////////////
     gridProperties->addWidget(vortexSimulationGroupBox, 0, 1);
@@ -978,6 +1017,38 @@ void UserControlParticleSystem::onCloseStartLiftGradientEditor(bool ok, const ve
         for (auto points : graphs)
         {
             _startLiftGraph->setPoints(i++, points);
+        }
+        updateNode();
+    }
+}
+
+void UserControlParticleSystem::onOpenEmissionGradientEditor(iWidget* source)
+{
+    vector<vector<iaVector2f>> graphs;
+    for (int i = 0; i < _emissionGraph->getGraphCount(); ++i)
+    {
+        graphs.push_back(_emissionGraph->getPoints(i));
+    }
+
+    _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 
+    _dialogGraph->configureYAxis(0.0f, 100.0f, 0.01f);
+    _dialogGraph->setTitle("Edit Emission Gradient");
+    _dialogGraph->setAxisName(0, "Time");
+    _dialogGraph->setAxisName(1, "Rate");
+    _dialogGraph->setAfterPoint(2);
+
+    _dialogGraph->show(iDialogGraphCloseDelegate(this, &UserControlParticleSystem::onCloseEmissionGradientEditor), graphs);
+}
+
+void UserControlParticleSystem::onCloseEmissionGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs)
+{
+    if (ok)
+    {
+        _emissionGraph->clearPoints();
+        int i = 0;
+        for (auto points : graphs)
+        {
+            _emissionGraph->setPoints(i++, points);
         }
         updateNode();
     }
@@ -1122,8 +1193,7 @@ void UserControlParticleSystem::onOpenScaleSizeGradientEditor(iWidget* source)
     vector<vector<iaVector2f>> graphs;
     for (int i = 0; i < _scaleSizeGraph->getGraphCount(); ++i)
     {
-        vector<iaVector2f> temp = _scaleSizeGraph->getPoints(i);
-        graphs.push_back(temp);
+        graphs.push_back(_scaleSizeGraph->getPoints(i));
     }
 
     _dialogGraph->configureXAxis(0.0f, 100.0f, 0.01f); // todo max should depend on particle lifetime 

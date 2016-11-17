@@ -299,12 +299,12 @@ namespace Igor
         _textureC = iTextureResourceFactory::getInstance().requestFile(texture);
     }
 
-    void iNodeParticleSystem::setEmissionGradient(const iGradientui& emissionGradient)
+    void iNodeParticleSystem::setEmissionGradient(const iGradientf& emissionGradient)
     {
         _particleSystem.setEmissionGradient(emissionGradient);
     }
 
-    void iNodeParticleSystem::getEmissionGradient(iGradientui& emissionGradient) const
+    void iNodeParticleSystem::getEmissionGradient(iGradientf& emissionGradient) const
     {
         _particleSystem.getEmissionGradient(emissionGradient);
     }

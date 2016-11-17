@@ -1385,9 +1385,7 @@ namespace Igor
 
                 rightScale = right * x._x + top * x._y;
                 topScale = right * y._x + top * y._y;
-
-                // TODO second and third texture UVs are messed up
-
+                
                 glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);
