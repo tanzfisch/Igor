@@ -242,15 +242,15 @@ namespace Igor
         */
         void getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const;
 
-        /*! sets the apperance rate of a vortex particles
+        /*! sets the vortex to particle ratio
 
-        \param apperanceRate the number of particles to create before the next vertex particle will be created
+        \param rate the rate of vortex particles to particles. default 0.01 = 1%
         */
-        void setVortexApperanceRate(uint64 apperanceRate);
+        void setVortexToParticleRate(float32 rate);
 
         /*! \returns likeliness of vortex particle to appear
         */
-        float32 getVortexApperanceRate() const;
+        float32 getVortexToParticleRate() const;
 
         /*! sets vorticity confinement force
 

@@ -314,19 +314,20 @@ namespace Igor
             particle._textureto._y = particle._texturefrom._y + width;
         }
 
+        // TODO phase is broken ...
         particle._phase0.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
         particle._phase1.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
     }
 
-    void iParticleSystem3D::setVortexApperanceRate(uint64 apperanceRate)
+    void iParticleSystem3D::setVortexToParticleRate(float32 rate)
     {
-        _vortexAperanceRate = apperanceRate;
+        _vortexToParticleRate = rate;
         _mustReset = true;
     }
 
-    float32 iParticleSystem3D::getVortexApperanceRate() const
+    float32 iParticleSystem3D::getVortexToParticleRate() const
     {
-        return _vortexAperanceRate;
+        return _vortexToParticleRate;
     }
 
     void iParticleSystem3D::createParticles(uint32 particleCount, iParticleEmitter& emitter, float32 particleSystemTime)
@@ -341,8 +342,8 @@ namespace Igor
         {
             iParticle particle;
 
-            if (_vortexAperanceRate != 0 && 
-                _particleCounter == _vortexAperanceRate)
+            if (_vortexToParticleRate != 0.0 &&
+                _particleCounter == static_cast<uint64>((1.0f - _vortexToParticleRate) * 100.0f))
             {
                 particle._normal.set(_rand.getNext() % 100 / 100.0f - 0.5f, _rand.getNext() % 100 / 100.0f - 0.5f, _rand.getNext() % 100 / 100.0f - 0.5f);
                 particle._normal.normalize();
@@ -459,9 +460,7 @@ namespace Igor
 
                     (*particle)._velocity[1] += (*particle)._lift;
 
-                    (*particle)._velocity *= _airDrag;
-
-                    (*particle)._position += (*particle)._velocity;
+                    (*particle)._velocity *= _airDrag;                    
 
                     (*particle)._orientation += (*particle)._orientationRate;
 
@@ -513,9 +512,11 @@ namespace Igor
                             a *= _vorticityConfinement;
                             b += a;
 
-                            _particles[i]._position += b * 0.1f; // TODO 0.1 ???
+                            _particles[i]._velocity += b * 0.001f; // TODO 0.001 ???
                         }
                     }
+
+                    (*particle)._position += (*particle)._velocity;
 
                     (*particle)._life -= 1.0 / _simulationRate;
                     if ((*particle)._life <= 0)

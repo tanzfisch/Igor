@@ -49,6 +49,8 @@ namespace Igor
     class iParticleEmitter;
 
     /*! single particle
+
+    \todo phase is broken ... or better we need to define what it actually should do
     */
     class Igor_API iParticle
     {
@@ -259,15 +261,15 @@ namespace Igor
         */
         void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
 
-        /*! sets the apperance intervall of a vortex particle
+        /*! sets the vortex to particle ratio
 
-        \param apperanceRate the number of particles to create before the next vertex particle will be created
+        \param rate the rate of vortex particles to particles. default 0.01 = 1%
         */
-        void setVortexApperanceRate(uint64 apperanceRate);
+        void setVortexToParticleRate(float32 rate);
 
         /*! \returns likeliness of vortex particle to appear
         */
-        float32 getVortexApperanceRate() const;
+        float32 getVortexToParticleRate() const;
 
         /*! calculates next frame
 
@@ -478,7 +480,7 @@ namespace Igor
 
         set to zero if you don't want a limit
         */
-        uint32 _maxParticleCount = 1000;
+        uint32 _maxParticleCount = 500;
 
         /*! column count of first texture tiling
         */
@@ -552,8 +554,6 @@ namespace Igor
         */
         iGradientui _emissionRateGradient;
 
-
-
         /*! gradient how the torque of vortex particles changes over time
 
         for internal use only
@@ -574,38 +574,77 @@ namespace Igor
         */
         float32 _airDrag = 1.0;
 
-        iaVector2f _octave1Shift = { 0.001, 0.001 };
-        iaVector2f _octave2Shift = { 0.001, 0.001 };
+        float32 _octave1Rotation = 0.01;
+        float32 _octave2Rotation = -0.01;
 
-        float32 _octave1Rotation = 0.001;
-        float32 _octave2Rotation = -0.001;
-
+        /*! time when the particle system was started last time
+        */
         float64 _startTime = 0;
+
+        /*! current time in a simulation rate grid
+        */
         float64 _time = 0;
 
-        /*!
+        /*! vortex to particle rate
+
+        default 0%
         */
-        uint64 _vortexAperanceRate = 0;
+        float32 _vortexToParticleRate = 0.00;
+        
+        /*! particle coutner to figure out when to create the next vortex particle
+        */
         uint64 _particleCounter = 0;
 
-        float32 _minVortexTorque = 0.1;
-        float32 _maxVortexTorque = 0.5;
-        float32 _minVortexRange = 10.0;
-        float32 _maxVortexRange = 20.0;
+        /*! minimum votex torque
+        */
+        float32 _minVortexTorque = 0.5;
+
+        /*! maximum votex torque
+        */
+        float32 _maxVortexTorque = 0.7;
+        
+        /*! minimum votex range
+        */
+        float32 _minVortexRange = 20.0;
+
+        /*! maximum votex range
+        */
+        float32 _maxVortexRange = 40.0;
 
         /*! random number generator
         */
         iaRandomNumberGenerator _rand;
 
+        /*! vortex check range
+        */
         long _vortexCheckRange = 20;
 
-        float32 _vorticityConfinement = 0.1;
+        /*! vorticity confinement
+        */
+        float32 _vorticityConfinement = 0.05;
 
+        /*! actual particles
+        */
         deque<iParticle> _particles;
         
+        /*! initializes default gradients
+        */
         void initDefaultGradients();
 
+        /*! creates particles
+
+        \param particleCount the amount of particles to create
+        \param emitter the emitter to emitt the particles from
+        \param particleSystemTime the particle system time in seconds
+        */
         void createParticles(uint32 particleCount, iParticleEmitter& emitter, float32 particleSystemTime);
+
+        /*! reset a particle
+
+        \param particle the particle to reset / reuse
+        \param emitter the emitter to emitt the particles from
+        \param particleSystemTime the particle system time in seconds
+        */
         void resetParticle(iParticle &particle, iParticleEmitter& emitter, float32 particleSystemTime);
     };
 

@@ -53,6 +53,8 @@ namespace Igor
     class iNodeParticleSystem;
 }
 
+/*! user control to manipulate a particle system
+*/
 class UserControlParticleSystem : public iUserControl
 {
 public:
@@ -139,8 +141,29 @@ private:
     */
     iWidgetNumberChooser* _airDragChooser = nullptr;
 
+    /*! number chooser for vorticity confinement value
+    */
     iWidgetNumberChooser* _vorticityConfinementChooser = nullptr;
-    iWidgetNumberChooser* _vorticityAppearanceRateChooser = nullptr;
+
+    /*! number chooser for 
+    */
+    iWidgetNumberChooser* _vortextoParticleRateChooser = nullptr;
+
+    /*! vortex minimum torque number chooser
+    */
+    iWidgetNumberChooser* _vortexTorqueMinChooser = nullptr;
+
+    /*! vortex maximum torque number chooser
+    */
+    iWidgetNumberChooser* _vortexTorqueMaxChooser = nullptr;
+
+    /*! vortex minimum range number chooser
+    */
+    iWidgetNumberChooser* _vortexRangeMinChooser = nullptr;
+
+    /*! vortex maximum range number chooser
+    */
+    iWidgetNumberChooser* _vortexRangeMaxChooser = nullptr;
 
     /*! number chooser for vertical tiling of primary texture
     */
@@ -229,37 +252,135 @@ private:
     */
     void onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient);
 
+    /*! triggered when clicked on start size gradient graph
+
+    \param source the source widget
+    */
     void onOpenStartSizeGradientEditor(iWidget* source);
+
+    /*! triggered when closed the start size gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
     void onCloseStartSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
 
+    /*! triggered when clicked on size scale gradient graph
+
+    \param source the source widget
+    */
     void onOpenScaleSizeGradientEditor(iWidget* source);
+
+    /*! triggered when closed the size scale gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
     void onCloseScaleSizeGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
 
+    /*! triggered when clicked on visibility gradient graph
+
+    \param source the source widget
+    */
     void onOpenVisibilityGradientEditor(iWidget* source);
+
+    /*! triggered when closed the visibility gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
     void onCloseVisibilityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
 
+    /*! triggered when clicked on start orientation gradient graph
+
+    \param source the source widget
+    */
     void onOpenStartOrientationGradientEditor(iWidget* source);
+
+    /*! triggered when closed the start orientation gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
     void onCloseStartOrientationGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
 
+    /*! triggered when clicked on orientation rate gradient graph
+
+    \param source the source widget
+    */
     void onOpenStartOrientationRateGradientEditor(iWidget* source);
+
+    /*! triggered when closed the orientation rate gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
     void onCloseStartOrientationRateGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
 
+    /*! triggered when clicked on start velocity gradient graph
+
+    \param source the source widget
+    */
     void onOpenStartVelocityGradientEditor(iWidget* source);
+
+    /*! triggered when closed the start velocity gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
     void onCloseStartVelocityGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
 
+    /*! triggered when clicked on start lift/weight gradient graph
+
+    \param source the source widget
+    */
     void onOpenStartLiftGradientEditor(iWidget* source);
+
+    /*! triggered when closed the start lift/weight gradient graph editor
+
+    \param ok the ok button was pressed
+    \param graphs the resulting graphs
+    */
     void onCloseStartLiftGradientEditor(bool ok, const vector<vector<iaVector2f>>& graphs);
     
+    /*! converts particle system gradients to GUI graphs
+
+    \param node the particle system node
+    */
     void convertGradientsToUI(iNodeParticleSystem* node);
 
+    /*! triggered when start button was clicked
+
+    \param source the source widget
+    */
     void onStart(iWidget* source);
+
+    /*! triggered when stop button was clicked
+
+    \param source the source widget
+    */
     void onStop(iWidget* source);
+    
+    /*! triggered when reset button was clicked
+
+    \param source the source widget
+    */
     void onReset(iWidget* source);
 
+    /*! updates the gui from node data
+    */
     void updateGUI();
+
+    /*! updates the node from gui data
+    */
     void updateNode();
 
+    /*! initialize gui
+    */
     void initGUI();
+
+    /*! deinitialize gui
+    */
     void deinitGUI();
 
 };
