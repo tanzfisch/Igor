@@ -45,6 +45,16 @@ namespace OMPF
         return _loop;
     }
 
+    void ompfParticleSystemChunk::setColorGradient(const iaGradientColor4f& colorGradient)
+    {
+        _colorGradient = colorGradient;
+    }
+
+    void ompfParticleSystemChunk::getColorGradient(iaGradientColor4f& colorGradient) const
+    {
+        colorGradient = _colorGradient;
+    }
+
     bool ompfParticleSystemChunk::write(ofstream& file, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(file, settings))
@@ -66,6 +76,12 @@ namespace OMPF
             return false;
         }
         con_debug_endl("loop " << (_loop ? "true" : "false"));
+
+        if (!iaSerializable::write(file, _colorGradient))
+        {
+            return false;
+        }
+        con_debug_endl("color gradient entries=" << _colorGradient.getValues().size());
 
         return true;
     }
@@ -90,6 +106,12 @@ namespace OMPF
         }
         _loop = typeValue == 0 ? false : true;
         con_debug_endl("loop " << (_loop ? "true" : "false"));
+
+        if (!iaSerializable::read(file, _colorGradient))
+        {
+            return false;
+        }
+        con_debug_endl("color gradient entries=" << _colorGradient.getValues().size());
 
         return true;
     }

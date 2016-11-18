@@ -102,6 +102,9 @@ namespace Igor
             iNodeParticleSystem* particleSystemNode = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
             particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
             particleSystemNode->setLoop(particleSystemChunk->getLoop());
+            iaGradientColor4f colorGradient;
+            particleSystemChunk->getColorGradient(colorGradient);
+            particleSystemNode->setColorGradient(colorGradient);
             result = particleSystemNode;
             break;
         }
@@ -391,6 +394,9 @@ namespace Igor
         OMPF::ompfParticleSystemChunk* result = _ompf->createParticleSystemChunk();
         result->setMaxParticleCount(node->getMaxParticleCount());
         result->setLoop(node->getLoop());
+        iaGradientColor4f colorGradient;
+        node->getColorGradient(colorGradient);
+        result->setColorGradient(colorGradient);
         return result;
     }
 

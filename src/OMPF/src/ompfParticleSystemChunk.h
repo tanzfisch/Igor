@@ -68,6 +68,18 @@ namespace OMPF
         */
         bool getLoop() const;
 
+        /*! sets rainbow gradient for particles color
+
+        \param rainbow the rainbow gradient
+        */
+        void setColorGradient(const iaGradientColor4f& colorGradient);
+
+        /*! returns the rainbow gradient
+
+        \param[out] rainbow out value for the rainbow gradient
+        */
+        void getColorGradient(iaGradientColor4f& colorGradient) const;
+
         /*! \returns size of chunk in bytes
 
         \param settings the settings the size calculation is based on
@@ -75,6 +87,10 @@ namespace OMPF
         virtual uint32 getSize(const ompfSettings& settings);
 
     private:
+
+        /*! color gradient for particles during their lifetime
+        */
+        iaGradientColor4f _colorGradient;
 
         /*! maximum particle count
         */
