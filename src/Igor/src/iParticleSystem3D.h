@@ -214,6 +214,18 @@ namespace Igor
         */
         uint32 getVortexCheckRange();
 
+        /*! sets the maximum particle count
+
+        set to zero if you don't want a limit of created particles
+
+        \param max the maximum count of particles used
+        */
+        void setMaxParticleCount(uint32 max);
+
+        /*! \returns the maximum particle count used
+        */
+        uint32 getMaxParticleCount() const;
+
         /*! sets the tiling resolution of the first texture layer
 
         \param columns column count (<= 1)
@@ -445,18 +457,6 @@ namespace Igor
         */
         float32 getPeriodTime() const;
 
-        /*! sets the maximum particle count
-
-        set to zero if you don't want a limit of created particles
-
-        \param max the maximum count of particles used
-        */
-        void setMaxParticleCount(uint32 max);
-
-        /*! \returns the maximum particle count used
-        */
-        uint32 getMaxParticleCount() const;
-
 		/*! \returns bounding sphere
 		*/
 		const iSpheref& getBoundingSphere() const;
@@ -464,6 +464,10 @@ namespace Igor
         /*! \returns simulation rate in frames per scond or Hz
         */
         static float32 getSimulationRate();
+
+        /*! \returns current particle count in use
+        */
+        uint32 getParticleCount();
 
         /*! init default values
         */

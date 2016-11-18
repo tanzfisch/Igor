@@ -69,6 +69,10 @@ namespace Igor
 		*/
 		bool isFinished() const;
 
+        /*! \returns current particle count in use
+        */
+        uint32 getParticleCount();
+
         /*! sets the range of vortex torque
 
         \param min minimum vortex torque
@@ -113,6 +117,28 @@ namespace Igor
         /*! \returns the vertical tiling resolution of the first texture layer
         */
         uint32 getFirstTextureRows() const;
+
+        /*! sets vortex check range
+
+        \param particles distance in indexes from vortex particle
+        */
+        void setVortexCheckRange(uint32 particles);
+
+        /*! \return vortex check rangein indexes from vortex particle
+        */
+        uint32 getVortexCheckRange();
+
+        /*! sets the maximum particle count
+
+        set to zero if you don't want a limit of created particles
+
+        \param max the maximum count of particles used
+        */
+        void setMaxParticleCount(uint32 max);
+
+        /*! \returns the maximum particle count used
+        */
+        uint32 getMaxParticleCount() const;
 
         /*! sets if the particle system runs in a loop
 

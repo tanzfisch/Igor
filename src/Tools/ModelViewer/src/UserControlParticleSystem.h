@@ -173,6 +173,14 @@ private:
     */
     iWidgetNumberChooser* _tilingHorizontalChooser = nullptr;
 
+    /*! number chooser for vortex check range
+    */
+    iWidgetNumberChooser* _vortexCheckRange = nullptr;
+
+    /*! number chooser for max particle count
+    */
+    iWidgetNumberChooser* _maxParticleCount = nullptr;
+
     /*! color gradient display
     */
     iWidgetColorGradient* _colorGradient = nullptr;
@@ -217,6 +225,14 @@ private:
     */
     iWidgetGraph* _emissionGraph = nullptr;
 
+    /*! text field to show the current particle count
+    */
+    iWidgetTextEdit* _textParticleCount = nullptr;
+
+    /*! text field to show the current particle simulation frequency
+    */
+    iWidgetTextEdit* _textFrequency = nullptr;
+
     /*! list with all widgets for easy cleanup
     */
     vector<iWidget*> _allWidgets;
@@ -248,6 +264,10 @@ private:
     \param source the source widget
     */
     void onOpenColorGradientEditor(iWidget* source);
+
+    /*! triggered every frame
+    */
+    void onCyclickUpdate();
 
     /*! triggered when color gradient editor was closed
 

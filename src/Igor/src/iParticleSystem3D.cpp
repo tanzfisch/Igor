@@ -43,7 +43,7 @@ namespace Igor
         _colorGradient.setValue(0.5, iaColor4f(1, 1, 1, 1));
         _colorGradient.setValue(1.0, iaColor4f(1, 1, 1, 0.0f));
 
-        _emissionRateGradient.setValue(0.0, 1.0f/60.0f);
+        _emissionRateGradient.setValue(0.0, 20.0f/iParticleSystem3D::_simulationRate);
 
         _sizeScaleGradient.setValue(0.0, 1.0);
 
@@ -490,6 +490,8 @@ namespace Igor
                             endIndex = _particles.size();
                         }
 
+                        // TODO need overflow here
+
                         for (uint32 i = startIndex; i < endIndex; ++i)
                         {
                             if (index == i) // ignore your self
@@ -550,6 +552,11 @@ namespace Igor
 				_boundingSphere._radius = 1.0;
 			}
 		}
+    }
+
+    uint32 iParticleSystem3D::getParticleCount()
+    {
+        return static_cast<uint32>(_particles.size());
     }
 
     float32 iParticleSystem3D::getSimulationRate()

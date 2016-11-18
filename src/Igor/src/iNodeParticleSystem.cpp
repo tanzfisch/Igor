@@ -49,6 +49,11 @@ namespace Igor
 		iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeParticleSystem::handle));
 	}
 
+    uint32 iNodeParticleSystem::getParticleCount()
+    {
+        return _particleSystem.getParticleCount();
+    }
+
     void iNodeParticleSystem::setColorGradient(const iGradientColor4f& colorGradient)
     {
         _particleSystem.setColorGradient(colorGradient);
@@ -282,6 +287,26 @@ namespace Igor
             result = _textureC->getFilename();
         }
         return result;
+    }
+
+    void iNodeParticleSystem::setVortexCheckRange(uint32 particles)
+    {
+        _particleSystem.setVortexCheckRange(particles);
+    }
+
+    uint32 iNodeParticleSystem::getVortexCheckRange()
+    {
+        return _particleSystem.getVortexCheckRange();
+    }
+
+    void iNodeParticleSystem::setMaxParticleCount(uint32 max)
+    {
+        _particleSystem.setMaxParticleCount(max);
+    }
+
+    uint32 iNodeParticleSystem::getMaxParticleCount() const
+    {
+        return _particleSystem.getMaxParticleCount();
     }
 
     void iNodeParticleSystem::setTextureA(const iaString& texture)

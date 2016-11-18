@@ -28,6 +28,7 @@
 #include <iDialogColorGradient.h>
 #include <iWidgetGraph.h>
 #include <iDialogGraph.h>
+#include <iApplication.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -35,10 +36,24 @@ using namespace Igor;
 UserControlParticleSystem::UserControlParticleSystem()
 {
     initGUI();
+
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
+}
+
+void UserControlParticleSystem::onCyclickUpdate()
+{
+    iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(_nodeId));
+
+    if (node != nullptr)
+    {
+        _textParticleCount->setText(iaString::itoa(node->getParticleCount()));
+    }
 }
 
 UserControlParticleSystem::~UserControlParticleSystem()
 {
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
+
     deinitGUI();
 }
 
@@ -75,9 +90,11 @@ void UserControlParticleSystem::updateNode()
 
             node->setLoop(_loopCheckBox->isChecked());
             node->setPeriodTime(_periodChooser->getValue());
+            node->setMaxParticleCount(_maxParticleCount->getValue());
             node->setAirDrag(1.0f - _airDragChooser->getValue());
             node->setVelocityOriented(_velocityOrientedCheckBox->isChecked());
             node->setVorticityConfinement(_vorticityConfinementChooser->getValue());
+            node->setVortexCheckRange(_vortexCheckRange->getValue());
             node->setVortexToParticleRate(_vortexToParticleRateChooser->getValue() / 100.0f);
             node->setVortexTorque(_vortexTorqueMinChooser->getValue(), _vortexTorqueMaxChooser->getValue());
             node->setVortexRange(_vortexRangeMinChooser->getValue(), _vortexRangeMaxChooser->getValue());
@@ -205,9 +222,11 @@ void UserControlParticleSystem::updateGUI()
 
         _loopCheckBox->setChecked(node->getLoop());
         _periodChooser->setValue(node->getPeriodTime());
+        _maxParticleCount->setValue(node->getMaxParticleCount());
         _airDragChooser->setValue(1.0f - node->getAirDrag());
         _velocityOrientedCheckBox->setChecked(node->getVelocityOriented());
         _vorticityConfinementChooser->setValue(node->getVorticityConfinement());
+        _vortexCheckRange->setValue(node->getVortexCheckRange());
         _vortexToParticleRateChooser->setValue(node->getVortexToParticleRate() * 100.0f);
         _vortexTorqueMinChooser->setValue(node->getVortexTorqueMin());
         _vortexTorqueMaxChooser->setValue(node->getVortexTorqueMax());
@@ -375,7 +394,7 @@ void UserControlParticleSystem::initGUI()
 {
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(_grid);
-    _grid->appendRows(1);
+    _grid->appendRows(2);
     _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Top);
 
@@ -386,6 +405,43 @@ void UserControlParticleSystem::initGUI()
     gridProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridProperties->setStrechColumn(0);
     gridProperties->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetGrid* detailsGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _allWidgets.push_back(detailsGrid);
+    detailsGrid->appendCollumns(1);
+    detailsGrid->appendRows(2);
+    detailsGrid->setStrechColumn(1);
+    detailsGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+
+    iWidgetLabel* labelParticleCount = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelParticleCount);
+    labelParticleCount->setText("Particles");
+    labelParticleCount->setWidth(MV_REGULARBUTTON_SIZE);
+    labelParticleCount->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelParticleCount->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    iWidgetLabel* labelFrequency = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelFrequency);
+    labelFrequency->setText("Frequency");
+    labelFrequency->setWidth(MV_REGULARBUTTON_SIZE);
+    labelFrequency->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelFrequency->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _textParticleCount = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _allWidgets.push_back(_textParticleCount);
+    _textParticleCount->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textParticleCount->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+    _textParticleCount->setActive(false);
+    _textParticleCount->setText("0");
+
+    _textFrequency = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _allWidgets.push_back(_textFrequency);
+    _textFrequency->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _textFrequency->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+    _textFrequency->setActive(false);
+    iaString frequency = iaString::ftoa(iParticleSystem3D::getSimulationRate(), 2);
+    frequency += " Hz";
+    _textFrequency->setText(frequency);
 
     iWidgetGrid* gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridButtons);
@@ -423,15 +479,34 @@ void UserControlParticleSystem::initGUI()
     iWidgetGrid* gridSimulationProperties = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allWidgets.push_back(gridSimulationProperties);
     gridSimulationProperties->appendCollumns(1);
-    gridSimulationProperties->appendRows(6);
+    gridSimulationProperties->appendRows(7);
     gridSimulationProperties->setHorizontalAlignment(iHorizontalAlignment::Strech);
     gridSimulationProperties->setStrechColumn(1);
     gridSimulationProperties->setVerticalAlignment(iVerticalAlignment::Top);
+
+    iWidgetLabel* labelMaxParticles = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelMaxParticles);
+    labelMaxParticles->setText("Max Part.");
+    labelMaxParticles->setWidth(MV_REGULARBUTTON_SIZE);
+    labelMaxParticles->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelMaxParticles->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _maxParticleCount = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_maxParticleCount);
+    _maxParticleCount->setMinMaxNumber(0.0f, 1000.0f);
+    _maxParticleCount->setStepping(1.0f, 1.0f);
+    _maxParticleCount->setSteppingWheel(10.0f, 10.0f);
+    _maxParticleCount->setPostFix("");
+    _maxParticleCount->setAfterPoint(0);
+    _maxParticleCount->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _maxParticleCount->setVerticalAlignment(iVerticalAlignment::Top);
+    _maxParticleCount->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel* labelLoop = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelLoop);
     labelLoop->setText("Loop");
     labelLoop->setWidth(MV_REGULARBUTTON_SIZE);
+    labelLoop->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
     labelLoop->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _loopCheckBox = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
@@ -444,6 +519,7 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(labelPeriod);
     labelPeriod->setText("Period");
     labelPeriod->setWidth(MV_REGULARBUTTON_SIZE);
+    labelPeriod->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
     labelPeriod->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _periodChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
@@ -477,6 +553,7 @@ void UserControlParticleSystem::initGUI()
     _allWidgets.push_back(labelAirDrag);
     labelAirDrag->setText("Air Drag");
     labelAirDrag->setWidth(MV_REGULARBUTTON_SIZE);
+    labelAirDrag->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
     labelAirDrag->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _airDragChooser = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
@@ -613,6 +690,24 @@ void UserControlParticleSystem::initGUI()
     _vorticityConfinementChooser->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _vorticityConfinementChooser->setVerticalAlignment(iVerticalAlignment::Top);
     _vorticityConfinementChooser->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+
+    iWidgetLabel* labelVortexCheckRange = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+    _allWidgets.push_back(labelVortexCheckRange);
+    labelVortexCheckRange->setText("Quality");
+    labelVortexCheckRange->setMaxTextWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexCheckRange->setWidth(MV_REGULARBUTTON_SIZE);
+    labelVortexCheckRange->setHorizontalAlignment(iHorizontalAlignment::Left);
+
+    _vortexCheckRange = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
+    _allWidgets.push_back(_vortexCheckRange);
+    _vortexCheckRange->setMinMaxNumber(0.0f, 30.0f);
+    _vortexCheckRange->setStepping(1.0f, 1.0f);
+    _vortexCheckRange->setSteppingWheel(5.0f, 5.0f);
+    _vortexCheckRange->setPostFix("");
+    _vortexCheckRange->setAfterPoint(0);
+    _vortexCheckRange->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _vortexCheckRange->setVerticalAlignment(iVerticalAlignment::Top);
+    _vortexCheckRange->registerOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
 
     iWidgetLabel* labelVelocityGradient = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(labelVelocityGradient);
@@ -885,9 +980,18 @@ void UserControlParticleSystem::initGUI()
     gridButtons->addWidget(_buttonStop, 1, 0);
     gridButtons->addWidget(_buttonReset, 2, 0);
 
-    _grid->addWidget(gridButtons, 0, 0);
-    _grid->addWidget(gridProperties, 0, 1);
+    _grid->addWidget(detailsGrid, 0, 0);
+    _grid->addWidget(gridButtons, 0, 1);
+    _grid->addWidget(gridProperties, 0, 2);
 
+    /////// details
+
+    detailsGrid->addWidget(labelFrequency, 0, 0);
+    detailsGrid->addWidget(_textFrequency, 1, 0);
+
+    detailsGrid->addWidget(labelParticleCount, 0, 1);
+    detailsGrid->addWidget(_textParticleCount, 1, 1);
+    
     ///////
     gridProperties->addWidget(simulationGroupBox, 0, 0);
     simulationGroupBox->addWidget(gridSimulationProperties);
@@ -895,23 +999,26 @@ void UserControlParticleSystem::initGUI()
     gridSimulationProperties->addWidget(labelEmitter, 0, 0);
     gridSimulationProperties->addWidget(_emitterSelection, 1, 0);
 
-    gridSimulationProperties->addWidget(labelLoop, 0, 1);
-    gridSimulationProperties->addWidget(_loopCheckBox, 1, 1);
+    gridSimulationProperties->addWidget(labelMaxParticles, 0, 1);
+    gridSimulationProperties->addWidget(_maxParticleCount, 1, 1);
 
-    gridSimulationProperties->addWidget(labelPeriod, 0, 2);
-    gridSimulationProperties->addWidget(_periodChooser, 1, 2);
+    gridSimulationProperties->addWidget(labelLoop, 0, 2);
+    gridSimulationProperties->addWidget(_loopCheckBox, 1, 2);
 
-    gridSimulationProperties->addWidget(labelEmission, 0, 3);
-    gridSimulationProperties->addWidget(_emissionGraph, 1, 3);
+    gridSimulationProperties->addWidget(labelPeriod, 0, 3);
+    gridSimulationProperties->addWidget(_periodChooser, 1, 3);
 
-    gridSimulationProperties->addWidget(labelAirDrag, 0, 4);
-    gridSimulationProperties->addWidget(_airDragChooser, 1, 4);
+    gridSimulationProperties->addWidget(labelEmission, 0, 4);
+    gridSimulationProperties->addWidget(_emissionGraph, 1, 4);
 
-    gridSimulationProperties->addWidget(labelVelocityGradient, 0, 5);
-    gridSimulationProperties->addWidget(_startVelocityGraph, 1, 5);
+    gridSimulationProperties->addWidget(labelAirDrag, 0, 5);
+    gridSimulationProperties->addWidget(_airDragChooser, 1, 5);
 
-    gridSimulationProperties->addWidget(labelLiftGradient, 0, 6);
-    gridSimulationProperties->addWidget(_startLiftGraph, 1, 6);
+    gridSimulationProperties->addWidget(labelVelocityGradient, 0, 6);
+    gridSimulationProperties->addWidget(_startVelocityGraph, 1, 6);
+
+    gridSimulationProperties->addWidget(labelLiftGradient, 0, 7);
+    gridSimulationProperties->addWidget(_startLiftGraph, 1, 7);
 
     ///////////////
     gridProperties->addWidget(vortexSimulationGroupBox, 0, 1);
@@ -934,6 +1041,9 @@ void UserControlParticleSystem::initGUI()
 
     gridVortexSimulationProperties->addWidget(labelVorticityConfinement, 0, 5);
     gridVortexSimulationProperties->addWidget(_vorticityConfinementChooser, 1, 5);
+
+    gridVortexSimulationProperties->addWidget(labelVortexCheckRange, 0, 6);
+    gridVortexSimulationProperties->addWidget(_vortexCheckRange, 1, 6);
 
     /////////////////
     gridProperties->addWidget(appearanceGroupBox, 0, 2);
@@ -1312,9 +1422,11 @@ void UserControlParticleSystem::deinitGUI()
     _emitterSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _materialSelection->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));    
     _periodChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _maxParticleCount->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _airDragChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _velocityOrientedCheckBox->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vorticityConfinementChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
+    _vortexCheckRange->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vortexToParticleRateChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vortexTorqueMinChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
     _vortexTorqueMaxChooser->unregisterOnChangeEvent(iChangeDelegate(this, &UserControlParticleSystem::onDoUpdateNode));
