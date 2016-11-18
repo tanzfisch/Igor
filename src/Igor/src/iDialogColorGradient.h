@@ -30,7 +30,7 @@
 #define __iDIALOGCOLORGRADIENT__
 
 #include <iDialog.h>
-#include <iGradient.h>
+#include <iaGradient.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
@@ -48,7 +48,7 @@ namespace Igor
 
     /*! event triggered when color chooser was closed
     */
-    iaEVENT(iColorGradientCloseEvent, iColorGradientCloseDelegate, void, (bool ok, const iGradientColor4f& gradient), (ok, gradient));
+    iaEVENT(iColorGradientCloseEvent, iColorGradientCloseDelegate, void, (bool ok, const iaGradientColor4f& gradient), (ok, gradient));
 
     /*! the color chooser dialog
     */
@@ -65,7 +65,7 @@ namespace Igor
         \param gradient to start with
         \param useAlpha if true use alpha channel too
         */
-        void show(iColorGradientCloseDelegate closeDelegate, const iGradientColor4f& gradient, bool useAlpha = true);
+        void show(iColorGradientCloseDelegate closeDelegate, const iaGradientColor4f& gradient, bool useAlpha = true);
 
     private:
 
@@ -75,11 +75,11 @@ namespace Igor
 
         /*! the old gradient
         */
-        iGradientColor4f _oldGradient;
+        iaGradientColor4f _oldGradient;
 
         /*! the current gradient
         */
-        iGradientColor4f _gradient;
+        iaGradientColor4f _gradient;
 
         /*! current selected color index
         */
@@ -167,7 +167,7 @@ namespace Igor
         \param color the color to init with
         \param useAlpha if true alpha value will be edited too
         */
-        void initGUI(const iGradientColor4f& gradient, bool useAlpha);
+        void initGUI(const iaGradientColor4f& gradient, bool useAlpha);
 
         /*! does nothing
         */

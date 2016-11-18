@@ -102,7 +102,7 @@ namespace Igor
         drawFilledRectangle(posx, posy, width, height, _diffuse);
     }
 
-    void iWidgetDefaultTheme::drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iGradientColor4f& gradient)
+    void iWidgetDefaultTheme::drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iaGradientColor4f& gradient)
     {
         iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
         iRenderer::getInstance().setLineWidth(1);

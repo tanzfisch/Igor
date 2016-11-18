@@ -1268,7 +1268,7 @@ namespace Igor
     /*!
     \bug in debug mode the rainbow colors are wrong. it's changing back and forth
     */
-    void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iGradientColor4f *rainbow)
+    void iRenderer::drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iaGradientColor4f *rainbow)
     {
         iaVector2f a, b, c, d, u, v;
         iaColor4f color;
@@ -1336,7 +1336,7 @@ namespace Igor
         _renderedTriangles += particleCount * 2;
     }
 
-    void iRenderer::drawParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow)
+    void iRenderer::drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow)
     {
         iaVector4f camright;
         camright._vec = _camWorldMatrix._right;
@@ -1422,7 +1422,7 @@ namespace Igor
         _renderedTriangles += particles.size() * 2;
     }
 
-    void iRenderer::drawVelocityOrientedParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow)
+    void iRenderer::drawVelocityOrientedParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow)
     {
         // TODO implement also for local coordinates see drawParticles
 

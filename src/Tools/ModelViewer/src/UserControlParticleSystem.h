@@ -31,7 +31,7 @@
 
 #include <iNodeModel.h>
 #include <iUserControl.h>
-#include <iGradient.h>
+#include <iaGradient.h>
 using namespace Igor;
 
 namespace Igor
@@ -274,7 +274,7 @@ private:
     \param ok if true the ok button was pressed to close
     \param gradient the resulting color gradient
     */
-    void onCloseColorGradientEditor(bool ok, const iGradientColor4f& gradient);
+    void onCloseColorGradientEditor(bool ok, const iaGradientColor4f& gradient);
 
     /*! triggered when clicked on start size gradient graph
 

@@ -704,7 +704,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iDialogMessageBox.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
-    <ClInclude Include="..\src\iGradient.h" />
     <ClInclude Include="..\src\iInstancer.h" />
     <ClInclude Include="..\src\iIntersection.h" />
     <ClInclude Include="..\src\iJoint.h" />
@@ -908,7 +907,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <None Include="..\src\iAABox.inl" />
     <None Include="..\src\iAACube.inl" />
     <None Include="..\src\iFrustum.inl" />
-    <None Include="..\src\iGradient.inl" />
     <None Include="..\src\iInstancer.inl" />
     <None Include="..\src\iIntersection.inl" />
     <None Include="..\src\iMesh.inl" />

@@ -7,7 +7,7 @@
 #include <iRenderer.h>
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
-#include <iGradient.h>
+#include <iaGradient.h>
 #include <iTimer.h>
 #include <iParticleEmitter.h>
 
@@ -74,27 +74,27 @@ namespace Igor
         return _velocityOriented;
     }
 
-    void iParticleSystem3D::setColorGradient(const iGradientColor4f& colorGradient)
+    void iParticleSystem3D::setColorGradient(const iaGradientColor4f& colorGradient)
     {
         _colorGradient = colorGradient;
     }
 
-    void iParticleSystem3D::getColorGradient(iGradientColor4f& colorGradient) const
+    void iParticleSystem3D::getColorGradient(iaGradientColor4f& colorGradient) const
     {
         colorGradient = _colorGradient;
     }
 
-    const iGradientColor4f& iParticleSystem3D::getColorGradient() const
+    const iaGradientColor4f& iParticleSystem3D::getColorGradient() const
     {
         return _colorGradient;
     }
 
-    void iParticleSystem3D::setEmissionGradient(const iGradientf& emissionGradient)
+    void iParticleSystem3D::setEmissionGradient(const iaGradientf& emissionGradient)
     {
         _emissionRateGradient = emissionGradient;
     }
 
-    void iParticleSystem3D::getEmissionGradient(iGradientf& emissionGradient) const
+    void iParticleSystem3D::getEmissionGradient(iaGradientf& emissionGradient) const
     {
         emissionGradient = _emissionRateGradient;
     }
@@ -371,24 +371,24 @@ namespace Igor
         _particleSystemInvWorldMatrix = worldInvMatrix;
     }
 
-    void iParticleSystem3D::setStartVisibleTimeGradient(const iGradientVector2f& startVisibleTimeGradient)
+    void iParticleSystem3D::setStartVisibleTimeGradient(const iaGradientVector2f& startVisibleTimeGradient)
     {
         _startVisibleTimeGradient = startVisibleTimeGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartVisibleTimeGradient(iGradientVector2f& startVisibleTimeGradient) const
+    void iParticleSystem3D::getStartVisibleTimeGradient(iaGradientVector2f& startVisibleTimeGradient) const
     {
         startVisibleTimeGradient = _startVisibleTimeGradient;
     }
 
-    void iParticleSystem3D::setSizeScaleGradient(const iGradientf& sizeScaleGradient)
+    void iParticleSystem3D::setSizeScaleGradient(const iaGradientf& sizeScaleGradient)
     {
         _sizeScaleGradient = sizeScaleGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getSizeScaleGradient(iGradientf& sizeScaleGradient) const
+    void iParticleSystem3D::getSizeScaleGradient(iaGradientf& sizeScaleGradient) const
     {
         sizeScaleGradient = _sizeScaleGradient;
     }
@@ -564,35 +564,35 @@ namespace Igor
         return _simulationRate;
     }
 
-    void iParticleSystem3D::setStartSizeGradient(const iGradientVector2f& sizeGradient)
+    void iParticleSystem3D::setStartSizeGradient(const iaGradientVector2f& sizeGradient)
     {
         _startSizeGradient = sizeGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartSizeGradient(iGradientVector2f& sizeGradient) const
+    void iParticleSystem3D::getStartSizeGradient(iaGradientVector2f& sizeGradient) const
     {
         sizeGradient = _startSizeGradient;
     }
 
-    void iParticleSystem3D::setStartVelocityGradient(const iGradientVector2f& velocityGradient)
+    void iParticleSystem3D::setStartVelocityGradient(const iaGradientVector2f& velocityGradient)
     {
         _startVelocityGradient = velocityGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartVelocityGradient(iGradientVector2f& velocityGradient) const
+    void iParticleSystem3D::getStartVelocityGradient(iaGradientVector2f& velocityGradient) const
     {
         velocityGradient = _startVelocityGradient;
     }
 
-    void iParticleSystem3D::setStartLiftGradient(const iGradientVector2f& liftGradient)
+    void iParticleSystem3D::setStartLiftGradient(const iaGradientVector2f& liftGradient)
     {
         _startLiftGradient = liftGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartLiftGradient(iGradientVector2f& liftGradient) const
+    void iParticleSystem3D::getStartLiftGradient(iaGradientVector2f& liftGradient) const
     {
         liftGradient = _startLiftGradient;
     }
@@ -608,24 +608,24 @@ namespace Igor
         return _airDrag;
     }
 
-    void iParticleSystem3D::setStartOrientationGradient(const iGradientVector2f& orientationGradient)
+    void iParticleSystem3D::setStartOrientationGradient(const iaGradientVector2f& orientationGradient)
     {
         _startOrientationGradient = orientationGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartOrientationGradient(iGradientVector2f& orientationGradient) const
+    void iParticleSystem3D::getStartOrientationGradient(iaGradientVector2f& orientationGradient) const
     {
         orientationGradient = _startOrientationGradient;
     }
 
-    void iParticleSystem3D::setStartOrientationRateGradient(const iGradientVector2f& orientationRateGradient)
+    void iParticleSystem3D::setStartOrientationRateGradient(const iaGradientVector2f& orientationRateGradient)
     {
         _startOrientationRateGradient = orientationRateGradient;
         _mustReset = true;
     }
 
-    void iParticleSystem3D::getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const
+    void iParticleSystem3D::getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const
     {
         orientationRateGradient = _startOrientationRateGradient;
     }

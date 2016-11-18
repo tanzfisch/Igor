@@ -120,6 +120,9 @@
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iaRandomNumberGenerator.h" />
+    <ClInclude Include="..\src\iaGradient.h">
+      <Filter>data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">
@@ -145,6 +148,9 @@
     </None>
     <None Include="..\src\iaQuaternion.inl">
       <Filter>math</Filter>
+    </None>
+    <None Include="..\src\iaGradient.inl">
+      <Filter>data types</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

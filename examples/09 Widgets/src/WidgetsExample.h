@@ -179,7 +179,7 @@ private:
     \param ok if true the ok button was closing the dialog
     \param gradient the resulting gradient
     */
-    void onCloseColorGradient(bool ok, const iGradientColor4f& gradient);
+    void onCloseColorGradient(bool ok, const iaGradientColor4f& gradient);
 
     /*! triggered by mouse move event
 

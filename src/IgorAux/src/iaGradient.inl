@@ -1,11 +1,11 @@
 template <class T>
-void iGradient<T>::clear()
+void iaGradient<T>::clear()
 {
     _values.clear();
 }
 
 template <class T>
-void iGradient<T>::setValue(float at, const T& value)
+void iaGradient<T>::setValue(float at, const T& value)
 {
     if (_values.size() == 0)
     {
@@ -36,7 +36,7 @@ void iGradient<T>::setValue(float at, const T& value)
 }
 
 template <class T>
-void iGradient<T>::removeIndex(int32 index)
+void iaGradient<T>::removeIndex(int32 index)
 {
     if (index < _values.size())
     {
@@ -45,7 +45,7 @@ void iGradient<T>::removeIndex(int32 index)
 }
 
 template <class T>
-void iGradient<T>::setValueAtIndex(int32 index, const T& value)
+void iaGradient<T>::setValueAtIndex(int32 index, const T& value)
 {
     if (index < _values.size())
     {
@@ -54,7 +54,7 @@ void iGradient<T>::setValueAtIndex(int32 index, const T& value)
 }
 
 template <class T>
-void iGradient<T>::getValueAtIndex(int32 index, float& at, T& value)
+void iaGradient<T>::getValueAtIndex(int32 index, float& at, T& value)
 {
     if (index < _values.size())
     {
@@ -64,13 +64,13 @@ void iGradient<T>::getValueAtIndex(int32 index, float& at, T& value)
 }
 
 template <class T>
-const vector<pair<float, T>>& iGradient<T>::getValues() const
+const vector<pair<float, T>>& iaGradient<T>::getValues() const
 {
     return _values;
 }
 
 template <class T>
-void iGradient<T>::getValue(float at, T& value) const
+void iaGradient<T>::getValue(float at, T& value) const
 {
     if (at >= _values[_values.size() - 1].first)
     {

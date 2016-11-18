@@ -32,7 +32,7 @@
 #include <iNodeVolume.h>
 #include <iTexture.h>
 #include <iParticleSystem3D.h>
-#include <iGradient.h>
+#include <iaGradient.h>
 
 #include <vector>
 using namespace std;
@@ -166,109 +166,109 @@ namespace Igor
 
         \param rainbow the rainbow gradient
         */
-        void setColorGradient(const iGradientColor4f& colorGradient);
+        void setColorGradient(const iaGradientColor4f& colorGradient);
 
         /*! returns the rainbow gradient
 
         \param[out] rainbow out value for the rainbow gradient
         */
-        void getColorGradient(iGradientColor4f& colorGradient) const;
+        void getColorGradient(iaGradientColor4f& colorGradient) const;
 
         /*! sets emission gradient for particles per frame
 
         \param emissionGradient the emission gradient
         */
-        void setEmissionGradient(const iGradientf& emissionGradient);
+        void setEmissionGradient(const iaGradientf& emissionGradient);
 
         /*! returns the emission gradient
 
         \param[out] emissionGradient out value for the emission gradient
         */
-        void getEmissionGradient(iGradientf& emissionGradient) const;
+        void getEmissionGradient(iaGradientf& emissionGradient) const;
 
         /*! sets visible gradient for particles per frame
 
         \param visibleGradient the visible gradient
         */
-        void setStartVisibleTimeGradient(const iGradientVector2f& visibleGradient);
+        void setStartVisibleTimeGradient(const iaGradientVector2f& visibleGradient);
 
         /*! returns the emission gradient
 
         \param[out] visibleGradient out value for the visible gradient
         */
-        void getStartVisibleTimeGradient(iGradientVector2f& visibleGradient) const;
+        void getStartVisibleTimeGradient(iaGradientVector2f& visibleGradient) const;
 
         /*! sets size scale gradient for particles per frame
 
         \param sizeScaleGradient the size gradient
         */
-        void setSizeScaleGradient(const iGradientf& sizeScaleGradient);
+        void setSizeScaleGradient(const iaGradientf& sizeScaleGradient);
 
         /*! returns the size scale gradient
 
         \param[out] sizeScaleGradient out value for the size gradient
         */
-        void getSizeScaleGradient(iGradientf& sizeScaleGradient) const;
+        void getSizeScaleGradient(iaGradientf& sizeScaleGradient) const;
 
         /*! sets start size gradient for particles at birth
 
         \param sizeGradient the start size gradient with min and max values
         */
-        void setStartSizeGradient(const iGradientVector2f& sizeGradient);
+        void setStartSizeGradient(const iaGradientVector2f& sizeGradient);
 
         /*! returns the start size gradient for particles at birth
 
         \param[out] sizeGradient out value for the start size gradient
         */
-        void getStartSizeGradient(iGradientVector2f& sizeGradient) const;
+        void getStartSizeGradient(iaGradientVector2f& sizeGradient) const;
 
         /*! sets min max start velocity gradient for particles at birth
 
         \param velocityGradient the min max start velocity gradient
         */
-        void setStartVelocityGradient(const iGradientVector2f& velocityGradient);
+        void setStartVelocityGradient(const iaGradientVector2f& velocityGradient);
 
         /*! returns the min max start velocity gradient for particles at birth
 
         \param[out] velocityGradient out value for the start velocity gradient
         */
-        void getStartVelocityGradient(iGradientVector2f& velocityGradient) const;
+        void getStartVelocityGradient(iaGradientVector2f& velocityGradient) const;
 
         /*! sets min max start lift gradient for particles at birth
 
         \param liftGradient the min max start lift gradient
         */
-        void setStartLiftGradient(const iGradientVector2f& liftGradient);
+        void setStartLiftGradient(const iaGradientVector2f& liftGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] liftGradient out value for the start lift gradient
         */
-        void getStartLiftGradient(iGradientVector2f& liftGradient) const;
+        void getStartLiftGradient(iaGradientVector2f& liftGradient) const;
 
         /*! sets min max start orientation gradient for particles at birth
 
         \param orientationGradient the min max start orientation gradient
         */
-        void setStartOrientationGradient(const iGradientVector2f& orientationGradient);
+        void setStartOrientationGradient(const iaGradientVector2f& orientationGradient);
 
         /*! returns the min max start lift gradient for particles at birth
 
         \param[out] orientationGradient out value for the start orientation gradient
         */
-        void getStartOrientationGradient(iGradientVector2f& orientationGradient) const;
+        void getStartOrientationGradient(iaGradientVector2f& orientationGradient) const;
 
         /*! sets start min max orientation rate gradient for particles during visible time
 
         \param orientationRateGradient the min max orientation rate gradient
         */
-        void setStartOrientationRateGradient(const iGradientVector2f& orientationRateGradient);
+        void setStartOrientationRateGradient(const iaGradientVector2f& orientationRateGradient);
 
         /*! returns the start min max orientation offset gradient for particles during visuble time
 
         \param[out] orientationRateGradient out value for the orientation rate gradient
         */
-        void getStartOrientationRateGradient(iGradientVector2f& orientationRateGradient) const;
+        void getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const;
 
         /*! sets the vortex to particle ratio
 

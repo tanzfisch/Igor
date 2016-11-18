@@ -229,14 +229,13 @@ namespace Igor
             if(_backgroundTexture == nullptr &&
                 _texture == nullptr)
             {
-                
                 iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX(), getActualPosY() + getActualHeight() / 2 -2 , getActualWidth(), 4);
                 iWidgetManager::getInstance().getTheme()->drawRectangle(getActualPosX(), getActualPosY() + getActualHeight() / 2 - 2, getActualWidth(), 4);
             }
 
             float32 factor = _value / (_max - _min);
             float32 offset = (getActualWidth() - 9) * factor;
-            iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + offset, getActualPosY(), 9, getActualHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + static_cast<int32>(offset), getActualPosY(), 9, getActualHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, getAppearanceState(), isActive());
 		}
 	}
 

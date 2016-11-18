@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iGRADIENT__
-#define __iGRADIENT__
+#ifndef __iaGRADIENT__
+#define __iaGRADIENT__
 
 #include <iDefines.h>
 
@@ -48,7 +48,7 @@ namespace Igor
 
     \todo move to IgorAux
     */
-    template <class T> class Igor_API_Template iGradient
+    template <class T> class Igor_API_Template iaGradient
     {
 
     public:
@@ -98,11 +98,11 @@ namespace Igor
 
         /*! does nothing
         */
-        iGradient() = default;
+        iaGradient() = default;
 
         /*! does nothing
         */
-        ~iGradient() = default;
+        ~iaGradient() = default;
 
     private:
 
@@ -112,13 +112,13 @@ namespace Igor
 
     };
 
-#include <iGradient.inl>
+#include <iaGradient.inl>
 
-    typedef iGradient<uint32> iGradientui;
-    typedef iGradient<float32> iGradientf;
-    typedef iGradient<iaVector3f> iGradientVector3f;
-    typedef iGradient<iaVector2f> iGradientVector2f;
-    typedef iGradient<iaColor4f> iGradientColor4f;
+    typedef iaGradient<uint32> iaGradientui;
+    typedef iaGradient<float32> iaGradientf;
+    typedef iaGradient<iaVector3f> iaGradientVector3f;
+    typedef iaGradient<iaVector2f> iaGradientVector2f;
+    typedef iaGradient<iaColor4f> iaGradientColor4f;
 
 };
 

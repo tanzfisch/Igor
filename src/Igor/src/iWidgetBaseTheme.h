@@ -32,7 +32,7 @@
 #include <iWidget.h>
 
 #include <iaString.h>
-#include <iGradient.h>
+#include <iaGradient.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -60,7 +60,7 @@ namespace Igor
 
         virtual void drawRectangle(int32 posx, int32 posy, int32 width, int32 height) = 0;
         virtual void drawFilledRectangle(int32 posx, int32 posy, int32 width, int32 height) = 0;
-        virtual void drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iGradientColor4f& gradient) = 0;
+        virtual void drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iaGradientColor4f& gradient) = 0;
 
         virtual void drawTiledRectangle(int32 posx, int32 posy, int32 width, int32 height, shared_ptr<iTexture> texture) = 0;
         

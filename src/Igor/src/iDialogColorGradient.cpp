@@ -34,7 +34,7 @@ namespace Igor
         return new iDialogColorGradient();
     }
 
-    void iDialogColorGradient::show(iColorGradientCloseDelegate closeDelegate, const iGradientColor4f& gradient, bool useAlpha)
+    void iDialogColorGradient::show(iColorGradientCloseDelegate closeDelegate, const iaGradientColor4f& gradient, bool useAlpha)
     {
         _oldGradient = gradient;
         _closeEvent.append(closeDelegate);
@@ -58,7 +58,7 @@ namespace Igor
         _allWidgets.clear();
     }
 
-    void iDialogColorGradient::initGUI(const iGradientColor4f& gradient, bool useAlpha)
+    void iDialogColorGradient::initGUI(const iaGradientColor4f& gradient, bool useAlpha)
     {
         con_assert(gradient.getValues().size() > 0, "invalid data");
 
@@ -197,7 +197,7 @@ namespace Igor
 
     void iDialogColorGradient::onPositionChanged(iWidget* source)
     {
-        iGradientColor4f temp = _gradient;
+        iaGradientColor4f temp = _gradient;
 
         float32 at = _position->getValue() / 100.0f;
         iaColor4f color = _gradient.getValues()[_selectedColor].second;

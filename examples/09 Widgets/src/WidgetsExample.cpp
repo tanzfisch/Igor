@@ -181,7 +181,7 @@ void WidgetsExample::initGUI()
 
     _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
     _allWidgets.push_back(_colorGradient);
-    iGradientColor4f rainbow;
+    iaGradientColor4f rainbow;
     rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
     rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
     rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
@@ -435,7 +435,7 @@ void WidgetsExample::onOpenColorGradientEditor(iWidget* source)
 }
 
 
-void WidgetsExample::onCloseColorGradient(bool ok, const iGradientColor4f& gradient)
+void WidgetsExample::onCloseColorGradient(bool ok, const iaGradientColor4f& gradient)
 {
     if (ok)
     {

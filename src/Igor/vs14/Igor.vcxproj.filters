@@ -1312,9 +1312,6 @@
     <ClInclude Include="..\src\iParticleEmitter.h">
       <Filter>graphics\simulation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iGradient.h">
-      <Filter>graphics\types</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iWidgetSelectBox.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
@@ -1424,9 +1421,6 @@
     </None>
     <None Include="..\src\iAABox.inl">
       <Filter>bodies &amp; shapes</Filter>
-    </None>
-    <None Include="..\src\iGradient.inl">
-      <Filter>graphics\types</Filter>
     </None>
     <None Include="..\src\iRectangle.inl">
       <Filter>bodies &amp; shapes</Filter>

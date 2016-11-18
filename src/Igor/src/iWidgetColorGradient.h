@@ -32,7 +32,7 @@
 #include <iWidget.h>
 
 #include <iaString.h>
-#include <iGradient.h>
+#include <iaGradient.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -64,11 +64,11 @@ namespace Igor
 		/*! sets color gradient
 		\param color color value in rgba
 		*/
-        void setGradient(const iGradientColor4f& gradient);
+        void setGradient(const iaGradientColor4f& gradient);
 
 		/*! \returns color gradient
 		*/
-        const iGradientColor4f& getGradient() const;
+        const iaGradientColor4f& getGradient() const;
 
         /*! sets if alpha values are displayed
         */
@@ -104,7 +104,7 @@ namespace Igor
 
         /*! color gradient
         */
-        iGradientColor4f _gradient;
+        iaGradientColor4f _gradient;
 
         /*! flag if alpha is displayed
         */

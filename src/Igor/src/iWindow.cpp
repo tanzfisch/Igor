@@ -130,7 +130,7 @@ namespace Igor
 
         calcMinSize();
 
-        _swapBufferSectionID = iStatistics::getInstance().registerSection("w_swap", iaColor4f(0.33, 0, 0, 1), 0);
+        _swapBufferSectionID = iStatistics::getInstance().registerSection("w_swap", iaColor4f(0.33f, 0.0f, 0.0f, 1.0f), 0);
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

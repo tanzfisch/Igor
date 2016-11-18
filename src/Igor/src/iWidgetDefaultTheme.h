@@ -57,7 +57,7 @@ namespace Igor
 
         void drawRectangle(int32 posx, int32 posy, int32 width, int32 height);
         void drawFilledRectangle(int32 posx, int32 posy, int32 width, int32 height);
-        void drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iGradientColor4f& gradient);
+        void drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iaGradientColor4f& gradient);
 
         void drawTiledRectangle(int32 posx, int32 posy, int32 width, int32 height, shared_ptr<iTexture> texture);
         

@@ -31,7 +31,7 @@
 
 #include <iRectangle.h>
 #include <iTexture.h>
-#include <iGradient.h>
+#include <iaGradient.h>
 
 #include <iaSingleton.h>
 #include <iaString.h>
@@ -553,9 +553,9 @@ namespace Igor
         virtual void drawString(float32 x, float32 y, iaString text, iHorizontalAlign horz, iVerticalAlign vert = iVerticalAlign::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
-        virtual void drawParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow);
-        virtual void drawVelocityOrientedParticles(const deque<iParticle> &particles, const iGradientColor4f& rainbow);
-        virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iGradientColor4f *rainbow = 0);
+        virtual void drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
+        virtual void drawVelocityOrientedParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
+        virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iaGradientColor4f *rainbow = 0);
 
         // attributes
         virtual void setLineWidth(float32 width);
@@ -657,7 +657,7 @@ namespace Igor
 
         /*! current rainbow palette in use
         */
-		iGradientColor4f* _rainbow = nullptr;
+		iaGradientColor4f* _rainbow = nullptr;
 
         /*! vendor iaString
         */
