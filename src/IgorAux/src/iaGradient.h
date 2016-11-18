@@ -29,26 +29,25 @@
 #ifndef __iaGRADIENT__
 #define __iaGRADIENT__
 
-#include <iDefines.h>
+#include <iaDefines.h>
 
 #include <iaColor4.h>
 #include <iaVector3.h>
 #include <iaVector2.h>
 #include <iaConsole.h>
-using namespace IgorAux;
 
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-namespace Igor
+namespace IgorAux
 {
 
     /*! multi color gradient
 
     \todo move to IgorAux
     */
-    template <class T> class Igor_API_Template iaGradient
+    template <class T> class IgorAux_API_Template iaGradient
     {
 
     public:
