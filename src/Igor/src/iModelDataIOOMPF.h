@@ -47,6 +47,7 @@ namespace OMPF
     class ompfMaterialChunk;
     class OMPF;
     class ompfBaseChunk;
+    class ompfParticleSystemChunk;
 }
 
 namespace Igor
@@ -56,6 +57,7 @@ namespace Igor
     class iNodeModel;
     class iNodeMesh;
     class iNodeEmitter;
+    class iNodeParticleSystem;
 
     /*! OMPF loader
     
@@ -190,6 +192,12 @@ namespace Igor
         \param node the node the chunk is created from
         */
         OMPF::ompfEmitterChunk* createEmitterChunk(iNodeEmitter *node);
+
+        /*! creates particle system chunk
+
+        \param node the node the chunk is created from
+        */
+        OMPF::ompfParticleSystemChunk* createParticleSystemChunk(iNodeParticleSystem *node);
 
         /*! creates material chunk
 

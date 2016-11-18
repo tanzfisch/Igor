@@ -220,11 +220,11 @@ namespace Igor
 
         \param max the maximum count of particles used
         */
-        void setMaxParticleCount(uint32 max);
+        void setMaxParticleCount(uint16 max);
 
         /*! \returns the maximum particle count used
         */
-        uint32 getMaxParticleCount() const;
+        uint16 getMaxParticleCount() const;
 
         /*! sets the tiling resolution of the first texture layer
 
@@ -487,7 +487,7 @@ namespace Igor
 
         set to zero if you don't want a limit
         */
-        uint32 _maxParticleCount = 500;
+        uint16 _maxParticleCount = 500;
 
         /*! column count of first texture tiling
         */

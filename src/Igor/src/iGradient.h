@@ -46,8 +46,7 @@ namespace Igor
 
     /*! multi color gradient
 
-    \todo generate lookuptable for shaders
-    \todo implement remove color
+    \todo move to IgorAux
     */
     template <class T> class Igor_API_Template iGradient
     {

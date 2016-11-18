@@ -217,12 +217,12 @@ namespace Igor
         start();
     }
 
-    void iParticleSystem3D::setMaxParticleCount(uint32 max)
+    void iParticleSystem3D::setMaxParticleCount(uint16 max)
     {
         _maxParticleCount = max;
     }
 
-    uint32 iParticleSystem3D::getMaxParticleCount() const
+    uint16 iParticleSystem3D::getMaxParticleCount() const
     {
         return _maxParticleCount;
     }
@@ -331,13 +331,13 @@ namespace Igor
 
     void iParticleSystem3D::createParticles(uint32 particleCount, iParticleEmitter& emitter, float32 particleSystemTime)
     {
-        uint32 particlesToCreate = particleCount;
+        uint16 particlesToCreate = particleCount;
         if (_particles.size() + particlesToCreate > _maxParticleCount)
         {
-            particlesToCreate = _maxParticleCount - _particles.size();
+            particlesToCreate = _maxParticleCount - static_cast<uint16>(_particles.size());
         }
 
-        for (uint32 i = 0; i < particlesToCreate; ++i)
+        for (uint16 i = 0; i < particlesToCreate; ++i)
         {
             iParticle particle;
 

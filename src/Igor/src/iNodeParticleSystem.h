@@ -70,8 +70,42 @@ namespace Igor
 		bool isFinished() const;
 
         /*! \returns current particle count in use
+
+        there is no setter because the amount of particles depends on particle emission over time
         */
         uint32 getParticleCount();
+
+        /*! sets the maximum particle count
+
+        set to zero if you don't want a limit of created particles
+
+        \param max the maximum count of particles used
+        */
+        void setMaxParticleCount(uint16 max);
+
+        /*! \returns the maximum particle count used
+        */
+        uint16 getMaxParticleCount() const;
+
+        /*! sets if the particle system runs in a loop
+
+        \param loop if true particle system runs in loop
+        */
+        void setLoop(bool loop = true);
+
+        /*! \returns true if particle system runs in loop
+        */
+        bool getLoop() const;
+
+        /*! sets emitter node id
+
+        \param emitterID the emitter node's id
+        */
+        void setEmitter(uint64 emitterID);
+
+        /*! \returns the emitter node's id
+        */
+        uint64 getEmitter() const;
 
         /*! sets the range of vortex torque
 
@@ -103,6 +137,16 @@ namespace Igor
         */
         float32 getVortexRangeMax();
 
+        /*! sets vortex check range
+
+        \param particles distance in indexes from vortex particle
+        */
+        void setVortexCheckRange(uint32 particles);
+
+        /*! \return vortex check rangein indexes from vortex particle
+        */
+        uint32 getVortexCheckRange();
+
         /*! sets the tiling resolution of the first texture layer
 
         \param columns column count (<= 1)
@@ -117,48 +161,6 @@ namespace Igor
         /*! \returns the vertical tiling resolution of the first texture layer
         */
         uint32 getFirstTextureRows() const;
-
-        /*! sets vortex check range
-
-        \param particles distance in indexes from vortex particle
-        */
-        void setVortexCheckRange(uint32 particles);
-
-        /*! \return vortex check rangein indexes from vortex particle
-        */
-        uint32 getVortexCheckRange();
-
-        /*! sets the maximum particle count
-
-        set to zero if you don't want a limit of created particles
-
-        \param max the maximum count of particles used
-        */
-        void setMaxParticleCount(uint32 max);
-
-        /*! \returns the maximum particle count used
-        */
-        uint32 getMaxParticleCount() const;
-
-        /*! sets if the particle system runs in a loop
-
-        \param loop if true particle system runs in loop
-        */
-        void setLoop(bool loop = true);
-
-        /*! \returns true if particle system runs in loop
-        */
-        bool getLoop() const;
-
-        /*! sets emitter node id
-
-        \param emitterID the emitter node's id
-        */
-        void setEmitter(uint64 emitterID);
-
-        /*! \returns the emitter node's id
-        */
-        uint64 getEmitter() const;
 
         /*! sets rainbow gradient for particles color
 

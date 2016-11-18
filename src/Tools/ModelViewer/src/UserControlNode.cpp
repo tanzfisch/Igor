@@ -15,6 +15,8 @@
 #include <iNodeFactory.h>
 using namespace Igor;
 
+#include "ModelViewerDefines.h"
+
 UserControlNode::UserControlNode()
 {
     initGUI();
@@ -80,12 +82,11 @@ void UserControlNode::initGUI()
     _labelName = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(_labelName);
     _labelName->setText("Name");
-    _labelName->setWidth(80);
+    _labelName->setWidth(MV_REGULARBUTTON_SIZE);
     _labelName->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _textName = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
     _allWidgets.push_back(_textName);
-    _textName->setWidth(200);
     _textName->setMaxTextLength(256);
     _textName->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     _textName->setHorizontalAlignment(iHorizontalAlignment::Strech);
@@ -95,7 +96,7 @@ void UserControlNode::initGUI()
     _labelActive = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(_labelActive);
     _labelActive->setText("Active");
-    _labelActive->setWidth(80);
+    _labelActive->setWidth(MV_REGULARBUTTON_SIZE);
     _labelActive->setHorizontalAlignment(iHorizontalAlignment::Left);
 
     _checkBoxActive = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));

@@ -299,12 +299,12 @@ namespace Igor
         return _particleSystem.getVortexCheckRange();
     }
 
-    void iNodeParticleSystem::setMaxParticleCount(uint32 max)
+    void iNodeParticleSystem::setMaxParticleCount(uint16 max)
     {
         _particleSystem.setMaxParticleCount(max);
     }
 
-    uint32 iNodeParticleSystem::getMaxParticleCount() const
+    uint16 iNodeParticleSystem::getMaxParticleCount() const
     {
         return _particleSystem.getMaxParticleCount();
     }

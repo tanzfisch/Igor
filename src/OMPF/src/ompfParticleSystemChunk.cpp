@@ -19,7 +19,30 @@ namespace OMPF
 
     uint32 ompfParticleSystemChunk::getSize(const ompfSettings& settings)
     {
-        return 0;
+        uint32 result = 0;
+        result += 2; // max particle count
+        result += 1; // loop
+        return result;
+    }
+
+    void ompfParticleSystemChunk::setMaxParticleCount(uint16 max)
+    {
+        _maxParticleCount = max;
+    }
+
+    uint16 ompfParticleSystemChunk::getMaxParticleCount() const
+    {
+        return _maxParticleCount;
+    }
+
+    void ompfParticleSystemChunk::setLoop(bool loop)
+    {
+        _loop = loop;
+    }
+
+    bool ompfParticleSystemChunk::getLoop() const
+    {
+        return _loop;
     }
 
     bool ompfParticleSystemChunk::write(ofstream& file, const ompfSettings& settings)
@@ -29,20 +52,20 @@ namespace OMPF
             return false;
         }
 
-  /*      con_debug_endl("---------------------------------------------------");
+        con_debug_endl("---------------------------------------------------");
         con_debug_endl("write ompfParticleSystemChunk " << this->getName());
 
-        if (!iaSerializable::writeFloat32(file, _size))
+        if (!iaSerializable::writeUInt16(file, _maxParticleCount))
         {
             return false;
         }
-        con_debug_endl("size " << _size);
+        con_debug_endl("max particle count " << _maxParticleCount);
 
-        if (!iaSerializable::writeUInt8(file, static_cast<uint8>(_type)))
+        if (!iaSerializable::writeUInt8(file, static_cast<uint8>(_loop ? 1 : 0)))
         {
             return false;
         }
-        con_debug_endl("type " << static_cast<uint8>(_type));*/
+        con_debug_endl("loop " << (_loop ? "true" : "false"));
 
         return true;
     }
@@ -54,19 +77,19 @@ namespace OMPF
             return false;
         }
 
-  /*      if (!iaSerializable::readFloat32(file, _size))
+        if (!iaSerializable::readUInt16(file, _maxParticleCount))
         {
             return false;
         }
-        con_debug_endl("size " << _size);
+        con_debug_endl("max particle count " << _maxParticleCount);
 
         uint8 typeValue;
         if (!iaSerializable::readUInt8(file, typeValue))
         {
             return false;
         }
-        _type = static_cast<OMPFEmitterType>(typeValue);
-        con_debug_endl("type " << static_cast<uint8>(_type));*/
+        _loop = typeValue == 0 ? false : true;
+        con_debug_endl("loop " << (_loop ? "true" : "false"));
 
         return true;
     }

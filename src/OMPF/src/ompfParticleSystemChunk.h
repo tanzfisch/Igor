@@ -46,6 +46,28 @@ namespace OMPF
         */
 		virtual ~ompfParticleSystemChunk() = default;
 
+        /*! sets the maximum particle count
+
+        set to zero if you don't want a limit of created particles
+
+        \param max the maximum count of particles used
+        */
+        void setMaxParticleCount(uint16 max);
+
+        /*! \returns the maximum particle count used
+        */
+        uint16 getMaxParticleCount() const;
+
+        /*! sets if the particle system runs in a loop
+
+        \param loop if true particle system runs in loop
+        */
+        void setLoop(bool loop = true);
+
+        /*! \returns true if particle system runs in loop
+        */
+        bool getLoop() const;
+
         /*! \returns size of chunk in bytes
 
         \param settings the settings the size calculation is based on
@@ -53,6 +75,14 @@ namespace OMPF
         virtual uint32 getSize(const ompfSettings& settings);
 
     private:
+
+        /*! maximum particle count
+        */
+        uint16 _maxParticleCount = 500;
+
+        /*! if true particle system is in endless loop
+        */
+        bool _loop = true;
 
         /*! writes chunk to stream
 

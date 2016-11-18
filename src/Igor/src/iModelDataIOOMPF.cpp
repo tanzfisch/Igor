@@ -18,6 +18,7 @@
 #include <iTargetMaterial.h>
 #include <iNodeFactory.h>
 #include <iNodeEmitter.h>
+#include <iNodeParticleSystem.h>
 
 #include <iaConvert.h>
 #include <iaDirectory.h>
@@ -33,6 +34,7 @@ using namespace IgorAux;
 #include <ompfExternalReferenceChunk.h>
 #include <ompfMaterialChunk.h>
 #include <ompfEmitterChunk.h>
+#include <ompfParticleSystemChunk.h>
 #include <OMPF.h>
 
 namespace Igor
@@ -91,6 +93,16 @@ namespace Igor
             emitterNode->setSize(emitterChunk->getSize());
             emitterNode->setType(static_cast<iEmitterType>(emitterChunk->getType()));
             result = emitterNode;
+            break;
+        }
+
+        case OMPFChunkType::ParticleSystem:
+        {
+            OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
+            iNodeParticleSystem* particleSystemNode = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+            particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
+            particleSystemNode->setLoop(particleSystemChunk->getLoop());
+            result = particleSystemNode;
             break;
         }
 
@@ -312,6 +324,10 @@ namespace Igor
             nextChunk = static_cast<OMPF::ompfBaseChunk*>(createEmitterChunk(static_cast<iNodeEmitter*>(node)));
             break;
 
+        case iNodeType::iNodeParticleSystem:
+            nextChunk = static_cast<OMPF::ompfBaseChunk*>(createParticleSystemChunk(static_cast<iNodeParticleSystem*>(node)));
+            break;
+
         case iNodeType::iNodeRender:
         case iNodeType::iNodeSkyBox:
         case iNodeType::iSkyLightNode:
@@ -367,6 +383,14 @@ namespace Igor
         OMPF::ompfEmitterChunk* result = _ompf->createEmitterChunk();
         result->setSize(node->getSize());
         result->setType(static_cast<OMPF::OMPFEmitterType>(node->getType()));
+        return result;
+    }
+
+    OMPF::ompfParticleSystemChunk* iModelDataIOOMPF::createParticleSystemChunk(iNodeParticleSystem *node)
+    {
+        OMPF::ompfParticleSystemChunk* result = _ompf->createParticleSystemChunk();
+        result->setMaxParticleCount(node->getMaxParticleCount());
+        result->setLoop(node->getLoop());
         return result;
     }
 
