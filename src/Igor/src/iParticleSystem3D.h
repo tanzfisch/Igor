@@ -208,11 +208,11 @@ namespace Igor
 
         \param particles distance in indexes from vortex particle
         */
-        void setVortexCheckRange(uint32 particles);
+        void setVortexCheckRange(uint8 particles);
 
         /*! \return vortex check rangein indexes from vortex particle
         */
-        uint32 getVortexCheckRange();
+        uint8 getVortexCheckRange();
 
         /*! sets the maximum particle count
 
@@ -630,7 +630,7 @@ namespace Igor
 
         /*! vortex check range
         */
-        long _vortexCheckRange = 20;
+        uint8 _vortexCheckRange = 20;
 
         /*! vorticity confinement
         */

@@ -165,12 +165,12 @@ namespace Igor
         return _maxVortexRange;
     }
 
-    uint32 iParticleSystem3D::getVortexCheckRange()
+    uint8 iParticleSystem3D::getVortexCheckRange()
     {
         return _vortexCheckRange;
     }
 
-    void iParticleSystem3D::setVortexCheckRange(uint32 checkRange)
+    void iParticleSystem3D::setVortexCheckRange(uint8 checkRange)
     {
         _vortexCheckRange = checkRange;
     }

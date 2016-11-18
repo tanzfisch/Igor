@@ -55,6 +55,58 @@ namespace OMPF
         colorGradient = _colorGradient;
     }
 
+    void ompfParticleSystemChunk::setEmissionGradient(const iaGradientf& emissionGradient)
+    {
+        _emissionGradient = emissionGradient;
+    }
+
+    void ompfParticleSystemChunk::getEmissionGradient(iaGradientf& emissionGradient) const
+    {
+        emissionGradient = _emissionGradient;
+    }
+
+    void ompfParticleSystemChunk::setVortexTorque(float32 min, float32 max)
+    {
+        _minVortexTorque = min;
+        _maxVortexTorque = max;
+    }
+
+    float32 ompfParticleSystemChunk::getVortexTorqueMin()
+    {
+        return _minVortexTorque;
+    }
+
+    float32 ompfParticleSystemChunk::getVortexTorqueMax()
+    {
+        return _maxVortexTorque;
+    }
+
+    void ompfParticleSystemChunk::setVortexRange(float32 min, float32 max)
+    {
+        _minVortexRange = min;
+        _maxVortexRange = max;
+    }
+
+    float32 ompfParticleSystemChunk::getVortexRangeMin()
+    {
+        return _minVortexRange;
+    }
+
+    float32 ompfParticleSystemChunk::getVortexRangeMax()
+    {
+        return _maxVortexRange;
+    }
+
+    void ompfParticleSystemChunk::setVortexCheckRange(uint8 particles)
+    {
+        _vortexCheckRange = particles;
+    }
+
+    uint8 ompfParticleSystemChunk::getVortexCheckRange()
+    {
+        return _vortexCheckRange;
+    }
+
     bool ompfParticleSystemChunk::write(ofstream& file, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(file, settings))
@@ -82,6 +134,44 @@ namespace OMPF
             return false;
         }
         con_debug_endl("color gradient entries=" << _colorGradient.getValues().size());
+
+        if (!iaSerializable::write(file, _emissionGradient))
+        {
+            return false;
+        }
+        con_debug_endl("emission gradient entries=" << _emissionGradient.getValues().size());
+
+
+
+        if (!iaSerializable::writeFloat32(file, _minVortexTorque))
+        {
+            return false;
+        }
+        con_debug_endl("min vortex torque " << _minVortexTorque);
+
+        if (!iaSerializable::writeFloat32(file, _maxVortexTorque))
+        {
+            return false;
+        }
+        con_debug_endl("max vortex torque " << _maxVortexTorque);
+
+        if (!iaSerializable::writeFloat32(file, _minVortexRange))
+        {
+            return false;
+        }
+        con_debug_endl("min vortex range " << _minVortexRange);
+
+        if (!iaSerializable::writeFloat32(file, _maxVortexRange))
+        {
+            return false;
+        }
+        con_debug_endl("max vortex range " << _maxVortexRange);
+
+        if (!iaSerializable::writeUInt8(file, _vortexCheckRange))
+        {
+            return false;
+        }
+        con_debug_endl("vortex check range " << _vortexCheckRange);
 
         return true;
     }
@@ -112,6 +202,45 @@ namespace OMPF
             return false;
         }
         con_debug_endl("color gradient entries=" << _colorGradient.getValues().size());
+
+        if (!iaSerializable::read(file, _emissionGradient))
+        {
+            return false;
+        }
+        con_debug_endl("emission gradient entries=" << _emissionGradient.getValues().size());
+
+
+
+
+        if (!iaSerializable::readFloat32(file, _minVortexTorque))
+        {
+            return false;
+        }
+        con_debug_endl("min vortex torque " << _minVortexTorque);
+
+        if (!iaSerializable::readFloat32(file, _maxVortexTorque))
+        {
+            return false;
+        }
+        con_debug_endl("max vortex torque " << _maxVortexTorque);
+
+        if (!iaSerializable::readFloat32(file, _minVortexRange))
+        {
+            return false;
+        }
+        con_debug_endl("min vortex range " << _minVortexRange);
+
+        if (!iaSerializable::readFloat32(file, _maxVortexRange))
+        {
+            return false;
+        }
+        con_debug_endl("max vortex range " << _maxVortexRange);
+
+        if (!iaSerializable::readUInt8(file, _vortexCheckRange))
+        {
+            return false;
+        }
+        con_debug_endl("vortex check range " << _vortexCheckRange);
 
         return true;
     }

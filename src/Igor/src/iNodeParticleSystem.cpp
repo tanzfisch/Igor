@@ -289,12 +289,12 @@ namespace Igor
         return result;
     }
 
-    void iNodeParticleSystem::setVortexCheckRange(uint32 particles)
+    void iNodeParticleSystem::setVortexCheckRange(uint8 particles)
     {
         _particleSystem.setVortexCheckRange(particles);
     }
 
-    uint32 iNodeParticleSystem::getVortexCheckRange()
+    uint8 iNodeParticleSystem::getVortexCheckRange()
     {
         return _particleSystem.getVortexCheckRange();
     }

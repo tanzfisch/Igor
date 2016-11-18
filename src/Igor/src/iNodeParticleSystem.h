@@ -141,11 +141,11 @@ namespace Igor
 
         \param particles distance in indexes from vortex particle
         */
-        void setVortexCheckRange(uint32 particles);
+        void setVortexCheckRange(uint8 particles);
 
         /*! \return vortex check rangein indexes from vortex particle
         */
-        uint32 getVortexCheckRange();
+        uint8 getVortexCheckRange();
 
         /*! sets the tiling resolution of the first texture layer
 

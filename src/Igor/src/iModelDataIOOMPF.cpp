@@ -102,9 +102,19 @@ namespace Igor
             iNodeParticleSystem* particleSystemNode = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
             particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
             particleSystemNode->setLoop(particleSystemChunk->getLoop());
+
             iaGradientColor4f colorGradient;
             particleSystemChunk->getColorGradient(colorGradient);
             particleSystemNode->setColorGradient(colorGradient);
+
+            iaGradientf emissionGradient;
+            particleSystemChunk->getEmissionGradient(emissionGradient);
+            particleSystemNode->setEmissionGradient(emissionGradient);
+
+            particleSystemNode->setVortexTorque(particleSystemChunk->getVortexTorqueMin(), particleSystemChunk->getVortexTorqueMax());
+            particleSystemNode->setVortexRange(particleSystemChunk->getVortexRangeMin(), particleSystemChunk->getVortexRangeMax());
+            particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
+
             result = particleSystemNode;
             break;
         }
@@ -394,9 +404,19 @@ namespace Igor
         OMPF::ompfParticleSystemChunk* result = _ompf->createParticleSystemChunk();
         result->setMaxParticleCount(node->getMaxParticleCount());
         result->setLoop(node->getLoop());
+
         iaGradientColor4f colorGradient;
         node->getColorGradient(colorGradient);
         result->setColorGradient(colorGradient);
+
+        iaGradientf emissionGradient;
+        node->getEmissionGradient(emissionGradient);
+        result->setEmissionGradient(emissionGradient);
+
+        result->setVortexTorque(node->getVortexTorqueMin(), node->getVortexTorqueMax());
+        result->setVortexRange(node->getVortexRangeMin(), node->getVortexRangeMax());
+        result->setVortexCheckRange(node->getVortexCheckRange());
+
         return result;
     }
 

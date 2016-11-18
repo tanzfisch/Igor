@@ -80,6 +80,58 @@ namespace OMPF
         */
         void getColorGradient(iaGradientColor4f& colorGradient) const;
 
+        /*! sets emission gradient for particles per frame
+
+        \param emissionGradient the emission gradient
+        */
+        void setEmissionGradient(const iaGradientf& emissionGradient);
+
+        /*! returns the emission gradient
+
+        \param[out] emissionGradient out value for the emission gradient
+        */
+        void getEmissionGradient(iaGradientf& emissionGradient) const;
+
+        /*! sets the range of vortex torque
+
+        \param min minimum vortex torque
+        \param max maximum vortex torque
+        */
+        void setVortexTorque(float32 min, float32 max);
+
+        /*! \returns minimum vortex torque
+        */
+        float32 getVortexTorqueMin();
+
+        /*! \returns maximum vortex torque
+        */
+        float32 getVortexTorqueMax();
+
+        /*! sets minimum and maximum range of vortexes
+
+        \param min minimum range of vortex
+        \param max maximum range of vortex
+        */
+        void setVortexRange(float32 min, float32 max);
+
+        /*! \returns minimum range of vortexes
+        */
+        float32 getVortexRangeMin();
+
+        /*! \returns maximum range of vortexes
+        */
+        float32 getVortexRangeMax();
+
+        /*! sets vortex check range
+
+        \param particles distance in indexes from vortex particle
+        */
+        void setVortexCheckRange(uint8 particles);
+
+        /*! \return vortex check rangein indexes from vortex particle
+        */
+        uint8 getVortexCheckRange();
+
         /*! \returns size of chunk in bytes
 
         \param settings the settings the size calculation is based on
@@ -87,6 +139,30 @@ namespace OMPF
         virtual uint32 getSize(const ompfSettings& settings);
 
     private:
+
+        /*! min vortex tourque
+        */
+        float32 _minVortexTorque = 0;
+
+        /*! max vortex tourque
+        */
+        float32 _maxVortexTorque = 0;
+
+        /*! min vortex range
+        */
+        float32 _minVortexRange = 0;
+
+        /*! max vortex range
+        */
+        float32 _maxVortexRange = 0;
+        
+        /*! vortex check range
+        */
+        uint8 _vortexCheckRange = 0;
+
+        /*! emission gradient
+        */
+        iaGradientf _emissionGradient;
 
         /*! color gradient for particles during their lifetime
         */
@@ -118,4 +194,4 @@ namespace OMPF
 
 }
 
-#endif
+#endif 
