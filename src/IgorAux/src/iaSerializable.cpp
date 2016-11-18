@@ -1,6 +1,6 @@
 // Igor game engine
 // (c) Copyright 2014-2016 by Martin Loga
-// see copyright notice in corresponding header file
+// see copyright notice in corresponding header stream
 
 #include <iaSerializable.h>
 
@@ -10,74 +10,339 @@
 namespace IgorAux
 {
 
-    bool iaSerializable::write(ofstream& file, const iaColor3f& value)
+    bool iaSerializable::write(ofstream& stream, const iaColor3f& value)
     {
-        return iaSerializable::write(file, reinterpret_cast<const char*>(&value._r), sizeof(iaColor3f));
+        return iaSerializable::write(stream, reinterpret_cast<const char*>(&value._r), sizeof(iaColor3f));
     }
 
-    bool iaSerializable::read(ifstream& file, iaColor3f& value)
+    bool iaSerializable::read(ifstream& stream, iaColor3f& value)
     {
-        return iaSerializable::read(file, reinterpret_cast<char*>(&value._r), sizeof(iaColor3f));
+        return iaSerializable::read(stream, reinterpret_cast<char*>(&value._r), sizeof(iaColor3f));
     }
 
-    bool iaSerializable::write(ofstream& file, const iaColor3c& value)
+    bool iaSerializable::write(ofstream& stream, const iaColor3c& value)
     {
-        return iaSerializable::write(file, reinterpret_cast<const char*>(&value._r), sizeof(iaColor3c));
+        return iaSerializable::write(stream, reinterpret_cast<const char*>(&value._r), sizeof(iaColor3c));
     }
 
-    bool iaSerializable::read(ifstream& file, iaColor3c& value)
+    bool iaSerializable::read(ifstream& stream, iaColor3c& value)
     {
-        return iaSerializable::read(file, reinterpret_cast<char*>(&value._r), sizeof(iaColor3c));
+        return iaSerializable::read(stream, reinterpret_cast<char*>(&value._r), sizeof(iaColor3c));
     }
 
-    bool iaSerializable::write(ofstream& file, const iaColor4f& value)
+    bool iaSerializable::write(ofstream& stream, const iaColor4f& value)
     {
-        return iaSerializable::write(file, reinterpret_cast<const char*>(&value._r), sizeof(iaColor4f));
+        return iaSerializable::write(stream, reinterpret_cast<const char*>(&value._r), sizeof(iaColor4f));
     }
 
-    bool iaSerializable::read(ifstream& file, iaColor4f& value)
+    bool iaSerializable::read(ifstream& stream, iaColor4f& value)
     {
-        return iaSerializable::read(file, reinterpret_cast<char*>(&value._r), sizeof(iaColor4f));
+        return iaSerializable::read(stream, reinterpret_cast<char*>(&value._r), sizeof(iaColor4f));
     }
 
-    bool iaSerializable::write(ofstream& file, const iaVector2f& value)
+    bool iaSerializable::write(ofstream& stream, const iaVector2f& value)
     {
-        return iaSerializable::write(file, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector2f));
+        return iaSerializable::write(stream, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector2f));
     }
 
-    bool iaSerializable::read(ifstream& file, iaVector2f& value)
+    bool iaSerializable::read(ifstream& stream, iaVector2f& value)
     {
-        return iaSerializable::read(file, reinterpret_cast<char*>(value.getData()), sizeof(iaVector2f));
+        return iaSerializable::read(stream, reinterpret_cast<char*>(value.getData()), sizeof(iaVector2f));
     }
 
-    bool iaSerializable::write(ofstream& file, const iaVector3f& value)
+    bool iaSerializable::write(ofstream& stream, const iaVector3f& value)
     {
-        return iaSerializable::write(file, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector3f));
+        return iaSerializable::write(stream, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector3f));
     }
 
-    bool iaSerializable::read(ifstream& file, iaVector3f& value)
+    bool iaSerializable::read(ifstream& stream, iaVector3f& value)
     {
-        return iaSerializable::read(file, reinterpret_cast<char*>(value.getData()), sizeof(iaVector3f));
+        return iaSerializable::read(stream, reinterpret_cast<char*>(value.getData()), sizeof(iaVector3f));
     }
 
-    bool iaSerializable::write(ofstream& file, const iaVector4f& value)
+    bool iaSerializable::write(ofstream& stream, const iaVector4f& value)
     {
-        return iaSerializable::write(file, reinterpret_cast<const char*>(value._vec.getData()), sizeof(iaVector4f));
+        return iaSerializable::write(stream, reinterpret_cast<const char*>(value._vec.getData()), sizeof(iaVector4f));
     }
 
-    bool iaSerializable::read(ifstream& file, iaVector4f& value)
+    bool iaSerializable::read(ifstream& stream, iaVector4f& value)
     {
-        return iaSerializable::read(file, reinterpret_cast<char*>(value._vec.getData()), sizeof(iaVector4f));
+        return iaSerializable::read(stream, reinterpret_cast<char*>(value._vec.getData()), sizeof(iaVector4f));
     }
 
-    bool iaSerializable::writeUTF8(ofstream& file, const iaString& value)
+    bool iaSerializable::write(ofstream& stream, const iaGradientf& value)
+    {
+        auto gradient = value.getValues();
+        if(!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
+        {
+            return false;
+        }
+
+        for (auto entry : gradient)
+        {
+            if (!iaSerializable::writeFloat32(stream, entry.first))
+            {
+                return false;
+            }
+            
+            if (!iaSerializable::writeFloat32(stream, entry.second))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::read(ifstream& stream, iaGradientf& value)
+    {
+        uint16 entryCount = 0;
+        float32 gPos = 0;
+        float32 gValue = 0;
+
+        if (!iaSerializable::readUInt16(stream, entryCount))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < entryCount; ++i)
+        {
+            if (!iaSerializable::readFloat32(stream, gPos))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::readFloat32(stream, gValue))
+            {
+                return false;
+            }
+
+            value.setValue(gPos, gValue);
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::write(ofstream& stream, const iaGradientui& value)
+    {
+        auto gradient = value.getValues();
+        if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
+        {
+            return false;
+        }
+
+        for (auto entry : gradient)
+        {
+            if (!iaSerializable::writeFloat32(stream, entry.first))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::writeUInt32(stream, entry.second))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::read(ifstream& stream, iaGradientui& value)
+    {
+        uint16 entryCount = 0;
+        float32 gPos = 0;
+        uint32 gValue = 0;
+
+        if (!iaSerializable::readUInt16(stream, entryCount))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < entryCount; ++i)
+        {
+            if (!iaSerializable::readFloat32(stream, gPos))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::readUInt32(stream, gValue))
+            {
+                return false;
+            }
+
+            value.setValue(gPos, gValue);
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::write(ofstream& stream, const iaGradientVector3f& value)
+    {
+        auto gradient = value.getValues();
+        if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
+        {
+            return false;
+        }
+
+        for (auto entry : gradient)
+        {
+            if (!iaSerializable::writeFloat32(stream, entry.first))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(iaVector3f)))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::read(ifstream& stream, iaGradientVector3f& value)
+    {
+        uint16 entryCount = 0;
+        float32 gPos = 0;
+        iaVector3f gValue;
+
+        if (!iaSerializable::readUInt16(stream, entryCount))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < entryCount; ++i)
+        {
+            if (!iaSerializable::readFloat32(stream, gPos))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(iaVector3f)))
+            {
+                return false;
+            }
+
+            value.setValue(gPos, gValue);
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::write(ofstream& stream, const iaGradientVector2f& value)
+    {
+        auto gradient = value.getValues();
+        if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
+        {
+            return false;
+        }
+
+        for (auto entry : gradient)
+        {
+            if (!iaSerializable::writeFloat32(stream, entry.first))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(iaVector2f)))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::read(ifstream& stream, iaGradientVector2f& value)
+    {
+        uint16 entryCount = 0;
+        float32 gPos = 0;
+        iaVector2f gValue;
+
+        if (!iaSerializable::readUInt16(stream, entryCount))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < entryCount; ++i)
+        {
+            if (!iaSerializable::readFloat32(stream, gPos))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(iaVector2f)))
+            {
+                return false;
+            }
+
+            value.setValue(gPos, gValue);
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::write(ofstream& stream, const iaGradientColor4f& value)
+    {
+        auto gradient = value.getValues();
+        if (!iaSerializable::writeUInt16(stream, static_cast<uint16>(gradient.size())))
+        {
+            return false;
+        }
+
+        for (auto entry : gradient)
+        {
+            if (!iaSerializable::writeFloat32(stream, entry.first))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(iaColor4f)))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::read(ifstream& stream, iaGradientColor4f& value)
+    {
+        uint16 entryCount = 0;
+        float32 gPos = 0;
+        iaColor4f gValue;
+
+        if (!iaSerializable::readUInt16(stream, entryCount))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < entryCount; ++i)
+        {
+            if (!iaSerializable::readFloat32(stream, gPos))
+            {
+                return false;
+            }
+
+            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(iaColor4f)))
+            {
+                return false;
+            }
+
+            value.setValue(gPos, gValue);
+        }
+
+        return true;
+    }
+
+    bool iaSerializable::writeUTF8(ofstream& stream, const iaString& value)
     {
         con_assert(value.getUTF8Size() <= 0xffff, "string size out of range");
 
         size_t utf8Size = value.getUTF8Size();
         if (utf8Size <= 0xffff)
         {
-            if (iaSerializable::writeUInt16(file, static_cast<uint16>(utf8Size)))
+            if (iaSerializable::writeUInt16(stream, static_cast<uint16>(utf8Size)))
             {
                 if (utf8Size != 0)
                 {
@@ -87,7 +352,7 @@ namespace IgorAux
 #endif
                     value.getUTF8(buffer, utf8Size);
 
-                    bool result = iaSerializable::write(file, buffer, static_cast<uint16>(utf8Size));
+                    bool result = iaSerializable::write(stream, buffer, static_cast<uint16>(utf8Size));
                     delete[] buffer;
                     return result;
                 }
@@ -110,12 +375,12 @@ namespace IgorAux
         }
     }
 
-    bool iaSerializable::readUTF8(ifstream& file, iaString& value)
+    bool iaSerializable::readUTF8(ifstream& stream, iaString& value)
     {
-        con_assert(file.is_open(), "file not open");
+        con_assert(stream.is_open(), "stream not open");
 
         uint16 utf8Size = 0;
-        if (!iaSerializable::readUInt16(file, utf8Size))
+        if (!iaSerializable::readUInt16(stream, utf8Size))
         {
             return false;
         }
@@ -123,7 +388,7 @@ namespace IgorAux
         if (utf8Size != 0)
         {
             char* buffer = new char[utf8Size];
-            bool result = iaSerializable::read(file, buffer, utf8Size);
+            bool result = iaSerializable::read(stream, buffer, utf8Size);
             if (result)
             {
                 value.setUTF8(buffer, utf8Size);

@@ -33,10 +33,8 @@
 #include <iaConsole.h>
 
 #include <iaColor3.h>
-#include <iaColor4.h>
-#include <iaVector2.h>
-#include <iaVector3.h>
 #include <iaVector4.h>
+#include <iaGradient.h>
 
 #include <iostream>
 using namespace std;
@@ -379,6 +377,20 @@ namespace IgorAux
         */
         static bool read(ifstream& stream, iaVector4f& value);
 
+        static bool write(ofstream& stream, const iaGradientf& value);
+        static bool read(ifstream& stream, iaGradientf& value);
+
+        static bool write(ofstream& stream, const iaGradientui& value);
+        static bool read(ifstream& stream, iaGradientui& value);
+
+        static bool write(ofstream& stream, const iaGradientVector3f& value);
+        static bool read(ifstream& stream, iaGradientVector3f& value);
+
+        static bool write(ofstream& stream, const iaGradientVector2f& value);
+        static bool read(ifstream& stream, iaGradientVector2f& value);
+
+        static bool write(ofstream& stream, const iaGradientColor4f& value);
+        static bool read(ifstream& stream, iaGradientColor4f& value);
 
     };
 
