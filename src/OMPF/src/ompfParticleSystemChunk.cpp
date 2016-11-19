@@ -17,14 +17,6 @@ namespace OMPF
     {
     }
 
-    uint32 ompfParticleSystemChunk::getSize(const ompfSettings& settings)
-    {
-        uint32 result = 0;
-        result += 2; // max particle count
-        result += 1; // loop
-        return result;
-    }
-
     void ompfParticleSystemChunk::setMaxParticleCount(uint16 max)
     {
         _maxParticleCount = max;
@@ -193,6 +185,27 @@ namespace OMPF
         return _vortexCheckRange;
     }
 
+    uint32 ompfParticleSystemChunk::getSize(const ompfSettings& settings)
+    {
+        uint32 result = 0;
+        result += 2; // max particle count
+        result += 1; // loop
+        result += _colorGradient.getValues().size() * (4 * 5);
+        result += _emissionGradient.getValues().size() * (4 * 2);
+        result += 4 + 4; //min max vortex torque
+        result += 4 + 4; //min max vortex range
+        result += 1; // vortex check range
+        result += 2; // tiling column row
+        result += _orientationGradient.getValues().size() * (4 * 3);
+        result += _orientationRateGradient.getValues().size() * (4 * 3);
+        result += _liftGradient.getValues().size() * (4 * 3);
+        result += _velocityGradient.getValues().size() * (4 * 3);
+        result += _sizeGradient.getValues().size() * (4 * 3);
+        result += _sizeScaleGradient.getValues().size() * (4 * 2);
+        result += _startVisibleTimeGradient.getValues().size() * (4 * 3);
+        return result;
+    }
+
     bool ompfParticleSystemChunk::write(ofstream& file, const ompfSettings& settings)
     {
         if (!ompfBaseChunk::write(file, settings))
@@ -270,6 +283,49 @@ namespace OMPF
             return false;
         }
         con_debug_endl("first texture tiling rows " << _firstTectureTilingRows);
+
+
+        if (!iaSerializable::write(file, _orientationGradient))
+        {
+            return false;
+        }
+        con_debug_endl("orientation gradient entries=" << _orientationGradient.getValues().size());
+
+        if (!iaSerializable::write(file, _orientationRateGradient))
+        {
+            return false;
+        }
+        con_debug_endl("orientation rate gradient entries=" << _orientationRateGradient.getValues().size());
+
+        if (!iaSerializable::write(file, _liftGradient))
+        {
+            return false;
+        }
+        con_debug_endl("lift gradient entries=" << _liftGradient.getValues().size());
+
+        if (!iaSerializable::write(file, _velocityGradient))
+        {
+            return false;
+        }
+        con_debug_endl("velocity gradient entries=" << _velocityGradient.getValues().size());
+
+        if (!iaSerializable::write(file, _sizeGradient))
+        {
+            return false;
+        }
+        con_debug_endl("size gradient entries=" << _sizeGradient.getValues().size());
+
+        if (!iaSerializable::write(file, _sizeScaleGradient))
+        {
+            return false;
+        }
+        con_debug_endl("size scale gradient entries=" << _sizeScaleGradient.getValues().size());
+
+        if (!iaSerializable::write(file, _startVisibleTimeGradient))
+        {
+            return false;
+        }
+        con_debug_endl("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
 
         return true;
     }
@@ -351,6 +407,48 @@ namespace OMPF
             return false;
         }
         con_debug_endl("first texture tiling rows " << _firstTectureTilingRows);
+
+        if (!iaSerializable::read(file, _orientationGradient))
+        {
+            return false;
+        }
+        con_debug_endl("orientation gradient entries=" << _orientationGradient.getValues().size());
+
+        if (!iaSerializable::read(file, _orientationRateGradient))
+        {
+            return false;
+        }
+        con_debug_endl("orientation rate gradient entries=" << _orientationRateGradient.getValues().size());
+
+        if (!iaSerializable::read(file, _liftGradient))
+        {
+            return false;
+        }
+        con_debug_endl("lift gradient entries=" << _liftGradient.getValues().size());
+
+        if (!iaSerializable::read(file, _velocityGradient))
+        {
+            return false;
+        }
+        con_debug_endl("velocity gradient entries=" << _velocityGradient.getValues().size());
+
+        if (!iaSerializable::read(file, _sizeGradient))
+        {
+            return false;
+        }
+        con_debug_endl("size gradient entries=" << _sizeGradient.getValues().size());
+
+        if (!iaSerializable::read(file, _sizeScaleGradient))
+        {
+            return false;
+        }
+        con_debug_endl("size scale gradient entries=" << _sizeScaleGradient.getValues().size());
+
+        if (!iaSerializable::read(file, _startVisibleTimeGradient))
+        {
+            return false;
+        }
+        con_debug_endl("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
 
         return true;
     }
