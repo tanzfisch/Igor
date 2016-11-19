@@ -374,17 +374,17 @@ namespace Igor
         return _particleSystem.getVelocityOriented();
     }
 
-    void iNodeParticleSystem::setFirstTextureTiling(uint32 columns, uint32 rows)
+    void iNodeParticleSystem::setFirstTextureTiling(uint8 columns, uint8 rows)
     {
         _particleSystem.setFirstTextureTiling(columns, rows);
     }
 
-    uint32 iNodeParticleSystem::getFirstTextureColumns() const
+    uint8 iNodeParticleSystem::getFirstTextureColumns() const
     {
         return _particleSystem.getFirstTextureColumns();
     }
 
-    uint32 iNodeParticleSystem::getFirstTextureRows() const
+    uint8 iNodeParticleSystem::getFirstTextureRows() const
     {
         return _particleSystem.getFirstTextureRows();
     }

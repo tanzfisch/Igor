@@ -138,7 +138,30 @@ namespace OMPF
         */
         virtual uint32 getSize(const ompfSettings& settings);
 
+        /*! sets the tiling resolution of the first texture layer
+
+        \param columns column count (<= 1)
+        \param rows row count (<= 1)
+        */
+        void setFirstTextureTiling(uint8 columns, uint8 rows);
+
+        /*! \returns the horizontal tiling resolution of the first texture layer
+        */
+        uint8 getFirstTextureColumns() const;
+
+        /*! \returns the vertical tiling resolution of the first texture layer
+        */
+        uint8 getFirstTextureRows() const;
+
     private:
+
+        /*! first texture tiling in collumns
+        */
+        uint8 _firstTectureTilingColumns;
+
+        /*! first texture tiling in rows
+        */
+        uint8 _firstTectureTilingRows;
 
         /*! min vortex tourque
         */

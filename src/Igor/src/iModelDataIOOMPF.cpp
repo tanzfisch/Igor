@@ -114,6 +114,7 @@ namespace Igor
             particleSystemNode->setVortexTorque(particleSystemChunk->getVortexTorqueMin(), particleSystemChunk->getVortexTorqueMax());
             particleSystemNode->setVortexRange(particleSystemChunk->getVortexRangeMin(), particleSystemChunk->getVortexRangeMax());
             particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
+            particleSystemNode->setFirstTextureTiling(particleSystemChunk->getFirstTextureColumns(), particleSystemChunk->getFirstTextureRows());
 
             result = particleSystemNode;
             break;
@@ -416,6 +417,7 @@ namespace Igor
         result->setVortexTorque(node->getVortexTorqueMin(), node->getVortexTorqueMax());
         result->setVortexRange(node->getVortexRangeMin(), node->getVortexRangeMax());
         result->setVortexCheckRange(node->getVortexCheckRange());
+        result->setFirstTextureTiling(node->getFirstTextureColumns(), node->getFirstTextureRows());
 
         return result;
     }

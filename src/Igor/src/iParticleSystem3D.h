@@ -231,15 +231,15 @@ namespace Igor
         \param columns column count (<= 1)
         \param rows row count (<= 1)
         */
-        void setFirstTextureTiling(uint32 columns, uint32 rows);
+        void setFirstTextureTiling(uint8 columns, uint8 rows);
 
         /*! \returns the horizontal tiling resolution of the first texture layer
         */
-        uint32 getFirstTextureColumns() const;
+        uint8 getFirstTextureColumns() const;
 
         /*! \returns the vertical tiling resolution of the first texture layer
         */
-        uint32 getFirstTextureRows() const;
+        uint8 getFirstTextureRows() const;
 
         /*! sets the rotation per frame of the second texture
 
@@ -491,11 +491,11 @@ namespace Igor
 
         /*! column count of first texture tiling
         */
-        uint32 _firstTextureColumns = 1;
+        uint8 _firstTextureColumns = 1;
 
         /*! row count of first texture tiling
         */
-        uint32 _firstTextureRows = 1;
+        uint8 _firstTextureRows = 1;
 
         /*! flag that defines if particles get rendered velocity oriented
         */

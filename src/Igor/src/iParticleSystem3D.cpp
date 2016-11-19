@@ -99,7 +99,7 @@ namespace Igor
         emissionGradient = _emissionRateGradient;
     }
 
-    void iParticleSystem3D::setFirstTextureTiling(uint32 columns, uint32 rows)
+    void iParticleSystem3D::setFirstTextureTiling(uint8 columns, uint8 rows)
     {
         con_assert(columns > 0 && rows > 0, "out of range");
 
@@ -110,12 +110,12 @@ namespace Igor
         }
     }
 
-    uint32 iParticleSystem3D::getFirstTextureColumns() const
+    uint8 iParticleSystem3D::getFirstTextureColumns() const
     {
         return _firstTextureColumns;
     }
 
-    uint32 iParticleSystem3D::getFirstTextureRows() const
+    uint8 iParticleSystem3D::getFirstTextureRows() const
     {
         return _firstTextureRows;
     }
@@ -303,13 +303,13 @@ namespace Igor
         }
         else
         {
-            uint32 col = _rand.getNext() % _firstTextureColumns;
-            uint32 row = _rand.getNext() % _firstTextureRows;
+            uint8 col = static_cast<uint8>(_rand.getNext()) % _firstTextureColumns;
+            uint8 row = static_cast<uint8>(_rand.getNext()) % _firstTextureRows;
 
             float32 width = 1.0f / static_cast<float32>(_firstTextureColumns);
             float32 height = 1.0f / static_cast<float32>(_firstTextureRows);
 
-            particle._texturefrom.set(col * width, row * height);
+            particle._texturefrom.set(col * static_cast<float32>(width), row * static_cast<float32>(height));
             particle._textureto._x = particle._texturefrom._x + width;
             particle._textureto._y = particle._texturefrom._y + width;
         }

@@ -45,6 +45,22 @@ namespace OMPF
         return _loop;
     }
 
+    void ompfParticleSystemChunk::setFirstTextureTiling(uint8 columns, uint8 rows)
+    {
+        _firstTectureTilingColumns = columns;
+        _firstTectureTilingRows = rows;
+    }
+
+    uint8 ompfParticleSystemChunk::getFirstTextureColumns() const
+    {
+        return _firstTectureTilingColumns;
+    }
+
+    uint8 ompfParticleSystemChunk::getFirstTextureRows() const
+    {
+        return _firstTectureTilingRows;
+    }
+
     void ompfParticleSystemChunk::setColorGradient(const iaGradientColor4f& colorGradient)
     {
         _colorGradient = colorGradient;
@@ -173,6 +189,18 @@ namespace OMPF
         }
         con_debug_endl("vortex check range " << _vortexCheckRange);
 
+        if (!iaSerializable::writeUInt8(file, _firstTectureTilingColumns))
+        {
+            return false;
+        }
+        con_debug_endl("first texture tiling columns " << _firstTectureTilingColumns);
+
+        if (!iaSerializable::writeUInt8(file, _firstTectureTilingRows))
+        {
+            return false;
+        }
+        con_debug_endl("first texture tiling rows " << _firstTectureTilingRows);
+
         return true;
     }
     
@@ -241,6 +269,18 @@ namespace OMPF
             return false;
         }
         con_debug_endl("vortex check range " << _vortexCheckRange);
+
+        if (!iaSerializable::readUInt8(file, _firstTectureTilingColumns))
+        {
+            return false;
+        }
+        con_debug_endl("first texture tiling columns " << _firstTectureTilingColumns);
+
+        if (!iaSerializable::readUInt8(file, _firstTectureTilingRows))
+        {
+            return false;
+        }
+        con_debug_endl("first texture tiling rows " << _firstTectureTilingRows);
 
         return true;
     }
