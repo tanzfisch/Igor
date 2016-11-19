@@ -153,7 +153,109 @@ namespace OMPF
         */
         uint8 getFirstTextureRows() const;
 
+        /*! sets visible gradient for particles per frame
+
+        \param visibleGradient the visible gradient
+        */
+        void setStartVisibleTimeGradient(const iaGradientVector2f& visibleGradient);
+
+        /*! returns the emission gradient
+
+        \param[out] visibleGradient out value for the visible gradient
+        */
+        void getStartVisibleTimeGradient(iaGradientVector2f& visibleGradient) const;
+
+        /*! sets size scale gradient for particles per frame
+
+        \param sizeScaleGradient the size gradient
+        */
+        void setSizeScaleGradient(const iaGradientf& sizeScaleGradient);
+
+        /*! returns the size scale gradient
+
+        \param[out] sizeScaleGradient out value for the size gradient
+        */
+        void getSizeScaleGradient(iaGradientf& sizeScaleGradient) const;
+
+        /*! sets start size gradient for particles at birth
+
+        \param sizeGradient the start size gradient with min and max values
+        */
+        void setStartSizeGradient(const iaGradientVector2f& sizeGradient);
+
+        /*! returns the start size gradient for particles at birth
+
+        \param[out] sizeGradient out value for the start size gradient
+        */
+        void getStartSizeGradient(iaGradientVector2f& sizeGradient) const;
+
+        /*! sets min max start velocity gradient for particles at birth
+
+        \param velocityGradient the min max start velocity gradient
+        */
+        void setStartVelocityGradient(const iaGradientVector2f& velocityGradient);
+
+        /*! returns the min max start velocity gradient for particles at birth
+
+        \param[out] velocityGradient out value for the start velocity gradient
+        */
+        void getStartVelocityGradient(iaGradientVector2f& velocityGradient) const;
+
+        /*! sets min max start lift gradient for particles at birth
+
+        \param liftGradient the min max start lift gradient
+        */
+        void setStartLiftGradient(const iaGradientVector2f& liftGradient);
+
+        /*! returns the min max start lift gradient for particles at birth
+
+        \param[out] liftGradient out value for the start lift gradient
+        */
+        void getStartLiftGradient(iaGradientVector2f& liftGradient) const;
+
+        /*! sets min max start orientation gradient for particles at birth
+
+        \param orientationGradient the min max start orientation gradient
+        */
+        void setStartOrientationGradient(const iaGradientVector2f& orientationGradient);
+
+        /*! returns the min max start lift gradient for particles at birth
+
+        \param[out] orientationGradient out value for the start orientation gradient
+        */
+        void getStartOrientationGradient(iaGradientVector2f& orientationGradient) const;
+
+        /*! sets start min max orientation rate gradient for particles during visible time
+
+        \param orientationRateGradient the min max orientation rate gradient
+        */
+        void setStartOrientationRateGradient(const iaGradientVector2f& orientationRateGradient);
+
+        /*! returns the start min max orientation offset gradient for particles during visuble time
+
+        \param[out] orientationRateGradient out value for the orientation rate gradient
+        */
+        void getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const;
+
+
     private:
+
+        iaGradientVector2f _orientationRateGradient;
+        iaGradientVector2f _orientationGradient;
+        iaGradientVector2f _liftGradient;
+        iaGradientVector2f _velocityGradient;
+
+        /*! start size gradient
+        */
+        iaGradientVector2f _sizeGradient;
+
+        /*! size scale gradient
+        */
+        iaGradientf _sizeScaleGradient;
+
+        /*! start visibility time
+        */
+        iaGradientVector2f _startVisibleTimeGradient;
 
         /*! first texture tiling in collumns
         */

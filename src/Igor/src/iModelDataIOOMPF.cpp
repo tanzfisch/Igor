@@ -116,6 +116,34 @@ namespace Igor
             particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
             particleSystemNode->setFirstTextureTiling(particleSystemChunk->getFirstTextureColumns(), particleSystemChunk->getFirstTextureRows());
 
+            iaGradientVector2f startSizeGradient;
+            particleSystemChunk->getStartSizeGradient(startSizeGradient);
+            particleSystemNode->setStartSizeGradient(startSizeGradient);
+
+            iaGradientf sizeScaleGradient;
+            particleSystemChunk->getSizeScaleGradient(sizeScaleGradient);
+            particleSystemNode->setSizeScaleGradient(sizeScaleGradient);
+
+            iaGradientVector2f startVisibleTimeGradient;
+            particleSystemChunk->getStartVisibleTimeGradient(startVisibleTimeGradient);
+            particleSystemNode->setStartVisibleTimeGradient(startVisibleTimeGradient);
+
+            iaGradientVector2f orientationRateGradient;
+            particleSystemChunk->getStartOrientationRateGradient(orientationRateGradient);
+            particleSystemNode->setStartOrientationRateGradient(orientationRateGradient);
+
+            iaGradientVector2f orientationGradient;
+            particleSystemChunk->getStartOrientationGradient(orientationGradient);
+            particleSystemNode->setStartOrientationGradient(orientationGradient);
+
+            iaGradientVector2f liftGradient;
+            particleSystemChunk->getStartLiftGradient(liftGradient);
+            particleSystemNode->setStartLiftGradient(liftGradient);
+
+            iaGradientVector2f velocityGradient;
+            particleSystemChunk->getStartVelocityGradient(velocityGradient);
+            particleSystemNode->setStartVelocityGradient(velocityGradient);
+
             result = particleSystemNode;
             break;
         }
@@ -418,6 +446,34 @@ namespace Igor
         result->setVortexRange(node->getVortexRangeMin(), node->getVortexRangeMax());
         result->setVortexCheckRange(node->getVortexCheckRange());
         result->setFirstTextureTiling(node->getFirstTextureColumns(), node->getFirstTextureRows());
+
+        iaGradientVector2f startSizeGradient;
+        node->getStartSizeGradient(startSizeGradient);
+        result->setStartSizeGradient(startSizeGradient);
+
+        iaGradientf sizeScaleGradient;
+        node->getSizeScaleGradient(sizeScaleGradient);
+        result->setSizeScaleGradient(sizeScaleGradient);
+
+        iaGradientVector2f startVisibleTimeGradient;
+        node->getStartVisibleTimeGradient(startVisibleTimeGradient);
+        result->setStartVisibleTimeGradient(startVisibleTimeGradient);
+
+        iaGradientVector2f orientationRateGradient;
+        node->getStartOrientationRateGradient(orientationRateGradient);
+        result->setStartOrientationRateGradient(orientationRateGradient);
+
+        iaGradientVector2f orientationGradient;
+        node->getStartOrientationGradient(orientationGradient);
+        result->setStartOrientationGradient(orientationGradient);
+
+        iaGradientVector2f liftGradient;
+        node->getStartLiftGradient(liftGradient);
+        result->setStartLiftGradient(liftGradient);
+
+        iaGradientVector2f velocityGradient;
+        node->getStartVelocityGradient(velocityGradient);
+        result->setStartVelocityGradient(velocityGradient);
 
         return result;
     }

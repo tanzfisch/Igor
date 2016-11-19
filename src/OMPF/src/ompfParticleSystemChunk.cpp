@@ -61,6 +61,76 @@ namespace OMPF
         return _firstTectureTilingRows;
     }
 
+    void ompfParticleSystemChunk::setStartVisibleTimeGradient(const iaGradientVector2f& visibleGradient)
+    {
+        _startVisibleTimeGradient = visibleGradient;
+    }
+
+    void ompfParticleSystemChunk::getStartVisibleTimeGradient(iaGradientVector2f& visibleGradient) const
+    {
+        visibleGradient = _startVisibleTimeGradient;
+    }
+
+    void ompfParticleSystemChunk::setSizeScaleGradient(const iaGradientf& sizeScaleGradient)
+    {
+        _sizeScaleGradient = sizeScaleGradient;
+    }
+
+    void ompfParticleSystemChunk::getSizeScaleGradient(iaGradientf& sizeScaleGradient) const
+    {
+        sizeScaleGradient = _sizeScaleGradient;
+    }
+
+    void ompfParticleSystemChunk::setStartSizeGradient(const iaGradientVector2f& sizeGradient)
+    {
+        _sizeGradient = sizeGradient;
+    }
+
+    void ompfParticleSystemChunk::getStartSizeGradient(iaGradientVector2f& sizeGradient) const
+    {
+        sizeGradient = _sizeGradient;
+    }
+
+    void ompfParticleSystemChunk::setStartVelocityGradient(const iaGradientVector2f& velocityGradient)
+    {
+        _velocityGradient = velocityGradient;
+    }
+
+    void ompfParticleSystemChunk::getStartVelocityGradient(iaGradientVector2f& velocityGradient) const
+    {
+        velocityGradient = _velocityGradient;
+    }
+
+    void ompfParticleSystemChunk::setStartLiftGradient(const iaGradientVector2f& liftGradient)
+    {
+        _liftGradient = liftGradient;
+    }
+
+    void ompfParticleSystemChunk::getStartLiftGradient(iaGradientVector2f& liftGradient) const
+    {
+        liftGradient = _liftGradient;
+    }
+
+    void ompfParticleSystemChunk::setStartOrientationGradient(const iaGradientVector2f& orientationGradient)
+    {
+        _orientationGradient = orientationGradient;
+    }
+
+    void ompfParticleSystemChunk::getStartOrientationGradient(iaGradientVector2f& orientationGradient) const
+    {
+        orientationGradient = _orientationGradient;
+    }
+
+    void ompfParticleSystemChunk::setStartOrientationRateGradient(const iaGradientVector2f& orientationRateGradient)
+    {
+        _orientationRateGradient = orientationRateGradient;
+    }
+
+    void ompfParticleSystemChunk::getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const
+    {
+        orientationRateGradient = _orientationRateGradient;
+    }
+
     void ompfParticleSystemChunk::setColorGradient(const iaGradientColor4f& colorGradient)
     {
         _colorGradient = colorGradient;
