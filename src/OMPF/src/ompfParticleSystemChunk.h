@@ -257,7 +257,6 @@ namespace OMPF
         */
         void getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const;
 
-        /*! sets the air drag
 
         0.0-1.0
         1.0 means basically no air drag
@@ -328,6 +327,14 @@ namespace OMPF
         */
         iaString getTextureC() const;
 
+        \param id the material chunk id
+        */
+        void setMaterialChunkID(uint32 id);
+
+        /*! \returns material chunk id
+        */
+        uint32 getMaterialChunkID() const;
+
     private:
 
         bool _velocityOriented = false;
@@ -339,6 +346,10 @@ namespace OMPF
         float32 _periodTime = 0;
         float32 _vortexToParticleRate = 0;
         float32 _vorticityConfinement = 0;
+
+        /*! material chunk id
+        */
+        uint32 _materialChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 
         iaGradientVector2f _orientationRateGradient;
         iaGradientVector2f _orientationGradient;

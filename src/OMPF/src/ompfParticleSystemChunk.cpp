@@ -265,6 +265,16 @@ namespace OMPF
         return _textureC;
     }
 
+    void ompfParticleSystemChunk::setMaterialChunkID(uint32 id)
+    {
+        _materialChunkID = id;
+    }
+
+    uint32 ompfParticleSystemChunk::getMaterialChunkID() const
+    {
+        return _materialChunkID;
+    }
+
     uint32 ompfParticleSystemChunk::getSize(const ompfSettings& settings)
     {
         uint32 result = 0;
@@ -289,6 +299,7 @@ namespace OMPF
         result += 2; // tiling column row
         result += 1; // velocity oriented
 
+        result += 4; // material chunk id
         return result;
     }
 
@@ -457,6 +468,12 @@ namespace OMPF
             return false;
         }
         con_debug_endl("texture C " << _textureC);
+
+        if (!iaSerializable::writeUInt32(file, _materialChunkID))
+        {
+            return false;
+        }
+        con_debug_endl("materialChunkID " << _materialChunkID);
 
         return true;
     }
@@ -627,6 +644,12 @@ namespace OMPF
             return false;
         }
         con_debug_endl("texture C " << _textureC);
+
+        if (!iaSerializable::readUInt32(file, _materialChunkID))
+        {
+            return false;
+        }
+        con_debug_endl("materialChunkID " << _materialChunkID);
 
         return true;
     }

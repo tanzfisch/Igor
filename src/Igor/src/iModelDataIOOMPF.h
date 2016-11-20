@@ -211,6 +211,12 @@ namespace Igor
         */
         uint32 getMaterialChunkID(uint32 materialID);
 
+        /*! \returns material id from material chunk id
+
+        \param materialChunkID material chunk id
+        */
+        uint32 getMaterialID(uint32 materialChunkID);
+
         /*! clears internal material list
         */
 		void clearMaterials();
