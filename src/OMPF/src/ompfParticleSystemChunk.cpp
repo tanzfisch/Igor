@@ -482,6 +482,9 @@ namespace OMPF
     
     bool ompfParticleSystemChunk::read(ifstream& stream, ompfSettings& settings)
     {
+        con_debug_endl("---------------------------------------------------");
+        con_debug_endl("read ompfParticleSystemChunk " << this->getName());
+
         if (!ompfBaseChunk::read(stream, settings))
         {
             return false;

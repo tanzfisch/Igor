@@ -368,6 +368,9 @@ namespace OMPF
     
     bool ompfMeshChunk::read(ifstream& file, ompfSettings& settings)
     {
+        con_debug_endl("---------------------------------------------------");
+        con_debug_endl("read ompfMeshChunk " << this->getName());
+
         if (!ompfBaseChunk::read(file, settings))
         {
             return false;

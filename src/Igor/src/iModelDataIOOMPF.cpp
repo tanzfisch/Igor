@@ -215,15 +215,8 @@ namespace Igor
             mesh->setBoundingSphere(sphere);
             meshNode->setMesh(shared_ptr<iMesh>(mesh));
 
-            auto materiIter = _materialMapping.find(meshChunk->getMaterialChunkID());
-            if (materiIter != _materialMapping.end())
-            {
-                meshNode->setMaterial(_materialMapping[meshChunk->getMaterialChunkID()]);
-            }
-            else
-            {
-                con_err("material chunk with ID " << meshChunk->getMaterialChunkID() << " not found");
-            }
+            uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
+            meshNode->setMaterial(materialID);
 
             result = meshNode;
             break;
