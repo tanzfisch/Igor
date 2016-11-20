@@ -40,6 +40,7 @@ namespace Igor
         setTextureB(node->getTextureB());
         setTextureC(node->getTextureC());
         setMaterial(node->getMaterial());
+        setEmitter(node->getEmitter());
 
 		iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeParticleSystem::handle));
     }

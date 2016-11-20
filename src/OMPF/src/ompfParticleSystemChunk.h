@@ -31,7 +31,7 @@
 namespace OMPF
 {
 
-    /*! ompf emitter chunk
+    /*! ompf particle system chunk
     */
 	class OMPF_API ompfParticleSystemChunk : public ompfBaseChunk
 	{
@@ -336,7 +336,19 @@ namespace OMPF
         */
         uint32 getMaterialChunkID() const;
 
+        /*! sets emitter node id
+
+        \param emitterID the emitter node's id
+        */
+        void setEmitterChunkID(uint32 emitterID);
+
+        /*! \returns the emitter node's id
+        */
+        uint32 getEmitterChunkID() const;
+
     private:
+
+        uint32 _emitterID = 0;
 
         bool _velocityOriented = false;
         iaString _textureA;

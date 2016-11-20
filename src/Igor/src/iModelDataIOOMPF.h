@@ -122,6 +122,10 @@ namespace Igor
         */
         map<uint32, uint32> _materialMapping;
 
+        /*! maps chunk id to node id
+        */
+        map<uint32, uint32> _nodeMapping;
+
         /*! map of materials currently in use
         */
         map<uint32, OMPF::ompfMaterialChunk*> _materialsInUse;
@@ -167,7 +171,9 @@ namespace Igor
         \param parent current model data node
         \param currentChunk current ompf chunk
         */
-        iNode* createTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk);
+        iNode* createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk);
+
+        void postCreation(OMPF::ompfBaseChunk* currentChunk);
 
         /*! creates transform chunk
 
@@ -216,6 +222,8 @@ namespace Igor
         \param materialChunkID material chunk id
         */
         uint32 getMaterialID(uint32 materialChunkID);
+
+        uint32 getNodeID(uint32 chunkID);
 
         /*! clears internal material list
         */

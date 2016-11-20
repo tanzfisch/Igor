@@ -275,6 +275,16 @@ namespace OMPF
         return _materialChunkID;
     }
 
+    void ompfParticleSystemChunk::setEmitterChunkID(uint32 emitterID)
+    {
+        _emitterID = emitterID;
+    }
+
+    uint32 ompfParticleSystemChunk::getEmitterChunkID() const
+    {
+        return _emitterID;
+    }
+
     uint32 ompfParticleSystemChunk::getSize(const ompfSettings& settings)
     {
         uint32 result = 0;
@@ -302,6 +312,7 @@ namespace OMPF
         result += static_cast<uint32>(_textureB.getSize()) + 2;
         result += static_cast<uint32>(_textureC.getSize()) + 2;
         result += 4; // material chunk id
+        result += 4; // emitter chunk id
         return result; // 24
     }
 
@@ -475,7 +486,13 @@ namespace OMPF
         {
             return false;
         }
-        con_debug_endl("materialChunkID " << _materialChunkID);
+        con_debug_endl("material chunk id " << _materialChunkID);
+
+        if (!iaSerializable::writeUInt32(stream, _emitterID))
+        {
+            return false;
+        }
+        con_debug_endl("emitter chunk id " << _emitterID);
 
         return true;
     }
@@ -655,6 +672,12 @@ namespace OMPF
             return false;
         }
         con_debug_endl("materialChunkID " << _materialChunkID);
+
+        if (!iaSerializable::readUInt32(stream, _emitterID))
+        {
+            return false;
+        }
+        con_debug_endl("emitter chunk id " << _emitterID);
 
         return true;
     }

@@ -52,7 +52,33 @@ namespace Igor
         delete _ompf;
     }
 
-    iNode* iModelDataIOOMPF::createTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk)
+    void iModelDataIOOMPF::postCreation(OMPF::ompfBaseChunk* currentChunk)
+    {
+        switch (currentChunk->getType())
+        {
+        case OMPFChunkType::ParticleSystem:
+        {
+            OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
+            uint32 particleSystemNodeID = getNodeID(particleSystemChunk->getID());
+            uint32 emitterNodeID = getNodeID(particleSystemChunk->getEmitterChunkID());
+            iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemNodeID));
+            if(particleSystem != nullptr)
+            {
+                particleSystem->setEmitter(emitterNodeID);
+            }
+        }
+        break;
+        }
+
+        auto iter = currentChunk->getChildren().begin();
+        while (iter != currentChunk->getChildren().end())
+        {
+            postCreation((*iter));
+            iter++;
+        }
+    }
+
+    iNode* iModelDataIOOMPF::createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk)
     {
         iNode* result = nullptr;
 
@@ -234,6 +260,8 @@ namespace Igor
 
         if (result != nullptr)
         {
+            _nodeMapping[currentChunk->getID()] = result->getID();
+
             result->setName(currentChunk->getName());
 
             if (parent != nullptr)
@@ -244,13 +272,14 @@ namespace Igor
             auto iter = currentChunk->getChildren().begin();
             while (iter != currentChunk->getChildren().end())
             {
-                createTree(result, (*iter));
+                createNodeTree(result, (*iter));
                 iter++;
             }
         }
 
         return result;
     }
+
     iNode* iModelDataIOOMPF::importData(const iaString& filename, iModelDataInputParameter* parameter)
     {
         _parameter = parameter;
@@ -264,7 +293,9 @@ namespace Igor
 
         createMaterials();
 
-        iNode* result = createTree(nullptr, _ompf->getRoot()->getChildren()[0]);
+        iNode* result = createNodeTree(nullptr, _ompf->getRoot()->getChildren()[0]);
+
+        postCreation(_ompf->getRoot()->getChildren()[0]);
 
         if (result != nullptr)
         {
@@ -501,44 +532,44 @@ namespace Igor
 
     OMPF::ompfMeshChunk* iModelDataIOOMPF::createMeshChunk(iNodeMesh *node)
     {
-		con_assert(node != nullptr, "zero pointer");
-		
-		OMPF::ompfMeshChunk* result = _ompf->createMeshChunk();
+        con_assert(node != nullptr, "zero pointer");
 
-		if (node != nullptr)
-		{
-			con_assert(node->getMesh() != nullptr, "zero pointer");
+        OMPF::ompfMeshChunk* result = _ompf->createMeshChunk();
 
-			result->setAmbient(iaConvert::convert3c(node->getAmbient()));
-			result->setDiffuse(iaConvert::convert3c(node->getDiffuse()));
-			result->setSpecular(iaConvert::convert3c(node->getSpecular()));
-			result->setEmissive(iaConvert::convert3c(node->getEmissive()));
-			result->setShininess(node->getShininess());
+        if (node != nullptr)
+        {
+            con_assert(node->getMesh() != nullptr, "zero pointer");
 
-			if (node->getMesh() != nullptr)
-			{
-				result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);
-				result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
-				result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
+            result->setAmbient(iaConvert::convert3c(node->getAmbient()));
+            result->setDiffuse(iaConvert::convert3c(node->getDiffuse()));
+            result->setSpecular(iaConvert::convert3c(node->getSpecular()));
+            result->setEmissive(iaConvert::convert3c(node->getEmissive()));
+            result->setShininess(node->getShininess());
 
-				result->setBoundingSphere(node->getBoundingSphere()._center, node->getBoundingSphere()._radius);
+            if (node->getMesh() != nullptr)
+            {
+                result->setNormalsPerVertex(node->getMesh()->hasNormals() ? 1 : 0);
+                result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
+                result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
 
-				result->setVertexCount(node->getMesh()->getVertexCount());
-				result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
+                result->setBoundingSphere(node->getBoundingSphere()._center, node->getBoundingSphere()._radius);
 
-				result->setIndexCount(node->getMesh()->getIndexesCount());
-				result->setIndexData(reinterpret_cast<char*>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());
+                result->setVertexCount(node->getMesh()->getVertexCount());
+                result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
 
-				for (int i = 0; i < node->getMesh()->getTextureUnitCount(); ++i)
-				{
-					iaString relative = iaDirectory::getRelativePath(_filename, node->getTargetMaterial()->getTexture(i)->getFilename());
-					result->setTexture(relative, i);
-				}
-			}
+                result->setIndexCount(node->getMesh()->getIndexesCount());
+                result->setIndexData(reinterpret_cast<char*>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());
 
-			uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
-			result->setMaterialChunkID(materialChunkID);
-		}
+                for (int i = 0; i < node->getMesh()->getTextureUnitCount(); ++i)
+                {
+                    iaString relative = iaDirectory::getRelativePath(_filename, node->getTargetMaterial()->getTexture(i)->getFilename());
+                    result->setTexture(relative, i);
+                }
+            }
+
+            uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
+            result->setMaterialChunkID(materialChunkID);
+        }
 
         return result;
     }
@@ -604,6 +635,25 @@ namespace Igor
         }
 
         return 0;
+    }
+
+    uint32 iModelDataIOOMPF::getNodeID(uint32 chunkID)
+    {
+        uint32 result = 0;
+        if (chunkID != 0)
+        {
+            auto materiIter = _nodeMapping.find(chunkID);
+            if (materiIter != _nodeMapping.end())
+            {
+                result = (*materiIter).second;
+            }
+            else
+            {
+                con_err("chunk with ID " << chunkID << " not found");
+            }
+        }
+
+        return result;
     }
 
     uint32 iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
