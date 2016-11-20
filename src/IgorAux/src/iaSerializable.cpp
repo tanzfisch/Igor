@@ -191,7 +191,7 @@ namespace IgorAux
                 return false;
             }
 
-            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(iaVector3f)))
+            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(float32) * 3))
             {
                 return false;
             }
@@ -218,7 +218,7 @@ namespace IgorAux
                 return false;
             }
 
-            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(iaVector3f)))
+            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(float32) * 3))
             {
                 return false;
             }
@@ -244,7 +244,7 @@ namespace IgorAux
                 return false;
             }
 
-            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(iaVector2f)))
+            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(float32) * 2))
             {
                 return false;
             }
@@ -271,7 +271,7 @@ namespace IgorAux
                 return false;
             }
 
-            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(iaVector2f)))
+            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(float32) * 2))
             {
                 return false;
             }
@@ -297,7 +297,7 @@ namespace IgorAux
                 return false;
             }
 
-            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(iaColor4f)))
+            if (!iaSerializable::write(stream, reinterpret_cast<const char*>(entry.second.getData()), sizeof(float32) * 4))
             {
                 return false;
             }
@@ -324,7 +324,7 @@ namespace IgorAux
                 return false;
             }
 
-            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(iaColor4f)))
+            if (!iaSerializable::read(stream, reinterpret_cast<char*>(gValue.getData()), sizeof(float32) * 4))
             {
                 return false;
             }

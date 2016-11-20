@@ -208,24 +208,18 @@ namespace IgorAux
         */
         __IGOR_INLINE__ void  negate(void);
 
-		/*! default ctor
-
-		initializes a zero vector
+		/*! does nothing
 		*/
 		iaVector2() = default;
 
-		/*! ctor
-
-		initializes the vector with x y components
+		/*! initializes the vector with x y components
 
 		\param x x component
 		\param y y component
 		*/
 		iaVector2(T x, T y);
 
-		/*! dtor
-
-		does nothing
+		/*! does nothing
 		*/
 		virtual ~iaVector2() = default;
 	};

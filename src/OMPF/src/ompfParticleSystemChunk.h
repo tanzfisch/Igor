@@ -132,6 +132,26 @@ namespace OMPF
         */
         uint8 getVortexCheckRange();
 
+        /*! sets the vortex to particle ratio
+
+        \param rate the rate of vortex particles to particles. default 0.01 = 1%
+        */
+        void setVortexToParticleRate(float32 rate);
+
+        /*! \returns likeliness of vortex particle to appear
+        */
+        float32 getVortexToParticleRate() const;
+
+        /*! sets vorticity confinement force
+
+        \param vorticityConfinement the vorticity confinement force
+        */
+        void setVorticityConfinement(float32 vorticityConfinement);
+
+        /*! \returns vorticity confinement force
+        */
+        float32 getVorticityConfinement();
+
         /*! \returns size of chunk in bytes
 
         \param settings the settings the size calculation is based on
@@ -237,8 +257,88 @@ namespace OMPF
         */
         void getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const;
 
+        /*! sets the air drag
+
+        0.0-1.0
+        1.0 means basically no air drag
+        0.0 is a full stop
+        and about 0.99 is a usefull value for simulating air drag
+
+        \param airDrag the air drag factor (0.0 - 1.0)
+        */
+        void setAirDrag(float32 airDrag);
+
+        /*! \returns air drag factor
+        */
+        float32 getAirDrag() const;
+
+        /*! sets period time of this particle system
+
+        if loop is true. the particle system will be restarted after this time
+        if loop is false. the particle system simulation will be stopped
+
+        \param periodTime the period time
+        */
+        void setPeriodTime(float32 periodTime);
+
+        /*! \returns period time of this particle system
+        */
+        float32 getPeriodTime() const;
+
+        /*! sets the velocity oriented flag
+        particles will be rendered oriented by thair velocity and screen
+
+        default id off
+
+        \param velocityOriented if true particles get rendered velocity oriented
+        */
+        void setVelocityOriented(bool velocityOriented = true);
+
+        /*! \returns velocity oriented flag
+        */
+        bool getVelocityOriented() const;
+
+        /*! sets first texture
+
+        \param filename file name of texture
+        */
+        void setTextureA(const iaString& filename);
+
+        /*! sets second texture
+
+        \param filename file name of texture
+        */
+        void setTextureB(const iaString& filename);
+
+        /*! sets third texture
+
+        \param filename file name of texture
+        */
+        void setTextureC(const iaString& filename);
+
+        /*! \returns file name of first texture
+        */
+        iaString getTextureA() const;
+
+        /*! \returns file name of second texture
+        */
+        iaString getTextureB() const;
+
+        /*! \returns file name of third texture
+        */
+        iaString getTextureC() const;
 
     private:
+
+        bool _velocityOriented = false;
+        iaString _textureA;
+        iaString _textureB;
+        iaString _textureC;
+
+        float32 _airDrag = 0;
+        float32 _periodTime = 0;
+        float32 _vortexToParticleRate = 0;
+        float32 _vorticityConfinement = 0;
 
         iaGradientVector2f _orientationRateGradient;
         iaGradientVector2f _orientationGradient;

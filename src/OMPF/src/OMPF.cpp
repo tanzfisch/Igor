@@ -230,6 +230,7 @@ namespace OMPF
             }
 
             typeID = static_cast<OMPFChunkType>(tempType);
+            bool result = true;
 
             switch (typeID)
             {
@@ -239,42 +240,42 @@ namespace OMPF
 
             case OMPFChunkType::Transform:
                 chunk = new ompfTransformChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
                 break;
 
             case OMPFChunkType::External:
                 chunk = new ompfExternalReferenceChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
                 break;
 
             case OMPFChunkType::Group:
                 chunk = new ompfGroupChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
                 break;
 
             case OMPFChunkType::ResourceSearchPath:
                 chunk = new ompfResourceSearchPathChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
                 break;
 
             case OMPFChunkType::Mesh:
                 chunk = new ompfMeshChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
                 break;
 
             case OMPFChunkType::Emitter:
                 chunk = new ompfEmitterChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
                 break;
 
             case OMPFChunkType::ParticleSystem:
                 chunk = new ompfParticleSystemChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
                 break;
 
             case OMPFChunkType::Material:
                 chunk = new ompfMaterialChunk();
-                chunk->read(file, _settings);
+                result = chunk->read(file, _settings);
 
                 materialChunk = static_cast<ompfMaterialChunk*>(chunk);
                 _materialChunks.push_back(materialChunk);
@@ -288,13 +289,20 @@ namespace OMPF
                 break;
             }
 
-            if (chunk != nullptr)
+            if (result)
             {
-                _chunks[static_cast<uint32>(chunk->getID())] = chunk;
-                if (static_cast<uint32>(chunk->getID()) > _nextChunkID)
+                if (chunk != nullptr)
                 {
-                    _nextChunkID = static_cast<uint32>(chunk->getID());
+                    _chunks[static_cast<uint32>(chunk->getID())] = chunk;
+                    if (static_cast<uint32>(chunk->getID()) > _nextChunkID)
+                    {
+                        _nextChunkID = static_cast<uint32>(chunk->getID());
+                    }
                 }
+            }
+            else
+            {
+                return false;
             }
         }
 

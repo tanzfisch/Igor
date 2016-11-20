@@ -144,6 +144,17 @@ namespace Igor
             particleSystemChunk->getStartVelocityGradient(velocityGradient);
             particleSystemNode->setStartVelocityGradient(velocityGradient);
 
+            particleSystemNode->setVortexToParticleRate(particleSystemChunk->getVortexToParticleRate());
+            particleSystemNode->setVorticityConfinement(particleSystemChunk->getVorticityConfinement());
+
+            particleSystemNode->setAirDrag(particleSystemChunk->getAirDrag());
+            particleSystemNode->setPeriodTime(particleSystemChunk->getPeriodTime());
+            particleSystemNode->setVelocityOriented(particleSystemChunk->getVelocityOriented());
+
+            particleSystemNode->setTextureA(particleSystemChunk->getTextureA());
+            particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
+            particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
+
             result = particleSystemNode;
             break;
         }
@@ -474,6 +485,17 @@ namespace Igor
         iaGradientVector2f velocityGradient;
         node->getStartVelocityGradient(velocityGradient);
         result->setStartVelocityGradient(velocityGradient);
+
+        result->setVortexToParticleRate(node->getVortexToParticleRate());
+        result->setVorticityConfinement(node->getVorticityConfinement());
+
+        result->setAirDrag(node->getAirDrag());
+        result->setPeriodTime(node->getPeriodTime());
+        result->setVelocityOriented(node->getVelocityOriented());
+
+        result->setTextureA(node->getTextureA());
+        result->setTextureB(node->getTextureB());
+        result->setTextureC(node->getTextureC());
 
         return result;
     }
