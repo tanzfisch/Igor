@@ -257,7 +257,7 @@ namespace OMPF
         */
         void getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const;
 
-
+        /*! sets air drag 
         0.0-1.0
         1.0 means basically no air drag
         0.0 is a full stop
@@ -327,6 +327,7 @@ namespace OMPF
         */
         iaString getTextureC() const;
 
+        /*! sets material chunk id
         \param id the material chunk id
         */
         void setMaterialChunkID(uint32 id);

@@ -291,16 +291,18 @@ namespace OMPF
         result += _startVisibleTimeGradient.getValues().size() * (sizeof(float32) * 3);
         result += 4 + 4; //min max vortex torque
         result += 4 + 4; //min max vortex range
+        result += 1; // vortex check range
         result += 4; // vortexToParticleRate
-        result += 4; // _vorticityConfinement
+        result += 4; // vorticity confinement
+        result += 2; // tiling column row
         result += 4; // air drag
         result += 4; // period time
-        result += 1; // vortex check range
-        result += 2; // tiling column row
         result += 1; // velocity oriented
-
+        result += static_cast<uint32>(_textureA.getSize()) + 2;
+        result += static_cast<uint32>(_textureB.getSize()) + 2;
+        result += static_cast<uint32>(_textureC.getSize()) + 2;
         result += 4; // material chunk id
-        return result;
+        return result; // 24
     }
 
     bool ompfParticleSystemChunk::write(ofstream& stream, const ompfSettings& settings)
@@ -469,7 +471,7 @@ namespace OMPF
         }
         con_debug_endl("texture C " << _textureC);
 
-        if (!iaSerializable::writeUInt32(file, _materialChunkID))
+        if (!iaSerializable::writeUInt32(stream, _materialChunkID))
         {
             return false;
         }
@@ -645,7 +647,7 @@ namespace OMPF
         }
         con_debug_endl("texture C " << _textureC);
 
-        if (!iaSerializable::readUInt32(file, _materialChunkID))
+        if (!iaSerializable::readUInt32(stream, _materialChunkID))
         {
             return false;
         }
