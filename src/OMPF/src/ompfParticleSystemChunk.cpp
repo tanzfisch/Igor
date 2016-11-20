@@ -185,6 +185,16 @@ namespace OMPF
         return _vortexCheckRange;
     }
 
+    void ompfParticleSystemChunk::setMaterialChunkID(uint32 id)
+    {
+        _materialChunkID = id;
+    }
+
+    uint32 ompfParticleSystemChunk::getMaterialChunkID() const
+    {
+        return _materialChunkID;
+    }
+
     uint32 ompfParticleSystemChunk::getSize(const ompfSettings& settings)
     {
         uint32 result = 0;
@@ -203,6 +213,7 @@ namespace OMPF
         result += _sizeGradient.getValues().size() * (4 * 3);
         result += _sizeScaleGradient.getValues().size() * (4 * 2);
         result += _startVisibleTimeGradient.getValues().size() * (4 * 3);
+        result += 4; // material chunk id
         return result;
     }
 
@@ -239,8 +250,6 @@ namespace OMPF
             return false;
         }
         con_debug_endl("emission gradient entries=" << _emissionGradient.getValues().size());
-
-
 
         if (!iaSerializable::writeFloat32(file, _minVortexTorque))
         {
@@ -284,7 +293,6 @@ namespace OMPF
         }
         con_debug_endl("first texture tiling rows " << _firstTectureTilingRows);
 
-
         if (!iaSerializable::write(file, _orientationGradient))
         {
             return false;
@@ -327,6 +335,12 @@ namespace OMPF
         }
         con_debug_endl("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
 
+        if (!iaSerializable::writeUInt32(file, _materialChunkID))
+        {
+            return false;
+        }
+        con_debug_endl("materialChunkID " << _materialChunkID);
+
         return true;
     }
     
@@ -362,9 +376,6 @@ namespace OMPF
             return false;
         }
         con_debug_endl("emission gradient entries=" << _emissionGradient.getValues().size());
-
-
-
 
         if (!iaSerializable::readFloat32(file, _minVortexTorque))
         {
@@ -449,6 +460,12 @@ namespace OMPF
             return false;
         }
         con_debug_endl("start visibile gradient entries=" << _startVisibleTimeGradient.getValues().size());
+
+        if (!iaSerializable::readUInt32(file, _materialChunkID))
+        {
+            return false;
+        }
+        con_debug_endl("materialChunkID " << _materialChunkID);
 
         return true;
     }

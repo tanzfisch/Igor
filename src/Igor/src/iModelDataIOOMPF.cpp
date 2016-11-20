@@ -144,6 +144,9 @@ namespace Igor
             particleSystemChunk->getStartVelocityGradient(velocityGradient);
             particleSystemNode->setStartVelocityGradient(velocityGradient);
 
+            uint32 materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
+            particleSystemNode->setMaterial(materialID);
+
             result = particleSystemNode;
             break;
         }
@@ -475,6 +478,9 @@ namespace Igor
         node->getStartVelocityGradient(velocityGradient);
         result->setStartVelocityGradient(velocityGradient);
 
+        uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
+        result->setMaterialChunkID(materialChunkID);
+
         return result;
     }
 
@@ -540,12 +546,15 @@ namespace Igor
         {
             iMaterial* material = materialGroup->getMaterial();
 
-            auto shaderSources = material->getShaderSources();
-            auto iterShaderSources = shaderSources.begin();
-            while (iterShaderSources != shaderSources.end())
+            if (material->hasShader())
             {
-                result->addShader((*iterShaderSources)._filename, static_cast<OMPF::OMPFShaderType>((*iterShaderSources)._type));
-                iterShaderSources++;
+                auto shaderSources = material->getShaderSources();
+                auto iterShaderSources = shaderSources.begin();
+                while (iterShaderSources != shaderSources.end())
+                {
+                    result->addShader((*iterShaderSources)._filename, static_cast<OMPF::OMPFShaderType>((*iterShaderSources)._type));
+                    iterShaderSources++;
+                }
             }
 
             result->setMaterialName(material->getName());
@@ -580,6 +589,25 @@ namespace Igor
         }
 
         return 0;
+    }
+
+    uint32 iModelDataIOOMPF::getMaterialID(uint32 materialChunkID)
+    {
+        uint32 result = 0;
+        if (materialChunkID != 0)
+        {
+            auto materiIter = _materialMapping.find(materialChunkID);
+            if (materiIter != _materialMapping.end())
+            {
+                result = (*materiIter).second;
+            }
+            else
+            {
+                con_err("material chunk with ID " << materialChunkID << " not found");
+            }
+        }
+
+        return result;
     }
 
     void iModelDataIOOMPF::clearMaterials()

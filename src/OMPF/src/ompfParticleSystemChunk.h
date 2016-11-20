@@ -237,8 +237,21 @@ namespace OMPF
         */
         void getStartOrientationRateGradient(iaGradientVector2f& orientationRateGradient) const;
 
+        /*! sets material chund id
+
+        \param id the material chunk id
+        */
+        void setMaterialChunkID(uint32 id);
+
+        /*! \returns material chunk id
+        */
+        uint32 getMaterialChunkID() const;
 
     private:
+
+        /*! material chunk id
+        */
+        uint32 _materialChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 
         iaGradientVector2f _orientationRateGradient;
         iaGradientVector2f _orientationGradient;
