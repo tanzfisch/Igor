@@ -80,6 +80,12 @@ namespace Igor
         */
         iaVector3f _worldPosition;
 
+        /*! called after a node was copied
+
+        \param nodeIDMap map with old node ids to new node ids
+        */
+        void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+
         /*! initializes memeber varialbes
         */
         iNodeLODTrigger();

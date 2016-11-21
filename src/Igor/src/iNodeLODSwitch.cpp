@@ -35,6 +35,11 @@ namespace Igor
         setName(node->getName());
     }
 
+    void iNodeLODSwitch::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    {
+
+    }
+
 	iNodeLODSwitch::~iNodeLODSwitch()
 	{
 		setScene(nullptr);

@@ -197,23 +197,47 @@ namespace Igor
         }
     }
 
-    iNode* iNodeFactory::createCopy(iNode* node, uint32 recursiveDepth)
+    iNode* iNodeFactory::createCopy(iNode* node)
     {
         iNode* result = nullptr;
-        result = createCopyInternal(node);
+        map<uint32, uint32> nodeIDMap;
 
-        if (recursiveDepth > 0)
+        result = createCopyInternal(node, nodeIDMap, UINT32_MAX);
+
+        for (auto nodePair : nodeIDMap)
         {
-            for (auto child : node->getChildren())
+            iNode* node = getNode(nodePair.second);
+            if (node != nullptr)
             {
-                result->insertNode(createCopy(child, --recursiveDepth));
+                node->onPostCopyLink(nodeIDMap);
             }
         }
 
         return result;
     }
 
-    iNode* iNodeFactory::createCopyInternal(iNode* node)
+    iNode* iNodeFactory::createCopyInternal(iNode* node, map<uint32, uint32>& nodeIDMap, uint32 recursiveDepth)
+    {
+        iNode* result = nullptr;
+        result = createNodeCopy(node);
+
+        if (result != nullptr)
+        {
+            nodeIDMap[node->getID()] = result->getID();
+
+            if (recursiveDepth > 0)
+            {
+                for (auto child : node->getChildren())
+                {
+                    result->insertNode(createCopyInternal(child, nodeIDMap, --recursiveDepth));
+                }
+            }
+        }
+
+        return result;
+    }
+
+    iNode* iNodeFactory::createNodeCopy(iNode* node)
     {
         con_assert(node != nullptr, "zero pointer");
 

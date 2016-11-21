@@ -33,6 +33,7 @@
 #include <iParticleEmitter.h>
 
 #include <vector>
+#include <map>
 using namespace std;
 
 namespace Igor

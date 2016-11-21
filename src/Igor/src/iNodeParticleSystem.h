@@ -387,6 +387,12 @@ namespace Igor
         */
         shared_ptr<iTexture> _textureC;
 
+        /*! called after a node was copied
+
+        \param nodeIDMap map with old node ids to new node ids
+        */
+        void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+
         /*! draw function
         */
         void draw();

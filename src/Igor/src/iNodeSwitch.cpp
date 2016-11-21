@@ -29,6 +29,11 @@ namespace Igor
         setName(node->getName());
     }
 
+    void iNodeSwitch::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    {
+
+    }
+
     void iNodeSwitch::setActiveChild(uint32 id)
     {
         iNode* child = getChild(id);

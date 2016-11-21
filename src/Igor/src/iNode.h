@@ -40,6 +40,7 @@ using namespace IgorAux;
 #include <vector>
 #include <memory>
 #include <mutex>
+#include <map>
 using namespace std;
 
 namespace Igor
@@ -321,6 +322,12 @@ namespace Igor
         to end up in that queue call setDataDirty();
         */
         virtual bool onUpdateData();
+
+        /*! called after a node was copied
+
+        \param nodeIDMap map with old node ids to new node ids
+        */
+        virtual void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
 
         /*! set's node id
         */

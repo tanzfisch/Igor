@@ -36,6 +36,11 @@ namespace Igor
 		setScene(nullptr);
 	}
 
+    void iNodeLODTrigger::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    {
+
+    }
+
     void iNodeLODTrigger::onUpdateTransform(iaMatrixf& matrix)
     {
         _worldPosition = matrix._pos;

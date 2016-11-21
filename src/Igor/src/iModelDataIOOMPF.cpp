@@ -52,7 +52,7 @@ namespace Igor
         delete _ompf;
     }
 
-    void iModelDataIOOMPF::postCreation(OMPF::ompfBaseChunk* currentChunk)
+    void iModelDataIOOMPF::linkNodes(OMPF::ompfBaseChunk* currentChunk)
     {
         switch (currentChunk->getType())
         {
@@ -73,7 +73,7 @@ namespace Igor
         auto iter = currentChunk->getChildren().begin();
         while (iter != currentChunk->getChildren().end())
         {
-            postCreation((*iter));
+            linkNodes((*iter));
             iter++;
         }
     }
@@ -260,7 +260,8 @@ namespace Igor
 
         if (result != nullptr)
         {
-            _nodeMapping[currentChunk->getID()] = result->getID();
+            _nodeToChunk[result->getID()] = currentChunk->getID();
+            _chunkToNode[currentChunk->getID()] = result->getID();
 
             result->setName(currentChunk->getName());
 
@@ -295,7 +296,7 @@ namespace Igor
 
         iNode* result = createNodeTree(nullptr, _ompf->getRoot()->getChildren()[0]);
 
-        postCreation(_ompf->getRoot()->getChildren()[0]);
+        linkNodes(_ompf->getRoot()->getChildren()[0]);
 
         if (result != nullptr)
         {
@@ -358,7 +359,40 @@ namespace Igor
 
         traverseTree(node);
 
+        linkChunks(_ompf->getRoot()->getChildren()[0]);
+
         _ompf->saveFile(filename);
+    }
+
+    void iModelDataIOOMPF::linkChunks(OMPF::ompfBaseChunk* currentChunk)
+    {
+        switch (currentChunk->getType())
+        {
+        case OMPFChunkType::ParticleSystem:
+        {
+            OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
+            uint32 chunkID = particleSystemChunk->getID();
+            uint32 nodeID = getNodeID(chunkID);
+            iNodeParticleSystem* node = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(nodeID));
+            if (node != nullptr)
+            {
+                uint32 emitterNodeID = node->getEmitter();
+                if (emitterNodeID != iNode::INVALID_NODE_ID)
+                {
+                    uint32 emitterChunkID = getChunkID(emitterNodeID);
+                    particleSystemChunk->setEmitterChunkID(emitterChunkID);
+                }
+            }
+        }
+        break;
+        }
+
+        auto iter = currentChunk->getChildren().begin();
+        while (iter != currentChunk->getChildren().end())
+        {
+            linkChunks((*iter));
+            iter++;
+        }
     }
 
     void iModelDataIOOMPF::preTraverse()
@@ -423,6 +457,9 @@ namespace Igor
 
         if (nullptr != nextChunk)
         {
+            _nodeToChunk[node->getID()] = nextChunk->getID();
+            _chunkToNode[nextChunk->getID()] = node->getID();
+
             nextChunk->setName(node->getName());
             _chunkStack.back()->insertChunk(nextChunk);
 
@@ -639,17 +676,36 @@ namespace Igor
 
     uint32 iModelDataIOOMPF::getNodeID(uint32 chunkID)
     {
-        uint32 result = 0;
+        uint32 result = iNode::INVALID_NODE_ID;
         if (chunkID != 0)
         {
-            auto materiIter = _nodeMapping.find(chunkID);
-            if (materiIter != _nodeMapping.end())
+            auto iter = _chunkToNode.find(chunkID);
+            if (iter != _chunkToNode.end())
             {
-                result = (*materiIter).second;
+                result = (*iter).second;
             }
             else
             {
                 con_err("chunk with ID " << chunkID << " not found");
+            }
+        }
+
+        return result;
+    }
+
+    uint32 iModelDataIOOMPF::getChunkID(uint32 nodeID)
+    {
+        uint32 result = 0;
+        if (nodeID != 0)
+        {
+            auto iter = _nodeToChunk.find(nodeID);
+            if (iter != _nodeToChunk.end())
+            {
+                result = (*iter).second;
+            }
+            else
+            {
+                con_err("node with ID " << nodeID << " not found");
             }
         }
 

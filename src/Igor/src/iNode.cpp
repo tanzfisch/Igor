@@ -52,6 +52,11 @@ namespace Igor
 		_inactiveChildren.clear();
 	}
 
+    void iNode::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    {
+
+    }
+
 	bool iNode::isDataDirty()
 	{
 		return _queueToDirtyData;

@@ -28,6 +28,11 @@ namespace Igor
 		setName(name);
 	}
 
+    void iCelestialNode::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    {
+
+    }
+
 /*	void iCelestialNode::transformDown(iaMatrixf& matrix)
 	{
 		iNodeRender::transformDown(matrix);

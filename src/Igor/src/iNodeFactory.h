@@ -80,9 +80,8 @@ namespace Igor
         /*! create copy of node
 
         \param node the node to copy
-        \param recursiveDepth recursive depth
         */
-        iNode* createCopy(iNode* node, uint32 recursiveDepth = UINT32_MAX);
+        iNode* createCopy(iNode* node);
 
         /*! destroys node and all its children
 
@@ -167,7 +166,14 @@ namespace Igor
         \param node the source node
         \returns a copy of the source node
         */
-        iNode* createCopyInternal(iNode* node);
+        iNode* createNodeCopy(iNode* node);
+
+        /*! create copy of node
+
+        \param node the node to copy
+        \param recursiveDepth recursive depth
+        */
+        iNode* createCopyInternal(iNode* node, map<uint32, uint32>& nodeIDMap, uint32 recursiveDepth);
 
         /*! flushing queues
         */

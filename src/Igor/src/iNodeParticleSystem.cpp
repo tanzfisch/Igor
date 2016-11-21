@@ -56,6 +56,21 @@ namespace Igor
         return _particleSystem.getParticleCount();
     }
 
+    void iNodeParticleSystem::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+    {
+        uint32 oldEmitterID = getEmitter();
+
+        auto iter = nodeIDMap.find(oldEmitterID);
+        if (iter != nodeIDMap.end())
+        {
+            setEmitter((*iter).second);
+        }
+        else
+        {
+            setEmitter(iNode::INVALID_NODE_ID);
+        }
+    }
+
     void iNodeParticleSystem::setColorGradient(const iaGradientColor4f& colorGradient)
     {
         _particleSystem.setColorGradient(colorGradient);

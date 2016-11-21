@@ -62,8 +62,6 @@ namespace Igor
     /*! OMPF loader
     
     Uses ompf library to load ompf models
-
-    \todo should this be a node visitor?
     */
 	class iModelDataIOOMPF : public iModelDataIO,  public iNodeVisitor
 	{
@@ -124,7 +122,11 @@ namespace Igor
 
         /*! maps chunk id to node id
         */
-        map<uint32, uint32> _nodeMapping;
+        map<uint32, uint32> _chunkToNode;
+
+        /*! maps node id to chunk id
+        */
+        map<uint32, uint32> _nodeToChunk;
 
         /*! map of materials currently in use
         */
@@ -171,9 +173,7 @@ namespace Igor
         \param parent current model data node
         \param currentChunk current ompf chunk
         */
-        iNode* createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk);
-
-        void postCreation(OMPF::ompfBaseChunk* currentChunk);
+        iNode* createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk);        
 
         /*! creates transform chunk
 
@@ -223,7 +223,29 @@ namespace Igor
         */
         uint32 getMaterialID(uint32 materialChunkID);
 
+        /*! \returns node id based on chunk id
+
+        \param chunkID the chunk id
+        */
         uint32 getNodeID(uint32 chunkID);
+
+        /*! \returns chunk id based on node id
+
+        \param nodeID the node id
+        */
+        uint32 getChunkID(uint32 nodeID);
+
+        /*! post chunk creation step that links chunk IDs with each other
+
+        \param currentChunk current chunk to process
+        */
+        void linkChunks(OMPF::ompfBaseChunk* currentChunk);
+
+        /*! post node creation step that links node IDs with each other
+
+        \param currentChunk current chunk to process
+        */
+        void linkNodes(OMPF::ompfBaseChunk* currentChunk);
 
         /*! clears internal material list
         */
