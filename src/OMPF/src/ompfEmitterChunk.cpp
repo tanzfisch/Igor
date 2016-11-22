@@ -74,6 +74,9 @@ namespace OMPF
             return false;
         }
 
+        con_debug_endl("---------------------------------------------------");
+        con_debug_endl("read ompfEmitterChunk " << this->getName());
+
         if (!iaSerializable::readFloat32(file, _size))
         {
             return false;
