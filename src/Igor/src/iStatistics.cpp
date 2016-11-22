@@ -180,7 +180,7 @@ namespace Igor
                 voffset = 20;
             }
 
-            iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10 - voffset, fpsText, iHorizontalAlign::Right, iVerticalAlign::Bottom);
+            iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10 - voffset, fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSAndMetrics)
             {
@@ -237,7 +237,7 @@ namespace Igor
                     dataText += "mio";
                 }
 
-                iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10, dataText, iHorizontalAlign::Right, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(window->getClientWidth() - 10, window->getClientHeight() - 10, dataText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
                 iRenderer::getInstance().resetCounters();
             }
 
@@ -257,8 +257,8 @@ namespace Igor
                 rcthreads += ":";
                 rcthreads += iaString::itoa(_lastQueuedRenderContextTaskCount);
 
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, threads, iHorizontalAlign::Left, iVerticalAlign::Bottom);
-                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, rcthreads, iHorizontalAlign::Left, iVerticalAlign::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             }
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)
@@ -310,7 +310,7 @@ namespace Igor
                     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
 
                     iRenderer::getInstance().setColor(section.second.getColor());
-                    iRenderer::getInstance().drawString(10 + textOffsetX[section.second.getGroup()], yPos + 20, section.second.getName(), iHorizontalAlign::Left, iVerticalAlign::Bottom);
+                    iRenderer::getInstance().drawString(10 + textOffsetX[section.second.getGroup()], yPos + 20, section.second.getName(), iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
                     textOffsetX[section.second.getGroup()] += 130;
 
                     iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);

@@ -40,22 +40,22 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
 	transformNode->setMatrix(matrix);
 	_transformNodeID = transformNode->getID();
 
-	iGradientColor4f colorGradient;
-	colorGradient.insertValue(0.0, iaColor4f(0.0, 1.0, 1.0, 1));
-	colorGradient.insertValue(0.5, iaColor4f(0.0, 0.4, 1.0, 0.7));
-	colorGradient.insertValue(1.0, iaColor4f(0.0, 0.0, 0.0, 0));
+	iaGradientColor4f colorGradient;
+	colorGradient.setValue(0.0, iaColor4f(0.0, 1.0, 1.0, 1));
+	colorGradient.setValue(0.5, iaColor4f(0.0, 0.4, 1.0, 0.7));
+	colorGradient.setValue(1.0, iaColor4f(0.0, 0.0, 0.0, 0));
 
-	iGradientVector2f velocity;
-	velocity.insertValue(0.0, iaVector2f(0.0, 1.0));
+	iaGradientVector2f velocity;
+	velocity.setValue(0.0, iaVector2f(0.0, 1.0));
 
-	iGradientVector2f visibility;
-	visibility.insertValue(0.0, iaVector2f(0.1, 0.2));
+	iaGradientVector2f visibility;
+	visibility.setValue(0.0, iaVector2f(0.1, 0.2));
 
-	iGradientVector2f size;
-	size.insertValue(0.0, iaVector2f(0.1, 0.2));
+	iaGradientVector2f size;
+	size.setValue(0.0, iaVector2f(0.1, 0.2));
 
-	iGradientui emission;
-	emission.insertValue(0.0, 2);
+	iaGradientf emission;
+	emission.setValue(0.0, 2);
 
 	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemNodeID = particleSystem->getID();

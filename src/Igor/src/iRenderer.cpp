@@ -1108,17 +1108,20 @@ namespace Igor
         _fontLineHeight = lineheight;
     }
 
-    void iRenderer::drawString(float32 x, float32 y, iaString text, iHorizontalAlign horz, iVerticalAlign vert, float32 angle, float32 maxWidth)
+    void iRenderer::drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horz, iVerticalAlignment vert, float32 angle, float32 maxWidth)
     {
+        con_assert(horz == iHorizontalAlignment::Left || horz == iHorizontalAlignment::Right || horz == iHorizontalAlignment::Center, "invalid parameters");
+        con_assert(vert == iVerticalAlignment::Top || vert == iVerticalAlignment::Bottom || vert == iVerticalAlignment::Center, "invalid parameters");
+
         if (nullptr != _font)
         {
             float32 posx, posy;
 
-            if (horz == iHorizontalAlign::Left)
+            if (horz == iHorizontalAlignment::Left)
             {
                 posx = x;
             }
-            else if (horz == iHorizontalAlign::Right)
+            else if (horz == iHorizontalAlignment::Right)
             {
                 if (maxWidth == 0.0f)
                 {
@@ -1129,7 +1132,7 @@ namespace Igor
                     posx = x - maxWidth;
                 }
             }
-            else if (horz == iHorizontalAlign::Center)
+            else if (horz == iHorizontalAlignment::Center)
             {
                 if (maxWidth == 0.0f)
                 {
@@ -1141,15 +1144,15 @@ namespace Igor
                 }
             }
 
-            if (vert == iVerticalAlign::Top)
+            if (vert == iVerticalAlignment::Top)
             {
                 posy = y;
             }
-            else if (vert == iVerticalAlign::Bottom)
+            else if (vert == iVerticalAlignment::Bottom)
             {
                 posy = y - _font->measureHeight(text, _fontSize, maxWidth, _fontLineHeight);
             }
-            else if (vert == iVerticalAlign::Center)
+            else if (vert == iVerticalAlignment::Center)
             {
                 posy = y - _font->measureHeight(text, _fontSize, maxWidth, _fontLineHeight) * 0.5f;
             }

@@ -27,25 +27,25 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     setDamage(0.0);
     setShieldDamage(0.0);
 
-    iGradientui emission;
-    emission.insertValue(0.0, 0);
-    emission.insertValue(0.2, 0);
-    emission.insertValue(0.3, 80);
-    emission.insertValue(0.4, 0);
+    iaGradientf emission;
+    emission.setValue(0.0, 0);
+    emission.setValue(0.2, 0);
+    emission.setValue(0.3, 80);
+    emission.setValue(0.4, 0);
 
-    iGradientColor4f colorGradient;
-    colorGradient.insertValue(0.0, iaColor4f(1.0, 1.0, 0.1, 1));
-    colorGradient.insertValue(0.5, iaColor4f(0.9, 0.5, 0.1, 0.7));
-    colorGradient.insertValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
+    iaGradientColor4f colorGradient;
+    colorGradient.setValue(0.0, iaColor4f(1.0, 1.0, 0.1, 1));
+    colorGradient.setValue(0.5, iaColor4f(0.9, 0.5, 0.1, 0.7));
+    colorGradient.setValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
 
-    iGradientVector2f velocity;
-    velocity.insertValue(0.0, iaVector2f(0.1, 0.2));
+    iaGradientVector2f velocity;
+    velocity.setValue(0.0, iaVector2f(0.1, 0.2));
 
-    iGradientVector2f visibility;
-    visibility.insertValue(0.0, iaVector2f(0.6, 1.0));
+    iaGradientVector2f visibility;
+    visibility.setValue(0.0, iaVector2f(0.6, 1.0));
 
-    iGradientVector2f size;
-    size.insertValue(0.0, iaVector2f(0.3, 0.5));
+    iaGradientVector2f size;
+    size.setValue(0.0, iaVector2f(0.3, 0.5));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _traceNodeID = particleSystem->getID();
@@ -61,34 +61,34 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     particleSystem->setPeriodTime(3.0);
     particleSystem->start();
 
-    iGradientui emission2;
-    emission2.insertValue(0.0, 0);
-    emission2.insertValue(0.2, 50);
-    emission2.insertValue(0.3, 0);
+    iaGradientf emission2;
+    emission2.setValue(0.0, 0);
+    emission2.setValue(0.2, 50);
+    emission2.setValue(0.3, 0);
 
-    iGradientColor4f colorGradient2;
-    colorGradient2.insertValue(0.0, iaColor4f(0.25, 0.25, 0.25, 0));
-    colorGradient2.insertValue(0.1, iaColor4f(0.25, 0.25, 0.25, 0.25));
-    colorGradient2.insertValue(1.0, iaColor4f(0.25, 0.25, 0.25, 0));
+    iaGradientColor4f colorGradient2;
+    colorGradient2.setValue(0.0, iaColor4f(0.25, 0.25, 0.25, 0));
+    colorGradient2.setValue(0.1, iaColor4f(0.25, 0.25, 0.25, 0.25));
+    colorGradient2.setValue(1.0, iaColor4f(0.25, 0.25, 0.25, 0));
 
-    iGradientVector2f velocity2;
-    velocity2.insertValue(0.0, iaVector2f(0.01, 0.8));
+    iaGradientVector2f velocity2;
+    velocity2.setValue(0.0, iaVector2f(0.01, 0.8));
 
-    iGradientVector2f visibility2;
-    visibility2.insertValue(0.0, iaVector2f(3.0, 5.0));
+    iaGradientVector2f visibility2;
+    visibility2.setValue(0.0, iaVector2f(3.0, 5.0));
 
-    iGradientVector2f size2;
-    size2.insertValue(0.0, iaVector2f(1.0, 2.0));
+    iaGradientVector2f size2;
+    size2.setValue(0.0, iaVector2f(1.0, 2.0));
 
-    iGradientf sizeScale2;
-    sizeScale2.insertValue(0.0, 1.0);
-    sizeScale2.insertValue(5.0, 5.0);
+    iaGradientf sizeScale2;
+    sizeScale2.setValue(0.0, 1.0);
+    sizeScale2.setValue(5.0, 5.0);
 
-    iGradientVector2f startOrientation2;
-    startOrientation2.insertValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
+    iaGradientVector2f startOrientation2;
+    startOrientation2.setValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
 
-    iGradientVector2f startOrientationRate2;
-    startOrientationRate2.insertValue(0.0, iaVector2f(-0.04, 0.04));
+    iaGradientVector2f startOrientationRate2;
+    startOrientationRate2.setValue(0.0, iaVector2f(-0.04, 0.04));
 
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _smokeNodeID = particleSystem2->getID();
@@ -109,30 +109,30 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
     particleSystem2->setPeriodTime(5.0);
     particleSystem2->start();
 
-    iGradientui emission3;
-    emission3.insertValue(0.0, 50);
-    emission3.insertValue(0.1, 0);
+    iaGradientf emission3;
+    emission3.setValue(0.0, 50);
+    emission3.setValue(0.1, 0);
 
-    iGradientColor4f colorGradient3;
-    colorGradient3.insertValue(0.0, iaColor4f(1.0, 1.0, 1.0, 0));
-    colorGradient3.insertValue(0.1, iaColor4f(1.0, 1.0, 1.0, 1));
-    colorGradient3.insertValue(0.7, iaColor4f(1.0, 1.0, 1.0, 1));
-    colorGradient3.insertValue(1.0, iaColor4f(1.0, 1.0, 1.0, 0));
+    iaGradientColor4f colorGradient3;
+    colorGradient3.setValue(0.0, iaColor4f(1.0, 1.0, 1.0, 0));
+    colorGradient3.setValue(0.1, iaColor4f(1.0, 1.0, 1.0, 1));
+    colorGradient3.setValue(0.7, iaColor4f(1.0, 1.0, 1.0, 1));
+    colorGradient3.setValue(1.0, iaColor4f(1.0, 1.0, 1.0, 0));
 
-    iGradientVector2f velocity3;
-    velocity3.insertValue(0.0, iaVector2f(0.3, 0.5));
+    iaGradientVector2f velocity3;
+    velocity3.setValue(0.0, iaVector2f(0.3, 0.5));
 
-    iGradientVector2f visibility3;
-    visibility3.insertValue(0.0, iaVector2f(0.2, 0.4));
+    iaGradientVector2f visibility3;
+    visibility3.setValue(0.0, iaVector2f(0.2, 0.4));
 
-    iGradientVector2f size3;
-    size3.insertValue(0.0, iaVector2f(1.0, 2.0));
+    iaGradientVector2f size3;
+    size3.setValue(0.0, iaVector2f(1.0, 2.0));
 
-    iGradientVector2f startOrientation3;
-    startOrientation3.insertValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
+    iaGradientVector2f startOrientation3;
+    startOrientation3.setValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
 
-    iGradientVector2f startOrientationRate3;
-    startOrientationRate3.insertValue(0.0, iaVector2f(-0.1, 0.1));
+    iaGradientVector2f startOrientationRate3;
+    startOrientationRate3.setValue(0.0, iaVector2f(-0.1, 0.1));
 
     iNodeParticleSystem* particleSystem3 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _fireBallNodeID = particleSystem3->getID();

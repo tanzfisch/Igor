@@ -44,30 +44,6 @@ namespace Igor
 	class iWidgetBaseTheme;
 	class iWidgetManager;
 
-    /*! horizontal alignment relative to parent widget
-    */
-	enum class iHorizontalAlignment
-	{
-		Left,
-		Center,
-		Right,
-        Absolut,
-        Strech, // currently only supported by dialogs
-		Undefined
-	};
-
-    /*! vertical alignment relative to parent widget
-    */
-    enum class iVerticalAlignment
-	{
-		Top,
-		Center,
-		Bottom,
-        Absolut,
-        Strech, // currently only supported by dialogs
-		Undefined
-	};
-
     /*! interaction state of widget
     */
 	enum class iWidgetAppearanceState

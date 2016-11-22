@@ -27,23 +27,23 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixf& matrix)
     setDamage(0.0);
     setShieldDamage(0.0);
 
-	iGradientColor4f colorGradient;
-	colorGradient.insertValue(0.0, iaColor4f(1.0, 1.0, 0.1, 1));
-    colorGradient.insertValue(0.5, iaColor4f(0.9, 0.5, 0.1, 0.7));
-	colorGradient.insertValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
+	iaGradientColor4f colorGradient;
+	colorGradient.setValue(0.0, iaColor4f(1.0, 1.0, 0.1, 1));
+    colorGradient.setValue(0.5, iaColor4f(0.9, 0.5, 0.1, 0.7));
+	colorGradient.setValue(1.0, iaColor4f(0.3, 0.3, 0.3, 0));
 
-	iGradientVector2f velocity;
-	velocity.insertValue(0.0, iaVector2f(0.2, 0.6));
+	iaGradientVector2f velocity;
+	velocity.setValue(0.0, iaVector2f(0.2, 0.6));
 
-	iGradientVector2f visibility;
-	visibility.insertValue(0.0, iaVector2f(0.1, 0.2));
+	iaGradientVector2f visibility;
+	visibility.setValue(0.0, iaVector2f(0.1, 0.2));
 
-	iGradientVector2f size;
-	size.insertValue(0.0, iaVector2f(0.3, 0.5));
+	iaGradientVector2f size;
+	size.setValue(0.0, iaVector2f(0.3, 0.5));
 
-	iGradientui emission;
-	emission.insertValue(0.0, 20);
-    emission.insertValue(0.1, 0);
+	iaGradientf emission;
+	emission.setValue(0.0, 20);
+    emission.setValue(0.1, 0);
 
 	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
 	_particleSystemNodeID = particleSystem->getID();

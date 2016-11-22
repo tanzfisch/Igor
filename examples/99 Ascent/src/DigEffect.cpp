@@ -27,24 +27,24 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixf& matrix)
     setDamage(0.0);
     setShieldDamage(0.0);
 
-    iGradientui emission;
-    emission.insertValue(0.0, 5);
-    emission.insertValue(0.1, 0);
+    iaGradientf emission;
+    emission.setValue(0.0, 5);
+    emission.setValue(0.1, 0);
 
-    iGradientColor4f colorGradient;
-    colorGradient.insertValue(0.0, iaColor4f(0.6, 0.6, 0.6, 0));
-    colorGradient.insertValue(0.0, iaColor4f(0.6, 0.6, 0.6, 0.5));
-    colorGradient.insertValue(0.5, iaColor4f(0.6, 0.6, 0.6, 0.5));
-    colorGradient.insertValue(1.0, iaColor4f(0.6, 0.6, 0.6, 0));
+    iaGradientColor4f colorGradient;
+    colorGradient.setValue(0.0, iaColor4f(0.6, 0.6, 0.6, 0));
+    colorGradient.setValue(0.0, iaColor4f(0.6, 0.6, 0.6, 0.5));
+    colorGradient.setValue(0.5, iaColor4f(0.6, 0.6, 0.6, 0.5));
+    colorGradient.setValue(1.0, iaColor4f(0.6, 0.6, 0.6, 0));
 
-    iGradientVector2f velocity;
-    velocity.insertValue(0.0, iaVector2f(0.01, 0.02));
+    iaGradientVector2f velocity;
+    velocity.setValue(0.0, iaVector2f(0.01, 0.02));
 
-    iGradientVector2f visibility;
-    visibility.insertValue(0.0, iaVector2f(0.5, 1.5));
+    iaGradientVector2f visibility;
+    visibility.setValue(0.0, iaVector2f(0.5, 1.5));
 
-    iGradientVector2f size;
-    size.insertValue(0.0, iaVector2f(3.0, 4.0));
+    iaGradientVector2f size;
+    size.setValue(0.0, iaVector2f(3.0, 4.0));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemNodeID = particleSystem->getID();

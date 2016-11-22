@@ -73,28 +73,6 @@ namespace Igor
 		Undefined
     };
 
-    /*! horizontal alllignment
-
-    \todo there is an other definition of that iHorizontalAligment
-    */
-    enum class iHorizontalAlign
-    {
-        Center,
-        Left,
-        Right
-    };
-
-    /*! vertical alllignment
-
-    \todo there is an other definition of that iVerticalAligment
-    */
-    enum class iVerticalAlign
-    {
-        Center,
-        Top,
-        Bottom
-    };
-
     /*! texture placeholder class
     */
 	class Igor_API iRendererTexture
@@ -550,7 +528,7 @@ namespace Igor
         virtual void setFontSize(float32 size);							// setzt die aktuelle Schriftgröße
         virtual void setFontLineHeight(float32 lineheight);				// setzt die aktuelle Zeilenhöhe
         virtual void drawString(float32 x, float32 y, iaString text, float32 angle = 0.0f, float32 maxWidth = 0.0f);
-        virtual void drawString(float32 x, float32 y, iaString text, iHorizontalAlign horz, iVerticalAlign vert = iVerticalAlign::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
+        virtual void drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horz, iVerticalAlignment vert = iVerticalAlignment::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
         virtual void drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
