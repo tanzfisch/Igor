@@ -55,6 +55,16 @@ namespace Igor
         _model = nullptr;
     }
 
+    void iNodeModel::registerModelLoadedDelegate(iModelLoadedDelegate delegate)
+    {
+        _modelLoadedEvent.append(delegate);
+    }
+
+    void iNodeModel::unregisterModelLoadedDelegate(iModelLoadedDelegate delegate)
+    {
+        _modelLoadedEvent.remove(delegate);
+    }
+
     bool iNodeModel::isLoaded()
     {
         return _initialized;
@@ -104,6 +114,7 @@ namespace Igor
 		{
             insertNode(_model->getNodeCopy());
 			_initialized = true;
+            _modelLoadedEvent();
             return true;
 		}
 

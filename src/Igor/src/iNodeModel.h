@@ -32,6 +32,7 @@
 #include <iNode.h>
 
 #include <iaString.h>
+#include <iaEvent.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -40,6 +41,10 @@ namespace Igor
 	class iModelData;
     class iModel;
     class iModelDataInputParameter;
+
+    /*! event triggered when model was loaded
+    */
+    iaEVENT(iModelLoadedEvent, iModelLoadedDelegate, void, (), ());
 
     /*! represents a model within the scene
 
@@ -73,7 +78,23 @@ namespace Igor
         */
         bool isLoaded();
 
+        /*! register delegate to model loaded event
+
+        \param delegate the delegate to register
+        */
+        void registerModelLoadedDelegate(iModelLoadedDelegate delegate);
+
+        /*! unregister delegate from model loaded event
+
+        \param delegate the delegate to unregister
+        */
+        void unregisterModelLoadedDelegate(iModelLoadedDelegate delegate);
+
 	private:
+
+        /*! event triggered when model was loaded
+        */
+        iModelLoadedEvent _modelLoadedEvent;
 
         /*! filename of model
         */
