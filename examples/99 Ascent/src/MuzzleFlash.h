@@ -19,10 +19,19 @@ public:
 
 private:
 
-    uint32 _particleSystemNodeID1 = iNode::INVALID_NODE_ID;
-    uint32 _particleSystemNodeID2 = iNode::INVALID_NODE_ID;
+    uint32 _emitterNodeID = iNode::INVALID_NODE_ID;
+    uint32 _muzzleFlashModelID = iNode::INVALID_NODE_ID;
+    uint32 _muzzleSmokeModelID = iNode::INVALID_NODE_ID;
 
 	iaVector3f _pos;
+
+    void onMuzzleFlashLoaded();
+    void onMuzzleSmokeLoaded();
+    void onMuzzleFlashFinished();
+    void onMuzzleSmokeFinished();
+
+    bool _muzzleFlashRunning = true;
+    bool _muzzleSmokeRunning = true;
 
     void handle();
     iaVector3f updatePos();
