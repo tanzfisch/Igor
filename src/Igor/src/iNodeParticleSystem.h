@@ -40,6 +40,10 @@ using namespace std;
 namespace Igor
 {
 
+    /*! event triggered when particle system is finished
+    */
+    iaEVENT(iParticleSystemFinishedEvent, iParticleSystemFinishedDelegate, void, (), ());
+
     /*! node to control a 3d particle system
     */
 	class Igor_API iNodeParticleSystem : public iNodeVolume
@@ -361,7 +365,23 @@ namespace Igor
         */
         iaString getTextureC() const;
 
+        /*! register delegate to particle system finished event
+
+        \param delegate the delegate to register
+        */
+        void registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate);
+
+        /*! unregister delegate from particle system finished event
+
+        \param delegate the delegate to unregister
+        */
+        void unregisterParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate);
+
     private:
+
+        /*! triggered when particle system is finished
+        */
+        iParticleSystemFinishedEvent _fishedEvent;
 
         /*! inverted world matrix
         */

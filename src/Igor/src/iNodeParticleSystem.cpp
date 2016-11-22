@@ -51,6 +51,16 @@ namespace Igor
 		iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iNodeParticleSystem::handle));
 	}
 
+    void iNodeParticleSystem::registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate)
+    {
+        _fishedEvent.append(delegate);
+    }
+
+    void iNodeParticleSystem::unregisterParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate delegate)
+    {
+        _fishedEvent.remove(delegate);
+    }
+
     uint32 iNodeParticleSystem::getParticleCount()
     {
         return _particleSystem.getParticleCount();
@@ -89,6 +99,11 @@ namespace Igor
 			_particleSystem.calcNextFrame(emitter->getParticleEmitter());
 			setBoundingSphere(_particleSystem.getBoundingSphere());
 		}
+
+        if (_particleSystem.isFinished())
+        {
+            _fishedEvent();
+        }
 	}
 
     void iNodeParticleSystem::draw()
