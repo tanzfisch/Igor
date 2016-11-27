@@ -60,6 +60,30 @@
 namespace Igor
 {
 
+    /*! horizontal alignment relative to parent widget
+    */
+    enum class iHorizontalAlignment
+    {
+        Left,
+        Center,
+        Right,
+        Absolut,
+        Strech, // currently only supported by dialogs
+        Undefined
+    };
+
+    /*! vertical alignment relative to parent widget
+    */
+    enum class iVerticalAlignment
+    {
+        Top,
+        Center,
+        Bottom,
+        Absolut,
+        Strech, // currently only supported by dialogs
+        Undefined
+    };
+
     /*! color format of textures pixmaps etc.
     */
     enum class iColorFormat

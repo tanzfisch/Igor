@@ -51,11 +51,11 @@ using namespace std;
 
 namespace Igor
 {
-	class iTextureFont;
-	class iMesh;
-	class iParticle;
-	class iParticle2D;
-	class iSprite;
+    class iTextureFont;
+    class iMesh;
+    class iParticle;
+    class iParticle2D;
+    class iSprite;
     class iVBOInstances;
     class iInstancer;
     class iMaterial;
@@ -70,7 +70,7 @@ namespace Igor
         Fragment,
         Geometry,
         Effect,
-		Undefined
+        Undefined
     };
 
     /*! texture placeholder class
@@ -94,18 +94,18 @@ namespace Igor
 
     /*! abstraction class for the actuall renderer. curently only OpenGL
 
-    \todo light handling is not done by far    
+    \todo light handling is not done by far
 
     Examples:
     \ref OpenGL3D/src/OpenGL3DExample.cpp "OpenGL3D usage example"
     \ref OpenGL2D/src/OpenGL2DExample.cpp "OpenGL2D usage example"
 
     */
-	class Igor_API iRenderer : public iaSingleton<iRenderer>
-	{
+    class Igor_API iRenderer : public iaSingleton<iRenderer>
+    {
 
-		friend class iaSingleton<iRenderer>;
-		friend class iTextureResourceFactory;
+        friend class iaSingleton<iRenderer>;
+        friend class iTextureResourceFactory;
         friend class iRenderEngine;
         friend class iWindow;
 
@@ -126,7 +126,7 @@ namespace Igor
             /*! diffuse color
             */
             iaColor4f _diffuse = { 0.7f, 0.7f, 0.7f, 1.0f };
-            
+
             /*! specular color
             */
             iaColor4f _specular = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -161,7 +161,7 @@ namespace Igor
         \param preDeinitializeDelegate delegate to unregister
         */
         void unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate);
-        
+
         /*! projects a screen position in to world position
 
         \param screenpos the screen position (vertical origin is at top of screen)
@@ -177,7 +177,7 @@ namespace Igor
         \param mesh the mesh specified
         */
         shared_ptr<iMeshBuffers> createBuffers(shared_ptr<iMesh> mesh);
-        
+
         /*! \returns true if the renderer is ready to use
         */
         virtual bool isReady();
@@ -524,11 +524,45 @@ namespace Igor
         virtual void setLightSpecular(int32 lightnum, iaColor4f &specular);
 
         // 2D Bitmap Text
-        virtual void setFont(iTextureFont *font);								// setzt den aktuellen iTextureFont
-        virtual void setFontSize(float32 size);							// setzt die aktuelle Schriftgröße
-        virtual void setFontLineHeight(float32 lineheight);				// setzt die aktuelle Zeilenhöhe
+        /*! sets texture font to use next
+
+        \param font the font to use
+        */
+        virtual void setFont(iTextureFont *font);
+
+        /*! sets the size of fonts to render with
+
+        \param fontSize the font size
+        */
+        virtual void setFontSize(float32 fontSize);
+
+        /*! sets the font line height
+
+        \param lineheight the text line height to render with
+        */
+        virtual void setFontLineHeight(float32 lineheight);
+
+        /*! draws a string on screen using current font settings
+
+        \param x horizontal position
+        \param y vertical position
+        \param text the text to draw
+        \param angle orientation in degrees
+        \param maxWidth the max width of the text. If text ist wider it will be rendered in multiple lines
+        */
         virtual void drawString(float32 x, float32 y, iaString text, float32 angle = 0.0f, float32 maxWidth = 0.0f);
-        virtual void drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horz, iVerticalAlignment vert = iVerticalAlignment::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
+
+        /*! draws a string on screen using current font settings
+
+        \param x horizontal position
+        \param y vertical position
+        \param text the text to draw
+        \param horizontalAlignment horizontal alignment relative to horizontal position
+        \param verticalAlignment vertical alignment relative to vertical position
+        \param angle orientation in degrees
+        \param maxWidth the max width of the text. If text ist wider it will be rendered in multiple lines
+        */
+        virtual void drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horizontalAlignment, iVerticalAlignment verticalAlignment = iVerticalAlignment::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
         virtual void drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
@@ -559,7 +593,7 @@ namespace Igor
         void resetCounters();
         void getCounters(uint32& vertices, uint32& triangles, uint32& indices);
 
-	private:
+    private:
 
         /*! the pre renderer deinitialize event
         */
@@ -592,25 +626,25 @@ namespace Igor
 
         /*! projection matrix
         */
-		iaMatrixf _projectionMatrix;
+        iaMatrixf _projectionMatrix;
 
         /*! model matrix
         */
-		iaMatrixf _modelMatrix;
+        iaMatrixf _modelMatrix;
 
         /*! view matrix
         */
-		iaMatrixf _viewMatrix;
+        iaMatrixf _viewMatrix;
 
         /*! model and view matrix combined
         */
-		iaMatrixf _modelViewMatrix;
+        iaMatrixf _modelViewMatrix;
 
         /*! model view and projection matrix combined
         */
-		iaMatrixf _modelViewProjectionMatrix;
+        iaMatrixf _modelViewProjectionMatrix;
 
-        /*! dirty flag for model view projection matrix. 
+        /*! dirty flag for model view projection matrix.
         if true getModelViewProjectionMatrix will recalculate the matrix.
         */
         bool _dirtyModelViewProjectionMatrix = true;
@@ -635,23 +669,23 @@ namespace Igor
 
         /*! current rainbow palette in use
         */
-		iaGradientColor4f* _rainbow = nullptr;
+        iaGradientColor4f* _rainbow = nullptr;
 
         /*! vendor iaString
         */
-		iaString _vendorOGL;
+        iaString _vendorOGL;
 
         /*! name of rendering device
         */
-		iaString _rendererOGL;
+        iaString _rendererOGL;
 
         /*! version of OpenGL implemented
         */
-		iaString _versionOGL;
+        iaString _versionOGL;
 
         /*! OpenGL extensions implemented
         */
-		iaString _extensionsOGL;
+        iaString _extensionsOGL;
 
         /*! statistic counter for vertices
         */
@@ -660,7 +694,7 @@ namespace Igor
         /*! statistic counter for triangles
         */
         uint32 _renderedTriangles = 0;
-        
+
         /*! statistic counter for indicies
         */
         uint32 _renderedIndexes = 0;
@@ -677,7 +711,7 @@ namespace Igor
         \param format color format of texture
         \param data pointer to the actual data used for the texture
         \param buildMode generation mode of texture like mimapping or not
-        \param wrapMode wrap mode of texture 
+        \param wrapMode wrap mode of texture
         \returns pointer to renderer texture
         */
         virtual iRendererTexture* createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8* data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
@@ -720,7 +754,7 @@ namespace Igor
         */
         virtual ~iRenderer();
 
-	};
+    };
 
     /*! \example OpenGL3D/src/OpenGL3DExample.cpp
     OpenGL3D usage example.
