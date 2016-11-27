@@ -117,30 +117,6 @@ namespace Igor
         MirrorRepeat
     };
 
-    /*! horizontal alignment relative to parent widget
-    */
-    enum class iHorizontalAlignment
-    {
-        Left,
-        Center,
-        Right,
-        Absolut,
-        Strech, // currently only supported by dialogs
-        Undefined
-    };
-
-    /*! vertical alignment relative to parent widget
-    */
-    enum class iVerticalAlignment
-    {
-        Top,
-        Center,
-        Bottom,
-        Absolut,
-        Strech, // currently only supported by dialogs
-        Undefined
-    };
-
 };
 
 #endif
