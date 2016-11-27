@@ -570,8 +570,17 @@ namespace Igor
         virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iaGradientColor4f *rainbow = 0);
 
         // attributes
-        virtual void setLineWidth(float32 width);
-        virtual void setPointSize(float32 size);
+        /*! sets line render width
+
+        \param lineWidth line render width
+        */
+        virtual void setLineWidth(float32 lineWidth);
+
+        /*! sets point size
+
+        \param pointSize point size
+        */
+        virtual void setPointSize(float32 pointSize);
 
         // shader
         int32 createShaderProgram();
@@ -585,9 +594,20 @@ namespace Igor
         bool compileShaderObject(int32 id, const char* source);
 
         // infos
+        /*! \returns render hardware vendor
+        */
         iaString getVendor();
+
+        /*! \returns renderer type
+        */
         iaString getRenderer();
+
+        /*! \returns version of renderer
+        */
         iaString getVersion();
+
+        /*! \returns renderer extensions
+        */
         iaString getExtensions();
 
         void resetCounters();
