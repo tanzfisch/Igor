@@ -10,12 +10,12 @@
 #include <iaMatrix3x3.h>
 using namespace IgorAux;
 
-#define NEIGHBOR_XPOSITIVE 0x20
-#define NEIGHBOR_XNEGATIVE 0x10
-#define NEIGHBOR_YPOSITIVE 0x08
-#define NEIGHBOR_YNEGATIVE 0x04
-#define NEIGHBOR_ZPOSITIVE 0x02
-#define NEIGHBOR_ZNEGATIVE 0x01
+#define HIGHER_NEIGHBOR_LOD_XPOSITIVE 0x20
+#define HIGHER_NEIGHBOR_LOD_XNEGATIVE 0x10
+#define HIGHER_NEIGHBOR_LOD_YPOSITIVE 0x08
+#define HIGHER_NEIGHBOR_LOD_YNEGATIVE 0x04
+#define HIGHER_NEIGHBOR_LOD_ZPOSITIVE 0x02
+#define HIGHER_NEIGHBOR_LOD_ZNEGATIVE 0x01
 
 #define FILL_LOD_GAPS
 //#define DEV_CUBIFY
@@ -97,14 +97,14 @@ namespace Igor
         int div = 0;
         iaVector3f calcPos;
 
-        float32 d0 = rescale(static_cast<float32>(density0));
-        float32 d1 = rescale(static_cast<float32>(density1));
-        float32 d2 = rescale(static_cast<float32>(density2));
-        float32 d3 = rescale(static_cast<float32>(density3));
-        float32 d4 = rescale(static_cast<float32>(density4));
-        float32 d5 = rescale(static_cast<float32>(density5));
-        float32 d6 = rescale(static_cast<float32>(density6));
-        float32 d7 = rescale(static_cast<float32>(density7));
+        float32 d0 = static_cast<float32>(rescale(static_cast<float32>(density0)));
+        float32 d1 = static_cast<float32>(rescale(static_cast<float32>(density1)));
+        float32 d2 = static_cast<float32>(rescale(static_cast<float32>(density2)));
+        float32 d3 = static_cast<float32>(rescale(static_cast<float32>(density3)));
+        float32 d4 = static_cast<float32>(rescale(static_cast<float32>(density4)));
+        float32 d5 = static_cast<float32>(rescale(static_cast<float32>(density5)));
+        float32 d6 = static_cast<float32>(rescale(static_cast<float32>(density6)));
+        float32 d7 = static_cast<float32>(rescale(static_cast<float32>(density7)));
 
         if (density0 != 0 && density1 == 0)
         {
@@ -366,7 +366,7 @@ namespace Igor
         blockPos += _nextLODVoxelOffset;
 
         iaVector3I pos;
-        int i = 0;
+        int densityIndexCounter = 0;
 
         for (int y = 0; y < 3; ++y)
         {
@@ -374,7 +374,7 @@ namespace Igor
             {
                 for (int x = 0; x < 3; ++x)
                 {
-                    _nextLODDensity[i++] = _voxelDataNextLOD->getVoxelDensity(iaVector3I(blockPos._x + x, blockPos._y + y, blockPos._z + z));
+                    _nextLODDensity[densityIndexCounter++] = _voxelDataNextLOD->getVoxelDensity(iaVector3I(blockPos._x + x, blockPos._y + y, blockPos._z + z));
                 }
             }
         }
@@ -664,7 +664,7 @@ namespace Igor
         {
             calculateNextLOD();
 
-            if ((neighborLODs & NEIGHBOR_XPOSITIVE) != 0)
+            if ((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0)
             {
                 _mixedDensity[2] = _nextLODDensity[14];
                 _mixedDensity[5] = _nextLODDensity[14];
@@ -679,7 +679,7 @@ namespace Igor
                 _mixedDensity[26] = _nextLODDensity[14];
             }
 
-            if ((neighborLODs & NEIGHBOR_XNEGATIVE) != 0)
+            if ((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0)
             {
                 //       y
                 //       |
@@ -769,7 +769,7 @@ namespace Igor
                 }
             }
 
-            if ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0)
+            if ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0)
             {
                 _mixedDensity[18] = _nextLODDensity[22];
                 _mixedDensity[19] = _nextLODDensity[22];
@@ -784,7 +784,7 @@ namespace Igor
                 _mixedDensity[16] = _nextLODDensity[22];
             }
 
-            if ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0)
+            if ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0)
             {
                 //       9------10-----11 - x
                 //      /      /      / 
@@ -862,7 +862,7 @@ namespace Igor
                 }
             }
 
-            if ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0)
+            if ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0)
             {
                 _mixedDensity[6] = _nextLODDensity[16];
                 _mixedDensity[7] = _nextLODDensity[16];
@@ -877,7 +877,7 @@ namespace Igor
                 _mixedDensity[26] = _nextLODDensity[16];
             }
 
-            if ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0)
+            if ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0)
             {
                 //   y
                 //   |
@@ -996,9 +996,9 @@ namespace Igor
                 va += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1086,9 +1086,9 @@ namespace Igor
                 vb += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1177,9 +1177,9 @@ namespace Igor
                 vc += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1267,9 +1267,9 @@ namespace Igor
                 vd += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1382,9 +1382,9 @@ namespace Igor
                 va += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1471,9 +1471,9 @@ namespace Igor
                 vb += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1561,9 +1561,9 @@ namespace Igor
                 vc += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1652,9 +1652,9 @@ namespace Igor
                 vd += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1767,9 +1767,9 @@ namespace Igor
                 va += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1858,9 +1858,9 @@ namespace Igor
                 vb += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -1948,9 +1948,9 @@ namespace Igor
                 vc += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2037,9 +2037,9 @@ namespace Igor
                 vd += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2153,9 +2153,9 @@ namespace Igor
                 va += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2243,9 +2243,9 @@ namespace Igor
                 vb += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2334,9 +2334,9 @@ namespace Igor
                 vc += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2424,9 +2424,9 @@ namespace Igor
                 vd += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2559,9 +2559,9 @@ namespace Igor
                 // z
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2648,9 +2648,9 @@ namespace Igor
                 vb += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2738,9 +2738,9 @@ namespace Igor
                 vc += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2829,9 +2829,9 @@ namespace Igor
                 vd += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -2944,9 +2944,9 @@ namespace Igor
                 va += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -3035,9 +3035,9 @@ namespace Igor
                 vb += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -3125,9 +3125,9 @@ namespace Igor
                 vc += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZPOSITIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -3214,9 +3214,9 @@ namespace Igor
                 vd += _offset;
 
 #ifdef FILL_LOD_GAPS
-                if (((neighborLODs & NEIGHBOR_XNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_ZNEGATIVE) != 0) ||
-                    ((neighborLODs & NEIGHBOR_YPOSITIVE) != 0) ||
+                if (((neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE) != 0) ||
+                    ((neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE) != 0) ||
                     !lookupResult)
                 {
                     if ((geometryPosition._z % 2) == 0)
@@ -3453,20 +3453,20 @@ namespace Igor
         {
             if (x == 0)
             {
-                LODs |= (neighborLODs & NEIGHBOR_XNEGATIVE);
+                LODs |= (neighborLODs & HIGHER_NEIGHBOR_LOD_XNEGATIVE);
             }
             else
             {
-                LODs &= ~NEIGHBOR_XNEGATIVE;
+                LODs &= ~HIGHER_NEIGHBOR_LOD_XNEGATIVE;
             }
 
             if (x == marchingVolume._x - 1)
             {
-                LODs |= (neighborLODs & NEIGHBOR_XPOSITIVE);
+                LODs |= (neighborLODs & HIGHER_NEIGHBOR_LOD_XPOSITIVE);
             }
             else
             {
-                LODs &= ~NEIGHBOR_XPOSITIVE;
+                LODs &= ~HIGHER_NEIGHBOR_LOD_XPOSITIVE;
             }
 
             currentPosition._x = _cubeStartPosition._x + x;
@@ -3476,20 +3476,20 @@ namespace Igor
             {
                 if (z == 0)
                 {
-                    LODs |= (neighborLODs & NEIGHBOR_ZNEGATIVE);
+                    LODs |= (neighborLODs & HIGHER_NEIGHBOR_LOD_ZNEGATIVE);
                 }
                 else
                 {
-                    LODs &= ~NEIGHBOR_ZNEGATIVE;
+                    LODs &= ~HIGHER_NEIGHBOR_LOD_ZNEGATIVE;
                 }
 
                 if (z == marchingVolume._z - 1)
                 {
-                    LODs |= (neighborLODs & NEIGHBOR_ZPOSITIVE);
+                    LODs |= (neighborLODs & HIGHER_NEIGHBOR_LOD_ZPOSITIVE);
                 }
                 else
                 {
-                    LODs &= ~NEIGHBOR_ZPOSITIVE;
+                    LODs &= ~HIGHER_NEIGHBOR_LOD_ZPOSITIVE;
                 }
 
                 currentPosition._z = _cubeStartPosition._z + z;
@@ -3505,20 +3505,20 @@ namespace Igor
 
                     if (y == 0)
                     {
-                        LODs |= (neighborLODs & NEIGHBOR_YNEGATIVE);
+                        LODs |= (neighborLODs & HIGHER_NEIGHBOR_LOD_YNEGATIVE);
                     }
                     else
                     {
-                        LODs &= ~NEIGHBOR_YNEGATIVE;
+                        LODs &= ~HIGHER_NEIGHBOR_LOD_YNEGATIVE;
                     }
 
                     if (y == marchingVolume._y - 1)
                     {
-                        LODs |= (neighborLODs & NEIGHBOR_YPOSITIVE);
+                        LODs |= (neighborLODs & HIGHER_NEIGHBOR_LOD_YPOSITIVE);
                     }
                     else
                     {
-                        LODs &= ~NEIGHBOR_YPOSITIVE;
+                        LODs &= ~HIGHER_NEIGHBOR_LOD_YPOSITIVE;
                     }
 
                     generateGeometry(true, LODs);
