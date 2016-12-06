@@ -16,6 +16,42 @@ using namespace IgorAux;
 namespace Igor
 {
 
+    const iaColor4f iStatistics::_colors[] = 
+    { 
+        iaColor4f(0,0,0,1),
+        iaColor4f(1,0,0,1),
+        iaColor4f(0,1,0,1),
+        iaColor4f(0,0,1,1),
+        iaColor4f(1,1,0,1),
+        iaColor4f(0,1,1,1),
+        iaColor4f(1,0,1,1),
+        iaColor4f(1,1,1,1),
+
+        iaColor4f(0.75,0,0,1),
+        iaColor4f(0,0.75,0,1),
+        iaColor4f(0,0,0.75,1),
+        iaColor4f(0.75,0.75,0,1),
+        iaColor4f(0,0.75,0.75,1),
+        iaColor4f(0.75,0,0.75,1),
+        iaColor4f(0.75,0.75,0.75,1),
+        
+        iaColor4f(0.5,0,0,1),
+        iaColor4f(0,0.5,0,1),
+        iaColor4f(0,0,0.5,1),
+        iaColor4f(0.5,0.5,0,1),
+        iaColor4f(0,0.5,0.5,1),
+        iaColor4f(0.5,0,0.5,1),
+        iaColor4f(0.5,0.5,0.5,1),
+
+        iaColor4f(0.25,0,0,1),
+        iaColor4f(0,0.25,0,1),
+        iaColor4f(0,0,0.25,1),
+        iaColor4f(0.25,0.25,0,1),
+        iaColor4f(0,0.25,0.25,1),
+        iaColor4f(0.25,0,0.25,1),
+        iaColor4f(0.25,0.5,0.25,1)
+    };
+
     iStatistics::iStatistics()
     {
         iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iStatistics::init));
@@ -69,14 +105,14 @@ namespace Igor
         iMaterialResourceFactory::getInstance().destroyMaterial(_materialBlend);
     }
 
-    uint32 iStatistics::registerSection(const iaString& sectionName, const iaColor4f& color, uint64 groupIndex)
+    uint32 iStatistics::registerSection(const iaString& sectionName, uint64 groupIndex)
     {
         con_assert_sticky(groupIndex <= 5, "out of bounds");
 
         uint32 result = _nextSectionID++;
         iStatisticsSection statisticsSection;
         statisticsSection.setName(sectionName);
-        statisticsSection.setColor(color);
+        statisticsSection.setColor(_colors[result % _colorCount]);
         statisticsSection.setGroup(groupIndex);
 
         _sections[result] = statisticsSection;
@@ -311,7 +347,7 @@ namespace Igor
 
                     iRenderer::getInstance().setColor(section.second.getColor());
                     iRenderer::getInstance().drawString(10 + textOffsetX[section.second.getGroup()], yPos + 20, section.second.getName(), iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-                    textOffsetX[section.second.getGroup()] += 130;
+                    textOffsetX[section.second.getGroup()] += 150;
 
                     iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
 

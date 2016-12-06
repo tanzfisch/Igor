@@ -89,7 +89,7 @@ namespace Igor
         \param color color to render the graph with
         \param groupIndex index of group this section belongs to
         */
-        uint32 registerSection(const iaString& sectionName, const iaColor4f& color, uint64 groupIndex = 0);
+        uint32 registerSection(const iaString& sectionName, uint64 groupIndex = 0);
 
         /*! unregister section by id
 
@@ -120,6 +120,14 @@ namespace Igor
 
     private:
 
+        /*! number of predefined colors
+        */
+        static const uint32 _colorCount = 29;
+
+        /*! array of predefined colors
+        */
+        static const iaColor4f _colors[_colorCount];
+        
         /*! list of sections
         */
         map<uint32, iStatisticsSection> _sections;
@@ -172,7 +180,11 @@ namespace Igor
         */
         uint32 _materialSolid = 0;
 
+        /*! alpha blending material
+        */
         uint32 _materialBlend = 0;
+
+
 
         /*! initializes the materials in use
         */
@@ -182,7 +194,12 @@ namespace Igor
         */
         void deinitMaterials();
 
+        /*! init
+        */
         void init();
+
+        /*! deinit
+        */
         void deinit();
 
         /*! init

@@ -48,8 +48,8 @@ namespace Igor
 
         if (_scene != nullptr)
         {
-            _cullSectionID = iStatistics::getInstance().registerSection("cull", iaColor4f(1, 0, 0, 1), 4);
-            _drawSectionID = iStatistics::getInstance().registerSection("draw", iaColor4f(0, 1, 0, 1), 4);
+            _cullSectionID = iStatistics::getInstance().registerSection("renderer:cull", 1);
+            _drawSectionID = iStatistics::getInstance().registerSection("renderer:draw", 1);
         }
         else
         {
@@ -75,7 +75,7 @@ namespace Igor
     void iRenderEngine::render()
     {
         if (_scene != nullptr)
-        {
+        {            
             iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
             
             if (camera != nullptr)

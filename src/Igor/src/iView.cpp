@@ -11,6 +11,7 @@
 #include <iOctree.h>
 #include <iStatistics.h>
 
+#include <iaRandomNumberGenerator.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 
@@ -20,26 +21,8 @@ using namespace std;
 namespace Igor
 {
 
-    iView::iView()
-    {
-        _scenePreparationSectionID = iStatistics::getInstance().registerSection("scene", iaColor4f(1, 1, 0, 1), 3);
-        _postRenderSectionID = iStatistics::getInstance().registerSection("postRender", iaColor4f(0, 1, 1, 1), 3);
-    }
-
     iView::~iView()
     {
-        if (_scenePreparationSectionID != 0)
-        {
-            iStatistics::getInstance().unregisterSection(_scenePreparationSectionID);
-            _scenePreparationSectionID = 0;
-        }
-
-        if (_postRenderSectionID != 0)
-        {
-            iStatistics::getInstance().unregisterSection(_postRenderSectionID);
-            _postRenderSectionID = 0;
-        }
-
         if (_renderEvent.hasDelegates())
         {
             con_warn("not all delegates unregistered");
@@ -50,26 +33,6 @@ namespace Igor
     void iView::setName(const iaString& name)
     {
         _name = name;
-
-        if (_scenePreparationSectionID != 0)
-        {
-            iStatistics::getInstance().unregisterSection(_scenePreparationSectionID);
-            _scenePreparationSectionID = 0;
-        }
-
-        if (_postRenderSectionID != 0)
-        {
-            iStatistics::getInstance().unregisterSection(_postRenderSectionID);
-            _postRenderSectionID = 0;
-        }
-
-        iaString scene = _name;
-        scene += ":scene";
-        _scenePreparationSectionID = iStatistics::getInstance().registerSection(scene, iaColor4f(1, 0, 0, 1), 3);
-
-        iaString post = _name;
-        post += ":postRender";
-        _postRenderSectionID = iStatistics::getInstance().registerSection(post, iaColor4f(0, 1, 0, 1), 3);
     }
 
     const iaString& iView::getName() const
@@ -161,21 +124,13 @@ namespace Igor
             iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
         }
 
-        iStatistics::getInstance().beginSection(_scenePreparationSectionID);
         if (_scene != nullptr)
         {
             _scene->handle();
-        }
-        iStatistics::getInstance().endSection(_scenePreparationSectionID);
-
-        if (_scene != nullptr)
-        {
             _renderEngine.render();
         }
         
-        iStatistics::getInstance().beginSection(_postRenderSectionID);
         _renderEvent();
-        iStatistics::getInstance().endSection(_postRenderSectionID);
     }
 
     void iView::updateWindowRect(const iRectanglei& windowRect)

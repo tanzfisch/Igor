@@ -29,9 +29,9 @@ namespace Igor
         // maybe multiple octrees?
 		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 100000.0), 50.0, 8, 4);
 
-        _updateLODSectionID = iStatistics::getInstance().registerSection("LOD", iaColor4f(1, 0, 0, 1), 2);
-        _processUpdateDataSectionID = iStatistics::getInstance().registerSection("MN", iaColor4f(0, 1, 0, 1), 2);
-        _updateTransformSectionID = iStatistics::getInstance().registerSection("uTrans", iaColor4f(0, 0, 1, 1), 2);
+        _updateLODSectionID = iStatistics::getInstance().registerSection("scene:LOD", 2);
+        _processUpdateDataSectionID = iStatistics::getInstance().registerSection("scene:updateData", 2);
+        _updateTransformSectionID = iStatistics::getInstance().registerSection("scene:traverse", 2);
 	}
 
 	iScene::~iScene()

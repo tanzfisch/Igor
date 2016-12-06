@@ -48,8 +48,8 @@ namespace Igor
     {
         _running = true;
 
-        _frameSectionID = iStatistics::getInstance().registerSection("frame", iaColor4f(1, 1, 1, 1), 0);
-        _handleSectionID = iStatistics::getInstance().registerSection("handle", iaColor4f(0, 1, 0, 1), 0);
+        _frameSectionID = iStatistics::getInstance().registerSection("app:frame", 0);
+        _handleSectionID = iStatistics::getInstance().registerSection("app:handle", 0);
 
         do
         {

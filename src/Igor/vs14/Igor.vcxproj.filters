@@ -281,12 +281,6 @@
     <ClCompile Include="..\src\iSystemConfig.cpp">
       <Filter>todo</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iStatistics.cpp">
-      <Filter>application</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iStatisticsSection.cpp">
-      <Filter>application</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iControl.cpp">
       <Filter>controls</Filter>
     </ClCompile>
@@ -662,6 +656,12 @@
     <ClCompile Include="..\src\iDialogGraph.cpp">
       <Filter>GUI\dialogs</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iStatistics.cpp">
+      <Filter>resources\statistics</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iStatisticsSection.cpp">
+      <Filter>resources\statistics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -959,12 +959,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iSystemConfig.h">
       <Filter>todo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iStatistics.h">
-      <Filter>application</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iStatisticsSection.h">
-      <Filter>application</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iControl.h">
       <Filter>controls</Filter>
@@ -1384,6 +1378,12 @@
     <ClInclude Include="..\src\iDialogGraph.h">
       <Filter>GUI\dialogs</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iStatistics.h">
+      <Filter>resources\statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iStatisticsSection.h">
+      <Filter>resources\statistics</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -1555,6 +1555,9 @@
     </Filter>
     <Filter Include="bodies &amp; shapes">
       <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\statistics">
+      <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

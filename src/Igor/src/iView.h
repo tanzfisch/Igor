@@ -173,18 +173,15 @@ namespace Igor
 
         void updateWindowRect(const iRectanglei& windowRect);
 
-        /*! init
+        /*! does nothing
         */
-        iView();
+        iView() = default;
 
         /*! checks consistency
         */
         virtual ~iView();
 
 	private:
-
-        uint32 _scenePreparationSectionID = 0;
-        uint32 _postRenderSectionID = 0;
 
         /*! views name
         */
