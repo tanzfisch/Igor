@@ -143,7 +143,14 @@ namespace Igor
         }
         else
         {
-            con_err("can't find loader for \"" << filename << "\"");
+            if (parameter != nullptr)
+            {
+                con_err("can't find loader \"" << parameter->_identifier << "\" for \"" << filename << "\"");
+            }
+            else
+            {
+                con_err("can't find loader for \"" << filename << "\"");
+            }
         }
 
         return result;
