@@ -107,11 +107,11 @@ namespace Igor
         */
         uint64 getID();
 
-        /*! \returns world id if present
+        /*! \returns physics world id if present
         */
         uint64 getWorldID();
 
-        /*! sets world id
+        /*! sets physics world id
 
         \param worldID the world id
         */

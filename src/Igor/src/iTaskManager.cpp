@@ -41,6 +41,8 @@ namespace Igor
     {
         iTaskManager::_running = false;
 
+        flushIncommingTasks();
+
         // clear all tasks left in render context queue
         _mutexRenderContextTasks.lock();
         for (auto task : _renderContextTasksQueued)
