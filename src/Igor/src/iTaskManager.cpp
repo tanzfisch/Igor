@@ -34,7 +34,7 @@ namespace Igor
             createRegularThread();
         }
 
-        con_info("TaskManager", "created " << numThreads << " regular threads");
+        con_info("created threads", numThreads << " regular threads");
     }
 
     iTaskManager::~iTaskManager()
@@ -220,6 +220,8 @@ namespace Igor
             createRenderContextThread(window);
             _sleep(10); // TODO this is a workaround. I simply did not understand how else to fix that sometimes render contexts where not initializing
         }
+
+        con_info("created threads", numThreads << " render context threads");
     }
 
     bool iTaskManager::createRenderContextThread(iWindow *window)
