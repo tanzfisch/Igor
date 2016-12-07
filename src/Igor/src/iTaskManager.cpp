@@ -545,18 +545,22 @@ namespace Igor
 
     uint64 iTaskManager::addTask(iTask* task)
     {
-        uint64 taskID = 0;
+        uint64 result = iTask::INVALID_TASK_ID;
         con_assert(task != nullptr, "zero pointer");
 
         if (task != nullptr)
         {
-            taskID = task->getID();
+            result = task->getID();
             _mutexIncommingTasks.lock();
             _tasksIncomming.push_back(task);
             _mutexIncommingTasks.unlock();
         }
+        else
+        {
+            con_err("can't add invalid task");
+        }
         
-        return taskID;
+        return result;
     }
 
     void iTaskManager::registerTaskFinishedDelegate(iTaskFinishedDelegate taskFinishedDelegate)
