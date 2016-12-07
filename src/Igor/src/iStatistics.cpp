@@ -198,9 +198,9 @@ namespace Igor
 
                 if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndMT)
                 {
-                    _lastThreadCount = iTaskManager::getInstance().getThreadCount();
-                    _lastQueuedTaskCount = iTaskManager::getInstance().getQueuedTaskCount();
-                    _lastRunningTaskCount = iTaskManager::getInstance().getRunningTaskCount();
+                    _lastThreadCount = iTaskManager::getInstance().getRegularThreadCount();
+                    _lastQueuedTaskCount = iTaskManager::getInstance().getQueuedRegularTaskCount();
+                    _lastRunningTaskCount = iTaskManager::getInstance().getRunningRegularTaskCount();
 
                     _lastRenderContextThreadCount = iTaskManager::getInstance().getRenderContextThreadCount();
                     _lastQueuedRenderContextTaskCount = iTaskManager::getInstance().getQueuedRenderContextTaskCount();
