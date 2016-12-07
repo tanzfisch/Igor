@@ -80,7 +80,7 @@ namespace Igor
         _renderContextTasksRunning.clear();
         _mutexRenderContextTasks.unlock();
 
-        con_debug_endl("waiting for " << _tasksRunning.size() << " regular tasks to finish");
+        con_debug_endl("waiting for " << _regularTasksRunning.size() << " regular tasks to finish");
 
         // than the regular tasks
         _mutexRegularTasks.lock();
@@ -114,7 +114,7 @@ namespace Igor
         _renderContextThreads.clear();
         _mutexRenderContextThreads.unlock();
 
-        con_debug_endl("waiting for " << _threads.size() << " regular threads to join");
+        con_debug_endl("waiting for " << _regularThreads.size() << " regular threads to join");
 
         // and regular threads
         _mutexRegularThreads.lock();
