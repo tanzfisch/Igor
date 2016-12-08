@@ -173,39 +173,6 @@ namespace Igor
         return _running;
     }
 
-    iTask* iTaskManager::getTask(uint64 taskID)
-    {
-        iTask* result = nullptr;
-
-        // first check if this task is still in incomming queue
-		_mutexIncommingTasks.lock();
-		auto iterIncomming = _tasksIncomming.begin();
-		while (iterIncomming != _tasksIncomming.end())
-		{
-			if ((*iterIncomming)->getID() == taskID)
-			{
-				result = (*iterIncomming);
-				break;
-			}
-			iterIncomming++;
-		}
-		_mutexIncommingTasks.unlock();
-
-        // now search task in working list if not found already
-        if (result == nullptr)
-        {
-            _mutexAllTasks.lock();
-            auto iterTasks = _allTasks.find(taskID);
-            if (iterTasks != _allTasks.end())
-            {
-                result = (*iterTasks).second;
-            }
-            _mutexAllTasks.unlock();
-        }
-
-        return result;
-    }
-
     void iTaskManager::createRenderContextThreads(iWindow *window)
     {
         SYSTEM_INFO sysinfo;
@@ -499,38 +466,19 @@ namespace Igor
 
         for (auto incommingTask : incomming)
         {
-            uint64 taskID = incommingTask->getID();
-            bool inserted = false;
-
-            _mutexAllTasks.lock();
-            auto iter = _allTasks.find(taskID);
-            if (iter == _allTasks.end())
+            switch (incommingTask->getContext())
             {
-                _allTasks[taskID] = incommingTask;
-                inserted = true;
-            }
-            else
-            {
-                con_warn("task already managed by task manager (id:" << taskID << ")");
-            }
-            _mutexAllTasks.unlock();
+            case iTaskContext::Default:
+                _mutexRegularTasks.lock();
+                _regularTasksQueued.push_back(incommingTask);
+                _mutexRegularTasks.unlock();
+                break;
 
-            if (inserted)
-            {
-                switch (incommingTask->getContext())
-                {
-                case iTaskContext::Default:
-                    _mutexRegularTasks.lock();
-                    _regularTasksQueued.push_back(incommingTask);
-                    _mutexRegularTasks.unlock();
-                    break;
-
-                case iTaskContext::RenderContext:
-                    _mutexRenderContextTasks.lock();
-                    _renderContextTasksQueued.push_back(incommingTask);
-                    _mutexRenderContextTasks.unlock();
-                    break;
-                }
+            case iTaskContext::RenderContext:
+                _mutexRenderContextTasks.lock();
+                _renderContextTasksQueued.push_back(incommingTask);
+                _mutexRenderContextTasks.unlock();
+                break;
             }
         }
 
@@ -541,6 +489,21 @@ namespace Igor
         _mutexRenderContextTasks.lock();
         _renderContextTasksQueued.sort([](const iTask* a, const iTask* b) { return a->_priority < b->_priority; });
         _mutexRenderContextTasks.unlock();
+    }
+
+    iTask* iTaskManager::getTask(uint64 taskID)
+    {
+        iTask* result = nullptr;
+
+        _mutexAllTasks.lock();
+        auto iterTasks = _allTasks.find(taskID);
+        if (iterTasks != _allTasks.end())
+        {
+            result = (*iterTasks).second;
+        }
+        _mutexAllTasks.unlock();
+
+        return result;
     }
 
     uint64 iTaskManager::addTask(iTask* task)
@@ -554,6 +517,18 @@ namespace Igor
             _mutexIncommingTasks.lock();
             _tasksIncomming.push_back(task);
             _mutexIncommingTasks.unlock();
+
+            _mutexAllTasks.lock();
+            auto iter = _allTasks.find(task->getID());
+            if (iter == _allTasks.end())
+            {
+                _allTasks[task->getID()] = task;
+            }
+            else
+            {
+                con_warn("task already managed by task manager (id:" << task->getID() << ")");
+            }
+            _mutexAllTasks.unlock();
         }
         else
         {
