@@ -53,7 +53,7 @@ namespace Igor
         None,
         FPSOnly,
         FPSAndMetrics,
-        FPSMetricsAndMT,
+        FPSMetricsAndTasks,
         Sections,
         All
     };
@@ -163,6 +163,10 @@ namespace Igor
         /*! amount of currently running tasks
         */
         uint32 _lastRunningTaskCount = 0;
+
+        /*! amount of tasks that are done by now
+        */
+        uint32 _lastDoneTaskCount = 0;
 
         /*! amount of tasks in queue that need render context threads
         */

@@ -196,7 +196,7 @@ namespace Igor
                 _seconds = iTimer::getInstance().getSeconds();
                 _lastFPS = iTimer::getInstance().getFPS();
 
-                if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndMT)
+                if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndTasks)
                 {
                     _lastThreadCount = iTaskManager::getInstance().getRegularThreadCount();
                     _lastQueuedTaskCount = iTaskManager::getInstance().getQueuedRegularTaskCount();
@@ -205,6 +205,8 @@ namespace Igor
                     _lastRenderContextThreadCount = iTaskManager::getInstance().getRenderContextThreadCount();
                     _lastQueuedRenderContextTaskCount = iTaskManager::getInstance().getQueuedRenderContextTaskCount();
                     _lastRunningRenderContextTaskCount = iTaskManager::getInstance().getRunningRenderContextTaskCount();
+
+                    _lastDoneTaskCount = iTaskManager::getInstance().getTaksDoneCount();
                 }
             }
 
@@ -277,7 +279,7 @@ namespace Igor
                 iRenderer::getInstance().resetCounters();
             }
 
-            if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndMT)
+            if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSMetricsAndTasks)
             {
                 iaString threads = "";
                 threads += iaString::itoa(_lastThreadCount);
@@ -295,6 +297,11 @@ namespace Igor
 
                 iRenderer::getInstance().drawString(10, window->getClientHeight() - 30, threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
                 iRenderer::getInstance().drawString(10, window->getClientHeight() - 10, rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+
+                iaString done = "done ";
+                done += iaString::itoa(_lastDoneTaskCount);
+                
+                iRenderer::getInstance().drawString(10, window->getClientHeight() - 50, done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             }
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)

@@ -130,6 +130,10 @@ namespace Igor
         */
         static bool isRunning();
 
+        /*! \returns how many tasks where done since program start 
+        */
+        uint64 getTaksDoneCount() const;
+
         /*! registers delegate to task finished event
 
         \param taskFinishedDelegate the delegate to register
@@ -143,6 +147,10 @@ namespace Igor
         void unregisterTaskFinishedDelegate(iTaskFinishedDelegate taskFinishedDelegate);
 
 	private:
+
+        /*! counts how many tasks where done
+        */
+        uint64 _tasksDone = 0;
 
         /*! task finished event
         */

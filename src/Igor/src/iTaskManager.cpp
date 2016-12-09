@@ -276,6 +276,7 @@ namespace Igor
             _mutexAllTasks.unlock();
 
             delete (*iter).second;
+            _tasksDone++;
             _taskFinished(id);
         }
 
@@ -371,6 +372,7 @@ namespace Igor
                     _mutexAllTasks.unlock();
 
                     delete taskTodo;
+                    _tasksDone++;
                     _taskFinished(idToDelete);
                 }
 
@@ -381,6 +383,11 @@ namespace Igor
                 _sleep(0);
             }
         }
+    }
+
+    uint64 iTaskManager::getTaksDoneCount() const
+    {
+        return _tasksDone;
     }
     
     void iTaskManager::workWithRegularTasks(iThread* thread)
@@ -445,6 +452,7 @@ namespace Igor
                     _mutexAllTasks.unlock();
 
                     delete taskTodo;
+                    _tasksDone++;
                     _taskFinished(idToDelete);
                 }
 
