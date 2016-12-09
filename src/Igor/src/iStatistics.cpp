@@ -162,16 +162,6 @@ namespace Igor
         return _renderStatisticsMode;
     }
 
-    void iStatistics::setSectionLenght(uint32 sectionID, float64 lenght)
-    {
-        con_assert(_sections.find(sectionID) != _sections.end(), "out of range");
-
-        if (_sections.find(sectionID) != _sections.end())
-        {
-            _sections[sectionID].setSectionLenght(lenght);
-        }
-    }
-
     // todo refactor
     void iStatistics::drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color)
     {
@@ -345,9 +335,8 @@ namespace Igor
                 for (auto section : _sections)
                 {
                     uint32 currentIndex = 0;
-                    const float64* begin = section.second.getBeginnings();
-                    const float64* end = section.second.getEnds();
-                    uint32 currentFrame = (section.second.getCurrentFrame() + 1) % iStatisticsSection::BUFFER_SIZE;
+                    const float64* values = section.second.getValues();
+                    uint64 currentFrame = _frame % iStatisticsSection::BUFFER_SIZE;
                     float64 yPos = totalHeight - section.second.getGroup() * groupTotalHeight;
 
                     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
@@ -359,13 +348,13 @@ namespace Igor
                     iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
 
                     currentIndex = currentFrame;
-                    float64 lastValue = (end[currentIndex] - begin[currentIndex]) * scale;
+                    float64 lastValue = values[currentIndex] * scale;
                     float64 value;
 
                     for (int i = 1; i < iStatisticsSection::BUFFER_SIZE - 1; ++i)
                     {
                         currentIndex = (currentFrame + i) % iStatisticsSection::BUFFER_SIZE;
-                        value = (end[currentIndex] - begin[currentIndex]) * scale;
+                        value = (values[currentIndex]) * scale;
                         iRenderer::getInstance().drawLine((static_cast<float64>(i)*horizontalScale) + x, yPos - lastValue, (static_cast<float64>(i + 1)*horizontalScale) + x, yPos - value);
                         lastValue = value;
                     }
@@ -377,6 +366,16 @@ namespace Igor
         }
 
         iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    }
+
+    void iStatistics::nextFrame()
+    {
+        for (auto& section : _sections)
+        {
+            section.second.setCurrentFrame(_frame);
+        }
+
+        _frame++;
     }
 
 

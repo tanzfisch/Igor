@@ -53,6 +53,8 @@ namespace Igor
 
         do
         {
+            iStatistics::getInstance().nextFrame();
+
             iStatistics::getInstance().beginSection(_frameSectionID);
             iTimer::getInstance().handle();
 
