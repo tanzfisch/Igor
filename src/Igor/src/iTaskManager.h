@@ -102,9 +102,9 @@ namespace Igor
         */
         void abortTask(uint64 taskID);
 
-        /*! \returns thread count
+        /*! \returns regular thread count
         */
-        uint32 getThreadCount();
+        uint32 getRegularThreadCount();
 
         /*! \returns render context thread count
         */
@@ -112,11 +112,11 @@ namespace Igor
 
         /*! \returns tasks in queue count
         */
-        uint32 getQueuedTaskCount();
+        uint32 getQueuedRegularTaskCount();
 
         /*! \returns running tasks count
         */
-        uint32 getRunningTaskCount();
+        uint32 getRunningRegularTaskCount();
 
         /*! \returns render context tasks in queue count
         */
@@ -129,6 +129,10 @@ namespace Igor
         /*! \returns true if the task manager is running
         */
         static bool isRunning();
+
+        /*! \returns how many tasks where done since program start 
+        */
+        uint64 getTaksDoneCount() const;
 
         /*! registers delegate to task finished event
 
@@ -144,6 +148,10 @@ namespace Igor
 
 	private:
 
+        /*! counts how many tasks where done
+        */
+        uint64 _tasksDone = 0;
+
         /*! task finished event
         */
         iTaskFinishedEvent _taskFinished;
@@ -152,29 +160,51 @@ namespace Igor
         */
 		static bool _running;
 
-        mutex _mutexIncommingTasks;
-        mutex _mutexTasks;
-
-		mutex _mutexThreads;
-        mutex _mutexRenderThreads;
-
-        /*! list of queued tasks
+        /*! incomming tasks
         */
-		list<iTask*> _tasksQueued;
-
         list<iTask*> _tasksIncomming;
 
-        /*! list of all tasks currently handeled by the task manager
+        /*! mutex for incomming tasks
         */
-        map<uint64, iTask*> _tasks;
+        mutex _mutexIncommingTasks;
 
-        /*! list of running tasks
+        /*! list of all tasks
         */
-		list<iTask*> _tasksRunning;
+        map<uint64, iTask*> _allTasks;
+
+        /*! mutex for all tasks list
+        */
+        mutex _mutexAllTasks;
 
         /*! list of regular threads
         */
-        vector<iThread*> _threads;
+        vector<iThread*> _regularThreads;
+
+        /*! mutex for regular threads
+        */
+        mutex _mutexRegularThreads;
+
+        /*! list of render context threads
+
+        \todo check if we realy need the extra data. because the thread it self has that data too
+        */
+        map<iRenderContextThread*, ThreadContext> _renderContextThreads;
+
+        /*! mutex for render context threads
+        */
+        mutex _mutexRenderContextThreads;
+
+        /*! list of queued tasks
+        */
+        list<iTask*> _regularTasksQueued;
+
+        /*! list of running tasks
+        */
+        list<iTask*> _regularTasksRunning;
+
+        /*! mutex for regular tasks
+        */
+        mutex _mutexRegularTasks;
 
         /*! list of queued tasks that need render context
         */
@@ -184,23 +214,21 @@ namespace Igor
         */
         list<iTask*> _renderContextTasksRunning;
 
-        /*! list of render context threads
-
-        \todo check if we realy need the extra data. because the thread it self has that data too
+        /*! mutex for render context tasks
         */
-        map<iRenderContextThread*, ThreadContext> _renderContextThreads;
+        mutex _mutexRenderContextTasks;
 
         /*! the method a regular thread is launched with
 
         \param thread the thread this method is launched with
         */
-        void work(iThread* thread);
+        void workWithRegularTasks(iThread* thread);
 
         /*! the method a thread with render context is launched with
 
         \param thread the thread this method is launched with
         */
-        void workWithRenderContext(iThread* thread);
+        void workWithRenderContextTasks(iThread* thread);
 
         /*! creates a number of render context threads for a specified window
 
@@ -223,11 +251,11 @@ namespace Igor
 
         /*! creates a regular thread
         */
-		void createThread();
+		void createRegularThread();
 
 		/*! flush incomming tasks queue to task list
 		*/
-        void flushIncomming();
+        void flushIncommingTasks();
 
         /*! creates some regular threads and starts them
         */

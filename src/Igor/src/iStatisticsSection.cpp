@@ -10,8 +10,7 @@ namespace Igor
 
     iStatisticsSection::iStatisticsSection()
     {
-        memset(&_begin, 0, sizeof(float64) * BUFFER_SIZE);
-        memset(&_end, 0, sizeof(float64) * BUFFER_SIZE);
+        memset(&_values, 0, sizeof(float64) * BUFFER_SIZE);
     }
 
     void iStatisticsSection::setGroup(uint64 groupIndex)
@@ -36,20 +35,12 @@ namespace Igor
     
     void iStatisticsSection::beginSection()
     {
-        _begin[_currentFrame] = iTimer::getInstance().getTime();
+        _beginTime = iTimer::getInstance().getTime();
     }
 
     void iStatisticsSection::endSection()
     {
-        _end[_currentFrame] = iTimer::getInstance().getTime();
-        _currentFrame = (_currentFrame + 1) % BUFFER_SIZE;
-    }
-
-    void iStatisticsSection::setSectionLenght(float64 lenght)
-    {
-        _begin[_currentFrame] = 0;
-        _end[_currentFrame] = lenght;
-        _currentFrame = (_currentFrame + 1) % BUFFER_SIZE;
+        _values[_currentFrame] += (iTimer::getInstance().getTime() - _beginTime);
     }
 
     const iaString& iStatisticsSection::getName()
@@ -62,19 +53,15 @@ namespace Igor
         _name = name;
     }
 
-    uint32 iStatisticsSection::getCurrentFrame() const
+    void iStatisticsSection::setCurrentFrame(uint64 currentFrame)
     {
-        return _currentFrame;
+        _currentFrame = currentFrame % BUFFER_SIZE;
+        _values[_currentFrame] = 0;
     }
 
-    const float64* iStatisticsSection::getBeginnings() const
+    const float64* iStatisticsSection::getValues() const
     {
-        return _begin;
-    }
-
-    const float64* iStatisticsSection::getEnds() const
-    {
-        return _end;
+        return _values;
     }
 
 }

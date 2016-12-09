@@ -53,7 +53,7 @@ namespace Igor
         None,
         FPSOnly,
         FPSAndMetrics,
-        FPSMetricsAndMT,
+        FPSMetricsAndTasks,
         Sections,
         All
     };
@@ -109,14 +109,9 @@ namespace Igor
         */
         void endSection(uint32 sectionID);
 
-        /*! sets a sectiond beginning to zero and end to lenght
-
-        use this if you don't want to measure time but to display any other value per frame in a graph
-
-        \param sectionID the section ID
-        \param lenght the lenght of the section
+        /*! steps to next frame
         */
-        void setSectionLenght(uint32 sectionID, float64 lenght);
+        void nextFrame();
 
     private:
 
@@ -127,6 +122,10 @@ namespace Igor
         /*! array of predefined colors
         */
         static const iaColor4f _colors[_colorCount];
+
+        /*! current frame
+        */
+        uint64 _frame = 0;
         
         /*! list of sections
         */
@@ -163,6 +162,10 @@ namespace Igor
         /*! amount of currently running tasks
         */
         uint32 _lastRunningTaskCount = 0;
+
+        /*! amount of tasks that are done by now
+        */
+        uint32 _lastDoneTaskCount = 0;
 
         /*! amount of tasks in queue that need render context threads
         */

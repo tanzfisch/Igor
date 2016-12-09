@@ -48,7 +48,9 @@ namespace Igor
 
     public:
 
-        static const uint32 BUFFER_SIZE = 500;
+        /*! size of buffer aka amount of frames that are logged
+        */
+        static const uint64 BUFFER_SIZE = 500;
 
         /*! begins measuring section
         */
@@ -57,12 +59,6 @@ namespace Igor
         /*! ends measuring section
         */
         void endSection();
-
-        /*! sets a sections lenght
-
-        \param lenght section length
-        */
-        void setSectionLenght(float64 lenght);
 
         /*! \returns statisitcs section name
         */
@@ -96,17 +92,15 @@ namespace Igor
         */
         uint64 getGroup() const;
 
-        /*! \returns measurements for beginning sections
+        /*! \returns measurements
         */
-        const float64* getBeginnings() const;
+        const float64* getValues() const;
 
-        /*! \returns measurements for ending sections
-        */
-        const float64* getEnds() const;
+        /*! sets current frame to keep all secitons in sync
 
-        /*! \returns current frames position within buffer
+        \param currentFrame the current frame
         */
-        uint32 getCurrentFrame() const;
+        void setCurrentFrame(uint64 currentFrame);
 
         /*! init buffers
         */
@@ -118,6 +112,10 @@ namespace Igor
 
     private:
 
+        /*! group index
+
+        \todo turn in to enum
+        */
         uint64 _groupIndex = 0;
 
         /*! the color to render with
@@ -130,15 +128,15 @@ namespace Igor
 
         /*! current frame
         */
-        uint32 _currentFrame = 0;
+        uint64 _currentFrame = 0;
 
-        /*! frame measures begin
+        /*! time used per frame
         */
-        float64 _begin[BUFFER_SIZE];
+        float64 _values[BUFFER_SIZE];
 
-        /*! frame measures end
+        /*! time at beginning of section
         */
-        float64 _end[BUFFER_SIZE];
+        float64 _beginTime = 0;
 
     };
 
