@@ -213,7 +213,7 @@ namespace Igor
             meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
 
             uint32 textureCount = meshChunk->getTextureCount();
-            for (int i = 0; i < textureCount; ++i)
+            for (uint32 i = 0; i < textureCount; ++i)
             {
                 meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(meshChunk->getTexture(i)), i);
                 mesh->setTexture(i, true);
@@ -334,7 +334,7 @@ namespace Igor
             materialGroup->setOrder(materialChunk->getOrder());
 
             uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
-            for (int i = 0; i < shaderObjectCount; ++i)
+            for (uint32 i = 0; i < shaderObjectCount; ++i)
             {
                 material->addShaderSource(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
             }
@@ -597,7 +597,7 @@ namespace Igor
                 result->setIndexCount(node->getMesh()->getIndexesCount());
                 result->setIndexData(reinterpret_cast<char*>(node->getMesh()->getIndexData()), node->getMesh()->getIndexDataSize());
 
-                for (int i = 0; i < node->getMesh()->getTextureUnitCount(); ++i)
+                for (uint32 i = 0; i < node->getMesh()->getTextureUnitCount(); ++i)
                 {
                     iaString relative = iaDirectory::getRelativePath(_filename, node->getTargetMaterial()->getTexture(i)->getFilename());
                     result->setTexture(relative, i);
