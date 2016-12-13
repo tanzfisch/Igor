@@ -53,8 +53,8 @@ namespace IgorAux
 
         TValue* _buffer = nullptr;
 
-        uint64 _first = 0;
-        uint64 _last = 0;
+        uint64 _head = 0;
+        uint64 _tail = 0;
 
     };
 
@@ -133,14 +133,14 @@ namespace IgorAux
     template <typename TValue>
     void iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::Off>::push(const TValue& value)
     {
-        if ((_first + 1) % _size == _last)
+        if ((_head + 1) % _size == _tail)
         {
             con_err("ring buffer overflow");
         }
         else
         {
-            _buffer[_first] = value;
-            _first = (_first + 1) % _size;
+            _buffer[_head] = value;
+            _head = (_head + 1) % _size;
         }
     }
 
@@ -149,10 +149,10 @@ namespace IgorAux
     {
         bool result = false;
 
-        if (_first != _last)
+        if (_head != _tail)
         {
-            dstValue = _buffer[_last];
-            _last = (_last + 1) % _size;
+            dstValue = _buffer[_tail];
+            _tail = (_tail + 1) % _size;
             result = true;
         }
 
@@ -188,14 +188,14 @@ namespace IgorAux
     void iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::On>::push(const TValue& value)
     {
         _pushMutex.lock();
-        if ((_first + 1) % _size == _last)
+        if ((_head + 1) % _size == _tail)
         {
             con_err("ring buffer overflow");
         }
         else
         {
-            _buffer[_first] = value;
-            _first = (_first + 1) % _size;
+            _buffer[_head] = value;
+            _head = (_head + 1) % _size;
         }
         _pushMutex.unlock();
     }
@@ -206,10 +206,10 @@ namespace IgorAux
         bool result = false;
 
         _popMutex.lock();
-        if (_first != _last)
+        if (_head != _tail)
         {
-            dstValue = _buffer[_last];
-            _last = (_last + 1) % _size;
+            dstValue = _buffer[_tail];
+            _tail = (_tail + 1) % _size;
             result = true;
         }
         _popMutex.unlock();
@@ -245,14 +245,14 @@ namespace IgorAux
     void iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::Off>::push(const TValue& value)
     {
         _pushMutex.lock();
-        if ((_first + 1) % _size == _last)
+        if ((_head + 1) % _size == _tail)
         {
             con_err("ring buffer overflow");
         }
         else
         {
-            _buffer[_first] = value;
-            _first = (_first + 1) % _size;
+            _buffer[_head] = value;
+            _head = (_head + 1) % _size;
         }
         _pushMutex.unlock();
     }
@@ -262,10 +262,10 @@ namespace IgorAux
     {
         bool result = false;
 
-        if (_first != _last)
+        if (_head != _tail)
         {
-            dstValue = _buffer[_last];
-            _last = (_last + 1) % _size;
+            dstValue = _buffer[_tail];
+            _tail = (_tail + 1) % _size;
             result = true;
         }
 
@@ -299,14 +299,14 @@ namespace IgorAux
     template <typename TValue>
     void iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::On>::push(const TValue& value)
     {
-        if ((_first + 1) % _size == _last)
+        if ((_head + 1) % _size == _tail)
         {
             con_err("ring buffer overflow");
         }
         else
         {
-            _buffer[_first] = value;
-            _first = (_first + 1) % _size;
+            _buffer[_head] = value;
+            _head = (_head + 1) % _size;
         }
     }
 
@@ -316,10 +316,10 @@ namespace IgorAux
         bool result = false;
 
         _popMutex.lock();
-        if (_first != _last)
+        if (_head != _tail)
         {
-            dstValue = _buffer[_last];
-            _last = (_last + 1) % _size;
+            dstValue = _buffer[_tail];
+            _tail = (_tail + 1) % _size;
             result = true;
         }
         _popMutex.unlock();
