@@ -123,6 +123,9 @@
     <ClInclude Include="..\src\iaGradient.h">
       <Filter>data types</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaRingQueue.h">
+      <Filter>data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">

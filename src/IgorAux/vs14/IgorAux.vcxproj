@@ -346,6 +346,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\iaMemBlockControl.h" />
     <ClInclude Include="..\src\iaQuaternion.h" />
     <ClInclude Include="..\src\iaRandomNumberGenerator.h" />
+    <ClInclude Include="..\src\iaRingQueue.h" />
     <ClInclude Include="..\src\iaRLE.h" />
     <ClInclude Include="..\src\iaSerializable.h" />
     <ClInclude Include="..\src\iaState.h" />
