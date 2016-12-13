@@ -522,9 +522,7 @@ namespace Igor
         if (task != nullptr)
         {
             result = task->getID();
-            _mutexIncommingTasks.lock();
-            _tasksIncomming.push_back(task);
-            _mutexIncommingTasks.unlock();
+            bool alreadyInserted = false;
 
             _mutexAllTasks.lock();
             auto iter = _allTasks.find(task->getID());
@@ -534,9 +532,20 @@ namespace Igor
             }
             else
             {
-                con_warn("task already managed by task manager (id:" << task->getID() << ")");
+                alreadyInserted = true;
             }
             _mutexAllTasks.unlock();
+
+            if (alreadyInserted)
+            {
+                con_warn("task already managed by task manager (id:" << task->getID() << ")");
+            }
+            else
+            {
+                _mutexIncommingTasks.lock();
+                _tasksIncomming.push_back(task);
+                _mutexIncommingTasks.unlock();
+            }
         }
         else
         {
