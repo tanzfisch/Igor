@@ -65,7 +65,9 @@ namespace IgorAux
 
     public:
 
-        ~iaRLE();
+        /*! clean up
+        */
+        virtual ~iaRLE();
 
         /*! sets size of rle buffer
 
@@ -113,6 +115,8 @@ namespace IgorAux
         */
         void setMode(iaRLEMode mode);
 
+        /*! \returns mode of compression
+        */
         iaRLEMode getMode() const;
 
     private:
@@ -132,12 +136,6 @@ namespace IgorAux
         /*! current mode of compression
         */
         iaRLEMode _mode = iaRLEMode::Compressed;
-
-        uint32 _currentBlock = 0;
-
-        TIndex _currentIndex = 0;
-
-        TIndex _currentBlockOffset = 0;
 
         /*! blocks storing the RLE information
         */
