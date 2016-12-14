@@ -38,14 +38,18 @@ namespace IgorAux
 {
 
     template <typename TValue>
-    class iaRingQueueBase
+    class iaRingQueue
     {
 
     public:
 
-        iaRingQueueBase(uint64 size);
+        iaRingQueue(uint64 size);
 
-        virtual ~iaRingQueueBase();
+        virtual ~iaRingQueue();
+
+        __IGOR_INLINE__ void push(const TValue& value);
+
+        __IGOR_INLINE__ bool pop(TValue& dstValue);
 
     protected:
 
@@ -59,270 +63,48 @@ namespace IgorAux
     };
 
     template <typename TValue>
-    iaRingQueueBase<TValue>::iaRingQueueBase(uint64 size)
+    iaRingQueue<TValue>::iaRingQueue(uint64 size)
     {
-        _size = size;
-        _buffer = new TValue[_size];
+        if (size > 0)
+        {
+            _size = size;
+            _buffer = new TValue[_size];
+        }
+        else
+        {
+            con_err("invalid param"); // if this happens it will certainly crash later
+        }
     }
 
     template <typename TValue>
-    iaRingQueueBase<TValue>::~iaRingQueueBase()
+    iaRingQueue<TValue>::~iaRingQueue()
     {
         delete[] _buffer;
     }
 
-    enum class iaRingQueueUseMutex
-    {
-        On,
-        Off
-    };
-
-    template <typename TValue, iaRingQueueUseMutex Src, iaRingQueueUseMutex Dst>
-    class iaRingQueue : public iaRingQueueBase<TValue>
-    {
-    public:
-
-        iaRingQueue(uint64 size);
-
-        void push(const TValue& value);
-
-        bool pop(TValue& dstValue);
-
-    };
-
-    template <typename TValue, iaRingQueueUseMutex Src, iaRingQueueUseMutex Dst>
-    iaRingQueue<TValue, Src, Dst>::iaRingQueue(uint64 size)
-        :iaRingQueueBase<TValue>(size)
-    {
-        // nothing to do
-    }
-
-    template <typename TValue, iaRingQueueUseMutex Src, iaRingQueueUseMutex Dst>
-    void iaRingQueue<TValue, Src, Dst>::push(const TValue& value)
-    {
-        // nothing to do
-    }
-
-    template <typename TValue, iaRingQueueUseMutex Src, iaRingQueueUseMutex Dst>
-    bool iaRingQueue<TValue, Src, Dst>::pop(TValue& dstValue)
-    {
-        // nothing to do
-        return false;
-    }
-
     template <typename TValue>
-    class iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::Off> : public iaRingQueueBase<TValue>
+    __IGOR_INLINE__ void iaRingQueue<TValue>::push(const TValue& value)
     {
-    public:
+        _buffer[_head % _size] = value;
+        _head++;
 
-        iaRingQueue(uint64 size);
-
-        void push(const TValue& value);
-
-        bool pop(TValue& dstValue);
-
-    };
-
-    template <typename TValue>
-    iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::Off>::iaRingQueue(uint64 size)
-        :iaRingQueueBase<TValue>(size)
-    {
-        // nothing to do
-    }
-
-    template <typename TValue>
-    void iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::Off>::push(const TValue& value)
-    {
-        if ((_head + 1) % _size == _tail)
+        if (_head % _size == _tail % _size)
         {
-            con_err("ring buffer overflow");
-        }
-        else
-        {
-            _buffer[_head] = value;
-            _head = (_head + 1) % _size;
+            con_err("ring buffer overflow"); // if this happens it will certainly crash later
         }
     }
 
     template <typename TValue>
-    bool iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::Off>::pop(TValue& dstValue)
+    __IGOR_INLINE__ bool iaRingQueue<TValue>::pop(TValue& dstValue)
     {
         bool result = false;
 
-        if (_head != _tail)
+        f(_head % _size != _tail % _size)
         {
-            dstValue = _buffer[_tail];
-            _tail = (_tail + 1) % _size;
+            dstValue = _buffer[_tail % _size];
+            _tail++;
             result = true;
         }
-
-        return result;
-    }
-
-    template <typename TValue>
-    class iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::On> : public iaRingQueueBase<TValue>
-    {
-    public:
-
-        iaRingQueue(uint64 size);
-
-        void push(const TValue& value);
-
-        bool pop(TValue& dstValue);
-
-    private:
-
-        mutex _pushMutex;
-        mutex _popMutex;
-
-    };
-
-    template <typename TValue>
-    iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::On>::iaRingQueue(uint64 size)
-        :iaRingQueueBase<TValue>(size)
-    {
-        // nothing to do
-    }
-
-    template <typename TValue>
-    void iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::On>::push(const TValue& value)
-    {
-        _pushMutex.lock();
-        if ((_head + 1) % _size == _tail)
-        {
-            con_err("ring buffer overflow");
-        }
-        else
-        {
-            _buffer[_head] = value;
-            _head = (_head + 1) % _size;
-        }
-        _pushMutex.unlock();
-    }
-
-    template <typename TValue>
-    bool iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::On>::pop(TValue& dstValue)
-    {
-        bool result = false;
-
-        _popMutex.lock();
-        if (_head != _tail)
-        {
-            dstValue = _buffer[_tail];
-            _tail = (_tail + 1) % _size;
-            result = true;
-        }
-        _popMutex.unlock();
-
-        return result;
-    }
-
-    template <typename TValue>
-    class iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::Off> : public iaRingQueueBase<TValue>
-    {
-    public:
-
-        iaRingQueue(uint64 size);
-
-        void push(const TValue& value);
-
-        bool pop(TValue& dstValue);
-
-    private:
-
-        mutex _pushMutex;
-
-    };
-
-    template <typename TValue>
-    iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::Off>::iaRingQueue(uint64 size)
-        :iaRingQueueBase<TValue>(size)
-    {
-        // nothing to do
-    }
-
-    template <typename TValue>
-    void iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::Off>::push(const TValue& value)
-    {
-        _pushMutex.lock();
-        if ((_head + 1) % _size == _tail)
-        {
-            con_err("ring buffer overflow");
-        }
-        else
-        {
-            _buffer[_head] = value;
-            _head = (_head + 1) % _size;
-        }
-        _pushMutex.unlock();
-    }
-
-    template <typename TValue>
-    bool iaRingQueue<TValue, iaRingQueueUseMutex::On, iaRingQueueUseMutex::Off>::pop(TValue& dstValue)
-    {
-        bool result = false;
-
-        if (_head != _tail)
-        {
-            dstValue = _buffer[_tail];
-            _tail = (_tail + 1) % _size;
-            result = true;
-        }
-
-        return result;
-    }
-
-    template <typename TValue>
-    class iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::On> : public iaRingQueueBase<TValue>
-    {
-    public:
-
-        iaRingQueue(uint64 size);
-
-        void push(const TValue& value);
-
-        bool pop(TValue& dstValue);
-
-    private:
-
-        mutex _popMutex;
-
-    };
-
-    template <typename TValue>
-    iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::On>::iaRingQueue(uint64 size)
-        :iaRingQueueBase<TValue>(size)
-    {
-        // nothing to do
-    }
-
-    template <typename TValue>
-    void iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::On>::push(const TValue& value)
-    {
-        if ((_head + 1) % _size == _tail)
-        {
-            con_err("ring buffer overflow");
-        }
-        else
-        {
-            _buffer[_head] = value;
-            _head = (_head + 1) % _size;
-        }
-    }
-
-    template <typename TValue>
-    bool iaRingQueue<TValue, iaRingQueueUseMutex::Off, iaRingQueueUseMutex::On>::pop(TValue& dstValue)
-    {
-        bool result = false;
-
-        _popMutex.lock();
-        if (_head != _tail)
-        {
-            dstValue = _buffer[_tail];
-            _tail = (_tail + 1) % _size;
-            result = true;
-        }
-        _popMutex.unlock();
 
         return result;
     }
