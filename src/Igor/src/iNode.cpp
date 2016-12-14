@@ -262,6 +262,11 @@ namespace Igor
 		_name = name;
 	}
 
+    void iNode::setActiveAsync(bool active)
+    {
+        iNodeFactory::getInstance().setActiveAsync(this, active);
+    }
+
 	void iNode::insertNodeAsync(iNode* node)
 	{
 		iNodeFactory::getInstance().insertNodeAsync(this, node);

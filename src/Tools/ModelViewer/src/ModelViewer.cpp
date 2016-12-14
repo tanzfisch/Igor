@@ -463,7 +463,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             child++;
         }
 
-        iNodeFactory::getInstance().destroyNode(model);
+        iNodeFactory::getInstance().destroyNodeAsync(model);
 
         forceLoadingNow();
     }
@@ -526,7 +526,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
             while (child != children.end())
             {
                 _groupNode->removeNode((*child));
-                iNodeFactory::getInstance().destroyNode((*child));
+                iNodeFactory::getInstance().destroyNodeAsync((*child));
                 child++;
             }
         }
@@ -586,7 +586,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
             child++;
         }
 
-        iNodeFactory::getInstance().destroyNode(model);
+        iNodeFactory::getInstance().destroyNodeAsync(model);
 
         forceLoadingNow();
     }

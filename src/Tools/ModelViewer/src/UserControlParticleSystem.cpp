@@ -29,6 +29,7 @@
 #include <iWidgetGraph.h>
 #include <iDialogGraph.h>
 #include <iApplication.h>
+#include <iNodeEmitter.h>
 using namespace Igor;
 
 #include "ModelViewerDefines.h"
@@ -67,7 +68,7 @@ void UserControlParticleSystem::updateNode()
         {
             if (_emitterSelection->getSelectedIndex() != -1)
             {
-                uint32 emitterID = _emitters[_emitterSelection->getSelectedIndex()]->getID();
+                uint32 emitterID = _emitters[_emitterSelection->getSelectedIndex()];
                 if (emitterID != iNode::INVALID_NODE_ID)
                 {
                     node->setEmitter(emitterID);
@@ -170,8 +171,9 @@ void UserControlParticleSystem::updateGUI()
 
     _emitterSelection->clear();
     _emitters = iNodeFactory::getInstance().getNodes(iNodeType::iNodeEmitter);
-    for (auto emitter : _emitters)
+    for (auto emitterID : _emitters)
     {
+        iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().getNode(emitterID));
         _emitterSelection->addSelectionEntry(emitter->getName());
     }
 
@@ -180,9 +182,9 @@ void UserControlParticleSystem::updateGUI()
     if (node != nullptr)
     {
         int i = 0;
-        for (auto emitter : _emitters)
+        for (auto emitterID : _emitters)
         {
-            if (emitter->getID() == node->getEmitter())
+            if (emitterID == node->getEmitter())
             {
                 _emitterSelection->setSelection(i);
                 break;

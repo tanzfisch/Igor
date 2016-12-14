@@ -239,7 +239,7 @@ private:
 
     /*! list with all available emitters in all scenes
     */
-    vector<iNode*> _emitters;
+    vector<uint32> _emitters;
 
     /*! contains user data that has to be deleted after use in the widgets
     */

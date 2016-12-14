@@ -42,67 +42,130 @@ namespace Igor
         }
     }
 
+    void iNodeFactory::setActiveAsync(iNode* node, bool active)
+    {
+        Action action;
+        action._action = active ? ActionType::Activate : ActionType::Deactivate;
+        action._nodeA = node->getID();
+
+        _mutexQueue.lock();
+        _actionQueue.push_back(action);
+        _mutexQueue.unlock();
+    }
+
     void iNodeFactory::insertNodeAsync(iNode* src, iNode* dst)
     {
-        _mutexQueueAdd.lock();
-        _queueAdd.push_back(pair<uint32, uint32>(src->getID(), dst->getID()));
-        _mutexQueueAdd.unlock();
+        Action action;
+        action._action = ActionType::Insert;
+        action._nodeA = src->getID();
+        action._nodeB = dst->getID();
+
+        _mutexQueue.lock();
+        _actionQueue.push_back(action);
+        _mutexQueue.unlock();
     }
 
     void iNodeFactory::removeNodeAsync(iNode* src, iNode* dst)
     {
-        _mutexQueueRemove.lock();
-        _queueRemove.push_back(pair<uint32, uint32>(src->getID(), dst->getID()));
-        _mutexQueueRemove.unlock();
+        Action action;
+        action._action = ActionType::Remove;
+        action._nodeA = src->getID();
+        action._nodeB = dst->getID();
+
+        _mutexQueue.lock();
+        _actionQueue.push_back(action);
+        _mutexQueue.unlock();
+    }
+
+    
+    void iNodeFactory::destroyNodeAsync(uint32 nodeID)
+    {
+        con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
+
+        Action action;
+        action._action = ActionType::Destroy;
+        action._nodeA = nodeID;
+
+        _mutexQueue.lock();
+        _actionQueue.push_back(action);
+        _mutexQueue.unlock();
+    }
+
+    void iNodeFactory::destroyNodeAsync(iNode* node)
+    {
+        con_assert(nullptr != node, "zero pointer");
+
+        if (nullptr != node)
+        {
+            Action action;
+            action._action = ActionType::Destroy;
+            action._nodeA = node->getID();
+
+            _mutexQueue.lock();
+            _actionQueue.push_back(action);
+            _mutexQueue.unlock();
+        }
+        else
+        {
+            con_err("tried to delete zero pointer");
+        }
     }
 
     void iNodeFactory::handle()
     {
-        _mutexQueueRemove.lock();
-        auto removeQueue = std::move(_queueRemove);
-        _mutexQueueRemove.unlock();
+        _mutexQueue.lock();
+        auto queue = std::move(_actionQueue);
+        _mutexQueue.unlock();
 
-        for (auto entry : removeQueue)
+        iNode* nodeA = nullptr;
+        iNode* nodeB = nullptr;
+
+        for (auto entry : queue)
         {
-            iNode* parent = getNode(entry.first);
-            iNode* child = getNode(entry.second);
-            parent->removeNode(child);
-        }
-
-        _mutexQueueAdd.lock();
-        auto addQueue = std::move(_queueAdd);
-        _mutexQueueAdd.unlock();
-
-        for (auto entry : addQueue)
-        {
-            iNode* parent = getNode(entry.first);
-            iNode* child = getNode(entry.second);
-            parent->insertNode(child);
-        }
-
-        _mutexQueueDelete.lock();
-        auto deleteQueue = std::move(_queueDelete);
-        _mutexQueueDelete.unlock();
-
-        for (auto nodeID : deleteQueue)
-        {
-            iNode* node = getNode(nodeID);
-            if (node != nullptr)
+            switch (entry._action)
             {
-                destroyNode(node);
+            case ActionType::Insert:
+                nodeA = getNode(entry._nodeA);
+                nodeB = getNode(entry._nodeB);
+                con_assert(nodeA != nullptr && nodeB != nullptr, "zero pointer");
+                nodeA->insertNode(nodeB);
+                break;
+
+            case ActionType::Remove:
+                nodeA = getNode(entry._nodeA);
+                nodeB = getNode(entry._nodeB);
+                con_assert(nodeA != nullptr && nodeB != nullptr, "zero pointer");
+                nodeA->removeNode(nodeB);
+                break;
+
+            case ActionType::Destroy:
+                destroyNode(entry._nodeA);
+                break;
+
+            case ActionType::Activate:
+                nodeA = getNode(entry._nodeA);
+                con_assert(nodeA != nullptr, "zero pointer");
+                nodeA->setActive(true);
+                break;
+
+            case ActionType::Deactivate:
+                nodeA = getNode(entry._nodeA);
+                con_assert(nodeA != nullptr, "zero pointer");
+                nodeA->setActive(false);
+                break;
             }
         }
     }
 
-    vector<iNode*> iNodeFactory::getNodes(iNodeType nodeType)
+    vector<uint32> iNodeFactory::getNodes(iNodeType nodeType)
     {
-        vector<iNode*> result;
+        vector<uint32> result;
 
         for (auto node : _nodes)
         {
             if (node.second->getType() == nodeType)
             {
-                result.push_back(node.second);
+                result.push_back(node.first);
             }
         }
 
@@ -172,30 +235,6 @@ namespace Igor
         }
     }
 
-    void iNodeFactory::destroyNodeAsync(uint32 nodeID)
-    {
-        con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
-
-        _mutexQueueDelete.lock();
-        _queueDelete.push_back(nodeID);
-        _mutexQueueDelete.unlock();
-    }
-
-    void iNodeFactory::destroyNodeAsync(iNode* node)
-    {
-        con_assert(nullptr != node, "zero pointer");
-
-        if (nullptr != node)
-        {
-            _mutexQueueDelete.lock();
-            _queueDelete.push_back(node->getID());
-            _mutexQueueDelete.unlock();
-        }
-        else
-        {
-            con_err("tried to delete zero pointer");
-        }
-    }
 
     iNode* iNodeFactory::createCopy(iNode* node)
     {

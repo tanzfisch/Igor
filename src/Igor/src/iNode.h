@@ -144,6 +144,18 @@ namespace Igor
         */
         void insertNodeAsync(iNode* node);
 
+        /*! sets node active or inactive
+
+        \param active the active flag
+        */
+        void setActive(bool active = true);
+
+        /*! sets node active or inactive asynchronosly
+
+        \param active the active flag
+        */
+        void setActiveAsync(bool active = true);
+
         /*! removes node that was a child before
 
         \param node pointer to node to be removed
@@ -231,11 +243,7 @@ namespace Igor
         */
         bool isActive() const;
 
-        /*! sets node active or inactive
 
-        \param active the active flag
-        */
-        void setActive(bool active = true);
 
 	protected:
 

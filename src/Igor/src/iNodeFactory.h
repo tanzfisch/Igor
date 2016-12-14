@@ -40,14 +40,33 @@ using namespace std;
 namespace Igor
 {
 
-    /*! creates and destroys nodes
 
-    \todo make thread save
+
+    /*! creates and destroys nodes
     */
 	class Igor_API iNodeFactory : public iaSingleton<iNodeFactory>
 	{
 		friend class iaSingleton<iNodeFactory>;
         friend class iApplication;
+        friend class iScene;
+        friend class iNode;
+
+        enum class ActionType
+        {
+            None,
+            Insert,
+            Remove,
+            Destroy,
+            Activate,
+            Deactivate
+        };
+
+        struct Action
+        {
+            uint32 _nodeA = iNode::INVALID_NODE_ID;
+            uint32 _nodeB = iNode::INVALID_NODE_ID;
+            ActionType _action = ActionType::None;
+        };
 
     public:
 
@@ -58,11 +77,11 @@ namespace Igor
         */
         iNode* getNode(uint32 id);
 
-        /*! \returns list of all nodes of a certain type
+        /*! \returns list of all node IDs of a certain node type
 
         \param nodeType type of nodes
         */
-        vector<iNode*> getNodes(iNodeType nodeType);
+        vector<uint32> getNodes(iNodeType nodeType);
 
         /*! \returns true if node ID exists
 
@@ -70,26 +89,15 @@ namespace Igor
         */
         bool isNode(uint32 id);
 
-        /*! creates a node
-
-        \param nodeType determines which type of node shall be created
-        \returns pointer to new node
-        */
-        iNode* createNode(iNodeType nodeType);
-
         /*! create copy of node
 
         \param node the node to copy
         */
         iNode* createCopy(iNode* node);
 
-        /*! destroys node and all its children
-
-        \param node pointer to node to be destroyed
-        */
-        void destroyNode(iNode* node);
-
         /*! destroys node and all its children  (asynchronously)
+
+        node get's destroyed in main thread in next frame
 
         \param node pointer to node to be destroyed
         */
@@ -97,17 +105,18 @@ namespace Igor
 
         /*! destroys node and all its children
 
-        if Id does not exist it does nothing
-
-        \param nodeID id of node
-        */
-        void destroyNode(uint32 nodeID);
-
-        /*! destroys node and all its children
+        node get's destroyed in main thread in next frame
 
         \param nodeID id of node (asynchronously)
         */
         void destroyNodeAsync(uint32 nodeID);
+
+        /*! creates a node
+
+        \param nodeType determines which type of node shall be created
+        \returns pointer to new node
+        */
+        iNode* createNode(iNodeType nodeType);
 
         /*! inserts one node as child to an other (asynchronously)
 
@@ -126,40 +135,31 @@ namespace Igor
         \param child the child to be removed
         */
         void removeNodeAsync(iNode* parent, iNode* child);
+
+        /*! sets node active/inactive (asynchronously)
+
+        \param node pointer to node
+        \param active the active/inactive flag
+        */
+        void setActiveAsync(iNode* node, bool active);
             
     private:
 
-        /*! mutex to protect add queue
+        /*! mapping ids to nodes
         */
-        mutex _mutexQueueAdd;
-
-        /*! mutex to protect remove queue
-        */
-        mutex _mutexQueueRemove;
-
-        /*! mutex to protect delete queue
-        */
-        mutex _mutexQueueDelete;
+        map<uint32, iNode*> _nodes;
 
         /*! mutex to protect node list
         */
         mutex _mutexNodes;
 
-        /*! the queue for addin nodes to other nodes
+        /*! queue with actions
         */
-        vector<pair<uint32, uint32>> _queueAdd;
+        vector<Action> _actionQueue;
 
-        /*! the queue to remove nodes from other nodes
+        /*! mutex to protect activities
         */
-        vector<pair<uint32, uint32>> _queueRemove;
-
-        /*! node IDs to be deleted
-        */
-        vector<uint32> _queueDelete;
-
-        /*! mapping ids to nodes
-        */
-        map<uint32, iNode*> _nodes;
+        mutex _mutexQueue;
 
         /*! internal copy function for nodes
 
@@ -175,7 +175,23 @@ namespace Igor
         */
         iNode* createCopyInternal(iNode* node, map<uint32, uint32>& nodeIDMap, uint32 recursiveDepth);
 
-        /*! flushing queues
+        /*! destroys node and all its children
+
+        \param node pointer to node to be destroyed
+        */
+        void destroyNode(iNode* node);
+
+        /*! destroys node and all its children
+
+        if Id does not exist it does nothing
+
+        \param nodeID id of node
+        */
+        void destroyNode(uint32 nodeID);
+
+        /*! flushing queues and updating scenes
+        
+        should only happen in one thread
         */
         void handle();
 

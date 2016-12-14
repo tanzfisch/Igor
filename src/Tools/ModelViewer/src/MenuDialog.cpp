@@ -291,7 +291,7 @@ void MenuDialog::onDelete(iWidget* source)
             if (parent != nullptr)
             {
                 parent->removeNode(node);
-                iNodeFactory::getInstance().destroyNode(node);
+                iNodeFactory::getInstance().destroyNodeAsync(node);
                 refreshView();
             }
             else

@@ -25,7 +25,7 @@ namespace Igor
 	{
         if (nullptr != _node)
         {
-            iNodeFactory::getInstance().destroyNode(_node);
+            iNodeFactory::getInstance().destroyNodeAsync(_node);
         }
 
         if (_parameter != nullptr)
