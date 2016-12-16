@@ -40,8 +40,6 @@ using namespace std;
 namespace Igor
 {
 
-
-
     /*! creates and destroys nodes
     */
 	class Igor_API iNodeFactory : public iaSingleton<iNodeFactory>
@@ -51,7 +49,11 @@ namespace Igor
         friend class iScene;
         friend class iNode;
 
-        enum class ActionType
+    public:
+
+        /*! type of action to queue
+        */
+        enum class Igor_API iActionType
         {
             None,
             Insert,
@@ -61,14 +63,22 @@ namespace Igor
             Deactivate
         };
 
-        struct Action
+        /*! struct used for queueing actions
+        */
+        struct Igor_API iAction
         {
+            /*! node A to do an action with
+            */
             uint32 _nodeA = iNode::INVALID_NODE_ID;
-            uint32 _nodeB = iNode::INVALID_NODE_ID;
-            ActionType _action = ActionType::None;
-        };
 
-    public:
+            /*! node B to do an action with
+            */
+            uint32 _nodeB = iNode::INVALID_NODE_ID;
+
+            /*! the action to do with node A, B or both
+            */
+            iActionType _action = iActionType::None;
+        };
 
         /*! get node by id
 
@@ -110,6 +120,9 @@ namespace Igor
         \param nodeID id of node (asynchronously)
         */
         void destroyNodeAsync(uint32 nodeID);
+
+        void applyActionsAsync(const vector<iAction>& actionQueue);
+        
 
         /*! creates a node
 
@@ -155,7 +168,7 @@ namespace Igor
 
         /*! queue with actions
         */
-        vector<Action> _actionQueue;
+        vector<iAction> _actionQueue;
 
         /*! mutex to protect activities
         */
@@ -190,8 +203,10 @@ namespace Igor
         void destroyNode(uint32 nodeID);
 
         /*! flushing queues and updating scenes
-        
-        should only happen in one thread
+        */
+        void flushQueues();
+
+        /*! called once per frame by application
         */
         void handle();
 

@@ -42,10 +42,17 @@ namespace Igor
         }
     }
 
+    void iNodeFactory::applyActionsAsync(const vector<iAction>& actionQueue)
+    {
+        _mutexQueue.lock();
+        _actionQueue.insert(_actionQueue.end(), actionQueue.begin(), actionQueue.end());
+        _mutexQueue.unlock();
+    }
+
     void iNodeFactory::setActiveAsync(iNode* node, bool active)
     {
-        Action action;
-        action._action = active ? ActionType::Activate : ActionType::Deactivate;
+        iAction action;
+        action._action = active ? iActionType::Activate : iActionType::Deactivate;
         action._nodeA = node->getID();
 
         _mutexQueue.lock();
@@ -55,8 +62,8 @@ namespace Igor
 
     void iNodeFactory::insertNodeAsync(iNode* src, iNode* dst)
     {
-        Action action;
-        action._action = ActionType::Insert;
+        iAction action;
+        action._action = iActionType::Insert;
         action._nodeA = src->getID();
         action._nodeB = dst->getID();
 
@@ -67,8 +74,8 @@ namespace Igor
 
     void iNodeFactory::removeNodeAsync(iNode* src, iNode* dst)
     {
-        Action action;
-        action._action = ActionType::Remove;
+        iAction action;
+        action._action = iActionType::Remove;
         action._nodeA = src->getID();
         action._nodeB = dst->getID();
 
@@ -82,8 +89,8 @@ namespace Igor
     {
         con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
 
-        Action action;
-        action._action = ActionType::Destroy;
+        iAction action;
+        action._action = iActionType::Destroy;
         action._nodeA = nodeID;
 
         _mutexQueue.lock();
@@ -97,8 +104,8 @@ namespace Igor
 
         if (nullptr != node)
         {
-            Action action;
-            action._action = ActionType::Destroy;
+            iAction action;
+            action._action = iActionType::Destroy;
             action._nodeA = node->getID();
 
             _mutexQueue.lock();
@@ -113,6 +120,11 @@ namespace Igor
 
     void iNodeFactory::handle()
     {
+        flushQueues();
+    }
+
+    void iNodeFactory::flushQueues()
+    {
         _mutexQueue.lock();
         auto queue = std::move(_actionQueue);
         _mutexQueue.unlock();
@@ -124,31 +136,31 @@ namespace Igor
         {
             switch (entry._action)
             {
-            case ActionType::Insert:
+            case iActionType::Insert:
                 nodeA = getNode(entry._nodeA);
                 nodeB = getNode(entry._nodeB);
                 con_assert(nodeA != nullptr && nodeB != nullptr, "zero pointer");
                 nodeA->insertNode(nodeB);
                 break;
 
-            case ActionType::Remove:
+            case iActionType::Remove:
                 nodeA = getNode(entry._nodeA);
                 nodeB = getNode(entry._nodeB);
                 con_assert(nodeA != nullptr && nodeB != nullptr, "zero pointer");
                 nodeA->removeNode(nodeB);
                 break;
 
-            case ActionType::Destroy:
+            case iActionType::Destroy:
                 destroyNode(entry._nodeA);
                 break;
 
-            case ActionType::Activate:
+            case iActionType::Activate:
                 nodeA = getNode(entry._nodeA);
                 con_assert(nodeA != nullptr, "zero pointer");
                 nodeA->setActive(true);
                 break;
 
-            case ActionType::Deactivate:
+            case iActionType::Deactivate:
                 nodeA = getNode(entry._nodeA);
                 con_assert(nodeA != nullptr, "zero pointer");
                 nodeA->setActive(false);
