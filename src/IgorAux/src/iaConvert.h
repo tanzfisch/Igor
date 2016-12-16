@@ -71,8 +71,18 @@ namespace IgorAux
         */
         static void convert(const iaVector3f& src, iaVector3I& dst);
 
+        /*! converts float64 based 3 dimensional vector in float32 base
+
+        \param src src vector
+        \param[out] dst destination vector
+        */
         static void convert(const iaVector3d& src, iaVector3f& dst);
 
+        /*! converts float64 based 4*4 matrix in float32 base 4*4 matrix
+
+        \param src src matrix
+        \param[out] dst destination matrix
+        */
         static void convert(const iaMatrixd& src, iaMatrixf& dst);
     };
 }
