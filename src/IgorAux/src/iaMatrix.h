@@ -103,6 +103,8 @@ namespace IgorAux
 		*/
 		__IGOR_INLINE__ T& operator[](int i);
 
+        __IGOR_INLINE__ T operator[](int i) const;
+
 		/*! initializes matrix with id matrix
 		*/
 		__IGOR_INLINE__ void identity(void);

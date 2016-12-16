@@ -27,7 +27,7 @@ namespace Igor
         
 		//! \todo octree needs to be of variable size
         // maybe multiple octrees?
-		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 100000.0), 50.0, 8, 4);
+		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 1000000.0), 50.0, 8, 4);
 
         _updateLODSectionID = iStatistics::getInstance().registerSection("scene:LOD", 2);
         _processUpdateDataSectionID = iStatistics::getInstance().registerSection("scene:updateData", 2);

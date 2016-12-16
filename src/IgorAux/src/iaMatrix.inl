@@ -19,6 +19,12 @@ __IGOR_INLINE__ T& iaMatrix<T>::operator[] (int i)
 }
 
 template <class T>
+__IGOR_INLINE__ T iaMatrix<T>::operator[] (int i) const
+{
+    return ((T*)&_right)[i];
+}
+
+template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::operator += (iaMatrix<T> &a)
 {
     T *m = (T*)&_right;

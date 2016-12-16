@@ -29,9 +29,6 @@
     <ClCompile Include="..\src\iaSerializable.cpp">
       <Filter>IO</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iaConvert.cpp">
-      <Filter>data types</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iaConsole.cpp">
       <Filter>IO</Filter>
     </ClCompile>
@@ -39,6 +36,9 @@
       <Filter>data types</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iaRandomNumberGenerator.cpp" />
+    <ClCompile Include="..\src\iaConvert.cpp">
+      <Filter>data types</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iaDefines.h" />

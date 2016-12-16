@@ -243,8 +243,6 @@ namespace Igor
         */
         bool isActive() const;
 
-
-
 	protected:
 
         /*! true: node is active; false: node will be ignored for most operations
@@ -367,7 +365,12 @@ namespace Igor
         */
         uint32 _nodeID = INVALID_NODE_ID;
 
-        /*!
+        /*! calculates world transformation of this node
+
+        recursively climbing up the parents until there is no parent anymore
+
+        \param currentNode the current node
+        \param matrix the current accumulated transformation matrix
         */
         void calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix);
 

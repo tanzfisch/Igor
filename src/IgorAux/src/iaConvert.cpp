@@ -3,48 +3,47 @@
 namespace IgorAux
 {
 
-    iaColor3c iaConvert::convert3c(const iaColor3f& color)
+    void iaConvert::convert(const iaColor3f& src, iaColor3c& dst)
     {
-        iaColor3c result;
-
-        result._r = static_cast<uint8>(color._r * 255.0f + 0.5f);
-        result._g = static_cast<uint8>(color._g * 255.0f + 0.5f);
-        result._b = static_cast<uint8>(color._b * 255.0f + 0.5f);
-
-        return result;
+        dst._r = static_cast<uint8>(src._r * 255.0f + 0.5f);
+        dst._g = static_cast<uint8>(src._g * 255.0f + 0.5f);
+        dst._b = static_cast<uint8>(src._b * 255.0f + 0.5f);
     }
 
-    iaColor3f iaConvert::convert3f(const iaColor3c& color)
+    void iaConvert::convert(const iaColor3c& src, iaColor3f& dst)
     {
-        iaColor3f result;
-
-        result._r = static_cast<float32>(color._r / 255.0f);
-        result._g = static_cast<float32>(color._g / 255.0f);
-        result._b = static_cast<float32>(color._b / 255.0f);
-
-        return result;
+        dst._r = static_cast<float32>(src._r / 255.0f);
+        dst._g = static_cast<float32>(src._g / 255.0f);
+        dst._b = static_cast<float32>(src._b / 255.0f);
     }
 
-    iaVector3f iaConvert::convert3f(const iaVector3I& vector)
+    void iaConvert::convert(const iaVector3I& src, iaVector3f& dst)
     {
-        iaVector3f result;
-
-        result._x = static_cast<float32>(vector._x);
-        result._y = static_cast<float32>(vector._y);
-        result._z = static_cast<float32>(vector._z);
-
-        return result;
+        dst._x = static_cast<float32>(src._x);
+        dst._y = static_cast<float32>(src._y);
+        dst._z = static_cast<float32>(src._z);
     }
 
-    iaVector3I iaConvert::convert3I(const iaVector3f& vector)
+    void iaConvert::convert(const iaVector3f& src, iaVector3I& dst)
     {
-        iaVector3I result;
+        dst._x = static_cast<int64>(src._x);
+        dst._y = static_cast<int64>(src._y);
+        dst._z = static_cast<int64>(src._z);
+    }
 
-        result._x = static_cast<int64>(vector._x);
-        result._y = static_cast<int64>(vector._y);
-        result._z = static_cast<int64>(vector._z);
+    void iaConvert::convert(const iaVector3d& src, iaVector3f& dst)
+    {
+        dst._x = src._x;
+        dst._y = src._y;
+        dst._z = src._z;
+    }
 
-        return result;
+    void iaConvert::convert(const iaMatrixd& src, iaMatrixf& dst)
+    {
+        for (int i = 0; i < 16; ++i)
+        {
+            dst[i] = static_cast<float32>(src[i]);
+        }
     }
 
 }

@@ -206,10 +206,20 @@ namespace Igor
                 meshNode->setKeepMesh(_parameter->_keepMesh);
             }
 
-            meshNode->getTargetMaterial()->setAmbient(iaConvert::convert3f(meshChunk->getAmbient()));
-            meshNode->getTargetMaterial()->setDiffuse(iaConvert::convert3f(meshChunk->getDiffuse()));
-            meshNode->getTargetMaterial()->setSpecular(iaConvert::convert3f(meshChunk->getSpecular()));
-            meshNode->getTargetMaterial()->setEmissive(iaConvert::convert3f(meshChunk->getEmissive()));
+            iaColor3f ambient;
+            iaColor3f diffuse;
+            iaColor3f specular;
+            iaColor3f emissive;
+
+            iaConvert::convert(meshChunk->getAmbient(), ambient);
+            iaConvert::convert(meshChunk->getDiffuse(), diffuse);
+            iaConvert::convert(meshChunk->getSpecular(), specular);
+            iaConvert::convert(meshChunk->getEmissive(), emissive);
+
+            meshNode->getTargetMaterial()->setAmbient(ambient);
+            meshNode->getTargetMaterial()->setDiffuse(diffuse);
+            meshNode->getTargetMaterial()->setSpecular(specular);
+            meshNode->getTargetMaterial()->setEmissive(emissive);
             meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
 
             uint32 textureCount = meshChunk->getTextureCount();
@@ -577,10 +587,21 @@ namespace Igor
         {
             con_assert(node->getMesh() != nullptr, "zero pointer");
 
-            result->setAmbient(iaConvert::convert3c(node->getAmbient()));
-            result->setDiffuse(iaConvert::convert3c(node->getDiffuse()));
-            result->setSpecular(iaConvert::convert3c(node->getSpecular()));
-            result->setEmissive(iaConvert::convert3c(node->getEmissive()));
+
+            iaColor3c ambient;
+            iaColor3c diffuse;
+            iaColor3c specular;
+            iaColor3c emissive;
+
+            iaConvert::convert(node->getAmbient(), ambient);
+            iaConvert::convert(node->getDiffuse(), diffuse);
+            iaConvert::convert(node->getSpecular(), specular);
+            iaConvert::convert(node->getEmissive(), emissive);
+
+            result->setAmbient(ambient);
+            result->setDiffuse(diffuse);
+            result->setSpecular(specular);
+            result->setEmissive(emissive);
             result->setShininess(node->getShininess());
 
             if (node->getMesh() != nullptr)

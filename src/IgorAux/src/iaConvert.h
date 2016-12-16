@@ -31,6 +31,7 @@
 
 #include <iaColor3.h>
 #include <iaVector3.h>
+#include <iaMatrix.h>
 
 namespace IgorAux
 {
@@ -44,31 +45,35 @@ namespace IgorAux
 
         /*! converts float based color to byte
 
-        \param color float based color
-        \returns byte based color
+        \param src src color
+        \param[out] dst destination color
         */
-        static iaColor3c convert3c(const iaColor3f& color);
+        static void convert(const iaColor3f& src, iaColor3c& dst);
 
         /*! converts byte based color to float
 
-        \param color byte based color
-        \returns float based color
+        \param src src color
+        \param[out] dst destination color
         */
-        static iaColor3f convert3f(const iaColor3c& color);
+        static void convert(const iaColor3c& src, iaColor3f& dst);
 
         /*! converts int64 based 3 dimensional vector in float base
 
-        \param vector int64 based vector
-        \returns float based vector 
+        \param src src vector
+        \param[out] dst destination vector
         */
-        static iaVector3f convert3f(const iaVector3I& vector);
+        static void convert(const iaVector3I& src, iaVector3f& dst);
 
         /*! converts float32 based 3 dimensional vector in int64 base
 
-        \param vector float32 based vector
-        \returns int64 based vector
+        \param src src vector
+        \param[out] dst destination vector
         */
-        static iaVector3I convert3I(const iaVector3f& vector);
+        static void convert(const iaVector3f& src, iaVector3I& dst);
+
+        static void convert(const iaVector3d& src, iaVector3f& dst);
+
+        static void convert(const iaMatrixd& src, iaMatrixf& dst);
     };
 }
 
