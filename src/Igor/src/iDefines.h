@@ -55,6 +55,8 @@
     #define __IGOR_BIT_STR__ x32
 #endif
 
+/*! default igor window title
+*/
 #define IGOR_DFAULT_WINDOW_TITLE TEXT("#Igor")
 
 namespace Igor

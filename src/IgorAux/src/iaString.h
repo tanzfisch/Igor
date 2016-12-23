@@ -38,6 +38,8 @@ using namespace std;
 namespace IgorAux
 {
 
+    /*! string slpit mode
+    */
     enum class StringSplitMode
     {
         Normal,

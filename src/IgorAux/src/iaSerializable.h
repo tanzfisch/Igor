@@ -376,20 +376,80 @@ namespace IgorAux
         \returns true if successfull
         */
         static bool read(ifstream& stream, iaVector4f& value);
+        
+        /*! write float32 gradient to stream
 
+        \param stream output stream
+        \param value gradient to write
+        */
         static bool write(ofstream& stream, const iaGradientf& value);
+
+        /*! reads a float32 gradient from stream
+
+        \param stream input stream
+        \param value destination gradient
+        \returns true if successfull
+        */
         static bool read(ifstream& stream, iaGradientf& value);
 
+        /*! write uint32 gradient to stream
+
+        \param stream output stream
+        \param value gradient to write
+        */
         static bool write(ofstream& stream, const iaGradientui& value);
+
+        /*! reads a uint32 gradient from stream
+
+        \param stream input stream
+        \param value destination gradient
+        \returns true if successfull
+        */
         static bool read(ifstream& stream, iaGradientui& value);
 
+        /*! write float32 3d vector gradient to stream
+
+        \param stream output stream
+        \param value gradient to write
+        */
         static bool write(ofstream& stream, const iaGradientVector3f& value);
+
+        /*! reads a float32 3d vector gradient from stream
+
+        \param stream input stream
+        \param value destination gradient
+        \returns true if successfull
+        */
         static bool read(ifstream& stream, iaGradientVector3f& value);
 
+        /*! write float32 2d vector gradient to stream
+
+        \param stream output stream
+        \param value gradient to write
+        */
         static bool write(ofstream& stream, const iaGradientVector2f& value);
+
+        /*! reads a float32 2d vector gradient from stream
+
+        \param stream input stream
+        \param value destination gradient
+        \returns true if successfull
+        */
         static bool read(ifstream& stream, iaGradientVector2f& value);
 
+        /*! write float32 color gradient to stream
+
+        \param stream output stream
+        \param value gradient to write
+        */
         static bool write(ofstream& stream, const iaGradientColor4f& value);
+
+        /*! reads a float32 color gradient from stream
+
+        \param stream input stream
+        \param value destination gradient
+        \returns true if successfull
+        */
         static bool read(ifstream& stream, iaGradientColor4f& value);
 
     };

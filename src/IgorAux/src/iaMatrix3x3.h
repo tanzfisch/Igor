@@ -115,6 +115,13 @@ namespace IgorAux
 		\param s scale vector
 		*/
 		__IGOR_INLINE__ void scale(iaVector3<T> &s);
+
+        /*! scale matrix by vector
+
+        \param x x component of vector
+        \param y y component of vector
+        \param z z component of vector
+        */
 		__IGOR_INLINE__ void scale(T x, T y, T z);
 
 		/*! rotates the matrix around a specified orientation vector of the matrix
@@ -153,8 +160,13 @@ namespace IgorAux
 
 	#include <iaMatrix3x3.inl>
 
+    /*! float32 3x3 matrix
+    */
 	typedef iaMatrix3x3<float32> iaMatrix3x3f;
-	typedef iaMatrix3x3<float64> iaMatrix3x3d;
+
+    /*! float64 3x3 matrix
+    */
+    typedef iaMatrix3x3<float64> iaMatrix3x3d;
 
 };
 

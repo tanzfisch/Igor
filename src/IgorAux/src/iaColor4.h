@@ -174,6 +174,11 @@ namespace IgorAux
             _a = color1._a * w + color2._a * (1.0f - w);
         }
 
+        /*! converts RGB to HSV
+
+        \param rgb the rgb color
+        \returns hsv color
+        */
         static iaColor4<T> convertRGBtoHSV(iaColor4<T>& rgb)
         {
             iaColor4<T> result;
@@ -248,6 +253,11 @@ namespace IgorAux
             return result;
         }
 
+        /*! converts HSV to RGB
+
+        \param hsv the hsv color
+        \returns rgb color
+        */
         static iaColor4<T> convertHSVtoRGB(iaColor4<T>& hsv)
         {
             iaColor4<T> result;
@@ -320,6 +330,8 @@ namespace IgorAux
         return ostr;
     }
 
+    /*! float32 color
+    */
     typedef iaColor4<float32> iaColor4f;
 
 };

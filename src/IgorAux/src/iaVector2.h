@@ -226,9 +226,21 @@ namespace IgorAux
 
 	#include <iaVector2.inl>
 
+    /*! float32 2d vector
+    */
 	typedef iaVector2<float32> iaVector2f;
-	typedef iaVector2<float64> iaVector2d;
-	typedef iaVector2<int32> iaVector2i;
+
+    /*! float64 2d vector
+    */
+    typedef iaVector2<float64> iaVector2d;
+	
+    /*! int32 2d vector
+    */
+    typedef iaVector2<int32> iaVector2i;
+
+    /*! int64 2d vector
+    */
+    typedef iaVector2<int64> iaVector2I;
 
 };
 

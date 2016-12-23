@@ -35,9 +35,11 @@
     <ClCompile Include="..\src\iaString.cpp">
       <Filter>data types</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iaRandomNumberGenerator.cpp" />
     <ClCompile Include="..\src\iaConvert.cpp">
       <Filter>data types</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaRandomNumberGenerator.cpp">
+      <Filter>math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,12 +121,14 @@
     <ClInclude Include="..\src\iaQuaternion.h">
       <Filter>math</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iaRandomNumberGenerator.h" />
     <ClInclude Include="..\src\iaGradient.h">
       <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iaRingQueue.h">
       <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaRandomNumberGenerator.h">
+      <Filter>math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

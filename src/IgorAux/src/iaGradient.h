@@ -113,10 +113,24 @@ namespace IgorAux
 
 #include <iaGradient.inl>
 
+    /*! uint32 gradient
+    */
     typedef iaGradient<uint32> iaGradientui;
+
+    /*! float32 gradient
+    */
     typedef iaGradient<float32> iaGradientf;
+    
+    /*! float32 3d vector gradient
+    */
     typedef iaGradient<iaVector3f> iaGradientVector3f;
+
+    /*! float32 2d vector gradient
+    */
     typedef iaGradient<iaVector2f> iaGradientVector2f;
+
+    /*! color vector gradient
+    */
     typedef iaGradient<iaColor4f> iaGradientColor4f;
 
 };

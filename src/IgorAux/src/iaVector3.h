@@ -224,9 +224,20 @@ namespace IgorAux
 
 #include <iaVector3.inl>
 
+    /*! float32 3d vector
+    */
     typedef iaVector3<float32> iaVector3f;
+
+    /*! float64 3d vector
+    */
     typedef iaVector3<float64> iaVector3d;
+    
+    /*! int32 3d vector
+    */
     typedef iaVector3<int32> iaVector3i;
+
+    /*! int64 3d vector
+    */
     typedef iaVector3<int64> iaVector3I;
 
 };

@@ -51,7 +51,7 @@ namespace Igor
 	Shuts down all the singleton instances.
 	Not thread save. make shure only one thread is left when calling this.
 
-    \todo it would be nice to have the order of shutting down singletons implicitly
+    \todo it would be nice to have the order of shutting down singletons implicitly or configurable
 	*/
 	void Igor_API shutdown();
 

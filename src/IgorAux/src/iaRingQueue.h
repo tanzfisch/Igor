@@ -37,6 +37,8 @@ using namespace std;
 namespace IgorAux
 {
 
+    /*! todo not in use yet
+    */
     template <typename TValue>
     class iaRingQueue
     {

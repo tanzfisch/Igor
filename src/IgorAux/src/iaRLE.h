@@ -56,8 +56,6 @@ namespace IgorAux
     };
 
     /*! run lenght encoded buffer
-
-    \todo a set value range method would be nice
     */
     template <typename TValue, typename TIndex> 
     class IgorAux_API_Template iaRLE

@@ -255,8 +255,13 @@ namespace IgorAux
 
 	#include <iaMatrix.inl>
 
+    /*! float32 4x4 matrix
+    */
 	typedef iaMatrix<float32> iaMatrixf;
-	typedef iaMatrix<float64> iaMatrixd;
+
+    /*! float64 4x4 matrix
+    */
+    typedef iaMatrix<float64> iaMatrixd;
 
 };
 
