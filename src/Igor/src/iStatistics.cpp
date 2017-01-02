@@ -132,6 +132,16 @@ namespace Igor
         }
     }
 
+    void iStatistics::setVerbosity(iRenderStatisticsVerbosity renderStatisticsMode)
+    {
+        _renderStatisticsMode = renderStatisticsMode;
+    }
+
+    iRenderStatisticsVerbosity iStatistics::getVerbosity()
+    {
+        return _renderStatisticsMode;
+    }
+
     void iStatistics::beginSection(uint32 sectionID)
     {
         con_assert(_sections.find(sectionID) != _sections.end(), "out of range");
@@ -150,16 +160,6 @@ namespace Igor
         {
             _sections[sectionID].endSection();
         }
-    }
-
-    void iStatistics::setVerbosity(iRenderStatisticsVerbosity renderStatisticsMode)
-    {
-        _renderStatisticsMode = renderStatisticsMode;
-    }
-
-    iRenderStatisticsVerbosity iStatistics::getVerbosity()
-    {
-        return _renderStatisticsMode;
     }
 
     // todo refactor

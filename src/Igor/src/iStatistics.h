@@ -35,6 +35,7 @@
 #include <iaSingleton.h>
 #include <iaColor4.h>
 #include <iaString.h>
+#include <iaConsole.h>
 using namespace IgorAux;
 
 #include <map>
@@ -186,8 +187,6 @@ namespace Igor
         /*! alpha blending material
         */
         uint32 _materialBlend = 0;
-
-
 
         /*! initializes the materials in use
         */
