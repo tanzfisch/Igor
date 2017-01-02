@@ -121,8 +121,11 @@ namespace Igor
         */
         void destroyNodeAsync(uint32 nodeID);
 
+        /*! applys asynchrounous actions to nodes
+
+        \param actionQueue list of actions to be executed
+        */
         void applyActionsAsync(const vector<iAction>& actionQueue);
-        
 
         /*! creates a node
 

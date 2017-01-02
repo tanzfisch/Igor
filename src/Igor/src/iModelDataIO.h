@@ -72,7 +72,9 @@ namespace Igor
         */
         const iaString& getIdentifier();
 
-		/*! loades the data from filesystem and returns the result
+		/*! loades the data from filesystem and returns the result 
+        
+        (in some cases the data might not be loaded but generated)
 
 		\param filename filename of file to load
 		\return parameter optional import or generate parameters

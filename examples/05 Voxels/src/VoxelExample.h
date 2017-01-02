@@ -143,6 +143,10 @@ private:
     */
     iaRandomNumberGenerator _rand;
 
+    /*! incarnation of mesh
+    */
+    uint32 _incarnation = 1;
+
     /*! id of flush model task
     */
     uint64 _flushModelsTask = iTask::INVALID_TASK_ID;

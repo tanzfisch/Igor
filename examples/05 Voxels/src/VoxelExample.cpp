@@ -340,11 +340,11 @@ void VoxelExample::generateVoxelData()
     if (_voxelMeshTransform != iNode::INVALID_NODE_ID)
     {
         // this will also kill all the children of that node
-        iNodeFactory::getInstance().destroyNode(_voxelMeshTransform);
+        iNodeFactory::getInstance().destroyNodeAsync(_voxelMeshTransform);
         _voxelMeshTransform = iNode::INVALID_NODE_ID;
         _voxelMeshModel = iNode::INVALID_NODE_ID;
     }
-
+    
     // !!!! now you should first have a look at the VoxelTerrainMeshGenerator class before you continue !!!!
     prepareMeshGeneration();
 
@@ -372,8 +372,9 @@ void VoxelExample::prepareMeshGeneration()
     // create a model node
     iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _voxelMeshModel = voxelMeshModel->getID();
-    // tell the model node to load data with the above defined parameters
-    voxelMeshModel->setModel("VoxelMesh", inputParam);
+    // tell the model node to load data with specified identifier ans the above defined parameter
+    // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
+    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::itoa(_incarnation++), inputParam);
     // create a transform node to center the mesh to the origin
     iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _voxelMeshTransform = voxelMeshTransform->getID();
@@ -440,11 +441,11 @@ void VoxelExample::onRenderOrtho()
 
     if (_loading)
     {
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorrizontalAlign::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.1, "press [Space] to recreate", iHorrizontalAlign::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
 
     drawLogo();
