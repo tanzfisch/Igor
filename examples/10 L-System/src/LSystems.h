@@ -125,6 +125,10 @@ private:
     */
     uint32 _styleCounter = 0;
 
+    /*! incarnation counter
+    */
+    uint32 _incarnation = 1;
+
     /*! the L-System
     */
     iLSystem _lSystem;

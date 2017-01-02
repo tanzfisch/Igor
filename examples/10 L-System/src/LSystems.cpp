@@ -29,7 +29,6 @@
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
-#include <iGradient.h>
 #include <iSkeleton.h>
 #include <iTextureResourceFactory.h>
 using namespace Igor;
@@ -278,7 +277,7 @@ uint32 LSystems::generatePlant(const iaMatrixf& matrix, const iaString& axiom, u
     inputParam->_parameters.setData(reinterpret_cast<const char*>(&plantInformation), sizeof(PlantInformation));
 
     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    modelNode->setModel(iaString("plant") + iaString::itoa(iterations), inputParam);
+    modelNode->setModel(iaString("plant_") + iaString::itoa(iterations) + iaString("_") + iaString::itoa(_incarnation++), inputParam);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(matrix);
@@ -316,7 +315,7 @@ void LSystems::generateLSystems()
 
     if (_groupNodeID != iNode::INVALID_NODE_ID)
     {
-        iNodeFactory::getInstance().destroyNode(_groupNodeID);
+        iNodeFactory::getInstance().destroyNodeAsync(_groupNodeID);
         _groupNodeID = iNode::INVALID_NODE_ID;
     }
     
