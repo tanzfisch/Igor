@@ -58,6 +58,8 @@ namespace Igor
 
     public:
 
+        /*! invalid task id definition
+        */
         static const uint64 INVALID_TASK_ID = 0;
 
         /*! default priority for a task to run
@@ -108,16 +110,20 @@ namespace Igor
         uint64 getID();
 
         /*! \returns physics world id if present
+        \todo broken design?
         */
         uint64 getWorldID();
 
         /*! sets physics world id
 
         \param worldID the world id
+        \todo broken design?
         */
         void setWorld(uint64 worldID);
 
         /*! \returns pointer to window if present
+
+        \todo broken design?
         */
         iWindow* getWindow();
 
