@@ -29,8 +29,7 @@ namespace Igor
 
         _nodeType = iNodeType::iNodeLODSwitch;
         _nodeKind = iNodeKind::Node;
-
-        // TODO copy triggers?
+        _triggers = node->_triggers;
 
         setName(node->getName());
     }
