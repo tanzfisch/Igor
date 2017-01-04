@@ -124,10 +124,10 @@ namespace Igor
 
     void iNodeLODSwitch::update(float32 distance)
     {
-        vector<iNode*> copyChildren(_children);
-        copyChildren.insert(std::end(copyChildren), std::begin(_inactiveChildren), std::end(_inactiveChildren));
+        vector<iNode*> allChildren(_children);
+        allChildren.insert(std::end(allChildren), std::begin(_inactiveChildren), std::end(_inactiveChildren));
 
-        for (auto child : copyChildren)
+        for (auto child : allChildren)
         {
             if (_thresholds[child]._min <= distance &&
                 _thresholds[child]._max > distance)
