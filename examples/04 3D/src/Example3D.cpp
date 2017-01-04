@@ -66,7 +66,7 @@ void Example3D::init()
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
     _window.addView(&_viewOrtho);
-
+    // and open the window
     _window.open();
 
     // init scene
@@ -271,12 +271,9 @@ void Example3D::init()
     _animationTimingHandle->setIntervall(10);
     _animationTimingHandle->registerTimerDelegate(TimerDelegate(this, &Example3D::onTimer));
 
-    // start model and texture loading tasks
-    _taskFlushModels = new iTaskFlushModels(&_window);
-    iTaskManager::getInstance().addTask(_taskFlushModels);
-
-    _taskFlushTextures = new iTaskFlushTextures(&_window);
-    iTaskManager::getInstance().addTask(_taskFlushTextures);
+    // start resource tasks
+    _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
+     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Example3D::onKeyPressed));
@@ -309,21 +306,12 @@ void Example3D::deinit()
         _animationTimingHandle = nullptr;
     }
 
-    // stop resource managers
-    if (_taskFlushTextures != nullptr)
-    {
-        _taskFlushTextures->abort();
-        _taskFlushTextures = nullptr; // no need to delete. task manager did that already
-    }
-
-    if (_taskFlushModels != nullptr)
-    {
-        _taskFlushModels->abort();
-        _taskFlushModels = nullptr; // no need to delete. task manager did that already
-    }
-
     iSceneFactory::getInstance().destroyScene(_scene);
     _scene = nullptr;
+
+    // abort resource tasks
+    iTaskManager::getInstance().abortTask(_taskFlushModels);
+    iTaskManager::getInstance().abortTask(_taskFlushTextures);
 
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialSkyBox);
 

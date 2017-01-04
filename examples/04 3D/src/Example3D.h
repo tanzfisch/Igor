@@ -78,11 +78,11 @@ private:
 
     /*! async loading of models
     */
-    iTaskFlushModels* _taskFlushModels = nullptr;
+    uint64 _taskFlushModels = iTask::INVALID_TASK_ID;
 
     /*! async loading of textures
     */
-    iTaskFlushTextures* _taskFlushTextures = nullptr;
+    uint64 _taskFlushTextures = iTask::INVALID_TASK_ID;
 
     /*! texture fon we use to render statistics
     */
