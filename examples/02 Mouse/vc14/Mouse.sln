@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Mouse", "Mouse.vcxproj", "{DE10D3FF-0276-4E49-8BBB-D935F15BA21F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -22,6 +22,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OMPF", "..\..\..\src\OMPF\v
 	ProjectSection(ProjectDependencies) = postProject
 		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {879EBAB3-D7D7-473D-BB32-6A07964F12F9}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{1774884E-D0B4-420D-8FF9-0D6E165E3A3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,5 +66,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4BFF697B-A2DC-472B-BA1A-4169BCEFA532} = {1774884E-D0B4-420D-8FF9-0D6E165E3A3B}
+		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {1774884E-D0B4-420D-8FF9-0D6E165E3A3B}
+		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {1774884E-D0B4-420D-8FF9-0D6E165E3A3B}
 	EndGlobalSection
 EndGlobal
