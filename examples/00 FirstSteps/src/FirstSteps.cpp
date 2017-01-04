@@ -44,7 +44,7 @@ void FirstSteps::run()
 void FirstSteps::onHandle()
 {
     // since there is nothing to do for the application besides init and deinit some internal stuff
-    // the handle will be called es often as possible. which should be reflected in a verry high frame rate
+    // the handle will be called es often as possible. which should be reflected in a very high frame rate
 
     // lets count
     _counter++;
