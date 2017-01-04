@@ -36,6 +36,8 @@ namespace Igor
 
     iNodeFactory::~iNodeFactory()
     {
+        flushQueues();
+
         if (_nodes.size())
         {
             con_err("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
@@ -83,7 +85,6 @@ namespace Igor
         _actionQueue.push_back(action);
         _mutexQueue.unlock();
     }
-
     
     void iNodeFactory::destroyNodeAsync(uint32 nodeID)
     {
