@@ -97,12 +97,12 @@ void VoxelTerrainGenerator::deinit()
     {
         if (tile.second._transformNodeID != iNode::INVALID_NODE_ID)
         {
-            iNodeFactory::getInstance().destroyNode(tile.second._transformNodeID);
+            iNodeFactory::getInstance().destroyNodeAsync(tile.second._transformNodeID);
         }
 
         for(auto id : tile.second._destroyNodeIDs)
         {
-            iNodeFactory::getInstance().destroyNode(id);
+            iNodeFactory::getInstance().destroyNodeAsync(id);
         }
     }
 
@@ -425,7 +425,7 @@ void VoxelTerrainGenerator::handleMeshTiles(iVoxelData* voxelData, const iaVecto
                             iNode* node = iNodeFactory::getInstance().getNode(id);
                             if (node != nullptr)
                             {
-                                iNodeFactory::getInstance().destroyNode(node);
+                                iNodeFactory::getInstance().destroyNodeAsync(node);
                             }
                         }
 
@@ -437,14 +437,14 @@ void VoxelTerrainGenerator::handleMeshTiles(iVoxelData* voxelData, const iaVecto
                 {
                     if ((*tileIter).second._transformNodeID != iNode::INVALID_NODE_ID)
                     {
-                        iNodeFactory::getInstance().destroyNode((*tileIter).second._transformNodeID);
+                        iNodeFactory::getInstance().destroyNodeAsync((*tileIter).second._transformNodeID);
                     }
 
                     if (!(*tileIter).second._destroyNodeIDs.empty())
                     {
                         for (auto id : (*tileIter).second._destroyNodeIDs)
                         {
-                            iNodeFactory::getInstance().destroyNode(id);
+                            iNodeFactory::getInstance().destroyNodeAsync(id);
                         }
 
                         (*tileIter).second._destroyNodeIDs.clear();

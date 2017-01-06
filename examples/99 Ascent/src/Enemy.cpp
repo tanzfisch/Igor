@@ -166,9 +166,17 @@ void Enemy::handle()
             dir -= getSphere()._center;
             float32 distance = dir.length();
 
-            VoxelTerrainGenerator::getInstance().castRay(iaConvert::convert3I(getSphere()._center), iaConvert::convert3I(targetPos), outside, inside);
+            iaVector3I center;
+            iaVector3I pos;
+            iaConvert::convert(getSphere()._center, center);
+            iaConvert::convert(targetPos, pos);
 
-            float32 distanceToWall = iaConvert::convert3f(outside).distance(getSphere()._center) + 5;
+            VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
+
+            iaVector3f out;
+            iaConvert::convert(outside, out);
+
+            float32 distanceToWall = out.distance(getSphere()._center) + 5;
             if(distanceToWall > distance &&
                 distance > approachDistance)
             {

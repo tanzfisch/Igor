@@ -643,7 +643,8 @@ void Ascent::onHandle()
 {
     if (_loading)
     {
-        if (iTaskManager::getInstance().getQueuedTaskCount() < 4)
+        if (iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
+            iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
         {
             _loading = false;
             _activeControls = true;
