@@ -321,12 +321,6 @@ void Example3D::deinit()
         _window.removeView(&_view);
         _window.removeView(&_viewOrtho);
     }
-
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
-    }
 }
 
 void Example3D::onMouseWheel(int32 d)
