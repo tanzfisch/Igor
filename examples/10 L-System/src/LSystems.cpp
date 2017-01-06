@@ -157,6 +157,41 @@ void LSystems::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 }
 
+void LSystems::deinit()
+{
+    // unregister some callbacks
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
+    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
+
+    // deinit statistics
+    if (_font != nullptr)
+    {
+        delete _font;
+        _font = nullptr;
+    }
+
+    // unregister plant mesh generator
+    iModelResourceFactory::getInstance().unregisterModelDataIO("pg");
+
+    // destroy scene
+    iSceneFactory::getInstance().destroyScene(_scene);
+
+    // abort resource tasks
+    iTaskManager::getInstance().abortTask(_flushModelsTask);
+    iTaskManager::getInstance().abortTask(_flushTexturesTask);
+
+    if (_window.isOpen())
+    {
+        _window.close();
+        _window.removeView(&_view);
+        _window.removeView(&_viewOrtho);
+    }
+}
+
 void LSystems::initStyle1()
 {
     _lSystem.setRule('F', "FF");
@@ -353,37 +388,6 @@ void LSystems::generateLSystems()
         iaMatrixf matrix;
         matrix.translate(-15 + i* 5, -15, 0);
         _plantsInProgress.push_back(generatePlant(matrix, "X", i, seed));
-    }
-}
-
-void LSystems::deinit()
-{
-    // unregister plant mesh generator
-    iModelResourceFactory::getInstance().unregisterModelDataIO("pg");
-
-    // destroy scene
-    iSceneFactory::getInstance().destroyScene(_scene);
-
-    // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &LSystems::onKeyPressed));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &LSystems::onMouseMoved));
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &LSystems::onMouseWheel));
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
-
-    // deinit statistics
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    if (_window.isOpen())
-    {
-        _window.close();
-        _window.removeView(&_view);
-        _window.removeView(&_viewOrtho);
     }
 }
 
