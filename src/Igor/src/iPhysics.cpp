@@ -134,7 +134,7 @@ namespace Igor
 
         if (!_bodys.empty())
         {
-            con_err("possible mem leak! not all physic bodys released");
+            con_err("possible mem leak! " << _bodys.size() << " physic bodys left");
 
             auto iter = _bodys.begin();
             while (iter != _bodys.end())
@@ -147,7 +147,7 @@ namespace Igor
 
         if (!_collisions.empty())
         {
-            con_err("possible mem leak! not all physic collisions released");
+            con_err("possible mem leak! " << _collisions.size() << " physic collisions left");
 
             auto iter = _collisions.begin();
             while (iter != _collisions.end())
