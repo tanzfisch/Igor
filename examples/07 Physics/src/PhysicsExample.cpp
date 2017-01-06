@@ -42,7 +42,19 @@ PhysicsExample::~PhysicsExample()
 
 void PhysicsExample::deinit()
 {
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
+    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &PhysicsExample::handle));
+
+    if (_font)
+    {
+        delete _font;
+        _font = nullptr;
+    }
+
+    iSceneFactory::getInstance().destroyScene(_scene);
 
     for (auto bodyID : _bodyIDs)
     {
@@ -51,35 +63,15 @@ void PhysicsExample::deinit()
 
     _bodyIDs.clear();
 
-    iSceneFactory::getInstance().destroyScene(_scene);
+    iTaskManager::getInstance().abortTask(_flushModelsTask);
+    iTaskManager::getInstance().abortTask(_flushTexturesTask);
 
-    if (_font)
+    if (_window.isOpen())
     {
-        delete _font;
-        _font = nullptr;
+        _window.close();
+        _window.removeView(&_view);
+        _window.removeView(&_viewOrtho);
     }
-
-    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
-    if (modelTask != nullptr)
-    {
-        modelTask->abort();
-        _flushModelsTask = iTask::INVALID_TASK_ID;
-    }
-
-    iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
-    if (textureTask != nullptr)
-    {
-        textureTask->abort();
-        _flushTexturesTask = iTask::INVALID_TASK_ID;
-    }
-
-	_window.close();
-	_window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
-
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
 }
 
 void PhysicsExample::init()
@@ -89,7 +81,6 @@ void PhysicsExample::init()
 	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
-
 	iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &PhysicsExample::handle));
 
 	_view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
@@ -103,7 +94,6 @@ void PhysicsExample::init()
 
 	_window.addView(&_view);
     _window.addView(&_viewOrtho);
-    //_window.setFullscreen(true);
     _window.setSize(1024, 768);
 	_window.open();
 	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &PhysicsExample::windowClosed));
@@ -186,6 +176,11 @@ void PhysicsExample::init()
     // no need to keep the collisions after putting them in to a body
     iPhysics::getInstance().destroyCollision(floorCollision);
     iPhysics::getInstance().destroyCollision(boxCollision);
+    // also delete the collisions that are part of a compound
+    for (auto collision : collisions)
+    {
+        iPhysics::getInstance().destroyCollision(collision);
+    }
     
 	// cam
     _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
