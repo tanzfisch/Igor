@@ -118,7 +118,7 @@ void PhysicsExample::init()
     iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
     floorBody->setMass(0);
     
-    iaMatrixf floorMatrix;
+    iaMatrixd floorMatrix;
     floorMatrix.translate(0, -1, 0);
 
     floorBody->setMatrix(floorMatrix);
@@ -254,12 +254,11 @@ void PhysicsExample::init()
 
 void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex)
 {
-    float32 Ixx;
-    float32 Iyy;
-    float32 Izz;
-    float32 mass;
-    iaVector3f force;
-    iaVector3f angularForce;
+    float64 Ixx;
+    float64 Iyy;
+    float64 Izz;
+    float64 mass;
+    iaVector3d force;
 
     iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
     force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
@@ -294,9 +293,9 @@ void PhysicsExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow*
 
 void PhysicsExample::updateCameraPosition()
 {
-    iaMatrixf pitch;
+    iaMatrixd pitch;
     pitch.rotate(_camPitch, iaAxis::X);
-    iaMatrixf head;
+    iaMatrixd head;
     head.rotate(_camHeading, iaAxis::Y);
 
     _cameraPitch->setMatrix(pitch);
@@ -329,10 +328,10 @@ void PhysicsExample::handle()
 
 void PhysicsExample::renderOrtho()
 {
-    iaMatrixf viewMatrix;
+    iaMatrixd viewMatrix;
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
-    iaMatrixf modelMatrix;
+    iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 

@@ -237,7 +237,7 @@ namespace Igor
 
         \param[out] returns world matrix of this node
         */
-        void calcWorldTransformation(iaMatrixf& matrix);
+        void calcWorldTransformation(iaMatrixd& matrix);
 
         /*! \returns true: if node is active
         */
@@ -321,7 +321,7 @@ namespace Igor
 
         \param[in, out] matrix current transformation matrix
         */
-        virtual void onUpdateTransform(iaMatrixf& matrix);
+        virtual void onUpdateTransform(iaMatrixd& matrix);
 
         /*! called by update dirty data queue
 
@@ -372,7 +372,7 @@ namespace Igor
         \param currentNode the current node
         \param matrix the current accumulated transformation matrix
         */
-        void calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix);
+        void calcWorldTransformation(iNode* currentNode, iaMatrixd& matrix);
 
 	};
 

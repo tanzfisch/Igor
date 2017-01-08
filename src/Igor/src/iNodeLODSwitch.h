@@ -121,7 +121,7 @@ namespace Igor
 
         /*! \returns world position of lod switch node
         */
-        const iaVector3f& getWorldPosition() const;
+        const iaVector3d& getWorldPosition() const;
 
     private:
 
@@ -135,7 +135,7 @@ namespace Igor
 
         /*! current absolute position
         */
-        iaVector3f _worldPosition;
+        iaVector3d _worldPosition;
 
         /*! called after a node was copied
 
@@ -153,7 +153,7 @@ namespace Igor
 
         \param pos new position to be set
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
         /*! unregisters switch node from scene if it belonged to a scene before
         */

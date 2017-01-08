@@ -330,28 +330,34 @@ namespace Igor
         }
     }
 
-    void iMeshBuilder::calcBoundingSphere(iSpheref& sphere) const
+    void iMeshBuilder::calcBoundingSphere(iSphered& sphere) const
     {
         con_assert(_vertexes.size() > 0, "no vertexes");
 
-        sphere._radius = 0;
+        iSpheref sphereF;
+        sphereF._radius = 0;
 
-        sphere._center.set(0, 0, 0);
+        sphereF._center.set(0, 0, 0);
 
         for (uint32 i = 0; i < _vertexes.size(); i++)
         {
-            sphere._center += _vertexes[i];
+            sphereF._center += _vertexes[i];
         }
 
-        sphere._center /= static_cast<float32>(_vertexes.size());
+        sphereF._center /= static_cast<float32>(_vertexes.size());
 
         for (uint32 i = 0; i<_vertexes.size(); i++)
         {
-            if ((sphere._center - _vertexes[i]).length() > sphere._radius)
+            if ((sphereF._center - _vertexes[i]).length() > sphereF._radius)
             {
-                sphere._radius = (sphere._center - _vertexes[i]).length();
+                sphereF._radius = (sphereF._center - _vertexes[i]).length();
             }
         }
+
+        sphere._center._x = sphereF._center._x;
+        sphere._center._y = sphereF._center._y;
+        sphere._center._z = sphereF._center._z;
+        sphere._radius = sphereF._radius;
     }
 
     shared_ptr<iMesh> iMeshBuilder::createMesh(vector<uint32> triangles)
@@ -360,7 +366,7 @@ namespace Igor
 
         compile(mesh, triangles);
 
-        iSpheref boundingSphere;
+        iSphered boundingSphere;
         calcBoundingSphere(boundingSphere);
         mesh->setBoundingSphere(boundingSphere);
 
@@ -376,7 +382,7 @@ namespace Igor
 
             compile(mesh);
 
-            iSpheref boundingSphere;
+            iSphered boundingSphere;
             calcBoundingSphere(boundingSphere);
             mesh->setBoundingSphere(boundingSphere);
         }

@@ -93,15 +93,15 @@ namespace Igor
 
     void iRenderEngine::cullScene(iNodeCamera* camera)
     {
-        iaMatrixf view;
+        iaMatrixd view;
         camera->getViewMatrix(view);
         iRenderer::getInstance().setViewMatrix(view);
 
-        iaMatrixf camMatrix;
+        iaMatrixd camMatrix;
         camera->getWorldMatrix(camMatrix);
         iRenderer::getInstance().setCamWorldMatrix(camMatrix);
 
-        iaMatrixf projection;
+        iaMatrixd projection;
         iRenderer::getInstance().getProjectionMatrix(projection);
         projection *= view;
 

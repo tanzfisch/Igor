@@ -89,7 +89,7 @@ namespace Igor
         _newtonBody = nullptr;
     }
 
-    void iPhysicsBody::setTransformNodeMatrix(const iaMatrixf& matrix)
+    void iPhysicsBody::setTransformNodeMatrix(const iaMatrixd& matrix)
     {
         if (_transformNodeID != iNode::INVALID_NODE_ID)
         {
@@ -103,9 +103,9 @@ namespace Igor
         }
     }
 
-    iaMatrixf iPhysicsBody::getTransformNodeMatrix() const
+    iaMatrixd iPhysicsBody::getTransformNodeMatrix() const
     {
-        iaMatrixf result;
+        iaMatrixd result;
 
         if (_transformNodeID != iNode::INVALID_NODE_ID)
         {
@@ -121,46 +121,46 @@ namespace Igor
         return result;
     }
 
-    void iPhysicsBody::setMatrix(const iaMatrixf& matrix)
+    void iPhysicsBody::setMatrix(const iaMatrixd& matrix)
     {
         iPhysics::getInstance().updateMatrix(_newtonBody, matrix);
     }
 
-    const iaVector3f& iPhysicsBody::getForce() const
+    const iaVector3d& iPhysicsBody::getForce() const
     {
         return _force;
     }
 
-    void iPhysicsBody::setForce(const iaVector3f& force)
+    void iPhysicsBody::setForce(const iaVector3d& force)
     {
         _force = force;
         iPhysics::getInstance().setForce(_newtonBody, _force);
     }
 
-    const iaVector3f& iPhysicsBody::getTorque() const
+    const iaVector3d& iPhysicsBody::getTorque() const
     {
         return _torque;
     }
 
-    void iPhysicsBody::setTorque(const iaVector3f& torque)
+    void iPhysicsBody::setTorque(const iaVector3d& torque)
     {
         _torque = torque;
         iPhysics::getInstance().setTorque(_newtonBody, _torque);
     }
 
-    iaVector3f iPhysicsBody::getVelocity() const
+    iaVector3d iPhysicsBody::getVelocity() const
     {
-        iaVector3f velocity;
+        iaVector3d velocity;
         iPhysics::getInstance().getVelocity(_newtonBody, velocity);
         return velocity;
     }
 
-    const iaVector3f& iPhysicsBody::getOmega() const
+    const iaVector3d& iPhysicsBody::getOmega() const
     {
         return _omega;
     }
 
-    void iPhysicsBody::setOmega(const iaVector3f& omega)
+    void iPhysicsBody::setOmega(const iaVector3d& omega)
     {
         _omega = omega;
     }
@@ -170,35 +170,35 @@ namespace Igor
         return _id;
     }
 
-    void iPhysicsBody::setAngularDamping(const iaVector3f& damping)
+    void iPhysicsBody::setAngularDamping(const iaVector3d& damping)
     {
         _angularDamping = damping;
         iPhysics::getInstance().setAngularDamping(_newtonBody, _angularDamping);
     }
 
-    const iaVector3f& iPhysicsBody::getAngularDamping() const
+    const iaVector3d& iPhysicsBody::getAngularDamping() const
     {
         return _angularDamping;
     }
 
-    void iPhysicsBody::setLinearDamping(float32 damping)
+    void iPhysicsBody::setLinearDamping(float64 damping)
     {
         _linearDamping = damping;
         iPhysics::getInstance().setLinearDamping(_newtonBody, _linearDamping);
     }
 
-    float32 iPhysicsBody::getLinearDamping() const
+    float64 iPhysicsBody::getLinearDamping() const
     {
         return _linearDamping;
     }
 
-    void iPhysicsBody::setMass(float32 mass)
+    void iPhysicsBody::setMass(float64 mass)
     {
         _mass = mass;
         iPhysics::getInstance().setMassMatrix(_newtonBody, mass, mass / 6.0f, mass / 6.0f, mass / 6.0f);
     }
 
-    float32 iPhysicsBody::getMass()
+    float64 iPhysicsBody::getMass()
     {
         return _mass;
     }

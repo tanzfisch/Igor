@@ -56,7 +56,7 @@ namespace Igor
 
         /*! \returns world position of trigger
         */
-        const iaVector3f& getWorldPosition() const;
+        const iaVector3d& getWorldPosition() const;
 
     protected:
 
@@ -64,7 +64,7 @@ namespace Igor
 
         \param pos new position to be set
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
         /*! unregisters trigger from scene if it belonged to a scene before
         */
@@ -78,7 +78,7 @@ namespace Igor
 
         /*! current world position of lod trigger
         */
-        iaVector3f _worldPosition;
+        iaVector3d _worldPosition;
 
         /*! called after a node was copied
 

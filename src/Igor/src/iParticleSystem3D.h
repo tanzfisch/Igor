@@ -270,7 +270,7 @@ namespace Igor
         \param worldInvMatrix the inverse of the particle system
         \todo not fully implemented yet. usually particle systems run in world coordinates and not local
         */
-        void setParticleSystemMatrix(const iaMatrixf& worldInvMatrix);
+        void setParticleSystemMatrix(const iaMatrixd& worldInvMatrix);
 
         /*! sets the vortex to particle ratio
 
@@ -459,7 +459,7 @@ namespace Igor
 
 		/*! \returns bounding sphere
 		*/
-		const iSpheref& getBoundingSphere() const;
+		const iSphered& getBoundingSphere() const;
 
         /*! \returns simulation rate in frames per scond or Hz
         */
@@ -503,7 +503,7 @@ namespace Igor
 
         /*! bounding sphere of particle system
         */
-		iSpheref _boundingSphere;
+		iSphered _boundingSphere;
 
         /*! true if particle system is finished
         */
@@ -519,7 +519,7 @@ namespace Igor
 
         /*! inverse of particle system coordinate system
         */
-        iaMatrixf _particleSystemInvWorldMatrix;
+        iaMatrixd _particleSystemInvWorldMatrix;
 
         /*! works like a dirty flag. if true all is set to beginning
         */

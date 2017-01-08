@@ -40,7 +40,7 @@ namespace Igor
         return _emitter.getType();
     }
 
-    const iaMatrixf& iNodeEmitter::getWorldMatrix() const
+    const iaMatrixd& iNodeEmitter::getWorldMatrix() const
     {
         return _worldMatrix;
     }
@@ -55,7 +55,7 @@ namespace Igor
         _emitter.clearTriangles();
     }
 
-    void iNodeEmitter::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeEmitter::onUpdateTransform(iaMatrixd& matrix)
     {
         _worldMatrix = matrix;
         _emitter.setWorldMatrix(matrix);

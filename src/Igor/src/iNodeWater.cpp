@@ -72,8 +72,8 @@ namespace Igor
         iNodeCamera* cameraNode = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
         if (cameraNode != nullptr)
         {
-            iaMatrixf model;
-            iaMatrixf camMatrix;
+            iaMatrixd model;
+            iaMatrixd camMatrix;
             cameraNode->getWorldMatrix(camMatrix);
 
             model._pos = camMatrix._pos;

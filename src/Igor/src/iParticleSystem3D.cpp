@@ -29,7 +29,7 @@ namespace Igor
     {
     }
 
-	const iSpheref& iParticleSystem3D::getBoundingSphere() const
+	const iSphered& iParticleSystem3D::getBoundingSphere() const
 	{
 		return _boundingSphere;
 	}
@@ -255,8 +255,8 @@ namespace Igor
     void iParticleSystem3D::resetParticle(iParticle &particle, iParticleEmitter& emitter, float32 particleSystemTime)
     {
         iaVector2f minMax;
-        iaVector3f position;
-        iaVector3f velocity;
+        iaVector3d position;
+        iaVector3d velocity;
         emitter.calcRandomStart(position, velocity);
 
         position = _particleSystemInvWorldMatrix * position;
@@ -271,8 +271,8 @@ namespace Igor
         vel = minMax._x + randomFactor * (minMax._y - minMax._x);
         velocity *= vel;
 
-        particle._position = position;
-        particle._velocity = velocity;
+        particle._position.set(position._x, position._y, position._z);
+        particle._velocity.set(velocity._x, velocity._y, velocity._z);
 
         _startLiftGradient.getValue(particleSystemTime, minMax);
         particle._lift = minMax._x + (1-randomFactor) * (minMax._y - minMax._x);
@@ -366,7 +366,7 @@ namespace Igor
         return _particles;
     }
 
-    void iParticleSystem3D::setParticleSystemMatrix(const iaMatrixf& worldInvMatrix)
+    void iParticleSystem3D::setParticleSystemMatrix(const iaMatrixd& worldInvMatrix)
     {
         _particleSystemInvWorldMatrix = worldInvMatrix;
     }
@@ -545,8 +545,8 @@ namespace Igor
 
 		if (!_particles.empty())
 		{
-			_boundingSphere._center = _particles[0]._position;
-			_boundingSphere._radius = _boundingSphere._center.distance(_particles[_particles.size() - 1]._position);
+			_boundingSphere._center.set(_particles[0]._position._x, _particles[0]._position._y, _particles[0]._position._z);
+			_boundingSphere._radius = _particles[0]._position.distance(_particles[_particles.size() - 1]._position);
 			if (_boundingSphere._radius < 1.0)
 			{
 				_boundingSphere._radius = 1.0;

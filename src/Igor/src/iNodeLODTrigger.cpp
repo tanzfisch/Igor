@@ -41,12 +41,12 @@ namespace Igor
 
     }
 
-    void iNodeLODTrigger::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeLODTrigger::onUpdateTransform(iaMatrixd& matrix)
     {
         _worldPosition = matrix._pos;
     }
 
-    const iaVector3f& iNodeLODTrigger::getWorldPosition() const
+    const iaVector3d& iNodeLODTrigger::getWorldPosition() const
     {
         return _worldPosition;
     }

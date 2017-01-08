@@ -283,7 +283,7 @@ void LSystems::initStyle3()
     _leafColor.set(0, 0.7, 0);
 }
 
-uint32 LSystems::generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
+uint32 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
 {
     PlantInformation plantInformation;
     plantInformation._lSystem = &_lSystem;
@@ -385,7 +385,7 @@ void LSystems::generateLSystems()
 
     for (int i = 0; i < 7; ++i)
     {
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         matrix.translate(-15 + i* 5, -15, 0);
         _plantsInProgress.push_back(generatePlant(matrix, "X", i, seed));
     }
@@ -458,10 +458,10 @@ void LSystems::onKeyPressed(iKeyCode key)
 
 void LSystems::onRenderOrtho()
 {
-    iaMatrixf viewMatrix;
+    iaMatrixd viewMatrix;
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
-    iaMatrixf modelMatrix;
+    iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 

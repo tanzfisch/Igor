@@ -28,12 +28,12 @@ namespace Igor
 		setScene(nullptr);
 	}
 
-    const iSpheref& iNodeVolume::getBoundingSphere() const
+    const iSphered& iNodeVolume::getBoundingSphere() const
     {
         return _sphere;
     }
 
-    void iNodeVolume::setBoundingSphere(const iSpheref& sphere)
+    void iNodeVolume::setBoundingSphere(const iSphered& sphere)
     {
 		if (_sphere._center != sphere._center ||
 			_sphere._radius != sphere._radius)
@@ -65,12 +65,12 @@ namespace Igor
 		}
 	}
 
-	iaVector3f iNodeVolume::getCenter() const
+	iaVector3d iNodeVolume::getCenter() const
 	{
         return _worldMatrix._pos + _sphere._center;
 	}
 
-    iaVector3f iNodeVolume::getRelativeCenter() const
+    iaVector3d iNodeVolume::getRelativeCenter() const
     {
         return _sphere._center;
     }
@@ -83,7 +83,7 @@ namespace Igor
 		}	
 	}
 
-    void iNodeVolume::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeVolume::onUpdateTransform(iaMatrixd& matrix)
     {
         if (_worldMatrix != matrix)
         {

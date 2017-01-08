@@ -63,7 +63,7 @@ namespace Igor
 
         \param[out] matrix returned world matrix
         */
-        void getWorldMatrix(iaMatrixf& matrix);
+        void getWorldMatrix(iaMatrixd& matrix);
 
         /*! returns ambient material color
         */
@@ -107,17 +107,17 @@ namespace Igor
 
         /*! \returns position of light
         */
-        iaVector4f getPosition();
+        iaVector4d getPosition();
 
         /*! \returns direction of light
         */
-        iaVector4f getDirection();
+        iaVector4d getDirection();
 
 	protected:
 
         /*! resulting world matrix of light
         */
-		iaMatrixf _worldMatrix;
+		iaMatrixd _worldMatrix;
 
         /*! ambient material color
         */
@@ -147,7 +147,7 @@ namespace Igor
 
         \param matrix matrix to set
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
     private:
 

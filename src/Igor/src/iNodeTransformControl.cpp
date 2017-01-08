@@ -66,14 +66,14 @@ namespace Igor
                 _roll.rotate(-_factorDir[iTransformDirection::RollRight], iaAxis::Z);
             }
 
-            iaMatrixf orientation = _heading;
+            iaMatrixd orientation = _heading;
             orientation *= _pitch;
             orientation *= _roll;
 
-            iaMatrixf matrix;
+            iaMatrixd matrix;
             transformNode->getMatrix(matrix);
 
-            iaMatrixf translation;
+            iaMatrixd translation;
             translation._pos = matrix._pos;
 
             if (_activeDir[iTransformDirection::Foreward])

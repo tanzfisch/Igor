@@ -137,19 +137,15 @@ namespace Igor
         }
     }
 
-    void iOctree::insert(uint64 userDataID, const iSpheref& sphere)
+    void iOctree::insert(uint64 userDataID, const iSphered& sphere)
     {
-        iSphered sphered;
-        sphered._center.set(sphere._center._x, sphere._center._y, sphere._center._z);
-        sphered._radius = sphere._radius;
-
         OctreeNode* rootNode = _nodes[_rootNode];
 
-        bool intersects = rootNode->_box.intersects(sphered._center);
+        bool intersects = rootNode->_box.intersects(sphere._center);
         con_assert(intersects, userDataID << " out of bounds " << sphere._center);
         if (intersects)
         {
-            insert(_rootNode, userDataID, sphered);
+            insert(_rootNode, userDataID, sphere);
         }
         else
         {
@@ -297,20 +293,16 @@ namespace Igor
         node->_children = 0;
     }
 
-    void iOctree::update(uint64 userDataID, const iSpheref& sphere)
+    void iOctree::update(uint64 userDataID, const iSphered& sphere)
     {
         if (_objects.find(userDataID) != _objects.end())
         {
-            iSphered sphered;
-            sphered._center.set(sphere._center._x, sphere._center._y, sphere._center._z);
-            sphered._radius = sphere._radius;
-
             auto object = _objects[userDataID];
             con_assert_sticky(object != nullptr, "corrupt data");
-            object->_sphere = sphered;
+            object->_sphere = sphere;
 
             auto node = _nodes[object->_octreeNode];
-            if (!node->_box.intersects(sphered._center))
+            if (!node->_box.intersects(sphere._center))
             {
                 remove(userDataID);
                 insert(userDataID, sphere);

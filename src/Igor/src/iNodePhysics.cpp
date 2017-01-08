@@ -84,12 +84,12 @@ namespace Igor
     {
         return _userData;
     }
-    const iaVector3f& iNodePhysics::getForce() const
+    const iaVector3d& iNodePhysics::getForce() const
     {
         return _force;
     }
 
-    void iNodePhysics::setForce(const iaVector3f& force)
+    void iNodePhysics::setForce(const iaVector3d& force)
     {
         _force = force;
 
@@ -100,12 +100,12 @@ namespace Igor
         }
     }
 
-    const iaVector3f& iNodePhysics::getTorque() const
+    const iaVector3d& iNodePhysics::getTorque() const
     {
         return _torque;
     }
 
-    void iNodePhysics::setTorque(const iaVector3f& torque)
+    void iNodePhysics::setTorque(const iaVector3d& torque)
     {
         _torque = torque;
 
@@ -116,9 +116,9 @@ namespace Igor
         }
     }
 
-    iaVector3f iNodePhysics::getVelocity() const
+    iaVector3d iNodePhysics::getVelocity() const
     {
-        iaVector3f velocity;
+        iaVector3d velocity;
 
         iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
         if (body != nullptr)
@@ -129,9 +129,9 @@ namespace Igor
         return velocity;
     }
 
-    const iaVector3f& iNodePhysics::getOmega() const
+    iaVector3d iNodePhysics::getOmega() const
     {
-        iaVector3f omega;
+        iaVector3d omega;
 
         iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
         if (body != nullptr)
@@ -142,7 +142,7 @@ namespace Igor
         return omega;
     }
 
-    void iNodePhysics::setAngularDamping(const iaVector3f& damping)
+    void iNodePhysics::setAngularDamping(const iaVector3d& damping)
     {
         _angularDamping = damping;
 
@@ -153,12 +153,12 @@ namespace Igor
         }
     }
 
-    const iaVector3f& iNodePhysics::getAngularDamping() const
+    const iaVector3d& iNodePhysics::getAngularDamping() const
     {
         return _angularDamping;
     }
 
-    void iNodePhysics::setLinearDamping(float32 damping)
+    void iNodePhysics::setLinearDamping(float64 damping)
     {
         _linearDamping = damping;
 
@@ -169,7 +169,7 @@ namespace Igor
         }
     }
 
-    float32 iNodePhysics::getLinearDamping() const
+    float64 iNodePhysics::getLinearDamping() const
     {
         return _linearDamping;
     }
@@ -184,7 +184,7 @@ namespace Igor
         return _bodyID;
     }
 
-    void iNodePhysics::onUpdateTransform(iaMatrixf& matrix)
+    void iNodePhysics::onUpdateTransform(iaMatrixd& matrix)
     {
         iNodeVolume::onUpdateTransform(matrix);
     }
@@ -253,7 +253,7 @@ namespace Igor
         if (asynchronos)
         {
             iTaskManager::getInstance().registerTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
-            _pendingTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID));
+            _prepareCollisionTask = iTaskManager::getInstance().addTask(new iTaskPrepareCollision(_physicsCollisionConfigID));
         }
         else
         {
@@ -268,12 +268,12 @@ namespace Igor
 
     void iNodePhysics::onTaskFinished(uint64 taskID)
     {
-        if (_pendingTask == taskID)
+        if (_prepareCollisionTask == taskID)
         {
             setDataDirty();
             iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iNodePhysics::onTaskFinished));
 
-            _pendingTask = iTask::INVALID_TASK_ID;
+            _prepareCollisionTask = iTask::INVALID_TASK_ID;
         }
     }
 

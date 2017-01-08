@@ -73,12 +73,12 @@ namespace Igor
         }
     }
 
-    iaMatrixf& iNodeRender::getWorldMatrix()
+    iaMatrixd& iNodeRender::getWorldMatrix()
 	{
 		return _worldMatrix;
 	}
 
-    void iNodeRender::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeRender::onUpdateTransform(iaMatrixd& matrix)
 	{
         _worldMatrix = matrix;
 	}

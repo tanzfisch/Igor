@@ -71,54 +71,54 @@ namespace Igor
 
         \param matrix the matrix for the newton body
         */
-        void setMatrix(const iaMatrixf& matrix);
+        void setMatrix(const iaMatrixd& matrix);
 
         /*! \returns the transform node materix
 
         the transform node matrix is affected by the bodys movement within the physics context (see setTransformNodeMatrix)
         returns identity materix if body is not bound to a transform node
         */
-        iaMatrixf getTransformNodeMatrix() const;
+        iaMatrixd getTransformNodeMatrix() const;
 
         /*! changes the mass of the newton body
 
         \param mass the mass of the newton body (if zero the body is considered to be a non moveable object).
         */
-        void setMass(float32 mass);
+        void setMass(float64 mass);
 
         /*! \retruns mass of body
         */
-        float32 getMass();
+        float64 getMass();
 
         /*! sets angular damping
 
         \param damping damping values for all 3 axis
         */
-        void setAngularDamping(const iaVector3f& damping);
+        void setAngularDamping(const iaVector3d& damping);
 
         /*! \returns damping values for all 3 axis
         */
-        const iaVector3f& getAngularDamping() const;
+        const iaVector3d& getAngularDamping() const;
 
         /*! sets linear damping
 
         \param damping damping value for all 3 dimensions
         */
-        void setLinearDamping(float32 damping);
+        void setLinearDamping(float64 damping);
 
         /*! \returns linear damping value
         */
-        float32 getLinearDamping() const;
+        float64 getLinearDamping() const;
 
         /*! \returns current force
         */
-        const iaVector3f& getForce() const;
+        const iaVector3d& getForce() const;
 
         /*! sets force
 
         \param force the force that affect thos body
         */
-        void setForce(const iaVector3f& force);
+        void setForce(const iaVector3d& force);
 
         /*! sets user data
 
@@ -132,21 +132,21 @@ namespace Igor
 
         /*! \returns current torque
         */
-        const iaVector3f& getTorque() const;
+        const iaVector3d& getTorque() const;
 
         /*! sets torque of the body
 
         \param torque the torque to set
         */
-        void setTorque(const iaVector3f& torque);
+        void setTorque(const iaVector3d& torque);
 
         /*! \returns current velocity
         */
-        iaVector3f getVelocity() const;
+        iaVector3d getVelocity() const;
 
         /*! \returns current omega (or rotation speed)
         */
-        const iaVector3f& getOmega() const;
+        const iaVector3d& getOmega() const;
         
         /*! \returns transform node id
 
@@ -206,31 +206,31 @@ namespace Igor
 
         /*! the mass of this body
         */
-        float32 _mass = 0;
+        float64 _mass = 0;
 
         /*! current angular damping
         */
-        iaVector3f _angularDamping;
+        iaVector3d _angularDamping;
 
         /*! current linear damping
         */
-        float32 _linearDamping;
+        float64 _linearDamping;
 
         /*! current force
         */
-        iaVector3f _force;
+        iaVector3d _force;
 
         /*! current tourque
         */
-        iaVector3f _torque;
+        iaVector3d _torque;
 
         /*! current velocity
         */
-        iaVector3f _velocity;
+        iaVector3d _velocity;
 
         /*! current omega or angular speed
         */
-        iaVector3f _omega;
+        iaVector3d _omega;
 
         /*! handle to newton body
         */
@@ -246,7 +246,7 @@ namespace Igor
 
         \param matrix matrix to be set
         */
-        void setTransformNodeMatrix(const iaMatrixf& matrix);
+        void setTransformNodeMatrix(const iaMatrixd& matrix);
 
         /*! updates the omega by physics event
 
@@ -256,7 +256,7 @@ namespace Igor
 
         \param omega the omega to set
         */
-        void setOmega(const iaVector3f& omega);
+        void setOmega(const iaVector3d& omega);
 
         /*! triggers callback for user implementation of applyForceAndTorque
         

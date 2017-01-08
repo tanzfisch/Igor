@@ -170,7 +170,7 @@ namespace Igor
         \param viewport the viewport
         \returns world position of projection screen position
         */
-        iaVector3f unProject(const iaVector3f& screenpos, const iaMatrixf& modelview, const iaMatrixf& projection, const iRectanglei& viewport);
+        iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport);
 
         /*! creates vertex buffer objects for specified mesh
 
@@ -215,9 +215,13 @@ namespace Igor
 
         \param[out] matrix destination to write projection matrix in
         */
-        virtual void getProjectionMatrix(iaMatrixf& matrix);
+        virtual void getProjectionMatrix(iaMatrixd& matrix);
 
-        virtual void setProjectionMatrix(const iaMatrixf& matrix);
+        /*! sets projection matrix
+
+        \param matrix the new projection matrix
+        */
+        virtual void setProjectionMatrix(const iaMatrixd& matrix);
 
         /*! set projection matrix with perspective projection
 
@@ -243,49 +247,49 @@ namespace Igor
 
         \param[out] matrix destination to write model matrix in
         */
-        virtual void getModelMatrix(iaMatrixf& matrix);
+        virtual void getModelMatrix(iaMatrixd& matrix);
 
         /*! sets the model matrix
 
         \param matrix matrix to set the model matrix
         */
-        virtual void setModelMatrix(iaMatrixf& matrix);
+        virtual void setModelMatrix(iaMatrixd& matrix);
 
         /*! returns view matrix
 
         \param[out] matrix destination to write view wmatrix in
         */
-        virtual void getViewMatrix(iaMatrixf& matrix);
+        virtual void getViewMatrix(iaMatrixd& matrix);
 
         /*! sets the view matrix
 
         \param matrix matrix to set the view matrix
         */
-        virtual void setViewMatrix(iaMatrixf& matrix);
+        virtual void setViewMatrix(iaMatrixd& matrix);
 
         /*! returns carma world matrix
 
         \param[out] matrix destination to write camera world wmatrix in
         */
-        virtual void getCamWorldMatrix(iaMatrixf& matrix);
+        virtual void getCamWorldMatrix(iaMatrixd& matrix);
 
         /*! sets the camera world matrix
 
         \param matrix matrix to set the camera world matrix
         */
-        virtual void setCamWorldMatrix(iaMatrixf& matrix);
+        virtual void setCamWorldMatrix(iaMatrixd& matrix);
 
         /*! returns model view projection matrix
 
         \param[out] matrix destination to write model view projection wmatrix in
         */
-        virtual void getModelViewProjectionMatrix(iaMatrixf& matrix);
+        virtual void getModelViewProjectionMatrix(iaMatrixd& matrix);
 
         /*! sets the model view projection matrix
 
         \param matrix matrix to set the model view projection matrix
         */
-        virtual void getModelViewMatrix(iaMatrixf& matrix);
+        virtual void getModelViewMatrix(iaMatrixd& matrix);
 
         /*! sets clear color
 
@@ -518,7 +522,7 @@ namespace Igor
         virtual void setColor(float32 r, float32 g, float32 b, float32 a);
 
         // Lights
-        virtual void setLightPosition(int32 lightnum, iaVector4f &pos);
+        virtual void setLightPosition(int32 lightnum, iaVector4d &pos);
         virtual void setLightAmbient(int32 lightnum, iaColor4f &ambient);
         virtual void setLightDiffuse(int32 lightnum, iaColor4f &diffuse);
         virtual void setLightSpecular(int32 lightnum, iaColor4f &specular);
@@ -646,23 +650,23 @@ namespace Igor
 
         /*! projection matrix
         */
-        iaMatrixf _projectionMatrix;
+        iaMatrixd _projectionMatrix;
 
         /*! model matrix
         */
-        iaMatrixf _modelMatrix;
+        iaMatrixd _modelMatrix;
 
         /*! view matrix
         */
-        iaMatrixf _viewMatrix;
+        iaMatrixd _viewMatrix;
 
         /*! model and view matrix combined
         */
-        iaMatrixf _modelViewMatrix;
+        iaMatrixd _modelViewMatrix;
 
         /*! model view and projection matrix combined
         */
-        iaMatrixf _modelViewProjectionMatrix;
+        iaMatrixd _modelViewProjectionMatrix;
 
         /*! dirty flag for model view projection matrix.
         if true getModelViewProjectionMatrix will recalculate the matrix.
@@ -671,7 +675,7 @@ namespace Igor
 
         /*! camera world matrix
         */
-        iaMatrixf _camWorldMatrix;
+        iaMatrixd _camWorldMatrix;
 
         /*! list of lights
         */

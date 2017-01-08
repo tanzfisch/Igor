@@ -62,6 +62,7 @@ namespace Igor
 
     \todo way to many friends
     \todo update Omega of bodys
+    \todo switch newton to 64bit
     */
     class Igor_API iPhysics : public iaSingleton<iPhysics>
     {
@@ -322,7 +323,7 @@ namespace Igor
         \param Iyy ???
         \param Izz ???
         */
-        void getMassMatrix(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz);        
+        void getMassMatrix(void* newtonBody, float64& mass, float64& Ixx, float64& Iyy, float64& Izz);        
 
         /*! the mass matrix of newton body
 
@@ -562,14 +563,14 @@ namespace Igor
         \param newtonBody handle to newton body
         \param matrix the matrix
         */
-        void updateMatrix(void* newtonBody, const iaMatrixf& matrix);
+        void updateMatrix(void* newtonBody, const iaMatrixd& matrix);
 
         /*! returns body matrix
 
         \param newtonBody the newton body
         \param[in,out] matrix the returned matrix
         */
-        void getMatrix(void* newtonBody, iaMatrixf& matrix);
+        void getMatrix(void* newtonBody, iaMatrixd& matrix);
 
         /*! \returns pointer to user data in given newton body
 
@@ -582,35 +583,35 @@ namespace Igor
         \param newtonBody given newvton body
         \param velocity out value velocity
         */
-        void getVelocity(void* newtonBody, iaVector3f& velocity);
+        void getVelocity(void* newtonBody, iaVector3d& velocity);
 
         /*! set or apply force on nevton body
 
         \param newtonBody the body to apply the force to
         \param force the force to apply
         */
-        void setForce(void* newtonBody, const iaVector3f& force);
+        void setForce(void* newtonBody, const iaVector3d& force);
 
         /*! sets angular damping of specified newton body
 
         \param newtonBody specified newton body
         \param angularDamp the angular damping
         */
-        void setAngularDamping(void* newtonBody, const iaVector3f& angularDamp);
+        void setAngularDamping(void* newtonBody, const iaVector3d& angularDamp);
 
         /*! sets linear damping of specified newton body
 
         \param newtonBody specified newton body
         \param linearDamp the linear damping
         */
-        void setLinearDamping(void* newtonBody, float32 linearDamp);
+        void setLinearDamping(void* newtonBody, float64 linearDamp);
 
         /*! sets torque of specified newton body
 
         \param newtonBody specified newton body
         \param torque the torque
         */
-        void setTorque(void* newtonBody, const iaVector3f& torque);
+        void setTorque(void* newtonBody, const iaVector3d& torque);
 
         /*! update newton calculations
         */

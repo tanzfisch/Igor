@@ -57,7 +57,7 @@ namespace Igor
 
         /*! \returns world matrix of node
         */
-        iaMatrixf& getWorldMatrix();
+        iaMatrixd& getWorldMatrix();
 
         /*! sets material of node by id
 
@@ -87,7 +87,7 @@ namespace Igor
 
         /*! world matrix
         */
-		iaMatrixf _worldMatrix;
+		iaMatrixd _worldMatrix;
 
         /*! true if if was not filtered by culling process
         */
@@ -101,7 +101,7 @@ namespace Igor
 
         \parma[in, out] matrix current transform matrix
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
         /*! unregisters from scene
         */

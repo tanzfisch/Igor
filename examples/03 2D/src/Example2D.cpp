@@ -264,9 +264,9 @@ void Example2D::onRender()
 {
     // since the model matrix is by default an identity matrix which would cause all our 2d rendering end up at depth zero
     // and the near clipping plane of our frustum can't be zero we have to push the scene a bit away from zero (e.g. -30 just a random number with no meaning)
-    iaMatrixf matrix;
+    iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
-    matrix.translate(iaVector3f(0, 0, -30));
+    matrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // set a textured material and draw the tiles texture as background

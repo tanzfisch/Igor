@@ -365,8 +365,8 @@ namespace Igor
 				if (widget != nullptr)
 				{
 					iRectanglei viewport;
-					iaMatrixf projectionMatrix;
-					iaMatrixf modelMatrix;
+					iaMatrixd projectionMatrix;
+					iaMatrixd modelMatrix;
 
 					iRenderer::getInstance().getViewport(viewport);
 					iRenderer::getInstance().getProjectionMatrix(projectionMatrix);
@@ -375,7 +375,7 @@ namespace Igor
 					iRenderer::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
 					iRenderer::getInstance().setOrtho(0, absoluteFramePos.getWidth(), absoluteFramePos.getHeight(), 0, 1, 40);
 
-					iaMatrixf matrix;
+					iaMatrixd matrix;
 					matrix.translate(-getActualPosX(), -getActualPosY(), -30);
 					matrix._pos += _translate._pos;
 

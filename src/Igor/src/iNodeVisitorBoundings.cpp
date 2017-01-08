@@ -23,10 +23,12 @@ namespace Igor
         if (iNodeType::iNodeMesh == node->getType())
         {
             iNodeMesh* mesh = static_cast<iNodeMesh*>(node);
-            iaMatrixf matrix = mesh->getWorldMatrix();
-            iSpheref nodeSphere;
+            iaMatrixd matrix = mesh->getWorldMatrix();
+            iSphered nodeSphere;
             nodeSphere = mesh->getBoundingSphere();
-            nodeSphere._center = matrix * nodeSphere._center;
+            iaVector3d c(nodeSphere._center._x, nodeSphere._center._y, nodeSphere._center._z);
+            c = matrix * c;
+            nodeSphere._center.set(c._x, c._y, c._z);
 
             if (_initialSphere)
             {
@@ -55,7 +57,7 @@ namespace Igor
         
     }
 
-    void iNodeVisitorBoundings::getSphere(iSpheref& sphere)
+    void iNodeVisitorBoundings::getSphere(iSphered& sphere)
     {
         sphere = _sphere;
     }

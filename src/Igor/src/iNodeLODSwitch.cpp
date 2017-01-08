@@ -44,12 +44,12 @@ namespace Igor
 		setScene(nullptr);
 	}
 
-    void iNodeLODSwitch::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeLODSwitch::onUpdateTransform(iaMatrixd& matrix)
     {
         _worldPosition = matrix._pos;
     }
 
-    const iaVector3f& iNodeLODSwitch::getWorldPosition() const
+    const iaVector3d& iNodeLODSwitch::getWorldPosition() const
     {
         return _worldPosition;
     }
@@ -93,7 +93,7 @@ namespace Igor
 
     void iNodeLODSwitch::update()
     {
-        iaVector3f delta;
+        iaVector3d delta;
         float32 quadricMin = -1.0f;
 
         for (auto triggerID : _triggers)

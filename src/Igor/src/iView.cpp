@@ -169,15 +169,15 @@ namespace Igor
         return static_cast<float32>(_resultingRectangle.getWidth()) / static_cast<float32>(_resultingRectangle.getHeight());
     }
 
-    iaVector3f iView::unProject(const iaVector3f& screenpos, const iaMatrixf& modelMatrix)
+    iaVector3d iView::unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix)
     {
-        iaMatrixf viewMatrix;
+        iaMatrixd viewMatrix;
         viewMatrix.lookAt(modelMatrix._pos, modelMatrix._pos - modelMatrix._depth, modelMatrix._top);
 
-        iaMatrixf modelViewMatrix = viewMatrix;
+        iaMatrixd modelViewMatrix = viewMatrix;
         modelViewMatrix *= modelMatrix;
 
-        iaMatrixf projectionMatrix;
+        iaMatrixd projectionMatrix;
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
         return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _resultingRectangle);

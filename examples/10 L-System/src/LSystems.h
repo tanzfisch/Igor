@@ -205,7 +205,7 @@ private:
     \param seed random seed
     \retruns id of generated plant node
     */
-    uint32 generatePlant(const iaMatrixf& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
+    uint32 generatePlant(const iaMatrixd& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
 
     /*! called on key pressed event
 

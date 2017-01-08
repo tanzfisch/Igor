@@ -96,7 +96,7 @@ namespace Igor
         setDataDirty();
 	}
 
-    void iNodeModel::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeModel::onUpdateTransform(iaMatrixd& matrix)
     {
         if (!_initialized &&
             _model == nullptr)

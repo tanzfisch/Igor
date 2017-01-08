@@ -425,10 +425,10 @@ void VoxelExample::onKeyESCPressed()
 
 void VoxelExample::onRenderOrtho()
 {
-    iaMatrixf viewMatrix;
+    iaMatrixd viewMatrix;
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
-    iaMatrixf modelMatrix;
+    iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 

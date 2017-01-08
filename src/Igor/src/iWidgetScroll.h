@@ -78,7 +78,7 @@ namespace Igor
 
         /*! translation matrix
         */
-        iaMatrixf _translate;
+        iaMatrixd _translate;
 
         /*! scroll bar width
         */

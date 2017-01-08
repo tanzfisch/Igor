@@ -201,8 +201,8 @@ void StateMachineExample::onHandleWinState()
 
 void StateMachineExample::onRenderWinState()
 {
-    iaMatrixf modelMatrix;
-    modelMatrix.translate(iaVector3f(0, 0, -30));
+    iaMatrixd modelMatrix;
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1,0,0,1));
@@ -292,8 +292,8 @@ void StateMachineExample::onHandleGameState()
 
 void StateMachineExample::onRenderGameState()
 {
-    iaMatrixf modelMatrix;
-    modelMatrix.translate(iaVector3f(0, 0, -30));
+    iaMatrixd modelMatrix;
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
@@ -411,8 +411,8 @@ void StateMachineExample::onHandleMenuState()
 
 void StateMachineExample::onRenderMenuState()
 {
-    iaMatrixf modelMatrix;
-    modelMatrix.translate(iaVector3f(0, 0, -30));
+    iaMatrixd modelMatrix;
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFontSize(50.0f);
@@ -432,14 +432,14 @@ void StateMachineExample::onRenderMenuState()
             iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 0.5));
         }
 
-        iRenderer::getInstance().drawString(500, 200.0f + i * 70.0f, _menuEntries[i], iHorrizontalAlign::Center, iVerticalAlign::Center, 0);
+        iRenderer::getInstance().drawString(500, 200.0f + i * 70.0f, _menuEntries[i], iHorizontalAlignment::Center, iVerticalAlignment::Center, 0);
     }
 }
 
 void StateMachineExample::onRender()
 {
-    iaMatrixf modelMatrix;
-    modelMatrix.translate(iaVector3f(0, 0, -30));
+    iaMatrixd modelMatrix;
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
@@ -447,7 +447,7 @@ void StateMachineExample::onRender()
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(50.0f);
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 0.3));
-    iRenderer::getInstance().drawString(500, 400, _backgroundText, iHorrizontalAlign::Center, iVerticalAlign::Center, _spinning);
+    iRenderer::getInstance().drawString(500, 400, _backgroundText, iHorizontalAlignment::Center, iVerticalAlignment::Center, _spinning);
 }
 
 void StateMachineExample::onHandle()

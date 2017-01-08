@@ -267,7 +267,7 @@ namespace Igor
         _projectionMatrix.perspective(fov, aspect, nearplain, farplain);
 
         glMatrixMode(GL_PROJECTION);				GL_CHECK_ERROR();
-        glLoadMatrixf(_projectionMatrix.getData());	GL_CHECK_ERROR();
+        glLoadMatrixd(_projectionMatrix.getData());	GL_CHECK_ERROR();
         glMatrixMode(GL_MODELVIEW);					GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
@@ -391,7 +391,7 @@ namespace Igor
 
         glMatrixMode(GL_PROJECTION);				GL_CHECK_ERROR();
         glLoadIdentity();							GL_CHECK_ERROR();
-        glMultMatrixf(_projectionMatrix.getData());	GL_CHECK_ERROR();
+        glMultMatrixd(_projectionMatrix.getData());	GL_CHECK_ERROR();
         glMatrixMode(GL_MODELVIEW);					GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
@@ -417,24 +417,24 @@ namespace Igor
         glClear(GL_DEPTH_BUFFER_BIT);	GL_CHECK_ERROR();
     }
 
-    void iRenderer::getProjectionMatrix(iaMatrixf& matrix)
+    void iRenderer::getProjectionMatrix(iaMatrixd& matrix)
     {
         matrix = _projectionMatrix;
     }
 
-    void iRenderer::setProjectionMatrix(const iaMatrixf& matrix)
+    void iRenderer::setProjectionMatrix(const iaMatrixd& matrix)
     {
         _projectionMatrix = matrix;
 
         glMatrixMode(GL_PROJECTION);				GL_CHECK_ERROR();
         glLoadIdentity();							GL_CHECK_ERROR();
-        glMultMatrixf(_projectionMatrix.getData());	GL_CHECK_ERROR();
+        glMultMatrixd(_projectionMatrix.getData());	GL_CHECK_ERROR();
         glMatrixMode(GL_MODELVIEW);					GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
 
-    void iRenderer::getModelMatrix(iaMatrixf& matrix)
+    void iRenderer::getModelMatrix(iaMatrixd& matrix)
     {
         matrix = _modelMatrix;
     }
@@ -614,29 +614,29 @@ namespace Igor
         }
     }
 
-    void iRenderer::getViewMatrix(iaMatrixf& matrix)
+    void iRenderer::getViewMatrix(iaMatrixd& matrix)
     {
         matrix = _viewMatrix;
     }
 
-    void iRenderer::setCamWorldMatrix(iaMatrixf& matrix)
+    void iRenderer::setCamWorldMatrix(iaMatrixd& matrix)
     {
         _camWorldMatrix = matrix;
     }
 
-    void iRenderer::getCamWorldMatrix(iaMatrixf& matrix)
+    void iRenderer::getCamWorldMatrix(iaMatrixd& matrix)
     {
         matrix = _camWorldMatrix;
     }
 
-    void iRenderer::setViewMatrix(iaMatrixf& viewmatrix)
+    void iRenderer::setViewMatrix(iaMatrixd& viewmatrix)
     {
         _viewMatrix = viewmatrix;
 
         _modelViewMatrix = _viewMatrix;
         _modelViewMatrix *= _modelMatrix;
 
-        glLoadMatrixf((float32*)_modelViewMatrix.getData());	GL_CHECK_ERROR();
+        glLoadMatrixd(_modelViewMatrix.getData());	GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -651,13 +651,13 @@ namespace Igor
         }
     }
 
-    void iRenderer::getModelViewProjectionMatrix(iaMatrixf& matrix)
+    void iRenderer::getModelViewProjectionMatrix(iaMatrixd& matrix)
     {
         updateModelViewProjectionMatrix();
         matrix = _modelViewProjectionMatrix;
     }
 
-    void iRenderer::getModelViewMatrix(iaMatrixf& matrix)
+    void iRenderer::getModelViewMatrix(iaMatrixd& matrix)
     {
         matrix = _modelViewMatrix;
     }
@@ -672,14 +672,14 @@ namespace Igor
         glPointSize(size);
     }
 
-    void iRenderer::setModelMatrix(iaMatrixf& matrix)
+    void iRenderer::setModelMatrix(iaMatrixd& matrix)
     {
         _modelMatrix = matrix;
 
         _modelViewMatrix = _viewMatrix;
         _modelViewMatrix *= _modelMatrix;
 
-        glLoadMatrixf((float32*)_modelViewMatrix.getData());	GL_CHECK_ERROR();
+        glLoadMatrixd(_modelViewMatrix.getData());	GL_CHECK_ERROR();
 
         _dirtyModelViewProjectionMatrix = true;
     }
@@ -988,7 +988,7 @@ namespace Igor
 
     void iRenderer::drawMesh(shared_ptr<iMeshBuffers> meshBuffers, iInstancer* instancer)
     {
-        iaMatrixf idMatrix;
+        iaMatrixd idMatrix;
         setModelMatrix(idMatrix);
 
         createBuffers(instancer);
@@ -1018,11 +1018,16 @@ namespace Igor
         glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightDiffuse"), 1, static_cast<GLfloat*>(_lights[0]._diffuse.getData())); GL_CHECK_ERROR();
         glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightSpecular"), 1, static_cast<GLfloat*>(_lights[0]._specular.getData())); GL_CHECK_ERROR();
 
-        iaVector3f eyePosition = _camWorldMatrix._pos;
+        iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
         glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "eyePosition"), 1, static_cast<GLfloat*>(eyePosition.getData())); GL_CHECK_ERROR();
 
         updateModelViewProjectionMatrix();
-        glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "mvp_matrix"), 1, false, _modelViewProjectionMatrix.getData()); GL_CHECK_ERROR();
+        iaMatrixf modelViewProjection;
+        for (int i = 0; i < 16; ++i)
+        {
+            modelViewProjection[i] = _modelViewProjectionMatrix[i];
+        }
+        glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "mvp_matrix"), 1, false, modelViewProjection.getData()); GL_CHECK_ERROR();
 
         glDrawElementsInstancedARB(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount()); GL_CHECK_ERROR();
 
@@ -1046,12 +1051,23 @@ namespace Igor
             glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightDiffuse"), 1, static_cast<GLfloat*>(_lights[0]._diffuse.getData())); GL_CHECK_ERROR();
             glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightSpecular"), 1, static_cast<GLfloat*>(_lights[0]._specular.getData())); GL_CHECK_ERROR();
 
-            iaVector3f eyePosition = _camWorldMatrix._pos;
+            iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
             glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "eyePosition"), 1, static_cast<GLfloat*>(eyePosition.getData())); GL_CHECK_ERROR();
 
             updateModelViewProjectionMatrix();
-            glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "mvp_matrix"), 1, false, _modelViewProjectionMatrix.getData()); GL_CHECK_ERROR();
-            glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "model_matrix"), 1, false, _modelMatrix.getData()); GL_CHECK_ERROR();
+            iaMatrixf modelViewProjection;
+            for (int i = 0; i < 16; ++i)
+            {
+                modelViewProjection[i] = _modelViewProjectionMatrix[i];
+            }
+            glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "mvp_matrix"), 1, false, modelViewProjection.getData()); GL_CHECK_ERROR();
+
+            iaMatrixf model;
+            for (int i = 0; i < 16; ++i)
+            {
+                model[i] = _modelMatrix[i];
+            }
+            glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "model_matrix"), 1, false, model.getData()); GL_CHECK_ERROR();
 
             glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0); GL_CHECK_ERROR();
 
@@ -1244,10 +1260,10 @@ namespace Igor
         }
     }
 
-    void iRenderer::setLightPosition(int lightnum, iaVector4f &pos)
+    void iRenderer::setLightPosition(int lightnum, iaVector4d &pos)
     {
-        _lights[lightnum]._position = pos;
-        glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, pos.getData());		GL_CHECK_ERROR();
+        _lights[lightnum]._position.set(pos._vec._x, pos._vec._y, pos._vec._z, pos._w);
+        glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, _lights[lightnum]._position.getData());		GL_CHECK_ERROR();
     }
 
     void iRenderer::setLightAmbient(int lightnum, iaColor4f &ambient)
@@ -1342,14 +1358,18 @@ namespace Igor
     void iRenderer::drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow)
     {
         iaVector4f camright;
-        camright._vec = _camWorldMatrix._right;
+        camright._vec.set(_camWorldMatrix._right._x, _camWorldMatrix._right._y, _camWorldMatrix._right._z);
         camright._w = 0;
 
         iaVector4f camtop;
-        camtop._vec = _camWorldMatrix._top;
+        camtop._vec.set(_camWorldMatrix._top._x, _camWorldMatrix._top._y, _camWorldMatrix._top._z);
         camtop._w = 0;
 
-        iaMatrixf inv = _modelMatrix;
+        iaMatrixf inv;
+        for (int i = 0; i < 16; ++i)
+        {
+            inv[i] = _modelMatrix[i];
+        }
         inv.invert();
 
         iaVector4f rightPreComp = inv * camright;
@@ -1430,8 +1450,8 @@ namespace Igor
         // TODO implement also for local coordinates see drawParticles
 
         iaVector3f right;
-        iaVector3f top = _camWorldMatrix._top;
-        iaVector3f depth = _camWorldMatrix._depth;
+        iaVector3f top(_camWorldMatrix._top._x, _camWorldMatrix._top._y, _camWorldMatrix._top._z);
+        iaVector3f depth(_camWorldMatrix._depth._x, _camWorldMatrix._depth._y, _camWorldMatrix._depth._z);
         iaColor4f color;
         float32 size;
 
@@ -1493,8 +1513,6 @@ namespace Igor
                 glMultiTexCoord2f(GL_TEXTURE2, 1 + particle._phase1[0], 1 + particle._phase1[1]);
 
                 glVertex3fv((particle._position + rightScale + topScale).getData());
-
-
             }
         }
 
@@ -1506,18 +1524,18 @@ namespace Igor
         _renderedTriangles += particles.size() * 2;
     }
 
-    iaVector3f iRenderer::unProject(const iaVector3f& screenpos, const iaMatrixf& modelview, const iaMatrixf& projection, const iRectanglei& viewport)
+    iaVector3d iRenderer::unProject(const iaVector3d& screenpos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)
     {
-        iaVector4f in;
-        iaVector4f out;
-        iaVector3f result;
+        iaVector4d in;
+        iaVector4d out;
+        iaVector3d result;
 
         in[0] = (screenpos[0] - (float32)viewport.getX()) / (float32)viewport.getWidth() * 2.0f - 1.0f;
         in[1] = (((float32)viewport.getHeight() - screenpos[1]) - (float32)viewport.getY()) / (float32)viewport.getHeight() * 2.0f - 1.0f;
         in[2] = screenpos[2] * 2.0f - 1.0f;
         in[3] = 1.0f;
 
-        iaMatrixf modelViewProjection = projection;
+        iaMatrixd modelViewProjection = projection;
         modelViewProjection *= modelview;
         modelViewProjection.invert();
         out = modelViewProjection * in;

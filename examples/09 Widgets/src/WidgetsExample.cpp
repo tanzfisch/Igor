@@ -481,13 +481,13 @@ void WidgetsExample::onWindowClosed()
 void WidgetsExample::onRender()
 {
     // initialize view matrix with identity matrix
-    iaMatrixf identity;
+    iaMatrixd identity;
     iRenderer::getInstance().setViewMatrix(identity);
 
     // move scene between near and far plane so be ca actually see what we render
     // any value between near and far plane would do the trick
-    iaMatrixf modelMatrix;
-    modelMatrix.translate(iaVector3f(0, 0, -30));
+    iaMatrixd modelMatrix;
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     // tell the widget manager to draw the widgets

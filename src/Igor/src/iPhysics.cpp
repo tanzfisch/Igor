@@ -62,7 +62,14 @@ namespace Igor
         iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
         if (nullptr != physicsBody)
         {
-            physicsBody->setTransformNodeMatrix(matrix);
+            // todo switch newton later to double
+            iaMatrixd matrixD;
+            for (int i = 0; i < 16; ++i)
+            {
+                matrixD[i] = matrix[i];
+            }
+
+            physicsBody->setTransformNodeMatrix(matrixD);
         }
     }
 
@@ -283,34 +290,58 @@ namespace Igor
         }
     }
 
-    void iPhysics::setAngularDamping(void* newtonBody, const iaVector3f& angularDamp)
+    void iPhysics::setAngularDamping(void* newtonBody, const iaVector3d& angularDamp)
     {
-        NewtonBodySetAngularDamping(static_cast<const NewtonBody*>(newtonBody), angularDamp.getData());
+        iaVector3f angularDampF;
+        angularDampF._x = angularDamp._x;
+        angularDampF._y = angularDamp._y;
+        angularDampF._z = angularDamp._z;
+
+        NewtonBodySetAngularDamping(static_cast<const NewtonBody*>(newtonBody), angularDampF.getData());
     }
 
-    void iPhysics::setLinearDamping(void* newtonBody, float32 linearDamp)
+    void iPhysics::setLinearDamping(void* newtonBody, float64 linearDamp)
     {
         NewtonBodySetLinearDamping(static_cast<const NewtonBody*>(newtonBody), linearDamp);
     }
 
-    void iPhysics::getVelocity(void* newtonBody, iaVector3f& velocity)
+    void iPhysics::getVelocity(void* newtonBody, iaVector3d& velocity)
     {
-        NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), velocity.getData());
+        iaVector3f velocityF;
+        NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), velocityF.getData());
+
+        velocity._x = velocityF._x;
+        velocity._y = velocityF._y;
+        velocity._z = velocityF._z;
     }
 
-    void iPhysics::setForce(void* newtonBody, const iaVector3f& force)
+    void iPhysics::setForce(void* newtonBody, const iaVector3d& force)
     {
-        NewtonBodySetForce(static_cast<const NewtonBody*>(newtonBody), force.getData());
+        iaVector3f forceF;
+        forceF._x = force._x;
+        forceF._y = force._y;
+        forceF._z = force._z;
+        NewtonBodySetForce(static_cast<const NewtonBody*>(newtonBody), forceF.getData());
     }
 
-    void iPhysics::setTorque(void* newtonBody, const iaVector3f& torque)
+    void iPhysics::setTorque(void* newtonBody, const iaVector3d& torque)
     {
-        NewtonBodySetTorque(static_cast<const NewtonBody*>(newtonBody), torque.getData());
+        iaVector3f torqueF;
+        torqueF._x = torque._x;
+        torqueF._y = torque._y;
+        torqueF._z = torque._z;
+        NewtonBodySetTorque(static_cast<const NewtonBody*>(newtonBody), torqueF.getData());
     }
 
-    void iPhysics::getMassMatrix(void* newtonBody, float32& mass, float32& Ixx, float32& Iyy, float32& Izz)
+    void iPhysics::getMassMatrix(void* newtonBody, float64& mass, float64& Ixx, float64& Iyy, float64& Izz)
     {
-        NewtonBodyGetMass(static_cast<const NewtonBody*>(newtonBody), &mass, &Ixx, &Iyy, &Izz);
+        float32 m, ix, iy, iz;
+        NewtonBodyGetMass(static_cast<const NewtonBody*>(newtonBody), &m, &ix, &iy, &iz);
+
+        mass = m;
+        Ixx = ix;
+        Iyy = iy;
+        Izz = iz;
     }
 
     void* iPhysics::getUserDataFromBody(void* newtonBody)
@@ -552,7 +583,7 @@ namespace Igor
         {
             if (sync)
             {
-                iaMatrixf matrix;
+                iaMatrixd matrix;
                 transformNode->getMatrix(matrix);
                 body->setMatrix(matrix);
             }
@@ -952,14 +983,25 @@ namespace Igor
         return result;
     }
 
-    void iPhysics::updateMatrix(void* newtonBody, const iaMatrixf& matrix)
+    void iPhysics::updateMatrix(void* newtonBody, const iaMatrixd& matrix)
     {
-        NewtonBodySetMatrix(static_cast<const NewtonBody*>(newtonBody), matrix.getData());
+        iaMatrixf matrixF;
+        for (int i = 0; i < 16; ++i)
+        {
+            matrixF[i] = matrix[i];
+        }
+
+        NewtonBodySetMatrix(static_cast<const NewtonBody*>(newtonBody), matrixF.getData());
     }
 
-    void iPhysics::getMatrix(void* newtonBody, iaMatrixf& matrix)
+    void iPhysics::getMatrix(void* newtonBody, iaMatrixd& matrix)
     {
-        NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), matrix.getData());
+        iaMatrixf matrixF;
+        NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), matrixF.getData());
+        for (int i = 0; i < 16; ++i)
+        {
+            matrix[i] = matrixF[i];
+        }
     }
 
     void iPhysics::setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz)

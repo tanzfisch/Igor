@@ -36,17 +36,17 @@ namespace Igor
 		setScene(nullptr);
 	}
 
-	void iNodeCamera::getWorldMatrix(iaMatrixf& matrix)
+	void iNodeCamera::getWorldMatrix(iaMatrixd& matrix)
 	{
 		matrix = _worldMatrix;
 	}
 
-    void iNodeCamera::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeCamera::onUpdateTransform(iaMatrixd& matrix)
 	{
 		_worldMatrix = matrix;
 	}
 
-	void iNodeCamera::getViewMatrix(iaMatrixf& viewmatrix)
+	void iNodeCamera::getViewMatrix(iaMatrixd& viewmatrix)
 	{
         viewmatrix.lookAt(_worldMatrix._pos, _worldMatrix._pos - _worldMatrix._depth, _worldMatrix._top);
 	}

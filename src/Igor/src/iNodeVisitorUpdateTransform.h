@@ -77,11 +77,11 @@ namespace Igor
 
         /*! holds a stack of matrices while traversion tree
         */
-        vector<iaMatrixf> _matrixStack;
+        vector<iaMatrixd> _matrixStack;
 
         /*! current matrix that eventually gets pushed on stack or came poped from stack
         */
-        iaMatrixf _currentMatrix;
+        iaMatrixd _currentMatrix;
 
 	};
 

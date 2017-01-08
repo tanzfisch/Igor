@@ -68,13 +68,13 @@ namespace Igor
 
         \param offsetMatrix the offset matrix to set
         */
-        void setOffsetMatrix(iaMatrixf& offsetMatrix);
+        void setOffsetMatrix(iaMatrixd& offsetMatrix);
 
         /*! returns the offset matrix
 
         \param offsetMatrix in out value for the offset matrix
         */
-        void getOffsetMatrix(iaMatrixf& offsetMatrix);
+        void getOffsetMatrix(iaMatrixd& offsetMatrix);
 
         /*! switches the usage of the offset matrix on and off
 
@@ -133,7 +133,7 @@ namespace Igor
 
         /*! offset matrix
         */
-		iaMatrixf _offsetMatrix;
+		iaMatrixd _offsetMatrix;
 
         /*! shared pointer to front texture
         */

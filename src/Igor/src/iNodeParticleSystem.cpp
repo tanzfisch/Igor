@@ -268,7 +268,7 @@ namespace Igor
         return _particleSystem.getAirDrag();
     }
 
-    void iNodeParticleSystem::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeParticleSystem::onUpdateTransform(iaMatrixd& matrix)
     {
 		if (_worldMatrix != matrix)
 		{

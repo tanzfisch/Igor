@@ -48,29 +48,29 @@ namespace Igor
         return _type;
     }
 
-    iaVector4f iNodeLight::getPosition()
+    iaVector4d iNodeLight::getPosition()
     {
-        iaVector4f result;
+        iaVector4d result;
         result._vec = _worldMatrix._pos;
         result._w = 1.0f;
         return result;
     }
 
-    iaVector4f iNodeLight::getDirection()
+    iaVector4d iNodeLight::getDirection()
     {
-        iaVector4f result;
+        iaVector4d result;
         result._vec = _worldMatrix._pos;
         result._w = 0.0f;
 
         return result;
     }
     
-	void iNodeLight::getWorldMatrix(iaMatrixf& matrix)
+	void iNodeLight::getWorldMatrix(iaMatrixd& matrix)
 	{
 		matrix = _worldMatrix;
 	}
 
-    void iNodeLight::onUpdateTransform(iaMatrixf& matrix)
+    void iNodeLight::onUpdateTransform(iaMatrixd& matrix)
 	{
 		_worldMatrix = matrix;
 	}

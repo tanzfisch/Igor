@@ -106,7 +106,7 @@ namespace Igor
 
         \todo implement bouncing bubble algorithm
         */
-        void calcBoundingSphere(iSpheref& sphere) const;
+        void calcBoundingSphere(iSphered& sphere) const;
 
         /*! adds vertex to data
 

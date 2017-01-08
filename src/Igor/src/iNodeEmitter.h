@@ -90,7 +90,7 @@ namespace Igor
 
         /*! \returns current world matrix of this node
         */
-        const iaMatrixf& getWorldMatrix() const;
+        const iaMatrixd& getWorldMatrix() const;
 
     private:
 
@@ -100,13 +100,13 @@ namespace Igor
 
         /*! matrix including position an orientation of this emitter in world coordinates
         */
-        iaMatrixf _worldMatrix;
+        iaMatrixd _worldMatrix;
 
         /*! set the world matrix of the emitter
 
         \param matrix world matrix for the emitter
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
         /*! \returns internal particle emitter structure
         */

@@ -168,8 +168,8 @@ namespace Igor
         if (iRenderer::getInstance().isReady() && 
             _renderStatisticsMode > iRenderStatisticsVerbosity::None)
         {
-            iaMatrixf identity;
-            iaMatrixf translation;
+            iaMatrixd identity;
+            iaMatrixd translation;
             translation.translate(0, 0, -30);
             iRenderer::getInstance().setViewMatrix(identity);
             iRenderer::getInstance().setModelMatrix(translation);

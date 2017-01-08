@@ -134,7 +134,7 @@ namespace Igor
 
         \param matrix world matrix for the camera
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
         /*! initializes memeber variables
         */

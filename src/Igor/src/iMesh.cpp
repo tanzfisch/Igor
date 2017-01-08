@@ -100,7 +100,7 @@ namespace Igor
         }
     }
 
-    void iMesh::setBoundingSphere(const iSpheref& sphere)
+    void iMesh::setBoundingSphere(const iSphered& sphere)
     {
         _sphere = sphere;
     }

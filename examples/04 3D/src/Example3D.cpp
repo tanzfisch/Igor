@@ -432,10 +432,10 @@ void Example3D::onTimer()
 
 void Example3D::onRenderOrtho()
 {
-    iaMatrixf viewMatrix;
+    iaMatrixd viewMatrix;
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
-    iaMatrixf modelMatrix;
+    iaMatrixd modelMatrix;
     modelMatrix.translate(0,0,-30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 

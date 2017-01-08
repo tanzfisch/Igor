@@ -49,19 +49,19 @@ namespace Igor
 
         \param matrix the transformation matrix
         */
-        virtual void setMatrix(const iaMatrixf& matrix);
+        virtual void setMatrix(const iaMatrixd& matrix);
 
         /*! returns the transformation matrix
 
         \param[out] matrix the returned transformation matrix
         */
-        virtual void getMatrix(iaMatrixf& matrix);
+        virtual void getMatrix(iaMatrixd& matrix);
 
         /*! high level function to translate the transformation matrix
 
         \param vector vector to translate the transformation matrix
         */
-        virtual void translate(const iaVector3f& vector);
+        virtual void translate(const iaVector3d& vector);
 
         /*! high level function to translate the transformation matrix
 
@@ -69,13 +69,13 @@ namespace Igor
         \param y y component of translation vector
         \param z z component of translation vector
         */
-        virtual void translate(float32 x, float32 y, float32 z);
+        virtual void translate(float64 x, float64 y, float64 z);
 
         /*! high level function to set the position of the transformation matrix
 
         \param vector position to set
         */
-        virtual void setPosition(const iaVector3f& vector);
+        virtual void setPosition(const iaVector3d& vector);
 
         /*! high level function to set the position of the transformation matrix
 
@@ -83,13 +83,13 @@ namespace Igor
         \param y y component of position
         \param z z component of position
         */
-        virtual void setPosition(float32 x, float32 y, float32 z);
+        virtual void setPosition(float64 x, float64 y, float64 z);
 
         /*! high level function to scale the transformation matrix
 
         \param vector vector to scale the transformation matrix
         */
-        virtual void scale(const iaVector3f& vector);
+        virtual void scale(const iaVector3d& vector);
 
         /*! high level function to scale the transformation matrix
 
@@ -97,14 +97,14 @@ namespace Igor
         \param y y component of scale vector
         \param z z component of scale vector
         */
-        virtual void scale(float32 x, float32 y, float32 z);
+        virtual void scale(float64 x, float64 y, float64 z);
 
         /*! high level function to rotate the transformation matrix
 
         \param angle angle to rotate in radians
         \param axis the axis to rotate around
         */
-        virtual void rotate(float32 angle, iaAxis axis);
+        virtual void rotate(float64 angle, iaAxis axis);
 
         /*! resets the transformation matrix to an identity matrix
         */
@@ -114,7 +114,7 @@ namespace Igor
 
         /*! transformation matrix
         */
-		iaMatrixf _transform;
+		iaMatrixd _transform;
 
     private:
 
@@ -124,7 +124,7 @@ namespace Igor
 
         \parma[in, out] matrix current transform matrix
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
         
         /*! initializes memeber varialbes
         */

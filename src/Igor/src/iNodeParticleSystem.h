@@ -385,7 +385,7 @@ namespace Igor
 
         /*! inverted world matrix
         */
-        iaMatrixf _worldMatrixInv;
+        iaMatrixd _worldMatrixInv;
 
         /*! id of emitter node
         */
@@ -421,7 +421,7 @@ namespace Igor
 
         \param matrix the new world matrix
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
 		/*!
 		\todo this is just a workaround untill we calc the particle system frames in a seperate thread

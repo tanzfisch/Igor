@@ -77,15 +77,15 @@ namespace Igor
 
         /*! helper matrix for controling the heading
         */
-        iaMatrixf _heading;
+        iaMatrixd _heading;
 
         /*! helper matrix for controling the pitch
         */
-        iaMatrixf _pitch;
+        iaMatrixd _pitch;
 
         /*! helper matrix for controling the roll
         */
-        iaMatrixf _roll;
+        iaMatrixd _roll;
 
         /*! called every frame
         */

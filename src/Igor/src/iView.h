@@ -169,9 +169,7 @@ namespace Igor
         \param modelMatrix the model matrix to create the camera view from
         \returns unprojected position in object space
         */
-        iaVector3f unProject(const iaVector3f& screenpos, const iaMatrixf& modelMatrix);
-
-        void updateWindowRect(const iRectanglei& windowRect);
+        iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix);
 
         /*! does nothing
         */
@@ -259,6 +257,12 @@ namespace Igor
         /*! called every render frame by the parenting window
         */
         void draw();
+
+        /*! updates window rectangle
+
+        \param windowRect the new window rectangle
+        */
+        void updateWindowRect(const iRectanglei& windowRect);
 
 	};
 

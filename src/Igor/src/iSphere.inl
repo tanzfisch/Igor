@@ -57,7 +57,7 @@ __IGOR_INLINE__ void iSphere<T>::merge(iSphere<T> &sphere)
         return;
     }
 
-    iaVector3f newCenter = sphere._center - _center;
+    iaVector3<T> newCenter = sphere._center - _center;
     T newRadius = _radius + sphere._radius + newCenter.length();
     newRadius *= static_cast<T>(0.5);
     newCenter.normalize();

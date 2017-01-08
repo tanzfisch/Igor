@@ -38,7 +38,6 @@ namespace Igor
 	/*! Node that is a renderable and has a volume therefore relevant for the octree structure
 
     \todo bounding sphere needs to be updated if node was scaled ...
-	\todo add get/set sphere interface
 	*/
 	class iNodeVolume : public iNodeRender
 	{
@@ -49,27 +48,27 @@ namespace Igor
 
         /*! \returns center of sphere in world coordinates
         */
-        iaVector3f getCenter() const;
+        iaVector3d getCenter() const;
 
         /*! \returns center of sphere in local coordinates
         */
-        iaVector3f getRelativeCenter() const;
+        iaVector3d getRelativeCenter() const;
 
         /*! sets bounding sphere
 
         \param sphere the sphere to set
         */
-        void setBoundingSphere(const iSpheref& sphere);
+        void setBoundingSphere(const iSphered& sphere);
 
         /*! \returns bounding sphere
         */
-        const Igor_API iSpheref& getBoundingSphere() const;
+        const Igor_API iSphered& getBoundingSphere() const;
 
 	protected:
 
 		/*!
 		*/
-        virtual void onUpdateTransform(iaMatrixf& matrix);
+        virtual void onUpdateTransform(iaMatrixd& matrix);
 
         /*! unregisters from scene
         */
@@ -103,7 +102,7 @@ namespace Igor
 
         /*! sphere of volume
         */
-        iSpheref _sphere;
+        iSphered _sphere;
 
 	};
 

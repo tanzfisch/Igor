@@ -91,7 +91,13 @@ namespace Igor
 
             iaMatrixf matrix;
             transformChunk->getMatrix(matrix);
-            transformNode->setMatrix(matrix);
+
+            iaMatrixd matrixD;
+            for (int i = 0; i < 16; ++i)
+            {
+                matrixD[i] = matrix[i];
+            }
+            transformNode->setMatrix(matrixD);
 
             result = transformNode;
             break;
@@ -248,7 +254,12 @@ namespace Igor
 
             iSpheref sphere;
             meshChunk->getBoundingSphere(sphere._center, sphere._radius);
-            mesh->setBoundingSphere(sphere);
+            iSphered sphereD;
+            sphereD._center._x = sphere._center._x;
+            sphereD._center._y = sphere._center._y;
+            sphereD._center._z = sphere._center._z;
+            sphereD._radius = sphere._radius;
+            mesh->setBoundingSphere(sphereD);
             meshNode->setMesh(shared_ptr<iMesh>(mesh));
 
             uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
@@ -610,7 +621,8 @@ namespace Igor
                 result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
                 result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
 
-                result->setBoundingSphere(node->getBoundingSphere()._center, node->getBoundingSphere()._radius);
+                iaVector3f center(node->getBoundingSphere()._center._x, node->getBoundingSphere()._center._y, node->getBoundingSphere()._center._z);
+                result->setBoundingSphere(center, node->getBoundingSphere()._radius);
 
                 result->setVertexCount(node->getMesh()->getVertexCount());
                 result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
@@ -635,8 +647,14 @@ namespace Igor
     OMPF::ompfTransformChunk* iModelDataIOOMPF::createTransformChunk(iNodeTransform *node)
     {
         OMPF::ompfTransformChunk* result = _ompf->createTransformChunk();
+        iaMatrixd matrixD;
+        node->getMatrix(matrixD);
+
         iaMatrixf matrix;
-        node->getMatrix(matrix);
+        for (int i = 0; i < 16; ++i)
+        {
+            matrix[i] = matrixD[i];
+        }
         result->setMatrix(matrix);
         return result;
     }

@@ -62,11 +62,11 @@ namespace Igor
 
         /*! 3 times vertex position
         */
-        iaVector3f pos[3];
+        iaVector3d pos[3];
 
         /*! 3 times particle velocity
         */
-        iaVector3f vel[3];
+        iaVector3d vel[3];
     };
 
     /*! basically a structure that delivers start positions and velocities for any kind of objects
@@ -90,11 +90,11 @@ namespace Igor
 
         \param matrix the matrix to be set
         */
-        void setWorldMatrix(const iaMatrixf& matrix);
+        void setWorldMatrix(const iaMatrixd& matrix);
 
         /*! \returns world matrix of emitter
         */
-        const iaMatrixf& getWorldMatrix() const;
+        const iaMatrixd& getWorldMatrix() const;
 
         /*! sets size of emitter
 
@@ -140,7 +140,7 @@ namespace Igor
         \param[out] position random position on emitter in world coordinates
         \param[out] velocity velocity depending on position
         */
-        void calcRandomStart(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStart(iaVector3d& position, iaVector3d& velocity);
 
     protected:
 
@@ -158,19 +158,19 @@ namespace Igor
 
         /*! world matrix of emitter
         */
-        iaMatrixf _worldMatrix;
+        iaMatrixd _worldMatrix;
 
         /*! random number generator
         */
         iaRandomNumberGenerator _rand;
 
-        void calcRandomStartFromCube(iaVector3f& position, iaVector3f& velocity);
-        void calcRandomStartFromSquare(iaVector3f& position, iaVector3f& velocity);
-        void calcRandomStartFromSphere(iaVector3f& position, iaVector3f& velocity);
-        void calcRandomStartFromDisc(iaVector3f& position, iaVector3f& velocity);
-        void calcRandomStartFromCircle(iaVector3f& position, iaVector3f& velocity);
-        void calcRandomStartFromPoint(iaVector3f& position, iaVector3f& velocity);
-        void calcRandomStartFromMesh(iaVector3f& position, iaVector3f& velocity);
+        void calcRandomStartFromCube(iaVector3d& position, iaVector3d& velocity);
+        void calcRandomStartFromSquare(iaVector3d& position, iaVector3d& velocity);
+        void calcRandomStartFromSphere(iaVector3d& position, iaVector3d& velocity);
+        void calcRandomStartFromDisc(iaVector3d& position, iaVector3d& velocity);
+        void calcRandomStartFromCircle(iaVector3d& position, iaVector3d& velocity);
+        void calcRandomStartFromPoint(iaVector3d& position, iaVector3d& velocity);
+        void calcRandomStartFromMesh(iaVector3d& position, iaVector3d& velocity);
 
     };
 

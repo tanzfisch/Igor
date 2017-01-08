@@ -52,7 +52,7 @@ uint32 iMesh::getTrianglesCount() const
     return _trianglesCount;
 }
 
-const iSpheref& iMesh::getBoundingSphere() const
+const iSphered& iMesh::getBoundingSphere() const
 {
     return _sphere;
 }

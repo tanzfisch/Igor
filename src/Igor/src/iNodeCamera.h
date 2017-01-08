@@ -58,13 +58,13 @@ namespace Igor
 
         \param matrix in out value to return the world matrix
         */
-        void getWorldMatrix(iaMatrixf& matrix);
+        void getWorldMatrix(iaMatrixd& matrix);
 
         /*! returns the view matrix of the camera
 
         \param viewmatrix in out value to return the cameras view matrix
         */
-        void getViewMatrix(iaMatrixf& viewmatrix);
+        void getViewMatrix(iaMatrixd& viewmatrix);
 
         /*! makes this camera the current camera of a scen (if it belongs to a scene)
         */
@@ -74,7 +74,7 @@ namespace Igor
 
         /*! matrix including position an orientation of this camera in world coordinates
         */
-		iaMatrixf _worldMatrix;
+		iaMatrixd _worldMatrix;
 
         /*! unregisters camera from scene if it belonged to a scene before
         */
@@ -88,7 +88,7 @@ namespace Igor
 
         \param matrix world matrix for the camera
         */
-        void onUpdateTransform(iaMatrixf& matrix);
+        void onUpdateTransform(iaMatrixd& matrix);
 
     private:
 

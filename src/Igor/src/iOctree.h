@@ -60,7 +60,7 @@ namespace Igor
 
         \param userDataID id of the scene node
         */
-        void insert(uint64 userDataID, const iSpheref& sphere);
+        void insert(uint64 userDataID, const iSphered& sphere);
 
         /*! remove scene node from octree
 
@@ -74,7 +74,7 @@ namespace Igor
 
         \param userDataID id of the scene node
         */
-        void update(uint64 userDataID, const iSpheref& sphere);
+        void update(uint64 userDataID, const iSphered& sphere);
 
         /*! clears the filter results
         */

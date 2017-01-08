@@ -33,7 +33,7 @@ namespace Igor
         setName(node->getName());
         setTextureScale(node->getTextureScale());
 
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         node->getOffsetMatrix(matrix);
         setOffsetMatrix(matrix);
         setUseOffsetMatrix(node->isOffsetMatrixUsed());
@@ -70,12 +70,12 @@ namespace Igor
         _bottom = bottom;
 	}
 
-    void iNodeSkyBox::setOffsetMatrix(iaMatrixf& offsetMatrix)
+    void iNodeSkyBox::setOffsetMatrix(iaMatrixd& offsetMatrix)
 	{
         _offsetMatrix = offsetMatrix;
 	}
 
-    void iNodeSkyBox::getOffsetMatrix(iaMatrixf& offsetMatrix)
+    void iNodeSkyBox::getOffsetMatrix(iaMatrixd& offsetMatrix)
     {
         offsetMatrix = _offsetMatrix;
     }
@@ -115,8 +115,8 @@ namespace Igor
         iNodeCamera* cameraNode = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
 		if(cameraNode != nullptr)
 		{
-			iaMatrixf model;
-            iaMatrixf camMatrix;
+			iaMatrixd model;
+            iaMatrixd camMatrix;
             cameraNode->getWorldMatrix(camMatrix);
 
 			model._pos = camMatrix._pos;

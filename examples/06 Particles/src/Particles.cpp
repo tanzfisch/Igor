@@ -205,20 +205,20 @@ void Particles::createWaveParticleSystem()
         float32 h1 = cos(i * 0.2) * 6.0;
         float32 h2 = cos((i + 1) * 0.2) * 6.0;
 
-        triangle.pos[0] = iaVector3f(0 + i, h1, 0);
-        triangle.pos[1] = iaVector3f(1 + i, h2, 0);
-        triangle.pos[2] = iaVector3f(0 + i, h1, 10);
-        triangle.vel[0] = iaVector3f(0, 1, 0);
-        triangle.vel[1] = iaVector3f(0, 1, 0);
-        triangle.vel[2] = iaVector3f(0, 1, 0);
+        triangle.pos[0] = iaVector3d(0 + i, h1, 0);
+        triangle.pos[1] = iaVector3d(1 + i, h2, 0);
+        triangle.pos[2] = iaVector3d(0 + i, h1, 10);
+        triangle.vel[0] = iaVector3d(0, 1, 0);
+        triangle.vel[1] = iaVector3d(0, 1, 0);
+        triangle.vel[2] = iaVector3d(0, 1, 0);
         emitter->addTriangle(triangle);
 
-        triangle.pos[0] = iaVector3f(1 + i, h2, 0);
-        triangle.pos[1] = iaVector3f(1 + i, h2, 10);
-        triangle.pos[2] = iaVector3f(0 + i, h1, 10);
-        triangle.vel[0] = iaVector3f(0, 1, 0);
-        triangle.vel[1] = iaVector3f(0, 1, 0);
-        triangle.vel[2] = iaVector3f(0, 1, 0);
+        triangle.pos[0] = iaVector3d(1 + i, h2, 0);
+        triangle.pos[1] = iaVector3d(1 + i, h2, 10);
+        triangle.pos[2] = iaVector3d(0 + i, h1, 10);
+        triangle.vel[0] = iaVector3d(0, 1, 0);
+        triangle.vel[1] = iaVector3d(0, 1, 0);
+        triangle.vel[2] = iaVector3d(0, 1, 0);
         emitter->addTriangle(triangle);
     }
 
@@ -691,10 +691,10 @@ void Particles::onTimer()
 
 void Particles::onRenderOrtho()
 {
-    iaMatrixf viewMatrix;
+    iaMatrixd viewMatrix;
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
-    iaMatrixf modelMatrix;
+    iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 

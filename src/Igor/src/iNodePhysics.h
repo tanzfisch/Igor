@@ -164,57 +164,61 @@ namespace Igor
 
         /*! \returns current torque
         */
-        const iaVector3f& getTorque() const;
+        const iaVector3d& getTorque() const;
 
         /*! sets torque of the body
 
         \param torque the torque to set
         */
-        void setTorque(const iaVector3f& torque);
+        void setTorque(const iaVector3d& torque);
 
         /*! \returns current velocity
         */
-        iaVector3f getVelocity() const;
+        iaVector3d getVelocity() const;
 
         /*! \returns current omega (or rotation speed)
         */
-        const iaVector3f& getOmega() const;
+        iaVector3d getOmega() const;
 
         /*! sets angular damping
 
         \param damping damping values for all 3 axis
         */
-        void setAngularDamping(const iaVector3f& damping);
+        void setAngularDamping(const iaVector3d& damping);
 
         /*! \returns damping values for all 3 axis
         */
-        const iaVector3f& getAngularDamping() const;
+        const iaVector3d& getAngularDamping() const;
 
         /*! sets linear damping
 
         \param damping damping value for all 3 dimensions
         */
-        void setLinearDamping(float32 damping);
+        void setLinearDamping(float64 damping);
 
         /*! \returns linear damping value
         */
-        float32 getLinearDamping() const;
+        float64 getLinearDamping() const;
 
         /*! \returns current force
         */
-        const iaVector3f& getForce() const;
+        const iaVector3d& getForce() const;
 
         /*! sets force
 
         \param force the force that affect thos body
         */
-        void setForce(const iaVector3f& force);
+        void setForce(const iaVector3d& force);
 
 	private:
 
+        /*! physics collision config ID
+        */
         uint64 _physicsCollisionConfigID = iPhysicsCollisionConfig::INVALID_COLLISIONCONFIG_ID;
 
-        uint64 _pendingTask = iTask::INVALID_TASK_ID;
+        /*! pending prepare collision task
+        */
+        uint64 _prepareCollisionTask = iTask::INVALID_TASK_ID;
 
         /*! pointer to user data
         */
@@ -222,7 +226,7 @@ namespace Igor
 
         /*! the bodys mass
         */
-        float32 _mass = 0;
+        float64 _mass = 0;
 
         /*! material id
         */
@@ -230,7 +234,7 @@ namespace Igor
 
         /*! current angular damping
         */
-        iaVector3f _angularDamping;
+        iaVector3d _angularDamping;
 
         /*! current linear damping
         */
@@ -238,15 +242,15 @@ namespace Igor
 
         /*! current force
         */
-        iaVector3f _force;
+        iaVector3d _force;
 
         /*! current tourque
         */
-        iaVector3f _torque;
+        iaVector3d _torque;
 
         /*! current velocity
         */
-        iaVector3f _velocity;
+        iaVector3d _velocity;
 
         /*! handles ApplyForceAndTorque event
         */
@@ -282,7 +286,7 @@ namespace Igor
 
         \param matrix matrix to set
         */
-        virtual void onUpdateTransform(iaMatrixf& matrix);
+        virtual void onUpdateTransform(iaMatrixd& matrix);
 
         /*! checks if physics was created and forces tree to update
 

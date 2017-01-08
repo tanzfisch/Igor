@@ -220,12 +220,12 @@ namespace Igor
 		}
 	}
 
-	void iNode::calcWorldTransformation(iNode* currentNode, iaMatrixf& matrix)
+	void iNode::calcWorldTransformation(iNode* currentNode, iaMatrixd& matrix)
 	{
 		if (currentNode->getType() == iNodeType::iNodeTransform)
 		{
 			iNodeTransform* tranformNode = static_cast<iNodeTransform*>(currentNode);
-			iaMatrixf currentMatrix;
+			iaMatrixd currentMatrix;
 			tranformNode->getMatrix(currentMatrix);
 			matrix = currentMatrix * matrix;
 		}
@@ -236,7 +236,7 @@ namespace Igor
 		}
 	}
 
-	void iNode::calcWorldTransformation(iaMatrixf& matrix)
+	void iNode::calcWorldTransformation(iaMatrixd& matrix)
 	{
 		matrix.identity();
 		calcWorldTransformation(this, matrix);
@@ -298,7 +298,7 @@ namespace Igor
 		return _parent ? true : false;
 	}
 
-	void iNode::onUpdateTransform(iaMatrixf& matrix)
+	void iNode::onUpdateTransform(iaMatrixd& matrix)
 	{
 		// does nothing
 	}

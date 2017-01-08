@@ -44,7 +44,7 @@ namespace Igor
 
         /*! \returns merged bounding sphere of all children while traversal
         */
-        void getSphere(iSpheref& sphere);
+        void getSphere(iSphered& sphere);
 
         /*! initializes node visitor
         */
@@ -84,7 +84,7 @@ namespace Igor
 
         /*! temp and end result of bounding sphere
         */
-        iSpheref _sphere;
+        iSphered _sphere;
 
 	};
 

@@ -27,7 +27,7 @@ namespace Igor
         
 		//! \todo octree needs to be of variable size
         // maybe multiple octrees?
-		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 1000000.0), 50.0, 8, 4);
+		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 100000.0), 50.0, 8, 4);
 
         _updateLODSectionID = iStatistics::getInstance().registerSection("scene:LOD", 2);
         _processUpdateDataSectionID = iStatistics::getInstance().registerSection("scene:updateData", 2);
@@ -193,8 +193,10 @@ namespace Igor
 		{
             _volumes.push_back(volume);
 
-            iSpheref sphere;
-            sphere._center = volume->getCenter();
+            iSphered sphere;
+            sphere._center._x = volume->getCenter()._x;
+            sphere._center._y = volume->getCenter()._y;
+            sphere._center._z = volume->getCenter()._z;
             sphere._radius = volume->getBoundingSphere()._radius;
 			_octree->insert(volume->getID(), sphere);
 		}
@@ -215,8 +217,10 @@ namespace Igor
 
 	void iScene::updateVolume(iNodeVolume* volume)
 	{
-        iSpheref sphere;
-        sphere._center = volume->getCenter();
+        iSphered sphere;
+        sphere._center._x = volume->getCenter()._x;
+        sphere._center._y = volume->getCenter()._y;
+        sphere._center._z = volume->getCenter()._z;
         sphere._radius = volume->getBoundingSphere()._radius;
 
 		_octree->update(volume->getID(), sphere);

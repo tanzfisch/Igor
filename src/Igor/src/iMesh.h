@@ -65,11 +65,11 @@ namespace Igor
 
         \param sphere the bounding sphere
         */
-        void setBoundingSphere(const iSpheref& sphere);
+        void setBoundingSphere(const iSphered& sphere);
 
         /*! \returns the bounding spehre
         */
-        __IGOR_INLINE__ const iSpheref& getBoundingSphere() const;
+        __IGOR_INLINE__ const iSphered& getBoundingSphere() const;
 
         /*! \returns indexes count
         */
@@ -246,7 +246,7 @@ namespace Igor
 
         /*! bounding sphere
         */
-        iSpheref _sphere;
+        iSphered _sphere;
     };
 
 #include <iMesh.inl>
