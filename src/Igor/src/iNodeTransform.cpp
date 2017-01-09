@@ -72,7 +72,7 @@ namespace Igor
 
     void iNodeTransform::setPosition(const iaVector3d& vector)
     {
-        _transform._pos.set(vector._x, vector._y, vector._z);
+        _transform._pos = vector;
         setTransformationDirty();
     }
 
