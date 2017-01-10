@@ -614,6 +614,12 @@ namespace Igor
         matrix._pos += _worldOffset;
     }
 
+    void iRenderer::getModelMatrix(iaMatrixd& matrix)
+    {
+        matrix = _modelMatrix;
+        matrix._pos += _worldOffset;
+    }
+
     void iRenderer::setModelMatrix(const iaMatrixd& matrix)
     {
         _modelMatrix = matrix;

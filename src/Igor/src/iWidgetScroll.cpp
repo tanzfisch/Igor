@@ -370,7 +370,7 @@ namespace Igor
 
 					iRenderer::getInstance().getViewport(viewport);
 					iRenderer::getInstance().getProjectionMatrix(projectionMatrix);
-					// TODO we need a push and pop for model matrix iRenderer::getInstance().getModelMatrix(modelMatrix);
+					iRenderer::getInstance().getModelMatrix(modelMatrix);
 
 					iRenderer::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
 					iRenderer::getInstance().setOrtho(0, absoluteFramePos.getWidth(), absoluteFramePos.getHeight(), 0, 1, 40);

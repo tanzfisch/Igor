@@ -249,6 +249,12 @@ namespace Igor
         */
         virtual void setModelMatrix(const iaMatrixd& matrix);
 
+        /*! returns current model matrix
+
+        \param[out] matrix returning model matrix
+        */
+        virtual void getModelMatrix(iaMatrixd& matrix);
+
         /*! sets the view matrix and camera world matrix
 
         \param viewMatrix matrix to set the view matrix
