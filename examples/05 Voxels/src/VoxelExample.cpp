@@ -66,6 +66,11 @@ void VoxelExample::init()
 
     // generating voxels
     generateVoxelData();
+
+    // ok this one is kind of a workaround. In order to handle huge worlds beyond float precision we internally mess around with world positions.
+    // in consequence the world positions that end up in the shader are not valid. They are relative to the camera position. To compensate we can 
+    // set the world grid resolution here. It basically makes a modulo on the world coordinates so they never exceed float precision. 
+    iRenderer::getInstance().setWorldGridResolution(1000.0);
 }
 
 void VoxelExample::deinit()
