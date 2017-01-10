@@ -262,6 +262,20 @@ namespace Igor
         */
         virtual void setViewMatrix(const iaMatrixd& viewMatrix);
 
+        /*! sets world grid resolution
+
+        this grid is only relevant if your world to big for float32 to handle AND 
+        if you still need in your shaders some sort of world position to know.
+        So in the end you get some modulo world position. modulo with that grid size.
+
+        \param gridSize sets the world grid size (only values with )
+        */
+        virtual void setWorldGridResolution(float32 gridSize);
+
+        /*! \returns world grid size
+        */
+        float32 getWorldGridResolution() const;
+
         /*! returns carma world matrix
 
         \param[out] matrix destination to write camera world wmatrix in
@@ -596,6 +610,10 @@ namespace Igor
 
     private:
 
+        /*! world grid resolution
+        */
+        float32 _gridSize = 0;
+
         /*! the pre renderer deinitialize event
         */
         iRendererPreDeinitializeEvent _rendererPreDeinitializeEvent;
@@ -635,7 +653,7 @@ namespace Igor
 
         /*! world offset matrix
         */
-        iaMatrixd _worldOffsetMatrix;
+        iaVector3d _worldOffset;
 
         /*! view matrix
         */

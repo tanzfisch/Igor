@@ -611,14 +611,13 @@ namespace Igor
     void iRenderer::getCamWorldMatrix(iaMatrixd& matrix)
     {
         matrix = _camWorldMatrix;
-        matrix._pos = _worldOffsetMatrix._pos;
-        matrix._pos.negate();
+        matrix._pos += _worldOffset;
     }
 
     void iRenderer::setModelMatrix(const iaMatrixd& matrix)
     {
         _modelMatrix = matrix;
-        _modelMatrix._pos += _worldOffsetMatrix._pos;
+        _modelMatrix._pos -= _worldOffset;
 
         _modelViewMatrix = _viewMatrix;
         _modelViewMatrix *= _modelMatrix;
@@ -631,7 +630,9 @@ namespace Igor
     void iRenderer::setViewMatrix(const iaMatrixd& viewMatrix)
     {
         _viewMatrix = viewMatrix;
-        _worldOffsetMatrix.identity();
+
+        _worldOffset.set(0, 0, 0);
+        _camWorldMatrix.identity();
 
         _modelViewMatrix = _viewMatrix;
         _modelViewMatrix *= _modelMatrix;
@@ -641,15 +642,37 @@ namespace Igor
         _dirtyModelViewProjectionMatrix = true;
     }
 
+    float32 iRenderer::getWorldGridResolution() const
+    {
+        return _gridSize;
+    }
+
+    void iRenderer::setWorldGridResolution(float32 gridSize)
+    {
+        _gridSize = gridSize;
+    }
+
     void iRenderer::setViewMatrix(const iaMatrixd& viewMatrix, const iaMatrixd& camMatrix)
     {
-        _viewMatrix = viewMatrix;
-        _viewMatrix._pos.set(0,0,0);
+        _worldOffset = camMatrix._pos;
+
+        if (_gridSize > 0.0)
+        {
+            _worldOffset /= static_cast<float64>(_gridSize);
+            _worldOffset._x = trunc(_worldOffset._x);
+            _worldOffset._y = trunc(_worldOffset._y);
+            _worldOffset._z = trunc(_worldOffset._z);
+            _worldOffset *= static_cast<float64>(_gridSize);
+        }
 
         _camWorldMatrix = camMatrix;
-        _worldOffsetMatrix._pos = _camWorldMatrix._pos;
-        _worldOffsetMatrix._pos.negate();
-        _camWorldMatrix._pos.set(0, 0, 0);
+        _camWorldMatrix._pos -= _worldOffset;
+
+        iaMatrixd worldOffset;
+        worldOffset._pos = _worldOffset;
+
+        _viewMatrix = viewMatrix;
+        _viewMatrix *= worldOffset;
 
         _modelViewMatrix = _viewMatrix;
         _modelViewMatrix *= _modelMatrix;
