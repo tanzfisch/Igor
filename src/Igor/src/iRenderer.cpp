@@ -434,11 +434,6 @@ namespace Igor
         _dirtyModelViewProjectionMatrix = true;
     }
 
-    void iRenderer::getModelMatrix(iaMatrixd& matrix)
-    {
-        matrix = _modelMatrix;
-    }
-
     void iRenderer::getViewport(iRectanglei& rect)
     {
         rect = _viewport;
@@ -571,7 +566,6 @@ namespace Igor
         glFinish();																					    GL_CHECK_ERROR();
 
         return result;
-
     }
 
     void iRenderer::setDummyTextureID(uint32 id)
@@ -614,24 +608,48 @@ namespace Igor
         }
     }
 
-    void iRenderer::getViewMatrix(iaMatrixd& matrix)
-    {
-        matrix = _viewMatrix;
-    }
-
-    void iRenderer::setCamWorldMatrix(iaMatrixd& matrix)
-    {
-        _camWorldMatrix = matrix;
-    }
-
     void iRenderer::getCamWorldMatrix(iaMatrixd& matrix)
     {
         matrix = _camWorldMatrix;
+        matrix._pos = _worldOffsetMatrix._pos;
+        matrix._pos.negate();
     }
 
-    void iRenderer::setViewMatrix(iaMatrixd& viewmatrix)
+    void iRenderer::setModelMatrix(const iaMatrixd& matrix)
     {
-        _viewMatrix = viewmatrix;
+        _modelMatrix = matrix;
+        _modelMatrix._pos += _worldOffsetMatrix._pos;
+
+        _modelViewMatrix = _viewMatrix;
+        _modelViewMatrix *= _modelMatrix;
+
+        glLoadMatrixd(_modelViewMatrix.getData());	GL_CHECK_ERROR();
+
+        _dirtyModelViewProjectionMatrix = true;
+    }
+
+    void iRenderer::setViewMatrix(const iaMatrixd& viewMatrix)
+    {
+        _viewMatrix = viewMatrix;
+        _worldOffsetMatrix.identity();
+
+        _modelViewMatrix = _viewMatrix;
+        _modelViewMatrix *= _modelMatrix;
+
+        glLoadMatrixd(_modelViewMatrix.getData());	GL_CHECK_ERROR();
+
+        _dirtyModelViewProjectionMatrix = true;
+    }
+
+    void iRenderer::setViewMatrix(const iaMatrixd& viewMatrix, const iaMatrixd& camMatrix)
+    {
+        _viewMatrix = viewMatrix;
+        _viewMatrix._pos.set(0,0,0);
+
+        _camWorldMatrix = camMatrix;
+        _worldOffsetMatrix._pos = _camWorldMatrix._pos;
+        _worldOffsetMatrix._pos.negate();
+        _camWorldMatrix._pos.set(0, 0, 0);
 
         _modelViewMatrix = _viewMatrix;
         _modelViewMatrix *= _modelMatrix;
@@ -651,17 +669,6 @@ namespace Igor
         }
     }
 
-    void iRenderer::getModelViewProjectionMatrix(iaMatrixd& matrix)
-    {
-        updateModelViewProjectionMatrix();
-        matrix = _modelViewProjectionMatrix;
-    }
-
-    void iRenderer::getModelViewMatrix(iaMatrixd& matrix)
-    {
-        matrix = _modelViewMatrix;
-    }
-
     void iRenderer::setLineWidth(float32 width)
     {
         glLineWidth(width);
@@ -670,18 +677,6 @@ namespace Igor
     void iRenderer::setPointSize(float32 size)
     {
         glPointSize(size);
-    }
-
-    void iRenderer::setModelMatrix(iaMatrixd& matrix)
-    {
-        _modelMatrix = matrix;
-
-        _modelViewMatrix = _viewMatrix;
-        _modelViewMatrix *= _modelMatrix;
-
-        glLoadMatrixd(_modelViewMatrix.getData());	GL_CHECK_ERROR();
-
-        _dirtyModelViewProjectionMatrix = true;
     }
 
     void iRenderer::setTargetMaterial(iTargetMaterial* targetMaterial)
@@ -1262,6 +1257,7 @@ namespace Igor
 
     void iRenderer::setLightPosition(int lightnum, iaVector4d &pos)
     {
+        // TODO fix with world offset
         _lights[lightnum]._position.set(pos._vec._x, pos._vec._y, pos._vec._z, pos._w);
         glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, _lights[lightnum]._position.getData());		GL_CHECK_ERROR();
     }

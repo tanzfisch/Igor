@@ -243,53 +243,30 @@ namespace Igor
         */
         virtual void setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplane, float32 farplane);
 
-        /*! returns model matrix
-
-        \param[out] matrix destination to write model matrix in
-        */
-        virtual void getModelMatrix(iaMatrixd& matrix);
-
         /*! sets the model matrix
 
         \param matrix matrix to set the model matrix
         */
-        virtual void setModelMatrix(iaMatrixd& matrix);
+        virtual void setModelMatrix(const iaMatrixd& matrix);
 
-        /*! returns view matrix
+        /*! sets the view matrix and camera world matrix
 
-        \param[out] matrix destination to write view wmatrix in
+        \param viewMatrix matrix to set the view matrix
+        \param camMatrix camera world matrix
         */
-        virtual void getViewMatrix(iaMatrixd& matrix);
+        virtual void setViewMatrix(const iaMatrixd& viewMatrix, const iaMatrixd& camMatrix);
 
-        /*! sets the view matrix
+        /*! sets the view matrix and sets the camera world matrix to identity
 
         \param matrix matrix to set the view matrix
         */
-        virtual void setViewMatrix(iaMatrixd& matrix);
+        virtual void setViewMatrix(const iaMatrixd& viewMatrix);
 
         /*! returns carma world matrix
 
         \param[out] matrix destination to write camera world wmatrix in
         */
         virtual void getCamWorldMatrix(iaMatrixd& matrix);
-
-        /*! sets the camera world matrix
-
-        \param matrix matrix to set the camera world matrix
-        */
-        virtual void setCamWorldMatrix(iaMatrixd& matrix);
-
-        /*! returns model view projection matrix
-
-        \param[out] matrix destination to write model view projection wmatrix in
-        */
-        virtual void getModelViewProjectionMatrix(iaMatrixd& matrix);
-
-        /*! sets the model view projection matrix
-
-        \param matrix matrix to set the model view projection matrix
-        */
-        virtual void getModelViewMatrix(iaMatrixd& matrix);
 
         /*! sets clear color
 
@@ -655,6 +632,10 @@ namespace Igor
         /*! model matrix
         */
         iaMatrixd _modelMatrix;
+
+        /*! world offset matrix
+        */
+        iaMatrixd _worldOffsetMatrix;
 
         /*! view matrix
         */

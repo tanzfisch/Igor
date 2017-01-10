@@ -112,44 +112,40 @@ namespace Igor
 
 	void iNodeSkyBox::draw()
 	{
-        iNodeCamera* cameraNode = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
-		if(cameraNode != nullptr)
+		iaMatrixd model;
+        iaMatrixd camMatrix;
+        iRenderer::getInstance().getCamWorldMatrix(camMatrix);
+
+		model._pos = camMatrix._pos;
+		if(_useMatrix)
 		{
-			iaMatrixd model;
-            iaMatrixd camMatrix;
-            cameraNode->getWorldMatrix(camMatrix);
+			model *= _offsetMatrix;
+		}
+		iRenderer::getInstance().setModelMatrix(model);
 
-			model._pos = camMatrix._pos;
-			if(_useMatrix)
+		if(_alpha < 1.0f)
+		{
+			iMaterial* material = iMaterialResourceFactory::getInstance().getCurrentMaterial();
+			if(material != nullptr)
 			{
-				model *= _offsetMatrix;
-			}
-			iRenderer::getInstance().setModelMatrix(model);
-
-			if(_alpha < 1.0f)
-			{
-				iMaterial* material = iMaterialResourceFactory::getInstance().getCurrentMaterial();
-				if(material != nullptr)
+                //! \todo evil hack
+				if(material->getRenderStateSet().getRenderStateValue(iRenderState::Blend) == iRenderStateValue::On)
 				{
-                    //! \todo evil hack
-					if(material->getRenderStateSet().getRenderStateValue(iRenderState::Blend) == iRenderStateValue::On)
-					{
-                        iRenderer::getInstance().setColor(1, 1, 1, _alpha);
-					}
+                    iRenderer::getInstance().setColor(1, 1, 1, _alpha);
 				}
 			}
-            else
-            {
-                iRenderer::getInstance().setColor(1, 1, 1, 1);
-            }
-
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,-_boxSize),iaVector3f(-_boxSize,0,0),iaVector3f(0,_boxSize,0), _front, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,0,_boxSize),iaVector3f(_boxSize,0,0),iaVector3f(0,_boxSize,0), _back, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(-_boxSize,0,0),iaVector3f(0,0,_boxSize),iaVector3f(0,_boxSize,0), _left,_textureScale,_textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(_boxSize,0,0),iaVector3f(0,0,-_boxSize),iaVector3f(0,_boxSize,0), _right, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,_boxSize,0),iaVector3f(_boxSize,0,0),iaVector3f(0,0,-_boxSize), _top, _textureScale, _textureScale);
-			iRenderer::getInstance().drawBillboard(iaVector3f(0,-_boxSize,0),iaVector3f(_boxSize,0,0),iaVector3f(0,0,_boxSize), _bottom, _textureScale, _textureScale);
 		}
+        else
+        {
+            iRenderer::getInstance().setColor(1, 1, 1, 1);
+        }
+
+		iRenderer::getInstance().drawBillboard(iaVector3f(0,0,-_boxSize),iaVector3f(-_boxSize,0,0),iaVector3f(0,_boxSize,0), _front, _textureScale, _textureScale);
+		iRenderer::getInstance().drawBillboard(iaVector3f(0,0,_boxSize),iaVector3f(_boxSize,0,0),iaVector3f(0,_boxSize,0), _back, _textureScale, _textureScale);
+		iRenderer::getInstance().drawBillboard(iaVector3f(-_boxSize,0,0),iaVector3f(0,0,_boxSize),iaVector3f(0,_boxSize,0), _left,_textureScale,_textureScale);
+		iRenderer::getInstance().drawBillboard(iaVector3f(_boxSize,0,0),iaVector3f(0,0,-_boxSize),iaVector3f(0,_boxSize,0), _right, _textureScale, _textureScale);
+		iRenderer::getInstance().drawBillboard(iaVector3f(0,_boxSize,0),iaVector3f(_boxSize,0,0),iaVector3f(0,0,-_boxSize), _top, _textureScale, _textureScale);
+		iRenderer::getInstance().drawBillboard(iaVector3f(0,-_boxSize,0),iaVector3f(_boxSize,0,0),iaVector3f(0,0,_boxSize), _bottom, _textureScale, _textureScale);
 	}
 
 }
