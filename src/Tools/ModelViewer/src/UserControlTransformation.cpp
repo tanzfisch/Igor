@@ -42,7 +42,7 @@ void UserControlTransformation::updateGUI()
 
     if (node != nullptr)
     {
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         node->getMatrix(matrix);
 
         for (int i = 0; i < 16; ++i)

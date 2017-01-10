@@ -194,7 +194,7 @@ void ModelViewer::init(iaString fileName)
     _directionalLightRotate->insertNode(_directionalLightTranslate);
     _directionalLightTranslate->insertNode(_lightNode);
 
-    _modelViewOrtho.translate(iaVector3f(0, 0, -30));
+    _modelViewOrtho.translate(0, 0, -30);
 
     if (!fileName.isEmpty())
     {
@@ -343,10 +343,10 @@ void ModelViewer::forceLoadingNow()
     // calculate and get the boundings
     iNodeVisitorBoundings visitorBoundings;
     visitorBoundings.traverseTree(_groupNode);
-    iSpheref sphere;
+    iSphered sphere;
     visitorBoundings.getSphere(sphere);
 
-    iaMatrixf coiMatrix;
+    iaMatrixd coiMatrix;
     coiMatrix._pos = sphere._center;
     _cameraCOI->setMatrix(coiMatrix);
     _camDistance = sphere._radius * 3.0f;
@@ -812,7 +812,7 @@ void ModelViewer::render()
 
 void ModelViewer::renderOrtho()
 {
-    iaMatrixf identity;
+    iaMatrixd identity;
     iRenderer::getInstance().setViewMatrix(identity);
     iRenderer::getInstance().setModelMatrix(_modelViewOrtho);
 
