@@ -46,15 +46,6 @@ namespace IgorAux
         TValue _value = static_cast<TValue>(0);
     };
 
-    /*! mode of compression
-    */
-    enum class iaRLEMode
-    {
-        Compressed,
-        Uncompressed,
-        Undefined
-    };
-
     /*! run lenght encoded buffer
     */
     template <typename TValue, typename TIndex> 
@@ -103,19 +94,7 @@ namespace IgorAux
         */
         __IGOR_INLINE__ TValue getValue(TIndex index) const;
 
-        /*! \retruns list of blocks
-        */
-        //const vector<iaRLEBlock<TValue, TIndex>>& getBlocks() const;
-
-        /*! sets mode of compression
-
-        \param mode compression mode
-        */
-        void setMode(iaRLEMode mode);
-
-        /*! \returns mode of compression
-        */
-        iaRLEMode getMode() const;
+        __IGOR_INLINE__ void getCopy(iaRLE<TValue, TIndex>& dst) const;
 
     private:
 
@@ -126,26 +105,11 @@ namespace IgorAux
         /*! size of buffer
         */
         TIndex _size = 0;
-
-        /*! uncompressed data
-        */
-        TValue* _data = nullptr;
-
-        /*! current mode of compression
-        */
-        iaRLEMode _mode = iaRLEMode::Compressed;
-
+                
         /*! blocks storing the RLE information
         */
         vector<iaRLEBlock<TValue, TIndex>> _blocks;
 
-        /*! compress data
-        */
-        void compress();
-
-        /*! uncompress data
-        */
-        void uncompress();
     };
 
 #include <iaRLE.inl>
