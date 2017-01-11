@@ -194,7 +194,7 @@ namespace Igor
 
     }
 
-    void iNodePhysics::addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset)
+    void iNodePhysics::addBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)
@@ -203,7 +203,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addSphere(float32 radius, const iaMatrixf& offset)
+    void iNodePhysics::addSphere(float32 radius, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)
@@ -212,7 +212,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addCone(float32 radius, float32 height, const iaMatrixf& offset)
+    void iNodePhysics::addCone(float32 radius, float32 height, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)
@@ -221,7 +221,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addCapsule(float32 radius, float32 height, const iaMatrixf& offset)
+    void iNodePhysics::addCapsule(float32 radius, float32 height, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)
@@ -230,7 +230,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addCylinder(float32 radius, float32 height, const iaMatrixf& offset)
+    void iNodePhysics::addCylinder(float32 radius, float32 height, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)
@@ -239,7 +239,7 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset)
+    void iNodePhysics::addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)

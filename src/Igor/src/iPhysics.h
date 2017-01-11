@@ -260,7 +260,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
+        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset);
 
         /*! creates a collision shape based on a mesh
 
@@ -269,7 +269,7 @@ namespace Igor
         \param offset local offset matrix
         \returns physics collision
         */
-        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
+        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a sphere
 
@@ -277,7 +277,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createSphere(float32 radius, const iaMatrixf& offset);
+        iPhysicsCollision* createSphere(float32 radius, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a cone
 
@@ -286,7 +286,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixf& offset);
+        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a capsule
 
@@ -295,7 +295,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixf& offset);
+        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a cylinder
 
@@ -304,7 +304,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixf& offset);
+        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! creates a collision compound from multiple collisions
 
@@ -442,7 +442,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset, uint64 worldID);
+        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates a collision shape based on a mesh
 
@@ -452,7 +452,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset, uint64 worldID);
+        iPhysicsCollision* createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates a user mesh collision
 
@@ -470,7 +470,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createSphere(float32 radius, const iaMatrixf& offset, uint64 worldID);
+        iPhysicsCollision* createSphere(float32 radius, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a cone
 
@@ -480,7 +480,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID);
+        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a capsule
 
@@ -490,7 +490,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID);
+        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a cylinder
 
@@ -500,7 +500,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID);
+        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates a collision compound from multiple collisions
 

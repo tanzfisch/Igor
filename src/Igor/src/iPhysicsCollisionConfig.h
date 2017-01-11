@@ -74,14 +74,14 @@ namespace Igor
         \param depth depth of box
         \param offset relative position
         */
-        void addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
+        void addBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset);
 
         /*! adds sphere
 
         \param radius radius of sphere
         \param offset relative position
         */
-        void addSphere(float32 radius, const iaMatrixf& offset);
+        void addSphere(float32 radius, const iaMatrixd& offset);
 
         /*! adds cone
 
@@ -89,7 +89,7 @@ namespace Igor
         \param height height of cone
         \param offset relative position
         */
-        void addCone(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCone(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! adds capsule
 
@@ -97,7 +97,7 @@ namespace Igor
         \param height height of capsule
         \param offset relative position
         */
-        void addCapsule(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCapsule(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! adds cylinder
 
@@ -105,7 +105,7 @@ namespace Igor
         \param height height of cylinder
         \param offset relative position
         */
-        void addCylinder(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCylinder(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! set up mesh for physics mesh
 
@@ -113,7 +113,7 @@ namespace Igor
         \param faceAttribute the faceattribute for the whole mesh
         \param offset off the mesh collision object
         */
-        void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
+        void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset);
 
         /*! \returns resulting collision ID
 
@@ -140,7 +140,7 @@ namespace Igor
             float32 _width;
             float32 _height;
             float32 _depth;
-            iaMatrixf _offset;
+            iaMatrixd _offset;
         };
 
         /*! structure to hold the data to initialize physics with a sphere
@@ -148,7 +148,7 @@ namespace Igor
         struct Sphere
         {
             float32 _radius;
-            iaMatrixf _offset;
+            iaMatrixd _offset;
         };
 
         /*! structure to hold the data to initialize physics with a cone
@@ -157,7 +157,7 @@ namespace Igor
         {
             float32 _radius;
             float32 _height;
-            iaMatrixf _offset;
+            iaMatrixd _offset;
         };
 
         /*! structure to hold the data to initialize physics with a capsule
@@ -166,7 +166,7 @@ namespace Igor
         {
             float32 _radius;
             float32 _height;
-            iaMatrixf _offset;
+            iaMatrixd _offset;
         };
 
         /*! structure to hold the data to initialize physics with a cylinder
@@ -175,7 +175,7 @@ namespace Igor
         {
             float32 _radius;
             float32 _height;
-            iaMatrixf _offset;
+            iaMatrixd _offset;
         };
 
         /*! structure to hold the data to initialize physics with a mesh
@@ -184,7 +184,7 @@ namespace Igor
         {
             shared_ptr<iMesh> _mesh = nullptr;
             int64 _faceAttribute;
-            iaMatrixf _offset;
+            iaMatrixd _offset;
         };
 
         /*! next config id

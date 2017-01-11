@@ -52,7 +52,7 @@ namespace Igor
         return _finalized;
     }
 
-    void iPhysicsCollisionConfig::addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset)
+    void iPhysicsCollisionConfig::addBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -67,7 +67,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addSphere(float32 radius, const iaMatrixf& offset)
+    void iPhysicsCollisionConfig::addSphere(float32 radius, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -80,7 +80,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addCone(float32 radius, float32 height, const iaMatrixf& offset)
+    void iPhysicsCollisionConfig::addCone(float32 radius, float32 height, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -94,7 +94,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addCapsule(float32 radius, float32 height, const iaMatrixf& offset)
+    void iPhysicsCollisionConfig::addCapsule(float32 radius, float32 height, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -108,7 +108,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addCylinder(float32 radius, float32 height, const iaMatrixf& offset)
+    void iPhysicsCollisionConfig::addCylinder(float32 radius, float32 height, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -122,7 +122,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset)
+    void iPhysicsCollisionConfig::addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 

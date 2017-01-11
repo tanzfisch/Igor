@@ -23,6 +23,7 @@
 #include <iNodeTransform.h>
 #include <iMesh.h>
 #include <iPhysicsUserMeshCollisionHandler.h>
+#include <iaConvert.h>
 
 #include <newton/Newton.h>
 
@@ -190,32 +191,32 @@ namespace Igor
         _shadowWorldID = shadow->getID();
     }
 
-    iPhysicsCollision* iPhysics::createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset)
+    iPhysicsCollision* iPhysics::createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset)
     {
         return createBox(width, height, depth, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset)
+    iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset)
     {
         return createMesh(mesh, faceAttribute, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createSphere(float32 radius, const iaMatrixf& offset)
+    iPhysicsCollision* iPhysics::createSphere(float32 radius, const iaMatrixd& offset)
     {
         return createSphere(radius, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCone(float32 radius, float32 height, const iaMatrixf& offset)
+    iPhysicsCollision* iPhysics::createCone(float32 radius, float32 height, const iaMatrixd& offset)
     {
         return createCone(radius, height, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixf& offset)
+    iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixd& offset)
     {
         return createCapsule(radius, height, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixf& offset)
+    iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixd& offset)
     {
         return createCylinder(radius, height, offset, _shadowWorldID);
     }
@@ -811,14 +812,16 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateBox(static_cast<const NewtonWorld*>(world), width, height, depth, 0, offset.getData());
+            iaMatrixf temp; // TODO remove later
+            iaConvert::convert(offset, temp);
+            NewtonCollision* collision = NewtonCreateBox(static_cast<const NewtonWorld*>(world), width, height, depth, 0, temp.getData());
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -889,14 +892,16 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createSphere(float32 radius, const iaMatrixf& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createSphere(float32 radius, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateSphere(static_cast<const NewtonWorld*>(world), radius, 0, offset.getData());
+            iaMatrixf temp; // todo remove later
+            iaConvert::convert(offset, temp);
+            NewtonCollision* collision = NewtonCreateSphere(static_cast<const NewtonWorld*>(world), radius, 0, temp.getData());
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -909,14 +914,16 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createCone(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCone(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateCone(static_cast<const NewtonWorld*>(world), radius, height, 0, offset.getData());
+            iaMatrixf temp; // todo remove later
+            iaConvert::convert(offset, temp);
+            NewtonCollision* collision = NewtonCreateCone(static_cast<const NewtonWorld*>(world), radius, height, 0, temp.getData());
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -929,14 +936,16 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, offset.getData());
+            iaMatrixf temp; // todo remove later
+            iaConvert::convert(offset, temp);
+            NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, temp.getData());
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -949,14 +958,16 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixf& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, offset.getData());
+            iaMatrixf temp; // todo remove later
+            iaConvert::convert(offset, temp);
+            NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, temp.getData());
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -985,23 +996,16 @@ namespace Igor
 
     void iPhysics::updateMatrix(void* newtonBody, const iaMatrixd& matrix)
     {
-        iaMatrixf matrixF;
-        for (int i = 0; i < 16; ++i)
-        {
-            matrixF[i] = matrix[i];
-        }
-
-        NewtonBodySetMatrix(static_cast<const NewtonBody*>(newtonBody), matrixF.getData());
+        iaMatrixf temp; // todo remove later
+        iaConvert::convert(matrix, temp);
+        NewtonBodySetMatrix(static_cast<const NewtonBody*>(newtonBody), temp.getData());
     }
 
     void iPhysics::getMatrix(void* newtonBody, iaMatrixd& matrix)
     {
-        iaMatrixf matrixF;
-        NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), matrixF.getData());
-        for (int i = 0; i < 16; ++i)
-        {
-            matrix[i] = matrixF[i];
-        }
+        iaMatrixf temp;
+        NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), temp.getData());
+        iaConvert::convert(temp, matrix);
     }
 
     void iPhysics::setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz)
@@ -1016,7 +1020,7 @@ namespace Igor
         }
     }
 
-    iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());

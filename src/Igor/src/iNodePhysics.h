@@ -71,14 +71,14 @@ namespace Igor
         \param depth depth of box
         \param offset relative position
         */
-        void addBox(float32 width, float32 height, float32 depth, const iaMatrixf& offset);
+        void addBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset);
 
         /*! adds sphere
 
         \param radius radius of sphere
         \param offset relative position
         */
-        void addSphere(float32 radius, const iaMatrixf& offset);
+        void addSphere(float32 radius, const iaMatrixd& offset);
 
         /*! adds cone
 
@@ -86,7 +86,7 @@ namespace Igor
         \param height height of cone
         \param offset relative position
         */
-        void addCone(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCone(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! adds capsule
 
@@ -94,7 +94,7 @@ namespace Igor
         \param height height of capsule
         \param offset relative position
         */
-        void addCapsule(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCapsule(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! adds cylinder
 
@@ -102,7 +102,7 @@ namespace Igor
         \param height height of cylinder
         \param offset relative position
         */
-        void addCylinder(float32 radius, float32 height, const iaMatrixf& offset);
+        void addCylinder(float32 radius, float32 height, const iaMatrixd& offset);
 
         /*! set up mesh for physics mesh
 
@@ -110,7 +110,7 @@ namespace Igor
         \param faceAttribute the faceattribute for the whole mesh
         \param offset off the mesh collision object
         */
-        void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixf& offset);
+        void addMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset);
 
         /*! finalizes the collisions
         */
