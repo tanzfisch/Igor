@@ -140,15 +140,19 @@ namespace Igor
             case iActionType::Insert:
                 nodeA = getNode(entry._nodeA);
                 nodeB = getNode(entry._nodeB);
-                con_assert(nodeA != nullptr && nodeB != nullptr, "zero pointer");
-                nodeA->insertNode(nodeB);
+                if (nodeA != nullptr && nodeB != nullptr)
+                {
+                    nodeA->insertNode(nodeB);
+                }
                 break;
 
             case iActionType::Remove:
                 nodeA = getNode(entry._nodeA);
                 nodeB = getNode(entry._nodeB);
-                con_assert(nodeA != nullptr && nodeB != nullptr, "zero pointer");
-                nodeA->removeNode(nodeB);
+                if (nodeA != nullptr && nodeB != nullptr)
+                {
+                    nodeA->removeNode(nodeB);
+                }
                 break;
 
             case iActionType::Destroy:
@@ -157,14 +161,18 @@ namespace Igor
 
             case iActionType::Activate:
                 nodeA = getNode(entry._nodeA);
-                con_assert(nodeA != nullptr, "zero pointer");
-                nodeA->setActive(true);
+                if (nodeA != nullptr)
+                {
+                    nodeA->setActive(true);
+                }
                 break;
 
             case iActionType::Deactivate:
                 nodeA = getNode(entry._nodeA);
-                con_assert(nodeA != nullptr, "zero pointer");
-                nodeA->setActive(false);
+                if (nodeA != nullptr)
+                {
+                    nodeA->setActive(false);
+                }
                 break;
             }
         }
