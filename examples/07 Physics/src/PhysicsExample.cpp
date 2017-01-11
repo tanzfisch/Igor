@@ -107,7 +107,7 @@ void PhysicsExample::init()
 
     iPhysics::getInstance().setSimulationRate(60);
 
-    iaMatrixf offsetFloor;
+    iaMatrixd offsetFloor;
     vector<iPhysicsCollision*> collisions;
     collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
     collisions.push_back(iPhysics::getInstance().createBox(50, 1, 10, offsetFloor.getData()));
@@ -124,7 +124,7 @@ void PhysicsExample::init()
     floorBody->setMatrix(floorMatrix);
     _bodyIDs.push_back(floorBody->getID());
 
-    iaMatrixf offsetBox;
+    iaMatrixd offsetBox;
     iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
     for (int i = 0; i < 30; ++i)
     {
