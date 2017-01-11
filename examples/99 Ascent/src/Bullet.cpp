@@ -20,7 +20,7 @@ using namespace IgorAux;
 #include "EntityManager.h"
 #include "BulletHit.h"
 
-Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matrix, Fraction fraction)
+Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matrix, Fraction fraction)
 	: Entity(fraction, EntityType::Weapon)
 {
 	_scene = scene;
@@ -78,7 +78,7 @@ Bullet::Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matri
 	iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	emitterTransform->rotate(-0.5 * M_PI, iaAxis::X);
 
-	iaMatrixf offset;
+	iaMatrixd offset;
 	iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
 	physicsNode->addSphere(0.5, offset);
 	physicsNode->finalizeCollision();
@@ -122,7 +122,7 @@ void Bullet::hitBy(uint64 entityID)
 		iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
 		if (transformNode != nullptr)
 		{
-			iaMatrixf matrix;
+			iaMatrixd matrix;
 			transformNode->getMatrix(matrix);
 			BulletHit* bulletHit = new BulletHit(_scene, matrix);
 		}
@@ -131,13 +131,13 @@ void Bullet::hitBy(uint64 entityID)
 	}
 }
 
-iaVector3f Bullet::updatePos()
+iaVector3d Bullet::updatePos()
 {
-	iaVector3f result;
+	iaVector3d result;
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
 	if (transformNode != nullptr)
 	{
-		iaMatrixf matrix;
+		iaMatrixd matrix;
 		transformNode->getMatrix(matrix);
 		result = matrix._pos;
 	}

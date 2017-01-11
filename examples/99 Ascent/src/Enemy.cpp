@@ -22,7 +22,7 @@ using namespace IgorAux;
 #include "EnemyDestroyed.h"
 #include "VoxelTerrainGenerator.h"
 
-Enemy::Enemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
+Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     : Entity(Fraction::Red, EntityType::Vehicle)
 {
     _playerID = playerID;
@@ -40,7 +40,7 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
     iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     bodyModel->setModel("crate.ompf", nullptr);
 
-    iaMatrixf offset;
+    iaMatrixd offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
     physicsNode->addBox(1,0.5,1, offset);
     physicsNode->finalizeCollision();
@@ -48,7 +48,7 @@ Enemy::Enemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
     physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
     physicsNode->setUserData(&_id);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Enemy::onApplyForceAndTorque));
-    physicsNode->setAngularDamping(iaVector3f(10000, 10000, 10000));
+    physicsNode->setAngularDamping(iaVector3d(10000, 10000, 10000));
     physicsNode->setLinearDamping(100);
 
     _scene->getRoot()->insertNode(transformNode);
@@ -75,7 +75,7 @@ Enemy::~Enemy()
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         transformNode->getMatrix(matrix);
         EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
     }
@@ -122,13 +122,13 @@ void Enemy::hitBy(uint64 entityID)
     }
 }
 
-iaVector3f Enemy::updatePos()
+iaVector3d Enemy::updatePos()
 {
-    iaVector3f result;
+    iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         transformNode->getMatrix(matrix);
         result = matrix._pos;
     }
@@ -158,13 +158,13 @@ void Enemy::handle()
 
         if (identifiedTarget != nullptr)
         {
-            iaVector3f targetPos = identifiedTarget->getSphere()._center;
+            iaVector3d targetPos = identifiedTarget->getSphere()._center;
             iaVector3I outside;
             iaVector3I inside;
 
-            iaVector3f dir = targetPos;
+            iaVector3d dir = targetPos;
             dir -= getSphere()._center;
-            float32 distance = dir.length();
+            float64 distance = dir.length();
 
             iaVector3I center;
             iaVector3I pos;
@@ -173,10 +173,10 @@ void Enemy::handle()
 
             VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
 
-            iaVector3f out;
+            iaVector3d out;
             iaConvert::convert(outside, out);
 
-            float32 distanceToWall = out.distance(getSphere()._center) + 5;
+            float64 distanceToWall = out.distance(getSphere()._center) + 5.0;
             if(distanceToWall > distance &&
                 distance > approachDistance)
             {

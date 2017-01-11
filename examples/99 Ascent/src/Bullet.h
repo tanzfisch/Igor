@@ -19,7 +19,7 @@ class Bullet : public Entity
 
 public:
 
-    Bullet(iScene* scene, const iaVector3f& addForce, const iaMatrixf& matrix, Fraction fraction);
+    Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matrix, Fraction fraction);
     virtual ~Bullet();
 
 private:
@@ -29,10 +29,10 @@ private:
 	uint32 _particleSystemNodeID = 0;
     iScene* _scene = nullptr;
 
-    iaVector3f _force;
+    iaVector3d _force;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);

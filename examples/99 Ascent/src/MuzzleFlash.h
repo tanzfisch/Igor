@@ -23,7 +23,7 @@ private:
     uint32 _muzzleFlashModelID = iNode::INVALID_NODE_ID;
     uint32 _muzzleSmokeModelID = iNode::INVALID_NODE_ID;
 
-	iaVector3f _pos;
+	iaVector3d _pos;
 
     void onMuzzleFlashLoaded();
     void onMuzzleSmokeLoaded();
@@ -34,7 +34,7 @@ private:
     bool _muzzleSmokeRunning = true;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
 };

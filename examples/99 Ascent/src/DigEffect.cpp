@@ -20,7 +20,7 @@ using namespace IgorAux;
 
 #include "EntityManager.h"
 
-DigEffect::DigEffect(iScene* scene, const iaMatrixf& matrix)
+DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     : Entity(Fraction::None, EntityType::None)
 {
     setHealth(100.0);
@@ -88,7 +88,7 @@ void DigEffect::hitBy(uint64 entityID)
 	// nothing to do
 }
 
-iaVector3f DigEffect::updatePos()
+iaVector3d DigEffect::updatePos()
 {
 	return _pos;
 }

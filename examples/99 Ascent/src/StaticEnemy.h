@@ -15,7 +15,7 @@ class StaticEnemy : public Entity
     
 public:
 
-    StaticEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID);
+    StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID);
     virtual ~StaticEnemy();
 
 private:
@@ -29,7 +29,7 @@ private:
     iScene* _scene = nullptr;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
 };

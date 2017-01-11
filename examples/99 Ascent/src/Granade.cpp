@@ -16,7 +16,7 @@ using namespace IgorAux;
 
 #include "EntityManager.h"
 
-Granade::Granade(iScene* scene, const iaMatrixf& matrix, Fraction fraction)
+Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     : Entity(fraction, EntityType::Weapon)
 {
     _scene = scene;
@@ -29,7 +29,7 @@ Granade::Granade(iScene* scene, const iaMatrixf& matrix, Fraction fraction)
     _force.normalize();
     _force *= 3;
 
-    iaMatrixf startMatrix;
+    iaMatrixd startMatrix;
     startMatrix = matrix;
     startMatrix._pos -= matrix._depth * 5;
 
@@ -45,7 +45,7 @@ Granade::Granade(iScene* scene, const iaMatrixf& matrix, Fraction fraction)
     iNodeModel* bulletModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     bulletModel->setModel("cube.ompf", nullptr);
 
-    iaMatrixf offset;
+    iaMatrixd offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
@@ -69,13 +69,13 @@ void Granade::hitBy(uint64 entityID)
     kill();
 }
 
-iaVector3f Granade::updatePos()
+iaVector3d Granade::updatePos()
 {
-    iaVector3f result;
+    iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         transformNode->getMatrix(matrix);
         result = matrix._pos;
     }
@@ -131,7 +131,7 @@ void Granade::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int th
     float32 Iyy;
     float32 Izz;
     float32 mass;
-    iaVector3f force = _force;
+    iaVector3d force = _force;
 
  //   iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
     //force += iaVector3f(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);

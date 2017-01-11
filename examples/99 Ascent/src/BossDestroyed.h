@@ -14,7 +14,7 @@ class BossDestroyed : public Entity
 
 public:
 
-    BossDestroyed(iScene* scene, const iaMatrixf& matrix);
+    BossDestroyed(iScene* scene, const iaMatrixd& matrix);
     virtual ~BossDestroyed();
 
 private:
@@ -24,10 +24,10 @@ private:
     uint32 _traceNodeID = iNode::INVALID_NODE_ID;
 	uint32 _transformNodeID = iNode::INVALID_NODE_ID;
 
-	iaVector3f _pos;
+	iaVector3d _pos;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
 };

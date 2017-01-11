@@ -14,7 +14,7 @@ class BulletHit : public Entity
 
 public:
 
-	BulletHit(iScene* scene, const iaMatrixf& matrix);
+	BulletHit(iScene* scene, const iaMatrixd& matrix);
     virtual ~BulletHit();
 
 private:
@@ -22,10 +22,10 @@ private:
     uint32 _particleSystemNodeID = iNode::INVALID_NODE_ID;
 	uint32 _emitterNodeID = iNode::INVALID_NODE_ID;
 
-	iaVector3f _pos;
+	iaVector3d _pos;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
 };

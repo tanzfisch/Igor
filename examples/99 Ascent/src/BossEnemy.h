@@ -15,7 +15,7 @@ class BossEnemy : public Entity
     
 public:
 
-	BossEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID);
+	BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID);
     virtual ~BossEnemy();
 
 private:
@@ -34,7 +34,7 @@ private:
     iScene* _scene = nullptr;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
 };

@@ -53,7 +53,7 @@ Fraction Entity::getFraction() const
     return _fraction;
 }
 
-const iSpheref& Entity::getSphere() const
+const iSphered& Entity::getSphere() const
 {
     return _sphere;
 }

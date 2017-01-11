@@ -20,7 +20,7 @@ using namespace IgorAux;
 
 #include "EntityManager.h"
 
-BulletHit::BulletHit(iScene* scene, const iaMatrixf& matrix)
+BulletHit::BulletHit(iScene* scene, const iaMatrixd& matrix)
     : Entity(Fraction::None, EntityType::None)
 {
     setHealth(100.0);
@@ -84,7 +84,7 @@ void BulletHit::hitBy(uint64 entityID)
 	// nothing to do
 }
 
-iaVector3f BulletHit::updatePos()
+iaVector3d BulletHit::updatePos()
 {
 	return _pos;
 }

@@ -494,7 +494,7 @@ void VoxelTerrainGenerator::handleVoxelBlocks()
     iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().getNode(_lodTrigger));
     if (lodTrigger != nullptr)
     {
-        iaVector3f pos = lodTrigger->getWorldPosition();
+        iaVector3d pos = lodTrigger->getWorldPosition();
         iaVector3I lodTriggerPos(pos._x, pos._y, pos._z);
 
         iaVector3I center(lodTriggerPos._x, lodTriggerPos._y, lodTriggerPos._z);

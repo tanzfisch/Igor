@@ -22,7 +22,7 @@ using namespace IgorAux;
 #include "EnemyDestroyed.h"
 #include "VoxelTerrainGenerator.h"
 
-StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID)
+StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     : Entity(Fraction::Red, EntityType::Vehicle)
 {
     _playerID = playerID;
@@ -43,7 +43,7 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixf& matrix, uint64 playerID
     iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     bodyModel->setModel("crate.ompf", nullptr);
 
-    iaMatrixf offset;
+    iaMatrixd offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
     _physicsNodeID = physicsNode->getID();
     physicsNode->addBox(1,2,1, offset);
@@ -107,20 +107,20 @@ void StaticEnemy::hitBy(uint64 entityID)
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
         if (transformNode != nullptr)
         {
-            iaMatrixf matrix;
+            iaMatrixd matrix;
             transformNode->getMatrix(matrix);
             EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
         }
     }
 }
 
-iaVector3f StaticEnemy::updatePos()
+iaVector3d StaticEnemy::updatePos()
 {
-    iaVector3f result;
+    iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         transformNode->getMatrix(matrix);
         result = matrix._pos;
     }

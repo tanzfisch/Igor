@@ -35,7 +35,7 @@ private:
     float64 _time = 0;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
 };

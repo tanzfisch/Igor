@@ -48,13 +48,13 @@ void Turret::hitBy(uint64 entityID)
 {
 }
 
-iaVector3f Turret::updatePos()
+iaVector3d Turret::updatePos()
 {
-    iaVector3f result;
+    iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_parentNodeID));
     if (transformNode != nullptr)
     {
-        iaMatrixf matrix;
+        iaMatrixd matrix;
         transformNode->calcWorldTransformation(matrix);
         result = matrix._pos;
     }
@@ -109,8 +109,8 @@ void Turret::handle()
 
     if (identifiedTarget != nullptr)
     {
-        iaVector3f targetPos = identifiedTarget->getSphere()._center;
-        iaVector3f dir = targetPos;
+        iaVector3d targetPos = identifiedTarget->getSphere()._center;
+        iaVector3d dir = targetPos;
         dir -= getSphere()._center;
         float32 distance = dir.length();
 
@@ -119,19 +119,19 @@ void Turret::handle()
             iNodeTransform* platform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_platformID));
             if (platform != nullptr)
             {
-                iaMatrixf world;
+                iaMatrixd world;
                 platform->setTransformationDirty(); // todo workaround because dirty flags don't get set right :-(
                 platform->calcWorldTransformation(world);
 
-                iaVector3f worldPos = world._pos;
+                iaVector3d worldPos = world._pos;
                 world._pos.set(0,0,0);
 
-                iaMatrixf worldInverse;
+                iaMatrixd worldInverse;
                 worldInverse = world;
                 worldInverse.invert();
-                iaVector3f localdir = worldInverse * dir;
+                iaVector3d localdir = worldInverse * dir;
 
-                iaVector3f upVector(0, 1, 0);
+                iaVector3d upVector(0, 1, 0);
                 upVector = world * upVector;
 
                 iNodeTransform* headingNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headingID));
@@ -141,7 +141,7 @@ void Turret::handle()
                 headingNode->identity();
                 headingNode->rotate(heading - (M_PI * 0.5f), iaAxis::Y);
 
-                float32 pitch = (M_PI * 0.5f) - localdir.angle(iaVector3f(0, 1, 0));
+                float32 pitch = (M_PI * 0.5f) - localdir.angle(iaVector3d(0, 1, 0));
                 if (pitch > 0)
                 {
                     pitchNode->identity();
@@ -157,7 +157,7 @@ void Turret::handle()
 
                 VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
 
-                iaVector3f out;
+                iaVector3d out;
                 iaConvert::convert(outside, out);
                 float32 distanceToWall = out.distance(getSphere()._center) + 5;
 
@@ -167,7 +167,7 @@ void Turret::handle()
                 {
                     if (_time + 1000 < iTimer::getInstance().getTime())
                     {
-                        iaMatrixf matrixOrientation;
+                        iaMatrixd matrixOrientation;
                         matrixOrientation._depth = dir;
                         matrixOrientation._depth.negate();
                         matrixOrientation._depth.normalize();
@@ -181,7 +181,7 @@ void Turret::handle()
                         matrixOrientation._pos = worldPos;
                         matrixOrientation._pos -= matrixOrientation._depth * 2.0;
 
-                        Bullet* bullet = new Bullet(_scene, iaVector3f(), matrixOrientation, getFraction());
+                        Bullet* bullet = new Bullet(_scene, iaVector3d(), matrixOrientation, getFraction());
                         _time = iTimer::getInstance().getTime();
 
                         fired = true;

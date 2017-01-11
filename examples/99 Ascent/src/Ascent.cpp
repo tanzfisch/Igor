@@ -159,12 +159,12 @@ void Ascent::initScene()
 
 void Ascent::initPlayer()
 {
-    iaMatrixf matrix;
+    iaMatrixd matrix;
     matrix.translate(10000, 9400, 10000);
     Player* player = new Player(_scene, matrix);
     _playerID = player->getID();
 
-    iaMatrixf enemyMatrix;
+    iaMatrixd enemyMatrix;
     enemyMatrix._pos.set(10000, 9400, 10000 - 200);
     BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
     _bossID = boss->getID();
@@ -179,7 +179,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
     srand(min._x + min._y + min._z);
 
-    iaMatrixf enemyMatrix;
+    iaMatrixd enemyMatrix;
     Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
     int count = 0;
@@ -252,9 +252,9 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
             if (addEnemy)
             {
-                iaVector3f from(pos._x, pos._y, pos._z);
+                iaVector3d from(pos._x, pos._y, pos._z);
 
-                iaMatrixf matrix;
+                iaMatrixd matrix;
 
                 switch (rand() % 6)
                 {
@@ -283,7 +283,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                     break;
                 }
 
-                iaVector3f to = from + matrix._top * -200;
+                iaVector3d to = from + matrix._top * -200;
 
                 iaVector3I right(matrix._right._x, matrix._right._y, matrix._right._z);
                 iaVector3I top(matrix._top._x, matrix._top._y, matrix._top._z);
@@ -584,13 +584,13 @@ void Ascent::onMouseDown(iKeyCode key)
         {
             if (key == iKeyCode::MouseRight)
             {
-                iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
                 player->shootSecondaryWeapon(_view, updown);
             }
 
             if (key == iKeyCode::MouseLeft)
             {
-                iaVector3f updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
                 player->shootPrimaryWeapon(_view, updown);
             }
         }
@@ -688,9 +688,9 @@ void Ascent::onRenderOrtho()
 {
     iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 0, 0.8, 1));
 
-    iaMatrixf matrix;
+    iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);
-    matrix.translate(iaVector3f(0, 0, -30));
+    matrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(matrix);
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFont(_font);

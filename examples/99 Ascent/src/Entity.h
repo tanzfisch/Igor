@@ -31,7 +31,7 @@ public:
     uint64 getID();
     Fraction getFraction() const;
     EntityType getType() const;
-    const iSpheref& getSphere() const;
+    const iSphered& getSphere() const;
 
     float32 getShield() const;
     void setShield(float32 value);
@@ -55,7 +55,7 @@ protected:
     uint64 _id = 0;
 
     virtual void handle() = 0;
-    virtual iaVector3f updatePos() = 0;
+    virtual iaVector3d updatePos() = 0;
     virtual void hitBy(uint64 entityID) = 0;
 
 private:
@@ -67,9 +67,7 @@ private:
 
     static uint64 _nextID;
 
-    
-
-    iSpheref _sphere;
+    iSphered _sphere;
     
     Fraction _fraction = Fraction::None;
     EntityType _type = EntityType::None;

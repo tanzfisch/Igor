@@ -20,7 +20,7 @@ using namespace IgorAux;
 
 #include "EntityManager.h"
 
-EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixf& matrix)
+EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
     : Entity(Fraction::None, EntityType::None)
 {
     setHealth(100.0);
@@ -185,7 +185,7 @@ void EnemyDestroyed::hitBy(uint64 entityID)
     // nothing to do
 }
 
-iaVector3f EnemyDestroyed::updatePos()
+iaVector3d EnemyDestroyed::updatePos()
 {
     return _pos;
 }

@@ -21,7 +21,7 @@ class Player : public Entity
 
 public:
 
-    Player(iScene* scene, const iaMatrixf& matrix);
+    Player(iScene* scene, const iaMatrixd& matrix);
     virtual ~Player();
 
     void startUp();
@@ -47,8 +47,8 @@ public:
     void startFastTurn();
     void stopFastTurn();
 
-    void shootPrimaryWeapon(iView& view, const iaVector3f& screenCoordinates);
-    void shootSecondaryWeapon(iView& view, const iaVector3f& screenCoordinates);
+    void shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates);
+    void shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinates);
     void dig(uint64 toolSize, uint8 toolDensity);
     iaVector3I getGunPointPosition();
 
@@ -86,11 +86,11 @@ private:
 
     iScene* _scene = nullptr;
 
-    iaVector3f _force;
-    iaVector3f _torque;
+    iaVector3d _force;
+    iaVector3d _torque;
 
     void handle();
-    iaVector3f updatePos();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);
