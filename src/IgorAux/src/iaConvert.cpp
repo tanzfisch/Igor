@@ -33,9 +33,38 @@ namespace IgorAux
 
     void iaConvert::convert(const iaVector3d& src, iaVector3f& dst)
     {
-        dst._x = src._x;
-        dst._y = src._y;
-        dst._z = src._z;
+        dst._x = static_cast<float32>(src._x);
+        dst._y = static_cast<float32>(src._y);
+        dst._z = static_cast<float32>(src._z);
+    }
+
+    void iaConvert::convert(const iaVector3I& src, iaVector3d& dst)
+    {
+        dst._x = static_cast<float64>(src._x);
+        dst._y = static_cast<float64>(src._y);
+        dst._z = static_cast<float64>(src._z);
+    }
+
+    void iaConvert::convert(const iaVector3d& src, iaVector3I& dst)
+    {
+        dst._x = static_cast<int64>(src._x);
+        dst._y = static_cast<int64>(src._y);
+        dst._z = static_cast<int64>(src._z);
+    }
+
+    void iaConvert::convert(const iaVector3f& src, iaVector3d& dst)
+    {
+        dst._x = static_cast<float64>(src._x);
+        dst._y = static_cast<float64>(src._y);
+        dst._z = static_cast<float64>(src._z);
+    }
+
+    void iaConvert::convert(const iaMatrixf& src, iaMatrixd& dst)
+    {
+        for (int i = 0; i < 16; ++i)
+        {
+            dst[i] = static_cast<float64>(src[i]);
+        }
     }
 
     void iaConvert::convert(const iaMatrixd& src, iaMatrixf& dst)
