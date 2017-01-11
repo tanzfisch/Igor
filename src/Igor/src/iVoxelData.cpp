@@ -20,26 +20,25 @@ namespace Igor
         }
     }
 
-    void iVoxelData::setMode(iaRLEMode mode)
+    void iVoxelData::getCopy(iVoxelData& dst)
     {
+        dst.freeMemory();
+
+        dst._clearValue = _clearValue;
+        dst._depth = _depth;
+        dst._height = _height;
+        dst._width = _width;
+        dst._nonSolidValue = _nonSolidValue;
+
         if (_data != nullptr)
         {
+            dst._data = new iVoxelPole[_width * _depth];
             for (int i = 0; i < _width * _depth; ++i)
             {
-                _data[i]._density.setMode(mode);
-                _data[i]._material.setMode(mode);
+                dst._data[i]._density = _data[i]._density;
+                dst._data[i]._material = _data[i]._material;
             }
         }
-    }
-
-    iaRLEMode iVoxelData::getMode() const
-    {
-        if (_data != nullptr)
-        {
-            return _data[0]._density.getMode();
-        }
-
-        return iaRLEMode::Undefined;
     }
 
     void iVoxelData::initData(int64 width, int64 height, int64 depth)

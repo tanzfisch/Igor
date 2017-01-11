@@ -71,6 +71,8 @@ namespace Igor
         */
         void initData(int64 width, int64 height, int64 depth);
 
+        void getCopy(iVoxelData& dst);
+
         /*! does same as initData but keeps the preset width height and depht
         */
         void clear();
@@ -121,11 +123,6 @@ namespace Igor
 
         void setClearValue(uint8 clearValue);
         uint8 getClearValue() const;
-
-        /*! sets compressed or uncompressed mode
-        */
-        void setMode(iaRLEMode mode);
-        iaRLEMode getMode() const;
 
     private:
 
