@@ -161,7 +161,7 @@ namespace Igor
         _interrupFlush = true;
     }
 
-    void iModelResourceFactory::registerModelDataIO(const iaString& identifier, CreateModelDataIOInstance functionPointer)
+    void iModelResourceFactory::registerModelDataIO(const iaString& identifier, iCreateModelDataIOInstance functionPointer)
     {
         int64 hashValue = calcHashValue(identifier);
 

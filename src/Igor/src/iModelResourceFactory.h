@@ -47,7 +47,7 @@ namespace Igor
     class iWindow;
 	class iNode;
 
-    __IGOR_FUNCTION_POINTER__(CreateModelDataIOInstance, __IGOR_DEFAULTCALL__, iModelDataIO*, ());
+    __IGOR_FUNCTION_POINTER__(iCreateModelDataIOInstance, __IGOR_DEFAULTCALL__, iModelDataIO*, ());
 
     /*! model resource factory
     */
@@ -100,7 +100,7 @@ namespace Igor
 
         \param generator generator to register
         */
-        void registerModelDataIO(const iaString& identifier, CreateModelDataIOInstance functionPointer);
+        void registerModelDataIO(const iaString& identifier, iCreateModelDataIOInstance functionPointer);
 
         /*! unregisters generator
 
@@ -147,7 +147,7 @@ namespace Igor
         key hash value of model data io identifier
         value function pointer to model data io creator
         */
-        map<int64, CreateModelDataIOInstance> _modelDataIOCreators;
+        map<int64, iCreateModelDataIOInstance> _modelDataIOCreators;
 
         /*! figures out what format we are dealing with
 

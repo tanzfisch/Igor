@@ -35,6 +35,7 @@
 #include <iaString.h>
 using namespace IgorAux;
 
+#include <map>
 #include <mutex>
 using namespace std;
 
@@ -52,11 +53,11 @@ namespace Igor
 
     public:
 
-        iEntity* createEntity(const iaString& entityType) const;
+        iEntity* createEntity(const iaString& entityType);
 
         iEntity* getEntity(uint64 id) const;
 
-        void destroyEntity(uint64 id) const;
+        void destroyEntity(uint64 id);
 
         /*! registers an entity type
 
@@ -69,10 +70,18 @@ namespace Igor
 
         \param entityType entity type identifier
         */
-        void unregisterEntityType(const iaString& identifier);
+        void unregisterEntityType(const iaString& entityType);
 
     private:
 
+        mutex _mutexTypes;
+
+        map<uint64, iCreateEntityInstance> _types;
+
+        map<uint64, iEntity*> _entities;
+
+        uint64 calcHashValue(const iaString& text);
+        
         iEntityFactory();
 
         ~iEntityFactory();
