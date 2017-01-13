@@ -29,14 +29,12 @@
 #ifndef __iPHYSICS__
 #define __iPHYSICS__
 
-#include <iDefines.h>
-#include <iaSingleton.h>
-using namespace IgorAux;
-
 #include <iPhysicsBody.h>
 #include <iPhysicsWorld.h>
+
+#include <iaSingleton.h>
 #include <iaMatrix.h>
-using namespace Igor;
+using namespace IgorAux;
 
 #include <memory>
 #include <vector>
