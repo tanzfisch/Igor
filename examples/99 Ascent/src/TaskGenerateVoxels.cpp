@@ -98,7 +98,6 @@ void TaskGenerateVoxels::run()
     
     voxelData->setClearValue(0);
 	voxelData->initData(size._x, size._y, size._z);
-    voxelData->setMode(iaRLEMode::Uncompressed); // uncompressed works fine as long a the terrain stays verry small
 
     // skip all the voxel blocks that are too far away
     if (iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200).distance(iaVector3f(offset._x + size._x * 0.5, offset._y + size._y * 0.5, offset._z + size._z * 0.5)) < 250)
