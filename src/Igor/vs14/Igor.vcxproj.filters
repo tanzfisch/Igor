@@ -662,6 +662,12 @@
     <ClCompile Include="..\src\iStatisticsSection.cpp">
       <Filter>resources\statistics</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iEntity.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iEntityFactory.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1384,6 +1390,12 @@
     <ClInclude Include="..\src\iStatisticsSection.h">
       <Filter>resources\statistics</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iEntity.h">
+      <Filter>entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iEntityFactory.h">
+      <Filter>entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -1558,6 +1570,9 @@
     </Filter>
     <Filter Include="resources\statistics">
       <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entities">
+      <UniqueIdentifier>{52e964d5-eb29-4837-b723-6313bc60ac26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

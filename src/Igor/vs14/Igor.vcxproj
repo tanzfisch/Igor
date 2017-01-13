@@ -702,6 +702,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iDialogGraph.h" />
     <ClInclude Include="..\src\iDialogMenu.h" />
     <ClInclude Include="..\src\iDialogMessageBox.h" />
+    <ClInclude Include="..\src\iEntity.h" />
+    <ClInclude Include="..\src\iEntityFactory.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iInstancer.h" />
@@ -1311,6 +1313,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iDialogGraph.cpp" />
     <ClCompile Include="..\src\iDialogMenu.cpp" />
     <ClCompile Include="..\src\iDialogMessageBox.cpp" />
+    <ClCompile Include="..\src\iEntity.cpp" />
+    <ClCompile Include="..\src\iEntityFactory.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
     <ClCompile Include="..\src\iJoint.cpp" />
