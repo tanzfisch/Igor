@@ -4,8 +4,11 @@
 
 #include <iEntity.h>
 
+#include <iEntityFactory.h>
+
 namespace Igor
 {
+
     uint64 iEntity::_nextID = iEntity::INVALID_ENTITY_ID + 1;
     mutex iEntity::_mutexID;
 

@@ -26,62 +26,37 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iENTITY__
-#define __iENTITY__
+#ifndef __iENTITYPOSITIONED__
+#define __iENTITYPOSITIONED__
 
-#include <iDefines.h>
-
-#include <iaBits.h>
-using namespace IgorAux;
-
-#include <mutex>
-using namespace std;
+#include <iEntity.h>
 
 namespace Igor
 {
 
-    /*! base class for entities
+    /*! 
     */
-    class Igor_API iEntity
+    class iEntityPositioned : public iEntity
     {
+
+        friend class iEntityFactory;
 
     public:
 
-        /*! invalid entity id definition
-        */
-        static const uint64 INVALID_ENTITY_ID = 0;
-
-        /*! \returns entity id
-        */
-        uint64 getID() const;
-
         /*! \returns true if entity has component position
         */
-        virtual bool hasPosition() const = 0;
-
-    protected:
-
-        /*! initializes members
-        */
-        iEntity();
-
-        /*! does nothing
-        */
-        virtual ~iEntity() = default;
+        bool hasPosition() const;
 
     private:
 
-        /*! entity ID
+        /*! creates entity
         */
-        uint64 _id = INVALID_ENTITY_ID;
+        static iEntity* createInstance();
 
-        /*! next entity id
-        */
-        static uint64 _nextID;
 
-        /*! mutex to save unique id generation
-        */
-        static mutex _mutexID;
+        iEntityPositioned();
+
+        virtual ~iEntityPositioned();
 
     };
 

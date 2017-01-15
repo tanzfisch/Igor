@@ -43,20 +43,36 @@ namespace Igor
 {
 
     class iEntity;
+    class iOctree;
 
     __IGOR_FUNCTION_POINTER__(iCreateEntityInstance, __IGOR_DEFAULTCALL__, iEntity*, ());
 
-    class iEntityFactory : public iaSingleton<iEntityFactory>
+    /*! entity factory
+    */
+    class Igor_API iEntityFactory : public iaSingleton<iEntityFactory>
     {
 
         friend class iaSingleton<iEntityFactory>;
 
     public:
 
+        /*! creates and returns an entity of defined type
+
+        \param entityType entity type
+        \returns new entity
+        */
         iEntity* createEntity(const iaString& entityType);
 
-        iEntity* getEntity(uint64 id) const;
+        /*! \returns entity by ID. nullptr if entity does not exist
 
+        \param id the entity id
+        */
+        iEntity* getEntity(uint64 id);
+
+        /*! destroys entity by id
+
+        \param id the entity id to destroy
+        */
         void destroyEntity(uint64 id);
 
         /*! registers an entity type
@@ -74,16 +90,34 @@ namespace Igor
 
     private:
 
-        mutex _mutexTypes;
+        /*! mutex to protect entity list
+        */
+        mutex _mutexEntities;
 
+        /*! octree for positioned entities
+        */
+        iOctree* _octree = nullptr;
+
+        /*! list of entity type creators
+        */
         map<uint64, iCreateEntityInstance> _types;
 
+        /*! list of entities
+        */
         map<uint64, iEntity*> _entities;
 
+        /*! calculates a hash from entity type string. this is an ugly workaround.
+
+        \todo fix later
+        */
         uint64 calcHashValue(const iaString& text);
         
+        /*! initializes members
+        */
         iEntityFactory();
 
+        /*! cleanup
+        */
         ~iEntityFactory();
 
     };

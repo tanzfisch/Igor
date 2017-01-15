@@ -5,6 +5,11 @@
 #include <iEntityFactory.h>
 
 #include <iEntity.h>
+#include <iAACube.h>
+#include <iaVector3.h>
+#include <iOctree.h>
+
+#include <iEntityPositioned.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -14,7 +19,9 @@ namespace Igor
 
     iEntityFactory::iEntityFactory()
     {
+        _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 1000000.0), 50.0, 100, 20);
 
+        registerEntityType("Positioned", &iEntityPositioned::createInstance);
     }
 
     iEntityFactory::~iEntityFactory()
@@ -28,46 +35,52 @@ namespace Igor
 
         int64 hashValue = calcHashValue(entityType);
 
-        _mutexTypes.lock();
         auto iter = _types.find(hashValue);
         if (iter != _types.end())
         {
             result = (*iter).second();
+            _mutexEntities.lock();
+            _entities[result->getID()] = result;
+            _mutexEntities.unlock();
         }
-        _mutexTypes.unlock();
-
-        _entities[result->getID()] = result;
+        else
+        {
+            con_err("type " << entityType << " not registered");
+        }
 
         return result;
     }
 
-    iEntity* iEntityFactory::getEntity(uint64 id) const
+    iEntity* iEntityFactory::getEntity(uint64 id)
     {
         iEntity* result;
 
+        _mutexEntities.lock();
         auto iter = _entities.find(id);
         if (iter != _entities.end())
         {
             result = (*iter).second;
         }
+        _mutexEntities.unlock();
 
         return result;
     }
 
     void iEntityFactory::destroyEntity(uint64 id)
     {
+        _mutexEntities.lock();
         auto iter = _entities.find(id);
         if (iter != _entities.end())
         {
             _entities.erase(id);
         }
+        _mutexEntities.unlock();
     }
     
     void iEntityFactory::registerEntityType(const iaString& entityType, iCreateEntityInstance functionPointer)
     {
         uint64 hashValue = calcHashValue(entityType);
 
-        _mutexTypes.lock();
         auto generatorIter = _types.find(hashValue);
         if (generatorIter == _types.end())
         {
@@ -77,9 +90,10 @@ namespace Igor
         {
             con_err("entity type " << entityType << " already registered");
         }
-        _mutexTypes.unlock();
     }
 
+    /*! /todo shity workaround because my iaString class does not work as key for std::map yet
+    */
     uint64 iEntityFactory::calcHashValue(const iaString& text)
     {
         std::hash<wstring> hashFunc;
@@ -91,7 +105,6 @@ namespace Igor
     {
         int64 hashValue = calcHashValue(entityType);
 
-        _mutexTypes.lock();
         auto generatorIter = _types.find(hashValue);
         if (generatorIter != _types.end())
         {
@@ -101,7 +114,6 @@ namespace Igor
         {
             con_err("entity tape " << entityType << " was not registered");
         }
-        _mutexTypes.unlock();
     }
 
 }
