@@ -328,6 +328,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     </CustomBuildStep>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\iaBits.h" />
     <ClInclude Include="..\src\iaBSpline.h" />
     <ClInclude Include="..\src\iaColor3.h" />
     <ClInclude Include="..\src\iaColor4.h" />
@@ -377,6 +378,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClCompile Include="..\src\IgorAux.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\src\iaBits.inl" />
     <None Include="..\src\iaGradient.inl" />
     <None Include="..\src\iaMatrix.inl" />
     <None Include="..\src\iaMatrix3x3.inl" />
