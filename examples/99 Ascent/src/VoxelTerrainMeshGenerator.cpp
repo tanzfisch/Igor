@@ -83,7 +83,7 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
         iaMatrixd offset;
         physicsNode->addMesh(mesh, 1, offset);
         physicsNode->finalizeCollision(true);
-        physicsNode->setMaterial(EntityManager::getInstance().getTerrainMaterialID());
+        //physicsNode->setMaterial(EntityManager::getInstance().getTerrainMaterialID());
 
         result->insertNode(physicsNode);
     }

@@ -31,12 +31,15 @@
 
 #include <iEntity.h>
 
+#include <iaVector3.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 
     /*! 
     */
-    class iEntityPositioned : public iEntity
+    class Igor_API iEntityPositioned : public iEntity
     {
 
         friend class iEntityFactory;
@@ -47,16 +50,33 @@ namespace Igor
         */
         bool hasPosition() const;
 
-    private:
+        /*! sets position of entity
 
-        /*! creates entity
+        \param position new position to set
         */
-        static iEntity* createInstance();
+        virtual void setPosition(const iaVector3d& position) = 0;
 
+        /*! \returns current position 
+        */
+        iaVector3d getPosition() const;
 
-        iEntityPositioned();
+    protected:
 
-        virtual ~iEntityPositioned();
+        /*! current position
+        */
+        iaVector3d _position;
+
+        /*! updates current position of entity
+        */
+        virtual void updatePosition() = 0;
+
+        /*! does nothing
+        */
+        iEntityPositioned() = default;
+
+        /*! does nothing
+        */
+        virtual ~iEntityPositioned() = default;
 
     };
 

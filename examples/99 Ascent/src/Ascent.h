@@ -29,8 +29,6 @@ namespace Igor
     class iNodeLODTrigger;
 }
 
-class Enemy;
-
 class Ascent
 {
 
@@ -66,6 +64,8 @@ private:
     iNodeTransform* _lightTranslate = nullptr;
     iNodeTransform* _lightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
+
+    uint32 _materialSolid = 0;
 
     float64 _startTime;
     
@@ -105,6 +105,10 @@ private:
     void initScene();
     void initPlayer();
     void initVoxelData();
+    void drawReticle();
+
+    void registerEntityTypes();
+    void unregisterEntityTypes();
 
 };
 

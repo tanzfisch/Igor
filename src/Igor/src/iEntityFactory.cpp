@@ -21,12 +21,22 @@ namespace Igor
     {
         _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 1000000.0), 50.0, 100, 20);
 
-        registerEntityType("Positioned", &iEntityPositioned::createInstance);
+        //registerEntityType("Positioned", &iEntityPositioned::createInstance);
     }
 
     iEntityFactory::~iEntityFactory()
     {
 
+    }
+
+    void iEntityFactory::setScene(iScene* scene)
+    {
+        _scene = scene;
+    }
+
+    iScene* iEntityFactory::getScene() const
+    {
+        return _scene;
     }
 
     iEntity* iEntityFactory::createEntity(const iaString& entityType)

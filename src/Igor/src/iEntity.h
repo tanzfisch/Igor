@@ -61,6 +61,14 @@ namespace Igor
 
     protected:
 
+        /*! initialize entity
+        */
+        virtual void init() = 0;
+
+        /*! deinitialize entity
+        */
+        virtual void deinit() = 0;
+
         /*! initializes members
         */
         iEntity();

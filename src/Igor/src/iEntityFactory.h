@@ -44,6 +44,7 @@ namespace Igor
 
     class iEntity;
     class iOctree;
+    class iScene;
 
     __IGOR_FUNCTION_POINTER__(iCreateEntityInstance, __IGOR_DEFAULTCALL__, iEntity*, ());
 
@@ -88,7 +89,14 @@ namespace Igor
         */
         void unregisterEntityType(const iaString& entityType);
 
+        void setScene(iScene* scene);
+        iScene* getScene() const;
+
     private:
+
+        /*! scene to work with
+        */
+        iScene* _scene = nullptr;
 
         /*! mutex to protect entity list
         */

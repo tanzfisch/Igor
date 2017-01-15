@@ -54,6 +54,8 @@ namespace Igor
     Example:
     \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
+    \todo switch from delegates to function pointers for instance creation
+
     */
 	class Igor_API iWidgetManager : public iaSingleton<iWidgetManager>
 	{

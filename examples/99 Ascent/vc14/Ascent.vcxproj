@@ -20,48 +20,28 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp" />
-    <ClCompile Include="..\src\BossDestroyed.cpp" />
-    <ClCompile Include="..\src\BossEnemy.cpp" />
-    <ClCompile Include="..\src\Bullet.cpp" />
-    <ClCompile Include="..\src\BulletHit.cpp" />
-    <ClCompile Include="..\src\DigEffect.cpp" />
-    <ClCompile Include="..\src\Enemy.cpp" />
-    <ClCompile Include="..\src\EnemyDestroyed.cpp" />
-    <ClCompile Include="..\src\Entity.cpp" />
-    <ClCompile Include="..\src\EntityManager.cpp" />
-    <ClCompile Include="..\src\Granade.cpp" />
-    <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\MuzzleFlash.cpp" />
-    <ClCompile Include="..\src\Player.cpp" />
-    <ClCompile Include="..\src\StaticEnemy.cpp" />
-    <ClCompile Include="..\src\TaskGenerateVoxels.cpp" />
-    <ClCompile Include="..\src\Turret.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    <ClCompile Include="..\src\Entity.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="..\src\EntityManager.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\Player.cpp" />
+    <ClCompile Include="..\src\TaskGenerateVoxels.cpp" />
     <ClCompile Include="..\src\VoxelTerrainGenerator.cpp" />
     <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h" />
-    <ClInclude Include="..\src\BossDestroyed.h" />
-    <ClInclude Include="..\src\BossEnemy.h" />
-    <ClInclude Include="..\src\Bullet.h" />
-    <ClInclude Include="..\src\BulletHit.h" />
-    <ClInclude Include="..\src\DigEffect.h" />
-    <ClInclude Include="..\src\Enemy.h" />
-    <ClInclude Include="..\src\EnemyDestroyed.h" />
-    <ClInclude Include="..\src\Entity.h" />
-    <ClInclude Include="..\src\EntityManager.h" />
-    <ClInclude Include="..\src\Granade.h" />
-    <ClInclude Include="..\src\MuzzleFlash.h" />
-    <ClInclude Include="..\src\Player.h" />
-    <ClInclude Include="..\src\StaticEnemy.h" />
-    <ClInclude Include="..\src\TaskGenerateVoxels.h" />
-    <ClInclude Include="..\src\Turret.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+    <ClInclude Include="..\src\Entity.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\src\EntityManager.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\src\Player.h" />
+    <ClInclude Include="..\src\TaskGenerateVoxels.h" />
     <ClInclude Include="..\src\VoxelTerrainGenerator.h" />
     <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h" />
   </ItemGroup>

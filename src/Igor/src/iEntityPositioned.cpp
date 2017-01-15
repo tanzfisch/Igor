@@ -7,24 +7,14 @@
 namespace Igor
 {
 
-    iEntityPositioned::iEntityPositioned()
-    {
-
-    }
-
-    iEntityPositioned::~iEntityPositioned()
-    {
-
-    }
-
-    iEntity* iEntityPositioned::createInstance()
-    {
-        return new iEntityPositioned();
-    }
-
     bool iEntityPositioned::hasPosition() const
     {
         return true;
+    }
+
+    iaVector3d iEntityPositioned::getPosition() const
+    {
+        return _position;
     }
 
 }

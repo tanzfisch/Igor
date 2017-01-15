@@ -18,31 +18,33 @@
 #include <iMaterialResourceFactory.h>
 #include <iNodeEmitter.h>
 #include <iTimer.h>
+#include <iEntityFactory.h>
 using namespace Igor;
 
+#include <iaMatrix.h>
 #include <iaConsole.h>
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "Bullet.h"
-#include "Granade.h"
-#include "EntityManager.h"
+//#include "Bullet.h"
+//#include "Granade.h"
+//#include "EntityManager.h"
 #include "VoxelTerrainGenerator.h"
-#include "DigEffect.h"
-#include "MuzzleFlash.h"
+//#include "DigEffect.h"
+//#include "MuzzleFlash.h"
 
-Player::Player(iScene* scene, const iaMatrixd& matrix)
-    : Entity(Fraction::Blue, EntityType::Vehicle)
+iaString Player::TYPE_NAME("Player");
+
+void Player::init()
 {
-    _scene = scene;
+    _scene = iEntityFactory::getInstance().getScene();
 
-    setHealth(200.0);
+    /*setHealth(200.0);
     setShield(300.0);
     setDamage(1.0);
-    setShieldDamage(1.0);
+    setShieldDamage(1.0);*/
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformNode->setMatrix(matrix);
     _transformNodeID = transformNode->getID();
 
     iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -59,9 +61,9 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
-    physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    // physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
-    physicsNode->setUserData(&_id);
+    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
     physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));
     physicsNode->setLinearDamping(500);
 
@@ -120,23 +122,25 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
 
     camera->makeCurrent();
 
-    _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-
     _primaryWeaponTime = iTimer::getInstance().getTime();
 }
 
-Player::~Player()
+void Player::deinit()
 {
     iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 
     con_endl("player dead");
 }
 
+
+iEntity* Player::createInstance()
+{
+    return new Player();
+}
+
 void Player::hitBy(uint64 entityID)
 {
-    Entity* entity = EntityManager::getInstance().getEntity(entityID);
+/*    Entity* entity = EntityManager::getInstance().getEntity(entityID);
     if (entity != nullptr &&
         entity->getFraction() != getFraction())
     {
@@ -158,7 +162,7 @@ void Player::hitBy(uint64 entityID)
 
         setShield(shield);
         setHealth(health);
-    }
+    }*/
 }
 
 iaVector3I Player::getGunPointPosition()
@@ -215,7 +219,7 @@ void Player::dig(uint64 toolSize, uint8 toolDensity)
 
         iaMatrixd effectMatrix;
         effectMatrix.translate(center._x, center._y, center._z);
-        new DigEffect(_scene, effectMatrix);
+        //new DigEffect(_scene, effectMatrix);
 
         iaVector3I pos;
 
@@ -263,7 +267,7 @@ void Player::dig(uint64 toolSize, uint8 toolDensity)
 
 void Player::shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinates)
 {
-    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+/*    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformationNode != nullptr)
     {
         iaMatrixd matrix;
@@ -271,7 +275,7 @@ void Player::shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinat
         matrix._pos = getSphere()._center;
 
         Granade* bullet = new Granade(_scene, matrix, getFraction());
-    }
+    }*/
 }
 
 void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates)
@@ -310,11 +314,11 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             iaMatrixd offsetRight = matrix;
             offsetRight.translate(0.5, -0.4, -1.0);
 
-            new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
+/*            new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
             new Bullet(_scene, _force * 0.001, offsetRight, getFraction());
 
             new MuzzleFlash(_scene, _emitterLeftGunNodeID);
-            new MuzzleFlash(_scene, _emitterRightGunNodeID);
+            new MuzzleFlash(_scene, _emitterRightGunNodeID);*/
 
             iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
             iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
@@ -342,33 +346,29 @@ uint32 Player::getLODTriggerID()
     return _lodTriggerID;
 }
 
-iaVector3d Player::updatePos()
+void Player::setPosition(const iaVector3d& position)
 {
-    iaVector3d result;
-
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
         transformNode->getMatrix(matrix);
-        result = matrix._pos;
-    }
+        matrix._pos = position;
+        transformNode->setMatrix(matrix);
 
-    return result;
+        updatePosition();
+    }
 }
 
-void Player::drawReticle(const iWindow& window)
+void Player::updatePosition()
 {
-    iaVector3f weaponPos(window.getClientWidth() * 0.5, window.getClientHeight() * 0.5, 0);
-
-    float32 scale = 0.001 * window.getClientWidth();
-
-    iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
-    iRenderer::getInstance().setLineWidth(1 * scale);
-
-    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(-10 * scale, 0, 0), weaponPos + iaVector3f(10 * scale, 0, 0));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(0, -10 * scale, 0), weaponPos + iaVector3f(0, 10 * scale, 0));
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    if (transformNode != nullptr)
+    {
+        iaMatrixd matrix;
+        transformNode->getMatrix(matrix);
+        _position = matrix._pos;
+    }
 }
 
 void Player::handle()
@@ -483,20 +483,23 @@ void Player::handle()
 void Player::rotate(float32 heading, float32 pitch)
 {
     iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-    iaMatrixd matrix;
-
-    transformationNode->getMatrix(matrix);
-    matrix._pos.set(0, 0, 0);
-
-    if (_fastTurn)
+    if (transformationNode != nullptr)
     {
-        _torque.set(pitch * 700.0, heading * 700.0, _torque._z);
+        iaMatrixd matrix;
+
+        transformationNode->getMatrix(matrix);
+        matrix._pos.set(0, 0, 0);
+
+        if (_fastTurn)
+        {
+            _torque.set(pitch * 700.0, heading * 700.0, _torque._z);
+        }
+        else
+        {
+            _torque.set(pitch * 400.0, heading * 400.0, _torque._z);
+        }
+        _torque = matrix * _torque;
     }
-    else
-    {
-        _torque.set(pitch * 400.0, heading * 400.0, _torque._z);
-    }
-    _torque = matrix * _torque;
 }
 
 void Player::startFastTurn()
