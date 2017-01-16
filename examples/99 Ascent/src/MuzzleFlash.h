@@ -1,7 +1,7 @@
 #ifndef __MUZZLEFLASH__
 #define __MUZZLEFLASH__
 
-#include "Entity.h"
+#include "GameObject.h"
 #include <iNode.h>
 
 namespace Igor
@@ -9,33 +9,67 @@ namespace Igor
     class iScene;
 }
 
-class MuzzleFlash : public Entity
+class MuzzleFlash : public GameObject
 {
+
+    friend class Ascent;
 
 public:
 
-    MuzzleFlash(iScene* scene, uint32 emitterID);
-    virtual ~MuzzleFlash();
+    static iaString TYPE_NAME;
+
+    /*! sets emitter node
+    */
+    void setEmitterNode(uint32 emitterNodeID);
 
 private:
 
+    /*! emitter node id
+    */
     uint32 _emitterNodeID = iNode::INVALID_NODE_ID;
+
+    /*! muzzle flash model node id
+    */
     uint32 _muzzleFlashModelID = iNode::INVALID_NODE_ID;
+    
+    /*! muzzle smoke model node id
+    */
     uint32 _muzzleSmokeModelID = iNode::INVALID_NODE_ID;
 
-	iaVector3d _pos;
+    /*! flash still running
+    */
+    bool _muzzleFlashRunning = true;
+
+    /*! smoke still running
+    */
+    bool _muzzleSmokeRunning = true;
+
+    /*! initialize entity
+    */
+    void init();
+
+    /*! deinitialize entity
+    */
+    void deinit();
+
+    /*!
+    */
+    void handle();
+
+    void hitBy(uint64 entityID);
 
     void onMuzzleFlashLoaded();
     void onMuzzleSmokeLoaded();
     void onMuzzleFlashFinished();
     void onMuzzleSmokeFinished();
 
-    bool _muzzleFlashRunning = true;
-    bool _muzzleSmokeRunning = true;
+    static iEntity* createInstance();
 
-    void handle();
-    iaVector3d updatePos();
-    void hitBy(uint64 entityID);
+    MuzzleFlash();
+
+    /*! does nothing
+    */
+    virtual ~MuzzleFlash() = default;
 
 };
 

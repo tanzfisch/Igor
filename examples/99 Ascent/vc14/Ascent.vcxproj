@@ -20,16 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp" />
-    <ClCompile Include="..\src\Entity.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\EntityManager.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\MuzzleFlash.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp" />
     <ClCompile Include="..\src\VoxelTerrainGenerator.cpp" />
@@ -37,15 +30,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h" />
-    <ClInclude Include="..\src\Entity.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <ClInclude Include="..\src\EntityManager.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\src\GameObject.h" />
+    <ClInclude Include="..\src\MuzzleFlash.h" />
     <ClInclude Include="..\src\Player.h" />
     <ClInclude Include="..\src\TaskGenerateVoxels.h" />
     <ClInclude Include="..\src\VoxelTerrainGenerator.h" />

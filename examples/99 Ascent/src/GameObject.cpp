@@ -62,4 +62,5 @@ void GameObject::kill()
 {
     _shield = 0;
     _health = 0;
+    _delete = true;
 }

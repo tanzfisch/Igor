@@ -94,12 +94,6 @@ public:
     */
     void kill();
 
-    /*! sets position of entity
-
-    \param position new position to set
-    */
-    void setPosition(const iaVector3d& position) = 0;
-
 protected:    
     
     /*! todo this is a workaround
@@ -107,10 +101,6 @@ protected:
     static iScene* _scene;
 
     virtual void hitBy(uint64 entityID) = 0;
-
-    /*! updates current position of entity
-    */
-    virtual void updatePosition() = 0;
 
     /*! initialize entity
     */

@@ -18,39 +18,56 @@ using namespace Igor;
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
+iaString MuzzleFlash::TYPE_NAME("MuzzleFlash");
 
-MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
-    : Entity(Fraction::None, EntityType::None)
+MuzzleFlash::MuzzleFlash()
+    : GameObject(Fraction::None, GameObjectKind::None)
 {
-    _emitterNodeID = emitterID;
 
+}
+
+iEntity* MuzzleFlash::createInstance()
+{
+    return new MuzzleFlash();
+}
+
+void MuzzleFlash::setEmitterNode(uint32 emitterNodeID)
+{
+    _emitterNodeID = emitterNodeID;
+}
+
+void MuzzleFlash::init()
+{
     setHealth(100.0);
     setDamage(0.0);
     setShieldDamage(0.0);
-    
-    iNodeModel* particleSystem1 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    _muzzleFlashModelID = particleSystem1->getID();
-    particleSystem1->setModel("MuzzleFlash.ompf");
-    particleSystem1->registerModelLoadedDelegate(iModelLoadedDelegate(this, &MuzzleFlash::onMuzzleFlashLoaded));
-    scene->getRoot()->insertNode(particleSystem1);
-
-    iNodeModel* particleSystem2 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    _muzzleSmokeModelID = particleSystem2->getID();
-    particleSystem2->setModel("MuzzleSmoke.ompf");
-    particleSystem2->registerModelLoadedDelegate(iModelLoadedDelegate(this, &MuzzleFlash::onMuzzleSmokeLoaded));
-    scene->getRoot()->insertNode(particleSystem2);
 
     iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
     {
+        iNodeModel* particleSystem1 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+        _muzzleFlashModelID = particleSystem1->getID();
+        particleSystem1->setModel("MuzzleFlash.ompf");
+        particleSystem1->registerModelLoadedDelegate(iModelLoadedDelegate(this, &MuzzleFlash::onMuzzleFlashLoaded));
+        GameObject::_scene->getRoot()->insertNode(particleSystem1);
+
+        iNodeModel* particleSystem2 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+        _muzzleSmokeModelID = particleSystem2->getID();
+        particleSystem2->setModel("MuzzleSmoke.ompf");
+        particleSystem2->registerModelLoadedDelegate(iModelLoadedDelegate(this, &MuzzleFlash::onMuzzleSmokeLoaded));
+        GameObject::_scene->getRoot()->insertNode(particleSystem2);
+
         iaMatrixd matrix;
         emitterNode->calcWorldTransformation(matrix);
-        _pos = matrix._pos;
+        _sphere._center = matrix._pos;
+    }
+    else
+    {
+        con_err("no emitter defined");
     }
 }
 
-MuzzleFlash::~MuzzleFlash()
+void MuzzleFlash::deinit()
 {
     iNodeFactory::getInstance().destroyNodeAsync(_muzzleFlashModelID);
     iNodeFactory::getInstance().destroyNodeAsync(_muzzleSmokeModelID);
@@ -69,16 +86,6 @@ void MuzzleFlash::onMuzzleFlashLoaded()
     }
 }
 
-void MuzzleFlash::onMuzzleFlashFinished()
-{
-    _muzzleFlashRunning = false;
-}
-
-void MuzzleFlash::onMuzzleSmokeFinished()
-{
-    _muzzleSmokeRunning = false;
-}
-
 void MuzzleFlash::onMuzzleSmokeLoaded()
 {
     iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
@@ -90,6 +97,16 @@ void MuzzleFlash::onMuzzleSmokeLoaded()
         particleSystem->start();
         particleSystem->registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate(this, &MuzzleFlash::onMuzzleSmokeFinished));
     }
+}
+
+void MuzzleFlash::onMuzzleFlashFinished()
+{
+    _muzzleFlashRunning = false;
+}
+
+void MuzzleFlash::onMuzzleSmokeFinished()
+{
+    _muzzleSmokeRunning = false;
 }
 
 void MuzzleFlash::handle()
@@ -104,10 +121,5 @@ void MuzzleFlash::handle()
 void MuzzleFlash::hitBy(uint64 entityID)
 {
     // nothing to do
-}
-
-iaVector3d MuzzleFlash::updatePos()
-{
-    return _pos;
 }
 

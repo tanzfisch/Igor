@@ -15,8 +15,6 @@
 #include <iNodePhysics.h>
 using namespace Igor;
 
-#include "EntityManager.h"
-
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
 {
     _identifier = "vtg";

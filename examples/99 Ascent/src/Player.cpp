@@ -31,22 +31,21 @@ using namespace IgorAux;
 //#include "EntityManager.h"
 #include "VoxelTerrainGenerator.h"
 //#include "DigEffect.h"
-//#include "MuzzleFlash.h"
+#include "MuzzleFlash.h"
 
 iaString Player::TYPE_NAME("Player");
 
 Player::Player()
     : GameObject(Fraction::Green, GameObjectKind::Vehicle)
 {
-
 }
 
 void Player::init()
 {
-    /*setHealth(200.0);
+    setHealth(200.0);
     setShield(300.0);
     setDamage(1.0);
-    setShieldDamage(1.0);*/
+    setShieldDamage(1.0);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _transformNodeID = transformNode->getID();
@@ -144,7 +143,7 @@ iEntity* Player::createInstance()
 
 void Player::hitBy(uint64 entityID)
 {
-/*    Entity* entity = EntityManager::getInstance().getEntity(entityID);
+    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
     if (entity != nullptr &&
         entity->getFraction() != getFraction())
     {
@@ -166,7 +165,7 @@ void Player::hitBy(uint64 entityID)
 
         setShield(shield);
         setHealth(health);
-    }*/
+    }
 }
 
 iaVector3I Player::getGunPointPosition()
@@ -223,7 +222,7 @@ void Player::dig(uint64 toolSize, uint8 toolDensity)
 
         iaMatrixd effectMatrix;
         effectMatrix.translate(center._x, center._y, center._z);
-        //new DigEffect(GameObject::GameObject::_scene, effectMatrix);
+//        new DigEffect(GameObject::GameObject::_scene, effectMatrix);
 
         iaVector3I pos;
 
@@ -319,10 +318,13 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             offsetRight.translate(0.5, -0.4, -1.0);
 
 /*            new Bullet(GameObject::_scene, _force * 0.001, offsetLeft, getFraction());
-            new Bullet(GameObject::_scene, _force * 0.001, offsetRight, getFraction());
+            new Bullet(GameObject::_scene, _force * 0.001, offsetRight, getFraction());*/
 
-            new MuzzleFlash(GameObject::_scene, _emitterLeftGunNodeID);
-            new MuzzleFlash(GameObject::_scene, _emitterRightGunNodeID);*/
+            MuzzleFlash* muzzleFlash = static_cast<MuzzleFlash*>(iEntityManager::getInstance().createEntity("MuzzleFlash"));
+            muzzleFlash->setEmitterNode(_emitterLeftGunNodeID);
+
+            muzzleFlash = static_cast<MuzzleFlash*>(iEntityManager::getInstance().createEntity("MuzzleFlash"));
+            muzzleFlash->setEmitterNode(_emitterRightGunNodeID);
 
             iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
             iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));

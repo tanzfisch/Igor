@@ -41,10 +41,7 @@ using namespace IgorAux;
 using namespace Igor;
 
 #include "Player.h"
-//#include "Enemy.h"
-//#include "BossEnemy.h"
-//#include "StaticEnemy.h"
-//#include "EntityManager.h"
+#include "MuzzleFlash.h"
 
 #include <iEntityManager.h>
 #include <iEntity.h>
@@ -417,6 +414,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 void Ascent::registerEntityTypes()
 {
     iEntityManager::getInstance().registerEntityType("Player", &Player::createInstance);
+    iEntityManager::getInstance().registerEntityType("MuzzleFlash", &MuzzleFlash::createInstance);
 }
 
 void Ascent::unregisterEntityTypes()
