@@ -1,7 +1,8 @@
 #ifndef __PLAYER__
 #define __PLAYER__
 
-#include <iEntityPositioned.h>
+#include "GameObject.h"
+
 #include <iNode.h>
 using namespace Igor;
 
@@ -17,17 +18,15 @@ namespace Igor
     class iWindow;
 }
 
-class Player : public iEntityPositioned
+class Player : public GameObject
 {
 
-    friend class iEntityFactory;
+    friend class iEntityManager;
     friend class Ascent;
 
 public:
 
     static iaString TYPE_NAME;
-
-    
 
     void startUp();
     void stopUp();
@@ -115,14 +114,13 @@ private:
 
     static iEntity* createInstance();
 
-    /*! nothing todo
+    /*! init members
     */
-    Player() = default;
+    Player();
 
-    /*! nothing to do
+    /*! does nothing
     */
-    virtual ~Player() = default;
-
+    ~Player() = default;
 
 };
 

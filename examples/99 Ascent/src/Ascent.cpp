@@ -46,7 +46,7 @@ using namespace Igor;
 //#include "StaticEnemy.h"
 //#include "EntityManager.h"
 
-#include <iEntityFactory.h>
+#include <iEntityManager.h>
 #include <iEntity.h>
 
 Ascent::Ascent()
@@ -123,6 +123,7 @@ void Ascent::initViews()
 void Ascent::initScene()
 {
     _scene = iSceneFactory::getInstance().createScene();
+    GameObject::_scene = _scene;
     _view.setScene(_scene);
 
     // light
@@ -166,7 +167,7 @@ void Ascent::initScene()
 
 void Ascent::initPlayer()
 {
-    Player* player = static_cast<Player*>(iEntityFactory::getInstance().createEntity("Player"));
+    Player* player = static_cast<Player*>(iEntityManager::getInstance().createEntity("Player"));
     player->setPosition(iaVector3d(10000, 9400, 10000));
     _playerID = player->getID();
 
@@ -348,7 +349,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
 void Ascent::registerEntityTypes()
 {
-    iEntityFactory::getInstance().registerEntityType("Player", &Player::createInstance);
+    iEntityManager::getInstance().registerEntityType("Player", &Player::createInstance);
 }
 
 void Ascent::unregisterEntityTypes()
@@ -431,7 +432,7 @@ void Ascent::onKeyPressed(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityFactory::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -511,7 +512,7 @@ void Ascent::onKeyReleased(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityFactory::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -598,7 +599,7 @@ void Ascent::onMouseDown(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityFactory::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -635,7 +636,7 @@ void Ascent::onWindowResized(int32 clientWidth, int32 clientHeight)
 void Ascent::initVoxelData()
 {
     VoxelTerrainGenerator::getInstance().setScene(_scene);
-    Player* player = static_cast<Player*>(iEntityFactory::getInstance().getEntity(_playerID));
+    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
     if (player != nullptr)
     {
         VoxelTerrainGenerator::getInstance().setLODTrigger(player->getLODTriggerID());
@@ -647,7 +648,7 @@ void Ascent::handleMouse()
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityFactory::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             _weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
@@ -692,8 +693,8 @@ void Ascent::onHandle()
                 }
             }
         }
-
-        EntityManager::getInstance().handle();*/
+        */
+        iEntityManager::getInstance().handle();
     }
 
     handleMouse();
@@ -731,7 +732,7 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
         }*/
 
-        Player* player = static_cast<Player*>(iEntityFactory::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             /*iaString healthText = iaString::ftoa(player->getHealth(), 0);

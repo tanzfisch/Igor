@@ -18,7 +18,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iNodeEmitter.h>
 #include <iTimer.h>
-#include <iEntityFactory.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -35,10 +35,14 @@ using namespace IgorAux;
 
 iaString Player::TYPE_NAME("Player");
 
+Player::Player()
+    : GameObject(Fraction::Green, GameObjectKind::Vehicle)
+{
+
+}
+
 void Player::init()
 {
-    _scene = iEntityFactory::getInstance().getScene();
-
     /*setHealth(200.0);
     setShield(300.0);
     setDamage(1.0);
@@ -118,7 +122,7 @@ void Player::init()
     transformNode->insertNode(transformCam);
     transformNode->insertNode(physicsNode);
     camera->insertNode(lodTrigger);
-    _scene->getRoot()->insertNode(transformNode);
+    GameObject::GameObject::_scene->getRoot()->insertNode(transformNode);
 
     camera->makeCurrent();
 
@@ -219,7 +223,7 @@ void Player::dig(uint64 toolSize, uint8 toolDensity)
 
         iaMatrixd effectMatrix;
         effectMatrix.translate(center._x, center._y, center._z);
-        //new DigEffect(_scene, effectMatrix);
+        //new DigEffect(GameObject::GameObject::_scene, effectMatrix);
 
         iaVector3I pos;
 
@@ -274,7 +278,7 @@ void Player::shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinat
         transformationNode->getMatrix(matrix);
         matrix._pos = getSphere()._center;
 
-        Granade* bullet = new Granade(_scene, matrix, getFraction());
+        Granade* bullet = new Granade(GameObject::_scene, matrix, getFraction());
     }*/
 }
 
@@ -314,11 +318,11 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             iaMatrixd offsetRight = matrix;
             offsetRight.translate(0.5, -0.4, -1.0);
 
-/*            new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
-            new Bullet(_scene, _force * 0.001, offsetRight, getFraction());
+/*            new Bullet(GameObject::_scene, _force * 0.001, offsetLeft, getFraction());
+            new Bullet(GameObject::_scene, _force * 0.001, offsetRight, getFraction());
 
-            new MuzzleFlash(_scene, _emitterLeftGunNodeID);
-            new MuzzleFlash(_scene, _emitterRightGunNodeID);*/
+            new MuzzleFlash(GameObject::_scene, _emitterLeftGunNodeID);
+            new MuzzleFlash(GameObject::_scene, _emitterRightGunNodeID);*/
 
             iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
             iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
@@ -367,12 +371,14 @@ void Player::updatePosition()
     {
         iaMatrixd matrix;
         transformNode->getMatrix(matrix);
-        _position = matrix._pos;
+        _sphere._center = matrix._pos;
     }
 }
 
 void Player::handle()
 {
+    updatePosition();
+
     float32 speed = 500;
 
     const float32 offsetIncrease = 0.1;
@@ -380,103 +386,106 @@ void Player::handle()
     iaVector3d resultingForce;
 
     iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-    transformationNode->getMatrix(matrix);
-
-    if (_forward)
+    if (transformationNode != nullptr)
     {
-        iaVector3d foreward = matrix._depth;
-        foreward.negate();
-        foreward.normalize();
-        foreward *= speed;
-        resultingForce += foreward;
-    }
+        transformationNode->getMatrix(matrix);
 
-    if (_backward)
-    {
-        iaVector3d backward = matrix._depth;
-        backward.normalize();
-        backward *= speed;
-        resultingForce += backward;
-    }
+        if (_forward)
+        {
+            iaVector3d foreward = matrix._depth;
+            foreward.negate();
+            foreward.normalize();
+            foreward *= speed;
+            resultingForce += foreward;
+        }
 
-    if (_left)
-    {
-        iaVector3d left = matrix._right;
-        left.negate();
-        left.normalize();
-        left *= speed;
-        resultingForce += left;
-    }
+        if (_backward)
+        {
+            iaVector3d backward = matrix._depth;
+            backward.normalize();
+            backward *= speed;
+            resultingForce += backward;
+        }
 
-    if (_right)
-    {
-        iaVector3d right = matrix._right;
-        right.normalize();
-        right *= speed;
-        resultingForce += right;
-    }
+        if (_left)
+        {
+            iaVector3d left = matrix._right;
+            left.negate();
+            left.normalize();
+            left *= speed;
+            resultingForce += left;
+        }
 
-    if (_up)
-    {
-        iaVector3d up = matrix._top;
-        up.normalize();
-        up *= speed;
-        resultingForce += up;
-    }
+        if (_right)
+        {
+            iaVector3d right = matrix._right;
+            right.normalize();
+            right *= speed;
+            resultingForce += right;
+        }
 
-    if (_down)
-    {
-        iaVector3d down = matrix._top;
-        down.negate();
-        down.normalize();
-        down *= speed;
-        resultingForce += down;
-    }
+        if (_up)
+        {
+            iaVector3d up = matrix._top;
+            up.normalize();
+            up *= speed;
+            resultingForce += up;
+        }
 
-    if (_rollLeft)
-    {
-        _torque._z = 50.0;
-    }
-    else if (_rollRight)
-    {
-        _torque._z = -50.0;
-    }
-    else
-    {
-        _torque._z = 0.0;
-    }
+        if (_down)
+        {
+            iaVector3d down = matrix._top;
+            down.negate();
+            down.normalize();
+            down *= speed;
+            resultingForce += down;
+        }
 
-    _force = resultingForce;
+        if (_rollLeft)
+        {
+            _torque._z = 50.0;
+        }
+        else if (_rollRight)
+        {
+            _torque._z = -50.0;
+        }
+        else
+        {
+            _torque._z = 0.0;
+        }
 
-    iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformCamNodeID));
-    if (transformCam != nullptr)
-    {
-        iaMatrixd camMatrix;
-        iaMatrixd transformInvMatrix = matrix;
-        transformInvMatrix.invert();
-        transformCam->getMatrix(camMatrix);
-        iaVector3d camForce = transformInvMatrix * resultingForce;
-        camForce -= transformInvMatrix._pos;
-        camForce *= 0.00004;
-        camMatrix._pos += camForce;
-        camMatrix._pos *= 0.9;
-        transformCam->setMatrix(camMatrix);
-    }
+        _force = resultingForce;
 
-    iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
-    iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
+        iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformCamNodeID));
+        if (transformCam != nullptr)
+        {
+            iaMatrixd camMatrix;
+            iaMatrixd transformInvMatrix = matrix;
+            transformInvMatrix.invert();
+            transformCam->getMatrix(camMatrix);
+            iaVector3d camForce = transformInvMatrix * resultingForce;
+            camForce -= transformInvMatrix._pos;
+            camForce *= 0.00004;
+            camMatrix._pos += camForce;
+            camMatrix._pos *= 0.9;
+            transformCam->setMatrix(camMatrix);
+        }
 
-    if (transformRecoilLeftGun != nullptr &&
-        transformRecoilRightGun != nullptr)
-    {
-        iaMatrixd matrix;
-        transformRecoilLeftGun->getMatrix(matrix);
-        matrix._pos *= 0.95;
-        transformRecoilLeftGun->setMatrix(matrix);
+        iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
+        iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilRightGun));
 
-        transformRecoilRightGun->getMatrix(matrix);
-        matrix._pos *= 0.95;
-        transformRecoilRightGun->setMatrix(matrix);
+        if (transformRecoilLeftGun != nullptr &&
+            transformRecoilRightGun != nullptr)
+        {
+            iaMatrixd matrix;
+            transformRecoilLeftGun->getMatrix(matrix);
+            matrix._pos *= 0.95;
+            transformRecoilLeftGun->setMatrix(matrix);
+
+            transformRecoilRightGun->getMatrix(matrix);
+            matrix._pos *= 0.95;
+            transformRecoilRightGun->setMatrix(matrix);
+        }
     }
 }
 

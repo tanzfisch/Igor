@@ -45,6 +45,8 @@ namespace Igor
     class Igor_API iEntity
     {
 
+        friend class iEntityManager;
+
     public:
 
         /*! invalid entity id definition
@@ -57,7 +59,7 @@ namespace Igor
 
         /*! \returns true if entity has component position
         */
-        virtual bool hasPosition() const = 0;
+        virtual bool hasPosition();
 
     protected:
 
@@ -68,6 +70,10 @@ namespace Igor
         /*! deinitialize entity
         */
         virtual void deinit() = 0;
+
+        /*! handle entity
+        */
+        virtual void handle() = 0;
 
         /*! initializes members
         */

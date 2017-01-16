@@ -14,7 +14,12 @@ namespace Igor
 
     iaVector3d iEntityPositioned::getPosition() const
     {
-        return _position;
+        return _sphere._center;
+    }
+
+    iSphered iEntityPositioned::getSphere() const
+    {
+        return _sphere;
     }
 
 }

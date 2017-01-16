@@ -33,6 +33,9 @@
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
       <Filter>src\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\GameObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="..\src\TaskGenerateVoxels.h">
       <Filter>src\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GameObject.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

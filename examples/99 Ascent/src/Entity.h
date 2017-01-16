@@ -29,9 +29,11 @@ class Entity
 public:
 
     uint64 getID();
+        EntityType getType() const;
+
+        const iSphered& getSphere() const;
+
     Fraction getFraction() const;
-    EntityType getType() const;
-    const iSphered& getSphere() const;
 
     float32 getShield() const;
     void setShield(float32 value);

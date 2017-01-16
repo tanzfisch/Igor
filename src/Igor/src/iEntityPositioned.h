@@ -32,17 +32,18 @@
 #include <iEntity.h>
 
 #include <iaVector3.h>
+#include <iSphere.h>
 using namespace IgorAux;
 
 namespace Igor
 {
 
-    /*! 
+    /*! specialized entity that has a position
     */
     class Igor_API iEntityPositioned : public iEntity
     {
 
-        friend class iEntityFactory;
+        friend class iEntityManager;
 
     public:
 
@@ -60,15 +61,15 @@ namespace Igor
         */
         iaVector3d getPosition() const;
 
+        /*! \returns sphere of entity
+        */
+        iSphered getSphere() const;
+
     protected:
 
         /*! current position
         */
-        iaVector3d _position;
-
-        /*! updates current position of entity
-        */
-        virtual void updatePosition() = 0;
+        iSphered _sphere;
 
         /*! does nothing
         */

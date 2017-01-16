@@ -665,7 +665,7 @@
     <ClCompile Include="..\src\iEntity.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iEntityFactory.cpp">
+    <ClCompile Include="..\src\iEntityManager.cpp">
       <Filter>entities</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iEntityPositioned.cpp">
@@ -1396,7 +1396,7 @@
     <ClInclude Include="..\src\iEntity.h">
       <Filter>entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iEntityFactory.h">
+    <ClInclude Include="..\src\iEntityManager.h">
       <Filter>entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEntityPositioned.h">

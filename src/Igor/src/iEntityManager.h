@@ -30,6 +30,7 @@
 #define __iENTITYFACTORY__
 
 #include <iDefines.h>
+#include <iSphere.h>
 
 #include <iaSingleton.h>
 #include <iaString.h>
@@ -43,6 +44,7 @@ namespace Igor
 {
 
     class iEntity;
+    class iEntityPositioned;
     class iOctree;
     class iScene;
 
@@ -50,10 +52,10 @@ namespace Igor
 
     /*! entity factory
     */
-    class Igor_API iEntityFactory : public iaSingleton<iEntityFactory>
+    class Igor_API iEntityManager : public iaSingleton<iEntityManager>
     {
 
-        friend class iaSingleton<iEntityFactory>;
+        friend class iaSingleton<iEntityManager>;
 
     public:
 
@@ -89,18 +91,26 @@ namespace Igor
         */
         void unregisterEntityType(const iaString& entityType);
 
-        void setScene(iScene* scene);
-        iScene* getScene() const;
+        /*! returns entitties that are located in specified volume
+
+        \param sphere the defined volume
+        \param[out] result the resulting list of entity IDs
+        */
+        void getEntities(const iSphered& sphere, vector<uint64>& result);
+
+        /*! iteration handle
+        */
+        void handle();
 
     private:
-
-        /*! scene to work with
-        */
-        iScene* _scene = nullptr;
 
         /*! mutex to protect entity list
         */
         mutex _mutexEntities;
+
+        /*! mutex to protect the octree
+        */
+        mutex _mutexOctree;
 
         /*! octree for positioned entities
         */
@@ -114,6 +124,10 @@ namespace Igor
         */
         map<uint64, iEntity*> _entities;
 
+        /*! list of positioned entities
+        */
+        vector<iEntityPositioned*> _positionedEntitties;
+
         /*! calculates a hash from entity type string. this is an ugly workaround.
 
         \todo fix later
@@ -122,11 +136,11 @@ namespace Igor
         
         /*! initializes members
         */
-        iEntityFactory();
+        iEntityManager();
 
         /*! cleanup
         */
-        ~iEntityFactory();
+        ~iEntityManager();
 
     };
 
