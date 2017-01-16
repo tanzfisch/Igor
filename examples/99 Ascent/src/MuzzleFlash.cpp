@@ -21,9 +21,9 @@ using namespace IgorAux;
 iaString MuzzleFlash::TYPE_NAME("MuzzleFlash");
 
 MuzzleFlash::MuzzleFlash()
-    : GameObject(Fraction::None, GameObjectKind::None)
+    : GameObject(GameObjectKind::None)
 {
-
+    setFraction(Fraction::None);
 }
 
 iEntity* MuzzleFlash::createInstance()
@@ -75,28 +75,20 @@ void MuzzleFlash::deinit()
 
 void MuzzleFlash::onMuzzleFlashLoaded()
 {
-    iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
-    if (emitterNode != nullptr)
-    {
-        iNodeModel* muzzleFlashNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_muzzleFlashModelID));
-        iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(muzzleFlashNode->getChild("MuzzleFlash"));
-        particleSystem->setEmitter(_emitterNodeID);
-        particleSystem->start();
-        particleSystem->registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate(this, &MuzzleFlash::onMuzzleFlashFinished));
-    }
+    iNodeModel* muzzleFlashNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_muzzleFlashModelID));
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(muzzleFlashNode->getChild("MuzzleFlash"));
+    particleSystem->setEmitter(_emitterNodeID);
+    particleSystem->start();
+    particleSystem->registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate(this, &MuzzleFlash::onMuzzleFlashFinished));
 }
 
 void MuzzleFlash::onMuzzleSmokeLoaded()
 {
-    iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
-    if (emitterNode != nullptr)
-    {
-        iNodeModel* muzzleSmokeNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_muzzleSmokeModelID));
-        iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(muzzleSmokeNode->getChild("MuzzleSmoke"));
-        particleSystem->setEmitter(_emitterNodeID);
-        particleSystem->start();
-        particleSystem->registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate(this, &MuzzleFlash::onMuzzleSmokeFinished));
-    }
+    iNodeModel* muzzleSmokeNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_muzzleSmokeModelID));
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(muzzleSmokeNode->getChild("MuzzleSmoke"));
+    particleSystem->setEmitter(_emitterNodeID);
+    particleSystem->start();
+    particleSystem->registerParticleSystemFinishedDelegate(iParticleSystemFinishedDelegate(this, &MuzzleFlash::onMuzzleSmokeFinished));
 }
 
 void MuzzleFlash::onMuzzleFlashFinished()

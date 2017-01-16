@@ -33,6 +33,9 @@
     <ClCompile Include="..\src\MuzzleFlash.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -54,6 +57,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MuzzleFlash.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Bullet.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

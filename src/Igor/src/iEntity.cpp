@@ -21,12 +21,12 @@ namespace Igor
 
     void iEntity::kill()
     {
-        _delete = true;
+        _state = iEntityState::Delete;
     }
 
     void iEntity::setPosition(const iaVector3d& position)
     {
-
+        _sphere._center = position;
     }
 
     iaVector3d iEntity::getPosition() const

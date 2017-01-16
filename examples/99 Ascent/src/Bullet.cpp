@@ -12,32 +12,40 @@
 #include <iNodeEmitter.h>
 #include <iNodeParticleSystem.h>
 #include <iMaterialResourceFactory.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
-#include "BulletHit.h"
-
-Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matrix, Fraction fraction)
-	: Entity(fraction, EntityType::Weapon)
+Bullet::Bullet()
+    : GameObject(GameObjectKind::Weapon)
 {
-	_scene = scene;
 
-	_force = matrix._depth;
-	_force.negate();
-	_force.normalize();
-	_force *= 7.5;
-	_force += addForce;
+}
 
+iEntity* Bullet::createInstance()
+{
+    return static_cast<iEntity*>(new Bullet());
+}
+
+void Bullet::addForce(const iaVector3d& force)
+{
+/*    _force = matrix._depth;
+    _force.negate();
+    _force.normalize();
+    _force *= 7.5;
+    _force += addForce; */
+}
+
+void Bullet::init()
+{
 	setHealth(100.0);
 	setShield(100.0);
 	setDamage(20.0);
 	setShieldDamage(10.0);
 
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-	transformNode->setMatrix(matrix);
 	_transformNodeID = transformNode->getID();
 
 	iaGradientColor4f colorGradient;
@@ -84,8 +92,8 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	physicsNode->finalizeCollision();
 	physicsNode->setMass(0.01);
 	physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
-	physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
-	physicsNode->setUserData(&_id);
+	physicsNode->setMaterial(iPhysics::getInstance().getMaterialID("bullet"));
+	physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
 	_scene->getRoot()->insertNode(particleSystem);
 
@@ -95,7 +103,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	transformNode->insertNode(physicsNode);
 }
 
-Bullet::~Bullet()
+void Bullet::deinit()
 {
 	iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
 	iNodeFactory::getInstance().destroyNodeAsync(_particleSystemNodeID);
@@ -104,10 +112,10 @@ Bullet::~Bullet()
 void Bullet::hitBy(uint64 entityID)
 {
 	bool killit = false;
-	Entity* entity = EntityManager::getInstance().getEntity(entityID);
-	if (entity != nullptr)
+    GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+	if (gameObject != nullptr)
 	{
-		if (entity->getFraction() != getFraction())
+		if (gameObject->getFraction() != getFraction())
 		{
 			killit = true;
 		}
@@ -124,7 +132,7 @@ void Bullet::hitBy(uint64 entityID)
 		{
 			iaMatrixd matrix;
 			transformNode->getMatrix(matrix);
-			BulletHit* bulletHit = new BulletHit(_scene, matrix);
+			//BulletHit* bulletHit = new BulletHit(_scene, matrix);
 		}
 
 		kill();

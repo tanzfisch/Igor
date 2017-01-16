@@ -26,7 +26,7 @@ using namespace Igor;
 #include <iaString.h>
 using namespace IgorAux;
 
-//#include "Bullet.h"
+#include "Bullet.h"
 //#include "Granade.h"
 //#include "EntityManager.h"
 #include "VoxelTerrainGenerator.h"
@@ -36,8 +36,9 @@ using namespace IgorAux;
 iaString Player::TYPE_NAME("Player");
 
 Player::Player()
-    : GameObject(Fraction::Green, GameObjectKind::Vehicle)
+    : GameObject(GameObjectKind::Vehicle)
 {
+    setFraction(Fraction::Green);
 }
 
 void Player::init()
@@ -270,7 +271,7 @@ void Player::dig(uint64 toolSize, uint8 toolDensity)
 
 void Player::shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinates)
 {
-/*    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    /*iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformationNode != nullptr)
     {
         iaMatrixd matrix;
@@ -317,8 +318,13 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             iaMatrixd offsetRight = matrix;
             offsetRight.translate(0.5, -0.4, -1.0);
 
-/*            new Bullet(GameObject::_scene, _force * 0.001, offsetLeft, getFraction());
-            new Bullet(GameObject::_scene, _force * 0.001, offsetRight, getFraction());*/
+            Bullet* bullet = static_cast<Bullet*>(iEntityManager::getInstance().createEntity("Bullet"));
+            bullet->setFraction(getFraction());
+            bullet->setPosition(_sphere._center + iaVector3d(-0.5, -0.4, -1.0));
+
+            bullet = static_cast<Bullet*>(iEntityManager::getInstance().createEntity("Bullet"));
+            bullet->setFraction(getFraction());
+            bullet->setPosition(_sphere._center + iaVector3d(0.5, -0.4, -1.0));
 
             MuzzleFlash* muzzleFlash = static_cast<MuzzleFlash*>(iEntityManager::getInstance().createEntity("MuzzleFlash"));
             muzzleFlash->setEmitterNode(_emitterLeftGunNodeID);

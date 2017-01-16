@@ -40,6 +40,7 @@ using namespace IgorAux;
 #include <iPhysicsMaterialCombo.h>
 using namespace Igor;
 
+#include "Bullet.h"
 #include "Player.h"
 #include "MuzzleFlash.h"
 
@@ -415,6 +416,7 @@ void Ascent::registerEntityTypes()
 {
     iEntityManager::getInstance().registerEntityType("Player", &Player::createInstance);
     iEntityManager::getInstance().registerEntityType("MuzzleFlash", &MuzzleFlash::createInstance);
+    iEntityManager::getInstance().registerEntityType("Bullet", &Bullet::createInstance);
 }
 
 void Ascent::unregisterEntityTypes()
@@ -866,5 +868,3 @@ void Ascent::run()
 {
     iApplication::getInstance().run();
 }
-
-

@@ -48,6 +48,13 @@ namespace Igor
 
         friend class iEntityManager;
 
+        enum class iEntityState : uint8
+        {
+            Created,
+            Running,
+            Delete
+        };
+
     public:
 
         /*! invalid entity id definition
@@ -78,10 +85,6 @@ namespace Igor
 
     protected:
 
-        /*! mark if an entity is to be deleted
-        */
-        bool _delete = false;
-
         /*! current position
         */
         iSphered _sphere;
@@ -107,6 +110,8 @@ namespace Igor
         virtual ~iEntity() = default;
 
     private:
+
+        iEntityState _state = iEntityState::Created;
 
         /*! entity ID
         */

@@ -109,10 +109,16 @@ namespace Igor
 
         for (auto entity : _entities)
         {
+            if (entity.second->_state == iEntity::iEntityState::Created)
+            {
+                entity.second->init();
+                entity.second->_state = iEntity::iEntityState::Running;
+            }
+
             entity.second->handle();
             _octree->update(entity.second->_id, entity.second->_sphere);
 
-            if (entity.second->_delete)
+            if (entity.second->_state == iEntity::iEntityState::Delete)
             {
                 toDelete.push_back(entity.first);
             }
@@ -120,11 +126,7 @@ namespace Igor
 
         for (auto id : toDelete)
         {
-            auto iter = _entities.find(id);
-            if (iter != _entities.end())
-            {
-                delete (*iter).second;
-            }
+            destroyEntity(id);
         }
     }
     

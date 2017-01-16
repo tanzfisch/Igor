@@ -50,6 +50,10 @@ public:
     */
     Fraction getFraction() const;
 
+    /*! sets fraction of game object
+    */
+    void setFraction(Fraction fraction);
+
     /*! \returns shield value
     */
     float32 getShield() const;
@@ -90,10 +94,6 @@ public:
     */
     void setShieldDamage(float32 value);
 
-    /*! sets shield and health to zero and kills the game object
-    */
-    void kill();
-
 protected:    
     
     /*! todo this is a workaround
@@ -116,7 +116,7 @@ protected:
 
     /*! nothing todo
     */
-    GameObject(Fraction fraction, GameObjectKind kind);
+    GameObject(GameObjectKind kind);
 
     /*! nothing to do
     */

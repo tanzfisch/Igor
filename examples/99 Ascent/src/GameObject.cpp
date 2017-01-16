@@ -2,9 +2,8 @@
 
 iScene* GameObject::_scene = nullptr;
 
-GameObject::GameObject(Fraction fraction, GameObjectKind kind)
+GameObject::GameObject(GameObjectKind kind)
 {
-    _fraction = fraction;
     _kind = kind;
 }
 
@@ -58,9 +57,7 @@ void GameObject::setHealth(float32 value)
     _health = value;
 }
 
-void GameObject::kill()
+void GameObject::setFraction(Fraction fraction)
 {
-    _shield = 0;
-    _health = 0;
-    _delete = true;
+    _fraction = fraction;
 }
