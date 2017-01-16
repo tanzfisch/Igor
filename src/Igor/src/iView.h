@@ -164,6 +164,16 @@ namespace Igor
         */
         void setClearDepth(float32 depth);
 
+        /*! sets view visible
+
+        \param visible the visible flag
+        */
+        void setVisible(bool visible = true);
+
+        /*! \returns true if view is visible
+        */
+        bool getVisible() const;
+
         /*! unprojects screen position to object space
 
         \param screenpos screen position in pixels (vertical origin is at top of window)
@@ -181,6 +191,10 @@ namespace Igor
         virtual ~iView();
 
 	private:
+        
+        /*! visible flag
+        */
+        bool _visible = true;
 
         /*! views name
         */

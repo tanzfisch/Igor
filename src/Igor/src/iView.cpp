@@ -30,6 +30,16 @@ namespace Igor
         }
     }
 
+    void iView::setVisible(bool visible)
+    {
+        _visible = visible;
+    }
+    
+    bool iView::getVisible() const
+    {
+        return _visible;
+    }
+
     void iView::setName(const iaString& name)
     {
         _name = name;
@@ -100,37 +110,44 @@ namespace Igor
 
     void iView::draw()
     {
-        iRenderer::getInstance().setViewport(_resultingRectangle.getX(), _resultingRectangle.getY(), _resultingRectangle.getWidth(), _resultingRectangle.getHeight());
-
-        iRenderer::getInstance().setClearColor(_clearColor);
-        iRenderer::getInstance().setClearDepth(_clearDepth);
-
-        if (_clearColorActive)
-        {
-            iRenderer::getInstance().clearColorBuffer();
-        }
-
-        if (_clearDepthActive)
-        {
-            iRenderer::getInstance().clearDepthBuffer();
-        }
-
-        if (_perspective)
-        {
-            iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
-        }
-        else
-        {
-            iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
-        }
-
         if (_scene != nullptr)
         {
             _scene->handle();
-            _renderEngine.render();
         }
-        
-        _renderEvent();
+
+        if (_visible)
+        {
+            iRenderer::getInstance().setViewport(_resultingRectangle.getX(), _resultingRectangle.getY(), _resultingRectangle.getWidth(), _resultingRectangle.getHeight());
+
+            iRenderer::getInstance().setClearColor(_clearColor);
+            iRenderer::getInstance().setClearDepth(_clearDepth);
+
+            if (_clearColorActive)
+            {
+                iRenderer::getInstance().clearColorBuffer();
+            }
+
+            if (_clearDepthActive)
+            {
+                iRenderer::getInstance().clearDepthBuffer();
+            }
+
+            if (_perspective)
+            {
+                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+            }
+            else
+            {
+                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+            }
+
+            if (_scene != nullptr)
+            {
+                _renderEngine.render();
+            }
+
+            _renderEvent();
+        }
     }
 
     void iView::updateWindowRect(const iRectanglei& windowRect)
