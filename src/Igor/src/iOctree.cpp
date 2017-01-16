@@ -299,13 +299,17 @@ namespace Igor
         {
             auto object = _objects[userDataID];
             con_assert_sticky(object != nullptr, "corrupt data");
-            object->_sphere = sphere;
 
-            auto node = _nodes[object->_octreeNode];
-            if (!node->_box.intersects(sphere._center))
+            if (object->_sphere != sphere)
             {
-                remove(userDataID);
-                insert(userDataID, sphere);
+                object->_sphere = sphere;
+
+                auto node = _nodes[object->_octreeNode];
+                if (!node->_box.intersects(sphere._center))
+                {
+                    remove(userDataID);
+                    insert(userDataID, sphere);
+                }
             }
         }
         else

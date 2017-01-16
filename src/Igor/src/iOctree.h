@@ -50,6 +50,7 @@ namespace Igor
 
     \bug it does not work for bigger objects
     \todo does not merge efficiently
+    \todo implement move functionality
     */
     class Igor_API iOctree
 	{
