@@ -1,7 +1,7 @@
 #ifndef __GAMEOBJECT__
 #define __GAMEOBJECT__
 
-#include <iEntityPositioned.h>
+#include <iEntity.h>
 #include <iNode.h>
 using namespace Igor;
 
@@ -35,10 +35,10 @@ enum class GameObjectKind
 
 /*! Acent specific game object
 */
-class GameObject : public iEntityPositioned
+class GameObject : public iEntity
 {
 
-    friend class iEntityManager;
+    friend class Ascent;
 
 public:
 
@@ -102,6 +102,10 @@ public:
 
 protected:    
     
+    /*! todo this is a workaround
+    */
+    static iScene* _scene;
+
     virtual void hitBy(uint64 entityID) = 0;
 
     /*! updates current position of entity
@@ -119,10 +123,6 @@ protected:
     /*! handle entity
     */
     virtual void handle() = 0;
-
-    /*! todo this is a workaround
-    */
-    static iScene* _scene;
 
     /*! nothing todo
     */

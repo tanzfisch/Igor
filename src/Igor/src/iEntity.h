@@ -31,7 +31,8 @@
 
 #include <iDefines.h>
 
-#include <iaBits.h>
+#include <iaVector3.h>
+#include <iSphere.h>
 using namespace IgorAux;
 
 #include <mutex>
@@ -57,11 +58,33 @@ namespace Igor
         */
         uint64 getID() const;
 
-        /*! \returns true if entity has component position
+        /*! sets position of entity
+
+        \param position new position to set
         */
-        virtual bool hasPosition();
+        virtual void setPosition(const iaVector3d& position) = 0;
+
+        /*! \returns current position
+        */
+        iaVector3d getPosition() const;
+
+        /*! \returns sphere of entity
+        */
+        iSphered getSphere() const;
+
+        /*! marks an entity to be deleted
+        */
+        void kill();
 
     protected:
+
+        /*! mark if an entity is to be deleted
+        */
+        bool _delete = false;
+
+        /*! current position
+        */
+        iSphered _sphere;
 
         /*! initialize entity
         */

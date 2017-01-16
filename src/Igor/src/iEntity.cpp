@@ -19,9 +19,19 @@ namespace Igor
         _mutexID.unlock();
     }
 
-    bool iEntity::hasPosition()
+    void iEntity::kill()
     {
-        return false;
+        _delete = true;
+    }
+
+    iaVector3d iEntity::getPosition() const
+    {
+        return _sphere._center;
+    }
+
+    iSphered iEntity::getSphere() const
+    {
+        return _sphere;
     }
 
     uint64 iEntity::getID() const

@@ -96,7 +96,8 @@ void Ascent::initViews()
     _view.setPerspective(60);
     _view.setClipPlanes(0.1f, 500.f);
     _view.registerRenderDelegate(RenderDelegate(this, &Ascent::onRender));
-    _view.setName("3d");
+    _view.setName("3d");    
+    _view.setVisible(false);
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
@@ -163,6 +164,72 @@ void Ascent::initScene()
     _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+}
+
+void Ascent::initPhysics()
+{
+    iPhysicsMaterial* materialTerrain = iPhysics::getInstance().createMaterial("terrain");
+    iPhysicsMaterial* materialEntity = iPhysics::getInstance().createMaterial("entity");
+    iPhysicsMaterial* materialBullet = iPhysics::getInstance().createMaterial("bullet");
+
+    iPhysicsMaterialCombo* terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
+    terrainEntity->setName("terrain-entity");
+    terrainEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+    terrainEntity->setElasticity(0.0);
+    terrainEntity->setFriction(0.0, 0.0);
+
+    iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
+    terrainBullet->setName("terrain-bullet");
+    terrainBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContactTerrainBullet));
+
+    iPhysicsMaterialCombo* bulletEntity = new iPhysicsMaterialCombo(materialBullet, materialEntity);
+    bulletEntity->setName("bullet-entity");
+    bulletEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+
+    iPhysicsMaterialCombo* entityEntity = new iPhysicsMaterialCombo(materialEntity, materialEntity);
+    entityEntity->setName("entity-entity");
+    entityEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+
+    iPhysicsMaterialCombo* bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
+    bulletBullet->setName("bullet-bullet");
+    bulletBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+}
+
+void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
+{
+    if (body0 != nullptr && body1 != nullptr)
+    {
+        if (body0->getUserData() != nullptr)
+        {
+            uint64 id0 = static_cast<uint64>(*static_cast<const uint64*>(body0->getUserData()));
+            _hitListMutex.lock();
+            _hitList.push_back(pair<uint64, uint64>(id0, 0));
+            _hitListMutex.unlock();
+
+        }
+        else if (body1->getUserData() != nullptr)
+        {
+            uint64 id1 = static_cast<uint64>(*static_cast<const uint64*>(body1->getUserData()));
+            _hitListMutex.lock();
+            _hitList.push_back(pair<uint64, uint64>(id1, 0));
+            _hitListMutex.unlock();
+        }
+    }
+}
+
+void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
+{
+    if (body0 != nullptr && body1 != nullptr &&
+        body0->getUserData() != nullptr &&
+        body1->getUserData() != nullptr)
+    {
+        uint64 id0 = static_cast<uint64>(*static_cast<const uint64*>(body0->getUserData()));
+        uint64 id1 = static_cast<uint64>(*static_cast<const uint64*>(body1->getUserData()));
+        _hitListMutex.lock();
+        _hitList.push_back(pair<uint64, uint64>(id0, id1));
+        _hitList.push_back(pair<uint64, uint64>(id1, id0));
+        _hitListMutex.unlock();
+    }
 }
 
 void Ascent::initPlayer()
@@ -359,6 +426,8 @@ void Ascent::unregisterEntityTypes()
 
 void Ascent::init()
 {
+    _startTime = iTimer::getInstance().getTime();
+
     registerEntityTypes();
 
     initViews();
@@ -399,6 +468,8 @@ void Ascent::init()
     registerHandles();
 
     iRenderer::getInstance().setWorldGridResolution(1000.0);
+
+    initPhysics();
 }
 
 void Ascent::deinit()
@@ -664,12 +735,14 @@ void Ascent::onHandle()
 {
     if (_loading)
     {
-        if (iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
-            iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
+        if (iTaskManager::getInstance().getQueuedRegularTaskCount() < 1 &&
+            iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 1 &&
+            iTimer::getInstance().getTime() > (_startTime + (5 * __IGOR_SECOND__)))
         {
             _loading = false;
             _activeControls = true;
             _mouseDelta.set(0, 0);
+            _view.setVisible(true);
         }
     }
     else
@@ -694,6 +767,21 @@ void Ascent::onHandle()
             }
         }
         */
+
+        _hitListMutex.lock();
+        vector<pair<uint64, uint64>> hitList = _hitList;
+        _hitList.clear();
+        _hitListMutex.unlock();
+
+        for (auto hit : hitList)
+        {
+            GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(hit.first));
+            if (gameObject != nullptr)
+            {
+                gameObject->hitBy(hit.second);
+            }
+        }
+
         iEntityManager::getInstance().handle();
     }
 
@@ -718,9 +806,12 @@ void Ascent::onRenderOrtho()
 
     if (_loading)
     {
-        iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+        iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+        iRenderer::getInstance().drawRectangle(0, 0, _window.getClientWidth(), _window.getClientHeight());
+
+        iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
         iRenderer::getInstance().setFontSize(40.0f);
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {

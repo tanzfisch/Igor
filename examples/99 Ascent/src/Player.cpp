@@ -65,7 +65,7 @@ void Player::init()
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
-    // physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    physicsNode->setMaterial(iPhysics::getInstance().getMaterialID("entity"));
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
     physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
     physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));

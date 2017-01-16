@@ -43,10 +43,6 @@ private:
 
     mutex _hitListMutex;
 
-    int64 _terrainMaterialID = 0;
-    int64 _bulletMaterialID = 0;
-    int64 _entityMaterialID = 0;
-
     iOctree* _octree = nullptr;
 
     void registerEntity(Entity* entity);

@@ -44,7 +44,6 @@ namespace Igor
 {
 
     class iEntity;
-    class iEntityPositioned;
     class iOctree;
     class iScene;
 
@@ -123,10 +122,6 @@ namespace Igor
         /*! list of entities
         */
         map<uint64, iEntity*> _entities;
-
-        /*! list of positioned entities
-        */
-        vector<iEntityPositioned*> _positionedEntitties;
 
         /*! calculates a hash from entity type string. this is an ugly workaround.
 

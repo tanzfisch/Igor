@@ -27,6 +27,7 @@ namespace Igor
     class iTargetMaterial;
     class iNodeTransformControl;
     class iNodeLODTrigger;
+    class iPhysicsBody;
 }
 
 class Ascent
@@ -41,6 +42,7 @@ public:
 
 private:
 
+    float64 _startTime = 0;
     bool _loading = true;
     bool _activeControls = false;
 
@@ -67,8 +69,6 @@ private:
 
     uint32 _materialSolid = 0;
 
-    float64 _startTime;
-    
     uint32 _materialWithTextureAndBlending = 0;
     uint32 _octreeMaterial = 0;
     int32 _materialSkyBox = 0;
@@ -76,6 +76,9 @@ private:
     uint64 _taskFlushModels = 0; 
     uint64 _taskFlushTextures = 0;
     
+    vector<pair<uint64, uint64>> _hitList;
+    mutex _hitListMutex;
+
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);
 
@@ -101,10 +104,16 @@ private:
 
     void registerHandles();
     void unregisterHandles();
+
+    void onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1);
+    void onContact(iPhysicsBody* body0, iPhysicsBody* body1);
+
     void initViews();
     void initScene();
     void initPlayer();
     void initVoxelData();
+    void initPhysics();
+
     void drawReticle();
 
     void registerEntityTypes();

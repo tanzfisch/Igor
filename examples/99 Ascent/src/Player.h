@@ -21,7 +21,6 @@ namespace Igor
 class Player : public GameObject
 {
 
-    friend class iEntityManager;
     friend class Ascent;
 
 public:

@@ -9,8 +9,6 @@
 #include <iaVector3.h>
 #include <iOctree.h>
 
-#include <iEntityPositioned.h>
-
 #include <iaConsole.h>
 using namespace IgorAux;
 
@@ -40,7 +38,6 @@ namespace Igor
             result = (*iter).second();
             _mutexEntities.lock();
             _entities[result->getID()] = result;
-            _positionedEntitties.push_back(static_cast<iEntityPositioned*>(result));
             _mutexEntities.unlock();
         }
         else
@@ -48,12 +45,9 @@ namespace Igor
             con_err("type " << entityType << " not registered");
         }
 
-        if (result->hasPosition())
-        {
-            _mutexOctree.lock();
-            _octree->insert(result->getID(), static_cast<iEntityPositioned*>(result)->getSphere());
-            _mutexOctree.unlock();
-        }
+        _mutexOctree.lock();
+        _octree->insert(result->getID(), result->getSphere());
+        _mutexOctree.unlock();
 
         result->init();
 
@@ -82,20 +76,9 @@ namespace Igor
         {
             entity->deinit();
 
-            if (entity->hasPosition())
-            {
-                _mutexOctree.lock();
-                _octree->remove(entity->getID());
-                _mutexOctree.unlock();
-
-                _mutexEntities.lock();
-                auto iter = find(_positionedEntitties.begin(), _positionedEntitties.end(), entity);
-                if (iter != _positionedEntitties.end())
-                {
-                    _positionedEntitties.erase(iter);
-                }
-                _mutexEntities.unlock();
-            }
+            _mutexOctree.lock();
+            _octree->remove(entity->getID());
+            _mutexOctree.unlock();
 
             _mutexEntities.lock();
             auto iter = _entities.find(id);
@@ -104,6 +87,8 @@ namespace Igor
                 _entities.erase(id);
             }
             _mutexEntities.unlock();
+
+            delete entity;
         }
     }
 
@@ -120,20 +105,14 @@ namespace Igor
 
     void iEntityManager::handle()
     {
+        vector<uint64> toDelete;
+
         for (auto entity : _entities)
         {
             entity.second->handle();
-        }
+            _octree->update(entity.second->_id, entity.second->_sphere);
 
-        for (auto entity : _positionedEntitties)
-        {
-            _octree->update(entity->_id, entity->_sphere);
-        }
-
-/*        vector<uint64> toDelete;
-        for (auto entity : _entities)
-        {
-            if (entity.second->getHealth() <= 0.0f)
+            if (entity.second->_delete)
             {
                 toDelete.push_back(entity.first);
             }
@@ -146,7 +125,7 @@ namespace Igor
             {
                 delete (*iter).second;
             }
-        }*/
+        }
     }
     
     void iEntityManager::registerEntityType(const iaString& entityType, iCreateEntityInstance functionPointer)

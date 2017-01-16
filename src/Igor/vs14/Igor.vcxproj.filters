@@ -668,9 +668,6 @@
     <ClCompile Include="..\src\iEntityManager.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iEntityPositioned.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1397,9 +1394,6 @@
       <Filter>entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEntityManager.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iEntityPositioned.h">
       <Filter>entities</Filter>
     </ClInclude>
   </ItemGroup>
