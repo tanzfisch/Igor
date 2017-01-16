@@ -430,6 +430,39 @@ namespace Igor
         return _simulationRate;
     }
 
+    iPhysicsMaterial* iPhysics::createMaterial(const iaString& name)
+    {
+        iPhysicsMaterial* result = nullptr;
+        result = new iPhysicsMaterial(NewtonMaterialCreateGroupID(static_cast<const NewtonWorld*>(_defaultWorld)));
+        result->setName(name);
+
+        _materialListMutex.lock();
+        _materials[result->getID()] = result;
+        _materialListMutex.unlock();
+
+        return result;
+    }
+
+    int64 iPhysics::getMaterialID(const iaString& name)
+    {
+        int64 result = iPhysicsMaterial::INVALID_PHYSICSMATERIAL_ID;
+
+        _materialListMutex.lock();
+        auto iter = _materials.begin();
+        while (iter != _materials.end())
+        {
+            if ((*iter).second->getName() == name)
+            {
+                result = (*iter).first;
+                break;
+            }
+            iter++;
+        }
+        _materialListMutex.unlock();
+
+        return result;
+    }
+
     iPhysicsMaterial* iPhysics::getMaterial(int64 id)
     {
         iPhysicsMaterial* result = nullptr;
@@ -464,19 +497,6 @@ namespace Igor
     {
         iPhysicsMaterial* material = createMaterial("default");
         _defaultMaterialID = material->getID();
-    }
-
-    iPhysicsMaterial* iPhysics::createMaterial(const iaString& name)
-    {
-        iPhysicsMaterial* result = nullptr;
-        result = new iPhysicsMaterial(NewtonMaterialCreateGroupID(static_cast<const NewtonWorld*>(_defaultWorld)));
-        result->setName(name);
-
-        _materialListMutex.lock();
-        _materials[result->getID()] = result;
-        _materialListMutex.unlock();
-
-        return result;
     }
 
     iPhysicsBody* iPhysics::createBody(iPhysicsCollision* collisionVolume)

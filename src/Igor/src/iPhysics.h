@@ -206,6 +206,12 @@ namespace Igor
         */
         iPhysicsMaterial* getMaterial(int64 id);
 
+        /*! \returns material id by name
+
+        \param name the name of the material
+        */
+        int64 getMaterialID(const iaString& name);
+
         /*! configures material for body
 
         \param body the body to configure the material
