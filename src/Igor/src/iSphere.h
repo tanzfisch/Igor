@@ -98,6 +98,14 @@ namespace Igor
         \returns true: if sphere intersects with frustum: false: if not
         */
 		__IGOR_INLINE__ bool intersects(iFrustum<T> &frustum);
+
+        /*! compares of two spheres are equal
+        */
+        __IGOR_INLINE__ bool operator== (const iSphere<T> &sphere) const;
+
+        /*! compares of two spheres are not equal
+        */
+        __IGOR_INLINE__ bool operator!= (const iSphere<T> &sphere) const;
 	};
 
 	#include <iSphere.inl>

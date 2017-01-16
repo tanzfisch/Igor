@@ -10,7 +10,7 @@ iSphere<T>::iSphere(iaVector3<T> pos, T radius)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iSphere<T>::intersects(iSphere<T> &sphere)
+bool iSphere<T>::intersects(iSphere<T> &sphere)
 {
     iaVector3<T> diff = sphere._center - _center;
     T distance = diff.length();
@@ -27,7 +27,7 @@ __IGOR_INLINE__ bool iSphere<T>::intersects(iSphere<T> &sphere)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iSphere<T>::contains(iSphere<T> &sphere)
+bool iSphere<T>::contains(iSphere<T> &sphere)
 {
     iaVector3<T> diff = sphere._center - _center;
     T distance = diff.length();
@@ -43,7 +43,19 @@ __IGOR_INLINE__ bool iSphere<T>::contains(iSphere<T> &sphere)
 }
 
 template <class T>
-__IGOR_INLINE__ void iSphere<T>::merge(iSphere<T> &sphere)
+bool iSphere<T>::operator == (const iSphere<T> &sphere) const
+{
+    return ((_center == sphere._center) && (_radius == sphere._radius)) ? true : false;
+}
+
+template <class T>
+bool iSphere<T>::operator != (const iSphere<T> &sphere) const
+{
+    return ((_center != sphere._center) || (_radius != sphere._radius)) ? true : false;
+}
+
+template <class T>
+void iSphere<T>::merge(iSphere<T> &sphere)
 {
     if (contains(sphere))
     {
@@ -67,7 +79,7 @@ __IGOR_INLINE__ void iSphere<T>::merge(iSphere<T> &sphere)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iSphere<T>::inFrontOf(iPlane<T> &plane)
+bool iSphere<T>::inFrontOf(iPlane<T> &plane)
 {
 	T distancePlanePoint = (plane.normal * _center) + plane.distance;
 	if(distancePlanePoint <= -_radius) 
@@ -81,7 +93,7 @@ __IGOR_INLINE__ bool iSphere<T>::inFrontOf(iPlane<T> &plane)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iSphere<T>::intersects(iFrustum<T> &frustum)
+bool iSphere<T>::intersects(iFrustum<T> &frustum)
 {
 	if(!inFrontOf(frustum.near_plane)) 
 		return false;
