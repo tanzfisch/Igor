@@ -62,7 +62,7 @@ namespace Igor
 
         \param position new position to set
         */
-        virtual void setPosition(const iaVector3d& position) = 0;
+        virtual void setPosition(const iaVector3d& position);
 
         /*! \returns current position
         */

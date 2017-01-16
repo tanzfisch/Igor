@@ -24,6 +24,11 @@ namespace Igor
         _delete = true;
     }
 
+    void iEntity::setPosition(const iaVector3d& position)
+    {
+
+    }
+
     iaVector3d iEntity::getPosition() const
     {
         return _sphere._center;
