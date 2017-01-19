@@ -13,6 +13,7 @@
 #include <iTargetMaterial.h>
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
+#include <iPhysics.h>
 using namespace Igor;
 
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
@@ -81,7 +82,7 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
         iaMatrixd offset;
         physicsNode->addMesh(mesh, 1, offset);
         physicsNode->finalizeCollision(true);
-        //physicsNode->setMaterial(EntityManager::getInstance().getTerrainMaterialID());
+        physicsNode->setMaterial(iPhysics::getInstance().getMaterialID("terrain"));
 
         result->insertNode(physicsNode);
     }

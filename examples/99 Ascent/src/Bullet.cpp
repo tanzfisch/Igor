@@ -29,13 +29,9 @@ iEntity* Bullet::createInstance()
     return static_cast<iEntity*>(new Bullet());
 }
 
-void Bullet::addForce(const iaVector3d& force)
+void Bullet::setForce(const iaVector3d& force)
 {
-/*    _force = matrix._depth;
-    _force.negate();
-    _force.normalize();
-    _force *= 7.5;
-    _force += addForce; */
+    _force = force;
 }
 
 void Bullet::init()
@@ -46,6 +42,7 @@ void Bullet::init()
 	setShieldDamage(10.0);
 
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformNode->translate(_sphere._center);
 	_transformNodeID = transformNode->getID();
 
 	iaGradientColor4f colorGradient;
@@ -95,12 +92,12 @@ void Bullet::init()
 	physicsNode->setMaterial(iPhysics::getInstance().getMaterialID("bullet"));
 	physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
-	_scene->getRoot()->insertNode(particleSystem);
+    transformNode->insertNode(emitterTransform);
+    emitterTransform->insertNode(emitter);
+    transformNode->insertNode(physicsNode);
 
-	_scene->getRoot()->insertNode(transformNode);
-	transformNode->insertNode(emitterTransform);
-	emitterTransform->insertNode(emitter);
-	transformNode->insertNode(physicsNode);
+	_scene->getRoot()->insertNodeAsync(particleSystem);
+	_scene->getRoot()->insertNodeAsync(transformNode);
 }
 
 void Bullet::deinit()

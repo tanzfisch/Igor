@@ -663,10 +663,10 @@
       <Filter>resources\statistics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iEntity.cpp">
-      <Filter>entities</Filter>
+      <Filter>ecs</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iEntityManager.cpp">
-      <Filter>entities</Filter>
+      <Filter>ecs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1391,10 +1391,10 @@
       <Filter>resources\statistics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEntity.h">
-      <Filter>entities</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iEntityManager.h">
-      <Filter>entities</Filter>
+      <Filter>ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -1571,7 +1571,7 @@
     <Filter Include="resources\statistics">
       <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="entities">
+    <Filter Include="ecs">
       <UniqueIdentifier>{52e964d5-eb29-4837-b723-6313bc60ac26}</UniqueIdentifier>
     </Filter>
   </ItemGroup>

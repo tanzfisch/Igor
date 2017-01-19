@@ -21,7 +21,7 @@ class Bullet : public GameObject
 
 public:
 
-    void addForce(const iaVector3d& force);
+    void setForce(const iaVector3d& force);
 
 private:
 

@@ -318,13 +318,17 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             iaMatrixd offsetRight = matrix;
             offsetRight.translate(0.5, -0.4, -1.0);
 
+            iaVector3d bulletForce = _force * 0.001 + (offsetLeft._depth * -0.75);
+
             Bullet* bullet = static_cast<Bullet*>(iEntityManager::getInstance().createEntity("Bullet"));
             bullet->setFraction(getFraction());
-            bullet->setPosition(_sphere._center + iaVector3d(-0.5, -0.4, -1.0));
+            bullet->setForce(bulletForce);
+            bullet->setPosition(offsetLeft._pos);
 
             bullet = static_cast<Bullet*>(iEntityManager::getInstance().createEntity("Bullet"));
             bullet->setFraction(getFraction());
-            bullet->setPosition(_sphere._center + iaVector3d(0.5, -0.4, -1.0));
+            bullet->setForce(bulletForce);
+            bullet->setPosition(offsetRight._pos);
 
             MuzzleFlash* muzzleFlash = static_cast<MuzzleFlash*>(iEntityManager::getInstance().createEntity("MuzzleFlash"));
             muzzleFlash->setEmitterNode(_emitterLeftGunNodeID);

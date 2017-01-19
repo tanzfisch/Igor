@@ -221,8 +221,10 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
         body0->getUserData() != nullptr &&
         body1->getUserData() != nullptr)
     {
-        uint64 id0 = static_cast<uint64>(*static_cast<const uint64*>(body0->getUserData()));
-        uint64 id1 = static_cast<uint64>(*static_cast<const uint64*>(body1->getUserData()));
+        const void* bla = body0->getUserData();
+
+        uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
+        uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
         _hitListMutex.lock();
         _hitList.push_back(pair<uint64, uint64>(id0, id1));
         _hitList.push_back(pair<uint64, uint64>(id1, id0));

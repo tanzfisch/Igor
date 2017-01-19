@@ -48,9 +48,7 @@ namespace Igor
         _mutexOctree.lock();
         _octree->insert(result->getID(), result->getSphere());
         _mutexOctree.unlock();
-
-        result->init();
-
+        
         return result;
     }
 

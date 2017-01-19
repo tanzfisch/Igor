@@ -63,7 +63,7 @@ void MuzzleFlash::init()
     }
     else
     {
-        con_err("no emitter defined");
+        con_err("can't initialize");
     }
 }
 
