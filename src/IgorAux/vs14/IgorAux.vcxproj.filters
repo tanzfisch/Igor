@@ -106,9 +106,6 @@
     <ClInclude Include="..\src\iaEvent.h">
       <Filter>event handling</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iaFlushList.h">
-      <Filter>data types</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iaString.h">
       <Filter>data types</Filter>
     </ClInclude>
@@ -131,6 +128,9 @@
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iaBits.h">
+      <Filter>data types</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaFlushVector.h">
       <Filter>data types</Filter>
     </ClInclude>
   </ItemGroup>
@@ -163,6 +163,9 @@
       <Filter>data types</Filter>
     </None>
     <None Include="..\src\iaBits.inl">
+      <Filter>data types</Filter>
+    </None>
+    <None Include="..\src\iaFlushVector.inl">
       <Filter>data types</Filter>
     </None>
   </ItemGroup>

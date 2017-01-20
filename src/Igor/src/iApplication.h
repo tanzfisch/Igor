@@ -29,9 +29,11 @@
 #ifndef __iAPPLICATION__
 #define __iAPPLICATION__
 
+#include <iDefines.h>
+
 #include <iaEvent.h>
 #include <iaSingleton.h>
-#include <iaFlushList.h>
+#include <iaFlushVector.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -99,7 +101,7 @@ namespace Igor
 		
 		/*! list of windows registered to the application
 		*/
-		iaFlushList<iWindow*> _windows;
+        iaFlushVector<iWindow*> _windows;
 
 		/*! handle event called after last render frame
 		*/

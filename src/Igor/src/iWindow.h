@@ -33,7 +33,7 @@
 
 #include <iDefines.h>
 
-#include <iaFlushList.h>
+#include <iaFlushVector.h>
 #include <iaEvent.h>
 #include <iaString.h>
 using namespace IgorAux;
@@ -239,7 +239,7 @@ namespace Igor
 
 		\todo why is this a flush list again?
 		*/
-		iaFlushList<iView*> _views;
+        iaFlushVector<iView*> _views;
 						
 		/*! list of registeres os event listeners
 

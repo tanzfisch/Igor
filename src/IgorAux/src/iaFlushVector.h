@@ -24,14 +24,14 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.If not, see <http://www.gnu.org/licenses/>.
 // 
-// contact: martinloga@gmx.de  
+// contact: martinloga@gmx.de
 
-#ifndef __IGOR_AUX_FLUSHLIST__
-#define __IGOR_AUX_FLUSHLIST__
+#ifndef __IGOR_AUX_FLUSHVECTOR__
+#define __IGOR_AUX_FLUSHVECTOR__
 
-#include <iDefines.h>
+#include <iaConsole.h>
 
-#include <list>
+#include <vector>
 using namespace std;
 
 namespace IgorAux
@@ -40,10 +40,11 @@ namespace IgorAux
 	/*! flush list
 
 	every add or remove command will have no effect until flush
+    interface is not thread save
 
     \deprecated do we need this anymore?
 	*/
-	template<typename T> class IgorAux_API_Template iaFlushList
+	template<class T> class IgorAux_API_Template iaFlushVector
 	{
 
 	public:
@@ -52,92 +53,52 @@ namespace IgorAux
 
 		does nothing
 		*/
-		iaFlushList()
-		{
-		}
+        iaFlushVector();
 
 		/*! dtor
 
 		clears lists
 		*/
-		virtual ~iaFlushList()
-		{
-			_flushList.clear();
-			_data.clear();
-		}
+        virtual ~iaFlushVector();
 
 		/*! returns reference to _data
 
 		\return reference to _data
 		*/
-		list<T>& getList()
-		{
-			return _data;
-		}
+        vector<T>& getList();
 
 		/*! add element to flush queue for insertion
 
 		\param element new element
 		*/
-		void iaFlushList::add(T element)
-		{
-			_flushList.push_back(pair<T, bool>(element, true));
-		}
+        void add(T element);
 
 		/*! add element to flush queue for removal
 
 		\param element remove element
 		*/
-		void iaFlushList::remove(T element)
-		{
-			_flushList.push_back(pair<T, bool>(element, false));
-		}
+        void remove(T element);
 
 		/*! flush the queue
 
-		inserts and removes elements according to _flushList in _data
+		inserts and removes elements according to _queue in _data
 		*/
-		void iaFlushList::flush()
-		{
-			list<pair<T, bool>>::iterator element = _flushList.begin();
-			list<pair<T, bool>>::iterator end = _flushList.end();
-
-			while (element != end)
-			{
-				list<T>::iterator found = find(_data.begin(), _data.end(), (*element).first);
-
-				if ((*element).second)
-				{
-					if (found == _data.end())
-					{
-						_data.push_back((*element).first);
-					}
-				}
-				else
-				{
-					if (found != _data.end())
-					{
-						_data.erase(found);
-					}
-				}
-
-				element++;
-			}
-
-			_flushList.clear();
-		}
+        void iaFlushVector::flush();
 
 	private:
 
 		/*! queue to flush
 		*/
-		list<pair<T, bool>> _flushList;
+        vector<pair<T, bool>> _queue;
 
 		/*! concrete _data
 		*/
-		list<T> _data;
+		vector<T> _data;
 
 	};
+
+#include <iaFlushVector.inl>
+
 };
 
 #endif

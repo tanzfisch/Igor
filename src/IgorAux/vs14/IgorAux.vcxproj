@@ -339,7 +339,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\iaDirectory.h" />
     <ClInclude Include="..\src\iaEvent.h" />
     <ClInclude Include="..\src\iaFile.h" />
-    <ClInclude Include="..\src\iaFlushList.h" />
+    <ClInclude Include="..\src\iaFlushVector.h" />
     <ClInclude Include="..\src\iaGradient.h" />
     <ClInclude Include="..\src\iaMatrix.h" />
     <ClInclude Include="..\src\iaMatrix3x3.h" />
@@ -379,6 +379,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaBits.inl" />
+    <None Include="..\src\iaFlushVector.inl" />
     <None Include="..\src\iaGradient.inl" />
     <None Include="..\src\iaMatrix.inl" />
     <None Include="..\src\iaMatrix3x3.inl" />
