@@ -111,6 +111,8 @@ namespace Igor
 
     private:
 
+        /*! current state od entity
+        */
         iEntityState _state = iEntityState::Created;
 
         /*! entity ID
