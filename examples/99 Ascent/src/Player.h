@@ -57,7 +57,7 @@ public:
 
     void rotate(float32 heading, float32 pitch);    
 
-    uint32 getLODTriggerID();
+    void setLODTrigger(uint32 lodTriggerNodeID);
 
     /*! sets position of entity
 

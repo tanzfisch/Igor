@@ -76,7 +76,7 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
             pos._y += playerStartPos._y;
             pos._z += playerStartPos._z - 200;
 
-            _holes.push_back(iSpheref(pos, ((rand() % 90 + 10) / 100.0) * 0.7));
+            _holes.push_back(iSpheref(pos, ((rand() % 60 + 40) / 100.0) * 0.5));
         }
         
         _seed = seed;

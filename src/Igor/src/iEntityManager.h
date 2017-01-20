@@ -109,11 +109,23 @@ namespace Igor
         */
         void getEntities(const iSphered& sphere, vector<uint64>& result);
 
-        /*! iteration handle
+        /*! starts / continues entity manager to run
         */
-        void handle();
+        void start();
+
+        /*! stops / pauses entity manager
+        */
+        void stop();
+
+        /*! \returns true if entity manager is running
+        */
+        bool isRunning();
 
     private:
+
+        /*! flag if entity manager is running. means that it's handle is registered with the application handle event
+        */
+        bool _isRunning = false;
 
         /*! mutex to protect entity list
         */
@@ -134,6 +146,10 @@ namespace Igor
         /*! list of entities
         */
         map<uint64, iEntity*> _entities;
+
+        /*! iteration handle
+        */
+        void handle();
 
         /*! calculates a hash from entity type string. this is an ugly workaround.
 

@@ -8,6 +8,7 @@
 #include <iAACube.h>
 #include <iaVector3.h>
 #include <iOctree.h>
+#include <iApplication.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -17,13 +18,49 @@ namespace Igor
 
     iEntityManager::iEntityManager()
     {
-        // TODO
+        // TODO should be configurable
         _octree = new iOctree(iAACubed(iaVector3d(0, 0, 0), 1000000.0), 50.0, 100, 20);
     }
 
     iEntityManager::~iEntityManager()
     {
+        if (_isRunning)
+        {
+            iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iEntityManager::handle));
+        }
 
+        if (_types.size())
+        {
+            con_err("possible mem leak. " << _types.size() << " entity types still registered");
+        }
+
+        if (_entities.size())
+        {
+            con_err("possible mem leak. " << _entities.size() << " entity still existing");
+        }
+
+        delete _octree;
+    }
+
+    void iEntityManager::start()
+    {
+        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iEntityManager::handle));
+        _isRunning = true;
+    }
+
+    void iEntityManager::stop()
+    {
+        if (_isRunning)
+        {
+            iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iEntityManager::handle));
+        }
+
+        _isRunning = false;
+    }
+
+    bool iEntityManager::isRunning()
+    {
+        return _isRunning;
     }
 
     iEntity* iEntityManager::createEntity(uint64 entityTypeID)

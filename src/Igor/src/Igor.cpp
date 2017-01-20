@@ -30,6 +30,7 @@ using namespace IgorAux;
 #include <iVersion.h>
 #include <iNodeFactory.h>
 #include <iPhysics.h>
+#include <iEntityManager.h>
 
 #ifdef __IGOR_MSCOMPILER__
 #pragma comment(lib, "OpenGL32.lib")

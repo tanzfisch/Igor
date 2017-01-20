@@ -67,6 +67,8 @@ private:
     iNodeTransform* _lightRotate = nullptr;
     iNodeLight* _lightNode = nullptr;
 
+    uint32 _lodTriggerID = iNode::INVALID_NODE_ID;
+
     uint32 _materialSolid = 0;
 
     uint32 _materialWithTextureAndBlending = 0;

@@ -495,90 +495,94 @@ void VoxelTerrainGenerator::handleVoxelBlocks()
     if (lodTrigger != nullptr)
     {
         iaVector3d pos = lodTrigger->getWorldPosition();
-        iaVector3I lodTriggerPos(pos._x, pos._y, pos._z);
 
-        iaVector3I center(lodTriggerPos._x, lodTriggerPos._y, lodTriggerPos._z);
-        center /= _voxelBlockSize;
-
-        iaVector3I start(center);
-        start._x -= _voxelBlockScanDistance;
-        start._y -= _voxelBlockScanDistance;
-        start._z -= _voxelBlockScanDistance;
-
-        iaVector3I stop(center);
-        stop._x += _voxelBlockScanDistance;
-        stop._y += _voxelBlockScanDistance;
-        stop._z += _voxelBlockScanDistance;
-
-        if (start._x < 0)
+        if (pos.length2() > 0)
         {
-            start._x = 0;
-        }
+            iaVector3I lodTriggerPos(pos._x, pos._y, pos._z);
 
-        if (start._y < 0)
-        {
-            start._y = 0;
-        }
+            iaVector3I center(lodTriggerPos._x, lodTriggerPos._y, lodTriggerPos._z);
+            center /= _voxelBlockSize;
 
-        if (start._z < 0)
-        {
-            start._z = 0;
-        }
+            iaVector3I start(center);
+            start._x -= _voxelBlockScanDistance;
+            start._y -= _voxelBlockScanDistance;
+            start._z -= _voxelBlockScanDistance;
 
-        for (int64 voxelBlockX = start._x; voxelBlockX < stop._x; ++voxelBlockX)
-        {
-            for (int64 voxelBlockY = start._y; voxelBlockY < stop._y; ++voxelBlockY)
+            iaVector3I stop(center);
+            stop._x += _voxelBlockScanDistance;
+            stop._y += _voxelBlockScanDistance;
+            stop._z += _voxelBlockScanDistance;
+
+            if (start._x < 0)
             {
-                for (int64 voxelBlockZ = start._z; voxelBlockZ < stop._z; ++voxelBlockZ)
+                start._x = 0;
+            }
+
+            if (start._y < 0)
+            {
+                start._y = 0;
+            }
+
+            if (start._z < 0)
+            {
+                start._z = 0;
+            }
+
+            for (int64 voxelBlockX = start._x; voxelBlockX < stop._x; ++voxelBlockX)
+            {
+                for (int64 voxelBlockY = start._y; voxelBlockY < stop._y; ++voxelBlockY)
                 {
-                    currentVoxelBlock.set(voxelBlockX, voxelBlockY, voxelBlockZ);
-
-                    auto blockIter = _voxelBlocks.find(currentVoxelBlock);
-                    if (blockIter == _voxelBlocks.end())
+                    for (int64 voxelBlockZ = start._z; voxelBlockZ < stop._z; ++voxelBlockZ)
                     {
-                        block = new VoxelBlock();
-                        _voxelBlocks[currentVoxelBlock] = block;
-                    }
-                    else
-                    {
-                        block = _voxelBlocks[currentVoxelBlock];
-                    }
+                        currentVoxelBlock.set(voxelBlockX, voxelBlockY, voxelBlockZ);
 
-                    iaVector3I blockPos(voxelBlockX, voxelBlockY, voxelBlockZ);
-                    blockPos *= _voxelBlockSize;
-
-                    if (block->_voxelData == nullptr)
-                    {
-                        iaVector3I blockCenterPos = blockPos;
-                        blockCenterPos._x += _voxelBlockSize / 2;
-                        blockCenterPos._y += _voxelBlockSize / 2;
-                        blockCenterPos._z += _voxelBlockSize / 2;
-
-                        float32 distance = lodTriggerPos.distance2(blockCenterPos);
-                        if (distance < _voxelBlockCreationDistance)
+                        auto blockIter = _voxelBlocks.find(currentVoxelBlock);
+                        if (blockIter == _voxelBlocks.end())
                         {
-                            block->_voxelData = new iVoxelData();
-                            block->_voxelData->setClearValue(0);
-                            block->_offset = blockPos;
-                            block->_size.set(_voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap);
-
-                            TaskGenerateVoxels* task = new TaskGenerateVoxels(block, static_cast<uint32>(distance * 0.9));
-                            _runningTasks.push_back(task->getID());
-                            iTaskManager::getInstance().addTask(task);
+                            block = new VoxelBlock();
+                            _voxelBlocks[currentVoxelBlock] = block;
                         }
-                    }
-                    else if (block->_generatedVoxels)
-                    {
-                        handleMeshTiles(block->_voxelData, blockPos, lodTrigger, lodTriggerPos);
-
-                        if (!block->_generatedEnemies)
+                        else
                         {
-                            iaVector3I blockMax = blockPos;
-                            blockMax._x += _voxelBlockSize;
-                            blockMax._y += _voxelBlockSize;
-                            blockMax._z += _voxelBlockSize;
-                            _dataGeneratedEvent(blockPos, blockMax);
-                            block->_generatedEnemies = true;
+                            block = _voxelBlocks[currentVoxelBlock];
+                        }
+
+                        iaVector3I blockPos(voxelBlockX, voxelBlockY, voxelBlockZ);
+                        blockPos *= _voxelBlockSize;
+
+                        if (block->_voxelData == nullptr)
+                        {
+                            iaVector3I blockCenterPos = blockPos;
+                            blockCenterPos._x += _voxelBlockSize / 2;
+                            blockCenterPos._y += _voxelBlockSize / 2;
+                            blockCenterPos._z += _voxelBlockSize / 2;
+
+                            float32 distance = lodTriggerPos.distance2(blockCenterPos);
+                            if (distance < _voxelBlockCreationDistance)
+                            {
+                                block->_voxelData = new iVoxelData();
+                                block->_voxelData->setClearValue(0);
+                                block->_offset = blockPos;
+                                block->_size.set(_voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap);
+
+                                TaskGenerateVoxels* task = new TaskGenerateVoxels(block, static_cast<uint32>(distance * 0.9));
+                                _runningTasks.push_back(task->getID());
+                                iTaskManager::getInstance().addTask(task);
+                            }
+                        }
+                        else if (block->_generatedVoxels)
+                        {
+                            handleMeshTiles(block->_voxelData, blockPos, lodTrigger, lodTriggerPos);
+
+                            if (!block->_generatedEnemies)
+                            {
+                                iaVector3I blockMax = blockPos;
+                                blockMax._x += _voxelBlockSize;
+                                blockMax._y += _voxelBlockSize;
+                                blockMax._z += _voxelBlockSize;
+                                _dataGeneratedEvent(blockPos, blockMax);
+                                block->_generatedEnemies = true;
+                            }
                         }
                     }
                 }

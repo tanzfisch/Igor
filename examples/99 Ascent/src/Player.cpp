@@ -38,17 +38,24 @@ iaString Player::TYPE_NAME("Player");
 Player::Player()
     : GameObject(GameObjectKind::Vehicle)
 {
-    setFraction(Fraction::Green);
+    
+}
+
+void Player::setLODTrigger(uint32 lodTriggerNodeID)
+{
+    _lodTriggerID = lodTriggerNodeID;
 }
 
 void Player::init()
 {
+    setFraction(Fraction::Green);
     setHealth(200.0);
     setShield(300.0);
     setDamage(1.0);
     setShieldDamage(1.0);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformNode->translate(_sphere._center);
     _transformNodeID = transformNode->getID();
 
     iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -56,8 +63,6 @@ void Player::init()
 
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
     _cameraNodeID = camera->getID();
-    iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
-    _lodTriggerID = lodTrigger->getID();
 
     iaMatrixd offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
@@ -121,7 +126,7 @@ void Player::init()
     transformCam->insertNode(camera);
     transformNode->insertNode(transformCam);
     transformNode->insertNode(physicsNode);
-    camera->insertNode(lodTrigger);
+    camera->insertNode(iNodeFactory::getInstance().getNode(_lodTriggerID));
     GameObject::GameObject::_scene->getRoot()->insertNode(transformNode);
 
     camera->makeCurrent();
@@ -357,13 +362,10 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
     }
 }
 
-uint32 Player::getLODTriggerID()
-{
-    return _lodTriggerID;
-}
-
 void Player::setPosition(const iaVector3d& position)
 {
+    iEntity::setPosition(position);
+
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
@@ -371,8 +373,6 @@ void Player::setPosition(const iaVector3d& position)
         transformNode->getMatrix(matrix);
         matrix._pos = position;
         transformNode->setMatrix(matrix);
-
-        updatePosition();
     }
 }
 

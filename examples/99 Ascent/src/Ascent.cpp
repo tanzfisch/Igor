@@ -238,6 +238,10 @@ void Ascent::initPlayer()
     player->setPosition(iaVector3d(10000, 9400, 10000));
     _playerID = player->getID();
 
+    iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
+    _lodTriggerID = lodTrigger->getID();
+    player->setLODTrigger(_lodTriggerID);
+
     /*iaMatrixd enemyMatrix;
     enemyMatrix._pos.set(10000, 9400, 10000 - 200);
     BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
@@ -709,11 +713,7 @@ void Ascent::onWindowResized(int32 clientWidth, int32 clientHeight)
 void Ascent::initVoxelData()
 {
     VoxelTerrainGenerator::getInstance().setScene(_scene);
-    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
-    if (player != nullptr)
-    {
-        VoxelTerrainGenerator::getInstance().setLODTrigger(player->getLODTriggerID());
-    }
+    VoxelTerrainGenerator::getInstance().setLODTrigger(_lodTriggerID);
     VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
 }
 
@@ -745,6 +745,7 @@ void Ascent::onHandle()
             _activeControls = true;
             _mouseDelta.set(0, 0);
             _view.setVisible(true);
+            iEntityManager::getInstance().start();
         }
     }
     else
@@ -783,8 +784,6 @@ void Ascent::onHandle()
                 gameObject->hitBy(hit.second);
             }
         }
-
-        iEntityManager::getInstance().handle();
     }
 
     handleMouse();
