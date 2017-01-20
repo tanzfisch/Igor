@@ -119,6 +119,15 @@ namespace Igor
         MirrorRepeat
     };
 
+    /*! cache mode for resources
+    */
+    enum class iResourceCacheMode
+    {
+        Free = 0,       //! free immidiatly after not in use
+        Cache = 1,      //! free when cache is flushed
+        Keep = 2        //! keep until corresponding resource manager was destroyed
+    };
+
 };
 
 #endif

@@ -7,10 +7,11 @@
 namespace Igor
 {
 
-	iTexture::iTexture(iaString name, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+	iTexture::iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
 		: _filename(name)
 		, _buildMode(buildMode)
         , _wrapMode(wrapMode)
+        , _cacheMode(cacheMode)
 	{
 	}
 
@@ -48,12 +49,17 @@ namespace Igor
 		return _colorFormat;
 	}
 
-    iTextureWrapMode iTexture::getTextureWrapMode() const
+    iResourceCacheMode iTexture::getCacheMode() const
+    {
+        return _cacheMode;
+    }
+
+    iTextureWrapMode iTexture::getWrapMode() const
     {
         return _wrapMode;
     }
 
-	iTextureBuildMode iTexture::getTextureBuildMode() const
+	iTextureBuildMode iTexture::getBuildMode() const
 	{
 		return _buildMode;
 	}

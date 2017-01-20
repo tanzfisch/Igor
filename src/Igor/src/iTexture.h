@@ -72,13 +72,17 @@ namespace Igor
         */
         iColorFormat getColorFormat();
 
-        /*! returns the texture build mode
+        /*! \returns cache mode
         */
-        iTextureBuildMode getTextureBuildMode() const;
+        iResourceCacheMode getCacheMode() const;
+
+        /*! \returns the texture build mode
+        */
+        iTextureBuildMode getBuildMode() const;
 
         /*! \returns texture wrap mode
         */
-        iTextureWrapMode getTextureWrapMode() const;
+        iTextureWrapMode getWrapMode() const;
 
         /*! returns the filename
         */
@@ -94,19 +98,21 @@ namespace Igor
 		*/
 		bool _dummy = true;
 
-		/*! the file name
-
-		contains "dummy" if it is a dummy texture
+		/*! the file name. initialized in ctor
 		*/
 		iaString _filename;
 
-		/*! build mode
-		*/
-		iTextureBuildMode _buildMode = iTextureBuildMode::Mipmapped;
-
-        /*! wrap mode
+        /*! cache mode. initialized in ctor
         */
-        iTextureWrapMode _wrapMode = iTextureWrapMode::Repeat;
+        iResourceCacheMode _cacheMode;
+
+		/*! build mode. initialized in ctor
+		*/
+		iTextureBuildMode _buildMode;
+
+        /*! wrap mode. initialized in ctor
+        */
+        iTextureWrapMode _wrapMode;
 
 		/*! the width
 		*/
@@ -132,7 +138,7 @@ namespace Igor
 
 		initializes member variables
 		*/
-		iTexture(iaString name, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
+		iTexture(iaString name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
 
         /*! dtor
 

@@ -18,7 +18,7 @@ namespace Igor
         valid = false;
 
         font_file = iResourceManager::getInstance().getPath(font_file);
-        _texture = iTextureResourceFactory::getInstance().loadFile(font_file, iTextureBuildMode::Normal);
+        _texture = iTextureResourceFactory::getInstance().loadFile(font_file, iResourceCacheMode::Free, iTextureBuildMode::Normal);
 
         if (_texture->isValid())
         {
@@ -127,9 +127,11 @@ namespace Igor
                 {
                 case iFontType::Standard:
                     break;
+
                 case iFontType::FixedWidth:
                     makeFixedWidth();
                     break;
+
                 case iFontType::FixedDigitWidth:
                     makeFixedDigitWidth();
                     break;

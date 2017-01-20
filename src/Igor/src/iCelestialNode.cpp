@@ -22,7 +22,7 @@ namespace Igor
 
 	void iCelestialNode::setTexture(iaString textureFileName)
 	{
-		texture = iTextureResourceFactory::getInstance().loadFile(textureFileName, iTextureBuildMode::Normal);
+		texture = iTextureResourceFactory::getInstance().loadFile(textureFileName, iResourceCacheMode::Free, iTextureBuildMode::Normal);
 		iaString name = L"iCelestialNode: ";
 		name += textureFileName;
 		setName(name);

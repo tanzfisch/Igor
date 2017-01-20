@@ -68,7 +68,7 @@ namespace Igor
         \param wrapMode wrap mode of texture
         \returns shared pointer to texture
         */
-        shared_ptr<iTexture> requestFile(const iaString& filename, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        shared_ptr<iTexture> requestFile(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! load texture synchronously
 
@@ -76,15 +76,17 @@ namespace Igor
         \param mode default ist mipmapped
         \returns shared pointer to texture
         */
-        shared_ptr<iTexture> loadFile(const iaString& filename, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        shared_ptr<iTexture> loadFile(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! works like a garbage collector.
 
         Interrates through all textures and checks how many references every texture has. If reference count
         goes down to 1 then the texture will be released. If reference count is greater 1 and the texture was
         not loaded yet. The texture will be loaded.
+
+        \param cacheModeLevel
         */
-        void flush();
+        void flush(iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
 
         /*! if a flush in a different thread is currently running. this will prevent loading new data from disk and in consequence make it stop earlier
         */
@@ -96,7 +98,7 @@ namespace Igor
         \param pixmapname artificial filename used as identifier (has to be a uNiQue)
         \param mode default ist mipmapped
         */
-        shared_ptr<iTexture> loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        shared_ptr<iTexture> loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! synchronously loading a texture and returning a iPixmap
 
@@ -146,7 +148,7 @@ namespace Igor
         \param name the file name or just virtual name of the texture
         \param mode the build mode of the texture
         */
-        int64 calcHashValue(const iaString& name, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        int64 calcHashValue(const iaString& name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode);
 
         /*! initialisation of members 3rd party lib
         */
