@@ -45,7 +45,6 @@ namespace Igor
 
     class iEntity;
     class iOctree;
-    class iScene;
 
     __IGOR_FUNCTION_POINTER__(iCreateEntityInstance, __IGOR_DEFAULTCALL__, iEntity*, ());
 
@@ -60,10 +59,17 @@ namespace Igor
 
         /*! creates and returns an entity of defined type
 
-        \param entityType entity type
+        \param entityType entity type name
         \returns new entity
         */
-        iEntity* createEntity(const iaString& entityType);
+        iEntity* createEntity(const iaString& entityTypeName);
+
+        /*! creates and returns an entity of defined type
+
+        \param entityTypeID entity type id
+        \returns new entity
+        */
+        iEntity* createEntity(uint64 entityTypeID);
 
         /*! \returns entity by ID. nullptr if entity does not exist
 
@@ -82,13 +88,19 @@ namespace Igor
         \param entityType entity type identifier
         \param functionPointer function pointer to create an instance of that entity type
         */
-        void registerEntityType(const iaString& entityType, iCreateEntityInstance functionPointer);
+        uint64 registerEntityType(const iaString& entityTypeName, iCreateEntityInstance functionPointer);
 
         /*! unregisters enetity type
 
-        \param entityType entity type identifier
+        \param entityType entity type name
         */
-        void unregisterEntityType(const iaString& entityType);
+        void unregisterEntityType(const iaString& entityTypeName);
+
+        /*! unregister entity type by id
+
+        \param entityTypeID entity type id
+        */
+        void unregisterEntityType(uint64 entityTypeID);
 
         /*! returns entitties that are located in specified volume
 

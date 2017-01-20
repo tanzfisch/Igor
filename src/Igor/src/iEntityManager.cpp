@@ -26,11 +26,36 @@ namespace Igor
 
     }
 
-    iEntity* iEntityManager::createEntity(const iaString& entityType)
+    iEntity* iEntityManager::createEntity(uint64 entityTypeID)
     {
         iEntity* result;
 
-        int64 hashValue = calcHashValue(entityType);
+        auto iter = _types.find(entityTypeID);
+        if (iter != _types.end())
+        {
+            result = (*iter).second();
+            _mutexEntities.lock();
+            _entities[result->getID()] = result;
+            _mutexEntities.unlock();
+        }
+        else
+        {
+            con_err("type id " << hex << entityTypeID << " not registered");
+        }
+
+        _mutexOctree.lock();
+        _octree->insert(result->getID(), result->getSphere());
+        _mutexOctree.unlock();
+
+        return result;
+    }
+
+
+    iEntity* iEntityManager::createEntity(const iaString& entityTypeName)
+    {
+        iEntity* result;
+
+        int64 hashValue = calcHashValue(entityTypeName);
 
         auto iter = _types.find(hashValue);
         if (iter != _types.end())
@@ -42,7 +67,7 @@ namespace Igor
         }
         else
         {
-            con_err("type " << entityType << " not registered");
+            con_err("type " << entityTypeName << " not registered");
         }
 
         _mutexOctree.lock();
@@ -128,9 +153,9 @@ namespace Igor
         }
     }
     
-    void iEntityManager::registerEntityType(const iaString& entityType, iCreateEntityInstance functionPointer)
+    uint64 iEntityManager::registerEntityType(const iaString& entityTypeName, iCreateEntityInstance functionPointer)
     {
-        uint64 hashValue = calcHashValue(entityType);
+        uint64 hashValue = calcHashValue(entityTypeName);
 
         auto generatorIter = _types.find(hashValue);
         if (generatorIter == _types.end())
@@ -139,8 +164,10 @@ namespace Igor
         }
         else
         {
-            con_err("entity type " << entityType << " already registered");
+            con_err("entity type " << entityTypeName << " already registered");
         }
+
+        return hashValue;
     }
 
     /*! /todo shity workaround because my iaString class does not work as key for std::map yet
@@ -152,9 +179,9 @@ namespace Igor
         return static_cast<uint64>(hashFunc(keyValue));
     }
 
-    void iEntityManager::unregisterEntityType(const iaString& entityType)
+    void iEntityManager::unregisterEntityType(const iaString& entityTypeName)
     {
-        int64 hashValue = calcHashValue(entityType);
+        int64 hashValue = calcHashValue(entityTypeName);
 
         auto generatorIter = _types.find(hashValue);
         if (generatorIter != _types.end())
@@ -163,7 +190,20 @@ namespace Igor
         }
         else
         {
-            con_err("entity tape " << entityType << " was not registered");
+            con_err("entity tape " << entityTypeName << " was not registered");
+        }
+    }
+
+    void iEntityManager::unregisterEntityType(uint64 entityTypeID)
+    {
+        auto generatorIter = _types.find(entityTypeID);
+        if (generatorIter != _types.end())
+        {
+            _types.erase(generatorIter);
+        }
+        else
+        {
+            con_err("entity tape " << hex << entityTypeID << " was not registered");
         }
     }
 
