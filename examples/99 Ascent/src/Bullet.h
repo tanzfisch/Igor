@@ -23,8 +23,6 @@ public:
 
     void setForce(const iaVector3d& force);
 
-    void setMatrix(const iaMatrixd& matrix);
-
 private:
 
     /*! emitter node id

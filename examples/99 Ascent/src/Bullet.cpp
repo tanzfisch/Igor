@@ -35,12 +35,6 @@ void Bullet::setForce(const iaVector3d& force)
     _force = force;
 }
 
-void Bullet::setMatrix(const iaMatrixd& matrix)
-{
-    _matrix = matrix;
-    setPosition(_matrix._pos);
-}
-
 void Bullet::init()
 {
 	setHealth(100.0);
