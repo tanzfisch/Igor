@@ -116,7 +116,7 @@ namespace Igor
 
     iEntity* iEntityManager::getEntity(uint64 id)
     {
-        iEntity* result;
+        iEntity* result = nullptr;
 
         _mutexEntities.lock();
         auto iter = _entities.find(id);
