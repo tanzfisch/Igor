@@ -25,6 +25,10 @@ public:
 
 private:
 
+    /*! emitter node id
+    */
+    uint32 _emitterNodeID = iNode::INVALID_NODE_ID;
+
     Fraction _parentFraction = Fraction::None;
     uint32 _transformNodeID = 0;
 	uint32 _particleSystemNodeID = 0;
@@ -36,10 +40,14 @@ private:
     void deinit();
 
     void handle();
+
     iaVector3d updatePos();
+
     void hitBy(uint64 entityID);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);
+
+    void onEffectLoaded();
 
     static Entity* createInstance();
 

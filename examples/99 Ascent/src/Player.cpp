@@ -142,7 +142,6 @@ void Player::deinit()
     con_endl("player dead");
 }
 
-
 Entity* Player::createInstance()
 {
     return new Player();

@@ -161,6 +161,14 @@ void EntityManager::getEntities(const iSphered& sphere, vector<uint64>& result)
     _mutexOctree.unlock();
 }
 
+void EntityManager::getEntities(vector<uint64>& result)
+{
+    for (auto entity : _entities)
+    {
+        result.push_back(entity.first);
+    }
+}
+
 void EntityManager::handle()
 {
     vector<uint64> toDelete;

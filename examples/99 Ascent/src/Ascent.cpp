@@ -40,8 +40,10 @@ using namespace IgorAux;
 #include <iPhysicsMaterialCombo.h>
 using namespace Igor;
 
+#include "Turret.h"
 #include "Bullet.h"
 #include "Player.h"
+#include "BossEnemy.h"
 #include "MuzzleFlash.h"
 
 #include "EntityManager.h"
@@ -242,10 +244,10 @@ void Ascent::initPlayer()
     _lodTriggerID = lodTrigger->getID();
     player->setLODTrigger(_lodTriggerID);
 
-    /*iaMatrixd enemyMatrix;
-    enemyMatrix._pos.set(10000, 9400, 10000 - 200);
-    BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
-    _bossID = boss->getID();*/
+    BossEnemy* bossEnemy = static_cast<BossEnemy*>(EntityManager::getInstance().createEntity("BossEnemy"));
+    bossEnemy->setPosition(player->getPosition() + iaVector3d(0, 0, -10));
+    bossEnemy->setTargetID(_playerID);
+    _bossID = bossEnemy->getID();
 }
 
 void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
@@ -421,8 +423,10 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 void Ascent::registerEntityTypes()
 {
     EntityManager::getInstance().registerEntityType("Player", &Player::createInstance);
+    EntityManager::getInstance().registerEntityType("BossEnemy", &BossEnemy::createInstance);
     EntityManager::getInstance().registerEntityType("MuzzleFlash", &MuzzleFlash::createInstance);
     EntityManager::getInstance().registerEntityType("Bullet", &Bullet::createInstance);
+    EntityManager::getInstance().registerEntityType("Turret", &Turret::createInstance);
 }
 
 void Ascent::unregisterEntityTypes()
@@ -750,7 +754,7 @@ void Ascent::onHandle()
     }
     else
     {
-   /*     BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             vector<uint64> ids;
@@ -760,16 +764,15 @@ void Ascent::onHandle()
             {
                 if (_playerID != id)
                 {
-                    Entity* entity = EntityManager::getInstance().getEntity(id);
-                    if (entity != nullptr &&
-                        entity->getType() == EntityType::Vehicle)
+                    GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id));
+                    if (gameObject != nullptr &&
+                        gameObject->getKind() == GameObjectKind::Vehicle)
                     {
-                        EntityManager::getInstance().getEntity(id)->kill();
+                        gameObject->kill();
                     }
                 }
             }
         }
-        */
 
         _hitListMutex.lock();
         vector<pair<uint64, uint64>> hitList = _hitList;

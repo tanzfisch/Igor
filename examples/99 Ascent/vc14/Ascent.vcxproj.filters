@@ -45,6 +45,12 @@
     <ClCompile Include="..\src\EntityManager.cpp">
       <Filter>src\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Turret.cpp">
+      <Filter>src\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BossEnemy.cpp">
+      <Filter>src\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -75,6 +81,12 @@
       <Filter>src\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EntityManager.h">
+      <Filter>src\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Turret.h">
+      <Filter>src\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BossEnemy.h">
       <Filter>src\Entities</Filter>
     </ClInclude>
   </ItemGroup>

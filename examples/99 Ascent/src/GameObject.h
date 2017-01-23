@@ -100,6 +100,10 @@ protected:
     */
     static iScene* _scene;
 
+    /*! called when hit by an other entity
+
+    \param entityId the id of the entity that was colliding with this entity
+    */
     virtual void hitBy(uint64 entityID) = 0;
 
     /*! initialize entity

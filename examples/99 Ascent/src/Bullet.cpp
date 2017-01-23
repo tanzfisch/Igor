@@ -46,7 +46,7 @@ void Bullet::init()
     transformNode->translate(_sphere._center);
 	_transformNodeID = transformNode->getID();
 
-	iaGradientColor4f colorGradient;
+/*	iaGradientColor4f colorGradient;
 	colorGradient.setValue(0.0, iaColor4f(0.0, 1.0, 1.0, 1));
 	colorGradient.setValue(0.5, iaColor4f(0.0, 0.4, 1.0, 0.7));
 	colorGradient.setValue(1.0, iaColor4f(0.0, 0.0, 0.0, 0));
@@ -74,12 +74,12 @@ void Bullet::init()
 	particleSystem->setStartSizeGradient(size);
 	particleSystem->setEmissionGradient(emission);
 	particleSystem->setAirDrag(0.0);
-	particleSystem->start();
+	particleSystem->start();*/
 
 	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    _emitterNodeID = emitter->getID();
 	emitter->setType(iEmitterType::Disc);
 	emitter->setSize(0.0);
-	particleSystem->setEmitter(emitter->getID());
 
 	iNodeTransform* emitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	emitterTransform->rotate(-0.5 * M_PI, iaAxis::X);
@@ -93,12 +93,27 @@ void Bullet::init()
 	physicsNode->setMaterial(iPhysics::getInstance().getMaterialID("bullet"));
 	physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
+
+    iNodeModel* particleSystem = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    _particleSystemNodeID = particleSystem->getID();
+    particleSystem->setModel("BulletBlue.ompf");
+    particleSystem->registerModelLoadedDelegate(iModelLoadedDelegate(this, &Bullet::onEffectLoaded));
+    GameObject::_scene->getRoot()->insertNode(particleSystem);
+
     transformNode->insertNode(emitterTransform);
     emitterTransform->insertNode(emitter);
     transformNode->insertNode(physicsNode);
 
 	_scene->getRoot()->insertNodeAsync(particleSystem);
 	_scene->getRoot()->insertNodeAsync(transformNode);
+}
+
+void Bullet::onEffectLoaded()
+{
+    iNodeModel* muzzleFlashNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_particleSystemNodeID));
+    iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(muzzleFlashNode->getChild("Effect"));
+    particleSystem->setEmitter(_emitterNodeID);
+    particleSystem->start();
 }
 
 void Bullet::deinit()

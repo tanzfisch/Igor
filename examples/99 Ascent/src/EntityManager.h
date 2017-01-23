@@ -107,6 +107,12 @@ public:
     */
     void getEntities(const iSphered& sphere, vector<uint64>& result);
 
+    /*! returns all entities
+
+    \param[out] result list of all entities
+    */
+    void getEntities(vector<uint64>& result);
+
     /*! starts / continues entity manager to run
     */
     void start();
