@@ -351,22 +351,34 @@ namespace Igor
             con_assert(material != nullptr, "zero pointer");
             con_assert(materialGroup != nullptr, "zero pointer");
 
-            _materialMapping[materialChunk->getID()] = materialID;
-            materialGroup->setOrder(materialChunk->getOrder());
-
-            uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
-            for (uint32 i = 0; i < shaderObjectCount; ++i)
+            if (material != nullptr &&
+                materialGroup != nullptr)
             {
-                material->addShaderSource(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
+                _materialMapping[materialChunk->getID()] = materialID;
+                materialGroup->setOrder(materialChunk->getOrder());
+
+                uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
+                for (uint32 i = 0; i < shaderObjectCount; ++i)
+                {
+                    material->addShaderSource(materialChunk->getShaderFilename(i), static_cast<iShaderObjectType>(materialChunk->getShaderType(i)));
+                }
+
+                material->compileShader();
+
+                for (int i = 0; i < 19; ++i) // TODO magic number
+                {
+                    OMPF::OMPFRenderStateValue value = materialChunk->getRenderStateValue(static_cast<OMPF::OMPFRenderState>(i));
+                    material->getRenderStateSet().setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
+                }
             }
-
-            material->compileShader();
-
-            for (int i = 0; i < 19; ++i) // TODO magic number
+            else
             {
-                OMPF::OMPFRenderStateValue value = materialChunk->getRenderStateValue(static_cast<OMPF::OMPFRenderState>(i));
-                material->getRenderStateSet().setRenderState(static_cast<iRenderState>(i), static_cast<iRenderStateValue>(value));
+                con_err("material not found");
             }
+        }
+        else
+        {
+            con_err("zero pointer");
         }
     }
 
@@ -375,14 +387,22 @@ namespace Igor
         con_assert(node != nullptr, "zero pointer");
         con_assert(!filename.isEmpty(), "empty string");
 
-        _saveMode = saveMode;
-        _filename = filename;
+        if (node != nullptr &&
+            !filename.isEmpty())
+        {
+            _saveMode = saveMode;
+            _filename = filename;
 
-        traverseTree(node);
+            traverseTree(node);
 
-        linkChunks(_ompf->getRoot()->getChildren()[0]);
+            linkChunks(_ompf->getRoot()->getChildren()[0]);
 
-        _ompf->saveFile(filename);
+            _ompf->saveFile(filename);
+        }
+        else
+        {
+            con_err("invalid parameter");
+        }
     }
 
     void iModelDataIOOMPF::linkChunks(OMPF::ompfBaseChunk* currentChunk)
