@@ -199,7 +199,7 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
     {
         if (body0->getUserData() != nullptr)
         {
-            uint64 id0 = static_cast<uint64>(*static_cast<const uint64*>(body0->getUserData()));
+            uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
             _hitListMutex.lock();
             _hitList.push_back(pair<uint64, uint64>(id0, 0));
             _hitListMutex.unlock();
@@ -207,7 +207,7 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         }
         else if (body1->getUserData() != nullptr)
         {
-            uint64 id1 = static_cast<uint64>(*static_cast<const uint64*>(body1->getUserData()));
+            uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
             _hitListMutex.lock();
             _hitList.push_back(pair<uint64, uint64>(id1, 0));
             _hitListMutex.unlock();
