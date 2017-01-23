@@ -35,6 +35,12 @@ void Bullet::setForce(const iaVector3d& force)
     _force = force;
 }
 
+void Bullet::setMatrix(const iaMatrixd& matrix)
+{
+    _matrix = matrix;
+    setPosition(_matrix._pos);
+}
+
 void Bullet::init()
 {
 	setHealth(100.0);
@@ -45,36 +51,6 @@ void Bullet::init()
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->translate(_sphere._center);
 	_transformNodeID = transformNode->getID();
-
-/*	iaGradientColor4f colorGradient;
-	colorGradient.setValue(0.0, iaColor4f(0.0, 1.0, 1.0, 1));
-	colorGradient.setValue(0.5, iaColor4f(0.0, 0.4, 1.0, 0.7));
-	colorGradient.setValue(1.0, iaColor4f(0.0, 0.0, 0.0, 0));
-
-	iaGradientVector2f velocity;
-	velocity.setValue(0.0, iaVector2f(0.0, 1.0));
-
-	iaGradientVector2f visibility;
-	visibility.setValue(0.0, iaVector2f(0.1, 0.2));
-
-	iaGradientVector2f size;
-	size.setValue(0.0, iaVector2f(0.1, 0.2));
-
-	iaGradientf emission;
-	emission.setValue(0.0, 2);
-
-	iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-	_particleSystemNodeID = particleSystem->getID();
-	particleSystem->setLoop(true);
-	particleSystem->setMaterial(iMaterialResourceFactory::getInstance().getMaterialID("PMat"));
-	particleSystem->setTextureA("particleDot.png");
-	particleSystem->setColorGradient(colorGradient);
-	particleSystem->setStartVelocityGradient(velocity);
-	particleSystem->setStartVisibleTimeGradient(visibility);
-	particleSystem->setStartSizeGradient(size);
-	particleSystem->setEmissionGradient(emission);
-	particleSystem->setAirDrag(0.0);
-	particleSystem->start();*/
 
 	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     _emitterNodeID = emitter->getID();
@@ -152,21 +128,16 @@ void Bullet::hitBy(uint64 entityID)
 	}
 }
 
-iaVector3d Bullet::updatePos()
-{
-	iaVector3d result;
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-	if (transformNode != nullptr)
-	{
-		iaMatrixd matrix;
-		transformNode->getMatrix(matrix);
-		result = matrix._pos;
-	}
-	return result;
-}
-
 void Bullet::handle()
 {
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    if (transformNode != nullptr)
+    {
+        iaMatrixd matrix;
+        transformNode->getMatrix(matrix);
+        _sphere._center = matrix._pos;
+    }
+
     float32 health = getHealth() - 1;
     if (health < 0.0)
     {
@@ -174,7 +145,6 @@ void Bullet::handle()
         kill();
     }
 	setHealth(health);
-
 
 	float32 damage = getDamage() - 0.1;
 	if (damage < 0.0)

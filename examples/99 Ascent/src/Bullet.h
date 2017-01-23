@@ -23,6 +23,8 @@ public:
 
     void setForce(const iaVector3d& force);
 
+    void setMatrix(const iaMatrixd& matrix);
+
 private:
 
     /*! emitter node id
@@ -35,13 +37,13 @@ private:
 
     iaVector3d _force;
 
+    iaMatrixd _matrix;
+
     void init();
 
     void deinit();
 
     void handle();
-
-    iaVector3d updatePos();
 
     void hitBy(uint64 entityID);
 

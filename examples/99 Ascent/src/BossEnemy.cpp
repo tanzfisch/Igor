@@ -262,21 +262,14 @@ void BossEnemy::hitBy(uint64 entityID)
     }
 }
 
-/*iaVector3d BossEnemy::updatePos()
+void BossEnemy::handle()
 {
-    iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
         transformNode->getMatrix(matrix);
-        result = matrix._pos;
+        _sphere._center = matrix._pos;
     }
-    return result;
-}*/
-
-void BossEnemy::handle()
-{
-    // nothing to do
 }
 

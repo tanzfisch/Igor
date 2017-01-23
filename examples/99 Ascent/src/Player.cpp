@@ -328,12 +328,12 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             Bullet* bullet = static_cast<Bullet*>(EntityManager::getInstance().createEntity("Bullet"));
             bullet->setFraction(getFraction());
             bullet->setForce(bulletForce);
-            bullet->setPosition(offsetLeft._pos);
+            bullet->setMatrix(offsetLeft);
 
             bullet = static_cast<Bullet*>(EntityManager::getInstance().createEntity("Bullet"));
             bullet->setFraction(getFraction());
             bullet->setForce(bulletForce);
-            bullet->setPosition(offsetRight._pos);
+            bullet->setMatrix(offsetRight);
 
             MuzzleFlash* muzzleFlash = static_cast<MuzzleFlash*>(EntityManager::getInstance().createEntity("MuzzleFlash"));
             muzzleFlash->setEmitterNode(_emitterLeftGunNodeID);
