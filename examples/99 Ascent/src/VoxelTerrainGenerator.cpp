@@ -64,11 +64,9 @@ void VoxelTerrainGenerator::deinit()
 {
     con_endl("shutdown VoxelTerrainGenerator ...");
 
-    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
-
     iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &VoxelTerrainGenerator::onHandle));
 
-    con_endl("waiting for some tasks ...");
+    con_endl("waiting for " << _runningTasks.size() << " tasks ...");
     while (_runningTasks.size() > 0)
     {
         _sleep(1000);
@@ -105,6 +103,8 @@ void VoxelTerrainGenerator::deinit()
             iNodeFactory::getInstance().destroyNodeAsync(id);
         }
     }
+
+    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
 
     con_endl("... done");
 }
