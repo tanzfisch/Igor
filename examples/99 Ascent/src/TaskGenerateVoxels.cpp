@@ -12,10 +12,10 @@ using namespace Igor;
 #include <iaConsole.h>
 using namespace IgorAux;
 
-int32 TaskGenerateVoxels::_seed = 0;
 vector<iSpheref> TaskGenerateVoxels::_metaballs;
 vector<iSpheref> TaskGenerateVoxels::_holes;
 mutex TaskGenerateVoxels::_initMutex;
+bool TaskGenerateVoxels::_initialized = false;
 
 TaskGenerateVoxels::TaskGenerateVoxels(VoxelBlock* voxelBlock, uint32 priority)
 	: iTask(nullptr, priority, false, iTaskContext::Default)
@@ -34,10 +34,12 @@ __IGOR_INLINE__ float64 metaballFunction(iaVector3f metaballPos, iaVector3f chec
 void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
 {
     _initMutex.lock();
-    if (_seed == 0)
+    if (!_initialized)
     {
-        int32 seed = iTimer::getInstance().getTime();
-        srand(seed);
+        //_metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 1.5));
+
+        
+        srand(static_cast<uint64>(iTimer::getInstance().getTime()));
 
         // covering the boss
         _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x + 30, playerStartPos._y, playerStartPos._z - 200), 1.5));
@@ -79,7 +81,7 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
             _holes.push_back(iSpheref(pos, ((rand() % 60 + 40) / 100.0) * 0.5));
         }
         
-        _seed = seed;
+        _initialized = true;
     }
     _initMutex.unlock();
 }

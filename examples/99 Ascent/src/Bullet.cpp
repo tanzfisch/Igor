@@ -12,11 +12,12 @@
 #include <iNodeEmitter.h>
 #include <iNodeParticleSystem.h>
 #include <iMaterialResourceFactory.h>
-#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 using namespace IgorAux;
+
+#include "EntityManager.h"
 
 Bullet::Bullet()
     : GameObject(GameObjectKind::Weapon)
@@ -24,9 +25,9 @@ Bullet::Bullet()
 
 }
 
-iEntity* Bullet::createInstance()
+Entity* Bullet::createInstance()
 {
-    return static_cast<iEntity*>(new Bullet());
+    return static_cast<Entity*>(new Bullet());
 }
 
 void Bullet::setForce(const iaVector3d& force)
@@ -109,7 +110,7 @@ void Bullet::deinit()
 void Bullet::hitBy(uint64 entityID)
 {
 	bool killit = false;
-    GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+    GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(entityID));
 	if (gameObject != nullptr)
 	{
 		if (gameObject->getFraction() != getFraction())
@@ -151,7 +152,15 @@ iaVector3d Bullet::updatePos()
 
 void Bullet::handle()
 {
-	setHealth(getHealth() - 1);
+    float32 health = getHealth() - 1;
+    if (health < 0.0)
+    {
+        health = 0;
+        kill();
+    }
+	setHealth(health);
+
+
 	float32 damage = getDamage() - 0.1;
 	if (damage < 0.0)
 	{

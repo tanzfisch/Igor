@@ -39,6 +39,12 @@
     <ClCompile Include="..\src\MuzzleFlash.cpp">
       <Filter>src\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Entity.cpp">
+      <Filter>src\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EntityManager.cpp">
+      <Filter>src\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -63,6 +69,12 @@
       <Filter>src\Entities</Filter>
     </ClInclude>
     <ClInclude Include="..\src\MuzzleFlash.h">
+      <Filter>src\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity.h">
+      <Filter>src\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EntityManager.h">
       <Filter>src\Entities</Filter>
     </ClInclude>
   </ItemGroup>

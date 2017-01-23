@@ -1,7 +1,7 @@
 #ifndef __GAMEOBJECT__
 #define __GAMEOBJECT__
 
-#include <iEntity.h>
+#include "Entity.h"
 #include <iNode.h>
 using namespace Igor;
 
@@ -35,7 +35,7 @@ enum class GameObjectKind
 
 /*! Acent specific game object
 */
-class GameObject : public iEntity
+class GameObject : public Entity
 {
 
     friend class Ascent;

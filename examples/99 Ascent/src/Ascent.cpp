@@ -44,8 +44,8 @@ using namespace Igor;
 #include "Player.h"
 #include "MuzzleFlash.h"
 
-#include <iEntityManager.h>
-#include <iEntity.h>
+#include "EntityManager.h"
+#include "Entity.h"
 
 Ascent::Ascent()
 {
@@ -234,7 +234,7 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
 
 void Ascent::initPlayer()
 {
-    Player* player = static_cast<Player*>(iEntityManager::getInstance().createEntity("Player"));
+    Player* player = static_cast<Player*>(EntityManager::getInstance().createEntity("Player"));
     player->setPosition(iaVector3d(10000, 9400, 10000));
     _playerID = player->getID();
 
@@ -420,9 +420,9 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
 void Ascent::registerEntityTypes()
 {
-    iEntityManager::getInstance().registerEntityType("Player", &Player::createInstance);
-    iEntityManager::getInstance().registerEntityType("MuzzleFlash", &MuzzleFlash::createInstance);
-    iEntityManager::getInstance().registerEntityType("Bullet", &Bullet::createInstance);
+    EntityManager::getInstance().registerEntityType("Player", &Player::createInstance);
+    EntityManager::getInstance().registerEntityType("MuzzleFlash", &MuzzleFlash::createInstance);
+    EntityManager::getInstance().registerEntityType("Bullet", &Bullet::createInstance);
 }
 
 void Ascent::unregisterEntityTypes()
@@ -509,7 +509,7 @@ void Ascent::onKeyPressed(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -589,7 +589,7 @@ void Ascent::onKeyReleased(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -676,7 +676,7 @@ void Ascent::onMouseDown(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -721,7 +721,7 @@ void Ascent::handleMouse()
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             _weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
@@ -745,7 +745,7 @@ void Ascent::onHandle()
             _activeControls = true;
             _mouseDelta.set(0, 0);
             _view.setVisible(true);
-            iEntityManager::getInstance().start();
+            EntityManager::getInstance().start();
         }
     }
     else
@@ -778,7 +778,7 @@ void Ascent::onHandle()
 
         for (auto hit : hitList)
         {
-            GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(hit.first));
+            GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(hit.first));
             if (gameObject != nullptr)
             {
                 gameObject->hitBy(hit.second);
@@ -824,7 +824,7 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
         }*/
 
-        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             /*iaString healthText = iaString::ftoa(player->getHealth(), 0);

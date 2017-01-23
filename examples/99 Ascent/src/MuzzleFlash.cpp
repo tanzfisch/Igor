@@ -26,7 +26,7 @@ MuzzleFlash::MuzzleFlash()
     setFraction(Fraction::None);
 }
 
-iEntity* MuzzleFlash::createInstance()
+Entity* MuzzleFlash::createInstance()
 {
     return new MuzzleFlash();
 }

@@ -63,7 +63,7 @@ private:
     void onMuzzleFlashFinished();
     void onMuzzleSmokeFinished();
 
-    static iEntity* createInstance();
+    static Entity* createInstance();
 
     MuzzleFlash();
 

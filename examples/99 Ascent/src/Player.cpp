@@ -18,7 +18,6 @@
 #include <iMaterialResourceFactory.h>
 #include <iNodeEmitter.h>
 #include <iTimer.h>
-#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -32,6 +31,8 @@ using namespace IgorAux;
 #include "VoxelTerrainGenerator.h"
 //#include "DigEffect.h"
 #include "MuzzleFlash.h"
+
+#include "EntityManager.h"
 
 iaString Player::TYPE_NAME("Player");
 
@@ -142,14 +143,14 @@ void Player::deinit()
 }
 
 
-iEntity* Player::createInstance()
+Entity* Player::createInstance()
 {
     return new Player();
 }
 
 void Player::hitBy(uint64 entityID)
 {
-    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+    GameObject* entity = static_cast<GameObject*>(EntityManager::getInstance().getEntity(entityID));
     if (entity != nullptr &&
         entity->getFraction() != getFraction())
     {
@@ -325,20 +326,20 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
 
             iaVector3d bulletForce = (_force * 0.0005) + (offsetLeft._depth * -0.75);
 
-            Bullet* bullet = static_cast<Bullet*>(iEntityManager::getInstance().createEntity("Bullet"));
+            Bullet* bullet = static_cast<Bullet*>(EntityManager::getInstance().createEntity("Bullet"));
             bullet->setFraction(getFraction());
             bullet->setForce(bulletForce);
             bullet->setPosition(offsetLeft._pos);
 
-            bullet = static_cast<Bullet*>(iEntityManager::getInstance().createEntity("Bullet"));
+            bullet = static_cast<Bullet*>(EntityManager::getInstance().createEntity("Bullet"));
             bullet->setFraction(getFraction());
             bullet->setForce(bulletForce);
             bullet->setPosition(offsetRight._pos);
 
-            MuzzleFlash* muzzleFlash = static_cast<MuzzleFlash*>(iEntityManager::getInstance().createEntity("MuzzleFlash"));
+            MuzzleFlash* muzzleFlash = static_cast<MuzzleFlash*>(EntityManager::getInstance().createEntity("MuzzleFlash"));
             muzzleFlash->setEmitterNode(_emitterLeftGunNodeID);
 
-            muzzleFlash = static_cast<MuzzleFlash*>(iEntityManager::getInstance().createEntity("MuzzleFlash"));
+            muzzleFlash = static_cast<MuzzleFlash*>(EntityManager::getInstance().createEntity("MuzzleFlash"));
             muzzleFlash->setEmitterNode(_emitterRightGunNodeID);
 
             iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformRecoilLeftGun));
@@ -349,11 +350,11 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             {
                 iaMatrixd matrix;
                 transformRecoilLeftGun->getMatrix(matrix);
-                matrix._pos += iaVector3d(0, 0, 0.25);
+                matrix._pos += iaVector3d(0, 0, 0.18);
                 transformRecoilLeftGun->setMatrix(matrix);
 
                 transformRecoilRightGun->getMatrix(matrix);
-                matrix._pos += iaVector3d(0, 0, 0.25);
+                matrix._pos += iaVector3d(0, 0, 0.18);
                 transformRecoilRightGun->setMatrix(matrix);
             }
         }
@@ -364,7 +365,7 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
 
 void Player::setPosition(const iaVector3d& position)
 {
-    iEntity::setPosition(position);
+    Entity::setPosition(position);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
     if (transformNode != nullptr)
@@ -391,7 +392,7 @@ void Player::handle()
 {
     updatePosition();
 
-    float32 speed = 500;
+    float32 speed = 75;
 
     const float32 offsetIncrease = 0.1;
     iaMatrixd matrix;

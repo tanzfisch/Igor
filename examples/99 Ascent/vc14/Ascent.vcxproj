@@ -21,6 +21,8 @@
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp" />
     <ClCompile Include="..\src\Bullet.cpp" />
+    <ClCompile Include="..\src\Entity.cpp" />
+    <ClCompile Include="..\src\EntityManager.cpp" />
     <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\MuzzleFlash.cpp" />
@@ -32,6 +34,8 @@
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h" />
     <ClInclude Include="..\src\Bullet.h" />
+    <ClInclude Include="..\src\Entity.h" />
+    <ClInclude Include="..\src\EntityManager.h" />
     <ClInclude Include="..\src\GameObject.h" />
     <ClInclude Include="..\src\MuzzleFlash.h" />
     <ClInclude Include="..\src\Player.h" />

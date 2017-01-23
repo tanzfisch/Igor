@@ -41,7 +41,7 @@ private:
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);
 
-    static iEntity* createInstance();
+    static Entity* createInstance();
 
     Bullet();
     virtual ~Bullet() = default;
