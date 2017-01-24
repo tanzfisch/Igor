@@ -47,9 +47,7 @@ namespace Igor
     void iApplication::run()
     {
         _running = true;
-
-        _frameSectionID = iStatistics::getInstance().registerSection("app:frame", 0);
-        _handleSectionID = iStatistics::getInstance().registerSection("app:handle", 0);
+        initStatistics();
 
         do
         {
@@ -72,8 +70,19 @@ namespace Igor
             iStatistics::getInstance().endSection(_frameSectionID);
         } while (_running);
 
+        deinitStatistics();
+    }
+
+    void iApplication::deinitStatistics()
+    {
         iStatistics::getInstance().unregisterSection(_frameSectionID);
         iStatistics::getInstance().unregisterSection(_handleSectionID);
+    }
+
+    void iApplication::initStatistics()
+    {
+        _frameSectionID = iStatistics::getInstance().registerSection("app:frame", 0);
+        _handleSectionID = iStatistics::getInstance().registerSection("app:handle", 0);
     }
 
     bool iApplication::isRunning()

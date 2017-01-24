@@ -91,34 +91,24 @@ namespace Igor
 
     void iPhysicsBody::setTransformNodeMatrix(const iaMatrixd& matrix)
     {
-        if (_transformNodeID != iNode::INVALID_NODE_ID)
-        {
-            iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-            con_assert(transformNode != nullptr, "body " << _id << " is not bound to a node");
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        con_assert(transformNode != nullptr, "body " << _id << " is not bound to a node");
 
-            if (transformNode != nullptr)
-            {
-                transformNode->setMatrix(matrix);
-            }
+        if (transformNode != nullptr)
+        {
+            transformNode->setMatrix(matrix);
         }
     }
 
-    iaMatrixd iPhysicsBody::getTransformNodeMatrix() const
+    void iPhysicsBody::getTransformNodeMatrix(iaMatrixd& matrix) const
     {
-        iaMatrixd result;
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+        con_assert(transformNode != nullptr, "body is not bound to a node");
 
-        if (_transformNodeID != iNode::INVALID_NODE_ID)
+        if (transformNode != nullptr)
         {
-            iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
-            con_assert(transformNode != nullptr, "body is not bound to a node");
-
-            if (transformNode != nullptr)
-            {
-                transformNode->getMatrix(result);
-            }
+            transformNode->getMatrix(matrix);
         }
-
-        return result;
     }
 
     void iPhysicsBody::setMatrix(const iaMatrixd& matrix)

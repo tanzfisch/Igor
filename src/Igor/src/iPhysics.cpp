@@ -32,13 +32,22 @@ namespace Igor
 
     float32 iPhysics::_simulationRate = 120.0f;
 
+    /*! callback to allocate memory for newton
+
+    \param sizeInBytes size of data in bytes
+    \returns pointer to new allocated data
+    */
     void* AllocMemory(int sizeInBytes)
     {
         con_assert(sizeInBytes != 0, "can not alloc nothing");
         return malloc(sizeInBytes);
     }
 
-    // this is the callback for freeing Newton Memory
+    /*! this is the callback for freeing Newton Memory
+
+    \param ptr pointer to data
+    \param sizeInBytes size if data in bytes
+    */
     void FreeMemory(void *ptr, int sizeInBytes)
     {
         con_assert(ptr != nullptr, "can not free null pointer");
@@ -46,7 +55,10 @@ namespace Igor
         free(ptr);
     }
 
-    // rigid body destructor
+    /*! callback for physics body destruction
+
+    \param body pointer to body that got destroyed
+    */
     void PhysicsNodeDestructor(const void* body)
     {
         iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
@@ -57,7 +69,12 @@ namespace Igor
         }
     }
 
-    // set the transformation of a rigid body
+    /*! updates the scene graph node transformation
+
+    \param body the body that changed it's position
+    \param matrix the updated matrix from newton
+    \param threadIndex ???
+    */
     void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex)
     {
         iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
@@ -74,6 +91,12 @@ namespace Igor
         }
     }
 
+    /*! redirects all apply force and torque calls to igor physics bodies
+
+    \param body the newton body
+    \param timestep current time
+    \param threadIndex ???
+    */
     void PhysicsApplyForceAndTorque(const void* body, float64 timestep, int threadIndex)
     {
         iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
@@ -94,31 +117,32 @@ namespace Igor
 
     void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex)
     {
-        con_assert(newtonContactJoint != nullptr, "zero pointer")
+        con_assert(newtonContactJoint != nullptr, "zero pointer");
 
-            NewtonBody* body0 = NewtonJointGetBody0(static_cast<const NewtonJoint*>(newtonContactJoint));
+        NewtonBody* body0 = NewtonJointGetBody0(static_cast<const NewtonJoint*>(newtonContactJoint));
         NewtonBody* body1 = NewtonJointGetBody1(static_cast<const NewtonJoint*>(newtonContactJoint));
 
-        con_assert(body0 != nullptr && body1 != nullptr, "zero pointers")
+        con_assert(body0 != nullptr && body1 != nullptr, "zero pointers");
 
-            if (body0 != nullptr && body1 != nullptr)
+        if (body0 != nullptr && body1 != nullptr)
+        {
+            iPhysicsBody* physicsBody0 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body0)));
+            iPhysicsBody* physicsBody1 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body1)));
+
+            con_assert(physicsBody0 != nullptr && physicsBody1 != nullptr, "zero pointers");
+
+            void* contact = NewtonContactJointGetFirstContact(static_cast<const NewtonJoint*>(newtonContactJoint));
+            NewtonMaterial* materialCombo = NewtonContactGetMaterial(contact);
+            iPhysicsMaterialCombo* physicsMaterialCombo = static_cast<iPhysicsMaterialCombo*>(NewtonMaterialGetMaterialPairUserData(materialCombo));
+
+            if (physicsMaterialCombo != nullptr && physicsBody0 != nullptr && physicsBody1 != nullptr)
             {
-                iPhysicsBody* physicsBody0 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body0)));
-                iPhysicsBody* physicsBody1 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body1)));
-
-                con_assert(physicsBody0 != nullptr && physicsBody1 != nullptr, "zero pointers");
-
-                void* contact = NewtonContactJointGetFirstContact(static_cast<const NewtonJoint*>(newtonContactJoint));
-                NewtonMaterial* materialCombo = NewtonContactGetMaterial(contact);
-                iPhysicsMaterialCombo* physicsMaterialCombo = static_cast<iPhysicsMaterialCombo*>(NewtonMaterialGetMaterialPairUserData(materialCombo));
-
-                if (physicsMaterialCombo != nullptr && physicsBody0 != nullptr && physicsBody1 != nullptr)
-                {
-                    physicsMaterialCombo->contact(physicsBody0, physicsBody1);
-                }
+                physicsMaterialCombo->contact(physicsBody0, physicsBody1);
             }
+        }
     }
 
+    // todo ugly workaround
     void GenericContactProcess(const NewtonJoint* const newtonContactJoint, dFloat timestep, int threadIndex)
     {
         GenericContactProcessCompatible(static_cast<const void*>(newtonContactJoint), timestep, threadIndex);
@@ -414,6 +438,7 @@ namespace Igor
         while ((_lastTime + timeDelta < currentTime) &&
             (updateCount < maxUpdateCount))
         {
+            // "if you call another NewtonUpdateAsync before anothe one is still running the the secund will wait act as a NewtonUpdate wating fo rteh first updateAsyn To complete." Julio Jerez
             NewtonUpdateAsync(static_cast<const NewtonWorld*>(_defaultWorld), timeDelta);
             _lastTime += timeDelta;
             updateCount++;

@@ -73,12 +73,14 @@ namespace Igor
         */
         void setMatrix(const iaMatrixd& matrix);
 
-        /*! \returns the transform node materix
+        /*! returns the transform node materix
 
         the transform node matrix is affected by the bodys movement within the physics context (see setTransformNodeMatrix)
         returns identity materix if body is not bound to a transform node
+
+        \param matrix[out] destination to put the matrix in
         */
-        iaMatrixd getTransformNodeMatrix() const;
+        void getTransformNodeMatrix(iaMatrixd& matrix) const;
 
         /*! changes the mass of the newton body
 

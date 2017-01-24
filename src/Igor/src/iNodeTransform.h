@@ -110,13 +110,11 @@ namespace Igor
         */
         virtual void identity();
 
-    protected:
+    private:
 
         /*! transformation matrix
         */
-		iaMatrixd _transform;
-
-    private:
+        iaMatrixd _transform;
 
         /*! called by update transform run
 

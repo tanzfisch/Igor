@@ -107,6 +107,14 @@ namespace Igor
 		*/
 		iApplicationHandleEvent _handleEvent;
 
+        /*! init statistics sections
+        */
+        void deinitStatistics();
+
+        /*! deinit statistics sections
+        */
+        void initStatistics();
+
 		/*! triggers ApplicationHandleEvent and updates windows
 		*/
 		void handle();
