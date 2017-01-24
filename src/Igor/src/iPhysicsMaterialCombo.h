@@ -50,7 +50,6 @@ namespace Igor
     class Igor_API iPhysicsMaterialCombo
     {
 
-        friend void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex);
         friend class iPhysics;
         
     public:
@@ -104,6 +103,16 @@ namespace Igor
         */
         int64 getMaterial1() const;
 
+        /*! triggers contact event
+
+        supposed to be only called by iPhysics but like this we can save one call to wrap it.
+        and it does not hurt to call it any time
+
+        \param body0 first body involved in contact
+        \param body1 second body involved in contact
+        */
+        void contact(iPhysicsBody* body0, iPhysicsBody* body1);
+
         /*! dtor material combo
 
         \param material0 first material
@@ -132,12 +141,6 @@ namespace Igor
         /*! material name
         */
         iaString _name;
-
-        /*! triggers contact event
-
-        called by iPhysics
-        */
-        void contact(iPhysicsBody* body0, iPhysicsBody* body1);
 
     };
     

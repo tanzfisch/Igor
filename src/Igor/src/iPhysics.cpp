@@ -58,6 +58,7 @@ namespace Igor
     /*! callback for physics body destruction
 
     \param body pointer to body that got destroyed
+    \todo put in queue
     */
     void PhysicsNodeDestructor(const void* body)
     {
@@ -74,6 +75,7 @@ namespace Igor
     \param body the body that changed it's position
     \param matrix the updated matrix from newton
     \param threadIndex ???
+    \todo put in queue
     */
     void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex)
     {
@@ -96,6 +98,7 @@ namespace Igor
     \param body the newton body
     \param timestep current time
     \param threadIndex ???
+    \todo put in queue
     */
     void PhysicsApplyForceAndTorque(const void* body, float64 timestep, int threadIndex)
     {
@@ -106,6 +109,10 @@ namespace Igor
         }
     }
 
+    /*!
+
+    \todo put in queue
+    */
     void SubmitConstraints(const void* const joint, float64 timestep, int threadIndex)
     {
         iPhysicsJoint* physicsJoint = static_cast<iPhysicsJoint*>(NewtonJointGetUserData(static_cast<const NewtonJoint*>(joint)));
@@ -115,7 +122,11 @@ namespace Igor
         }
     }
 
-    void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex)
+    /*! generic handle to handle contacts beween two bodies
+
+    \todo put in queue
+    */
+    void GenericContactProcess(const NewtonJoint* const newtonContactJoint, dFloat timestep, int threadIndex)
     {
         con_assert(newtonContactJoint != nullptr, "zero pointer");
 
@@ -141,13 +152,7 @@ namespace Igor
             }
         }
     }
-
-    // todo ugly workaround
-    void GenericContactProcess(const NewtonJoint* const newtonContactJoint, dFloat timestep, int threadIndex)
-    {
-        GenericContactProcessCompatible(static_cast<const void*>(newtonContactJoint), timestep, threadIndex);
-    }
-
+    
     iPhysics::iPhysics()
     {
         NewtonSetMemorySystem(AllocMemory, FreeMemory);
@@ -429,6 +434,8 @@ namespace Igor
 
     void iPhysics::handle()
     {
+        // todo execute queues
+
         const float32 timeDelta = 1.0f / static_cast<float64>(_simulationRate);
         const uint32 maxUpdateCount = 2;
 
