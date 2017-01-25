@@ -135,7 +135,7 @@ void Particles::init()
 
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     // animation
     _animationTimingHandle = new iTimerHandle();
@@ -145,7 +145,7 @@ void Particles::init()
     _taskFlushTexturesID = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // init igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iTextureBuildMode::Normal);
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
@@ -701,7 +701,7 @@ void Particles::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void Particles::drawLogo()
