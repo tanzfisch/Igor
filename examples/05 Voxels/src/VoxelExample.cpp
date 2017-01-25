@@ -52,7 +52,7 @@ void VoxelExample::init()
 
     // load font for statistics display
     _font = new iTextureFont("StandardFont.png");
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     // launch resource handlers
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -232,7 +232,7 @@ void VoxelExample::initScene()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
     // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png",iTextureBuildMode::Normal);
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 }
 
 float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
@@ -258,8 +258,6 @@ void VoxelExample::generateVoxelData()
 
     // clear the voxel data
     _voxelData->clear();
-    // switch to uncompressed voxel data. a little more speed for much more memory usage
-    _voxelData->setMode(iaRLEMode::Uncompressed);
 
     // define some threasholds to describe the surface of caves
     const float64 from = 0.444;
@@ -337,10 +335,6 @@ void VoxelExample::generateVoxelData()
         }
     }
 
-    // just for demonstration we switch back to compressed mode. 
-    // It makes sense to do that e.g. if we want to keep the data after working with it but need to save memory. In our verry small case here it's irrelevant
-    _voxelData->setMode(iaRLEMode::Compressed);
-    
     // clean up current scene before we generate a new mesh
     if (_voxelMeshTransform != iNode::INVALID_NODE_ID)
     {
@@ -456,7 +450,7 @@ void VoxelExample::onRenderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void VoxelExample::drawLogo()
