@@ -271,5 +271,10 @@ void BossEnemy::handle()
         transformNode->getMatrix(matrix);
         _sphere._center = matrix._pos;
     }
+
+    if (getHealth() <= 0)
+    {
+        kill();
+    }
 }
 

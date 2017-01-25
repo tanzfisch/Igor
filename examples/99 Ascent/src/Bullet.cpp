@@ -56,7 +56,7 @@ void Bullet::init()
 
 	iaMatrixd offset;
 	iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
-	physicsNode->addSphere(0.5, offset);
+	physicsNode->addSphere(0.1, offset);
 	physicsNode->finalizeCollision();
 	physicsNode->setMass(0.01);
 	physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
@@ -67,8 +67,7 @@ void Bullet::init()
     iNodeModel* particleSystem = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _particleSystemNodeID = particleSystem->getID();
     particleSystem->setModel("BulletBlue.ompf");
-    particleSystem->registerModelLoadedDelegate(iModelLoadedDelegate(this, &Bullet::onEffectLoaded));
-    GameObject::_scene->getRoot()->insertNode(particleSystem);
+    particleSystem->registerModelLoadedDelegate(iModelLoadedDelegate(this, &Bullet::onEffectLoaded));   
 
     transformNode->insertNode(emitterTransform);
     emitterTransform->insertNode(emitter);

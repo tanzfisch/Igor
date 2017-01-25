@@ -818,18 +818,31 @@ void Ascent::onRenderOrtho()
     }
     else
     {
-    /*    BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
-        }*/
+        }
+        else
+        {
+            iaString healthText = iaString::ftoa(boss->getHealth(), 0);
+            iaString shieldText = iaString::ftoa(boss->getShield(), 0);
+
+            iRenderer::getInstance().setFontSize(15.0f);
+            iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.95, _window.getClientHeight() * 0.05, healthText);
+
+            iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
+            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.90, _window.getClientHeight() * 0.05, shieldText);
+
+        }
 
         Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-            /*iaString healthText = iaString::ftoa(player->getHealth(), 0);
+            iaString healthText = iaString::ftoa(player->getHealth(), 0);
             iaString shieldText = iaString::ftoa(player->getShield(), 0);
 
             iRenderer::getInstance().setFontSize(15.0f);
@@ -837,7 +850,7 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.05, _window.getClientHeight() * 0.05, healthText);
 
             iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.10, _window.getClientHeight() * 0.05, shieldText);*/
+            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.10, _window.getClientHeight() * 0.05, shieldText);
 
             drawReticle();
         }
