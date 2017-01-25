@@ -210,11 +210,6 @@ namespace Igor
             iModelResourceFactory::destroyInstance();
         }
 
-        if (iStatistics::isInstantiated())
-        {
-            iStatistics::destroyInstance();
-        }
-
         if (iTaskManager::isInstantiated())
         {
             iTaskManager::destroyInstance();
@@ -285,6 +280,11 @@ namespace Igor
         if (iApplication::isInstantiated())
         {
             iApplication::destroyInstance();
+        }
+
+        if (iStatistics::isInstantiated())
+        {
+            iStatistics::destroyInstance();
         }
 
         IgorAux::shutdown();
