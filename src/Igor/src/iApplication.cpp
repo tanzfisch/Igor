@@ -47,29 +47,34 @@ namespace Igor
         _running = false;
     }
 
+    void iApplication::iterate()
+    {
+        iStatistics::getInstance().nextFrame();
+
+        iStatistics::getInstance().beginSection(_frameSectionID);
+        iTimer::getInstance().handle();
+
+        _windows.flush();
+
+        iNodeFactory::getInstance().handle();
+        iPhysics::getInstance().handle();
+
+        iStatistics::getInstance().beginSection(_handleSectionID);
+        handle();
+        iStatistics::getInstance().endSection(_handleSectionID);
+
+        draw();
+
+        iStatistics::getInstance().endSection(_frameSectionID);
+    }
+
     void iApplication::run()
     {
         _running = true;
 
         do
         {
-            iStatistics::getInstance().nextFrame();
-
-            iStatistics::getInstance().beginSection(_frameSectionID);
-            iTimer::getInstance().handle();
-
-            _windows.flush();
-            
-            iNodeFactory::getInstance().handle();
-            iPhysics::getInstance().handle();
-
-            iStatistics::getInstance().beginSection(_handleSectionID);
-            handle();
-            iStatistics::getInstance().endSection(_handleSectionID);
-
-            draw();
-
-            iStatistics::getInstance().endSection(_frameSectionID);
+            iterate();
         } while (_running);
     }
 

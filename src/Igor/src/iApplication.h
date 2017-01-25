@@ -63,6 +63,10 @@ namespace Igor
         */
         void run();
 
+        /*! as alternative to run you can set up your own main loop and call iterate in it but run is recommended to use
+        */
+        void iterate();
+
         /*! stopes the application
 
         quits the main application loop. works only in combination with iApplication::run
