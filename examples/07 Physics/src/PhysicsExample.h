@@ -36,6 +36,7 @@
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
 #include <iMaterial.h>
+#include <iStatisticsVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -55,13 +56,29 @@ namespace Igor
     class iTexture;
 }
 
+/*! physics example
+*/
 class PhysicsExample
 {
+
 private:
 
+    /*! the window
+    */
 	iWindow _window;
+
+    /*! visualizes statistics
+    */
+    iStatisticsVisualizer _statisticsVisualizer;
+
+    /*! view to render the scene with
+    */
 	iView _view;
+
+    /*! ortogonal view to render statistics with
+    */
     iView _viewOrtho;
+
     iaMatrixf _modelViewOrtho;
     uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
     uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
@@ -95,7 +112,7 @@ private:
     */
     shared_ptr<iTexture> _igorLogo = nullptr;
 
-    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);
+    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
 
 	void keyPressed(iKeyCode key);
 	void windowClosed();

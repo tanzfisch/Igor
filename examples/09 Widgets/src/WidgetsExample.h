@@ -34,6 +34,7 @@
 #include <iView.h>
 #include <iDialog.h>
 #include <iMaterial.h>
+#include <iStatisticsVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -80,6 +81,10 @@ private:
     /*! orthogonal view port
     */
     iView _viewOrtho;
+
+    /*! visualize statistics
+    */
+    iStatisticsVisualizer _statisticsVisualizer;
 
     /*! font handle
     */

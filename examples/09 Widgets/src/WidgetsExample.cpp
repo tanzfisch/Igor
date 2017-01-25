@@ -65,7 +65,7 @@ void WidgetsExample::init()
     _font = new iTextureFont("StandardFont.png");
 
     // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iTextureBuildMode::Normal);
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial("TextureAndBlending");
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
@@ -496,7 +496,8 @@ void WidgetsExample::onRender()
     // draw Igor Logo
     drawLogo();
 
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    // draw some render statistics
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void WidgetsExample::drawLogo()

@@ -224,7 +224,7 @@ void PhysicsExample::init()
     _font = new iTextureFont("StandardFont.png");
 
     // prepare igor logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iTextureBuildMode::Normal);
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
@@ -249,10 +249,10 @@ void PhysicsExample::init()
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 }
 
-void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex)
+void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
 {
     float64 Ixx;
     float64 Iyy;
@@ -338,7 +338,7 @@ void PhysicsExample::renderOrtho()
     drawLogo();
 
     // draw frame rate in lower right corner
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void PhysicsExample::drawLogo()

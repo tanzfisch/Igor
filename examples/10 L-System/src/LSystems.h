@@ -39,6 +39,7 @@
 #include <iMaterial.h>
 #include <iTexture.h>
 #include <iSkeleton.h>
+#include <iStatisticsVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -84,6 +85,10 @@ private:
     /*! the view we render 3D to
     */
 	iView _view;
+
+    /*! visualize statistics
+    */
+    iStatisticsVisualizer _statisticsVisualizer;
 
     /*! the view we render 2D to
     */
