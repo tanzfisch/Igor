@@ -65,7 +65,7 @@ namespace Igor
 
         /*! stopes the application
 
-        quits the main application loop
+        quits the main application loop. works only in combination with iApplication::run
         */
         void stop();
 

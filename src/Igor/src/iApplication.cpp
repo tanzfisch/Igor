@@ -21,10 +21,13 @@ namespace Igor
 
     iApplication::iApplication()
     {
+        initStatistics();
     }
 
     iApplication::~iApplication()
     {
+        deinitStatistics();
+
         _windows.flush();
 
         if (_windows.getList().size())
@@ -47,7 +50,6 @@ namespace Igor
     void iApplication::run()
     {
         _running = true;
-        initStatistics();
 
         do
         {
@@ -69,8 +71,6 @@ namespace Igor
 
             iStatistics::getInstance().endSection(_frameSectionID);
         } while (_running);
-
-        deinitStatistics();
     }
 
     void iApplication::deinitStatistics()

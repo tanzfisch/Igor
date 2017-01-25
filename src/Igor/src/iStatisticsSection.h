@@ -70,16 +70,6 @@ namespace Igor
         */
         void setName(const iaString& name);
 
-        /*! sets the color to render with
-
-        \param color the color to render with
-        */
-        void setColor(const iaColor4f& color);
-
-        /*! \returns the color to render with
-        */
-        const iaColor4f& getColor();
-
         /*! sets groups index
 
         all sections that belong to the same group will be represented in the same graph
@@ -117,10 +107,6 @@ namespace Igor
         \todo turn in to enum
         */
         uint64 _groupIndex = 0;
-
-        /*! the color to render with
-        */
-        iaColor4f _color;
 
         /*! name of section
         */

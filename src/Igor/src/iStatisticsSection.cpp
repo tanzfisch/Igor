@@ -22,16 +22,6 @@ namespace Igor
     {
         return _groupIndex;
     }
-
-    void iStatisticsSection::setColor(const iaColor4f& color)
-    {
-        _color = color;
-    }
-
-    const iaColor4f& iStatisticsSection::getColor()
-    {
-        return _color;
-    }
     
     void iStatisticsSection::beginSection()
     {

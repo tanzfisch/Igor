@@ -662,6 +662,9 @@
     <ClCompile Include="..\src\iStatisticsSection.cpp">
       <Filter>resources\statistics</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iStatisticsVisualizer.cpp">
+      <Filter>resources\statistics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1382,6 +1385,9 @@
       <Filter>resources\statistics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iStatisticsSection.h">
+      <Filter>resources\statistics</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iStatisticsVisualizer.h">
       <Filter>resources\statistics</Filter>
     </ClInclude>
   </ItemGroup>

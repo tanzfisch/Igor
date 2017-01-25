@@ -47,18 +47,6 @@ namespace Igor
     class iTextureFont;
     class iWindow;
 
-    /*! verbosity of statistics output on scree
-    */
-    enum class iRenderStatisticsVerbosity
-    {
-        None,
-        FPSOnly,
-        FPSAndMetrics,
-        FPSMetricsAndTasks,
-        Sections,
-        All
-    };
-
     /*! render statistics
     */
     class Igor_API iStatistics : public iaSingleton<iStatistics>
@@ -67,22 +55,6 @@ namespace Igor
         friend class iaSingleton<iStatistics>;
         
     public:
-
-        /*! sets render statistics mode
-
-        \pram renderStatisticsMode the mode to display statistics
-        */
-        void setVerbosity(iRenderStatisticsVerbosity renderStatisticsMode);
-
-        /*! \returns current verbosity level
-        */
-        iRenderStatisticsVerbosity getVerbosity();
-
-        /*! displays the rendering statistics
-
-        only works correctly called within a orthogonal view's render call
-        */
-        void drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color);
 
         /*! registers a measurement section
 
@@ -114,15 +86,17 @@ namespace Igor
         */
         void nextFrame();
 
+        /*! \returns reference to list of sections
+
+        be carefull to not change that list
+        */
+        map<uint32, iStatisticsSection>& getSections();
+
+        /*! \returns current frame index
+        */
+        uint64 getCurrentFrameIndex() const;
+
     private:
-
-        /*! number of predefined colors
-        */
-        static const uint32 _colorCount = 29;
-
-        /*! array of predefined colors
-        */
-        static const iaColor4f _colors[_colorCount];
 
         /*! current frame
         */
@@ -136,81 +110,17 @@ namespace Igor
         */
         uint32 _nextSectionID = 1;
 
-        /*! the mode to rende the statistics with
-        */
-        iRenderStatisticsVerbosity _renderStatisticsMode = iRenderStatisticsVerbosity::FPSOnly;
-
         /*! measures time so we can update statistics in cetain intervals
         */
         float64 _seconds = 0;
 
-        /*! stores the last measured fps
+        /*! nothing todo
         */
-        float32 _lastFPS = 0.0f;
+        iStatistics() = default;
 
-        /*! how many threads are running
+        /*! nothing todo
         */
-        uint32 _lastThreadCount = 0;
-
-        /*! how many threads with render context are running
-        */
-        uint32 _lastRenderContextThreadCount = 0;
-
-        /*! amount of tasks in queue
-        */
-        uint32 _lastQueuedTaskCount = 0;
-
-        /*! amount of currently running tasks
-        */
-        uint32 _lastRunningTaskCount = 0;
-
-        /*! amount of tasks that are done by now
-        */
-        uint32 _lastDoneTaskCount = 0;
-
-        /*! amount of tasks in queue that need render context threads
-        */
-        uint32 _lastQueuedRenderContextTaskCount = 0;
-
-        /*! amount of currently running tasks using render context threads
-        */
-        uint32 _lastRunningRenderContextTaskCount = 0;
-
-        /*! rendering the statistic material id
-        */
-        uint32 _materialWithTextureAndBlending = 0;
-
-        /*! simple solid material
-        */
-        uint32 _materialSolid = 0;
-
-        /*! alpha blending material
-        */
-        uint32 _materialBlend = 0;
-
-        /*! initializes the materials in use
-        */
-        void initMaterials();
-
-        /*! deinitializes the materials in use
-        */
-        void deinitMaterials();
-
-        /*! init
-        */
-        void init();
-
-        /*! deinit
-        */
-        void deinit();
-
-        /*! init
-        */
-        iStatistics();
-
-        /*! deinit
-        */
-        virtual ~iStatistics();
+        virtual ~iStatistics() = default;
 
     };
 

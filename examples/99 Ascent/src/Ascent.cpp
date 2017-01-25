@@ -471,7 +471,7 @@ void Ascent::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::None);
+    _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::None);
 
     uint64 particlesMaterial = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(particlesMaterial)->setName("PMat");
@@ -583,7 +583,7 @@ void Ascent::onKeyPressed(iKeyCode key)
 
     case iKeyCode::F3:
     {
-        iRenderStatisticsVerbosity level = iStatistics::getInstance().getVerbosity();
+        iRenderStatisticsVerbosity level = _statisticsVisualizer.getVerbosity();
 
         if (level == iRenderStatisticsVerbosity::All)
         {
@@ -596,7 +596,7 @@ void Ascent::onKeyPressed(iKeyCode key)
             level = static_cast<iRenderStatisticsVerbosity>(value);
         }
 
-        iStatistics::getInstance().setVerbosity(level);
+        _statisticsVisualizer.setVerbosity(level);
     }
     break;
     }
@@ -798,7 +798,7 @@ void Ascent::onRender()
 
 void Ascent::onRenderOrtho()
 {
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 0, 0.8, 1));
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 0, 0.8, 1));
 
     iaMatrixd matrix;
     iRenderer::getInstance().setViewMatrix(matrix);

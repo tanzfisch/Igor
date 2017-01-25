@@ -798,6 +798,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iSprite.h" />
     <ClInclude Include="..\src\iStatistics.h" />
     <ClInclude Include="..\src\iStatisticsSection.h" />
+    <ClInclude Include="..\src\iStatisticsVisualizer.h" />
     <ClInclude Include="..\src\iSTBImageExt.h" />
     <ClInclude Include="..\src\iStopWatch.h" />
     <ClInclude Include="..\src\iSystemConfig.h">
@@ -1406,6 +1407,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iSprite.cpp" />
     <ClCompile Include="..\src\iStatistics.cpp" />
     <ClCompile Include="..\src\iStatisticsSection.cpp" />
+    <ClCompile Include="..\src\iStatisticsVisualizer.cpp" />
     <ClCompile Include="..\src\iStopWatch.cpp" />
     <ClCompile Include="..\src\iSystemConfig.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
