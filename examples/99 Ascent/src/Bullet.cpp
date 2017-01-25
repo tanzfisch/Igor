@@ -155,7 +155,7 @@ void Bullet::handle()
 	setShieldDamage(shieldDamage);
 }
 
-void Bullet::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex)
+void Bullet::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
 {
 	body->setForce(_force);
 }

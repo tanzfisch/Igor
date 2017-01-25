@@ -63,9 +63,9 @@ namespace Igor
         return _userData;
     }
 
-    void iPhysicsBody::applyForceAndTorque(float64 timestep, int threadIndex)
+    void iPhysicsBody::applyForceAndTorque(float64 timestep)
     {
-        _applyForceAndTorque(this, timestep, threadIndex);
+        _applyForceAndTorque(this, timestep);
     }
 
     void iPhysicsBody::bindTransformNode(iNodeTransform* transformNode)
@@ -85,7 +85,7 @@ namespace Igor
 
     void iPhysicsBody::release()
     {
-        // in this case the newton body was already deleted by Newton it self
+        // in this case the newton body was already deleted by Newton it self we just set it's reference to zero
         _newtonBody = nullptr;
     }
 

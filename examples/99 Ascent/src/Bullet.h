@@ -45,7 +45,7 @@ private:
 
     void hitBy(uint64 entityID);
 
-    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex);
+    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
 
     void onEffectLoaded();
 

@@ -42,9 +42,9 @@ namespace Igor
         return _joint;
     }
 
-    void iPhysicsJoint::submitConstraints(float64 timestep, int threadIndex)
+    void iPhysicsJoint::submitConstraints(float64 timestep)
     {
-        _submitConstraints(this, timestep, threadIndex);
+        _submitConstraints(this, timestep);
     }
 
     void iPhysicsJoint::registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate submitConstraintsDelegate)

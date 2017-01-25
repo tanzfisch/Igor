@@ -202,17 +202,22 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
         if (body0->getUserData() != nullptr)
         {
             uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
-            _hitListMutex.lock();
-            _hitList.push_back(pair<uint64, uint64>(id0, 0));
-            _hitListMutex.unlock();
 
+            GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id0));
+            if (gameObject != nullptr)
+            {
+                gameObject->hitBy(0);
+            }
         }
         else if (body1->getUserData() != nullptr)
         {
             uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
-            _hitListMutex.lock();
-            _hitList.push_back(pair<uint64, uint64>(id1, 0));
-            _hitListMutex.unlock();
+
+            GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id1));
+            if (gameObject != nullptr)
+            {
+                gameObject->hitBy(0);
+            }
         }
     }
 }
@@ -227,10 +232,18 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
 
         uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
         uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
-        _hitListMutex.lock();
-        _hitList.push_back(pair<uint64, uint64>(id0, id1));
-        _hitList.push_back(pair<uint64, uint64>(id1, id0));
-        _hitListMutex.unlock();
+
+        GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id0));
+        if (gameObject != nullptr)
+        {
+            gameObject->hitBy(id1);
+        }
+        
+        gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id1));
+        if (gameObject != nullptr)
+        {
+            gameObject->hitBy(id0);
+        }
     }
 }
 
@@ -771,20 +784,6 @@ void Ascent::onHandle()
                         gameObject->kill();
                     }
                 }
-            }
-        }
-
-        _hitListMutex.lock();
-        vector<pair<uint64, uint64>> hitList = _hitList;
-        _hitList.clear();
-        _hitListMutex.unlock();
-
-        for (auto hit : hitList)
-        {
-            GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(hit.first));
-            if (gameObject != nullptr)
-            {
-                gameObject->hitBy(hit.second);
             }
         }
     }

@@ -49,7 +49,7 @@ namespace Igor
 
     /*! event called by newton to apply force and Torque
     */
-    iaEVENT(iApplyForceAndTorqueEvent, iApplyForceAndTorqueDelegate, void, (iPhysicsBody* body, float32 timestep, int threadIndex), (body, timestep, threadIndex));
+    iaEVENT(iApplyForceAndTorqueEvent, iApplyForceAndTorqueDelegate, void, (iPhysicsBody* body, float32 timestep), (body, timestep));
 
     /*! wrapper for the NewtonBody handle
     */
@@ -265,9 +265,8 @@ namespace Igor
         called by iPhysics
 
         \param timestep delta of time since last update
-        \param threadIndex thread index
         */
-        void applyForceAndTorque(float64 timestep, int threadIndex);        
+        void applyForceAndTorque(float64 timestep);        
 
         /*! initializes newton body handle
 

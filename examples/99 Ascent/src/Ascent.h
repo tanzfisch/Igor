@@ -78,9 +78,6 @@ private:
     uint64 _taskFlushModels = 0; 
     uint64 _taskFlushTextures = 0;
     
-    vector<pair<uint64, uint64>> _hitList;
-    mutex _hitListMutex;
-
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);
 

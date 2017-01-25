@@ -30,8 +30,6 @@
 namespace Igor
 {
 
-    float32 iPhysics::_simulationRate = 120.0f;
-
     /*! callback to allocate memory for newton
 
     \param sizeInBytes size of data in bytes
@@ -58,7 +56,6 @@ namespace Igor
     /*! callback for physics body destruction
 
     \param body pointer to body that got destroyed
-    \todo put in queue
     */
     void PhysicsNodeDestructor(const void* body)
     {
@@ -66,7 +63,7 @@ namespace Igor
         if (nullptr != physicsBody)
         {
             physicsBody->release();
-            delete physicsBody;
+            iPhysics::getInstance().destroyBodyAsync(physicsBody);
         }
     }
 
@@ -75,7 +72,6 @@ namespace Igor
     \param body the body that changed it's position
     \param matrix the updated matrix from newton
     \param threadIndex ???
-    \todo put in queue
     */
     void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex)
     {
@@ -89,44 +85,47 @@ namespace Igor
                 matrixD[i] = matrix[i];
             }
 
-            physicsBody->setTransformNodeMatrix(matrixD);
+            iPhysics::getInstance().queueTransformation(physicsBody, matrixD);
         }
     }
 
     /*! redirects all apply force and torque calls to igor physics bodies
 
     \param body the newton body
-    \param timestep current time
+    \param timestep time delta
     \param threadIndex ???
-    \todo put in queue
     */
     void PhysicsApplyForceAndTorque(const void* body, float64 timestep, int threadIndex)
     {
         iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
         if (nullptr != physicsBody)
         {
-            physicsBody->applyForceAndTorque(timestep, threadIndex);
+            physicsBody->applyForceAndTorque(timestep);
         }
     }
 
     /*!
 
-    \todo put in queue
+    \param joint ???
+    \param timestep time delta
+    \param threadIndex ???
     */
     void SubmitConstraints(const void* const joint, float64 timestep, int threadIndex)
     {
         iPhysicsJoint* physicsJoint = static_cast<iPhysicsJoint*>(NewtonJointGetUserData(static_cast<const NewtonJoint*>(joint)));
         if (physicsJoint != nullptr)
         {
-            physicsJoint->submitConstraints(static_cast<float64>(timestep), threadIndex);
+            physicsJoint->submitConstraints(timestep);
         }
     }
 
     /*! generic handle to handle contacts beween two bodies
 
-    \todo put in queue
+    \param newtonContactJoint ???
+    \param timestep time delta
+    \param threadIndex ???
     */
-    void GenericContactProcess(const NewtonJoint* const newtonContactJoint, dFloat timestep, int threadIndex)
+    void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex)
     {
         con_assert(newtonContactJoint != nullptr, "zero pointer");
 
@@ -148,9 +147,15 @@ namespace Igor
 
             if (physicsMaterialCombo != nullptr && physicsBody0 != nullptr && physicsBody1 != nullptr)
             {
-                physicsMaterialCombo->contact(physicsBody0, physicsBody1);
+                iPhysics::getInstance().queueContact(physicsMaterialCombo, physicsBody0, physicsBody1);
             }
         }
+    }
+
+    // ugly workaround
+    void GenericContactProcess(const NewtonJoint* const newtonContactJoint, dFloat timestep, int threadIndex)
+    {
+        GenericContactProcessCompatible(static_cast<const void*>(newtonContactJoint), timestep, threadIndex);
     }
     
     iPhysics::iPhysics()
@@ -158,11 +163,6 @@ namespace Igor
         NewtonSetMemorySystem(AllocMemory, FreeMemory);
         createDefaultWorld();
         createDefaultMaterial();
-    }
-
-    uint64 iPhysics::getDefaultWorldID()
-    {
-        return _defaultWorldID;
     }
 
     iPhysics::~iPhysics()
@@ -206,6 +206,42 @@ namespace Igor
         for (auto worldID : worldsToDelete)
         {
             destroyWorld(worldID);
+        }
+    }
+
+    void iPhysics::queueContact(iPhysicsMaterialCombo* material, iPhysicsBody* body1, iPhysicsBody* body2)
+    {
+        Contact contact;
+        contact._material = material;
+        contact._body1 = body1;
+        contact._body2 = body2;
+
+        _mutexBodyContacts.lock();
+        _bodyContacts.push_back(contact);
+        _mutexBodyContacts.unlock();
+    }
+
+    void iPhysics::queueTransformation(iPhysicsBody* body, const iaMatrixd& matrix)
+    {
+        _mutexBodiesToTransform.lock();
+        _bodiesToTransform.push_back(pair<iPhysicsBody*, iaMatrixd>(body, matrix));
+        _mutexBodiesToTransform.unlock();
+    }
+
+    uint64 iPhysics::getDefaultWorldID()
+    {
+        return _defaultWorldID;
+    }
+
+    void iPhysics::destroyBodyAsync(iPhysicsBody* body)
+    {
+        con_assert(body != nullptr, "zero pointer");
+
+        if (body != nullptr)
+        {
+            _mutexBodiesToDelete.lock();
+            _bodiesToDelete.push_back(body);
+            _mutexBodiesToDelete.unlock();
         }
     }
 
@@ -432,11 +468,41 @@ namespace Igor
         NewtonMaterialSetDefaultFriction(static_cast<const NewtonWorld*>(_defaultWorld), materialCombo->getMaterial0(), materialCombo->getMaterial1(), staticFriction, kineticFriction);
     }
 
+    void iPhysics::handleQueues()
+    {
+        _mutexBodyContacts.lock();
+        auto contacts = std::move(_bodyContacts);
+        _mutexBodyContacts.unlock();
+
+        for (auto iter : contacts)
+        {
+            iter._material->contact(iter._body1, iter._body2);
+        }
+
+        _mutexBodiesToTransform.lock();
+        auto bodiesToTransform = std::move(_bodiesToTransform);
+        _mutexBodiesToTransform.unlock();
+     
+        for (auto iter : bodiesToTransform)
+        {
+            iter.first->setTransformNodeMatrix(iter.second);
+        }
+
+        _mutexBodiesToDelete.lock();
+        auto bodiesToDelete = std::move(_bodiesToDelete);
+        _mutexBodiesToDelete.unlock();
+
+        for (auto iter : bodiesToDelete)
+        {
+            destroyBody(iter);
+        }
+    }
+
     void iPhysics::handle()
     {
-        // todo execute queues
+        handleQueues();
 
-        const float32 timeDelta = 1.0f / static_cast<float64>(_simulationRate);
+        const float64 timeDelta = 1.0 / _simulationRate;
         const uint32 maxUpdateCount = 2;
 
         uint32 updateCount = 0;
@@ -452,12 +518,12 @@ namespace Igor
         };
     }
 
-    void iPhysics::setSimulationRate(uint32 simulationRate)
+    void iPhysics::setSimulationRate(float64 simulationRate)
     {
         _simulationRate = simulationRate;
     }
 
-    uint32 iPhysics::getSimulationRate()
+    float64 iPhysics::getSimulationRate()
     {
         return _simulationRate;
     }
@@ -687,6 +753,15 @@ namespace Igor
         return result;
     }
 
+    void iPhysics::destroyBody(uint64 bodyID)
+    {
+        iPhysicsBody* body = getBody(bodyID);
+        if (body != nullptr)
+        {
+            destroyBody(body);
+        }
+    }
+
     void iPhysics::destroyBody(iPhysicsBody* body)
     {
         con_assert(body != nullptr, "zero pointer");
@@ -710,11 +785,6 @@ namespace Igor
 
             delete body;
         }
-    }
-
-    void iPhysics::destroyBody(uint64 bodyID)
-    {
-        destroyBody(getBody(bodyID));
     }
 
     void iPhysics::destroyNewtonBody(void* newtonBody)

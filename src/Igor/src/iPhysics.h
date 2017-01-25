@@ -64,7 +64,9 @@ namespace Igor
     */
     class Igor_API iPhysics : public iaSingleton<iPhysics>
     {
+        friend void PhysicsNodeDestructor(const void* body);
         friend void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex);
+        friend void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex);
         friend class iaSingleton<iPhysics>;
         friend class iPhysicsCollision;
         friend class iTaskPhysics;
@@ -82,11 +84,11 @@ namespace Igor
 
         \param simulationRate simulation rate in Hz
         */
-        static void setSimulationRate(uint32 simulationRate);
+        void setSimulationRate(float64 simulationRate);
 
         /*! \returns simulation rate
         */
-        static uint32 getSimulationRate();
+        float64 getSimulationRate();
 
         /*! registers handle to application handle event
         */
@@ -239,6 +241,12 @@ namespace Igor
         \param body the body to destroy
         */
         void destroyBody(iPhysicsBody* body);
+
+        /*! destroy physics body (asynchronous)
+
+        \param body the body to destroy
+        */
+        void destroyBodyAsync(iPhysicsBody* body);
 
         /*! destrox body by ID
 
@@ -413,6 +421,37 @@ namespace Igor
         */
         map<uint64, iPhysicsBody*> _bodys;
 
+        /*! list of bodys to delete
+        */
+        vector<iPhysicsBody*> _bodiesToDelete;
+
+        /*! mutex to protect bodies to delete
+        */
+        mutex _mutexBodiesToDelete;
+
+        /*! list of bodys to transform
+        */
+        vector<pair<iPhysicsBody*, iaMatrixd>> _bodiesToTransform;
+
+        /*! mutex to protect bodies to transform
+        */
+        mutex _mutexBodiesToTransform;
+
+        struct Contact
+        {
+            iPhysicsMaterialCombo* _material;
+            iPhysicsBody* _body1;
+            iPhysicsBody* _body2;
+        };
+
+        /*! list of contacts to trigger
+        */
+        vector<Contact> _bodyContacts;
+
+        /*! mutex to protect contacts list
+        */
+        mutex _mutexBodyContacts;
+
         /*! list of joints
         */
         map<uint64, iPhysicsJoint*> _joints;
@@ -435,7 +474,16 @@ namespace Igor
 
         /*! current simulation rate in Hz
         */
-        static float32 _simulationRate;
+        float64 _simulationRate = 120.0;
+
+        /*! queues transformation on body
+
+        \param body the body to transform
+        \param matrix the transform matrix
+        */
+        void queueTransformation(iPhysicsBody* body, const iaMatrixd& matrix);
+
+        void queueContact(iPhysicsMaterialCombo* material, iPhysicsBody* body1, iPhysicsBody* body2);
 
         /*! creates newton collision in shape of a box
 
@@ -620,6 +668,10 @@ namespace Igor
         /*! update newton calculations
         */
         void handle();
+
+        /*! handles queues like deleting stuff moving stuff etc.
+        */
+        void handleQueues();
 
         /*! initializes newton world
         */

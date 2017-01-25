@@ -42,7 +42,7 @@ namespace Igor
 
     class iPhysicsJoint;
 
-    iaEVENT(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, void, (iPhysicsJoint* joint, float32 timestep, int threadIndex), (joint, timestep, threadIndex));
+    iaEVENT(iSubmitConstraintsEvent, iSubmitConstraintsDelegate, void, (iPhysicsJoint* joint, float32 timestep), (joint, timestep));
 
     /*! wrapper for the NewtonJoint handle
     */
@@ -89,7 +89,7 @@ namespace Igor
 
         iSubmitConstraintsEvent _submitConstraints;
 
-        void submitConstraints(float64 timestep, int threadIndex);
+        void submitConstraints(float64 timestep);
 
         /*! initializes members
 

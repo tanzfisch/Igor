@@ -611,7 +611,7 @@ void Player::stopRollRight()
     _rollRight = false;
 }
 
-void Player::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex)
+void Player::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
 {
     body->setForce(_force);
     body->setTorque(_torque);
