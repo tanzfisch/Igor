@@ -41,8 +41,6 @@ namespace Igor
     class iSystem;
     class iComponent;
 
-    __IGOR_FUNCTION_POINTER__(iCreateComponentInstance, __IGOR_DEFAULTCALL__, iComponent*, ());
-
     class Igor_API iEntityManager
     {
 
@@ -64,26 +62,27 @@ namespace Igor
         /*! registers a component type
         
         \param componentTypeID unique component type id
+        \param componentSize component size in bytes
         \param componentCreator the component instance creating funtion
         */
-        void registerComponent(uint64 componentTypeID, iCreateComponentInstance componentCreator);
+        void registerComponent(uint64 componentTypeID, uint32 componentSize);
 
         void handle();
+
+        iEntityManager() = default;
+        ~iEntityManager();
 
     private:
 
         map<uint64, iEntity*> _entities;
 
-        //map<uint64, vector<uint64>> _components;
+        map<uint64, pair<uint32, void*>> _components;
 
         vector<iSystem*> _systems;
 
-        /*! list of component type creators
-        */
-        map<uint64, iCreateComponentInstance> _componentTypes;
+        void* createComponentBuffer(uint32 componentSize);
+        void* getComponentBuffer(uint64 componentTypeID, uint32 componentSize);
 
-        iEntityManager() = default;
-        ~iEntityManager();
     };
 
 }
