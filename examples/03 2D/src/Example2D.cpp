@@ -149,7 +149,7 @@ void Example2D::init()
     iMouse::getInstance().registerMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
 
     // load an other texture with the Igor Logo
-    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iTextureBuildMode::Normal);
+    _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
 
     // generate a random seed
     _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
@@ -345,7 +345,7 @@ void Example2D::onRender()
     drawLogo();
 
     // draw frame rate in lower right corner
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void Example2D::drawLogo()

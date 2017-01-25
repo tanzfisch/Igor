@@ -36,6 +36,7 @@
 #include <iaGradient.h>
 #include <iPerlinNoise.h>
 #include <iMaterial.h>
+#include <iStatisticsVisualizer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -78,6 +79,10 @@ private:
     /*! the window
     */
     iWindow _window;
+
+    /*! visualizes statistics
+    */
+    iStatisticsVisualizer _statisticsVisualizer;
 
     /*! the view we want to render in
 
