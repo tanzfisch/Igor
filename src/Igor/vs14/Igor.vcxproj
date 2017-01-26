@@ -689,6 +689,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iBone.h" />
     <ClInclude Include="..\src\iCelestialNode.h" />
     <ClInclude Include="..\src\iComponent.h" />
+    <ClInclude Include="..\src\iComponentMatrix.h" />
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
     <ClInclude Include="..\src\iContouringCubesLookup.h" />
@@ -1304,6 +1305,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iApplication.cpp" />
     <ClCompile Include="..\src\iBone.cpp" />
     <ClCompile Include="..\src\iCelestialNode.cpp" />
+    <ClCompile Include="..\src\iComponent.cpp" />
+    <ClCompile Include="..\src\iComponentMatrix.cpp" />
     <ClCompile Include="..\src\iConfigReader.cpp" />
     <ClCompile Include="..\src\iContouringCubes.cpp" />
     <ClCompile Include="..\src\iControl.cpp" />

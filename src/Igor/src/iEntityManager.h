@@ -54,18 +54,19 @@ namespace Igor
         */
         void destroyEntity(uint64 entityID);
 
-        void registerSystem(iSystem* system);
+        void registerSystem(iSystem* system, const vector<iComponent*>& dependencies);
+        void registerSystem(iSystem* system, const vector<uint64>& dependencies);
 
-        void addComponent(uint64 entityID, uint64 componentTypeID);
-        void removeComponent(uint64 entityID, uint64 componentTypeID);
+        void linkComponent(uint64 entityID, uint64 componentID);
+        void unlinkComponent(uint64 entityID, uint64 componentID);
+
+        iComponent* getComponent(uint64 componentID);
 
         /*! registers a component type
         
-        \param componentTypeID unique component type id
-        \param componentSize component size in bytes
-        \param componentCreator the component instance creating funtion
+        \param component the component to register
         */
-        void registerComponent(uint64 componentTypeID, uint32 componentSize);
+        void registerComponent(iComponent* component);
 
         void handle();
 
@@ -75,13 +76,14 @@ namespace Igor
     private:
 
         map<uint64, iEntity*> _entities;
+        map<uint64, vector<uint64>> _entityComponents;
 
-        map<uint64, pair<uint32, void*>> _components;
+        map<uint64, iComponent*> _components;
 
-        vector<iSystem*> _systems;
+        map<uint64, iSystem*> _systems;
 
-        void* createComponentBuffer(uint32 componentSize);
-        void* getComponentBuffer(uint64 componentTypeID, uint32 componentSize);
+        void findMatch(uint64 entityID);
+        void clearMatch(uint64 entityID);
 
     };
 

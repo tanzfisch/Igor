@@ -31,6 +31,7 @@
 
 #include <iDefines.h>
 
+#include <vector>
 #include <mutex>
 using namespace std;
 
@@ -46,11 +47,24 @@ namespace Igor
 
     public:
 
+        /*! definition of invalid system id
+        */
+        static const uint64 INVALID_SYSTEM_ID = 0;
+
+        /*! \returns system id
+        */
+        uint64 getID() const;
+
         /*! called once per frame by entity manager
         */
         virtual void handle() = 0;
 
-        iSystem() = default;
+        /*! init id
+        */
+        iSystem();
+
+        /*! does nothing
+        */
         virtual ~iSystem() = default;
 
     protected:
@@ -59,7 +73,27 @@ namespace Igor
         */
         iEntityManager* _entityManager = nullptr;
 
+        /*! entity cache of this system
+        */
+        vector<uint64> _entities;
+
     private:
+
+        /*! component dependancies
+        */
+        vector<uint64> _dependencies;
+
+        /*! id of entity
+        */
+        uint64 _id = INVALID_SYSTEM_ID;
+
+        /*! next id for next generated entity
+        */
+        static uint64 _nextSystemID;
+
+        /*! mutex to protect entity id generation
+        */
+        static mutex _mutexID;
 
     };
 

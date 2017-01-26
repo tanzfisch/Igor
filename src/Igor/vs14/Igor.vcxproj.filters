@@ -674,6 +674,12 @@
     <ClCompile Include="..\src\iEntityManager.cpp">
       <Filter>entities</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iComponent.cpp">
+      <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iComponentMatrix.cpp">
+      <Filter>entities\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -1411,6 +1417,9 @@
     <ClInclude Include="..\src\iComponent.h">
       <Filter>entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iComponentMatrix.h">
+      <Filter>entities\components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -1588,6 +1597,12 @@
     </Filter>
     <Filter Include="entities">
       <UniqueIdentifier>{1637c4c0-32a5-4ba1-8496-a9f83e01a217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entities\components">
+      <UniqueIdentifier>{7032fb71-f987-4258-bcf7-3659a3166bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="entities\systems">
+      <UniqueIdentifier>{b7ed9dc1-c492-4463-add5-fefd3adeb879}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

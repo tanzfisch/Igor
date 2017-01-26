@@ -7,6 +7,19 @@
 namespace Igor
 {
 
-    
+    uint64 iSystem::_nextSystemID = INVALID_SYSTEM_ID + 1;
+    mutex iSystem::_mutexID;
+
+    iSystem::iSystem()
+    {
+        _mutexID.lock();
+        _id = _nextSystemID++;
+        _mutexID.unlock();
+    }
+
+    uint64 iSystem::getID() const
+    {
+        return _id;
+    }
 
 }
