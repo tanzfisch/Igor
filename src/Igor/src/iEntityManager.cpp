@@ -59,6 +59,18 @@ namespace Igor
         }
     }
 
+    void iEntityManager::linkComponent(uint64 entityID, iComponent* component)
+    {
+        con_assert(component != nullptr, "zero pointer");
+        linkComponent(entityID, component->getID());
+    }
+
+    void iEntityManager::unlinkComponent(uint64 entityID, iComponent* component)
+    {
+        con_assert(component != nullptr, "zero pointer");
+        unlinkComponent(entityID, component->getID());
+    }
+
     void iEntityManager::linkComponent(uint64 entityID, uint64 componentID)
     {
         con_assert(_components.find(componentID) != _components.end(), "component " << componentID << " not found");

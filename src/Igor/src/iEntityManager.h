@@ -59,6 +59,8 @@ namespace Igor
 
         void linkComponent(uint64 entityID, uint64 componentID);
         void unlinkComponent(uint64 entityID, uint64 componentID);
+        void linkComponent(uint64 entityID, iComponent* component);
+        void unlinkComponent(uint64 entityID, iComponent* component);
 
         iComponent* getComponent(uint64 componentID);
 

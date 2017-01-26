@@ -239,14 +239,28 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
 
 void Ascent::initPlayer()
 {
-  /*  Player* player = static_cast<Player*>(EntityManager::getInstance().createEntity("Player"));
-    player->setPosition(iaVector3d(10000, 9400, 10000));
-    _playerID = player->getID();
+    _playerID = _entityManager.createEntity();
+    _entityManager.linkComponent(_playerID, &_componentAttributes);
 
-    iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
-    _lodTriggerID = lodTrigger->getID();
-    player->setLODTrigger(_lodTriggerID);*/
+    Attributes* attributes = static_cast<Attributes*>(_componentAttributes.getData(_playerID));
+    attributes->_fraction = Fraction::Green;
+    attributes->_health = 200;
+    attributes->_shield = 300;
+    attributes->_damage = 1.0;
+    attributes->_shieldDamage = 1.0;
 
+
+    /*  Player* player = static_cast<Player*>(EntityManager::getInstance().createEntity("Player"));
+      player->setPosition(iaVector3d(10000, 9400, 10000));
+      _playerID = player->getID();
+
+      iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
+      _lodTriggerID = lodTrigger->getID();
+      player->setLODTrigger(_lodTriggerID);*/
+}
+
+void Ascent::initBoss()
+{
     /*BossEnemy* bossEnemy = static_cast<BossEnemy*>(EntityManager::getInstance().createEntity("BossEnemy"));
     bossEnemy->setPosition(player->getPosition() + iaVector3d(0, 0, -10));
     bossEnemy->setTargetID(_playerID);
@@ -430,7 +444,7 @@ void Ascent::init()
     initViews();
     initScene();
 
-    initPlayer();
+    initECS();
     initVoxelData();
 
     // set up octree debug rendering
@@ -467,6 +481,14 @@ void Ascent::init()
     iRenderer::getInstance().setWorldGridResolution(1000.0);
 
     initPhysics();
+}
+
+void Ascent::initECS()
+{
+    _entityManager.registerComponent(&_componentAttributes);
+
+    initPlayer();
+    initBoss();
 }
 
 void Ascent::deinit()
@@ -547,7 +569,7 @@ void Ascent::onKeyPressed(iKeyCode key)
             }
         }
     }
-
+    */
     switch (key)
     {
     case iKeyCode::ESC:
@@ -572,7 +594,7 @@ void Ascent::onKeyPressed(iKeyCode key)
         _statisticsVisualizer.setVerbosity(level);
     }
     break;
-    }*/
+    }
 }
 
 void Ascent::onKeyReleased(iKeyCode key)
@@ -758,6 +780,8 @@ void Ascent::onHandle()
                 }
             }
         }*/
+
+        _entityManager.handle();
     }
 
     handleMouse();

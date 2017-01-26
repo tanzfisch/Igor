@@ -8,12 +8,15 @@
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
 #include <iStatisticsVisualizer.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
 using namespace IgorAux;
 
 #include "VoxelTerrainGenerator.h"
+
+#include "ComponentAttributes.h"
 
 namespace Igor
 {
@@ -42,6 +45,9 @@ public:
 	void run();
 
 private:
+
+    iEntityManager _entityManager;
+    ComponentAttributes _componentAttributes;
 
     iStatisticsVisualizer _statisticsVisualizer;
 
@@ -110,9 +116,11 @@ private:
     void onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1);
     void onContact(iPhysicsBody* body0, iPhysicsBody* body1);
 
+    void initECS();
     void initViews();
     void initScene();
     void initPlayer();
+    void initBoss();
     void initVoxelData();
     void initPhysics();
 

@@ -53,35 +53,35 @@ namespace Igor
         None
     };
 
-    class Igor_API ComponentAttributes : public iComponent
+    struct Attributes
     {
+        /*! the shield value
+        */
+        float32 _shield = 0;
 
-        struct Attributes
-        {
-            /*! the shield value
-            */
-            float32 _shield = 0;
+        /*! the health value
+        */
+        float32 _health = 0;
 
-            /*! the health value
-            */
-            float32 _health = 0;
+        /*! shield damage value
+        */
+        float32 _shieldDamage = 0;
 
-            /*! shield damage value
-            */
-            float32 _shieldDamage = 0;
+        /*! damage value
+        */
+        float32 _damage = 0;
 
-            /*! damage value
-            */
-            float32 _damage = 0;
+        /*! fraction the game object belongs to
+        */
+        Fraction _fraction = Fraction::None;
 
-            /*! fraction the game object belongs to
-            */
-            Fraction _fraction = Fraction::None;
+        /*! kind type of this game object
+        */
+        GameObjectKind _kind = GameObjectKind::None;
+    };
 
-            /*! kind type of this game object
-            */
-            GameObjectKind _kind = GameObjectKind::None;
-        };
+    class ComponentAttributes : public iComponent
+    {
 
     public:
 
