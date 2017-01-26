@@ -118,9 +118,6 @@ private:
 
     void drawReticle();
 
-    void registerEntityTypes();
-    void unregisterEntityTypes();
-
 };
 
 #endif

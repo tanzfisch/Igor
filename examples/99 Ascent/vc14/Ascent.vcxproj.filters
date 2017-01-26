@@ -27,28 +27,7 @@
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
       <Filter>src\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Bullet.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\GameObject.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Player.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\MuzzleFlash.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Entity.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\EntityManager.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Turret.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\BossEnemy.cpp">
+    <ClCompile Include="..\src\ComponentAttributes.cpp">
       <Filter>src\Entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -65,28 +44,7 @@
     <ClInclude Include="..\src\TaskGenerateVoxels.h">
       <Filter>src\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Bullet.h">
-      <Filter>src\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\GameObject.h">
-      <Filter>src\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Player.h">
-      <Filter>src\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MuzzleFlash.h">
-      <Filter>src\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Entity.h">
-      <Filter>src\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\EntityManager.h">
-      <Filter>src\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Turret.h">
-      <Filter>src\Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\BossEnemy.h">
+    <ClInclude Include="..\src\ComponentAttributes.h">
       <Filter>src\Entities</Filter>
     </ClInclude>
   </ItemGroup>
