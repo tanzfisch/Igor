@@ -26,60 +26,70 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iCOMPONENT_MATRIX__
-#define __iCOMPONENT_MATRIX__
+#ifndef __iCOMPONENT_BASE__
+#define __iCOMPONENT_BASE__
 
-#include <iComponent.h>
+#include <iDefines.h>
 
-#include <iaMatrix.h>
-using namespace IgorAux;
-
-#include <map>
+#include <mutex>
 using namespace std;
 
 namespace Igor
 {
 
-    class Igor_API iComponentMatrix : public iComponent
+    class Igor_API iComponentBase
     {
 
+        friend class iEntityManager;
+
     public:
+
+        /*! definition of invalid entity id
+        */
+        static const uint64 INVALID_COMPONENT_ID = 0;
+
+        /*! \returns entity id
+        */
+        uint64 getID() const;
 
         /*! \returns component data for specified entity
 
         \param entityID the specified entity's id
         */
-        void* getData(uint64 entityID);
+        virtual void* getData(uint64 entityID) = 0;
 
         /*! \returns component data for all entitties
         */
-        void* getData();
+        virtual void* getData() = 0;
 
         /*! links an entity to this component
 
         \param entityID the entity to link with
         */
-        void linkEntity(uint64 entityID);
+        virtual void linkEntity(uint64 entityID) = 0;
 
         /*! unlinks an entity from this component
 
         \param entityID the entity to unlink
         */
-        void unlinkEntity(uint64 entityID);
+        virtual void unlinkEntity(uint64 entityID) = 0;
 
-        /*! does nothing
-        */
-        iComponentMatrix() = default;
-
-        /*! does nothing
-        */
-        ~iComponentMatrix() = default;
+        iComponentBase();
+        virtual ~iComponentBase() = default;
 
     private:
 
-        /*! the actual data
+        /*! id of entity
         */
-        map<uint64, iaMatrixd> _data;
+        uint64 _id = INVALID_COMPONENT_ID;
+
+        /*! next id for next generated entity
+        */
+        static uint64 _nextComponentID;
+
+        /*! mutex to protect entity id generation
+        */
+        static mutex _mutexID;
 
     };
 }

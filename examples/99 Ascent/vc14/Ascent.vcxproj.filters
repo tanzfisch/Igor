@@ -7,7 +7,7 @@
     <Filter Include="src\Terrain">
       <UniqueIdentifier>{fe2a421c-1114-474b-8170-b94ac4fcc266}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Entities">
+    <Filter Include="src\components">
       <UniqueIdentifier>{933b3476-dbc7-4da8-9ebd-e18bb8a8c320}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -27,9 +27,6 @@
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
       <Filter>src\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\ComponentAttributes.cpp">
-      <Filter>src\Entities</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -45,7 +42,7 @@
       <Filter>src\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ComponentAttributes.h">
-      <Filter>src\Entities</Filter>
+      <Filter>src\components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

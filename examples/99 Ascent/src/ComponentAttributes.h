@@ -34,94 +34,49 @@
 #include <map>
 using namespace std;
 
-namespace Igor
+enum class Fraction
 {
+    Red,
+    Blue,
+    Green,
+    Yellow,
+    None
+};
 
-    enum class Fraction
-    {
-        Red,
-        Blue,
-        Green,
-        Yellow,
-        None
-    };
+enum class GameObjectKind
+{
+    Vehicle,
+    Weapon,
+    None
+};
 
-    enum class GameObjectKind
-    {
-        Vehicle,
-        Weapon,
-        None
-    };
+struct Attributes
+{
+    /*! the shield value
+    */
+    float32 _shield = 0;
 
-    struct Attributes
-    {
-        /*! the shield value
-        */
-        float32 _shield = 0;
+    /*! the health value
+    */
+    float32 _health = 0;
 
-        /*! the health value
-        */
-        float32 _health = 0;
+    /*! shield damage value
+    */
+    float32 _shieldDamage = 0;
 
-        /*! shield damage value
-        */
-        float32 _shieldDamage = 0;
+    /*! damage value
+    */
+    float32 _damage = 0;
 
-        /*! damage value
-        */
-        float32 _damage = 0;
+    /*! fraction the game object belongs to
+    */
+    Fraction _fraction = Fraction::None;
 
-        /*! fraction the game object belongs to
-        */
-        Fraction _fraction = Fraction::None;
+    /*! kind type of this game object
+    */
+    GameObjectKind _kind = GameObjectKind::None;
+};
 
-        /*! kind type of this game object
-        */
-        GameObjectKind _kind = GameObjectKind::None;
-    };
-
-    class ComponentAttributes : public iComponent
-    {
-
-    public:
-
-        /*! \returns component data for specified entity
-
-        \param entityID the specified entity's id
-        */
-        void* getData(uint64 entityID);
-
-        /*! \returns component data for all entitties
-        */
-        void* getData();
-
-        /*! links an entity to this component
-
-        \param entityID the entity to link with
-        */
-        void linkEntity(uint64 entityID);
-
-        /*! unlinks an entity from this component
-
-        \param entityID the entity to unlink
-        */
-        void unlinkEntity(uint64 entityID);
-
-        /*! does nothing
-        */
-        ComponentAttributes() = default;
-
-        /*! does nothing
-        */
-        ~ComponentAttributes() = default;
-
-    private:
-
-        /*! the actual data
-        */
-        map<uint64, Attributes> _data;
-
-    };
-}
+typedef iComponent<Attributes> ComponentAttributes;
 
 #endif

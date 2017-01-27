@@ -39,7 +39,7 @@ namespace Igor
 {
 
     class iSystem;
-    class iComponent;
+    class iComponentBase;
 
     class Igor_API iEntityManager
     {
@@ -54,21 +54,21 @@ namespace Igor
         */
         void destroyEntity(uint64 entityID);
 
-        void registerSystem(iSystem* system, const vector<iComponent*>& dependencies);
+        void registerSystem(iSystem* system, const vector<iComponentBase*>& dependencies);
         void registerSystem(iSystem* system, const vector<uint64>& dependencies);
 
         void linkComponent(uint64 entityID, uint64 componentID);
         void unlinkComponent(uint64 entityID, uint64 componentID);
-        void linkComponent(uint64 entityID, iComponent* component);
-        void unlinkComponent(uint64 entityID, iComponent* component);
+        void linkComponent(uint64 entityID, iComponentBase* component);
+        void unlinkComponent(uint64 entityID, iComponentBase* component);
 
-        iComponent* getComponent(uint64 componentID);
+        iComponentBase* getComponent(uint64 componentID);
 
         /*! registers a component type
         
         \param component the component to register
         */
-        void registerComponent(iComponent* component);
+        void registerComponent(iComponentBase* component);
 
         void handle();
 
@@ -80,7 +80,7 @@ namespace Igor
         map<uint64, iEntity*> _entities;
         map<uint64, vector<uint64>> _entityComponents;
 
-        map<uint64, iComponent*> _components;
+        map<uint64, iComponentBase*> _components;
 
         map<uint64, iSystem*> _systems;
 

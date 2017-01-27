@@ -34,6 +34,19 @@ namespace Igor
     class iPhysicsBody;
 }
 
+struct MovementFlags
+{
+    bool _up = false;
+    bool _forward = false;
+    bool _backward = false;
+    bool _down = false;
+    bool _left = false;
+    bool _right = false;
+    bool _rollLeft = false;
+    bool _rollRight = false;
+    bool _fastTurn = false;
+};
+
 class Ascent
 {
 

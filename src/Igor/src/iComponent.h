@@ -29,69 +29,51 @@
 #ifndef __iCOMPONENT__
 #define __iCOMPONENT__
 
-#include <iDefines.h>
+#include <iComponentBase.h>
 
-#include <mutex>
+#include <map>
 using namespace std;
 
 namespace Igor
 {
 
-    class Igor_API iComponent
+    template<class T> class Igor_API_Template iComponent : public iComponentBase
     {
 
-        friend class iEntityManager;
-
     public:
-
-        /*! definition of invalid entity id
-        */
-        static const uint64 INVALID_COMPONENT_ID = 0;
-
-        /*! \returns entity id
-        */
-        uint64 getID() const;
 
         /*! \returns component data for specified entity
 
         \param entityID the specified entity's id
         */
-        virtual void* getData(uint64 entityID) = 0;
+        void* getData(uint64 entityID);
 
         /*! \returns component data for all entitties
         */
-        virtual void* getData() = 0;
+        void* getData();
 
         /*! links an entity to this component
 
         \param entityID the entity to link with
         */
-        virtual void linkEntity(uint64 entityID) = 0;
+        void linkEntity(uint64 entityID);
 
         /*! unlinks an entity from this component
 
         \param entityID the entity to unlink
         */
-        virtual void unlinkEntity(uint64 entityID) = 0;
-
-        iComponent();
-        virtual ~iComponent() = default;
+        void unlinkEntity(uint64 entityID);
 
     private:
 
-        /*! id of entity
+        /*! the actual data
         */
-        uint64 _id = INVALID_COMPONENT_ID;
-
-        /*! next id for next generated entity
-        */
-        static uint64 _nextComponentID;
-
-        /*! mutex to protect entity id generation
-        */
-        static mutex _mutexID;
+        map<uint64, T> _data;
 
     };
+
+#include <iComponent.inl>
+
 }
 
 #endif

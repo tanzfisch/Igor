@@ -5,7 +5,7 @@
 #include <iEntityManager.h>
 
 #include <iSystem.h>
-#include <iComponent.h>
+#include <iComponentBase.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -59,13 +59,13 @@ namespace Igor
         }
     }
 
-    void iEntityManager::linkComponent(uint64 entityID, iComponent* component)
+    void iEntityManager::linkComponent(uint64 entityID, iComponentBase* component)
     {
         con_assert(component != nullptr, "zero pointer");
         linkComponent(entityID, component->getID());
     }
 
-    void iEntityManager::unlinkComponent(uint64 entityID, iComponent* component)
+    void iEntityManager::unlinkComponent(uint64 entityID, iComponentBase* component)
     {
         con_assert(component != nullptr, "zero pointer");
         unlinkComponent(entityID, component->getID());
@@ -173,12 +173,12 @@ namespace Igor
         clearMatch(entityID);
     }
 
-    iComponent* iEntityManager::getComponent(uint64 componentID)
+    iComponentBase* iEntityManager::getComponent(uint64 componentID)
     {
         return _components[componentID];
     }
 
-    void iEntityManager::registerComponent(iComponent* component)
+    void iEntityManager::registerComponent(iComponentBase* component)
     {
         con_assert(component != nullptr, "zero pointer");
         if (component != nullptr)
@@ -219,7 +219,7 @@ namespace Igor
         }
     }
 
-    void iEntityManager::registerSystem(iSystem* system, const vector<iComponent*>& dependencies)
+    void iEntityManager::registerSystem(iSystem* system, const vector<iComponentBase*>& dependencies)
     {
         vector<uint64> temp;
 
