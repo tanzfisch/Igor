@@ -10,6 +10,9 @@
     <Filter Include="src\components">
       <UniqueIdentifier>{933b3476-dbc7-4da8-9ebd-e18bb8a8c320}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\system">
+      <UniqueIdentifier>{1050bbb8-a528-4783-8755-73669990f3ff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp">
@@ -42,6 +45,12 @@
       <Filter>src\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ComponentAttributes.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ComponentForceAndTorque.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ComponentInput.h">
       <Filter>src\components</Filter>
     </ClInclude>
   </ItemGroup>
