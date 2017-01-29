@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\SystemInput.cpp" />
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp" />
     <ClCompile Include="..\src\VoxelTerrainGenerator.cpp" />
     <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp" />
@@ -30,6 +31,8 @@
     <ClInclude Include="..\src\ComponentAttributes.h" />
     <ClInclude Include="..\src\ComponentForceAndTorque.h" />
     <ClInclude Include="..\src\ComponentInput.h" />
+    <ClInclude Include="..\src\ComponentTransform.h" />
+    <ClInclude Include="..\src\SystemInput.h" />
     <ClInclude Include="..\src\TaskGenerateVoxels.h" />
     <ClInclude Include="..\src\VoxelTerrainGenerator.h" />
     <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h" />

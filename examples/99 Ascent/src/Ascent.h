@@ -17,6 +17,10 @@ using namespace IgorAux;
 #include "VoxelTerrainGenerator.h"
 
 #include "ComponentAttributes.h"
+#include "ComponentForceAndTorque.h"
+#include "ComponentInput.h"
+#include "SystemInput.h"
+#include "ComponentTransform.h"
 
 namespace Igor
 {
@@ -61,6 +65,10 @@ private:
 
     iEntityManager _entityManager;
     ComponentAttributes _componentAttributes;
+    ComponentForceAndTorque _componentForceAndTorque;
+    ComponentInput _componentInput;
+    SystemInput _systemPlayerInput;
+    ComponentTransform _componentTransform;
 
     iStatisticsVisualizer _statisticsVisualizer;
 
@@ -99,6 +107,8 @@ private:
 
     uint64 _taskFlushModels = 0; 
     uint64 _taskFlushTextures = 0;
+
+    void onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep);
     
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);

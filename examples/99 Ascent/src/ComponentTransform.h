@@ -26,57 +26,12 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iCOMPONENT__
-#define __iCOMPONENT__
+#ifndef __iCOMPONENT_TRANSFORM__
+#define __iCOMPONENT_TRANSFORM__
 
-#include <iComponentBase.h>
+#include <iComponent.h>
+using namespace Igor;
 
-#include <iaConsole.h>
-using namespace IgorAux;
-
-#include <map>
-using namespace std;
-
-namespace Igor
-{
-
-    template<class T> class Igor_API_Template iComponent : public iComponentBase
-    {
-
-    public:
-
-        /*! \returns component data for specified entity
-
-        \param entityID the specified entity's id
-        */
-        void* getData(uint64 entityID);
-
-        /*! \returns component data for all entitties
-        */
-        void* getData();
-
-        /*! links an entity to this component
-
-        \param entityID the entity to link with
-        */
-        void linkEntity(uint64 entityID);
-
-        /*! unlinks an entity from this component
-
-        \param entityID the entity to unlink
-        */
-        void unlinkEntity(uint64 entityID);
-
-    private:
-
-        /*! the actual data
-        */
-        map<uint64, T> _data;
-
-    };
-
-#include <iComponent.inl>
-
-}
+typedef iComponent<uint32> ComponentTransform;
 
 #endif

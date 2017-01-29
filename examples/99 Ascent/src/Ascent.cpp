@@ -38,6 +38,8 @@ using namespace IgorAux;
 #include <iOctree.h>
 #include <iPhysics.h>
 #include <iPhysicsMaterialCombo.h>
+#include <iNodePhysics.h>
+#include <iNodeEmitter.h>
 using namespace Igor;
 
 Ascent::Ascent()
@@ -241,6 +243,9 @@ void Ascent::initPlayer()
 {
     _playerID = _entityManager.createEntity();
     _entityManager.linkComponent(_playerID, &_componentAttributes);
+    _entityManager.linkComponent(_playerID, &_componentInput);
+    _entityManager.linkComponent(_playerID, &_componentTransform);
+    _entityManager.linkComponent(_playerID, &_componentForceAndTorque);
 
     Attributes* attributes = static_cast<Attributes*>(_componentAttributes.getData(_playerID));
     attributes->_fraction = Fraction::Green;
@@ -249,14 +254,87 @@ void Ascent::initPlayer()
     attributes->_damage = 1.0;
     attributes->_shieldDamage = 1.0;
 
+    uint32* transformNodeID = static_cast<uint32*>(_componentTransform.getData(_playerID));
 
-    /*  Player* player = static_cast<Player*>(EntityManager::getInstance().createEntity("Player"));
-      player->setPosition(iaVector3d(10000, 9400, 10000));
-      _playerID = player->getID();
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformNode->translate(10000, 9400, 10000);
+    *transformNodeID = transformNode->getID();
 
-      iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
-      _lodTriggerID = lodTrigger->getID();
-      player->setLODTrigger(_lodTriggerID);*/
+    iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    //_transformCamNodeID = transformCam->getID();
+
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    //_cameraNodeID = camera->getID();
+
+    iaMatrixd offset;
+    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
+    //_physicsNodeID = physicsNode->getID();
+    physicsNode->addSphere(1, offset);
+    physicsNode->finalizeCollision();
+    physicsNode->setMass(10);
+    physicsNode->setMaterial(iPhysics::getInstance().getMaterialID("entity"));
+    physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Ascent::onApplyForceAndTorquePlayer));
+    physicsNode->setUserData(reinterpret_cast<const void*>(_playerID));
+    physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));
+    physicsNode->setLinearDamping(500);
+
+    iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    //_transformRecoilLeftGun = transformRecoilLeftGun->getID();
+
+    iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    //_transformRecoilRightGun = transformRecoilRightGun->getID();
+
+    iNodeTransform* transformLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformLeftGun->translate(-0.5, -0.4, -0.75);
+    transformLeftGun->scale(0.1, 0.1, 1);
+    iNodeModel* leftgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    leftgun->setModel("crate.ompf", nullptr);
+
+    iNodeTransform* transformRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformRightGun->translate(0.5, -0.4, -0.75);
+    transformRightGun->scale(0.1, 0.1, 1);
+    iNodeModel* rightgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    rightgun->setModel("crate.ompf", nullptr);
+
+    iNodeTransform* transformLeftGunEmitter = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformLeftGunEmitter->translate(-0.5, -0.4, -1.25);
+
+    iNodeTransform* transformRightGunEmitter = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformRightGunEmitter->translate(0.5, -0.4, -1.25);
+
+    iNodeEmitter* emitterLeftGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    //_emitterLeftGunNodeID = emitterLeftGun->getID();
+    emitterLeftGun->setType(iEmitterType::Point);
+
+    iNodeEmitter* emitterRightGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
+    //_emitterRightGunNodeID = emitterRightGun->getID();
+    emitterRightGun->setType(iEmitterType::Point);
+
+    iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
+    _lodTriggerID = lodTrigger->getID();
+
+    transformNode->insertNode(transformRecoilLeftGun);
+    transformNode->insertNode(transformRecoilRightGun);
+
+    transformRecoilLeftGun->insertNode(transformLeftGun);
+    transformRecoilRightGun->insertNode(transformRightGun);
+
+    transformRecoilLeftGun->insertNode(transformLeftGunEmitter);
+    transformRecoilRightGun->insertNode(transformRightGunEmitter);
+
+    transformLeftGun->insertNode(leftgun);
+    transformRightGun->insertNode(rightgun);
+
+    transformLeftGunEmitter->insertNode(emitterLeftGun);
+    transformRightGunEmitter->insertNode(emitterRightGun);
+
+    transformCam->insertNode(camera);
+    transformNode->insertNode(transformCam);
+    transformNode->insertNode(physicsNode);
+    camera->insertNode(lodTrigger);
+    _scene->getRoot()->insertNode(transformNode);
+
+    camera->makeCurrent();
 }
 
 void Ascent::initBoss()
@@ -486,6 +564,16 @@ void Ascent::init()
 void Ascent::initECS()
 {
     _entityManager.registerComponent(&_componentAttributes);
+    _entityManager.registerComponent(&_componentForceAndTorque);
+    _entityManager.registerComponent(&_componentInput);
+    _entityManager.registerComponent(&_componentTransform);
+    
+    // workaround
+    _systemPlayerInput.setComponentForceAndTorque(_componentForceAndTorque.getID());
+    _systemPlayerInput.setComponentInput(_componentInput.getID());
+    _systemPlayerInput.setComponentTransform(_componentTransform.getID());
+
+    _entityManager.registerSystem(&_systemPlayerInput, vector<uint64>(_componentInput.getID(), _componentForceAndTorque.getID()));
 
     initPlayer();
     initBoss();
@@ -517,59 +605,67 @@ void Ascent::deinit()
     _window.removeView(&_viewOrtho);
 }
 
+void Ascent::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep)
+{
+    ForceAndTorque* forceAndTorque = static_cast<ForceAndTorque*>(_componentForceAndTorque.getData(_playerID));
+
+    body->setForce(forceAndTorque->_force);
+    body->setTorque(forceAndTorque->_torque);
+}
+
 void Ascent::onKeyPressed(iKeyCode key)
 {
-    /*if (_activeControls)
+    if (_activeControls)
     {
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
 
-        if (player != nullptr)
+        if (inputFlags != nullptr)
         {
             switch (key)
             {
             case iKeyCode::A:
-                player->startLeft();
+                inputFlags->_left = true;
                 break;
 
             case iKeyCode::D:
-                player->startRight();
+                inputFlags->_right = true;
                 break;
 
             case iKeyCode::W:
-                player->startForward();
+                inputFlags->_forward = true;
                 break;
 
             case iKeyCode::S:
-                player->startBackward();
+                inputFlags->_backward = true;
                 break;
 
             case iKeyCode::Q:
-                player->startUp();
+                inputFlags->_up = true;
                 break;
 
             case iKeyCode::E:
-                player->startDown();
+                inputFlags->_down = true;
                 break;
 
             case iKeyCode::LShift:
-                player->startFastTurn();
+                inputFlags->_fastTurn = true;
                 break;
 
             case iKeyCode::One:
-                player->startRollLeft();
+                inputFlags->_rollLeft = true;
                 break;
 
             case iKeyCode::Three:
-                player->startRollRight();
+                inputFlags->_rollRight = true;
                 break;
 
-            case iKeyCode::Space:
-                player->dig(_toolSize, _toolDensity);
-                break;
+            //case iKeyCode::Space:
+              //  player->dig(_toolSize, _toolDensity);
+//                break;
             }
         }
     }
-    */
+
     switch (key)
     {
     case iKeyCode::ESC:
@@ -599,52 +695,56 @@ void Ascent::onKeyPressed(iKeyCode key)
 
 void Ascent::onKeyReleased(iKeyCode key)
 {
-   /* if (_activeControls)
+    if (_activeControls)
     {
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
 
-        if (player != nullptr)
+        if (inputFlags != nullptr)
         {
             switch (key)
             {
             case iKeyCode::A:
-                player->stopLeft();
+                inputFlags->_left = false;
                 break;
 
             case iKeyCode::D:
-                player->stopRight();
+                inputFlags->_right = false;
                 break;
 
             case iKeyCode::W:
-                player->stopForward();
+                inputFlags->_forward = false;
                 break;
 
             case iKeyCode::S:
-                player->stopBackward();
+                inputFlags->_backward = false;
                 break;
 
             case iKeyCode::Q:
-                player->stopUp();
+                inputFlags->_up = false;
                 break;
 
             case iKeyCode::E:
-                player->stopDown();
+                inputFlags->_down = false;
                 break;
 
             case iKeyCode::LShift:
-                player->stopFastTurn();
+                inputFlags->_fastTurn = false;
                 break;
 
             case iKeyCode::One:
-                player->stopRollLeft();
+                inputFlags->_rollLeft = false;
                 break;
 
             case iKeyCode::Three:
-                player->stopRollRight();
+                inputFlags->_rollRight = false;
                 break;
+
+                //case iKeyCode::Space:
+                //  player->dig(_toolSize, _toolDensity);
+                //                break;
             }
         }
-    }*/
+    }
 }
 
 void Ascent::onMouseWheel(int d)

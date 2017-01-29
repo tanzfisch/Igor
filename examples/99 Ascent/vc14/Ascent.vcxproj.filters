@@ -30,6 +30,9 @@
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
       <Filter>src\Terrain</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\SystemInput.cpp">
+      <Filter>src\system</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
@@ -51,6 +54,12 @@
       <Filter>src\components</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ComponentInput.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\SystemInput.h">
+      <Filter>src\system</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ComponentTransform.h">
       <Filter>src\components</Filter>
     </ClInclude>
   </ItemGroup>

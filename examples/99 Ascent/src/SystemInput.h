@@ -33,19 +33,26 @@
 using namespace Igor;
 
 
-    /*!
-    */
-class SystemPlayerInput : public iSystem
+/*!
+*/
+class SystemInput : public iSystem
 {
 
 public:
 
+    void setComponentForceAndTorque(uint64 componentID);
+    void setComponentInput(uint64 componentID);
+    void setComponentTransform(uint64 componentID);
 
 protected:
 
+    uint64 componentIDForceAndTorque = 0;
+    uint64 componentIDInput = 0;
+    uint64 componentIDTransform = 0;
 
-private:
-
+    /*! called once per frame by entity manager
+    */
+    void handle();
 
 };
 

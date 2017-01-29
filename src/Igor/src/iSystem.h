@@ -55,10 +55,6 @@ namespace Igor
         */
         uint64 getID() const;
 
-        /*! called once per frame by entity manager
-        */
-        virtual void handle() = 0;
-
         /*! init id
         */
         iSystem();
@@ -76,6 +72,10 @@ namespace Igor
         /*! entity cache of this system
         */
         vector<uint64> _entities;
+
+        /*! called once per frame by entity manager
+        */
+        virtual void handle() = 0;
 
     private:
 
