@@ -26,83 +26,69 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iCOMPONENT_BASE__
-#define __iCOMPONENT_BASE__
+#ifndef __iSYSTEM_ITERATE__
+#define __iSYSTEM_ITERATE__
 
-#include <iDefines.h>
+#include <iSystem.h>
 
-#include <iaString.h>
-using namespace IgorAux;
-
+#include <vector>
 #include <mutex>
 using namespace std;
 
 namespace Igor
 {
 
-    class Igor_API iComponentBase
+    /*!
+    */
+    class Igor_API iSystemIterate : public iSystem
     {
 
         friend class iEntityManager;
 
     public:
 
-        /*! definition of invalid entity id
+        /*! does nothing
         */
-        static const uint64 INVALID_COMPONENT_ID = 0;
+        iSystemIterate() = default;
 
-        /*! \returns entity id
+        /*! does nothing
         */
-        uint64 getID() const;
+        virtual ~iSystemIterate() = default;
 
-        /*! \returns name of component
+    protected:
+
+        /*! entity cache of this system
         */
-        iaString getName() const;
+        vector<uint64> _entities;
 
-        /*! \returns component data for specified entity
-
-        \param entityID the specified entity's id
+        /*! called once by entity manager before handle is called
         */
-        virtual void* getData(uint64 entityID) = 0;
+        virtual void init() = 0;
 
-        /*! \returns component data for all entitties
+        /*! called once per frame by entity manager
         */
-        virtual void* getData() = 0;
-
-        /*! links an entity to this component
-
-        \param entityID the entity to link with
-        */
-        virtual void linkEntity(uint64 entityID) = 0;
-
-        /*! unlinks an entity from this component
-
-        \param entityID the entity to unlink
-        */
-        virtual void unlinkEntity(uint64 entityID) = 0;
-
-        iComponentBase();
-        virtual ~iComponentBase() = default;
+        virtual void handle() = 0;
 
     private:
 
-        /*! name of component
+        /*! component dependancies
         */
-        iaString _name;
+        vector<uint64> _dependencies;
 
         /*! id of entity
         */
-        uint64 _id = INVALID_COMPONENT_ID;
+        uint64 _id = INVALID_SYSTEM_ID;
 
         /*! next id for next generated entity
         */
-        static uint64 _nextComponentID;
+        static uint64 _nextSystemID;
 
         /*! mutex to protect entity id generation
         */
         static mutex _mutexID;
 
     };
+
 }
 
 #endif

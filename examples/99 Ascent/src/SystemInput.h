@@ -29,20 +29,14 @@
 #ifndef __SYSTEM_PLAYERINPUT__
 #define __SYSTEM_PLAYERINPUT__
 
-#include <iSystem.h>
+#include <iSystemIterate.h>
 using namespace Igor;
 
 
 /*!
 */
-class SystemInput : public iSystem
+class SystemInput : public iSystemIterate
 {
-
-public:
-
-    void setComponentForceAndTorque(uint64 componentID);
-    void setComponentInput(uint64 componentID);
-    void setComponentTransform(uint64 componentID);
 
 protected:
 
@@ -50,9 +44,13 @@ protected:
     uint64 componentIDInput = 0;
     uint64 componentIDTransform = 0;
 
+    void init();
+
     /*! called once per frame by entity manager
     */
     void handle();
+
+    
 
 };
 

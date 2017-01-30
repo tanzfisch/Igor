@@ -15,33 +15,28 @@
 #include <iaMatrix.h>
 using namespace IgorAux;
 
-void SystemInput::setComponentForceAndTorque(uint64 componentID)
+void SystemInput::init()
 {
-    componentIDForceAndTorque = componentID;
-}
+    iEntityManager* entityManager = getEntityManager();
 
-void SystemInput::setComponentInput(uint64 componentID)
-{
-    componentIDInput = componentID;
-}
-
-void SystemInput::setComponentTransform(uint64 componentID)
-{
-    componentIDTransform = componentID;
+    componentIDForceAndTorque = entityManager->getComponentID("ForceAndTorque");
+    componentIDInput = entityManager->getComponentID("Input");
+    componentIDTransform = entityManager->getComponentID("Transform");
 }
 
 void SystemInput::handle()
 {
-    ComponentForceAndTorque* componentForceAndTorque = static_cast<ComponentForceAndTorque*>(_entityManager->getComponent(componentIDForceAndTorque));
-    ComponentInput* componentInput = static_cast<ComponentInput*>(_entityManager->getComponent(componentIDInput));
-    ComponentTransform* componentTransform = static_cast<ComponentTransform*>(_entityManager->getComponent(componentIDTransform));
+    iEntityManager* entityManager = getEntityManager();
+
+    ComponentForceAndTorque* componentForceAndTorque = static_cast<ComponentForceAndTorque*>(entityManager->getComponent(componentIDForceAndTorque));
+    ComponentInput* componentInput = static_cast<ComponentInput*>(entityManager->getComponent(componentIDInput));
+    ComponentTransform* componentTransform = static_cast<ComponentTransform*>(entityManager->getComponent(componentIDTransform));
 
     for (auto entityID : _entities)
     {
         ForceAndTorque* forceAndTorque  = static_cast<ForceAndTorque*>(componentForceAndTorque->getData(entityID));
         InputFlags* inputFlags = static_cast<InputFlags*>(componentInput->getData(entityID));
         uint32* transformNodeID = static_cast<uint32*>(componentTransform->getData(entityID));
-
 
         float32 speed = 75;
 

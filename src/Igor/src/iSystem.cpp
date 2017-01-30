@@ -22,4 +22,9 @@ namespace Igor
         return _id;
     }
 
+    iEntityManager* iSystem::getEntityManager() const
+    {
+        return _entityManager;
+    }
+
 }

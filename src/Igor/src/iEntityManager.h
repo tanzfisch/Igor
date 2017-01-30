@@ -31,6 +31,9 @@
 
 #include <iEntity.h>
 
+#include <iaString.h>
+using namespace IgorAux;
+
 #include <vector>
 #include <map>
 using namespace std;
@@ -38,7 +41,7 @@ using namespace std;
 namespace Igor
 {
 
-    class iSystem;
+    class iSystemIterate;
     class iComponentBase;
 
     class Igor_API iEntityManager
@@ -54,25 +57,42 @@ namespace Igor
         */
         void destroyEntity(uint64 entityID);
 
-        void registerSystem(iSystem* system, const vector<iComponentBase*>& dependencies);
-        void registerSystem(iSystem* system, const vector<uint64>& dependencies);
+        void registerSystem(iSystemIterate* system, const vector<iComponentBase*>& dependencies);
+        void registerSystem(iSystemIterate* system, const vector<uint64>& dependencies);
 
         void linkComponent(uint64 entityID, uint64 componentID);
         void unlinkComponent(uint64 entityID, uint64 componentID);
         void linkComponent(uint64 entityID, iComponentBase* component);
         void unlinkComponent(uint64 entityID, iComponentBase* component);
 
+        /*! \returns a component by it's ID
+
+        \param componentID the component ID
+        */
         iComponentBase* getComponent(uint64 componentID);
+
+        /*! \returns component ID by it's name
+
+        verry slow function you should cache the resulting ID
+        */
+        uint64 getComponentID(const iaString& name);
 
         /*! registers a component type
         
         \param component the component to register
         */
-        void registerComponent(iComponentBase* component);
+        void registerComponent(iComponentBase* component, const iaString& name);
 
+        /*! entity manager handle
+        */
         void handle();
 
+        /*! does nothing
+        */
         iEntityManager() = default;
+        
+        /*! clean up
+        */
         ~iEntityManager();
 
     private:
@@ -82,7 +102,7 @@ namespace Igor
 
         map<uint64, iComponentBase*> _components;
 
-        map<uint64, iSystem*> _systems;
+        map<uint64, iSystemIterate*> _systems;
 
         void findMatch(uint64 entityID);
         void clearMatch(uint64 entityID);

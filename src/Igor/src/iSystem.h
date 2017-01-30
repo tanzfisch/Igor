@@ -55,6 +55,10 @@ namespace Igor
         */
         uint64 getID() const;
 
+        /*! \returns entity manager
+        */
+        iEntityManager* getEntityManager() const;
+
         /*! init id
         */
         iSystem();
@@ -65,23 +69,19 @@ namespace Igor
 
     protected:
 
-        /*! corresponding entity manager
+        /*! called once by entity manager before handle is called
         */
-        iEntityManager* _entityManager = nullptr;
-
-        /*! entity cache of this system
-        */
-        vector<uint64> _entities;
-
-        /*! called once per frame by entity manager
-        */
-        virtual void handle() = 0;
+        virtual void init() = 0;
 
     private:
 
-        /*! component dependancies
+        /*! flag if system was already initialized
         */
-        vector<uint64> _dependencies;
+        bool _initialized = false;
+
+        /*! corresponding entity manager
+        */
+        iEntityManager* _entityManager = nullptr;
 
         /*! id of entity
         */

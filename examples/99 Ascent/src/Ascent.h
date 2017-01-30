@@ -129,6 +129,8 @@ private:
     void deinit();
     void init();
 
+    void handleContact(uint64 entityID1, uint64 entityID2);
+
     void onRender();
     void onHandle();
     void onRenderOrtho();

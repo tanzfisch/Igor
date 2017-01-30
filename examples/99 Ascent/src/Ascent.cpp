@@ -193,23 +193,11 @@ void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
     {
         if (body0->getUserData() != nullptr)
         {
-            uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
-
-            /*GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id0));
-            if (gameObject != nullptr)
-            {
-                gameObject->hitBy(0);
-            }*/
+            handleContact(reinterpret_cast<uint64>(body0->getUserData()), iEntity::INVALID_ENTITY_ID);
         }
         else if (body1->getUserData() != nullptr)
         {
-            uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
-
-            /*GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id1));
-            if (gameObject != nullptr)
-            {
-                gameObject->hitBy(0);
-            }*/
+            handleContact(reinterpret_cast<uint64>(body1->getUserData()), iEntity::INVALID_ENTITY_ID);
         }
     }
 }
@@ -225,18 +213,13 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
         uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
         uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
 
-        /*GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id0));
-        if (gameObject != nullptr)
-        {
-            gameObject->hitBy(id1);
-        }*/
-        
-        /*gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id1));
-        if (gameObject != nullptr)
-        {
-            gameObject->hitBy(id0);
-        }*/
+        handleContact(id0, id1);
     }
+}
+
+void Ascent::handleContact(uint64 entityID1, uint64 entityID2)
+{
+
 }
 
 void Ascent::initPlayer()
@@ -563,15 +546,10 @@ void Ascent::init()
 
 void Ascent::initECS()
 {
-    _entityManager.registerComponent(&_componentAttributes);
-    _entityManager.registerComponent(&_componentForceAndTorque);
-    _entityManager.registerComponent(&_componentInput);
-    _entityManager.registerComponent(&_componentTransform);
-    
-    // workaround
-    _systemPlayerInput.setComponentForceAndTorque(_componentForceAndTorque.getID());
-    _systemPlayerInput.setComponentInput(_componentInput.getID());
-    _systemPlayerInput.setComponentTransform(_componentTransform.getID());
+    _entityManager.registerComponent(&_componentAttributes, "Attributes");
+    _entityManager.registerComponent(&_componentForceAndTorque, "ForceAndTorque");
+    _entityManager.registerComponent(&_componentInput, "Input");
+    _entityManager.registerComponent(&_componentTransform, "Transform");
 
     _entityManager.registerSystem(&_systemPlayerInput, vector<uint64>(_componentInput.getID(), _componentForceAndTorque.getID()));
 

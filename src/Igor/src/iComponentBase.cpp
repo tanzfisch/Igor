@@ -22,4 +22,9 @@ namespace Igor
         return _id;
     }
 
+    iaString iComponentBase::getName() const
+    {
+        return _name;
+    }
+
 }

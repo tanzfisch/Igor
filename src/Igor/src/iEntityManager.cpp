@@ -4,7 +4,7 @@
 
 #include <iEntityManager.h>
 
-#include <iSystem.h>
+#include <iSystemIterate.h>
 #include <iComponentBase.h>
 
 #include <iaConsole.h>
@@ -33,6 +33,24 @@ namespace Igor
         result = entity->_id;
         _entities[result] = entity;
         _entityComponents[result];
+        return result;
+    }
+
+    uint64 iEntityManager::getComponentID(const iaString& name)
+    {
+        uint64 result = iComponentBase::INVALID_COMPONENT_ID;
+
+        for (auto component : _components)
+        {
+            if (component.second->_name == name)
+            {
+                result = component.first;
+                break;
+            }
+        }
+
+        con_assert(result != iComponentBase::INVALID_COMPONENT_ID, "component name not found");
+
         return result;
     }
 
@@ -178,7 +196,7 @@ namespace Igor
         return _components[componentID];
     }
 
-    void iEntityManager::registerComponent(iComponentBase* component)
+    void iEntityManager::registerComponent(iComponentBase* component, const iaString& name)
     {
         con_assert(component != nullptr, "zero pointer");
         if (component != nullptr)
@@ -187,6 +205,7 @@ namespace Igor
             con_assert(iter == _components.end(), "component type id " << component->_id << " already used");
             if (iter == _components.end())
             {
+                component->_name = name;
                 _components[component->_id] = component;
             }
             else
@@ -200,7 +219,7 @@ namespace Igor
         }
     }
 
-    void iEntityManager::registerSystem(iSystem* system, const vector<uint64>& dependencies)
+    void iEntityManager::registerSystem(iSystemIterate* system, const vector<uint64>& dependencies)
     {
         auto iter = _systems.find(system->_id);
         con_assert(iter == _systems.end(), "system already added");
@@ -219,7 +238,7 @@ namespace Igor
         }
     }
 
-    void iEntityManager::registerSystem(iSystem* system, const vector<iComponentBase*>& dependencies)
+    void iEntityManager::registerSystem(iSystemIterate* system, const vector<iComponentBase*>& dependencies)
     {
         vector<uint64> temp;
 
@@ -235,6 +254,12 @@ namespace Igor
     {
         for (auto system : _systems)
         {
+            if (!system.second->_initialized)
+            {
+                system.second->init();
+                system.second->_initialized = true;
+            }
+
             system.second->handle();
         }
     }
