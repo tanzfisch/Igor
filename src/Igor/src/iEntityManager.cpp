@@ -4,7 +4,7 @@
 
 #include <iEntityManager.h>
 
-#include <iSystemIterate.h>
+#include <iSystemCyclic.h>
 #include <iComponentBase.h>
 
 #include <iaConsole.h>
@@ -219,7 +219,7 @@ namespace Igor
         }
     }
 
-    void iEntityManager::registerSystem(iSystemIterate* system, const vector<uint64>& dependencies)
+    void iEntityManager::registerCyclicSystem(iSystemCyclic* system, const vector<uint64>& dependencies)
     {
         auto iter = _systems.find(system->_id);
         con_assert(iter == _systems.end(), "system already added");
@@ -238,7 +238,7 @@ namespace Igor
         }
     }
 
-    void iEntityManager::registerSystem(iSystemIterate* system, const vector<iComponentBase*>& dependencies)
+    void iEntityManager::registerCyclicSystem(iSystemCyclic* system, const vector<iComponentBase*>& dependencies)
     {
         vector<uint64> temp;
 
@@ -247,7 +247,7 @@ namespace Igor
             temp.push_back(iter->getID());
         }
 
-        registerSystem(system, temp);
+        registerCyclicSystem(system, temp);
     }
 
     void iEntityManager::handle()

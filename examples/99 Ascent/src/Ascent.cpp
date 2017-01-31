@@ -214,6 +214,7 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
         uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
 
         handleContact(id0, id1);
+        handleContact(id1, id0);
     }
 }
 
@@ -551,7 +552,7 @@ void Ascent::initECS()
     _entityManager.registerComponent(&_componentInput, "Input");
     _entityManager.registerComponent(&_componentTransform, "Transform");
 
-    _entityManager.registerSystem(&_systemPlayerInput, vector<uint64>(_componentInput.getID(), _componentForceAndTorque.getID()));
+    _entityManager.registerCyclicSystem(&_systemPlayerInput, vector<uint64>(_componentInput.getID(), _componentForceAndTorque.getID()));
 
     initPlayer();
     initBoss();
@@ -753,7 +754,11 @@ void Ascent::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _wind
 {
     if (_activeControls)
     {
-        _mouseDelta.set(x2 - x1, y2 - y1);
+        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
+        if (inputFlags != nullptr)
+        {
+            inputFlags->_orientationDelta.set(x1 - x2, y1 - y2);
+        }
 
         if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
         {
@@ -764,30 +769,44 @@ void Ascent::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _wind
 
 void Ascent::onMouseDown(iKeyCode key)
 {
-   /* if (_activeControls)
+    if (_activeControls)
     {
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
 
-        if (player != nullptr)
+        if (inputFlags != nullptr)
         {
             if (key == iKeyCode::MouseRight)
             {
-                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-                player->shootSecondaryWeapon(_view, updown);
+                inputFlags->_secondaryWeapon = true;
             }
 
             if (key == iKeyCode::MouseLeft)
             {
-                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-                player->shootPrimaryWeapon(_view, updown);
+                inputFlags->_primaryWeapon = true;
             }
         }
-    }*/
+    }
 }
 
 void Ascent::onMouseUp(iKeyCode key)
 {
+    if (_activeControls)
+    {
+        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
 
+        if (inputFlags != nullptr)
+        {
+            if (key == iKeyCode::MouseRight)
+            {
+                inputFlags->_secondaryWeapon = false;
+            }
+
+            if (key == iKeyCode::MouseLeft)
+            {
+                inputFlags->_primaryWeapon = false;
+            }
+        }
+    }
 }
 
 void Ascent::onWindowClosed()
@@ -807,22 +826,6 @@ void Ascent::initVoxelData()
     VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
 }
 
-void Ascent::handleMouse()
-{
-    if (_activeControls)
-    {
-        /*Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
-        if (player != nullptr)
-        {
-            _weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
-
-            float32 headingDelta = _mouseDelta._x * 0.002;
-            float32 pitchDelta = _mouseDelta._y * 0.002;
-            player->rotate(-headingDelta, -pitchDelta);
-        }*/
-    }
-}
-
 void Ascent::onHandle()
 {
     if (_loading)
@@ -833,7 +836,13 @@ void Ascent::onHandle()
         {
             _loading = false;
             _activeControls = true;
-            _mouseDelta.set(0, 0);
+
+            InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
+            if (inputFlags != nullptr)
+            {
+                inputFlags->_orientationDelta.set(0, 0);
+            }
+
             _view.setVisible(true);
         }
     }
@@ -861,8 +870,6 @@ void Ascent::onHandle()
 
         _entityManager.handle();
     }
-
-    handleMouse();
 }
 
 void Ascent::onRender()

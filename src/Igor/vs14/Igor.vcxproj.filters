@@ -677,7 +677,7 @@
     <ClCompile Include="..\src\iComponentBase.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemIterate.cpp">
+    <ClCompile Include="..\src\iSystemCyclic.cpp">
       <Filter>entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1420,7 +1420,7 @@
     <ClInclude Include="..\src\iComponentBase.h">
       <Filter>entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemIterate.h">
+    <ClInclude Include="..\src\iSystemCyclic.h">
       <Filter>entities</Filter>
     </ClInclude>
   </ItemGroup>

@@ -37,7 +37,7 @@ int main()
     BlubSystem blubSystem;
 
     entityManager.registerComponent(&component3DPosition);
-    entityManager.registerSystem(&blubSystem, vector<iComponent*>({ &component3DPosition }));
+    entityManager.registerCyclicSystem(&blubSystem, vector<iComponent*>({ &component3DPosition }));
 
     uint64 e1 = entityManager.createEntity();
     uint64 e2 = entityManager.createEntity();

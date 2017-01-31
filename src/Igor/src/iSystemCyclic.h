@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iSYSTEM_ITERATE__
-#define __iSYSTEM_ITERATE__
+#ifndef __iSYSTEM_CYCLIC__
+#define __iSYSTEM_CYCLIC__
 
 #include <iSystem.h>
 
@@ -38,9 +38,9 @@ using namespace std;
 namespace Igor
 {
 
-    /*!
+    /*! system that gets called every frame
     */
-    class Igor_API iSystemIterate : public iSystem
+    class Igor_API iSystemCyclic : public iSystem
     {
 
         friend class iEntityManager;
@@ -49,11 +49,11 @@ namespace Igor
 
         /*! does nothing
         */
-        iSystemIterate() = default;
+        iSystemCyclic() = default;
 
         /*! does nothing
         */
-        virtual ~iSystemIterate() = default;
+        virtual ~iSystemCyclic() = default;
 
     protected:
 

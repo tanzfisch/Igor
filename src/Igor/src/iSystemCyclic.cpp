@@ -2,7 +2,7 @@
 // (c) Copyright 2014-2016 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include <iSystemIterate.h>
+#include <iSystemCyclic.h>
 
 namespace Igor
 {

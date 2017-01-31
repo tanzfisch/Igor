@@ -112,7 +112,7 @@ void TaskGenerateVoxels::run()
         const float64 toMeta = 0.0175;
         float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
-        /*for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
+        for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
         {
             for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
             {
@@ -194,7 +194,7 @@ void TaskGenerateVoxels::run()
             }
         }/**/
 
-        for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
+        /*for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
         {
             for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
             {

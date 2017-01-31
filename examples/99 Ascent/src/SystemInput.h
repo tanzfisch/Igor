@@ -29,13 +29,13 @@
 #ifndef __SYSTEM_PLAYERINPUT__
 #define __SYSTEM_PLAYERINPUT__
 
-#include <iSystemIterate.h>
+#include <iSystemCyclic.h>
 using namespace Igor;
 
 
 /*!
 */
-class SystemInput : public iSystemIterate
+class SystemInput : public iSystemCyclic
 {
 
 protected:

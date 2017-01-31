@@ -90,7 +90,6 @@ private:
     uint64 _toolSize = 10;
     uint8 _toolDensity = 0;
 
-    iaVector2f _mouseDelta;
     iaVector3f _weaponPos;
 
     iNodeTransform* _lightTranslate = nullptr;
@@ -123,8 +122,6 @@ private:
     void onMouseUp(iKeyCode key);
     void onMouseDown(iKeyCode key);
     void onMouseWheel(int d);
-
-    void handleMouse();
 
     void deinit();
     void init();

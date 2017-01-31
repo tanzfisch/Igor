@@ -319,8 +319,10 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::initPhysics()
+    uint64 iNodePhysics::initPhysics()
     {
+        uint64 result = iPhysicsBody::INVALID_PHYSICSBODY_ID;
+
         if (!_physicsInitialized)
         {
             iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
@@ -343,7 +345,7 @@ namespace Igor
                     _applyForceAndTorqueDelegate = nullptr;
                 }
 
-                _bodyID = body->getID();
+                result = body->getID();
 
                 iPhysics::getInstance().destroyCollision(collision);
                 iPhysics::getInstance().destroyCollisionConfig(_physicsCollisionConfigID);
@@ -352,6 +354,8 @@ namespace Igor
                 _physicsInitialized = true;
             }
         }
+
+        return result;
     }
 
     void iNodePhysics::onPreSetScene()
@@ -421,7 +425,7 @@ namespace Igor
         if (nextTransformNode != nullptr &&
             nextTransformNode->getType() == iNodeType::iNodeTransform)
         {
-            initPhysics();
+            _bodyID = initPhysics();
 
             if (_bodyID != iPhysicsBody::INVALID_PHYSICSBODY_ID)
             {
@@ -430,7 +434,7 @@ namespace Igor
             }
             else
             {
-                //   con_err("inconsistand data");
+                // physics is not ready yet
                 return false;
             }
         }

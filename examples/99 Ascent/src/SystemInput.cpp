@@ -38,7 +38,7 @@ void SystemInput::handle()
         InputFlags* inputFlags = static_cast<InputFlags*>(componentInput->getData(entityID));
         uint32* transformNodeID = static_cast<uint32*>(componentTransform->getData(entityID));
 
-        float32 speed = 75;
+        float32 speed = 200;// 75;
 
         const float32 offsetIncrease = 0.1;
         iaMatrixd matrix;
@@ -114,6 +114,21 @@ void SystemInput::handle()
             }
 
             forceAndTorque->_force = resultingForce;
+
+            float64 heading = inputFlags->_orientationDelta._x * 0.002;
+            float64 pitch = inputFlags->_orientationDelta._y * 0.002;
+
+            matrix._pos.set(0, 0, 0);
+
+            if (inputFlags->_fastTurn)
+            {
+                forceAndTorque->_torque.set(pitch * 700.0, heading * 700.0, forceAndTorque->_torque._z);
+            }
+            else
+            {
+                forceAndTorque->_torque.set(pitch * 400.0, heading * 400.0, forceAndTorque->_torque._z);
+            }
+            forceAndTorque->_torque = matrix * forceAndTorque->_torque;
         }
     }
 }

@@ -41,7 +41,7 @@ using namespace std;
 namespace Igor
 {
 
-    class iSystemIterate;
+    class iSystemCyclic;
     class iComponentBase;
 
     class Igor_API iEntityManager
@@ -57,12 +57,20 @@ namespace Igor
         */
         void destroyEntity(uint64 entityID);
 
-        void registerSystem(iSystemIterate* system, const vector<iComponentBase*>& dependencies);
-        void registerSystem(iSystemIterate* system, const vector<uint64>& dependencies);
+        void registerCyclicSystem(iSystemCyclic* system, const vector<iComponentBase*>& dependencies);
+        void registerCyclicSystem(iSystemCyclic* system, const vector<uint64>& dependencies);
 
+        /*! links an entity with a component by id
+
+        \param entityID entity id
+        \param componentID component id
+        */
         void linkComponent(uint64 entityID, uint64 componentID);
-        void unlinkComponent(uint64 entityID, uint64 componentID);
+
         void linkComponent(uint64 entityID, iComponentBase* component);
+
+        void unlinkComponent(uint64 entityID, uint64 componentID);
+        
         void unlinkComponent(uint64 entityID, iComponentBase* component);
 
         /*! \returns a component by it's ID
@@ -73,7 +81,7 @@ namespace Igor
 
         /*! \returns component ID by it's name
 
-        verry slow function you should cache the resulting ID
+        very slow function you should cache the resulting ID
         */
         uint64 getComponentID(const iaString& name);
 
@@ -102,7 +110,7 @@ namespace Igor
 
         map<uint64, iComponentBase*> _components;
 
-        map<uint64, iSystemIterate*> _systems;
+        map<uint64, iSystemCyclic*> _systems;
 
         void findMatch(uint64 entityID);
         void clearMatch(uint64 entityID);

@@ -32,6 +32,9 @@
 #include <iComponent.h>
 using namespace Igor;
 
+#include <iaVector2.h>
+using namespace IgorAux;
+
 struct InputFlags
 {
     bool _up = false;
@@ -43,6 +46,9 @@ struct InputFlags
     bool _rollLeft = false;
     bool _rollRight = false;
     bool _fastTurn = false;
+    iaVector2d _orientationDelta;
+    bool _primaryWeapon = false;
+    bool _secondaryWeapon = false;
 };
 
 typedef iComponent<InputFlags> ComponentInput;

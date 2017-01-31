@@ -272,7 +272,7 @@ namespace Igor
 
         /*! initialized physics
         */
-        virtual void initPhysics();
+        virtual uint64 initPhysics();
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
         */
