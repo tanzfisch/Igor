@@ -20,20 +20,42 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Ascent.cpp" />
+    <ClCompile Include="..\src\BossDestroyed.cpp" />
+    <ClCompile Include="..\src\BossEnemy.cpp" />
+    <ClCompile Include="..\src\Bullet.cpp" />
+    <ClCompile Include="..\src\BulletHit.cpp" />
+    <ClCompile Include="..\src\DigEffect.cpp" />
+    <ClCompile Include="..\src\Enemy.cpp" />
+    <ClCompile Include="..\src\EnemyDestroyed.cpp" />
+    <ClCompile Include="..\src\Entity.cpp" />
+    <ClCompile Include="..\src\EntityManager.cpp" />
+    <ClCompile Include="..\src\Granade.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\SystemInput.cpp" />
+    <ClCompile Include="..\src\MuzzleFlash.cpp" />
+    <ClCompile Include="..\src\Player.cpp" />
+    <ClCompile Include="..\src\StaticEnemy.cpp" />
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp" />
+    <ClCompile Include="..\src\Turret.cpp" />
     <ClCompile Include="..\src\VoxelTerrainGenerator.cpp" />
     <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h" />
-    <ClInclude Include="..\src\ComponentAttributes.h" />
-    <ClInclude Include="..\src\ComponentForceAndTorque.h" />
-    <ClInclude Include="..\src\ComponentInput.h" />
-    <ClInclude Include="..\src\ComponentTransform.h" />
-    <ClInclude Include="..\src\SystemInput.h" />
+    <ClInclude Include="..\src\BossDestroyed.h" />
+    <ClInclude Include="..\src\BossEnemy.h" />
+    <ClInclude Include="..\src\Bullet.h" />
+    <ClInclude Include="..\src\BulletHit.h" />
+    <ClInclude Include="..\src\DigEffect.h" />
+    <ClInclude Include="..\src\Enemy.h" />
+    <ClInclude Include="..\src\EnemyDestroyed.h" />
+    <ClInclude Include="..\src\Entity.h" />
+    <ClInclude Include="..\src\EntityManager.h" />
+    <ClInclude Include="..\src\Granade.h" />
+    <ClInclude Include="..\src\MuzzleFlash.h" />
+    <ClInclude Include="..\src\Player.h" />
+    <ClInclude Include="..\src\StaticEnemy.h" />
     <ClInclude Include="..\src\TaskGenerateVoxels.h" />
+    <ClInclude Include="..\src\Turret.h" />
     <ClInclude Include="..\src\VoxelTerrainGenerator.h" />
     <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h" />
   </ItemGroup>

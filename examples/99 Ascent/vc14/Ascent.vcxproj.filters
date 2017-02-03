@@ -4,63 +4,120 @@
     <Filter Include="src">
       <UniqueIdentifier>{2a13e08f-281c-4d2a-b742-0903e55efd71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Terrain">
-      <UniqueIdentifier>{fe2a421c-1114-474b-8170-b94ac4fcc266}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\components">
-      <UniqueIdentifier>{933b3476-dbc7-4da8-9ebd-e18bb8a8c320}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\system">
-      <UniqueIdentifier>{1050bbb8-a528-4783-8755-73669990f3ff}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\Ascent.cpp">
+    <ClCompile Include="..\src\BossDestroyed.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BossEnemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BulletHit.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DigEffect.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Enemy.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EnemyDestroyed.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Entity.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EntityManager.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Granade.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\VoxelTerrainGenerator.cpp">
-      <Filter>src\Terrain</Filter>
+    <ClCompile Include="..\src\MuzzleFlash.cpp">
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp">
-      <Filter>src\Terrain</Filter>
+    <ClCompile Include="..\src\Player.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StaticEnemy.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
-      <Filter>src\Terrain</Filter>
+      <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SystemInput.cpp">
-      <Filter>src\system</Filter>
+    <ClCompile Include="..\src\Turret.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VoxelTerrainGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Ascent.cpp">
+      <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\Ascent.h">
+    <ClInclude Include="..\src\BossDestroyed.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BossEnemy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Bullet.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BulletHit.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DigEffect.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Enemy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EnemyDestroyed.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Entity.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EntityManager.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Granade.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MuzzleFlash.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Player.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\StaticEnemy.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\TaskGenerateVoxels.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Turret.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\VoxelTerrainGenerator.h">
-      <Filter>src\Terrain</Filter>
+      <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h">
-      <Filter>src\Terrain</Filter>
+      <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\TaskGenerateVoxels.h">
-      <Filter>src\Terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ComponentAttributes.h">
-      <Filter>src\components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ComponentForceAndTorque.h">
-      <Filter>src\components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ComponentInput.h">
-      <Filter>src\components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\SystemInput.h">
-      <Filter>src\system</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ComponentTransform.h">
-      <Filter>src\components</Filter>
+    <ClInclude Include="..\src\Ascent.h">
+      <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

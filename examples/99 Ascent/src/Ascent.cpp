@@ -38,9 +38,13 @@ using namespace IgorAux;
 #include <iOctree.h>
 #include <iPhysics.h>
 #include <iPhysicsMaterialCombo.h>
-#include <iNodePhysics.h>
-#include <iNodeEmitter.h>
 using namespace Igor;
+
+#include "Player.h"
+#include "Enemy.h"
+#include "BossEnemy.h"
+#include "StaticEnemy.h"
+#include "EntityManager.h"
 
 Ascent::Ascent()
 {
@@ -89,8 +93,7 @@ void Ascent::initViews()
     _view.setPerspective(60);
     _view.setClipPlanes(0.1f, 500.f);
     _view.registerRenderDelegate(RenderDelegate(this, &Ascent::onRender));
-    _view.setName("3d");    
-    _view.setVisible(false);
+    _view.setName("3d");
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
@@ -152,186 +155,24 @@ void Ascent::initScene()
     skyBoxNode->setMaterial(_materialSkyBox);
     // insert sky box to scene
     _scene->getRoot()->insertNode(skyBoxNode);
-
-    _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-}
-
-void Ascent::initPhysics()
-{
-    iPhysicsMaterial* materialTerrain = iPhysics::getInstance().createMaterial("terrain");
-    iPhysicsMaterial* materialEntity = iPhysics::getInstance().createMaterial("entity");
-    iPhysicsMaterial* materialBullet = iPhysics::getInstance().createMaterial("bullet");
-
-    iPhysicsMaterialCombo* terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
-    terrainEntity->setName("terrain-entity");
-    terrainEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
-    terrainEntity->setElasticity(0.0);
-    terrainEntity->setFriction(0.0, 0.0);
-
-    iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
-    terrainBullet->setName("terrain-bullet");
-    terrainBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContactTerrainBullet));
-
-    iPhysicsMaterialCombo* bulletEntity = new iPhysicsMaterialCombo(materialBullet, materialEntity);
-    bulletEntity->setName("bullet-entity");
-    bulletEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
-
-    iPhysicsMaterialCombo* entityEntity = new iPhysicsMaterialCombo(materialEntity, materialEntity);
-    entityEntity->setName("entity-entity");
-    entityEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
-
-    iPhysicsMaterialCombo* bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
-    bulletBullet->setName("bullet-bullet");
-    bulletBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
-}
-
-void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
-{
-    if (body0 != nullptr && body1 != nullptr)
-    {
-        if (body0->getUserData() != nullptr)
-        {
-            handleContact(reinterpret_cast<uint64>(body0->getUserData()), iEntity::INVALID_ENTITY_ID);
-        }
-        else if (body1->getUserData() != nullptr)
-        {
-            handleContact(reinterpret_cast<uint64>(body1->getUserData()), iEntity::INVALID_ENTITY_ID);
-        }
-    }
-}
-
-void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
-{
-    if (body0 != nullptr && body1 != nullptr &&
-        body0->getUserData() != nullptr &&
-        body1->getUserData() != nullptr)
-    {
-        const void* bla = body0->getUserData();
-
-        uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
-        uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
-
-        handleContact(id0, id1);
-        handleContact(id1, id0);
-    }
-}
-
-void Ascent::handleContact(uint64 entityID1, uint64 entityID2)
-{
-
 }
 
 void Ascent::initPlayer()
 {
-    _playerID = _entityManager.createEntity();
-    _entityManager.linkComponent(_playerID, &_componentAttributes);
-    _entityManager.linkComponent(_playerID, &_componentInput);
-    _entityManager.linkComponent(_playerID, &_componentTransform);
-    _entityManager.linkComponent(_playerID, &_componentForceAndTorque);
+    iaMatrixd matrix;
+    matrix.translate(10000, 9400, 10000);
+    Player* player = new Player(_scene, matrix);
+    _playerID = player->getID();
 
-    Attributes* attributes = static_cast<Attributes*>(_componentAttributes.getData(_playerID));
-    attributes->_fraction = Fraction::Green;
-    attributes->_health = 200;
-    attributes->_shield = 300;
-    attributes->_damage = 1.0;
-    attributes->_shieldDamage = 1.0;
-
-    uint32* transformNodeID = static_cast<uint32*>(_componentTransform.getData(_playerID));
-
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformNode->translate(10000, 9400, 10000);
-    *transformNodeID = transformNode->getID();
-
-    iNodeTransform* transformCam = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    //_transformCamNodeID = transformCam->getID();
-
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    //_cameraNodeID = camera->getID();
-
-    iaMatrixd offset;
-    iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
-    //_physicsNodeID = physicsNode->getID();
-    physicsNode->addSphere(1, offset);
-    physicsNode->finalizeCollision();
-    physicsNode->setMass(10);
-    physicsNode->setMaterial(iPhysics::getInstance().getMaterialID("entity"));
-    physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Ascent::onApplyForceAndTorquePlayer));
-    physicsNode->setUserData(reinterpret_cast<const void*>(_playerID));
-    physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));
-    physicsNode->setLinearDamping(500);
-
-    iNodeTransform* transformRecoilLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    //_transformRecoilLeftGun = transformRecoilLeftGun->getID();
-
-    iNodeTransform* transformRecoilRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    //_transformRecoilRightGun = transformRecoilRightGun->getID();
-
-    iNodeTransform* transformLeftGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformLeftGun->translate(-0.5, -0.4, -0.75);
-    transformLeftGun->scale(0.1, 0.1, 1);
-    iNodeModel* leftgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    leftgun->setModel("crate.ompf", nullptr);
-
-    iNodeTransform* transformRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformRightGun->translate(0.5, -0.4, -0.75);
-    transformRightGun->scale(0.1, 0.1, 1);
-    iNodeModel* rightgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    rightgun->setModel("crate.ompf", nullptr);
-
-    iNodeTransform* transformLeftGunEmitter = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformLeftGunEmitter->translate(-0.5, -0.4, -1.25);
-
-    iNodeTransform* transformRightGunEmitter = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformRightGunEmitter->translate(0.5, -0.4, -1.25);
-
-    iNodeEmitter* emitterLeftGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    //_emitterLeftGunNodeID = emitterLeftGun->getID();
-    emitterLeftGun->setType(iEmitterType::Point);
-
-    iNodeEmitter* emitterRightGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    //_emitterRightGunNodeID = emitterRightGun->getID();
-    emitterRightGun->setType(iEmitterType::Point);
-
-    iNodeLODTrigger* lodTrigger = static_cast<iNodeLODTrigger*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLODTrigger));
-    _lodTriggerID = lodTrigger->getID();
-
-    transformNode->insertNode(transformRecoilLeftGun);
-    transformNode->insertNode(transformRecoilRightGun);
-
-    transformRecoilLeftGun->insertNode(transformLeftGun);
-    transformRecoilRightGun->insertNode(transformRightGun);
-
-    transformRecoilLeftGun->insertNode(transformLeftGunEmitter);
-    transformRecoilRightGun->insertNode(transformRightGunEmitter);
-
-    transformLeftGun->insertNode(leftgun);
-    transformRightGun->insertNode(rightgun);
-
-    transformLeftGunEmitter->insertNode(emitterLeftGun);
-    transformRightGunEmitter->insertNode(emitterRightGun);
-
-    transformCam->insertNode(camera);
-    transformNode->insertNode(transformCam);
-    transformNode->insertNode(physicsNode);
-    camera->insertNode(lodTrigger);
-    _scene->getRoot()->insertNode(transformNode);
-
-    camera->makeCurrent();
-}
-
-void Ascent::initBoss()
-{
-    /*BossEnemy* bossEnemy = static_cast<BossEnemy*>(EntityManager::getInstance().createEntity("BossEnemy"));
-    bossEnemy->setPosition(player->getPosition() + iaVector3d(0, 0, -10));
-    bossEnemy->setTargetID(_playerID);
-    _bossID = bossEnemy->getID();*/
+    iaMatrixd enemyMatrix;
+    enemyMatrix._pos.set(10000, 9400, 10000 - 200);
+    BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
+    _bossID = boss->getID();
 }
 
 void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 {
-    /*iaVector3I pos;
+    iaVector3I pos;
     iaVector3I diff;
     diff = max;
     diff -= min;
@@ -381,7 +222,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 break;
             }
         }
-    }
+    }/**/
 
     count = 0;
 
@@ -501,12 +342,12 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
 void Ascent::init()
 {
-    _startTime = iTimer::getInstance().getTime();
+    con(" -- OpenGL 3D Test --" << endl);
 
     initViews();
     initScene();
 
-    initECS();
+    initPlayer();
     initVoxelData();
 
     // set up octree debug rendering
@@ -541,21 +382,6 @@ void Ascent::init()
     registerHandles();
 
     iRenderer::getInstance().setWorldGridResolution(1000.0);
-
-    initPhysics();
-}
-
-void Ascent::initECS()
-{
-    _entityManager.registerComponent(&_componentAttributes, "Attributes");
-    _entityManager.registerComponent(&_componentForceAndTorque, "ForceAndTorque");
-    _entityManager.registerComponent(&_componentInput, "Input");
-    _entityManager.registerComponent(&_componentTransform, "Transform");
-
-    _entityManager.registerCyclicSystem(&_systemPlayerInput, vector<uint64>(_componentInput.getID(), _componentForceAndTorque.getID()));
-
-    initPlayer();
-    initBoss();
 }
 
 void Ascent::deinit()
@@ -584,63 +410,55 @@ void Ascent::deinit()
     _window.removeView(&_viewOrtho);
 }
 
-void Ascent::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep)
-{
-    ForceAndTorque* forceAndTorque = static_cast<ForceAndTorque*>(_componentForceAndTorque.getData(_playerID));
-
-    body->setForce(forceAndTorque->_force);
-    body->setTorque(forceAndTorque->_torque);
-}
-
 void Ascent::onKeyPressed(iKeyCode key)
 {
     if (_activeControls)
     {
-        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
 
-        if (inputFlags != nullptr)
+        if (player != nullptr)
         {
             switch (key)
             {
             case iKeyCode::A:
-                inputFlags->_left = true;
+                player->startLeft();
                 break;
 
             case iKeyCode::D:
-                inputFlags->_right = true;
+                player->startRight();
                 break;
 
             case iKeyCode::W:
-                inputFlags->_forward = true;
+                player->startForward();
                 break;
 
             case iKeyCode::S:
-                inputFlags->_backward = true;
+                player->startBackward();
                 break;
 
             case iKeyCode::Q:
-                inputFlags->_up = true;
+                player->startUp();
                 break;
 
             case iKeyCode::E:
-                inputFlags->_down = true;
+                player->startDown();
                 break;
 
             case iKeyCode::LShift:
-                inputFlags->_fastTurn = true;
+                player->startFastTurn();
                 break;
 
             case iKeyCode::One:
-                inputFlags->_rollLeft = true;
+                player->startRollLeft();
                 break;
 
             case iKeyCode::Three:
-                inputFlags->_rollRight = true;
+                player->startRollRight();
                 break;
 
-            //case iKeyCode::Space:
-              //  player->dig(_toolSize, _toolDensity);
-//                break;
+            case iKeyCode::Space:
+                player->dig(_toolSize, _toolDensity);
+                break;
             }
         }
     }
@@ -676,51 +494,46 @@ void Ascent::onKeyReleased(iKeyCode key)
 {
     if (_activeControls)
     {
-        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
-
-        if (inputFlags != nullptr)
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        if (player != nullptr)
         {
             switch (key)
             {
             case iKeyCode::A:
-                inputFlags->_left = false;
+                player->stopLeft();
                 break;
 
             case iKeyCode::D:
-                inputFlags->_right = false;
+                player->stopRight();
                 break;
 
             case iKeyCode::W:
-                inputFlags->_forward = false;
+                player->stopForward();
                 break;
 
             case iKeyCode::S:
-                inputFlags->_backward = false;
+                player->stopBackward();
                 break;
 
             case iKeyCode::Q:
-                inputFlags->_up = false;
+                player->stopUp();
                 break;
 
             case iKeyCode::E:
-                inputFlags->_down = false;
+                player->stopDown();
                 break;
 
             case iKeyCode::LShift:
-                inputFlags->_fastTurn = false;
+                player->stopFastTurn();
                 break;
 
             case iKeyCode::One:
-                inputFlags->_rollLeft = false;
+                player->stopRollLeft();
                 break;
 
             case iKeyCode::Three:
-                inputFlags->_rollRight = false;
+                player->stopRollRight();
                 break;
-
-                //case iKeyCode::Space:
-                //  player->dig(_toolSize, _toolDensity);
-                //                break;
             }
         }
     }
@@ -754,11 +567,7 @@ void Ascent::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _wind
 {
     if (_activeControls)
     {
-        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
-        if (inputFlags != nullptr)
-        {
-            inputFlags->_orientationDelta.set(x1 - x2, y1 - y2);
-        }
+        _mouseDelta.set(x2 - x1, y2 - y1);
 
         if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
         {
@@ -771,18 +580,19 @@ void Ascent::onMouseDown(iKeyCode key)
 {
     if (_activeControls)
     {
-        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
-
-        if (inputFlags != nullptr)
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        if (player != nullptr)
         {
             if (key == iKeyCode::MouseRight)
             {
-                inputFlags->_secondaryWeapon = true;
+                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                player->shootSecondaryWeapon(_view, updown);
             }
 
             if (key == iKeyCode::MouseLeft)
             {
-                inputFlags->_primaryWeapon = true;
+                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                player->shootPrimaryWeapon(_view, updown);
             }
         }
     }
@@ -790,23 +600,7 @@ void Ascent::onMouseDown(iKeyCode key)
 
 void Ascent::onMouseUp(iKeyCode key)
 {
-    if (_activeControls)
-    {
-        InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
 
-        if (inputFlags != nullptr)
-        {
-            if (key == iKeyCode::MouseRight)
-            {
-                inputFlags->_secondaryWeapon = false;
-            }
-
-            if (key == iKeyCode::MouseLeft)
-            {
-                inputFlags->_primaryWeapon = false;
-            }
-        }
-    }
 }
 
 void Ascent::onWindowClosed()
@@ -822,33 +616,45 @@ void Ascent::onWindowResized(int32 clientWidth, int32 clientHeight)
 void Ascent::initVoxelData()
 {
     VoxelTerrainGenerator::getInstance().setScene(_scene);
-    VoxelTerrainGenerator::getInstance().setLODTrigger(_lodTriggerID);
+    Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+    if (player != nullptr)
+    {
+        VoxelTerrainGenerator::getInstance().setLODTrigger(player->getLODTriggerID());
+    }
     VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
+}
+
+void Ascent::handleMouse()
+{
+    if (_activeControls)
+    {
+        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        if (player != nullptr)
+        {
+            _weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
+
+            float32 headingDelta = _mouseDelta._x * 0.002;
+            float32 pitchDelta = _mouseDelta._y * 0.002;
+            player->rotate(-headingDelta, -pitchDelta);
+        }
+    }
 }
 
 void Ascent::onHandle()
 {
     if (_loading)
     {
-        if (iTaskManager::getInstance().getQueuedRegularTaskCount() < 1 &&
-            iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 1 &&
-            iTimer::getInstance().getTime() > (_startTime + (5 * __IGOR_SECOND__)))
+        if (iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
+            iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
         {
             _loading = false;
             _activeControls = true;
-
-            InputFlags* inputFlags = static_cast<InputFlags*>(_componentInput.getData(_playerID));
-            if (inputFlags != nullptr)
-            {
-                inputFlags->_orientationDelta.set(0, 0);
-            }
-
-            _view.setVisible(true);
+            _mouseDelta.set(0, 0);
         }
     }
     else
     {
-     /*   BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             vector<uint64> ids;
@@ -858,18 +664,20 @@ void Ascent::onHandle()
             {
                 if (_playerID != id)
                 {
-                    GameObject* gameObject = static_cast<GameObject*>(EntityManager::getInstance().getEntity(id));
-                    if (gameObject != nullptr &&
-                        gameObject->getKind() == GameObjectKind::Vehicle)
+                    Entity* entity = EntityManager::getInstance().getEntity(id);
+                    if (entity != nullptr &&
+                        entity->getType() == EntityType::Vehicle)
                     {
-                        gameObject->kill();
+                        EntityManager::getInstance().getEntity(id)->kill();
                     }
                 }
             }
-        }*/
+        }
 
-        _entityManager.handle();
+        EntityManager::getInstance().handle();
     }
+
+    handleMouse();
 }
 
 void Ascent::onRender()
@@ -890,34 +698,18 @@ void Ascent::onRenderOrtho()
 
     if (_loading)
     {
-        iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-        iRenderer::getInstance().drawRectangle(0, 0, _window.getClientWidth(), _window.getClientHeight());
-
-        iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
+        iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
         iRenderer::getInstance().setFontSize(40.0f);
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
-/*        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
-        }
-        else
-        {
-            iaString healthText = iaString::ftoa(boss->getHealth(), 0);
-            iaString shieldText = iaString::ftoa(boss->getShield(), 0);
-
-            iRenderer::getInstance().setFontSize(15.0f);
-            iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.95, _window.getClientHeight() * 0.05, healthText);
-
-            iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.90, _window.getClientHeight() * 0.05, shieldText);
-
         }
 
         Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
@@ -933,7 +725,7 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.10, _window.getClientHeight() * 0.05, shieldText);
 
-            drawReticle();
+            player->drawReticle(_window);
         }
         else
         {
@@ -941,27 +733,15 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().setFontSize(40.0f);
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
             _activeControls = false;
-        }*/
+        }
     }
 
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-}
-
-void Ascent::drawReticle()
-{
-    iaVector3f weaponPos(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
-
-    float32 scale = 0.001 * _window.getClientWidth();
-
-    iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
-    iRenderer::getInstance().setLineWidth(1 * scale);
-
-    iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(-10 * scale, 0, 0), weaponPos + iaVector3f(10 * scale, 0, 0));
-    iRenderer::getInstance().drawLine(weaponPos + iaVector3f(0, -10 * scale, 0), weaponPos + iaVector3f(0, 10 * scale, 0));
 }
 
 void Ascent::run()
 {
     iApplication::getInstance().run();
 }
+
+

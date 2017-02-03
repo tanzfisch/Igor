@@ -1,7 +1,7 @@
 #ifndef __BULLET__
 #define __BULLET__
 
-#include "GameObject.h"
+#include "Entity.h"
 
 namespace Igor
 {
@@ -14,46 +14,28 @@ enum class BulletType
 
 };
 
-class Bullet : public GameObject
+class Bullet : public Entity
 {
-
-    friend class Ascent;
 
 public:
 
-    void setForce(const iaVector3d& force);
+    Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matrix, Fraction fraction);
+    virtual ~Bullet();
 
 private:
-
-    /*! emitter node id
-    */
-    uint32 _emitterNodeID = iNode::INVALID_NODE_ID;
 
     Fraction _parentFraction = Fraction::None;
     uint32 _transformNodeID = 0;
 	uint32 _particleSystemNodeID = 0;
+    iScene* _scene = nullptr;
 
     iaVector3d _force;
 
-    iaMatrixd _matrix;
-
-    void init();
-
-    void deinit();
-
     void handle();
-
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
-
-    void onEffectLoaded();
-
-    static Entity* createInstance();
-
-    Bullet();
-    virtual ~Bullet() = default;
-
 
 };
 

@@ -125,7 +125,7 @@ void Granade::calcDamage(float32& shield, float32& health)
     }
 }
 
-void Granade::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep, int threadIndex)
+void Granade::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
 {
     float32 Ixx;
     float32 Iyy;

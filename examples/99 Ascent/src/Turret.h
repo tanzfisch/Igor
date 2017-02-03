@@ -1,7 +1,7 @@
 #ifndef __TURRET__
 #define __TURRET__
 
-#include "GameObject.h"
+#include "Entity.h"
 
 namespace Igor
 {
@@ -11,22 +11,17 @@ namespace Igor
     class iPhysicsBody;
 }
 
-class Turret : public GameObject
+class Turret : public Entity
 {
-
-    friend class Ascent;
 
 public:
 
-    static iaString TYPE_NAME;
-
-    void setParentNode(iNodeTransform* parent);
-    
-    void setTargetID(uint64 targetID);
+    Turret(iScene* scene, iNodeTransform* ancor, Fraction fraction, uint64 playerID);
+    virtual ~Turret();
 
 private:
 
-    uint64 _targetID;
+    uint64 _playerID;
     uint32 _turretNodeID = 0;
     bool _initilized = false;
 
@@ -35,33 +30,13 @@ private:
     uint32 _platformID = 0;
     uint32 _headingID = 0;
     uint32 _pitchID = 0;
+    iScene* _scene = nullptr;
 
     float64 _time = 0;
 
-    /*! called when hit by an other entity
-
-    \param entityId the id of the entity that was colliding with this entity
-    */
-    void hitBy(uint64 entityID);
-
-    /*! initialize entity
-    */
-    void init();
-
-    /*! deinitialize entity
-    */
-    void deinit();
-
-    /*! handle entity
-    */
     void handle();
-
-    void updatePosition();
-
-    static Entity* createInstance();
-
-    Turret();
-    virtual ~Turret();
+    iaVector3d updatePos();
+    void hitBy(uint64 entityID);
 
 };
 

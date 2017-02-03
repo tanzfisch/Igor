@@ -12,10 +12,10 @@ using namespace Igor;
 #include <iaConsole.h>
 using namespace IgorAux;
 
+int32 TaskGenerateVoxels::_seed = 0;
 vector<iSpheref> TaskGenerateVoxels::_metaballs;
 vector<iSpheref> TaskGenerateVoxels::_holes;
 mutex TaskGenerateVoxels::_initMutex;
-bool TaskGenerateVoxels::_initialized = false;
 
 TaskGenerateVoxels::TaskGenerateVoxels(VoxelBlock* voxelBlock, uint32 priority)
 	: iTask(nullptr, priority, false, iTaskContext::Default)
@@ -34,12 +34,10 @@ __IGOR_INLINE__ float64 metaballFunction(iaVector3f metaballPos, iaVector3f chec
 void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
 {
     _initMutex.lock();
-    if (!_initialized)
+    if (_seed == 0)
     {
-        //_metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 1.5));
-
-        
-        srand(static_cast<uint64>(iTimer::getInstance().getTime()));
+        int32 seed = iTimer::getInstance().getTime();
+        srand(seed);
 
         // covering the boss
         _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x + 30, playerStartPos._y, playerStartPos._z - 200), 1.5));
@@ -78,10 +76,10 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
             pos._y += playerStartPos._y;
             pos._z += playerStartPos._z - 200;
 
-            _holes.push_back(iSpheref(pos, ((rand() % 60 + 40) / 100.0) * 0.5));
+            _holes.push_back(iSpheref(pos, ((rand() % 90 + 10) / 100.0) * 0.7));
         }
         
-        _initialized = true;
+        _seed = seed;
     }
     _initMutex.unlock();
 }
@@ -194,21 +192,21 @@ void TaskGenerateVoxels::run()
             }
         }/**/
 
-        /*for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
-        {
-            for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
+        /*    for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
             {
-                for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
+                for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
                 {
-                    if (x<60 || x > 70 ||
-                        y<60 || y > 70 ||
-                        z<60 || z > 70)
+                    for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
                     {
-                        voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                        if (x<60 || x > 70 ||
+                            y<60 || y > 70 ||
+                            z<60 || z > 70)
+                        {
+                            voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                        }
                     }
                 }
-            }
-        }/**/
+            }/**/
     }
 
 	_voxelBlock->_generatedVoxels = true;

@@ -50,7 +50,7 @@ private:
 
     static vector<iSpheref> _metaballs;
     static vector<iSpheref> _holes;
-    static bool _initialized;
+    static int32 _seed;
     static mutex _initMutex;
 
     /*! the data to work with

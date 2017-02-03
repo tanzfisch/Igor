@@ -1,12 +1,10 @@
 #ifndef __PLAYER__
 #define __PLAYER__
 
-#include "GameObject.h"
+#include "Entity.h"
 
 #include <iNode.h>
-using namespace Igor;
-
-#include <iaString.h>
+#include <iaMatrix.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -18,14 +16,13 @@ namespace Igor
     class iWindow;
 }
 
-class Player : public GameObject
+class Player : public Entity
 {
-
-    friend class Ascent;
 
 public:
 
-    static iaString TYPE_NAME;
+    Player(iScene* scene, const iaMatrixd& matrix);
+    virtual ~Player();
 
     void startUp();
     void stopUp();
@@ -55,15 +52,11 @@ public:
     void dig(uint64 toolSize, uint8 toolDensity);
     iaVector3I getGunPointPosition();
 
-    void rotate(float32 heading, float32 pitch);    
+    void rotate(float32 heading, float32 pitch);
 
-    void setLODTrigger(uint32 lodTriggerNodeID);
+    void drawReticle(const iWindow& window);
 
-    /*! sets position of entity
-
-    \param position new position to set
-    */
-    void setPosition(const iaVector3d& position);
+    uint32 getLODTriggerID();
 
 private:
 
@@ -89,37 +82,18 @@ private:
 
     float64 _primaryWeaponTime = 0;
 
+    uint32 _materialSolid = 0;
+
     iScene* _scene = nullptr;
 
     iaVector3d _force;
     iaVector3d _torque;
 
-    /*! updates current position of entity
-    */
-    void updatePosition();
-
-    /*! initialize entity
-    */
-    void init();
-
-    /*! deinitialize entity
-    */
-    void deinit();
-
     void handle();
+    iaVector3d updatePos();
     void hitBy(uint64 entityID);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
-
-    static Entity* createInstance();
-
-    /*! init members
-    */
-    Player();
-
-    /*! does nothing
-    */
-    ~Player() = default;
 
 };
 

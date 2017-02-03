@@ -18,11 +18,25 @@ using namespace IgorAux;
 #include "Granade.h"
 #include "VoxelTerrainGenerator.h"
 
-iaString Turret::TYPE_NAME("Turret");
-
-Turret::Turret()
-    : GameObject(GameObjectKind::None)
+Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 playerID)
+    : Entity(fraction, EntityType::None)
 {
+    _playerID = playerID;
+    _scene = scene;
+
+    setHealth(100.0);
+    setShield(100.0);
+    setDamage(10.0);
+    setShieldDamage(10.0);
+
+    iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    _turretNodeID = turret->getID();
+    turret->setModel("turret.ompf", nullptr);
+
+    _parentNodeID = parent->getID();
+    parent->insertNode(turret);
+
+    _time = iTimer::getInstance().getTime();
 }
 
 Turret::~Turret()
@@ -30,69 +44,25 @@ Turret::~Turret()
     iNodeFactory::getInstance().destroyNodeAsync(_turretNodeID);
 }
 
-Entity* Turret::createInstance()
+void Turret::hitBy(uint64 entityID)
 {
-    return new Turret();
 }
 
-void Turret::setParentNode(iNodeTransform* parent)
+iaVector3d Turret::updatePos()
 {
-    _parentNodeID = parent->getID();
-}
-
-void Turret::setTargetID(uint64 targetID)
-{
-    _targetID = targetID;
-}
-
-void Turret::updatePosition()
-{
+    iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_parentNodeID));
     if (transformNode != nullptr)
     {
         iaMatrixd matrix;
         transformNode->calcWorldTransformation(matrix);
-        _sphere._center = matrix._pos;
+        result = matrix._pos;
     }
-}
-
-void Turret::init()
-{
-    setHealth(100.0);
-    setShield(100.0);
-    setDamage(10.0);
-    setShieldDamage(10.0);
-
-    iNode* parent = iNodeFactory::getInstance().getNode(_parentNodeID);
-    if (parent != nullptr)
-    {
-        iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        _turretNodeID = turret->getID();
-        turret->setModel("turret.ompf", nullptr);
-
-        parent->insertNode(turret);
-
-        _time = iTimer::getInstance().getTime();
-    }
-    else
-    {
-        con_err("can't initialize");
-    }
-}
-
-void Turret::deinit()
-{
-
-}
-
-void Turret::hitBy(uint64 entityID)
-{
+    return result;
 }
 
 void Turret::handle()
 {
-    updatePosition();
-
     if (!_initilized)
     {
         iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_turretNodeID));
@@ -135,7 +105,7 @@ void Turret::handle()
     bool fired = false;
     bool canFire = false;
 
-    Entity* identifiedTarget = EntityManager::getInstance().getEntity(_targetID);
+    Entity* identifiedTarget = EntityManager::getInstance().getEntity(_playerID);
 
     if (identifiedTarget != nullptr)
     {
@@ -211,13 +181,7 @@ void Turret::handle()
                         matrixOrientation._pos = worldPos;
                         matrixOrientation._pos -= matrixOrientation._depth * 2.0;
 
-                        iaVector3d bulletForce = matrixOrientation._depth * -0.75;
-
-                        Bullet* bullet = static_cast<Bullet*>(EntityManager::getInstance().createEntity("Bullet"));
-                        bullet->setFraction(getFraction());
-                        bullet->setForce(bulletForce);
-                        bullet->setPosition(matrixOrientation._pos);
-
+                        Bullet* bullet = new Bullet(_scene, iaVector3d(), matrixOrientation, getFraction());
                         _time = iTimer::getInstance().getTime();
 
                         fired = true;
