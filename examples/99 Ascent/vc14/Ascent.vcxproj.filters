@@ -27,12 +27,6 @@
     <ClCompile Include="..\src\EnemyDestroyed.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Entity.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\EntityManager.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Granade.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -63,6 +57,9 @@
     <ClCompile Include="..\src\Ascent.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\GameObject.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\BossDestroyed.h">
@@ -84,12 +81,6 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\EnemyDestroyed.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Entity.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\EntityManager.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Granade.h">
@@ -117,6 +108,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Ascent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GameObject.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

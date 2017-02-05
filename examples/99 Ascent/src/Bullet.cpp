@@ -12,16 +12,16 @@
 #include <iNodeEmitter.h>
 #include <iNodeParticleSystem.h>
 #include <iMaterialResourceFactory.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
 #include "BulletHit.h"
 
 Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matrix, Fraction fraction)
-	: Entity(fraction, EntityType::Weapon)
+	: GameObject(fraction, GameObjectType::Weapon)
 {
 	_scene = scene;
 
@@ -84,8 +84,8 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	physicsNode->finalizeCollision();
 	physicsNode->setMass(0.01);
 	physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
-	physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
-	physicsNode->setUserData(&_id);
+	// TODO physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
+    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
 	_scene->getRoot()->insertNode(particleSystem);
 
@@ -104,10 +104,10 @@ Bullet::~Bullet()
 void Bullet::hitBy(uint64 entityID)
 {
 	bool killit = false;
-	Entity* entity = EntityManager::getInstance().getEntity(entityID);
-	if (entity != nullptr)
+	GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+	if (gameObject != nullptr)
 	{
-		if (entity->getFraction() != getFraction())
+		if (gameObject->getFraction() != getFraction())
 		{
 			killit = true;
 		}

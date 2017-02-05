@@ -11,19 +11,19 @@
 #include <iPhysicsJoint.h>
 #include <iPhysicsCollision.h>
 #include <iTimer.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 #include <iaConvert.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
 #include "Turret.h"
 #include "EnemyDestroyed.h"
 #include "VoxelTerrainGenerator.h"
 
 StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
-    : Entity(Fraction::Red, EntityType::Vehicle)
+    : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
     _scene = scene;
@@ -49,8 +49,8 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID
     physicsNode->addBox(1,2,1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(0);
-    physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
-    physicsNode->setUserData(&_id);
+    // TODO physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
     _scene->getRoot()->insertNode(transformNode);
     transformNode->insertNode(bodyTransform);
@@ -67,7 +67,7 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID
 
 StaticEnemy::~StaticEnemy()
 {
-    Entity* turretA = EntityManager::getInstance().getEntity(_turretID);
+    GameObject* turretA = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretID));
     if (turretA != nullptr)
     {
         turretA->kill();
@@ -78,7 +78,7 @@ StaticEnemy::~StaticEnemy()
 
 void StaticEnemy::hitBy(uint64 entityID)
 {
-    Entity* entity = EntityManager::getInstance().getEntity(entityID);
+    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
     if (entity != nullptr &&
         entity->getFraction() != getFraction())
     {

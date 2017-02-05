@@ -27,8 +27,7 @@
     <ClCompile Include="..\src\DigEffect.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\EnemyDestroyed.cpp" />
-    <ClCompile Include="..\src\Entity.cpp" />
-    <ClCompile Include="..\src\EntityManager.cpp" />
+    <ClCompile Include="..\src\GameObject.cpp" />
     <ClCompile Include="..\src\Granade.cpp" />
     <ClCompile Include="..\src\main.cpp" />
     <ClCompile Include="..\src\MuzzleFlash.cpp" />
@@ -48,8 +47,7 @@
     <ClInclude Include="..\src\DigEffect.h" />
     <ClInclude Include="..\src\Enemy.h" />
     <ClInclude Include="..\src\EnemyDestroyed.h" />
-    <ClInclude Include="..\src\Entity.h" />
-    <ClInclude Include="..\src\EntityManager.h" />
+    <ClInclude Include="..\src\GameObject.h" />
     <ClInclude Include="..\src\Granade.h" />
     <ClInclude Include="..\src\MuzzleFlash.h" />
     <ClInclude Include="..\src\Player.h" />

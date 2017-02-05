@@ -1,7 +1,7 @@
 #ifndef __BULLET__
 #define __BULLET__
 
-#include "Entity.h"
+#include "GameObject.h"
 
 namespace Igor
 {
@@ -14,7 +14,7 @@ enum class BulletType
 
 };
 
-class Bullet : public Entity
+class Bullet : public GameObject
 {
 
 public:

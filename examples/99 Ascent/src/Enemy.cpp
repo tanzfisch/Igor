@@ -11,19 +11,19 @@
 #include <iPhysicsJoint.h>
 #include <iPhysicsCollision.h>
 #include <iTimer.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 #include <iaConvert.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
 #include "Turret.h"
 #include "EnemyDestroyed.h"
 #include "VoxelTerrainGenerator.h"
 
 Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
-    : Entity(Fraction::Red, EntityType::Vehicle)
+    : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
     _scene = scene;
@@ -45,8 +45,8 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     physicsNode->addBox(1,0.5,1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
-    physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
-    physicsNode->setUserData(&_id);
+    //physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Enemy::onApplyForceAndTorque));
     physicsNode->setAngularDamping(iaVector3d(10000, 10000, 10000));
     physicsNode->setLinearDamping(100);
@@ -80,13 +80,13 @@ Enemy::~Enemy()
         EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
     }
 
-    Entity* turretA = EntityManager::getInstance().getEntity(_turretAID);
+    GameObject* turretA = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretAID));
     if (turretA != nullptr)
     {
         turretA->kill();
     }
 
-    Entity* turretB = EntityManager::getInstance().getEntity(_turretBID);
+    GameObject* turretB = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretBID));
     if (turretB != nullptr)
     {
         turretB->kill();
@@ -97,7 +97,7 @@ Enemy::~Enemy()
 
 void Enemy::hitBy(uint64 entityID)
 {
-    Entity* entity = EntityManager::getInstance().getEntity(entityID);
+    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
     if (entity != nullptr &&
         entity->getFraction() != getFraction())
     {
@@ -152,7 +152,7 @@ void Enemy::handle()
         const float32 approachDistance = 20;
         bool upperGunActive = true;
 
-        Entity* identifiedTarget = EntityManager::getInstance().getEntity(_playerID);
+        GameObject* identifiedTarget = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_playerID));
 
         _force.set(0, 0, 0);
 

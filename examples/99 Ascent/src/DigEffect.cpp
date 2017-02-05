@@ -18,10 +18,8 @@ using namespace Igor;
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
-
 DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
-    : Entity(Fraction::None, EntityType::None)
+    : GameObject(Fraction::None, GameObjectType::None)
 {
     setHealth(100.0);
     setDamage(0.0);

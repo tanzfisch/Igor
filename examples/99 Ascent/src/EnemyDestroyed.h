@@ -1,7 +1,7 @@
 #ifndef __ENEMYDESTROYED__
 #define __ENEMYDESTROYED__
 
-#include "Entity.h"
+#include "GameObject.h"
 #include <iNode.h>
 
 namespace Igor
@@ -9,7 +9,7 @@ namespace Igor
     class iScene;
 }
 
-class EnemyDestroyed : public Entity
+class EnemyDestroyed : public GameObject
 {
 
 public:

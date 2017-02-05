@@ -1,7 +1,7 @@
 #ifndef __DIGEFFECT__
 #define __DIGEFFECT__
 
-#include "Entity.h"
+#include "GameObject.h"
 #include <iNode.h>
 
 namespace Igor
@@ -9,7 +9,7 @@ namespace Igor
     class iScene;
 }
 
-class DigEffect : public Entity
+class DigEffect : public GameObject
 {
 
 public:

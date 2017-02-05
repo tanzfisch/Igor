@@ -11,19 +11,19 @@
 #include <iPhysicsJoint.h>
 #include <iPhysicsCollision.h>
 #include <iTimer.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 #include <iaConvert.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
 #include "Turret.h"
 #include "BossDestroyed.h"
 #include "VoxelTerrainGenerator.h"
 
 BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
-    : Entity(Fraction::Red, EntityType::Vehicle)
+    : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
     _scene = scene;
@@ -49,8 +49,8 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     physicsNode->addBox(3.0, 3.0, 3.0, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(0);
-    physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
-    physicsNode->setUserData(&_id);
+//    physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
     _scene->getRoot()->insertNode(transformNode);
     transformNode->insertNode(bodyTransform);
@@ -110,37 +110,37 @@ BossEnemy::~BossEnemy()
         BossDestroyed* effect = new BossDestroyed(_scene, matrix);
     }
 
-    Entity* turretA = EntityManager::getInstance().getEntity(_turretAID);
+    GameObject* turretA = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretAID));
     if (turretA != nullptr) 
     { 
         turretA->kill(); 
     }
 	
-    Entity* turretB = EntityManager::getInstance().getEntity(_turretBID);
+    GameObject* turretB = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretBID));
 	if (turretB != nullptr) 
     { 
         turretB->kill(); 
     }
 
-	Entity* turretC = EntityManager::getInstance().getEntity(_turretCID);
+    GameObject* turretC = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretCID));
 	if (turretC != nullptr) 
     { 
         turretC->kill(); 
     }
 
-	Entity* turretD = EntityManager::getInstance().getEntity(_turretDID);
+    GameObject* turretD = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretDID));
 	if (turretD != nullptr) 
     { 
         turretD->kill(); 
     }
 
-	Entity* turretE = EntityManager::getInstance().getEntity(_turretEID);
+    GameObject* turretE = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretEID));
 	if (turretE != nullptr) 
     { 
         turretE->kill(); 
     }
 
-	Entity* turretF = EntityManager::getInstance().getEntity(_turretFID);
+    GameObject* turretF = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_turretFID));
 	if (turretF != nullptr) 
     { 
         turretF->kill(); 
@@ -151,7 +151,7 @@ BossEnemy::~BossEnemy()
 
 void BossEnemy::hitBy(uint64 entityID)
 {
-    Entity* entity = EntityManager::getInstance().getEntity(entityID);
+    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
     if (entity != nullptr &&
         entity->getFraction() != getFraction())
     {

@@ -18,10 +18,8 @@ using namespace Igor;
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
-
 EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
-    : Entity(Fraction::None, EntityType::None)
+    : GameObject(Fraction::None, GameObjectType::None)
 {
     setHealth(100.0);
     setDamage(0.0);

@@ -1,7 +1,7 @@
 #ifndef __GRANADE__
 #define __GRANADE__
 
-#include "Entity.h"
+#include "GameObject.h"
 
 namespace Igor
 {
@@ -9,7 +9,7 @@ namespace Igor
     class iPhysicsBody;
 }
 
-class Granade : public Entity
+class Granade : public GameObject
 {
 
 public:

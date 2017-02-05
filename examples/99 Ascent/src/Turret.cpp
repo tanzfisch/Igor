@@ -7,19 +7,19 @@
 #include <iScene.h>
 #include <iPhysics.h>
 #include <iTimer.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 #include <iaConvert.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
 #include "Bullet.h"
 #include "Granade.h"
 #include "VoxelTerrainGenerator.h"
 
 Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 playerID)
-    : Entity(fraction, EntityType::None)
+    : GameObject(fraction, GameObjectType::None)
 {
     _playerID = playerID;
     _scene = scene;
@@ -105,7 +105,7 @@ void Turret::handle()
     bool fired = false;
     bool canFire = false;
 
-    Entity* identifiedTarget = EntityManager::getInstance().getEntity(_playerID);
+    GameObject* identifiedTarget = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(_playerID));
 
     if (identifiedTarget != nullptr)
     {

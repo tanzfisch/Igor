@@ -1,7 +1,7 @@
 #ifndef __MUZZLEFLASH__
 #define __MUZZLEFLASH__
 
-#include "Entity.h"
+#include "GameObject.h"
 #include <iNode.h>
 
 namespace Igor
@@ -9,7 +9,7 @@ namespace Igor
     class iScene;
 }
 
-class MuzzleFlash : public Entity
+class MuzzleFlash : public GameObject
 {
 
 public:

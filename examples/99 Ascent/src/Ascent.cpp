@@ -38,13 +38,13 @@ using namespace IgorAux;
 #include <iOctree.h>
 #include <iPhysics.h>
 #include <iPhysicsMaterialCombo.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include "Player.h"
 #include "Enemy.h"
 #include "BossEnemy.h"
 #include "StaticEnemy.h"
-#include "EntityManager.h"
 
 Ascent::Ascent()
 {
@@ -180,7 +180,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
     srand(min._x + min._y + min._z);
 
     iaMatrixd enemyMatrix;
-    Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
 
     int count = 0;
 
@@ -298,7 +298,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
                 {
                     iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
                     vector<uint64> result;
-                    EntityManager::getInstance().getEntities(sphere, result);
+                    iEntityManager::getInstance().getEntities(sphere, result);
                     if (result.empty())
                     {
                         if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + right) != 0) rating++;
@@ -414,7 +414,7 @@ void Ascent::onKeyPressed(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
 
         if (player != nullptr)
         {
@@ -494,7 +494,7 @@ void Ascent::onKeyReleased(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             switch (key)
@@ -580,7 +580,7 @@ void Ascent::onMouseDown(iKeyCode key)
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             if (key == iKeyCode::MouseRight)
@@ -616,7 +616,7 @@ void Ascent::onWindowResized(int32 clientWidth, int32 clientHeight)
 void Ascent::initVoxelData()
 {
     VoxelTerrainGenerator::getInstance().setScene(_scene);
-    Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
     if (player != nullptr)
     {
         VoxelTerrainGenerator::getInstance().setLODTrigger(player->getLODTriggerID());
@@ -628,7 +628,7 @@ void Ascent::handleMouse()
 {
     if (_activeControls)
     {
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             _weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
@@ -654,27 +654,27 @@ void Ascent::onHandle()
     }
     else
     {
-        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             vector<uint64> ids;
-            EntityManager::getInstance().getEntities(ids);
+            iEntityManager::getInstance().getEntities(ids);
 
             for (auto id : ids)
             {
                 if (_playerID != id)
                 {
-                    Entity* entity = EntityManager::getInstance().getEntity(id);
+                    GameObject* entity = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(id));
                     if (entity != nullptr &&
-                        entity->getType() == EntityType::Vehicle)
+                        entity->getType() == GameObjectType::Vehicle)
                     {
-                        EntityManager::getInstance().getEntity(id)->kill();
+                        iEntityManager::getInstance().killEntity(entity->getID());
                     }
                 }
             }
         }
 
-        EntityManager::getInstance().handle();
+        iEntityManager::getInstance().handle();
     }
 
     handleMouse();
@@ -704,7 +704,7 @@ void Ascent::onRenderOrtho()
     }
     else
     {
-        BossEnemy* boss = static_cast<BossEnemy*>(EntityManager::getInstance().getEntity(_bossID));
+        BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
         if (boss == nullptr)
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
@@ -712,7 +712,7 @@ void Ascent::onRenderOrtho()
             iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
         }
 
-        Player* player = static_cast<Player*>(EntityManager::getInstance().getEntity(_playerID));
+        Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
             iaString healthText = iaString::ftoa(player->getHealth(), 0);

@@ -1,15 +1,17 @@
 #ifndef __BULLETHIT__
 #define __BULLETHIT__
 
-#include "Entity.h"
+#include "GameObject.h"
+
 #include <iNode.h>
+using namespace Igor;
 
 namespace Igor
 {
     class iScene;
 }
 
-class BulletHit : public Entity
+class BulletHit : public GameObject
 {
 
 public:

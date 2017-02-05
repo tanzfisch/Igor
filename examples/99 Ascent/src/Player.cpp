@@ -18,6 +18,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iNodeEmitter.h>
 #include <iTimer.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -26,13 +27,12 @@ using namespace IgorAux;
 
 #include "Bullet.h"
 #include "Granade.h"
-#include "EntityManager.h"
 #include "VoxelTerrainGenerator.h"
 #include "DigEffect.h"
 #include "MuzzleFlash.h"
 
 Player::Player(iScene* scene, const iaMatrixd& matrix)
-    : Entity(Fraction::Blue, EntityType::Vehicle)
+    : GameObject(Fraction::Blue, GameObjectType::Vehicle)
 {
     _scene = scene;
 
@@ -59,9 +59,9 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
-    physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    // TODO physicsNode->setMaterial(0);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
-    physicsNode->setUserData(&_id);
+    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
     physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));
     physicsNode->setLinearDamping(500);
 
@@ -136,20 +136,20 @@ Player::~Player()
 
 void Player::hitBy(uint64 entityID)
 {
-    Entity* entity = EntityManager::getInstance().getEntity(entityID);
-    if (entity != nullptr &&
-        entity->getFraction() != getFraction())
+    GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
+    if (gameObject != nullptr &&
+        gameObject->getFraction() != getFraction())
     {
         float32 shield = getShield();
         float32 health = getHealth();
 
-        shield -= entity->getShieldDamage();
+        shield -= gameObject->getShieldDamage();
 
         if (shield <= 0)
         {
             shield = 0;
 
-            health -= entity->getDamage();
+            health -= gameObject->getDamage();
             if (health <= 0)
             {
                 health = 0;

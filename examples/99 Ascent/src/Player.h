@@ -1,7 +1,7 @@
 #ifndef __PLAYER__
 #define __PLAYER__
 
-#include "Entity.h"
+#include "GameObject.h"
 
 #include <iNode.h>
 #include <iaMatrix.h>
@@ -16,7 +16,7 @@ namespace Igor
     class iWindow;
 }
 
-class Player : public Entity
+class Player : public GameObject
 {
 
 public:

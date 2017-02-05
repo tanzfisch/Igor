@@ -1,17 +1,15 @@
 #ifndef __TURRET__
 #define __TURRET__
 
-#include "Entity.h"
+#include "GameObject.h"
 
 namespace Igor
 {
     class iScene;
-    class iNode;
     class iNodeTransform;
-    class iPhysicsBody;
 }
 
-class Turret : public Entity
+class Turret : public GameObject
 {
 
 public:

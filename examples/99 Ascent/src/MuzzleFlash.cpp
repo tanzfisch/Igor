@@ -18,10 +18,8 @@ using namespace Igor;
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
-
 MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
-    : Entity(Fraction::None, EntityType::None)
+    : GameObject(Fraction::None, GameObjectType::None)
 {
     _emitterNodeID = emitterID;
 

@@ -9,15 +9,14 @@
 #include <iPhysics.h>
 #include <iPhysicsBody.h>
 #include <iPhysicsCollision.h>
+#include <iEntityManager.h>
 using namespace Igor;
 
 #include <iaString.h>
 using namespace IgorAux;
 
-#include "EntityManager.h"
-
 Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
-    : Entity(fraction, EntityType::Weapon)
+    : GameObject(fraction, GameObjectType::Weapon)
 {
     _scene = scene;
     _parentFraction = fraction;
@@ -51,8 +50,8 @@ Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     physicsNode->finalizeCollision();
     physicsNode->setMass(0.1);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Granade::onApplyForceAndTorque));
-    physicsNode->setUserData(&_id);
-    physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
+    physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
+    // TODO physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
 
     _scene->getRoot()->insertNode(transformNode);
     transformNode->insertNode(bulletModel);
@@ -89,7 +88,7 @@ void Granade::handle()
     detectionSphere._center.set(getSphere()._center._x, getSphere()._center._y, getSphere()._center._z);
     detectionSphere._radius = 1.0; // todo size of bullet granade etc.
 
-    EntityManager::getInstance().getEntities(detectionSphere, detectedEntities);
+    iEntityManager::getInstance().getEntities(detectionSphere, detectedEntities);
 
     if (detectedEntities.size() > 0)
     {
@@ -97,7 +96,7 @@ void Granade::handle()
         {
             if (entityID != getID())
             {
-                Entity* target = EntityManager::getInstance().getEntity(entityID);
+                GameObject* target = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
                 if (target->getFraction() != getFraction())
                 {
                     float32 targetHealth = target->getHealth();

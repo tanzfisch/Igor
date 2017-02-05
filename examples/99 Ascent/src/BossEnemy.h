@@ -1,7 +1,7 @@
 #ifndef __BOSSENEMY__
 #define __BOSSENEMY__
 
-#include "Entity.h"
+#include "GameObject.h"
 
 namespace Igor
 {
@@ -10,7 +10,7 @@ namespace Igor
     class iPhysicsJoint;
 }
 
-class BossEnemy : public Entity
+class BossEnemy : public GameObject
 {
     
 public:

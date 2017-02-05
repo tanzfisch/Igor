@@ -688,8 +688,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iApplication.h" />
     <ClInclude Include="..\src\iBone.h" />
     <ClInclude Include="..\src\iCelestialNode.h" />
-    <ClInclude Include="..\src\iComponent.h" />
-    <ClInclude Include="..\src\iComponentBase.h" />
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
     <ClInclude Include="..\src\iContouringCubesLookup.h" />
@@ -705,6 +703,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iDialogMenu.h" />
     <ClInclude Include="..\src\iDialogMessageBox.h" />
     <ClInclude Include="..\src\iEntity.h" />
+    <ClInclude Include="..\src\iEntityLocatable.h" />
     <ClInclude Include="..\src\iEntityManager.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
@@ -805,12 +804,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClInclude Include="..\src\iStatisticsVisualizer.h" />
     <ClInclude Include="..\src\iSTBImageExt.h" />
     <ClInclude Include="..\src\iStopWatch.h" />
-    <ClInclude Include="..\src\iSystem.h" />
     <ClInclude Include="..\src\iSystemConfig.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemCyclic.h" />
     <ClInclude Include="..\src\iTargetMaterial.h" />
     <ClInclude Include="..\src\iTask.h" />
     <ClInclude Include="..\src\iTaskFlushModels.h" />
@@ -913,7 +910,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
   <ItemGroup>
     <None Include="..\src\iAABox.inl" />
     <None Include="..\src\iAACube.inl" />
-    <None Include="..\src\iComponent.inl" />
     <None Include="..\src\iFrustum.inl" />
     <None Include="..\src\iInstancer.inl" />
     <None Include="..\src\iIntersection.inl" />
@@ -1307,7 +1303,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iApplication.cpp" />
     <ClCompile Include="..\src\iBone.cpp" />
     <ClCompile Include="..\src\iCelestialNode.cpp" />
-    <ClCompile Include="..\src\iComponentBase.cpp" />
     <ClCompile Include="..\src\iConfigReader.cpp" />
     <ClCompile Include="..\src\iContouringCubes.cpp" />
     <ClCompile Include="..\src\iControl.cpp" />
@@ -1321,6 +1316,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iDialogMenu.cpp" />
     <ClCompile Include="..\src\iDialogMessageBox.cpp" />
     <ClCompile Include="..\src\iEntity.cpp" />
+    <ClCompile Include="..\src\iEntityLocatable.cpp" />
     <ClCompile Include="..\src\iEntityManager.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
@@ -1419,12 +1415,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" 
     <ClCompile Include="..\src\iStatisticsSection.cpp" />
     <ClCompile Include="..\src\iStatisticsVisualizer.cpp" />
     <ClCompile Include="..\src\iStopWatch.cpp" />
-    <ClCompile Include="..\src\iSystem.cpp" />
     <ClCompile Include="..\src\iSystemConfig.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemCyclic.cpp" />
     <ClCompile Include="..\src\iTargetMaterial.cpp" />
     <ClCompile Include="..\src\iTask.cpp" />
     <ClCompile Include="..\src\iTaskFlushModels.cpp" />

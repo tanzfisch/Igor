@@ -668,16 +668,10 @@
     <ClCompile Include="..\src\iEntity.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSystem.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iEntityManager.cpp">
       <Filter>entities</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iComponentBase.cpp">
-      <Filter>entities</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iSystemCyclic.cpp">
+    <ClCompile Include="..\src\iEntityLocatable.cpp">
       <Filter>entities</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1408,19 +1402,10 @@
     <ClInclude Include="..\src\iEntity.h">
       <Filter>entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystem.h">
-      <Filter>entities</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iEntityManager.h">
       <Filter>entities</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iComponent.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iComponentBase.h">
-      <Filter>entities</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iSystemCyclic.h">
+    <ClInclude Include="..\src\iEntityLocatable.h">
       <Filter>entities</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1466,9 +1451,6 @@
     </None>
     <None Include="..\src\iIntersection.inl">
       <Filter>bodies &amp; shapes</Filter>
-    </None>
-    <None Include="..\src\iComponent.inl">
-      <Filter>entities</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
