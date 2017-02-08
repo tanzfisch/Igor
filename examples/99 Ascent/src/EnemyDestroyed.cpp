@@ -183,7 +183,7 @@ void EnemyDestroyed::hitBy(uint64 entityID)
     // nothing to do
 }
 
-iaVector3d EnemyDestroyed::updatePos()
+iaVector3d EnemyDestroyed::getCurrentPos()
 {
     return _pos;
 }

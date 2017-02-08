@@ -32,7 +32,7 @@ private:
     uint64 _playerID;
 
     void handle();
-    iaVector3d updatePos();
+    iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);

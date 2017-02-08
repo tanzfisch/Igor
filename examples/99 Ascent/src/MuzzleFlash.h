@@ -34,7 +34,7 @@ private:
     bool _muzzleSmokeRunning = true;
 
     void handle();
-    iaVector3d updatePos();
+    iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
 
 };

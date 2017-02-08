@@ -38,6 +38,7 @@ namespace Igor
         if (entity->_type == iEntityType::Locatable)
         {
             iEntityLocatable* locatable = static_cast<iEntityLocatable*>(entity);
+            locatable->_sphere._center = locatable->getCurrentPos();
             _octree->insert(entity->getID(), locatable->_sphere);
         }
 
@@ -87,6 +88,7 @@ namespace Igor
             if (entity.second->_type == iEntityType::Locatable)
             {
                 locatable = static_cast<iEntityLocatable*>(entity.second);
+                locatable->_sphere._center = locatable->getCurrentPos();
                 _octree->update(locatable->_id, locatable->_sphere);
             }
         }

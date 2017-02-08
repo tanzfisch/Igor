@@ -131,7 +131,7 @@ void Bullet::hitBy(uint64 entityID)
 	}
 }
 
-iaVector3d Bullet::updatePos()
+iaVector3d Bullet::getCurrentPos()
 {
 	iaVector3d result;
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));

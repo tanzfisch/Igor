@@ -25,7 +25,7 @@ private:
 	iaVector3d _pos;
 
     void handle();
-    iaVector3d updatePos();
+    iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
 
 };

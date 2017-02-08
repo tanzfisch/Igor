@@ -4,6 +4,8 @@
 
 #include <iEntity.h>
 
+#include <iEntityManager.h>
+
 namespace Igor
 {
 
@@ -16,6 +18,13 @@ namespace Igor
         _mutexID.lock();
         _id = _nextID++;
         _mutexID.unlock();
+
+        iEntityManager::getInstance().registerEntity(this);
+    }
+
+    iEntity::~iEntity()
+    {
+        iEntityManager::getInstance().unregisterEntity(this);
     }
 
     uint64 iEntity::getID() const

@@ -48,7 +48,7 @@ void Turret::hitBy(uint64 entityID)
 {
 }
 
-iaVector3d Turret::updatePos()
+iaVector3d Turret::getCurrentPos()
 {
     iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_parentNodeID));

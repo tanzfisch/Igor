@@ -68,7 +68,7 @@ void Granade::hitBy(uint64 entityID)
     kill();
 }
 
-iaVector3d Granade::updatePos()
+iaVector3d Granade::getCurrentPos()
 {
     iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));

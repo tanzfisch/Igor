@@ -48,7 +48,8 @@ public:
 protected:
 
     virtual void handle() = 0;
-    virtual iaVector3d updatePos() = 0;
+    virtual iaVector3d getCurrentPos() = 0;
+
     virtual void hitBy(uint64 entityID) = 0;
 
 private:

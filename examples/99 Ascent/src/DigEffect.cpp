@@ -86,7 +86,7 @@ void DigEffect::hitBy(uint64 entityID)
 	// nothing to do
 }
 
-iaVector3d DigEffect::updatePos()
+iaVector3d DigEffect::getCurrentPos()
 {
 	return _pos;
 }

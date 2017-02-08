@@ -36,6 +36,8 @@ namespace Igor
 {
 
     /*! sphere
+
+    \todo mode to IgorAux
     */
 	template <class T>
 	class Igor_API_Template iSphere

@@ -104,7 +104,7 @@ void MuzzleFlash::hitBy(uint64 entityID)
     // nothing to do
 }
 
-iaVector3d MuzzleFlash::updatePos()
+iaVector3d MuzzleFlash::getCurrentPos()
 {
     return _pos;
 }

@@ -34,7 +34,7 @@ private:
     iScene* _scene = nullptr;
 
     void handle();
-    iaVector3d updatePos();
+    iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
 
 };

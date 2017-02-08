@@ -122,7 +122,7 @@ void Enemy::hitBy(uint64 entityID)
     }
 }
 
-iaVector3d Enemy::updatePos()
+iaVector3d Enemy::getCurrentPos()
 {
     iaVector3d result;
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));

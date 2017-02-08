@@ -67,13 +67,13 @@ namespace Igor
         */
         iEntityType getType() const;
 
-        /*! init id
+        /*! init id and register entity
         */
         iEntity();
 
-        /*! does nothing
+        /*! unregister
         */
-        virtual ~iEntity() = default;
+        virtual ~iEntity();
 
     protected:
 

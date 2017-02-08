@@ -342,7 +342,7 @@ uint32 Player::getLODTriggerID()
     return _lodTriggerID;
 }
 
-iaVector3d Player::updatePos()
+iaVector3d Player::getCurrentPos()
 {
     iaVector3d result;
 

@@ -32,6 +32,9 @@
 #include <iEntity.h>
 #include <iSphere.h>
 
+#include <iaVector3.h>
+using namespace IgorAux;
+
 namespace Igor
 {
 
@@ -52,6 +55,8 @@ namespace Igor
     protected:
 
         virtual void handle() = 0;
+
+        virtual iaVector3d getCurrentPos() = 0;
 
     private:
 

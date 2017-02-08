@@ -28,7 +28,7 @@ private:
     void calcDamage(float32& shield, float32& health);
 
     void handle();
-    iaVector3d updatePos();
+    iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);

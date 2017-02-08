@@ -82,7 +82,7 @@ void BulletHit::hitBy(uint64 entityID)
 	// nothing to do
 }
 
-iaVector3d BulletHit::updatePos()
+iaVector3d BulletHit::getCurrentPos()
 {
 	return _pos;
 }
