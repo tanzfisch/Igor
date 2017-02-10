@@ -485,25 +485,25 @@ __IGOR_INLINE__ bool iaMatrix<T>::invert()
 template <class T>
 __IGOR_INLINE__ T iaMatrix<T>::determinant()
 {
-    return 	_right[0] * (_top[1] * _depth[2] * w3 +
-        _top[2] * w2*_pos[1] +
-        w1*_depth[1] * _pos[2] -
-        w1*_depth[2] * _pos[1] -
-        _top[2] * _depth[1] * w3 -
-        w2*_pos[2] * _top[1]) -
-        _right[1] * (_top[0] * _depth[2] * w3 +
-        _top[2] * w2*_pos[0] +
-        _depth[0] * _pos[2] * w1 -
-        w1*_depth[2] * _pos[0] -
-        _top[2] * _depth[0] * w3 -
-        w2*_pos[2] * _top[0]) +
-        _right[2] * (_top[0] * _depth[1] * w3 +
-        _top[1] * w2*_pos[0] +
-        _depth[0] * _pos[1] * w1 -
-        w1*_depth[1] * _pos[0] -
-        _top[1] * _depth[0] * w3 -
-        w2*_pos[1] * _top[0]) -
-        w0 * (_top[0] * _depth[1] * _pos[2] +
+    return 	_right[0] * (_top[1] * _depth[2] * _w3 +
+        _top[2] * _w2*_pos[1] +
+        _w1*_depth[1] * _pos[2] -
+        _w1*_depth[2] * _pos[1] -
+        _top[2] * _depth[1] * _w3 -
+        _w2*_pos[2] * _top[1]) -
+        _right[1] * (_top[0] * _depth[2] * _w3 +
+        _top[2] * _w2*_pos[0] +
+        _depth[0] * _pos[2] * _w1 -
+        _w1*_depth[2] * _pos[0] -
+        _top[2] * _depth[0] * _w3 -
+        _w2*_pos[2] * _top[0]) +
+        _right[2] * (_top[0] * _depth[1] * _w3 +
+        _top[1] * _w2*_pos[0] +
+        _depth[0] * _pos[1] * _w1 -
+        _w1*_depth[1] * _pos[0] -
+        _top[1] * _depth[0] * _w3 -
+        _w2*_pos[1] * _top[0]) -
+        _w0 * (_top[0] * _depth[1] * _pos[2] +
         _top[1] * _depth[2] * _pos[0] +
         _depth[0] * _pos[1] * _top[2] -
         _top[2] * _depth[1] * _pos[0] -
