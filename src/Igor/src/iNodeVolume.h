@@ -41,7 +41,7 @@ namespace Igor
 	*/
 	class iNodeVolume : public iNodeRender
 	{
-		friend class iNodeVisitorUpdateTransform;
+
 		friend class iScene;
 
     public:
@@ -66,8 +66,10 @@ namespace Igor
 
 	protected:
 
-		/*!
-		*/
+        /*! called by node visitor update transform
+
+        \param[in, out] matrix current transformation matrix
+        */
         virtual void onUpdateTransform(iaMatrixd& matrix);
 
         /*! unregisters from scene
