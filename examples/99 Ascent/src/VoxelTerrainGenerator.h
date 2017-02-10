@@ -83,6 +83,8 @@ private:
     */
     vector<uint64> _runningTasks;
 
+    mutex _mutexRunningTasks;
+
     /*! tile IDs
     */
     unordered_map<iaVector3I, TileData, VectorHasher, VectorEqualFn> _tileDataSets;

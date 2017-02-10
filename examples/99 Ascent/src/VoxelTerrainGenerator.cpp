@@ -474,16 +474,24 @@ void VoxelTerrainGenerator::onHandle()
 
 void VoxelTerrainGenerator::onTaskFinished(uint64 taskID)
 {
+    _mutexRunningTasks.lock();
     auto task = find(_runningTasks.begin(), _runningTasks.end(), taskID);
     if (task != _runningTasks.end())
     {
         _runningTasks.erase(task);
     }
+    _mutexRunningTasks.unlock();
 }
 
 bool VoxelTerrainGenerator::loading()
 {
-    return _runningTasks.size() ? true : false;
+    bool result;
+    
+    _mutexRunningTasks.lock();
+    result = _runningTasks.size() ? true : false;
+    _mutexRunningTasks.unlock();
+
+    return result;
 }
 
 void VoxelTerrainGenerator::handleVoxelBlocks()
@@ -563,7 +571,9 @@ void VoxelTerrainGenerator::handleVoxelBlocks()
                             block->_size.set(_voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap, _voxelBlockSize + _voxelBlockOverlap);
 
                             TaskGenerateVoxels* task = new TaskGenerateVoxels(block, static_cast<uint32>(distance * 0.9));
+                            _mutexRunningTasks.lock();
                             _runningTasks.push_back(task->getID());
+                            _mutexRunningTasks.unlock();
                             iTaskManager::getInstance().addTask(task);
                         }
                     }
