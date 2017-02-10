@@ -3,6 +3,9 @@
 
 #include "GameObject.h"
 
+#include <iNode.h>
+using namespace Igor;
+
 namespace Igor
 {
     class iScene;
@@ -20,7 +23,7 @@ public:
 private:
 
     uint64 _playerID;
-    uint32 _turretNodeID = 0;
+    uint32 _turretNodeID = iNode::INVALID_NODE_ID;
     bool _initilized = false;
 
     uint32 _idleCounter = 0;

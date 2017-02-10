@@ -29,19 +29,22 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 
     setDamage(10.0);
     setShieldDamage(10.0);
 
-    iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    /*iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _turretNodeID = turret->getID();
-    turret->setModel("turret.ompf", nullptr);
+    turret->setModel("turret.ompf", nullptr);*/
 
     _parentNodeID = parent->getID();
-    parent->insertNode(turret);
+    //parent->insertNode(turret);
 
     _time = iTimer::getInstance().getTime();
 }
 
 Turret::~Turret()
 {
-    iNodeFactory::getInstance().destroyNodeAsync(_turretNodeID);
+    if (_turretNodeID != iNode::INVALID_NODE_ID)
+    {
+        iNodeFactory::getInstance().destroyNodeAsync(_turretNodeID);
+    }
 }
 
 void Turret::hitBy(uint64 entityID)
