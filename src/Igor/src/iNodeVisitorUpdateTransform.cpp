@@ -37,6 +37,7 @@ namespace Igor
         if (iNodeKind::Transformation == node->getKind())
         {
             _currentMatrix = _matrixStack.back();
+            con_assert(_matrixStack.size() != 0, "stack underflow");
             _matrixStack.pop_back();
         }
 	}
