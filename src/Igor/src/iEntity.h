@@ -37,6 +37,8 @@ using namespace std;
 namespace Igor
 {
 
+    /*! engine internal entity base types
+    */
     enum class iEntityType
     {
         Undefined,

@@ -668,7 +668,7 @@ void Ascent::onHandle()
                     if (entity != nullptr &&
                         entity->getType() == GameObjectType::Vehicle)
                     {
-                        iEntityManager::getInstance().killEntity(entity->getID());
+                        iEntityManager::getInstance().destroyEntity(entity->getID());
                     }
                 }
             }

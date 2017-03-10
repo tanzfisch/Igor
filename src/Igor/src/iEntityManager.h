@@ -39,7 +39,14 @@ using namespace std;
 
 namespace Igor
 {
-    
+ 
+    /*! entities manager (singleton)
+
+    After experimenting with some ECS (entity component systems) ideas I decided that it is in my case not worth the 
+    effort as long as there is not an army of artists and content creators that would work for me. So I stick with the 
+    classical approach using inherritance to define entities even if this provokes potencially ugly code within the 
+    application layer. I don't care. I want to keep the engine clean. ML
+    */
     class Igor_API iEntityManager : public iaSingleton<iEntityManager>
     {
 
@@ -49,27 +56,71 @@ namespace Igor
 
     public:
 
+        /*! \returns pointer to entity for given entity ID
+
+        \param entityID the entity id
+        */
         iEntity* getEntity(uint64 entityID);
 
-        void killEntity(uint64 entityID);
+        /*! destroys entity with given entity id
 
-        void getEntities(const iSphered& sphere, vector<uint64>& result);
-        void getEntities(vector<uint64>& result);
+        \param entityID the entity id
+        */
+        void destroyEntity(uint64 entityID);
 
+        /*! returns list of entities within given sphere
+
+        \param sphere the sphere to filter with
+        \param[out] entities the resulting list with entity ids
+        */
+        void getEntities(const iSphered& sphere, vector<uint64>& entities);
+
+        /*! returns all entities
+
+        \param[out] entities list of all the entities
+        */
+        void getEntities(vector<uint64>& entities);
+
+        /*! calls all entities handles and updates positions in spatial db
+        */
         void handle();
 
     private:
 
+        /*! list of all the entities
+        */
         map<uint64, iEntity*> _entities;
 
+        /*! list of all entitties which are marked for deletion
+        */
         vector<uint64> _toDelete;
 
+        /*! spatial db of positioned entitties
+        */
         iOctree* _octree = nullptr;
 
+        /*! registers an entity
+
+        all entities call this them selves in their constructor
+
+        \param entity entity to register
+        */
         void registerEntity(iEntity* entity);
+
+        /*! unregister entity
+
+        all entities call this them selves in their destructor
+
+        \param entity entity to unregister
+        */
         void unregisterEntity(iEntity* entity);
 
+        /*! create octree
+        */
         iEntityManager();
+
+        /*! cleanup
+        */
         ~iEntityManager();
 
     };

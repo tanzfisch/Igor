@@ -47,19 +47,32 @@ namespace Igor
 
     public:
 
+        /*! \returns current position sphere of entity
+        */
         iSphered getSphere() const;
 
+        /*! does nothing
+        */
         iEntityLocatable() = default;
+
+        /*! does nothing
+        */
         virtual ~iEntityLocatable() = default;
 
     protected:
 
+        /*! entity's handle
+        */
         virtual void handle() = 0;
 
+        /*! \returns current position
+        */
         virtual iaVector3d getCurrentPos() = 0;
 
     private:
 
+        /*! position sphere
+        */
         iSphered _sphere;
 
     };

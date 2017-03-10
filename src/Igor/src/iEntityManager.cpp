@@ -17,6 +17,11 @@ namespace Igor
 
     iEntityManager::~iEntityManager()
     {
+        if (_entities.size() > 0)
+        {
+            con_err("possible mem leak. " << _entities.size() << " entitties still registered");
+        }
+
         delete _octree;
     }
 
@@ -57,22 +62,22 @@ namespace Igor
         _entities.erase(iter);
     }
 
-    void iEntityManager::getEntities(const iSphered& sphere, vector<uint64>& result)
+    void iEntityManager::getEntities(const iSphered& sphere, vector<uint64>& entities)
     {
         _octree->resetFilter();
         _octree->filter(sphere);
-        _octree->getResult(result);
+        _octree->getResult(entities);
     }
 
-    void iEntityManager::getEntities(vector<uint64>& result)
+    void iEntityManager::getEntities(vector<uint64>& entities)
     {
         for (auto entity : _entities)
         {
-            result.push_back(entity.second->getID());
+            entities.push_back(entity.second->getID());
         }
     }
 
-    void iEntityManager::killEntity(uint64 entityID)
+    void iEntityManager::destroyEntity(uint64 entityID)
     {
         _toDelete.push_back(entityID);
     }

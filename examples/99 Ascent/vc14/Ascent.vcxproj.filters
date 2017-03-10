@@ -7,51 +7,15 @@
     <Filter Include="src\terrain">
       <UniqueIdentifier>{f7ea2bca-9820-452d-b472-18afabc930cf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\game objects">
+      <UniqueIdentifier>{d17b6555-bf22-4d11-8261-5951675d9175}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\BossDestroyed.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\BossEnemy.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Bullet.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\BulletHit.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\DigEffect.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Enemy.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\EnemyDestroyed.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Granade.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\MuzzleFlash.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Player.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\StaticEnemy.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Turret.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Ascent.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\GameObject.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="..\src\VoxelTerrainGenerator.cpp">
@@ -63,48 +27,48 @@
     <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp">
       <Filter>src\terrain</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\BossDestroyed.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BossEnemy.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Bullet.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\BulletHit.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\DigEffect.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Enemy.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\EnemyDestroyed.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\GameObject.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Granade.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\MuzzleFlash.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Player.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\StaticEnemy.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Turret.cpp">
+      <Filter>src\game objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\BossDestroyed.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\BossEnemy.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Bullet.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\BulletHit.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\DigEffect.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Enemy.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\EnemyDestroyed.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Granade.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\MuzzleFlash.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Player.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\StaticEnemy.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\Turret.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\Ascent.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\GameObject.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="..\src\VoxelTerrainGenerator.h">
@@ -115,6 +79,45 @@
     </ClInclude>
     <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h">
       <Filter>src\terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BossDestroyed.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BossEnemy.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Bullet.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\BulletHit.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\DigEffect.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Enemy.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\EnemyDestroyed.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\GameObject.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Granade.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\MuzzleFlash.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Player.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\StaticEnemy.h">
+      <Filter>src\game objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Turret.h">
+      <Filter>src\game objects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
