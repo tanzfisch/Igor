@@ -1,5 +1,8 @@
 #include "GameObject.h"
 
+#include <iEntityManager.h>
+using namespace Igor;
+
 GameObject::GameObject(Fraction fraction, GameObjectType type)
 {
     _type = type;
@@ -62,6 +65,7 @@ void GameObject::setHealth(float32 value)
 
 void GameObject::kill()
 {
+    iEntityManager::getInstance().destroyEntity(getID());
     _shield = 0;
     _health = 0;
 }

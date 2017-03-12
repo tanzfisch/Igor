@@ -15,6 +15,8 @@ using namespace Igor;
 #include <iaString.h>
 using namespace IgorAux;
 
+#include "Ascent.h"
+
 Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     : GameObject(fraction, GameObjectType::Weapon)
 {
@@ -51,7 +53,7 @@ Granade::Granade(iScene* scene, const iaMatrixd& matrix, Fraction fraction)
     physicsNode->setMass(0.1);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Granade::onApplyForceAndTorque));
     physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
-    // TODO physicsNode->setMaterial(EntityManager::getInstance().getBulletMaterialID());
+    physicsNode->setMaterial(Ascent::_bulletMaterialID);
 
     _scene->getRoot()->insertNode(transformNode);
     transformNode->insertNode(bulletModel);

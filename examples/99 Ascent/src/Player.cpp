@@ -30,6 +30,7 @@ using namespace IgorAux;
 #include "VoxelTerrainGenerator.h"
 #include "DigEffect.h"
 #include "MuzzleFlash.h"
+#include "Ascent.h"
 
 Player::Player(iScene* scene, const iaMatrixd& matrix)
     : GameObject(Fraction::Blue, GameObjectType::Vehicle)
@@ -59,7 +60,7 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
     physicsNode->addSphere(1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
-    // TODO physicsNode->setMaterial(0);
+    physicsNode->setMaterial(Ascent::_entityMaterialID);
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Player::onApplyForceAndTorque));
     physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
     physicsNode->setAngularDamping(iaVector3d(100000, 100000, 100000));
@@ -158,6 +159,11 @@ void Player::hitBy(uint64 entityID)
 
         setShield(shield);
         setHealth(health);
+
+        if (getHealth() <= 0)
+        {
+            kill();
+        }
     }
 }
 

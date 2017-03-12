@@ -21,6 +21,7 @@ using namespace IgorAux;
 #include "Turret.h"
 #include "EnemyDestroyed.h"
 #include "VoxelTerrainGenerator.h"
+#include "Ascent.h"
 
 StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
@@ -49,7 +50,7 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID
     physicsNode->addBox(1,2,1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(0);
-    // TODO physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    physicsNode->setMaterial(Ascent::_entityMaterialID);
     physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
     _scene->getRoot()->insertNode(transformNode);
@@ -111,6 +112,11 @@ void StaticEnemy::hitBy(uint64 entityID)
             transformNode->getMatrix(matrix);
             EnemyDestroyed* effect = new EnemyDestroyed(_scene, matrix);
         }
+    }
+
+    if (getHealth() <= 0)
+    {
+        kill();
     }
 }
 

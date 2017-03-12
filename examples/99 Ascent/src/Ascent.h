@@ -28,6 +28,7 @@ namespace Igor
     class iTargetMaterial;
     class iNodeTransformControl;
     class iNodeLODTrigger;
+    class iPhysicsBody;
 }
 
 class Enemy;
@@ -36,6 +37,11 @@ class Ascent
 {
 
 public:
+
+    // TODO replace later with data from loaded model
+    static uint64 _terrainMaterialID;
+    static uint64 _entityMaterialID;
+    static uint64 _bulletMaterialID;
 
     Ascent();
 	virtual ~Ascent();
@@ -78,6 +84,9 @@ private:
 
     uint64 _taskFlushModels = 0; 
     uint64 _taskFlushTextures = 0;
+
+    mutex _hitListMutex;
+    vector<pair<uint64, uint64>> _hitList;
     
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);
@@ -94,6 +103,7 @@ private:
     void onMouseWheel(int d);
 
     void handleMouse();
+    void handleHitList();
 
     void deinit();
     void init();
@@ -104,10 +114,15 @@ private:
 
     void registerHandles();
     void unregisterHandles();
+
     void initViews();
     void initScene();
     void initPlayer();
     void initVoxelData();
+
+    void initPhysics();
+    void onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1);
+    void onContact(iPhysicsBody* body0, iPhysicsBody* body1);
 
 };
 

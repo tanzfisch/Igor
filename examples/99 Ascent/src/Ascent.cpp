@@ -38,13 +38,19 @@ using namespace IgorAux;
 #include <iOctree.h>
 #include <iPhysics.h>
 #include <iPhysicsMaterialCombo.h>
+#include <iPhysicsBody.h>
 #include <iEntityManager.h>
 using namespace Igor;
 
 #include "Player.h"
 #include "Enemy.h"
+#include "Bullet.h"
 #include "BossEnemy.h"
 #include "StaticEnemy.h"
+
+uint64 Ascent::_terrainMaterialID = 0;
+uint64 Ascent::_entityMaterialID = 0;
+uint64 Ascent::_bulletMaterialID = 0;
 
 Ascent::Ascent()
 {
@@ -168,6 +174,77 @@ void Ascent::initPlayer()
     enemyMatrix._pos.set(10000, 9400, 10000 - 200);
     BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
     _bossID = boss->getID();
+}
+
+void Ascent::initPhysics()
+{
+    iPhysicsMaterial* materialTerrain = iPhysics::getInstance().createMaterial("terrain");
+    _terrainMaterialID = materialTerrain->getID();
+
+    iPhysicsMaterial* materialEntity = iPhysics::getInstance().createMaterial("entity");
+    _entityMaterialID = materialEntity->getID();
+
+    iPhysicsMaterial* materialBullet = iPhysics::getInstance().createMaterial("bullet");
+    _bulletMaterialID = materialBullet->getID();
+
+    iPhysicsMaterialCombo* terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
+    terrainEntity->setName("terrain-entity");
+    terrainEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+    terrainEntity->setElasticity(0.0);
+    terrainEntity->setFriction(0.0, 0.0);
+
+    iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
+    terrainBullet->setName("terrain-bullet");
+    terrainBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContactTerrainBullet));
+
+    iPhysicsMaterialCombo* bulletEntity = new iPhysicsMaterialCombo(materialBullet, materialEntity);
+    bulletEntity->setName("bullet-entity");
+    bulletEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+
+    iPhysicsMaterialCombo* entityEntity = new iPhysicsMaterialCombo(materialEntity, materialEntity);
+    entityEntity->setName("entity-entity");
+    entityEntity->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+
+    iPhysicsMaterialCombo* bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
+    bulletBullet->setName("bullet-bullet");
+    bulletBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+}
+
+void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
+{
+    if (body0 != nullptr && body1 != nullptr)
+    {
+        if (body0->getUserData() != nullptr)
+        {
+            uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
+            _hitListMutex.lock();
+            _hitList.push_back(pair<uint64, uint64>(id0, 0));
+            _hitListMutex.unlock();
+
+        }
+        else if (body1->getUserData() != nullptr)
+        {
+            uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
+            _hitListMutex.lock();
+            _hitList.push_back(pair<uint64, uint64>(id1, 0));
+            _hitListMutex.unlock();
+        }
+    }
+}
+
+void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
+{
+    if (body0 != nullptr && body1 != nullptr &&
+        body0->getUserData() != nullptr &&
+        body1->getUserData() != nullptr)
+    {
+        uint64 id0 = reinterpret_cast<uint64>(body0->getUserData());
+        uint64 id1 = reinterpret_cast<uint64>(body1->getUserData());
+        _hitListMutex.lock();
+        _hitList.push_back(pair<uint64, uint64>(id0, id1));
+        _hitList.push_back(pair<uint64, uint64>(id1, id0));
+        _hitListMutex.unlock();
+    }
 }
 
 void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
@@ -347,6 +424,7 @@ void Ascent::init()
     initViews();
     initScene();
 
+    initPhysics();
     initPlayer();
     initVoxelData();
 
@@ -624,7 +702,7 @@ void Ascent::initVoxelData()
     VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
 }
 
-void Ascent::handleMouse()
+void Ascent::handleMouse() // TODO
 {
     if (_activeControls)
     {
@@ -674,6 +752,8 @@ void Ascent::onHandle()
             }
         }
 
+        handleHitList();
+
         iEntityManager::getInstance().handle();
     }
 
@@ -683,6 +763,27 @@ void Ascent::onHandle()
 void Ascent::onRender()
 {
     // nothing to do
+}
+
+void Ascent::handleHitList()
+{
+    _hitListMutex.lock();
+    auto hitList = std::move(_hitList);
+    _hitListMutex.unlock();
+
+    for (auto hit : hitList)
+    {
+        GameObject* go1 = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(hit.first));
+        if (go1 != nullptr)
+        {
+            go1->hitBy(hit.second);
+        }
+        GameObject* go2 = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(hit.second));
+        if (go2 != nullptr)
+        {
+            go2->hitBy(hit.first);
+        }
+    }
 }
 
 void Ascent::onRenderOrtho()

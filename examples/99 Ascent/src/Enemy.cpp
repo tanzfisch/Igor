@@ -21,6 +21,7 @@ using namespace IgorAux;
 #include "Turret.h"
 #include "EnemyDestroyed.h"
 #include "VoxelTerrainGenerator.h"
+#include "Ascent.h"
 
 Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
@@ -45,7 +46,7 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     physicsNode->addBox(1,0.5,1, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(10);
-    //physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    physicsNode->setMaterial(Ascent::_entityMaterialID);
     physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
     physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Enemy::onApplyForceAndTorque));
     physicsNode->setAngularDamping(iaVector3d(10000, 10000, 10000));
@@ -119,6 +120,11 @@ void Enemy::hitBy(uint64 entityID)
 
         setShield(shield);
         setHealth(health);
+
+        if (getHealth() <= 0)
+        {
+            kill();
+        }
     }
 }
 

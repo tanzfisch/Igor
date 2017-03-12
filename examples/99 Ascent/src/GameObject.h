@@ -23,6 +23,8 @@ enum class GameObjectType
 class GameObject : public iEntityLocatable
 {
 
+    friend class Ascent;
+
 public:
 
     Fraction getFraction() const;

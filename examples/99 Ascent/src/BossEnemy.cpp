@@ -21,6 +21,7 @@ using namespace IgorAux;
 #include "Turret.h"
 #include "BossDestroyed.h"
 #include "VoxelTerrainGenerator.h"
+#include "Ascent.h"
 
 BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
@@ -49,7 +50,7 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     physicsNode->addBox(3.0, 3.0, 3.0, offset);
     physicsNode->finalizeCollision();
     physicsNode->setMass(0);
-//    physicsNode->setMaterial(EntityManager::getInstance().getEntityMaterialID());
+    physicsNode->setMaterial(Ascent::_entityMaterialID);
     physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
 
     _scene->getRoot()->insertNode(transformNode);
@@ -173,6 +174,11 @@ void BossEnemy::hitBy(uint64 entityID)
 
         setShield(shield);
         setHealth(health);
+
+        if (getHealth() <= 0)
+        {
+            kill();
+        }
     }
 }
 

@@ -15,6 +15,8 @@
 #include <iNodePhysics.h>
 using namespace Igor;
 
+#include "Ascent.h"
+
 VoxelTerrainMeshGenerator::VoxelTerrainMeshGenerator()
 {
     _identifier = "vtg";
@@ -81,7 +83,7 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
         iaMatrixd offset;
         physicsNode->addMesh(mesh, 1, offset);
         physicsNode->finalizeCollision(true);
-        //physicsNode->setMaterial(EntityManager::getInstance().getTerrainMaterialID());
+        physicsNode->setMaterial(Ascent::_terrainMaterialID);
 
         result->insertNode(physicsNode);
     }
