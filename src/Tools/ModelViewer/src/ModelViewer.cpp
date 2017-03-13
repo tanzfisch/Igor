@@ -207,7 +207,7 @@ void ModelViewer::init(iaString fileName)
         parameter->_joinVertexes = true;
         parameter->_keepMesh = true;
 
-        model->setModel(fileName, parameter);
+        model->setModel(fileName, iResourceCacheMode::Free, parameter);
         _groupNode->insertNode(model);
     }
 
@@ -225,7 +225,7 @@ void ModelViewer::init(iaString fileName)
         _propertiesDialog->setActive();
         _propertiesDialog->setVisible();
     }
-    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+//    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     forceLoadingNow();
 
@@ -417,7 +417,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         parameter->_joinVertexes = true;
         parameter->_keepMesh = true;
 
-        model->setModel(filename, parameter);
+        model->setModel(filename, iResourceCacheMode::Free, parameter);
         _scene->getRoot()->insertNode(model);
         forceLoadingNow();
         _scene->getRoot()->removeNode(model);
@@ -491,7 +491,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         parameter->_joinVertexes = true;
         parameter->_keepMesh = true;
 
-        model->setModel(filename, parameter);
+        model->setModel(filename, iResourceCacheMode::Free, parameter);
 
         iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
         if (cursorNode != nullptr)
@@ -540,7 +540,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         parameter->_joinVertexes = true;
         parameter->_keepMesh = true;
 
-        model->setModel(filename, parameter);
+        model->setModel(filename, iResourceCacheMode::Free, parameter);
         _scene->getRoot()->insertNode(model);
         forceLoadingNow();
         _scene->getRoot()->removeNode(model);
@@ -818,7 +818,7 @@ void ModelViewer::renderOrtho()
 
     iWidgetManager::getInstance().draw();
 
-    iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 0, 0, 1));
+    //iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 0, 0, 1));
 
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 }
