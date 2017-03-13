@@ -31,8 +31,6 @@ namespace Igor
         {
             con_err("invalid world id");
         }
-
-        finishTask();
     }
 
 };

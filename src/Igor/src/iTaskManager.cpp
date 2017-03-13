@@ -337,6 +337,7 @@ namespace Igor
             if (taskTodo)
             {
                 taskTodo->run();
+                taskTodo->finishTask();
 
                 uint64 idToDelete = iTask::INVALID_TASK_ID;
 
@@ -413,6 +414,7 @@ namespace Igor
             {
                 taskTodo->setWorld(thread->getWorld());
                 taskTodo->run();
+                taskTodo->finishTask();
 
                 uint64 idToDelete = iTask::INVALID_TASK_ID;
 

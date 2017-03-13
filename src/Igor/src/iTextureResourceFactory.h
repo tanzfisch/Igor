@@ -82,9 +82,9 @@ namespace Igor
 
         Interrates through all textures and checks how many references every texture has. If reference count
         goes down to 1 then the texture will be released. If reference count is greater 1 and the texture was
-        not loaded yet. The texture will be loaded.
+        not loaded yet and the texture will be loaded.
 
-        \param cacheModeLevel
+        \param cacheModeLevel level of cache mode to be released
         */
         void flush(iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
 

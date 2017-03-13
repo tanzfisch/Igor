@@ -30,8 +30,6 @@ namespace Igor
         {
             _model->setState(iModelState::LoadFailed);
         }
-
-        finishTask();
     }
 
 };

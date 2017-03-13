@@ -33,7 +33,7 @@ namespace Igor
 
     iModelResourceFactory::~iModelResourceFactory()
     {
-        while(flush(nullptr));
+        while (flush(nullptr, iResourceCacheMode::Keep));
 
         iTaskManager::getInstance().unregisterTaskFinishedDelegate(iTaskFinishedDelegate(this, &iModelResourceFactory::onTaskFinished));
 
@@ -74,7 +74,7 @@ namespace Igor
         }
 
         id.toLower();
-        int64 hashValue = calcHashValue(id);
+        int64 hashValue = calcModelDataIOHashValue(id);
 
         _mutexDataIOs.lock();
         auto iter = _modelDataIOCreators.find(hashValue);
@@ -163,7 +163,7 @@ namespace Igor
 
     void iModelResourceFactory::registerModelDataIO(const iaString& identifier, iCreateModelDataIOInstance functionPointer)
     {
-        int64 hashValue = calcHashValue(identifier);
+        int64 hashValue = calcModelDataIOHashValue(identifier);
 
         _mutexDataIOs.lock();
         auto generatorIter = _modelDataIOCreators.find(hashValue);
@@ -180,7 +180,7 @@ namespace Igor
 
     void iModelResourceFactory::unregisterModelDataIO(const iaString& identifier)
     {
-        int64 hashValue = calcHashValue(identifier);
+        int64 hashValue = calcModelDataIOHashValue(identifier);
 
         _mutexDataIOs.lock();
         auto generatorIter = _modelDataIOCreators.find(hashValue);
@@ -195,14 +195,35 @@ namespace Igor
         _mutexDataIOs.unlock();
     }
 
-    int64 iModelResourceFactory::calcHashValue(const iaString& text)
+    int64 iModelResourceFactory::calcResourceHashValue(const iaString& text, iResourceCacheMode cacheMode)
+    {
+        std::hash<wstring> hashFunc;
+        iaString combined = text;
+        switch (cacheMode)
+        {
+        case iResourceCacheMode::Free:
+            combined += "F";
+            break;
+        case iResourceCacheMode::Cache:
+            combined += "C";
+            break;
+        case iResourceCacheMode::Keep:
+            combined += "K";
+            break;
+        }
+
+        wstring keyValue = combined.getData();
+        return static_cast<int64>(hashFunc(keyValue));
+    }
+
+    int64 iModelResourceFactory::calcModelDataIOHashValue(const iaString& text)
     {
         std::hash<wstring> hashFunc;
         wstring keyValue = text.getData();
         return static_cast<int64>(hashFunc(keyValue));
     }
 
-    shared_ptr<iModel> iModelResourceFactory::requestModelData(const iaString& filename, iModelDataInputParameter* parameter)
+    shared_ptr<iModel> iModelResourceFactory::requestModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter)
     {
         shared_ptr<iModel> result;
         iaString hashKey;
@@ -225,7 +246,7 @@ namespace Igor
             }
         }
 
-        int64 hashValue = calcHashValue(hashKey);
+        int64 hashValue = calcResourceHashValue(hashKey, cacheMode);
 
         _mutexModels.lock();
         auto modelIter = _models.find(hashValue);
@@ -237,7 +258,7 @@ namespace Igor
 
         if (nullptr == result.get())
         {
-            result = shared_ptr<iModel>(new iModel(hashKey, parameter), iModel::private_deleter());
+            result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
             _mutexModels.lock();
             _models[hashValue] = result;
             _mutexModels.unlock();
@@ -250,7 +271,7 @@ namespace Igor
         return result;
     }
 
-    shared_ptr<iModel> iModelResourceFactory::loadModelData(const iaString& filename, iModelDataInputParameter* parameter)
+    shared_ptr<iModel> iModelResourceFactory::loadModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter)
     {
         shared_ptr<iModel> result;
         iaString hashKey;
@@ -265,7 +286,7 @@ namespace Igor
             hashKey = iResourceManager::getInstance().getPath(filename);
         }
 
-        int64 hashValue = calcHashValue(hashKey);
+        int64 hashValue = calcResourceHashValue(hashKey, cacheMode);
 
         _mutexModels.lock();
 
@@ -280,14 +301,14 @@ namespace Igor
             iNode* node = loadData(hashKey, parameter);
             if (node != nullptr)
             {
-                result = shared_ptr<iModel>(new iModel(hashKey, parameter), iModel::private_deleter());
+                result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
                 result->setNode(node);
                 result->setState(iModelState::Loaded);
                 _models[hashValue] = result;
             }
             else
             {
-                result = shared_ptr<iModel>(new iModel(hashKey, parameter), iModel::private_deleter());
+                result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
                 result->setState(iModelState::LoadFailed);
                 _models[hashValue] = result;
             }
@@ -298,8 +319,8 @@ namespace Igor
         return result;
     }
 
-    bool iModelResourceFactory::flush(iWindow* window)
-    {        
+    bool iModelResourceFactory::flush(iWindow* window, iResourceCacheMode cacheModeLevel)
+    {
         bool result = true;
 
         _mutexModels.lock();
@@ -310,17 +331,20 @@ namespace Igor
             {
                 if ((*modelIter).second.use_count() == 1)
                 {
-                    if ((*modelIter).second->getParameters() != nullptr &&
-                        (*modelIter).second->getParameters()->_modelSourceType == iModelSourceType::File)
+                    if ((*modelIter).second->_cacheMode <= cacheModeLevel)
                     {
-                        if (!(*modelIter).second->getName().isEmpty())
+                        if ((*modelIter).second->getParameters() != nullptr &&
+                            (*modelIter).second->getParameters()->_modelSourceType == iModelSourceType::File)
                         {
-                            con_info("released model", "\"" << (*modelIter).second->getName() << "\"");
+                            if (!(*modelIter).second->getName().isEmpty())
+                            {
+                                con_info("released model", "\"" << (*modelIter).second->getName() << "\"");
+                            }
                         }
-                    }
 
-                    modelIter = _models.erase(modelIter);
-                    continue;
+                        modelIter = _models.erase(modelIter);
+                        continue;
+                    }
                 }
             }
             modelIter++;
@@ -335,7 +359,7 @@ namespace Igor
             modelsToProcess = std::move(_loadingQueue);
             _mutexModelQueue.unlock();
 
-            for(auto model :modelsToProcess)
+            for (auto model : modelsToProcess)
             {
                 iTaskContext taskContext = iTaskContext::RenderContext;
                 uint32 priority = iTask::DEFAULT_PRIORITY;

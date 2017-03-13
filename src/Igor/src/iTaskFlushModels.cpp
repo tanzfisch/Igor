@@ -17,9 +17,7 @@ namespace Igor
 
     void iTaskFlushModels::run()
     {
-        iModelResourceFactory::getInstance().flush(getWindow());
-
-        finishTask();
+        iModelResourceFactory::getInstance().flush(getWindow(), iResourceCacheMode::Free);
     }
 
     void iTaskFlushModels::abort()

@@ -210,7 +210,5 @@ void TaskGenerateVoxels::run()
     }
 
 	_voxelBlock->_generatedVoxels = true;
-
-	finishTask();
 }
 

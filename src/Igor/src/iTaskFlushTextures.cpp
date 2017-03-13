@@ -17,9 +17,7 @@ namespace Igor
 
     void iTaskFlushTextures::run()
     {
-        iTextureResourceFactory::getInstance().flush(iResourceCacheMode::Cache);
-
-        finishTask();
+        iTextureResourceFactory::getInstance().flush(iResourceCacheMode::Free);
     }
 
     void iTaskFlushTextures::abort()

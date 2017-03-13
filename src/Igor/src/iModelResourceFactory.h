@@ -67,7 +67,7 @@ namespace Igor
         \param parameter optional generator parameters
         \returns shared pointer to model
         */
-        shared_ptr<iModel> requestModelData(const iaString& filename, iModelDataInputParameter* parameter = nullptr);
+        shared_ptr<iModel> requestModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter = nullptr);
 
         /*! loads a model synchronously
 
@@ -77,14 +77,19 @@ namespace Igor
         \param instancing true: instancing will be used; false: instancing will only be used if already configured by the model to be loaded
         \returns shared pointer to model
         */
-        shared_ptr<iModel> loadModelData(const iaString& filename, iModelDataInputParameter* parameter = nullptr);
+        shared_ptr<iModel> loadModelData(const iaString& filename, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter = nullptr);
 
         /*! loads unloads models depending on theirs request status ans reference count
 
-        \param maxModelsAtOnce maximum amount of models zu flush at once
+        Interrates through all model and checks how many references every model has. If reference count
+        goes down to 1 then the model will be released. If reference count is greater 1 and the model was
+        not loaded yet and the mode will be loaded.
+
+        \param window the window the resources are bount with
+        \param cacheModeLevel level of cache mode to be released
         \returns true if there was still work to do
         */
-        bool flush(iWindow* window);
+        bool flush(iWindow* window, iResourceCacheMode cacheModeLevel = iResourceCacheMode::Free);
 
         /*! if a flush in a different thread is currently running. this will stop him asap
         */
@@ -169,12 +174,20 @@ namespace Igor
         */
         iNode* loadData(iaString filename, iModelDataInputParameter* parameter);
 
-        /*! calculates hash value for given string
+        /*! calculates hash value for model data io string
 
         \param text source string
         \returns hash value
         */
-        int64 calcHashValue(const iaString& text);
+        int64 calcModelDataIOHashValue(const iaString& text);
+
+        /*! calculates hash value for given resource
+
+        \param text source string
+        \param cacheMode cache mode of resource
+        \returns hash value
+        */
+        int64 calcResourceHashValue(const iaString& text, iResourceCacheMode cacheMode);
 
         /*! does nothing
         */

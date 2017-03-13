@@ -101,7 +101,7 @@ namespace Igor
         if (!_initialized &&
             _model == nullptr)
         {
-            _model = iModelResourceFactory::getInstance().requestModelData(_filename, _parameters);
+            _model = iModelResourceFactory::getInstance().requestModelData(_filename, iResourceCacheMode::Keep, _parameters);
             _parameters = nullptr; // passing ownership to iModel
         }
     }

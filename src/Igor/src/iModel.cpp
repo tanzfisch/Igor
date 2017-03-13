@@ -15,10 +15,11 @@ using namespace std;
 namespace Igor
 {
 
-    iModel::iModel(const iaString& name, iModelDataInputParameter* parameter)
+    iModel::iModel(const iaString& name, iResourceCacheMode cacheMode, iModelDataInputParameter* parameter)
+        : _name(name)
+        , _parameter(parameter)
+        , _cacheMode(cacheMode)
 	{
-		_name = name;
-        _parameter = parameter;
 	}
 
 	iModel::~iModel()
@@ -34,6 +35,11 @@ namespace Igor
             _parameter = nullptr;
         }
 	}
+
+    iResourceCacheMode iModel::getCacheMode() const
+    {
+        return _cacheMode;
+    }
 
     iModelDataInputParameter* iModel::getParameters()
     {

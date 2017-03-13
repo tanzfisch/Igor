@@ -139,11 +139,11 @@ namespace Igor
         */
         virtual void run() = 0;
 
+    private:
+
         /*! tells the task manager that the task is finished
         */
         void finishTask();
-
-    private:
 
         /*! priority of task
 

@@ -134,6 +134,14 @@ namespace Igor
         */
         iModelDataInputParameter* _parameter = nullptr;
 
+        /*! cache mode. initialized in ctor
+        */
+        iResourceCacheMode _cacheMode;
+
+        /*! \returns cache mode
+        */
+        iResourceCacheMode getCacheMode() const;
+
         /*! state of model
         */
 		iModelState _state = iModelState::NotLoaded;
@@ -156,7 +164,7 @@ namespace Igor
 
         \param 
 		*/
-        iModel(const iaString& name, iModelDataInputParameter* _parameter = nullptr);
+        iModel(const iaString& name, iResourceCacheMode cacheMode, iModelDataInputParameter* _parameter = nullptr);
 
         /*! dtor
         */
