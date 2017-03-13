@@ -42,7 +42,7 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     bodyScale->scale(3, 3, 3);
 
     iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    bodyModel->setModel("crate.ompf", nullptr);
+    bodyModel->setModel("crate.ompf");
 
     iaMatrixd offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));

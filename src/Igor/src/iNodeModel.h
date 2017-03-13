@@ -68,7 +68,7 @@ namespace Igor
         \todo instancing is for now limited to 20k objects. we need this variable
 
         */
-        void setModel(const iaString& modelName, iModelDataInputParameter* parameters = nullptr);
+        void setModel(const iaString& modelName, iResourceCacheMode cacheMode = iResourceCacheMode::Cache, iModelDataInputParameter* parameters = nullptr);
 
         /*! \returns filename of model
         */
@@ -105,6 +105,10 @@ namespace Igor
         can't delete them they belong (usually) to application
         */
         iModelDataInputParameter* _parameters = nullptr;
+
+        /*! cache mode for model to load
+        */
+        iResourceCacheMode _cacheMode = iResourceCacheMode::Free;
 
         /*! shared poitner to requested model
         */

@@ -38,7 +38,7 @@ namespace Igor
         _nodeType = node->_nodeType;
         _nodeKind = node->_nodeKind;
 
-        setModel(node->getModelName());
+        setModel(node->getModelName(), node->_cacheMode);
     }
 
     iNodeModel::~iNodeModel()
@@ -89,10 +89,11 @@ namespace Igor
         }
     }
 
-    void iNodeModel::setModel(const iaString& modelFileName, iModelDataInputParameter* parameters)
+    void iNodeModel::setModel(const iaString& modelFileName, iResourceCacheMode cacheMode, iModelDataInputParameter* parameters)
 	{
         _filename = modelFileName;
         _parameters = parameters;
+        _cacheMode = cacheMode;
         setDataDirty();
 	}
 
@@ -101,7 +102,7 @@ namespace Igor
         if (!_initialized &&
             _model == nullptr)
         {
-            _model = iModelResourceFactory::getInstance().requestModelData(_filename, iResourceCacheMode::Keep, _parameters);
+            _model = iModelResourceFactory::getInstance().requestModelData(_filename, _cacheMode, _parameters);
             _parameters = nullptr; // passing ownership to iModel
         }
     }

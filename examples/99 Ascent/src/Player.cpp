@@ -76,13 +76,13 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
     transformLeftGun->translate(-0.5, -0.4, -0.75);
     transformLeftGun->scale(0.1, 0.1, 1);
     iNodeModel* leftgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    leftgun->setModel("crate.ompf", nullptr);
+    leftgun->setModel("crate.ompf");
 
     iNodeTransform* transformRightGun = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformRightGun->translate(0.5, -0.4, -0.75);
     transformRightGun->scale(0.1, 0.1, 1);
     iNodeModel* rightgun = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    rightgun->setModel("crate.ompf", nullptr);
+    rightgun->setModel("crate.ompf");
 
     iNodeTransform* transformLeftGunEmitter = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformLeftGunEmitter->translate(-0.5, -0.4, -1.25);

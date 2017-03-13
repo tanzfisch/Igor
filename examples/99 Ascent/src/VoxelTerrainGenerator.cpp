@@ -390,7 +390,7 @@ void VoxelTerrainGenerator::handleMeshTiles(iVoxelData* voxelData, const iaVecto
                     lodSwitch->addTrigger(lodTrigger);
 
                     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-                    modelNode->setModel(tileName, inputParam);
+                    modelNode->setModel(tileName, iResourceCacheMode::Free, inputParam);
 
                     transform->insertNode(lodSwitch);
                     lodSwitch->insertNode(modelNode);

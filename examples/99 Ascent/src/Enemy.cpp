@@ -39,7 +39,7 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     iNodeTransform* bodyScale = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     bodyScale->scale(1,0.25,1);
     iNodeModel* bodyModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    bodyModel->setModel("crate.ompf", nullptr);
+    bodyModel->setModel("crate.ompf");
 
     iaMatrixd offset;
     iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
