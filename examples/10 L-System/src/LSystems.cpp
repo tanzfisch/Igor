@@ -312,7 +312,7 @@ uint32 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, u
     inputParam->_parameters.setData(reinterpret_cast<const char*>(&plantInformation), sizeof(PlantInformation));
 
     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    modelNode->setModel(iaString("plant_") + iaString::itoa(iterations) + iaString("_") + iaString::itoa(_incarnation++), inputParam);
+    modelNode->setModel(iaString("plant_") + iaString::itoa(iterations) + iaString("_") + iaString::itoa(_incarnation++), iResourceCacheMode::Free, inputParam);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->setMatrix(matrix);
