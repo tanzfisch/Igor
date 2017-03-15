@@ -10,24 +10,7 @@ iSphere<T>::iSphere(iaVector3<T> pos, T radius)
 }
 
 template <class T>
-bool iSphere<T>::intersects(iSphere<T> &sphere)
-{
-    iaVector3<T> diff = sphere._center - _center;
-    T distance = diff.length();
-    distance -= _radius;
-    distance -= sphere._radius;
-    if (distance <= 0)
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
-}
-
-template <class T>
-bool iSphere<T>::contains(iSphere<T> &sphere)
+bool iSphere<T>::contains(const iSphere<T>& sphere)
 {
     iaVector3<T> diff = sphere._center - _center;
     T distance = diff.length();
@@ -78,34 +61,4 @@ void iSphere<T>::merge(iSphere<T> &sphere)
     _center += newCenter;
 }
 
-template <class T>
-bool iSphere<T>::inFrontOf(iPlane<T> &plane)
-{
-	T distancePlanePoint = (plane.normal * _center) + plane.distance;
-	if(distancePlanePoint <= -_radius) 
-	{
-		return false;
-	}
-	else 
-	{
-		return true;
-	}
-}
 
-template <class T>
-bool iSphere<T>::intersects(iFrustum<T> &frustum)
-{
-	if(!inFrontOf(frustum.near_plane)) 
-		return false;
-	if(!inFrontOf(frustum.left_plane)) 
-		return false;
-	if(!inFrontOf(frustum.right_plane)) 
-		return false;
-	if(!inFrontOf(frustum.bottom_plane)) 
-		return false;
-	if(!inFrontOf(frustum.top_plane)) 
-		return false;
-	if(!inFrontOf(frustum.far_plane)) 
-		return false;		
-	return true;
-}

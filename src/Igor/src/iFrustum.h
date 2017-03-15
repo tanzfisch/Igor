@@ -30,7 +30,9 @@
 #define __iFRUSTUM__
 
 #include <iPlane.h>
+
 #include <iaMatrix.h>
+using namespace IgorAux;
 
 namespace Igor
 {

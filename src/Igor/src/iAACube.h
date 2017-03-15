@@ -29,9 +29,10 @@
 #ifndef __iAACUBE__
 #define __iAACUBE__
 
-#include <iFrustum.h>
-#include <iSphere.h>
+#include <iDefines.h>
+
 #include <iaVector3.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -62,24 +63,6 @@ namespace Igor
         \param halfEdgeLenght half of the edge lenght of the cube
         */
 		iAACube(const iaVector3<T>& center, T halfEdgeLenght);
-
-        /*! intersection test against plane
-
-        \param plane the plane to test against
-        */
-        __IGOR_INLINE__ bool inFrontOf(const iPlane<T> &plane);
-
-        /*! intersection test against a frustum
-
-        \param frustum the frustum to test against
-        */
-        __IGOR_INLINE__ bool intersects(const iFrustum<T> &frustum);
-
-        /*! intersection test with a sphere
-
-        \param sphere the sphere ti test against
-        */
-        __IGOR_INLINE__ bool intersects(const iSphere<T> &sphere);
 	};
 
 #include <iAACube.inl>

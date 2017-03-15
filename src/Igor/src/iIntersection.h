@@ -31,6 +31,8 @@
 
 #include <iRectangle.h>
 #include <iAABox.h>
+#include <iSphere.h>
+#include <iFrustum.h>
 #include <iAACube.h>
 
 #include <iaVector2.h>
@@ -46,6 +48,27 @@ namespace Igor
     {
 
     public:
+
+        template <typename T>
+        static bool intersects(const iSphere<T>& sphereA, const iSphere<T>& sphereB);
+
+        template <typename T>
+        static bool contains(const iSphere<T>& sphereA, const iSphere<T>& sphereB);
+
+        template <typename T>
+        static bool inFrontOf(const iSphere<T>& sphere, const iPlane<T> &plane);
+
+        template <typename T>
+        static bool intersects(const iSphere<T>& sphere, const iFrustum<T> &frustum);
+
+        template <typename T>
+        static bool inFrontOf(const iAACube<T> &cube, const iPlane<T> &plane);
+
+        template <typename T>
+        static bool intersects(const iAACube<T> &cube, const iSphere<T> &sphere);
+
+        template <typename T>
+        static bool intersects(const iAACube<T> &cube, const iFrustum<T> &frustum);
 
         template <typename T>
         static bool intersects(const iAACube<T> &cube, const iaVector3<T> &vec);

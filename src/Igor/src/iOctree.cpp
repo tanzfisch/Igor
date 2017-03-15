@@ -384,7 +384,7 @@ namespace Igor
     {
         for (auto frustum : _frustumFilter)
         {
-            if (box.intersects(frustum))
+            if (iIntersection::intersects(box, frustum))
             {
                 return true;
             }
@@ -392,7 +392,7 @@ namespace Igor
 
         for (auto sphere : _spheresFilter)
         {
-            if (box.intersects(sphere))
+            if (iIntersection::intersects(box, sphere))
             {
                 return true;
             }
@@ -400,7 +400,7 @@ namespace Igor
 
         for (iPlaned plane : _planesFilter)
         {
-            if (box.inFrontOf(plane))
+            if (iIntersection::inFrontOf(box, plane))
             {
                 return true;
             }

@@ -3,6 +3,154 @@
 // see copyright notice in corresponding header file
 
 template <typename T>
+bool iIntersection::intersects(const iSphere<T>& sphereA, const iSphere<T>& sphereB)
+{
+    iaVector3<T> diff = sphereB._center - sphereA._center;
+    T distance = diff.length();
+    distance -= sphereA._radius;
+    distance -= sphereB._radius;
+    if (distance <= 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <typename T>
+bool iIntersection::contains(const iSphere<T>& sphereA, const iSphere<T>& sphereB)
+{
+    iaVector3<T> diff = sphereB._center - sphereA._center;
+    T distance = diff.length();
+
+    if (distance + sphereB._radius <= sphereA._radius)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+template <typename T>
+bool iIntersection::inFrontOf(const iSphere<T>& sphere, const iPlane<T> &plane)
+{
+    T distancePlanePoint = (plane.normal * sphere._center) + plane.distance;
+    if (distancePlanePoint <= -sphere._radius)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+template <typename T>
+bool iIntersection::intersects(const iSphere<T>& sphere, const iFrustum<T> &frustum)
+{
+    if (!inFrontOf(sphere, frustum.near_plane))
+    {
+        return false;
+    }
+    if (!inFrontOf(sphere, frustum.left_plane))
+    {
+        return false;
+    }
+    if (!inFrontOf(sphere, frustum.right_plane))
+    {
+        return false;
+    }
+    if (!inFrontOf(sphere, frustum.bottom_plane))
+    {
+        return false;
+    }
+    if (!inFrontOf(sphere, frustum.top_plane))
+    {
+        return false;
+    }
+    if (!inFrontOf(sphere, frustum.far_plane))
+    {
+        return false;
+    }
+    return true;
+}
+
+template <typename T>
+bool iIntersection::inFrontOf(const iAACube<T> &cube, const iPlane<T> &plane)
+{
+    //! \todo calculation is not precise
+#define SQRT2 3 // 1.414213562373095
+
+    T distancePlanePoint = (plane._normal * cube._center) + plane._distance;
+    if (distancePlanePoint <= -cube._halfEdgeLength * SQRT2)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
+}
+
+template <typename T>
+bool iIntersection::intersects(const iAACube<T> &cube, const iSphere<T> &sphere)
+{
+    T maxDistance = cube._halfEdgeLength + sphere._radius;
+
+    if (abs(cube._center._x - sphere._center._x) < maxDistance)
+    {
+        if (abs(cube._center._y - sphere._center._y) < maxDistance)
+        {
+            if (abs(cube._center._z - sphere._center._z) < maxDistance)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+template <typename T>
+bool iIntersection::intersects(const iAACube<T> &cube, const iFrustum<T> &frustum)
+{
+    if (!inFrontOf(cube, frustum._nearPlane))
+    {
+        return false;
+    }
+
+    if (!inFrontOf(cube, frustum._leftPlane))
+    {
+        return false;
+    }
+
+    if (!inFrontOf(cube, frustum._rightPlane))
+    {
+        return false;
+    }
+
+    if (!inFrontOf(cube, frustum._bottomPlane))
+    {
+        return false;
+    }
+
+    if (!inFrontOf(cube, frustum._topPlane))
+    {
+        return false;
+    }
+
+    if (!inFrontOf(cube, frustum._farPlane))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+template <typename T>
 bool iIntersection::intersects(const iAACube<T> &cube, const iaVector3<T> &vec)
 {
     if (abs(cube._center._x - vec._x) < cube._halfEdgeLength)

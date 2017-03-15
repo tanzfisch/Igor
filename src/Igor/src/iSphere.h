@@ -68,38 +68,11 @@ namespace Igor
         */
         virtual ~iSphere() = default;
 
-        /*! intersection test againts an other sphere
-
-        \param sphere the other sphere to test with
-        \returns true: if spheres intersect each other; false: if not
-        */
-        __IGOR_INLINE__ bool intersects(iSphere<T> &sphere);
-
-        /*! containment test with an other sphere
-        
-        \param sphere the other sphere to test with
-        \returns true: if sphere is completely inside sphere; false: if not
-        */
-        __IGOR_INLINE__ bool contains(iSphere<T> &sphere);
-
         /*! merges on spehre in to an other
 
         \param sphere the sphere to merge with
         */
         __IGOR_INLINE__ void merge(iSphere<T> &sphere);
-
-        /*! checks if sphere is in fron of a plane
-
-        \returns true: if spehre is in front of plane: false: if not
-        */
-		__IGOR_INLINE__ bool inFrontOf(iPlane<T> &plane);
-
-        /*! intersection test agains a frustum
-
-        \param frustum the frustum to test it with
-        \returns true: if sphere intersects with frustum: false: if not
-        */
-		__IGOR_INLINE__ bool intersects(iFrustum<T> &frustum);
 
         /*! compares of two spheres are equal
         */
@@ -108,6 +81,16 @@ namespace Igor
         /*! compares of two spheres are not equal
         */
         __IGOR_INLINE__ bool operator!= (const iSphere<T> &sphere) const;
+
+    private:
+
+        /*! containment test with an other sphere
+
+        \param sphere the other sphere to test with
+        \returns true: if sphere is completely inside sphere; false: if not
+        */
+        __IGOR_INLINE__ bool contains(const iSphere<T>& sphere);
+
 	};
 
 	#include <iSphere.inl>
