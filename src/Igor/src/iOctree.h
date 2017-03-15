@@ -77,21 +77,38 @@ namespace Igor
         */
         void update(uint64 userDataID, const iSphered& sphere);
 
-        /*! clears the filter results
+        /*! adds frustum to filter set
+
+        \param frustum the frustum
         */
-        void resetFilter();
+        void addFilter(const iFrustumd& frustum);
 
-        /*! filters everything out that is not within the frustum
+        /*! adds plane to filter set
 
-        \param frustum cull frustum
+        \param plane the plane to filter with
         */
-        void filter(const iFrustumd& frustum);
+        void addFilter(const iPlaned& plane);
 
-        /*! filters everything out that is not within the spehere
+        /*! recursive method to filter the octree with a sphere
 
-        \param sphere cull sphere
+        \param frustum the frustum
+        \param nodeID current octree node to check for filtering
         */
-        void filter(const iSphered& sphere);
+        void addFilter(const iSphered& sphere);
+
+        /*! clears filter set
+        */
+        void clearFilter();
+
+        /*! recursive method to filter the octree with a set of filters starting with specified node id
+
+        \param nodeID current octree node to check for filtering
+        */
+        void filter(uint64 nodeID);
+
+        /*! recursive method to filter the octree with a set of filters starting at root node
+        */
+        void filter();
 
         /*! returns the result of filtering
 
@@ -194,6 +211,18 @@ namespace Igor
         */
 		vector<uint64> _queryResult;
 
+        /*! spheres filter list
+        */
+        vector<iSphered> _spheresFilter;
+
+        /*! planes filter list
+        */
+        vector<iPlaned> _planesFilter;
+
+        /*! frustum filter list
+        */
+        vector<iFrustumd> _frustumFilter;
+
         /*! recursive function to insert a scene node to the octree
 
         if the right place is fount a octree object will be created the represents the scene node
@@ -227,20 +256,13 @@ namespace Igor
         \param nodeID node to be merged with it's children
         */
         void merge(uint64 nodeID);
-        
-        /*! recursive method to filter the octree with a frustum
 
-        \param frustum the frustum
-        \param nodeID current octree node to check for filtering
+        /*! text box against filter
+
+        \param box the box to filter
+        \returns true if inside filter definition
         */
-        void filter(const iFrustumd& frustum, uint64 nodeID);
-
-        /*! recursive method to filter the octree with a sphere
-
-        \param frustum the frustum
-        \param nodeID current octree node to check for filtering
-        */
-        void filter(const iSphered& sphere, uint64 nodeID);
+        bool testFilter(iAACubed& box);
 
         /*! creates a node and returns the new node id
 

@@ -64,8 +64,9 @@ namespace Igor
 
     void iEntityManager::getEntities(const iSphered& sphere, vector<uint64>& entities)
     {
-        _octree->resetFilter();
-        _octree->filter(sphere);
+        _octree->clearFilter();
+        _octree->addFilter(sphere);
+        _octree->filter();
         _octree->getResult(entities);
     }
 

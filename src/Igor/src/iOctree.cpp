@@ -42,7 +42,30 @@ namespace Igor
 
     iOctree::~iOctree()
     {
-        // TODO cleanup?
+        clearFilter();
+    }
+
+    void iOctree::clearFilter()
+    {
+        _spheresFilter.clear();
+        _planesFilter.clear();
+        _frustumFilter.clear();
+        _queryResult.clear();
+    }
+
+    void iOctree::addFilter(const iFrustumd& frustum)
+    {
+        _frustumFilter.push_back(frustum);
+    }
+
+    void iOctree::addFilter(const iPlaned& plane)
+    {
+        _planesFilter.push_back(plane);
+    }
+
+    void iOctree::addFilter(const iSphered& sphere)
+    {
+        _spheresFilter.push_back(sphere);
     }
 
     iOctree::OctreeObject* iOctree::createObject(uint64 userDataID, const iSphered& sphere)
@@ -92,7 +115,7 @@ namespace Igor
     void iOctree::insert(uint64 nodeID, uint64 userDataID, const iSphered& sphere)
     {
         OctreeNode* node = _nodes[nodeID];
-		con_assert(node != nullptr, "zero pointer"); 
+        con_assert(node != nullptr, "zero pointer");
 
         if (nullptr != node->_children)
         {
@@ -128,7 +151,7 @@ namespace Igor
     void iOctree::trySplit(uint64 nodeID)
     {
         OctreeNode* node = _nodes[nodeID];
-		con_assert(node != nullptr, "zero pointer");
+        con_assert(node != nullptr, "zero pointer");
 
         if (node->_box._halfEdgeLength > _halfMinResolution &&
             node->_objects.size() >= _objectCountMaxThreashold)
@@ -215,7 +238,7 @@ namespace Igor
     void iOctree::remove(uint64 userDataID)
     {
         con_assert(_objects.end() != _objects.find(userDataID), "object to remove is not registered");
-        
+
         if (_objects.end() != _objects.find(userDataID))
         {
             uint64 nodeID = _objects[userDataID]->_octreeNode;
@@ -318,27 +341,27 @@ namespace Igor
         }
     }
 
-    void iOctree::resetFilter()
+    void iOctree::filter()
     {
-        _queryResult.clear();
+        filter(_rootNode);
     }
 
-    void iOctree::filter(const iFrustumd& frustum, uint64 nodeID)
+    void iOctree::filter(uint64 nodeID)
     {
         OctreeNode* node = _nodes[nodeID];
-        iAACubed box;
 
-        if (node->_box.intersects(frustum))
+        if (testFilter(node->_box))
         {
             if (node->_objects.size())
             {
+                iAACubed box;
                 auto iterObjectID = node->_objects.begin();
                 while (iterObjectID != node->_objects.end())
                 {
                     box._center = _objects[(*iterObjectID)]->_sphere._center;
                     box._halfEdgeLength = _objects[(*iterObjectID)]->_sphere._radius;
 
-                    if (box.intersects(frustum))
+                    if (testFilter(box))
                     {
                         _queryResult.push_back((*iterObjectID));
                     }
@@ -350,53 +373,39 @@ namespace Igor
             {
                 for (uint64 i = 0; i < 8; ++i)
                 {
-                    filter(frustum, node->_children[i]);
+                    filter(node->_children[i]);
                 }
             }
         }
     }
 
-    void iOctree::filter(const iSphered& sphere, uint64 nodeID)
+    bool iOctree::testFilter(iAACubed& box)
     {
-        OctreeNode* node = _nodes[nodeID];
-        iAACubed box;
-
-        if (node->_box.intersects(sphere))
+        for (auto frustum : _frustumFilter)
         {
-            if (node->_objects.size())
+            if (box.intersects(frustum))
             {
-                auto iterObjectID = node->_objects.begin();
-                while (iterObjectID != node->_objects.end())
-                {
-                    box._center = _objects[(*iterObjectID)]->_sphere._center;
-                    box._halfEdgeLength = _objects[(*iterObjectID)]->_sphere._radius;
-
-                    if (box.intersects(sphere))
-                    {
-                        _queryResult.push_back((*iterObjectID));
-                    }
-                    iterObjectID++;
-                }
-            }
-
-            if (nullptr != node->_children)
-            {
-                for (uint64 i = 0; i < 8; ++i)
-                {
-                    filter(sphere, node->_children[i]);
-                }
+                return true;
             }
         }
-    }
 
-    void iOctree::filter(const iSphered& sphere)
-    {
-        filter(sphere, _rootNode);
-    }
+        for (auto sphere : _spheresFilter)
+        {
+            if (box.intersects(sphere))
+            {
+                return true;
+            }
+        }
 
-    void iOctree::filter(const iFrustumd& frustum)
-    {
-        filter(frustum, _rootNode);
+        for (iPlaned plane : _planesFilter)
+        {
+            if (box.inFrontOf(plane))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void iOctree::getResult(vector<uint64>& data)
