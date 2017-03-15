@@ -111,7 +111,8 @@ namespace Igor
             }
         }
 
-        if (_meshBuffers != nullptr)
+        if (_meshBuffers != nullptr && 
+            _meshBuffers->isReady())
         {
             iRenderer::getInstance().setModelMatrix(_worldMatrix);
             iRenderer::getInstance().setTargetMaterial(_targetMaterial);

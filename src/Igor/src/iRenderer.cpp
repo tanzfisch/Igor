@@ -993,6 +993,8 @@ namespace Igor
         result->setTrianglesCount(mesh->getTrianglesCount());
         result->setVertexCount(mesh->getVertexCount());
 
+        result->setReady();
+
         return shared_ptr<iMeshBuffers>(result);
     }
 

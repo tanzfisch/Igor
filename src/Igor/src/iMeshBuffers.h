@@ -105,11 +105,23 @@ namespace Igor
         */
         void setTrianglesCount(uint32 count);
 
+        /*! \returns true if buffers are initialized
+        */
+        bool isReady();
+
+        /*! sets buffers ready
+        */
+        void setReady(bool ready = true);
+
         /*! dtor clean up
         */
         ~iMeshBuffers();
 
     private:
+
+        /*! flag if buffers area ready to use
+        */
+        bool _ready = false;
 
         /*! vertex buffer object ID
         */

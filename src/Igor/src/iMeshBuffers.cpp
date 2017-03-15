@@ -56,4 +56,14 @@ namespace Igor
         _trianglesCount = count;
     }
 
+    bool iMeshBuffers::isReady()
+    {
+        return _ready;
+    }
+
+    void iMeshBuffers::setReady(bool ready)
+    {
+        _ready = ready;
+    }
+
 }
