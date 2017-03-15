@@ -102,6 +102,10 @@ namespace Igor
         */
         void drawScene(iNodeCamera* camera);
 
+        /*! unregisters performance sections
+        */
+        void unregisterSections();
+
     };
 }
 

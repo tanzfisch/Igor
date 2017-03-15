@@ -31,14 +31,21 @@ namespace Igor
 
     iRenderEngine::~iRenderEngine()
     {
+        unregisterSections();
+    }
+
+    void iRenderEngine::unregisterSections()
+    {
         if (_cullSectionID != 0)
         {
             iStatistics::getInstance().unregisterSection(_cullSectionID);
+            _cullSectionID = 0;
         }
 
         if (_drawSectionID != 0)
         {
             iStatistics::getInstance().unregisterSection(_drawSectionID);
+            _drawSectionID = 0;
         }
     }
 
@@ -53,17 +60,7 @@ namespace Igor
         }
         else
         {
-            if (_cullSectionID != 0)
-            {
-                iStatistics::getInstance().unregisterSection(_cullSectionID);
-                _cullSectionID = 0;
-            }
-
-            if (_drawSectionID != 0)
-            {
-                iStatistics::getInstance().unregisterSection(_drawSectionID);
-                _drawSectionID = 0;
-            }
+            unregisterSections();
         }
     }
 
