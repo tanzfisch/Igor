@@ -18,6 +18,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iNodeFactory.h>
 #include <iStatistics.h>
+#include <iTimer.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -47,6 +48,12 @@ namespace Igor
             iStatistics::getInstance().unregisterSection(_drawSectionID);
             _drawSectionID = iStatisticsSection::INVALID_SECTION_ID;
         }
+
+        if (_bufferCreationSectionID != iStatisticsSection::INVALID_SECTION_ID)
+        {
+            iStatistics::getInstance().unregisterSection(_bufferCreationSectionID);
+            _bufferCreationSectionID = iStatisticsSection::INVALID_SECTION_ID;
+        }
     }
 
     void iRenderEngine::setScene(iScene* scene)
@@ -57,6 +64,7 @@ namespace Igor
         {
             _cullSectionID = iStatistics::getInstance().registerSection("renderer:cull", 1);
             _drawSectionID = iStatistics::getInstance().registerSection("renderer:draw", 1);
+            _bufferCreationSectionID = iStatistics::getInstance().registerSection("renderer:createBuffers", 1);
         }
         else
         {
@@ -69,8 +77,17 @@ namespace Igor
         return _scene;
     }
 
+    void iRenderEngine::createBuffers()
+    {
+        iRenderer::getInstance().createBuffers();
+    }
+
     void iRenderEngine::render()
     {
+        iStatistics::getInstance().beginSection(_bufferCreationSectionID);
+        createBuffers();
+        iStatistics::getInstance().endSection(_bufferCreationSectionID);
+
         if (_scene != nullptr)
         {            
             iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));

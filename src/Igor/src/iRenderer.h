@@ -47,6 +47,7 @@ using namespace IgorAux;
 #include <map>
 #include <memory>
 #include <queue>
+#include <deque>
 using namespace std;
 
 namespace Igor
@@ -177,6 +178,12 @@ namespace Igor
         \param mesh the mesh specified
         */
         shared_ptr<iMeshBuffers> createBuffers(shared_ptr<iMesh> mesh);
+
+        void initBuffers(shared_ptr<iMesh> mesh, shared_ptr<iMeshBuffers> meshBuffers);
+
+        shared_ptr<iMeshBuffers> createBuffersAsync(shared_ptr<iMesh> mesh);
+
+        void createBuffers(float64 timeLimit = 20.0);
 
         /*! \returns true if the renderer is ready to use
         */
@@ -615,6 +622,9 @@ namespace Igor
         void getCounters(uint32& vertices, uint32& triangles, uint32& indices);
 
     private:
+
+        mutex _requestedBuffersMutex;
+        deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>> _requestedBuffers;
 
         /*! world grid resolution
         */

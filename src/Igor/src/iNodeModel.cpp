@@ -13,6 +13,7 @@
 #include <iNodeFactory.h>
 #include <iScene.h>
 #include <iMaterialResourceFactory.h>
+#include <iMeshBuffers.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -55,19 +56,19 @@ namespace Igor
         _model = nullptr;
     }
 
-    void iNodeModel::registerModelLoadedDelegate(iModelLoadedDelegate delegate)
+    void iNodeModel::registerModelReadyDelegate(iModelReadyDelegate delegate)
     {
-        _modelLoadedEvent.append(delegate);
+        _modelReadyEvent.append(delegate);
     }
 
-    void iNodeModel::unregisterModelLoadedDelegate(iModelLoadedDelegate delegate)
+    void iNodeModel::unregisterModelReadyDelegate(iModelReadyDelegate delegate)
     {
-        _modelLoadedEvent.remove(delegate);
+        _modelReadyEvent.remove(delegate);
     }
 
-    bool iNodeModel::isLoaded()
+    bool iNodeModel::isReady()
     {
-        return _initialized;
+        return _ready;
     }
 
     iaString iNodeModel::getModelName() const
@@ -99,7 +100,7 @@ namespace Igor
 
     void iNodeModel::onUpdateTransform(iaMatrixd& matrix)
     {
-        if (!_initialized &&
+        if (!_loaded &&
             _model == nullptr)
         {
             _model = iModelResourceFactory::getInstance().requestModelData(_filename, _cacheMode, _parameters);
@@ -107,18 +108,64 @@ namespace Igor
         }
     }
 
+    bool iNodeModel::checkForBuffers(iNode* node)
+    {
+        if (node->getType() == iNodeType::iNodeMesh)
+        {
+            iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
+            if (meshNode->getMeshBuffers() == nullptr || 
+                !meshNode->getMeshBuffers()->isReady())
+            {
+                return false;
+            }
+        }
+
+        for (auto child : node->getChildren())
+        {
+            if (!checkForBuffers(child))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    bool iNodeModel::checkForBuffers()
+    {
+        for (auto child : _children)
+        {
+            if (!checkForBuffers(child))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 	bool iNodeModel::onUpdateData()
 	{
-		if (!_initialized &&
-            _model != nullptr &&
-			_model->getState() == iModelState::Loaded)
-		{
-            insertNode(_model->getNodeCopy());
-			_initialized = true;
-            _modelLoadedEvent();
-            return true;
-		}
+        if (!_ready)
+        {
+            if (!_loaded &&
+                _model != nullptr &&
+                _model->getState() == iModelState::Loaded)
+            {
+                insertNode(_model->getNodeCopy());
+                _loaded = true;
 
-        return false;
+                _ready = true;
+                _modelReadyEvent();
+            }
+
+            /*if (_loaded && checkForBuffers())
+            {
+                _ready = true;
+                _modelReadyEvent();
+            }*/
+        }
+
+        return _ready;
 	}
 }

@@ -76,6 +76,10 @@ namespace Igor
         */
         uint32 _cullSectionID = 0;
 
+        /*! buffer creation section id for statistics
+        */
+        uint32 _bufferCreationSectionID = 0;
+
         /*! draw section id for statistics
         */
         uint32 _drawSectionID = 0;
@@ -101,6 +105,10 @@ namespace Igor
         \param camera the specified camera
         */
         void drawScene(iNodeCamera* camera);
+
+        /*! triggers the creation of buffers
+        */
+        void createBuffers();
 
         /*! unregisters performance sections
         */

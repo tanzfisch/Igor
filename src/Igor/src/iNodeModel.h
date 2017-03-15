@@ -44,7 +44,7 @@ namespace Igor
 
     /*! event triggered when model was loaded
     */
-    iaEVENT(iModelLoadedEvent, iModelLoadedDelegate, void, (), ());
+    iaEVENT(iModelReadyEvent, iModelReadyDelegate, void, (), ());
 
     /*! represents a model within the scene
 
@@ -74,27 +74,27 @@ namespace Igor
         */
         iaString getModelName() const;
 
-        /*! \returns true if model data is ready to use
+        /*! \returns true if model data is ready to render
         */
-        bool isLoaded();
+        bool isReady();
 
         /*! register delegate to model loaded event
 
         \param delegate the delegate to register
         */
-        void registerModelLoadedDelegate(iModelLoadedDelegate delegate);
+        void registerModelReadyDelegate(iModelReadyDelegate delegate);
 
         /*! unregister delegate from model loaded event
 
         \param delegate the delegate to unregister
         */
-        void unregisterModelLoadedDelegate(iModelLoadedDelegate delegate);
+        void unregisterModelReadyDelegate(iModelReadyDelegate delegate);
 
 	private:
 
-        /*! event triggered when model was loaded
+        /*! event triggered when model was loaded and ready for rendering
         */
-        iModelLoadedEvent _modelLoadedEvent;
+        iModelReadyEvent _modelReadyEvent;
 
         /*! filename of model
         */
@@ -116,7 +116,11 @@ namespace Igor
 
         /*! true if requested model was actually loaded and subtree created
         */
-		bool _initialized = false;
+		bool _loaded = false;
+
+        /*! true if loaded and buffers are generated
+        */
+        bool _ready = false;
 
         /*! this is called just before setScene and gives the class the chance to unregister from the current scene if set.
         */
@@ -131,6 +135,14 @@ namespace Igor
         \returns true if model data was present
         */
         bool onUpdateData();
+
+        /*! checks if mesh buffers are generated and read for rendering
+
+        \returns true if meshs are all ready for rendering
+        */
+        bool checkForBuffers();
+
+        bool checkForBuffers(iNode* node);
 
         /*! called by update transform run
 

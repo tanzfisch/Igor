@@ -98,19 +98,6 @@ namespace Igor
 
     void iNodeMesh::draw()
     {
-        if (_meshBuffers == nullptr)
-        {
-            if (_mesh != nullptr)
-            {
-                _meshBuffers = iRenderer::getInstance().createBuffers(_mesh);
-
-                if (!_keepMesh)
-                {
-                    _mesh = nullptr;
-                }
-            }
-        }
-
         if (_meshBuffers != nullptr && 
             _meshBuffers->isReady())
         {
@@ -139,7 +126,13 @@ namespace Igor
 
         if (_mesh != nullptr)
         {
-            setBoundingSphere(_mesh->getBoundingSphere());          
+            _meshBuffers = iRenderer::getInstance().createBuffersAsync(_mesh);
+            setBoundingSphere(_mesh->getBoundingSphere());  
+
+            if (!_keepMesh)
+            {
+                _mesh = nullptr;
+            }
         }
 
         setTransformationDirty();

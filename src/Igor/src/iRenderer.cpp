@@ -17,6 +17,7 @@
 #include <iTargetMaterial.h>
 #include <iMeshBuffers.h>
 #include <iParticleSystem3D.h>
+#include <iTimer.h>
 
 #include <GLee.h>
 #include <GL\glu.h>
@@ -449,7 +450,7 @@ namespace Igor
         glViewport(x, y, width, height); GL_CHECK_ERROR();
     }
 
-    void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, unsigned char *data)
+    void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data)
     {
         GLenum glformat;
 
@@ -937,32 +938,80 @@ namespace Igor
         }
     }
 
-    /*! http://in2gpu.com/2014/09/07/instanced-drawing-opengl/
-    */
-    shared_ptr<iMeshBuffers> iRenderer::createBuffers(shared_ptr<iMesh> mesh)
+    void iRenderer::createBuffers(float64 timeLimit)
     {
-        iMeshBuffers* result = new iMeshBuffers();
+        float64 endTime = iTimer::getInstance().getMilliSeconds() + timeLimit;
+        deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>>::iterator entryIter;
 
+        shared_ptr<iMesh> mesh;
+        shared_ptr<iMeshBuffers> meshBuffers;
+        bool proceed = false;
+
+        while (true)
+        {
+            _requestedBuffersMutex.lock();
+            if (!_requestedBuffers.empty())
+            {
+                entryIter = _requestedBuffers.begin();
+                mesh = (*entryIter).first;
+                meshBuffers = (*entryIter).second;
+                _requestedBuffers.pop_front();
+                proceed = true;
+            }
+            _requestedBuffersMutex.unlock();
+
+            if(proceed)
+            {
+                initBuffers(mesh, meshBuffers);
+                proceed = false;
+            }
+            else
+            {
+                break;
+            }
+
+            if (iTimer::getInstance().getMilliSeconds() > endTime)
+            {
+                break;
+            }
+        }
+    }
+
+    shared_ptr<iMeshBuffers> iRenderer::createBuffersAsync(shared_ptr<iMesh> mesh)
+    {
+        iMeshBuffers* meshBuffer = new iMeshBuffers();
+
+        shared_ptr<iMeshBuffers> result = shared_ptr<iMeshBuffers>(meshBuffer);
+
+        _requestedBuffersMutex.lock();
+        _requestedBuffers.push_back(pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>(mesh, result));
+        _requestedBuffersMutex.unlock();
+
+        return result;
+    }
+
+    void iRenderer::initBuffers(shared_ptr<iMesh> mesh, shared_ptr<iMeshBuffers> meshBuffers)
+    {
         uint32 vao = 0;
         uint32 ibo = 0;
         uint32 vbo = 0;
 
         glGenVertexArrays(1, &vao); GL_CHECK_ERROR();
-        result->setVertexArrayObject(vao);
-        glBindVertexArray(result->getVertexArrayObject()); GL_CHECK_ERROR();
+        meshBuffers->setVertexArrayObject(vao);
+        glBindVertexArray(meshBuffers->getVertexArrayObject()); GL_CHECK_ERROR();
 
         if (mesh->getIndexData() != nullptr)
         {
             glGenBuffers(1, &ibo); GL_CHECK_ERROR();
-            result->setIndexBufferObject(ibo);
+            meshBuffers->setIndexBufferObject(ibo);
 
-            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, result->getIndexBufferObject()); GL_CHECK_ERROR();
+            glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshBuffers->getIndexBufferObject()); GL_CHECK_ERROR();
             glBufferData(GL_ELEMENT_ARRAY_BUFFER, mesh->getIndexDataSize(), mesh->getIndexData(), GL_STATIC_DRAW); GL_CHECK_ERROR();
         }
 
         glGenBuffers(1, &vbo); GL_CHECK_ERROR();
-        result->setVertexBufferObject(vbo);
-        glBindBuffer(GL_ARRAY_BUFFER, result->getVertexBufferObject()); GL_CHECK_ERROR();
+        meshBuffers->setVertexBufferObject(vbo);
+        glBindBuffer(GL_ARRAY_BUFFER, meshBuffers->getVertexBufferObject()); GL_CHECK_ERROR();
         glBufferData(GL_ARRAY_BUFFER, mesh->getVertexDataSize(), mesh->getVertexData(), GL_STATIC_DRAW); GL_CHECK_ERROR();
 
         uint32 location = 0;
@@ -989,13 +1038,23 @@ namespace Igor
             }
         }
 
-        result->setIndexesCount(mesh->getIndexesCount());
-        result->setTrianglesCount(mesh->getTrianglesCount());
-        result->setVertexCount(mesh->getVertexCount());
+        meshBuffers->setIndexesCount(mesh->getIndexesCount());
+        meshBuffers->setTrianglesCount(mesh->getTrianglesCount());
+        meshBuffers->setVertexCount(mesh->getVertexCount());
 
-        result->setReady();
+        meshBuffers->setReady();
+    }
 
-        return shared_ptr<iMeshBuffers>(result);
+    /*! http://in2gpu.com/2014/09/07/instanced-drawing-opengl/
+    */
+    shared_ptr<iMeshBuffers> iRenderer::createBuffers(shared_ptr<iMesh> mesh)
+    {
+        iMeshBuffers* meshBuffer = new iMeshBuffers();
+        shared_ptr<iMeshBuffers> result = shared_ptr<iMeshBuffers>(meshBuffer);
+
+        initBuffers(mesh, result);
+
+        return result;
     }
 
     void iRenderer::createBuffers(iInstancer* instancer)
@@ -1286,26 +1345,26 @@ namespace Igor
         }
     }
 
-    void iRenderer::setLightPosition(int lightnum, iaVector4d &pos)
+    void iRenderer::setLightPosition(int32 lightnum, iaVector4d &pos)
     {
         // TODO fix with world offset
         _lights[lightnum]._position.set(pos._vec._x, pos._vec._y, pos._vec._z, pos._w);
         glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, _lights[lightnum]._position.getData());		GL_CHECK_ERROR();
     }
 
-    void iRenderer::setLightAmbient(int lightnum, iaColor4f &ambient)
+    void iRenderer::setLightAmbient(int32 lightnum, iaColor4f &ambient)
     {
         _lights[lightnum]._ambient = ambient;
         glLightfv(GL_LIGHT0 + lightnum, GL_AMBIENT, ambient.getData());		GL_CHECK_ERROR();
     }
 
-    void iRenderer::setLightDiffuse(int lightnum, iaColor4f &diffuse)
+    void iRenderer::setLightDiffuse(int32 lightnum, iaColor4f &diffuse)
     {
         _lights[lightnum]._diffuse = diffuse;
         glLightfv(GL_LIGHT0 + lightnum, GL_DIFFUSE, diffuse.getData());		GL_CHECK_ERROR();
     }
 
-    void iRenderer::setLightSpecular(int lightnum, iaColor4f &specular)
+    void iRenderer::setLightSpecular(int32 lightnum, iaColor4f &specular)
     {
         _lights[lightnum]._specular = specular;
         glLightfv(GL_LIGHT0 + lightnum, GL_SPECULAR, specular.getData());		GL_CHECK_ERROR();
