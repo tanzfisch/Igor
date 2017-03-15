@@ -382,31 +382,31 @@ namespace Igor
 
     bool iOctree::testFilter(iAACubed& box)
     {
+        for (auto plane : _planesFilter)
+        {
+            if (!iIntersection::inFrontOf(box, plane))
+            {
+                return false;
+            }
+        }
+
         for (auto frustum : _frustumFilter)
         {
-            if (iIntersection::intersects(box, frustum))
+            if (!iIntersection::intersects(box, frustum))
             {
-                return true;
+                return false;
             }
         }
 
         for (auto sphere : _spheresFilter)
         {
-            if (iIntersection::intersects(box, sphere))
+            if (!iIntersection::intersects(box, sphere))
             {
-                return true;
+                return false;
             }
         }
 
-        for (iPlaned plane : _planesFilter)
-        {
-            if (iIntersection::inFrontOf(box, plane))
-            {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     void iOctree::getResult(vector<uint64>& data)
