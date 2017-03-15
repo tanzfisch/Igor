@@ -108,7 +108,7 @@ namespace Igor
 
         /*! next section id
         */
-        uint32 _nextSectionID = 1;
+        uint32 _nextSectionID = iStatisticsSection::INVALID_SECTION_ID + 1;
 
         /*! measures time so we can update statistics in cetain intervals
         */

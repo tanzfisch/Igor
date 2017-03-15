@@ -48,6 +48,10 @@ namespace Igor
 
     public:
 
+        /*! definition of invalid seciton id
+        */
+        static const uint32 INVALID_SECTION_ID = 0;
+
         /*! size of buffer aka amount of frames that are logged
         */
         static const uint64 BUFFER_SIZE = 500;
