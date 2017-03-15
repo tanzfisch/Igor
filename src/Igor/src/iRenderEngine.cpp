@@ -36,16 +36,16 @@ namespace Igor
 
     void iRenderEngine::unregisterSections()
     {
-        if (_cullSectionID != 0)
+        if (_cullSectionID != iStatisticsSection::INVALID_SECTION_ID)
         {
             iStatistics::getInstance().unregisterSection(_cullSectionID);
-            _cullSectionID = 0;
+            _cullSectionID = iStatisticsSection::INVALID_SECTION_ID;
         }
 
-        if (_drawSectionID != 0)
+        if (_drawSectionID != iStatisticsSection::INVALID_SECTION_ID)
         {
             iStatistics::getInstance().unregisterSection(_drawSectionID);
-            _drawSectionID = 0;
+            _drawSectionID = iStatisticsSection::INVALID_SECTION_ID;
         }
     }
 
