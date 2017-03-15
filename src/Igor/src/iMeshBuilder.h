@@ -74,6 +74,8 @@ namespace Igor
     class Igor_API iMeshBuilder
     {
 
+        /*! hash function to quickly find corresponding vertex positions
+        */
         class VectorHasher
         {
         public:
@@ -136,6 +138,11 @@ namespace Igor
         */
         void setNormal(uint32 index, const iaVector3f& normal);
 
+        /*! accumulates normal values for specified index
+
+        \param index the index of vertex to manipulate
+        \param normal the normal vector to accumulate
+        */
         void accumulateNormal(uint32 index, const iaVector3f& normal);
 
         /*! sets color of last added vertex
@@ -168,6 +175,8 @@ namespace Igor
         */
         void setJoinVertexes(bool joinVertexes = true);
 
+        /*! normalizes all normals
+        */
         void normalizeNormals();
 
         /*! \returns join vertexes flag
@@ -196,10 +205,16 @@ namespace Igor
         */
         uint32 getTextureUnitCount() const;
 
+        /*! \returns list of vertex positions
+        */
         const vector<iaVector3f>& getVertexes() const;
 
+        /*! \returns list of vertex normals
+        */
         const vector<iaVector3f>& getNormals() const;
 
+        /*! \returns list of indexed triangles
+        */
         const vector<iIndexedTriangle>& getTriangles() const;
 
         /*! \returns true: if mesh has _normals; false: mesh has no _normals
