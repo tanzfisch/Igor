@@ -10,17 +10,17 @@ namespace Igor
 
     iMeshBuffers::~iMeshBuffers()
     {
-        if (_vertexBufferObject != 0)
+        if (_vertexBufferObject != INVALID_BUFFER_ID)
         {
             iRenderer::getInstance().destroyBuffer(_vertexBufferObject);
         }
 
-        if (_indexBufferObject != 0)
+        if (_indexBufferObject != INVALID_BUFFER_ID)
         {
             iRenderer::getInstance().destroyBuffer(_indexBufferObject);
         }
 
-        if (_vertexArrayObject != 0)
+        if (_vertexArrayObject != INVALID_BUFFER_ID)
         {
             iRenderer::getInstance().destroyVertexArray(_vertexArrayObject);
         }

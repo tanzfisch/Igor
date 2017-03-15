@@ -34,10 +34,16 @@
 namespace Igor
 {
 
+    /*! set of opengl buffer IDs
+    */
     class iMeshBuffers
     {
 
     public:
+
+        /*! definition of invalid buffer id
+        */
+        static const uint32 INVALID_BUFFER_ID = 0;
 
         /*! sets vertex array object
 
@@ -107,31 +113,31 @@ namespace Igor
 
         /*! vertex buffer object ID
         */
-        uint32 _vertexBufferObject = 0;
+        uint32 _vertexBufferObject = INVALID_BUFFER_ID;
 
         /*! index buffer object ID
         */
-        uint32 _indexBufferObject = 0;
+        uint32 _indexBufferObject = INVALID_BUFFER_ID;
 
         /*! vertex array object ID
         */
-        uint32 _vertexArrayObject = 0;
+        uint32 _vertexArrayObject = INVALID_BUFFER_ID;
 
         /*! instance array object ID
         */
-        uint32 _instanceArrayObject = 0;
+        uint32 _instanceArrayObject = INVALID_BUFFER_ID;
 
         /*! indexes count
         */
-        uint32 _indexesCount = 0;
+        uint32 _indexesCount = INVALID_BUFFER_ID;
 
         /*! vertex count
         */
-        uint32 _vertexCount = 0;
+        uint32 _vertexCount = INVALID_BUFFER_ID;
 
         /*! triangle count
         */
-        uint32 _trianglesCount = 0;
+        uint32 _trianglesCount = INVALID_BUFFER_ID;
 
     };
 
