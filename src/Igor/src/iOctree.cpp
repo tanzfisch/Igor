@@ -7,6 +7,7 @@
 #include <iAACube.h>
 #include <iRenderer.h>
 #include <iNodeFactory.h>
+#include <iIntersection.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -164,7 +165,7 @@ namespace Igor
     {
         OctreeNode* rootNode = _nodes[_rootNode];
 
-        bool intersects = rootNode->_box.intersects(sphere._center);
+        bool intersects = iIntersection::intersects(rootNode->_box, sphere._center);
         con_assert(intersects, userDataID << " out of bounds " << sphere._center);
         if (intersects)
         {
@@ -328,7 +329,7 @@ namespace Igor
                 object->_sphere = sphere;
 
                 auto node = _nodes[object->_octreeNode];
-                if (!node->_box.intersects(sphere._center))
+                if (!iIntersection::intersects(node->_box, sphere._center))
                 {
                     remove(userDataID);
                     insert(userDataID, sphere);

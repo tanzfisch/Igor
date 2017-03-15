@@ -30,8 +30,11 @@
 #define __INTERSECTION__
 
 #include <iRectangle.h>
+#include <iAABox.h>
+#include <iAACube.h>
 
 #include <iaVector2.h>
+#include <iaVector3.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -43,14 +46,29 @@ namespace Igor
     {
 
     public:
+
+        template <typename T>
+        static bool intersects(const iAACube<T> &cube, const iaVector3<T> &vec);
+
+        template <typename T>
+        static bool intersects(const iAACube<T> &cubeA, const iAACube<T> &cubeB);
+
+        template <typename T>
+        static bool intersects(const iAABox<T>& boxA, const iAABox<T>& boxB);
+
+        template <typename T>
+        static bool intersects(const iAABox<T>& box, const iaVector3<T>& vec);
+
         /*! intersection test between rectangle and point
 
         \param rectangle the rectangle to test
         \param point the point to test
         \returns true if intersecting
         */
-        template< typename T>
-        static bool isIntersecting(iRectangle<T> rectangle, iaVector2<T> point);
+        template <typename T>
+        static bool intersects(iRectangle<T> rectangle, iaVector2<T> point);
+
+
 
     };
 

@@ -5,6 +5,7 @@
 #include <iPhysicsUserMeshCollisionHandler.h>
 
 #include <iPhysics.h>
+#include <iIntersection.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -46,7 +47,7 @@ namespace Igor
     {
         iAABoxf bb;
         bb.set(iaVector3f(box0[0], box0[1], box0[2]), iaVector3f(box1[0], box1[1], box1[2]));
-        return bb.intersects(_bb) ? 1 : 0;
+        return iIntersection::intersects(bb, _bb) ? 1 : 0;
     }
 
     int iPhysicsUserMeshCollisionHandler::getFacesInAABB(const float32* p0, const float32* p1, const float32** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)

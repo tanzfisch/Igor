@@ -10,40 +10,6 @@ iAACube<T>::iAACube(const iaVector3<T>& center, T halfEdgeLenght)
 }
 
 template <class T>
-__IGOR_INLINE__ bool iAACube<T>::intersects(const iAACube<T> &cube)
-{
-    float32 sum = _halfEdgeLength + cube._halfEdgeLength;
-
-    if (abs(_center._x - cube._center._x) < sum)
-    {
-        if (abs(_center._y - cube._center._y) < sum)
-        {
-            if (abs(_center._z - cube._center._z) < sum)
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-template <class T>
-__IGOR_INLINE__ bool iAACube<T>::intersects(const iaVector3<T> &vec)
-{
-    if (abs(_center._x - vec._x) < _halfEdgeLength)
-    {
-        if (abs(_center._y - vec._y) < _halfEdgeLength)
-        {
-            if (abs(_center._z - vec._z) < _halfEdgeLength)
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-template <class T>
 __IGOR_INLINE__ bool iAACube<T>::inFrontOf(const iPlane<T> &plane)
 {
     //! \todo calculation is not precise

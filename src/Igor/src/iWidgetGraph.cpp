@@ -342,7 +342,7 @@ namespace Igor
             {
                 buttonRect._x = (((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4;
 
-                if (iIntersection::isIntersecting(buttonRect, mousePos))
+                if (iIntersection::intersects(buttonRect, mousePos))
                 {
                     _selectionChanged(index);
                     _change(this);
@@ -351,7 +351,7 @@ namespace Igor
                 index++;
             }
 
-            if (iIntersection::isIntersecting(graphRenderArea, mousePos))
+            if (iIntersection::intersects(graphRenderArea, mousePos))
             {
                 float32 value = (static_cast<float32>(mousePos._x - graphRenderArea._x) / static_cast<float32>(graphRenderArea._width)) * boundings._width;
 

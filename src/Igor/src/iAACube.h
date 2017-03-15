@@ -63,18 +63,6 @@ namespace Igor
         */
 		iAACube(const iaVector3<T>& center, T halfEdgeLenght);
 
-        /*! intersection test agains an other cube
-
-        \param cube the other cube to test against
-        */
-		__IGOR_INLINE__ bool intersects(const iAACube<T> &cube);
-
-        /*! intersection test with point
-
-        \param vec vector that defines the point to test with
-        */
-        __IGOR_INLINE__ bool intersects(const iaVector3<T> &vec);
-
         /*! intersection test against plane
 
         \param plane the plane to test against

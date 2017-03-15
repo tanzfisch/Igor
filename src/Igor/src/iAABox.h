@@ -62,19 +62,12 @@ namespace Igor
         */
         iAABox(const iaVector3<T>& center, const iaVector3<T>& halfWidths);
 
+        /*! sets min max values of aabox
+
+        \param min min vector for aa box
+        \param max max vector for aa box
+        */
         void set(const iaVector3<T>& min, const iaVector3<T>& max);
-
-        /*! intersection test agains an other box
-
-        \param box the other box to test against
-        */
-		__IGOR_INLINE__ bool intersects(const iAABox<T> &box);
-
-        /*! intersection test with point
-
-        \param vec vector that defines the point to test with
-        */
-        __IGOR_INLINE__ bool intersects(const iaVector3<T> &vec);
 
 	};
 
