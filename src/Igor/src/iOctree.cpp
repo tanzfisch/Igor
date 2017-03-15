@@ -165,7 +165,7 @@ namespace Igor
     {
         OctreeNode* rootNode = _nodes[_rootNode];
 
-        bool intersects = iIntersection::intersects(rootNode->_box, sphere._center);
+        bool intersects = iIntersection::intersects(sphere._center, rootNode->_box);
         con_assert(intersects, userDataID << " out of bounds " << sphere._center);
         if (intersects)
         {
@@ -329,7 +329,7 @@ namespace Igor
                 object->_sphere = sphere;
 
                 auto node = _nodes[object->_octreeNode];
-                if (!iIntersection::intersects(node->_box, sphere._center))
+                if (!iIntersection::intersects(sphere._center, node->_box))
                 {
                     remove(userDataID);
                     insert(userDataID, sphere);

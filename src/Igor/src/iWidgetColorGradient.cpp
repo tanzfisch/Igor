@@ -65,7 +65,7 @@ namespace Igor
             {
                 buttonRect._x = (entry.first * gradientRect._width) + gradientRect._x - 4;
 
-                if (iIntersection::intersects(buttonRect, mousePos))
+                if (iIntersection::intersects(mousePos, buttonRect))
                 {
                     _selectionChanged(index);
                     _change(this);
@@ -74,7 +74,7 @@ namespace Igor
                 index++;
             }
 
-            if (iIntersection::intersects(gradientRect, mousePos))
+            if (iIntersection::intersects(mousePos, gradientRect))
             {
                 float32 value = (static_cast<float32>(mousePos._x - gradientRect._x) / static_cast<float32>(gradientRect._width));
                 iaColor4f color;

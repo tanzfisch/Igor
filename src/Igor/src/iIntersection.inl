@@ -151,7 +151,7 @@ bool iIntersection::intersects(const iAACube<T> &cube, const iFrustum<T> &frustu
 }
 
 template <typename T>
-bool iIntersection::intersects(const iAACube<T> &cube, const iaVector3<T> &vec)
+bool iIntersection::intersects(const iaVector3<T> &vec, const iAACube<T> &cube)
 {
     if (abs(cube._center._x - vec._x) < cube._halfEdgeLength)
     {
@@ -204,7 +204,7 @@ bool iIntersection::intersects(const iAABox<T> &boxA, const iAABox<T> &boxB)
 }
 
 template <typename T>
-bool iIntersection::intersects(iRectangle<T> rectangle, iaVector2<T> point)
+bool iIntersection::intersects(iaVector2<T> point, iRectangle<T> rectangle)
 {
     if (point._x < rectangle._x)
     {
@@ -230,7 +230,7 @@ bool iIntersection::intersects(iRectangle<T> rectangle, iaVector2<T> point)
 }
 
 template <typename T>
-bool iIntersection::intersects(const iAABox<T> &box, const iaVector3<T> &vec)
+bool iIntersection::intersects(const iaVector3<T> &vec, const iAABox<T> &box)
 {
     if (abs(box._center._x - vec._x) < box._halfWidths._x)
     {
