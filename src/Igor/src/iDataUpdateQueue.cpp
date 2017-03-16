@@ -6,6 +6,7 @@
 
 #include <iNodeModel.h>
 #include <iNodeFactory.h>
+#include <iTimer.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -39,6 +40,8 @@ namespace Igor
 
         _mutex.unlock();
 
+        float64 endTime = iTimer::getInstance().getTime() + 10;
+
         auto iterP = _processingQueue.begin();
         while (iterP != _processingQueue.end())
         {
@@ -58,6 +61,11 @@ namespace Igor
             {
                 // node was destroyed in the mean time
                 iterP = _processingQueue.erase(iterP);
+            }
+
+            if (iTimer::getInstance().getTime() > endTime)
+            {
+                break;
             }
         }
     }

@@ -183,7 +183,7 @@ namespace Igor
 
         shared_ptr<iMeshBuffers> createBuffersAsync(shared_ptr<iMesh> mesh);
 
-        void createBuffers(float64 timeLimit = 20.0);
+        void createBuffers(float64 timeLimit = 10.0);
 
         /*! \returns true if the renderer is ready to use
         */

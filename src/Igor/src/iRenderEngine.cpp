@@ -65,6 +65,7 @@ namespace Igor
             _cullSectionID = iStatistics::getInstance().registerSection("renderer:cull", 1);
             _drawSectionID = iStatistics::getInstance().registerSection("renderer:draw", 1);
             _bufferCreationSectionID = iStatistics::getInstance().registerSection("renderer:createBuffers", 1);
+            _debugSection = iStatistics::getInstance().registerSection("renderer:debug", 1);
         }
         else
         {
@@ -79,7 +80,7 @@ namespace Igor
 
     void iRenderEngine::createBuffers()
     {
-        iRenderer::getInstance().createBuffers();
+        iRenderer::getInstance().createBuffers(10);
     }
 
     void iRenderEngine::render()
@@ -163,7 +164,7 @@ namespace Igor
 
     void iRenderEngine::drawScene(iNodeCamera* camera)
     {
-        //! \todo not sure yet how to handle multiple lights
+        //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         vector<iNodeLight*>& lights = _scene->getLights();
 
         int lightNum = 0;
@@ -270,7 +271,9 @@ namespace Igor
                                 node->isVisible() &&
                                 node->getMaterial() == materialGroup->getID())
                             {
+                                //iStatistics::getInstance().beginSection(_debugSection);
                                 node->draw();
+                                //iStatistics::getInstance().endSection(_debugSection);
                                 node->_reached = false;
                                 ++iter;
                             }
