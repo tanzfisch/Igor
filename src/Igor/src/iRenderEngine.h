@@ -84,8 +84,6 @@ namespace Igor
         */
         uint32 _drawSectionID = 0;
 
-        uint32 _debugSection = 0;
-
         /*! pointe to scene
 
         \todo can't we use an array here?
@@ -111,10 +109,6 @@ namespace Igor
         /*! triggers the creation of buffers
         */
         void createBuffers();
-
-        /*! unregisters performance sections
-        */
-        void unregisterSections();
 
     };
 }

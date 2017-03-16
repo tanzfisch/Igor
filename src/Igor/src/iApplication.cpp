@@ -50,20 +50,25 @@ namespace Igor
     void iApplication::iterate()
     {
         iStatistics::getInstance().nextFrame();
-
         iStatistics::getInstance().beginSection(_frameSectionID);
-        iTimer::getInstance().handle();
-
-        _windows.flush();
-
-        iNodeFactory::getInstance().handle();
-        iPhysics::getInstance().handle();
 
         iStatistics::getInstance().beginSection(_handleSectionID);
-        handle();
+        iTimer::getInstance().handle();
+        _windows.flush();
+        iNodeFactory::getInstance().handle();
         iStatistics::getInstance().endSection(_handleSectionID);
 
+        iStatistics::getInstance().beginSection(_physicsSectionID);
+        iPhysics::getInstance().handle();
+        iStatistics::getInstance().endSection(_physicsSectionID);
+
+        iStatistics::getInstance().beginSection(_userSectionID);
+        handle();
+        iStatistics::getInstance().endSection(_userSectionID);
+
+        iStatistics::getInstance().beginSection(_drawSectionID);
         draw();
+        iStatistics::getInstance().endSection(_drawSectionID);
 
         iStatistics::getInstance().endSection(_frameSectionID);
     }
@@ -82,12 +87,18 @@ namespace Igor
     {
         iStatistics::getInstance().unregisterSection(_frameSectionID);
         iStatistics::getInstance().unregisterSection(_handleSectionID);
+        iStatistics::getInstance().unregisterSection(_physicsSectionID);
+        iStatistics::getInstance().unregisterSection(_drawSectionID);
+        iStatistics::getInstance().unregisterSection(_userSectionID);
     }
 
     void iApplication::initStatistics()
     {
         _frameSectionID = iStatistics::getInstance().registerSection("app:frame", 0);
         _handleSectionID = iStatistics::getInstance().registerSection("app:handle", 0);
+        _physicsSectionID = iStatistics::getInstance().registerSection("app:physics", 0);
+        _userSectionID = iStatistics::getInstance().registerSection("app:user", 0);
+        _drawSectionID = iStatistics::getInstance().registerSection("app:draw", 0);
     }
 
     bool iApplication::isRunning()

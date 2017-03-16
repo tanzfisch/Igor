@@ -182,15 +182,19 @@ namespace Igor
         */
         iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix);
 
-        /*! does nothing
+        /*! init statistics counters
         */
-        iView() = default;
+        iView();
 
         /*! checks consistency
         */
         virtual ~iView();
 
 	private:
+
+        /*! id for statistics counter section user draw calls
+        */
+        uint32 _userDrawSectionID = 0;
         
         /*! visible flag
         */

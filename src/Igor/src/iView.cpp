@@ -21,8 +21,19 @@ using namespace std;
 namespace Igor
 {
 
+    iView::iView()
+    {
+#ifdef USE_VERBOSE_STATISTICS
+        _userDrawSectionID = iStatistics::getInstance().registerSection("view:user", 2);
+#endif
+    }
+
     iView::~iView()
     {
+#ifdef USE_VERBOSE_STATISTICS
+        iStatistics::getInstance().unregisterSection(_userDrawSectionID);
+#endif
+
         if (_renderEvent.hasDelegates())
         {
             con_warn("not all delegates unregistered");
@@ -146,7 +157,14 @@ namespace Igor
                 _renderEngine.render();
             }
 
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().beginSection(_userDrawSectionID);
+#endif
             _renderEvent();
+
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().endSection(_userDrawSectionID);
+#endif
         }
     }
 

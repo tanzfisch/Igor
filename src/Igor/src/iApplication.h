@@ -95,6 +95,11 @@ namespace Igor
         */
         uint32 _handleSectionID = 0;
 
+        uint32 _physicsSectionID = 0;
+
+        uint32 _drawSectionID = 0;
+        uint32 _userSectionID = 0;
+
         /*! handle callbacks section ID
         */
         uint32 _handleCallbacksSectionID = 0;

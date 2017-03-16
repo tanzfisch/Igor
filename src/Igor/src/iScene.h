@@ -158,6 +158,10 @@ namespace Igor
 
 	private:
 
+        /*! id for statistics counter handle
+        */
+        uint32 _sceneHandleSectionID = 0;
+
         /*! id for statistics counter LOD
         */
         uint32 _updateLODSectionID = 0;

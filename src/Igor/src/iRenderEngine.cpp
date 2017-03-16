@@ -28,49 +28,25 @@ namespace Igor
 
     iRenderEngine::iRenderEngine()
     {
+#ifdef USE_VERBOSE_STATISTICS
+        _cullSectionID = iStatistics::getInstance().registerSection("renderer:cull", 1);
+        _drawSectionID = iStatistics::getInstance().registerSection("renderer:draw", 1);
+        _bufferCreationSectionID = iStatistics::getInstance().registerSection("renderer:createBuffers", 1);
+#endif
     }
 
     iRenderEngine::~iRenderEngine()
     {
-        unregisterSections();
-    }
-
-    void iRenderEngine::unregisterSections()
-    {
-        if (_cullSectionID != iStatisticsSection::INVALID_SECTION_ID)
-        {
-            iStatistics::getInstance().unregisterSection(_cullSectionID);
-            _cullSectionID = iStatisticsSection::INVALID_SECTION_ID;
-        }
-
-        if (_drawSectionID != iStatisticsSection::INVALID_SECTION_ID)
-        {
-            iStatistics::getInstance().unregisterSection(_drawSectionID);
-            _drawSectionID = iStatisticsSection::INVALID_SECTION_ID;
-        }
-
-        if (_bufferCreationSectionID != iStatisticsSection::INVALID_SECTION_ID)
-        {
-            iStatistics::getInstance().unregisterSection(_bufferCreationSectionID);
-            _bufferCreationSectionID = iStatisticsSection::INVALID_SECTION_ID;
-        }
+#ifdef USE_VERBOSE_STATISTICS
+        iStatistics::getInstance().unregisterSection(_cullSectionID);
+        iStatistics::getInstance().unregisterSection(_drawSectionID);
+        iStatistics::getInstance().unregisterSection(_bufferCreationSectionID);
+#endif
     }
 
     void iRenderEngine::setScene(iScene* scene)
     {
         _scene = scene;
-
-        if (_scene != nullptr)
-        {
-            _cullSectionID = iStatistics::getInstance().registerSection("renderer:cull", 1);
-            _drawSectionID = iStatistics::getInstance().registerSection("renderer:draw", 1);
-            _bufferCreationSectionID = iStatistics::getInstance().registerSection("renderer:createBuffers", 1);
-            _debugSection = iStatistics::getInstance().registerSection("renderer:debug", 1);
-        }
-        else
-        {
-            unregisterSections();
-        }
     }
 
     iScene* iRenderEngine::getScene()
@@ -85,26 +61,37 @@ namespace Igor
 
     void iRenderEngine::render()
     {
+#ifdef USE_VERBOSE_STATISTICS
         iStatistics::getInstance().beginSection(_bufferCreationSectionID);
+#endif
         createBuffers();
+
+#ifdef USE_VERBOSE_STATISTICS
         iStatistics::getInstance().endSection(_bufferCreationSectionID);
+#endif
 
         if (_scene != nullptr)
-        {            
+        {
             iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
-            
+
             if (camera != nullptr)
             {
+#ifdef USE_VERBOSE_STATISTICS
                 iStatistics::getInstance().beginSection(_cullSectionID);
+#endif
                 cullScene(camera);
+#ifdef USE_VERBOSE_STATISTICS
                 iStatistics::getInstance().endSection(_cullSectionID);
 
                 iStatistics::getInstance().beginSection(_drawSectionID);
+#endif
                 drawScene(camera);
+#ifdef USE_VERBOSE_STATISTICS
                 iStatistics::getInstance().endSection(_drawSectionID);
+#endif
+            }
             }
         }
-    }
 
     void iRenderEngine::cullScene(iNodeCamera* camera)
     {
@@ -131,7 +118,7 @@ namespace Igor
 
             if (renderNode != nullptr)
             {
-				renderNode->_reached = true;
+                renderNode->_reached = true;
 
                 uint32 materialID = renderNode->getMaterial();
                 if (materialID != iMaterial::INVALID_MATERIAL_ID)
@@ -143,7 +130,7 @@ namespace Igor
                 }
             }
         }
-        
+
         auto renderables = _scene->getRenderables();
         auto iterRenderables = renderables.begin();
         while (iterRenderables != renderables.end())
@@ -171,13 +158,13 @@ namespace Igor
         auto light = lights.begin();
         while (lights.end() != light)
         {
-            iRenderer::getInstance().setLightAmbient(lightNum, (*light)->getAmbient()); 
+            iRenderer::getInstance().setLightAmbient(lightNum, (*light)->getAmbient());
             iRenderer::getInstance().setLightDiffuse(lightNum, (*light)->getDiffuse());
             iRenderer::getInstance().setLightSpecular(lightNum, (*light)->getSpecular());
 
             if (iLightType::Directional == (*light)->getType())
             {
-                iRenderer::getInstance().setLightPosition(lightNum, (*light)->getDirection()); 
+                iRenderer::getInstance().setLightPosition(lightNum, (*light)->getDirection());
             }
             else
             {
@@ -190,14 +177,14 @@ namespace Igor
 
         auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
         auto materialIter = materialGroups->begin();
-        while(materialIter != materialGroups->end())
+        while (materialIter != materialGroups->end())
         {
             iMaterialGroup* materialGroup = (*materialIter);
             iMaterial* material = materialGroup->getMaterial();
             if (iRenderStateValue::On == material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced))
             {
                 if (materialGroup->_instancedRenderNodes.size())
-                {                  
+                {
                     iRenderer::getInstance().setMaterial(materialGroup->getMaterial());
 
                     auto instanceIter = materialGroup->_instancedRenderNodes.begin();
@@ -216,7 +203,7 @@ namespace Igor
                             iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*elementIter)));
                             if (node != nullptr)
                             {
-                                if (node->wasReached() && 
+                                if (node->wasReached() &&
                                     node->isVisible() &&
                                     node->getMaterial() == materialGroup->getID())
                                 {
@@ -267,13 +254,11 @@ namespace Igor
                         iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*iter)));
                         if (node != nullptr)
                         {
-                            if (node->wasReached() && 
+                            if (node->wasReached() &&
                                 node->isVisible() &&
                                 node->getMaterial() == materialGroup->getID())
                             {
-                                //iStatistics::getInstance().beginSection(_debugSection);
                                 node->draw();
-                                //iStatistics::getInstance().endSection(_debugSection);
                                 node->_reached = false;
                                 ++iter;
                             }
@@ -294,4 +279,4 @@ namespace Igor
         }
     }
 
-}
+    }

@@ -29,9 +29,13 @@ namespace Igor
         // maybe multiple octrees?
 		_octree = new iOctree(iAACubed(iaVector3d(0,0,0), 10000000.0), 50.0, 8, 4);
 
+        //! \todo how do we handle this when we have more than one scene?
+#ifdef USE_VERBOSE_STATISTICS
+        _sceneHandleSectionID = iStatistics::getInstance().registerSection("scene:handle", 2);
         _updateLODSectionID = iStatistics::getInstance().registerSection("scene:LOD", 2);
         _processUpdateDataSectionID = iStatistics::getInstance().registerSection("scene:updateData", 2);
         _updateTransformSectionID = iStatistics::getInstance().registerSection("scene:traverse", 2);
+#endif
 	}
 
 	iScene::~iScene()
@@ -293,18 +297,30 @@ namespace Igor
 
 	void iScene::handle()
 	{
+#ifdef USE_VERBOSE_STATISTICS
+        iStatistics::getInstance().beginSection(_sceneHandleSectionID);
+
         iStatistics::getInstance().beginSection(_updateLODSectionID);
+#endif
         // todo can't not stay here. need to reduce update effort per frame. event based would be nice
         updateLOD();
+#ifdef USE_VERBOSE_STATISTICS
         iStatistics::getInstance().endSection(_updateLODSectionID);
 
         iStatistics::getInstance().beginSection(_processUpdateDataSectionID);
+#endif
         updateData(); 
+#ifdef USE_VERBOSE_STATISTICS
         iStatistics::getInstance().endSection(_processUpdateDataSectionID);
 
         iStatistics::getInstance().beginSection(_updateTransformSectionID);
+#endif
         _updateTransformVisitor.traverseTree(_root);
+#ifdef USE_VERBOSE_STATISTICS
         iStatistics::getInstance().endSection(_updateTransformSectionID);
+
+        iStatistics::getInstance().endSection(_sceneHandleSectionID);
+#endif
 	}
 
     void iScene::addToDataUpdateQueue(iNode* node)
