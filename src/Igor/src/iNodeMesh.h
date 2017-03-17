@@ -64,6 +64,8 @@ namespace Igor
 
         /*! sets mesh for mesh node
 
+        \todo why is this public?
+
         \param mesh shared pointer to mesh
         */
         void setMesh(shared_ptr<iMesh> mesh);
