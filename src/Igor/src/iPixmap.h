@@ -30,6 +30,8 @@
 #define __iPIXMAP__
 
 #include <iaString.h>
+#include <iaColor4.h>
+#include <iaColor3.h>
 using namespace IgorAux;
 
 #include <iDefines.h>
@@ -43,7 +45,7 @@ namespace Igor
 
     \see iTextureResourceFactory::loadFromPixmap
 
-    \todo manythings not implemented anymore since switch from OpenIL to stb_image
+    \todo many things not implemented anymore since switch from OpenIL to stb_image
     */
 	class Igor_API iPixmap
 	{
@@ -75,32 +77,51 @@ namespace Igor
         uint8* getData();
 
         uint32 getPixel(uint32 x, uint32 y);
-        bool setPixel(uint32 x, uint32 y, uint32 color);
+        void setPixel(uint32 x, uint32 y, uint32 color);
+
+        void getPixel(float64 x, float64 y, iaColor4f& color);
+        void getPixelBiLinear(float64 x, float64 y, iaColor4f& color);
+
+
+        void getPixel(float64 x, float64 y, iaColor3f& color);
+        void getPixel(float64 x, float64 y, iaColor4c& color);
+        void getPixel(float64 x, float64 y, iaColor3c& color);
 
         uint8 getPixel(uint32 x, uint32 y, uint8 byte);
-        bool setPixel(uint32 x, uint32 y, uint8 byte, uint8 color);
-        bool setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b);
-        bool setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a);
+        void setPixel(uint32 x, uint32 y, uint8 byte, uint8 color);
+        void setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b);
+        void setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a);
 
         bool exportFile(const iaString filename, bool overwrite = true);
 
-        iPixmap(uint32 width, uint32 height, iColorFormat color_format);
+        iPixmap(uint32 width, uint32 height, iColorFormat colorFormat);
         ~iPixmap();
 
 	private:
 
-		uint32 textureID;
+        /*! pixmap width
+        */
+		uint32 _width = 0;
 
-		uint32 image_width;
-		uint32 image_height;
-		uint32 bytes_per_pixel;
-		uint32 format;							// OpenIL iColorFormat
-		iColorFormat color_format;				// Igor iColorFormat
-		uint8 *data;
+        /*! pixmap height
+        */
+		uint32 _height = 0;
 
-		bool created;
+        /*! bytes per pixel
+        */
+		uint32 _bytesPerPixel = 0;
 
-		iPixmap();
+        /*! color format
+        */
+		iColorFormat _colorFormat = iColorFormat::Undefined;
+
+        /*! raw data
+        */
+		uint8* _data = nullptr;
+
+        /*! does nothing
+        */
+		iPixmap() = default;
 
 	};
 };

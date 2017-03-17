@@ -442,7 +442,6 @@ namespace Igor
     {
         iaString fullPath = iResourceManager::getInstance().getPath(filename);
 
-        uint32 textureid = 0;
         iPixmap *pixmap = nullptr;
 
 		int width = 0;
@@ -459,33 +458,24 @@ namespace Igor
         }
         else
         {
-            pixmap = new iPixmap();
-            pixmap->textureID = textureid;
+            iColorFormat colorFormat = iColorFormat::Undefined;
 
-            pixmap->image_width = width;
-            pixmap->image_height = height;
-            pixmap->bytes_per_pixel = 0;
-            pixmap->format = 0;
-
-            //! \todo muss an andere stelle
             switch (components)
             {
-            case 3: 
-				pixmap->color_format = iColorFormat::RGB; 
-				pixmap->bytes_per_pixel = 3;
-				break;
+            case 3:
+                colorFormat = iColorFormat::RGB;
+                break;
 
-            case 4: 
-				pixmap->color_format = iColorFormat::RGBA;
-				pixmap->bytes_per_pixel = 4;
-				break;
+            case 4:
+                colorFormat = iColorFormat::RGBA;
+                break;
 
             default:
-                pixmap->color_format = iColorFormat::Undefined;
                 con_warn("unsupported color format");
             };
 
-            pixmap->data = textureData;
+            pixmap = new iPixmap(width, height, colorFormat);
+            pixmap->setData(textureData);
         }
 
         return pixmap;

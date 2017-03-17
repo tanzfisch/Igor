@@ -4,212 +4,279 @@
 
 #include <iPixmap.h>
 
+#include <iaConvert.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 
 namespace Igor
 {
-	iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat color_format)
-	{
-	/*	created = false;
+    iPixmap::iPixmap(uint32 width, uint32 height, iColorFormat colorFormat)
+    {
+        _colorFormat = colorFormat;
+        _width = width;
+        _height = height;
 
-		this->color_format = color_format;
-
-		image_width=width;
-		image_height=height;
-		switch(color_format)
-		{
+        switch (_colorFormat)
+        {
         case iColorFormat::RGB:
-			bytes_per_pixel=3;
-			format = IL_RGB;
-			break;
-		case iColorFormat::RGBA:
-			bytes_per_pixel=4;
-			format = IL_RGBA;
-			break;
-		case iColorFormat::BGR:
-			bytes_per_pixel=3;
-			format = IL_BGR;
-			break;
-		case iColorFormat::BGRA:
-			bytes_per_pixel=4;
-			format = IL_BGRA;
-			break;
-		default:
-			bytes_per_pixel=0;
-			con_err("used an not supportet color format");
-		};
+            _bytesPerPixel = 3;
+            break;
 
-		//#define IL_COLOUR_INDEX						0x1900
-		//#define IL_COLOR_INDEX						0x1900
-		//#define IL_RGB								0x1907
-		//#define IL_RGBA								0x1908
-		//#define IL_BGR								0x80E0
-		//#define IL_BGRA								0x80E1
-		//#define IL_LUMINANCE							0x1909
-		//#define IL_LUMINANCE_ALPHA					0x190A
+        case iColorFormat::RGBA:
+            _bytesPerPixel = 4;
+            break;
 
-		textureID=0;
-		data = 0;
+        case iColorFormat::BGR:
+            _bytesPerPixel = 3;
+            break;
 
-		if(bytes_per_pixel)
-		{
-			data = new uint8[image_width*image_height*bytes_per_pixel];
+        case iColorFormat::BGRA:
+            _bytesPerPixel = 4;
+            break;
 
-			for(uint32 x=0;x<image_width*image_height*bytes_per_pixel;x++)
-			{
-				data[x]=0;
-			}
+        default:
+            _bytesPerPixel = 0;
+            con_err("unsupported color format");
+            break;
+        };
 
-			created = true;
-		}*/
-	}
+        uint64 size = _width * _height * _bytesPerPixel;
 
-	iPixmap::iPixmap()
-	{
-		data = 0;
-		created = false;
-		textureID=0;
-		bytes_per_pixel = 0;
-	}
+        if (size > 0)
+        {
+            _data = new uint8[size];
+            memset(_data, 0, size);
+        }
+        else
+        {
+            con_err("invalid parameters");
+        }
+    }
 
-	bool iPixmap::exportFile(const iaString filename, bool overwrite)
-	{
+    iPixmap::~iPixmap()
+    {
+        if (_data != nullptr)
+        {
+            delete[] _data;
+            _data = nullptr;
+        }
+    }
+
+    bool iPixmap::exportFile(const iaString filename, bool overwrite)
+    {
         con_err("not implemented");
 
-		return true;
-	}
+        return true;
+    }
 
-	void iPixmap::setData(uint8 *data)
-	{
-		if(!data) return;
-		if(!bytes_per_pixel) return;
+    void iPixmap::setData(uint8 *data)
+    {
+        if (!data) return;
+        if (!_bytesPerPixel) return;
 
-		if(!created)
-		{
-			if(!this->data) con_err("inconsistent data pointer");
+        uint64 size = _width * _height * _bytesPerPixel;
+        if (size > 0)
+        {
+            if (_data == nullptr)
+            {
+                _data = new uint8[size];
+            }
 
-			this->data = new uint8 [image_width*image_height*bytes_per_pixel];
-			created = true;
-		}
+            memcpy(_data, data, size);
+        }
+        else
+        {
+            con_err("inconsistant data");
+        }
+    }
 
-		memcpy(this->data, data, image_width*image_height*bytes_per_pixel);
-	}
+    uint8* iPixmap::getData()
+    {
+        return _data;
+    }
 
-	iPixmap::~iPixmap()
-	{
-		if(data)
-		{
-			delete [] data;
-			data=0;
-		}
-	}
+    uint32 iPixmap::getWidth()
+    {
+        return _width;
+    }
 
-	uint8* iPixmap::getData()
-	{
-		return data;
-	}
+    uint32 iPixmap::getHeight()
+    {
+        return _height;
+    }
 
-	uint32 iPixmap::getWidth()
-	{
-		return image_width;
-	}
+    uint32 iPixmap::getBytesPerPixel()
+    {
+        return _bytesPerPixel;
+    }
 
-	uint32 iPixmap::getHeight()
-	{
-		return image_height;
-	}
+    iColorFormat iPixmap::getColorFormat()
+    {
+        return _colorFormat;
+    }
 
-	uint32 iPixmap::getBytesPerPixel()
-	{
-		return bytes_per_pixel;
-	}
+    uint32 iPixmap::getPixel(uint32 x, uint32 y)
+    {
+        con_assert(x < _width && y < _height, "parameter out of range");
+        con_assert(_bytesPerPixel == 4, "only 4 byte per pixel supported in this function");
+        con_assert(_data != nullptr, "invalid data");
 
-	iColorFormat iPixmap::getColorFormat()
-	{
-		return color_format;
-	}
+        return((uint32*)_data)[y * _width + x];
+    }
 
-	uint32 iPixmap::getPixel(uint32 x, uint32 y)
-	{
-		if(x>=image_width) return 0;
-		if(y>=image_height) return 0;   
-		if(!data) return 0;
-		if(bytes_per_pixel!=4)
-		{
-			con_err("invalid usage");
-			return 0;
-		}
+    void iPixmap::setPixel(uint32 x, uint32 y, uint32 color)
+    {
+        con_assert(x < _width && y < _height, "parameter out of range");
+        con_assert(_bytesPerPixel == 4, "only 4 byte per pixel supported in this function");
+        con_assert(_data != nullptr, "invalid data");
 
-		return((uint32*)data)[y*image_width+x];
-	}
+        ((uint32*)_data)[y * _width + x] = color;
+    }
 
-	bool iPixmap::setPixel(uint32 x, uint32 y, uint32 color)
-	{
-		if(x>=image_width) return 0;
-		if(y>=image_height) return 0;   
-		if(!data) return 0;
-		if(bytes_per_pixel!=4)
-		{
-			con_err("invalid usage");
-			return false;
-		}
+    uint8 iPixmap::getPixel(uint32 x, uint32 y, uint8 byte)
+    {
+        con_assert(x < _width && y < _height && byte < _bytesPerPixel, "parameter out of range");
+        con_assert(_data != nullptr, "invalid data");
 
-		((uint32*)data)[y*image_width+x] = color;
+        return _data[(y * _width + x) * _bytesPerPixel + byte];
+    }
 
-		return true;
-	}
+    void iPixmap::setPixel(uint32 x, uint32 y, uint8 byte, uint8 color)
+    {
+        con_assert(x < _width && y < _height && byte < _bytesPerPixel, "parameter out of range");
+        con_assert(_data != nullptr, "invalid data");
 
-	uint8 iPixmap::getPixel(uint32 x, uint32 y, uint8 byte)
-	{
-		if(x>=image_width) return 0;
-		if(y>=image_height) return 0;
-		if(byte>=bytes_per_pixel) return 0;
+        _data[(y * _width + x) * _bytesPerPixel + byte] = color;
+    }
 
-		if(!data) return 0;
+    void iPixmap::setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b)
+    {
+        con_assert(x < _width && y < _height, "parameter out of range");
+        con_assert(_data != nullptr && _bytesPerPixel == 3, "invalid data");
 
-		return data[(y*image_width+x)*bytes_per_pixel+byte];
-	}
+        _data[(y * _width + x) * _bytesPerPixel + 0] = r;
+        _data[(y * _width + x) * _bytesPerPixel + 1] = g;
+        _data[(y * _width + x) * _bytesPerPixel + 2] = b;
+    }
 
-	bool iPixmap::setPixel(uint32 x, uint32 y, uint8 byte, uint8 color)
-	{
-		if(x>=image_width) return false;
-		if(y>=image_height) return false;
-		if(byte>=bytes_per_pixel) return false;
+    void iPixmap::setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a)
+    {
+        con_assert(x < _width && y < _height, "parameter out of range");
+        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
 
-		if(!data) return false;
+        uint64 pos = (y * _width + x) * _bytesPerPixel;
 
-		data[(y*image_width+x)*bytes_per_pixel+byte]=color;
-		return true;
-	}
+        _data[pos++] = r;
+        _data[pos++] = g;
+        _data[pos++] = b;
+        _data[pos++] = a;
+    }
 
-	bool iPixmap::setPixelRGB(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b)
-	{
-		if(x>=image_width) return false;
-		if(y>=image_height) return false;
-		if(2>=bytes_per_pixel) return false;
+    void iPixmap::getPixel(float64 x, float64 y, iaColor4f& color)
+    {
+        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
+        iaColor4c temp;
 
-		if(!data) return false;
+        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
+        
+        temp._r = _data[pos++];
+        temp._g = _data[pos++];
+        temp._b = _data[pos++];
+        temp._a = _data[pos++];
 
-		data[(y*image_width+x)*bytes_per_pixel+0]=r;
-		data[(y*image_width+x)*bytes_per_pixel+1]=g;
-		data[(y*image_width+x)*bytes_per_pixel+2]=b;
-		return true;
-	}
+        iaConvert::convert(temp, color);
+    }
 
-	bool iPixmap::setPixelRGBA(uint32 x, uint32 y, uint8 r, uint8 g, uint8 b, uint8 a)
-	{
-		if(x>=image_width) return false;
-		if(y>=image_height) return false;
-		if(3>=bytes_per_pixel) return false;
+    void iPixmap::getPixelBiLinear(float64 x, float64 y, iaColor4f& color)
+    {
+        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
+        iaColor4c c;
+        iaColor4f c1;
+        iaColor4f c2;
+        iaColor4f c3;
+        iaColor4f c4;
 
-		if(!data) return false;
+        uint64 xi = static_cast<uint64>(x);
+        uint64 yi = static_cast<uint64>(y);
 
-		data[(y*image_width+x)*bytes_per_pixel+0]=r;
-		data[(y*image_width+x)*bytes_per_pixel+1]=g;
-		data[(y*image_width+x)*bytes_per_pixel+2]=b;
-		data[(y*image_width+x)*bytes_per_pixel+3]=a;
-		return true;
-	}
+        float64 dx = x - static_cast<float64>(xi);
+        float64 dy = y - static_cast<float64>(yi);
+
+        uint64 pos = (yi * _width + xi) * _bytesPerPixel;
+
+        c._r = _data[pos++];
+        c._g = _data[pos++];
+        c._b = _data[pos++];
+        c._a = _data[pos++];
+
+        iaConvert::convert(c, c1);
+
+        c._r = _data[pos++];
+        c._g = _data[pos++];
+        c._b = _data[pos++];
+        c._a = _data[pos++];
+
+        iaConvert::convert(c, c2);
+
+        c3.lerp(c2, c1, dx);
+
+        yi++;
+        pos = (yi * _width + xi) * _bytesPerPixel;
+
+        c._r = _data[pos++];
+        c._g = _data[pos++];
+        c._b = _data[pos++];
+        c._a = _data[pos++];
+
+        iaConvert::convert(c, c1);
+
+        c._r = _data[pos++];
+        c._g = _data[pos++];
+        c._b = _data[pos++];
+        c._a = _data[pos++];
+
+        iaConvert::convert(c, c2);
+
+        c4.lerp(c2, c1, dx);
+
+        color.lerp(c4, c3, dy);
+    }
+
+    void iPixmap::getPixel(float64 x, float64 y, iaColor4c& color)
+    {
+        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
+
+        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
+
+        color._r = _data[pos++];
+        color._g = _data[pos++];
+        color._b = _data[pos++];
+        color._a = _data[pos++];
+    }
+
+    void iPixmap::getPixel(float64 x, float64 y, iaColor3f& color)
+    {
+        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
+        iaColor3c temp;
+
+        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
+
+        temp._r = _data[pos++];
+        temp._g = _data[pos++];
+        temp._b = _data[pos++];
+
+        iaConvert::convert(temp, color);
+    }
+
+    void iPixmap::getPixel(float64 x, float64 y, iaColor3c& color)
+    {
+        con_assert(_data != nullptr && _bytesPerPixel == 4, "invalid data");
+
+        uint64 pos = (static_cast<uint64>(fmod(y, _height) + 0.5) * _width + static_cast<uint64>(fmod(x, _width) + 0.5)) * _bytesPerPixel;
+
+        color._r = _data[pos++];
+        color._g = _data[pos++];
+        color._b = _data[pos++];
+    }
 
 };
