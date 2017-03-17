@@ -276,25 +276,34 @@ namespace Igor
         shared_ptr<iModel> result;
         iaString hashKey;
 
+        // TODO copy paste code
+        con_assert_sticky(filename != "", "invalid parameter");
+
         if (parameter != nullptr &&
-            parameter->_modelSourceType == iModelSourceType::Generated)
+            parameter->_modelSourceType != iModelSourceType::File)
         {
             hashKey = filename;
         }
         else
         {
             hashKey = iResourceManager::getInstance().getPath(filename);
+
+            if (hashKey == "")
+            {
+                con_err("file not found " << filename);
+                return result;
+            }
         }
 
         int64 hashValue = calcResourceHashValue(hashKey, cacheMode);
 
         _mutexModels.lock();
-
         auto modelIter = _models.find(hashValue);
         if (modelIter != _models.end())
         {
             result = (*modelIter).second;
         }
+        _mutexModels.unlock();
 
         if (nullptr == result.get())
         {
@@ -304,17 +313,21 @@ namespace Igor
                 result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
                 result->setNode(node);
                 result->setState(iModelState::Loaded);
+
+                _mutexModels.lock();
                 _models[hashValue] = result;
+                _mutexModels.unlock();
             }
             else
             {
                 result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());
                 result->setState(iModelState::LoadFailed);
+
+                _mutexModels.lock();
                 _models[hashValue] = result;
+                _mutexModels.unlock();
             }
         }
-
-        _mutexModels.unlock();
 
         return result;
     }
