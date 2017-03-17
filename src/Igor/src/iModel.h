@@ -96,7 +96,7 @@ namespace Igor
 
     \todo maybe we should replace pointers to nodes with IDs here
     */
-	class iModel
+	class Igor_API iModel
 	{
 
 		friend class iModelResourceFactory;
@@ -115,6 +115,12 @@ namespace Igor
         /*! \returns copy to node tree data
         */
         iNode* getNodeCopy();
+
+        /*! \returns pointer to node tree data
+
+        only use this if you know what you are doing
+        */
+        iNode* getNode();
 
         /*! \returns model state
         */
@@ -149,10 +155,6 @@ namespace Igor
 		/*! set node
 		*/
 		void setNode(iNode* node);
-
-        /*! \returns pointer to node tree data
-        */
-        iNode* getNode();
 
         /*! sets model state
 
