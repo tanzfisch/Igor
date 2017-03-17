@@ -159,6 +159,7 @@ namespace Igor
                 _modelReadyEvent();
             }
 
+            // TODO !!!
             /*if (_loaded && checkForBuffers())
             {
                 _ready = true;
