@@ -21,6 +21,22 @@ namespace IgorAux
         dst._b = static_cast<float32>(src._b / 255.0f);
     }
 
+    void iaConvert::convert(const iaColor4f& src, iaColor4c& dst)
+    {
+        dst._r = static_cast<uint8>(src._r * 255.0f + 0.5f);
+        dst._g = static_cast<uint8>(src._g * 255.0f + 0.5f);
+        dst._b = static_cast<uint8>(src._b * 255.0f + 0.5f);
+        dst._a = static_cast<uint8>(src._a * 255.0f + 0.5f);
+    }
+
+    void iaConvert::convert(const iaColor4c& src, iaColor4f& dst)
+    {
+        dst._r = static_cast<float32>(src._r / 255.0f);
+        dst._g = static_cast<float32>(src._g / 255.0f);
+        dst._b = static_cast<float32>(src._b / 255.0f);
+        dst._a = static_cast<float32>(src._a / 255.0f);
+    }
+
     void iaConvert::convert(const iaVector3I& src, iaVector3f& dst)
     {
         dst._x = static_cast<float32>(src._x);

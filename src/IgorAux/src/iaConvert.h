@@ -30,6 +30,7 @@
 #define __iaConvert__
 
 #include <iaColor3.h>
+#include <iaColor4.h>
 #include <iaVector3.h>
 #include <iaMatrix.h>
 
@@ -56,6 +57,20 @@ namespace IgorAux
         \param[out] dst destination color
         */
         static void convert(const iaColor3c& src, iaColor3f& dst);
+
+        /*! converts float based color to byte
+
+        \param src src color
+        \param[out] dst destination color
+        */
+        static void convert(const iaColor4f& src, iaColor4c& dst);
+
+        /*! converts byte based color to float
+
+        \param src src color
+        \param[out] dst destination color
+        */
+        static void convert(const iaColor4c& src, iaColor4f& dst);
 
         /*! converts int64 based 3 dimensional vector in float base
 

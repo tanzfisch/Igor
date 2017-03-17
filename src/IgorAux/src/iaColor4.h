@@ -334,6 +334,10 @@ namespace IgorAux
     */
     typedef iaColor4<float32> iaColor4f;
 
+    /*! uint8 color
+    */
+    typedef iaColor4<uint8> iaColor4c;
+
 };
 
 #endif
