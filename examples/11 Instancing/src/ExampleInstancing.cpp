@@ -121,14 +121,16 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
     
+    // TODO next step is not working yet
+
     // then we load the model directly and replace the material
-    shared_ptr<iModel> model = iModelResourceFactory::getInstance().loadModelData("cat.ompf", iResourceCacheMode::Keep);
+    /*shared_ptr<iModel> model = iModelResourceFactory::getInstance().loadModelData("cat.ompf", iResourceCacheMode::Keep);
     iNode* modelRootNode = model->getNode();
     if (modelRootNode->getType() == iNodeType::iNodeMesh)
     {
         iNodeMesh* meshNode = static_cast<iNodeMesh*>(modelRootNode);
         meshNode->setMaterial(_materialWithInstancing);
-    }
+    }/**/
     
     // now we can just put copies of that model in the scene    
     iNodeTransform* transformGroup = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
