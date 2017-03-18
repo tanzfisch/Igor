@@ -78,39 +78,12 @@ void ExampleCharacterController::init()
     _view.setScene(_scene);
 
     // setup camera
-    // we want a camera which can be rotated arround the origin
-    // we will acchive that with 3 transform nodes
-    // one is for the heading
-    iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    // give the transform node a name. naming is optional and ist jus for helping to debug. 
-    // Names do not have to be unique but since it is possible to find nodes by name they better are
-    cameraHeading->setName("camera heading");
-    _cameraHeading = cameraHeading->getID();
-    // one is for the pitch
-    iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    cameraPitch->setName("camera pitch");
-    _cameraPitch = cameraPitch->getID();
-    // and one is for translation or distance from the origin
-    iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    cameraTranslation->setName("camera translation");
-    // translate away from origin
-    cameraTranslation->translate(0, 0, 10);
-    _cameraTranslation = cameraTranslation->getID();
-    // from all nodes that we want to control later we save the node ID
-    // and last but not least we create a camera node
+    iNodeTransform* cameraTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    cameraTransform->translate(0, 2, 10);
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    camera->setName("camera");
-    // and build everything together
-    // first we add the heading to the root node
-    _scene->getRoot()->insertNode(cameraHeading);
-    // than the pitch to the heading node
-    cameraHeading->insertNode(cameraPitch);
-    // then the translation to the pitch node
-    cameraPitch->insertNode(cameraTranslation);
-    // and than we add the camera to the translation
-    cameraTranslation->insertNode(camera);
-    // and finally we set the camera active. for this to work a camera must be part of a scene 
-    // wich we achived by adding all those nodes on to an other starting with the root node
+
+    _scene->getRoot()->insertNode(cameraTransform);
+    cameraTransform->insertNode(camera);
     camera->makeCurrent();
 
     // setup floor model
@@ -128,9 +101,25 @@ void ExampleCharacterController::init()
     iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
     floorBody->setMass(0);
     iaMatrixd floorMatrix;
-    floorMatrix.translate(0, -1, 0);
+    floorMatrix.translate(0, 0, 0);
     floorBody->setMatrix(floorMatrix);
-    //_bodyIDs.push_back(floorBody->getID());
+
+    // create a box that drops on floor
+    iaMatrixd offsetBox;
+    iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
+    iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
+    boxBody->setMass(100);
+    boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorque));
+
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    transformNode->translate(0, 5, 0);
+
+    iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    crate->setModel("crate.ompf");
+    transformNode->insertNode(crate);
+
+    iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
+    _scene->getRoot()->insertNode(transformNode);
 
     // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
@@ -186,6 +175,20 @@ void ExampleCharacterController::init()
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
+}
+
+void ExampleCharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
+{
+    float64 Ixx;
+    float64 Iyy;
+    float64 Izz;
+    float64 mass;
+    iaVector3d force;
+
+    iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
+    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+
+    body->setForce(force);
 }
 
 void ExampleCharacterController::deinit()
@@ -289,7 +292,7 @@ void ExampleCharacterController::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0,0,-30);
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     drawLogo();

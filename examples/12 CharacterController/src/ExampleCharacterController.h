@@ -54,10 +54,25 @@ namespace Igor
     class iNodeLODTrigger;
     class iNodeLODSwitch;
     class iNodeModel;
+    class iPhysicsBody;
 }
 
 class ExampleCharacterController
 {
+
+public:
+
+    /*! init
+    */
+    ExampleCharacterController();
+
+    /*! deinit
+    */
+    virtual ~ExampleCharacterController();
+
+    /*! run example
+    */
+    void run();
 
 private:
 
@@ -167,19 +182,7 @@ private:
     */
 	void init();
 
-public:
-
-    /*! init
-    */
-    ExampleCharacterController();
-
-    /*! deinit
-    */
-	virtual ~ExampleCharacterController();
-
-    /*! run example
-    */
-	void run();
+    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
 
 };
 
