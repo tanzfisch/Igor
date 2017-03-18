@@ -36,11 +36,12 @@ namespace Igor
         _nodeType = node->_nodeType;
         _nodeKind = node->_nodeKind;
 
-        setName(node->getName());
-        setMesh(node->getMesh());
-        setMeshBuffers(node->getMeshBuffers());
+        _name = node->_name;
+        _keepMesh = node->_keepMesh;
+        _meshBuffers = node->_meshBuffers;
+        _mesh = node->_mesh;
+
         setBoundingSphere(node->getBoundingSphere());
-        setKeepMesh(node->getKeepMesh());
 
         _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
         setTargetMaterial(node->getTargetMaterial());
