@@ -618,7 +618,6 @@ namespace Igor
         {
             con_assert(node->getMesh() != nullptr, "zero pointer");
 
-
             iaColor3c ambient;
             iaColor3c diffuse;
             iaColor3c specular;
@@ -655,6 +654,10 @@ namespace Igor
                     iaString relative = iaDirectory::getRelativePath(_filename, node->getTargetMaterial()->getTexture(i)->getFilename());
                     result->setTexture(relative, i);
                 }
+            }
+            else
+            {
+                con_err("mesh was not loaded with keep mesh param true");
             }
 
             uint32 materialChunkID = getMaterialChunkID(node->getMaterial());
