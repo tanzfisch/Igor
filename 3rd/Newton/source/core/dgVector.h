@@ -1953,7 +1953,7 @@ class dgSpatialVector
 */
 
 
-/*
+
 // *****************************************************************************************
 //
 // 6 x 1 vector class declaration
@@ -2024,10 +2024,10 @@ class dgSpatialVector
 	dgVector m_h;
 
 } DG_GCC_VECTOR_ALIGMENT;
-*/
 
 
 
+/*
 DG_MSC_VECTOR_ALIGMENT
 class dgSpatialVector
 {
@@ -2102,5 +2102,6 @@ class dgSpatialVector
 	__m128d m_d1;
 	__m128d m_d2;
 } DG_GCC_VECTOR_ALIGMENT;
+*/
 
 #endif

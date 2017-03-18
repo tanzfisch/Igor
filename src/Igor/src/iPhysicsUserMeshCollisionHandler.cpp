@@ -50,7 +50,7 @@ namespace Igor
         return iIntersection::intersects(bb, _bb) ? 1 : 0;
     }
 
-    int iPhysicsUserMeshCollisionHandler::getFacesInAABB(const float32* p0, const float32* p1, const float32** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
+    int iPhysicsUserMeshCollisionHandler::getFacesInAABB(const float64* p0, const float64* p1, const float64** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
     {
         con_trace();
         return 0;

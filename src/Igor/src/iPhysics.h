@@ -65,7 +65,7 @@ namespace Igor
     class Igor_API iPhysics : public iaSingleton<iPhysics>
     {
         friend void PhysicsNodeDestructor(const void* body);
-        friend void PhysicsNodeSetTransform(const void* body, const float* matrix, int threadIndex);
+        friend void PhysicsNodeSetTransform(const void* body, const float64* matrix, int threadIndex);
         friend void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex);
         friend class iaSingleton<iPhysics>;
         friend class iPhysicsCollision;
@@ -351,7 +351,7 @@ namespace Igor
 
         /*!
         */
-        void setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3f& pin);
+        void setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3d& pin);
         void setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction);
         void setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float32 friction);
 
@@ -483,6 +483,12 @@ namespace Igor
         */
         void queueTransformation(iPhysicsBody* body, const iaMatrixd& matrix);
 
+        /*! queues contacr
+
+        \param material involved material combination
+        \param body1 first involved body
+        \param body2 second involved body
+        */
         void queueContact(iPhysicsMaterialCombo* material, iPhysicsBody* body1, iPhysicsBody* body2);
 
         /*! creates newton collision in shape of a box
@@ -513,7 +519,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createUserMeshCollision(const iaVector3f& minBox, const iaVector3f& maxBox, iPhysicsUserMeshCollisionHandler* handler, uint64 worldID);
+        iPhysicsCollision* createUserMeshCollision(const iaVector3d& minBox, const iaVector3d& maxBox, iPhysicsUserMeshCollisionHandler* handler, uint64 worldID);
 
         /*! creates newton collision in shape of a sphere
 
