@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -51,7 +51,7 @@ class dgCollisionHeightField: public dgCollisionMesh
 	};
 	dgCollisionHeightField (dgWorld* const world, dgInt32 width, dgInt32 height, dgInt32 contructionMode, 
 							const void* const elevationMap, dgElevationType elevationDataType, dgFloat32 verticalScale, 
-							const dgInt8* const atributeMap, dgFloat32 horizontalScale);
+							const dgInt8* const atributeMap, dgFloat32 horizontalScale_x, dgFloat32 horizontalScale_z);
 
 	dgCollisionHeightField (dgWorld* const world, dgDeserialize deserialization, void* const userData, dgInt32 revisionNumber);
 
@@ -69,7 +69,7 @@ class dgCollisionHeightField: public dgCollisionMesh
 		dgWorld* m_world;
 		dgInt32 m_refCount;
 		dgInt32 m_vertexCount[DG_MAX_THREADS_HIVE_COUNT];
-		dgVector *m_vertex[DG_MAX_THREADS_HIVE_COUNT];
+		dgArray<dgVector> m_vertex[DG_MAX_THREADS_HIVE_COUNT];
 	};
 
 	void CalculateAABB();
@@ -94,6 +94,15 @@ class dgCollisionHeightField: public dgCollisionMesh
 	
 	void AddDisplacement (dgVector* const vertex, dgInt32 x0, dgInt32 x1, dgInt32 z0, dgInt32 z1) const;
 
+	DG_INLINE dgInt32 dgFastInt(dgFloat32 x) const
+	{
+		dgInt32 i = dgInt32(x);
+		if (dgFloat32(i) > x) {
+			i--;
+		}
+		return i;
+	}
+
 	dgVector m_minBox;
 	dgVector m_maxBox;
 
@@ -105,9 +114,12 @@ class dgCollisionHeightField: public dgCollisionMesh
 	void* m_elevationMap;
 	dgUnsigned16* m_horizontalDisplacement;
 	dgFloat32 m_verticalScale;
-	dgFloat32 m_horizontalScale;
-	dgFloat32 m_horizontalScaleInv;
-	dgFloat32 m_horizontalDisplacementScale;
+	dgFloat32 m_horizontalScale_x;
+	dgFloat32 m_horizontalScaleInv_x;
+	dgFloat32 m_horizontalDisplacementScale_x;
+	dgFloat32 m_horizontalScale_z;
+	dgFloat32 m_horizontalScaleInv_z;
+	dgFloat32 m_horizontalDisplacementScale_z;
 	dgCollisionHeightFieldRayCastCallback m_userRayCastCallback;
 	dgElevationType m_elevationDataType;
 

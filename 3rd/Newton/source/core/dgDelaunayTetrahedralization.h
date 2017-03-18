@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -36,10 +36,9 @@ class dgDelaunayTetrahedralization: public dgConvexHull4d
 
 	protected:
 	virtual void DeleteFace (dgListNode* const node) ;
-	dgFloat64 GetTetraVolume (const dgConvexHull4dTetraherum* const tetra) const;
 
 	void SortVertexArray ();
-	static dgInt32 CompareVertexByIndex(const dgHullVector* const  A, const dgHullVector* const B, void* const context);
+	static dgInt32 CompareVertexByIndex(const dgConvexHull4dVector* const  A, const dgConvexHull4dVector* const B, void* const context);
 
 };
 

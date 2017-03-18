@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -63,8 +63,9 @@ dgCollisionChamferCylinder::~dgCollisionChamferCylinder()
 void dgCollisionChamferCylinder::Init (dgFloat32 radius, dgFloat32 height)
 {
 	m_rtti |= dgCollisionChamferCylinder_RTTI;
-	m_radius = dgAbsf (radius);
-	m_height = dgAbsf (height * dgFloat32 (0.5f));
+
+	m_radius = dgMax (dgAbsf (radius), D_MIN_CONVEX_SHAPE_SIZE);
+	m_height = dgMax (dgAbsf (height * dgFloat32 (0.5f)), D_MIN_CONVEX_SHAPE_SIZE);
 
 	dgFloat32 sliceAngle = dgFloat32 (0.0f);
 	dgFloat32 sliceStep = dgPI  / DG_CHAMFERCYLINDER_SLICES; 
@@ -152,9 +153,6 @@ void dgCollisionChamferCylinder::Init (dgFloat32 radius, dgFloat32 height)
 
 void dgCollisionChamferCylinder::DebugCollision (const dgMatrix& matrix, dgCollision::OnDebugCollisionMeshCallback callback, void* const userData) const
 {
-//dgCollisionConvex::DebugCollision (matrix, callback, userData);
-//return;
-
 	dgInt32 slices = 12;
 	dgInt32 brakes = 24;
 	dgFloat32 sliceAngle = dgFloat32 (0.0f);
@@ -278,7 +276,7 @@ dgFloat32 dgCollisionChamferCylinder::RayCast(const dgVector& q0, const dgVector
 	dgVector dq((q1 - q0) & dgVector::m_triplexMask);
 
 	// avoid NaN as a result of a division by zero
-	if ((dq % dq) <= 0.0f) {
+	if (dq.DotProduct3(dq) <= 0.0f) {
 		return dgFloat32(1.2f);
 	}
 
@@ -335,7 +333,7 @@ dgFloat32 dgCollisionChamferCylinder::RayCast(const dgVector& q0, const dgVector
 
 dgVector dgCollisionChamferCylinder::SupportVertex (const dgVector& dir, dgInt32* const vertexIndex) const
 {
-	dgAssert (dgAbsf(dir % dir - dgFloat32 (1.0f)) < dgFloat32 (1.0e-3f));
+	dgAssert (dgAbsf(dir.DotProduct3(dir) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-3f));
 
 	dgFloat32 x = dir.GetScalar();
 	if (dgAbsf (x) > dgFloat32 (0.9999f)) {
@@ -350,8 +348,7 @@ dgVector dgCollisionChamferCylinder::SupportVertex (const dgVector& dir, dgInt32
 
 dgVector dgCollisionChamferCylinder::SupportVertexSpecial (const dgVector& dir, dgInt32* const vertexIndex) const
 {
-	*vertexIndex = -1;
-	dgAssert (dgAbsf(dir % dir - dgFloat32 (1.0f)) < dgFloat32 (1.0e-3f));
+	dgAssert (dgAbsf(dir.DotProduct3(dir) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-3f));
 
 	dgFloat32 x = dir.GetScalar();
 	if (dgAbsf (x) > dgFloat32 (0.99995f)) {
@@ -359,14 +356,14 @@ dgVector dgCollisionChamferCylinder::SupportVertexSpecial (const dgVector& dir, 
 	}
 
 	dgVector sideDir (m_yzMask & dir);
-	dgAssert ((sideDir % sideDir) > dgFloat32 (0.0f));
+	dgAssert (sideDir.DotProduct3(sideDir) > dgFloat32 (0.0f));
 	return sideDir.CompProduct4(sideDir.InvMagSqrt()).Scale4(m_radius);
 }
 
 dgVector dgCollisionChamferCylinder::SupportVertexSpecialProjectPoint (const dgVector& point, const dgVector& dir) const
 {
 	dgAssert (dir.m_w == 0.0f);
-	return point + dir.Scale4(m_height);
+	return point + dir.Scale4(m_height - DG_PENETRATION_TOL);
 }
 
 

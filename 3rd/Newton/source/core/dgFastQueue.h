@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -47,8 +47,8 @@ class dgFastQueue
 	private:
 	T* m_pool;
     dgMemoryAllocator* m_allocator;
-    dgInt32 m_head;
-    dgInt32 m_tail;
+	dgInt32 m_head;
+	dgInt32 m_tail;
 };
 
 
@@ -59,7 +59,7 @@ dgFastQueue<T, sizeInPowerOfTwo>::dgFastQueue (dgMemoryAllocator* const allocato
 	,m_head(0)
 	,m_tail(0)
 {
-    dgAssert (((sizeInPowerOfTwo -1) & (-sizeInPowerOfTwo)) == 0);
+	dgAssert (((sizeInPowerOfTwo -1) & (-sizeInPowerOfTwo)) == 0);
     m_pool = (T*) m_allocator->MallocLow(sizeInPowerOfTwo * sizeof (T));
 }
 

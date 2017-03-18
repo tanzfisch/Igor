@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -126,9 +126,9 @@ namespace InternalSphere
 			dgVector p2 (&ptr[index]);
 			p2 = p2.CompProduct3 (scaleVector);
 
-			dgVector normal ((p1 - p0) * (p2 - p0));
+			dgVector normal ((p1 - p0).CrossProduct3(p2 - p0));
 
-			dgFloat64 area = dgFloat32 (0.5f) * sqrt (normal % normal);
+			dgFloat64 area = dgFloat32 (0.5f) * sqrt (normal.DotProduct3(normal));
 
 			centre = p0 + p1 + p2;
 			centre = centre.Scale3 (dgFloat32  (1.0f / 3.0f));

@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -31,13 +31,13 @@
 #include "dgQuaternion.h"
 
 class dgMemoryAllocator;
-class dgAABBPointTree3d;
+class dgConvexHull3DVertex;
+class dgConvexHull3dAABBTreeNode;
 
 class dgConvexHull3DFace
 {
 	public:
 	dgConvexHull3DFace();
-	
 	
 	void SetMark(dgInt32 mark) {m_mark = mark;}
 	dgInt32 GetMark() const {return m_mark;}
@@ -54,8 +54,6 @@ class dgConvexHull3DFace
 	dgList<dgConvexHull3DFace>::dgListNode* m_twin[3];
 	friend class dgConvexHull3d;
 };
-
-class dgHullVertex;
 
 class dgConvexHull3d: public dgList<dgConvexHull3DFace>
 {
@@ -79,17 +77,30 @@ class dgConvexHull3d: public dgList<dgConvexHull3DFace>
 
 	virtual dgListNode* AddFace (dgInt32 i0, dgInt32 i1, dgInt32 i2);
 	virtual void DeleteFace (dgListNode* const node) ;
-	virtual dgInt32 InitVertexArray(dgHullVertex* const points, const dgFloat64* const vertexCloud, dgInt32 strideInBytes, dgInt32 count, void* const memoryPool, dgInt32 maxMemSize);
+	virtual dgInt32 InitVertexArray(dgConvexHull3DVertex* const points, const dgFloat64* const vertexCloud, dgInt32 strideInBytes, dgInt32 count, void* const memoryPool, dgInt32 maxMemSize);
 
-	void CalculateConvexHull (dgAABBPointTree3d* vertexTree, dgHullVertex* const points, dgInt32 count, dgFloat64 distTol, dgInt32 maxVertexCount);
-	dgInt32 BuildNormalList (dgBigVector* const normalArray) const;
-	dgInt32 SupportVertex (dgAABBPointTree3d** const tree, const dgHullVertex* const points, const dgBigVector& dir) const;
+	void CalculateConvexHull (dgConvexHull3dAABBTreeNode* vertexTree, dgConvexHull3DVertex* const points, dgInt32 count, dgFloat64 distTol, dgInt32 maxVertexCount);
+	
+	dgInt32 SupportVertex (dgConvexHull3dAABBTreeNode** const tree, const dgConvexHull3DVertex* const points, const dgBigVector& dir, const bool removeEntry = true) const;
 	dgFloat64 TetrahedrumVolume (const dgBigVector& p0, const dgBigVector& p1, const dgBigVector& p2, const dgBigVector& p3) const;
-	void TessellateTriangle (dgInt32 level, const dgVector& p0, const dgVector& p1, const dgVector& p2, dgInt32& count, dgBigVector* const ouput, dgInt32& start) const;
 
-	dgAABBPointTree3d* BuildTree (dgAABBPointTree3d* const parent, dgHullVertex* const points, dgInt32 count, dgInt32 baseIndex, dgInt8** const memoryPool, dgInt32& maxMemSize) const;
-	static dgInt32 ConvexCompareVertex(const dgHullVertex* const  A, const dgHullVertex* const B, void* const context);
+	dgConvexHull3dAABBTreeNode* BuildTree (dgConvexHull3dAABBTreeNode* const parent, dgConvexHull3DVertex* const points, dgInt32 count, dgInt32 baseIndex, dgInt8** const memoryPool, dgInt32& maxMemSize) const;
+	static dgInt32 ConvexCompareVertex(const dgConvexHull3DVertex* const  A, const dgConvexHull3DVertex* const B, void* const context);
 	bool Sanity() const;
+
+	class dgNormalMap
+	{
+		public:
+		dgNormalMap();
+		private:
+		void TessellateTriangle(dgInt32 level, const dgVector& p0, const dgVector& p1, const dgVector& p2, dgInt32& start);
+
+		public:
+		dgBigVector m_normal[128];
+		dgInt32 m_count;
+	};
+
+	static const dgNormalMap& GetNormaMap();
 
 	dgInt32 m_count;
 	dgFloat64 m_diag;

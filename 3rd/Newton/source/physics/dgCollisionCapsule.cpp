@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -42,11 +42,7 @@ dgCollisionCapsule::dgCollisionCapsule(dgWorld* const world, dgDeserialize deser
 {
 	dgVector size;
 	deserialization(userData, &size, sizeof (dgVector));
-	m_radio0 = size.m_x;
-	m_radio1 = size.m_y;
-	m_height = size.m_z;
-
-	Init (size.m_x, size.m_y, size.m_z);
+	Init (size.m_x, size.m_y, size.m_z * dgFloat32 (2.0f));
 }
 
 
@@ -58,9 +54,9 @@ void dgCollisionCapsule::Init (dgFloat32 radio0, dgFloat32 radio1, dgFloat32 hei
 {
 	m_rtti |= dgCollisionCapsule_RTTI;
 
-	radio0 = dgAbsf(radio0);
-	radio1 = dgAbsf(radio1);
-	height = dgAbsf(height);
+	radio0 = dgMax (dgAbsf (radio0), D_MIN_CONVEX_SHAPE_SIZE);
+	radio1 = dgMax (dgAbsf (radio1), D_MIN_CONVEX_SHAPE_SIZE);
+	height = dgMax (dgAbsf (height), D_MIN_CONVEX_SHAPE_SIZE);
 
 	m_transform = dgVector (dgFloat32 (1.0f), dgFloat32 (1.0f), dgFloat32 (1.0f), dgFloat32 (0.0f));
 	if (radio0 > radio1) {
@@ -79,7 +75,7 @@ void dgCollisionCapsule::Init (dgFloat32 radio0, dgFloat32 radio1, dgFloat32 hei
 
 	for (int i = 0; i < 16; i ++) {
 		dgVector p1p0 (m_p1 - m_p0);
-		dgVector dir(side * p1p0);
+		dgVector dir(side.CrossProduct3(p1p0));
 		dir = dir.Scale4(dgFloat32 (1.0f) / dgSqrt(dir.DotProduct4(dir).GetScalar()));
 		dgVector support0(dir.Scale4(m_radio0));
 		dgVector support1(dir.Scale4(m_radio1));
@@ -221,20 +217,20 @@ dgInt32 dgCollisionCapsule::CalculateSignature () const
 void dgCollisionCapsule::TesselateTriangle(dgInt32 level, const dgVector& p0, const dgVector& p1, const dgVector& p2, dgInt32& count, dgVector* ouput) const
 {
 	if (level) {
-		dgAssert(dgAbsf(p0 % p0 - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
-		dgAssert(dgAbsf(p1 % p1 - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
-		dgAssert(dgAbsf(p2 % p2 - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
+		dgAssert(dgAbsf(p0.DotProduct3(p0) - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
+		dgAssert(dgAbsf(p1.DotProduct3(p1) - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
+		dgAssert(dgAbsf(p2.DotProduct3(p2) - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
 		dgVector p01(p0 + p1);
 		dgVector p12(p1 + p2);
 		dgVector p20(p2 + p0);
 
-		p01 = p01.Scale3(dgRsqrt(p01 % p01));
-		p12 = p12.Scale3(dgRsqrt(p12 % p12));
-		p20 = p20.Scale3(dgRsqrt(p20 % p20));
+		p01 = p01.Scale3(dgRsqrt(p01.DotProduct3(p01)));
+		p12 = p12.Scale3(dgRsqrt(p12.DotProduct3(p12)));
+		p20 = p20.Scale3(dgRsqrt(p20.DotProduct3(p20)));
 
-		dgAssert(dgAbsf(p01 % p01 - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
-		dgAssert(dgAbsf(p12 % p12 - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
-		dgAssert(dgAbsf(p20 % p20 - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
+		dgAssert(dgAbsf(p01.DotProduct3(p01) - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
+		dgAssert(dgAbsf(p12.DotProduct3(p12) - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
+		dgAssert(dgAbsf(p20.DotProduct3(p20) - dgFloat32(1.0f)) < dgFloat32(1.0e-4f));
 
 		TesselateTriangle(level - 1, p0, p01, p20, count, ouput);
 		TesselateTriangle(level - 1, p1, p12, p01, count, ouput);
@@ -347,7 +343,7 @@ void dgCollisionCapsule::SetCollisionBBox (const dgVector& p0__, const dgVector&
 dgVector dgCollisionCapsule::SupportVertex (const dgVector& direction, dgInt32* const vertexIndex) const
 {
 	dgVector dir (direction.CompProduct4(m_transform));
-	dgAssert (dgAbsf(dir % dir - dgFloat32 (1.0f)) < dgFloat32 (1.0e-3f));
+	dgAssert (dgAbsf(dir.DotProduct3(dir) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-3f));
 
 	dgVector p0(dir.Scale4 (m_radio0));
 	dgVector p1(dir.Scale4 (m_radio1));
@@ -363,9 +359,8 @@ dgVector dgCollisionCapsule::SupportVertex (const dgVector& direction, dgInt32* 
 
 dgVector dgCollisionCapsule::SupportVertexSpecial(const dgVector& direction, dgInt32* const vertexIndex) const
 {
-	*vertexIndex = -1;
 	dgVector dir(direction.CompProduct4(m_transform));
-	dgAssert(dgAbsf(dir % dir - dgFloat32(1.0f)) < dgFloat32(1.0e-3f));
+	dgAssert(dgAbsf(dir.DotProduct3(dir) - dgFloat32(1.0f)) < dgFloat32(1.0e-3f));
 
 	dgVector p0(dgVector::m_zero);
 	dgVector p1(dir.Scale4(m_radio1 - m_radio0));
@@ -384,7 +379,7 @@ dgVector dgCollisionCapsule::SupportVertexSpecialProjectPoint (const dgVector& t
 {
 	dgVector dir(direction.CompProduct4(m_transform));
 	dgVector point(testPoint.CompProduct4(m_transform));
-	point += dir.Scale4(m_radio0);
+	point += dir.Scale4(m_radio0 - DG_PENETRATION_TOL);
 	return m_transform.CompProduct4(point);
 }
 
@@ -398,12 +393,12 @@ void dgCollisionCapsule::GetCollisionInfo(dgCollisionInfo* const info) const
 {
 	dgCollisionConvex::GetCollisionInfo(info);
 
-	info->m_taperedCapsule.m_radio0 = m_radio0;
-	info->m_taperedCapsule.m_radio1 = m_radio1;
+	info->m_capsule.m_radio0 = m_radio0;
+	info->m_capsule.m_radio1 = m_radio1;
 	info->m_capsule.m_height = dgFloat32 (2.0f) * m_height;
 
 	if (m_transform.m_x < dgFloat32 (0.0f)) {
-		dgSwap(info->m_taperedCapsule.m_radio0, info->m_taperedCapsule.m_radio1);
+		dgSwap(info->m_capsule.m_radio0, info->m_capsule.m_radio1);
 	}
 }
 
@@ -424,7 +419,7 @@ dgInt32 dgCollisionCapsule::CalculatePlaneIntersection (const dgVector& directio
 	dgVector p0 (-m_height, dgFloat32 (0.0f), dgFloat32 (0.0f), dgFloat32 (0.0f));
 	dgVector dir0 (p0 - origin);
 	dgFloat32 dist0 = dir0.DotProduct4(normal).GetScalar();
-	if ((dist0 * dist0) < (m_radio0 * m_radio0)) {
+	if ((dist0 * dist0 - dgFloat32 (5.0e-5f)) < (m_radio0 * m_radio0)) {
 		contactsOut[count] = m_transform.CompProduct4 (p0 - normal.Scale4 (dist0));
 		count ++;
 	}
@@ -432,7 +427,7 @@ dgInt32 dgCollisionCapsule::CalculatePlaneIntersection (const dgVector& directio
 	dgVector p1 (m_height, dgFloat32 (0.0f), dgFloat32 (0.0f), dgFloat32 (0.0f));
 	dgVector dir1 (p1 - origin);
 	dgFloat32 dist1 = dir1.DotProduct4(normal).GetScalar();
-	if ((dist1 * dist1) < (m_radio1 * m_radio1)) {
+	if ((dist1 * dist1 - dgFloat32 (5.0e-5f)) < (m_radio1 * m_radio1)) {
 		contactsOut[count] = m_transform.CompProduct4(p1 - normal.Scale4 (dist1));
 		count ++;
 	}

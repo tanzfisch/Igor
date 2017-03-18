@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -95,6 +95,17 @@ class dgPolyhedra: public dgTree <dgEdge, dgEdgeKey>
 			return m_keyHigh;
 		}
 
+		bool operator<(const dgPairKey& key) const
+		{
+			return m_key < key.m_key;
+		}
+
+		bool operator>(const dgPairKey& key) const
+		{
+			return m_key > key.m_key;
+		}
+
+
 		private:
 		union {
 			dgUnsigned64 m_key;
@@ -113,7 +124,7 @@ class dgPolyhedra: public dgTree <dgEdge, dgEdgeKey>
 	dgEdge* AddFace (dgInt32 v0, dgInt32 v1, dgInt32 v2);
 	dgEdge* AddFace (dgInt32 count, const dgInt32* const index);
 	dgEdge* AddFace (dgInt32 count, const dgInt32* const index, const dgInt64* const userdata);
-	virtual void EndFace ();
+	virtual bool EndFace ();
 	virtual void DeleteFace(dgEdge* const edge);
 
 	dgInt32 GetFaceCount() const;
@@ -121,6 +132,7 @@ class dgPolyhedra: public dgTree <dgEdge, dgEdgeKey>
 	dgInt32 GetLastVertexIndex() const;
 
 	dgInt32 IncLRU() const;
+	dgInt32 GetLRU() const;
 	void SetLRU(dgInt32 lru) const;
 
 	dgEdge* FindEdge (dgInt32 v0, dgInt32 v1) const;
@@ -153,7 +165,7 @@ class dgPolyhedra: public dgTree <dgEdge, dgEdgeKey>
 
 	private:
 	void RefineTriangulation (const dgFloat64* const vertex, dgInt32 stride);
-	void RefineTriangulation (const dgFloat64* const vertex, dgInt32 stride, dgBigVector* const normal, dgInt32 perimeterCount, dgEdge** const perimeter);
+	void RefineTriangulation (const dgFloat64* const vertex, dgInt32 stride, const dgBigVector& normal, dgInt32 perimeterCount, dgEdge** const perimeter);
 	void OptimizeTriangulation (const dgFloat64* const vertex, dgInt32 strideInBytes);
 	void MarkAdjacentCoplanarFaces (dgPolyhedra& polyhedraOut, dgEdge* const face, const dgFloat64* const pool, dgInt32 strideInBytes);
 	dgEdge* FindEarTip (dgEdge* const face, const dgFloat64* const pool, dgInt32 stride, dgDownHeap<dgEdge*, dgFloat64>& heap, const dgBigVector &normal) const;
@@ -246,6 +258,11 @@ DG_INLINE dgInt32 dgPolyhedra::IncLRU() const
 {	
 	m_edgeMark ++;
 	dgAssert (m_edgeMark < 0x7fffffff);
+	return m_edgeMark;
+}
+
+DG_INLINE dgInt32 dgPolyhedra::GetLRU() const
+{
 	return m_edgeMark;
 }
 

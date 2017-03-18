@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -77,7 +77,7 @@ void dgBroadPhaseDefault::RayCast(const dgVector& l0, const dgVector& l1, OnRayC
 {
 	if (filter && m_rootNode) {
 		dgVector segment(l1 - l0);
-		dgFloat32 dist2 = segment % segment;
+		dgFloat32 dist2 = segment.DotProduct3(segment);
 		if (dist2 > dgFloat32(1.0e-8f)) {
 
 			dgFloat32 distance[DG_BROADPHASE_MAX_STACK_DEPTH];
@@ -335,5 +335,73 @@ void dgBroadPhaseDefault::DestroyAggregate(dgBroadPhaseAggregate* const aggregat
 	m_updateList.Remove(aggregate->m_updateNode);
 	m_aggregateList.Remove(aggregate->m_myAggregateNode);
 	RemoveNode(aggregate);
+}
+
+void dgBroadPhaseDefault::FindCollidingPairsForward(dgBroadphaseSyncDescriptor* const descriptor, dgList<dgBroadPhaseNode*>::dgListNode* const nodePtr, dgInt32 threadID)
+{
+	const dgFloat32 timestep = descriptor->m_timestep;
+
+	dgList<dgBroadPhaseNode*>::dgListNode* node = nodePtr;
+	const dgInt32 threadCount = descriptor->m_world->GetThreadCount();
+	while (node) {
+		dgBroadPhaseNode* const broadPhaseNode = node->GetInfo();
+		dgAssert(broadPhaseNode->IsLeafNode());
+		dgAssert(!broadPhaseNode->GetBody() || (broadPhaseNode->GetBody()->GetBroadPhase() == broadPhaseNode));
+
+		if (broadPhaseNode->IsAggregate()) {
+			((dgBroadPhaseAggregate*)broadPhaseNode)->SubmitSeltPairs(timestep, threadID);
+		}
+
+		for (dgBroadPhaseNode* ptr = broadPhaseNode; ptr->m_parent; ptr = ptr->m_parent) {
+			dgBroadPhaseTreeNode* const parent = (dgBroadPhaseTreeNode*)ptr->m_parent;
+			dgAssert(!parent->IsLeafNode());
+			dgBroadPhaseNode* const sibling = parent->m_right;
+			if (sibling != ptr) {
+				SubmitPairs(broadPhaseNode, sibling, timestep, 0, threadID);
+			}
+		}
+
+		for (dgInt32 i = 0; i < threadCount; i++) {
+			node = node ? node->GetNext() : NULL;
+		}
+	}
+}
+
+
+void dgBroadPhaseDefault::FindCollidingPairsForwardAndBackward(dgBroadphaseSyncDescriptor* const descriptor, dgList<dgBroadPhaseNode*>::dgListNode* const nodePtr, dgInt32 threadID)
+{
+	const dgFloat32 timestep = descriptor->m_timestep;
+
+	dgList<dgBroadPhaseNode*>::dgListNode* node = nodePtr;
+	const dgInt32 threadCount = descriptor->m_world->GetThreadCount();
+	const dgUnsigned32 lru = m_lru + 1;
+	while (node) {
+		dgBroadPhaseNode* const broadPhaseNode = node->GetInfo();
+		dgAssert(broadPhaseNode->IsLeafNode());
+		dgAssert(!broadPhaseNode->GetBody() || (broadPhaseNode->GetBody()->GetBroadPhase() == broadPhaseNode));
+
+		if (lru == broadPhaseNode->GetDirtyLru()) {
+			if (broadPhaseNode->IsAggregate()) {
+				((dgBroadPhaseAggregate*)broadPhaseNode)->SubmitSeltPairs(timestep, threadID);
+			}
+
+			for (dgBroadPhaseNode* ptr = broadPhaseNode; ptr->m_parent; ptr = ptr->m_parent) {
+				dgBroadPhaseTreeNode* const parent = (dgBroadPhaseTreeNode*)ptr->m_parent;
+				dgAssert(!parent->IsLeafNode());
+				dgBroadPhaseNode* const rightSibling = parent->m_right;
+				if (rightSibling && (rightSibling != ptr)) {
+					SubmitPairs(broadPhaseNode, rightSibling, timestep, threadCount, threadID);
+				}
+				dgBroadPhaseNode* const leftSibling = parent->m_left;
+				if (leftSibling != ptr) {
+					SubmitPairs(broadPhaseNode, leftSibling, timestep, threadCount, threadID);
+				}
+			}
+		}
+
+		for (dgInt32 i = 0; i < threadCount; i++) {
+			node = node ? node->GetNext() : NULL;
+		}
+	}
 }
 

@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -22,8 +22,8 @@
 #ifndef __DGCONTACT_H__
 #define __DGCONTACT_H__
 
-
 #include "dgConstraint.h"
+#include "dgContactSolver.h"
 
 class dgBody;
 class dgWorld;
@@ -34,11 +34,8 @@ class dgPolygonMeshDesc;
 class dgCollisionInstance;
 
 
-#define DG_MAX_CONTATCS						128
-#define DG_RESTING_CONTACT_PENETRATION		dgFloat32 (1.0f / 256.0f)
-//#define DG_IMPULSIVE_CONTACT_PENETRATION	dgFloat32 (1.0f / 256.0f)
-#define DG_IMPULSIVE_CONTACT_PENETRATION	dgFloat32 (1.0f / 256.0f + DG_RESTING_CONTACT_PENETRATION)
-
+#define DG_MAX_CONTATCS					128
+#define DG_RESTING_CONTACT_PENETRATION	(DG_PENETRATION_TOL + dgFloat32 (1.0f / 1024.0f))
 
 class dgActiveContacts: public dgList<dgContact*>
 {
@@ -55,7 +52,10 @@ class dgCollisionParamProxy
 {	
 	public:
 	dgCollisionParamProxy(dgContact* const contact, dgContactPoint* const contactBuffer, dgInt32 threadIndex, bool ccdMode, bool intersectionTestOnly)
-		:m_contactJoint(contact)
+		:m_normal(dgVector::m_zero)
+		,m_closestPointBody0(dgVector::m_zero)
+		,m_closestPointBody1(dgVector::m_zero)
+		,m_contactJoint(contact)
 		,m_contacts(contactBuffer)
 		,m_polyMeshData(NULL)		
 		,m_threadIndex(threadIndex)
@@ -84,13 +84,6 @@ class dgCollisionParamProxy
 
 }DG_GCC_VECTOR_ALIGMENT;
 
-
-class dgClothPatchMaterial
-{
-	public:
-	dgFloat32 m_damper;
-	dgFloat32 m_stiffness;
-};
 
 DG_MSC_VECTOR_ALIGMENT
 class dgContactPoint
@@ -216,6 +209,7 @@ class dgContact: public dgConstraint, public dgList<dgContactMaterial>
 	dgQuaternion m_rotationAcc;
 	dgVector m_separtingVector;
 	dgFloat32 m_closestDistance;
+	dgFloat32 m_separationDistance;
 	dgFloat32 m_timeOfImpact;
 	dgWorld* m_world;
 	const dgContactMaterial* m_material;

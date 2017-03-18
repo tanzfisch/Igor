@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -84,9 +84,6 @@
 #include <math.h>
 #include <float.h>
 #include <ctype.h>
-#include <pthread.h>
-#include <sched.h>
-#include <semaphore.h>
 #include <dTimeTracker.h>
 
 #if (defined (_MINGW_32_VER) || defined (_MINGW_64_VER))
@@ -99,7 +96,7 @@
 #endif
 
 #if (defined (_WIN_32_VER) || defined (_WIN_64_VER))
-	#define DG_SSE4_INSTRUCTIONS_SET
+//	#define DG_SSE4_INSTRUCTIONS_SET
 	#include <intrin.h>
 	#include <emmintrin.h> 
 #endif
@@ -110,6 +107,13 @@
 #endif
 
 #if (defined (_POSIX_VER) || defined (_POSIX_VER_64) || defined (_MINGW_32_VER) || defined (_MINGW_64_VER))
+  /* CMake defines NDEBUG for _not_ debug builds. Therefore, set
+     Newton's _DEBUG flag only when NDEBUG is not defined.
+  */
+  #ifndef NDEBUG
+    #define _DEBUG 1
+  #endif
+
 	#include <unistd.h>
 	#include <assert.h>
 	#ifndef __ARMCC_VERSION
@@ -122,7 +126,7 @@
 			#ifdef __SSE4_1__
 				// some linux systems still do not support dot product operations
 //				#define DG_SSE4_INSTRUCTIONS_SET
-//				#include <smmintrin.h>
+				#include <smmintrin.h>
 			#endif
 		} 
 	#endif
@@ -133,9 +137,11 @@
 	#include <sys/sysctl.h>
     #include <assert.h> 
     #if (defined __i386__ || defined __x86_64__)
+		#include <fenv.h>
 		#include <pmmintrin.h> 
 		#include <emmintrin.h>  //sse3
         #include <mmintrin.h> 
+		
 		#ifdef __SSE4_1__
 			#define DG_SSE4_INSTRUCTIONS_SET
 			#include <smmintrin.h>
@@ -143,12 +149,12 @@
     #endif
 #endif
 
+//#define DG_SCALAR_VECTOR_CLASS
 
 #ifdef DG_SSE4_INSTRUCTIONS_SET
 	#undef DG_SCALAR_VECTOR_CLASS
 #endif
 
-//#if defined (_NEWTON_USE_DOUBLE) || defined (__ppc__) || defined (ANDROID) || defined (IOS)
 #if defined (__ppc__) || defined (ANDROID) || defined (IOS)
 	#undef DG_SSE4_INSTRUCTIONS_SET
 	#ifndef DG_SCALAR_VECTOR_CLASS
@@ -156,6 +162,26 @@
 	#endif
 #endif
 
+
+
+// by default newton run on a separate thread, optionally concurrent with the calling thread, it also uses a thread job pool for multi core systems.
+// define DG_USE_THREAD_EMULATION on the command line for platform that do not support hardware multi threading or if multi threading is not stable 
+// #define DG_USE_THREAD_EMULATION
+
+
+#if (defined (_WIN_32_VER) || defined (_WIN_64_VER))
+	#if _MSC_VER < 1700
+		#ifndef DG_USE_THREAD_EMULATION
+			#define DG_USE_THREAD_EMULATION
+		#endif
+	#endif
+#endif
+
+#ifndef DG_USE_THREAD_EMULATION
+	#include <mutex>
+	#include <thread>
+	#include <condition_variable>
+#endif
 
 
 //************************************************************
@@ -194,11 +220,6 @@
 
 
 #define DG_VECTOR_SIMD_SIZE		16
-
-// starting Visual studio 2012 an up we can use high performance computing using AMP
-//#if ((defined (_WIN_32_VER) || defined (_WIN_64_VER)) && (_MSC_VER  >= 1700)) && !defined(_DURANGO)
-//	#define _NEWTON_AMP
-//#endif
 
 #if (defined (_WIN_32_VER) || defined (_WIN_64_VER))
 	#define	DG_GCC_VECTOR_ALIGMENT	
@@ -266,10 +287,11 @@ class dgTriplex
 #define dgKMH2MPSEC		 	dgFloat32 (0.278f)
 
 
-class dgVector;
-#ifndef _NEWTON_USE_DOUBLE
 class dgBigVector;
-#endif
+#ifndef _NEWTON_USE_DOUBLE
+class dgVector;
+#endif 
+
 
 #if (defined (_WIN_32_VER) || defined (_WIN_64_VER))
 	#define dgApi __cdecl 	
@@ -305,6 +327,20 @@ DG_INLINE dgInt32 dgExp2 (dgInt32 x)
 	}
 	return exp;
 }
+
+DG_INLINE dgInt32 dgBitReversal(dgInt32 v, dgInt32 base)
+{
+	dgInt32 x = 0;
+	dgInt32 power = dgExp2 (base) - 1;
+	do {
+		x += (v & 1) << power;
+		v >>= 1;
+		power--;
+	} while (v);
+	dgAssert(x < base);
+	return x;
+}
+
 
 template <class T> 
 DG_INLINE T dgMin(T A, T B)
@@ -360,6 +396,10 @@ DG_INLINE T dgSign(T A)
 template <class T> 
 DG_INLINE bool dgAreEqual(T A, T B, T tol)
 {
+	if ((dgAbsf(A) < tol) && (dgAbsf(B) < tol)) {
+		return true;
+	}
+/*
 	dgInt32 exp0;
 	dgFloat64 mantissa0 = frexp(dgFloat64 (A), &exp0);
 
@@ -373,7 +413,12 @@ DG_INLINE bool dgAreEqual(T A, T B, T tol)
 	if (exp0 != exp1) {
 		return false;
 	}
-	return dgAbsf(mantissa0 - mantissa1) < dgAbsf (tol);
+	return dgAbsf(mantissa0 - mantissa1) < tol;
+*/	
+	T den = dgMax(dgAbsf(A), dgAbsf(B)) + tol;
+	A /= den;
+	B /= den;
+	return dgAbsf(A - B) < tol;
 }
 
 template <class T> 
@@ -489,15 +534,12 @@ void dgRadixSort (T* const array, T* const tmpArray, dgInt32 elements, dgInt32 r
 		}
 	}
 
-
 #ifdef _DEBUG
 	for (dgInt32 i = 0; i < (elements - 1); i ++) {
 		dgAssert (getRadixKey (&array[i], context) <= getRadixKey (&array[i + 1], context));
 	}
 #endif
-
 }
-
 
 template <class T> 
 void dgSort (T* const array, dgInt32 elements, dgInt32 (*compare) (const T* const  A, const T* const B, void* const context), void* const context = NULL)
@@ -639,7 +681,6 @@ void dgSortIndirect (T** const array, dgInt32 elements, dgInt32 (*compare) (cons
 }
 
 
-
 #ifdef _NEWTON_USE_DOUBLE
 	union dgFloatSign
 	{
@@ -671,15 +712,13 @@ union dgDoubleInt
 };
 
 
+void dgGetMinMax (dgBigVector &Min, dgBigVector &Max, const dgFloat64* const vArray, dgInt32 vCount, dgInt32 strideInBytes);
 #ifndef _NEWTON_USE_DOUBLE
-void GetMinMax (dgBigVector &Min, dgBigVector &Max, const dgFloat64* const vArray, dgInt32 vCount, dgInt32 strideInBytes);
+void dgGetMinMax (dgVector &Min, dgVector &Max, const dgFloat32* const vArray, dgInt32 vCount, dgInt32 StrideInBytes);
 #endif
-void GetMinMax (dgVector &Min, dgVector &Max, const dgFloat32* const vArray, dgInt32 vCount, dgInt32 StrideInBytes);
 
+dgInt32 dgVertexListToIndexList (dgFloat64* const vertexList, dgInt32 strideInBytes, dgInt32 compareCount,     dgInt32 vertexCount,         dgInt32* const indexListOut, dgFloat64 tolerance = dgEPSILON);
 dgInt32 dgVertexListToIndexList (dgFloat32* const vertexList, dgInt32 strideInBytes, dgInt32 floatSizeInBytes, dgInt32 unsignedSizeInBytes, dgInt32 vertexCount, dgInt32* const indexListOut, dgFloat32 tolerance = dgEPSILON);
-dgInt32 dgVertexListToIndexList (dgFloat64* const vertexList, dgInt32 strideInBytes, dgInt32 compareCount, dgInt32 vertexCount, dgInt32* const indexListOut, dgFloat64 tolerance = dgEPSILON);
-
-
 
 #define PointerToInt(x) ((size_t)x)
 #define IntToPointer(x) ((void*)(size_t(x)))
@@ -689,70 +728,20 @@ dgInt32 dgVertexListToIndexList (dgFloat64* const vertexList, dgInt32 strideInBy
 	#define _stricmp(x,y) strcasecmp(x,y)
 #endif
 
-
-
-#ifndef _NEWTON_USE_DOUBLE
-DG_INLINE dgInt32 dgFastInt (dgFloat64 x)
-{
-	dgInt32 i = dgInt32 (x);
-	if (dgFloat64 (i) > x) {
-		i --;
-	}
-	return i;
-}
-#endif
-
-DG_INLINE dgInt32 dgFastInt (dgFloat32 x)
-{
-	dgInt32 i = dgInt32 (x);
-	if (dgFloat32 (i) > x) {
-		i --;
-	}
-	return i;
-}
-
-DG_INLINE dgFloat32 dgFloor(dgFloat32 x)
-{
-#ifdef _MSC_VER
-	dgFloat32 ret = dgFloat32 (dgFastInt (x));
-	dgAssert (ret == floor (x));
-	return  ret;
-#else 
-	return floor (x);
-#endif
-}
-
-DG_INLINE dgFloat32 dgCeil(dgFloat32 x)
-{
-#ifdef _MSC_VER
-	dgFloat32 ret = dgFloor(x);
-	if (ret < x) {
-		ret += dgFloat32 (1.0f);
-	}
-	dgAssert (ret == ceil (x));
-	return  ret;
-#else 
-	return ceil (x);
-#endif
-}
-
-DG_INLINE dgFloat32 dgRsqrt(dgFloat32 x)	
-{
-	return dgFloat32 (1.0f) / dgFloat32 (sqrt(x));		
-}
-
 #define dgSqrt(x)			dgFloat32 (sqrt(x))	
 #define dgSin(x)			dgFloat32 (sin(x))
 #define dgCos(x)			dgFloat32 (cos(x))
 #define dgAsin(x)			dgFloat32 (asin(x))
 #define dgAcos(x)			dgFloat32 (acos(x))
-#define dgAtan2(x,y)		dgFloat32 (atan2(x,y))
 #define dgLog(x)			dgFloat32 (log(x))
+#define dgCeil(x)			dgFloat32 (ceil(x))
+#define dgFloor(x)			dgFloat32 (floor(x))	
 #define dgPow(x,y)			dgFloat32 (pow(x,y))
 #define dgFmod(x,y)			dgFloat32 (fmod(x,y))
+#define dgAtan2(x,y)		dgFloat32 (atan2(x,y))
+#define dgRsqrt(x)			(dgFloat32 (1.0f) / dgSqrt(x))
 #define dgClearFP()			_clearfp() 
 #define dgControlFP(x,y)	_controlfp(x,y)
-
 
 enum dgSerializeRevisionNumber
 {
@@ -761,82 +750,38 @@ enum dgSerializeRevisionNumber
 	m_currentRevision 
 };
 
-
+dgUnsigned64 dgGetTimeInMicrosenconds();
+dgFloat64 dgRoundToFloat(dgFloat64 val);
 void dgSerializeMarker(dgSerialize serializeCallback, void* const userData);
 dgInt32 dgDeserializeMarker(dgDeserialize serializeCallback, void* const userData);
-
-
-dgUnsigned64 dgGetTimeInMicrosenconds();
-
 
 class dgFloatExceptions
 {
 	public:
-	//#define DG_FLOAT_EXECTIONS_MASK (_EM_INVALID | _EM_DENORMAL | _EM_ZERODIVIDE | _EM_OVERFLOW | _EM_UNDERFLOW| _EM_INEXACT)
-	//#define DG_FLOAT_EXECTIONS_MASK (_EM_INVALID | _EM_DENORMAL | _EM_ZERODIVIDE)
-	//#define DG_FLOAT_EXECTIONS_MASK (_EM_DENORMAL | _EM_ZERODIVIDE)
-	
-	enum dgFloatExceptionMask
-	{
-		#if (defined (_MSC_VER) && defined (_DEBUG))
-			m_InvalidDenormalAndivideByZero = _EM_INVALID | _EM_DENORMAL | _EM_ZERODIVIDE,
-			m_allExepctions = _EM_INVALID | _EM_DENORMAL | _EM_ZERODIVIDE | _EM_OVERFLOW | _EM_UNDERFLOW,
-		#else
-			m_InvalidDenormalAndivideByZero,
-			m_allExepctions,
-		#endif			
-	};
+	#ifdef _MSC_VER
+		#define DG_FLOAT_EXECTIONS_MASK	(EM_INVALID | EM_DENORMAL | EM_ZERODIVIDE)
+	#else 
+		#define DG_FLOAT_EXECTIONS_MASK	0
+	#endif
 
-	dgFloatExceptions(dgFloatExceptionMask mask = m_InvalidDenormalAndivideByZero)
-		:m_mask (0)
-	{
-		#if (defined (_MSC_VER) && defined (_DEBUG))
-			dgClearFP();
-			m_mask = dgControlFP(0, 0);
-			dgControlFP (m_mask & dgUnsigned32 (~mask), _MCW_EM);
-		#endif
-	}
+	dgFloatExceptions(dgUnsigned32 mask = DG_FLOAT_EXECTIONS_MASK);
+	~dgFloatExceptions();
 
-	~dgFloatExceptions()
-	{
-		#if (defined (_MSC_VER) && defined (_DEBUG))
-			dgClearFP();
-			dgControlFP(m_mask, _MCW_EM);
-		#endif
-	}
-
-	dgInt32 m_mask;
+	private:
+	dgUnsigned32 m_mask;
 };
 
 
 class dgSetPrecisionDouble 
 {
 	public:
-	dgSetPrecisionDouble()
-	{
-		#if (defined (_MSC_VER) && defined (_WIN_32_VER))
-			dgClearFP();
-			m_mask = dgControlFP(0, 0);
-			dgControlFP (_PC_53, _MCW_PC);
-		#endif
-	}
-
-	~dgSetPrecisionDouble()
-	{
-		#if (defined (_MSC_VER) && defined (_WIN_32_VER))
-			dgClearFP();
-			dgControlFP (m_mask, _MCW_PC);
-		#endif
-	}
+	dgSetPrecisionDouble();
+	~dgSetPrecisionDouble();
 	dgInt32 m_mask; 
 };
 
-
-
-
 DG_INLINE dgInt32 dgAtomicExchangeAndAdd (dgInt32* const addend, dgInt32 amount)
 {
-	// it is a pity that pthread does not supports cross platform atomics, it would be nice if it did
 	#if (defined (_WIN_32_VER) || defined (_WIN_64_VER))
 		return _InterlockedExchangeAdd((long*) addend, long (amount));
 	#endif
@@ -853,7 +798,6 @@ DG_INLINE dgInt32 dgAtomicExchangeAndAdd (dgInt32* const addend, dgInt32 amount)
 
 DG_INLINE dgInt32 dgInterlockedExchange(dgInt32* const ptr, dgInt32 value)
 {
-	// it is a pity that pthread does not supports cross platform atomics, it would be nice if it did
 	#if (defined (_WIN_32_VER) || defined (_WIN_64_VER))
 		return _InterlockedExchange((long*) ptr, value);
 	#endif
@@ -872,25 +816,25 @@ DG_INLINE dgInt32 dgInterlockedExchange(dgInt32* const ptr, dgInt32 value)
 DG_INLINE void dgThreadYield()
 {
 	#ifndef DG_USE_THREAD_EMULATION
-	sched_yield();
-#endif
+		std::this_thread::yield(); 
+	#endif
 }
 
 DG_INLINE void dgSpinLock (dgInt32* const ptr, bool yield)
 {
 	#ifndef DG_USE_THREAD_EMULATION 
-	while (dgInterlockedExchange(ptr, 1)) {
-		if (yield) {
-			dgThreadYield();
+		while (dgInterlockedExchange(ptr, 1)) {
+			if (yield) {
+				dgThreadYield();
+			}
 		}
-	}
 	#endif
 }
 
 DG_INLINE void dgSpinUnlock (dgInt32* const ptr)
 {
 	#ifndef DG_USE_THREAD_EMULATION 
-	dgInterlockedExchange(ptr, 0);
+		dgInterlockedExchange(ptr, 0);
 	#endif
 }
 

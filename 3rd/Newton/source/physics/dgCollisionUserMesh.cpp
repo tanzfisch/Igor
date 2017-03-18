@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -144,6 +144,7 @@ void dgCollisionUserMesh::GetCollidingFaces (dgPolygonMeshDesc* const data) cons
 	if (m_collideCallback) {
 		data->m_me = this;
 		data->m_userData = m_userData;
+		data->m_separationDistance = dgFloat32 (0.0f);
 
 		dgFastRayTest ray (dgVector (dgFloat32 (0.0f)), data->m_boxDistanceTravelInMeshSpace);
 		m_collideCallback (&data->m_p0, data->m_doContinuesCollisionTest ?  &ray : NULL);

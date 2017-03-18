@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -28,7 +28,6 @@
 #include "dgKinematicBody.h"
 #include "dgCollisionNull.h"
 #include "dgCollisionCone.h"
-#include "dgDeformableBody.h"
 #include "dgCollisionScene.h"
 #include "dgCollisionSphere.h"
 #include "dgCollisionCapsule.h"
@@ -50,16 +49,7 @@
 #include "dgCorkscrewConstraint.h"
 
 
-#ifdef _NEWTON_AMP
-#include "dgAmpInstance.h"
-#endif
-
 #define DG_DEFAULT_SOLVER_ITERATION_COUNT	4
-
-#define DG_INITIAL_BODIES_SIZE		(1024 * 4)
-#define DG_INITIAL_JOINTS_SIZE		(1024 * 4)
-#define DG_INITIAL_JACOBIAN_SIZE	(1024 * 16)
-#define DG_ENGINE_STACK_SIZE        (1024 * 1024)
 
 
 /*
@@ -210,34 +200,44 @@ void dgWorld::dgAsyncUpdate::Update ()
 #define DG_MUTEX_THREAD_ID	0
 #define DG_ASYNC_THREAD_ID	1
 
-dgWorld::dgWorld(dgMemoryAllocator* const allocator)
+dgWorld::dgWorld(dgMemoryAllocator* const allocator, dgInt32 stackSize)
 	:dgBodyMasterList(allocator)
 	,dgBodyMaterialList(allocator)
 	,dgBodyCollisionList(allocator)
-	,dgDeformableBodiesUpdate(allocator)
 	,dgSkeletonList(allocator)
 	,dgActiveContacts(allocator) 
 	,dgWorldDynamicUpdate()
-	,dgMutexThread("newtonSyncThread", DG_MUTEX_THREAD_ID, DG_ENGINE_STACK_SIZE)
+	,dgMutexThread("newtonSyncThread", DG_MUTEX_THREAD_ID, stackSize)
 	,dgAsyncThread("newtonAsyncThread", DG_ASYNC_THREAD_ID)
 	,dgWorldThreadPool(allocator)
+	,dgDeadBodies(allocator)
+	,dgDeadJoints(allocator)
 	,m_broadPhase(NULL)
 	,m_sentinelBody(NULL)
 	,m_pointCollision(NULL)
-	,m_amp(NULL)
 	,m_preListener(allocator)
 	,m_postListener(allocator)
 	,m_perInstanceData(allocator)
-	,m_bodiesMemory (DG_INITIAL_BODIES_SIZE, allocator, 64)
-	,m_jointsMemory (DG_INITIAL_JOINTS_SIZE, allocator, 64)
-	,m_solverMatrixMemory (DG_INITIAL_JACOBIAN_SIZE, allocator, 64)
-	,m_solverRightSideMemory (DG_INITIAL_BODIES_SIZE, allocator, 64)
+	,m_bodiesMemory (allocator, 64)
+	,m_jointsMemory (allocator, 64)
+	,m_solverJacobiansMemory (allocator, 64)
+	,m_solverForceAccumulatorMemory (allocator, 64)
+	,m_clusterMemory (allocator, 64)
 {
 	dgMutexThread* const mutexThread = this;
 	SetMatertThread (mutexThread);
 
+	// avoid small memory fragmentations on initialization
+	m_bodiesMemory.Resize(1024 * 32);
+	m_jointsMemory.Resize(1024 * 32);
+	m_clusterMemory.Resize(1024 * 32);
+	m_solverJacobiansMemory.Resize(1024 * 64);
+	m_solverForceAccumulatorMemory.Resize(1024 * 32);
+
+	m_savetimestep = dgFloat32 (0.0f);
 	m_allocator = allocator;
-	m_islandUpdate = NULL;
+	m_clusterUpdate = NULL;
+	m_getDebugTime = NULL;
 
 	m_onCollisionInstanceDestruction = NULL;
 	m_onCollisionInstanceCopyConstrutor = NULL;
@@ -250,27 +250,28 @@ dgWorld::dgWorld(dgMemoryAllocator* const allocator)
 	
 	m_defualtBodyGroupID = CreateBodyGroupID();
 	m_genericLRUMark = 0;
+	m_delayDelateLock = 0;
+	m_clusterLRU = 0;
 
 	m_useParallelSolver = 0;
 
-	//m_solverMode = 0;
 	m_solverMode = DG_DEFAULT_SOLVER_ITERATION_COUNT;
-	m_frictionMode = 0;
 	m_dynamicsLru = 0;
+	m_numberOfSubsteps = 1;
 		
 	m_bodiesUniqueID = 0;
 	m_frictiomTheshold = dgFloat32 (0.25f);
 
 	m_userData = NULL;
-	m_islandUpdate = NULL;
+	m_clusterUpdate = NULL;
 
 	m_freezeAccel2 = DG_FREEZE_MAG2;
 	m_freezeAlpha2 = DG_FREEZE_MAG2;
 	m_freezeSpeed2 = DG_FREEZE_MAG2 * dgFloat32 (0.1f);
 	m_freezeOmega2 = DG_FREEZE_MAG2 * dgFloat32 (0.1f);
 
+	m_solverConvergeQuality = 0;
 	m_contactTolerance = DG_PRUNE_CONTACT_TOLERANCE;
-	m_solverConvergeQuality = dgFloat32 (1.0f);
 
 	dgInt32 steps = 1;
 	dgFloat32 freezeAccel2 = m_freezeAccel2;
@@ -309,10 +310,6 @@ dgWorld::dgWorld(dgMemoryAllocator* const allocator)
 	pointCollison->Release();
 
 	AddSentinelBody();
-
-	#ifdef _NEWTON_AMP
-	m_amp = new (GetAllocator()) dgAmpInstance(this);
-	#endif
 }
 
 dgWorld::~dgWorld()
@@ -321,14 +318,10 @@ dgWorld::~dgWorld()
 	dgAsyncThread::Terminate();
 	dgMutexThread::Terminate();
 
-	#ifdef _NEWTON_AMP
-	if (m_amp) {
-		delete m_amp;
-	}
-	#endif
 	dgSkeletonList::Iterator iter (*this);
 	for (iter.Begin(); iter; iter ++) {
-		delete iter.GetNode()->GetInfo();
+		dgSkeletonContainer* const skeleton = iter.GetNode()->GetInfo();
+		delete skeleton;
 	}
 
 	m_preListener.RemoveAll();
@@ -369,29 +362,27 @@ dgBody* dgWorld::GetSentinelBody() const
 
 void dgWorld::SetSolverMode (dgInt32 mode)
 {
-	m_solverMode = dgUnsigned32 (dgMax (0, mode));
+	m_solverMode = dgUnsigned32 (dgMax (1, mode));
 }
 
-void dgWorld::SetFrictionMode (dgInt32 mode)
+dgInt32 dgWorld::GetSolverMode() const
 {
-	m_frictionMode = dgUnsigned32 (mode);
+	return m_solverMode;
+}
+
+dgInt32 dgWorld::GetSolverConvergenceQuality() const
+{
+	return m_solverConvergeQuality;
 }
 
 void dgWorld::SetSolverConvergenceQuality (dgInt32 mode)
 {
-	m_solverConvergeQuality = mode ? dgFloat32 (0.1f) : dgFloat32 (1.0f);
+	m_solverConvergeQuality = mode ? 1 : 0;
 }
 
 dgInt32 dgWorld::EnumerateHardwareModes() const
 {
 	dgInt32 count = 1;
-
-	#ifdef _NEWTON_AMP
-		if (m_amp) {
-			count += m_amp->GetPlatformsCount();
-		}
-	#endif
-
 	return count;
 }
 
@@ -400,28 +391,12 @@ void dgWorld::GetHardwareVendorString (dgInt32 deviceIndex, char* const descript
 	deviceIndex = dgClamp(deviceIndex, 0, EnumerateHardwareModes() - 1);
 	if (deviceIndex == 0) {
 		sprintf (description, "newton cpu");
-
-	} else if (m_amp) {
-		#ifdef _NEWTON_AMP
-			m_amp->GetVendorString (deviceIndex - 1, description, maxlength);
-		#endif
 	}
 }
 
 void dgWorld::SetCurrentHardwareMode(dgInt32 deviceIndex)
 {
-	#ifdef _NEWTON_AMP
-	if (m_amp) {
-		m_amp->CleanUp();
-	}
-	#endif
-
 	m_hardwaredIndex = dgClamp(deviceIndex, 0, EnumerateHardwareModes() - 1);
-	if ((m_hardwaredIndex > 0) && m_amp){
-		#ifdef _NEWTON_AMP
-			m_amp->SelectPlaform (m_hardwaredIndex - 1);
-		#endif
-	}
 }
 
 
@@ -473,12 +448,10 @@ void dgWorld::DestroyAllBodies ()
 
 	Sync ();
 
-	dgTree<int, dgBody*>::Iterator iter (m_disableBodies);
-	for (iter.Begin(); iter; iter ++) {
-		dgBody* body = iter.GetKey();
-		DestroyBody (body);
+	while (m_disableBodies.GetRoot()) {
+		dgBody* const body = m_disableBodies.GetRoot()->GetKey();
+		BodyEnableSimulation(body);
 	}
-	dgAssert(!m_disableBodies.GetCount());
 
 	dgAssert (dgBodyMasterList::GetFirst()->GetInfo().GetBody() == m_sentinelBody);
 	for (dgBodyMasterList::dgListNode* node = me.GetFirst()->GetNext(); node; ) {
@@ -569,17 +542,6 @@ dgKinematicBody* dgWorld::CreateKinematicBody (dgCollisionInstance* const collis
 }
 
 
-dgBody* dgWorld::CreateDeformableBody(dgCollisionInstance* const collision, const dgMatrix& matrix)
-{
-	dgBody* const body = new (m_allocator) dgDeformableBody();
-	dgAssert (dgInt32 (sizeof (dgBody) & 0xf) == 0);
-	dgAssert ((dgUnsigned64 (body) & 0xf) == 0);
-
-	InitBody (body, collision, matrix);
-	return body;
-}
-
-
 void dgWorld::DestroyBody(dgBody* const body)
 {
 	for (dgListenerList::dgListNode* node = m_postListener.GetLast(); node; node = node->GetPrev()) {
@@ -637,9 +599,9 @@ void* dgWorld::GetUserData() const
 }
 
 
-void dgWorld::SetIslandUpdateCallback (OnIslandUpdate callback)
+void dgWorld::SetIslandUpdateCallback (OnClusterUpdate callback)
 {
-	m_islandUpdate = callback;
+	m_clusterUpdate = callback;
 }
 
 
@@ -979,8 +941,6 @@ void dgWorldThreadPool::OnEndWorkerThread (dgInt32 threadId)
 
 }
 
-
-
 void dgWorld::Execute (dgInt32 threadID)
 {
 	if (threadID == DG_MUTEX_THREAD_ID) {
@@ -990,17 +950,6 @@ void dgWorld::Execute (dgInt32 threadID)
 	}
 }
 
-
-void dgWorld::TickCallback (dgInt32 threadID)
-{
-	if (threadID == DG_MUTEX_THREAD_ID) {
-		StepDynamics (m_savetimestep);
-	} else {
-		Update (m_savetimestep);
-	}
-}
-
-
 void dgWorld::Sync ()
 {
 	while (dgMutexThread::IsBusy()) {
@@ -1009,16 +958,41 @@ void dgWorld::Sync ()
 }
 
 
+void dgWorld::RunStep ()
+{
+	dgUnsigned64 timeAcc = m_getDebugTime ? m_getDebugTime() : 0;
+	dgFloat32 step = m_savetimestep / m_numberOfSubsteps;
+	for (dgUnsigned32 i = 0; i < m_numberOfSubsteps; i ++) {
+		dgInterlockedExchange(&m_delayDelateLock, 1);
+		StepDynamics (step);
+		dgInterlockedExchange(&m_delayDelateLock, 0);
+
+		dgDeadBodies& bodyList = *this;
+		dgDeadJoints& jointList = *this;
+
+		jointList.DestroyJoints (*this);
+		bodyList.DestroyBodies (*this);
+	}
+	m_lastExecutionTime = m_getDebugTime ? dgFloat32 (m_getDebugTime() - timeAcc) * dgFloat32 (1.0e-6f): 0;
+}
+
+void dgWorld::TickCallback (dgInt32 threadID)
+{
+	if (threadID == DG_MUTEX_THREAD_ID) {
+		RunStep ();
+	} else {
+		Update (m_savetimestep);
+	}
+}
+
+
 void dgWorld::Update (dgFloat32 timestep)
 {
 	m_savetimestep = timestep;
-
 	#ifdef DG_USE_THREAD_EMULATION
 		dgFloatExceptions exception;
 		dgSetPrecisionDouble precision;
-
-		// run update in same thread as the calling application as if it was a separate thread  
-		StepDynamics (m_savetimestep);
+		RunStep ();
 	#else 
 		// runs the update in a separate thread and wait until the update is completed before it returns.
 		// this will run well on single core systems, since the two thread are mutually exclusive 
@@ -1029,16 +1003,27 @@ void dgWorld::Update (dgFloat32 timestep)
 
 void dgWorld::UpdateAsync (dgFloat32 timestep)
 {
+	Sync ();
 	m_savetimestep = timestep;
-
 	#ifdef DG_USE_THREAD_EMULATION
-		StepDynamics (m_savetimestep);
+		dgFloatExceptions exception;
+		dgSetPrecisionDouble precision;
+		RunStep ();
 	#else 
 		// execute one update, but do not wait for the update to finish, instead return immediately to the caller
 		dgAsyncThread::Tick();
 	#endif
 }
 
+dgInt32 dgWorld::SerializeToFileSort (const dgBody* const body0, const dgBody* const body1, void* const context)
+{
+	if (body0->m_uniqueID < body1->m_uniqueID) {
+		return -1;
+	} else if (body0->m_uniqueID > body1->m_uniqueID) {
+		return 1;
+	}
+	return 0;
+}
 
 void dgWorld::SerializeToFile (const char* const fileName, OnBodySerialize bodyCallback, void* const userData) const
 {
@@ -1051,16 +1036,37 @@ void dgWorld::SerializeToFile (const char* const fileName, OnBodySerialize bodyC
 		for (dgBodyMasterList::dgListNode* node = me.GetFirst()->GetNext(); node; node = node->GetNext()) {
 			const dgBodyMasterListRow& graphNode = node->GetInfo();
 			array[count] = graphNode.GetBody();	
+			array[count]->m_serializedEnum = count;
 			count ++;
 			dgAssert (count <= GetBodiesCount());
 		}
+
+		dgSortIndirect(array, count, SerializeToFileSort);
 		SerializeBodyArray (array, count, bodyCallback ? bodyCallback : OnBodySerializeToFile, userData, OnSerializeToFile, file);
-		SerializeJointArray (array, count, OnSerializeToFile, file);
+		SerializeJointArray (count, OnSerializeToFile, file);
+
+		for (dgBodyMasterList::dgListNode* node = me.GetFirst()->GetNext(); node; node = node->GetNext()) {
+			const dgBodyMasterListRow& graphNode = node->GetInfo();
+			graphNode.GetBody()->m_serializedEnum = -1;
+		}
 
 		delete[] array;
 		fclose (file);
 	}
 }
+
+dgBody* dgWorld::FindBodyFromSerializedID(dgInt32 serializedID) const
+{
+	const dgBodyMasterList& me = *this;
+	for (dgBodyMasterList::dgListNode* node = me.GetFirst()->GetNext(); node; node = node->GetNext()) {
+		const dgBodyMasterListRow& graphNode = node->GetInfo();
+		if (graphNode.GetBody()->m_serializedEnum == serializedID) {
+			return graphNode.GetBody();
+		}
+	}
+	return NULL;
+}
+
 
 void dgWorld::DeserializeFromFile (const char* const fileName, OnBodyDeserialize bodyCallback, void* const userData)
 {
@@ -1070,6 +1076,12 @@ void dgWorld::DeserializeFromFile (const char* const fileName, OnBodyDeserialize
 		DeserializeBodyArray (bodyMap, bodyCallback ? bodyCallback : OnBodyDeserializeFromFile, userData, OnDeserializeFromFile, file);
 		DeserializeJointArray (bodyMap, OnDeserializeFromFile, file);
 		fclose (file);
+
+		const dgBodyMasterList& me = *this;
+		for (dgBodyMasterList::dgListNode* node = me.GetFirst()->GetNext(); node; node = node->GetNext()) {
+			const dgBodyMasterListRow& graphNode = node->GetInfo();
+			graphNode.GetBody()->m_serializedEnum = -1;;
+		}
 	}
 }
 
@@ -1100,6 +1112,11 @@ void dgWorld::OnBodyDeserializeFromFile (dgBody& body, void* const userData, dgD
 
 }
 
+
+void dgWorld::SetGetTimeInMicrosenconds (OnGetTimeInMicrosenconds callback)
+{
+	m_getDebugTime = callback;
+}
 
 void dgWorld::SetCollisionInstanceConstructorDestructor (OnCollisionInstanceDuplicate constructor, OnCollisionInstanceDestroy destructor)
 {
@@ -1194,12 +1211,6 @@ void dgWorld::DeserializeBodyArray (dgTree<dgBody*, dgInt32>&bodyMap, OnBodyDese
 				body = new (m_allocator) dgKinematicBody(this, &shapeMap, deserialization, fileHandle, revision);
 				break;
 			}
-
-			case dgBody::m_deformableBody:
-			{
-				dgAssert (0);
-				break;
-			}
 		}
 
 		dgAssert (body);
@@ -1221,7 +1232,7 @@ void dgWorld::DeserializeBodyArray (dgTree<dgBody*, dgInt32>&bodyMap, OnBodyDese
 		// load user related data 
 		bodyCallback (*body, userData, deserialization, fileHandle);
 
-		bodyMap.Insert(body, i);
+		bodyMap.Insert(body, body->m_serializedEnum);
 
 		// sync to next body
 		dgDeserializeMarker (deserialization, fileHandle);
@@ -1247,7 +1258,7 @@ void dgWorld::GetJointSerializationCallbacks (OnJointSerializationCallback* cons
 }
 
 
-void dgWorld::SerializeJointArray (dgBody** const bodyArray, dgInt32 bodyCount, dgSerialize serializeCallback, void* const userData) const
+void dgWorld::SerializeJointArray (dgInt32 bodyCount, dgSerialize serializeCallback, void* const userData) const
 {
 	dgInt32 count = 0;
 	const dgBodyMasterList* me = this;
@@ -1260,12 +1271,12 @@ void dgWorld::SerializeJointArray (dgBody** const bodyArray, dgInt32 bodyCount, 
 			count += joint->IsBilateral() ? 1 : 0;
 		}
 	}
-
+/*
 	dgTree<int, dgBody*> bodyMap (GetAllocator());
 	for (dgInt32 i = 0; i < bodyCount; i ++) {
 		bodyMap.Insert (i, bodyArray[i]);
 	}
-
+*/
 	count /= 2;
 	dgSerializeMarker (serializeCallback, userData);
 	serializeCallback(userData, &count, sizeof (count));	
@@ -1279,15 +1290,13 @@ void dgWorld::SerializeJointArray (dgBody** const bodyArray, dgInt32 bodyCount, 
 			if (joint->IsBilateral()) {
 				if (!map.Find(joint)) {
 					map.Insert (0, joint);
-					dgInt32 body0; 
-					dgInt32 body1; 
 					dgAssert (joint->GetBody0());
 					dgAssert (joint->GetBody1());
-					body0 = (joint->GetBody0() != m_sentinelBody) ? bodyMap.Find (joint->GetBody0())->GetInfo() : -1;
-					body1 = (joint->GetBody1() != m_sentinelBody) ? bodyMap.Find (joint->GetBody1())->GetInfo() : -1;
+					const dgInt32 body0 = (joint->GetBody0() != m_sentinelBody) ? joint->GetBody0()->m_serializedEnum : -1;
+					const dgInt32 body1 = (joint->GetBody1() != m_sentinelBody) ? joint->GetBody1()->m_serializedEnum : -1;
 
-					serializeCallback(userData, &body0, sizeof (body0));
-					serializeCallback(userData, &body1, sizeof (body1));
+					serializeCallback(userData, &body0, sizeof (dgInt32));
+					serializeCallback(userData, &body1, sizeof (dgInt32));
 
 					dgBilateralConstraint* const bilateralJoint = (dgBilateralConstraint*) joint;
 					bilateralJoint->Serialize (serializeCallback, userData);
@@ -1368,7 +1377,7 @@ dgSkeletonContainer* dgWorld::CreateNewtonSkeletonContainer (dgBody* const rootB
 		}
 		list->RemoveAll();
 
-		dgInt32 index = DG_SKELETON_BASEW_UNIQUE_ID;
+		dgInt32 index = DG_SKELETON_BASE_UNIQUE_ID;
 		for (dgList<dgSkeletonContainer*>::dgListNode* ptr = saveList.GetFirst(); ptr; ptr ++) {
 			dgSkeletonContainer* const skeleton = ptr->GetInfo();
 			skeleton->m_id = index;
@@ -1401,4 +1410,65 @@ dgBroadPhaseAggregate* dgWorld::CreateAggreGate() const
 void dgWorld::DestroyAggregate(dgBroadPhaseAggregate* const aggregate) const
 {
 	m_broadPhase->DestroyAggregate((dgBroadPhaseAggregate*) aggregate);
+}
+
+
+void dgDeadJoints::DestroyJoint(dgConstraint* const joint)
+{
+	dgSpinLock (&m_lock, true);
+
+	dgWorld& me = *((dgWorld*)this);
+	if (me.m_delayDelateLock) {
+		// the engine is busy in the previous update, deferred the deletion
+		Insert (joint, joint);
+	} else {
+		me.DestroyConstraint (joint);
+	}
+
+	dgSpinUnlock(&m_lock);
+}
+
+
+void dgDeadJoints::DestroyJoints(dgWorld& world)
+{
+	dgSpinLock (&m_lock, true);
+	Iterator iter (*this);
+	for (iter.Begin(); iter; iter++) {
+		dgTreeNode* const node = iter.GetNode();
+		dgConstraint* const joint = node->GetInfo();
+		world.DestroyConstraint (joint);
+	}
+	RemoveAll ();
+	dgSpinUnlock(&m_lock);
+}
+
+
+void dgDeadBodies::DestroyBody(dgBody* const body)
+{
+	dgAssert (0);
+	dgSpinLock (&m_lock, true);
+
+	dgWorld& me = *((dgWorld*)this);
+	if (me.m_delayDelateLock) {
+		// the engine is busy in the previous update, deferred the deletion
+		Insert (body, body);
+	} else {
+		me.DestroyBody(body);
+	}
+	dgSpinUnlock(&m_lock);
+}
+
+
+void dgDeadBodies::DestroyBodies(dgWorld& world)
+{
+	dgSpinLock (&m_lock, true);
+
+	Iterator iter (*this);
+	for (iter.Begin(); iter; iter++) {
+		dgTreeNode* const node = iter.GetNode();
+		dgBody* const body = node->GetInfo();
+		world.DestroyBody(body);
+	}
+	RemoveAll ();
+	dgSpinUnlock(&m_lock);
 }

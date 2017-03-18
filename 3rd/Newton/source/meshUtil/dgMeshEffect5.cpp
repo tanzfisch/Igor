@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 *
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -31,16 +31,16 @@ bool dgMeshEffect::PlaneClip(const dgMeshEffect& convexMesh, const dgEdge* const
 {
 	dgAssert (convexFace->m_incidentFace > 0);
 
-	dgBigVector normal (convexMesh.FaceNormal(convexFace, &convexMesh.m_points[0].m_x, sizeof(dgBigVector)));
-	dgFloat64 mag2 = normal % normal;
+	dgBigVector normal (convexMesh.FaceNormal(convexFace, &convexMesh.m_points.m_vertex[0].m_x, sizeof(dgBigVector)));
+	dgFloat64 mag2 = normal.DotProduct3(normal);
 	if (mag2 < dgFloat64 (1.0e-30)) {
 		dgAssert (0);
 		return true;
 	}  
 
 	normal = normal.Scale3(dgFloat64 (1.0f) / sqrt (mag2));
-	dgBigVector origin (convexMesh.m_points[convexFace->m_incidentVertex]);
-	dgBigPlane plane (normal, - (origin % normal));
+	dgBigVector origin (convexMesh.m_points.m_vertex[convexFace->m_incidentVertex]);
+	dgBigPlane plane (normal, - origin.DotProduct3(normal));
 
 	dgAssert (!HasOpenEdges());
 
@@ -48,7 +48,7 @@ bool dgMeshEffect::PlaneClip(const dgMeshEffect& convexMesh, const dgEdge* const
 	dgStack <dgFloat64> testPool (2 * pointCount + 1024);
 	dgFloat64* const test = &testPool[0];
 	for (dgInt32 i = 0; i < pointCount; i ++) {
-		test[i] = plane.Evalue (m_points[i]);
+		test[i] = plane.Evalue (m_points.m_vertex[i]);
 		if (fabs (test[i]) < dgFloat32 (1.0e-5f)) {
 			test[i] = dgFloat32 (0.0f);
 		}
@@ -67,38 +67,37 @@ bool dgMeshEffect::PlaneClip(const dgMeshEffect& convexMesh, const dgEdge* const
 	}
 
 	if (positive && negative) {
-
 		const dgEdge* e0 = convexFace;
 		const dgEdge* e1 = e0->m_next;
 		const dgEdge* e2 = e1->m_next;
 
 		dgMatrix matrix;
-		dgBigVector p1 (convexMesh.m_points[e1->m_incidentVertex]);
+		dgBigVector p1 (convexMesh.m_points.m_vertex[e1->m_incidentVertex]);
 
 		dgBigVector xDir (p1 - origin);
-		dgAssert ((xDir % xDir) > dgFloat32 (0.0f));
+		dgAssert (xDir.DotProduct3(xDir) > dgFloat32 (0.0f));
 		matrix[2] = dgVector (normal);
-		matrix[0] = dgVector(xDir.Scale3(dgFloat64 (1.0f) / sqrt (xDir% xDir)));
-		matrix[1] = matrix[2] * matrix[0];
+		matrix[0] = dgVector(xDir.Scale3(dgFloat64 (1.0f) / sqrt (xDir.DotProduct3(xDir))));
+		matrix[1] = matrix[2].CrossProduct3(matrix[0]);
 		matrix[3] = dgVector (origin);
 		matrix[3][3] = dgFloat32 (1.0f);
 
-		dgVector q0 (matrix.UntransformVector(dgVector(convexMesh.m_points[e0->m_incidentVertex])));
-		dgVector q1 (matrix.UntransformVector(dgVector(convexMesh.m_points[e1->m_incidentVertex])));
-		dgVector q2 (matrix.UntransformVector(dgVector(convexMesh.m_points[e2->m_incidentVertex])));
+		dgVector q0 (matrix.UntransformVector(dgVector(convexMesh.m_points.m_vertex[e0->m_incidentVertex])));
+		dgVector q1 (matrix.UntransformVector(dgVector(convexMesh.m_points.m_vertex[e1->m_incidentVertex])));
+		dgVector q2 (matrix.UntransformVector(dgVector(convexMesh.m_points.m_vertex[e2->m_incidentVertex])));
 
 		dgVector p10 (q1 - q0);
 		dgVector p20 (q2 - q0);
 		dgVector faceNormal (matrix.UnrotateVector (dgVector(normal)));
-		dgFloat32 areaInv = (p10 * p20) % faceNormal;
+		dgFloat32 areaInv = faceNormal.DotProduct3(p10.CrossProduct3(p20));
 		if (e2->m_next != e0) {
 			const dgEdge* edge = e2;
 			dgVector r1 (q2);
 			dgVector p10 (p20);
 			do {
-				dgVector r2 (matrix.UntransformVector(dgVector(convexMesh.m_points[edge->m_next->m_incidentVertex])));
+				dgVector r2 (matrix.UntransformVector(dgVector(convexMesh.m_points.m_vertex[edge->m_next->m_incidentVertex])));
 				dgVector p20 (r2 - q0);
-				dgFloat32 areaInv1 = (p10 * p20) % faceNormal;
+				dgFloat32 areaInv1 = faceNormal.DotProduct3(p10.CrossProduct3(p20));
 				if (areaInv1 > areaInv) {
 					e1 = edge;
 					e2 = edge->m_next;
@@ -115,13 +114,21 @@ bool dgMeshEffect::PlaneClip(const dgMeshEffect& convexMesh, const dgEdge* const
 		dgAssert (areaInv > dgFloat32 (0.0f));
 		areaInv = dgFloat32 (1.0f) / areaInv;
 
-		dgVector uv0_0 (dgFloat32 (convexMesh.m_attrib[e0->m_userData].m_u0), dgFloat32 (convexMesh.m_attrib[e0->m_userData].m_v0), dgFloat32 (0.0f), dgFloat32 (0.0f));
-		dgVector uv0_1 (dgFloat32 (convexMesh.m_attrib[e1->m_userData].m_u0), dgFloat32 (convexMesh.m_attrib[e1->m_userData].m_v0), dgFloat32 (0.0f), dgFloat32 (0.0f));
-		dgVector uv0_2 (dgFloat32 (convexMesh.m_attrib[e2->m_userData].m_u0), dgFloat32 (convexMesh.m_attrib[e2->m_userData].m_v0), dgFloat32 (0.0f), dgFloat32 (0.0f));
+		dgVector uv0[3];
+		dgVector uv1[3];
+		memset(uv0, 0, sizeof(uv0));
+		memset(uv1, 0, sizeof(uv1));
+		if (m_attrib.m_uv0Channel.m_count && convexMesh.m_attrib.m_uv0Channel.m_count) {
+			uv0[0] = dgVector (dgFloat32(convexMesh.m_attrib.m_uv0Channel[dgInt32 (e0->m_userData)].m_u), dgFloat32(convexMesh.m_attrib.m_uv0Channel[dgInt32(e0->m_userData)].m_v), dgFloat32(0.0f), dgFloat32(0.0f));
+			uv0[1] = dgVector(dgFloat32(convexMesh.m_attrib.m_uv0Channel[dgInt32 (e1->m_userData)].m_u), dgFloat32(convexMesh.m_attrib.m_uv0Channel[dgInt32(e1->m_userData)].m_v), dgFloat32(0.0f), dgFloat32(0.0f));
+			uv0[2] = dgVector(dgFloat32(convexMesh.m_attrib.m_uv0Channel[dgInt32 (e2->m_userData)].m_u), dgFloat32(convexMesh.m_attrib.m_uv0Channel[dgInt32(e2->m_userData)].m_v), dgFloat32(0.0f), dgFloat32(0.0f));
+		}
 
-		dgVector uv1_0 (dgFloat32 (convexMesh.m_attrib[e0->m_userData].m_u1), dgFloat32 (convexMesh.m_attrib[e0->m_userData].m_v1), dgFloat32 (0.0f), dgFloat32 (0.0f));
-		dgVector uv1_1 (dgFloat32 (convexMesh.m_attrib[e1->m_userData].m_u1), dgFloat32 (convexMesh.m_attrib[e1->m_userData].m_v1), dgFloat32 (0.0f), dgFloat32 (0.0f));
-		dgVector uv1_2 (dgFloat32 (convexMesh.m_attrib[e2->m_userData].m_u1), dgFloat32 (convexMesh.m_attrib[e2->m_userData].m_v1), dgFloat32 (0.0f), dgFloat32 (0.0f));
+		if (m_attrib.m_uv1Channel.m_count && convexMesh.m_attrib.m_uv1Channel.m_count) {
+			uv1[0] = dgVector(dgFloat32(convexMesh.m_attrib.m_uv1Channel[dgInt32(e0->m_userData)].m_u), dgFloat32(convexMesh.m_attrib.m_uv1Channel[dgInt32(e0->m_userData)].m_v), dgFloat32(0.0f), dgFloat32(0.0f));
+			uv1[1] = dgVector(dgFloat32(convexMesh.m_attrib.m_uv1Channel[dgInt32(e1->m_userData)].m_u), dgFloat32(convexMesh.m_attrib.m_uv1Channel[dgInt32(e1->m_userData)].m_v), dgFloat32(0.0f), dgFloat32(0.0f));
+			uv1[2] = dgVector(dgFloat32(convexMesh.m_attrib.m_uv1Channel[dgInt32(e2->m_userData)].m_u), dgFloat32(convexMesh.m_attrib.m_uv1Channel[dgInt32(e2->m_userData)].m_v), dgFloat32(0.0f), dgFloat32(0.0f));
+		}
 
 		for (iter.Begin(); iter; iter ++){
 			dgEdge* const edge = &(*iter);
@@ -130,8 +137,8 @@ bool dgMeshEffect::PlaneClip(const dgMeshEffect& convexMesh, const dgEdge* const
 			dgFloat64 side1 = test[edge->m_incidentVertex];
 
 			if ((side0 < dgFloat32 (0.0f)) && (side1 > dgFloat64 (0.0f))) {
-				dgBigVector dp (m_points[edge->m_incidentVertex] - m_points[edge->m_prev->m_incidentVertex]);
-				dgFloat64 param = - side0 / (plane % dp);
+				dgBigVector dp (m_points.m_vertex[edge->m_incidentVertex] - m_points.m_vertex[edge->m_prev->m_incidentVertex]);
+				dgFloat64 param = - side0 / plane.DotProduct3(dp);
 
 				dgEdge* const splitEdge = InsertEdgeVertex (edge->m_prev, param);
 				test[splitEdge->m_next->m_incidentVertex] = dgFloat64 (0.0f);
@@ -223,66 +230,65 @@ bool dgMeshEffect::PlaneClip(const dgMeshEffect& convexMesh, const dgEdge* const
 			}
 		}
 
-		const dgFloat64 capAttribute = convexMesh.m_attrib[convexFace->m_userData].m_material;
+
+		const dgInt32 capAttribute = convexMesh.m_attrib.m_materialChannel.m_count ? convexMesh.m_attrib.m_materialChannel[dgInt32 (convexFace->m_userData)] : 0;
 		for (dgList<dgEdge*>::dgListNode* node = faceList.GetFirst(); node; node = node->GetNext()) {
 			dgEdge* const face = node->GetInfo();
 
 			dgEdge* edge = face;
 			do {
-				dgVertexAtribute attibute;
-				attibute.m_vertex = m_points[edge->m_incidentVertex];
-				attibute.m_normal_x = normal.m_x;
-				attibute.m_normal_y = normal.m_y;
-				attibute.m_normal_z = normal.m_z;
-				attibute.m_material = capAttribute;
+				edge->m_incidentFace = 1;
+				edge->m_userData = m_attrib.m_pointChannel.m_count;
 
-				dgVector p (matrix.UntransformVector (attibute.m_vertex));
+				m_attrib.m_pointChannel.PushBack(edge->m_incidentVertex);
+				if (m_attrib.m_normalChannel.m_count) {
+					dgTriplex n;
+					n.m_x = dgFloat32(normal.m_x);
+					n.m_y = dgFloat32(normal.m_y);
+					n.m_z = dgFloat32(normal.m_z);
+					m_attrib.m_normalChannel.PushBack(n);
+				}
 
+				if (m_attrib.m_binormalChannel.m_count) {
+					dgAssert(0);
+				}
+
+				if (m_attrib.m_colorChannel.m_count) {
+					dgAssert(0);
+				}
+
+				if (m_attrib.m_materialChannel.m_count) {
+					m_attrib.m_materialChannel.PushBack(capAttribute);
+				}
+
+				//dgVector p (matrix.UntransformVector (attibute.m_vertex));
+				dgVector p (matrix.UntransformVector(m_points.m_vertex[edge->m_incidentVertex]));
 				dgVector p_p0 (p - q0);
 				dgVector p_p1 (p - q1);
 				dgVector p_p2 (p - q2);
-				//dgFloat32 alpha1 = p10 % p_p0;
-				//dgFloat32 alpha2 = p20 % p_p0;
-				//dgFloat32 alpha3 = p10 % p_p1;
-				//dgFloat32 alpha4 = p20 % p_p1;
-				//dgFloat32 alpha5 = p10 % p_p2;
-				//dgFloat32 alpha6 = p20 % p_p2;
-				//dgFloat32 vc = alpha1 * alpha4 - alpha3 * alpha2;
-				//dgFloat32 vb = alpha5 * alpha2 - alpha1 * alpha6;
-				//dgFloat32 va = alpha3 * alpha6 - alpha5 * alpha4;
-				//dgFloat32 den = va + vb + vc;
-				//dgAssert (den > 0.0f);
-				//den = dgFloat32 (1.0f) / (va + vb + vc);
-				//dgFloat32 alpha0 = dgFloat32 (va * den);
-				//alpha1 = dgFloat32 (vb * den);
-				//alpha2 = dgFloat32 (vc * den);
+				dgFloat32 alpha0 = faceNormal.DotProduct3(p_p1.CrossProduct3(p_p2)) * areaInv;
+				dgFloat32 alpha1 = faceNormal.DotProduct3(p_p2.CrossProduct3(p_p0)) * areaInv;
+				dgFloat32 alpha2 = faceNormal.DotProduct3(p_p0.CrossProduct3(p_p1)) * areaInv;
 
-				dgFloat32 alpha0 = ((p_p1 * p_p2) % faceNormal) * areaInv;
-				dgFloat32 alpha1 = ((p_p2 * p_p0) % faceNormal) * areaInv;
-				dgFloat32 alpha2 = ((p_p0 * p_p1) % faceNormal) * areaInv;
+				//alpha0 = 0.0f;
+				//alpha1 = 0.0f;
+				//alpha2 = 0.0;;
+				if (m_attrib.m_uv0Channel.m_count && convexMesh.m_attrib.m_uv0Channel.m_count) {
+					dgAttibutFormat::dgUV uv;
+					uv.m_u = uv0[0].m_x * alpha0 + uv0[1].m_x * alpha1 + uv0[2].m_x * alpha2;
+					uv.m_v = uv0[0].m_y * alpha0 + uv0[1].m_y * alpha1 + uv0[2].m_y * alpha2;
+					m_attrib.m_uv0Channel.PushBack(uv);
+				}
 
-				attibute.m_u0 = uv0_0.m_x * alpha0 + uv0_1.m_x * alpha1 + uv0_2.m_x * alpha2; 
-				attibute.m_v0 = uv0_0.m_y * alpha0 + uv0_1.m_y * alpha1 + uv0_2.m_y * alpha2; 
-				attibute.m_u1 = uv1_0.m_x * alpha0 + uv1_1.m_x * alpha1 + uv1_2.m_x * alpha2; 
-				attibute.m_v1 = uv1_0.m_y * alpha0 + uv1_1.m_y * alpha1 + uv1_2.m_y * alpha2; 
-
-				AddAtribute (attibute);
-				edge->m_incidentFace = 1;
-				edge->m_userData = m_atribCount - 1;
-
-				//faceIndices[indexCount] = edge->m_incidentVertex;
-				//indexCount ++;
-				//dgAssert (indexCount < sizeof (faceIndices) / sizeof (faceIndices[0]));
+				if (m_attrib.m_uv1Channel.m_count && convexMesh.m_attrib.m_uv1Channel.m_count) {
+					dgAttibutFormat::dgUV uv;
+					uv.m_u = uv1[0].m_x * alpha0 + uv1[1].m_x * alpha1 + uv1[2].m_x * alpha2;
+					uv.m_v = uv1[0].m_y * alpha0 + uv1[1].m_y * alpha1 + uv1[2].m_y * alpha2;
+					m_attrib.m_uv1Channel.PushBack(uv);
+				}
 
 				edge = edge->m_next;
 			} while (edge != face);
-
-			//facePolygedra.AddFace(indexCount, faceIndices);
-			//facePolygedra.EndFace();
-
-			//dgPolyhedra leftOversOut(GetAllocator());
-			//facePolygedra.ConvexPartition (&m_points[0].m_x, sizeof (dgBigVector), &leftOversOut);
-			//dgAssert (leftOversOut.GetCount() == 0);
 		}
 	}
 
@@ -294,12 +300,7 @@ dgMeshEffect* dgMeshEffect::ConvexMeshIntersection (const dgMeshEffect* const co
 {
 	dgMeshEffect convexMesh (*convexMeshSrc);
 	convexMesh.ConvertToPolygons();
-	//return new (GetAllocator()) dgMeshEffect (*convexMesh);
-
 	dgMeshEffect* const convexIntersection = new (GetAllocator()) dgMeshEffect (*this);
-	//convexIntersection->ConvertToPolygons();
-	//convexIntersection->Triangulate();
-	convexIntersection->RemoveUnusedVertices(NULL);
 
 	dgInt32 mark = convexMesh.IncLRU();
 	dgPolyhedra::Iterator iter (convexMesh);
@@ -319,14 +320,11 @@ dgMeshEffect* dgMeshEffect::ConvexMeshIntersection (const dgMeshEffect* const co
 		}
 	}
 
-	convexIntersection->RemoveUnusedVertices(NULL);
 	if (!convexIntersection->GetVertexCount()) {
 		delete convexIntersection;
 		return NULL;
 	}
-
 	convexIntersection->RemoveUnusedVertices(NULL);
-
 	return convexIntersection;
 }
 
@@ -810,8 +808,9 @@ class dgBooleanMeshClipper: public dgMeshEffect::dgMeshBVH
 			BeginFace ();
 			dgEdge* ptr = face;
 			do {
-				const dgMeshEffect::dgVertexAtribute& point =  mesh->GetAttribute(dgInt32 (ptr->m_userData));
-				AddPoint (&point.m_vertex.m_x, dgInt32 (point.m_material));
+				dgAssert (0);
+				//const dgMeshEffect::dgVertexAtribute& point =  mesh->GetAttribute(dgInt32 (ptr->m_userData));
+				//AddPoint (&point.m_vertex.m_x, dgInt32 (point.m_material));
 				faceIndex[indexCount] = indexCount;
 				faceDataIndex[indexCount] = indexCount;
 				indexCount ++;
@@ -824,6 +823,8 @@ class dgBooleanMeshClipper: public dgMeshEffect::dgMeshBVH
 
 		void AddSegment (const dgBigVector& plane, const dgBigVector* const segment)
 		{
+			dgAssert (0);
+/*
 			dgCurvesNetwork::dgTreeNode* const node0 = m_curveNetwork.AddVertex (segment[0], GetAllocator());
 			dgCurvesNetwork::dgTreeNode* const node1 = m_curveNetwork.AddVertex (segment[1], GetAllocator());
 
@@ -831,6 +832,7 @@ class dgBooleanMeshClipper: public dgMeshEffect::dgMeshBVH
 			dgPoint& pointB = node1->GetInfo();
 			pointA.m_links.Append(node1);
 			pointB.m_links.Append(node0);
+*/
 		}
 
 		dgCurvesNetwork m_curveNetwork;
@@ -845,7 +847,7 @@ class dgBooleanMeshClipper: public dgMeshEffect::dgMeshBVH
 		{
 		}
 
-		void ClipMeshesFaces(dgEdge* const faceA, dgMeshEffect* const meshB, dgEdge* const faceB, const dgBigVector& planeB, const dgBigVector* const segment)
+		void ClipMeshesFaces(dgEdge* const faceA, const dgMeshEffect* const meshB, dgEdge* const faceB, const dgBigVector& planeB, const dgBigVector* const segment)
 		{
 			dgTreeNode* node = Find (faceA);
 			if (!node) {
@@ -919,12 +921,12 @@ class dgBooleanMeshClipper: public dgMeshEffect::dgMeshBVH
 		do {
 			dgHugeVector p2(mesh->GetVertex(edge->m_incidentVertex));
 			dgHugeVector p2p0(p2 - p0);
-			plane += p1p0 * p2p0;
+			plane += p1p0.CrossProduct3(p2p0);
 			p1p0 = p2p0;
 			edge = edge->m_next;
 		} while (edge != face);
 
-		plane.m_w = dgGoogol::m_zero - (plane % p0);
+		plane.m_w = dgGoogol::m_zero - plane.DotProduct3(p0);
 		return plane;
 	}
 
@@ -944,7 +946,7 @@ do {
 			dgHugeVector p1(mesh->GetVertex(edge->m_twin->m_incidentVertex));
 			dgHugeVector p1p0(p1 - p0);
 			dgHugeVector q1p0(point - p0);
-			dgGoogol side (q1p0 % (p1p0 * normal));
+			dgGoogol side (q1p0.DotProduct3(p1p0.CrossProduct3(normal)));
 			if (side >= dgGoogol::m_zero) {
 				return false;
 			}
@@ -972,7 +974,7 @@ do {
 		if ((test0 * test1) < dgGoogol::m_zero) {
 			//point on different size, clip the line
 			dgHugeVector p1p0 (p1 - p0);
-			dgGoogol param = dgGoogol::m_zero - plane.EvaluePlane(p0) / (plane % p1p0);
+			dgGoogol param = dgGoogol::m_zero - plane.EvaluePlane(p0) / plane.DotProduct3(p1p0);
 			dgHugeVector p (p0 + p1p0.Scale3 (param));
 			if (IsPointInFace (p, meshFace, face, plane)) {
 				point = dgBigVector(p.m_x, p.m_y, p.m_z, p.m_w);
@@ -987,7 +989,7 @@ do {
 		return false;
 	}
 
-	static void CalculateIntersection (dgMeshEffect* const edgeOwnerMesh, dgEdge* const edgeStart, dgMeshEffect* const faceOwnerMesh, dgEdge* const face, const dgHugeVector& facePlane, dgBigVector* const data, dgInt32& index)
+	static void CalculateIntersection (const dgMeshEffect* const edgeOwnerMesh, dgEdge* const edgeStart, const dgMeshEffect* const faceOwnerMesh, dgEdge* const face, const dgHugeVector& facePlane, dgBigVector* const data, dgInt32& index)
 	{
 		dgEdge* edge = edgeStart;
 		do {
@@ -1001,8 +1003,8 @@ do {
 
 	static void ClipMeshesFaces(dgBooleanMeshClipper& bvhMeshA, dgEdge* const faceA, dgBooleanMeshClipper& bvhMeshB, dgEdge* const faceB)
 	{
-		dgMeshEffect* const meshA = bvhMeshA.m_mesh;
-		dgMeshEffect* const meshB = bvhMeshB.m_mesh;
+		const dgMeshEffect* const meshA = bvhMeshA.m_mesh;
+		const dgMeshEffect* const meshB = bvhMeshB.m_mesh;
 		dgAssert (meshA->FindEdge(faceA->m_incidentVertex, faceA->m_twin->m_incidentVertex) == faceA);
 		dgAssert (meshB->FindEdge(faceB->m_incidentVertex, faceB->m_twin->m_incidentVertex) == faceB);
 
@@ -1025,6 +1027,8 @@ do {
 
 	static void ClipMeshesAndColorize(dgMeshEffect* const meshA, dgMeshEffect* const meshB)
 	{
+		dgAssert (0);
+/*
 		dgBooleanMeshClipper BVHmeshA(meshA);
 		dgBooleanMeshClipper BVHmeshB(meshB);
 
@@ -1086,7 +1090,7 @@ do {
 				}
 			}
 		}
-
+*/
 		dgAssert (0);
 //		network.Colorize();
 	

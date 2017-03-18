@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -35,7 +35,6 @@
 class dgCollisionMesh;
 typedef void (*dgCollisionMeshCollisionCallback) (const dgBody* const bodyWithTreeCollision, const dgBody* const body, dgInt32 faceID, 
 												  dgInt32 vertexCount, const dgFloat32* const vertex, dgInt32 vertexStrideInBytes); 
-
 
 
 DG_MSC_VECTOR_ALIGMENT 
@@ -96,6 +95,12 @@ class dgPolygonMeshDesc: public dgFastAABBInfo
 		dgInt32 size = faceIndexArray[indexCount * 2 + 2];
 		return dgFloat32 ((size >= 1) ? size : dgFloat32 (1.0f));
 	}
+
+	DG_INLINE dgFloat32 GetSeparetionDistance() const
+	{
+		return m_separationDistance * m_polySoupInstance->GetScale().GetScalar();
+	}
+
 
 	void SortFaceArray ();
 

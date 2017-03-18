@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -108,10 +108,12 @@ class dgCollisionInstance
 
 	dgFloat32 GetBoxMinRadius () const; 
 	dgFloat32 GetBoxMaxRadius () const; 
+
 	dgMatrix CalculateInertia () const;
+	dgMatrix GetScaledTransform(const dgMatrix& matrix) const;
 	void DebugCollision  (const dgMatrix& matrix, dgCollision::OnDebugCollisionMeshCallback callback, void* const userData) const;
 
-	dgVector SupportVertex (const dgVector& dir, dgInt32* const vertexIndex) const;
+	dgVector SupportVertex (const dgVector& dir) const;
 	dgInt32 CalculatePlaneIntersection (const dgVector& normal, const dgVector& point, dgVector* const contactsOut) const;
 
 	dgInt32 CalculateSignature () const;
@@ -351,31 +353,30 @@ DG_INLINE dgFloat32 dgCollisionInstance::GetBoxMinRadius () const
 
 DG_INLINE dgFloat32 dgCollisionInstance::GetBoxMaxRadius () const
 {
-	//return m_childShape->GetBoxMaxRadius() * m_maxScale.m_x;
-	return GetBoxMinRadius ();
+	return m_childShape->GetBoxMaxRadius() * m_maxScale.m_x;
 } 
 
 
-DG_INLINE dgVector dgCollisionInstance::SupportVertex(const dgVector& dir, dgInt32* const vertexIndex) const
+DG_INLINE dgVector dgCollisionInstance::SupportVertex(const dgVector& dir) const
 {
-	dgAssert (dgAbsf(dir % dir - dgFloat32 (1.0f)) < dgFloat32 (1.0e-2f));
+	dgAssert (dgAbsf(dir.DotProduct3(dir) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-2f));
 	dgAssert (dir.m_w == dgFloat32 (0.0f));
 	switch (m_scaleType)
 	{
 		case m_unit:
 		{
-			return m_childShape->SupportVertex (dir, vertexIndex);
+			return m_childShape->SupportVertex (dir, NULL);
 		}
 		case m_uniform:
 		{
-			return m_scale.CompProduct4 (m_childShape->SupportVertex (dir, vertexIndex));
+			return m_scale.CompProduct4 (m_childShape->SupportVertex (dir, NULL));
 		}
 		case m_nonUniform:
 		{
 			// support((p * S), n) = S * support (p, n * transp(S)) 
 			dgVector dir1 (m_scale.CompProduct4(dir));
 			dir1 = dir1.CompProduct4(dir1.InvMagSqrt());
-			return m_scale.CompProduct4(m_childShape->SupportVertex (dir1, vertexIndex));
+			return m_scale.CompProduct4(m_childShape->SupportVertex (dir1, NULL));
 		}
 
 		case m_global:
@@ -383,14 +384,14 @@ DG_INLINE dgVector dgCollisionInstance::SupportVertex(const dgVector& dir, dgInt
 		{
 			dgVector dir1 (m_aligmentMatrix.UnrotateVector(m_scale.CompProduct4(dir)));
 			dir1 = dir1.CompProduct4(dir1.InvMagSqrt());
-			return m_scale.CompProduct4(m_aligmentMatrix.TransformVector (m_childShape->SupportVertex (dir1, vertexIndex)));
+			return m_scale.CompProduct4(m_aligmentMatrix.TransformVector (m_childShape->SupportVertex (dir1, NULL)));
 		}
 	}
 }
 
 DG_INLINE dgVector dgCollisionInstance::SupportVertexSpecial (const dgVector& dir, dgInt32* const vertexIndex) const
 {
-	dgAssert(dgAbsf(dir % dir - dgFloat32(1.0f)) < dgFloat32(1.0e-2f));
+	dgAssert(dgAbsf(dir.DotProduct3(dir) - dgFloat32(1.0f)) < dgFloat32(1.0e-2f));
 	dgAssert(dir.m_w == dgFloat32(0.0f));
 	switch (m_scaleType) 
 	{
@@ -402,6 +403,10 @@ DG_INLINE dgVector dgCollisionInstance::SupportVertexSpecial (const dgVector& di
 		{
 			return m_scale.CompProduct4(m_childShape->SupportVertexSpecial(dir, vertexIndex));
 		}
+
+		default:
+			return SupportVertex(dir);
+/*
 		case m_nonUniform:
 		{
 			// support((p * S), n) = S * support (p, n * transp(S)) 
@@ -417,12 +422,13 @@ DG_INLINE dgVector dgCollisionInstance::SupportVertexSpecial (const dgVector& di
 			dir1 = dir1.CompProduct4(dir1.InvMagSqrt());
 			return m_scale.CompProduct4(m_aligmentMatrix.TransformVector(m_childShape->SupportVertexSpecial(dir1, vertexIndex)));
 		}
+*/
 	}
 }
 
 DG_INLINE dgVector dgCollisionInstance::SupportVertexSpecialProjectPoint (const dgVector& point, const dgVector& dir) const
 {
-	dgAssert(dgAbsf(dir % dir - dgFloat32(1.0f)) < dgFloat32(1.0e-2f));
+	dgAssert(dgAbsf(dir.DotProduct3(dir) - dgFloat32(1.0f)) < dgFloat32(1.0e-2f));
 	dgAssert(dir.m_w == dgFloat32(0.0f));
 	switch (m_scaleType) 
 	{
@@ -434,6 +440,10 @@ DG_INLINE dgVector dgCollisionInstance::SupportVertexSpecialProjectPoint (const 
 		{
 			return m_scale.CompProduct4(m_childShape->SupportVertexSpecialProjectPoint(point.CompProduct4(m_invScale), dir));
 		}
+
+		default:
+			return point;
+/*
 		case m_nonUniform:
 		{
 			// support((p * S), n) = S * support (p/S, n * transp(S)) 
@@ -449,6 +459,7 @@ DG_INLINE dgVector dgCollisionInstance::SupportVertexSpecialProjectPoint (const 
 			dir1 = dir1.CompProduct4(dir1.InvMagSqrt());
 			return m_scale.CompProduct4(m_aligmentMatrix.TransformVector(m_childShape->SupportVertexSpecialProjectPoint(m_aligmentMatrix.UntransformVector(point.CompProduct4(m_invScale)), dir1)));
 		}
+*/
 	}
 }
 
@@ -514,6 +525,15 @@ DG_INLINE dgCollisionInstance::dgScaleType dgCollisionInstance::GetCombinedScale
 {
 	dgAssert (0);
 	return dgMax(m_scaleType, type);
+}
+
+DG_INLINE dgMatrix dgCollisionInstance::GetScaledTransform(const dgMatrix& matrix) const
+{
+	dgMatrix scaledMatrix(m_localMatrix * matrix);
+	scaledMatrix[0] = scaledMatrix[0].Scale3(m_scale[0]);
+	scaledMatrix[1] = scaledMatrix[1].Scale3(m_scale[1]);
+	scaledMatrix[2] = scaledMatrix[2].Scale3(m_scale[2]);
+	return m_aligmentMatrix * scaledMatrix;
 }
 
 DG_INLINE void dgCollisionInstance::CalcObb (dgVector& origin, dgVector& size) const

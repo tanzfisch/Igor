@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -25,6 +25,11 @@
 #include "dgStdafx.h"
 #include "dgVector.h"
 
+
+#ifdef _NEWTON_USE_DOUBLE
+	#define dgPlane dgBigPlane
+#else 
+
 DG_MSC_VECTOR_ALIGMENT
 class dgPlane: public dgVector
 {
@@ -37,30 +42,28 @@ class dgPlane: public dgVector
 	dgPlane Scale (dgFloat32 s) const;
 	dgFloat32 Evalue (const dgFloat32* const point) const;
 	dgFloat32 Evalue (const dgVector &point) const;
+} DG_GCC_VECTOR_ALIGMENT;
+
+#endif
 
 
-}DG_GCC_VECTOR_ALIGMENT;
-
-
-#ifndef _NEWTON_USE_DOUBLE
 DG_MSC_VECTOR_ALIGMENT
 class dgBigPlane: public dgBigVector
 {
 	public:
 	dgBigPlane ();
+	dgBigPlane (const dgBigVector& point);
 	dgBigPlane (dgFloat64 x, dgFloat64 y, dgFloat64 z, dgFloat64 w);
 	dgBigPlane (const dgBigVector &normal, dgFloat64 distance); 
 	dgBigPlane (const dgBigVector &P0, const dgBigVector &P1, const dgBigVector &P2);
 	dgBigPlane Scale (dgFloat64 s) const;
-	dgFloat64 Evalue (const dgFloat32* const point) const;
 	dgFloat64 Evalue (const dgFloat64* const point) const;
-
-	dgFloat64 Evalue (const dgVector &point) const;
 	dgFloat64 Evalue (const dgBigVector &point) const;
-}DG_GCC_VECTOR_ALIGMENT;
-#endif
+} DG_GCC_VECTOR_ALIGMENT;
 
 
+
+#ifndef _NEWTON_USE_DOUBLE
 
 DG_INLINE dgPlane::dgPlane () 
 	:dgVector () 
@@ -84,36 +87,36 @@ DG_INLINE dgPlane::dgPlane (const dgVector &normal, dgFloat32 distance)
 }
 
 DG_INLINE dgPlane::dgPlane (const dgVector &P0, const dgVector &P1, const dgVector &P2)
-	:dgVector ((P1 - P0) * (P2 - P0)) 
+	:dgVector ((P1 - P0).CrossProduct3(P2 - P0)) 
 {
-	m_w = - (*this % P0);
+	m_w = - DotProduct3(P0);
 }
 
 DG_INLINE dgPlane dgPlane::Scale (dgFloat32 s)	const
 {
-//	return dgPlane (m_x * s, m_y * s, m_z * s, m_w * s);
 	return dgPlane (CompProduct4 (dgVector (s)));
 }
 
 
 DG_INLINE dgFloat32 dgPlane::Evalue (const dgFloat32* const point) const
 {
-//	return m_x * point[0] + m_y * point[1] + m_z * point[2] + m_w;
 	return DotProduct4 (dgVector (point) | m_wOne).GetScalar();
 }
 
 DG_INLINE dgFloat32 dgPlane::Evalue (const dgVector& point) const
 {
-//	return m_x * point.m_x + m_y * point.m_y + m_z * point.m_z + m_w;
 	return DotProduct4 ((point & m_triplexMask) | m_wOne).GetScalar();
 }
+#endif
 
 
-#ifdef _NEWTON_USE_DOUBLE
-typedef dgPlane dgBigPlane;
-#else 
 DG_INLINE dgBigPlane::dgBigPlane () 
 	:dgBigVector () 
+{
+}
+
+DG_INLINE dgBigPlane::dgBigPlane (const dgBigVector& point)
+	:dgBigVector (point)
 {
 }
 
@@ -122,7 +125,6 @@ DG_INLINE dgBigPlane::dgBigPlane (dgFloat64 x, dgFloat64 y, dgFloat64 z, dgFloat
 {
 }
 
-
 DG_INLINE dgBigPlane::dgBigPlane (const dgBigVector &normal, dgFloat64 distance) 
 	:dgBigVector (normal)
 {
@@ -130,19 +132,14 @@ DG_INLINE dgBigPlane::dgBigPlane (const dgBigVector &normal, dgFloat64 distance)
 }
 
 DG_INLINE dgBigPlane::dgBigPlane (const dgBigVector &P0, const dgBigVector &P1, const dgBigVector &P2)
-	:dgBigVector ((P1 - P0) * (P2 - P0)) 
+	:dgBigVector ((P1 - P0).CrossProduct3(P2 - P0)) 
 {
-	m_w = - (*this % P0);
+	m_w = - DotProduct3(P0);
 }
 
 DG_INLINE dgBigPlane dgBigPlane::Scale (dgFloat64 s) const
 {
 	return dgBigPlane (m_x * s, m_y * s, m_z * s, m_w * s);
-}
-
-DG_INLINE dgFloat64 dgBigPlane::Evalue (const dgFloat32* const point) const
-{
-	return m_x * point[0] + m_y * point[1] + m_z * point[2] + m_w;
 }
 
 DG_INLINE dgFloat64 dgBigPlane::Evalue (const dgFloat64* const point) const
@@ -151,16 +148,10 @@ DG_INLINE dgFloat64 dgBigPlane::Evalue (const dgFloat64* const point) const
 }
 
 
-DG_INLINE dgFloat64 dgBigPlane::Evalue (const dgVector &point) const
-{
-	return m_x * point.m_x + m_y * point.m_y + m_z * point.m_z + m_w;
-}
-
 DG_INLINE dgFloat64 dgBigPlane::Evalue (const dgBigVector &point) const
 {
 	return m_x * point.m_x + m_y * point.m_y + m_z * point.m_z + m_w;
 }
-#endif
 
 #endif
 

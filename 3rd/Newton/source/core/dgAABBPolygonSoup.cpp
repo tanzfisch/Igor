@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -408,14 +408,14 @@ dgFloat32 dgAABBPolygonSoup::CalculateFaceMaxSize (const dgVector* const vertex,
 		dgVector p1 (vertex[index]);
 
 		dgVector dir (p1 - p0);
-		dir = dir.Scale3 (dgRsqrt (dir % dir));
+		dir = dir.Scale3 (dgRsqrt (dir.DotProduct3(dir)));
 
 		dgFloat32 maxVal = dgFloat32 (-1.0e10f);
 		dgFloat32 minVal = dgFloat32 ( 1.0e10f);
 		for (dgInt32 j = 0; j < indexCount; j ++) {
 			dgInt32 index = indexArray[j];
 			dgVector q (vertex[index]);
-			dgFloat32 val = dir % q;
+			dgFloat32 val = dir.DotProduct3(q);
 			minVal = dgMin(minVal, val);
 			maxVal = dgMax(maxVal, val);
 		}
@@ -464,16 +464,16 @@ void dgAABBPolygonSoup::CalculateAdjacendy ()
 
 				dgInt32 j0 = 2 * (vCount + 1) - 1;
 				dgVector normal (&vertexArray[face[vCount + 1]].m_x);
-				dgAssert (dgAbsf ((normal % normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
+				dgAssert (dgAbsf (normal.DotProduct3(normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
 				dgVector p0 (&vertexArray[face[vCount - 1]].m_x);
 				for (dgInt32 j = 0; j < vCount; j ++) {
 					dgInt32 j1 = vCount + 2 + j;
 					dgVector p1 (&vertexArray[face[j]].m_x);
 					if (face[j0] == -1) {
 						dgVector e (p1 - p0);
-						dgVector n (e * normal);
-						n = n.Scale4(dgFloat32 (1.0f) / dgSqrt (n % n));
-						dgAssert (dgAbsf ((n % n) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
+						dgVector n (e.CrossProduct3(normal));
+						n = n.Scale4(dgFloat32 (1.0f) / dgSqrt (n.DotProduct3(n)));
+						dgAssert (dgAbsf (n.DotProduct3(n) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
 						pool[normalCount].m_x = n.m_x;
 						pool[normalCount].m_y = n.m_y;
 						pool[normalCount].m_z = n.m_z;
@@ -494,16 +494,16 @@ void dgAABBPolygonSoup::CalculateAdjacendy ()
 
 				dgInt32 j0 = 2 * (vCount + 1) - 1;
 				dgVector normal (&vertexArray[face[vCount + 1]].m_x);
-				dgAssert (dgAbsf ((normal % normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
+				dgAssert (dgAbsf (normal.DotProduct3(normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
 				dgVector p0 (&vertexArray[face[vCount - 1]].m_x);
 				for (dgInt32 j = 0; j < vCount; j ++) {
 					dgInt32 j1 = vCount + 2 + j;
 					dgVector p1 (&vertexArray[face[j]].m_x);
 					if (face[j0] == -1) {
 						dgVector e (p1 - p0);
-						dgVector n (e * normal);
-						n = n.Scale4(dgFloat32 (1.0f) / dgSqrt (n % n));
-						dgAssert (dgAbsf ((n % n) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
+						dgVector n (e.CrossProduct3(normal));
+						n = n.Scale4(dgFloat32 (1.0f) / dgSqrt (n.DotProduct3(n)));
+						dgAssert (dgAbsf (n.DotProduct3(n) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
 						pool[normalCount].m_x = n.m_x;
 						pool[normalCount].m_y = n.m_y;
 						pool[normalCount].m_z = n.m_z;
@@ -543,7 +543,7 @@ void dgAABBPolygonSoup::CalculateAdjacendy ()
 					}
 					#ifdef _DEBUG	
 						dgVector normal (&vertexArray[face[vCount + 2 + j]].m_x);
-						dgAssert (dgAbsf ((normal % normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
+						dgAssert (dgAbsf (normal.DotProduct3 (normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
 					#endif
 				}
 			}
@@ -560,7 +560,7 @@ void dgAABBPolygonSoup::CalculateAdjacendy ()
 
 					#ifdef _DEBUG	
 						dgVector normal (&vertexArray[face[vCount + 2 + j]].m_x);
-						dgAssert (dgAbsf ((normal % normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
+						dgAssert (dgAbsf (normal.DotProduct3 (normal) - dgFloat32 (1.0f)) < dgFloat32 (1.0e-6f));
 					#endif
 				}
 			}
@@ -573,13 +573,13 @@ dgIntersectStatus dgAABBPolygonSoup::CalculateAllFaceEdgeNormals (void* const co
 {
 	dgInt32 stride = dgInt32 (strideInBytes / sizeof (dgFloat32));
 
-	AdjacentdFaces adjacentFaces;
+	AdjacentdFace adjacentFaces;
 	adjacentFaces.m_count = indexCount;
 	adjacentFaces.m_index = (dgInt32*) indexArray;
 
 	dgVector n (&polygon[indexArray[indexCount + 1] * stride]);
 	dgVector p (&polygon[indexArray[0] * stride]);
-	adjacentFaces.m_normal = dgPlane (n, - (n % p));
+	adjacentFaces.m_normal = dgPlane (n, - n.DotProduct3 (p));
 
 	dgAssert (indexCount < dgInt32 (sizeof (adjacentFaces.m_edgeMap) / sizeof (adjacentFaces.m_edgeMap[0])));
 
@@ -591,12 +591,6 @@ dgIntersectStatus dgAABBPolygonSoup::CalculateAllFaceEdgeNormals (void* const co
 		dgInt32 i1 = indexArray[i];
 		dgInt32 index = i1 * stride;
 		dgVector p (&polygon[index]);
-//		p0.m_x = dgMin (p.m_x, p0.m_x); 
-//		p0.m_y = dgMin (p.m_y, p0.m_y); 
-//		p0.m_z = dgMin (p.m_z, p0.m_z); 
-//		p1.m_x = dgMax (p.m_x, p1.m_x); 
-//		p1.m_y = dgMax (p.m_y, p1.m_y); 
-//		p1.m_z = dgMax (p.m_z, p1.m_z); 
 		p0 = p0.GetMin(p);
 		p1 = p1.GetMax(p);
 		adjacentFaces.m_edgeMap[edgeIndex] = (dgInt64 (i1) << 32) + i0;
@@ -624,20 +618,20 @@ dgIntersectStatus dgAABBPolygonSoup::CalculateDisjointedFaceEdgeNormals (void* c
 	#define DG_WELDING_TOL (1.0e-2f)
 	#define DG_WELDING_TOL2 (DG_WELDING_TOL * DG_WELDING_TOL)
 
-	AdjacentdFaces& adjacentFaces = *((AdjacentdFaces*)context);
+	const AdjacentdFace& adjacentFace = *((AdjacentdFace*)context);
 
-	if (adjacentFaces.m_index != indexArray) {	
-		dgInt32 adjacentCount = adjacentFaces.m_count;
+	if (adjacentFace.m_index != indexArray) {	
+		dgInt32 adjacentCount = adjacentFace.m_count;
 		dgInt32 stride = dgInt32 (strideInBytes / sizeof (dgFloat32));
 
 		dgInt32 j0 = adjacentCount - 1;
-		dgInt32 indexJ0 = adjacentFaces.m_index[adjacentCount - 1];
+		dgInt32 indexJ0 = adjacentFace.m_index[adjacentCount - 1];
 		for (dgInt32 j = 0; j < adjacentCount; j ++) {
-			dgInt32 indexJ1 = adjacentFaces.m_index[j];
+			dgInt32 indexJ1 = adjacentFace.m_index[j];
 			dgBigVector q0 (&polygon[indexJ1 * stride]);
 			dgBigVector q1 (&polygon[indexJ0 * stride]);
 			dgBigVector q1q0 (q1 - q0);
-			dgFloat64 q1q0Mag2 = q1q0 % q1q0;
+			dgFloat64 q1q0Mag2 = q1q0.DotProduct3 (q1q0);
 
 			dgInt32 indexI0 = indexArray[indexCount - 1];
 			for (dgInt32 i = 0; i < indexCount; i ++) {
@@ -645,52 +639,53 @@ dgIntersectStatus dgAABBPolygonSoup::CalculateDisjointedFaceEdgeNormals (void* c
 				dgBigVector p0 (&polygon[indexI0 * stride]);
 				dgBigVector p1 (&polygon[indexI1 * stride]);
 				dgBigVector p1p0 (p1 - p0);
-				dgFloat64 dot = p1p0 % q1q0;
+				dgFloat64 dot = p1p0.DotProduct3 (q1q0);
 				if (dot > 0.0f) {
-					dgFloat64 q1p0Mag2 = p1p0 % p1p0;
+					dgFloat64 q1p0Mag2 = p1p0.DotProduct3 (p1p0);
 					if ((dot * dot) >= (q1p0Mag2 * q1q0Mag2 * dgFloat64(0.99995f))) {
-						dgFloat64 x0 = q0 % q1q0;
-						dgFloat64 x1 = q1 % q1q0;
-						dgFloat64 y0 = p0 % q1q0;
-						dgFloat64 y1 = p1 % q1q0;
+						dgFloat64 x0 = q0.DotProduct3 (q1q0);
+						dgFloat64 x1 = q1.DotProduct3 (q1q0);
+						dgFloat64 y0 = p0.DotProduct3 (q1q0);
+						dgFloat64 y1 = p1.DotProduct3 (q1q0);
 						dgAssert (x1 > x0);
 						dgAssert (y1 > y0);
 						if (!((y0 >= x1) || (y1 <= x0))) {
-							dgFloat64 t = ((p0 - q0) % q1q0) / q1q0Mag2;
+							//dgFloat64 t = ((p0 - q0) % q1q0) / q1q0Mag2;
+							dgFloat64 t = q1q0.DotProduct3 (p0 - q0) / q1q0Mag2;
 							dgBigVector q (q0 + q1q0.Scale3(t));
 							dgBigVector dist (p0 - q);
-							dgFloat64 err2 = dist % dist;
+							dgFloat64 err2 = dist.DotProduct3 (dist);
 							if (err2 < DG_WELDING_TOL2) {
 								dgFloat32 maxDist = dgFloat32 (0.0f);
 								for (dgInt32 k = 0; k < indexCount; k ++) {
 									dgVector r (&polygon[indexArray[k] * stride]);
-									dgFloat32 dist = adjacentFaces.m_normal.Evalue(r);
+									dgFloat32 dist = adjacentFace.m_normal.Evalue(r);
 									if (dgAbsf (dist) > dgAbsf (maxDist)) {
 										maxDist = dist;
 									}
 								}
 
-								if (adjacentFaces.m_index[j0 + adjacentCount + 2] == -1) {
+								if (adjacentFace.m_index[j0 + adjacentCount + 2] == -1) {
 									if (maxDist < -dgFloat32 (1.0e-3f)) {
-										adjacentFaces.m_index[j0 + adjacentCount + 2] = indexArray[indexCount + 1];
+										adjacentFace.m_index[j0 + adjacentCount + 2] = indexArray[indexCount + 1];
 									} else {
-										adjacentFaces.m_index[j0 + adjacentCount + 2] = adjacentFaces.m_index[adjacentCount + 1];
+										adjacentFace.m_index[j0 + adjacentCount + 2] = adjacentFace.m_index[adjacentCount + 1];
 									}
 								} else {
 									if (maxDist < -dgFloat32 (1.0e-3f)) {
-										dgBigVector n0 (adjacentFaces.m_normal[0], adjacentFaces.m_normal[1], adjacentFaces.m_normal[2], dgFloat64(0.0f));
-										dgBigVector n1 (&polygon[adjacentFaces.m_index[j0 + adjacentCount + 2] * stride]);
+										dgBigVector n0 (adjacentFace.m_normal[0], adjacentFace.m_normal[1], adjacentFace.m_normal[2], dgFloat64(0.0f));
+										dgBigVector n1 (&polygon[adjacentFace.m_index[j0 + adjacentCount + 2] * stride]);
 										dgBigVector n2 (&polygon[indexArray[indexCount + 1] * stride]);
 
-										dgBigVector tilt0 (n0 * n1); 
-										dgBigVector tilt1 (n0 * n2); 
-										dgFloat64 dist0 (q1q0 % tilt0);
-										dgFloat64 dist1 (q1q0 % tilt1);
+										dgBigVector tilt0 (n0.CrossProduct3(n1)); 
+										dgBigVector tilt1 (n0.CrossProduct3(n2)); 
+										dgFloat64 dist0 (q1q0.DotProduct3 (tilt0));
+										dgFloat64 dist1 (q1q0.DotProduct3 (tilt1));
 										if (dist0 < dist1) {
-											adjacentFaces.m_index[j0 + adjacentCount + 2] = indexArray[indexCount + 1];
+											adjacentFace.m_index[j0 + adjacentCount + 2] = indexArray[indexCount + 1];
 										}
 									} else {
-										adjacentFaces.m_index[j0 + adjacentCount + 2] = adjacentFaces.m_index[adjacentCount + 1];
+										adjacentFace.m_index[j0 + adjacentCount + 2] = adjacentFace.m_index[adjacentCount + 1];
 									}
 								}
 								break;
@@ -1017,7 +1012,7 @@ dgVector dgAABBPolygonSoup::ForAllSectorsSupportVectex (const dgVector& dir) con
 					for (dgInt32 j = 0; j < vCount; j ++) {
 						dgInt32 i0 = m_indices[index + j] * dgInt32 (sizeof (dgTriplex) / sizeof (dgFloat32));
 						dgVector p (&boxArray[i0].m_x);
-						dgFloat32 dist = p % dir;
+						dgFloat32 dist = p.DotProduct3 (dir);
 						if (dist > backSupportDist) {
 							backSupportDist = dist;
 							vertex = p;
@@ -1040,7 +1035,7 @@ dgVector dgAABBPolygonSoup::ForAllSectorsSupportVectex (const dgVector& dir) con
 					box[1].m_z = boxArray[node->m_indexBox1].m_z;
 
 					dgVector supportPoint (box[ix].m_x, box[iy].m_y, box[iz].m_z, dgFloat32 (0.0));
-					backSupportDist = supportPoint % dir;
+					backSupportDist = supportPoint.DotProduct3 (dir);
 				}
 
 				if (me->m_right.IsLeaf()) {
@@ -1051,7 +1046,7 @@ dgVector dgAABBPolygonSoup::ForAllSectorsSupportVectex (const dgVector& dir) con
 					for (dgInt32 j = 0; j < vCount; j ++) {
 						dgInt32 i0 = m_indices[index + j] * dgInt32 (sizeof (dgTriplex) / sizeof (dgFloat32));
 						dgVector p (&boxArray[i0].m_x);
-						dgFloat32 dist = p % dir;
+						dgFloat32 dist = p.DotProduct3 (dir);
 						if (dist > frontSupportDist) {
 							frontSupportDist = dist;
 							vertex = p;
@@ -1073,7 +1068,7 @@ dgVector dgAABBPolygonSoup::ForAllSectorsSupportVectex (const dgVector& dir) con
 					box[1].m_z = boxArray[node->m_indexBox1].m_z;
 
 					dgVector supportPoint (box[ix].m_x, box[iy].m_y, box[iz].m_z, dgFloat32 (0.0f));
-					frontSupportDist = supportPoint % dir;
+					frontSupportDist = supportPoint.DotProduct3 (dir);
 				}
 
 				if (frontSupportDist >= backSupportDist) {
@@ -1194,7 +1189,6 @@ void dgAABBPolygonSoup::ForAllSectorsRayHit (const dgFastRayTest& raySrc, dgFloa
 
 void dgAABBPolygonSoup::ForAllSectors (const dgFastAABBInfo& obbAabbInfo, const dgVector& boxDistanceTravel, dgFloat32 m_maxT, dgAABBIntersectCallback callback, void* const context) const
 {
-
 	dgAssert (dgAbsf(dgAbsf(obbAabbInfo[0][0]) - obbAabbInfo.m_absDir[0][0]) < dgFloat32 (1.0e-4f));
 	dgAssert (dgAbsf(dgAbsf(obbAabbInfo[1][1]) - obbAabbInfo.m_absDir[1][1]) < dgFloat32 (1.0e-4f));
 	dgAssert (dgAbsf(dgAbsf(obbAabbInfo[2][2]) - obbAabbInfo.m_absDir[2][2]) < dgFloat32 (1.0e-4f));
@@ -1210,11 +1204,14 @@ void dgAABBPolygonSoup::ForAllSectors (const dgFastAABBInfo& obbAabbInfo, const 
 		const dgInt32 stride = sizeof (dgTriplex) / sizeof (dgFloat32);
 		const dgTriplex* const vertexArray = (dgTriplex*) m_localVertex;
 
-		if ((boxDistanceTravel % boxDistanceTravel) < dgFloat32 (1.0e-8f)) {
+		if (boxDistanceTravel.DotProduct3 (boxDistanceTravel) < dgFloat32 (1.0e-8f)) {
 
 			dgInt32 stack = 1;
 			stackPool[0] = m_aabb;
 			distance[0] = m_aabb->BoxPenetration(obbAabbInfo, vertexArray);
+			if (distance[0] <= dgFloat32(0.0f)) {
+				obbAabbInfo.m_separationDistance = dgMin(obbAabbInfo.m_separationDistance, -distance[0]);
+			}
 			while (stack) {
 				stack --;
 				dgFloat32 dist = distance[stack];
@@ -1229,10 +1226,13 @@ void dgAABBPolygonSoup::ForAllSectors (const dgFastAABBInfo& obbAabbInfo, const 
 							dgVector faceNormal (&vertexArray[normalIndex].m_x);
 							dgFloat32 dist1 = obbAabbInfo.PolygonBoxDistance (faceNormal, vCount, indices, stride, &vertexArray[0].m_x);
 							if (dist1 > dgFloat32 (0.0f)) {
+								obbAabbInfo.m_separationDistance = dgFloat32(0.0f);
 								dgAssert (vCount >= 3);
 								if (callback(context, &vertexArray[0].m_x, sizeof (dgTriplex), indices, vCount, dist1) == t_StopSearh) {
 									return;
 								}
+							} else {
+								obbAabbInfo.m_separationDistance = dgMin(obbAabbInfo.m_separationDistance, -dist1);
 							}
 						}
 
@@ -1249,6 +1249,8 @@ void dgAABBPolygonSoup::ForAllSectors (const dgFastAABBInfo& obbAabbInfo, const 
 							stackPool[j] = node;
 							distance[j] = dist;
 							stack++;
+						} else {
+							obbAabbInfo.m_separationDistance = dgMin(obbAabbInfo.m_separationDistance, -dist);
 						}
 					}
 
@@ -1262,9 +1264,12 @@ void dgAABBPolygonSoup::ForAllSectors (const dgFastAABBInfo& obbAabbInfo, const 
 							dgFloat32 dist1 = obbAabbInfo.PolygonBoxDistance (faceNormal, vCount, indices, stride, &vertexArray[0].m_x);
 							if (dist1 > dgFloat32 (0.0f)) {
 								dgAssert (vCount >= 3);
+								obbAabbInfo.m_separationDistance = dgFloat32(0.0f);
 								if (callback(context, &vertexArray[0].m_x, sizeof (dgTriplex), indices, vCount, dist1) == t_StopSearh) {
 									return;
 								}
+							} else {
+								obbAabbInfo.m_separationDistance = dgMin(obbAabbInfo.m_separationDistance, -dist1);
 							}
 						}
 
@@ -1281,6 +1286,8 @@ void dgAABBPolygonSoup::ForAllSectors (const dgFastAABBInfo& obbAabbInfo, const 
 							stackPool[j] = node;
 							distance[j] = dist;
 							stack++;
+						} else {
+							obbAabbInfo.m_separationDistance = dgMin(obbAabbInfo.m_separationDistance, -dist);
 						}
 					}
 				}

@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -37,6 +37,7 @@
 
 
 dgVector dgCollisionCompound::m_padding (dgFloat32 (1.0e-3f)); 
+dgVector dgCollisionCompound::dgOOBBTestData::m_maxDist (dgFloat32 (1.0e10f));
 
 class dgCollisionCompound::dgHeapNodePair
 {
@@ -62,6 +63,7 @@ void dgCollisionCompound::dgTreeArray::AddNode (dgNodeBase* const node, dgInt32 
 
 dgCollisionCompound::dgOOBBTestData::dgOOBBTestData (const dgMatrix& matrix)
 	:m_matrix (matrix)
+	,m_separatingDistance(dgFloat32 (1.0e10f))
 {
 	m_absMatrix[0] = m_matrix[0].Abs();
 	m_absMatrix[1] = m_matrix[1].Abs();
@@ -73,7 +75,7 @@ dgCollisionCompound::dgOOBBTestData::dgOOBBTestData (const dgMatrix& matrix)
 		dgVector dir(dgFloat32 (0.0f));
 		dir[i] = dgFloat32 (1.0f);
 		for (dgInt32 j = 0; j < 3; j ++) {
-			dgVector axis (dir * m_matrix[j]);
+			dgVector axis (dir.CrossProduct3(m_matrix[j]));
 			m_crossAxis[index] = axis;
 			m_crossAxisAbs[index] = axis.Abs();
 			m_crossAxisDotAbs[index] = matrix.UnrotateVector (axis).Abs();
@@ -102,6 +104,7 @@ dgCollisionCompound::dgOOBBTestData::dgOOBBTestData (const dgMatrix& matrix, con
 	,m_size(localSize)
 	,m_localP0 (localOrigin - localSize)
 	,m_localP1 (localOrigin + localSize)
+	,m_separatingDistance(dgFloat32 (1.0e10f))
 {
 	m_absMatrix[0] = m_matrix[0].Abs();
 	m_absMatrix[1] = m_matrix[1].Abs();
@@ -113,7 +116,7 @@ dgCollisionCompound::dgOOBBTestData::dgOOBBTestData (const dgMatrix& matrix, con
 		dgVector dir(dgFloat32 (0.0f));
 		dir[i] = dgFloat32 (1.0f);
 		for (dgInt32 j = 0; j < 3; j ++) {
-			m_crossAxis[index] = dir * m_matrix[j];
+			m_crossAxis[index] = dir.CrossProduct3(m_matrix[j]);
 			index ++;
 		}
 	}
@@ -132,7 +135,6 @@ dgCollisionCompound::dgOOBBTestData::dgOOBBTestData (const dgMatrix& matrix, con
 			dgVector tmp (m_matrix.UnrotateVector(axis));
 			dgVector d (m_size.DotProduct4(tmp.Abs()) + m_padding);
 			dgVector c (origin.DotProduct4(axis));
-//			extends[index] = ((c - d).PackLow (c + d));
 			dgVector diff (c - d);
 			dgVector sum (c + d);
 			extends[index] = dgVector (diff.m_x, sum.m_x, diff.m_y, sum.m_y);
@@ -245,11 +247,14 @@ void dgCollisionCompound::dgNodeBase::CalculateAABB()
 
 bool dgCollisionCompound::dgNodeBase::BoxTest (const dgOOBBTestData& data) const
 {
+	dgFloat32 separatingDistance = data.UpdateSeparatingDistance (data.m_aabbP0, data.m_aabbP1, m_p0, m_p1);
 	if (dgOverlapTest (data.m_aabbP0, data.m_aabbP1, m_p0, m_p1)) {
+		dgAssert (separatingDistance > dgFloat32 (1000.0f));
 		dgVector origin (data.m_matrix.UntransformVector(m_origin));
 		dgVector size (data.m_absMatrix.UnrotateVector(m_size));
 		dgVector p0 (origin - size);
 		dgVector p1 (origin + size);
+		data.m_separatingDistance = dgMin(data.m_separatingDistance, data.UpdateSeparatingDistance (p0, p1, data.m_localP0, data.m_localP1));
 		if (dgOverlapTest (p0, p1, data.m_localP0, data.m_localP1)) {
 			dgVector size_x (m_size.m_x);
 			dgVector size_y (m_size.m_y);
@@ -274,6 +279,7 @@ bool dgCollisionCompound::dgNodeBase::BoxTest (const dgOOBBTestData& data) const
 			return ret;
 		}
 	}
+	data.m_separatingDistance = dgMin(data.m_separatingDistance, separatingDistance);
 	return false;
 }
 
@@ -284,13 +290,16 @@ bool dgCollisionCompound::dgNodeBase::BoxTest (const dgOOBBTestData& data, const
 	dgVector otherSize (data.m_absMatrix.RotateVector(otherNode->m_size));
 	dgVector otherP0 ((otherOrigin - otherSize) & dgVector::m_triplexMask);
 	dgVector otherP1 ((otherOrigin + otherSize) & dgVector::m_triplexMask);
+	
+	dgFloat32 separatingDistance = data.UpdateSeparatingDistance (m_p0, m_p1, otherP0, otherP1);
 	if (dgOverlapTest (m_p0, m_p1, otherP0, otherP1)) {
+		dgAssert (separatingDistance > dgFloat32 (1000.0f));
 		dgVector origin (data.m_matrix.UntransformVector(m_origin));
 		dgVector size (data.m_absMatrix.UnrotateVector(m_size));
 		dgVector p0 (origin - size);
 		dgVector p1 (origin + size);
+		data.m_separatingDistance = dgMin(data.m_separatingDistance, data.UpdateSeparatingDistance (p0, p1, otherNode->m_p0, otherNode->m_p1));
 		if (dgOverlapTest (p0, p1, otherNode->m_p0, otherNode->m_p1)) {
-
 			dgVector size0_x (m_size.m_x);
 			dgVector size0_y (m_size.m_y);
 			dgVector size0_z (m_size.m_z);
@@ -327,6 +336,7 @@ bool dgCollisionCompound::dgNodeBase::BoxTest (const dgOOBBTestData& data, const
 			return ret;
 		}
 	}
+	data.m_separatingDistance = dgMin(data.m_separatingDistance, separatingDistance);
 	return false;
 }
 
@@ -1045,7 +1055,7 @@ void dgCollisionCompound::EndAddRemove (bool flushCache)
 		}
 
 		m_boxMinRadius = dgMin(m_root->m_size.m_x, m_root->m_size.m_y, m_root->m_size.m_z);
-		m_boxMaxRadius = dgSqrt (m_root->m_size % m_root->m_size);
+		m_boxMaxRadius = dgSqrt (m_root->m_size.DotProduct3(m_root->m_size));
 
 		m_boxSize = m_root->m_size;
 		m_boxOrigin = m_root->m_origin;
@@ -1262,7 +1272,7 @@ dgVector dgCollisionCompound::SupportVertex (const dgVector& dir, dgInt32* const
 	dgInt32 ix = (dir[0] > dgFloat32 (0.0f)) ? 1 : 0;
 	dgInt32 iy = (dir[1] > dgFloat32 (0.0f)) ? 1 : 0;
 	dgInt32 iz = (dir[2] > dgFloat32 (0.0f)) ? 1 : 0;
-	dgVector supportVertex (dgFloat32 (0.0f), dgFloat32 (0.0f),  dgFloat32 (0.0f),  dgFloat32 (0.0f));   
+	dgVector supportVertex (dgFloat32 (0.0f));   
 
 	while (stack) {
 
@@ -1272,12 +1282,12 @@ dgVector dgCollisionCompound::SupportVertex (const dgVector& dir, dgInt32* const
 			const dgNodeBase* const me = stackPool[stack];
 
 			if (me->m_type == m_leaf) {
-				dgInt32 index; 
+				//dgInt32 index; 
 				dgCollisionInstance* const subShape = me->GetShape();
 				const dgMatrix& matrix = subShape->GetLocalMatrix(); 
 				dgVector newDir (matrix.UnrotateVector(dir)); 
-				dgVector vertex (matrix.TransformVector (subShape->SupportVertex(newDir, &index)));		
-				dgFloat32 dist = dir % vertex;
+				dgVector vertex (matrix.TransformVector (subShape->SupportVertex(newDir)));		
+				dgFloat32 dist = dir.DotProduct3(vertex);
 				if (dist > maxProj) {
 					maxProj = dist;
 					supportVertex = vertex;		
@@ -1293,8 +1303,8 @@ dgVector dgCollisionCompound::SupportVertex (const dgVector& dir, dgInt32* const
 				const dgVector* const box1 = &right->m_p0;
 				dgVector p1 (box1[ix].m_x, box1[iy].m_y, box1[iz].m_z, dgFloat32 (0.0f));
 
-				dgFloat32 dist0 = p0 % dir;
-				dgFloat32 dist1 = p1 % dir;
+				dgFloat32 dist0 = p0.DotProduct3(dir);
+				dgFloat32 dist1 = p1.DotProduct3(dir);
 				if (dist0 > dist1) {
 					stackPool[stack] = right;
 					aabbProjection[stack] = dist1;
@@ -1768,8 +1778,7 @@ dgInt32 dgCollisionCompound::CalculateContactsToCompound (dgBroadPhase::dgPair* 
 	stackPool[0][1] = otherCompound->m_root;
 	const dgContactMaterial* const material = constraint->GetMaterial();
 
-
-	dgAssert (contacts);
+	dgAssert ((contacts != NULL) ^ proxy.m_intersectionTestOnly);
 	dgFloat32 closestDist = dgFloat32 (1.0e10f);
 	while (stack) {
 		stack --;
@@ -1927,7 +1936,7 @@ dgInt32 dgCollisionCompound::CalculateContactsToHeightField (dgBroadPhase::dgPai
 	nodeProxi.m_right = NULL;
 	const dgContactMaterial* const material = constraint->GetMaterial();
 
-	dgAssert (contacts);
+	dgAssert ((contacts != NULL) ^ proxy.m_intersectionTestOnly);
 	dgFloat32 closestDist = dgFloat32 (1.0e10f);
 	while (stack) {
 		stack --;
@@ -2039,7 +2048,7 @@ dgInt32 dgCollisionCompound::CalculateContactsUserDefinedCollision (dgBroadPhase
 	nodeProxi.m_right = NULL;
 	const dgContactMaterial* const material = constraint->GetMaterial();
 
-	dgAssert (contacts);
+	dgAssert ((contacts != NULL) ^ proxy.m_intersectionTestOnly);
 	dgFloat32 closestDist = dgFloat32 (1.0e10f);
 	while (stack) {
 		stack --;
@@ -2144,7 +2153,7 @@ dgInt32 dgCollisionCompound::CalculateContactsToSingle (dgBroadPhase::dgPair* co
 	stackPool[0] = m_root;
 	const dgContactMaterial* const material = constraint->GetMaterial();
 
-	dgAssert (contacts);
+	dgAssert ((contacts != NULL) ^ proxy.m_intersectionTestOnly);
 	dgFloat32 closestDist = dgFloat32 (1.0e10f);
 
 	while (stack) {
@@ -2210,7 +2219,6 @@ dgInt32 dgCollisionCompound::CalculateContactsToSingle (dgBroadPhase::dgPair* co
 }
 
 
-
 dgInt32 dgCollisionCompound::CalculateContactsToCollisionTree (dgBroadPhase::dgPair* const pair, dgCollisionParamProxy& proxy) const
 {
 	dgContactPoint* const contacts = proxy.m_contacts;
@@ -2250,7 +2258,7 @@ dgInt32 dgCollisionCompound::CalculateContactsToCollisionTree (dgBroadPhase::dgP
 	const dgContactMaterial* const material = constraint->GetMaterial();
 	const dgVector& treeScale = treeCollisionInstance->GetScale();
 
-	dgAssert (contacts);
+	dgAssert ((contacts != NULL) ^ proxy.m_intersectionTestOnly);
 	dgFloat32 closestDist = dgFloat32 (1.0e10f);
 	while (stack) {
 

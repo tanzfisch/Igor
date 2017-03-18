@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -25,9 +25,6 @@
 #include "dgVector.h"
 #include "dgMemory.h"
 #include "dgStack.h"
-
-
-
 
 dgUnsigned64 dgGetTimeInMicrosenconds()
 {
@@ -75,8 +72,45 @@ dgUnsigned64 dgGetTimeInMicrosenconds()
 }
 
 
+dgFloat64 dgRoundToFloat(dgFloat64 val)
+{
+	dgInt32 exp;
+	dgFloat64 mantissa = frexp(val, &exp);
 
-void GetMinMax (dgVector &minOut, dgVector &maxOut, const dgFloat32* const vertexArray, dgInt32 vCount, dgInt32 strideInBytes)
+	const dgFloat64 power = 1 << 23;
+	const dgFloat64 invPower = dgFloat64(1.0f) / power;
+	mantissa = floor(mantissa * power) * invPower;
+
+	dgFloat64 val1 = ldexp(mantissa, exp);
+	return val1;
+}
+
+
+void dgGetMinMax (dgBigVector &minOut, dgBigVector &maxOut, const dgFloat64* const vertexArray, dgInt32 vCount, dgInt32 strideInBytes)
+{
+	dgInt32 stride = dgInt32 (strideInBytes / sizeof (dgFloat64));
+	const dgFloat64* vArray = vertexArray + stride;
+
+	dgAssert (stride >= 3);
+	minOut = dgBigVector (vertexArray[0], vertexArray[1], vertexArray[2], dgFloat64 (0.0f)); 
+	maxOut = dgBigVector (vertexArray[0], vertexArray[1], vertexArray[2], dgFloat64 (0.0f)); 
+
+	for (dgInt32 i = 1; i < vCount; i ++) {
+		minOut.m_x = dgMin (minOut.m_x, vArray[0]);
+		minOut.m_y = dgMin (minOut.m_y, vArray[1]);
+		minOut.m_z = dgMin (minOut.m_z, vArray[2]);
+
+		maxOut.m_x = dgMax (maxOut.m_x, vArray[0]);
+		maxOut.m_y = dgMax (maxOut.m_y, vArray[1]);
+		maxOut.m_z = dgMax (maxOut.m_z, vArray[2]);
+
+		vArray += stride;
+	}
+}
+
+
+/*
+void dgGetMinMax (dgVector &minOut, dgVector &maxOut, const dgFloat32* const vertexArray, dgInt32 vCount, dgInt32 strideInBytes)
 {
 	dgInt32 stride = dgInt32 (strideInBytes / sizeof (dgFloat32));
 	const dgFloat32* vArray = vertexArray + stride;
@@ -98,8 +132,10 @@ void GetMinMax (dgVector &minOut, dgVector &maxOut, const dgFloat32* const verte
 	}
 }
 
+
+
 #ifndef _NEWTON_USE_DOUBLE
-void GetMinMax (dgBigVector &minOut, dgBigVector &maxOut, const dgFloat64* const vertexArray, dgInt32 vCount, dgInt32 strideInBytes)
+void dgGetMinMax (dgBigVector &minOut, dgBigVector &maxOut, const dgFloat64* const vertexArray, dgInt32 vCount, dgInt32 strideInBytes)
 {
 	dgInt32 stride = dgInt32 (strideInBytes / sizeof (dgFloat64));
 	const dgFloat64* vArray = vertexArray + stride;
@@ -123,6 +159,8 @@ void GetMinMax (dgBigVector &minOut, dgBigVector &maxOut, const dgFloat64* const
 
 #endif
 
+*/
+
 static inline dgInt32 cmp_vertex (const dgFloat64* const v1, const dgFloat64* const v2, dgInt32 firstSortAxis)
 {
 	if (v1[firstSortAxis] < v2[firstSortAxis]) {
@@ -138,22 +176,32 @@ static inline dgInt32 cmp_vertex (const dgFloat64* const v1, const dgFloat64* co
 
 static dgInt32 SortVertices (dgFloat64* const vertexList,  dgInt32 stride, dgInt32 compareCount, dgInt32 vertexCount, dgFloat64 tolerance)
 {
-	dgFloat64 xc = dgFloat64 (0.0f);
-	dgFloat64 yc = dgFloat64 (0.0f);
-	dgFloat64 zc = dgFloat64 (0.0f);
-	dgFloat64 x2c = dgFloat64 (0.0f);
-	dgFloat64 y2c = dgFloat64 (0.0f);
-	dgFloat64 z2c = dgFloat64 (0.0f);
+//	dgFloat64 xc = dgFloat64 (0.0f);
+//	dgFloat64 yc = dgFloat64 (0.0f);
+//	dgFloat64 zc = dgFloat64 (0.0f);
+//	dgFloat64 x2c = dgFloat64 (0.0f);
+//	dgFloat64 y2c = dgFloat64 (0.0f);
+//	dgFloat64 z2c = dgFloat64 (0.0f);
+//	dgBigVector minP (dgFloat64 (1.0e10f), dgFloat64 (1.0e10f), dgFloat64 (1.0e10f), dgFloat64 (0.0f));
+//	dgBigVector maxP (dgFloat64 (-1.0e10f), dgFloat64 (-1.0e10f), dgFloat64 (-1.0e10f), dgFloat64 (0.0f));
 
+	dgBigVector xc(dgFloat64(0.0f));
+	dgBigVector x2c(dgFloat64(0.0f));
 	dgBigVector minP (dgFloat64 (1.0e10f), dgFloat64 (1.0e10f), dgFloat64 (1.0e10f), dgFloat64 (0.0f));
 	dgBigVector maxP (dgFloat64 (-1.0e10f), dgFloat64 (-1.0e10f), dgFloat64 (-1.0e10f), dgFloat64 (0.0f));
-	//dgInt32 k = 0;
+
 	for (dgInt32 k = 0, i = 0; i < vertexCount; i ++) {
+
+		dgBigVector x(vertexList[k + 2], vertexList[k + 3], vertexList[k + 4], dgFloat64(0.0f));
+		xc += x;
+		x2c += x.CompProduct4(x);
+		minP = minP.GetMin(x);
+		maxP = maxP.GetMax(x);
+		k += stride;
+/*
 		dgFloat64 x  = vertexList[k + 2];
 		dgFloat64 y  = vertexList[k + 3];
 		dgFloat64 z  = vertexList[k + 4];
-		k += stride;
-
 		xc += x;
 		yc += y;
 		zc += z;
@@ -182,6 +230,7 @@ static dgInt32 SortVertices (dgFloat64* const vertexList,  dgInt32 stride, dgInt
 		if (z > maxP.m_z) {
 			maxP.m_z = z; 
 		}
+*/
 	}
 
 	dgBigVector del (maxP - minP);
@@ -194,17 +243,22 @@ static dgInt32 SortVertices (dgFloat64* const vertexList,  dgInt32 stride, dgInt
 	dgFloat64 sweptWindow = dgFloat64 (2.0f) * tol;
 	sweptWindow += dgFloat64 (1.0e-4f);
 
-	x2c = vertexCount * x2c - xc * xc;
-	y2c = vertexCount * y2c - yc * yc;
-	z2c = vertexCount * z2c - zc * zc;
+	x2c = x2c.Scale4 (dgFloat32 (vertexCount)) - xc.CompProduct4(xc);
+//	x2c = vertexCount * x2c - xc * xc;
+//	y2c = vertexCount * y2c - yc * yc;
+//	z2c = vertexCount * z2c - zc * zc;
 
 	dgInt32 firstSortAxis = 2;
-	if ((y2c >= x2c) && (y2c >= z2c)) {
+//	if ((y2c >= x2c) && (y2c >= z2c)) {
+//		firstSortAxis = 3;
+//	} else if ((z2c >= x2c) && (z2c >= y2c)) {
+//		firstSortAxis = 4;
+//	}
+	if ((x2c.m_y >= x2c.m_x) && (x2c.m_y >= x2c.m_z)) {
 		firstSortAxis = 3;
-	} else if ((z2c >= x2c) && (z2c >= y2c)) {
+	} else if ((x2c.m_z >= x2c.m_x) && (x2c.m_z >= x2c.m_y)) {
 		firstSortAxis = 4;
 	}
-
 
 	dgInt32 stack[1024][2];
 	stack[0][0] = 0;
@@ -403,8 +457,6 @@ dgInt32 dgVertexListToIndexList (dgFloat64* const vertList, dgInt32 strideInByte
 	dgStack<dgFloat64>pool (stride2  * vertexCount);
 	dgFloat64* const tmpVertexList = &pool[0];
 
-//	dgInt64* const indexPtr = (dgInt64*)tmpVertexList;
-
 	dgInt32 k = 0;
 	dgInt32 m = 0;
 	for (dgInt32 i = 0; i < vertexCount; i ++) {
@@ -437,7 +489,6 @@ dgInt32 dgVertexListToIndexList (dgFloat64* const vertList, dgInt32 strideInByte
 
 	return count;
 }
-
 
 dgInt32 dgVertexListToIndexList (dgFloat32* const vertList, dgInt32 strideInBytes, dgInt32 floatSizeInBytes, dgInt32 unsignedSizeInBytes, dgInt32 vertexCount, dgInt32* const indexList, dgFloat32 tolerance)
 {
@@ -542,3 +593,53 @@ dgInt32 dgDeserializeMarker(dgDeserialize serializeCallback, void* const userDat
 	serializeCallback (userData, &revision, sizeof (revision));
 	return revision;
 }
+
+dgSetPrecisionDouble::dgSetPrecisionDouble()
+{
+	#if (defined (_MSC_VER) && defined (_WIN_32_VER))
+		dgClearFP();
+		m_mask = dgControlFP(0, 0);
+		dgControlFP (_PC_53, _MCW_PC);
+	#endif
+}
+
+dgSetPrecisionDouble::~dgSetPrecisionDouble()
+{
+	#if (defined (_MSC_VER) && defined (_WIN_32_VER))
+		dgClearFP();
+		dgControlFP (m_mask, _MCW_PC);
+	#endif
+}
+
+
+dgFloatExceptions::dgFloatExceptions(dgUnsigned32 mask)
+	:m_mask (0)
+{
+	#if (defined (_MSC_VER) && defined (_WIN_32_VER))
+		dgClearFP();
+		m_mask = dgControlFP(0, 0);
+		dgControlFP (m_mask & ~mask, _MCW_EM);
+	#endif
+
+	#ifdef _MACOSX_VER
+		#ifndef IOS
+			fesetenv(FE_DFL_DISABLE_SSE_DENORMS_ENV);
+		#endif
+	#else
+		_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);
+	#endif
+
+//	float a (1.0f);
+//	float b (0.1f);
+//	while (a != 0.0f)
+//		a = a * b;
+}
+
+dgFloatExceptions::~dgFloatExceptions()
+{
+	#if (defined (_MSC_VER) && defined (_WIN_32_VER))
+		dgClearFP();
+		dgControlFP(m_mask, _MCW_EM);
+	#endif
+}
+

@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -23,52 +23,6 @@
 #include "NewtonClass.h"
 
 
-
-
-
-NewtonDeadBodies::NewtonDeadBodies(dgMemoryAllocator* const allocator)
-	:dgTree<dgBody*, void*>(allocator)
-{
-	Insert((dgBody*)NULL, 0);
-}
-
-void NewtonDeadBodies::DestroyBodies(Newton& world)
-{
-	Iterator iter (*this);
-	for (iter.Begin(); iter; ) {
-		dgTreeNode* const node = iter.GetNode();
-		iter ++;
-		dgBody* const body = node->GetInfo();
-		if (body) {
-			Remove (node);
-			world.DestroyBody(body);
-		}
-	}
-}
-
-
-NewtonDeadJoints::NewtonDeadJoints(dgMemoryAllocator* const allocator)
-	:dgTree<dgConstraint*, void*>(allocator)
-{
-	Insert((dgConstraint*)NULL, 0);
-}
-
-
-void NewtonDeadJoints::DestroyJoints(Newton& world)
-{
-	Iterator iter (*this);
-	for (iter.Begin(); iter; ) {
-		dgTreeNode* const node = iter.GetNode();
-		iter ++;
-		dgConstraint* const joint = node->GetInfo();
-		if (joint) {
-			Remove (node);
-			world.DestroyConstraint (joint);
-		}
-	}
-}
-
-
 void* Newton::DefaultAllocMemory (dgInt32 size)
 {
 	return malloc (size_t (size));
@@ -81,11 +35,8 @@ void Newton::DefaultFreeMemory (void* const ptr, dgInt32 size)
 }
 
 
-Newton::Newton (dgFloat32 scale, dgMemoryAllocator* const allocator)
-	:dgWorld(allocator) 
-	,NewtonDeadBodies(allocator)
-	,NewtonDeadJoints(allocator)
-	,m_maxTimeStep(DG_TIMESTEP)
+Newton::Newton (dgFloat32 scale, dgMemoryAllocator* const allocator, dgInt32 stackSize)
+	:dgWorld(allocator, stackSize) 
 	,m_destructor(NULL)
 {
 }
@@ -100,48 +51,11 @@ Newton::~Newton ()
 void Newton::UpdatePhysics (dgFloat32 timestep)
 {
 	Update (timestep);
-
-	NewtonDeadBodies& bodyList = *this;
-	NewtonDeadJoints& jointList = *this;
-
-	jointList.DestroyJoints (*this);
-	bodyList.DestroyBodies (*this);
 }
 
 void Newton::UpdatePhysicsAsync (dgFloat32 timestep)
 {
 	UpdateAsync (timestep);
-
-	if (!IsBusy()) {		
-		NewtonDeadBodies& bodyList = *this;
-		NewtonDeadJoints& jointList = *this;
-
-		jointList.DestroyJoints (*this);
-		bodyList.DestroyBodies (*this);
-	} 
-}
-
-
-void Newton::DestroyJoint(dgConstraint* const joint)
-{
-	if (IsBusy()) {		
-		// the engine is busy in the previous update, deferred the deletion
-		NewtonDeadJoints& jointList = *this;
-		jointList.Insert (joint, joint);
-	} else {
-		dgWorld::DestroyConstraint (joint);
-	}
-}
-
-void Newton::DestroyBody(dgBody* const body)
-{
-	if (IsBusy()) {		
-		// the engine is busy in the previous update, deferred the deletion
-		NewtonDeadBodies& bodyList = *this;
-		bodyList.Insert (body, body);
-	} else {
-		dgWorld::DestroyBody(body);
-	}
 }
 
 
@@ -232,12 +146,20 @@ void NewtonUserJoint::GetJacobianAt(dgInt32 index, dgFloat32* const jacobian0, d
 	}
 }
 
+dFloat NewtonUserJoint::GetAcceleration () const
+{
+	dgInt32 index = m_rows - 1;
+	if ((index >= 0) &&  (index < dgInt32 (m_maxDOF))) {
+		return GetRowAcceleration (index, *m_param);
+	}
+	return 0.0f;
+}
+
 
 void NewtonUserJoint::SetAcceleration (dgFloat32 acceleration)
 {
 	dgInt32 index = m_rows - 1;
 	if ((index >= 0) &&  (index < dgInt32 (m_maxDOF))) {
-//		m_param->m_jointAccel[index] = acceleration;
 		SetMotorAcceleration (index, acceleration, *m_param);
 	}
 }
@@ -253,11 +175,11 @@ dgFloat32 NewtonUserJoint::CalculateZeroMotorAcceleration() const
 }
 
 
-void NewtonUserJoint::SetSpringDamperAcceleration (dFloat spring, dFloat damper)
+void NewtonUserJoint::SetSpringDamperAcceleration (dgFloat32 rowStiffness, dFloat spring, dFloat damper)
 {
 	dgInt32 index = m_rows - 1;
 	if ((index >= 0) &&  (index < dgInt32 (m_maxDOF))) {
-		dgBilateralConstraint::SetSpringDamperAcceleration (index, *m_param, spring, damper);
+		dgBilateralConstraint::SetSpringDamperAcceleration (index, *m_param, rowStiffness, spring, damper);
 	}
 }
 
@@ -307,8 +229,9 @@ void NewtonUserJoint::SetRowStiffness (dgFloat32 stiffness)
 {
 	dgInt32 index = m_rows - 1;
 	if ((index >= 0) &&  (index < dgInt32 (m_maxDOF))) {
-		stiffness = dgFloat32 (1.0f) - dgClamp (stiffness, dgFloat32(0.0f), dgFloat32(1.0f));
-		stiffness = -dgFloat32 (1.0f) - stiffness / DG_PSD_DAMP_TOL; 
+//		stiffness = dgFloat32 (1.0f) - dgClamp (stiffness, dgFloat32(0.0f), dgFloat32(1.0f));
+//		stiffness = -dgFloat32 (1.0f) - stiffness / DG_PSD_DAMP_TOL; 
+		stiffness = dgClamp (stiffness, dgFloat32(0.0f), dgFloat32(1.0f));
 		m_param->m_jointStiffness[index] = stiffness;
 	}
 }

@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -29,7 +29,7 @@
 
 class dgThread
 {
-public:
+	public:
 	class dgCriticalSection
 	{
 		public:
@@ -54,14 +54,10 @@ public:
 		#ifdef DG_USE_THREAD_EMULATION
 			dgInt32 m_sem;
 		#else 
-			#if defined (_MACOSX_VER) || defined (IOS) || defined (__APPLE__)
-				sem_t* m_sem;
-				dgInt32 m_nameId;
-			#else
-				sem_t m_sem;
-			#endif
+			std::condition_variable m_sem;
+			std::mutex m_mutex;
+			dgInt32 m_count;
 		#endif
-		friend class dgThread;
 	};
 
 	dgThread ();
@@ -70,21 +66,19 @@ public:
 
 	virtual void Execute (dgInt32 threadId) = 0;
 	
-	bool StillBusy() const;
+	bool IsThreadActive() const;
 	void SuspendExecution (dgSemaphore& mutex);
 	void SuspendExecution (dgInt32 count, dgSemaphore* const mutexes);
-
-	dgInt32 GetPriority() const;
-	void SetPriority(int priority);
 
 	protected:
 	void Init (dgInt32 stacksize = 0);
 	void Init (const char* const name, dgInt32 id, dgInt32 stacksize);
 	void Close ();
-
 	static void* dgThreadSystemCallback(void* threadData);
 
-	pthread_t m_handle;
+	#ifndef DG_USE_THREAD_EMULATION
+		std::thread m_handle;
+	#endif
 	dgInt32 m_id;
 	dgInt32 m_terminate;
 	dgInt32 m_threadRunning;

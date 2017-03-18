@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -38,7 +38,7 @@
 #include "dgCollisionChamferCylinder.h"
 #include "dgCollisionCompoundFractured.h"
 #include "dgCollisionDeformableSolidMesh.h"
-#include "dgCollisionDeformableClothPatch.h"
+#include "dgCollisionMassSpringDamperSystem.h"
 
 //////////////////////////////////////////////////////////////////////
 // Construction/Destruction
@@ -118,9 +118,9 @@ dgCollisionInstance::dgCollisionInstance(const dgCollisionInstance& instance)
 			dgCollisionCompound *const compound = (dgCollisionCompound*) m_childShape;
 			m_childShape = new (m_world->GetAllocator()) dgCollisionCompound (*compound, this);
 		}
-	} else if (m_childShape->IsType (dgCollision::dgCollisionDeformableClothPatch_RTTI)) {
-		dgCollisionDeformableClothPatch* const deformable = (dgCollisionDeformableClothPatch*) m_childShape;
-		m_childShape = new (m_world->GetAllocator()) dgCollisionDeformableClothPatch (*deformable);
+	} else if (m_childShape->IsType (dgCollision::dgCollisionMassSpringDamperSystem_RTTI)) {
+		dgCollisionMassSpringDamperSystem* const deformable = (dgCollisionMassSpringDamperSystem*) m_childShape;
+		m_childShape = new (m_world->GetAllocator()) dgCollisionMassSpringDamperSystem (*deformable);
 	} else if (m_childShape->IsType (dgCollision::dgCollisionDeformableSolidMesh_RTTI)) {
 		dgCollisionDeformableSolidMesh* const deformable = (dgCollisionDeformableSolidMesh*) m_childShape;
 		m_childShape = new (m_world->GetAllocator()) dgCollisionDeformableSolidMesh (*deformable);
@@ -376,7 +376,7 @@ void dgCollisionInstance::SetGlobalScale (const dgVector& scale)
 
 	// extract the original local matrix
 	dgMatrix transpose (matrix.Transpose());
-	dgVector globalScale (dgSqrt (transpose[0] % transpose[0]), dgSqrt (transpose[1] % transpose[1]), dgSqrt (transpose[2] % transpose[2]), dgFloat32 (1.0f));
+	dgVector globalScale (dgSqrt (transpose[0].DotProduct3(transpose[0])), dgSqrt (transpose[1].DotProduct3(transpose[1])), dgSqrt (transpose[2].DotProduct3(transpose[2])), dgFloat32 (1.0f));
 	dgVector invGlobalScale (dgFloat32 (1.0f) / globalScale.m_x, dgFloat32 (1.0f) / globalScale.m_y, dgFloat32 (1.0f) / globalScale.m_z, dgFloat32 (1.0f));
 	dgMatrix localMatrix (m_aligmentMatrix.Transpose() * m_localMatrix);
 	localMatrix.m_posit = matrix.m_posit.CompProduct4(invGlobalScale) | dgVector::m_wOne;
@@ -432,7 +432,7 @@ void dgCollisionInstance::SetLocalMatrix (const dgMatrix& matrix)
 	m_localMatrix[3][3] = dgFloat32 (1.0f);
 
 #ifdef _DEBUG
-	dgFloat32 det = (m_localMatrix.m_front * m_localMatrix.m_up) % m_localMatrix.m_right;
+	dgFloat32 det = m_localMatrix.m_right.DotProduct3(m_localMatrix.m_front.CrossProduct3(m_localMatrix.m_up));
 	dgAssert (det > dgFloat32 (0.999f));
 	dgAssert (det < dgFloat32 (1.001f));
 #endif
@@ -441,11 +441,7 @@ void dgCollisionInstance::SetLocalMatrix (const dgMatrix& matrix)
 
 void dgCollisionInstance::DebugCollision (const dgMatrix& matrix, dgCollision::OnDebugCollisionMeshCallback callback, void* const userData) const
 {
-	dgMatrix scaledMatrix (m_localMatrix * matrix);
-	scaledMatrix[0] = scaledMatrix[0].Scale3 (m_scale[0]);
-	scaledMatrix[1] = scaledMatrix[1].Scale3 (m_scale[1]);
-	scaledMatrix[2] = scaledMatrix[2].Scale3 (m_scale[2]);
-	m_childShape->DebugCollision (m_aligmentMatrix * scaledMatrix, callback, userData);
+	m_childShape->DebugCollision (GetScaledTransform(matrix), callback, userData);
 }
 
 
@@ -511,10 +507,6 @@ dgInt32 dgCollisionInstance::CalculatePlaneIntersection (const dgVector& normal,
 
 void dgCollisionInstance::CalcAABB (const dgMatrix& matrix, dgVector& p0, dgVector& p1) const
 {
-//	m_childShape->CalcAABB (matrix, p0, p1);
-//	p0 = (matrix.m_posit + (p0 - matrix.m_posit).CompProduct4(m_maxScale) - m_padding) & dgVector::m_triplexMask;
-//	p1 = (matrix.m_posit + (p1 - matrix.m_posit).CompProduct4(m_maxScale) + m_padding) & dgVector::m_triplexMask;
-
 	switch (m_scaleType)
 	{
 		case m_unit:
@@ -642,20 +634,20 @@ dgFloat32 dgCollisionInstance::RayCast (const dgVector& localP0, const dgVector&
 }
 
 
-void dgCollisionInstance::CalculateBuoyancyAcceleration (const dgMatrix& matrix, const dgVector& origin, const dgVector& gravity, const dgVector& fluidPlane, dgFloat32 fluidDensity, dgFloat32 fluidViscosity, dgVector& accel, dgVector& alpha)
+void dgCollisionInstance::CalculateBuoyancyAcceleration (const dgMatrix& matrix, const dgVector& origin, const dgVector& gravity, const dgVector& fluidPlane, dgFloat32 fluidDensity, dgFloat32 fluidViscosity, dgVector& unitForce, dgVector& unitTorque)
 {
 	dgMatrix globalMatrix (m_localMatrix * matrix);
 
-	accel = dgVector (dgFloat32 (0.0f));
-	alpha = dgVector (dgFloat32 (0.0f));
+	unitForce = dgVector (dgFloat32 (0.0f));
+	unitTorque = dgVector (dgFloat32 (0.0f));
 	dgVector volumeIntegral (m_childShape->CalculateVolumeIntegral (globalMatrix, fluidPlane, *this));
 	if (volumeIntegral.m_w > dgFloat32 (0.0f)) {
 		dgVector buoyanceCenter (volumeIntegral - origin);
 
 		dgVector force (gravity.Scale3 (-fluidDensity * volumeIntegral.m_w));
-		dgVector torque (buoyanceCenter * force);
+		dgVector torque (buoyanceCenter.CrossProduct3(force));
 
-		accel += force;
-		alpha += torque;
+		unitForce += force;
+		unitTorque += torque;
 	}
 }

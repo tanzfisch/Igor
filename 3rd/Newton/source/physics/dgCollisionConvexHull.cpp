@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -171,15 +171,15 @@ dgBigVector dgCollisionConvexHull::FaceNormal (const dgEdge *face, const dgBigVe
 	for (edge = edge->m_next; edge != face; edge = edge->m_next) {
 		dgBigVector p2 (pool[edge->m_incidentVertex]);
 		dgBigVector e2 (p2 - p0);
-		dgBigVector n1 (e1 * e2);
+		dgBigVector n1 (e1.CrossProduct3(e2));
 #ifdef _DEBUG
-		dgFloat64 mag = normal % n1;
+		dgFloat64 mag = normal.DotProduct3(n1);
 		dgAssert ( mag >= -dgFloat32 (0.1f));
 #endif
 		normal += n1;
 		e1 = e2;
 	} 
-	dgFloat64 den = sqrt (normal % normal) + dgFloat64 (1.0e-24f);
+	dgFloat64 den = sqrt (normal.DotProduct3(normal)) + dgFloat64 (1.0e-24f);
 	normal = normal.Scale3 (dgFloat64 (1.0f)/ den);
 
 #ifdef _DEBUG
@@ -187,8 +187,8 @@ dgBigVector dgCollisionConvexHull::FaceNormal (const dgEdge *face, const dgBigVe
 	dgBigVector e0 (pool[edge->m_incidentVertex] - pool[edge->m_prev->m_incidentVertex]);	
 	do {
 		dgBigVector e1 (pool[edge->m_next->m_incidentVertex] - pool[edge->m_incidentVertex]);	
-		dgBigVector n1 (e0 * e1);
-		dgFloat64 x = normal % n1;
+		dgBigVector n1 (e0.CrossProduct3(e1));
+		dgFloat64 x = normal.DotProduct3(n1);
 		dgAssert (x > -dgFloat64 (0.01f));
 		e0 = e1;
 		edge = edge->m_next;
@@ -217,7 +217,7 @@ bool dgCollisionConvexHull::RemoveCoplanarEdge (dgPolyhedra& polyhedra, const dg
 				dgBigVector normal0 (FaceNormal (edge0, &hullVertexArray[0]));
 				dgBigVector normal1 (FaceNormal (edge0->m_twin, &hullVertexArray[0]));
 
-				dgFloat64 test = normal0 % normal1;
+				dgFloat64 test = normal0.DotProduct3(normal1);
 				if (test > dgFloat64 (0.99995f)) {
 
 					if ((edge0->m_twin->m_next->m_twin->m_next != edge0) && (edge0->m_next->m_twin->m_next != edge0->m_twin)) {
@@ -232,27 +232,27 @@ bool dgCollisionConvexHull::RemoveCoplanarEdge (dgPolyhedra& polyhedra, const dg
 						dgBigVector e1 (hullVertexArray[edge0->m_twin->m_next->m_next->m_incidentVertex] - hullVertexArray[edge0->m_incidentVertex]);
 						dgBigVector e0 (hullVertexArray[edge0->m_incidentVertex] - hullVertexArray[edge0->m_prev->m_incidentVertex]);
 
-						dgAssert ((e0 % e0) >= dgFloat64 (0.0f));
-						dgAssert ((e1 % e1) >= dgFloat64 (0.0f));
+						dgAssert (e0.DotProduct3(e0) >= dgFloat64 (0.0f));
+						dgAssert (e1.DotProduct3(e1) >= dgFloat64 (0.0f));
 
-						e0 = e0.Scale3 (dgFloat64 (1.0f) / sqrt (e0 % e0));
-						e1 = e1.Scale3 (dgFloat64 (1.0f) / sqrt (e1 % e1));
-						dgBigVector n1 (e0 * e1);
+						e0 = e0.Scale3 (dgFloat64 (1.0f) / sqrt (e0.DotProduct3(e0)));
+						e1 = e1.Scale3 (dgFloat64 (1.0f) / sqrt (e1.DotProduct3(e1)));
+						dgBigVector n1 (e0.CrossProduct3(e1));
 
-						dgFloat64 projection = n1 % normal0;
+						dgFloat64 projection = n1.DotProduct3(normal0);
 						if (projection >= DG_MAX_EDGE_ANGLE) {
 
 							dgBigVector e1 (hullVertexArray[edge0->m_next->m_next->m_incidentVertex] - hullVertexArray[edge0->m_twin->m_incidentVertex]);
 							dgBigVector e0 (hullVertexArray[edge0->m_twin->m_incidentVertex] - hullVertexArray[edge0->m_twin->m_prev->m_incidentVertex]);
-							dgAssert ((e0 % e0) >= dgFloat64 (0.0f));
-							dgAssert ((e1 % e1) >= dgFloat64 (0.0f));
+							dgAssert (e0.DotProduct3(e0) >= dgFloat64 (0.0f));
+							dgAssert (e1.DotProduct3(e1) >= dgFloat64 (0.0f));
 							//e0 = e0.Scale3 (dgRsqrt (e0 % e0));
 							//e1 = e1.Scale3 (dgRsqrt (e1 % e1));
-							e0 = e0.Scale3 (dgFloat64 (1.0f) / sqrt (e0 % e0));
-							e1 = e1.Scale3 (dgFloat64 (1.0f) / sqrt (e1 % e1));
+							e0 = e0.Scale3 (dgFloat64 (1.0f) / sqrt (e0.DotProduct3(e0)));
+							e1 = e1.Scale3 (dgFloat64 (1.0f) / sqrt (e1.DotProduct3(e1)));
 
-							dgBigVector n1 (e0 * e1);
-							projection = n1 % normal0;
+							dgBigVector n1 (e0.CrossProduct3(e1));
+							projection = n1.DotProduct3(normal0);
 							if (projection >= DG_MAX_EDGE_ANGLE) {
 								dgAssert (&(*iter) != edge0);
 								dgAssert (&(*iter) != edge0->m_twin);
@@ -314,8 +314,8 @@ bool dgCollisionConvexHull::CheckConvex (dgPolyhedra& polyhedra1, const dgBigVec
 		dgBigVector normal0 (FaceNormal (edge, hullVertexArray));
 		dgBigVector normal1 (FaceNormal (edge->m_twin, hullVertexArray));
 
-		dgBigPlane plane0 (normal0, - (normal0 % hullVertexArray[edge->m_incidentVertex]));
-		dgBigPlane plane1 (normal1, - (normal1 % hullVertexArray[edge->m_twin->m_incidentVertex]));
+		dgBigPlane plane0 (normal0, - normal0.DotProduct3(hullVertexArray[edge->m_incidentVertex]));
+		dgBigPlane plane1 (normal1, - normal1.DotProduct3(hullVertexArray[edge->m_twin->m_incidentVertex]));
 		dgFloat64 test0 = plane0.Evalue(center);
 		if (test0 > dgFloat64 (1.0e-3f)) {
 			return false;
@@ -402,15 +402,15 @@ bool dgCollisionConvexHull::Create (dgInt32 count, dgInt32 strideInBytes, const 
 			const dgBigVector& p2 = hullVertexArray[face.m_index[2]];
 			dgBigVector p1p0 (p1 - p0);
 			dgBigVector p2p0 (p2 - p0);
-			dgBigVector normal (p2p0 * p1p0);
-			dgFloat64 mag2 = normal % normal;
+			dgBigVector normal (p2p0.CrossProduct3(p1p0));
+			dgFloat64 mag2 = normal.DotProduct3(normal);
 			if (mag2 < dgFloat64 (1.0e-6f * 1.0e-6f)) {
 				success = false;
 				dgInt32 index = -1;
 				dgBigVector p2p1 (p2 - p1);
-				dgFloat64 dist10 = p1p0 % p1p0;
-				dgFloat64 dist20 = p2p0 % p2p0;
-				dgFloat64 dist21 = p2p1 % p2p1;
+				dgFloat64 dist10 = p1p0.DotProduct3(p1p0);
+				dgFloat64 dist20 = p2p0.DotProduct3(p2p0);
+				dgFloat64 dist21 = p2p1.DotProduct3(p2p1);
 				if ((dist10 >= dist20) && (dist10 >= dist21)) {
 					index = 2;
 				} else if ((dist20 >= dist10) && (dist20 >= dist21)) {
@@ -866,10 +866,6 @@ dgVector dgCollisionConvexHull::SupportVertex (const dgVector& dir, dgInt32* con
 						dgAssert (p.m_z >= box.m_box[0].m_z);
 						dgAssert (p.m_z <= box.m_box[1].m_z);
 						dgVector dist (p.DotProduct4(dir));
-						//if (dist.m_x > maxProj.m_x) {
-						//	maxProj = dist;
-						//	index = box.m_vertexStart + i;
-						//}
 						dgVector mask (dist > maxProj);
 						dgInt32 intMask = *((dgInt32*) &mask.m_x);
 						index = ((box.m_vertexStart + i) & intMask) | (index & ~intMask);
@@ -882,10 +878,6 @@ dgVector dgCollisionConvexHull::SupportVertex (const dgVector& dir, dgInt32* con
 		for (dgInt32 i = 0; i < m_vertexCount; i ++) {
 			const dgVector& p = m_vertex[i];
 			dgVector dist (p.DotProduct4(dir));
-			//if (dist.m_x > maxProj.m_x) {
-			//	index = i;
-			//	maxProj = dist;
-			//}
 			dgVector mask (dist > maxProj);
 			dgInt32 intMask = *((dgInt32*) &mask.m_x);
 			index = (i & intMask) | (index & ~intMask);

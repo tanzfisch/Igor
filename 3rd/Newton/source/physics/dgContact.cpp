@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -29,7 +29,6 @@
 #define REST_RELATIVE_VELOCITY			dgFloat32 (1.0e-3f)
 #define MAX_DYNAMIC_FRICTION_SPEED		dgFloat32 (0.3f)
 #define MAX_PENETRATION_STIFFNESS		dgFloat32 (50.0f)
-
 
 
 //////////////////////////////////////////////////////////////////////
@@ -72,6 +71,7 @@ dgContact::dgContact(dgWorld* const world, const dgContactMaterial* const materi
 	,m_positAcc (dgFloat32(0.0f))
 	,m_rotationAcc (dgFloat32(1.0f), dgFloat32(0.0f), dgFloat32(0.0f), dgFloat32(0.0f))
 	,m_closestDistance (dgFloat32 (0.0f))
+	,m_separationDistance(dgFloat32 (0.0f))
 	,m_timeOfImpact(dgFloat32 (0.0f))
 	,m_world(world)
 	,m_material(material)
@@ -91,6 +91,7 @@ dgContact::dgContact(dgContact* const clone)
 	,m_rotationAcc(clone->m_rotationAcc)
 	,m_separtingVector (clone->m_separtingVector)
 	,m_closestDistance(clone->m_closestDistance)
+	,m_separationDistance(clone->m_separationDistance)
 	,m_timeOfImpact(clone->m_timeOfImpact)
 	,m_world(clone->m_world)
 	,m_material(clone->m_material)
@@ -145,7 +146,7 @@ void dgContact::CalculatePointDerivative (dgInt32 index, dgContraintDescritor& d
 	dgAssert (m_body0);
 	dgAssert (m_body1);
 
-	dgVector r0CrossDir (param.m_r0 * dir);
+	dgVector r0CrossDir (param.m_r0.CrossProduct3(dir));
 	dgJacobian &jacobian0 = desc.m_jacobian[index].m_jacobianM0; 
 	jacobian0.m_linear[0] = dir.m_x;
 	jacobian0.m_linear[1] = dir.m_y;
@@ -157,7 +158,7 @@ void dgContact::CalculatePointDerivative (dgInt32 index, dgContraintDescritor& d
 	jacobian0.m_angular[3] = dgFloat32 (0.0f);
 
 
-	dgVector r1CrossDir (dir * param.m_r1);
+	dgVector r1CrossDir (dir.CrossProduct3(param.m_r1));
 	dgJacobian &jacobian1 = desc.m_jacobian[index].m_jacobianM1; 
 	jacobian1.m_linear[0] = -dir.m_x;
 	jacobian1.m_linear[1] = -dir.m_y;
@@ -199,7 +200,7 @@ void dgContact::JacobianContactDerivative (dgContraintDescritor& params, const d
 	dgVector velocError (pointData.m_veloc1 - pointData.m_veloc0);
 	dgFloat32 restitution = contact.m_restitution;
 
-	dgFloat32 relVelocErr = velocError % contact.m_normal;
+	dgFloat32 relVelocErr = velocError.DotProduct3(contact.m_normal);
 
 	dgFloat32 penetration = dgClamp (contact.m_penetration - DG_RESTING_CONTACT_PENETRATION, dgFloat32(0.0f), dgFloat32(0.5f));
 	dgFloat32 penetrationStiffness = MAX_PENETRATION_STIFFNESS * contact.m_softness;
@@ -223,21 +224,23 @@ void dgContact::JacobianContactDerivative (dgContraintDescritor& params, const d
 		params.m_jointAccel[normalIndex] += contact.m_normal_Force.m_force;
 	}
 
+//return;
 	// first dir friction force
 	if (contact.m_flags & dgContactMaterial::m_friction0Enable) {
 		dgInt32 jacobIndex = frictionIndex;
 		frictionIndex += 1;
 		CalculatePointDerivative (jacobIndex, params, contact.m_dir0, pointData); 
-		relVelocErr = velocError % contact.m_dir0;
+		relVelocErr = velocError.DotProduct3(contact.m_dir0);
 		params.m_forceBounds[jacobIndex].m_normalIndex = (contact.m_flags & dgContactMaterial::m_override0Friction) ? DG_BILATERAL_FRICTION_CONSTRAINT : normalIndex;
 		params.m_jointStiffness[jacobIndex] = dgFloat32 (0.5f);
-
-		params.m_restitution[jacobIndex] = dgFloat32 (0.0f);
+		
 		params.m_penetration[jacobIndex] = dgFloat32 (0.0f);
 		params.m_penetrationStiffness[jacobIndex] = dgFloat32 (0.0f);
 		if (contact.m_flags & dgContactMaterial::m_override0Accel) {
+			params.m_restitution[jacobIndex] = dgFloat32 (-1.0f);
 			params.m_jointAccel[jacobIndex] = contact.m_dir0_Force.m_force;
 		} else {
+			params.m_restitution[jacobIndex] = dgFloat32 (0.0f);
 			params.m_jointAccel[jacobIndex] = relVelocErr * impulseOrForceScale;
 		}
 		if (dgAbsf (relVelocErr) > MAX_DYNAMIC_FRICTION_SPEED) {
@@ -254,7 +257,7 @@ void dgContact::JacobianContactDerivative (dgContraintDescritor& params, const d
 		dgInt32 jacobIndex = frictionIndex;
 		frictionIndex += 1;
 		CalculatePointDerivative (jacobIndex, params, contact.m_dir1, pointData); 
-		relVelocErr = velocError % contact.m_dir1;
+		relVelocErr = velocError.DotProduct3(contact.m_dir1);
 		params.m_forceBounds[jacobIndex].m_normalIndex = (contact.m_flags & dgContactMaterial::m_override0Friction) ? DG_BILATERAL_FRICTION_CONSTRAINT : normalIndex;
 		params.m_jointStiffness[jacobIndex] = dgFloat32 (0.5f);
 
@@ -263,8 +266,10 @@ void dgContact::JacobianContactDerivative (dgContraintDescritor& params, const d
 		params.m_penetrationStiffness[jacobIndex] = dgFloat32 (0.0f);
 
 		if (contact.m_flags & dgContactMaterial::m_override1Accel) {
+			params.m_restitution[jacobIndex] = dgFloat32 (-1.0f);
 			params.m_jointAccel[jacobIndex] = contact.m_dir1_Force.m_force;
 		} else {
+			params.m_restitution[jacobIndex] = dgFloat32 (0.0f);
 			params.m_jointAccel[jacobIndex] = relVelocErr * impulseOrForceScale;
 		}
 		if (dgAbsf (relVelocErr) > MAX_DYNAMIC_FRICTION_SPEED) {
@@ -287,7 +292,7 @@ void dgContact::JointAccelerations(dgJointAccelerationDecriptor* const params)
 	const dgVector& bodyVeloc1 = m_body1->m_veloc;
 	const dgVector& bodyOmega1 = m_body1->m_omega;
 
-	dgInt32 count = params->m_rowsCount;
+	const dgInt32 count = params->m_rowsCount;
 
 	dgFloat32 timestep = dgFloat32 (1.0f);
 	dgFloat32 invTimestep = dgFloat32 (1.0f);
@@ -297,15 +302,16 @@ void dgContact::JointAccelerations(dgJointAccelerationDecriptor* const params)
 	}
 
 	for (dgInt32 k = 0; k < count; k ++) {
-//		if (!rowMatrix[k].m_accelIsMotor) 
-//		{
+		if (rowMatrix[k].m_restitution >= dgFloat32 (0.0f)) {
 			dgJacobianMatrixElement* const row = &rowMatrix[k];
 
 			dgVector relVeloc (row->m_Jt.m_jacobianM0.m_linear.CompProduct4(bodyVeloc0) + row->m_Jt.m_jacobianM0.m_angular.CompProduct4(bodyOmega0) + row->m_Jt.m_jacobianM1.m_linear.CompProduct4(bodyVeloc1) + row->m_Jt.m_jacobianM1.m_angular.CompProduct4(bodyOmega1));
-			dgFloat32 vRel = relVeloc.m_x + relVeloc.m_y + relVeloc.m_z;
+			dgFloat32 vRel = relVeloc.AddHorizontal().GetScalar();
 			dgFloat32 aRel = row->m_deltaAccel;
 
 			if (row->m_normalForceIndex < 0) {
+				dgAssert (row->m_restitution >= 0.0f);
+				dgAssert (row->m_restitution <= 2.0f);
 				dgFloat32 restitution = (vRel <= dgFloat32 (0.0f)) ? (dgFloat32 (1.0f) + row->m_restitution) : dgFloat32 (1.0f);
 
 				dgFloat32 penetrationVeloc = dgFloat32 (0.0f);
@@ -327,7 +333,7 @@ void dgContact::JointAccelerations(dgJointAccelerationDecriptor* const params)
 				vRel = dgMin (dgFloat32 (4.0f), vRel + penetrationVeloc);
 			}
 			row->m_coordenateAccel = (aRel - vRel * invTimestep);
-//		}
+		}
 	}
 }
 

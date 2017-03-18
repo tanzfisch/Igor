@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -327,7 +327,7 @@ void dgBroadPhasePersistent::UnlinkAggregate (dgBroadPhaseAggregate* const aggre
 void dgBroadPhasePersistent::Remove(dgBody* const body)
 {
 	if (body->GetBroadPhase()) {
-		dgBroadPhaseBodyNode* const node = (dgBroadPhaseBodyNode*)body->GetBroadPhase();
+		dgBroadPhaseBodyNode* const node = body->GetBroadPhase();
 		if (node->m_updateNode) {
 			m_updateList.Remove(node->m_updateNode);
 		}
@@ -388,7 +388,7 @@ void dgBroadPhasePersistent::RayCast(const dgVector& l0, const dgVector& l1, OnR
 	dgBroadPhasePesistanceRootNode* const root = (dgBroadPhasePesistanceRootNode*)m_rootNode;
 	if (filter && (root->m_left || root->m_right)) {
 		dgVector segment(l1 - l0);
-		dgFloat32 dist2 = segment % segment;
+		dgFloat32 dist2 = segment.DotProduct3(segment);
 		if (dist2 > dgFloat32(1.0e-8f)) {
 
 			dgFloat32 distance[DG_BROADPHASE_MAX_STACK_DEPTH];
@@ -494,4 +494,75 @@ dgInt32 dgBroadPhasePersistent::Collide(dgCollisionInstance* const shape, const 
 	}
 
 	return totalCount;
+}
+
+void dgBroadPhasePersistent::FindCollidingPairsForward (dgBroadphaseSyncDescriptor* const descriptor, dgList<dgBroadPhaseNode*>::dgListNode* const nodePtr, dgInt32 threadID)
+{
+	const dgFloat32 timestep = descriptor->m_timestep;
+
+	dgList<dgBroadPhaseNode*>::dgListNode* node = nodePtr;
+	const dgInt32 threadCount = descriptor->m_world->GetThreadCount();
+	while (node) {
+		dgBroadPhaseNode* const broadPhaseNode = node->GetInfo();
+		dgAssert(broadPhaseNode->IsLeafNode());
+		dgAssert(!broadPhaseNode->GetBody() || (broadPhaseNode->GetBody()->GetBroadPhase() == broadPhaseNode));
+
+		if (broadPhaseNode->IsAggregate()) {
+			((dgBroadPhaseAggregate*)broadPhaseNode)->SubmitSeltPairs(timestep, threadID);
+		}
+
+		for (dgBroadPhaseNode* ptr = broadPhaseNode; ptr->m_parent; ptr = ptr->m_parent) {
+			dgBroadPhaseTreeNode* const parent = (dgBroadPhaseTreeNode*)ptr->m_parent;
+			dgAssert(!parent->IsLeafNode());
+			dgBroadPhaseNode* const sibling = parent->m_right;
+			if (sibling && (sibling != ptr)) {
+				SubmitPairs(broadPhaseNode, sibling, timestep, 0, threadID);
+			}
+		}
+
+		for (dgInt32 i = 0; i < threadCount; i++) {
+			//node = (node && node->GetInfo()->GetBody() && (node->GetInfo()->GetBody()->GetInvMass().m_w != dgFloat32(0.0f))) ? node->GetNext() : NULL;
+			dgBroadPhaseNode* const info = node ? node->GetInfo() : NULL;
+			node = (info && ((info->GetBody() && (info->GetBody()->GetInvMass().m_w != dgFloat32(0.0f))) || info->IsAggregate())) ? node->GetNext() : NULL;
+		}
+	}	
+}
+
+void dgBroadPhasePersistent::FindCollidingPairsForwardAndBackward (dgBroadphaseSyncDescriptor* const descriptor, dgList<dgBroadPhaseNode*>::dgListNode* const nodePtr, dgInt32 threadID)
+{
+	const dgFloat32 timestep = descriptor->m_timestep;
+
+	dgList<dgBroadPhaseNode*>::dgListNode* node = nodePtr;
+	const dgInt32 threadCount = descriptor->m_world->GetThreadCount();
+	const dgUnsigned32 lru = m_lru + 1;
+	while (node) {
+		dgBroadPhaseNode* const broadPhaseNode = node->GetInfo();
+		dgAssert(broadPhaseNode->IsLeafNode());
+		dgAssert(!broadPhaseNode->GetBody() || (broadPhaseNode->GetBody()->GetBroadPhase() == broadPhaseNode));
+
+		if (lru == broadPhaseNode->GetDirtyLru()) {
+			if (broadPhaseNode->IsAggregate()) {
+				((dgBroadPhaseAggregate*)broadPhaseNode)->SubmitSeltPairs(timestep, threadID);
+			}
+
+			for (dgBroadPhaseNode* ptr = broadPhaseNode; ptr->m_parent; ptr = ptr->m_parent) {
+				dgBroadPhaseTreeNode* const parent = (dgBroadPhaseTreeNode*)ptr->m_parent;
+				dgAssert(!parent->IsLeafNode());
+				dgBroadPhaseNode* const rightSibling = parent->m_right;
+				if (rightSibling && (rightSibling != ptr)) {
+					SubmitPairs(broadPhaseNode, rightSibling, timestep, threadCount, threadID);
+				}
+				dgBroadPhaseNode* const leftSibling = parent->m_left;
+				if (leftSibling && (leftSibling != ptr)) {
+					SubmitPairs(broadPhaseNode, leftSibling, timestep, threadCount, threadID);
+				}
+			}
+		}
+
+		for (dgInt32 i = 0; i < threadCount; i++) {
+			//node = (node && node->GetInfo()->GetBody() && (node->GetInfo()->GetBody()->GetInvMass().m_w != dgFloat32(0.0f))) ? node->GetNext() : NULL;
+			dgBroadPhaseNode* const info = node ? node->GetInfo() : NULL;
+			node = (info && ((info->GetBody() && (info->GetBody()->GetInvMass().m_w != dgFloat32(0.0f))) || info->IsAggregate())) ? node->GetNext() : NULL;
+		}
+	}
 }

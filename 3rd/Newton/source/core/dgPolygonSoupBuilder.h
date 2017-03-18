@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -34,7 +34,7 @@
 #include "dgIntersections.h"
 
 
-class AdjacentdFaces
+class AdjacentdFace
 {
 	public:
 	dgInt32 m_count;
@@ -79,7 +79,7 @@ class dgPolygonSoupDatabaseBuilder
 	{	
 		public:
 		dgVertexArray(dgMemoryAllocator* const allocator)
-			:dgArray<dgBigVector>(1024 * 32, allocator)
+			:dgArray<dgBigVector>(allocator)
 		{
 		}
 	};
@@ -88,7 +88,7 @@ class dgPolygonSoupDatabaseBuilder
 	{
 		public:
 		dgIndexArray(dgMemoryAllocator* const allocator)
-			:dgArray<dgInt32>(1024 * 32, allocator)
+			:dgArray<dgInt32>(allocator)
 		{
 		}
 	};

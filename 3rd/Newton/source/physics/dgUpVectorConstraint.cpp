@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -114,17 +114,17 @@ dgUnsigned32 dgUpVectorConstraint::JacobianDerivative (dgContraintDescritor& par
 	dgMatrix matrix1;
 	CalculateGlobalMatrixAndAngle (matrix0, matrix1);
 
-	dgVector lateralDir (matrix0.m_front * matrix1.m_front);
+	dgVector lateralDir (matrix0.m_front.CrossProduct3(matrix1.m_front));
 
 	dgInt32 ret = 0;
-	dgFloat32 mag = lateralDir % lateralDir;
+	dgFloat32 mag = lateralDir.DotProduct3(lateralDir);
 	if (mag > dgFloat32 (1.0e-6f)) {
 		mag = dgSqrt (mag);
 		lateralDir = lateralDir.Scale3 (dgFloat32 (1.0f) / mag);
 		dgFloat32 angle = dgAsin (mag);
 		CalculateAngularDerivative (0, params, lateralDir, m_stiffness, angle, &m_jointForce[0]);
 
-		dgVector frontDir (lateralDir * matrix1.m_front);
+		dgVector frontDir (lateralDir.CrossProduct3(matrix1.m_front));
 		CalculateAngularDerivative (1, params, frontDir, m_stiffness, dgFloat32 (0.0f), &m_jointForce[1]);
 		ret = 2;
 	} else {

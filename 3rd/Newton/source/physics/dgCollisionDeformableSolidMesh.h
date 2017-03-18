@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -33,43 +33,24 @@
 class dgCollisionDeformableSolidMesh: public dgCollisionDeformableMesh
 {
 	public:
-	class dgCluster;
-	class dgClusterBuilder;
+	class dgFiniteElementCell
+	{
+		public:
+		dgFloat32 m_restVolume; 
+		dgInt16 m_index[4];
+	};
 
 	dgCollisionDeformableSolidMesh (const dgCollisionDeformableSolidMesh& source);
 	dgCollisionDeformableSolidMesh (dgWorld* const world, dgMeshEffect* const mesh);
 	dgCollisionDeformableSolidMesh (dgWorld* const world, dgDeserialize deserialization, void* const userData, dgInt32 revisionNumber);
 	virtual ~dgCollisionDeformableSolidMesh(void);
 
-	void InitClusters();
-	void Serialize(dgSerialize callback, void* const userData) const;
-	virtual dgInt32 CalculateSignature () const;
+	virtual void CalculateAcceleration(dgFloat32 timestep);
 
-	virtual void SetMass (dgFloat32 mass);
-    virtual void SetMatrix(const dgMatrix& matrix);
-	virtual void ApplyExternalForces (dgFloat32 timestep);
-	virtual void ResolvePositionsConstraints (dgFloat32 timestep);
+	dgInt32 GetMemoryBufferSizeInBytes() const;
 
-	virtual void CreateClusters (dgInt32 count, dgFloat32 overlaringWidth);
-	
-	virtual void EndConfiguration ();
-	virtual void ConstraintParticle (dgInt32 particleIndex, const dgVector& posit, const dgBody* const body);
-	virtual void DebugCollision (const dgMatrix& matrixPtr, dgCollision::OnDebugCollisionMeshCallback callback, void* const userData) const;
-	
-
-	dgVector* m_posit;
-	dgVector* m_shapePosit;
-	dgFloat32* m_clusterWeight;
-	dgMatrix* m_clusterAqqInv; 
-	dgMatrix* m_clusterRotationInitialGuess; 
-	dgVector* m_clusterCom0;
-	dgFloat32* m_clusterMass;
-	dgInt32* m_clusterPosit;
-	dgInt32* m_clusterPositStart;
-
-	dgInt32 m_clustersCount;
-	dgFloat32 m_stiffness;
-	friend class dgWorld;
+	dgArray<dgFiniteElementCell> m_finiteElements;
+	dgInt32 m_finiteElementsCount;
 };
 
 

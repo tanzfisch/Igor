@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -427,7 +427,7 @@ void dgPolyhedraMassProperties::AddCGFace (dgInt32 indexCount, const dgVector* c
 
 		dgVector e01 (p1 - p0);
 		dgVector e02 (p2 - p0);
-		dgVector d (e01 * e02);
+		dgVector d (e01.CrossProduct3(e02));
 
 		dgVector f1;
 		dgVector f2;
@@ -466,7 +466,7 @@ void dgPolyhedraMassProperties::AddInertiaFace (dgInt32 indexCount, const dgFloa
 
 		dgVector e01 (p1 - p0);
 		dgVector e02 (p2 - p0);
-		dgVector d (e01 * e02);
+		dgVector d (e01.CrossProduct3(e02));
 
 		dgVector f1;
 		dgVector f2;
@@ -513,7 +513,7 @@ void dgPolyhedraMassProperties::AddInertiaAndCrossFace (dgInt32 indexCount, cons
 
 		dgVector e01 (p1 - p0);
 		dgVector e02 (p2 - p0);
-		dgVector d (e01 * e02);
+		dgVector d (e01.CrossProduct3(e02));
 
 		dgVector f1;
 		dgVector f2;

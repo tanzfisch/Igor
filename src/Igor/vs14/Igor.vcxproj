@@ -257,6 +257,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
       <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
       <WarningLevel>Level4</WarningLevel>
       <MinimalRebuild>false</MinimalRebuild>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
@@ -281,6 +282,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.dll" "$(ProjectDir)..\..\..\bin\" 
 xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
     </PostBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd\GLee\include\GLee.h" />

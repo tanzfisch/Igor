@@ -240,6 +240,7 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
       <WarningLevel>Level4</WarningLevel>
       <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MinimalRebuild>false</MinimalRebuild>
+      <BrowseInformation>true</BrowseInformation>
     </ClCompile>
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
@@ -261,6 +262,9 @@ xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
     </PostBuildEvent>
+    <Bscmake>
+      <PreserveSbr>true</PreserveSbr>
+    </Bscmake>
   </ItemDefinitionGroup>
   <ItemGroup>
     <CustomBuildStep Include="..\src\BindKeyManager.h">

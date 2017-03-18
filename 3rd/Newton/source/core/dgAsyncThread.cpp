@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -40,7 +40,7 @@ dgAsyncThread::~dgAsyncThread(void)
 
 void dgAsyncThread::Terminate()
 {
-	if (StillBusy()) {
+	if (IsThreadActive()) {
 		dgInterlockedExchange(&m_terminate, 1);
 		m_myMutex.Release();
 		Close();

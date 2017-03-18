@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -58,16 +58,10 @@ class dgCollisionConvexPolygon: public dgCollisionConvex
 	virtual dgFloat32 GetBoxMaxRadius () const;
 	
 	void BeamClipping (const dgVector& origin, dgFloat32 size);
-	void SetFeatureHit (dgInt32 featureCount, const dgInt32* const index);
 
 	dgVector CalculateGlobalNormal (const dgCollisionInstance* const parentMesh, const dgVector& localNormal) const;
 	dgInt32 CalculateContactToConvexHullDescrete(const dgWorld* const world, const dgCollisionInstance* const parentMesh, dgCollisionParamProxy& proxy);
 	dgInt32 CalculateContactToConvexHullContinue (const dgWorld* const world, const dgCollisionInstance* const parentMesh, dgCollisionParamProxy& proxy);
-	
-//	dgVector ClosestDistanceToTriangle (const dgVector& point, const dgVector& p0, const dgVector& p1, const dgVector& p2, bool& isEdge) const;
-//	bool PointToPolygonDistance (const dgVector& point, dgFloat32 radius, dgVector& out, bool& isEdge);
-//	bool DistanceToOrigen (const dgMatrix& matrix, const dgVector& scale, dgFloat32 radius, dgVector& out, bool& isEdge);
-//	dgFloat32 MovingPointToPolygonContact (const dgVector& p0, const dgVector& p1, dgFloat32 radius, dgContactPoint& contact);
 
 	dgVector m_normal;
 	dgVector m_localPoly[DG_CONVEX_POLYGON_MAX_VERTEX_COUNT];
@@ -77,8 +71,6 @@ class dgCollisionConvexPolygon: public dgCollisionConvex
 	dgInt32 m_faceId;
 	dgInt32 m_stride;
 	dgInt32 m_faceNormalIndex;
-	dgInt32 m_closestFeatureType;
-	dgInt32 m_closestFeatureStartIndex;
 	dgFloat32 m_faceClipSize; 
 	const dgFloat32* m_vertex;
 	const dgInt32* m_vertexIndex;

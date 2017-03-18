@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -29,7 +29,7 @@
 #include "dgCollisionScene.h"
 #include "dgBodyMasterList.h"
 #include "dgWorldDynamicUpdate.h"
-#include "dgDeformableBodiesUpdate.h"
+//#include "dgDeformableBodiesUpdate.h"
 #include "dgCollisionCompoundFractured.h"
 
 #define DG_REDUCE_CONTACT_TOLERANCE			dgFloat32 (5.0e-2f)
@@ -38,9 +38,9 @@
 #define DG_SLEEP_ENTRIES					8
 #define DG_MAX_DESTROYED_BODIES_BY_FORCE	8
 
+#define DG_ENGINE_STACK_SIZE				(1024 * 1024)
 
 class dgBody;
-class dgAmpInstance;
 class dgDynamicBody;
 class dgKinematicBody;
 class dgCollisionPoint;
@@ -80,8 +80,10 @@ class dgSkeletonList: public dgTree<dgSkeletonContainer*, dgInt32>
 	public:
 	dgSkeletonList(dgMemoryAllocator* const allocator)
 		:dgTree<dgSkeletonContainer*, dgInt32>(allocator)
+		,m_skelListIsDirty(true)
 	{
 	}
+	bool m_skelListIsDirty;
 };
 
 
@@ -111,21 +113,54 @@ class dgWorldThreadPool: public dgThreadHive
 	virtual void OnEndWorkerThread (dgInt32 threadId);
 };
 
+class dgDeadJoints: public dgTree<dgConstraint*, void* >
+{
+	public: 
+	dgDeadJoints(dgMemoryAllocator* const allocator)
+		:dgTree<dgConstraint*, void* >(allocator)
+		,m_lock(0)
+	{
+	}
+	
+	void DestroyJoints(dgWorld& world);
+	void DestroyJoint(dgConstraint* const joint);
+	private:
+	dgInt32 m_lock;
+};
+
+class dgDeadBodies: public dgTree<dgBody*, void* >
+{
+	public: 
+	dgDeadBodies(dgMemoryAllocator* const allocator)
+		:dgTree<dgBody*, void*>(allocator)
+		,m_lock(0)
+	{
+	}
+	void DestroyBody(dgBody* const body);
+	void DestroyBodies(dgWorld& world);
+
+	private:
+	dgInt32 m_lock;
+};
+
+
 DG_MSC_VECTOR_ALIGMENT
 class dgWorld
 	:public dgBodyMasterList
 	,public dgBodyMaterialList
 	,public dgBodyCollisionList
-	,public dgDeformableBodiesUpdate
 	,public dgSkeletonList
 	,public dgActiveContacts 
 	,public dgWorldDynamicUpdate
 	,public dgMutexThread
 	,public dgAsyncThread
 	,public dgWorldThreadPool
+	,public dgDeadBodies
+	,public dgDeadJoints
 {
 	public:
-	typedef dgUnsigned32 (dgApi *OnIslandUpdate) (const dgWorld* const world, void* island, dgInt32 bodyCount);
+	typedef dgUnsigned64 (dgApi *OnGetTimeInMicrosenconds) ();
+	typedef dgUnsigned32 (dgApi *OnClusterUpdate) (const dgWorld* const world, void* island, dgInt32 bodyCount);
 	typedef void (dgApi *OnListenerBodyDestroyCallback) (const dgWorld* const world, void* const listener, dgBody* const body);
 	typedef void (dgApi *OnListenerUpdateCallback) (const dgWorld* const world, void* const listener, dgFloat32 timestep);
 	typedef void (dgApi *OnListenerDestroyCallback) (const dgWorld* const world, void* const listener);
@@ -185,13 +220,17 @@ class dgWorld
 
 	DG_CLASS_ALLOCATOR(allocator)
 
-	dgWorld(dgMemoryAllocator* const allocator);
+	dgWorld(dgMemoryAllocator* const allocator, dgInt32 stackSize);
 	~dgWorld();
 
+
+	dgFloat32 GetUpdateTime() const;
 	dgBroadPhase* GetBroadPhase() const;
 
+	dgInt32 GetSolverMode() const;
 	void SetSolverMode (dgInt32 mode);
-	void SetFrictionMode (dgInt32 mode);
+
+	dgInt32 GetSolverConvergenceQuality() const;
 	void SetSolverConvergenceQuality (dgInt32 mode);
 
 	dgInt32 EnumerateHardwareModes() const;
@@ -241,12 +280,11 @@ class dgWorld
 	void SetListenerBodyDestroyCallback (void* const listener, OnListenerBodyDestroyCallback callback);
 	OnListenerBodyDestroyCallback GetListenerBodyDestroyCallback (void* const listener) const;
 
-	void SetIslandUpdateCallback (OnIslandUpdate callback); 
+	void SetIslandUpdateCallback (OnClusterUpdate callback); 
 
 	void InitBody (dgBody* const body, dgCollisionInstance* const collision, const dgMatrix& matrix);
 	dgDynamicBody* CreateDynamicBody (dgCollisionInstance* const collision, const dgMatrix& matrix);
 	dgKinematicBody* CreateKinematicBody (dgCollisionInstance* const collision, const dgMatrix& matrix);
-	dgBody* CreateDeformableBody (dgCollisionInstance* const collision, const dgMatrix& matrix);
 	void DestroyBody(dgBody* const body);
 	void DestroyAllBodies ();
 
@@ -278,18 +316,22 @@ class dgWorld
 	dgCollisionInstance* CreateCompound ();
 	dgCollisionInstance* CreateFracturedCompound (dgMeshEffect* const solidMesh, int shapeID, int fracturePhysicsMaterialID, int pointcloudCount, const dgFloat32* const vertexCloud, int strideInBytes, int materialID, const dgMatrix& textureMatrix,
 												  dgCollisionCompoundFractured::OnEmitFractureChunkCallBack emitFrafuredChunk, dgCollisionCompoundFractured::OnEmitNewCompundFractureCallBack emitFracturedCompound, dgCollisionCompoundFractured::OnReconstructFractureMainMeshCallBack reconstructMainMesh);
-	dgCollisionInstance* CreateDeformableMesh (dgMeshEffect* const mesh, dgInt32 shapeID);
-	dgCollisionInstance* CreateClothPatchMesh (dgMeshEffect* const mesh, dgInt32 shapeID, const dgClothPatchMaterial& structuralMaterial, const dgClothPatchMaterial& bendMaterial);
+
+	dgCollisionInstance* CreateDeformableSolid (dgMeshEffect* const mesh, dgInt32 shapeID);
+	dgCollisionInstance* CreateMassSpringDamperSystem (dgInt32 shapeID, dgInt32 pointCount, const dgFloat32* const points, dgInt32 srideInBytes, const dgFloat32* const pointsMass, dgInt32 linksCount, const dgInt32* const links, const dgFloat32* const linksSpring, const dgFloat32* const LinksDamper);
+
 	dgCollisionInstance* CreateBVH ();	
 	dgCollisionInstance* CreateStaticUserMesh (const dgVector& boxP0, const dgVector& boxP1, const dgUserMeshCreation& data);
-	dgCollisionInstance* CreateHeightField (dgInt32 width, dgInt32 height, dgInt32 contructionMode, dgInt32 elevationDataType, const void* const elevationMap, const dgInt8* const atributeMap, dgFloat32 verticalScale, dgFloat32 horizontalScale);
+	dgCollisionInstance* CreateHeightField (dgInt32 width, dgInt32 height, dgInt32 contructionMode, dgInt32 elevationDataType, const void* const elevationMap, const dgInt8* const atributeMap, dgFloat32 verticalScale, dgFloat32 horizontalScale_x, dgFloat32 horizontalScale_z);
 	dgCollisionInstance* CreateScene ();	
 
 	dgBroadPhaseAggregate* CreateAggreGate() const; 
 	void DestroyAggregate(dgBroadPhaseAggregate* const aggregate) const; 
 
+	void SetGetTimeInMicrosenconds (OnGetTimeInMicrosenconds callback);
 	void SetCollisionInstanceConstructorDestructor (OnCollisionInstanceDuplicate constructor, OnCollisionInstanceDestroy destructor);
 
+	static dgInt32 SerializeToFileSort (const dgBody* const body0, const dgBody* const body1, void* const context);
 	static void OnSerializeToFile (void* const userData, const void* const buffer, size_t size);
 	static void OnDeserializeFromFile (void* const userData, void* const buffer, size_t size);
 
@@ -299,11 +341,13 @@ class dgWorld
 	void SerializeToFile (const char* const fileName, OnBodySerialize bodyCallback, void* const userData) const;
 	void DeserializeFromFile (const char* const fileName, OnBodyDeserialize bodyCallback, void* const userData);
 
-	void SerializeJointArray (dgBody** const array, dgInt32 count, dgSerialize serializeCallback, void* const serializeHandle) const;
+	void SerializeJointArray (dgInt32 count, dgSerialize serializeCallback, void* const serializeHandle) const;
 	void DeserializeJointArray (const dgTree<dgBody*, dgInt32>&bodyMap, dgDeserialize serializeCallback, void* const serializeHandle);
 
 	void SerializeBodyArray (dgBody** const array, dgInt32 count, OnBodySerialize bodyCallback, void* const userData, dgSerialize serializeCallback, void* const serializeHandle) const;
 	void DeserializeBodyArray (dgTree<dgBody*, dgInt32>&bodyMap, OnBodyDeserialize bodyCallback, void* const userData, dgDeserialize deserializeCallback, void* const serializeHandle);
+
+	dgBody* FindBodyFromSerializedID(dgInt32 serializedID) const;
 
 	void SetJointSerializationCallbacks (OnJointSerializationCallback serializeJoint, OnJointDeserializationCallback deserializeJoint);
 	void GetJointSerializationCallbacks (OnJointSerializationCallback* const serializeJoint, OnJointDeserializationCallback* const deserializeJoint) const;
@@ -353,8 +397,12 @@ class dgWorld
 	void SetContactMergeTolerance(dgFloat32 tolerenace);
 
 	void Sync ();
+
+	void SetSubsteps (dgInt32 subSteps);
+	dgInt32 GetSubsteps () const;
 	
 	private:
+	void RunStep ();
 	void CalculateContacts (dgBroadPhase::dgPair* const pair, dgInt32 threadIndex, bool ccdMode, bool intersectionTestOnly);
 	dgInt32 PruneContacts (dgInt32 count, dgContactPoint* const contact, dgInt32 maxCount = (DG_CONSTRAINT_MAX_ROWS / 3)) const;
 	dgInt32 ReduceContacts (dgInt32 count, dgContactPoint* const contact, dgInt32 maxCount, dgFloat32 tol, dgInt32 arrayIsSorted = 0) const;
@@ -367,13 +415,11 @@ class dgWorld
 	
 	void PopulateContacts (dgBroadPhase::dgPair* const pair, dgInt32 threadIndex);	
 	void ProcessContacts (dgBroadPhase::dgPair* const pair, dgInt32 threadIndex);
-	void ProcessDeformableContacts (dgBroadPhase::dgPair* const pair, dgInt32 threadIndex);
 	void ProcessCachedContacts (dgContact* const contact, dgFloat32 timestep, dgInt32 threadIndex) const;
 
 	void ConvexContacts (dgBroadPhase::dgPair* const pair, dgCollisionParamProxy& proxy) const;
 	void CompoundContacts (dgBroadPhase::dgPair* const pair, dgCollisionParamProxy& proxy) const;
-	void DeformableContacts (dgBroadPhase::dgPair* const pair, dgCollisionParamProxy& proxy) const;
-
+	
 	void SceneContacts (dgBroadPhase::dgPair* const pair, dgCollisionParamProxy& proxy) const;
 	void SceneChildContacts (dgBroadPhase::dgPair* const pair, dgCollisionParamProxy& proxy) const;
 
@@ -391,7 +437,6 @@ class dgWorld
 	virtual void Execute (dgInt32 threadID);
 	virtual void TickCallback (dgInt32 threadID);
 
-
 	class dgAdressDistPair
 	{
 		public:
@@ -400,16 +445,17 @@ class dgWorld
 	};
 	static dgInt32 SortFaces (const dgAdressDistPair* const A, const dgAdressDistPair* const B, void* const context);
 
-
+	dgUnsigned32 m_numberOfSubsteps;
 	dgUnsigned32 m_dynamicsLru;
 	dgUnsigned32 m_inUpdate;
 	dgUnsigned32 m_solverMode;
-	dgUnsigned32 m_frictionMode;
 	dgUnsigned32 m_bodyGroupID;
 	dgUnsigned32 m_defualtBodyGroupID;
 	dgUnsigned32 m_bodiesUniqueID;
 	dgUnsigned32 m_useParallelSolver;
 	dgUnsigned32 m_genericLRUMark;
+	dgInt32 m_delayDelateLock;
+	dgInt32 m_clusterLRU;
 
 	dgFloat32 m_freezeAccel2;
 	dgFloat32 m_freezeAlpha2;
@@ -418,7 +464,8 @@ class dgWorld
 	dgFloat32 m_frictiomTheshold;
 	dgFloat32 m_savetimestep;
 	dgFloat32 m_contactTolerance;
-	dgFloat32 m_solverConvergeQuality;
+	dgFloat32 m_lastExecutionTime;
+	dgInt32 m_solverConvergeQuality;
 
 	dgSolverSleepTherfesholds m_sleepTable[DG_SLEEP_ENTRIES];
 	
@@ -426,11 +473,11 @@ class dgWorld
 	dgDynamicBody* m_sentinelBody;
 	dgCollisionInstance* m_pointCollision;
 
-	dgAmpInstance* m_amp;
 	void* m_userData;
 	dgMemoryAllocator* m_allocator;
 	dgInt32 m_hardwaredIndex;
-	OnIslandUpdate m_islandUpdate;
+	OnClusterUpdate m_clusterUpdate;
+	OnGetTimeInMicrosenconds m_getDebugTime;
 	OnCollisionInstanceDestroy	m_onCollisionInstanceDestruction;
 	OnCollisionInstanceDuplicate m_onCollisionInstanceCopyConstrutor;
 	OnJointSerializationCallback m_serializedJointCallback;	
@@ -441,13 +488,15 @@ class dgWorld
 	dgTree<void*, unsigned> m_perInstanceData;
 	dgArray<dgUnsigned8> m_bodiesMemory; 
 	dgArray<dgUnsigned8> m_jointsMemory; 
-	dgArray<dgUnsigned8> m_solverMatrixMemory;  
-	dgArray<dgUnsigned8> m_solverRightSideMemory;
+	dgArray<dgUnsigned8> m_solverJacobiansMemory;  
+	dgArray<dgUnsigned8> m_solverForceAccumulatorMemory;
+	dgArray<dgUnsigned8> m_clusterMemory;
+	
 	
 	friend class dgBody;
 	friend class dgBroadPhase;
-	friend class dgAmpInstance;
-	friend class dgDeformableBody;
+	friend class dgDeadBodies;
+	friend class dgDeadJoints;
 	friend class dgActiveContacts;
 	friend class dgUserConstraint;
 	friend class dgBodyMasterList;
@@ -470,11 +519,13 @@ class dgWorld
 	friend class dgCollisionDeformableSolidMesh;
 	friend class dgBroadPhaseApplyExternalForce;
 	friend class dgParallelSolverCalculateForces;
+	friend class dgCollisionMassSpringDamperSystem;
 	friend class dgParallelSolverJointAcceleration;
 	friend class dgParallelSolverBuildJacobianRows;
 	friend class dgParallelSolverInitFeedbackUpdate;
 	friend class dgParallelSolverInitInternalForces;
 	friend class dgParallelSolverBuildJacobianMatrix;
+	
 	friend class dgBroadPhaseMaterialCallbackWorkerThread;
 	friend class dgBroadPhaseCalculateContactsWorkerThread;
 } DG_GCC_VECTOR_ALIGMENT ;
@@ -488,6 +539,21 @@ inline dgMemoryAllocator* dgWorld::GetAllocator() const
 inline dgBroadPhase* dgWorld::GetBroadPhase() const
 {
 	return m_broadPhase;
+}
+
+inline void dgWorld::SetSubsteps (dgInt32 subSteps)
+{
+	m_numberOfSubsteps = dgClamp(subSteps, 1, 8);
+}
+
+inline dgInt32 dgWorld::GetSubsteps () const
+{
+	return m_numberOfSubsteps;
+}
+
+inline dgFloat32 dgWorld::GetUpdateTime() const
+{
+	return m_lastExecutionTime;
 }
 
 #endif

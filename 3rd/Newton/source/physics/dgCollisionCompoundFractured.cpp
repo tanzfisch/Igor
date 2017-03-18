@@ -1,4 +1,4 @@
-/* Copyright (c) <2003-2011> <Julio Jerez, Newton Game Dynamics>
+/* Copyright (c) <2003-2016> <Julio Jerez, Newton Game Dynamics>
 * 
 * This software is provided 'as-is', without any express or implied
 * warranty. In no event will the authors be held liable for any damages
@@ -186,6 +186,8 @@ class dgCollisionCompoundFractured::dgFractureBuilder: public dgTree<dgMeshEffec
 		:dgTree<dgMeshEffect*, dgInt32>(allocator)
 		,m_conectivity(allocator)
 	{
+		dgAssert (0);
+/*
 		dgStack<dgBigVector> buffer(pointcloudCount + 16);
 		dgBigVector* const pool = &buffer[0];
 		dgFloat64 quantizeFactor = dgFloat64 (16.0f);
@@ -387,7 +389,7 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
 	dgTrace (("\n"));
 }
 #endif
-
+*/
 		dgAssert (SanityCheck());
 	}
 
@@ -413,7 +415,7 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
 
 	bool ArePlaneCoplanar (dgMeshEffect* const meshA, void* faceA, const dgBigVector& planeA, dgMeshEffect* const meshB, void* faceB, const dgBigVector& planeB) const
 	{
-		if (((planeA % planeB) < dgFloat64 (-1.0 + 1.0e-6f)) && ((fabs(planeA.m_w + planeB.m_w) < dgFloat64(1.0e-6f)))) {
+		if ((planeA.DotProduct3(planeB) < dgFloat64 (-1.0 + 1.0e-6f)) && ((fabs(planeA.m_w + planeB.m_w) < dgFloat64(1.0e-6f)))) {
 			const dgBigVector* const pointsA = (dgBigVector*) meshA->GetVertexPool();
 			const dgBigVector* const pointsB = (dgBigVector*) meshB->GetVertexPool();
 
@@ -458,8 +460,8 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
 			for (dgInt32 i1 = 0; i1 < indexCountA; i1 ++) {
                 const dgBigVector& q0 = pointsA[indexA[i0]];
                 const dgBigVector& q1 = pointsA[indexA[i1]];
-				dgBigVector n (planeA * (q1 - q0));
-				dgBigPlane plane (n, - (n % q0));
+				dgBigVector n (planeA.CrossProduct3(q1 - q0));
+				dgBigPlane plane (n, - n.DotProduct3(q0));
 				i0 = i1;
 //dgTrace (("%f %f %f\n", q0.m_x, q0.m_y, q0.m_z));
 
@@ -476,7 +478,7 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
 							const dgBigVector& p1 = *tmp->m_next->m_vertex;
 
 							dgBigVector dp (p1 - p0); 
-							dgFloat64 den = plane % dp;
+							dgFloat64 den = plane.DotProduct3(dp);
 							if (fabs(den) < dgFloat32 (1.0e-24f)) {
 								den = (den >= dgFloat32 (0.0f)) ?  dgFloat32 (1.0e-24f) :  dgFloat32 (-1.0e-24f);
 							}
@@ -496,7 +498,7 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
 						const dgBigVector& p1 = *tmp->m_next->m_vertex;
 						isInside |= 1;
 						dgBigVector dp (p1 - p0); 
-						dgFloat64 den = plane % dp;
+						dgFloat64 den = plane.DotProduct3(dp);
 						if (fabs(den) < dgFloat32 (1.0e-24f)) {
 							den = (den >= dgFloat32 (0.0f)) ?  dgFloat32 (1.0e-24f) :  dgFloat32 (-1.0e-24f);
 						}
@@ -544,11 +546,11 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
             do {
                 dgBigVector r2 (*polyPtr->m_vertex);
                 dgBigVector r2r0 (r2 - r0);
-                area += r2r0 * r1r0;
+                area += r2r0.CrossProduct3(r1r0);
                 r1r0 = r2r0;
                 polyPtr = polyPtr->m_next;
             } while (polyPtr != poly);
-            return fabs (area % planeA) > dgFloat32 (1.0e-5f);
+            return fabs (area.DotProduct3(planeA)) > dgFloat32 (1.0e-5f);
 		}
 
 		return false;
@@ -570,7 +572,7 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
             if (!meshB->IsFaceOpen (faceB)) {
 				dgInt32 vertexIndexB = meshB->GetVertexIndex (faceB);
 				dgBigVector planeB (meshB->CalculateFaceNormal (faceB));
-				planeB.m_w = -(planeB % pointsB[vertexIndexB]);
+				planeB.m_w = -planeB.DotProduct3(pointsB[vertexIndexB]);
 				planeB_array[planeB_Count] = planeB;
 				planeB_Count ++;
 				dgAssert (planeB_Count < sizeof (planeB_array) / sizeof (planeB_array[0]));
@@ -581,7 +583,7 @@ for (dgFractureConectivity::dgListNode* node = m_conectivity.GetFirst(); node; n
             if (!meshA->IsFaceOpen (faceA)) {
 				dgInt32 vertexIndexA = meshA->GetVertexIndex (faceA);
 				dgBigVector planeA (meshA->CalculateFaceNormal (faceA));
-				planeA.m_w = -(planeA % pointsA[vertexIndexA]);
+				planeA.m_w = - planeA.DotProduct3(pointsA[vertexIndexA]);
 
 				dgInt32 indexB = 0;
 				for (void* faceB = meshB->GetFirstFace(); faceB; faceB = meshB->GetNextFace(faceB)) {
@@ -811,7 +813,8 @@ dgCollisionCompoundFractured::dgSubMesh* dgCollisionCompoundFractured::dgMesh::A
 	dgStack<dgVector>normal (vertexCount);
 	dgStack<dgVector>uv0 (vertexCount);
 	dgStack<dgVector>uv1 (vertexCount);
-	factureVisualMesh->GetVertexStreams (sizeof (dgVector), &vertex[0].m_x, sizeof (dgVector), &normal[0].m_x, sizeof (dgVector), &uv0[0].m_x, sizeof (dgVector), &uv1[0].m_x);
+	dgAssert (0);
+//	factureVisualMesh->GetVertexStreams (sizeof (dgVector), &vertex[0].m_x, sizeof (dgVector), &normal[0].m_x, sizeof (dgVector), &uv0[0].m_x, sizeof (dgVector), &uv1[0].m_x);
 		
 	// extract the materials index array for mesh
 	dgInt32 baseVertexCount = vertexArray.m_count;
@@ -1394,7 +1397,7 @@ bool dgCollisionCompoundFractured::CanChunk (dgConectivityGraph::dgListNode* con
 			dgFloat32 val = projection.GetScalar();
 			dgAssert (val > dgFloat32 (-1.0f));
 			dgFloat32 angle = dgAcos (val) - dgFloat32 (3.141592f * 90.0f / 180.0f) + dgFloat32 (3.141592f * 15.0f / 180.0f);
-			dgVector axis (himespherePlane * directionsMap[i]);
+			dgVector axis (himespherePlane.CrossProduct3(directionsMap[i]));
 			axis = axis.CompProduct4(axis.DotProduct4(axis).InvSqrt());
 			dgQuaternion rot (axis, angle);
 			himespherePlane = dgMatrix (rot, dgVector::m_wOne).RotateVector(himespherePlane);
@@ -1419,14 +1422,11 @@ bool dgCollisionCompoundFractured::IsBelowPlane (dgConectivityGraph::dgListNode*
 	dgDebriNodeInfo& nodeInfo = node->GetInfo().m_nodeData;
 	dgCollisionInstance* const instance = nodeInfo.m_shapeNode->GetInfo()->GetShape();
 
-	dgInt32 dommy;
 	dgVector dir (plane & dgVector::m_triplexMask);
 
 	const dgMatrix& matrix = instance->GetLocalMatrix(); 
-	dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir), &dommy)));
+	dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir))));
 
-//	dgFloat32 dist;
-//	support.DotProduct4(plane).StoreScalar(&dist);
 	dgFloat32 dist = (support.DotProduct4(plane)).GetScalar();
 	return dist < dgFloat32 (0.0f);
 }
@@ -1436,14 +1436,11 @@ bool dgCollisionCompoundFractured::IsAbovePlane (dgConectivityGraph::dgListNode*
 	dgDebriNodeInfo& nodeInfo = node->GetInfo().m_nodeData;
 	dgCollisionInstance* const instance = nodeInfo.m_shapeNode->GetInfo()->GetShape();
 
-	dgInt32 dommy;
 	dgVector dir ((plane & dgVector::m_triplexMask).CompProduct4(dgVector::m_negOne));
 
 	const dgMatrix& matrix = instance->GetLocalMatrix(); 
-	dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir), &dommy)));
+	dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir))));
 
-//	dgFloat32 dist;
-//	support.DotProduct4(plane).StoreScalar(&dist);
 	dgFloat32 dist = (support.DotProduct4(plane)).GetScalar();
 	return dist > dgFloat32 (0.0f);
 }
@@ -1453,14 +1450,11 @@ dgCollisionCompoundFractured::dgConectivityGraph::dgListNode* dgCollisionCompoun
 	dgDebriNodeInfo& nodeInfo = nodeBelowPlane->GetInfo().m_nodeData;
 	dgCollisionInstance* const instance = nodeInfo.m_shapeNode->GetInfo()->GetShape();
 
-	dgInt32 dommy;
 	dgVector dir (plane & dgVector::m_triplexMask);
 
 	const dgMatrix& matrix = instance->GetLocalMatrix(); 
-	dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir), &dommy)));
+	dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir))));
 
-//	dgFloat32 dist;
-//	support.DotProduct4(plane).StoreScalar(&dist);
 	dgFloat32 dist = (support.DotProduct4(plane)).GetScalar();
 	dgAssert (dist < dgFloat32 (0.0f));
 
@@ -1473,9 +1467,7 @@ dgCollisionCompoundFractured::dgConectivityGraph::dgListNode* dgCollisionCompoun
 			dgCollisionInstance* const instance = neighborgInfo.m_shapeNode->GetInfo()->GetShape();
 
 			const dgMatrix& matrix = instance->GetLocalMatrix(); 
-			dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir), &dommy)));
-//			dgFloat32 dist1;
-//			support.DotProduct4(plane).StoreScalar(&dist1);
+			dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(dir))));
 			dgFloat32 dist1 = (support.DotProduct4(plane)).GetScalar();
 			if (dist1 > dist) {
 				dist = dist1;
@@ -1529,10 +1521,7 @@ dgCollisionCompoundFractured* dgCollisionCompoundFractured::PlaneClip (const dgV
 						dgCollisionInstance* const instance = neighborgInfo.m_shapeNode->GetInfo()->GetShape();
 						const dgMatrix& matrix = instance->GetLocalMatrix(); 
 
-						dgInt32 dommy;
-						//dgFloat32 dist;
-						dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(negDir), &dommy)));
-						//support.DotProduct4(plane).StoreScalar(&dist);
+						dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(negDir))));
 						dgFloat32 dist = (support.DotProduct4(plane)).GetScalar();
 						if (dist > dgFloat32 (0.0f)) {
 							upperSide.Insert(node, node);
@@ -1552,8 +1541,7 @@ dgCollisionCompoundFractured* dgCollisionCompoundFractured::PlaneClip (const dgV
 
 
 						} else {
-							dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(posgDir), &dommy)));
-							//support.DotProduct4(plane).StoreScalar(&dist);
+							dgVector support (matrix.TransformVector(instance->SupportVertex(matrix.UnrotateVector(posgDir))));
 							dgFloat32 dist = (support.DotProduct4(plane)).GetScalar();
 							if (dist > dgFloat32 (0.0f)) {
 								pool[stack] = node;
@@ -1698,7 +1686,7 @@ void dgCollisionCompoundFractured::SpawnSingleChunk (dgBody* const myBody, const
 
 	// calculate debris initial velocity
 	dgVector chunkOrigin (matrix.TransformVector(chunkCollision->GetLocalMatrix().m_posit));
-	dgVector chunkVeloc (veloc + omega * (chunkOrigin - com));
+	dgVector chunkVeloc (veloc + omega.CrossProduct3(chunkOrigin - com));
 
 	chunkBody->SetOmega(omega);
 	chunkBody->SetVelocity(chunkVeloc);
@@ -1757,7 +1745,7 @@ void dgCollisionCompoundFractured::SpawnComplexChunk (dgBody* const myBody, cons
 
 	// calculate debris initial velocity
 	dgVector chunkOrigin (matrix.TransformVector(childStructureInstance->GetLocalMatrix().m_posit));
-	dgVector chunkVeloc (veloc + omega * (chunkOrigin - com));
+	dgVector chunkVeloc (veloc + omega.CrossProduct3(chunkOrigin - com));
 
 	chunkBody->SetOmega(omega);
 	chunkBody->SetVelocity(chunkVeloc);
