@@ -96,7 +96,7 @@ namespace Igor
                             _characters[character].rect.setWidth(reducedWidth); // damit freizeichen nicht übertrieben breit sind
 
                             firstfound = false;
-                            for (long pos_x = tex_x*offx + offx; pos_x > tex_x*offx; pos_x--)
+                            for (long pos_x = tex_x*offx + offx - 1; pos_x >= tex_x*offx; pos_x--)
                             {
                                 for (long pos_y = tex_y*offy; pos_y < tex_y*offy + offy; pos_y++)
                                 {
