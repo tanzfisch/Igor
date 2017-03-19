@@ -188,7 +188,7 @@ namespace Igor
 
         /*! creates a joint
         */
-        iPhysicsJoint* createJoint(iPhysicsBody* body0, iPhysicsBody* body1 = nullptr, int dof = 6);
+        iPhysicsJoint* createJoint(iPhysicsBody* body0, iPhysicsBody* body1 = nullptr, int maxDOF = 6);
 
         /*! \returns joint by id
 
@@ -360,6 +360,8 @@ namespace Igor
         \param body handle to newton body
         \param transformNode transform node to bind
         \param sync if true the bodys matrix will be updated with the transform node one
+
+        \todo bind does not work prior to the transform node ist not part of the scene
         */
         void bindTransformNode(iPhysicsBody* body, iNodeTransform* transformNode, bool sync = true);
 

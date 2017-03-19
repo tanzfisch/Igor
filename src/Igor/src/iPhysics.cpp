@@ -619,7 +619,7 @@ namespace Igor
         NewtonUserJointSetRowMaximumFriction(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), friction);
     }
 
-    iPhysicsJoint* iPhysics::createJoint(iPhysicsBody* body0, iPhysicsBody* body1, int dof)
+    iPhysicsJoint* iPhysics::createJoint(iPhysicsBody* body0, iPhysicsBody* body1, int maxDOF)
     {
         iPhysicsJoint* result = nullptr;
         con_assert(body0 != nullptr, "zero pointer");
@@ -627,7 +627,11 @@ namespace Igor
         if (body0 != nullptr)
         {
             NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_defaultWorld));
-            NewtonJoint * joint = NewtonConstraintCreateUserJoint(static_cast<NewtonWorld*>(_defaultWorld), dof, reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints), nullptr, static_cast<NewtonBody*>(body0->getNewtonBody()), body1 != nullptr ? static_cast<NewtonBody*>(body1->getNewtonBody()) : nullptr);
+
+            NewtonJoint * joint = NewtonConstraintCreateUserJoint(static_cast<NewtonWorld*>(_defaultWorld), maxDOF,
+                reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints), nullptr,
+                static_cast<NewtonBody*>(body0->getNewtonBody()), 
+                body1 != nullptr ? static_cast<NewtonBody*>(body1->getNewtonBody()) : nullptr);
 
             result = new iPhysicsJoint(joint, body0->getID(), body1 != nullptr ? body1->getID() : 0);
 
