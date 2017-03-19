@@ -55,6 +55,7 @@ namespace Igor
     class iNodeLODSwitch;
     class iNodeModel;
     class iPhysicsBody;
+    class iPhysicsJoint;
 }
 
 class ExampleCharacterController
@@ -108,7 +109,6 @@ private:
     */
     iTextureFont* _font = nullptr;
 
-  
     /*! id to transform node used for manipulating the heading of the camera
     */
     uint32 _cameraHeading = iNode::INVALID_NODE_ID;
@@ -183,6 +183,8 @@ private:
 	void init();
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
+
+    void onSubmitConstraints(iPhysicsJoint* joint, float32 timestep);
 
 };
 
