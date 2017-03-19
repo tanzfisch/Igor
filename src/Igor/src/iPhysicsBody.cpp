@@ -111,6 +111,11 @@ namespace Igor
         }
     }
 
+    void iPhysicsBody::getMatrix(iaMatrixd& matrix)
+    {
+        iPhysics::getInstance().getMatrix(_newtonBody, matrix);
+    }
+
     void iPhysicsBody::setMatrix(const iaMatrixd& matrix)
     {
         iPhysics::getInstance().updateMatrix(_newtonBody, matrix);

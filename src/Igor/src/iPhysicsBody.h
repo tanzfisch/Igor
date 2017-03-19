@@ -73,6 +73,8 @@ namespace Igor
         */
         void setMatrix(const iaMatrixd& matrix);
 
+        void getMatrix(iaMatrixd& matrix);
+
         /*! returns the transform node materix
 
         the transform node matrix is affected by the bodys movement within the physics context (see setTransformNodeMatrix)
