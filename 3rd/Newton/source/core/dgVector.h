@@ -2009,8 +2009,8 @@ class dgSpatialVector
 
 	DG_INLINE dgFloat32 DotProduct(const dgSpatialVector& v) const
 	{
-		dgAssert (v.m_h[2] == dgFloat32 (0.0f));
-		dgAssert (v.m_h[3] == dgFloat32 (0.0f));
+		//dgAssert (v.m_h[2] == dgFloat32 (0.0f));
+		//dgAssert (v.m_h[3] == dgFloat32 (0.0f));
 		dgVector p (m_l.CompProduct4(v.m_l) + m_h.CompProduct4(v.m_h));
 		return (p.AddHorizontal()).GetScalar(); 
 	}
@@ -2026,8 +2026,8 @@ class dgSpatialVector
 } DG_GCC_VECTOR_ALIGMENT;
 
 
-
 /*
+
 DG_MSC_VECTOR_ALIGMENT
 class dgSpatialVector
 {
@@ -2103,5 +2103,4 @@ class dgSpatialVector
 	__m128d m_d2;
 } DG_GCC_VECTOR_ALIGMENT;
 */
-
 #endif
