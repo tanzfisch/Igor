@@ -69,14 +69,24 @@ namespace Igor
 
     /*! \todo dirty workaround because of casting issues
     */
+#ifdef _NEWTON_USE_DOUBLE
     void PhysicsNodeSetTransform(const void* body, const float64* matrix, int threadIndex)
+#else
+    void PhysicsNodeSetTransform(const void* body, const float32* matrix, int threadIndex)
+#endif
     {
         iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body)));
         if (nullptr != physicsBody)
         {
+#ifdef _NEWTON_USE_DOUBLE
             iaMatrixd m;
             m.setData(matrix);
             iPhysics::getInstance().queueTransformation(physicsBody, m);
+#else
+            iaMatrixd m;
+            iaConvert::convert(matrix, m);
+            iPhysics::getInstance().queueTransformation(physicsBody, m);
+#endif
         }
     }
 
@@ -86,10 +96,13 @@ namespace Igor
     \param matrix the updated matrix from newton
     \param threadIndex ???
     */
-    //                          (const NewtonBody* const body, const dFloat* const matrix, int threadIndex);
-    void PhysicsNodeSetTransform(const NewtonBody* const body, const dFloat* const matrix, int threadIndex)
+    void PhysicsNodeSetTransformation(const NewtonBody* const body, const dFloat* const matrix, int threadIndex)
     {
+#ifdef _NEWTON_USE_DOUBLE
         PhysicsNodeSetTransform(static_cast<const void*>(body), static_cast<const float64*>(matrix), threadIndex);
+#else
+        PhysicsNodeSetTransform(static_cast<const void*>(body), static_cast<const float32*>(matrix), threadIndex);
+#endif
     }
 
     /*! redirects all apply force and torque calls to igor physics bodies
@@ -160,7 +173,7 @@ namespace Igor
     {
         GenericContactProcessCompatible(static_cast<const void*>(newtonContactJoint), timestep, threadIndex);
     }
-    
+
     iPhysics::iPhysics()
     {
         NewtonSetMemorySystem(AllocMemory, FreeMemory);
@@ -361,7 +374,11 @@ namespace Igor
 
     void iPhysics::setAngularDamping(void* newtonBody, const iaVector3d& angularDamp)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonBodySetAngularDamping(static_cast<const NewtonBody*>(newtonBody), angularDamp.getData());
+#else
+        NewtonBodySetAngularDamping(static_cast<const NewtonBody*>(newtonBody), iaVector3f(angularDamp._x, angularDamp._y, angularDamp._z).getData());
+#endif
     }
 
     void iPhysics::setLinearDamping(void* newtonBody, float64 linearDamp)
@@ -371,22 +388,43 @@ namespace Igor
 
     void iPhysics::getVelocity(void* newtonBody, iaVector3d& velocity)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), velocity.getData());
+#else
+        NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), iaVector3f(velocity._x, velocity._y, velocity._z).getData());
+#endif
     }
 
     void iPhysics::setForce(void* newtonBody, const iaVector3d& force)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonBodySetForce(static_cast<const NewtonBody*>(newtonBody), force.getData());
+#else
+        NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), iaVector3f(force._x, force._y, force._z).getData());
+#endif
     }
 
     void iPhysics::setTorque(void* newtonBody, const iaVector3d& torque)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonBodySetTorque(static_cast<const NewtonBody*>(newtonBody), torque.getData());
+#else
+        NewtonBodyGetVelocity(static_cast<const NewtonBody*>(newtonBody), iaVector3f(torque._x, torque._y, torque._z).getData());
+#endif
     }
 
     void iPhysics::getMassMatrix(void* newtonBody, float64& mass, float64& Ixx, float64& Iyy, float64& Izz)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonBodyGetMass(static_cast<const NewtonBody*>(newtonBody), &mass, &Ixx, &Iyy, &Izz);
+#else
+        float32 m, x, y, z;
+        NewtonBodyGetMass(static_cast<const NewtonBody*>(newtonBody), &m, &x, &y, &z);
+        mass = m;
+        Ixx = x;
+        Iyy = y;
+        Izz = z;
+#endif
     }
 
     void* iPhysics::getUserDataFromBody(void* newtonBody)
@@ -461,7 +499,7 @@ namespace Igor
         _mutexBodiesToTransform.lock();
         auto bodiesToTransform = std::move(_bodiesToTransform);
         _mutexBodiesToTransform.unlock();
-     
+
         for (auto iter : bodiesToTransform)
         {
             iter.first->setTransformNodeMatrix(iter.second);
@@ -581,13 +619,18 @@ namespace Igor
         con_assert(collisionVolume != nullptr, "zero pointer");
         con_assert(collisionVolume->_collision != nullptr, "zero pointer");
 
+#ifdef _NEWTON_USE_DOUBLE
         iaMatrixd matrix;
+#else
+        iaMatrixf matrix;
+#endif
+
         NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_defaultWorld));
         NewtonBody* newtonBody = NewtonCreateDynamicBody(static_cast<const NewtonWorld*>(_defaultWorld), static_cast<const NewtonCollision*>(collisionVolume->_collision), matrix.getData());
 
         // set callbacks
         NewtonBodySetDestructorCallback(newtonBody, reinterpret_cast<NewtonBodyDestructor>(PhysicsNodeDestructor));
-        NewtonBodySetTransformCallback(newtonBody, reinterpret_cast<NewtonSetTransform>(PhysicsNodeSetTransform));
+        NewtonBodySetTransformCallback(newtonBody, reinterpret_cast<NewtonSetTransform>(PhysicsNodeSetTransformation));
         NewtonBodySetForceAndTorqueCallback(newtonBody, reinterpret_cast<NewtonApplyForceAndTorque>(PhysicsApplyForceAndTorque));
 
         NewtonBodySetMassMatrix(newtonBody, 0, 0, 0, 0);
@@ -606,7 +649,11 @@ namespace Igor
 
     void iPhysics::setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3d& pin)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonUserJointAddAngularRow(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), relativeAngleError, pin.getData());
+#else
+        NewtonUserJointAddAngularRow(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), relativeAngleError, iaVector3f(pin._x, pin._y, pin._z).getData());
+#endif
     }
 
     void iPhysics::setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction)
@@ -630,7 +677,7 @@ namespace Igor
 
             NewtonJoint * joint = NewtonConstraintCreateUserJoint(static_cast<NewtonWorld*>(_defaultWorld), maxDOF,
                 reinterpret_cast<NewtonUserBilateralCallback>(SubmitConstraints), nullptr,
-                static_cast<NewtonBody*>(body0->getNewtonBody()), 
+                static_cast<NewtonBody*>(body0->getNewtonBody()),
                 body1 != nullptr ? static_cast<NewtonBody*>(body1->getNewtonBody()) : nullptr);
 
             result = new iPhysicsJoint(joint, body0->getID(), body1 != nullptr ? body1->getID() : 0);
@@ -923,7 +970,13 @@ namespace Igor
 
         if (world != nullptr)
         {
+#ifdef _NEWTON_USE_DOUBLE
             NewtonCollision* collision = NewtonCreateBox(static_cast<const NewtonWorld*>(world), width, height, depth, 0, offset.getData());
+#else
+            iaMatrixf o;
+            iaConvert::convert(offset, o);
+            NewtonCollision* collision = NewtonCreateBox(static_cast<const NewtonWorld*>(world), width, height, depth, 0, o.getData());
+#endif
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -960,28 +1013,44 @@ namespace Igor
         handler->getCollisionInfo(infoRecord);
     }
 
-    int AABBOverlapTest(void* userData, const float32* const box0, const float32* const box1)
+  /*  int AABBOverlapTest(void* userData, const float32* const box0, const float32* const box1)
     {
         iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(userData);
         return handler->testOverlapAABB(box0, box1);
     }
 
+#ifdef _NEWTON_USE_DOUBLE
     int GetFacesInAABB(void* userData, const float64* p0, const float64* p1, const float64** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
     {
         iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(userData);
         return handler->getFacesInAABB(p0, p1, vertexArray, vertexCount, vertexStrideInBytes, indexList, maxIndexCount, userDataList);
     }
+#else
+    int GetFacesInAABB(void* userData, const float32* p0, const float32* p1, const float32** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
+    {
+        iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(userData);
+        return 0; // handler->getFacesInAABB(p0, p1, vertexArray, vertexCount, vertexStrideInBytes, indexList, maxIndexCount, userDataList);
+    }
+#endif*/
 
     iPhysicsCollision* iPhysics::createUserMeshCollision(const iaVector3d& minBox, const iaVector3d& maxBox, iPhysicsUserMeshCollisionHandler* handler, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
-        const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
+     /*   const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
+#ifdef _NEWTON_USE_DOUBLE
             NewtonCollision* collision = NewtonCreateUserMeshCollision(static_cast<const NewtonWorld*>(world), minBox.getData(), maxBox.getData(), handler,
                 CollideCallback, reinterpret_cast<NewtonUserMeshCollisionRayHitCallback>(RayHitCallback), DestroyCallback,
                 GetCollisionInfo, reinterpret_cast<NewtonUserMeshCollisionAABBTest>(AABBOverlapTest), GetFacesInAABB, nullptr, 0);
+#else
+            NewtonCollision* collision = NewtonCreateUserMeshCollision(static_cast<const NewtonWorld*>(world), 
+                iaVector3f(minBox._x, minBox._y, minBox._z).getData(), 
+                iaVector3f(maxBox._x, maxBox._y, maxBox._z).getData(), handler,
+                CollideCallback, reinterpret_cast<NewtonUserMeshCollisionRayHitCallback>(RayHitCallback), DestroyCallback,
+                GetCollisionInfo, reinterpret_cast<NewtonUserMeshCollisionAABBTest>(AABBOverlapTest), GetFacesInAABB, nullptr, 0);
+#endif
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -989,7 +1058,7 @@ namespace Igor
             _collisionsListMutex.lock();
             _collisions[result->getID()] = result;
             _collisionsListMutex.unlock();
-        }
+        }*/
 
         return result;
     }
@@ -1001,7 +1070,13 @@ namespace Igor
 
         if (world != nullptr)
         {
+#ifdef _NEWTON_USE_DOUBLE
             NewtonCollision* collision = NewtonCreateSphere(static_cast<const NewtonWorld*>(world), radius, 0, offset.getData());
+#else
+            iaMatrixf o;
+            iaConvert::convert(offset, o);
+            NewtonCollision* collision = NewtonCreateSphere(static_cast<const NewtonWorld*>(world), radius, 0, o.getData());
+#endif
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
@@ -1021,8 +1096,13 @@ namespace Igor
 
         if (world != nullptr)
         {
+#ifdef _NEWTON_USE_DOUBLE
             NewtonCollision* collision = NewtonCreateCone(static_cast<const NewtonWorld*>(world), radius, height, 0, offset.getData());
-
+#else
+            iaMatrixf o;
+            iaConvert::convert(offset, o);
+            NewtonCollision* collision = NewtonCreateCone(static_cast<const NewtonWorld*>(world), radius, height, 0, o.getData());
+#endif
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
 
@@ -1041,8 +1121,13 @@ namespace Igor
 
         if (world != nullptr)
         {
+#ifdef _NEWTON_USE_DOUBLE
             NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, offset.getData());
-
+#else
+            iaMatrixf o;
+            iaConvert::convert(offset, o);
+            NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, o.getData());
+#endif
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
 
@@ -1061,8 +1146,13 @@ namespace Igor
 
         if (world != nullptr)
         {
+#ifdef _NEWTON_USE_DOUBLE
             NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, offset.getData());
-
+#else
+            iaMatrixf o;
+            iaConvert::convert(offset, o);
+            NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, o.getData());
+#endif
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
 
@@ -1090,12 +1180,24 @@ namespace Igor
 
     void iPhysics::updateMatrix(void* newtonBody, const iaMatrixd& matrix)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonBodySetMatrix(static_cast<const NewtonBody*>(newtonBody), matrix.getData());
+#else
+        iaMatrixf m;
+        iaConvert::convert(matrix, m);
+        NewtonBodySetMatrix(static_cast<const NewtonBody*>(newtonBody), m.getData());
+#endif
     }
 
     void iPhysics::getMatrix(void* newtonBody, iaMatrixd& matrix)
     {
+#ifdef _NEWTON_USE_DOUBLE
         NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), matrix.getData());
+#else
+        iaMatrixf m;
+        iaConvert::convert(matrix, m);
+        NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), m.getData());
+#endif
     }
 
     void iPhysics::setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz)
@@ -1123,10 +1225,14 @@ namespace Igor
 
                 NewtonTreeCollisionBeginBuild(collision);
 
-                float64 temp[12];
-                temp[3] = 1.0f;
+#ifdef _NEWTON_USE_DOUBLE
+                float64 temp[9];
+#else
+                float32 temp[9];
+#endif
+             /*   temp[3] = 1.0f;
                 temp[7] = 1.0f;
-                temp[11] = 1.0f;
+                temp[11] = 1.0f;*/
 
                 uint32* indexes = mesh->getIndexData();
                 float32* vertexes = mesh->getVertexData();
@@ -1143,23 +1249,27 @@ namespace Igor
                     temp[2] = vertexes[vertexPos++];
 
                     vertexPos = (indexes[i + 1] * vertexFloatCount);
+                    temp[3] = vertexes[vertexPos++];
                     temp[4] = vertexes[vertexPos++];
                     temp[5] = vertexes[vertexPos++];
-                    temp[6] = vertexes[vertexPos++];
 
                     vertexPos = (indexes[i + 2] * vertexFloatCount);
+                    temp[6] = vertexes[vertexPos++];
+                    temp[7] = vertexes[vertexPos++];
                     temp[8] = vertexes[vertexPos++];
-                    temp[9] = vertexes[vertexPos++];
-                    temp[10] = vertexes[vertexPos++];
 
-                    NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float32) * 4, faceAttribute);
+#ifdef _NEWTON_USE_DOUBLE
+                    NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float64) * 3, faceAttribute);
+#else
+                    NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float32) * 3, faceAttribute);
+#endif
                 }
 
                 NewtonTreeCollisionEndBuild(collision, 0);
 
                 result = new iPhysicsCollision(collision, worldID);
                 NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
-                
+
                 _collisionsListMutex.lock();
                 _collisions[result->getID()] = result;
                 _collisionsListMutex.unlock();

@@ -65,7 +65,11 @@ namespace Igor
     class Igor_API iPhysics : public iaSingleton<iPhysics>
     {
         friend void PhysicsNodeDestructor(const void* body);
+#ifdef _NEWTON_USE_DOUBLE
         friend void PhysicsNodeSetTransform(const void* body, const float64* matrix, int threadIndex);
+#else
+        friend void PhysicsNodeSetTransform(const void* body, const float32* matrix, int threadIndex);
+#endif
         friend void GenericContactProcessCompatible(const void* const newtonContactJoint, float64 timestep, int threadIndex);
         friend class iaSingleton<iPhysics>;
         friend class iPhysicsCollision;

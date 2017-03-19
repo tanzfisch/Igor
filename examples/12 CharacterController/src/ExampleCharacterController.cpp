@@ -96,7 +96,7 @@ void ExampleCharacterController::init()
     terrainEntity->setName("terrain-entity");
     //terrainEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
     terrainEntity->setElasticity(0.0);
-    terrainEntity->setFriction(0.0, 0.0);
+    terrainEntity->setFriction(0.1, 0.1);
 
     iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
     terrainBullet->setName("terrain-bullet");
@@ -125,6 +125,11 @@ void ExampleCharacterController::init()
     floorTransform->insertNode(floorModel);
     _scene->getRoot()->insertNode(floorTransform);
 
+    /*iPhysicsCollision* floorCollision = iPhysics::getInstance().createBox(20, 1, 20, iaMatrixd());
+    iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
+    floorBody->setMass(0);
+    floorBody->setMaterial(_terrainMaterialID);*/
+
     // create a box that drops on floor
     iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
     iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
@@ -152,7 +157,7 @@ void ExampleCharacterController::init()
 
     iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _charTransformNodeID = charTransform->getID();
-    charTransform->translate(0, 5, 15);
+    charTransform->translate(0, 5, 5);
     _scene->getRoot()->insertNode(charTransform);
 
     iPhysics::getInstance().bindTransformNode(charBody, charTransform);
