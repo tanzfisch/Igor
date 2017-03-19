@@ -71,7 +71,7 @@ void Turret::handle()
         iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_turretNodeID));
         if (turret != nullptr)
         {
-            if (turret->isLoaded())
+            if (turret->isReady())
             {
                 if (turret->hasChildren())
                 {

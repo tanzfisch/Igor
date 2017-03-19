@@ -133,6 +133,10 @@ private:
     */
     shared_ptr<iTexture> _igorLogo = nullptr;
 
+    uint32 _modelNodeID = 0;
+
+    void onModelReady(uint32 modelNodeID);
+
     /*! called on key pressed event
 
     \param key the key code of the pressed key

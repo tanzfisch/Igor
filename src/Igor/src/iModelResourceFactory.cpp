@@ -276,7 +276,6 @@ namespace Igor
         shared_ptr<iModel> result;
         iaString hashKey;
 
-        // TODO copy paste code
         con_assert_sticky(filename != "", "invalid parameter");
 
         if (parameter != nullptr &&

@@ -1953,7 +1953,7 @@ class dgSpatialVector
 */
 
 
-
+/*
 // *****************************************************************************************
 //
 // 6 x 1 vector class declaration
@@ -2009,8 +2009,8 @@ class dgSpatialVector
 
 	DG_INLINE dgFloat32 DotProduct(const dgSpatialVector& v) const
 	{
-		//dgAssert (v.m_h[2] == dgFloat32 (0.0f));
-		//dgAssert (v.m_h[3] == dgFloat32 (0.0f));
+		dgAssert (v.m_h[2] == dgFloat32 (0.0f));
+		dgAssert (v.m_h[3] == dgFloat32 (0.0f));
 		dgVector p (m_l.CompProduct4(v.m_l) + m_h.CompProduct4(v.m_h));
 		return (p.AddHorizontal()).GetScalar(); 
 	}
@@ -2024,9 +2024,9 @@ class dgSpatialVector
 	dgVector m_h;
 
 } DG_GCC_VECTOR_ALIGMENT;
+*/
 
 
-/*
 
 DG_MSC_VECTOR_ALIGMENT
 class dgSpatialVector
@@ -2043,12 +2043,22 @@ class dgSpatialVector
 	{
 	}
 
+#ifdef _NEWTON_USE_DOUBLE
+	#define PURMUT_MASK2(y, x)		_MM_SHUFFLE2(x, y)
+	DG_INLINE dgSpatialVector(const dgVector& low, const dgVector& high)
+		:m_d0(low.m_typeLow)
+		,m_d1(_mm_shuffle_pd (low.m_typeHigh, high.m_typeLow, PURMUT_MASK2(0, 0)))
+		,m_d2(_mm_shuffle_pd (high.m_typeLow, high.m_typeHigh, PURMUT_MASK2(1, 0)))
+	{
+	}
+#else 
 	DG_INLINE dgSpatialVector(const dgVector& low, const dgVector& high)
 		:m_d0(_mm_cvtps_pd(low.m_type))
 		,m_d1(_mm_cvtps_pd(_mm_unpackhi_ps(low.m_type, _mm_shuffle_ps(low.m_type, high.m_type, PURMUT_MASK(0, 0, 0, 2)))))
 		,m_d2(_mm_cvtps_pd(_mm_shuffle_ps(high.m_type, high.m_type, PURMUT_MASK(3, 3, 2, 1))))
 	{
 	}
+#endif
 
 	DG_INLINE dgSpatialVector(const __m128d d0, const __m128d d1, const __m128d d2)
 		:m_d0(d0)
@@ -2102,5 +2112,5 @@ class dgSpatialVector
 	__m128d m_d1;
 	__m128d m_d2;
 } DG_GCC_VECTOR_ALIGMENT;
-*/
+
 #endif

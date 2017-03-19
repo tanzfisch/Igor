@@ -121,17 +121,6 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
     
-    // TODO next step is not working yet
-
-    // then we load the model directly and replace the material
-    /*shared_ptr<iModel> model = iModelResourceFactory::getInstance().loadModelData("cat.ompf", iResourceCacheMode::Keep);
-    iNode* modelRootNode = model->getNode();
-    if (modelRootNode->getType() == iNodeType::iNodeMesh)
-    {
-        iNodeMesh* meshNode = static_cast<iNodeMesh*>(modelRootNode);
-        meshNode->setMaterial(_materialWithInstancing);
-    }/**/
-    
     // now we can just put copies of that model in the scene    
     iNodeTransform* transformGroup = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformGroup->translate(-10, -10, 10);
@@ -150,7 +139,8 @@ void ExampleInstancing::init()
                 iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
                 // it is important to use the exact same parameters here as before when we direclty loaded the model
                 // because here it will not load it again but get it from the cache where we is still the version with manipulated material
-                modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
+                modelNode->setModel("teapot.ompf", iResourceCacheMode::Keep);
+                modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReady));
 
                 // building the created nodes together and insert them in the scene
                 transformGroup->insertNode(transform);
@@ -362,6 +352,18 @@ void ExampleInstancing::drawLogo()
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
+
+void ExampleInstancing::onModelReady(uint32 modelNodeID)
+{
+    iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(modelNodeID));
+    if (modelNode != nullptr &&
+        modelNode->isReady())
+    {
+        iNodeMesh* meshNode = static_cast<iNodeMesh*>(modelNode->getChild("mesh0001"));
+        meshNode->setMaterial(_materialWithInstancing);
+    }
+}
+
 
 void ExampleInstancing::run()
 {

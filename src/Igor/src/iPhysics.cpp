@@ -1113,54 +1113,57 @@ namespace Igor
     iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
-        const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
-
-        if (world != nullptr)
+        if (mesh != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld*>(world), 0);
+            const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
-            NewtonTreeCollisionBeginBuild(collision);
-
-            float64 temp[12];
-            temp[3] = 1.0f;
-            temp[7] = 1.0f;
-            temp[11] = 1.0f;
-
-            uint32* indexes = mesh->getIndexData();
-            float32* vertexes = mesh->getVertexData();
-
-            uint32 vertexFloatCount = mesh->getVertexSize() / 4;
-            uint32 vertexPos = 0;
-            uint32 indexCount = mesh->getIndexesCount();
-
-            for (int i = 0; i < indexCount; i += 3)
+            if (world != nullptr)
             {
-                vertexPos = (indexes[i + 0] * vertexFloatCount);
-                temp[0] = vertexes[vertexPos++];
-                temp[1] = vertexes[vertexPos++];
-                temp[2] = vertexes[vertexPos++];
+                NewtonCollision* collision = NewtonCreateTreeCollision(static_cast<const NewtonWorld*>(world), 0);
 
-                vertexPos = (indexes[i + 1] * vertexFloatCount);
-                temp[4] = vertexes[vertexPos++];
-                temp[5] = vertexes[vertexPos++];
-                temp[6] = vertexes[vertexPos++];
+                NewtonTreeCollisionBeginBuild(collision);
 
-                vertexPos = (indexes[i + 2] * vertexFloatCount);
-                temp[8] = vertexes[vertexPos++];
-                temp[9] = vertexes[vertexPos++];
-                temp[10] = vertexes[vertexPos++];
+                float64 temp[12];
+                temp[3] = 1.0f;
+                temp[7] = 1.0f;
+                temp[11] = 1.0f;
 
-                NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float32) * 4, faceAttribute);
+                uint32* indexes = mesh->getIndexData();
+                float32* vertexes = mesh->getVertexData();
+
+                uint32 vertexFloatCount = mesh->getVertexSize() / 4;
+                uint32 vertexPos = 0;
+                uint32 indexCount = mesh->getIndexesCount();
+
+                for (int i = 0; i < indexCount; i += 3)
+                {
+                    vertexPos = (indexes[i + 0] * vertexFloatCount);
+                    temp[0] = vertexes[vertexPos++];
+                    temp[1] = vertexes[vertexPos++];
+                    temp[2] = vertexes[vertexPos++];
+
+                    vertexPos = (indexes[i + 1] * vertexFloatCount);
+                    temp[4] = vertexes[vertexPos++];
+                    temp[5] = vertexes[vertexPos++];
+                    temp[6] = vertexes[vertexPos++];
+
+                    vertexPos = (indexes[i + 2] * vertexFloatCount);
+                    temp[8] = vertexes[vertexPos++];
+                    temp[9] = vertexes[vertexPos++];
+                    temp[10] = vertexes[vertexPos++];
+
+                    NewtonTreeCollisionAddFace(collision, 3, temp, sizeof(float32) * 4, faceAttribute);
+                }
+
+                NewtonTreeCollisionEndBuild(collision, 0);
+
+                result = new iPhysicsCollision(collision, worldID);
+                NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+                
+                _collisionsListMutex.lock();
+                _collisions[result->getID()] = result;
+                _collisionsListMutex.unlock();
             }
-
-            NewtonTreeCollisionEndBuild(collision, 0);
-
-            result = new iPhysicsCollision(collision, worldID);
-            NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
-
-            _collisionsListMutex.lock();
-            _collisions[result->getID()] = result;
-            _collisionsListMutex.unlock();
         }
 
         return result;

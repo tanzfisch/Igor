@@ -11,6 +11,7 @@ using namespace IgorAux;
 #include <iNodeSkyBox.h>
 #include <iNodeCamera.h>
 #include <iNodeModel.h> 
+#include <iNodeMesh.h>
 #include <iNodeTransform.h>
 #include <iRenderer.h>
 #include <iApplication.h>
@@ -35,6 +36,8 @@ using namespace IgorAux;
 #include <iPhysicsCollision.h>
 #include <iPhysicsBody.h>
 #include <iPhysicsJoint.h>
+#include <iPhysicsMaterial.h>
+#include <iPhysicsMaterialCombo.h>
 using namespace Igor;
 
 ExampleCharacterController::ExampleCharacterController()
@@ -49,7 +52,8 @@ ExampleCharacterController::~ExampleCharacterController()
 
 void ExampleCharacterController::init()
 {
-    con(" -- 3D Example --" << endl);
+    con(" -- Example character Controller --" << endl);
+    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &ExampleCharacterController::onHandle));
 
     // setup window
     _window.setTitle("Igor - 3D Example");
@@ -78,32 +82,58 @@ void ExampleCharacterController::init()
     // bind scene to perspective view
     _view.setScene(_scene);
 
+    // setup some physics materials
+    iPhysicsMaterial* materialTerrain = iPhysics::getInstance().createMaterial("terrain");
+    _terrainMaterialID = materialTerrain->getID();
+
+    iPhysicsMaterial* materialEntity = iPhysics::getInstance().createMaterial("entity");
+    _entityMaterialID = materialEntity->getID();
+
+    iPhysicsMaterial* materialBullet = iPhysics::getInstance().createMaterial("bullet");
+    _bulletMaterialID = materialBullet->getID();
+
+    iPhysicsMaterialCombo* terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
+    terrainEntity->setName("terrain-entity");
+    //terrainEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+    terrainEntity->setElasticity(0.0);
+    terrainEntity->setFriction(0.0, 0.0);
+
+    iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
+    terrainBullet->setName("terrain-bullet");
+    //terrainBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContactTerrainBullet));
+
+    iPhysicsMaterialCombo* bulletEntity = new iPhysicsMaterialCombo(materialBullet, materialEntity);
+    bulletEntity->setName("bullet-entity");
+    //bulletEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+
+    iPhysicsMaterialCombo* entityEntity = new iPhysicsMaterialCombo(materialEntity, materialEntity);
+    entityEntity->setName("entity-entity");
+    //entityEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+
+    iPhysicsMaterialCombo* bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
+    bulletBullet->setName("bullet-bullet");
+    //bulletBullet->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
+
     // setup floor model
     iNodeModel* floorModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    floorModel->setModel("crate.ompf");
+    iModelDataInputParameter* param = new iModelDataInputParameter();
+    param->_keepMesh = true;
+    param->_modelSourceType = iModelSourceType::File;
+    floorModel->setModel("level.ompf", iResourceCacheMode::Keep, param);
+    floorModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform* floorTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    floorTransform->scale(20, 1, 20);
     floorTransform->insertNode(floorModel);
     _scene->getRoot()->insertNode(floorTransform);
-
-    // setup floor physics
-    iaMatrixd offsetFloor;
-    offsetFloor.translate(0, 0, 0);
-    iPhysicsCollision* floorCollision = iPhysics::getInstance().createBox(20, 1, 20, offsetFloor.getData());
-    iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
-    floorBody->setMass(0);
-    iaMatrixd floorMatrix;
-    floorMatrix.translate(0, 0, 0);
-    floorBody->setMatrix(floorMatrix);
 
     // create a box that drops on floor
     iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
     iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
-    boxBody->setMass(100);
-    boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorque));
+    boxBody->setMass(10);
+    boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
+    boxBody->setMaterial(_entityMaterialID);
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformNode->translate(0, 5, 0);
+    transformNode->translate(15, 15, 0);
 
     iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     crate->setModel("crate.ompf");
@@ -113,23 +143,32 @@ void ExampleCharacterController::init()
     _scene->getRoot()->insertNode(transformNode);
 
     // setup character and attache camera to it
-    iPhysicsCollision* charCollision = iPhysics::getInstance().createCylinder(1, 2, iaMatrixd());
+    //iPhysicsCollision* charCollision = iPhysics::getInstance().createCylinder(0.3, 1.8, iaMatrixd());
+    iPhysicsCollision* charCollision = iPhysics::getInstance().createSphere(0.3, iaMatrixd());
     iPhysicsBody* charBody = iPhysics::getInstance().createBody(charCollision);
     charBody->setMass(10);
-    charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorque));
+    charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorquePlayer));
+    charBody->setMaterial(_entityMaterialID);
 
     iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    charTransform->translate(0, 5, 5);
+    _charTransformNodeID = charTransform->getID();
+    charTransform->translate(0, 5, 15);
     _scene->getRoot()->insertNode(charTransform);
 
     iPhysics::getInstance().bindTransformNode(charBody, charTransform);
 
-   // iPhysicsJoint* joint = iPhysics::getInstance().createJoint(charBody, nullptr, 4);
-    //joint->registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate(this, &ExampleCharacterController::onSubmitConstraints));
-    
+    iPhysicsJoint* joint = iPhysics::getInstance().createJoint(charBody, nullptr, 4);
+    joint->registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate(this, &ExampleCharacterController::onSubmitConstraints));
+
     // setup camera
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    charTransform->insertNode(camera);
+    iNodeTransform* camHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraHeading = camHeading->getID();
+    iNodeTransform* camPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraPitch = camPitch->getID();
+    charTransform->insertNode(camHeading);
+    camHeading->insertNode(camPitch);
+    camPitch->insertNode(camera);
     camera->makeCurrent();
 
     // create a skybox
@@ -183,9 +222,129 @@ void ExampleCharacterController::init()
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
-    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyPressed));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ExampleCharacterController::onKeyPressed));
+    iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
+}
+
+void ExampleCharacterController::onModelReady(uint32 modelNodeID)
+{
+    iNode* node = iNodeFactory::getInstance().getNode(modelNodeID);
+    makeCollisions(node);
+}
+
+void ExampleCharacterController::makeCollisions(iNode* node)
+{
+    if (node->getType() == iNodeType::iNodeMesh)
+    {
+        iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
+        iPhysicsCollision* collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, iaMatrixd());
+        iPhysicsBody* body = iPhysics::getInstance().createBody(collision);
+        body->setMass(0);
+        body->setMatrix(iaMatrixd());
+        body->setMaterial(_terrainMaterialID);
+    }
+
+    for (auto child : node->getChildren())
+    {
+        makeCollisions(child);
+    }
+}
+
+void ExampleCharacterController::onKeyReleased(iKeyCode key)
+{
+    switch (key)
+    {
+    case iKeyCode::A:
+        _inputFlags._left = false;
+        break;
+
+    case iKeyCode::D:
+        _inputFlags._right = false;
+        break;
+
+    case iKeyCode::W:
+        _inputFlags._forward = false;
+        break;
+
+    case iKeyCode::S:
+        _inputFlags._backward = false;
+        break;
+
+    case iKeyCode::Q:
+        _inputFlags._up = false;
+        break;
+
+    case iKeyCode::E:
+        _inputFlags._down = false;
+        break;
+    }
+}
+
+void ExampleCharacterController::onHandle()
+{
+    float32 speed = 200;
+
+    const float32 offsetIncrease = 0.1;
+    iaMatrixd matrix;
+    iaVector3d resultingForce;
+
+    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraHeading));
+    transformationNode->getMatrix(matrix);
+
+    if (_inputFlags._forward)
+    {
+        iaVector3d foreward = matrix._depth;
+        foreward.negate();
+        foreward.normalize();
+        foreward *= speed;
+        resultingForce += foreward;
+    }
+
+    if (_inputFlags._backward)
+    {
+        iaVector3d backward = matrix._depth;
+        backward.normalize();
+        backward *= speed;
+        resultingForce += backward;
+    }
+
+    if (_inputFlags._left)
+    {
+        iaVector3d left = matrix._right;
+        left.negate();
+        left.normalize();
+        left *= speed;
+        resultingForce += left;
+    }
+
+    if (_inputFlags._right)
+    {
+        iaVector3d right = matrix._right;
+        right.normalize();
+        right *= speed;
+        resultingForce += right;
+    }
+
+    if (_inputFlags._up)
+    {
+        iaVector3d up = matrix._top;
+        up.normalize();
+        up *= speed;
+        resultingForce += up;
+    }
+
+    if (_inputFlags._down)
+    {
+        iaVector3d down = matrix._top;
+        down.negate();
+        down.normalize();
+        down *= speed;
+        resultingForce += down;
+    }
+
+    _force = resultingForce;
 }
 
 void ExampleCharacterController::onSubmitConstraints(iPhysicsJoint* joint, float32 timestep)
@@ -199,7 +358,7 @@ void ExampleCharacterController::onSubmitConstraints(iPhysicsJoint* joint, float
 
     iaVector3d lateralDir(matrixBody0._right % iaVector3d(1, 0, 0));
     float64 mag = lateralDir * lateralDir;
-    
+
     if (mag > 1.0e-6f)
     {
         // if the side vector is not zero, it means the body has rotated
@@ -252,7 +411,7 @@ void ExampleCharacterController::onSubmitConstraints(iPhysicsJoint* joint, float
     }
 }
 
-void ExampleCharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
+void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody* body, float32 timestep)
 {
     float64 Ixx;
     float64 Iyy;
@@ -266,10 +425,26 @@ void ExampleCharacterController::onApplyForceAndTorque(iPhysicsBody* body, float
     body->setForce(force);
 }
 
+void ExampleCharacterController::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep)
+{
+    float64 Ixx;
+    float64 Iyy;
+    float64 Izz;
+    float64 mass;
+    iaVector3d force;
+
+    iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
+    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    force += _force;
+
+    body->setForce(force);
+}
+
 void ExampleCharacterController::deinit()
 {
     // unregister some callbacks
-    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ExampleCharacterController::onKeyPressed));
+    iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
@@ -302,18 +477,7 @@ void ExampleCharacterController::deinit()
 
 void ExampleCharacterController::onMouseWheel(int32 d)
 {
-    iNodeTransform* camTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraTranslation));
-    if (camTranslation != nullptr)
-    {
-        if (d < 0)
-        {
-            camTranslation->translate(0, 0, 1);
-        }
-        else
-        {
-            camTranslation->translate(0, 0, -1);
-        }
-    }
+
 }
 
 void ExampleCharacterController::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
@@ -326,7 +490,7 @@ void ExampleCharacterController::onMouseMoved(int32 x1, int32 y1, int32 x2, int3
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
+            cameraPitch->rotate((y1 - y2) * 0.005f, iaAxis::X);
             cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
 
             iMouse::getInstance().setCenter(true);
@@ -346,18 +510,35 @@ void ExampleCharacterController::onWindowResized(int32 clientWidth, int32 client
 
 void ExampleCharacterController::onKeyPressed(iKeyCode key)
 {
-    if (key == iKeyCode::ESC)
+    switch (key)
     {
-        iApplication::getInstance().stop();
-    }
+    case iKeyCode::A:
+        _inputFlags._left = true;
+        break;
 
-    if (key == iKeyCode::F1)
-    {
-        iNodeVisitorPrintTree printTree;
-        if (_scene != nullptr)
-        {
-            printTree.printToConsole(_scene->getRoot());
-        }
+    case iKeyCode::D:
+        _inputFlags._right = true;
+        break;
+
+    case iKeyCode::W:
+        _inputFlags._forward = true;
+        break;
+
+    case iKeyCode::S:
+        _inputFlags._backward = true;
+        break;
+
+    case iKeyCode::Q:
+        _inputFlags._up = true;
+        break;
+
+    case iKeyCode::E:
+        _inputFlags._down = true;
+        break;
+
+    case iKeyCode::ESC:
+        iApplication::getInstance().stop();
+        break;
     }
 }
 

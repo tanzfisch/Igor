@@ -156,14 +156,14 @@ namespace Igor
                 _loaded = true;
 
                 _ready = true;
-                _modelReadyEvent();
+                _modelReadyEvent(getID());
             }
 
             // TODO !!!
             /*if (_loaded && checkForBuffers())
             {
                 _ready = true;
-                _modelReadyEvent();
+                _modelReadyEvent(getID());
             }*/
         }
 

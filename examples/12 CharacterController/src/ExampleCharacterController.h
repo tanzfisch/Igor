@@ -77,6 +77,18 @@ public:
 
 private:
 
+    struct InputFlags
+    {
+        bool _forward = false;
+        bool _backward = false;
+        bool _left = false;
+        bool _right = false;
+        bool _up = false;
+        bool _down = false;
+    };
+
+    InputFlags _inputFlags;
+
     /*! the window
     */
 	iWindow _window;
@@ -116,14 +128,16 @@ private:
     /*! id to transform node used for manipulating the pitch of the camera
     */
     uint32 _cameraPitch = iNode::INVALID_NODE_ID;
-
-    /*! id to transform node used for manipulating the distance of the camera to the origin
-    */
-    uint32 _cameraTranslation = iNode::INVALID_NODE_ID;
+    void onModelReady(uint32 modelNodeID);
+    void makeCollisions(iNode* node);
 
     /*! material definition for the sky box
     */
     uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
+
+    /*! force that affects the body
+    */
+    iaVector3d _force;
 
     /*! material for igor logo
     */
@@ -133,11 +147,27 @@ private:
     */
     shared_ptr<iTexture> _igorLogo = nullptr;
 
+    int64 _terrainMaterialID = 0;
+    int64 _entityMaterialID = 0;
+    int64 _bulletMaterialID = 0;
+
     /*! called on key pressed event
 
     \param key the key code of the pressed key
     */
 	void onKeyPressed(iKeyCode key);
+
+    /*! called on key released event
+
+    \param key the key that was released
+    */
+    void onKeyReleased(iKeyCode key);
+
+    /*! handle called once per frame
+    */
+    void onHandle();
+
+    uint32 _charTransformNodeID = iNode::INVALID_NODE_ID;
 
     /*! called when window was closed
     */
@@ -182,7 +212,9 @@ private:
     */
 	void init();
 
-    void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
+
+    void onApplyForceAndTorqueBox(iPhysicsBody* body, float32 timestep);
+    void onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep);
 
     void onSubmitConstraints(iPhysicsJoint* joint, float32 timestep);
 

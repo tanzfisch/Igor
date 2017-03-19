@@ -21,6 +21,7 @@
 #include <iTimer.h>
 
 #include <iaConsole.h>
+#include <iaConvert.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -207,7 +208,9 @@ namespace Igor
                                     node->isVisible() &&
                                     node->getMaterial() == materialGroup->getID())
                                 {
-                                    instancer->addInstance(node->getWorldMatrix().getData());
+                                    iaMatrixf matrix;
+                                    iaConvert::convert(node->getWorldMatrix(), matrix);
+                                    instancer->addInstance(matrix.getData());
 
                                     node->_reached = false;
                                     ++elementIter;

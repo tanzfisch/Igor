@@ -408,7 +408,7 @@ void VoxelTerrainGenerator::handleMeshTiles(iVoxelData* voxelData, const iaVecto
                     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode((*tileIter).second._modelNodeID));
                     if (modelNode != nullptr)
                     {
-                        if (modelNode->isLoaded())
+                        if (modelNode->isReady())
                         {
                             destroy = true;
                         }
