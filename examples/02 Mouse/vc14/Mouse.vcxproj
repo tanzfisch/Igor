@@ -19,10 +19,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{DE10D3FF-0276-4E49-8BBB-D935F15BA21F}</ProjectGuid>
+    <ProjectGuid>{9A6D1B91-E863-4F7B-9CB4-8F6B5B03AE12}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ConsoleTest</RootNamespace>
-    <ProjectName>Mouse</ProjectName>
+    <ProjectName>02 Mouse</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

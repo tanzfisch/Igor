@@ -58,10 +58,10 @@
     <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A22023DF-A529-488E-97A7-6B40F2CB5292}</ProjectGuid>
+    <ProjectGuid>{0F2C1237-C722-4974-84ED-49B9141DE020}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ConsoleTest</RootNamespace>
-    <ProjectName>Ascent</ProjectName>
+    <ProjectName>99 Ascent</ProjectName>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />

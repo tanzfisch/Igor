@@ -172,7 +172,7 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
       <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>false</LargeAddressAware>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
