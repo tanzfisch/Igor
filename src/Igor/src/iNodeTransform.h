@@ -99,12 +99,20 @@ namespace Igor
         */
         virtual void scale(float64 x, float64 y, float64 z);
 
-        /*! high level function to rotate the transformation matrix
+        /*! applies rotation to matrix
 
         \param angle angle to rotate in radians
         \param axis the axis to rotate around
         */
         virtual void rotate(float64 angle, iaAxis axis);
+
+        /*! applies 3 rotations to matrix in order X,Y,Z
+
+        \param angleX angle to rotate arround X axis
+        \param angleY angle to rotate arround Y axis
+        \param angleZ angle to rotate arround Z axis
+        */
+        virtual void rotate(float64 angleX, float64 angleY, float64 angleZ);
 
         /*! resets the transformation matrix to an identity matrix
         */

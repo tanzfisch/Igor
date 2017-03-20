@@ -100,4 +100,11 @@ namespace Igor
         setTransformationDirty();
     }
 
+    void iNodeTransform::rotate(float64 angleX, float64 angleY, float64 angleZ)
+    {
+        _transform.rotate(angleX, iaAxis::X);
+        _transform.rotate(angleY, iaAxis::Y);
+        _transform.rotate(angleZ, iaAxis::Z);
+    }
+
 };
