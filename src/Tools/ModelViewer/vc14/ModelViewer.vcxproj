@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{A22023DF-A529-488E-97A7-6B40F2CB5292}</ProjectGuid>
+    <ProjectGuid>{ACED500E-5A92-48C0-9896-3BD6E214FA27}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ConsoleTest</RootNamespace>
     <ProjectName>ModelViewer</ProjectName>
