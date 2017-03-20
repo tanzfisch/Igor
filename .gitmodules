@@ -1,3 +1,4 @@
 [submodule "3rd/newton-dynamics"]
 	path = 3rd/newton-dynamics
 	url = https://github.com/tanzfisch/newton-dynamics.git
+    branch = double
