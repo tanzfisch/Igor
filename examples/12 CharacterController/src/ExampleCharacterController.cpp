@@ -96,7 +96,7 @@ void ExampleCharacterController::init()
     terrainEntity->setName("terrain-entity");
     //terrainEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
     terrainEntity->setElasticity(0.0);
-    terrainEntity->setFriction(0.1, 0.1);
+    terrainEntity->setFriction(0.5, 0.4);
 
     iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
     terrainBullet->setName("terrain-bullet");
@@ -125,17 +125,12 @@ void ExampleCharacterController::init()
     floorTransform->insertNode(floorModel);
     _scene->getRoot()->insertNode(floorTransform);
 
-    /*iPhysicsCollision* floorCollision = iPhysics::getInstance().createBox(20, 1, 20, iaMatrixd());
-    iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
-    floorBody->setMass(0);
-    floorBody->setMaterial(_terrainMaterialID);*/
-
     // create a box that drops on floor
     iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
     iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
     boxBody->setMass(10);
     boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
-    boxBody->setMaterial(_entityMaterialID);
+    boxBody->setMaterial(_entityMaterialID);    
 
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transformNode->translate(15, 15, 0);
@@ -148,12 +143,12 @@ void ExampleCharacterController::init()
     _scene->getRoot()->insertNode(transformNode);
 
     // setup character and attache camera to it
-    //iPhysicsCollision* charCollision = iPhysics::getInstance().createCylinder(0.3, 1.8, iaMatrixd());
-    iPhysicsCollision* charCollision = iPhysics::getInstance().createSphere(0.3, iaMatrixd());
+    iPhysicsCollision* charCollision = iPhysics::getInstance().createCapsule(0.3, 1, iaMatrixd());
     iPhysicsBody* charBody = iPhysics::getInstance().createBody(charCollision);
     charBody->setMass(10);
     charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorquePlayer));
     charBody->setMaterial(_entityMaterialID);
+    boxBody->setLinearDamping(10);
 
     iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _charTransformNodeID = charTransform->getID();
