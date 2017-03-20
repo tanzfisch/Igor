@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "3DExample", "ExampleCharacterController.vcxproj", "{A22023DF-A529-488E-97A7-6B40F2CB5292}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ExampleCharacterController", "ExampleCharacterController.vcxproj", "{A22023DF-A529-488E-97A7-6B40F2CB5292}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {E6761A09-13E3-42C5-94CD-636A5CDF5C5A}
 		{4BFF697B-A2DC-472B-BA1A-4169BCEFA532} = {4BFF697B-A2DC-472B-BA1A-4169BCEFA532}
@@ -24,6 +24,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OMPF", "..\..\..\src\OMPF\v
 	ProjectSection(ProjectDependencies) = postProject
 		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {879EBAB3-D7D7-473D-BB32-6A07964F12F9}
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "newton", "newton", "{6F087F1F-56DD-48CF-99A7-FB44B2ED344E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\core.vcxproj", "{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "newton", "..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\newton.vcxproj", "{68D9962C-0EC7-445A-B0FD-F87B16D43901}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "physics", "..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\physics.vcxproj", "{39737A8F-6151-4259-8E39-25530345D4B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,6 +73,30 @@ Global
 		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A}.Release|x64.Build.0 = Release|x64
 		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A}.Release|x86.ActiveCfg = Release|Win32
 		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A}.Release|x86.Build.0 = Release|Win32
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Debug|x64.ActiveCfg = debug|x64
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Debug|x64.Build.0 = debug|x64
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Debug|x86.ActiveCfg = debug|Win32
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Debug|x86.Build.0 = debug|Win32
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Release|x64.ActiveCfg = release|x64
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Release|x64.Build.0 = release|x64
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Release|x86.ActiveCfg = release|Win32
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA}.Release|x86.Build.0 = release|Win32
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Debug|x64.ActiveCfg = debug|x64
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Debug|x64.Build.0 = debug|x64
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Debug|x86.ActiveCfg = debug|Win32
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Debug|x86.Build.0 = debug|Win32
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Release|x64.ActiveCfg = release|x64
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Release|x64.Build.0 = release|x64
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Release|x86.ActiveCfg = release|Win32
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901}.Release|x86.Build.0 = release|Win32
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Debug|x64.ActiveCfg = debug|x64
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Debug|x64.Build.0 = debug|x64
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Debug|x86.ActiveCfg = debug|Win32
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Debug|x86.Build.0 = debug|Win32
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Release|x64.ActiveCfg = release|x64
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Release|x64.Build.0 = release|x64
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Release|x86.ActiveCfg = release|Win32
+		{39737A8F-6151-4259-8E39-25530345D4B4}.Release|x86.Build.0 = release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,5 +105,8 @@ Global
 		{4BFF697B-A2DC-472B-BA1A-4169BCEFA532} = {0E54412F-BD3E-47FA-AAE6-B96E0F129B32}
 		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {0E54412F-BD3E-47FA-AAE6-B96E0F129B32}
 		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {0E54412F-BD3E-47FA-AAE6-B96E0F129B32}
+		{57AC4F2D-B115-4931-8F6E-AF8AD616B6AA} = {6F087F1F-56DD-48CF-99A7-FB44B2ED344E}
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901} = {6F087F1F-56DD-48CF-99A7-FB44B2ED344E}
+		{39737A8F-6151-4259-8E39-25530345D4B4} = {6F087F1F-56DD-48CF-99A7-FB44B2ED344E}
 	EndGlobalSection
 EndGlobal
