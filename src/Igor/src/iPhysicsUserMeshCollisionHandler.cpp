@@ -43,7 +43,7 @@ namespace Igor
         con_trace();
     }
 
-    int iPhysicsUserMeshCollisionHandler::testOverlapAABB(const float32* const box0, const float32* const box1)
+    int iPhysicsUserMeshCollisionHandler::testOverlapAABB(const float64* const box0, const float64* const box1)
     {
         iAABoxf bb;
         bb.set(iaVector3f(box0[0], box0[1], box0[2]), iaVector3f(box1[0], box1[1], box1[2]));

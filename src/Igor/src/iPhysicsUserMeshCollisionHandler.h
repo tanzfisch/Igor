@@ -54,7 +54,7 @@ namespace Igor
         virtual float32 rayHitCallback(void* const rayDesc);
         virtual void destroyCallback();
         virtual void getCollisionInfo(void* const infoRecord);
-        virtual int testOverlapAABB(const float32* const box0, const float32* const box1);
+        virtual int testOverlapAABB(const float64* const box0, const float64* const box1);
         virtual int getFacesInAABB(const float64* p0, const float64* p1, const float64** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList);
         
     protected:
