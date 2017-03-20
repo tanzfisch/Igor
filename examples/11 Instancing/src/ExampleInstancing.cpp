@@ -123,23 +123,26 @@ void ExampleInstancing::init()
     
     // now we can just put copies of that model in the scene    
     iNodeTransform* transformGroup = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformGroup->translate(-10, -10, 10);
+    transformGroup->translate(-20, -20, 20);
     _scene->getRoot()->insertNode(transformGroup);
 
     // create an array of models
-    for (int z = 0; z < 10; ++z)
+    for (int z = 0; z < 20; ++z)
     {
-        for (int y = 0; y < 10; ++y)
+        for (int y = 0; y < 20; ++y)
         {
-            for (int x = 0; x < 10; ++x)
+            for (int x = 0; x < 20; ++x)
             {
                 iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
                 transform->translate(x * 2.0, y * 2.0, -z * 2.0);
+                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
+                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Y);
+                transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
 
                 iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
                 // it is important to use the exact same parameters here as before when we direclty loaded the model
                 // because here it will not load it again but get it from the cache where we is still the version with manipulated material
-                modelNode->setModel("teapot.ompf", iResourceCacheMode::Keep);
+                modelNode->setModel("cat.ompf", iResourceCacheMode::Keep);
                 modelNode->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleInstancing::onModelReady));
 
                 // building the created nodes together and insert them in the scene
