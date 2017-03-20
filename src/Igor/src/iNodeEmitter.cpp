@@ -57,8 +57,11 @@ namespace Igor
 
     void iNodeEmitter::onUpdateTransform(iaMatrixd& matrix)
     {
-        _worldMatrix = matrix;
-        _emitter.setWorldMatrix(matrix);
+        if (_worldMatrix != matrix)
+        {
+            _worldMatrix = matrix;
+            _emitter.setWorldMatrix(matrix);
+        }
     }
 
     iParticleEmitter& iNodeEmitter::getParticleEmitter()
