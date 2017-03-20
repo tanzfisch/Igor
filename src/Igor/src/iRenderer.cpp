@@ -27,6 +27,7 @@
 using namespace std;
 
 #include <IgorAux.h>
+#include <iaConvert.h>
 using namespace IgorAux;
 
 namespace Igor
@@ -1452,10 +1453,7 @@ namespace Igor
         camtop._w = 0;
 
         iaMatrixf inv;
-        for (int i = 0; i < 16; ++i)
-        {
-            inv[i] = _modelMatrix[i];
-        }
+        iaConvert::convert(_modelMatrix, inv);
         inv.invert();
 
         iaVector4f rightPreComp = inv * camright;
