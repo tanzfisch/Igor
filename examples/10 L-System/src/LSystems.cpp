@@ -332,7 +332,7 @@ bool LSystems::checkIfDone()
     for (auto id : _plantsInProgress)
     {
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(id));
-        if (!model->isLoaded())
+        if (!model->isReady())
         {
             result = false;
         }

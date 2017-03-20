@@ -95,7 +95,7 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         parameters->_needsRenderContext = false;
 
         iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        modelNode->setModel(_src, parameters); // force him to use the textured material
+        modelNode->setModel(_src, iResourceCacheMode::Free, parameters); // force him to use the textured material
 
         iScene* scene = iSceneFactory::getInstance().createScene();
         scene->getRoot()->insertNode(modelNode);
