@@ -143,7 +143,7 @@ void ExampleCharacterController::init()
     _scene->getRoot()->insertNode(transformNode);
 
     // setup character and attache camera to it
-    iPhysicsCollision* charCollision = iPhysics::getInstance().createCapsule(0.3, 1, iaMatrixd());
+    iPhysicsCollision* charCollision = iPhysics::getInstance().createCylinder(0.3, 1, iaMatrixd());
     iPhysicsBody* charBody = iPhysics::getInstance().createBody(charCollision);
     charBody->setMass(10);
     charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorquePlayer));
@@ -252,6 +252,40 @@ void ExampleCharacterController::makeCollisions(iNode* node)
     }
 }
 
+void ExampleCharacterController::onKeyPressed(iKeyCode key)
+{
+    switch (key)
+    {
+    case iKeyCode::A:
+        _inputFlags._left = true;
+        break;
+
+    case iKeyCode::D:
+        _inputFlags._right = true;
+        break;
+
+    case iKeyCode::W:
+        _inputFlags._forward = true;
+        break;
+
+    case iKeyCode::S:
+        _inputFlags._backward = true;
+        break;
+
+    case iKeyCode::Space:
+        _inputFlags._up = true;
+        break;
+
+    case iKeyCode::LControl:
+        _inputFlags._down = true;
+        break;
+
+    case iKeyCode::ESC:
+        iApplication::getInstance().stop();
+        break;
+    }
+}
+
 void ExampleCharacterController::onKeyReleased(iKeyCode key)
 {
     switch (key)
@@ -272,11 +306,11 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
         _inputFlags._backward = false;
         break;
 
-    case iKeyCode::Q:
+    case iKeyCode::Space:
         _inputFlags._up = false;
         break;
 
-    case iKeyCode::E:
+    case iKeyCode::LControl:
         _inputFlags._down = false;
         break;
     }
@@ -507,40 +541,6 @@ void ExampleCharacterController::onWindowClosed()
 void ExampleCharacterController::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
-}
-
-void ExampleCharacterController::onKeyPressed(iKeyCode key)
-{
-    switch (key)
-    {
-    case iKeyCode::A:
-        _inputFlags._left = true;
-        break;
-
-    case iKeyCode::D:
-        _inputFlags._right = true;
-        break;
-
-    case iKeyCode::W:
-        _inputFlags._forward = true;
-        break;
-
-    case iKeyCode::S:
-        _inputFlags._backward = true;
-        break;
-
-    case iKeyCode::Q:
-        _inputFlags._up = true;
-        break;
-
-    case iKeyCode::E:
-        _inputFlags._down = true;
-        break;
-
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        break;
-    }
 }
 
 void ExampleCharacterController::onRenderOrtho()
