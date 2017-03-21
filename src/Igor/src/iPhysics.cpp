@@ -141,15 +141,18 @@ namespace Igor
             iPhysicsBody* physicsBody0 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body0)));
             iPhysicsBody* physicsBody1 = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(static_cast<const NewtonBody*>(body1)));
 
-            con_assert(physicsBody0 != nullptr && physicsBody1 != nullptr, "zero pointers");
+            //con_assert(physicsBody0 != nullptr && physicsBody1 != nullptr, "zero pointers");
 
-            void* contact = NewtonContactJointGetFirstContact(static_cast<const NewtonJoint*>(newtonContactJoint));
-            NewtonMaterial* materialCombo = NewtonContactGetMaterial(contact);
-            iPhysicsMaterialCombo* physicsMaterialCombo = static_cast<iPhysicsMaterialCombo*>(NewtonMaterialGetMaterialPairUserData(materialCombo));
-
-            if (physicsMaterialCombo != nullptr && physicsBody0 != nullptr && physicsBody1 != nullptr)
+            if (physicsBody0 != nullptr && physicsBody1 != nullptr)
             {
-                iPhysics::getInstance().queueContact(physicsMaterialCombo, physicsBody0, physicsBody1);
+                void* contact = NewtonContactJointGetFirstContact(static_cast<const NewtonJoint*>(newtonContactJoint));
+                NewtonMaterial* materialCombo = NewtonContactGetMaterial(contact);
+                iPhysicsMaterialCombo* physicsMaterialCombo = static_cast<iPhysicsMaterialCombo*>(NewtonMaterialGetMaterialPairUserData(materialCombo));
+
+                if (physicsMaterialCombo != nullptr)
+                {
+                    iPhysics::getInstance().queueContact(physicsMaterialCombo, physicsBody0, physicsBody1);
+                }
             }
         }
     }
@@ -209,6 +212,27 @@ namespace Igor
         {
             destroyWorld(worldID);
         }
+    }
+
+    void CommonRayPrefilterCallback(const NewtonBody* const body, const NewtonCollision* const collision, void* const userData) 
+    {
+
+    }
+
+    void iPhysics::convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iaVector3d& point, iaVector3d& normal, int32 maxContactCount)
+    {
+        static NewtonWorldConvexCastReturnInfo result;
+        float64 param = 1.2;
+
+        int numberOfContacts = NewtonWorldConvexCast(static_cast<const NewtonWorld*>(_defaultWorld), matrix.getData(), target.getData(), 
+            static_cast<const NewtonCollision*>(collisionVolume->_collision), &param, nullptr,
+            reinterpret_cast<NewtonWorldRayPrefilterCallback>(CommonRayPrefilterCallback), &result, maxContactCount, 0);
+
+        point.set(result.m_point[0], result.m_point[1], result.m_point[2]);
+        normal.set(result.m_normal[0], result.m_normal[1], result.m_normal[2]);
+
+        con_endl(result.m_point[0] << ", " << result.m_point[1] << ", " << result.m_point[2] << ", " << result.m_point[3]);
+        con_endl(result.m_normal[0] << ", " << result.m_normal[1] << ", " << result.m_normal[2] << ", " << result.m_normal[3]);
     }
 
     void iPhysics::queueContact(iPhysicsMaterialCombo* material, iPhysicsBody* body1, iPhysicsBody* body2)

@@ -155,6 +155,8 @@ namespace Igor
         */
         bool isWorld(uint64 id);
 
+        void convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iaVector3d& point, iaVector3d& normal, int32 maxContactCount = 10);
+
         /*! creates a collision configuration
 
         \returns pointer to collision configuration

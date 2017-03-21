@@ -6,19 +6,22 @@
 #include <iPhysics.h>
 #include <iPhysicsCollision.h>
 #include <iPhysicsJoint.h>
+#include <iApplication.h>
 using namespace Igor;
 
 CharacterController::CharacterController(iNode* node, int64 materiaID)
 {
     // setup character and attache camera to it
-    iPhysicsCollision* charCollision = iPhysics::getInstance().createCylinder(0.4, 1, iaMatrixd());
-    iPhysicsBody* charBody = iPhysics::getInstance().createBody(charCollision);
+    _collision = iPhysics::getInstance().createCylinder(0.4, 1, iaMatrixd());
+    iPhysicsBody* charBody = iPhysics::getInstance().createBody(_collision);
+    _bodyID = charBody->getID();
     charBody->setMass(10);
     charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &CharacterController::onApplyForceAndTorque));
     charBody->setMaterial(materiaID);
     charBody->setLinearDamping(0.3);
 
     iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    charTransform->translate(10,0,0);
     _transformNodeID = charTransform->getID();
     node->insertNode(charTransform);
 
@@ -26,10 +29,17 @@ CharacterController::CharacterController(iNode* node, int64 materiaID)
 
     iPhysicsJoint* joint = iPhysics::getInstance().createJoint(charBody, nullptr, 4);
     joint->registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate(this, &CharacterController::onSubmitConstraints));
+
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &CharacterController::onHandle));
 }
 
 CharacterController::~CharacterController()
 {
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &CharacterController::onHandle));
+
+    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iPhysics::getInstance().destroyBody(_bodyID);
+    iPhysics::getInstance().destroyCollision(_collision);
 }
 
 iNode* CharacterController::getRootNode() const
@@ -124,4 +134,21 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
     force += _force;
 
     body->setForce(force);
+}
+
+void CharacterController::onHandle()
+{
+    iaMatrixd matrix;
+    iaVector3d target;
+
+    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    transform->getMatrix(matrix);
+
+    target = matrix._pos;
+    target._y -= 10;
+
+    iaVector3d point;
+    iaVector3d normal;
+    
+    iPhysics::getInstance().convexCast(matrix, target, _collision, point, normal);
 }

@@ -30,12 +30,13 @@
 #define __CHARACTERCONTROLLER__
 
 #include <iNode.h>
+#include <iPhysicsBody.h>
 using namespace Igor;
 
 namespace Igor
 {
-    class iPhysicsBody;
     class iPhysicsJoint;
+    class iPhysicsCollision;
 }
 
 class CharacterController
@@ -56,7 +57,13 @@ private:
 
     iaVector3d _force;
 
+    uint64 _bodyID = iPhysicsBody::INVALID_PHYSICSBODY_ID;
+
+    iPhysicsCollision* _collision = nullptr;
+
     uint32 _transformNodeID = iNode::INVALID_NODE_ID;
+
+    void onHandle();
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
 
