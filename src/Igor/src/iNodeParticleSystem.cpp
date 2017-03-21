@@ -23,6 +23,7 @@ namespace Igor
         _nodeKind = iNodeKind::Volume;
 
         // TODO better would be post tree traversation or culling
+        // TODO or maybe we can have a particle system updater as special part in the main loop
 		iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &iNodeParticleSystem::handle));
 	}
 
