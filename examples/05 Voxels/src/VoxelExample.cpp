@@ -119,7 +119,7 @@ void VoxelExample::registerHandles()
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeySpacePressed), iKeyCode::Space);
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &VoxelExample::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
 }
@@ -129,7 +129,7 @@ void VoxelExample::unregisterHandles()
     // unregister all the callbacks
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &VoxelExample::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeySpacePressed), iKeyCode::Space);

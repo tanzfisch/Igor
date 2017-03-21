@@ -102,7 +102,7 @@ void StateMachineExample::init()
     _gameGateB = _stateMachine.createGate(_gameWinTransition);
     _gameGateC = _stateMachine.createGate(_gameWinTransition);
    
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(&_stateMachine, &iaStateMachine::handle));
     _view.registerRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
 
     _stateMachine.start();
@@ -149,8 +149,8 @@ void StateMachineExample::deinit()
 
     _view.unregisterRenderDelegate(RenderDelegate(this, &StateMachineExample::onRender));
     _view.unregisterRenderDelegate(RenderDelegate(&_stateMachine, &iaStateMachine::render));
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(&_stateMachine, &iaStateMachine::handle));
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &StateMachineExample::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(&_stateMachine, &iaStateMachine::handle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &StateMachineExample::onHandle));
 }
 
 void StateMachineExample::onEnterLooseState()
@@ -345,7 +345,7 @@ void StateMachineExample::onHandleInitState()
 void StateMachineExample::onLeaveInitState()
 {
     // start spinning background after init
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &StateMachineExample::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &StateMachineExample::onHandle));
 }
 
 void StateMachineExample::onKeyReleasedMenuState(iKeyCode key)

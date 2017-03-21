@@ -35,10 +35,16 @@ namespace Igor
             con_warn("close windows before shutdown");
         }
 
-        if (_handleEvent.hasDelegates())
+        if (_preDrawHandleEvent.hasDelegates())
         {
             con_warn("not all delegates unregistered");
-            _handleEvent.clear();
+            _preDrawHandleEvent.clear();
+        }
+
+        if (_postDrawHandleEvent.hasDelegates())
+        {
+            con_warn("not all delegates unregistered");
+            _postDrawHandleEvent.clear();
         }
     }
 
@@ -63,12 +69,17 @@ namespace Igor
         iStatistics::getInstance().endSection(_physicsSectionID);
 
         iStatistics::getInstance().beginSection(_userSectionID);
-        handle();
+        windowHandle();
+        _preDrawHandleEvent();
         iStatistics::getInstance().endSection(_userSectionID);
 
         iStatistics::getInstance().beginSection(_drawSectionID);
         draw();
         iStatistics::getInstance().endSection(_drawSectionID);
+
+        iStatistics::getInstance().beginSection(_userSectionID);
+        _postDrawHandleEvent();
+        iStatistics::getInstance().endSection(_userSectionID);
 
         iStatistics::getInstance().endSection(_frameSectionID);
     }
@@ -107,7 +118,7 @@ namespace Igor
     }
 
     void iApplication::draw()
-    {
+    {      
         for (auto window : _windows.getList())
         {
             if (window->isOpen())
@@ -117,10 +128,8 @@ namespace Igor
         }
     }
 
-    void iApplication::handle()
-    {
-        _handleEvent();
-
+    void iApplication::windowHandle()
+    {      
         for (auto window : _windows.getList())
         {
             if (window->isOpen())
@@ -140,14 +149,24 @@ namespace Igor
         _windows.remove(window);
     }
 
-    void iApplication::registerApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate)
+    void iApplication::registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate handleDelegate)
     {
-        _handleEvent.append(handleDelegate);
+        _preDrawHandleEvent.append(handleDelegate);
     }
 
-    void iApplication::unregisterApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate)
+    void iApplication::unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate handleDelegate)
     {
-        _handleEvent.remove(handleDelegate);
+        _preDrawHandleEvent.remove(handleDelegate);
+    }
+
+    void iApplication::registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate handleDelegate)
+    {
+        _postDrawHandleEvent.append(handleDelegate);
+    }
+
+    void iApplication::unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate handleDelegate)
+    {
+        _postDrawHandleEvent.remove(handleDelegate);
     }
 
 };

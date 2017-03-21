@@ -46,7 +46,7 @@ void PhysicsExample::deinit()
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &PhysicsExample::handle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::handle));
 
     if (_font)
     {
@@ -81,7 +81,7 @@ void PhysicsExample::init()
 	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
-	iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &PhysicsExample::handle));
+	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::handle));
 
 	_view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
 	_view.setPerspective(45);

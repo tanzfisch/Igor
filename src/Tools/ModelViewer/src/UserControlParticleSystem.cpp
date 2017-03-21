@@ -38,7 +38,7 @@ UserControlParticleSystem::UserControlParticleSystem()
 {
     initGUI();
 
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
+    iApplication::getInstance().registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 }
 
 void UserControlParticleSystem::onCyclickUpdate()
@@ -53,7 +53,7 @@ void UserControlParticleSystem::onCyclickUpdate()
 
 UserControlParticleSystem::~UserControlParticleSystem()
 {
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
+    iApplication::getInstance().unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate(this, &UserControlParticleSystem::onCyclickUpdate));
 
     deinitGUI();
 }

@@ -53,7 +53,7 @@ ExampleCharacterController::~ExampleCharacterController()
 void ExampleCharacterController::init()
 {
     con(" -- Example character Controller --" << endl);
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &ExampleCharacterController::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ExampleCharacterController::onHandle));
 
     // setup window
     _window.setTitle("Igor - 3D Example");
@@ -450,6 +450,7 @@ void ExampleCharacterController::deinit()
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ExampleCharacterController::onWindowResized));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &ExampleCharacterController::onRenderOrtho));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ExampleCharacterController::onHandle));
 
     // deinit statistics
     if (_font != nullptr)

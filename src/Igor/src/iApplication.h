@@ -39,11 +39,13 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	/*! This event is triggered first in every application cycle. 
-	
-	Since the last thing in application cycle is swap buffers this is also related to render frame intervals.
+	/*! This event is triggered once per frame right before the rendering
 	*/
-	iaEVENT(iApplicationHandleEvent, iApplicationHandleDelegate, void, (), ());
+	iaEVENT(iApplicationPreDrawHandleEvent, iApplicationPreDrawHandleDelegate, void, (), ());
+
+    /*! This event is triggered once per frame right after the rendering
+    */
+    iaEVENT(iApplicationPostDrawHandleEvent, iApplicationPostDrawHandleDelegate, void, (), ());
 
 	/*! Application (Singleton)
 	
@@ -77,13 +79,29 @@ namespace Igor
         */
         bool isRunning();
 
-        /*! registers application handle delegate
-        */
-        void registerApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate);
+        /*! registers application pre draw handle delegate
 
-        /*! unregisters application handle delegate
+        \param handleDelegate delegate to register
         */
-        void unregisterApplicationHandleDelegate(iApplicationHandleDelegate handleDelegate);
+        void registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate handleDelegate);
+
+        /*! unregisters application pre draw handle delegate
+
+        \param handleDelegate delegate to unregister
+        */
+        void unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate handleDelegate);
+
+        /*! registers application post draw handle delegate
+
+        \param handleDelegate delegate to register
+        */
+        void registerApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate handleDelegate);
+
+        /*! unregisters application post draw handle delegate
+
+        \param handleDelegate delegate to unregister
+        */
+        void unregisterApplicationPostDrawHandleDelegate(iApplicationPostDrawHandleDelegate handleDelegate);
 
 	private:
 
@@ -112,9 +130,13 @@ namespace Igor
 		*/
         iaFlushVector<iWindow*> _windows;
 
-		/*! handle event called after last render frame
+		/*! handle event called before rendering
 		*/
-		iApplicationHandleEvent _handleEvent;
+        iApplicationPreDrawHandleEvent _preDrawHandleEvent;
+
+        /*! handle event called after rendering
+        */
+        iApplicationPostDrawHandleEvent _postDrawHandleEvent;
 
         /*! init statistics sections
         */
@@ -126,7 +148,7 @@ namespace Igor
 
 		/*! triggers ApplicationHandleEvent and updates windows
 		*/
-		void handle();
+		void windowHandle();
 
         /*! rendering
         */

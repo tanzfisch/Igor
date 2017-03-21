@@ -60,6 +60,8 @@ namespace Igor
     };
 
     /*! abstract base class to control "something" with keyboard and mouse
+
+    \deprecated is it deprecated?
     */
     class Igor_API iControl
     {

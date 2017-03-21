@@ -44,7 +44,7 @@ void VoxelTerrainGenerator::setScene(iScene* scene)
 
 void VoxelTerrainGenerator::init()
 {
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &VoxelTerrainGenerator::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelTerrainGenerator::onHandle));
 
     iModelResourceFactory::getInstance().registerModelDataIO("vtg", &VoxelTerrainMeshGenerator::createInstance);
 
@@ -66,7 +66,7 @@ void VoxelTerrainGenerator::deinit()
 
     iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
 
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &VoxelTerrainGenerator::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelTerrainGenerator::onHandle));
 
     con_endl("waiting for some tasks ...");
     while (_runningTasks.size() > 0)

@@ -142,7 +142,7 @@ void Example2D::init()
     iTextureResourceFactory::getInstance().flush();
 
     // register callback to application handle event. the application handle event will be called every frame just before the rendering
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &Example2D::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Example2D::onHandle));
     // register callback to esc key pressed event
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
     // register callback to mosue moved event
@@ -158,7 +158,7 @@ void Example2D::init()
 void Example2D::deinit()
 {
     // unregister some callbacks. otherwhise you will be reminded of callbacks that where not released
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &Example2D::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Example2D::onHandle));
     iMouse::getInstance().unregisterMouseMoveDelegate(iMouseMoveDelegate(this, &Example2D::onMouseMove));
     iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &Example2D::onKeyESCPressed), iKeyCode::ESC);
 

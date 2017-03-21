@@ -74,12 +74,12 @@ void Ascent::registerHandles()
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Ascent::onWindowResized));
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Ascent::onWindowClosed));
 
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &Ascent::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Ascent::onHandle));
 }
 
 void Ascent::unregisterHandles()
 {
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &Ascent::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &Ascent::onHandle));
 
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Ascent::onWindowResized));
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Ascent::onWindowClosed));

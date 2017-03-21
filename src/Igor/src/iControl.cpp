@@ -62,12 +62,12 @@ namespace Igor
         iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &iControl::onKeyDown));
         iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &iControl::onKeyUp));
 
-        iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &iControl::onHandle));
+        iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iControl::onHandle));
     }
 
     iControl::~iControl()
     {
-        iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &iControl::onHandle));
+        iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iControl::onHandle));
 
         iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &iControl::onKeyDown));
         iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &iControl::onKeyUp));

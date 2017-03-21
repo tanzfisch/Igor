@@ -17,7 +17,7 @@ FirstSteps::FirstSteps()
     con_endl("ctor");
 
     // registers our handle to the application handle event. it will be called every frame
-    iApplication::getInstance().registerApplicationHandleDelegate(iApplicationHandleDelegate(this, &FirstSteps::onHandle));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &FirstSteps::onHandle));
 
     // save current time
     _time = iTimer::getInstance().getTime();
@@ -26,7 +26,7 @@ FirstSteps::FirstSteps()
 FirstSteps::~FirstSteps()
 {
     // unregister our handle again for a clean shutdown
-    iApplication::getInstance().unregisterApplicationHandleDelegate(iApplicationHandleDelegate(this, &FirstSteps::onHandle));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &FirstSteps::onHandle));
 
     // mark class destruction
     con_endl("dtor");
