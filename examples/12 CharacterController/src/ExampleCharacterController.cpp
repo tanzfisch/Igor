@@ -65,7 +65,7 @@ void ExampleCharacterController::init()
     // setup perspective view
     _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
     _view.setPerspective(45);
-    _view.setClipPlanes(0.1f, 10000.f);
+    _view.setClipPlanes(0.01f, 1000.f);
     _window.addView(&_view);
 
     // setup orthogonal view
@@ -143,30 +143,15 @@ void ExampleCharacterController::init()
     _scene->getRoot()->insertNode(transformNode);
 
     // setup character and attache camera to it
-    iPhysicsCollision* charCollision = iPhysics::getInstance().createCylinder(0.3, 1, iaMatrixd());
-    iPhysicsBody* charBody = iPhysics::getInstance().createBody(charCollision);
-    charBody->setMass(10);
-    charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorquePlayer));
-    charBody->setMaterial(_entityMaterialID);
-    boxBody->setLinearDamping(10);
-
-    iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _charTransformNodeID = charTransform->getID();
-    charTransform->translate(0, 5, 5);
-    _scene->getRoot()->insertNode(charTransform);
-
-    iPhysics::getInstance().bindTransformNode(charBody, charTransform);
-
-    iPhysicsJoint* joint = iPhysics::getInstance().createJoint(charBody, nullptr, 4);
-    joint->registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate(this, &ExampleCharacterController::onSubmitConstraints));
+    _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID);
 
     // setup camera
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
     iNodeTransform* camHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraHeading = camHeading->getID();
     iNodeTransform* camPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraPitch = camPitch->getID();
-    charTransform->insertNode(camHeading);
+    _cameraPitch = camPitch->getID();    
+    _characterController->getRootNode()->insertNode(camHeading);
     camHeading->insertNode(camPitch);
     camPitch->insertNode(camera);
     camera->makeCurrent();
@@ -378,71 +363,7 @@ void ExampleCharacterController::onHandle()
         resultingForce += down;
     }
 
-    _force = resultingForce;
-}
-
-void ExampleCharacterController::onSubmitConstraints(iPhysicsJoint* joint, float32 timestep)
-{
-    iPhysicsBody* body0 = iPhysics::getInstance().getBody(joint->getBody0ID());
-    iaMatrixd matrixBody0;
-    body0->getMatrix(matrixBody0);
-
-    bool frontset = false;
-    bool upset = false;
-
-    iaVector3d lateralDir(matrixBody0._right % iaVector3d(1, 0, 0));
-    float64 mag = lateralDir * lateralDir;
-
-    if (mag > 1.0e-6f)
-    {
-        // if the side vector is not zero, it means the body has rotated
-        mag = sqrt(mag);
-        lateralDir /= mag;
-        float64 angle = sin(mag);
-
-        // add an angular constraint to correct the error angle
-        iPhysics::getInstance().setUserJointAddAngularRow(joint, angle, lateralDir);
-
-        // in theory only one correction is needed, but this produces instability as the body may move sideway.
-        // a lateral correction prevent this from happening.
-        iaVector3d frontDir(lateralDir % iaVector3d(1, 0, 0));
-        iPhysics::getInstance().setUserJointAddAngularRow(joint, 0.0, frontDir);
-
-        frontset = true;
-    }
-
-    lateralDir = matrixBody0._top % iaVector3d(0, 1, 0);
-    mag = lateralDir * lateralDir;
-    if (mag > 1.0e-6f)
-    {
-        // if the side vector is not zero, it means the body has rotated
-        mag = sqrt(mag);
-        lateralDir /= mag;
-        float64 angle = sin(mag);
-
-        // add an angular constraint to correct the error angle
-        iPhysics::getInstance().setUserJointAddAngularRow(joint, angle, lateralDir);
-
-        // in theory only one correction is needed, but this produces instability as the body may move sideway.
-        // a lateral correction prevent this from happening.
-        iaVector3d topDir(lateralDir % iaVector3d(0, 1, 0));
-        iPhysics::getInstance().setUserJointAddAngularRow(joint, 0.0, topDir);
-
-        upset = true;
-    }
-
-    if (frontset && upset)
-    {
-    }
-    else
-    {
-        if ((!frontset) && (!upset))
-        {
-            iPhysics::getInstance().setUserJointAddAngularRow(joint, 0.0, iaVector3d(1, 0, 0));
-            iPhysics::getInstance().setUserJointAddAngularRow(joint, 0.0, iaVector3d(0, 1, 0));
-        }
-        iPhysics::getInstance().setUserJointAddAngularRow(joint, 0.0, iaVector3d(0, 0, 1));
-    }
+    _characterController->setForce(resultingForce);
 }
 
 void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody* body, float32 timestep)
@@ -455,21 +376,6 @@ void ExampleCharacterController::onApplyForceAndTorqueBox(iPhysicsBody* body, fl
 
     iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
     force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
-
-    body->setForce(force);
-}
-
-void ExampleCharacterController::onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep)
-{
-    float64 Ixx;
-    float64 Iyy;
-    float64 Izz;
-    float64 mass;
-    iaVector3d force;
-
-    iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
-    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
-    force += _force;
 
     body->setForce(force);
 }

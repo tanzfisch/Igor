@@ -172,10 +172,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\CharacterController.cpp" />
     <ClCompile Include="..\src\ExampleCharacterController.cpp" />
     <ClCompile Include="..\src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\src\CharacterController.h" />
     <ClInclude Include="..\src\ExampleCharacterController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

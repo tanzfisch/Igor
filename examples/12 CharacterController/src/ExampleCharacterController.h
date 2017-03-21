@@ -58,6 +58,8 @@ namespace Igor
     class iPhysicsJoint;
 }
 
+#include "CharacterController.h"
+
 class ExampleCharacterController
 {
 
@@ -135,9 +137,7 @@ private:
     */
     uint64 _materialSkyBox = iMaterial::INVALID_MATERIAL_ID;
 
-    /*! force that affects the body
-    */
-    iaVector3d _force;
+    CharacterController* _characterController = nullptr;
 
     /*! material for igor logo
     */
@@ -166,8 +166,6 @@ private:
     /*! handle called once per frame
     */
     void onHandle();
-
-    uint32 _charTransformNodeID = iNode::INVALID_NODE_ID;
 
     /*! called when window was closed
     */
@@ -212,11 +210,7 @@ private:
     */
 	void init();
 
-
     void onApplyForceAndTorqueBox(iPhysicsBody* body, float32 timestep);
-    void onApplyForceAndTorquePlayer(iPhysicsBody* body, float32 timestep);
-
-    void onSubmitConstraints(iPhysicsJoint* joint, float32 timestep);
 
 };
 
