@@ -12,7 +12,9 @@ using namespace Igor;
 CharacterController::CharacterController(iNode* node, int64 materiaID)
 {
     // setup character and attache camera to it
-    _collision = iPhysics::getInstance().createCylinder(_characterRadius, _characterHeight, iaMatrixd());
+    iaMatrixd rotate;
+    rotate.rotate(M_PI * 0.5, iaAxis::Z);
+    _collision = iPhysics::getInstance().createCylinder(_characterRadius, _characterRadius, _characterHeight, rotate);
     iPhysicsBody* charBody = iPhysics::getInstance().createBody(_collision);
     _bodyID = charBody->getID();
     charBody->setMass(_mass);
@@ -172,15 +174,16 @@ void CharacterController::onHandle()
     if (result.size())
     {
         iaVector3d diff = matrix._pos - (result[0]._point._vec);
-        diff._y -= _characterHeight;
+      //  diff._y -= _characterHeight;
 
-        float64 delta = diff._y - _stepHeight;
+        //float64 delta = diff._y - _stepHeight;
 
     /*    if (fabs(delta) > 0.001)
         {
             _correctionForce._y = (-delta) * 500;
         }*/
 
-        con_endl(delta);
+        con_endl(diff._y);
     }
 }
+

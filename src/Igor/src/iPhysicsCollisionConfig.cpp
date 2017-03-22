@@ -109,7 +109,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addCylinder(float32 radius, float32 height, const iaMatrixd& offset)
+    void iPhysicsCollisionConfig::addCylinder(float32 radius0, float32 radius1, float32 height, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -118,7 +118,8 @@ namespace Igor
             Cylinder cylinder;
             cylinder._height = height;
             cylinder._offset = offset;
-            cylinder._radius = radius;
+            cylinder._radius0 = radius0;
+            cylinder._radius1 = radius1;
             _cylinders.push_back(cylinder);
         }
     }
@@ -169,7 +170,7 @@ namespace Igor
 
             for (auto cylinder : _cylinders)
             {
-                collisions.push_back(iPhysics::getInstance().createCylinder(cylinder._radius, cylinder._height, cylinder._offset, worldID));
+                collisions.push_back(iPhysics::getInstance().createCylinder(cylinder._radius0, cylinder._radius1, cylinder._height, cylinder._offset, worldID));
             }
 
             for (auto mesh : _meshs)

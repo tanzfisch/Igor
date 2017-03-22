@@ -328,7 +328,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createCylinder(float64 radius, float64 height, const iaMatrixd& offset);
+        iPhysicsCollision* createCylinder(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset);
 
         /*! creates a collision compound from multiple collisions
 
@@ -572,7 +572,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createCylinder(float64 radius, float64 height, const iaMatrixd& offset, uint64 worldID);
+        iPhysicsCollision* createCylinder(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates a collision compound from multiple collisions
 

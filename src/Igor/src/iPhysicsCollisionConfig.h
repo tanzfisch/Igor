@@ -105,7 +105,7 @@ namespace Igor
         \param height height of cylinder
         \param offset relative position
         */
-        void addCylinder(float32 radius, float32 height, const iaMatrixd& offset);
+        void addCylinder(float32 radius0, float32 radius1, float32 height, const iaMatrixd& offset);
 
         /*! set up mesh for physics mesh
 
@@ -174,7 +174,8 @@ namespace Igor
         */
         struct Cylinder
         {
-            float32 _radius;
+            float32 _radius0;
+            float32 _radius1;
             float32 _height;
             iaMatrixd _offset;
         };

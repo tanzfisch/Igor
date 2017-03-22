@@ -230,12 +230,12 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addCylinder(float32 radius, float32 height, const iaMatrixd& offset)
+    void iNodePhysics::addCylinder(float32 radius0, float32 radius1, float32 height, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)
         {
-            physicsCollisionConfig->addCylinder(radius, height, offset);
+            physicsCollisionConfig->addCylinder(radius0, radius1, height, offset);
         }
     }
 

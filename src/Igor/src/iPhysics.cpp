@@ -342,9 +342,9 @@ namespace Igor
         return createCapsule(radius0, radius1, height, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCylinder(float64 radius, float64 height, const iaMatrixd& offset)
+    iPhysicsCollision* iPhysics::createCylinder(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset)
     {
-        return createCylinder(radius, height, offset, _shadowWorldID);
+        return createCylinder(radius0, radius1, height, offset, _shadowWorldID);
     }
 
     iPhysicsCollision* iPhysics::createCompound(vector<iPhysicsCollision*>& collisions)
@@ -1115,14 +1115,14 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createCylinder(float64 radius, float64 height, const iaMatrixd& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCylinder(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, offset.getData());
+            NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(world), radius1, radius0, height, 0, offset.getData());
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
             NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
