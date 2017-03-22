@@ -58,6 +58,10 @@ private:
     float64 _characterHeight = 1;
     float64 _characterRadius = 0.2;
 
+    static constexpr float64 _stepHeight = 0.3;
+    static constexpr float64 _mass = 10;
+
+    iaVector3d _correctionForce;
     iaVector3d _force;
 
     uint64 _bodyID = iPhysicsBody::INVALID_PHYSICSBODY_ID;

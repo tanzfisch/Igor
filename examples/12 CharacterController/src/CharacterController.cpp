@@ -15,10 +15,10 @@ CharacterController::CharacterController(iNode* node, int64 materiaID)
     _collision = iPhysics::getInstance().createCylinder(_characterRadius, _characterHeight, iaMatrixd());
     iPhysicsBody* charBody = iPhysics::getInstance().createBody(_collision);
     _bodyID = charBody->getID();
-    charBody->setMass(10);
+    charBody->setMass(_mass);
     charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &CharacterController::onApplyForceAndTorque));
     charBody->setMaterial(materiaID);
-    charBody->setLinearDamping(0.3);
+    charBody->setLinearDamping(0.5);
 
     iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     charTransform->translate(10,0,0);
@@ -128,10 +128,14 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
     float64 Izz;
     float64 mass;
     iaVector3d force;
+    iaVector3d gravityForce;
 
     iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
-    force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    gravityForce.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+
+    force += gravityForce;
     force += _force;
+    force += _correctionForce;
 
     body->setForce(force);
 }
@@ -163,10 +167,20 @@ void CharacterController::onHandle()
     
     iPhysics::getInstance().convexCast(matrix, target, _collision, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, result);
 
+    _correctionForce._y = 0;
+
     if (result.size())
     {
         iaVector3d diff = matrix._pos - (result[0]._point._vec);
+        diff._y -= _characterHeight;
 
-        con_endl(diff);
+        float64 delta = diff._y - _stepHeight;
+
+    /*    if (fabs(delta) > 0.001)
+        {
+            _correctionForce._y = (-delta) * 500;
+        }*/
+
+        con_endl(delta);
     }
 }
