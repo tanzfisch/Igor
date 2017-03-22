@@ -20,12 +20,17 @@ CharacterController::CharacterController(iNode* node, int64 materiaID)
     charBody->setMass(_mass);
     charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &CharacterController::onApplyForceAndTorque));
     charBody->setMaterial(materiaID);
-    charBody->setLinearDamping(0.5);
+    charBody->setLinearDamping(0.2);
 
     iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    charTransform->translate(10,0,0);
-    _transformNodeID = charTransform->getID();
+    charTransform->translate(15, 5, 0);
+    _rootTransformNodeID = charTransform->getID();
     node->insertNode(charTransform);
+
+    iNodeTransform* headTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    headTransform->translate(0, _headHeight, 0);
+    _headTransformNodeID = headTransform->getID();
+    charTransform->insertNode(headTransform);
 
     iPhysics::getInstance().bindTransformNode(charBody, charTransform);
 
@@ -39,14 +44,19 @@ CharacterController::~CharacterController()
 {
     iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &CharacterController::onHandle));
 
-    iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_rootTransformNodeID);
     iPhysics::getInstance().destroyBody(_bodyID);
-iPhysics::getInstance().destroyCollision(_collision);
+    iPhysics::getInstance().destroyCollision(_collision);
 }
 
-iNode* CharacterController::getRootNode() const
+iNodeTransform* CharacterController::getHeadTransform() const
 {
-    return iNodeFactory::getInstance().getNode(_transformNodeID);
+    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headTransformNodeID));
+}
+
+iNodeTransform* CharacterController::getRootNode() const
+{
+    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_rootTransformNodeID));
 }
 
 void CharacterController::setForce(const iaVector3d& force)
@@ -133,9 +143,9 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
     iaVector3d gravityForce;
 
     iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
-    gravityForce.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
+    gravityForce.set(0.0f, -mass * static_cast<float64>(__IGOR_GRAVITY__), 0.0f);
 
-    force += gravityForce;
+    force = gravityForce;
     force += _force;
     force += _correctionForce;
 
@@ -159,31 +169,61 @@ void CharacterController::onHandle()
     iaMatrixd matrix;
     iaVector3d target;
 
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));
+    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_rootTransformNodeID));
     transform->getMatrix(matrix);
 
     target = matrix._pos;
     target._y -= 5;
 
     vector<ConvexCastReturnInfo> result;
-    
+
     iPhysics::getInstance().convexCast(matrix, target, _collision, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, result);
 
-    _correctionForce._y = 0;
+    _correctionForce.set(0, 0, 0);
 
     if (result.size())
     {
         iaVector3d diff = matrix._pos - (result[0]._point._vec);
-      //  diff._y -= _characterHeight;
+        float64 delta = (diff._y - (_characterHeight * 0.5)) - _stepHeight;
 
-        //float64 delta = diff._y - _stepHeight;
-
-    /*    if (fabs(delta) > 0.001)
+        if (delta < _stepHeight)
         {
-            _correctionForce._y = (-delta) * 500;
-        }*/
+            iPhysicsBody* body = iPhysics::getInstance().getBody(_bodyID);
+            iaVector3d velocity = body->getVelocity();
 
-        con_endl(diff._y);
+            if (velocity._y < 0)
+            {
+                velocity.negate();
+                velocity._x = 0;
+                velocity._z = 0;
+
+                _correctionForce += (velocity * _mass / (1.0 / iPhysics::getInstance().getSimulationRate())) * 0.5;
+            }
+
+#ifdef DETACH_HEAD
+            iNodeTransform* head = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headTransformNodeID));
+#endif
+            if (delta < 0)
+            {
+                //_correctionForce._y += _mass * static_cast<float64>(__IGOR_GRAVITY__);
+                _correctionForce._y += (-delta) * _mass * 1000;
+
+#ifdef DETACH_HEAD
+                head->setPosition(iaVector3d(0, _headHeight - delta, 0));
+#endif
+            }
+            else
+            {
+#ifdef DETACH_HEAD
+                head->setPosition(iaVector3d(0, _headHeight, 0));
+#endif
+                _correctionForce._y += (-delta) * _mass * 1000;
+            }
+
+            con_endl(delta);
+        }
+
+        
     }
 }
 

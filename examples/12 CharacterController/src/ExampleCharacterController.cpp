@@ -181,7 +181,7 @@ void ExampleCharacterController::init()
     _cameraHeading = camHeading->getID();
     iNodeTransform* camPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraPitch = camPitch->getID();    
-    _characterController->getRootNode()->insertNode(camHeading);
+    _characterController->getHeadTransform()->insertNode(camHeading);
     camHeading->insertNode(camPitch);
     camPitch->insertNode(camera);
     camera->makeCurrent();
@@ -333,9 +333,8 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
 
 void ExampleCharacterController::onHandle()
 {
-    float32 speed = 200;
+    float32 movingForce = 1000;
 
-    const float32 offsetIncrease = 0.1;
     iaMatrixd matrix;
     iaVector3d resultingForce;
 
@@ -347,7 +346,7 @@ void ExampleCharacterController::onHandle()
         iaVector3d foreward = matrix._depth;
         foreward.negate();
         foreward.normalize();
-        foreward *= speed;
+        foreward *= movingForce;
         resultingForce += foreward;
     }
 
@@ -355,7 +354,7 @@ void ExampleCharacterController::onHandle()
     {
         iaVector3d backward = matrix._depth;
         backward.normalize();
-        backward *= speed;
+        backward *= movingForce;
         resultingForce += backward;
     }
 
@@ -364,7 +363,7 @@ void ExampleCharacterController::onHandle()
         iaVector3d left = matrix._right;
         left.negate();
         left.normalize();
-        left *= speed;
+        left *= movingForce;
         resultingForce += left;
     }
 
@@ -372,7 +371,7 @@ void ExampleCharacterController::onHandle()
     {
         iaVector3d right = matrix._right;
         right.normalize();
-        right *= speed;
+        right *= movingForce;
         resultingForce += right;
     }
 
@@ -380,7 +379,7 @@ void ExampleCharacterController::onHandle()
     {
         iaVector3d up = matrix._top;
         up.normalize();
-        up *= speed;
+        up *= movingForce;
         resultingForce += up;
     }
 
@@ -389,8 +388,14 @@ void ExampleCharacterController::onHandle()
         iaVector3d down = matrix._top;
         down.negate();
         down.normalize();
-        down *= speed;
+        down *= movingForce;
         resultingForce += down;
+    }
+
+    if (resultingForce.length() > movingForce)
+    {
+        resultingForce.normalize();
+        resultingForce *= movingForce;
     }
 
     _characterController->setForce(resultingForce);

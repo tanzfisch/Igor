@@ -51,15 +51,19 @@ public:
     void setForce(const iaVector3d& force);
     iaVector3d getForce() const;
 
-    iNode* getRootNode() const;
+    iNodeTransform* getRootNode() const;
+
+    iNodeTransform* getHeadTransform() const;
 
 private:
 
-    float64 _characterHeight = 1;
-    float64 _characterRadius = 0.2;
+    float64 _characterHeight = 1.5;
+    float64 _characterRadius = 0.3;
+
+    static constexpr float64 _headHeight = 0.65;
 
     static constexpr float64 _stepHeight = 0.3;
-    static constexpr float64 _mass = 10;
+    static constexpr float64 _mass = 100;
 
     iaVector3d _correctionForce;
     iaVector3d _force;
@@ -68,7 +72,8 @@ private:
 
     iPhysicsCollision* _collision = nullptr;
 
-    uint32 _transformNodeID = iNode::INVALID_NODE_ID;
+    uint32 _rootTransformNodeID = iNode::INVALID_NODE_ID;
+    uint32 _headTransformNodeID = iNode::INVALID_NODE_ID;
 
     void onHandle();
 
