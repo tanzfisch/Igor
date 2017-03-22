@@ -40,7 +40,7 @@ namespace IgorAux
         return static_cast<int64>(hashFunc(keyValue));
     }
 
-    iaString::iaString(const char* text, const size_t lenght)
+    iaString::iaString(const char* text, const uint64 lenght)
     {
         if (lenght != INVALID_POSITION)
         {
@@ -51,7 +51,7 @@ namespace IgorAux
         CHECK_CONSISTENCY();
     }
 
-    iaString::iaString(const wchar_t* text, const size_t lenght)
+    iaString::iaString(const wchar_t* text, const uint64 lenght)
     {
         if (lenght != INVALID_POSITION)
         {
@@ -81,7 +81,7 @@ namespace IgorAux
 
     void iaString::toLower()
     {
-        for (size_t i = 0; i < getSize(); i++)
+        for (uint64 i = 0; i < getSize(); i++)
         {
             (*this)[i] = static_cast<wchar_t>(tolower((*this)[i]));
         }
@@ -89,7 +89,7 @@ namespace IgorAux
 
     void iaString::toUpper()
     {
-        for (size_t i = 0; i < getSize(); i++)
+        for (uint64 i = 0; i < getSize(); i++)
         {
             (*this)[i] = static_cast<wchar_t>(toupper((*this)[i]));
         }
@@ -100,14 +100,14 @@ namespace IgorAux
         return _data;
     }
 
-    const wchar_t& iaString::operator[](const size_t index) const
+    const wchar_t& iaString::operator[](const uint64 index) const
     {
         con_assert(_data != nullptr, "no data");
         con_assert(index < _charCount, "invalid index");
         return _data[index];
     }
 
-    wchar_t& iaString::operator[](const size_t index)
+    wchar_t& iaString::operator[](const uint64 index)
     {
         con_assert(_data != nullptr, "no data");
         con_assert(index < _charCount, "invalid index");
@@ -123,7 +123,7 @@ namespace IgorAux
         return stream;
     }
 
-    size_t iaString::getData(char* buffer, const size_t size) const
+    uint64 iaString::getData(char* buffer, const uint64 size) const
     {
         con_assert(buffer != nullptr, "no destination data");
         con_assert(size != 0, "no destination size");
@@ -132,7 +132,7 @@ namespace IgorAux
             size != 0 &&
             !isEmpty())
         {
-            size_t result = _charCount + 1;
+            uint64 result = _charCount + 1;
 
             if (size < result)
             {
@@ -149,19 +149,19 @@ namespace IgorAux
         return 0;
     }
 
-    size_t iaString::getUTF8Size() const
+    uint64 iaString::getUTF8Size() const
     {
-        size_t result = 0;
+        uint64 result = 0;
 
         if (!isEmpty())
         {
-            result = static_cast<size_t>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), nullptr, 0, nullptr, nullptr));
+            result = static_cast<uint64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), nullptr, 0, nullptr, nullptr));
         }
 
         return result;
     }
 
-    size_t iaString::getUTF8(char* buffer, const size_t size) const
+    uint64 iaString::getUTF8(char* buffer, const uint64 size) const
     {
         con_assert(buffer != nullptr, "no destination data");
         con_assert(size != 0, "no destination size");
@@ -170,18 +170,18 @@ namespace IgorAux
             size != 0 &&
             !isEmpty())
         {
-            size_t measuredSize = static_cast<size_t>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), nullptr, 0, nullptr, nullptr));
+            uint64 measuredSize = static_cast<uint64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), nullptr, 0, nullptr, nullptr));
 
             if (size < measuredSize)
             {
                 measuredSize = size;
             }
 
-            size_t result = 0;
+            uint64 result = 0;
             
             if (measuredSize != 0)
             {
-                result = static_cast<size_t>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), buffer, static_cast<int>(measuredSize), nullptr, nullptr));
+                result = static_cast<uint64>(WideCharToMultiByte(CP_UTF8, 0, getData(), static_cast<int>(getSize()), buffer, static_cast<int>(measuredSize), nullptr, nullptr));
 
                 con_assert(result != 0, "conversion failed");
                 if (result == 0)
@@ -196,14 +196,14 @@ namespace IgorAux
         return 0;
     }
 
-    void iaString::setUTF8(const char* buffer, const size_t size)
+    void iaString::setUTF8(const char* buffer, const uint64 size)
     {
         con_assert(buffer != nullptr, "no source data");
         con_assert(size != 0, "no source size");
 
         clear();
 
-        _charCount = static_cast<size_t>(MultiByteToWideChar(CP_UTF8, 0, buffer, static_cast<int>(size), nullptr, 0));
+        _charCount = static_cast<uint64>(MultiByteToWideChar(CP_UTF8, 0, buffer, static_cast<int>(size), nullptr, 0));
         _data = new wchar_t[_charCount + 1];
         
         MultiByteToWideChar(CP_UTF8, 0, buffer, static_cast<int>(size), _data, static_cast<int>(_charCount));
@@ -211,7 +211,7 @@ namespace IgorAux
         _data[_charCount] = 0;
     }
 
-    void iaString::setData(const wchar_t* text, const size_t size)
+    void iaString::setData(const wchar_t* text, const uint64 size)
     {
         clear();
 
@@ -224,7 +224,7 @@ namespace IgorAux
             }
             else
             {
-                _charCount = static_cast<size_t>(wcslen(text));
+                _charCount = static_cast<uint64>(wcslen(text));
             }
 
             _data = new wchar_t[_charCount + 1];
@@ -235,7 +235,7 @@ namespace IgorAux
         }
     }
 
-    void iaString::setData(const char* text, const size_t size)
+    void iaString::setData(const char* text, const uint64 size)
     {
         clear();
 
@@ -248,7 +248,7 @@ namespace IgorAux
             }
             else
             {
-                _charCount = static_cast<size_t>(strlen(text));
+                _charCount = static_cast<uint64>(strlen(text));
             }
 
             _data = new wchar_t[_charCount + 1];
@@ -285,7 +285,7 @@ namespace IgorAux
         return false;
     }
 
-    size_t iaString::getSize() const
+    uint64 iaString::getSize() const
     {
         return _charCount;
     }
@@ -318,7 +318,7 @@ namespace IgorAux
             return true;
         }
 
-        size_t i = _charCount;
+        uint64 i = _charCount;
 
         do
         {
@@ -344,7 +344,7 @@ namespace IgorAux
             return false;
         }
 
-        size_t i = _charCount;
+        uint64 i = _charCount;
         do
         {
             con_assert(i > 0, "value underflow");
@@ -473,8 +473,8 @@ namespace IgorAux
     {
         CHECK_CONSISTENCY();
 
-        size_t from = 0;
-        size_t to = 0;
+        uint64 from = 0;
+        uint64 to = 0;
 
         if (!isEmpty())
         {
@@ -525,14 +525,14 @@ namespace IgorAux
         }
     }
 
-    size_t iaString::findFirstNotOf(const wchar_t character, const size_t from) const
+    uint64 iaString::findFirstNotOf(const wchar_t character, const uint64 from) const
     {
         con_assert(from < _charCount || from == INVALID_POSITION, "out of range");
         CHECK_CONSISTENCY();
 
         if (!isEmpty())
         {
-            size_t index = 0;
+            uint64 index = 0;
             if (from != INVALID_POSITION)
             {
                 index = from;
@@ -551,7 +551,7 @@ namespace IgorAux
         return INVALID_POSITION;
     }
 
-    size_t iaString::findFirstNotOf(const wchar_t* characters, const size_t from) const
+    uint64 iaString::findFirstNotOf(const wchar_t* characters, const uint64 from) const
     {
         CHECK_CONSISTENCY();
 
@@ -563,18 +563,18 @@ namespace IgorAux
 
         con_assert(from < _charCount || from == INVALID_POSITION, "out of range");
 
-        size_t index = 0;
+        uint64 index = 0;
         if (from != INVALID_POSITION)
         {
             index = from;
         }
 
-        size_t paternLenght = static_cast<size_t>(wcslen(characters));
+        uint64 paternLenght = static_cast<uint64>(wcslen(characters));
 
         while (index < _charCount)
         {
             bool found = false;
-            for (size_t c = 0; c < paternLenght; ++c)
+            for (uint64 c = 0; c < paternLenght; ++c)
             {
                 if (_data[index] == characters[c])
                 {
@@ -593,14 +593,14 @@ namespace IgorAux
         return INVALID_POSITION;
     }
 
-    size_t iaString::findFirstOf(const wchar_t character, const size_t from) const
+    uint64 iaString::findFirstOf(const wchar_t character, const uint64 from) const
     {
         CHECK_CONSISTENCY();
 
         if (!isEmpty() &&
             character != 0)
         {
-            size_t index = 0;
+            uint64 index = 0;
             if (from != INVALID_POSITION)
             {
                 index = from;
@@ -619,7 +619,7 @@ namespace IgorAux
         return INVALID_POSITION;
     }
 
-    size_t iaString::findFirstOf(const wchar_t* characters, const size_t from) const
+    uint64 iaString::findFirstOf(const wchar_t* characters, const uint64 from) const
     {
         CHECK_CONSISTENCY();
 
@@ -635,17 +635,17 @@ namespace IgorAux
             return INVALID_POSITION;
         }
 
-        size_t index = 0;
+        uint64 index = 0;
         if (from != INVALID_POSITION)
         {
             index = from;
         }
 
-        size_t paternLenght = static_cast<size_t>(wcslen(characters));
+        uint64 paternLenght = static_cast<uint64>(wcslen(characters));
 
         while (index < _charCount)
         {
-            for (size_t c = 0; c < paternLenght; ++c)
+            for (uint64 c = 0; c < paternLenght; ++c)
             {
                 if (_data[index] == characters[c])
                 {
@@ -658,14 +658,14 @@ namespace IgorAux
         return INVALID_POSITION;
     }
 
-    size_t iaString::findLastOf(const wchar_t character) const
+    uint64 iaString::findLastOf(const wchar_t character) const
     {
         CHECK_CONSISTENCY();
 
         if (!isEmpty() &&
             character != 0)
         {
-            size_t index = _charCount;
+            uint64 index = _charCount;
             do
             {
                 index--;
@@ -679,20 +679,20 @@ namespace IgorAux
         return INVALID_POSITION;
     }
 
-    size_t iaString::findLastOf(const wchar_t* characters) const
+    uint64 iaString::findLastOf(const wchar_t* characters) const
     {
         CHECK_CONSISTENCY();
 
         if (!isEmpty() && characters != nullptr)
         {
-            size_t index = _charCount;
-            size_t paternLenght = static_cast<size_t>(wcslen(characters));
+            uint64 index = _charCount;
+            uint64 paternLenght = static_cast<uint64>(wcslen(characters));
 
             do
             {
                 index--;
 
-                for (size_t c = 0; c < paternLenght; ++c)
+                for (uint64 c = 0; c < paternLenght; ++c)
                 {
                     if (_data[index] == characters[c])
                     {
@@ -706,7 +706,7 @@ namespace IgorAux
         return INVALID_POSITION;
     }
 
-    iaString iaString::getSubString(const size_t pos, const size_t len) const
+    iaString iaString::getSubString(const uint64 pos, const uint64 len) const
     {
         CHECK_CONSISTENCY();
 
@@ -714,7 +714,7 @@ namespace IgorAux
         con_assert(pos != INVALID_POSITION, "out of range");
         con_assert(pos < _charCount, "out of range");
 
-        size_t lenght = len;
+        uint64 lenght = len;
         if (lenght == INVALID_POSITION ||
             lenght + pos >= _charCount)
         {
@@ -727,8 +727,8 @@ namespace IgorAux
 
     void iaString::reverse()
     {
-        size_t i = 0;
-        size_t j = _charCount - 1;
+        uint64 i = 0;
+        uint64 j = _charCount - 1;
         wchar_t temp;
 
         while (i<j)

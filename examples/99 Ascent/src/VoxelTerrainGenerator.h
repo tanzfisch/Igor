@@ -32,7 +32,7 @@ class VoxelTerrainGenerator : public iaSingleton<VoxelTerrainGenerator>
     class VectorHasher
     {
     public:
-        size_t operator() (iaVector3I const& key) const
+        uint64 operator() (iaVector3I const& key) const
         {
             return (key._x << 1) ^ (key._y << 2) ^ (key._y << 3);
         }

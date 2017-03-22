@@ -17,7 +17,7 @@ namespace IgorAux
         clearData();
     }
 
-    void iaMemBlock::setData(const char* buffer, size_t size)
+    void iaMemBlock::setData(const char* buffer, uint64 size)
     {
         clearData();
 
@@ -38,7 +38,7 @@ namespace IgorAux
         }
     }
 
-    void iaMemBlock::getData(char* buffer, size_t size) const
+    void iaMemBlock::getData(char* buffer, uint64 size) const
     {
         con_assert(buffer != nullptr, "zero pointer");
         con_assert(_data != nullptr, "zero pointer");
@@ -96,7 +96,7 @@ namespace IgorAux
         }
     }
 
-    size_t iaMemBlock::getDataSize()
+    uint64 iaMemBlock::getDataSize()
     {
         return _dataSize;
     }

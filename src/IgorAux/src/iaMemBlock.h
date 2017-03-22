@@ -59,14 +59,14 @@ namespace IgorAux
         \param buffer pointer to new data
         \param size the size in bytes
         */
-        void setData(const char* buffer, size_t size);
+        void setData(const char* buffer, uint64 size);
 
         /*! copies local data and returns it
 
         \param[out] buffer the buffer to copy the data in
         \param size size of destination buffer. must be bigger or equal than src buffer
         */
-        void getData(char* buffer, size_t size) const;
+        void getData(char* buffer, uint64 size) const;
 
         /*! \returns pointer to memory
         */
@@ -78,7 +78,7 @@ namespace IgorAux
 
         /*! \returns size of memory block
         */
-        size_t getDataSize();
+        uint64 getDataSize();
 
     private:
         
@@ -88,7 +88,7 @@ namespace IgorAux
 
         /*! size of memory
         */
-        size_t _dataSize = 0;
+        uint64 _dataSize = 0;
 
     };
 

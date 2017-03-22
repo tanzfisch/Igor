@@ -123,7 +123,7 @@ namespace IgorAux
 
     iaString iaFile::getPath() const
     {
-        size_t pos = _filename.findLastOf(iaDirectory::getPathSeperator());
+        uint64 pos = _filename.findLastOf(iaDirectory::getPathSeperator());
 
         if (pos != iaString::INVALID_POSITION)
         {
@@ -137,7 +137,7 @@ namespace IgorAux
 
 	iaString iaFile::getFileName() const
 	{
-        size_t pos = _filename.findLastOf(iaDirectory::getPathSeperator());
+        uint64 pos = _filename.findLastOf(iaDirectory::getPathSeperator());
 
         if (pos != iaString::INVALID_POSITION)
         {

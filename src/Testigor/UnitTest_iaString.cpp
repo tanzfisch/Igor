@@ -696,7 +696,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_65)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstOf(L'b');
+            uint64 result = foo.findFirstOf(L'b');
 
             Assert::IsTrue(result == 1);
             Assert::IsTrue(foo.getSize() == 3);
@@ -707,7 +707,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_66)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstOf(L"b");
+            uint64 result = foo.findFirstOf(L"b");
 
             Assert::IsTrue(result == 1);
             Assert::IsTrue(foo.getSize() == 3);
@@ -718,7 +718,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_67)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstOf(L'd');
+            uint64 result = foo.findFirstOf(L'd');
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
             Assert::IsTrue(foo.getSize() == 3);
@@ -729,7 +729,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_68)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstOf(L"d");
+            uint64 result = foo.findFirstOf(L"d");
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
             Assert::IsTrue(foo.getSize() == 3);
@@ -740,7 +740,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_69)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstOf(L"def");
+            uint64 result = foo.findFirstOf(L"def");
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
             Assert::IsTrue(foo.getSize() == 3);
@@ -751,7 +751,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_70)
         {
             iaString foo("abcdefghijk");
-            uint32 result = foo.findFirstOf(L"d");
+            uint64 result = foo.findFirstOf(L"d");
 
             Assert::IsTrue(result == 3);
         }
@@ -759,7 +759,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_71)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findFirstOf(L"*d");
+            uint64 result = foo.findFirstOf(L"*d");
 
             Assert::IsTrue(result == 3);
         }
@@ -767,7 +767,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_72)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findFirstOf(L"*d", 4);
+            uint64 result = foo.findFirstOf(L"*d", 4);
 
             Assert::IsTrue(result == 8);
         }
@@ -775,7 +775,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_73)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findFirstOf(L"*d", 100);
+            uint64 result = foo.findFirstOf(L"*d", 100);
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
         }
@@ -783,7 +783,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_74)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findLastOf(L"*d");
+            uint64 result = foo.findLastOf(L"*d");
 
             Assert::IsTrue(result == 8);
         }
@@ -791,7 +791,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_75)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findLastOf(L'*');
+            uint64 result = foo.findLastOf(L'*');
 
             Assert::IsTrue(result == 8);
         }
@@ -800,7 +800,7 @@ namespace Testigor
         {
             iaString foo("abc");
             char text[10];
-            uint32 result = foo.getData(text, 10);
+            uint64 result = foo.getData(text, 10);
 
             Assert::IsTrue(text[0] == 'a');
             Assert::IsTrue(text[1] == 'b');
@@ -813,7 +813,7 @@ namespace Testigor
         {
             iaString foo("abc");
             char text[10];
-            uint32 result = foo.getData(text, 3);
+            uint64 result = foo.getData(text, 3);
 
             Assert::IsTrue(text[0] == 'a');
             Assert::IsTrue(text[1] == 'b');
@@ -834,7 +834,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_80)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstNotOf(L"ac");
+            uint64 result = foo.findFirstNotOf(L"ac");
 
             Assert::IsTrue(result == 1);
             Assert::IsTrue(foo.getSize() == 3);
@@ -845,7 +845,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_81)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstNotOf(L"abc");
+            uint64 result = foo.findFirstNotOf(L"abc");
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
             Assert::IsTrue(foo.getSize() == 3);
@@ -856,7 +856,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_82)
         {
             iaString foo;
-            uint32 result = foo.findFirstNotOf(L"ac");
+            uint64 result = foo.findFirstNotOf(L"ac");
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
             Assert::IsTrue(foo.getSize() == 0);
@@ -868,7 +868,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_83)
         {
             iaString foo("abc");
-            uint32 result = foo.findFirstNotOf(L'a');
+            uint64 result = foo.findFirstNotOf(L'a');
 
             Assert::IsTrue(result == 1);
             Assert::IsTrue(foo.getSize() == 3);
@@ -879,7 +879,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_84)
         {
             iaString foo;
-            uint32 result = foo.findFirstNotOf(L'a');
+            uint64 result = foo.findFirstNotOf(L'a');
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
             Assert::IsTrue(foo.getSize() == 0);
@@ -890,7 +890,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_85)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findLastOf(L"XYZ");
+            uint64 result = foo.findLastOf(L"XYZ");
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
         }
@@ -898,7 +898,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_86)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findLastOf(L"Y");
+            uint64 result = foo.findLastOf(L"Y");
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
         }
@@ -906,7 +906,7 @@ namespace Testigor
         TEST_METHOD(UnitTest_iaStringTest_87)
         {
             iaString foo("abc*fghi*jk");
-            uint32 result = foo.findLastOf(L'Y');
+            uint64 result = foo.findLastOf(L'Y');
 
             Assert::IsTrue(result == iaString::INVALID_POSITION);
         }

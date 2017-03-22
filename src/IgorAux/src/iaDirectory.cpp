@@ -262,7 +262,7 @@ namespace IgorAux
 		}
 
 		// converts / to the other one not allowed in sourcecode (back-slash), vise versa at linux ;)
-        for (size_t pos = temp.findFirstOf(notDirSeperator); pos != iaString::INVALID_POSITION; pos = temp.findFirstOf(notDirSeperator, pos))
+        for (uint64 pos = temp.findFirstOf(notDirSeperator); pos != iaString::INVALID_POSITION; pos = temp.findFirstOf(notDirSeperator, pos))
         {
             temp[pos] = dirSeperator;
         }

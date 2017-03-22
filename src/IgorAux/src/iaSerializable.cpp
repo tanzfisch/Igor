@@ -339,7 +339,7 @@ namespace IgorAux
     {
         con_assert(value.getUTF8Size() <= 0xffff, "string size out of range");
 
-        size_t utf8Size = value.getUTF8Size();
+        uint64 utf8Size = value.getUTF8Size();
         if (utf8Size <= 0xffff)
         {
             if (iaSerializable::writeUInt16(stream, static_cast<uint16>(utf8Size)))
