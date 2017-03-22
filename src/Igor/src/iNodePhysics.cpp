@@ -221,12 +221,12 @@ namespace Igor
         }
     }
 
-    void iNodePhysics::addCapsule(float32 radius, float32 height, const iaMatrixd& offset)
+    void iNodePhysics::addCapsule(float32 radius0, float32 radius1, float32 height, const iaMatrixd& offset)
     {
         iPhysicsCollisionConfig* physicsCollisionConfig = iPhysics::getInstance().getCollisionConfig(_physicsCollisionConfigID);
         if (physicsCollisionConfig)
         {
-            physicsCollisionConfig->addCapsule(radius, height, offset);
+            physicsCollisionConfig->addCapsule(radius0, radius1, height, offset);
         }
     }
 

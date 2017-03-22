@@ -97,7 +97,7 @@ namespace Igor
         \param height height of capsule
         \param offset relative position
         */
-        void addCapsule(float32 radius, float32 height, const iaMatrixd& offset);
+        void addCapsule(float32 radius0, float32 radius1, float32 height, const iaMatrixd& offset);
 
         /*! adds cylinder
 
@@ -164,7 +164,8 @@ namespace Igor
         */
         struct Capsule
         {
-            float32 _radius;
+            float32 _radius0;
+            float32 _radius1;
             float32 _height;
             iaMatrixd _offset;
         };

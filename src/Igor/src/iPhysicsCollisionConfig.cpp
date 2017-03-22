@@ -94,7 +94,7 @@ namespace Igor
         }
     }
 
-    void iPhysicsCollisionConfig::addCapsule(float32 radius, float32 height, const iaMatrixd& offset)
+    void iPhysicsCollisionConfig::addCapsule(float32 radius0, float32 radius1, float32 height, const iaMatrixd& offset)
     {
         con_assert(!_finalized, "already finalized");
 
@@ -103,7 +103,8 @@ namespace Igor
             Capsule capsule;
             capsule._height = height;
             capsule._offset = offset;
-            capsule._radius = radius;
+            capsule._radius0 = radius0;
+            capsule._radius1 = radius1;
             _capsules.push_back(capsule);
         }
     }
@@ -163,7 +164,7 @@ namespace Igor
 
             for (auto capsule : _capsules)
             {
-                collisions.push_back(iPhysics::getInstance().createCapsule(capsule._radius, capsule._height, capsule._offset, worldID));
+                collisions.push_back(iPhysics::getInstance().createCapsule(capsule._radius0, capsule._radius1, capsule._height, capsule._offset, worldID));
             }
 
             for (auto cylinder : _cylinders)

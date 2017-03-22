@@ -95,8 +95,8 @@ void ExampleCharacterController::init()
     iPhysicsMaterialCombo* terrainEntity = new iPhysicsMaterialCombo(materialTerrain, materialEntity);
     terrainEntity->setName("terrain-entity");
     //terrainEntity->registerContactDelegate(iContactDelegate(this, &EntityManager::onContact));
-    terrainEntity->setElasticity(0.0);
-    terrainEntity->setFriction(0.5, 0.4);
+    //terrainEntity->setElasticity(0.0);
+    //terrainEntity->setFriction(0.5, 0.4);
 
     iPhysicsMaterialCombo* terrainBullet = new iPhysicsMaterialCombo(materialTerrain, materialBullet);
     terrainBullet->setName("terrain-bullet");
@@ -125,22 +125,52 @@ void ExampleCharacterController::init()
     floorTransform->insertNode(floorModel);
     _scene->getRoot()->insertNode(floorTransform);
 
+    iPhysicsCollision* floorCollision = iPhysics::getInstance().createBox(3, 1, 3, iaMatrixd());
+    iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
+    floorBody->setMass(10);
+    iaMatrixd floorM;
+    floorM.translate(5, 5, 0);
+    floorBody->setMatrix(floorM);
+    floorBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
+    floorBody->setMaterial(_terrainMaterialID);
+
     // create a box that drops on floor
-    iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
-    iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
-    boxBody->setMass(10);
-    boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
-    boxBody->setMaterial(_entityMaterialID);    
+    {
+        iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
+        iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
+        boxBody->setMass(10);
+        boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
+        boxBody->setMaterial(_entityMaterialID);
 
-    iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformNode->translate(15, 15, 0);
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+        transformNode->translate(1, 10, 0);
 
-    iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-    crate->setModel("crate.ompf");
-    transformNode->insertNode(crate);
+        iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+        crate->setModel("crate.ompf");
+        transformNode->insertNode(crate);
 
-    iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
-    _scene->getRoot()->insertNode(transformNode);
+        iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
+        _scene->getRoot()->insertNode(transformNode);
+    }
+
+    // create another box that drops on floor
+    {
+        iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
+        iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
+        boxBody->setMass(10);
+        boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &ExampleCharacterController::onApplyForceAndTorqueBox));
+        boxBody->setMaterial(_entityMaterialID);
+
+        iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+        transformNode->translate(10, 10, 0);
+
+        iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+        crate->setModel("crate.ompf");
+        transformNode->insertNode(crate);
+
+        iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
+        _scene->getRoot()->insertNode(transformNode);
+    }
 
     // setup character and attache camera to it
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID);

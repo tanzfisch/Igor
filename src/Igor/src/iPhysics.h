@@ -53,6 +53,17 @@ namespace Igor
     class iPhysicsCollisionConfig;
     class iMesh;
 
+    iaDELEGATE(iRayPreFilterDelegate, unsigned, (iPhysicsBody* body, iPhysicsCollision* collision, const void* userData), (body, collision, userData));
+
+    struct Igor_API ConvexCastReturnInfo
+    {
+        iaVector4d _point;
+        iaVector4d _normal;
+        int64 _contactID;
+        iPhysicsBody* _hitBody;
+        float64 _penetration;
+    };
+
     /*! wrapper for newton game dynamics
 
     Examples:
@@ -155,7 +166,7 @@ namespace Igor
         */
         bool isWorld(uint64 id);
 
-        void convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iaVector3d& point, iaVector3d& normal, int32 maxContactCount = 10);
+        void convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iRayPreFilterDelegate preFilterDelegate, void* userData, vector<ConvexCastReturnInfo>& result, int32 maxContactCount = 10);
 
         /*! creates a collision configuration
 
@@ -273,7 +284,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset);
+        iPhysicsCollision* createBox(float64 width, float64 height, float64 depth, const iaMatrixd& offset);
 
         /*! creates a collision shape based on a mesh
 
@@ -290,7 +301,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createSphere(float32 radius, const iaMatrixd& offset);
+        iPhysicsCollision* createSphere(float64 radius, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a cone
 
@@ -299,7 +310,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixd& offset);
+        iPhysicsCollision* createCone(float64 radius, float64 height, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a capsule
 
@@ -308,7 +319,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixd& offset);
+        iPhysicsCollision* createCapsule(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset);
 
         /*! creates newton collision in shape of a cylinder
 
@@ -317,7 +328,7 @@ namespace Igor
         \param offset matrix as offset to origin
         \returns physics collision
         */
-        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixd& offset);
+        iPhysicsCollision* createCylinder(float64 radius, float64 height, const iaMatrixd& offset);
 
         /*! creates a collision compound from multiple collisions
 
@@ -348,13 +359,13 @@ namespace Igor
         \param Iyy ???
         \param Izz ???
         */
-        void setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz);
+        void setMassMatrix(void* newtonBody, float64 mass, float64 Ixx, float64 Iyy, float64 Izz);
 
         /*!
         */
-        void setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3d& pin);
-        void setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction);
-        void setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float32 friction);
+        void setUserJointAddAngularRow(iPhysicsJoint* joint, float64 relativeAngleError, const iaVector3d& pin);
+        void setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float64 friction);
+        void setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float64 friction);
 
         /*! binds transform node to newton body
 
@@ -503,7 +514,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset, uint64 worldID);
+        iPhysicsCollision* createBox(float64 width, float64 height, float64 depth, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates a collision shape based on a mesh
 
@@ -531,7 +542,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createSphere(float32 radius, const iaMatrixd& offset, uint64 worldID);
+        iPhysicsCollision* createSphere(float64 radius, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a cone
 
@@ -541,7 +552,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createCone(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID);
+        iPhysicsCollision* createCone(float64 radius, float64 height, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a capsule
 
@@ -551,7 +562,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createCapsule(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID);
+        iPhysicsCollision* createCapsule(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates newton collision in shape of a cylinder
 
@@ -561,7 +572,7 @@ namespace Igor
         \param worldID the world's id this collision will be created with
         \returns physics collision
         */
-        iPhysicsCollision* createCylinder(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID);
+        iPhysicsCollision* createCylinder(float64 radius, float64 height, const iaMatrixd& offset, uint64 worldID);
 
         /*! creates a collision compound from multiple collisions
 
@@ -582,14 +593,14 @@ namespace Igor
         \param materialCombo the two materials
         \param value softness valueget
         */
-        void setSoftness(iPhysicsMaterialCombo* materialCombo, float32 value);
+        void setSoftness(iPhysicsMaterialCombo* materialCombo, float64 value);
 
         /*! sets elasticity between two materials
 
         \param materialCombo the two materials
         \param elasticCoef elastic coefficient
         */
-        void setElasticity(iPhysicsMaterialCombo* materialCombo, float32 elasticCoef);
+        void setElasticity(iPhysicsMaterialCombo* materialCombo, float64 elasticCoef);
 
         /*! sets friction between two materials
 
@@ -597,7 +608,7 @@ namespace Igor
         \param staticFriction static friction
         \param kineticFriction kinetic friction
         */
-        void setFriction(iPhysicsMaterialCombo* materialCombo, float32 staticFriction, float32 kineticFriction);
+        void setFriction(iPhysicsMaterialCombo* materialCombo, float64 staticFriction, float64 kineticFriction);
 
         /*! creates the default material
         */

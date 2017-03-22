@@ -55,6 +55,9 @@ public:
 
 private:
 
+    float64 _characterHeight = 1;
+    float64 _characterRadius = 0.2;
+
     iaVector3d _force;
 
     uint64 _bodyID = iPhysicsBody::INVALID_PHYSICSBODY_ID;
@@ -64,6 +67,8 @@ private:
     uint32 _transformNodeID = iNode::INVALID_NODE_ID;
 
     void onHandle();
+
+    unsigned onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData);
 
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
 

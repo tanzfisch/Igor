@@ -84,7 +84,7 @@ namespace Igor
 
     \param body the body that changed it's position
     \param matrix the updated matrix from newton
-    \param threadIndex ???
+    \param threadIndex 
     */
     void PhysicsNodeSetTransformation(const NewtonBody* const body, const dFloat* const matrix, int threadIndex)
     {
@@ -214,25 +214,60 @@ namespace Igor
         }
     }
 
-    void CommonRayPrefilterCallback(const NewtonBody* const body, const NewtonCollision* const collision, void* const userData) 
+    struct PreFilterUserData
     {
+        iRayPreFilterDelegate preFilterDelegate;
+        void* userData = nullptr;
+    };
 
+    unsigned CommonRayPrefilterCallback(const NewtonBody* const newtonBody, const NewtonCollision* const collision, void* const userData) 
+    {
+        iPhysicsCollision* physicsCollision = static_cast<iPhysicsCollision*>(NewtonCollisionGetUserData(collision));
+        if (physicsCollision != nullptr)
+        {
+            iPhysicsBody* physicsBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(newtonBody));
+            if (physicsBody != nullptr)
+            {
+                iPhysicsCollision* physicsCollision = static_cast<iPhysicsCollision*>(NewtonCollisionGetUserData(collision));
+
+                con_assert(physicsCollision != nullptr, "zero pointer");
+
+                PreFilterUserData* preFilterUserData = static_cast<PreFilterUserData*>(userData);
+                return preFilterUserData->preFilterDelegate(physicsBody, physicsCollision, preFilterUserData->userData);
+            }
+
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
     }
 
-    void iPhysics::convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iaVector3d& point, iaVector3d& normal, int32 maxContactCount)
+    void iPhysics::convexCast(const iaMatrixd& matrix, const iaVector3d& target, iPhysicsCollision* collisionVolume, iRayPreFilterDelegate preFilterDelegate, void* userData, vector<ConvexCastReturnInfo>& result, int32 maxContactCount)
     {
-        static NewtonWorldConvexCastReturnInfo result;
-        float64 param = 1.2;
+        con_assert(maxContactCount <= 16, "param out of range");
+
+        NewtonWorldConvexCastReturnInfo info[16];
+        float64 param = 1.2; // TODO ?
+        PreFilterUserData preFilterUserData;
+        preFilterUserData.preFilterDelegate = preFilterDelegate;
+        preFilterUserData.userData = userData;
 
         int numberOfContacts = NewtonWorldConvexCast(static_cast<const NewtonWorld*>(_defaultWorld), matrix.getData(), target.getData(), 
-            static_cast<const NewtonCollision*>(collisionVolume->_collision), &param, nullptr,
-            reinterpret_cast<NewtonWorldRayPrefilterCallback>(CommonRayPrefilterCallback), &result, maxContactCount, 0);
+            static_cast<const NewtonCollision*>(collisionVolume->_collision), &param, &preFilterUserData,
+            reinterpret_cast<NewtonWorldRayPrefilterCallback>(CommonRayPrefilterCallback), &info[0], maxContactCount, 0);
 
-        point.set(result.m_point[0], result.m_point[1], result.m_point[2]);
-        normal.set(result.m_normal[0], result.m_normal[1], result.m_normal[2]);
-
-        con_endl(result.m_point[0] << ", " << result.m_point[1] << ", " << result.m_point[2] << ", " << result.m_point[3]);
-        con_endl(result.m_normal[0] << ", " << result.m_normal[1] << ", " << result.m_normal[2] << ", " << result.m_normal[3]);
+        for (int i = 0; i < numberOfContacts; ++i)
+        {
+            ConvexCastReturnInfo returnInfo;
+            returnInfo._contactID = info[i].m_contactID;
+            returnInfo._hitBody = static_cast<iPhysicsBody*>(NewtonBodyGetUserData(info[i].m_hitBody));
+            returnInfo._normal.set(info[i].m_normal[0], info[i].m_normal[1], info[i].m_normal[2], info[i].m_normal[3]);
+            returnInfo._point.set(info[i].m_point[0], info[i].m_point[1], info[i].m_point[2], info[i].m_point[3]);
+            returnInfo._penetration = info[i].m_penetration;
+            result.push_back(returnInfo);
+        }
     }
 
     void iPhysics::queueContact(iPhysicsMaterialCombo* material, iPhysicsBody* body1, iPhysicsBody* body2)
@@ -282,7 +317,7 @@ namespace Igor
         _shadowWorldID = shadow->getID();
     }
 
-    iPhysicsCollision* iPhysics::createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset)
+    iPhysicsCollision* iPhysics::createBox(float64 width, float64 height, float64 depth, const iaMatrixd& offset)
     {
         return createBox(width, height, depth, offset, _shadowWorldID);
     }
@@ -292,22 +327,22 @@ namespace Igor
         return createMesh(mesh, faceAttribute, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createSphere(float32 radius, const iaMatrixd& offset)
+    iPhysicsCollision* iPhysics::createSphere(float64 radius, const iaMatrixd& offset)
     {
         return createSphere(radius, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCone(float32 radius, float32 height, const iaMatrixd& offset)
+    iPhysicsCollision* iPhysics::createCone(float64 radius, float64 height, const iaMatrixd& offset)
     {
         return createCone(radius, height, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixd& offset)
+    iPhysicsCollision* iPhysics::createCapsule(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset)
     {
-        return createCapsule(radius, height, offset, _shadowWorldID);
+        return createCapsule(radius0, radius1, height, offset, _shadowWorldID);
     }
 
-    iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixd& offset)
+    iPhysicsCollision* iPhysics::createCylinder(float64 radius, float64 height, const iaMatrixd& offset)
     {
         return createCylinder(radius, height, offset, _shadowWorldID);
     }
@@ -451,17 +486,17 @@ namespace Igor
         NewtonMaterialSetCallbackUserData(static_cast<const NewtonWorld*>(_defaultWorld), materialCombo->getMaterial0(), materialCombo->getMaterial1(), materialCombo);
     }
 
-    void iPhysics::setSoftness(iPhysicsMaterialCombo* materialCombo, float32 value)
+    void iPhysics::setSoftness(iPhysicsMaterialCombo* materialCombo, float64 value)
     {
         NewtonMaterialSetDefaultSoftness(static_cast<const NewtonWorld*>(_defaultWorld), materialCombo->getMaterial0(), materialCombo->getMaterial1(), value);
     }
 
-    void iPhysics::setElasticity(iPhysicsMaterialCombo* materialCombo, float32 elasticCoef)
+    void iPhysics::setElasticity(iPhysicsMaterialCombo* materialCombo, float64 elasticCoef)
     {
         NewtonMaterialSetDefaultElasticity(static_cast<const NewtonWorld*>(_defaultWorld), materialCombo->getMaterial0(), materialCombo->getMaterial1(), elasticCoef);
     }
 
-    void iPhysics::setFriction(iPhysicsMaterialCombo* materialCombo, float32 staticFriction, float32 kineticFriction)
+    void iPhysics::setFriction(iPhysicsMaterialCombo* materialCombo, float64 staticFriction, float64 kineticFriction)
     {
         con_assert(staticFriction >= 0.0 && staticFriction <= 2.0, "out of range");
         con_assert(kineticFriction >= 0.0 && kineticFriction <= 2.0, "out of range");
@@ -628,17 +663,17 @@ namespace Igor
         return result;
     }
 
-    void iPhysics::setUserJointAddAngularRow(iPhysicsJoint* joint, float32 relativeAngleError, const iaVector3d& pin)
+    void iPhysics::setUserJointAddAngularRow(iPhysicsJoint* joint, float64 relativeAngleError, const iaVector3d& pin)
     {
         NewtonUserJointAddAngularRow(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), relativeAngleError, pin.getData());
     }
 
-    void iPhysics::setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float32 friction)
+    void iPhysics::setUserJointSetRowMinimumFriction(iPhysicsJoint* joint, float64 friction)
     {
         NewtonUserJointSetRowMinimumFriction(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), friction);
     }
 
-    void iPhysics::setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float32 friction)
+    void iPhysics::setUserJointSetRowMaximumFriction(iPhysicsJoint* joint, float64 friction)
     {
         NewtonUserJointSetRowMaximumFriction(static_cast<const NewtonJoint*>(joint->getNewtonJoint()), friction);
     }
@@ -940,7 +975,7 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createBox(float32 width, float32 height, float32 depth, const iaMatrixd& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createBox(float64 width, float64 height, float64 depth, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
@@ -950,6 +985,7 @@ namespace Igor
             NewtonCollision* collision = NewtonCreateBox(static_cast<const NewtonWorld*>(world), width, height, depth, 0, offset.getData());
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+            NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
 
             _collisionsListMutex.lock();
             _collisions[result->getID()] = result;
@@ -965,7 +1001,7 @@ namespace Igor
         handler->collideCallback(collideDesc, continueCollisionHandle);
     }
 
-    float32 RayHitCallback(NewtonUserMeshCollisionRayHitDesc* const rayDesc)
+    float64 RayHitCallback(NewtonUserMeshCollisionRayHitDesc* const rayDesc)
     {
         iPhysicsUserMeshCollisionHandler* handler = static_cast<iPhysicsUserMeshCollisionHandler*>(rayDesc->m_userData);
         return handler->rayHitCallback(rayDesc);
@@ -1009,6 +1045,7 @@ namespace Igor
 
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+            NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
 
             _collisionsListMutex.lock();
             _collisions[result->getID()] = result;
@@ -1018,7 +1055,7 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createSphere(float32 radius, const iaMatrixd& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createSphere(float64 radius, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
@@ -1028,6 +1065,7 @@ namespace Igor
             NewtonCollision* collision = NewtonCreateSphere(static_cast<const NewtonWorld*>(world), radius, 0, offset.getData());
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+            NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
 
             _collisionsListMutex.lock();
             _collisions[result->getID()] = result;
@@ -1037,7 +1075,7 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createCone(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCone(float64 radius, float64 height, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
@@ -1047,6 +1085,7 @@ namespace Igor
             NewtonCollision* collision = NewtonCreateCone(static_cast<const NewtonWorld*>(world), radius, height, 0, offset.getData());
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+            NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
 
             _collisionsListMutex.lock();
             _collisions[result->getID()] = result;
@@ -1056,16 +1095,17 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createCapsule(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCapsule(float64 radius0, float64 radius1, float64 height, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
 
         if (world != nullptr)
         {
-            NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, offset.getData());
+            NewtonCollision* collision = NewtonCreateCapsule(static_cast<const NewtonWorld*>(world), radius0, radius1, height, 0, offset.getData());
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+            NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
 
             _collisionsListMutex.lock();
             _collisions[result->getID()] = result;
@@ -1075,7 +1115,7 @@ namespace Igor
         return result;
     }
 
-    iPhysicsCollision* iPhysics::createCylinder(float32 radius, float32 height, const iaMatrixd& offset, uint64 worldID)
+    iPhysicsCollision* iPhysics::createCylinder(float64 radius, float64 height, const iaMatrixd& offset, uint64 worldID)
     {
         iPhysicsCollision* result = nullptr;
         const NewtonWorld* world = static_cast<const NewtonWorld*>(getWorld(worldID)->getNewtonWorld());
@@ -1085,6 +1125,7 @@ namespace Igor
             NewtonCollision* collision = NewtonCreateCylinder(static_cast<const NewtonWorld*>(world), radius, height, 0, 0, offset.getData());
             result = new iPhysicsCollision(collision, worldID);
             NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+            NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
 
             _collisionsListMutex.lock();
             _collisions[result->getID()] = result;
@@ -1118,7 +1159,7 @@ namespace Igor
         NewtonBodyGetMatrix(static_cast<const NewtonBody*>(newtonBody), matrix.getData());
     }
 
-    void iPhysics::setMassMatrix(void* newtonBody, float32 mass, float32 Ixx, float32 Iyy, float32 Izz)
+    void iPhysics::setMassMatrix(void* newtonBody, float64 mass, float64 Ixx, float64 Iyy, float64 Izz)
     {
         if (mass >= __IGOR_GRAMM__)
         {
@@ -1176,6 +1217,7 @@ namespace Igor
 
                 result = new iPhysicsCollision(collision, worldID);
                 NewtonCollisionSetUserID(static_cast<const NewtonCollision*>(collision), result->getID());
+                NewtonCollisionSetUserData(static_cast<const NewtonCollision*>(collision), static_cast<void *const>(result));
 
                 _collisionsListMutex.lock();
                 _collisions[result->getID()] = result;

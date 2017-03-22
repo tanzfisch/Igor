@@ -90,11 +90,12 @@ namespace Igor
 
         /*! adds capsule
 
-        \param radius radius of capsule
+        \param radius0 radius 0 of capsule
+        \param radius1 radius 1 of capsule
         \param height height of capsule
         \param offset relative position
         */
-        void addCapsule(float32 radius, float32 height, const iaMatrixd& offset);
+        void addCapsule(float32 radius0, float32 radius1, float32 height, const iaMatrixd& offset);
 
         /*! adds cylinder
 

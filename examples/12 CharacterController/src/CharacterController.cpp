@@ -12,7 +12,7 @@ using namespace Igor;
 CharacterController::CharacterController(iNode* node, int64 materiaID)
 {
     // setup character and attache camera to it
-    _collision = iPhysics::getInstance().createCylinder(0.4, 1, iaMatrixd());
+    _collision = iPhysics::getInstance().createCylinder(_characterRadius, _characterHeight, iaMatrixd());
     iPhysicsBody* charBody = iPhysics::getInstance().createBody(_collision);
     _bodyID = charBody->getID();
     charBody->setMass(10);
@@ -39,7 +39,7 @@ CharacterController::~CharacterController()
 
     iNodeFactory::getInstance().destroyNodeAsync(_transformNodeID);
     iPhysics::getInstance().destroyBody(_bodyID);
-    iPhysics::getInstance().destroyCollision(_collision);
+iPhysics::getInstance().destroyCollision(_collision);
 }
 
 iNode* CharacterController::getRootNode() const
@@ -136,6 +136,18 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
     body->setForce(force);
 }
 
+unsigned CharacterController::onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData)
+{
+    if (_bodyID == body->getID())
+    {
+        return 0;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 void CharacterController::onHandle()
 {
     iaMatrixd matrix;
@@ -145,10 +157,16 @@ void CharacterController::onHandle()
     transform->getMatrix(matrix);
 
     target = matrix._pos;
-    target._y -= 10;
+    target._y -= 5;
 
-    iaVector3d point;
-    iaVector3d normal;
+    vector<ConvexCastReturnInfo> result;
     
-    iPhysics::getInstance().convexCast(matrix, target, _collision, point, normal);
+    iPhysics::getInstance().convexCast(matrix, target, _collision, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, result);
+
+    if (result.size())
+    {
+        iaVector3d diff = matrix._pos - (result[0]._point._vec);
+
+        con_endl(diff);
+    }
 }
