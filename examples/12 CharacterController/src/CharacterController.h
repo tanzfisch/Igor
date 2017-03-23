@@ -42,9 +42,16 @@ namespace Igor
 class CharacterController
 {
 
+    enum class CharacterControllerState
+    {
+        Air,
+        Jumped,
+        Floor
+    };
+
 public:
 
-    CharacterController(iNode* parent, int64 materiaID);
+    CharacterController(iNode* parent, int64 materiaID, const iaMatrixd& startMatrix);
 
     virtual ~CharacterController();
 
@@ -57,7 +64,7 @@ public:
 
 private:
 
-    float64 _characterHeight = 1.5;
+    float64 _characterHeight = 2.0;
     float64 _characterRadius = 0.3;
 
     static constexpr float64 _headHeight = 0.65;
@@ -65,8 +72,9 @@ private:
     static constexpr float64 _stepHeight = 0.3;
     static constexpr float64 _mass = 100;
 
-    iaVector3d _correctionForce;
-    iaVector3d _force;
+    CharacterControllerState _state = CharacterControllerState::Air;
+
+    iaVector3d _navigationForce;
 
     uint64 _bodyID = iPhysicsBody::INVALID_PHYSICSBODY_ID;
 
@@ -74,6 +82,9 @@ private:
 
     uint32 _rootTransformNodeID = iNode::INVALID_NODE_ID;
     uint32 _headTransformNodeID = iNode::INVALID_NODE_ID;
+
+    float64 getContactPoint(iaVector3d& point, iaVector3d& normal);
+    void iterate(iaVector3d& correctionForce);
 
     void onHandle();
 

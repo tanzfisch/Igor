@@ -87,6 +87,8 @@ private:
         bool _right = false;
         bool _up = false;
         bool _down = false;
+
+        bool _jump = false;
     };
 
     InputFlags _inputFlags;

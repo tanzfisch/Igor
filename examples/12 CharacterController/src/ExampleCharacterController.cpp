@@ -173,7 +173,9 @@ void ExampleCharacterController::init()
     }
 
     // setup character and attache camera to it
-    _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID);
+    iaMatrixd startMatrix;
+    startMatrix.translate(15,2,0);
+    _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
@@ -288,7 +290,8 @@ void ExampleCharacterController::onKeyPressed(iKeyCode key)
         break;
 
     case iKeyCode::Space:
-        _inputFlags._up = true;
+        _inputFlags._jump = true;
+        //_inputFlags._up = true;
         break;
 
     case iKeyCode::LControl:
@@ -333,7 +336,8 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
 
 void ExampleCharacterController::onHandle()
 {
-    float32 movingForce = 1000;
+    float64 movingForce =  10000;
+    float64 jumpingForce = 100000;
 
     iaMatrixd matrix;
     iaVector3d resultingForce;
@@ -396,6 +400,15 @@ void ExampleCharacterController::onHandle()
     {
         resultingForce.normalize();
         resultingForce *= movingForce;
+    }
+
+    if (_inputFlags._jump)
+    {
+        iaVector3d up = matrix._top;
+        up.normalize();
+        up *= jumpingForce;
+        resultingForce += up;
+        _inputFlags._jump = false;
     }
 
     _characterController->setForce(resultingForce);
