@@ -14,13 +14,16 @@ CharacterController::CharacterController(iNode* node, int64 materiaID, const iaM
     // setup character and attache camera to it
     iaMatrixd rotate;
     rotate.rotate(M_PI * 0.5, iaAxis::Z);
-    _collision = iPhysics::getInstance().createCylinder(_characterRadius, _characterRadius, _characterHeight, rotate);
-    iPhysicsBody* charBody = iPhysics::getInstance().createBody(_collision);
+    iPhysicsCollision* collision = iPhysics::getInstance().createCylinder(_characterRadius, _characterRadius, _characterHeight, rotate);
+    iPhysicsBody* charBody = iPhysics::getInstance().createBody(collision);
     _bodyID = charBody->getID();
     charBody->setMass(_mass);
     charBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &CharacterController::onApplyForceAndTorque));
     charBody->setMaterial(materiaID);
     charBody->setLinearDamping(0);
+    iPhysics::getInstance().destroyCollision(collision);
+
+    _collisionCast = iPhysics::getInstance().createCylinder(_characterRadius * 0.9, _characterRadius * 0.9, _characterHeight, rotate);
 
     iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     charTransform->setMatrix(startMatrix);
@@ -36,17 +39,13 @@ CharacterController::CharacterController(iNode* node, int64 materiaID, const iaM
 
     iPhysicsJoint* joint = iPhysics::getInstance().createJoint(charBody, nullptr, 4);
     joint->registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate(this, &CharacterController::onSubmitConstraints));
-
-    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &CharacterController::onHandle));
 }
 
 CharacterController::~CharacterController()
 {
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &CharacterController::onHandle));
-
     iNodeFactory::getInstance().destroyNodeAsync(_rootTransformNodeID);
     iPhysics::getInstance().destroyBody(_bodyID);
-    iPhysics::getInstance().destroyCollision(_collision);
+    iPhysics::getInstance().destroyCollision(_collisionCast);
 }
 
 iNodeTransform* CharacterController::getHeadTransform() const
@@ -256,7 +255,7 @@ float64 CharacterController::getContactPoint(iaVector3d& point, iaVector3d& norm
 
     vector<ConvexCastReturnInfo> info;
 
-    iPhysics::getInstance().convexCast(matrix, target, _collision, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, info);
+    iPhysics::getInstance().convexCast(matrix, target, _collisionCast, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, info);
 
     if (info.size())
     {
@@ -268,24 +267,5 @@ float64 CharacterController::getContactPoint(iaVector3d& point, iaVector3d& norm
     }
 
     return result;
-}
-
-void CharacterController::onHandle()
-{
-
-    switch (_state)
-    {
-    case CharacterControllerState::Air:
-        con_endl("Air");
-        break;
-
-    case CharacterControllerState::Floor:
-        con_endl("Floor");
-        break;
-
-    case CharacterControllerState::Jumped:
-        con_endl("Jumped");
-        break;
-    }
 }
 

@@ -78,15 +78,13 @@ private:
 
     uint64 _bodyID = iPhysicsBody::INVALID_PHYSICSBODY_ID;
 
-    iPhysicsCollision* _collision = nullptr;
+    iPhysicsCollision* _collisionCast = nullptr;
 
     uint32 _rootTransformNodeID = iNode::INVALID_NODE_ID;
     uint32 _headTransformNodeID = iNode::INVALID_NODE_ID;
 
     float64 getContactPoint(iaVector3d& point, iaVector3d& normal);
     void iterate(iaVector3d& correctionForce);
-
-    void onHandle();
 
     unsigned onRayPreFilter(iPhysicsBody* body, iPhysicsCollision* collision, const void* userData);
 

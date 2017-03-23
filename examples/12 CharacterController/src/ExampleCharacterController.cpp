@@ -336,7 +336,7 @@ void ExampleCharacterController::onKeyReleased(iKeyCode key)
 
 void ExampleCharacterController::onHandle()
 {
-    float64 movingForce =  10000;
+    float64 movingForce =  20000;
     float64 jumpingForce = 100000;
 
     iaMatrixd matrix;
