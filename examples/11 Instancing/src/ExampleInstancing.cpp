@@ -121,20 +121,23 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
     
+    const float32 spacing = 3.0f;
+    const int32 amountPerDimension = 3;
+
     // now we can just put copies of that model in the scene    
     iNodeTransform* transformGroup = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformGroup->translate(-20, -20, 20);
+    transformGroup->translate(-((amountPerDimension -1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), ((amountPerDimension - 1) * spacing * 0.5));
     _scene->getRoot()->insertNode(transformGroup);
 
     // create an array of models
-    for (int z = 0; z < 20; ++z)
+    for (int z = 0; z < amountPerDimension; ++z)
     {
-        for (int y = 0; y < 20; ++y)
+        for (int y = 0; y < amountPerDimension; ++y)
         {
-            for (int x = 0; x < 20; ++x)
+            for (int x = 0; x < amountPerDimension; ++x)
             {
                 iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-                transform->translate(x * 2.0, y * 2.0, -z * 2.0);
+                transform->translate(x * spacing, y * spacing, -z * spacing);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::X);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Y);
                 transform->rotate(((rand() % 100) / 100.0) * M_PI * 2, iaAxis::Z);
