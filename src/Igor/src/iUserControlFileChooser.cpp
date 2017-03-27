@@ -125,8 +125,7 @@ namespace Igor
 
             if (_fileNameTextEdit->getText() != filename)
             {
-                _fileNameTextEdit->setText(filename);
-                _fileNameChanged(_fileNameTextEdit);
+                setFileName(filename);
             }
         }
     }
