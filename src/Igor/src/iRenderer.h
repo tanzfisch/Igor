@@ -773,6 +773,10 @@ namespace Igor
         */
         void setDummyTextureID(uint32 id);
 
+        /*! \returns current dummy texture ID
+        */
+        uint32 getDummyTextureID();
+
         /*!
         */
         virtual void deinit();

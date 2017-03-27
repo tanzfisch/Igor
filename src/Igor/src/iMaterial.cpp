@@ -37,6 +37,10 @@ namespace Igor
         {
             _shader->compile();
         }
+        else
+        {
+            con_err("no shader available");
+        }
     }
 
     void iMaterial::addShaderSource(iaString filename, iShaderObjectType type)
@@ -86,6 +90,8 @@ namespace Igor
 
     void iMaterial::activateShader()
 	{
+        con_assert(nullptr != _shader, "no shader available");
+
         if (nullptr != _shader)
         {
             _shader->enable();
@@ -94,6 +100,8 @@ namespace Igor
 
 	void iMaterial::deactivateShader()
 	{
+        con_assert(nullptr != _shader, "no shader available");
+
         if (nullptr != _shader)
         {
             _shader->disable();

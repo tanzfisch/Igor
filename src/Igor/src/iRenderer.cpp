@@ -575,6 +575,11 @@ namespace Igor
         _dummyTextureID = id;
     }
 
+    uint32 iRenderer::getDummyTextureID()
+    {
+        return _dummyTextureID;
+    }
+
     void iRenderer::destroyTexture(iRendererTexture* texture)
     {
         if (!texture) return;
@@ -776,51 +781,59 @@ namespace Igor
             return;
         }
 
-        if (_currentMaterial)
+        if (_currentMaterial &&
+            _currentMaterial->hasShader())
         {
             _currentMaterial->deactivateShader();
         }
 
         _currentMaterial = material;
-        _currentMaterial->activateShader();
 
-        iRenderStateSet& stateset = _currentMaterial->getRenderStateSet();
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthTest)] == iRenderStateValue::On) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);		GL_CHECK_ERROR();
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthMask)] == iRenderStateValue::On) ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);	        GL_CHECK_ERROR();
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Blend)] == iRenderStateValue::On) ? glEnable(GL_BLEND) : glDisable(GL_BLEND);	                GL_CHECK_ERROR();
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::CullFace)] == iRenderStateValue::On) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);	    GL_CHECK_ERROR();
-
-        glActiveTexture(GL_TEXTURE0);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE1);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D1)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE2);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D2)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE3);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D3)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE4);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D4)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE5);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D5)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE6);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D6)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-        glActiveTexture(GL_TEXTURE7);
-        (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
-
-        glDepthFunc(GL_LESS);   GL_CHECK_ERROR();
-        glCullFace(GL_BACK);    GL_CHECK_ERROR();
-
-        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); GL_CHECK_ERROR();
-
-        if (stateset._renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] == iRenderStateValue::On)
+        if (_currentMaterial != nullptr)
         {
-            glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            GL_CHECK_ERROR();
-        }
-        else
-        {
-            glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            GL_CHECK_ERROR();
+            if (_currentMaterial->hasShader())
+            {
+                _currentMaterial->activateShader();
+            }
+
+            iRenderStateSet& stateset = _currentMaterial->getRenderStateSet();
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthTest)] == iRenderStateValue::On) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);		GL_CHECK_ERROR();
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthMask)] == iRenderStateValue::On) ? glDepthMask(GL_TRUE) : glDepthMask(GL_FALSE);	        GL_CHECK_ERROR();
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Blend)] == iRenderStateValue::On) ? glEnable(GL_BLEND) : glDisable(GL_BLEND);	                GL_CHECK_ERROR();
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::CullFace)] == iRenderStateValue::On) ? glEnable(GL_CULL_FACE) : glDisable(GL_CULL_FACE);	    GL_CHECK_ERROR();
+
+            glActiveTexture(GL_TEXTURE0);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D0)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+            glActiveTexture(GL_TEXTURE1);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D1)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+            glActiveTexture(GL_TEXTURE2);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D2)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+            glActiveTexture(GL_TEXTURE3);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D3)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+            glActiveTexture(GL_TEXTURE4);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D4)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+            glActiveTexture(GL_TEXTURE5);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D5)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+            glActiveTexture(GL_TEXTURE6);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D6)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+            glActiveTexture(GL_TEXTURE7);
+            (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
+
+            glDepthFunc(GL_LESS);   GL_CHECK_ERROR();
+            glCullFace(GL_BACK);    GL_CHECK_ERROR();
+
+            glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); GL_CHECK_ERROR();
+
+            if (stateset._renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] == iRenderStateValue::On)
+            {
+                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+                GL_CHECK_ERROR();
+            }
+            else
+            {
+                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+                GL_CHECK_ERROR();
+            }
         }
     }
 
