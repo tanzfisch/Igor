@@ -135,7 +135,11 @@ namespace Igor
 
     HGLRC iWindow::createRenderContext()
     {
-        HGLRC result = wglCreateContext(_hDC);
+        HGLRC result = nullptr;
+
+        _wglMutex.lock();
+        result = wglCreateContext(_hDC);
+        _wglMutex.unlock();
 
         if (result == nullptr)
         {
@@ -147,41 +151,50 @@ namespace Igor
 
     bool iWindow::shareLists(HGLRC renderContext)
     {
-        if (wglShareLists(_renderContext, renderContext))
-        {
-            return true;
-        }
-        else
+        bool result = false;
+
+        _wglMutex.lock();
+        result = wglShareLists(_renderContext, renderContext);
+        _wglMutex.unlock();
+
+        if (!result)
         {
             con_err_win("can't share lists");
-            return false;
         }
+
+        return result;
     }
 
     bool iWindow::makeCurrent(HGLRC renderContext)
     {
-        if (wglMakeCurrent(_hDC, renderContext))
-        {
-            return true;
-        }
-        else
+        bool result = false;
+
+        _wglMutex.lock();
+        result = wglMakeCurrent(_hDC, renderContext);
+        _wglMutex.unlock();
+
+        if(!result)
         {
             con_err_win("can't make render context current");
-            return false;
         }
+
+        return result;
     }
 
     bool iWindow::deleteRenderContext(HGLRC renderContext)
     {
-        if (wglDeleteContext(renderContext))
-        {
-            return true;
-        }
-        else
+        bool result = false;
+
+        _wglMutex.lock();
+        result = wglDeleteContext(renderContext);
+        _wglMutex.unlock();
+
+        if(!result)
         {
             con_err_win("can't delete render context");
-            return false;
         }
+
+        return result;
     }
 
     void iWindow::setDoubleClick(bool doubleClick)

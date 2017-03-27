@@ -397,9 +397,12 @@ namespace Igor
         */
         HGLRC _renderContext = nullptr;
 
-        MSG				_msg;
-        WNDCLASS		_wc;
+        /*! secures wgl interfaces used within window
+        */
+        mutex _wglMutex;
 
+        MSG _msg;
+        WNDCLASS _wc;
 
 	};
 
