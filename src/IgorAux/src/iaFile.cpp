@@ -39,9 +39,16 @@ namespace IgorAux
 		// if it does not exist, create new one
 		if(!exist())
 		{
-			// file does not exist, so create new file
-			con_warn("file does not exist: " << getFullFileName());
-			openMode = CREATE_NEW;
+            if (_isWriteable)
+            {
+                // file does not exist, so create new file
+                con_warn("file does not exist: " << getFullFileName() << ". creating new one.");
+                openMode = CREATE_NEW;
+            }
+            else
+            {
+                return false;
+            }
 		}
 
 		// open the file
