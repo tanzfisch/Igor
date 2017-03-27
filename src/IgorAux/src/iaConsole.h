@@ -393,7 +393,7 @@ namespace IgorAux
     {
         int error = GetLastError();
 
-        if (error)
+        if (error != 0)
         {
             char * errorString = 0;
             FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM,
@@ -407,6 +407,14 @@ namespace IgorAux
                     console._file << errorString;
                 }
                 LocalFree(errorString);
+            }
+        }
+        else
+        {
+            console << "no error code";
+            if (console._streamToLogfile && console._file.is_open())
+            {
+                console._file << "no error code";
             }
         }
 
