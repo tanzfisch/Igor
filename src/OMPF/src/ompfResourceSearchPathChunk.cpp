@@ -49,6 +49,8 @@ namespace OMPF
             return false;
         }
 
+        con_debug_endl("search path: " << _path << " type: " << static_cast<uint8>(_pathType));
+
         uint8 value = static_cast<uint8>(_pathType);
         if (!iaSerializable::writeUInt8(file, value))
         {
@@ -81,6 +83,8 @@ namespace OMPF
         {
             return false;
         }
+
+        con_debug_endl("search path: " << _path << " type: " << static_cast<uint8>(_pathType));
 
 		return true;
 	}
