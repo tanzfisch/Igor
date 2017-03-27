@@ -325,6 +325,30 @@ namespace Igor
 		*/
 		HGLRC getRenderContext() const;
 
+        /*! \returns render context created for current device context
+        */
+        HGLRC createRenderContext();
+
+        /*! deletes render context
+
+        \param renderContext render context to delte
+        */
+        bool deleteRenderContext(HGLRC renderContext);
+
+        /*! shares render lists between window render context and a second one
+
+        \param renderContext the render context to share with
+        \return true if succeeded
+        */
+        bool shareLists(HGLRC renderContext);
+
+        /*! makes render contex current
+
+        \param renderContext render context to make current
+        \returns true if succeeded
+        */
+        bool makeCurrent(HGLRC renderContext);
+
 		/*! registers a listener to os events like windows messages
 
 		\param listener pointer to listener
@@ -359,13 +383,20 @@ namespace Igor
 		
     private:
 
-        DWORD			_dwExStyle = 0;
-        DWORD			_dwStyle = 0;
-        DEVMODE			_dmScreenSettings;
-        HINSTANCE		_hInstance = nullptr;
-        HWND			_hWnd = nullptr;
-        HDC				_hDC = nullptr;
-        HGLRC			_renderContext = nullptr;
+        DWORD _dwExStyle = 0;
+        DWORD _dwStyle = 0;
+        DEVMODE _dmScreenSettings;
+        HINSTANCE _hInstance = nullptr;
+        HWND _hWnd = nullptr;
+
+        /*! device context
+        */
+        HDC _hDC = nullptr;
+
+        /*! primary render context
+        */
+        HGLRC _renderContext = nullptr;
+
         MSG				_msg;
         WNDCLASS		_wc;
 

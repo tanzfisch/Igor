@@ -78,7 +78,7 @@ namespace Igor
 
         /*! was this thread correctly created
         */
-        bool _isValid = true;
+        bool _isValid = false;
 
 	};
 

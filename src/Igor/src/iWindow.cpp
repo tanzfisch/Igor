@@ -126,11 +126,62 @@ namespace Igor
 
         RegisterClass(&_wc);
 
-        _renderContext = 0;
+        _renderContext = nullptr;
 
         calcMinSize();
 
         _swapBufferSectionID = iStatistics::getInstance().registerSection("window:swapBuffers", 0);
+    }
+
+    HGLRC iWindow::createRenderContext()
+    {
+        HGLRC result = wglCreateContext(_hDC);
+
+        if (result == nullptr)
+        {
+            con_err("can't create rendering context");
+        }
+
+        return result;
+    }
+
+    bool iWindow::shareLists(HGLRC renderContext)
+    {
+        if (wglShareLists(_renderContext, renderContext))
+        {
+            return true;
+        }
+        else
+        {
+            con_err_win("can't share lists");
+            return false;
+        }
+    }
+
+    bool iWindow::makeCurrent(HGLRC renderContext)
+    {
+        if (wglMakeCurrent(_hDC, renderContext))
+        {
+            return true;
+        }
+        else
+        {
+            con_err_win("can't make render context current");
+            return false;
+        }
+    }
+
+    bool iWindow::deleteRenderContext(HGLRC renderContext)
+    {
+        if (wglDeleteContext(renderContext))
+        {
+            return true;
+        }
+        else
+        {
+            con_err_win("can't delete render context");
+            return false;
+        }
     }
 
     void iWindow::setDoubleClick(bool doubleClick)
@@ -199,7 +250,7 @@ namespace Igor
     {
         if (!_hWnd)
         {
-            con_err("window not _isOpen");
+            con_err("window has not handle");
         }
 
         return _hWnd;
@@ -209,7 +260,7 @@ namespace Igor
     {
         if (!_hDC)
         {
-            con_err("window not _isOpen");
+            con_err("window has no device context");
         }
 
         return _hDC;
@@ -217,11 +268,6 @@ namespace Igor
 
     HGLRC iWindow::getRenderContext() const
     {
-        if (!_renderContext)
-        {
-            con_err("window not _isOpen");
-        }
-
         return _renderContext;
     }
 
@@ -315,18 +361,17 @@ namespace Igor
             return false;
         }
 
-        if (!(_renderContext = wglCreateContext(_hDC)))
+        _renderContext = createRenderContext();
+        if (_renderContext == nullptr)
         {
-            con_err("can't create rendering context");
             close();
             return false;
         }
 
         iTaskManager::getInstance().createRenderContextThreads(this);
 
-        if (!wglMakeCurrent(_hDC, _renderContext))
+        if (!makeCurrent(_renderContext))
         {
-            con_err_win("can't make rendering context curent");
             close();
             return false;
         }
@@ -383,17 +428,17 @@ namespace Igor
 
             if (_renderContext)
             {
-                if (!wglMakeCurrent(NULL, NULL))
+                if (!makeCurrent(nullptr))
                 {
                     con_err("detach of render context failed");
                 }
 
-                if (!wglDeleteContext(_renderContext))
+                if (!deleteRenderContext(_renderContext))
                 {
                     con_err("release of render context failed");
                 }
 
-                _renderContext = 0;
+                _renderContext = nullptr;
             }
 
             if (_hWnd && _hDC && !ReleaseDC(_hWnd, _hDC))

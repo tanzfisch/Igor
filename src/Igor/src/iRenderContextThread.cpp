@@ -12,22 +12,28 @@ namespace Igor
 
     iRenderContextThread::iRenderContextThread(iWindow* window)
 	{
-        con_assert(nullptr != window, "window is missing");
+        con_assert(nullptr != window, "zero pointer");
+
 		_window = window;
 
-        if (!(_renderContext = wglCreateContext(_window->getDeviceContext())))
+        _renderContext = _window->createRenderContext();
+        if (_renderContext != nullptr)
         {
-            _isValid = false;
-            con_err_win("can't create render context");
+            if (_window->shareLists(_renderContext))
+            {
+                _isValid = true;
+            }
+            else
+            {
+                _isValid = false;
+            }
         }
         else
         {
-            if (!wglShareLists(_window->getRenderContext(), _renderContext))
-            {
-                _isValid = false;
-                con_err_win("can't share lists");
-            }
+            _isValid = false;
         }
+
+        con_assert(_isValid, "not valid");
 	}
 
     bool iRenderContextThread::isValid()
@@ -37,26 +43,31 @@ namespace Igor
 
 	void iRenderContextThread::init()
 	{
-        if (!wglMakeCurrent(_window->getDeviceContext(), _renderContext))
+        con_assert(nullptr != _window, "zero pointer");
+
+        if (_window->makeCurrent(_renderContext))
+        {
+            _isValid = true;
+        }
+        else
         {
             _isValid = false;
-            con_err_win("can't make render context current");
         }
+
+        con_assert(_isValid, "not valid");
 	}
 
 	void iRenderContextThread::deinit()
 	{
-		if(!wglMakeCurrent(nullptr, nullptr))
-		{
-			con_err_win("can't set current to zero");
-			return;
-		}
+        con_assert(_isValid, "not valid");
+        con_assert(nullptr != _window, "zero pointer");
+        con_assert(nullptr != _renderContext, "zero pointer");
 
-		if(!wglDeleteContext(_renderContext))
-		{
-			con_err_win("can't delete render context");
-			return;
-		}
+        _window->makeCurrent(nullptr);
+        _window->deleteRenderContext(_renderContext);
+
+        _renderContext = nullptr;
+        _isValid = false;
 	}
 
 };
