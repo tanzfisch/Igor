@@ -375,10 +375,12 @@ namespace IgorAux
                 
             if(result.isEmpty())
             {
-                result = ".";
+                result = fileTo.getFileName();
             }
-
-            result = result + iaDirectory::getPathSeperator() + fileTo.getFileName();
+            else
+            {
+                result = result + iaDirectory::getPathSeperator() + fileTo.getFileName();
+            }
         }
         else
         {
