@@ -121,19 +121,25 @@ namespace Igor
 		_shaderSources.push_back(shaderSource);
 
         iaFile file(iResourceManager::getInstance().getPath(filename));
-        file.open(false);
-        auto fileSize = file.getFileSize();
-        char* buffer = new char[fileSize+1];
-        buffer[fileSize] = 0;
-        file.readFromFile(0, fileSize, buffer);
-        file.close();
-
-        if (loadSource(buffer, type))
+        if (file.open(false))
         {
-            con_info("loaded " << ((type == iShaderObjectType::Vertex) ? "vertex" : "fragment") << " shader", filename);
-        }
+            auto fileSize = file.getFileSize();
+            char* buffer = new char[fileSize + 1];
+            buffer[fileSize] = 0;
+            file.readFromFile(0, fileSize, buffer);
+            file.close();
 
-        delete[] buffer;
+            if (loadSource(buffer, type))
+            {
+                con_info("loaded " << ((type == iShaderObjectType::Vertex) ? "vertex" : "fragment") << " shader", filename);
+            }
+
+            delete[] buffer;
+        }
+        else
+        {
+            con_err("can't open " << filename);
+        }
     }
 
     void iShader::enable()
