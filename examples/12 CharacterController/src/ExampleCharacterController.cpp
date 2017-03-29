@@ -179,14 +179,19 @@ void ExampleCharacterController::init()
 
     // setup camera
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    iNodeTransform* camHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraHeading = camHeading->getID();
-    iNodeTransform* camPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraPitch = camPitch->getID();    
-    _characterController->getHeadTransform()->insertNode(camHeading);
-    camHeading->insertNode(camPitch);
-    camPitch->insertNode(camera);
+    _characterController->getHeadTransform()->insertNode(camera);
     camera->makeCurrent();
+
+    // setup gun
+    iNodeTransform* gunTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    gunTransform->translate(0, 0, 0);
+    iNodeTransform* gunScaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    gunScaleTransform->scale(0.1,0.1,1);
+    iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+    crate->setModel("crate.ompf");
+    _characterController->getRightSholderTransform()->insertNode(gunTransform);
+    gunTransform->insertNode(gunScaleTransform);
+    gunScaleTransform->insertNode(crate);
 
     // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
@@ -342,7 +347,9 @@ void ExampleCharacterController::onHandle()
     iaMatrixd matrix;
     iaVector3d resultingForce;
 
-    iNodeTransform* transformationNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraHeading));
+    
+
+    iNodeTransform* transformationNode = _characterController->getHeadingTransform();
     transformationNode->getMatrix(matrix);
 
     if (_inputFlags._forward)
@@ -473,8 +480,8 @@ void ExampleCharacterController::onMouseMoved(int32 x1, int32 y1, int32 x2, int3
 {
     if (iMouse::getInstance().getLeftButton())
     {
-        iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraPitch));
-        iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraHeading));
+        iNodeTransform* cameraPitch = _characterController->getPitchTransform();
+        iNodeTransform* cameraHeading = _characterController->getHeadingTransform();
 
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)

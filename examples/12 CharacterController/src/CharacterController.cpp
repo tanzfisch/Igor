@@ -25,17 +25,39 @@ CharacterController::CharacterController(iNode* node, int64 materiaID, const iaM
 
     _collisionCast = iPhysics::getInstance().createCylinder(_characterRadius * 0.9, _characterRadius * 0.9, _characterHeight, rotate);
 
-    iNodeTransform* charTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    charTransform->setMatrix(startMatrix);
-    _rootTransformNodeID = charTransform->getID();
-    node->insertNode(charTransform);
+    iNodeTransform* physicsTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    physicsTransform->setMatrix(startMatrix);
+    _physicsTransformNodeID = physicsTransform->getID();
+    node->insertNode(physicsTransform);
 
-    iNodeTransform* headTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    headTransform->translate(0, _headHeight, 0);
-    _headTransformNodeID = headTransform->getID();
-    charTransform->insertNode(headTransform);
+        iNodeTransform* headingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+        _headingTransformNodeID = headingTransform->getID();
+        physicsTransform->insertNode(headingTransform);
 
-    iPhysics::getInstance().bindTransformNode(charBody, charTransform);
+            iNodeTransform* upperBodyTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+            upperBodyTransform->translate(0, 0.55, 0);
+            headingTransform->insertNode(upperBodyTransform);
+
+                iNodeTransform* pitchTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+                _pitchTransformNodeID = pitchTransform->getID();
+                upperBodyTransform->insertNode(pitchTransform);
+
+                    iNodeTransform* leftShoulderTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+                    leftShoulderTransform->translate(-0.2, 0, 0);
+                    _leftShoulderTransformNodeID = leftShoulderTransform->getID();
+                    pitchTransform->insertNode(leftShoulderTransform);
+
+                    iNodeTransform* rightShoulderTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+                    rightShoulderTransform->translate(0.2, 0, 0);
+                    _rightShoulderTransformNodeID = rightShoulderTransform->getID();
+                    pitchTransform->insertNode(rightShoulderTransform);
+
+                    iNodeTransform* headTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+                    _headTransformNodeID = headTransform->getID();
+                    headTransform->translate(0, 0.1, 0);
+                    pitchTransform->insertNode(headTransform);
+
+    iPhysics::getInstance().bindTransformNode(charBody, physicsTransform);
 
     iPhysicsJoint* joint = iPhysics::getInstance().createJoint(charBody, nullptr, 4);
     joint->registerSubmitConstraintsDelegate(iSubmitConstraintsDelegate(this, &CharacterController::onSubmitConstraints));
@@ -43,9 +65,19 @@ CharacterController::CharacterController(iNode* node, int64 materiaID, const iaM
 
 CharacterController::~CharacterController()
 {
-    iNodeFactory::getInstance().destroyNodeAsync(_rootTransformNodeID);
+    iNodeFactory::getInstance().destroyNodeAsync(_physicsTransformNodeID);
     iPhysics::getInstance().destroyBody(_bodyID);
     iPhysics::getInstance().destroyCollision(_collisionCast);
+}
+
+iNodeTransform* CharacterController::getHeadingTransform() const
+{
+    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headingTransformNodeID));
+}
+
+iNodeTransform* CharacterController::getPitchTransform() const
+{
+    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_pitchTransformNodeID));
 }
 
 iNodeTransform* CharacterController::getHeadTransform() const
@@ -53,9 +85,19 @@ iNodeTransform* CharacterController::getHeadTransform() const
     return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_headTransformNodeID));
 }
 
+iNodeTransform* CharacterController::getLeftSholderTransform() const
+{
+    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_leftShoulderTransformNodeID));
+}
+
+iNodeTransform* CharacterController::getRightSholderTransform() const
+{
+    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_rightShoulderTransformNodeID));
+}
+
 iNodeTransform* CharacterController::getRootNode() const
 {
-    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_rootTransformNodeID));
+    return static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_physicsTransformNodeID));
 }
 
 void CharacterController::setForce(const iaVector3d& force)
@@ -224,7 +266,7 @@ void CharacterController::iterate(iaVector3d& correctionForce)
     else
     {
         head->setPosition(iaVector3d(0, _headHeight, 0));
-}
+    }
 #endif
 }
 
@@ -247,7 +289,7 @@ float64 CharacterController::getContactPoint(iaVector3d& point, iaVector3d& norm
     iaMatrixd matrix;
     iaVector3d target;
 
-    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_rootTransformNodeID));
+    iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_physicsTransformNodeID));
     transform->getMatrix(matrix);
 
     target = matrix._pos;

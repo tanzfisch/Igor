@@ -125,13 +125,6 @@ private:
     */
     iTextureFont* _font = nullptr;
 
-    /*! id to transform node used for manipulating the heading of the camera
-    */
-    uint32 _cameraHeading = iNode::INVALID_NODE_ID;
-
-    /*! id to transform node used for manipulating the pitch of the camera
-    */
-    uint32 _cameraPitch = iNode::INVALID_NODE_ID;
     void onModelReady(uint32 modelNodeID);
     void makeCollisions(iNode* node);
 
