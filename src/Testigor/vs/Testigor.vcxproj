@@ -89,16 +89,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -129,12 +129,12 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\..\lib;$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\..\lib;$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\bin\" /Y /D
-xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\lib\" /Y /D
+      <Command>xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -181,8 +181,8 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\lib\" /Y /D
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\bin\" /Y /D
-xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\lib\" /Y /D
+      <Command>xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
