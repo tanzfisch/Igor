@@ -172,7 +172,7 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
       <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>false</LargeAddressAware>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -186,9 +186,9 @@ xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 
 
-xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\debug\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 
-xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\debug\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
+xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -271,7 +271,7 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
       <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\release;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SetChecksum>true</SetChecksum>
       <Profile>false</Profile>
@@ -286,9 +286,9 @@ xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 
 
-xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\release\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 
-xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2015_dll\x64\newton\release\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
+xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
     </PostBuildEvent>
     <Bscmake>
