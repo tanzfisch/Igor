@@ -58,7 +58,7 @@ namespace Igor
 
         /*! current position of particle
         */
-        iaVector3d _position;
+        iaVector3f _position;
 
         /*! current velocity (also direction) of particle
         */
