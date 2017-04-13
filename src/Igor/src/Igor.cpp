@@ -39,6 +39,13 @@ using namespace IgorAux;
 #pragma comment(lib, "OpenAL32.lib")
 #endif
 
+// #define __USE_VLD__
+
+#ifdef __USE_VLD__
+#pragma comment(lib, "vld.lib")
+#include <vld.h>
+#endif
+
 #ifdef __IGOR_DEBUG__
 #pragma comment(lib, "IgorAux_d.lib")
 #pragma comment(lib, "OMPF_d.lib")
