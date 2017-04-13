@@ -418,7 +418,7 @@ namespace Igor
 
         if (_running)
         {
-            iaVector3f a, b;
+            iaVector3d a, b, n;
 
             uint32 startIndex;
             uint32 endIndex;
@@ -505,7 +505,8 @@ namespace Igor
                                 continue;
                             }
 
-                            b = a % (*particle)._normal;
+							n.set((*particle)._normal._x, (*particle)._normal._y, (*particle)._normal._z);
+                            b = a % n;
                             b.normalize();
                             b *= ((*particle)._vortexRange - a.length()) / (*particle)._vortexRange;
                             b *= (*particle)._torque * torqueFactor;
@@ -513,11 +514,15 @@ namespace Igor
                             a *= _vorticityConfinement;
                             b += a;
 
-                            _particles[i]._velocity += b * 0.001f; // TODO 0.001 ???
+                            _particles[i]._velocity._x += static_cast<float32>(b._x * 0.001); // TODO 0.001 ???
+							_particles[i]._velocity._y += static_cast<float32>(b._y * 0.001);
+							_particles[i]._velocity._z += static_cast<float32>(b._z * 0.001);
                         }
                     }
 
-                    (*particle)._position += (*particle)._velocity;
+                    (*particle)._position._x += (*particle)._velocity._x;
+					(*particle)._position._y += (*particle)._velocity._y;
+					(*particle)._position._z += (*particle)._velocity._z;
 
                     (*particle)._life -= 1.0 / _simulationRate;
                     if ((*particle)._life <= 0)
