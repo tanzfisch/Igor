@@ -76,7 +76,7 @@ namespace Igor
         */
         float64 getValue(const float64 pos);
 
-        /*! \returns noise value of multiple octaves at specified position
+        /*! \returns noise value of multiple octaves at specified position in a range of 0.0-1.0
 
         \param pos specified position
         \param octaves octaves count
@@ -84,7 +84,7 @@ namespace Igor
         */
         float64 getValue(const iaVector3d& pos, int64 octaves, float64 persistence = 0.5);
 
-        /*! \returns noise value of multiple octaves at specified position
+        /*! \returns noise value of multiple octaves at specified position in a range of 0.0-1.0
 
         \param pos specified position
         \param octaves octaves count
