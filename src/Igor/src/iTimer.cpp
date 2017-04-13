@@ -20,7 +20,7 @@ namespace Igor
 
             _timeScale = 1.0 / _performance;
             QueryPerformanceCounter((LARGE_INTEGER*)&_lastTime);
-            _currentTime = _lastTime;
+			_startTime = _currentTime = _lastTime;
             _timeDelta = 0;
         }
         else
@@ -39,6 +39,13 @@ namespace Igor
 			con_err("unregister all timer handles first");
 		}
     }
+
+	float64 iTimer::getTimerTime() const
+	{
+		uint64 time;
+		QueryPerformanceCounter((LARGE_INTEGER*)&time);
+		return static_cast<float64>(time - _startTime) * _timeScale * static_cast<float64>(__IGOR_SECOND__);
+	}
 
 	float64 iTimer::getTime() const
     {

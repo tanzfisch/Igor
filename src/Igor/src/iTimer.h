@@ -61,6 +61,12 @@ namespace Igor
         */
         float64 getTime() const;
 
+		/*! time since timer was initialized
+
+		\returns relative time in milliseconds since the timer was started or first time used
+		*/
+		float64 getTimerTime() const;
+
         /*! Absolute handle time in ms since program start
 
         This is basically the time from program start to last handle call (right after last render frame)
@@ -104,6 +110,10 @@ namespace Igor
 		/*! time delta between last and current frame (in tics)
 		*/
         uint64 _timeDelta = 0;
+
+		/*! time since timer was initialized
+		*/
+		uint64 _startTime = 0;
 
 		/*! time meshured current frame (in tics)
 		*/
