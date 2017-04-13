@@ -614,6 +614,10 @@ namespace Igor
         */
         void createDefaultMaterial();
 
+		/*! destroyes default material
+		*/
+		void destroyDefaultMaterial();
+
         /*! creates the default world
         */
         void createDefaultWorld();

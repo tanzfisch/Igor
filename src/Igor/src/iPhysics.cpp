@@ -628,8 +628,14 @@ namespace Igor
         return _defaultMaterialID;
     }
 
+	void iPhysics::destroyDefaultMaterial()
+	{
+		// TODO
+	}
+
     void iPhysics::createDefaultMaterial()
     {
+		// TODO use newton default instead
         iPhysicsMaterial* material = createMaterial("default");
         _defaultMaterialID = material->getID();
     }
