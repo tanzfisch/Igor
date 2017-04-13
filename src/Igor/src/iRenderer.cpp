@@ -1458,11 +1458,11 @@ namespace Igor
     void iRenderer::drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow)
     {
         iaVector4d camright;
-        camright._vec = _camWorldMatrix._right;
+        camright._vec.set(_camWorldMatrix._right._x, _camWorldMatrix._right._y, _camWorldMatrix._right._z);
         camright._w = 0;
 
         iaVector4d camtop;
-        camtop._vec = _camWorldMatrix._top;
+        camtop._vec.set(_camWorldMatrix._top._x, _camWorldMatrix._top._y, _camWorldMatrix._top._z);
         camtop._w = 0;
 
 		iaMatrixd inv = _modelMatrix;
