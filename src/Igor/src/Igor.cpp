@@ -187,8 +187,9 @@ namespace Igor
             }
             else
             {
+				// todo maybe we should do that without changing directory?
                 iaDirectory::setCurrentDirectory(iaDirectory::getApplicationDirectory());
-                iaFile file(L"..\\config\\Igor.xml");
+                file = iaFile(L"..\\config\\Igor.xml");
                 if (file.exist())
                 {
                     configReader.readConfiguration(file.getFullFileName());
