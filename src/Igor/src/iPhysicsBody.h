@@ -73,6 +73,10 @@ namespace Igor
         */
         void setMatrix(const iaMatrixd& matrix);
 
+		/*! returns current body matrix
+
+		\param[out] matrix current body matrix
+		*/
         void getMatrix(iaMatrixd& matrix);
 
         /*! returns the transform node materix
