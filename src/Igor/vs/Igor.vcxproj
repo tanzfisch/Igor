@@ -81,8 +81,8 @@
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
+    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath);$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
     <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
     <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
   </PropertyGroup>
@@ -150,8 +150,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
     </PreBuildEvent>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;WIN32;_DEBUG;__IGOR_BUILDING_DLL__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;WIN32;__USE_VLD__;_DEBUG;__IGOR_BUILDING_DLL__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <SmallerTypeCheck>false</SmallerTypeCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -172,7 +172,7 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
       <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>false</LargeAddressAware>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
@@ -253,7 +253,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
       <OmitFramePointers>true</OmitFramePointers>
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;WIN32;NDEBUG;__IGOR_BUILDING_DLL__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
