@@ -137,6 +137,8 @@ namespace Igor
 
     void iNodeParticleSystem::setVortexToParticleRate(float32 rate)
     {
+		con_assert(rate >= 0.0 && rate <= 1.0, "out of range");
+
         _particleSystem.setVortexToParticleRate(rate);
     }
 
