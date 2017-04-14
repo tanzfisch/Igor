@@ -604,7 +604,7 @@ namespace Igor
         */
         float32 _vortexToParticleRate = 0.00;
         
-        /*! particle coutner to figure out when to create the next vortex particle
+        /*! particle counter to figure out when to create the next vortex particle
         */
         uint64 _particleCounter = 0;
 

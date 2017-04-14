@@ -264,7 +264,7 @@ void Particles::createFireParticleSystem()
     particleSystem->setVortexTorque(0.2, 0.5);
     particleSystem->setVorticityConfinement(0.05);
     particleSystem->setVortexRange(10.0, 15.0);
-    particleSystem->setVortexToParticleRate(5);
+    particleSystem->setVortexToParticleRate(0.05);
     _scene->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
@@ -426,7 +426,7 @@ void Particles::createSmokeParticleSystem()
     particleSystem->setStartOrientationRateGradient(startOrientationRate);
     particleSystem->setVorticityConfinement(0.05);
     particleSystem->setVortexRange(20.0, 40.0);
-    particleSystem->setVortexToParticleRate(10);
+    particleSystem->setVortexToParticleRate(0.1);
     particleSystem->setStartSizeGradient(smokeSize);
     particleSystem->setSizeScaleGradient(sizeScale);
     particleSystem->setColorGradient(smokeGradient);
