@@ -669,26 +669,35 @@ namespace Igor
         con_assert(collisionVolume != nullptr, "zero pointer");
         con_assert(collisionVolume->_collision != nullptr, "zero pointer");
 
+        iPhysicsBody* result = nullptr;
         iaMatrixd matrix;
 
-        NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_defaultWorld));
-        NewtonBody* newtonBody = NewtonCreateDynamicBody(static_cast<const NewtonWorld*>(_defaultWorld), static_cast<const NewtonCollision*>(collisionVolume->_collision), matrix.getData());
+        if (collisionVolume != nullptr &&
+            collisionVolume->_collision != nullptr)
+        {
+            NewtonWaitForUpdateToFinish(static_cast<const NewtonWorld*>(_defaultWorld));
+            NewtonBody* newtonBody = NewtonCreateDynamicBody(static_cast<const NewtonWorld*>(_defaultWorld), static_cast<const NewtonCollision*>(collisionVolume->_collision), matrix.getData());
 
-        // set callbacks
-        NewtonBodySetDestructorCallback(newtonBody, reinterpret_cast<NewtonBodyDestructor>(PhysicsNodeDestructor));
-        NewtonBodySetTransformCallback(newtonBody, reinterpret_cast<NewtonSetTransform>(PhysicsNodeSetTransformation));
-        NewtonBodySetForceAndTorqueCallback(newtonBody, reinterpret_cast<NewtonApplyForceAndTorque>(PhysicsApplyForceAndTorque));
+            // set callbacks
+            NewtonBodySetDestructorCallback(newtonBody, reinterpret_cast<NewtonBodyDestructor>(PhysicsNodeDestructor));
+            NewtonBodySetTransformCallback(newtonBody, reinterpret_cast<NewtonSetTransform>(PhysicsNodeSetTransformation));
+            NewtonBodySetForceAndTorqueCallback(newtonBody, reinterpret_cast<NewtonApplyForceAndTorque>(PhysicsApplyForceAndTorque));
 
-        NewtonBodySetMassMatrix(newtonBody, 0, 0, 0, 0);
-        NewtonBodySetMatrix(newtonBody, matrix.getData());
+            NewtonBodySetMassMatrix(newtonBody, 0, 0, 0, 0);
+            NewtonBodySetMatrix(newtonBody, matrix.getData());
 
-        start();
+            start();
 
-        iPhysicsBody* result = new iPhysicsBody(newtonBody);
+            result = new iPhysicsBody(newtonBody);
 
-        _bodyListMutex.lock();
-        _bodys[result->getID()] = result;
-        _bodyListMutex.unlock();
+            _bodyListMutex.lock();
+            _bodys[result->getID()] = result;
+            _bodyListMutex.unlock();
+        }
+        else
+        {
+            con_err("can't create body without collision");
+        }
 
         return result;
     }
@@ -1203,6 +1212,8 @@ namespace Igor
 
     iPhysicsCollision* iPhysics::createMesh(shared_ptr<iMesh> mesh, int64 faceAttribute, const iaMatrixd& offset, uint64 worldID)
     {
+        con_assert(mesh != nullptr, "zero pointer");
+
         iPhysicsCollision* result = nullptr;
         if (mesh != nullptr)
         {
@@ -1253,6 +1264,10 @@ namespace Igor
                 _collisions[result->getID()] = result;
                 _collisionsListMutex.unlock();
             }
+        }
+        else
+        {
+            con_err("invalid parameters");
         }
 
         return result;
