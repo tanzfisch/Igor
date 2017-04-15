@@ -8,7 +8,9 @@
 #include <iostream>
 using namespace std;
 
+#ifdef __IGOR_WIN__
 #include <DbgHelp.h>
+#endif
 #include <iomanip> 
 using namespace std;
 
