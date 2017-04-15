@@ -559,6 +559,8 @@ void Particles::deinit()
         _font = nullptr;
     }
 
+    _igorLogo = nullptr;
+
     // stop light animation
     if (_animationTimingHandle)
     {
@@ -577,12 +579,6 @@ void Particles::deinit()
         _window.close();
         _window.removeView(&_view);
         _window.removeView(&_viewOrtho);
-    }
-
-    if (_font != nullptr)
-    {
-        delete _font;
-        _font = nullptr;
     }
 }
 
