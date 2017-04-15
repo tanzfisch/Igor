@@ -582,16 +582,20 @@ namespace Igor
 
     void iRenderer::destroyTexture(iRendererTexture* texture)
     {
-        if (!texture) return;
-        GLuint texId = (GLuint)((texture)->_id);
+        con_assert(texture != nullptr, "zero pointer");
 
-        bool isTexture = glIsTexture(texId);
-        if (isTexture)
+        if (texture != nullptr)
         {
-            glDeleteTextures(1, &texId); GL_CHECK_ERROR();
-        }
+            GLuint texId = (GLuint)((texture)->_id);
 
-        delete texture;
+            bool isTexture = glIsTexture(texId);
+            if (isTexture)
+            {
+                glDeleteTextures(1, &texId); GL_CHECK_ERROR();
+            }
+
+            delete texture;
+        }
     }
 
     void iRenderer::bindTexture(shared_ptr<iTexture> texture, uint32 textureunit)
