@@ -200,18 +200,17 @@ namespace Igor
             _collisions.clear();
         }
 
+        destroyMaterials();
+        NewtonMaterialDestroyAllGroupID(static_cast<const NewtonWorld*>(_defaultWorld));
+        
+        // need a copy because destroyWorld would manipulate the list we are iterating
+        auto worldsToDelete = _worlds;
+        for (auto world : worldsToDelete)
+        {
+            destroyWorld(world.second);
+        }
+
         // todo clear joints
-
-        vector<uint64> worldsToDelete;
-        for (auto world : _worlds)
-        {
-            worldsToDelete.push_back(world.first);
-        }
-
-        for (auto worldID : worldsToDelete)
-        {
-            destroyWorld(worldID);
-        }
     }
 
     struct PreFilterUserData
@@ -628,16 +627,41 @@ namespace Igor
         return _defaultMaterialID;
     }
 
+    void iPhysics::destroyMaterials()
+    {
+        destroyDefaultMaterial();
+
+        _materialListMutex.lock();
+        for (auto materialIter : _materials)
+        {
+            delete materialIter.second;
+        }
+        _materials.clear();
+        _materialListMutex.unlock();
+    }
+
 	void iPhysics::destroyDefaultMaterial()
 	{
-		// TODO
+        _materialListMutex.lock();
+        auto materialIter = _materials.find(_defaultMaterialID);
+        if (materialIter != _materials.end())
+        {
+            delete _materials[_defaultMaterialID];
+            _materials.erase(materialIter);
+        }
+        _materialListMutex.unlock();
 	}
 
     void iPhysics::createDefaultMaterial()
     {
-		// TODO use newton default instead
-        iPhysicsMaterial* material = createMaterial("default");
-        _defaultMaterialID = material->getID();
+        iPhysicsMaterial* defaultMaterial = nullptr;
+        defaultMaterial = new iPhysicsMaterial(NewtonMaterialGetDefaultGroupID(static_cast<const NewtonWorld*>(_defaultWorld)));
+        defaultMaterial->setName("default");
+        _defaultMaterialID = defaultMaterial->getID();
+
+        _materialListMutex.lock();
+        _materials[_defaultMaterialID] = defaultMaterial;
+        _materialListMutex.unlock();
     }
 
     iPhysicsBody* iPhysics::createBody(iPhysicsCollision* collisionVolume)
