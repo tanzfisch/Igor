@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2014-2016 by Martin Loga
+// (c) Copyright 2012-2017 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iNodeRender.h>
