@@ -53,6 +53,7 @@ namespace IgorAux
 		iaConsole::getInstance() << LOCK << COLOR << "    IgorAux ver. " << __IGOR_AUX_VERSION__ << " (" << __IGOR_AUX_CONFIGURATION__ << ") LGPL v3.0" << endl << endl << UNLOCK;
 #undef COLOR 
 
+        // Igor's last reincarnation was 29 September 2012. Before that I was called OpenDC and EasyGL. 
         time_t t = time(0);
         struct tm* now = localtime(&t);
         if (now->tm_mon + 1 == 9 &&
