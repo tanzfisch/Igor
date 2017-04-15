@@ -32,25 +32,20 @@ namespace Igor
         iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iTextureResourceFactory::init));
         iRenderer::getInstance().unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate(this, &iTextureResourceFactory::deinit));
 
-        if (iRenderer::getInstance().isReady())
+        // run a flush once more but only if renderer still exists
+        flush(iResourceCacheMode::Keep);
+
+        // now check if it was actually released
+        if (!_textures.empty())
         {
-            // run a flush once more but only if renderer still exists
-            flush(iResourceCacheMode::Keep);
+            con_err("possible mem leak. not all textures were released.");
 
-            // now check if it was actually released
-            if (!_textures.empty())
+            con_endl("non released textures: ");
+            for (auto texture : _textures)
             {
-                con_err("possible mem leak. not all textures were released.");
-
-                con_endl("non released textures: ");
-                for (auto texture : _textures)
-                {
-                    con_endl(texture.second->getFilename() << " ref:" << texture.second.use_count());
-                }
+                con_endl(texture.second->getFilename() << " ref:" << texture.second.use_count());
             }
         }
-
-        // if renderer does not exist anymore there is no point in releasing textures anymore
 
         _textures.clear();
     }
@@ -384,7 +379,9 @@ namespace Igor
 
             con_info("loaded texture", "\"" << texture->getFilename() << "\" [" << width << ":" << height << "] " << build << " " << wrap);
 
-            delete[] textureData;
+            _mutexImageLibrary.lock();
+            stbi_image_free(textureData);
+            _mutexImageLibrary.unlock();
         }
     }
 
@@ -477,6 +474,10 @@ namespace Igor
             pixmap = new iPixmap(width, height, colorFormat);
             pixmap->setData(textureData);
         }
+
+        _mutexImageLibrary.lock();
+        stbi_image_free(textureData);
+        _mutexImageLibrary.unlock();
 
         return pixmap;
     }
