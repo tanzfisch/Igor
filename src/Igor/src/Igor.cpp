@@ -29,6 +29,7 @@ using namespace IgorAux;
 #include <iConfigReader.h>
 #include <iVersion.h>
 #include <iNodeFactory.h>
+#include <iSceneFactory.h>
 #include <iPhysics.h>
 
 #ifdef __IGOR_MSCOMPILER__
@@ -38,6 +39,11 @@ using namespace IgorAux;
 #ifdef __USE_OPENAL__
 #pragma comment(lib, "alut.lib")
 #pragma comment(lib, "OpenAL32.lib")
+#endif
+
+#ifdef __USE_VLD__
+#pragma comment(lib, "vld.lib")
+#include <vld.h>
 #endif
 
 #ifdef __IGOR_DEBUG__
@@ -225,6 +231,11 @@ namespace Igor
         if (iNodeFactory::isInstantiated())
         {
             iNodeFactory::destroyInstance();
+        }
+
+        if (iSceneFactory::isInstantiated())
+        {
+            iSceneFactory::destroyInstance();
         }
 
         if (iWidgetManager::isInstantiated())
