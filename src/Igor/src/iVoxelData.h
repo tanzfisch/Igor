@@ -124,6 +124,8 @@ namespace Igor
         void setClearValue(uint8 clearValue);
         uint8 getClearValue() const;
 
+        bool hasData() const;
+
     private:
 
         /*! the data

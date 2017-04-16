@@ -343,6 +343,11 @@ namespace Igor
         return _data[pos._z * _depth + pos._x]._material.getValue(pos._y);
     }
 
+    bool iVoxelData::hasData() const
+    {
+        return _data ? true : false;
+    }
+
     int64 iVoxelData::getWidth()
     {
         return _width;
