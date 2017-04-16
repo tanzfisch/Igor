@@ -81,6 +81,10 @@ namespace Igor
 
         virtual void handle() = 0;
 
+        /*! entity type
+        */
+        iEntityType _type = iEntityType::Undefined;
+
     private:
 
         /*! entity id
@@ -94,10 +98,6 @@ namespace Igor
         /*! mutex to protec id generation
         */
         static mutex _mutexID;
-
-        /*! entity type
-        */
-        iEntityType _type = iEntityType::Undefined;
 
     };
 

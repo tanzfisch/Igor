@@ -6,6 +6,10 @@
 
 namespace Igor
 {
+    iEntityLocatable::iEntityLocatable()
+    {
+        _type = iEntityType::Locatable;
+    }
 
     iSphered iEntityLocatable::getSphere() const
     {

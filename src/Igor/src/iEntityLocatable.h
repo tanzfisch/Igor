@@ -51,9 +51,9 @@ namespace Igor
         */
         iSphered getSphere() const;
 
-        /*! does nothing
+        /*! init type
         */
-        iEntityLocatable() = default;
+        iEntityLocatable();
 
         /*! does nothing
         */

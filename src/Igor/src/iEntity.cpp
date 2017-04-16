@@ -20,6 +20,8 @@ namespace Igor
         _mutexID.unlock();
 
         iEntityManager::getInstance().registerEntity(this);
+
+        _type = iEntityType::Base;
     }
 
     iEntity::~iEntity()
