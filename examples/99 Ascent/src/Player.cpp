@@ -311,10 +311,10 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             matrix = worldMatrix * matrix;
 
             iaMatrixd offsetLeft = matrix;
-            offsetLeft.translate(-0.5, -0.4, -1.0);
+            offsetLeft.translate(-0.5, -0.4, -1.5);
 
             iaMatrixd offsetRight = matrix;
-            offsetRight.translate(0.5, -0.4, -1.0);
+            offsetRight.translate(0.5, -0.4, -1.5);
 
             new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
             new Bullet(_scene, _force * 0.001, offsetRight, getFraction());
