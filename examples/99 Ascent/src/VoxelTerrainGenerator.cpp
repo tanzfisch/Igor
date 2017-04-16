@@ -135,7 +135,10 @@ uint8 VoxelTerrainGenerator::getVoxelDensity(iaVector3I pos)
         block = _voxelBlocks[voxelBlock];
         if (block->_generatedVoxels)
         {
-            result = block->_voxelData->getVoxelDensity(voxelRelativePos);
+            if (block->_voxelData->hasData())
+            {
+                result = block->_voxelData->getVoxelDensity(voxelRelativePos);
+            }
         }
     }
 
@@ -150,7 +153,10 @@ void VoxelTerrainGenerator::setVoxelDensity(iaVector3I voxelBlock, iaVector3I vo
         VoxelBlock* block = _voxelBlocks[voxelBlock];
         if (block->_generatedVoxels)
         {
-            block->_voxelData->setVoxelDensity(voxelRelativePos, density);
+            if (block->_voxelData->hasData())
+            {
+                block->_voxelData->setVoxelDensity(voxelRelativePos, density);
+            }
         }
     }
 }

@@ -38,6 +38,7 @@ private:
     void handle();
     iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
+    void onModelReady(uint32 modelNodeID);
 
 };
 

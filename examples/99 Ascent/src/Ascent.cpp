@@ -166,7 +166,7 @@ void Ascent::initScene()
 void Ascent::initPlayer()
 {
     iaMatrixd matrix;
-    matrix.translate(10000, 9400, 10000);
+    matrix.translate(10000, 9400, 10000 - 100);
     Player* player = new Player(_scene, matrix);
     _playerID = player->getID();
 
@@ -661,11 +661,11 @@ void Ascent::onMouseDown(iKeyCode key)
         Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-            if (key == iKeyCode::MouseRight)
+           /* if (key == iKeyCode::MouseRight)
             {
                 iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
                 player->shootSecondaryWeapon(_view, updown);
-            }
+            }*/
 
             if (key == iKeyCode::MouseLeft)
             {
@@ -709,7 +709,11 @@ void Ascent::handleMouse() // TODO
         Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-            _weaponPos.set(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0);
+            // TODO WTF? if I use set() it does not work in release mode here
+            _weaponPos._x = static_cast<float32>(_window.getClientWidth()) * 0.5f;
+            _weaponPos._y = static_cast<float32>(_window.getClientHeight()) * 0.5f;
+            _weaponPos._z = 0.0f;
+            //_weaponPos.set(static_cast<float32>(_window.getClientWidth()) * 0.5f, static_cast<float32>(_window.getClientHeight()) * 0.5f, 0);
 
             float32 headingDelta = _mouseDelta._x * 0.002;
             float32 pitchDelta = _mouseDelta._y * 0.002;
@@ -722,7 +726,8 @@ void Ascent::onHandle()
 {
     if (_loading)
     {
-        if (iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
+        if (iTimer::getInstance().getTimerTime() > 5000 &&
+            iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
             iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
         {
             _loading = false;
@@ -799,6 +804,9 @@ void Ascent::onRenderOrtho()
 
     if (_loading)
     {
+        iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
+        iRenderer::getInstance().drawRectangle(0, 0, _window.getClientWidth(), _window.getClientHeight());
+
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
         iRenderer::getInstance().setFontSize(40.0f);
         iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);

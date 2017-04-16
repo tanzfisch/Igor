@@ -360,6 +360,8 @@ iaVector3d Player::getCurrentPos()
         result = matrix._pos;
     }
 
+    con_endl(result);
+
     return result;
 }
 

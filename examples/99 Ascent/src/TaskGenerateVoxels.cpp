@@ -40,33 +40,32 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
         srand(seed);
 
         // covering the boss
-        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x + 30, playerStartPos._y, playerStartPos._z - 200), 1.5));
-        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x - 30, playerStartPos._y, playerStartPos._z - 200), 1.5));
-        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y + 30, playerStartPos._z - 200), 1.5));
-        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y - 30, playerStartPos._z - 200), 1.5));
-        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y + 30, playerStartPos._z - 200 + 30), 1.5));
-        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y - 30, playerStartPos._z - 200 - 30), 1.5));
+        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x + 20, playerStartPos._y, playerStartPos._z - 200), 1.7));
+        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x - 20, playerStartPos._y, playerStartPos._z - 200), 1.7));
+        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y + 20, playerStartPos._z - 200), 1.7));
+        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y - 20, playerStartPos._z - 200), 1.7));
+        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200 + 20), 1.7));
+        _metaballs.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200 - 20), 1.7));
         
         // hole where the boss sits
         _holes.push_back(iSpheref(iaVector3f(playerStartPos._x, playerStartPos._y, playerStartPos._z - 200), 1.7));
 
         // body
-        for (int i = 0; i < 40; ++i)
+        for (int i = 0; i < 10; ++i)
         {
             iaVector3f pos(rand() % 50 - 25, rand() % 50 - 25, rand() % 50 - 25);
             pos.normalize();
-            pos *= 40 + (rand() % 20);
+            pos *= 20 + (rand() % 20);
 
             pos._x += playerStartPos._x;
             pos._y += playerStartPos._y;
             pos._z += playerStartPos._z - 200;
 
-            _metaballs.push_back(iSpheref(pos, ((rand() % 90 + 10) / 100.0) * 2.5));
+            _metaballs.push_back(iSpheref(pos, ((rand() % 90 + 10) / 100.0) * 1.7));
         }
 
-
         // body surface crates
-        for (int i = 0; i < 150; ++i)
+        /*for (int i = 0; i < 150; ++i)
         {
             iaVector3f pos(rand() % 50 - 25, rand() % 50 - 25, rand() % 50 - 25);
             pos.normalize();
@@ -77,7 +76,7 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
             pos._z += playerStartPos._z - 200;
 
             _holes.push_back(iSpheref(pos, ((rand() % 90 + 10) / 100.0) * 0.7));
-        }
+        }*/
         
         _seed = seed;
     }

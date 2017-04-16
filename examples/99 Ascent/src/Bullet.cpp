@@ -25,7 +25,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	: GameObject(fraction, GameObjectType::Weapon)
 {
 	_scene = scene;
-
+    
 	_force = matrix._depth;
 	_force.negate();
 	_force.normalize();
