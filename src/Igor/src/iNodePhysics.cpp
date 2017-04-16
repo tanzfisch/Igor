@@ -376,12 +376,12 @@ namespace Igor
         }
     }
 
-    float32 iNodePhysics::getMass() const
+    float64 iNodePhysics::getMass() const
     {
         return _mass;
     }
 
-    void iNodePhysics::setMass(float32 mass)
+    void iNodePhysics::setMass(float64 mass)
     {
         _mass = mass;
 

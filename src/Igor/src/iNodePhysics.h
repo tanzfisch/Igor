@@ -119,7 +119,7 @@ namespace Igor
 
         /*! \returns mass of body
         */
-        float32 getMass() const;
+        float64 getMass() const;
 
         /*! sets mass of body
 
@@ -127,7 +127,7 @@ namespace Igor
 
         \param mass new mass
         */
-        void setMass(float32 mass);
+        void setMass(float64 mass);
 
         /*! sets a delegate to handle the ApplyForceAndTorque event
 
@@ -239,7 +239,7 @@ namespace Igor
 
         /*! current linear damping
         */
-        float32 _linearDamping;
+        float64 _linearDamping;
 
         /*! current force
         */
