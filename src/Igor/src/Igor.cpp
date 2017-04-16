@@ -230,6 +230,7 @@ namespace Igor
 
         if (iNodeFactory::isInstantiated())
         {
+            iNodeFactory::getInstance().flush();
             iNodeFactory::destroyInstance();
         }
 

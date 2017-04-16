@@ -158,6 +158,12 @@ namespace Igor
         \param active the active/inactive flag
         */
         void setActiveAsync(iNode* node, bool active);
+
+        /*! flushing queues and updating scenes
+
+        \todo should be private
+        */
+        void flush();
             
     private:
 
@@ -204,10 +210,6 @@ namespace Igor
         \param nodeID id of node
         */
         void destroyNode(uint32 nodeID);
-
-        /*! flushing queues and updating scenes
-        */
-        void flushQueues();
 
         /*! called once per frame by application
         */
