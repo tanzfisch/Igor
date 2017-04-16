@@ -29,7 +29,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	_force = matrix._depth;
 	_force.negate();
 	_force.normalize();
-	_force *= 7.5;
+	_force *= 0.75;
 	_force += addForce;
 
 	setHealth(100.0);
@@ -81,7 +81,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 
 	iaMatrixd offset;
 	iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
-	physicsNode->addSphere(0.5, offset);
+	physicsNode->addSphere(0.1, offset);
 	physicsNode->finalizeCollision();
 	physicsNode->setMass(0.01);
 	physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
@@ -147,20 +147,13 @@ iaVector3d Bullet::getCurrentPos()
 
 void Bullet::handle()
 {
-	setHealth(getHealth() - 1);
-	float32 damage = getDamage() - 0.1;
-	if (damage < 0.0)
+	float32 health = getHealth() - 0.1;
+	if (health <= 0.0)
 	{
-		damage = 0;
+        health = 0;
+        kill();
 	}
-	setDamage(damage);
-
-	float32 shieldDamage = getShieldDamage() - 0.1;
-	if (shieldDamage < 0.0)
-	{
-		shieldDamage = 0.0;
-	}
-	setShieldDamage(shieldDamage);
+    setHealth(health);
 }
 
 void Bullet::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)

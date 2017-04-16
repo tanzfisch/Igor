@@ -316,8 +316,8 @@ void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates
             iaMatrixd offsetRight = matrix;
             offsetRight.translate(0.5, -0.4, -1.5);
 
-            new Bullet(_scene, _force * 0.001, offsetLeft, getFraction());
-            new Bullet(_scene, _force * 0.001, offsetRight, getFraction());
+            new Bullet(_scene, _force * 0.00001, offsetLeft, getFraction());
+            new Bullet(_scene, _force * 0.00001, offsetRight, getFraction());
 
             new MuzzleFlash(_scene, _emitterLeftGunNodeID);
             new MuzzleFlash(_scene, _emitterRightGunNodeID);
@@ -359,8 +359,6 @@ iaVector3d Player::getCurrentPos()
         transformNode->getMatrix(matrix);
         result = matrix._pos;
     }
-
-    con_endl(result);
 
     return result;
 }
