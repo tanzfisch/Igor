@@ -79,6 +79,8 @@ private:
     */
     iView _viewOrtho;
 
+    bool _running = false;
+
     iaMatrixf _modelViewOrtho;
     uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
     uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;

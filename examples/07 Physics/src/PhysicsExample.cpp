@@ -171,7 +171,7 @@ void PhysicsExample::init()
                 _scene->getRoot()->insertNode(transformNode);
             }
         }
-    }
+    }    
 
     // no need to keep the collisions after putting them in to a body
     iPhysics::getInstance().destroyCollision(floorCollision);
@@ -180,7 +180,7 @@ void PhysicsExample::init()
     for (auto collision : collisions)
     {
         iPhysics::getInstance().destroyCollision(collision);
-    }
+    }        
     
 	// cam
     _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -318,6 +318,19 @@ void PhysicsExample::keyPressed(iKeyCode key)
     {
         iNodeVisitorPrintTree printTree;
         printTree.printToConsole(_scene->getRoot());
+    }
+
+    if (key == iKeyCode::Space)
+    {
+        _running = !_running;
+        if (_running)
+        {
+            iPhysics::getInstance().start();
+        }
+        else
+        {
+            iPhysics::getInstance().stop();
+        }
     }
 }
 
