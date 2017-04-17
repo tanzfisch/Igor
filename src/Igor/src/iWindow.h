@@ -151,13 +151,18 @@ namespace Igor
         void setColorDepth(unsigned char colordepth);
 
         /*! set resolution of window
-
-        set indirect the size of the window
-
+        
         \param width horizontal width in pixel
         \param height vertical height in pixel
         */
         void setSize(uint32 width, uint32 height);
+
+        /*! set resolution of window by setting the client rectangle size
+
+        \param width horizontal width in pixel of client rectangle
+        \param height vertical height in pixel of client rectangle
+        */
+        void setClientSize(uint32 width, uint32 height);
 
         /*! set window resolution so same value as desktop resolution
         */

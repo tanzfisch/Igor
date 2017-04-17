@@ -286,7 +286,7 @@ namespace Igor
 
     bool iWindow::initOpenGLContext()
     {
-        con_endl("opening GL Window \"" << _title << "\" (" << _width << "x" << _height << ")" << (_fullscreen ? " FULLSCREEN" : ""));
+        con_endl("opening GL Context \"" << _title << "\" (" << _clientWidth << "x" << _clientHeight << ")" << (_fullscreen ? " FULLSCREEN" : ""));
 
         uint32 posx = _xPos;
         uint32 posy = _yPos;
@@ -304,7 +304,7 @@ namespace Igor
 
             if (ChangeDisplaySettings(&_dmScreenSettings, CDS_FULLSCREEN) != DISP_CHANGE_SUCCESSFUL)
             {
-                con_err("The resolution (" << _width << "x" << _height << ") is not supported by this system. Using window mode instead");
+                con_err("The resolution (" << _clientWidth << "x" << _clientHeight << ") is not supported by this system. Using window mode instead");
                 _fullscreen = false;
                 posx = _xPos;
                 posy = _yPos;
@@ -480,6 +480,11 @@ namespace Igor
     void iWindow::setSizeByDesktop()
     {
         setSize(GetSystemMetrics(SM_CXSCREEN), GetSystemMetrics(SM_CYSCREEN));
+    }
+
+    void iWindow::setClientSize(uint32 width, uint32 height)
+    {
+        setSize(width + (GetSystemMetrics(SM_CXSIZEFRAME) << 2), height + (GetSystemMetrics(SM_CYSIZEFRAME) << 2) + GetSystemMetrics(SM_CYCAPTION));
     }
 
     void iWindow::setSize(uint32 width, uint32 height)
