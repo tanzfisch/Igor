@@ -454,18 +454,18 @@ namespace Igor
 
     void iPhysics::start()
     {
-        if (!_handleRegistered)
+        if (!_running)
         {
             _lastTime = iTimer::getInstance().getSeconds();
-            _handleRegistered = true;
+            _running = true;
         }
     }
 
     void iPhysics::stop()
     {
-        if (_handleRegistered)
+        if (_running)
         {
-            _handleRegistered = false;
+            _running = false;
         }
     }
 
@@ -536,22 +536,25 @@ namespace Igor
 
     void iPhysics::handle()
     {
-        handleQueues();
-
-        const float64 timeDelta = 1.0 / _simulationRate;
-        const uint32 maxUpdateCount = 2;
-
-        uint32 updateCount = 0;
-        float64 currentTime = iTimer::getInstance().getSeconds();
-
-        while ((_lastTime + timeDelta < currentTime) &&
-            (updateCount < maxUpdateCount))
+        if (_running)
         {
-            // "if you call another NewtonUpdateAsync before anothe one is still running the the secund will wait act as a NewtonUpdate wating fo rteh first updateAsyn To complete." Julio Jerez
-            NewtonUpdateAsync(static_cast<const NewtonWorld*>(_defaultWorld), timeDelta);
-            _lastTime += timeDelta;
-            updateCount++;
-        };
+            handleQueues();
+
+            const float64 timeDelta = 1.0 / _simulationRate;
+            const uint32 maxUpdateCount = 2;
+
+            uint32 updateCount = 0;
+            float64 currentTime = iTimer::getInstance().getSeconds();
+
+            while ((_lastTime + timeDelta < currentTime) &&
+                (updateCount < maxUpdateCount))
+            {
+                // "if you call another NewtonUpdateAsync before anothe one is still running the the secund will wait act as a NewtonUpdate wating fo rteh first updateAsyn To complete." Julio Jerez
+                NewtonUpdateAsync(static_cast<const NewtonWorld*>(_defaultWorld), timeDelta);
+                _lastTime += timeDelta;
+                updateCount++;
+            };
+        }
     }
 
     void iPhysics::setSimulationRate(float64 simulationRate)
@@ -685,8 +688,6 @@ namespace Igor
 
             NewtonBodySetMassMatrix(newtonBody, 0, 0, 0, 0);
             NewtonBodySetMatrix(newtonBody, matrix.getData());
-
-            start();
 
             result = new iPhysicsBody(newtonBody);
 

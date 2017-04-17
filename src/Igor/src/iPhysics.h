@@ -482,9 +482,9 @@ namespace Igor
         */
         float64 _lastTime;
 
-        /*! handle for application cyclic update
+        /*! if true physics is running
         */
-        bool _handleRegistered = false;
+        bool _running = false;
 
         /*! current simulation rate in Hz
         */
