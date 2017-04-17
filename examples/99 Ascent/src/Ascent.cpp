@@ -208,6 +208,8 @@ void Ascent::initPhysics()
     iPhysicsMaterialCombo* bulletBullet = new iPhysicsMaterialCombo(materialBullet, materialBullet);
     bulletBullet->setName("bullet-bullet");
     bulletBullet->registerContactDelegate(iContactDelegate(this, &Ascent::onContact));
+
+    iPhysics::getInstance().start();
 }
 
 void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)

@@ -248,6 +248,9 @@ void ExampleCharacterController::init()
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleCharacterController::onKeyReleased));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ExampleCharacterController::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ExampleCharacterController::onMouseWheel));
+
+    // and start physics
+    iPhysics::getInstance().start();
 }
 
 void ExampleCharacterController::onModelReady(uint32 modelNodeID)
