@@ -94,7 +94,7 @@ void PhysicsExample::init()
 
 	_window.addView(&_view);
     _window.addView(&_viewOrtho);
-    _window.setSize(1024, 768);
+    _window.setClientSize(1024, 768);
 	_window.open();
 	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &PhysicsExample::windowClosed));
 

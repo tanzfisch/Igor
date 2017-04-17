@@ -38,7 +38,7 @@ void Example2D::init()
 
     // define the window as we want it
     _window.setTitle("Rendering 2D Example");
-    _window.setSize(1024, 768);
+    _window.setClientSize(1024, 768);
     // register calback to window close event so we can shutdown the application propperly
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
     // register callback to window resize event so we can adopt the view to resolution

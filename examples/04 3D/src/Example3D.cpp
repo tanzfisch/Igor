@@ -32,7 +32,7 @@ using namespace IgorAux;
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
 using namespace Igor;
-
+ 
 Example3D::Example3D()
 {
     init();
@@ -49,7 +49,7 @@ void Example3D::init()
 
     // setup window
     _window.setTitle("Igor - 3D Example");
-    _window.setSize(1280, 758);
+    _window.setClientSize(1024, 768);
     _window.setCentered();
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));

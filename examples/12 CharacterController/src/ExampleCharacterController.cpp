@@ -57,7 +57,7 @@ void ExampleCharacterController::init()
 
     // setup window
     _window.setTitle("Igor - 3D Example");
-    _window.setSize(1280, 758);
+    _window.setClientSize(1024, 768);
     _window.setCentered();
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ExampleCharacterController::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ExampleCharacterController::onWindowResized));

@@ -55,7 +55,7 @@ void LSystems::init()
     
     // setup window
     _window.setTitle("Igor - LSystems");
-    _window.setSize(1024, 768);
+    _window.setClientSize(1024, 768);
     _window.setCentered();
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &LSystems::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &LSystems::onWindowResized));

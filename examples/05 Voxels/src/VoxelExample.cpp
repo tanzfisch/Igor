@@ -151,7 +151,7 @@ void VoxelExample::initViews()
     _window.setTitle("Voxel Example");
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
-    _window.setSize(1000, 1000);
+    _window.setClientSize(1024, 768);
     _window.open();
 
     // update the orthogonal projection after we know the windows cient rectangle. the same we do after a resize

@@ -111,7 +111,7 @@ void Ascent::initViews()
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
 #if 1
-    _window.setSize(1024, 768);
+    _window.setClientSize(1024, 768);
 #else
     _window.setSizeByDesktop();
     _window.setFullscreen();
