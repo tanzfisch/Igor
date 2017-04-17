@@ -274,11 +274,11 @@ namespace Igor
 
 		/*! x position of the window in pixel
 		*/
-		uint32 _xPos = 100;
+		uint32 _xPos = 0;
 
 		/*! y position of the window in pixel
 		*/
-		uint32 _yPos = 100;
+		uint32 _yPos = 0;
 
 		/*! color depth of the render area in bit per pixel
 		*/
