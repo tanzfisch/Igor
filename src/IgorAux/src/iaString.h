@@ -40,7 +40,7 @@ namespace IgorAux
 
     /*! string slpit mode
     */
-    enum class StringSplitMode
+    enum class iaStringSplitMode
     {
         Normal,
         RetriveAllEmpties
@@ -220,21 +220,21 @@ namespace IgorAux
         \param delimiters string with delimiter characters
         \param tokens the resulting tokens
         */
-        void split(const iaString& delimiters, vector<iaString>& tokens, StringSplitMode splitMode = StringSplitMode::Normal) const;
+        void split(const iaString& delimiters, vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
         /*! same as split with delimiter string but only for one delimiter character
 
         \param delimiter single delimiter character
         \param tokens the resulting tokens
         */
-        void split(const wchar_t delimiter, vector<iaString>& tokens, StringSplitMode splitMode = StringSplitMode::Normal) const;
+        void split(const wchar_t delimiter, vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
         /*! same as split with delimiter string but only for one delimiter character
 
         \param delimiter single delimiter character
         \param tokens the resulting tokens
         */
-        void split(const char delimiter, vector<iaString>& tokens, StringSplitMode splitMode = StringSplitMode::Normal) const;
+        void split(const char delimiter, vector<iaString>& tokens, iaStringSplitMode splitMode = iaStringSplitMode::Normal) const;
 
 		/*! \returns position of first occurence of specified characters
 

@@ -449,7 +449,7 @@ namespace Igor
         result._vn = -1;
 
         vector<iaString> values;
-        attributes.split("/", values, StringSplitMode::RetriveAllEmpties);
+        attributes.split("/", values, iaStringSplitMode::RetriveAllEmpties);
 
         con_assert(values.size() < 4, "corrupt value count");
         con_assert(values.size() > 0, "corrupt value count");

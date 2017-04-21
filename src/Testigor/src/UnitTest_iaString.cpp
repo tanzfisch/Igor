@@ -1021,6 +1021,40 @@ namespace Testigor
             Assert::IsTrue(foo.getData() != nullptr);
             Assert::IsTrue(foo.isEmpty() == false);
         }
+
+        TEST_METHOD(UnitTest_iaStringTest_98)
+        {
+            iaString foo("1/2//4");
+            vector<iaString> tokens;
+            foo.split("/", tokens, iaStringSplitMode::RetriveAllEmpties);
+
+            Assert::IsTrue(tokens.size() == 4);
+            Assert::IsTrue(tokens[0] == "1");
+            Assert::IsTrue(tokens[1] == "2");
+            Assert::IsTrue(tokens[2] == "");
+            Assert::IsTrue(tokens[3] == "4");
+
+            Assert::IsTrue(foo.getSize() == 6);
+            Assert::IsTrue(foo.getData()[6] == 0);
+            Assert::IsTrue(foo.isEmpty() == false);
+        }
+
+        TEST_METHOD(UnitTest_iaStringTest_99)
+        {
+            iaString foo("1/2/;4");
+            vector<iaString> tokens;
+            foo.split(";/", tokens, iaStringSplitMode::RetriveAllEmpties);
+
+            Assert::IsTrue(tokens.size() == 4);
+            Assert::IsTrue(tokens[0] == "1");
+            Assert::IsTrue(tokens[1] == "2");
+            Assert::IsTrue(tokens[2] == "");
+            Assert::IsTrue(tokens[3] == "4");
+
+            Assert::IsTrue(foo.getSize() == 6);
+            Assert::IsTrue(foo.getData()[6] == 0);
+            Assert::IsTrue(foo.isEmpty() == false);
+        }
     };
 
 }

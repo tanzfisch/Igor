@@ -459,17 +459,17 @@ namespace IgorAux
         return *this;
     }
 
-    void iaString::split(const wchar_t delimiter, vector<iaString>& tokens, StringSplitMode splitMode) const
+    void iaString::split(const wchar_t delimiter, vector<iaString>& tokens, iaStringSplitMode splitMode) const
     {
         split(iaString(delimiter), tokens, splitMode);
     }
 
-    void iaString::split(const char delimiter, vector<iaString>& tokens, StringSplitMode splitMode) const
+    void iaString::split(const char delimiter, vector<iaString>& tokens, iaStringSplitMode splitMode) const
     {
         split(iaString(delimiter), tokens, splitMode);
     }
 
-    void iaString::split(const iaString& delimiters, vector<iaString>& tokens, StringSplitMode splitMode) const
+    void iaString::split(const iaString& delimiters, vector<iaString>& tokens, iaStringSplitMode splitMode) const
     {
         CHECK_CONSISTENCY();
 
@@ -480,7 +480,7 @@ namespace IgorAux
         {
             switch (splitMode)
             {
-            case StringSplitMode::Normal:
+            case iaStringSplitMode::Normal:
                 do
                 {
                     from = findFirstNotOf(delimiters.getData(), to);
@@ -494,7 +494,7 @@ namespace IgorAux
                 } while (from < getSize() && to != iaString::INVALID_POSITION);
                 break;
 
-            case StringSplitMode::RetriveAllEmpties:
+            case iaStringSplitMode::RetriveAllEmpties:
                 do
                 {
                     to = findFirstOf(delimiters.getData(), from);
