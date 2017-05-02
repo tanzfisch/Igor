@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iVECTOR3__
-#define __iVECTOR3__
+#ifndef __iaVECTOR3__
+#define __iaVECTOR3__
 
 #include <iaDefines.h>
 
@@ -38,9 +38,10 @@ using namespace std;
 namespace IgorAux
 {
 
-    /*! 3d vector
+    /*! 3d vector class
     */
-    template <class T> class IgorAux_API_Template iaVector3
+    template <class T> 
+    class IgorAux_API_Template iaVector3
     {
 
     public:
