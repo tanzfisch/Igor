@@ -29,6 +29,7 @@
 #ifndef __iAABOX__
 #define __iAABOX__
 
+#include <iDefines.h>
 #include <iaVector3.h>
 using namespace IgorAux;
 
@@ -37,8 +38,7 @@ namespace Igor
 
 	/*! Axis aligned box 
 	*/
-	template <class T>
-	class Igor_API_Template iAABox
+	template <class T> class Igor_API_Template iAABox
 	{
 
 	public:
@@ -80,6 +80,14 @@ namespace Igor
     /*! float32 specialization of iAABox
     */
     typedef iAABox<float64> iAABoxd;
+
+    /*! int32 specialization of iAABox
+    */
+    typedef iAABox<int32> iAABoxi;
+
+    /*! int64 specialization of iAABox
+    */
+    typedef iAABox<int64> iAABoxI;
 
 }
 
