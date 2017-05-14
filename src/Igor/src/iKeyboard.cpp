@@ -139,47 +139,47 @@ namespace Igor
     {
         iOSEventWin32 *osevent = (iOSEventWin32*)data;
 
-        iKeyCode current_key;
+        iKeyCode currentKey;
 
         switch (osevent->_uMsg)
         {
         case WM_SYSKEYDOWN:
-            current_key = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), true);
-            if (current_key != iKeyCode::Undefined)
+            currentKey = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), true);
+            if (currentKey != iKeyCode::Undefined)
             {
-                _keys[static_cast<unsigned int>(current_key)] = true;
-                _keyDownEvent[static_cast<unsigned int>(current_key)]();
-                _keyDownEventExt(current_key);
+                _keys[static_cast<unsigned int>(currentKey)] = true;
+                _keyDownEvent[static_cast<unsigned int>(currentKey)]();
+                _keyDownEventExt(currentKey);
             }
             return true;
 
         case WM_KEYDOWN:
-            current_key = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), false);
-            if (current_key != iKeyCode::Undefined)
+            currentKey = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), false);
+            if (currentKey != iKeyCode::Undefined)
             {
-                _keys[static_cast<unsigned int>(current_key)] = true;
-                _keyDownEvent[static_cast<unsigned int>(current_key)]();
-                _keyDownEventExt(current_key);
+                _keys[static_cast<unsigned int>(currentKey)] = true;
+                _keyDownEvent[static_cast<unsigned int>(currentKey)]();
+                _keyDownEventExt(currentKey);
             }
             return true;
 
         case WM_SYSKEYUP:
-            current_key = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), true);
-            if (current_key != iKeyCode::Undefined)
+            currentKey = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), true);
+            if (currentKey != iKeyCode::Undefined)
             {
-                _keys[static_cast<unsigned int>(current_key)] = false;
-                _keyUpEvent[static_cast<unsigned int>(current_key)]();
-                _keyUpEventExt(current_key);
+                _keys[static_cast<unsigned int>(currentKey)] = false;
+                _keyUpEvent[static_cast<unsigned int>(currentKey)]();
+                _keyUpEventExt(currentKey);
             }
             return true;
 
         case WM_KEYUP:
-            current_key = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), false);
-            if (current_key != iKeyCode::Undefined)
+            currentKey = translate(static_cast<uint32>(osevent->_wParam), static_cast<uint32>(osevent->_lParam), false);
+            if (currentKey != iKeyCode::Undefined)
             {
-                _keys[static_cast<unsigned int>(current_key)] = false;
-                _keyUpEvent[static_cast<unsigned int>(current_key)]();
-                _keyUpEventExt(current_key);
+                _keys[static_cast<unsigned int>(currentKey)] = false;
+                _keyUpEvent[static_cast<unsigned int>(currentKey)]();
+                _keyUpEventExt(currentKey);
             }
             return true;
 
