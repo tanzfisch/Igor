@@ -105,20 +105,27 @@ namespace Igor
 
 	private:
 
-        /*! frame section id
+        /*! frame performance section id
         */
         uint32 _frameSectionID = 0;
 
-        /*! handle section id
+        /*! handle performance section id
         */
         uint32 _handleSectionID = 0;
 
+        /*! physics performance section id
+        */
         uint32 _physicsSectionID = 0;
 
+        /*! draw performance section id
+        */
         uint32 _drawSectionID = 0;
+
+        /*! user performance section id
+        */
         uint32 _userSectionID = 0;
 
-        /*! handle callbacks section ID
+        /*! handle callbacks performance section ID
         */
         uint32 _handleCallbacksSectionID = 0;
 

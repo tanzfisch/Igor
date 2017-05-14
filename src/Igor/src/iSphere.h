@@ -95,7 +95,12 @@ namespace Igor
 
 	#include <iSphere.inl>
 
+    /*! float32 precision of sphere
+    */
 	typedef iSphere<float32> iSpheref;
+
+    /*! float64 precision of sphere
+    */
     typedef iSphere<float64> iSphered;
 
 }

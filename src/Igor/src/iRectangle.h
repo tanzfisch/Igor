@@ -33,7 +33,8 @@
 
 namespace Igor
 {
-    /*! rectangle
+
+    /*! 2d rectangle
     */
     template <class T>
     class Igor_API_Template iRectangle
@@ -41,8 +42,17 @@ namespace Igor
 
     public:
 
+        /*! does nothing
+        */
         iRectangle() = default;
 
+        /*! ctor with parameters
+
+        \param x horrizontal position
+        \param y vertical position
+        \param width width
+        \param height height
+        */
         iRectangle(T x, T y, T width, T height)
         {
             _x = x;
@@ -51,31 +61,88 @@ namespace Igor
             _height = height;
         }
 
+        /*! \returns horrizonal position
+        */
         __IGOR_INLINE__ const T getX() const;
+
+        /*! \returns vertical position
+        */
         __IGOR_INLINE__ const T getY() const;
+
+        /*! \returns rectangle width
+        */
         __IGOR_INLINE__ const T getWidth() const;
+
+        /*! \returns rectangle height
+        */
         __IGOR_INLINE__ const T getHeight() const;
 
+        /*! sets horrizontal position
+
+        \param x horrizontal position
+        */
         void setX(T x);
+
+        /*! sets vertical position
+
+        \param y vertical position
+        */
         void setY(T y);
+
+        /*! sets width of rectangle
+
+        \param width width of rectangle
+        */
         void setWidth(T width);
+
+        /*! sets height of rectangle
+
+        \param height height of rectangle
+        */
         void setHeight(T height);
 
+        /*! assignment operator
+
+        \param rectangle the rectangle to assign
+        \returns resulting rectangle
+        */
         __IGOR_INLINE__ iRectangle<T> operator= (const iRectangle<T> &rectangle);
 
+        /*! horrizontal position
+        */
         T _x = (T)0;
+
+        /*! vertical position
+        */
         T _y = (T)0;
+
+        /*! height of rectangle
+        */
         T _width = (T)0;
+
+        /*! height of rectangle
+        */
         T _height = (T)0;
 
     };
 
 #include <iRectangle.inl>
 
+    /*! float32 precision of rectangle
+    */
     typedef iRectangle<float32> iRectanglef;
+
+    /*! float64 precision of rectangle
+    */
     typedef iRectangle<float64> iRectangled;
+
+    /*! int32 precision of rectangle
+    */
     typedef iRectangle<int32> iRectanglei;
 
+    /*! int64 precision of rectangle
+    */
+    typedef iRectangle<int64> iRectangleI;
 };
 
 #endif

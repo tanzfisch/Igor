@@ -26,7 +26,6 @@ namespace Igor
     class iMeshBuilder;
     class iMesh;
     class iTargetMaterial;
-    class iNodeTransformControl;
     class iNodeLODTrigger;
     class iPhysicsBody;
 }

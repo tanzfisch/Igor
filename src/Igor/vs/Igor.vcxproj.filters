@@ -257,9 +257,6 @@
     <ClCompile Include="..\src\iPerlinNoise.cpp">
       <Filter>graphics\generation</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iNodeTransformControl.cpp">
-      <Filter>controls</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iModelDataIO.cpp">
       <Filter>resources\models\loader</Filter>
     </ClCompile>
@@ -280,9 +277,6 @@
     </ClCompile>
     <ClCompile Include="..\src\iSystemConfig.cpp">
       <Filter>todo</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\iControl.cpp">
-      <Filter>controls</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsJoint.cpp">
       <Filter>physics</Filter>
@@ -675,9 +669,6 @@
     <ClInclude Include="..\src\iPerlinNoise.h">
       <Filter>graphics\generation</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iNodeTransformControl.h">
-      <Filter>controls</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iModelDataIO.h">
       <Filter>resources\models\loader</Filter>
     </ClInclude>
@@ -698,9 +689,6 @@
     </ClInclude>
     <ClInclude Include="..\src\iSystemConfig.h">
       <Filter>todo</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\iControl.h">
-      <Filter>controls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsJoint.h">
       <Filter>physics</Filter>
@@ -961,9 +949,6 @@
     </Filter>
     <Filter Include="resources\material">
       <UniqueIdentifier>{638ae758-7383-4864-852e-b29ff69ccf82}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="controls">
-      <UniqueIdentifier>{461333aa-caa3-4cdd-a7d4-1daa80e74710}</UniqueIdentifier>
     </Filter>
     <Filter Include="GUI">
       <UniqueIdentifier>{b62dc271-c0f3-416d-970b-09c15311a96f}</UniqueIdentifier>

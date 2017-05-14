@@ -39,10 +39,9 @@ namespace Igor
 
     /*! frustum defined by 8 planes
 
-    \todo check if frustum planes are percise
+    \todo ther is something wrong with the planes
     */
-    template <class T>
-    class Igor_API_Template iFrustum
+    template <class T> class Igor_API_Template iFrustum
     {
 
     public:

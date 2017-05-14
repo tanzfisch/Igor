@@ -36,9 +36,10 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	/*! Axis aligned box 
+	/*! Axis aligned box
 	*/
-	template <class T> class Igor_API_Template iAABox
+	template <class T>
+    class Igor_API_Template iAABox
 	{
 
 	public:

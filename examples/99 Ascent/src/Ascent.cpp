@@ -32,7 +32,6 @@ using namespace IgorAux;
 #include <iStatistics.h>
 #include <iTargetMaterial.h>
 #include <iPerlinNoise.h>
-#include <iNodeTransformControl.h>
 #include <iNodeLODTrigger.h>
 #include <iNodeLODSwitch.h>
 #include <iOctree.h>

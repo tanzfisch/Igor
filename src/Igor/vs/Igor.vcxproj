@@ -308,7 +308,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
     <ClInclude Include="..\src\iContouringCubesLookup.h" />
-    <ClInclude Include="..\src\iControl.h" />
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDefines.h" />
     <ClInclude Include="..\src\iDialog.h" />
@@ -357,7 +356,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iNodeSkyBox.h" />
     <ClInclude Include="..\src\iNodeSwitch.h" />
     <ClInclude Include="..\src\iNodeTransform.h" />
-    <ClInclude Include="..\src\iNodeTransformControl.h" />
     <ClInclude Include="..\src\iNodeVisitor.h" />
     <ClInclude Include="..\src\iNodeVisitorBoundings.h" />
     <ClInclude Include="..\src\iNodeVisitorPrintTree.h" />
@@ -558,7 +556,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iCelestialNode.cpp" />
     <ClCompile Include="..\src\iConfigReader.cpp" />
     <ClCompile Include="..\src\iContouringCubes.cpp" />
-    <ClCompile Include="..\src\iControl.cpp" />
     <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
     <ClCompile Include="..\src\iDialog.cpp" />
     <ClCompile Include="..\src\iDialogColorChooser.cpp" />
@@ -604,7 +601,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iNodeSkyBox.cpp" />
     <ClCompile Include="..\src\iNodeSwitch.cpp" />
     <ClCompile Include="..\src\iNodeTransform.cpp" />
-    <ClCompile Include="..\src\iNodeTransformControl.cpp" />
     <ClCompile Include="..\src\iNodeVisitor.cpp" />
     <ClCompile Include="..\src\iNodeVisitorBoundings.cpp" />
     <ClCompile Include="..\src\iNodeVisitorPrintTree.cpp" />

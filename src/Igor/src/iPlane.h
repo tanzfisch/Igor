@@ -78,7 +78,12 @@ namespace Igor
 
 	#include <iPlane.inl>
 
+    /*! float32 precision plane
+    */
 	typedef iPlane<float32> iPlanef;
+
+    /*! float64 precision plane
+    */
     typedef iPlane<float64> iPlaned;
 
 }
