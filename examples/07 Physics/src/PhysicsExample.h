@@ -97,7 +97,7 @@ private:
 
     vector<uint64> _bodyIDs;
 
-	TimerDelegate _timerDelegate;
+	iTimerTickDelegate _timerDelegate;
 
     uint32 _octreeMaterial = 0;
 

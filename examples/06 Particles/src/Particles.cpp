@@ -140,7 +140,7 @@ void Particles::init()
     // animation
     _animationTimingHandle = new iTimerHandle();
     _animationTimingHandle->setIntervall(100);
-    _animationTimingHandle->registerTimerDelegate(TimerDelegate(this, &Particles::onTimer));
+    _animationTimingHandle->registerTimerDelegate(iTimerTickDelegate(this, &Particles::onTimer));
 
     _taskFlushTexturesID = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
@@ -564,7 +564,7 @@ void Particles::deinit()
     // stop light animation
     if (_animationTimingHandle)
     {
-        _animationTimingHandle->unregisterTimerDelegate(TimerDelegate(this, &Particles::onTimer));
+        _animationTimingHandle->unregisterTimerDelegate(iTimerTickDelegate(this, &Particles::onTimer));
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
     }

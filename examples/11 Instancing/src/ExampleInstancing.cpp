@@ -210,7 +210,7 @@ void ExampleInstancing::init()
     // animation
     _animationTimingHandle = new iTimerHandle();
     _animationTimingHandle->setIntervall(10);
-    _animationTimingHandle->registerTimerDelegate(TimerDelegate(this, &ExampleInstancing::onTimer));
+    _animationTimingHandle->registerTimerDelegate(iTimerTickDelegate(this, &ExampleInstancing::onTimer));
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -242,7 +242,7 @@ void ExampleInstancing::deinit()
     // stop light animation
     if (_animationTimingHandle)
     {
-        _animationTimingHandle->unregisterTimerDelegate(TimerDelegate(this, &ExampleInstancing::onTimer));
+        _animationTimingHandle->unregisterTimerDelegate(iTimerTickDelegate(this, &ExampleInstancing::onTimer));
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
     }

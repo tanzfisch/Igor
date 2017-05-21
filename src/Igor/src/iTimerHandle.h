@@ -37,17 +37,24 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iaEVENT(TimerEvent, TimerDelegate, void, (), ());
+    /*! timer tick event
 
+    called once per interval
+    */
+	iaEVENT(iTimerTickEvent, iTimerTickDelegate, void, (), ());
+
+    /*! timer handle class
+    */
 	class Igor_API iTimerHandle
 	{
+
 		friend class iTimer;
 
 	private:
 
 		/*! the timer event to trigger
 		*/
-		TimerEvent _timerEvent;
+		iTimerTickEvent _timerEvent;
 
 		/*! timer handle intervall in ms
 		*/
@@ -69,13 +76,13 @@ namespace Igor
 
 		\param timer_delegate timer delegate to register
 		*/
-		void registerTimerDelegate(TimerDelegate timer_delegate);
+		void registerTimerDelegate(iTimerTickDelegate timer_delegate);
 
 		/*! unregister timer delegate from timer event
 
 		\param timer_delegate timer delegate to unregister
 		*/
-		void unregisterTimerDelegate(TimerDelegate timer_delegate);
+		void unregisterTimerDelegate(iTimerTickDelegate timer_delegate);
 
 		/*! changes timer interval
 

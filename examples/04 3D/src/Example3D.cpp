@@ -269,7 +269,7 @@ void Example3D::init()
     // animation
     _animationTimingHandle = new iTimerHandle();
     _animationTimingHandle->setIntervall(10);
-    _animationTimingHandle->registerTimerDelegate(TimerDelegate(this, &Example3D::onTimer));
+    _animationTimingHandle->registerTimerDelegate(iTimerTickDelegate(this, &Example3D::onTimer));
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -301,7 +301,7 @@ void Example3D::deinit()
     // stop light animation
     if (_animationTimingHandle)
     {
-        _animationTimingHandle->unregisterTimerDelegate(TimerDelegate(this, &Example3D::onTimer));
+        _animationTimingHandle->unregisterTimerDelegate(iTimerTickDelegate(this, &Example3D::onTimer));
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
     }

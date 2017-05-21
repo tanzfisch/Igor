@@ -45,12 +45,12 @@ namespace Igor
 		return _intervall;
 	}
 
-	void iTimerHandle::registerTimerDelegate(TimerDelegate timer_delegate)
+	void iTimerHandle::registerTimerDelegate(iTimerTickDelegate timer_delegate)
 	{
 		_timerEvent.append(timer_delegate);
 	}
 
-	void iTimerHandle::unregisterTimerDelegate(TimerDelegate timer_delegate)
+	void iTimerHandle::unregisterTimerDelegate(iTimerTickDelegate timer_delegate)
 	{
 		_timerEvent.remove(timer_delegate);
 	}
