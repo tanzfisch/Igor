@@ -76,6 +76,10 @@ namespace Igor
         */
         void setVoxelDataNextLOD(iVoxelData* voxelData);
 
+        /*! sets offset to next (lower resolution) lod voxel data
+
+        \param offset offset to next lod voxel data
+        */
         void setNextLODVoxelOffset(const iaVector3I& offset);
 
         /*! compile mesh out of voxel data
@@ -86,7 +90,20 @@ namespace Igor
         */
 		shared_ptr<iMesh> compile(iaVector3I pos, iaVector3I volume, uint32 lod = 0, uint32 neighbors = 0);
 
+        /*! calculates scale based on LOD
+
+        \param lod the lod to cal the scale for
+        \returns the scale of the given lod 
+        \todo create a table
+        */
         static float64 calcLODScale(uint32 lod);
+
+        /*! calculates the lod offset based on lod
+
+        \param lod given lod
+        \returns offset for given lod
+        \todo create a table
+        */
         static iaVector3f calcLODOffset(uint32 lod);
 
 	private:
@@ -107,12 +124,24 @@ namespace Igor
         */
         uint8 _density[3 * 3 * 3];
 
+        /*! next lod density cache
+        */
         uint8 _nextLODDensity[3 * 3 * 3];
+
+        /*! mixed los density cache
+        */
         uint8 _mixedDensity[3 * 3 * 3];
 
+        /*! next lod offset
+        */
         iaVector3I _nextLODVoxelOffset;
 
+        /*! vertices of next lod voxel data
+        */
         iaVector3f _vertexPositionsNextLOD[27];
+
+        /*! visible flags for vertices of next lod voxel data
+        */
         bool _vertexPositionsNextLODVisible[27];
 
         /*! current interation position
@@ -135,7 +164,12 @@ namespace Igor
 		*/
 		uint32 _lod = 0;
 
+        /*! scale of current lod voxel data
+        */
         float64 _scale = 0;
+
+        /*! scale of next level lod voxel data
+        */
         float64 _scaleNextLOD = 0;
 
         /*! calculates vertex position allong iso surface
@@ -153,6 +187,13 @@ namespace Igor
         */
         bool calculateVertex(uint8 density0, uint8 density1, uint8 density2, uint8 density3, uint8 density4, uint8 density5, uint8 density6, uint8 density7, iaVector3f& vertex);
         
+        /*! adds a triangle to mesh
+
+        \param a first index of triangle
+        \param b second index of triangle
+        \param c third index of triangle
+        \param keep 
+        */
         void addCheckedTriangle(uint32 a, uint32 b, uint32 c, bool keep);
 
         void calculateNextLOD();
