@@ -2,8 +2,7 @@
 // (c) Copyright 2012-2017 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "iContouringCubes.h"
-#include "iContouringCubesLookup.h"
+#include <iContouringCubes.h>
 
 #include <iTimer.h>
 

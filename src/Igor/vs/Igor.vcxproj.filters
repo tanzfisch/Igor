@@ -757,9 +757,6 @@
     <ClInclude Include="..\src\iThread.h">
       <Filter>threading</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iContouringCubesLookup.h">
-      <Filter>graphics\generation</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iBone.h">
       <Filter>graphics\types\bones</Filter>
     </ClInclude>

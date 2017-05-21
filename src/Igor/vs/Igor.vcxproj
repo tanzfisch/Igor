@@ -307,7 +307,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iCelestialNode.h" />
     <ClInclude Include="..\src\iConfigReader.h" />
     <ClInclude Include="..\src\iContouringCubes.h" />
-    <ClInclude Include="..\src\iContouringCubesLookup.h" />
     <ClInclude Include="..\src\iDataUpdateQueue.h" />
     <ClInclude Include="..\src\iDefines.h" />
     <ClInclude Include="..\src\iDialog.h" />
