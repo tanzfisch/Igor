@@ -43,6 +43,8 @@ namespace Igor
     class Igor_API iEntityLocatable : public iEntity
     {
 
+        /*! so we can manipulate the sphere
+        */
         friend class iEntityManager;
 
     public:

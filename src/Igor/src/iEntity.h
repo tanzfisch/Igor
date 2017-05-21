@@ -79,6 +79,8 @@ namespace Igor
 
     protected:
 
+        /*! called every simulation frame
+        */
         virtual void handle() = 0;
 
         /*! entity type
