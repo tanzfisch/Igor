@@ -99,8 +99,6 @@ namespace Igor
 
 	Example:
 	\ref Mouse/src/MouseExample.cpp "Mouse usage example"
-
-	\todo double click
 	*/
 	class Igor_API iMouse : public iOSEventListener, public iaSingleton<iMouse>
 	{
