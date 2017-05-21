@@ -102,29 +102,28 @@ namespace Igor
     iWindow::iWindow()
     {
         memset(&_dmScreenSettings, 0, sizeof(_dmScreenSettings));
-        memset(&_msg, 0, sizeof(_msg));
 
-        _hInstance = GetModuleHandle(NULL);
+        _moduleHandle = GetModuleHandle(NULL);
         if (_doubleClick)
         {
-            _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
+            _windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
         }
         else
         {
-            _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+            _windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
         }
         
-        _wc.lpfnWndProc = (WNDPROC)WndProc;
-        _wc.cbClsExtra = 0;
-        _wc.cbWndExtra = 0;
-        _wc.hInstance = _hInstance;
-        _wc.hIcon = LoadIcon(NULL, IDI_WINLOGO);
-        _wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-        _wc.hbrBackground = NULL;
-        _wc.lpszMenuName = NULL;
-        _wc.lpszClassName = TEXT("Igor");
+        _windowClass.lpfnWndProc = (WNDPROC)WndProc;
+        _windowClass.cbClsExtra = 0;
+        _windowClass.cbWndExtra = 0;
+        _windowClass.hInstance = _moduleHandle;
+        _windowClass.hIcon = LoadIcon(NULL, IDI_WINLOGO);
+        _windowClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+        _windowClass.hbrBackground = NULL;
+        _windowClass.lpszMenuName = NULL;
+        _windowClass.lpszClassName = TEXT("Igor");
 
-        RegisterClass(&_wc);
+        RegisterClass(&_windowClass);
 
         _renderContext = nullptr;
 
@@ -205,20 +204,20 @@ namespace Igor
         {
             if (_doubleClick != doubleClick)
             {
-                UnregisterClass(TEXT("Igor"), _wc.hInstance);
+                UnregisterClass(TEXT("Igor"), _windowClass.hInstance);
 
                 _doubleClick = doubleClick;
 
                 if (_doubleClick)
                 {
-                    _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
+                    _windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC | CS_DBLCLKS;
                 }
                 else
                 {
-                    _wc.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
+                    _windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
                 }
 
-                RegisterClass(&_wc);
+                RegisterClass(&_windowClass);
             }
         }
     }
@@ -241,16 +240,18 @@ namespace Igor
             con_err("still views registered to this window");
         }
 
-        UnregisterClass(TEXT("Igor"), _hInstance);
-        _hInstance = 0;
+        UnregisterClass(TEXT("Igor"), _moduleHandle);
+        _moduleHandle = 0;
     }
 
     void iWindow::handle()
     {
-        while (PeekMessage(&_msg, NULL, 0, 0, PM_REMOVE))
+        MSG msg;
+
+        while (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE))
         {
-            TranslateMessage(&_msg);
-            DispatchMessage(&_msg);
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
         }
     }
 
@@ -320,7 +321,7 @@ namespace Igor
         }
 
         // Create The Window
-        _hWnd = CreateWindowEx(_dwExStyle, TEXT("Igor"), _title.getData(), _dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, posx, posy, _width, _height, 0, 0, _hInstance, this);
+        _hWnd = CreateWindowEx(_dwExStyle, TEXT("Igor"), _title.getData(), _dwStyle | WS_CLIPSIBLINGS | WS_CLIPCHILDREN, posx, posy, _width, _height, 0, 0, _moduleHandle, this);
 
         if (!_hWnd)
         {

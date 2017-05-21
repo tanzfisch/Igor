@@ -59,13 +59,12 @@ namespace Igor
 
 	\todo currently Igor only fully supports one window. 
 	\todo add some events like closing window, move window etc.
-    \todo more documentation
 	*/
 	class Igor_API iWindow
 	{
+
 		friend class iApplication;
 		friend class iRenderContextThread;
-
 		friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     public:
@@ -388,10 +387,24 @@ namespace Igor
 		
     private:
 
+        /*! window extended style
+        */
         DWORD _dwExStyle = 0;
+
+        /*! window style
+        */
         DWORD _dwStyle = 0;
+
+        /*! screen/display settings
+        */
         DEVMODE _dmScreenSettings;
-        HINSTANCE _hInstance = nullptr;
+
+        /*! module handle
+        */
+        HINSTANCE _moduleHandle = nullptr;
+
+        /*! window handle
+        */
         HWND _hWnd = nullptr;
 
         /*! device context
@@ -406,8 +419,9 @@ namespace Igor
         */
         mutex _wglMutex;
 
-        MSG _msg;
-        WNDCLASS _wc;
+        /*! window class
+        */
+        WNDCLASS _windowClass;
 
 	};
 
