@@ -37,7 +37,7 @@ using namespace std;
 namespace IgorAux
 {
 
-    /*! todo not in use yet
+    /*! todo not in use yet and not tested yet
     */
     template <typename TValue>
     class iaRingQueue
@@ -67,6 +67,7 @@ namespace IgorAux
     template <typename TValue>
     iaRingQueue<TValue>::iaRingQueue(uint64 size)
     {
+        con_assert(size > 0, "invalid param");
         if (size > 0)
         {
             _size = size;
@@ -74,7 +75,7 @@ namespace IgorAux
         }
         else
         {
-            con_err("invalid param"); // if this happens it will certainly crash later
+            con_err("invalid param");
         }
     }
 
@@ -90,9 +91,10 @@ namespace IgorAux
         _buffer[_head % _size] = value;
         _head++;
 
+        con_assert(_head % _size == _tail % _size, "ring buffer overflow");
         if (_head % _size == _tail % _size)
         {
-            con_err("ring buffer overflow"); // if this happens it will certainly crash later
+            con_err("ring buffer overflow");
         }
     }
 
@@ -101,7 +103,7 @@ namespace IgorAux
     {
         bool result = false;
 
-        f(_head % _size != _tail % _size)
+        if(_head % _size != _tail % _size)
         {
             dstValue = _buffer[_tail % _size];
             _tail++;
