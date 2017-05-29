@@ -82,7 +82,6 @@ namespace Igor
         */
         static const int32 RENDER_ORDER_MAX = 400;
 
-
         /*! \returns name of material
         */
         iaString getName();
