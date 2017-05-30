@@ -94,6 +94,10 @@ namespace IgorAux
         */
         __IGOR_INLINE__ TValue getValue(TIndex index) const;
 
+        /*! makes copy of RLE data
+
+        \param dst destination to copy the RLE data to
+        */
         __IGOR_INLINE__ void getCopy(iaRLE<TValue, TIndex>& dst) const;
 
     private:
