@@ -108,7 +108,7 @@ namespace Igor
         iaRLE<uint8, uint8>& getDensityPole(int64 xDir, int64 zDir);
         iaRLE<uint8, uint8>& getMaterialPole(int64 xDir, int64 zDir);
 
-		/*! sets a line of voxels to a target denstity
+		/*! sets a line of voxels to a target density
 
 		\param pos1 the from pos
 		\param pos2 the to pos
