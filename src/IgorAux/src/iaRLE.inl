@@ -55,7 +55,7 @@ __IGOR_INLINE__ TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
             blockIter++;
         }
 
-        con_err("invalid data. index " << index << ", size " << _size << ", block count " << _blocks.size());
+        con_err(false, "invalid data. index " << index << ", size " << _size << ", block count " << _blocks.size());
         return static_cast<TValue>(0);
     }
     else
@@ -85,6 +85,8 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length
         block._value = value;
         block._length = length;
 
+        iaRLEBlock<TValue, TIndex> patchBlock;
+
         TIndex currentBlockPos = static_cast<TIndex>(0);
         TIndex currentBlockLength = static_cast<TIndex>(0);
         auto blockIter = blocks.begin();
@@ -100,13 +102,22 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length
                 }
                 else
                 {
-                    (*blockIter)._length = index - currentBlockPos;
-                    _blocks.push_back((*blockIter));
+                    patchBlock._value = (*blockIter)._value;
+                    patchBlock._length = index - currentBlockPos;
+                    _blocks.push_back(patchBlock);
 
                     if (!blockInserted)
                     {
                         _blocks.push_back(block);
                         blockInserted = true;
+                    }
+
+                    (*blockIter)._length -= patchBlock._length;
+                    (*blockIter)._length -= block._length;
+
+                    if ((*blockIter)._length > 0)
+                    {
+                        _blocks.push_back((*blockIter));
                     }
                 }
             }
@@ -138,6 +149,16 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length
         }
     }
 
+#ifdef __IGOR_DEBUG__
+    TIndex totalLength = static_cast<TIndex>(0);
+    for (auto block : _blocks)
+    {
+        totalLength += block._length;
+        con_assert(block._length != 0, "invalid size");
+    }
+
+    con_assert(totalLength == _size, "invalid data");
+#endif
 
     _dirty = true;
 }
@@ -248,14 +269,14 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TValue value)
     }
 
 #ifdef __IGOR_DEBUG__
-    /*TIndex totalLength = static_cast<TIndex>(0);
+    TIndex totalLength = static_cast<TIndex>(0);
     for (auto block : _blocks)
     {
         totalLength += block._length;
         con_assert(block._length != 0, "invalid size");
     }
 
-    con_assert(totalLength == _size, "invalid data");*/
+    con_assert(totalLength == _size, "invalid data");
 #endif
 
     _dirty = true;
