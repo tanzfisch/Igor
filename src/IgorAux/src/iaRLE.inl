@@ -112,12 +112,14 @@ __IGOR_INLINE__ void iaRLE<TValue, TIndex>::setValue(TIndex index, TIndex length
                         blockInserted = true;
                     }
 
-                    (*blockIter)._length -= patchBlock._length;
-                    (*blockIter)._length -= block._length;
+                    int remainder = (*blockIter)._length;
+                    remainder -= patchBlock._length;
+                    remainder -= block._length;
 
-                    if ((*blockIter)._length > 0)
+                    if (remainder > 0)
                     {
-                        _blocks.push_back((*blockIter));
+                        patchBlock._length = remainder;
+                        _blocks.push_back(patchBlock);
                     }
                 }
             }
