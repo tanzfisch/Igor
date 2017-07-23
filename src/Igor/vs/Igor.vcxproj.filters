@@ -236,9 +236,6 @@
     <ClCompile Include="..\src\iWidgetGrid.cpp">
       <Filter>GUI\widgets</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iVoxelData.cpp">
-      <Filter>resources\special data</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iNodeSwitch.cpp">
       <Filter>scene\nodes</Filter>
     </ClCompile>
@@ -394,6 +391,24 @@
     </ClCompile>
     <ClCompile Include="..\src\iEntityLocatable.cpp">
       <Filter>entities</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iVoxelData.cpp">
+      <Filter>terrain\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iTaskGenerateVoxels.cpp">
+      <Filter>terrain\tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iTaskVoxelTerrain.cpp">
+      <Filter>terrain\tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iVoxelOperationBox.cpp">
+      <Filter>terrain\operations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iVoxelTerrain.cpp">
+      <Filter>terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iVoxelTerrainMeshGenerator.cpp">
+      <Filter>terrain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -648,9 +663,6 @@
     <ClInclude Include="..\src\iWidgetSlider.h">
       <Filter>GUI\widgets</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iVoxelData.h">
-      <Filter>resources\special data</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iNodeSwitch.h">
       <Filter>scene\nodes</Filter>
     </ClInclude>
@@ -823,6 +835,30 @@
     <ClInclude Include="..\src\iEntityLocatable.h">
       <Filter>entities</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iVoxelData.h">
+      <Filter>terrain\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iTaskGenerateVoxels.h">
+      <Filter>terrain\tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iTaskVoxelTerrain.h">
+      <Filter>terrain\tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iVoxelBlock.h">
+      <Filter>terrain\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iVoxelOperation.h">
+      <Filter>terrain\operations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iVoxelOperationBox.h">
+      <Filter>terrain\operations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iVoxelTerrain.h">
+      <Filter>terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iVoxelTerrainMeshGenerator.h">
+      <Filter>terrain</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -929,9 +965,6 @@
     <Filter Include="resources\models">
       <UniqueIdentifier>{46b50347-d1ef-4d4c-a6ea-f08f6c531335}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resources\special data">
-      <UniqueIdentifier>{9761f68d-1755-42bf-a179-1742e5bf230d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources\texture">
       <UniqueIdentifier>{23762d58-7f14-44d8-b5e9-e35fe90d4358}</UniqueIdentifier>
     </Filter>
@@ -976,6 +1009,18 @@
     </Filter>
     <Filter Include="entities">
       <UniqueIdentifier>{1637c4c0-32a5-4ba1-8496-a9f83e01a217}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="terrain">
+      <UniqueIdentifier>{8fa6a8e6-6632-481d-aee0-f49045e8ba35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="terrain\data">
+      <UniqueIdentifier>{2abde1d1-2ead-430c-a31f-d51588d7d058}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="terrain\tasks">
+      <UniqueIdentifier>{1b99dad5-d970-461c-840e-debbbee6f339}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="terrain\operations">
+      <UniqueIdentifier>{48fdb292-5fb3-404a-9378-aaf533b9daf4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

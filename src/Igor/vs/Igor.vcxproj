@@ -426,9 +426,11 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iTask.h" />
     <ClInclude Include="..\src\iTaskFlushModels.h" />
     <ClInclude Include="..\src\iTaskFlushTextures.h" />
+    <ClInclude Include="..\src\iTaskGenerateVoxels.h" />
     <ClInclude Include="..\src\iTaskLoadModel.h" />
     <ClInclude Include="..\src\iTaskManager.h" />
     <ClInclude Include="..\src\iTaskPrepareCollision.h" />
+    <ClInclude Include="..\src\iTaskVoxelTerrain.h" />
     <ClInclude Include="..\src\iTexture.h" />
     <ClInclude Include="..\src\iTextureFont.h" />
     <ClInclude Include="..\src\iTextureResourceFactory.h" />
@@ -443,7 +445,12 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="..\src\iVoxelBlock.h" />
     <ClInclude Include="..\src\iVoxelData.h" />
+    <ClInclude Include="..\src\iVoxelOperation.h" />
+    <ClInclude Include="..\src\iVoxelOperationBox.h" />
+    <ClInclude Include="..\src\iVoxelTerrain.h" />
+    <ClInclude Include="..\src\iVoxelTerrainMeshGenerator.h" />
     <ClInclude Include="..\src\iWidget.h" />
     <ClInclude Include="..\src\iWidgetBaseTheme.h" />
     <ClInclude Include="..\src\iWidgetButton.h" />
@@ -671,9 +678,11 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iTask.cpp" />
     <ClCompile Include="..\src\iTaskFlushModels.cpp" />
     <ClCompile Include="..\src\iTaskFlushTextures.cpp" />
+    <ClCompile Include="..\src\iTaskGenerateVoxels.cpp" />
     <ClCompile Include="..\src\iTaskLoadModel.cpp" />
     <ClCompile Include="..\src\iTaskManager.cpp" />
     <ClCompile Include="..\src\iTaskPrepareCollision.cpp" />
+    <ClCompile Include="..\src\iTaskVoxelTerrain.cpp" />
     <ClCompile Include="..\src\iTexture.cpp" />
     <ClCompile Include="..\src\iTextureFont.cpp" />
     <ClCompile Include="..\src\iTextureResourceFactory.cpp" />
@@ -688,6 +697,9 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\iVoxelData.cpp" />
+    <ClCompile Include="..\src\iVoxelOperationBox.cpp" />
+    <ClCompile Include="..\src\iVoxelTerrain.cpp" />
+    <ClCompile Include="..\src\iVoxelTerrainMeshGenerator.cpp" />
     <ClCompile Include="..\src\iWidget.cpp" />
     <ClCompile Include="..\src\iWidgetButton.cpp" />
     <ClCompile Include="..\src\iWidgetCheckBox.cpp" />
