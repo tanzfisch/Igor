@@ -111,6 +111,7 @@
       <AdditionalIncludeDirectories>..\..\..\src\Igor\src;..\..\..\src\IgorAux\src;..\..\..\3rd\Newton\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <DisableSpecificWarnings>4251</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
