@@ -37,10 +37,12 @@ namespace OMPF
         return _type;
     }
 
+	__IGOR_DISABLE_WARNING__(4100)
     uint32 ompfEmitterChunk::getSize(const ompfSettings& settings)
     {
         return 4 + 1; // size + type
     }
+	__IGOR_ENABLE_WARNING__(4100)
 
     bool ompfEmitterChunk::write(ofstream& file, const ompfSettings& settings)
     {

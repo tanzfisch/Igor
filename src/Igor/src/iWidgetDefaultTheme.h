@@ -73,12 +73,12 @@ namespace Igor
         void drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active);
         void drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, bool headerOnly, const iaString& text, iWidgetAppearanceState state, bool active);
         void drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, bool checked, iWidgetAppearanceState state, bool active);
-        void drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, long textWidth, iWidgetAppearanceState state, bool active);
+        void drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, int32 textWidth, iWidgetAppearanceState state, bool active);
         void drawNumberChooser(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState button_up_state, iWidgetAppearanceState button_down_state, bool active);
         void drawSelectBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active);
         void drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active);
         void drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active);
-        void drawText(int32 posx, int32 posy, const iaString& text, long textwidth);
+        void drawText(int32 posx, int32 posy, const iaString& text, int32 textwidth);
         void drawGraph(int32 posx, int32 posy, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points);
         void drawGraphGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active);
         void drawGraphLabels(int32 posx, int32 posy, int32 width, int32 height, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active);
@@ -94,19 +94,23 @@ namespace Igor
 
 	private:
 
+		/*! default line width definition
+		*/
+		const float32 _defaultLineWidth = 1.0;
+
+		/*! font size
+		*/
+		float32 _fontSize = 12;
+
+		/*! font line height
+		*/
+		float32 _fontLineHeight = 1.1f;
+
         shared_ptr<iTexture> _backgroundTexture = nullptr;
 
         /*! texture based font
         */
 		iTextureFont* _font = nullptr;
-
-        /*! font size
-        */
-		float32 _fontSize = 12;
-
-        /*! font line height
-        */
-		float32 _fontLineHeight = 1.1f;
 
         iaColor4f _ambient;
 		iaColor4f _darkDiffuse;
@@ -120,11 +124,43 @@ namespace Igor
 		iaColor4f _textColor;
 		iaColor4f _textColorDark;
 
-		int32 _defaultMaterial = 0;
-		int32 _texturedMaterial = 0;
-        float32 _defaultLineWidth = 1.0;
+		/*! default material id
+		*/
+		uint64 _defaultMaterial = 0;
 
-        void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
+		/*! texture material id
+		*/
+		uint64 _texturedMaterial = 0;
+
+        /*! drawing a line
+
+		integer version to wrap the float version of the renderer
+
+		\param x1 first horizontal position 
+		\param y1 first vertical position
+		\param x2 second horizontal position
+		\param y2 second vertical position
+		*/
+		void drawLineInt(int32 x1, int32 y1, int32 x2, int32 y2);
+
+		void drawLineFloat(float32 x1, float32 y1, float32 x2, float32 y2);
+
+		/*! draws a rectangle
+
+		integer version to wrap the float version of the renderer
+
+		\param x horizontal position
+		\parma y vertical position
+		\param width width of rectangle
+		\param height height of rectangle
+		*/
+		void drawRectangleInt(int32 x, int32 y, int32 width, int32 height);
+
+		/*! draws a text
+
+		integer version to wrap the float version of the renderer
+		*/
+		void drawStringInt(int32 x, int32 y, iaString text, float32 angle = 0.0f, int32 maxWidth = 0);
 
         void drawButtonFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active);
 		void drawButtonFrame(int32 x, int32 y, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active);
@@ -138,4 +174,6 @@ namespace Igor
 }
 
 #endif
+
+
 

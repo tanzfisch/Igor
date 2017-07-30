@@ -262,14 +262,14 @@ namespace Igor
             {
                 vector<iaVector2f> points = _graphs[0]._points;
 
-                iRectanglei buttonRect(0, 0, 0, 0);
+                iRectanglei buttonRect;
                 buttonRect._height = _buttonHeight;
                 buttonRect._width = 9;
-                buttonRect._y = graphRenderArea._height + graphRenderArea._y + 1;
+                buttonRect._y = static_cast<int32>(graphRenderArea._height + graphRenderArea._y + 1.0f);
 
                 for (auto point : points)
                 {
-                    buttonRect._x = (((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4;
+                    buttonRect._x = static_cast<int32>((((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4.0f);
                     iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetAppearanceState::Standby, isActive());
                 }
             }
@@ -320,7 +320,7 @@ namespace Igor
 
     bool iWidgetGraph::handleMouseKeyDown(iKeyCode key)
     {
-        iaVector2f mousePos(getLastMouseX(), getLastMouseY());
+        iaVector2f mousePos(static_cast<float32>(getLastMouseX()), static_cast<float32>(getLastMouseY()));
 
         if (_interactive)
         {
@@ -332,8 +332,8 @@ namespace Igor
 
             vector<iaVector2f> points = _graphs[0]._points;
 
-            iRectanglef buttonRect(0, 0, 0, 0);
-            buttonRect._height = _buttonHeight;
+            iRectanglef buttonRect;
+            buttonRect._height = static_cast<float32>(_buttonHeight);
             buttonRect._width = 9;
             buttonRect._y = graphRenderArea._height + graphRenderArea._y + 1;
 
@@ -353,7 +353,7 @@ namespace Igor
 
             if (iIntersection::intersects(mousePos, graphRenderArea))
             {
-                float32 value = (static_cast<float32>(mousePos._x - graphRenderArea._x) / static_cast<float32>(graphRenderArea._width)) * boundings._width;
+                float32 value = ((mousePos._x - graphRenderArea._x) / graphRenderArea._width) * boundings._width;
 
                 for (auto& graph : _graphs)
                 {

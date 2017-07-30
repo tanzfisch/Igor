@@ -164,6 +164,7 @@ namespace OMPF
         return _indexCount;
     }
 
+	__IGOR_DISABLE_WARNING__(4100)
     uint32 ompfMeshChunk::getSize(const ompfSettings& settings)
     {
         uint32 material = 3; // ambient
@@ -190,6 +191,7 @@ namespace OMPF
 
         return material + attributes + _vertexDataSize + _indexDataSize + textures;
     }
+	__IGOR_ENABLE_WARNING__(4100)
 
     void ompfMeshChunk::setBoundingSphere(const iaVector3f& pos, float32 radius)
     {
@@ -342,7 +344,7 @@ namespace OMPF
         iaSerializable::writeUInt8(file, static_cast<uint8>(getTextureCount()));
         con_debug_endl("textureCount " << getTextureCount());
 
-        int i = 0;
+        uint i = 0;
         auto iterTex = _textures.begin();
         while (iterTex != _textures.end())
         {
