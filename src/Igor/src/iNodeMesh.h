@@ -40,6 +40,8 @@ namespace Igor
     class iMeshBuffers;
     class iTargetMaterial;
 
+	__IGOR_DISABLE_WARNING__(4275) // the interface of iNodeVolume is not fully public on purpose
+
     /*! represents a mesh within the scene
 
     \todo remove as many friends as possible
@@ -166,6 +168,8 @@ namespace Igor
         virtual ~iNodeMesh();
 
 	};
+
+	__IGOR_ENABLE_WARNING__(4275)
 
 }
 

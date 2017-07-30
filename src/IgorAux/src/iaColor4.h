@@ -262,12 +262,12 @@ namespace IgorAux
         {
             iaColor4<T> result;
 
-            T h = hsv._r * 360.0;
+            T h = hsv._r * static_cast<T>(360.0);
             T s = hsv._g;
             T v = hsv._b;
 
             T c = v * s;
-            T x = c * (1 - fabs(fmod(static_cast<double>(h / 60.0), 2) - 1));
+            T x = c * (1 - static_cast<T>(fabs(fmod((static_cast<double>(h) / 60.0), 2.0) - 1.0)));
 
             T m = v - c;
 

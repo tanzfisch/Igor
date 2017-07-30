@@ -82,10 +82,10 @@ namespace Igor
 
         !!! ATTENTION consumes and deletes "parameter"
 
-        \param sectionname name of tile section
+        \param filename usually the file name but we are not using it here because wedon't load but generate data
         \return parameter tile parameters
         */
-        iNode* importData(const iaString& sectionName, iModelDataInputParameter* parameter);
+        iNode* importData(const iaString& filename, iModelDataInputParameter* parameter);
 
         /*! initialize members
         */
