@@ -46,6 +46,9 @@ using namespace std;
 
 namespace Igor
 {
+
+	__IGOR_DISABLE_WARNING__(4275) // the interface of iNodeVolume is not fully public on purpose
+
     /*! node that handles physics collisions bound to one body
 
     \todo also need to remove things after adding them. maybe using IDs for that
@@ -316,6 +319,8 @@ namespace Igor
         virtual ~iNodePhysics();
 
 	};
+
+	__IGOR_ENABLE_WARNING__(4275)
 
 };
 

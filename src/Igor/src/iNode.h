@@ -108,7 +108,7 @@ namespace Igor
 
         /*! invalid node id definition
         */
-        static const uint32 INVALID_NODE_ID = 0;
+        static const uint64 INVALID_NODE_ID = 0;
 
         /*! \returns kind (group) of the node
         */
@@ -120,7 +120,7 @@ namespace Igor
 
         /*! \returns id of the node
         */
-        uint32 getID() const;
+        uint64 getID() const;
 
         /*! \returns name of the node
         */
@@ -200,7 +200,7 @@ namespace Igor
         \param id the id of the child node
         \returns pointer to child object
         */
-        iNode* getChild(uint32 id);
+        iNode* getChild(uint64 id);
 
         /*! \returns list of inactive children
         */
@@ -333,7 +333,7 @@ namespace Igor
 
         \param nodeIDMap map with old node ids to new node ids
         */
-        virtual void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+        virtual void onPostCopyLink(map<uint64, uint64>& nodeIDMap);
 
         /*! set's node id
         */
@@ -359,11 +359,11 @@ namespace Igor
 
         /*! the next node id
         */
-        static uint32 _nextID;
+        static uint64 _nextID;
 
         /*! id of this node
         */
-        uint32 _nodeID = INVALID_NODE_ID;
+        uint64 _nodeID = iNode::INVALID_NODE_ID;
 
         /*! calculates world transformation of this node
 

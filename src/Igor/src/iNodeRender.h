@@ -63,11 +63,11 @@ namespace Igor
 
         \param materialID material id
         */
-        void setMaterial(uint32 materialID);
+        void setMaterial(uint64 materialID);
 
         /*! \retruns material id
         */
-        uint32 getMaterial();
+        uint64 getMaterial();
 
         /*! sets visibility of this node
 
@@ -130,7 +130,7 @@ namespace Igor
 
         /*! material id to render with
         */
-        uint32 _materialID = iMaterial::INVALID_MATERIAL_ID;
+        uint64 _materialID = iMaterial::INVALID_MATERIAL_ID;
 
 	};
 

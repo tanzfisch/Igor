@@ -37,7 +37,7 @@ namespace Igor
 
 			for (auto widget : widgets)
 			{
-				widget->handleMouseMove(x - _translate._pos._x, y - _translate._pos._y);
+				widget->handleMouseMove(x - static_cast<int32>(_translate._pos._x), y - static_cast<int32>(_translate._pos._y));
 			}
 
 			if (x >= _absoluteX &&
@@ -164,8 +164,8 @@ namespace Igor
 				scrollspace = getActualHeight() - 6 - _scrollbarWidth * 2;
 			}
 
-			_vscrollButton.setHeight(((float32)getActualHeight() / childHeight) * scrollspace);
-			_vscrollButton.setY((scrollspace - _vscrollButton.getHeight()) * _vscroll + 3 + _scrollbarWidth);
+			_vscrollButton.setHeight(static_cast<int32>((static_cast<float32>(getActualHeight()) / static_cast<float32>(childHeight)) * static_cast<float32>(scrollspace)));
+			_vscrollButton.setY(static_cast<int32>(static_cast<float32>(scrollspace - _vscrollButton.getHeight()) * _vscroll + 3.0f + static_cast<float32>(_scrollbarWidth)));
 			_vscrollButton.setX(getActualWidth() - _scrollbarWidth - 2);
 			_vscrollButton.setWidth(_scrollbarWidth);
 		}
@@ -182,8 +182,8 @@ namespace Igor
 				scrollspace = getActualWidth() - 6 - _scrollbarWidth * 2;
 			}
 
-			_hscrollButton.setWidth(((float32)getActualWidth() / childWidth) * scrollspace);
-			_hscrollButton.setX((scrollspace - _hscrollButton.getWidth()) * _hscroll + 4 + _scrollbarWidth);
+			_hscrollButton.setWidth(static_cast<int32>((static_cast<float32>(getActualWidth()) / static_cast<float32>(childWidth)) * static_cast<float32>(scrollspace)));
+			_hscrollButton.setX(static_cast<int32>(static_cast<float32>(scrollspace - _hscrollButton.getWidth()) * _hscroll + 4.0f + static_cast<float32>(_scrollbarWidth)));
 			_hscrollButton.setY(getActualHeight() - _scrollbarWidth - 2);
 			_hscrollButton.setHeight(_scrollbarWidth);
 		}
@@ -290,8 +290,8 @@ namespace Igor
 			if (_vscrollActive && _hscrollActive) // hv scrollbars
 			{
 				iRenderer::getInstance().setColor(dark);
-				iRenderer::getInstance().drawRectangle(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, getActualHeight() - 4);
-				iRenderer::getInstance().drawRectangle(getActualPosX() + 1, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, getActualWidth() - 3, _scrollbarWidth); // don't ask about the coordinates -.-
+				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4));
+				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
 
 				// left button
 				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
@@ -321,7 +321,7 @@ namespace Igor
 			else if (_hscrollActive) // h scrollbar
 			{
 				iRenderer::getInstance().setColor(dark);
-				iRenderer::getInstance().drawRectangle(getActualPosX() + 1, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, getActualWidth() - 3, _scrollbarWidth); // don't ask about the coordinates -.-
+				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
 
 				// left button
 				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
@@ -339,7 +339,7 @@ namespace Igor
 			else if (_vscrollActive) // v scrollbar
 			{
 				iRenderer::getInstance().setColor(dark);
-				iRenderer::getInstance().drawRectangle(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, getActualHeight() - 4);
+				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4));
 
 				// top button
 				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
@@ -373,7 +373,7 @@ namespace Igor
 					iRenderer::getInstance().getModelMatrix(modelMatrix);
 
 					iRenderer::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
-					iRenderer::getInstance().setOrtho(0, absoluteFramePos.getWidth(), absoluteFramePos.getHeight(), 0, 1, 40);
+					iRenderer::getInstance().setOrtho(0.0f, static_cast<float32>(absoluteFramePos.getWidth()), static_cast<float32>(absoluteFramePos.getHeight()), 0.0f, 1.0f, 40.0f);
 
 					iaMatrixd matrix;
 					matrix.translate(-getActualPosX(), -getActualPosY(), -30);

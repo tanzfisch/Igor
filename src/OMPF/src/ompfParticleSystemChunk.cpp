@@ -285,20 +285,21 @@ namespace OMPF
         return _emitterID;
     }
 
+	__IGOR_DISABLE_WARNING__(4100)
     uint32 ompfParticleSystemChunk::getSize(const ompfSettings& settings)
     {
         uint32 result = 0;
         result += 2; // max particle count
         result += 1; // loop
-        result += _colorGradient.getValues().size() * (sizeof(float32) * (1+4));
-        result += _emissionGradient.getValues().size() * (sizeof(float32) * (1+1));
-        result += _sizeScaleGradient.getValues().size() * (sizeof(float32) * 2);
-        result += _orientationGradient.getValues().size() * (sizeof(float32) * (1+2));
-        result += _orientationRateGradient.getValues().size() * (sizeof(float32) * (1+2));
-        result += _liftGradient.getValues().size() * (sizeof(float32) * 3);
-        result += _velocityGradient.getValues().size() * (sizeof(float32) * 3);
-        result += _sizeGradient.getValues().size() * (sizeof(float32) * 3);
-        result += _startVisibleTimeGradient.getValues().size() * (sizeof(float32) * 3);
+        result += static_cast<uint32>(_colorGradient.getValues().size()) * (sizeof(float32) * (1+4));
+        result += static_cast<uint32>(_emissionGradient.getValues().size()) * (sizeof(float32) * (1+1));
+        result += static_cast<uint32>(_sizeScaleGradient.getValues().size()) * (sizeof(float32) * 2);
+        result += static_cast<uint32>(_orientationGradient.getValues().size()) * (sizeof(float32) * (1+2));
+        result += static_cast<uint32>(_orientationRateGradient.getValues().size()) * (sizeof(float32) * (1+2));
+        result += static_cast<uint32>(_liftGradient.getValues().size()) * (sizeof(float32) * 3);
+        result += static_cast<uint32>(_velocityGradient.getValues().size()) * (sizeof(float32) * 3);
+        result += static_cast<uint32>(_sizeGradient.getValues().size()) * (sizeof(float32) * 3);
+        result += static_cast<uint32>(_startVisibleTimeGradient.getValues().size()) * (sizeof(float32) * 3);
         result += 4 + 4; //min max vortex torque
         result += 4 + 4; //min max vortex range
         result += 1; // vortex check range
@@ -315,6 +316,7 @@ namespace OMPF
         result += 4; // emitter chunk id
         return result; // 24
     }
+	__IGOR_ENABLE_WARNING__(4100)
 
     bool ompfParticleSystemChunk::write(ofstream& stream, const ompfSettings& settings)
     {

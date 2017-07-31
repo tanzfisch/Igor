@@ -40,7 +40,7 @@ namespace Igor
 
 	class iModelData;
     class iModel;
-    class iModelDataInputParameter;
+    struct iModelDataInputParameter;
 
     /*! event triggered when model was loaded
     */

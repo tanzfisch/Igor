@@ -14,7 +14,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    void iDataUpdateQueue::addNode(uint32 nodeID)
+    void iDataUpdateQueue::addNode(uint64 nodeID)
     {
         _mutex.lock();
 

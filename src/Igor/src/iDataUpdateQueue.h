@@ -51,7 +51,7 @@ namespace Igor
 
         thread save addind to queue
         */
-        void addNode(uint32 nodeID);
+        void addNode(uint64 nodeID);
 
         /*! called indirectly by iScene once per frame to process possible updates in scene
 
@@ -67,11 +67,11 @@ namespace Igor
 
         /*! contains model nodes that just got inserted or changed
         */
-        vector<uint32> _loadingQueue;
+        vector<uint64> _loadingQueue;
 
         /*! contains model nodes to be processed in current frame
         */
-        vector<uint32> _processingQueue;
+        vector<uint64> _processingQueue;
         
 	};
 

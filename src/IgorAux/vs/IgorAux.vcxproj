@@ -68,7 +68,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
@@ -83,8 +83,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath);$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
@@ -93,8 +93,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
@@ -152,11 +152,11 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <FloatingPointExceptions>true</FloatingPointExceptions>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4251; 4150; 4091%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
     </ClCompile>
     <PreLinkEvent>
@@ -165,11 +165,12 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LargeAddressAware>false</LargeAddressAware>
+      <LargeAddressAware>true</LargeAddressAware>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <PostBuildEvent>
       <Message>copy IgorAux to /lib, /bin</Message>
@@ -240,9 +241,9 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D</Comman
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <DisableSpecificWarnings>4251; 4150; 4091%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <WarningLevel>Level4</WarningLevel>
-      <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <MinimalRebuild>false</MinimalRebuild>
       <BrowseInformation>true</BrowseInformation>
     </ClCompile>
@@ -252,12 +253,13 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D</Comman
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SetChecksum>true</SetChecksum>
       <Profile>false</Profile>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <LargeAddressAware>true</LargeAddressAware>
     </Link>
     <PostBuildEvent>
       <Message>copy IgorAux to /lib, /bin</Message>

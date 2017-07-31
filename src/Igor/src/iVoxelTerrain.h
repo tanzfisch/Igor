@@ -215,7 +215,7 @@ namespace Igor
 
         /*! terrain material id
         */
-        uint32 _terrainMaterialID = 0;
+        uint64 _terrainMaterialID = 0;
 
         /*! lod trigger node id
         */

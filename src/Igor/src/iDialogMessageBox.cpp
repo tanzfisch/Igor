@@ -140,6 +140,7 @@ namespace Igor
         }
     }
 
+	__IGOR_DISABLE_WARNING__(4100)
     void iDialogMessageBox::onOK(iWidget* source)
     {
         _messageBoxReturnValue = iMessageBoxReturnValue::Ok;
@@ -163,6 +164,7 @@ namespace Igor
         _messageBoxReturnValue = iMessageBoxReturnValue::No;
         close();
     }
+	__IGOR_ENABLE_WARNING__(4100);
 
     void iDialogMessageBox::close()
     {

@@ -140,7 +140,7 @@ namespace Igor
 
         /*! lookup table for material groups.
         */
-        map<int32, iMaterialGroup*> _materialMap;
+        map<uint64, iMaterialGroup*> _materialMap;
 
         /*! mutex to protect the target material list
         */

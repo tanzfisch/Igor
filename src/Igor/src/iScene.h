@@ -59,13 +59,13 @@ namespace Igor
 
     \param nodeID node that was added to scene
     */
-    iaEVENT(iAddedNodeEvent, iAddedNodeDelegate, void, (uint32 nodeID), (nodeID));
+    iaEVENT(iAddedNodeEvent, iAddedNodeDelegate, void, (uint64 nodeID), (nodeID));
 
     /*! event triggered when node was removed from scene
 
     \param nodeID node that was removed from scene
     */
-    iaEVENT(iRemovedNodeEvent, iRemovedNodeDelegate, void, (uint32 nodeID), (nodeID));
+    iaEVENT(iRemovedNodeEvent, iRemovedNodeDelegate, void, (uint64 nodeID), (nodeID));
 
     /*! the scene graph
 
@@ -107,7 +107,7 @@ namespace Igor
 
         /*! \returns current camera
         */
-        uint32 getCamera();
+        uint64 getCamera();
 
         /*! \returns list of registerred lights
         */
@@ -202,11 +202,11 @@ namespace Igor
 
         /*! id of current camera
         */
-		uint32 _cameraID = iNode::INVALID_NODE_ID;
+		uint64 _cameraID = iNode::INVALID_NODE_ID;
 
         /*! list of registered cameras to the scene
         */
-		vector<uint32> _cameras;
+		vector<uint64> _cameras;
 
         /*! list of registered lod triggers
         */
@@ -262,7 +262,7 @@ namespace Igor
 
         \param cameraID id to camera
         */
-        void setCamera(uint32 cameraID);
+        void setCamera(uint64 cameraID);
 
         /*! registers a LOD trigger node
 
@@ -338,13 +338,13 @@ namespace Igor
 
         \param nodeID the node's id that was added
         */
-        void signalNodeAdded(uint32 nodeID);
+        void signalNodeAdded(uint64 nodeID);
 
         /*! signals the scene that a node was removed
 
         \param nodeID the node's id that was removed
         */
-        void signalNodeRemoved(uint32 nodeID);
+        void signalNodeRemoved(uint64 nodeID);
 
         /*! initializes scene and octree
         */

@@ -86,11 +86,6 @@ namespace Igor
         }
     }
 
-    void iUserControlColorChooser::onExpandButtonPressed(iWidget* source)
-    {
-        setExpanded(!_expanded);
-    }
-
     void iUserControlColorChooser::setExpand(bool expand)
     {
         setExpanded(expand);
@@ -224,6 +219,12 @@ namespace Igor
             _expandButton->setTexture("icons\\plus.png");
         }
     }
+
+	__IGOR_DISABLE_WARNING__(4100)
+	void iUserControlColorChooser::onExpandButtonPressed(iWidget* source)
+	{
+		setExpanded(!_expanded);
+	}
 
     void iUserControlColorChooser::onValueChangedH(iWidget* source)
     {
@@ -362,6 +363,7 @@ namespace Igor
         updateColorHSV();
         updateWidgets();
     }
+	__IGOR_ENABLE_WARNING__(4100)
 
     void iUserControlColorChooser::updateWidgets()
     {
