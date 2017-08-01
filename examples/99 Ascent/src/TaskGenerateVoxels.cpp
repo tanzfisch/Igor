@@ -15,7 +15,7 @@ using namespace IgorAux;
 int32 TaskGenerateVoxels::_seed = 0;
 vector<iSpheref> TaskGenerateVoxels::_metaballs;
 vector<iSpheref> TaskGenerateVoxels::_holes;
-mutex TaskGenerateVoxels::_initMutex;
+iaMutex TaskGenerateVoxels::_initMutex;
 
 TaskGenerateVoxels::TaskGenerateVoxels(VoxelBlock* voxelBlock, uint32 priority)
 	: iTask(nullptr, priority, false, iTaskContext::Default)

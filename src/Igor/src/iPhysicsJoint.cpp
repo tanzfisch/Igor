@@ -10,7 +10,7 @@ namespace Igor
 {
 
     uint64 iPhysicsJoint::_nextJointID = 1;
-    mutex iPhysicsJoint::_mutex;
+    iaMutex iPhysicsJoint::_mutex;
 
     iPhysicsJoint::iPhysicsJoint(void* joint, uint64 body0, uint64 body1)
     {

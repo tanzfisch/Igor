@@ -13,7 +13,7 @@ namespace Igor
 {
 
 	uint64 iNode::_nextID = iNode::INVALID_NODE_ID + 1;
-	mutex iNode::_mutexID;
+	iaMutex iNode::_mutexID;
 
 	iNode::iNode()
 	{

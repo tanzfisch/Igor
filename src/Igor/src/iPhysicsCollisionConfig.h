@@ -34,6 +34,7 @@
 
 #include <iaVector3.h>
 #include <iaMatrix.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <memory>
@@ -199,7 +200,7 @@ namespace Igor
 
         /*! saves next id
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! lsit of boxes
         */

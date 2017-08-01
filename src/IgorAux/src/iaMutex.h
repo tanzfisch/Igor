@@ -63,6 +63,10 @@ namespace IgorAux
 		*/
         void unlock();
 
+		/*! try locks the mutex
+		*/
+		bool tryLock();
+
     private:
 
 		/*! handle to mutex

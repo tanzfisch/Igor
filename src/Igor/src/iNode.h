@@ -34,12 +34,12 @@
 
 #include <iaString.h>
 #include <iaMatrix.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <ostream>
 #include <vector>
 #include <memory>
-#include <mutex>
 #include <map>
 using namespace std;
 
@@ -355,7 +355,7 @@ namespace Igor
 
         /*! mutex to save unique id generation
         */
-        static mutex _mutexID;
+        static iaMutex _mutexID;
 
         /*! the next node id
         */

@@ -31,8 +31,10 @@
 
 #include <iDefines.h>
 
+#include <iaMutex.h>
+using namespace IgorAux;
+
 #include <vector>
-#include <mutex>
 using namespace std;
 
 namespace Igor
@@ -63,7 +65,7 @@ namespace Igor
 
         /*! sync with data load workers
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! contains model nodes that just got inserted or changed
         */

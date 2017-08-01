@@ -34,11 +34,11 @@
 #include <iaSingleton.h>
 #include <iaDirectory.h>
 #include <iaString.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <map>
 #include <vector>
-#include <mutex>
 using namespace std;
 
 namespace Igor
@@ -85,7 +85,7 @@ namespace Igor
 
         /*! mutex to manage access to internal data
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! list of search paths
         */

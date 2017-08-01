@@ -32,6 +32,7 @@
 #include <iNode.h>
 
 #include <iaSingleton.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <map>
@@ -173,7 +174,7 @@ namespace Igor
 
         /*! mutex to protect node list
         */
-        mutex _mutexNodes;
+        iaMutex _mutexNodes;
 
         /*! queue with actions
         */
@@ -181,7 +182,7 @@ namespace Igor
 
         /*! mutex to protect activities
         */
-        mutex _mutexQueue;
+		iaMutex _mutexQueue;
 
         /*! internal copy function for nodes
 

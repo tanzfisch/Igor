@@ -33,4 +33,9 @@ namespace IgorAux
 		static_cast<mutex*>(handle)->unlock();
 	}
 
+	bool iaMutex::tryLock()
+	{
+		return static_cast<mutex*>(handle)->try_lock();
+	}
+
 }

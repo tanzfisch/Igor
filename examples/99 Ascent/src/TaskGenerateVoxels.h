@@ -6,6 +6,7 @@
 using namespace Igor;
 
 #include <iaVector3.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <vector>
@@ -51,7 +52,7 @@ private:
     static vector<iSpheref> _metaballs;
     static vector<iSpheref> _holes;
     static int32 _seed;
-    static mutex _initMutex;
+    static iaMutex _initMutex;
 
     /*! the data to work with
     */

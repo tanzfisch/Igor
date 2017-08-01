@@ -11,7 +11,7 @@ namespace Igor
 
     const uint64 iEntity::INVALID_ENTITY_ID = 0;
     uint64 iEntity::_nextID = iEntity::INVALID_ENTITY_ID + 1;
-    mutex iEntity::_mutexID;
+    iaMutex iEntity::_mutexID;
 
     iEntity::iEntity()
     {

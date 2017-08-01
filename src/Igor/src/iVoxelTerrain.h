@@ -39,6 +39,7 @@
 
 #include <iaEvent.h>
 #include <iaVector3.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <unordered_map>
@@ -147,7 +148,7 @@ namespace Igor
 
         vector<shared_ptr<iVoxelOperation>> _operationsQueue;
 
-        mutex _operationsQueueMutex;
+        iaMutex _operationsQueueMutex;
 
         /*! delegate registered by application to generate voxel data
         */
@@ -159,7 +160,7 @@ namespace Igor
 
         /*! mutex to protect action queue
         */
-        mutex _mutexActionQueue;
+        iaMutex _mutexActionQueue;
 
         /*! performance section discover blocks
         */
