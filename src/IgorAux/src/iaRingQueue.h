@@ -31,9 +31,6 @@
 
 #include <iaDefines.h>
 
-#include <mutex>
-using namespace std;
-
 namespace IgorAux
 {
 

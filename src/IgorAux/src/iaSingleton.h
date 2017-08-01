@@ -29,10 +29,7 @@
 #ifndef __IGOR_AUX_SINGLETON__
 #define __IGOR_AUX_SINGLETON__
 
-#include <iaDefines.h>
-
-#include <mutex>
-using namespace std;
+#include <iaMutex.h>
 
 namespace IgorAux
 {
@@ -113,7 +110,7 @@ namespace IgorAux
 
 		/*! mutex to protect instance pointer
 		*/
-		static mutex _mutex;
+		static iaMutex _mutex;
 
 		/*! copy constructor is not allowed to use
 		*/
@@ -127,7 +124,7 @@ namespace IgorAux
 
     /*! the mutex of any singleton
     */
-    template<typename T>mutex iaSingleton<T>::_mutex;
+    template<typename T>iaMutex iaSingleton<T>::_mutex;
     
 #pragma warning(default:4100) 
 };

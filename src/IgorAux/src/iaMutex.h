@@ -26,77 +26,51 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iWIDGETCOLOR__
-#define __iWIDGETCOLOR__
+#ifndef __IGOR_AUX_MUTEX__
+#define __IGOR_AUX_MUTEX__
 
-#include <iWidget.h>
+#include <iaDefines.h>
 
-#include <iaString.h>
-#include <iaColor4.h>
-using namespace IgorAux;
-
-#include <memory>
-using namespace std;
-
-namespace Igor
+namespace IgorAux
 {
 
-    class iTexture;
+	/*! mutex
 
-    /*! color view widget
-
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
-
-    */
-	class Igor_API iWidgetColor : public iWidget
+	wraps std::mutex
+ 	*/
+	class IgorAux_API iaMutex
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
-
-	public:
-
-		/*! sets color
-		\param color color value in rgba
+		/*! mutex handle definition
 		*/
-        void setColor(const iaColor4f& color);
+		typedef void* iaMutexHandle;
 
-		/*! \returns current color value
+    public:
+
+		/*! creates a mutex
 		*/
-        const iaColor4f& getColor() const;
+        iaMutex();
 
-	private:
-
-        /*! the color to present
-        */
-        iaColor4f _color;
-
-        /*! shared pointer to background texture
-        */
-        shared_ptr<iTexture> _texture = nullptr;
-
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
-
-		/*! draws the widget
+		/*! destroys a mutex
 		*/
-		void draw();
+        ~iaMutex();
 
-        /*! ctor initializes member variables
-        */
-        iWidgetColor();
+		/*! locks a mutex
+		*/
+        void lock();
 
-        /*! release texture
-        */
-		virtual ~iWidgetColor();
+		/*! unlocks a mutex
+		*/
+        void unlock();
 
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
+    private:
+
+		/*! handle to mutex
+		*/
+		iaMutexHandle handle = nullptr;
+
 	};
+
 }
 
 #endif
