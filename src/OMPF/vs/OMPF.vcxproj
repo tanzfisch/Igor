@@ -68,7 +68,7 @@
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkIncremental>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
@@ -148,15 +148,21 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
       <MinimalRebuild>true</MinimalRebuild>
       <SmallerTypeCheck>false</SmallerTypeCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <FloatingPointExceptions>
+      </FloatingPointExceptions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4251; 4150;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <WarningLevel>Level4</WarningLevel>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitFramePointers>false</OmitFramePointers>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PrecompiledHeader />
     </ClCompile>
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
@@ -164,12 +170,14 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LargeAddressAware>true</LargeAddressAware>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <LargeAddressAware>
+      </LargeAddressAware>
       <AdditionalDependencies>%(AdditionalDependencies);</AdditionalDependencies>
       <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
       <Message>copy OMPF files -&gt; /lib, /bin</Message>
@@ -226,22 +234,25 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
       </Command>
     </PreBuildEvent>
     <ClCompile>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\src\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>OMPF_BUILDING_DLL;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <WarningLevel>Level4</WarningLevel>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
       <DisableSpecificWarnings>4251; 4150;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <MinimalRebuild>false</MinimalRebuild>
-      <BrowseInformation>true</BrowseInformation>
+      <BrowseInformation>false</BrowseInformation>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
     </ClCompile>
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
@@ -249,14 +260,18 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\lib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SetChecksum>true</SetChecksum>
+      <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
+      <SetChecksum>false</SetChecksum>
       <Profile>false</Profile>
       <AdditionalDependencies>%(AdditionalDependencies);</AdditionalDependencies>
-      <LargeAddressAware>true</LargeAddressAware>
-      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <LargeAddressAware>
+      </LargeAddressAware>
+      <LinkTimeCodeGeneration>UseFastLinkTimeCodeGeneration</LinkTimeCodeGeneration>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <PostBuildEvent>
       <Message>copy OMPF files -&gt; /lib, /bin</Message>

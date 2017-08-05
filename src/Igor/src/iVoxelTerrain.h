@@ -274,7 +274,7 @@ namespace Igor
         void setNodeActiveAsync(iNode* node, bool active);
         void insertNodeAsync(iNode* src, iNode* dst);
         void removeNodeAsync(iNode* src, iNode* dst);
-        void destroyNodeAsync(uint32 nodeID);
+        void destroyNodeAsync(uint64 nodeID);
 
         uint8 calcLODTransition(iVoxelBlock* voxelBlock);
 

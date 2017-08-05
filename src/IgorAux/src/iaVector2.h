@@ -82,7 +82,7 @@ namespace IgorAux
 
         \param vec vector to be assigned to this vector
         */
-        __IGOR_INLINE__ iaVector2<T> operator= (const iaVector2<T> &vec);
+		__IGOR_INLINE__ iaVector2<T> operator= (const iaVector2<T> &vec);
 
         /*! multiplication of vector with scalar
 

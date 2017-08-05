@@ -89,16 +89,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

@@ -129,7 +129,7 @@ namespace Igor
         _actionQueue.push_back(action);
     }
 
-    void iVoxelTerrain::destroyNodeAsync(uint32 nodeID)
+    void iVoxelTerrain::destroyNodeAsync(uint64 nodeID)
     {
         con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
 

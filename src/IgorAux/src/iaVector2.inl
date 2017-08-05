@@ -68,7 +68,7 @@ void iaVector2<T>::operator-= (const iaVector2<T> &vec)
 }
 
 template <class T>
-iaVector2<T> iaVector2<T>::operator= (const iaVector2<T> &vec)
+iaVector2<T> iaVector2<T>::operator = (const iaVector2<T> &vec)
 {
     iaVector2<T> result;
     result._x = _x = vec._x;

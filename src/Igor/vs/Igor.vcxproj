@@ -155,15 +155,20 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
       <MinimalRebuild>true</MinimalRebuild>
       <SmallerTypeCheck>false</SmallerTypeCheck>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
+      <FloatingPointExceptions>
+      </FloatingPointExceptions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <DisableSpecificWarnings>4251; 4150;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <WarningLevel>Level4</WarningLevel>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <OmitFramePointers>false</OmitFramePointers>
+      <PrecompiledHeader />
     </ClCompile>
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
@@ -171,11 +176,13 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LargeAddressAware>false</LargeAddressAware>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+      <LargeAddressAware>
+      </LargeAddressAware>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
       <Message>Install Igor &amp; 3rd -&gt; /lib, /bin</Message>
@@ -246,23 +253,26 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
       </Command>
     </PreBuildEvent>
     <ClCompile>
-      <Optimization>Full</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <OmitFramePointers>false</OmitFramePointers>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;WIN32;NDEBUG;__IGOR_BUILDING_DLL__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MultiProcessorCompilation>
+      </MultiProcessorCompilation>
       <DisableSpecificWarnings>4251; 4150;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level3</WarningLevel>
       <MinimalRebuild>false</MinimalRebuild>
-      <BrowseInformation>true</BrowseInformation>
+      <BrowseInformation>false</BrowseInformation>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <PrecompiledHeader />
     </ClCompile>
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
