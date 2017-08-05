@@ -243,7 +243,7 @@ namespace Igor
 
     uint64 iMaterialResourceFactory::getMaterialID(iaString materialName)
     {
-        uint32 result = 0;
+		uint64 result = iMaterial::INVALID_MATERIAL_ID;
 
         _mutexMaterial.lock();
         auto materialIter = _materials.begin();
@@ -259,7 +259,7 @@ namespace Igor
 
         _mutexMaterial.unlock();
 
-        if (0 == result)
+        if (result == iMaterial::INVALID_MATERIAL_ID)
         {
             con_err("material with name:" << materialName << " does not exist");
         }

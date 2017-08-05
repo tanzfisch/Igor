@@ -84,7 +84,7 @@ namespace Igor
         _mutexQueue.unlock();
     }
     
-    void iNodeFactory::destroyNodeAsync(uint32 nodeID)
+    void iNodeFactory::destroyNodeAsync(uint64 nodeID)
     {
         con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
 
@@ -176,9 +176,9 @@ namespace Igor
         }
     }
 
-    vector<uint32> iNodeFactory::getNodes(iNodeType nodeType)
+    vector<uint64> iNodeFactory::getNodes(iNodeType nodeType)
     {
-        vector<uint32> result;
+        vector<uint64> result;
 
         for (auto node : _nodes)
         {
@@ -191,7 +191,7 @@ namespace Igor
         return result;
     }
 
-    iNode* iNodeFactory::getNode(uint32 id)
+    iNode* iNodeFactory::getNode(uint64 id)
     {
         iNode* result = nullptr;
 
@@ -206,7 +206,7 @@ namespace Igor
         return result;
     }
 
-    bool iNodeFactory::isNode(uint32 id)
+    bool iNodeFactory::isNode(uint64 id)
     {
         bool result = false;;
 
@@ -221,7 +221,7 @@ namespace Igor
         return result;
     }
 
-    void iNodeFactory::destroyNode(uint32 nodeID)
+    void iNodeFactory::destroyNode(uint64 nodeID)
     {
         iNode* node = nullptr;
 
@@ -258,7 +258,7 @@ namespace Igor
     iNode* iNodeFactory::createCopy(iNode* node)
     {
         iNode* result = nullptr;
-        map<uint32, uint32> nodeIDMap;
+        map<uint64, uint64> nodeIDMap;
 
         result = createCopyInternal(node, nodeIDMap, UINT32_MAX);
 
@@ -274,7 +274,7 @@ namespace Igor
         return result;
     }
 
-    iNode* iNodeFactory::createCopyInternal(iNode* node, map<uint32, uint32>& nodeIDMap, uint32 recursiveDepth)
+    iNode* iNodeFactory::createCopyInternal(iNode* node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth)
     {
         iNode* result = nullptr;
         result = createNodeCopy(node);

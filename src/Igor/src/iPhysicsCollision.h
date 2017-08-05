@@ -32,8 +32,8 @@
 #include <iDefines.h>
 #include <iPhysicsWorld.h>
 
-#include <mutex>
-using namespace std;
+#include <iaMutex.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -69,7 +69,7 @@ namespace Igor
 
         /*! mutex to protec the id generation
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! id of collision object
         */

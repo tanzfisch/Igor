@@ -83,7 +83,7 @@ namespace Igor
         _worldMatrix = matrix;
 	}
 	
-    void iNodeRender::setMaterial(uint32 materialID)
+    void iNodeRender::setMaterial(uint64 materialID)
 	{
         if (_materialID != materialID)
         {
@@ -91,7 +91,7 @@ namespace Igor
         }
 	}
 
-	uint32 iNodeRender::getMaterial()
+	uint64 iNodeRender::getMaterial()
 	{
         return _materialID;
 	}

@@ -34,6 +34,7 @@
 
 #include <iaString.h>
 #include <iaSingleton.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <list>
@@ -140,11 +141,11 @@ namespace Igor
 
         /*! lookup table for material groups.
         */
-        map<int32, iMaterialGroup*> _materialMap;
+        map<uint64, iMaterialGroup*> _materialMap;
 
         /*! mutex to protect the target material list
         */
-        mutex _targetMaterialMutex;
+        iaMutex _targetMaterialMutex;
 
         /*! list of target materials
         */
@@ -156,7 +157,7 @@ namespace Igor
 
         /*! mutex for material lists
         */
-        mutex _mutexMaterial;
+		iaMutex _mutexMaterial;
 
         /*! default material ID
         */

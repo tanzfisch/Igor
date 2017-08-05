@@ -26,88 +26,55 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iJOINT__
-#define __iJOINT__
+#ifndef __IGOR_AUX_MUTEX__
+#define __IGOR_AUX_MUTEX__
 
-#include <iDefines.h>
+#include <iaDefines.h>
 
-#include <iaMatrix.h>
-using namespace IgorAux;
-
-#include <vector>
-using namespace std;
-
-namespace Igor
+namespace IgorAux
 {
 
-    class iBone;
+	/*! mutex
 
-    /*! joining bones togehter
-    */
-    class Igor_API iJoint
-    {
+	wraps std::mutex
+ 	*/
+	class IgorAux_API iaMutex
+	{
 
-        friend class iSkeleton;
+		/*! mutex handle definition
+		*/
+		typedef void* iaMutexHandle;
 
     public:
 
-        /*! sets base bone of this joint
+		/*! creates a mutex
+		*/
+        iaMutex();
 
-        \param bone pointer to bone
-        */
-        void setBaseBone(iBone* bone);
+		/*! destroys a mutex
+		*/
+        ~iaMutex();
 
-        /*! \returns the base bone
-        */
-        iBone* getBaseBone() const;
+		/*! locks a mutex
+		*/
+        void lock();
 
-        /*! adds cild bone to joint
-        */
-        void addChildBone(iBone* bone);
+		/*! unlocks a mutex
+		*/
+        void unlock();
 
-        /*! removes child bone from joint
-        */
-        void removeChildBone(iBone* bone);
-
-        /*! \returns reference of child bones list
-        */
-        vector<iBone*> getChildren() const;
-
-        /*! sets custom data
-
-        \param data pointer to custom data
-        */
-        void setCustomData(void* data);
-
-        /*! \returns pointer to custom data
-        */
-        void* getCustomData() const;
+		/*! try locks the mutex
+		*/
+		bool tryLock();
 
     private:
 
-        /*! pointer to custom data
-        */
-        void* _customData = nullptr;
+		/*! handle to mutex
+		*/
+		iaMutexHandle handle = nullptr;
 
-        /*! base bone
-        */
-        iBone* _baseBone = nullptr;
-
-        /*! ids of bones connected to the base bone in this joint
-        */
-        vector<iBone*> _childBones;
-
-        /*! init id
-        */
-        iJoint();
-
-        /*! does nothing
-        */
-        virtual ~iJoint() = default;
-
-    };
+	};
 
 }
-
 
 #endif

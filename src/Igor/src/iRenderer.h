@@ -39,9 +39,9 @@
 #include <iaColor4.h>
 #include <iaColor3.h>
 #include <iaEvent.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
-#include <mutex>
 #include <list>
 #include <vector>
 #include <map>
@@ -623,7 +623,7 @@ namespace Igor
 
     private:
 
-        mutex _requestedBuffersMutex;
+        iaMutex _requestedBuffersMutex;
         deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>> _requestedBuffers;
 
         /*! world grid resolution

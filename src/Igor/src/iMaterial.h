@@ -60,7 +60,7 @@ namespace Igor
 
         /*! invalid material ID
         */
-        static const int32 INVALID_MATERIAL_ID = 0;
+        static const int64 INVALID_MATERIAL_ID = 0;
 
         /*! early render order value
         */

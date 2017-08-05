@@ -77,11 +77,11 @@ public:
 
     \param id id of node to work with
     */
-    void setNode(uint32 id);
+    void setNode(uint64 id);
 
     /*! \returns the current node
     */
-    uint32 getNode();
+    uint64 getNode();
 
 private:
 
@@ -239,7 +239,7 @@ private:
 
     /*! list with all available emitters in all scenes
     */
-    vector<uint32> _emitters;
+    vector<uint64> _emitters;
 
     /*! contains user data that has to be deleted after use in the widgets
     */
@@ -247,7 +247,7 @@ private:
 
     /*! current node
     */
-    uint32 _nodeId = iNode::INVALID_NODE_ID;
+    uint64 _nodeId = iNode::INVALID_NODE_ID;
 
     /*! prevents updating the node while we are updating the gui
     */

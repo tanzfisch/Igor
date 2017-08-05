@@ -12,7 +12,7 @@
 namespace Igor
 {
 
-    uint32 iMaterialGroup::_nextId = 1;
+    uint64 iMaterialGroup::_nextId = 1;
 
     iMaterialGroup::iMaterialGroup()
     {
@@ -102,7 +102,7 @@ namespace Igor
         _material.setOrder(order);
     }
 
-    uint32 iMaterialGroup::getID()
+    uint64 iMaterialGroup::getID()
     {
         return _id;
     }

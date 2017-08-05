@@ -83,8 +83,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath);$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
@@ -93,8 +93,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
@@ -171,7 +171,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>false</LargeAddressAware>
@@ -270,7 +270,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
       <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SetChecksum>true</SetChecksum>

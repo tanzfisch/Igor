@@ -381,13 +381,13 @@ void UserControlParticleSystem::convertGradientsToUI(iNodeParticleSystem* node)
     _emissionGraph->setPoints(0, emissionGraph);
 }
 
-void UserControlParticleSystem::setNode(uint32 id)
+void UserControlParticleSystem::setNode(uint64 id)
 {
     _nodeId = id;
     updateGUI();
 }
 
-uint32 UserControlParticleSystem::getNode()
+uint64 UserControlParticleSystem::getNode()
 {
     return _nodeId;
 }

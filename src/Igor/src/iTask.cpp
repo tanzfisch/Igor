@@ -11,7 +11,7 @@ namespace Igor
 {
 
     uint64 iTask::_nextTaskID = 1;
-    mutex iTask::_mutexID;
+    iaMutex iTask::_mutexID;
 
     iTask::iTask(iWindow* window, uint32 priority, bool isRepeating, iTaskContext taskContext)
     {

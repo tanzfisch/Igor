@@ -32,10 +32,8 @@
 #include <iDefines.h>
 
 #include <iaEvent.h>
+#include <iaMutex.h>
 using namespace IgorAux;
-
-#include <mutex>
-using namespace std;
 
 namespace Igor
 {
@@ -74,7 +72,7 @@ namespace Igor
         */
         static uint64 _nextJointID;
 
-        static mutex _mutex;
+        static iaMutex _mutex;
 
         /*! id of joint object
         */

@@ -342,7 +342,7 @@ namespace IgorAux
         \param value the integer value
         \returns isString
         */
-        static iaString itoa(int32 value);
+        static iaString itoa(int64 value);
 
         /*! transforms a float to a iaString
 
@@ -385,7 +385,13 @@ namespace IgorAux
 		*/
 		void setData(const char* text, const uint64 size = INVALID_POSITION);
 
-        static iaString intToStrInternal(int32 x, int d);
+		/*! internal implementation of itoa
+
+		\param x the number to turn in to a string
+		\param d number of digits in output if d is bigger than digits in x 0s will be added
+		\returns string with number
+		*/
+        static iaString intToStrInternal(int64 x, int d);
 
 	};
 

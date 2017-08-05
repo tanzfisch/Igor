@@ -64,7 +64,7 @@ namespace Igor
 
         /*! material ID of tile
         */
-        uint32 _materialID = 0;
+        uint64 _materialID = 0;
 
         /*! neighbors LOD flags
         */

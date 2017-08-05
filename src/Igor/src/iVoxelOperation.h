@@ -34,7 +34,7 @@
 namespace Igor
 {
 
-    class iVoxelBlock;
+    struct iVoxelBlock;
 
     /*! base class for voxel operations on a voxel terrain
     */

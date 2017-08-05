@@ -743,7 +743,7 @@ namespace IgorAux
     // Converts a given integer x to string str[].  d is the number
     // of digits required in output. If d is more than the number
     // of digits in x, then 0s are added at the beginning.
-    iaString iaString::intToStrInternal(int32 x, int d)
+    iaString iaString::intToStrInternal(int64 x, int d)
     {
         iaString result;
 
@@ -773,10 +773,10 @@ namespace IgorAux
         return result;
     }
 
-    iaString iaString::itoa(int32 value)
+    iaString iaString::itoa(int64 value)
     {
         iaString result;
-        int32 n = value;
+        int64 n = value;
 
         if (value < 0)
         {

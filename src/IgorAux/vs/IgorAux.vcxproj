@@ -83,8 +83,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath);$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
@@ -93,8 +93,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <PreBuildEvent>
@@ -165,7 +165,7 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <LargeAddressAware>true</LargeAddressAware>
@@ -241,6 +241,7 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D</Comman
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <DisableSpecificWarnings>4150; 4091%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <DisableSpecificWarnings>4251; 4150; 4091%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <WarningLevel>Level4</WarningLevel>
       <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
@@ -253,7 +254,7 @@ xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D</Comman
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
+      <OutputFile>$(OutDir)$(TargetName).dll</OutputFile>
       <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SetChecksum>true</SetChecksum>
@@ -351,6 +352,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\iaMatrix3x3.h" />
     <ClInclude Include="..\src\iaMemBlock.h" />
     <ClInclude Include="..\src\iaMemBlockControl.h" />
+    <ClInclude Include="..\src\iaMutex.h" />
     <ClInclude Include="..\src\iaQuaternion.h" />
     <ClInclude Include="..\src\iaRandomNumberGenerator.h" />
     <ClInclude Include="..\src\iaRingQueue.h" />
@@ -375,6 +377,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClCompile Include="..\src\iaFile.cpp" />
     <ClCompile Include="..\src\iaMemBlock.cpp" />
     <ClCompile Include="..\src\iaMemBlockControl.cpp" />
+    <ClCompile Include="..\src\iaMutex.cpp" />
     <ClCompile Include="..\src\iaRandomNumberGenerator.cpp" />
     <ClCompile Include="..\src\iaSerializable.cpp" />
     <ClCompile Include="..\src\iaState.cpp" />

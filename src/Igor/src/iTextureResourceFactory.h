@@ -29,13 +29,13 @@
 #ifndef __iTEXTURERESOURCEFACTORY__
 #define __iTEXTURERESOURCEFACTORY__
 
-#include <iaSingleton.h>
-#include <iaString.h>
-using namespace IgorAux;
-
 #include <iTexture.h>
 
-#include <mutex>
+#include <iaSingleton.h>
+#include <iaString.h>
+#include <iaMutex.h>
+using namespace IgorAux;
+
 #include <list>
 #include <map>
 #include <memory>
@@ -111,7 +111,7 @@ namespace Igor
 
         /*! mutex to protect the texture manager access
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! flag to interrupt flush cross threads
         */
@@ -119,7 +119,7 @@ namespace Igor
 
         /*! mutex to protect the DevIL interface
         */
-        mutex _mutexImageLibrary;
+		iaMutex _mutexImageLibrary;
 
         /*! map of textures
         */

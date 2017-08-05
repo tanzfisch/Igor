@@ -33,9 +33,6 @@
 
 #include <iAABox.h>
 
-#include <mutex>
-using namespace std;
-
 namespace Igor
 {
 

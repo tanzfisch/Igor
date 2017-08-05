@@ -28,7 +28,7 @@ namespace Igor
         iaVector3I to = _box._center;
         to += _box._halfWidths;
 
-        int64 lodFactor = pow(2, voxelBlock->_lod);
+        int64 lodFactor = static_cast<int64>(pow(2, voxelBlock->_lod));
         from /= lodFactor;
         to /= lodFactor;
 

@@ -193,7 +193,7 @@ namespace IgorAux
 
         /*! mutex for multithreded access
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! changes foreground color of the console text
 

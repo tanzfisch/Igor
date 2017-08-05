@@ -34,6 +34,9 @@
 #include <iaString.h>
 using namespace IgorAux;
 
+#include <memory>
+using namespace std;
+
 namespace Igor
 {
 

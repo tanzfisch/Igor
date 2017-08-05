@@ -381,27 +381,27 @@ namespace Igor
 
         /*! mutex to protect world list
         */
-        mutex _worldListMutex;
+        iaMutex _worldListMutex;
 
         /*! mutex to protect body list
         */
-        mutex _bodyListMutex;
+		iaMutex _bodyListMutex;
 
         /*! mutex to protect joint list
         */
-        mutex _jointListMutex;
+		iaMutex _jointListMutex;
 
         /*! mutex to protect material list
         */
-        mutex _materialListMutex;
+		iaMutex _materialListMutex;
 
         /*! mutex to protect collisions list
         */
-        mutex _collisionsListMutex;
+		iaMutex _collisionsListMutex;
 
         /*! mutex to protect collision config list
         */
-        mutex _collisionsConfigListMutex;
+		iaMutex _collisionsConfigListMutex;
 
         /*! default world
         */
@@ -441,7 +441,7 @@ namespace Igor
 
         /*! mutex to protect bodies to delete
         */
-        mutex _mutexBodiesToDelete;
+		iaMutex _mutexBodiesToDelete;
 
         /*! list of bodys to transform
         */
@@ -449,7 +449,7 @@ namespace Igor
 
         /*! mutex to protect bodies to transform
         */
-        mutex _mutexBodiesToTransform;
+		iaMutex _mutexBodiesToTransform;
 
         struct Contact
         {
@@ -464,7 +464,7 @@ namespace Igor
 
         /*! mutex to protect contacts list
         */
-        mutex _mutexBodyContacts;
+		iaMutex _mutexBodyContacts;
 
         /*! list of joints
         */
