@@ -5,121 +5,107 @@
 #include <iTimer.h>
 
 #include <iApplication.h>
-#include <iaConsole.h>
 
-#include <windows.h>
+#include <iaClock.h>
+using namespace IgorAux;
 
 namespace Igor
 {
 
-    iTimer::iTimer()
-    {
-        if(QueryPerformanceFrequency((LARGE_INTEGER*)&_performance))
-        {
-            _usingPerformanceCounter=true;
+	iTimer::iTimer()
+	{
+		_timeScale = getClockScale();
+		_lastTime = getClockTicks();
 
-            _timeScale = 1.0 / _performance;
-            QueryPerformanceCounter((LARGE_INTEGER*)&_lastTime);
-			_startTime = _currentTime = _lastTime;
-            _timeDelta = 0;
-        }
-        else
-        {
-            _usingPerformanceCounter=false;
-            //! \todo implement alternative
-            con_err("this PC doesen't support Hardware Performance Counter");
-            exit(0);
-        }
-    }
+		_startTime = _currentTime = _lastTime;
+		_timeDelta = 0;
+	}
 
-    iTimer::~iTimer()
-    {
-		if(_timerHandles.size())
+	iTimer::~iTimer()
+	{
+		if (_timerHandles.size())
 		{
 			con_err("unregister all timer handles first");
 		}
-    }
+	}
 
 	float64 iTimer::getTimerTime() const
 	{
-		uint64 time;
-		QueryPerformanceCounter((LARGE_INTEGER*)&time);
+		uint64 time = getClockTicks();
 		return static_cast<float64>(time - _startTime) * _timeScale * static_cast<float64>(__IGOR_SECOND__);
 	}
 
 	float64 iTimer::getTime() const
-    {
-        uint64 time;
-        QueryPerformanceCounter((LARGE_INTEGER*)&time);
-        return static_cast<float64>(time) * _timeScale * static_cast<float64>(__IGOR_SECOND__);
-    }
+	{
+		return getClockMiliseconds();
+	}
 
-    void iTimer::handle()
-    {
-        QueryPerformanceCounter((LARGE_INTEGER*)&_currentTime);
-        _timeDelta = _currentTime - _lastTime;
+	void iTimer::handle()
+	{
+		_currentTime = getClockTicks();
+		_timeDelta = _currentTime - _lastTime;
 
-        if(_currentTime < _lastTime)
-        {
-            con_warn("iTimer Overflow!");
-        }
+		if (_currentTime < _lastTime)
+		{
+			con_warn("iTimer Overflow!");
+		}
 
-        _lastTime = _currentTime;
+		_lastTime = _currentTime;
 
-        handleTimerHandles();
-    }
+		handleTimerHandles();
+	}
 
 	float64 iTimer::getMilliSecondsDelta() const
-    {
-        return _timeDelta * _timeScale * __IGOR_SECOND__;
-    }
+	{
+		return _timeDelta * _timeScale * __IGOR_SECOND__;
+	}
 
 	float64 iTimer::getSecondsDelta() const
-    {
-        return _timeDelta * _timeScale;
-    }
+	{
+		return _timeDelta * _timeScale;
+	}
 
 	float32 iTimer::getFPS() const
-    {
-        return (float32)(1.0f/(_timeDelta * _timeScale));
-    }
+	{
+		return (float32)(1.0f / (_timeDelta * _timeScale));
+	}
 
 	float64 iTimer::getMilliSeconds() const
-    {
-        return _lastTime * _timeScale * __IGOR_SECOND__;
-    }
+	{
+		return _lastTime * _timeScale * __IGOR_SECOND__;
+	}
 
 	float64 iTimer::getSeconds() const
-    {
-        return _lastTime * _timeScale;
-    }
+	{
+		return _lastTime * _timeScale;
+	}
 
-    void iTimer::handleTimerHandles()
+	void iTimer::handleTimerHandles()
 	{
 		float64 time = getMilliSeconds();
-		for(uint32 i=0;i<_timerHandles.size();i++)
+		for (uint32 i = 0; i < _timerHandles.size(); i++)
 		{
-            _timerHandles[i]->handle(time);
+			_timerHandles[i]->handle(time);
 		}
 	}
 
 	void iTimer::insertTimerHandle(const iTimerHandle* timer_handle)
 	{
-        _timerHandles.push_back(const_cast<iTimerHandle*>(timer_handle));
+		_timerHandles.push_back(const_cast<iTimerHandle*>(timer_handle));
 	}
 
 	void iTimer::removeTimerHandle(const iTimerHandle *timer_handle)
 	{
-        auto iter = _timerHandles.begin();
-        while (iter != _timerHandles.end())
+		auto iter = _timerHandles.begin();
+		while (iter != _timerHandles.end())
 		{
-            if ((*iter) == timer_handle)
+			if ((*iter) == timer_handle)
 			{
-                _timerHandles.erase(iter);
+				_timerHandles.erase(iter);
 				return;
 			}
 
-            iter++;
+			iter++;
 		}
 	}
 

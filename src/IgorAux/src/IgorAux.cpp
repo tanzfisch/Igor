@@ -4,7 +4,7 @@
 
 #include <IgorAux.h>
 
-#include <iaConsole.h>
+#include <iaClock.h>
 #include <iaVersion.h>
 
 #ifdef __IGOR_WIN__
@@ -74,6 +74,7 @@ namespace IgorAux
 
 	void startup()
 	{
+		initClock();
 	}
 
 	void shutdown()

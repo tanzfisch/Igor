@@ -139,6 +139,7 @@
     <ClInclude Include="..\src\iaMutex.h">
       <Filter>threading</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaClock.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">

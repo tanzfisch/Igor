@@ -31,6 +31,8 @@
 
 #include <iaDefines.h>
 
+#define __IGOR_USE_MUTEX_PROFILER__
+
 namespace IgorAux
 {
 
@@ -63,15 +65,19 @@ namespace IgorAux
 		*/
         void unlock();
 
-		/*! try locks the mutex
-		*/
-		bool tryLock();
-
     private:
 
+#ifdef __IGOR_USE_MUTEX_PROFILER__
+		float64 m_waiting = 0.0;
+		float64 m_running = 0.0;
+		float64 m_time = 0.0;
+#endif
+
 		/*! handle to mutex
+
+		initialized in ctor
 		*/
-		iaMutexHandle handle = nullptr;
+		iaMutexHandle m_handle;
 
 	};
 

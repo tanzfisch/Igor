@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{0B46C5AB-8277-4FAF-A654-67D52320EDEF}"
 EndProject
@@ -105,10 +105,18 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "physics", "..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\physics.vcxproj", "{39737A8F-6151-4259-8E39-25530345D4B4}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Igor", "Igor.vcxproj", "{4BFF697B-A2DC-472B-BA1A-4169BCEFA532}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {E6761A09-13E3-42C5-94CD-636A5CDF5C5A}
+		{68D9962C-0EC7-445A-B0FD-F87B16D43901} = {68D9962C-0EC7-445A-B0FD-F87B16D43901}
+		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {879EBAB3-D7D7-473D-BB32-6A07964F12F9}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IgorAux", "..\..\IgorAux\vs\IgorAux.vcxproj", "{879EBAB3-D7D7-473D-BB32-6A07964F12F9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OMPF", "..\..\OMPF\vs\OMPF.vcxproj", "{E6761A09-13E3-42C5-94CD-636A5CDF5C5A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{879EBAB3-D7D7-473D-BB32-6A07964F12F9} = {879EBAB3-D7D7-473D-BB32-6A07964F12F9}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
