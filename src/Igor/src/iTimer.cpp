@@ -32,7 +32,7 @@ namespace Igor
 	float64 iTimer::getTimerTime() const
 	{
 		uint64 time = iaClock::getClockTicks();
-		return static_cast<float64>(time - _startTime) * _timeScale * static_cast<float64>(__IGOR_SECOND__);
+		return static_cast<float64>(time - _startTime) * _timeScale * __IGOR_SECOND__;
 	}
 
 	float64 iTimer::getTime() const
