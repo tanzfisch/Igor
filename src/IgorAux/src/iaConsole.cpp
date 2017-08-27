@@ -4,6 +4,7 @@
 
 #include <iaConsole.h>
 #include <iaDirectory.h>
+#include <iaSystem.h>
 
 #include <iostream>
 using namespace std;
@@ -47,23 +48,21 @@ namespace IgorAux
             GetConsoleScreenBufferInfo(console_handle, &console_info);
         }        
 #endif
-
-        initializeLogfile();
     }
 
-    iaConsole::~iaConsole()
-    {
-        if (_file.is_open())
-        {
-            _file.close();
-        }
-    }
+	void iaConsole::closeLogfile()
+	{
+		if (_file.is_open())
+		{
+			_file.close();
+		}
+	}
 
     /*! Note: can't use classes iaDirectory or iaFile here because of possible deadlock in logging
 
     \todo error handling
     */
-    void iaConsole::initializeLogfile()
+    void iaConsole::openLogfile()
     {
         if (!_file.is_open())
         {
@@ -119,46 +118,28 @@ namespace IgorAux
     /*! thank you Macmade
     http://stackoverflow.com/questions/5693192/win32-backtrace-from-c-code
     */
-    void iaConsole::printCallStack(uint32 maxDepth)
-    {
-#ifdef __IGOR_WIN__
-        void* stack[100];
+	void iaConsole::printCallStack(uint32 maxDepth)
+	{
+		vector<iaString> callStack;
+		getCallStack(callStack);
 
-#ifdef __IGOR_X64__
-        const int w = 16;
-#else
-        const int w = 8;
-#endif
+		if (_streamToLogfile && _file.is_open())
+		{
+			_file << std::endl;
+		}
 
-        HANDLE process = GetCurrentProcess();
-        SymInitialize(process, NULL, TRUE);
+		for (unsigned int i = 1; i < callStack.size() && i < maxDepth; i++)
+		{
 
-        unsigned short  frames = CaptureStackBackTrace(0, 100, stack, NULL);
-        SYMBOL_INFO* symbol = (SYMBOL_INFO *)calloc(sizeof(SYMBOL_INFO) + 256 * sizeof(char), 1);
-        symbol->MaxNameLen = 255;
-        symbol->SizeOfStruct = sizeof(SYMBOL_INFO);
+			*this << __IGOR_TAB__ << callStack[i];
+			cout << std::endl;
 
-        if (_streamToLogfile && _file.is_open())
-        {
-            _file << std::endl;
-        }
-
-        for (unsigned int i = 1; i < frames && i < maxDepth; i++)
-        {
-            SymFromAddr(process, (DWORD64)(stack[i]), 0, symbol);
-
-            *this << __IGOR_TAB__ << symbol->Name;
-            cout << std::endl;
-
-            if (_streamToLogfile && _file.is_open())
-            {
-                _file << std::endl;
-            }
-        }
-
-        free(symbol);
-#endif
-    }
+			if (_streamToLogfile && _file.is_open())
+			{
+				_file << std::endl;
+			}
+		}
+	}
 
     void iaConsole::lock()
     {

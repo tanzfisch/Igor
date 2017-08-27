@@ -33,6 +33,12 @@
 
 #define __IGOR_USE_MUTEX_PROFILER__
 
+#ifdef __IGOR_USE_MUTEX_PROFILER__
+#include <iaString.h>
+#include <vector>	
+using namespace std;
+#endif
+
 namespace IgorAux
 {
 
@@ -71,6 +77,7 @@ namespace IgorAux
 		uint64 m_waiting = 0;
 		uint64 m_running = 0;
 		uint64 m_time = 0;
+		vector<iaString> m_callStack;
 #endif
 
 		/*! handle to mutex

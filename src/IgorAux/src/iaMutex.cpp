@@ -5,6 +5,7 @@
 #include <iaMutex.h>
 
 #include <iaClock.h>
+#include <iaSystem.h>
 #include <iaConsole.h>
 
 #include <mutex>
@@ -15,6 +16,9 @@ namespace IgorAux
 
 	iaMutex::iaMutex()
 	{
+#ifdef __IGOR_USE_MUTEX_PROFILER__
+		getCallStack(m_callStack);
+#endif
 		m_handle = static_cast<iaMutexHandle>(new mutex());
 	}
 
@@ -26,10 +30,23 @@ namespace IgorAux
 		}
 
 #ifdef __IGOR_USE_MUTEX_PROFILER__
-		if (m_waiting != 0)
+		if (m_waiting != 0 && m_running != 0)
 		{
 			float64 ratio = static_cast<float64>(m_running) / static_cast<float64>(m_waiting);
-			con_endl("mutex " << ratio << " " << m_running << ":" << m_waiting);
+			float64 running = m_running * iaClock::getTickScale() * __IGOR_SECOND__;
+			float64 waiting = m_waiting * iaClock::getTickScale() * __IGOR_SECOND__;
+			if (ratio < 1.0 && 
+				waiting > 1000)
+			{
+				con_warn("bad mutex");
+				con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << "ratio  :" << ratio);
+				con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << "running:" << iaString::ftoa(running, 6) << "ms");
+				con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << "waiting:" << iaString::ftoa(waiting, 6) << "ms");
+				for (auto entry : m_callStack)
+				{
+					con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << entry);
+				}
+			}
 		}
 #endif
 	}

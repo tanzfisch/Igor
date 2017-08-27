@@ -80,7 +80,9 @@ namespace IgorAux
 	void shutdown()
 	{
 		iaConsole::getInstance().printStats();
-		iaConsole::destroyInstance();
+		iaConsole::getInstance().closeLogfile();
+
+		// do not destroy instance iaConsole::destroyInstance();
 	}
 
 }
