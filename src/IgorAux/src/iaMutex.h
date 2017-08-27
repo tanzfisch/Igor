@@ -31,7 +31,7 @@
 
 #include <iaDefines.h>
 
-#define __IGOR_USE_MUTEX_PROFILER__
+// #define __IGOR_USE_MUTEX_PROFILER__
 
 #ifdef __IGOR_USE_MUTEX_PROFILER__
 #include <iaString.h>
