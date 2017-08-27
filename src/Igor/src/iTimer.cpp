@@ -14,8 +14,8 @@ namespace Igor
 
 	iTimer::iTimer()
 	{
-		_timeScale = getClockScale();
-		_lastTime = getClockTicks();
+		_timeScale = iaClock::getTickScale();
+		_lastTime = iaClock::getClockTicks();
 
 		_startTime = _currentTime = _lastTime;
 		_timeDelta = 0;
@@ -31,18 +31,18 @@ namespace Igor
 
 	float64 iTimer::getTimerTime() const
 	{
-		uint64 time = getClockTicks();
+		uint64 time = iaClock::getClockTicks();
 		return static_cast<float64>(time - _startTime) * _timeScale * static_cast<float64>(__IGOR_SECOND__);
 	}
 
 	float64 iTimer::getTime() const
 	{
-		return getClockMiliseconds();
+		return iaClock::getClockMiliseconds();
 	}
 
 	void iTimer::handle()
 	{
-		_currentTime = getClockTicks();
+		_currentTime = iaClock::getClockTicks();
 		_timeDelta = _currentTime - _lastTime;
 
 		if (_currentTime < _lastTime)

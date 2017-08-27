@@ -376,6 +376,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\iaBSpline.cpp" />
+    <ClCompile Include="..\src\iaClock.cpp" />
     <ClCompile Include="..\src\iaConsole.cpp" />
     <ClCompile Include="..\src\iaConvert.cpp" />
     <ClCompile Include="..\src\iaDirectory.cpp" />

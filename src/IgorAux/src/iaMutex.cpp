@@ -5,6 +5,7 @@
 #include <iaMutex.h>
 
 #include <iaClock.h>
+#include <iaConsole.h>
 
 #include <mutex>
 using namespace std;
@@ -27,12 +28,8 @@ namespace IgorAux
 #ifdef __IGOR_USE_MUTEX_PROFILER__
 		if (m_waiting != 0)
 		{
-			float64 ratio = m_running / m_waiting;
-			con_endl("mutex " << ratio << ", " << m_running << ": " << m_waiting);
-		}
-		else
-		{
-			con_endl("mutex not relevant");
+			float64 ratio = static_cast<float64>(m_running) / static_cast<float64>(m_waiting);
+			con_endl("mutex " << ratio << " " << m_running << ":" << m_waiting);
 		}
 #endif
 	}
@@ -40,13 +37,13 @@ namespace IgorAux
 	void iaMutex::lock()
 	{
 #ifdef __IGOR_USE_MUTEX_PROFILER__
-		float64 time = getClockMiliseconds();
+		uint64 time = iaClock::getClockTicks();
 #endif
 
 		static_cast<mutex*>(m_handle)->lock();
 
 #ifdef __IGOR_USE_MUTEX_PROFILER__
-		m_time = getClockMiliseconds();
+		m_time = iaClock::getClockTicks();
 		m_waiting += m_time - time;
 #endif
 	}
@@ -55,7 +52,7 @@ namespace IgorAux
 	{
 		static_cast<mutex*>(m_handle)->unlock();
 #ifdef __IGOR_USE_MUTEX_PROFILER__
-		m_running += getClockSeconds() - m_time;
+		m_running += iaClock::getClockTicks() - m_time;
 #endif
 	}
 

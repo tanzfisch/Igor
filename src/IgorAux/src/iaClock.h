@@ -29,75 +29,100 @@
 #ifndef __IGOR_AUX_CLOCK__
 #define __IGOR_AUX_CLOCK__
 
+#include <iaDefines.h>
+
 #include <iaConsole.h>
+
+#ifdef __IGOR_WIN__
+#include <Windows.h>
+#endif
 
 namespace IgorAux
 {
 
+	class IgorAux_API iaClock
+	{
+
+	public:
+
+		/*! \returns clock time in ticks
+
+		initClock must be called before otherwise result is undefined
+		*/
+		__IGOR_INLINE__ static uint64 getClockTicks()
+		{
+			uint64 result;
 #ifdef __IGOR_WIN__
-
-	static float64 clockTimeScale = 0;
-
-	/*! initializes clock
-	*/
-	__IGOR_INLINE__ static void initClock()
-	{
-		uint64 clockPerformance = 0;
-		if (QueryPerformanceFrequency((LARGE_INTEGER*)&clockPerformance))
-		{
-			clockTimeScale = 1.0 / static_cast<float64>(clockPerformance);
-			con_info("Clock", "Scale " << clockTimeScale);
-		}
-		else
-		{
-			con_err("this PC doesn't support Hardware Performance Counter");
-			exit(0);
-		}
-	}
-
-	/*! \returns clock time in ticks
-
-	initClock must be called before otherwise result is undefined
-	*/
-	__IGOR_INLINE__ static uint64 getClockTicks()
-	{
-		uint64 time;
-		QueryPerformanceCounter((LARGE_INTEGER*)&time);
-		return time;
-	}
-
-	/*! \returns clock time in seconds
-
-	initClock must be called before otherwise result is undefined
-	*/
-	__IGOR_INLINE__ static float64 getClockSeconds()
-	{
-		uint64 time;
-		QueryPerformanceCounter((LARGE_INTEGER*)&time);
-		return static_cast<float64>(time) * clockTimeScale;
-	}
-
-	/*! \returns clock time in milliseconds
-
-	initClock must be called before otherwise result is undefined
-	*/
-	__IGOR_INLINE__ static float64 getClockMiliseconds()
-	{
-		uint64 time;
-		QueryPerformanceCounter((LARGE_INTEGER*)&time);
-		return static_cast<float64>(time) * clockTimeScale * __IGOR_SECOND__;
-	}
-
-	/*! \returns clock scale from ticks to seconds
-
-	initClock must be called before otherwise result is undefined
-	*/
-	__IGOR_INLINE__ static float64 getClockScale()
-	{
-		return clockTimeScale;
-	}
-
+			QueryPerformanceCounter((LARGE_INTEGER*)&result);
 #endif
+			return result;
+		}
+
+		/*! \returns clock time in seconds
+
+		initClock must be called before otherwise result is undefined
+		*/
+		__IGOR_INLINE__ static float64 getClockSeconds()
+		{
+			float64 result;
+#ifdef __IGOR_WIN__
+			uint64 time;
+			QueryPerformanceCounter((LARGE_INTEGER*)&time);
+			result = static_cast<float64>(time) * m_tickScale;
+#endif
+			return result;
+		}
+
+		/*! \returns clock time in milliseconds
+
+		initClock must be called before otherwise result is undefined
+		*/
+		__IGOR_INLINE__ static float64 getClockMiliseconds()
+		{
+			float64 result;
+#ifdef __IGOR_WIN__
+			uint64 time;
+			QueryPerformanceCounter((LARGE_INTEGER*)&time);
+			result = static_cast<float64>(time) * m_tickScale * __IGOR_SECOND__;
+#endif
+			return result;
+		}
+
+		/*! \returns clock scale from ticks to seconds
+
+		initClock must be called before otherwise result is undefined
+		*/
+		__IGOR_INLINE__ static float64 getTickScale()
+		{
+			return m_tickScale;
+		}
+
+		/*! initializes clock
+		*/
+		static void initClock()
+		{
+#ifdef __IGOR_WIN__
+			uint64 clockPerformance = 0;
+			if (QueryPerformanceFrequency((LARGE_INTEGER*)&clockPerformance))
+			{
+				m_tickScale = 1.0 / static_cast<float64>(clockPerformance);
+				con_info("Clock", "Scale " << m_tickScale);
+			}
+			else
+			{
+				con_err("this PC doesn't support Hardware Performance Counter");
+				exit(0);
+			}
+#endif
+		}
+
+	private:
+
+		/*! tick to seconds scale
+		*/
+		static float64 m_tickScale;
+
+	};
 
 }
 

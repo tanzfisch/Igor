@@ -68,9 +68,9 @@ namespace IgorAux
     private:
 
 #ifdef __IGOR_USE_MUTEX_PROFILER__
-		float64 m_waiting = 0.0;
-		float64 m_running = 0.0;
-		float64 m_time = 0.0;
+		uint64 m_waiting = 0;
+		uint64 m_running = 0;
+		uint64 m_time = 0;
 #endif
 
 		/*! handle to mutex

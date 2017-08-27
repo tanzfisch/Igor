@@ -44,6 +44,7 @@
     <ClCompile Include="..\src\iaMutex.cpp">
       <Filter>threading</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iaClock.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iaDefines.h" />

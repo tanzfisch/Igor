@@ -74,7 +74,7 @@ namespace IgorAux
 
 	void startup()
 	{
-		initClock();
+		iaClock::initClock();
 	}
 
 	void shutdown()
