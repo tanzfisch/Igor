@@ -30,23 +30,24 @@ namespace IgorAux
 		}
 
 #ifdef __IGOR_USE_MUTEX_PROFILER__
-		if (m_waiting != 0 && m_running != 0)
+
+		
+		float64 maximum = m_waitingMax * iaClock::getTickScale() * __IGOR_SECOND__;
+		float64 total = m_waitingTotal * iaClock::getTickScale() * __IGOR_SECOND__;
+		float64 average = total / static_cast<float64>(m_lockCount);
+
+		if (maximum > 10 ||
+			total > 1000 ||
+			average > 2)
 		{
-			float64 ratio = static_cast<float64>(m_running) / static_cast<float64>(m_waiting);
-			float64 running = m_running * iaClock::getTickScale() * __IGOR_SECOND__;
-			float64 waiting = m_waiting * iaClock::getTickScale() * __IGOR_SECOND__;
-			if (ratio < 1.0 && 
-				waiting > 1000)
+			con_warn("bad mutex");
+			con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << "locked: " << m_lockCount << " total: " << iaString::ftoa(total, 6) << "ms average: " << iaString::ftoa(average, 6) << "ms max: " << iaString::ftoa(maximum, 6) << "ms");
+			
+			for (auto entry : m_callStack)
 			{
-				con_warn("bad mutex");
-				con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << "ratio  :" << ratio);
-				con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << "running:" << iaString::ftoa(running, 6) << "ms");
-				con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << "waiting:" << iaString::ftoa(waiting, 6) << "ms");
-				for (auto entry : m_callStack)
-				{
-					con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << entry);
-				}
+				con_endl(iaForegroundColor::DarkYellow << __IGOR_TAB__ << entry);
 			}
+
 		}
 #endif
 	}
@@ -60,17 +61,23 @@ namespace IgorAux
 		static_cast<mutex*>(m_handle)->lock();
 
 #ifdef __IGOR_USE_MUTEX_PROFILER__
-		m_time = iaClock::getClockTicks();
-		m_waiting += m_time - time;
+		m_lockCount++;
+		uint64 diff = iaClock::getClockTicks() - time;
+		if (diff > m_waitingMax)
+		{
+			m_waitingMax = diff;
+		}
+		if (diff > 0)
+		{
+			m_blockCount++;
+		}
+		m_waitingTotal += diff;
 #endif
 	}
 
 	void iaMutex::unlock()
 	{
 		static_cast<mutex*>(m_handle)->unlock();
-#ifdef __IGOR_USE_MUTEX_PROFILER__
-		m_running += iaClock::getClockTicks() - m_time;
-#endif
 	}
 
 }
