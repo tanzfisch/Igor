@@ -165,12 +165,6 @@ void Example2D::deinit()
     // unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
     _view.unregisterRenderDelegate(RenderDelegate(this, &Example2D::onRender));
 
-    // close the window, release callback and remove the view. if not you will get various reminders that you should
-    _window.close();
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
-    _window.removeView(&_view);
-
     // release materials (optional)
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
     _materialWithTextureAndBlending = 0;
@@ -195,6 +189,16 @@ void Example2D::deinit()
     _particleTexture = nullptr;
     _backgroundTexture = nullptr;
     _dummyTexture = nullptr;
+	_igorLogo = nullptr;
+
+	// tell texture manager to flush and actually release textures
+	iTextureResourceFactory::getInstance().flush();
+
+	// close the window, release callback and remove the view. if not you will get various reminders that you should
+	_window.close();
+	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
+	_window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
+	_window.removeView(&_view);
 }
 
 void Example2D::onMouseMove(int32 x, int32 y)
