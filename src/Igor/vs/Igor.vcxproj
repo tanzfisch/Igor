@@ -173,6 +173,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
       <Command>xcopy "$(ProjectDir)..\src\*.h" "$(ProjectDir)..\..\..\include\"  /Y
+
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
@@ -188,12 +189,14 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
       <Message>Install Igor &amp; 3rd -&gt; /lib, /bin</Message>
       <Command>xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 
-xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 
+xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 
 
+
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+
 
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
@@ -277,6 +280,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir
     <PreLinkEvent>
       <Message>Install Header Files -&gt; /include</Message>
       <Command>xcopy "$(ProjectDir)..\src\*.h" "$(ProjectDir)..\..\..\include\"  /Y
+
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
     <Link>
@@ -291,12 +295,16 @@ xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
       <Message>Install Igor &amp; 3rd -&gt; /lib, /bin</Message>
       <Command>xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 
+
 xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+
 
 xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 
 
+
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+
 
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
