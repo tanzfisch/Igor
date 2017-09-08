@@ -106,7 +106,6 @@ namespace IgorAux
 			if (QueryPerformanceFrequency((LARGE_INTEGER*)&clockPerformance))
 			{
 				m_tickScale = 1.0 / static_cast<float64>(clockPerformance);
-				con_info("Clock", "Scale " << m_tickScale);
 			}
 			else
 			{
