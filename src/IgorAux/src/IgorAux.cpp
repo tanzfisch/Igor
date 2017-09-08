@@ -75,6 +75,7 @@ namespace IgorAux
 	void startup()
 	{
 		iaClock::initClock();
+		iaConsole::getInstance().openLogfile();
 	}
 
 	void shutdown()
