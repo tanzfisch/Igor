@@ -115,9 +115,6 @@ namespace IgorAux
         *this << iaForegroundColor::Gray << __IGOR_TAB__ << "\\___________/" << endl << endl;
     }
 
-    /*! thank you Macmade
-    http://stackoverflow.com/questions/5693192/win32-backtrace-from-c-code
-    */
 	void iaConsole::printCallStack(uint32 maxDepth)
 	{
 		vector<iaString> callStack;

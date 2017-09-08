@@ -9,10 +9,12 @@
 #include <DbgHelp.h>
 #endif
 
-
 namespace IgorAux
 {
 
+	/*! thank you Macmade
+	http://stackoverflow.com/questions/5693192/win32-backtrace-from-c-code
+	*/
 	void getCallStack(vector<iaString>& callStack)
 	{
 #ifdef __IGOR_WIN__

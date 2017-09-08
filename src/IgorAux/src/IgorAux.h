@@ -35,13 +35,10 @@
 */
 namespace IgorAux
 {
+
 	/*! should be called before any other interface of IgorAux is used	
 	*/
 	IgorAux_API void startup();
-
-    /*! prints out the IgorAux version information
-    */
-	IgorAux_API void printInfo();
 
 	/*! should be called last in your application. do not use any Igor interface after that
 	

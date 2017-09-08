@@ -373,7 +373,6 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\iaVector4.h" />
     <ClInclude Include="..\src\IgorAux.h" />
     <ClInclude Include="..\src\iaSingleton.h" />
-    <ClInclude Include="..\src\iaVersion.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\iaBSpline.cpp" />

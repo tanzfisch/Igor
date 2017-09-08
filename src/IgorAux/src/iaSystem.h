@@ -37,6 +37,10 @@ using namespace std;
 namespace IgorAux
 {
 
+	/*! returns current callstack
+
+	\param[out] callStack vector filled with the current callstack
+	*/
 	IgorAux_API void getCallStack(vector<iaString>& callStack);
 
 }
