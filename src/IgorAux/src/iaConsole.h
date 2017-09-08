@@ -140,6 +140,14 @@ namespace IgorAux
         */
         uint32 getWarnings();
 
+		/*! manually initializing the log file
+		*/
+		void openLogfile();
+
+		/*! closes logging to log file
+		*/
+		void closeLogfile();
+
         /*! pipes anything in to console and log
         */
         template<typename T> iaConsole& operator << (const T &v)
@@ -193,7 +201,7 @@ namespace IgorAux
 
         /*! mutex for multithreded access
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! changes foreground color of the console text
 
@@ -208,15 +216,9 @@ namespace IgorAux
         */
         iaConsole();
 
-        /*! dtor
-
-        close log file
-        */
-        virtual ~iaConsole();
-
-        /*! manually initializing the log file
-        */
-        void initializeLogfile();
+        /*! nothing to do. the console is not meant to be destructed
+		*/
+		virtual ~iaConsole() = default;
 
     };
 
@@ -501,3 +503,4 @@ namespace IgorAux
 };
 
 #endif
+

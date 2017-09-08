@@ -33,10 +33,8 @@
 #include <iPhysicsWorld.h>
 
 #include <iaDelegate.h>
+#include <iaMutex.h>
 using namespace IgorAux;
-
-#include <mutex>
-using namespace std;
 
 namespace Igor
 {
@@ -169,7 +167,7 @@ namespace Igor
 
         /*! secure the task id generation
         */
-        static mutex _mutexID;
+        static iaMutex _mutexID;
 
         /*! counter for next task ID
         */

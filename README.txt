@@ -27,7 +27,7 @@
  contact: martinloga@gmx.de  
  
  ### get Igor
- You can get Igor at githup with following link
+ You can get Igor at github with following link
  https://github.com/tanzfisch/Igor.git
  
  ### submodules

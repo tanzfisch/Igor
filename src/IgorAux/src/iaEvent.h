@@ -31,12 +31,11 @@
 #ifndef __IGOR_AUX_EVENT__
 #define __IGOR_AUX_EVENT__
 
-#include <iaDefines.h>
+#include <iaMutex.h>
 #include <iaDelegate.h>
 #include <iaConsole.h>
 
 #include <vector>
-#include <mutex>
 using namespace std;
 
 namespace IgorAux
@@ -99,7 +98,7 @@ namespace IgorAux
 																										\
 		protected:																						\
 																										\
-            mutex _mutex;                                                                               \
+            iaMutex _mutex;                                                                               \
 			vector<DelegateName> _delegates;														    \
     };
 

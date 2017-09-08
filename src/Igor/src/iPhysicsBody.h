@@ -35,10 +35,10 @@
 
 #include <iaEvent.h>
 #include <iaMatrix.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <memory>
-#include <mutex>
 using namespace std;
 
 namespace Igor
@@ -206,7 +206,9 @@ namespace Igor
         */
         static uint64 _nextBodyID;
 
-        mutex _mutex;
+		/*! mutex to protex id generation
+		*/
+        iaMutex _mutex;
 
         /*! pointer to user data
         */

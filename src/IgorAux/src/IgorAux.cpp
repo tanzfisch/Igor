@@ -4,7 +4,7 @@
 
 #include <IgorAux.h>
 
-#include <iaConsole.h>
+#include <iaClock.h>
 #include <iaVersion.h>
 
 #ifdef __IGOR_WIN__
@@ -74,12 +74,16 @@ namespace IgorAux
 
 	void startup()
 	{
+		iaClock::initClock();
+		iaConsole::getInstance().openLogfile();
 	}
 
 	void shutdown()
 	{
 		iaConsole::getInstance().printStats();
-		iaConsole::destroyInstance();
+		iaConsole::getInstance().closeLogfile();
+
+		// do not destroy instance iaConsole::destroyInstance();
 	}
 
 }

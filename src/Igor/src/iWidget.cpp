@@ -637,7 +637,7 @@ namespace Igor
     {
         offsets.clear();
 
-        for (auto widget : _children)
+        for (int i=0;i<_children.size();++i)
         {
             int32 clientWidth = _actualWidth - _clientAreaLeft - _clientAreaRight;
             int32 clientHeight = _actualHeight - _clientAreaTop - _clientAreaBottom;

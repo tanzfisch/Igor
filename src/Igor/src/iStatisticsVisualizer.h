@@ -128,7 +128,7 @@ namespace Igor
 
         /*! amount of tasks that are done by now
         */
-        uint32 _lastDoneTaskCount = 0;
+        uint64 _lastDoneTaskCount = 0;
 
         /*! amount of tasks in queue that need render context threads
         */
@@ -140,15 +140,15 @@ namespace Igor
 
         /*! rendering the statistic material id
         */
-        uint32 _materialWithTextureAndBlending = 0;
+        uint64 _materialWithTextureAndBlending = 0;
 
         /*! simple solid material
         */
-        uint32 _materialSolid = 0;
+        uint64 _materialSolid = 0;
 
         /*! alpha blending material
         */
-        uint32 _materialBlend = 0;
+        uint64 _materialBlend = 0;
 
         /*! initializes the materials in use
         */

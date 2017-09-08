@@ -41,7 +41,7 @@ using namespace IgorAux;
 
 #include <map>
 #include <memory>
-using namespace stdext;
+//using namespace stdext;
 
 #include <vector>
 #include <unordered_map>

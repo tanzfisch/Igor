@@ -41,6 +41,15 @@
     <ClCompile Include="..\src\iaRandomNumberGenerator.cpp">
       <Filter>math</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iaMutex.cpp">
+      <Filter>threading</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaClock.cpp">
+      <Filter>devices</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iaSystem.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iaDefines.h" />
@@ -133,6 +142,15 @@
     <ClInclude Include="..\src\iaFlushVector.h">
       <Filter>data types</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaMutex.h">
+      <Filter>threading</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaClock.h">
+      <Filter>devices</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iaSystem.h">
+      <Filter>IO</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">
@@ -184,6 +202,12 @@
     </Filter>
     <Filter Include="data types">
       <UniqueIdentifier>{691d419c-4e7e-422a-88e4-e916dd2dddbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="threading">
+      <UniqueIdentifier>{c7da7104-4cff-4c73-8bac-b15dcd7c78a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="devices">
+      <UniqueIdentifier>{d0a187c7-9d59-41d5-8886-183b3c7dbc4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

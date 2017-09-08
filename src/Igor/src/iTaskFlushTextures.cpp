@@ -26,7 +26,7 @@ namespace Igor
 
         while (isRunning())
         {
-            _sleep(1);
+            Sleep(1);
         }
 
         setRepeating(false);

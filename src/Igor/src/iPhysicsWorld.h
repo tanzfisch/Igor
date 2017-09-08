@@ -31,8 +31,8 @@
 
 #include <iDefines.h>
 
-#include <mutex>
-using namespace std;
+#include <iaMutex.h>
+using namespace IgorAux;
 
 namespace Igor
 {
@@ -68,7 +68,7 @@ namespace Igor
 
         /*! mutex to save the id generation
         */
-        mutex _mutex;
+        iaMutex _mutex;
 
         /*! handle to newton world
         */

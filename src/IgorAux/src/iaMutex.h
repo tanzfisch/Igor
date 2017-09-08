@@ -26,88 +26,69 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iJOINT__
-#define __iJOINT__
+#ifndef __IGOR_AUX_MUTEX__
+#define __IGOR_AUX_MUTEX__
 
-#include <iDefines.h>
+#include <iaDefines.h>
 
-#include <iaMatrix.h>
-using namespace IgorAux;
+// #define __IGOR_USE_MUTEX_PROFILER__
 
-#include <vector>
+#ifdef __IGOR_USE_MUTEX_PROFILER__
+#include <iaString.h>
+#include <vector>	
 using namespace std;
+#endif
 
-namespace Igor
+namespace IgorAux
 {
 
-    class iBone;
+	/*! mutex
 
-    /*! joining bones togehter
-    */
-    class Igor_API iJoint
-    {
+	wraps std::mutex
+ 	*/
+	class IgorAux_API iaMutex
+	{
 
-        friend class iSkeleton;
+		/*! mutex handle definition
+		*/
+		typedef void* iaMutexHandle;
 
     public:
 
-        /*! sets base bone of this joint
+		/*! creates a mutex
+		*/
+        iaMutex();
 
-        \param bone pointer to bone
-        */
-        void setBaseBone(iBone* bone);
+		/*! destroys a mutex
+		*/
+        ~iaMutex();
 
-        /*! \returns the base bone
-        */
-        iBone* getBaseBone() const;
+		/*! locks a mutex
+		*/
+        void lock();
 
-        /*! adds cild bone to joint
-        */
-        void addChildBone(iBone* bone);
-
-        /*! removes child bone from joint
-        */
-        void removeChildBone(iBone* bone);
-
-        /*! \returns reference of child bones list
-        */
-        vector<iBone*> getChildren() const;
-
-        /*! sets custom data
-
-        \param data pointer to custom data
-        */
-        void setCustomData(void* data);
-
-        /*! \returns pointer to custom data
-        */
-        void* getCustomData() const;
+		/*! unlocks a mutex
+		*/
+        void unlock();
 
     private:
 
-        /*! pointer to custom data
-        */
-        void* _customData = nullptr;
+#ifdef __IGOR_USE_MUTEX_PROFILER__
+		uint64 m_waitingTotal = 0;
+		uint64 m_waitingMax = 0;
+		uint64 m_lockCount = 0;
+		uint64 m_blockCount = 0;
+		vector<iaString> m_callStack;
+#endif
 
-        /*! base bone
-        */
-        iBone* _baseBone = nullptr;
+		/*! handle to mutex
 
-        /*! ids of bones connected to the base bone in this joint
-        */
-        vector<iBone*> _childBones;
+		initialized in ctor
+		*/
+		iaMutexHandle m_handle;
 
-        /*! init id
-        */
-        iJoint();
-
-        /*! does nothing
-        */
-        virtual ~iJoint() = default;
-
-    };
+	};
 
 }
-
 
 #endif

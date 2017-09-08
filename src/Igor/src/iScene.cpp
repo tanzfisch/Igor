@@ -282,7 +282,7 @@ namespace Igor
         }
 	}
 
-    void iScene::setCamera(uint32 cameraID)
+    void iScene::setCamera(uint64 cameraID)
     {
         auto iter = find(_cameras.begin(), _cameras.end(), cameraID);
         if (iter != _cameras.end())
@@ -341,17 +341,17 @@ namespace Igor
         return _octree;
     }
 
-    uint32 iScene::getCamera()
+    uint64 iScene::getCamera()
     {
         return _cameraID;
     }
 
-    void iScene::signalNodeAdded(uint32 nodeID)
+    void iScene::signalNodeAdded(uint64 nodeID)
     {
         _addedNode(nodeID);
     }
 
-    void iScene::signalNodeRemoved(uint32 nodeID)
+    void iScene::signalNodeRemoved(uint64 nodeID)
     {
         _removedNode(nodeID);
     }

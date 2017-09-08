@@ -79,17 +79,17 @@ namespace Igor
 
         /*! \returns material id (also used as group id)
         */
-        uint32 getID();
+        uint64 getID();
 
 	private:
 
         /*! material group or material id
         */
-		uint32 _id = iMaterial::INVALID_MATERIAL_ID;
+		uint64 _id = iMaterial::INVALID_MATERIAL_ID;
 
         /*! next material group id
         */
-		static uint32 _nextId;
+		static uint64 _nextId;
 
         /*! the actuall material
         */

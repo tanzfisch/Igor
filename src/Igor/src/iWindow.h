@@ -36,10 +36,10 @@
 #include <iaFlushVector.h>
 #include <iaEvent.h>
 #include <iaString.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <list>
-#include <mutex>
 using namespace std;
 
 namespace Igor
@@ -417,7 +417,7 @@ namespace Igor
 
         /*! secures wgl interfaces used within window
         */
-        mutex _wglMutex;
+        iaMutex _wglMutex;
 
         /*! window class
         */

@@ -587,8 +587,8 @@ namespace Igor
         */
         float32 _airDrag = 1.0;
 
-        float32 _octave1Rotation = 0.01;
-        float32 _octave2Rotation = -0.01;
+        float32 _octave1Rotation = 0.01f;
+        float32 _octave2Rotation = -0.01f;
 
         /*! time when the particle system was started last time
         */
@@ -610,19 +610,19 @@ namespace Igor
 
         /*! minimum votex torque
         */
-        float32 _minVortexTorque = 0.5;
+        float32 _minVortexTorque = 0.5f;
 
         /*! maximum votex torque
         */
-        float32 _maxVortexTorque = 0.7;
+        float32 _maxVortexTorque = 0.7f;
         
         /*! minimum votex range
         */
-        float32 _minVortexRange = 20.0;
+        float32 _minVortexRange = 20.0f;
 
         /*! maximum votex range
         */
-        float32 _maxVortexRange = 40.0;
+        float32 _maxVortexRange = 40.0f;
 
         /*! random number generator
         */
@@ -634,7 +634,7 @@ namespace Igor
 
         /*! vorticity confinement
         */
-        float32 _vorticityConfinement = 0.05;
+        float32 _vorticityConfinement = 0.05f;
 
         /*! actual particles
         */

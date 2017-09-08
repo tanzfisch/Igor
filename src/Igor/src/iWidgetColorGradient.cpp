@@ -58,12 +58,11 @@ namespace Igor
             buttonRect._width = 9;
             buttonRect._y = gradientRect._height + gradientRect._y + 1;
 
-            iaColor4f color;
             int index = 0;
 
             for (auto entry : gradient)
             {
-                buttonRect._x = (entry.first * gradientRect._width) + gradientRect._x - 4;
+                buttonRect._x = static_cast<int32>(entry.first * gradientRect._width) + gradientRect._x - 4;
 
                 if (iIntersection::intersects(mousePos, buttonRect))
                 {
@@ -133,7 +132,7 @@ namespace Igor
 
     void iWidgetColorGradient::draw()
     {
-        const float32 buttonHeight = 20;
+        const int32 buttonHeight = 20;
 
         if (isVisible())
         {
@@ -164,8 +163,8 @@ namespace Igor
                 for (auto entry : gradient)
                 {
                     _gradient.getValue(entry.first, color);
-                    color._a = 1.0;
-                    buttonRect._x = (entry.first * gradientRect._width) + gradientRect._x - 4;
+                    color._a = 1.0f;
+                    buttonRect._x = static_cast<int32>(entry.first * gradientRect._width) + gradientRect._x - 4;
                     iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, color, iWidgetAppearanceState::Standby, isActive());
                 }
             }

@@ -11,6 +11,7 @@
 using namespace Igor;
 
 #include <iaMatrix.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include "VoxelTerrainGenerator.h"
@@ -84,7 +85,7 @@ private:
     uint64 _taskFlushModels = 0; 
     uint64 _taskFlushTextures = 0;
 
-    mutex _hitListMutex;
+    iaMutex _hitListMutex;
     vector<pair<uint64, uint64>> _hitList;
     
     void onKeyPressed(iKeyCode key);

@@ -62,8 +62,8 @@ namespace Igor
             _data = new iVoxelPole[_width * _depth];
             for (int i = 0; i < _width * _depth; ++i)
             {
-                _data[i]._density.setSize(_height, _clearValue);
-                _data[i]._material.setSize(_height, _clearValue);
+                _data[i]._density.setSize(static_cast<uint8>(_height), _clearValue);
+                _data[i]._material.setSize(static_cast<uint8>(_height), _clearValue);
             }
         }
         else
@@ -98,7 +98,7 @@ namespace Igor
 		con_assert(pos._x >= 0 && pos._x < _width, "out of range");
 		con_assert(pos._y >= 0 && pos._y < _height, "out of range");
 		con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
-		_data[pos._z * _depth + pos._x]._density.setValue(pos._y, height, density);
+		_data[pos._z * _depth + pos._x]._density.setValue(static_cast<uint8>(pos._y), static_cast<uint8>(height), density);
 	}
 
     void iVoxelData::setVoxelLine(iaVector3I pos1, iaVector3I pos2, uint8 density)
@@ -317,7 +317,7 @@ namespace Igor
 		con_assert(pos._y >= 0 && pos._y < _height, "out of range");
 		con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         con_assert(_data != nullptr, "zero pointer");
-        _data[pos._z * _depth + pos._x]._density.setValue(pos._y, density);
+        _data[pos._z * _depth + pos._x]._density.setValue(static_cast<uint8>(pos._y), density);
     }
 
     uint8 iVoxelData::getVoxelDensity(iaVector3I pos)
@@ -326,7 +326,7 @@ namespace Igor
         con_assert(pos._y >= 0 && pos._y < _height, "out of range");
         con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         con_assert(_data != nullptr, "zero pointer");
-        return _data[pos._z * _depth + pos._x]._density.getValue(pos._y);
+        return _data[pos._z * _depth + pos._x]._density.getValue(static_cast<uint8>(pos._y));
     }
 
     void iVoxelData::setVoxelMaterial(iaVector3I pos, uint8 material)
@@ -335,7 +335,7 @@ namespace Igor
         con_assert(pos._y >= 0 && pos._y < _height, "out of range");
         con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         con_assert(_data != nullptr, "zero pointer");
-        _data[pos._z * _depth + pos._x]._material.setValue(pos._y, material);
+        _data[pos._z * _depth + pos._x]._material.setValue(static_cast<uint8>(pos._y), material);
     }
 
     uint8 iVoxelData::getVoxelMaterial(iaVector3I pos)
@@ -344,7 +344,7 @@ namespace Igor
         con_assert(pos._y >= 0 && pos._y < _height, "out of range");
         con_assert(pos._z >= 0 && pos._z < _depth, "out of range");
         con_assert(_data != nullptr, "zero pointer");
-        return _data[pos._z * _depth + pos._x]._material.getValue(pos._y);
+        return _data[pos._z * _depth + pos._x]._material.getValue(static_cast<uint8>(pos._y));
     }
 
     bool iVoxelData::hasData() const

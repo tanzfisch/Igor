@@ -53,6 +53,7 @@ namespace Igor
         return _preselectedPath;
     }
 
+	__IGOR_DISABLE_WARNING__(4100)
     void iUserControlFileChooser::onTextChanged(iWidget* source)
     {
         _fileNameChanged(_grid);
@@ -62,6 +63,25 @@ namespace Igor
     {
         _fileDialog->load(iDialogFileSelectCloseDelegate(this, &iUserControlFileChooser::onFileLoadDialogClosed), _preselectedPath);
     }
+
+	void iUserControlFileChooser::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
+	{
+		if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
+		{
+			iaString filename = _fileDialog->getFullPath();
+
+			if (_optimizePath)
+			{
+				filename = iResourceManager::getInstance().getRelativePath(filename);
+			}
+
+			if (_fileNameTextEdit->getText() != filename)
+			{
+				setFileName(filename);
+			}
+		}
+	}
+	__IGOR_ENABLE_WARNING__(4100)
 
     void iUserControlFileChooser::initGUI()
     {
@@ -109,24 +129,6 @@ namespace Igor
         {
             iWidgetManager::getInstance().destroyDialog(_fileDialog);
             _fileDialog = nullptr;
-        }
-    }
-
-    void iUserControlFileChooser::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
-    {
-        if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
-        {
-            iaString filename = _fileDialog->getFullPath();
-
-            if (_optimizePath)
-            {
-                filename = iResourceManager::getInstance().getRelativePath(filename);
-            }
-
-            if (_fileNameTextEdit->getText() != filename)
-            {
-                setFileName(filename);
-            }
         }
     }
 

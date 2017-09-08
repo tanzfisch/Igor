@@ -234,7 +234,6 @@ namespace Igor
                 keyPath = filename;
             }
 
-
             int64 hashValue = calcHashValue(filename, cacheMode, buildMode, wrapMode);
 
             _mutex.lock();
@@ -243,13 +242,15 @@ namespace Igor
             {
                 result = (*textureIter).second;
             }
+			_mutex.unlock();
 
             if (nullptr == result.get())
             {
                 result = shared_ptr<iTexture>(new iTexture(keyPath, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
+				_mutex.lock();
                 _textures[hashValue] = result;
+				_mutex.unlock();
             }
-            _mutex.unlock();
         }
 
         return result;
@@ -303,10 +304,6 @@ namespace Igor
             }
 
             _interrupLoading = false;
-        }
-        else
-        {
-            con_warn("renderer not ready. try later");
         }
     }
 

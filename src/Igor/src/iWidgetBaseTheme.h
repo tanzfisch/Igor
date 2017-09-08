@@ -35,6 +35,9 @@
 #include <iaGradient.h>
 using namespace IgorAux;
 
+#include <memory>
+using namespace std;
+
 namespace Igor
 {
 
@@ -76,12 +79,12 @@ namespace Igor
         virtual void drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawGroupBox(int32 posx, int32 posy, int32 width, int32 height, bool headerOnly, const iaString& text, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawCheckBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, bool checked, iWidgetAppearanceState state, bool active) = 0;
-		virtual void drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, long textWidth, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawLabel(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, int32 textWidth, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawNumberChooser(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonUp, iWidgetAppearanceState buttonDown, bool active) = 0;
         virtual void drawSelectBox(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active) = 0;
         virtual void drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active) = 0;
 		virtual void drawTextEdit(int32 posx, int32 posy, int32 width, int32 height, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active) = 0;
-		virtual void drawText(int32 posx, int32 posy, const iaString& text, long textwidth) = 0;
+		virtual void drawText(int32 posx, int32 posy, const iaString& text, int32 textwidth) = 0;
         virtual void drawGraph(int32 posx, int32 posy, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points) = 0;
         virtual void drawGraphGridlines(int32 posx, int32 posy, int32 width, int32 height, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active) = 0;
         virtual void drawGraphLabels(int32 posx, int32 posy, int32 width, int32 height, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active) = 0;

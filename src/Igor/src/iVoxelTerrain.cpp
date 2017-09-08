@@ -129,7 +129,7 @@ namespace Igor
         _actionQueue.push_back(action);
     }
 
-    void iVoxelTerrain::destroyNodeAsync(uint32 nodeID)
+    void iVoxelTerrain::destroyNodeAsync(uint64 nodeID)
     {
         con_assert(nodeID != iNode::INVALID_NODE_ID, "invalid node id");
 
@@ -206,7 +206,8 @@ namespace Igor
             pos._y = 3100;
 #endif
 
-            iaVector3I observerPosition(pos._x, pos._y, pos._z);
+			iaVector3I observerPosition;
+			iaConvert::convert(pos, observerPosition);
 
 #ifdef USE_VERBOSE_STATISTICS
             iStatistics::getInstance().beginSection(_discoverBlocksSection);
@@ -261,8 +262,8 @@ namespace Igor
         iaVector3I max = boundings._center;
         max += boundings._halfWidths;
 
-        float64 lodFactor = pow(2, _lowestLOD);
-        float64 actualBlockSize = _voxelBlockSize * lodFactor;
+        int64 lodFactor = static_cast<int64>(pow(2, _lowestLOD));
+        int64 actualBlockSize = _voxelBlockSize * lodFactor;
         min /= actualBlockSize;
         max /= actualBlockSize;
 
@@ -447,7 +448,7 @@ namespace Igor
         result->_positionInLOD += childOffsetPosition[childAdress];
 
         result->_lod = lod;
-        result->_size = _voxelBlockSize * pow(2, lod);
+        result->_size = static_cast<uint16>(_voxelBlockSize * pow(2, lod));
         result->_childAdress = childAdress;
 
         for (int i = 0; i < 8; ++i)
@@ -469,8 +470,8 @@ namespace Igor
 
     void iVoxelTerrain::discoverBlocks(const iaVector3I& observerPosition)
     {
-        float64 lodFactor = pow(2, _lowestLOD);
-        float64 actualBlockSize = _voxelBlockSize * lodFactor;
+        int64 lodFactor = static_cast<int64>(pow(2, _lowestLOD));
+        int64 actualBlockSize = _voxelBlockSize * lodFactor;
 
         if (_dirtyDiscovery || observerPosition.distance2(_lastDiscoveryPosition) > actualBlockSize * actualBlockSize)
         {
@@ -524,10 +525,10 @@ namespace Igor
                         }
                         else
                         {
-                            auto blockIter = voxelBlocksToDelete.find(voxelBlockPosition);
-                            if (blockIter != voxelBlocksToDelete.end())
+                            auto blockToDeleteIter = voxelBlocksToDelete.find(voxelBlockPosition);
+                            if (blockToDeleteIter != voxelBlocksToDelete.end())
                             {
-                                voxelBlocksToDelete.erase(blockIter);
+                                voxelBlocksToDelete.erase(blockToDeleteIter);
                             }
                         }
                     }
@@ -808,8 +809,6 @@ namespace Igor
                     {
                         if (voxelBlock->_children[0] == 0)
                         {
-                            float64 halfSize = static_cast<float64>(voxelBlock->_size >> 1);
-
                             uint32 childLOD = voxelBlock->_lod - 1;
                             iaVector3I positionInLOD = voxelBlock->_positionInLOD;
                             positionInLOD *= 2;
@@ -947,7 +946,7 @@ namespace Igor
 
                 if (voxelBlock->_children[0] != iVoxelBlock::INVALID_VOXELBLOCKID)
                 {
-                    int64 lodFactor = pow(2, voxelBlock->_lod - 1);
+                    int64 lodFactor = static_cast<int64>(pow(2, voxelBlock->_lod - 1));
                     int64 halfVoxelBlockSize = (iVoxelTerrain::_voxelBlockSize + iVoxelTerrain::_voxelBlockOverlap) / 2 * lodFactor;
 
                     for (int i = 0; i < 8; ++i)
@@ -1203,7 +1202,6 @@ namespace Igor
                     (*parent).second->_voxelData->getCopy(*(tileInformation._voxelDataNextLOD));
                     tileInformation._lod = voxelBlock->_lod;
                     tileInformation._neighboursLOD = voxelBlock->_neighboursLOD;
-                    voxelBlock->_neighboursLOD = tileInformation._neighboursLOD;
 
                     iModelDataInputParameter* inputParam = new iModelDataInputParameter(); // will be deleted by iModel
                     inputParam->_identifier = "vtg";
