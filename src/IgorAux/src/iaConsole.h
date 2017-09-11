@@ -360,6 +360,7 @@ namespace IgorAux
 
     \param Type type of information to be printed
     \param Message message to be printed
+	\todo would be nice to have a fixed size of info type collumn
     */
 #define con_info(Type, Message) \
     iaConsole::getInstance() << LOCK << iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl << UNLOCK;
