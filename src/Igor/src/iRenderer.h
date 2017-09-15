@@ -202,8 +202,9 @@ namespace Igor
         /*! set current material
 
         \param material the material to be set as current material
+        \param forceWireframe if true all materials will be considered using wireframe
         */
-        virtual void setMaterial(iMaterial* material);
+        virtual void setMaterial(iMaterial* material, bool forceWireframe = false);
 
         /*! set the viewport
 

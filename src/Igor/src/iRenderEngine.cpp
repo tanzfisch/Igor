@@ -45,6 +45,16 @@ namespace Igor
 #endif
     }
 
+    void iRenderEngine::setWireframe(bool wireframe)
+    {
+        _wireframe = wireframe;
+    }
+
+    bool iRenderEngine::isWireframe() const
+    {
+        return _wireframe;
+    }
+
     void iRenderEngine::setScene(iScene* scene)
     {
         _scene = scene;
@@ -86,7 +96,7 @@ namespace Igor
 
                 iStatistics::getInstance().beginSection(_drawSectionID);
 #endif
-                drawScene(camera);
+                drawScene();
 #ifdef USE_VERBOSE_STATISTICS
                 iStatistics::getInstance().endSection(_drawSectionID);
 #endif
@@ -150,7 +160,7 @@ namespace Igor
         }
     }
 
-    void iRenderEngine::drawScene(iNodeCamera* camera)
+    void iRenderEngine::drawScene()
     {
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         vector<iNodeLight*>& lights = _scene->getLights();
@@ -184,9 +194,9 @@ namespace Igor
             iMaterial* material = materialGroup->getMaterial();
             if (iRenderStateValue::On == material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced))
             {
-                if (materialGroup->_instancedRenderNodes.size())
+                if (!materialGroup->_instancedRenderNodes.empty())
                 {
-                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial());
+                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _wireframe);
 
                     auto instanceIter = materialGroup->_instancedRenderNodes.begin();
                     while (instanceIter != materialGroup->_instancedRenderNodes.end())
@@ -247,9 +257,9 @@ namespace Igor
             }
             else
             {
-                if (materialGroup->_renderNodeIDs.size() > 0)
+                if (!materialGroup->_renderNodeIDs.empty())
                 {
-                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial());
+                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _wireframe);
 
                     auto iter = materialGroup->_renderNodeIDs.begin();
                     while (iter != materialGroup->_renderNodeIDs.end())

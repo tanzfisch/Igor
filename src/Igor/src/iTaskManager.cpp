@@ -22,12 +22,7 @@ namespace Igor
 
         SYSTEM_INFO sysinfo;
         GetSystemInfo(&sysinfo);
-        int32 numThreads = sysinfo.dwNumberOfProcessors + 1;
-
-        if (numThreads < 4)
-        {
-            numThreads = 4;
-        }
+        int32 numThreads = sysinfo.dwNumberOfProcessors;
 
         for (int i = 0; i < numThreads; ++i)
         {
@@ -72,7 +67,7 @@ namespace Igor
 
             while (task->isRunning())
             {
-                Sleep(1);
+                Sleep(10);
             }
 
             delete task;
@@ -90,7 +85,7 @@ namespace Igor
 
             while (task->isRunning())
             {
-                Sleep(1);
+                Sleep(10);
             }
 
             delete task;
@@ -177,17 +172,11 @@ namespace Igor
     {
         SYSTEM_INFO sysinfo;
         GetSystemInfo(&sysinfo);
-        int32 numThreads = sysinfo.dwNumberOfProcessors + 1;
-
-        if (numThreads < 4)
-        {
-            numThreads = 4;
-        }
+        int32 numThreads = 1; // sysinfo.dwNumberOfProcessors;
 
         for (int i = 0; i < numThreads; ++i)
         {
             createRenderContextThread(window);
-            Sleep(10); // TODO this is a workaround. I simply did not understand how else to fix that sometimes render contexts where not initializing
         }
 
         con_info("created threads", numThreads << " render context threads");
@@ -381,7 +370,7 @@ namespace Igor
             }
             else
             {
-                Sleep(0);
+                Sleep(10);
             }
         }
     }
@@ -462,7 +451,7 @@ namespace Igor
             }
             else
             {
-                Sleep(0);
+                Sleep(10);
             }
         }
     }

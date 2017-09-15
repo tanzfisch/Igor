@@ -172,7 +172,17 @@ namespace Igor
 
         /*! \returns true if view is visible
         */
-        bool getVisible() const;
+        bool isVisible() const;
+
+        /*! shows all rendering in wireframe mode or normal mode
+
+        \param wireframe if true all rendering is using wireframe
+        */
+        void setWireframe(bool wireframe = true);
+
+        /*! \returns true if wireframe mode is active
+        */
+        bool isWireframe() const;
 
         /*! unprojects screen position to object space
 

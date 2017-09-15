@@ -40,13 +40,23 @@ namespace Igor
     class iScene;
     class iNodeCamera;
     class iNode;
-    
+
     /*! does control the render loop
     */
     class iRenderEngine
     {
 
     public:
+
+        /*! shows all rendering in wireframe mode or normal mode
+
+        \param wireframe if true all rendering is using wireframe
+        */
+        void setWireframe(bool wireframe = true);
+
+        /*! \returns true if wireframe mode is active
+        */
+        bool isWireframe() const;
 
         /*! sets the scene to render with
 
@@ -71,6 +81,10 @@ namespace Igor
         virtual ~iRenderEngine();
 
     private:
+
+        /*! flag if rendering uses wireframe
+        */
+        bool _wireframe = false;
 
         /*! cull section id for statistics
         */
@@ -104,7 +118,7 @@ namespace Igor
 
         \param camera the specified camera
         */
-        void drawScene(iNodeCamera* camera);
+        void drawScene();
 
         /*! triggers the creation of buffers
         */

@@ -778,7 +778,7 @@ namespace Igor
     }
 
     //! \todo this is just a first rudimentary version. we need a structure that only switches the deltas between materials
-    void iRenderer::setMaterial(iMaterial* material)
+    void iRenderer::setMaterial(iMaterial* material, bool forceWireframe)
     {
         if (material == _currentMaterial)
         {
@@ -828,7 +828,8 @@ namespace Igor
 
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); GL_CHECK_ERROR();
 
-            if (stateset._renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] == iRenderStateValue::On)
+            if (stateset._renderStates[static_cast<unsigned int>(iRenderState::Wireframe)] == iRenderStateValue::On ||
+                forceWireframe)
             {
                 glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
                 GL_CHECK_ERROR();
@@ -978,7 +979,7 @@ namespace Igor
             }
             _requestedBuffersMutex.unlock();
 
-            if(proceed)
+            if (proceed)
             {
                 initBuffers(mesh, meshBuffers);
                 proceed = false;
@@ -1324,7 +1325,7 @@ namespace Igor
                     if (ascii_code == ' ')
                     {
                         int j = 1;
-                        while ((i + j<text.getSize()) && (text[i + j] != ' '))
+                        while ((i + j < text.getSize()) && (text[i + j] != ' '))
                         {
                             temptext[j - 1] = text[i + j];
                             j++;
@@ -1509,7 +1510,7 @@ namespace Igor
 
                 rightScale = right * x._x + top * x._y;
                 topScale = right * y._x + top * y._y;
-                
+
                 glMultiTexCoord2f(GL_TEXTURE0, particle._texturefrom._x, particle._texturefrom._y);
                 glMultiTexCoord2f(GL_TEXTURE1, 0 + particle._phase0[0], 1 + particle._phase0[1]);
                 glMultiTexCoord2f(GL_TEXTURE2, 0 + particle._phase1[0], 1 + particle._phase1[1]);

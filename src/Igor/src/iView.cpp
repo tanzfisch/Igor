@@ -46,9 +46,19 @@ namespace Igor
         _visible = visible;
     }
     
-    bool iView::getVisible() const
+    bool iView::isVisible() const
     {
         return _visible;
+    }
+
+    void iView::setWireframe(bool wireframe)
+    {
+        _renderEngine.setWireframe(wireframe);
+    }
+
+    bool iView::isWireframe() const
+    {
+        return _renderEngine.isWireframe();
     }
 
     void iView::setName(const iaString& name)
