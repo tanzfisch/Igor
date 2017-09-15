@@ -31,6 +31,7 @@ using namespace IgorAux;
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
+#include <iNodeVisitorRenderBoundings.h>
 using namespace Igor;
  
 Example3D::Example3D()
@@ -58,6 +59,7 @@ void Example3D::init()
     _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
     _view.setPerspective(45);
     _view.setClipPlanes(0.1f, 10000.f);
+    _view.registerRenderDelegate(RenderDelegate(this, &Example3D::onRenderBBox));
     _window.addView(&_view);
 
     // setup orthogonal view
@@ -290,6 +292,7 @@ void Example3D::deinit()
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
+    _view.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderBBox));
 
     // deinit statistics
     if (_font != nullptr)
@@ -428,6 +431,13 @@ void Example3D::onTimer()
 {
     iNodeTransform* directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_directionalLightRotate));
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
+}
+
+void Example3D::onRenderBBox()
+{
+    // assuming that projection and view matrix are still correct
+    iNodeVisitorRenderBoundings renderBoundings;
+    renderBoundings.run(_scene->getRoot());
 }
 
 void Example3D::onRenderOrtho()

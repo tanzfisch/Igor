@@ -410,6 +410,9 @@
     <ClCompile Include="..\src\iVoxelTerrainMeshGenerator.cpp">
       <Filter>terrain</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNodeVisitorRenderBoundings.cpp">
+      <Filter>scene\traversal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -858,6 +861,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iVoxelTerrainMeshGenerator.h">
       <Filter>terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodeVisitorRenderBoundings.h">
+      <Filter>scene\traversal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
