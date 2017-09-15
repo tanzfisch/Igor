@@ -28,6 +28,17 @@ namespace Igor
 		setScene(nullptr);
 	}
 
+    const iAABoxd& iNodeVolume::getBoundingBox() const
+    {
+        iAABoxd result;
+        result._center = _sphere._center;
+        result._halfWidths._x = _sphere._radius;
+        result._halfWidths._y = _sphere._radius;
+        result._halfWidths._z = _sphere._radius;
+
+        return result;
+    }
+
     const iSphered& iNodeVolume::getBoundingSphere() const
     {
         return _sphere;

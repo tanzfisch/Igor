@@ -51,16 +51,36 @@ namespace Igor
         return _visible;
     }
 
-    void iView::setWireframe(bool wireframe)
+    void iView::setWireframeVisible(bool wireframe)
     {
-        _renderEngine.setWireframe(wireframe);
+        _renderEngine.setWireframeVisible(wireframe);
     }
 
-    bool iView::isWireframe() const
+    bool iView::isWireframeVisible() const
     {
-        return _renderEngine.isWireframe();
+        return _renderEngine.isWireframeVisible();
     }
 
+    void iView::setBoundingBoxVisible(bool boundingBox)
+    {
+        _renderEngine.setBoundingBoxVisible(boundingBox);
+    }
+
+    bool iView::isBoundingBoxVisible() const
+    {
+        return _renderEngine.isBoundingBoxVisible();
+    }
+
+    void iView::setOctreeVisible(bool octree)
+    {
+        _renderEngine.setOctreeVisible(octree);
+    }
+
+    bool iView::isOctreeVisible() const
+    {
+        return _renderEngine.isOctreeVisible();
+    }
+    
     void iView::setName(const iaString& name)
     {
         _name = name;

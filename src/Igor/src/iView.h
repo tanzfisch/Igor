@@ -178,11 +178,33 @@ namespace Igor
 
         \param wireframe if true all rendering is using wireframe
         */
-        void setWireframe(bool wireframe = true);
+        void setWireframeVisible(bool wireframe = true);
 
         /*! \returns true if wireframe mode is active
         */
-        bool isWireframe() const;
+        bool isWireframeVisible() const;
+
+        /*! defines if bounding boxes are shown or not
+
+        \param boundingBox if true bounding boxes are shown
+        */
+        void setBoundingBoxVisible(bool boundingBox = true);
+
+        /*! \returns true if bounding boxes are shown
+        */
+        bool isBoundingBoxVisible() const;
+
+        /*! defines if octree is shown or not
+
+        \param octree if true octree is shown
+
+        \bug currently the octree is not displayed correctly
+        */
+        void setOctreeVisible(bool octree = true);
+
+        /*! \returns true if octree is shown
+        */
+        bool isOctreeVisible() const;
 
         /*! unprojects screen position to object space
 

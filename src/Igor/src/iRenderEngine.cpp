@@ -19,6 +19,7 @@
 #include <iNodeFactory.h>
 #include <iStatistics.h>
 #include <iTimer.h>
+#include <iNodeVisitorRenderBoundings.h>
 
 #include <iaConsole.h>
 #include <iaConvert.h>
@@ -45,14 +46,34 @@ namespace Igor
 #endif
     }
 
-    void iRenderEngine::setWireframe(bool wireframe)
+    void iRenderEngine::setWireframeVisible(bool wireframe)
     {
-        _wireframe = wireframe;
+        _showWireframe = wireframe;
     }
 
-    bool iRenderEngine::isWireframe() const
+    bool iRenderEngine::isWireframeVisible() const
     {
-        return _wireframe;
+        return _showWireframe;
+    }
+
+    void iRenderEngine::setBoundingBoxVisible(bool boundingBox)
+    {
+        _showBoundingBoxes = boundingBox;
+    }
+
+    bool iRenderEngine::isBoundingBoxVisible() const
+    {
+        return _showBoundingBoxes;
+    }
+
+    void iRenderEngine::setOctreeVisible(bool octree)
+    {
+        _showOctree = octree;
+    }
+    
+    bool iRenderEngine::isOctreeVisible() const
+    {
+        return _showOctree;
     }
 
     void iRenderEngine::setScene(iScene* scene)
@@ -196,7 +217,7 @@ namespace Igor
             {
                 if (!materialGroup->_instancedRenderNodes.empty())
                 {
-                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _wireframe);
+                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _showWireframe);
 
                     auto instanceIter = materialGroup->_instancedRenderNodes.begin();
                     while (instanceIter != materialGroup->_instancedRenderNodes.end())
@@ -259,7 +280,7 @@ namespace Igor
             {
                 if (!materialGroup->_renderNodeIDs.empty())
                 {
-                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _wireframe);
+                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _showWireframe);
 
                     auto iter = materialGroup->_renderNodeIDs.begin();
                     while (iter != materialGroup->_renderNodeIDs.end())
@@ -289,6 +310,17 @@ namespace Igor
             }
 
             ++materialIter;
+        }
+
+        if (_showBoundingBoxes)
+        {            
+            iNodeVisitorRenderBoundings renderBoundings;
+            renderBoundings.run(_scene->getRoot());
+        }
+
+        if (_showOctree)
+        {
+            _scene->getOctree()->draw();
         }
     }
 

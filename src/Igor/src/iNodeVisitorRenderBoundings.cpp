@@ -5,7 +5,9 @@
 #include <iNodeVisitorRenderBoundings.h>
 #include <iNode.h>
 #include <iNodeTransform.h>
+#include <iNodeVolume.h>
 #include <iRenderer.h>
+#include <iMaterialResourceFactory.h>
 
 #include <IgorAux.h>
 #include <iaConsole.h>
@@ -16,7 +18,8 @@ namespace Igor
 
 		iNodeVisitorRenderBoundings::iNodeVisitorRenderBoundings()
 		{
-            // TODO copnfigure material
+            _material = iMaterialResourceFactory::getInstance().createMaterial();
+            iMaterialResourceFactory::getInstance().getMaterial(_material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
 		}
 
 		void iNodeVisitorRenderBoundings::run(iNode* node)
@@ -34,11 +37,16 @@ namespace Igor
                 iaMatrixd matrix;
                 transform->getMatrix(matrix);
                 _currentMatrix *= matrix;
-            }
-            else if (iNodeKind::Volume == node->getKind())
-            {
                 iRenderer::getInstance().setModelMatrix(_currentMatrix);
-                iRenderer::getInstance().drawBox(iaVector3f(-1, -1, -1), iaVector3f(1, 1, 1));
+            }
+            
+            if (iNodeKind::Volume == node->getKind())
+            {
+                iNodeVolume* volume = static_cast<iNodeVolume*>(node);
+
+                iAABoxd bbox = volume->getBoundingBox();
+
+                iRenderer::getInstance().drawBBox(bbox);
             }
 
             return true;
@@ -57,7 +65,8 @@ namespace Igor
 		void iNodeVisitorRenderBoundings::preTraverse()
 		{
             _currentMatrix.identity();
-            // TODO set material
+            iRenderer::getInstance().setColor(1, 1, 1, 1);
+            iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_material));
 		}
 
 		void iNodeVisitorRenderBoundings::postTraverse()

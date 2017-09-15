@@ -198,10 +198,6 @@ private:
     */
     void onRenderOrtho();
 
-    /*! called by main view. will render bounding boxes
-    */
-    void onRenderBBox();
-
     /*! draw igor logo
     */
     void drawLogo();

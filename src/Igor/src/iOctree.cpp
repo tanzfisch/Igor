@@ -8,6 +8,7 @@
 #include <iRenderer.h>
 #include <iNodeFactory.h>
 #include <iIntersection.h>
+#include <iMaterialResourceFactory.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -416,6 +417,15 @@ namespace Igor
 
     void iOctree::draw()
     {
+        iaMatrixd matrix;
+        iRenderer::getInstance().setModelMatrix(matrix);
+
+        uint64 material = iMaterialResourceFactory::getInstance().createMaterial();
+        iMaterialResourceFactory::getInstance().getMaterial(material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(material));
+
+        iRenderer::getInstance().setColor(0, 0, 1, 1);
+
         draw(_rootNode);
     }
 
@@ -423,30 +433,7 @@ namespace Igor
     {
         OctreeNode* node = _nodes[nodeID];
 
-        if (0 != node->_objects.size())
-        {
-            iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-        }
-        else
-        {
-            iRenderer::getInstance().setColor(iaColor4f(0.5, 0.5, 0.5, 0.5));
-        }
-
-        iaVector3d a = node->_box._center;
-        iaVector3d b = node->_box._center;
-
-        a._x -= node->_box._halfEdgeLength;
-        a._y -= node->_box._halfEdgeLength;
-        a._z -= node->_box._halfEdgeLength;
-
-        b._x += node->_box._halfEdgeLength;
-        b._y += node->_box._halfEdgeLength;
-        b._z += node->_box._halfEdgeLength;
-
-        iaVector3f af(a._x, a._y, a._z);
-        iaVector3f bf(b._x, b._y, b._z);
-
-        iRenderer::getInstance().drawBox(af, bf);
+        iRenderer::getInstance().drawBBox(node->_box);
 
         if (nullptr != node->_children)
         {

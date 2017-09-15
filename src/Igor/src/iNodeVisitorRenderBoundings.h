@@ -31,6 +31,7 @@
 
 #include <iNodeVisitor.h>
 #include <iDefines.h>
+#include <iMaterial.h>2
 
 #include <iaString.h>
 #include <iaMatrix.h>
@@ -44,7 +45,7 @@ namespace Igor
 
     /*! traveses node tree and renders bounding boxes
     */
-	class Igor_API iNodeVisitorRenderBoundings : public iNodeVisitor
+	class iNodeVisitorRenderBoundings : public iNodeVisitor
 	{
 
 	public:
@@ -89,6 +90,8 @@ namespace Igor
         /*! current matrix that eventually gets pushed on stack or came poped from stack
         */
         iaMatrixd _currentMatrix;
+
+        uint64 _material = iMaterial::INVALID_MATERIAL_ID;
 
 	};
 

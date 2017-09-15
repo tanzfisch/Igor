@@ -52,11 +52,31 @@ namespace Igor
 
         \param wireframe if true all rendering is using wireframe
         */
-        void setWireframe(bool wireframe = true);
+        void setWireframeVisible(bool wireframe = true);
 
         /*! \returns true if wireframe mode is active
         */
-        bool isWireframe() const;
+        bool isWireframeVisible() const;
+
+        /*! defines if bounding boxes are shown or not
+
+        \param boundingBox if true bounding boxes are shown
+        */
+        void setBoundingBoxVisible(bool boundingBox = true);
+
+        /*! \returns true if bounding boxes are shown
+        */
+        bool isBoundingBoxVisible() const;
+
+        /*! defines if octree is shown or not
+
+        \param octree if true octree is shown
+        */
+        void setOctreeVisible(bool octree = true);
+
+        /*! \returns true if octree is shown
+        */
+        bool isOctreeVisible() const;
 
         /*! sets the scene to render with
 
@@ -84,7 +104,15 @@ namespace Igor
 
         /*! flag if rendering uses wireframe
         */
-        bool _wireframe = false;
+        bool _showWireframe = false;
+
+        /*! flag if bounding boxes are drawn
+        */
+        bool _showBoundingBoxes = false;
+
+        /*! flag if octree will be rendered
+        */
+        bool _showOctree = false;
 
         /*! cull section id for statistics
         */

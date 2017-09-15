@@ -31,9 +31,8 @@ using namespace IgorAux;
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
-#include <iNodeVisitorRenderBoundings.h>
 using namespace Igor;
- 
+
 Example3D::Example3D()
 {
     init();
@@ -59,7 +58,6 @@ void Example3D::init()
     _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
     _view.setPerspective(45);
     _view.setClipPlanes(0.1f, 10000.f);
-    _view.registerRenderDelegate(RenderDelegate(this, &Example3D::onRenderBBox));
     _window.addView(&_view);
 
     // setup orthogonal view
@@ -275,7 +273,7 @@ void Example3D::init()
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Example3D::onKeyPressed));
@@ -292,7 +290,6 @@ void Example3D::deinit()
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example3D::onWindowClosed));
     _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example3D::onWindowResized));
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
-    _view.unregisterRenderDelegate(RenderDelegate(this, &Example3D::onRenderBBox));
 
     // deinit statistics
     if (_font != nullptr)
@@ -386,12 +383,13 @@ void Example3D::onWindowResized(int32 clientWidth, int32 clientHeight)
 
 void Example3D::onKeyPressed(iKeyCode key)
 {
-    if (key == iKeyCode::ESC)
+    switch (key)
     {
+    case iKeyCode::ESC:
         iApplication::getInstance().stop();
-    }
+        break;
 
-    if (key == iKeyCode::F1)
+    case iKeyCode::F1:
     {
         iNodeVisitorPrintTree printTree;
         if (_scene != nullptr)
@@ -399,8 +397,21 @@ void Example3D::onKeyPressed(iKeyCode key)
             printTree.printToConsole(_scene->getRoot());
         }
     }
+    break;
 
-    if (key == iKeyCode::Space)
+    case iKeyCode::W:
+        _view.setWireframeVisible(!_view.isWireframeVisible());
+        break;
+
+    case iKeyCode::O:
+        _view.setOctreeVisible(!_view.isOctreeVisible());
+        break;
+
+    case iKeyCode::B:
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        break;
+
+    case iKeyCode::Space:
     {
         _activeNode++;
         if (_activeNode > 2)
@@ -425,6 +436,8 @@ void Example3D::onKeyPressed(iKeyCode key)
             }
         }
     }
+    break;
+    }
 }
 
 void Example3D::onTimer()
@@ -433,20 +446,13 @@ void Example3D::onTimer()
     directionalLightRotate->rotate(0.005f, iaAxis::Y);
 }
 
-void Example3D::onRenderBBox()
-{
-    // assuming that projection and view matrix are still correct
-    iNodeVisitorRenderBoundings renderBoundings;
-    renderBoundings.run(_scene->getRoot());
-}
-
 void Example3D::onRenderOrtho()
 {
     iaMatrixd viewMatrix;
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0,0,-30);
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     drawLogo();

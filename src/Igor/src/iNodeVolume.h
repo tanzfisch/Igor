@@ -30,7 +30,9 @@
 #define __iNODEVOLUME__
 
 #include <iNodeRender.h>
+
 #include <iSphere.h>
+#include <iAABox.h>
 
 namespace Igor
 {
@@ -63,6 +65,12 @@ namespace Igor
         /*! \returns bounding sphere
         */
         const Igor_API iSphered& getBoundingSphere() const;
+
+        /*! \returns bounding box
+
+        \todo save actual bbox in volume node
+        */
+        const Igor_API iAABoxd& getBoundingBox() const;
 
 	protected:
 

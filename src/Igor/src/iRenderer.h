@@ -31,8 +31,10 @@
 
 #include <iRectangle.h>
 #include <iTexture.h>
-#include <iaGradient.h>
+#include <iAABox.h>
+#include <iAACube.h>
 
+#include <iaGradient.h>
 #include <iaSingleton.h>
 #include <iaString.h>
 #include <iaMatrix.h>
@@ -476,7 +478,19 @@ namespace Igor
         \param posA first 3d point
         \param posB second 3d point
         */
-        virtual void drawBox(iaVector3f &posA, iaVector3f &posB);
+        virtual void drawFilledBox(iaVector3f &posA, iaVector3f &posB);
+
+        /*! draws axis aligned bounding box with lines
+
+        \param bbox the bounding box to draw
+        */
+        virtual void drawBBox(const iAABoxd& bbox);
+
+        /*! draws axis aligned bounding cube with lines
+
+        \param bbox the bounding box to draw
+        */
+        virtual void drawBBox(const iAACubed& bbox);
 
         /*! draws a billboard
 

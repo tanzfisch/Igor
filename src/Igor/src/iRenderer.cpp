@@ -282,7 +282,105 @@ namespace Igor
         glEnd(); GL_CHECK_ERROR();
     }
 
-    void iRenderer::drawBox(iaVector3f &a, iaVector3f &b)
+    void iRenderer::drawBBox(const iAACubed& bbox)
+    {
+        iaVector3d a = bbox._center;
+        a._x -= bbox._halfEdgeLength;
+        a._y -= bbox._halfEdgeLength;
+        a._z -= bbox._halfEdgeLength;
+        iaVector3d b = bbox._center;
+        b._x += bbox._halfEdgeLength;
+        b._y += bbox._halfEdgeLength;
+        b._z += bbox._halfEdgeLength;
+
+        glBegin(GL_LINES);
+        glVertex3f(a._x, a._y, a._z);
+        glVertex3f(b._x, a._y, a._z);
+
+        glVertex3f(a._x, a._y, a._z);
+        glVertex3f(a._x, b._y, a._z);
+
+        glVertex3f(a._x, a._y, a._z);
+        glVertex3f(a._x, a._y, b._z);
+
+        glVertex3f(b._x, a._y, a._z);
+        glVertex3f(b._x, a._y, b._z);
+
+        glVertex3f(b._x, a._y, a._z);
+        glVertex3f(b._x, b._y, a._z);
+
+        glVertex3f(b._x, a._y, b._z);
+        glVertex3f(b._x, b._y, b._z);
+
+        glVertex3f(a._x, a._y, b._z);
+        glVertex3f(b._x, a._y, b._z);
+
+        glVertex3f(a._x, a._y, b._z);
+        glVertex3f(a._x, b._y, b._z);
+
+        glVertex3f(a._x, b._y, a._z);
+        glVertex3f(a._x, b._y, b._z);
+
+        glVertex3f(a._x, b._y, b._z);
+        glVertex3f(b._x, b._y, b._z);
+
+        glVertex3f(a._x, b._y, a._z);
+        glVertex3f(b._x, b._y, a._z);
+
+        glVertex3f(b._x, b._y, a._z);
+        glVertex3f(b._x, b._y, b._z);
+
+        glEnd(); GL_CHECK_ERROR();
+    }
+
+    void iRenderer::drawBBox(const iAABoxd& bbox)
+    {
+        iaVector3d a = bbox._center;
+        a -= bbox._halfWidths;
+        iaVector3d b = bbox._center;
+        b += bbox._halfWidths;
+
+        glBegin(GL_LINES);
+        glVertex3f(a._x, a._y, a._z);
+        glVertex3f(b._x, a._y, a._z);
+
+        glVertex3f(a._x, a._y, a._z);
+        glVertex3f(a._x, b._y, a._z);
+
+        glVertex3f(a._x, a._y, a._z);
+        glVertex3f(a._x, a._y, b._z);
+
+        glVertex3f(b._x, a._y, a._z);
+        glVertex3f(b._x, a._y, b._z);
+
+        glVertex3f(b._x, a._y, a._z);
+        glVertex3f(b._x, b._y, a._z);
+
+        glVertex3f(b._x, a._y, b._z);
+        glVertex3f(b._x, b._y, b._z);
+
+        glVertex3f(a._x, a._y, b._z);
+        glVertex3f(b._x, a._y, b._z);
+
+        glVertex3f(a._x, a._y, b._z);
+        glVertex3f(a._x, b._y, b._z);
+
+        glVertex3f(a._x, b._y, a._z);
+        glVertex3f(a._x, b._y, b._z);
+
+        glVertex3f(a._x, b._y, b._z);
+        glVertex3f(b._x, b._y, b._z);
+
+        glVertex3f(a._x, b._y, a._z);
+        glVertex3f(b._x, b._y, a._z);
+
+        glVertex3f(b._x, b._y, a._z);
+        glVertex3f(b._x, b._y, b._z);
+        
+        glEnd(); GL_CHECK_ERROR();
+    }
+
+    void iRenderer::drawFilledBox(iaVector3f &a, iaVector3f &b)
     {
         glBegin(GL_QUADS);
         // front
