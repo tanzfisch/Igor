@@ -33,7 +33,7 @@ UserControlGraphView::~UserControlGraphView()
     deinitGUI();
 }
 
-void UserControlGraphView::setRootNode(uint32 root)
+void UserControlGraphView::setRootNode(uint64 root)
 {
     _root = root;
 
@@ -52,7 +52,7 @@ void UserControlGraphView::refresh()
     }
 }
 
-uint32 UserControlGraphView::getRootNode()
+uint64 UserControlGraphView::getRootNode()
 {
     return _root;
 }
@@ -260,8 +260,8 @@ iaString UserControlGraphView::getIconTexture(iNodeType type)
 
 void UserControlGraphView::OnSelectionChange(iWidget* widget)
 {
-    uint32* nodeIDPtr = static_cast<uint32*>(_gridGraph->getSelectedUserData());
-    uint32 nodeID = iNode::INVALID_NODE_ID;
+    uint64* nodeIDPtr = static_cast<uint64*>(_gridGraph->getSelectedUserData());
+    uint64 nodeID = iNode::INVALID_NODE_ID;
     if (nodeIDPtr != nullptr)
     {
         nodeID = *nodeIDPtr;
@@ -337,7 +337,7 @@ void UserControlGraphView::OnContextMenuClose(int32 value)
     }
 }
 
-uint32 UserControlGraphView::getSelectedNode()
+uint64 UserControlGraphView::getSelectedNode()
 {
     return _selectedNode;
 }
@@ -395,7 +395,7 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
         entry->appendCollumns(2);
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         entry->setWidth(330);
-        uint32* userData = new uint32();
+        uint64* userData = new uint64();
         _userData.push_back(userData);
         *userData = node->getID();
         _gridGraph->addWidget(entry, 0, currentRowIndex, userData);

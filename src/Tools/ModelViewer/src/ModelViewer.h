@@ -104,7 +104,8 @@ private:
 
     iNode* _groupNode = nullptr;
 
-    int32 _materialSkyBox;
+    uint64 _materialSkyBox;
+    uint64 _materialManipulator;
 
     bool _mouseKey0Pressed = false;
     bool _mouseKey1Pressed = false;
@@ -112,22 +113,24 @@ private:
     bool _mouseKey3Pressed = false;
     bool _mouseKey4Pressed = false;
 
-	uint32 _cursorNodeID = iNode::INVALID_NODE_ID;
+	uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
+
+    void onGraphViewSelectionChanged(uint64 nodeID);
 
     void onKeyPressed(iKeyCode key);
     void onWindowClosed();
 
     void onLoadFile();
-    void onImportFile(uint32 nodeID);
-    void onImportFileReference(uint32 nodeID);
+    void onImportFile(uint64 nodeID);
+    void onImportFileReference(uint64 nodeID);
     void onSaveFile();
     void onExitModelViewer();
 
-    void onAddTransformation(uint32 atNodeID);
-    void onAddGroup(uint32 atNodeID);
-    void onAddEmitter(uint32 atNodeID);
-    void onAddParticleSystem(uint32 atNodeID);
-    void onAddSwitch(uint32 atNodeID);
+    void onAddTransformation(uint64 atNodeID);
+    void onAddGroup(uint64 atNodeID);
+    void onAddEmitter(uint64 atNodeID);
+    void onAddParticleSystem(uint64 atNodeID);
+    void onAddSwitch(uint64 atNodeID);
 
     void onAddMaterial();
 

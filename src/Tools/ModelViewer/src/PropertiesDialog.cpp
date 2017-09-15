@@ -65,14 +65,14 @@ void PropertiesDialog::onStructureChanged()
     _structureChangedEvent();
 }
 
-void PropertiesDialog::onGraphViewSelectionChanged(uint32 nodeID)
+void PropertiesDialog::onGraphViewSelectionChanged(uint64 nodeID)
 {
-    _userControlProperties->setProperty(static_cast<uint64>(nodeID), PropertyType::Node);
+    _userControlProperties->setProperty(nodeID, PropertyType::Node);
 }
 
-void PropertiesDialog::onMaterialSelectionChanged(uint32 materialID)
+void PropertiesDialog::onMaterialSelectionChanged(uint64 materialID)
 {
-	_userControlProperties->setProperty(static_cast<uint64>(materialID), PropertyType::Material);
+	_userControlProperties->setProperty(materialID, PropertyType::Material);
 }
 
 void PropertiesDialog::deinitGUI()

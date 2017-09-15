@@ -54,13 +54,13 @@ namespace Igor
     class iDialogMenu;
 }
 
-iaEVENT(AddModel, AddModelDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddGroup, AddGroupDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddSwitch, AddSwitchDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(AddModel, AddModelDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(AddTransformation, AddTransformationDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(AddGroup, AddGroupDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(AddSwitch, AddSwitchDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(AddEmitter, AddEmitterDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(AddParticleSystem, AddParticleSystemDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(GraphSelectionChanged, GraphSelectionChangedDelegate, void, (uint64 nodeID), (nodeID));
 
 class UserControlGraphView : public iUserControl, public iNodeVisitor
 {
@@ -70,9 +70,9 @@ public:
     UserControlGraphView();
     virtual ~UserControlGraphView();
 
-    uint32 getSelectedNode();
-    void setRootNode(uint32 root);
-    uint32 getRootNode();
+    uint64 getSelectedNode();
+    void setRootNode(uint64 root);
+    uint64 getRootNode();
     void refresh();
 
     iWidget* getWidget();
@@ -108,7 +108,7 @@ private:
 	AddSwitch _addSwitch;
 	GraphSelectionChanged _graphSelectionChanged;
 
-    uint32 _root = iNode::INVALID_NODE_ID;
+    uint64 _root = iNode::INVALID_NODE_ID;
 	GraphSelectionChanged _selectionChange;
 
 	vector<iWidget*> _gridEntryWidgets;
@@ -117,7 +117,7 @@ private:
     int32 _indentation = 0;
     bool _firstNode = true;
 
-    uint32 _selectedNode = iNode::INVALID_NODE_ID;
+    uint64 _selectedNode = iNode::INVALID_NODE_ID;
 
     iWidget* _rootWidget = nullptr;
     iWidgetGrid* _gridGraph = nullptr;
@@ -126,7 +126,7 @@ private:
     vector<iaString> _dialogMenuTexts;
     vector<iaString> _dialogMenuPictures;
 
-    vector<uint32*> _userData;
+    vector<uint64*> _userData;
 
     void clearGraph();
 

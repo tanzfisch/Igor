@@ -389,12 +389,12 @@ void MenuDialog::onCut(iWidget* source)
     }
 }
 
-void MenuDialog::onGraphSelectionChanged(uint32 nodeID)
+void MenuDialog::onGraphSelectionChanged(uint64 nodeID)
 {
     _graphSelectionChanged(nodeID);
 }
 
-void MenuDialog::onMaterialSelectionChanged(uint32 materialID)
+void MenuDialog::onMaterialSelectionChanged(uint64 materialID)
 {
 	_materialSelectionChanged(materialID);
 }
@@ -622,7 +622,7 @@ void MenuDialog::unregisterOnExitModelViewer(ExitModelViewerDelegate exitModelVi
     _exitModelViewer.remove(exitModelViewerDelegate);
 }
 
-void MenuDialog::onAddModel(uint32 addAt)
+void MenuDialog::onAddModel(uint64 addAt)
 {
 	if (_decisionBoxModelRef == nullptr)
 	{
@@ -655,27 +655,27 @@ void MenuDialog::onAddModelDecision(bool ok, int32 selection)
     }
 }
 
-void MenuDialog::onAddTransformation(uint32 addAt)
+void MenuDialog::onAddTransformation(uint64 addAt)
 {
 	_addTransformation(addAt);
 }
 
-void MenuDialog::onAddGroup(uint32 addAt)
+void MenuDialog::onAddGroup(uint64 addAt)
 {
 	_addGroup(addAt);
 }
 
-void MenuDialog::onAddEmitter(uint32 addAt)
+void MenuDialog::onAddEmitter(uint64 addAt)
 {
 	_addEmitter(addAt);
 }
 
-void MenuDialog::onAddParticleSystem(uint32 addAt)
+void MenuDialog::onAddParticleSystem(uint64 addAt)
 {
 	_addParticleSystem(addAt);
 }
 
-void MenuDialog::onAddSwitch(uint32 addAt)
+void MenuDialog::onAddSwitch(uint64 addAt)
 {
 	_addSwitch(addAt);
 }
