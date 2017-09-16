@@ -798,9 +798,6 @@ void ModelViewer::onKeyPressed(iKeyCode key)
 {
     switch (key)
     {
-    case iKeyCode::ESC:
-        iApplication::getInstance().stop();
-        break;
 
     case iKeyCode::F1:
     {

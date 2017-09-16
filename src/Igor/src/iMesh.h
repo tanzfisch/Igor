@@ -31,6 +31,7 @@
 
 #include <iDefines.h>
 #include <iSphere.h>
+#include <iAABox.h>
 
 #include <iaColor3.h>
 using namespace IgorAux;
@@ -70,6 +71,16 @@ namespace Igor
         /*! \returns the bounding spehre
         */
         __IGOR_INLINE__ const iSphered& getBoundingSphere() const;
+
+        /*! set bounding box
+
+        \param bbox the bounding box
+        */
+        void setBoundingBox(const iAABoxd& bbox);
+
+        /*! \returns the bounding box
+        */
+        __IGOR_INLINE__ const iAABoxd& getBoundingBox() const;
 
         /*! \returns indexes count
         */
@@ -247,6 +258,10 @@ namespace Igor
         /*! bounding sphere
         */
         iSphered _sphere;
+
+        /*! bounding box
+        */
+        iAABoxd _bbox;
     };
 
 #include <iMesh.inl>

@@ -34,6 +34,7 @@ using namespace IgorAux;
 
 #include <iaVector2.h>
 #include <iSphere.h>
+#include <iAABox.h>
 #include <iaVector4.h>
 #include <iaColor3.h>
 #include <iaColor4.h>
@@ -109,6 +110,10 @@ namespace Igor
         \todo implement bouncing bubble algorithm
         */
         void calcBoundingSphere(iSphered& sphere) const;
+
+        /*! calculating the bounding box
+        */
+        void calcBoundingBox(iAABoxd& bbox) const;
 
         /*! adds vertex to data
 

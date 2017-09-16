@@ -66,6 +66,12 @@ namespace Igor
         */
         const Igor_API iSphered& getBoundingSphere() const;
 
+        /*! sets bounding box
+
+        \param bbox the bounding box
+        */
+        void setBoundingBox(const iAABoxd& bbox);
+
         /*! \returns bounding box
 
         \todo save actual bbox in volume node
@@ -113,6 +119,10 @@ namespace Igor
         /*! sphere of volume
         */
         iSphered _sphere;
+
+        /*! bbox of volume
+        */
+        iAABoxd _bbox;
 
 	};
 

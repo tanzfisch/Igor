@@ -57,6 +57,11 @@ const iSphered& iMesh::getBoundingSphere() const
     return _sphere;
 }
 
+const iAABoxd& iMesh::getBoundingBox() const
+{
+    return _bbox;
+}
+
 uint32* iMesh::getIndexData() const
 {
     return _indexData;

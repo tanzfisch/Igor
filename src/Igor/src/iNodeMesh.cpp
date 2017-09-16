@@ -129,6 +129,7 @@ namespace Igor
         {
             _meshBuffers = iRenderer::getInstance().createBuffersAsync(_mesh);
             setBoundingSphere(_mesh->getBoundingSphere());  
+            setBoundingBox(_mesh->getBoundingBox());
 
             if (!_keepMesh)
             {

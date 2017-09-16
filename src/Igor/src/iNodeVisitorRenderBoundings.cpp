@@ -59,6 +59,8 @@ namespace Igor
                 con_assert(_matrixStack.size() != 0, "stack underflow");
                 _currentMatrix = _matrixStack.back();
                 _matrixStack.pop_back();
+
+                iRenderer::getInstance().setModelMatrix(_currentMatrix);
             }
 		}
 

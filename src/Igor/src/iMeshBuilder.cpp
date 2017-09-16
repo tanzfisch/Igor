@@ -330,6 +330,55 @@ namespace Igor
         }
     }
 
+    void iMeshBuilder::calcBoundingBox(iAABoxd& bbox) const
+    {
+        con_assert(!_vertexes.empty(), "no vertexes");
+
+        iaVector3d minPos(_vertexes[0]._x, _vertexes[0]._y, _vertexes[0]._z);
+        iaVector3d maxPos = minPos;
+
+        for (auto vertex : _vertexes)
+        {
+            if (vertex._x < minPos._x)
+            {
+                minPos._x = vertex._x;
+            }
+
+            if (vertex._y < minPos._y)
+            {
+                minPos._y = vertex._y;
+            }
+
+            if (vertex._z < minPos._z)
+            {
+                minPos._z = vertex._z;
+            }
+
+            if (vertex._x > maxPos._x)
+            {
+                maxPos._x = vertex._x;
+            }
+
+            if (vertex._y > maxPos._y)
+            {
+                maxPos._y = vertex._y;
+            }
+
+            if (vertex._z > maxPos._z)
+            {
+                maxPos._z = vertex._z;
+            }
+        }
+
+        bbox._center = minPos;
+        bbox._center += maxPos;
+        bbox._center *= 0.5;
+
+        bbox._halfWidths = maxPos;
+        bbox._halfWidths -= minPos;
+        bbox._halfWidths *= 0.5;
+    }
+
     void iMeshBuilder::calcBoundingSphere(iSphered& sphere) const
     {
         con_assert(_vertexes.size() > 0, "no vertexes");
@@ -369,6 +418,10 @@ namespace Igor
         iSphered boundingSphere;
         calcBoundingSphere(boundingSphere);
         mesh->setBoundingSphere(boundingSphere);
+
+        iAABoxd bbox;
+        calcBoundingBox(bbox);
+        mesh->setBoundingBox(bbox);
 
         return shared_ptr<iMesh>(mesh);
     }

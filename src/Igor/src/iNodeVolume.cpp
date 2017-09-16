@@ -21,6 +21,7 @@ namespace Igor
         con_assert(node != nullptr, "zero pointer");
 
         _sphere = node->_sphere;
+        _bbox = node->_bbox;
     }
 
 	iNodeVolume::~iNodeVolume()
@@ -30,18 +31,17 @@ namespace Igor
 
     const iAABoxd& iNodeVolume::getBoundingBox() const
     {
-        iAABoxd result;
-        result._center = _sphere._center;
-        result._halfWidths._x = _sphere._radius;
-        result._halfWidths._y = _sphere._radius;
-        result._halfWidths._z = _sphere._radius;
-
-        return result;
+        return _bbox;
     }
 
     const iSphered& iNodeVolume::getBoundingSphere() const
     {
         return _sphere;
+    }
+
+    void iNodeVolume::setBoundingBox(const iAABoxd& bbox)
+    {
+        _bbox = bbox;
     }
 
     void iNodeVolume::setBoundingSphere(const iSphered& sphere)

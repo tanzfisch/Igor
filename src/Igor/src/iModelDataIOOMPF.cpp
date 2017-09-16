@@ -260,6 +260,14 @@ namespace Igor
             sphereD._center._z = sphere._center._z;
             sphereD._radius = sphere._radius;
             mesh->setBoundingSphere(sphereD);
+
+            iAABoxd bbox;
+            bbox._center = sphereD._center;
+            bbox._halfWidths._x = sphereD._radius;
+            bbox._halfWidths._y = sphereD._radius;
+            bbox._halfWidths._z = sphereD._radius;
+            mesh->setBoundingBox(bbox);
+
             meshNode->setMesh(shared_ptr<iMesh>(mesh));
 
             uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());

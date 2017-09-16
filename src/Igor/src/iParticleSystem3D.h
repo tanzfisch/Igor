@@ -31,6 +31,7 @@
 
 #include <iaGradient.h>
 #include <iSphere.h>
+#include <iAABox.h>
 
 #include <iaVector3.h>
 #include <iaVector2.h>
@@ -457,9 +458,13 @@ namespace Igor
         */
         float32 getPeriodTime() const;
 
-		/*! \returns bounding sphere
+		/*! \returns approximated bounding sphere
 		*/
 		const iSphered& getBoundingSphere() const;
+
+        /*! \returns approximated bounding box
+        */
+        const iAABoxd& getBoundingBox() const;
 
         /*! \returns simulation rate in frames per scond or Hz
         */
@@ -501,9 +506,13 @@ namespace Igor
         */
         bool _velocityOriented = false;
 
-        /*! bounding sphere of particle system
+        /*! approximated bounding sphere of particle system
         */
 		iSphered _boundingSphere;
+
+        /*! approximated bounding box of particle system
+        */
+        iAABoxd _boundingBox;
 
         /*! true if particle system is finished
         */

@@ -628,12 +628,25 @@ void Particles::onWindowResized(int32 clientWidth, int32 clientHeight)
 
 void Particles::onKeyPressed(iKeyCode key)
 {
-    if (key == iKeyCode::ESC)
+    switch (key)
     {
+    case iKeyCode::ESC:
         iApplication::getInstance().stop();
-    }
+        break;
 
-    if (key == iKeyCode::F1)
+    case iKeyCode::W:
+        _view.setWireframeVisible(!_view.isWireframeVisible());
+        break;
+
+    case iKeyCode::O:
+        _view.setOctreeVisible(!_view.isOctreeVisible());
+        break;
+
+    case iKeyCode::B:
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        break;
+
+    case iKeyCode::F1:
     {
         iNodeVisitorPrintTree printTree;
         if (_scene != nullptr)
@@ -641,9 +654,9 @@ void Particles::onKeyPressed(iKeyCode key)
             printTree.printToConsole(_scene->getRoot());
         }
     }
+    break;
 
-    if (key == iKeyCode::Space)
-    {
+    case iKeyCode::Space:
         for (auto particleSystemID : _particleSystemIDs)
         {
             iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemID));
@@ -659,10 +672,9 @@ void Particles::onKeyPressed(iKeyCode key)
                 }
             }
         }
-    }
+        break;
 
-    if (key == iKeyCode::R)
-    {
+    case iKeyCode::R:
         for (auto particleSystemID : _particleSystemIDs)
         {
             iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemID));
@@ -671,6 +683,7 @@ void Particles::onKeyPressed(iKeyCode key)
                 circleParticleSystem->reset();
             }
         }
+        break;
     }
 }
 
