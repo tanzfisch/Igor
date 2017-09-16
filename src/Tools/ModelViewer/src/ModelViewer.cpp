@@ -840,14 +840,10 @@ void ModelViewer::handle()
 
 void ModelViewer::render()
 {
-
-
     if (_selectedNodeID != iNode::INVALID_NODE_ID)
     {
         iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
-
-
-
+        
         if (node->getKind() == iNodeKind::Volume)
         {
             iNodeVolume* volume = static_cast<iNodeVolume*>(node);
