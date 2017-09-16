@@ -202,7 +202,7 @@ namespace OMPF
 
         \returns the vertex size
         */
-        uint32 calcVertexSize() const;
+        uint32 getVertexSize() const;
 
         /*! sets the mesh type
 

@@ -54,7 +54,7 @@ namespace OMPF
         }
     }
 
-    uint32 ompfMeshChunk::calcVertexSize() const
+    uint32 ompfMeshChunk::getVertexSize() const
     {
         return 12 + _normalsPerVertex * 12 + _colorsPerVertex * 12 + _texCoordPerVertex * 8;
     }
@@ -274,7 +274,7 @@ namespace OMPF
         }
 
         con_assert((4 * _indexCount) == _indexDataSize, "inconsistend index data");
-        con_assert((calcVertexSize() * _vertexCount) == _vertexDataSize, "inconsistend vertex data");
+        con_assert((getVertexSize() * _vertexCount) == _vertexDataSize, "inconsistend vertex data");
         
         con_debug_endl("---------------------------------------------------");
         con_debug_endl("write ompfMeshChunk " << this->getName());
@@ -456,7 +456,7 @@ namespace OMPF
         }
 
         iaSerializable::readUInt32(file, _vertexCount);
-        _vertexDataSize = (calcVertexSize() * _vertexCount);
+        _vertexDataSize = (getVertexSize() * _vertexCount);
         if (_vertexData != nullptr)
         {
             delete[] _vertexData;

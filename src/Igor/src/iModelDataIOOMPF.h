@@ -53,28 +53,28 @@ namespace OMPF
 namespace Igor
 {
 
-	class iNodeTransform;
+    class iNodeTransform;
     class iNodeModel;
     class iNodeMesh;
     class iNodeEmitter;
     class iNodeParticleSystem;
 
     /*! OMPF loader
-    
+
     Uses ompf library to load ompf models
     */
-	class iModelDataIOOMPF : public iModelDataIO,  public iNodeVisitor
-	{
+    class iModelDataIOOMPF : public iModelDataIO, public iNodeVisitor
+    {
 
-	public:
-
-        /*! does nothing
-        */
-		iModelDataIOOMPF();
+    public:
 
         /*! does nothing
         */
-		virtual ~iModelDataIOOMPF();
+        iModelDataIOOMPF();
+
+        /*! does nothing
+        */
+        virtual ~iModelDataIOOMPF();
 
         /*! creates instance of this class
 
@@ -96,7 +96,7 @@ namespace Igor
         */
         virtual void exportData(const iaString& filename, iNode* node, iSaveMode saveMode = iSaveMode::KeepExternals);
 
-	private:
+    private:
 
         /*! the ompf loader it self
         */
@@ -173,13 +173,29 @@ namespace Igor
         \param parent current model data node
         \param currentChunk current ompf chunk
         */
-        iNode* createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk);        
+        iNode* createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk);
+
+        void calculateBoundingBox(float32* vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d& minPos, iaVector3d& maxPos);
+
+        /*! creates mesh node from chunk
+
+        \param chunk the chunk to create a mesh node from
+        \returns mesh node
+        */
+        iNode* createMeshNode(OMPF::ompfBaseChunk* chunk);
+
+        /*! creates particle system node from chunk
+
+        \param chunk the chunk to create a particle system from
+        \returns particle system node
+        */
+        iNode* createParticleSystem(OMPF::ompfBaseChunk* chunk);
 
         /*! creates transform chunk
 
         \param node the node the chunk is created from
         */
-		OMPF::ompfTransformChunk* createTransformChunk(iNodeTransform *node);
+        OMPF::ompfTransformChunk* createTransformChunk(iNodeTransform *node);
 
         /*! creates external reference chunk
 
@@ -249,9 +265,9 @@ namespace Igor
 
         /*! clears internal material list
         */
-		void clearMaterials();
+        void clearMaterials();
 
-	};
+    };
 
 }
 

@@ -129,70 +129,8 @@ namespace Igor
         }
 
         case OMPFChunkType::ParticleSystem:
-        {
-            OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(currentChunk);
-            iNodeParticleSystem* particleSystemNode = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
-            particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
-            particleSystemNode->setLoop(particleSystemChunk->getLoop());
-
-            iaGradientColor4f colorGradient;
-            particleSystemChunk->getColorGradient(colorGradient);
-            particleSystemNode->setColorGradient(colorGradient);
-
-            iaGradientf emissionGradient;
-            particleSystemChunk->getEmissionGradient(emissionGradient);
-            particleSystemNode->setEmissionGradient(emissionGradient);
-
-            particleSystemNode->setVortexTorque(particleSystemChunk->getVortexTorqueMin(), particleSystemChunk->getVortexTorqueMax());
-            particleSystemNode->setVortexRange(particleSystemChunk->getVortexRangeMin(), particleSystemChunk->getVortexRangeMax());
-            particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
-            particleSystemNode->setFirstTextureTiling(particleSystemChunk->getFirstTextureColumns(), particleSystemChunk->getFirstTextureRows());
-
-            iaGradientVector2f startSizeGradient;
-            particleSystemChunk->getStartSizeGradient(startSizeGradient);
-            particleSystemNode->setStartSizeGradient(startSizeGradient);
-
-            iaGradientf sizeScaleGradient;
-            particleSystemChunk->getSizeScaleGradient(sizeScaleGradient);
-            particleSystemNode->setSizeScaleGradient(sizeScaleGradient);
-
-            iaGradientVector2f startVisibleTimeGradient;
-            particleSystemChunk->getStartVisibleTimeGradient(startVisibleTimeGradient);
-            particleSystemNode->setStartVisibleTimeGradient(startVisibleTimeGradient);
-
-            iaGradientVector2f orientationRateGradient;
-            particleSystemChunk->getStartOrientationRateGradient(orientationRateGradient);
-            particleSystemNode->setStartOrientationRateGradient(orientationRateGradient);
-
-            iaGradientVector2f orientationGradient;
-            particleSystemChunk->getStartOrientationGradient(orientationGradient);
-            particleSystemNode->setStartOrientationGradient(orientationGradient);
-
-            iaGradientVector2f liftGradient;
-            particleSystemChunk->getStartLiftGradient(liftGradient);
-            particleSystemNode->setStartLiftGradient(liftGradient);
-
-            iaGradientVector2f velocityGradient;
-            particleSystemChunk->getStartVelocityGradient(velocityGradient);
-            particleSystemNode->setStartVelocityGradient(velocityGradient);
-
-            particleSystemNode->setVortexToParticleRate(particleSystemChunk->getVortexToParticleRate());
-            particleSystemNode->setVorticityConfinement(particleSystemChunk->getVorticityConfinement());
-
-            particleSystemNode->setAirDrag(particleSystemChunk->getAirDrag());
-            particleSystemNode->setPeriodTime(particleSystemChunk->getPeriodTime());
-            particleSystemNode->setVelocityOriented(particleSystemChunk->getVelocityOriented());
-
-            particleSystemNode->setTextureA(particleSystemChunk->getTextureA());
-            particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
-            particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
-
-            uint32 materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
-            particleSystemNode->setMaterial(materialID);
-
-            result = particleSystemNode;
+            result = createParticleSystem(currentChunk);
             break;
-        }
 
         case OMPFChunkType::ResourceSearchPath:
             // OMPF::ompfResourceSearchPathChunk* resourceSearchPathChunk = static_cast<OMPF::ompfResourceSearchPathChunk*>(currentChunk);
@@ -201,82 +139,7 @@ namespace Igor
 
         case OMPFChunkType::Mesh:
         {
-            OMPF::ompfMeshChunk* meshChunk = static_cast<OMPF::ompfMeshChunk*>(currentChunk);
-
-            iMesh* mesh = new iMesh();
-            iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
-
-            if (_parameter != nullptr)
-            {
-                meshNode->setKeepMesh(_parameter->_keepMesh);
-            }
-
-            iaColor3f ambient;
-            iaColor3f diffuse;
-            iaColor3f specular;
-            iaColor3f emissive;
-
-            iaConvert::convert(meshChunk->getAmbient(), ambient);
-            iaConvert::convert(meshChunk->getDiffuse(), diffuse);
-            iaConvert::convert(meshChunk->getSpecular(), specular);
-            iaConvert::convert(meshChunk->getEmissive(), emissive);
-
-            meshNode->getTargetMaterial()->setAmbient(ambient);
-            meshNode->getTargetMaterial()->setDiffuse(diffuse);
-            meshNode->getTargetMaterial()->setSpecular(specular);
-            meshNode->getTargetMaterial()->setEmissive(emissive);
-            meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
-
-            uint32 textureCount = meshChunk->getTextureCount();
-            for (uint32 i = 0; i < textureCount; ++i)
-            {
-                meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(meshChunk->getTexture(i)), i);
-                mesh->setTexture(i, true);
-            }
-
-            con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
-            con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
-
-            float32* vertexData = reinterpret_cast<float32*>(new char[meshChunk->getVertexDataSize()]);
-            uint32* indexData = reinterpret_cast<uint32*>(new char[meshChunk->getIndexDataSize()]);
-
-            memcpy(vertexData, meshChunk->getVertexData(), meshChunk->getVertexDataSize());
-            memcpy(indexData, meshChunk->getIndexData(), meshChunk->getIndexDataSize());
-
-            mesh->setVertexData(vertexData, meshChunk->getVertexDataSize());
-            mesh->setIndexData(indexData, meshChunk->getIndexDataSize());
-            mesh->setVertexSize(meshChunk->calcVertexSize());
-
-            mesh->setVertexCount(meshChunk->getVertexCount());
-            mesh->setIndexesCount(meshChunk->getIndexCount());
-            mesh->setTrianglesCount(meshChunk->getIndexCount() / 3);
-
-            mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
-            mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
-
-            iSpheref sphere;
-            meshChunk->getBoundingSphere(sphere._center, sphere._radius);
-            iSphered sphereD;
-            sphereD._center._x = sphere._center._x;
-            sphereD._center._y = sphere._center._y;
-            sphereD._center._z = sphere._center._z;
-            sphereD._radius = sphere._radius;
-            mesh->setBoundingSphere(sphereD);
-
-            // TODO we should save bounding boxed instead of bounding spheres in file or both
-            iAABoxd bbox;
-            bbox._center = sphereD._center;
-            bbox._halfWidths._x = sphereD._radius;
-            bbox._halfWidths._y = sphereD._radius;
-            bbox._halfWidths._z = sphereD._radius;
-            mesh->setBoundingBox(bbox);
-
-            meshNode->setMesh(shared_ptr<iMesh>(mesh));
-
-            uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
-            meshNode->setMaterial(materialID);
-
-            result = meshNode;
+            result = createMeshNode(currentChunk);
             break;
         }
 
@@ -311,6 +174,204 @@ namespace Igor
         }
 
         return result;
+    }
+
+    iNode* iModelDataIOOMPF::createMeshNode(OMPF::ompfBaseChunk * chunk)
+    {
+        OMPF::ompfMeshChunk* meshChunk = static_cast<OMPF::ompfMeshChunk*>(chunk);
+
+        con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
+        con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
+
+        // create mesh and mesh node
+        iMesh* mesh = new iMesh();
+        iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+
+        if (_parameter != nullptr)
+        {
+            meshNode->setKeepMesh(_parameter->_keepMesh);
+        }
+
+        // set material properties
+        iaColor3f ambient;
+        iaColor3f diffuse;
+        iaColor3f specular;
+        iaColor3f emissive;
+
+        iaConvert::convert(meshChunk->getAmbient(), ambient);
+        iaConvert::convert(meshChunk->getDiffuse(), diffuse);
+        iaConvert::convert(meshChunk->getSpecular(), specular);
+        iaConvert::convert(meshChunk->getEmissive(), emissive);
+
+        meshNode->getTargetMaterial()->setAmbient(ambient);
+        meshNode->getTargetMaterial()->setDiffuse(diffuse);
+        meshNode->getTargetMaterial()->setSpecular(specular);
+        meshNode->getTargetMaterial()->setEmissive(emissive);
+        meshNode->getTargetMaterial()->setShininess(meshChunk->getShininess());
+
+        // set texture properties
+        uint32 textureCount = meshChunk->getTextureCount();
+        for (uint32 i = 0; i < textureCount; ++i)
+        {
+            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(meshChunk->getTexture(i)), i);
+            mesh->setTexture(i, true);
+        }
+
+        // prepare mesh data
+        float32* vertexData = reinterpret_cast<float32*>(new char[meshChunk->getVertexDataSize()]);
+        uint32* indexData = reinterpret_cast<uint32*>(new char[meshChunk->getIndexDataSize()]);
+
+        memcpy(vertexData, meshChunk->getVertexData(), meshChunk->getVertexDataSize());
+        memcpy(indexData, meshChunk->getIndexData(), meshChunk->getIndexDataSize());
+
+        mesh->setVertexData(vertexData, meshChunk->getVertexDataSize());
+        mesh->setIndexData(indexData, meshChunk->getIndexDataSize());
+        uint32 vertexSize = meshChunk->getVertexSize();
+        mesh->setVertexSize(vertexSize);
+
+        mesh->setVertexCount(meshChunk->getVertexCount());
+        mesh->setIndexesCount(meshChunk->getIndexCount());
+        mesh->setTrianglesCount(meshChunk->getIndexCount() / 3);
+
+        mesh->setHasNormals(meshChunk->getNormalsPerVertex() ? true : false);
+        mesh->setHasColors(meshChunk->getColorsPerVertex() ? true : false);
+
+        // calculate boundings
+        iaVector3d minPos;
+        iaVector3d maxPos;
+
+        calculateBoundingBox(vertexData, vertexSize / 4, meshChunk->getVertexCount(), minPos, maxPos);
+
+        iAABoxd bbox;
+        bbox.set(minPos, maxPos);
+        mesh->setBoundingBox(bbox);
+
+        iSphered sphere;
+        sphere._center = bbox._center;
+        sphere._radius = max(bbox._halfWidths._x, max(bbox._halfWidths._y, bbox._halfWidths._z));
+        mesh->setBoundingSphere(sphere);
+
+        // push mesh to mesh node
+        meshNode->setMesh(shared_ptr<iMesh>(mesh));
+
+        uint32 materialID = getMaterialID(meshChunk->getMaterialChunkID());
+        meshNode->setMaterial(materialID);
+
+        return meshNode;
+    }
+
+    void iModelDataIOOMPF::calculateBoundingBox(float32* vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d& minPos, iaVector3d& maxPos)
+    {
+        uint32 stride = vertexSize - 3;
+        float32* vertexDataIter = vertexData;
+
+        for (uint32 vertexIndex = 0; vertexIndex < vertexCount; ++vertexIndex)
+        {
+            uint32 offset = vertexIndex * vertexSize;
+
+            if (vertexIndex == 0)
+            {
+                minPos.set(vertexData[offset + 0], vertexData[offset + 1], vertexData[offset + 2]);
+                maxPos = minPos;
+            }
+            else
+            {
+                if (vertexData[offset + 0] < minPos._x)
+                {
+                    minPos._x = vertexData[offset + 0];
+                }
+
+                if (vertexData[offset + 1] < minPos._y)
+                {
+                    minPos._y = vertexData[offset + 1];
+                }
+
+                if (vertexData[offset + 2] < minPos._z)
+                {
+                    minPos._z = vertexData[offset + 2];
+                }
+
+                if (vertexData[offset + 0] > maxPos._x)
+                {
+                    maxPos._x = vertexData[offset + 0];
+                }
+
+                if (vertexData[offset + 1] > maxPos._y)
+                {
+                    maxPos._y = vertexData[offset + 1];
+                }
+
+                if (vertexData[offset + 2] > maxPos._z)
+                {
+                    maxPos._z = vertexData[offset + 2];
+                }
+            }
+        }
+    }
+
+    iNode* iModelDataIOOMPF::createParticleSystem(OMPF::ompfBaseChunk * chunk)
+    {
+        OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(chunk);
+        iNodeParticleSystem* particleSystemNode = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
+        particleSystemNode->setMaxParticleCount(particleSystemChunk->getMaxParticleCount());
+        particleSystemNode->setLoop(particleSystemChunk->getLoop());
+
+        iaGradientColor4f colorGradient;
+        particleSystemChunk->getColorGradient(colorGradient);
+        particleSystemNode->setColorGradient(colorGradient);
+
+        iaGradientf emissionGradient;
+        particleSystemChunk->getEmissionGradient(emissionGradient);
+        particleSystemNode->setEmissionGradient(emissionGradient);
+
+        particleSystemNode->setVortexTorque(particleSystemChunk->getVortexTorqueMin(), particleSystemChunk->getVortexTorqueMax());
+        particleSystemNode->setVortexRange(particleSystemChunk->getVortexRangeMin(), particleSystemChunk->getVortexRangeMax());
+        particleSystemNode->setVortexCheckRange(particleSystemChunk->getVortexCheckRange());
+        particleSystemNode->setFirstTextureTiling(particleSystemChunk->getFirstTextureColumns(), particleSystemChunk->getFirstTextureRows());
+
+        iaGradientVector2f startSizeGradient;
+        particleSystemChunk->getStartSizeGradient(startSizeGradient);
+        particleSystemNode->setStartSizeGradient(startSizeGradient);
+
+        iaGradientf sizeScaleGradient;
+        particleSystemChunk->getSizeScaleGradient(sizeScaleGradient);
+        particleSystemNode->setSizeScaleGradient(sizeScaleGradient);
+
+        iaGradientVector2f startVisibleTimeGradient;
+        particleSystemChunk->getStartVisibleTimeGradient(startVisibleTimeGradient);
+        particleSystemNode->setStartVisibleTimeGradient(startVisibleTimeGradient);
+
+        iaGradientVector2f orientationRateGradient;
+        particleSystemChunk->getStartOrientationRateGradient(orientationRateGradient);
+        particleSystemNode->setStartOrientationRateGradient(orientationRateGradient);
+
+        iaGradientVector2f orientationGradient;
+        particleSystemChunk->getStartOrientationGradient(orientationGradient);
+        particleSystemNode->setStartOrientationGradient(orientationGradient);
+
+        iaGradientVector2f liftGradient;
+        particleSystemChunk->getStartLiftGradient(liftGradient);
+        particleSystemNode->setStartLiftGradient(liftGradient);
+
+        iaGradientVector2f velocityGradient;
+        particleSystemChunk->getStartVelocityGradient(velocityGradient);
+        particleSystemNode->setStartVelocityGradient(velocityGradient);
+
+        particleSystemNode->setVortexToParticleRate(particleSystemChunk->getVortexToParticleRate());
+        particleSystemNode->setVorticityConfinement(particleSystemChunk->getVorticityConfinement());
+
+        particleSystemNode->setAirDrag(particleSystemChunk->getAirDrag());
+        particleSystemNode->setPeriodTime(particleSystemChunk->getPeriodTime());
+        particleSystemNode->setVelocityOriented(particleSystemChunk->getVelocityOriented());
+
+        particleSystemNode->setTextureA(particleSystemChunk->getTextureA());
+        particleSystemNode->setTextureB(particleSystemChunk->getTextureB());
+        particleSystemNode->setTextureC(particleSystemChunk->getTextureC());
+
+        uint32 materialID = getMaterialID(particleSystemChunk->getMaterialChunkID());
+        particleSystemNode->setMaterial(materialID);
+
+        return particleSystemNode;
     }
 
     iNode* iModelDataIOOMPF::importData(const iaString& filename, iModelDataInputParameter* parameter)
