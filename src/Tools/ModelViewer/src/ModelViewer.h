@@ -106,6 +106,7 @@ private:
 
     uint64 _materialSkyBox;
     uint64 _materialManipulator;
+    uint64 _materialBoundingBox;
 
     bool _mouseKey0Pressed = false;
     bool _mouseKey1Pressed = false;

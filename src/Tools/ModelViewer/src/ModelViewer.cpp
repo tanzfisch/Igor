@@ -180,6 +180,8 @@ void ModelViewer::init(iaString fileName)
     _materialManipulator = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialManipulator)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
+    _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial();
+
     // light
     _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _directionalLightRotate->setName("directional light rotate");
@@ -827,7 +829,7 @@ void ModelViewer::handle()
 
 void ModelViewer::render()
 {
-    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialManipulator));
+    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
 
     if (_selectedNodeID != iNode::INVALID_NODE_ID)
     {
