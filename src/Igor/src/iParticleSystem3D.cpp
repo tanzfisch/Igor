@@ -606,7 +606,7 @@ namespace Igor
 
             halfWidths = maxPosd;
             halfWidths -= minPosd;
-            halfWidths *= 0.5f;
+            halfWidths *= 0.5;
 
             _boundingBox._center += (center - _boundingBox._center) * 0.1;
             _boundingBox._halfWidths += (halfWidths - _boundingBox._halfWidths) * 0.1;

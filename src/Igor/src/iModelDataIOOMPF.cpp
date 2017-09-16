@@ -201,7 +201,6 @@ namespace Igor
 
         case OMPFChunkType::Mesh:
         {
-            // TODO we should use the iMeshBuilder here!
             OMPF::ompfMeshChunk* meshChunk = static_cast<OMPF::ompfMeshChunk*>(currentChunk);
 
             iMesh* mesh = new iMesh();
@@ -235,6 +234,9 @@ namespace Igor
                 mesh->setTexture(i, true);
             }
 
+            con_assert(meshChunk->getVertexDataSize() >= 3, "invalid data");
+            con_assert(meshChunk->getIndexDataSize() >= 3, "invalid data");
+
             float32* vertexData = reinterpret_cast<float32*>(new char[meshChunk->getVertexDataSize()]);
             uint32* indexData = reinterpret_cast<uint32*>(new char[meshChunk->getIndexDataSize()]);
 
@@ -261,6 +263,7 @@ namespace Igor
             sphereD._radius = sphere._radius;
             mesh->setBoundingSphere(sphereD);
 
+            // TODO we should save bounding boxed instead of bounding spheres in file or both
             iAABoxd bbox;
             bbox._center = sphereD._center;
             bbox._halfWidths._x = sphereD._radius;
