@@ -38,6 +38,8 @@ using namespace IgorAux;
 #include <iStatistics.h>
 #include <iMaterialResourceFactory.h>
 #include <iTaskFlushTextures.h>
+#include <iNodeMesh.h>
+#include <iMesh.h>
 using namespace Igor;
 
 #include "MenuDialog.h"
@@ -181,6 +183,15 @@ void ModelViewer::init(iaString fileName)
     iMaterialResourceFactory::getInstance().getMaterial(_materialManipulator)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
 
     _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial();
+
+    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("default.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("yellow.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->compileShader();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
     // light
     _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -829,21 +840,38 @@ void ModelViewer::handle()
 
 void ModelViewer::render()
 {
-    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
+
 
     if (_selectedNodeID != iNode::INVALID_NODE_ID)
     {
         iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
+
+
         if (node->getKind() == iNodeKind::Volume)
         {
             iNodeVolume* volume = static_cast<iNodeVolume*>(node);
-            iAABoxd box = volume->getBoundingBox();
-
             iaMatrixd matrix = volume->getWorldMatrix();
             iRenderer::getInstance().setModelMatrix(matrix);
-            iRenderer::getInstance().setColor(1, 1, 0, 1);
-            iRenderer::getInstance().drawBBox(box);
+
+            if (node->getType() == iNodeType::iNodeMesh)
+            {
+                iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
+
+                iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
+                shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
+                iRenderer::getInstance().setLineWidth(4);
+                iRenderer::getInstance().drawMesh(buffers);
+            }
+            else
+            {
+                iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
+
+                iAABoxd box = volume->getBoundingBox();
+                
+                iRenderer::getInstance().setColor(1, 1, 0, 1);
+                iRenderer::getInstance().drawBBox(box);
+            }
         }
     }
 }
