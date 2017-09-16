@@ -376,7 +376,7 @@ namespace Igor
 
         glVertex3f(b._x, b._y, a._z);
         glVertex3f(b._x, b._y, b._z);
-        
+
         glEnd(); GL_CHECK_ERROR();
     }
 
@@ -921,8 +921,51 @@ namespace Igor
             glActiveTexture(GL_TEXTURE7);
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::Texture2D7)] == iRenderStateValue::On) ? glEnable(GL_TEXTURE_2D) : glDisable(GL_TEXTURE_2D);	GL_CHECK_ERROR();
 
-            glDepthFunc(GL_LESS);   GL_CHECK_ERROR();
-            glCullFace(GL_BACK);    GL_CHECK_ERROR();
+            switch (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthFunc)])
+            {
+            case iRenderStateValue::Less:
+                glDepthFunc(GL_LESS);   GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::LessOrEqual:
+                glDepthFunc(GL_LEQUAL);   GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::Never:
+                glDepthFunc(GL_NEVER);   GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::Equal:
+                glDepthFunc(GL_EQUAL);   GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::Greater:
+                glDepthFunc(GL_GREATER);   GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::NotEqual:
+                glDepthFunc(GL_NOTEQUAL);   GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::GreaterOrEqual:
+                glDepthFunc(GL_GEQUAL);   GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::Always:
+                glDepthFunc(GL_ALWAYS);   GL_CHECK_ERROR();
+                break;
+            }
+
+            switch (stateset._renderStates[static_cast<unsigned int>(iRenderState::CullFaceFunc)])
+            {
+            case iRenderStateValue::Front:
+                glCullFace(GL_FRONT);    GL_CHECK_ERROR();
+                break;
+
+            case iRenderStateValue::Back:
+                glCullFace(GL_BACK);    GL_CHECK_ERROR();
+                break;
+            }
 
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); GL_CHECK_ERROR();
 
