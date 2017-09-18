@@ -225,17 +225,16 @@ namespace Igor
 
         also sets the transformation flag of all children and parents dirty
 
-        \bug sometimes parents don't get dirty
-
         \param dirty true: this node, all parents and children will be set dirty; false: only this node will be set non dirty
         */
         void setTransformationDirty(bool dirty = true);
 
         /*! gets the world transformation for any node
 
-        quite expensive. see if there is an other interface from specialized nodes like iNodeCamera::getWorldMatrix
+        this is a quite expensive routine. preferably use an other interface 
+        from specialized nodes like iNodeCamera::getWorldMatrix
 
-        \param[out] returns world matrix of this node
+        \param[out] matrix world matrix of this node
         */
         void calcWorldTransformation(iaMatrixd& matrix);
 
