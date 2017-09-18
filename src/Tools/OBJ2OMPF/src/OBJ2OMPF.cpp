@@ -93,9 +93,10 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         parameters->_identifier = "obj";
         parameters->_modelSourceType = iModelSourceType::File;
         parameters->_needsRenderContext = false;
+        parameters->_keepMesh = true;
 
         iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        modelNode->setModel(_src, iResourceCacheMode::Free, parameters); // force him to use the textured material
+        modelNode->setModel(_src, iResourceCacheMode::Keep, parameters);
 
         iScene* scene = iSceneFactory::getInstance().createScene();
         scene->getRoot()->insertNode(modelNode);
@@ -106,6 +107,7 @@ void OBJ2OMPF::convert(int argc, char* argv[])
             scene->handle();
         }
 
+        // force him to use the textured material
         setMaterialRecursive(modelNode, materialID);
 
         list<iMaterialGroup*>* materials = iMaterialResourceFactory::getInstance().getMaterialGroups();
