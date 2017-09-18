@@ -337,7 +337,12 @@ void MenuDialog::onPaste(iWidget* source)
             {
                 iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
-                if (destination != nullptr)
+                if (destination == nullptr)
+                {
+                    destination = iNodeFactory::getInstance().getNode(_rootNodeID);
+                }
+
+                if(destination != nullptr)
                 {
                     destination->insertNode(pasteNode);
                     refreshView();
@@ -350,6 +355,11 @@ void MenuDialog::onPaste(iWidget* source)
             if (cutNode != nullptr)
             {
                 iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+
+                if (destination == nullptr)
+                {
+                    destination = iNodeFactory::getInstance().getNode(_rootNodeID);
+                }
 
                 if (destination != nullptr)
                 {
