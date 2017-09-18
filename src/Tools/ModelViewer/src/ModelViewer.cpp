@@ -45,6 +45,8 @@ using namespace Igor;
 #include "MenuDialog.h"
 #include "PropertiesDialog.h"
 
+static const wchar_t* WINDOW_TITLE_PREFIX = L"Igor::Model Viewer";
+
 ModelViewer::ModelViewer()
 {
     iWidgetManager::getInstance().registerDialogType("MenuDialog", iInstanciateDialogDelegate(MenuDialog::createInstance));
@@ -103,9 +105,8 @@ void ModelViewer::init(iaString fileName)
 
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
 
-    _window.setSize(1280, 1024);
-    _window.setCentered();
-    _window.setTitle("Igor - Model Viewer");
+    _window.setSize(1280, 800);
+    _window.setTitle(WINDOW_TITLE_PREFIX);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
 
