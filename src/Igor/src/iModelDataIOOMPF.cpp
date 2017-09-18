@@ -712,9 +712,6 @@ namespace Igor
                 result->setColorsPerVertex(node->getMesh()->hasColors() ? 1 : 0);
                 result->setTexCoordPerVertex(node->getMesh()->getTextureUnitCount());
 
-                iaVector3f center(node->getBoundingSphere()._center._x, node->getBoundingSphere()._center._y, node->getBoundingSphere()._center._z);
-                result->setBoundingSphere(center, node->getBoundingSphere()._radius);
-
                 result->setVertexCount(node->getMesh()->getVertexCount());
                 result->setVertexData(reinterpret_cast<char*>(node->getMesh()->getVertexData()), node->getMesh()->getVertexDataSize());
 
