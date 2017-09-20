@@ -62,7 +62,7 @@ namespace Igor
             uint32 particleSystemNodeID = getNodeID(particleSystemChunk->getID());
             uint32 emitterNodeID = getNodeID(particleSystemChunk->getEmitterChunkID());
             iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().getNode(particleSystemNodeID));
-            if(particleSystem != nullptr)
+            if (particleSystem != nullptr)
             {
                 particleSystem->setEmitter(emitterNodeID);
             }
@@ -393,7 +393,7 @@ namespace Igor
 
         if (result != nullptr)
         {
-            con_info("loaded OMPF", "\"" << filename << "\"");
+            con_info("loaded ompf", "\"" << filename << "\"");
         }
 
         return result;
@@ -760,15 +760,10 @@ namespace Igor
         {
             iMaterial* material = materialGroup->getMaterial();
 
-            if (material->hasShader())
+            auto shaderSources = material->getShaderSources();
+            for (auto shaderSource : shaderSources)
             {
-                auto shaderSources = material->getShaderSources();
-                auto iterShaderSources = shaderSources.begin();
-                while (iterShaderSources != shaderSources.end())
-                {
-                    result->addShader((*iterShaderSources)._filename, static_cast<OMPF::OMPFShaderType>((*iterShaderSources)._type));
-                    iterShaderSources++;
-                }
+                result->addShader(shaderSource._filename, static_cast<OMPF::OMPFShaderType>(shaderSource._type));
             }
 
             result->setMaterialName(material->getName());

@@ -101,19 +101,19 @@ void UserControlMaterial::updateMaterial()
 void UserControlMaterial::reloadShader(iMaterial* material)
 {
     material->clearShader();
-    if (_textShader0->getText() != "")
+    if (_textShaderGeometry->getText() != "")
     {
-        material->addShaderSource(_textShader0->getText(), iShaderObjectType::Geometry);
+        material->addShaderSource(_textShaderGeometry->getText(), iShaderObjectType::Geometry);
     }
 
-    if (_textShader1->getText() != "")
+    if (_textShaderVertex->getText() != "")
     {
-        material->addShaderSource(_textShader1->getText(), iShaderObjectType::Vertex);
+        material->addShaderSource(_textShaderVertex->getText(), iShaderObjectType::Vertex);
     }
 
-    if (_textShader2->getText() != "")
+    if (_textShaderFragment->getText() != "")
     {
-        material->addShaderSource(_textShader2->getText(), iShaderObjectType::Fragment);
+        material->addShaderSource(_textShaderFragment->getText(), iShaderObjectType::Fragment);
     }
     material->compileShader();
 }
@@ -176,9 +176,11 @@ void UserControlMaterial::updateGUI()
         _selectBoxBlendFuncDestination->setSelection(selection);
         //_selectBoxInstancedFunc = nullptr;
 
-        if (material->hasShader())
+        auto shaderSources = material->getShaderSources();
+
+        if(!shaderSources.empty())
         {
-            for (auto shader : material->getShaderSources())
+            for (auto shader : shaderSources)
             {
                 iaString filename = shader._filename;
                 // todo need contains or begins with function for iaString iaString shortName = iResourceManager::getInstance().getRelativePath(filename);
@@ -190,24 +192,24 @@ void UserControlMaterial::updateGUI()
                 switch (shader._type)
                 {
                 case iShaderObjectType::Geometry:
-                    _textShader0->setText(filename);
+                    _textShaderGeometry->setText(filename);
                     break;
 
                 case iShaderObjectType::Vertex:
-                    _textShader1->setText(filename);
+                    _textShaderVertex->setText(filename);
                     break;
 
                 case iShaderObjectType::Fragment:
-                    _textShader2->setText(filename);
+                    _textShaderFragment->setText(filename);
                     break;
                 }
             }
         }
         else
         {
-            _textShader0->setText("");
-            _textShader1->setText("");
-            _textShader2->setText("");
+            _textShaderGeometry->setText("");
+            _textShaderVertex->setText("");
+            _textShaderFragment->setText("");
         }
 
         _ignoreMaterialUpdate = false;
@@ -474,32 +476,32 @@ void UserControlMaterial::initGUI()
     labelShader2->setText("Fragment");
     labelShader2->setHorizontalAlignment(iHorizontalAlignment::Left);
 
-    _textShader0 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-    _allWidgets.push_back(_textShader0);
-    _textShader0->setWidth(200);
-    _textShader0->setMaxTextLength(200);
-    _textShader0->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _textShader0->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-    _textShader0->setText("");
-    _textShader0->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _textShaderGeometry = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _allWidgets.push_back(_textShaderGeometry);
+    _textShaderGeometry->setWidth(200);
+    _textShaderGeometry->setMaxTextLength(200);
+    _textShaderGeometry->setHorizontalAlignment(iHorizontalAlignment::Right);
+    _textShaderGeometry->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textShaderGeometry->setText("");
+    _textShaderGeometry->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _textShader1 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-    _allWidgets.push_back(_textShader1);
-    _textShader1->setWidth(200);
-    _textShader1->setMaxTextLength(200);
-    _textShader1->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _textShader1->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-    _textShader1->setText("");
-    _textShader1->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _textShaderVertex = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _allWidgets.push_back(_textShaderVertex);
+    _textShaderVertex->setWidth(200);
+    _textShaderVertex->setMaxTextLength(200);
+    _textShaderVertex->setHorizontalAlignment(iHorizontalAlignment::Right);
+    _textShaderVertex->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textShaderVertex->setText("");
+    _textShaderVertex->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
-    _textShader2 = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-    _allWidgets.push_back(_textShader2);
-    _textShader2->setWidth(200);
-    _textShader2->setMaxTextLength(200);
-    _textShader2->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _textShader2->setHorizontalTextAlignment(iHorizontalAlignment::Left);
-    _textShader2->setText("");
-    _textShader2->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
+    _textShaderFragment = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _allWidgets.push_back(_textShaderFragment);
+    _textShaderFragment->setWidth(200);
+    _textShaderFragment->setMaxTextLength(200);
+    _textShaderFragment->setHorizontalAlignment(iHorizontalAlignment::Right);
+    _textShaderFragment->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+    _textShaderFragment->setText("");
+    _textShaderFragment->registerOnChangeEvent(iChangeDelegate(this, &UserControlMaterial::onDoUpdateMaterial));
 
     _shader0Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_shader0Button);
@@ -539,9 +541,9 @@ void UserControlMaterial::initGUI()
     gridShaders->addWidget(labelShader1, 0, 1);
     gridShaders->addWidget(labelShader2, 0, 2);
 
-    gridShaders->addWidget(_textShader0, 1, 0);
-    gridShaders->addWidget(_textShader1, 1, 1);
-    gridShaders->addWidget(_textShader2, 1, 2);
+    gridShaders->addWidget(_textShaderGeometry, 1, 0);
+    gridShaders->addWidget(_textShaderVertex, 1, 1);
+    gridShaders->addWidget(_textShaderFragment, 1, 2);
 
     gridShaders->addWidget(_shader0Button, 2, 0);
     gridShaders->addWidget(_shader1Button, 2, 1);
@@ -671,15 +673,15 @@ void UserControlMaterial::onFileLoadDialogClosed(iFileDialogReturnValue fileDial
         switch (_loadShaderNumber)
         {
         case 0:
-            _textShader0->setText(filename);
+            _textShaderGeometry->setText(filename);
             break;
 
         case 1:
-            _textShader1->setText(filename);
+            _textShaderVertex->setText(filename);
             break;
 
         case 2:
-            _textShader2->setText(filename);
+            _textShaderFragment->setText(filename);
             break;
 
         default:

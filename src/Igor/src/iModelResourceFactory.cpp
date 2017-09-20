@@ -100,6 +100,7 @@ namespace Igor
                 if (modelDataIO != nullptr)
                 {
                     modelDataIO->exportData(filename, node, saveMode);
+                    con_info("exported " << formatIdentifier, filename);
                     delete modelDataIO;
                 }
                 else

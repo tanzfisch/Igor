@@ -92,9 +92,9 @@ private:
 	iWidgetSelectBox* _selectBoxBlendFuncDestination = nullptr;
 	iWidgetSelectBox* _selectBoxInstancedFunc = nullptr;
 
-    iWidgetTextEdit* _textShader0 = nullptr;
-    iWidgetTextEdit* _textShader1 = nullptr;
-    iWidgetTextEdit* _textShader2 = nullptr;
+    iWidgetTextEdit* _textShaderGeometry = nullptr;
+    iWidgetTextEdit* _textShaderVertex = nullptr;
+    iWidgetTextEdit* _textShaderFragment = nullptr;
 
     iWidgetButton* _shader0Button = nullptr;
     iWidgetButton* _shader1Button = nullptr;

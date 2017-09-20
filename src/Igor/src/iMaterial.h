@@ -45,6 +45,19 @@ namespace Igor
 	class iNodeLight;
 	class iNodeCamera;
 
+    /*! shader source and type definition
+    */
+    struct iShaderSource
+    {
+        /*! source file name
+        */
+        iaString _filename;
+
+        /*! shader type
+        */
+        iShaderObjectType _type;
+    };
+
     /*! defines visual material
 
     \todo need a unique material ID. maybe a hash code
@@ -105,7 +118,7 @@ namespace Igor
 
         /*! \returns all shader sources that where added before
         */
-        const vector<iShaderSource>& getShaderSources() const;
+        vector<iShaderSource> getShaderSources() const;
 
         /*! compiles the shader including all added sources
         */
@@ -114,10 +127,6 @@ namespace Igor
         /*! destroyes shaders and removes all information about them
         */
         void clearShader();
-
-        /*! \returns true if this material uses shaders
-        */
-        bool hasShader();
 
         /*! \returns render order
         */
@@ -147,6 +156,10 @@ namespace Igor
         */
         iShader* _shader = nullptr;
 
+        /*! shader sources
+        */
+        vector<iShaderSource> _shaderSources;
+
         /*! render states set
         */
         iRenderStateSet _renderStateSet;
@@ -166,10 +179,6 @@ namespace Igor
         /*! deactivate material
         */
         void deactivateShader();
-
-        /*! stes shader to be used in this material
-        */
-        void setShader(iShader* shader);
 
         /*! \returns shader in use
         */

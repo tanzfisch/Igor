@@ -17,10 +17,10 @@ namespace Igor
 
     }
 
-	iMaterial::~iMaterial()
-	{
+    iMaterial::~iMaterial()
+    {
         clearShader();
-	}
+    }
 
     void iMaterial::clearShader()
     {
@@ -33,43 +33,48 @@ namespace Igor
 
     void iMaterial::compileShader()
     {
-        if (_shader != nullptr)
+        if (iRenderer::getInstance().isReady())
         {
+            deactivateShader();
+            clearShader();
+
+            _shader = new iShader();
+
+            for (auto source : _shaderSources)
+            {
+                _shader->loadFile(source._filename, source._type);
+            }
+
             _shader->compile();
-        }
-        else
-        {
-            con_err("no shader available");
         }
     }
 
     void iMaterial::addShaderSource(iaString filename, iShaderObjectType type)
     {
-        if (_shader == nullptr)
+        for (auto source : _shaderSources)
         {
-            _shader = new iShader();
+            if (source._filename == filename)
+            {
+                con_warn("shader " << filename << " already added");
+                return;
+            }
         }
 
-        _shader->loadFile(filename, type);
+        iShaderSource shaderSource;
+        shaderSource._filename = filename;
+        shaderSource._type = type;
+        _shaderSources.push_back(shaderSource);
     }
 
-    const vector<iShaderSource>& iMaterial::getShaderSources() const
+    vector<iShaderSource> iMaterial::getShaderSources() const
     {
-        con_assert(_shader != nullptr, "zero pointer");
-
-        // if you end up here with a zero pointer use hasShader() to check first
-        return _shader->getShaderSources();
+        return _shaderSources;
     }
 
-    bool iMaterial::hasShader()
+    iShader* iMaterial::getShader()
     {
-        return _shader != nullptr ? true : false;
+        return _shader;
     }
-
-	iShader* iMaterial::getShader()
-	{
-		return _shader;
-	}
 
     int32 iMaterial::getOrder()
     {
@@ -83,40 +88,36 @@ namespace Igor
         _order = order;
     }
 
-	iRenderStateSet& iMaterial::getRenderStateSet()
-	{
-		return _renderStateSet;
-	}
+    iRenderStateSet& iMaterial::getRenderStateSet()
+    {
+        return _renderStateSet;
+    }
 
     void iMaterial::activateShader()
-	{
-        con_assert(nullptr != _shader, "no shader available");
-
+    {
         if (nullptr != _shader)
         {
             _shader->enable();
         }
-	}
+    }
 
-	void iMaterial::deactivateShader()
-	{
-        con_assert(nullptr != _shader, "no shader available");
-
+    void iMaterial::deactivateShader()
+    {
         if (nullptr != _shader)
         {
             _shader->disable();
         }
-	}
+    }
 
-	iaString iMaterial::getName()
-	{
-		return _name;
-	}
+    iaString iMaterial::getName()
+    {
+        return _name;
+    }
 
-	void iMaterial::setName(iaString name)
-	{
-		_name = name;
-	}
+    void iMaterial::setName(iaString name)
+    {
+        _name = name;
+    }
 
 }
 

@@ -45,12 +45,6 @@ using namespace std;
 namespace Igor
 {
 
-	struct iShaderSource
-	{
-		iaString _filename;
-		iShaderObjectType _type;
-	};
-
     /*! handles glsl shader programs and objects
     
     nice tutorial http://wiki.delphigl.com/index.php/Tutorial_glsl
@@ -79,8 +73,6 @@ namespace Igor
         \param type the type of shader object
         */
         bool loadSource(const char* source, iShaderObjectType type);
-
-        const vector<iShaderSource>& getShaderSources() const;
 
         /*! compiles shader programm with shader objects
         */
@@ -119,12 +111,6 @@ namespace Igor
         /*! true: if ready to use
         */
         bool _ready = false;
-
-		/*! contains the names of the shadcers used
-
-		mostly filenames
-		*/
-		vector<iShaderSource> _shaderSources;
 
 	};
 

@@ -883,8 +883,7 @@ namespace Igor
             return;
         }
 
-        if (_currentMaterial &&
-            _currentMaterial->hasShader())
+        if (_currentMaterial)
         {
             _currentMaterial->deactivateShader();
         }
@@ -893,10 +892,7 @@ namespace Igor
 
         if (_currentMaterial != nullptr)
         {
-            if (_currentMaterial->hasShader())
-            {
-                _currentMaterial->activateShader();
-            }
+            _currentMaterial->activateShader();
 
             iRenderStateSet& stateset = _currentMaterial->getRenderStateSet();
             (stateset._renderStates[static_cast<unsigned int>(iRenderState::DepthTest)] == iRenderStateValue::On) ? glEnable(GL_DEPTH_TEST) : glDisable(GL_DEPTH_TEST);		GL_CHECK_ERROR();

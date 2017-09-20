@@ -128,7 +128,7 @@ namespace Igor
 
         if (result != nullptr)
         {
-            con_info("loaded OBJ", "\"" << filename << "\"");
+            con_info("loaded obj", "\"" << filename << "\"");
         }
 
 		return result;
@@ -178,7 +178,6 @@ namespace Igor
         {
             if (!meshBuilders[i]->hasNormals())
             {
-                con_endl("there is no normals. I'll try to calculate them");
                 meshBuilders[i]->calcNormals(true);
             }
         }
