@@ -595,18 +595,15 @@ namespace Igor
         GLenum glformat = convertGLColorFormat(format);
         con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
 
-        //glFlush();
-        glReadBuffer(GL_COLOR_ATTACHMENT0);
-
+        if (_currentRenderTarget == iRenderer::DEFAULT_RENDER_TARGET)
+        {
+            glReadBuffer(GL_FRONT);
+        }
+        else
+        {
+            glReadBuffer(GL_COLOR_ATTACHMENT0);
+        }
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data); GL_CHECK_ERROR();
-    }
-
-    void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, float32 *data)
-    {
-        GLenum glformat = convertGLColorFormat(format);
-        con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
-
-        glReadPixels(x, y, width, height, glformat, GL_FLOAT, data); GL_CHECK_ERROR();
     }
 
     iRendererTexture* iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
@@ -977,6 +974,8 @@ namespace Igor
         glVertex2f(x + width, y + height);
         glVertex2f(x + width, y);
         glEnd(); GL_CHECK_ERROR();
+
+        glFlush();
     }
 
     void iRenderer::drawTextureTiled(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture)
@@ -1068,7 +1067,7 @@ namespace Igor
         }
     }
 
-    uint32 iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format)
+    uint32 iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer)
     {
         uint32 result = iRenderer::DEFAULT_RENDER_TARGET;
         GLenum glformat = convertGLColorFormat(format);
@@ -1077,20 +1076,52 @@ namespace Igor
         if (glformat != iRenderer::INVALID_ID)
         {
             GLuint fbo;
-            GLuint renderBuffer;
-            glGenFramebuffers(1, &fbo); GL_CHECK_ERROR();
-            glGenRenderbuffers(1, &renderBuffer); GL_CHECK_ERROR();
-            glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer); GL_CHECK_ERROR();
-            glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, width, height); GL_CHECK_ERROR();
-            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo); GL_CHECK_ERROR();
-            glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderBuffer); GL_CHECK_ERROR();
+            GLuint colorRenderBuffer;
+            GLuint depthRenderBuffer;
+            glGenFramebuffersEXT(1, &fbo); GL_CHECK_ERROR();
+            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo); GL_CHECK_ERROR();
+
+            glGenRenderbuffersEXT(1, &colorRenderBuffer); GL_CHECK_ERROR();
+            glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, colorRenderBuffer); GL_CHECK_ERROR();
+            glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_RGBA8, width, height);
+            glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0_EXT, GL_RENDERBUFFER_EXT, colorRenderBuffer);
+
+            if (useDepthBuffer)
+            {
+                glGenRenderbuffersEXT(1, &depthRenderBuffer);
+                glBindRenderbufferEXT(GL_RENDERBUFFER_EXT, depthRenderBuffer);
+                glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH_COMPONENT24, width, height);
+                glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, depthRenderBuffer);
+            }
+
+            if(glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+            {
+                con_err("unsupported frame buffer object configureation");
+
+                // clean up again
+                glDeleteRenderbuffersEXT(1, &colorRenderBuffer); GL_CHECK_ERROR();
+                if (useDepthBuffer)
+                {
+                    glDeleteRenderbuffersEXT(1, &depthRenderBuffer); GL_CHECK_ERROR();
+                }
+                glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+                glDeleteFramebuffersEXT(1, &fbo);
+
+                // restore current render target
+                glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _currentRenderTarget);
+
+                return iRenderer::DEFAULT_RENDER_TARGET;
+            }
 
             // restore current render target
-            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _currentRenderTarget);
+            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _currentRenderTarget);
 
             iRendererTarget renderTarget;
+            renderTarget._renderTargetType = renderTargetType;
             renderTarget._frameBufferObject = fbo;
-            renderTarget._renderBuffer = renderBuffer;
+            renderTarget._colorBuffer = colorRenderBuffer;
+            renderTarget._hasDepth = useDepthBuffer;
+            renderTarget._depthBuffer = depthRenderBuffer;
 
             // id is handled by ogl so we don't have to check it
             _renderTargets[fbo] = renderTarget;
@@ -1112,8 +1143,17 @@ namespace Igor
         {
             iRendererTarget renderTarget = (*iter).second;
 
-            glDeleteFramebuffers(1, &renderTarget._frameBufferObject); GL_CHECK_ERROR();
-            glDeleteRenderbuffers(1, &renderTarget._renderBuffer); GL_CHECK_ERROR();
+            glDeleteRenderbuffersEXT(1, &renderTarget._colorBuffer); GL_CHECK_ERROR();
+            if (renderTarget._hasDepth)
+            {
+                glDeleteRenderbuffersEXT(1, &renderTarget._depthBuffer); GL_CHECK_ERROR();
+            }
+
+            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+            glDeleteFramebuffersEXT(1, &renderTarget._frameBufferObject); GL_CHECK_ERROR();
+
+            // restore current render target
+            glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, _currentRenderTarget);
 
             _renderTargets.erase(iter);
         }
@@ -1126,7 +1166,7 @@ namespace Igor
     void iRenderer::setRenderTarget(uint32 id)
     {
         // the ID is also the frame buffer object ID
-        glBindFramebuffer(GL_FRAMEBUFFER, id); GL_CHECK_ERROR();
+        glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, id); GL_CHECK_ERROR();
         _currentRenderTarget = id;
     }
 

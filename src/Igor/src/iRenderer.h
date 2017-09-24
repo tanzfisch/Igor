@@ -75,6 +75,12 @@ namespace Igor
         Undefined
     };
 
+    enum class iRenderTargetType
+    {
+        ToTexture,
+        ToRenderBuffer
+    };
+
     /*! texture placeholder class
     */
     struct Igor_API iRendererTexture
@@ -138,13 +144,23 @@ namespace Igor
         */
         struct iRendererTarget
         {
+            /*! the render target type
+            */
+            iRenderTargetType _renderTargetType;
+
             /*! frame buffer object id
             */
-            uint32 _frameBufferObject;
+            uint32 _frameBufferObject = 0;
 
-            /*! render buffer id
+            /*! color render buffer id
             */
-            uint32 _renderBuffer;
+            uint32 _colorBuffer = 0;
+
+            bool _hasDepth = false;
+
+            /*! depth render buffer id
+            */
+            uint32 _depthBuffer = 0;
         };
 
     public:
@@ -354,17 +370,6 @@ namespace Igor
         \param data destination buffer to store the data in
         */
         void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8* data);
-
-        /*! reads rectangular area from screen buffer (float data)
-
-        \param x horizontal position in pixel
-        \parma y vertical position in pixel
-        \param width width in pixel
-        \param height height in pixel
-        \param format color format
-        \param data destination buffer to store the data in
-        */
-        void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, float32* data);
 
         /*! binds texture to texture unit
 
@@ -642,7 +647,7 @@ namespace Igor
         void linkShaderProgram(uint32 id, vector<uint32> objects);
         bool compileShaderObject(uint32 id, const char* source);
 
-        uint32 createRenderTarget(uint32 width, uint32 height, iColorFormat format);
+        uint32 createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
         void destroyRenderTarget(uint32 id);
         void setRenderTarget(uint32 id = iRenderer::DEFAULT_RENDER_TARGET);
         uint32 getRenderTarget() const;

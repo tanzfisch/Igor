@@ -350,6 +350,44 @@ void Example2D::onRender()
 
     // draw frame rate in lower right corner
     _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
+
+
+    {
+        uint64 material = iMaterialResourceFactory::getInstance().createMaterial();
+        iMaterialResourceFactory::getInstance().getMaterial(material)->addShaderSource("default.vert", iShaderObjectType::Vertex);
+        iMaterialResourceFactory::getInstance().getMaterial(material)->addShaderSource("yellow.frag", iShaderObjectType::Fragment);
+        iMaterialResourceFactory::getInstance().getMaterial(material)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+        iMaterialResourceFactory::getInstance().getMaterial(material)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::Off);
+        iMaterialResourceFactory::getInstance().getMaterial(material)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::Off);
+
+        uint32 colorIDRenderTarget = iRenderer::getInstance().createRenderTarget(100, 100, iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
+
+        iRenderer::getInstance().setRenderTarget(colorIDRenderTarget);
+
+        iRenderer::getInstance().setViewport(0, 0, 100, 100);
+
+        iRenderer::getInstance().setClearColor(iaColor4f(1.0f, 1.0f, 0.0f, 0.0f));
+        iRenderer::getInstance().clearColorBuffer();
+        iRenderer::getInstance().clearDepthBuffer();
+
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(material));
+
+        iaMatrixd matrix;
+        matrix.ortho(0, 100, 0, 100, 1, 10);
+        iRenderer::getInstance().setProjectionMatrix(matrix);
+        matrix.identity();
+        iRenderer::getInstance().setViewMatrix(matrix);
+        matrix.translate(0, 0, -5);
+        iRenderer::getInstance().setModelMatrix(matrix);
+
+        iRenderer::getInstance().setColor(0.5, 0.5, 0.5, 0.5);
+        iRenderer::getInstance().drawRectangle(0, 0, 100, 100);
+
+        uint8 data[4];
+        iRenderer::getInstance().readPixels(10, 10, 1, 1, iColorFormat::RGBA, data);
+
+        iRenderer::getInstance().setRenderTarget(iRenderer::DEFAULT_RENDER_TARGET);
+    }
 }
 
 void Example2D::drawLogo()
