@@ -42,6 +42,11 @@ namespace Igor
         }
     }
 
+    void iNodeFactory::onPreDestroyInstance()
+    {
+        flush();
+    }
+
     void iNodeFactory::applyActionsAsync(const vector<iAction>& actionQueue)
     {
         _mutexQueue.lock();

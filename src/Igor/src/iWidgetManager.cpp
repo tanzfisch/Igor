@@ -81,18 +81,13 @@ namespace Igor
     {
         unregisterHandles();
 
-        destroyWidgets();
-
-        if (_widgets.size() != 0)
+        if (!_widgets.empty())
         {
             con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
         }
 
-        for (auto iter : _widgets)
-        {
-            delete iter.second;
-        }
-
+        // we can not delete widgets here anymore because 
+        // they might call iWidgetManager::getInstance in the process
         _widgets.clear();
     }
 
@@ -350,6 +345,8 @@ namespace Igor
             traverseContentSize(dialog.second);
             traverseAlignment(dialog.second, 0, 0, getDesktopWidth(), getDesktopHeight());
         }
+
+        runDeleteQueues();
     }
 
     void iWidgetManager::traverseContentSize(iWidget* widget)
@@ -598,41 +595,49 @@ namespace Igor
         return nullptr;
     }
 
-    void iWidgetManager::destroyWidgets()
+    void iWidgetManager::onPreDestroyInstance()
     {
-        for (auto widget : _toDeleteWidgets)
+        runDeleteQueues();
+    }
+
+    void iWidgetManager::runDeleteQueues()
+    {
+        while (!_toDeleteDialogs.empty() || !_toDeleteWidgets.empty())
         {
-            auto iter = _widgets.find(widget->getID());
-            con_assert(iter != _widgets.end(), "possible mem leak. widget does not exist");
-            if (iter != _widgets.end())
+            while (!_toDeleteDialogs.empty())
             {
-                delete (*iter).second;
-                _widgets.erase(iter);
+                auto iter = _dialogs.find(_toDeleteDialogs.front()->getID());
+                con_assert(iter != _dialogs.end(), "possible mem leak. dialog does not exist");
+                if (iter != _dialogs.end())
+                {
+                    delete (*iter).second;
+                    _dialogs.erase(iter);
+                }
+                else
+                {
+                    con_err("dialog does not exist");
+                }
+
+                _toDeleteDialogs.pop_front();
             }
-            else
+
+            while (!_toDeleteWidgets.empty())
             {
-                con_err("widget does not exist");
+                auto iter = _widgets.find(_toDeleteWidgets.front()->getID());
+                con_assert(iter != _widgets.end(), "possible mem leak. widget does not exist");
+                if (iter != _widgets.end())
+                {
+                    delete (*iter).second;
+                    _widgets.erase(iter);
+                }
+                else
+                {
+                    con_err("widget does not exist");
+                }
+
+                _toDeleteWidgets.pop_front();
             }
         }
-
-        _toDeleteWidgets.clear();
-
-        for (auto dialog : _toDeleteDialogs)
-        {
-            auto iter = _dialogs.find(dialog->getID());
-            con_assert(iter != _dialogs.end(), "possible mem leak. dialog does not exist");
-            if (iter != _dialogs.end())
-            {
-                delete (*iter).second;
-                _dialogs.erase(iter);
-            }
-            else
-            {
-                con_err("dialog does not exist");
-            }
-        }
-
-        _toDeleteDialogs.clear();
     }
 
     void iWidgetManager::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)

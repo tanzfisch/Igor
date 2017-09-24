@@ -184,6 +184,10 @@ namespace Igor
         */
 		iaMutex _mutexQueue;
 
+        /*! last chance for the instance to clean up before shut down
+        */
+        virtual void onPreDestroyInstance();
+
         /*! internal copy function for nodes
 
         \param node the source node

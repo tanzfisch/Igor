@@ -101,6 +101,13 @@ namespace Igor
         */
         void setHeight(T height);
 
+        /*! sets width and height of rectangle
+
+        \param height height of rectangle
+        \param width width of rectangle
+        */
+        void setSize(T width, T height);
+
         /*! assignment operator
 
         \param rectangle the rectangle to assign

@@ -59,7 +59,7 @@ namespace IgorAux
 	{
 		iaConsole::getInstance().printStats();
 		iaConsole::getInstance().closeLogfile();
-		// do not destroy instance iaConsole::destroyInstance();
+		// do not destroy instance of iaConsole
 	}
 
 }

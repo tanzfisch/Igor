@@ -48,7 +48,7 @@ namespace IgorAux
 
 		\return reference to singletion instance
 		*/
-		static T &getInstance()
+		__IGOR_INLINE__ static T &getInstance()
 		{
 			_mutex.lock();
 			if (nullptr == iaSingleton<T>::_instance)
@@ -64,6 +64,11 @@ namespace IgorAux
 		*/
 		static void destroyInstance()
 		{
+            if (iaSingleton<T>::_instance != nullptr)
+            {
+                iaSingleton<T>::_instance->onPreDestroyInstance();
+            }
+
 			_mutex.lock();
 			if(nullptr != iaSingleton<T>::_instance)
 			{
@@ -105,6 +110,10 @@ namespace IgorAux
 		{
 			iaSingleton<T>::_instance = nullptr;
 		}
+
+        /*! last chance for the instance to clean up before shut down
+        */
+        virtual void onPreDestroyInstance() {};
 
 	private:
 

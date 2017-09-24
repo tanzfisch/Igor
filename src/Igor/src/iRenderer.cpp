@@ -1,4 +1,4 @@
-// Igor game engine
+﻿// Igor game engine
 // (c) Copyright 2012-2017 by Martin Loga
 // see copyright notice in corresponding header file
 
@@ -63,6 +63,47 @@ namespace Igor
 #define GL_CHECK_ERROR() 1
 #endif
 
+    GLenum convertGLColorFormat(iColorFormat format)
+    {
+        GLenum glformat = iRenderer::INVALID_ID;
+
+        switch (format)
+        {
+        case iColorFormat::RGB:
+            glformat = GL_RGB;
+            break;
+
+        case iColorFormat::RGBA:
+            glformat = GL_RGBA;
+            break;
+
+        case iColorFormat::RED:
+            glformat = GL_RED;
+            break;
+
+        case iColorFormat::GREEN:
+            glformat = GL_GREEN;
+            break;
+
+        case iColorFormat::BLUE:
+            glformat = GL_BLUE;
+            break;
+
+        case iColorFormat::ALPHA:
+            glformat = GL_ALPHA;
+            break;
+
+        case iColorFormat::DEPTH:
+            glformat = GL_DEPTH_COMPONENT;
+            break;
+
+        default:
+            con_err("unknown color format");
+        };
+
+        return glformat;
+    }
+
     iRenderer::~iRenderer()
     {
         if (_initialized)
@@ -85,7 +126,7 @@ namespace Igor
         indices = _renderedIndexes;
     }
 
-    bool iRenderer::compileShaderObject(int32 id, const char* source)
+    bool iRenderer::compileShaderObject(uint32 id, const char* source)
     {
         int32 result = 0;
         glShaderSourceARB(id, 1, &source, nullptr); GL_CHECK_ERROR();
@@ -106,9 +147,9 @@ namespace Igor
         return (0 != result) ? false : true;
     }
 
-    int32 iRenderer::createShaderObject(iShaderObjectType type)
+    uint32 iRenderer::createShaderObject(iShaderObjectType type)
     {
-        auto shaderObject = INVALID_ID;
+        uint32 shaderObject = INVALID_ID;
 
         switch (type)
         {
@@ -133,13 +174,13 @@ namespace Igor
         return shaderObject;
     }
 
-    void iRenderer::destroyShaderObject(int32 id)
+    void iRenderer::destroyShaderObject(uint32 id)
     {
         con_assert(-1 != id, "invalid id");
         glDeleteObjectARB(id); GL_CHECK_ERROR();
     }
 
-    void iRenderer::linkShaderProgram(int32 id, vector<int32> objects)
+    void iRenderer::linkShaderProgram(uint32 id, vector<uint32> objects)
     {
         auto object = objects.begin();
         while (objects.end() != object)
@@ -151,19 +192,19 @@ namespace Igor
         glLinkProgramARB(id); GL_CHECK_ERROR();
     }
 
-    int32 iRenderer::createShaderProgram()
+    uint32 iRenderer::createShaderProgram()
     {
         uint32 result = glCreateProgramObjectARB(); GL_CHECK_ERROR();
         return result;
     }
 
-    void iRenderer::destroyShaderProgram(int32 id)
+    void iRenderer::destroyShaderProgram(uint32 id)
     {
         con_assert(INVALID_ID != id, "invalid id");
         glDeleteProgram(id); GL_CHECK_ERROR();
     }
 
-    void iRenderer::useShaderProgram(int32 id)
+    void iRenderer::useShaderProgram(uint32 id)
     {
         con_assert(INVALID_ID != id, "invalid id");
         glUseProgramObjectARB(id);
@@ -551,81 +592,30 @@ namespace Igor
 
     void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8 *data)
     {
-        GLenum glformat;
+        GLenum glformat = convertGLColorFormat(format);
+        con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
 
-        switch (format)
-        {
-        case iColorFormat::RGB:		glformat = GL_RGB; break;
-        case iColorFormat::RGBA:	glformat = GL_RGBA; break;
-        case iColorFormat::RED:		glformat = GL_RED; break;
-        case iColorFormat::GREEN:	glformat = GL_GREEN; break;
-        case iColorFormat::BLUE:	glformat = GL_BLUE; break;
-        case iColorFormat::ALPHA:	glformat = GL_ALPHA; break;
-        case iColorFormat::DEPTH:	glformat = GL_DEPTH_COMPONENT; break;
-        default:
-            con_err("unknown color format");
-            return;
-        };
+        //glFlush();
+        glReadBuffer(GL_COLOR_ATTACHMENT0);
 
         glReadPixels(x, y, width, height, glformat, GL_UNSIGNED_BYTE, data); GL_CHECK_ERROR();
     }
 
     void iRenderer::readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, float32 *data)
     {
-        GLenum glformat;
-
-        switch (format)
-        {
-        case iColorFormat::RGB:		glformat = GL_RGB; break;
-        case iColorFormat::RGBA:	glformat = GL_RGBA; break;
-        case iColorFormat::RED:		glformat = GL_RED; break;
-        case iColorFormat::GREEN:	glformat = GL_GREEN; break;
-        case iColorFormat::BLUE:	glformat = GL_BLUE; break;
-        case iColorFormat::ALPHA:	glformat = GL_ALPHA; break;
-        case iColorFormat::DEPTH:	glformat = GL_DEPTH_COMPONENT; break;
-        default:
-            con_err("unknown color format");
-            return;
-        };
+        GLenum glformat = convertGLColorFormat(format);
+        con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
 
         glReadPixels(x, y, width, height, glformat, GL_FLOAT, data); GL_CHECK_ERROR();
     }
 
-    int32 convertToOGL(iColorFormat format)
-    {
-        switch (format)
-        {
-        case iColorFormat::RGB:
-            return GL_RGB;
-
-        case iColorFormat::RGBA:
-            return GL_RGBA;
-
-        case iColorFormat::RED:
-            return  GL_RED;
-
-        case iColorFormat::GREEN:
-            return  GL_GREEN;
-
-        case iColorFormat::BLUE:
-            return  GL_BLUE;
-
-        case iColorFormat::ALPHA:
-            return  GL_ALPHA;
-
-        case iColorFormat::DEPTH:
-            return  GL_DEPTH_COMPONENT;
-
-        default:
-            con_err("unknown color format; try to use default RGB");
-            return GL_RGB;
-        };
-    }
-
     iRendererTexture* iRenderer::createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, unsigned char *data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        int32 glformat = convertToOGL(format);
-        if (!glformat) return 0;
+        int32 glformat = convertGLColorFormat(format);
+        if (glformat == iRenderer::INVALID_ID)
+        {
+            return nullptr;
+        }
 
         iRendererTexture *result = nullptr;
 
@@ -1076,6 +1066,73 @@ namespace Igor
 
             glEnd(); GL_CHECK_ERROR();
         }
+    }
+
+    uint32 iRenderer::createRenderTarget(uint32 width, uint32 height, iColorFormat format)
+    {
+        uint32 result = iRenderer::DEFAULT_RENDER_TARGET;
+        GLenum glformat = convertGLColorFormat(format);
+        con_assert(glformat != iRenderer::INVALID_ID, "invalid color format");
+
+        if (glformat != iRenderer::INVALID_ID)
+        {
+            GLuint fbo;
+            GLuint renderBuffer;
+            glGenFramebuffers(1, &fbo); GL_CHECK_ERROR();
+            glGenRenderbuffers(1, &renderBuffer); GL_CHECK_ERROR();
+            glBindRenderbuffer(GL_RENDERBUFFER, renderBuffer); GL_CHECK_ERROR();
+            glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, width, height); GL_CHECK_ERROR();
+            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, fbo); GL_CHECK_ERROR();
+            glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderBuffer); GL_CHECK_ERROR();
+
+            // restore current render target
+            glBindFramebuffer(GL_DRAW_FRAMEBUFFER, _currentRenderTarget);
+
+            iRendererTarget renderTarget;
+            renderTarget._frameBufferObject = fbo;
+            renderTarget._renderBuffer = renderBuffer;
+
+            // id is handled by ogl so we don't have to check it
+            _renderTargets[fbo] = renderTarget;
+
+            result = fbo;
+        }
+        else
+        {
+            con_err("invalid color format");
+        }
+
+        return result;
+    }
+
+    void iRenderer::destroyRenderTarget(uint32 id)
+    {
+        auto iter = _renderTargets.find(id);
+        if (iter != _renderTargets.end())
+        {
+            iRendererTarget renderTarget = (*iter).second;
+
+            glDeleteFramebuffers(1, &renderTarget._frameBufferObject); GL_CHECK_ERROR();
+            glDeleteRenderbuffers(1, &renderTarget._renderBuffer); GL_CHECK_ERROR();
+
+            _renderTargets.erase(iter);
+        }
+        else
+        {
+            con_err("invalid render target id " << id);
+        }
+    }
+
+    void iRenderer::setRenderTarget(uint32 id)
+    {
+        // the ID is also the frame buffer object ID
+        glBindFramebuffer(GL_FRAMEBUFFER, id); GL_CHECK_ERROR();
+        _currentRenderTarget = id;
+    }
+
+    uint32 iRenderer::getRenderTarget() const
+    {
+        return _currentRenderTarget;
     }
 
     void iRenderer::destroyBuffer(uint32 bufferID)

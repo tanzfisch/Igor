@@ -58,7 +58,7 @@ namespace Igor
 
     public:
 
-        static const int32 INVALID_SHADER_ID = -1;
+        static const uint32 INVALID_SHADER_ID = iRenderer::INVALID_ID;
 
         /*! load shader object from file
 
@@ -102,11 +102,11 @@ namespace Igor
 
         /*! list of shader objects
         */
-        vector<int32> _shaderObjects;
+        vector<uint32> _shaderObjects;
 
         /*! id of glsl shader program
         */
-        int32 _shaderProgram = iShader::INVALID_SHADER_ID;
+        uint32 _shaderProgram = iShader::INVALID_SHADER_ID;
 
         /*! true: if ready to use
         */

@@ -448,6 +448,11 @@ void MenuDialog::deinitGUI()
         iWidgetManager::getInstance().destroyDialog(_decisionBoxModelRef);
         _decisionBoxModelRef = nullptr;
     }
+
+    if (_userControlGraphView != nullptr)
+    {
+        iWidgetManager::getInstance().destroyWidget(_userControlGraphView);
+    }
 }
 
 void MenuDialog::setRootNode(iNode* root)
