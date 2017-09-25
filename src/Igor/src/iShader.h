@@ -54,8 +54,6 @@ namespace Igor
 	class iShader
 	{
 
-        friend class iRenderer;
-
     public:
 
         static const uint32 INVALID_SHADER_ID = iRenderer::INVALID_ID;
@@ -89,6 +87,10 @@ namespace Igor
         /*! deactivates shader program
         */
         void disable();
+
+        /*! \returns id of shader program
+        */
+        uint32 getProgram() const;
 
         /*! creates shader program
         */

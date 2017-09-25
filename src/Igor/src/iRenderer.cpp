@@ -808,31 +808,35 @@ namespace Igor
     {
         if (_currentMaterial->getShader() != nullptr)
         {
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "matAmbient"), 1, static_cast<GLfloat*>(targetMaterial->getAmbient().getData())); GL_CHECK_ERROR();
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "matDiffuse"), 1, static_cast<GLfloat*>(targetMaterial->getDiffuse().getData())); GL_CHECK_ERROR();
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "matSpecular"), 1, static_cast<GLfloat*>(targetMaterial->getSpecular().getData())); GL_CHECK_ERROR();
-            glUniform1f(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "matShininess"), targetMaterial->getShininess()); GL_CHECK_ERROR();
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "matEmissive"), 1, static_cast<GLfloat*>(targetMaterial->getEmissive().getData())); GL_CHECK_ERROR();
+            if (_currentMaterial->_hasTargetMaterial)
+            {
+                uint32 program = _currentMaterial->getShader()->getProgram();
 
-            if (targetMaterial->hasTextureUnit(0))
-            {
-                glUniform1i(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "tex0"), 0);
-                bindTexture(targetMaterial->getTexture(0), 0);
-            }
-            if (targetMaterial->hasTextureUnit(1))
-            {
-                glUniform1i(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "tex1"), 1);
-                bindTexture(targetMaterial->getTexture(1), 1);
-            }
-            if (targetMaterial->hasTextureUnit(2))
-            {
-                glUniform1i(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "tex2"), 2);
-                bindTexture(targetMaterial->getTexture(2), 2);
-            }
-            if (targetMaterial->hasTextureUnit(3))
-            {
-                glUniform1i(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "tex3"), 3);
-                bindTexture(targetMaterial->getTexture(3), 3);
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_AMBIENT), 1, static_cast<GLfloat*>(targetMaterial->getAmbient().getData())); GL_CHECK_ERROR();
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_DIFFUSE), 1, static_cast<GLfloat*>(targetMaterial->getDiffuse().getData())); GL_CHECK_ERROR();
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_SPECULAR), 1, static_cast<GLfloat*>(targetMaterial->getSpecular().getData())); GL_CHECK_ERROR();
+                glUniform1f(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_SHININESS), targetMaterial->getShininess()); GL_CHECK_ERROR();
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_EMISSIVE), 1, static_cast<GLfloat*>(targetMaterial->getEmissive().getData())); GL_CHECK_ERROR();
+
+                if (targetMaterial->hasTextureUnit(0))
+                {
+                    bindTexture(targetMaterial->getTexture(0), 0);
+                }
+
+                if (targetMaterial->hasTextureUnit(1))
+                {
+                    bindTexture(targetMaterial->getTexture(1), 1);
+                }
+
+                if (targetMaterial->hasTextureUnit(2))
+                {
+                    bindTexture(targetMaterial->getTexture(2), 2);
+                }
+
+                if (targetMaterial->hasTextureUnit(3))
+                {
+                    bindTexture(targetMaterial->getTexture(3), 3);
+                }
             }
         }
     }
@@ -1094,7 +1098,7 @@ namespace Igor
                 glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT_EXT, GL_RENDERBUFFER_EXT, depthRenderBuffer);
             }
 
-            if(glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
+            if (glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT) != GL_FRAMEBUFFER_COMPLETE_EXT)
             {
                 con_err("unsupported frame buffer object configureation");
 
@@ -1331,7 +1335,7 @@ namespace Igor
 
         createBuffers(instancer);
 
-        glBindVertexArray(meshBuffers->getVertexArrayObject()); GL_CHECK_ERROR();
+        writeShaderParameters();
 
         glBindBuffer(GL_ARRAY_BUFFER, instancer->getInstanceArrayObject()); GL_CHECK_ERROR();
 
@@ -1350,22 +1354,7 @@ namespace Igor
         glVertexAttribDivisor(5, 1);
         glVertexAttribDivisor(6, 1);
 
-        //! \todo can handle only one light right now
-        glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightOrientation"), 1, static_cast<GLfloat*>(_lights[0]._position.getData())); GL_CHECK_ERROR();
-        glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightAmbient"), 1, static_cast<GLfloat*>(_lights[0]._ambient.getData())); GL_CHECK_ERROR();
-        glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightDiffuse"), 1, static_cast<GLfloat*>(_lights[0]._diffuse.getData())); GL_CHECK_ERROR();
-        glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightSpecular"), 1, static_cast<GLfloat*>(_lights[0]._specular.getData())); GL_CHECK_ERROR();
-
-        iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
-        glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "eyePosition"), 1, static_cast<GLfloat*>(eyePosition.getData())); GL_CHECK_ERROR();
-
-        updateModelViewProjectionMatrix();
-        iaMatrixf modelViewProjection;
-        for (int i = 0; i < 16; ++i)
-        {
-            modelViewProjection[i] = _modelViewProjectionMatrix[i];
-        }
-        glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "mvp_matrix"), 1, false, modelViewProjection.getData()); GL_CHECK_ERROR();
+        glBindVertexArray(meshBuffers->getVertexArrayObject()); GL_CHECK_ERROR();
 
         glDrawElementsInstancedARB(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0, instancer->getInstanceCount()); GL_CHECK_ERROR();
 
@@ -1377,44 +1366,70 @@ namespace Igor
         _renderedTriangles += meshBuffers->getTrianglesCount() * instancer->getInstanceCount();
     }
 
-    void iRenderer::drawMesh(shared_ptr<iMeshBuffers> meshBuffers)
+    int32 iRenderer::getShaderPropertyID(uint32 programID, const char* name)
+    {
+        
+        int32 result = glGetUniformLocation(programID, name); GL_CHECK_ERROR();
+        return result;
+    }
+
+    void iRenderer::writeShaderParameters()
     {
         if (_currentMaterial->getShader() != nullptr)
         {
-            glBindVertexArray(meshBuffers->getVertexArrayObject()); GL_CHECK_ERROR();
+            uint32 program = _currentMaterial->getShader()->getProgram();
 
-            //! \todo can handle only one light right now
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightOrientation"), 1, static_cast<GLfloat*>(_lights[0]._position.getData())); GL_CHECK_ERROR();
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightAmbient"), 1, static_cast<GLfloat*>(_lights[0]._ambient.getData())); GL_CHECK_ERROR();
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightDiffuse"), 1, static_cast<GLfloat*>(_lights[0]._diffuse.getData())); GL_CHECK_ERROR();
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "lightSpecular"), 1, static_cast<GLfloat*>(_lights[0]._specular.getData())); GL_CHECK_ERROR();
-
-            iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
-            glUniform3fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "eyePosition"), 1, static_cast<GLfloat*>(eyePosition.getData())); GL_CHECK_ERROR();
-
-            updateModelViewProjectionMatrix();
-            iaMatrixf modelViewProjection;
-            for (int i = 0; i < 16; ++i)
+            if (_currentMaterial->_hasDirectionalLight)
             {
-                modelViewProjection[i] = _modelViewProjectionMatrix[i];
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_ORIENTATION), 1, static_cast<GLfloat*>(_lights[0]._position.getData())); GL_CHECK_ERROR();
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_AMBIENT), 1, static_cast<GLfloat*>(_lights[0]._ambient.getData())); GL_CHECK_ERROR();
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_DIFFUSE), 1, static_cast<GLfloat*>(_lights[0]._diffuse.getData())); GL_CHECK_ERROR();
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_SPECULAR), 1, static_cast<GLfloat*>(_lights[0]._specular.getData())); GL_CHECK_ERROR();
             }
-            glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "mvp_matrix"), 1, false, modelViewProjection.getData()); GL_CHECK_ERROR();
 
-            iaMatrixf model;
-            for (int i = 0; i < 16; ++i)
+            if (_currentMaterial->_hasEyePosition)
             {
-                model[i] = _modelMatrix[i];
+                iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_EYE_POSITION), 1, static_cast<GLfloat*>(eyePosition.getData())); GL_CHECK_ERROR();
             }
-            glUniformMatrix4fv(glGetUniformLocation(_currentMaterial->getShader()->_shaderProgram, "model_matrix"), 1, false, model.getData()); GL_CHECK_ERROR();
 
-            glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0); GL_CHECK_ERROR();
+            if (_currentMaterial->_hasModelViewProjectionMatrix)
+            {
+                updateModelViewProjectionMatrix();
+                iaMatrixf modelViewProjection;
+                for (int i = 0; i < 16; ++i)
+                {
+                    modelViewProjection[i] = _modelViewProjectionMatrix[i];
+                }
+                glUniformMatrix4fv(glGetUniformLocation(program, iMaterial::UNIFORM_MODEL_VIEW_PROJECTION), 1, false, modelViewProjection.getData()); GL_CHECK_ERROR();
+            }
 
-            glBindVertexArray(0); GL_CHECK_ERROR();
-
-            _renderedVertices += meshBuffers->getVertexCount();
-            _renderedIndexes += meshBuffers->getIndexesCount();
-            _renderedTriangles += meshBuffers->getTrianglesCount();
+            if (_currentMaterial->_hasModelMatrix)
+            {
+                iaMatrixf model;
+                for (int i = 0; i < 16; ++i)
+                {
+                    model[i] = _modelMatrix[i];
+                }
+                glUniformMatrix4fv(glGetUniformLocation(program, iMaterial::UNIFORM_MODEL), 1, false, model.getData()); GL_CHECK_ERROR();
+            }
         }
+    }
+
+    void iRenderer::drawMesh(shared_ptr<iMeshBuffers> meshBuffers)
+    {
+        writeShaderParameters();
+
+        glBindVertexArray(meshBuffers->getVertexArrayObject()); GL_CHECK_ERROR();
+
+        glDrawElements(GL_TRIANGLES, meshBuffers->getIndexesCount(), GL_UNSIGNED_INT, 0); GL_CHECK_ERROR();
+
+        glBindVertexArray(0); GL_CHECK_ERROR();
+
+        _renderedVertices += meshBuffers->getVertexCount();
+        _renderedIndexes += meshBuffers->getIndexesCount();
+        _renderedTriangles += meshBuffers->getTrianglesCount();
+
     }
 
     void iRenderer::drawPoint(float32 x, float32 y)

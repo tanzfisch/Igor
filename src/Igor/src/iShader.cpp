@@ -37,6 +37,11 @@ namespace Igor
         }
     }
 
+    uint32 iShader::getProgram() const
+    {
+        return _shaderProgram;
+    }
+
     bool iShader::isReady()
     {
         return _ready;

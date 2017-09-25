@@ -250,6 +250,10 @@ namespace Igor
         */
         void setMaterial(iMaterial* material, bool forceWireframe = false);
 
+        int32 getShaderPropertyID(uint32 programID, const char* name);
+
+        void writeShaderParameters();
+
         /*! set the viewport
 
         \param x horizontal position of viewport in pixel
@@ -542,6 +546,8 @@ namespace Igor
         \param texScaleV scale of texture coordinates along the v axis
         */
         void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture, float32 texScaleU, float32 texScaleV);
+
+        
 
         /*! draws a mesh
 

@@ -6,48 +6,48 @@ in vec2 VertexTexCoord;
 
 layout(location = 0) out vec4 out_color;
 
-uniform sampler2D diffuseTexture;
+uniform sampler2D igor_texture0;
 
-uniform vec3 eyePosition;
+uniform vec3 igor_eyePosition;
 
-uniform vec3 matAmbient;
-uniform vec3 matDiffuse;
-uniform vec3 matSpecular;
-uniform float matShininess;
-uniform vec3 matEmissive;
+uniform vec3 igor_matAmbient;
+uniform vec3 igor_matDiffuse;
+uniform vec3 igor_matSpecular;
+uniform float igor_matShininess;
+uniform vec3 igor_matEmissive;
 
-uniform vec3 lightOrientation;
-uniform vec3 lightAmbient;
-uniform vec3 lightDiffuse;
-uniform vec3 lightSpecular;
+uniform vec3 igor_lightOrientation;
+uniform vec3 igor_lightAmbient;
+uniform vec3 igor_lightDiffuse;
+uniform vec3 igor_lightSpecular;
 
 void main()
 {
 	vec3 N = normalize(VertexNormal);
 	vec3 P = VertexWorld;
-	vec3 diffuseTextureColor = texture2D(diffuseTexture, VertexTexCoord).rgb;
+	vec3 diffuseTextureColor = texture2D(igor_texture0, VertexTexCoord).rgb;
 	
-	vec3 emissive = matEmissive;
+	vec3 emissive = igor_matEmissive;
 	
 	// Compute the ambient term
-	vec3 ambient = matAmbient * lightAmbient * diffuseTextureColor;
+	vec3 ambient = igor_matAmbient * igor_lightAmbient * diffuseTextureColor;
 	
 	// Compute the diffuse term
-	vec3 L = normalize(lightOrientation);
+	vec3 L = normalize(igor_lightOrientation);
 	float diffuseLightFactor = max(dot(N, L), 0.0);
-	vec3 diffuse = matDiffuse * lightDiffuse * diffuseLightFactor * diffuseTextureColor;
+	vec3 diffuse = igor_matDiffuse * igor_lightDiffuse * diffuseLightFactor * diffuseTextureColor;
 	
 	// Compute the specular term
-	vec3 V = normalize(eyePosition - P);
+	vec3 V = normalize(igor_eyePosition - P);
 	vec3 H = normalize(L + V);
-	float specularLightFactor = pow(max(dot(N, H), 0.0), matShininess);
+	float specularLightFactor = pow(max(dot(N, H), 0.0), igor_matShininess);
 	
-	if (matShininess <= 0.0) 
+	if (igor_matShininess <= 0.0) 
 	{
 		specularLightFactor = 0.0;
 	}
 	
-	vec3 specular = matSpecular * lightSpecular * specularLightFactor;
+	vec3 specular = igor_matSpecular * igor_lightSpecular * specularLightFactor;
 	
 	out_color.rgb = emissive + ambient + diffuse + specular;
 	out_color.a = 1;

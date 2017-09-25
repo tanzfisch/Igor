@@ -6,7 +6,7 @@ layout(location = 2) in vec2 in_texCoord;
 
 layout(location = 3) in mat4 in_modelMatrix;
 
-uniform mat4 mvp_matrix;
+uniform mat4 igor_modelViewProjection;
 
 out vec3 VertexWorld;
 out vec3 VertexNormal;
@@ -21,5 +21,5 @@ void main()
 	
 	VertexTexCoord = in_texCoord;
 	
-	gl_Position = mvp_matrix * in_modelMatrix * vec4(in_position, 1);
+	gl_Position = igor_modelViewProjection * in_modelMatrix * vec4(in_position, 1);
 }

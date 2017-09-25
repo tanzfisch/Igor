@@ -71,21 +71,32 @@ namespace Igor
 
     public:
 
+        static constexpr const char* UNIFORM_LIGHT_ORIENTATION = "igor_lightOrientation";
+        static constexpr const char* UNIFORM_LIGHT_AMBIENT = "igor_lightAmbient";
+        static constexpr const char* UNIFORM_LIGHT_DIFFUSE = "igor_lightDiffuse";
+        static constexpr const char* UNIFORM_LIGHT_SPECULAR = "igor_lightSpecular";
+        static constexpr const char* UNIFORM_EYE_POSITION = "igor_eyePosition";
+        static constexpr const char* UNIFORM_MODEL_VIEW_PROJECTION = "igor_modelViewProjection";
+        static constexpr const char* UNIFORM_MODEL = "igor_model";
+
+        static constexpr const char* UNIFORM_MATERIAL_AMBIENT = "igor_matAmbient";
+        static constexpr const char* UNIFORM_MATERIAL_DIFFUSE = "igor_matDiffuse";
+        static constexpr const char* UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
+        static constexpr const char* UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
+        static constexpr const char* UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
+
+        static constexpr const char* SAMPLER_TEXTURE0 = "igor_matTexture0";
+        static constexpr const char* SAMPLER_TEXTURE1 = "igor_matTexture1";
+        static constexpr const char* SAMPLER_TEXTURE2 = "igor_matTexture2";
+        static constexpr const char* SAMPLER_TEXTURE3 = "igor_matTexture3";
+
         /*! invalid material ID
         */
         static const int64 INVALID_MATERIAL_ID = 0;
 
-        /*! early render order value
-        */
-        static const int32 RENDER_ORDER_EARLY = 100;
-
         /*! default render order value
         */
         static const int32 RENDER_ORDER_DEFAULT = 200;
-
-        /*! late render order value
-        */
-        static const int32 RENDER_ORDER_LATE = 300;
 
         /*! min render order value
         */
@@ -140,6 +151,16 @@ namespace Igor
 
 	private:
 
+        bool _hasDirectionalLight = false;
+
+        bool _hasEyePosition = false;
+
+        bool _hasModelViewProjectionMatrix = false;
+
+        bool _hasModelMatrix = false;
+
+        bool _hasTargetMaterial = false;
+
         /*! oder that material groups get sorted by
 
         default value is iMaterial::RENDER_ORDER_DEFAULT
@@ -189,4 +210,5 @@ namespace Igor
 }
 
 #endif
+
 
