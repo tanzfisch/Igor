@@ -45,10 +45,10 @@ namespace Igor
 
     /*! traveses node tree and renders bounding boxes
     */
-	class iNodeVisitorRenderBoundings : public iNodeVisitor
-	{
+    class iNodeVisitorRenderBoundings : public iNodeVisitor
+    {
 
-	public:
+    public:
 
         /*! configures material
         */
@@ -56,30 +56,29 @@ namespace Igor
 
         /*! does nothing
         */
-		virtual ~iNodeVisitorRenderBoundings() = default;
+        virtual ~iNodeVisitorRenderBoundings() = default;
 
-		void run(iNode* node);
-
-	protected:
+    protected:
 
         /*! initialisation
         */
-		virtual void preTraverse();
+        virtual void preTraverse();
 
-        /*! generates information string on every node passed by
-        handles output indentation
+        /*! calculates transformations and renders bounding boxes
 
         \param node current node
         */
-		virtual bool preOrderVisit(iNode* node);
+        virtual bool preOrderVisit(iNode* node);
 
-        /*! handles output indentation
-        */
-		virtual void postOrderVisit(iNode* node);
+        /*! restores transformations
 
-        /*! some more output
+        \param node current node
         */
-		virtual void postTraverse();
+        virtual void postOrderVisit(iNode* node);
+
+        /*! does nothing
+        */
+        virtual void postTraverse();
 
     private:
 
@@ -91,9 +90,11 @@ namespace Igor
         */
         iaMatrixd _currentMatrix;
 
+        /*! bounding box render material
+        */
         uint64 _material = iMaterial::INVALID_MATERIAL_ID;
 
-	};
+    };
 
 };
 

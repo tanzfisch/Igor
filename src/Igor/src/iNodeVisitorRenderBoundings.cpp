@@ -16,63 +16,58 @@ using namespace IgorAux;
 namespace Igor
 {
 
-		iNodeVisitorRenderBoundings::iNodeVisitorRenderBoundings()
-		{
-            _material = iMaterialResourceFactory::getInstance().createMaterial();
-            iMaterialResourceFactory::getInstance().getMaterial(_material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
-		}
+    iNodeVisitorRenderBoundings::iNodeVisitorRenderBoundings()
+    {
+        _material = iMaterialResourceFactory::getInstance().createMaterial();
+        iMaterialResourceFactory::getInstance().getMaterial(_material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    }
 
-		void iNodeVisitorRenderBoundings::run(iNode* node)
-		{
-			traverseTree(node);
-		}
-		
-		bool iNodeVisitorRenderBoundings::preOrderVisit(iNode* node)
-		{
-            if (iNodeKind::Transformation == node->getKind())
-            {
-                _matrixStack.push_back(_currentMatrix);
+    bool iNodeVisitorRenderBoundings::preOrderVisit(iNode* node)
+    {
+        if (iNodeKind::Transformation == node->getKind())
+        {
+            _matrixStack.push_back(_currentMatrix);
 
-                iNodeTransform* transform = static_cast<iNodeTransform*>(node);
-                iaMatrixd matrix;
-                transform->getMatrix(matrix);
-                _currentMatrix *= matrix;
-                iRenderer::getInstance().setModelMatrix(_currentMatrix);
-            }
-            
-            if (iNodeKind::Volume == node->getKind())
-            {
-                iNodeVolume* volume = static_cast<iNodeVolume*>(node);
+            iNodeTransform* transform = static_cast<iNodeTransform*>(node);
+            iaMatrixd matrix;
+            transform->getMatrix(matrix);
+            _currentMatrix *= matrix;
+            iRenderer::getInstance().setModelMatrix(_currentMatrix);
+        }
 
-                iAABoxd bbox = volume->getBoundingBox();
+        if (iNodeKind::Volume == node->getKind())
+        {
+            iNodeVolume* volume = static_cast<iNodeVolume*>(node);
 
-                iRenderer::getInstance().drawBBox(bbox);
-            }
+            iAABoxd bbox = volume->getBoundingBox();
 
-            return true;
-		}
+            iRenderer::getInstance().drawBBox(bbox);
+        }
 
-		void iNodeVisitorRenderBoundings::postOrderVisit(iNode* node)
-		{
-            if (iNodeKind::Transformation == node->getKind())
-            {
-                con_assert(_matrixStack.size() != 0, "stack underflow");
-                _currentMatrix = _matrixStack.back();
-                _matrixStack.pop_back();
+        return true;
+    }
 
-                iRenderer::getInstance().setModelMatrix(_currentMatrix);
-            }
-		}
+    void iNodeVisitorRenderBoundings::postOrderVisit(iNode* node)
+    {
+        if (iNodeKind::Transformation == node->getKind())
+        {
+            con_assert(_matrixStack.size() != 0, "stack underflow");
+            _currentMatrix = _matrixStack.back();
+            _matrixStack.pop_back();
 
-		void iNodeVisitorRenderBoundings::preTraverse()
-		{
-            _currentMatrix.identity();
-            iRenderer::getInstance().setColor(1, 1, 1, 1);
-            iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_material));
-		}
+            iRenderer::getInstance().setModelMatrix(_currentMatrix);
+        }
+    }
 
-		void iNodeVisitorRenderBoundings::postTraverse()
-		{
-            con_assert(_matrixStack.size() == 0, "matrix stack should be empty");
-		}
+    void iNodeVisitorRenderBoundings::preTraverse()
+    {
+        _currentMatrix.identity();
+        iRenderer::getInstance().setColor(1, 1, 1, 1);
+        iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_material));
+    }
+
+    void iNodeVisitorRenderBoundings::postTraverse()
+    {
+        con_assert(_matrixStack.size() == 0, "matrix stack should be empty");
+    }
 }

@@ -315,7 +315,7 @@ namespace Igor
         if (_showBoundingBoxes)
         {            
             iNodeVisitorRenderBoundings renderBoundings;
-            renderBoundings.run(_scene->getRoot());
+            renderBoundings.traverseTree(_scene->getRoot());
         }
 
         if (_showOctree)
