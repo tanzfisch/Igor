@@ -224,6 +224,7 @@ namespace Igor
                             if (node->wasReached() &&
                                 node->isVisible())
                             {
+                                iRenderer::getInstance().setColorID(node->getID());
                                 node->draw();
                                 node->_reached = false;
                                 ++iter;
