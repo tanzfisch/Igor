@@ -206,6 +206,16 @@ namespace Igor
         */
         bool isOctreeVisible() const;
 
+        /*! sets if the nodes should be rendered with solely their colorid
+
+        \param enabled if true nodes will be rendered with their color id
+        */
+        void setColorIDRendering(bool enabled = true);
+
+        /*! \returns if nodes will be rendered with their color id
+        */
+        bool isColorIDRendering() const;
+
         /*! unprojects screen position to object space
 
         \param screenpos screen position in pixels (vertical origin is at top of window)

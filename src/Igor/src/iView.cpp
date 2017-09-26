@@ -51,6 +51,16 @@ namespace Igor
         return _visible;
     }
 
+    void iView::setColorIDRendering(bool enabled)
+    {
+        _renderEngine.setColorIDRendering(enabled);
+    }
+
+    bool iView::isColorIDRendering() const
+    {
+        return _renderEngine.isColorIDRendering();
+    }
+
     void iView::setWireframeVisible(bool wireframe)
     {
         _renderEngine.setWireframeVisible(wireframe);

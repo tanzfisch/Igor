@@ -46,6 +46,16 @@ namespace Igor
 #endif
     }
 
+    void iRenderEngine::setColorIDRendering(bool enabled)
+    {
+        _renderColorID = enabled;
+    }
+
+    bool iRenderEngine::isColorIDRendering() const
+    {
+        return _renderColorID;
+    }
+
     void iRenderEngine::setWireframeVisible(bool wireframe)
     {
         _showWireframe = wireframe;
@@ -117,7 +127,14 @@ namespace Igor
 
                 iStatistics::getInstance().beginSection(_drawSectionID);
 #endif
-                drawScene();
+                if (_renderColorID)
+                {
+                    drawColorIDs();
+                }
+                else
+                {
+                    drawScene();
+                }
 #ifdef USE_VERBOSE_STATISTICS
                 iStatistics::getInstance().endSection(_drawSectionID);
 #endif
@@ -178,6 +195,51 @@ namespace Igor
             }
 
             iterRenderables++;
+        }
+    }
+
+    void iRenderEngine::drawColorIDs()
+    {
+        iMaterial* colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
+        iRenderer::getInstance().setMaterial(colorIDMaterial);
+
+        list<iMaterialGroup*>* materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
+        for(auto materialGroup : *materialGroups)
+        {
+            iMaterial* material = materialGroup->getMaterial();
+            if (iRenderStateValue::On == material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced))
+            {
+                 // TODO later   
+            }
+            else
+            {
+                if (!materialGroup->_renderNodeIDs.empty())
+                {
+                    auto iter = materialGroup->_renderNodeIDs.begin();
+                    while (iter != materialGroup->_renderNodeIDs.end())
+                    {
+                        iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*iter)));
+                        if (node != nullptr)
+                        {
+                            if (node->wasReached() &&
+                                node->isVisible())
+                            {
+                                node->draw();
+                                node->_reached = false;
+                                ++iter;
+                            }
+                            else
+                            {
+                                iter = materialGroup->_renderNodeIDs.erase(iter);
+                            }
+                        }
+                        else
+                        {
+                            iter = materialGroup->_renderNodeIDs.erase(iter);
+                        }
+                    }
+                }
+            }
         }
     }
 

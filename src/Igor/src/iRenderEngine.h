@@ -78,6 +78,16 @@ namespace Igor
         */
         bool isOctreeVisible() const;
 
+        /*! sets if the nodes should be rendered with solely their colorid
+
+        \param enabled if true nodes will be rendered with their color id
+        */
+        void setColorIDRendering(bool enabled = true);
+
+        /*! \returns if nodes will be rendered with their color id
+        */
+        bool isColorIDRendering() const;
+
         /*! sets the scene to render with
 
         \param scene scene to render
@@ -114,6 +124,10 @@ namespace Igor
         */
         bool _showOctree = false;
 
+        /*! flag if true color ids get rendered
+        */
+        bool _renderColorID = false;
+
         /*! cull section id for statistics
         */
         uint32 _cullSectionID = 0;
@@ -147,6 +161,10 @@ namespace Igor
         \param camera the specified camera
         */
         void drawScene();
+
+        /*! draws everyting by using it's color id
+        */
+        void drawColorIDs();
 
         /*! triggers the creation of buffers
         */
