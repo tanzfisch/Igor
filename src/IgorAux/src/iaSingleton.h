@@ -36,105 +36,101 @@ namespace IgorAux
 
 #pragma warning(disable:4100)
 
-	/*! singleton base class
+    /*! singleton base class
 
-	\todo put here some serious explanation how this works
-	*/
-	template<typename T> class IgorAux_API_Template iaSingleton
-	{
-	public:
+    \todo put here some serious explanation how this works
+    */
+    template<typename T> class IgorAux_API_Template iaSingleton
+    {
+    public:
 
-		/*! returns the singletons instance
+        /*! returns the singletons instance
 
-		\return reference to singletion instance
-		*/
-		__IGOR_INLINE__ static T &getInstance()
-		{
-			_mutex.lock();
-			if (nullptr == iaSingleton<T>::_instance)
-			{
-				iaSingleton<T>::_instance = new T();
-			}
-			_mutex.unlock();
+        \return reference to singletion instance
+        */
+        static T &getInstance()
+        {
+            _mutex.lock();
+            if (nullptr == iaSingleton<T>::_instance)
+            {
+                iaSingleton<T>::_instance = new T();
+            }
+            _mutex.unlock();
 
-			return *iaSingleton<T>::_instance;
-		}
+            return *iaSingleton<T>::_instance;
+        }
 
-		/*! deletes singleton instance 
-		*/
-		static void destroyInstance()
-		{
+        /*! deletes singleton instance
+        */
+        static void destroyInstance()
+        {
             if (iaSingleton<T>::_instance != nullptr)
             {
                 iaSingleton<T>::_instance->onPreDestroyInstance();
             }
 
-			_mutex.lock();
-			if(nullptr != iaSingleton<T>::_instance)
-			{
-				delete(iaSingleton<T>::_instance);
-				iaSingleton<T>::_instance = nullptr;
-			}
-			_mutex.unlock();
-		}
+            _mutex.lock();
+            if (nullptr != iaSingleton<T>::_instance)
+            {
+                delete(iaSingleton<T>::_instance);
+                iaSingleton<T>::_instance = nullptr;
+            }
+            _mutex.unlock();
+        }
 
-		/*! returns true if the instance of this currently instantiated
+        /*! returns true if the instance of this currently instantiated
+        */
+        static bool isInstantiated()
+        {
+            bool result = iaSingleton<T>::_instance ? true : false;
+            return result;
+        }
 
-        \todo does the mutex make sence here?
-		*/
-		static bool isInstantiated()
-		{
-			_mutex.lock();
-			bool result = iaSingleton<T>::_instance ? true : false;
-			_mutex.unlock();
-			return result;
-		}
+    protected:
 
-	protected:
+        /*! pointer to the singleton instance
+        */
+        static T *_instance;
 
-		/*! pointer to the singleton instance
-		*/
-		static T *_instance;
+        /*! default ctor
 
-		/*! default ctor
-
-		does nothing
-		*/
+        does nothing
+        */
         iaSingleton() = default;
 
-		/*! dtor
+        /*! dtor
 
-		deletes singleton instance
-		*/
-		virtual ~iaSingleton()
-		{
-			iaSingleton<T>::_instance = nullptr;
-		}
+        deletes singleton instance
+        */
+        virtual ~iaSingleton()
+        {
+            iaSingleton<T>::_instance = nullptr;
+        }
 
         /*! last chance for the instance to clean up before shut down
         */
         virtual void onPreDestroyInstance() {};
 
-	private:
+    private:
 
-		/*! mutex to protect instance pointer
-		*/
-		static iaMutex _mutex;
+        /*! mutex to protect instance pointer
+        */
+        static iaMutex _mutex;
 
-		/*! copy constructor is not allowed to use
-		*/
+        /*! copy constructor is not allowed to use
+        */
         iaSingleton(const iaSingleton& p) = default;
 
-	};
+    };
 
-	/*! the actual instance definition of any singleton
-	*/
-	template<typename T>T *iaSingleton<T>::_instance = nullptr;
+    /*! the actual instance definition of any singleton
+    */
+    template<typename T>T* iaSingleton<T>::_instance = nullptr;
 
     /*! the mutex of any singleton
     */
     template<typename T>iaMutex iaSingleton<T>::_mutex;
-    
+
 #pragma warning(default:4100) 
 };
 
