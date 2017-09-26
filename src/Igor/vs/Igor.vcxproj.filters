@@ -272,9 +272,6 @@
     <ClCompile Include="..\src\iTaskLoadModel.cpp">
       <Filter>threading\tasks</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemConfig.cpp">
-      <Filter>todo</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPhysicsJoint.cpp">
       <Filter>physics</Filter>
     </ClCompile>
@@ -416,6 +413,11 @@
     <ClCompile Include="..\src\iNodeVisitorRenderColorID.cpp">
       <Filter>scene\traversal</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iModelDataIO3DS.cpp" />
+    <ClCompile Include="..\src\iPhysicsJointUpVector.cpp" />
+    <ClCompile Include="..\src\iPhysicsPlayer.cpp" />
+    <ClCompile Include="..\src\iSimpleCubes.cpp" />
+    <ClCompile Include="..\src\iTaskUpdateLOD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -705,9 +707,6 @@
     <ClInclude Include="..\src\iTaskLoadModel.h">
       <Filter>threading\tasks</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemConfig.h">
-      <Filter>todo</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iPhysicsJoint.h">
       <Filter>physics</Filter>
     </ClInclude>
@@ -871,6 +870,11 @@
     <ClInclude Include="..\src\iNodeVisitorRenderColorID.h">
       <Filter>scene\traversal</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iModelDataIO3DS.h" />
+    <ClInclude Include="..\src\iPhysicsJointUpVector.h" />
+    <ClInclude Include="..\src\iPhysicsPlayer.h" />
+    <ClInclude Include="..\src\iSimpleCubes.h" />
+    <ClInclude Include="..\src\iTaskUpdateLOD.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
