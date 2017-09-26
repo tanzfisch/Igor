@@ -31,14 +31,6 @@
 
 #include <iaDefines.h>
 
-// #define __IGOR_USE_MUTEX_PROFILER__
-
-#ifdef __IGOR_USE_MUTEX_PROFILER__
-#include <iaString.h>
-#include <vector>	
-using namespace std;
-#endif
-
 namespace IgorAux
 {
 
@@ -72,14 +64,6 @@ namespace IgorAux
         void unlock();
 
     private:
-
-#ifdef __IGOR_USE_MUTEX_PROFILER__
-		uint64 m_waitingTotal = 0;
-		uint64 m_waitingMax = 0;
-		uint64 m_lockCount = 0;
-		uint64 m_blockCount = 0;
-		vector<iaString> m_callStack;
-#endif
 
 		/*! handle to mutex
 
