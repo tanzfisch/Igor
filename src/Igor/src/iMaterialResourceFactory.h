@@ -103,6 +103,10 @@ namespace Igor
         */
         uint64 getDefaultMaterialID() const;
 
+        /*! \returns color ID material ID
+        */
+        uint64 getColorIDMaterialID() const;
+
         /*! \returns materials with given material name
         \param materialName the materials name
         */
@@ -161,7 +165,11 @@ namespace Igor
 
         /*! default material ID
         */
-        uint64 _defaultID = iMaterial::INVALID_MATERIAL_ID;
+        uint64 _defaultMaterial = iMaterial::INVALID_MATERIAL_ID;
+
+        /*! color id material id
+        */
+        uint64 _colorIDMaterial = iMaterial::INVALID_MATERIAL_ID;
 
         /*! sorts the materials if needed
         */
@@ -169,7 +177,7 @@ namespace Igor
 
         /*! initializes default materials
         */
-        void initDefaultMaterial();
+        void initDefaultMaterials();
 
         /*! initialisation of members
         */

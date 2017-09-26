@@ -18,22 +18,22 @@ namespace Igor
 
 	iMaterialResourceFactory::iMaterialResourceFactory()
 	{
-        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterial));
+        iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
 
         // if already ready just use it now
         if (iRenderer::getInstance().isReady())
         {
-            initDefaultMaterial();
+            initDefaultMaterials();
         }
 	}
 
 	iMaterialResourceFactory::~iMaterialResourceFactory()
 	{
-        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterial));
+        iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
 
-        if (_defaultID != iMaterial::INVALID_MATERIAL_ID)
+        if (_defaultMaterial != iMaterial::INVALID_MATERIAL_ID)
         {
-            destroyMaterial(_defaultID);
+            destroyMaterial(_defaultMaterial);
         }
 
         if (!_materials.empty())
@@ -93,7 +93,12 @@ namespace Igor
 
     uint64 iMaterialResourceFactory::getDefaultMaterialID() const
     {
-        return _defaultID;
+        return _defaultMaterial;
+    }
+
+    uint64 iMaterialResourceFactory::getColorIDMaterialID() const
+    {
+        return _colorIDMaterial;
     }
 
     bool compareGroup(iMaterialGroup* first, iMaterialGroup* second)
@@ -119,20 +124,26 @@ namespace Igor
         return &_materials;
     }
 
-    /*! \todo move all except the default shader to config file
-    */
-    void iMaterialResourceFactory::initDefaultMaterial()
+    void iMaterialResourceFactory::initDefaultMaterials()
     {
-        _defaultID = createMaterial();
-        getMaterial(_defaultID)->setName("IgorDefault");
-        getMaterial(_defaultID)->addShaderSource("default.vert", iShaderObjectType::Vertex);
-        getMaterial(_defaultID)->addShaderSource("default_directional_light.frag", iShaderObjectType::Fragment);
-        getMaterial(_defaultID)->compileShader();
-        getMaterial(_defaultID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::Off);
-        getMaterialGroup(_defaultID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        // create the default material
+        _defaultMaterial = createMaterial();
+        getMaterial(_defaultMaterial)->setName("IgorDefault");
+        getMaterial(_defaultMaterial)->addShaderSource("igor_default.vert", iShaderObjectType::Vertex);
+        getMaterial(_defaultMaterial)->addShaderSource("igor_default_directional_light.frag", iShaderObjectType::Fragment);
+        getMaterial(_defaultMaterial)->compileShader();
+        getMaterialGroup(_defaultMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         // set material to start with
-        setMaterial(_defaultID);
+        setMaterial(_defaultMaterial);
+
+        // create the color ID material
+        _colorIDMaterial = createMaterial();
+        getMaterial(_colorIDMaterial)->setName("IgorColorID");
+        getMaterial(_colorIDMaterial)->addShaderSource("igor_default.vert", iShaderObjectType::Vertex);
+        getMaterial(_colorIDMaterial)->addShaderSource("igor_colorID.frag", iShaderObjectType::Fragment);
+        getMaterial(_colorIDMaterial)->compileShader();
+        getMaterialGroup(_colorIDMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
     }
 
     uint64 iMaterialResourceFactory::createMaterial(iaString name)
@@ -203,7 +214,7 @@ namespace Igor
 
     iMaterial* iMaterialResourceFactory::getDefaultMaterial()
     {
-        return getMaterial(_defaultID);
+        return getMaterial(_defaultMaterial);
     }
 
     iMaterial* iMaterialResourceFactory::getMaterial(uint64 materialID)
