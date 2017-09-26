@@ -102,6 +102,7 @@ namespace Igor
         if (_meshBuffers != nullptr && 
             _meshBuffers->isReady())
         {
+            iRenderer::getInstance().setColorID(getID());
             iRenderer::getInstance().setModelMatrix(_worldMatrix);
             iRenderer::getInstance().setTargetMaterial(_targetMaterial);
             iRenderer::getInstance().drawMesh(_meshBuffers);

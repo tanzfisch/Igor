@@ -804,6 +804,23 @@ namespace Igor
         glPointSize(size);
     }
 
+    void iRenderer::setColorID(uint64 colorID)
+    {
+        if (_currentMaterial->_hasColorID)
+        {
+            if (_currentMaterial->getShader() != nullptr)
+            {
+                uint32 program = _currentMaterial->getShader()->getProgram();
+                float32 color[3];
+                color[0] = static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0;
+                color[1] = static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0;
+                color[2] = static_cast<float32>(static_cast<uint8>(colorID)) / 255.0;
+
+                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_COLORID), 1, static_cast<GLfloat*>(color)); GL_CHECK_ERROR();
+            }
+        }
+    }
+
     void iRenderer::setTargetMaterial(iTargetMaterial* targetMaterial)
     {
         if (_currentMaterial->getShader() != nullptr)
@@ -1368,7 +1385,7 @@ namespace Igor
 
     int32 iRenderer::getShaderPropertyID(uint32 programID, const char* name)
     {
-        
+
         int32 result = glGetUniformLocation(programID, name); GL_CHECK_ERROR();
         return result;
     }

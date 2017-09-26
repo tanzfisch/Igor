@@ -250,6 +250,8 @@ namespace Igor
         */
         void setMaterial(iMaterial* material, bool forceWireframe = false);
 
+        void setColorID(uint64 colorID);
+
         int32 getShaderPropertyID(uint32 programID, const char* name);
 
         void writeShaderParameters();
