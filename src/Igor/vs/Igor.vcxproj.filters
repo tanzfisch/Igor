@@ -413,11 +413,21 @@
     <ClCompile Include="..\src\iNodeVisitorRenderColorID.cpp">
       <Filter>scene\traversal</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iModelDataIO3DS.cpp" />
-    <ClCompile Include="..\src\iPhysicsJointUpVector.cpp" />
-    <ClCompile Include="..\src\iPhysicsPlayer.cpp" />
-    <ClCompile Include="..\src\iSimpleCubes.cpp" />
-    <ClCompile Include="..\src\iTaskUpdateLOD.cpp" />
+    <ClCompile Include="..\src\iModelDataIO3DS.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsJointUpVector.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsPlayer.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iSimpleCubes.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iTaskUpdateLOD.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -870,11 +880,21 @@
     <ClInclude Include="..\src\iNodeVisitorRenderColorID.h">
       <Filter>scene\traversal</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iModelDataIO3DS.h" />
-    <ClInclude Include="..\src\iPhysicsJointUpVector.h" />
-    <ClInclude Include="..\src\iPhysicsPlayer.h" />
-    <ClInclude Include="..\src\iSimpleCubes.h" />
-    <ClInclude Include="..\src\iTaskUpdateLOD.h" />
+    <ClInclude Include="..\src\iModelDataIO3DS.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsJointUpVector.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsPlayer.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSimpleCubes.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iTaskUpdateLOD.h">
+      <Filter>todo</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
