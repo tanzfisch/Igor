@@ -44,14 +44,16 @@ namespace Igor
     */
     iaEVENT(iParticleSystemFinishedEvent, iParticleSystemFinishedDelegate, void, (), ());
 
+    __IGOR_DISABLE_WARNING__(4275); // yes iNodeVolume is intentionally not a fully exported interface
+
     /*! node to control a 3d particle system
     */
-	class Igor_API iNodeParticleSystem : public iNodeVolume
-	{
+    class Igor_API iNodeParticleSystem : public iNodeVolume
+    {
 
         friend class iNodeFactory;
 
-	public:
+    public:
 
         /*! clears all particles
         */
@@ -69,9 +71,9 @@ namespace Igor
         */
         bool isRunning();
 
-		/*! \returns true if particle system is finished
-		*/
-		bool isFinished() const;
+        /*! \returns true if particle system is finished
+        */
+        bool isFinished() const;
 
         /*! \returns current particle count in use
 
@@ -395,14 +397,14 @@ namespace Igor
         */
         iParticleSystem3D _particleSystem;
 
-        /*! first texture 
+        /*! first texture
         */
         shared_ptr<iTexture> _textureA;
 
         /*! second texture
         */
         shared_ptr<iTexture> _textureB;
-        
+
         /*! third texture
         */
         shared_ptr<iTexture> _textureC;
@@ -423,10 +425,10 @@ namespace Igor
         */
         void onUpdateTransform(iaMatrixd& matrix);
 
-		/*!
-		\todo this is just a workaround untill we calc the particle system frames in a seperate thread
-		*/
-		void handle();
+        /*!
+        \todo this is just a workaround untill we calc the particle system frames in a seperate thread
+        */
+        void handle();
 
         /*! init members
         */
@@ -443,6 +445,8 @@ namespace Igor
         virtual ~iNodeParticleSystem();
 
     };
+
+    __IGOR_ENABLE_WARNING__(4275);
 
 };
 

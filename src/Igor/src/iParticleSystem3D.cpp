@@ -44,32 +44,32 @@ namespace Igor
 
     void iParticleSystem3D::initDefaultGradients()
     {
-        _startVisibleTimeGradient.setValue(0.0, iaVector2f(2.5, 3.5));
+        _startVisibleTimeGradient.setValue(0.0f, iaVector2f(2.5f, 3.5f));
 
-        _colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 0.0f));
-        _colorGradient.setValue(0.2, iaColor4f(1, 1, 1, 1));
-        _colorGradient.setValue(0.5, iaColor4f(1, 1, 1, 1));
-        _colorGradient.setValue(1.0, iaColor4f(1, 1, 1, 0.0f));
+        _colorGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+        _colorGradient.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+        _colorGradient.setValue(0.5f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+        _colorGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
-        _emissionRateGradient.setValue(0.0, 20.0f / iParticleSystem3D::_simulationRate);
+        _emissionRateGradient.setValue(0.0f, 20.0f / iParticleSystem3D::_simulationRate);
 
-        _sizeScaleGradient.setValue(0.0, 1.0);
+        _sizeScaleGradient.setValue(0.0f, 1.0f);
 
-        _startSizeGradient.setValue(0.0, iaVector2f(0.1, 0.3));
+        _startSizeGradient.setValue(0.0f, iaVector2f(0.1f, 0.3f));
 
-        _startVelocityGradient.setValue(0.0, iaVector2f(0.01, 0.02));
+        _startVelocityGradient.setValue(0.0f, iaVector2f(0.01f, 0.02f));
 
-        _startLiftGradient.setValue(0.0, iaVector2f(0.0, 0.0));
+        _startLiftGradient.setValue(0.0f, iaVector2f(0.0f, 0.0f));
 
-        _startOrientationGradient.setValue(0.0, iaVector2f(0.0, 0.0));
+        _startOrientationGradient.setValue(0.0f, iaVector2f(0.0f, 0.0f));
 
-        _startOrientationRateGradient.setValue(0.0, iaVector2f(0.0, 0.0));
+        _startOrientationRateGradient.setValue(0.0f, iaVector2f(0.0f, 0.0f));
 
         // internal gradient
-        _torqueFactorGradient.setValue(0.0, 0.0);
-        _torqueFactorGradient.setValue(0.1, 1.0);
-        _torqueFactorGradient.setValue(0.9, 1.0);
-        _torqueFactorGradient.setValue(1.0, 0.0);
+        _torqueFactorGradient.setValue(0.0f, 0.0f);
+        _torqueFactorGradient.setValue(0.1f, 1.0f);
+        _torqueFactorGradient.setValue(0.9f, 1.0f);
+        _torqueFactorGradient.setValue(1.0f, 0.0f);
     }
 
     void iParticleSystem3D::setVelocityOriented(bool velocityOriented)

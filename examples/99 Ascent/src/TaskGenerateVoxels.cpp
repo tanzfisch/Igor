@@ -36,6 +36,7 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
     _initMutex.lock();
     if (_seed == 0)
     {
+        // todo use igor random number generator
         int32 seed = iTimer::getInstance().getTime();
         srand(seed);
 

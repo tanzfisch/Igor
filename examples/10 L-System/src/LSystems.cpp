@@ -375,7 +375,8 @@ void LSystems::generateLSystems()
 
     iaMatrixf currentMatrix;
 
-    uint64 seed = iTimer::getInstance().getTime();
+    // using the same seed for all instances of plants so we see the different stages of growth of the same plant
+    uint64 seed = static_cast<uint64>(iTimer::getInstance().getTime());
 
     iNode* groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     _groupNodeID = groupNode->getID();
@@ -476,10 +477,10 @@ void LSystems::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

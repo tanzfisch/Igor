@@ -989,8 +989,8 @@ namespace Testigor
             iaString foo(u8"😇こんにちは世界");
 
             char buffer[100];
-            uint16 size = foo.getUTF8Size();
-            uint16 resultSize = foo.getUTF8(buffer, size);
+            uint64 size = foo.getUTF8Size();
+            uint64 resultSize = foo.getUTF8(buffer, size);
             iaString bar;
             bar.setUTF8(buffer, size);
 
@@ -1008,8 +1008,8 @@ namespace Testigor
             iaString foo(L"こんにちは世界");
 
             char buffer[100];
-            uint16 size = foo.getUTF8Size();
-            uint16 resultSize = foo.getUTF8(buffer, size);
+            uint64 size = foo.getUTF8Size();
+            uint64 resultSize = foo.getUTF8(buffer, size);
             iaString bar;
             bar.setUTF8(buffer, size);
 

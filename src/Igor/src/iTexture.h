@@ -37,7 +37,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iRendererTexture;
+    struct iRendererTexture;
     class iTexture;
 
 	class Igor_API iTexture

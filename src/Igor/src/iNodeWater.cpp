@@ -21,7 +21,7 @@ namespace Igor
         setName(L"iNodeWater");
         _nodeType = iNodeType::iNodeWater;
 
-        _ambient.set(0, 0.4, 0.9, 0.35);
+        _ambient.set(0.0f, 0.4f, 0.9f, 0.35f);
     }
 
     iNodeWater::iNodeWater(iNodeWater* node)
@@ -80,7 +80,7 @@ namespace Igor
             model._pos._y = _yPos;
             iRenderer::getInstance().setModelMatrix(model);
 
-            // TODO this is of corse super slow and just for debugging
+            // TODO this is of corse super slow and just for debugging there will be later a complete different water implementation ... hopefully I find the time for it
             iRenderer::getInstance().setColor(_ambient);
 
             float32 f = 7000;

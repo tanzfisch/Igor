@@ -127,9 +127,9 @@ namespace Igor
 
             _position = static_cast<iWidgetNumberChooser*>(iWidgetManager::getInstance().createWidget("NumberChooser"));
             _allWidgets.push_back(_position);
-            _position->setMinMaxNumber(0, 100);
-            _position->setStepping(0.1, 0.1);
-            _position->setSteppingWheel(1, 1);
+            _position->setMinMaxNumber(0.0f, 100.0f);
+            _position->setStepping(0.1f, 0.1f);
+            _position->setSteppingWheel(1.0f, 1.0f);
             _position->setAfterPoint(2);
             _position->setPostFix("%");
             _position->setValue(_gradient.getValues()[0].first * 100.0f);

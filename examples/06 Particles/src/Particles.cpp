@@ -161,24 +161,24 @@ void Particles::createWaveParticleSystem()
 {
     // create the particle system
     iaGradientColor4f colorGradient;
-    colorGradient.setValue(0.0, iaColor4f(0, 0, 0, 0));
-    colorGradient.setValue(0.5, iaColor4f(1, 1, 0, 1.0));
-    colorGradient.setValue(1.0, iaColor4f(0, 0, 0, 0));
+    colorGradient.setValue(0.0, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
+    colorGradient.setValue(0.5, iaColor4f(1.0f, 1.0f, 0.0f, 1.0f));
+    colorGradient.setValue(1.0, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
     iaGradientVector2f velocity;
-    velocity.setValue(0.0, iaVector2f(0.2, 0.4));
+    velocity.setValue(0.0, iaVector2f(0.2f, 0.4f));
 
     iaGradientVector2f visibility;
-    visibility.setValue(0.0, iaVector2f(0.7, 1.0));
+    visibility.setValue(0.0, iaVector2f(0.7f, 1.0f));
 
     iaGradientVector2f size;
-    size.setValue(0.0, iaVector2f(2.0, 3.0));
+    size.setValue(0.0, iaVector2f(2.0f, 3.0f));
 
     iaGradientf emission;
-    emission.setValue(0.0, 5);
+    emission.setValue(0.0f, 5.0f);
 
     iaGradientVector2f startOrientation;
-    startOrientation.setValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
+    startOrientation.setValue(0.0f, iaVector2f(0.0f, 2.0f * static_cast<float32>(M_PI)));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(particleSystem->getID());
@@ -202,8 +202,8 @@ void Particles::createWaveParticleSystem()
     iEmitterTriangle triangle;
     for (int i = 0; i < 65; i++)
     {
-        float32 h1 = cos(i * 0.2) * 6.0;
-        float32 h2 = cos((i + 1) * 0.2) * 6.0;
+        float32 h1 = cos(i * 0.2f) * 6.0f;
+        float32 h2 = cos((i + 1) * 0.2f) * 6.0f;
 
         triangle.pos[0] = iaVector3d(0 + i, h1, 0);
         triangle.pos[1] = iaVector3d(1 + i, h2, 0);
@@ -233,22 +233,22 @@ void Particles::createWaveParticleSystem()
 void Particles::createFireParticleSystem()
 {
     iaGradientColor4f colors;
-    colors.setValue(0.0, iaColor4f(1.0, 1.0, 1.0, 0.0));
-    colors.setValue(0.2, iaColor4f(1.0, 1.0, 1.0, 1.0));
-    colors.setValue(0.4, iaColor4f(1.0, 1.0, 1.0, 1.0));
-    colors.setValue(1.0, iaColor4f(0.0, 0.0, 0.0, 0.0));
+    colors.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+    colors.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    colors.setValue(0.4f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+    colors.setValue(1.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
     iaGradientVector2f visibility;
-    visibility.setValue(0.0, iaVector2f(0.2, 0.5));
+    visibility.setValue(0.0f, iaVector2f(0.2f, 0.5f));
 
     iaGradientf emission;
-    emission.setValue(0.0, 4);
+    emission.setValue(0.0f, 4.0f);
 
     iaGradientVector2f velocity;
-    velocity.setValue(0.0, iaVector2f(0.4, 0.7));
+    velocity.setValue(0.0f, iaVector2f(0.4f, 0.7f));
 
     iaGradientVector2f startSize;
-    startSize.setValue(0.0, iaVector2f(3.0, 4.0));
+    startSize.setValue(0.0f, iaVector2f(3.0f, 4.0f));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(particleSystem->getID());
@@ -260,11 +260,11 @@ void Particles::createFireParticleSystem()
     particleSystem->setStartVisibleTimeGradient(visibility);
     particleSystem->setStartSizeGradient(startSize);
     particleSystem->setStartVelocityGradient(velocity);
-    particleSystem->setPeriodTime(2.0);
-    particleSystem->setVortexTorque(0.2, 0.5);
-    particleSystem->setVorticityConfinement(0.05);
-    particleSystem->setVortexRange(10.0, 15.0);
-    particleSystem->setVortexToParticleRate(0.05);
+    particleSystem->setPeriodTime(2.0f);
+    particleSystem->setVortexTorque(0.2f, 0.5f);
+    particleSystem->setVorticityConfinement(0.05f);
+    particleSystem->setVortexRange(10.0f, 15.0f);
+    particleSystem->setVortexToParticleRate(0.05f);
     _scene->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
@@ -282,29 +282,29 @@ void Particles::createFireParticleSystem()
 void Particles::createFontainParticleSystem()
 {
     iaGradientColor4f colors;
-    colors.setValue(0.0, iaColor4f(0.0, 0.8, 1.0, 1));
-    colors.setValue(0.5, iaColor4f(0.0, 0.2, 1.0, 1));
-    colors.setValue(1.0, iaColor4f(0.0, 0.0, 1.0, 0));
+    colors.setValue(0.0f, iaColor4f(0.0f, 0.8f, 1.0f, 1.0f));
+    colors.setValue(0.5f, iaColor4f(0.0f, 0.2f, 1.0f, 1.0f));
+    colors.setValue(1.0f, iaColor4f(0.0f, 0.0f, 1.0f, 0.0f));
 
     iaGradientVector2f visibility;
-    visibility.setValue(0.0, iaVector2f(4.5, 5.0));
-    visibility.setValue(1.0, iaVector2f(1.5, 2.0));
-    visibility.setValue(2.0, iaVector2f(4.5, 5.0));
+    visibility.setValue(0.0f, iaVector2f(4.5f, 5.0f));
+    visibility.setValue(1.0f, iaVector2f(1.5f, 2.0f));
+    visibility.setValue(2.0f, iaVector2f(4.5f, 5.0f));
 
     iaGradientf emission;
     emission.setValue(0.0, 3);
 
     iaGradientVector2f velocity;
-    velocity.setValue(0.0, iaVector2f(0.4, 0.5));
-    velocity.setValue(1.0, iaVector2f(0.6, 0.6));
-    velocity.setValue(2.0, iaVector2f(0.4, 0.5));
+    velocity.setValue(0.0f, iaVector2f(0.4f, 0.5f));
+    velocity.setValue(1.0f, iaVector2f(0.6f, 0.6f));
+    velocity.setValue(2.0f, iaVector2f(0.4f, 0.5f));
 
     // using negative lift here so it's basically weight
     iaGradientVector2f lift;
-    lift.setValue(0.0, iaVector2f(-0.002, -0.002));
+    lift.setValue(0.0f, iaVector2f(-0.002f, -0.002f));
 
     iaGradientVector2f startSize;
-    startSize.setValue(0.0, iaVector2f(0.5, 0.8));
+    startSize.setValue(0.0f, iaVector2f(0.5f, 0.8f));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(particleSystem->getID());
@@ -317,8 +317,8 @@ void Particles::createFontainParticleSystem()
     particleSystem->setStartSizeGradient(startSize);
     particleSystem->setStartVelocityGradient(velocity);
     particleSystem->setStartLiftGradient(lift);
-    particleSystem->setAirDrag(0.985);
-    particleSystem->setPeriodTime(2.0);
+    particleSystem->setAirDrag(0.985f);
+    particleSystem->setPeriodTime(2.0f);
     _scene->getRoot()->insertNode(particleSystem);
     particleSystem->start();
 
@@ -337,26 +337,26 @@ void Particles::createFontainParticleSystem()
 void Particles::createRingParticleSystem()
 {
     iaGradientColor4f ringColors;
-    ringColors.setValue(0.0, iaColor4f(0, 1, 1, 1));
-    ringColors.setValue(0.33, iaColor4f(1, 0, 1, 1));
-    ringColors.setValue(0.66, iaColor4f(0, 0, 1, 1));
-    ringColors.setValue(1.0, iaColor4f(0, 0, 0, 0));
+    ringColors.setValue(0.0f, iaColor4f(0.0f, 1.0f, 1.0f, 1.0f));
+    ringColors.setValue(0.33f, iaColor4f(1.0f, 0.0f, 1.0f, 1.0f));
+    ringColors.setValue(0.66f, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
+    ringColors.setValue(1.0f, iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
 
     iaGradientVector2f visibility;
-    visibility.setValue(0.0, iaVector2f(3.5, 4.0));
+    visibility.setValue(0.0f, iaVector2f(3.5f, 4.0f));
 
     iaGradientf emission;
-    emission.setValue(0.0, 10);
+    emission.setValue(0.0f, 10.0f);
 
     iaGradientVector2f startSize;
-    startSize.setValue(0.0, iaVector2f(2.0, 2.5));
-    startSize.setValue(1.0, iaVector2f(0.1, 0.5));
-    startSize.setValue(2.0, iaVector2f(2.0, 2.5));
-    startSize.setValue(3.0, iaVector2f(0.1, 0.5));
-    startSize.setValue(4.0, iaVector2f(2.0, 2.5));
+    startSize.setValue(0.0f, iaVector2f(2.0f, 2.5f));
+    startSize.setValue(1.0f, iaVector2f(0.1f, 0.5f));
+    startSize.setValue(2.0f, iaVector2f(2.0f, 2.5f));
+    startSize.setValue(3.0f, iaVector2f(0.1f, 0.5f));
+    startSize.setValue(4.0f, iaVector2f(2.0f, 2.5f));
 
     iaGradientVector2f startOrientationRate;
-    startOrientationRate.setValue(0.0, iaVector2f(-0.1, 0.1));
+    startOrientationRate.setValue(0.0f, iaVector2f(-0.1f, 0.1f));
 
     iNodeParticleSystem* circleParticleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(circleParticleSystem->getID());
@@ -368,14 +368,14 @@ void Particles::createRingParticleSystem()
     circleParticleSystem->setStartVisibleTimeGradient(visibility);
     circleParticleSystem->setStartSizeGradient(startSize);
     circleParticleSystem->setStartOrientationRateGradient(startOrientationRate);
-    circleParticleSystem->setPeriodTime(4.0);
+    circleParticleSystem->setPeriodTime(4.0f);
     _scene->getRoot()->insertNode(circleParticleSystem);
     circleParticleSystem->start();
 
     iNodeEmitter* circleEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     circleParticleSystem->setEmitter(circleEmitter->getID());
     circleEmitter->setType(iEmitterType::Circle);
-    circleEmitter->setSize(10);
+    circleEmitter->setSize(10.0f);
 
     iNodeTransform* circleEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _circleEmitterTransformID = circleEmitterTransform->getID();
@@ -388,32 +388,32 @@ void Particles::createRingParticleSystem()
 void Particles::createSmokeParticleSystem()
 {
     iaGradientVector2f startOrientation;
-    startOrientation.setValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
+    startOrientation.setValue(0.0f, iaVector2f(0.0f, 2.0f * static_cast<float32>(M_PI)));
 
     iaGradientVector2f startOrientationRate;
-    startOrientationRate.setValue(0.0, iaVector2f(-0.05, 0.05));
+    startOrientationRate.setValue(0.0f, iaVector2f(-0.05f, 0.05f));
 
     iaGradientColor4f smokeGradient;
-    smokeGradient.setValue(0.0, iaColor4f(1, 1, 1, 0));
-    smokeGradient.setValue(0.2, iaColor4f(1, 1, 1, 0.6));
-    smokeGradient.setValue(0.5, iaColor4f(1, 1, 1, 0.5));
-    smokeGradient.setValue(1.0, iaColor4f(1, 1, 1, 0));
+    smokeGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+    smokeGradient.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 0.6f));
+    smokeGradient.setValue(0.5f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
+    smokeGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
     iaGradientVector2f smokeSize;
-    smokeSize.setValue(0.0, iaVector2f(3.0, 6.0));
+    smokeSize.setValue(0.0f, iaVector2f(3.0f, 6.0f));
 
     iaGradientVector2f smokeVisibility;
-    smokeVisibility.setValue(0.0, iaVector2f(7.0, 10.0));
+    smokeVisibility.setValue(0.0f, iaVector2f(7.0f, 10.0f));
 
     iaGradientf emission;
-    emission.setValue(0.0, 1);
+    emission.setValue(0.0f, 1.0f);
 
     iaGradientVector2f lift;
-    lift.setValue(0.0, iaVector2f(0.0007, 0.0015));
+    lift.setValue(0.0f, iaVector2f(0.0007f, 0.0015f));
 
     iaGradientf sizeScale;
-    sizeScale.setValue(0.0, 1.0);
-    sizeScale.setValue(10.0, 10.0);
+    sizeScale.setValue(0.0f, 1.0f);
+    sizeScale.setValue(10.0f, 10.0f);
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(particleSystem->getID());
@@ -421,12 +421,12 @@ void Particles::createSmokeParticleSystem()
     particleSystem->setTextureA("particleDot.png");
     particleSystem->setTextureB("octave1.png");
     particleSystem->setTextureC("octave2.png");
-    particleSystem->setVortexTorque(0.5, 0.7);
+    particleSystem->setVortexTorque(0.5f, 0.7f);
     particleSystem->setStartOrientationGradient(startOrientation);
     particleSystem->setStartOrientationRateGradient(startOrientationRate);
-    particleSystem->setVorticityConfinement(0.05);
-    particleSystem->setVortexRange(20.0, 40.0);
-    particleSystem->setVortexToParticleRate(0.1);
+    particleSystem->setVorticityConfinement(0.05f);
+    particleSystem->setVortexRange(20.0f, 40.0f);
+    particleSystem->setVortexToParticleRate(0.1f);
     particleSystem->setStartSizeGradient(smokeSize);
     particleSystem->setSizeScaleGradient(sizeScale);
     particleSystem->setColorGradient(smokeGradient);
@@ -439,7 +439,7 @@ void Particles::createSmokeParticleSystem()
     iNodeEmitter* smokeEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(smokeEmitter->getID());
     smokeEmitter->setType(iEmitterType::Sphere);
-    smokeEmitter->setSize(6);
+    smokeEmitter->setSize(6.0f);
 
     iNodeTransform* smokeEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     smokeEmitterTransform->translate(35, 0, 30);
@@ -450,23 +450,23 @@ void Particles::createSmokeParticleSystem()
 void Particles::createDotParticleSystem()
 {
     iaGradientf emission;
-    emission.setValue(0.0, 60);
-    emission.setValue(0.2, 0);
+    emission.setValue(0.0f, 60.0f);
+    emission.setValue(0.2f, 0.0f);
 
     iaGradientColor4f colorGradient;
-    colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 0));
-    colorGradient.setValue(0.5, iaColor4f(0.8, 0.8, 1.0, 1));
-    colorGradient.setValue(0.8, iaColor4f(0.3, 0.3, 0.5, 1));
-    colorGradient.setValue(1.0, iaColor4f(0.3, 0.3, 0.0, 0));
+    colorGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+    colorGradient.setValue(0.5f, iaColor4f(0.8f, 0.8f, 1.0f, 1.0f));
+    colorGradient.setValue(0.8f, iaColor4f(0.3f, 0.3f, 0.5f, 1.0f));
+    colorGradient.setValue(1.0f, iaColor4f(0.3f, 0.3f, 0.0f, 0.0f));
 
     iaGradientVector2f velocity;
-    velocity.setValue(0.0, iaVector2f(0.1, 0.3));
+    velocity.setValue(0.0f, iaVector2f(0.1f, 0.3f));
 
     iaGradientVector2f visibility;
-    visibility.setValue(0.0, iaVector2f(1.5, 2.0));
+    visibility.setValue(0.0f, iaVector2f(1.5f, 2.0f));
 
     iaGradientVector2f size;
-    size.setValue(0.0, iaVector2f(1.0, 1.5));
+    size.setValue(0.0f, iaVector2f(1.0f, 1.5f));
 
     iNodeParticleSystem* particleSystem = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(particleSystem->getID());
@@ -478,37 +478,37 @@ void Particles::createDotParticleSystem()
     particleSystem->setVelocityOriented();
     particleSystem->setStartSizeGradient(size);
     particleSystem->setEmissionGradient(emission);
-    particleSystem->setPeriodTime(3.0);
+    particleSystem->setPeriodTime(3.0f);
     particleSystem->start();
 
     iaGradientf emission2;
-    emission2.setValue(0.0, 10);
-    emission2.setValue(0.5, 0);
+    emission2.setValue(0.0f, 10.0f);
+    emission2.setValue(0.5f, 0.0f);
 
     iaGradientColor4f colorGradient2;
-    colorGradient2.setValue(0.0, iaColor4f(1, 1, 1, 0));
-    colorGradient2.setValue(0.1, iaColor4f(1, 1, 1, 0.5));
-    colorGradient2.setValue(0.4, iaColor4f(1, 1, 1, 0.25));
-    colorGradient2.setValue(1.0, iaColor4f(1, 1, 1, 0));
+    colorGradient2.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+    colorGradient2.setValue(0.1f, iaColor4f(1.0f, 1.0f, 1.0f, 0.5f));
+    colorGradient2.setValue(0.4f, iaColor4f(1.0f, 1.0f, 1.0f, 0.25f));
+    colorGradient2.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
     iaGradientVector2f velocity2;
-    velocity2.setValue(0.0, iaVector2f(0.05, 0.3));
+    velocity2.setValue(0.0f, iaVector2f(0.05f, 0.3f));
 
     iaGradientVector2f visibility2;
-    visibility2.setValue(0.0, iaVector2f(0.5, 1.0));
+    visibility2.setValue(0.0f, iaVector2f(0.5f, 1.0f));
 
     iaGradientVector2f size2;
-    size2.setValue(0.0, iaVector2f(1.0, 2.5));
+    size2.setValue(0.0f, iaVector2f(1.0f, 2.5f));
 
     iaGradientf sizeScale2;
-    sizeScale2.setValue(0.0, 1.0);
-    sizeScale2.setValue(3.0, 20.0);
+    sizeScale2.setValue(0.0f, 1.0f);
+    sizeScale2.setValue(3.0f, 20.0f);
 
     iaGradientVector2f startOrientation;
-    startOrientation.setValue(0.0, iaVector2f(0.0, 2.0 * M_PI));
+    startOrientation.setValue(0.0f, iaVector2f(0.0f, 2.0f * static_cast<float32>(M_PI)));
 
     iaGradientVector2f startOrientationRate;
-    startOrientationRate.setValue(0.0, iaVector2f(-0.01, 0.01));
+    startOrientationRate.setValue(0.0f, iaVector2f(-0.01f, 0.01f));
 
     iNodeParticleSystem* particleSystem2 = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
     _particleSystemIDs.push_back(particleSystem2->getID());
@@ -524,7 +524,7 @@ void Particles::createDotParticleSystem()
     particleSystem2->setStartSizeGradient(size2);
     particleSystem2->setSizeScaleGradient(sizeScale2);
     particleSystem2->setEmissionGradient(emission2);
-    particleSystem2->setPeriodTime(3.0);
+    particleSystem2->setPeriodTime(3.0f);
     particleSystem2->start();
 
     iNodeEmitter* dotEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
@@ -718,10 +718,10 @@ void Particles::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

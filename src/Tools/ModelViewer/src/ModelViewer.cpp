@@ -110,15 +110,15 @@ void ModelViewer::init(iaString fileName)
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
 
-    _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
-    _view.setPerspective(45);
+    _view.setClearColor(iaColor4f(0.5f, 0.0f, 0.5f, 1.0f));
+    _view.setPerspective(45.0f);
     _view.setClipPlanes(0.1f, 10000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
     _window.addView(&_viewOrtho);
 

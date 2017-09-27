@@ -45,7 +45,7 @@ namespace Igor
 {
 
     class iPixmap;
-    class iRendererTexture;
+    struct iRendererTexture;
 
     /*! handles texture resources
 

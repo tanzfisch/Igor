@@ -332,15 +332,22 @@ namespace Igor
 
 		/*! sets the configured width
 
-		\param width configured width
+		\param width the width defined
 		*/
 		void setWidth(int32 width);
 
 		/*! sets the configured height
 
-		\param width configured height
+		\param height the height defined
 		*/
 		void setHeight(int32 height);
+
+        /*! sets width and height of the widget
+
+        \param width the width defined
+        \param height the height defined
+        */
+        void setSize(int32 width, int32 height);
 
         /*! sets if the widget accepts mouse clicks outside of the widget's area
 

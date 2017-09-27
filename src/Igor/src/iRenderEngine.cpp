@@ -169,7 +169,7 @@ namespace Igor
             {
                 renderNode->_reached = true;
 
-                uint32 materialID = renderNode->getMaterial();
+                uint64 materialID = renderNode->getMaterial();
                 if (materialID != iMaterial::INVALID_MATERIAL_ID)
                 {
                     if (renderNode->isVisible())
@@ -185,7 +185,7 @@ namespace Igor
         while (iterRenderables != renderables.end())
         {
             iNodeRender* renderNode = (*iterRenderables);
-            uint32 materialID = renderNode->getMaterial();
+            uint64 materialID = renderNode->getMaterial();
             if (materialID != iMaterial::INVALID_MATERIAL_ID)
             {
                 if (renderNode->isVisible())
@@ -287,7 +287,6 @@ namespace Igor
                     {
                         auto instanceList = (*instanceIter).second._renderNodeIDs;
                         auto elementIter = instanceList.begin();
-                        uint32 instanceCount = instanceList.size();
                         uint32 index = 0;
                         iInstancer* instancer = (*instanceIter).second._instancer;
 
@@ -312,7 +311,6 @@ namespace Igor
                                 else
                                 {
                                     elementIter = instanceList.erase(elementIter);
-                                    instanceCount--;
                                 }
                             }
                             else
