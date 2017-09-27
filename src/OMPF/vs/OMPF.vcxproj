@@ -23,7 +23,7 @@
     <ProjectGuid>{E6761A09-13E3-42C5-94CD-636A5CDF5C5A}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>OMPF</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
