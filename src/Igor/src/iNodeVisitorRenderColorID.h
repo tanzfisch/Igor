@@ -31,7 +31,7 @@
 
 #include <iNodeVisitor.h>
 #include <iDefines.h>
-#include <iMaterial.h>2
+#include <iMaterial.h>
 
 #include <iaString.h>
 #include <iaMatrix.h>

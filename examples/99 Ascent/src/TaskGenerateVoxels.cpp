@@ -1,4 +1,4 @@
-#include "TaskGenerateVoxels.h""
+#include "TaskGenerateVoxels.h"
 
 #include <iModelResourceFactory.h>
 #include <iTextureResourceFactory.h>
