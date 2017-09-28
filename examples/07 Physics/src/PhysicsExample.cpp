@@ -196,7 +196,10 @@ void PhysicsExample::init()
     _cameraHeading->insertNode(_cameraPitch);
     _cameraPitch->insertNode(_cameraTranslation);
     _cameraTranslation->insertNode(camera);
-	camera->makeCurrent();
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
+    _view.setCurrentCamera(camera->getID());
+
 
     _cameraTranslation->translate(0, 0, 80);
     updateCameraPosition();

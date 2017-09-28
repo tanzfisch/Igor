@@ -46,6 +46,39 @@ namespace Igor
 #endif
     }
 
+    void iRenderEngine::setCurrentCamera(uint64 cameraID)
+    {
+        if (cameraID == iNode::INVALID_NODE_ID)
+        {
+            _currentCamera = nullptr;
+            return;
+        }
+
+        iNode* node = iNodeFactory::getInstance().getNode(cameraID);
+
+        if (node != nullptr &&
+            node->getType() == iNodeType::iNodeCamera)
+        {
+            _currentCamera = static_cast<iNodeCamera*>(node);
+        }
+        else
+        {
+            con_err("invalid parameter");
+        }
+    }
+
+    uint64 iRenderEngine::getCurrentCamera() const
+    {
+        uint64 result = iNode::INVALID_NODE_ID;
+
+        if (_currentCamera != nullptr)
+        {
+            result = _currentCamera->getID();
+        }
+
+        return result;
+    }
+
     void iRenderEngine::setColorIDRendering(bool enabled)
     {
         _renderColorID = enabled;
@@ -80,7 +113,7 @@ namespace Igor
     {
         _showOctree = octree;
     }
-    
+
     bool iRenderEngine::isOctreeVisible() const
     {
         return _showOctree;
@@ -112,35 +145,33 @@ namespace Igor
         iStatistics::getInstance().endSection(_bufferCreationSectionID);
 #endif
 
-        if (_scene != nullptr)
+        if (_scene != nullptr &&
+            _currentCamera != nullptr &&
+            _currentCamera->getScene() == _scene)
         {
-            iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().beginSection(_cullSectionID);
+#endif
+            cullScene(_currentCamera);
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().endSection(_cullSectionID);
 
-            if (camera != nullptr)
+            iStatistics::getInstance().beginSection(_drawSectionID);
+#endif
+            if (_renderColorID)
             {
-#ifdef USE_VERBOSE_STATISTICS
-                iStatistics::getInstance().beginSection(_cullSectionID);
-#endif
-                cullScene(camera);
-#ifdef USE_VERBOSE_STATISTICS
-                iStatistics::getInstance().endSection(_cullSectionID);
-
-                iStatistics::getInstance().beginSection(_drawSectionID);
-#endif
-                if (_renderColorID)
-                {
-                    drawColorIDs();
-                }
-                else
-                {
-                    drawScene();
-                }
-#ifdef USE_VERBOSE_STATISTICS
-                iStatistics::getInstance().endSection(_drawSectionID);
-#endif
+                drawColorIDs();
             }
+            else
+            {
+                drawScene();
             }
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().endSection(_drawSectionID);
+#endif
         }
+
+    }
 
     void iRenderEngine::cullScene(iNodeCamera* camera)
     {
@@ -204,12 +235,12 @@ namespace Igor
         iRenderer::getInstance().setMaterial(colorIDMaterial);
 
         list<iMaterialGroup*>* materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
-        for(auto materialGroup : *materialGroups)
+        for (auto materialGroup : *materialGroups)
         {
             iMaterial* material = materialGroup->getMaterial();
             if (iRenderStateValue::On == material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced))
             {
-                 // TODO later   
+                // TODO later   
             }
             else
             {
@@ -374,7 +405,7 @@ namespace Igor
         }
 
         if (_showBoundingBoxes)
-        {            
+        {
             iNodeVisitorRenderBoundings renderBoundings;
             renderBoundings.traverseTree(_scene->getRoot());
         }
@@ -385,4 +416,4 @@ namespace Igor
         }
     }
 
-    }
+}

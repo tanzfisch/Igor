@@ -98,6 +98,16 @@ namespace Igor
         */
         iScene* getScene();
 
+        /*! sets current camera by id
+
+        \param cameraID the camery id
+        */
+        void setCurrentCamera(uint64 cameraID);
+
+        /*! \returns current camera id
+        */
+        uint64 getCurrentCamera() const;
+
         /*! culls and renders
         */
         void render();
@@ -111,6 +121,10 @@ namespace Igor
         virtual ~iRenderEngine();
 
     private:
+
+        /*! current camera
+        */
+        iNodeCamera* _currentCamera = nullptr;
 
         /*! flag if rendering uses wireframe
         */

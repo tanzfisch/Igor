@@ -159,6 +159,16 @@ namespace Igor
         _clearColor.set(r, g, b, a);
     }
 
+    void iView::setCurrentCamera(uint64 cameraID)
+    {
+        _renderEngine.setCurrentCamera(cameraID);
+    }
+
+    uint64 iView::getCurrentCamera() const
+    {
+        return _renderEngine.getCurrentCamera();
+    }
+
     void iView::draw()
     {
         if (_scene != nullptr)

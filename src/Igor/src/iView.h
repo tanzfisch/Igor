@@ -216,6 +216,16 @@ namespace Igor
         */
         bool isColorIDRendering() const;
 
+        /*! sets current camera by id
+
+        \param cameraID the camery id
+        */
+        void setCurrentCamera(uint64 cameraID);
+
+        /*! \returns current camera id
+        */
+        uint64 getCurrentCamera() const;
+
         /*! unprojects screen position to object space
 
         \param screenpos screen position in pixels (vertical origin is at top of window)

@@ -69,28 +69,24 @@ namespace Igor
 
     void iNodeWater::draw()
     {
-        iNodeCamera* cameraNode = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
-        if (cameraNode != nullptr)
+        iaMatrixd model;
+        iaMatrixd camMatrix;
+        iRenderer::getInstance().getCamWorldMatrix(camMatrix);
+        
+        model._pos = camMatrix._pos;
+        model._pos._y = _yPos;
+        iRenderer::getInstance().setModelMatrix(model);
+
+        // TODO this is of corse super slow and just for debugging there will be later a complete different water implementation ... hopefully I find the time for it
+        iRenderer::getInstance().setColor(_ambient);
+
+        float32 f = 7000;
+
+        for (int x = -3; x < 4; ++x)
         {
-            iaMatrixd model;
-            iaMatrixd camMatrix;
-            cameraNode->getWorldMatrix(camMatrix);
-
-            model._pos = camMatrix._pos;
-            model._pos._y = _yPos;
-            iRenderer::getInstance().setModelMatrix(model);
-
-            // TODO this is of corse super slow and just for debugging there will be later a complete different water implementation ... hopefully I find the time for it
-            iRenderer::getInstance().setColor(_ambient);
-
-            float32 f = 7000;
-
-            for (int x = -3; x < 4; ++x)
+            for (int z = -3; z < 4; ++z)
             {
-                for (int z = -3; z < 4; ++z)
-                {
-                    iRenderer::getInstance().drawBillboard(iaVector3f(f * 2.0f * x, 0, f * 2.0 * z), iaVector3f(f, 0, 0), iaVector3f(0, 0, f), nullptr, 10, 10);
-                }
+                iRenderer::getInstance().drawBillboard(iaVector3f(f * 2.0f * x, 0, f * 2.0 * z), iaVector3f(f, 0, 0), iaVector3f(0, 0, f), nullptr, 10, 10);
             }
         }
     }

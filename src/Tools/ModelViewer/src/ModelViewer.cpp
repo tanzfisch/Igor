@@ -153,7 +153,7 @@ void ModelViewer::init(iaString fileName)
     _cameraHeading->insertNode(_cameraPitch);
     _cameraPitch->insertNode(_cameraTranslation);
     _cameraTranslation->insertNode(camera);
-    camera->makeCurrent();
+    _view.setCurrentCamera(camera->getID());
 
     _cameraTranslation->translate(0, 0, 80);
 

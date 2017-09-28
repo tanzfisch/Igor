@@ -119,7 +119,8 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
     camera->insertNode(lodTrigger);
     _scene->getRoot()->insertNode(transformNode);
 
-    camera->makeCurrent();
+    // _view.setCurrentCamera(camera->getID()); TODO can't set current cam here anymore
+
 
     _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);

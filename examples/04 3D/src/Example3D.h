@@ -73,6 +73,8 @@ private:
     */
 	iView _view;
 
+    iView _view2;
+
     /*! the view we render 2D to
     */
     iView _viewOrtho;

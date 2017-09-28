@@ -105,10 +105,6 @@ namespace Igor
         */
         iOctree* getOctree();
 
-        /*! \returns current camera
-        */
-        uint64 getCamera();
-
         /*! \returns list of registerred lights
         */
         vector<iNodeLight*>& getLights();
@@ -200,10 +196,6 @@ namespace Igor
         */
         iOctree* _octree = nullptr;
 
-        /*! id of current camera
-        */
-		uint64 _cameraID = iNode::INVALID_NODE_ID;
-
         /*! list of registered cameras to the scene
         */
 		vector<uint64> _cameras;
@@ -247,22 +239,6 @@ namespace Igor
         \param camera node to be unregistered
         */
         void unregisterCamera(iNodeCamera* camera);
-
-        /*! set a camera as default camera
-
-        does print error if camera is not registered to scene
-
-        \param camera pointer to camera that is the current one now
-        */
-		void setCamera(iNodeCamera* camera);
-
-        /*! set a camera as default camera by id
-
-        does print error if camera is not registered to scene
-
-        \param cameraID id to camera
-        */
-        void setCamera(uint64 cameraID);
 
         /*! registers a LOD trigger node
 
