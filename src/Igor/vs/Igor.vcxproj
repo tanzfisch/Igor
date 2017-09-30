@@ -230,6 +230,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iEntity.cpp" />
     <ClCompile Include="..\src\iEntityLocatable.cpp" />
     <ClCompile Include="..\src\iEntityManager.cpp" />
+    <ClCompile Include="..\src\iFrameBuffer.cpp" />
     <ClCompile Include="..\src\Igor.cpp" />
     <ClCompile Include="..\src\iInstancer.cpp" />
     <ClCompile Include="..\src\iJoint.cpp" />
@@ -280,7 +281,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="..\src\iOctree.cpp" />
-    <ClCompile Include="..\src\iOffScreenBuffer.cpp" />
     <ClCompile Include="..\src\iParticleEmitter.cpp" />
     <ClCompile Include="..\src\iParticleSystem2D.cpp" />
     <ClCompile Include="..\src\iParticleSystem3D.cpp" />
@@ -403,6 +403,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iEntity.h" />
     <ClInclude Include="..\src\iEntityLocatable.h" />
     <ClInclude Include="..\src\iEntityManager.h" />
+    <ClInclude Include="..\src\iFrameBuffer.h" />
     <ClInclude Include="..\src\iFrustum.h" />
     <ClInclude Include="..\src\Igor.h" />
     <ClInclude Include="..\src\iInstancer.h" />
@@ -455,7 +456,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\src\iOctree.h" />
-    <ClInclude Include="..\src\iOffScreenBuffer.h" />
     <ClInclude Include="..\src\iOSEvent.h" />
     <ClInclude Include="..\src\iOSEventListener.h" />
     <ClInclude Include="..\src\iParticleEmitter.h" />

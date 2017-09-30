@@ -136,10 +136,9 @@ namespace Igor
 
 		// Igor's last reincarnation was 29 September 2012. Before that I was called OpenDC and EasyGL. 
 		time_t t = time(0);
-        struct tm now;
-		localtime_s(&now, &t);
-		if (now.tm_mon == 8 &&
-			now.tm_mday == 28)
+		struct tm* now = localtime(&t);
+		if (now->tm_mon == 8 &&
+			now->tm_mday == 28)
 		{
 			iaConsole::getInstance().printCake();
 		}

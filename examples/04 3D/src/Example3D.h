@@ -37,7 +37,6 @@
 #include <iKeyCodeMap.h>
 #include <iMaterial.h>
 #include <iStatisticsVisualizer.h>
-#include <iOffScreenBuffer.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
@@ -74,9 +73,7 @@ private:
     */
 	iView _view;
 
-    iOffScreenBuffer* _offScreenBuffer = nullptr;
-
-    iView _viewOffScreen;
+    iView _view2;
 
     /*! the view we render 2D to
     */

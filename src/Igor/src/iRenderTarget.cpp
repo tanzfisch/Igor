@@ -4,7 +4,6 @@
 
 #include <iRenderTarget.h>
 
-#include <iApplication.h>
 #include <iView.h>
 
 #include <iaConsole.h>
@@ -15,7 +14,7 @@ namespace Igor
 
     iRenderTarget::iRenderTarget()
     {
-        
+
     }    
 
     iRenderTarget::~iRenderTarget()
@@ -24,16 +23,6 @@ namespace Igor
         {
             con_err("possible mem leak not all views are detached");
         }
-    }
-
-    void iRenderTarget::activateRenderTarget()
-    {
-        iApplication::getInstance().addRenderTarget(this);
-    }
-
-    void iRenderTarget::deactivateRenderTarget()
-    {
-        iApplication::getInstance().removeRenderTarget(this);
     }
 
     void iRenderTarget::drawViews()

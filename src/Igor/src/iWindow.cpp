@@ -4,6 +4,7 @@
 
 #include <iWindow.h>
 
+#include <iApplication.h>
 #include <iaConsole.h>
 #include <iOSEventListener.h>
 #include <iView.h>
@@ -412,7 +413,7 @@ namespace Igor
             con_warn("opened window without views");
         }
 
-        activateRenderTarget();
+        iApplication::getInstance().addWindow(this);
         return initOpenGLContext();
     }
 
@@ -462,7 +463,7 @@ namespace Igor
 
             _isOpen = false;
 
-            deactivateRenderTarget();
+            iApplication::getInstance().removeWindow(this);
         }
         else
         {
