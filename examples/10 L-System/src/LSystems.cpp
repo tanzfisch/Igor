@@ -69,7 +69,8 @@ void LSystems::init()
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    iaVector2i targetSize = _window.getTargetSize();
+    _viewOrtho.setOrthogonal(0, targetSize._x, targetSize._y, 0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
     _window.addView(&_viewOrtho);
     _window.open();
@@ -476,11 +477,12 @@ void LSystems::drawLogo()
 {
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iaVector2i targetSize = _window.getTargetSize();
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
+    float32 x = static_cast<float32>(targetSize._x) - width;
+    float32 y = static_cast<float32>(targetSize._y) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

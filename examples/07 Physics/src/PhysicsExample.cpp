@@ -200,7 +200,6 @@ void PhysicsExample::init()
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 
-
     _cameraTranslation->translate(0, 0, 80);
     updateCameraPosition();
 
@@ -361,11 +360,12 @@ void PhysicsExample::drawLogo()
 {
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iaVector2i targetSize = _window.getTargetSize();
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
+    float32 x = static_cast<float32>(targetSize._x) - width;
+    float32 y = static_cast<float32>(targetSize._y) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

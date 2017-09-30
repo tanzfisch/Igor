@@ -243,7 +243,7 @@ namespace Igor
 
     float32 iParticleSystem3D::getPeriodTime() const
     {
-        return _particleSystemPeriodTime / __IGOR_SECOND__;
+        return _particleSystemPeriodTime / static_cast<float32>(__IGOR_SECOND__);
     }
 
     void iParticleSystem3D::setVortexTorque(float32 min, float32 max)

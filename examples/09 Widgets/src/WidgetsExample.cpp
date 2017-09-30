@@ -389,11 +389,13 @@ void WidgetsExample::deinitGUI()
 
 void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
+    iaVector2i targetSize = _window.getTargetSize();
+
     // update the widget managers desktop dimensions
-    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
+    iWidgetManager::getInstance().setDesktopDimensions(targetSize._x, targetSize._y);
 
     // update the the view port projection matrix so the widget manager desktop will fit on screen
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(targetSize._x), static_cast<float32>(targetSize._y), 0.0f);
 }
 
 void WidgetsExample::onMouseMove(int32 x, int32 y)
@@ -500,11 +502,12 @@ void WidgetsExample::drawLogo()
 {
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iaVector2i targetSize = _window.getTargetSize();
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
+    float32 x = static_cast<float32>(targetSize._x) - width;
+    float32 y = static_cast<float32>(targetSize._y) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

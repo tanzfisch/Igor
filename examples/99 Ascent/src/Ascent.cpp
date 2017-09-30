@@ -119,7 +119,8 @@ void Ascent::initViews()
 
     iMouse::getInstance().showCursor(false);
 
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    iaVector2i targetSize = _window.getTargetSize();
+    _viewOrtho.setOrthogonal(0, targetSize._x, targetSize._y, 0);
 }
 
 void Ascent::initScene()
@@ -711,10 +712,11 @@ void Ascent::handleMouse() // TODO
         if (player != nullptr)
         {
             // TODO WTF? if I use set() it does not work in release mode here
-            _weaponPos._x = static_cast<float32>(_window.getClientWidth()) * 0.5f;
-            _weaponPos._y = static_cast<float32>(_window.getClientHeight()) * 0.5f;
+            iaVector2i targetSize = _window.getTargetSize();
+            _weaponPos._x = static_cast<float32>(targetSize._x) * 0.5f;
+            _weaponPos._y = static_cast<float32>(targetSize._y) * 0.5f;
             _weaponPos._z = 0.0f;
-            //_weaponPos.set(static_cast<float32>(_window.getClientWidth()) * 0.5f, static_cast<float32>(_window.getClientHeight()) * 0.5f, 0);
+            //_weaponPos.set(static_cast<float32>(targetSize._x) * 0.5f, static_cast<float32>(targetSize._y) * 0.5f, 0);
 
             float32 headingDelta = _mouseDelta._x * 0.002;
             float32 pitchDelta = _mouseDelta._y * 0.002;
@@ -803,14 +805,16 @@ void Ascent::onRenderOrtho()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFont(_font);
 
+    iaVector2i targetSize = _window.getTargetSize();
+
     if (_loading)
     {
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-        iRenderer::getInstance().drawRectangle(0, 0, _window.getClientWidth(), _window.getClientHeight());
+        iRenderer::getInstance().drawRectangle(0, 0, targetSize._x, targetSize._y);
 
         iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
         iRenderer::getInstance().setFontSize(40.0f);
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(targetSize._x * 0.5, targetSize._y * 0.5, "generating level ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
@@ -819,7 +823,7 @@ void Ascent::onRenderOrtho()
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
+            iRenderer::getInstance().drawString(targetSize._x * 0.5, targetSize._y * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
         }
 
         Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
@@ -830,10 +834,10 @@ void Ascent::onRenderOrtho()
 
             iRenderer::getInstance().setFontSize(15.0f);
             iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.05, _window.getClientHeight() * 0.05, healthText);
+            iRenderer::getInstance().drawString(targetSize._x * 0.05, targetSize._y * 0.05, healthText);
 
             iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.10, _window.getClientHeight() * 0.05, shieldText);
+            iRenderer::getInstance().drawString(targetSize._x * 0.10, targetSize._y * 0.05, shieldText);
 
             player->drawReticle(_window);
         }
@@ -841,7 +845,7 @@ void Ascent::onRenderOrtho()
         {
             iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+            iRenderer::getInstance().drawString(targetSize._x * 0.5, targetSize._y * 0.5, "you are dead :-P", iHorizontalAlignment::Center, iVerticalAlignment::Center);
             _activeControls = false;
         }
     }

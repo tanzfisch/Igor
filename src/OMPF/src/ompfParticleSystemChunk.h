@@ -355,18 +355,40 @@ namespace OMPF
         iaString _textureB;
         iaString _textureC;
 
+        /*! air drag per frame
+        */
         float32 _airDrag = 0;
+
+        /*! particle system period time
+        */
         float32 _periodTime = 0;
+
+        /*! vortex to particle rate
+        */
         float32 _vortexToParticleRate = 0;
+
+        /*! vorticity confinement. the force that pulls particles to the center of a vortex particle
+        */
         float32 _vorticityConfinement = 0;
 
         /*! material chunk id
         */
         uint32 _materialChunkID = OMPFDefaultConfiguration::INVALID_CHUNK_ID;
 
+        /*! orientation rate gradient
+        */
         iaGradientVector2f _orientationRateGradient;
+
+        /*! orientation gradient
+        */
         iaGradientVector2f _orientationGradient;
+
+        /*! lift gradient
+        */
         iaGradientVector2f _liftGradient;
+
+        /*! velocity gradient
+        */
         iaGradientVector2f _velocityGradient;
 
         /*! start size gradient

@@ -5,7 +5,7 @@
 #include <iStatisticsVisualizer.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
-#include <iWindow.h>
+#include <iRenderTarget.h>
 #include <iTextureFont.h>
 #include <iTimer.h>
 #include <iTaskManager.h>
@@ -13,6 +13,7 @@
 #include <iStatisticsSection.h>
 #include <iStatistics.h>
 
+#include <iaVector2.h>
 #include <iaString.h>
 using namespace IgorAux;
 
@@ -118,8 +119,10 @@ namespace Igor
         return _renderStatisticsMode;
     }
 
-    void iStatisticsVisualizer::drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color)
+    void iStatisticsVisualizer::drawStatistics(iRenderTarget* renderTarget, iTextureFont* font, const iaColor4f& color)
     {
+        iaVector2i renderTargetSize = renderTarget->getTargetSize();
+
         if (iRenderer::getInstance().isReady() && 
             _renderStatisticsMode > iRenderStatisticsVerbosity::None)
         {
@@ -163,7 +166,7 @@ namespace Igor
                 voffset = 20;
             }
 
-            iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
+            iRenderer::getInstance().drawString(static_cast<float32>(renderTargetSize._x - 10), static_cast<float32>(renderTargetSize._y - 10 - voffset), fpsText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::FPSAndMetrics)
             {
@@ -220,7 +223,7 @@ namespace Igor
                     dataText += "mio";
                 }
 
-                iRenderer::getInstance().drawString(static_cast<float32>(window->getClientWidth() - 10), static_cast<float32>(window->getClientHeight() - 10), dataText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
+                iRenderer::getInstance().drawString(static_cast<float32>(renderTargetSize._x - 10), static_cast<float32>(renderTargetSize._y - 10), dataText, iHorizontalAlignment::Right, iVerticalAlignment::Bottom);
                 iRenderer::getInstance().resetCounters();
             }
 
@@ -240,24 +243,24 @@ namespace Igor
                 rcthreads += ":";
                 rcthreads += iaString::itoa(_lastQueuedRenderContextTaskCount);
 
-                iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
-                iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+                iRenderer::getInstance().drawString(10.0f, static_cast<float32>(renderTargetSize._y - 30), threads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+                iRenderer::getInstance().drawString(10.0f, static_cast<float32>(renderTargetSize._y - 10), rcthreads, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
 
                 iaString done = "done ";
                 done += iaString::itoa(_lastDoneTaskCount);
                 
-                iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+                iRenderer::getInstance().drawString(10.0f, static_cast<float32>(renderTargetSize._y - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             }
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)
             {
                 float64 groupCount = 5;
-                float64 totalHeight = window->getClientHeight() * 0.9f;
+                float64 totalHeight = renderTargetSize._y * 0.9f;
                 float64 groupTotalHeight = totalHeight / groupCount;
                 float64 scale = groupTotalHeight / 100;
                 float64 x = 10;
                 uint32 textOffsetX[5]{ 0,0,0,0,0 };
-                float64 horizontalScale = static_cast<float64>(window->getClientWidth() - x - x) / static_cast<float64>(iStatisticsSection::BUFFER_SIZE);
+                float64 horizontalScale = static_cast<float64>(renderTargetSize._x - x - x) / static_cast<float64>(iStatisticsSection::BUFFER_SIZE);
                 float64 thirtyHz = 33.3333 * scale;
                 float64 sixtyHz = 66.6666 * scale;
 
@@ -266,24 +269,24 @@ namespace Igor
                 {
                     float64 groupOffset = i * groupTotalHeight;
                     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 0.4f));
-                    iRenderer::getInstance().drawRectangle(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - sixtyHz), static_cast<float32>(window->getClientWidth() - x - x), static_cast<float32>(sixtyHz));
+                    iRenderer::getInstance().drawRectangle(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - sixtyHz), static_cast<float32>(renderTargetSize._x - x - x), static_cast<float32>(sixtyHz));
                 }
 
                 iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
 
                 iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
                 iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight), static_cast<float32>(x), 0.0f);
-                iRenderer::getInstance().drawLine(static_cast<float32>(window->getClientWidth() - x), static_cast<float32>(totalHeight), static_cast<float32>(window->getClientWidth() - x), 0.0f);
+                iRenderer::getInstance().drawLine(static_cast<float32>(renderTargetSize._x - x), static_cast<float32>(totalHeight), static_cast<float32>(renderTargetSize._x - x), 0.0f);
 
                 for (int i = 0; i < groupCount; ++i)
                 {
                     float64 groupOffset = i * groupTotalHeight;
 
                     iRenderer::getInstance().setColor(iaColor4f(0.4f, 0.4f, 0.4f, 1.0f));
-                    iRenderer::getInstance().drawRectangle(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - 3), static_cast<float32>(window->getClientWidth() - x - x), 3.0f);
+                    iRenderer::getInstance().drawRectangle(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - 3), static_cast<float32>(renderTargetSize._x - x - x), 3.0f);
                     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-                    iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight - sixtyHz - groupOffset), static_cast<float32>(window->getClientWidth() - x), static_cast<float32>(totalHeight - sixtyHz - groupOffset));
-                    iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight - thirtyHz - groupOffset), static_cast<float32>(window->getClientWidth() - x), static_cast<float32>(totalHeight - thirtyHz - groupOffset));
+                    iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight - sixtyHz - groupOffset), static_cast<float32>(renderTargetSize._x - x), static_cast<float32>(totalHeight - sixtyHz - groupOffset));
+                    iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight - thirtyHz - groupOffset), static_cast<float32>(renderTargetSize._x - x), static_cast<float32>(totalHeight - thirtyHz - groupOffset));
                 }
 
                 iRenderer::getInstance().setLineWidth(2);

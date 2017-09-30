@@ -155,7 +155,9 @@ void VoxelExample::initViews()
     _window.open();
 
     // update the orthogonal projection after we know the windows cient rectangle. the same we do after a resize
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    iaVector2i targetSize = _window.getTargetSize();
+    _viewOrtho.setOrthogonal(0, targetSize._x, targetSize._y, 0);
+
 }
 
 void VoxelExample::initScene()
@@ -439,13 +441,15 @@ void VoxelExample::onRenderOrtho()
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(25.0f);
 
+    iaVector2i targetSize = _window.getTargetSize();
+
     if (_loading)
     {
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(targetSize._x * 0.5, targetSize._y * 0.5, "loading ...", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
     else
     {
-        iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
+        iRenderer::getInstance().drawString(targetSize._x * 0.5, targetSize._y * 0.1, "press [Space] to recreate", iHorizontalAlignment::Center, iVerticalAlignment::Center);
     }
 
     drawLogo();
@@ -458,11 +462,12 @@ void VoxelExample::drawLogo()
 {
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+    iaVector2i targetSize = _window.getTargetSize();
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
-    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
+    float32 x = static_cast<float32>(targetSize._x) - width;
+    float32 y = static_cast<float32>(targetSize._y) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

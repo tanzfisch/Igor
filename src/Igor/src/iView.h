@@ -34,6 +34,7 @@
 #include <iRenderEngine.h>
 
 #include <iaColor4.h>
+#include <iaVector2.h>
 #include <iaEvent.h>
 #include <iaString.h>
 #include <iaMatrix.h>
@@ -42,7 +43,6 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iWindow;
 	class iPixmap;
     class iScene;
     class iNodeCamera;
@@ -61,7 +61,7 @@ namespace Igor
     */
 	class Igor_API iView
 	{
-		friend class iWindow;
+		friend class iRenderTarget;
 
     public:
 
@@ -101,7 +101,7 @@ namespace Igor
         */
         void unregisterRenderDelegate(RenderDelegate renderDelegate);
 
-        /*! sets the view port within a window.
+        /*! sets the view port relative to the parenting render target
 
         values have to be from 0.0 to 1.0 and represent a resolution independent unit.
 
@@ -226,9 +226,9 @@ namespace Igor
         */
         uint64 getCurrentCamera() const;
 
-        /*! unprojects screen position to object space
+        /*! unprojects screen/buffer position to object space
 
-        \param screenpos screen position in pixels (vertical origin is at top of window)
+        \param screenpos screen position in pixels (vertical origin is at top of render target)
         \param modelMatrix the model matrix to create the camera view from
         \returns unprojected position in object space
         */
@@ -260,11 +260,15 @@ namespace Igor
         */
         iScene* _scene = nullptr;
 
-        iRectanglei _windowRect;
+        /*! the parenting render target size in pixel/texel
+        */
+        iaVector2i _parentSize;
 
+        /*! viewport to parent in pixel
+        */
         iRectanglei _resultingRectangle;
 		
-        /*! the viewing rectangle with values from 0.0-1.0 so it is independent form screen resolution
+        /*! the viewing rectangle with values from 0.0-1.0 so it is independent form render target resolution
         */
         iRectanglef	_viewRect = { 0.0f, 0.0f, 1.0f, 1.0f };
 
@@ -329,11 +333,11 @@ namespace Igor
         */
         void draw();
 
-        /*! updates window rectangle
+        /*! updates parent render target site
 
-        \param windowRect the new window rectangle
+        \param size the size of the render target in pixel/texel
         */
-        void updateWindowRect(const iRectanglei& windowRect);
+        void updateParentSize(const iaVector2i& size);
 
 	};
 
