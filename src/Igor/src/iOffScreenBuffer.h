@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iFRAMEBUFFER__
-#define __iFRAMEBUFFER__
+#ifndef __iOFFSCREENBUFFER__
+#define __iOFFSCREENBUFFER__
 
 #include <iRenderTarget.h>
 #include <iRenderer.h>
@@ -35,18 +35,26 @@
 namespace Igor
 {
 
-	class Igor_API iFrameBuffer : public iRenderTarget
-	{
+    class Igor_API iOffScreenBuffer : public iRenderTarget
+    {
 
-	public:
+    public:
 
-        iFrameBuffer(uint32 width, uint32 height, iColorFormat format, bool useDepthBuffer);
+        iOffScreenBuffer(uint32 width, uint32 height, iRenderTargetType targetType, iColorFormat format, bool useDepthBuffer);
 
-		virtual ~iFrameBuffer();
+        virtual ~iOffScreenBuffer();
 
         /*! \returns the render target buffer size
         */
         virtual iaVector2i getTargetSize() const;
+
+        /*! renders the views in to this render target
+        */
+        virtual void draw();
+
+        /*! does nothing
+        */
+        virtual void handle();
 
     protected:
 
@@ -55,11 +63,11 @@ namespace Igor
 
         iColorFormat _format;
         bool _useDepthBuffer;
+        iRenderTargetType _targetType;
 
-        uint32 _renderTargetID = iRenderer::INVALID_ID;
-	};
+        uint32 _renderTargetID = iRenderer::DEFAULT_RENDER_TARGET;
+    };
 
 };
 
 #endif
- 

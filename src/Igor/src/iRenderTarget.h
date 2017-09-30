@@ -72,6 +72,10 @@ namespace Igor
         */
         virtual void draw() = 0;
 
+        /*! calls a handle on the render target
+        */
+        virtual void handle() = 0;
+
     protected:
 
         /*! list of windows
@@ -87,6 +91,14 @@ namespace Igor
         /*! draws the views
         */
         void drawViews();
+
+        /*! initialize render target
+        */
+        void activateRenderTarget();
+
+        /*! deinitialize render target
+        */
+        void deactivateRenderTarget();
 
 	};
 

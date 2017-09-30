@@ -33,8 +33,10 @@
 
 #include <iaEvent.h>
 #include <iaSingleton.h>
-#include <iaFlushVector.h>
 using namespace IgorAux;
+
+#include <vector>
+using namespace std;
 
 namespace Igor
 {
@@ -54,7 +56,7 @@ namespace Igor
 	class Igor_API iApplication : public iaSingleton<iApplication>
 	{
 
-		friend class iWindow;
+        friend class iRenderTarget;
 		friend class iaSingleton<iApplication>;
         
     public:
@@ -135,7 +137,7 @@ namespace Igor
 		
 		/*! list of windows registered to the application
 		*/
-        iaFlushVector<iWindow*> _windows;
+        vector<iRenderTarget*> _renderTargets;
 
 		/*! handle event called before rendering
 		*/
@@ -161,17 +163,17 @@ namespace Igor
         */
         void draw();
 
-		/*! add window
+		/*! add render target
 
-		\param window pointer to window
+		\param renderTarget pointer to render target
 		*/
-		void addWindow(iWindow* window);
+		void addRenderTarget(iRenderTarget* renderTarget);
 
-		/*! remove window
+		/*! remove render target
 
-		\param window pointer to window
+		\param renderTarget pointer to render target
 		*/
-		void removeWindow(iWindow* window);
+		void removeRenderTarget(iRenderTarget* renderTarget);
 
 		/*! ctor
 

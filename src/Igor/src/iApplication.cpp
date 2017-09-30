@@ -28,11 +28,9 @@ namespace Igor
     {
         deinitStatistics();
 
-        _windows.flush();
-
-        if (_windows.getList().size())
+        if (!_renderTargets.empty())
         {
-            con_warn("close windows before shutdown");
+            con_warn("possible mem leak. destroy all render targets before shutdown");
         }
 
         if (_preDrawHandleEvent.hasDelegates())
@@ -60,7 +58,6 @@ namespace Igor
 
         iStatistics::getInstance().beginSection(_handleSectionID);
         iTimer::getInstance().handle();
-        _windows.flush();
         iNodeFactory::getInstance().handle();
         iStatistics::getInstance().endSection(_handleSectionID);
 
@@ -118,35 +115,33 @@ namespace Igor
     }
 
     void iApplication::draw()
-    {      
-        for (auto window : _windows.getList())
+    {
+        for (auto renderTarget : _renderTargets)
         {
-            if (window->isOpen())
-            {
-                window->draw();
-            }
+            renderTarget->draw();
         }
     }
 
     void iApplication::windowHandle()
-    {      
-        for (auto window : _windows.getList())
+    {
+        for (auto renderTarget : _renderTargets)
         {
-            if (window->isOpen())
-            {
-                window->handle();
-            }
+            renderTarget->handle();
         }
     }
 
-    void iApplication::addWindow(iWindow* window)
+    void iApplication::addRenderTarget(iRenderTarget* renderTarget)
     {
-        _windows.add(window);
+        _renderTargets.push_back(renderTarget);
     }
 
-    void iApplication::removeWindow(iWindow* window)
+    void iApplication::removeRenderTarget(iRenderTarget* renderTarget)
     {
-        _windows.remove(window);
+        auto iter = find(_renderTargets.begin(), _renderTargets.end(), renderTarget);
+        if (iter != _renderTargets.end())
+        {
+            _renderTargets.erase(iter);
+        }
     }
 
     void iApplication::registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate handleDelegate)

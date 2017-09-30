@@ -431,7 +431,7 @@
     <ClCompile Include="..\src\iWindow.cpp">
       <Filter>graphics\renderTargets</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iFrameBuffer.cpp">
+    <ClCompile Include="..\src\iOffScreenBuffer.cpp">
       <Filter>graphics\renderTargets</Filter>
     </ClCompile>
   </ItemGroup>
@@ -904,7 +904,7 @@
     <ClInclude Include="..\src\iWindow.h">
       <Filter>graphics\renderTargets</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iFrameBuffer.h">
+    <ClInclude Include="..\src\iOffScreenBuffer.h">
       <Filter>graphics\renderTargets</Filter>
     </ClInclude>
   </ItemGroup>
