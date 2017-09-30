@@ -288,7 +288,7 @@ namespace Igor
 
 		/*! draws contend of view in to the window
 		*/
-		virtual void draw();
+		void draw();
 
 		/*! initializes rendering context render buffers etc.
 		*/

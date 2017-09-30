@@ -68,10 +68,6 @@ namespace Igor
         */
         virtual iaVector2i getTargetSize() const = 0;
 
-        /*! renders the views in to this render target
-        */
-        virtual void draw() = 0;
-
     protected:
 
         /*! list of windows
