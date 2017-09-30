@@ -306,7 +306,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iRenderEngine.cpp" />
     <ClCompile Include="..\src\iRenderer.cpp" />
     <ClCompile Include="..\src\iRenderStateSet.cpp" />
-    <ClCompile Include="..\src\iRenderTarget.cpp" />
     <ClCompile Include="..\src\iResourceManager.cpp" />
     <ClCompile Include="..\src\iScene.cpp" />
     <ClCompile Include="..\src\iSceneFactory.cpp" />
@@ -484,7 +483,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iRenderEngine.h" />
     <ClInclude Include="..\src\iRenderer.h" />
     <ClInclude Include="..\src\iRenderStateSet.h" />
-    <ClInclude Include="..\src\iRenderTarget.h" />
     <ClInclude Include="..\src\iResourceManager.h" />
     <ClInclude Include="..\src\iScene.h" />
     <ClInclude Include="..\src\iSceneFactory.h" />

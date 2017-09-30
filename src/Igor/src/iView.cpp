@@ -45,7 +45,7 @@ namespace Igor
     {
         _visible = visible;
     }
-
+    
     bool iView::isVisible() const
     {
         return _visible;
@@ -90,7 +90,7 @@ namespace Igor
     {
         return _renderEngine.isOctreeVisible();
     }
-
+    
     void iView::setName(const iaString& name)
     {
         _name = name;
@@ -218,14 +218,14 @@ namespace Igor
         }
     }
 
-    void iView::updateParentSize(const iaVector2i& size)
+    void iView::updateWindowRect(const iRectanglei& windowRect)
     {
-        _parentSize = size;
+        _windowRect = windowRect;
 
-        _resultingRectangle.setX(0);
-        _resultingRectangle.setY(0); // todo + 0.5?
-        _resultingRectangle.setWidth(static_cast<int32>(_viewRect.getWidth() * static_cast<float32>(_parentSize._x) + 0.5f));
-        _resultingRectangle.setHeight(static_cast<int32>(_viewRect.getHeight() * static_cast<float32>(_parentSize._y) + 0.5f));
+        _resultingRectangle.setX(_viewRect.getX() * _windowRect.getWidth() + 0.5f);
+        _resultingRectangle.setY(_viewRect.getY() * _windowRect.getHeight() + 0.5f);
+        _resultingRectangle.setWidth(_viewRect.getWidth() * _windowRect.getWidth() + 0.5f);
+        _resultingRectangle.setHeight(_viewRect.getHeight() * _windowRect.getHeight() + 0.5f);
     }
 
     void iView::setScene(iScene* scene)

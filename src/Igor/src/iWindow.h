@@ -31,7 +31,7 @@
 
 #include <windows.h>
 
-#include <iRenderTarget.h>
+#include <iDefines.h>
 
 #include <iaFlushVector.h>
 #include <iaEvent.h>
@@ -60,7 +60,7 @@ namespace Igor
 	\todo currently Igor only fully supports one window. 
 	\todo add some events like closing window, move window etc.
 	*/
-	class Igor_API iWindow : public iRenderTarget
+	class Igor_API iWindow
 	{
 
 		friend class iApplication;
@@ -111,9 +111,13 @@ namespace Igor
         */
         uint32 getHeight() const;
 
-        /*! \returns the render target buffer size
+        /*! \returns width of render area
         */
-        virtual iaVector2i getTargetSize() const;
+        uint32 getClientWidth() const;
+
+        /*! \returns height of render area
+        */
+        uint32 getClientHeight() const;
 
         /*! \returns horizontal position of window
         */
@@ -184,6 +188,19 @@ namespace Igor
         */
         bool isFullscreen();
 
+        /*! adds view to the window
+
+        \param view the view to be added
+        \todo would be nice to manipulate the order of views beeing added
+        */
+        void addView(iView* view);
+
+        /*! removes view from the window
+
+        \param view the view to be removed
+        */
+        void removeView(iView* view);
+
         /*! regiters delegate to window close event
 
         \param windowCloseDelegate the delegate to be registered
@@ -221,6 +238,12 @@ namespace Igor
         /*! triggered by window resize OS message
         */
         WindowResizeEvent _windowResizeEvent;
+
+		/*! list of windows
+
+		\todo why is this a flush list again?
+		*/
+        iaFlushVector<iView*> _views;
 						
 		/*! list of registeres os event listeners
 

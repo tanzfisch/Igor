@@ -49,8 +49,7 @@ void Example2D::init()
     _view.setClearColor(false);
     // set up an orthogonal projection with the dimensions of the windows client rectangle
     // the client rectangle is the size of the actual rendering area
-    iaVector2i targetSize = _window.getTargetSize();
-    _view.setOrthogonal(0, targetSize._x, targetSize._y, 0);
+    _view.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
     // register callback to the rendering event of this view
     _view.registerRenderDelegate(RenderDelegate(this, &Example2D::onRender));
     // add the view to the window
@@ -277,8 +276,7 @@ void Example2D::onRender()
     // set a textured material and draw the tiles texture as background
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTexture);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iaVector2i targetSize = _window.getTargetSize();
-    iRenderer::getInstance().drawTextureTiled(0, 0, targetSize._x, targetSize._y, _backgroundTexture);
+    iRenderer::getInstance().drawTextureTiled(0, 0, _window.getClientWidth(), _window.getClientHeight(), _backgroundTexture);
 
     // set non textured material and draw some primitves
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
@@ -316,7 +314,7 @@ void Example2D::onRender()
     // draw the particles
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 0.5));
     iRenderer::getInstance().bindTexture(_particleTexture, 0);
-    iRenderer::getInstance().drawParticles(-10, targetSize._y - 150, 0, _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
+    iRenderer::getInstance().drawParticles(-10, _window.getClientHeight() - 150, 0, _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige Programmierschnittstelle zur Entwicklung von 2D- und 3D-Computergrafik. Der OpenGL-Standard beschreibt etwa 250 Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen (zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
@@ -332,7 +330,7 @@ void Example2D::onRender()
 
     // draw random graph in the upper right corner
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    iRenderer::getInstance().drawRectangle(targetSize._x - 260, 10, 250, 150);
+    iRenderer::getInstance().drawRectangle(_window.getClientWidth() - 260, 10, 250, 150);
 
     static float32 offset = 0.0f;
     iRenderer::getInstance().setLineWidth(1);
@@ -342,7 +340,7 @@ void Example2D::onRender()
     for (int x = 1; x < 250; ++x)
     {
         float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
-        iRenderer::getInstance().drawLine(targetSize._x - 260 + x - 1, 10 + lastValue, targetSize._x - 260 + x, 10 + value);
+        iRenderer::getInstance().drawLine(_window.getClientWidth() - 260 + x - 1, 10 + lastValue, _window.getClientWidth() - 260 + x, 10 + value);
         lastValue = value;
     }
 
@@ -358,12 +356,11 @@ void Example2D::drawLogo()
 {
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iaVector2i targetSize = _window.getTargetSize();
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(targetSize._x) - width;
-    float32 y = static_cast<float32>(targetSize._y) - height;
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

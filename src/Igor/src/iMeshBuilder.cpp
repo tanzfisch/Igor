@@ -196,7 +196,7 @@ namespace Igor
         triangle._b = indexB;
         triangle._c = indexC;
         _triangles.push_back(triangle);
-        return static_cast<uint32>(_triangles.size()) - 1;
+        return _triangles.size() - 1;
     }
 
     bool iMeshBuilder::checkConsistency()
@@ -760,6 +760,8 @@ namespace Igor
         {
             _texCoords[texunit].clear();
 
+            float32 u;
+            float32 v;
             iaVector3f temp;
 
             switch (direction)

@@ -8,11 +8,8 @@
 #include <Windowsx.h>
 
 #include <iWindow.h>
-#include <iOSEvent.h>
-
 #include <iaConsole.h>
-#include <iaVector2.h>
-using namespace IgorAux;
+#include <iOSEvent.h>
 
 namespace Igor
 {
@@ -200,9 +197,7 @@ namespace Igor
 
     void iMouse::setCenter(bool supressMoveEvent)
 	{
-        iaVector2i targetSize = _window->getTargetSize();
-
-        setPosition(targetSize._x >> 1, targetSize._y >> 1, supressMoveEvent);
+        setPosition(_window->getClientWidth() >> 1, _window->getClientHeight() >> 1, supressMoveEvent);
 	}
 
 	void iMouse::setPosition(int32 x, int32 y, bool supressMoveEvent)

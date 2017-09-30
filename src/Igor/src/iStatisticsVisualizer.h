@@ -43,7 +43,7 @@ namespace Igor
 {
 
     class iTextureFont;
-    class iRenderTarget;
+    class iWindow;
 
     /*! verbosity of statistics output on scree
     */
@@ -78,7 +78,7 @@ namespace Igor
 
         only works correctly called within a orthogonal view's render call
         */
-        void drawStatistics(iRenderTarget* renderTarget, iTextureFont* font, const iaColor4f& color);
+        void drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color);
 
         /*! init
         */

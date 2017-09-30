@@ -64,8 +64,7 @@ void ExampleInstancing::init()
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    iaVector2i targetSize = _window.getTargetSize();
-    _viewOrtho.setOrthogonal(0, targetSize._x, targetSize._y, 0);
+    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ExampleInstancing::onRenderOrtho));
     _window.addView(&_viewOrtho);
     // and open the window
@@ -121,13 +120,13 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo.vert", iShaderObjectType::Vertex);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
-
+    
     const float32 spacing = 3.0f;
     const int32 amountPerDimension = 3;
 
     // now we can just put copies of that model in the scene    
     iNodeTransform* transformGroup = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    transformGroup->translate(-((amountPerDimension - 1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), ((amountPerDimension - 1) * spacing * 0.5));
+    transformGroup->translate(-((amountPerDimension -1) * spacing * 0.5), -((amountPerDimension - 1) * spacing * 0.5), ((amountPerDimension - 1) * spacing * 0.5));
     _scene->getRoot()->insertNode(transformGroup);
 
     // create an array of models
@@ -155,7 +154,7 @@ void ExampleInstancing::init()
             }
         }
     }
-
+    
     // create a skybox
     iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     // set it up with the default skybox texture
@@ -215,7 +214,7 @@ void ExampleInstancing::init()
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &ExampleInstancing::onKeyPressed));
@@ -338,7 +337,7 @@ void ExampleInstancing::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0, 0, -30);
+    modelMatrix.translate(0,0,-30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     drawLogo();
@@ -351,12 +350,11 @@ void ExampleInstancing::drawLogo()
 {
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iaVector2i targetSize = _window.getTargetSize();
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(targetSize._x) - width;
-    float32 y = static_cast<float32>(targetSize._y) - height;
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
@@ -371,6 +369,7 @@ void ExampleInstancing::onModelReady(uint32 modelNodeID)
         meshNode->setMaterial(_materialWithInstancing);
     }
 }
+
 
 void ExampleInstancing::run()
 {

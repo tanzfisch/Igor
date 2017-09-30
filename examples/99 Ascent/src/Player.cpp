@@ -366,10 +366,9 @@ iaVector3d Player::getCurrentPos()
 
 void Player::drawReticle(const iWindow& window)
 {
-    iaVector2i targetSize = window.getTargetSize();
-    iaVector3f weaponPos(targetSize._x * 0.5, targetSize._y * 0.5, 0);
+    iaVector3f weaponPos(window.getClientWidth() * 0.5, window.getClientHeight() * 0.5, 0);
 
-    float32 scale = 0.001 * targetSize._x;
+    float32 scale = 0.001 * window.getClientWidth();
 
     iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
     iRenderer::getInstance().setLineWidth(1 * scale);

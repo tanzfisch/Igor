@@ -118,8 +118,7 @@ void ModelViewer::init(iaString fileName)
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    iaVector2i targetSize = _window.getTargetSize();
-    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(targetSize._x), static_cast<float32>(targetSize._y), 0.0f);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
     _window.addView(&_viewOrtho);
 
@@ -619,8 +618,7 @@ void ModelViewer::initGUI()
 {
     _widgetTheme = new iWidgetDefaultTheme("StandardFont.png", "WidgetThemePattern.png");
     iWidgetManager::getInstance().setTheme(_widgetTheme);
-    iaVector2i targetSize = _window.getTargetSize();
-    iWidgetManager::getInstance().setDesktopDimensions(targetSize._x, targetSize._y);
+    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
     _menuDialog = static_cast<MenuDialog*>(iWidgetManager::getInstance().createDialog("MenuDialog"));
     _menuDialog->registerOnExitModelViewer(ExitModelViewerDelegate(this, &ModelViewer::onExitModelViewer));
@@ -707,9 +705,8 @@ void ModelViewer::deinitGUI()
 
 void ModelViewer::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
-    iaVector2i targetSize = _window.getTargetSize();
-    iWidgetManager::getInstance().setDesktopDimensions(targetSize._x, targetSize._y);
-    _viewOrtho.setOrthogonal(0, targetSize._x, targetSize._y, 0);
+    iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
+    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
 }
 
 void ModelViewer::updateCamDistance()

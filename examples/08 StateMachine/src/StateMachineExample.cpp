@@ -207,19 +207,17 @@ void StateMachineExample::onRenderWinState()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1,0,0,1));
 
-    iaVector2i targetSize = _window.getTargetSize();
-
     iRenderer::getInstance().bindTexture(_particleTexture, 0);
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
-    iRenderer::getInstance().drawParticles(targetSize._x * 0.5, targetSize._y * 0.5, 0, _particleSystems[0].getParticles(), _particleSystems[0].getParticleCount());
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, 0, _particleSystems[0].getParticles(), _particleSystems[0].getParticleCount());
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
-    iRenderer::getInstance().drawParticles(targetSize._x * 0.4, targetSize._y * 0.7, 0, _particleSystems[1].getParticles(), _particleSystems[1].getParticleCount());
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.4, _window.getClientHeight() * 0.7, 0, _particleSystems[1].getParticles(), _particleSystems[1].getParticleCount());
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 0, 1));
-    iRenderer::getInstance().drawParticles(targetSize._x * 0.7, targetSize._y * 0.4, 0, _particleSystems[2].getParticles(), _particleSystems[2].getParticleCount());
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.7, _window.getClientHeight() * 0.4, 0, _particleSystems[2].getParticles(), _particleSystems[2].getParticleCount());
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 1, 1));
-    iRenderer::getInstance().drawParticles(targetSize._x * 0.6, targetSize._y * 0.55, 0, _particleSystems[3].getParticles(), _particleSystems[3].getParticleCount()); 
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.6, _window.getClientHeight() * 0.55, 0, _particleSystems[3].getParticles(), _particleSystems[3].getParticleCount()); 
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 1, 1));
-    iRenderer::getInstance().drawParticles(targetSize._x * 0.45, targetSize._y * 0.6, 0, _particleSystems[4].getParticles(), _particleSystems[4].getParticleCount());
+    iRenderer::getInstance().drawParticles(_window.getClientWidth() * 0.45, _window.getClientHeight() * 0.6, 0, _particleSystems[4].getParticles(), _particleSystems[4].getParticleCount());
 }
 
 void StateMachineExample::onKeyPressedGameState(iKeyCode key)

@@ -234,6 +234,12 @@ namespace Igor
             close();
         }
 
+        _views.flush();
+        if (_views.getList().size())
+        {
+            con_err("still views registered to this window");
+        }
+
         UnregisterClass(TEXT("Igor"), _moduleHandle);
         _moduleHandle = 0;
     }
@@ -407,7 +413,8 @@ namespace Igor
             return false;
         }
 
-        if (_views.empty())
+        _views.flush();
+        if (_views.getList().size() == 0)
         {
             // we do this warning here for quick response on a black screen because no view was added to the window
             con_warn("opened window without views");
@@ -551,6 +558,24 @@ namespace Igor
         //! \todo not implemented
     }
 
+    void iWindow::addView(iView* view)
+    {
+        con_assert_sticky(view != nullptr, "zero pointer");
+
+        _views.add(view);
+        iRectanglei windowRect;
+        windowRect.setWidth(_clientWidth);
+        windowRect.setHeight(_clientHeight);
+        view->updateWindowRect(windowRect);
+    }
+
+    void iWindow::removeView(iView* view)
+    {
+        con_assert_sticky(view != nullptr, "zero pointer");
+
+        _views.remove(view);
+    }
+
     bool iWindow::isOpen() const
     {
         return _isOpen;
@@ -589,10 +614,15 @@ namespace Igor
     {
         return _height;
     }
-    
-    iaVector2i iWindow::getTargetSize() const
+
+    uint32 iWindow::getClientWidth() const
     {
-        return iaVector2i(_clientWidth, _clientHeight);
+        return _clientWidth;
+    }
+
+    uint32 iWindow::getClientHeight() const
+    {
+        return _clientHeight;
     }
 
     void iWindow::updateSize(int32 width, int32 height)
@@ -601,7 +631,16 @@ namespace Igor
         _height = height;
 
         calcMinSize();
-        updateViews();
+
+        iRectanglei windowRect;
+        windowRect.setWidth(_clientWidth);
+        windowRect.setHeight(_clientHeight);
+
+        for (iView* view : _views.getList())
+        {
+            view->updateWindowRect(windowRect);
+        }
+
         _windowResizeEvent(_clientWidth, _clientHeight);
     }
 
@@ -681,7 +720,16 @@ namespace Igor
 
     void iWindow::draw()
     {
-        drawViews();
+        _views.flush();
+        auto view = _views.getList().begin();
+        while (view != _views.getList().end())
+        {
+            iRectanglei windowRect;
+            windowRect.setWidth(_clientWidth);
+            windowRect.setHeight(_clientHeight);
+            (*view)->draw();
+            view++;
+        }
 
         iStatistics::getInstance().beginSection(_swapBufferSectionID);
         swapBuffers();

@@ -62,18 +62,17 @@ void Example3D::init()
     _window.addView(&_view);
 
     _view2.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
-    _view2.setPerspective(45.0f);
+    _view2.setPerspective(45);
     _view2.setClipPlanes(0.1f, 10000.f);
     _view2.setClearColor(false);
-    _view2.setViewport(iRectanglef(0.0f, 0.0f, 0.3f, 0.3f));
+    _view2.setViewport(iRectanglef(0, 0, 0.3, 0.3));
     _view2.setColorIDRendering();
     _window.addView(&_view2);
 
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    iaVector2i targetSize = _window.getTargetSize();
-    _viewOrtho.setOrthogonal(0, targetSize._x, targetSize._y, 0);
+    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
     _window.addView(&_viewOrtho);
     // and open the window
@@ -484,12 +483,11 @@ void Example3D::drawLogo()
 {
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iaVector2i targetSize = _window.getTargetSize();
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());
     float32 height = static_cast<float32>(_igorLogo->getHeight());
-    float32 x = static_cast<float32>(targetSize._x) - width;
-    float32 y = static_cast<float32>(targetSize._y) - height;
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
