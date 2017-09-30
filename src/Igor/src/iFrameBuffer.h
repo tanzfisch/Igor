@@ -26,68 +26,37 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iRENDERTARGET__
-#define __iRENDERTARGET__
+#ifndef __iFRAMEBUFFER__
+#define __iFRAMEBUFFER__
 
-#include <iDefines.h>
-
-#include <iaVector2.h>
-using namespace IgorAux;
-
-#include <vector>
-using namespace std;
+#include <iRenderTarget.h>
+#include <iRenderer.h>
 
 namespace Igor
 {
 
-    class iView;
-
-	class Igor_API iRenderTarget
+	class Igor_API iFrameBuffer : public iRenderTarget
 	{
 
 	public:
 
-        iRenderTarget();
+        iFrameBuffer(uint32 width, uint32 height, iColorFormat format, bool useDepthBuffer);
 
-		virtual ~iRenderTarget();
-
-        /*! adds view to the window
-
-        \param view the view to be added
-        \todo would be nice to manipulate the order of views beeing added
-        */
-        void addView(iView* view);
-
-        /*! removes view from the window
-
-        \param view the view to be removed
-        */
-        void removeView(iView* view);
+		virtual ~iFrameBuffer();
 
         /*! \returns the render target buffer size
         */
-        virtual iaVector2i getTargetSize() const = 0;
-
-        /*! renders the views in to this render target
-        */
-        virtual void draw() = 0;
+        virtual iaVector2i getTargetSize() const;
 
     protected:
 
-        /*! list of windows
+        uint32 _width;
+        uint32 _height;
 
-        \todo why is this a flush list again?
-        */
-        vector<iView*> _views;
+        iColorFormat _format;
+        bool _useDepthBuffer;
 
-        /*! updates views with target size
-        */
-        void updateViews();
-
-        /*! draws the views
-        */
-        void drawViews();
-
+        uint32 _renderTargetID = iRenderer::INVALID_ID;
 	};
 
 };
