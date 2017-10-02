@@ -61,14 +61,6 @@ void Example3D::init()
     _view.setClipPlanes(0.1f, 10000.f);
     _window.addView(&_view);
 
-    _view2.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
-    _view2.setPerspective(45);
-    _view2.setClipPlanes(0.1f, 10000.f);
-    _view2.setClearColor(false);
-    _view2.setViewport(iRectanglef(0, 0, 0.3, 0.3));
-    _view2.setColorIDRendering();
-    _window.addView(&_view2);
-
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
@@ -82,7 +74,6 @@ void Example3D::init()
     _scene = iSceneFactory::getInstance().createScene();
     // bind scene to perspective view
     _view.setScene(_scene);
-    _view2.setScene(_scene);
 
     // setup camera
     // we want a camera which can be rotated arround the origin
@@ -118,14 +109,7 @@ void Example3D::init()
     cameraTranslation->insertNode(camera);
     // and finally we set the camera active. for this to work a camera must be part of a scene 
     // wich we achived by adding all those nodes on to an other starting with the root node
-
-    iNodeCamera* camera2 = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    camera2->setName("camera2");
-
-    cameraPitch->insertNode(camera2);
-
     _view.setCurrentCamera(camera->getID());
-    _view2.setCurrentCamera(camera2->getID());
 
     // create a single cat model
     iNodeTransform* justCatTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -336,7 +320,6 @@ void Example3D::deinit()
     {
         _window.close();
         _window.removeView(&_view);
-        _window.removeView(&_view2);
         _window.removeView(&_viewOrtho);
     }
 }
