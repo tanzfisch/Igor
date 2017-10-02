@@ -51,16 +51,6 @@ namespace Igor
         return _visible;
     }
 
-    void iView::setColorIDRendering(bool enabled)
-    {
-        _renderEngine.setColorIDRendering(enabled);
-    }
-
-    bool iView::isColorIDRendering() const
-    {
-        return _renderEngine.isColorIDRendering();
-    }
-
     void iView::setWireframeVisible(bool wireframe)
     {
         _renderEngine.setWireframeVisible(wireframe);
@@ -113,7 +103,7 @@ namespace Igor
 
     void iView::setViewport(iRectanglef rect)
     {
-        _viewRect = rect;
+        _viewportConfig = rect;
     }
 
     void iView::setPerspective(float32 viewAngel)
@@ -178,7 +168,7 @@ namespace Igor
 
         if (_visible)
         {
-            iRenderer::getInstance().setViewport(_resultingRectangle.getX(), _resultingRectangle.getY(), _resultingRectangle.getWidth(), _resultingRectangle.getHeight());
+            iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
             iRenderer::getInstance().setClearColor(_clearColor);
             iRenderer::getInstance().setClearDepth(_clearDepth);
@@ -222,10 +212,10 @@ namespace Igor
     {
         _windowRect = windowRect;
 
-        _resultingRectangle.setX(_viewRect.getX() * _windowRect.getWidth() + 0.5f);
-        _resultingRectangle.setY(_viewRect.getY() * _windowRect.getHeight() + 0.5f);
-        _resultingRectangle.setWidth(_viewRect.getWidth() * _windowRect.getWidth() + 0.5f);
-        _resultingRectangle.setHeight(_viewRect.getHeight() * _windowRect.getHeight() + 0.5f);
+        _viewport.setX(_viewportConfig.getX() * _windowRect.getWidth() + 0.5f);
+        _viewport.setY(_viewportConfig.getY() * _windowRect.getHeight() + 0.5f);
+        _viewport.setWidth(_viewportConfig.getWidth() * _windowRect.getWidth() + 0.5f);
+        _viewport.setHeight(_viewportConfig.getHeight() * _windowRect.getHeight() + 0.5f);
     }
 
     void iView::setScene(iScene* scene)
@@ -251,7 +241,7 @@ namespace Igor
 
     float32 iView::getAspectRatio() const
     {
-        return static_cast<float32>(_resultingRectangle.getWidth()) / static_cast<float32>(_resultingRectangle.getHeight());
+        return static_cast<float32>(_viewport.getWidth()) / static_cast<float32>(_viewport.getHeight());
     }
 
     iaVector3d iView::unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix)
@@ -265,7 +255,7 @@ namespace Igor
         iaMatrixd projectionMatrix;
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
-        return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _resultingRectangle);
+        return iRenderer::getInstance().unProject(screenpos, modelViewMatrix, projectionMatrix, _viewport);
     }
 
     /*	iPixmap* iView::makeScreenshot(bool alphachannel)

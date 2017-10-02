@@ -206,16 +206,6 @@ namespace Igor
         */
         bool isOctreeVisible() const;
 
-        /*! sets if the nodes should be rendered with solely their colorid
-
-        \param enabled if true nodes will be rendered with their color id
-        */
-        void setColorIDRendering(bool enabled = true);
-
-        /*! \returns if nodes will be rendered with their color id
-        */
-        bool isColorIDRendering() const;
-
         /*! sets current camera by id
 
         \param cameraID the camery id
@@ -260,13 +250,17 @@ namespace Igor
         */
         iScene* _scene = nullptr;
 
+        /*! size of parenting window in pixel
+        */
         iRectanglei _windowRect;
 
-        iRectanglei _resultingRectangle;
-		
-        /*! the viewing rectangle with values from 0.0-1.0 so it is independent form screen resolution
+        /*! the viewingport with values from 0.0-1.0 so it is independent form screen resolution
         */
-        iRectanglef	_viewRect = { 0.0f, 0.0f, 1.0f, 1.0f };
+        iRectanglef	_viewportConfig = { 0.0f, 0.0f, 1.0f, 1.0f };
+
+        /*! viewport in pixel
+        */
+        iRectanglei _viewport;
 
         /*! if true the color buffer will be cleared with _clearColor before every frame
         */
