@@ -43,45 +43,45 @@ void MenuDialog::initGUI()
 {
     _messageBox = static_cast<iDialogMessageBox*>(iWidgetManager::getInstance().createDialog("DialogMessageBox"));
 
-	setWidth(350);
-	setHorizontalAlignment(iHorizontalAlignment::Left);
-	setVerticalAlignment(iVerticalAlignment::Strech);
+    setWidth(350);
+    setHorizontalAlignment(iHorizontalAlignment::Left);
+    setVerticalAlignment(iVerticalAlignment::Strech);
 
     _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allwidgets.push_back(_grid);
     _grid->setBorder(2);
     _grid->setCellSpacing(8);
-	_grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
+    _grid->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _grid->setVerticalAlignment(iVerticalAlignment::Strech);
     _grid->appendRows(2);
-	_grid->setStrechRow(2);
+    _grid->setStrechRow(2);
     _grid->setStrechColumn(0);
-    
+
     _gridButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
     _allwidgets.push_back(_gridButtons);
     _gridButtons->setBorder(0);
     _gridButtons->setCellSpacing(2);
     _gridButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
     _gridButtons->setVerticalAlignment(iVerticalAlignment::Top);
-	_gridButtons->appendCollumns(8);
+    _gridButtons->appendCollumns(8);
 
-	_gridRadioButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-	_allwidgets.push_back(_gridRadioButtons);
-	_gridRadioButtons->setBorder(0);
-	_gridRadioButtons->setCellSpacing(2);
-	_gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
-	_gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
-	_gridRadioButtons->appendCollumns(1);
+    _gridRadioButtons = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+    _allwidgets.push_back(_gridRadioButtons);
+    _gridRadioButtons->setBorder(0);
+    _gridRadioButtons->setCellSpacing(2);
+    _gridRadioButtons->setHorizontalAlignment(iHorizontalAlignment::Left);
+    _gridRadioButtons->setVerticalAlignment(iVerticalAlignment::Top);
+    _gridRadioButtons->appendCollumns(1);
 
-	iWidgetCheckBox::beginRadioButtonGroup();
-	_checkBoxGraph = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
-	_checkBoxGraph->setText("Graph");
+    iWidgetCheckBox::beginRadioButtonGroup();
+    _checkBoxGraph = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxGraph->setText("Graph");
     _checkBoxGraph->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onGraphViewSelected));
-	_checkBoxMaterial = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
-	_checkBoxMaterial->setText("Material");
+    _checkBoxMaterial = static_cast<iWidgetCheckBox*>(iWidgetManager::getInstance().createWidget("CheckBox"));
+    _checkBoxMaterial->setText("Material");
     _checkBoxMaterial->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onMaterialViewSelected));
-	iWidgetCheckBox::endRadioButtonGroup();
-	_checkBoxGraph->setChecked();
+    iWidgetCheckBox::endRadioButtonGroup();
+    _checkBoxGraph->setChecked();
 
     _loadButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_loadButton);
@@ -90,7 +90,7 @@ void MenuDialog::initGUI()
     _loadButton->setHeight(30);
     _loadButton->setTexture("icons\\load.png");
     _loadButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onLoadFile));
-    
+
     _saveButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allwidgets.push_back(_saveButton);
     _saveButton->setText("");
@@ -151,19 +151,19 @@ void MenuDialog::initGUI()
 
     addWidget(_grid);
     _grid->addWidget(_gridButtons, 0, 0);
-	_gridButtons->addWidget(_loadButton, 0, 0);
-	_gridButtons->addWidget(_saveButton, 1, 0);
-	_gridButtons->addWidget(_exitButton, 2, 0);
-	_gridButtons->addWidget(_spacer1, 3, 0);
-	_gridButtons->addWidget(_cutButton, 4, 0);
-	_gridButtons->addWidget(_copyButton, 5, 0);
+    _gridButtons->addWidget(_loadButton, 0, 0);
+    _gridButtons->addWidget(_saveButton, 1, 0);
+    _gridButtons->addWidget(_exitButton, 2, 0);
+    _gridButtons->addWidget(_spacer1, 3, 0);
+    _gridButtons->addWidget(_cutButton, 4, 0);
+    _gridButtons->addWidget(_copyButton, 5, 0);
     _gridButtons->addWidget(_pasteButton, 6, 0);
-	_gridButtons->addWidget(_spacer2, 7, 0);
-	_gridButtons->addWidget(_deleteButton, 8, 0);
+    _gridButtons->addWidget(_spacer2, 7, 0);
+    _gridButtons->addWidget(_deleteButton, 8, 0);
 
-	_grid->addWidget(_gridRadioButtons, 0, 1);
-	_gridRadioButtons->addWidget(_checkBoxGraph, 0, 0);
-	_gridRadioButtons->addWidget(_checkBoxMaterial, 1, 0);
+    _grid->addWidget(_gridRadioButtons, 0, 1);
+    _gridRadioButtons->addWidget(_checkBoxGraph, 0, 0);
+    _gridRadioButtons->addWidget(_checkBoxMaterial, 1, 0);
 
     setViewType(ViewType::GraphView);
 }
@@ -215,8 +215,8 @@ void MenuDialog::deinitMaterialView()
 {
     if (_userControlMaterialView != nullptr)
     {
-		_userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
-		_userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
+        _userControlMaterialView->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
+        _userControlMaterialView->unregisterOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
 
         delete _userControlMaterialView;
         _userControlMaterialView = nullptr;
@@ -228,10 +228,10 @@ void MenuDialog::initMaterialView()
     if (_userControlMaterialView == nullptr)
     {
         _userControlMaterialView = new UserControlMaterialView();
-		_userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
-		_userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
+        _userControlMaterialView->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(this, &MenuDialog::onMaterialSelectionChanged));
+        _userControlMaterialView->registerOnAddMaterial(AddMaterialDelegate(this, &MenuDialog::onAddMaterial));
 
-        _grid->addWidget(_userControlMaterialView->getWidget(), 0, 2);        
+        _grid->addWidget(_userControlMaterialView->getWidget(), 0, 2);
     }
     else
     {
@@ -342,7 +342,7 @@ void MenuDialog::onPaste(iWidget* source)
                     destination = iNodeFactory::getInstance().getNode(_rootNodeID);
                 }
 
-                if(destination != nullptr)
+                if (destination != nullptr)
                 {
                     destination->insertNode(pasteNode);
                     refreshView();
@@ -406,12 +406,12 @@ void MenuDialog::onGraphSelectionChanged(uint64 nodeID)
 
 void MenuDialog::onMaterialSelectionChanged(uint64 materialID)
 {
-	_materialSelectionChanged(materialID);
+    _materialSelectionChanged(materialID);
 }
 
 void MenuDialog::onAddMaterial()
 {
-	_addMaterial();
+    _addMaterial();
 }
 
 void MenuDialog::deinitGUI()
@@ -452,6 +452,21 @@ void MenuDialog::deinitGUI()
     if (_userControlGraphView != nullptr)
     {
         iWidgetManager::getInstance().destroyWidget(_userControlGraphView);
+    }
+}
+
+void MenuDialog::setSelectedNode(iNode* node)
+{
+    if (_userControlGraphView != nullptr)
+    {
+        if (node != nullptr)
+        {
+            _userControlGraphView->setSelectedNode(node->getID());
+        }
+        else
+        {
+            _userControlGraphView->setSelectedNode(iNode::INVALID_NODE_ID);
+        }
     }
 }
 
@@ -639,12 +654,12 @@ void MenuDialog::unregisterOnExitModelViewer(ExitModelViewerDelegate exitModelVi
 
 void MenuDialog::onAddModel(uint64 addAt)
 {
-	if (_decisionBoxModelRef == nullptr)
-	{
-		_decisionBoxModelRef = static_cast<iDialogDecisionBox*>(iWidgetManager::getInstance().createDialog("DialogDecisionBox"));
-	}
+    if (_decisionBoxModelRef == nullptr)
+    {
+        _decisionBoxModelRef = static_cast<iDialogDecisionBox*>(iWidgetManager::getInstance().createDialog("DialogDecisionBox"));
+    }
 
-	_decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &MenuDialog::onAddModelDecision), { "embedded", "as reference" }, 0);
+    _decisionBoxModelRef->show("Import model ...", iDecisionBoxCloseDelegate(this, &MenuDialog::onAddModelDecision), { "embedded", "as reference" }, 0);
 }
 
 void MenuDialog::onAddModelDecision(bool ok, int32 selection)
@@ -672,45 +687,45 @@ void MenuDialog::onAddModelDecision(bool ok, int32 selection)
 
 void MenuDialog::onAddTransformation(uint64 addAt)
 {
-	_addTransformation(addAt);
+    _addTransformation(addAt);
 }
 
 void MenuDialog::onAddGroup(uint64 addAt)
 {
-	_addGroup(addAt);
+    _addGroup(addAt);
 }
 
 void MenuDialog::onAddEmitter(uint64 addAt)
 {
-	_addEmitter(addAt);
+    _addEmitter(addAt);
 }
 
 void MenuDialog::onAddParticleSystem(uint64 addAt)
 {
-	_addParticleSystem(addAt);
+    _addParticleSystem(addAt);
 }
 
 void MenuDialog::onAddSwitch(uint64 addAt)
 {
-	_addSwitch(addAt);
+    _addSwitch(addAt);
 }
 
 void MenuDialog::registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
 {
-	_materialSelectionChanged.append(materialSelectionChangedDelegate);
+    _materialSelectionChanged.append(materialSelectionChangedDelegate);
 }
 
 void MenuDialog::unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate materialSelectionChangedDelegate)
 {
-	_materialSelectionChanged.remove(materialSelectionChangedDelegate);
+    _materialSelectionChanged.remove(materialSelectionChangedDelegate);
 }
 
 void MenuDialog::registerOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 {
-	_addMaterial.append(addMaterialDelegate);
+    _addMaterial.append(addMaterialDelegate);
 }
 
 void MenuDialog::unregisterOnAddMaterial(AddMaterialDelegate addMaterialDelegate)
 {
-	_addMaterial.remove(addMaterialDelegate);
+    _addMaterial.remove(addMaterialDelegate);
 }

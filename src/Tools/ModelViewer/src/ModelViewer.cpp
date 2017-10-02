@@ -40,6 +40,7 @@ using namespace IgorAux;
 #include <iTaskFlushTextures.h>
 #include <iNodeMesh.h>
 #include <iMesh.h>
+#include <iRenderEngine.h>
 using namespace Igor;
 
 #include "MenuDialog.h"
@@ -58,41 +59,6 @@ ModelViewer::~ModelViewer()
     deinit();
 }
 
-void ModelViewer::deinit()
-{
-    deinitGUI();
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-
-    //! \todo this should happen automatically
-    iModelResourceFactory::getInstance().flush(&_window);
-    iTextureResourceFactory::getInstance().flush();
-
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
-
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
-
-    _view.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::render));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
-
-    if (_font)
-    {
-        delete _font;
-    }
-
-    iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
-    iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
-    iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
-    iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
-
-    iTaskManager::getInstance().abortTask(_taskFlushTextures);
-}
-
 void ModelViewer::init(iaString fileName)
 {
     con(" -- Model Viewer --" << endl);
@@ -106,6 +72,7 @@ void ModelViewer::init(iaString fileName)
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
 
     _window.setSize(1280, 800);
+    _window.setFullscreen();
     _window.setTitle(WINDOW_TITLE_PREFIX);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
@@ -145,15 +112,15 @@ void ModelViewer::init(iaString fileName)
     _cameraPitch->setName("camera pitch");
     _cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraTranslation->setName("camera translation");
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    camera->setName("camera");
+    _camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    _camera->setName("camera");
 
     _scene->getRoot()->insertNode(_cameraCOI);
     _cameraCOI->insertNode(_cameraHeading);
     _cameraHeading->insertNode(_cameraPitch);
     _cameraPitch->insertNode(_cameraTranslation);
-    _cameraTranslation->insertNode(camera);
-    _view.setCurrentCamera(camera->getID());
+    _cameraTranslation->insertNode(_camera);
+    _view.setCurrentCamera(_camera->getID());
 
     _cameraTranslation->translate(0, 0, 80);
 
@@ -164,18 +131,18 @@ void ModelViewer::init(iaString fileName)
     iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
 
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
-    skyBoxNode->setName("sky box");
-    skyBoxNode->setTextures(
+    _skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    _skyBoxNode->setName("sky box");
+    _skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-    skyBoxNode->setTextureScale(10);
-    skyBoxNode->setMaterial(_materialSkyBox);
-    _scene->getRoot()->insertNode(skyBoxNode);
+    _skyBoxNode->setTextureScale(10);
+    _skyBoxNode->setMaterial(_materialSkyBox);
+    _scene->getRoot()->insertNode(_skyBoxNode);
 
     _font = new iTextureFont("StandardFont.png");
 
@@ -250,6 +217,41 @@ void ModelViewer::init(iaString fileName)
     _menuDialog->refreshView();
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+}
+
+void ModelViewer::deinit()
+{
+    deinitGUI();
+
+    iSceneFactory::getInstance().destroyScene(_scene);
+
+    //! \todo this should happen automatically
+    iModelResourceFactory::getInstance().flush(&_window);
+    iTextureResourceFactory::getInstance().flush();
+
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
+    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
+
+    _window.close();
+    _window.removeView(&_view);
+    _window.removeView(&_viewOrtho);
+
+    _view.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::render));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
+
+    if (_font)
+    {
+        delete _font;
+    }
+
+    iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
+    iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
+    iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
+    iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
+
+    iTaskManager::getInstance().abortTask(_taskFlushTextures);
 }
 
 void ModelViewer::onAddTransformation(uint64 atNodeID)
@@ -645,7 +647,7 @@ void ModelViewer::initGUI()
 }
 
 void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
-{
+{    
     _selectedNodeID = nodeID;
 }
 
@@ -717,24 +719,19 @@ void ModelViewer::updateCamDistance()
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
 {
-    switch (key)
-    {
-    case iKeyCode::MouseLeft:
-        _mouseKey0Pressed = true;
-        break;
-    case iKeyCode::MouseRight:
-        _mouseKey1Pressed = true;
-        break;
-    case iKeyCode::MouseMiddle:
-        _mouseKey2Pressed = true;
-        break;
-    case iKeyCode::MouseButton4:
-        _mouseKey3Pressed = true;
-        break;
-    case iKeyCode::MouseButton5:
-        _mouseKey4Pressed = true;
-        break;
-    }
+
+}
+
+void ModelViewer::pickcolorID()
+{
+    _skyBoxNode->setVisible(false);
+
+    uint64 nodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+    con_endl("nodeid " << nodeID);
+    iNode* node = iNodeFactory::getInstance().getNode(nodeID);
+    _menuDialog->setSelectedNode(node);
+
+    _skyBoxNode->setVisible(true);
 }
 
 void ModelViewer::onMouseKeyUp(iKeyCode key)
@@ -742,19 +739,7 @@ void ModelViewer::onMouseKeyUp(iKeyCode key)
     switch (key)
     {
     case iKeyCode::MouseLeft:
-        _mouseKey0Pressed = false;
-        break;
-    case iKeyCode::MouseRight:
-        _mouseKey1Pressed = false;
-        break;
-    case iKeyCode::MouseMiddle:
-        _mouseKey2Pressed = false;
-        break;
-    case iKeyCode::MouseButton4:
-        _mouseKey3Pressed = false;
-        break;
-    case iKeyCode::MouseButton5:
-        _mouseKey4Pressed = false;
+        pickcolorID();
         break;
     }
 }
@@ -781,7 +766,8 @@ void ModelViewer::onMouseWheel(int32 d)
 
 void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
-    if (_mouseKey0Pressed)
+    if (iMouse::getInstance().getLeftButton() &&
+        iKeyboard::getInstance().getKey(iKeyCode::LAlt))
     {
         _cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
         _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
@@ -789,7 +775,7 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
         iMouse::getInstance().setCenter(true);
     }
 
-    if (_mouseKey1Pressed)
+    if (iMouse::getInstance().getRightButton())
     {
         float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
         _directionalLightRotate->rotate(dx, iaAxis::Y);
@@ -812,6 +798,9 @@ void ModelViewer::onKeyPressed(iKeyCode key)
 {
     switch (key)
     {
+
+    case iKeyCode::LAlt:
+        break;
 
     case iKeyCode::F1:
     {
@@ -844,7 +833,7 @@ void ModelViewer::render()
     if (_selectedNodeID != iNode::INVALID_NODE_ID)
     {
         iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
-        
+
         if (node->getKind() == iNodeKind::Volume)
         {
             iNodeVolume* volume = static_cast<iNodeVolume*>(node);
@@ -865,7 +854,7 @@ void ModelViewer::render()
                 iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
 
                 iAABoxd box = volume->getBoundingBox();
-                
+
                 iRenderer::getInstance().setColor(1, 1, 0, 1);
                 iRenderer::getInstance().drawBBox(box);
             }

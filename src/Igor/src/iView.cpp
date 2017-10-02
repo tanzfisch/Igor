@@ -208,6 +208,56 @@ namespace Igor
         }
     }
 
+    uint64 iView::pickcolorID(int32 posx, int32 posy)
+    {
+        uint64 result = iNode::INVALID_NODE_ID;
+        
+        // TODO check ranges
+
+        if (_scene != nullptr && 
+            getCurrentCamera() != iNode::INVALID_NODE_ID)
+        {
+            iRenderEngine renderEngine;
+
+            uint32 renderTarget = iRenderer::getInstance().createRenderTarget(_viewport.getWidth(), _viewport.getHeight(), iColorFormat::RGBA, iRenderTargetType::ToRenderBuffer, true);
+            iRenderer::getInstance().setRenderTarget(renderTarget);
+
+            iRenderer::getInstance().setViewport(0, 0, _viewport.getWidth(), _viewport.getHeight());
+
+            iRenderer::getInstance().setClearColor(iaColor4f(0, 0, 0, 0));
+            iRenderer::getInstance().setClearDepth(1.0);
+
+            iRenderer::getInstance().clearColorBuffer();
+            iRenderer::getInstance().clearDepthBuffer();
+
+            if (_perspective)
+            {
+                iRenderer::getInstance().setPerspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
+            }
+            else
+            {
+                iRenderer::getInstance().setOrtho(_left, _right, _bottom, _top, _nearPlaneDistance, _farPlaneDistance);
+            }
+
+            renderEngine.setScene(_scene);
+            renderEngine.setCurrentCamera(getCurrentCamera());
+            _scene->handle();
+
+            renderEngine.setColorIDRendering();
+            renderEngine.render();
+
+            uint8 data[4];
+            iRenderer::getInstance().readPixels(posx, posy, 1, 1, iColorFormat::RGBA, data);
+
+            iRenderer::getInstance().setRenderTarget();
+            iRenderer::getInstance().destroyRenderTarget(renderTarget);
+
+            result = (static_cast<uint64>(data[0]) << 16) | (static_cast<uint64>(data[1]) << 8) | (static_cast<uint64>(data[2]));
+        }
+
+        return result;
+    }
+
     void iView::updateWindowRect(const iRectanglei& windowRect)
     {
         _windowRect = windowRect;

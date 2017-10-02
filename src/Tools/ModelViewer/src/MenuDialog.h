@@ -77,6 +77,7 @@ public:
     static iDialog* createInstance();
 
     void setRootNode(iNode* root);
+    void setSelectedNode(iNode* node);
     void refreshView();
 
     void registerOnLoadFile(LoadFileDelegate loadFileDelegate);

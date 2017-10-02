@@ -236,7 +236,7 @@ namespace Igor
             glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); GL_CHECK_ERROR();
             glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);	GL_CHECK_ERROR();
             glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);	GL_CHECK_ERROR();
-            glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);	GL_CHECK_ERROR();
+            glHint(GL_POLYGON_SMOOTH_HINT, GL_FASTEST);	GL_CHECK_ERROR();
 
             glDepthFunc(GL_LESS);		GL_CHECK_ERROR();
             glEnable(GL_DEPTH_TEST);	GL_CHECK_ERROR();

@@ -224,6 +224,8 @@ namespace Igor
         */
         iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix);
 
+        uint64 pickcolorID(int32 posx, int32 posy);
+
         /*! init statistics counters
         */
         iView();

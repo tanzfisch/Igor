@@ -70,7 +70,8 @@ public:
     UserControlGraphView();
     virtual ~UserControlGraphView();
 
-    uint64 getSelectedNode();
+    void setSelectedNode(uint64 nodeID);
+    uint64 getSelectedNode() const;
     void setRootNode(uint64 root);
     uint64 getRootNode();
     void refresh();

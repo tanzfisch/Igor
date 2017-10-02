@@ -52,6 +52,8 @@ namespace Igor
     class iWidgetScroll;
     class iDialogMessageBox;
     class iRenderStatistics;
+
+    class iNodeSkyBox;
 }
 
 class PropertiesDialog;
@@ -85,6 +87,9 @@ private:
     iNodeTransform* _cameraPitch = nullptr;
     iNodeTransform* _cameraTranslation = nullptr;
     iNodeTransform* _transformModel = nullptr;
+    iNodeCamera* _camera = nullptr;
+
+    iNodeSkyBox* _skyBoxNode = nullptr;
 
     iNodeTransform* _directionalLightTranslate = nullptr;
     iNodeTransform* _directionalLightRotate = nullptr;
@@ -109,13 +114,9 @@ private:
     uint64 _materialBoundingBox;
     uint64 _materialCelShading;
 
-    bool _mouseKey0Pressed = false;
-    bool _mouseKey1Pressed = false;
-    bool _mouseKey2Pressed = false;
-    bool _mouseKey3Pressed = false;
-    bool _mouseKey4Pressed = false;
-
 	uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
+
+    void pickcolorID();
 
     void onGraphViewSelectionChanged(uint64 nodeID);
 

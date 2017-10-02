@@ -84,8 +84,32 @@ namespace Igor
 
     void iWidgetGrid::unSelect()
     {
-        _selectedCollumn = -1;
-        _selectedRow = -1;
+        if (_selectedCollumn != -1 ||
+            _selectedRow != -1)
+        {
+            _selectedCollumn = -1;
+            _selectedRow = -1;
+
+            _change(this);
+        }
+    }
+
+    void iWidgetGrid::select(int32 collumn, int32 row)
+    {
+        if (row >= 0 &&
+            row < getRowCount() &&
+            collumn >= 0 &&
+            collumn < getColumnCount())
+        {
+            if (_selectedCollumn != collumn ||
+                _selectedRow != row)
+            {
+                _selectedCollumn = collumn;
+                _selectedRow = row;
+
+                _change(this);
+            }
+        }
     }
 
     int32 iWidgetGrid::getSelectedCollumn() const

@@ -115,6 +115,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>..\..\..\lib\;</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
     </Link>
     <PreLinkEvent>
       <Command>xcopy "$(ProjectDir)..\src\*.h" "$(ProjectDir)..\..\..\include\"  /Y

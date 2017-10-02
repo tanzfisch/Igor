@@ -43,7 +43,7 @@ namespace Igor
 
     /*! does control the render loop
     */
-    class iRenderEngine
+    class Igor_API iRenderEngine
     {
 
     public:

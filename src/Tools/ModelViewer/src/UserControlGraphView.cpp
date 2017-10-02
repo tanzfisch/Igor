@@ -337,7 +337,35 @@ void UserControlGraphView::OnContextMenuClose(int32 value)
     }
 }
 
-uint64 UserControlGraphView::getSelectedNode()
+void UserControlGraphView::setSelectedNode(uint64 nodeID)
+{
+    if (nodeID == iNode::INVALID_NODE_ID)
+    {
+        _gridGraph->unSelect();
+        return;
+    }
+
+    int32 rowCount = _gridGraph->getRowCount();
+    for (int row = 0; row < rowCount; ++row)
+    {
+        uint64* nodeIDPtr = static_cast<uint64*>(_gridGraph->getUserData(0, row));
+        uint64 id = iNode::INVALID_NODE_ID;
+        if (nodeIDPtr != nullptr)
+        {
+            id = *nodeIDPtr;
+        }
+
+        if (nodeID == id)
+        {
+            _gridGraph->select(0, row);
+            return;
+        }
+    }
+
+    _gridGraph->unSelect();
+}
+
+uint64 UserControlGraphView::getSelectedNode() const
 {
     return _selectedNode;
 }
