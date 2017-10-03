@@ -200,6 +200,8 @@ namespace Igor
 		virtual void showCursor(bool show);
 
         /*! \returns the current mouse position relative to the parent window in pixel.
+
+        origin is top left 
         */
         iaVector2i getPos();
 
