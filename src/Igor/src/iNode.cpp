@@ -12,21 +12,18 @@
 namespace Igor
 {
 
-	uint64 iNode::_nextID = iNode::INVALID_NODE_ID + 1;
-	iaMutex iNode::_mutexID;
+    iaIDGenerator64 iNode::_idGenerator;
 
 	iNode::iNode()
 	{
-		iNode::_mutexID.lock();
-		_nodeID = iNode::_nextID++;
-		iNode::_mutexID.unlock();
+		_nodeID = iNode::_idGenerator.createID();
 	}
 
 	iNode::iNode(iNode* node)
 	{
 		con_assert(node != nullptr, "zero pointer");
 
-		_nodeID = iNode::_nextID++;
+		_nodeID = iNode::_idGenerator.createID();
 		setName(node->getName());
 	}
 
@@ -50,6 +47,8 @@ namespace Igor
 			iNodeFactory::getInstance().destroyNode(inactiveChildrenCopy[i]);
 		}
 		_inactiveChildren.clear();
+
+        iNode::_idGenerator.destroyID(_nodeID);
 	}
 
 	__IGOR_DISABLE_WARNING__(4100)

@@ -35,6 +35,7 @@
 #include <iaString.h>
 #include <iaMatrix.h>
 #include <iaMutex.h>
+#include <iaIDGenerator.h>
 using namespace IgorAux;
 
 #include <ostream>
@@ -108,7 +109,7 @@ namespace Igor
 
         /*! invalid node id definition
         */
-        static const uint64 INVALID_NODE_ID = 0;
+        static const uint64 INVALID_NODE_ID = IGOR_INVALID_ID;
 
         /*! \returns kind (group) of the node
         */
@@ -352,13 +353,9 @@ namespace Igor
         */
         bool _queueToDirtyData = false;
 
-        /*! mutex to save unique id generation
-        */
-        static iaMutex _mutexID;
-
         /*! the next node id
         */
-        static uint64 _nextID;
+        static iaIDGenerator64 _idGenerator;
 
         /*! id of this node
         */

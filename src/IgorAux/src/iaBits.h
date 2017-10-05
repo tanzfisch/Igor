@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iaBITS__
-#define __iaBITS__
+#ifndef __IGOR_AUX_BITS__
+#define __IGOR_AUX_BITS__
 
 #include <iaDefines.h>
 

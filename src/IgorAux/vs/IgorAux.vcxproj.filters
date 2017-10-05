@@ -150,6 +150,9 @@
     <ClInclude Include="..\src\iaSystem.h">
       <Filter>IO</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaIDGenerator.h">
+      <Filter>data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">

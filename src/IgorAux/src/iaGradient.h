@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iaGRADIENT__
-#define __iaGRADIENT__
+#ifndef __IGOR_AUX_GRADIENT__
+#define __IGOR_AUX_GRADIENT__
 
 #include <iaDefines.h>
 

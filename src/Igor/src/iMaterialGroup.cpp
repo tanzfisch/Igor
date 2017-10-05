@@ -30,7 +30,7 @@ namespace Igor
         }
     }
 
-    void iMaterialGroup::removeRenderNode(uint32 renderNodeID)
+    void iMaterialGroup::removeRenderNode(uint64 renderNodeID)
     {
         iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
         if (renderNode != nullptr)
@@ -56,7 +56,7 @@ namespace Igor
         }
     }
 
-    void iMaterialGroup::addRenderNode(uint32 renderNodeID)
+    void iMaterialGroup::addRenderNode(uint64 renderNodeID)
     {
         iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
         if (renderNode != nullptr)

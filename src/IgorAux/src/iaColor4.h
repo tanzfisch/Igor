@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iCOLOR4__
-#define __iCOLOR4__
+#ifndef __IGOR_AUX_COLOR4__
+#define __IGOR_AUX_COLOR4__
 
 #include <iaDefines.h>
 
