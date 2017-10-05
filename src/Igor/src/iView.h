@@ -39,6 +39,9 @@
 #include <iaMatrix.h>
 using namespace IgorAux;
 
+#include <vector>
+using namespace std;
+
 namespace Igor
 {
 
@@ -224,7 +227,19 @@ namespace Igor
         */
         iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix);
 
-        uint64 pickcolorID(int32 posx, int32 posy);
+        /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point
+
+        top left is origin
+
+        \param posx horrizontal position of point in pixel
+        \param posy vertical position of point in pixel
+        \returns color id at given point (results are only valid for IDs <= 0xFFFFFF in use)
+        */
+        uint64 pickcolorID(uint32 posx, uint32 posy);
+
+        /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
+        */
+        void pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs);
 
         /*! init statistics counters
         */

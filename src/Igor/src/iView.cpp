@@ -45,7 +45,7 @@ namespace Igor
     {
         _visible = visible;
     }
-    
+
     bool iView::isVisible() const
     {
         return _visible;
@@ -80,7 +80,7 @@ namespace Igor
     {
         return _renderEngine.isOctreeVisible();
     }
-    
+
     void iView::setName(const iaString& name)
     {
         _name = name;
@@ -208,13 +208,21 @@ namespace Igor
         }
     }
 
-    uint64 iView::pickcolorID(int32 posx, int32 posy)
+    uint64 iView::pickcolorID(uint32 posx, uint32 posy)
     {
-        uint64 result = iNode::INVALID_NODE_ID;
+        vector<uint64> colorIDs;
         
+        pickcolorID(iRectanglei(posx, posy, 1, 1), colorIDs);
+
+        return colorIDs.front();
+    }
+
+    // TODO use alpha channel for color ID as well
+    void iView::pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs)
+    {
         // TODO check ranges
 
-        if (_scene != nullptr && 
+        if (_scene != nullptr &&
             getCurrentCamera() != iNode::INVALID_NODE_ID)
         {
             iRenderEngine renderEngine;
@@ -246,16 +254,23 @@ namespace Igor
             renderEngine.setColorIDRendering();
             renderEngine.render();
 
-            uint8 data[4];
-            iRenderer::getInstance().readPixels(posx, posy, 1, 1, iColorFormat::RGBA, data);
+            uint32 pixelCount = rectangle._width*rectangle._height;
+            uint8* data = new uint8[pixelCount * 4];
+            iRenderer::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
 
             iRenderer::getInstance().setRenderTarget();
             iRenderer::getInstance().destroyRenderTarget(renderTarget);
 
-            result = (static_cast<uint64>(data[0]) << 16) | (static_cast<uint64>(data[1]) << 8) | (static_cast<uint64>(data[2]));
-        }
+            uint8* dataIter = data;
+            for (int i = 0; i < pixelCount; ++i)
+            {
+                uint64 colorID = (static_cast<uint64>(dataIter[0]) << 16) | (static_cast<uint64>(dataIter[1]) << 8) | (static_cast<uint64>(dataIter[2]));
+                colorIDs.push_back(colorID);
+                dataIter+=4;
+            }
 
-        return result;
+            delete[] data;
+        }
     }
 
     void iView::updateWindowRect(const iRectanglei& windowRect)

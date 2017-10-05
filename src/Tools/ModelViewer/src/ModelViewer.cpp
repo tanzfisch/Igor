@@ -726,7 +726,6 @@ void ModelViewer::pickcolorID()
     _skyBoxNode->setVisible(false);
 
     uint64 nodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
-    con_endl("nodeid " << nodeID);
     iNode* node = iNodeFactory::getInstance().getNode(nodeID);
     _menuDialog->setSelectedNode(node);
 
