@@ -748,7 +748,10 @@ void ModelViewer::onMouseKeyUp(iKeyCode key)
     switch (key)
     {
     case iKeyCode::MouseLeft:
-        pickcolorID();
+        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+        {
+            pickcolorID();
+        }
         break;
     }
 }
@@ -780,8 +783,6 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
     {
         _cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
         _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
-
-        iMouse::getInstance().setCenter(true);
     }
 
     if (iMouse::getInstance().getRightButton())
