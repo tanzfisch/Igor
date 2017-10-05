@@ -146,7 +146,8 @@ private:
 
     void deinit();
     void init(iaString fileName);
-    void updateCamDistance();
+    void updateCamDistanceTransform(float32 camDistance);
+    void centerCamOnNode(iNode* node);
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue);

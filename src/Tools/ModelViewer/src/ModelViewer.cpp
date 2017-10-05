@@ -266,6 +266,7 @@ void ModelViewer::onAddTransformation(uint64 atNodeID)
     transform->setName("Transformation");
     destination->insertNode(transform);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(transform);
 }
 
 void ModelViewer::onAddGroup(uint64 atNodeID)
@@ -281,6 +282,7 @@ void ModelViewer::onAddGroup(uint64 atNodeID)
     group->setName("Group");
     destination->insertNode(group);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(group);
 }
 
 void ModelViewer::onAddEmitter(uint64 atNodeID)
@@ -296,6 +298,7 @@ void ModelViewer::onAddEmitter(uint64 atNodeID)
     emitter->setName("Emitter");
     destination->insertNode(emitter);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(emitter);
 }
 
 void ModelViewer::onAddParticleSystem(uint64 atNodeID)
@@ -311,6 +314,7 @@ void ModelViewer::onAddParticleSystem(uint64 atNodeID)
     particleSystem->setName("ParticleSystem");
     destination->insertNode(particleSystem);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(particleSystem);
 }
 
 void ModelViewer::onAddMaterial()
@@ -332,6 +336,7 @@ void ModelViewer::onAddSwitch(uint64 atNodeID)
     switchNode->setName("Switch");
     destination->insertNode(switchNode);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(switchNode);
 }
 
 void ModelViewer::forceLoadingNow()
@@ -358,20 +363,27 @@ void ModelViewer::forceLoadingNow()
         iModelResourceFactory::getInstance().flush(&_window);
     }
 
-    // calculate and get the boundings
-    iNodeVisitorBoundings visitorBoundings;
-    visitorBoundings.traverseTree(_groupNode);
-    iSphered sphere;
-    visitorBoundings.getSphere(sphere);
+    centerCamOnNode(_groupNode);
+}
 
-    iaMatrixd coiMatrix;
-    coiMatrix._pos = sphere._center;
-    _cameraCOI->setMatrix(coiMatrix);
-    _camDistance = sphere._radius * 3.0f;
-    _camMinDistance = sphere._radius * 0.5f;
-    _camMaxDistance = sphere._radius * 10.0f;
+void ModelViewer::centerCamOnNode(iNode* node)
+{
+    if (node != nullptr)
+    {
+        iNodeVisitorBoundings visitorBoundings;
+        visitorBoundings.traverseTree(node);
+        iSphered sphere;
+        visitorBoundings.getSphere(sphere);
 
-    updateCamDistance();
+        iaMatrixd coiMatrix;
+        coiMatrix._pos = sphere._center;
+        _cameraCOI->setMatrix(coiMatrix);
+        _camDistance = sphere._radius * 4.0f;
+        _camMinDistance = sphere._radius * 0.5f;
+        _camMaxDistance = sphere._radius * 10.0f;
+
+        updateCamDistanceTransform(_camDistance);
+    }
 }
 
 void ModelViewer::onImportFile(uint64 nodeID)
@@ -646,7 +658,7 @@ void ModelViewer::initGUI()
 }
 
 void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
-{    
+{
     _selectedNodeID = nodeID;
 }
 
@@ -710,15 +722,14 @@ void ModelViewer::onWindowResize(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
 }
 
-void ModelViewer::updateCamDistance()
+void ModelViewer::updateCamDistanceTransform(float32 camDistance)
 {
     _cameraTranslation->identity();
-    _cameraTranslation->translate(0, 0, _camDistance);
+    _cameraTranslation->translate(0, 0, camDistance);
 }
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
 {
-
 }
 
 void ModelViewer::pickcolorID()
@@ -759,7 +770,7 @@ void ModelViewer::onMouseWheel(int32 d)
         }
     }
 
-    updateCamDistance();
+    updateCamDistanceTransform(_camDistance);
 }
 
 void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
@@ -797,8 +808,12 @@ void ModelViewer::onKeyPressed(iKeyCode key)
     switch (key)
     {
 
-    case iKeyCode::LAlt:
-        break;
+    case iKeyCode::F:
+    {
+        iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+        centerCamOnNode(node);
+    }
+    break;
 
     case iKeyCode::F1:
     {
