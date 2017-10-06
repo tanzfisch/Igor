@@ -19,8 +19,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    const iaColor4f iStatisticsVisualizer::_colors[] = 
-    { 
+    const iaColor4f iStatisticsVisualizer::_colors[] =
+    {
         iaColor4f(0,0,0,1),
         iaColor4f(1,0,0,1),
         iaColor4f(0,1,0,1),
@@ -37,7 +37,7 @@ namespace Igor
         iaColor4f(0,0.75,0.75,1),
         iaColor4f(0.75,0,0.75,1),
         iaColor4f(0.75,0.75,0.75,1),
-        
+
         iaColor4f(0.5,0,0,1),
         iaColor4f(0,0.5,0,1),
         iaColor4f(0,0,0.5,1),
@@ -113,6 +113,15 @@ namespace Igor
         _renderStatisticsMode = renderStatisticsMode;
     }
 
+    void iStatisticsVisualizer::cycleVerbosity()
+    {
+        _renderStatisticsMode = static_cast<iRenderStatisticsVerbosity>(static_cast<int>(_renderStatisticsMode) + 1);
+        if (_renderStatisticsMode > iRenderStatisticsVerbosity::All)
+        {
+            _renderStatisticsMode = iRenderStatisticsVerbosity::None;
+        }
+    }
+
     iRenderStatisticsVerbosity iStatisticsVisualizer::getVerbosity()
     {
         return _renderStatisticsMode;
@@ -120,7 +129,7 @@ namespace Igor
 
     void iStatisticsVisualizer::drawStatistics(iWindow* window, iTextureFont* font, const iaColor4f& color)
     {
-        if (iRenderer::getInstance().isReady() && 
+        if (iRenderer::getInstance().isReady() &&
             _renderStatisticsMode > iRenderStatisticsVerbosity::None)
         {
             iaMatrixd identity;
@@ -245,7 +254,7 @@ namespace Igor
 
                 iaString done = "done ";
                 done += iaString::itoa(_lastDoneTaskCount);
-                
+
                 iRenderer::getInstance().drawString(10.0f, static_cast<float32>(window->getClientHeight() - 50), done, iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
             }
 

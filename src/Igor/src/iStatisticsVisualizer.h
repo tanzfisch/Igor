@@ -74,6 +74,10 @@ namespace Igor
         */
         iRenderStatisticsVerbosity getVerbosity();
 
+        /*! cycles through all the verbosity modes one by one for each call
+        */
+        void cycleVerbosity();
+
         /*! displays the rendering statistics
 
         only works correctly called within a orthogonal view's render call

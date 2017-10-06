@@ -129,7 +129,7 @@ namespace Igor
 
         calcMinSize();
 
-        _swapBufferSectionID = iStatistics::getInstance().registerSection("window:swapBuffers", 0);
+        _swapBufferSectionID = iStatistics::getInstance().registerSection("window:swap", 0);
     }
 
     HGLRC iWindow::createRenderContext()

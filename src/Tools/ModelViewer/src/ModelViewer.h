@@ -38,6 +38,7 @@
 #include <iaMatrix.h>
 #include <iWidgetManager.h>
 #include <iDialogFileSelect.h>
+#include <iStatisticsVisualizer.h>
 using namespace Igor;
 
 namespace Igor
@@ -115,6 +116,8 @@ private:
     uint64 _materialCelShading;
 
 	uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
+
+    iStatisticsVisualizer _statisticsVisualizer;
 
     void pickcolorID();
 

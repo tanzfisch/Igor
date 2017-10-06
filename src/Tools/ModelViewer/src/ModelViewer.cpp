@@ -834,6 +834,10 @@ void ModelViewer::onKeyPressed(iKeyCode key)
     case iKeyCode::B:
         _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
         break;
+
+    case iKeyCode::S:
+        _statisticsVisualizer.cycleVerbosity();
+        break;
     }
 }
 
@@ -884,6 +888,8 @@ void ModelViewer::renderOrtho()
 
     iWidgetManager::getInstance().draw();
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void ModelViewer::run(iaString fileName)
