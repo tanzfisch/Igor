@@ -216,6 +216,8 @@ void ModelViewer::init(iaString fileName)
     _menuDialog->refreshView();
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+
+    _modifier.init();
 }
 
 void ModelViewer::deinit()
@@ -878,6 +880,11 @@ void ModelViewer::render()
             }
         }
     }
+
+    iaMatrixd matrix;
+    iRenderer::getInstance().setModelMatrix(matrix);
+    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial(), true);
+    _modifier.draw();
 }
 
 void ModelViewer::renderOrtho()

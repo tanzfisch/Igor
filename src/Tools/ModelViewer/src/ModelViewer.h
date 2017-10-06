@@ -29,6 +29,8 @@
 #ifndef __MODELVIEWER__
 #define __MODELVIEWER__
 
+#include "Modifier.h"
+
 #include <Igor.h>
 #include <iWindow.h>
 #include <iView.h>
@@ -118,6 +120,8 @@ private:
 	uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
 
     iStatisticsVisualizer _statisticsVisualizer;
+
+    Modifier _modifier;
 
     void pickcolorID();
 

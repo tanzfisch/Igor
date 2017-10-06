@@ -71,6 +71,8 @@ namespace Igor
     };
 
     /*! builds up a mesh and spits out iMesh
+
+    \todo how about applying transformations directly on the data before generating buffers from ìt?
     */
     class Igor_API iMeshBuilder
     {
