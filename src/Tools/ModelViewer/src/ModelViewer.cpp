@@ -781,7 +781,7 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
     if (iMouse::getInstance().getLeftButton() &&
         iKeyboard::getInstance().getKey(iKeyCode::LAlt))
     {
-        _cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
+        _cameraPitch->rotate((y1 - y2) * 0.005f, iaAxis::X);
         _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
     }
 
