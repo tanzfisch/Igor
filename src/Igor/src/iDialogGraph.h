@@ -36,6 +36,9 @@
 #include <iaColor4.h>
 using namespace IgorAux;
 
+#include <map>
+using namespace std;
+
 namespace Igor
 {
 
@@ -122,6 +125,8 @@ namespace Igor
         */
         map<uint32, iaString> _axisNames;
 
+        /*! axis number chooser
+        */
         map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
 
         /*! the close event

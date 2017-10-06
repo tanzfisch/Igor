@@ -135,7 +135,7 @@ namespace Igor
 
         iWidgetGrid* axisGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(axisGrid);
-        axisGrid->appendRows(_graphs.size() + 2);
+        axisGrid->appendRows(static_cast<uint32>(_graphs.size() + 2));
         axisGrid->appendCollumns(1);
         axisGrid->setHorizontalAlignment(iHorizontalAlignment::Strech);
         axisGrid->setVerticalAlignment(iVerticalAlignment::Strech);
@@ -230,7 +230,7 @@ namespace Igor
         delButton->setText("Delete Value");
         delButton->setHorizontalAlignment(iHorizontalAlignment::Right);
         delButton->registerOnClickEvent(iClickDelegate(this, &iDialogGraph::onDelete));
-        axisGrid->addWidget(delButton, 1, _graphs.size() + 1);
+        axisGrid->addWidget(delButton, 1, static_cast<uint32>(_graphs.size() + 1));
 
         iWidgetGrid* buttonGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         _allWidgets.push_back(buttonGrid);
