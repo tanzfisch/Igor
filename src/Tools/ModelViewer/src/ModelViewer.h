@@ -76,21 +76,32 @@ private:
 
     iWindow _window;
     iView _view;
+    iView _viewUI;
     iView _viewOrtho;
     iaMatrixd _modelViewOrtho;
 
     iTextureFont* _font = nullptr;
     iScene* _scene = nullptr;
+    iScene* _sceneUI = nullptr;
 
     iDialogFileSelect* _fileDialog = nullptr;
     iDialogMessageBox* _messageBox = nullptr;
 
+    // TODO need some classes handling different types of cameras
     iNodeTransform* _cameraCOI = nullptr;
     iNodeTransform* _cameraHeading = nullptr;
     iNodeTransform* _cameraPitch = nullptr;
     iNodeTransform* _cameraTranslation = nullptr;
     iNodeTransform* _transformModel = nullptr;
     iNodeCamera* _camera = nullptr;
+
+    iNodeTransform* _cameraCOIUI = nullptr;
+    iNodeTransform* _cameraHeadingUI = nullptr;
+    iNodeTransform* _cameraPitchUI = nullptr;
+    iNodeTransform* _cameraTranslationUI = nullptr;
+    iNodeTransform* _transformModelUI = nullptr;
+    iNodeCamera* _cameraUI = nullptr;
+
 
     iNodeSkyBox* _skyBoxNode = nullptr;
 
@@ -105,8 +116,6 @@ private:
     iRenderStatistics* _renderStatistics = nullptr;
 
     float32 _camDistance = 0;
-    float32 _camMinDistance = 0;
-    float32 _camMaxDistance = 0;
 
     uint64 _taskFlushTextures = 0;
 
@@ -121,7 +130,7 @@ private:
 
     iStatisticsVisualizer _statisticsVisualizer;
 
-    Modifier _modifier;
+    Modifier* _modifier = nullptr;
 
     void pickcolorID();
 

@@ -30,33 +30,95 @@
 #define __MODIFIER__
 
 #include <iMeshBuffers.h>
+#include <iMaterial.h>
+#include <iNode.h>
+using namespace Igor;
 
 #include <memory>
 using namespace std;
 
 namespace Igor
 {
-
-    /*! ui element to modify position, orientation and scale of objects in the scene
-    */
-    class Modifier
-    {
-
-    public:
-
-        void init();
-        void draw();
-
-    private:
-
-        shared_ptr<iMeshBuffers> _cylinder;
-        shared_ptr<iMeshBuffers> _umbrella;
-        
-        void initUmbrella();
-        void initCylinder();
-
-    };
+    class iTargetMaterial;
+    class iNodeTransform;
+    class iNodeSwitch;
 }
 
+enum class ModifierMode
+{
+    Locator,
+    Translate,
+    Scale,
+    Rotate
+};
+
+/*! ui element to modify position, orientation and scale of objects in the scene
+*/
+class Modifier
+{
+
+public:
+
+    Modifier(iNode* parent);
+
+    void setVisible(bool visible);
+    bool isVisible() const;
+
+    void setMatrix(const iaMatrixd& matrix);
+    void getMatrix(iaMatrixd& matrix) const;
+
+    void updateCamMatrix(const iaMatrixd& camMatrix);
+
+    void init();
+    
+    void deinit();
+    
+    void setModifierMode(ModifierMode modifierMode);
+    ModifierMode getModifierMode() const;
+
+private:
+
+    iNode* _parent = nullptr;
+    bool _visible = false;
+
+    iNodeTransform* _rootTransform = nullptr;
+
+    iNodeSwitch* _switchNode = nullptr;
+
+    iNode* _locatorModifier = nullptr;
+    iNode* _translateModifier = nullptr;
+    iNode* _scaleModifier = nullptr;
+    iNode* _roateModifier = nullptr;
+
+    ModifierMode _modifierMode = ModifierMode::Locator;
+
+    shared_ptr<iMeshBuffers> _cylinder;
+    shared_ptr<iMeshBuffers> _umbrella;
+    shared_ptr<iMeshBuffers> _cube;
+
+    iaMatrixd _modifierMatrix;
+
+    iaMatrixd _umbrellaMatrix;
+    iaMatrixd _cylinderMatrix;
+    iaMatrixd _cubeMatrix;
+    bool _dirtyMatrices = true;
+
+    uint64 _material = iMaterial::INVALID_MATERIAL_ID;
+
+    void updateMatrices();
+
+    shared_ptr<iMesh> createUmbrella();
+    shared_ptr<iMesh> createCylinder();
+    shared_ptr<iMesh> createCube();
+
+    void createLocatorModifier(shared_ptr<iMesh> &cylinderMesh);
+    void createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh);
+    void createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &cubeMesh);
+
+};
+
+
 #endif
+
+
 

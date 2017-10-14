@@ -569,6 +569,7 @@ namespace Igor
         \param color the color to be set
         */
         void setColor(iaColor4f color);
+        void setColorExt(iaColor4f color); // replace the other set color once the fixed function pipeline is gone
 
         /*! set current color
 

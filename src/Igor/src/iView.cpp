@@ -170,16 +170,15 @@ namespace Igor
         {
             iRenderer::getInstance().setViewport(_viewport.getX(), _viewport.getY(), _viewport.getWidth(), _viewport.getHeight());
 
-            iRenderer::getInstance().setClearColor(_clearColor);
-            iRenderer::getInstance().setClearDepth(_clearDepth);
-
             if (_clearColorActive)
             {
+                iRenderer::getInstance().setClearColor(_clearColor);
                 iRenderer::getInstance().clearColorBuffer();
             }
 
             if (_clearDepthActive)
             {
+                iRenderer::getInstance().setClearDepth(_clearDepth);
                 iRenderer::getInstance().clearDepthBuffer();
             }
 

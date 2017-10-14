@@ -71,7 +71,7 @@ namespace Igor
 
     public:
 
-        static constexpr const char* UNIFORM_COLORID = "igor_colorID";
+        static constexpr const char* UNIFORM_SOLIDCOLOR = "igor_solidColor";
 
         static constexpr const char* UNIFORM_LIGHT_ORIENTATION = "igor_lightOrientation";
         static constexpr const char* UNIFORM_LIGHT_AMBIENT = "igor_lightAmbient";
@@ -94,7 +94,7 @@ namespace Igor
 
         /*! invalid material ID
         */
-        static const int64 INVALID_MATERIAL_ID = 0;
+        static const int64 INVALID_MATERIAL_ID = IGOR_INVALID_ID;
 
         /*! default render order value
         */
@@ -163,7 +163,7 @@ namespace Igor
 
         bool _hasTargetMaterial = false;
 
-        bool _hasColorID = false;
+        bool _hasSolidColor = false;
 
         /*! oder that material groups get sorted by
 

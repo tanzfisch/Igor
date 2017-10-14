@@ -94,9 +94,9 @@ namespace Igor
                 _hasTargetMaterial = true;
             }
 
-            if (iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_COLORID) != -1)
+            if (iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_SOLIDCOLOR) != -1)
             {
-                _hasColorID = true;
+                _hasSolidColor = true;
             }
         }
     }

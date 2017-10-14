@@ -141,7 +141,7 @@ namespace Igor
         _colorIDMaterial = createMaterial();
         getMaterial(_colorIDMaterial)->setName("IgorColorID");
         getMaterial(_colorIDMaterial)->addShaderSource("igor_default.vert", iShaderObjectType::Vertex);
-        getMaterial(_colorIDMaterial)->addShaderSource("igor_colorID.frag", iShaderObjectType::Fragment);
+        getMaterial(_colorIDMaterial)->addShaderSource("igor_solidColor.frag", iShaderObjectType::Fragment);
         getMaterial(_colorIDMaterial)->compileShader();
         getMaterialGroup(_colorIDMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
     }

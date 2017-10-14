@@ -140,6 +140,7 @@ namespace Igor
             iRenderer::getInstance().setColor(1, 1, 1, 1);
         }
 
+        //! \todo make VBO
 		iRenderer::getInstance().drawBillboard(iaVector3f(0,0,-_boxSize),iaVector3f(-_boxSize,0,0),iaVector3f(0,_boxSize,0), _front, _textureScale, _textureScale);
 		iRenderer::getInstance().drawBillboard(iaVector3f(0,0,_boxSize),iaVector3f(_boxSize,0,0),iaVector3f(0,_boxSize,0), _back, _textureScale, _textureScale);
 		iRenderer::getInstance().drawBillboard(iaVector3f(-_boxSize,0,0),iaVector3f(0,0,_boxSize),iaVector3f(0,_boxSize,0), _left,_textureScale,_textureScale);

@@ -216,6 +216,7 @@ namespace Igor
         while (iterRenderables != renderables.end())
         {
             iNodeRender* renderNode = (*iterRenderables);
+
             uint64 materialID = renderNode->getMaterial();
             if (materialID != iMaterial::INVALID_MATERIAL_ID)
             {

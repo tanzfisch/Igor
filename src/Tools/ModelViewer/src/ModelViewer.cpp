@@ -76,11 +76,17 @@ void ModelViewer::init(iaString fileName)
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
 
-    _view.setClearColor(iaColor4f(0.5f, 0.0f, 0.5f, 1.0f));
+    _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
     _view.setPerspective(45.0f);
-    _view.setClipPlanes(0.1f, 10000.f);
+    _view.setClipPlanes(0.1f, 10000.f);    
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
+
+    _viewUI.setClearColor(false);
+    _viewUI.setClearDepth(true);
+    _viewUI.setPerspective(45.0f);
+    _viewUI.setClipPlanes(0.1f, 10000.f);
+    _window.addView(&_viewUI);
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
@@ -92,7 +98,12 @@ void ModelViewer::init(iaString fileName)
     _window.open(); // open after adding views to prevent warning message
 
     _scene = iSceneFactory::getInstance().createScene();
+    _scene->setName("Model Scene");
     _view.setScene(_scene);
+
+    _sceneUI = iSceneFactory::getInstance().createScene();
+    _sceneUI->setName("Modifier Scene");
+    _viewUI.setScene(_sceneUI);
 
     _transformModel = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _transformModel->setName("model transform");
@@ -101,6 +112,9 @@ void ModelViewer::init(iaString fileName)
     _groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     _groupNode->setName("groupNode");
     _transformModel->insertNode(_groupNode);
+
+    // modifier
+    _modifier = new Modifier(_sceneUI->getRoot());
 
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -123,11 +137,32 @@ void ModelViewer::init(iaString fileName)
 
     _cameraTranslation->translate(0, 0, 80);
 
+    // camUI
+    _cameraCOIUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraCOIUI->setName("camera COI UI");
+    _cameraHeadingUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraHeadingUI->setName("camera heading UI");
+    _cameraPitchUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraPitchUI->setName("camera pitch UI");
+    _cameraTranslationUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraTranslationUI->setName("camera translation UI");
+    _cameraUI = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    _cameraUI->setName("camera UI");
+
+    _sceneUI->getRoot()->insertNode(_cameraCOIUI);
+    _cameraCOIUI->insertNode(_cameraHeadingUI);
+    _cameraHeadingUI->insertNode(_cameraPitchUI);
+    _cameraPitchUI->insertNode(_cameraTranslationUI);
+    _cameraTranslationUI->insertNode(_cameraUI);
+    _viewUI.setCurrentCamera(_cameraUI->getID());
+
+    _cameraTranslationUI->translate(0, 0, 80);
+
     // default sky box
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
 
     _skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
@@ -141,7 +176,7 @@ void ModelViewer::init(iaString fileName)
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
     _skyBoxNode->setTextureScale(10);
     _skyBoxNode->setMaterial(_materialSkyBox);
-    _scene->getRoot()->insertNode(_skyBoxNode);
+    //_scene->getRoot()->insertNode(_skyBoxNode);
 
     _font = new iTextureFont("StandardFont.png");
 
@@ -156,7 +191,6 @@ void ModelViewer::init(iaString fileName)
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("yellow.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->compileShader();
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
@@ -215,9 +249,7 @@ void ModelViewer::init(iaString fileName)
     _menuDialog->setRootNode(_groupNode);
     _menuDialog->refreshView();
 
-    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
-
-    _modifier.init();
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));    
 }
 
 void ModelViewer::deinit()
@@ -380,9 +412,15 @@ void ModelViewer::centerCamOnNode(iNode* node)
         iaMatrixd coiMatrix;
         coiMatrix._pos = sphere._center;
         _cameraCOI->setMatrix(coiMatrix);
-        _camDistance = sphere._radius * 4.0f;
-        _camMinDistance = sphere._radius * 0.5f;
-        _camMaxDistance = sphere._radius * 10.0f;
+        _cameraCOIUI->setMatrix(coiMatrix);
+        if (sphere._radius > 0.0f)
+        {
+            _camDistance = sphere._radius * 4.0f;
+        }
+        else
+        {
+            _camDistance = 1.0f;
+        }
 
         updateCamDistanceTransform(_camDistance);
     }
@@ -662,6 +700,35 @@ void ModelViewer::initGUI()
 void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
 {
     _selectedNodeID = nodeID;
+
+    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+
+    if (node != nullptr)
+    {
+        if (node->getKind() == iNodeKind::Renderable ||
+            node->getKind() == iNodeKind::Volume)
+        {
+            iNodeRender* renderNode = static_cast<iNodeRender*>(node);
+            iaMatrixd matrix = renderNode->getWorldMatrix();
+            _modifier->setMatrix(matrix);
+
+            _modifier->setVisible(true);
+        }
+        else if (node->getKind() == iNodeKind::Transformation)
+        {
+            iNodeTransform* transform = static_cast<iNodeTransform*>(node);
+            iaMatrixd matrix;
+            transform->calcWorldTransformation(matrix);
+
+            _modifier->setMatrix(matrix);
+
+            _modifier->setVisible(true);
+        }
+        else
+        {
+            _modifier->setVisible(false);
+        }
+    }
 }
 
 void ModelViewer::deinitGUI()
@@ -728,12 +795,18 @@ void ModelViewer::updateCamDistanceTransform(float32 camDistance)
 {
     _cameraTranslation->identity();
     _cameraTranslation->translate(0, 0, camDistance);
+    _cameraTranslationUI->identity();
+    _cameraTranslationUI->translate(0, 0, camDistance);
+
+    iaMatrixd matrix;
+    _cameraUI->calcWorldTransformation(matrix);
+    _modifier->updateCamMatrix(matrix);
 }
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
 {
 }
-
+ 
 void ModelViewer::pickcolorID()
 {
     _skyBoxNode->setVisible(false);
@@ -762,17 +835,11 @@ void ModelViewer::onMouseWheel(int32 d)
 {
     if (d < 0)
     {
-        if (_camDistance < _camMaxDistance)
-        {
-            _camDistance *= 2.0f;
-        }
+        _camDistance *= 2.0f;
     }
     else
     {
-        if (_camDistance > _camMinDistance)
-        {
-            _camDistance *= 0.5f;
-        }
+        _camDistance *= 0.5f;
     }
 
     updateCamDistanceTransform(_camDistance);
@@ -785,6 +852,12 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
     {
         _cameraPitch->rotate((y1 - y2) * 0.005f, iaAxis::X);
         _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+        _cameraPitchUI->rotate((y1 - y2) * 0.005f, iaAxis::X);
+        _cameraHeadingUI->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+
+        iaMatrixd matrix;
+        _cameraUI->calcWorldTransformation(matrix);
+        _modifier->updateCamMatrix(matrix);
     }
 
     if (iMouse::getInstance().getRightButton())
@@ -854,10 +927,11 @@ void ModelViewer::render()
     {
         iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
-        if (node->getKind() == iNodeKind::Volume)
+        if (node->getKind() == iNodeKind::Renderable || 
+            node->getKind() == iNodeKind::Volume)
         {
-            iNodeVolume* volume = static_cast<iNodeVolume*>(node);
-            iaMatrixd matrix = volume->getWorldMatrix();
+            iNodeRender* renderNode = static_cast<iNodeRender*>(node);
+            iaMatrixd matrix = renderNode->getWorldMatrix();
             iRenderer::getInstance().setModelMatrix(matrix);
 
             if (node->getType() == iNodeType::iNodeMesh)
@@ -871,20 +945,19 @@ void ModelViewer::render()
             }
             else
             {
-                iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
+                if (node->getKind() == iNodeKind::Volume)
+                {
+                    iNodeVolume* renderVolume = static_cast<iNodeVolume*>(node);
+                    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
 
-                iAABoxd box = volume->getBoundingBox();
+                    iAABoxd box = renderVolume->getBoundingBox();
 
-                iRenderer::getInstance().setColor(1, 1, 0, 1);
-                iRenderer::getInstance().drawBBox(box);
+                    iRenderer::getInstance().setColor(1, 1, 0, 1);
+                    iRenderer::getInstance().drawBBox(box);
+                }
             }
         }
     }
-
-    iaMatrixd matrix;
-    iRenderer::getInstance().setModelMatrix(matrix);
-    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getDefaultMaterial(), true);
-    _modifier.draw();
 }
 
 void ModelViewer::renderOrtho()

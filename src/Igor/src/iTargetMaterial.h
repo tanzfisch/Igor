@@ -129,27 +129,27 @@ namespace Igor
 
     private:
 
-        /*! map of _textures associated to the mesh
+        /*! map of textures associated to the mesh
         */
         map<uint32, shared_ptr<iTexture>> _textures;
 
-        /*! material _emissive value
+        /*! material emissive value
         */
         iaColor3f _emissive;
 
-        /*! material _ambient value
+        /*! material ambient value
         */
         iaColor3f _ambient;
 
-        /*! material _specular value
+        /*! material specular value
         */
         iaColor3f _specular;
 
-        /*! material _diffuse value
+        /*! material diffuse value
         */
         iaColor3f _diffuse;
 
-        /*! material _shininess value
+        /*! material shininess value
         */
         float32 _shininess = 1;
 
