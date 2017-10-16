@@ -426,16 +426,19 @@ void Modifier::setModifierMode(ModifierMode modifierMode)
     case ModifierMode::Locator:
         _switchNode->setActiveChild(_locatorModifier);
         break;
+
     case ModifierMode::Translate:
         _switchNode->setActiveChild(_translateModifier);
         break;
 
     case ModifierMode::Scale:
         _switchNode->setActiveChild(_scaleModifier);
+        break; 
+
     case ModifierMode::Rotate:
+        // TODO
         break;
     }
-    
 }
 
 ModifierMode Modifier::getModifierMode() const
