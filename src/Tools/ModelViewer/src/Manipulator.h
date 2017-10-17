@@ -54,12 +54,12 @@ enum class ModifierMode
 
 /*! ui element to modify position, orientation and scale of objects in the scene
 */
-class Modifier
+class Manipulator
 {
 
 public:
 
-    Modifier(iNode* parent);
+    Manipulator(iNode* parent);
 
     void setVisible(bool visible);
     bool isVisible() const;

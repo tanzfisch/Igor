@@ -29,7 +29,7 @@
 #ifndef __MODELVIEWER__
 #define __MODELVIEWER__
 
-#include "Modifier.h"
+#include "Manipulator.h"
 
 #include <Igor.h>
 #include <iWindow.h>
@@ -130,7 +130,7 @@ private:
 
     iStatisticsVisualizer _statisticsVisualizer;
 
-    Modifier* _modifier = nullptr;
+    Manipulator* _manipulator = nullptr;
 
     void pickcolorID();
 

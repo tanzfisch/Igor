@@ -114,7 +114,7 @@ void ModelViewer::init(iaString fileName)
     _transformModel->insertNode(_groupNode);
 
     // modifier
-    _modifier = new Modifier(_sceneUI->getRoot());
+    _manipulator = new Manipulator(_sceneUI->getRoot());
 
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -710,9 +710,9 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
         {
             iNodeRender* renderNode = static_cast<iNodeRender*>(node);
             iaMatrixd matrix = renderNode->getWorldMatrix();
-            _modifier->setMatrix(matrix);
+            _manipulator->setMatrix(matrix);
 
-            _modifier->setVisible(true);
+            _manipulator->setVisible(true);
         }
         else if (node->getKind() == iNodeKind::Transformation)
         {
@@ -720,13 +720,13 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
             iaMatrixd matrix;
             transform->calcWorldTransformation(matrix);
 
-            _modifier->setMatrix(matrix);
+            _manipulator->setMatrix(matrix);
 
-            _modifier->setVisible(true);
+            _manipulator->setVisible(true);
         }
         else
         {
-            _modifier->setVisible(false);
+            _manipulator->setVisible(false);
         }
     }
 }
@@ -800,7 +800,7 @@ void ModelViewer::updateCamDistanceTransform(float32 camDistance)
 
     iaMatrixd matrix;
     _cameraUI->calcWorldTransformation(matrix);
-    _modifier->updateCamMatrix(matrix);
+    _manipulator->updateCamMatrix(matrix);
 }
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
@@ -857,7 +857,7 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
 
         iaMatrixd matrix;
         _cameraUI->calcWorldTransformation(matrix);
-        _modifier->updateCamMatrix(matrix);
+        _manipulator->updateCamMatrix(matrix);
     }
 
     if (iMouse::getInstance().getRightButton())
@@ -898,21 +898,33 @@ void ModelViewer::onKeyPressed(iKeyCode key)
     }
     break;
 
-    case iKeyCode::W:
+    case iKeyCode::F5:
         _view.setWireframeVisible(!_view.isWireframeVisible());
         break;
 
-    case iKeyCode::O:
+    case iKeyCode::F6:
         _view.setOctreeVisible(!_view.isOctreeVisible());
         break;
 
-    case iKeyCode::B:
+    case iKeyCode::F7:
         _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
         break;
 
-    case iKeyCode::S:
+    case iKeyCode::F8:
         _statisticsVisualizer.cycleVerbosity();
         break;
+
+    case iKeyCode::W:
+        _manipulator->setModifierMode(ModifierMode::Translate);
+        break;
+    case iKeyCode::E:
+        _manipulator->setModifierMode(ModifierMode::Rotate);
+        break;
+    case iKeyCode::R:
+        _manipulator->setModifierMode(ModifierMode::Scale);
+        break;
+
+
     }
 }
 

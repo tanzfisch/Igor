@@ -2,7 +2,7 @@
 // (c) Copyright 2014-2015 by Martin Loga
 // see copyright notice in corresponding header file
 
-#include "Modifier.h"
+#include "Manipulator.h"
 
 #include <iMaterialResourceFactory.h>
 #include <iTargetMaterial.h>
@@ -16,7 +16,7 @@
 #include <iNodeSwitch.h>
 using namespace Igor;
 
-Modifier::Modifier(iNode* parent)
+Manipulator::Manipulator(iNode* parent)
 {
     con_assert(parent != nullptr, "zero pointer");
 
@@ -24,9 +24,9 @@ Modifier::Modifier(iNode* parent)
     init();
 }
 
-void Modifier::init()
+void Manipulator::init()
 {
-    _material = iMaterialResourceFactory::getInstance().createMaterial("Modifier");
+    _material = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
     iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor_default.vert", iShaderObjectType::Vertex);
     iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor_default_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
@@ -51,7 +51,7 @@ void Modifier::init()
     setModifierMode(_modifierMode);
 }
 
-void Modifier::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh)
+void Manipulator::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh)
 {
     _translateModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
     _switchNode->insertNode(_translateModifier);
@@ -142,7 +142,7 @@ void Modifier::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_p
     zTransform->insertNode(zUmbrella);
 }
 
-void Modifier::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &cubeMesh)
+void Manipulator::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &cubeMesh)
 {
     _scaleModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
     _switchNode->insertNode(_scaleModifier);
@@ -234,7 +234,7 @@ void Modifier::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<i
 }
 
 
-void Modifier::createLocatorModifier(shared_ptr<iMesh> &cylinderMesh)
+void Manipulator::createLocatorModifier(shared_ptr<iMesh> &cylinderMesh)
 {
     _locatorModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
     _switchNode->insertNode(_locatorModifier);
@@ -281,29 +281,29 @@ void Modifier::createLocatorModifier(shared_ptr<iMesh> &cylinderMesh)
     zTransform->insertNode(zCylinder);
 }
 
-void Modifier::updateCamMatrix(const iaMatrixd& camMatrix)
+void Manipulator::updateCamMatrix(const iaMatrixd& camMatrix)
 {
     float64 distanceToCam = camMatrix._pos.distance(_modifierMatrix._pos) * 0.1;
     _rootTransform->setMatrix(_modifierMatrix);
     _rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
 }
 
-void Modifier::deinit()
+void Manipulator::deinit()
 {
 }
 
-void Modifier::setVisible(bool visible)
+void Manipulator::setVisible(bool visible)
 {
     _visible = visible;
     _rootTransform->setActive(_visible);
 }
 
-bool Modifier::isVisible() const
+bool Manipulator::isVisible() const
 {
     return _visible;
 }
 
-void Modifier::updateMatrices()
+void Manipulator::updateMatrices()
 {
     if (_dirtyMatrices)
     {
@@ -330,7 +330,7 @@ void Modifier::updateMatrices()
     }
 }
 
-shared_ptr<iMesh> Modifier::createCylinder()
+shared_ptr<iMesh> Manipulator::createCylinder()
 {
     iMeshBuilder meshBuilder;
 
@@ -362,7 +362,7 @@ shared_ptr<iMesh> Modifier::createCylinder()
     return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Modifier::createCube()
+shared_ptr<iMesh> Manipulator::createCube()
 {
     iMeshBuilder meshBuilder;
 
@@ -391,7 +391,7 @@ shared_ptr<iMesh> Modifier::createCube()
     return meshBuilder.createMesh();
 }
 
-shared_ptr<iMesh> Modifier::createUmbrella()
+shared_ptr<iMesh> Manipulator::createUmbrella()
 {
     iMeshBuilder meshBuilder;
 
@@ -417,7 +417,7 @@ shared_ptr<iMesh> Modifier::createUmbrella()
     return meshBuilder.createMesh();
 }
 
-void Modifier::setModifierMode(ModifierMode modifierMode)
+void Manipulator::setModifierMode(ModifierMode modifierMode)
 {
     _modifierMode = modifierMode;
 
@@ -441,17 +441,17 @@ void Modifier::setModifierMode(ModifierMode modifierMode)
     }
 }
 
-ModifierMode Modifier::getModifierMode() const
+ModifierMode Manipulator::getModifierMode() const
 {
     return _modifierMode;
 }
 
-void Modifier::setMatrix(const iaMatrixd& matrix)
+void Manipulator::setMatrix(const iaMatrixd& matrix)
 {
     _modifierMatrix = matrix;
 }
 
-void Modifier::getMatrix(iaMatrixd& matrix) const
+void Manipulator::getMatrix(iaMatrixd& matrix) const
 {
     matrix = _modifierMatrix;
 }
