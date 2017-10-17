@@ -96,6 +96,11 @@ private:
     shared_ptr<iMeshBuffers> _umbrella;
     shared_ptr<iMeshBuffers> _cube;
 
+    iTargetMaterial* _red = nullptr;
+    iTargetMaterial* _green = nullptr;
+    iTargetMaterial* _blue = nullptr;
+    iTargetMaterial*_cyan = nullptr;
+
     iaMatrixd _modifierMatrix;
 
     iaMatrixd _umbrellaMatrix;
@@ -110,10 +115,12 @@ private:
     shared_ptr<iMesh> createUmbrella();
     shared_ptr<iMesh> createCylinder();
     shared_ptr<iMesh> createCube();
+    shared_ptr<iMesh> createRing();
 
     void createLocatorModifier(shared_ptr<iMesh> &cylinderMesh);
     void createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh);
     void createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &cubeMesh);
+    void createRotateModifier(shared_ptr<iMesh> &ringMesh);
 
 };
 

@@ -33,9 +33,32 @@ void Manipulator::init()
     iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
     iMaterialResourceFactory::getInstance().getMaterialGroup(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
 
+    _red = iMaterialResourceFactory::getInstance().createTargetMaterial();
+    _red->setEmissive(iaColor3f(0.5f, 0.0f, 0.0f));
+    _red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
+    _red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
+    _red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
+
+    _green = iMaterialResourceFactory::getInstance().createTargetMaterial();
+    _green->setEmissive(iaColor3f(0.0f, 0.5f, 0.0f));
+    _green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
+    _green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
+    _green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
+
+    _blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
+    _blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.5f));
+    _blue->setSpecular(iaColor3f(0.0f, 0.0f, 2.0f));
+    _blue->setDiffuse(iaColor3f(0.0f, 0.0f, 5.0f));
+    _blue->setAmbient(iaColor3f(0.0f, 0.0f, 3.0f));
+
+
+    _cyan = iMaterialResourceFactory::getInstance().createTargetMaterial();
+
+
     shared_ptr<iMesh> umbrellaMesh = createUmbrella();
     shared_ptr<iMesh> cylinderMesh = createCylinder();
     shared_ptr<iMesh> cubeMesh = createCube();
+    shared_ptr<iMesh> ringMesh = createRing();
 
     _rootTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 
@@ -45,11 +68,49 @@ void Manipulator::init()
     createLocatorModifier(cylinderMesh);
     createTranslateModifier(cylinderMesh, umbrellaMesh);
     createScaleModifier(cylinderMesh, cubeMesh);
-    // rotate
+    createRotateModifier(ringMesh);
 
     _parent->insertNode(_rootTransform);
 
     setModifierMode(_modifierMode);
+}
+
+void Manipulator::createRotateModifier(shared_ptr<iMesh> &ringMesh)
+{
+    _roateModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+    _switchNode->insertNode(_roateModifier);
+
+    iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
+    xTransform->scale(2.0, 0.05, 2.0);
+    _roateModifier->insertNode(xTransform);
+
+    iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    yTransform->scale(1.99, 0.05, 1.99);
+    _roateModifier->insertNode(yTransform);
+
+    iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    zTransform->rotate(M_PI * 0.5, iaAxis::X);
+    zTransform->scale(1.98, 0.05, 1.98);
+    _roateModifier->insertNode(zTransform);
+
+    iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    xCylinder->setMesh(ringMesh);
+    xCylinder->setMaterial(_material);
+    xCylinder->setTargetMaterial(_red);
+    xTransform->insertNode(xCylinder);
+
+    iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    yCylinder->setMesh(ringMesh);
+    yCylinder->setMaterial(_material);
+    yCylinder->setTargetMaterial(_green);
+    yTransform->insertNode(yCylinder);
+
+    iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    zCylinder->setMesh(ringMesh);
+    zCylinder->setMaterial(_material);
+    zCylinder->setTargetMaterial(_blue);
+    zTransform->insertNode(zCylinder);
 }
 
 void Manipulator::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh)
@@ -74,28 +135,19 @@ void Manipulator::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, share
     iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     xCylinder->setMesh(cylinderMesh);
     xCylinder->setMaterial(_material);
-    xCylinder->getTargetMaterial()->setEmissive(iaColor3f(1.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    xCylinder->setTargetMaterial(_red);
     xTransform->insertNode(xCylinder);
 
     iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     yCylinder->setMesh(cylinderMesh);
     yCylinder->setMaterial(_material);
-    yCylinder->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 1.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    yCylinder->setTargetMaterial(_green);
     yTransform->insertNode(yCylinder);
 
     iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     zCylinder->setMesh(cylinderMesh);
     zCylinder->setMaterial(_material);
-    zCylinder->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 0.0f, 1.0f));
-    zCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    zCylinder->setTargetMaterial(_blue);
     zTransform->insertNode(zCylinder);
 
     xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -118,28 +170,19 @@ void Manipulator::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, share
     iNodeMesh* xUmbrella = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     xUmbrella->setMesh(umbrellaMesh);
     xUmbrella->setMaterial(_material);
-    xUmbrella->getTargetMaterial()->setEmissive(iaColor3f(1.0f, 0.0f, 0.0f));
-    xUmbrella->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    xUmbrella->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    xUmbrella->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    xUmbrella->setTargetMaterial(_red);
     xTransform->insertNode(xUmbrella);
 
     iNodeMesh* yUmbrella = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     yUmbrella->setMesh(umbrellaMesh);
     yUmbrella->setMaterial(_material);
-    yUmbrella->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 1.0f, 0.0f));
-    yUmbrella->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    yUmbrella->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    yUmbrella->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    yUmbrella->setTargetMaterial(_green);
     yTransform->insertNode(yUmbrella);
 
     iNodeMesh* zUmbrella = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     zUmbrella->setMesh(umbrellaMesh);
     zUmbrella->setMaterial(_material);
-    zUmbrella->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 0.0f, 1.0f));
-    zUmbrella->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    zUmbrella->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    zUmbrella->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    zUmbrella->setTargetMaterial(_blue);
     zTransform->insertNode(zUmbrella);
 }
 
@@ -165,34 +208,25 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_pt
     iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     xCylinder->setMesh(cylinderMesh);
     xCylinder->setMaterial(_material);
-    xCylinder->getTargetMaterial()->setEmissive(iaColor3f(1.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    xCylinder->setTargetMaterial(_red);
     xTransform->insertNode(xCylinder);
 
     iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     yCylinder->setMesh(cylinderMesh);
     yCylinder->setMaterial(_material);
-    yCylinder->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 1.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    yCylinder->setTargetMaterial(_green);
     yTransform->insertNode(yCylinder);
 
     iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     zCylinder->setMesh(cylinderMesh);
     zCylinder->setMaterial(_material);
-    zCylinder->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 0.0f, 1.0f));
-    zCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    zCylinder->setTargetMaterial(_blue);
     zTransform->insertNode(zCylinder);
 
     xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
     xTransform->translate(0, 1.5, 0);
-    xTransform->scale(0.25, 0.35, 0.25);
+    xTransform->scale(0.25, 0.25, 0.25);
     _scaleModifier->insertNode(xTransform);
 
     yTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -209,28 +243,19 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_pt
     iNodeMesh* xCube = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     xCube->setMesh(cubeMesh);
     xCube->setMaterial(_material);
-    xCube->getTargetMaterial()->setEmissive(iaColor3f(1.0f, 0.0f, 0.0f));
-    xCube->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCube->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCube->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    xCube->setTargetMaterial(_red);
     xTransform->insertNode(xCube);
 
     iNodeMesh* yCube = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     yCube->setMesh(cubeMesh);
     yCube->setMaterial(_material);
-    yCube->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 1.0f, 0.0f));
-    yCube->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCube->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCube->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    yCube->setTargetMaterial(_green);
     yTransform->insertNode(yCube);
 
     iNodeMesh* zCube = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     zCube->setMesh(cubeMesh);
     zCube->setMaterial(_material);
-    zCube->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 0.0f, 1.0f));
-    zCube->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCube->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCube->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    zCube->setTargetMaterial(_blue);
     zTransform->insertNode(zCube);
 }
 
@@ -256,28 +281,19 @@ void Manipulator::createLocatorModifier(shared_ptr<iMesh> &cylinderMesh)
     iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     xCylinder->setMesh(cylinderMesh);
     xCylinder->setMaterial(_material);
-    xCylinder->getTargetMaterial()->setEmissive(iaColor3f(1.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    xCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    xCylinder->setTargetMaterial(_red);
     xTransform->insertNode(xCylinder);
 
     iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     yCylinder->setMesh(cylinderMesh);
     yCylinder->setMaterial(_material);
-    yCylinder->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 1.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    yCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    yCylinder->setTargetMaterial(_green);
     yTransform->insertNode(yCylinder);
 
     iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     zCylinder->setMesh(cylinderMesh);
     zCylinder->setMaterial(_material);
-    zCylinder->getTargetMaterial()->setEmissive(iaColor3f(0.0f, 0.0f, 1.0f));
-    zCylinder->getTargetMaterial()->setSpecular(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCylinder->getTargetMaterial()->setDiffuse(iaColor3f(0.0f, 0.0f, 0.0f));
-    zCylinder->getTargetMaterial()->setAmbient(iaColor3f(0.0f, 0.0f, 0.0f));
+    zCylinder->setTargetMaterial(_blue);
     zTransform->insertNode(zCylinder);
 }
 
@@ -290,6 +306,10 @@ void Manipulator::updateCamMatrix(const iaMatrixd& camMatrix)
 
 void Manipulator::deinit()
 {
+    iMaterialResourceFactory::getInstance().destroyTargetMaterial(_red);
+    iMaterialResourceFactory::getInstance().destroyTargetMaterial(_green);
+    iMaterialResourceFactory::getInstance().destroyTargetMaterial(_blue);
+    iMaterialResourceFactory::getInstance().destroyTargetMaterial(_cyan);
 }
 
 void Manipulator::setVisible(bool visible)
@@ -330,10 +350,19 @@ void Manipulator::updateMatrices()
     }
 }
 
+shared_ptr<iMesh> Manipulator::createRing()
+{
+    iMeshBuilder meshBuilder;
+    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 64, false);
+    meshBuilder.calcNormals(true);
+    return meshBuilder.createMesh();
+}
+
 shared_ptr<iMesh> Manipulator::createCylinder()
 {
     iMeshBuilder meshBuilder;
     iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 8);
+    meshBuilder.calcNormals(true);
     return meshBuilder.createMesh();
 }
 
@@ -341,6 +370,7 @@ shared_ptr<iMesh> Manipulator::createCube()
 {
     iMeshBuilder meshBuilder;
     iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
+    meshBuilder.calcNormals(true);
     return meshBuilder.createMesh();
 }
 
@@ -348,6 +378,7 @@ shared_ptr<iMesh> Manipulator::createUmbrella()
 {
     iMeshBuilder meshBuilder;
     iMeshBuilderUtils::addCone(meshBuilder, 1, 1, 8);
+    meshBuilder.calcNormals(true);
     return meshBuilder.createMesh();
 }
 
@@ -370,7 +401,7 @@ void Manipulator::setModifierMode(ModifierMode modifierMode)
         break;
 
     case ModifierMode::Rotate:
-        // TODO
+        _switchNode->setActiveChild(_roateModifier);
         break;
     }
 }

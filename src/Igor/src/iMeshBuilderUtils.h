@@ -37,7 +37,7 @@ namespace Igor
     namespace iMeshBuilderUtils
     {
 
-        void Igor_API addCylinder(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments = 16);
+        void Igor_API addCylinder(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments = 16, bool hasCaps = true);
 
         void Igor_API addBox(iMeshBuilder& meshBuilder, float32 width, float32 height, float32 depth);
 
