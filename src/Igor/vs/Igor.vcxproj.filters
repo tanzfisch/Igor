@@ -428,6 +428,9 @@
     <ClCompile Include="..\src\iTaskUpdateLOD.cpp">
       <Filter>todo</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iMeshBuilderUtils.cpp">
+      <Filter>resources\mesh</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -894,6 +897,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iTaskUpdateLOD.h">
       <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iMeshBuilderUtils.h">
+      <Filter>resources\mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

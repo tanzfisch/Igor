@@ -243,6 +243,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iMesh.cpp" />
     <ClCompile Include="..\src\iMeshBuffers.cpp" />
     <ClCompile Include="..\src\iMeshBuilder.cpp" />
+    <ClCompile Include="..\src\iMeshBuilderUtils.cpp" />
     <ClCompile Include="..\src\iModel.cpp" />
     <ClCompile Include="..\src\iModelDataIO.cpp" />
     <ClCompile Include="..\src\iModelDataIO3DS.cpp">
@@ -416,6 +417,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iMesh.h" />
     <ClInclude Include="..\src\iMeshBuffers.h" />
     <ClInclude Include="..\src\iMeshBuilder.h" />
+    <ClInclude Include="..\src\iMeshBuilderUtils.h" />
     <ClInclude Include="..\src\iModel.h" />
     <ClInclude Include="..\src\iModelDataIO.h" />
     <ClInclude Include="..\src\iModelDataIO3DS.h">

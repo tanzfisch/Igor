@@ -14,6 +14,7 @@
 #include <iNodeTransform.h>
 #include <iNodeMesh.h>
 #include <iNodeSwitch.h>
+#include <iMeshBuilderUtils.h>
 using namespace Igor;
 
 Manipulator::Manipulator(iNode* parent)
@@ -37,7 +38,7 @@ void Manipulator::init()
     shared_ptr<iMesh> cubeMesh = createCube();
 
     _rootTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    
+
     _switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
     _rootTransform->insertNode(_switchNode);
 
@@ -57,17 +58,17 @@ void Manipulator::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, share
     _switchNode->insertNode(_translateModifier);
 
     iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    xTransform->scale(1.5, 0.02, 0.02);
+    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
+    xTransform->scale(0.02, 1.5, 0.02);
     _translateModifier->insertNode(xTransform);
 
     iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    yTransform->rotate(M_PI * 0.5, iaAxis::Z);
-    yTransform->scale(1.5, 0.02, 0.02);
+    yTransform->scale(0.02, 1.5, 0.02);
     _translateModifier->insertNode(yTransform);
 
     iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    zTransform->rotate(-M_PI * 0.5, iaAxis::Y);
-    zTransform->scale(1.5, 0.02, 0.02);
+    zTransform->rotate(M_PI * 0.5, iaAxis::X);
+    zTransform->scale(0.02, 1.5, 0.02);
     _translateModifier->insertNode(zTransform);
 
     iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
@@ -98,20 +99,20 @@ void Manipulator::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, share
     zTransform->insertNode(zCylinder);
 
     xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    xTransform->translate(1.5, 0, 0);
-    xTransform->scale(0.5, 0.1, 0.1);
+    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
+    xTransform->translate(0, 1.5, 0);
+    xTransform->scale(0.1, 0.5, 0.1);
     _translateModifier->insertNode(xTransform);
 
     yTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    yTransform->rotate(M_PI * 0.5, iaAxis::Z);
-    yTransform->translate(1.5, 0, 0);
-    yTransform->scale(0.5, 0.1, 0.1);
+    yTransform->translate(0, 1.5, 0);
+    yTransform->scale(0.1, 0.5, 0.1);
     _translateModifier->insertNode(yTransform);
 
     zTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    zTransform->rotate(-M_PI * 0.5, iaAxis::Y);
-    zTransform->translate(1.5, 0, 0);
-    zTransform->scale(0.5, 0.1, 0.1);
+    zTransform->rotate(M_PI * 0.5, iaAxis::X);
+    zTransform->translate(0, 1.5, 0);
+    zTransform->scale(0.1, 0.5, 0.1);
     _translateModifier->insertNode(zTransform);
 
     iNodeMesh* xUmbrella = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
@@ -148,17 +149,17 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_pt
     _switchNode->insertNode(_scaleModifier);
 
     iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    xTransform->scale(1.5, 0.02, 0.02);
+    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
+    xTransform->scale(0.02, 1.5, 0.02);
     _scaleModifier->insertNode(xTransform);
 
     iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    yTransform->rotate(M_PI * 0.5, iaAxis::Z);
-    yTransform->scale(1.5, 0.02, 0.02);
+    yTransform->scale(0.02, 1.5, 0.02);
     _scaleModifier->insertNode(yTransform);
 
     iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    zTransform->rotate(-M_PI * 0.5, iaAxis::Y);
-    zTransform->scale(1.5, 0.02, 0.02);
+    zTransform->rotate(M_PI * 0.5, iaAxis::X);
+    zTransform->scale(0.02, 1.5, 0.02);
     _scaleModifier->insertNode(zTransform);
 
     iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
@@ -189,19 +190,19 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_pt
     zTransform->insertNode(zCylinder);
 
     xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    xTransform->translate(1.5, 0, 0);
-    xTransform->scale(0.25, 0.25, 0.25);
+    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
+    xTransform->translate(0, 1.5, 0);
+    xTransform->scale(0.25, 0.35, 0.25);
     _scaleModifier->insertNode(xTransform);
 
     yTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    yTransform->rotate(M_PI * 0.5, iaAxis::Z);
-    yTransform->translate(1.5, 0, 0);
+    yTransform->translate(0, 1.5, 0);
     yTransform->scale(0.25, 0.25, 0.25);
     _scaleModifier->insertNode(yTransform);
 
     zTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    zTransform->rotate(-M_PI * 0.5, iaAxis::Y);
-    zTransform->translate(1.5, 0, 0);
+    zTransform->rotate(M_PI * 0.5, iaAxis::X);
+    zTransform->translate(0, 1.5, 0);
     zTransform->scale(0.25, 0.25, 0.25);
     _scaleModifier->insertNode(zTransform);
 
@@ -233,24 +234,23 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_pt
     zTransform->insertNode(zCube);
 }
 
-
 void Manipulator::createLocatorModifier(shared_ptr<iMesh> &cylinderMesh)
 {
     _locatorModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
     _switchNode->insertNode(_locatorModifier);
 
     iNodeTransform* xTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    xTransform->scale(2.0, 0.02, 0.02);
+    xTransform->rotate(-M_PI * 0.5, iaAxis::Z);
+    xTransform->scale(0.02, 2.0, 0.02);
     _locatorModifier->insertNode(xTransform);
 
     iNodeTransform* yTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    yTransform->rotate(M_PI * 0.5, iaAxis::Z);
-    yTransform->scale(2.0, 0.02, 0.02);
+    yTransform->scale(0.02, 2.0, 0.02);
     _locatorModifier->insertNode(yTransform);
 
     iNodeTransform* zTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    zTransform->rotate(-M_PI * 0.5, iaAxis::Y);
-    zTransform->scale(2.0, 0.02, 0.02);
+    zTransform->rotate(M_PI * 0.5, iaAxis::X);
+    zTransform->scale(0.02, 2.0, 0.02);
     _locatorModifier->insertNode(zTransform);
 
     iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
@@ -333,87 +333,21 @@ void Manipulator::updateMatrices()
 shared_ptr<iMesh> Manipulator::createCylinder()
 {
     iMeshBuilder meshBuilder;
-
-    const uint32 segments = 8;
-    const float32 step = (2.0f * M_PI) / segments;
-
-    for (uint32 i = 0; i < segments; ++i)
-    {
-        meshBuilder.addVertex(iaVector3f(0, sin(i*step), cos(i*step)));
-        meshBuilder.addVertex(iaVector3f(1, sin(i*step), cos(i*step)));
-    }
-
-    meshBuilder.addVertex(iaVector3f(0, 0, 0));
-    meshBuilder.addVertex(iaVector3f(1, 0, 0));
-
-    const uint32 segmentVertices = 2;
-    const uint32 moduloValue = segments * segmentVertices;
-
-    for (uint32 segment = 0; segment < segments; ++segment)
-    {
-        uint32 segmentIndex = segment * segmentVertices;
-        meshBuilder.addTriangle((segmentIndex + 0) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 2) % moduloValue);
-        meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 2) % moduloValue);
-
-        meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, meshBuilder.getVertexCount() - 2, (segmentIndex + 0) % moduloValue);
-        meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, meshBuilder.getVertexCount() - 1, (segmentIndex + 3) % moduloValue);
-    }
-
+    iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 8);
     return meshBuilder.createMesh();
 }
 
 shared_ptr<iMesh> Manipulator::createCube()
 {
     iMeshBuilder meshBuilder;
-
-    meshBuilder.addVertex(iaVector3f(0, -0.5, 0.5));
-    meshBuilder.addVertex(iaVector3f(1, -0.5, 0.5));
-    meshBuilder.addVertex(iaVector3f(1, 0.5, 0.5));
-    meshBuilder.addVertex(iaVector3f(0, 0.5, 0.5));
-    meshBuilder.addVertex(iaVector3f(0, -0.5, -0.5));
-    meshBuilder.addVertex(iaVector3f(1, -0.5, -0.5));
-    meshBuilder.addVertex(iaVector3f(1, 0.5, -0.5));
-    meshBuilder.addVertex(iaVector3f(0, 0.5, -0.5));
-
-    meshBuilder.addTriangle(0, 1, 2);
-    meshBuilder.addTriangle(0, 2, 3);
-    meshBuilder.addTriangle(5, 4, 7);
-    meshBuilder.addTriangle(5, 7, 6);
-    meshBuilder.addTriangle(1, 5, 2);
-    meshBuilder.addTriangle(5, 6, 2);
-    meshBuilder.addTriangle(4, 0, 3);
-    meshBuilder.addTriangle(4, 3, 7);
-    meshBuilder.addTriangle(3, 2, 7);
-    meshBuilder.addTriangle(7, 2, 6);
-    meshBuilder.addTriangle(1, 0, 4);
-    meshBuilder.addTriangle(1, 4, 5);
-
+    iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
     return meshBuilder.createMesh();
 }
 
 shared_ptr<iMesh> Manipulator::createUmbrella()
 {
     iMeshBuilder meshBuilder;
-
-    const uint32 segments = 16;
-    const float32 step = (2.0f * M_PI) / segments;
-
-    for (uint32 i = 0; i < segments; ++i)
-    {
-        meshBuilder.addVertex(iaVector3f(0, sin(i*step), cos(i*step)));
-    }
-
-    meshBuilder.addVertex(iaVector3f(0, 0, 0));
-    meshBuilder.addVertex(iaVector3f(1, 0, 0));
-
-    const uint32 moduloValue = segments;
-
-    for (uint32 segmentIndex = 0; segmentIndex < segments; ++segmentIndex)
-    {
-        meshBuilder.addTriangle((segmentIndex + 0) % moduloValue, meshBuilder.getVertexCount() - 1, (segmentIndex + 1) % moduloValue);
-        meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, meshBuilder.getVertexCount() - 2, (segmentIndex + 0) % moduloValue);
-    }
-
+    iMeshBuilderUtils::addCone(meshBuilder, 1, 1, 8);
     return meshBuilder.createMesh();
 }
 
@@ -433,7 +367,7 @@ void Manipulator::setModifierMode(ModifierMode modifierMode)
 
     case ModifierMode::Scale:
         _switchNode->setActiveChild(_scaleModifier);
-        break; 
+        break;
 
     case ModifierMode::Rotate:
         // TODO

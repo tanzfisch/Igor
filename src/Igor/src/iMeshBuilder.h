@@ -72,7 +72,7 @@ namespace Igor
 
     /*! builds up a mesh and spits out iMesh
 
-    \todo how about applying transformations directly on the data before generating buffers from ìt?
+    \todo how about applying transformations directly on the data before generating buffers from ìt? like baking transformations to the data. or setting a transformation and all vertices set will be transformed first by it?
     */
     class Igor_API iMeshBuilder
     {
