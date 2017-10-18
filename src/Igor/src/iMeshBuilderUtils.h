@@ -37,11 +37,50 @@ namespace Igor
     namespace iMeshBuilderUtils
     {
 
+        /*! adds a cylinder to the given mesh builder instance
+
+        \param meshBuilder the given mesh builder instance
+        \param radius the radius of the cylinder
+        \param height the height of the cylinder
+        \param segments the segment count of the cylinder
+        \param hasCaps if true the cylinder will have caps on top and bottom
+        */
         void Igor_API addCylinder(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments = 16, bool hasCaps = true);
 
+        /*! adds a box to the given mesh builder instance
+
+        \param meshBuilder the given mesh builder instance
+        \param width width of the box
+        \param height height of the box
+        \param depth depth of the box
+        */
         void Igor_API addBox(iMeshBuilder& meshBuilder, float32 width, float32 height, float32 depth);
 
+        /*! adds a cone to the given mesh builder instance
+
+        \param meshBuilder the given mesh builder instance
+        \param radius the radius of the cones base
+        \param height the height of the cone
+        \param segments the segment count of the cone
+        */
         void Igor_API addCone(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments = 16);
+
+        /*! adds a circle to the given mesh builder instance
+
+        \param meshBuilder the given mesh builder instance
+        \param radius the radius of the circle
+        \param segments the segment count of the circle
+        */
+        void Igor_API addCircle(iMeshBuilder& meshBuilder, float32 radius, uint32 segments = 16);
+
+        /*! adds a ring to the given mesh builder instance
+
+        \param meshBuilder the given mesh builder instance
+        \param innerRadius the inner radius of the ring
+        \param outerRadius the outer radius of the ring
+        \param segments the segment count of the ring
+        */
+        void Igor_API addRing(iMeshBuilder& meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments = 16);
 
     }
 

@@ -34,31 +34,34 @@ void Manipulator::init()
     iMaterialResourceFactory::getInstance().getMaterialGroup(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
 
     _red = iMaterialResourceFactory::getInstance().createTargetMaterial();
-    _red->setEmissive(iaColor3f(0.5f, 0.0f, 0.0f));
+    _red->setEmissive(iaColor3f(0.6f, 0.0f, 0.0f));
     _red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
     _red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
     _red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
 
     _green = iMaterialResourceFactory::getInstance().createTargetMaterial();
-    _green->setEmissive(iaColor3f(0.0f, 0.5f, 0.0f));
+    _green->setEmissive(iaColor3f(0.0f, 0.6f, 0.0f));
     _green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
     _green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
     _green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
 
     _blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
-    _blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.5f));
-    _blue->setSpecular(iaColor3f(0.0f, 0.0f, 2.0f));
-    _blue->setDiffuse(iaColor3f(0.0f, 0.0f, 5.0f));
-    _blue->setAmbient(iaColor3f(0.0f, 0.0f, 3.0f));
-
+    _blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.6f));
+    _blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
+    _blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
+    _blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
 
     _cyan = iMaterialResourceFactory::getInstance().createTargetMaterial();
-
+    _cyan->setEmissive(iaColor3f(0.0f, 0.6f, 0.6f));
+    _cyan->setSpecular(iaColor3f(0.0f, 0.2f, 0.2f));
+    _cyan->setDiffuse(iaColor3f(0.0f, 0.5f, 0.5f));
+    _cyan->setAmbient(iaColor3f(0.0f, 0.3f, 0.3f));
 
     shared_ptr<iMesh> umbrellaMesh = createUmbrella();
     shared_ptr<iMesh> cylinderMesh = createCylinder();
     shared_ptr<iMesh> cubeMesh = createCube();
     shared_ptr<iMesh> ringMesh = createRing();
+    shared_ptr<iMesh> ringMesh2D = create2DRing();
 
     _rootTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 
@@ -68,14 +71,14 @@ void Manipulator::init()
     createLocatorModifier(cylinderMesh);
     createTranslateModifier(cylinderMesh, umbrellaMesh);
     createScaleModifier(cylinderMesh, cubeMesh);
-    createRotateModifier(ringMesh);
+    createRotateModifier(ringMesh, ringMesh2D);
 
     _parent->insertNode(_rootTransform);
 
     setModifierMode(_modifierMode);
 }
 
-void Manipulator::createRotateModifier(shared_ptr<iMesh> &ringMesh)
+void Manipulator::createRotateModifier(shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D)
 {
     _roateModifier = iNodeFactory::getInstance().createNode(iNodeType::iNode);
     _switchNode->insertNode(_roateModifier);
@@ -94,6 +97,9 @@ void Manipulator::createRotateModifier(shared_ptr<iMesh> &ringMesh)
     zTransform->scale(1.98, 0.05, 1.98);
     _roateModifier->insertNode(zTransform);
 
+    _rotateBillboardTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _roateModifier->insertNode(_rotateBillboardTransform);
+
     iNodeMesh* xCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     xCylinder->setMesh(ringMesh);
     xCylinder->setMaterial(_material);
@@ -111,6 +117,12 @@ void Manipulator::createRotateModifier(shared_ptr<iMesh> &ringMesh)
     zCylinder->setMaterial(_material);
     zCylinder->setTargetMaterial(_blue);
     zTransform->insertNode(zCylinder);
+
+    iNodeMesh* ring = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    ring->setMesh(ringMesh2D);
+    ring->setMaterial(_material);
+    ring->setTargetMaterial(_cyan);
+    _rotateBillboardTransform->insertNode(ring);
 }
 
 void Manipulator::createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh)
@@ -302,6 +314,16 @@ void Manipulator::updateCamMatrix(const iaMatrixd& camMatrix)
     float64 distanceToCam = camMatrix._pos.distance(_modifierMatrix._pos) * 0.1;
     _rootTransform->setMatrix(_modifierMatrix);
     _rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
+
+    _rotateBillboardTransform->identity();
+    iaMatrixd matrix;
+    _rotateBillboardTransform->getMatrix(matrix);
+    matrix._right = camMatrix._right;
+    matrix._top = camMatrix._top;
+    matrix._depth = camMatrix._depth;
+    _rotateBillboardTransform->setMatrix(matrix);
+    _rotateBillboardTransform->rotate(M_PI * 0.5, iaAxis::X);
+    _rotateBillboardTransform->scale(2.1, 2.1, 2.1);
 }
 
 void Manipulator::deinit()
@@ -323,37 +345,18 @@ bool Manipulator::isVisible() const
     return _visible;
 }
 
-void Manipulator::updateMatrices()
-{
-    if (_dirtyMatrices)
-    {
-        _umbrellaMatrix.identity();
-        _umbrellaMatrix.translate(1.5, 0, 0);
-        _umbrellaMatrix.scale(0.5, 0.1, 0.1);
-
-        if (_modifierMode == ModifierMode::Locator)
-        {
-            _cylinderMatrix.identity();
-            _cylinderMatrix.scale(2.0, 0.02, 0.02);
-        }
-        else
-        {
-            _cylinderMatrix.identity();
-            _cylinderMatrix.scale(1.5, 0.02, 0.02);
-        }
-
-        _cubeMatrix.identity();
-        _cubeMatrix.translate(1.5, 0, 0);
-        _cubeMatrix.scale(0.2, 0.2, 0.2);
-
-        _dirtyMatrices = false;
-    }
-}
-
 shared_ptr<iMesh> Manipulator::createRing()
 {
     iMeshBuilder meshBuilder;
     iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 64, false);
+    meshBuilder.calcNormals(true);
+    return meshBuilder.createMesh();
+}
+
+shared_ptr<iMesh> Manipulator::create2DRing()
+{
+    iMeshBuilder meshBuilder;
+    iMeshBuilderUtils::addRing(meshBuilder, 0.99, 1, 64);
     meshBuilder.calcNormals(true);
     return meshBuilder.createMesh();
 }

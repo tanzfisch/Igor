@@ -89,6 +89,7 @@ private:
     iNode* _translateModifier = nullptr;
     iNode* _scaleModifier = nullptr;
     iNode* _roateModifier = nullptr;
+    iNodeTransform* _rotateBillboardTransform = nullptr;
 
     ModifierMode _modifierMode = ModifierMode::Locator;
 
@@ -103,24 +104,18 @@ private:
 
     iaMatrixd _modifierMatrix;
 
-    iaMatrixd _umbrellaMatrix;
-    iaMatrixd _cylinderMatrix;
-    iaMatrixd _cubeMatrix;
-    bool _dirtyMatrices = true;
-
     uint64 _material = iMaterial::INVALID_MATERIAL_ID;
-
-    void updateMatrices();
 
     shared_ptr<iMesh> createUmbrella();
     shared_ptr<iMesh> createCylinder();
     shared_ptr<iMesh> createCube();
     shared_ptr<iMesh> createRing();
+    shared_ptr<iMesh> create2DRing();
 
     void createLocatorModifier(shared_ptr<iMesh> &cylinderMesh);
     void createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh);
     void createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &cubeMesh);
-    void createRotateModifier(shared_ptr<iMesh> &ringMesh);
+    void createRotateModifier(shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D);
 
 };
 
