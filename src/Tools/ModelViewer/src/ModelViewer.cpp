@@ -914,12 +914,18 @@ void ModelViewer::onKeyPressed(iKeyCode key)
         _statisticsVisualizer.cycleVerbosity();
         break;
 
+    case iKeyCode::Q:
+        _manipulator->setModifierMode(ModifierMode::Locator);
+        break;
+
     case iKeyCode::W:
         _manipulator->setModifierMode(ModifierMode::Translate);
         break;
+
     case iKeyCode::E:
         _manipulator->setModifierMode(ModifierMode::Rotate);
         break;
+
     case iKeyCode::R:
         _manipulator->setModifierMode(ModifierMode::Scale);
         break;

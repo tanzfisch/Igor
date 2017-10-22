@@ -115,7 +115,7 @@ private:
     void createLocatorModifier(shared_ptr<iMesh> &cylinderMesh);
     void createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh);
     void createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &cubeMesh);
-    void createRotateModifier(shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D);
+    void createRotateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D);
 
 };
 
