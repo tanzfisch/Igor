@@ -173,9 +173,10 @@ namespace Igor
         \param indexA first point of triangle
         \param indexB second point of triangle
         \param indexC third point of triangle
+        \param indexOffset index offset
         \returns index of triangle created
         */
-        uint32 addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC);
+        uint32 addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC, const uint32 indexOffset = 0);
 
         /*! set's if added vertexes will be joined when heaving same position
 

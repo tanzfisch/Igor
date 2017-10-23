@@ -188,13 +188,13 @@ namespace Igor
         }
     }
 
-    uint32 iMeshBuilder::addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC)
+    uint32 iMeshBuilder::addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC, const uint32 indexOffset)
     {
         con_assert(indexA != indexB && indexB != indexC && indexA != indexC, "invalid triangle");
         iIndexedTriangle triangle;
-        triangle._a = indexA;
-        triangle._b = indexB;
-        triangle._c = indexC;
+        triangle._a = indexA + indexOffset;
+        triangle._b = indexB + indexOffset;
+        triangle._c = indexC + indexOffset;
         _triangles.push_back(triangle);
         return _triangles.size() - 1;
     }

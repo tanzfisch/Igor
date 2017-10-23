@@ -93,9 +93,14 @@ private:
 
     ModifierMode _modifierMode = ModifierMode::Locator;
 
-    shared_ptr<iMeshBuffers> _cylinder;
-    shared_ptr<iMeshBuffers> _umbrella;
-    shared_ptr<iMeshBuffers> _cube;
+    uint64 _translateXNodeID = iNode::INVALID_NODE_ID;
+    uint64 _translateYNodeID = iNode::INVALID_NODE_ID;
+    uint64 _translateZNodeID = iNode::INVALID_NODE_ID;
+
+    uint64 _scaleXNodeID = iNode::INVALID_NODE_ID;
+    uint64 _scaleYNodeID = iNode::INVALID_NODE_ID;
+    uint64 _scaleZNodeID = iNode::INVALID_NODE_ID;
+    uint64 _scaleAllNodeID = iNode::INVALID_NODE_ID;
 
     iTargetMaterial* _red = nullptr;
     iTargetMaterial* _green = nullptr;
@@ -106,15 +111,15 @@ private:
 
     uint64 _material = iMaterial::INVALID_MATERIAL_ID;
 
-    shared_ptr<iMesh> createUmbrella();
-    shared_ptr<iMesh> createCylinder();
-    shared_ptr<iMesh> createCube();
-    shared_ptr<iMesh> createRing();
-    shared_ptr<iMesh> create2DRing();
+    shared_ptr<iMesh> createTranslateMesh();
+    shared_ptr<iMesh> createLocatorMesh();
+    shared_ptr<iMesh> createScaleMesh();
+    shared_ptr<iMesh> createRingMesh();
+    shared_ptr<iMesh> create2DRingMesh();
 
-    void createLocatorModifier(shared_ptr<iMesh> &cylinderMesh);
-    void createTranslateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &umbrellaMesh);
-    void createScaleModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &cubeMesh);
+    void createLocatorModifier(shared_ptr<iMesh> &locatorMesh);
+    void createTranslateModifier(shared_ptr<iMesh> &translateMesh);
+    void createScaleModifier(shared_ptr<iMesh> &scaleMesh);
     void createRotateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D);
 
 };
