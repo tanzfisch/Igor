@@ -82,9 +82,6 @@ __IGOR_INLINE__ bool iaMatrix<T>::operator != (const iaMatrix<T> &a) const
     return false;
 }
 
-/*!
-\todo const version would be nice
-*/
 template <class T>
 __IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator * (iaVector3<T> &a) const
 {
@@ -95,7 +92,29 @@ __IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator * (iaVector3<T> &a) const
 }
 
 template <class T>
+__IGOR_INLINE__ iaVector3<T> iaMatrix<T>::operator * (const iaVector3<T> &a) const
+{
+    iaVector3<T> result;
+    result = _right * a._x + _top * a._y + _depth * a._z + _pos;
+
+    return result;
+}
+
+template <class T>
 __IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator * (iaVector4<T> &a) const
+{
+    iaVector4<T> result;
+
+    result._vec._x = _right._x  *  a._vec._x + _top._x  *  a._vec._y + _depth._x  *  a._vec._z + _pos._x  *  a._w;
+    result._vec._y = _right._y  *  a._vec._x + _top._y  *  a._vec._y + _depth._y  *  a._vec._z + _pos._y  *  a._w;
+    result._vec._z = _right._z  *  a._vec._x + _top._z  *  a._vec._y + _depth._z  *  a._vec._z + _pos._z  *  a._w;
+    result._w = _w0 * a._vec._x + _w1 * a._vec._y + _w2 * a._vec._z + _w3 * a._w;
+
+    return result;
+}
+
+template <class T>
+__IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator * (const iaVector4<T> &a) const
 {
     iaVector4<T> result;
 

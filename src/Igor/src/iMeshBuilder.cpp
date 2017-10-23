@@ -32,6 +32,17 @@ namespace Igor
         _texCoords.clear();
         _triangles.clear();
         _indexMap.clear();
+        _matrix.identity();
+    }
+
+    void iMeshBuilder::setMatrix(const iaMatrixf& matrix)
+    {
+        _matrix = matrix;
+    }
+
+    void iMeshBuilder::getMatrix(iaMatrixf& matrix)
+    {
+        matrix = _matrix;
     }
 
     const vector<iaVector3f>& iMeshBuilder::getVertexes() const
@@ -49,16 +60,6 @@ namespace Igor
         return _triangles;
     }
 
-    void iMeshBuilder::setGridSize(float32 gridSize)
-    {
-        _gridSize = gridSize;
-    }
-
-    float32 iMeshBuilder::getGridSize()
-    {
-        return _gridSize;
-    }
-
     void iMeshBuilder::setJoinVertexes(bool joinVertexes)
     {
         con_assert(_vertexes.empty(), "can't change this setting if already vertexes inserted");
@@ -74,21 +75,20 @@ namespace Igor
         return _joinVertexes;
     }
 
-    uint32 iMeshBuilder::addVertexSnapped(const iaVector3f& vertex)
-    {
-        iaVector3f snappedVertex(floor((vertex._x / _gridSize) + 0.5f) * _gridSize, 
-            floor((vertex._y / _gridSize) + 0.5f) * _gridSize, 
-            floor((vertex._z / _gridSize) + 0.5f) * _gridSize);
-        return addVertex(vertex);
-    }
-
     uint32 iMeshBuilder::addVertex(const iaVector4f& vertex)
     {
-        iaVector3f v(vertex._vec._x, vertex._vec._y, vertex._vec._z);
-        return addVertex(v);
+        iaVector3f vec3(vertex._vec._x, vertex._vec._y, vertex._vec._z);
+        iaVector3f transformed = _matrix * vec3;
+        return addVertex(transformed);
     }
 
     uint32 iMeshBuilder::addVertex(const iaVector3f& vertex)
+    {
+        iaVector3f transformed = _matrix * vertex;
+        return addVertexIntern(transformed);
+    }
+
+    uint32 iMeshBuilder::addVertexIntern(const iaVector3f& vertex)
     {
         con_assert(vertex._x > -1000000 && vertex._x < 1000000, "out of bounds");
         con_assert(vertex._y > -1000000 && vertex._y < 1000000, "out of bounds");

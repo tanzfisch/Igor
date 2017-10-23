@@ -82,11 +82,11 @@ void ModelViewer::init(iaString fileName)
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
 
-    _viewUI.setClearColor(false);
-    _viewUI.setClearDepth(true);
-    _viewUI.setPerspective(45.0f);
-    _viewUI.setClipPlanes(0.1f, 10000.f);
-    _window.addView(&_viewUI);
+    _viewManipulator.setClearColor(false);
+    _viewManipulator.setClearDepth(true);
+    _viewManipulator.setPerspective(45.0f);
+    _viewManipulator.setClipPlanes(0.1f, 10000.f);
+    _window.addView(&_viewManipulator);
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
@@ -101,9 +101,9 @@ void ModelViewer::init(iaString fileName)
     _scene->setName("Model Scene");
     _view.setScene(_scene);
 
-    _sceneUI = iSceneFactory::getInstance().createScene();
-    _sceneUI->setName("Modifier Scene");
-    _viewUI.setScene(_sceneUI);
+    _sceneManipulator = iSceneFactory::getInstance().createScene();
+    _sceneManipulator->setName("Modifier Scene");
+    _viewManipulator.setScene(_sceneManipulator);
 
     _transformModel = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _transformModel->setName("model transform");
@@ -114,7 +114,7 @@ void ModelViewer::init(iaString fileName)
     _transformModel->insertNode(_groupNode);
 
     // modifier
-    _manipulator = new Manipulator(_sceneUI->getRoot());
+    _manipulator = new Manipulator(_sceneManipulator->getRoot());
 
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -149,12 +149,12 @@ void ModelViewer::init(iaString fileName)
     _cameraUI = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
     _cameraUI->setName("camera UI");
 
-    _sceneUI->getRoot()->insertNode(_cameraCOIUI);
+    _sceneManipulator->getRoot()->insertNode(_cameraCOIUI);
     _cameraCOIUI->insertNode(_cameraHeadingUI);
     _cameraHeadingUI->insertNode(_cameraPitchUI);
     _cameraPitchUI->insertNode(_cameraTranslationUI);
     _cameraTranslationUI->insertNode(_cameraUI);
-    _viewUI.setCurrentCamera(_cameraUI->getID());
+    _viewManipulator.setCurrentCamera(_cameraUI->getID());
 
     _cameraTranslationUI->translate(0, 0, 80);
 
@@ -847,13 +847,15 @@ void ModelViewer::onMouseWheel(int32 d)
 
 void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
+    const float32 rotateSensitivity = 0.0075f;
+
     if (iMouse::getInstance().getLeftButton() &&
         iKeyboard::getInstance().getKey(iKeyCode::LAlt))
     {
-        _cameraPitch->rotate((y1 - y2) * 0.005f, iaAxis::X);
-        _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
-        _cameraPitchUI->rotate((y1 - y2) * 0.005f, iaAxis::X);
-        _cameraHeadingUI->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+        _cameraPitch->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+        _cameraHeading->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+        _cameraPitchUI->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+        _cameraHeadingUI->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
 
         iaMatrixd matrix;
         _cameraUI->calcWorldTransformation(matrix);
@@ -862,10 +864,8 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
 
     if (iMouse::getInstance().getRightButton())
     {
-        float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
-        _directionalLightRotate->rotate(dx, iaAxis::Y);
-
-        iMouse::getInstance().setCenter(true);
+        _directionalLightRotate->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+        _directionalLightRotate->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
     }
 }
 
