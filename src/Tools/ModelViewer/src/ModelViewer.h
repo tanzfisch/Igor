@@ -132,6 +132,7 @@ private:
 
     Manipulator* _manipulator = nullptr;
 
+    void updateManipulator();
     void pickcolorID();
 
     void onGraphViewSelectionChanged(uint64 nodeID);
@@ -162,7 +163,7 @@ private:
 
     void deinit();
     void init(iaString fileName);
-    void updateCamDistanceTransform(float32 camDistance);
+    void updateCamDistanceTransform();
     void centerCamOnNode(iNode* node);
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);

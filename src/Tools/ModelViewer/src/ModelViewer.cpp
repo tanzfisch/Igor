@@ -421,8 +421,6 @@ void ModelViewer::centerCamOnNode(iNode* node)
         {
             _camDistance = 1.0f;
         }
-
-        updateCamDistanceTransform(_camDistance);
     }
 }
 
@@ -472,6 +470,8 @@ void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturn
 
 void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
+    iNode* selectNode = nullptr;
+
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
@@ -490,7 +490,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         forceLoadingNow();
         _scene->getRoot()->removeNode(model);
 
-        iNode* groupNode = nullptr;
+        iNode* groupNode = nullptr;        
 
         auto children = model->getChildren();
         if (children.size() > 1)
@@ -509,6 +509,8 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             {
                 _groupNode->insertNode(groupNode);
             }
+
+            selectNode = groupNode;
         }
         else
         {
@@ -542,10 +544,14 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
+
+    _menuDialog->setSelectedNode(selectNode);
 }
 
 void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
+    iNode* selectNode = nullptr;
+
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
@@ -571,6 +577,8 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
             _groupNode->insertNode(model);
         }
         forceLoadingNow();
+
+        selectNode = model;
     }
 
     _menuDialog->setActive();
@@ -579,10 +587,14 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
+
+    _menuDialog->setSelectedNode(selectNode);
 }
 
 void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
+    iNode* selectNode = nullptr;
+
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
@@ -632,6 +644,8 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
             {
                 _groupNode->insertNode(groupNode);
             }
+
+            selectNode = groupNode;
         }
         else
         {
@@ -644,6 +658,8 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
             {
                 groupNode = _groupNode;
             }
+
+            selectNode = children.front();
         }
 
         auto child = children.begin();
@@ -657,6 +673,8 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         iNodeFactory::getInstance().destroyNodeAsync(model);
 
         forceLoadingNow();
+
+        
     }
 
     _menuDialog->setActive();
@@ -665,6 +683,8 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
+
+    _menuDialog->setSelectedNode(selectNode);
 }
 
 void ModelViewer::initGUI()
@@ -700,6 +720,11 @@ void ModelViewer::initGUI()
 void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
 {
     _selectedNodeID = nodeID;
+}
+
+void ModelViewer::updateManipulator()
+{
+    updateCamDistanceTransform();
 
     iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
@@ -729,6 +754,10 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
             _manipulator->setVisible(false);
         }
     }
+    else
+    {
+        _manipulator->setVisible(false);
+    }    
 }
 
 void ModelViewer::deinitGUI()
@@ -791,12 +820,12 @@ void ModelViewer::onWindowResize(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
 }
 
-void ModelViewer::updateCamDistanceTransform(float32 camDistance)
+void ModelViewer::updateCamDistanceTransform()
 {
     _cameraTranslation->identity();
-    _cameraTranslation->translate(0, 0, camDistance);
+    _cameraTranslation->translate(0, 0, _camDistance);
     _cameraTranslationUI->identity();
-    _cameraTranslationUI->translate(0, 0, camDistance);
+    _cameraTranslationUI->translate(0, 0, _camDistance);
 
     iaMatrixd matrix;
     _cameraUI->calcWorldTransformation(matrix);
@@ -840,9 +869,7 @@ void ModelViewer::onMouseWheel(int32 d)
     else
     {
         _camDistance *= 0.5f;
-    }
-
-    updateCamDistanceTransform(_camDistance);
+    }    
 }
 
 void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
@@ -941,6 +968,8 @@ void ModelViewer::handle()
 
 void ModelViewer::render()
 {
+    updateManipulator();
+
     if (_selectedNodeID != iNode::INVALID_NODE_ID)
     {
         iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);

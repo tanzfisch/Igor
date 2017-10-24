@@ -64,6 +64,7 @@ void Manipulator::init()
     shared_ptr<iMesh> ringMesh2D = create2DRingMesh();
 
     _rootTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _rootTransform->setActive(_visible);
 
     _switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
     _rootTransform->insertNode(_switchNode);
@@ -265,7 +266,7 @@ void Manipulator::createLocatorModifier(shared_ptr<iMesh> &locatorMesh)
 
 void Manipulator::updateCamMatrix(const iaMatrixd& camMatrix)
 {
-    float64 distanceToCam = camMatrix._pos.distance(_modifierMatrix._pos) * 0.1;
+    float64 distanceToCam = camMatrix._pos.distance(_modifierMatrix._pos) * 0.1;    
     _rootTransform->setMatrix(_modifierMatrix);
     _rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
 
