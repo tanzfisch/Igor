@@ -44,7 +44,7 @@ namespace Igor
 
     /*! event triggered when model was loaded
     */
-    iaEVENT(iModelReadyEvent, iModelReadyDelegate, void, (uint32 modelNodeID), (modelNodeID));
+    iaEVENT(iModelReadyEvent, iModelReadyDelegate, void, (uint64 modelNodeID), (modelNodeID));
 
     /*! represents a model within the scene
 

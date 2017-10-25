@@ -125,7 +125,7 @@ private:
     */
     iTextureFont* _font = nullptr;
 
-    void onModelReady(uint32 modelNodeID);
+    void onModelReady(uint64 modelNodeID);
     void makeCollisions(iNode* node);
 
     /*! material definition for the sky box

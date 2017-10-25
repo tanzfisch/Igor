@@ -359,7 +359,7 @@ void ExampleInstancing::drawLogo()
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
-void ExampleInstancing::onModelReady(uint32 modelNodeID)
+void ExampleInstancing::onModelReady(uint64 modelNodeID)
 {
     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(modelNodeID));
     if (modelNode != nullptr &&

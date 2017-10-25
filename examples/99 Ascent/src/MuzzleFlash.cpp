@@ -54,7 +54,7 @@ MuzzleFlash::~MuzzleFlash()
     iNodeFactory::getInstance().destroyNodeAsync(_muzzleSmokeModelID);
 }
 
-void MuzzleFlash::onMuzzleFlashLoaded(uint32 nodeID)
+void MuzzleFlash::onMuzzleFlashLoaded(uint64 nodeID)
 {
     iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
@@ -77,7 +77,7 @@ void MuzzleFlash::onMuzzleSmokeFinished()
     _muzzleSmokeRunning = false;
 }
 
-void MuzzleFlash::onMuzzleSmokeLoaded(uint32 nodeID)
+void MuzzleFlash::onMuzzleSmokeLoaded(uint64 nodeID)
 {
     iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)

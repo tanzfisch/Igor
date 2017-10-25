@@ -255,7 +255,7 @@ void ExampleCharacterController::init()
     iPhysics::getInstance().start();
 }
 
-void ExampleCharacterController::onModelReady(uint32 modelNodeID)
+void ExampleCharacterController::onModelReady(uint64 modelNodeID)
 {
     iNode* node = iNodeFactory::getInstance().getNode(modelNodeID);
     makeCollisions(node);

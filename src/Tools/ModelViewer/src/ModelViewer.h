@@ -126,7 +126,7 @@ private:
     uint64 _materialBoundingBox;
     uint64 _materialCelShading;
 
-	uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
+    uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
 
     iStatisticsVisualizer _statisticsVisualizer;
 
@@ -138,6 +138,7 @@ private:
     void onGraphViewSelectionChanged(uint64 nodeID);
 
     void onKeyPressed(iKeyCode key);
+    void centerCamOnSelectedNode();
     void onWindowClosed();
 
     void onLoadFile();
@@ -171,7 +172,7 @@ private:
     void onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
 
-    void forceLoadingNow();
+    void forceLoadingNow(iNodeModel* modelNode);
     void initGUI();
     void deinitGUI();
 
