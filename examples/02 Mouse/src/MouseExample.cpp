@@ -48,6 +48,8 @@ void MouseExample::init()
 	iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &MouseExample::onMouseKeyUp));
     // register callback to mouse double click event. called for any key on the mouse double clicked
     iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &MouseExample::onMouseDoubleClick));
+    // register callback to mouse click event
+    iMouse::getInstance().registerMouseClickDelegate(iMouseClickDelegate(this, &MouseExample::onMouseClick));
     // register callback to mosue wheel event. called when mouse wheel was turned 
 	iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &MouseExample::onMouseWheel));
 
@@ -59,6 +61,7 @@ void MouseExample::deinit()
 {
     // unregister from all io events
     iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &MouseExample::onMouseDoubleClick));
+    iMouse::getInstance().unregisterMouseClickDelegate(iMouseClickDelegate(this, &MouseExample::onMouseClick));
 	iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &MouseExample::onMouseWheel));
 	iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &MouseExample::onMouseKeyUp));
 	iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &MouseExample::onMouseKeyDown));
@@ -76,6 +79,11 @@ void MouseExample::run()
 {
     // run the engine main loop
 	iApplication::getInstance().run();
+}
+
+void MouseExample::onMouseClick(iKeyCode key)
+{
+    con_endl("clicked " << iKeyCodeMap::getInstance().getKeyName(key));
 }
 
 void MouseExample::onMouseMovedFull(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
