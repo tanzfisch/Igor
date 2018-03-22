@@ -247,6 +247,7 @@ namespace Igor
 
         \param material the material to be set as current material
         \param forceWireframe if true all materials will be considered using wireframe
+        \todo make separate interface for showing wireframe
         */
         void setMaterial(iMaterial* material, bool forceWireframe = false);
 
