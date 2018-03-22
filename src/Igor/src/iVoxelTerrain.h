@@ -93,23 +93,23 @@ namespace Igor
         */
         static const uint32 _lowestLOD = 10;
 
-        /*! voxel block discovery distance
+        /*! voxel block discovery distance in blocks
         */
         static const int64 _voxelBlockDiscoveryDistance = 4;
 
-        /*! voxel block setup distance
+        /*! voxel block setup distance in blocks
         */
         static const int64 _voxelBlockSetupDistance = 2;
 
         /*! block quibic size
 
-        can't be changed right now
+        \bug can't be changed right now
         */
         static const int32 _voxelBlockSize = 32;
 
         /*! block overlap
 
-        can't be changed right now
+        \bug can't be changed right now
         */
         static const int32 _voxelBlockOverlap = 2;
 
