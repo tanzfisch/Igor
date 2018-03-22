@@ -299,6 +299,9 @@ void Example3D::deinit()
         _font = nullptr;
     }
 
+    // release resources
+    _igorLogo = nullptr;
+
     // stop light animation
     if (_animationTimingHandle)
     {
