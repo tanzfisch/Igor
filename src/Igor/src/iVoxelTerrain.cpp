@@ -263,9 +263,9 @@ namespace Igor
         max += boundings._halfWidths;
 
         int64 lodFactor = static_cast<int64>(pow(2, _lowestLOD));
-        int64 actualBlockSize = _voxelBlockSize * lodFactor;
-        min /= actualBlockSize;
-        max /= actualBlockSize;
+        int64 worldBlockSize = _voxelBlockSize * lodFactor;
+        min /= worldBlockSize;
+        max /= worldBlockSize;
 
         if (min._x < 0)
         {
@@ -471,15 +471,15 @@ namespace Igor
     void iVoxelTerrain::discoverBlocks(const iaVector3I& observerPosition)
     {
         int64 lodFactor = static_cast<int64>(pow(2, _lowestLOD));
-        int64 actualBlockSize = _voxelBlockSize * lodFactor;
+        int64 worldBlockSize = _voxelBlockSize * lodFactor;
 
-        if (_dirtyDiscovery || observerPosition.distance2(_lastDiscoveryPosition) > actualBlockSize * actualBlockSize)
+        if (_dirtyDiscovery || observerPosition.distance2(_lastDiscoveryPosition) > worldBlockSize * worldBlockSize)
         {
             _dirtyDiscovery = false;
             _lastDiscoveryPosition = observerPosition;
 
             iaVector3I center = observerPosition;
-            center /= actualBlockSize;
+            center /= worldBlockSize;
 
             iaVector3I start(center);
             start._x -= _voxelBlockDiscoveryDistance;
