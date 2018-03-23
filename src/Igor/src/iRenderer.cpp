@@ -838,24 +838,28 @@ namespace Igor
             if (targetMaterial->hasTextureUnit(0) &&
                 _currentMaterial->_hasTexture[0])
             {
+                glUniform1i(_currentMaterial->_matTexture[0], 0);
                 bindTexture(targetMaterial->getTexture(0), 0);
             }
 
             if (targetMaterial->hasTextureUnit(1) &&
                 _currentMaterial->_hasTexture[1])
             {
+                glUniform1i(_currentMaterial->_matTexture[1], 1);
                 bindTexture(targetMaterial->getTexture(1), 1);
             }
 
             if (targetMaterial->hasTextureUnit(2) &&
                 _currentMaterial->_hasTexture[2])
             {
+                glUniform1i(_currentMaterial->_matTexture[2], 2);
                 bindTexture(targetMaterial->getTexture(2), 2);
             }
 
             if (targetMaterial->hasTextureUnit(3) &&
                 _currentMaterial->_hasTexture[3])
             {
+                glUniform1i(_currentMaterial->_matTexture[3], 3);
                 bindTexture(targetMaterial->getTexture(3), 3);
             }
         }
@@ -1397,20 +1401,18 @@ namespace Igor
     {
         if (_currentMaterial->getShader() != nullptr)
         {
-            uint32 program = _currentMaterial->getShader()->getProgram();
-
             if (_currentMaterial->_hasDirectionalLight)
             {
-                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_ORIENTATION), 1, static_cast<GLfloat*>(_lights[0]._position.getData())); GL_CHECK_ERROR();
-                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_AMBIENT), 1, static_cast<GLfloat*>(_lights[0]._ambient.getData())); GL_CHECK_ERROR();
-                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_DIFFUSE), 1, static_cast<GLfloat*>(_lights[0]._diffuse.getData())); GL_CHECK_ERROR();
-                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_LIGHT_SPECULAR), 1, static_cast<GLfloat*>(_lights[0]._specular.getData())); GL_CHECK_ERROR();
+                glUniform3fv(_currentMaterial->_lightOrientation, 1, static_cast<GLfloat*>(_lights[0]._position.getData())); GL_CHECK_ERROR();
+                glUniform3fv(_currentMaterial->_lightAmbient, 1, static_cast<GLfloat*>(_lights[0]._ambient.getData())); GL_CHECK_ERROR();
+                glUniform3fv(_currentMaterial->_lightDiffuse, 1, static_cast<GLfloat*>(_lights[0]._diffuse.getData())); GL_CHECK_ERROR();
+                glUniform3fv(_currentMaterial->_lightSpecular, 1, static_cast<GLfloat*>(_lights[0]._specular.getData())); GL_CHECK_ERROR();
             }
 
             if (_currentMaterial->_hasEyePosition)
             {
                 iaVector3f eyePosition(_camWorldMatrix._pos._x, _camWorldMatrix._pos._y, _camWorldMatrix._pos._z);
-                glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_EYE_POSITION), 1, static_cast<GLfloat*>(eyePosition.getData())); GL_CHECK_ERROR();
+                glUniform3fv(_currentMaterial->_eyePosition, 1, static_cast<GLfloat*>(eyePosition.getData())); GL_CHECK_ERROR();
             }
 
             if (_currentMaterial->_hasModelViewProjectionMatrix)
@@ -1421,7 +1423,7 @@ namespace Igor
                 {
                     modelViewProjection[i] = _modelViewProjectionMatrix[i];
                 }
-                glUniformMatrix4fv(glGetUniformLocation(program, iMaterial::UNIFORM_MODEL_VIEW_PROJECTION), 1, false, modelViewProjection.getData()); GL_CHECK_ERROR();
+                glUniformMatrix4fv(_currentMaterial->_mvp_matrix, 1, false, modelViewProjection.getData()); GL_CHECK_ERROR();
             }
 
             if (_currentMaterial->_hasModelMatrix)
@@ -1431,7 +1433,7 @@ namespace Igor
                 {
                     model[i] = _modelMatrix[i];
                 }
-                glUniformMatrix4fv(glGetUniformLocation(program, iMaterial::UNIFORM_MODEL), 1, false, model.getData()); GL_CHECK_ERROR();
+                glUniformMatrix4fv(_currentMaterial->_model_matrix, 1, false, model.getData()); GL_CHECK_ERROR();
             }
         }
     }

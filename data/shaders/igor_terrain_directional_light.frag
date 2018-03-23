@@ -31,19 +31,21 @@ void main()
 		
 	float scale = 0.1;
 	
-	vec3 diffuseTextureColor1;
+	vec3 diffuseTextureColor0;
 	
-	if(N.z > 0)
+	if(N.y > 0)
 	{
-		diffuseTextureColor1 = texture2D(igor_matTexture1, P.xz * scale).rgb * texSelector.z;
+		// top
+		diffuseTextureColor0 = texture2D(igor_matTexture0, P.xz * scale).rgb * texSelector.y;
 	}
-	else
+	else 
 	{
-		diffuseTextureColor1 = texture2D(igor_matTexture2, P.xz * scale).rgb * texSelector.z;
+		// bottom
+		diffuseTextureColor0 = texture2D(igor_matTexture2, P.xz * scale).rgb * texSelector.y; 
 	}
 	
-	vec3 diffuseTextureColor0 = texture2D(igor_matTexture0, P.yz * scale).rgb * texSelector.x;
-	vec3 diffuseTextureColor2 = texture2D(igor_matTexture0, P.xy * scale).rgb * texSelector.y;
+	vec3 diffuseTextureColor1 = texture2D(igor_matTexture1, P.yz * scale).rgb * texSelector.x; 
+	vec3 diffuseTextureColor2 = texture2D(igor_matTexture1, P.xy * scale).rgb * texSelector.z;
 	
 	vec3 diffuseTextureColor = diffuseTextureColor0 + diffuseTextureColor1 + diffuseTextureColor2;
 	

@@ -339,7 +339,7 @@ void VoxelExample::generateVoxelData()
         _voxelMeshTransform = iNode::INVALID_NODE_ID;
         _voxelMeshModel = iNode::INVALID_NODE_ID;
     }
-    
+
     // !!!! now you should first have a look at the VoxelTerrainMeshGenerator class before you continue !!!!
     prepareMeshGeneration();
 

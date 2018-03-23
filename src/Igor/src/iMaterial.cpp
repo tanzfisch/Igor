@@ -100,10 +100,17 @@ namespace Igor
                 _hasSolidColor = true;
             }
 
-            _hasTexture[0] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE0) != -1 ? true : false;
-            _hasTexture[1] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE1) != -1 ? true : false;
-            _hasTexture[2] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE2) != -1 ? true : false;
-            _hasTexture[3] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE3) != -1 ? true : false;
+            _matTexture[0] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE0);
+            _hasTexture[0] = _matTexture[0] != -1 ? true : false;
+
+            _matTexture[1] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE0);
+            _hasTexture[1] = _matTexture[1] != -1 ? true : false;
+
+            _matTexture[2] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE0);
+            _hasTexture[2] = _matTexture[2] != -1 ? true : false;
+
+            _matTexture[3] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE0);
+            _hasTexture[3] = _matTexture[3] != -1 ? true : false;
         }
     }
 

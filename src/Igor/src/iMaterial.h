@@ -180,6 +180,7 @@ namespace Igor
         int32 _matSolidColor;
 
         bool _hasTexture[4] = { false, false, false, false };
+        int32 _matTexture[4];
 
         /*! oder that material groups get sorted by
 
