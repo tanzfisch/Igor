@@ -98,6 +98,11 @@ namespace Igor
             {
                 _hasSolidColor = true;
             }
+
+            _hasTexture[0] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE0) != -1 ? true : false;
+            _hasTexture[1] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE1) != -1 ? true : false;
+            _hasTexture[2] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE2) != -1 ? true : false;
+            _hasTexture[3] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE3) != -1 ? true : false;
         }
     }
 

@@ -165,6 +165,8 @@ namespace Igor
 
         bool _hasSolidColor = false;
 
+        bool _hasTexture[4] = { false, false, false, false };
+
         /*! oder that material groups get sorted by
 
         default value is iMaterial::RENDER_ORDER_DEFAULT

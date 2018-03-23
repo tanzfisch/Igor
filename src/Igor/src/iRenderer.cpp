@@ -835,26 +835,30 @@ namespace Igor
                 glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_SPECULAR), 1, static_cast<GLfloat*>(targetMaterial->getSpecular().getData())); GL_CHECK_ERROR();
                 glUniform1f(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_SHININESS), targetMaterial->getShininess()); GL_CHECK_ERROR();
                 glUniform3fv(glGetUniformLocation(program, iMaterial::UNIFORM_MATERIAL_EMISSIVE), 1, static_cast<GLfloat*>(targetMaterial->getEmissive().getData())); GL_CHECK_ERROR();
+            }
 
-                if (targetMaterial->hasTextureUnit(0))
-                {
-                    bindTexture(targetMaterial->getTexture(0), 0);
-                }
+            if (targetMaterial->hasTextureUnit(0) &&
+                _currentMaterial->_hasTexture[0])
+            {
+                bindTexture(targetMaterial->getTexture(0), 0);
+            }
 
-                if (targetMaterial->hasTextureUnit(1))
-                {
-                    bindTexture(targetMaterial->getTexture(1), 1);
-                }
+            if (targetMaterial->hasTextureUnit(1) &&
+                _currentMaterial->_hasTexture[1])
+            {
+                bindTexture(targetMaterial->getTexture(1), 1);
+            }
 
-                if (targetMaterial->hasTextureUnit(2))
-                {
-                    bindTexture(targetMaterial->getTexture(2), 2);
-                }
+            if (targetMaterial->hasTextureUnit(2) &&
+                _currentMaterial->_hasTexture[2])
+            {
+                bindTexture(targetMaterial->getTexture(2), 2);
+            }
 
-                if (targetMaterial->hasTextureUnit(3))
-                {
-                    bindTexture(targetMaterial->getTexture(3), 3);
-                }
+            if (targetMaterial->hasTextureUnit(3) &&
+                _currentMaterial->_hasTexture[3])
+            {
+                bindTexture(targetMaterial->getTexture(3), 3);
             }
         }
     }
