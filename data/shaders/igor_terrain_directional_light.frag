@@ -5,9 +5,9 @@ in vec3 VertexNormal;
 
 layout(location = 0) out vec4 out_color;
 
-uniform sampler2D igor_texture0;
-uniform sampler2D igor_texture1;
-uniform sampler2D igor_texture2;
+uniform sampler2D igor_matTexture0;
+uniform sampler2D igor_matTexture1;
+uniform sampler2D igor_matTexture2;
 
 uniform vec3 igor_eyePosition;
 
@@ -35,17 +35,17 @@ void main()
 	
 	if(N.z > 0)
 	{
-		diffuseTextureColor1 = texture2D(igor_texture1, P.xz * scale).rgb * texSelector.z;
+		diffuseTextureColor1 = texture2D(igor_matTexture1, P.xz * scale).rgb * texSelector.z;
 	}
 	else
 	{
-		diffuseTextureColor1 = texture2D(igor_texture2, P.xz * scale).rgb * texSelector.z;
+		diffuseTextureColor1 = texture2D(igor_matTexture2, P.xz * scale).rgb * texSelector.z;
 	}
 	
-	vec3 diffuseTextureColor0 = texture2D(igor_texture0, P.yz * scale).rgb * texSelector.x;
-	vec3 diffuseTextureColor2 = texture2D(igor_texture0, P.xy * scale).rgb * texSelector.y;
+	vec3 diffuseTextureColor0 = texture2D(igor_matTexture0, P.yz * scale).rgb * texSelector.x;
+	vec3 diffuseTextureColor2 = texture2D(igor_matTexture0, P.xy * scale).rgb * texSelector.y;
 	
-	vec3 diffuseTextureColor = diffuseTextureColor0 + diffuseTextureColor1 + diffuseTextureColor2;
+	vec3 diffuseTextureColor = diffuseTextureColor1; // + diffuseTextureColor1 + diffuseTextureColor2;
 	
 	vec3 emissive = igor_matEmissive;
 	
