@@ -217,9 +217,6 @@ void VoxelExample::initScene()
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor_terrain.vert", iShaderObjectType::Vertex);
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor_terrain_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D1, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D2, iRenderStateValue::On);
 
     // set up loading text material
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
