@@ -45,7 +45,7 @@ void main()
 	vec3 diffuseTextureColor0 = texture2D(igor_matTexture0, P.yz * scale).rgb * texSelector.x;
 	vec3 diffuseTextureColor2 = texture2D(igor_matTexture0, P.xy * scale).rgb * texSelector.y;
 	
-	vec3 diffuseTextureColor = diffuseTextureColor1; // + diffuseTextureColor1 + diffuseTextureColor2;
+	vec3 diffuseTextureColor = diffuseTextureColor0 + diffuseTextureColor1 + diffuseTextureColor2;
 	
 	vec3 emissive = igor_matEmissive;
 	
