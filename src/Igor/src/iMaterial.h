@@ -153,17 +153,31 @@ namespace Igor
 
 	private:
 
+        // TODO getter? docu?
         bool _hasDirectionalLight = false;
+        int32 _lightOrientation;
+        int32 _lightAmbient;
+        int32 _lightDiffuse;
+        int32 _lightSpecular;
 
+        int32 _eyePosition;
         bool _hasEyePosition = false;
 
         bool _hasModelViewProjectionMatrix = false;
+        int32 _mvp_matrix;
 
         bool _hasModelMatrix = false;
+        int32 _model_matrix;
 
         bool _hasTargetMaterial = false;
+        int32 _matAmbient;
+        int32 _matDiffuse;
+        int32 _matSpecular;
+        int32 _matShininess;
+        int32 _matEmissive;
 
         bool _hasSolidColor = false;
+        int32 _matSolidColor;
 
         bool _hasTexture[4] = { false, false, false, false };
 
