@@ -221,8 +221,8 @@ void VoxelExample::initScene()
 
     // set up voxel mesh material
     _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor_terrain.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor_terrain_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 
