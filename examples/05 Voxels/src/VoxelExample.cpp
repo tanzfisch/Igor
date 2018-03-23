@@ -78,22 +78,15 @@ void VoxelExample::deinit()
     // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
 
+    // free some resoures
+    _igorLogo = nullptr;
+
     // destroy scene
     iSceneFactory::getInstance().destroyScene(_scene);
 
-    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
-    if (modelTask != nullptr)
-    {
-        modelTask->abort();
-        _flushModelsTask = iTask::INVALID_TASK_ID;
-    }
-
-    iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
-    if (textureTask != nullptr)
-    {
-        textureTask->abort();
-        _flushTexturesTask = iTask::INVALID_TASK_ID;
-    }
+    // abort resource tasks
+    iTaskManager::getInstance().abortTask(_flushModelsTask);
+    iTaskManager::getInstance().abortTask(_flushTexturesTask);
 
     unregisterHandles();
 
