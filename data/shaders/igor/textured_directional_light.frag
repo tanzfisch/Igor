@@ -6,7 +6,7 @@ in vec2 VertexTexCoord;
 
 layout(location = 0) out vec4 out_color;
 
-uniform sampler2D igor_texture0;
+uniform sampler2D igor_matTexture0;
 
 uniform vec3 igor_eyePosition;
 
@@ -25,7 +25,7 @@ void main()
 {
 	vec3 N = normalize(VertexNormal);
 	vec3 P = VertexWorld;
-	vec3 diffuseTextureColor = texture2D(igor_texture0, VertexTexCoord).rgb;
+	vec3 diffuseTextureColor = texture2D(igor_matTexture0, VertexTexCoord).rgb;
 	
 	vec3 emissive = igor_matEmissive;
 	

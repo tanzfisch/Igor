@@ -28,8 +28,8 @@ Manipulator::Manipulator(iNode* parent)
 void Manipulator::init()
 {
     _material = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
-    iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor_default.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor_default_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
     iMaterialResourceFactory::getInstance().getMaterialGroup(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
 

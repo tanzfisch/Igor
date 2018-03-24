@@ -129,8 +129,8 @@ namespace Igor
         // create the default material
         _defaultMaterial = createMaterial();
         getMaterial(_defaultMaterial)->setName("IgorDefault");
-        getMaterial(_defaultMaterial)->addShaderSource("igor_default.vert", iShaderObjectType::Vertex);
-        getMaterial(_defaultMaterial)->addShaderSource("igor_default_directional_light.frag", iShaderObjectType::Fragment);
+        getMaterial(_defaultMaterial)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+        getMaterial(_defaultMaterial)->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
         getMaterial(_defaultMaterial)->compileShader();
         getMaterialGroup(_defaultMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
@@ -140,8 +140,8 @@ namespace Igor
         // create the color ID material
         _colorIDMaterial = createMaterial();
         getMaterial(_colorIDMaterial)->setName("IgorColorID");
-        getMaterial(_colorIDMaterial)->addShaderSource("igor_default.vert", iShaderObjectType::Vertex);
-        getMaterial(_colorIDMaterial)->addShaderSource("igor_solidColor.frag", iShaderObjectType::Fragment);
+        getMaterial(_colorIDMaterial)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+        getMaterial(_colorIDMaterial)->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
         getMaterial(_colorIDMaterial)->compileShader();
         getMaterialGroup(_colorIDMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
     }
