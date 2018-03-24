@@ -22,12 +22,7 @@ namespace Igor
 
         SYSTEM_INFO sysinfo;
         GetSystemInfo(&sysinfo);
-        int32 numThreads = sysinfo.dwNumberOfProcessors + 1;
-
-        if (numThreads < 4)
-        {
-            numThreads = 4;
-        }
+        int32 numThreads = sysinfo.dwNumberOfProcessors;
 
         for (int i = 0; i < numThreads; ++i)
         {
@@ -72,7 +67,7 @@ namespace Igor
 
             while (task->isRunning())
             {
-                _sleep(1);
+                Sleep(10);
             }
 
             delete task;
@@ -90,7 +85,7 @@ namespace Igor
 
             while (task->isRunning())
             {
-                _sleep(1);
+                Sleep(10);
             }
 
             delete task;
@@ -140,32 +135,32 @@ namespace Igor
 
     uint32 iTaskManager::getRegularThreadCount()
     {
-        return _regularThreads.size();
+        return static_cast<uint32>(_regularThreads.size());
     }
 
     uint32 iTaskManager::getRenderContextThreadCount()
     {
-        return _renderContextThreads.size();
+        return static_cast<uint32>(_renderContextThreads.size());
     }
 
     uint32 iTaskManager::getQueuedRegularTaskCount()
     {
-        return _regularTasksQueued.size();
+        return static_cast<uint32>(_regularTasksQueued.size());
     }
 
     uint32 iTaskManager::getRunningRegularTaskCount()
     {
-        return _regularTasksRunning.size();
+        return static_cast<uint32>(_regularTasksRunning.size());
     }
 
     uint32 iTaskManager::getQueuedRenderContextTaskCount()
     {
-        return _renderContextTasksQueued.size();
+        return static_cast<uint32>(_renderContextTasksQueued.size());
     }
 
     uint32 iTaskManager::getRunningRenderContextTaskCount()
     {
-        return _renderContextTasksRunning.size();
+        return static_cast<uint32>(_renderContextTasksRunning.size());
     }
 
     bool iTaskManager::isRunning()
@@ -177,17 +172,11 @@ namespace Igor
     {
         SYSTEM_INFO sysinfo;
         GetSystemInfo(&sysinfo);
-        int32 numThreads = sysinfo.dwNumberOfProcessors + 1;
-
-        if (numThreads < 4)
-        {
-            numThreads = 4;
-        }
+        int32 numThreads = 1; // sysinfo.dwNumberOfProcessors;
 
         for (int i = 0; i < numThreads; ++i)
         {
             createRenderContextThread(window);
-            _sleep(10); // TODO this is a workaround. I simply did not understand how else to fix that sometimes render contexts where not initializing
         }
 
         con_info("created threads", numThreads << " render context threads");
@@ -247,7 +236,7 @@ namespace Igor
 
                 while ((*taskIter)->isRunning())
                 {
-                    _sleep(1);
+                    Sleep(1);
                 }
 
                 removeFromAllTasks.push_back((*taskIter)->getID());
@@ -381,7 +370,7 @@ namespace Igor
             }
             else
             {
-                _sleep(0);
+                Sleep(10);
             }
         }
     }
@@ -462,7 +451,7 @@ namespace Igor
             }
             else
             {
-                _sleep(0);
+                Sleep(10);
             }
         }
     }

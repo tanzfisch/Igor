@@ -29,6 +29,8 @@
 #ifndef __MODELVIEWER__
 #define __MODELVIEWER__
 
+#include "Manipulator.h"
+
 #include <Igor.h>
 #include <iWindow.h>
 #include <iView.h>
@@ -38,6 +40,7 @@
 #include <iaMatrix.h>
 #include <iWidgetManager.h>
 #include <iDialogFileSelect.h>
+#include <iStatisticsVisualizer.h>
 using namespace Igor;
 
 namespace Igor
@@ -52,6 +55,8 @@ namespace Igor
     class iWidgetScroll;
     class iDialogMessageBox;
     class iRenderStatistics;
+
+    class iNodeSkyBox;
 }
 
 class PropertiesDialog;
@@ -71,20 +76,34 @@ private:
 
     iWindow _window;
     iView _view;
+    iView _viewManipulator;
     iView _viewOrtho;
     iaMatrixd _modelViewOrtho;
 
     iTextureFont* _font = nullptr;
     iScene* _scene = nullptr;
+    iScene* _sceneManipulator = nullptr;
 
     iDialogFileSelect* _fileDialog = nullptr;
     iDialogMessageBox* _messageBox = nullptr;
 
+    // TODO need some classes handling different types of cameras
     iNodeTransform* _cameraCOI = nullptr;
     iNodeTransform* _cameraHeading = nullptr;
     iNodeTransform* _cameraPitch = nullptr;
     iNodeTransform* _cameraTranslation = nullptr;
     iNodeTransform* _transformModel = nullptr;
+    iNodeCamera* _camera = nullptr;
+
+    iNodeTransform* _cameraCOIUI = nullptr;
+    iNodeTransform* _cameraHeadingUI = nullptr;
+    iNodeTransform* _cameraPitchUI = nullptr;
+    iNodeTransform* _cameraTranslationUI = nullptr;
+    iNodeTransform* _transformModelUI = nullptr;
+    iNodeCamera* _cameraUI = nullptr;
+
+
+    iNodeSkyBox* _skyBoxNode = nullptr;
 
     iNodeTransform* _directionalLightTranslate = nullptr;
     iNodeTransform* _directionalLightRotate = nullptr;
@@ -97,37 +116,42 @@ private:
     iRenderStatistics* _renderStatistics = nullptr;
 
     float32 _camDistance = 0;
-    float32 _camMinDistance = 0;
-    float32 _camMaxDistance = 0;
 
     uint64 _taskFlushTextures = 0;
 
     iNode* _groupNode = nullptr;
 
-    int32 _materialSkyBox;
+    uint64 _materialSkyBox;
+    uint64 _materialManipulator;
+    uint64 _materialBoundingBox;
+    uint64 _materialCelShading;
 
-    bool _mouseKey0Pressed = false;
-    bool _mouseKey1Pressed = false;
-    bool _mouseKey2Pressed = false;
-    bool _mouseKey3Pressed = false;
-    bool _mouseKey4Pressed = false;
+    uint32 _selectedNodeID = iNode::INVALID_NODE_ID;
 
-	uint32 _cursorNodeID = iNode::INVALID_NODE_ID;
+    iStatisticsVisualizer _statisticsVisualizer;
+
+    Manipulator* _manipulator = nullptr;
+
+    void updateManipulator();
+    void pickcolorID();
+
+    void onGraphViewSelectionChanged(uint64 nodeID);
 
     void onKeyPressed(iKeyCode key);
+    void centerCamOnSelectedNode();
     void onWindowClosed();
 
     void onLoadFile();
-    void onImportFile(uint32 nodeID);
-    void onImportFileReference(uint32 nodeID);
+    void onImportFile(uint64 nodeID);
+    void onImportFileReference(uint64 nodeID);
     void onSaveFile();
     void onExitModelViewer();
 
-    void onAddTransformation(uint32 atNodeID);
-    void onAddGroup(uint32 atNodeID);
-    void onAddEmitter(uint32 atNodeID);
-    void onAddParticleSystem(uint32 atNodeID);
-    void onAddSwitch(uint32 atNodeID);
+    void onAddTransformation(uint64 atNodeID);
+    void onAddGroup(uint64 atNodeID);
+    void onAddEmitter(uint64 atNodeID);
+    void onAddParticleSystem(uint64 atNodeID);
+    void onAddSwitch(uint64 atNodeID);
 
     void onAddMaterial();
 
@@ -140,14 +164,15 @@ private:
 
     void deinit();
     void init(iaString fileName);
-    void updateCamDistance();
+    void updateCamDistanceTransform();
+    void centerCamOnNode(iNode* node);
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
 
-    void forceLoadingNow();
+    void forceLoadingNow(iNodeModel* modelNode);
     void initGUI();
     void deinitGUI();
 

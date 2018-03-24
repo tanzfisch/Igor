@@ -49,7 +49,7 @@ namespace Igor
 }
 
 iaEVENT(AddMaterial, AddMaterialDelegate, void, (), ());
-iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, void, (uint32 materialID), (materialID));
+iaEVENT(MaterialSelectionChanged, MaterialSelectionChangedDelegate, void, (uint64 materialID), (materialID));
 
 class UserControlMaterialView : public iUserControl
 {

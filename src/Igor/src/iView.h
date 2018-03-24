@@ -39,6 +39,9 @@
 #include <iaMatrix.h>
 using namespace IgorAux;
 
+#include <vector>
+using namespace std;
+
 namespace Igor
 {
 
@@ -172,7 +175,49 @@ namespace Igor
 
         /*! \returns true if view is visible
         */
-        bool getVisible() const;
+        bool isVisible() const;
+
+        /*! shows all rendering in wireframe mode or normal mode
+
+        \param wireframe if true all rendering is using wireframe
+        */
+        void setWireframeVisible(bool wireframe = true);
+
+        /*! \returns true if wireframe mode is active
+        */
+        bool isWireframeVisible() const;
+
+        /*! defines if bounding boxes are shown or not
+
+        \param boundingBox if true bounding boxes are shown
+        */
+        void setBoundingBoxVisible(bool boundingBox = true);
+
+        /*! \returns true if bounding boxes are shown
+        */
+        bool isBoundingBoxVisible() const;
+
+        /*! defines if octree is shown or not
+
+        \param octree if true octree is shown
+
+        \bug currently the octree is not displayed correctly
+        */
+        void setOctreeVisible(bool octree = true);
+
+        /*! \returns true if octree is shown
+        */
+        bool isOctreeVisible() const;
+
+        /*! sets current camera by id
+
+        \param cameraID the camery id
+        */
+        void setCurrentCamera(uint64 cameraID);
+
+        /*! \returns current camera id
+        */
+        uint64 getCurrentCamera() const;
 
         /*! unprojects screen position to object space
 
@@ -181,6 +226,20 @@ namespace Igor
         \returns unprojected position in object space
         */
         iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix);
+
+        /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point
+
+        top left is origin
+
+        \param posx horrizontal position of point in pixel
+        \param posy vertical position of point in pixel
+        \returns color id at given point (results are only valid for IDs <= 0xFFFFFF in use)
+        */
+        uint64 pickcolorID(uint32 posx, uint32 posy);
+
+        /*! renders view in offscreen buffer using the colorID material and returns the color IDs from given rectangle
+        */
+        void pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs);
 
         /*! init statistics counters
         */
@@ -208,13 +267,17 @@ namespace Igor
         */
         iScene* _scene = nullptr;
 
+        /*! size of parenting window in pixel
+        */
         iRectanglei _windowRect;
 
-        iRectanglei _resultingRectangle;
-		
-        /*! the viewing rectangle with values from 0.0-1.0 so it is independent form screen resolution
+        /*! the viewingport with values from 0.0-1.0 so it is independent form screen resolution
         */
-        iRectanglef	_viewRect = { 0.0f, 0.0f, 1.0f, 1.0f };
+        iRectanglef	_viewportConfig = { 0.0f, 0.0f, 1.0f, 1.0f };
+
+        /*! viewport in pixel
+        */
+        iRectanglei _viewport;
 
         /*! if true the color buffer will be cleared with _clearColor before every frame
         */

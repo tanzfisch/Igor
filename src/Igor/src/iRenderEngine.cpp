@@ -19,6 +19,7 @@
 #include <iNodeFactory.h>
 #include <iStatistics.h>
 #include <iTimer.h>
+#include <iNodeVisitorRenderBoundings.h>
 
 #include <iaConsole.h>
 #include <iaConvert.h>
@@ -43,6 +44,79 @@ namespace Igor
         iStatistics::getInstance().unregisterSection(_drawSectionID);
         iStatistics::getInstance().unregisterSection(_bufferCreationSectionID);
 #endif
+    }
+
+    void iRenderEngine::setCurrentCamera(uint64 cameraID)
+    {
+        if (cameraID == iNode::INVALID_NODE_ID)
+        {
+            _currentCamera = nullptr;
+            return;
+        }
+
+        iNode* node = iNodeFactory::getInstance().getNode(cameraID);
+
+        if (node != nullptr &&
+            node->getType() == iNodeType::iNodeCamera)
+        {
+            _currentCamera = static_cast<iNodeCamera*>(node);
+        }
+        else
+        {
+            con_err("invalid parameter");
+        }
+    }
+
+    uint64 iRenderEngine::getCurrentCamera() const
+    {
+        uint64 result = iNode::INVALID_NODE_ID;
+
+        if (_currentCamera != nullptr)
+        {
+            result = _currentCamera->getID();
+        }
+
+        return result;
+    }
+
+    void iRenderEngine::setColorIDRendering(bool enabled)
+    {
+        _renderColorID = enabled;
+    }
+
+    bool iRenderEngine::isColorIDRendering() const
+    {
+        return _renderColorID;
+    }
+
+    void iRenderEngine::setWireframeVisible(bool wireframe)
+    {
+        _showWireframe = wireframe;
+    }
+
+    bool iRenderEngine::isWireframeVisible() const
+    {
+        return _showWireframe;
+    }
+
+    void iRenderEngine::setBoundingBoxVisible(bool boundingBox)
+    {
+        _showBoundingBoxes = boundingBox;
+    }
+
+    bool iRenderEngine::isBoundingBoxVisible() const
+    {
+        return _showBoundingBoxes;
+    }
+
+    void iRenderEngine::setOctreeVisible(bool octree)
+    {
+        _showOctree = octree;
+    }
+
+    bool iRenderEngine::isOctreeVisible() const
+    {
+        return _showOctree;
     }
 
     void iRenderEngine::setScene(iScene* scene)
@@ -71,28 +145,33 @@ namespace Igor
         iStatistics::getInstance().endSection(_bufferCreationSectionID);
 #endif
 
-        if (_scene != nullptr)
+        if (_scene != nullptr &&
+            _currentCamera != nullptr &&
+            _currentCamera->getScene() == _scene)
         {
-            iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_scene->getCamera()));
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().beginSection(_cullSectionID);
+#endif
+            cullScene(_currentCamera);
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().endSection(_cullSectionID);
 
-            if (camera != nullptr)
+            iStatistics::getInstance().beginSection(_drawSectionID);
+#endif
+            if (_renderColorID)
             {
-#ifdef USE_VERBOSE_STATISTICS
-                iStatistics::getInstance().beginSection(_cullSectionID);
-#endif
-                cullScene(camera);
-#ifdef USE_VERBOSE_STATISTICS
-                iStatistics::getInstance().endSection(_cullSectionID);
-
-                iStatistics::getInstance().beginSection(_drawSectionID);
-#endif
-                drawScene(camera);
-#ifdef USE_VERBOSE_STATISTICS
-                iStatistics::getInstance().endSection(_drawSectionID);
-#endif
+                drawColorIDs();
             }
+            else
+            {
+                drawScene();
             }
+#ifdef USE_VERBOSE_STATISTICS
+            iStatistics::getInstance().endSection(_drawSectionID);
+#endif
         }
+
+    }
 
     void iRenderEngine::cullScene(iNodeCamera* camera)
     {
@@ -121,7 +200,7 @@ namespace Igor
             {
                 renderNode->_reached = true;
 
-                uint32 materialID = renderNode->getMaterial();
+                uint64 materialID = renderNode->getMaterial();
                 if (materialID != iMaterial::INVALID_MATERIAL_ID)
                 {
                     if (renderNode->isVisible())
@@ -137,7 +216,8 @@ namespace Igor
         while (iterRenderables != renderables.end())
         {
             iNodeRender* renderNode = (*iterRenderables);
-            uint32 materialID = renderNode->getMaterial();
+
+            uint64 materialID = renderNode->getMaterial();
             if (materialID != iMaterial::INVALID_MATERIAL_ID)
             {
                 if (renderNode->isVisible())
@@ -150,7 +230,53 @@ namespace Igor
         }
     }
 
-    void iRenderEngine::drawScene(iNodeCamera* camera)
+    void iRenderEngine::drawColorIDs()
+    {
+        iMaterial* colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
+        iRenderer::getInstance().setMaterial(colorIDMaterial);
+
+        list<iMaterialGroup*>* materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
+        for (auto materialGroup : *materialGroups)
+        {
+            iMaterial* material = materialGroup->getMaterial();
+            if (iRenderStateValue::On == material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced))
+            {
+                // TODO later   
+            }
+            else
+            {
+                if (!materialGroup->_renderNodeIDs.empty())
+                {
+                    auto iter = materialGroup->_renderNodeIDs.begin();
+                    while (iter != materialGroup->_renderNodeIDs.end())
+                    {
+                        iNodeRender* node = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode((*iter)));
+                        if (node != nullptr)
+                        {
+                            if (node->wasReached() &&
+                                node->isVisible())
+                            {
+                                iRenderer::getInstance().setColorID(node->getID());
+                                node->draw();
+                                node->_reached = false;
+                                ++iter;
+                            }
+                            else
+                            {
+                                iter = materialGroup->_renderNodeIDs.erase(iter);
+                            }
+                        }
+                        else
+                        {
+                            iter = materialGroup->_renderNodeIDs.erase(iter);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    void iRenderEngine::drawScene()
     {
         //! \todo not sure yet how to handle multiple lights. right now it will work only for one light
         vector<iNodeLight*>& lights = _scene->getLights();
@@ -184,16 +310,15 @@ namespace Igor
             iMaterial* material = materialGroup->getMaterial();
             if (iRenderStateValue::On == material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced))
             {
-                if (materialGroup->_instancedRenderNodes.size())
+                if (!materialGroup->_instancedRenderNodes.empty())
                 {
-                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial());
+                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _showWireframe);
 
                     auto instanceIter = materialGroup->_instancedRenderNodes.begin();
                     while (instanceIter != materialGroup->_instancedRenderNodes.end())
                     {
                         auto instanceList = (*instanceIter).second._renderNodeIDs;
                         auto elementIter = instanceList.begin();
-                        uint32 instanceCount = instanceList.size();
                         uint32 index = 0;
                         iInstancer* instancer = (*instanceIter).second._instancer;
 
@@ -218,7 +343,6 @@ namespace Igor
                                 else
                                 {
                                     elementIter = instanceList.erase(elementIter);
-                                    instanceCount--;
                                 }
                             }
                             else
@@ -247,9 +371,9 @@ namespace Igor
             }
             else
             {
-                if (materialGroup->_renderNodeIDs.size() > 0)
+                if (!materialGroup->_renderNodeIDs.empty())
                 {
-                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial());
+                    iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _showWireframe);
 
                     auto iter = materialGroup->_renderNodeIDs.begin();
                     while (iter != materialGroup->_renderNodeIDs.end())
@@ -280,6 +404,17 @@ namespace Igor
 
             ++materialIter;
         }
+
+        if (_showBoundingBoxes)
+        {
+            iNodeVisitorRenderBoundings renderBoundings;
+            renderBoundings.traverseTree(_scene->getRoot());
+        }
+
+        if (_showOctree)
+        {
+            _scene->getOctree()->draw();
+        }
     }
 
-    }
+}

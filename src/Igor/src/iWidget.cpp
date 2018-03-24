@@ -538,6 +538,12 @@ namespace Igor
 		}
 	}
 
+    void iWidget::setSize(int32 width, int32 height)
+    {
+        _configuredWidth = width;
+        _configuredHeight = height;
+    }
+
 	void iWidget::setWidth(int32 width)
 	{
 		_configuredWidth = width;
@@ -637,7 +643,7 @@ namespace Igor
     {
         offsets.clear();
 
-        for (auto widget : _children)
+        for (int i=0;i<_children.size();++i)
         {
             int32 clientWidth = _actualWidth - _clientAreaLeft - _clientAreaRight;
             int32 clientHeight = _actualHeight - _clientAreaTop - _clientAreaBottom;

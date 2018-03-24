@@ -166,7 +166,7 @@ namespace Igor
 
         /*! mutex for incomming tasks
         */
-        mutex _mutexIncommingTasks;
+        iaMutex _mutexIncommingTasks;
 
         /*! list of all tasks
         */
@@ -174,7 +174,7 @@ namespace Igor
 
         /*! mutex for all tasks list
         */
-        mutex _mutexAllTasks;
+		iaMutex _mutexAllTasks;
 
         /*! list of regular threads
         */
@@ -182,7 +182,7 @@ namespace Igor
 
         /*! mutex for regular threads
         */
-        mutex _mutexRegularThreads;
+		iaMutex _mutexRegularThreads;
 
         /*! list of render context threads
 
@@ -192,7 +192,7 @@ namespace Igor
 
         /*! mutex for render context threads
         */
-        mutex _mutexRenderContextThreads;
+		iaMutex _mutexRenderContextThreads;
 
         /*! list of queued tasks
         */
@@ -204,7 +204,7 @@ namespace Igor
 
         /*! mutex for regular tasks
         */
-        mutex _mutexRegularTasks;
+		iaMutex _mutexRegularTasks;
 
         /*! list of queued tasks that need render context
         */
@@ -216,7 +216,7 @@ namespace Igor
 
         /*! mutex for render context tasks
         */
-        mutex _mutexRenderContextTasks;
+		iaMutex _mutexRenderContextTasks;
 
         /*! the method a regular thread is launched with
 

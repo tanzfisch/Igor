@@ -73,9 +73,21 @@ private:
 
     /*! called when any mouse key was released
 
-    \pram key the key code of the key that was pressed
+    \param key the key code of the key that was pressed
     */
     void onMouseKeyUp(iKeyCode key);
+
+    /*! called when any mouse key was released after if was presed
+
+    \param key the key code of the key that was clicked
+    */
+    void onMouseClick(iKeyCode key);
+
+    /*! called when mouse was double clicked
+
+    \param key the key that was double clicked
+    */
+    void onMouseDoubleClick(iKeyCode key);
 
     /*! called when mouse wheel was turned
 

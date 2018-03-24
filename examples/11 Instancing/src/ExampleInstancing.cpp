@@ -107,9 +107,9 @@ void ExampleInstancing::init()
     cameraPitch->insertNode(cameraTranslation);
     // and than we add the camera to the translation
     cameraTranslation->insertNode(camera);
-    // and finally we set the camera active. for this to work a camera must be part of a scene 
-    // wich we achived by adding all those nodes on to an other starting with the root node
-    camera->makeCurrent();
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
+    _view.setCurrentCamera(camera->getID());
 
     // first we have to override the material which is stored within the model
     // to do that we create a new material using instancing
@@ -117,8 +117,8 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->getRenderStateSet().setRenderState(iRenderState::Instanced, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->getRenderStateSet().setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
     
     const float32 spacing = 3.0f;
@@ -171,7 +171,7 @@ void ExampleInstancing::init()
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_EARLY);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
     iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
@@ -351,15 +351,15 @@ void ExampleInstancing::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
-void ExampleInstancing::onModelReady(uint32 modelNodeID)
+void ExampleInstancing::onModelReady(uint64 modelNodeID)
 {
     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(modelNodeID));
     if (modelNode != nullptr &&

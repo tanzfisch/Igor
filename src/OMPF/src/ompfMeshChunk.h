@@ -202,7 +202,7 @@ namespace OMPF
 
         \returns the vertex size
         */
-        uint32 calcVertexSize() const;
+        uint32 getVertexSize() const;
 
         /*! sets the mesh type
 
@@ -230,22 +230,6 @@ namespace OMPF
         /*! \returns amount of textures in use
         */
         uint32 getTextureCount() const;
-
-        /*! sets bounding sphere for mesh
-
-        \param pos center of bounding sphere
-        \param radius the radius of the bounding sphere
-
-        \todo can we use iSpehre for this?
-        */
-        void setBoundingSphere(const iaVector3f& pos, float32 radius);
-
-        /*! returns bounding sphere
-
-        \param[out] pos center position of bounding sphere
-        \param[out] radius the radius of the bound ing sphere
-        */
-        void getBoundingSphere(iaVector3f& pos, float32& radius) const;
 
         /*! sets material chund id
         
@@ -326,14 +310,6 @@ namespace OMPF
         /*! texture map with textures per texture unit
         */
         map<uint32, iaString> _textures;
-
-        /*! bounding sphere position
-        */
-        iaVector3f _boundingSpherePos;
-
-        /*! bounding sphere radius
-        */
-        float32 _boundingSphereRadius = 0.0f;
 
         /*! writes chunk to stream
 

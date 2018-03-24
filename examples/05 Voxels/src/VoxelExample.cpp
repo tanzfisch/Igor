@@ -78,22 +78,15 @@ void VoxelExample::deinit()
     // unregister vertex mesh generator
     iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
 
+    // free some resoures
+    _igorLogo = nullptr;
+
     // destroy scene
     iSceneFactory::getInstance().destroyScene(_scene);
 
-    iTask* modelTask = iTaskManager::getInstance().getTask(_flushModelsTask);
-    if (modelTask != nullptr)
-    {
-        modelTask->abort();
-        _flushModelsTask = iTask::INVALID_TASK_ID;
-    }
-
-    iTask* textureTask = iTaskManager::getInstance().getTask(_flushTexturesTask);
-    if (textureTask != nullptr)
-    {
-        textureTask->abort();
-        _flushTexturesTask = iTask::INVALID_TASK_ID;
-    }
+    // abort resource tasks
+    iTaskManager::getInstance().abortTask(_flushModelsTask);
+    iTaskManager::getInstance().abortTask(_flushTexturesTask);
 
     unregisterHandles();
 
@@ -181,8 +174,9 @@ void VoxelExample::initScene()
     cameraHeading->insertNode(cameraPitch);
     cameraPitch->insertNode(cameraTranslation);
     cameraTranslation->insertNode(camera);
-    // make it the current active camera
-    camera->makeCurrent();
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
+    _view.setCurrentCamera(camera->getID());
 
     // create a directional light
     // transform node
@@ -220,10 +214,9 @@ void VoxelExample::initScene()
 
     // set up voxel mesh material
     _voxelMeshMaterialID = iMaterialResourceFactory::getInstance().createMaterial("voxel mesh material");
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("voxel_example_terrain_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->compileShader();
-    iMaterialResourceFactory::getInstance().getMaterial(_voxelMeshMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 
     // set up loading text material
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
@@ -343,7 +336,7 @@ void VoxelExample::generateVoxelData()
         _voxelMeshTransform = iNode::INVALID_NODE_ID;
         _voxelMeshModel = iNode::INVALID_NODE_ID;
     }
-    
+
     // !!!! now you should first have a look at the VoxelTerrainMeshGenerator class before you continue !!!!
     prepareMeshGeneration();
 
@@ -458,10 +451,10 @@ void VoxelExample::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

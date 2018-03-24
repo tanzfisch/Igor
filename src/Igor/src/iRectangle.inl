@@ -42,6 +42,12 @@ template <class T> void iRectangle<T>::setHeight(const T height)
     _height = height;
 }
 
+template <class T> void iRectangle<T>::setSize(T width, T height)
+{
+    _width = width;
+    _height = height;
+}
+
 template <class T>
 iRectangle<T> iRectangle<T>::operator= (const iRectangle<T> &rectangle)
 {

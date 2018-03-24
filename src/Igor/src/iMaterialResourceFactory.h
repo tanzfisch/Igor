@@ -34,6 +34,7 @@
 
 #include <iaString.h>
 #include <iaSingleton.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <list>
@@ -102,6 +103,10 @@ namespace Igor
         */
         uint64 getDefaultMaterialID() const;
 
+        /*! \returns color ID material ID
+        */
+        uint64 getColorIDMaterialID() const;
+
         /*! \returns materials with given material name
         \param materialName the materials name
         */
@@ -140,11 +145,11 @@ namespace Igor
 
         /*! lookup table for material groups.
         */
-        map<int32, iMaterialGroup*> _materialMap;
+        map<uint64, iMaterialGroup*> _materialMap;
 
         /*! mutex to protect the target material list
         */
-        mutex _targetMaterialMutex;
+        iaMutex _targetMaterialMutex;
 
         /*! list of target materials
         */
@@ -156,11 +161,15 @@ namespace Igor
 
         /*! mutex for material lists
         */
-        mutex _mutexMaterial;
+		iaMutex _mutexMaterial;
 
         /*! default material ID
         */
-        uint64 _defaultID = iMaterial::INVALID_MATERIAL_ID;
+        uint64 _defaultMaterial = iMaterial::INVALID_MATERIAL_ID;
+
+        /*! color id material id
+        */
+        uint64 _colorIDMaterial = iMaterial::INVALID_MATERIAL_ID;
 
         /*! sorts the materials if needed
         */
@@ -168,7 +177,7 @@ namespace Igor
 
         /*! initializes default materials
         */
-        void initDefaultMaterial();
+        void initDefaultMaterials();
 
         /*! initialisation of members
         */

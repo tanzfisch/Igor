@@ -34,12 +34,13 @@
 
 #include <iaString.h>
 #include <iaMatrix.h>
+#include <iaMutex.h>
+#include <iaIDGenerator.h>
 using namespace IgorAux;
 
 #include <ostream>
 #include <vector>
 #include <memory>
-#include <mutex>
 #include <map>
 using namespace std;
 
@@ -108,7 +109,7 @@ namespace Igor
 
         /*! invalid node id definition
         */
-        static const uint32 INVALID_NODE_ID = 0;
+        static const uint64 INVALID_NODE_ID = IGOR_INVALID_ID;
 
         /*! \returns kind (group) of the node
         */
@@ -120,7 +121,7 @@ namespace Igor
 
         /*! \returns id of the node
         */
-        uint32 getID() const;
+        uint64 getID() const;
 
         /*! \returns name of the node
         */
@@ -200,7 +201,7 @@ namespace Igor
         \param id the id of the child node
         \returns pointer to child object
         */
-        iNode* getChild(uint32 id);
+        iNode* getChild(uint64 id);
 
         /*! \returns list of inactive children
         */
@@ -225,17 +226,16 @@ namespace Igor
 
         also sets the transformation flag of all children and parents dirty
 
-        \bug sometimes parents don't get dirty
-
         \param dirty true: this node, all parents and children will be set dirty; false: only this node will be set non dirty
         */
         void setTransformationDirty(bool dirty = true);
 
         /*! gets the world transformation for any node
 
-        quite expensive. see if there is an other interface from specialized nodes like iNodeCamera::getWorldMatrix
+        this is a quite expensive routine. preferably use an other interface 
+        from specialized nodes like iNodeCamera::getWorldMatrix
 
-        \param[out] returns world matrix of this node
+        \param[out] matrix world matrix of this node
         */
         void calcWorldTransformation(iaMatrixd& matrix);
 
@@ -333,7 +333,7 @@ namespace Igor
 
         \param nodeIDMap map with old node ids to new node ids
         */
-        virtual void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+        virtual void onPostCopyLink(map<uint64, uint64>& nodeIDMap);
 
         /*! set's node id
         */
@@ -353,17 +353,13 @@ namespace Igor
         */
         bool _queueToDirtyData = false;
 
-        /*! mutex to save unique id generation
-        */
-        static mutex _mutexID;
-
         /*! the next node id
         */
-        static uint32 _nextID;
+        static iaIDGenerator64 _idGenerator;
 
         /*! id of this node
         */
-        uint32 _nodeID = INVALID_NODE_ID;
+        uint64 _nodeID = iNode::INVALID_NODE_ID;
 
         /*! calculates world transformation of this node
 

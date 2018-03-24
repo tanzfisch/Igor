@@ -56,7 +56,7 @@ namespace Igor
         Empty
     };
 
-    class iVoxelBlockInfo;
+    struct iVoxelBlockInfo;
     class iVoxelOperation;
 
     /*! voxel block (or tile) or specific LOD
@@ -100,19 +100,19 @@ namespace Igor
 
         /*! id to transform node to control if a tile is in the scene and therefore visible
         */
-        uint32 _transformNodeIDCurrent = iNode::INVALID_NODE_ID;
+        uint64 _transformNodeIDCurrent = iNode::INVALID_NODE_ID;
 
         /*! id to generated model currently in use
         */
-        uint32 _modelNodeIDCurrent = iNode::INVALID_NODE_ID;
+        uint64 _modelNodeIDCurrent = iNode::INVALID_NODE_ID;
 
         /*! tempoary transform node id to control where we have to regenerate a new tile or not
         */
-        uint32 _transformNodeIDQueued = iNode::INVALID_NODE_ID;
+        uint64 _transformNodeIDQueued = iNode::INVALID_NODE_ID;
 
         /*! temporary id of node so we can tell if it was already loaded
         */
-        uint32 _modelNodeIDQueued = iNode::INVALID_NODE_ID;
+        uint64 _modelNodeIDQueued = iNode::INVALID_NODE_ID;
 
         /*! everytime the tile changes this counter goes up so Igor can tell the difference between the models before and after
         */

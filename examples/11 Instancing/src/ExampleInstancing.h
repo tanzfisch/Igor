@@ -133,9 +133,9 @@ private:
     */
     shared_ptr<iTexture> _igorLogo = nullptr;
 
-    uint32 _modelNodeID = 0;
+    uint64 _modelNodeID = 0;
 
-    void onModelReady(uint32 modelNodeID);
+    void onModelReady(uint64 modelNodeID);
 
     /*! called on key pressed event
 

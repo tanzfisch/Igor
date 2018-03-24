@@ -57,7 +57,7 @@ namespace Igor
         */
         struct Instanced
         {
-            vector<uint32> _renderNodeIDs;
+            vector<uint64> _renderNodeIDs;
             iInstancer* _instancer = nullptr;
         };
 
@@ -79,17 +79,17 @@ namespace Igor
 
         /*! \returns material id (also used as group id)
         */
-        uint32 getID();
+        uint64 getID();
 
 	private:
 
         /*! material group or material id
         */
-		uint32 _id = iMaterial::INVALID_MATERIAL_ID;
+		uint64 _id = iMaterial::INVALID_MATERIAL_ID;
 
         /*! next material group id
         */
-		static uint32 _nextId;
+		static uint64 _nextId;
 
         /*! the actuall material
         */
@@ -97,7 +97,7 @@ namespace Igor
 
         /*! render node IDs registred to this material
         */
-        vector<uint32> _renderNodeIDs;
+        vector<uint64> _renderNodeIDs;
 
         /*! render nodes registred to this material that are also using instancing
         */
@@ -109,13 +109,13 @@ namespace Igor
 
         \todo when does a mesh get removed from this group? reference count?
         */
-        void addRenderNode(uint32 renderNodeID);
+        void addRenderNode(uint64 renderNodeID);
 
 		/*! removes render node from material group
 		
 		\param renderNode node to be removed
 		*/
-        void removeRenderNode(uint32 renderNodeID);
+        void removeRenderNode(uint64 renderNodeID);
 
         /*! init id
         */

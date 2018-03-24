@@ -36,6 +36,9 @@
 #include <iaColor4.h>
 using namespace IgorAux;
 
+#include <map>
+using namespace std;
+
 namespace Igor
 {
 
@@ -122,6 +125,8 @@ namespace Igor
         */
         map<uint32, iaString> _axisNames;
 
+        /*! axis number chooser
+        */
         map<uint32, iWidgetNumberChooser*> _axisNumberChooser;
 
         /*! the close event
@@ -142,27 +147,27 @@ namespace Igor
 
         /*! min value on x axis
         */
-        float32 _xMin = 0;
+        float32 _xMin = 0.0f;
 
         /*! max value on x axis
         */
-        float32 _xMax = 1;
+        float32 _xMax = 1.0f;
 
         /*! up down stepping of number choosers for x axis values
         */
-        float32 _xStepping = 0.1;
+        float32 _xStepping = 0.1f;
 
         /*! min value on y axis
         */
-        float32 _yMin = 0;
+        float32 _yMin = 0.0f;
 
         /*! max value on y axis
         */
-        float32 _yMax = 1;
+        float32 _yMax = 1.0f;
 
         /*! up down stepping of number choosers for y axis values
         */
-        float32 _yStepping = 0.1;
+        float32 _yStepping = 0.1f;
 
         /*! index of selected value
         */

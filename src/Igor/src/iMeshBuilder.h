@@ -29,20 +29,18 @@
 #ifndef __iMESHBUILDER__
 #define __iMESHBUILDER__
 
-#include <iaConsole.h>
-using namespace IgorAux;
+#include <iSphere.h>
+#include <iAABox.h>
+#include <iTexture.h>
 
 #include <iaVector2.h>
-#include <iSphere.h>
-#include <iaVector4.h>
+#include <iaMatrix.h>
 #include <iaColor3.h>
 #include <iaColor4.h>
-#include <iTexture.h>
+using namespace IgorAux;
 
 #include <map>
 #include <memory>
-using namespace stdext;
-
 #include <vector>
 #include <unordered_map>
 using namespace std;
@@ -70,6 +68,8 @@ namespace Igor
     };
 
     /*! builds up a mesh and spits out iMesh
+
+    \todo how about applying transformations directly on the data before generating buffers from ìt? like baking transformations to the data. or setting a transformation and all vertices set will be transformed first by it?
     */
     class Igor_API iMeshBuilder
     {
@@ -104,11 +104,27 @@ namespace Igor
         */
         ~iMeshBuilder();
 
+        /*! sets transformation matrix affecting next vertex to be set
+
+        \param matrix transformation matrix
+        */
+        void setMatrix(const iaMatrixf& matrix);
+
+        /*! returns transformation matrix affecting next vertex to be set
+
+        \param[out] matrix returned matrix
+        */
+        void getMatrix(iaMatrixf& matrix);
+
         /*! calculating the bounding sphere
 
         \todo implement bouncing bubble algorithm
         */
         void calcBoundingSphere(iSphered& sphere) const;
+
+        /*! calculating the bounding box
+        */
+        void calcBoundingBox(iAABoxd& bbox) const;
 
         /*! adds vertex to data
 
@@ -125,12 +141,6 @@ namespace Igor
         \returns index of vertex added
         */
         uint32 addVertex(const iaVector4f& vertex);
-
-        /*! snappes vertex position to a raster before adding to the mesh
-
-        \param vertex vertex position to add
-        */
-        uint32 addVertexSnapped(const iaVector3f& vertex);
 
         /*! sets normal of last added vertex
 
@@ -163,9 +173,10 @@ namespace Igor
         \param indexA first point of triangle
         \param indexB second point of triangle
         \param indexC third point of triangle
+        \param indexOffset index offset
         \returns index of triangle created
         */
-        uint32 addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC);
+        uint32 addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC, const uint32 indexOffset = 0);
 
         /*! set's if added vertexes will be joined when heaving same position
 
@@ -182,16 +193,6 @@ namespace Igor
         /*! \returns join vertexes flag
         */
         bool getJoinVertexes();
-
-        /*! sets the snap grid size
-
-        \param gridSize the snap grid size
-        */
-        void setGridSize(float32 gridSize);
-
-        /*! \returns snap grid size
-        */
-        float32 getGridSize();
 
         /*! \returns vertex count
         */
@@ -244,7 +245,7 @@ namespace Igor
         */
         shared_ptr<iMesh> createMesh(vector<uint32> triangles);
 
-        /*! clears data
+        /*! clears data and set transformation matrix to identity
         */
         void clear();
 
@@ -288,10 +289,6 @@ namespace Igor
         */
         bool _joinVertexes = true;
 
-        /*! snap grid size
-        */
-        float32 _gridSize = 0.0f;
-
         /*! the vertices of the mesh
         */
         vector<iaVector3f> _vertexes;
@@ -311,6 +308,17 @@ namespace Igor
         /*! the triangles of the mesh
         */
         vector<iIndexedTriangle> _triangles;
+
+        /*! current transformation matrix
+        */
+        iaMatrixf _matrix;
+
+        /*! actually adds the vertex to internal structures
+
+        \param vertex the vertex to add
+        \returns vertex index
+        */
+        uint32 addVertexIntern(const iaVector3f& vertex);
 
         /*! fills iMesh with data
 

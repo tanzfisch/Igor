@@ -31,8 +31,9 @@ using namespace IgorAux;
 #include <iNodeSwitch.h>
 #include <iNodeLODSwitch.h>
 #include <iNodeLODTrigger.h>
+#include <iNodeVisitorRenderColorID.h>
 using namespace Igor;
- 
+
 Example3D::Example3D()
 {
     init();
@@ -108,7 +109,7 @@ void Example3D::init()
     cameraTranslation->insertNode(camera);
     // and finally we set the camera active. for this to work a camera must be part of a scene 
     // wich we achived by adding all those nodes on to an other starting with the root node
-    camera->makeCurrent();
+    _view.setCurrentCamera(camera->getID());
 
     // create a single cat model
     iNodeTransform* justCatTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -230,7 +231,7 @@ void Example3D::init()
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_EARLY);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
     iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
@@ -273,7 +274,7 @@ void Example3D::init()
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
-     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+    _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     // register some callbacks
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &Example3D::onKeyPressed));
@@ -297,6 +298,9 @@ void Example3D::deinit()
         delete _font;
         _font = nullptr;
     }
+
+    // release resources
+    _igorLogo = nullptr;
 
     // stop light animation
     if (_animationTimingHandle)
@@ -383,12 +387,13 @@ void Example3D::onWindowResized(int32 clientWidth, int32 clientHeight)
 
 void Example3D::onKeyPressed(iKeyCode key)
 {
-    if (key == iKeyCode::ESC)
+    switch (key)
     {
+    case iKeyCode::ESC:
         iApplication::getInstance().stop();
-    }
+        break;
 
-    if (key == iKeyCode::F1)
+    case iKeyCode::F1:
     {
         iNodeVisitorPrintTree printTree;
         if (_scene != nullptr)
@@ -396,8 +401,21 @@ void Example3D::onKeyPressed(iKeyCode key)
             printTree.printToConsole(_scene->getRoot());
         }
     }
+    break;
 
-    if (key == iKeyCode::Space)
+    case iKeyCode::W:
+        _view.setWireframeVisible(!_view.isWireframeVisible());
+        break;
+
+    case iKeyCode::O:
+        _view.setOctreeVisible(!_view.isOctreeVisible());
+        break;
+
+    case iKeyCode::B:
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        break;
+
+    case iKeyCode::Space:
     {
         _activeNode++;
         if (_activeNode > 2)
@@ -422,6 +440,8 @@ void Example3D::onKeyPressed(iKeyCode key)
             }
         }
     }
+    break;
+    }
 }
 
 void Example3D::onTimer()
@@ -436,7 +456,7 @@ void Example3D::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(viewMatrix);
 
     iaMatrixd modelMatrix;
-    modelMatrix.translate(0,0,-30);
+    modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
     drawLogo();
@@ -450,10 +470,10 @@ void Example3D::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

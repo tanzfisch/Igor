@@ -265,36 +265,6 @@ namespace Igor
         }
 	}
 
-	void iScene::setCamera(iNodeCamera* camera)
-	{
-        con_assert(camera != nullptr, "zero pointer");
-
-        if (camera != nullptr)
-        {
-            auto iter = find(_cameras.begin(), _cameras.end(), camera->getID());
-            if (iter != _cameras.end())
-            {
-                _cameraID = camera->getID();
-                return;
-            }
-
-            con_err("camera " << camera->getName() << " is not registered in scene " << _name);
-        }
-	}
-
-    void iScene::setCamera(uint32 cameraID)
-    {
-        auto iter = find(_cameras.begin(), _cameras.end(), cameraID);
-        if (iter != _cameras.end())
-        {
-            _cameraID = cameraID;
-        }
-        else
-        {
-            con_err("camera " << cameraID << " is not registered in scene " << _name);
-        }
-    }
-
 	void iScene::handle()
 	{
 #ifdef USE_VERBOSE_STATISTICS
@@ -341,17 +311,12 @@ namespace Igor
         return _octree;
     }
 
-    uint32 iScene::getCamera()
-    {
-        return _cameraID;
-    }
-
-    void iScene::signalNodeAdded(uint32 nodeID)
+    void iScene::signalNodeAdded(uint64 nodeID)
     {
         _addedNode(nodeID);
     }
 
-    void iScene::signalNodeRemoved(uint32 nodeID)
+    void iScene::signalNodeRemoved(uint64 nodeID)
     {
         _removedNode(nodeID);
     }

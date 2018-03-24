@@ -35,6 +35,7 @@
 
 #include <iaSingleton.h>
 #include <iaMemBlock.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <map>
@@ -117,15 +118,15 @@ namespace Igor
 
         /*! mutex to lock model data list
         */
-		mutex _mutexModels;
+		iaMutex _mutexModels;
 
         /*! mutex to save the model queue
         */
-        mutex _mutexModelQueue;
+		iaMutex _mutexModelQueue;
 
         /*! mutex to lock model data IO list
         */
-        mutex _mutexDataIOs;
+		iaMutex _mutexDataIOs;
 
         /*! map of models
         */
@@ -141,7 +142,7 @@ namespace Igor
 
         /*! mutex to save the running tasks list
         */
-        mutex _mutexRunningTasks;
+		iaMutex _mutexRunningTasks;
 
         /*! flag to interrupt flush cross threads
         */

@@ -48,12 +48,15 @@ void PhysicsExample::deinit()
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
     iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::handle));
 
+    // free some resources
+    _igorLogo = nullptr;
+
     if (_font)
     {
         delete _font;
         _font = nullptr;
     }
-
+    
     iSceneFactory::getInstance().destroyScene(_scene);
 
     for (auto bodyID : _bodyIDs)
@@ -196,7 +199,10 @@ void PhysicsExample::init()
     _cameraHeading->insertNode(_cameraPitch);
     _cameraPitch->insertNode(_cameraTranslation);
     _cameraTranslation->insertNode(camera);
-	camera->makeCurrent();
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
+    _view.setCurrentCamera(camera->getID());
+
 
     _cameraTranslation->translate(0, 0, 80);
     updateCameraPosition();
@@ -359,10 +365,10 @@ void PhysicsExample::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

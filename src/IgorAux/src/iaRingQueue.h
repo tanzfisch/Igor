@@ -26,13 +26,10 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iaRINGQUEUE__
-#define __iaRINGQUEUE__
+#ifndef __IGOR_AUX_RINGQUEUE__
+#define __IGOR_AUX_RINGQUEUE__
 
 #include <iaDefines.h>
-
-#include <mutex>
-using namespace std;
 
 namespace IgorAux
 {

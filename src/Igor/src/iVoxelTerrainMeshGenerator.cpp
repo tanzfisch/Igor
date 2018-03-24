@@ -29,6 +29,7 @@ namespace Igor
         return static_cast<iModelDataIO*>(result);
     }
 
+	__IGOR_DISABLE_WARNING__(4100)
     iNode* iVoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
     {
         iVoxelTerrainTileInformation* tileInformation = reinterpret_cast<iVoxelTerrainTileInformation*>(parameter->_parameters.getDataPointer());
@@ -87,10 +88,15 @@ namespace Igor
             float32 g = ((rand.getNext() % 70) + 15.0f) / 100.0f;
             float32 b = ((rand.getNext() % 70) + 15.0f) / 100.0f;
 
-            targetMaterial->setAmbient(iaColor3f(r * 0.7f, g* 0.7f, b* 0.7f));
-            targetMaterial->setDiffuse(iaColor3f(r * 0.9f, g* 0.9f, b* 0.9f));
-            targetMaterial->setSpecular(iaColor3f(r * 0.1f, g* 0.1f, b* 0.1f));
-            targetMaterial->setEmissive(iaColor3f(r * 0.05f, g* 0.05f, b* 0.05f));
+			iaColor3f ambient(r * 0.7f, g* 0.7f, b* 0.7f);
+			iaColor3f diffuse(r * 0.9f, g* 0.9f, b* 0.9f);
+			iaColor3f specular(r * 0.1f, g* 0.1f, b* 0.1f);
+			iaColor3f emissive(r * 0.05f, g* 0.05f, b* 0.05f);
+
+            targetMaterial->setAmbient(ambient);
+            targetMaterial->setDiffuse(diffuse);
+            targetMaterial->setSpecular(specular);
+            targetMaterial->setEmissive(emissive);
             targetMaterial->setShininess(100.0f);
 
 #else
@@ -165,5 +171,6 @@ namespace Igor
 
         return result;
     }
+	__IGOR_ENABLE_WARNING__(4100)
 
 }

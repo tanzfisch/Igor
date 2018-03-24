@@ -272,9 +272,6 @@
     <ClCompile Include="..\src\iTaskLoadModel.cpp">
       <Filter>threading\tasks</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\iSystemConfig.cpp">
-      <Filter>todo</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\iPhysicsJoint.cpp">
       <Filter>physics</Filter>
     </ClCompile>
@@ -409,6 +406,30 @@
     </ClCompile>
     <ClCompile Include="..\src\iVoxelTerrainMeshGenerator.cpp">
       <Filter>terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iNodeVisitorRenderBoundings.cpp">
+      <Filter>scene\traversal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iNodeVisitorRenderColorID.cpp">
+      <Filter>scene\traversal</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iModelDataIO3DS.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsJointUpVector.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsPlayer.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iSimpleCubes.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iTaskUpdateLOD.cpp">
+      <Filter>todo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iMeshBuilderUtils.cpp">
+      <Filter>resources\mesh</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -699,9 +720,6 @@
     <ClInclude Include="..\src\iTaskLoadModel.h">
       <Filter>threading\tasks</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\iSystemConfig.h">
-      <Filter>todo</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\iPhysicsJoint.h">
       <Filter>physics</Filter>
     </ClInclude>
@@ -858,6 +876,30 @@
     </ClInclude>
     <ClInclude Include="..\src\iVoxelTerrainMeshGenerator.h">
       <Filter>terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodeVisitorRenderBoundings.h">
+      <Filter>scene\traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodeVisitorRenderColorID.h">
+      <Filter>scene\traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iModelDataIO3DS.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsJointUpVector.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iPhysicsPlayer.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iSimpleCubes.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iTaskUpdateLOD.h">
+      <Filter>todo</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iMeshBuilderUtils.h">
+      <Filter>resources\mesh</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

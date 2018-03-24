@@ -33,6 +33,7 @@ void MouseExample::init()
 	
     // set title of window and open it
     _window.setTitle("Igor - Mouse Example");
+    _window.setDoubleClick(true);
 	_window.open();
 
     // register to close window event so we can shutdown the application correctly
@@ -45,6 +46,10 @@ void MouseExample::init()
 	iMouse::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &MouseExample::onMouseKeyDown));
     // register callback to mouse key up event. called for any key on the mouse released
 	iMouse::getInstance().registerMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &MouseExample::onMouseKeyUp));
+    // register callback to mouse double click event. called for any key on the mouse double clicked
+    iMouse::getInstance().registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &MouseExample::onMouseDoubleClick));
+    // register callback to mouse click event
+    iMouse::getInstance().registerMouseClickDelegate(iMouseClickDelegate(this, &MouseExample::onMouseClick));
     // register callback to mosue wheel event. called when mouse wheel was turned 
 	iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &MouseExample::onMouseWheel));
 
@@ -55,6 +60,8 @@ void MouseExample::init()
 void MouseExample::deinit()
 {
     // unregister from all io events
+    iMouse::getInstance().unregisterMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate(this, &MouseExample::onMouseDoubleClick));
+    iMouse::getInstance().unregisterMouseClickDelegate(iMouseClickDelegate(this, &MouseExample::onMouseClick));
 	iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &MouseExample::onMouseWheel));
 	iMouse::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &MouseExample::onMouseKeyUp));
 	iMouse::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &MouseExample::onMouseKeyDown));
@@ -74,6 +81,11 @@ void MouseExample::run()
 	iApplication::getInstance().run();
 }
 
+void MouseExample::onMouseClick(iKeyCode key)
+{
+    con_endl("clicked " << iKeyCodeMap::getInstance().getKeyName(key));
+}
+
 void MouseExample::onMouseMovedFull(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
 {
     // prints old and new mouse position to the console
@@ -84,6 +96,12 @@ void MouseExample::onMouseKeyDown(iKeyCode key)
 {
     // prints if a key was pressed to the console
 	con_endl("pressed " << iKeyCodeMap::getInstance().getKeyName(key));
+}
+
+void MouseExample::onMouseDoubleClick(iKeyCode key)
+{
+    // prints if a double click was performed
+    con_endl("double clicked " << iKeyCodeMap::getInstance().getKeyName(key));
 }
 
 void MouseExample::onMouseKeyUp(iKeyCode key)

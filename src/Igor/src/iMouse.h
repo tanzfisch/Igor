@@ -46,8 +46,7 @@ namespace Igor
 	will be called for a any pressed mouse key
     (only the first 5 keys of the mouse)
 
-    \pram key the key code of the key that was pressed
-    \todo use ClipCursor to kleep the cursor inside the window
+    \param key the key code of the key that was pressed    
 	*/
 	iaEVENT(iMouseKeyDownEvent, iMouseKeyDownDelegate, void, (iKeyCode key), (key));
 
@@ -59,6 +58,12 @@ namespace Igor
     \pram key the key code of the key that was released
 	*/
 	iaEVENT(iMouseKeyUpEvent, iMouseKeyUpDelegate, void, (iKeyCode key), (key));
+
+    /*! mouse clicked event. triggered on moue up after there was a mouse down
+
+    \param key the key code of the key that was pressed
+    */
+    iaEVENT(iMouseClickEvent, iMouseClickDelegate, void, (iKeyCode key), (key));
 
     /*! mouse double click event
 
@@ -99,6 +104,8 @@ namespace Igor
 
 	Example:
 	\ref Mouse/src/MouseExample.cpp "Mouse usage example"
+
+    \todo use ClipCursor to kleep the cursor inside the window
 	*/
 	class Igor_API iMouse : public iOSEventListener, public iaSingleton<iMouse>
 	{
@@ -121,27 +128,39 @@ namespace Igor
 
         /*! register delegate to mouse key down event
 
-        \param keydown_delegate the delegate to register
+        \param keydownDelegate the delegate to register
         */
-        void registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
+        void registerMouseKeyDownDelegate(iMouseKeyDownDelegate keydownDelegate);
 
         /*! unregister delegate from mouse key down event
 
-        \param keydown_delegate the delegate to unregister
+        \param keydownDelegate the delegate to unregister
         */
-        void unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydown_delegate);
+        void unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate keydownDelegate);
 
 		/*! register delegate to mouse key up event
 
-		\param keyup_delegate the delegate to register
+		\param keyupDelegate the delegate to register
 		*/
-		void registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
+		void registerMouseKeyUpDelegate(iMouseKeyUpDelegate keyupDelegate);
 
 		/*! unregister delegate from mouse key up event
 
-		\param keyup_delegate the delegate to unregister
+		\param keyupDelegate the delegate to unregister
 		*/
-		void unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyup_delegate);
+		void unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate keyupDelegate);
+
+        /*! register delegate to mouse key clicked event
+
+        \param clickDelegate the delegate to register
+        */
+        void registerMouseClickDelegate(iMouseClickDelegate clickDelegate);
+
+        /*! unregister delegate from mouse key up event
+
+        \param clickDelegate the delegate to unregister
+        */
+        void unregisterMouseClickDelegate(iMouseClickDelegate clickDelegate);
 
 		/*! register delegate to mouse move full data event
 
@@ -200,6 +219,8 @@ namespace Igor
 		virtual void showCursor(bool show);
 
         /*! \returns the current mouse position relative to the parent window in pixel.
+
+        origin is top left 
         */
         iaVector2i getPos();
 
@@ -298,6 +319,10 @@ namespace Igor
         /*! mouse key up event
         */
         iMouseKeyUpEvent _keyUpEvent;
+
+        /*! mouse key clicked event
+        */
+        iMouseClickEvent _clickEvent;
 
         /*! mouse double click event
         */

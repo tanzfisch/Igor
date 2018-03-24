@@ -148,6 +148,11 @@ namespace Igor
 			break;
 
 		case WM_RBUTTONUP:
+            if (_rButton)
+            {
+                _clickEvent(iKeyCode::MouseRight);
+            }
+
 			_rButton = false;
 			_keyUpEvent(iKeyCode::MouseRight);
 			break;
@@ -162,6 +167,11 @@ namespace Igor
 			break;
 
 		case WM_LBUTTONUP:
+            if (_lButton)
+            {
+                _clickEvent(iKeyCode::MouseLeft);
+            }
+
 			_lButton = false;
 			_keyUpEvent(iKeyCode::MouseLeft);
 			break;
@@ -176,6 +186,11 @@ namespace Igor
 			break;
 
 		case WM_MBUTTONUP:
+            if (_mButton)
+            {
+                _clickEvent(iKeyCode::MouseMiddle);
+            }
+
 			_mButton = false;
 			_keyUpEvent(iKeyCode::MouseMiddle);
 			break;
@@ -229,6 +244,16 @@ namespace Igor
 	{
 		ShowCursor(show);
 	}
+
+    void iMouse::registerMouseClickDelegate(iMouseClickDelegate clickDelegate)
+    {
+        _clickEvent.append(clickDelegate);
+    }
+
+    void iMouse::unregisterMouseClickDelegate(iMouseClickDelegate clickDelegate)
+    {
+        _clickEvent.remove(clickDelegate);
+    }
 
     void iMouse::registerMouseDoubleClickDelegate(iMouseKeyDoubleClickDelegate doubleClickDelegate)
     {

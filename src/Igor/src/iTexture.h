@@ -37,7 +37,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    class iRendererTexture;
+    struct iRendererTexture;
     class iTexture;
 
 	class Igor_API iTexture
@@ -51,6 +51,13 @@ namespace Igor
         /*! true if there is actually a texture present
         */
         bool isValid();
+
+        /*! true if the texture was processed
+
+        processed does not mean that it was loaded correctly 
+        it means that we are done trying loading it
+        */
+        bool isProcessed();
 
         /*! true if it is a dummy texture
         */
@@ -90,9 +97,13 @@ namespace Igor
 
 	private:
 
-		/*! true if there is actually a texture loaded
+		/*! true if there was actually a texture loaded
 		*/
 		bool _valid = false;
+
+        /*! if true the texture is considered loaded regardless if it was a success or not
+        */
+        bool _processed = false;
 
 		/*! true if it is a dummy texture
 		*/

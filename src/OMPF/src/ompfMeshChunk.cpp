@@ -54,7 +54,7 @@ namespace OMPF
         }
     }
 
-    uint32 ompfMeshChunk::calcVertexSize() const
+    uint32 ompfMeshChunk::getVertexSize() const
     {
         return 12 + _normalsPerVertex * 12 + _colorsPerVertex * 12 + _texCoordPerVertex * 8;
     }
@@ -164,6 +164,7 @@ namespace OMPF
         return _indexCount;
     }
 
+	__IGOR_DISABLE_WARNING__(4100)
     uint32 ompfMeshChunk::getSize(const ompfSettings& settings)
     {
         uint32 material = 3; // ambient
@@ -177,7 +178,6 @@ namespace OMPF
         attributes += 1; // mesh type
         attributes += 4; // vertex count
         attributes += 4; // index count
-        attributes += 16; // bounding sphere
         attributes += 4; // material chunk id
         uint32 textures = 0;
 
@@ -190,18 +190,7 @@ namespace OMPF
 
         return material + attributes + _vertexDataSize + _indexDataSize + textures;
     }
-
-    void ompfMeshChunk::setBoundingSphere(const iaVector3f& pos, float32 radius)
-    {
-        _boundingSpherePos = pos;
-        _boundingSphereRadius = radius;
-    }
-
-    void ompfMeshChunk::getBoundingSphere(iaVector3f& pos, float32& radius) const
-    {
-        pos = _boundingSpherePos;
-        radius = _boundingSphereRadius;
-    }
+	__IGOR_ENABLE_WARNING__(4100)
 
     void ompfMeshChunk::setIndexData(const char* data, uint32 size)
     {
@@ -272,7 +261,7 @@ namespace OMPF
         }
 
         con_assert((4 * _indexCount) == _indexDataSize, "inconsistend index data");
-        con_assert((calcVertexSize() * _vertexCount) == _vertexDataSize, "inconsistend vertex data");
+        con_assert((getVertexSize() * _vertexCount) == _vertexDataSize, "inconsistend vertex data");
         
         con_debug_endl("---------------------------------------------------");
         con_debug_endl("write ompfMeshChunk " << this->getName());
@@ -335,14 +324,10 @@ namespace OMPF
         iaSerializable::writeUInt8(file, meshType);
         con_debug_endl("meshType " << static_cast<uint8>(_meshType));
 
-        iaSerializable::write(file, _boundingSpherePos);
-        iaSerializable::writeFloat32(file, _boundingSphereRadius);
-        con_debug_endl("bounding sphere " << _boundingSpherePos << " radius " << _boundingSphereRadius);
-
         iaSerializable::writeUInt8(file, static_cast<uint8>(getTextureCount()));
         con_debug_endl("textureCount " << getTextureCount());
 
-        int i = 0;
+        uint i = 0;
         auto iterTex = _textures.begin();
         while (iterTex != _textures.end())
         {
@@ -436,10 +421,6 @@ namespace OMPF
         con_assert(_meshType == OMPFMeshType::Triangles, "only triangles supported");
         con_debug_endl("meshType " << static_cast<int>(_meshType));
 
-        iaSerializable::read(file, _boundingSpherePos);
-        iaSerializable::readFloat32(file, _boundingSphereRadius);
-        con_debug_endl("bounding sphere " << _boundingSpherePos << " radius " << _boundingSphereRadius);
-
         uint8 textureCount = 0;
         iaSerializable::readUInt8(file, textureCount);
         con_debug_endl("textureCount " << textureCount);
@@ -454,7 +435,7 @@ namespace OMPF
         }
 
         iaSerializable::readUInt32(file, _vertexCount);
-        _vertexDataSize = (calcVertexSize() * _vertexCount);
+        _vertexDataSize = (getVertexSize() * _vertexCount);
         if (_vertexData != nullptr)
         {
             delete[] _vertexData;

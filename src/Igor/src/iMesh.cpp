@@ -105,4 +105,9 @@ namespace Igor
         _sphere = sphere;
     }
 
+    void iMesh::setBoundingBox(const iAABoxd& bbox)
+    {
+        _bbox = bbox;
+    }
+
 }

@@ -129,7 +129,7 @@ namespace Igor
 
         calcMinSize();
 
-        _swapBufferSectionID = iStatistics::getInstance().registerSection("window:swapBuffers", 0);
+        _swapBufferSectionID = iStatistics::getInstance().registerSection("window:swap", 0);
     }
 
     HGLRC iWindow::createRenderContext()
@@ -338,7 +338,7 @@ namespace Igor
             PFD_SUPPORT_OPENGL |						// Format Must Support OpenGL
             PFD_DOUBLEBUFFER,							// Must Support Double Buffering
             PFD_TYPE_RGBA,								// Request An RGBA Format
-            _colordepth,									// Select Our Color Depth
+            _colordepth,							    // Select Our Color Depth
             0, 0, 0, 0, 0, 0,							// Color Bits Ignored
             0,											// No Alpha Buffer
             0,											// Shift Bit Ignored
@@ -352,16 +352,16 @@ namespace Igor
             0, 0, 0										// Layer Masks Ignored
         };
 
-        if (!(_hDC = GetDC(_hWnd)))
+		_hDC = GetDC(_hWnd);
+        if (_hDC == nullptr)
         {
             con_err("can't create Device Context");
             close();
             return false;
         }
 
-        uint32 pixelformat;
-
-        if (!(pixelformat = ChoosePixelFormat(_hDC, &pfd)))
+        uint32 pixelformat = ChoosePixelFormat(_hDC, &pfd);
+        if (pixelformat == 0)
         {
             con_err("invalid pixel format");
             close();

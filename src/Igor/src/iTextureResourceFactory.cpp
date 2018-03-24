@@ -127,6 +127,7 @@ namespace Igor
         _dummyTexture->_width = width;
         _dummyTexture->_height = height;
         _dummyTexture->_valid = true;
+        _dummyTexture->_processed = true;
         
         _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         iRenderer::getInstance().setDummyTextureID(_dummyTexture->_rendererTexture->_id);
@@ -234,7 +235,6 @@ namespace Igor
                 keyPath = filename;
             }
 
-
             int64 hashValue = calcHashValue(filename, cacheMode, buildMode, wrapMode);
 
             _mutex.lock();
@@ -243,13 +243,15 @@ namespace Igor
             {
                 result = (*textureIter).second;
             }
+			_mutex.unlock();
 
             if (nullptr == result.get())
             {
                 result = shared_ptr<iTexture>(new iTexture(keyPath, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
+				_mutex.lock();
                 _textures[hashValue] = result;
+				_mutex.unlock();
             }
-            _mutex.unlock();
         }
 
         return result;
@@ -271,16 +273,19 @@ namespace Igor
 
             while (texture != _textures.end())
             {
-                if ((*texture).second->isValid())
+                if ((*texture).second->isProcessed())
                 {
-                    if ((*texture).second.use_count() == 1)
+                    if ((*texture).second->isValid())
                     {
-                        if ((*texture).second->_cacheMode <= cacheModeLevel)
+                        if ((*texture).second.use_count() == 1)
                         {
-                            iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
-                            con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
-                            texture = _textures.erase(texture);
-                            continue;
+                            if ((*texture).second->_cacheMode <= cacheModeLevel)
+                            {
+                                iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
+                                con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
+                                texture = _textures.erase(texture);
+                                continue;
+                            }
                         }
                     }
                 }
@@ -304,10 +309,6 @@ namespace Igor
 
             _interrupLoading = false;
         }
-        else
-        {
-            con_warn("renderer not ready. try later");
-        }
     }
 
     void iTextureResourceFactory::loadTexture(shared_ptr<iTexture> texture)
@@ -323,7 +324,7 @@ namespace Igor
         if (textureData == nullptr)
         {
             texture->_dummy = true;
-            texture->_valid = true;
+            texture->_valid = false;
             con_err("can't load \"" << texture->getFilename() << "\"");
         }
         else
@@ -351,7 +352,7 @@ namespace Igor
             texture->_width = width;
             texture->_height = height;
             texture->_dummy = false;
-            texture->_valid = true;
+            texture->_valid = true;            
             texture->_colorFormat = colorFormat;
             texture->_bpp = bpp;
 
@@ -383,6 +384,9 @@ namespace Igor
             stbi_image_free(textureData);
             _mutexImageLibrary.unlock();
         }
+
+        // mark texture processed so we don't have to touch it again
+        texture->_processed = true;
     }
 
     shared_ptr<iTexture> iTextureResourceFactory::loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)

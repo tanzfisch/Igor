@@ -96,12 +96,12 @@ void Example2D::init()
     _particleSystem.setExternalForce(iaVector2f(0, 0.2f));
 
     // define a rainbow multi color gradient for our particles
-    _rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
-    _rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
-    _rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
-    _rainbow.setValue(0.6f, iaColor4f(0, 1, 0, 0.6));
-    _rainbow.setValue(0.8f, iaColor4f(1, 1, 0, 0.8));
-    _rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
+    _rainbow.setValue(0.0f, iaColor4f(1.0f, 0.0f, 1.0f, 0.0f));
+    _rainbow.setValue(0.2f, iaColor4f(0.0f, 0.0f, 1.0f, 0.2f));
+    _rainbow.setValue(0.4f, iaColor4f(0.0f, 1.0f, 1.0f, 0.4f));
+    _rainbow.setValue(0.6f, iaColor4f(0.0f, 1.0f, 0.0f, 0.6f));
+    _rainbow.setValue(0.8f, iaColor4f(1.0f, 1.0f, 0.0f, 0.8f));
+    _rainbow.setValue(1.0f, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
 
     // load a texture font
     _font = new iTextureFont("StandardFont.png");
@@ -165,12 +165,6 @@ void Example2D::deinit()
     // unregister the rendering callback. if not you will get a warning message because your shutdown was not complete
     _view.unregisterRenderDelegate(RenderDelegate(this, &Example2D::onRender));
 
-    // close the window, release callback and remove the view. if not you will get various reminders that you should
-    _window.close();
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
-    _window.removeView(&_view);
-
     // release materials (optional)
     iMaterialResourceFactory::getInstance().destroyMaterial(_materialWithTextureAndBlending);
     _materialWithTextureAndBlending = 0;
@@ -195,6 +189,16 @@ void Example2D::deinit()
     _particleTexture = nullptr;
     _backgroundTexture = nullptr;
     _dummyTexture = nullptr;
+	_igorLogo = nullptr;
+
+	// tell texture manager to flush and actually release textures
+	iTextureResourceFactory::getInstance().flush();
+
+	// close the window, release callback and remove the view. if not you will get various reminders that you should
+	_window.close();
+	_window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &Example2D::onWindowClosed));
+	_window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &Example2D::onWindowResize));
+	_window.removeView(&_view);
 }
 
 void Example2D::onMouseMove(int32 x, int32 y)
@@ -250,7 +254,7 @@ void Example2D::updateParticles()
 {
     // manipulates particles initial velocity over time
     iaVector2f velocity(12, 0);
-    float32 emitangle = _perlinNoise.getValue(_particleAnimatioValue * 0.05, 3) - 1.0;
+    float32 emitangle = static_cast<float32>(_perlinNoise.getValue(_particleAnimatioValue * 0.05, 3) - 1.0);
     
     velocity.rotateXY(emitangle);
     _particleSystem.setInitialVelocity(velocity);
@@ -353,10 +357,10 @@ void Example2D::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

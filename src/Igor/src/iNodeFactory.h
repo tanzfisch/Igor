@@ -32,6 +32,7 @@
 #include <iNode.h>
 
 #include <iaSingleton.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <map>
@@ -69,11 +70,11 @@ namespace Igor
         {
             /*! node A to do an action with
             */
-            uint32 _nodeA = iNode::INVALID_NODE_ID;
+            uint64 _nodeA = iNode::INVALID_NODE_ID;
 
             /*! node B to do an action with
             */
-            uint32 _nodeB = iNode::INVALID_NODE_ID;
+            uint64 _nodeB = iNode::INVALID_NODE_ID;
 
             /*! the action to do with node A, B or both
             */
@@ -85,19 +86,19 @@ namespace Igor
         \param id id of ndoe
         \returns pointer to node
         */
-        iNode* getNode(uint32 id);
+        iNode* getNode(uint64 id);
 
         /*! \returns list of all node IDs of a certain node type
 
         \param nodeType type of nodes
         */
-        vector<uint32> getNodes(iNodeType nodeType);
+        vector<uint64> getNodes(iNodeType nodeType);
 
         /*! \returns true if node ID exists
 
         \param id the nodes ID
         */
-        bool isNode(uint32 id);
+        bool isNode(uint64 id);
 
         /*! create copy of node
 
@@ -119,7 +120,7 @@ namespace Igor
 
         \param nodeID id of node (asynchronously)
         */
-        void destroyNodeAsync(uint32 nodeID);
+        void destroyNodeAsync(uint64 nodeID);
 
         /*! applys asynchrounous actions to nodes
 
@@ -169,11 +170,11 @@ namespace Igor
 
         /*! mapping ids to nodes
         */
-        map<uint32, iNode*> _nodes;
+        map<uint64, iNode*> _nodes;
 
         /*! mutex to protect node list
         */
-        mutex _mutexNodes;
+        iaMutex _mutexNodes;
 
         /*! queue with actions
         */
@@ -181,7 +182,11 @@ namespace Igor
 
         /*! mutex to protect activities
         */
-        mutex _mutexQueue;
+		iaMutex _mutexQueue;
+
+        /*! last chance for the instance to clean up before shut down
+        */
+        virtual void onPreDestroyInstance();
 
         /*! internal copy function for nodes
 
@@ -195,7 +200,7 @@ namespace Igor
         \param node the node to copy
         \param recursiveDepth recursive depth
         */
-        iNode* createCopyInternal(iNode* node, map<uint32, uint32>& nodeIDMap, uint32 recursiveDepth);
+        iNode* createCopyInternal(iNode* node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth);
 
         /*! destroys node and all its children
 
@@ -209,7 +214,7 @@ namespace Igor
 
         \param nodeID id of node
         */
-        void destroyNode(uint32 nodeID);
+        void destroyNode(uint64 nodeID);
 
         /*! called once per frame by application
         */

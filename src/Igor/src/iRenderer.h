@@ -31,17 +31,19 @@
 
 #include <iRectangle.h>
 #include <iTexture.h>
-#include <iaGradient.h>
+#include <iAABox.h>
+#include <iAACube.h>
 
+#include <iaGradient.h>
 #include <iaSingleton.h>
 #include <iaString.h>
 #include <iaMatrix.h>
 #include <iaColor4.h>
 #include <iaColor3.h>
 #include <iaEvent.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
-#include <mutex>
 #include <list>
 #include <vector>
 #include <map>
@@ -57,7 +59,6 @@ namespace Igor
     class iParticle;
     class iParticle2D;
     class iSprite;
-    class iVBOInstances;
     class iInstancer;
     class iMaterial;
     class iTargetMaterial;
@@ -74,16 +75,22 @@ namespace Igor
         Undefined
     };
 
+    enum class iRenderTargetType
+    {
+        ToTexture,
+        ToRenderBuffer
+    };
+
     /*! texture placeholder class
     */
-	class Igor_API iRendererTexture
-	{
-	public:
+    struct Igor_API iRendererTexture
+    {
+    public:
 
-		uint32 _id;
-	};
+        uint32 _id;
+    };
 
-    /*! triggered when renderer is initialized. 
+    /*! triggered when renderer is initialized.
     usually after a window was opened.
     */
     iaEVENT(iRendererInitializedEvent, iRendererInitializedDelegate, void, (), ());
@@ -133,11 +140,38 @@ namespace Igor
             iaColor4f _specular = { 0.8f, 0.8f, 0.8f, 1.0f };
         };
 
+        /*! internal structure for handling a render target
+        */
+        struct iRendererTarget
+        {
+            /*! the render target type
+            */
+            iRenderTargetType _renderTargetType;
+
+            /*! frame buffer object id
+            */
+            uint32 _frameBufferObject = 0;
+
+            /*! color render buffer id
+            */
+            uint32 _colorBuffer = 0;
+
+            bool _hasDepth = false;
+
+            /*! depth render buffer id
+            */
+            uint32 _depthBuffer = 0;
+        };
+
     public:
 
         /*! renderer definition of an invalid id
         */
         static const uint32 INVALID_ID = 0xffffffff;
+
+        /*! the default render target ID
+        */
+        static const uint32 DEFAULT_RENDER_TARGET = 0;
 
         /*! register delegate to renderer initialized event
 
@@ -176,18 +210,28 @@ namespace Igor
         /*! creates vertex buffer objects for specified mesh
 
         \param mesh the mesh specified
+        \todo this is weired stuff we should do that differently
         */
         shared_ptr<iMeshBuffers> createBuffers(shared_ptr<iMesh> mesh);
 
+        /*!
+        \todo this is weired stuff we should do that differently
+        */
         void initBuffers(shared_ptr<iMesh> mesh, shared_ptr<iMeshBuffers> meshBuffers);
 
+        /*!
+        \todo this is weired stuff we should do that differently
+        */
         shared_ptr<iMeshBuffers> createBuffersAsync(shared_ptr<iMesh> mesh);
 
+        /*!
+        \todo this is weired stuff we should do that differently
+        */
         void createBuffers(float64 timeLimit = 10.0);
 
         /*! \returns true if the renderer is ready to use
         */
-        virtual bool isReady();
+        bool isReady();
 
         /*!
         \todo make more private again maybe we need a class to handle buffers
@@ -202,8 +246,16 @@ namespace Igor
         /*! set current material
 
         \param material the material to be set as current material
+        \param forceWireframe if true all materials will be considered using wireframe
+        \todo make separate interface for showing wireframe
         */
-        virtual void setMaterial(iMaterial* material);
+        void setMaterial(iMaterial* material, bool forceWireframe = false);
+
+        void setColorID(uint64 colorID);
+
+        int32 getShaderPropertyID(uint32 programID, const char* name);
+
+        void writeShaderParameters();
 
         /*! set the viewport
 
@@ -212,23 +264,23 @@ namespace Igor
         \param with with of viewport in pixel
         \param height height of viewport in pixel
         */
-        virtual void setViewport(int32 x, int32 y, int32 width, int32 height);
+        void setViewport(int32 x, int32 y, int32 width, int32 height);
 
         /*! \returns viewport rectangle (sizes in pixel)
         */
-        virtual void getViewport(iRectanglei& rect);
+        void getViewport(iRectanglei& rect);
 
         /*! returns projection matrix
 
         \param[out] matrix destination to write projection matrix in
         */
-        virtual void getProjectionMatrix(iaMatrixd& matrix);
+        void getProjectionMatrix(iaMatrixd& matrix);
 
         /*! sets projection matrix
 
         \param matrix the new projection matrix
         */
-        virtual void setProjectionMatrix(const iaMatrixd& matrix);
+        void setProjectionMatrix(const iaMatrixd& matrix);
 
         /*! set projection matrix with perspective projection
 
@@ -237,7 +289,7 @@ namespace Igor
         \param nearplane near plane distance
         \param farplane far plane distance
         */
-        virtual void setPerspective(float32 fov, float32 aspect, float32 nearplane, float32 farplane);
+        void setPerspective(float32 fov, float32 aspect, float32 nearplane, float32 farplane);
 
         /*! set projection matrix with orthogonal projection
 
@@ -248,42 +300,42 @@ namespace Igor
         \param nearplane near plane distance
         \param farplane far plane distance
         */
-        virtual void setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplane, float32 farplane);
+        void setOrtho(float32 left, float32 right, float32 bottom, float32 top, float32 nearplane, float32 farplane);
 
         /*! sets the model matrix
 
         \param matrix matrix to set the model matrix
         */
-        virtual void setModelMatrix(const iaMatrixd& matrix);
+        void setModelMatrix(const iaMatrixd& matrix);
 
         /*! returns current model matrix
 
         \param[out] matrix returning model matrix
         */
-        virtual void getModelMatrix(iaMatrixd& matrix);
+        void getModelMatrix(iaMatrixd& matrix);
 
         /*! sets the view matrix and camera world matrix
 
         \param viewMatrix matrix to set the view matrix
         \param camMatrix camera world matrix
         */
-        virtual void setViewMatrix(const iaMatrixd& viewMatrix, const iaMatrixd& camMatrix);
+        void setViewMatrix(const iaMatrixd& viewMatrix, const iaMatrixd& camMatrix);
 
         /*! sets the view matrix and sets the camera world matrix to identity
 
         \param matrix matrix to set the view matrix
         */
-        virtual void setViewMatrix(const iaMatrixd& viewMatrix);
+        void setViewMatrix(const iaMatrixd& viewMatrix);
 
         /*! sets world grid resolution
 
-        this grid is only relevant if your world to big for float32 to handle AND 
+        this grid is only relevant if your world to big for float32 to handle AND
         if you still need in your shaders some sort of world position to know.
         So in the end you get some modulo world position. modulo with that grid size.
 
         \param gridSize sets the world grid size (only values with )
         */
-        virtual void setWorldGridResolution(float32 gridSize);
+        void setWorldGridResolution(float32 gridSize);
 
         /*! \returns world grid size
         */
@@ -293,27 +345,27 @@ namespace Igor
 
         \param[out] matrix destination to write camera world wmatrix in
         */
-        virtual void getCamWorldMatrix(iaMatrixd& matrix);
+        void getCamWorldMatrix(iaMatrixd& matrix);
 
         /*! sets clear color
 
         \param color the clear color
         */
-        virtual void setClearColor(iaColor4f& color);
+        void setClearColor(iaColor4f& color);
 
         /*! sets clear depth
 
         \param depth the clear depth
         */
-        virtual void setClearDepth(float32 depth);
+        void setClearDepth(float32 depth);
 
         /*! clears color buffer with clear color
         */
-        virtual void clearColorBuffer();
+        void clearColorBuffer();
 
         /*! clears depth buffer with clear depth
         */
-        virtual void clearDepthBuffer();
+        void clearDepthBuffer();
 
         /*! reads rectangular area from screen buffer
 
@@ -324,25 +376,14 @@ namespace Igor
         \param format color format
         \param data destination buffer to store the data in
         */
-        virtual void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8* data);
-
-        /*! reads rectangular area from screen buffer (float data)
-
-        \param x horizontal position in pixel
-        \parma y vertical position in pixel
-        \param width width in pixel
-        \param height height in pixel
-        \param format color format
-        \param data destination buffer to store the data in
-        */
-        virtual void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, float32* data);
+        void readPixels(int32 x, int32 y, int32 width, int32 height, iColorFormat format, uint8* data);
 
         /*! binds texture to texture unit
 
         \param texture the texture to bind
         \param textureunit the texture unit to bind the texture with
         */
-        virtual void bindTexture(shared_ptr<iTexture> texture, uint32 textureunit);
+        void bindTexture(shared_ptr<iTexture> texture, uint32 textureunit);
 
         /*! sets current target emissive color
 
@@ -385,7 +426,7 @@ namespace Igor
         \param x horizontal position
         \param y vertical position
         */
-        virtual void drawPoint(float32 x, float32 y);
+        void drawPoint(float32 x, float32 y);
 
         /*! draw a line between two points
 
@@ -394,7 +435,7 @@ namespace Igor
         \param x2 horizontal position of second point
         \param y2 vertical position of second point
         */
-        virtual void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
+        void drawLine(float32 x1, float32 y1, float32 x2, float32 y2);
 
         /*! draw a filled rectangle.
 
@@ -403,7 +444,7 @@ namespace Igor
         \param width width of the rectangle
         \param height height of the rectangle
         */
-        virtual void drawRectangle(float32 x, float32 y, float32 width, float32 height);
+        void drawRectangle(float32 x, float32 y, float32 width, float32 height);
 
         /*! draw a filled rectangle with texture.
 
@@ -415,7 +456,7 @@ namespace Igor
         \param height height of the rectangle
         \param texture the texture to render the rectangle with
         */
-        virtual void drawTexture(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
+        void drawTexture(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
 
         /*! draw a tiled texture
 
@@ -427,7 +468,7 @@ namespace Igor
         \param height height of the rectangle
         \param texture the texture to render the rectangle with
         */
-        virtual void drawTextureTiled(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
+        void drawTextureTiled(float32 x, float32 y, float32 width, float32 height, shared_ptr<iTexture> texture);
 
         /*! draw a filled rectangle with texture.
 
@@ -438,7 +479,7 @@ namespace Igor
         \param y vertical position
         \param texture the texture to render the rectangle with
         */
-        virtual void drawTexture(float32 x, float32 y, shared_ptr<iTexture> texture);
+        void drawTexture(float32 x, float32 y, shared_ptr<iTexture> texture);
 
         /*! draws a sprite at given position, orientation and scale
 
@@ -449,33 +490,45 @@ namespace Igor
         \param scalex horizontal scale
         \param scaley vertical scale
         */
-        virtual void drawSprite(iSprite* sprite, float32 x, float32 y, float32 angle = 0.0f, float32 scalex = 1.0f, float32 scaley = 1.0f);
+        void drawSprite(iSprite* sprite, float32 x, float32 y, float32 angle = 0.0f, float32 scalex = 1.0f, float32 scaley = 1.0f);
 
         /*! draws a point
 
         \param pos 3d position to draw the point at
         */
-        virtual void drawPoint(iaVector3f &pos);
+        void drawPoint(iaVector3f &pos);
 
         /*! draws a line between two 3d points
 
         \param posA first 3d point
         \param posB second 3d point
         */
-        virtual void drawLine(iaVector3f &posA, iaVector3f &posB);
+        void drawLine(iaVector3f &posA, iaVector3f &posB);
 
         /*! draws a line strip
 
         \param line list of line segments
         */
-        virtual void drawLineStrip(vector<iaVector3f>& line);
+        void drawLineStrip(vector<iaVector3f>& line);
 
         /*! draws an axis aligned box between two points
 
         \param posA first 3d point
         \param posB second 3d point
         */
-        virtual void drawBox(iaVector3f &posA, iaVector3f &posB);
+        void drawFilledBox(iaVector3f &posA, iaVector3f &posB);
+
+        /*! draws axis aligned bounding box with lines
+
+        \param bbox the bounding box to draw
+        */
+        void drawBBox(const iAABoxd& bbox);
+
+        /*! draws axis aligned bounding cube with lines
+
+        \param bbox the bounding box to draw
+        */
+        void drawBBox(const iAACubed& bbox);
 
         /*! draws a billboard
 
@@ -484,7 +537,7 @@ namespace Igor
         \param v second of two axis defining a plane
         \param texture texture to draw with
         */
-        virtual void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture);
+        void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture);
 
         /*! draws a billboard
 
@@ -495,26 +548,29 @@ namespace Igor
         \param texScaleU scale of texture coordinates along the u axis
         \param texScaleV scale of texture coordinates along the v axis
         */
-        virtual void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture, float32 texScaleU, float32 texScaleV);
+        void drawBillboard(iaVector3f& pos, iaVector3f& u, iaVector3f& v, shared_ptr<iTexture> texture, float32 texScaleU, float32 texScaleV);
+
+        
 
         /*! draws a mesh
 
         \param mesh the mesh to be drawn
         */
-        virtual void drawMesh(shared_ptr<iMeshBuffers> mesh);
+        void drawMesh(shared_ptr<iMeshBuffers> mesh);
 
         /*! draws a mesh instanced
 
         \param mesh the mesh to be drawn
         \param instanceCount count of instances to be drawn
         */
-        virtual void drawMesh(shared_ptr<iMeshBuffers> mesh, iInstancer* instancer);
+        void drawMesh(shared_ptr<iMeshBuffers> mesh, iInstancer* instancer);
 
         /*! set current color
 
         \param color the color to be set
         */
-        virtual void setColor(iaColor4f color);
+        void setColor(iaColor4f color);
+        void setColorExt(iaColor4f color); // replace the other set color once the fixed function pipeline is gone
 
         /*! set current color
 
@@ -523,32 +579,32 @@ namespace Igor
         \param b blue channel
         \param a alpha channel
         */
-        virtual void setColor(float32 r, float32 g, float32 b, float32 a);
+        void setColor(float32 r, float32 g, float32 b, float32 a);
 
         // Lights
-        virtual void setLightPosition(int32 lightnum, iaVector4d &pos);
-        virtual void setLightAmbient(int32 lightnum, iaColor4f &ambient);
-        virtual void setLightDiffuse(int32 lightnum, iaColor4f &diffuse);
-        virtual void setLightSpecular(int32 lightnum, iaColor4f &specular);
+        void setLightPosition(int32 lightnum, iaVector4d &pos);
+        void setLightAmbient(int32 lightnum, iaColor4f &ambient);
+        void setLightDiffuse(int32 lightnum, iaColor4f &diffuse);
+        void setLightSpecular(int32 lightnum, iaColor4f &specular);
 
         // 2D Bitmap Text
         /*! sets texture font to use next
 
         \param font the font to use
         */
-        virtual void setFont(iTextureFont *font);
+        void setFont(iTextureFont *font);
 
         /*! sets the size of fonts to render with
 
         \param fontSize the font size
         */
-        virtual void setFontSize(float32 fontSize);
+        void setFontSize(float32 fontSize);
 
         /*! sets the font line height
 
         \param lineheight the text line height to render with
         */
-        virtual void setFontLineHeight(float32 lineheight);
+        void setFontLineHeight(float32 lineheight);
 
         /*! draws a string on screen using current font settings
 
@@ -558,7 +614,7 @@ namespace Igor
         \param angle orientation in degrees
         \param maxWidth the max width of the text. If text ist wider it will be rendered in multiple lines
         */
-        virtual void drawString(float32 x, float32 y, iaString text, float32 angle = 0.0f, float32 maxWidth = 0.0f);
+        void drawString(float32 x, float32 y, iaString text, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         /*! draws a string on screen using current font settings
 
@@ -570,36 +626,41 @@ namespace Igor
         \param angle orientation in degrees
         \param maxWidth the max width of the text. If text ist wider it will be rendered in multiple lines
         */
-        virtual void drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horizontalAlignment, iVerticalAlignment verticalAlignment = iVerticalAlignment::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
+        void drawString(float32 x, float32 y, iaString text, iHorizontalAlignment horizontalAlignment, iVerticalAlignment verticalAlignment = iVerticalAlignment::Top, float32 angle = 0.0f, float32 maxWidth = 0.0f);
 
         // Particles
-        virtual void drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
-        virtual void drawVelocityOrientedParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
-        virtual void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iaGradientColor4f *rainbow = 0);
+        void drawParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
+        void drawVelocityOrientedParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow);
+        void drawParticles(float32 x, float32 y, float32 angle, iParticle2D* particles, int32 particleCount, iaGradientColor4f *rainbow = 0);
 
         // attributes
         /*! sets line render width
 
         \param lineWidth line render width
         */
-        virtual void setLineWidth(float32 lineWidth);
+        void setLineWidth(float32 lineWidth);
 
         /*! sets point size
 
         \param pointSize point size
         */
-        virtual void setPointSize(float32 pointSize);
+        void setPointSize(float32 pointSize);
 
         // shader
-        int32 createShaderProgram();
-        void destroyShaderProgram(int32 id);
-        void useShaderProgram(int32 id);
+        uint32 createShaderProgram();
+        void destroyShaderProgram(uint32 id);
+        void useShaderProgram(uint32 id);
 
-        int32 createShaderObject(iShaderObjectType type);
-        void destroyShaderObject(int32 id);
+        uint32 createShaderObject(iShaderObjectType type);
+        void destroyShaderObject(uint32 id);
 
-        void linkShaderProgram(int32 id, vector<int32> objects);
-        bool compileShaderObject(int32 id, const char* source);
+        void linkShaderProgram(uint32 id, vector<uint32> objects);
+        bool compileShaderObject(uint32 id, const char* source);
+
+        uint32 createRenderTarget(uint32 width, uint32 height, iColorFormat format, iRenderTargetType renderTargetType, bool useDepthBuffer);
+        void destroyRenderTarget(uint32 id);
+        void setRenderTarget(uint32 id = iRenderer::DEFAULT_RENDER_TARGET);
+        uint32 getRenderTarget() const;
 
         // infos
         /*! \returns render hardware vendor
@@ -623,7 +684,9 @@ namespace Igor
 
     private:
 
-        mutex _requestedBuffersMutex;
+        uint32 _currentRenderTarget = DEFAULT_RENDER_TARGET;
+
+        iaMutex _requestedBuffersMutex;
         deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>> _requestedBuffers;
 
         /*! world grid resolution
@@ -742,6 +805,10 @@ namespace Igor
         */
         iMaterial* _currentMaterial = nullptr;
 
+        /*! map of render targets
+        */
+        map<uint32, iRendererTarget> _renderTargets;
+
         /*! creates a Texture
 
         \param width width of the texture
@@ -753,13 +820,13 @@ namespace Igor
         \param wrapMode wrap mode of texture
         \returns pointer to renderer texture
         */
-        virtual iRendererTexture* createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8* data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
+        iRendererTexture* createTexture(int32 width, int32 height, int32 bytepp, iColorFormat format, uint8* data, iTextureBuildMode buildMode, iTextureWrapMode wrapMode);
 
         /*! releases texture
 
         \param texture pointer to texture to be released
         */
-        virtual void destroyTexture(iRendererTexture* texture);
+        void destroyTexture(iRendererTexture* texture);
 
         /*! creates an instancing buffer for this instancer
 
@@ -779,11 +846,11 @@ namespace Igor
 
         /*!
         */
-        virtual void deinit();
+        void deinit();
 
         /*!
         */
-        virtual void init();
+        void init();
 
         /*! updates the model view projection matrix if the corresponding dirty flag is true
         */
@@ -795,7 +862,7 @@ namespace Igor
 
         /*! does nothing
         */
-        virtual ~iRenderer();
+        ~iRenderer();
 
     };
 

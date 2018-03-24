@@ -11,6 +11,9 @@
 #include <iTimer.h>
 #include <iParticleEmitter.h>
 
+#include <iaConvert.h>
+using namespace IgorAux;
+
 #include <iostream>
 using namespace std;
 
@@ -29,39 +32,44 @@ namespace Igor
     {
     }
 
-	const iSphered& iParticleSystem3D::getBoundingSphere() const
-	{
-		return _boundingSphere;
-	}
+    const iSphered& iParticleSystem3D::getBoundingSphere() const
+    {
+        return _boundingSphere;
+    }
+
+    const iAABoxd& iParticleSystem3D::getBoundingBox() const
+    {
+        return _boundingBox;
+    }
 
     void iParticleSystem3D::initDefaultGradients()
     {
-        _startVisibleTimeGradient.setValue(0.0, iaVector2f(2.5, 3.5));
+        _startVisibleTimeGradient.setValue(0.0f, iaVector2f(2.5f, 3.5f));
 
-        _colorGradient.setValue(0.0, iaColor4f(1, 1, 1, 0.0f));
-        _colorGradient.setValue(0.2, iaColor4f(1, 1, 1, 1));
-        _colorGradient.setValue(0.5, iaColor4f(1, 1, 1, 1));
-        _colorGradient.setValue(1.0, iaColor4f(1, 1, 1, 0.0f));
+        _colorGradient.setValue(0.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
+        _colorGradient.setValue(0.2f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+        _colorGradient.setValue(0.5f, iaColor4f(1.0f, 1.0f, 1.0f, 1.0f));
+        _colorGradient.setValue(1.0f, iaColor4f(1.0f, 1.0f, 1.0f, 0.0f));
 
-        _emissionRateGradient.setValue(0.0, 20.0f/iParticleSystem3D::_simulationRate);
+        _emissionRateGradient.setValue(0.0f, 20.0f / iParticleSystem3D::_simulationRate);
 
-        _sizeScaleGradient.setValue(0.0, 1.0);
+        _sizeScaleGradient.setValue(0.0f, 1.0f);
 
-        _startSizeGradient.setValue(0.0, iaVector2f(0.1, 0.3));
+        _startSizeGradient.setValue(0.0f, iaVector2f(0.1f, 0.3f));
 
-        _startVelocityGradient.setValue(0.0, iaVector2f(0.01, 0.02));
+        _startVelocityGradient.setValue(0.0f, iaVector2f(0.01f, 0.02f));
 
-        _startLiftGradient.setValue(0.0, iaVector2f(0.0, 0.0));
+        _startLiftGradient.setValue(0.0f, iaVector2f(0.0f, 0.0f));
 
-        _startOrientationGradient.setValue(0.0, iaVector2f(0.0, 0.0));
+        _startOrientationGradient.setValue(0.0f, iaVector2f(0.0f, 0.0f));
 
-        _startOrientationRateGradient.setValue(0.0, iaVector2f(0.0, 0.0));
+        _startOrientationRateGradient.setValue(0.0f, iaVector2f(0.0f, 0.0f));
 
         // internal gradient
-        _torqueFactorGradient.setValue(0.0, 0.0);
-        _torqueFactorGradient.setValue(0.1, 1.0);
-        _torqueFactorGradient.setValue(0.9, 1.0);
-        _torqueFactorGradient.setValue(1.0, 0.0);
+        _torqueFactorGradient.setValue(0.0f, 0.0f);
+        _torqueFactorGradient.setValue(0.1f, 1.0f);
+        _torqueFactorGradient.setValue(0.9f, 1.0f);
+        _torqueFactorGradient.setValue(1.0f, 0.0f);
     }
 
     void iParticleSystem3D::setVelocityOriented(bool velocityOriented)
@@ -275,7 +283,7 @@ namespace Igor
         particle._velocity.set(velocity._x, velocity._y, velocity._z);
 
         _startLiftGradient.getValue(particleSystemTime, minMax);
-        particle._lift = minMax._x + (1-randomFactor) * (minMax._y - minMax._x);
+        particle._lift = minMax._x + (1 - randomFactor) * (minMax._y - minMax._x);
 
         _startSizeGradient.getValue(particleSystemTime, minMax);
         particle._size = minMax._x + randomFactor * (minMax._y - minMax._x);
@@ -313,7 +321,7 @@ namespace Igor
             particle._textureto._x = particle._texturefrom._x + width;
             particle._textureto._y = particle._texturefrom._y + width;
         }
-        
+
         particle._phase0.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
         particle._phase1.set(_rand.getNext() % 100 / 100.0f, _rand.getNext() % 100 / 100.0f);
     }
@@ -420,6 +428,7 @@ namespace Igor
         {
             iaVector3f a, b;
 
+
             uint32 startIndex;
             uint32 endIndex;
 
@@ -452,81 +461,83 @@ namespace Igor
                 uint64 index = 0;
                 float32 torqueFactor = 0;
 
-                auto particle = _particles.begin();
-                while (particle != _particles.end())
+                auto particleIter = _particles.begin();
+                while (particleIter != _particles.end())
                 {
-                    _sizeScaleGradient.getValue((*particle)._visibleTime, sizeScale);
+                    iParticle &particle = (*particleIter);
 
-                    (*particle)._velocity[1] += (*particle)._lift;
-
-                    (*particle)._velocity *= _airDrag;                    
-
-                    (*particle)._orientation += (*particle)._orientationRate;
-
-                    (*particle)._sizeScale = sizeScale;
-
-                    (*particle)._phase0.rotateXY(_octave1Rotation);
-                    (*particle)._phase1.rotateXY(_octave2Rotation);
-
-                    (*particle)._visibleTime += (*particle)._visibleTimeIncrease;
-                    if ((*particle)._visibleTime > 1.0f)
+                    particle._life -= 1.0 / _simulationRate;
+                    if (particle._life <= 0)
                     {
-                        (*particle)._visible = false;
-                    }
-
-                    if ((*particle)._torque != 0.0)
-                    {
-                        _torqueFactorGradient.getValue((*particle)._visibleTime, torqueFactor);
-
-                        startIndex = index - _vortexCheckRange;
-                        if (startIndex > 0)
-                        {
-                            startIndex = 0;
-                        }
-
-                        endIndex = index + _vortexCheckRange;
-                        if (endIndex > _particles.size())
-                        {
-                            endIndex = _particles.size();
-                        }
-
-                        // TODO need overflow here
-
-                        for (uint32 i = startIndex; i < endIndex; ++i)
-                        {
-                            if (index == i) // ignore your self
-                            {
-                                continue;
-                            }
-
-                            a = (*particle)._position - _particles[i]._position;
-                            if (a.length() > (*particle)._vortexRange)
-                            {
-                                continue;
-                            }
-
-                            b = a % (*particle)._normal;
-                            b.normalize();
-                            b *= ((*particle)._vortexRange - a.length()) / (*particle)._vortexRange;
-                            b *= (*particle)._torque * torqueFactor;
-                            a.normalize();
-                            a *= _vorticityConfinement;
-                            b += a;
-
-                            _particles[i]._velocity += b * 0.001f; // TODO 0.001 ???
-                        }
-                    }
-
-                    (*particle)._position += (*particle)._velocity;
-
-                    (*particle)._life -= 1.0 / _simulationRate;
-                    if ((*particle)._life <= 0)
-                    {
-                        particle = _particles.erase(particle);
+                        particleIter = _particles.erase(particleIter);
                     }
                     else
                     {
-                        particle++;
+                        _sizeScaleGradient.getValue(particle._visibleTime, sizeScale);
+
+                        particle._velocity[1] += particle._lift;
+
+                        particle._velocity *= _airDrag;
+
+                        particle._orientation += particle._orientationRate;
+
+                        particle._sizeScale = sizeScale;
+
+                        particle._phase0.rotateXY(_octave1Rotation);
+                        particle._phase1.rotateXY(_octave2Rotation);
+
+                        particle._visibleTime += particle._visibleTimeIncrease;
+                        if (particle._visibleTime > 1.0f)
+                        {
+                            particle._visible = false;
+                        }
+
+                        if (particle._torque != 0.0)
+                        {
+                            _torqueFactorGradient.getValue(particle._visibleTime, torqueFactor);
+
+                            startIndex = index - _vortexCheckRange;
+                            if (startIndex > 0)
+                            {
+                                startIndex = 0;
+                            }
+
+                            endIndex = index + _vortexCheckRange;
+                            if (endIndex > _particles.size())
+                            {
+                                endIndex = _particles.size();
+                            }
+
+                            // TODO need overflow here
+
+                            for (uint32 i = startIndex; i < endIndex; ++i)
+                            {
+                                if (index == i) // ignore your self
+                                {
+                                    continue;
+                                }
+
+                                a = particle._position - _particles[i]._position;
+                                if (a.length() > particle._vortexRange)
+                                {
+                                    continue;
+                                }
+
+                                b = a % particle._normal;
+                                b.normalize();
+                                b *= (particle._vortexRange - a.length()) / particle._vortexRange;
+                                b *= particle._torque * torqueFactor;
+                                a.normalize();
+                                a *= _vorticityConfinement;
+                                b += a;
+
+                                _particles[i]._velocity += b * 0.001f; // TODO 0.001 ???
+                            }
+                        }
+
+                        particle._position += particle._velocity;
+
+                        particleIter++;
                         index++;
                     }
                 }
@@ -543,15 +554,66 @@ namespace Igor
             }
         }
 
-		if (!_particles.empty())
-		{
-			_boundingSphere._center.set(_particles[0]._position._x, _particles[0]._position._y, _particles[0]._position._z);
-			_boundingSphere._radius = _particles[0]._position.distance(_particles[_particles.size() - 1]._position);
-			if (_boundingSphere._radius < 1.0)
-			{
-				_boundingSphere._radius = 1.0;
-			}
-		}
+        if (!_particles.empty())
+        {
+            iaVector3f minPos = _particles.front()._position;
+            iaVector3f maxPos = _particles.front()._position;
+
+            for (int i = 0; i < _particles.size(); i += 40)
+            {
+                if (_particles[i]._position._x < minPos._x)
+                {
+                    minPos._x = _particles[i]._position._x;
+                }
+
+                if (_particles[i]._position._y < minPos._y)
+                {
+                    minPos._y = _particles[i]._position._y;
+                }
+
+                if (_particles[i]._position._z < minPos._z)
+                {
+                    minPos._z = _particles[i]._position._z;
+                }
+
+                if (_particles[i]._position._x > maxPos._x)
+                {
+                    maxPos._x = _particles[i]._position._x;
+                }
+
+                if (_particles[i]._position._y > maxPos._y)
+                {
+                    maxPos._y = _particles[i]._position._y;
+                }
+                if (_particles[i]._position._z > maxPos._z)
+                {
+                    maxPos._z = _particles[i]._position._z;
+                }
+            }
+
+            iaVector3d minPosd;
+            iaVector3d maxPosd;
+
+            iaConvert::convert(minPos, minPosd);
+            iaConvert::convert(maxPos, maxPosd);
+
+            iaVector3d center;
+            iaVector3d halfWidths;
+
+            center = minPosd;
+            center += maxPosd;
+            center *= 0.5;
+
+            halfWidths = maxPosd;
+            halfWidths -= minPosd;
+            halfWidths *= 0.5;
+
+            _boundingBox._center += (center - _boundingBox._center) * 0.1;
+            _boundingBox._halfWidths += (halfWidths - _boundingBox._halfWidths) * 0.1;
+
+            _boundingSphere._center = _boundingBox._center;
+            _boundingSphere._radius = max(_boundingBox._halfWidths._x, max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));
+        }
     }
 
     uint32 iParticleSystem3D::getParticleCount()

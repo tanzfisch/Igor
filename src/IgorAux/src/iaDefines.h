@@ -304,6 +304,8 @@ namespace IgorAux
 #define __IGOR_BIT_30__ 0x40000000
 #define __IGOR_BIT_31__ 0x80000000
 
+#define IGOR_INVALID_ID 0
+
 #ifndef _UNICODE
 #error Igor needs unicode!
 #endif

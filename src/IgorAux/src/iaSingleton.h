@@ -29,106 +29,108 @@
 #ifndef __IGOR_AUX_SINGLETON__
 #define __IGOR_AUX_SINGLETON__
 
-#include <iaDefines.h>
-
-#include <mutex>
-using namespace std;
+#include <iaMutex.h>
 
 namespace IgorAux
 {
 
 #pragma warning(disable:4100)
 
-	/*! singleton base class
+    /*! singleton base class
 
-	\todo put here some serious explanation how this works
-	*/
-	template<typename T> class IgorAux_API_Template iaSingleton
-	{
-	public:
+    \todo put here some serious explanation how this works
+    */
+    template<typename T> class IgorAux_API_Template iaSingleton
+    {
+    public:
 
-		/*! returns the singletons instance
+        /*! returns the singletons instance
 
-		\return reference to singletion instance
-		*/
-		static T &getInstance()
-		{
-			_mutex.lock();
-			if (nullptr == iaSingleton<T>::_instance)
-			{
-				iaSingleton<T>::_instance = new T();
-			}
-			_mutex.unlock();
+        \return reference to singletion instance
+        */
+        static T &getInstance()
+        {
+            _mutex.lock();
+            if (nullptr == iaSingleton<T>::_instance)
+            {
+                iaSingleton<T>::_instance = new T();
+            }
+            _mutex.unlock();
 
-			return *iaSingleton<T>::_instance;
-		}
+            return *iaSingleton<T>::_instance;
+        }
 
-		/*! deletes singleton instance 
-		*/
-		static void destroyInstance()
-		{
-			_mutex.lock();
-			if(nullptr != iaSingleton<T>::_instance)
-			{
-				delete(iaSingleton<T>::_instance);
-				iaSingleton<T>::_instance = nullptr;
-			}
-			_mutex.unlock();
-		}
+        /*! deletes singleton instance
+        */
+        static void destroyInstance()
+        {
+            if (iaSingleton<T>::_instance != nullptr)
+            {
+                iaSingleton<T>::_instance->onPreDestroyInstance();
+            }
 
-		/*! returns true if the instance of this currently instantiated
+            _mutex.lock();
+            if (nullptr != iaSingleton<T>::_instance)
+            {
+                delete(iaSingleton<T>::_instance);
+                iaSingleton<T>::_instance = nullptr;
+            }
+            _mutex.unlock();
+        }
 
-        \todo does the mutex make sence here?
-		*/
-		static bool isInstantiated()
-		{
-			_mutex.lock();
-			bool result = iaSingleton<T>::_instance ? true : false;
-			_mutex.unlock();
-			return result;
-		}
+        /*! returns true if the instance of this currently instantiated
+        */
+        static bool isInstantiated()
+        {
+            bool result = iaSingleton<T>::_instance ? true : false;
+            return result;
+        }
 
-	protected:
+    protected:
 
-		/*! pointer to the singleton instance
-		*/
-		static T *_instance;
+        /*! pointer to the singleton instance
+        */
+        static T *_instance;
 
-		/*! default ctor
+        /*! default ctor
 
-		does nothing
-		*/
+        does nothing
+        */
         iaSingleton() = default;
 
-		/*! dtor
+        /*! dtor
 
-		deletes singleton instance
-		*/
-		virtual ~iaSingleton()
-		{
-			iaSingleton<T>::_instance = nullptr;
-		}
+        deletes singleton instance
+        */
+        virtual ~iaSingleton()
+        {
+            iaSingleton<T>::_instance = nullptr;
+        }
 
-	private:
+        /*! last chance for the instance to clean up before shut down
+        */
+        virtual void onPreDestroyInstance() {};
 
-		/*! mutex to protect instance pointer
-		*/
-		static mutex _mutex;
+    private:
 
-		/*! copy constructor is not allowed to use
-		*/
+        /*! mutex to protect instance pointer
+        */
+        static iaMutex _mutex;
+
+        /*! copy constructor is not allowed to use
+        */
         iaSingleton(const iaSingleton& p) = default;
 
-	};
+    };
 
-	/*! the actual instance definition of any singleton
-	*/
-	template<typename T>T *iaSingleton<T>::_instance = nullptr;
+    /*! the actual instance definition of any singleton
+    */
+    template<typename T>T* iaSingleton<T>::_instance = nullptr;
 
     /*! the mutex of any singleton
     */
-    template<typename T>mutex iaSingleton<T>::_mutex;
-    
+    template<typename T>iaMutex iaSingleton<T>::_mutex;
+
 #pragma warning(default:4100) 
 };
 

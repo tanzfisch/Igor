@@ -45,6 +45,19 @@ namespace Igor
 	class iNodeLight;
 	class iNodeCamera;
 
+    /*! shader source and type definition
+    */
+    struct iShaderSource
+    {
+        /*! source file name
+        */
+        iaString _filename;
+
+        /*! shader type
+        */
+        iShaderObjectType _type;
+    };
+
     /*! defines visual material
 
     \todo need a unique material ID. maybe a hash code
@@ -58,21 +71,34 @@ namespace Igor
 
     public:
 
+        static constexpr const char* UNIFORM_SOLIDCOLOR = "igor_solidColor";
+
+        static constexpr const char* UNIFORM_LIGHT_ORIENTATION = "igor_lightOrientation";
+        static constexpr const char* UNIFORM_LIGHT_AMBIENT = "igor_lightAmbient";
+        static constexpr const char* UNIFORM_LIGHT_DIFFUSE = "igor_lightDiffuse";
+        static constexpr const char* UNIFORM_LIGHT_SPECULAR = "igor_lightSpecular";
+        static constexpr const char* UNIFORM_EYE_POSITION = "igor_eyePosition";
+        static constexpr const char* UNIFORM_MODEL_VIEW_PROJECTION = "igor_modelViewProjection";
+        static constexpr const char* UNIFORM_MODEL = "igor_model";
+
+        static constexpr const char* UNIFORM_MATERIAL_AMBIENT = "igor_matAmbient";
+        static constexpr const char* UNIFORM_MATERIAL_DIFFUSE = "igor_matDiffuse";
+        static constexpr const char* UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
+        static constexpr const char* UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
+        static constexpr const char* UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
+
+        static constexpr const char* SAMPLER_TEXTURE0 = "igor_matTexture0";
+        static constexpr const char* SAMPLER_TEXTURE1 = "igor_matTexture1";
+        static constexpr const char* SAMPLER_TEXTURE2 = "igor_matTexture2";
+        static constexpr const char* SAMPLER_TEXTURE3 = "igor_matTexture3";
+
         /*! invalid material ID
         */
-        static const int32 INVALID_MATERIAL_ID = 0;
-
-        /*! early render order value
-        */
-        static const int32 RENDER_ORDER_EARLY = 100;
+        static const int64 INVALID_MATERIAL_ID = IGOR_INVALID_ID;
 
         /*! default render order value
         */
         static const int32 RENDER_ORDER_DEFAULT = 200;
-
-        /*! late render order value
-        */
-        static const int32 RENDER_ORDER_LATE = 300;
 
         /*! min render order value
         */
@@ -105,7 +131,7 @@ namespace Igor
 
         /*! \returns all shader sources that where added before
         */
-        const vector<iShaderSource>& getShaderSources() const;
+        vector<iShaderSource> getShaderSources() const;
 
         /*! compiles the shader including all added sources
         */
@@ -114,10 +140,6 @@ namespace Igor
         /*! destroyes shaders and removes all information about them
         */
         void clearShader();
-
-        /*! \returns true if this material uses shaders
-        */
-        bool hasShader();
 
         /*! \returns render order
         */
@@ -130,6 +152,35 @@ namespace Igor
         void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
 
 	private:
+
+        // TODO getter? docu?
+        bool _hasDirectionalLight = false;
+        int32 _lightOrientation;
+        int32 _lightAmbient;
+        int32 _lightDiffuse;
+        int32 _lightSpecular;
+
+        int32 _eyePosition;
+        bool _hasEyePosition = false;
+
+        bool _hasModelViewProjectionMatrix = false;
+        int32 _mvp_matrix;
+
+        bool _hasModelMatrix = false;
+        int32 _model_matrix;
+
+        bool _hasTargetMaterial = false;
+        int32 _matAmbient;
+        int32 _matDiffuse;
+        int32 _matSpecular;
+        int32 _matShininess;
+        int32 _matEmissive;
+
+        bool _hasSolidColor = false;
+        int32 _matSolidColor;
+
+        bool _hasTexture[4] = { false, false, false, false };
+        int32 _matTexture[4];
 
         /*! oder that material groups get sorted by
 
@@ -146,6 +197,10 @@ namespace Igor
         /*! pointer to shader (optional)
         */
         iShader* _shader = nullptr;
+
+        /*! shader sources
+        */
+        vector<iShaderSource> _shaderSources;
 
         /*! render states set
         */
@@ -167,10 +222,6 @@ namespace Igor
         */
         void deactivateShader();
 
-        /*! stes shader to be used in this material
-        */
-        void setShader(iShader* shader);
-
         /*! \returns shader in use
         */
         iShader* getShader();
@@ -180,4 +231,5 @@ namespace Igor
 }
 
 #endif
+
 

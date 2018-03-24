@@ -25,8 +25,8 @@ private:
 
 	iaVector3d _pos;
 
-    void onMuzzleFlashLoaded(uint32 nodeID);
-    void onMuzzleSmokeLoaded(uint32 nodeID);
+    void onMuzzleFlashLoaded(uint64 nodeID);
+    void onMuzzleSmokeLoaded(uint64 nodeID);
     void onMuzzleFlashFinished();
     void onMuzzleSmokeFinished();
 

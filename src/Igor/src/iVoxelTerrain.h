@@ -39,6 +39,7 @@
 
 #include <iaEvent.h>
 #include <iaVector3.h>
+#include <iaMutex.h>
 using namespace IgorAux;
 
 #include <unordered_map>
@@ -92,23 +93,23 @@ namespace Igor
         */
         static const uint32 _lowestLOD = 10;
 
-        /*! voxel block discovery distance
+        /*! voxel block discovery distance in blocks
         */
         static const int64 _voxelBlockDiscoveryDistance = 4;
 
-        /*! voxel block setup distance
+        /*! voxel block setup distance in blocks
         */
         static const int64 _voxelBlockSetupDistance = 2;
 
         /*! block quibic size
 
-        can't be changed right now
+        \bug can't be changed right now
         */
         static const int32 _voxelBlockSize = 32;
 
         /*! block overlap
 
-        can't be changed right now
+        \bug can't be changed right now
         */
         static const int32 _voxelBlockOverlap = 2;
 
@@ -147,7 +148,7 @@ namespace Igor
 
         vector<shared_ptr<iVoxelOperation>> _operationsQueue;
 
-        mutex _operationsQueueMutex;
+        iaMutex _operationsQueueMutex;
 
         /*! delegate registered by application to generate voxel data
         */
@@ -159,7 +160,7 @@ namespace Igor
 
         /*! mutex to protect action queue
         */
-        mutex _mutexActionQueue;
+        iaMutex _mutexActionQueue;
 
         /*! performance section discover blocks
         */
@@ -215,7 +216,7 @@ namespace Igor
 
         /*! terrain material id
         */
-        uint32 _terrainMaterialID = 0;
+        uint64 _terrainMaterialID = 0;
 
         /*! lod trigger node id
         */
@@ -273,7 +274,7 @@ namespace Igor
         void setNodeActiveAsync(iNode* node, bool active);
         void insertNodeAsync(iNode* src, iNode* dst);
         void removeNodeAsync(iNode* src, iNode* dst);
-        void destroyNodeAsync(uint32 nodeID);
+        void destroyNodeAsync(uint64 nodeID);
 
         uint8 calcLODTransition(iVoxelBlock* voxelBlock);
 

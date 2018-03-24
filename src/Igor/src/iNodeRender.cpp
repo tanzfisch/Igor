@@ -13,16 +13,16 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	
-	iNodeRender::iNodeRender()
-		: iNode()
-	{
+
+    iNodeRender::iNodeRender()
+        : iNode()
+    {
         _materialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
 
-		setName(L"iNodeRender");
-		_nodeType = iNodeType::iNodeRender;
-		_nodeKind = iNodeKind::Renderable;
-	}
+        setName(L"iNodeRender");
+        _nodeType = iNodeType::iNodeRender;
+        _nodeKind = iNodeKind::Renderable;
+    }
 
     iNodeRender::iNodeRender(iNodeRender* node)
         : iNode()
@@ -33,7 +33,7 @@ namespace Igor
 
     iNodeRender::~iNodeRender()
     {
-		setScene(nullptr);
+        setScene(nullptr);
     }
 
     void iNodeRender::setVisible(bool visible)
@@ -59,7 +59,8 @@ namespace Igor
 
     void iNodeRender::onPreSetScene()
     {
-        if (_scene)
+        if (_nodeKind == iNodeKind::Renderable &&
+            _scene)
         {
             _scene->unregisterRenderable(this);
         }
@@ -67,34 +68,35 @@ namespace Igor
 
     void iNodeRender::onPostSetScene()
     {
-        if (_scene)
+        if (_nodeKind == iNodeKind::Renderable &&
+            _scene)
         {
             _scene->registerRenderable(this);
         }
     }
 
     iaMatrixd& iNodeRender::getWorldMatrix()
-	{
-		return _worldMatrix;
-	}
+    {
+        return _worldMatrix;
+    }
 
     void iNodeRender::onUpdateTransform(iaMatrixd& matrix)
-	{
+    {
         _worldMatrix = matrix;
-	}
-	
-    void iNodeRender::setMaterial(uint32 materialID)
-	{
+    }
+
+    void iNodeRender::setMaterial(uint64 materialID)
+    {
         if (_materialID != materialID)
         {
             _materialID = materialID;
         }
-	}
+    }
 
-	uint32 iNodeRender::getMaterial()
-	{
+    uint64 iNodeRender::getMaterial()
+    {
         return _materialID;
-	}
+    }
 
 
 };

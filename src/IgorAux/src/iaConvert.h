@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iaConvert__
-#define __iaConvert__
+#ifndef __IGOR_AUX_CONVERT__
+#define __IGOR_AUX_CONVERT__
 
 #include <iaColor3.h>
 #include <iaColor4.h>

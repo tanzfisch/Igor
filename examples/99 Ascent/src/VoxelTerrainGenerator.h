@@ -83,7 +83,7 @@ private:
     */
     vector<uint64> _runningTasks;
 
-    mutex _mutexRunningTasks;
+    iaMutex _mutexRunningTasks;
 
     /*! tile IDs
     */

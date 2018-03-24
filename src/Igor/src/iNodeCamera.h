@@ -66,10 +66,6 @@ namespace Igor
         */
         void getViewMatrix(iaMatrixd& viewmatrix);
 
-        /*! makes this camera the current camera of a scen (if it belongs to a scene)
-        */
-        void makeCurrent();
-
     protected:
 
         /*! matrix including position an orientation of this camera in world coordinates

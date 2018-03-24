@@ -220,6 +220,8 @@ namespace Igor
         */
         iSelectionMode getSelectMode() const;
 
+        void select(int32 collumn, int32 row);
+
         /*! unselects the grid
         */
         void unSelect();

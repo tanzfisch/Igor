@@ -40,7 +40,7 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 
     _time = iTimer::getInstance().getTime();
 }
 
-void Turret::onModelReady(uint32 modelNodeID)
+void Turret::onModelReady(uint64 modelNodeID)
 {
     con_assert(modelNodeID == _turretNodeID, "impossible");
 

@@ -5,13 +5,13 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="Debug|x64">
-      <Configuration>Debug</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="Release|x64">
       <Configuration>Release</Configuration>
@@ -19,282 +19,365 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
+    <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{4BFF697B-A2DC-472B-BA1A-4169BCEFA532}</ProjectGuid>
-    <RootNamespace>OpenDC</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Igor</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v141</PlatformToolset>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
-    <CharacterSet>Unicode</CharacterSet>
+    <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v141</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v141</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup>
-    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(ProjectName)_d</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectName)_d</TargetName>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
-    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath);$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)_d</TargetName>
+    <IncludePath>$(VCInstallDir)UnitTest\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
+    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
+    <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(VCInstallDir)UnitTest\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(LibraryPath)</LibraryPath>
-    <OutDir>$(ProjectDir)..\..\..\build\$(Configuration)\</OutDir>
-    <IntDir>$(ProjectDir)..\..\..\build\$(Configuration)\</IntDir>
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
+    <IncludePath>$(VCInstallDir)UnitTest\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(VCInstallDir)UnitTest\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\OpenIL\include;..\..\..\3rd\ALUT\include;..\..\..\3rd\Newton\include;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;..\..\..\3rd\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>false</MinimalRebuild>
-      <SmallerTypeCheck>true</SmallerTypeCheck>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <WarningLevel>Level4</WarningLevel>
-      <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
-    <PreLinkEvent>
-      <Message>Install Header Files -&gt; /include</Message>
-      <Command>xcopy "$(ProjectDir)..\src\*.h" "$(ProjectDir)..\..\..\include\"  /Y
-xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
-    </PreLinkEvent>
     <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\OpenIL\lib;..\..\..\3rd\Newton\lib;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LargeAddressAware>false</LargeAddressAware>
-      <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
     </Link>
-    <PostBuildEvent>
-      <Message>Install Igor &amp; 3rd -&gt; /lib, /bin</Message>
-      <Command>xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
-
-xcopy "$(ProjectDir)..\..\..\3rd\ALUT\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\OpenAL\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\OpenIL\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir)..\..\..\bin\" /Y /D
-</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
     <ClCompile>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;WIN32;_DEBUG;__IGOR_BUILDING_DLL__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
-      <SmallerTypeCheck>false</SmallerTypeCheck>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <FloatingPointExceptions>true</FloatingPointExceptions>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <MultiProcessorCompilation>false</MultiProcessorCompilation>
-      <WarningLevel>Level4</WarningLevel>
-      <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
-      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;_DEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
     </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+      <GenerateDebugInformation>DebugFastLink</GenerateDebugInformation>
+    </Link>
     <PreLinkEvent>
-      <Message>Install Header Files -&gt; /include</Message>
       <Command>xcopy "$(ProjectDir)..\src\*.h" "$(ProjectDir)..\..\..\include\"  /Y
+
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
-    <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <LargeAddressAware>false</LargeAddressAware>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
+    <PreLinkEvent>
+      <Message>copy includes</Message>
+    </PreLinkEvent>
     <PostBuildEvent>
-      <Message>Install Igor &amp; 3rd -&gt; /lib, /bin</Message>
       <Command>xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 
-xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 
+xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
+
 
 
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
 
+
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\debug\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
     </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
-    <ClCompile>
-      <Optimization>Full</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\OpenIL\include;..\..\..\3rd\ALUT\include;..\..\..\3rd\Newton\include;..\..\..\3rd\VisualLeakDetector\include;..\..\..\3rd\TinyXML;..\..\..\3rd\stb_image;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <EnableParallelCodeGeneration>
-      </EnableParallelCodeGeneration>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
-    </ClCompile>
-    <PreLinkEvent>
-      <Message>Install Header Files -&gt; /include</Message>
-      <Command>xcopy "$(ProjectDir)..\src\*.h" "$(ProjectDir)..\..\..\include\"  /Y
-xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
-    </PreLinkEvent>
-    <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\OpenIL\lib;..\..\..\3rd\Newton\lib;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SetChecksum>true</SetChecksum>
-      <Profile>false</Profile>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
     <PostBuildEvent>
-      <Message>Install Igor &amp; 3rd -&gt; /lib, /bin</Message>
-      <Command>xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
-
-xcopy "$(ProjectDir)..\..\..\3rd\ALUT\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\OpenAL\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\OpenIL\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\Newton\bin\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
-xcopy "$(ProjectDir)..\..\..\3rd\VisualLeakDetector\bin\Win32\*.*" "$(ProjectDir)..\..\..\bin\" /Y /D</Command>
+      <Message>copy libs and dlls</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <PreBuildEvent>
-      <Command>
-      </Command>
-    </PreBuildEvent>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <Optimization>Full</Optimization>
-      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <OmitFramePointers>true</OmitFramePointers>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;WIN32;NDEBUG;__IGOR_BUILDING_DLL__;_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <EnableEnhancedInstructionSet>NotSet</EnableEnhancedInstructionSet>
-      <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <DisableSpecificWarnings>4251;%(DisableSpecificWarnings)</DisableSpecificWarnings>
-      <AdditionalOptions>/we4150 %(AdditionalOptions)</AdditionalOptions>
-      <WarningLevel>Level4</WarningLevel>
-      <MinimalRebuild>false</MinimalRebuild>
-      <BrowseInformation>true</BrowseInformation>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <PreprocessorDefinitions>_NEWTON_USE_DOUBLE;NDEBUG;WIN32;_WINDOWS;_USRDLL;__IGOR_BUILDING_DLL__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\IgorAux\src;..\..\OMPF\src;..\src\;..\..\..\3rd\GLee\include;..\..\..\3rd\OpenAL\include;..\..\..\3rd\stb_image;..\..\..\3rd\ALUT\include;..\..\..\3rd\newton-dynamics\coreLibrary_300\source;$(MSBuildProgramFiles32)\Visual Leak Detector\include;..\..\..\3rd\TinyXML;</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4251; 4150;</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
+    </Link>
     <PreLinkEvent>
-      <Message>Install Header Files -&gt; /include</Message>
       <Command>xcopy "$(ProjectDir)..\src\*.h" "$(ProjectDir)..\..\..\include\"  /Y
+
 xcopy "$(ProjectDir)..\src\*.inl" "$(ProjectDir)..\..\..\include\"  /Y</Command>
     </PreLinkEvent>
-    <Link>
-      <OutputFile>$(ProjectDir)..\..\..\build\$(Configuration)\$(TargetName).dll</OutputFile>
-      <AdditionalLibraryDirectories>..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release;..\..\..\lib;..\..\..\3rd\GLee</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SetChecksum>true</SetChecksum>
-      <Profile>false</Profile>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
+    <PreLinkEvent>
+      <Message>copy includes</Message>
+    </PreLinkEvent>
     <PostBuildEvent>
-      <Message>Install Igor &amp; 3rd -&gt; /lib, /bin</Message>
       <Command>xcopy "$(TargetDir)$(TargetName).lib" "$(ProjectDir)..\..\..\lib\" /Y /D
 
+
 xcopy "$(TargetDir)$(TargetName).dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+
 
 xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 
 
+
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release\*.dll" "$(ProjectDir)..\..\..\bin\" /Y /D
+
 
 xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\windows\project_vs2017_dll\x64\newton\release\*.pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
 </Command>
     </PostBuildEvent>
-    <Bscmake>
-      <PreserveSbr>true</PreserveSbr>
-    </Bscmake>
+    <PostBuildEvent>
+      <Message>copy libs and dlls</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\3rd\GLee\src\GLee.c" />
+    <ClCompile Include="..\..\..\3rd\TinyXML\tinystr.cpp" />
+    <ClCompile Include="..\..\..\3rd\TinyXML\tinyxml.cpp" />
+    <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlerror.cpp" />
+    <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
+    <ClCompile Include="..\src\iApplication.cpp" />
+    <ClCompile Include="..\src\iBone.cpp" />
+    <ClCompile Include="..\src\iCelestialNode.cpp" />
+    <ClCompile Include="..\src\iConfigReader.cpp" />
+    <ClCompile Include="..\src\iContouringCubes.cpp" />
+    <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
+    <ClCompile Include="..\src\iDialog.cpp" />
+    <ClCompile Include="..\src\iDialogColorChooser.cpp" />
+    <ClCompile Include="..\src\iDialogColorGradient.cpp" />
+    <ClCompile Include="..\src\iDialogDecisionBox.cpp" />
+    <ClCompile Include="..\src\iDialogFileSelect.cpp" />
+    <ClCompile Include="..\src\iDialogGraph.cpp" />
+    <ClCompile Include="..\src\iDialogMenu.cpp" />
+    <ClCompile Include="..\src\iDialogMessageBox.cpp" />
+    <ClCompile Include="..\src\iEntity.cpp" />
+    <ClCompile Include="..\src\iEntityLocatable.cpp" />
+    <ClCompile Include="..\src\iEntityManager.cpp" />
+    <ClCompile Include="..\src\Igor.cpp" />
+    <ClCompile Include="..\src\iInstancer.cpp" />
+    <ClCompile Include="..\src\iJoint.cpp" />
+    <ClCompile Include="..\src\iKeyboard.cpp" />
+    <ClCompile Include="..\src\iKeyCodeMap.cpp" />
+    <ClCompile Include="..\src\iLSystem.cpp" />
+    <ClCompile Include="..\src\iMaterial.cpp" />
+    <ClCompile Include="..\src\iMaterialGroup.cpp" />
+    <ClCompile Include="..\src\iMaterialResourceFactory.cpp" />
+    <ClCompile Include="..\src\iMesh.cpp" />
+    <ClCompile Include="..\src\iMeshBuffers.cpp" />
+    <ClCompile Include="..\src\iMeshBuilder.cpp" />
+    <ClCompile Include="..\src\iMeshBuilderUtils.cpp" />
+    <ClCompile Include="..\src\iModel.cpp" />
+    <ClCompile Include="..\src\iModelDataIO.cpp" />
+    <ClCompile Include="..\src\iModelDataIO3DS.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iModelDataIOOBJ.cpp" />
+    <ClCompile Include="..\src\iModelDataIOOMPF.cpp" />
+    <ClCompile Include="..\src\iModelResourceFactory.cpp" />
+    <ClCompile Include="..\src\iMouse.cpp" />
+    <ClCompile Include="..\src\iNode.cpp" />
+    <ClCompile Include="..\src\iNodeCamera.cpp" />
+    <ClCompile Include="..\src\iNodeEmitter.cpp" />
+    <ClCompile Include="..\src\iNodeFactory.cpp" />
+    <ClCompile Include="..\src\iNodeLight.cpp" />
+    <ClCompile Include="..\src\iNodeLODSwitch.cpp" />
+    <ClCompile Include="..\src\iNodeLODTrigger.cpp" />
+    <ClCompile Include="..\src\iNodeMesh.cpp" />
+    <ClCompile Include="..\src\iNodeModel.cpp" />
+    <ClCompile Include="..\src\iNodeParticleSystem.cpp" />
+    <ClCompile Include="..\src\iNodePhysics.cpp" />
+    <ClCompile Include="..\src\iNodeRender.cpp" />
+    <ClCompile Include="..\src\iNodeSkyBox.cpp" />
+    <ClCompile Include="..\src\iNodeSwitch.cpp" />
+    <ClCompile Include="..\src\iNodeTransform.cpp" />
+    <ClCompile Include="..\src\iNodeVisitor.cpp" />
+    <ClCompile Include="..\src\iNodeVisitorBoundings.cpp" />
+    <ClCompile Include="..\src\iNodeVisitorPrintTree.cpp" />
+    <ClCompile Include="..\src\iNodeVisitorRenderBoundings.cpp" />
+    <ClCompile Include="..\src\iNodeVisitorRenderColorID.cpp" />
+    <ClCompile Include="..\src\iNodeVisitorUpdateTransform.cpp" />
+    <ClCompile Include="..\src\iNodeVolume.cpp" />
+    <ClCompile Include="..\src\iNodeWater.cpp" />
+    <ClCompile Include="..\src\Intersection3D.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iOctree.cpp" />
+    <ClCompile Include="..\src\iParticleEmitter.cpp" />
+    <ClCompile Include="..\src\iParticleSystem2D.cpp" />
+    <ClCompile Include="..\src\iParticleSystem3D.cpp" />
+    <ClCompile Include="..\src\iPerlinNoise.cpp" />
+    <ClCompile Include="..\src\iPhysics.cpp" />
+    <ClCompile Include="..\src\iPhysicsBody.cpp" />
+    <ClCompile Include="..\src\iPhysicsCollision.cpp" />
+    <ClCompile Include="..\src\iPhysicsCollisionConfig.cpp" />
+    <ClCompile Include="..\src\iPhysicsJoint.cpp" />
+    <ClCompile Include="..\src\iPhysicsJointUpVector.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsMaterial.cpp" />
+    <ClCompile Include="..\src\iPhysicsMaterialCombo.cpp" />
+    <ClCompile Include="..\src\iPhysicsPlayer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp" />
+    <ClCompile Include="..\src\iPhysicsWorld.cpp" />
+    <ClCompile Include="..\src\iPixmap.cpp" />
+    <ClCompile Include="..\src\iRenderContextThread.cpp" />
+    <ClCompile Include="..\src\iRenderEngine.cpp" />
+    <ClCompile Include="..\src\iRenderer.cpp" />
+    <ClCompile Include="..\src\iRenderStateSet.cpp" />
+    <ClCompile Include="..\src\iResourceManager.cpp" />
+    <ClCompile Include="..\src\iScene.cpp" />
+    <ClCompile Include="..\src\iSceneFactory.cpp" />
+    <ClCompile Include="..\src\iShader.cpp" />
+    <ClCompile Include="..\src\iSimpleCubes.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iSkeleton.cpp" />
+    <ClCompile Include="..\src\iSkyLightNode.cpp" />
+    <ClCompile Include="..\src\iSkySimulation.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iSoundResourceFactory.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iSprite.cpp" />
+    <ClCompile Include="..\src\iStatistics.cpp" />
+    <ClCompile Include="..\src\iStatisticsSection.cpp" />
+    <ClCompile Include="..\src\iStatisticsVisualizer.cpp" />
+    <ClCompile Include="..\src\iStopWatch.cpp" />
+    <ClCompile Include="..\src\iTargetMaterial.cpp" />
+    <ClCompile Include="..\src\iTask.cpp" />
+    <ClCompile Include="..\src\iTaskFlushModels.cpp" />
+    <ClCompile Include="..\src\iTaskFlushTextures.cpp" />
+    <ClCompile Include="..\src\iTaskGenerateVoxels.cpp" />
+    <ClCompile Include="..\src\iTaskLoadModel.cpp" />
+    <ClCompile Include="..\src\iTaskManager.cpp" />
+    <ClCompile Include="..\src\iTaskPrepareCollision.cpp" />
+    <ClCompile Include="..\src\iTaskUpdateLOD.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\src\iTaskVoxelTerrain.cpp" />
+    <ClCompile Include="..\src\iTexture.cpp" />
+    <ClCompile Include="..\src\iTextureFont.cpp" />
+    <ClCompile Include="..\src\iTextureResourceFactory.cpp" />
+    <ClCompile Include="..\src\iThread.cpp" />
+    <ClCompile Include="..\src\iTimer.cpp" />
+    <ClCompile Include="..\src\iTimerHandle.cpp" />
+    <ClCompile Include="..\src\iUserControl.cpp" />
+    <ClCompile Include="..\src\iUserControlColorChooser.cpp" />
+    <ClCompile Include="..\src\iUserControlFileChooser.cpp" />
+    <ClCompile Include="..\src\iView.cpp" />
+    <ClCompile Include="..\src\iVoxelData.cpp" />
+    <ClCompile Include="..\src\iVoxelOperationBox.cpp" />
+    <ClCompile Include="..\src\iVoxelTerrain.cpp" />
+    <ClCompile Include="..\src\iVoxelTerrainMeshGenerator.cpp" />
+    <ClCompile Include="..\src\iWidget.cpp" />
+    <ClCompile Include="..\src\iWidgetButton.cpp" />
+    <ClCompile Include="..\src\iWidgetCheckBox.cpp" />
+    <ClCompile Include="..\src\iWidgetColor.cpp" />
+    <ClCompile Include="..\src\iWidgetColorGradient.cpp" />
+    <ClCompile Include="..\src\iWidgetDefaultTheme.cpp" />
+    <ClCompile Include="..\src\iWidgetGraph.cpp" />
+    <ClCompile Include="..\src\iWidgetGrid.cpp" />
+    <ClCompile Include="..\src\iWidgetGroupBox.cpp" />
+    <ClCompile Include="..\src\iWidgetLabel.cpp" />
+    <ClCompile Include="..\src\iWidgetManager.cpp" />
+    <ClCompile Include="..\src\iWidgetNumberChooser.cpp" />
+    <ClCompile Include="..\src\iWidgetPicture.cpp" />
+    <ClCompile Include="..\src\iWidgetScroll.cpp" />
+    <ClCompile Include="..\src\iWidgetSelectBox.cpp" />
+    <ClCompile Include="..\src\iWidgetSlider.cpp" />
+    <ClCompile Include="..\src\iWidgetSpacer.cpp" />
+    <ClCompile Include="..\src\iWidgetTextEdit.cpp" />
+    <ClCompile Include="..\src\iWindow.cpp" />
+  </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\3rd\GLee\include\GLee.h" />
     <ClInclude Include="..\..\..\3rd\stb_image\stb_image.h" />
@@ -334,8 +417,13 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iMesh.h" />
     <ClInclude Include="..\src\iMeshBuffers.h" />
     <ClInclude Include="..\src\iMeshBuilder.h" />
+    <ClInclude Include="..\src\iMeshBuilderUtils.h" />
     <ClInclude Include="..\src\iModel.h" />
     <ClInclude Include="..\src\iModelDataIO.h" />
+    <ClInclude Include="..\src\iModelDataIO3DS.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\src\iModelDataIOOBJ.h" />
     <ClInclude Include="..\src\iModelDataIOOMPF.h" />
     <ClInclude Include="..\src\iModelResourceFactory.h" />
@@ -358,32 +446,37 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iNodeVisitor.h" />
     <ClInclude Include="..\src\iNodeVisitorBoundings.h" />
     <ClInclude Include="..\src\iNodeVisitorPrintTree.h" />
+    <ClInclude Include="..\src\iNodeVisitorRenderBoundings.h" />
+    <ClInclude Include="..\src\iNodeVisitorRenderColorID.h" />
     <ClInclude Include="..\src\iNodeVisitorUpdateTransform.h" />
     <ClInclude Include="..\src\iNodeVolume.h" />
     <ClInclude Include="..\src\iNodeWater.h" />
+    <ClInclude Include="..\src\Intersection3D.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\src\iOctree.h" />
     <ClInclude Include="..\src\iOSEvent.h" />
     <ClInclude Include="..\src\iOSEventListener.h" />
     <ClInclude Include="..\src\iParticleEmitter.h" />
     <ClInclude Include="..\src\iParticleSystem2D.h" />
-    <ClInclude Include="..\src\iParticleSystem3D.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="..\src\iParticleSystem3D.h" />
     <ClInclude Include="..\src\iPerlinNoise.h" />
-    <ClInclude Include="..\src\iPhysics.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="..\src\iPhysics.h" />
     <ClInclude Include="..\src\iPhysicsBody.h" />
     <ClInclude Include="..\src\iPhysicsCollision.h" />
     <ClInclude Include="..\src\iPhysicsCollisionConfig.h" />
     <ClInclude Include="..\src\iPhysicsJoint.h" />
+    <ClInclude Include="..\src\iPhysicsJointUpVector.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\src\iPhysicsMaterial.h" />
     <ClInclude Include="..\src\iPhysicsMaterialCombo.h" />
+    <ClInclude Include="..\src\iPhysicsPlayer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\src\iPhysicsUserMeshCollisionHandler.h" />
     <ClInclude Include="..\src\iPhysicsWorld.h" />
     <ClInclude Include="..\src\iPixmap.h" />
@@ -397,19 +490,19 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iScene.h" />
     <ClInclude Include="..\src\iSceneFactory.h" />
     <ClInclude Include="..\src\iShader.h" />
+    <ClInclude Include="..\src\iSimpleCubes.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\src\iSkeleton.h" />
     <ClInclude Include="..\src\iSkyLightNode.h" />
     <ClInclude Include="..\src\iSkySimulation.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\src\iSoundResourceFactory.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="..\src\iSphere.h" />
     <ClInclude Include="..\src\iSprite.h" />
@@ -418,10 +511,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iStatisticsVisualizer.h" />
     <ClInclude Include="..\src\iSTBImageExt.h" />
     <ClInclude Include="..\src\iStopWatch.h" />
-    <ClInclude Include="..\src\iSystemConfig.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="..\src\iTargetMaterial.h" />
     <ClInclude Include="..\src\iTask.h" />
     <ClInclude Include="..\src\iTaskFlushModels.h" />
@@ -430,6 +519,10 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iTaskLoadModel.h" />
     <ClInclude Include="..\src\iTaskManager.h" />
     <ClInclude Include="..\src\iTaskPrepareCollision.h" />
+    <ClInclude Include="..\src\iTaskUpdateLOD.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="..\src\iTaskVoxelTerrain.h" />
     <ClInclude Include="..\src\iTexture.h" />
     <ClInclude Include="..\src\iTextureFont.h" />
@@ -441,10 +534,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iUserControlColorChooser.h" />
     <ClInclude Include="..\src\iUserControlFileChooser.h" />
     <ClInclude Include="..\src\iVersion.h" />
-    <ClInclude Include="..\src\iView.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClInclude>
+    <ClInclude Include="..\src\iView.h" />
     <ClInclude Include="..\src\iVoxelBlock.h" />
     <ClInclude Include="..\src\iVoxelData.h" />
     <ClInclude Include="..\src\iVoxelOperation.h" />
@@ -471,62 +561,6 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iWidgetSpacer.h" />
     <ClInclude Include="..\src\iWidgetTextEdit.h" />
     <ClInclude Include="..\src\iWindow.h" />
-    <ClInclude Include="..\src\Intersection3D.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
-    <CustomBuildStep Include="..\src\BindKeyManager.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\src\DataObjects.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\src\GLFlagManager.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\src\Mesh_old.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\src\ParseCommands.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\src\Quaternion_new.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\src\DialogManager.h" />
-    <CustomBuildStep Include="..\src\RuntimeManager.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
-    <CustomBuildStep Include="..\src\StateMashine.h" />
-    <CustomBuildStep Include="..\src\ButtonWidget.h" />
-    <CustomBuildStep Include="..\src\DialogWidget.h" />
-    <CustomBuildStep Include="..\src\RenderWidget.h" />
-    <CustomBuildStep Include="..\src\ScrollWidget.h" />
-    <CustomBuildStep Include="..\src\TableWidget.h" />
-    <CustomBuildStep Include="..\src\TextEditWidget.h" />
-    <CustomBuildStep Include="..\src\TextWidget.h" />
-    <CustomBuildStep Include="..\src\Widget.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iAABox.inl" />
@@ -541,184 +575,8 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <None Include="..\src\iRectangle.inl" />
     <None Include="..\src\iSphere.inl" />
     <None Include="..\src\iSprite.inl" />
-    <CustomBuildStep Include="..\src\Quaternion_new.inl">
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </CustomBuildStep>
     <None Include="..\src\iTargetMaterial.inl" />
     <None Include="..\src\iWidget.inl" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\3rd\GLee\src\GLee.c" />
-    <ClCompile Include="..\..\..\3rd\TinyXML\tinystr.cpp" />
-    <ClCompile Include="..\..\..\3rd\TinyXML\tinyxml.cpp" />
-    <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlerror.cpp" />
-    <ClCompile Include="..\..\..\3rd\TinyXML\tinyxmlparser.cpp" />
-    <ClCompile Include="..\src\iApplication.cpp" />
-    <ClCompile Include="..\src\iBone.cpp" />
-    <ClCompile Include="..\src\iCelestialNode.cpp" />
-    <ClCompile Include="..\src\iConfigReader.cpp" />
-    <ClCompile Include="..\src\iContouringCubes.cpp" />
-    <ClCompile Include="..\src\iDataUpdateQueue.cpp" />
-    <ClCompile Include="..\src\iDialog.cpp" />
-    <ClCompile Include="..\src\iDialogColorChooser.cpp" />
-    <ClCompile Include="..\src\iDialogColorGradient.cpp" />
-    <ClCompile Include="..\src\iDialogDecisionBox.cpp" />
-    <ClCompile Include="..\src\iDialogFileSelect.cpp" />
-    <ClCompile Include="..\src\iDialogGraph.cpp" />
-    <ClCompile Include="..\src\iDialogMenu.cpp" />
-    <ClCompile Include="..\src\iDialogMessageBox.cpp" />
-    <ClCompile Include="..\src\iEntity.cpp" />
-    <ClCompile Include="..\src\iEntityLocatable.cpp" />
-    <ClCompile Include="..\src\iEntityManager.cpp" />
-    <ClCompile Include="..\src\Igor.cpp" />
-    <ClCompile Include="..\src\iInstancer.cpp" />
-    <ClCompile Include="..\src\iJoint.cpp" />
-    <ClCompile Include="..\src\iKeyboard.cpp" />
-    <ClCompile Include="..\src\iKeyCodeMap.cpp" />
-    <ClCompile Include="..\src\iLSystem.cpp" />
-    <ClCompile Include="..\src\iMaterial.cpp" />
-    <ClCompile Include="..\src\iMaterialGroup.cpp" />
-    <ClCompile Include="..\src\iMaterialResourceFactory.cpp" />
-    <ClCompile Include="..\src\iMesh.cpp" />
-    <ClCompile Include="..\src\iMeshBuffers.cpp" />
-    <ClCompile Include="..\src\iMeshBuilder.cpp" />
-    <ClCompile Include="..\src\iModel.cpp" />
-    <ClCompile Include="..\src\iModelDataIO.cpp" />
-    <ClCompile Include="..\src\iModelDataIOOBJ.cpp" />
-    <ClCompile Include="..\src\iModelDataIOOMPF.cpp" />
-    <ClCompile Include="..\src\iModelResourceFactory.cpp" />
-    <ClCompile Include="..\src\iMouse.cpp" />
-    <ClCompile Include="..\src\iNode.cpp" />
-    <ClCompile Include="..\src\iNodeCamera.cpp" />
-    <ClCompile Include="..\src\iNodeEmitter.cpp" />
-    <ClCompile Include="..\src\iNodeFactory.cpp" />
-    <ClCompile Include="..\src\iNodeLight.cpp" />
-    <ClCompile Include="..\src\iNodeLODSwitch.cpp" />
-    <ClCompile Include="..\src\iNodeLODTrigger.cpp" />
-    <ClCompile Include="..\src\iNodeMesh.cpp" />
-    <ClCompile Include="..\src\iNodeModel.cpp" />
-    <ClCompile Include="..\src\iNodeParticleSystem.cpp" />
-    <ClCompile Include="..\src\iNodePhysics.cpp" />
-    <ClCompile Include="..\src\iNodeRender.cpp" />
-    <ClCompile Include="..\src\iNodeSkyBox.cpp" />
-    <ClCompile Include="..\src\iNodeSwitch.cpp" />
-    <ClCompile Include="..\src\iNodeTransform.cpp" />
-    <ClCompile Include="..\src\iNodeVisitor.cpp" />
-    <ClCompile Include="..\src\iNodeVisitorBoundings.cpp" />
-    <ClCompile Include="..\src\iNodeVisitorPrintTree.cpp" />
-    <ClCompile Include="..\src\iNodeVisitorUpdateTransform.cpp" />
-    <ClCompile Include="..\src\iNodeVolume.cpp" />
-    <ClCompile Include="..\src\iNodeWater.cpp" />
-    <ClCompile Include="..\src\Intersection3D.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\iOctree.cpp" />
-    <ClCompile Include="..\src\iParticleEmitter.cpp" />
-    <ClCompile Include="..\src\iParticleSystem2D.cpp" />
-    <ClCompile Include="..\src\iParticleSystem3D.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\iPerlinNoise.cpp" />
-    <ClCompile Include="..\src\iPhysics.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\iPhysicsBody.cpp" />
-    <ClCompile Include="..\src\iPhysicsCollision.cpp" />
-    <ClCompile Include="..\src\iPhysicsCollisionConfig.cpp" />
-    <ClCompile Include="..\src\iPhysicsJoint.cpp" />
-    <ClCompile Include="..\src\iPhysicsMaterial.cpp" />
-    <ClCompile Include="..\src\iPhysicsMaterialCombo.cpp" />
-    <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp" />
-    <ClCompile Include="..\src\iPhysicsWorld.cpp" />
-    <ClCompile Include="..\src\iPixmap.cpp" />
-    <ClCompile Include="..\src\iRenderContextThread.cpp" />
-    <ClCompile Include="..\src\iRenderEngine.cpp" />
-    <ClCompile Include="..\src\iRenderer.cpp" />
-    <ClCompile Include="..\src\iRenderStateSet.cpp" />
-    <ClCompile Include="..\src\iResourceManager.cpp" />
-    <ClCompile Include="..\src\iScene.cpp" />
-    <ClCompile Include="..\src\iSceneFactory.cpp" />
-    <ClCompile Include="..\src\iShader.cpp" />
-    <ClCompile Include="..\src\iSkeleton.cpp" />
-    <ClCompile Include="..\src\iSkyLightNode.cpp" />
-    <ClCompile Include="..\src\iSkySimulation.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\iSoundResourceFactory.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\iSprite.cpp" />
-    <ClCompile Include="..\src\iStatistics.cpp" />
-    <ClCompile Include="..\src\iStatisticsSection.cpp" />
-    <ClCompile Include="..\src\iStatisticsVisualizer.cpp" />
-    <ClCompile Include="..\src\iStopWatch.cpp" />
-    <ClCompile Include="..\src\iSystemConfig.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\iTargetMaterial.cpp" />
-    <ClCompile Include="..\src\iTask.cpp" />
-    <ClCompile Include="..\src\iTaskFlushModels.cpp" />
-    <ClCompile Include="..\src\iTaskFlushTextures.cpp" />
-    <ClCompile Include="..\src\iTaskGenerateVoxels.cpp" />
-    <ClCompile Include="..\src\iTaskLoadModel.cpp" />
-    <ClCompile Include="..\src\iTaskManager.cpp" />
-    <ClCompile Include="..\src\iTaskPrepareCollision.cpp" />
-    <ClCompile Include="..\src\iTaskVoxelTerrain.cpp" />
-    <ClCompile Include="..\src\iTexture.cpp" />
-    <ClCompile Include="..\src\iTextureFont.cpp" />
-    <ClCompile Include="..\src\iTextureResourceFactory.cpp" />
-    <ClCompile Include="..\src\iThread.cpp" />
-    <ClCompile Include="..\src\iTimer.cpp" />
-    <ClCompile Include="..\src\iTimerHandle.cpp" />
-    <ClCompile Include="..\src\iUserControl.cpp" />
-    <ClCompile Include="..\src\iUserControlColorChooser.cpp" />
-    <ClCompile Include="..\src\iUserControlFileChooser.cpp" />
-    <ClCompile Include="..\src\iView.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="..\src\iVoxelData.cpp" />
-    <ClCompile Include="..\src\iVoxelOperationBox.cpp" />
-    <ClCompile Include="..\src\iVoxelTerrain.cpp" />
-    <ClCompile Include="..\src\iVoxelTerrainMeshGenerator.cpp" />
-    <ClCompile Include="..\src\iWidget.cpp" />
-    <ClCompile Include="..\src\iWidgetButton.cpp" />
-    <ClCompile Include="..\src\iWidgetCheckBox.cpp" />
-    <ClCompile Include="..\src\iWidgetColor.cpp" />
-    <ClCompile Include="..\src\iWidgetColorGradient.cpp" />
-    <ClCompile Include="..\src\iWidgetDefaultTheme.cpp" />
-    <ClCompile Include="..\src\iWidgetGraph.cpp" />
-    <ClCompile Include="..\src\iWidgetGrid.cpp" />
-    <ClCompile Include="..\src\iWidgetGroupBox.cpp" />
-    <ClCompile Include="..\src\iWidgetLabel.cpp" />
-    <ClCompile Include="..\src\iWidgetManager.cpp" />
-    <ClCompile Include="..\src\iWidgetNumberChooser.cpp" />
-    <ClCompile Include="..\src\iWidgetPicture.cpp" />
-    <ClCompile Include="..\src\iWidgetScroll.cpp" />
-    <ClCompile Include="..\src\iWidgetSelectBox.cpp" />
-    <ClCompile Include="..\src\iWidgetSlider.cpp" />
-    <ClCompile Include="..\src\iWidgetSpacer.cpp" />
-    <ClCompile Include="..\src\iWidgetTextEdit.cpp" />
-    <ClCompile Include="..\src\iWindow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

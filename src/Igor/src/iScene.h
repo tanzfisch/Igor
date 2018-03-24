@@ -59,13 +59,13 @@ namespace Igor
 
     \param nodeID node that was added to scene
     */
-    iaEVENT(iAddedNodeEvent, iAddedNodeDelegate, void, (uint32 nodeID), (nodeID));
+    iaEVENT(iAddedNodeEvent, iAddedNodeDelegate, void, (uint64 nodeID), (nodeID));
 
     /*! event triggered when node was removed from scene
 
     \param nodeID node that was removed from scene
     */
-    iaEVENT(iRemovedNodeEvent, iRemovedNodeDelegate, void, (uint32 nodeID), (nodeID));
+    iaEVENT(iRemovedNodeEvent, iRemovedNodeDelegate, void, (uint64 nodeID), (nodeID));
 
     /*! the scene graph
 
@@ -104,10 +104,6 @@ namespace Igor
         /*! \returns octree
         */
         iOctree* getOctree();
-
-        /*! \returns current camera
-        */
-        uint32 getCamera();
 
         /*! \returns list of registerred lights
         */
@@ -200,13 +196,9 @@ namespace Igor
         */
         iOctree* _octree = nullptr;
 
-        /*! id of current camera
-        */
-		uint32 _cameraID = iNode::INVALID_NODE_ID;
-
         /*! list of registered cameras to the scene
         */
-		vector<uint32> _cameras;
+		vector<uint64> _cameras;
 
         /*! list of registered lod triggers
         */
@@ -247,22 +239,6 @@ namespace Igor
         \param camera node to be unregistered
         */
         void unregisterCamera(iNodeCamera* camera);
-
-        /*! set a camera as default camera
-
-        does print error if camera is not registered to scene
-
-        \param camera pointer to camera that is the current one now
-        */
-		void setCamera(iNodeCamera* camera);
-
-        /*! set a camera as default camera by id
-
-        does print error if camera is not registered to scene
-
-        \param cameraID id to camera
-        */
-        void setCamera(uint32 cameraID);
 
         /*! registers a LOD trigger node
 
@@ -338,13 +314,13 @@ namespace Igor
 
         \param nodeID the node's id that was added
         */
-        void signalNodeAdded(uint32 nodeID);
+        void signalNodeAdded(uint64 nodeID);
 
         /*! signals the scene that a node was removed
 
         \param nodeID the node's id that was removed
         */
-        void signalNodeRemoved(uint32 nodeID);
+        void signalNodeRemoved(uint64 nodeID);
 
         /*! initializes scene and octree
         */

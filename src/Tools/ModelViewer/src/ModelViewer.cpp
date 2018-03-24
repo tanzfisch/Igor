@@ -38,10 +38,15 @@ using namespace IgorAux;
 #include <iStatistics.h>
 #include <iMaterialResourceFactory.h>
 #include <iTaskFlushTextures.h>
+#include <iNodeMesh.h>
+#include <iMesh.h>
+#include <iRenderEngine.h>
 using namespace Igor;
 
 #include "MenuDialog.h"
 #include "PropertiesDialog.h"
+
+static const wchar_t* WINDOW_TITLE_PREFIX = L"Igor::Model Viewer";
 
 ModelViewer::ModelViewer()
 {
@@ -52,41 +57,6 @@ ModelViewer::ModelViewer()
 ModelViewer::~ModelViewer()
 {
     deinit();
-}
-
-void ModelViewer::deinit()
-{
-    deinitGUI();
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-
-    //! \todo this should happen automatically
-    iModelResourceFactory::getInstance().flush(&_window);
-    iTextureResourceFactory::getInstance().flush();
-
-    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
-    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
-
-    _window.close();
-    _window.removeView(&_view);
-    _window.removeView(&_viewOrtho);
-
-    _view.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::render));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
-
-    if (_font)
-    {
-        delete _font;
-    }
-
-    iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
-    iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
-    iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
-    iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
-
-    iTaskManager::getInstance().abortTask(_taskFlushTextures);
 }
 
 void ModelViewer::init(iaString fileName)
@@ -101,21 +71,26 @@ void ModelViewer::init(iaString fileName)
 
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
 
-    _window.setSize(1280, 1024);
-    _window.setCentered();
-    _window.setTitle("Igor - Model Viewer");
+    _window.setSize(1280, 800);
+    _window.setTitle(WINDOW_TITLE_PREFIX);
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
 
-    _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
-    _view.setPerspective(45);
+    _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
+    _view.setPerspective(45.0f);
     _view.setClipPlanes(0.1f, 10000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
 
+    _viewManipulator.setClearColor(false);
+    _viewManipulator.setClearDepth(true);
+    _viewManipulator.setPerspective(45.0f);
+    _viewManipulator.setClipPlanes(0.1f, 10000.f);
+    _window.addView(&_viewManipulator);
+
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
     _window.addView(&_viewOrtho);
 
@@ -123,7 +98,12 @@ void ModelViewer::init(iaString fileName)
     _window.open(); // open after adding views to prevent warning message
 
     _scene = iSceneFactory::getInstance().createScene();
+    _scene->setName("Model Scene");
     _view.setScene(_scene);
+
+    _sceneManipulator = iSceneFactory::getInstance().createScene();
+    _sceneManipulator->setName("Modifier Scene");
+    _viewManipulator.setScene(_sceneManipulator);
 
     _transformModel = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _transformModel->setName("model transform");
@@ -132,6 +112,9 @@ void ModelViewer::init(iaString fileName)
     _groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     _groupNode->setName("groupNode");
     _transformModel->insertNode(_groupNode);
+
+    // modifier
+    _manipulator = new Manipulator(_sceneManipulator->getRoot());
 
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -142,39 +125,74 @@ void ModelViewer::init(iaString fileName)
     _cameraPitch->setName("camera pitch");
     _cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraTranslation->setName("camera translation");
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    camera->setName("camera");
+    _camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    _camera->setName("camera");
 
     _scene->getRoot()->insertNode(_cameraCOI);
     _cameraCOI->insertNode(_cameraHeading);
     _cameraHeading->insertNode(_cameraPitch);
     _cameraPitch->insertNode(_cameraTranslation);
-    _cameraTranslation->insertNode(camera);
-    camera->makeCurrent();
+    _cameraTranslation->insertNode(_camera);
+    _view.setCurrentCamera(_camera->getID());
 
     _cameraTranslation->translate(0, 0, 80);
+
+    // camUI
+    _cameraCOIUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraCOIUI->setName("camera COI UI");
+    _cameraHeadingUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraHeadingUI->setName("camera heading UI");
+    _cameraPitchUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraPitchUI->setName("camera pitch UI");
+    _cameraTranslationUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    _cameraTranslationUI->setName("camera translation UI");
+    _cameraUI = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
+    _cameraUI->setName("camera UI");
+
+    _sceneManipulator->getRoot()->insertNode(_cameraCOIUI);
+    _cameraCOIUI->insertNode(_cameraHeadingUI);
+    _cameraHeadingUI->insertNode(_cameraPitchUI);
+    _cameraPitchUI->insertNode(_cameraTranslationUI);
+    _cameraTranslationUI->insertNode(_cameraUI);
+    _viewManipulator.setCurrentCamera(_cameraUI->getID());
+
+    _cameraTranslationUI->translate(0, 0, 80);
 
     // default sky box
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
 
-    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
-    skyBoxNode->setName("sky box");
-    skyBoxNode->setTextures(
+    _skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+    _skyBoxNode->setName("sky box");
+    _skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/left.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-    skyBoxNode->setTextureScale(10);
-    skyBoxNode->setMaterial(_materialSkyBox);
-    _scene->getRoot()->insertNode(skyBoxNode);
+    _skyBoxNode->setTextureScale(10);
+    _skyBoxNode->setMaterial(_materialSkyBox);
+    //_scene->getRoot()->insertNode(_skyBoxNode);
 
     _font = new iTextureFont("StandardFont.png");
+
+    // create material for manipulators
+    _materialManipulator = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialManipulator)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+
+    _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial();
+
+    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("ModelViewer/yellow.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->compileShader();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
 
     // light
     _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -213,9 +231,11 @@ void ModelViewer::init(iaString fileName)
 
     initGUI();
 
+    _menuDialog->setRootNode(_groupNode);
+
     if (fileName.isEmpty())
     {
-        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "..\\data\\models");
+        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "..\\data\\models");
     }
     else
     {
@@ -225,17 +245,48 @@ void ModelViewer::init(iaString fileName)
         _propertiesDialog->setActive();
         _propertiesDialog->setVisible();
     }
-//    iStatistics::getInstance().setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
-    forceLoadingNow();
-
-    _menuDialog->setRootNode(_groupNode);
     _menuDialog->refreshView();
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 }
 
-void ModelViewer::onAddTransformation(uint32 atNodeID)
+void ModelViewer::deinit()
+{
+    deinitGUI();
+
+    iSceneFactory::getInstance().destroyScene(_scene);
+
+    //! \todo this should happen automatically
+    iModelResourceFactory::getInstance().flush(&_window);
+    iTextureResourceFactory::getInstance().flush();
+
+    _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
+    _window.unregisterWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
+
+    _window.close();
+    _window.removeView(&_view);
+    _window.removeView(&_viewOrtho);
+
+    _view.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::render));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
+
+    if (_font)
+    {
+        delete _font;
+    }
+
+    iWidgetManager::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
+    iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
+    iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
+    iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
+
+    iTaskManager::getInstance().abortTask(_taskFlushTextures);
+}
+
+void ModelViewer::onAddTransformation(uint64 atNodeID)
 {
     iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
 
@@ -248,9 +299,10 @@ void ModelViewer::onAddTransformation(uint32 atNodeID)
     transform->setName("Transformation");
     destination->insertNode(transform);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(transform);
 }
 
-void ModelViewer::onAddGroup(uint32 atNodeID)
+void ModelViewer::onAddGroup(uint64 atNodeID)
 {
     iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
 
@@ -263,9 +315,10 @@ void ModelViewer::onAddGroup(uint32 atNodeID)
     group->setName("Group");
     destination->insertNode(group);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(group);
 }
 
-void ModelViewer::onAddEmitter(uint32 atNodeID)
+void ModelViewer::onAddEmitter(uint64 atNodeID)
 {
     iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
 
@@ -278,9 +331,10 @@ void ModelViewer::onAddEmitter(uint32 atNodeID)
     emitter->setName("Emitter");
     destination->insertNode(emitter);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(emitter);
 }
 
-void ModelViewer::onAddParticleSystem(uint32 atNodeID)
+void ModelViewer::onAddParticleSystem(uint64 atNodeID)
 {
     iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
 
@@ -293,6 +347,7 @@ void ModelViewer::onAddParticleSystem(uint32 atNodeID)
     particleSystem->setName("ParticleSystem");
     destination->insertNode(particleSystem);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(particleSystem);
 }
 
 void ModelViewer::onAddMaterial()
@@ -301,7 +356,7 @@ void ModelViewer::onAddMaterial()
     _menuDialog->refreshView();
 }
 
-void ModelViewer::onAddSwitch(uint32 atNodeID)
+void ModelViewer::onAddSwitch(uint64 atNodeID)
 {
     iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
 
@@ -314,57 +369,62 @@ void ModelViewer::onAddSwitch(uint32 atNodeID)
     switchNode->setName("Switch");
     destination->insertNode(switchNode);
     _menuDialog->refreshView();
+    _menuDialog->setSelectedNode(switchNode);
 }
 
-void ModelViewer::forceLoadingNow()
+void ModelViewer::forceLoadingNow(iNodeModel* modelNode)
 {
-    // want everything to be loaded now!
-    con_endl("loading data synchronously ... ");
-
-    while (true)
+    if (modelNode != nullptr)
     {
-        _scene->handle();
-        iTextureResourceFactory::getInstance().flush();
+        iScene* tempScene = iSceneFactory::getInstance().createScene();
+        tempScene->getRoot()->insertNode(modelNode);
 
-        if (!iModelResourceFactory::getInstance().flush(&_window))
+        // want everything to be loaded now!
+        con_endl("loading data synchronously ... ");
+
+        while (!modelNode->isReady())
         {
-            break;
+            tempScene->handle();
+            iTextureResourceFactory::getInstance().flush();
+            iModelResourceFactory::getInstance().flush(&_window);
+        }
+
+        tempScene->getRoot()->removeNode(modelNode);
+        iSceneFactory::getInstance().destroyScene(tempScene);
+    }
+}
+
+void ModelViewer::centerCamOnNode(iNode* node)
+{
+    if (node != nullptr)
+    {
+        iNodeVisitorBoundings visitorBoundings;
+        visitorBoundings.traverseTree(node);
+        iSphered sphere;
+        visitorBoundings.getSphere(sphere);
+
+        iaMatrixd coiMatrix;
+        coiMatrix._pos = sphere._center;
+        _cameraCOI->setMatrix(coiMatrix);
+        _cameraCOIUI->setMatrix(coiMatrix);
+        if (sphere._radius > 0.0f)
+        {
+            _camDistance = sphere._radius * 4.0f;
+        }
+        else
+        {
+            _camDistance = 1.0f;
         }
     }
-
-    for (int i = 0; i < 10; ++i)
-    {
-        _scene->handle();
-        iTextureResourceFactory::getInstance().flush();
-
-        iModelResourceFactory::getInstance().flush(&_window);
-    }
-
-    // calculate and get the boundings
-    iNodeVisitorBoundings visitorBoundings;
-    visitorBoundings.traverseTree(_groupNode);
-    iSphered sphere;
-    visitorBoundings.getSphere(sphere);
-
-    iaMatrixd coiMatrix;
-    coiMatrix._pos = sphere._center;
-    _cameraCOI->setMatrix(coiMatrix);
-    _camDistance = sphere._radius * 3.0f;
-    _camMinDistance = sphere._radius * 0.5f;
-    _camMaxDistance = sphere._radius * 10.0f;
-
-    updateCamDistance();
 }
 
-void ModelViewer::onImportFile(uint32 nodeID)
+void ModelViewer::onImportFile(uint64 nodeID)
 {
-    _cursorNodeID = nodeID;
     _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "");
 }
 
-void ModelViewer::onImportFileReference(uint32 nodeID)
+void ModelViewer::onImportFileReference(uint64 nodeID)
 {
-    _cursorNodeID = nodeID;
     _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileReferenceDialogClosed), "");
 }
 
@@ -404,6 +464,8 @@ void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturn
 
 void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
+    iNode* selectNode = nullptr;
+
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
@@ -418,9 +480,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         parameter->_keepMesh = true;
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
-        _scene->getRoot()->insertNode(model);
-        forceLoadingNow();
-        _scene->getRoot()->removeNode(model);
+        forceLoadingNow(model);
 
         iNode* groupNode = nullptr;
 
@@ -432,7 +492,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             groupName += filename;
             groupNode->setName(groupName);
 
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 cursorNode->insertNode(groupNode);
@@ -441,10 +501,12 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             {
                 _groupNode->insertNode(groupNode);
             }
+
+            selectNode = groupNode;
         }
         else
         {
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 groupNode = cursorNode;
@@ -452,6 +514,11 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
             else
             {
                 groupNode = _groupNode;
+            }
+
+            if (!children.empty())
+            {
+                selectNode = children.front();
             }
         }
 
@@ -464,8 +531,6 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         }
 
         iNodeFactory::getInstance().destroyNodeAsync(model);
-
-        forceLoadingNow();
     }
 
     _menuDialog->setActive();
@@ -474,10 +539,15 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
+
+    _menuDialog->setSelectedNode(selectNode);
+    centerCamOnSelectedNode();
 }
 
 void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
+    iNode* selectNode = nullptr;
+
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
@@ -492,8 +562,9 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         parameter->_keepMesh = true;
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
+        forceLoadingNow(model);
 
-        iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+        iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
         if (cursorNode != nullptr)
         {
             cursorNode->insertNode(model);
@@ -502,7 +573,8 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         {
             _groupNode->insertNode(model);
         }
-        forceLoadingNow();
+        
+        selectNode = model;
     }
 
     _menuDialog->setActive();
@@ -511,10 +583,15 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
+
+    _menuDialog->setSelectedNode(selectNode);
+    centerCamOnSelectedNode();
 }
 
 void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
+    iNode* selectNode = nullptr;
+
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
         iaString filename = _fileDialog->getFullPath();
@@ -541,9 +618,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         parameter->_keepMesh = true;
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
-        _scene->getRoot()->insertNode(model);
-        forceLoadingNow();
-        _scene->getRoot()->removeNode(model);
+        forceLoadingNow(model);
 
         iNode* groupNode = nullptr;
 
@@ -555,7 +630,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
             groupName += filename;
             groupNode->setName(groupName);
 
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 cursorNode->insertNode(groupNode);
@@ -564,10 +639,12 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
             {
                 _groupNode->insertNode(groupNode);
             }
+
+            selectNode = groupNode;
         }
         else
         {
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_cursorNodeID);
+            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 groupNode = cursorNode;
@@ -576,6 +653,8 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
             {
                 groupNode = _groupNode;
             }
+
+            selectNode = children.front();
         }
 
         auto child = children.begin();
@@ -587,8 +666,6 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         }
 
         iNodeFactory::getInstance().destroyNodeAsync(model);
-
-        forceLoadingNow();
     }
 
     _menuDialog->setActive();
@@ -597,6 +674,9 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
 
     _propertiesDialog->setActive();
     _propertiesDialog->setVisible();
+
+    _menuDialog->setSelectedNode(selectNode);
+    centerCamOnSelectedNode();
 }
 
 void ModelViewer::initGUI()
@@ -625,7 +705,51 @@ void ModelViewer::initGUI()
     _propertiesDialog->registerStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));
 
     _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+    _menuDialog->registerOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &ModelViewer::onGraphViewSelectionChanged));
     _menuDialog->registerOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
+}
+
+void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
+{
+    _selectedNodeID = nodeID;
+}
+
+void ModelViewer::updateManipulator()
+{
+    updateCamDistanceTransform();
+
+    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+
+    if (node != nullptr)
+    {
+        if (node->getKind() == iNodeKind::Renderable ||
+            node->getKind() == iNodeKind::Volume)
+        {
+            iNodeRender* renderNode = static_cast<iNodeRender*>(node);
+            iaMatrixd matrix = renderNode->getWorldMatrix();
+            _manipulator->setMatrix(matrix);
+
+            _manipulator->setVisible(true);
+        }
+        else if (node->getKind() == iNodeKind::Transformation)
+        {
+            iNodeTransform* transform = static_cast<iNodeTransform*>(node);
+            iaMatrixd matrix;
+            transform->calcWorldTransformation(matrix);
+
+            _manipulator->setMatrix(matrix);
+
+            _manipulator->setVisible(true);
+        }
+        else
+        {
+            _manipulator->setVisible(false);
+        }
+    }
+    else
+    {
+        _manipulator->setVisible(false);
+    }
 }
 
 void ModelViewer::deinitGUI()
@@ -635,6 +759,7 @@ void ModelViewer::deinitGUI()
     {
         _propertiesDialog->unregisterStructureChangedDelegate(StructureChangedDelegate(_menuDialog, &MenuDialog::refreshView));
         _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onGraphViewSelectionChanged));
+        _menuDialog->unregisterOnGraphSelectionChanged(GraphSelectionChangedDelegate(this, &ModelViewer::onGraphViewSelectionChanged));
         _menuDialog->unregisterOnMaterialSelectionChanged(MaterialSelectionChangedDelegate(_propertiesDialog, &PropertiesDialog::onMaterialSelectionChanged));
     }
 
@@ -687,32 +812,31 @@ void ModelViewer::onWindowResize(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
 }
 
-void ModelViewer::updateCamDistance()
+void ModelViewer::updateCamDistanceTransform()
 {
     _cameraTranslation->identity();
     _cameraTranslation->translate(0, 0, _camDistance);
+    _cameraTranslationUI->identity();
+    _cameraTranslationUI->translate(0, 0, _camDistance);
+
+    iaMatrixd matrix;
+    _cameraUI->calcWorldTransformation(matrix);
+    _manipulator->updateCamMatrix(matrix);
 }
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
 {
-    switch (key)
-    {
-    case iKeyCode::MouseLeft:
-        _mouseKey0Pressed = true;
-        break;
-    case iKeyCode::MouseRight:
-        _mouseKey1Pressed = true;
-        break;
-    case iKeyCode::MouseMiddle:
-        _mouseKey2Pressed = true;
-        break;
-    case iKeyCode::MouseButton4:
-        _mouseKey3Pressed = true;
-        break;
-    case iKeyCode::MouseButton5:
-        _mouseKey4Pressed = true;
-        break;
-    }
+}
+
+void ModelViewer::pickcolorID()
+{
+    _skyBoxNode->setVisible(false);
+
+    uint64 nodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+    iNode* node = iNodeFactory::getInstance().getNode(nodeID);
+    _menuDialog->setSelectedNode(node);
+
+    _skyBoxNode->setVisible(true);
 }
 
 void ModelViewer::onMouseKeyUp(iKeyCode key)
@@ -720,19 +844,10 @@ void ModelViewer::onMouseKeyUp(iKeyCode key)
     switch (key)
     {
     case iKeyCode::MouseLeft:
-        _mouseKey0Pressed = false;
-        break;
-    case iKeyCode::MouseRight:
-        _mouseKey1Pressed = false;
-        break;
-    case iKeyCode::MouseMiddle:
-        _mouseKey2Pressed = false;
-        break;
-    case iKeyCode::MouseButton4:
-        _mouseKey3Pressed = false;
-        break;
-    case iKeyCode::MouseButton5:
-        _mouseKey4Pressed = false;
+        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+        {
+            pickcolorID();
+        }
         break;
     }
 }
@@ -741,38 +856,35 @@ void ModelViewer::onMouseWheel(int32 d)
 {
     if (d < 0)
     {
-        if (_camDistance < _camMaxDistance)
-        {
-            _camDistance *= 2.0f;
-        }
+        _camDistance *= 2.0f;
     }
     else
     {
-        if (_camDistance > _camMinDistance)
-        {
-            _camDistance *= 0.5f;
-        }
+        _camDistance *= 0.5f;
     }
-
-    updateCamDistance();
 }
 
 void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
 {
-    if (_mouseKey0Pressed)
-    {
-        _cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
-        _cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+    const float32 rotateSensitivity = 0.0075f;
 
-        iMouse::getInstance().setCenter(true);
+    if (iMouse::getInstance().getLeftButton() &&
+        iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+    {
+        _cameraPitch->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+        _cameraHeading->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+        _cameraPitchUI->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+        _cameraHeadingUI->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+
+        iaMatrixd matrix;
+        _cameraUI->calcWorldTransformation(matrix);
+        _manipulator->updateCamMatrix(matrix);
     }
 
-    if (_mouseKey1Pressed)
+    if (iMouse::getInstance().getRightButton())
     {
-        float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
-        _directionalLightRotate->rotate(dx, iaAxis::Y);
-
-        iMouse::getInstance().setCenter(true);
+        _directionalLightRotate->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+        _directionalLightRotate->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
     }
 }
 
@@ -788,16 +900,62 @@ void ModelViewer::onWindowClosed()
 
 void ModelViewer::onKeyPressed(iKeyCode key)
 {
-    if (key == iKeyCode::ESC)
+    switch (key)
     {
-        iApplication::getInstance().stop();
-    }
 
-    if (key == iKeyCode::F1)
+    case iKeyCode::F:
+    {
+        centerCamOnSelectedNode();
+    }
+    break;
+
+    case iKeyCode::F1:
     {
         iNodeVisitorPrintTree printTree;
         printTree.printToConsole(_scene->getRoot());
     }
+    break;
+
+    case iKeyCode::F5:
+        _view.setWireframeVisible(!_view.isWireframeVisible());
+        break;
+
+    case iKeyCode::F6:
+        _view.setOctreeVisible(!_view.isOctreeVisible());
+        break;
+
+    case iKeyCode::F7:
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        break;
+
+    case iKeyCode::F8:
+        _statisticsVisualizer.cycleVerbosity();
+        break;
+
+    case iKeyCode::Q:
+        _manipulator->setModifierMode(ModifierMode::Locator);
+        break;
+
+    case iKeyCode::W:
+        _manipulator->setModifierMode(ModifierMode::Translate);
+        break;
+
+    case iKeyCode::E:
+        _manipulator->setModifierMode(ModifierMode::Rotate);
+        break;
+
+    case iKeyCode::R:
+        _manipulator->setModifierMode(ModifierMode::Scale);
+        break;
+
+
+    }
+}
+
+void ModelViewer::centerCamOnSelectedNode()
+{
+    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+    centerCamOnNode(node);
 }
 
 void ModelViewer::handle()
@@ -807,7 +965,43 @@ void ModelViewer::handle()
 
 void ModelViewer::render()
 {
+    updateManipulator();
 
+    if (_selectedNodeID != iNode::INVALID_NODE_ID)
+    {
+        iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+
+        if (node->getKind() == iNodeKind::Renderable ||
+            node->getKind() == iNodeKind::Volume)
+        {
+            iNodeRender* renderNode = static_cast<iNodeRender*>(node);
+            iaMatrixd matrix = renderNode->getWorldMatrix();
+            iRenderer::getInstance().setModelMatrix(matrix);
+
+            if (node->getType() == iNodeType::iNodeMesh)
+            {
+                iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading));
+
+                iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
+                shared_ptr<iMeshBuffers> buffers = meshNode->getMeshBuffers();
+                iRenderer::getInstance().setLineWidth(4);
+                iRenderer::getInstance().drawMesh(buffers);
+            }
+            else
+            {
+                if (node->getKind() == iNodeKind::Volume)
+                {
+                    iNodeVolume* renderVolume = static_cast<iNodeVolume*>(node);
+                    iRenderer::getInstance().setMaterial(iMaterialResourceFactory::getInstance().getMaterial(_materialBoundingBox));
+
+                    iAABoxd box = renderVolume->getBoundingBox();
+
+                    iRenderer::getInstance().setColor(1, 1, 0, 1);
+                    iRenderer::getInstance().drawBBox(box);
+                }
+            }
+        }
+    }
 }
 
 void ModelViewer::renderOrtho()
@@ -817,10 +1011,9 @@ void ModelViewer::renderOrtho()
     iRenderer::getInstance().setModelMatrix(_modelViewOrtho);
 
     iWidgetManager::getInstance().draw();
-
-    //iStatistics::getInstance().drawStatistics(&_window, _font, iaColor4f(0, 0, 0, 1));
-
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+
+    _statisticsVisualizer.drawStatistics(&_window, _font, iaColor4f(0, 1, 0, 1));
 }
 
 void ModelViewer::run(iaString fileName)

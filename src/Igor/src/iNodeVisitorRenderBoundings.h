@@ -26,21 +26,76 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __IGOR_AUX_VERSION_FILE__
-#define __IGOR_AUX_VERSION_FILE__
+#ifndef __iNODEVISITORRENDERBOUNDINGS__
+#define __iNODEVISITORRENDERBOUNDINGS__
 
-#include <iaDefines.h>
+#include <iNodeVisitor.h>
+#include <iDefines.h>
+#include <iMaterial.h>
 
-//! major version of IgorAux
-#define __IGOR_AUX_VERSION_MAJOR__ 0
-//! minor version of IgorAux
-#define __IGOR_AUX_VERSION_MINOR__ 2
-//! patch version of IgorAux
-#define __IGOR_AUX_VERSION_PATCH__ 2
+#include <iaString.h>
+#include <iaMatrix.h>
+using namespace IgorAux;
 
-//! IgorAux configuration
-#define __IGOR_AUX_CONFIGURATION__ STR(__IGOR_AUX_CONFIG_STR__) ", " STR(__IGOR_AUX_BIT_STR__)
-//! IgorAux full version including revision
-#define __IGOR_AUX_VERSION__ STR(__IGOR_AUX_VERSION_MAJOR__) "." STR(__IGOR_AUX_VERSION_MINOR__) "." STR(__IGOR_AUX_VERSION_PATCH__)
+#include <sstream>
+using namespace std;
+
+namespace Igor
+{
+
+    /*! traveses node tree and renders bounding boxes
+    */
+    class iNodeVisitorRenderBoundings : public iNodeVisitor
+    {
+
+    public:
+
+        /*! configures material
+        */
+        iNodeVisitorRenderBoundings();
+
+        /*! does nothing
+        */
+        virtual ~iNodeVisitorRenderBoundings() = default;
+
+    protected:
+
+        /*! initialisation
+        */
+        virtual void preTraverse();
+
+        /*! calculates transformations and renders bounding boxes
+
+        \param node current node
+        */
+        virtual bool preOrderVisit(iNode* node);
+
+        /*! restores transformations
+
+        \param node current node
+        */
+        virtual void postOrderVisit(iNode* node);
+
+        /*! does nothing
+        */
+        virtual void postTraverse();
+
+    private:
+
+        /*! holds a stack of matrices while traversion tree
+        */
+        vector<iaMatrixd> _matrixStack;
+
+        /*! current matrix that eventually gets pushed on stack or came poped from stack
+        */
+        iaMatrixd _currentMatrix;
+
+        /*! bounding box render material
+        */
+        uint64 _material = iMaterial::INVALID_MATERIAL_ID;
+
+    };
+
+};
 
 #endif

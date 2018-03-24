@@ -19,6 +19,11 @@ namespace Igor
 	{
 	}
 
+    bool iTexture::isProcessed()
+    {
+        return _processed;
+    }
+
 	bool iTexture::isValid()
 	{
 		return _valid;

@@ -40,13 +40,53 @@ namespace Igor
     class iScene;
     class iNodeCamera;
     class iNode;
-    
+
     /*! does control the render loop
     */
-    class iRenderEngine
+    class Igor_API iRenderEngine
     {
 
     public:
+
+        /*! shows all rendering in wireframe mode or normal mode
+
+        \param wireframe if true all rendering is using wireframe
+        */
+        void setWireframeVisible(bool wireframe = true);
+
+        /*! \returns true if wireframe mode is active
+        */
+        bool isWireframeVisible() const;
+
+        /*! defines if bounding boxes are shown or not
+
+        \param boundingBox if true bounding boxes are shown
+        */
+        void setBoundingBoxVisible(bool boundingBox = true);
+
+        /*! \returns true if bounding boxes are shown
+        */
+        bool isBoundingBoxVisible() const;
+
+        /*! defines if octree is shown or not
+
+        \param octree if true octree is shown
+        */
+        void setOctreeVisible(bool octree = true);
+
+        /*! \returns true if octree is shown
+        */
+        bool isOctreeVisible() const;
+
+        /*! sets if the nodes should be rendered with solely their colorid
+
+        \param enabled if true nodes will be rendered with their color id
+        */
+        void setColorIDRendering(bool enabled = true);
+
+        /*! \returns if nodes will be rendered with their color id
+        */
+        bool isColorIDRendering() const;
 
         /*! sets the scene to render with
 
@@ -57,6 +97,16 @@ namespace Igor
         /*! \returns pointer to scene
         */
         iScene* getScene();
+
+        /*! sets current camera by id
+
+        \param cameraID the camery id
+        */
+        void setCurrentCamera(uint64 cameraID);
+
+        /*! \returns current camera id
+        */
+        uint64 getCurrentCamera() const;
 
         /*! culls and renders
         */
@@ -71,6 +121,26 @@ namespace Igor
         virtual ~iRenderEngine();
 
     private:
+
+        /*! current camera
+        */
+        iNodeCamera* _currentCamera = nullptr;
+
+        /*! flag if rendering uses wireframe
+        */
+        bool _showWireframe = false;
+
+        /*! flag if bounding boxes are drawn
+        */
+        bool _showBoundingBoxes = false;
+
+        /*! flag if octree will be rendered
+        */
+        bool _showOctree = false;
+
+        /*! flag if true color ids get rendered
+        */
+        bool _renderColorID = false;
 
         /*! cull section id for statistics
         */
@@ -104,7 +174,11 @@ namespace Igor
 
         \param camera the specified camera
         */
-        void drawScene(iNodeCamera* camera);
+        void drawScene();
+
+        /*! draws everyting by using it's color id
+        */
+        void drawColorIDs();
 
         /*! triggers the creation of buffers
         */

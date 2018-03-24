@@ -31,6 +31,7 @@
 
 #include <iaGradient.h>
 #include <iSphere.h>
+#include <iAABox.h>
 
 #include <iaVector3.h>
 #include <iaVector2.h>
@@ -457,9 +458,13 @@ namespace Igor
         */
         float32 getPeriodTime() const;
 
-		/*! \returns bounding sphere
+		/*! \returns approximated bounding sphere
 		*/
 		const iSphered& getBoundingSphere() const;
+
+        /*! \returns approximated bounding box
+        */
+        const iAABoxd& getBoundingBox() const;
 
         /*! \returns simulation rate in frames per scond or Hz
         */
@@ -501,9 +506,13 @@ namespace Igor
         */
         bool _velocityOriented = false;
 
-        /*! bounding sphere of particle system
+        /*! approximated bounding sphere of particle system
         */
 		iSphered _boundingSphere;
+
+        /*! approximated bounding box of particle system
+        */
+        iAABoxd _boundingBox;
 
         /*! true if particle system is finished
         */
@@ -587,8 +596,8 @@ namespace Igor
         */
         float32 _airDrag = 1.0;
 
-        float32 _octave1Rotation = 0.01;
-        float32 _octave2Rotation = -0.01;
+        float32 _octave1Rotation = 0.01f;
+        float32 _octave2Rotation = -0.01f;
 
         /*! time when the particle system was started last time
         */
@@ -610,19 +619,19 @@ namespace Igor
 
         /*! minimum votex torque
         */
-        float32 _minVortexTorque = 0.5;
+        float32 _minVortexTorque = 0.5f;
 
         /*! maximum votex torque
         */
-        float32 _maxVortexTorque = 0.7;
+        float32 _maxVortexTorque = 0.7f;
         
         /*! minimum votex range
         */
-        float32 _minVortexRange = 20.0;
+        float32 _minVortexRange = 20.0f;
 
         /*! maximum votex range
         */
-        float32 _maxVortexRange = 40.0;
+        float32 _maxVortexRange = 40.0f;
 
         /*! random number generator
         */
@@ -634,7 +643,7 @@ namespace Igor
 
         /*! vorticity confinement
         */
-        float32 _vorticityConfinement = 0.05;
+        float32 _vorticityConfinement = 0.05f;
 
         /*! actual particles
         */

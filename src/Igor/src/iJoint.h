@@ -35,7 +35,6 @@
 using namespace IgorAux;
 
 #include <vector>
-#include <mutex>
 using namespace std;
 
 namespace Igor

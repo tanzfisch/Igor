@@ -76,13 +76,13 @@ namespace Igor
 
 		\param timer_delegate timer delegate to register
 		*/
-		void registerTimerDelegate(iTimerTickDelegate timer_delegate);
+		void registerTimerDelegate(iTimerTickDelegate timerDelegate);
 
 		/*! unregister timer delegate from timer event
 
 		\param timer_delegate timer delegate to unregister
 		*/
-		void unregisterTimerDelegate(iTimerTickDelegate timer_delegate);
+		void unregisterTimerDelegate(iTimerTickDelegate timerDelegate);
 
 		/*! changes timer interval
 

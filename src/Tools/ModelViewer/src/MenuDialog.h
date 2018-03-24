@@ -50,14 +50,14 @@ namespace Igor
 }
 
 iaEVENT(LoadFile, LoadFileDelegate, void, (), ());
-iaEVENT(ImportFile, ImportFileDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(ImportFile, ImportFileDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(ImportFileReference, ImportFileReferenceDelegate, void, (uint64 nodeID), (nodeID));
 iaEVENT(SaveFile, SaveFileDelegate, void, (), ());
 iaEVENT(ExitModelViewer, ExitModelViewerDelegate, void, (), ());
 
-iaEVENT(CopyNode, CopyNodeDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(PasteNode, PasteNodeDelegate, void, (uint32 nodeID), (nodeID));
-iaEVENT(CutNode, CutNodeDelegate, void, (uint32 nodeID), (nodeID));
+iaEVENT(CopyNode, CopyNodeDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(PasteNode, PasteNodeDelegate, void, (uint64 nodeID), (nodeID));
+iaEVENT(CutNode, CutNodeDelegate, void, (uint64 nodeID), (nodeID));
 
 enum class ViewType
 {
@@ -77,6 +77,7 @@ public:
     static iDialog* createInstance();
 
     void setRootNode(iNode* root);
+    void setSelectedNode(iNode* node);
     void refreshView();
 
     void registerOnLoadFile(LoadFileDelegate loadFileDelegate);
@@ -199,21 +200,21 @@ private:
 
     void onDelete(iWidget* source);
     
-	void onAddModel(uint32 addAt);
+	void onAddModel(uint64 addAt);
 	void onAddModelDecision(bool ok, int32 selection);
-	void onAddTransformation(uint32 addAt);
-	void onAddSwitch(uint32 addAt);
-	void onAddGroup(uint32 addAt);
-	void onAddEmitter(uint32 addAt);
-	void onAddParticleSystem(uint32 addAt);
+	void onAddTransformation(uint64 addAt);
+	void onAddSwitch(uint64 addAt);
+	void onAddGroup(uint64 addAt);
+	void onAddEmitter(uint64 addAt);
+	void onAddParticleSystem(uint64 addAt);
 
     void onCopy(iWidget* source);
     void onPaste(iWidget* source);
     void onCut(iWidget* source);
 
-    void onGraphSelectionChanged(uint32 nodeID);
+    void onGraphSelectionChanged(uint64 nodeID);
 	void onAddMaterial();
-	void onMaterialSelectionChanged(uint32 materialID);
+	void onMaterialSelectionChanged(uint64 materialID);
 
     void onGraphViewSelected(iWidget* source);
     void onMaterialViewSelected(iWidget* source);

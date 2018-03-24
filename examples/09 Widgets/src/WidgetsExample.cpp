@@ -36,12 +36,12 @@ using namespace Igor;
 
 WidgetsExample::WidgetsExample()
 {
-	init();
+    init();
 }
 
 WidgetsExample::~WidgetsExample()
 {
-	deinit();
+    deinit();
 }
 
 void WidgetsExample::init()
@@ -167,8 +167,7 @@ void WidgetsExample::initGUI()
 
     iWidgetButton* button1 = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(button1);
-    button1->setWidth(70);
-    button1->setHeight(20);
+    button1->setSize(70, 20);
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
     button1->setText("Open Message Box");
@@ -176,25 +175,24 @@ void WidgetsExample::initGUI()
 
     _color = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget("Color"));
     _allWidgets.push_back(_color);
-    _color->setColor(iaColor4f(1,1,1,0.5));
+    _color->setColor(iaColor4f(1, 1, 1, 0.5));
     _color->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorChooser));
 
     _colorGradient = static_cast<iWidgetColorGradient*>(iWidgetManager::getInstance().createWidget("ColorGradient"));
     _allWidgets.push_back(_colorGradient);
     iaGradientColor4f rainbow;
-    rainbow.setValue(0.0f, iaColor4f(1, 0, 1, 0.0));
-    rainbow.setValue(0.2f, iaColor4f(0, 0, 1, 0.2));
-    rainbow.setValue(0.4f, iaColor4f(0, 1, 1, 0.4));
-    rainbow.setValue(0.6f, iaColor4f(0, 1, 0, 0.6));
-    rainbow.setValue(0.8f, iaColor4f(1, 1, 0, 0.8));
-    rainbow.setValue(1.0f, iaColor4f(1, 0, 0, 1.0));
+    rainbow.setValue(0.0f, iaColor4f(1.0f, 0.0f, 1.0f, 0.0f));
+    rainbow.setValue(0.2f, iaColor4f(0.0f, 0.0f, 1.0f, 0.2f));
+    rainbow.setValue(0.4f, iaColor4f(0.0f, 1.0f, 1.0f, 0.4f));
+    rainbow.setValue(0.6f, iaColor4f(0.0f, 1.0f, 0.0f, 0.6f));
+    rainbow.setValue(0.8f, iaColor4f(1.0f, 1.0f, 0.0f, 0.8f));
+    rainbow.setValue(1.0f, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
     _colorGradient->setGradient(rainbow);
     _colorGradient->setHorizontalAlignment(iHorizontalAlignment::Strech);
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
     iWidgetSpacer* spacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
-    spacer->setHeight(30);
-    spacer->setWidth(2); 
+    spacer->setSize(2, 30);
 
     _labelMousePos = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
     _allWidgets.push_back(_labelMousePos);
@@ -206,8 +204,7 @@ void WidgetsExample::initGUI()
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);
     exitButton->setHorizontalAlignment(iHorizontalAlignment::Center);
-    exitButton->setWidth(64);
-    exitButton->setHeight(64);
+    exitButton->setSize(64, 64);
     exitButton->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onExitClick));
 
     iWidgetSelectBox* selectBox = static_cast<iWidgetSelectBox*>(iWidgetManager::getInstance().createWidget("SelectBox"));
@@ -256,56 +253,55 @@ void WidgetsExample::initGUI()
     iWidgetCheckBox::endRadioButtonGroup();
 
     iWidgetGraph* graph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
-    graph->setWidth(300);
-    graph->setHeight(50);
+    graph->setSize(300, 50);
 
     vector<iaVector2f> points;
-    points.push_back(iaVector2f(0.0, 0.2));
-    points.push_back(iaVector2f(0.2, 0.4));
-    points.push_back(iaVector2f(0.3, 0.5));
-    points.push_back(iaVector2f(0.5, 0.1));
-    points.push_back(iaVector2f(0.6, 0.2));
-    points.push_back(iaVector2f(0.8, 0.4));
-    points.push_back(iaVector2f(1.0, 0.2));
+    points.push_back(iaVector2f(0.0f, 0.2f));
+    points.push_back(iaVector2f(0.2f, 0.4f));
+    points.push_back(iaVector2f(0.3f, 0.5f));
+    points.push_back(iaVector2f(0.5f, 0.1f));
+    points.push_back(iaVector2f(0.6f, 0.2f));
+    points.push_back(iaVector2f(0.8f, 0.4f));
+    points.push_back(iaVector2f(1.0f, 0.2f));
     graph->setPoints(0, points);
-    graph->setLineColor(0, iaColor4f(1,0,0,1));
-    graph->setPointColor(0, iaColor4f(1, 0.5, 0.5, 1));
-    graph->setPointSize(0, 4.0);
-    graph->setLineWidth(0, 2.0);
+    graph->setLineColor(0, iaColor4f(1.0f, 0.0f, 0.0f, 1.0f));
+    graph->setPointColor(0, iaColor4f(1.0f, 0.5f, 0.5f, 1.0f));
+    graph->setPointSize(0, 4.0f);
+    graph->setLineWidth(0, 2.0f);
 
     vector<iaVector2f> points2;
-    points2.push_back(iaVector2f(0.2, 0.5));
-    points2.push_back(iaVector2f(0.3, 0.3));
-    points2.push_back(iaVector2f(0.4, 0.2));
-    points2.push_back(iaVector2f(0.5, 0.4));
-    points2.push_back(iaVector2f(0.6, 0.7));
-    points2.push_back(iaVector2f(0.7, 0.1));
-    points2.push_back(iaVector2f(0.8, 0.9));
+    points2.push_back(iaVector2f(0.2f, 0.5f));
+    points2.push_back(iaVector2f(0.3f, 0.3f));
+    points2.push_back(iaVector2f(0.4f, 0.2f));
+    points2.push_back(iaVector2f(0.5f, 0.4f));
+    points2.push_back(iaVector2f(0.6f, 0.7f));
+    points2.push_back(iaVector2f(0.7f, 0.1f));
+    points2.push_back(iaVector2f(0.8f, 0.9f));
     graph->setPoints(1, points2);
-    graph->setLineColor(1, iaColor4f(0, 1, 0, 1));
-    graph->setPointColor(1, iaColor4f(0.5, 1, 0.5, 1));
-    graph->setPointSize(1, 4.0);
-    graph->setLineWidth(1, 2.0);
+    graph->setLineColor(1, iaColor4f(0.0f, 1.0f, 0.0f, 1.0f));
+    graph->setPointColor(1, iaColor4f(0.5f, 1.0f, 0.5f, 1.0f));
+    graph->setPointSize(1, 4.0f);
+    graph->setLineWidth(1, 2.0f);
 
     vector<iaVector2f> points3;
-    points3.push_back(iaVector2f(0.0, 0.9));
-    points3.push_back(iaVector2f(0.1, 0.5));
-    points3.push_back(iaVector2f(0.2, 0.6));
-    points3.push_back(iaVector2f(0.3, 0.7));
-    points3.push_back(iaVector2f(0.8, 0.5));
-    points3.push_back(iaVector2f(0.9, 0.6));
-    points3.push_back(iaVector2f(1.0, 0.7));
+    points3.push_back(iaVector2f(0.0f, 0.9f));
+    points3.push_back(iaVector2f(0.1f, 0.5f));
+    points3.push_back(iaVector2f(0.2f, 0.6f));
+    points3.push_back(iaVector2f(0.3f, 0.7f));
+    points3.push_back(iaVector2f(0.8f, 0.5f));
+    points3.push_back(iaVector2f(0.9f, 0.6f));
+    points3.push_back(iaVector2f(1.0f, 0.7f));
     graph->setPoints(2, points3);
-    graph->setLineColor(2, iaColor4f(0, 0, 1, 1));
-    graph->setPointColor(2, iaColor4f(0.5, 0.5, 1, 1));
-    graph->setPointSize(2, 4.0);
-    graph->setLineWidth(2, 2.0);
+    graph->setLineColor(2, iaColor4f(0.0f, 0.0f, 1.0f, 1.0f));
+    graph->setPointColor(2, iaColor4f(0.5f, 0.5f, 1.0f, 1.0f));
+    graph->setPointSize(2, 4.0f);
+    graph->setLineWidth(2, 2.0f);
 
     graph->setExtrapolateData();
-    graph->setBoundings(iRectanglef(0,0,1,1));
+    graph->setBoundings(iRectanglef(0.0f, 0.0f, 1.0f, 1.0f));
     graph->setUseBoundings();
     graph->setViewGrid();
-    
+
     // assemble all the widgets with their parents
     _dialog->addWidget(grid1);
 
@@ -317,7 +313,7 @@ void WidgetsExample::initGUI()
     grid4->addWidget(_color, 3, 0);
     grid4->addWidget(_colorGradient, 4, 0);
     grid4->addWidget(graph, 5, 0);
-    
+
     grid1->addWidget(widgetScoll1, 0, 1);
     widgetScoll1->addWidget(grid3);
 
@@ -397,21 +393,21 @@ void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
     iWidgetManager::getInstance().setDesktopDimensions(_window.getClientWidth(), _window.getClientHeight());
 
     // update the the view port projection matrix so the widget manager desktop will fit on screen
-    _viewOrtho.setOrthogonal(0.0f, _window.getClientWidth(), _window.getClientHeight(), 0.0f);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
 }
 
 void WidgetsExample::onMouseMove(int32 x, int32 y)
 {
     // updates a label with current mouse position
-	if (_labelMousePos != nullptr)
-	{
-		iaString text;
-		text += iaString::itoa(x);
-		text += ":";
-		text += iaString::itoa(y);
+    if (_labelMousePos != nullptr)
+    {
+        iaString text;
+        text += iaString::itoa(x);
+        text += ":";
+        text += iaString::itoa(y);
 
-		_labelMousePos->setText(text);
-	}
+        _labelMousePos->setText(text);
+    }
 }
 
 void WidgetsExample::onOpenColorChooser(iWidget* source)
@@ -461,7 +457,7 @@ void WidgetsExample::onOpenMessageBox(iWidget* source)
     }
 
     // open a message box with some text
-	_messageBox->show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
+    _messageBox->show("Please click Yes No or Cancel. Nothing will happen in an case.", iMessageBoxButtons::YesNoCancel);
 }
 
 void WidgetsExample::onExitClick(iWidget* source)
@@ -475,7 +471,7 @@ void WidgetsExample::onWindowClosed()
     // shut down application
     // closing the window alone will not shut down the application 
     // because it's a console application and the windows come on top
-	iApplication::getInstance().stop();
+    iApplication::getInstance().stop();
 }
 
 void WidgetsExample::onRender()
@@ -492,7 +488,7 @@ void WidgetsExample::onRender()
 
     // tell the widget manager to draw the widgets
     iWidgetManager::getInstance().draw();
-    
+
     // draw Igor Logo
     drawLogo();
 
@@ -505,16 +501,16 @@ void WidgetsExample::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }
 
 void WidgetsExample::run()
-{  
+{
     // call application main loop. will not stop until application was shut down
-	iApplication::getInstance().run();
+    iApplication::getInstance().run();
 }

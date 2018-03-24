@@ -1,4 +1,4 @@
-#include "TaskGenerateVoxels.h""
+#include "TaskGenerateVoxels.h"
 
 #include <iModelResourceFactory.h>
 #include <iTextureResourceFactory.h>
@@ -15,7 +15,7 @@ using namespace IgorAux;
 int32 TaskGenerateVoxels::_seed = 0;
 vector<iSpheref> TaskGenerateVoxels::_metaballs;
 vector<iSpheref> TaskGenerateVoxels::_holes;
-mutex TaskGenerateVoxels::_initMutex;
+iaMutex TaskGenerateVoxels::_initMutex;
 
 TaskGenerateVoxels::TaskGenerateVoxels(VoxelBlock* voxelBlock, uint32 priority)
 	: iTask(nullptr, priority, false, iTaskContext::Default)
@@ -36,6 +36,7 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
     _initMutex.lock();
     if (_seed == 0)
     {
+        // todo use igor random number generator
         int32 seed = iTimer::getInstance().getTime();
         srand(seed);
 

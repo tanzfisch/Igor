@@ -180,7 +180,9 @@ void ExampleCharacterController::init()
     // setup camera
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
     _characterController->getHeadTransform()->insertNode(camera);
-    camera->makeCurrent();
+    // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
+    // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
+    _view.setCurrentCamera(camera->getID());
 
     // setup gun
     iNodeTransform* gunTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -209,7 +211,7 @@ void ExampleCharacterController::init()
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_EARLY);
+    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
     iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
@@ -253,7 +255,7 @@ void ExampleCharacterController::init()
     iPhysics::getInstance().start();
 }
 
-void ExampleCharacterController::onModelReady(uint32 modelNodeID)
+void ExampleCharacterController::onModelReady(uint64 modelNodeID)
 {
     iNode* node = iNodeFactory::getInstance().getNode(modelNodeID);
     makeCollisions(node);
@@ -527,10 +529,10 @@ void ExampleCharacterController::drawLogo()
     iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
-    float32 width = _igorLogo->getWidth();
-    float32 height = _igorLogo->getHeight();
-    float32 x = _window.getClientWidth() - width;
-    float32 y = _window.getClientHeight() - height;
+    float32 width = static_cast<float32>(_igorLogo->getWidth());
+    float32 height = static_cast<float32>(_igorLogo->getHeight());
+    float32 x = static_cast<float32>(_window.getClientWidth()) - width;
+    float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
 }

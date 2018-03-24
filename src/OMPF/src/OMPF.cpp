@@ -321,6 +321,8 @@ namespace OMPF
         ifstream file;
         file.open(filename.getData(), ios_base::in | ios_base::binary);
 
+        con_debug_endl("reading OMPF file: " << filename);
+
         if (!file.fail())
         {
             if (!analyze(file))

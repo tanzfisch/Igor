@@ -51,18 +51,6 @@ namespace Igor
         viewmatrix.lookAt(_worldMatrix._pos, _worldMatrix._pos - _worldMatrix._depth, _worldMatrix._top);
 	}
 
-	void iNodeCamera::makeCurrent()
-	{
-		if (getScene())
-		{
-			getScene()->setCamera(this);
-		}
-        else
-        {
-            con_warn("camera does not currently belong to a scene");
-        }
-	}
-
 	void iNodeCamera::onPreSetScene()
 	{
 		if (getScene())

@@ -100,6 +100,7 @@ namespace Igor
 		{
 			_particleSystem.calcNextFrame(emitter->getParticleEmitter());
 			setBoundingSphere(_particleSystem.getBoundingSphere());
+            setBoundingBox(_particleSystem.getBoundingBox());
 		}
 
         if (_particleSystem.isFinished())

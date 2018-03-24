@@ -37,6 +37,11 @@ namespace Igor
         }
     }
 
+    uint32 iShader::getProgram() const
+    {
+        return _shaderProgram;
+    }
+
     bool iShader::isReady()
     {
         return _ready;
@@ -96,30 +101,8 @@ namespace Igor
         return true;
     }
 
-	const vector<iShaderSource>& iShader::getShaderSources() const
-	{
-		return _shaderSources;
-	}
-
     void iShader::loadFile(iaString filename, iShaderObjectType type)
     {
-		auto iterSources = _shaderSources.begin();
-		while(iterSources != _shaderSources.end())
-		{
-			if ((*iterSources)._filename == filename)
-			{
-				con_warn("shader " << filename << " already added");
-				return;
-			}
-
-            iterSources++;
-		}
-
-		iShaderSource shaderSource;
-		shaderSource._filename = filename;
-		shaderSource._type = type;
-		_shaderSources.push_back(shaderSource);
-
         iaFile file(iResourceManager::getInstance().getPath(filename));
         if (file.open(false))
         {

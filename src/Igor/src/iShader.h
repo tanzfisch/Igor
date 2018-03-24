@@ -45,12 +45,6 @@ using namespace std;
 namespace Igor
 {
 
-	struct iShaderSource
-	{
-		iaString _filename;
-		iShaderObjectType _type;
-	};
-
     /*! handles glsl shader programs and objects
     
     nice tutorial http://wiki.delphigl.com/index.php/Tutorial_glsl
@@ -60,11 +54,9 @@ namespace Igor
 	class iShader
 	{
 
-        friend class iRenderer;
-
     public:
 
-        static const int32 INVALID_SHADER_ID = -1;
+        static const uint32 INVALID_SHADER_ID = iRenderer::INVALID_ID;
 
         /*! load shader object from file
 
@@ -79,8 +71,6 @@ namespace Igor
         \param type the type of shader object
         */
         bool loadSource(const char* source, iShaderObjectType type);
-
-        const vector<iShaderSource>& getShaderSources() const;
 
         /*! compiles shader programm with shader objects
         */
@@ -98,6 +88,10 @@ namespace Igor
         */
         void disable();
 
+        /*! \returns id of shader program
+        */
+        uint32 getProgram() const;
+
         /*! creates shader program
         */
         iShader();
@@ -110,21 +104,15 @@ namespace Igor
 
         /*! list of shader objects
         */
-        vector<int32> _shaderObjects;
+        vector<uint32> _shaderObjects;
 
         /*! id of glsl shader program
         */
-        int32 _shaderProgram = iShader::INVALID_SHADER_ID;
+        uint32 _shaderProgram = iShader::INVALID_SHADER_ID;
 
         /*! true: if ready to use
         */
         bool _ready = false;
-
-		/*! contains the names of the shadcers used
-
-		mostly filenames
-		*/
-		vector<iShaderSource> _shaderSources;
 
 	};
 

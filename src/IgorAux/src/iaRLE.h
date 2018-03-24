@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iaRLE__
-#define __iaRLE__
+#ifndef __IGOR_AUX_RLE__
+#define __IGOR_AUX_RLE__
 
 #include <iaDefines.h>
 #include <iaConsole.h>

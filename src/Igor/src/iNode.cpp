@@ -12,21 +12,18 @@
 namespace Igor
 {
 
-	uint32 iNode::_nextID = iNode::INVALID_NODE_ID + 1;
-	mutex iNode::_mutexID;
+    iaIDGenerator64 iNode::_idGenerator;
 
 	iNode::iNode()
 	{
-		iNode::_mutexID.lock();
-		_nodeID = iNode::_nextID++;
-		iNode::_mutexID.unlock();
+		_nodeID = iNode::_idGenerator.createID();
 	}
 
 	iNode::iNode(iNode* node)
 	{
 		con_assert(node != nullptr, "zero pointer");
 
-		_nodeID = iNode::_nextID++;
+		_nodeID = iNode::_idGenerator.createID();
 		setName(node->getName());
 	}
 
@@ -50,12 +47,16 @@ namespace Igor
 			iNodeFactory::getInstance().destroyNode(inactiveChildrenCopy[i]);
 		}
 		_inactiveChildren.clear();
+
+        iNode::_idGenerator.destroyID(_nodeID);
 	}
 
-    void iNode::onPostCopyLink(map<uint32, uint32>& nodeIDMap)
+	__IGOR_DISABLE_WARNING__(4100)
+    void iNode::onPostCopyLink(map<uint64, uint64>& nodeIDMap)
     {
 
     }
+	__IGOR_ENABLE_WARNING__(4100)
 
 	bool iNode::isDataDirty()
 	{
@@ -103,7 +104,7 @@ namespace Igor
 		return false;
 	}
 
-	iNode* iNode::getChild(uint32 id)
+	iNode* iNode::getChild(uint64 id)
 	{
 		auto iter = _children.begin();
 		while (iter != _children.end())
@@ -153,7 +154,7 @@ namespace Igor
 		return nullptr;
 	}
 
-	uint32 iNode::getID() const
+	uint64 iNode::getID() const
 	{
 		return _nodeID;
 	}
@@ -298,10 +299,11 @@ namespace Igor
 		return _parent ? true : false;
 	}
 
+	__IGOR_DISABLE_WARNING__(4100)
 	void iNode::onUpdateTransform(iaMatrixd& matrix)
 	{
-		// does nothing
 	}
+	__IGOR_ENABLE_WARNING__(4100)
 
 	void iNode::removeNode(iNode* node)
 	{

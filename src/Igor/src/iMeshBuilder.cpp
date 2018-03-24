@@ -32,6 +32,17 @@ namespace Igor
         _texCoords.clear();
         _triangles.clear();
         _indexMap.clear();
+        _matrix.identity();
+    }
+
+    void iMeshBuilder::setMatrix(const iaMatrixf& matrix)
+    {
+        _matrix = matrix;
+    }
+
+    void iMeshBuilder::getMatrix(iaMatrixf& matrix)
+    {
+        matrix = _matrix;
     }
 
     const vector<iaVector3f>& iMeshBuilder::getVertexes() const
@@ -49,16 +60,6 @@ namespace Igor
         return _triangles;
     }
 
-    void iMeshBuilder::setGridSize(float32 gridSize)
-    {
-        _gridSize = gridSize;
-    }
-
-    float32 iMeshBuilder::getGridSize()
-    {
-        return _gridSize;
-    }
-
     void iMeshBuilder::setJoinVertexes(bool joinVertexes)
     {
         con_assert(_vertexes.empty(), "can't change this setting if already vertexes inserted");
@@ -74,21 +75,20 @@ namespace Igor
         return _joinVertexes;
     }
 
-    uint32 iMeshBuilder::addVertexSnapped(const iaVector3f& vertex)
-    {
-        iaVector3f snappedVertex(floor((vertex._x / _gridSize) + 0.5f) * _gridSize, 
-            floor((vertex._y / _gridSize) + 0.5f) * _gridSize, 
-            floor((vertex._z / _gridSize) + 0.5f) * _gridSize);
-        return addVertex(vertex);
-    }
-
     uint32 iMeshBuilder::addVertex(const iaVector4f& vertex)
     {
-        iaVector3f v(vertex._vec._x, vertex._vec._y, vertex._vec._z);
-        return addVertex(v);
+        iaVector3f vec3(vertex._vec._x, vertex._vec._y, vertex._vec._z);
+        iaVector3f transformed = _matrix * vec3;
+        return addVertex(transformed);
     }
 
     uint32 iMeshBuilder::addVertex(const iaVector3f& vertex)
+    {
+        iaVector3f transformed = _matrix * vertex;
+        return addVertexIntern(transformed);
+    }
+
+    uint32 iMeshBuilder::addVertexIntern(const iaVector3f& vertex)
     {
         con_assert(vertex._x > -1000000 && vertex._x < 1000000, "out of bounds");
         con_assert(vertex._y > -1000000 && vertex._y < 1000000, "out of bounds");
@@ -188,13 +188,13 @@ namespace Igor
         }
     }
 
-    uint32 iMeshBuilder::addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC)
+    uint32 iMeshBuilder::addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC, const uint32 indexOffset)
     {
         con_assert(indexA != indexB && indexB != indexC && indexA != indexC, "invalid triangle");
         iIndexedTriangle triangle;
-        triangle._a = indexA;
-        triangle._b = indexB;
-        triangle._c = indexC;
+        triangle._a = indexA + indexOffset;
+        triangle._b = indexB + indexOffset;
+        triangle._c = indexC + indexOffset;
         _triangles.push_back(triangle);
         return _triangles.size() - 1;
     }
@@ -330,6 +330,55 @@ namespace Igor
         }
     }
 
+    void iMeshBuilder::calcBoundingBox(iAABoxd& bbox) const
+    {
+        con_assert(!_vertexes.empty(), "no vertexes");
+
+        iaVector3d minPos(_vertexes[0]._x, _vertexes[0]._y, _vertexes[0]._z);
+        iaVector3d maxPos = minPos;
+
+        for (auto vertex : _vertexes)
+        {
+            if (vertex._x < minPos._x)
+            {
+                minPos._x = vertex._x;
+            }
+
+            if (vertex._y < minPos._y)
+            {
+                minPos._y = vertex._y;
+            }
+
+            if (vertex._z < minPos._z)
+            {
+                minPos._z = vertex._z;
+            }
+
+            if (vertex._x > maxPos._x)
+            {
+                maxPos._x = vertex._x;
+            }
+
+            if (vertex._y > maxPos._y)
+            {
+                maxPos._y = vertex._y;
+            }
+
+            if (vertex._z > maxPos._z)
+            {
+                maxPos._z = vertex._z;
+            }
+        }
+
+        bbox._center = minPos;
+        bbox._center += maxPos;
+        bbox._center *= 0.5;
+
+        bbox._halfWidths = maxPos;
+        bbox._halfWidths -= minPos;
+        bbox._halfWidths *= 0.5;
+    }
+
     void iMeshBuilder::calcBoundingSphere(iSphered& sphere) const
     {
         con_assert(_vertexes.size() > 0, "no vertexes");
@@ -369,6 +418,10 @@ namespace Igor
         iSphered boundingSphere;
         calcBoundingSphere(boundingSphere);
         mesh->setBoundingSphere(boundingSphere);
+
+        iAABoxd bbox;
+        calcBoundingBox(bbox);
+        mesh->setBoundingBox(bbox);
 
         return shared_ptr<iMesh>(mesh);
     }
@@ -581,6 +634,7 @@ namespace Igor
 
         if (sharpEdges)
         {
+            con_warn("sharpEdges currently not supported");
             //        separateTriangles(trianglenormals);
         }
 

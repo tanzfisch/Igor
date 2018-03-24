@@ -36,6 +36,7 @@
 
 #include <vector>
 #include <map>
+#include <deque>
 using namespace std;
 
 namespace Igor
@@ -63,7 +64,7 @@ namespace Igor
         /*! needs to be friends with singleton base class in order to be a singleton
         */
         friend class iaSingleton<iWidgetManager>;
-
+        
 	public:
 		
         /*! creates a widget of given type
@@ -317,11 +318,11 @@ namespace Igor
 
         /*! list of widgets to delete
         */
-        vector<iWidget*> _toDeleteWidgets;
+        deque<iWidget*> _toDeleteWidgets;
 
         /*! list of dialogs to delete
         */
-        vector<iDialog*> _toDeleteDialogs;
+        deque<iDialog*> _toDeleteDialogs;
 
         /*! current desktop width
         */
@@ -330,6 +331,10 @@ namespace Igor
         /*! current desktop height
         */
 		uint32 _desktopHeight = 0;
+
+        /*! last chance for the instance to clean up before shut down
+        */
+        virtual void onPreDestroyInstance();
 
         /*! traverse widget tree and updates positions and sizes
 
@@ -345,9 +350,9 @@ namespace Igor
         */
         void onHandle();
 
-        /*! destroyes widgets
+        /*! destroyes widgets that where put in to the delete queues before
         */
-        void destroyWidgets();
+        void runDeleteQueues();
 
         /*! handle for mouse key down event
 

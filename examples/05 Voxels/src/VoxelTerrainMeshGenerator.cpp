@@ -52,8 +52,8 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
         meshNode->setMaterial(tileInformation->_materialID);
 
         iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
-        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("dirt.png"), 0);
-        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 1);
+        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 0);
+        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("dirt.png"), 1);
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
         targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));

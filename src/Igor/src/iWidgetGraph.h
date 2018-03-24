@@ -37,6 +37,7 @@
 using namespace IgorAux;
 
 #include <vector>
+#include <map>
 using namespace std;
 
 namespace Igor
@@ -276,7 +277,7 @@ namespace Igor
 
         /*! button height definition
         */
-        const float32 _buttonHeight = 20;
+        const int32 _buttonHeight = 20;
 
         /*! makes some calculations before we can draw
         */
