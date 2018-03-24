@@ -34,7 +34,7 @@
 //! major version of Igor
 #define __IGOR_VERSION_MAJOR__ 0
 //! minor version of Igor
-#define __IGOR_VERSION_MINOR__ 4
+#define __IGOR_VERSION_MINOR__ 5
 //! patch version of Igor
 #define __IGOR_VERSION_PATCH__ 0
 

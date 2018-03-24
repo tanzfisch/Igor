@@ -31,8 +31,6 @@
 
 #include <iaDefines.h>
 
-#include <iaConsole.h>
-
 #ifdef __IGOR_WIN__
 #include <Windows.h>
 #endif
@@ -40,88 +38,96 @@
 namespace IgorAux
 {
 
-	class IgorAux_API iaClock
-	{
+    class IgorAux_API iaClock
+    {
 
-	public:
+    public:
 
-		/*! \returns clock time in ticks
+        /*! \returns clock time in ticks
 
-		initClock must be called before otherwise result is undefined
-		*/
-		__IGOR_INLINE__ static uint64 getClockTicks()
-		{
-			uint64 result;
+        initClock must be called before otherwise result is undefined
+        */
+        __IGOR_INLINE__ static uint64 getClockTicks()
+        {
+            uint64 result;
 #ifdef __IGOR_WIN__
-			QueryPerformanceCounter((LARGE_INTEGER*)&result);
+            QueryPerformanceCounter((LARGE_INTEGER*)&result);
 #endif
-			return result;
-		}
+            return result - m_startTicks;
+        }
 
-		/*! \returns clock time in seconds
+        /*! \returns clock time in seconds
 
-		initClock must be called before otherwise result is undefined
-		*/
-		__IGOR_INLINE__ static float64 getClockSeconds()
-		{
-			float64 result;
+        initClock must be called before otherwise result is undefined
+        */
+        __IGOR_INLINE__ static float64 getClockSeconds()
+        {
+            float64 result;
 #ifdef __IGOR_WIN__
-			uint64 time;
-			QueryPerformanceCounter((LARGE_INTEGER*)&time);
-			result = static_cast<float64>(time) * m_tickScale;
+            uint64 time;
+            QueryPerformanceCounter((LARGE_INTEGER*)&time);
+            result = static_cast<float64>(time - m_startTicks) * m_tickScale;
 #endif
-			return result;
-		}
+            return result;
+        }
 
-		/*! \returns clock time in milliseconds
+        /*! \returns clock time in milliseconds
 
-		initClock must be called before otherwise result is undefined
-		*/
-		__IGOR_INLINE__ static float64 getClockMiliseconds()
-		{
-			float64 result;
+        initClock must be called before otherwise result is undefined
+        */
+        __IGOR_INLINE__ static float64 getClockMiliseconds()
+        {
+            float64 result;
 #ifdef __IGOR_WIN__
-			uint64 time;
-			QueryPerformanceCounter((LARGE_INTEGER*)&time);
-			result = static_cast<float64>(time) * m_tickScale * __IGOR_SECOND__;
+            uint64 time;
+            QueryPerformanceCounter((LARGE_INTEGER*)&time);
+            result = static_cast<float64>(time - m_startTicks) * m_tickScale * __IGOR_SECOND__;
 #endif
-			return result;
-		}
+            return result;
+        }
 
-		/*! \returns clock scale from ticks to seconds
+        /*! \returns clock scale from ticks to seconds
 
-		initClock must be called before otherwise result is undefined
-		*/
-		__IGOR_INLINE__ static float64 getTickScale()
-		{
-			return m_tickScale;
-		}
+        initClock must be called before otherwise result is undefined
+        */
+        __IGOR_INLINE__ static float64 getTickScale()
+        {
+            return m_tickScale;
+        }
 
-		/*! initializes clock
-		*/
-		static void initClock()
-		{
+        /*! initializes clock
+        */
+        static void initClock()
+        {
 #ifdef __IGOR_WIN__
-			uint64 clockPerformance = 0;
-			if (QueryPerformanceFrequency((LARGE_INTEGER*)&clockPerformance))
-			{
-				m_tickScale = 1.0 / static_cast<float64>(clockPerformance);
-			}
-			else
-			{
-				con_err("this PC doesn't support Hardware Performance Counter");
-				exit(0);
-			}
+            uint64 clockPerformance = 0;
+            if (QueryPerformanceFrequency((LARGE_INTEGER*)&clockPerformance))
+            {
+                m_tickScale = 1.0 / static_cast<float64>(clockPerformance);
+
+#ifdef __IGOR_WIN__
+                QueryPerformanceCounter((LARGE_INTEGER*)&m_startTicks);
 #endif
-		}
+            }
+            else
+            {
+                // todo some console output would be still nice here
+                exit(0);
+            }
+#endif
+        }
 
-	private:
+    private:
 
-		/*! tick to seconds scale
-		*/
-		static float64 m_tickScale;
+        /*! tick to seconds scale
+        */
+        static float64 m_tickScale;
 
-	};
+        /*! stores the ticks at application start
+        */
+        static uint64 m_startTicks;
+
+    };
 
 }
 

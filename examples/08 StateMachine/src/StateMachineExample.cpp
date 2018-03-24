@@ -155,13 +155,13 @@ void StateMachineExample::deinit()
 
 void StateMachineExample::onEnterLooseState()
 {
-    _time = iTimer::getInstance().getTime();
+    _time = iTimer::getInstance().getApplicationTime();
     _backgroundText = ")-: YOU LOOSE :-(";
 }
 
 void StateMachineExample::onHandleLooseState()
 {
-    float64 currentTime = iTimer::getInstance().getTime();
+    float64 currentTime = iTimer::getInstance().getApplicationTime();
 
     if (currentTime > _time + 2 * __IGOR_SECOND__)
     {
@@ -172,7 +172,7 @@ void StateMachineExample::onHandleLooseState()
 void StateMachineExample::onEnterWinState()
 {
     _backgroundText = "!!! YOU WIN !!!";
-    _time = iTimer::getInstance().getTime();
+    _time = iTimer::getInstance().getApplicationTime();
 
     for (int i = 0; i < 5; ++i)
     {
@@ -186,7 +186,7 @@ void StateMachineExample::onLeaveWinState()
 
 void StateMachineExample::onHandleWinState()
 {
-    float64 currentTime = iTimer::getInstance().getTime();
+    float64 currentTime = iTimer::getInstance().getApplicationTime();
 
     if (currentTime > _time + 2 * __IGOR_SECOND__)
     {
@@ -269,7 +269,7 @@ void StateMachineExample::onEnterGameState()
     _drawC = false;
 
     _backgroundText = "press A,B and C";
-    _time = iTimer::getInstance().getTime();
+    _time = iTimer::getInstance().getApplicationTime();
     iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &StateMachineExample::onKeyReleasedGameState));
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &StateMachineExample::onKeyPressedGameState));
 }
@@ -282,7 +282,7 @@ void StateMachineExample::onLeaveGameState()
 
 void StateMachineExample::onHandleGameState()
 {
-    float64 currentTime = iTimer::getInstance().getTime();
+    float64 currentTime = iTimer::getInstance().getApplicationTime();
 
     if (currentTime > _time + 5 * __IGOR_SECOND__)
     {
@@ -318,13 +318,13 @@ void StateMachineExample::onRenderGameState()
 
 void StateMachineExample::onEnterInitState()
 {
-    _time = iTimer::getInstance().getTime();
+    _time = iTimer::getInstance().getApplicationTime();
     _backgroundText = "3";
 }
 
 void StateMachineExample::onHandleInitState()
 {
-    float64 currentTime = iTimer::getInstance().getTime();
+    float64 currentTime = iTimer::getInstance().getApplicationTime();
 
     if (currentTime > _time + 1 * __IGOR_SECOND__)
     {

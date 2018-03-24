@@ -126,7 +126,7 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
-    _primaryWeaponTime = iTimer::getInstance().getTime();
+    _primaryWeaponTime = iTimer::getInstance().getApplicationTime();
 }
 
 Player::~Player()
@@ -283,7 +283,7 @@ void Player::shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinat
 
 void Player::shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates)
 {
-    float64 currentTime = iTimer::getInstance().getTime();
+    float64 currentTime = iTimer::getInstance().getApplicationTime();
     if (currentTime > _primaryWeaponTime + 100)
     {
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_transformNodeID));

@@ -1221,7 +1221,7 @@ namespace Igor
 
     void iRenderer::createBuffers(float64 timeLimit)
     {
-        float64 endTime = iTimer::getInstance().getTime() + timeLimit;
+        float64 endTime = iTimer::getInstance().getApplicationTime() + timeLimit;
         deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>>::iterator entryIter;
 
         shared_ptr<iMesh> mesh;
@@ -1251,7 +1251,7 @@ namespace Igor
                 break;
             }
 
-            if (iTimer::getInstance().getTime() > endTime)
+            if (iTimer::getInstance().getApplicationTime() > endTime)
             {
                 break;
             }

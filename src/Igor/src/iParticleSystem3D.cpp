@@ -24,7 +24,7 @@ namespace Igor
 
     iParticleSystem3D::iParticleSystem3D()
     {
-        _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
+        _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getApplicationTime()));
         initDefaultGradients();
     }
 

@@ -727,7 +727,7 @@ void Ascent::onHandle()
 {
     if (_loading)
     {
-        if (iTimer::getInstance().getTimerTime() > 5000 &&
+        if (iTimer::getInstance().getApplicationTime() > 5000 &&
             iTaskManager::getInstance().getQueuedRegularTaskCount() < 4 &&
             iTaskManager::getInstance().getQueuedRenderContextTaskCount() < 4)
         {

@@ -376,7 +376,7 @@ void LSystems::generateLSystems()
     iaMatrixf currentMatrix;
 
     // using the same seed for all instances of plants so we see the different stages of growth of the same plant
-    uint64 seed = static_cast<uint64>(iTimer::getInstance().getTime());
+    uint64 seed = static_cast<uint64>(iTimer::getInstance().getApplicationTime());
 
     iNode* groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     _groupNodeID = groupNode->getID();

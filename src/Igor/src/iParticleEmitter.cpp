@@ -12,7 +12,7 @@ namespace Igor
 {
     iParticleEmitter::iParticleEmitter()
     {
-        _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
+        _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getApplicationTime()));
     }
 
     void iParticleEmitter::setWorldMatrix(const iaMatrixd& matrix)

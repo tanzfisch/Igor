@@ -235,7 +235,7 @@ float32 metaballFunction(iaVector3f metaballPos, iaVector3f checkPos)
 
 void VoxelExample::generateVoxelData()
 {
-    _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getTime()));
+    _rand.setSeed(static_cast<uint32>(iTimer::getInstance().getApplicationTime()));
 
     // if there is none create it
     if (_voxelData == nullptr)
@@ -344,7 +344,7 @@ void VoxelExample::generateVoxelData()
     _loading = true;
 
     // get current time so we can measure how long it took to generate the mesh
-    _time = iTimer::getInstance().getTime();
+    _time = iTimer::getInstance().getApplicationTime();
 }
 
 void VoxelExample::prepareMeshGeneration()
@@ -472,7 +472,7 @@ void VoxelExample::onHandle()
             if (_loading)
             {
                 _loading = false;
-                con_endl("generation time: " << iTimer::getInstance().getTime() - _time << "ms");
+                con_endl("generation time: " << iTimer::getInstance().getApplicationTime() - _time << "ms");
             }
         }
     }
