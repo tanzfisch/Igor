@@ -48,12 +48,15 @@ void PhysicsExample::deinit()
     _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
     iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::handle));
 
+    // free some resources
+    _igorLogo = nullptr;
+
     if (_font)
     {
         delete _font;
         _font = nullptr;
     }
-
+    
     iSceneFactory::getInstance().destroyScene(_scene);
 
     for (auto bodyID : _bodyIDs)

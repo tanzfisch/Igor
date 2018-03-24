@@ -117,8 +117,8 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->getRenderStateSet().setRenderState(iRenderState::Instanced, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->getRenderStateSet().setRenderState(iRenderState::InstancedFunc, iRenderStateValue::PositionOrientation);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->addShaderSource("igor/textured_ipo_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithInstancing)->compileShader();
     
     const float32 spacing = 3.0f;
