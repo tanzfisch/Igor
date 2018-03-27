@@ -70,9 +70,9 @@ public:
     void updateCamMatrix(const iaMatrixd& camMatrix);
 
     void init();
-    
+
     void deinit();
-    
+
     void setModifierMode(ModifierMode modifierMode);
     ModifierMode getModifierMode() const;
 
@@ -87,6 +87,11 @@ private:
     iNode* _parent = nullptr;
     bool _visible = false;
 
+    vector<uint64> _locatorIDs;
+    vector<uint64> _translateIDs;
+    vector<uint64> _scaleIDs;
+    vector<uint64> _rotateIDs;
+
     iNodeTransform* _rootTransform = nullptr;
 
     iNodeSwitch* _switchNode = nullptr;
@@ -98,15 +103,6 @@ private:
     iNodeTransform* _rotateBillboardTransform = nullptr;
 
     ModifierMode _modifierMode = ModifierMode::Locator;
-
-    uint64 _translateXNodeID = iNode::INVALID_NODE_ID;
-    uint64 _translateYNodeID = iNode::INVALID_NODE_ID;
-    uint64 _translateZNodeID = iNode::INVALID_NODE_ID;
-
-    uint64 _scaleXNodeID = iNode::INVALID_NODE_ID;
-    uint64 _scaleYNodeID = iNode::INVALID_NODE_ID;
-    uint64 _scaleZNodeID = iNode::INVALID_NODE_ID;
-    uint64 _scaleAllNodeID = iNode::INVALID_NODE_ID;
 
     iTargetMaterial* _red = nullptr;
     iTargetMaterial* _green = nullptr;

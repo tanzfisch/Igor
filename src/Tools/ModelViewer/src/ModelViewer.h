@@ -132,6 +132,7 @@ private:
 
     Manipulator* _manipulator = nullptr;
 
+    void setManipulatorMode(ModifierMode modifierMode);
     void updateManipulator();
     uint64 selectManipulator();
     void pickcolorID();

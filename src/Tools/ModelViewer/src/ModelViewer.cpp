@@ -715,23 +715,16 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
     _selectedNodeID = nodeID;
 }
 
-void ModelViewer::updateManipulator()
+void ModelViewer::setManipulatorMode(ModifierMode modifierMode)
 {
-    updateCamDistanceTransform();
-
     iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
     if (node != nullptr)
     {
         if (node->getKind() == iNodeKind::Transformation)
         {
-            iNodeTransform* transform = static_cast<iNodeTransform*>(node);
-            iaMatrixd matrix;
-            transform->calcWorldTransformation(matrix);
-
-            _manipulator->setMatrix(matrix);
-
             _manipulator->setVisible(true);
+            _manipulator->setModifierMode(modifierMode);
         }
         else
         {
@@ -743,6 +736,22 @@ void ModelViewer::updateManipulator()
     {
         _manipulator->setVisible(false);
         _manipulator->setModifierMode(ModifierMode::Locator);
+    }
+}
+
+void ModelViewer::updateManipulator()
+{ 
+    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+
+    if (node != nullptr)
+    {
+        if (node->getKind() == iNodeKind::Transformation)
+        {
+            iNodeTransform* transform = static_cast<iNodeTransform*>(node);
+            iaMatrixd matrix;
+            transform->calcWorldTransformation(matrix);
+            _manipulator->setMatrix(matrix);
+        }
     }
 }
 
@@ -964,19 +973,19 @@ void ModelViewer::onKeyPressed(iKeyCode key)
         break;
 
     case iKeyCode::Q:
-        _manipulator->setModifierMode(ModifierMode::Locator);
+        setManipulatorMode(ModifierMode::Locator);
         break;
 
     case iKeyCode::W:
-        _manipulator->setModifierMode(ModifierMode::Translate);
+        setManipulatorMode(ModifierMode::Translate);
         break;
 
     case iKeyCode::E:
-        _manipulator->setModifierMode(ModifierMode::Rotate);
+        setManipulatorMode(ModifierMode::Rotate);
         break;
 
     case iKeyCode::R:
-        _manipulator->setModifierMode(ModifierMode::Scale);
+        setManipulatorMode(ModifierMode::Scale);
         break;
 
 
@@ -1035,13 +1044,13 @@ void ModelViewer::renderNodeSelected(uint64 nodeID)
 
 void ModelViewer::render()
 {
+    updateCamDistanceTransform();
     renderNodeSelected(_selectedNodeID);
 }
 
 void ModelViewer::renderManipulator()
 {
     updateManipulator();
-
     renderNodeSelected(_manipulator->getSelected());
 }
 

@@ -153,6 +153,10 @@ void Manipulator::createRotateModifier(shared_ptr<iMesh> &locatorMesh, shared_pt
     ring->setMaterial(_material);
     ring->setTargetMaterial(_cyan);
     _rotateBillboardTransform->insertNode(ring);
+
+    _rotateIDs.push_back(xRing->getID());
+    _rotateIDs.push_back(yRing->getID());
+    _rotateIDs.push_back(zRing->getID());
 }
 
 void Manipulator::createTranslateModifier(shared_ptr<iMesh> &translateMesh)
@@ -189,9 +193,9 @@ void Manipulator::createTranslateModifier(shared_ptr<iMesh> &translateMesh)
     zUmbrella->setTargetMaterial(_blue);
     zTransform->insertNode(zUmbrella);
 
-    _translateXNodeID = xUmbrella->getID();
-    _translateYNodeID = yUmbrella->getID();
-    _translateZNodeID = zUmbrella->getID();
+     _translateIDs.push_back(xUmbrella->getID());
+     _translateIDs.push_back(yUmbrella->getID());
+     _translateIDs.push_back(zUmbrella->getID());
 }
 
 void Manipulator::createScaleModifier(shared_ptr<iMesh> &scaleMesh)
@@ -227,6 +231,10 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh> &scaleMesh)
     zCube->setMaterial(_material);
     zCube->setTargetMaterial(_blue);
     zTransform->insertNode(zCube);
+
+    _scaleIDs.push_back(xCube->getID());
+    _scaleIDs.push_back(yCube->getID());
+    _scaleIDs.push_back(zCube->getID());
 }
 
 void Manipulator::createLocatorModifier(shared_ptr<iMesh> &locatorMesh)
@@ -250,18 +258,21 @@ void Manipulator::createLocatorModifier(shared_ptr<iMesh> &locatorMesh)
     xCylinder->setMaterial(_material);
     xCylinder->setTargetMaterial(_red);
     xTransform->insertNode(xCylinder);
+    _locatorIDs.push_back(xCylinder->getID());
 
     iNodeMesh* yCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     yCylinder->setMesh(locatorMesh);
     yCylinder->setMaterial(_material);
     yCylinder->setTargetMaterial(_green);
     yTransform->insertNode(yCylinder);
+    _locatorIDs.push_back(yCylinder->getID());
 
     iNodeMesh* zCylinder = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     zCylinder->setMesh(locatorMesh);
     zCylinder->setMaterial(_material);
     zCylinder->setTargetMaterial(_blue);
     zTransform->insertNode(zCylinder);
+    _locatorIDs.push_back(zCylinder->getID());
 }
 
 void Manipulator::updateCamMatrix(const iaMatrixd& camMatrix)
@@ -410,6 +421,14 @@ void Manipulator::getMatrix(iaMatrixd& matrix) const
 
 void Manipulator::setSelected(uint64 nodeID)
 {
+    // ignore locator for selection
+    auto iter = find(_locatorIDs.begin(), _locatorIDs.end(), nodeID);
+    if (iter != _locatorIDs.end())
+    {
+        _selectedNodeID = iNode::INVALID_NODE_ID;
+        return;
+    }
+
     _selectedNodeID = nodeID;
 }
 
