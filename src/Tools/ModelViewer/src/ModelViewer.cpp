@@ -86,6 +86,7 @@ void ModelViewer::init(iaString fileName)
     _viewManipulator.setClearDepth(true);
     _viewManipulator.setPerspective(45.0f);
     _viewManipulator.setClipPlanes(0.1f, 10000.f);
+    _viewManipulator.registerRenderDelegate(RenderDelegate(this, &ModelViewer::renderManipulator));
     _window.addView(&_viewManipulator);
 
     _viewOrtho.setClearColor(false);
@@ -573,7 +574,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         {
             _groupNode->insertNode(model);
         }
-        
+
         selectNode = model;
     }
 
@@ -722,16 +723,7 @@ void ModelViewer::updateManipulator()
 
     if (node != nullptr)
     {
-        if (node->getKind() == iNodeKind::Renderable ||
-            node->getKind() == iNodeKind::Volume)
-        {
-            iNodeRender* renderNode = static_cast<iNodeRender*>(node);
-            iaMatrixd matrix = renderNode->getWorldMatrix();
-            _manipulator->setMatrix(matrix);
-
-            _manipulator->setVisible(true);
-        }
-        else if (node->getKind() == iNodeKind::Transformation)
+        if (node->getKind() == iNodeKind::Transformation)
         {
             iNodeTransform* transform = static_cast<iNodeTransform*>(node);
             iaMatrixd matrix;
@@ -743,12 +735,14 @@ void ModelViewer::updateManipulator()
         }
         else
         {
-            _manipulator->setVisible(false);
+            _manipulator->setVisible(true);
+            _manipulator->setModifierMode(ModifierMode::Locator);
         }
     }
     else
     {
         _manipulator->setVisible(false);
+        _manipulator->setModifierMode(ModifierMode::Locator);
     }
 }
 
@@ -826,6 +820,20 @@ void ModelViewer::updateCamDistanceTransform()
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
 {
+    switch (key)
+    {
+    case iKeyCode::MouseLeft:
+        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+        {
+            _manipulator->setSelected(selectManipulator());
+        }
+        break;
+    }
+}
+
+uint64 ModelViewer::selectManipulator()
+{
+    return _viewManipulator.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 }
 
 void ModelViewer::pickcolorID()
@@ -848,6 +856,8 @@ void ModelViewer::onMouseKeyUp(iKeyCode key)
         {
             pickcolorID();
         }
+
+        _manipulator->setSelected(iNode::INVALID_NODE_ID);
         break;
     }
 }
@@ -868,17 +878,38 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
 {
     const float32 rotateSensitivity = 0.0075f;
 
-    if (iMouse::getInstance().getLeftButton() &&
-        iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+    if (iMouse::getInstance().getLeftButton())
     {
-        _cameraPitch->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
-        _cameraHeading->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
-        _cameraPitchUI->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
-        _cameraHeadingUI->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+        if (iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+        {
+            _cameraPitch->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+            _cameraHeading->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+            _cameraPitchUI->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+            _cameraHeadingUI->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
 
-        iaMatrixd matrix;
-        _cameraUI->calcWorldTransformation(matrix);
-        _manipulator->updateCamMatrix(matrix);
+            iaMatrixd matrix;
+            _cameraUI->calcWorldTransformation(matrix);
+            _manipulator->updateCamMatrix(matrix);
+        }
+        else
+        {
+            if (_manipulator->getSelected() != iNode::INVALID_NODE_ID)
+            {
+                iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+                if (node != nullptr &&
+                    node->getKind() == iNodeKind::Transformation)
+                {
+                    iaMatrixd matrix;
+                    _manipulator->transform(x1 - x2, y1 - y2, matrix);
+
+                    iNodeTransform* transformNode = static_cast<iNodeTransform*>(node);
+                    iaMatrixd nodeMatrix;
+                    transformNode->getMatrix(nodeMatrix);
+                    nodeMatrix *= matrix;
+                    transformNode->setMatrix(nodeMatrix);
+                }
+            }
+        }
     }
 
     if (iMouse::getInstance().getRightButton())
@@ -963,13 +994,11 @@ void ModelViewer::handle()
     _scene->handle();
 }
 
-void ModelViewer::render()
+void ModelViewer::renderNodeSelected(uint64 nodeID)
 {
-    updateManipulator();
-
-    if (_selectedNodeID != iNode::INVALID_NODE_ID)
+    if (nodeID != iNode::INVALID_NODE_ID)
     {
-        iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+        iNode* node = iNodeFactory::getInstance().getNode(nodeID);
 
         if (node->getKind() == iNodeKind::Renderable ||
             node->getKind() == iNodeKind::Volume)
@@ -1002,6 +1031,18 @@ void ModelViewer::render()
             }
         }
     }
+}
+
+void ModelViewer::render()
+{
+    renderNodeSelected(_selectedNodeID);
+}
+
+void ModelViewer::renderManipulator()
+{
+    updateManipulator();
+
+    renderNodeSelected(_manipulator->getSelected());
 }
 
 void ModelViewer::renderOrtho()

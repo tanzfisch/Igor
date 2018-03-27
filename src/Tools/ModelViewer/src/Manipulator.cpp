@@ -407,3 +407,18 @@ void Manipulator::getMatrix(iaMatrixd& matrix) const
 {
     matrix = _modifierMatrix;
 }
+
+void Manipulator::setSelected(uint64 nodeID)
+{
+    _selectedNodeID = nodeID;
+}
+
+uint64 Manipulator::getSelected() const
+{
+    return _selectedNodeID;
+}
+
+void Manipulator::transform(float64 dx, float64 dy, iaMatrixd& matrix)
+{
+    matrix.translate(dx,dy,0);
+}

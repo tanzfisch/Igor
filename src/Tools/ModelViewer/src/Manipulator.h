@@ -76,8 +76,14 @@ public:
     void setModifierMode(ModifierMode modifierMode);
     ModifierMode getModifierMode() const;
 
+    void setSelected(uint64 nodeID);
+    uint64 getSelected() const;
+
+    void transform(float64 dx, float64 dy, iaMatrixd& matrix);
+
 private:
 
+    uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
     iNode* _parent = nullptr;
     bool _visible = false;
 

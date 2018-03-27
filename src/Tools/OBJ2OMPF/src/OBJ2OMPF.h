@@ -55,7 +55,7 @@ public:
 
 private:
 
-    void setMaterialRecursive(iNode* node, int32 materialID);
+    void setMaterialRecursive(iNode* node, uint64 materialID);
     bool analyzeParam(int argc, char* argv[]);
 
     bool _joinVertexes = true;

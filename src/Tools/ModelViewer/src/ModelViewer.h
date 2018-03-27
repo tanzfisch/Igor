@@ -75,7 +75,7 @@ public:
 private:
 
     iWindow _window;
-    iView _view;
+    iView _view;    
     iView _viewManipulator;
     iView _viewOrtho;
     iaMatrixd _modelViewOrtho;
@@ -133,6 +133,7 @@ private:
     Manipulator* _manipulator = nullptr;
 
     void updateManipulator();
+    uint64 selectManipulator();
     void pickcolorID();
 
     void onGraphViewSelectionChanged(uint64 nodeID);
@@ -177,7 +178,9 @@ private:
     void deinitGUI();
 
     void handle();
+    void renderNodeSelected(uint64 nodeID);
     void render();
+    void renderManipulator();
     void renderOrtho();
 
 };

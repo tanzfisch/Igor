@@ -58,7 +58,7 @@ bool OBJ2OMPF::analyzeParam(int argc, char* argv[])
     return true;
 }
 
-void OBJ2OMPF::setMaterialRecursive(iNode* node, int32 materialID)
+void OBJ2OMPF::setMaterialRecursive(iNode* node, uint64 materialID)
 {
     if (node->getType() == iNodeType::iNodeMesh)
     {
@@ -83,8 +83,8 @@ void OBJ2OMPF::convert(int argc, char* argv[])
     if (analyzeParam(argc, argv))
     {
         uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("Textured");
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource(L"textured.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource(L"textured_directional_light.frag", iShaderObjectType::Fragment);
+        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured.vert", iShaderObjectType::Vertex);
+        iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured_directional_light.frag", iShaderObjectType::Fragment);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
         iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->setOrder(100);
 
