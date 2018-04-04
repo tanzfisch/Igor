@@ -75,14 +75,12 @@ public:
 private:
 
     iWindow _window;
-    iView _view;    
-    iView _viewManipulator;
+    iView _view;
     iView _viewOrtho;
     iaMatrixd _modelViewOrtho;
 
     iTextureFont* _font = nullptr;
     iScene* _scene = nullptr;
-    iScene* _sceneManipulator = nullptr;
 
     iDialogFileSelect* _fileDialog = nullptr;
     iDialogMessageBox* _messageBox = nullptr;
@@ -94,14 +92,6 @@ private:
     iNodeTransform* _cameraTranslation = nullptr;
     iNodeTransform* _transformModel = nullptr;
     iNodeCamera* _camera = nullptr;
-
-    iNodeTransform* _cameraCOIUI = nullptr;
-    iNodeTransform* _cameraHeadingUI = nullptr;
-    iNodeTransform* _cameraPitchUI = nullptr;
-    iNodeTransform* _cameraTranslationUI = nullptr;
-    iNodeTransform* _transformModelUI = nullptr;
-    iNodeCamera* _cameraUI = nullptr;
-
 
     iNodeSkyBox* _skyBoxNode = nullptr;
 
@@ -122,7 +112,6 @@ private:
     iNode* _groupNode = nullptr;
 
     uint64 _materialSkyBox;
-    uint64 _materialManipulator;
     uint64 _materialBoundingBox;
     uint64 _materialCelShading;
 
@@ -133,8 +122,6 @@ private:
     Manipulator* _manipulator = nullptr;
 
     void setManipulatorMode(ModifierMode modifierMode);
-    void updateManipulator();
-    uint64 selectManipulator();
     void pickcolorID();
 
     void onGraphViewSelectionChanged(uint64 nodeID);
@@ -181,7 +168,6 @@ private:
     void handle();
     void renderNodeSelected(uint64 nodeID);
     void render();
-    void renderManipulator();
     void renderOrtho();
 
 };
