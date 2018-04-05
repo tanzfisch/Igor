@@ -49,7 +49,7 @@ namespace Igor
     class iNodeCamera;
 }
 
-enum class ModifierMode
+enum class ManipulatorMode
 {
     Locator,
     Translate,
@@ -83,8 +83,10 @@ public:
 
     void deinit();
 
-    void setModifierMode(ModifierMode modifierMode);
-    ModifierMode getModifierMode() const;
+    bool isSelected() const;
+
+    void setManipulatorMode(ManipulatorMode ManipulatorMode);
+    ManipulatorMode getManipulatorMode() const;
 
     void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
     void onMouseWheel(int32 d);
@@ -126,7 +128,7 @@ private:
     iNode* _roateModifier = nullptr;
     iNodeTransform* _rotateBillboardTransform = nullptr;
 
-    ModifierMode _modifierMode = ModifierMode::Locator;
+    ManipulatorMode _manipulatorMode = ManipulatorMode::Locator;
 
     iTargetMaterial* _red = nullptr;
     iTargetMaterial* _green = nullptr;
@@ -141,7 +143,9 @@ private:
     shared_ptr<iMesh> createRingMesh();
     shared_ptr<iMesh> create2DRingMesh();
 
-    void translate(const iaVector3d& vec);
+    void translate(const iaVector3d& vec, iaMatrixd& matrix);
+    void scale(const iaVector3d& vec, iaMatrixd& matrix);
+    void rotate(const iaVector3d& vec, iaMatrixd& matrix);
 
     void render();
 

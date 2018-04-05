@@ -23,10 +23,41 @@ iaVector3<T> iaVector3<T>::operator + (const iaVector3<T> &a) const
 }
 
 template <class T>
-__IGOR_INLINE__ std::wostream& operator << (std::wostream &ostr, const iaVector3<T> &v)
+std::wostream& operator << (std::wostream &ostr, const iaVector3<T> &v)
 {
     ostr << "(" << v._x << ", " << v._y << ", " << v._z << ")";
     return ostr;
+}
+
+/*
+
+__IGOR_INLINE__ iaVector3<T> Projection(Vector3 other)
+{
+// (scalar/scalar)*(vector) = (vector)
+return (other*this) / (other*other)*other;
+}
+public Vector3 Rejection(Vector3 other)
+{
+// (vector)-(vector) = (vector)
+return this - Projection(other);
+}
+
+*/
+
+template <class T>
+iaVector3<T> iaVector3<T>::project(const iaVector3<T> &v) const
+{
+    iaVector3<T> a(_x, _y, _z);
+    iaVector3<T> b = v;
+    T s = b * a;
+    s /= b * b;
+    return b * s;
+}
+
+template <class T>
+iaVector3<T> iaVector3<T>::reject(const iaVector3<T> &v)
+{
+    return (*this) - project(v);
 }
 
 template <class T>

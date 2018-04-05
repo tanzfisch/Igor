@@ -121,7 +121,8 @@ private:
 
     Manipulator* _manipulator = nullptr;
 
-    void setManipulatorMode(ModifierMode modifierMode);
+    void resetManipulatorMode();
+    void setManipulatorMode(ManipulatorMode modifierMode);
     void pickcolorID();
 
     void onGraphViewSelectionChanged(uint64 nodeID);

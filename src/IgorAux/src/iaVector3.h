@@ -185,6 +185,20 @@ namespace IgorAux
         */
         __IGOR_INLINE__ T distance2(const iaVector3<T> &v) const;
 
+        /*! project this vector on v
+
+        \param v the vector to project on
+        \returns the projected vector
+        */
+        __IGOR_INLINE__ iaVector3<T> project(const iaVector3<T> &v) const;
+
+        /*! reject this vector from v
+
+        \param v the vector to reject from
+        \returns the rejected vector
+        */
+        __IGOR_INLINE__ iaVector3<T> reject(const iaVector3<T> &v);
+        
         /*! \returns angle beween to vectors in radians
         */
         __IGOR_INLINE__ T angle(iaVector3<T> &a) const;

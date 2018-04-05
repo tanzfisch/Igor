@@ -213,8 +213,14 @@ void ModelViewer::init(iaString fileName)
     }
 
     _menuDialog->refreshView();
+    resetManipulatorMode();
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+}
+
+void ModelViewer::resetManipulatorMode()
+{
+    setManipulatorMode(ManipulatorMode::Locator);
 }
 
 void ModelViewer::deinit()
@@ -680,9 +686,10 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
 {
     _selectedNodeID = nodeID;
     _manipulator->setNodeID(_selectedNodeID);
+    resetManipulatorMode();
 }
 
-void ModelViewer::setManipulatorMode(ModifierMode modifierMode)
+void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
     iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
@@ -691,18 +698,18 @@ void ModelViewer::setManipulatorMode(ModifierMode modifierMode)
         if (node->getKind() == iNodeKind::Transformation)
         {
             _manipulator->setVisible(true);
-            _manipulator->setModifierMode(modifierMode);
+            _manipulator->setManipulatorMode(manipulatorMode);
         }
         else
         {
             _manipulator->setVisible(true);
-            _manipulator->setModifierMode(ModifierMode::Locator);
+            _manipulator->setManipulatorMode(ManipulatorMode::Locator);
         }
     }
     else
     {
         _manipulator->setVisible(false);
-        _manipulator->setModifierMode(ModifierMode::Locator);
+        _manipulator->setManipulatorMode(ManipulatorMode::Locator);
     }
 }
 
@@ -774,8 +781,6 @@ void ModelViewer::updateCamDistanceTransform()
     iaMatrixd matrix;
     matrix.translate(0, 0, _camDistance);
     _manipulator->setCamTranslate(matrix);
-
-    _manipulator->update();
 }
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
@@ -807,9 +812,12 @@ void ModelViewer::onMouseKeyUp(iKeyCode key)
     switch (key)
     {
     case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+
+        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt) &&
+            !_manipulator->isSelected())
         {
             pickcolorID();
+            resetManipulatorMode();
         }
 
         _manipulator->onMouseKeyUp(key);
@@ -846,8 +854,6 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
 
             _cameraHeading->getMatrix(matrix);
             _manipulator->setCamHeading(matrix);
-
-            _manipulator->update();
         }
         else
         {
@@ -907,19 +913,19 @@ void ModelViewer::onKeyPressed(iKeyCode key)
         break;
 
     case iKeyCode::Q:
-        setManipulatorMode(ModifierMode::Locator);
+        setManipulatorMode(ManipulatorMode::Locator);
         break;
 
     case iKeyCode::W:
-        setManipulatorMode(ModifierMode::Translate);
+        setManipulatorMode(ManipulatorMode::Translate);
         break;
 
     case iKeyCode::E:
-        setManipulatorMode(ModifierMode::Rotate);
+        setManipulatorMode(ManipulatorMode::Rotate);
         break;
 
     case iKeyCode::R:
-        setManipulatorMode(ModifierMode::Scale);
+        setManipulatorMode(ManipulatorMode::Scale);
         break;
 
 
