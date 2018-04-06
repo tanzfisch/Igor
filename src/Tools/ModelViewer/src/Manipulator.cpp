@@ -596,7 +596,7 @@ void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matr
     iaVector2d a = from - center2D;
     iaVector2d b = to - center2D;
 
-    float64 angle = a.angleX() - b.angleX();
+    float64 angle = a.angle() - b.angle();
 
     for (int i = 0; i < 3; ++i)
     {
