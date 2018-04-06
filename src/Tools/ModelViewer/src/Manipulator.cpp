@@ -101,12 +101,8 @@ void Manipulator::init()
     _rootTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _rootTransform->setActive(_visible);
 
-    iNodeTransform* scaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    scaleTransform->scale(0.8, 0.8, 0.8);
-    _rootTransform->insertNode(scaleTransform);
-
     _switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
-    scaleTransform->insertNode(_switchNode);
+    _rootTransform->insertNode(_switchNode);
 
     createLocatorModifier(locatorMesh);
     createTranslateModifier(translateMesh);
@@ -373,6 +369,10 @@ void Manipulator::update()
     _cameraUI->calcWorldTransformation(camMatrix);
 
     float64 distanceToCam = camMatrix._pos.distance(locatorMatrix._pos) * 0.1;
+
+    locatorMatrix._right.normalize();
+    locatorMatrix._top.normalize();
+    locatorMatrix._depth.normalize();
     _rootTransform->setMatrix(locatorMatrix);
     _rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
 
