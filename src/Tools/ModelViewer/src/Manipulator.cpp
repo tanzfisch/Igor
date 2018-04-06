@@ -102,7 +102,7 @@ void Manipulator::init()
     _rootTransform->setActive(_visible);
 
     iNodeTransform* scaleTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    scaleTransform->scale(0.8,0.8,0.8);
+    scaleTransform->scale(0.8, 0.8, 0.8);
     _rootTransform->insertNode(scaleTransform);
 
     _switchNode = static_cast<iNodeSwitch*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSwitch));
@@ -194,16 +194,16 @@ void Manipulator::createRotateModifier(shared_ptr<iMesh> &locatorMesh, shared_pt
 
     iNodeTransform* xRingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     xRingTransform->rotate(-M_PI * 0.5, iaAxis::Z);
-    xRingTransform->scale(2.0, 0.05, 2.0);
+    xRingTransform->scale(2.0, 0.1, 2.0);
     _roateModifier->insertNode(xRingTransform);
 
     iNodeTransform* yRingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    yRingTransform->scale(1.99, 0.05, 1.99);
+    yRingTransform->scale(1.99, 0.1, 1.99);
     _roateModifier->insertNode(yRingTransform);
 
     iNodeTransform* zRingTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     zRingTransform->rotate(M_PI * 0.5, iaAxis::X);
-    zRingTransform->scale(1.98, 0.05, 1.98);
+    zRingTransform->scale(1.98, 0.1, 1.98);
     _roateModifier->insertNode(zRingTransform);
 
     iNodeMesh* xRing = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
@@ -553,8 +553,8 @@ void Manipulator::scale(const iaVector3d& vec, iaMatrixd& matrix)
     for (int i = 0; i < 3; ++i)
     {
         if (_selectedLocatorNodeID == _scaleIDs[i])
-        {   
-            scale = vec.project(dir[i]) + iaVector3d(1,1,1);
+        {
+            scale = vec.project(dir[i]) + iaVector3d(1, 1, 1);
             matrix.scale(scale);
             return;
         }
@@ -577,9 +577,35 @@ void Manipulator::translate(const iaVector3d& vec, iaMatrixd& matrix)
     }
 }
 
-void Manipulator::rotate(const iaVector3d& vec, iaMatrixd& matrix)
+void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matrix)
 {
-// TODO
+    iaVector2d from(x1, y1);
+    iaVector2d to(x2, y2);
+
+    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+    iNodeTransform* transformNode = static_cast<iNodeTransform*>(node);
+    iaMatrixd transformWorldMatrix;
+    transformNode->calcWorldTransformation(transformWorldMatrix);
+
+    iaMatrixd camWorldMatrix;
+    _cameraUI->calcWorldTransformation(camWorldMatrix);
+    iaVector3d center = _viewManipulator.project(transformWorldMatrix._pos, camWorldMatrix);
+
+    iaVector2d center2D(center._x, center._y);
+
+    iaVector2d a = from - center2D;
+    iaVector2d b = to - center2D;
+
+    float64 angle = a.angleX() - b.angleX();
+
+    for (int i = 0; i < 3; ++i)
+    {
+        if (_selectedLocatorNodeID == _rotateIDs[i])
+        {
+            matrix.rotate(angle, static_cast<iaAxis>(i));
+            return;
+        }
+    }
 }
 
 void Manipulator::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
@@ -610,7 +636,7 @@ void Manipulator::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
             case ManipulatorMode::Locator:
                 break;
             case ManipulatorMode::Rotate:
-                rotate((to - from) * 30, nodeMatrix);
+                rotate(x1, y1, x2, y2, nodeMatrix);
                 break;
             case ManipulatorMode::Scale:
                 scale((to - from) * 30, nodeMatrix);

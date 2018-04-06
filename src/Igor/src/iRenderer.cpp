@@ -1907,6 +1907,23 @@ namespace Igor
         _renderedTriangles += particles.size() * 2;
     }
 
+    iaVector3d iRenderer::project(const iaVector3d& objectSpacePos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)
+    {
+        iaVector4d in(objectSpacePos._x, objectSpacePos._y, objectSpacePos._z, 1);
+        iaVector4d out;
+        iaVector3d result;
+
+        iaMatrixd modelViewProjection = projection;
+        modelViewProjection *= modelview;
+        out = modelViewProjection * in;
+
+        result._x = (float64)viewport.getWidth() * (out._vec._x + 1.0) / 2.0;
+        result._y = (float64)viewport.getHeight() * (1.0 - ((out._vec._y + 1.0) / 2.0));
+        result._z = out._vec._z;
+
+        return result;
+    }
+
     iaVector3d iRenderer::unProject(const iaVector3d& screenpos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)
     {
         iaVector4d in;

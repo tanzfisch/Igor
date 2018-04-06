@@ -222,10 +222,18 @@ namespace Igor
         /*! unprojects screen position to object space
 
         \param screenpos screen position in pixels (vertical origin is at top of window)
-        \param modelMatrix the model matrix to create the camera view from
+        \param modelMatrix the camera matrix to create the model view matrix from
         \returns unprojected position in object space
         */
         iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix);
+
+        /*! project object position to screen coordinates
+
+        \param objectSpacePos the object position
+        \param modelMatrix the model matrix to use
+        \returns projected screen position 
+        */
+        iaVector3d project(const iaVector3d& objectSpacePos, const iaMatrixd& modelMatrix);
 
         /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point
 
