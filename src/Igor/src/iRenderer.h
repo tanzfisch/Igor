@@ -197,7 +197,7 @@ namespace Igor
         */
         void unregisterPreDeinitializeDelegate(iRendererPreDeinitializeDelegate preDeinitializeDelegate);
 
-        /*! projects a screen position in to world position
+        /*! projects a screen position in to object space position
 
         \param screenpos the screen position (vertical origin is at top of screen)
         \param modelview the model view matrix
@@ -206,6 +206,16 @@ namespace Igor
         \returns world position of projection screen position
         */
         iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport);
+
+        /*! projects a object space position in to screen space
+
+        \param objectSpacePos the object space position to project
+        \param modelview the model view matrix
+        \param projection the projection matrix
+        \param viewport the viewport
+        \returns the screen position
+        */
+        iaVector3d project(const iaVector3d& objectSpacePos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport);
 
         /*! creates vertex buffer objects for specified mesh
 

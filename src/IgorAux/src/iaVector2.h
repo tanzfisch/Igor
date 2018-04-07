@@ -182,11 +182,7 @@ namespace IgorAux
 
         /*! \returns angle in rad relative to X-Axis
         */
-		__IGOR_INLINE__ T angleX() const;
-
-        /*! \returns angle in rad relative to Y-Axis
-        */
-        __IGOR_INLINE__ T angleY() const;
+		__IGOR_INLINE__ T angle() const;
 
         /*! \returns angle in rad between two vectors
 

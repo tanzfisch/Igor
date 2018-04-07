@@ -20,7 +20,7 @@ FirstSteps::FirstSteps()
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &FirstSteps::onHandle));
 
     // save current time
-    _time = iTimer::getInstance().getTime();
+    _time = iTimer::getInstance().getApplicationTime();
 }
 
 FirstSteps::~FirstSteps()
@@ -58,7 +58,7 @@ void FirstSteps::onHandle()
         iApplication::getInstance().stop();
 
         // print some information about the time
-        con_endl("ms since the programm started " << iTimer::getInstance().getTime() - _time);
+        con_endl("ms since the programm started " << iTimer::getInstance().getApplicationTime() - _time);
         con_endl("the frame rate was " << iTimer::getInstance().getFPS());
     }
 }

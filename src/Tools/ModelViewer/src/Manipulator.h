@@ -29,9 +29,13 @@
 #ifndef __MODIFIER__
 #define __MODIFIER__
 
+#include <iMouse.h>
 #include <iMeshBuffers.h>
 #include <iMaterial.h>
+#include <iWindow.h>
 #include <iNode.h>
+#include <iView.h>
+#include <iScene.h>
 using namespace Igor;
 
 #include <memory>
@@ -42,9 +46,10 @@ namespace Igor
     class iTargetMaterial;
     class iNodeTransform;
     class iNodeSwitch;
+    class iNodeCamera;
 }
 
-enum class ModifierMode
+enum class ManipulatorMode
 {
     Locator,
     Translate,
@@ -59,27 +64,59 @@ class Manipulator
 
 public:
 
-    Manipulator(iNode* parent);
+    Manipulator(iWindow* window);
+
+    void setNodeID(uint64 nodeID);
+    uint64 getNodeID() const;
 
     void setVisible(bool visible);
     bool isVisible() const;
 
-    void setMatrix(const iaMatrixd& matrix);
-    void getMatrix(iaMatrixd& matrix) const;
+    void setCamCOI(const iaMatrixd& matrix);
+    void setCamHeading(const iaMatrixd& matrix);
+    void setCamPitch(const iaMatrixd& matrix);
+    void setCamTranslate(const iaMatrixd& matrix);
 
-    void updateCamMatrix(const iaMatrixd& camMatrix);
+    void update();
 
     void init();
-    
+
     void deinit();
-    
-    void setModifierMode(ModifierMode modifierMode);
-    ModifierMode getModifierMode() const;
+
+    bool isSelected() const;
+
+    void setManipulatorMode(ManipulatorMode ManipulatorMode);
+    ManipulatorMode getManipulatorMode() const;
+
+    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseWheel(int32 d);
+    void onMouseKeyDown(iKeyCode key);
+    void onMouseKeyUp(iKeyCode key);
 
 private:
 
+    iNodeTransform* _cameraCOIUI = nullptr;
+    iNodeTransform* _cameraHeadingUI = nullptr;
+    iNodeTransform* _cameraPitchUI = nullptr;
+    iNodeTransform* _cameraTranslationUI = nullptr;
+    iNodeTransform* _transformModelUI = nullptr;
+    iNodeCamera* _cameraUI = nullptr;
+
+    uint64 _materialCelShading;
+
+    iWindow* _window = nullptr;
+    iView _viewManipulator;
+    iScene* _scene = nullptr;
+
+    uint64 _selectedLocatorNodeID = iNode::INVALID_NODE_ID;
+    uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
     iNode* _parent = nullptr;
     bool _visible = false;
+
+    vector<uint64> _locatorIDs;
+    vector<uint64> _translateIDs;
+    vector<uint64> _scaleIDs;
+    vector<uint64> _rotateIDs;
 
     iNodeTransform* _rootTransform = nullptr;
 
@@ -91,23 +128,12 @@ private:
     iNode* _roateModifier = nullptr;
     iNodeTransform* _rotateBillboardTransform = nullptr;
 
-    ModifierMode _modifierMode = ModifierMode::Locator;
-
-    uint64 _translateXNodeID = iNode::INVALID_NODE_ID;
-    uint64 _translateYNodeID = iNode::INVALID_NODE_ID;
-    uint64 _translateZNodeID = iNode::INVALID_NODE_ID;
-
-    uint64 _scaleXNodeID = iNode::INVALID_NODE_ID;
-    uint64 _scaleYNodeID = iNode::INVALID_NODE_ID;
-    uint64 _scaleZNodeID = iNode::INVALID_NODE_ID;
-    uint64 _scaleAllNodeID = iNode::INVALID_NODE_ID;
+    ManipulatorMode _manipulatorMode = ManipulatorMode::Locator;
 
     iTargetMaterial* _red = nullptr;
     iTargetMaterial* _green = nullptr;
     iTargetMaterial* _blue = nullptr;
     iTargetMaterial*_cyan = nullptr;
-
-    iaMatrixd _modifierMatrix;
 
     uint64 _material = iMaterial::INVALID_MATERIAL_ID;
 
@@ -116,6 +142,14 @@ private:
     shared_ptr<iMesh> createScaleMesh();
     shared_ptr<iMesh> createRingMesh();
     shared_ptr<iMesh> create2DRingMesh();
+
+    void translate(const iaVector3d& vec, iaMatrixd& matrix);
+    void scale(const iaVector3d& vec, iaMatrixd& matrix);
+    void rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matrix);
+
+    void render();
+
+    void highlightSelected();
 
     void createLocatorModifier(shared_ptr<iMesh> &locatorMesh);
     void createTranslateModifier(shared_ptr<iMesh> &translateMesh);

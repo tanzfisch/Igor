@@ -806,19 +806,17 @@ namespace Igor
 
     void iRenderer::setColorID(uint64 colorID)
     {
-        if (_currentMaterial->_hasSolidColor)
+        if (_currentMaterial->_hasSolidColor &&
+            _currentMaterial->getShader() != nullptr)
         {
-            if (_currentMaterial->getShader() != nullptr)
-            {
-                uint32 program = _currentMaterial->getShader()->getProgram();
-                float32 color[4];
-                color[0] = static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0;
-                color[1] = static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0;
-                color[2] = static_cast<float32>(static_cast<uint8>(colorID)) / 255.0;
-                color[3] = 1.0f;
+            uint32 program = _currentMaterial->getShader()->getProgram();
+            float32 color[4];
+            color[0] = static_cast<float32>(static_cast<uint8>(colorID >> 16)) / 255.0;
+            color[1] = static_cast<float32>(static_cast<uint8>(colorID >> 8)) / 255.0;
+            color[2] = static_cast<float32>(static_cast<uint8>(colorID)) / 255.0;
+            color[3] = 1.0f;
 
-                glUniform4fv(glGetUniformLocation(program, iMaterial::UNIFORM_SOLIDCOLOR), 1, static_cast<GLfloat*>(color)); GL_CHECK_ERROR();
-            }
+            glUniform4fv(_currentMaterial->_matSolidColor, 1, static_cast<GLfloat*>(color)); GL_CHECK_ERROR();
         }
     }
 
@@ -1221,7 +1219,7 @@ namespace Igor
 
     void iRenderer::createBuffers(float64 timeLimit)
     {
-        float64 endTime = iTimer::getInstance().getTime() + timeLimit;
+        float64 endTime = iTimer::getInstance().getApplicationTime() + timeLimit;
         deque<pair<shared_ptr<iMesh>, shared_ptr<iMeshBuffers>>>::iterator entryIter;
 
         shared_ptr<iMesh> mesh;
@@ -1251,7 +1249,7 @@ namespace Igor
                 break;
             }
 
-            if (iTimer::getInstance().getTime() > endTime)
+            if (iTimer::getInstance().getApplicationTime() > endTime)
             {
                 break;
             }
@@ -1907,6 +1905,23 @@ namespace Igor
         _renderedVertices += particles.size() * 4;
         _renderedIndexes += particles.size() * 4;
         _renderedTriangles += particles.size() * 2;
+    }
+
+    iaVector3d iRenderer::project(const iaVector3d& objectSpacePos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)
+    {
+        iaVector4d in(objectSpacePos._x, objectSpacePos._y, objectSpacePos._z, 1);
+        iaVector4d out;
+        iaVector3d result;
+
+        iaMatrixd modelViewProjection = projection;
+        modelViewProjection *= modelview;
+        out = modelViewProjection * in;
+
+        result._x = (float64)viewport.getWidth() * (out._vec._x + 1.0) / 2.0;
+        result._y = (float64)viewport.getHeight() * (1.0 - ((out._vec._y + 1.0) / 2.0));
+        result._z = out._vec._z;
+
+        return result;
     }
 
     iaVector3d iRenderer::unProject(const iaVector3d& screenpos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)

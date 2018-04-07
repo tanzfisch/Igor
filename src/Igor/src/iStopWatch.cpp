@@ -14,13 +14,13 @@ namespace Igor
 
 	void iStopWatch::start()
 	{
-		_startTime = iTimer::getInstance().getTime();
+		_startTime = iTimer::getInstance().getApplicationTime();
         _running = true;
 	}
 
 	void iStopWatch::stop()
 	{
-		_stopTime = iTimer::getInstance().getTime();
+		_stopTime = iTimer::getInstance().getApplicationTime();
         _running = false;
 	}
 
@@ -44,7 +44,7 @@ namespace Igor
 
     float64 iStopWatch::getCurrentMilliSeconds()
     {
-        float64 stopTime = iTimer::getInstance().getTime();
+        float64 stopTime = iTimer::getInstance().getApplicationTime();
 #ifdef __IGOR_DEBUG__
         _lastMeasuredDelta = stopTime - _startTime;
 #endif
@@ -53,7 +53,7 @@ namespace Igor
 
     float64 iStopWatch::getCurrentSeconds()
     {
-        float64 stopTime = iTimer::getInstance().getTime();
+        float64 stopTime = iTimer::getInstance().getApplicationTime();
 #ifdef __IGOR_DEBUG__
         _lastMeasuredDelta = stopTime - _startTime;
 #endif

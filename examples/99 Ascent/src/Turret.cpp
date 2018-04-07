@@ -37,7 +37,7 @@ Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 
     _parentNodeID = parent->getID();
     parent->insertNode(turret);
 
-    _time = iTimer::getInstance().getTime();
+    _time = iTimer::getInstance().getApplicationTime();
 }
 
 void Turret::onModelReady(uint64 modelNodeID)
@@ -167,7 +167,7 @@ void Turret::handle()
                         distanceToWall > distance &&
                         distance < fireDistance)
                     {
-                        if (_time + 1000 < iTimer::getInstance().getTime())
+                        if (_time + 1000 < iTimer::getInstance().getApplicationTime())
                         {
                             iaMatrixd matrixOrientation;
                             matrixOrientation._depth = dir;
@@ -184,7 +184,7 @@ void Turret::handle()
                             matrixOrientation._pos -= matrixOrientation._depth * 2.0;
 
                             Bullet* bullet = new Bullet(_scene, iaVector3d(), matrixOrientation, getFraction());
-                            _time = iTimer::getInstance().getTime();
+                            _time = iTimer::getInstance().getApplicationTime();
 
                             fired = true;
                         }

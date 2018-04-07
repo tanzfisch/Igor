@@ -178,15 +178,9 @@ T iaVector2<T>::angle(iaVector2<T> &vec) const
 }
 
 template <class T>
-T iaVector2<T>::angleX() const
+T iaVector2<T>::angle() const
 {
-    return (T)acos(_x / length());
-}
-
-template <class T>
-T iaVector2<T>::angleY() const
-{
-    return (T)acos(_y / length());
+    return (T)std::atan2(_x ,_y);
 }
 
 template <class T>

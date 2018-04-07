@@ -74,17 +74,9 @@ namespace Testigor
 		TEST_METHOD(Vector2dAngleX)
 		{
 			iaVector2d vec(0.0,1.0);
-			float64 angle = vec.angleX();
+			float64 angle = vec.angle();
 
             Assert::AreEqual(angle, static_cast<float64>(M_PI) * 0.5);
-		}
-
-		TEST_METHOD(Vector2dAngleY)
-		{
-			iaVector2d vec(-1.0,0.0);
-			float64 angle = vec.angleY();
-
-            Assert::AreEqual(angle, static_cast<float64>(M_PI)* 0.5);
 		}
 
 		TEST_METHOD(Vector2dAngle)

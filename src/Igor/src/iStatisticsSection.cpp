@@ -25,12 +25,12 @@ namespace Igor
     
     void iStatisticsSection::beginSection()
     {
-        _beginTime = iTimer::getInstance().getTime();
+        _beginTime = iTimer::getInstance().getApplicationTime();
     }
 
     void iStatisticsSection::endSection()
     {
-        _values[_currentFrame] += (iTimer::getInstance().getTime() - _beginTime);
+        _values[_currentFrame] += (iTimer::getInstance().getApplicationTime() - _beginTime);
     }
 
     const iaString& iStatisticsSection::getName()

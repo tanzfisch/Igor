@@ -5,6 +5,7 @@
 #include <IgorAux.h>
 
 #include <iaClock.h>
+#include <iaConsole.h>
 
 #ifdef __IGOR_WIN__
     #ifdef __IGOR_MSCOMPILER__

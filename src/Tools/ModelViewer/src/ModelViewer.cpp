@@ -82,12 +82,6 @@ void ModelViewer::init(iaString fileName)
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
 
-    _viewManipulator.setClearColor(false);
-    _viewManipulator.setClearDepth(true);
-    _viewManipulator.setPerspective(45.0f);
-    _viewManipulator.setClipPlanes(0.1f, 10000.f);
-    _window.addView(&_viewManipulator);
-
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
@@ -101,10 +95,6 @@ void ModelViewer::init(iaString fileName)
     _scene->setName("Model Scene");
     _view.setScene(_scene);
 
-    _sceneManipulator = iSceneFactory::getInstance().createScene();
-    _sceneManipulator->setName("Modifier Scene");
-    _viewManipulator.setScene(_sceneManipulator);
-
     _transformModel = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _transformModel->setName("model transform");
     _scene->getRoot()->insertNode(_transformModel);
@@ -114,7 +104,7 @@ void ModelViewer::init(iaString fileName)
     _transformModel->insertNode(_groupNode);
 
     // modifier
-    _manipulator = new Manipulator(_sceneManipulator->getRoot());
+    _manipulator = new Manipulator(&_window);
 
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -136,27 +126,6 @@ void ModelViewer::init(iaString fileName)
     _view.setCurrentCamera(_camera->getID());
 
     _cameraTranslation->translate(0, 0, 80);
-
-    // camUI
-    _cameraCOIUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraCOIUI->setName("camera COI UI");
-    _cameraHeadingUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraHeadingUI->setName("camera heading UI");
-    _cameraPitchUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraPitchUI->setName("camera pitch UI");
-    _cameraTranslationUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _cameraTranslationUI->setName("camera translation UI");
-    _cameraUI = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
-    _cameraUI->setName("camera UI");
-
-    _sceneManipulator->getRoot()->insertNode(_cameraCOIUI);
-    _cameraCOIUI->insertNode(_cameraHeadingUI);
-    _cameraHeadingUI->insertNode(_cameraPitchUI);
-    _cameraPitchUI->insertNode(_cameraTranslationUI);
-    _cameraTranslationUI->insertNode(_cameraUI);
-    _viewManipulator.setCurrentCamera(_cameraUI->getID());
-
-    _cameraTranslationUI->translate(0, 0, 80);
 
     // default sky box
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
@@ -180,10 +149,7 @@ void ModelViewer::init(iaString fileName)
 
     _font = new iTextureFont("StandardFont.png");
 
-    // create material for manipulators
-    _materialManipulator = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialManipulator)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-
+    // create materials
     _materialBoundingBox = iMaterialResourceFactory::getInstance().createMaterial();
 
     _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial();
@@ -247,8 +213,14 @@ void ModelViewer::init(iaString fileName)
     }
 
     _menuDialog->refreshView();
+    resetManipulatorMode();
 
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
+}
+
+void ModelViewer::resetManipulatorMode()
+{
+    setManipulatorMode(ManipulatorMode::Locator);
 }
 
 void ModelViewer::deinit()
@@ -406,7 +378,8 @@ void ModelViewer::centerCamOnNode(iNode* node)
         iaMatrixd coiMatrix;
         coiMatrix._pos = sphere._center;
         _cameraCOI->setMatrix(coiMatrix);
-        _cameraCOIUI->setMatrix(coiMatrix);
+        _manipulator->setCamCOI(coiMatrix);
+
         if (sphere._radius > 0.0f)
         {
             _camDistance = sphere._radius * 4.0f;
@@ -573,7 +546,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         {
             _groupNode->insertNode(model);
         }
-        
+
         selectNode = model;
     }
 
@@ -712,43 +685,31 @@ void ModelViewer::initGUI()
 void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
 {
     _selectedNodeID = nodeID;
+    _manipulator->setNodeID(_selectedNodeID);
+    resetManipulatorMode();
 }
 
-void ModelViewer::updateManipulator()
+void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
-    updateCamDistanceTransform();
-
     iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
     if (node != nullptr)
     {
-        if (node->getKind() == iNodeKind::Renderable ||
-            node->getKind() == iNodeKind::Volume)
+        if (node->getKind() == iNodeKind::Transformation)
         {
-            iNodeRender* renderNode = static_cast<iNodeRender*>(node);
-            iaMatrixd matrix = renderNode->getWorldMatrix();
-            _manipulator->setMatrix(matrix);
-
             _manipulator->setVisible(true);
-        }
-        else if (node->getKind() == iNodeKind::Transformation)
-        {
-            iNodeTransform* transform = static_cast<iNodeTransform*>(node);
-            iaMatrixd matrix;
-            transform->calcWorldTransformation(matrix);
-
-            _manipulator->setMatrix(matrix);
-
-            _manipulator->setVisible(true);
+            _manipulator->setManipulatorMode(manipulatorMode);
         }
         else
         {
-            _manipulator->setVisible(false);
+            _manipulator->setVisible(true);
+            _manipulator->setManipulatorMode(ManipulatorMode::Locator);
         }
     }
     else
     {
         _manipulator->setVisible(false);
+        _manipulator->setManipulatorMode(ManipulatorMode::Locator);
     }
 }
 
@@ -816,16 +777,23 @@ void ModelViewer::updateCamDistanceTransform()
 {
     _cameraTranslation->identity();
     _cameraTranslation->translate(0, 0, _camDistance);
-    _cameraTranslationUI->identity();
-    _cameraTranslationUI->translate(0, 0, _camDistance);
 
     iaMatrixd matrix;
-    _cameraUI->calcWorldTransformation(matrix);
-    _manipulator->updateCamMatrix(matrix);
+    matrix.translate(0, 0, _camDistance);
+    _manipulator->setCamTranslate(matrix);
 }
 
 void ModelViewer::onMouseKeyDown(iKeyCode key)
 {
+    switch (key)
+    {
+    case iKeyCode::MouseLeft:
+        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+        {
+            _manipulator->onMouseKeyDown(key);
+        }
+        break;
+    }
 }
 
 void ModelViewer::pickcolorID()
@@ -844,10 +812,15 @@ void ModelViewer::onMouseKeyUp(iKeyCode key)
     switch (key)
     {
     case iKeyCode::MouseLeft:
-        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+
+        if (!iKeyboard::getInstance().getKey(iKeyCode::LAlt) &&
+            !_manipulator->isSelected())
         {
             pickcolorID();
+            resetManipulatorMode();
         }
+
+        _manipulator->onMouseKeyUp(key);
         break;
     }
 }
@@ -864,21 +837,28 @@ void ModelViewer::onMouseWheel(int32 d)
     }
 }
 
-void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
 {
     const float32 rotateSensitivity = 0.0075f;
 
-    if (iMouse::getInstance().getLeftButton() &&
-        iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+    if (iMouse::getInstance().getLeftButton())
     {
-        _cameraPitch->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
-        _cameraHeading->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
-        _cameraPitchUI->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
-        _cameraHeadingUI->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+        if (iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+        {
+            _cameraPitch->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
+            _cameraHeading->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
 
-        iaMatrixd matrix;
-        _cameraUI->calcWorldTransformation(matrix);
-        _manipulator->updateCamMatrix(matrix);
+            iaMatrixd matrix;
+            _cameraPitch->getMatrix(matrix);
+            _manipulator->setCamPitch(matrix);
+
+            _cameraHeading->getMatrix(matrix);
+            _manipulator->setCamHeading(matrix);
+        }
+        else
+        {
+            _manipulator->onMouseMoved(x1, y1, x2, y2, window);
+        }
     }
 
     if (iMouse::getInstance().getRightButton())
@@ -933,19 +913,19 @@ void ModelViewer::onKeyPressed(iKeyCode key)
         break;
 
     case iKeyCode::Q:
-        _manipulator->setModifierMode(ModifierMode::Locator);
+        setManipulatorMode(ManipulatorMode::Locator);
         break;
 
     case iKeyCode::W:
-        _manipulator->setModifierMode(ModifierMode::Translate);
+        setManipulatorMode(ManipulatorMode::Translate);
         break;
 
     case iKeyCode::E:
-        _manipulator->setModifierMode(ModifierMode::Rotate);
+        setManipulatorMode(ManipulatorMode::Rotate);
         break;
 
     case iKeyCode::R:
-        _manipulator->setModifierMode(ModifierMode::Scale);
+        setManipulatorMode(ManipulatorMode::Scale);
         break;
 
 
@@ -963,13 +943,11 @@ void ModelViewer::handle()
     _scene->handle();
 }
 
-void ModelViewer::render()
+void ModelViewer::renderNodeSelected(uint64 nodeID)
 {
-    updateManipulator();
-
-    if (_selectedNodeID != iNode::INVALID_NODE_ID)
+    if (nodeID != iNode::INVALID_NODE_ID)
     {
-        iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+        iNode* node = iNodeFactory::getInstance().getNode(nodeID);
 
         if (node->getKind() == iNodeKind::Renderable ||
             node->getKind() == iNodeKind::Volume)
@@ -1002,6 +980,12 @@ void ModelViewer::render()
             }
         }
     }
+}
+
+void ModelViewer::render()
+{
+    updateCamDistanceTransform();
+    renderNodeSelected(_selectedNodeID);
 }
 
 void ModelViewer::renderOrtho()

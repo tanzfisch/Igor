@@ -53,27 +53,19 @@ namespace Igor
 
     public:
 
-        /*! Absolute current time in milliseconds since operating system start.
-
-        This is the one you need if you want to meashure time independent from anything.
+        /*! Absolute time in milliseconds since application start.
 
         \returns time in milliseconds
         */
-        float64 getTime() const;
+        float64 getApplicationTime() const;
 
-		/*! time since timer was initialized
-
-		\returns relative time in milliseconds since the timer was started or first time used
-		*/
-		float64 getTimerTime() const;
-
-        /*! Absolute handle time in ms since program start
+        /*! Absolute handle time in ms since last frame / handle call
 
         This is basically the time from program start to last handle call (right after last render frame)
         */
         float64 getMilliSeconds() const;
 
-        /*! Absolute handle time in s since program start
+        /*! Absolute handle time in s since last frame / handle call
 
         This is basically the time from program start to last handle call (right after last render frame)
         */

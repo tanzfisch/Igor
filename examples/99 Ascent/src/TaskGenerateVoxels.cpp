@@ -37,7 +37,7 @@ void TaskGenerateVoxels::prepareLevel(iaVector3I playerStartPos)
     if (_seed == 0)
     {
         // todo use igor random number generator
-        int32 seed = iTimer::getInstance().getTime();
+        int32 seed = iTimer::getInstance().getApplicationTime();
         srand(seed);
 
         // covering the boss

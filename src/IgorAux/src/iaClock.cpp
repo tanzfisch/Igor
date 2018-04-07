@@ -7,4 +7,6 @@
 namespace IgorAux
 {
 	float64 iaClock::m_tickScale = 0;
+
+    uint64 iaClock::m_startTicks = 0;
 }
