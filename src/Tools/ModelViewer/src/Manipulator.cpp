@@ -376,13 +376,21 @@ void Manipulator::update()
     _rootTransform->setMatrix(locatorMatrix);
     _rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
 
+    // compensate for parent transforms
+    iaMatrixd parentMatrix;
+    _rotateBillboardTransform->getParent()->calcWorldTransformation(parentMatrix);
+    parentMatrix.invert();
+    parentMatrix._right.normalize();
+    parentMatrix._top.normalize();
+    parentMatrix._depth.normalize();
+
     _rotateBillboardTransform->identity();
     iaMatrixd matrix;
     _rotateBillboardTransform->getMatrix(matrix);
     matrix._right = camMatrix._right;
     matrix._top = camMatrix._top;
     matrix._depth = camMatrix._depth;
-    _rotateBillboardTransform->setMatrix(matrix);
+    _rotateBillboardTransform->setMatrix(parentMatrix * matrix);
     _rotateBillboardTransform->rotate(M_PI * 0.5, iaAxis::X);
     _rotateBillboardTransform->scale(2.1, 2.1, 2.1);
 
@@ -596,18 +604,42 @@ void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matr
     iaVector2d a = from - center2D;
     iaVector2d b = to - center2D;
 
-    float64 angle = a.angle() - b.angle();
+    float64 angle = b.angle() - a.angle();
 
     for (int i = 0; i < 3; ++i)
     {
         if (_selectedLocatorNodeID == _rotateIDs[i])
         {
+            iaAxis axis = static_cast<iaAxis>(i);
+            float64 scalar = 0;
+
+            iaVector3d toCam = camWorldMatrix._pos - matrix._pos; 
+
+            switch (axis)
+            {
+            case iaAxis::X:
+                scalar = toCam * matrix._right;
+                break;
+            case iaAxis::Y:
+                scalar = toCam * matrix._top;
+                break;
+            case iaAxis::Z:
+                scalar = toCam * matrix._depth;
+                break;
+            }
+
+            if (scalar < 0)
+            {
+                angle = -angle;
+            }
+
             matrix.rotate(angle, static_cast<iaAxis>(i));
             return;
         }
     }
 }
 
+// TODO cleanup rotate, scale, translate
 void Manipulator::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
 {
     if (_selectedLocatorNodeID != iNode::INVALID_NODE_ID)
