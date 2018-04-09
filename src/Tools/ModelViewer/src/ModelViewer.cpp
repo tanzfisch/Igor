@@ -86,7 +86,7 @@ void ModelViewer::init(iaString fileName)
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
-    _window.addView(&_viewOrtho);
+    _window.addView(&_viewOrtho, 10);
 
     _window.setDoubleClick(true);
     _window.open(); // open after adding views to prevent warning message

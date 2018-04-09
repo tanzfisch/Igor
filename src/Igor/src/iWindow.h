@@ -33,13 +33,12 @@
 
 #include <iDefines.h>
 
-#include <iaFlushVector.h>
 #include <iaEvent.h>
 #include <iaString.h>
 #include <iaMutex.h>
 using namespace IgorAux;
 
-#include <list>
+#include <vector>
 using namespace std;
 
 namespace Igor
@@ -57,8 +56,7 @@ namespace Igor
     
     /*! application window
 
-	\todo currently Igor only fully supports one window. 
-	\todo add some events like closing window, move window etc.
+	\todo currently Igor only fully supports one window
 	*/
 	class Igor_API iWindow
 	{
@@ -193,7 +191,7 @@ namespace Igor
         \param view the view to be added
         \todo would be nice to manipulate the order of views beeing added
         */
-        void addView(iView* view);
+        void addView(iView* view, int32 zIndex = 0);
 
         /*! removes view from the window
 
@@ -240,16 +238,14 @@ namespace Igor
         WindowResizeEvent _windowResizeEvent;
 
 		/*! list of windows
-
-		\todo why is this a flush list again?
 		*/
-        iaFlushVector<iView*> _views;
+        vector<iView*> _views;
 						
 		/*! list of registeres os event listeners
 
 		currently all devices are singletons so all listeners will be added automatically
 		*/
-		list<iOSEventListener*> _oseventlisteners;
+		vector<iOSEventListener*> _oseventlisteners;
 
 		/*! width of the render area in pixel
 		*/

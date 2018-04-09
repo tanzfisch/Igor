@@ -46,14 +46,14 @@ namespace Igor
 {
 
     class iWindow;
-	class iPixmap;
+    class iPixmap;
     class iScene;
     class iNodeCamera;
     class iOctreeObject;
 
     /*! render event triggered for every frame a view is rendered
     */
-	iaEVENT(RenderEvent, RenderDelegate, void, (), ());
+    iaEVENT(RenderEvent, RenderDelegate, void, (), ());
 
     /*! represents a view rectangle within a window and projection of the scene
 
@@ -62,9 +62,9 @@ namespace Igor
     \todo would be nice to have that again -> iPixmap* makeScreenshot(bool alphachannel=false);
     \todo pre and post render event
     */
-	class Igor_API iView
-	{
-		friend class iWindow;
+    class Igor_API iView
+    {
+        friend class iWindow;
 
     public:
 
@@ -231,7 +231,7 @@ namespace Igor
 
         \param objectSpacePos the object position
         \param modelMatrix the model matrix to use
-        \returns projected screen position 
+        \returns projected screen position
         */
         iaVector3d project(const iaVector3d& objectSpacePos, const iaMatrixd& modelMatrix);
 
@@ -249,6 +249,10 @@ namespace Igor
         */
         void pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs);
 
+        /*! \returns the z index of this view
+        */
+        int32 getZIndex() const;
+
         /*! init statistics counters
         */
         iView();
@@ -257,12 +261,16 @@ namespace Igor
         */
         virtual ~iView();
 
-	private:
+    private:
+
+        /*! z index
+        */
+        int32 _zIndex = 0;
 
         /*! id for statistics counter section user draw calls
         */
         uint32 _userDrawSectionID = 0;
-        
+
         /*! visible flag
         */
         bool _visible = true;
@@ -289,7 +297,7 @@ namespace Igor
 
         /*! if true the color buffer will be cleared with _clearColor before every frame
         */
-		bool _clearColorActive = true;
+        bool _clearColorActive = true;
 
         /*! the color definition of the clear color step
         */
@@ -301,16 +309,16 @@ namespace Igor
 
         /*! clear depth value
         */
-		float32 _clearDepth = 1.0;
+        float32 _clearDepth = 1.0;
 
-        /*! if true rendering will use a perspective projection. 
+        /*! if true rendering will use a perspective projection.
         if false rendering will use a orthogonal projection
         */
-		bool _perspective = true;
+        bool _perspective = true;
 
         /*! left value used for orthogonal projection
         */
-		float32 _left = -1.0f;
+        float32 _left = -1.0f;
 
         /*! right value used for orthogonal projection
         */
@@ -318,12 +326,12 @@ namespace Igor
 
         /*! top value used for orthogonal projection
         */
-		float32 _top = 1.0f;
+        float32 _top = 1.0f;
 
         /*! bottom value used for orthogonal projection
         */
         float32 _bottom = -1.0f;
-		
+
         /*! field of view
         */
         float32 _viewAngel = 45.0f;
@@ -338,11 +346,17 @@ namespace Igor
 
         /*! event called one per render frame
         */
-		RenderEvent _renderEvent;
+        RenderEvent _renderEvent;
 
         /*! render engine that turns a scene in to something visible
         */
         iRenderEngine _renderEngine;
+
+        /*! sets the z index of this view. will be used by window to determine the render order
+
+        \param zindex the z index to be set
+        */
+        void setZIndex(int32 zindex);
 
         /*! called every render frame by the parenting window
         */
@@ -354,7 +368,7 @@ namespace Igor
         */
         void updateWindowRect(const iRectanglei& windowRect);
 
-	};
+    };
 
 };
 
