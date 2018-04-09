@@ -33,8 +33,10 @@
 
 #include <iaEvent.h>
 #include <iaSingleton.h>
-#include <iaFlushVector.h>
 using namespace IgorAux;
+
+#include <vector>
+using namespace std;
 
 namespace Igor
 {
@@ -135,7 +137,7 @@ namespace Igor
 		
 		/*! list of windows registered to the application
 		*/
-        iaFlushVector<iWindow*> _windows;
+        vector<iWindow*> _windows;
 
 		/*! handle event called before rendering
 		*/

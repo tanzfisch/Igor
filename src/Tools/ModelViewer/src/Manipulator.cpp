@@ -35,6 +35,7 @@ void Manipulator::init()
     _viewManipulator.setPerspective(45.0f);
     _viewManipulator.setClipPlanes(0.1f, 10000.f);
     _viewManipulator.registerRenderDelegate(RenderDelegate(this, &Manipulator::render));
+    _viewManipulator.setZIndex(1);
     _window->addView(&_viewManipulator);
 
     _scene = iSceneFactory::getInstance().createScene();

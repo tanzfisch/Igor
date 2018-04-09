@@ -28,9 +28,7 @@ namespace Igor
     {
         deinitStatistics();
 
-        _windows.flush();
-
-        if (_windows.getList().size())
+        if (!_windows.empty())
         {
             con_warn("close windows before shutdown");
         }
@@ -60,7 +58,7 @@ namespace Igor
 
         iStatistics::getInstance().beginSection(_handleSectionID);
         iTimer::getInstance().handle();
-        _windows.flush();
+
         iNodeFactory::getInstance().handle();
         iStatistics::getInstance().endSection(_handleSectionID);
 
@@ -119,7 +117,7 @@ namespace Igor
 
     void iApplication::draw()
     {      
-        for (auto window : _windows.getList())
+        for (auto window : _windows)
         {
             if (window->isOpen())
             {
@@ -130,7 +128,7 @@ namespace Igor
 
     void iApplication::windowHandle()
     {      
-        for (auto window : _windows.getList())
+        for (auto window : _windows)
         {
             if (window->isOpen())
             {
@@ -141,12 +139,17 @@ namespace Igor
 
     void iApplication::addWindow(iWindow* window)
     {
-        _windows.add(window);
+        _windows.push_back(window);
     }
 
     void iApplication::removeWindow(iWindow* window)
     {
-        _windows.remove(window);
+        auto iter = find(_windows.begin(), _windows.end(), window);
+
+        if (iter != _windows.end())
+        {
+            _windows.erase(iter);
+        }
     }
 
     void iApplication::registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate handleDelegate)

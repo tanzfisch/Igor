@@ -112,7 +112,7 @@ namespace Igor
         {
             _windowClass.style = CS_HREDRAW | CS_VREDRAW | CS_OWNDC;
         }
-        
+
         _windowClass.lpfnWndProc = (WNDPROC)WndProc;
         _windowClass.cbClsExtra = 0;
         _windowClass.cbWndExtra = 0;
@@ -172,7 +172,7 @@ namespace Igor
         result = wglMakeCurrent(_hDC, renderContext);
         _wglMutex.unlock();
 
-        if(!result)
+        if (!result)
         {
             con_err_win("can't make render context current");
         }
@@ -188,7 +188,7 @@ namespace Igor
         result = wglDeleteContext(renderContext);
         _wglMutex.unlock();
 
-        if(!result)
+        if (!result)
         {
             con_err_win("can't delete render context");
         }
@@ -234,8 +234,7 @@ namespace Igor
             close();
         }
 
-        _views.flush();
-        if (_views.getList().size())
+        if (!_views.empty())
         {
             con_err("still views registered to this window");
         }
@@ -352,7 +351,7 @@ namespace Igor
             0, 0, 0										// Layer Masks Ignored
         };
 
-		_hDC = GetDC(_hWnd);
+        _hDC = GetDC(_hWnd);
         if (_hDC == nullptr)
         {
             con_err("can't create Device Context");
@@ -399,7 +398,7 @@ namespace Igor
 
         _isOpen = true;
         iRenderer::getInstance().init();
-        
+
         SwapBuffers(_hDC);
 
         return true;
@@ -413,8 +412,7 @@ namespace Igor
             return false;
         }
 
-        _views.flush();
-        if (_views.getList().size() == 0)
+        if (_views.empty())
         {
             // we do this warning here for quick response on a black screen because no view was added to the window
             con_warn("opened window without views");
@@ -562,18 +560,26 @@ namespace Igor
     {
         con_assert_sticky(view != nullptr, "zero pointer");
 
-        _views.add(view);
+        _views.push_back(view);
         iRectanglei windowRect;
         windowRect.setWidth(_clientWidth);
         windowRect.setHeight(_clientHeight);
         view->updateWindowRect(windowRect);
+
+        _dirtyViewsOrder = true;
     }
 
     void iWindow::removeView(iView* view)
     {
-        con_assert_sticky(view != nullptr, "zero pointer");
-
-        _views.remove(view);
+        auto iter = find(_views.begin(), _views.end(), view);
+        if (iter != _views.end())
+        {
+            _views.erase(iter);
+        }
+        else
+        {
+            con_warn("view was not registered to window");
+        }
     }
 
     bool iWindow::isOpen() const
@@ -636,7 +642,7 @@ namespace Igor
         windowRect.setWidth(_clientWidth);
         windowRect.setHeight(_clientHeight);
 
-        for (iView* view : _views.getList())
+        for (auto view : _views)
         {
             view->updateWindowRect(windowRect);
         }
@@ -720,15 +726,20 @@ namespace Igor
 
     void iWindow::draw()
     {
-        _views.flush();
-        auto view = _views.getList().begin();
-        while (view != _views.getList().end())
+        if (_dirtyViewsOrder)
         {
-            iRectanglei windowRect;
-            windowRect.setWidth(_clientWidth);
-            windowRect.setHeight(_clientHeight);
-            (*view)->draw();
-            view++;
+            sort(_views.begin(), _views.end(),
+                [](const iView* a, const iView* b) -> bool
+            {
+                return a->getZIndex() < b->getZIndex();
+            });
+
+            _dirtyViewsOrder = false;
+        }
+
+        for (auto view : _views)
+        {
+            view->draw();
         }
 
         iStatistics::getInstance().beginSection(_swapBufferSectionID);

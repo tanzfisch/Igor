@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="..\src\stdafx.cpp" />
     <ClCompile Include="..\src\UnitTest_iaString.cpp" />
-    <ClCompile Include="..\src\UnitTest_iFlushList.cpp" />
     <ClCompile Include="..\src\UnitTest_iVector2d.cpp" />
     <ClCompile Include="..\src\UnitTest_iVector2f.cpp" />
     <ClCompile Include="..\src\UnitTest_iVector2i.cpp" />

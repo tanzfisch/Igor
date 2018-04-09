@@ -80,12 +80,14 @@ void ModelViewer::init(iaString fileName)
     _view.setPerspective(45.0f);
     _view.setClipPlanes(0.1f, 10000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
+    _view.setZIndex(0);
     _window.addView(&_view);
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ModelViewer::renderOrtho));
+    _viewOrtho.setZIndex(10);
     _window.addView(&_viewOrtho);
 
     _window.setDoubleClick(true);

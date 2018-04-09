@@ -41,6 +41,16 @@ namespace Igor
         }
     }
 
+    void iView::setZIndex(int32 zindex)
+    {
+        _zIndex = zindex;
+    }
+
+    int32 iView::getZIndex() const
+    {
+        return _zIndex;
+    }
+
     void iView::setVisible(bool visible)
     {
         _visible = visible;
@@ -210,7 +220,7 @@ namespace Igor
     uint64 iView::pickcolorID(uint32 posx, uint32 posy)
     {
         vector<uint64> colorIDs;
-        
+
         pickcolorID(iRectanglei(posx, posy, 1, 1), colorIDs);
 
         return colorIDs.front();
@@ -265,7 +275,7 @@ namespace Igor
             {
                 uint64 colorID = (static_cast<uint64>(dataIter[0]) << 16) | (static_cast<uint64>(dataIter[1]) << 8) | (static_cast<uint64>(dataIter[2]));
                 colorIDs.push_back(colorID);
-                dataIter+=4;
+                dataIter += 4;
             }
 
             delete[] data;
