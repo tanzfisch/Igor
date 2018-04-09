@@ -191,7 +191,7 @@ namespace Igor
         \param view the view to be added
         \todo would be nice to manipulate the order of views beeing added
         */
-        void addView(iView* view);
+        void addView(iView* view, int32 zIndex = 0);
 
         /*! removes view from the window
 
@@ -240,10 +240,6 @@ namespace Igor
 		/*! list of windows
 		*/
         vector<iView*> _views;
-
-        /*! if true view zindex has changed and needs to be sorted
-        */
-        bool _dirtyViewsOrder = true;
 						
 		/*! list of registeres os event listeners
 

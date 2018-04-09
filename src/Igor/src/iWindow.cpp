@@ -556,7 +556,7 @@ namespace Igor
         //! \todo not implemented
     }
 
-    void iWindow::addView(iView* view)
+    void iWindow::addView(iView* view, int32 zIndex)
     {
         con_assert_sticky(view != nullptr, "zero pointer");
 
@@ -565,8 +565,12 @@ namespace Igor
         windowRect.setWidth(_clientWidth);
         windowRect.setHeight(_clientHeight);
         view->updateWindowRect(windowRect);
+        view->setZIndex(zIndex);
 
-        _dirtyViewsOrder = true;
+        sort(_views.begin(), _views.end(), [](const iView* a, const iView* b) -> bool
+        {
+            return a->getZIndex() < b->getZIndex();
+        });
     }
 
     void iWindow::removeView(iView* view)
@@ -726,17 +730,6 @@ namespace Igor
 
     void iWindow::draw()
     {
-        if (_dirtyViewsOrder)
-        {
-            sort(_views.begin(), _views.end(),
-                [](const iView* a, const iView* b) -> bool
-            {
-                return a->getZIndex() < b->getZIndex();
-            });
-
-            _dirtyViewsOrder = false;
-        }
-
         for (auto view : _views)
         {
             view->draw();

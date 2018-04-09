@@ -249,13 +249,6 @@ namespace Igor
         */
         void pickcolorID(const iRectanglei& rectangle, vector<uint64>& colorIDs);
 
-        /*! sets the z index of this view. will be used by window to determine the render order
-
-        \param zindex the z index to be set
-        \todo currently only respected when added to a window
-        */
-        void setZIndex(int32 zindex);
-
         /*! \returns the z index of this view
         */
         int32 getZIndex() const;
@@ -358,6 +351,12 @@ namespace Igor
         /*! render engine that turns a scene in to something visible
         */
         iRenderEngine _renderEngine;
+
+        /*! sets the z index of this view. will be used by window to determine the render order
+
+        \param zindex the z index to be set
+        */
+        void setZIndex(int32 zindex);
 
         /*! called every render frame by the parenting window
         */
