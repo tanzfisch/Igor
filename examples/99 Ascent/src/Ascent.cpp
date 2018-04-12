@@ -166,7 +166,7 @@ void Ascent::initPlayer()
 {
     iaMatrixd matrix;
     matrix.translate(10000, 9400, 10000 - 100);
-    Player* player = new Player(_scene, matrix);
+    Player* player = new Player(_scene, &_view, matrix);
     _playerID = player->getID();
 
     iaMatrixd enemyMatrix;

@@ -27,7 +27,7 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
     setDamage(0.0);
     setShieldDamage(0.0);
     
-    iNodeModel* particleSystem1 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+  /*  iNodeModel* particleSystem1 = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
     _muzzleFlashModelID = particleSystem1->getID();
     particleSystem1->setModel("MuzzleFlash.ompf");
     particleSystem1->registerModelReadyDelegate(iModelReadyDelegate(this, &MuzzleFlash::onMuzzleFlashLoaded));
@@ -37,7 +37,7 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
     _muzzleSmokeModelID = particleSystem2->getID();
     particleSystem2->setModel("MuzzleSmoke.ompf");
     particleSystem2->registerModelReadyDelegate(iModelReadyDelegate(this, &MuzzleFlash::onMuzzleSmokeLoaded));
-    scene->getRoot()->insertNode(particleSystem2);
+    scene->getRoot()->insertNode(particleSystem2);*/
 
     iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
@@ -50,8 +50,8 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
 
 MuzzleFlash::~MuzzleFlash()
 {
-    iNodeFactory::getInstance().destroyNodeAsync(_muzzleFlashModelID);
-    iNodeFactory::getInstance().destroyNodeAsync(_muzzleSmokeModelID);
+   /* iNodeFactory::getInstance().destroyNodeAsync(_muzzleFlashModelID);
+    iNodeFactory::getInstance().destroyNodeAsync(_muzzleSmokeModelID);*/
 }
 
 void MuzzleFlash::onMuzzleFlashLoaded(uint64 nodeID)

@@ -129,7 +129,7 @@ namespace Igor
 		return 0;
 	}
 
-	iNode* iNode::getChild(iaString name)
+	iNode* iNode::getChild(const iaString& name)
 	{
 		auto iter = _children.begin();
 		while (iter != _children.end())
