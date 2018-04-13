@@ -1,6 +1,7 @@
 #include "PhysicsExample.h"
 
 #include <iaConsole.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
 
 #include <iMaterial.h>
@@ -40,76 +41,41 @@ PhysicsExample::~PhysicsExample()
     deinit();
 }
 
-void PhysicsExample::deinit()
-{
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::onRenderOrtho));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::onHandle));
-
-    // free some resources
-    _igorLogo = nullptr;
-
-    if (_font)
-    {
-        delete _font;
-        _font = nullptr;
-    }
-
-    iSceneFactory::getInstance().destroyScene(_scene);
-
-    for (auto bodyID : _bodyIDs)
-    {
-        iPhysics::getInstance().destroyBody(bodyID);
-    }
-
-    _bodyIDs.clear();
-
-    iTaskManager::getInstance().abortTask(_flushModelsTask);
-    iTaskManager::getInstance().abortTask(_flushTexturesTask);
-
-    if (_window.isOpen())
-    {
-        _window.close();
-        _window.removeView(&_view);
-        _window.removeView(&_viewOrtho);
-    }
-}
-
 void PhysicsExample::init()
 {
-    con(" -- OpenGL 3D Test --" << endl);
-
+    // register keyboard and mouse events
     iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
     iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::onHandle));
 
+    // setup view for scene
     _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
     _view.setPerspective(45);
     _view.setClipPlanes(0.1f, 10000.f);
 
+    // setup view for statistics
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0, 1024, 768, 0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &PhysicsExample::onRenderOrtho));
 
+    // init window
+    _window.setTitle("Physics Example");
     _window.addView(&_view);
     _window.addView(&_viewOrtho);
     _window.setClientSize(1024, 768);
     _window.open();
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &PhysicsExample::onWindowClosed));
 
+    // setting up the scene
     _scene = iSceneFactory::getInstance().createScene();
     _view.setScene(_scene);
-
-    srand(1337);
-
-    int range = 10;
-
+    
+    // set physics simulation rate to 60Hz
     iPhysics::getInstance().setSimulationRate(60);
 
+    // create some collision boxes and combine them in one to represent the floor
     iaMatrixd offsetFloor;
     vector<iPhysicsCollision*> collisions;
     collisions.push_back(iPhysics::getInstance().createBox(10, 1, 50, offsetFloor.getData()));
@@ -117,46 +83,62 @@ void PhysicsExample::init()
     offsetFloor.translate(0, -5, 0);
     collisions.push_back(iPhysics::getInstance().createBox(50, 1, 50, offsetFloor.getData()));
     iPhysicsCollision* floorCollision = iPhysics::getInstance().createCompound(collisions);
-
+    // make a body from the floor collision
     iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
+    // zero mass turns the floor in to a static body
     floorBody->setMass(0);
-
+    // position the floor 
     iaMatrixd floorMatrix;
     floorMatrix.translate(0, -1, 0);
-
     floorBody->setMatrix(floorMatrix);
+    // and add the body id to the list of bodys for later cleanup
     _bodyIDs.push_back(floorBody->getID());
 
+    // create a box collision used by all boxes we create
     iaMatrixd offsetBox;
     iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, offsetBox.getData());
+
+    // now create boxes in various patterns
+
+    // some random positioned boxes
+    // for that we need a random number generator
+    iaRandomNumberGenerator rand;
+    rand.setSeed(1337);
+
     for (int i = 0; i < 30; ++i)
     {
+        // create the box body and giv him mass
         iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
         boxBody->setMass(100);
+        // register force ans torque callback
         boxBody->registerForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &PhysicsExample::onApplyForceAndTorque));
+        // store body id
         _bodyIDs.push_back(boxBody->getID());
 
+        // generate random position and orientation
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-        transformNode->translate(rand() % range - (range*0.5f), rand() % range + 20, rand() % range - (range*0.5f));
-        transformNode->rotate(rand(), iaAxis::X);
-        transformNode->rotate(rand(), iaAxis::Y);
-        transformNode->rotate(rand(), iaAxis::Z);
-
+        transformNode->translate((rand.getNext() % 10) - 5.0f, (rand.getNext() % 10) + 20.0f, (rand.getNext() % 10) - 5.0f);
+        transformNode->rotate(rand.getNext(), iaAxis::X);
+        transformNode->rotate(rand.getNext(), iaAxis::Y);
+        transformNode->rotate(rand.getNext(), iaAxis::Z);
+        // load the crate model
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
         transformNode->insertNode(crate);
-
+        // bind the scene model to the physics body
         iPhysics::getInstance().bindTransformNode(boxBody, transformNode);
-
+        // add the scene model to the scene
         _scene->getRoot()->insertNode(transformNode);
     }
 
+    // ans some more boxes
     for (int z = -24; z < 25; z += 4)
     {
         for (int x = -24; x < 25; x += 4)
         {
             for (int i = 0; i < 5; ++i)
             {
+                // same as above just using a different interface here
                 iNodePhysics* nodePhysics = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
                 nodePhysics->addBox(1, 1, 1, offsetBox);
                 nodePhysics->finalizeCollision();
@@ -169,6 +151,7 @@ void PhysicsExample::init()
                 iNodeModel* cube = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
                 cube->setModel("crate.ompf");
 
+                // binds physics node and transform node implicitly
                 transformNode->insertNode(cube);
                 transformNode->insertNode(nodePhysics);
                 _scene->getRoot()->insertNode(transformNode);
@@ -179,6 +162,7 @@ void PhysicsExample::init()
     // no need to keep the collisions after putting them in to a body
     iPhysics::getInstance().destroyCollision(floorCollision);
     iPhysics::getInstance().destroyCollision(boxCollision);
+
     // also delete the collisions that are part of a compound
     for (auto collision : collisions)
     {
@@ -236,7 +220,7 @@ void PhysicsExample::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
-    // light
+    // init light
     iNodeTransform* directionalLightTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     directionalLightTransform->translate(100, 100, 100);
 
@@ -245,7 +229,6 @@ void PhysicsExample::init()
     lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
     lightNode->setSpecular(iaColor4f(1.0f, 01.0f, 1.0f, 1.0f));
     directionalLightTransform->insertNode(lightNode);
-
     _scene->getRoot()->insertNode(directionalLightTransform);
 
     // launch resource handlers
@@ -253,6 +236,43 @@ void PhysicsExample::init()
     _flushTexturesTask = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
+}
+
+void PhysicsExample::deinit()
+{
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::onRenderOrtho));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::onHandle));
+
+    // free some resources
+    _igorLogo = nullptr;
+
+    if (_font)
+    {
+        delete _font;
+        _font = nullptr;
+    }
+
+    iSceneFactory::getInstance().destroyScene(_scene);
+
+    for (auto bodyID : _bodyIDs)
+    {
+        iPhysics::getInstance().destroyBody(bodyID);
+    }
+
+    _bodyIDs.clear();
+
+    iTaskManager::getInstance().abortTask(_flushModelsTask);
+    iTaskManager::getInstance().abortTask(_flushTexturesTask);
+
+    if (_window.isOpen())
+    {
+        _window.close();
+        _window.removeView(&_view);
+        _window.removeView(&_viewOrtho);
+    }
 }
 
 void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
