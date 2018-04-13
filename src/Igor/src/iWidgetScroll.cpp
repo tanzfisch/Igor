@@ -29,7 +29,7 @@ namespace Igor
         return new iWidgetScroll();
     }
 
-	void iWidgetScroll::handleMouseMove(int32 x, int32 y)
+	void iWidgetScroll::handleMouseMove(const iaVector2i& pos)
 	{
 		if (isActive())
 		{
@@ -37,13 +37,17 @@ namespace Igor
 
 			for (auto widget : widgets)
 			{
-				widget->handleMouseMove(x - static_cast<int32>(_translate._pos._x), y - static_cast<int32>(_translate._pos._y));
+                iaVector2i transformedPos = pos;
+                transformedPos._x -= static_cast<int32>(_translate._pos._x);
+                transformedPos._y -= static_cast<int32>(_translate._pos._y);
+
+				widget->handleMouseMove(transformedPos);
 			}
 
-			if (x >= _absoluteX &&
-				x < _absoluteX + _actualWidth &&
-				y >= _absoluteY &&
-				y < _absoluteY + _actualHeight)
+			if (pos._x >= _absoluteX &&
+                pos._x < _absoluteX + _actualWidth &&
+                pos._y >= _absoluteY &&
+                pos._y < _absoluteY + _actualHeight)
 			{
 				if (!_isMouseOver)
 				{

@@ -194,10 +194,9 @@ namespace Igor
 
         /*! handles incomming mouse move events
 
-        \param x horizontal mouse position
-        \param y horizontal mouse position
+        \param pos mouse position
         */
-        void handleMouseMove(int32 x, int32 y);
+        void handleMouseMove(const iaVector2i& pos);
 
         /*! increase number by value
 

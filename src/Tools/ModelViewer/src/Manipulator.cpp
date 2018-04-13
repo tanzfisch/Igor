@@ -640,7 +640,7 @@ void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matr
 }
 
 // TODO cleanup rotate, scale, translate
-void Manipulator::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
+void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
     if (_selectedLocatorNodeID != iNode::INVALID_NODE_ID)
     {
@@ -650,8 +650,8 @@ void Manipulator::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
         {
             iaMatrixd camWorldMatrix;
             _cameraUI->calcWorldTransformation(camWorldMatrix);
-            iaVector3d from = camWorldMatrix * _viewManipulator.unProject(iaVector3d(x1, y1, 0), camWorldMatrix);
-            iaVector3d to = camWorldMatrix * _viewManipulator.unProject(iaVector3d(x2, y2, 0), camWorldMatrix);
+            iaVector3d from = camWorldMatrix * _viewManipulator.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
+            iaVector3d to = camWorldMatrix * _viewManipulator.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
 
             iNodeTransform* transformNode = static_cast<iNodeTransform*>(node);
             iaMatrixd transformWorldMatrix;
@@ -668,7 +668,7 @@ void Manipulator::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
             case ManipulatorMode::Locator:
                 break;
             case ManipulatorMode::Rotate:
-                rotate(x1, y1, x2, y2, nodeMatrix);
+                rotate(from._x, from._y, to._x, to._y, nodeMatrix);
                 break;
             case ManipulatorMode::Scale:
                 scale((to - from) * 30, nodeMatrix);

@@ -112,15 +112,15 @@ private:
 
     /*! id to transform node used for manipulating the heading of the camera
     */
-    uint32 _cameraHeading = iNode::INVALID_NODE_ID;
+    uint64 _cameraHeading = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the pitch of the camera
     */
-    uint32 _cameraPitch = iNode::INVALID_NODE_ID;
+    uint64 _cameraPitch = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the distance of the camera to the origin
     */
-    uint32 _cameraTranslation = iNode::INVALID_NODE_ID;
+    uint64 _cameraTranslation = iNode::INVALID_NODE_ID;
 
     /*! timer handle to control the movement of the light source over time
     */
@@ -168,11 +168,11 @@ private:
 
     /*! node ids of plants in progress
     */
-    vector<uint32> _plantsInProgress;
+    vector<uint64> _plantsInProgress;
 
     /*! group node where we put the L-System model nodes in so we can delete them all at once
     */
-    uint32 _groupNodeID = iNode::INVALID_NODE_ID;
+    uint64 _groupNodeID = iNode::INVALID_NODE_ID;
 
     /*! material for igor logo
     */
@@ -210,7 +210,7 @@ private:
     \param seed random seed
     \retruns id of generated plant node
     */
-    uint32 generatePlant(const iaMatrixd& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
+    uint64 generatePlant(const iaMatrixd& matrix, const iaString& axiom, uint32 iterations, uint64 seed);
 
     /*! called on key pressed event
 
@@ -231,13 +231,11 @@ private:
 
     /*! called when the mouse was moved
 
-    \param x1 last horrizontal position
-    \param y1 last vertical position
-    \param x2 current horrizontal position
-    \param y2 current vertical position
-    \param window corresponding window
+    \param from last mouse position
+    \param to current mouse position
+    \param window the window the coordinates are related to
     */
-    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
 
     /*! called when mouse wheel was turned
 

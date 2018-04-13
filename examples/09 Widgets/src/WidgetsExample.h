@@ -188,10 +188,9 @@ private:
 
     /*! triggered by mouse move event
 
-    \param x horrizontal position of mouse cursor
-    \param y vertical position of mouse cursor
+    \param pos position of mouse cursor
     */
-	void onMouseMove(int32 x, int32 y);
+	void onMouseMove(const iaVector2i& pos);
 
     /*! triggred if window was closed
     */

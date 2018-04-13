@@ -642,11 +642,11 @@ void Ascent::onMouseWheel(int d)
     }
 }
 
-void Ascent::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void Ascent::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (_activeControls)
     {
-        _mouseDelta.set(x2 - x1, y2 - y1);
+        _mouseDelta.set(to._x - from._x, to._y - from._y);
 
         if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
         {

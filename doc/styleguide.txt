@@ -27,6 +27,12 @@ void runThis();
 int getID();
 void update();
 
+If a function or method is a callback to an event it has to start whit the prefix 'on'.
+
+Examples:
+onMouseWheel();
+onRenderOrtho();
+
 ### Classes, Structs and Enums
 All names of classes, structs and enums start with the prefixes according to the name space they are part off.
 For the Igor name space this is "i" and for the IgorAux name space this is "ia".

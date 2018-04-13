@@ -32,21 +32,21 @@ using namespace Igor;
 
 PhysicsExample::PhysicsExample()
 {
-	init();
+    init();
 }
 
 PhysicsExample::~PhysicsExample()
 {
-	deinit();
+    deinit();
 }
 
 void PhysicsExample::deinit()
 {
-    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
-    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
-    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
-    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::handle));
+    iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
+    iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
+    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
+    _viewOrtho.unregisterRenderDelegate(RenderDelegate(this, &PhysicsExample::onRenderOrtho));
+    iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::onHandle));
 
     // free some resources
     _igorLogo = nullptr;
@@ -56,7 +56,7 @@ void PhysicsExample::deinit()
         delete _font;
         _font = nullptr;
     }
-    
+
     iSceneFactory::getInstance().destroyScene(_scene);
 
     for (auto bodyID : _bodyIDs)
@@ -79,27 +79,27 @@ void PhysicsExample::deinit()
 
 void PhysicsExample::init()
 {
-	con(" -- OpenGL 3D Test --" << endl);    
+    con(" -- OpenGL 3D Test --" << endl);
 
-	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::keyPressed));
-    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::mouseMoved));
-    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::mouseWheel));
-	iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::handle));
+    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &PhysicsExample::onKeyPressed));
+    iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &PhysicsExample::onMouseMoved));
+    iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &PhysicsExample::onMouseWheel));
+    iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &PhysicsExample::onHandle));
 
-	_view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
-	_view.setPerspective(45);
-	_view.setClipPlanes(0.1f, 10000.f);
+    _view.setClearColor(iaColor4f(0.5f, 0, 0.5f, 1));
+    _view.setPerspective(45);
+    _view.setClipPlanes(0.1f, 10000.f);
 
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0, 1024, 768, 0);
-    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &PhysicsExample::renderOrtho));
+    _viewOrtho.registerRenderDelegate(RenderDelegate(this, &PhysicsExample::onRenderOrtho));
 
-	_window.addView(&_view);
+    _window.addView(&_view);
     _window.addView(&_viewOrtho);
     _window.setClientSize(1024, 768);
-	_window.open();
-	_window.registerWindowCloseDelegate(WindowCloseDelegate(this, &PhysicsExample::windowClosed));
+    _window.open();
+    _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &PhysicsExample::onWindowClosed));
 
     _scene = iSceneFactory::getInstance().createScene();
     _view.setScene(_scene);
@@ -120,7 +120,7 @@ void PhysicsExample::init()
 
     iPhysicsBody* floorBody = iPhysics::getInstance().createBody(floorCollision);
     floorBody->setMass(0);
-    
+
     iaMatrixd floorMatrix;
     floorMatrix.translate(0, -1, 0);
 
@@ -168,13 +168,13 @@ void PhysicsExample::init()
 
                 iNodeModel* cube = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
                 cube->setModel("crate.ompf");
-                
+
                 transformNode->insertNode(cube);
                 transformNode->insertNode(nodePhysics);
                 _scene->getRoot()->insertNode(transformNode);
             }
         }
-    }    
+    }
 
     // no need to keep the collisions after putting them in to a body
     iPhysics::getInstance().destroyCollision(floorCollision);
@@ -183,15 +183,18 @@ void PhysicsExample::init()
     for (auto collision : collisions)
     {
         iPhysics::getInstance().destroyCollision(collision);
-    }        
-    
-	// cam
+    }
+
+    // initialize camamera
     _cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraHeading->setName("_cameraHeading");
+    _cameraHeading->rotate(0.4, iaAxis::Y);
     _cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraPitch->setName("_cameraPitch");
+    _cameraPitch->rotate(-0.4, iaAxis::X);
     _cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraTranslation->setName("_cameraTranslation");
+    _cameraTranslation->translate(0, 0, 80);
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
     camera->setName("camera");
 
@@ -199,22 +202,19 @@ void PhysicsExample::init()
     _cameraHeading->insertNode(_cameraPitch);
     _cameraPitch->insertNode(_cameraTranslation);
     _cameraTranslation->insertNode(camera);
+
     // and finally we tell the view which camera shall be the current one. for this to work a camera must be part of a 
     // scene assiciated with the view wich we achived by adding all those nodes on to an other starting with the root node
     _view.setCurrentCamera(camera->getID());
 
-
-    _cameraTranslation->translate(0, 0, 80);
-    updateCameraPosition();
-
     // default sky box
-	_materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
-	
-	iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
+
+    iNodeSkyBox* skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
     skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
@@ -222,9 +222,9 @@ void PhysicsExample::init()
         iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-	skyBoxNode->setTextureScale(10);
+    skyBoxNode->setTextureScale(10);
     skyBoxNode->setMaterial(_materialSkyBox);
-	_scene->getRoot()->insertNode(skyBoxNode);
+    _scene->getRoot()->insertNode(skyBoxNode);
 
     // load font for statistics
     _font = new iTextureFont("StandardFont.png");
@@ -235,21 +235,18 @@ void PhysicsExample::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
-    
-	// light
-    _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _directionalLightTranslate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    _directionalLightTranslate->translate(100, 100, 100);
-    _directionalLightRotate->insertNode(_directionalLightTranslate);
-    _lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
-    _lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
-    _lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
-    _lightNode->setSpecular(iaColor4f(1.0f, 01.0f, 1.0f, 1.0f));
-    
-    _directionalLightTranslate->insertNode(_lightNode);
-    _scene->getRoot()->insertNode(_directionalLightRotate);
 
-    _modelViewOrtho.translate(iaVector3f(0, 0, -30));
+    // light
+    iNodeTransform* directionalLightTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+    directionalLightTransform->translate(100, 100, 100);
+
+    iNodeLight* lightNode = static_cast<iNodeLight*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeLight));
+    lightNode->setAmbient(iaColor4f(0.3f, 0.3f, 0.3f, 1.0f));
+    lightNode->setDiffuse(iaColor4f(0.8f, 0.8f, 0.8f, 1.0f));
+    lightNode->setSpecular(iaColor4f(1.0f, 01.0f, 1.0f, 1.0f));
+    directionalLightTransform->insertNode(lightNode);
+
+    _scene->getRoot()->insertNode(directionalLightTransform);
 
     // launch resource handlers
     _flushModelsTask = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -266,13 +263,13 @@ void PhysicsExample::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
     float64 mass;
     iaVector3d force;
 
+    // apply gravity on this body
     iPhysics::getInstance().getMassMatrix(static_cast<void*>(body->getNewtonBody()), mass, Ixx, Iyy, Izz);
     force.set(0.0f, -mass * static_cast<float32>(__IGOR_GRAVITY__), 0.0f);
-
     body->setForce(force);
 }
 
-void PhysicsExample::mouseWheel(int32 d)
+void PhysicsExample::onMouseWheel(int32 d)
 {
     if (d < 0)
     {
@@ -284,50 +281,59 @@ void PhysicsExample::mouseWheel(int32 d)
     }
 }
 
-void PhysicsExample::mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
-{ 
+void PhysicsExample::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
+{
     if (iMouse::getInstance().getLeftButton())
     {
-        _camHeading += static_cast<float32>(x1 - x2) * 0.001f;
-        _camPitch += static_cast<float32>(y1 - y2) * 0.001f;
+        float32 heading = static_cast<float32>(from._x - to._x) * 0.001f;
+        float32 pitch = static_cast<float32>(from._y - to._y) * 0.001f;
 
-        updateCameraPosition();
+        iaMatrixd matrix;
+        _cameraPitch->getMatrix(matrix);
+        matrix.rotate(pitch, iaAxis::X);
+        _cameraPitch->setMatrix(matrix);
+
+        _cameraHeading->getMatrix(matrix);
+        matrix.rotate(heading, iaAxis::Y);
+        _cameraHeading->setMatrix(matrix);
 
         iMouse::getInstance().setCenter(true);
     }
 }
 
-void PhysicsExample::updateCameraPosition()
+void PhysicsExample::onWindowClosed()
 {
-    iaMatrixd pitch;
-    pitch.rotate(_camPitch, iaAxis::X);
-    iaMatrixd head;
-    head.rotate(_camHeading, iaAxis::Y);
-
-    _cameraPitch->setMatrix(pitch);
-    _cameraHeading->setMatrix(head);
+    iApplication::getInstance().stop();
 }
 
-void PhysicsExample::windowClosed()
+void PhysicsExample::onKeyPressed(iKeyCode key)
 {
-	iApplication::getInstance().stop();
-}
+    switch (key)
+    {
+    case iKeyCode::ESC:
+        iApplication::getInstance().stop();
+        break;
 
-void PhysicsExample::keyPressed(iKeyCode key)
-{
-	if (key == iKeyCode::ESC)
-	{
-		iApplication::getInstance().stop();
-	}
+    case iKeyCode::W:
+        _view.setWireframeVisible(!_view.isWireframeVisible());
+        break;
 
-    if (key == iKeyCode::F1)
+    case iKeyCode::O:
+        _view.setOctreeVisible(!_view.isOctreeVisible());
+        break;
+
+    case iKeyCode::B:
+        _view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+        break;
+
+    case iKeyCode::F1:
     {
         iNodeVisitorPrintTree printTree;
         printTree.printToConsole(_scene->getRoot());
     }
+    break;
 
-    if (key == iKeyCode::Space)
-    {
+    case iKeyCode::Space:
         _running = !_running;
         if (_running)
         {
@@ -337,15 +343,16 @@ void PhysicsExample::keyPressed(iKeyCode key)
         {
             iPhysics::getInstance().stop();
         }
+        break;
     }
 }
 
-void PhysicsExample::handle()
+void PhysicsExample::onHandle()
 {
-	_scene->handle();
+    _scene->handle();
 }
 
-void PhysicsExample::renderOrtho()
+void PhysicsExample::onRenderOrtho()
 {
     iaMatrixd viewMatrix;
     iRenderer::getInstance().setViewMatrix(viewMatrix);
@@ -374,6 +381,6 @@ void PhysicsExample::drawLogo()
 }
 
 void PhysicsExample::run()
-{  
-	iApplication::getInstance().run();
+{
+    iApplication::getInstance().run();
 }

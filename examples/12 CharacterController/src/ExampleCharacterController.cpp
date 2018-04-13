@@ -71,7 +71,7 @@ void ExampleCharacterController::init()
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ExampleCharacterController::onRenderOrtho));
     _window.addView(&_viewOrtho);
     // and open the window
@@ -481,7 +481,7 @@ void ExampleCharacterController::onMouseWheel(int32 d)
 
 }
 
-void ExampleCharacterController::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void ExampleCharacterController::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
@@ -491,8 +491,8 @@ void ExampleCharacterController::onMouseMoved(int32 x1, int32 y1, int32 x2, int3
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((y1 - y2) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((from._y - to._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
 
             iMouse::getInstance().setCenter(true);
         }
@@ -506,7 +506,7 @@ void ExampleCharacterController::onWindowClosed()
 
 void ExampleCharacterController::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
-    _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
 }
 
 void ExampleCharacterController::onRenderOrtho()

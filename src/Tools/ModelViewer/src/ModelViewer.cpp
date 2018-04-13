@@ -837,7 +837,7 @@ void ModelViewer::onMouseWheel(int32 d)
     }
 }
 
-void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
+void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
     const float32 rotateSensitivity = 0.0075f;
 
@@ -845,8 +845,8 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
     {
         if (iKeyboard::getInstance().getKey(iKeyCode::LAlt))
         {
-            _cameraPitch->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
-            _cameraHeading->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+            _cameraPitch->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
+            _cameraHeading->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
 
             iaMatrixd matrix;
             _cameraPitch->getMatrix(matrix);
@@ -857,14 +857,14 @@ void ModelViewer::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* 
         }
         else
         {
-            _manipulator->onMouseMoved(x1, y1, x2, y2, window);
+            _manipulator->onMouseMoved(from, to, window);
         }
     }
 
     if (iMouse::getInstance().getRightButton())
     {
-        _directionalLightRotate->rotate((y1 - y2) * rotateSensitivity, iaAxis::X);
-        _directionalLightRotate->rotate((x1 - x2) * rotateSensitivity, iaAxis::Y);
+        _directionalLightRotate->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
+        _directionalLightRotate->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
     }
 }
 
