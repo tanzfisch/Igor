@@ -1390,7 +1390,6 @@ namespace Igor
 
     int32 iRenderer::getShaderPropertyID(uint32 programID, const char* name)
     {
-
         int32 result = glGetUniformLocation(programID, name); GL_CHECK_ERROR();
         return result;
     }

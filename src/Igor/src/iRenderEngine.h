@@ -40,6 +40,7 @@ namespace Igor
     class iScene;
     class iNodeCamera;
     class iNode;
+    class iMaterialGroup;
 
     /*! does control the render loop
     */
@@ -154,9 +155,11 @@ namespace Igor
         */
         uint32 _drawSectionID = 0;
 
-        /*! pointe to scene
+        /*! material groups
+        */
+        vector<iMaterialGroup*> _materialGroups;
 
-        \todo can't we use an array here?
+        /*! handle to scene
         */
         iScene* _scene = nullptr;
 

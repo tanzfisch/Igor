@@ -30,6 +30,7 @@
 #define __iMATERIAL__
 
 #include <iaString.h>
+#include <iaIDGenerator.h>
 using namespace IgorAux;
 
 #include <iRenderStateSet.h>
@@ -87,10 +88,7 @@ namespace Igor
         static constexpr const char* UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
         static constexpr const char* UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
 
-        static constexpr const char* SAMPLER_TEXTURE0 = "igor_matTexture0";
-        static constexpr const char* SAMPLER_TEXTURE1 = "igor_matTexture1";
-        static constexpr const char* SAMPLER_TEXTURE2 = "igor_matTexture2";
-        static constexpr const char* SAMPLER_TEXTURE3 = "igor_matTexture3";
+        static constexpr const char* SAMPLER_TEXTURE = "igor_matTexture";
 
         /*! invalid material ID
         */
@@ -99,6 +97,10 @@ namespace Igor
         /*! default render order value
         */
         static const int32 RENDER_ORDER_DEFAULT = 200;
+
+        /*! maximum texture units supported in shaders
+        */
+        static const int32 MAX_TEXTURE_UNITS = 8;
 
         /*! min render order value
         */
@@ -111,6 +113,10 @@ namespace Igor
         /*! \returns name of material
         */
         iaString getName();
+
+        /*! \returns material ID
+        */
+        uint64 getID() const;
 
         /*! sets name of material
 
@@ -143,7 +149,7 @@ namespace Igor
 
         /*! \returns render order
         */
-        int32 getOrder();
+        int32 getOrder() const;
 
         /*! set render order
 
@@ -153,34 +159,98 @@ namespace Igor
 
 	private:
 
-        // TODO getter? docu?
+
+        /*! material id generator
+        */
+        static iaIDGenerator64 _idGenerator;
+
+        /*! material id
+        */
+        uint64 _id = iMaterial::INVALID_MATERIAL_ID;
+
+        /*! if true shader has directional light
+        */
         bool _hasDirectionalLight = false;
+
+        /*! id of shader property light orientation
+        */
         int32 _lightOrientation;
+
+        /*! id of shader property light ambient
+        */
         int32 _lightAmbient;
+
+        /*! id of shader property light diffuse
+        */
         int32 _lightDiffuse;
+
+        /*! id of shader property light specular
+        */
         int32 _lightSpecular;
 
-        int32 _eyePosition;
+        /*! if true shader has eye position
+        */
         bool _hasEyePosition = false;
 
+        /*! id of shader property eye position
+        */
+        int32 _eyePosition;
+        
+        /*! if true shader contains model view projection matrix
+        */
         bool _hasModelViewProjectionMatrix = false;
+
+        /*! id of shader property model view projection matrix
+        */
         int32 _mvp_matrix;
 
+        /*! if true shader contains model matrix
+        */
         bool _hasModelMatrix = false;
+
+        /*! id of shader property model matrix
+        */
         int32 _model_matrix;
 
+        /*! if true shader contains target material
+        */
         bool _hasTargetMaterial = false;
+
+        /*! id of shader property material ambient
+        */
         int32 _matAmbient;
+
+        /*! id of shader property material diffuse
+        */
         int32 _matDiffuse;
+
+        /*! id of shader property material specular
+        */
         int32 _matSpecular;
+
+        /*! id of shader property material shininess
+        */
         int32 _matShininess;
+
+        /*! id of shader property material emissive
+        */
         int32 _matEmissive;
 
+        /*! if true shader contains solid color property
+        */
         bool _hasSolidColor = false;
+
+        /*! id of shader property solid color
+        */
         int32 _matSolidColor;
 
-        bool _hasTexture[4] = { false, false, false, false };
-        int32 _matTexture[4];
+        /*! list of avail able texture units in shader
+        */
+        bool _hasTexture[MAX_TEXTURE_UNITS];
+
+        /*! ids of shader properties regarding texture units
+        */
+        int32 _matTexture[MAX_TEXTURE_UNITS];
 
         /*! oder that material groups get sorted by
 

@@ -11,12 +11,8 @@
 
 namespace Igor
 {
-
-    uint64 iMaterialGroup::_nextId = 1;
-
     iMaterialGroup::iMaterialGroup()
     {
-        _id = _nextId++;
     }
 
     iMaterialGroup::~iMaterialGroup()
@@ -90,11 +86,6 @@ namespace Igor
     iMaterial* iMaterialGroup::getMaterial()
     {
         return &_material;
-    }
-
-    uint64 iMaterialGroup::getID()
-    {
-        return _id;
     }
 
 }

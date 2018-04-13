@@ -121,31 +121,23 @@ namespace Igor
         */
         iMaterial* getCurrentMaterial();
 
-        /*! \returns material group with given material id
-
-        \param materialID the materials id
+        /*! \returns materials list sorted by render order
         */
-        iMaterialGroup* getMaterialGroup(uint64 materialID);
-
-        /*! \returns list of all material groups
-        */
-        list<iMaterialGroup*>* getMaterialGroups();
+        vector<iMaterial*> getSortedMaterials();
 
     private:
 
-        /*! dirty flag for changes in materials list.
-
-        if false the materials list has to be sorted
+        /*! dirty flag to control changes in render order
         */
         bool _dirtyMaterials = true;
 
-        /*! list of materials
+        /*! materials sorted by render order
         */
-        list<iMaterialGroup*> _materials;
+        vector<iMaterial*> _sortedMaterials;
 
-        /*! lookup table for material groups.
+        /*! lookup table for materials
         */
-        map<uint64, iMaterialGroup*> _materialMap;
+        map<uint64, iMaterial*> _materials;
 
         /*! mutex to protect the target material list
         */

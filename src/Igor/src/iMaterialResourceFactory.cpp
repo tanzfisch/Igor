@@ -16,8 +16,8 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iMaterialResourceFactory::iMaterialResourceFactory()
-	{
+    iMaterialResourceFactory::iMaterialResourceFactory()
+    {
         iRenderer::getInstance().registerInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
 
         // if already ready just use it now
@@ -25,10 +25,10 @@ namespace Igor
         {
             initDefaultMaterials();
         }
-	}
+    }
 
-	iMaterialResourceFactory::~iMaterialResourceFactory()
-	{
+    iMaterialResourceFactory::~iMaterialResourceFactory()
+    {
         iRenderer::getInstance().unregisterInitializedDelegate(iRendererInitializedDelegate(this, &iMaterialResourceFactory::initDefaultMaterials));
 
         if (_defaultMaterial != iMaterial::INVALID_MATERIAL_ID)
@@ -44,15 +44,15 @@ namespace Igor
         auto materialIter = _materials.begin();
         while (materialIter != _materials.end())
         {
-            delete (*materialIter);
+            delete (*materialIter).second;
             ++materialIter;
         }
 
         _materials.clear();
-        _materialMap.clear();
-        _currentMaterial = 0;
+        _sortedMaterials.clear();
+        _currentMaterial = nullptr;
 
-        if(!_targetMaterials.empty())
+        if (!_targetMaterials.empty())
         {
             con_err("possible mem leak! " << _targetMaterials.size() << " target materials left");
         }
@@ -65,7 +65,7 @@ namespace Igor
         }
 
         _targetMaterials.clear();
-	}
+    }
 
     iTargetMaterial* iMaterialResourceFactory::createTargetMaterial()
     {
@@ -83,7 +83,7 @@ namespace Igor
         _targetMaterialMutex.lock();
         auto iter = find(_targetMaterials.begin(), _targetMaterials.end(), targetMaterial);
 
-        if(iter != _targetMaterials.end())
+        if (iter != _targetMaterials.end())
         {
             delete (*iter);
             _targetMaterials.erase(iter);
@@ -112,16 +112,26 @@ namespace Igor
         _mutexMaterial.lock();
         if (_dirtyMaterials)
         {
-            _materials.sort(compareGroup);
+            sort(_sortedMaterials.begin(), _sortedMaterials.end(),
+                [](const iMaterial* a, const iMaterial* b) -> bool
+            {
+                return a->getOrder() > b->getOrder();
+            });
+
             _dirtyMaterials = false;
         }
         _mutexMaterial.unlock();
     }
 
-    list<iMaterialGroup*>* iMaterialResourceFactory::getMaterialGroups()
+    vector<iMaterial*> iMaterialResourceFactory::getSortedMaterials()
     {
         updateGroups();
-        return &_materials;
+
+        _mutexMaterial.lock();
+        vector<iMaterial*> copyList(_sortedMaterials);
+        _mutexMaterial.unlock();
+
+        return copyList;
     }
 
     void iMaterialResourceFactory::initDefaultMaterials()
@@ -148,42 +158,38 @@ namespace Igor
 
     uint64 iMaterialResourceFactory::createMaterial(iaString name)
     {
-        iMaterialGroup* materialGroup = new iMaterialGroup();
-
-        _materials.push_back(materialGroup);
-        _materialMap[materialGroup->getID()] = materialGroup;
-
-        _dirtyMaterials = true;
-
+        iMaterial* material = new iMaterial();
         if (name != L"")
         {
-            materialGroup->getMaterial()->setName(name);
+            material->setName(name);
         }
 
-        return materialGroup->getID();
+        _mutexMaterial.lock();
+        _materials[material->getID()] = material;
+        _sortedMaterials.push_back(material);
+        _dirtyMaterials = true;
+        _mutexMaterial.unlock();
+
+        return material->getID();
     }
 
     void iMaterialResourceFactory::destroyMaterial(uint64 materialID)
     {
         _mutexMaterial.lock();
 
-        auto iter = _materialMap.find(materialID);
-        if (iter != _materialMap.end())
+        auto iterMaterial = _materials.find(materialID);
+        if (iterMaterial != _materials.end())
         {
-            _materialMap.erase(iter);
+            auto sortedIter = find(_sortedMaterials.begin(), _sortedMaterials.end(), (*iterMaterial).second);
 
-            auto materialIter = _materials.begin();
-            while (materialIter != _materials.end())
+            con_assert_sticky(sortedIter != _sortedMaterials.end(), "inconsistent material list");
+
+            if (sortedIter != _sortedMaterials.end())
             {
-                if ((*materialIter)->getID() == materialID)
-                {
-                    delete (*materialIter);
-                    _materials.erase(materialIter);
-                    break;
-                }
-
-                ++materialIter;
+                _sortedMaterials.erase(sortedIter);
             }
+
+            _materials.erase(iterMaterial);
         }
         else
         {
@@ -198,14 +204,14 @@ namespace Igor
         iMaterial* material = 0;
 
         _mutexMaterial.lock();
-        auto iter = _materialMap.find(materialID);
-        if (iter != _materialMap.end())
+        auto iter = _materials.find(materialID);
+        if (iter != _materials.end())
         {
-            material = (*iter).second->getMaterial();
+            material = (*iter).second;
         }
         _mutexMaterial.unlock();
 
-        if (material)
+        if (material != nullptr)
         {
             con_assert_sticky(iRenderer::getInstance().isReady(), "renderer not ready");
             iRenderer::getInstance().setMaterial(material);
@@ -222,14 +228,14 @@ namespace Igor
         iMaterial* material = nullptr;
 
         _mutexMaterial.lock();
-        auto iter = _materialMap.find(materialID);
-        if (iter != _materialMap.end())
+        auto iter = _materials.find(materialID);
+        if (iter != _materials.end())
         {
-            material = (*iter).second->getMaterial();
+            material = (*iter).second;
         }
         _mutexMaterial.unlock();
 
-        if (!material)
+        if (material == nullptr)
         {
             con_err("material id: " << materialID << " does not exist");
         }
@@ -237,32 +243,32 @@ namespace Igor
         return material;
     }
 
-    iMaterialGroup* iMaterialResourceFactory::getMaterialGroup(uint64 materialID)
-    {
-        iMaterialGroup* materialGroup = nullptr;
+    /*   iMaterialGroup* iMaterialResourceFactory::getMaterialGroup(uint64 materialID)
+       {
+           iMaterialGroup* materialGroup = nullptr;
 
-        _mutexMaterial.lock();
-        auto iter = _materialMap.find(materialID);
-        if (iter != _materialMap.end())
-        {
-            materialGroup = (*iter).second;
-        }
-        _mutexMaterial.unlock();
+           _mutexMaterial.lock();
+           auto iter = _materialMap.find(materialID);
+           if (iter != _materialMap.end())
+           {
+               materialGroup = (*iter).second;
+           }
+           _mutexMaterial.unlock();
 
-        return materialGroup;
-    }
-
+           return materialGroup;
+       }
+   */
     uint64 iMaterialResourceFactory::getMaterialID(iaString materialName)
     {
-		uint64 result = iMaterial::INVALID_MATERIAL_ID;
+        uint64 result = iMaterial::INVALID_MATERIAL_ID;
 
         _mutexMaterial.lock();
         auto materialIter = _materials.begin();
         while (materialIter != _materials.end())
         {
-            if ((*materialIter)->getMaterial()->getName() == materialName)
+            if ((*materialIter).second->getName() == materialName)
             {
-                result = (*materialIter)->getID();
+                result = (*materialIter).first;
             }
 
             ++materialIter;
@@ -286,9 +292,9 @@ namespace Igor
         auto materialIter = _materials.begin();
         while (materialIter != _materials.end())
         {
-            if ((*materialIter)->getMaterial()->getName() == materialName)
+            if ((*materialIter).second->getName() == materialName)
             {
-                material = (*materialIter)->getMaterial();
+                material = (*materialIter).second;
                 break;
             }
 
@@ -297,7 +303,7 @@ namespace Igor
 
         _mutexMaterial.unlock();
 
-        if (!material)
+        if (material == nullptr)
         {
             con_err("material with name:" << materialName << " does not exist");
         }

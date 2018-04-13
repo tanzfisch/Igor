@@ -110,12 +110,10 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         // force him to use the textured material
         setMaterialRecursive(modelNode, materialID);
 
-        list<iMaterialGroup*>* materials = iMaterialResourceFactory::getInstance().getMaterialGroups();
-        auto iter = materials->begin();
-        while (iter != materials->end())
+        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        for(auto material : materials)
         {
-            con_endl("material " << (*iter)->getMaterial()->getName() << " with id " << (*iter)->getID());
-            iter++;
+            con_endl("material " << material->getName() << " with id " << material->getID());
         }
 
         iNode* objRoot = modelNode->getChild("obj_root");
