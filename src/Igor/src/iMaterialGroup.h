@@ -67,16 +67,6 @@ namespace Igor
         */
         iMaterial* getMaterial();
 
-        /*! \returns render order
-        */
-        int32 getOrder();
-
-        /*! set render order
-
-        \param order the higher the value the later it get's rendered (default is iMaterial::DEFALT_ORDER)
-        */
-        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
-
         /*! \returns material id (also used as group id)
         */
         uint64 getID();

@@ -92,16 +92,6 @@ namespace Igor
         return &_material;
     }
 
-    int32 iMaterialGroup::getOrder()
-    {
-        return _material.getOrder();
-    }
-
-    void iMaterialGroup::setOrder(int32 order)
-    {
-        _material.setOrder(order);
-    }
-
     uint64 iMaterialGroup::getID()
     {
         return _id;

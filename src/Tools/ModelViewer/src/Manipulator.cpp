@@ -67,7 +67,7 @@ void Manipulator::init()
     iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
     iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
+    iMaterialResourceFactory::getInstance().getMaterial(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
 
     _red = iMaterialResourceFactory::getInstance().createTargetMaterial();
     _red->setEmissive(iaColor3f(0.6f, 0.0f, 0.0f));

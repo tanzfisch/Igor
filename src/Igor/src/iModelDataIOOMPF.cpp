@@ -427,7 +427,7 @@ namespace Igor
                 materialGroup != nullptr)
             {
                 _materialMapping[materialChunk->getID()] = materialID;
-                materialGroup->setOrder(materialChunk->getOrder());
+                materialGroup->getMaterial()->setOrder(materialChunk->getOrder());
 
                 uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
                 for (uint32 i = 0; i < shaderObjectCount; ++i)
@@ -774,7 +774,7 @@ namespace Igor
                 result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(renderStateSet.getRenderStateValue(static_cast<iRenderState>(i))));
             }
 
-            result->setOrder(materialGroup->getOrder());
+            result->setOrder(materialGroup->getMaterial()->getOrder());
         }
         else
         {

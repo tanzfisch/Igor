@@ -103,7 +103,7 @@ namespace Igor
 
     bool compareGroup(iMaterialGroup* first, iMaterialGroup* second)
     {
-        if (first->getOrder() < second->getOrder()) return true;
+        if (first->getMaterial()->getOrder() < second->getMaterial()->getOrder()) return true;
         else return false;
     }
 
@@ -132,7 +132,7 @@ namespace Igor
         getMaterial(_defaultMaterial)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
         getMaterial(_defaultMaterial)->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
         getMaterial(_defaultMaterial)->compileShader();
-        getMaterialGroup(_defaultMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        getMaterial(_defaultMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         // set material to start with
         setMaterial(_defaultMaterial);
@@ -143,7 +143,7 @@ namespace Igor
         getMaterial(_colorIDMaterial)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
         getMaterial(_colorIDMaterial)->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
         getMaterial(_colorIDMaterial)->compileShader();
-        getMaterialGroup(_colorIDMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        getMaterial(_colorIDMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
     }
 
     uint64 iMaterialResourceFactory::createMaterial(iaString name)

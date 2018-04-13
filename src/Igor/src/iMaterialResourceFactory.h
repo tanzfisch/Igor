@@ -86,7 +86,7 @@ namespace Igor
 
         ATTENTION can only be used if window is open and renderer initialized
 
-        \param materialID the materials id to be activated
+        \param materialID the material's id to be activated
         */
         void setMaterial(uint64 materialID);
 
