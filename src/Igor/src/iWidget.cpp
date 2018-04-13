@@ -447,7 +447,7 @@ namespace Igor
 		return false;
 	}
 
-	void iWidget::handleMouseMove(int32 x, int32 y)
+	void iWidget::handleMouseMove(const iaVector2i& pos)
 	{
 		if (isActive())
 		{
@@ -455,13 +455,13 @@ namespace Igor
 
 			for (auto widget : widgets)
 			{
-				widget->handleMouseMove(x, y);
+				widget->handleMouseMove(pos);
 			}
 
-			if (x >= _absoluteX &&
-				x < _absoluteX + _actualWidth &&
-				y >= _absoluteY &&
-				y < _absoluteY + _actualHeight)
+			if (pos._x >= _absoluteX &&
+                pos._x < _absoluteX + _actualWidth &&
+                pos._y >= _absoluteY &&
+                pos._y < _absoluteY + _actualHeight)
 			{
 				if (!_isMouseOver)
 				{
@@ -483,18 +483,12 @@ namespace Igor
 			}
 		}
 
-        _lastMouseX = x;
-        _lastMouseY = y;
+        _posLast = pos;
 	}
 
-    int32 iWidget::getLastMouseX()
+    iaVector2i iWidget::getLastMousePos() const
     {
-        return _lastMouseX;
-    }
-
-    int32 iWidget::getLastMouseY()
-    {
-        return _lastMouseY;
+        return _posLast;
     }
 
 	iHorizontalAlignment iWidget::getHorizontalAlignment()

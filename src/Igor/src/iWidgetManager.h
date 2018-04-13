@@ -380,7 +380,7 @@ namespace Igor
         \param y2 current vertical mouse position
         \param window parent window of mouse event
         */
-        void onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+        void onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window);
 
         /*! handle for mouse wheel event
 

@@ -571,10 +571,9 @@ namespace Igor
 
         /*! handles incomming mouse move events
 
-        \param x horizontal mouse position
-        \param y horizontal mouse position
+        \param pos mouse position
         */
-        virtual void handleMouseMove(int32 x, int32 y);
+        virtual void handleMouseMove(const iaVector2i& pos);
 
         /*! handles incomming acsii codes from keyboard
 
@@ -627,13 +626,9 @@ namespace Igor
 
     protected:
 
-        /*! \returns last horrizontal mouse position
+        /*! \returns last mouse position
         */
-        int32 getLastMouseX();
-
-        /*! \returns last vertical mouse position
-        */
-        int32 getLastMouseY();
+        iaVector2i getLastMousePos() const;
 
 	private:
 
@@ -689,13 +684,9 @@ namespace Igor
 		*/
 		bool _growsByContent = true;
 
-        /*! last horrizontal mouse position
+        /*! last mouse position
         */
-        int32 _lastMouseX = 0;
-
-        /*! last vertical mouse position
-        */
-        int32 _lastMouseY = 0;
+        iaVector2i _posLast;
 
         /*! here you get the next id from
         */

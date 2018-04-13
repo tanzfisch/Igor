@@ -65,7 +65,7 @@ void Particles::init()
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Particles::onRenderOrtho));
     _window.addView(&_viewOrtho);
 
@@ -598,7 +598,7 @@ void Particles::onMouseWheel(int32 d)
     }
 }
 
-void Particles::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void Particles::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
@@ -608,8 +608,8 @@ void Particles::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _w
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
 
             iMouse::getInstance().setCenter(true);
         }
@@ -623,7 +623,7 @@ void Particles::onWindowClosed()
 
 void Particles::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
-    _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0);
 }
 
 void Particles::onKeyPressed(iKeyCode key)

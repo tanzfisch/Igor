@@ -396,15 +396,15 @@ void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
 }
 
-void WidgetsExample::onMouseMove(int32 x, int32 y)
+void WidgetsExample::onMouseMove(const iaVector2i& pos)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
     {
         iaString text;
-        text += iaString::itoa(x);
+        text += iaString::itoa(pos._x);
         text += ":";
-        text += iaString::itoa(y);
+        text += iaString::itoa(pos._y);
 
         _labelMousePos->setText(text);
     }

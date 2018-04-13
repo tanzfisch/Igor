@@ -77,22 +77,19 @@ namespace Igor
 
     mouse coordinates have their origin in the upper left corner of the parenting window
 
-    \param x current horizontal coordinate of mouse cursor
-    \param y current vertical coordinate of mouse cursor
+    \param pos current mouse position
     */
-    iaEVENT(iMouseMoveEvent, iMouseMoveDelegate, void, (int32 x, int32 y), (x, y));
+    iaEVENT(iMouseMoveEvent, iMouseMoveDelegate, void, (const iaVector2i& pos), (pos));
 
 	/*! mouse move event with full data
 
     mouse coordinates have their origin in the upper left corner of the parenting window
 
-    \param x1 last horizontal coordinate
-    \param y1 last vertical coordinate
-    \param x2 current horizontal coordinate
-    \param y2 current vertical coordinate
+    \param from last mouse position
+    \param to current mouse position
     \param window the window the coordinates are related to
     */
-	iaEVENT(iMouseMoveFullEvent, iMouseMoveFullDelegate, void, (int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window), (x1, y1, x2, y2, window));
+	iaEVENT(iMouseMoveFullEvent, iMouseMoveFullDelegate, void, (const iaVector2i& from, const iaVector2i& to, iWindow* window), (from, to, window));
 
 	/*! mouse wheel event
 
@@ -266,21 +263,13 @@ namespace Igor
         */
         RAWINPUTDEVICE _rawInputDevice;
 
-        /*! x position of mouse in pixel from the last update message
+        /*! position of mouse in pixel from the last update message
         */
-        int32 _xPos = 0;
-
-        /*! y position of mouse in pixel from the last update message
-        */
-        int32 _yPos = 0;
+        iaVector2i _pos;
 
         /*! old x position of mouse in pixel
         */
-        int32 _xPosOld = 0;
-
-        /*! old y position of mouse in pixel
-        */
-        int32 _yPosOld = 0;
+        iaVector2i _posLast;
 
         /*! wheel delta from the last update message
         */

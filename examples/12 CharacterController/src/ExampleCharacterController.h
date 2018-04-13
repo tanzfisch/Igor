@@ -175,13 +175,11 @@ private:
 
     /*! called when the mouse was moved
 
-    \param x1 last horrizontal position
-    \param y1 last vertical position
-    \param x2 current horrizontal position
-    \param y2 current vertical position
-    \param window corresponding window
+    \param from last mouse position
+    \param to current mouse position
+    \param window the window the coordinates are related to
     */
-    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
 
     /*! called when mouse wheel was turned
 

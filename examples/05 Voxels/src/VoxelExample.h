@@ -106,19 +106,19 @@ private:
 
     /*! heading of camera
     */
-    uint32 _cameraHeading = iNode::INVALID_NODE_ID;
+    uint64 _cameraHeading = iNode::INVALID_NODE_ID;
 
     /*! pitch of camera
     */
-    uint32 _cameraPitch = iNode::INVALID_NODE_ID;
+    uint64 _cameraPitch = iNode::INVALID_NODE_ID;
 
     /*! the model that represents our voxel mesh
     */
-    uint32 _voxelMeshModel = iNode::INVALID_NODE_ID;
+    uint64 _voxelMeshModel = iNode::INVALID_NODE_ID;
 
     /*! transform node for voxel mesh
     */
-    uint32 _voxelMeshTransform = iNode::INVALID_NODE_ID;
+    uint64 _voxelMeshTransform = iNode::INVALID_NODE_ID;
 
     /*! voxel mesh material
     */
@@ -193,13 +193,11 @@ private:
 
     /*! called when mouse was moved
     
-    \param x1 last horrizontal coordinate
-    \param y1 last vertical coordinate
-    \param x2 current horrizontal coordinate
-    \param y2 current vertical coordinate
+    \param from last mouse position
+    \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
 
     /*! called when orthogonal view was rendred
     */

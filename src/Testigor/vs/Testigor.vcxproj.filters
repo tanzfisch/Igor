@@ -18,9 +18,6 @@
     <ClCompile Include="..\src\UnitTest_iaString.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\UnitTest_iFlushList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\UnitTest_iVector2d.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

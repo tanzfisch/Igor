@@ -61,6 +61,20 @@ namespace Igor
 class PhysicsExample
 {
 
+public:
+
+    /*! init
+    */
+    PhysicsExample();
+
+    /*! deinit
+    */
+    virtual ~PhysicsExample();
+
+    /*! run example
+    */
+    void run();
+
 private:
 
     /*! the window
@@ -79,32 +93,45 @@ private:
     */
     iView _viewOrtho;
 
+    /*! controls wether the physics simulation is running or not
+    */
     bool _running = false;
 
-    iaMatrixf _modelViewOrtho;
+    /*! handle for the flush model task
+    */
     uint64 _flushModelsTask = iTask::INVALID_TASK_ID;
+
+    /*! handle for the flush textures task
+    */
     uint64 _flushTexturesTask = iTask::INVALID_TASK_ID;
 
+    /*! font handle for statistics
+    */
     iTextureFont* _font = nullptr;
 
+    /*! the scene
+    */
 	iScene* _scene = nullptr;
-	iNodeTransform* _cameraHeading = nullptr;
-    iNodeTransform* _cameraPitch = nullptr;
-    iNodeTransform* _cameraTranslation = nullptr;
-    iNodeTransform* _directionalLightTranslate = nullptr;
-    iNodeTransform* _directionalLightRotate = nullptr;
-    iNodeLight* _lightNode = nullptr;
 
+    /*! camera heading transform
+    */
+	iNodeTransform* _cameraHeading = nullptr;
+
+    /*! camera pitch transform
+    */
+    iNodeTransform* _cameraPitch = nullptr;
+
+    /*! camera distance to origin transform
+    */
+    iNodeTransform* _cameraTranslation = nullptr;
+
+    /*! list of physics bodies create for later cleanup
+    */
     vector<uint64> _bodyIDs;
 
-	iTimerTickDelegate _timerDelegate;
-
-    uint32 _octreeMaterial = 0;
-
-    float32 _camPitch = -0.4;
-    float32 _camHeading = 0.2;
-
-	int32 _materialSkyBox = 0;
+    /*! sky box material ID
+    */
+	uint64 _materialSkyBox = 0;
 
     /*! material for igor logo
     */
@@ -114,35 +141,56 @@ private:
     */
     shared_ptr<iTexture> _igorLogo = nullptr;
 
+    /*! physics callback to apply force and torque to the physics bodies
+
+    \param body the body affected
+    \param timestep the time passed
+    */
     void onApplyForceAndTorque(iPhysicsBody* body, float32 timestep);
 
-	void keyPressed(iKeyCode key);
-	void windowClosed();
-    void mouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
-    void mouseWheel(int32 d);
-	void deinit();
+    /*! handle keyboard events
+
+    \param key the key pressed
+    */
+	void onKeyPressed(iKeyCode key);
+
+    /*! handles window close evnt
+    */
+	void onWindowClosed();
+
+    /*! handles mouse moved event
+
+    \param from last mouse position
+    \param to current mouse position
+    \param window the window the coordinates are related to
+    */
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
+
+    /*! handles mouse wheel event
+
+    \param d mouse wheel delta
+    */
+    void onMouseWheel(int32 d);
+
+    /*! initialize scene
+    */
     void init();
 
-    void updateCameraPosition();
-
-    /*! 
+    /*! clean up scene
     */
-	void handle();
+	void deinit();
+
+    /*! run scene handle
+    */
+	void onHandle();
 
     /*! renders orthogonal stuff
     */
-    void renderOrtho();
+    void onRenderOrtho();
 
     /*! renders igor logo
     */
     void drawLogo();
-
-public:
-
-	PhysicsExample();
-	virtual ~PhysicsExample();
-
-	void run();
 
 };
 

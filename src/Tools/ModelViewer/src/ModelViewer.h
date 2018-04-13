@@ -145,7 +145,7 @@ private:
 
     void onAddMaterial();
 
-    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
     void onMouseWheel(int32 d);
     void onMouseKeyDown(iKeyCode key);
     void onMouseKeyUp(iKeyCode key);
