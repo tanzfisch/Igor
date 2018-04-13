@@ -658,7 +658,7 @@ namespace Igor
         return false;
     }
 
-    void iWidgetGrid::handleMouseMove(int32 x, int32 y)
+    void iWidgetGrid::handleMouseMove(const iaVector2i& pos)
     {
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
@@ -679,14 +679,14 @@ namespace Igor
 
                     if (widget != nullptr)
                     {
-                        widget->handleMouseMove(x, y);
+                        widget->handleMouseMove(pos);
                     }
                 }
 
-                if (x >= col._absoluteX &&
-                    x < col._absoluteX + col._actualWidth &&
-                    y >= col._absoluteY  &&
-                    y < col._absoluteY + col._actualHeight)
+                if (pos._x >= col._absoluteX &&
+                    pos._x < col._absoluteX + col._actualWidth &&
+                    pos._y >= col._absoluteY  &&
+                    pos._y < col._absoluteY + col._actualHeight)
                 {
                     _mouseOverRow = rowNum;
                     _mouseOverCollumn = colNum;
@@ -700,10 +700,10 @@ namespace Igor
 
         if (isActive())
         {
-            if (x >= getActualPosX() &&
-                x < getActualPosX() + getActualWidth() &&
-                y >= getActualPosY() &&
-                y < getActualPosY() + getActualHeight())
+            if (pos._x >= getActualPosX() &&
+                pos._x < getActualPosX() + getActualWidth() &&
+                pos._y >= getActualPosY() &&
+                pos._y < getActualPosY() + getActualHeight())
             {
                 if (!_isMouseOver)
                 {

@@ -42,7 +42,7 @@ namespace Igor
 
     bool iWidgetColorGradient::handleMouseKeyDown(iKeyCode key)
     {
-        iaVector2i mousePos(getLastMouseX(), getLastMouseY());
+        iaVector2i mousePos = getLastMousePos();
 
         if (_interactive)
         {

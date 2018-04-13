@@ -86,10 +86,10 @@ void MouseExample::onMouseClick(iKeyCode key)
     con_endl("clicked " << iKeyCodeMap::getInstance().getKeyName(key));
 }
 
-void MouseExample::onMouseMovedFull(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
+void MouseExample::onMouseMovedFull(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
     // prints old and new mouse position to the console
-	con_endl("mouse moved from (" << x1 << ", " << y1 << ") to (" << x2 <<  ", " << y2 << ")");
+	con_endl("mouse moved from " << from << " to " << to);
 }
 
 void MouseExample::onMouseKeyDown(iKeyCode key)

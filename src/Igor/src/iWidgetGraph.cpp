@@ -320,7 +320,7 @@ namespace Igor
 
     bool iWidgetGraph::handleMouseKeyDown(iKeyCode key)
     {
-        iaVector2f mousePos(static_cast<float32>(getLastMouseX()), static_cast<float32>(getLastMouseY()));
+        iaVector2f mousePos(static_cast<float32>(getLastMousePos()._x), static_cast<float32>(getLastMousePos()._y));
 
         if (_interactive)
         {

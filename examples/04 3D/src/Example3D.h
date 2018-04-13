@@ -95,27 +95,27 @@ private:
 
     /*! id to transform node used for manipulating the heading of all objects in scene
     */
-    uint32 _allObjectsHeading = iNode::INVALID_NODE_ID;
+    uint64 _allObjectsHeading = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the pitch of all objects in scene
     */
-    uint32 _allObjectsPitch = iNode::INVALID_NODE_ID;
+    uint64 _allObjectsPitch = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the heading of the camera
     */
-    uint32 _cameraHeading = iNode::INVALID_NODE_ID;
+    uint64 _cameraHeading = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the pitch of the camera
     */
-    uint32 _cameraPitch = iNode::INVALID_NODE_ID;
+    uint64 _cameraPitch = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the distance of the camera to the origin
     */
-    uint32 _cameraTranslation = iNode::INVALID_NODE_ID;
+    uint64 _cameraTranslation = iNode::INVALID_NODE_ID;
 
     /*! id to transform node used for manipulating the direction of the light relative to the origin
     */
-    uint32 _directionalLightRotate = iNode::INVALID_NODE_ID;
+    uint64 _directionalLightRotate = iNode::INVALID_NODE_ID;
 
     /*! timer handle to control the movement of the light source over time
     */
@@ -123,19 +123,19 @@ private:
 
     /*! id to crate model node
     */
-    uint32 _crateModel = iNode::INVALID_NODE_ID;
+    uint64 _crateModel = iNode::INVALID_NODE_ID;
 
     /*! id to cat model node
     */
-    uint32 _catModel = iNode::INVALID_NODE_ID;
+    uint64 _catModel = iNode::INVALID_NODE_ID;
 
     /*! id to teapot model node
     */
-    uint32 _teapotModel = iNode::INVALID_NODE_ID;
+    uint64 _teapotModel = iNode::INVALID_NODE_ID;
 
     /*! id to switch node
     */
-    uint32 _switchNode = iNode::INVALID_NODE_ID;
+    uint64 _switchNode = iNode::INVALID_NODE_ID;
 
     /*! index of switch position
     */
@@ -143,11 +143,11 @@ private:
 
     /*! id to lod trigger node
     */
-    uint32 _LODTrigger = iNode::INVALID_NODE_ID;
+    uint64 _LODTrigger = iNode::INVALID_NODE_ID;
 
     /*! id to lod switch node
     */
-    uint32 _LODSwitch = iNode::INVALID_NODE_ID;
+    uint64 _LODSwitch = iNode::INVALID_NODE_ID;
 
     /*! material definition for the sky box
     */
@@ -180,13 +180,11 @@ private:
 
     /*! called when the mouse was moved
 
-    \param x1 last horrizontal position
-    \param y1 last vertical position
-    \param x2 current horrizontal position
-    \param y2 current vertical position
-    \param window corresponding window
+    \param from last mouse position
+    \param to current mouse position
+    \param window the window the coordinates are related to
     */
-    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
 
     /*! called when mouse wheel was turned
 

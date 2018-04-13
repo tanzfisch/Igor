@@ -145,15 +145,15 @@ private:
 
     /*! material id of a textured material
     */
-    int32 _materialWithTexture = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithTexture = iMaterial::INVALID_MATERIAL_ID;
 
     /*! material id of a textured material with alpha blending
     */
-    int32 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
     /*! material id of a non textured material
     */
-    int32 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
+    uint64 _materialWithoutDepthTest = iMaterial::INVALID_MATERIAL_ID;
 
     /*! a B-Spline
     */
@@ -167,10 +167,9 @@ private:
 
     mouse coordinates have their origin in the upper left corner of the parenting window
 
-    \param x last horrizontal coordinate
-    \param y last vertical coordinate
+    \param position last mouse position
     */
-    void onMouseMove(int32 x, int32 y);
+    void onMouseMove(const iaVector2i& position);
 
     /*! called when window was closed
     */

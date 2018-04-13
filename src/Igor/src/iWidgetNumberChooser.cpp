@@ -105,17 +105,17 @@ namespace Igor
         return iWidget::handleMouseKeyDown(key);
     }
 
-    void iWidgetNumberChooser::handleMouseMove(int32 x, int32 y)
+    void iWidgetNumberChooser::handleMouseMove(const iaVector2i& pos)
     {
         if (!isActive())
         {
             return;
         }
 
-        iWidget::handleMouseMove(x, y);
+        iWidget::handleMouseMove(pos);
 
-        int32 mx = x - getActualPosX();
-        int32 my = y - getActualPosY();
+        int32 mx = pos._x - getActualPosX();
+        int32 my = pos._y - getActualPosY();
 
         if (mx >= _buttonUpRectangle.getX() &&
             mx < _buttonUpRectangle.getX() + _buttonUpRectangle.getWidth() &&

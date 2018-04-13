@@ -64,7 +64,7 @@ void Example3D::init()
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &Example3D::onRenderOrtho));
     _window.addView(&_viewOrtho);
     // and open the window
@@ -343,7 +343,7 @@ void Example3D::onMouseWheel(int32 d)
     }
 }
 
-void Example3D::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void Example3D::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (iMouse::getInstance().getRightButton())
     {
@@ -353,8 +353,8 @@ void Example3D::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _w
         if (allObjectsPitch != nullptr &&
             allObjectsHeading != nullptr)
         {
-            allObjectsPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
-            allObjectsHeading->rotate((x2 - x1) * 0.005f, iaAxis::Y);
+            allObjectsPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
+            allObjectsHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
 
             iMouse::getInstance().setCenter(true);
         }
@@ -367,8 +367,8 @@ void Example3D::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _w
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((to._x - from._x) * 0.005f, iaAxis::Y);
 
             iMouse::getInstance().setCenter(true);
         }
@@ -382,7 +382,7 @@ void Example3D::onWindowClosed()
 
 void Example3D::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
-    _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
+    _viewOrtho.setOrthogonal(0.0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0);
 }
 
 void Example3D::onKeyPressed(iKeyCode key)

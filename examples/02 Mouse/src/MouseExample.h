@@ -29,6 +29,9 @@
 #ifndef __MOUSEEXAMPLE__
 #define __MOUSEEXAMPLE__
 
+#include <iaVector2.h>
+using namespace IgorAux;
+
 #include <iWindow.h>
 #include <iKeyCodeMap.h>
 using namespace Igor;
@@ -57,13 +60,11 @@ private:
 	iWindow _window;
 
     /*! called when mouse was moved
-    \param x1 last horrizontal coordinate
-    \param y1 last vertical coordinate
-    \param x2 current horrizontal coordinate
-    \param y2 current vertical coordinate
+    \param from last mouse position
+    \param to current mouse position
     \param window the window the coordinates are related to
     */
-    void onMouseMovedFull(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window);
+    void onMouseMovedFull(const iaVector2i& from, const iaVector2i& to, iWindow* window);
 
     /*! called when any mouse key was pressed
 

@@ -110,19 +110,7 @@ namespace Igor
 
         /*! texture based font
         */
-		iTextureFont* _font = nullptr;
-
-        iaColor4f _ambient;
-		iaColor4f _darkDiffuse;
-		iaColor4f _diffuse;
-        iaColor4f _diffuseTransparent;
-		iaColor4f _lightDiffuse;
-		iaColor4f _specular;
-		iaColor4f _white;
-		iaColor4f _black;
-
-		iaColor4f _textColor;
-		iaColor4f _textColorDark;
+		iTextureFont* _font = nullptr;      
 
 		/*! default material id
 		*/
