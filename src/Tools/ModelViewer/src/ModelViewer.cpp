@@ -76,12 +76,14 @@ void ModelViewer::init(iaString fileName)
     _window.registerWindowCloseDelegate(WindowCloseDelegate(this, &ModelViewer::onWindowClosed));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &ModelViewer::onWindowResize));
 
+    _view.setName("MainSceneView");
     _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
     _view.setPerspective(45.0f);
     _view.setClipPlanes(0.1f, 10000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
 
+    _viewOrtho.setName("GUIView");
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
@@ -135,7 +137,6 @@ void ModelViewer::init(iaString fileName)
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
 
     _skyBoxNode = static_cast<iNodeSkyBox*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeSkyBox));
-    _skyBoxNode->setName("sky box");
     _skyBoxNode->setTextures(
         iTextureResourceFactory::getInstance().requestFile("skybox_default/front.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/back.png"),
@@ -145,7 +146,7 @@ void ModelViewer::init(iaString fileName)
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
     _skyBoxNode->setTextureScale(10);
     _skyBoxNode->setMaterial(_materialSkyBox);
-    //_scene->getRoot()->insertNode(_skyBoxNode);
+    _scene->getRoot()->insertNode(_skyBoxNode);
 
     _font = new iTextureFont("StandardFont.png");
 

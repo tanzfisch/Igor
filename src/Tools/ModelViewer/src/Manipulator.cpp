@@ -30,16 +30,17 @@ Manipulator::Manipulator(iWindow* window)
 
 void Manipulator::init()
 {
-    _viewManipulator.setClearColor(false);
-    _viewManipulator.setClearDepth(true);
-    _viewManipulator.setPerspective(45.0f);
-    _viewManipulator.setClipPlanes(0.1f, 10000.f);
-    _viewManipulator.registerRenderDelegate(RenderDelegate(this, &Manipulator::render));
-    _window->addView(&_viewManipulator, 1);
+    _view.setName("ManipulatorView");
+    _view.setClearColor(false);
+    _view.setClearDepth(true);
+    _view.setPerspective(45.0f);
+    _view.setClipPlanes(0.1f, 10000.f);
+    _view.registerRenderDelegate(RenderDelegate(this, &Manipulator::render));
+    _window->addView(&_view, 1);
 
     _scene = iSceneFactory::getInstance().createScene();
     _scene->setName("Modifier Scene");
-    _viewManipulator.setScene(_scene);
+    _view.setScene(_scene);
 
     // camUI
     _cameraCOIUI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -58,7 +59,7 @@ void Manipulator::init()
     _cameraHeadingUI->insertNode(_cameraPitchUI);
     _cameraPitchUI->insertNode(_cameraTranslationUI);
     _cameraTranslationUI->insertNode(_cameraUI);
-    _viewManipulator.setCurrentCamera(_cameraUI->getID());
+    _view.setCurrentCamera(_cameraUI->getID());
 
     _cameraTranslationUI->translate(0, 0, 80);
 
@@ -398,7 +399,7 @@ void Manipulator::update()
 
 void Manipulator::deinit()
 {
-    _window->removeView(&_viewManipulator);
+    _window->removeView(&_view);
 
     iMaterialResourceFactory::getInstance().destroyTargetMaterial(_red);
     iMaterialResourceFactory::getInstance().destroyTargetMaterial(_green);
@@ -597,7 +598,7 @@ void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matr
 
     iaMatrixd camWorldMatrix;
     _cameraUI->calcWorldTransformation(camWorldMatrix);
-    iaVector3d center = _viewManipulator.project(transformWorldMatrix._pos, camWorldMatrix);
+    iaVector3d center = _view.project(transformWorldMatrix._pos, camWorldMatrix);
 
     iaVector2d center2D(center._x, center._y);
 
@@ -650,8 +651,8 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
         {
             iaMatrixd camWorldMatrix;
             _cameraUI->calcWorldTransformation(camWorldMatrix);
-            iaVector3d from = camWorldMatrix * _viewManipulator.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
-            iaVector3d to = camWorldMatrix * _viewManipulator.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
+            iaVector3d from = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
+            iaVector3d to = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
 
             iNodeTransform* transformNode = static_cast<iNodeTransform*>(node);
             iaMatrixd transformWorldMatrix;
@@ -695,7 +696,7 @@ bool Manipulator::isSelected() const
 
 void Manipulator::onMouseKeyDown(iKeyCode key)
 {
-    _selectedLocatorNodeID = _viewManipulator.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
+    _selectedLocatorNodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
 }
 
 void Manipulator::onMouseKeyUp(iKeyCode key)

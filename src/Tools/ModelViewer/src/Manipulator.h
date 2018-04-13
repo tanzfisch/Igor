@@ -105,7 +105,7 @@ private:
     uint64 _materialCelShading;
 
     iWindow* _window = nullptr;
-    iView _viewManipulator;
+    iView _view;
     iScene* _scene = nullptr;
 
     uint64 _selectedLocatorNodeID = iNode::INVALID_NODE_ID;
