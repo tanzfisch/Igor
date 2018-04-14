@@ -417,17 +417,14 @@ namespace Igor
         if (materialChunk != nullptr)
         {
             int32 materialID = iMaterialResourceFactory::getInstance().createMaterial(materialChunk->getMaterialName());
-            iMaterial* material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
-            iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(materialID);
+            iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
 
             con_assert(material != nullptr, "zero pointer");
-            con_assert(materialGroup != nullptr, "zero pointer");
 
-            if (material != nullptr &&
-                materialGroup != nullptr)
+            if (material != nullptr)
             {
                 _materialMapping[materialChunk->getID()] = materialID;
-                materialGroup->getMaterial()->setOrder(materialChunk->getOrder());
+                material->setOrder(materialChunk->getOrder());
 
                 uint32 shaderObjectCount = materialChunk->getShaderObjectCount();
                 for (uint32 i = 0; i < shaderObjectCount; ++i)
@@ -755,11 +752,9 @@ namespace Igor
     {
         OMPF::ompfMaterialChunk* result = _ompf->createMaterialChunk();
 
-        iMaterialGroup* materialGroup = iMaterialResourceFactory::getInstance().getMaterialGroup(materialID);
-        if (materialGroup != nullptr)
+        iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        if (material != nullptr)
         {
-            iMaterial* material = materialGroup->getMaterial();
-
             auto shaderSources = material->getShaderSources();
             for (auto shaderSource : shaderSources)
             {
@@ -774,7 +769,7 @@ namespace Igor
                 result->setRenderStateValue(static_cast<OMPF::OMPFRenderState>(i), static_cast<OMPF::OMPFRenderStateValue>(renderStateSet.getRenderStateValue(static_cast<iRenderState>(i))));
             }
 
-            result->setOrder(materialGroup->getMaterial()->getOrder());
+            result->setOrder(material->getOrder());
         }
         else
         {

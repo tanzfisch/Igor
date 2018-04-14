@@ -157,8 +157,11 @@ namespace Igor
         */
         void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
 
-	private:
+        /*! \returns true if material is valid to use
+        */
+        bool isValid() const;
 
+	private:
 
         /*! material id generator
         */
@@ -167,6 +170,10 @@ namespace Igor
         /*! material id
         */
         uint64 _id = iMaterial::INVALID_MATERIAL_ID;
+
+        /*! if false the material was already destroyed by the iMaterialResourceFactory
+        */
+        bool _isValid = false;
 
         /*! if true shader has directional light
         */
@@ -296,7 +303,23 @@ namespace Igor
         */
         iShader* getShader();
 
+        /*! so the shared_ptr is able to call the private destructor indirectly
+
+        Thanks to http://nealabq.com/blog/2008/11/28/factory/
+        */
+        __IGOR_DISABLE_WARNING__(4091);
+        static struct private_deleter
+        {
+            void operator()(iMaterial* p)
+            {
+                delete p;
+            }
+        };
+        __IGOR_ENABLE_WARNING__(4091);
+
 	};
+
+    typedef shared_ptr<iMaterial> iMaterialPtr;
 
 }
 

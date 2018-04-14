@@ -141,12 +141,9 @@ void UserControlMaterialView::refresh()
     clear();
 
     uint32 currentRowIndex = 0;
-    auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
-    auto materialGroupIter = materialGroups->begin();
-    while(materialGroupIter != materialGroups->end())
+    auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+    for(auto material : materials)
     {
-        uint32 materialID = (*materialGroupIter)->getID();
-
         iWidgetGrid* entry = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
         entry->setSelectMode(iSelectionMode::NoSelection);
         entry->setBorder(0);
@@ -154,14 +151,14 @@ void UserControlMaterialView::refresh()
         entry->setHorizontalAlignment(iHorizontalAlignment::Left);
         uint32* userData = new uint32();
         _userData.push_back(userData);
-        *userData = materialID;
+        *userData = material->getID();
 
         iWidgetLabel* label = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
         label->setHorizontalAlignment(iHorizontalAlignment::Right);
         label->setVerticalAlignment(iVerticalAlignment::Center);
-        if ((*materialGroupIter)->getMaterial()->getName() != "")
+        if (material->getName() != "")
         {
-            label->setText((*materialGroupIter)->getMaterial()->getName());
+            label->setText(material->getName());
         }
         else
         {
@@ -174,8 +171,6 @@ void UserControlMaterialView::refresh()
 
         _gridEntryWidgets.push_back(label);
         _gridEntryWidgets.push_back(entry);
-
-        materialGroupIter++;
     }
 }
 

@@ -195,23 +195,23 @@ void UserControlMesh::updateGUI()
         _userDataMaterialID.clear();
         _selectMaterial->clear();
         
-        auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
-        auto materialGroupIter = materialGroups->begin();
-        while (materialGroupIter != materialGroups->end())
+        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        for(auto material : materials)
         {
-            uint32 materialID = (*materialGroupIter)->getID();
-            iaString materialName = (*materialGroupIter)->getMaterial()->getName();
-
-            uint32* ptrmaterialID = new uint32(materialID);
-            _selectMaterial->addSelectionEntry(materialName, ptrmaterialID);
-            _userDataMaterialID.push_back(ptrmaterialID);
-
-            if (materialID == node->getMaterial())
+            if (material->isValid())
             {
-                _selectMaterial->setSelection(_selectMaterial->getSelectionEntryCount() - 1);
-            }
+                uint32 materialID = material->getID();
+                iaString materialName = material->getName();
 
-            materialGroupIter++;
+                uint32* ptrmaterialID = new uint32(materialID);
+                _selectMaterial->addSelectionEntry(materialName, ptrmaterialID);
+                _userDataMaterialID.push_back(ptrmaterialID);
+
+                if (materialID == node->getMaterial())
+                {
+                    _selectMaterial->setSelection(_selectMaterial->getSelectionEntryCount() - 1);
+                }
+            }
         }
 
         _ignoreNodeUpdate = false;

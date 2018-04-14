@@ -60,9 +60,10 @@ namespace Igor
     class iParticle2D;
     class iSprite;
     class iInstancer;
-    class iMaterial;
     class iTargetMaterial;
     class iMeshBuffers;
+    class iMaterial;
+    typedef shared_ptr<iMaterial> iMaterialPtr;
 
     /*! shader object types
     */
@@ -259,8 +260,12 @@ namespace Igor
         \param forceWireframe if true all materials will be considered using wireframe
         \todo make separate interface for showing wireframe
         */
-        void setMaterial(iMaterial* material, bool forceWireframe = false);
+        void setMaterial(iMaterialPtr material, bool forceWireframe = false);
 
+        /*! sets color Id to render with
+
+        \param colorID next color ID to render with
+        */
         void setColorID(uint64 colorID);
 
         int32 getShaderPropertyID(uint32 programID, const char* name);
@@ -813,7 +818,7 @@ namespace Igor
 
         /*! current material in use
         */
-        iMaterial* _currentMaterial = nullptr;
+        iMaterialPtr _currentMaterial = nullptr;
 
         /*! map of render targets
         */

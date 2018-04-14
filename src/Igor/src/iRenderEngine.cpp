@@ -232,7 +232,7 @@ namespace Igor
 
     void iRenderEngine::drawColorIDs()
     {
-        iMaterial* colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
+        iMaterialPtr colorIDMaterial = iMaterialResourceFactory::getInstance().getMaterial(iMaterialResourceFactory::getInstance().getColorIDMaterialID());
         iRenderer::getInstance().setMaterial(colorIDMaterial);
 
         list<iMaterialGroup*>* materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();

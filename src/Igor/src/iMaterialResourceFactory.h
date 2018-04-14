@@ -93,11 +93,11 @@ namespace Igor
         /*! \returns materials with given material id
         \param materialID the materials id
         */
-        iMaterial* getMaterial(uint64 materialID);
+        iMaterialPtr getMaterial(uint64 materialID);
 
         /*! \returns default material
         */
-        iMaterial* getDefaultMaterial();
+        iMaterialPtr getDefaultMaterial();
 
         /*! \returns default material ID
         */
@@ -110,7 +110,7 @@ namespace Igor
         /*! \returns materials with given material name
         \param materialName the materials name
         */
-        iMaterial* getMaterial(iaString materialName);
+        iMaterialPtr getMaterial(iaString materialName);
 
         /*! \retruns material id with given material name
         \param materialName the materials name
@@ -119,11 +119,11 @@ namespace Igor
 
         /*! \returns the currently activated material
         */
-        iMaterial* getCurrentMaterial();
+        iMaterialPtr getCurrentMaterial();
 
         /*! \returns materials list sorted by render order
         */
-        vector<iMaterial*> getSortedMaterials();
+        vector<iMaterialPtr> getSortedMaterials();
 
     private:
 
@@ -133,11 +133,11 @@ namespace Igor
 
         /*! materials sorted by render order
         */
-        vector<iMaterial*> _sortedMaterials;
+        vector<iMaterialPtr> _sortedMaterials;
 
         /*! lookup table for materials
         */
-        map<uint64, iMaterial*> _materials;
+        map<uint64, iMaterialPtr> _materials;
 
         /*! mutex to protect the target material list
         */
@@ -149,7 +149,7 @@ namespace Igor
 
         /*! current material in use
         */
-        iMaterial* _currentMaterial = nullptr;
+        iMaterialPtr _currentMaterial = nullptr;
 
         /*! mutex for material lists
         */

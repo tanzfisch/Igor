@@ -5,7 +5,6 @@
 #include <iShader.h>
 
 #include <iaConsole.h>
-#include <iRenderer.h>
 #include <iResourceManager.h>
 
 #include <iaFile.h>

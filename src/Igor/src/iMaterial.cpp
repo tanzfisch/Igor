@@ -121,6 +121,11 @@ namespace Igor
         }
     }
 
+    bool iMaterial::isValid() const
+    {
+        return _isValid;
+    }
+
     void iMaterial::addShaderSource(iaString filename, iShaderObjectType type)
     {
         for (auto source : _shaderSources)

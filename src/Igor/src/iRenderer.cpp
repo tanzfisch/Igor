@@ -13,11 +13,11 @@
 #include <iTextureResourceFactory.h>
 #include <iShader.h>
 #include <iInstancer.h>
-#include <iMaterial.h>
 #include <iTargetMaterial.h>
 #include <iMeshBuffers.h>
 #include <iParticleSystem3D.h>
 #include <iTimer.h>
+#include <iMaterial.h>
 
 #include <GLee.h>
 #include <GL\glu.h>
@@ -889,7 +889,7 @@ namespace Igor
     }
 
     //! \todo this is just a first rudimentary version. we need a structure that only switches the deltas between materials
-    void iRenderer::setMaterial(iMaterial* material, bool forceWireframe)
+    void iRenderer::setMaterial(iMaterialPtr material, bool forceWireframe)
     {
         if (material == _currentMaterial)
         {
