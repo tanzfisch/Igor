@@ -35,6 +35,7 @@
 #include <iaString.h>
 #include <iaSingleton.h>
 #include <iaMutex.h>
+#include <iaEvent.h>
 using namespace IgorAux;
 
 #include <list>
@@ -44,6 +45,18 @@ using namespace std;
 
 namespace Igor
 {
+
+    /*! event triggered by material created
+
+    \param materialID id of material created
+    */
+    iaEVENT(iMaterialCreatedEvent, iMaterialCreatedDelegate, void, (uint64 materialID), (materialID));
+
+    /*! event triggered by material destroyed
+
+    \param materialID id of material destroyed
+    */
+    iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, void, (uint64 materialID), (materialID));
 
     class iMaterialGroup;
     class iTargetMaterial;
@@ -125,7 +138,39 @@ namespace Igor
         */
         vector<iMaterialPtr> getSortedMaterials();
 
+        /*! register delegate to material created event
+
+        \param materialCreatedDelegate delegate to register
+        */
+        void registerMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate);
+
+        /*! unregister delegate from material created event
+
+        \param materialCreatedDelegate delegate to unregister
+        */
+        void unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate);
+
+        /*! register delegate to material destroyed event
+
+        \param materialDestroyedDelegate delegate to register
+        */
+        void registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate);
+
+        /*! unregister delegate from material destroyed event
+
+        \param materialDestroyedDelegate delegate to unregister
+        */
+        void unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate);
+
     private:
+
+        /*! material created event
+        */
+        iMaterialCreatedEvent _materialCreatedEvent;
+
+        /*! material destroyed event
+        */
+        iMaterialDestroyedEvent _materialDestroyedEvent;
 
         /*! dirty flag to control changes in render order
         */

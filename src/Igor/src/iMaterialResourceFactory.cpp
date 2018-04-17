@@ -94,12 +94,6 @@ namespace Igor
         return _colorIDMaterial;
     }
 
-    bool compareGroup(iMaterialGroup* first, iMaterialGroup* second)
-    {
-        if (first->getMaterial()->getOrder() < second->getMaterial()->getOrder()) return true;
-        else return false;
-    }
-
     void iMaterialResourceFactory::updateGroups()
     {
         _mutexMaterial.lock();
@@ -167,7 +161,29 @@ namespace Igor
         _dirtyMaterials = true;
         _mutexMaterial.unlock();
 
+        _materialCreatedEvent(material->getID());
+
         return material->getID();
+    }
+
+    void iMaterialResourceFactory::registerMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
+    {
+        _materialCreatedEvent.append(materialCreatedDelegate);
+    }
+
+    void iMaterialResourceFactory::unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate)
+    {
+        _materialCreatedEvent.remove(materialCreatedDelegate);
+    }
+
+    void iMaterialResourceFactory::registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
+    {
+        _materialDestroyedEvent.append(materialDestroyedDelegate);
+    }
+
+    void iMaterialResourceFactory::unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate)
+    {
+        _materialDestroyedEvent.remove(materialDestroyedDelegate);
     }
 
     void iMaterialResourceFactory::destroyMaterial(uint64 materialID)
@@ -196,6 +212,8 @@ namespace Igor
         }
 
         _mutexMaterial.unlock();
+
+        _materialDestroyedEvent(materialID);
     }
 
     void iMaterialResourceFactory::setMaterial(uint64 materialID)

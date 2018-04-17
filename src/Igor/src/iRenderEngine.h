@@ -32,6 +32,7 @@
 #include <iDefines.h>
 
 #include <vector>
+#include <map>
 using namespace std;
 
 namespace Igor
@@ -157,7 +158,11 @@ namespace Igor
 
         /*! material groups
         */
-        vector<iMaterialGroup*> _materialGroups;
+        map<uint64, iMaterialGroup> _materialGroups;
+
+        /*! dirty flag forcing to sort material groups
+        */
+        bool _dirtyGroups = true;
 
         /*! handle to scene
         */
@@ -166,6 +171,18 @@ namespace Igor
         /*! temporary list of nodes that where filtered by the culling process
         */
         vector<uint64> _cullResult;
+
+        /*! called on material created event
+
+        \param materialID the material's id that got created
+        */
+        void onMaterialCreated(uint64 materialID);
+
+        /*! called on material destroyed event
+
+        \param materialID the material's id that got destroyed
+        */
+        void onMaterialDestroyed(uint64 materialID);
 
         /*! cull scene relative to specified camera
 

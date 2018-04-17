@@ -47,12 +47,8 @@ namespace Igor
 
     /*! material group describes a group of render nodes that use the same material
     */
-    class Igor_API iMaterialGroup
+    class iMaterialGroup
 	{
-
-		friend class iMaterialResourceFactory;
-        friend class iRenderEngine;
-
         /*! structure for handling instanced rendered nodes
         */
         struct Instanced
@@ -63,15 +59,26 @@ namespace Igor
 
     public:
 
-        /*! \returns pointer to internal material definition
+        /*! does nothing
         */
-        iMaterial* getMaterial();
+        iMaterialGroup() = default;
 
-	private:
-
-        /*! the actuall material
+        /*! clean up
         */
-		iMaterial _material;
+        virtual ~iMaterialGroup();
+
+        /*! adds node to material group
+
+        \param renderNode node to be added
+        \param instancing if true instancing is used by the material associated with this group
+        */
+        void addRenderNode(uint64 renderNodeID, bool instancing);
+
+        /*! removes render node from material group
+        \param renderNode node to be removed        */        void removeRenderNode(uint64 renderNodeID, bool instancing);
+        const vector<uint64> getRenderNodes() const;
+
+    private:
 
         /*! render node IDs registred to this material
         */
@@ -81,29 +88,8 @@ namespace Igor
         */
         map<shared_ptr<iMeshBuffers>, Instanced> _instancedRenderNodes;
 
-        /*! adds node to material group
-
-        \param renderNode node to be added
-
-        \todo when does a mesh get removed from this group? reference count?
-        */
-        void addRenderNode(uint64 renderNodeID);
-
-		/*! removes render node from material group
-		
-		\param renderNode node to be removed
-		*/
-        void removeRenderNode(uint64 renderNodeID);
-
-        /*! init id
-        */
-        iMaterialGroup();
-        
-        /*! clean up
-        */
-        virtual ~iMaterialGroup();
-
 	};
+
 }
 
 #endif
