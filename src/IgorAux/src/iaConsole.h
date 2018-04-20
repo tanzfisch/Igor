@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2017 by Martin Loga
+// (c) Copyright 2012-2018 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -90,6 +90,7 @@ namespace IgorAux
         friend iaConsole& incwarn(iaConsole &console);
         friend iaConsole& LOCK(iaConsole &console);
         friend iaConsole& UNLOCK(iaConsole &console);
+        friend iaConsole& printThreadID(iaConsole &console);
         friend iaConsole& generateWindowsError(iaConsole &console);
         friend iaConsole& applicationTime(iaConsole &console);
 
@@ -239,7 +240,7 @@ namespace IgorAux
 #define con_assert(Condition, Message) \
     if (!(Condition)) \
     { \
-        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Red << "ASSERTION " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
+        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << "-----------------------------------------------------------------------" << endl; \
@@ -262,7 +263,7 @@ namespace IgorAux
 #define con_assert_sticky(Condition, Message) \
     if (!(Condition)) \
     { \
-        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Red << "ASSERTION_DEBUG_BREAK " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
+        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION_DEBUG_BREAK " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << "-----------------------------------------------------------------------" << endl; \
@@ -281,7 +282,7 @@ namespace IgorAux
     \param Message message output
     */
 #define con_debug(Message)\
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << Message << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << Message << UNLOCK;
 
     /*! only called in debug mode
 
@@ -290,7 +291,7 @@ namespace IgorAux
     \param Message message output
     */
 #define con_debug_endl(Message)\
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << Message << endl << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << Message << endl << UNLOCK;
 
 #else
 
@@ -300,7 +301,7 @@ namespace IgorAux
 #define con_assert_sticky(Condition, Message) \
     if (!(Condition)) \
     { \
-        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Red << "INTERNAL ERROR " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
+        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << "INTERNAL ERROR " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << "-----------------------------------------------------------------------" << endl; \
@@ -325,7 +326,7 @@ namespace IgorAux
     \param Message message to be printed
     */
 #define con_err(Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
+    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkRed; \
@@ -338,7 +339,7 @@ namespace IgorAux
     \param Message message to be printed
     */
 #define con_err_win(Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
+    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl;\
     iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << endl; \
@@ -353,7 +354,7 @@ namespace IgorAux
     \param Message message to be printed
     */
 #define con_warn(Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Yellow << incwarn << "WARNING " << Message << endl; \
+    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Yellow << incwarn << "WARNING " << Message << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
@@ -366,12 +367,12 @@ namespace IgorAux
 	\todo would be nice to have a fixed size of info type collumn
     */
 #define con_info(Type, Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID <<  iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl << UNLOCK;
 
     /*! just prints where we currently are. meant to be a quick thing to do for debugging
     */
 #define con_trace() \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Blue << "TRACE " <<  __IGOR_FUNCTION__ << __IGOR_FILE_LINE__ << endl << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Blue << "TRACE " <<  __IGOR_FUNCTION__ << __IGOR_FILE_LINE__ << endl << UNLOCK;
 
     /*! prints an message to console and optionally to the log file
 
@@ -516,6 +517,12 @@ namespace IgorAux
         return console;
     }
 
+    __IGOR_INLINE__ iaConsole& printThreadID(iaConsole &console)
+    {
+        int32 threadID = GetCurrentThreadId();
+        console << "[" << setfill(L'0') << setw(8) << hex << threadID << "] ";
+        return console;
+    }
 
 };
 

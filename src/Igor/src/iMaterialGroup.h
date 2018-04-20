@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2017 by Martin Loga
+// (c) Copyright 2012-2018 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -79,8 +79,12 @@ namespace Igor
         */
         void addRenderNode(uint64 renderNodeID, bool instancing);
 
-        /*! removes render node from material group
-        \param renderNode node to be removed        */        void removeRenderNode(uint64 renderNodeID, bool instancing);
+        /*! removes render node from material group
+
+        \param renderNode node to be removed
+        */
+        void removeRenderNode(uint64 renderNodeID, bool instancing);
+
         /*! \returns copy of render nodes in this group
         */
         vector<uint64> getRenderNodes() const;
