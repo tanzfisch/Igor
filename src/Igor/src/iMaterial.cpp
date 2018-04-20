@@ -9,16 +9,24 @@
 #include <iNodeCamera.h>
 #include <iShader.h>
 
+#include <sstream>
+using namespace std;
+
 namespace Igor
 {
 
+    iaIDGenerator64 iMaterial::_idGenerator;
+
     iMaterial::iMaterial()
     {
+        _id = _idGenerator.createID();
     }
 
     iMaterial::~iMaterial()
     {
         clearShader();
+
+        _idGenerator.destroyID(_id);
     }
 
     void iMaterial::clearShader()
@@ -28,6 +36,11 @@ namespace Igor
             delete _shader;
             _shader = nullptr;
         }
+    }
+
+    uint64 iMaterial::getID() const
+    {
+        return _id;
     }
 
     void iMaterial::compileShader()
@@ -100,18 +113,19 @@ namespace Igor
                 _hasSolidColor = true;
             }
 
-            _matTexture[0] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE0);
-            _hasTexture[0] = _matTexture[0] != -1 ? true : false;
-
-            _matTexture[1] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE1);
-            _hasTexture[1] = _matTexture[1] != -1 ? true : false;
-
-            _matTexture[2] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE2);
-            _hasTexture[2] = _matTexture[2] != -1 ? true : false;
-
-            _matTexture[3] = iRenderer::getInstance().getShaderPropertyID(program, SAMPLER_TEXTURE3);
-            _hasTexture[3] = _matTexture[3] != -1 ? true : false;
+            for (int i = 0; i < MAX_TEXTURE_UNITS; ++i)
+            {
+                stringstream shaderProperty;
+                shaderProperty << SAMPLER_TEXTURE << i;
+                _matTexture[i] = iRenderer::getInstance().getShaderPropertyID(program, shaderProperty.str().c_str());
+                _hasTexture[i] = _matTexture[i] != -1 ? true : false;
+            }
         }
+    }
+
+    bool iMaterial::isValid() const
+    {
+        return _isValid;
     }
 
     void iMaterial::addShaderSource(iaString filename, iShaderObjectType type)
@@ -141,7 +155,7 @@ namespace Igor
         return _shader;
     }
 
-    int32 iMaterial::getOrder()
+    int32 iMaterial::getOrder() const
     {
         return _order;
     }

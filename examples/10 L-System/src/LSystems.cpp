@@ -5,7 +5,6 @@
 #include "LSystems.h"
 
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeCamera.h>
@@ -152,9 +151,11 @@ void LSystems::init()
     // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+    material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    material->setName("LogoMaterial");
 }
 
 void LSystems::deinit()
@@ -474,7 +475,7 @@ void LSystems::onRenderOrtho()
 
 void LSystems::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

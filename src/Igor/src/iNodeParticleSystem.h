@@ -32,7 +32,10 @@
 #include <iNodeVolume.h>
 #include <iTexture.h>
 #include <iParticleSystem3D.h>
+
+#include <iaEvent.h>
 #include <iaGradient.h>
+using namespace IgorAux;
 
 #include <vector>
 using namespace std;

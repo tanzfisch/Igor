@@ -274,12 +274,12 @@ void Example2D::onRender()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // set a textured material and draw the tiles texture as background
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTexture);
+    iRenderer::getInstance().setMaterial(_materialWithTexture);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), _backgroundTexture);
 
     // set non textured material and draw some primitves
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
+    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
 
     iRenderer::getInstance().drawRectangle(10, 10, 200, 150);
@@ -303,7 +303,7 @@ void Example2D::onRender()
     }
 
     // change material again to textured an draw the logo
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawSprite(_openGLLogo, _logoPosition._x, _logoPosition._y, _logoRotationAngle, 1.5f, 1.5f);
 
@@ -324,7 +324,7 @@ void Example2D::onRender()
     iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);
 
     // draw spline
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
+    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0.5, 1));
     iRenderer::getInstance().drawLineStrip(_spline.getSpline());
 
@@ -354,7 +354,7 @@ void Example2D::onRender()
 
 void Example2D::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

@@ -8,17 +8,10 @@
 #include <iNodeMesh.h>
 #include <iMesh.h>
 #include <iNodeFactory.h>
+#include <iMaterialResourceFactory.h>
 
 namespace Igor
 {
-
-    uint64 iMaterialGroup::_nextId = 1;
-
-    iMaterialGroup::iMaterialGroup()
-    {
-        _id = _nextId++;
-    }
-
     iMaterialGroup::~iMaterialGroup()
     {
         for (auto iter : _instancedRenderNodes)
@@ -30,38 +23,22 @@ namespace Igor
         }
     }
 
-    void iMaterialGroup::removeRenderNode(uint64 renderNodeID)
+    vector<uint64> iMaterialGroup::getRenderNodes() const
     {
-        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
-        if (renderNode != nullptr)
-        {
-            if (iRenderStateValue::On == _material.getRenderStateSet().getRenderStateValue(iRenderState::Instanced) &&
-                iNodeType::iNodeMesh == renderNode->getType())
-            {
-                auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();
-                auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);
-                if (iter != _instancedRenderNodes[meshBuffers]._renderNodeIDs.end())
-                {
-                    _instancedRenderNodes[meshBuffers]._renderNodeIDs.erase(iter);
-                }
-            }
-            else
-            {
-                auto iter = find(_renderNodeIDs.begin(), _renderNodeIDs.end(), renderNodeID);
-                if (iter != _renderNodeIDs.end())
-                {
-                    _renderNodeIDs.erase(iter);
-                }
-            }
-        }
+        return _renderNodeIDs;
     }
 
-    void iMaterialGroup::addRenderNode(uint64 renderNodeID)
+    map<shared_ptr<iMeshBuffers>, iInstancedNodes> iMaterialGroup::getInstancedRenderNodes() const
+    {
+        return _instancedRenderNodes;
+    }
+
+    void iMaterialGroup::addRenderNode(uint64 renderNodeID, bool instancing)
     {
         iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
         if (renderNode != nullptr)
         {
-            if (iRenderStateValue::On == _material.getRenderStateSet().getRenderStateValue(iRenderState::Instanced) &&
+            if (instancing && 
                 iNodeType::iNodeMesh == renderNode->getType())
             {
                 auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();
@@ -87,26 +64,8 @@ namespace Igor
         }
     }
 
-    iMaterial* iMaterialGroup::getMaterial()
-    {
-        return &_material;
-    }
-
-    int32 iMaterialGroup::getOrder()
-    {
-        return _material.getOrder();
-    }
-
-    void iMaterialGroup::setOrder(int32 order)
-    {
-        _material.setOrder(order);
-    }
-
-    uint64 iMaterialGroup::getID()
-    {
-        return _id;
-    }
-
+    void iMaterialGroup::removeRenderNode(uint64 renderNodeID, bool instancing)    {        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+        if (renderNode != nullptr)        {            if (instancing &&                iNodeType::iNodeMesh == renderNode->getType())            {                auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();                auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);                if (iter != _instancedRenderNodes[meshBuffers]._renderNodeIDs.end())                {                    _instancedRenderNodes[meshBuffers]._renderNodeIDs.erase(iter);                }            }            else            {                auto iter = find(_renderNodeIDs.begin(), _renderNodeIDs.end(), renderNodeID);                if (iter != _renderNodeIDs.end())                {                    _renderNodeIDs.erase(iter);                }            }        }    }
 }
 
 

@@ -62,8 +62,8 @@ public:
 
 	iWidget* getWidget();
 
-	void setMaterial(uint32 id);
-	uint32 getMaterial();
+	void setMaterial(uint64 id);
+	uint64 getMaterialID() const;
 
 	void registerNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
 	void unregisterNameChangeDelegate(MaterialNameChangedDelegate nameChangedDelegate);
@@ -104,7 +104,7 @@ private:
 
 	vector<iWidget*> _allWidgets;
 
-	uint32 _materialID = 0;
+	uint64 _materialID = 0;
 
     uint32 _loadShaderNumber = 0;
 
@@ -122,7 +122,7 @@ private:
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
 
-    void reloadShader(iMaterial* material);
+    void reloadShader(iMaterialPtr material);
 
 	void updateGUI();
 	void updateMaterial();

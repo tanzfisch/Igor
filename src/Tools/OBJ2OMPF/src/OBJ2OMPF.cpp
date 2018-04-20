@@ -7,9 +7,9 @@
 #include <iScene.h>
 #include <iNodeFactory.h>
 #include <iMaterialResourceFactory.h>
-#include <iMaterialGroup.h>
 #include <iShader.h>
 #include <iNodeMesh.h>
+#include <iRenderer.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -86,7 +86,7 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured.vert", iShaderObjectType::Vertex);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->addShaderSource("textured_directional_light.frag", iShaderObjectType::Fragment);
         iMaterialResourceFactory::getInstance().getMaterial(materialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-        iMaterialResourceFactory::getInstance().getMaterialGroup(materialID)->setOrder(100);
+        iMaterialResourceFactory::getInstance().getMaterial(materialID)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         iModelDataInputParameter* parameters = new iModelDataInputParameter();
         parameters->_joinVertexes = _joinVertexes;
@@ -110,12 +110,10 @@ void OBJ2OMPF::convert(int argc, char* argv[])
         // force him to use the textured material
         setMaterialRecursive(modelNode, materialID);
 
-        list<iMaterialGroup*>* materials = iMaterialResourceFactory::getInstance().getMaterialGroups();
-        auto iter = materials->begin();
-        while (iter != materials->end())
+        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        for(auto material : materials)
         {
-            con_endl("material " << (*iter)->getMaterial()->getName() << " with id " << (*iter)->getID());
-            iter++;
+            con_endl("material " << material->getName() << " with id " << material->getID());
         }
 
         iNode* objRoot = modelNode->getChild("obj_root");

@@ -14,11 +14,11 @@
 #include <iTargetMaterial.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iWidgetCheckBox.h>
 #include <iWidgetSelectBox.h>
 #include <iResourceManager.h>
 #include <iWidgetGroupBox.h>
+#include <iRenderer.h>
 using namespace Igor;
 
 UserControlMaterial::UserControlMaterial()
@@ -33,10 +33,11 @@ UserControlMaterial::~UserControlMaterial()
 
 void UserControlMaterial::updateMaterial()
 {
-    iMaterial* material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    iMaterialPtr material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
     if (!_ignoreMaterialUpdate &&
-        material != nullptr)
+        material != nullptr &&
+        material->isValid())
     {
         material->setName(_textName->getText());
         material->setOrder(static_cast<int32>(_renderingOrder->getValue()));
@@ -98,7 +99,7 @@ void UserControlMaterial::updateMaterial()
     }
 }
 
-void UserControlMaterial::reloadShader(iMaterial* material)
+void UserControlMaterial::reloadShader(iMaterialPtr material)
 {
     material->clearShader();
     if (_textShaderGeometry->getText() != "")
@@ -120,9 +121,10 @@ void UserControlMaterial::reloadShader(iMaterial* material)
 
 void UserControlMaterial::updateGUI()
 {
-    iMaterial* material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
-    if (material != nullptr)
+    if (material != nullptr &&
+        material->isValid())
     {
         _ignoreMaterialUpdate = true;
 
@@ -216,13 +218,13 @@ void UserControlMaterial::updateGUI()
     }
 }
 
-void UserControlMaterial::setMaterial(uint32 id)
+void UserControlMaterial::setMaterial(uint64 id)
 {
     _materialID = id;
     updateGUI();
 }
 
-uint32 UserControlMaterial::getMaterial()
+uint64 UserControlMaterial::getMaterialID() const
 {
     return _materialID;
 }
@@ -656,10 +658,11 @@ void UserControlMaterial::onShader2Button(iWidget* source)
 
 void UserControlMaterial::onReloadShader(iWidget* source)
 {
-    iMaterial* material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialID);
 
     if (!_ignoreMaterialUpdate &&
-        material != nullptr)
+        material != nullptr &&
+        material->isValid())
     {
         reloadShader(material);
     }

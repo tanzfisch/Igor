@@ -294,7 +294,7 @@ namespace Igor
 
         _startVisibleTimeGradient.getValue(particleSystemTime, minMax);
         float32 visibleTime = minMax._x + randomFactor * (minMax._y - minMax._x);
-        visibleTime /= 1.0 / _simulationRate;
+        visibleTime /= 1.0f / _simulationRate;
         particle._visibleTimeIncrease = 1.0f / visibleTime;
         particle._visible = true;
 
@@ -466,7 +466,7 @@ namespace Igor
                 {
                     iParticle &particle = (*particleIter);
 
-                    particle._life -= 1.0 / _simulationRate;
+                    particle._life -= 1.0f / _simulationRate;
                     if (particle._life <= 0)
                     {
                         particleIter = _particles.erase(particleIter);

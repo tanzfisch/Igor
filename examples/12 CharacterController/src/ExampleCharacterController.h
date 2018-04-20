@@ -56,6 +56,7 @@ namespace Igor
     class iNodeModel;
     class iPhysicsBody;
     class iPhysicsJoint;
+    class iTexture;
 }
 
 #include "CharacterController.h"

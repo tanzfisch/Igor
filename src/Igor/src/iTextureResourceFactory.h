@@ -59,7 +59,7 @@ namespace Igor
 
         /*! \returns shared pointer to genereated dummy texture
         */
-        shared_ptr<iTexture> getDummyTexture();
+        iTexturePtr getDummyTexture();
 
         /*! requests a file to be loaded asynchronously.
 
@@ -68,7 +68,7 @@ namespace Igor
         \param wrapMode wrap mode of texture
         \returns shared pointer to texture
         */
-        shared_ptr<iTexture> requestFile(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        iTexturePtr requestFile(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! load texture synchronously
 
@@ -76,7 +76,7 @@ namespace Igor
         \param mode default ist mipmapped
         \returns shared pointer to texture
         */
-        shared_ptr<iTexture> loadFile(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        iTexturePtr loadFile(const iaString& filename, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! works like a garbage collector.
 
@@ -98,7 +98,7 @@ namespace Igor
         \param pixmapname artificial filename used as identifier (has to be a uNiQue)
         \param mode default ist mipmapped
         */
-        shared_ptr<iTexture> loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
+        iTexturePtr loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iResourceCacheMode cacheMode = iResourceCacheMode::Free, iTextureBuildMode buildMode = iTextureBuildMode::Mipmapped, iTextureWrapMode wrapMode = iTextureWrapMode::Repeat);
 
         /*! synchronously loading a texture and returning a iPixmap
 
@@ -123,11 +123,11 @@ namespace Igor
 
         /*! map of textures
         */
-        map<int64, shared_ptr<iTexture>> _textures;
+        map<int64, iTexturePtr> _textures;
 
         /*! generated dummy texture
         */
-        shared_ptr<iTexture> _dummyTexture = nullptr;
+        iTexturePtr _dummyTexture = nullptr;
 
         /*! releases all textures
         */
@@ -141,7 +141,7 @@ namespace Igor
 
         \param texture [in out] contains src information and texture
         */
-        void loadTexture(shared_ptr<iTexture> texture);
+        void loadTexture(iTexturePtr texture);
 
         /*! calculates hash value based on filename or name and build mode
 

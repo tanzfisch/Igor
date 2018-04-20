@@ -204,7 +204,7 @@ void StateMachineExample::onRenderWinState()
     iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1,0,0,1));
 
     iRenderer::getInstance().bindTexture(_particleTexture, 0);
@@ -296,7 +296,7 @@ void StateMachineExample::onRenderGameState()
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
 
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFontSize(100.0f);
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));
 
@@ -414,7 +414,7 @@ void StateMachineExample::onRenderMenuState()
     iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFontSize(50.0f);
 
     for (int i = 0; i < 5; ++i)
@@ -441,7 +441,7 @@ void StateMachineExample::onRender()
     iaMatrixd modelMatrix;
     modelMatrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(modelMatrix);
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     iRenderer::getInstance().setFont(_font);
