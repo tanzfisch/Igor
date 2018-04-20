@@ -3328,7 +3328,7 @@ namespace Igor
         {
             _density[i + 0] = _density[i + 9];
             _density[i + 9] = _density[i + 18];
-            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
+            _density[i + 18] = _currentPoles[i]._currentDensityPole->getValue(_cubePosition._y);
         }
     }
 
@@ -3355,7 +3355,7 @@ namespace Igor
 
         for (int i = 0; i < 9; ++i)
         {
-            _density[i + 18] = static_cast<float32>(_currentPoles[i]._currentDensityPole->getValue(_cubePosition._y));
+            _density[i + 18] = _currentPoles[i]._currentDensityPole->getValue(_cubePosition._y);
         }
     }
 

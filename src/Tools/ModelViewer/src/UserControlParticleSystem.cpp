@@ -19,7 +19,6 @@
 #include <iWidgetCheckBox.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iUserControlFileChooser.h>
 #include <iResourceManager.h>
 #include <iWidgetSpacer.h>
@@ -199,23 +198,19 @@ void UserControlParticleSystem::updateGUI()
         _userDataMaterialID.clear();
         _materialSelection->clear();
 
-        auto materialGroups = iMaterialResourceFactory::getInstance().getMaterialGroups();
-        auto materialGroupIter = materialGroups->begin();
-        while (materialGroupIter != materialGroups->end())
+        auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
+        for(auto material : materials)
         {
-            uint32 materialID = (*materialGroupIter)->getID();
-            iaString materialName = (*materialGroupIter)->getMaterial()->getName();
+            uint32 materialID = material->getID();
 
             uint32* ptrmaterialID = new uint32(materialID);
-            _materialSelection->addSelectionEntry(materialName, ptrmaterialID);
+            _materialSelection->addSelectionEntry(material->getName(), ptrmaterialID);
             _userDataMaterialID.push_back(ptrmaterialID);
 
             if (materialID == node->getMaterial())
             {
                 _materialSelection->setSelection(_materialSelection->getSelectionEntryCount() - 1);
             }
-
-            materialGroupIter++;
         }
 
         _textureChooser0->setFileName(node->getTextureA());

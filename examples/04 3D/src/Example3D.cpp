@@ -5,7 +5,6 @@
 using namespace IgorAux;
 
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>
@@ -229,10 +228,11 @@ void Example3D::init()
     skyBoxNode->setTextureScale(10);
     // create a material for the sky box because the default material for all iNodeRender and deriving classes has no textures and uses depth test
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox);
+    material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->setOrder(iMaterial::RENDER_ORDER_MIN);
+    material->setName("SkyBox");
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene
@@ -263,9 +263,11 @@ void Example3D::init()
     // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+    material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    material->setName("LogoMaterial");
 
     // animation
     _animationTimingHandle = new iTimerHandle();
@@ -467,7 +469,7 @@ void Example3D::onRenderOrtho()
 
 void Example3D::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

@@ -30,7 +30,7 @@
       <Filter>devices</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iRenderer.cpp">
-      <Filter>graphics\OpenGL</Filter>
+      <Filter>graphics\Renderer-OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iParticleSystem2D.cpp">
       <Filter>graphics\simulation</Filter>
@@ -460,7 +460,7 @@
       <Filter>devices</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iRenderer.h">
-      <Filter>graphics\OpenGL</Filter>
+      <Filter>graphics\Renderer-OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iParticleSystem2D.h">
       <Filter>graphics\simulation</Filter>
@@ -983,9 +983,6 @@
     <Filter Include="todo">
       <UniqueIdentifier>{ba0d6957-59db-4bc4-8241-17631899f4c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="graphics\OpenGL">
-      <UniqueIdentifier>{e7a7a7e5-4e38-488f-a442-f1d26a7be27c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="graphics\simulation">
       <UniqueIdentifier>{adc83f57-4398-46ea-a33d-6d86602a6829}</UniqueIdentifier>
     </Filter>
@@ -1063,6 +1060,9 @@
     </Filter>
     <Filter Include="terrain\operations">
       <UniqueIdentifier>{48fdb292-5fb3-404a-9378-aaf533b9daf4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\Renderer-OpenGL">
+      <UniqueIdentifier>{e7a7a7e5-4e38-488f-a442-f1d26a7be27c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

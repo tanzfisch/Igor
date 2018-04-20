@@ -54,6 +54,7 @@ namespace Igor
     class iNodeLODTrigger;
     class iNodeLODSwitch;
     class iNodeModel;
+    class iTexture;
 }
 
 class Example3D

@@ -1,15 +1,11 @@
 #include "WidgetsExample.h"
 
-#include <iaConsole.h>
-using namespace IgorAux;
-
 #include <iRenderer.h>
 #include <iApplication.h>
 #include <iMouse.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
 #include <iMaterialResourceFactory.h>
-
 #include <iWidgetManager.h>
 #include <iDialog.h>
 #include <iWidgetLabel.h>
@@ -33,6 +29,9 @@ using namespace IgorAux;
 #include <iWidgetColorGradient.h>
 #include <iDialogColorGradient.h>
 using namespace Igor;
+
+#include <iaConsole.h>
+using namespace IgorAux;
 
 WidgetsExample::WidgetsExample()
 {
@@ -498,7 +497,7 @@ void WidgetsExample::onRender()
 
 void WidgetsExample::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

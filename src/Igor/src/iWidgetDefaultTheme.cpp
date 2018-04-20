@@ -4,6 +4,7 @@
 #include <iMaterialResourceFactory.h>
 #include <iTextureResourceFactory.h>
 #include <iMaterial.h>
+#include <iRenderer.h>
 
 #include <iaConsole.h>
 using namespace IgorAux;
@@ -105,7 +106,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawGradient(int32 posx, int32 posy, int32 width, int32 height, const iaGradientColor4f& gradient)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
         iRenderer::getInstance().setLineWidth(1);
 
         iaColor4f color;
@@ -147,7 +148,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawRectangle(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
         iRenderer::getInstance().setLineWidth(_defaultLineWidth);
 
         iRenderer::getInstance().setColor(color);
@@ -159,7 +160,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawFilledRectangle(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iRenderer::getInstance().setColor(color);
         drawRectangleInt(posx, posy, width, height);
@@ -167,14 +168,14 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawGridHighlight(int32 posx, int32 posy, int32 width, int32 height)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
         iRenderer::getInstance().setColor(COLOR_DIFFUSE_LIGHT);
         drawRectangleInt(posx, posy, width, height);
     }
 
     void iWidgetDefaultTheme::drawGridSelection(int32 posx, int32 posy, int32 width, int32 height)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
         iRenderer::getInstance().setColor(COLOR_SPECULAR);
         drawRectangleInt(posx, posy, width, height);
     }
@@ -186,7 +187,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawGraphFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iRenderer::getInstance().setColor(COLOR_DIFFUSE_TRANSPARENT);
         drawRectangleInt(posx, posy, width, height);
@@ -203,7 +204,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawBackgroundFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iRenderer::getInstance().setColor(COLOR_DIFFUSE_TRANSPARENT);
         drawRectangleInt(posx, posy, width, height);
@@ -224,7 +225,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawButton(int32 posx, int32 posy, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
         drawButtonFrame(posx, posy, width, height, color, state, active);
 
         DRAW_DEBUG_OUTPUT(posx, posy, width, height, state);
@@ -239,7 +240,7 @@ namespace Igor
             offset = +1;
         }
 
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
         if (texture == nullptr)
         {
             drawButtonFrame(posx, posy, width, height, state, active);
@@ -256,7 +257,7 @@ namespace Igor
 
         if (texture != nullptr)
         {
-            iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+            iRenderer::getInstance().setMaterial(_texturedMaterial);
             drawPicture(posx + offset + reduction / 2, posy + offset + reduction / 2, width - reduction, height - reduction, texture, state, active);
         }
 
@@ -304,7 +305,7 @@ namespace Igor
 
         float32 textwidth = _font->measureWidth(modText, _fontSize);
 
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         if (active)
         {
@@ -325,7 +326,7 @@ namespace Igor
 		drawLineInt(posx, posy, posx + width, posy);
 		drawLineInt(posx, posy, posx, posy + height);
 
-        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+        iRenderer::getInstance().setMaterial(_texturedMaterial);
 
         if (keyboardFocus)
         {
@@ -392,7 +393,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawNumberChooserFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state_button_up, iWidgetAppearanceState state_button_down, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iRenderer::getInstance().setColor(COLOR_DIFFUSE_LIGHT);
         drawRectangleInt(posx, posy, width, height);
@@ -421,7 +422,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawSelectBoxFrame(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState buttonState, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iRenderer::getInstance().setColor(COLOR_DIFFUSE_LIGHT);
         drawRectangleInt(posx, posy, width, height);
@@ -440,7 +441,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawSelectBoxDropDown(int32 posx, int32 posy, int32 width, int32 height, vector<iaString>& text, int highlightIndex, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iRenderer::getInstance().setColor(COLOR_DIFFUSE_LIGHT);
         drawRectangleInt(posx, posy + height - 1, width - height, height * static_cast<int32>(text.size()));
@@ -470,7 +471,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawCheckBoxFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         if (state != iWidgetAppearanceState::Standby)
         {
@@ -481,7 +482,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawCheckBox(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active, bool checked)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         if (active)
         {
@@ -542,7 +543,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawText(int32 posx, int32 posy, const iaString& text, int32 textwidth)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+        iRenderer::getInstance().setMaterial(_texturedMaterial);
 
         iRenderer::getInstance().setColor(COLOR_AMBIENT);
         iRenderer::getInstance().setFont(_font);
@@ -557,7 +558,7 @@ namespace Igor
     {
         if (lineWidth > 0.0)
         {
-            iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+            iRenderer::getInstance().setMaterial(_defaultMaterial);
 
             if (active)
             {
@@ -586,7 +587,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawGraphLabels(int32 posx, int32 posy, int32 width, int32 height, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+        iRenderer::getInstance().setMaterial(_texturedMaterial);
 
         if (active)
         {
@@ -638,7 +639,7 @@ namespace Igor
         iaVector2f currentPoint;
         iaVector2f lastPoint;
 
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         if (lineWidth > 0.0)
         {
@@ -692,7 +693,7 @@ namespace Igor
             h -= _fontSize * 0.5f;
         }
 
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
         iRenderer::getInstance().setLineWidth(_defaultLineWidth);
         iRenderer::getInstance().setColor(COLOR_AMBIENT);
 
@@ -720,14 +721,14 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawTiledRectangle(int32 posx, int32 posy, int32 width, int32 height, shared_ptr<iTexture> texture)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+        iRenderer::getInstance().setMaterial(_texturedMaterial);
         iRenderer::getInstance().setColor(COLOR_WHITE);
         iRenderer::getInstance().drawTextureTiled(static_cast<float32>(posx), static_cast<float32>(posy), static_cast<float32>(width), static_cast<float32>(height), texture);
     }
 
     void iWidgetDefaultTheme::drawPicture(int32 posx, int32 posy, int32 width, int32 height, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+        iRenderer::getInstance().setMaterial(_texturedMaterial);
 
         if (active)
         {
@@ -745,7 +746,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawButtonText(int32 posx, int32 posy, const iaString& text)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_texturedMaterial);
+        iRenderer::getInstance().setMaterial(_texturedMaterial);
 
         iRenderer::getInstance().setColor(COLOR_TEXT);
         iRenderer::getInstance().setFont(_font);
@@ -756,7 +757,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawButtonFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iaColor4f diffuse = COLOR_DIFFUSE;
         if (!active)
@@ -803,7 +804,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawButtonFrame(int32 x, int32 y, int32 width, int32 height, const iaColor4f& color, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         iaColor4f diffuse = color;
         if (!active)
@@ -851,7 +852,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawFrame(int32 x, int32 y, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         if (active)
         {
@@ -871,7 +872,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawSpacer(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         if (active)
         {
@@ -887,7 +888,7 @@ namespace Igor
 
     void iWidgetDefaultTheme::drawDialog(int32 posx, int32 posy, int32 width, int32 height, iWidgetAppearanceState state, bool active)
     {
-        iMaterialResourceFactory::getInstance().setMaterial(_defaultMaterial);
+        iRenderer::getInstance().setMaterial(_defaultMaterial);
 
         drawTiledRectangle(posx, posy, width, height, _backgroundTexture);
 

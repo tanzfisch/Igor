@@ -5,7 +5,6 @@
 #include <iNodeRender.h>
 
 #include <iMaterialResourceFactory.h>
-#include <iMaterialGroup.h>
 #include <iScene.h>
 
 #include <iaConsole.h>

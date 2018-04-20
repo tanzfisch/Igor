@@ -37,6 +37,7 @@
 #include <iStatisticsVisualizer.h>
 using namespace Igor;
 
+#include <iaGradient.h>
 #include <iaMatrix.h>
 using namespace IgorAux;
 
