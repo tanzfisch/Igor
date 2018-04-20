@@ -36,7 +36,7 @@
 //! minor version of Igor
 #define __IGOR_VERSION_MINOR__ 7
 //! patch version of Igor
-#define __IGOR_VERSION_PATCH__ 0
+#define __IGOR_VERSION_PATCH__ 1
 
 //! Igor configuration
 #define __IGOR_CONFIGURATION__ STR(__IGOR_CONFIG_STR__) ", " STR(__IGOR_BIT_STR__)
