@@ -1,15 +1,11 @@
 #include "WidgetsExample.h"
 
-#include <iaConsole.h>
-using namespace IgorAux;
-
 #include <iRenderer.h>
 #include <iApplication.h>
 #include <iMouse.h>
 #include <iTimer.h>
 #include <iTextureFont.h>
 #include <iMaterialResourceFactory.h>
-
 #include <iWidgetManager.h>
 #include <iDialog.h>
 #include <iWidgetLabel.h>
@@ -33,6 +29,9 @@ using namespace IgorAux;
 #include <iWidgetColorGradient.h>
 #include <iDialogColorGradient.h>
 using namespace Igor;
+
+#include <iaConsole.h>
+using namespace IgorAux;
 
 WidgetsExample::WidgetsExample()
 {
@@ -396,15 +395,15 @@ void WidgetsExample::onWindowResize(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
 }
 
-void WidgetsExample::onMouseMove(int32 x, int32 y)
+void WidgetsExample::onMouseMove(const iaVector2i& pos)
 {
     // updates a label with current mouse position
     if (_labelMousePos != nullptr)
     {
         iaString text;
-        text += iaString::itoa(x);
+        text += iaString::itoa(pos._x);
         text += ":";
-        text += iaString::itoa(y);
+        text += iaString::itoa(pos._y);
 
         _labelMousePos->setText(text);
     }
@@ -498,7 +497,7 @@ void WidgetsExample::onRender()
 
 void WidgetsExample::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

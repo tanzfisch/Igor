@@ -30,70 +30,66 @@
 #define __iMATERIALGROUP__
 
 #include <iDefines.h>
-#include <iMaterial.h>
 #include <iaMatrix.h>
 #include <iInstancer.h>
 
 #include <map>
+#include <vector>
 #include <memory>
 using namespace std;
 
 namespace Igor
 {
 
-    class iNodeRender;
     class iMeshBuffers;
-    class iNodeMesh;
+
+    /*! structure for handling instanced rendered nodes
+    */
+    struct iInstancedNodes
+    {
+        /*! render node ids
+        */
+        vector<uint64> _renderNodeIDs;
+
+        /*! instance of corresponding instancer
+        */
+        iInstancer* _instancer = nullptr;
+    };
+
 
     /*! material group describes a group of render nodes that use the same material
     */
-    class Igor_API iMaterialGroup
+    class iMaterialGroup
 	{
-
-		friend class iMaterialResourceFactory;
-        friend class iRenderEngine;
-
-        /*! structure for handling instanced rendered nodes
-        */
-        struct Instanced
-        {
-            vector<uint64> _renderNodeIDs;
-            iInstancer* _instancer = nullptr;
-        };
 
     public:
 
-        /*! \returns pointer to internal material definition
+        /*! does nothing
         */
-        iMaterial* getMaterial();
+        iMaterialGroup() = default;
 
-        /*! \returns render order
+        /*! clean up
         */
-        int32 getOrder();
+        virtual ~iMaterialGroup();
 
-        /*! set render order
+        /*! adds node to material group
 
-        \param order the higher the value the later it get's rendered (default is iMaterial::DEFALT_ORDER)
+        \param renderNode node to be added
+        \param instancing if true instancing is used by the material associated with this group
         */
-        void setOrder(int32 order = iMaterial::RENDER_ORDER_DEFAULT);
+        void addRenderNode(uint64 renderNodeID, bool instancing);
 
-        /*! \returns material id (also used as group id)
+        /*! removes render node from material group
+        \param renderNode node to be removed        */        void removeRenderNode(uint64 renderNodeID, bool instancing);
+        /*! \returns copy of render nodes in this group
         */
-        uint64 getID();
+        vector<uint64> getRenderNodes() const;
 
-	private:
-
-        /*! material group or material id
+        /*! \returns copy of instanced render node meshs in this group
         */
-		uint64 _id = iMaterial::INVALID_MATERIAL_ID;
+        map<shared_ptr<iMeshBuffers>, iInstancedNodes> getInstancedRenderNodes() const;
 
-        /*! next material group id
-        */
-		static uint64 _nextId;
-
-        /*! the actuall material
-        */
-		iMaterial _material;
+    private:
 
         /*! render node IDs registred to this material
         */
@@ -101,31 +97,10 @@ namespace Igor
 
         /*! render nodes registred to this material that are also using instancing
         */
-        map<shared_ptr<iMeshBuffers>, Instanced> _instancedRenderNodes;
-
-        /*! adds node to material group
-
-        \param renderNode node to be added
-
-        \todo when does a mesh get removed from this group? reference count?
-        */
-        void addRenderNode(uint64 renderNodeID);
-
-		/*! removes render node from material group
-		
-		\param renderNode node to be removed
-		*/
-        void removeRenderNode(uint64 renderNodeID);
-
-        /*! init id
-        */
-        iMaterialGroup();
-        
-        /*! clean up
-        */
-        virtual ~iMaterialGroup();
+        map<shared_ptr<iMeshBuffers>, iInstancedNodes> _instancedRenderNodes;
 
 	};
+
 }
 
 #endif

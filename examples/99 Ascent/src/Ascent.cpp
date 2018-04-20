@@ -4,7 +4,6 @@
 using namespace IgorAux;
 
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>
@@ -154,8 +153,8 @@ void Ascent::initScene()
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
     // and set the sky box material
     skyBoxNode->setMaterial(_materialSkyBox);
     // insert sky box to scene
@@ -642,11 +641,11 @@ void Ascent::onMouseWheel(int d)
     }
 }
 
-void Ascent::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void Ascent::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (_activeControls)
     {
-        _mouseDelta.set(x2 - x1, y2 - y1);
+        _mouseDelta.set(to._x - from._x, to._y - from._y);
 
         if (!iKeyboard::getInstance().getKey(iKeyCode::Space))
         {
@@ -800,7 +799,7 @@ void Ascent::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(matrix);
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFont(_font);
 
     if (_loading)

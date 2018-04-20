@@ -35,6 +35,7 @@
 #include <iaString.h>
 #include <iaSingleton.h>
 #include <iaMutex.h>
+#include <iaEvent.h>
 using namespace IgorAux;
 
 #include <list>
@@ -45,7 +46,18 @@ using namespace std;
 namespace Igor
 {
 
-    class iMaterialGroup;
+    /*! event triggered by material created
+
+    \param materialID id of material created
+    */
+    iaEVENT(iMaterialCreatedEvent, iMaterialCreatedDelegate, void, (uint64 materialID), (materialID));
+
+    /*! event triggered by material destroyed
+
+    \param materialID id of material destroyed
+    */
+    iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, void, (uint64 materialID), (materialID));
+
     class iTargetMaterial;
 
     /*! material resource factory
@@ -80,24 +92,14 @@ namespace Igor
         */
         void destroyTargetMaterial(iTargetMaterial* targetMaterial);
 
-        /*! set a material as the active material.
-
-        changes render states as needed.
-
-        ATTENTION can only be used if window is open and renderer initialized
-
-        \param materialID the materials id to be activated
-        */
-        void setMaterial(uint64 materialID);
-
         /*! \returns materials with given material id
         \param materialID the materials id
         */
-        iMaterial* getMaterial(uint64 materialID);
+        iMaterialPtr getMaterial(uint64 materialID);
 
         /*! \returns default material
         */
-        iMaterial* getDefaultMaterial();
+        iMaterialPtr getDefaultMaterial();
 
         /*! \returns default material ID
         */
@@ -110,7 +112,7 @@ namespace Igor
         /*! \returns materials with given material name
         \param materialName the materials name
         */
-        iMaterial* getMaterial(iaString materialName);
+        iMaterialPtr getMaterial(iaString materialName);
 
         /*! \retruns material id with given material name
         \param materialName the materials name
@@ -119,33 +121,57 @@ namespace Igor
 
         /*! \returns the currently activated material
         */
-        iMaterial* getCurrentMaterial();
+        iMaterialPtr getCurrentMaterial();
 
-        /*! \returns material group with given material id
-
-        \param materialID the materials id
+        /*! \returns materials list sorted by render order
         */
-        iMaterialGroup* getMaterialGroup(uint64 materialID);
+        vector<iMaterialPtr> getSortedMaterials();
 
-        /*! \returns list of all material groups
+        /*! register delegate to material created event
+
+        \param materialCreatedDelegate delegate to register
         */
-        list<iMaterialGroup*>* getMaterialGroups();
+        void registerMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate);
+
+        /*! unregister delegate from material created event
+
+        \param materialCreatedDelegate delegate to unregister
+        */
+        void unregisterMaterialCreatedDelegate(iMaterialCreatedDelegate materialCreatedDelegate);
+
+        /*! register delegate to material destroyed event
+
+        \param materialDestroyedDelegate delegate to register
+        */
+        void registerMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate);
+
+        /*! unregister delegate from material destroyed event
+
+        \param materialDestroyedDelegate delegate to unregister
+        */
+        void unregisterMaterialDestroyedDelegate(iMaterialDestroyedDelegate materialDestroyedDelegate);
 
     private:
 
-        /*! dirty flag for changes in materials list.
+        /*! material created event
+        */
+        iMaterialCreatedEvent _materialCreatedEvent;
 
-        if false the materials list has to be sorted
+        /*! material destroyed event
+        */
+        iMaterialDestroyedEvent _materialDestroyedEvent;
+
+        /*! dirty flag to control changes in render order
         */
         bool _dirtyMaterials = true;
 
-        /*! list of materials
+        /*! materials sorted by render order
         */
-        list<iMaterialGroup*> _materials;
+        vector<iMaterialPtr> _sortedMaterials;
 
-        /*! lookup table for material groups.
+        /*! lookup table for materials
         */
-        map<uint64, iMaterialGroup*> _materialMap;
+        map<uint64, iMaterialPtr> _materials;
 
         /*! mutex to protect the target material list
         */
@@ -157,7 +183,7 @@ namespace Igor
 
         /*! current material in use
         */
-        iMaterial* _currentMaterial = nullptr;
+        iMaterialPtr _currentMaterial = nullptr;
 
         /*! mutex for material lists
         */
@@ -170,6 +196,16 @@ namespace Igor
         /*! color id material id
         */
         uint64 _colorIDMaterial = iMaterial::INVALID_MATERIAL_ID;
+
+        /*! set a material as the active material.
+
+        changes render states as needed.
+
+        ATTENTION can only be used if window is open and renderer initialized
+
+        \param materialID the material's id to be activated
+        */
+        void setMaterial(uint64 materialID);
 
         /*! sorts the materials if needed
         */

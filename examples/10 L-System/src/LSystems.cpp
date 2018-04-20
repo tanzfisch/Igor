@@ -5,7 +5,6 @@
 #include "LSystems.h"
 
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeCamera.h>
@@ -69,7 +68,7 @@ void LSystems::init()
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &LSystems::onRenderOrtho));
     _window.addView(&_viewOrtho);
     _window.open();
@@ -152,9 +151,11 @@ void LSystems::init()
     // prepare igor logo
     _igorLogo = iTextureResourceFactory::getInstance().loadFile("special/splash.png", iResourceCacheMode::Free, iTextureBuildMode::Normal);
     _materialWithTextureAndBlending = iMaterialResourceFactory::getInstance().createMaterial();
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending);
+    material->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+    material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    material->setName("LogoMaterial");
 }
 
 void LSystems::deinit()
@@ -215,12 +216,12 @@ void LSystems::initStyle1()
     _lSystem.setRule('*', weightedRule3);
     _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
-    _segmentLength = 0.25;
-    _angle = 0.3;
-    _trunkColor.set(0, 0.8, 0);
-    _budColor.set(0.8, 0.7, 0.0);
-    _flowerColor.set(1, 0, 0);
-    _leafColor.set(0, 0.7, 0);
+    _segmentLength = 0.25f;
+    _angle = 0.3f;
+    _trunkColor.set(0.0f, 0.8f, 0.0f);
+    _budColor.set(0.8f, 0.7f, 0.0f);
+    _flowerColor.set(1.0f, 0.0f, 0.0f);
+    _leafColor.set(0.0f, 0.7f, 0.0f);
 }
 
 void LSystems::initStyle2()
@@ -246,12 +247,12 @@ void LSystems::initStyle2()
     _lSystem.setRule('*', weightedRule3);
     _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
-    _segmentLength = 0.25;
-    _angle = 0.25;
-    _trunkColor.set(0, 0.7, 0);
-    _budColor.set(0.5, 0.5, 0.9);
-    _flowerColor.set(1, 0, 1);
-    _leafColor.set(0, 0.6, 0);
+    _segmentLength = 0.25f;
+    _angle = 0.25f;
+    _trunkColor.set(0.0f, 0.7f, 0.0f);
+    _budColor.set(0.5f, 0.5f, 0.9f);
+    _flowerColor.set(1.0f, 0.0f, 1.0f);
+    _leafColor.set(0.0f, 0.6f, 0.0f);
 }
 
 void LSystems::initStyle3()
@@ -275,15 +276,15 @@ void LSystems::initStyle3()
     _lSystem.setRule('*', weightedRule3);
     _lSystem.setAgeFilter('*', iLSystemAgeFunction::Greater, 4);
 
-    _segmentLength = 0.25;
-    _angle = 0.5;
-    _trunkColor.set(0, 0.8, 0);
-    _budColor.set(0.8, 0.8, 0.5);
-    _flowerColor.set(1, 1, 1);
-    _leafColor.set(0, 0.7, 0);
+    _segmentLength = 0.25f;
+    _angle = 0.5f;
+    _trunkColor.set(0.0f, 0.8f, 0.0f);
+    _budColor.set(0.8f, 0.8f, 0.5f);
+    _flowerColor.set(1.0f, 1.0f, 1.0f);
+    _leafColor.set(0.0f, 0.7f, 0.0f);
 }
 
-uint32 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
+uint64 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, uint32 iterations, uint64 seed)
 {
     PlantInformation plantInformation;
     plantInformation._lSystem = &_lSystem;
@@ -408,7 +409,7 @@ void LSystems::onMouseWheel(int32 d)
     }
 }
 
-void LSystems::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void LSystems::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
@@ -418,8 +419,8 @@ void LSystems::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _wi
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((y1 - y2) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((from._y - to._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
             iMouse::getInstance().setCenter(true);
         }
     }
@@ -432,7 +433,7 @@ void LSystems::onWindowClosed()
 
 void LSystems::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
-    _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
 }
 
 void LSystems::onKeyPressed(iKeyCode key)
@@ -474,7 +475,7 @@ void LSystems::onRenderOrtho()
 
 void LSystems::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

@@ -34,6 +34,9 @@ using namespace IgorAux;
 
 #include <iDefines.h>
 
+#include <memory>
+using namespace std;
+
 namespace Igor
 {
 
@@ -172,6 +175,8 @@ namespace Igor
         __IGOR_ENABLE_WARNING__(4091);
 		
 	};
+
+    typedef shared_ptr<iTexture> iTexturePtr;
 
 };
 

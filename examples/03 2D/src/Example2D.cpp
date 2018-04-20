@@ -49,7 +49,7 @@ void Example2D::init()
     _view.setClearColor(false);
     // set up an orthogonal projection with the dimensions of the windows client rectangle
     // the client rectangle is the size of the actual rendering area
-    _view.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _view.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     // register callback to the rendering event of this view
     _view.registerRenderDelegate(RenderDelegate(this, &Example2D::onRender));
     // add the view to the window
@@ -110,7 +110,7 @@ void Example2D::init()
     // sprites are basically textures that have some additional meta data that help you to place and orientate them
     _openGLLogo = new iSprite(iTextureResourceFactory::getInstance().loadFile("OpenGL-Logo.jpg"));
     // set the center as the origin of the sprite
-    _openGLLogo->setOrigin(iaVector2f(_openGLLogo->getTexture()->getWidth() * 0.5, _openGLLogo->getTexture()->getHeight() * 0.5));
+    _openGLLogo->setOrigin(iaVector2f(_openGLLogo->getTexture()->getWidth() * 0.5f, _openGLLogo->getTexture()->getHeight() * 0.5f));
     
     // initalize a spline loop
     _spline.addSupportPoint(iaVector3f(100, 100, 0));
@@ -201,10 +201,10 @@ void Example2D::deinit()
 	_window.removeView(&_view);
 }
 
-void Example2D::onMouseMove(int32 x, int32 y)
+void Example2D::onMouseMove(const iaVector2i& position)
 {
     // save mouse position for later
-    _lastMousePos.set(x, y);
+    _lastMousePos.set(static_cast<float32>(position._x), static_cast<float32>(position._y));
 }
 
 void Example2D::run()
@@ -222,7 +222,7 @@ void Example2D::onWindowClosed()
 void Example2D::onWindowResize(int32 clientWidth, int32 clientHeight)
 {
     // to keep pixel coordinates
-    _view.setOrthogonal(0, clientWidth, clientHeight, 0);
+    _view.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
 }
 
 void Example2D::onKeyESCPressed()
@@ -274,12 +274,12 @@ void Example2D::onRender()
     iRenderer::getInstance().setModelMatrix(matrix);
 
     // set a textured material and draw the tiles texture as background
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTexture);
+    iRenderer::getInstance().setMaterial(_materialWithTexture);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-    iRenderer::getInstance().drawTextureTiled(0, 0, _window.getClientWidth(), _window.getClientHeight(), _backgroundTexture);
+    iRenderer::getInstance().drawTextureTiled(0.0f, 0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), _backgroundTexture);
 
     // set non textured material and draw some primitves
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
+    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
 
     iRenderer::getInstance().drawRectangle(10, 10, 200, 150);
@@ -297,13 +297,13 @@ void Example2D::onRender()
     {
         for (int y = 0; y < 14; ++y)
         {
-            iRenderer::getInstance().setPointSize(_rand.getNext() % 5 + 1);
-            iRenderer::getInstance().drawPoint(230 + x * 10, 20 + y * 10);
+            iRenderer::getInstance().setPointSize(static_cast<float32>(_rand.getNext() % 5 + 1));
+            iRenderer::getInstance().drawPoint(static_cast<float32>(230 + x * 10), static_cast<float32>(20 + y * 10));
         }
     }
 
     // change material again to textured an draw the logo
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
     iRenderer::getInstance().drawSprite(_openGLLogo, _logoPosition._x, _logoPosition._y, _logoRotationAngle, 1.5f, 1.5f);
 
@@ -314,7 +314,7 @@ void Example2D::onRender()
     // draw the particles
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 0.5));
     iRenderer::getInstance().bindTexture(_particleTexture, 0);
-    iRenderer::getInstance().drawParticles(-10, _window.getClientHeight() - 150, 0, _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
+    iRenderer::getInstance().drawParticles(-10.0f, static_cast<float32>(_window.getClientHeight() - 150), 0.0f, _particleSystem.getParticles(), _particleSystem.getParticleCount(), &_rainbow);
 
     // draw some text from wikipedia
     iaString wikipediaOpenGL = "OpenGL (Open Graphics Library) ist eine Spezifikation fuer eine plattform- und programmiersprachenunabhaengige Programmierschnittstelle zur Entwicklung von 2D- und 3D-Computergrafik. Der OpenGL-Standard beschreibt etwa 250 Befehle, die die Darstellung komplexer 3D-Szenen in Echtzeit erlauben. Zudem koennen andere Organisationen (zumeist Hersteller von Grafikkarten) proprietaere Erweiterungen definieren. Wikipedia";
@@ -324,13 +324,13 @@ void Example2D::onRender()
     iRenderer::getInstance().drawString(600, 100, wikipediaOpenGL, -30, 400);
 
     // draw spline
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithoutDepthTest);
+    iRenderer::getInstance().setMaterial(_materialWithoutDepthTest);
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0.5, 1));
     iRenderer::getInstance().drawLineStrip(_spline.getSpline());
 
     // draw random graph in the upper right corner
     iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 1));
-    iRenderer::getInstance().drawRectangle(_window.getClientWidth() - 260, 10, 250, 150);
+    iRenderer::getInstance().drawRectangle(static_cast<float32>(_window.getClientWidth() - 260), 10.0f, 250.0f, 150.0f);
 
     static float32 offset = 0.0f;
     iRenderer::getInstance().setLineWidth(1);
@@ -340,7 +340,7 @@ void Example2D::onRender()
     for (int x = 1; x < 250; ++x)
     {
         float64 value = _perlinNoise.getValue((offset + x) * 0.01, 6) * 150;
-        iRenderer::getInstance().drawLine(_window.getClientWidth() - 260 + x - 1, 10 + lastValue, _window.getClientWidth() - 260 + x, 10 + value);
+        iRenderer::getInstance().drawLine(static_cast<float32>(_window.getClientWidth() - 260 + x - 1), static_cast<float32>(10 + lastValue), static_cast<float32>(_window.getClientWidth() - 260 + x), static_cast<float32>(10 + value));
         lastValue = value;
     }
 
@@ -354,7 +354,7 @@ void Example2D::onRender()
 
 void Example2D::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

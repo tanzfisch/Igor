@@ -3,11 +3,10 @@
 // see copyright notice in corresponding header file
 
 #include <iShader.h>
+#include <iRenderer.h>
 
 #include <iaConsole.h>
-#include <iRenderer.h>
 #include <iResourceManager.h>
-
 #include <iaFile.h>
 using namespace IgorAux;
 

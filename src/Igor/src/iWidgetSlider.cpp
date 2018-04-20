@@ -144,19 +144,19 @@ namespace Igor
         setMinSize(0, 0);
 	}
 
-    void iWidgetSlider::handleMouseMove(int32 x, int32 y)
+    void iWidgetSlider::handleMouseMove(const iaVector2i& pos)
     {
         if (!isActive())
         {
             return;
         }
 
-        iWidget::handleMouseMove(x, y);
+        iWidget::handleMouseMove(pos);
 
         if (isMouseOver() &&
             iMouse::getInstance().getLeftButton())
         {
-            handleMouseInput(x);
+            handleMouseInput(pos._x);
         }
     }
 
@@ -169,7 +169,7 @@ namespace Igor
 
         if (isMouseOver())
         {
-            handleMouseInput(getLastMouseX());
+            handleMouseInput(getLastMousePos()._x);
         }
 
         return iWidget::handleMouseKeyDown(key);

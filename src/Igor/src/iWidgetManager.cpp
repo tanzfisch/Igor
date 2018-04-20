@@ -249,7 +249,7 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::onMouseMove(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* window)
+    void iWidgetManager::onMouseMove(const iaVector2i& from, const iaVector2i& to, iWindow* window)
     {
         bool foundModal = false;
 
@@ -260,7 +260,7 @@ namespace Igor
         {
             if (isModal(dialog.second))
             {
-                dialog.second->handleMouseMove(x2, y2);
+                dialog.second->handleMouseMove(to);
                 foundModal = true;
                 break;
             }
@@ -270,11 +270,11 @@ namespace Igor
         {
             for (auto dialog : dialogs)
             {
-                dialog.second->handleMouseMove(x2, y2);
+                dialog.second->handleMouseMove(to);
             }
 
-            _moveFullEvent(x1, y1, x2, y2, window);
-            _moveEvent(x2, y2);
+            _moveFullEvent(from, to, window);
+            _moveEvent(to);
         }
     }
 

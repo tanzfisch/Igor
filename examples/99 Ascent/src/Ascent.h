@@ -94,7 +94,7 @@ private:
     void onWindowClosed();
     void onWindowResized(int32 clientWidth, int32 clientHeight);
 
-    void onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window);
+    void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window);
 
     void onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max);
     

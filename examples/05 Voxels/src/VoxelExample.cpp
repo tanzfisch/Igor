@@ -9,7 +9,7 @@ using namespace IgorAux;
 
 #include <iSphere.h>
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
+#include <iRenderer.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>
 #include <iNodeLight.h>
@@ -131,8 +131,8 @@ void VoxelExample::unregisterHandles()
 void VoxelExample::initViews()
 {
     // init the view to render the scene
-    _view.setClearColor(iaColor4f(0.97, 0.97, 1.0, 1));
-    _view.setPerspective(60);
+    _view.setClearColor(iaColor4f(0.97f, 0.97f, 1.0f, 1.0f));
+    _view.setPerspective(60.0f);
     _view.setClipPlanes(0.1f, 1000.f);
 
     // init an other view to display the frame rate
@@ -148,7 +148,7 @@ void VoxelExample::initViews()
     _window.open();
 
     // update the orthogonal projection after we know the windows cient rectangle. the same we do after a resize
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
 }
 
 void VoxelExample::initScene()
@@ -205,8 +205,8 @@ void VoxelExample::initScene()
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(10);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(10);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
     // and set the sky box material
     skyBoxNode->setMaterial(_materialSkyBox);
     // insert sky box to scene
@@ -279,7 +279,7 @@ void VoxelExample::generateVoxelData()
             for (int64 z = 0; z < _voxelData->getDepth(); ++z)
             {
                 // first figure out if a voxel is outside the sphere
-                iaVector3f pos(x, y, z);
+                iaVector3f pos(static_cast<float32>(x), static_cast<float32>(y), static_cast<float32>(z));
 
                 float32 distance = 0;
                 for (auto metaball : metaballs)
@@ -298,7 +298,7 @@ void VoxelExample::generateVoxelData()
 
                         // the density by the way goes from 0-255 but the zero is interpreted as outside ans the 1 is inside but with zero density
                         // so to calculate a propper density we need to multiply the density with 254 and to make it alwasy beein "inside" we add one
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), (denstity * 254) + 1);
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), static_cast<uint8>((denstity * 254) + 1));
                     }
                     else
                     {
@@ -317,7 +317,7 @@ void VoxelExample::generateVoxelData()
                     if (onoff >= to)
                     {
                         float64 gradient = 1.0 - ((onoff - from) * factor);
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), (gradient * 254) + 1);
+                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), static_cast<uint8>((gradient * 254) + 1));
                     }
                     else
                     {
@@ -376,12 +376,12 @@ void VoxelExample::prepareMeshGeneration()
     _scene->getRoot()->insertNode(voxelMeshTransform);
 }
 
-void VoxelExample::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void VoxelExample::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
-        float32 dx = static_cast<float32>(x1 - x2) * 0.005f;
-        float32 dy = static_cast<float32>(y1 - y2) * 0.005f;
+        float32 dx = static_cast<float32>(from._x - to._x) * 0.005f;
+        float32 dy = static_cast<float32>(from._y - to._y) * 0.005f;
         iNodeTransform* cameraHeading = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraHeading));
         iNodeTransform* cameraPitch = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_cameraPitch));
         if (cameraHeading != nullptr &&
@@ -426,7 +426,7 @@ void VoxelExample::onRenderOrtho()
 
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
 
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(25.0f);
@@ -448,7 +448,7 @@ void VoxelExample::onRenderOrtho()
 
 void VoxelExample::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

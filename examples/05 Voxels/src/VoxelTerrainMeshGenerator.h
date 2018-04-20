@@ -46,7 +46,7 @@ namespace Igor
 struct TileInformation
 {
     iVoxelData* _voxelData = nullptr;
-    int32 _materialID = 0;
+    uint64 _materialID = 0;
 };
 
 class VoxelTerrainMeshGenerator : public iModelDataIO

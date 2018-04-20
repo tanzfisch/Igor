@@ -51,7 +51,6 @@ namespace Igor
 
         friend class iNodeFactory;
 		friend class iNodeModel;
-        friend class iMaterialGroup;
         friend class iModelDataIOOMPF;
 
     public:

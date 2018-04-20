@@ -4,12 +4,11 @@
 
 #include <iStatisticsVisualizer.h>
 #include <iMaterialResourceFactory.h>
-#include <iMaterial.h>
 #include <iWindow.h>
 #include <iTextureFont.h>
 #include <iTimer.h>
 #include <iTaskManager.h>
-
+#include <iRenderer.h>
 #include <iStatisticsSection.h>
 #include <iStatistics.h>
 
@@ -140,7 +139,7 @@ namespace Igor
 
             iRenderer::getInstance().setColor(color);
 
-            iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+            iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 
             iRenderer::getInstance().setFont(font);
             iRenderer::getInstance().setFontSize(15.0f);
@@ -270,7 +269,7 @@ namespace Igor
                 float64 thirtyHz = 33.3333 * scale;
                 float64 sixtyHz = 66.6666 * scale;
 
-                iMaterialResourceFactory::getInstance().setMaterial(_materialBlend);
+                iRenderer::getInstance().setMaterial(_materialBlend);
                 for (int i = 0; i < groupCount; ++i)
                 {
                     float64 groupOffset = i * groupTotalHeight;
@@ -278,7 +277,7 @@ namespace Igor
                     iRenderer::getInstance().drawRectangle(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - sixtyHz), static_cast<float32>(window->getClientWidth() - x - x), static_cast<float32>(sixtyHz));
                 }
 
-                iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
+                iRenderer::getInstance().setMaterial(_materialSolid);
 
                 iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
                 iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight), static_cast<float32>(x), 0.0f);
@@ -306,13 +305,13 @@ namespace Igor
                     uint64 currentFrame = frame % iStatisticsSection::BUFFER_SIZE;
                     float64 yPos = totalHeight - section.second.getGroup() * groupTotalHeight;
 
-                    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+                    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 
                     iRenderer::getInstance().setColor(_colors[(colorIndex++) % _colorCount]);
                     iRenderer::getInstance().drawString(static_cast<float32>(10 + textOffsetX[section.second.getGroup()]), static_cast<float32>(yPos + 20), section.second.getName(), iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
                     textOffsetX[section.second.getGroup()] += 150;
 
-                    iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
+                    iRenderer::getInstance().setMaterial(_materialSolid);
 
                     currentIndex = static_cast<uint32>(currentFrame);
                     float64 lastValue = values[currentIndex] * scale;

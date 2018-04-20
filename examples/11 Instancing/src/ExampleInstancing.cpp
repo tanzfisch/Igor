@@ -5,7 +5,6 @@
 using namespace IgorAux;
 
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>
@@ -64,7 +63,7 @@ void ExampleInstancing::init()
     // setup orthogonal view
     _viewOrtho.setClearColor(false);
     _viewOrtho.setClearDepth(false);
-    _viewOrtho.setOrthogonal(0, _window.getClientWidth(), _window.getClientHeight(), 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(_window.getClientWidth()), static_cast<float32>(_window.getClientHeight()), 0.0f);
     _viewOrtho.registerRenderDelegate(RenderDelegate(this, &ExampleInstancing::onRenderOrtho));
     _window.addView(&_viewOrtho);
     // and open the window
@@ -171,8 +170,8 @@ void ExampleInstancing::init()
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
-    iMaterialResourceFactory::getInstance().getMaterialGroup(_materialSkyBox)->getMaterial()->setName("SkyBox");
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
     // set that material
     skyBoxNode->setMaterial(_materialSkyBox);
     // and add it to the scene
@@ -280,7 +279,7 @@ void ExampleInstancing::onMouseWheel(int32 d)
     }
 }
 
-void ExampleInstancing::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWindow* _window)
+void ExampleInstancing::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window)
 {
     if (iMouse::getInstance().getLeftButton())
     {
@@ -290,8 +289,8 @@ void ExampleInstancing::onMouseMoved(int32 x1, int32 y1, int32 x2, int32 y2, iWi
         if (cameraPitch != nullptr &&
             cameraHeading != nullptr)
         {
-            cameraPitch->rotate((y2 - y1) * 0.005f, iaAxis::X);
-            cameraHeading->rotate((x1 - x2) * 0.005f, iaAxis::Y);
+            cameraPitch->rotate((to._y - from._y) * 0.005f, iaAxis::X);
+            cameraHeading->rotate((from._x - to._x) * 0.005f, iaAxis::Y);
 
             iMouse::getInstance().setCenter(true);
         }
@@ -305,7 +304,7 @@ void ExampleInstancing::onWindowClosed()
 
 void ExampleInstancing::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
-    _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
+    _viewOrtho.setOrthogonal(0.0f, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0.0f);
 }
 
 void ExampleInstancing::onKeyPressed(iKeyCode key)
@@ -348,7 +347,7 @@ void ExampleInstancing::onRenderOrtho()
 
 void ExampleInstancing::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

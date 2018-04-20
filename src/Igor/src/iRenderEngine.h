@@ -29,9 +29,10 @@
 #ifndef __RENDERENGINE__
 #define __RENDERENGINE__
 
-#include <iDefines.h>
+#include <iMaterialGroup.h>
 
 #include <vector>
+#include <map>
 using namespace std;
 
 namespace Igor
@@ -154,15 +155,33 @@ namespace Igor
         */
         uint32 _drawSectionID = 0;
 
-        /*! pointe to scene
+        /*! material groups
+        */
+        map<uint64, iMaterialGroup> _materialGroups;
 
-        \todo can't we use an array here?
+        /*! dirty flag forcing to sort material groups
+        */
+        bool _dirtyGroups = true;
+
+        /*! handle to scene
         */
         iScene* _scene = nullptr;
 
         /*! temporary list of nodes that where filtered by the culling process
         */
         vector<uint64> _cullResult;
+
+        /*! called on material created event
+
+        \param materialID the material's id that got created
+        */
+        void onMaterialCreated(uint64 materialID);
+
+        /*! called on material destroyed event
+
+        \param materialID the material's id that got destroyed
+        */
+        void onMaterialDestroyed(uint64 materialID);
 
         /*! cull scene relative to specified camera
 

@@ -13,11 +13,12 @@
 #include <iTextureResourceFactory.h>
 #include <iShader.h>
 #include <iInstancer.h>
-#include <iMaterial.h>
 #include <iTargetMaterial.h>
 #include <iMeshBuffers.h>
 #include <iParticleSystem3D.h>
 #include <iTimer.h>
+#include <iMaterial.h>
+#include <iMaterialResourceFactory.h>
 
 #include <GLee.h>
 #include <GL\glu.h>
@@ -888,8 +889,14 @@ namespace Igor
         glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
     }
 
+    void iRenderer::setMaterial(uint64 materialID, bool forceWireframe)
+    {
+        auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+        setMaterial(material, forceWireframe);
+    }
+
     //! \todo this is just a first rudimentary version. we need a structure that only switches the deltas between materials
-    void iRenderer::setMaterial(iMaterial* material, bool forceWireframe)
+    void iRenderer::setMaterial(iMaterialPtr material, bool forceWireframe)
     {
         if (material == _currentMaterial)
         {
@@ -1390,7 +1397,6 @@ namespace Igor
 
     int32 iRenderer::getShaderPropertyID(uint32 programID, const char* name)
     {
-
         int32 result = glGetUniformLocation(programID, name); GL_CHECK_ERROR();
         return result;
     }
@@ -1823,9 +1829,9 @@ namespace Igor
         glEnd();		GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
-        _renderedVertices += particles.size() * 4;
-        _renderedIndexes += particles.size() * 4;
-        _renderedTriangles += particles.size() * 2;
+        _renderedVertices += static_cast<uint32>(particles.size()) * 4;
+        _renderedIndexes += static_cast<uint32>(particles.size()) * 4;
+        _renderedTriangles += static_cast<uint32>(particles.size()) * 2;
     }
 
     void iRenderer::drawVelocityOrientedParticles(const deque<iParticle> &particles, const iaGradientColor4f& rainbow)
@@ -1902,9 +1908,9 @@ namespace Igor
         glEnd();		GL_CHECK_ERROR();
 
         // todo maybe we should count this during cull process
-        _renderedVertices += particles.size() * 4;
-        _renderedIndexes += particles.size() * 4;
-        _renderedTriangles += particles.size() * 2;
+        _renderedVertices += static_cast<uint32>(particles.size()) * 4;
+        _renderedIndexes += static_cast<uint32>(particles.size()) * 4;
+        _renderedTriangles += static_cast<uint32>(particles.size()) * 2;
     }
 
     iaVector3d iRenderer::project(const iaVector3d& objectSpacePos, const iaMatrixd& modelview, const iaMatrixd& projection, const iRectanglei& viewport)

@@ -75,7 +75,7 @@ namespace Igor
         flush(iResourceCacheMode::Keep);
     }
 
-    shared_ptr<iTexture> iTextureResourceFactory::getDummyTexture()
+    iTexturePtr iTextureResourceFactory::getDummyTexture()
     {
         return _dummyTexture;
     }
@@ -123,7 +123,7 @@ namespace Igor
             }
         }
 
-        _dummyTexture = shared_ptr<iTexture>(new iTexture("dummyTexture", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat), iTexture::private_deleter());
+        _dummyTexture = iTexturePtr(new iTexture("dummyTexture", iResourceCacheMode::Keep, iTextureBuildMode::Mipmapped, iTextureWrapMode::Repeat), iTexture::private_deleter());
         _dummyTexture->_width = width;
         _dummyTexture->_height = height;
         _dummyTexture->_valid = true;
@@ -183,9 +183,9 @@ namespace Igor
         return hashFunc(combined.getData());
     }
 
-    shared_ptr<iTexture> iTextureResourceFactory::loadFile(const iaString& filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    iTexturePtr iTextureResourceFactory::loadFile(const iaString& filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        shared_ptr<iTexture> result;
+        iTexturePtr result;
 
         if (!filename.isEmpty())
         {
@@ -213,7 +213,7 @@ namespace Igor
 
             if (nullptr == result.get())
             {
-                result = shared_ptr<iTexture>(new iTexture(keyPath, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
+                result = iTexturePtr(new iTexture(keyPath, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
                 loadTexture(result);
                 _textures[hashValue] = result;
             }
@@ -223,9 +223,9 @@ namespace Igor
         return result;
     }
 
-    shared_ptr<iTexture> iTextureResourceFactory::requestFile(const iaString& filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    iTexturePtr iTextureResourceFactory::requestFile(const iaString& filename, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        shared_ptr<iTexture> result;
+        iTexturePtr result;
 
         if (!filename.isEmpty())
         {
@@ -247,7 +247,7 @@ namespace Igor
 
             if (nullptr == result.get())
             {
-                result = shared_ptr<iTexture>(new iTexture(keyPath, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
+                result = iTexturePtr(new iTexture(keyPath, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
 				_mutex.lock();
                 _textures[hashValue] = result;
 				_mutex.unlock();
@@ -266,7 +266,7 @@ namespace Igor
     {
         if (iRenderer::getInstance().isReady())
         {
-            vector<shared_ptr<iTexture>> texturesToProcess;
+            vector<iTexturePtr> texturesToProcess;
 
             _mutex.lock();
             auto texture = _textures.begin();
@@ -311,7 +311,7 @@ namespace Igor
         }
     }
 
-    void iTextureResourceFactory::loadTexture(shared_ptr<iTexture> texture)
+    void iTextureResourceFactory::loadTexture(iTexturePtr texture)
     {
         int width = 0;
         int height = 0;
@@ -389,9 +389,9 @@ namespace Igor
         texture->_processed = true;
     }
 
-    shared_ptr<iTexture> iTextureResourceFactory::loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
+    iTexturePtr iTextureResourceFactory::loadFromPixmap(iPixmap* pixmap, const iaString& pixmapname, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
     {
-        shared_ptr<iTexture> result;
+        iTexturePtr result;
         int64 hashValue = calcHashValue(pixmapname, cacheMode, buildMode, wrapMode);
 
         _mutex.lock();
@@ -425,7 +425,7 @@ namespace Igor
                 con_err("unknown color format");
             };
 
-            result = shared_ptr<iTexture>(new iTexture(pixmapname, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
+            result = iTexturePtr(new iTexture(pixmapname, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
             result->_rendererTexture = iRenderer::getInstance().createTexture(width, height, bpp, colorformat, data, buildMode, wrapMode);
 
             _mutex.lock();
