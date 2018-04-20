@@ -30,10 +30,10 @@
 #define __iDIALOGCOLORGRADIENT__
 
 #include <iDialog.h>
-#include <iaGradient.h>
 
 #include <iaEvent.h>
 #include <iaString.h>
+#include <iaGradient.h>
 using namespace IgorAux;
 
 namespace Igor

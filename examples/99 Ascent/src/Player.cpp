@@ -370,7 +370,7 @@ void Player::drawReticle(const iWindow& window)
 
     float32 scale = 0.001 * window.getClientWidth();
 
-    iMaterialResourceFactory::getInstance().setMaterial(_materialSolid);
+    iRenderer::getInstance().setMaterial(_materialSolid);
     iRenderer::getInstance().setLineWidth(1 * scale);
 
     iRenderer::getInstance().setColor(iaColor4f(1, 0, 0, 1));

@@ -23,9 +23,14 @@ namespace Igor
         }
     }
 
-    const vector<uint64> iMaterialGroup::getRenderNodes() const
+    vector<uint64> iMaterialGroup::getRenderNodes() const
     {
         return _renderNodeIDs;
+    }
+
+    map<shared_ptr<iMeshBuffers>, iInstancedNodes> iMaterialGroup::getInstancedRenderNodes() const
+    {
+        return _instancedRenderNodes;
     }
 
     void iMaterialGroup::addRenderNode(uint64 renderNodeID, bool instancing)

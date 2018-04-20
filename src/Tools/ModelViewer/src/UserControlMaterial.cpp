@@ -14,11 +14,11 @@
 #include <iTargetMaterial.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iWidgetCheckBox.h>
 #include <iWidgetSelectBox.h>
 #include <iResourceManager.h>
 #include <iWidgetGroupBox.h>
+#include <iRenderer.h>
 using namespace Igor;
 
 UserControlMaterial::UserControlMaterial()

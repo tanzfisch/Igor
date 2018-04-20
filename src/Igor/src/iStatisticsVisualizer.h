@@ -29,7 +29,7 @@
 #ifndef __iSTATISTICSVISUALIZER__
 #define __iSTATISTICSVISUALIZER__
 
-#include <iDefines.h>
+#include <iMaterial.h>
 
 #include <iaColor4.h>
 #include <iaString.h>
@@ -144,15 +144,15 @@ namespace Igor
 
         /*! rendering the statistic material id
         */
-        uint64 _materialWithTextureAndBlending = 0;
+        uint64 _materialWithTextureAndBlending = iMaterial::INVALID_MATERIAL_ID;
 
         /*! simple solid material
         */
-        uint64 _materialSolid = 0;
+        uint64 _materialSolid = iMaterial::INVALID_MATERIAL_ID;
 
         /*! alpha blending material
         */
-        uint64 _materialBlend = 0;
+        uint64 _materialBlend = iMaterial::INVALID_MATERIAL_ID;
 
         /*! initializes the materials in use
         */

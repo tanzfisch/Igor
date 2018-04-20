@@ -4,7 +4,6 @@
 using namespace IgorAux;
 
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>
@@ -800,7 +799,7 @@ void Ascent::onRenderOrtho()
     iRenderer::getInstance().setViewMatrix(matrix);
     matrix.translate(0, 0, -30);
     iRenderer::getInstance().setModelMatrix(matrix);
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setFont(_font);
 
     if (_loading)

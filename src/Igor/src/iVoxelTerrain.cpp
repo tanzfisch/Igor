@@ -27,6 +27,7 @@
 #include <iTaskGenerateVoxels.h>
 #include <iTaskVoxelTerrain.h>
 #include <iVoxelOperationBox.h>
+#include <iRenderer.h>
 
 #include <iaConvert.h>
 #include <iaConsole.h>

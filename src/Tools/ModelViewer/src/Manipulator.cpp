@@ -6,7 +6,6 @@
 
 #include <iMaterialResourceFactory.h>
 #include <iTargetMaterial.h>
-#include <iMaterialGroup.h>
 #include <iRenderer.h>
 #include <iMeshBuilder.h>
 #include <iNodeFactory.h>
@@ -17,6 +16,7 @@
 #include <iMeshBuilderUtils.h>
 #include <iSceneFactory.h>
 #include <iNodeCamera.h>
+#include <iMesh.h>
 using namespace Igor;
 
 Manipulator::Manipulator(iWindow* window)

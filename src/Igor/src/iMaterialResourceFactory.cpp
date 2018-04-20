@@ -4,7 +4,6 @@
 
 #include <iMaterialResourceFactory.h>
 
-#include <iMaterialGroup.h>
 #include <iMaterial.h>
 #include <iShader.h>
 #include <iRenderer.h>
@@ -102,7 +101,7 @@ namespace Igor
             sort(_sortedMaterials.begin(), _sortedMaterials.end(),
                 [](const iMaterialPtr a, const iMaterialPtr b) -> bool
             {
-                return a->getOrder() > b->getOrder();
+                return a->getOrder() < b->getOrder();
             });
 
             _dirtyMaterials = false;
@@ -125,22 +124,24 @@ namespace Igor
     {
         // create the default material
         _defaultMaterial = createMaterial();
-        getMaterial(_defaultMaterial)->setName("IgorDefault");
-        getMaterial(_defaultMaterial)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-        getMaterial(_defaultMaterial)->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
-        getMaterial(_defaultMaterial)->compileShader();
-        getMaterial(_defaultMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        auto material = getMaterial(_defaultMaterial);
+        material->setName("IgorDefault");
+        material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+        material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
+        material->compileShader();
+        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
 
         // set material to start with
         setMaterial(_defaultMaterial);
 
         // create the color ID material
         _colorIDMaterial = createMaterial();
-        getMaterial(_colorIDMaterial)->setName("IgorColorID");
-        getMaterial(_colorIDMaterial)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-        getMaterial(_colorIDMaterial)->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
-        getMaterial(_colorIDMaterial)->compileShader();
-        getMaterial(_colorIDMaterial)->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+        material = getMaterial(_colorIDMaterial);
+        material->setName("IgorColorID");
+        material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+        material->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
+        material->compileShader();
+        material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
     }
 
     uint64 iMaterialResourceFactory::createMaterial(iaString name)
@@ -260,21 +261,6 @@ namespace Igor
         return material;
     }
 
-    /*   iMaterialGroup* iMaterialResourceFactory::getMaterialGroup(uint64 materialID)
-       {
-           iMaterialGroup* materialGroup = nullptr;
-
-           _mutexMaterial.lock();
-           auto iter = _materialMap.find(materialID);
-           if (iter != _materialMap.end())
-           {
-               materialGroup = (*iter).second;
-           }
-           _mutexMaterial.unlock();
-
-           return materialGroup;
-       }
-   */
     uint64 iMaterialResourceFactory::getMaterialID(iaString materialName)
     {
         uint64 result = iMaterial::INVALID_MATERIAL_ID;

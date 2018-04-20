@@ -9,7 +9,6 @@
 using namespace IgorAux;
 
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iNodeVisitorPrintTree.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>

@@ -9,7 +9,7 @@ using namespace IgorAux;
 
 #include <iSphere.h>
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
+#include <iRenderer.h>
 #include <iTaskManager.h>
 #include <iNodeSkyBox.h>
 #include <iNodeLight.h>
@@ -426,7 +426,7 @@ void VoxelExample::onRenderOrtho()
 
     iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
 
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
 
     iRenderer::getInstance().setFont(_font);
     iRenderer::getInstance().setFontSize(25.0f);
@@ -448,7 +448,7 @@ void VoxelExample::onRenderOrtho()
 
 void VoxelExample::drawLogo()
 {
-    iMaterialResourceFactory::getInstance().setMaterial(_materialWithTextureAndBlending);
+    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
 
     float32 width = static_cast<float32>(_igorLogo->getWidth());

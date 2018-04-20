@@ -42,9 +42,9 @@
 #endif
 
 #ifdef __IGOR_DEBUG__
-    #define __IGOR_CONFIG_STR__ debug
+    #define __IGOR_CONFIG_STR__ DEBUG
 #else
-    #define __IGOR_CONFIG_STR__ release
+    #define __IGOR_CONFIG_STR__ RELEASE
 #endif
 
 #ifdef __IGOR_X64__

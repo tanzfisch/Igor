@@ -15,6 +15,8 @@ using namespace std;
 namespace Igor
 {
 
+    iaIDGenerator64 iMaterial::_idGenerator;
+
     iMaterial::iMaterial()
     {
         _id = _idGenerator.createID();

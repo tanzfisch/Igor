@@ -19,7 +19,6 @@
 #include <iTextureResourceFactory.h>
 #include <iResourceManager.h>
 #include <iMaterialResourceFactory.h>
-#include <iMaterialGroup.h>
 #include <iMaterial.h>
 #include <iUserControlFileChooser.h>
 using namespace Igor;

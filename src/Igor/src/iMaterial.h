@@ -67,7 +67,6 @@ namespace Igor
 	{
 
         friend class iRenderer;
-        friend class iMaterialGroup;
         friend class iMaterialResourceFactory;
 
     public:
@@ -319,6 +318,8 @@ namespace Igor
 
 	};
 
+    /*! definition of material pointer
+    */
     typedef shared_ptr<iMaterial> iMaterialPtr;
 
 }

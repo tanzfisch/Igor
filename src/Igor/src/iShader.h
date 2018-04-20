@@ -34,7 +34,6 @@
 #include <iaVector3.h>
 #include <iaColor3.h>
 #include <iaColor4.h>
-#include <iRenderer.h>
 
 #include <iaString.h>
 using namespace IgorAux;
@@ -44,6 +43,8 @@ using namespace std;
 
 namespace Igor
 {
+
+    enum class iShaderObjectType : uint8;
 
     /*! handles glsl shader programs and objects
     
@@ -56,7 +57,7 @@ namespace Igor
 
     public:
 
-        static const uint32 INVALID_SHADER_ID = iRenderer::INVALID_ID;
+        static const uint32 INVALID_SHADER_ID = 0xffffffff;
 
         /*! load shader object from file
 

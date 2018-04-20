@@ -334,12 +334,14 @@ namespace Igor
         auto materials = iMaterialResourceFactory::getInstance().getSortedMaterials();
         for (auto material : materials)
         {
-            iMaterialGroup& materialGroup = _materialGroups[material->getID()];
-
+            iRenderer::getInstance().setMaterial(material, _showWireframe);
             bool instancing = (material->getRenderStateSet().getRenderStateValue(iRenderState::Instanced) == iRenderStateValue::On);
+            iMaterialGroup& materialGroup = _materialGroups[material->getID()];
+            
             if (instancing)
             {
-                /* if (!materialGroup->_instancedRenderNodes.empty())
+             /*   materialGroup.get
+                 if (!materialGroup->_instancedRenderNodes.empty())
                  {
                      iRenderer::getInstance().setMaterial(materialGroup->getMaterial(), _showWireframe);
 
@@ -400,8 +402,6 @@ namespace Igor
             }
             else
             {
-                iRenderer::getInstance().setMaterial(material, _showWireframe);
-
                 auto renderNodeIDs = materialGroup.getRenderNodes();
                 for (auto renderNodeID : renderNodeIDs)
                 {

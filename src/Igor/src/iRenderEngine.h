@@ -29,7 +29,7 @@
 #ifndef __RENDERENGINE__
 #define __RENDERENGINE__
 
-#include <iDefines.h>
+#include <iMaterialGroup.h>
 
 #include <vector>
 #include <map>
@@ -41,7 +41,6 @@ namespace Igor
     class iScene;
     class iNodeCamera;
     class iNode;
-    class iMaterialGroup;
 
     /*! does control the render loop
     */

@@ -58,7 +58,6 @@ namespace Igor
     */
     iaEVENT(iMaterialDestroyedEvent, iMaterialDestroyedDelegate, void, (uint64 materialID), (materialID));
 
-    class iMaterialGroup;
     class iTargetMaterial;
 
     /*! material resource factory
@@ -92,16 +91,6 @@ namespace Igor
         \param targetMaterial target material to destroy
         */
         void destroyTargetMaterial(iTargetMaterial* targetMaterial);
-
-        /*! set a material as the active material.
-
-        changes render states as needed.
-
-        ATTENTION can only be used if window is open and renderer initialized
-
-        \param materialID the material's id to be activated
-        */
-        void setMaterial(uint64 materialID);
 
         /*! \returns materials with given material id
         \param materialID the materials id
@@ -207,6 +196,16 @@ namespace Igor
         /*! color id material id
         */
         uint64 _colorIDMaterial = iMaterial::INVALID_MATERIAL_ID;
+
+        /*! set a material as the active material.
+
+        changes render states as needed.
+
+        ATTENTION can only be used if window is open and renderer initialized
+
+        \param materialID the material's id to be activated
+        */
+        void setMaterial(uint64 materialID);
 
         /*! sorts the materials if needed
         */

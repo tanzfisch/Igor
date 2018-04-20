@@ -67,7 +67,7 @@ namespace Igor
 
     /*! shader object types
     */
-    enum class iShaderObjectType
+    enum class iShaderObjectType : uint8
     {
         Vertex,
         Fragment,
@@ -261,6 +261,14 @@ namespace Igor
         \todo make separate interface for showing wireframe
         */
         void setMaterial(iMaterialPtr material, bool forceWireframe = false);
+
+        /*! set current material by id
+
+        \param materialID the material id to be set as current material
+        \param forceWireframe if true all materials will be considered using wireframe
+        \todo make separate interface for showing wireframe
+        */
+        void setMaterial(uint64 materialID, bool forceWireframe = false);
 
         /*! sets color Id to render with
 

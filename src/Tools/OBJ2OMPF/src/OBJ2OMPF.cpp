@@ -7,9 +7,9 @@
 #include <iScene.h>
 #include <iNodeFactory.h>
 #include <iMaterialResourceFactory.h>
-#include <iMaterialGroup.h>
 #include <iShader.h>
 #include <iNodeMesh.h>
+#include <iRenderer.h>
 using namespace Igor;
 
 #include <iaConsole.h>

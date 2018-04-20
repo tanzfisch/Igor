@@ -12,7 +12,6 @@
 #include <iMeshBuilder.h>
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
-#include <iMaterialGroup.h>
 #include <iRenderStateSet.h>
 #include <iShader.h>
 #include <iTargetMaterial.h>

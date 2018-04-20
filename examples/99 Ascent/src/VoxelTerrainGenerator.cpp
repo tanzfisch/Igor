@@ -17,6 +17,7 @@
 #include <iPhysicsBody.h>
 #include <iMesh.h>
 #include <iStatistics.h>
+#include <iRenderer.h>
 using namespace Igor;
 
 #include <iaConsole.h>

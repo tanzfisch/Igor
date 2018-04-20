@@ -30,32 +30,37 @@
 #define __iMATERIALGROUP__
 
 #include <iDefines.h>
-#include <iMaterial.h>
 #include <iaMatrix.h>
 #include <iInstancer.h>
 
 #include <map>
+#include <vector>
 #include <memory>
 using namespace std;
 
 namespace Igor
 {
 
-    class iNodeRender;
     class iMeshBuffers;
-    class iNodeMesh;
+
+    /*! structure for handling instanced rendered nodes
+    */
+    struct iInstancedNodes
+    {
+        /*! render node ids
+        */
+        vector<uint64> _renderNodeIDs;
+
+        /*! instance of corresponding instancer
+        */
+        iInstancer* _instancer = nullptr;
+    };
+
 
     /*! material group describes a group of render nodes that use the same material
     */
     class iMaterialGroup
 	{
-        /*! structure for handling instanced rendered nodes
-        */
-        struct Instanced
-        {
-            vector<uint64> _renderNodeIDs;
-            iInstancer* _instancer = nullptr;
-        };
 
     public:
 
@@ -76,7 +81,13 @@ namespace Igor
 
         /*! removes render node from material group
         \param renderNode node to be removed        */        void removeRenderNode(uint64 renderNodeID, bool instancing);
-        const vector<uint64> getRenderNodes() const;
+        /*! \returns copy of render nodes in this group
+        */
+        vector<uint64> getRenderNodes() const;
+
+        /*! \returns copy of instanced render node meshs in this group
+        */
+        map<shared_ptr<iMeshBuffers>, iInstancedNodes> getInstancedRenderNodes() const;
 
     private:
 
@@ -86,7 +97,7 @@ namespace Igor
 
         /*! render nodes registred to this material that are also using instancing
         */
-        map<shared_ptr<iMeshBuffers>, Instanced> _instancedRenderNodes;
+        map<shared_ptr<iMeshBuffers>, iInstancedNodes> _instancedRenderNodes;
 
 	};
 

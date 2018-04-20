@@ -47,6 +47,7 @@ namespace Igor
     class iNodeTransform;
     class iNodeSwitch;
     class iNodeCamera;
+    class iMesh;
 }
 
 enum class ManipulatorMode

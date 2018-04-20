@@ -19,7 +19,6 @@
 #include <iNodeFactory.h>
 #include <iTargetMaterial.h>
 #include <iMaterialResourceFactory.h>
-#include <iMaterialGroup.h>
 #include <iMaterial.h>
 using namespace Igor;
 

@@ -19,7 +19,6 @@
 #include <iWidgetCheckBox.h>
 #include <iMaterialResourceFactory.h>
 #include <iMaterial.h>
-#include <iMaterialGroup.h>
 #include <iUserControlFileChooser.h>
 #include <iResourceManager.h>
 #include <iWidgetSpacer.h>
