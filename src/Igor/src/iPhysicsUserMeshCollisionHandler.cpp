@@ -24,23 +24,19 @@ namespace Igor
 
     void iPhysicsUserMeshCollisionHandler::collideCallback(void* const collideDesc, const void* const continueCollisionHandle)
     {
-        con_trace();
     }
 
     float32 iPhysicsUserMeshCollisionHandler::rayHitCallback(void* const rayDesc)
     {
-        con_trace();
         return 0;
     }
 
     void iPhysicsUserMeshCollisionHandler::destroyCallback()
     {
-        con_trace();
     }
 
     void iPhysicsUserMeshCollisionHandler::getCollisionInfo(void* const infoRecord)
     {
-        con_trace();
     }
 
     int iPhysicsUserMeshCollisionHandler::testOverlapAABB(const float64* const box0, const float64* const box1)
@@ -52,7 +48,6 @@ namespace Igor
 
     int iPhysicsUserMeshCollisionHandler::getFacesInAABB(const float64* p0, const float64* p1, const float64** vertexArray, int* vertexCount, int* vertexStrideInBytes, const int* indexList, int maxIndexCount, const int* userDataList)
     {
-        con_trace();
         return 0;
     }
 
