@@ -70,7 +70,7 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
         iTargetMaterial* targetMaterial = meshNode->getTargetMaterial();
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates1.png"), 0);
         targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
-        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("melted_rock.png"), 2);
+        targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
         targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
         targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
         targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));

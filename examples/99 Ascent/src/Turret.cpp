@@ -8,6 +8,7 @@
 #include <iPhysics.h>
 #include <iTimer.h>
 #include <iEntityManager.h>
+#include <iNodeVisitorSearchName.h>
 using namespace Igor;
 
 #include <iaString.h>
@@ -47,26 +48,31 @@ void Turret::onModelReady(uint64 modelNodeID)
     iNodeModel* turret = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_turretNodeID));
     if (turret != nullptr)
     {
-        if (turret->hasChildren())
+        iNodeVisitorSearchName searchName;
+
+        vector<uint64> nodeIDs = searchName.find(turret, "platform");
+        if (!nodeIDs.empty())
         {
-            iNodeTransform* platformTransform = static_cast<iNodeTransform*>(turret->getChild("platformTransform"));
-            if (platformTransform != nullptr)
-            {
-                _platformID = platformTransform->getID();
+            _platformID = nodeIDs.front();
+        }
 
-                iNodeTransform* towerTransform = static_cast<iNodeTransform*>(platformTransform->getChild("towerTransform"));
-                if (towerTransform != nullptr)
-                {
-                    _headingID = towerTransform->getID();
+        nodeIDs = searchName.find(turret, "tower");
+        if (!nodeIDs.empty())
+        {
+            _headingID = nodeIDs.front();
+        }
 
-                    iNodeTransform* gunTransform = static_cast<iNodeTransform*>(towerTransform->getChild("gunTransform"));
-                    if (gunTransform != nullptr)
-                    {
-                        _pitchID = gunTransform->getID();
-                        _initilized = true;
-                    }
-                }
-            }
+        nodeIDs = searchName.find(turret, "gun");
+        if (!nodeIDs.empty())
+        {
+            _pitchID = nodeIDs.front();
+        }
+
+        if (_platformID != iNode::INVALID_NODE_ID &&
+            _headingID != iNode::INVALID_NODE_ID &&
+            _pitchID != iNode::INVALID_NODE_ID)
+        {
+            _initilized = true;
         }
     }
 }
@@ -163,7 +169,7 @@ void Turret::handle()
                     iaConvert::convert(outside, out);
                     float32 distanceToWall = out.distance(getSphere()._center) + 5;
 
-                    if (canFire &&
+                 /*   if (canFire &&
                         distanceToWall > distance &&
                         distance < fireDistance)
                     {
@@ -188,7 +194,7 @@ void Turret::handle()
 
                             fired = true;
                         }
-                    }
+                    }*/
                 }
             }
         }

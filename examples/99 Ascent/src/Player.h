@@ -10,6 +10,7 @@ using namespace IgorAux;
 namespace Igor
 {
     class iScene;
+    class iView;
     class iPhysicsBody;
     class iPhysicsJoint;
     class iView;
@@ -21,7 +22,7 @@ class Player : public GameObject
 
 public:
 
-    Player(iScene* scene, const iaMatrixd& matrix);
+    Player(iScene* scene, iView* view, const iaMatrixd& matrix);
     virtual ~Player();
 
     void startUp();

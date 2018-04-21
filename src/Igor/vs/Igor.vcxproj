@@ -274,6 +274,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClCompile Include="..\src\iNodeVisitorPrintTree.cpp" />
     <ClCompile Include="..\src\iNodeVisitorRenderBoundings.cpp" />
     <ClCompile Include="..\src\iNodeVisitorRenderColorID.cpp" />
+    <ClCompile Include="..\src\iNodeVisitorSearchName.cpp" />
     <ClCompile Include="..\src\iNodeVisitorUpdateTransform.cpp" />
     <ClCompile Include="..\src\iNodeVolume.cpp" />
     <ClCompile Include="..\src\iNodeWater.cpp" />
@@ -448,6 +449,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iNodeVisitorPrintTree.h" />
     <ClInclude Include="..\src\iNodeVisitorRenderBoundings.h" />
     <ClInclude Include="..\src\iNodeVisitorRenderColorID.h" />
+    <ClInclude Include="..\src\iNodeVisitorSearchName.h" />
     <ClInclude Include="..\src\iNodeVisitorUpdateTransform.h" />
     <ClInclude Include="..\src\iNodeVolume.h" />
     <ClInclude Include="..\src\iNodeWater.h" />

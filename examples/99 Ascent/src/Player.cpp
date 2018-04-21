@@ -32,7 +32,7 @@ using namespace IgorAux;
 #include "MuzzleFlash.h"
 #include "Ascent.h"
 
-Player::Player(iScene* scene, const iaMatrixd& matrix)
+Player::Player(iScene* scene, iView* view, const iaMatrixd& matrix)
     : GameObject(Fraction::Blue, GameObjectType::Vehicle)
 {
     _scene = scene;
@@ -119,8 +119,7 @@ Player::Player(iScene* scene, const iaMatrixd& matrix)
     camera->insertNode(lodTrigger);
     _scene->getRoot()->insertNode(transformNode);
 
-    // _view.setCurrentCamera(camera->getID()); TODO can't set current cam here anymore
-
+    view->setCurrentCamera(_cameraNodeID);
 
     _materialSolid = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSolid)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
@@ -138,6 +137,8 @@ Player::~Player()
 
 void Player::hitBy(uint64 entityID)
 {
+    return;
+
     GameObject* gameObject = static_cast<GameObject*>(iEntityManager::getInstance().getEntity(entityID));
     if (gameObject != nullptr &&
         gameObject->getFraction() != getFraction())
