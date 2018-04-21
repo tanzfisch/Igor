@@ -30,6 +30,7 @@
 #define __MODELVIEWER__
 
 #include "Manipulator.h"
+#include "OrientationPlane.h"
 
 #include <Igor.h>
 #include <iWindow.h>
@@ -120,6 +121,7 @@ private:
     iStatisticsVisualizer _statisticsVisualizer;
 
     Manipulator* _manipulator = nullptr;
+    OrientationPlane* _orientationPlane = nullptr;
 
     void resetManipulatorMode();
     void setManipulatorMode(ManipulatorMode modifierMode);

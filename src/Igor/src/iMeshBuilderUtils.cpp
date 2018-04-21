@@ -9,6 +9,17 @@ namespace Igor
     namespace iMeshBuilderUtils
     {
 
+        void addRectangle(iMeshBuilder& meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ)
+        {
+            meshBuilder.addVertex(iaVector3f(x, 0, z + sizeZ));
+            meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z + sizeZ));
+            meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z));
+            meshBuilder.addVertex(iaVector3f(x, 0, z));
+
+            meshBuilder.addTriangle(0, 1, 2);
+            meshBuilder.addTriangle(2, 3, 0);
+        }
+
         void addCylinder(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments, bool hasCaps)
         {
             con_assert(segments >= 3, "parameters out of range");

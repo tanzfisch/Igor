@@ -176,6 +176,8 @@ namespace Igor
 		
 	};
 
+    /*! definition of texture shared pointer
+    */
     typedef shared_ptr<iTexture> iTexturePtr;
 
 };
