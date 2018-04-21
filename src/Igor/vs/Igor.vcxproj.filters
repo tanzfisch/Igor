@@ -431,6 +431,9 @@
     <ClCompile Include="..\src\iMeshBuilderUtils.cpp">
       <Filter>resources\mesh</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iNodeVisitorSearchName.cpp">
+      <Filter>scene\traversal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -900,6 +903,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iMeshBuilderUtils.h">
       <Filter>resources\mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iNodeVisitorSearchName.h">
+      <Filter>scene\traversal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

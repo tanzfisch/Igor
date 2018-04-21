@@ -51,8 +51,8 @@ void VoxelTerrainGenerator::init()
 
     // set up terrain material
     _terrainMaterialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
-    iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("ascent_terrain.vert", iShaderObjectType::Vertex);
-    iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("ascent_terrain_directional_light.frag", iShaderObjectType::Fragment);
+    iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
+    iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->compileShader();
     iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
 	//iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::Off);

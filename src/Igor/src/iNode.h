@@ -194,7 +194,7 @@ namespace Igor
         \param name the name to search for
         \returns node with the name specified. returns zero in case of an error
         */
-        iNode* getChild(iaString name);
+        iNode* getChild(const iaString& name);
 
         /*! returns child by id
 
