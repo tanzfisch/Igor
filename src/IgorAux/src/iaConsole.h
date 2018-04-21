@@ -369,19 +369,6 @@ namespace IgorAux
 #define con_info(Type, Message) \
     iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID <<  iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl << UNLOCK;
 
-    /*! just prints where we currently are plus a custom message. meant to be a quick thing to do for debugging 
-
-    add __IGOR_USE_TRACE__ as build option to make traces visible
-
-    \param Message the massage to add
-    */
-#ifdef __IGOR_USE_TRACE__
-#define con_trace(Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Blue << "TRACE " <<  __IGOR_FUNCTION__ << __IGOR_FILE_LINE__ << " " << Message << endl << UNLOCK;
-#else
-#define con_trace(Message)
-#endif
-
     /*! prints an message to console and optionally to the log file
 
     \param Message message to be printed
