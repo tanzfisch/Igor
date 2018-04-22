@@ -120,10 +120,11 @@ namespace Igor
 		iaConsole::getInstance() << G << "                 \\_/__/  game engine     " << C1 << "   ) )  " << C2 << "   ((" << endl;
 		iaConsole::getInstance() << G << "                                        " << C1 << "   (_(    " << C2 << "   \\)" << endl;
 
-		iaConsole::getInstance() << T << "    (c) Copyright 2012-2017 by Martin Loga" << endl << endl;
+		iaConsole::getInstance() << T << "    (c) Copyright 2012-2018 by Martin Loga" << endl << endl;
 		iaConsole::getInstance() << T << "    ver. " << __IGOR_VERSION__ << " (" << __IGOR_CONFIGURATION__ << ") LGPL v3.0" << endl << endl;
 		iaConsole::getInstance() << T << "    thanks to M. Rochel, M. Schulz, T. Drevensek, I. Yozova" << endl << endl;
 		iaConsole::getInstance() << T << "    powered by NewtonDynamics, OpenGL, GLee, stb_image, TinyXML" << endl;
+        iaConsole::getInstance() << T << "    get sources from https://github.com/tanzfisch/Igor.git" << endl;
 		iaConsole::getInstance() << W << "  ____________________________________________________________________________" << endl << endl;
 		iaConsole::getInstance() << UNLOCK;
 
