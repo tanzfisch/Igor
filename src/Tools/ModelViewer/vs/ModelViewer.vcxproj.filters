@@ -42,7 +42,12 @@
     <ClCompile Include="..\src\UserControlMaterial.cpp">
       <Filter>NodeUserControls</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Manipulator.cpp" />
+    <ClCompile Include="..\src\Manipulator.cpp">
+      <Filter>3DUserControls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\OrientationPlane.cpp">
+      <Filter>3DUserControls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ModelViewer.h" />
@@ -86,7 +91,12 @@
       <Filter>NodeUserControls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ModelViewerDefines.h" />
-    <ClInclude Include="..\src\Manipulator.h" />
+    <ClInclude Include="..\src\Manipulator.h">
+      <Filter>3DUserControls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\OrientationPlane.h">
+      <Filter>3DUserControls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Dialogs">
@@ -97,6 +107,9 @@
     </Filter>
     <Filter Include="NodeUserControls">
       <UniqueIdentifier>{33896c03-0579-4335-90a5-2bddde084c94}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3DUserControls">
+      <UniqueIdentifier>{e03b9343-0457-4025-bac1-29a928a847b0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

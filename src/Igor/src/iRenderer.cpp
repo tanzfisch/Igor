@@ -237,7 +237,7 @@ namespace Igor
             glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST); GL_CHECK_ERROR();
             glHint(GL_POINT_SMOOTH_HINT, GL_NICEST);	GL_CHECK_ERROR();
             glHint(GL_LINE_SMOOTH_HINT, GL_NICEST);	GL_CHECK_ERROR();
-            glHint(GL_POLYGON_SMOOTH_HINT, GL_FASTEST);	GL_CHECK_ERROR();
+            glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);	GL_CHECK_ERROR();
 
             glDepthFunc(GL_LESS);		GL_CHECK_ERROR();
             glEnable(GL_DEPTH_TEST);	GL_CHECK_ERROR();
@@ -1480,7 +1480,7 @@ namespace Igor
             if (_currentMaterial->getShader() != nullptr)
             {
                 uint32 program = _currentMaterial->getShader()->getProgram();
-                glUniform4fv(glGetUniformLocation(program, iMaterial::UNIFORM_SOLIDCOLOR), 1, static_cast<GLfloat*>(color.getData())); GL_CHECK_ERROR();
+                glUniform4fv(_currentMaterial->_matSolidColor, 1, static_cast<GLfloat*>(color.getData())); GL_CHECK_ERROR();
             }
         }
     }

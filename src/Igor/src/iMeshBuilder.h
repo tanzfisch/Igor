@@ -110,6 +110,12 @@ namespace Igor
         */
         void setMatrix(const iaMatrixf& matrix);
 
+        /*! multiplies current matrix with given matrix
+
+        \param matrix matrix to multiply with
+        */
+        void multMatrix(const iaMatrixf& matrix);
+
         /*! returns transformation matrix affecting next vertex to be set
 
         \param[out] matrix returned matrix
@@ -163,6 +169,14 @@ namespace Igor
 
         /*! sets texture coordinate of last added vertex
 
+        \param texCoord the texture coordinate to add
+        \param unit the texture unit to add the texture coodinate to
+        */
+        void setTexCoord(const iaVector2f& texCoord, uint32 unit);
+
+        /*! sets texture coordinate of vertex specified by index
+
+        \param index the vertex's index
         \param texCoord the texture coordinate to add
         \param unit the texture unit to add the texture coodinate to
         */
