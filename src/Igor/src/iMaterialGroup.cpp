@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2017 by Martin Loga
+// (c) Copyright 2012-2018 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iMaterialGroup.h>
@@ -64,8 +64,33 @@ namespace Igor
         }
     }
 
-    void iMaterialGroup::removeRenderNode(uint64 renderNodeID, bool instancing)    {        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
-        if (renderNode != nullptr)        {            if (instancing &&                iNodeType::iNodeMesh == renderNode->getType())            {                auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();                auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);                if (iter != _instancedRenderNodes[meshBuffers]._renderNodeIDs.end())                {                    _instancedRenderNodes[meshBuffers]._renderNodeIDs.erase(iter);                }            }            else            {                auto iter = find(_renderNodeIDs.begin(), _renderNodeIDs.end(), renderNodeID);                if (iter != _renderNodeIDs.end())                {                    _renderNodeIDs.erase(iter);                }            }        }    }
+    void iMaterialGroup::removeRenderNode(uint64 renderNodeID, bool instancing)
+    {
+        iNodeRender* renderNode = static_cast<iNodeRender*>(iNodeFactory::getInstance().getNode(renderNodeID));
+
+        if (renderNode != nullptr)
+        {
+            if (instancing &&
+                iNodeType::iNodeMesh == renderNode->getType())
+            {
+                auto meshBuffers = static_cast<iNodeMesh*>(renderNode)->getMeshBuffers();
+                auto iter = find(_instancedRenderNodes[meshBuffers]._renderNodeIDs.begin(), _instancedRenderNodes[meshBuffers]._renderNodeIDs.end(), renderNodeID);
+                if (iter != _instancedRenderNodes[meshBuffers]._renderNodeIDs.end())
+                {
+                    _instancedRenderNodes[meshBuffers]._renderNodeIDs.erase(iter);
+                }
+            }
+            else
+            {
+                auto iter = find(_renderNodeIDs.begin(), _renderNodeIDs.end(), renderNodeID);
+                if (iter != _renderNodeIDs.end())
+                {
+                    _renderNodeIDs.erase(iter);
+                }
+            }
+        }
+    }
+
 }
 
 
