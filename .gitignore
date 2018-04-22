@@ -240,3 +240,4 @@ _Pvt_Extensions
 
 include/
 lib/
+src/Igor/src/gitTag\.inl

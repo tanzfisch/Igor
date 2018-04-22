@@ -144,6 +144,15 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <PostBuildEvent>
       <Message>copy libs and dlls</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>echo|set /p="#define __GIT_TAG__ " &gt; ..\src\gitTag.inl
+git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
+
+</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>pre build step</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -207,6 +216,15 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <PostBuildEvent>
       <Message>copy libs and dlls</Message>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>echo|set /p="#define __GIT_TAG__ " &gt; ..\src\gitTag.inl
+git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
+
+</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Message>pre build step</Message>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\3rd\GLee\src\GLee.c" />

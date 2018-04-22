@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2017 by Martin Loga
+// (c) Copyright 2012-2018 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -31,16 +31,11 @@
 
 #include <iDefines.h>
 
-//! major version of Igor
-#define __IGOR_VERSION_MAJOR__ 0
-//! minor version of Igor
-#define __IGOR_VERSION_MINOR__ 9
-//! patch version of Igor
-#define __IGOR_VERSION_PATCH__ 1
+#include "gitTag.inl"
 
 //! Igor configuration
 #define __IGOR_CONFIGURATION__ STR(__IGOR_CONFIG_STR__) ", " STR(__IGOR_BIT_STR__)
 //! Igor full version including revision
-#define __IGOR_VERSION__ STR(__IGOR_VERSION_MAJOR__) "." STR(__IGOR_VERSION_MINOR__) "." STR(__IGOR_VERSION_PATCH__)
+#define __IGOR_VERSION__ STR(__GIT_TAG__)
 
 #endif
