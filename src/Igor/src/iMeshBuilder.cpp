@@ -35,6 +35,11 @@ namespace Igor
         _matrix.identity();
     }
 
+    void iMeshBuilder::multMatrix(const iaMatrixf& matrix)
+    {
+        _matrix *= matrix;
+    }
+
     void iMeshBuilder::setMatrix(const iaMatrixf& matrix)
     {
         _matrix = matrix;
@@ -172,7 +177,7 @@ namespace Igor
         }
     }
 
-    void iMeshBuilder::setTexCoord(uint32 index, const iaVector2f& texCoord, uint32 unit)
+    void iMeshBuilder::setTexCoord(const iaVector2f& texCoord, uint32 unit)
     {
         if (_vertexes.size() > _texCoords[unit].size())
         {
@@ -183,9 +188,14 @@ namespace Igor
         }
         else
         {
-            _texCoords[unit][index]._x = texCoord._x;
-            _texCoords[unit][index]._y = texCoord._y;
+            con_err("out of range");
         }
+    }
+
+    void iMeshBuilder::setTexCoord(uint32 index, const iaVector2f& texCoord, uint32 unit)
+    {
+        _texCoords[unit][index]._x = texCoord._x;
+        _texCoords[unit][index]._y = texCoord._y;
     }
 
     uint32 iMeshBuilder::addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC, const uint32 indexOffset)
@@ -230,8 +240,8 @@ namespace Igor
             }
         }
 
-        
-        for (int texunit = 0; texunit < _texCoords.size();++texunit)
+
+        for (int texunit = 0; texunit < _texCoords.size(); ++texunit)
         {
             if (_vertexes.size() != _texCoords[texunit].size())
             {
@@ -395,7 +405,7 @@ namespace Igor
 
         sphereF._center /= static_cast<float32>(_vertexes.size());
 
-        for (uint32 i = 0; i<_vertexes.size(); i++)
+        for (uint32 i = 0; i < _vertexes.size(); i++)
         {
             if ((sphereF._center - _vertexes[i]).length() > sphereF._radius)
             {
@@ -699,59 +709,59 @@ namespace Igor
         }
     }
 
-/*    void iMeshBuilder::joinVertexes()
-    {
-        vector<iaVector3f> vertices = std::move(_vertexes);
-        _normals.clear();
-        _colors.clear();
-
-        auto iterTex = _texCoords.begin();
-        while (iterTex != _texCoords.end())
+    /*    void iMeshBuilder::joinVertexes()
         {
-            (*iterTex).second.clear();
-            iterTex++;
-        }
-        _texCoords.clear();
+            vector<iaVector3f> vertices = std::move(_vertexes);
+            _normals.clear();
+            _colors.clear();
 
-        vector<iIndexedTriangle> triangleIndexes = std::move(_triangles);
-
-        uint32 indexA, indexB, indexC;
-        int64 destinationIndexA, destinationIndexB, destinationIndexC;
-        iaVector3f va, vb, vc;
-
-        for (int srcindex = 0; srcindex < triangleIndexes.size(); ++srcindex)
-        {
-            indexA = triangleIndexes[srcindex]._a;
-            indexB = triangleIndexes[srcindex]._b;
-            indexC = triangleIndexes[srcindex]._c;
-
-            va = vertices[indexA];
-            vb = vertices[indexB];
-            vc = vertices[indexC];
-
-            getIndexOfVertexes(va, destinationIndexA, vb, destinationIndexB, vc, destinationIndexC);
-
-            if (destinationIndexA == -1)
+            auto iterTex = _texCoords.begin();
+            while (iterTex != _texCoords.end())
             {
-                addVertex(va);
-                destinationIndexA = _vertexes.size() - 1;
+                (*iterTex).second.clear();
+                iterTex++;
             }
+            _texCoords.clear();
 
-            if (destinationIndexB == -1)
+            vector<iIndexedTriangle> triangleIndexes = std::move(_triangles);
+
+            uint32 indexA, indexB, indexC;
+            int64 destinationIndexA, destinationIndexB, destinationIndexC;
+            iaVector3f va, vb, vc;
+
+            for (int srcindex = 0; srcindex < triangleIndexes.size(); ++srcindex)
             {
-                addVertex(vb);
-                destinationIndexB = _vertexes.size() - 1;
-            }
+                indexA = triangleIndexes[srcindex]._a;
+                indexB = triangleIndexes[srcindex]._b;
+                indexC = triangleIndexes[srcindex]._c;
 
-            if (destinationIndexC == -1)
-            {
-                addVertex(vc);
-                destinationIndexC = _vertexes.size() - 1;
-            }
+                va = vertices[indexA];
+                vb = vertices[indexB];
+                vc = vertices[indexC];
 
-            addTriangle(static_cast<uint32>(destinationIndexA), static_cast<uint32>(destinationIndexB), static_cast<uint32>(destinationIndexC));
-        }
-    }*/
+                getIndexOfVertexes(va, destinationIndexA, vb, destinationIndexB, vc, destinationIndexC);
+
+                if (destinationIndexA == -1)
+                {
+                    addVertex(va);
+                    destinationIndexA = _vertexes.size() - 1;
+                }
+
+                if (destinationIndexB == -1)
+                {
+                    addVertex(vb);
+                    destinationIndexB = _vertexes.size() - 1;
+                }
+
+                if (destinationIndexC == -1)
+                {
+                    addVertex(vc);
+                    destinationIndexC = _vertexes.size() - 1;
+                }
+
+                addTriangle(static_cast<uint32>(destinationIndexA), static_cast<uint32>(destinationIndexB), static_cast<uint32>(destinationIndexC));
+            }
+        }*/
 
     void iMeshBuilder::calcPlanarTextureCoordinates(const iaVector3f& center, iaAxis direction, int texunit, float32 scale)
     {

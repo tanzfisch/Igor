@@ -11,13 +11,15 @@ namespace Igor
 
         void addRectangle(iMeshBuilder& meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ)
         {
+            const uint32 firstIndex = meshBuilder.getVertexCount();
+
             meshBuilder.addVertex(iaVector3f(x, 0, z + sizeZ));
             meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z + sizeZ));
             meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z));
             meshBuilder.addVertex(iaVector3f(x, 0, z));
 
-            meshBuilder.addTriangle(0, 1, 2);
-            meshBuilder.addTriangle(2, 3, 0);
+            meshBuilder.addTriangle(0, 1, 2, firstIndex);
+            meshBuilder.addTriangle(2, 3, 0, firstIndex);
         }
 
         void addCylinder(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments, bool hasCaps)
