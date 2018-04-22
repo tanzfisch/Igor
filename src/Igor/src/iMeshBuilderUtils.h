@@ -82,6 +82,16 @@ namespace Igor
         */
         void Igor_API addRing(iMeshBuilder& meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments = 16);
 
+        /*! adds a rectangle in XZ plane
+
+        \param meshBuilder the given mesh builder instance
+        \param x x position of plane
+        \param z z position of plane
+        \param sizeX size in x axis
+        \param sizeZ size in z axis
+        */
+        void Igor_API addRectangle(iMeshBuilder& meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ);
+
     }
 
 };

@@ -104,8 +104,9 @@ void ModelViewer::init(iaString fileName)
     _groupNode->setName("groupNode");
     _transformModel->insertNode(_groupNode);
 
-    // modifier
+    // init 3D user controls
     _manipulator = new Manipulator(&_window);
+    _orientationPlane = new OrientationPlane(_scene);
 
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -131,6 +132,7 @@ void ModelViewer::init(iaString fileName)
     // default sky box
     _materialSkyBox = iMaterialResourceFactory::getInstance().createMaterial();
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::DepthTest, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setOrder(iMaterial::RENDER_ORDER_MIN);
     iMaterialResourceFactory::getInstance().getMaterial(_materialSkyBox)->setName("SkyBox");
@@ -145,7 +147,7 @@ void ModelViewer::init(iaString fileName)
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
     _skyBoxNode->setTextureScale(10);
     _skyBoxNode->setMaterial(_materialSkyBox);
-    _scene->getRoot()->insertNode(_skyBoxNode);
+    //_scene->getRoot()->insertNode(_skyBoxNode);
 
     _font = new iTextureFont("StandardFont.png");
 

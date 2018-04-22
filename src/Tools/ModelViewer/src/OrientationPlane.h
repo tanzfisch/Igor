@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2014-2015 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -26,21 +26,50 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __IGOR_VERSION_FILE__
-#define __IGOR_VERSION_FILE__
+#ifndef __ORIENTATIONPLANE__
+#define __ORIENTATIONPLANE__
 
-#include <iDefines.h>
+#include <iMeshBuffers.h>
+#include <iMaterial.h>
+#include <iNode.h>
+using namespace Igor;
 
-//! major version of Igor
-#define __IGOR_VERSION_MAJOR__ 0
-//! minor version of Igor
-#define __IGOR_VERSION_MINOR__ 9
-//! patch version of Igor
-#define __IGOR_VERSION_PATCH__ 1
+namespace Igor
+{
+    class iScene;
+    class iMesh;
+    class iTargetMaterial;
+}
 
-//! Igor configuration
-#define __IGOR_CONFIGURATION__ STR(__IGOR_CONFIG_STR__) ", " STR(__IGOR_BIT_STR__)
-//! Igor full version including revision
-#define __IGOR_VERSION__ STR(__IGOR_VERSION_MAJOR__) "." STR(__IGOR_VERSION_MINOR__) "." STR(__IGOR_VERSION_PATCH__)
+class OrientationPlane
+{
+
+public:
+
+    OrientationPlane(iScene* scene);
+
+    void setVisible(bool visible);
+    bool isVisible() const;
+
+    void init();
+    void deinit();
+
+private:
+
+    iScene* _scene = nullptr;
+
+    uint64 _material = iMaterial::INVALID_MATERIAL_ID;
+    iTargetMaterial* _white = nullptr;
+
+    uint64 _transformNodeID = iNode::INVALID_NODE_ID;
+    bool _visible = true;
+
+    shared_ptr<iMesh> createGridMesh();
+
+};
+
 
 #endif
+
+
+

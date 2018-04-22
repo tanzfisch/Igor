@@ -25,7 +25,8 @@ void main()
 {
 	vec3 N = normalize(VertexNormal);
 	vec3 P = VertexWorld;
-	vec3 diffuseTextureColor = texture2D(igor_matTexture0, VertexTexCoord).rgb;
+	vec4 textureColor = texture2D(igor_matTexture0, VertexTexCoord);
+	vec3 diffuseTextureColor = textureColor.rgb;
 		
 	// Compute the ambient term
 	vec3 ambient = igor_matAmbient * igor_lightAmbient * diffuseTextureColor;
@@ -48,5 +49,5 @@ void main()
 	vec3 specular = igor_matSpecular * igor_lightSpecular * specularLightFactor;
 	
 	out_color.rgb = igor_matEmissive + ambient + diffuse + specular;
-	out_color.a = 1;
+	out_color.a = textureColor.a;
 }
