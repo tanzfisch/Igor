@@ -203,7 +203,9 @@ namespace IgorAux
 */
 #define __IGOR_TAB__ L"    "
 
-#define __IGOR_TIMER_TAB__ L"              "
+/*! logging tab definition including size of time and thread ID
+*/
+#define __IGOR_LOGGING_TAB__ L"                         "
 
 //! helper macro to handle scrings in macros
 #define STR2(x) #x
