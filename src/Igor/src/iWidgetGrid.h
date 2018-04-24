@@ -96,14 +96,6 @@ namespace Igor
             */
             int32 _y = 0;
 
-			/*! absolute horizontal position of child
-			*/
-			int32 _absoluteX = 0;
-
-			/*! absolute vertical position of child
-			*/
-			int32 _absoluteY = 0;
-
             /*! user data that can be attached to a grid field
             */
             void* _userData = nullptr;
