@@ -124,7 +124,6 @@ namespace Igor
                     _selectBox = static_cast<iDialogMenu*>(iWidgetManager::getInstance().createDialog("DialogMenu"));
                 }
 
-                // TODO insuficcient if select box is within a iWidgetScroll
                 _selectBox->setWidth(getActualWidth() - getActualHeight());
                 _selectBox->setX(getActualPosX() + 2);
                 _selectBox->setY(getActualPosY() + getActualHeight() + 2);

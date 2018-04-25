@@ -118,26 +118,11 @@ namespace Igor
 	class Igor_API iWidget
 	{
 
-        /*! needs to be friend because of private constructor
-        */
 		friend class iWidgetManager;
-
-		/*! has to be friend so it can manipulate actual size and position
-
-		\todo maybe design problem
-		*/
 		friend class iDialog; 
-
-		/*! has to be friend so it can fake actual size and position for it's children
-		*/
 		friend class iWidgetGrid;
-
-		/*! has to be friend so it can fake actual size and position for it's children
-		*/
 		friend class iWidgetScroll;
-
 		friend class iWidgetGroupBox;
-		
 		friend class iWidgetCheckBox;
 		friend class iWidgetNumberChooser;
         friend class iWidgetPicture;

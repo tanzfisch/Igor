@@ -17,7 +17,7 @@ using namespace std;
 
 namespace IgorAux
 {
-
+    
 #ifdef __IGOR_WIN__
     // mapping der winapi farben auf die Igor Konsolen Farben
     WORD winapi_colors[] = { FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY,
@@ -93,26 +93,26 @@ namespace IgorAux
     void iaConsole::printTombstone()
     {
         *this << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__  << "     .-------." << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << "   .'         `." << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << "   |  " << iaForegroundColor::White << "R  I  P" << iaForegroundColor::Gray << "  |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << "   |           |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << "   |           |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << "   | " << iaForegroundColor::Blue << "@" << iaForegroundColor::Gray << "         |" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << " " << iaForegroundColor::Green << "\\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "//       \\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "/" << endl;
-        *this << iaForegroundColor::DarkGreen << __IGOR_TIMER_TAB__ << "^^^^^^^^^^^^^^^^^^^" << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__  << "     .-------." << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   .'         `." << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |  " << iaForegroundColor::White << "R  I  P" << iaForegroundColor::Gray << "  |" << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |           |" << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   |           |" << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "   | " << iaForegroundColor::Blue << "@" << iaForegroundColor::Gray << "         |" << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << " " << iaForegroundColor::Green << "\\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "//       \\" << iaForegroundColor::Gray << " |" << iaForegroundColor::Green << "/" << endl;
+        *this << iaForegroundColor::DarkGreen << __IGOR_LOGGING_TAB__ << "^^^^^^^^^^^^^^^^^^^" << endl;
     }
 
     void iaConsole::printCake()
     {
         *this << endl;
-        *this << iaForegroundColor::Yellow << __IGOR_TIMER_TAB__ << "    , , ,    " << endl;
-        *this << iaForegroundColor::White << __IGOR_TIMER_TAB__ << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endl;
-        *this << iaForegroundColor::White << __IGOR_TIMER_TAB__ << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endl;
-        *this << iaForegroundColor::White << __IGOR_TIMER_TAB__ << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}  BIRTHDAY" << endl;
-        *this << iaForegroundColor::White << __IGOR_TIMER_TAB__ << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   IGOR" << endl;
-        *this << iaForegroundColor::Gray << __IGOR_TIMER_TAB__ << "\\___________/" << endl << endl;
+        *this << iaForegroundColor::Yellow << __IGOR_LOGGING_TAB__ << "    , , ,    " << endl;
+        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "    " << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "_" << iaForegroundColor::Red << "|" << iaForegroundColor::White << "   HAPPY" << endl;
+        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "   {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~} " << endl;
+        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "   {~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}  BIRTHDAY" << endl;
+        *this << iaForegroundColor::White << __IGOR_LOGGING_TAB__ << "  {~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~" << iaForegroundColor::White << "*" << iaForegroundColor::White << "~}" << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "__" << iaForegroundColor::White << "{~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~" << iaForegroundColor::Magenta << "*" << iaForegroundColor::White << "~}" << iaForegroundColor::Gray << "__" << iaForegroundColor::White << "   IGOR" << endl;
+        *this << iaForegroundColor::Gray << __IGOR_LOGGING_TAB__ << "\\___________/" << endl << endl;
     }
 
 	void iaConsole::printCallStack(uint32 maxDepth)
@@ -128,7 +128,7 @@ namespace IgorAux
 		for (unsigned int i = 1; i < callStack.size() && i < maxDepth; i++)
 		{
 
-			*this << __IGOR_TIMER_TAB__ << callStack[i];
+			*this << __IGOR_LOGGING_TAB__ << callStack[i];
 			cout << std::endl;
 
 			if (_streamToLogfile && _file.is_open())
@@ -183,7 +183,7 @@ namespace IgorAux
 
     void iaConsole::printStats()
     {
-        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkBlue << applicationTime << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl;
+        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "Errors: " << _errors << iaForegroundColor::Yellow << " Warnings: " << _warnings << endl;
         if (_streamToLogfile && _file.is_open())
         {
             _file << "Errors: " << _errors << " Warnings: " << _warnings << endl;

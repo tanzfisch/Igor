@@ -19,233 +19,254 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iWidgetScroll::iWidgetScroll()
-	{
-		setGrowingByContent(false);
-	}
+    static const int32 BORDER_WIDTH = 2;
+    static const int32 BORDER_WIDTH2 = 4;
+
+    iWidgetScroll::iWidgetScroll()
+    {
+        setGrowingByContent(false);
+    }
 
     iWidget* iWidgetScroll::createInstance()
     {
         return new iWidgetScroll();
     }
 
-	void iWidgetScroll::handleMouseMove(const iaVector2i& pos)
-	{
-		if (isActive())
-		{
-			vector<iWidget*> widgets = _children;
+    void iWidgetScroll::handleMouseMove(const iaVector2i& pos)
+    {
+        if (isActive())
+        {
+            vector<iWidget*> widgets = _children;
 
-			for (auto widget : widgets)
-			{
-                iaVector2i transformedPos = pos;
-                transformedPos._x -= static_cast<int32>(_translate._pos._x);
-                transformedPos._y -= static_cast<int32>(_translate._pos._y);
+            for (auto widget : widgets)
+            {
+                widget->handleMouseMove(pos);
+            }
 
-				widget->handleMouseMove(transformedPos);
-			}
-
-			if (pos._x >= _absoluteX &&
+            if (pos._x >= _absoluteX &&
                 pos._x < _absoluteX + _actualWidth &&
                 pos._y >= _absoluteY &&
                 pos._y < _absoluteY + _actualHeight)
-			{
-				if (!_isMouseOver)
-				{
-					_widgetAppearanceState = iWidgetAppearanceState::Highlighted;
-					_mouseOver(this);
-				}
+            {
+                if (!_isMouseOver)
+                {
+                    _widgetAppearanceState = iWidgetAppearanceState::Highlighted;
+                    _mouseOver(this);
+                }
 
-				_isMouseOver = true;
-			}
-			else
-			{
-				if (_isMouseOver)
-				{
-					_widgetAppearanceState = iWidgetAppearanceState::Standby;
-					_mouseOff(this);
-				}
+                _isMouseOver = true;
+            }
+            else
+            {
+                if (_isMouseOver)
+                {
+                    _widgetAppearanceState = iWidgetAppearanceState::Standby;
+                    _mouseOff(this);
+                }
 
-				_isMouseOver = false;
-			}
-		}
-	}
+                _isMouseOver = false;
+            }
+        }
+    }
 
-	void iWidgetScroll::setHorizontalScroll(float32 value)
-	{
-		con_assert(value >= 0.0f && value <= 1.0f, "out od range");
-		_hscroll = value;
-	}
+    void iWidgetScroll::setHorizontalScroll(float32 value)
+    {
+        con_assert(value >= 0.0f && value <= 1.0f, "out od range");
+        _hscroll = value;
+    }
 
-	void iWidgetScroll::setVerticalScroll(float32 value)
-	{
-		con_assert(value >= 0.0f && value <= 1.0f, "out od range");
-		_vscroll = value;
-	}
+    void iWidgetScroll::setVerticalScroll(float32 value)
+    {
+        con_assert(value >= 0.0f && value <= 1.0f, "out od range");
+        _vscroll = value;
+    }
 
-	bool iWidgetScroll::handleMouseWheel(int32 d)
-	{
-		if (!isActive())
-		{
-			return false;
-		}
+    bool iWidgetScroll::handleMouseWheel(int32 d)
+    {
+        if (!isActive())
+        {
+            return false;
+        }
 
-		if (!_children.empty())
-		{
-			iWidget* widget = _children[0];
-			if (widget->handleMouseWheel(d))
-			{
-				return true;
-			}
-		}
+        if (!_children.empty())
+        {
+            iWidget* widget = _children[0];
+            if (widget->handleMouseWheel(d))
+            {
+                return true;
+            }
+        }
 
-		if (_vscrollActive)
-		{
-			_vscroll -= d / 10.0f;
-			if (_vscroll < 0.0f)
-			{
-				_vscroll = 0.0f;
-			}
+        if (_vscrollActive)
+        {
+            _vscroll -= d / 10.0f;
+            if (_vscroll < 0.0f)
+            {
+                _vscroll = 0.0f;
+            }
 
-			if (_vscroll > 1.0f)
-			{
-				_vscroll = 1.0f;
-			}
+            if (_vscroll > 1.0f)
+            {
+                _vscroll = 1.0f;
+            }
 
-			return true;
-		}
-		else if (_hscrollActive)
-		{
-			_hscroll -= d / 10.0f;
-			if (_hscroll < 0.0f)
-			{
-				_hscroll = 0.0f;
-			}
+            return true;
+        }
+        else if (_hscrollActive)
+        {
+            _hscroll -= d / 10.0f;
+            if (_hscroll < 0.0f)
+            {
+                _hscroll = 0.0f;
+            }
 
-			if (_hscroll > 1.0f)
-			{
-				_hscroll = 1.0f;
-			}
+            if (_hscroll > 1.0f)
+            {
+                _hscroll = 1.0f;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	int32 iWidgetScroll::getScollbarWidth()
-	{
-		return _scrollbarWidth;
-	}
+    int32 iWidgetScroll::getScollbarWidth()
+    {
+        return _scrollbarWidth;
+    }
 
-	void iWidgetScroll::setScollbarWidth(int32 width)
-	{
-		_scrollbarWidth = width;
-	}
+    void iWidgetScroll::setScollbarWidth(int32 width)
+    {
+        _scrollbarWidth = width;
+    }
 
-	void iWidgetScroll::calcMinSize()
-	{
+    void iWidgetScroll::calcMinSize()
+    {
         setMinSize(0, 0);
-	}
+    }
 
-	void iWidgetScroll::calcScrollButtons()
-	{
-		int32 scrollspace;
+    void iWidgetScroll::calcScrollButtons()
+    {
+        int32 scrollspace;
 
-		iWidget* widget = _children[0];
+        iWidget* widget = _children[0];
 
-		int32 childWidth = widget->getActualWidth();
-		int32 childHeight = widget->getActualHeight();
+        int32 childWidth = widget->getActualWidth();
+        int32 childHeight = widget->getActualHeight();
 
-		if (_vscrollActive) // v scrollbar
-		{
-			// v scroll button
-			if (_hscrollActive)
-			{
-				scrollspace = getActualHeight() - 6 - _scrollbarWidth * 3;
-			}
-			else
-			{
-				scrollspace = getActualHeight() - 6 - _scrollbarWidth * 2;
-			}
+        if (_vscrollActive) // v scrollbar
+        {
+            // v scroll button
+            if (_hscrollActive)
+            {
+                scrollspace = getActualHeight() - 6 - _scrollbarWidth * 3;
+            }
+            else
+            {
+                scrollspace = getActualHeight() - 6 - _scrollbarWidth * 2;
+            }
 
-			_vscrollButton.setHeight(static_cast<int32>((static_cast<float32>(getActualHeight()) / static_cast<float32>(childHeight)) * static_cast<float32>(scrollspace)));
-			_vscrollButton.setY(static_cast<int32>(static_cast<float32>(scrollspace - _vscrollButton.getHeight()) * _vscroll + 3.0f + static_cast<float32>(_scrollbarWidth)));
-			_vscrollButton.setX(getActualWidth() - _scrollbarWidth - 2);
-			_vscrollButton.setWidth(_scrollbarWidth);
-		}
+            _vscrollButton.setHeight(static_cast<int32>((static_cast<float32>(getActualHeight()) / static_cast<float32>(childHeight)) * static_cast<float32>(scrollspace)));
+            _vscrollButton.setY(static_cast<int32>(static_cast<float32>(scrollspace - _vscrollButton.getHeight()) * _vscroll + 3.0f + static_cast<float32>(_scrollbarWidth)));
+            _vscrollButton.setX(getActualWidth() - _scrollbarWidth - 2);
+            _vscrollButton.setWidth(_scrollbarWidth);
+        }
 
-		if (_hscrollActive) // h scrollbar
-		{
-			// h scroll button
-			if (_vscrollActive)
-			{
-				scrollspace = getActualWidth() - 6 - _scrollbarWidth * 3;
-			}
-			else
-			{
-				scrollspace = getActualWidth() - 6 - _scrollbarWidth * 2;
-			}
+        if (_hscrollActive) // h scrollbar
+        {
+            // h scroll button
+            if (_vscrollActive)
+            {
+                scrollspace = getActualWidth() - 6 - _scrollbarWidth * 3;
+            }
+            else
+            {
+                scrollspace = getActualWidth() - 6 - _scrollbarWidth * 2;
+            }
 
-			_hscrollButton.setWidth(static_cast<int32>((static_cast<float32>(getActualWidth()) / static_cast<float32>(childWidth)) * static_cast<float32>(scrollspace)));
-			_hscrollButton.setX(static_cast<int32>(static_cast<float32>(scrollspace - _hscrollButton.getWidth()) * _hscroll + 4.0f + static_cast<float32>(_scrollbarWidth)));
-			_hscrollButton.setY(getActualHeight() - _scrollbarWidth - 2);
-			_hscrollButton.setHeight(_scrollbarWidth);
-		}
-	}
+            _hscrollButton.setWidth(static_cast<int32>((static_cast<float32>(getActualWidth()) / static_cast<float32>(childWidth)) * static_cast<float32>(scrollspace)));
+            _hscrollButton.setX(static_cast<int32>(static_cast<float32>(scrollspace - _hscrollButton.getWidth()) * _hscroll + 4.0f + static_cast<float32>(_scrollbarWidth)));
+            _hscrollButton.setY(getActualHeight() - _scrollbarWidth - 2);
+            _hscrollButton.setHeight(_scrollbarWidth);
+        }
+    }
 
-	void iWidgetScroll::calcTranslation()
-	{
-		_translate.identity();
+    void iWidgetScroll::calcChildOffsets(vector<iRectanglei>& offsets)
+    {
+        offsets.clear();
+        offsets.resize(_children.size());
 
-		iWidget* widget = _children[0];
+        if (!_children.empty())
+        {
+            iRectanglei clientRect;
 
-		if (_hscrollActive)
-		{
-			_translate.translate(-_hscroll * (widget->getActualWidth() - getActualWidth() + 4), 0, 0);
-		}
+            iWidget* widget = _children[0];
+            float32 offsetX = 0;
+            float32 offsetY = 0;
 
-		if (_vscrollActive)
-		{
-			_translate.translate(0, -_vscroll * (widget->getActualHeight() - getActualHeight() + 4), 0);
-		}
-	}
+            if (_hscrollActive)
+            {
+                offsetX = _hscroll * (widget->getConfiguredWidth() - getActualWidth() + 4);
+            }
 
-	void iWidgetScroll::calcChildFrame()
-	{
-		if (_vscrollActive && _hscrollActive) // hv scrollbars
-		{
-			_childFrame.setX(2);
-			_childFrame.setY(2);
-			_childFrame.setWidth(getActualWidth() - 4 - _scrollbarWidth);
-			_childFrame.setHeight(getActualHeight() - 4 - _scrollbarWidth);
-		}
-		else if (_hscrollActive)
-		{
-			_childFrame.setX(2);
-			_childFrame.setY(2);
-			_childFrame.setWidth(getActualWidth() - 4);
-			_childFrame.setHeight(getActualHeight() - 4 - _scrollbarWidth);
-		}
-		else if (_vscrollActive)
-		{
-			_childFrame.setX(2);
-			_childFrame.setY(2);
-			_childFrame.setWidth(getActualWidth() - 4 - _scrollbarWidth);
-			_childFrame.setHeight(getActualHeight() - 4);
-		}
-		else // no scrollbars
-		{
-			_childFrame.setX(2);
-			_childFrame.setY(2);
-			_childFrame.setWidth(getActualWidth() - 4);
-			_childFrame.setHeight(getActualHeight() - 4);
-		}
-	}
+            if (_vscrollActive)
+            {
+                offsetY = _vscroll * (widget->getConfiguredHeight() - getActualHeight() + 4);
+            }
 
-	void iWidgetScroll::draw()
-	{
-		if (isVisible())
-		{
+            clientRect.setX(offsetX);
+            clientRect.setY(offsetY);
+            clientRect.setWidth(getActualWidth());
+            clientRect.setHeight(getActualHeight());
+
+            offsets[0] = clientRect;
+        }
+    }
+
+    void iWidgetScroll::updateAlignment(int32 clientWidth, int32 clientHeight)
+    {
+        iWidget::updateAlignment(clientWidth, clientHeight);
+
+
+    }
+
+    void iWidgetScroll::calcChildFrame()
+    {
+        if (_vscrollActive && _hscrollActive) // hv scrollbars
+        {
+            _childFrame.setX(2);
+            _childFrame.setY(2);
+            _childFrame.setWidth(getActualWidth() - BORDER_WIDTH2 - _scrollbarWidth);
+            _childFrame.setHeight(getActualHeight() - BORDER_WIDTH2 - _scrollbarWidth);
+        }
+        else if (_hscrollActive)
+        {
+            _childFrame.setX(2);
+            _childFrame.setY(2);
+            _childFrame.setWidth(getActualWidth() - BORDER_WIDTH2);
+            _childFrame.setHeight(getActualHeight() - BORDER_WIDTH2 - _scrollbarWidth);
+        }
+        else if (_vscrollActive)
+        {
+            _childFrame.setX(2);
+            _childFrame.setY(2);
+            _childFrame.setWidth(getActualWidth() - BORDER_WIDTH2 - _scrollbarWidth);
+            _childFrame.setHeight(getActualHeight() - BORDER_WIDTH2);
+        }
+        else // no scrollbars
+        {
+            _childFrame.setX(2);
+            _childFrame.setY(2);
+            _childFrame.setWidth(getActualWidth() - BORDER_WIDTH2);
+            _childFrame.setHeight(getActualHeight() - BORDER_WIDTH2);
+        }
+    }
+
+    void iWidgetScroll::draw()
+    {
+        if (isVisible())
+        {
             if (!_children.empty())
             {
                 iWidget* widget = _children[0];
@@ -255,8 +276,7 @@ namespace Igor
                 int32 childWidth = widget->getMinWidth();
                 int32 childHeight = widget->getMinHeight();
 
-                // why 4 ?
-                if (getActualWidth() - 4 < childWidth) // h scrollbar
+                if (getActualWidth() - BORDER_WIDTH2 < childWidth) // h scrollbar
                 {
                     _hscrollActive = true;
                 }
@@ -265,7 +285,7 @@ namespace Igor
                     _hscrollActive = false;
                 }
 
-                if (getActualHeight() - 4 < childHeight) // v scrollbar
+                if (getActualHeight() - BORDER_WIDTH2 < childHeight) // v scrollbar
                 {
                     _vscrollActive = true;
                 }
@@ -276,7 +296,6 @@ namespace Igor
 
                 calcChildFrame();
                 calcScrollButtons();
-                calcTranslation();
 
                 /* TODO
                 up_button;
@@ -285,114 +304,118 @@ namespace Igor
                 right_button;*/
             }
 
-			// begin rendering
-			iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _widgetAppearanceState, isActive());
+            // begin rendering
+            iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _widgetAppearanceState, isActive());
 
-			iaColor4f dark(0.3f, 0.3f, 0.3f, 1.0f);
+            iaColor4f dark(0.3f, 0.3f, 0.3f, 1.0f);
 
-			// render scrollbars
-			if (_vscrollActive && _hscrollActive) // hv scrollbars
-			{
-				iRenderer::getInstance().setColor(dark);
-				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4));
-				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
+            // render scrollbars
+            if (_vscrollActive && _hscrollActive) // hv scrollbars
+            {
+                iRenderer::getInstance().setColor(dark);
+                iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4));
+                iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
 
-				// left button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // left button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// right button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth * 2 - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // right button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth * 2 - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// h scroll button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
-					_hscrollButton.getWidth(), _hscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // h scroll button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
+                    _hscrollButton.getWidth(), _hscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
 
-				// top button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // top button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// bottom button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth * 2, _scrollbarWidth,
-					_scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // bottom button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth * 2, _scrollbarWidth,
+                    _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// v scroll button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
-					_vscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-			}
-			else if (_hscrollActive) // h scrollbar
-			{
-				iRenderer::getInstance().setColor(dark);
-				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
+                // v scroll button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
+                    _vscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+            }
+            else if (_hscrollActive) // h scrollbar
+            {
+                iRenderer::getInstance().setColor(dark);
+                iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
 
-				// left button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // left button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// right button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // right button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// h scroll button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
-					_hscrollButton.getWidth(), _hscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center,
-					0, iWidgetAppearanceState::Standby, isActive());
-			}
-			else if (_vscrollActive) // v scrollbar
-			{
-				iRenderer::getInstance().setColor(dark);
-				iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4));
+                // h scroll button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
+                    _hscrollButton.getWidth(), _hscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center,
+                    0, iWidgetAppearanceState::Standby, isActive());
+            }
+            else if (_vscrollActive) // v scrollbar
+            {
+                iRenderer::getInstance().setColor(dark);
+                iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4));
 
-				// top button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // top button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// bottom button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth, _scrollbarWidth,
-					_scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-				// TODO pic
+                // bottom button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth, _scrollbarWidth,
+                    _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                // TODO pic
 
-				// v scroll button
-				iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
-					_vscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
-			}
+                // v scroll button
+                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
+                    _vscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+            }
 
-			//render child
-			iRectanglei absoluteFramePos(getActualPosX() + _childFrame.getX(), getActualPosY() + _childFrame.getY(), _childFrame.getWidth(), _childFrame.getHeight());
+            //render child
+            iRectanglei absoluteFramePos(getActualPosX() + _childFrame.getX(), getActualPosY() + _childFrame.getY(), _childFrame.getWidth(), _childFrame.getHeight());
 
-			if (!_children.empty())
-			{
-				iWidget* widget = _children[0];
+            if (!_children.empty())
+            {
+                iWidget* widget = _children[0];
 
-				if (widget != nullptr)
-				{
-					iRectanglei viewport;
-					iaMatrixd projectionMatrix;
-					iaMatrixd modelMatrix;
+                if (widget != nullptr)
+                {
+                    // do some clipping using the viewport
+                    iRectanglei viewport;
+                    iaMatrixd projectionMatrix;
+                    iaMatrixd modelMatrix;
 
-					iRenderer::getInstance().getViewport(viewport);
-					iRenderer::getInstance().getProjectionMatrix(projectionMatrix);
-					iRenderer::getInstance().getModelMatrix(modelMatrix);
+                    // store current situation
+                    iRenderer::getInstance().getViewport(viewport);
+                    iRenderer::getInstance().getProjectionMatrix(projectionMatrix);
+                    iRenderer::getInstance().getModelMatrix(modelMatrix);
 
-					iRenderer::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
-					iRenderer::getInstance().setOrtho(0.0f, static_cast<float32>(absoluteFramePos.getWidth()), static_cast<float32>(absoluteFramePos.getHeight()), 0.0f, 1.0f, 40.0f);
+                    iRenderer::getInstance().setViewport(absoluteFramePos.getX(), iWidgetManager::getInstance().getDesktopHeight() - absoluteFramePos.getY() - absoluteFramePos.getHeight(), absoluteFramePos.getWidth(), absoluteFramePos.getHeight());
+                    iRenderer::getInstance().setOrtho(static_cast<float32>(getActualPosX()),
+                        static_cast<float32>(getActualPosX() + absoluteFramePos.getWidth()),
+                        static_cast<float32>(getActualPosY() + absoluteFramePos.getHeight()),
+                        static_cast<float32>(getActualPosY()), 1.0f, 40.0f);
 
-					iaMatrixd matrix;
-					matrix.translate(-getActualPosX(), -getActualPosY(), -30);
-					matrix._pos += _translate._pos;
+                    iaMatrixd matrix;
+                    matrix._pos._z = -30;
+                    iRenderer::getInstance().setModelMatrix(matrix);
 
-					iRenderer::getInstance().setModelMatrix(matrix);
+                    widget->draw();
 
-					widget->draw();
-
-					iRenderer::getInstance().setModelMatrix(modelMatrix);
-					iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
-					iRenderer::getInstance().setViewport(viewport.getX(), viewport.getY(), viewport.getWidth(), viewport.getHeight());
-				}
-			}
-		}
-	}
+                    // restore everything
+                    iRenderer::getInstance().setModelMatrix(modelMatrix);
+                    iRenderer::getInstance().setProjectionMatrix(projectionMatrix);
+                    iRenderer::getInstance().setViewport(viewport.getX(), viewport.getY(), viewport.getWidth(), viewport.getHeight());
+                }
+            }
+        }
+    }
 
 }
