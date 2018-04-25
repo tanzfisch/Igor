@@ -406,41 +406,33 @@ namespace Igor
 
         iRectanglei clientRect;
 
-        auto iterRow = _widgetRows.begin();
-        while (iterRow != _widgetRows.end())
+        for (auto row : _widgetRows)
         {
-            auto iterCollumn = (*iterRow)._widgetCollumn.begin();
-            while (iterCollumn != (*iterRow)._widgetCollumn.end())
+            for (auto collumn : row._widgetCollumn)
             {
                 int index = 0;
                 int foundIndex = -1;
 
-                auto iter = _children.begin();
-                while (iter != _children.end())
+                for (auto child : _children)
                 {
-                    if ((*iter)->getID() == (*iterCollumn)._widgetID)
+                    if (child->getID() == collumn._widgetID)
                     {
                         foundIndex = index;
                         break;
                     }
                     index++;
-                    iter++;
                 }
 
                 if (foundIndex != -1)
                 {
-                    clientRect.setX((*iterCollumn)._x);
-                    clientRect.setY((*iterCollumn)._y);
-                    clientRect.setWidth((*iterCollumn)._actualWidth);
-                    clientRect.setHeight((*iterCollumn)._actualHeight);
+                    clientRect.setX(collumn._x);
+                    clientRect.setY(collumn._y);
+                    clientRect.setWidth(collumn._actualWidth);
+                    clientRect.setHeight(collumn._actualHeight);
 
                     offsets[foundIndex] = clientRect;
                 }
-
-                iterCollumn++;
             }
-
-            iterRow++;
         }
     }
 
