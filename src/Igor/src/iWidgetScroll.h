@@ -76,10 +76,6 @@ namespace Igor
 
 	private:
 
-        /*! translation matrix
-        */
-        iaMatrixd _translate;
-
         /*! scroll bar width
         */
 		int32 _scrollbarWidth = 15;
@@ -149,10 +145,6 @@ namespace Igor
 		*/
 		void draw();
 
-        /*! calculates the translation of the child widget
-        */
-        void calcTranslation();
-
         /*! calculate position and size of scroll buttons
         */
 		void calcScrollButtons();
@@ -166,6 +158,19 @@ namespace Igor
 		/*! ctor initializes membervariables
 		*/
 		iWidgetScroll();
+
+        /*! updates widget alignment
+
+        \param clientWidth maximum width this widget can align to
+        \param clientHeight maximum height this widget can align to
+        */
+        void updateAlignment(int32 clientWidth, int32 clientHeight);
+
+        /*! calculates childrens ofsets relative to thair parent
+
+        \param offsets vector to be filled with childrens offsets
+        */
+        void calcChildOffsets(vector<iRectanglei>& offsets);
 
 		/*! does nothing
 		*/

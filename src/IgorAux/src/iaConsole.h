@@ -77,8 +77,6 @@ namespace IgorAux
     };
 
     /*! console and logging interface
-
-    \todo would be nice to have an assert without contidion that always fails. e.g. switch(var){ defaul: con_assert("default should nerver happen") ...
     */
     class IgorAux_API iaConsole : public iaSingleton<iaConsole>
     {
@@ -240,10 +238,10 @@ namespace IgorAux
 #define con_assert(Condition, Message) \
     if (!(Condition)) \
     { \
-        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << "-----------------------------------------------------------------------" << endl; \
+        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << "-----------------------------------------------------------------------" << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed; \
         iaConsole::getInstance().printCallStack(); \
         iaConsole::getInstance().printTombstone(); \
@@ -263,10 +261,10 @@ namespace IgorAux
 #define con_assert_sticky(Condition, Message) \
     if (!(Condition)) \
     { \
-        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION_DEBUG_BREAK " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << "-----------------------------------------------------------------------" << endl; \
+        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "ASSERTION_DEBUG_BREAK " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << "-----------------------------------------------------------------------" << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed; \
         iaConsole::getInstance().printCallStack(10); \
         iaConsole::getInstance().printTombstone(); \
@@ -282,7 +280,7 @@ namespace IgorAux
     \param Message message output
     */
 #define con_debug(Message)\
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << Message << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Gray << Message << UNLOCK;
 
     /*! only called in debug mode
 
@@ -291,7 +289,7 @@ namespace IgorAux
     \param Message message output
     */
 #define con_debug_endl(Message)\
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << Message << endl << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Gray << Message << endl << UNLOCK;
 
 #else
 
@@ -301,14 +299,14 @@ namespace IgorAux
 #define con_assert_sticky(Condition, Message) \
     if (!(Condition)) \
     { \
-        iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << "INTERNAL ERROR " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
-        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << "-----------------------------------------------------------------------" << endl; \
+        iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << "INTERNAL ERROR " << iaForegroundColor::DarkRed << Message << " (" #Condition ")" << endl;\
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl; \
+        iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << "-----------------------------------------------------------------------" << endl; \
         iaConsole::getInstance() << iaForegroundColor::DarkRed; \
         iaConsole::getInstance().printCallStack(10); \
-        iaConsole::getInstance() << endl << iaForegroundColor::Yellow << __IGOR_TIMER_TAB__ << "Igor might not recover from an internal error. Please feel free to send" << endl; \
-        iaConsole::getInstance() << iaForegroundColor::Yellow << __IGOR_TIMER_TAB__         << "me the error log so I can improve Igor for you!" << iaForegroundColor::White << " martinloga@gmx.de" << endl; \
+        iaConsole::getInstance() << endl << iaForegroundColor::Yellow << __IGOR_LOGGING_TAB__ << "Igor might not recover from an internal error. Please feel free to send" << endl; \
+        iaConsole::getInstance() << iaForegroundColor::Yellow << __IGOR_LOGGING_TAB__         << "me the error log so I can improve Igor for you!" << iaForegroundColor::White << " martinloga@gmx.de" << endl; \
         iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
         iaConsole::getInstance().exit(); \
     } 
@@ -326,9 +324,9 @@ namespace IgorAux
     \param Message message to be printed
     */
 #define con_err(Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
-    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
-    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
+    iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
+    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
+    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkRed; \
     iaConsole::getInstance().printCallStack(10); \
     iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
@@ -339,10 +337,10 @@ namespace IgorAux
     \param Message message to be printed
     */
 #define con_err_win(Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
-    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
-    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl;\
-    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_TIMER_TAB__ << endl; \
+    iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Red << incerr << "ERROR " << Message << endl; \
+    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
+    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl;\
+    iaConsole::getInstance() << iaForegroundColor::DarkRed << __IGOR_LOGGING_TAB__ << endl; \
     iaConsole::getInstance() << generateWindowsError << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkRed; \
     iaConsole::getInstance().printCallStack(10); \
@@ -354,9 +352,9 @@ namespace IgorAux
     \param Message message to be printed
     */
 #define con_warn(Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID << iaForegroundColor::Yellow << incwarn << "WARNING " << Message << endl; \
-    iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_TIMER_TAB__ << __IGOR_FILE_LINE__ << endl; \
-    iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_TIMER_TAB__ << __IGOR_FUNCTION__ << endl; \
+    iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Yellow << incwarn << "WARNING " << Message << endl; \
+    iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
+    iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
     con_assert_sticky(iaConsole::getInstance().getWarnings() < 100, "too many warnings")
 
@@ -367,7 +365,7 @@ namespace IgorAux
 	\todo would be nice to have a fixed size of info type collumn
     */
 #define con_info(Type, Message) \
-    iaConsole::getInstance() << LOCK << iaForegroundColor::DarkGreen << applicationTime << printThreadID <<  iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID <<  iaForegroundColor::Cyan << Type << iaForegroundColor::Gray << " - " << iaForegroundColor::DarkCyan << Message << endl << UNLOCK;
 
     /*! prints an message to console and optionally to the log file
 
@@ -382,7 +380,7 @@ namespace IgorAux
     \param Message message to be printed
     */
 #define con_endl(Message)\
-    iaConsole::getInstance() << LOCK << Message << endl << UNLOCK;
+    iaConsole::getInstance() << LOCK << iaForegroundColor::Gray << applicationTime << printThreadID << iaForegroundColor::Gray << Message << endl << UNLOCK;
 
 #endif
 
@@ -515,7 +513,7 @@ namespace IgorAux
     __IGOR_INLINE__ iaConsole& printThreadID(iaConsole &console)
     {
         int32 threadID = GetCurrentThreadId();
-        console << "[" << setfill(L'0') << setw(8) << hex << threadID << "] ";
+        console << "[" << setfill(L'0') << setw(8) << hex << threadID << dec << "] ";
         return console;
     }
 

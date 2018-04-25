@@ -294,7 +294,7 @@ namespace Igor
         con_assert(!_widgetRows.empty(), "grid can't be empty");
 
         int32 biggestsize = 0;
-        
+
         int32 minWidth = 0;
         int32 minHeight = 0;
 
@@ -395,7 +395,7 @@ namespace Igor
 
         // no client area definition needed becasue every child has it's individual field
         setClientArea(0, 0, 0, 0);
-        
+
         setMinSize(minWidth, minHeight);
     }
 
@@ -406,41 +406,33 @@ namespace Igor
 
         iRectanglei clientRect;
 
-        auto iterRow = _widgetRows.begin();
-        while (iterRow != _widgetRows.end())
+        for (auto row : _widgetRows)
         {
-            auto iterCollumn = (*iterRow)._widgetCollumn.begin();
-            while (iterCollumn != (*iterRow)._widgetCollumn.end())
+            for (auto collumn : row._widgetCollumn)
             {
                 int index = 0;
                 int foundIndex = -1;
 
-                auto iter = _children.begin();
-                while (iter != _children.end())
+                for (auto child : _children)
                 {
-                    if ((*iter)->getID() == (*iterCollumn)._widgetID)
+                    if (child->getID() == collumn._widgetID)
                     {
                         foundIndex = index;
                         break;
                     }
                     index++;
-                    iter++;
                 }
 
                 if (foundIndex != -1)
                 {
-                    clientRect.setX((*iterCollumn)._x);
-                    clientRect.setY((*iterCollumn)._y);
-                    clientRect.setWidth((*iterCollumn)._actualWidth);
-                    clientRect.setHeight((*iterCollumn)._actualHeight);
+                    clientRect.setX(collumn._x);
+                    clientRect.setY(collumn._y);
+                    clientRect.setWidth(collumn._actualWidth);
+                    clientRect.setHeight(collumn._actualHeight);
 
                     offsets[foundIndex] = clientRect;
                 }
-
-                iterCollumn++;
             }
-
-            iterRow++;
         }
     }
 
@@ -507,30 +499,6 @@ namespace Igor
             {
                 con_warn("horizontal strech is configured but an invalid strech collumn index was defined");
             }
-        }
-
-        // updating childrens alignment and position
-        auto iterRow = _widgetRows.begin();
-        while (iterRow != _widgetRows.end())
-        {
-            auto iterCollumn = (*iterRow)._widgetCollumn.begin();
-            while (iterCollumn != (*iterRow)._widgetCollumn.end())
-            {
-                (*iterCollumn)._absoluteX = getActualPosX() + (*iterCollumn)._x;
-                (*iterCollumn)._absoluteY = getActualPosY() + (*iterCollumn)._y;
-
-                iWidget* widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
-
-                if (widget != nullptr)
-                {
-                    widget->updateAlignment((*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight);
-                    widget->updatePosition((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY);
-                }
-
-                iterCollumn++;
-            }
-
-            iterRow++;
         }
     }
 
@@ -683,10 +651,13 @@ namespace Igor
                     }
                 }
 
-                if (pos._x >= col._absoluteX &&
-                    pos._x < col._absoluteX + col._actualWidth &&
-                    pos._y >= col._absoluteY  &&
-                    pos._y < col._absoluteY + col._actualHeight)
+                int32 colPosX = col._x + getActualPosX();
+                int32 colPosY = col._y + getActualPosY();
+
+                if (pos._x >= colPosX &&
+                    pos._x < colPosX + col._actualWidth &&
+                    pos._y >= colPosY  &&
+                    pos._y < colPosY + col._actualHeight)
                 {
                     _mouseOverRow = rowNum;
                     _mouseOverCollumn = colNum;
@@ -779,21 +750,22 @@ namespace Igor
 
         if (isVisible())
         {
-            int32 row = 0;
-            int32 col = 0;
+            int32 rowIndex = 0;
+            int32 colIndex = 0;
 
             iWidgetManager::getInstance().getTheme()->drawGridField(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState());
 
-            auto iterRow = _widgetRows.begin();
-            while (iterRow != _widgetRows.end())
+            for (auto row : _widgetRows)
             {
-                col = 0;
+                colIndex = 0;
 
-                auto iterCollumn = (*iterRow)._widgetCollumn.begin();
-                while (iterCollumn != (*iterRow)._widgetCollumn.end())
+                for (auto col : row._widgetCollumn)
                 {
-                    iWidgetManager::getInstance().getTheme()->drawGridField((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY, 
-                        (*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight, getAppearanceState());
+                    int32 colPosX = col._x + getActualPosX();
+                    int32 colPosY = col._y + getActualPosY();
+
+                    iWidgetManager::getInstance().getTheme()->drawGridField(colPosX, colPosY,
+                        col._actualWidth, col._actualHeight, getAppearanceState());
 
                     if (_selectMode != iSelectionMode::NoSelection)
                     {
@@ -803,38 +775,38 @@ namespace Igor
                         switch (_selectMode)
                         {
                         case iSelectionMode::Collumn:
-                            if (_selectedCollumn == col)
+                            if (_selectedCollumn == colIndex)
                             {
                                 drawSelected = true;
                             }
 
-                            if (_mouseOverCollumn == col)
+                            if (_mouseOverCollumn == colIndex)
                             {
                                 drawHighlight = true;
                             }
                             break;
 
                         case iSelectionMode::Row:
-                            if (_selectedRow == row)
+                            if (_selectedRow == rowIndex)
                             {
                                 drawSelected = true;
                             }
 
-                            if (_mouseOverRow == row)
+                            if (_mouseOverRow == rowIndex)
                             {
                                 drawHighlight = true;
                             }
                             break;
 
                         case iSelectionMode::Field:
-                            if (_selectedCollumn == col &&
-                                _selectedRow == row)
+                            if (_selectedCollumn == colIndex &&
+                                _selectedRow == rowIndex)
                             {
                                 drawSelected = true;
                             }
 
-                            if (_mouseOverCollumn == col &&
-                                _mouseOverRow == row)
+                            if (_mouseOverCollumn == colIndex &&
+                                _mouseOverRow == rowIndex)
                             {
                                 drawHighlight = true;
                             }
@@ -843,29 +815,27 @@ namespace Igor
 
                         if (drawSelected)
                         {
-                            iWidgetManager::getInstance().getTheme()->drawGridSelection((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY,
-                                (*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight);
+                            iWidgetManager::getInstance().getTheme()->drawGridSelection(
+                                colPosX, colPosY, col._actualWidth, col._actualHeight);
                         }
                         else if (drawHighlight)
                         {
-                            iWidgetManager::getInstance().getTheme()->drawGridHighlight((*iterCollumn)._absoluteX, (*iterCollumn)._absoluteY,
-                                (*iterCollumn)._actualWidth, (*iterCollumn)._actualHeight);
+                            iWidgetManager::getInstance().getTheme()->drawGridHighlight(
+                                colPosX, colPosY, col._actualWidth, col._actualHeight);
                         }
                     }
 
-                    iWidget* widget = iWidgetManager::getInstance().getWidget((*iterCollumn)._widgetID);
+                    iWidget* widget = iWidgetManager::getInstance().getWidget(col._widgetID);
 
                     if (widget != nullptr)
                     {
                         widget->draw();
                     }
 
-                    iterCollumn++;
-                    col++;
+                    colIndex++;
                 }
 
-                iterRow++;
-                row++;
+                rowIndex++;
             }
         }
     }

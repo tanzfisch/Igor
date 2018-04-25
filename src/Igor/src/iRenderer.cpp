@@ -248,7 +248,10 @@ namespace Igor
             _versionOGL = (const char*)glGetString(GL_VERSION);
             _extensionsOGL = (const char*)glGetString(GL_EXTENSIONS);
 
-            con_endl("Initializing OpenGL" << endl << "Vendor    : " << _vendorOGL << endl << "Renderer  : " << _rendererOGL << endl << "Version   : " << _versionOGL << endl);
+            con_endl("Initializing OpenGL");
+            con_endl("Vendor:   " << _vendorOGL);
+            con_endl("Renderer: " << _rendererOGL);
+            con_endl("Version:  " << _versionOGL);
 
             setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             setClearDepth(1.0f);
