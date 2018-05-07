@@ -186,7 +186,7 @@ namespace Igor
     void iParticleSystem3D::start()
     {
         _startTime = iTimer::getInstance().getMilliSeconds();
-        _time = _startTime;
+        _playbackTime = _startTime;
         _running = true;
     }
 
@@ -428,19 +428,19 @@ namespace Igor
         {
             iaVector3f a, b;
 
-
             uint32 startIndex;
             uint32 endIndex;
 
             float64 frameTime = iTimer::getInstance().getMilliSeconds();
 
             // ignore hickups
-            if (frameTime - _time > 100.0)
+            if (frameTime - _playbackTime > 100.0)
             {
-                _time = frameTime;
+                con_warn("particle system hickup");
+                _playbackTime = frameTime;
             }
 
-            float64 particleSystemTime = _time - _startTime;
+            float64 particleSystemTime = _playbackTime - _startTime;
 
             if (particleSystemTime >= _particleSystemPeriodTime)
             {
@@ -455,7 +455,7 @@ namespace Igor
                 }
             }
 
-            while (_time <= frameTime)
+            while (_playbackTime <= frameTime)
             {
                 float32 sizeScale = 0;
                 uint64 index = 0;
@@ -549,7 +549,7 @@ namespace Igor
                 _emissionImpulseStack -= static_cast<float32>(createCount);
                 createParticles(createCount, emitter, particleSystemTime / __IGOR_SECOND__);
 
-                _time += 1000.0 / _simulationRate;
+                _playbackTime += 1000.0 / _simulationRate;
                 particleSystemTime += 1000.0 / _simulationRate; // TODO redundant
             }
         }

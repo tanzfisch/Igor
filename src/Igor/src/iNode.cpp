@@ -48,7 +48,8 @@ namespace Igor
 		}
 		_inactiveChildren.clear();
 
-        iNode::_idGenerator.destroyID(_nodeID);
+        // do not reuse node IDs you will end up in using IDs of nodes that got replaced multiple times
+        // iNode::_idGenerator.destroyID(_nodeID);
 	}
 
 	__IGOR_DISABLE_WARNING__(4100)

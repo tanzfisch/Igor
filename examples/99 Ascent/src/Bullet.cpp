@@ -31,6 +31,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	_force.normalize();
 	_force *= 0.75;
 	_force += addForce;
+    _force.set(0,0,0);
 
 	setHealth(100.0);
 	setShield(100.0);
@@ -68,6 +69,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	particleSystem->setStartVisibleTimeGradient(visibility);
 	particleSystem->setStartSizeGradient(size);
 	particleSystem->setEmissionGradient(emission);
+    particleSystem->setPeriodTime(1.0);
 	particleSystem->setAirDrag(0.0);
 	particleSystem->start();
 
