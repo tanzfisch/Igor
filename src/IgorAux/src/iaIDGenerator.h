@@ -40,7 +40,7 @@ namespace IgorAux
     template <class T>
     class IgorAux_API_Template iaIDGenerator
     {
-    public:        
+    public:
 
         /*! creates a new or recycles an old id
 
@@ -48,15 +48,7 @@ namespace IgorAux
         */
         T createID();
 
-        /*! destroyes an ID
-        */
-        void destroyID(T id);
-
     private:
-
-        /*! list of recycled ids ready for reuse
-        */
-        vector<T> _recycledIDs;
 
         /*! the next id in case the recycled ID list is empty
         */
@@ -74,26 +66,10 @@ namespace IgorAux
         T result;
 
         _mutex.lock();
-        if (_recycledIDs.empty())
-        {
-            result = _nextID++;
-        }
-        else
-        {
-            result = _recycledIDs.back();
-            _recycledIDs.pop_back();
-        }
+        result = _nextID++;
         _mutex.unlock();
 
         return result;
-    }
-
-    template <class T>
-    void iaIDGenerator<T>::destroyID(T id)
-    {
-        _mutex.lock();
-        _recycledIDs.push_back(id);
-        _mutex.unlock();
     }
 
     typedef uint64 iaID64;

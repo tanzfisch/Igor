@@ -372,6 +372,10 @@ namespace Igor
 
 	};
 
+    /*! definition of node pointer
+    */
+    typedef iNode* iNodePtr;
+
 	/*! stream operator
 
 	\param stream the destination

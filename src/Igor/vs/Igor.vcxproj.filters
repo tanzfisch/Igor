@@ -951,6 +951,9 @@
     <None Include="..\src\iIntersection.inl">
       <Filter>bodies &amp; shapes</Filter>
     </None>
+    <None Include="..\src\iNodeFactory.inl">
+      <Filter>scene\nodes</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="3rd">

@@ -86,7 +86,7 @@ namespace Igor
         \param id id of ndoe
         \returns pointer to node
         */
-        iNode* getNode(uint64 id);
+        __IGOR_INLINE__ iNode* getNode(uint64 id) const;
 
         /*! \returns list of all node IDs of a certain node type
 
@@ -98,7 +98,7 @@ namespace Igor
 
         \param id the nodes ID
         */
-        bool isNode(uint64 id);
+        __IGOR_INLINE__ bool isNode(uint64 id) const;
 
         /*! create copy of node
 
@@ -174,7 +174,7 @@ namespace Igor
 
         /*! mutex to protect node list
         */
-        iaMutex _mutexNodes;
+        static iaMutex _mutexNodes;
 
         /*! queue with actions
         */
@@ -222,13 +222,16 @@ namespace Igor
 
         /*! does nothing
         */
-		iNodeFactory();
+		iNodeFactory() = default;
 
         /*! checks if all nodes where released
         */
 		~iNodeFactory();
 
 	};
+
+#include <iNodeFactory.inl>
+
 }
 
 #endif

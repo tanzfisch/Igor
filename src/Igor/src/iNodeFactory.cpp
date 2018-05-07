@@ -30,9 +30,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iNodeFactory::iNodeFactory()
-    {
-    }
+    iaMutex iNodeFactory::_mutexNodes;
 
     iNodeFactory::~iNodeFactory()
     {
@@ -192,36 +190,6 @@ namespace Igor
                 result.push_back(node.first);
             }
         }
-
-        return result;
-    }
-
-    iNode* iNodeFactory::getNode(uint64 id)
-    {
-        iNode* result = nullptr;
-
-        _mutexNodes.lock();
-        auto iter = _nodes.find(id);
-        if (_nodes.end() != iter)
-        {
-            result = (*iter).second;
-        }
-        _mutexNodes.unlock();
-
-        return result;
-    }
-
-    bool iNodeFactory::isNode(uint64 id)
-    {
-        bool result = false;;
-
-        _mutexNodes.lock();
-        auto iter = _nodes.find(id);
-        if (_nodes.end() != iter)
-        {
-            result = true;
-        }
-        _mutexNodes.unlock();
 
         return result;
     }

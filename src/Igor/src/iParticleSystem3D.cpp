@@ -4,7 +4,6 @@
 
 #include <iParticleSystem3D.h>
 #include <iaConsole.h>
-#include <iRenderer.h>
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
 #include <iaGradient.h>
