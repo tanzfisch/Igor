@@ -591,10 +591,6 @@ namespace Igor
                 }
             }
 
-            // increase the size a bit
-            minPos *= 1.1;
-            maxPos *= 1.1;
-
             iaVector3d minPosd;
             iaVector3d maxPosd;
 
