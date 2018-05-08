@@ -25,8 +25,6 @@ namespace Igor
     iMaterial::~iMaterial()
     {
         clearShader();
-
-        _idGenerator.destroyID(_id);
     }
 
     void iMaterial::clearShader()

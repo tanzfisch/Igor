@@ -211,12 +211,13 @@ namespace Igor
         camera->getWorldMatrix(camMatrix);
         iRenderer::getInstance().setViewMatrix(view, camMatrix);
 
-        iaMatrixd projection;
-        iRenderer::getInstance().getProjectionMatrix(projection);
-        projection *= view;
+        iaMatrixd frustumMatrix;
+        iRenderer::getInstance().getProjectionMatrix(frustumMatrix);
+        frustumMatrix *= view;
 
         iFrustumd frustum;
-        frustum.set(projection);
+        frustum.set(frustumMatrix);
+
         _scene->getOctree()->clearFilter();
         _scene->getOctree()->addFilter(frustum);
         _scene->getOctree()->filter();

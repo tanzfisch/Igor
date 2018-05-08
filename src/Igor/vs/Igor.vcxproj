@@ -590,6 +590,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
     <None Include="..\src\iIntersection.inl" />
     <None Include="..\src\iMesh.inl" />
     <None Include="..\src\iMeshBuffers.inl" />
+    <None Include="..\src\iNodeFactory.inl" />
     <None Include="..\src\iPerlinNoise.inl" />
     <None Include="..\src\iPlane.inl" />
     <None Include="..\src\iRectangle.inl" />
