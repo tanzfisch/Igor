@@ -553,6 +553,7 @@ namespace Igor
             }
         }
 
+        // TODO this seems a bit inefficient
         if (!_particles.empty())
         {
             iaVector3f minPos = _particles.front()._position;
@@ -596,19 +597,13 @@ namespace Igor
             iaConvert::convert(minPos, minPosd);
             iaConvert::convert(maxPos, maxPosd);
 
-            iaVector3d center;
-            iaVector3d halfWidths;
+            _boundingBox._center = minPosd;
+            _boundingBox._center += maxPosd;
+            _boundingBox._center *= 0.5;
 
-            center = minPosd;
-            center += maxPosd;
-            center *= 0.5;
-
-            halfWidths = maxPosd;
-            halfWidths -= minPosd;
-            halfWidths *= 0.5;
-
-            _boundingBox._center += (center - _boundingBox._center) * 0.1;
-            _boundingBox._halfWidths += (halfWidths - _boundingBox._halfWidths) * 0.1;
+            _boundingBox._halfWidths = maxPosd;
+            _boundingBox._halfWidths -= minPosd;
+            _boundingBox._halfWidths *= 0.5;
 
             _boundingSphere._center = _boundingBox._center;
             _boundingSphere._radius = max(_boundingBox._halfWidths._x, max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));

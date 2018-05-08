@@ -366,7 +366,6 @@ namespace Igor
                 }
             }
 
-
             if (nullptr != node->_children)
             {
                 for (uint64 i = 0; i < 8; ++i)

@@ -589,16 +589,16 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAACube.h">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iFrustum.h">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPlane.h">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iSphere.h">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iNodeVolume.h">
       <Filter>scene\nodes</Filter>
@@ -746,7 +746,7 @@
       <Filter>physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAABox.h">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsCollisionConfig.h">
       <Filter>physics</Filter>
@@ -830,10 +830,10 @@
       <Filter>GUI\user controls</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iRectangle.h">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iIntersection.h">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iDialogGraph.h">
       <Filter>GUI\dialogs</Filter>
@@ -913,16 +913,16 @@
       <Filter>graphics\texture</Filter>
     </None>
     <None Include="..\src\iAACube.inl">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </None>
     <None Include="..\src\iFrustum.inl">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </None>
     <None Include="..\src\iPlane.inl">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </None>
     <None Include="..\src\iSphere.inl">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </None>
     <None Include="..\src\iMesh.inl">
       <Filter>resources\mesh</Filter>
@@ -943,13 +943,13 @@
       <Filter>resources\mesh</Filter>
     </None>
     <None Include="..\src\iAABox.inl">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </None>
     <None Include="..\src\iRectangle.inl">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </None>
     <None Include="..\src\iIntersection.inl">
-      <Filter>bodies &amp; shapes</Filter>
+      <Filter>data types</Filter>
     </None>
     <None Include="..\src\iNodeFactory.inl">
       <Filter>scene\nodes</Filter>
@@ -1049,9 +1049,6 @@
     <Filter Include="graphics\generation">
       <UniqueIdentifier>{2c949176-de8e-4a4e-9e9e-dc9b70155d86}</UniqueIdentifier>
     </Filter>
-    <Filter Include="bodies &amp; shapes">
-      <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources\statistics">
       <UniqueIdentifier>{58005712-136c-489b-80a1-deb7d7ccf43e}</UniqueIdentifier>
     </Filter>
@@ -1072,6 +1069,9 @@
     </Filter>
     <Filter Include="graphics\Renderer-OpenGL">
       <UniqueIdentifier>{e7a7a7e5-4e38-488f-a442-f1d26a7be27c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="data types">
+      <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
