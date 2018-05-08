@@ -47,8 +47,6 @@ namespace Igor
 			iNodeFactory::getInstance().destroyNode(inactiveChildrenCopy[i]);
 		}
 		_inactiveChildren.clear();
-
-        iNode::_idGenerator.destroyID(_nodeID);
 	}
 
 	__IGOR_DISABLE_WARNING__(4100)

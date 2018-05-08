@@ -4,7 +4,6 @@
 
 #include <iParticleSystem3D.h>
 #include <iaConsole.h>
-#include <iRenderer.h>
 #include <iTextureResourceFactory.h>
 #include <iMaterialResourceFactory.h>
 #include <iaGradient.h>
@@ -186,7 +185,7 @@ namespace Igor
     void iParticleSystem3D::start()
     {
         _startTime = iTimer::getInstance().getMilliSeconds();
-        _time = _startTime;
+        _playbackTime = _startTime;
         _running = true;
     }
 
@@ -428,19 +427,18 @@ namespace Igor
         {
             iaVector3f a, b;
 
-
             uint32 startIndex;
             uint32 endIndex;
 
             float64 frameTime = iTimer::getInstance().getMilliSeconds();
 
             // ignore hickups
-            if (frameTime - _time > 100.0)
+            if (frameTime - _playbackTime > 100.0)
             {
-                _time = frameTime;
+                _playbackTime = frameTime;
             }
 
-            float64 particleSystemTime = _time - _startTime;
+            float64 particleSystemTime = _playbackTime - _startTime;
 
             if (particleSystemTime >= _particleSystemPeriodTime)
             {
@@ -455,7 +453,7 @@ namespace Igor
                 }
             }
 
-            while (_time <= frameTime)
+            while (_playbackTime <= frameTime)
             {
                 float32 sizeScale = 0;
                 uint64 index = 0;
@@ -549,11 +547,12 @@ namespace Igor
                 _emissionImpulseStack -= static_cast<float32>(createCount);
                 createParticles(createCount, emitter, particleSystemTime / __IGOR_SECOND__);
 
-                _time += 1000.0 / _simulationRate;
+                _playbackTime += 1000.0 / _simulationRate;
                 particleSystemTime += 1000.0 / _simulationRate; // TODO redundant
             }
         }
 
+        // TODO this seems a bit inefficient
         if (!_particles.empty())
         {
             iaVector3f minPos = _particles.front()._position;
@@ -597,19 +596,13 @@ namespace Igor
             iaConvert::convert(minPos, minPosd);
             iaConvert::convert(maxPos, maxPosd);
 
-            iaVector3d center;
-            iaVector3d halfWidths;
+            _boundingBox._center = minPosd;
+            _boundingBox._center += maxPosd;
+            _boundingBox._center *= 0.5;
 
-            center = minPosd;
-            center += maxPosd;
-            center *= 0.5;
-
-            halfWidths = maxPosd;
-            halfWidths -= minPosd;
-            halfWidths *= 0.5;
-
-            _boundingBox._center += (center - _boundingBox._center) * 0.1;
-            _boundingBox._halfWidths += (halfWidths - _boundingBox._halfWidths) * 0.1;
+            _boundingBox._halfWidths = maxPosd;
+            _boundingBox._halfWidths -= minPosd;
+            _boundingBox._halfWidths *= 0.5;
 
             _boundingSphere._center = _boundingBox._center;
             _boundingSphere._radius = max(_boundingBox._halfWidths._x, max(_boundingBox._halfWidths._y, _boundingBox._halfWidths._z));

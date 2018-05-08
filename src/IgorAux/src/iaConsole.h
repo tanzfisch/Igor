@@ -430,7 +430,7 @@ namespace IgorAux
         console << setfill(L'0') << setw(2) << hours << ":";
         console << setfill(L'0') << setw(2) << minutes << ":";
         console << setfill(L'0') << setw(2) << seconds << ":";
-        console << setfill(L'0') << setw(4) << time % 1000 << " ";
+        console << setfill(L'0') << setw(3) << time % 1000 << " ";
         return console;
     }
 

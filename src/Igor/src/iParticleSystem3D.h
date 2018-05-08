@@ -601,11 +601,11 @@ namespace Igor
 
         /*! time when the particle system was started last time
         */
-        float64 _startTime = 0;
+        float64 _startTime = 0.0;
 
         /*! current time in a simulation rate grid
         */
-        float64 _time = 0;
+        float64 _playbackTime = 0.0;
 
         /*! vortex to particle rate
 

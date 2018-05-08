@@ -175,7 +175,7 @@ namespace Igor
         else
         {
             con_err(userDataID << " out of bounds " << sphere._center);
-        }
+        }        
     }
 
     void iOctree::split(uint64 nodeID)
@@ -354,20 +354,15 @@ namespace Igor
 
         if (testFilter(node->_box))
         {
-            if (node->_objects.size())
+            iAACubed box;
+            for (auto objectID : node->_objects)
             {
-                iAACubed box;
-                auto iterObjectID = node->_objects.begin();
-                while (iterObjectID != node->_objects.end())
-                {
-                    box._center = _objects[(*iterObjectID)]->_sphere._center;
-                    box._halfEdgeLength = _objects[(*iterObjectID)]->_sphere._radius;
+                box._center = _objects[objectID]->_sphere._center;
+                box._halfEdgeLength = _objects[objectID]->_sphere._radius;
 
-                    if (testFilter(box))
-                    {
-                        _queryResult.push_back((*iterObjectID));
-                    }
-                    iterObjectID++;
+                if (testFilter(box))
+                {
+                    _queryResult.push_back(objectID);
                 }
             }
 
