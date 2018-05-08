@@ -435,7 +435,6 @@ namespace Igor
             // ignore hickups
             if (frameTime - _playbackTime > 100.0)
             {
-                con_warn("particle system hickup");
                 _playbackTime = frameTime;
             }
 
