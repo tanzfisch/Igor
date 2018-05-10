@@ -127,7 +127,7 @@ namespace Igor
 
     void iParticleEmitter::calcRandomStartFromDisc(iaVector3d& position, iaVector3d& velocity)
     {
-        float32 angle = ((_rand.getNext() % 10000) / 10000.0f) * static_cast<float32>(M_2_PI);
+        float32 angle = ((_rand.getNext() % 10000) / 5000.0f) * static_cast<float32>(M_PI);
         float32 distance = ((_rand.getNext() % 10000) / 10000.0f) * _size;
         iaVector2f temp(distance, 0);
         temp.rotateXY(angle);
@@ -141,7 +141,7 @@ namespace Igor
 
     void iParticleEmitter::calcRandomStartFromCircle(iaVector3d& position, iaVector3d& velocity)
     {
-        float32 angle = ((_rand.getNext() % 10000) / 10000.0f) * static_cast<float32>(M_2_PI);
+        float32 angle = ((_rand.getNext() % 10000) / 5000.0f) * static_cast<float32>(M_PI);
         iaVector2f temp(_size, 0);
         temp.rotateXY(angle);
         iaVector3d posOnEmitter(temp._x, 0, temp._y);
