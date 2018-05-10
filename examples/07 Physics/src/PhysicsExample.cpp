@@ -205,7 +205,6 @@ void PhysicsExample::init()
         iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-    skyBoxNode->setTextureScale(10);
     skyBoxNode->setMaterial(_materialSkyBox);
     _scene->getRoot()->insertNode(skyBoxNode);
 
