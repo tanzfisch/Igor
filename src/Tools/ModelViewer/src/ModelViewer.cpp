@@ -145,9 +145,9 @@ void ModelViewer::init(iaString fileName)
         iTextureResourceFactory::getInstance().requestFile("skybox_default/right.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/top.png"),
         iTextureResourceFactory::getInstance().requestFile("skybox_default/bottom.png"));
-    _skyBoxNode->setTextureScale(10);
     _skyBoxNode->setMaterial(_materialSkyBox);
-    //_scene->getRoot()->insertNode(_skyBoxNode);
+    _skyBoxNode->setVisible(false);
+    _scene->getRoot()->insertNode(_skyBoxNode);
 
     _font = new iTextureFont("StandardFont.png");
 
@@ -800,13 +800,14 @@ void ModelViewer::onMouseKeyDown(iKeyCode key)
 
 void ModelViewer::pickcolorID()
 {
+    bool wasVisible = _skyBoxNode->isVisible();
     _skyBoxNode->setVisible(false);
 
     uint64 nodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
     iNode* node = iNodeFactory::getInstance().getNode(nodeID);
     _menuDialog->setSelectedNode(node);
 
-    _skyBoxNode->setVisible(true);
+    _skyBoxNode->setVisible(wasVisible);
 }
 
 void ModelViewer::onMouseKeyUp(iKeyCode key)
