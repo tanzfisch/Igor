@@ -94,7 +94,7 @@ void Particles::init()
     iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     cameraTranslation->setName("camera translation");
     // translate away from origin
-    cameraTranslation->translate(0, 0, 100);
+    cameraTranslation->translate(0, 0, 120);
     _cameraTranslation = cameraTranslation->getID();
     // from all nodes that we want to control later we save the node ID
     // and last but not least we create a camera node
@@ -270,7 +270,7 @@ void Particles::createFireParticleSystem()
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(emitter->getID());
     emitter->setType(iEmitterType::Disc);
-    emitter->setSize(3);
+    emitter->setSize(3.0f);
 
     iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     transform->translate(-2, -4, 40);
