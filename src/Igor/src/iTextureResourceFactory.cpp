@@ -297,16 +297,16 @@ namespace Igor
 
         _mutex.unlock();
 
-        for (auto texture : texturesToProcess)
+        if (iRenderer::getInstance().isReady())
         {
-            if (iRenderer::getInstance().isReady())
+            for (auto texture : texturesToProcess)
             {
                 loadTexture(texture);
-            }
 
-            if (_interrupLoading)
-            {
-                break;
+                if (_interrupLoading)
+                {
+                    break;
+                }
             }
         }
 
