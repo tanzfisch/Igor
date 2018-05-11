@@ -169,7 +169,7 @@ void Turret::handle()
                     iaConvert::convert(outside, out);
                     float32 distanceToWall = out.distance(getSphere()._center) + 5;
 
-                 /*   if (canFire &&
+                    if (canFire &&
                         distanceToWall > distance &&
                         distance < fireDistance)
                     {
@@ -194,7 +194,7 @@ void Turret::handle()
 
                             fired = true;
                         }
-                    }*/
+                    }
                 }
             }
         }
