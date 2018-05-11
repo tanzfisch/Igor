@@ -677,8 +677,7 @@ namespace Igor
         {
             GLuint texId = (GLuint)((texture)->_id);
 
-            bool isTexture = glIsTexture(texId);
-            if (isTexture)
+            if (glIsTexture(texId))
             {
                 glDeleteTextures(1, &texId); GL_CHECK_ERROR();
             }
