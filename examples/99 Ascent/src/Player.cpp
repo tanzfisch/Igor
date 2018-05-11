@@ -37,8 +37,8 @@ Player::Player(iScene* scene, iView* view, const iaMatrixd& matrix)
 {
     _scene = scene;
 
-    setHealth(200.0);
-    setShield(300.0);
+    setHealth(2000.0);
+    setShield(3000.0);
     setDamage(1.0);
     setShieldDamage(1.0);
 
