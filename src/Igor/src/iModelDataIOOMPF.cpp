@@ -212,7 +212,11 @@ namespace Igor
         uint32 textureCount = meshChunk->getTextureCount();
         for (uint32 i = 0; i < textureCount; ++i)
         {
-            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(meshChunk->getTexture(i)), i);
+            iaString texturePath = _ompf->getFileDirectory();
+            texturePath += iaDirectory::getPathSeperator();
+            texturePath += meshChunk->getTexture(i);
+
+            meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(texturePath), i);
             mesh->setTexture(i, true);
         }
 

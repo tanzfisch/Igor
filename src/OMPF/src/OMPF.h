@@ -136,6 +136,14 @@ namespace OMPF
         /*! \returns list of materials
         */
         const vector<ompfMaterialChunk*>& getMaterialChunks() const;
+
+        /*! \returns the directory of the file we want to load or save
+
+        e.g. if the file path is c:\foo\bar.ompf then the return value will be c:\foo
+
+        the return string can be empty if load or save is not in process yet
+        */
+        const iaString& getFileDirectory() const;
         
 	private:
 
@@ -220,7 +228,11 @@ namespace OMPF
         /*! contains a set of ompf settings like size of IDs etc.
         */
 		ompfSettings _settings;
-        
+
+        /*! the path to the file we are working with
+        */
+        iaString _filepath;
+
 	};
 
 }
