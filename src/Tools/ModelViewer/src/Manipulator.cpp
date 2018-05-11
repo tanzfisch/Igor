@@ -651,15 +651,15 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
         {
             iaMatrixd camWorldMatrix;
             _cameraUI->calcWorldTransformation(camWorldMatrix);
-            iaVector3d from = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
-            iaVector3d to = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
+            iaVector3d fromWorld = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
+            iaVector3d toWorld = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
 
             iNodeTransform* transformNode = static_cast<iNodeTransform*>(node);
             iaMatrixd transformWorldMatrix;
             transformNode->calcWorldTransformation(transformWorldMatrix);
             transformWorldMatrix.invert();
-            from = transformWorldMatrix * from;
-            to = transformWorldMatrix * to;
+            fromWorld = transformWorldMatrix * fromWorld;
+            toWorld = transformWorldMatrix * toWorld;
 
             iaMatrixd nodeMatrix;
             transformNode->getMatrix(nodeMatrix);
@@ -672,10 +672,10 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
                 rotate(from._x, from._y, to._x, to._y, nodeMatrix);
                 break;
             case ManipulatorMode::Scale:
-                scale((to - from) * 30, nodeMatrix);
+                scale((toWorld - fromWorld) * 30, nodeMatrix);
                 break;
             case ManipulatorMode::Translate:
-                translate((to - from) * 30, nodeMatrix);
+                translate((toWorld - fromWorld) * 30, nodeMatrix);
                 break;
             }
 

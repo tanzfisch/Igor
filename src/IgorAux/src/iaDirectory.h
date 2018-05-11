@@ -54,14 +54,20 @@ namespace IgorAux
 		iaDirectory operator= (const iaString& directoryName);
 
 		/*! \returns get the absolute path name
+
+        e.g. if the path is c:\foo\bar then this returns c:\foo\bar
         */
 		iaString getFullDirectoryName() const;
 
         /*! \returns the name of the directory
+
+        e.g. if the directory is c:\foo\bar than the directory name is bar
         */
         iaString getDirectoryName() const;
 
 		/*! \returns the absolute path name of parent directory
+
+        e.g. if the path is c:\foo\bar then this returns c:\foo
         */
 		iaString getFullParentDirectoryName() const;
 

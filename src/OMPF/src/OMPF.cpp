@@ -5,6 +5,8 @@
 #include <OMPF.h>
 
 #include <iaConsole.h>
+#include <iaDirectory.h>
+using namespace IgorAux;
 
 #include <ompfHeaderChunk.h>
 #include <ompfGroupChunk.h>
@@ -316,6 +318,9 @@ namespace OMPF
 
     void OMPF::loadFile(iaString filename)
     {
+        iaDirectory dir(filename);
+        _filepath = dir.getFullDirectoryName();
+
         reset();
 
         ifstream file;
@@ -369,6 +374,9 @@ namespace OMPF
 
     void OMPF::saveFile(iaString filename)
     {
+        iaDirectory dir(filename);
+        _filepath = dir.getFullParentDirectoryName();
+
         con_assert(_root != nullptr, "can never be zero");
 
         ofstream outfile;
@@ -383,6 +391,11 @@ namespace OMPF
         {
             con_err("can't open file to write " << filename);
         }
+    }
+
+    const iaString& OMPF::getFileDirectory() const
+    {
+        return _filepath;
     }
 
     void OMPF::writeMaterials(ofstream& outfile)
