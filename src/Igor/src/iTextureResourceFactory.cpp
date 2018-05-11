@@ -128,14 +128,14 @@ namespace Igor
         _dummyTexture->_height = height;
         _dummyTexture->_valid = true;
         _dummyTexture->_processed = true;
-        
+
         _dummyTexture->_rendererTexture = iRenderer::getInstance().createTexture(width, height, 4, iColorFormat::RGBA, data, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         iRenderer::getInstance().setDummyTextureID(_dummyTexture->_rendererTexture->_id);
 
         int64 hashValue = calcHashValue(_dummyTexture->getFilename(), _dummyTexture->_cacheMode, _dummyTexture->_buildMode, _dummyTexture->_wrapMode);
         _textures[hashValue] = _dummyTexture;
 
-        con_info("loaded texture", "\"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");        
+        con_info("loaded texture", "\"" << _dummyTexture->getFilename() << "\" [" << width << ":" << height << "]");
     }
 
     int64 iTextureResourceFactory::calcHashValue(const iaString& name, iResourceCacheMode cacheMode, iTextureBuildMode buildMode, iTextureWrapMode wrapMode)
@@ -167,7 +167,7 @@ namespace Igor
             combined += "N";
         }
 
-        switch(wrapMode)
+        switch (wrapMode)
         {
         case iTextureWrapMode::Repeat:
             combined += "R";
@@ -243,14 +243,14 @@ namespace Igor
             {
                 result = (*textureIter).second;
             }
-			_mutex.unlock();
+            _mutex.unlock();
 
             if (nullptr == result.get())
             {
                 result = iTexturePtr(new iTexture(keyPath, cacheMode, buildMode, wrapMode), iTexture::private_deleter());
-				_mutex.lock();
+                _mutex.lock();
                 _textures[hashValue] = result;
-				_mutex.unlock();
+                _mutex.unlock();
             }
         }
 
@@ -264,51 +264,53 @@ namespace Igor
 
     void iTextureResourceFactory::flush(iResourceCacheMode cacheModeLevel)
     {
-        if (iRenderer::getInstance().isReady())
+        vector<iTexturePtr> texturesToProcess;
+
+        _mutex.lock();
+        auto texture = _textures.begin();
+
+        while (texture != _textures.end())
         {
-            vector<iTexturePtr> texturesToProcess;
-
-            _mutex.lock();
-            auto texture = _textures.begin();
-
-            while (texture != _textures.end())
+            if ((*texture).second->isProcessed())
             {
-                if ((*texture).second->isProcessed())
+                if ((*texture).second->isValid())
                 {
-                    if ((*texture).second->isValid())
+                    if ((*texture).second.use_count() == 1)
                     {
-                        if ((*texture).second.use_count() == 1)
+                        if ((*texture).second->_cacheMode <= cacheModeLevel)
                         {
-                            if ((*texture).second->_cacheMode <= cacheModeLevel)
-                            {
-                                iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
-                                con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
-                                texture = _textures.erase(texture);
-                                continue;
-                            }
+                            iRenderer::getInstance().destroyTexture((*texture).second->_rendererTexture);
+                            con_info("released texture", "\"" << (*texture).second->getFilename() << "\"");
+                            texture = _textures.erase(texture);
+                            continue;
                         }
                     }
                 }
-                else
-                {
-                    texturesToProcess.push_back((*texture).second);
-                }
-
-                texture++;
             }
-
-            _mutex.unlock();
-
-            if (!_interrupLoading)
+            else
             {
-                for (auto texture : texturesToProcess)
-                {
-                    loadTexture(texture);
-                }
+                texturesToProcess.push_back((*texture).second);
             }
 
-            _interrupLoading = false;
+            texture++;
         }
+
+        _mutex.unlock();
+
+        for (auto texture : texturesToProcess)
+        {
+            if (iRenderer::getInstance().isReady())
+            {
+                loadTexture(texture);
+            }
+
+            if (_interrupLoading)
+            {
+                break;
+            }
+        }
+
+        _interrupLoading = false;
     }
 
     void iTextureResourceFactory::loadTexture(iTexturePtr texture)
@@ -352,7 +354,7 @@ namespace Igor
             texture->_width = width;
             texture->_height = height;
             texture->_dummy = false;
-            texture->_valid = true;            
+            texture->_valid = true;
             texture->_colorFormat = colorFormat;
             texture->_bpp = bpp;
 
@@ -396,7 +398,7 @@ namespace Igor
 
         _mutex.lock();
         auto texture = _textures.find(hashValue);
-        if(texture != _textures.end())
+        if (texture != _textures.end())
         {
             result = (*texture).second;
         }
@@ -445,17 +447,17 @@ namespace Igor
 
         iPixmap *pixmap = nullptr;
 
-		int width = 0;
-		int height = 0;
-		int components = 0;
+        int width = 0;
+        int height = 0;
+        int components = 0;
 
-		_mutexImageLibrary.lock();
-		unsigned char* textureData = stbi_load(fullPath.getData(), &width, &height, &components, 0);
-		_mutexImageLibrary.unlock();
+        _mutexImageLibrary.lock();
+        unsigned char* textureData = stbi_load(fullPath.getData(), &width, &height, &components, 0);
+        _mutexImageLibrary.unlock();
 
         if (textureData == nullptr)
         {
-			con_err("can't load \"" << fullPath << "\"");
+            con_err("can't load \"" << fullPath << "\"");
         }
         else
         {
