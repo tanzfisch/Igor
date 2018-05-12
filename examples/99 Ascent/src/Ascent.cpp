@@ -96,7 +96,7 @@ void Ascent::initViews()
 {
     _view.setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
     _view.setPerspective(60);
-    _view.setClipPlanes(0.1f, 500.f);
+    _view.setClipPlanes(0.1f, 50000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &Ascent::onRender));
     _view.setName("3d");
 
@@ -279,8 +279,12 @@ __IGOR_INLINE__ float64 metaballFunction(const iaVector3d& metaballPos, const ia
 
 void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
 {
+    uint32 lodFactor = static_cast<uint32>(pow(2, voxelBlockInfo->_lod)); // TODO move to engine
+
     iVoxelData* voxelData = voxelBlockInfo->_voxelData;
     iaVector3I& offset = voxelBlockInfo->_positionInLOD;
+    offset *= (32 * lodFactor); // TODO move to engine
+    iaVector3f& lodOffset = voxelBlockInfo->_lodOffset;
     uint64 size = voxelBlockInfo->_size;
 
     voxelData->setClearValue(0);
@@ -294,103 +298,105 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
     const float64 toMeta = 0.0175;
     float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
-    /*  for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
-      {
-          for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
-          {
-              for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
-              {
-                  float32 density = 0;
-
-                  // first figure out if a voxel is outside the sphere
-                  iaVector3d pos(x + offset._x, y + offset._y, z + offset._z);
-
-                  float64 distance = 0;
-                  for (auto metaball : _metaballs)
-                  {
-                      distance += metaballFunction(metaball._center, pos) * metaball._radius;
-                  }
-
-                  if (distance >= toMeta)
-                  {
-                      density = 1.0;
-                  }
-                  else
-                  {
-                      if (distance >= fromMeta)
-                      {
-                          density = ((distance - fromMeta) * factorMeta);
-                      }
-                  }
-
-                  distance = 0;
-                  for (auto hole : _holes)
-                  {
-                      distance += metaballFunction(hole._center, pos) * hole._radius;
-                  }
-
-                  if (distance >= toMeta)
-                  {
-                      density = 0.0;
-                  }
-                  else
-                  {
-                      if (distance >= fromMeta)
-                      {
-                          if (density > 0)
-                          {
-                              density = 1 - ((distance - fromMeta) * factorMeta);
-                          }
-                      }
-                  }
-
-                  float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 4, 0.5);
-
-                  if (onoff <= from)
-                  {
-                      if (onoff >= to)
-                      {
-                          density = 1.0 - ((onoff - from) * factor);
-                      }
-                      else
-                      {
-                          density = 0.0;
-                      }
-                  }
-
-                  if (density > 1.0)
-                  {
-                      density = 1.0;
-                  }
-
-                  if (density < 0.0)
-                  {
-                      density = 0.0;
-                  }
-
-                  if (density > 0.0)
-                  {
-                      voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254) + 1);
-                  }
-              }
-          }
-      }/**/
-
     for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
     {
         for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
         {
             for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
             {
-                if (x < 10 && x > 5 &&
-                    y < 10 && y > 5 &&
-                    z < 10 && z > 5)
+                // first figure out if a voxel is outside the sphere
+                iaVector3d pos(x * lodFactor + offset._x + lodOffset._x,
+                    y * lodFactor + offset._y + lodOffset._y,
+                    z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
+
+                float32 density = 0;
+                
+                float64 distance = 0;
+                for (auto metaball : _metaballs)
                 {
-                    voxelData->setVoxelDensity(iaVector3I(x, y, z), 128);
+                    distance += metaballFunction(metaball._center, pos) * metaball._radius;
+                }
+
+                if (distance >= toMeta)
+                {
+                    density = 1.0;
+                }
+                else
+                {
+                    if (distance >= fromMeta)
+                    {
+                        density = ((distance - fromMeta) * factorMeta);
+                    }
+                }
+
+                distance = 0;
+                for (auto hole : _holes)
+                {
+                    distance += metaballFunction(hole._center, pos) * hole._radius;
+                }
+
+                if (distance >= toMeta)
+                {
+                    density = 0.0;
+                }
+                else
+                {
+                    if (distance >= fromMeta)
+                    {
+                        if (density > 0)
+                        {
+                            density = 1 - ((distance - fromMeta) * factorMeta);
+                        }
+                    }
+                }
+
+                float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 4, 0.5);
+
+                if (onoff <= from)
+                {
+                    if (onoff >= to)
+                    {
+                        density = 1.0 - ((onoff - from) * factor);
+                    }
+                    else
+                    {
+                        density = 0.0;
+                    }
+                }
+
+                if (density > 1.0)
+                {
+                    density = 1.0;
+                }
+
+                if (density < 0.0)
+                {
+                    density = 0.0;
+                }
+
+                if (density > 0.0)
+                {
+                    voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254) + 1);
                 }
             }
         }
     }/**/
+
+ /* for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
+  {
+      for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
+      {
+          for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
+          {
+              if (x < 10 && x > 5 &&
+                  y < 10 && y > 5 &&
+                  z < 10 && z > 5)
+              {
+                  voxelData->setVoxelDensity(iaVector3I(x, y, z), 128);
+              }
+          }
+      }
+  }/**/
 
     voxelBlockInfo->_transition = true;
 }
