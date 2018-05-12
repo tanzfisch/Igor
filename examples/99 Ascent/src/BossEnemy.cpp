@@ -20,7 +20,6 @@ using namespace IgorAux;
 
 #include "Turret.h"
 #include "BossDestroyed.h"
-#include "VoxelTerrainGenerator.h"
 #include "Ascent.h"
 
 BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)

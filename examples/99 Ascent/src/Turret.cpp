@@ -17,7 +17,6 @@ using namespace IgorAux;
 
 #include "Bullet.h"
 #include "Granade.h"
-#include "VoxelTerrainGenerator.h"
 
 Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 playerID)
     : GameObject(fraction, GameObjectType::None)
@@ -104,6 +103,7 @@ iaVector3d Turret::getCurrentPos()
 
 void Turret::handle()
 {
+    return;
     if (_initilized)
     {
         const float32 detectionDistance = 60;
@@ -163,7 +163,7 @@ void Turret::handle()
                     iaConvert::convert(getSphere()._center, center);
                     iaConvert::convert(targetPos, pos);
 
-                    VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
+               // TODO     VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
 
                     iaVector3d out;
                     iaConvert::convert(outside, out);

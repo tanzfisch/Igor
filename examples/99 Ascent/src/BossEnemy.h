@@ -18,6 +18,8 @@ public:
 	BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID);
     virtual ~BossEnemy();
 
+    iaVector3d getCurrentPos();
+
 private:
 
     uint64 _playerID;
@@ -34,7 +36,6 @@ private:
     iScene* _scene = nullptr;
 
     void handle();
-    iaVector3d getCurrentPos();
     void hitBy(uint64 entityID);
 
 };

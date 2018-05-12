@@ -20,7 +20,6 @@ using namespace IgorAux;
 
 #include "Turret.h"
 #include "EnemyDestroyed.h"
-#include "VoxelTerrainGenerator.h"
 #include "Ascent.h"
 
 StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)

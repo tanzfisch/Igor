@@ -27,7 +27,6 @@ using namespace IgorAux;
 
 #include "Bullet.h"
 #include "Granade.h"
-#include "VoxelTerrainGenerator.h"
 #include "DigEffect.h"
 #include "MuzzleFlash.h"
 #include "Ascent.h"
@@ -174,7 +173,7 @@ iaVector3I Player::getGunPointPosition()
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_cameraNodeID));
     if (camera != nullptr)
     {
-        iaMatrixd modelMatrix;
+  /*      iaMatrixd modelMatrix;
         camera->getWorldMatrix(modelMatrix);
 
         iaVector3d dir(modelMatrix._depth._x, modelMatrix._depth._y, modelMatrix._depth._z);
@@ -199,12 +198,15 @@ iaVector3I Player::getGunPointPosition()
             VoxelTerrainGenerator::getInstance().castRay(f, t, outside, inside);
 
             return outside;
-        }
+        }*/
     }
+
+    return iaVector3I();
 }
 
 void Player::dig(uint64 toolSize, uint8 toolDensity)
 {
+    return;
     iaVector3I center = getGunPointPosition();
     if (center.length2() > 0)
     {
@@ -237,7 +239,7 @@ void Player::dig(uint64 toolSize, uint8 toolDensity)
 
                     if (center.distance2(pos) < toolRadiusQuadric)
                     {
-                        VoxelTerrainGenerator::getInstance().setVoxelDensity(pos, toolDensity);
+                //        VoxelTerrainGenerator::getInstance().setVoxelDensity(pos, toolDensity);
                     }
                 }
             }
@@ -262,7 +264,7 @@ void Player::dig(uint64 toolSize, uint8 toolDensity)
                 for (int z = modifyFrom._z; z <= modifyTo._z; ++z)
                 {
                     iaVector3I pos(x, y, z);
-                    VoxelTerrainGenerator::getInstance().refreshTile(pos);
+                  //  VoxelTerrainGenerator::getInstance().refreshTile(pos);
                 }
             }
         }

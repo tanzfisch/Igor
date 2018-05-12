@@ -12,6 +12,7 @@
 #include <iPhysicsCollision.h>
 #include <iTimer.h>
 #include <iEntityManager.h>
+#include <iVoxelTerrain.h>
 using namespace Igor;
 
 #include <iaString.h>
@@ -20,7 +21,6 @@ using namespace IgorAux;
 
 #include "Turret.h"
 #include "EnemyDestroyed.h"
-#include "VoxelTerrainGenerator.h"
 #include "Ascent.h"
 
 Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
@@ -143,7 +143,7 @@ iaVector3d Enemy::getCurrentPos()
 
 void Enemy::handle()
 {
-    if (!VoxelTerrainGenerator::getInstance().isInstantiated())
+/*    if (!VoxelTerrainGenerator::getInstance().isInstantiated())
     {
         return;
     }
@@ -195,7 +195,7 @@ void Enemy::handle()
         {
             _idleCounter = rand() % 5 + 50;
         }
-    }
+    }*/
 }
 
 void Enemy::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
