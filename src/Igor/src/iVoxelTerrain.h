@@ -52,6 +52,7 @@ namespace Igor
     class iNodeLODTrigger;
     class iVoxelData;
     class iScene;
+    class iTargetMaterial;
 
     iaEVENT(iVoxelDataGeneratedEvent, iVoxelDataGeneratedDelegate, void, (const iaVector3I& min, const iaVector3I& max), (min, max));
 
@@ -113,6 +114,12 @@ namespace Igor
         */
         static const int32 _voxelBlockOverlap = 2;
 
+        /*! \returns target material
+        */
+        iTargetMaterial* getTargetMaterial();
+
+
+
         /*! init
         */
         iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate);
@@ -133,9 +140,15 @@ namespace Igor
         */
         void setLODTrigger(uint32 lodTriggerID);
 
+        /*! sets material ID
+
+        \param materialID the material ID to use
+        */
+        void setMaterialID(uint64 materialID);
+
         /*! \returns terrain material ID
         */
-        uint64 getMaterial() const;
+        uint64 getMaterialID() const;
 
         /*! modifies voxel data by manipulating a box area
 
@@ -146,8 +159,16 @@ namespace Igor
 
     private:
 
+        /*! target material for given tile
+        */
+        iTargetMaterial* _targetMaterial = nullptr;
+
+        /*! voxel operations queue
+        */
         vector<shared_ptr<iVoxelOperation>> _operationsQueue;
 
+        /*! voxel operations queue mutex
+        */
         iaMutex _operationsQueueMutex;
 
         /*! delegate registered by application to generate voxel data
@@ -280,7 +301,7 @@ namespace Igor
 
         /*! init
         */
-        void init(iScene* scene);
+        void init();
 
         /*! deinit
         */

@@ -29,7 +29,7 @@ void main()
 	
 	vec3 texSelector = vec3(N.x*N.x, N.y*N.y, N.z*N.z);
 		
-	float scale = 0.1;
+	float scale = 0.01;
 	
 	vec3 diffuseTextureColor0 = texture2D(igor_matTexture0, P.xz * scale).rgb * texSelector.y;	
 	vec3 diffuseTextureColor1 = texture2D(igor_matTexture1, P.yz * scale).rgb * texSelector.x; 

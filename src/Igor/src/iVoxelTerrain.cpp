@@ -28,6 +28,8 @@
 #include <iTaskVoxelTerrain.h>
 #include <iVoxelOperationBox.h>
 #include <iRenderer.h>
+#include <iTextureResourceFactory.h>
+#include <iTargetMaterial.h>
 
 #include <iaConvert.h>
 #include <iaConsole.h>
@@ -55,23 +57,7 @@ namespace Igor
     {
         _generateVoxelsDelegate = generateVoxelsDelegate;
 
-        unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn> voxelBlocks;
-
-        for (int i = 0; i < _lowestLOD + 1; ++i)
-        {
-            _voxelBlocks.push_back(voxelBlocks);
-        }
-
-#ifdef USE_VERBOSE_STATISTICS
-        _totalSection = iStatistics::getInstance().registerSection("VT:all", 3);
-        _discoverBlocksSection = iStatistics::getInstance().registerSection("VT:discover", 3);
-        _updateBlocksSection = iStatistics::getInstance().registerSection("VT:update", 3);
-        _deleteBlocksSection = iStatistics::getInstance().registerSection("VT:delete", 3);
-        _applyActionsSection = iStatistics::getInstance().registerSection("VT:applyActions", 3);
-        _updateVisBlocksSection = iStatistics::getInstance().registerSection("VT:vis", 3);
-#endif
-
-        iRenderer::getInstance().setWorldGridResolution(1000.0);
+        init();
     }
 
     iVoxelTerrain::~iVoxelTerrain()
@@ -97,7 +83,11 @@ namespace Igor
         if (scene != nullptr &&
             _rootNode == nullptr)
         {
-            init(scene);
+            _rootNode = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+            scene->getRoot()->insertNode(_rootNode);
+
+            iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
+            iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
         }
     }
 
@@ -118,6 +108,11 @@ namespace Igor
         action._nodeB = dst->getID();
 
         _actionQueue.push_back(action);
+    }
+
+    iTargetMaterial* iVoxelTerrain::getTargetMaterial()
+    {
+        return _targetMaterial;
     }
 
     void iVoxelTerrain::removeNodeAsync(iNode* src, iNode* dst)
@@ -141,20 +136,39 @@ namespace Igor
         _actionQueue.push_back(action);
     }
 
-    void iVoxelTerrain::init(iScene* scene)
-    {
-        _rootNode = iNodeFactory::getInstance().createNode(iNodeType::iNode);
-        scene->getRoot()->insertNode(_rootNode);
+    void iVoxelTerrain::init()
+    {      
+        unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn> voxelBlocks;
 
-        iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
-        iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
+        for (int i = 0; i < _lowestLOD + 1; ++i)
+        {
+            _voxelBlocks.push_back(voxelBlocks);
+        }
+
+#ifdef USE_VERBOSE_STATISTICS
+        _totalSection = iStatistics::getInstance().registerSection("VT:all", 3);
+        _discoverBlocksSection = iStatistics::getInstance().registerSection("VT:discover", 3);
+        _updateBlocksSection = iStatistics::getInstance().registerSection("VT:update", 3);
+        _deleteBlocksSection = iStatistics::getInstance().registerSection("VT:delete", 3);
+        _applyActionsSection = iStatistics::getInstance().registerSection("VT:applyActions", 3);
+        _updateVisBlocksSection = iStatistics::getInstance().registerSection("VT:vis", 3);
+#endif
+
+        iRenderer::getInstance().setWorldGridResolution(1000.0);
 
         // set up terrain material
-        _terrainMaterialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->compileShader();
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+        _terrainMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+
+        // set up terrain target material
+        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);
+        _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
+        _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+        _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
+        _targetMaterial->setEmissive(iaColor3f(0.05f, 0.05f, 0.05f));
+        _targetMaterial->setShininess(100.0f);
     }
 
     void iVoxelTerrain::deinit()
@@ -162,6 +176,8 @@ namespace Igor
         con_endl("shutdown iVoxelTerrain ...");
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
+
+        iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
 
         // TODO cleanup
     }
@@ -171,7 +187,12 @@ namespace Igor
         _lodTrigger = lodTriggerID;
     }
 
-    uint64 iVoxelTerrain::getMaterial() const
+    void iVoxelTerrain::setMaterialID(uint64 materialID)
+    {
+        _terrainMaterialID = materialID;
+    }
+
+    uint64 iVoxelTerrain::getMaterialID() const
     {
         return _terrainMaterialID;
     }
@@ -1203,13 +1224,17 @@ namespace Igor
                     (*parent).second->_voxelData->getCopy(*(tileInformation._voxelDataNextLOD));
                     tileInformation._lod = voxelBlock->_lod;
                     tileInformation._neighboursLOD = voxelBlock->_neighboursLOD;
+                    tileInformation._targetMaterial = _targetMaterial;
 
-                    iModelDataInputParameter* inputParam = new iModelDataInputParameter(); // will be deleted by iModel
+                    // will be deleted by iModel
+                    iModelDataInputParameter* inputParam = new iModelDataInputParameter(); 
                     inputParam->_identifier = "vtg";
                     inputParam->_joinVertexes = true;
                     inputParam->_needsRenderContext = false;
                     inputParam->_modelSourceType = iModelSourceType::Generated;
                     inputParam->_loadPriority = 0;
+
+                    // makes a copy of tileInformation so it will also be deleted by iModel
                     inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(iVoxelTerrainTileInformation));
 
                     iaString tileName = iaString::itoa(voxelBlock->_positionInLOD._x);
@@ -1223,7 +1248,6 @@ namespace Igor
                     tileName += iaString::itoa(voxelBlock->_mutationCounter++);
 
                     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-
                     iaVector3d transform;
                     iaConvert::convert(voxelBlock->_positionInLOD, transform);
                     transform *= voxelBlock->_size;

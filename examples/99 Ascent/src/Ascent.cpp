@@ -165,13 +165,12 @@ void Ascent::initScene()
 void Ascent::initPlayer()
 {
     iaMatrixd matrix;
-    matrix.translate(10000, 9400, 10000 - 100);
+    matrix.translate(10000, 10000, 10000);
     Player* player = new Player(_scene, &_view, matrix);
     _playerID = player->getID();
 
-    iaMatrixd enemyMatrix;
-    enemyMatrix._pos.set(10000, 9400, 10000 - 200);
-    BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
+    matrix.translate(static_cast<int32>(rand.getNext() % 200) - 100, static_cast<int32>(rand.getNext() % 200) - 100, -200);
+    BossEnemy* boss = new BossEnemy(_scene, matrix, _playerID);
     _bossID = boss->getID();
 }
 
@@ -227,10 +226,6 @@ void Ascent::prepareLevel()
     {
         iaVector3d bossPosition = boss->getCurrentPos();
 
-        // todo use igor random number generator
-        int32 seed = iTimer::getInstance().getApplicationTime();
-        srand(seed);
-
         // covering the boss
         _metaballs.push_back(iSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
         _metaballs.push_back(iSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
@@ -243,31 +238,25 @@ void Ascent::prepareLevel()
         _holes.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
 
         // body
-        for (int i = 0; i < 10; ++i)
+        for (int i = 0; i < 30; ++i)
         {
-            iaVector3d pos(rand() % 50 - 25, rand() % 50 - 25, rand() % 50 - 25);
+            iaVector3d pos(rand.getNext() % 50 - 25, rand.getNext() % 50 - 25, rand.getNext() % 50 - 25);
             pos.normalize();
-            pos *= 20 + (rand() % 20);
+            pos *= 20 + (rand.getNext() % 50);
+            pos += bossPosition;
 
-            pos._x += bossPosition._x;
-            pos._y += bossPosition._y;
-            pos._z += bossPosition._z;
-
-            _metaballs.push_back(iSphered(pos, ((rand() % 90 + 10) / 100.0) * 1.7));
+            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 90 + 10) / 100.0) * 1.9));
         }
 
         // body surface crates
         /*for (int i = 0; i < 150; ++i)
         {
-        iaVector3f pos(rand() % 50 - 25, rand() % 50 - 25, rand() % 50 - 25);
-        pos.normalize();
-        pos *= 70 + (rand() % 10);
+            iaVector3d pos(rand.getNext() % 50 - 25, rand.getNext() % 50 - 25, rand.getNext() % 50 - 25);
+            pos.normalize();
+            pos *= 50 + (rand.getNext() % 30);
+            pos += bossPosition;
 
-        pos._x += playerStartPos._x;
-        pos._y += playerStartPos._y;
-        pos._z += playerStartPos._z - 200;
-
-        _holes.push_back(iSpheref(pos, ((rand() % 90 + 10) / 100.0) * 0.7));
+            _holes.push_back(iSphered(pos, ((rand.getNext() % 90 + 10) / 100.0) * 0.25));
         }*/
     }
 }
@@ -310,7 +299,7 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
                     z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
 
                 float32 density = 0;
-                
+
                 float64 distance = 0;
                 for (auto metaball : _metaballs)
                 {
@@ -350,19 +339,19 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
                     }
                 }
 
-                float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 4, 0.5);
+                /*   float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 4, 0.5);
 
-                if (onoff <= from)
-                {
-                    if (onoff >= to)
-                    {
-                        density = 1.0 - ((onoff - from) * factor);
-                    }
-                    else
-                    {
-                        density = 0.0;
-                    }
-                }
+                   if (onoff <= from)
+                   {
+                       if (onoff >= to)
+                       {
+                           density = 1.0 - ((onoff - from) * factor);
+                       }
+                       else
+                       {
+                           density = 0.0;
+                       }
+                   }*/
 
                 if (density > 1.0)
                 {
@@ -410,6 +399,20 @@ void Ascent::initVoxelData()
     */
 
     _voxelTerrain = new iVoxelTerrain(iGenerateVoxelsDelegate(this, &Ascent::generateVoxelData));
+
+    iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates1.png"), 0);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
+
+    uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+    material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
+    material->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
+    material->compileShader();
+    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+
+    _voxelTerrain->setMaterialID(materialID);
 
     _voxelTerrain->setScene(_scene);
     Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
@@ -474,7 +477,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
         for (int i = 0; i < 300; ++i)
         {
-            pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
+            pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
             pos += min;
 
             if (center.distance(pos) < 60)
@@ -514,7 +517,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
         for (int i = 0; i < 800; ++i)
         {
-            pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
+            pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
             pos += min;
 
             if (center.distance(pos) < 60)
@@ -542,7 +545,7 @@ void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
 
                     iaMatrixd matrix;
 
-                    switch (rand() % 6)
+                    switch (rand.getNext() % 6)
                     {
                     case 0:
                         // nothing

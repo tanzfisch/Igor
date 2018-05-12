@@ -53,6 +53,8 @@ public:
 
 private:
 
+    iaRandomNumberGenerator rand;
+
     iStatisticsVisualizer _statisticsVisualizer;
 
     bool _loading = true;
