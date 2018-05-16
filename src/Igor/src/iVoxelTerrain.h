@@ -54,10 +54,8 @@ namespace Igor
     class iScene;
     class iTargetMaterial;
 
-    iaEVENT(iVoxelDataGeneratedEvent, iVoxelDataGeneratedDelegate, void, (const iaVector3I& min, const iaVector3I& max), (min, max));
-
-    /*!
-        \todo should not be a singleton
+    iaEVENT(iVoxelDataGeneratedEvent, iVoxelDataGeneratedDelegate, void, (const iaVector3I& min, const iaVector3I& max, const uint32 lod), (min, max, lod));
+    /*! voxel terrain class
     */
     class Igor_API iVoxelTerrain
     {
@@ -88,20 +86,6 @@ namespace Igor
 
     public:
 
-        /*! lowest allowed lod
-
-        more than 10 might not work
-        */
-        static const uint32 _lowestLOD = 10;
-
-        /*! voxel block discovery distance in blocks
-        */
-        static const int64 _voxelBlockDiscoveryDistance = 4;
-
-        /*! voxel block setup distance in blocks
-        */
-        static const int64 _voxelBlockSetupDistance = 2;
-
         /*! block quibic size
 
         \bug can't be changed right now
@@ -114,15 +98,13 @@ namespace Igor
         */
         static const int32 _voxelBlockOverlap = 2;
 
-        /*! \returns target material
+        /*! initializes voxel terrain
+
+        \param generateVoxelsDelegate callback to generate voxel data
+        \param lodCount count of level of detail allowed range is 2-11
+        \param voxelBlockSetupDistance distance in blocks of the lowest level of detail to be generated and visible when in range
         */
-        iTargetMaterial* getTargetMaterial();
-
-
-
-        /*! init
-        */
-        iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate);
+        iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 2);
 
         /*! deinit
         */
@@ -150,6 +132,20 @@ namespace Igor
         */
         uint64 getMaterialID() const;
 
+        /*! sets physics material ID
+
+        \param materialID the material ID to use
+        */
+        void setPhysicsMaterialID(uint64 materialID);
+
+        /*! \returns terrain material ID
+        */
+        uint64 getPhysicsMaterialID() const;
+
+        /*! \returns target material
+        */
+        iTargetMaterial* getTargetMaterial();
+
         /*! modifies voxel data by manipulating a box area
 
         \param box the defined box area to manipulate
@@ -158,6 +154,22 @@ namespace Igor
         void modify(const iAABoxI& box, uint8 density);
 
     private:
+
+        /*! lowest allowed lod
+        */
+        uint32 _lowestLOD  = 0;
+
+        /*! voxel block discovery distance in blocks
+        */
+        int64 _voxelBlockDiscoveryDistance = 0;
+
+        /*! voxel block setup distance in blocks
+        */
+        int64 _voxelBlockSetupDistance = 0;
+
+        /*! phyics material ID
+        */
+        uint64 _physicsMaterialID = 0;
 
         /*! target material for given tile
         */

@@ -14,6 +14,12 @@
 #include <iNodeTransform.h>
 #include <iNodePhysics.h>
 
+// uncomment next line for voxel terrain debug coloring
+#define DEBUG_VOXEL_TERRAIN_COLORING
+
+// uncomment next line for voxel terrain debug using no physics
+#define DEBUG_VOXEL_TERRAIN_NO_PHYSICS
+
 namespace Igor
 {
 
@@ -29,8 +35,8 @@ namespace Igor
         return static_cast<iModelDataIO*>(result);
     }
 
-	__IGOR_DISABLE_WARNING__(4100)
-    iNode* iVoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
+    __IGOR_DISABLE_WARNING__(4100)
+        iNode* iVoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
     {
         iVoxelTerrainTileInformation* tileInformation = reinterpret_cast<iVoxelTerrainTileInformation*>(parameter->_parameters.getDataPointer());
 
@@ -59,120 +65,58 @@ namespace Igor
             meshNode->setName("mesh");
             meshNode->setVisible(false);
 
-            if (tileInformation->_targetMaterial == nullptr)
+#ifdef DEBUG_VOXEL_TERRAIN_COLORING
+            iaRandomNumberGenerator rand;
+            rand.setSeed(reinterpret_cast<uint32>(voxelData));
+            float32 r = ((rand.getNext() % 40) + 30.0f) / 100.0f;
+            float32 g = ((rand.getNext() % 40) + 30.0f) / 100.0f;
+            float32 b = ((rand.getNext() % 40) + 30.0f) / 100.0f;
+            tileInformation->_targetMaterial->setAmbient(iaColor3f(r * 0.7f, g* 0.7f, b* 0.7f));
+
+            switch (tileInformation->_lod)
             {
-                iTargetMaterial* targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
-#if 1
-                targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("dirt.png"), 0);
-                targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("grass.png"), 1);
-                targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
-
-                targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
-                targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
-                targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
-                targetMaterial->setEmissive(iaColor3f(0.05f, 0.05f, 0.05f));
-                targetMaterial->setShininess(100.0f);
-#else
-
-#if 1
-                targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("white.png"), 0);
-                targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("white.png"), 1);
-                targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("white.png"), 2);
-
-                iaRandomNumberGenerator rand;
-#if 1
-                rand.setSeed(reinterpret_cast<uint32>(voxelData));
-#else
-                rand.setSeed(tileInformation->_lod);
-#endif
-
-                float32 r = ((rand.getNext() % 70) + 15.0f) / 100.0f;
-                float32 g = ((rand.getNext() % 70) + 15.0f) / 100.0f;
-                float32 b = ((rand.getNext() % 70) + 15.0f) / 100.0f;
-
-                iaColor3f ambient(r * 0.7f, g* 0.7f, b* 0.7f);
-                iaColor3f diffuse(r * 0.9f, g* 0.9f, b* 0.9f);
-                iaColor3f specular(r * 0.1f, g* 0.1f, b* 0.1f);
-                iaColor3f emissive(r * 0.05f, g* 0.05f, b* 0.05f);
-
-                targetMaterial->setAmbient(ambient);
-                targetMaterial->setDiffuse(diffuse);
-                targetMaterial->setSpecular(specular);
-                targetMaterial->setEmissive(emissive);
-                targetMaterial->setShininess(100.0f);
-
-#else
-                switch (tileInformation->_lod)
-                {
-                case 0:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("gray.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("gray.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("gray.png"), 2);
-                    break;
-                case 1:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("green.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("green.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("green.png"), 2);
-                    break;
-                case 2:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("blue.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("blue.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("blue.png"), 2);
-                    break;
-                case 3:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("red.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("red.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("red.png"), 2);
-                    break;
-                case 4:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("yellow.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("yellow.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("yellow.png"), 2);
-                    break;
-                case 5:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("cyan.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("cyan.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("cyan.png"), 2);
-                    break;
-                case 6:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("magenta.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("magenta.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("magenta.png"), 2);
-                    break;
-                case 7:
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("black.png"), 0);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("black.png"), 1);
-                    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("black.png"), 2);
-                    break;
-                }
-
-                targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
-                targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
-                targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
-                targetMaterial->setEmissive(iaColor3f(0.05f, 0.05f, 0.05f));
-                targetMaterial->setShininess(100.0f);
-#endif
-#endif
-
-                meshNode->setTargetMaterial(targetMaterial);
+            case 0:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.7f, 0.7f, 0.7f));
+                break;
+            case 1:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.7f, 0.0f, 0.0f));
+                break;
+            case 2:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.7f, 0.0f));
+                break;
+            case 3:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.0f, 0.7f));
+                break;
+            case 4:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.7f, 0.0f, 0.7f));
+                break;
+            case 5:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.7f, 0.7f, 0.0f));
+                break;
+            case 6:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.7f, 0.7f));
+                break;
+            case 7:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.3f, 0.3f, 0.3f));
+                break;
             }
-            else
-            {
-                meshNode->setTargetMaterial(tileInformation->_targetMaterial);
-            }
+#endif
 
+            meshNode->setTargetMaterial(tileInformation->_targetMaterial);
             result->insertNode(meshNode);
 
-            /*if (tileInformation->_lod == 0)
+#ifndef DEBUG_VOXEL_TERRAIN_NO_PHYSICS
+            if (tileInformation->_lod == 0)
             {
                 iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
                 iaMatrixd offset;
                 physicsNode->addMesh(mesh, 1, offset);
                 physicsNode->finalizeCollision(true);
-                physicsNode->setMaterial(EntityManager::getInstance().getTerrainMaterialID());
+                physicsNode->setMaterial(tileInformation->_physicsMaterialID);
 
                 result->insertNode(physicsNode);
-            }*/
+            }
+#endif
         }
 
         delete voxelData;
@@ -180,6 +124,6 @@ namespace Igor
 
         return result;
     }
-	__IGOR_ENABLE_WARNING__(4100)
+    __IGOR_ENABLE_WARNING__(4100)
 
 }

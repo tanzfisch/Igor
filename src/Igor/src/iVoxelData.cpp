@@ -148,10 +148,8 @@ namespace Igor
         setVoxelDensity(iaVector3I(pos2._x, pos2._y, pos2._z), density);
     }
 
-    vector<uint8> iVoxelData::getVoxelLine(iaVector3I pos1, iaVector3I pos2)
+    void iVoxelData::getVoxelLine(iaVector3I pos1, iaVector3I pos2, vector<uint8>& dst)
     {
-        vector<uint8> result;
-
         iaVector3I u(pos1._x, pos1._y, pos1._z);
         iaVector3I delta(pos2._x - pos1._x, pos2._y - pos1._y, pos2._z - pos1._z);
         iaVector3I step;
@@ -169,9 +167,11 @@ namespace Igor
 
         iaVector3I err(delta._x, delta._y, delta._z);
 
+        dst.resize(dist+1);
+
         for (int i = 0; i < dist; i++)
         {
-            result.push_back(getVoxelDensity(iaVector3I(u._x, u._y, u._z)));
+            dst[i] = getVoxelDensity(iaVector3I(u._x, u._y, u._z));
 
             err += delta;
 
@@ -194,9 +194,7 @@ namespace Igor
             }
         }
 
-        result.push_back(getVoxelDensity(iaVector3I(u._x, u._y, u._z)));
-
-        return result;
+        dst[dist] = getVoxelDensity(iaVector3I(u._x, u._y, u._z));
     }
 
     bool iVoxelData::getIntersection(iaVector3I pos, iaVector3I dir, iaVector3I &return_pos, uint8 &return_value)

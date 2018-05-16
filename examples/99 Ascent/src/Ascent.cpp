@@ -219,7 +219,48 @@ void Ascent::deinitVoxelData()
     }
 }
 
-void Ascent::prepareLevel()
+void Ascent::initVoxelData()
+{
+    oulineLevelStructure();
+
+    /* TODO
+    VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
+    */
+
+    // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
+    _voxelTerrain = new iVoxelTerrain(iGenerateVoxelsDelegate(this, &Ascent::generateVoxelData), 7);
+
+    iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 0);
+    /*targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 1);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 3);*/
+    targetMaterial->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
+    targetMaterial->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+    targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
+    targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
+    targetMaterial->setShininess(1000.0f);
+
+    uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+    material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
+    material->addShaderSource("ascent/terrain_directional_light_1texture.frag", iShaderObjectType::Fragment);
+    material->compileShader();
+    //material->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
+
+    _voxelTerrain->setMaterialID(materialID);
+    _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
+
+    _voxelTerrain->setScene(_scene);
+    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+    if (player != nullptr)
+    {
+        _voxelTerrain->setLODTrigger(player->getLODTriggerID());
+    }
+}
+
+
+void Ascent::oulineLevelStructure()
 {
     BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
     if (boss != nullptr)
@@ -240,24 +281,13 @@ void Ascent::prepareLevel()
         // body
         for (int i = 0; i < 30; ++i)
         {
-            iaVector3d pos(rand.getNext() % 50 - 25, rand.getNext() % 50 - 25, rand.getNext() % 50 - 25);
+            iaVector3d pos(static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25);
             pos.normalize();
-            pos *= 20 + (rand.getNext() % 50);
+            pos *= 40 + (rand.getNext() % 60);
             pos += bossPosition;
 
-            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 90 + 10) / 100.0) * 1.9));
+            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 6.0));
         }
-
-        // body surface crates
-        /*for (int i = 0; i < 150; ++i)
-        {
-            iaVector3d pos(rand.getNext() % 50 - 25, rand.getNext() % 50 - 25, rand.getNext() % 50 - 25);
-            pos.normalize();
-            pos *= 50 + (rand.getNext() % 30);
-            pos += bossPosition;
-
-            _holes.push_back(iSphered(pos, ((rand.getNext() % 90 + 10) / 100.0) * 0.25));
-        }*/
     }
 }
 
@@ -287,16 +317,18 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
     const float64 toMeta = 0.0175;
     float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
-    for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
+    for (int64 x = 0; x < voxelData->getWidth(); ++x)
     {
-        for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
+        for (int64 z = 0; z < voxelData->getDepth(); ++z)
         {
-            for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
+            for (int64 y = 0; y < voxelData->getHeight(); ++y)
             {
                 // first figure out if a voxel is outside the sphere
                 iaVector3d pos(x * lodFactor + offset._x + lodOffset._x,
                     y * lodFactor + offset._y + lodOffset._y,
                     z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
+
+                float64 noise = (_perlinNoise.getValue(iaVector3d(pos._x * 0.01, pos._y * 0.01, pos._z * 0.01), 4) - 0.5) * 0.03;
 
                 float32 density = 0;
 
@@ -305,6 +337,8 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
                 {
                     distance += metaballFunction(metaball._center, pos) * metaball._radius;
                 }
+
+                distance += noise;
 
                 if (distance >= toMeta)
                 {
@@ -324,6 +358,8 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
                     distance += metaballFunction(hole._center, pos) * hole._radius;
                 }
 
+                distance -= noise;
+
                 if (distance >= toMeta)
                 {
                     density = 0.0;
@@ -339,19 +375,19 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
                     }
                 }
 
-                /*   float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 4, 0.5);
+                float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 4, 0.5);
 
-                   if (onoff <= from)
-                   {
-                       if (onoff >= to)
-                       {
-                           density = 1.0 - ((onoff - from) * factor);
-                       }
-                       else
-                       {
-                           density = 0.0;
-                       }
-                   }*/
+                if (onoff <= from)
+                {
+                    if (onoff >= to)
+                    {
+                        density = 1.0 - ((onoff - from) * factor);
+                    }
+                    else
+                    {
+                        density = 0.0;
+                    }
+                }
 
                 if (density > 1.0)
                 {
@@ -366,59 +402,10 @@ void Ascent::generateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
                 if (density > 0.0)
                 {
                     voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254) + 1);
+                    voxelBlockInfo->_transition = true;
                 }
             }
         }
-    }/**/
-
- /* for (int64 x = 0; x < voxelData->getWidth() - 0; ++x)
-  {
-      for (int64 y = 0; y < voxelData->getHeight() - 0; ++y)
-      {
-          for (int64 z = 0; z < voxelData->getDepth() - 0; ++z)
-          {
-              if (x < 10 && x > 5 &&
-                  y < 10 && y > 5 &&
-                  z < 10 && z > 5)
-              {
-                  voxelData->setVoxelDensity(iaVector3I(x, y, z), 128);
-              }
-          }
-      }
-  }/**/
-
-    voxelBlockInfo->_transition = true;
-}
-
-void Ascent::initVoxelData()
-{
-    prepareLevel();
-
-    /* TODO
-    VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
-    */
-
-    _voxelTerrain = new iVoxelTerrain(iGenerateVoxelsDelegate(this, &Ascent::generateVoxelData));
-
-    iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates1.png"), 0);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
-
-    uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
-    auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
-    material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
-    material->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
-    material->compileShader();
-    material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
-
-    _voxelTerrain->setMaterialID(materialID);
-
-    _voxelTerrain->setScene(_scene);
-    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
-    if (player != nullptr)
-    {
-        _voxelTerrain->setLODTrigger(player->getLODTriggerID());
     }
 }
 

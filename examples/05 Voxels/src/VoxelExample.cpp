@@ -62,7 +62,7 @@ void VoxelExample::init()
     registerHandles();
 
     // register model data io
-    iModelResourceFactory::getInstance().registerModelDataIO("vtg", &VoxelTerrainMeshGenerator::createInstance);
+    iModelResourceFactory::getInstance().registerModelDataIO("example_vtg", &VoxelTerrainMeshGenerator::createInstance);
 
     // generating voxels
     generateVoxelData();
@@ -76,7 +76,7 @@ void VoxelExample::init()
 void VoxelExample::deinit()
 {
     // unregister vertex mesh generator
-    iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
+    iModelResourceFactory::getInstance().unregisterModelDataIO("example_vtg");
 
     // free some resoures
     _igorLogo = nullptr;
@@ -166,7 +166,7 @@ void VoxelExample::initScene()
     _cameraPitch = cameraPitch->getID();
     // and distance to origin transformation node
     iNodeTransform* cameraTranslation = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-    cameraTranslation->translate(0, 0, 100);
+    cameraTranslation->translate(0, 0, 120);
     // anf of corse the camera
     iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeCamera));
     // add it to the scene
@@ -242,8 +242,9 @@ void VoxelExample::generateVoxelData()
     {
         _voxelData = new iVoxelData();
         // all voxels have a full density as default. so afterwars we need to cut holes in it
-        _voxelData->setClearValue(255);
-        _voxelData->initData(120, 120, 120);
+        _voxelData->setClearValue(0);
+        // 255 cubic is the maximum size of a single voxel block. if you need a bigger terrain use iVoxelTerrain see example Ascent
+        _voxelData->initData(255, 255, 255);
     }
 
     // generate new random base with time based seed
@@ -262,13 +263,18 @@ void VoxelExample::generateVoxelData()
     const float64 toMeta = 0.0175;
     float64 factorMeta = 1.0 / (toMeta - fromMeta);
 
+    const float32 coreSize = 0.3f;
+    const float32 coreOffset = (1.0f - coreSize) * 0.5f;
+
     // define some metaballs
     vector<pair<iaVector3f, float32>> metaballs;
     for (int i = 0; i < 20; ++i)
     {
-        metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(_rand.getNext() % static_cast<int>(_voxelData->getWidth() * 0.6) + (_voxelData->getWidth() * 0.2),
-            _rand.getNext() % static_cast<int>(_voxelData->getHeight()*0.6) + (_voxelData->getHeight()* 0.2),
-            _rand.getNext() % static_cast<int>(_voxelData->getDepth()*0.6) + (_voxelData->getDepth()*0.2)), (((_rand.getNext() % 90) + 10) / 100.0) + 0.6));
+        metaballs.push_back(pair<iaVector3f, float32>(iaVector3f(
+            _rand.getNext() % static_cast<int>(_voxelData->getWidth() * coreSize) + (_voxelData->getWidth() * coreOffset),
+            _rand.getNext() % static_cast<int>(_voxelData->getHeight() * coreSize) + (_voxelData->getHeight() * coreOffset),
+            _rand.getNext() % static_cast<int>(_voxelData->getDepth()*coreSize) + (_voxelData->getDepth() * coreOffset)),
+            (((_rand.getNext() % 30) + 70) / 100.0) + 0.4));
     }
 
     // now iterate through all the voxels and define their density
@@ -278,8 +284,12 @@ void VoxelExample::generateVoxelData()
         {
             for (int64 z = 0; z < _voxelData->getDepth(); ++z)
             {
+                float32 density = 0;
+
                 // first figure out if a voxel is outside the sphere
                 iaVector3f pos(static_cast<float32>(x), static_cast<float32>(y), static_cast<float32>(z));
+
+                float32 noise = (_perlinNoise.getValue(iaVector3d(pos._x * 0.05, pos._y * 0.05, pos._z * 0.05), 3) - 0.5) * 0.017;
 
                 float32 distance = 0;
                 for (auto metaball : metaballs)
@@ -287,42 +297,51 @@ void VoxelExample::generateVoxelData()
                     distance += metaballFunction(metaball.first, pos) * metaball.second;
                 }
 
-                if (distance <= toMeta)
+                distance += noise;
+
+                // determine the density of given voxel related to the metaballs
+                if (distance >= toMeta)
+                {
+                    density = 1.0;
+                }
+                else
                 {
                     if (distance >= fromMeta)
                     {
-                        // at the edge of the sphere.
-                        // now we can use the fractional part of the distance to determine how much more than a full voxel we are away from the center
-                        // and use this to set the density. this way we get a smooth sphere.
-                        float32 denstity = ((distance - fromMeta) * factorMeta);
-
-                        // the density by the way goes from 0-255 but the zero is interpreted as outside ans the 1 is inside but with zero density
-                        // so to calculate a propper density we need to multiply the density with 254 and to make it alwasy beein "inside" we add one
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), static_cast<uint8>((denstity * 254) + 1));
-                    }
-                    else
-                    {
-                        // outside metaball
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                        density = ((distance - fromMeta) * factorMeta);
                     }
                 }
 
                 // using some perline noise to cut holes in the sphere. this time we skip the smoothing part due to much effort and cluttering the tutorial 
                 // with bad understandable code. Ask the author if you'd like to know about smoothing the values
-                float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.03, pos._y * 0.03, pos._z * 0.03), 4, 0.5);
+                float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 3, 0.5);
 
                 // we do the same here as with the metaball surface so it a pears a little smoother
                 if (onoff <= from)
                 {
                     if (onoff >= to)
                     {
-                        float64 gradient = 1.0 - ((onoff - from) * factor);
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), static_cast<uint8>((gradient * 254) + 1));
+                        density = 1.0 - ((onoff - from) * factor);
                     }
                     else
                     {
-                        _voxelData->setVoxelDensity(iaVector3I(x, y, z), 0);
+                        density = 0.0;
                     }
+                }
+
+                if (density > 1.0)
+                {
+                    density = 1.0;
+                }
+
+                if (density < 0.0)
+                {
+                    density = 0.0;
+                }
+
+                if (density > 0.0)
+                {
+                    _voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254) + 1);
                 }
             }
         }
@@ -355,7 +374,7 @@ void VoxelExample::prepareMeshGeneration()
     tileInformation._voxelData = _voxelData;
     // define the input parameter so Igor knows which iModelDataIO implementation to use and how
     iModelDataInputParameter* inputParam = new iModelDataInputParameter();
-    inputParam->_identifier = "vtg";
+    inputParam->_identifier = "example_vtg";
     inputParam->_joinVertexes = true;
     inputParam->_needsRenderContext = false;
     inputParam->_modelSourceType = iModelSourceType::Generated;

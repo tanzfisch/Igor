@@ -99,7 +99,7 @@ private:
     vector<iSphered> _holes;
     iVoxelTerrain* _voxelTerrain = nullptr;
 
-    void prepareLevel();
+    void oulineLevelStructure();
     void deinitVoxelData();
     void initVoxelData();
     void generateVoxelData(iVoxelBlockInfo* voxelBlockInfo);

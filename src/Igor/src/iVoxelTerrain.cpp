@@ -35,11 +35,15 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+// uncomment next line for voxel terrain debug fixed lod trigger position
+// #define DEBUG_VOXEL_TERRAIN_FIX_POSITION
+
+// uncomment next line for voxel terrain debug fixed lod trigger height
+#define DEBUG_VOXEL_TERRAIN_FIX_HEIGHT 100
+
+
 namespace Igor
 {
-
-    // #define FIX_POSITION
-    // #define FIX_HEIGHT
 
     iaVector3I childOffsetPosition[8] =
     {
@@ -53,9 +57,16 @@ namespace Igor
         iaVector3I(0, 1, 1)
     };
 
-    iVoxelTerrain::iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate)
+    iVoxelTerrain::iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, uint32 lodCount, uint32 voxelBlockSetupDistance)
     {
+        con_assert_sticky(lodCount >= 2, "lod count out of range");
+        con_assert_sticky(lodCount <= 11, "lod count out of range");
+        con_assert_sticky(voxelBlockSetupDistance >= 2, "voxel block setup distance out of range");
+
         _generateVoxelsDelegate = generateVoxelsDelegate;
+        _lowestLOD = lodCount - 1;
+        _voxelBlockSetupDistance = voxelBlockSetupDistance;
+        _voxelBlockDiscoveryDistance = _voxelBlockSetupDistance + 2;
 
         init();
     }
@@ -115,6 +126,16 @@ namespace Igor
         return _targetMaterial;
     }
 
+    void iVoxelTerrain::setPhysicsMaterialID(uint64 materialID)
+    {
+        _physicsMaterialID = materialID;
+    }
+
+    uint64 iVoxelTerrain::getPhysicsMaterialID() const
+    {
+        return _physicsMaterialID;
+    }
+
     void iVoxelTerrain::removeNodeAsync(iNode* src, iNode* dst)
     {
         iNodeFactory::iAction action;
@@ -137,7 +158,7 @@ namespace Igor
     }
 
     void iVoxelTerrain::init()
-    {      
+    {
         unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn> voxelBlocks;
 
         for (int i = 0; i < _lowestLOD + 1; ++i)
@@ -220,16 +241,16 @@ namespace Igor
                 return;
             }
 
-#ifdef FIX_POSITION
+#ifdef DEBUG_VOXEL_TERRAIN_FIX_POSITION
             pos.set(9986, 310, 8977);
 #endif
 
-#ifdef FIX_HEIGHT
-            pos._y = 3100;
+#ifdef DEBUG_VOXEL_TERRAIN_FIX_HEIGHT
+            pos._y = DEBUG_VOXEL_TERRAIN_FIX_HEIGHT;
 #endif
 
-			iaVector3I observerPosition;
-			iaConvert::convert(pos, observerPosition);
+            iaVector3I observerPosition;
+            iaConvert::convert(pos, observerPosition);
 
 #ifdef USE_VERBOSE_STATISTICS
             iStatistics::getInstance().beginSection(_discoverBlocksSection);
@@ -1225,9 +1246,10 @@ namespace Igor
                     tileInformation._lod = voxelBlock->_lod;
                     tileInformation._neighboursLOD = voxelBlock->_neighboursLOD;
                     tileInformation._targetMaterial = _targetMaterial;
+                    tileInformation._physicsMaterialID = _physicsMaterialID;
 
                     // will be deleted by iModel
-                    iModelDataInputParameter* inputParam = new iModelDataInputParameter(); 
+                    iModelDataInputParameter* inputParam = new iModelDataInputParameter();
                     inputParam->_identifier = "vtg";
                     inputParam->_joinVertexes = true;
                     inputParam->_needsRenderContext = false;

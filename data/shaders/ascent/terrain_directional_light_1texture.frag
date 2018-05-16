@@ -6,9 +6,6 @@ in vec3 VertexNormal;
 layout(location = 0) out vec4 out_color;
 
 uniform sampler2D igor_matTexture0;
-uniform sampler2D igor_matTexture1;
-uniform sampler2D igor_matTexture2;
-uniform sampler2D igor_matTexture3;
 
 uniform vec3 igor_eyePosition;
 
@@ -31,16 +28,18 @@ void main()
 	vec3 texSelector = vec3(N.x*N.x, N.y*N.y, N.z*N.z);
 		
 	float scale = 0.01;
-	float detailScale = 0.1;
+	float detailScale = 0.2;
 	
 	vec3 diffuseTextureColor = texture2D(igor_matTexture0, P.xz * scale).rgb * texSelector.y;	
-	diffuseTextureColor += texture2D(igor_matTexture1, P.yz * scale).rgb * texSelector.x; 
-	diffuseTextureColor += texture2D(igor_matTexture2, P.xy * scale).rgb * texSelector.z;
-	vec3 detailTextureColor = texture2D(igor_matTexture3, P.xz * detailScale).rgb * texSelector.y;
-	detailTextureColor += texture2D(igor_matTexture3, P.yz * detailScale).rgb * texSelector.x; 
-	detailTextureColor += texture2D(igor_matTexture3, P.xy * detailScale).rgb * texSelector.z;
+	diffuseTextureColor += texture2D(igor_matTexture0, P.yz * scale).rgb * texSelector.x; 
+	diffuseTextureColor += texture2D(igor_matTexture0, P.xy * scale).rgb * texSelector.z;
+	vec3 detailTextureColor = texture2D(igor_matTexture0, P.xz * detailScale).rgb * texSelector.y;
+	detailTextureColor += texture2D(igor_matTexture0, P.yz * detailScale).rgb * texSelector.x; 
+	detailTextureColor += texture2D(igor_matTexture0, P.xy * detailScale).rgb * texSelector.z;
 	
-	diffuseTextureColor *= detailTextureColor;
+	diffuseTextureColor *= 0.5;
+	detailTextureColor *= 0.5;
+	diffuseTextureColor += detailTextureColor;
 	
 	vec3 emissive = igor_matEmissive;
 	
@@ -56,11 +55,6 @@ void main()
 	vec3 V = normalize(igor_eyePosition - P);
 	vec3 H = normalize(L + V);
 	float specularLightFactor = pow(max(dot(N, H), 0.0), igor_matShininess);
-	
-	if (igor_matShininess <= 0.0) 
-	{
-		specularLightFactor = 0.0;
-	}
 	
 	vec3 specular = igor_matSpecular * igor_lightSpecular * specularLightFactor;
 	
