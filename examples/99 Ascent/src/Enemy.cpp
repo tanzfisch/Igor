@@ -52,10 +52,11 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     physicsNode->setAngularDamping(iaVector3d(10000, 10000, 10000));
     physicsNode->setLinearDamping(100);
 
-    _scene->getRoot()->insertNode(transformNode);
     bodyScale->insertNode(bodyModel);
     transformNode->insertNode(bodyScale);
     transformNode->insertNode(physicsNode);
+
+    _scene->getRoot()->insertNodeAsync(transformNode);
 
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretATransform->translate(0, 0.125, 0);

@@ -102,7 +102,8 @@ private:
     void oulineLevelStructure();
     void deinitVoxelData();
     void initVoxelData();
-    void generateVoxelData(iVoxelBlockInfo* voxelBlockInfo);
+    void onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo);
+    void onVoxelDataGenerated(iVoxelBlockInfo* voxelBlockInfo);
 
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);
@@ -111,8 +112,6 @@ private:
     void onWindowResized(int32 clientWidth, int32 clientHeight);
 
     void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window);
-
-    void onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max);
 
     void onMouseUp(iKeyCode key);
     void onMouseDown(iKeyCode key);
