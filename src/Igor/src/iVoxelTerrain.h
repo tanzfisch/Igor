@@ -152,6 +152,10 @@ namespace Igor
         */
         void modify(const iAABoxI& box, uint8 density);
 
+        void castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside);
+        uint8 getVoxelDensity(iaVector3I pos);
+
+
     private:
 
         /*! lowest allowed lod

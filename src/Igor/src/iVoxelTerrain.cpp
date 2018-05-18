@@ -1314,4 +1314,87 @@ namespace Igor
             voxelBlock->_state = iVoxelBlockState::Ready;
         }
     }
+
+
+    uint8 iVoxelTerrain::getVoxelDensity(iaVector3I pos)
+    {
+        uint8 result = 0;
+
+        iaVector3I voxelBlock(pos);
+        voxelBlock /= _voxelBlockSize;
+
+        iaVector3I voxelRelativePos(pos);
+
+        voxelRelativePos._x = voxelRelativePos._x % static_cast<int64>(_voxelBlockSize);
+        voxelRelativePos._y = voxelRelativePos._y % static_cast<int64>(_voxelBlockSize);
+        voxelRelativePos._z = voxelRelativePos._z % static_cast<int64>(_voxelBlockSize);
+
+        iVoxelBlock* block = nullptr;
+        auto voxelBlocks = _voxelBlocks[0];
+        auto blockIter = voxelBlocks.find(voxelBlock);
+        if (blockIter != voxelBlocks.end())
+        {
+            auto block = (*blockIter).second;
+            if (block->_voxelData->hasData())
+            {
+                result = block->_voxelData->getVoxelDensity(voxelRelativePos);
+            }
+        }
+
+        return result;
+    }
+
+    void iVoxelTerrain::castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside)
+    {
+        iaVector3I u(from);
+        iaVector3I delta(to);
+        delta -= from;
+        iaVector3I step;
+
+        (delta._x > 0) ? step._x = 1 : step._x = -1;
+        (delta._y > 0) ? step._y = 1 : step._y = -1;
+        (delta._z > 0) ? step._z = 1 : step._z = -1;
+
+        if (delta._x < 0) delta._x = -delta._x;
+        if (delta._y < 0) delta._y = -delta._y;
+        if (delta._z < 0) delta._z = -delta._z;
+
+        int64 dist = (delta._x > delta._y) ? delta._x : delta._y;
+        dist = (dist > delta._z) ? dist : delta._z;
+
+        iaVector3I err(delta._x, delta._y, delta._z);
+
+        outside = u;
+
+        for (int i = 0; i < dist; i++)
+        {
+            if (getVoxelDensity(iaVector3I(u._x, u._y, u._z)) != 0)
+            {
+                inside = u;
+                return;
+            }
+
+            outside = u;
+
+            err += delta;
+
+            if (err._x > dist)
+            {
+                err._x -= dist;
+                u._x += step._x;
+            }
+
+            if (err._y > dist)
+            {
+                err._y -= dist;
+                u._y += step._y;
+            }
+
+            if (err._z > dist)
+            {
+                err._z -= dist;
+                u._z += step._z;
+            }
+        }
+    }
 }
