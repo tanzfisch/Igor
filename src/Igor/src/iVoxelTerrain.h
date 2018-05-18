@@ -54,7 +54,6 @@ namespace Igor
     class iScene;
     class iTargetMaterial;
 
-    iaEVENT(iVoxelDataGeneratedEvent, iVoxelDataGeneratedDelegate, void, (const iaVector3I& min, const iaVector3I& max, const uint32 lod), (min, max, lod));
     /*! voxel terrain class
     */
     class Igor_API iVoxelTerrain
@@ -104,7 +103,7 @@ namespace Igor
         \param lodCount count of level of detail allowed range is 2-11
         \param voxelBlockSetupDistance distance in blocks of the lowest level of detail to be generated and visible when in range
         */
-        iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 2);
+        iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, iVoxelDataGeneratedDelegate voxelDataGeneratedDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 2);
 
         /*! deinit
         */
@@ -186,6 +185,10 @@ namespace Igor
         /*! delegate registered by application to generate voxel data
         */
         iGenerateVoxelsDelegate _generateVoxelsDelegate;
+
+        /*! voxel data generated event
+        */
+        iVoxelDataGeneratedDelegate _voxelDataGeneratedDelegate;
 
         /*! queue of actions
         */

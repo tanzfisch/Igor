@@ -39,7 +39,7 @@ using namespace IgorAux;
 // #define DEBUG_VOXEL_TERRAIN_FIX_POSITION
 
 // uncomment next line for voxel terrain debug fixed lod trigger height
-#define DEBUG_VOXEL_TERRAIN_FIX_HEIGHT 100
+// #define DEBUG_VOXEL_TERRAIN_FIX_HEIGHT 100
 
 
 namespace Igor
@@ -57,12 +57,13 @@ namespace Igor
         iaVector3I(0, 1, 1)
     };
 
-    iVoxelTerrain::iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, uint32 lodCount, uint32 voxelBlockSetupDistance)
+    iVoxelTerrain::iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, iVoxelDataGeneratedDelegate voxelDataGeneratedDelegate, uint32 lodCount, uint32 voxelBlockSetupDistance)
     {
         con_assert_sticky(lodCount >= 2, "lod count out of range");
         con_assert_sticky(lodCount <= 11, "lod count out of range");
         con_assert_sticky(voxelBlockSetupDistance >= 2, "voxel block setup distance out of range");
 
+        _voxelDataGeneratedDelegate = voxelDataGeneratedDelegate;
         _generateVoxelsDelegate = generateVoxelsDelegate;
         _lowestLOD = lodCount - 1;
         _voxelBlockSetupDistance = voxelBlockSetupDistance;
@@ -824,7 +825,7 @@ namespace Igor
                 // lower lods need higher priority to build
                 uint32  priority = _lowestLOD - voxelBlock->_lod + 1;
 
-                iTaskGenerateVoxels* task = new iTaskGenerateVoxels(voxelBlock->_voxelBlockInfo, priority, _generateVoxelsDelegate);
+                iTaskGenerateVoxels* task = new iTaskGenerateVoxels(voxelBlock->_voxelBlockInfo, priority, _generateVoxelsDelegate, _voxelDataGeneratedDelegate);
                 voxelBlock->_voxelGenerationTaskID = iTaskManager::getInstance().addTask(task);
             }
 
