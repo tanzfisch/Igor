@@ -68,10 +68,10 @@ namespace Igor
 #ifdef DEBUG_VOXEL_TERRAIN_COLORING
             iaRandomNumberGenerator rand;
             rand.setSeed(reinterpret_cast<uint32>(voxelData));
-            float32 r = ((rand.getNext() % 40) + 30.0f) / 100.0f;
-            float32 g = ((rand.getNext() % 40) + 30.0f) / 100.0f;
-            float32 b = ((rand.getNext() % 40) + 30.0f) / 100.0f;
-            tileInformation->_targetMaterial->setAmbient(iaColor3f(r * 0.7f, g* 0.7f, b* 0.7f));
+            float32 r = ((rand.getNext() % 30) + 35.0f) / 100.0f;
+            float32 g = ((rand.getNext() % 30) + 35.0f) / 100.0f;
+            float32 b = ((rand.getNext() % 30) + 35.0f) / 100.0f;
+            tileInformation->_targetMaterial->setAmbient(iaColor3f(r * 0.8f, g* 0.8f, b* 0.8f));
 
             switch (tileInformation->_lod)
             {
