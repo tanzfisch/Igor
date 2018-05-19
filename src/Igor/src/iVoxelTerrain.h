@@ -101,10 +101,10 @@ namespace Igor
         /*! initializes voxel terrain
 
         \param generateVoxelsDelegate callback to generate voxel data
-        \param lodCount count of level of detail allowed range is 2-11
+        \param lodCount count of level of detail allowed range is 2-11 (right now the lowest LOD is not visible)
         \param voxelBlockSetupDistance distance in blocks of the lowest level of detail to be generated and visible when in range
         */
-        iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, iVoxelTerrainPlacePropsDelegate placePropsDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 2);
+        iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, iVoxelTerrainPlacePropsDelegate placePropsDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 4);
 
         /*! deinit
         */
@@ -153,7 +153,18 @@ namespace Igor
         */
         void modify(const iAABoxI& box, uint8 density);
 
-        void castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside);
+        /*! casts ray to voxels to detect intersection
+
+        \param from from where the ray is cast
+        \param to to where the ray is cast to
+        \param[out] outside if there is an intersection this is the last voxel right before
+        \param[out] inside if there is an intersection this is the first voxel with density greater zero
+        \returns true if there was an intersection
+        */
+        bool castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside);
+        /*! \returns voxel density at given position
+        \param pos the given position
+        */
         uint8 getVoxelDensity(iaVector3I pos);
 
     private:

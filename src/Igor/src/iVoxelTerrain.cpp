@@ -39,7 +39,7 @@ using namespace IgorAux;
 // #define DEBUG_VOXEL_TERRAIN_FIX_POSITION
 
 // uncomment next line for voxel terrain debug fixed lod trigger height
-// #define DEBUG_VOXEL_TERRAIN_FIX_HEIGHT 100
+// #define DEBUG_VOXEL_TERRAIN_FIX_HEIGHT 10000
 
 
 namespace Igor
@@ -1362,7 +1362,7 @@ namespace Igor
         return result;
     }
 
-    void iVoxelTerrain::castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside)
+    bool iVoxelTerrain::castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside)
     {
         iaVector3I u(from);
         iaVector3I delta(to);
@@ -1389,7 +1389,7 @@ namespace Igor
             if (getVoxelDensity(iaVector3I(u._x, u._y, u._z)) != 0)
             {
                 inside = u;
-                return;
+                return true;
             }
 
             outside = u;
@@ -1414,5 +1414,7 @@ namespace Igor
                 u._z += step._z;
             }
         }
+
+        return false;
     }
 }
