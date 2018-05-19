@@ -56,8 +56,6 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     transformNode->insertNode(bodyScale);
     transformNode->insertNode(physicsNode);
 
-    _scene->getRoot()->insertNodeAsync(transformNode);
-
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretATransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretATransform);
@@ -70,6 +68,8 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     transformNode->insertNode(turretBTransform);
     Turret* turretB = new Turret(_scene, turretBTransform, getFraction(), _playerID);
     _turretBID = turretB->getID();
+
+    _scene->getRoot()->insertNodeAsync(transformNode);
 }
 
 Enemy::~Enemy()

@@ -434,6 +434,9 @@
     <ClCompile Include="..\src\iNodeVisitorSearchName.cpp">
       <Filter>scene\traversal</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iTaskPropsOnVoxels.cpp">
+      <Filter>terrain\tasks</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -906,6 +909,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iNodeVisitorSearchName.h">
       <Filter>scene\traversal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iTaskPropsOnVoxels.h">
+      <Filter>terrain\tasks</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

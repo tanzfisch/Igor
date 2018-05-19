@@ -33,6 +33,7 @@
 #include <iNodeFactory.h>
 
 #include <iTaskGenerateVoxels.h>
+#include <iTaskPropsOnVoxels.h>
 #include <iVoxelTerrainMeshGenerator.h>
 #include <iVoxelBlock.h>
 #include <iVoxelOperation.h>
@@ -103,7 +104,7 @@ namespace Igor
         \param lodCount count of level of detail allowed range is 2-11
         \param voxelBlockSetupDistance distance in blocks of the lowest level of detail to be generated and visible when in range
         */
-        iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, iVoxelDataGeneratedDelegate voxelDataGeneratedDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 2);
+        iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, iVoxelTerrainPlacePropsDelegate placePropsDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 2);
 
         /*! deinit
         */
@@ -155,7 +156,6 @@ namespace Igor
         void castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside);
         uint8 getVoxelDensity(iaVector3I pos);
 
-
     private:
 
         /*! lowest allowed lod
@@ -188,11 +188,11 @@ namespace Igor
 
         /*! delegate registered by application to generate voxel data
         */
-        iGenerateVoxelsDelegate _generateVoxelsDelegate;
+        iVoxelTerrainGenerateDelegate _generateVoxelsDelegate;
 
-        /*! voxel data generated event
+        /*! props placement delegate
         */
-        iVoxelDataGeneratedDelegate _voxelDataGeneratedDelegate;
+        iVoxelTerrainPlacePropsDelegate _placePropsDelegate;
 
         /*! queue of actions
         */

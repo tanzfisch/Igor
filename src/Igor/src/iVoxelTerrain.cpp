@@ -57,13 +57,13 @@ namespace Igor
         iaVector3I(0, 1, 1)
     };
 
-    iVoxelTerrain::iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate, iVoxelDataGeneratedDelegate voxelDataGeneratedDelegate, uint32 lodCount, uint32 voxelBlockSetupDistance)
+    iVoxelTerrain::iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, iVoxelTerrainPlacePropsDelegate placePropsDelegate, uint32 lodCount, uint32 voxelBlockSetupDistance)
     {
         con_assert_sticky(lodCount >= 2, "lod count out of range");
         con_assert_sticky(lodCount <= 11, "lod count out of range");
         con_assert_sticky(voxelBlockSetupDistance >= 2, "voxel block setup distance out of range");
 
-        _voxelDataGeneratedDelegate = voxelDataGeneratedDelegate;
+        _placePropsDelegate = placePropsDelegate;
         _generateVoxelsDelegate = generateVoxelsDelegate;
         _lowestLOD = lodCount - 1;
         _voxelBlockSetupDistance = voxelBlockSetupDistance;
@@ -825,7 +825,7 @@ namespace Igor
                 // lower lods need higher priority to build
                 uint32  priority = _lowestLOD - voxelBlock->_lod + 1;
 
-                iTaskGenerateVoxels* task = new iTaskGenerateVoxels(voxelBlock->_voxelBlockInfo, priority, _generateVoxelsDelegate, _voxelDataGeneratedDelegate);
+                iTaskGenerateVoxels* task = new iTaskGenerateVoxels(voxelBlock->_voxelBlockInfo, priority, _generateVoxelsDelegate);
                 voxelBlock->_voxelGenerationTaskID = iTaskManager::getInstance().addTask(task);
             }
 
@@ -935,6 +935,24 @@ namespace Igor
                             {
                                 attachNeighbours(_voxelBlocksMap[voxelBlock->_children[i]]);
                             }
+                        }
+                    }
+                    else
+                    {
+                        if (voxelBlock->_mutationCounter == 0)
+                        {
+                            iVoxelBlockPropsInfo info;
+
+                            info._min = voxelBlock->_positionInLOD;
+                            info._min *= _voxelBlockSize;
+
+                            info._max = info._min;
+                            info._max._x += _voxelBlockSize;
+                            info._max._y += _voxelBlockSize;
+                            info._max._z += _voxelBlockSize;
+
+                            iTaskPropsOnVoxels* task = new iTaskPropsOnVoxels(info, 0, _placePropsDelegate);
+                            iTaskManager::getInstance().addTask(task);
                         }
                     }
 

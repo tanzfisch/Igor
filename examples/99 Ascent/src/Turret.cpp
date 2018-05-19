@@ -103,8 +103,7 @@ iaVector3d Turret::getCurrentPos()
 
 void Turret::handle()
 {
-    return;
-    if (_initilized)
+/*    if (_initilized)
     {
         const float32 detectionDistance = 60;
         const float32 fireDistance = 55;
@@ -198,5 +197,5 @@ void Turret::handle()
                 }
             }
         }
-    }
+    }*/
 }

@@ -10,12 +10,11 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iTaskGenerateVoxels::iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iGenerateVoxelsDelegate generateVoxelsDelegate, iVoxelDataGeneratedDelegate voxelDataGeneratedDelegate)
+    iTaskGenerateVoxels::iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iVoxelTerrainGenerateDelegate generateVoxelsDelegate)
         : iTask(nullptr, priority, false)
     {
         _voxelBlockInfo = voxelBlockInfo;
         _generateVoxelsDelegate = generateVoxelsDelegate;
-        _voxelDataGeneratedDelegate = voxelDataGeneratedDelegate;
     }
 
     void iTaskGenerateVoxels::run()
@@ -27,7 +26,6 @@ namespace Igor
             _voxelBlockInfo->_voxelData != nullptr)
         {
             _generateVoxelsDelegate(_voxelBlockInfo);
-            _voxelDataGeneratedDelegate(_voxelBlockInfo);
         }
     }
 

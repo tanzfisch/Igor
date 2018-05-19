@@ -42,6 +42,7 @@
 #include <iEntityManager.h>
 #include <iVoxelTerrain.h>
 #include <iTaskGenerateVoxels.h>
+#include <iTaskPropsOnVoxels.h>
 using namespace Igor;
 
 #include <iaConsole.h>
@@ -229,7 +230,7 @@ void Ascent::initVoxelData()
     */
 
     // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
-    _voxelTerrain = new iVoxelTerrain(iGenerateVoxelsDelegate(this, &Ascent::onGenerateVoxelData), iVoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated), 7);
+    _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData), iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 3, 4);
 
     iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 0);
@@ -447,24 +448,23 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
     }
 }
 
-void Ascent::onVoxelDataGenerated(iVoxelBlockInfo* voxelBlockInfo)
+void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
 {
-    if (voxelBlockInfo->_lod != 0 ||
-        !voxelBlockInfo->_transition)
-    {
-        return;
-    }
+    iaVector3I diff;
+    diff = voxelBlockPropsInfo._max;
+    diff -= voxelBlockPropsInfo._min;
 
     iaVector3d offset;
-    iaConvert::convert(voxelBlockInfo->_positionInLOD, offset);
-    uint64 size = voxelBlockInfo->_voxelData->getDepth();
-
     iaVector3d pos;
-    int count = 0;
+    int count = 0;    
 
-    for (int i = 0; i < 300; ++i)
+    iaConvert::convert(voxelBlockPropsInfo._min, offset);
+
+    rand.setSeed(offset._x + offset._y + offset._z);
+
+    for (int i = 0; i < rand.getNext()%3; ++i)
     {
-        pos.set(1 + rand.getNext() % (size - 5), 1 + rand.getNext() % (size - 5), 1 + rand.getNext() % (size - 5));
+        pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
 
         bool addEnemy = true;
 
@@ -474,7 +474,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockInfo* voxelBlockInfo)
             {
                 for (int z = -2; z < 3; z++)
                 {
-                    if (voxelBlockInfo->_voxelData->getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
+                    if (_voxelTerrain->getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
                     {
                         addEnemy = false;
                         break;
@@ -486,13 +486,13 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockInfo* voxelBlockInfo)
         if (addEnemy)
         {
             iaMatrixd matrix;
-            matrix._pos = offset + pos;
-            new Enemy(_scene, matrix, _playerID); // TODO this is ugly
-
-            count++;
+            matrix._pos = pos + offset;
+          //  new Enemy(_scene, matrix, _playerID); // TODO this is ugly
+            
+            _enemyCount++;
         }
 
-        if (count >= 20)
+        if (_enemyCount >= 50)
         {
             break;
         }

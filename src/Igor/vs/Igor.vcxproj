@@ -358,6 +358,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
     <ClCompile Include="..\src\iTaskLoadModel.cpp" />
     <ClCompile Include="..\src\iTaskManager.cpp" />
     <ClCompile Include="..\src\iTaskPrepareCollision.cpp" />
+    <ClCompile Include="..\src\iTaskPropsOnVoxels.cpp" />
     <ClCompile Include="..\src\iTaskUpdateLOD.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
@@ -539,6 +540,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
     <ClInclude Include="..\src\iTaskLoadModel.h" />
     <ClInclude Include="..\src\iTaskManager.h" />
     <ClInclude Include="..\src\iTaskPrepareCollision.h" />
+    <ClInclude Include="..\src\iTaskPropsOnVoxels.h" />
     <ClInclude Include="..\src\iTaskUpdateLOD.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>

@@ -32,6 +32,7 @@ namespace Igor
     class iPhysicsBody;
     class iVoxelTerrain;
     class iVoxelBlockInfo;
+    class iVoxelBlockPropsInfo;
 }
 
 class Enemy;
@@ -99,11 +100,13 @@ private:
     vector<iSphered> _holes;
     iVoxelTerrain* _voxelTerrain = nullptr;
 
+    int _enemyCount = 0;
+
     void oulineLevelStructure();
     void deinitVoxelData();
     void initVoxelData();
     void onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo);
-    void onVoxelDataGenerated(iVoxelBlockInfo* voxelBlockInfo);
+    void onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockInfo);
 
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);

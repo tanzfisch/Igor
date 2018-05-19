@@ -79,11 +79,7 @@ namespace Igor
 
     \param voxelBlockInfo contains all information to generate the voxels
     */
-    iaDELEGATE(iGenerateVoxelsDelegate, void, (iVoxelBlockInfo* voxelBlockInfo), (voxelBlockInfo));
-
-    /*! callback after generated voxel
-    */
-    iaDELEGATE(iVoxelDataGeneratedDelegate, void, (iVoxelBlockInfo* voxelBlockInfo), (voxelBlockInfo));
+    iaDELEGATE(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo* voxelBlockInfo), (voxelBlockInfo));
 
     // TODO add callback onAfterMeshGeneration ?
 
@@ -103,7 +99,7 @@ namespace Igor
         \param generateVoxelsDelegate the delegate to do the actual work
         \param voxelDataGeneratedDelegate the delegate to be called after generating the voxels
         */
-        iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iGenerateVoxelsDelegate generateVoxelsDelegate, iVoxelDataGeneratedDelegate voxelDataGeneratedDelegate);
+        iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iVoxelTerrainGenerateDelegate generateVoxelsDelegate);
 
         /*! does nothing
         */
@@ -119,11 +115,7 @@ namespace Igor
 
         /*! delegate that generated the voxels
         */
-        iGenerateVoxelsDelegate _generateVoxelsDelegate;
-
-        /*! delegate to be called after the voxel generation
-        */
-        iVoxelDataGeneratedDelegate _voxelDataGeneratedDelegate;
+        iVoxelTerrainGenerateDelegate _generateVoxelsDelegate;
 
         /*! the data to work with
         */
