@@ -97,7 +97,13 @@ namespace Igor
                 tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.7f, 0.7f));
                 break;
             case 7:
-                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.3f, 0.3f, 0.3f));
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.7f, 0.0f, 0.0f));
+                break;
+            case 8:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.7f, 0.f));
+                break;
+            case 9:
+                tileInformation->_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.0f, 0.7f));
                 break;
             }
 #endif

@@ -37,6 +37,7 @@
 #include <iVoxelTerrainMeshGenerator.h>
 #include <iVoxelBlock.h>
 #include <iVoxelOperation.h>
+#include <iAABox.h>
 
 #include <iaEvent.h>
 #include <iaVector3.h>
@@ -103,8 +104,13 @@ namespace Igor
         \param generateVoxelsDelegate callback to generate voxel data
         \param lodCount count of level of detail allowed range is 2-11 (right now the lowest LOD is not visible)
         \param voxelBlockSetupDistance distance in blocks of the lowest level of detail to be generated and visible when in range
+        \param maxDiscoveryBoundaries optionally adding boundaries to the discovery area. Values are in voxel block coordinates of the lowest LOD
         */
-        iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, iVoxelTerrainPlacePropsDelegate placePropsDelegate, uint32 lodCount = 11, uint32 voxelBlockSetupDistance = 4);
+        iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, 
+            iVoxelTerrainPlacePropsDelegate placePropsDelegate, 
+            uint32 lodCount = 11, 
+            uint32 voxelBlockSetupDistance = 4,
+            const iaVector3I *maxDiscoveryBoundaries = nullptr);
 
         /*! deinit
         */
@@ -168,6 +174,10 @@ namespace Igor
         uint8 getVoxelDensity(iaVector3I pos);
 
     private:
+
+        /*! the discovery boundaries
+        */
+        iaVector3I _maxDiscoveryBoundaries{100000,100000,100000};
 
         /*! lowest allowed lod
         */

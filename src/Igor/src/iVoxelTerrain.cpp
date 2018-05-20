@@ -41,7 +41,6 @@ using namespace IgorAux;
 // uncomment next line for voxel terrain debug fixed lod trigger height
 // #define DEBUG_VOXEL_TERRAIN_FIX_HEIGHT 10000
 
-
 namespace Igor
 {
 
@@ -57,11 +56,23 @@ namespace Igor
         iaVector3I(0, 1, 1)
     };
 
-    iVoxelTerrain::iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, iVoxelTerrainPlacePropsDelegate placePropsDelegate, uint32 lodCount, uint32 voxelBlockSetupDistance)
+    iVoxelTerrain::iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, 
+        iVoxelTerrainPlacePropsDelegate placePropsDelegate, 
+        uint32 lodCount, 
+        uint32 voxelBlockSetupDistance,
+        const iaVector3I *maxDiscoveryBoundaries)
     {
         con_assert_sticky(lodCount >= 2, "lod count out of range");
         con_assert_sticky(lodCount <= 11, "lod count out of range");
         con_assert_sticky(voxelBlockSetupDistance >= 2, "voxel block setup distance out of range");
+
+        if (maxDiscoveryBoundaries != nullptr)
+        {
+            con_assert_sticky(maxDiscoveryBoundaries->_x > 0, "discovery boundaries out of range");
+            con_assert_sticky(maxDiscoveryBoundaries->_y > 0, "discovery boundaries out of range");
+            con_assert_sticky(maxDiscoveryBoundaries->_z > 0, "discovery boundaries out of range");
+            _maxDiscoveryBoundaries = *maxDiscoveryBoundaries;
+        }
 
         _placePropsDelegate = placePropsDelegate;
         _generateVoxelsDelegate = generateVoxelsDelegate;
@@ -324,6 +335,21 @@ namespace Igor
         if (min._z < 0)
         {
             min._z = 0;
+        }
+
+        if (max._x > _maxDiscoveryBoundaries._x)
+        {
+            min._x = _maxDiscoveryBoundaries._x;
+        }
+
+        if (min._y > _maxDiscoveryBoundaries._y)
+        {
+            min._y = _maxDiscoveryBoundaries._y;
+        }
+
+        if (min._z > _maxDiscoveryBoundaries._z)
+        {
+            min._z = _maxDiscoveryBoundaries._z;
         }
 
         auto& voxelBlocks = _voxelBlocks[_lowestLOD];
