@@ -225,19 +225,12 @@ void Ascent::initVoxelData()
 {
     oulineLevelStructure();
 
-    /* TODO
-    VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
-    */
-
     // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
     _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData), 
         iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
 
     iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
     targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 0);
-    /*targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 1);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 2);
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 3);*/
     targetMaterial->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
     targetMaterial->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
     targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
@@ -249,7 +242,6 @@ void Ascent::initVoxelData()
     material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
     material->addShaderSource("ascent/terrain_directional_light_1texture.frag", iShaderObjectType::Fragment);
     material->compileShader();
-    //material->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
 
     _voxelTerrain->setMaterialID(materialID);
     _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
@@ -261,7 +253,6 @@ void Ascent::initVoxelData()
         _voxelTerrain->setLODTrigger(player->getLODTriggerID());
     }
 }
-
 
 void Ascent::oulineLevelStructure()
 {
@@ -326,7 +317,6 @@ void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
         {
             for (int64 y = 0; y < voxelData->getHeight(); ++y)
             {
-                // first figure out if a voxel is outside the sphere
                 iaVector3d pos(x * lodFactor + offset._x + lodOffset._x,
                     y * lodFactor + offset._y + lodOffset._y,
                     z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
@@ -512,30 +502,14 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
     {
         pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
 
-        bool addEnemy = true;
-
-        for (int x = -2; x < 3; x++)
-        {
-            for (int y = -2; y < 3; y++)
-            {
-                for (int z = -2; z < 3; z++)
-                {
-                    if (_voxelTerrain->getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
-                    {
-                        addEnemy = false;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if (addEnemy)
+        if (_voxelTerrain->getVoxelDensity(iaVector3I(pos._x, pos._y, pos._z)) == 0)
         {
             iaVector3d from(pos._x, pos._y, pos._z);
 
             // orientation of enemy
+            int orientation = rand.getNext() % 6;
             iaMatrixd matrix;
-            switch (rand.getNext() % 6)
+            switch (orientation)
             {
             case 0:
                 // nothing
