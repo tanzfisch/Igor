@@ -27,7 +27,7 @@ void main()
 	
 	vec3 texSelector = vec3(N.x*N.x, N.y*N.y, N.z*N.z);
 		
-	float scale = 0.01;
+	float scale = 0.02;
 	float detailScale = 0.2;
 	
 	vec3 diffuseTextureColor = texture2D(igor_matTexture0, P.xz * scale).rgb * texSelector.y;	

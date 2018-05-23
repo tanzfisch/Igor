@@ -5,6 +5,7 @@
 #include "Bullet.h"
 #include "BossEnemy.h"
 #include "StaticEnemy.h"
+#include "DigEffect.h"
 
 #include <iMaterial.h>
 #include <iNodeVisitorPrintTree.h>
@@ -230,9 +231,12 @@ void Ascent::initVoxelData()
         iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
 
     iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
-    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("rock.png"), 0);
-    targetMaterial->setAmbient(iaColor3f(0.3f, 0.3f, 0.3f));
-    targetMaterial->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 2);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("detail.png"), 3);
+    targetMaterial->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
+    targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
     targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
     targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
     targetMaterial->setShininess(1000.0f);
@@ -240,7 +244,7 @@ void Ascent::initVoxelData()
     uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
     auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
     material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
-    material->addShaderSource("ascent/terrain_directional_light_1texture.frag", iShaderObjectType::Fragment);
+    material->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
     material->compileShader();
 
     _voxelTerrain->setMaterialID(materialID);
@@ -277,10 +281,10 @@ void Ascent::oulineLevelStructure()
         {
             iaVector3d pos(static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25);
             pos.normalize();
-            pos *= 20 + (rand.getNext() % 20);
+            pos *= 20 + (rand.getNext() % 40);
             pos += bossPosition;
 
-            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 6.0));
+            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 4.0));
         }
     }
 }
@@ -321,7 +325,8 @@ void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
                     y * lodFactor + offset._y + lodOffset._y,
                     z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
 
-                float64 noise = (_perlinNoise.getValue(iaVector3d(pos._x * 0.01, pos._y * 0.01, pos._z * 0.01), 3) - 0.5) * 0.03;
+                float64 noise = (_perlinNoise.getValue(iaVector3d(pos._x * 0.01, pos._y * 0.01, pos._z * 0.01), 2) - 0.5) * 0.04;
+                noise += (_perlinNoise.getValue(iaVector3d(pos._x * 0.1, pos._y * 0.1, pos._z * 0.1), 3) - 0.5) * 0.003;
 
                 float32 density = 0;
 
@@ -761,9 +766,9 @@ void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
     sphere._radius = toolSize;
     _voxelTerrain->modify(sphere, density);
 
-    // iaMatrixd effectMatrix;
-    // effectMatrix.translate(position._x, position._y, position._z);
-    // new DigEffect(_scene, effectMatrix);
+    iaMatrixd effectMatrix;
+    effectMatrix.translate(position._x, position._y, position._z);
+    new DigEffect(_scene, effectMatrix);
 }
 
 void Ascent::onKeyReleased(iKeyCode key)

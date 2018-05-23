@@ -40,7 +40,9 @@ void main()
 	detailTextureColor += texture2D(igor_matTexture3, P.yz * detailScale).rgb * texSelector.x; 
 	detailTextureColor += texture2D(igor_matTexture3, P.xy * detailScale).rgb * texSelector.z;
 	
-	diffuseTextureColor *= detailTextureColor;
+	diffuseTextureColor *= 0.5;
+	detailTextureColor *= 0.5;
+	diffuseTextureColor += detailTextureColor;	
 	
 	vec3 emissive = igor_matEmissive;
 	

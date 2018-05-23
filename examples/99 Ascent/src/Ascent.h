@@ -74,7 +74,7 @@ private:
 
     iScene* _scene = nullptr;
 
-    uint64 _toolSize = 5;
+    uint64 _toolSize = 3;
     uint8 _toolDensity = 0;
 
     iaVector2f _mouseDelta;
