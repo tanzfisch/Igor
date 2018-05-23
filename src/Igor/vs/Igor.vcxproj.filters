@@ -437,6 +437,9 @@
     <ClCompile Include="..\src\iTaskPropsOnVoxels.cpp">
       <Filter>terrain\tasks</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iVoxelOperationSphere.cpp">
+      <Filter>terrain\operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -912,6 +915,9 @@
     </ClInclude>
     <ClInclude Include="..\src\iTaskPropsOnVoxels.h">
       <Filter>terrain\tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iVoxelOperationSphere.h">
+      <Filter>terrain\operations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

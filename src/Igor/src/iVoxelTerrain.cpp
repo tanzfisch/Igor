@@ -27,6 +27,7 @@
 #include <iTaskGenerateVoxels.h>
 #include <iTaskVoxelTerrain.h>
 #include <iVoxelOperationBox.h>
+#include <iVoxelOperationSphere.h>
 #include <iRenderer.h>
 #include <iTextureResourceFactory.h>
 #include <iTargetMaterial.h>
@@ -86,6 +87,14 @@ namespace Igor
     iVoxelTerrain::~iVoxelTerrain()
     {
         deinit();
+    }
+
+    void iVoxelTerrain::modify(const iSphereI& sphere, uint8 density)
+    {
+        iVoxelOperationSphere* voxelOperationBox = new iVoxelOperationSphere(sphere, density);
+        _operationsQueueMutex.lock();
+        _operationsQueue.push_back(shared_ptr<iVoxelOperation>(voxelOperationBox));
+        _operationsQueueMutex.unlock();
     }
 
     void iVoxelTerrain::modify(const iAABoxI& box, uint8 density)

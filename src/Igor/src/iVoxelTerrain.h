@@ -159,6 +159,13 @@ namespace Igor
         */
         void modify(const iAABoxI& box, uint8 density);
 
+        /*! modifies voxel data by manipulating a sphere area
+
+        \param sphere the defined area to manipulate
+        \param density the density to set within the box area
+        */
+        void modify(const iSphereI& sphere, uint8 density);
+
         /*! casts ray to voxels to detect intersection
 
         \param from from where the ray is cast

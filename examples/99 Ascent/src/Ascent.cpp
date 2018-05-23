@@ -751,10 +751,15 @@ bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
 
 void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
 {
-    iAABoxI box;
+    /*iAABoxI box;
     box._center = position;
     box._halfWidths.set(toolSize, toolSize, toolSize);
-    _voxelTerrain->modify(box, density);
+    _voxelTerrain->modify(box, density);*/
+
+    iSphereI sphere;
+    sphere._center = position;
+    sphere._radius = toolSize;
+    _voxelTerrain->modify(sphere, density);
 
     // iaMatrixd effectMatrix;
     // effectMatrix.translate(position._x, position._y, position._z);
