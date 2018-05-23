@@ -226,7 +226,7 @@ void Ascent::initVoxelData()
     oulineLevelStructure();
 
     // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
-    _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData), 
+    _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData),
         iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
 
     iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
@@ -677,7 +677,11 @@ void Ascent::onKeyPressed(iKeyCode key)
                 break;
 
             case iKeyCode::Space:
-                player->dig(_toolSize, _toolDensity);
+                iaVector3I intersection;
+                if (getTerrainIntersectionPoint(intersection))
+                {
+                    dig(intersection, _toolSize, _toolDensity);
+                }
                 break;
             }
         }
@@ -708,6 +712,53 @@ void Ascent::onKeyPressed(iKeyCode key)
     }
     break;
     }
+}
+
+bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
+{
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_view.getCurrentCamera()));
+    if (camera != nullptr)
+    {
+        iaMatrixd modelMatrix;
+        camera->getWorldMatrix(modelMatrix);
+
+        iaVector3d dir(modelMatrix._depth._x, modelMatrix._depth._y, modelMatrix._depth._z);
+        dir.negate();
+        dir *= 100.0f;
+        iaVector3d from(modelMatrix._pos._x, modelMatrix._pos._y, modelMatrix._pos._z);
+        iaVector3d to(from);
+        to += dir;
+
+        if (from._x > 0 &&
+            from._y > 0 &&
+            from._z > 0 &&
+            to._x > 0 &&
+            to._y > 0 &&
+            to._z > 0)
+        {
+            iaVector3I f(static_cast<int64>(from._x + 0.5), static_cast<int64>(from._y + 0.5), static_cast<int64>(from._z + 0.5));
+            iaVector3I t(static_cast<int64>(to._x + 0.5), static_cast<int64>(to._y + 0.5), static_cast<int64>(to._z + 0.5));
+            
+            iaVector3I inside;
+
+            _voxelTerrain->castRay(f, t, intersection, inside);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
+{
+    iAABoxI box;
+    box._center = position;
+    box._halfWidths.set(toolSize, toolSize, toolSize);
+    _voxelTerrain->modify(box, density);
+
+    // iaMatrixd effectMatrix;
+    // effectMatrix.translate(position._x, position._y, position._z);
+    // new DigEffect(_scene, effectMatrix);
 }
 
 void Ascent::onKeyReleased(iKeyCode key)

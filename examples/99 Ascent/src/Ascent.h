@@ -74,7 +74,7 @@ private:
 
     iScene* _scene = nullptr;
 
-    uint64 _toolSize = 10;
+    uint64 _toolSize = 5;
     uint8 _toolDensity = 0;
 
     iaVector2f _mouseDelta;
@@ -107,6 +107,9 @@ private:
     void initVoxelData();
     void onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo);
     void onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockInfo);
+
+    bool getTerrainIntersectionPoint(iaVector3I& intersection);
+    void dig(iaVector3I position, uint64 toolSize, uint8 toolDensity);
 
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);

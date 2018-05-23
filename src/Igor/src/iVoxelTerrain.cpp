@@ -90,8 +90,6 @@ namespace Igor
 
     void iVoxelTerrain::modify(const iAABoxI& box, uint8 density)
     {
-        con_endl("box center " << box._center);
-
         iVoxelOperationBox* voxelOperationBox = new iVoxelOperationBox(box, density);
         _operationsQueueMutex.lock();
         _operationsQueue.push_back(shared_ptr<iVoxelOperation>(voxelOperationBox));
@@ -1379,7 +1377,8 @@ namespace Igor
         if (blockIter != voxelBlocks.end())
         {
             auto block = (*blockIter).second;
-            if (block->_voxelData->hasData())
+            if (block->_voxelData != nullptr &&
+                block->_voxelData->hasData())
             {
                 result = block->_voxelData->getVoxelDensity(voxelRelativePos);
             }
