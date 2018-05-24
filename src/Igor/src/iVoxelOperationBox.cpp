@@ -23,65 +23,48 @@ namespace Igor
 
     void iVoxelOperationBox::apply(iVoxelBlock* voxelBlock)
     {
-        iaVector3I from = _box._center;
-        from -= _box._halfWidths;
-        iaVector3I to = _box._center;
-        to += _box._halfWidths;
+        const int64 lodFactor = static_cast<int64>(pow(2, voxelBlock->_lod));
 
-        int64 lodFactor = static_cast<int64>(pow(2, voxelBlock->_lod));
-        from /= lodFactor;
-        to /= lodFactor;
-
-        int64 fullVoxelBlockSize = iVoxelTerrain::_voxelBlockSize + iVoxelTerrain::_voxelBlockOverlap;
-        iaVector3I voxelBlockFrom = voxelBlock->_positionInLOD * iVoxelTerrain::_voxelBlockSize;
+        // get voxel block boundings
+        const int64 fullVoxelBlockSize = iVoxelTerrain::_voxelBlockSize + iVoxelTerrain::_voxelBlockOverlap;
+        const iaVector3I voxelBlockFrom = voxelBlock->_positionInLOD * iVoxelTerrain::_voxelBlockSize;
         iaVector3I voxelBlockTo = voxelBlockFrom;
         voxelBlockTo._x += fullVoxelBlockSize;
         voxelBlockTo._y += fullVoxelBlockSize;
         voxelBlockTo._z += fullVoxelBlockSize;
 
-        if (to._x < voxelBlockFrom._x ||
-            to._y < voxelBlockFrom._y ||
-            to._z < voxelBlockFrom._z)
+        const iaVector3I center = (_box._center / lodFactor) - voxelBlockFrom;
+        const iaVector3I halfWidths = _box._halfWidths / lodFactor;
+
+        // figure out size of manipulated area
+        iaVector3I from = center - halfWidths;
+        iaVector3I to = center + halfWidths;
+
+        // skip trivial cases
+        if (to._x < 0 ||
+            to._y < 0 ||
+            to._z < 0)
         {
             return;
         }
 
-        if (from._x > voxelBlockTo._x ||
-            from._y > voxelBlockTo._y ||
-            from._z > voxelBlockTo._z)
+        if (from._x > fullVoxelBlockSize ||
+            from._y > fullVoxelBlockSize ||
+            from._z > fullVoxelBlockSize)
         {
             return;
         }
 
-        from -= voxelBlockFrom;
-        to -= voxelBlockFrom;
+        // clip against voxel block boundings
+        from._x = max(from._x, 0);
+        from._y = max(from._y, 0);
+        from._z = max(from._z, 0);
 
-        if (from._x < 0)
-        {
-            from._x = 0;
-        }
-        if (from._y < 0)
-        {
-            from._y = 0;
-        }
-        if (from._z < 0)
-        {
-            from._z = 0;
-        }
+        to._x = min(to._x, fullVoxelBlockSize);
+        to._y = min(to._y, fullVoxelBlockSize);
+        to._z = min(to._z, fullVoxelBlockSize);
 
-        if (to._x > fullVoxelBlockSize)
-        {
-            to._x = fullVoxelBlockSize;
-        }
-        if (to._y > fullVoxelBlockSize)
-        {
-            to._y = fullVoxelBlockSize;
-        }
-        if (to._z > fullVoxelBlockSize)
-        {
-            to._z = fullVoxelBlockSize;
-        }
-
+        // iterate though positions
         int64 poleHeight = to._y - from._y;
 
         for (int64 x = from._x; x < to._x; ++x)
