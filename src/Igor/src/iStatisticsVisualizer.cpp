@@ -259,7 +259,7 @@ namespace Igor
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)
             {
-                float64 groupCount = 3;
+                float64 groupCount = 4;
                 float64 totalHeight = window->getClientHeight() * 0.9f;
                 float64 groupTotalHeight = totalHeight / groupCount;
                 float64 scale = groupTotalHeight / 100;
