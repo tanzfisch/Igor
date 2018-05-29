@@ -1366,19 +1366,12 @@ namespace Igor
         }
     }
 
-
     uint8 iVoxelTerrain::getVoxelDensity(iaVector3I pos)
     {
         uint8 result = 0;
 
         iaVector3I voxelBlock(pos);
         voxelBlock /= _voxelBlockSize;
-
-        iaVector3I voxelRelativePos(pos);
-
-        voxelRelativePos._x = voxelRelativePos._x % static_cast<int64>(_voxelBlockSize);
-        voxelRelativePos._y = voxelRelativePos._y % static_cast<int64>(_voxelBlockSize);
-        voxelRelativePos._z = voxelRelativePos._z % static_cast<int64>(_voxelBlockSize);
 
         iVoxelBlock* block = nullptr;
         auto voxelBlocks = _voxelBlocks[0];
@@ -1389,6 +1382,12 @@ namespace Igor
             if (block->_voxelData != nullptr &&
                 block->_voxelData->hasData())
             {
+                iaVector3I voxelRelativePos(pos);
+
+                voxelRelativePos._x = voxelRelativePos._x % static_cast<int64>(_voxelBlockSize);
+                voxelRelativePos._y = voxelRelativePos._y % static_cast<int64>(_voxelBlockSize);
+                voxelRelativePos._z = voxelRelativePos._z % static_cast<int64>(_voxelBlockSize);
+
                 result = block->_voxelData->getVoxelDensity(voxelRelativePos);
             }
         }
