@@ -259,39 +259,33 @@ namespace Igor
 
             if (_renderStatisticsMode >= iRenderStatisticsVerbosity::Sections)
             {
-                float64 groupCount = 5;
+                float64 groupCount = 3;
                 float64 totalHeight = window->getClientHeight() * 0.9f;
                 float64 groupTotalHeight = totalHeight / groupCount;
                 float64 scale = groupTotalHeight / 100;
                 float64 x = 10;
                 uint32 textOffsetX[5]{ 0,0,0,0,0 };
                 float64 horizontalScale = static_cast<float64>(window->getClientWidth() - x - x) / static_cast<float64>(iStatisticsSection::BUFFER_SIZE);
-                float64 thirtyHz = 33.3333 * scale;
-                float64 sixtyHz = 66.6666 * scale;
-
-                iRenderer::getInstance().setMaterial(_materialBlend);
-                for (int i = 0; i < groupCount; ++i)
-                {
-                    float64 groupOffset = i * groupTotalHeight;
-                    iRenderer::getInstance().setColor(iaColor4f(0, 0, 0, 0.4f));
-                    iRenderer::getInstance().drawRectangle(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - sixtyHz), static_cast<float32>(window->getClientWidth() - x - x), static_cast<float32>(sixtyHz));
-                }
-
-                iRenderer::getInstance().setMaterial(_materialSolid);
-
-                iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
-                iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight), static_cast<float32>(x), 0.0f);
-                iRenderer::getInstance().drawLine(static_cast<float32>(window->getClientWidth() - x), static_cast<float32>(totalHeight), static_cast<float32>(window->getClientWidth() - x), 0.0f);
+                float64 thirtyHz = 66.6666 * scale;
+                float64 sixtyHz = 33.3333 * scale;
 
                 for (int i = 0; i < groupCount; ++i)
                 {
                     float64 groupOffset = i * groupTotalHeight;
 
-                    iRenderer::getInstance().setColor(iaColor4f(0.4f, 0.4f, 0.4f, 1.0f));
-                    iRenderer::getInstance().drawRectangle(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - 3), static_cast<float32>(window->getClientWidth() - x - x), 3.0f);
+                    iRenderer::getInstance().setMaterial(_materialSolid);
                     iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+                    iRenderer::getInstance().setLineWidth(3);
+                    iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight - groupOffset - 3), static_cast<float32>(window->getClientWidth() - x), static_cast<float32>(totalHeight - groupOffset - 3));
+                    
+                    iRenderer::getInstance().setColor(iaColor4f(1, 1, 1, 1));
+                    iRenderer::getInstance().setLineWidth(1);
                     iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight - sixtyHz - groupOffset), static_cast<float32>(window->getClientWidth() - x), static_cast<float32>(totalHeight - sixtyHz - groupOffset));
                     iRenderer::getInstance().drawLine(static_cast<float32>(x), static_cast<float32>(totalHeight - thirtyHz - groupOffset), static_cast<float32>(window->getClientWidth() - x), static_cast<float32>(totalHeight - thirtyHz - groupOffset));
+
+                    iRenderer::getInstance().setMaterial(_materialWithTextureAndBlending);
+                    iRenderer::getInstance().drawString(static_cast<float32>(x), static_cast<float32>(totalHeight - sixtyHz - groupOffset), "33ms", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
+                    iRenderer::getInstance().drawString(static_cast<float32>(x), static_cast<float32>(totalHeight - thirtyHz - groupOffset), "66ms", iHorizontalAlignment::Left, iVerticalAlignment::Bottom);
                 }
 
                 iRenderer::getInstance().setLineWidth(2);
