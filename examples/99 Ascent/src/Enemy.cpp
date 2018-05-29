@@ -144,11 +144,6 @@ iaVector3d Enemy::getCurrentPos()
 
 void Enemy::handle()
 {
-/*    if (!VoxelTerrainGenerator::getInstance().isInstantiated())
-    {
-        return;
-    }
-
     if (_idleCounter > 0)
     {
         _idleCounter--;
@@ -173,18 +168,7 @@ void Enemy::handle()
             dir -= getSphere()._center;
             float64 distance = dir.length();
 
-            iaVector3I center;
-            iaVector3I pos;
-            iaConvert::convert(getSphere()._center, center);
-            iaConvert::convert(targetPos, pos);
-
-            VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
-
-            iaVector3d out;
-            iaConvert::convert(outside, out);
-
-            float64 distanceToWall = out.distance(getSphere()._center) + 5.0;
-            if(distanceToWall > distance &&
+            if(distance < detectionDistance && 
                 distance > approachDistance)
             {
                 _force = dir;
@@ -196,7 +180,7 @@ void Enemy::handle()
         {
             _idleCounter = rand() % 5 + 50;
         }
-    }*/
+    }
 }
 
 void Enemy::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)
