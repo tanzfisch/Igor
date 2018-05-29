@@ -103,7 +103,7 @@ iaVector3d Turret::getCurrentPos()
 
 void Turret::handle()
 {
-/*    if (_initilized)
+    if (_initilized)
     {
         const float32 detectionDistance = 60;
         const float32 fireDistance = 55;
@@ -156,20 +156,7 @@ void Turret::handle()
                         canFire = true;
                     }
 
-                    iaVector3I outside, inside;
-                    iaVector3I center;
-                    iaVector3I pos;
-                    iaConvert::convert(getSphere()._center, center);
-                    iaConvert::convert(targetPos, pos);
-
-               // TODO     VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
-
-                    iaVector3d out;
-                    iaConvert::convert(outside, out);
-                    float32 distanceToWall = out.distance(getSphere()._center) + 5;
-
                     if (canFire &&
-                        distanceToWall > distance &&
                         distance < fireDistance)
                     {
                         if (_time + 1000 < iTimer::getInstance().getApplicationTime())
@@ -197,5 +184,5 @@ void Turret::handle()
                 }
             }
         }
-    }*/
+    }
 }
