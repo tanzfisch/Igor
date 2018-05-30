@@ -22,11 +22,12 @@ using namespace IgorAux;
 #include "BossDestroyed.h"
 #include "Ascent.h"
 
-BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
+BossEnemy::BossEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
     _scene = scene;
+    _voxelTerrain = voxelTerrain;
 
     setHealth(500.0);
     setShield(200.0);
@@ -61,42 +62,42 @@ BossEnemy::BossEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretATransform->translate(0, 1.5, 0);
     transformNode->insertNode(turretATransform);
-    Turret* turretA = new Turret(_scene, turretATransform, getFraction(), _playerID);
+    Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretAID = turretA->getID();
 
 	iNodeTransform* turretBTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	turretBTransform->rotate(M_PI * 0.5, iaAxis::Z);
 	turretBTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretBTransform);
-	Turret* turretB = new Turret(_scene, turretBTransform, getFraction(), _playerID);
+	Turret* turretB = new Turret(_scene, turretBTransform, _voxelTerrain, getFraction(), _playerID);
 	_turretBID = turretB->getID();
 
 	iNodeTransform* turretCTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	turretCTransform->rotate(M_PI * -0.5, iaAxis::Z);
 	turretCTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretCTransform);
-	Turret* turretC = new Turret(_scene, turretCTransform, getFraction(), _playerID);
+	Turret* turretC = new Turret(_scene, turretCTransform, _voxelTerrain, getFraction(), _playerID);
 	_turretCID = turretC->getID();
 
 	iNodeTransform* turretDTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	turretDTransform->rotate(M_PI * 1.0, iaAxis::Z);
 	turretDTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretDTransform);
-	Turret* turretD = new Turret(_scene, turretDTransform, getFraction(), _playerID);
+	Turret* turretD = new Turret(_scene, turretDTransform, _voxelTerrain, getFraction(), _playerID);
 	_turretDID = turretD->getID();
 
 	iNodeTransform* turretETransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	turretETransform->rotate(M_PI * 0.5, iaAxis::X);
 	turretETransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretETransform);
-	Turret* turretE = new Turret(_scene, turretETransform, getFraction(), _playerID);
+	Turret* turretE = new Turret(_scene, turretETransform, _voxelTerrain, getFraction(), _playerID);
 	_turretEID = turretE->getID();
 
 	iNodeTransform* turretFTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	turretFTransform->rotate(M_PI * -0.5, iaAxis::X);
 	turretFTransform->translate(0, 1.5, 0);
 	transformNode->insertNode(turretFTransform);
-	Turret* turretF = new Turret(_scene, turretFTransform, getFraction(), _playerID);
+	Turret* turretF = new Turret(_scene, turretFTransform, _voxelTerrain, getFraction(), _playerID);
 	_turretFID = turretF->getID();
 }
 

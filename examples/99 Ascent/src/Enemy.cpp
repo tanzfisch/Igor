@@ -23,11 +23,12 @@ using namespace IgorAux;
 #include "EnemyDestroyed.h"
 #include "Ascent.h"
 
-Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
+Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
     _scene = scene;
+    _voxelTerrain = voxelTerrain;
 
     setHealth(100.0);
     setShield(50.0);
@@ -59,14 +60,14 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretATransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretATransform);
-    Turret* turretA = new Turret(_scene, turretATransform, getFraction(), _playerID);
+    Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretAID = turretA->getID();
 
     iNodeTransform* turretBTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretBTransform->rotate(M_PI, iaAxis::Z);
     turretBTransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretBTransform);
-    Turret* turretB = new Turret(_scene, turretBTransform, getFraction(), _playerID);
+    Turret* turretB = new Turret(_scene, turretBTransform, _voxelTerrain, getFraction(), _playerID);
     _turretBID = turretB->getID();
 
     _scene->getRoot()->insertNodeAsync(transformNode);

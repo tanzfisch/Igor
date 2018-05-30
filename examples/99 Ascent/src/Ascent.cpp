@@ -114,10 +114,11 @@ void Ascent::initViews()
     _window.addView(&_viewOrtho);
 #if 1
     _window.setClientSize(1024, 768);
+    _window.setCentered();
 #else
     _window.setSizeByDesktop();
     _window.setFullscreen();
-#endif
+#endif   
     _window.open();
 
     iMouse::getInstance().showCursor(false);
@@ -173,7 +174,7 @@ void Ascent::initPlayer()
     _playerID = player->getID();
 
     matrix.translate(static_cast<int32>(rand.getNext() % 200) - 100, static_cast<int32>(rand.getNext() % 200) - 100, -200);
-    BossEnemy* boss = new BossEnemy(_scene, matrix, _playerID);
+    BossEnemy* boss = new BossEnemy(_scene, _voxelTerrain, matrix, _playerID);
     _bossID = boss->getID();
 }
 
@@ -490,7 +491,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
             {
                 iaMatrixd matrix;
                 matrix._pos = creationPos;
-                new Enemy(_scene, matrix, _playerID); // TODO this is ugly
+                new Enemy(_scene, _voxelTerrain, matrix, _playerID); // TODO this is ugly
                 count++;
             }
         }
@@ -552,7 +553,7 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
                 if (result.empty())
                 {
                     matrix._pos.set(outside._x, outside._y, outside._z);
-                    StaticEnemy* enemy = new StaticEnemy(_scene, matrix, _playerID);
+                    StaticEnemy* enemy = new StaticEnemy(_scene, _voxelTerrain, matrix, _playerID);
                     count++;
                 }
             }
