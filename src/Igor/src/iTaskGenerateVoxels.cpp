@@ -19,8 +19,8 @@ namespace Igor
 
     void iTaskGenerateVoxels::run()
     {
-        con_assert(voxelBlockInfo != nullptr, "zero pointer");
-        con_assert(voxelBlockInfo->_voxelData != nullptr, "zero pointer");
+        con_assert(_voxelBlockInfo != nullptr, "zero pointer");
+        con_assert(_voxelBlockInfo->_voxelData != nullptr, "zero pointer");
 
         if (_voxelBlockInfo != nullptr &&
             _voxelBlockInfo->_voxelData != nullptr)
