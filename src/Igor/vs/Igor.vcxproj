@@ -80,6 +80,8 @@
     <TargetName>$(ProjectName)_d</TargetName>
     <IncludePath>$(VCInstallDir)UnitTest\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);$(MSBuildProgramFiles32)\Visual Leak Detector\include</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64;$(MSBuildProgramFiles32)\Visual Leak Detector\lib\Win64</LibraryPath>
+    <PreBuildEventUseInBuild>
+    </PreBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -90,6 +92,7 @@
     <IntDir>$(ProjectDir)..\..\..\build\$(ProjectName)\$(Configuration)\</IntDir>
     <IncludePath>$(VCInstallDir)UnitTest\include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(VCInstallDir)UnitTest\lib;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <PreBuildEventUseInBuild />
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -145,13 +148,12 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <Message>copy libs and dlls</Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>echo|set /p="#define __GIT_TAG__ " &gt; ..\src\gitTag.inl
-git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
-
-</Command>
+      <Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>pre build step</Message>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -217,13 +219,13 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
       <Message>copy libs and dlls</Message>
     </PostBuildEvent>
     <PreBuildEvent>
-      <Command>echo|set /p="#define __GIT_TAG__ " &gt; ..\src\gitTag.inl
-git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
+      <Command>
 
 </Command>
     </PreBuildEvent>
     <PreBuildEvent>
-      <Message>pre build step</Message>
+      <Message>
+      </Message>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -587,6 +589,16 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl
     <ClInclude Include="..\src\iWindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="..\src\gitTag.inl">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <FileType>Document</FileType>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">echo|set /p="#define __GIT_TAG__ " &gt; ..\src\gitTag.inl
+git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">gitTag.inl</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">echo|set /p="#define __GIT_TAG__ " &gt; ..\src\gitTag.inl
+git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">gitTag.inl</Outputs>
+    </CustomBuild>
     <None Include="..\src\iAABox.inl" />
     <None Include="..\src\iAACube.inl" />
     <None Include="..\src\iFrustum.inl" />

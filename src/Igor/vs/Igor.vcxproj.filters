@@ -1086,4 +1086,7 @@
       <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\src\gitTag.inl" />
+  </ItemGroup>
 </Project>
