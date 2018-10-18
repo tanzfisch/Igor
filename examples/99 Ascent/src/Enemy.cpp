@@ -12,6 +12,7 @@
 #include <iPhysicsCollision.h>
 #include <iTimer.h>
 #include <iEntityManager.h>
+#include <iVoxelTerrain.h>
 using namespace Igor;
 
 #include <iaString.h>
@@ -20,14 +21,14 @@ using namespace IgorAux;
 
 #include "Turret.h"
 #include "EnemyDestroyed.h"
-#include "VoxelTerrainGenerator.h"
 #include "Ascent.h"
 
-Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
+Enemy::Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
     _scene = scene;
+    _voxelTerrain = voxelTerrain;
 
     setHealth(100.0);
     setShield(50.0);
@@ -52,7 +53,6 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     physicsNode->setAngularDamping(iaVector3d(10000, 10000, 10000));
     physicsNode->setLinearDamping(100);
 
-    _scene->getRoot()->insertNode(transformNode);
     bodyScale->insertNode(bodyModel);
     transformNode->insertNode(bodyScale);
     transformNode->insertNode(physicsNode);
@@ -60,15 +60,17 @@ Enemy::Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretATransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretATransform);
-    Turret* turretA = new Turret(_scene, turretATransform, getFraction(), _playerID);
+    Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretAID = turretA->getID();
 
     iNodeTransform* turretBTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretBTransform->rotate(M_PI, iaAxis::Z);
     turretBTransform->translate(0, 0.125, 0);
     transformNode->insertNode(turretBTransform);
-    Turret* turretB = new Turret(_scene, turretBTransform, getFraction(), _playerID);
+    Turret* turretB = new Turret(_scene, turretBTransform, _voxelTerrain, getFraction(), _playerID);
     _turretBID = turretB->getID();
+
+    _scene->getRoot()->insertNodeAsync(transformNode);
 }
 
 Enemy::~Enemy()
@@ -143,11 +145,6 @@ iaVector3d Enemy::getCurrentPos()
 
 void Enemy::handle()
 {
-    if (!VoxelTerrainGenerator::getInstance().isInstantiated())
-    {
-        return;
-    }
-
     if (_idleCounter > 0)
     {
         _idleCounter--;
@@ -172,18 +169,7 @@ void Enemy::handle()
             dir -= getSphere()._center;
             float64 distance = dir.length();
 
-            iaVector3I center;
-            iaVector3I pos;
-            iaConvert::convert(getSphere()._center, center);
-            iaConvert::convert(targetPos, pos);
-
-            VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
-
-            iaVector3d out;
-            iaConvert::convert(outside, out);
-
-            float64 distanceToWall = out.distance(getSphere()._center) + 5.0;
-            if(distanceToWall > distance &&
+            if(distance < detectionDistance && 
                 distance > approachDistance)
             {
                 _force = dir;

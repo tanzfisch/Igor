@@ -33,10 +33,7 @@
     <ClCompile Include="..\src\MuzzleFlash.cpp" />
     <ClCompile Include="..\src\Player.cpp" />
     <ClCompile Include="..\src\StaticEnemy.cpp" />
-    <ClCompile Include="..\src\TaskGenerateVoxels.cpp" />
     <ClCompile Include="..\src\Turret.cpp" />
-    <ClCompile Include="..\src\VoxelTerrainGenerator.cpp" />
-    <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h" />
@@ -52,10 +49,7 @@
     <ClInclude Include="..\src\MuzzleFlash.h" />
     <ClInclude Include="..\src\Player.h" />
     <ClInclude Include="..\src\StaticEnemy.h" />
-    <ClInclude Include="..\src\TaskGenerateVoxels.h" />
     <ClInclude Include="..\src\Turret.h" />
-    <ClInclude Include="..\src\VoxelTerrainGenerator.h" />
-    <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{0F2C1237-C722-4974-84ED-49B9141DE020}</ProjectGuid>

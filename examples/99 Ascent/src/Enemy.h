@@ -8,6 +8,7 @@ namespace Igor
     class iScene;
     class iPhysicsBody;
     class iPhysicsJoint;
+    class iVoxelTerrain;
 }
 
 class Enemy : public GameObject
@@ -15,7 +16,7 @@ class Enemy : public GameObject
     
 public:
 
-    Enemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID);
+    Enemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix, uint64 playerID);
     virtual ~Enemy();
 
 private:
@@ -26,6 +27,7 @@ private:
     uint32 _idleCounter = 0;
     uint32 _transformNodeID = 0;
     iScene* _scene = nullptr;
+    iVoxelTerrain* _voxelTerrain = nullptr;
 
     iaVector3d _force;
 

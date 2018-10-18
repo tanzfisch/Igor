@@ -48,6 +48,11 @@ namespace Igor
         iaRLE<uint8, uint8> _material;
     };
 
+    /*!
+     Density is an 8 bit value where 0 means outside of the body and every value >0 lieas within the body.
+     But a value of 1 actually means a density of zero too only that it will generate a body with zero volume.
+     This way we can generate slopes down to a volume of zero or walls with a thickness of zero.
+    */
 	class Igor_API iVoxelData
     {
 
@@ -68,6 +73,8 @@ namespace Igor
         \param depth depth of voxel grid in voxels in z direction
 
         !!! ATTENTION this method must be called before any other method is called
+
+        \todo why are we not doing it in the ctor?
         */
         void initData(int64 width, int64 height, int64 depth);
 
@@ -92,7 +99,7 @@ namespace Igor
         /*! sets density of specified voxel
 
         \param pos the voxel to change the density
-        \param density the new density
+        \param density the new density (see explanation above)
         */
         void setVoxelDensity(iaVector3I pos, uint8 density);
 
@@ -115,9 +122,24 @@ namespace Igor
 		\param density the density to set
 		*/
         void setVoxelLine(iaVector3I pos1, iaVector3I pos2, uint8 density);
-        vector<uint8> getVoxelLine(iaVector3I pos1, iaVector3I pos2);
 
-		void setVoxelPole(iaVector3I pos, int64 height, uint8 density);
+        /*! reads a line of densities from the voxels
+
+        \param pos1 the from position of the line
+        \param pos2 the to position of the line
+        \param[out] dst the destination vector
+
+        \todo this was not tested
+        */
+        void getVoxelLine(iaVector3I pos1, iaVector3I pos2, vector<uint8>& dst);
+
+        /*! sets density of specified vertical voxel pole
+
+        \param pos start pos of the pole in voxel coordinates
+        \param height height of the pole
+        \param density the new density (see explanation above)
+        */
+        void setVoxelPole(iaVector3I pos, int64 height, uint8 density);
 
         bool getIntersection(iaVector3I pos, iaVector3I dir, iaVector3I &returnPos, uint8 &returnValue);
 

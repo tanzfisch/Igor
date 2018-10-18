@@ -10,19 +10,23 @@ using namespace IgorAux;
 namespace Igor
 {
 
-    iTaskGenerateVoxels::iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iGenerateVoxelsDelegate generateVoxelsDelegate)
+    iTaskGenerateVoxels::iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iVoxelTerrainGenerateDelegate generateVoxelsDelegate)
         : iTask(nullptr, priority, false)
     {
-        con_assert(voxelBlockInfo != nullptr, "zero pointer");
-        con_assert(voxelBlockInfo->_voxelData != nullptr, "zero pointer");
-
-        _generateVoxelsDelegate = generateVoxelsDelegate;
         _voxelBlockInfo = voxelBlockInfo;
+        _generateVoxelsDelegate = generateVoxelsDelegate;
     }
 
     void iTaskGenerateVoxels::run()
     {
-        _generateVoxelsDelegate(_voxelBlockInfo);
+        con_assert(_voxelBlockInfo != nullptr, "zero pointer");
+        con_assert(_voxelBlockInfo->_voxelData != nullptr, "zero pointer");
+
+        if (_voxelBlockInfo != nullptr &&
+            _voxelBlockInfo->_voxelData != nullptr)
+        {
+            _generateVoxelsDelegate(_voxelBlockInfo);
+        }
     }
 
 }

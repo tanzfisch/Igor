@@ -20,14 +20,14 @@ using namespace IgorAux;
 
 #include "Turret.h"
 #include "EnemyDestroyed.h"
-#include "VoxelTerrainGenerator.h"
 #include "Ascent.h"
 
-StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID)
+StaticEnemy::StaticEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix, uint64 playerID)
     : GameObject(Fraction::Red, GameObjectType::Vehicle)
 {
     _playerID = playerID;
     _scene = scene;
+    _voxelTerrain = voxelTerrain;
 
     setHealth(300.0);
     setShield(100.0);
@@ -62,7 +62,7 @@ StaticEnemy::StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID
     iNodeTransform* turretATransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     turretATransform->translate(0, 1.0, 0);
     transformNode->insertNode(turretATransform);
-    Turret* turretA = new Turret(_scene, turretATransform, getFraction(), _playerID);
+    Turret* turretA = new Turret(_scene, turretATransform, _voxelTerrain, getFraction(), _playerID);
     _turretID = turretA->getID();
 }
 

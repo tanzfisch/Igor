@@ -4,9 +4,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{2a13e08f-281c-4d2a-b742-0903e55efd71}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\terrain">
-      <UniqueIdentifier>{f7ea2bca-9820-452d-b472-18afabc930cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\game objects">
       <UniqueIdentifier>{d17b6555-bf22-4d11-8261-5951675d9175}</UniqueIdentifier>
     </Filter>
@@ -17,15 +14,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Ascent.cpp">
       <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\VoxelTerrainGenerator.cpp">
-      <Filter>src\terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\TaskGenerateVoxels.cpp">
-      <Filter>src\terrain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\VoxelTerrainMeshGenerator.cpp">
-      <Filter>src\terrain</Filter>
     </ClCompile>
     <ClCompile Include="..\src\BossDestroyed.cpp">
       <Filter>src\game objects</Filter>
@@ -70,15 +58,6 @@
   <ItemGroup>
     <ClInclude Include="..\src\Ascent.h">
       <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\VoxelTerrainGenerator.h">
-      <Filter>src\terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\TaskGenerateVoxels.h">
-      <Filter>src\terrain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\VoxelTerrainMeshGenerator.h">
-      <Filter>src\terrain</Filter>
     </ClInclude>
     <ClInclude Include="..\src\BossDestroyed.h">
       <Filter>src\game objects</Filter>
