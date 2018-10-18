@@ -43,27 +43,27 @@ using namespace std;
 
 namespace Igor
 {
-	class iOSEventListener;
-	class iView;
+    class iOSEventListener;
+    class iView;
 
-	/*! window close event
-	*/
-	iaEVENT(WindowCloseEvent, WindowCloseDelegate, void, (), ());
+    /*! window close event
+    */
+    iaEVENT(WindowCloseEvent, WindowCloseDelegate, void, (), ());
 
     /*! window resize event
     */
     iaEVENT(WindowResizeEvent, WindowResizeDelegate, void, (int32 clientWidth, int32 clientHeight), (clientWidth, clientHeight));
-    
+
     /*! application window
 
-	\todo currently Igor only fully supports one window
-	*/
-	class Igor_API iWindow
-	{
+    \todo currently Igor only fully supports one window
+    */
+    class Igor_API iWindow
+    {
 
-		friend class iApplication;
-		friend class iRenderContextThread;
-		friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+        friend class iApplication;
+        friend class iRenderContextThread;
+        friend LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
     public:
 
@@ -148,7 +148,7 @@ namespace Igor
         void setColorDepth(unsigned char colordepth);
 
         /*! set resolution of window
-        
+
         \param width horizontal width in pixel
         \param height vertical height in pixel
         */
@@ -170,7 +170,7 @@ namespace Igor
         \param x horizontal position in pixel
         \param y vertical position in pixel
         */
-        void setPosition(uint32 x, uint32 y);
+        void setPosition(int32 x, int32 y);
 
         /*! sets the windows full screen or window mode
 
@@ -223,7 +223,7 @@ namespace Igor
         */
         void unregisterWindowResizeDelegate(WindowResizeDelegate windowResizeDelegate);
 
-	protected:
+    protected:
 
         /*! swap buffer seciton id
         */
@@ -237,23 +237,23 @@ namespace Igor
         */
         WindowResizeEvent _windowResizeEvent;
 
-		/*! list of windows
-		*/
+        /*! list of windows
+        */
         vector<iView*> _views;
-						
-		/*! list of registeres os event listeners
 
-		currently all devices are singletons so all listeners will be added automatically
-		*/
-		vector<iOSEventListener*> _oseventlisteners;
+        /*! list of registeres os event listeners
 
-		/*! width of the render area in pixel
-		*/
-		uint32 _width = 640;
+        currently all devices are singletons so all listeners will be added automatically
+        */
+        vector<iOSEventListener*> _oseventlisteners;
 
-		/*! height of the render area in pixel
-		*/
-		uint32 _height = 480;
+        /*! width of the render area in pixel
+        */
+        uint32 _width = 640;
+
+        /*! height of the render area in pixel
+        */
+        uint32 _height = 480;
 
         /*! the actuall width of the rendering area.
 
@@ -267,63 +267,63 @@ namespace Igor
         */
         uint32 _clientHeight = 0;
 
-		/*! x position of the window in pixel
-		*/
-		uint32 _xPos = 0;
+        /*! x position of the window in pixel
+        */
+        int32 _xPos = 0;
 
-		/*! y position of the window in pixel
-		*/
-		uint32 _yPos = 0;
+        /*! y position of the window in pixel
+        */
+        int32 _yPos = 0;
 
-		/*! color depth of the render area in bit per pixel
-		*/
-		unsigned char _colordepth = 32;
+        /*! color depth of the render area in bit per pixel
+        */
+        unsigned char _colordepth = 32;
 
-		/*! true for fullscreen mode
-		*/
-		bool _fullscreen = false;
+        /*! true for fullscreen mode
+        */
+        bool _fullscreen = false;
 
-		/*! the window title
-		*/
+        /*! the window title
+        */
         iaString _title = IGOR_DFAULT_WINDOW_TITLE;
 
-		/*! true if the window is opened
-		*/
-		bool _isOpen = false;
+        /*! true if the window is opened
+        */
+        bool _isOpen = false;
 
         /*! flag if the window gets double click events from windows
         */
         bool _doubleClick = false;
 
-		/*! handle to be called in the main loop
+        /*! handle to be called in the main loop
 
-		handles os messages
-		*/
-		virtual void handle();
+        handles os messages
+        */
+        virtual void handle();
 
-		/*! swaps video buffers
-		*/
-		virtual void swapBuffers();
+        /*! swaps video buffers
+        */
+        virtual void swapBuffers();
 
-		/*! draws contend of view in to the window
-		*/
-		void draw();
+        /*! draws contend of view in to the window
+        */
+        void draw();
 
-		/*! initializes rendering context render buffers etc.
-		*/
-		bool initOpenGLContext();
+        /*! initializes rendering context render buffers etc.
+        */
+        bool initOpenGLContext();
 
-		/*! \returns window handle
-		*/
-		HWND getHandle() const;
+        /*! \returns window handle
+        */
+        HWND getHandle() const;
 
-		/*! \returns device context handle
-		*/
-		HDC getDeviceContext() const;
+        /*! \returns device context handle
+        */
+        HDC getDeviceContext() const;
 
-		/*! \returns render context handle
-		*/
-		HGLRC getRenderContext() const;
+        /*! \returns render context handle
+        */
+        HGLRC getRenderContext() const;
 
         /*! \returns render context created for current device context
         */
@@ -349,17 +349,17 @@ namespace Igor
         */
         bool makeCurrent(HGLRC renderContext);
 
-		/*! registers a listener to os events like windows messages
+        /*! registers a listener to os events like windows messages
 
-		\param listener pointer to listener
-		*/
-		void registerOSListener(iOSEventListener* listener);
+        \param listener pointer to listener
+        */
+        void registerOSListener(iOSEventListener* listener);
 
-		/*! deregisters os event listener
+        /*! deregisters os event listener
 
-		\param listener pointer to listener
-		*/
-		void unregisterOSListener(iOSEventListener* listener);
+        \param listener pointer to listener
+        */
+        void unregisterOSListener(iOSEventListener* listener);
 
         /*! this function handles if the size got updated from outside e.g. by user
 
@@ -380,7 +380,7 @@ namespace Igor
         If the window is not open yet the client size will be calculated
         */
         void calcMinSize();
-		
+
     private:
 
         /*! window extended style
@@ -419,7 +419,7 @@ namespace Igor
         */
         WNDCLASS _windowClass;
 
-	};
+    };
 
 };
 
