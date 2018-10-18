@@ -50,7 +50,6 @@ public:
 
     void shootPrimaryWeapon(iView& view, const iaVector3d& screenCoordinates);
     void shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinates);
-    void dig(uint64 toolSize, uint8 toolDensity);
     iaVector3I getGunPointPosition();
 
     void rotate(float32 heading, float32 pitch);

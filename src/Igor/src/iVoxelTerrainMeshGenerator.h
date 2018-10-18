@@ -66,6 +66,14 @@ namespace Igor
         */
         uint64 _materialID = 0;
 
+        /*! physics material of terrain tile
+        */
+        uint64 _physicsMaterialID = 0;
+
+        /*! target material for given tile
+        */
+        iTargetMaterial* _targetMaterial = nullptr;
+
         /*! neighbors LOD flags
         */
         uint32 _neighboursLOD = 0;

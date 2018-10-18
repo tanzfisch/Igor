@@ -27,7 +27,6 @@ using namespace IgorAux;
 
 #include "Bullet.h"
 #include "Granade.h"
-#include "VoxelTerrainGenerator.h"
 #include "DigEffect.h"
 #include "MuzzleFlash.h"
 #include "Ascent.h"
@@ -37,8 +36,8 @@ Player::Player(iScene* scene, iView* view, const iaMatrixd& matrix)
 {
     _scene = scene;
 
-    setHealth(200.0);
-    setShield(300.0);
+    setHealth(2000.0);
+    setShield(3000.0);
     setDamage(1.0);
     setShieldDamage(1.0);
 
@@ -171,102 +170,9 @@ void Player::hitBy(uint64 entityID)
 
 iaVector3I Player::getGunPointPosition()
 {
-    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_cameraNodeID));
-    if (camera != nullptr)
-    {
-        iaMatrixd modelMatrix;
-        camera->getWorldMatrix(modelMatrix);
 
-        iaVector3d dir(modelMatrix._depth._x, modelMatrix._depth._y, modelMatrix._depth._z);
-        dir.negate();
-        dir *= 100.0f;
-        iaVector3d from(modelMatrix._pos._x, modelMatrix._pos._y, modelMatrix._pos._z);
-        iaVector3d to(from);
-        to += dir;
 
-        if (from._x > 0 &&
-            from._y > 0 &&
-            from._z > 0 &&
-            to._x > 0 &&
-            to._y > 0 &&
-            to._z > 0)
-        {
-            iaVector3I f(static_cast<int64>(from._x + 0.5), static_cast<int64>(from._y + 0.5), static_cast<int64>(from._z + 0.5));
-            iaVector3I t(static_cast<int64>(to._x + 0.5), static_cast<int64>(to._y + 0.5), static_cast<int64>(to._z + 0.5));
-            iaVector3I outside;
-            iaVector3I inside;
-
-            VoxelTerrainGenerator::getInstance().castRay(f, t, outside, inside);
-
-            return outside;
-        }
-    }
-}
-
-void Player::dig(uint64 toolSize, uint8 toolDensity)
-{
-    iaVector3I center = getGunPointPosition();
-    if (center.length2() > 0)
-    {
-        int64 toolRadius = toolSize / 2;
-        int64 toolRadiusQuadric = toolRadius * toolRadius;
-
-        iaVector3I modifyFrom(center);
-        modifyFrom._x -= toolRadius;
-        modifyFrom._y -= toolRadius;
-        modifyFrom._z -= toolRadius;
-
-        iaVector3I modifyTo(center);
-        modifyTo._x += toolRadius;
-        modifyTo._y += toolRadius;
-        modifyTo._z += toolRadius;
-
-        iaMatrixd effectMatrix;
-        effectMatrix.translate(center._x, center._y, center._z);
-        new DigEffect(_scene, effectMatrix);
-
-        iaVector3I pos;
-
-        for (int x = modifyFrom._x; x <= modifyTo._x; ++x)
-        {
-            for (int y = modifyFrom._y; y <= modifyTo._y; ++y)
-            {
-                for (int z = modifyFrom._z; z <= modifyTo._z; ++z)
-                {
-                    pos.set(x, y, z);
-
-                    if (center.distance2(pos) < toolRadiusQuadric)
-                    {
-                        VoxelTerrainGenerator::getInstance().setVoxelDensity(pos, toolDensity);
-                    }
-                }
-            }
-        }
-
-        modifyFrom._x -= 32;
-        modifyFrom._y -= 32;
-        modifyFrom._z -= 32;
-        modifyTo._x += 32;
-        modifyTo._y += 32;
-        modifyTo._z += 32;
-
-        modifyFrom /= 32;
-        modifyTo /= 32;
-
-        iaVector3I tilePosition = center / 32;
-
-        for (int x = modifyFrom._x; x <= modifyTo._x; ++x)
-        {
-            for (int y = modifyFrom._y; y <= modifyTo._y; ++y)
-            {
-                for (int z = modifyFrom._z; z <= modifyTo._z; ++z)
-                {
-                    iaVector3I pos(x, y, z);
-                    VoxelTerrainGenerator::getInstance().refreshTile(pos);
-                }
-            }
-        }
-    }
+    return iaVector3I();
 }
 
 void Player::shootSecondaryWeapon(iView& view, const iaVector3d& screenCoordinates)

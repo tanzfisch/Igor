@@ -43,6 +43,7 @@ public:
     void setShieldDamage(float32 value);
 
     void kill();
+    virtual iaVector3d getCurrentPos() = 0;
 
     GameObject(Fraction fraction, GameObjectType type);
     virtual ~GameObject();
@@ -50,8 +51,6 @@ public:
 protected:
 
     virtual void handle() = 0;
-    virtual iaVector3d getCurrentPos() = 0;
-
     virtual void hitBy(uint64 entityID) = 0;
 
 private:

@@ -8,6 +8,7 @@
 #include <iPhysics.h>
 #include <iTimer.h>
 #include <iEntityManager.h>
+#include <iVoxelTerrain.h>
 #include <iNodeVisitorSearchName.h>
 using namespace Igor;
 
@@ -17,13 +18,13 @@ using namespace IgorAux;
 
 #include "Bullet.h"
 #include "Granade.h"
-#include "VoxelTerrainGenerator.h"
 
-Turret::Turret(iScene* scene, iNodeTransform* parent, Fraction fraction, uint64 playerID)
+Turret::Turret(iScene* scene, iNodeTransform* parent, iVoxelTerrain* voxelTerrain, Fraction fraction, uint64 playerID)
     : GameObject(fraction, GameObjectType::None)
 {
     _playerID = playerID;
     _scene = scene;
+    _voxelTerrain = voxelTerrain;
 
     setHealth(100.0);
     setShield(100.0);
@@ -119,8 +120,8 @@ void Turret::handle()
             iaVector3d dir = targetPos;
             dir -= getSphere()._center;
             float32 distance = dir.length();
-            
-            if (distance > 0 && 
+
+            if (distance > 0 &&
                 distance < detectionDistance)
             {
                 iNodeTransform* platform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_platformID));
@@ -157,24 +158,13 @@ void Turret::handle()
                         canFire = true;
                     }
 
-                    iaVector3I outside, inside;
-                    iaVector3I center;
-                    iaVector3I pos;
-                    iaConvert::convert(getSphere()._center, center);
-                    iaConvert::convert(targetPos, pos);
-
-                    VoxelTerrainGenerator::getInstance().castRay(center, pos, outside, inside);
-
-                    iaVector3d out;
-                    iaConvert::convert(outside, out);
-                    float32 distanceToWall = out.distance(getSphere()._center) + 5;
-
-                 /*   if (canFire &&
-                        distanceToWall > distance &&
-                        distance < fireDistance)
+                    if (canFire &&
+                        distance < fireDistance &&
+                        _time + 1000 < iTimer::getInstance().getApplicationTime())
                     {
-                        if (_time + 1000 < iTimer::getInstance().getApplicationTime())
-                        {
+                        // check line of sight
+                        iaVector3I outside, inside;                        iaVector3I center;                        iaVector3I pos;                        iaConvert::convert(getSphere()._center, center);                        iaConvert::convert(targetPos, pos);
+                        if (_voxelTerrain->castRay(center, pos, outside, inside))                        {
                             iaMatrixd matrixOrientation;
                             matrixOrientation._depth = dir;
                             matrixOrientation._depth.negate();
@@ -194,7 +184,7 @@ void Turret::handle()
 
                             fired = true;
                         }
-                    }*/
+                    }
                 }
             }
         }

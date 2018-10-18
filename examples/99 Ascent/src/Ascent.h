@@ -8,19 +8,20 @@
 #include <iModelResourceFactory.h>
 #include <iKeyboard.h>
 #include <iStatisticsVisualizer.h>
+#include <iSphere.h>
+#include <iPerlinNoise.h>
 using namespace Igor;
 
 #include <iaMatrix.h>
 #include <iaMutex.h>
+#include <iaRandomNumberGenerator.h>
 using namespace IgorAux;
-
-#include "VoxelTerrainGenerator.h"
 
 namespace Igor
 {
-	class iScene;
-	class iNodeTransform;
-	class iNodeLight;
+    class iScene;
+    class iNodeTransform;
+    class iNodeLight;
     class iTextureFont;
     class iVoxelData;
     class iContouringCubes;
@@ -29,6 +30,9 @@ namespace Igor
     class iTargetMaterial;
     class iNodeLODTrigger;
     class iPhysicsBody;
+    class iVoxelTerrain;
+    class iVoxelBlockInfo;
+    class iVoxelBlockPropsInfo;
 }
 
 class Enemy;
@@ -44,11 +48,13 @@ public:
     static uint64 _bulletMaterialID;
 
     Ascent();
-	virtual ~Ascent();
+    virtual ~Ascent();
 
-	void run();
+    void run();
 
 private:
+
+    iaRandomNumberGenerator rand;
 
     iStatisticsVisualizer _statisticsVisualizer;
 
@@ -62,11 +68,13 @@ private:
     uint64 _playerID = 0;
     uint64 _bossID = 0;
 
+    iPerlinNoise _perlinNoise;
+
     iTextureFont* _font = nullptr;
 
     iScene* _scene = nullptr;
 
-    uint64 _toolSize = 10;
+    uint64 _toolSize = 3;
     uint8 _toolDensity = 0;
 
     iaVector2f _mouseDelta;
@@ -77,17 +85,32 @@ private:
     iNodeLight* _lightNode = nullptr;
 
     float64 _startTime;
-    
+
     uint32 _materialWithTextureAndBlending = 0;
     uint32 _octreeMaterial = 0;
     int32 _materialSkyBox = 0;
 
-    uint64 _taskFlushModels = 0; 
+    uint64 _taskFlushModels = 0;
     uint64 _taskFlushTextures = 0;
 
     iaMutex _hitListMutex;
     vector<pair<uint64, uint64>> _hitList;
-    
+
+    vector<iSphered> _metaballs;
+    vector<iSphered> _holes;
+    iVoxelTerrain* _voxelTerrain = nullptr;
+
+    int _enemyCount = 0;
+
+    void oulineLevelStructure();
+    void deinitVoxelData();
+    void initVoxelData();
+    void onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo);
+    void onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockInfo);
+
+    bool getTerrainIntersectionPoint(iaVector3I& intersection);
+    void dig(iaVector3I position, uint64 toolSize, uint8 toolDensity);
+
     void onKeyPressed(iKeyCode key);
     void onKeyReleased(iKeyCode key);
 
@@ -96,8 +119,6 @@ private:
 
     void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* _window);
 
-    void onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max);
-    
     void onMouseUp(iKeyCode key);
     void onMouseDown(iKeyCode key);
     void onMouseWheel(int d);
@@ -118,7 +139,6 @@ private:
     void initViews();
     void initScene();
     void initPlayer();
-    void initVoxelData();
 
     void initPhysics();
     void onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1);

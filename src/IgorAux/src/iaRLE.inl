@@ -60,7 +60,7 @@ __IGOR_INLINE__ TValue iaRLE<TValue, TIndex>::getValue(TIndex index) const
     }
     else
     {
-        con_err("out of bounds");
+        con_err("out of bounds size:" << _size << " index:" << index);
         return static_cast<TValue>(0);
     }
 }

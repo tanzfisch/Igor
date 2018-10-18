@@ -27,17 +27,23 @@
 #include <iTaskGenerateVoxels.h>
 #include <iTaskVoxelTerrain.h>
 #include <iVoxelOperationBox.h>
+#include <iVoxelOperationSphere.h>
 #include <iRenderer.h>
+#include <iTextureResourceFactory.h>
+#include <iTargetMaterial.h>
 
 #include <iaConvert.h>
 #include <iaConsole.h>
 using namespace IgorAux;
 
+// uncomment next line for voxel terrain debug fixed lod trigger position
+// #define DEBUG_VOXEL_TERRAIN_FIX_POSITION
+
+// uncomment next line for voxel terrain debug fixed lod trigger height
+// #define DEBUG_VOXEL_TERRAIN_FIX_HEIGHT 10000
+
 namespace Igor
 {
-
-    // #define FIX_POSITION
-    // #define FIX_HEIGHT
 
     iaVector3I childOffsetPosition[8] =
     {
@@ -51,27 +57,31 @@ namespace Igor
         iaVector3I(0, 1, 1)
     };
 
-    iVoxelTerrain::iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate)
+    iVoxelTerrain::iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, 
+        iVoxelTerrainPlacePropsDelegate placePropsDelegate, 
+        uint32 lodCount, 
+        uint32 voxelBlockSetupDistance,
+        const iaVector3I *maxDiscoveryBoundaries)
     {
-        _generateVoxelsDelegate = generateVoxelsDelegate;
+        con_assert_sticky(lodCount >= 2, "lod count out of range");
+        con_assert_sticky(lodCount <= 11, "lod count out of range");
+        con_assert_sticky(voxelBlockSetupDistance >= 2, "voxel block setup distance out of range");
 
-        unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn> voxelBlocks;
-
-        for (int i = 0; i < _lowestLOD + 1; ++i)
+        if (maxDiscoveryBoundaries != nullptr)
         {
-            _voxelBlocks.push_back(voxelBlocks);
+            con_assert_sticky(maxDiscoveryBoundaries->_x > 0, "discovery boundaries out of range");
+            con_assert_sticky(maxDiscoveryBoundaries->_y > 0, "discovery boundaries out of range");
+            con_assert_sticky(maxDiscoveryBoundaries->_z > 0, "discovery boundaries out of range");
+            _maxDiscoveryBoundaries = *maxDiscoveryBoundaries;
         }
 
-#ifdef USE_VERBOSE_STATISTICS
-        _totalSection = iStatistics::getInstance().registerSection("VT:all", 3);
-        _discoverBlocksSection = iStatistics::getInstance().registerSection("VT:discover", 3);
-        _updateBlocksSection = iStatistics::getInstance().registerSection("VT:update", 3);
-        _deleteBlocksSection = iStatistics::getInstance().registerSection("VT:delete", 3);
-        _applyActionsSection = iStatistics::getInstance().registerSection("VT:applyActions", 3);
-        _updateVisBlocksSection = iStatistics::getInstance().registerSection("VT:vis", 3);
-#endif
+        _placePropsDelegate = placePropsDelegate;
+        _generateVoxelsDelegate = generateVoxelsDelegate;
+        _lowestLOD = lodCount - 1;
+        _voxelBlockSetupDistance = voxelBlockSetupDistance;
+        _voxelBlockDiscoveryDistance = _voxelBlockSetupDistance + 2;
 
-        iRenderer::getInstance().setWorldGridResolution(1000.0);
+        init();
     }
 
     iVoxelTerrain::~iVoxelTerrain()
@@ -79,10 +89,16 @@ namespace Igor
         deinit();
     }
 
+    void iVoxelTerrain::modify(const iSphereI& sphere, uint8 density)
+    {
+        iVoxelOperationSphere* voxelOperationBox = new iVoxelOperationSphere(sphere, density);
+        _operationsQueueMutex.lock();
+        _operationsQueue.push_back(shared_ptr<iVoxelOperation>(voxelOperationBox));
+        _operationsQueueMutex.unlock();
+    }
+
     void iVoxelTerrain::modify(const iAABoxI& box, uint8 density)
     {
-        con_endl("box center " << box._center);
-
         iVoxelOperationBox* voxelOperationBox = new iVoxelOperationBox(box, density);
         _operationsQueueMutex.lock();
         _operationsQueue.push_back(shared_ptr<iVoxelOperation>(voxelOperationBox));
@@ -97,7 +113,11 @@ namespace Igor
         if (scene != nullptr &&
             _rootNode == nullptr)
         {
-            init(scene);
+            _rootNode = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+            scene->getRoot()->insertNode(_rootNode);
+
+            iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
+            iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
         }
     }
 
@@ -118,6 +138,21 @@ namespace Igor
         action._nodeB = dst->getID();
 
         _actionQueue.push_back(action);
+    }
+
+    iTargetMaterial* iVoxelTerrain::getTargetMaterial()
+    {
+        return _targetMaterial;
+    }
+
+    void iVoxelTerrain::setPhysicsMaterialID(uint64 materialID)
+    {
+        _physicsMaterialID = materialID;
+    }
+
+    uint64 iVoxelTerrain::getPhysicsMaterialID() const
+    {
+        return _physicsMaterialID;
     }
 
     void iVoxelTerrain::removeNodeAsync(iNode* src, iNode* dst)
@@ -141,20 +176,39 @@ namespace Igor
         _actionQueue.push_back(action);
     }
 
-    void iVoxelTerrain::init(iScene* scene)
+    void iVoxelTerrain::init()
     {
-        _rootNode = iNodeFactory::getInstance().createNode(iNodeType::iNode);
-        scene->getRoot()->insertNode(_rootNode);
+        unordered_map<iaVector3I, iVoxelBlock*, iVectorHasher, iVectorEqualFn> voxelBlocks;
 
-        iModelResourceFactory::getInstance().registerModelDataIO("vtg", &iVoxelTerrainMeshGenerator::createInstance);
-        iTaskManager::getInstance().addTask(new iTaskVoxelTerrain(this));
+        for (int i = 0; i < _lowestLOD + 1; ++i)
+        {
+            _voxelBlocks.push_back(voxelBlocks);
+        }
+
+#ifdef USE_VERBOSE_STATISTICS
+        _totalSection = iStatistics::getInstance().registerSection("VT:all", 3);
+        _discoverBlocksSection = iStatistics::getInstance().registerSection("VT:discover", 3);
+        _updateBlocksSection = iStatistics::getInstance().registerSection("VT:update", 3);
+        _deleteBlocksSection = iStatistics::getInstance().registerSection("VT:delete", 3);
+        _applyActionsSection = iStatistics::getInstance().registerSection("VT:applyActions", 3);
+        _updateVisBlocksSection = iStatistics::getInstance().registerSection("VT:vis", 3);
+#endif
+
+        iRenderer::getInstance().setWorldGridResolution(1000.0);
 
         // set up terrain material
-        _terrainMaterialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("igor/terrain.vert", iShaderObjectType::Vertex);
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->addShaderSource("igor/terrain_directional_light.frag", iShaderObjectType::Fragment);
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->compileShader();
-        iMaterialResourceFactory::getInstance().getMaterial(_terrainMaterialID)->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
+        _terrainMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
+
+        // set up terrain target material
+        _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 0);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 1);
+        _targetMaterial->setTexture(iTextureResourceFactory::getInstance().getDummyTexture(), 2);
+        _targetMaterial->setAmbient(iaColor3f(0.7f, 0.7f, 0.7f));
+        _targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+        _targetMaterial->setSpecular(iaColor3f(0.1f, 0.1f, 0.1f));
+        _targetMaterial->setEmissive(iaColor3f(0.05f, 0.05f, 0.05f));
+        _targetMaterial->setShininess(100.0f);
     }
 
     void iVoxelTerrain::deinit()
@@ -162,6 +216,8 @@ namespace Igor
         con_endl("shutdown iVoxelTerrain ...");
 
         iModelResourceFactory::getInstance().unregisterModelDataIO("vtg");
+
+        iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
 
         // TODO cleanup
     }
@@ -171,7 +227,12 @@ namespace Igor
         _lodTrigger = lodTriggerID;
     }
 
-    uint64 iVoxelTerrain::getMaterial() const
+    void iVoxelTerrain::setMaterialID(uint64 materialID)
+    {
+        _terrainMaterialID = materialID;
+    }
+
+    uint64 iVoxelTerrain::getMaterialID() const
     {
         return _terrainMaterialID;
     }
@@ -199,16 +260,16 @@ namespace Igor
                 return;
             }
 
-#ifdef FIX_POSITION
+#ifdef DEBUG_VOXEL_TERRAIN_FIX_POSITION
             pos.set(9986, 310, 8977);
 #endif
 
-#ifdef FIX_HEIGHT
-            pos._y = 3100;
+#ifdef DEBUG_VOXEL_TERRAIN_FIX_HEIGHT
+            pos._y = DEBUG_VOXEL_TERRAIN_FIX_HEIGHT;
 #endif
 
-			iaVector3I observerPosition;
-			iaConvert::convert(pos, observerPosition);
+            iaVector3I observerPosition;
+            iaConvert::convert(pos, observerPosition);
 
 #ifdef USE_VERBOSE_STATISTICS
             iStatistics::getInstance().beginSection(_discoverBlocksSection);
@@ -281,6 +342,21 @@ namespace Igor
         if (min._z < 0)
         {
             min._z = 0;
+        }
+
+        if (max._x > _maxDiscoveryBoundaries._x)
+        {
+            min._x = _maxDiscoveryBoundaries._x;
+        }
+
+        if (min._y > _maxDiscoveryBoundaries._y)
+        {
+            min._y = _maxDiscoveryBoundaries._y;
+        }
+
+        if (min._z > _maxDiscoveryBoundaries._z)
+        {
+            min._z = _maxDiscoveryBoundaries._z;
         }
 
         auto& voxelBlocks = _voxelBlocks[_lowestLOD];
@@ -894,6 +970,24 @@ namespace Igor
                             }
                         }
                     }
+                    else
+                    {
+                        if (voxelBlock->_mutationCounter == 0)
+                        {
+                            iVoxelBlockPropsInfo info;
+
+                            info._min = voxelBlock->_positionInLOD;
+                            info._min *= _voxelBlockSize;
+
+                            info._max = info._min;
+                            info._max._x += _voxelBlockSize;
+                            info._max._y += _voxelBlockSize;
+                            info._max._z += _voxelBlockSize;
+
+                            iTaskPropsOnVoxels* task = new iTaskPropsOnVoxels(info, 0, _placePropsDelegate);
+                            iTaskManager::getInstance().addTask(task);
+                        }
+                    }
 
                     if (voxelBlock->_lod == _lowestLOD)
                     {
@@ -1203,13 +1297,18 @@ namespace Igor
                     (*parent).second->_voxelData->getCopy(*(tileInformation._voxelDataNextLOD));
                     tileInformation._lod = voxelBlock->_lod;
                     tileInformation._neighboursLOD = voxelBlock->_neighboursLOD;
+                    tileInformation._targetMaterial = _targetMaterial;
+                    tileInformation._physicsMaterialID = _physicsMaterialID;
 
-                    iModelDataInputParameter* inputParam = new iModelDataInputParameter(); // will be deleted by iModel
+                    // will be deleted by iModel
+                    iModelDataInputParameter* inputParam = new iModelDataInputParameter();
                     inputParam->_identifier = "vtg";
                     inputParam->_joinVertexes = true;
                     inputParam->_needsRenderContext = false;
                     inputParam->_modelSourceType = iModelSourceType::Generated;
                     inputParam->_loadPriority = 0;
+
+                    // makes a copy of tileInformation so it will also be deleted by iModel
                     inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(iVoxelTerrainTileInformation));
 
                     iaString tileName = iaString::itoa(voxelBlock->_positionInLOD._x);
@@ -1223,7 +1322,6 @@ namespace Igor
                     tileName += iaString::itoa(voxelBlock->_mutationCounter++);
 
                     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-
                     iaVector3d transform;
                     iaConvert::convert(voxelBlock->_positionInLOD, transform);
                     transform *= voxelBlock->_size;
@@ -1266,5 +1364,90 @@ namespace Igor
 
             voxelBlock->_state = iVoxelBlockState::Ready;
         }
+    }
+
+    uint8 iVoxelTerrain::getVoxelDensity(iaVector3I pos)
+    {
+        uint8 result = 0;
+
+        iaVector3I voxelBlock(pos);
+        voxelBlock /= _voxelBlockSize;
+
+        iVoxelBlock* block = nullptr;
+        auto voxelBlocks = _voxelBlocks[0];
+        auto blockIter = voxelBlocks.find(voxelBlock);
+        if (blockIter != voxelBlocks.end())
+        {
+            auto block = (*blockIter).second;
+            if (block->_voxelData != nullptr &&
+                block->_voxelData->hasData())
+            {
+                iaVector3I voxelRelativePos(pos);
+
+                voxelRelativePos._x = voxelRelativePos._x % static_cast<int64>(_voxelBlockSize);
+                voxelRelativePos._y = voxelRelativePos._y % static_cast<int64>(_voxelBlockSize);
+                voxelRelativePos._z = voxelRelativePos._z % static_cast<int64>(_voxelBlockSize);
+
+                result = block->_voxelData->getVoxelDensity(voxelRelativePos);
+            }
+        }
+
+        return result;
+    }
+
+    bool iVoxelTerrain::castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside)
+    {
+        iaVector3I u(from);
+        iaVector3I delta(to);
+        delta -= from;
+        iaVector3I step;
+
+        (delta._x > 0) ? step._x = 1 : step._x = -1;
+        (delta._y > 0) ? step._y = 1 : step._y = -1;
+        (delta._z > 0) ? step._z = 1 : step._z = -1;
+
+        if (delta._x < 0) delta._x = -delta._x;
+        if (delta._y < 0) delta._y = -delta._y;
+        if (delta._z < 0) delta._z = -delta._z;
+
+        int64 dist = (delta._x > delta._y) ? delta._x : delta._y;
+        dist = (dist > delta._z) ? dist : delta._z;
+
+        iaVector3I err(delta._x, delta._y, delta._z);
+
+        outside = u;
+
+        for (int i = 0; i < dist; i++)
+        {
+            if (getVoxelDensity(iaVector3I(u._x, u._y, u._z)) != 0)
+            {
+                inside = u;
+                return true;
+            }
+
+            outside = u;
+
+            err += delta;
+
+            if (err._x > dist)
+            {
+                err._x -= dist;
+                u._x += step._x;
+            }
+
+            if (err._y > dist)
+            {
+                err._y -= dist;
+                u._y += step._y;
+            }
+
+            if (err._z > dist)
+            {
+                err._z -= dist;
+                u._z += step._z;
+            }
+        }
+
+        return false;
     }
 }

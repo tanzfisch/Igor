@@ -434,6 +434,12 @@
     <ClCompile Include="..\src\iNodeVisitorSearchName.cpp">
       <Filter>scene\traversal</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\iTaskPropsOnVoxels.cpp">
+      <Filter>terrain\tasks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\iVoxelOperationSphere.cpp">
+      <Filter>terrain\operations</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\iDefines.h" />
@@ -907,6 +913,12 @@
     <ClInclude Include="..\src\iNodeVisitorSearchName.h">
       <Filter>scene\traversal</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iTaskPropsOnVoxels.h">
+      <Filter>terrain\tasks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\iVoxelOperationSphere.h">
+      <Filter>terrain\operations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -1073,5 +1085,8 @@
     <Filter Include="data types">
       <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="..\src\gitTag.inl" />
   </ItemGroup>
 </Project>

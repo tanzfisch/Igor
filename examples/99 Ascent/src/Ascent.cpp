@@ -1,7 +1,11 @@
 #include "Ascent.h"
 
-#include <iaConsole.h>
-using namespace IgorAux;
+#include "Player.h"
+#include "Enemy.h"
+#include "Bullet.h"
+#include "BossEnemy.h"
+#include "StaticEnemy.h"
+#include "DigEffect.h"
 
 #include <iMaterial.h>
 #include <iNodeVisitorPrintTree.h>
@@ -30,7 +34,6 @@ using namespace IgorAux;
 #include <iPixmap.h>
 #include <iStatistics.h>
 #include <iTargetMaterial.h>
-#include <iPerlinNoise.h>
 #include <iNodeLODTrigger.h>
 #include <iNodeLODSwitch.h>
 #include <iOctree.h>
@@ -38,13 +41,14 @@ using namespace IgorAux;
 #include <iPhysicsMaterialCombo.h>
 #include <iPhysicsBody.h>
 #include <iEntityManager.h>
+#include <iVoxelTerrain.h>
+#include <iTaskGenerateVoxels.h>
+#include <iTaskPropsOnVoxels.h>
 using namespace Igor;
 
-#include "Player.h"
-#include "Enemy.h"
-#include "Bullet.h"
-#include "BossEnemy.h"
-#include "StaticEnemy.h"
+#include <iaConsole.h>
+#include <iaConvert.h>
+using namespace IgorAux;
 
 uint64 Ascent::_terrainMaterialID = 0;
 uint64 Ascent::_entityMaterialID = 0;
@@ -95,7 +99,7 @@ void Ascent::initViews()
 {
     _view.setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 1.0f));
     _view.setPerspective(60);
-    _view.setClipPlanes(0.1f, 500.f);
+    _view.setClipPlanes(0.1f, 50000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &Ascent::onRender));
     _view.setName("3d");
 
@@ -110,10 +114,11 @@ void Ascent::initViews()
     _window.addView(&_viewOrtho);
 #if 1
     _window.setClientSize(1024, 768);
+    _window.setCentered();
 #else
     _window.setSizeByDesktop();
     _window.setFullscreen();
-#endif
+#endif   
     _window.open();
 
     iMouse::getInstance().showCursor(false);
@@ -164,13 +169,12 @@ void Ascent::initScene()
 void Ascent::initPlayer()
 {
     iaMatrixd matrix;
-    matrix.translate(10000, 9400, 10000 - 100);
+    matrix.translate(10000, 10000, 10000);
     Player* player = new Player(_scene, &_view, matrix);
     _playerID = player->getID();
 
-    iaMatrixd enemyMatrix;
-    enemyMatrix._pos.set(10000, 9400, 10000 - 200);
-    BossEnemy* boss = new BossEnemy(_scene, enemyMatrix, _playerID);
+    matrix.translate(static_cast<int32>(rand.getNext() % 200) - 100, static_cast<int32>(rand.getNext() % 200) - 100, -200);
+    BossEnemy* boss = new BossEnemy(_scene, _voxelTerrain, matrix, _playerID);
     _bossID = boss->getID();
 }
 
@@ -210,6 +214,200 @@ void Ascent::initPhysics()
     iPhysics::getInstance().start();
 }
 
+void Ascent::deinitVoxelData()
+{
+    if (_voxelTerrain != nullptr)
+    {
+        delete _voxelTerrain;
+        _voxelTerrain = nullptr;
+    }
+}
+
+void Ascent::initVoxelData()
+{
+    oulineLevelStructure();
+
+    // using a lower LOD count because we don't create such huge structures anyway and the transition detection in details is better
+    _voxelTerrain = new iVoxelTerrain(iVoxelTerrainGenerateDelegate(this, &Ascent::onGenerateVoxelData),
+        iVoxelTerrainPlacePropsDelegate(this, &Ascent::onVoxelDataGenerated), 7);
+
+    iTargetMaterial* targetMaterial = _voxelTerrain->getTargetMaterial();
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 0);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 1);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("crates2.png"), 2);
+    targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("detail.png"), 3);
+    targetMaterial->setAmbient(iaColor3f(0.1f, 0.1f, 0.1f));
+    targetMaterial->setDiffuse(iaColor3f(0.9f, 0.9f, 0.9f));
+    targetMaterial->setSpecular(iaColor3f(1.0f, 1.0f, 1.0f));
+    targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
+    targetMaterial->setShininess(1000.0f);
+
+    uint64 materialID = iMaterialResourceFactory::getInstance().createMaterial("TerrainMaterial");
+    auto material = iMaterialResourceFactory::getInstance().getMaterial(materialID);
+    material->addShaderSource("ascent/terrain.vert", iShaderObjectType::Vertex);
+    material->addShaderSource("ascent/terrain_directional_light.frag", iShaderObjectType::Fragment);
+    material->compileShader();
+
+    _voxelTerrain->setMaterialID(materialID);
+    _voxelTerrain->setPhysicsMaterialID(_terrainMaterialID);
+
+    _voxelTerrain->setScene(_scene);
+    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
+    if (player != nullptr)
+    {
+        _voxelTerrain->setLODTrigger(player->getLODTriggerID());
+    }
+}
+
+void Ascent::oulineLevelStructure()
+{
+    BossEnemy* boss = static_cast<BossEnemy*>(iEntityManager::getInstance().getEntity(_bossID));
+    if (boss != nullptr)
+    {
+        iaVector3d bossPosition = boss->getCurrentPos();
+
+        // covering the boss
+        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x + 20, bossPosition._y, bossPosition._z), 1.7));
+        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x - 20, bossPosition._y, bossPosition._z), 1.7));
+        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y + 20, bossPosition._z), 1.7));
+        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y - 20, bossPosition._z), 1.7));
+        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z + 20), 1.7));
+        _metaballs.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z - 20), 1.7));
+
+        // hole where the boss sits
+        _holes.push_back(iSphered(iaVector3d(bossPosition._x, bossPosition._y, bossPosition._z), 1.7));
+
+        // body
+        for (int i = 0; i < 15; ++i)
+        {
+            iaVector3d pos(static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25, static_cast<int32>(rand.getNext() % 50) - 25);
+            pos.normalize();
+            pos *= 20 + (rand.getNext() % 40);
+            pos += bossPosition;
+
+            _metaballs.push_back(iSphered(pos, ((rand.getNext() % 50 + 50) / 100.0) * 4.0));
+        }
+    }
+}
+
+__IGOR_INLINE__ float64 metaballFunction(const iaVector3d& metaballPos, const iaVector3d& checkPos)
+{
+    return 1.0 / ((checkPos._x - metaballPos._x) * (checkPos._x - metaballPos._x) + (checkPos._y - metaballPos._y) * (checkPos._y - metaballPos._y) + (checkPos._z - metaballPos._z) * (checkPos._z - metaballPos._z));
+}
+
+void Ascent::onGenerateVoxelData(iVoxelBlockInfo* voxelBlockInfo)
+{
+    uint32 lodFactor = static_cast<uint32>(pow(2, voxelBlockInfo->_lod)); // TODO move to engine
+
+    iVoxelData* voxelData = voxelBlockInfo->_voxelData;
+    iaVector3I& offset = voxelBlockInfo->_positionInLOD;
+    offset *= (32 * lodFactor); // TODO move to engine
+    iaVector3f& lodOffset = voxelBlockInfo->_lodOffset;
+    uint64 size = voxelBlockInfo->_size;
+
+    voxelData->setClearValue(0);
+    voxelData->initData(size, size, size);
+
+    const float64 from = 0.444;
+    const float64 to = 0.45;
+    float64 factor = 1.0 / (to - from);
+
+    const float64 fromMeta = 0.017;
+    const float64 toMeta = 0.0175;
+    float64 factorMeta = 1.0 / (toMeta - fromMeta);
+
+    for (int64 x = 0; x < voxelData->getWidth(); ++x)
+    {
+        for (int64 z = 0; z < voxelData->getDepth(); ++z)
+        {
+            for (int64 y = 0; y < voxelData->getHeight(); ++y)
+            {
+                iaVector3d pos(x * lodFactor + offset._x + lodOffset._x,
+                    y * lodFactor + offset._y + lodOffset._y,
+                    z * lodFactor + offset._z + lodOffset._z); // TODO move to engine
+
+                float64 noise = (_perlinNoise.getValue(iaVector3d(pos._x * 0.01, pos._y * 0.01, pos._z * 0.01), 2) - 0.5) * 0.04;
+                noise += (_perlinNoise.getValue(iaVector3d(pos._x * 0.1, pos._y * 0.1, pos._z * 0.1), 3) - 0.5) * 0.003;
+
+                float32 density = 0;
+
+                float64 distance = 0;
+                for (auto metaball : _metaballs)
+                {
+                    distance += metaballFunction(metaball._center, pos) * metaball._radius;
+                }
+
+                distance += noise;
+
+                if (distance >= toMeta)
+                {
+                    density = 1.0;
+                }
+                else
+                {
+                    if (distance >= fromMeta)
+                    {
+                        density = ((distance - fromMeta) * factorMeta);
+                    }
+                }
+
+                distance = 0;
+                for (auto hole : _holes)
+                {
+                    distance += metaballFunction(hole._center, pos) * hole._radius;
+                }
+
+                distance -= noise;
+
+                if (distance >= toMeta)
+                {
+                    density = 0.0;
+                }
+                else
+                {
+                    if (distance >= fromMeta)
+                    {
+                        if (density > 0)
+                        {
+                            density = 1 - ((distance - fromMeta) * factorMeta);
+                        }
+                    }
+                }
+
+                float64 onoff = _perlinNoise.getValue(iaVector3d(pos._x * 0.04, pos._y * 0.04, pos._z * 0.04), 3, 0.5);
+
+                if (onoff <= from)
+                {
+                    if (onoff >= to)
+                    {
+                        density = 1.0 - ((onoff - from) * factor);
+                    }
+                    else
+                    {
+                        density = 0.0;
+                    }
+                }
+
+                if (density > 1.0)
+                {
+                    density = 1.0;
+                }
+
+                if (density < 0.0)
+                {
+                    density = 0.0;
+                }
+
+                if (density > 0.0)
+                {
+                    voxelData->setVoxelDensity(iaVector3I(x, y, z), (density * 254) + 1);
+                    voxelBlockInfo->_transition = true;
+                }
+            }
+        }
+    }
+}
+
 void Ascent::onContactTerrainBullet(iPhysicsBody* body0, iPhysicsBody* body1)
 {
     if (body0 != nullptr && body1 != nullptr)
@@ -247,174 +445,125 @@ void Ascent::onContact(iPhysicsBody* body0, iPhysicsBody* body1)
     }
 }
 
-void Ascent::onVoxelDataGenerated(const iaVector3I& min, const iaVector3I& max)
+void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
 {
-    iaVector3I pos;
     iaVector3I diff;
-    diff = max;
-    diff -= min;
+    diff = voxelBlockPropsInfo._max;
+    diff -= voxelBlockPropsInfo._min;
 
-    srand(min._x + min._y + min._z);
-
-    iaMatrixd enemyMatrix;
-    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
-
+    iaVector3d offset;
+    iaVector3d pos;
     int count = 0;
 
-    iaVector3I center(10000, 9400, 10000 - 200);
+    iaConvert::convert(voxelBlockPropsInfo._min, offset);
 
-    for (int i = 0; i < 300; ++i)
+    rand.setSeed(offset._x + offset._y + offset._z);
+
+    for (int i = 0; i < rand.getNext() % 10; ++i)
     {
-        pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
-        pos += min;
+        pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
 
-        if (center.distance(pos) < 60)
+        bool addEnemy = true;
+
+        for (int x = -2; x < 3; x++)
         {
-            bool addEnemy = true;
-
-            for (int x = -2; x < 3; x++)
+            for (int y = -2; y < 3; y++)
             {
-                for (int y = -2; y < 3; y++)
+                for (int z = -2; z < 3; z++)
                 {
-                    for (int z = -2; z < 3; z++)
+                    if (_voxelTerrain->getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
                     {
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
-                        {
-                            addEnemy = false;
-                            break;
-                        }
+                        addEnemy = false;
+                        break;
                     }
                 }
             }
+        }
 
-            if (addEnemy)
+        if (addEnemy)
+        {
+            iaVector3d creationPos = pos + offset;
+
+            iSphered sphere(creationPos, 5);
+            vector<uint64> result;
+            iEntityManager::getInstance().getEntities(sphere, result);
+            if (result.empty())
             {
-                enemyMatrix._pos.set(pos._x, pos._y, pos._z);
-                Enemy* enemy = new Enemy(_scene, enemyMatrix, _playerID);
+                iaMatrixd matrix;
+                matrix._pos = creationPos;
+                new Enemy(_scene, _voxelTerrain, matrix, _playerID); // TODO this is ugly
                 count++;
             }
-
-            if (count >= 20)
-            {
-                break;
-            }
         }
-    }/**/
+
+        if (count >= 2)
+        {
+            break;
+        }
+    }
 
     count = 0;
 
-    for (int i = 0; i < 800; ++i)
+    for (int i = 0; i < 100; ++i)
     {
-        pos.set(rand() % diff._x, rand() % diff._y, rand() % diff._z);
-        pos += min;
+        pos.set(rand.getNext() % diff._x, rand.getNext() % diff._y, rand.getNext() % diff._z);
 
-        if (center.distance(pos) < 60)
+        if (_voxelTerrain->getVoxelDensity(iaVector3I(pos._x, pos._y, pos._z)) == 0)
         {
-            bool addEnemy = true;
+            iaVector3d from(pos._x, pos._y, pos._z);
 
-            for (int x = -1; x < 2; x++)
+            // orientation of enemy
+            int orientation = rand.getNext() % 6;
+            iaMatrixd matrix;
+            switch (orientation)
             {
-                for (int y = -1; y < 2; y++)
+            case 0:
+                // nothing
+                break;
+
+            case 1:
+                matrix.rotate(M_PI * 0.5, iaAxis::Z);
+                break;
+
+            case 2:
+                matrix.rotate(M_PI * -0.5, iaAxis::Z);
+                break;
+
+            case 3:
+                matrix.rotate(M_PI, iaAxis::Z);
+                break;
+
+            case 4:
+                matrix.rotate(M_PI * 0.5, iaAxis::X);
+                break;
+
+            case 5:
+                matrix.rotate(M_PI * -0.5, iaAxis::X);
+                break;
+            }
+
+            iaVector3d to = from + matrix._top * -200;
+            iaVector3I outside, inside;
+
+            if (_voxelTerrain->castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside))
+            {
+                iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
+                vector<uint64> result;
+                iEntityManager::getInstance().getEntities(sphere, result);
+                if (result.empty())
                 {
-                    for (int z = -1; z < 2; z++)
-                    {
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(iaVector3I(pos._x + x, pos._y + y, pos._z + z)) != 0)
-                        {
-                            addEnemy = false;
-                            break;
-                        }
-                    }
+                    matrix._pos.set(outside._x, outside._y, outside._z);
+                    StaticEnemy* enemy = new StaticEnemy(_scene, _voxelTerrain, matrix, _playerID);
+                    count++;
                 }
             }
 
-            if (addEnemy)
-            {
-                iaVector3d from(pos._x, pos._y, pos._z);
-
-                iaMatrixd matrix;
-
-                switch (rand() % 6)
-                {
-                case 0:
-                    // nothing
-                    break;
-
-                case 1:
-                    matrix.rotate(M_PI * 0.5, iaAxis::Z);
-                    break;
-
-                case 2:
-                    matrix.rotate(M_PI * -0.5, iaAxis::Z);
-                    break;
-
-                case 3:
-                    matrix.rotate(M_PI, iaAxis::Z);
-                    break;
-
-                case 4:
-                    matrix.rotate(M_PI * 0.5, iaAxis::X);
-                    break;
-
-                case 5:
-                    matrix.rotate(M_PI * -0.5, iaAxis::X);
-                    break;
-                }
-
-                iaVector3d to = from + matrix._top * -200;
-
-                iaVector3I right(matrix._right._x, matrix._right._y, matrix._right._z);
-                iaVector3I top(matrix._top._x, matrix._top._y, matrix._top._z);
-                iaVector3I depth(matrix._depth._x, matrix._depth._y, matrix._depth._z);
-                iaVector3I outside, inside;
-
-                VoxelTerrainGenerator::getInstance().castRay(iaVector3I(from._x, from._y, from._z), iaVector3I(to._x, to._y, to._z), outside, inside);
-
-                int rating = 0;
-
-                if (outside.distance(pos) < 190)
-                {
-                    iSphered sphere(iaVector3d(outside._x, outside._y, outside._z), 5);
-                    vector<uint64> result;
-                    iEntityManager::getInstance().getEntities(sphere, result);
-                    if (result.empty())
-                    {
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + right) != 0) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - right) != 0) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + right + depth) != 0) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - right + depth) != 0) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + right - depth) != 0) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - right - depth) != 0) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside + depth) != 0) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(inside - depth) != 0) rating++;
-
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + right) < 50) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - right) < 50) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + right + depth) < 50) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - right + depth) < 50) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + right - depth) < 50) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - right - depth) < 50) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside + depth) < 50) rating++;
-                        if (VoxelTerrainGenerator::getInstance().getVoxelDensity(outside - depth) < 50) rating++;
-
-                        if (rating > 10)
-                        {
-                            enemyMatrix.identity();
-                            enemyMatrix = matrix;
-                            enemyMatrix._pos.set(outside._x, outside._y, outside._z);
-                            StaticEnemy* enemy = new StaticEnemy(_scene, enemyMatrix, _playerID);
-
-                            count++;
-                        }
-                    }
-                }
-            }
-
-            if (count >= 100)
+            if (count >= 3)
             {
                 break;
             }
         }
-    }/**/
+    }
 }
 
 void Ascent::init()
@@ -474,8 +623,7 @@ void Ascent::deinit()
 
     iSceneFactory::getInstance().destroyScene(_scene);
 
-    VoxelTerrainGenerator::getInstance().unregisterVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
-    VoxelTerrainGenerator::getInstance().destroyInstance();
+    deinitVoxelData();
 
     iTaskManager::getInstance().abortTask(_taskFlushModels);
     iTaskManager::getInstance().abortTask(_taskFlushTextures);
@@ -535,7 +683,11 @@ void Ascent::onKeyPressed(iKeyCode key)
                 break;
 
             case iKeyCode::Space:
-                player->dig(_toolSize, _toolDensity);
+                iaVector3I intersection;
+                if (getTerrainIntersectionPoint(intersection))
+                {
+                    dig(intersection, _toolSize, _toolDensity);
+                }
                 break;
             }
         }
@@ -566,6 +718,58 @@ void Ascent::onKeyPressed(iKeyCode key)
     }
     break;
     }
+}
+
+bool Ascent::getTerrainIntersectionPoint(iaVector3I& intersection)
+{
+    iNodeCamera* camera = static_cast<iNodeCamera*>(iNodeFactory::getInstance().getNode(_view.getCurrentCamera()));
+    if (camera != nullptr)
+    {
+        iaMatrixd modelMatrix;
+        camera->getWorldMatrix(modelMatrix);
+
+        iaVector3d dir(modelMatrix._depth._x, modelMatrix._depth._y, modelMatrix._depth._z);
+        dir.negate();
+        dir *= 100.0f;
+        iaVector3d from(modelMatrix._pos._x, modelMatrix._pos._y, modelMatrix._pos._z);
+        iaVector3d to(from);
+        to += dir;
+
+        if (from._x > 0 &&
+            from._y > 0 &&
+            from._z > 0 &&
+            to._x > 0 &&
+            to._y > 0 &&
+            to._z > 0)
+        {
+            iaVector3I f(static_cast<int64>(from._x + 0.5), static_cast<int64>(from._y + 0.5), static_cast<int64>(from._z + 0.5));
+            iaVector3I t(static_cast<int64>(to._x + 0.5), static_cast<int64>(to._y + 0.5), static_cast<int64>(to._z + 0.5));
+            
+            iaVector3I inside;
+
+            _voxelTerrain->castRay(f, t, intersection, inside);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+void Ascent::dig(iaVector3I position, uint64 toolSize, uint8 density)
+{
+    /*iAABoxI box;
+    box._center = position;
+    box._halfWidths.set(toolSize, toolSize, toolSize);
+    _voxelTerrain->modify(box, density);*/
+
+    iSphereI sphere;
+    sphere._center = position;
+    sphere._radius = toolSize;
+    _voxelTerrain->modify(sphere, density);
+
+    iaMatrixd effectMatrix;
+    effectMatrix.translate(position._x, position._y, position._z);
+    new DigEffect(_scene, effectMatrix);
 }
 
 void Ascent::onKeyReleased(iKeyCode key)
@@ -661,11 +865,11 @@ void Ascent::onMouseDown(iKeyCode key)
         Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
         if (player != nullptr)
         {
-           /* if (key == iKeyCode::MouseRight)
-            {
-                iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
-                player->shootSecondaryWeapon(_view, updown);
-            }*/
+            /* if (key == iKeyCode::MouseRight)
+             {
+                 iaVector3d updown(_weaponPos._x, _weaponPos._y, _weaponPos._z);
+                 player->shootSecondaryWeapon(_view, updown);
+             }*/
 
             if (key == iKeyCode::MouseLeft)
             {
@@ -689,17 +893,6 @@ void Ascent::onWindowClosed()
 void Ascent::onWindowResized(int32 clientWidth, int32 clientHeight)
 {
     _viewOrtho.setOrthogonal(0, static_cast<float32>(clientWidth), static_cast<float32>(clientHeight), 0);
-}
-
-void Ascent::initVoxelData()
-{
-    VoxelTerrainGenerator::getInstance().setScene(_scene);
-    Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));
-    if (player != nullptr)
-    {
-        VoxelTerrainGenerator::getInstance().setLODTrigger(player->getLODTriggerID());
-    }
-    VoxelTerrainGenerator::getInstance().registerVoxelDataGeneratedDelegate(VoxelDataGeneratedDelegate(this, &Ascent::onVoxelDataGenerated));
 }
 
 void Ascent::handleMouse() // TODO
@@ -818,7 +1011,7 @@ void Ascent::onRenderOrtho()
         {
             iRenderer::getInstance().setColor(iaColor4f(0, 1, 0, 1));
             iRenderer::getInstance().setFontSize(40.0f);
-            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);            
+            iRenderer::getInstance().drawString(_window.getClientWidth() * 0.5, _window.getClientHeight() * 0.5, "you win!", iHorizontalAlignment::Center, iVerticalAlignment::Center);
         }
 
         Player* player = static_cast<Player*>(iEntityManager::getInstance().getEntity(_playerID));

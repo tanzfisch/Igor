@@ -33,9 +33,11 @@
 #include <iNodeFactory.h>
 
 #include <iTaskGenerateVoxels.h>
+#include <iTaskPropsOnVoxels.h>
 #include <iVoxelTerrainMeshGenerator.h>
 #include <iVoxelBlock.h>
 #include <iVoxelOperation.h>
+#include <iAABox.h>
 
 #include <iaEvent.h>
 #include <iaVector3.h>
@@ -52,11 +54,9 @@ namespace Igor
     class iNodeLODTrigger;
     class iVoxelData;
     class iScene;
+    class iTargetMaterial;
 
-    iaEVENT(iVoxelDataGeneratedEvent, iVoxelDataGeneratedDelegate, void, (const iaVector3I& min, const iaVector3I& max), (min, max));
-
-    /*!
-        \todo should not be a singleton
+    /*! voxel terrain class
     */
     class Igor_API iVoxelTerrain
     {
@@ -87,20 +87,6 @@ namespace Igor
 
     public:
 
-        /*! lowest allowed lod
-
-        more than 10 might not work
-        */
-        static const uint32 _lowestLOD = 10;
-
-        /*! voxel block discovery distance in blocks
-        */
-        static const int64 _voxelBlockDiscoveryDistance = 4;
-
-        /*! voxel block setup distance in blocks
-        */
-        static const int64 _voxelBlockSetupDistance = 2;
-
         /*! block quibic size
 
         \bug can't be changed right now
@@ -113,9 +99,18 @@ namespace Igor
         */
         static const int32 _voxelBlockOverlap = 2;
 
-        /*! init
+        /*! initializes voxel terrain
+
+        \param generateVoxelsDelegate callback to generate voxel data
+        \param lodCount count of level of detail allowed range is 2-11 (right now the lowest LOD is not visible)
+        \param voxelBlockSetupDistance distance in blocks of the lowest level of detail to be generated and visible when in range
+        \param maxDiscoveryBoundaries optionally adding boundaries to the discovery area. Values are in voxel block coordinates of the lowest LOD
         */
-        iVoxelTerrain(iGenerateVoxelsDelegate generateVoxelsDelegate);
+        iVoxelTerrain(iVoxelTerrainGenerateDelegate generateVoxelsDelegate, 
+            iVoxelTerrainPlacePropsDelegate placePropsDelegate, 
+            uint32 lodCount = 11, 
+            uint32 voxelBlockSetupDistance = 4,
+            const iaVector3I *maxDiscoveryBoundaries = nullptr);
 
         /*! deinit
         */
@@ -133,9 +128,29 @@ namespace Igor
         */
         void setLODTrigger(uint32 lodTriggerID);
 
+        /*! sets material ID
+
+        \param materialID the material ID to use
+        */
+        void setMaterialID(uint64 materialID);
+
         /*! \returns terrain material ID
         */
-        uint64 getMaterial() const;
+        uint64 getMaterialID() const;
+
+        /*! sets physics material ID
+
+        \param materialID the material ID to use
+        */
+        void setPhysicsMaterialID(uint64 materialID);
+
+        /*! \returns terrain material ID
+        */
+        uint64 getPhysicsMaterialID() const;
+
+        /*! \returns target material
+        */
+        iTargetMaterial* getTargetMaterial();
 
         /*! modifies voxel data by manipulating a box area
 
@@ -144,15 +159,68 @@ namespace Igor
         */
         void modify(const iAABoxI& box, uint8 density);
 
+        /*! modifies voxel data by manipulating a sphere area
+
+        \param sphere the defined area to manipulate
+        \param density the density to set within the box area
+        */
+        void modify(const iSphereI& sphere, uint8 density);
+
+        /*! casts ray to voxels to detect intersection
+
+        \param from from where the ray is cast
+        \param to to where the ray is cast to
+        \param[out] outside if there is an intersection this is the last voxel right before
+        \param[out] inside if there is an intersection this is the first voxel with density greater zero
+        \returns true if there was an intersection
+        */
+        bool castRay(const iaVector3I& from, const iaVector3I& to, iaVector3I& outside, iaVector3I& inside);
+        /*! \returns voxel density at given position
+        \param pos the given position
+        */
+        uint8 getVoxelDensity(iaVector3I pos);
+
     private:
 
+        /*! the discovery boundaries
+        */
+        iaVector3I _maxDiscoveryBoundaries{100000,100000,100000};
+
+        /*! lowest allowed lod
+        */
+        uint32 _lowestLOD  = 0;
+
+        /*! voxel block discovery distance in blocks
+        */
+        int64 _voxelBlockDiscoveryDistance = 0;
+
+        /*! voxel block setup distance in blocks
+        */
+        int64 _voxelBlockSetupDistance = 0;
+
+        /*! phyics material ID
+        */
+        uint64 _physicsMaterialID = 0;
+
+        /*! target material for given tile
+        */
+        iTargetMaterial* _targetMaterial = nullptr;
+
+        /*! voxel operations queue
+        */
         vector<shared_ptr<iVoxelOperation>> _operationsQueue;
 
+        /*! voxel operations queue mutex
+        */
         iaMutex _operationsQueueMutex;
 
         /*! delegate registered by application to generate voxel data
         */
-        iGenerateVoxelsDelegate _generateVoxelsDelegate;
+        iVoxelTerrainGenerateDelegate _generateVoxelsDelegate;
+
+        /*! props placement delegate
+        */
+        iVoxelTerrainPlacePropsDelegate _placePropsDelegate;
 
         /*! queue of actions
         */
@@ -280,7 +348,7 @@ namespace Igor
 
         /*! init
         */
-        void init(iScene* scene);
+        void init();
 
         /*! deinit
         */
