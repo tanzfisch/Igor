@@ -34,8 +34,8 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 
 	setHealth(100.0);
 	setShield(100.0);
-	setDamage(20.0);
-	setShieldDamage(10.0);
+	setDamage(50.0);
+	setShieldDamage(20.0);
 
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
 	transformNode->setMatrix(matrix);
@@ -84,7 +84,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	iNodePhysics* physicsNode = static_cast<iNodePhysics*>(iNodeFactory::getInstance().createNode(iNodeType::iNodePhysics));
 	physicsNode->addSphere(0.1, offset);
 	physicsNode->finalizeCollision();
-	physicsNode->setMass(0.01);
+	physicsNode->setMass(0.001);
 	physicsNode->setForceAndTorqueDelegate(iApplyForceAndTorqueDelegate(this, &Bullet::onApplyForceAndTorque));
 	physicsNode->setMaterial(Ascent::_bulletMaterialID);
     physicsNode->setUserData(reinterpret_cast<const void*>(getID()));
@@ -155,6 +155,14 @@ void Bullet::handle()
         kill();
 	}
     setHealth(health);
+
+    // making sure bullets don't leave the scene
+    const iaVector3d center(10000,10000,10000);
+    if (getCurrentPos().distance(center) > 5000)
+    {
+        kill();
+    }
+
 }
 
 void Bullet::onApplyForceAndTorque(iPhysicsBody* body, float32 timestep)

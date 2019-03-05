@@ -103,6 +103,10 @@ namespace Igor
     */
     typedef iSphere<float64> iSphered;
 
+    /*! uint64 precision of sphere
+    */
+    typedef iSphere<int64> iSphereI;
+
 }
 
 #endif

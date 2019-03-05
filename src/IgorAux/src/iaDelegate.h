@@ -114,10 +114,10 @@ namespace IgorAux
 			FunctionPointer function;\
 		};\
 	public:\
-		DelegateName():delegateInternal(NULL) {}\
+		DelegateName():delegateInternal(nullptr) {}\
 		DelegateName(const DelegateName &fpDelegate):delegateInternal(fpDelegate.delegateInternal->Clone()) {}\
 	\
-		DelegateName(InternalDefaultCall::FunctionPointer fpFunction):delegateInternal(NULL)\
+		DelegateName(InternalDefaultCall::FunctionPointer fpFunction):delegateInternal(nullptr)\
 		{\
 			this->delegateInternal = (InternalDefaultCall*)malloc(sizeof(InternalDefaultCall));\
 			new(this->delegateInternal) InternalDefaultCall(fpFunction);\
@@ -131,21 +131,21 @@ namespace IgorAux
 	\
 		~DelegateName()\
 		{\
-			if (this->delegateInternal != NULL)\
+			if (this->delegateInternal != nullptr)\
 			{\
 				this->delegateInternal->~InternalBase();\
 				free(this->delegateInternal);\
-				this->delegateInternal = NULL;\
+				this->delegateInternal = nullptr;\
 			}\
 		}\
 	\
 		const DelegateName &operator=(const DelegateName &fpDelegate)\
 		{\
-			if (this->delegateInternal != NULL)\
+			if (this->delegateInternal != nullptr)\
 			{\
 				this->delegateInternal->~InternalBase();\
 				free(this->delegateInternal);\
-				this->delegateInternal = NULL;\
+				this->delegateInternal = nullptr;\
 			}\
 			this->delegateInternal = fpDelegate.delegateInternal->Clone();\
 			return *this;\
@@ -153,13 +153,13 @@ namespace IgorAux
 	\
 		bool operator==(const DelegateName &fpDelegate) const\
 		{\
-			if (this->delegateInternal == NULL) return (fpDelegate.delegateInternal == NULL);\
+			if (this->delegateInternal == nullptr) return (fpDelegate.delegateInternal == nullptr);\
 			return (this->delegateInternal->Compare(fpDelegate.delegateInternal));\
 		}\
 	\
 		ReturnType operator()ParameterList const\
 		{\
-			if (delegateInternal == NULL)\
+			if (delegateInternal == nullptr)\
 			{\
 				typedef ReturnType DummyType; return DummyType();\
 			}\

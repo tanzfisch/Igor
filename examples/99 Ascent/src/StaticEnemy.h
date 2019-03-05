@@ -8,6 +8,7 @@ namespace Igor
     class iScene;
     class iPhysicsBody;
     class iPhysicsJoint;
+    class iVoxelTerrain;
 }
 
 class StaticEnemy : public GameObject
@@ -15,7 +16,7 @@ class StaticEnemy : public GameObject
     
 public:
 
-    StaticEnemy(iScene* scene, const iaMatrixd& matrix, uint64 playerID);
+    StaticEnemy(iScene* scene, iVoxelTerrain* voxelTerrain, const iaMatrixd& matrix, uint64 playerID);
     virtual ~StaticEnemy();
 
 private:
@@ -27,6 +28,7 @@ private:
     uint32 _transformNodeID = 0;
 	uint32 _physicsNodeID = 0;
     iScene* _scene = nullptr;
+    iVoxelTerrain* _voxelTerrain = nullptr;
 
     void handle();
     iaVector3d getCurrentPos();

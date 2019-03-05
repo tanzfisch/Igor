@@ -50,7 +50,7 @@ namespace Igor
     */
     struct iVoxelBlockInfo
     {
-        /*! absolute position of voxel block
+        /*! absolute position of voxel block in LOD voxel coordinates
         */
         iaVector3I _positionInLOD;
 
@@ -79,7 +79,9 @@ namespace Igor
 
     \param voxelBlockInfo contains all information to generate the voxels
     */
-    iaDELEGATE(iGenerateVoxelsDelegate, void, (iVoxelBlockInfo* voxelBlockInfo), (voxelBlockInfo));
+    iaDELEGATE(iVoxelTerrainGenerateDelegate, void, (iVoxelBlockInfo* voxelBlockInfo), (voxelBlockInfo));
+
+    // TODO add callback onAfterMeshGeneration ?
 
     /*! task to generate voxels.
 
@@ -95,8 +97,9 @@ namespace Igor
         \param voxelBlockInfo the voxel block to generate the data for
         \param priority the priority to run this task with
         \param generateVoxelsDelegate the delegate to do the actual work
+        \param voxelDataGeneratedDelegate the delegate to be called after generating the voxels
         */
-        iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iGenerateVoxelsDelegate generateVoxelsDelegate);
+        iTaskGenerateVoxels(iVoxelBlockInfo* voxelBlockInfo, uint32 priority, iVoxelTerrainGenerateDelegate generateVoxelsDelegate);
 
         /*! does nothing
         */
@@ -110,9 +113,9 @@ namespace Igor
 
     private:
 
-        /*! delegate that does the actual work
+        /*! delegate that generated the voxels
         */
-        iGenerateVoxelsDelegate _generateVoxelsDelegate;
+        iVoxelTerrainGenerateDelegate _generateVoxelsDelegate;
 
         /*! the data to work with
         */

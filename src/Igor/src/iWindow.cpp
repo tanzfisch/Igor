@@ -509,7 +509,7 @@ namespace Igor
         }
     }
 
-    void iWindow::setPosition(uint32 xPos, uint32 yPos)
+    void iWindow::setPosition(int32 xPos, int32 yPos)
     {
         _xPos = xPos;
         _yPos = yPos;
@@ -546,7 +546,12 @@ namespace Igor
             int32 desktopWidth = GetSystemMetrics(SM_CXSCREEN);
             int32 desktopHeight = GetSystemMetrics(SM_CYSCREEN);
 
-            setPosition((desktopWidth - _width) >> 1, (desktopHeight - _height) >> 1);
+            // make sure the window title stays on screen
+            int32 y = (desktopHeight - static_cast<int32>(_height)) / 2;
+            y = max(y, 0);
+            int32 x = (desktopWidth - static_cast<int32>(_width)) / 2;
+            x = max(x, 0);
+            setPosition(x, y);
         }
     }
 
