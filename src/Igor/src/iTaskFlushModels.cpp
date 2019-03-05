@@ -7,6 +7,8 @@
 #include <iModelResourceFactory.h>
 #include <iWindow.h>
 
+#include <thread>
+
 namespace Igor
 {
 
@@ -26,7 +28,7 @@ namespace Igor
 
         while (isRunning())
         {
-            _sleep(1);
+            std::this_thread::yield();
         }
 
         setRepeating(false);

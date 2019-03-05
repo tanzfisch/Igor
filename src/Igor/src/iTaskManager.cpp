@@ -12,6 +12,8 @@
 #include <iTask.h>
 #include <iWindow.h>
 
+#include <thread>
+
 namespace Igor
 {
     bool iTaskManager::_running = false;
@@ -67,7 +69,7 @@ namespace Igor
 
             while (task->isRunning())
             {
-                Sleep(10);
+                std::this_thread::yield();
             }
 
             delete task;
@@ -85,7 +87,7 @@ namespace Igor
 
             while (task->isRunning())
             {
-                Sleep(10);
+                std::this_thread::yield();
             }
 
             delete task;
@@ -236,7 +238,7 @@ namespace Igor
 
                 while ((*taskIter)->isRunning())
                 {
-                    Sleep(1);
+                    std::this_thread::yield();
                 }
 
                 removeFromAllTasks.push_back((*taskIter)->getID());
@@ -370,7 +372,7 @@ namespace Igor
             }
             else
             {
-                Sleep(10);
+                std::this_thread::yield();
             }
         }
     }
@@ -451,7 +453,7 @@ namespace Igor
             }
             else
             {
-                Sleep(10);
+                std::this_thread::yield();
             }
         }
     }
