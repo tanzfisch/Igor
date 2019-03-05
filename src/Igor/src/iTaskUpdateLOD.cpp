@@ -6,10 +6,12 @@
 
 #include <iScene.h>
 
+#include <thread>
+
 namespace Igor
 {
 
-    iTaskUpdateLOD::iTaskUpdateLOD(iScene* scene);
+    iTaskUpdateLOD::iTaskUpdateLOD(iScene* scene)
         : iTask(nullptr)
     {
         _needsRenderContext = false;
@@ -23,7 +25,7 @@ namespace Igor
         {
             iModelResourceFactory::getInstance().flush();
             iTextureResourceFactory::getInstance().flush();
-            _sleep(100);
+            std::this_thread::yield();
         }
 
         _done = true;
@@ -38,7 +40,7 @@ namespace Igor
 
         while (!_done)
         {
-            _sleep(1);
+            std::this_thread::yield();
         }
     }
 
