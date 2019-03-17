@@ -28,6 +28,11 @@ Manipulator::Manipulator(iWindow* window)
     init();
 }
 
+Manipulator::~Manipulator()
+{
+    deinit();
+}
+
 void Manipulator::init()
 {
     _view.setName("ManipulatorView");

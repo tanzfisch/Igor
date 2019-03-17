@@ -41,30 +41,64 @@ namespace Igor
     class iTargetMaterial;
 }
 
+/*! display a grid plane for better orientation within the scene
+*/
 class OrientationPlane
 {
 
 public:
 
+    /*! initialisation
+    */
     OrientationPlane(iScene* scene);
 
-    void setVisible(bool visible);
-    bool isVisible() const;
+    /*! cleanup 
+    */
+    ~OrientationPlane();
 
-    void init();
-    void deinit();
+    /*! sets grid's visibility
+
+    \param visible the visibility
+    */
+    void setVisible(bool visible);
+
+    /*! \returns true if grid is visible
+    */
+    bool isVisible() const;
 
 private:
 
+    /*! scene for displaying the grid
+    */
     iScene* _scene = nullptr;
 
+    /*! grid material
+    */
     uint64 _material = iMaterial::INVALID_MATERIAL_ID;
-    iTargetMaterial* _white = nullptr;
 
+    /*! grid target material
+    */
+    iTargetMaterial* _targetMaterial = nullptr;
+
+    /*! grid's transform node
+    */
     uint64 _transformNodeID = iNode::INVALID_NODE_ID;
+
+    /*! visibility flag
+    */
     bool _visible = true;
 
+    /*! crates a grid mesh
+    */
     shared_ptr<iMesh> createGridMesh();
+
+    /*! initialisation
+    */
+    void init();
+
+    /*! deinitialisation
+    */
+    void deinit();
 
 };
 
