@@ -919,6 +919,9 @@
     <ClInclude Include="..\src\iVoxelOperationSphere.h">
       <Filter>terrain\operations</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iRay.h">
+      <Filter>data types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iSprite.inl">
@@ -965,6 +968,9 @@
     </None>
     <None Include="..\src\iNodeFactory.inl">
       <Filter>scene\nodes</Filter>
+    </None>
+    <None Include="..\src\iRay.inl">
+      <Filter>data types</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

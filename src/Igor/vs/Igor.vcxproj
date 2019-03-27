@@ -220,8 +220,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     </PostBuildEvent>
     <PreBuildEvent>
       <Command>
-
-</Command>
+      </Command>
     </PreBuildEvent>
     <PreBuildEvent>
       <Message>
@@ -505,6 +504,7 @@ xcopy "$(ProjectDir)..\..\..\3rd\newton-dynamics\coreLibrary_300\projects\window
     <ClInclude Include="..\src\iPhysicsWorld.h" />
     <ClInclude Include="..\src\iPixmap.h" />
     <ClInclude Include="..\src\iPlane.h" />
+    <ClInclude Include="..\src\iRay.h" />
     <ClInclude Include="..\src\iRectangle.h" />
     <ClInclude Include="..\src\iRenderContextThread.h" />
     <ClInclude Include="..\src\iRenderEngine.h" />
@@ -609,6 +609,7 @@ git describe --abbrev=0 --tags &gt;&gt; ..\src\gitTag.inl</Command>
     <None Include="..\src\iNodeFactory.inl" />
     <None Include="..\src\iPerlinNoise.inl" />
     <None Include="..\src\iPlane.inl" />
+    <None Include="..\src\iRay.inl" />
     <None Include="..\src\iRectangle.inl" />
     <None Include="..\src\iSphere.inl" />
     <None Include="..\src\iSprite.inl" />
