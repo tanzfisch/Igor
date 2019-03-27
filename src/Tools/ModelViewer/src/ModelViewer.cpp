@@ -695,18 +695,11 @@ void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
     iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
-    if (node != nullptr)
+    if (node != nullptr &&
+        node->getKind() == iNodeKind::Transformation)
     {
-        if (node->getKind() == iNodeKind::Transformation)
-        {
-            _manipulator->setVisible(true);
-            _manipulator->setManipulatorMode(manipulatorMode);
-        }
-        else
-        {
-            _manipulator->setVisible(true);
-            _manipulator->setManipulatorMode(ManipulatorMode::Locator);
-        }
+        _manipulator->setVisible(true);
+        _manipulator->setManipulatorMode(manipulatorMode);
     }
     else
     {

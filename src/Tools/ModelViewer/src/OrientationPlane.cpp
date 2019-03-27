@@ -30,6 +30,11 @@ OrientationPlane::OrientationPlane(iScene* scene)
     init();
 }
 
+OrientationPlane::~OrientationPlane()
+{
+    deinit();
+}
+
 void OrientationPlane::init()
 {
     _material = iMaterialResourceFactory::getInstance().createMaterial("OrientationPlane");
@@ -42,12 +47,12 @@ void OrientationPlane::init()
     material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     material->setOrder(iMaterial::RENDER_ORDER_MAX);
 
-    _white = iMaterialResourceFactory::getInstance().createTargetMaterial();
-    _white->setEmissive(iaColor3f(0.8f, 0.8f, 0.8f));
-    _white->setSpecular(iaColor3f(0.8f, 0.8f, 0.8f));
-    _white->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
-    _white->setAmbient(iaColor3f(0.8f, 0.8f, 0.8f));
-    _white->setTexture(iTextureResourceFactory::getInstance().requestFile("lineGradient.png"), 0);
+    _targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
+    _targetMaterial->setEmissive(iaColor3f(0.8f, 0.8f, 0.8f));
+    _targetMaterial->setSpecular(iaColor3f(0.8f, 0.8f, 0.8f));
+    _targetMaterial->setDiffuse(iaColor3f(0.8f, 0.8f, 0.8f));
+    _targetMaterial->setAmbient(iaColor3f(0.8f, 0.8f, 0.8f));
+    _targetMaterial->setTexture(iTextureResourceFactory::getInstance().requestFile("lineGradient.png"), 0);
 
     shared_ptr<iMesh> gridMesh = createGridMesh();
 
@@ -58,7 +63,7 @@ void OrientationPlane::init()
     iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     meshNode->setMesh(gridMesh);
     meshNode->setMaterial(_material);
-    meshNode->setTargetMaterial(_white);
+    meshNode->setTargetMaterial(_targetMaterial);
 
     transformNode->insertNode(meshNode);
     _scene->getRoot()->insertNode(transformNode);
@@ -66,7 +71,7 @@ void OrientationPlane::init()
 
 void OrientationPlane::deinit()
 {
-    iMaterialResourceFactory::getInstance().destroyTargetMaterial(_white);
+    iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
 }
 
 void OrientationPlane::setVisible(bool visible)
