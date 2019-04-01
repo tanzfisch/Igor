@@ -36,7 +36,7 @@ namespace Igor
 
     void iNodeSwitch::setActiveChild(uint32 id)
     {
-        iNode* child = getChild(id);
+        iNodePtr child = getChild(id);
         con_assert(child != nullptr, "child with id " << id << " not found");
 
         if (child != nullptr)
@@ -47,7 +47,7 @@ namespace Igor
 
     void iNodeSwitch::setActiveChild(const iaString& name)
     {
-        iNode* child = getChild(name);
+        iNodePtr child = getChild(name);
         con_assert(child != nullptr, "child with name " << name << " not found");
 
         if (child != nullptr)
@@ -56,11 +56,11 @@ namespace Igor
         }
     }
 
-    void iNodeSwitch::setActiveChild(iNode* node)
+    void iNodeSwitch::setActiveChild(iNodePtr node)
     {
         con_assert(node != nullptr, "zero pointer");
 
-        vector<iNode*> copyChildren(_children);
+        vector<iNodePtr> copyChildren(_children);
 
         auto iter = copyChildren.begin();
         while (iter != copyChildren.end())

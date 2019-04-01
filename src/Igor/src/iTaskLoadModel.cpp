@@ -20,7 +20,7 @@ namespace Igor
 
     void iTaskLoadModel::run()
     {
-        iNode* node = iModelResourceFactory::getInstance().loadData(_model->getName(), _model->getParameters());
+        iNodePtr node = iModelResourceFactory::getInstance().loadData(_model->getName(), _model->getParameters());
         if (node != nullptr)
         {
             _model->setNode(node);

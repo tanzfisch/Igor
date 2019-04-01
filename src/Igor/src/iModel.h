@@ -31,6 +31,7 @@
 
 #include <iDefines.h>
 #include <iTask.h>
+#include <iNode.h>
 
 #include <iaString.h>
 #include <iaMemBlock.h>
@@ -38,8 +39,6 @@ using namespace IgorAux;
 
 namespace Igor
 {
-
-	class iNode;
 
     /*! state of model
     */
@@ -114,13 +113,13 @@ namespace Igor
 
         /*! \returns copy to node tree data
         */
-        iNode* getNodeCopy();
+        iNodePtr getNodeCopy();
 
         /*! \returns pointer to node tree data
 
         only use this if you know what you are doing
         */
-        iNode* getNode();
+        iNodePtr getNode();
 
         /*! \returns model state
         */
@@ -134,7 +133,7 @@ namespace Igor
         
 		/*! node data
 		*/
-		iNode* _node = nullptr;
+		iNodePtr _node = nullptr;
 
         /*! optional load or generate parameter
         */
@@ -154,7 +153,7 @@ namespace Igor
 
 		/*! set node
 		*/
-		void setNode(iNode* node);
+		void setNode(iNodePtr node);
 
         /*! sets model state
 

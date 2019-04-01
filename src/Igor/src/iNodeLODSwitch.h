@@ -73,7 +73,7 @@ namespace Igor
         \param min min distance the specified node is visible
         \param max max distance the specified node is visible
         */
-        void setThresholds(iNode* node, float32 min, float32 max);
+        void setThresholds(iNodePtr node, float32 min, float32 max);
 
         /*! sets the active threashold for a specified lod level (in this case a nodes name)
 
@@ -131,7 +131,7 @@ namespace Igor
 
         /*! quadric distance thresholds for child nodes
         */
-        map<iNode*, Threshold> _thresholds;
+        map<iNodePtr, Threshold> _thresholds;
 
         /*! current absolute position
         */

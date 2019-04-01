@@ -132,7 +132,7 @@ void Manipulator::highlightSelected()
 {
     if (_selectedLocatorNodeID != iNode::INVALID_NODE_ID)
     {
-        iNode* node = iNodeFactory::getInstance().getNode(_selectedLocatorNodeID);
+        iNodePtr node = iNodeFactory::getInstance().getNode(_selectedLocatorNodeID);
 
         if (node->getKind() == iNodeKind::Renderable ||
             node->getKind() == iNodeKind::Volume)
@@ -360,7 +360,7 @@ void Manipulator::update()
 {
     iaMatrixd locatorMatrix;
 
-    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
     if (node != nullptr)
     {
         node->calcWorldTransformation(locatorMatrix);
@@ -543,7 +543,7 @@ void Manipulator::setCamTranslate(const iaMatrixd& matrix)
 
 void Manipulator::setNodeID(uint64 nodeID)
 {
-    iNode* node = iNodeFactory::getInstance().getNode(nodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
     if (node != nullptr)
     {
         _selectedNodeID = nodeID;
@@ -596,7 +596,7 @@ void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matr
     iaVector2d from(x1, y1);
     iaVector2d to(x2, y2);
 
-    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
     iNodeTransform* transformNode = static_cast<iNodeTransform*>(node);
     iaMatrixd transformWorldMatrix;
     transformNode->calcWorldTransformation(transformWorldMatrix);
@@ -650,7 +650,7 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 {
     if (_selectedLocatorNodeID != iNode::INVALID_NODE_ID)
     {
-        iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+        iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
         if (node != nullptr &&
             node->getType() == iNodeType::iNodeTransform)
         {

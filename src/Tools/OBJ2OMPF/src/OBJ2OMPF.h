@@ -29,6 +29,9 @@
 #ifndef __OBJ2OMPF__
 #define __OBJ2OMPF__
 
+#include <iNode.h>
+using namespace Igor;
+
 #include <iaString.h>
 using namespace IgorAux;
 
@@ -55,7 +58,7 @@ public:
 
 private:
 
-    void setMaterialRecursive(iNode* node, uint64 materialID);
+    void setMaterialRecursive(iNodePtr node, uint64 materialID);
     bool analyzeParam(int argc, char* argv[]);
 
     bool _joinVertexes = true;

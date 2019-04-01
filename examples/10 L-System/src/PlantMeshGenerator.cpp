@@ -32,14 +32,14 @@ iModelDataIO* PlantMeshGenerator::createInstance()
     return static_cast<iModelDataIO*>(result);
 }
 
-iNode* PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
+iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
 {
     PlantInformation* plantInformation = reinterpret_cast<PlantInformation*>(parameter->_parameters.getDataPointer());
     iLSystem* lSystem = plantInformation->_lSystem;
     _segmentLength = plantInformation->_segmentLenght;
     _segmentAngle = plantInformation->_segmentAngle;
 
-    iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+    iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 
     _rand.setSeed(plantInformation->_seed);
     iaString sentence = lSystem->generate(plantInformation->_axiom, plantInformation->_iterations, _rand.getNext());

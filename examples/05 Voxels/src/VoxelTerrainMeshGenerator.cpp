@@ -31,7 +31,7 @@ iModelDataIO* VoxelTerrainMeshGenerator::createInstance()
     return static_cast<iModelDataIO*>(result);
 }
 
-iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
+iNodePtr VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
 {
     TileInformation* tileInformation = reinterpret_cast<TileInformation*>(parameter->_parameters.getDataPointer());
     iVoxelData* voxelData = tileInformation->_voxelData;
@@ -39,7 +39,7 @@ iNode* VoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModel
     int64 depth = voxelData->getDepth() - 1;
     int64 height = voxelData->getHeight() - 1;
     
-    iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+    iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
 
     iContouringCubes contouringCubes;
     contouringCubes.setVoxelData(voxelData);

@@ -142,7 +142,7 @@ namespace Igor
         */
         bool checkForBuffers();
 
-        bool checkForBuffers(iNode* node);
+        bool checkForBuffers(iNodePtr node);
 
         /*! called by update transform run
 

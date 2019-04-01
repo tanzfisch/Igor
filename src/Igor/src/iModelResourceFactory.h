@@ -100,7 +100,7 @@ namespace Igor
 
         \param formatIdentifier identifier of which exporter to use
         */
-        void exportModelData(iaString filename, iNode* node, const iaString& formatIdentifier = "ompf", iSaveMode saveMode = iSaveMode::KeepExternals);
+        void exportModelData(iaString filename, iNodePtr node, const iaString& formatIdentifier = "ompf", iSaveMode saveMode = iSaveMode::KeepExternals);
 
         /*! registers generator
 
@@ -173,7 +173,7 @@ namespace Igor
         \param filename file name of model to load
         \param parameter optional parameters
         */
-        iNode* loadData(iaString filename, iModelDataInputParameter* parameter);
+        iNodePtr loadData(iaString filename, iModelDataInputParameter* parameter);
 
         /*! calculates hash value for model data io string
 

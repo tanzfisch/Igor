@@ -156,7 +156,7 @@ private:
 
     uint64 _selectedLocatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
-    iNode* _parent = nullptr;
+    iNodePtr _parent = nullptr;
     bool _visible = false;
 
     vector<uint64> _locatorIDs;
@@ -168,10 +168,10 @@ private:
 
     iNodeSwitch* _switchNode = nullptr;
 
-    iNode* _locatorModifier = nullptr;
-    iNode* _translateModifier = nullptr;
-    iNode* _scaleModifier = nullptr;
-    iNode* _roateModifier = nullptr;
+    iNodePtr _locatorModifier = nullptr;
+    iNodePtr _translateModifier = nullptr;
+    iNodePtr _scaleModifier = nullptr;
+    iNodePtr _roateModifier = nullptr;
     iNodeTransform* _rotateBillboardTransform = nullptr;
 
     ManipulatorMode _manipulatorMode = ManipulatorMode::Locator;

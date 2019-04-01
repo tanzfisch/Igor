@@ -59,7 +59,7 @@ namespace Igor
 
         \param node pointer to node object
         */
-        void setActiveChild(iNode* node);
+        void setActiveChild(iNodePtr node);
 
         /*! sets the active child by id
 

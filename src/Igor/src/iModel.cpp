@@ -61,7 +61,7 @@ namespace Igor
 		_state = state;
 	}
 
-	void iModel::setNode(iNode* node)
+	void iModel::setNode(iNodePtr node)
 	{
         con_assert(node != nullptr, "zero pointer");
         con_assert(_node == nullptr, "can't override data");
@@ -73,7 +73,7 @@ namespace Igor
         }
 	}
 
-    iNode* iModel::getNodeCopy()
+    iNodePtr iModel::getNodeCopy()
     {
         con_assert(_node != nullptr, "zero pointer. data not ready");
          
@@ -87,7 +87,7 @@ namespace Igor
         }
     }
 
-	iNode* iModel::getNode()
+	iNodePtr iModel::getNode()
 	{
 		return _node;
 	}

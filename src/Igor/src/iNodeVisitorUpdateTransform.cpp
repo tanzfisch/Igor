@@ -13,7 +13,7 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	bool iNodeVisitorUpdateTransform::preOrderVisit(iNode* node)
+	bool iNodeVisitorUpdateTransform::preOrderVisit(iNodePtr node)
 	{
         if (iNodeKind::Transformation == node->getKind())
         {
@@ -32,7 +32,7 @@ namespace Igor
 		}
 	}
 
-	void iNodeVisitorUpdateTransform::postOrderVisit(iNode* node)
+	void iNodeVisitorUpdateTransform::postOrderVisit(iNodePtr node)
 	{
         if (iNodeKind::Transformation == node->getKind())
         {

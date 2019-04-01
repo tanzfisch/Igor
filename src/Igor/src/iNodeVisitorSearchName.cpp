@@ -13,14 +13,14 @@ namespace Igor
         setTraverseInactiveChildren(true);
     }
 
-    const vector<uint64>& iNodeVisitorSearchName::find(iNode* node, const iaString& name)
+    const vector<uint64>& iNodeVisitorSearchName::find(iNodePtr node, const iaString& name)
     {
         _name = name;
         traverseTree(node);
         return _nodeIDs;
     }
 
-    bool iNodeVisitorSearchName::preOrderVisit(iNode* node)
+    bool iNodeVisitorSearchName::preOrderVisit(iNodePtr node)
     {
         if (node->getName() == _name)
         {
@@ -35,7 +35,7 @@ namespace Igor
         _nodeIDs.clear();
     }
 
-    void iNodeVisitorSearchName::postOrderVisit(iNode* node)
+    void iNodeVisitorSearchName::postOrderVisit(iNodePtr node)
     {
         // does nothing
     }

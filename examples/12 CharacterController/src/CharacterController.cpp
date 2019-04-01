@@ -9,7 +9,7 @@
 #include <iApplication.h>
 using namespace Igor;
 
-CharacterController::CharacterController(iNode* node, int64 materiaID, const iaMatrixd& startMatrix)
+CharacterController::CharacterController(iNodePtr node, int64 materiaID, const iaMatrixd& startMatrix)
 {
     // setup character and attache camera to it
     iaMatrixd rotate;

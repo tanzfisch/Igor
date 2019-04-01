@@ -22,7 +22,7 @@ namespace Igor
         iMaterialResourceFactory::getInstance().getMaterial(_material)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
     }
 
-    bool iNodeVisitorRenderBoundings::preOrderVisit(iNode* node)
+    bool iNodeVisitorRenderBoundings::preOrderVisit(iNodePtr node)
     {
         if (iNodeKind::Transformation == node->getKind())
         {
@@ -47,7 +47,7 @@ namespace Igor
         return true;
     }
 
-    void iNodeVisitorRenderBoundings::postOrderVisit(iNode* node)
+    void iNodeVisitorRenderBoundings::postOrderVisit(iNodePtr node)
     {
         if (iNodeKind::Transformation == node->getKind())
         {

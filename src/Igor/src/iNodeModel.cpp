@@ -108,7 +108,7 @@ namespace Igor
         }
     }
 
-    bool iNodeModel::checkForBuffers(iNode* node)
+    bool iNodeModel::checkForBuffers(iNodePtr node)
     {
         if (node->getType() == iNodeType::iNodeMesh)
         {

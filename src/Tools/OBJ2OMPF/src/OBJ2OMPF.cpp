@@ -58,7 +58,7 @@ bool OBJ2OMPF::analyzeParam(int argc, char* argv[])
     return true;
 }
 
-void OBJ2OMPF::setMaterialRecursive(iNode* node, uint64 materialID)
+void OBJ2OMPF::setMaterialRecursive(iNodePtr node, uint64 materialID)
 {
     if (node->getType() == iNodeType::iNodeMesh)
     {
@@ -116,7 +116,7 @@ void OBJ2OMPF::convert(int argc, char* argv[])
             con_endl("material " << material->getName() << " with id " << material->getID());
         }
 
-        iNode* objRoot = modelNode->getChild("obj_root");
+        iNodePtr objRoot = modelNode->getChild("obj_root");
         if (objRoot && objRoot->getChildren().size() == 1)
         {
             iModelResourceFactory::getInstance().exportModelData(_dst, (*objRoot->getChildren().begin()), "ompf", iSaveMode::EmbedExternals);

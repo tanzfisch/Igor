@@ -77,9 +77,9 @@ namespace Igor
         }
     }
 
-    iNode* iModelDataIOOMPF::createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk)
+    iNodePtr iModelDataIOOMPF::createNodeTree(iNodePtr parent, OMPF::ompfBaseChunk* currentChunk)
     {
-        iNode* result = nullptr;
+        iNodePtr result = nullptr;
 
         switch (currentChunk->getType())
         {
@@ -175,7 +175,7 @@ namespace Igor
         return result;
     }
 
-    iNode* iModelDataIOOMPF::createMeshNode(OMPF::ompfBaseChunk * chunk)
+    iNodePtr iModelDataIOOMPF::createMeshNode(OMPF::ompfBaseChunk * chunk)
     {
         OMPF::ompfMeshChunk* meshChunk = static_cast<OMPF::ompfMeshChunk*>(chunk);
 
@@ -312,7 +312,7 @@ namespace Igor
         }
     }
 
-    iNode* iModelDataIOOMPF::createParticleSystem(OMPF::ompfBaseChunk * chunk)
+    iNodePtr iModelDataIOOMPF::createParticleSystem(OMPF::ompfBaseChunk * chunk)
     {
         OMPF::ompfParticleSystemChunk* particleSystemChunk = static_cast<OMPF::ompfParticleSystemChunk*>(chunk);
         iNodeParticleSystem* particleSystemNode = static_cast<iNodeParticleSystem*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeParticleSystem));
@@ -377,7 +377,7 @@ namespace Igor
         return particleSystemNode;
     }
 
-    iNode* iModelDataIOOMPF::importData(const iaString& filename, iModelDataInputParameter* parameter)
+    iNodePtr iModelDataIOOMPF::importData(const iaString& filename, iModelDataInputParameter* parameter)
     {
         _parameter = parameter;
 
@@ -390,7 +390,7 @@ namespace Igor
 
         createMaterials();
 
-        iNode* result = createNodeTree(nullptr, _ompf->getRoot()->getChildren()[0]);
+        iNodePtr result = createNodeTree(nullptr, _ompf->getRoot()->getChildren()[0]);
 
         linkNodes(_ompf->getRoot()->getChildren()[0]);
 
@@ -454,7 +454,7 @@ namespace Igor
         }
     }
 
-    void iModelDataIOOMPF::exportData(const iaString& filename, iNode* node, iSaveMode saveMode)
+    void iModelDataIOOMPF::exportData(const iaString& filename, iNodePtr node, iSaveMode saveMode)
     {
         con_assert(node != nullptr, "zero pointer");
         con_assert(!filename.isEmpty(), "empty string");
@@ -520,7 +520,7 @@ namespace Igor
         con_assert(_chunkStack.size() == 0, "stack should be empty");
     }
 
-    bool iModelDataIOOMPF::preOrderVisit(iNode* node)
+    bool iModelDataIOOMPF::preOrderVisit(iNodePtr node)
     {
         OMPF::ompfBaseChunk* nextChunk = nullptr;
         bool callChildren = true;
@@ -582,7 +582,7 @@ namespace Igor
         return callChildren;
     }
 
-    void iModelDataIOOMPF::postOrderVisit(iNode* node)
+    void iModelDataIOOMPF::postOrderVisit(iNodePtr node)
     {
         if (node->getType() == iNodeType::iNodeModel)
         {

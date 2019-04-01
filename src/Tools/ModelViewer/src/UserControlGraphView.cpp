@@ -401,7 +401,7 @@ void UserControlGraphView::clearGraph()
     _selectedNode = iNode::INVALID_NODE_ID;
 }
 
-bool UserControlGraphView::preOrderVisit(iNode* node)
+bool UserControlGraphView::preOrderVisit(iNodePtr node)
 {
     if (!_firstNode)
     {
@@ -468,7 +468,7 @@ bool UserControlGraphView::preOrderVisit(iNode* node)
     return true;
 }
 
-void UserControlGraphView::postOrderVisit(iNode* node)
+void UserControlGraphView::postOrderVisit(iNodePtr node)
 {
     _indentation--;
 }

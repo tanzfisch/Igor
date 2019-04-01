@@ -99,7 +99,7 @@ namespace Igor
 
         /*! \returns root node
         */
-        iNode* getRoot();
+        iNodePtr getRoot();
 
         /*! \returns octree
         */
@@ -150,7 +150,7 @@ namespace Igor
 
         \param node the node to add
         */
-        void addToDataUpdateQueue(iNode* node);
+        void addToDataUpdateQueue(iNodePtr node);
 
 	private:
 
@@ -190,7 +190,7 @@ namespace Igor
 
         there can only be one root node per scene
         */
-		iNode* _root = nullptr;
+		iNodePtr _root = nullptr;
 
         /*! octree
         */

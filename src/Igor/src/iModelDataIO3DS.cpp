@@ -64,7 +64,7 @@ namespace Igor
 		materials.clear();
 	}
 
-	void iLoader3DS::saveFile(string filename, iNode* model)
+	void iLoader3DS::saveFile(string filename, iNodePtr model)
 	{
 		con_err("not implemented" << endl;
 	}

@@ -19,7 +19,7 @@ namespace Igor
 		_nodeID = iNode::_idGenerator.createID();
 	}
 
-	iNode::iNode(iNode* node)
+	iNode::iNode(iNodePtr node)
 	{
 		con_assert(node != nullptr, "zero pointer");
 
@@ -34,14 +34,14 @@ namespace Igor
 			_parent->removeNode(this);
 		}
 
-		vector<iNode*> childrenCopy(_children);
+		vector<iNodePtr> childrenCopy(_children);
 		for (uint32 i = 0; i < childrenCopy.size(); ++i)
 		{
 			iNodeFactory::getInstance().destroyNode(childrenCopy[i]);
 		}
 		_children.clear();
 
-		vector<iNode*> inactiveChildrenCopy(_inactiveChildren);
+		vector<iNodePtr> inactiveChildrenCopy(_inactiveChildren);
 		for (uint32 i = 0; i < inactiveChildrenCopy.size(); ++i)
 		{
 			iNodeFactory::getInstance().destroyNode(inactiveChildrenCopy[i]);
@@ -77,7 +77,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iNode::isChild(iNode* child)
+	bool iNode::isChild(iNodePtr child)
 	{
 		auto iter = _children.begin();
 		while (iter != _children.end())
@@ -102,7 +102,7 @@ namespace Igor
 		return false;
 	}
 
-	iNode* iNode::getChild(uint64 id)
+	iNodePtr iNode::getChild(uint64 id)
 	{
 		auto iter = _children.begin();
 		while (iter != _children.end())
@@ -127,7 +127,7 @@ namespace Igor
 		return 0;
 	}
 
-	iNode* iNode::getChild(const iaString& name)
+	iNodePtr iNode::getChild(const iaString& name)
 	{
 		auto iter = _children.begin();
 		while (iter != _children.end())
@@ -219,7 +219,7 @@ namespace Igor
 		}
 	}
 
-	void iNode::calcWorldTransformation(iNode* currentNode, iaMatrixd& matrix)
+	void iNode::calcWorldTransformation(iNodePtr currentNode, iaMatrixd& matrix)
 	{
 		if (currentNode->getType() == iNodeType::iNodeTransform)
 		{
@@ -241,12 +241,12 @@ namespace Igor
 		calcWorldTransformation(this, matrix);
 	}
 
-	iNode* iNode::getParent()
+	iNodePtr iNode::getParent()
 	{
 		return _parent;
 	}
 
-	void iNode::setParent(iNode* parent)
+	void iNode::setParent(iNodePtr parent)
 	{
 		_parent = parent;
 	}
@@ -266,17 +266,17 @@ namespace Igor
         iNodeFactory::getInstance().setActiveAsync(this, active);
     }
 
-	void iNode::insertNodeAsync(iNode* node)
+	void iNode::insertNodeAsync(iNodePtr node)
 	{
 		iNodeFactory::getInstance().insertNodeAsync(this, node);
 	}
 
-	void iNode::removeNodeAsync(iNode* node)
+	void iNode::removeNodeAsync(iNodePtr node)
 	{
 		iNodeFactory::getInstance().removeNodeAsync(this, node);
 	}
 
-	void iNode::insertNode(iNode* node)
+	void iNode::insertNode(iNodePtr node)
 	{
 		if (!node->isChild())
 		{
@@ -303,7 +303,7 @@ namespace Igor
 	}
 	__IGOR_ENABLE_WARNING__(4100)
 
-	void iNode::removeNode(iNode* node)
+	void iNode::removeNode(iNodePtr node)
 	{
 		auto iter = _children.begin();
 
@@ -329,12 +329,12 @@ namespace Igor
 		return _children.size() ? true : false;
 	}
 
-	vector<iNode*>& iNode::getInactiveChildren()
+	vector<iNodePtr>& iNode::getInactiveChildren()
 	{
 		return _inactiveChildren;
 	}
 
-	vector<iNode*>& iNode::getChildren()
+	vector<iNodePtr>& iNode::getChildren()
 	{
 		return _children;
 	}

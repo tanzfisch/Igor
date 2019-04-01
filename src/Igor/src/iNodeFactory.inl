@@ -3,9 +3,9 @@
 // see copyright notice in corresponding header file
 
 
-iNode* iNodeFactory::getNode(uint64 id) const
+iNodePtr iNodeFactory::getNode(uint64 id) const
 {
-    iNode* result = nullptr;
+    iNodePtr result = nullptr;
 
     _mutexNodes.lock();
     auto iter = _nodes.find(id);

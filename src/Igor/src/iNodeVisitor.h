@@ -30,14 +30,13 @@
 #define __iNODEVISITOR__
 
 #include <iDefines.h>
+#include <iNode.h>
 
 #include <memory>
 using namespace std;
 
 namespace Igor
 {
-
-	class iNode;
 
     /*! base class for traversing a node tree
     */
@@ -64,7 +63,7 @@ namespace Igor
 
         \param node node to start from
         */
-		void traverseTree(iNode* node);
+		void traverseTree(iNodePtr node);
 
     private:
 
@@ -76,7 +75,7 @@ namespace Igor
 
         \param node current node
         */
-        void traverseTreeInternal(iNode* node);
+        void traverseTreeInternal(iNodePtr node);
 
 	protected:
 
@@ -90,13 +89,13 @@ namespace Igor
 
         has to be implemented by deriving class
         */
-        virtual bool preOrderVisit(iNode* node) = 0;
+        virtual bool preOrderVisit(iNodePtr node) = 0;
 
         /*! is called after every node visited
 
         has to be implemented by deriving class
         */
-        virtual void postOrderVisit(iNode* node) = 0;
+        virtual void postOrderVisit(iNodePtr node) = 0;
 		
         /*! is called after the whole traversal
 

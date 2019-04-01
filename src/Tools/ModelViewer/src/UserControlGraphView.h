@@ -148,8 +148,8 @@ private:
 	void onAddParticleSystem(iWidget* source);
 
     virtual void preTraverse();
-    virtual bool preOrderVisit(iNode* node);
-    virtual void postOrderVisit(iNode* node);
+    virtual bool preOrderVisit(iNodePtr node);
+    virtual void postOrderVisit(iNodePtr node);
     virtual void postTraverse();
 
 };

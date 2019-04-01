@@ -110,7 +110,7 @@ private:
 
     uint64 _taskFlushTextures = 0;
 
-    iNode* _groupNode = nullptr;
+    iNodePtr _groupNode = nullptr;
 
     uint64 _materialSkyBox;
     uint64 _materialBoundingBox;
@@ -157,7 +157,7 @@ private:
     void deinit();
     void init(iaString fileName);
     void updateCamDistanceTransform();
-    void centerCamOnNode(iNode* node);
+    void centerCamOnNode(iNodePtr node);
 
     void onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue);
     void onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue);

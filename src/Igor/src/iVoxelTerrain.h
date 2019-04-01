@@ -280,7 +280,7 @@ namespace Igor
 
         /*! root node of terrain
         */
-        iNode* _rootNode = nullptr;
+        iNodePtr _rootNode = nullptr;
 
         /*! terrain material id
         */
@@ -339,9 +339,9 @@ namespace Igor
         void updateMesh(iVoxelBlock* voxelBlock);
         void finalizeMesh(iVoxelBlock* voxelBlock);
 
-        void setNodeActiveAsync(iNode* node, bool active);
-        void insertNodeAsync(iNode* src, iNode* dst);
-        void removeNodeAsync(iNode* src, iNode* dst);
+        void setNodeActiveAsync(iNodePtr node, bool active);
+        void insertNodeAsync(iNodePtr src, iNodePtr dst);
+        void removeNodeAsync(iNodePtr src, iNodePtr dst);
         void destroyNodeAsync(uint64 nodeID);
 
         uint8 calcLODTransition(iVoxelBlock* voxelBlock);
