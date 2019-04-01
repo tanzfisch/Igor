@@ -45,9 +45,6 @@
     <ClCompile Include="..\src\Manipulator.cpp">
       <Filter>3DUserControls</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\OrientationPlane.cpp">
-      <Filter>3DUserControls</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ModelViewer.h" />
@@ -92,9 +89,6 @@
     </ClInclude>
     <ClInclude Include="..\src\ModelViewerDefines.h" />
     <ClInclude Include="..\src\Manipulator.h">
-      <Filter>3DUserControls</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\OrientationPlane.h">
       <Filter>3DUserControls</Filter>
     </ClInclude>
   </ItemGroup>

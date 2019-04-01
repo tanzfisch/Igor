@@ -163,7 +163,6 @@
     <ClInclude Include="..\src\MenuDialog.h" />
     <ClInclude Include="..\src\ModelViewer.h" />
     <ClInclude Include="..\src\ModelViewerDefines.h" />
-    <ClInclude Include="..\src\OrientationPlane.h" />
     <ClInclude Include="..\src\PropertiesDialog.h" />
     <ClInclude Include="..\src\UserControlEmitter.h" />
     <ClInclude Include="..\src\UserControlGraphView.h" />
@@ -182,7 +181,6 @@
     <ClCompile Include="..\src\Manipulator.cpp" />
     <ClCompile Include="..\src\MenuDialog.cpp" />
     <ClCompile Include="..\src\ModelViewer.cpp" />
-    <ClCompile Include="..\src\OrientationPlane.cpp" />
     <ClCompile Include="..\src\PropertiesDialog.cpp" />
     <ClCompile Include="..\src\UserControlEmitter.cpp" />
     <ClCompile Include="..\src\UserControlGraphView.cpp" />

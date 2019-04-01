@@ -86,7 +86,7 @@ namespace Igor
         {
             for (int z = -3; z < 4; ++z)
             {
-                iRenderer::getInstance().drawBillboard(iaVector3f(f * 2.0f * x, 0, f * 2.0 * z), iaVector3f(f, 0, 0), iaVector3f(0, 0, f), nullptr, 10, 10);
+                iRenderer::getInstance().drawBillboard(iaVector3f(f * 2.0f * x, 0, f * 2.0f * z), iaVector3f(f, 0, 0), iaVector3f(0, 0, f), nullptr, 10.0f, 10.0f);
             }
         }
     }

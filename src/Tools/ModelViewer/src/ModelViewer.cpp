@@ -106,8 +106,7 @@ void ModelViewer::init(iaString fileName)
 
     // init 3D user controls
     _manipulator = new Manipulator(&_window);
-    _orientationPlane = new OrientationPlane(_scene);
-
+    
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     _cameraCOI->setName("camera COI");
@@ -161,6 +160,12 @@ void ModelViewer::init(iaString fileName)
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::Wireframe, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFace, iRenderStateValue::On);
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->getRenderStateSet().setRenderState(iRenderState::CullFaceFunc, iRenderStateValue::Front);
+
+    _materialOrientationPlane = iMaterialResourceFactory::getInstance().createMaterial();
+    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->getRenderStateSet().setRenderState(iRenderState::DepthMask, iRenderStateValue::Off);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->setOrder(iMaterial::RENDER_ORDER_MAX);
+    iMaterialResourceFactory::getInstance().getMaterial(_materialOrientationPlane)->setName("OrientationPlane");
 
     // light
     _directionalLightRotate = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -982,6 +987,31 @@ void ModelViewer::render()
 {
     updateCamDistanceTransform();
     renderNodeSelected(_selectedNodeID);
+    renderOrientationPlane();
+}
+
+void ModelViewer::renderOrientationPlane()
+{
+    iaMatrixd identity;
+    iRenderer::getInstance().setModelMatrix(identity);
+
+    iRenderer::getInstance().setMaterial(_materialOrientationPlane);
+    iRenderer::getInstance().setLineWidth(1);
+    
+    for (int i = -20; i < 21; ++i)
+    {
+        if (i % 2 == 0)
+        {
+            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.9f);
+        }
+        else
+        {
+            iRenderer::getInstance().setColor(1.0f, 1.0f, 1.0f, 0.4f);
+        }
+
+        iRenderer::getInstance().drawLine(iaVector3f(-20.0f, 0.0f, i), iaVector3f(20.0f, 0.0f, i));
+        iRenderer::getInstance().drawLine(iaVector3f(i, 0.0f, 20.0f), iaVector3f(i, 0.0f, -20.0f));
+    }
 }
 
 void ModelViewer::renderOrtho()

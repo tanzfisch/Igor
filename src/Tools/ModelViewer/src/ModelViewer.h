@@ -30,7 +30,6 @@
 #define __MODELVIEWER__
 
 #include "Manipulator.h"
-#include "OrientationPlane.h"
 
 #include <Igor.h>
 #include <iWindow.h>
@@ -113,6 +112,7 @@ private:
     iNodePtr _groupNode = nullptr;
 
     uint64 _materialSkyBox;
+    uint64 _materialOrientationPlane;
     uint64 _materialBoundingBox;
     uint64 _materialCelShading;
 
@@ -121,7 +121,6 @@ private:
     iStatisticsVisualizer _statisticsVisualizer;
 
     Manipulator* _manipulator = nullptr;
-    OrientationPlane* _orientationPlane = nullptr;
 
     void resetManipulatorMode();
     void setManipulatorMode(ManipulatorMode modifierMode);
@@ -172,6 +171,7 @@ private:
     void renderNodeSelected(uint64 nodeID);
     void render();
     void renderOrtho();
+    void renderOrientationPlane();
 
 };
 
