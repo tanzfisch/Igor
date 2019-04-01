@@ -39,7 +39,7 @@ MuzzleFlash::MuzzleFlash(iScene* scene, uint32 emitterID)
     particleSystem2->registerModelReadyDelegate(iModelReadyDelegate(this, &MuzzleFlash::onMuzzleSmokeLoaded));
     scene->getRoot()->insertNode(particleSystem2);
     
-    iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
+    iNodePtr emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
     {
         iaMatrixd matrix;
@@ -56,7 +56,7 @@ MuzzleFlash::~MuzzleFlash()
 
 void MuzzleFlash::onMuzzleFlashLoaded(uint64 nodeID)
 {
-    iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
+    iNodePtr emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
     {
         iNodeModel* muzzleFlashNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_muzzleFlashModelID));
@@ -82,7 +82,7 @@ void MuzzleFlash::onMuzzleSmokeFinished()
 
 void MuzzleFlash::onMuzzleSmokeLoaded(uint64 nodeID)
 {
-    iNode* emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
+    iNodePtr emitterNode = iNodeFactory::getInstance().getNode(_emitterNodeID);
     if (emitterNode != nullptr)
     {
         iNodeModel* muzzleSmokeNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_muzzleSmokeModelID));

@@ -87,7 +87,7 @@ namespace Igor
         return result;
     }
 
-    void iModelResourceFactory::exportModelData(iaString filename, iNode* node, const iaString& formatIdentifier, iSaveMode saveMode)
+    void iModelResourceFactory::exportModelData(iaString filename, iNodePtr node, const iaString& formatIdentifier, iSaveMode saveMode)
     {
         iaFile file(filename);
         if (iaDirectory::directoryIsAbsolute(file.getPath()))
@@ -119,9 +119,9 @@ namespace Igor
         }
     }
 
-    iNode* iModelResourceFactory::loadData(iaString filename, iModelDataInputParameter* parameter)
+    iNodePtr iModelResourceFactory::loadData(iaString filename, iModelDataInputParameter* parameter)
     {
-        iNode* result = nullptr;
+        iNodePtr result = nullptr;
         iModelDataIO* modelDataIO = getModelDataIO(filename);
 
         if (modelDataIO == nullptr)
@@ -307,7 +307,7 @@ namespace Igor
 
         if (nullptr == result.get())
         {
-            iNode* node = loadData(hashKey, parameter);
+            iNodePtr node = loadData(hashKey, parameter);
             if (node != nullptr)
             {
                 result = shared_ptr<iModel>(new iModel(hashKey, cacheMode, parameter), iModel::private_deleter());

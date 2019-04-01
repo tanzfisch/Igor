@@ -124,7 +124,7 @@ namespace Igor
 
     void iNodeLODSwitch::update(float32 distance)
     {
-        vector<iNode*> allChildren(_children);
+        vector<iNodePtr> allChildren(_children);
         allChildren.insert(std::end(allChildren), std::begin(_inactiveChildren), std::end(_inactiveChildren));
 
         for (auto child : allChildren)
@@ -157,7 +157,7 @@ namespace Igor
         }
     }
 
-    void iNodeLODSwitch::setThresholds(iNode* node, float32 min, float32 max)
+    void iNodeLODSwitch::setThresholds(iNodePtr node, float32 min, float32 max)
     {
         bool ok = isChild(node);
         con_assert(ok, "is not child of this node");
@@ -171,7 +171,7 @@ namespace Igor
 
     void iNodeLODSwitch::setThresholds(const iaString& nodeName, float32 min, float32 max)
     {
-        iNode* child = getChild(nodeName);
+        iNodePtr child = getChild(nodeName);
         con_assert(child != nullptr, "child with name " << nodeName << " not found");
 
         setThresholds(child, min, max);
@@ -179,7 +179,7 @@ namespace Igor
 
     void iNodeLODSwitch::setThresholds(uint32 nodeID, float32 min, float32 max)
     {
-        iNode* child = getChild(nodeID);
+        iNodePtr child = getChild(nodeID);
         con_assert(child != nullptr, "child with id " << nodeID << " not found");
 
         setThresholds(child, min, max);

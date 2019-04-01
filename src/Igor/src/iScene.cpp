@@ -131,7 +131,7 @@ namespace Igor
 		_name = name;
 	}
 		
-	iNode* iScene::getRoot()
+	iNodePtr iScene::getRoot()
 	{
 		return _root;
 	}
@@ -293,7 +293,7 @@ namespace Igor
 #endif
 	}
 
-    void iScene::addToDataUpdateQueue(iNode* node)
+    void iScene::addToDataUpdateQueue(iNodePtr node)
     {
         con_assert_sticky(node != nullptr, "zero pointer");
 

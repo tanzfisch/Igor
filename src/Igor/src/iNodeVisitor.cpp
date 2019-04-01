@@ -10,11 +10,11 @@
 namespace Igor
 {
 
-    void iNodeVisitor::traverseTreeInternal(iNode* node)
+    void iNodeVisitor::traverseTreeInternal(iNodePtr node)
     {
         if (preOrderVisit(node))
         {
-            vector<iNode*>& children = node->getChildren();
+            vector<iNodePtr>& children = node->getChildren();
 
             auto iter = children.begin();
             while (iter != children.end())
@@ -25,7 +25,7 @@ namespace Igor
 
             if (_traverseInactiveChildren)
             {
-                vector<iNode*>& inactiveChildren = node->getInactiveChildren();
+                vector<iNodePtr>& inactiveChildren = node->getInactiveChildren();
 
                 auto iter = inactiveChildren.begin();
                 while (iter != inactiveChildren.end())
@@ -38,7 +38,7 @@ namespace Igor
         postOrderVisit(node);
     }
 
-	void iNodeVisitor::traverseTree(iNode* node)
+	void iNodeVisitor::traverseTree(iNodePtr node)
 	{
         preTraverse();
         traverseTreeInternal(node);

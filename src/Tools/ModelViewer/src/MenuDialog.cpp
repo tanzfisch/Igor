@@ -284,10 +284,10 @@ void MenuDialog::onDelete(iWidget* source)
     {
         _graphSelectionChanged(iNode::INVALID_NODE_ID);
 
-        iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        iNodePtr node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
         if (node != nullptr)
         {
-            iNode* parent = node->getParent();
+            iNodePtr parent = node->getParent();
             if (parent != nullptr)
             {
                 parent->removeNode(node);
@@ -308,7 +308,7 @@ void MenuDialog::onCopy(iWidget* source)
     {
         _cutNodeID = 0;
 
-        iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        iNodePtr node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
         if (node != nullptr)
         {
             _copiedNodeID = node->getID();
@@ -326,8 +326,8 @@ void MenuDialog::onPaste(iWidget* source)
     {
         if (_copiedNodeID != 0)
         {
-            iNode* pasteNode = nullptr;
-            iNode* copiedNode = iNodeFactory::getInstance().getNode(_copiedNodeID);
+            iNodePtr pasteNode = nullptr;
+            iNodePtr copiedNode = iNodeFactory::getInstance().getNode(_copiedNodeID);
             if (copiedNode != nullptr)
             {
                 pasteNode = iNodeFactory::getInstance().createCopy(copiedNode);
@@ -335,7 +335,7 @@ void MenuDialog::onPaste(iWidget* source)
 
             if (pasteNode != nullptr)
             {
-                iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+                iNodePtr destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
                 if (destination == nullptr)
                 {
@@ -351,10 +351,10 @@ void MenuDialog::onPaste(iWidget* source)
         }
         else if (_cutNodeID != 0)
         {
-            iNode* cutNode = iNodeFactory::getInstance().getNode(_cutNodeID);
+            iNodePtr cutNode = iNodeFactory::getInstance().getNode(_cutNodeID);
             if (cutNode != nullptr)
             {
-                iNode* destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+                iNodePtr destination = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
 
                 if (destination == nullptr)
                 {
@@ -363,7 +363,7 @@ void MenuDialog::onPaste(iWidget* source)
 
                 if (destination != nullptr)
                 {
-                    iNode* parent = cutNode->getParent();
+                    iNodePtr parent = cutNode->getParent();
                     if (parent != nullptr)
                     {
                         parent->removeNode(cutNode);
@@ -387,7 +387,7 @@ void MenuDialog::onCut(iWidget* source)
 
     if (_userControlGraphView != nullptr)
     {
-        iNode* node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
+        iNodePtr node = iNodeFactory::getInstance().getNode(_userControlGraphView->getSelectedNode());
         if (node != nullptr)
         {
             _cutNodeID = node->getID();
@@ -455,7 +455,7 @@ void MenuDialog::deinitGUI()
     }
 }
 
-void MenuDialog::setSelectedNode(iNode* node)
+void MenuDialog::setSelectedNode(iNodePtr node)
 {
     if (_userControlGraphView != nullptr)
     {
@@ -470,7 +470,7 @@ void MenuDialog::setSelectedNode(iNode* node)
     }
 }
 
-void MenuDialog::setRootNode(iNode* root)
+void MenuDialog::setRootNode(iNodePtr root)
 {
     con_assert(root != nullptr, "zero pointer");
 

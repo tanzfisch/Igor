@@ -100,7 +100,7 @@ void ModelViewer::init(iaString fileName)
     _transformModel->setName("model transform");
     _scene->getRoot()->insertNode(_transformModel);
 
-    _groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+    _groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     _groupNode->setName("groupNode");
     _transformModel->insertNode(_groupNode);
 
@@ -262,7 +262,7 @@ void ModelViewer::deinit()
 
 void ModelViewer::onAddTransformation(uint64 atNodeID)
 {
-    iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
+    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
     if (destination == nullptr)
     {
@@ -278,14 +278,14 @@ void ModelViewer::onAddTransformation(uint64 atNodeID)
 
 void ModelViewer::onAddGroup(uint64 atNodeID)
 {
-    iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
+    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
     if (destination == nullptr)
     {
         destination = _groupNode;
     }
 
-    iNode* group = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+    iNodePtr group = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     group->setName("Group");
     destination->insertNode(group);
     _menuDialog->refreshView();
@@ -294,7 +294,7 @@ void ModelViewer::onAddGroup(uint64 atNodeID)
 
 void ModelViewer::onAddEmitter(uint64 atNodeID)
 {
-    iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
+    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
     if (destination == nullptr)
     {
@@ -310,7 +310,7 @@ void ModelViewer::onAddEmitter(uint64 atNodeID)
 
 void ModelViewer::onAddParticleSystem(uint64 atNodeID)
 {
-    iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
+    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
     if (destination == nullptr)
     {
@@ -332,7 +332,7 @@ void ModelViewer::onAddMaterial()
 
 void ModelViewer::onAddSwitch(uint64 atNodeID)
 {
-    iNode* destination = iNodeFactory::getInstance().getNode(atNodeID);
+    iNodePtr destination = iNodeFactory::getInstance().getNode(atNodeID);
 
     if (destination == nullptr)
     {
@@ -368,7 +368,7 @@ void ModelViewer::forceLoadingNow(iNodeModel* modelNode)
     }
 }
 
-void ModelViewer::centerCamOnNode(iNode* node)
+void ModelViewer::centerCamOnNode(iNodePtr node)
 {
     if (node != nullptr)
     {
@@ -419,7 +419,7 @@ void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturn
     {
         iaString filename = _fileDialog->getFullPath();
 
-        vector<iNode*> children = _groupNode->getChildren();
+        vector<iNodePtr> children = _groupNode->getChildren();
         children.insert(children.end(), _groupNode->getInactiveChildren().begin(), _groupNode->getInactiveChildren().end());
 
         if (children.empty())
@@ -439,7 +439,7 @@ void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturn
 
 void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    iNode* selectNode = nullptr;
+    iNodePtr selectNode = nullptr;
 
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
@@ -457,17 +457,17 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNode* groupNode = nullptr;
+        iNodePtr groupNode = nullptr;
 
         auto children = model->getChildren();
         if (children.size() > 1)
         {
-            groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+            groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
             iaString groupName = "group:";
             groupName += filename;
             groupNode->setName(groupName);
 
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 cursorNode->insertNode(groupNode);
@@ -481,7 +481,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         }
         else
         {
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 groupNode = cursorNode;
@@ -521,7 +521,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
 
 void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    iNode* selectNode = nullptr;
+    iNodePtr selectNode = nullptr;
 
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
@@ -539,7 +539,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+        iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
         if (cursorNode != nullptr)
         {
             cursorNode->insertNode(model);
@@ -565,7 +565,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
 
 void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturnValue)
 {
-    iNode* selectNode = nullptr;
+    iNodePtr selectNode = nullptr;
 
     if (_fileDialog->getReturnState() == iFileDialogReturnValue::Ok)
     {
@@ -595,17 +595,17 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNode* groupNode = nullptr;
+        iNodePtr groupNode = nullptr;
 
         auto children = model->getChildren();
         if (children.size() > 1)
         {
-            groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+            groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
             iaString groupName = "group:";
             groupName += filename;
             groupNode->setName(groupName);
 
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 cursorNode->insertNode(groupNode);
@@ -619,7 +619,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         }
         else
         {
-            iNode* cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
             if (cursorNode != nullptr)
             {
                 groupNode = cursorNode;
@@ -693,7 +693,7 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
 
 void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
 {
-    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 
     if (node != nullptr &&
         node->getKind() == iNodeKind::Transformation)
@@ -797,7 +797,7 @@ void ModelViewer::pickcolorID()
     _skyBoxNode->setVisible(false);
 
     uint64 nodeID = _view.pickcolorID(iMouse::getInstance().getPos()._x, iMouse::getInstance().getPos()._y);
-    iNode* node = iNodeFactory::getInstance().getNode(nodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
     _menuDialog->setSelectedNode(node);
 
     _skyBoxNode->setVisible(wasVisible);
@@ -930,7 +930,7 @@ void ModelViewer::onKeyPressed(iKeyCode key)
 
 void ModelViewer::centerCamOnSelectedNode()
 {
-    iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
     centerCamOnNode(node);
 }
 
@@ -943,7 +943,7 @@ void ModelViewer::renderNodeSelected(uint64 nodeID)
 {
     if (nodeID != iNode::INVALID_NODE_ID)
     {
-        iNode* node = iNodeFactory::getInstance().getNode(nodeID);
+        iNodePtr node = iNodeFactory::getInstance().getNode(nodeID);
 
         if (node->getKind() == iNodeKind::Renderable ||
             node->getKind() == iNodeKind::Volume)

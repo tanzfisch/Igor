@@ -87,14 +87,14 @@ namespace Igor
         \param filename filename of file to load
         \return pointer to node tree
         */
-        virtual iNode* importData(const iaString& filename, iModelDataInputParameter* parameter = nullptr);
+        virtual iNodePtr importData(const iaString& filename, iModelDataInputParameter* parameter = nullptr);
 
         /*! saved node and underlying tree to filesystem
 
         \param filename destination filename
         \param node root node of tree to save
         */
-        virtual void exportData(const iaString& filename, iNode* node, iSaveMode saveMode = iSaveMode::KeepExternals);
+        virtual void exportData(const iaString& filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals);
 
     private:
 
@@ -158,11 +158,11 @@ namespace Igor
 
         \param node current node
         */
-        virtual bool preOrderVisit(iNode* node);
+        virtual bool preOrderVisit(iNodePtr node);
 
         /*! handles node stack
         */
-        virtual void postOrderVisit(iNode* node);
+        virtual void postOrderVisit(iNodePtr node);
 
         /*! handles end of traversal
         */
@@ -173,7 +173,7 @@ namespace Igor
         \param parent current model data node
         \param currentChunk current ompf chunk
         */
-        iNode* createNodeTree(iNode* parent, OMPF::ompfBaseChunk* currentChunk);
+        iNodePtr createNodeTree(iNodePtr parent, OMPF::ompfBaseChunk* currentChunk);
 
         void calculateBoundingBox(float32* vertexData, uint32 vertexSize, uint32 vertexCount, iaVector3d& minPos, iaVector3d& maxPos);
 
@@ -182,14 +182,14 @@ namespace Igor
         \param chunk the chunk to create a mesh node from
         \returns mesh node
         */
-        iNode* createMeshNode(OMPF::ompfBaseChunk* chunk);
+        iNodePtr createMeshNode(OMPF::ompfBaseChunk* chunk);
 
         /*! creates particle system node from chunk
 
         \param chunk the chunk to create a particle system from
         \returns particle system node
         */
-        iNode* createParticleSystem(OMPF::ompfBaseChunk* chunk);
+        iNodePtr createParticleSystem(OMPF::ompfBaseChunk* chunk);
 
         /*! creates transform chunk
 

@@ -17,13 +17,13 @@ namespace Igor
             setTraverseInactiveChildren();
 		}
 
-		void iNodeVisitorPrintTree::printToConsole(iNode* node)
+		void iNodeVisitorPrintTree::printToConsole(iNodePtr node)
 		{
 			traverseTree(node);
 			con_endl(_stream.str());
 		}
 		
-		bool iNodeVisitorPrintTree::preOrderVisit(iNode* node)
+		bool iNodeVisitorPrintTree::preOrderVisit(iNodePtr node)
 		{
 			iaString type(typeid(*node).name());
 			type = type.getSubString(type.findLastOf(':')+1, type.getSize()-1);
@@ -42,7 +42,7 @@ namespace Igor
 			return true;
 		}
 
-		void iNodeVisitorPrintTree::postOrderVisit(iNode* node)
+		void iNodeVisitorPrintTree::postOrderVisit(iNodePtr node)
 		{
 			_indenttation = _indenttation.getSubString(0, _indenttation.getSize() - 4);
 		}

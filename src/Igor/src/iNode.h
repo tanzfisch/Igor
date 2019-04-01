@@ -88,6 +88,8 @@ namespace Igor
 	};
 
 	class iScene;
+    class iNode;
+    typedef iNode* iNodePtr;
 
     /*! base node implementation
 
@@ -137,13 +139,13 @@ namespace Igor
 
         \param node pointer to node to be inserted
         */
-        void insertNode(iNode* node);
+        void insertNode(iNodePtr node);
 
         /*! inserts a node as child asynchronosly
 
         \param node pointer to node to be inserted
         */
-        void insertNodeAsync(iNode* node);
+        void insertNodeAsync(iNodePtr node);
 
         /*! sets node active or inactive
 
@@ -161,13 +163,13 @@ namespace Igor
 
         \param node pointer to node to be removed
         */
-        void removeNode(iNode* node);
+        void removeNode(iNodePtr node);
 
         /*! removes node that was a child before asynchronosly
 
         \param node pointer to node to be removed
         */
-        void removeNodeAsync(iNode* node);
+        void removeNodeAsync(iNodePtr node);
 
         /*! \returns true: if this node has a parent; false if it does not have a parent
         */
@@ -177,7 +179,7 @@ namespace Igor
 
         \param child the node to check if it is a child of this node
         */
-        bool isChild(iNode* child);
+        bool isChild(iNodePtr child);
 
         /*! \returns true: if node has children; false: if node has no children
         */
@@ -185,7 +187,7 @@ namespace Igor
 
         /*! \returns list of children
         */
-        vector<iNode*>& getChildren();
+        vector<iNodePtr>& getChildren();
 
         /*! returns child by name
 
@@ -194,22 +196,22 @@ namespace Igor
         \param name the name to search for
         \returns node with the name specified. returns zero in case of an error
         */
-        iNode* getChild(const iaString& name);
+        iNodePtr getChild(const iaString& name);
 
         /*! returns child by id
 
         \param id the id of the child node
         \returns pointer to child object
         */
-        iNode* getChild(uint64 id);
+        iNodePtr getChild(uint64 id);
 
         /*! \returns list of inactive children
         */
-        vector<iNode*>& getInactiveChildren();
+        vector<iNodePtr>& getInactiveChildren();
 
         /*! \returns pointer to parent node
         */
-        iNode* getParent();
+        iNodePtr getParent();
 
         /*! \returns pointer to scene this node is in
         */
@@ -271,15 +273,15 @@ namespace Igor
 
         /*! pointer to parent node
         */
-		iNode* _parent = nullptr;
+		iNodePtr _parent = nullptr;
 
         /*! list of pointers to child nodes
         */
-		vector<iNode*> _children;
+		vector<iNodePtr> _children;
 
         /*! list of pointers to child nodes that are inactive
         */
-        vector<iNode*> _inactiveChildren;
+        vector<iNodePtr> _inactiveChildren;
 
         /*! traveses child trees ans sets the transformation dirty flag
         */
@@ -301,7 +303,7 @@ namespace Igor
 
         \param parent pointer to parent node
         */
-		void setParent(iNode* parent);
+		void setParent(iNodePtr parent);
 
         /*! sets pointer to scene
 
@@ -341,7 +343,7 @@ namespace Igor
 
         /*! copy ctor
         */
-        iNode(iNode* node);
+        iNode(iNodePtr node);
 
         /*! destroys all childdren
         */
@@ -368,13 +370,13 @@ namespace Igor
         \param currentNode the current node
         \param matrix the current accumulated transformation matrix
         */
-        void calcWorldTransformation(iNode* currentNode, iaMatrixd& matrix);
+        void calcWorldTransformation(iNodePtr currentNode, iaMatrixd& matrix);
 
 	};
 
     /*! definition of node pointer
     */
-    typedef iNode* iNodePtr;
+    typedef iNodePtr iNodePtr;
 
 	/*! stream operator
 

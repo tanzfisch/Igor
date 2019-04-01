@@ -84,7 +84,7 @@ namespace Igor
             return;
         }
 
-        iNode* node = iNodeFactory::getInstance().getNode(cameraID);
+        iNodePtr node = iNodeFactory::getInstance().getNode(cameraID);
 
         if (node != nullptr &&
             node->getType() == iNodeType::iNodeCamera)

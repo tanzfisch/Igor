@@ -78,7 +78,7 @@ void OrientationPlane::setVisible(bool visible)
 {
     _visible = visible;
 
-    iNode* node = iNodeFactory::getInstance().getNode(_transformNodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(_transformNodeID);
     node->setActive(_visible);
 }
 

@@ -52,7 +52,7 @@ namespace Igor
         _mutexQueue.unlock();
     }
 
-    void iNodeFactory::setActiveAsync(iNode* node, bool active)
+    void iNodeFactory::setActiveAsync(iNodePtr node, bool active)
     {
         iAction action;
         action._action = active ? iActionType::Activate : iActionType::Deactivate;
@@ -63,7 +63,7 @@ namespace Igor
         _mutexQueue.unlock();
     }
 
-    void iNodeFactory::insertNodeAsync(iNode* src, iNode* dst)
+    void iNodeFactory::insertNodeAsync(iNodePtr src, iNodePtr dst)
     {
         iAction action;
         action._action = iActionType::Insert;
@@ -75,7 +75,7 @@ namespace Igor
         _mutexQueue.unlock();
     }
 
-    void iNodeFactory::removeNodeAsync(iNode* src, iNode* dst)
+    void iNodeFactory::removeNodeAsync(iNodePtr src, iNodePtr dst)
     {
         iAction action;
         action._action = iActionType::Remove;
@@ -100,7 +100,7 @@ namespace Igor
         _mutexQueue.unlock();
     }
 
-    void iNodeFactory::destroyNodeAsync(iNode* node)
+    void iNodeFactory::destroyNodeAsync(iNodePtr node)
     {
         con_assert(nullptr != node, "zero pointer");
 
@@ -131,8 +131,8 @@ namespace Igor
         auto queue = std::move(_actionQueue);
         _mutexQueue.unlock();
 
-        iNode* nodeA = nullptr;
-        iNode* nodeB = nullptr;
+        iNodePtr nodeA = nullptr;
+        iNodePtr nodeB = nullptr;
 
         for (auto entry : queue)
         {
@@ -196,7 +196,7 @@ namespace Igor
 
     void iNodeFactory::destroyNode(uint64 nodeID)
     {
-        iNode* node = nullptr;
+        iNodePtr node = nullptr;
 
         _mutexNodes.lock();
         auto iter = _nodes.find(nodeID);
@@ -213,7 +213,7 @@ namespace Igor
         }
     }
 
-    void iNodeFactory::destroyNode(iNode* node)
+    void iNodeFactory::destroyNode(iNodePtr node)
     {
         con_assert(nullptr != node, "zero pointer");
 
@@ -228,16 +228,16 @@ namespace Igor
     }
 
 
-    iNode* iNodeFactory::createCopy(iNode* node)
+    iNodePtr iNodeFactory::createCopy(iNodePtr node)
     {
-        iNode* result = nullptr;
+        iNodePtr result = nullptr;
         map<uint64, uint64> nodeIDMap;
 
         result = createCopyInternal(node, nodeIDMap, UINT32_MAX);
 
         for (auto nodePair : nodeIDMap)
         {
-            iNode* node = getNode(nodePair.second);
+            iNodePtr node = getNode(nodePair.second);
             if (node != nullptr)
             {
                 node->onPostCopyLink(nodeIDMap);
@@ -247,9 +247,9 @@ namespace Igor
         return result;
     }
 
-    iNode* iNodeFactory::createCopyInternal(iNode* node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth)
+    iNodePtr iNodeFactory::createCopyInternal(iNodePtr node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth)
     {
-        iNode* result = nullptr;
+        iNodePtr result = nullptr;
         result = createNodeCopy(node);
 
         if (result != nullptr)
@@ -268,11 +268,11 @@ namespace Igor
         return result;
     }
 
-    iNode* iNodeFactory::createNodeCopy(iNode* node)
+    iNodePtr iNodeFactory::createNodeCopy(iNodePtr node)
     {
         con_assert(node != nullptr, "zero pointer");
 
-        iNode* result = nullptr;
+        iNodePtr result = nullptr;
 
         if (node != nullptr)
         {
@@ -360,9 +360,9 @@ namespace Igor
         return result;
     }
 
-    iNode* iNodeFactory::createNode(iNodeType nodeType)
+    iNodePtr iNodeFactory::createNode(iNodeType nodeType)
     {
-        iNode* result = 0;
+        iNodePtr result = 0;
 
         switch (nodeType)
         {

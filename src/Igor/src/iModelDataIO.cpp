@@ -20,13 +20,13 @@ namespace Igor
         return _identifier;
     }
 
-    iNode* iModelDataIO::importData(const iaString& filename, iModelDataInputParameter* _parameter)
+    iNodePtr iModelDataIO::importData(const iaString& filename, iModelDataInputParameter* _parameter)
     {
         con_err("import functionality is not supported by \"" << _name << "\"");
         return nullptr;
     }
 
-    void iModelDataIO::exportData(const iaString& filename, iNode* node, iSaveMode saveMode)
+    void iModelDataIO::exportData(const iaString& filename, iNodePtr node, iSaveMode saveMode)
     {
         con_err("export functionality is not supported by \"" << _name << "\"");
     }

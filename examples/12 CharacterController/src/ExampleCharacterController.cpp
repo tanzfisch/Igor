@@ -254,11 +254,11 @@ void ExampleCharacterController::init()
 
 void ExampleCharacterController::onModelReady(uint64 modelNodeID)
 {
-    iNode* node = iNodeFactory::getInstance().getNode(modelNodeID);
+    iNodePtr node = iNodeFactory::getInstance().getNode(modelNodeID);
     makeCollisions(node);
 }
 
-void ExampleCharacterController::makeCollisions(iNode* node)
+void ExampleCharacterController::makeCollisions(iNodePtr node)
 {
     if (node->getType() == iNodeType::iNodeMesh)
     {

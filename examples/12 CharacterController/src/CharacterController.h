@@ -51,7 +51,7 @@ class CharacterController
 
 public:
 
-    CharacterController(iNode* parent, int64 materiaID, const iaMatrixd& startMatrix);
+    CharacterController(iNodePtr parent, int64 materiaID, const iaMatrixd& startMatrix);
 
     virtual ~CharacterController();
 

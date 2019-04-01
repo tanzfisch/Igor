@@ -86,7 +86,7 @@ namespace Igor
         \param id id of ndoe
         \returns pointer to node
         */
-        __IGOR_INLINE__ iNode* getNode(uint64 id) const;
+        __IGOR_INLINE__ iNodePtr getNode(uint64 id) const;
 
         /*! \returns list of all node IDs of a certain node type
 
@@ -104,7 +104,7 @@ namespace Igor
 
         \param node the node to copy
         */
-        iNode* createCopy(iNode* node);
+        iNodePtr createCopy(iNodePtr node);
 
         /*! destroys node and all its children  (asynchronously)
 
@@ -112,7 +112,7 @@ namespace Igor
 
         \param node pointer to node to be destroyed
         */
-        void destroyNodeAsync(iNode* node);
+        void destroyNodeAsync(iNodePtr node);
 
         /*! destroys node and all its children
 
@@ -133,7 +133,7 @@ namespace Igor
         \param nodeType determines which type of node shall be created
         \returns pointer to new node
         */
-        iNode* createNode(iNodeType nodeType);
+        iNodePtr createNode(iNodeType nodeType);
 
         /*! inserts one node as child to an other (asynchronously)
 
@@ -142,7 +142,7 @@ namespace Igor
         \param parent the future parent node
         \param child the child to be inserted
         */
-        void insertNodeAsync(iNode* parent, iNode* child);
+        void insertNodeAsync(iNodePtr parent, iNodePtr child);
 
         /*! removes one node from an other (asynchronously)
 
@@ -151,14 +151,14 @@ namespace Igor
         \param parent parent node
         \param child the child to be removed
         */
-        void removeNodeAsync(iNode* parent, iNode* child);
+        void removeNodeAsync(iNodePtr parent, iNodePtr child);
 
         /*! sets node active/inactive (asynchronously)
 
         \param node pointer to node
         \param active the active/inactive flag
         */
-        void setActiveAsync(iNode* node, bool active);
+        void setActiveAsync(iNodePtr node, bool active);
 
         /*! flushing queues and updating scenes
 
@@ -170,7 +170,7 @@ namespace Igor
 
         /*! mapping ids to nodes
         */
-        map<uint64, iNode*> _nodes;
+        map<uint64, iNodePtr> _nodes;
 
         /*! mutex to protect node list
         */
@@ -193,20 +193,20 @@ namespace Igor
         \param node the source node
         \returns a copy of the source node
         */
-        iNode* createNodeCopy(iNode* node);
+        iNodePtr createNodeCopy(iNodePtr node);
 
         /*! create copy of node
 
         \param node the node to copy
         \param recursiveDepth recursive depth
         */
-        iNode* createCopyInternal(iNode* node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth);
+        iNodePtr createCopyInternal(iNodePtr node, map<uint64, uint64>& nodeIDMap, uint32 recursiveDepth);
 
         /*! destroys node and all its children
 
         \param node pointer to node to be destroyed
         */
-        void destroyNode(iNode* node);
+        void destroyNode(iNodePtr node);
 
         /*! destroys node and all its children
 
