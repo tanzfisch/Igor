@@ -191,6 +191,7 @@ void WidgetsExample::initGUI()
     _colorGradient->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenColorGradientEditor));
 
     iWidgetSpacer* spacer = static_cast<iWidgetSpacer*>(iWidgetManager::getInstance().createWidget("Spacer"));
+    _allWidgets.push_back(spacer);
     spacer->setSize(2, 30);
 
     _labelMousePos = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
@@ -252,6 +253,7 @@ void WidgetsExample::initGUI()
     iWidgetCheckBox::endRadioButtonGroup();
 
     iWidgetGraph* graph = static_cast<iWidgetGraph*>(iWidgetManager::getInstance().createWidget("Graph"));
+    _allWidgets.push_back(graph);
     graph->setSize(300, 50);
 
     vector<iaVector2f> points;

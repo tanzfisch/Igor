@@ -452,6 +452,10 @@ namespace Igor
 		*/
 		bool isGrowingByContent() const;
 
+        /*! \returns an information string about this widget
+        */
+        iaString getInfo() const;
+
 	protected:
 
         /*! if true this widget will process mouse clicks outside of the widgets boundings
