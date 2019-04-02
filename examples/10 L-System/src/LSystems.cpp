@@ -132,9 +132,6 @@ void LSystems::init()
     // register plant mesh generator
     iModelResourceFactory::getInstance().registerModelDataIO("pg", &PlantMeshGenerator::createInstance);
 
-    // generate the L-System
-    generateLSystems();
-
     // init render statistics
     _font = new iTextureFont("StandardFont.png");
     _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
@@ -156,6 +153,9 @@ void LSystems::init()
     material->getRenderStateSet().setRenderState(iRenderState::Texture2D0, iRenderStateValue::On);
     material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
     material->setName("LogoMaterial");
+
+    // generate the L-System
+    generateLSystems();
 }
 
 void LSystems::deinit()

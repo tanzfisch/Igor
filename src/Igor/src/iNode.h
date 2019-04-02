@@ -129,6 +129,10 @@ namespace Igor
         */
         iaString getName() const;
 
+        /*! \returns an information string in this node
+        */
+        iaString getInfo() const;
+
         /*! sets name of the node
 
         \param name new name of the node
