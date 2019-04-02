@@ -60,7 +60,7 @@ namespace Igor
         \param name the name to search for
         \returns list of found node ids
         */
-		const vector<uint64>& find(iNode* node, const iaString& name);
+		const vector<uint64>& find(iNodePtr node, const iaString& name);
 
 	protected:
 
@@ -72,11 +72,11 @@ namespace Igor
 
         \param node the current node during traversal
         */
-		virtual bool preOrderVisit(iNode* node);
+		virtual bool preOrderVisit(iNodePtr node);
 
         /*! not implemented
         */
-        virtual void postOrderVisit(iNode* node);
+        virtual void postOrderVisit(iNodePtr node);
 
         /*! not implemented
         */

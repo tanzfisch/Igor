@@ -48,9 +48,9 @@ namespace Igor
         return static_cast<iModelDataIO*>(result);
     }
 
-    iNode* iModelDataIOOBJ::importData(const iaString& filename, iModelDataInputParameter* parameter)
+    iNodePtr iModelDataIOOBJ::importData(const iaString& filename, iModelDataInputParameter* parameter)
 	{
-        iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+        iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
         result->setName("obj_root");
 
         if (!readFile(filename))

@@ -321,7 +321,7 @@ uint64 LSystems::generatePlant(const iaMatrixd& matrix, const iaString& axiom, u
     // and add to scene
     transformNode->insertNode(modelNode);
 
-    iNode* groupNode = static_cast<iNode*>(iNodeFactory::getInstance().getNode(_groupNodeID));
+    iNodePtr groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().getNode(_groupNodeID));
     groupNode->insertNode(transformNode);
 
     return modelNode->getID();
@@ -379,7 +379,7 @@ void LSystems::generateLSystems()
     // using the same seed for all instances of plants so we see the different stages of growth of the same plant
     uint64 seed = static_cast<uint64>(iTimer::getInstance().getApplicationTime());
 
-    iNode* groupNode = static_cast<iNode*>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+    iNodePtr groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
     _groupNodeID = groupNode->getID();
     _scene->getRoot()->insertNode(groupNode);
 

@@ -50,6 +50,8 @@ namespace Igor
     class iMesh;
 }
 
+/*! manipulator modes
+*/
 enum class ManipulatorMode
 {
     Locator,
@@ -58,37 +60,80 @@ enum class ManipulatorMode
     Rotate
 };
 
-/*! ui element to modify position, orientation and scale of objects in the scene
+/*! 3d ui element to modify position, orientation and scale of objects in the scene
 */
 class Manipulator
 {
 
 public:
 
+    /*! initialize manipulator
+
+    \param window the window this manipulator is displayed at
+    */
     Manipulator(iWindow* window);
 
+    /*! cleanup
+    */
+    ~Manipulator();
+
+    /*! sets the node to control by ID
+
+    \param nodeID id of node to control
+    */
     void setNodeID(uint64 nodeID);
+
+    /*! \returns id of controled node
+    */
     uint64 getNodeID() const;
 
+    /*! sets manipulator visible
+    */
     void setVisible(bool visible);
+
+    /*! \returns true if manipulator is visible
+    */
     bool isVisible() const;
 
+    /*! sets camera center of interest
+
+    \param matrix center of interest transform in world space
+    */
     void setCamCOI(const iaMatrixd& matrix);
+
+    /*! sets camera heading matrix
+
+    \param matrix should contain only heading of camera
+    */
     void setCamHeading(const iaMatrixd& matrix);
+
+    /*! sets camera pitch matrix
+
+    \param matrix should contain only pitch of camera
+    */
     void setCamPitch(const iaMatrixd& matrix);
+
+    /*! sets camera translation matrix
+
+    \param matrix contains distance to cio in Z axis
+    */
     void setCamTranslate(const iaMatrixd& matrix);
 
-    void update();
-
-    void init();
-
-    void deinit();
-
+    /*! \returns true if manipulator is selected
+    */
     bool isSelected() const;
 
-    void setManipulatorMode(ManipulatorMode ManipulatorMode);
+    /*! sets the mode of the manipulator
+
+    \param manipulatorMode the manipulator mode
+    */
+    void setManipulatorMode(ManipulatorMode manipulatorMode);
+
+    /*! \returns the current manipulator mode
+    */
     ManipulatorMode getManipulatorMode() const;
 
+    // ugly interfaces
     void onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window);
     void onMouseWheel(int32 d);
     void onMouseKeyDown(iKeyCode key);
@@ -111,7 +156,7 @@ private:
 
     uint64 _selectedLocatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
-    iNode* _parent = nullptr;
+    iNodePtr _parent = nullptr;
     bool _visible = false;
 
     vector<uint64> _locatorIDs;
@@ -123,10 +168,10 @@ private:
 
     iNodeSwitch* _switchNode = nullptr;
 
-    iNode* _locatorModifier = nullptr;
-    iNode* _translateModifier = nullptr;
-    iNode* _scaleModifier = nullptr;
-    iNode* _roateModifier = nullptr;
+    iNodePtr _locatorModifier = nullptr;
+    iNodePtr _translateModifier = nullptr;
+    iNodePtr _scaleModifier = nullptr;
+    iNodePtr _roateModifier = nullptr;
     iNodeTransform* _rotateBillboardTransform = nullptr;
 
     ManipulatorMode _manipulatorMode = ManipulatorMode::Locator;
@@ -143,6 +188,20 @@ private:
     shared_ptr<iMesh> createScaleMesh();
     shared_ptr<iMesh> createRingMesh();
     shared_ptr<iMesh> create2DRingMesh();
+
+    /*! update internal structure
+    */
+    void update();
+
+    /*! initialisation
+    */
+    void init();
+
+    /*! clean up
+    */
+    void deinit();
+
+    
 
     void translate(const iaVector3d& vec, iaMatrixd& matrix);
     void scale(const iaVector3d& vec, iaMatrixd& matrix);

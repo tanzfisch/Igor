@@ -7,6 +7,8 @@
 #include <iTextureResourceFactory.h>
 #include <iWindow.h>
 
+#include <thread>
+
 namespace Igor
 {
 
@@ -26,7 +28,7 @@ namespace Igor
 
         while (isRunning())
         {
-            Sleep(1);
+            std::this_thread::yield();
         }
 
         setRepeating(false);

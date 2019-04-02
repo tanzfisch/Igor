@@ -63,11 +63,11 @@ namespace Igor
 
         /*! called before decent to child nodes
         */
-        virtual bool preOrderVisit(iNode* node);
+        virtual bool preOrderVisit(iNodePtr node);
 
         /*! called after ascent from child nodes
         */
-        virtual void postOrderVisit(iNode* node);
+        virtual void postOrderVisit(iNodePtr node);
 
         /*! called after traversation is finisched
         */

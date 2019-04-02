@@ -26,69 +26,60 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iNODESWITCH__
-#define __iNODESWITCH__
+#ifndef __iRAY__
+#define __iRAY__
 
-#include <iNode.h>
+#include <iDefines.h>
 
-#include <iaString.h>
+#include <iaVector3.h>
 using namespace IgorAux;
-
-#include <map>
-using namespace std;
 
 namespace Igor
 {
 
-    /*! the switch node. Has multiple children like every node but only one can be active at a time
+    /*! a ray
     */
-	class Igor_API iNodeSwitch : public iNode
+	template <class T>
+	class Igor_API_Template iRay
 	{
 
-		friend class iNodeFactory;
+	public:
 
-    public:
-
-        /*! sets the active child by name
-
-        \param name the name of the child
+        /*! position of ray
         */
-        void setActiveChild(const iaString& name);
+		iaVector3<T> m_pos;
 
-        /*! sets the active child by object
-
-        \param node pointer to node object
+        /*! direction of ray
         */
-        void setActiveChild(iNodePtr node);
+        iaVector3<T> m_dir;
 
-        /*! sets the active child by id
+        /*! constructor that basically sets member valirables
 
-        \param id node id
+        \param pos position of ray
+        \param dir direction of ray
         */
-        void setActiveChild(uint32 id);
+		iRay(const iaVector3<T>& pos, const iaVector3<T>& dir);
 
-    private:
-
-        /*! called after a node was copied
-
-        \param nodeIDMap map with old node ids to new node ids
+        /*! does notthing
         */
-        void onPostCopyLink(map<uint32, uint32>& nodeIDMap);
+        iRay() = default;
 
-        /*! initializes memeber varialbes
+        /*! does notthing
         */
-        iNodeSwitch();
+        virtual ~iRay() = default;
 
-        /*! copy ctor
-        */
-        iNodeSwitch(iNodeSwitch* node);
-
-        /*! does nothing
-        */
-		virtual ~iNodeSwitch() = default;
-		
 	};
 
-};
+	#include <iRay.inl>
+
+    /*! float32 precision ray
+    */
+	typedef iRay<float32> iRayf;
+
+    /*! float64 precision ray
+    */
+    typedef iRay<float64> iRayd;
+
+}
 
 #endif

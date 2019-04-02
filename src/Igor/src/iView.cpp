@@ -263,7 +263,7 @@ namespace Igor
             renderEngine.setColorIDRendering();
             renderEngine.render();
 
-            uint32 pixelCount = rectangle._width*rectangle._height;
+            int32 pixelCount = rectangle._width*rectangle._height;
             uint8* data = new uint8[pixelCount * 4];
             iRenderer::getInstance().readPixels(rectangle._x, _viewport.getHeight() - rectangle._y, rectangle._width, rectangle._height, iColorFormat::RGBA, data);
 
@@ -286,10 +286,10 @@ namespace Igor
     {
         _windowRect = windowRect;
 
-        _viewport.setX(_viewportConfig.getX() * _windowRect.getWidth() + 0.5f);
-        _viewport.setY(_viewportConfig.getY() * _windowRect.getHeight() + 0.5f);
-        _viewport.setWidth(_viewportConfig.getWidth() * _windowRect.getWidth() + 0.5f);
-        _viewport.setHeight(_viewportConfig.getHeight() * _windowRect.getHeight() + 0.5f);
+        _viewport.setX(_viewportConfig.getX() * static_cast<float32>(_windowRect.getWidth()) + 0.5f);
+        _viewport.setY(_viewportConfig.getY() * static_cast<float32>(_windowRect.getHeight()) + 0.5f);
+        _viewport.setWidth(_viewportConfig.getWidth() * static_cast<float32>(_windowRect.getWidth()) + 0.5f);
+        _viewport.setHeight(_viewportConfig.getHeight() * static_cast<float32>(_windowRect.getHeight()) + 0.5f);
     }
 
     void iView::setScene(iScene* scene)

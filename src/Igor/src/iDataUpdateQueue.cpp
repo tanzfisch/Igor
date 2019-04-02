@@ -45,7 +45,7 @@ namespace Igor
         auto iterP = _processingQueue.begin();
         while (iterP != _processingQueue.end())
         {
-            iNode* node = iNodeFactory::getInstance().getNode((*iterP));
+            iNodePtr node = iNodeFactory::getInstance().getNode((*iterP));
             if (node != nullptr)
             {
                 if (node->onUpdateData())

@@ -245,6 +245,21 @@ bool iIntersection::intersects(const iaVector3<T> &vec, const iAABox<T> &box)
     return false;
 }
 
+template <typename T>
+bool iIntersection::intersects(iPlane<T> plane, iRay<T> ray, iaVector3<T>& intersection)
+{
+    T denom = plane._normal * ray.m_dir;
+    if (std::abs(denom) < 0.00001) {
+        return false;
+    }
+
+    T t = ((plane._normal * (plane._normal * plane._distance)) - (plane._normal * ray.m_pos)) / (plane._normal * ray.m_dir);
+    intersection = ray.m_dir;
+    intersetion *= t;
+    intersection += ray.m_pos;
+
+    return true;
+}
 
 
 /* todo maybe we can use this later

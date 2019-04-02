@@ -79,14 +79,14 @@ namespace Igor
 		\param filename filename of file to load
 		\return parameter optional import or generate parameters
 		*/
-        virtual iNode* importData(const iaString& filename, iModelDataInputParameter* parameter = nullptr);
+        virtual iNodePtr importData(const iaString& filename, iModelDataInputParameter* parameter = nullptr);
 
 		/*! saved node and underlying tree to filesystem
 
 		\param filename destination filename
 		\param node root node of tree to save
 		*/
-		virtual void exportData(const iaString& filename, iNode* node, iSaveMode saveMode = iSaveMode::KeepExternals);
+		virtual void exportData(const iaString& filename, iNodePtr node, iSaveMode saveMode = iSaveMode::KeepExternals);
 
 		/*! does nothing
 		*/

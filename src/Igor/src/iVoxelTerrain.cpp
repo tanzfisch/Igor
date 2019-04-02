@@ -121,7 +121,7 @@ namespace Igor
         }
     }
 
-    void iVoxelTerrain::setNodeActiveAsync(iNode* node, bool active)
+    void iVoxelTerrain::setNodeActiveAsync(iNodePtr node, bool active)
     {
         iNodeFactory::iAction action;
         action._action = active ? iNodeFactory::iActionType::Activate : iNodeFactory::iActionType::Deactivate;
@@ -130,7 +130,7 @@ namespace Igor
         _actionQueue.push_back(action);
     }
 
-    void iVoxelTerrain::insertNodeAsync(iNode* src, iNode* dst)
+    void iVoxelTerrain::insertNodeAsync(iNodePtr src, iNodePtr dst)
     {
         iNodeFactory::iAction action;
         action._action = iNodeFactory::iActionType::Insert;
@@ -155,7 +155,7 @@ namespace Igor
         return _physicsMaterialID;
     }
 
-    void iVoxelTerrain::removeNodeAsync(iNode* src, iNode* dst)
+    void iVoxelTerrain::removeNodeAsync(iNodePtr src, iNodePtr dst)
     {
         iNodeFactory::iAction action;
         action._action = iNodeFactory::iActionType::Remove;
@@ -1151,7 +1151,7 @@ namespace Igor
             if (modelNode != nullptr &&
                 modelNode->isReady())
             {
-                iNode* group = static_cast<iNodeMesh*>(modelNode->getChild("group"));
+                iNodePtr group = static_cast<iNodeMesh*>(modelNode->getChild("group"));
                 if (group != nullptr)
                 {
                     iNodeMesh* meshNode = static_cast<iNodeMesh*>(group->getChild("mesh"));

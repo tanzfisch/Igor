@@ -34,6 +34,7 @@
 #include <iSphere.h>
 #include <iFrustum.h>
 #include <iAACube.h>
+#include <iRay.h>
 
 #include <iaVector2.h>
 #include <iaVector3.h>
@@ -158,6 +159,16 @@ namespace Igor
         */
         template <typename T>
         static bool intersects(iaVector2<T> point, iRectangle<T> rectangle);
+
+        /*! intersection test between plane and ray
+
+        \param plane the plane to test with
+        \param ray the plane to test with
+        \param[out] intersection the calculated intersection point
+        \returns true if intersecting
+        */
+        template <typename T>
+        static bool intersects(iPlane<T> plane, iRay<T> ray, iaVector3<T>& intersection);
 
     };
 

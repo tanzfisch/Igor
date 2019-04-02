@@ -36,7 +36,7 @@ namespace Igor
     }
 
     __IGOR_DISABLE_WARNING__(4100)
-        iNode* iVoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
+        iNodePtr iVoxelTerrainMeshGenerator::importData(const iaString& sectionName, iModelDataInputParameter* parameter)
     {
         iVoxelTerrainTileInformation* tileInformation = reinterpret_cast<iVoxelTerrainTileInformation*>(parameter->_parameters.getDataPointer());
 
@@ -47,7 +47,7 @@ namespace Igor
         int64 height = voxelData->getHeight();
         int64 depth = voxelData->getDepth();
 
-        iNode* result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+        iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
         result->setName("group");
 
         iContouringCubes contouringCubes;

@@ -64,13 +64,13 @@ namespace Igor
 
         \param node current node
         */
-        virtual bool preOrderVisit(iNode* node);
+        virtual bool preOrderVisit(iNodePtr node);
 
         /*! does nothing
 
         \param node current node
         */
-        virtual void postOrderVisit(iNode* node);
+        virtual void postOrderVisit(iNodePtr node);
 
         /*! does nothing
         */

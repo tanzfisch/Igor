@@ -256,7 +256,7 @@ __IGOR_INLINE__ void iaMatrix<T>::perspective(T fov, T aspect, T nearplain, T fa
 {
     T xmin, xmax, ymin, ymax;
 
-    ymax = nearplain * tanf(fov * (T)M_PI / 360.0);
+    ymax = nearplain * tanf(fov * (T)M_PI / (T)360.0);
     ymin = -ymax;
 
     xmin = ymin * aspect;

@@ -57,7 +57,7 @@ namespace Igor
 
         /*! traverses the tree and prints the output in console
         */
-		void printToConsole(iNode* node);
+		void printToConsole(iNodePtr node);
 
 	protected:
 
@@ -70,11 +70,11 @@ namespace Igor
 
         \param node current node
         */
-		virtual bool preOrderVisit(iNode* node);
+		virtual bool preOrderVisit(iNodePtr node);
 
         /*! handles output indentation
         */
-		virtual void postOrderVisit(iNode* node);
+		virtual void postOrderVisit(iNodePtr node);
 
         /*! some more output
         */
