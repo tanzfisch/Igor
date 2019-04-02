@@ -72,13 +72,13 @@
       <Filter>resources\mesh</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysics.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsBody.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsCollision.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Intersection3D.cpp">
       <Filter>todo</Filter>
@@ -273,7 +273,7 @@
       <Filter>threading\tasks</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsJoint.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iMeshBuffers.cpp">
       <Filter>resources\mesh</Filter>
@@ -285,22 +285,22 @@
       <Filter>scene</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsMaterial.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsMaterialCombo.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsUserMeshCollisionHandler.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsCollisionConfig.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iTaskPrepareCollision.cpp">
       <Filter>threading\tasks</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iPhysicsWorld.cpp">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClCompile>
     <ClCompile Include="..\src\iParticleSystem3D.cpp">
       <Filter>graphics\simulation</Filter>
@@ -511,13 +511,13 @@
       <Filter>resources\mesh</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysics.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsBody.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsCollision.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Intersection3D.h">
       <Filter>todo</Filter>
@@ -730,7 +730,7 @@
       <Filter>threading\tasks</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsJoint.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iVersion.h" />
     <ClInclude Include="..\src\iMeshBuffers.h">
@@ -743,25 +743,25 @@
       <Filter>scene</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsMaterial.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsMaterialCombo.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsUserMeshCollisionHandler.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iAABox.h">
       <Filter>data types</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsCollisionConfig.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iTaskPrepareCollision.h">
       <Filter>threading\tasks</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iPhysicsWorld.h">
-      <Filter>physics</Filter>
+      <Filter>resources\physics</Filter>
     </ClInclude>
     <ClInclude Include="..\src\iParticleSystem3D.h">
       <Filter>graphics\simulation</Filter>
@@ -995,9 +995,6 @@
     <Filter Include="graphics">
       <UniqueIdentifier>{9c9458da-a174-40b8-a62e-0d736743c77f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="physics">
-      <UniqueIdentifier>{6405a0c4-3aae-45af-a01f-b6fb7526eaf0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resources">
       <UniqueIdentifier>{6711d7d9-35a5-4a6a-8709-50a91a382a66}</UniqueIdentifier>
     </Filter>
@@ -1090,6 +1087,9 @@
     </Filter>
     <Filter Include="data types">
       <UniqueIdentifier>{1aa658a5-b141-4c81-8ed7-c7599c5e025d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources\physics">
+      <UniqueIdentifier>{6405a0c4-3aae-45af-a01f-b6fb7526eaf0}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

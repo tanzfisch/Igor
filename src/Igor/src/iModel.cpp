@@ -25,7 +25,7 @@ namespace Igor
 	iModel::~iModel()
 	{
         if (nullptr != _node)
-        {
+        {            
             iNodeFactory::getInstance().destroyNodeAsync(_node);
         }
 
@@ -78,7 +78,7 @@ namespace Igor
         con_assert(_node != nullptr, "zero pointer. data not ready");
          
         if (_node != nullptr)
-        {
+        {            
             return iNodeFactory::getInstance().createCopy(_node);
         }
         else
