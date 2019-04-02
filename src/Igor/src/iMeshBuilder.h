@@ -49,6 +49,7 @@ namespace Igor
 {
 
     class iMesh;
+    typedef std::shared_ptr<iMesh> iMeshPtr;
 
     /*! triangle defined by three indexes to vertexes
     */
@@ -250,14 +251,14 @@ namespace Igor
 
         \returns shared pointer to iMesh
         */
-        shared_ptr<iMesh> createMesh();
+        iMeshPtr createMesh();
 
         /*! creates ans returns a mesh based on current data but filtered by triangle list
 
         \param triangles list of triangle IDs that end up in the mesh
         \returns shared pointer to iMesh
         */
-        shared_ptr<iMesh> createMesh(vector<uint32> triangles);
+        iMeshPtr createMesh(vector<uint32> triangles);
 
         /*! clears data and set transformation matrix to identity
         */

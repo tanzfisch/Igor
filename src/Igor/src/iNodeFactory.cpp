@@ -24,6 +24,7 @@ using namespace IgorAux;
 #include <iNodeParticleSystem.h>
 #include <iNodeEmitter.h>
 #include <iNodeWater.h>
+#include <iNodeVisitorPrintTree.h>
 
 #include <iApplication.h>
 
@@ -37,6 +38,11 @@ namespace Igor
         if (_nodes.size())
         {
             con_err("possible mem leak. nodes left: " << static_cast<int>(_nodes.size()));
+
+            for (auto pair : _nodes)
+            {
+                con_debug_endl(pair.second->getInfo());
+            }
         }
     }
 

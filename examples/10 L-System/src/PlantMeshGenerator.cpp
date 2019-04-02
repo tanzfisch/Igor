@@ -46,12 +46,12 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
     generateSkeleton(sentence);
     generateMesh(_skeleton.getRootJoint());
-
-    iNodeMesh* meshNodeTrunk = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    
     shared_ptr<iMesh> meshTrunk = _meshBuilderTrunk.createMesh();
 
-    if (meshTrunk.get() != nullptr)
+    if (meshTrunk != nullptr)
     {
+        iNodeMesh* meshNodeTrunk = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
         meshNodeTrunk->setMesh(meshTrunk);
         meshNodeTrunk->setMaterial(plantInformation->_materialID);
 
@@ -64,12 +64,12 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
         result->insertNode(meshNodeTrunk);
     }
-
-    iNodeMesh* meshNodeFlowers = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    
     shared_ptr<iMesh> meshFlowers = _meshBuilderFlowers.createMesh();
 
-    if (meshFlowers.get() != nullptr)
+    if (meshFlowers != nullptr)
     {
+        iNodeMesh* meshNodeFlowers = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
         meshNodeFlowers->setMesh(meshFlowers);
         meshNodeFlowers->setMaterial(plantInformation->_materialID);
 
@@ -82,12 +82,12 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
 
         result->insertNode(meshNodeFlowers);
     }
-
-    iNodeMesh* meshNodeBuds = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+    
     shared_ptr<iMesh> meshBuds = _meshBuilderBuds.createMesh();
 
-    if (meshBuds.get() != nullptr)
+    if (meshBuds != nullptr)
     {
+        iNodeMesh* meshNodeBuds = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
         meshNodeBuds->setMesh(meshBuds);
         meshNodeBuds->setMaterial(plantInformation->_materialID);
 
@@ -101,12 +101,12 @@ iNodePtr PlantMeshGenerator::importData(const iaString& sectionName, iModelDataI
         result->insertNode(meshNodeBuds);
     }
 
-    iNodeMesh* meshNodeLeafs = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
     _meshBuilderLeaves.calcNormals();
     shared_ptr<iMesh> meshLeafs = _meshBuilderLeaves.createMesh();
 
-    if (meshLeafs.get() != nullptr)
+    if (meshLeafs != nullptr)
     {
+        iNodeMesh* meshNodeLeafs = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
         meshNodeLeafs->setMesh(meshLeafs);
         meshNodeLeafs->setMaterial(plantInformation->_materialID);
 

@@ -209,7 +209,7 @@ namespace Igor
 	void shutdown()
 	{
 		//! \todo somehow we have to figure out dependencies and shutdown in correct order!
-		// don't change the shutdown order
+		// don't change the shutdown order if you don't know what you are doing
 		if (iModelResourceFactory::isInstantiated())
 		{
 			iModelResourceFactory::destroyInstance();

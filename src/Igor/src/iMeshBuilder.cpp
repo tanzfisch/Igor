@@ -111,7 +111,7 @@ namespace Igor
             else
             {
                 _vertexes.push_back(vertex);
-                result = _vertexes.size() - 1;
+                result = static_cast<uint32>(_vertexes.size()) - 1;
                 _indexMap[vertex] = result;
             }
         }
@@ -419,7 +419,7 @@ namespace Igor
         sphere._radius = sphereF._radius;
     }
 
-    shared_ptr<iMesh> iMeshBuilder::createMesh(vector<uint32> triangles)
+    iMeshPtr iMeshBuilder::createMesh(vector<uint32> triangles)
     {
         iMesh* mesh = new iMesh();
 
@@ -433,10 +433,10 @@ namespace Igor
         calcBoundingBox(bbox);
         mesh->setBoundingBox(bbox);
 
-        return shared_ptr<iMesh>(mesh);
+        return iMeshPtr(mesh);
     }
 
-    shared_ptr<iMesh> iMeshBuilder::createMesh()
+    iMeshPtr iMeshBuilder::createMesh()
     {
         iMesh* mesh = nullptr;
         if (_vertexes.size() > 0)
@@ -449,7 +449,7 @@ namespace Igor
             calcBoundingSphere(boundingSphere);
             mesh->setBoundingSphere(boundingSphere);
         }
-        return shared_ptr<iMesh>(mesh);
+        return iMeshPtr(mesh);
     }
 
     void iMeshBuilder::compile(iMesh* mesh, vector<uint32> triangles)
