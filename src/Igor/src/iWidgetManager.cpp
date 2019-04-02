@@ -84,6 +84,11 @@ namespace Igor
         if (!_widgets.empty())
         {
             con_err("possible mem leak! did not release all widgets. " << _widgets.size() << " left");
+
+            for (auto pair : _widgets)
+            {
+                con_debug_endl(pair.second->getInfo());
+            }
         }
 
         // we can not delete widgets here anymore because 
