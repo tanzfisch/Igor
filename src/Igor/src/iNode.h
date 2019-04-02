@@ -129,7 +129,7 @@ namespace Igor
         */
         iaString getName() const;
 
-        /*! \returns an information string in this node
+        /*! \returns an information string about this node
         */
         iaString getInfo() const;
 

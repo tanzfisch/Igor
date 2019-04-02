@@ -28,6 +28,33 @@ namespace Igor
 			_keyboardFocus = nullptr;
 		}
     }
+
+    iaString iWidget::getInfo() const
+    {
+        iaString result;
+
+        iaString type(typeid(*this).name());
+        type = type.getSubString(type.findLastOf(':') + 1, type.getSize() - 1);
+
+        result = type;
+        result += " [";
+        result += iaString::itoa(_id);
+        result += "] (";
+        result += iaString::itoa(_absoluteX);
+        result += ", ";
+        result += iaString::itoa(_absoluteY);
+        result += ", ";
+        result += iaString::itoa(_actualWidth);
+        result += ", ";
+        result += iaString::itoa(_actualHeight);
+        result += ")";
+        if(hasParent())
+        {
+            result += ", parent";
+        }
+
+        return result;
+    }
     
 	void iWidget::addWidget(iWidget* widget)
 	{
