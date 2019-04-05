@@ -107,7 +107,29 @@ namespace Igor
         */
 		const iaString& getText() const;
 
+        /*! sets cursor pos
+
+        cursor pos will be clamped by current text size
+
+        \param cursorPos the new cursor pos
+        */
+        void setCursorPos(uint32 cursorPos);
+
+        /* \returns current cursor pos
+        */
+        uint32 getCursorPos() const;
+
+        /*! increase cursor pos by one
+        */
+        void incCursorPos();
+
+        /*! decrease cursor pos by one
+        */
+        void decCursorPos();
+
 	protected:
+
+        uint32 _cursorPos = 0;
 
         /*! the horizontal alignment
         */
@@ -125,9 +147,29 @@ namespace Igor
         */
 		iaString _text;
 
+        /*! handles incomming acsii codes from keyboard
+
+        \param c the incomming character from keyboard
+        */
+        virtual bool handleASCII(uint8 c);
+
+        /*! handles incomming pressed key events
+
+        \param key the pressed key
+        */
+        virtual bool handleKeyUp(iKeyCode key);
+
+        /*! handles incomming released key events
+
+        \param key the released key
+        */
+        virtual bool handleKeyDown(iKeyCode key);
+
+	private:
+
         /*! max text lenght in characters
         */
-		int32 _maxTextLenght = 20;
+        int32 _maxTextLenght = 20;
 
         /*! if true text field is write protected
         */
@@ -137,17 +179,9 @@ namespace Igor
         */
         void calcMinSize();
 
-		/*! draws the text edit widget
-		*/
-		void draw();
-
-	private:
-
-        /*! handles incomming acsii codes from keyboard
-
-        \param c the incomming character from keyboard
+        /*! draws the text edit widget
         */
-        bool handleASCII(uint8 c);
+        void draw();
 
         /*! initializes member variables
         */

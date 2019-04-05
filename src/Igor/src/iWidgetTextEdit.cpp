@@ -79,6 +79,53 @@ namespace Igor
         return false;
 	}
 
+    bool iWidgetTextEdit::handleKeyUp(iKeyCode key)
+    {
+        return false;
+    }
+
+    bool iWidgetTextEdit::handleKeyDown(iKeyCode key)
+    {
+        switch (key)
+        {
+        case iKeyCode::Left:
+            decCursorPos();
+            break;
+        case iKeyCode::Right:
+            incCursorPos();
+            break;
+        }
+
+        return false;
+    }
+
+    void iWidgetTextEdit::incCursorPos()
+    {
+        if (_cursorPos < _text.getSize())
+        {
+            _cursorPos++;
+        }
+    }
+
+    void iWidgetTextEdit::decCursorPos()
+    {
+        if (_cursorPos > 0)
+        {
+            _cursorPos--;
+        }
+    }
+
+
+    void iWidgetTextEdit::setCursorPos(uint32 cursorPos)
+    {
+        _cursorPos = min(_text.getSize(), cursorPos);
+    }
+
+    uint32 iWidgetTextEdit::getCursorPos() const
+    {
+        return _cursorPos;
+    }
+
     iHorizontalAlignment iWidgetTextEdit::getHorizontalTextAlignment() const
     {
         return _horizontalTextAlignment;
