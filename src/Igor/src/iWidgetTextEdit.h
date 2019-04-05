@@ -113,11 +113,11 @@ namespace Igor
 
         \param cursorPos the new cursor pos
         */
-        void setCursorPos(uint32 cursorPos);
+        void setCursorPos(uint64 cursorPos);
 
         /* \returns current cursor pos
         */
-        uint32 getCursorPos() const;
+		uint64 getCursorPos() const;
 
         /*! increase cursor pos by one
         */
@@ -129,7 +129,7 @@ namespace Igor
 
 	protected:
 
-        uint32 _cursorPos = 0;
+		uint64 _cursorPos = 0;
 
         /*! the horizontal alignment
         */
@@ -151,19 +151,19 @@ namespace Igor
 
         \param c the incomming character from keyboard
         */
-        virtual bool handleASCII(uint8 c);
+        virtual bool handleASCII(uint8 c) override;
 
         /*! handles incomming pressed key events
 
         \param key the pressed key
         */
-        virtual bool handleKeyUp(iKeyCode key);
+        virtual bool handleKeyUp(iKeyCode key) override;
 
         /*! handles incomming released key events
 
         \param key the released key
         */
-        virtual bool handleKeyDown(iKeyCode key);
+        virtual bool handleKeyDown(iKeyCode key) override;
 
 	private:
 

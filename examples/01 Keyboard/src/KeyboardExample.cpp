@@ -70,7 +70,7 @@ void KeyboardExample::run()
 	iApplication::getInstance().run();
 }
 
-void KeyboardExample::onKeyASCIIInput(char c)
+void KeyboardExample::onKeyASCIIInput(const char c)
 {
     // check in which output mode we are
 	if (!_outputSwitch)

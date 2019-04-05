@@ -499,7 +499,7 @@ namespace Igor
 
             for (auto widget : widgets)
             {
-                if (widget->handleKeyDown(key))
+                if (widget->handleKeyUp(key))
                 {
                     return true;
                 }

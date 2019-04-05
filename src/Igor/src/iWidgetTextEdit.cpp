@@ -63,7 +63,8 @@ namespace Igor
 
                     if (_text.getSize() < _maxTextLenght)
                     {
-                        _text = _text + c;
+						_text.insert(iaString(static_cast<const char>(c)), _cursorPos);
+						incCursorPos();
                     }
                 }
 
@@ -86,15 +87,16 @@ namespace Igor
 
     bool iWidgetTextEdit::handleKeyDown(iKeyCode key)
     {
-        switch (key)
-        {
-        case iKeyCode::Left:
-            decCursorPos();
-            break;
-        case iKeyCode::Right:
-            incCursorPos();
-            break;
-        }
+		switch (key)
+		{
+		case iKeyCode::Left:
+			decCursorPos();
+			return true;
+
+		case iKeyCode::Right:
+			incCursorPos();
+			return true;
+		}
 
         return false;
     }
@@ -115,13 +117,12 @@ namespace Igor
         }
     }
 
-
-    void iWidgetTextEdit::setCursorPos(uint32 cursorPos)
+    void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
     {
         _cursorPos = min(_text.getSize(), cursorPos);
     }
 
-    uint32 iWidgetTextEdit::getCursorPos() const
+	uint64 iWidgetTextEdit::getCursorPos() const
     {
         return _cursorPos;
     }
@@ -150,7 +151,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPos, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
 		}
 	}
 

@@ -372,7 +372,7 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::onASCII(char c)
+    void iWidgetManager::onASCII(const char c)
     {
         bool foundModal = false;
 

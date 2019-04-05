@@ -392,7 +392,7 @@ namespace Igor
 
         \param c the ascii character
         */
-        void onASCII(char c);
+        void onASCII(const char c);
 
         /*! handles key down event
         */
