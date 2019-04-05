@@ -389,8 +389,18 @@ namespace Igor
         void onMouseWheel(int32 d);
 
         /*! internal handler for incomming keyboard events
+
+        \param c the ascii character
         */
         void onASCII(char c);
+
+        /*! handles key down event
+        */
+        void onKeyDown(iKeyCode key);
+
+        /*! handles key up event
+        */
+        void onKeyUp(iKeyCode key);
 
         /*! registers to mouse and keyboard evetns
         */

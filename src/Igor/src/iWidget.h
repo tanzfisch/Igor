@@ -570,6 +570,18 @@ namespace Igor
         */
         virtual bool handleASCII(uint8 c);
 
+        /*! handles pressed key event
+
+        \param key the pressed key
+        */
+        virtual bool handleKeyDown(iKeyCode key);
+
+        /*! handles released key event
+
+        \param key the released key
+        */
+        virtual bool handleKeyUp(iKeyCode key);
+
         /*! handles lost keayboard focus
         */
         virtual void handleLostKeyboardFocus();
