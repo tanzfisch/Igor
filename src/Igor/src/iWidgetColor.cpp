@@ -57,16 +57,16 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture);
+			iWidgetManager::getInstance().getTheme()->drawTiledRectangle(getActualRect(), _texture);
 
             int32 halfWidth = static_cast<int32>((static_cast<float64>(getActualWidth()) / 2.0) + 0.5);
 
-            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX(), getActualPosY(), halfWidth, getActualHeight(), _color);
+            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iRectanglei(getActualPosX(), getActualPosY(), halfWidth, getActualHeight()), _color);
             iaColor4f colorNoAlpha = _color;
             colorNoAlpha._a = 1.0f;
-            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight(), colorNoAlpha);
+            iWidgetManager::getInstance().getTheme()->drawFilledRectangle(iRectanglei(getActualPosX() + halfWidth, getActualPosY(), halfWidth, getActualHeight()), colorNoAlpha);
 
-            iWidgetManager::getInstance().getTheme()->drawRectangle(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight());
+            iWidgetManager::getInstance().getTheme()->drawRectangle(getActualRect());
 		}
 	}
 

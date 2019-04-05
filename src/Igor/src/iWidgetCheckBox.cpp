@@ -127,7 +127,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _checked, getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getAppearanceState(), isActive());
         }
     }
 

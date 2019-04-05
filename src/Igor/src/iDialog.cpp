@@ -129,7 +129,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawDialog(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawDialog(getActualRect(), getAppearanceState(), isActive());
 
             for (auto widget : _children)
             {

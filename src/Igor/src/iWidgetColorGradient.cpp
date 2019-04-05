@@ -145,9 +145,9 @@ namespace Igor
                 gradientRect._height -= buttonHeight;
             }
 
-            iWidgetManager::getInstance().getTheme()->drawTiledRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _texture);
-            iWidgetManager::getInstance().getTheme()->drawGradient(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height, _gradient);
-            iWidgetManager::getInstance().getTheme()->drawRectangle(gradientRect._x, gradientRect._y, gradientRect._width, gradientRect._height);
+            iWidgetManager::getInstance().getTheme()->drawTiledRectangle(gradientRect, _texture);
+            iWidgetManager::getInstance().getTheme()->drawGradient(gradientRect, _gradient);
+            iWidgetManager::getInstance().getTheme()->drawRectangle(gradientRect);
 
             if (_interactive)
             {
@@ -165,7 +165,7 @@ namespace Igor
                     _gradient.getValue(entry.first, color);
                     color._a = 1.0f;
                     buttonRect._x = static_cast<int32>(entry.first * gradientRect._width) + gradientRect._x - 4;
-                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, color, iWidgetAppearanceState::Standby, isActive());
+                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, color, iWidgetAppearanceState::Standby, isActive());
                 }
             }
         }

@@ -266,7 +266,7 @@ namespace Igor
             iaString displayString = iaString::ftoa(_value, _afterPoint);
             displayString += _postFix;
 
-            iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
         }
     }
 

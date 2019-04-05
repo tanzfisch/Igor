@@ -87,6 +87,11 @@ int32 iWidget::getActualPosY() const
 	return _absoluteY;
 }
 
+iRectanglei iWidget::getActualRect() const
+{
+    return iRectanglei(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
+}
+
 int32 iWidget::getRelativePosX() const
 {
 	return _relativeX;

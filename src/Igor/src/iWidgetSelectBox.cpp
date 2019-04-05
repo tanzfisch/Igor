@@ -247,7 +247,7 @@ namespace Igor
                 displayString = _entries[_currentSelection].first;
             }
 
-            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isActive());
         }
     }
 

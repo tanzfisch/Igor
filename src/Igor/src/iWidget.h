@@ -114,6 +114,7 @@ namespace Igor
     \todo to many friends
     \todo fix one click and double click handling
     \todo maybe we should have a widget base class on top so we can treat widgets usercontrols and dialogs more equaly
+    \todo replace relative and actual pos variables with two rectangles
     */
 	class Igor_API iWidget
 	{
@@ -290,6 +291,10 @@ namespace Igor
         /*! \returns actual height
         */
         __IGOR_INLINE__ int32 getActualHeight() const;
+
+        /*! \returns actual rectangle
+        */
+        __IGOR_INLINE__ iRectanglei getActualRect() const;
 
         /*! \returns actual relative horizontal position
         */
@@ -633,6 +638,14 @@ namespace Igor
 
 	private:
 
+        /*! horizontal position of the widget relative to parent
+        */
+        int32 _relativeX = 0;
+
+        /*! vertical position of the widget relative to parent
+        */
+        int32 _relativeY = 0;
+
         /*! min size to make also children fit in
         */
         int32 _minWidth = 0;
@@ -641,6 +654,14 @@ namespace Igor
         */
         int32 _minHeight = 0;
 
+        /*! absolute horizontal position of the widget
+        */
+        int32 _absoluteX = 0;
+
+        /*! absolute vertical position of the widget
+        */
+        int32 _absoluteY = 0;
+
 		/*! actual (or rendered) width of the widget
 		*/
 		int32 _actualWidth = 0;
@@ -648,22 +669,6 @@ namespace Igor
 		/*! actual (or rendered) height of the widget
 		*/
 		int32 _actualHeight = 0;
-
-		/*! horizontal position of the widget relative to parent
-		*/
-		int32 _relativeX = 0;
-
-		/*! vertical position of the widget relative to parent
-		*/
-		int32 _relativeY = 0;
-
-		/*! absolute horizontal position of the widget
-		*/
-		int32 _absoluteX = 0;
-
-		/*! absolute vertical position of the widget
-		*/
-		int32 _absoluteY = 0;
 
         /*! margin left for internal user only
         */

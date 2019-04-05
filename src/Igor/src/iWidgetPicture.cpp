@@ -103,7 +103,7 @@ namespace Igor
         if (isVisible() &&
             _texture != nullptr)
         {
-            iWidgetManager::getInstance().getTheme()->drawPicture(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture, _widgetAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetAppearanceState, isActive());
         }
     }
 

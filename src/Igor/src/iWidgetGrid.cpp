@@ -753,7 +753,7 @@ namespace Igor
             int32 rowIndex = 0;
             int32 colIndex = 0;
 
-            iWidgetManager::getInstance().getTheme()->drawGridField(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState());
+            iWidgetManager::getInstance().getTheme()->drawGridField(getActualRect(), getAppearanceState());
 
             for (auto row : _widgetRows)
             {
@@ -764,8 +764,8 @@ namespace Igor
                     int32 colPosX = col._x + getActualPosX();
                     int32 colPosY = col._y + getActualPosY();
 
-                    iWidgetManager::getInstance().getTheme()->drawGridField(colPosX, colPosY,
-                        col._actualWidth, col._actualHeight, getAppearanceState());
+                    iWidgetManager::getInstance().getTheme()->drawGridField(iRectanglei(colPosX, colPosY,
+                        col._actualWidth, col._actualHeight), getAppearanceState());
 
                     if (_selectMode != iSelectionMode::NoSelection)
                     {
@@ -816,12 +816,12 @@ namespace Igor
                         if (drawSelected)
                         {
                             iWidgetManager::getInstance().getTheme()->drawGridSelection(
-                                colPosX, colPosY, col._actualWidth, col._actualHeight);
+                                iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
                         }
                         else if (drawHighlight)
                         {
                             iWidgetManager::getInstance().getTheme()->drawGridHighlight(
-                                colPosX, colPosY, col._actualWidth, col._actualHeight);
+                                iRectanglei(colPosX, colPosY, col._actualWidth, col._actualHeight));
                         }
                     }
 
