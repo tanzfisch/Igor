@@ -74,19 +74,21 @@ namespace Igor
 
 	bool iWidgetTextEdit::handleKeyDown(iKeyCode key)
 	{
+		iaString bck = _text;
+
 		switch (key)
 		{
 		case iKeyCode::Delete:
 			_text.remove(_cursorPos, 1);
-			return true;
+			break;
 
 		case iKeyCode::Home:
 			_cursorPos = 0;
-			return true;
+			break;
 
 		case iKeyCode::End:
 			_cursorPos = _text.getSize();
-			return true;
+			break;
 
 		case iKeyCode::Enter:
 		case iKeyCode::Return:
@@ -94,23 +96,32 @@ namespace Igor
 			{
 				_change(this);
 			}
-			return true;
+			break;
 
 		case iKeyCode::Backspace:
 			decCursorPos();
 			_text.remove(_cursorPos, 1);
-			return true;
+			break;
 
 		case iKeyCode::Left:
 			decCursorPos();
-			return true;
+			break;
 
 		case iKeyCode::Right:
 			incCursorPos();
-			return true;
+			break;
+
+		default:
+			return false;
 		}
 
-		return false;
+		if (_triggerChangeAtOnce && 
+			bck != _text)
+		{
+			_change(this);
+		}
+
+		return true;
 	}
 
 	void iWidgetTextEdit::incCursorPos()
