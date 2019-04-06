@@ -13,84 +13,94 @@ namespace Igor
 
 	iWidgetTextEdit::iWidgetTextEdit()
 	{
-        _reactOnMouseWheel = false;
+		_reactOnMouseWheel = false;
 	}
 
-    iWidget* iWidgetTextEdit::createInstance()
-    {
-        return new iWidgetTextEdit();
-    }
+	iWidget* iWidgetTextEdit::createInstance()
+	{
+		return new iWidgetTextEdit();
+	}
 
 	void iWidgetTextEdit::calcMinSize()
 	{
-        setMinSize(0, 0);
+		setMinSize(0, 0);
 	}
 
-    void iWidgetTextEdit::setWriteProtected(bool writeProtected)
-    {
-        _writeProtected = writeProtected;
-    }
+	void iWidgetTextEdit::setWriteProtected(bool writeProtected)
+	{
+		_writeProtected = writeProtected;
+	}
 
-    bool iWidgetTextEdit::isWriteProtected()
-    {
-        return _writeProtected;
-    }
+	bool iWidgetTextEdit::isWriteProtected()
+	{
+		return _writeProtected;
+	}
 
 	bool iWidgetTextEdit::handleASCII(uint8 c)
 	{
-        if (isActive() &&
-            !isWriteProtected())
-        {
-            if (hasKeyboardFocus())
-            {
-                if (c == 13) // handle enter
-                {
-                    if (!_triggerChangeAtOnce)
-                    {
-                        _change(this);
-                    }
-                }
-                else if (c == '\b' && !_text.isEmpty()) // handle backspace
-                {
-					decCursorPos();
-                    _text.remove(_cursorPos, 1);
-					
-                }
-                else
-                {
-                    if (c < 32 || c > 32 + 128 - 1) // filter all we don't understand
-                    {
-                        return false;
-                    }
+		if (isActive() &&
+			!isWriteProtected())
+		{
+			if (hasKeyboardFocus())
+			{
+				// filter all we don't handle here
+				if (c < 32 || c > 32 + 128 - 1 || c ==13) 
+				{
+					return false;
+				}
 
-                    if (_text.getSize() < _maxTextLenght)
-                    {
-						_text.insert(iaString(static_cast<const char>(c)), _cursorPos);
-						incCursorPos();
-                    }
-                }
+				if (_text.getSize() < _maxTextLenght)
+				{
+					_text.insert(iaString(static_cast<const char>(c)), _cursorPos);
+					incCursorPos();
+				}
 
-                if (_triggerChangeAtOnce)
-                {
-                    _change(this);
-                }
+				if (_triggerChangeAtOnce)
+				{
+					_change(this);
+				}
 
-                return true;
-            }
-        }
+				return true;
+			}
+		}
 
-        return false;
+		return false;
 	}
 
-    bool iWidgetTextEdit::handleKeyUp(iKeyCode key)
-    {
-        return false;
-    }
+	bool iWidgetTextEdit::handleKeyUp(iKeyCode key)
+	{
+		return false;
+	}
 
-    bool iWidgetTextEdit::handleKeyDown(iKeyCode key)
-    {
+	bool iWidgetTextEdit::handleKeyDown(iKeyCode key)
+	{
 		switch (key)
 		{
+		case iKeyCode::Delete:
+			_text.remove(_cursorPos, 1);
+			return true;
+
+		case iKeyCode::Home:
+			_cursorPos = 0;
+			return true;
+
+		case iKeyCode::End:
+			_cursorPos = _text.getSize();
+			return true;
+
+		case iKeyCode::Enter:
+		case iKeyCode::Return:
+			if (!_triggerChangeAtOnce)
+			{
+				_change(this);
+			}
+			return true;
+
+		case iKeyCode::Backspace:
+			decCursorPos();
+			_text.remove(_cursorPos, 1);
+			return true;
+
 		case iKeyCode::Left:
 			decCursorPos();
 			return true;
@@ -100,44 +110,44 @@ namespace Igor
 			return true;
 		}
 
-        return false;
-    }
+		return false;
+	}
 
-    void iWidgetTextEdit::incCursorPos()
-    {
-        if (_cursorPos < _text.getSize())
-        {
-            _cursorPos++;
-        }
-    }
+	void iWidgetTextEdit::incCursorPos()
+	{
+		if (_cursorPos < _text.getSize())
+		{
+			_cursorPos++;
+		}
+	}
 
-    void iWidgetTextEdit::decCursorPos()
-    {
-        if (_cursorPos > 0)
-        {
-            _cursorPos--;
-        }
-    }
+	void iWidgetTextEdit::decCursorPos()
+	{
+		if (_cursorPos > 0)
+		{
+			_cursorPos--;
+		}
+	}
 
-    void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
-    {
-        _cursorPos = min(_text.getSize(), cursorPos);
-    }
+	void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
+	{
+		_cursorPos = min(_text.getSize(), cursorPos);
+	}
 
 	uint64 iWidgetTextEdit::getCursorPos() const
-    {
-        return _cursorPos;
-    }
+	{
+		return _cursorPos;
+	}
 
-    iHorizontalAlignment iWidgetTextEdit::getHorizontalTextAlignment() const
-    {
-        return _horizontalTextAlignment;
-    }
-        
-    iVerticalAlignment iWidgetTextEdit::getVerticalTextAlignment() const
-    {
-        return _verticalTextAlignment;
-    }
+	iHorizontalAlignment iWidgetTextEdit::getHorizontalTextAlignment() const
+	{
+		return _horizontalTextAlignment;
+	}
+
+	iVerticalAlignment iWidgetTextEdit::getVerticalTextAlignment() const
+	{
+		return _verticalTextAlignment;
+	}
 
 	void iWidgetTextEdit::setHorizontalTextAlignment(iHorizontalAlignment align)
 	{
@@ -174,12 +184,12 @@ namespace Igor
 
 	void iWidgetTextEdit::setChangeEventAtOnce()
 	{
-        _triggerChangeAtOnce = true;
+		_triggerChangeAtOnce = true;
 	}
 
 	void iWidgetTextEdit::setChangeEventOnEnterAndLosFocus()
 	{
-        _triggerChangeAtOnce = false;
+		_triggerChangeAtOnce = false;
 	}
 
 	void iWidgetTextEdit::setText(const iaString& text)
