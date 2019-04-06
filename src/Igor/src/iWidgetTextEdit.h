@@ -129,7 +129,13 @@ namespace Igor
 
 	protected:
 
+		/*! position of cursor within the text
+		*/
 		uint64 _cursorPos = 0;
+
+		/*! scroll offset of text display
+		*/
+		uint64 _scrollOffset = 0;
 
         /*! the horizontal alignment
         */
@@ -145,7 +151,7 @@ namespace Igor
 
         /*! the text
         */
-		iaString _text;
+		iaString _text;		
 
         /*! handles incomming acsii codes from keyboard
 
@@ -182,6 +188,10 @@ namespace Igor
         /*! draws the text edit widget
         */
         void draw();
+
+		/*! updates the scroll offset
+		*/
+		void updateScrollOffset();
 
         /*! initializes member variables
         */

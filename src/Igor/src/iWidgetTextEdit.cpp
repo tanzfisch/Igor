@@ -7,6 +7,7 @@
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iKeyboard.h>
+#include <iTextureFont.h>
 
 namespace Igor
 {
@@ -51,7 +52,7 @@ namespace Igor
 
 				if (_text.getSize() < _maxTextLenght)
 				{
-					_text.insert(iaString(static_cast<const char>(c)), _cursorPos);
+					_text.insert(iaString(static_cast<const char>(c)), getCursorPos());
 					incCursorPos();
 				}
 
@@ -79,15 +80,15 @@ namespace Igor
 		switch (key)
 		{
 		case iKeyCode::Delete:
-			_text.remove(_cursorPos, 1);
+			_text.remove(getCursorPos(), 1);
 			break;
 
 		case iKeyCode::Home:
-			_cursorPos = 0;
+			setCursorPos(0);
 			break;
 
 		case iKeyCode::End:
-			_cursorPos = _text.getSize();
+			setCursorPos(_text.getSize());
 			break;
 
 		case iKeyCode::Enter:
@@ -100,7 +101,7 @@ namespace Igor
 
 		case iKeyCode::Backspace:
 			decCursorPos();
-			_text.remove(_cursorPos, 1);
+			_text.remove(getCursorPos(), 1);
 			break;
 
 		case iKeyCode::Left:
@@ -124,11 +125,25 @@ namespace Igor
 		return true;
 	}
 
+	void iWidgetTextEdit::updateScrollOffset()
+	{
+		float32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, iWidgetManager::getInstance().getTheme()->getFontSize());
+		if (textWidth < getActualWidth())
+		{
+			_scrollOffset = 0;
+		}
+		else
+		{
+			// TODO
+		}
+	}
+
 	void iWidgetTextEdit::incCursorPos()
 	{
 		if (_cursorPos < _text.getSize())
 		{
 			_cursorPos++;
+			updateScrollOffset();
 		}
 	}
 
@@ -137,12 +152,14 @@ namespace Igor
 		if (_cursorPos > 0)
 		{
 			_cursorPos--;
+			updateScrollOffset();
 		}
 	}
 
 	void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
 	{
 		_cursorPos = min(_text.getSize(), cursorPos);
+		updateScrollOffset();
 	}
 
 	uint64 iWidgetTextEdit::getCursorPos() const
@@ -171,7 +188,7 @@ namespace Igor
 	}
 
 	void iWidgetTextEdit::draw()
-	{
+	{		
 		if (isVisible())
 		{
 			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPos, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
