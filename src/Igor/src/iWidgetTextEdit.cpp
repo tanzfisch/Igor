@@ -52,7 +52,9 @@ namespace Igor
                 }
                 else if (c == '\b' && !_text.isEmpty()) // handle backspace
                 {
-                    _text = _text.getSubString(0, _text.getSize() - 1);
+					decCursorPos();
+                    _text.remove(_cursorPos, 1);
+					
                 }
                 else
                 {

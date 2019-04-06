@@ -708,12 +708,26 @@ namespace IgorAux
 
 	void iaString::insert(const iaString& text, uint64 pos)
 	{
+		con_assert(pos != INVALID_POSITION, "out of range");
+		con_assert(pos <= _charCount, "out of range");
+
 		iaString result = getSubString(0, pos);
 		result += text;
 		result += getSubString(pos, getLength() - pos);
 		
 		setData(result.getData());
 	}
+
+	void iaString::remove(uint64 pos, uint64 length)
+	{
+		iaString result;
+		
+		if(pos > 0)
+		result = getSubString(0, pos);
+		result += getSubString(pos + length);
+
+		setData(result.getData());
+	} 
 
 	uint64 iaString::getLength() const
 	{
@@ -730,7 +744,6 @@ namespace IgorAux
 		}
 
 		con_assert(pos != INVALID_POSITION, "out of range");
-		con_assert(pos < _charCount, "out of range");
 
 		uint64 length = len;
 		if (length == INVALID_POSITION ||

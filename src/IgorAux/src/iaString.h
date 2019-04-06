@@ -372,6 +372,13 @@ namespace IgorAux
 		*/
 		void insert(const iaString& text, uint64 pos);
 
+		/*! removed charcters from string
+
+		\param pos index of first character to remove
+		\param length amount of characters to remove
+		*/
+		void remove(uint64 pos, uint64 length);
+
 	private:
 
         /*! string length without ending zero
