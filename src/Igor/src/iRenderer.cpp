@@ -257,9 +257,11 @@ namespace Igor
 
             setClearColor(iaColor4f(0.0f, 0.0f, 0.0f, 0.0f));
             setClearDepth(1.0f);
+			setStencilMask(0xff);
 
             clearColorBuffer();
             clearDepthBuffer();
+			clearStencilBuffer();
 
             _initialized = true;
 
@@ -554,6 +556,11 @@ namespace Igor
         glClearDepth(depth);	GL_CHECK_ERROR();
     }
 
+	void iRenderer::setStencilMask(uint8 mask)
+	{
+		glStencilMask(mask);
+	}
+
     void iRenderer::clearColorBuffer()
     {
         glClear(GL_COLOR_BUFFER_BIT); GL_CHECK_ERROR();
@@ -564,7 +571,12 @@ namespace Igor
         glClear(GL_DEPTH_BUFFER_BIT);	GL_CHECK_ERROR();
     }
 
-    void iRenderer::getProjectionMatrix(iaMatrixd& matrix)
+	void iRenderer::clearStencilBuffer()
+	{
+		glClear(GL_STENCIL_BUFFER_BIT);	GL_CHECK_ERROR();
+	}
+	
+	void iRenderer::getProjectionMatrix(iaMatrixd& matrix)
     {
         matrix = _projectionMatrix;
     }

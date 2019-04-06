@@ -390,6 +390,14 @@ namespace Igor
         */
         void clearDepthBuffer();
 
+		/*! sets the stencil mask value
+		*/
+		void setStencilMask(uint8 mask);
+
+		/*! clears swtencil buffer with clear depth
+		*/
+		void clearStencilBuffer();
+
         /*! reads rectangular area from screen buffer
 
         \param x horizontal position in pixel

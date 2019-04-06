@@ -9,6 +9,11 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
+// TODO remove later again
+#include <GLee.h>
+#include <GL\glu.h>
+
+
 #define DEBUG_OUTPUT 0
 
 #if DEBUG_OUTPUT == 1
@@ -318,6 +323,13 @@ namespace Igor
 		{
 			iRenderer::getInstance().setColor(COLOR_DIFFUSE);
 		}
+
+		glEnable(GL_STENCIL_TEST);
+		glStencilFunc(GL_ALWAYS, 1, 0xff);
+		glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE);  // draw 1s on test fail (always)
+
+		// draw stencil pattern
+		iRenderer::getInstance().setStencilMask(0xff);
 		drawRectangleInt(rect);
 
 		iRenderer::getInstance().setLineWidth(_defaultLineWidth);
@@ -335,6 +347,9 @@ namespace Igor
 			float32 textwidth = _font->measureWidth(modText.getSubString(0, cursorPos), _fontSize);
 			iRenderer::getInstance().drawRectangle(rect._x + textwidth + 2, rect._y + 3, 2, _fontSize);
 		}
+
+		iRenderer::getInstance().setStencilMask(0xff);
+		glStencilFunc(GL_EQUAL, 1, 0xff);
 
 		// render text
 		iRenderer::getInstance().setMaterial(_texturedMaterial);
@@ -376,6 +391,8 @@ namespace Igor
 		};
 
 		drawStringInt(textPosX, textPosY, modText);
+
+		glDisable(GL_STENCIL_TEST);
 			
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
