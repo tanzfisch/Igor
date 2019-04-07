@@ -125,16 +125,19 @@ namespace Igor
 		return true;
 	}
 
-	void iWidgetTextEdit::updateScrollOffset()
+	void iWidgetTextEdit::updateMetrics()
 	{
-		float32 textWidth = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, iWidgetManager::getInstance().getTheme()->getFontSize());
-		if (textWidth < getActualWidth())
+		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+		_cursorPosPix = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text.getSubString(0, _cursorPos), fontSize) + 2;
+
+		if (_cursorPosPix < getActualWidth())
 		{
 			_scrollOffset = 0;
 		}
 		else
 		{
-			// TODO
+			_scrollOffset = _cursorPosPix - getActualWidth();
+			_cursorPosPix -= _scrollOffset;
 		}
 	}
 
@@ -143,7 +146,7 @@ namespace Igor
 		if (_cursorPos < _text.getSize())
 		{
 			_cursorPos++;
-			updateScrollOffset();
+			updateMetrics();
 		}
 	}
 
@@ -152,14 +155,14 @@ namespace Igor
 		if (_cursorPos > 0)
 		{
 			_cursorPos--;
-			updateScrollOffset();
+			updateMetrics();
 		}
 	}
 
 	void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
 	{
 		_cursorPos = min(_text.getSize(), cursorPos);
-		updateScrollOffset();
+		updateMetrics();
 	}
 
 	uint64 iWidgetTextEdit::getCursorPos() const
@@ -191,7 +194,7 @@ namespace Igor
 	{		
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPos, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _scrollOffset, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
 		}
 	}
 

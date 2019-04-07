@@ -129,14 +129,6 @@ namespace Igor
 
 	protected:
 
-		/*! position of cursor within the text
-		*/
-		uint64 _cursorPos = 0;
-
-		/*! scroll offset of text display
-		*/
-		uint64 _scrollOffset = 0;
-
         /*! the horizontal alignment
         */
 		iHorizontalAlignment _horizontalTextAlignment = iHorizontalAlignment::Left;
@@ -173,6 +165,18 @@ namespace Igor
 
 	private:
 
+		/*! position of cursor within the text in characters
+*/
+		uint64 _cursorPos = 0;
+
+		/*! cursor position in pixel
+		*/
+		uint64 _cursorPosPix = 0;
+
+		/*! scroll offset of text display in pixel
+		*/
+		uint64 _scrollOffset = 0;
+
         /*! max text lenght in characters
         */
         int32 _maxTextLenght = 20;
@@ -189,9 +193,9 @@ namespace Igor
         */
         void draw();
 
-		/*! updates the scroll offset
+		/*! updates the cursor position and scroll offset 
 		*/
-		void updateScrollOffset();
+		void updateMetrics();
 
         /*! initializes member variables
         */

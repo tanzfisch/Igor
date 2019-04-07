@@ -44,53 +44,53 @@ namespace Igor
 	class iTextureFont;
 	class iTexture;
 
-    /*! base widget theme
+	/*! base widget theme
 
-    \todo need to make a better concept for this interface
-    \todo replace const iRectanglei& rect with iRectanglei
-    
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
+	\todo need to make a better concept for this interface
+	\todo replace const iRectanglei& rect with iRectanglei
 
-    */
+	Example:
+	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
+
+	*/
 	class Igor_API iWidgetBaseTheme
 	{
 
 	public:
 
-        virtual void drawRectangle(const iRectanglei& rect, const iaColor4f& color) = 0;
-        virtual void drawFilledRectangle(const iRectanglei& rect, const iaColor4f& color) = 0;
+		virtual void drawRectangle(const iRectanglei& rect, const iaColor4f& color) = 0;
+		virtual void drawFilledRectangle(const iRectanglei& rect, const iaColor4f& color) = 0;
 
-        virtual void drawRectangle(const iRectanglei& rect) = 0;
-        virtual void drawFilledRectangle(const iRectanglei& rect) = 0;
-        virtual void drawGradient(const iRectanglei& rect, const iaGradientColor4f& gradient) = 0;
+		virtual void drawRectangle(const iRectanglei& rect) = 0;
+		virtual void drawFilledRectangle(const iRectanglei& rect) = 0;
+		virtual void drawGradient(const iRectanglei& rect, const iaGradientColor4f& gradient) = 0;
 
-        virtual void drawTiledRectangle(const iRectanglei& rect, shared_ptr<iTexture> texture) = 0;
-        
+		virtual void drawTiledRectangle(const iRectanglei& rect, shared_ptr<iTexture> texture) = 0;
+
 		virtual void drawGridField(const iRectanglei& rect, iWidgetAppearanceState state) = 0;
-        virtual void drawGridHighlight(const iRectanglei& rect) = 0;
-        virtual void drawGridSelection(const iRectanglei& rect) = 0;
-        virtual void drawBackgroundFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
-        virtual void drawFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
-        virtual void drawPicture(const iRectanglei& rect, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawGridHighlight(const iRectanglei& rect) = 0;
+		virtual void drawGridSelection(const iRectanglei& rect) = 0;
+		virtual void drawBackgroundFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawPicture(const iRectanglei& rect, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawDialog(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
-        virtual void drawSpacer(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawSpacer(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawButton(const iRectanglei& rect, const iaString& text, iHorizontalAlignment align, iVerticalAlignment valign, shared_ptr<iTexture> texture, iWidgetAppearanceState state, bool active) = 0;
-        virtual void drawButton(const iRectanglei& rect, const iaColor4f& color, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawButton(const iRectanglei& rect, const iaColor4f& color, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawGroupBox(const iRectanglei& rect, bool headerOnly, const iaString& text, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawCheckBox(const iRectanglei& rect, const iaString& text, bool checked, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawLabel(const iRectanglei& rect, const iaString& text, int32 textWidth, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawNumberChooser(const iRectanglei& rect, const iaString& text, iWidgetAppearanceState buttonUp, iWidgetAppearanceState buttonDown, bool active) = 0;
-        virtual void drawSelectBox(const iRectanglei& rect, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active) = 0;
-        virtual void drawSelectBoxDropDown(const iRectanglei& rect, vector<iaString>& text, int highlightIndex, bool active) = 0;
-		virtual void drawTextEdit(const iRectanglei& rect, const iaString& text, const uint32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawSelectBox(const iRectanglei& rect, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active) = 0;
+		virtual void drawSelectBoxDropDown(const iRectanglei& rect, vector<iaString>& text, int highlightIndex, bool active) = 0;
+		virtual void drawTextEdit(const iRectanglei& rect, const iaString& text, const float32 cursorPos, const float32 scrollOffset, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active) = 0;
 		virtual void drawText(const iRectanglei& rect, const iaString& text, int32 textwidth) = 0;
-        virtual void drawGraph(const iRectanglei& rect, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points) = 0;
-        virtual void drawGraphGridlines(const iRectanglei& rect, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active) = 0;
-        virtual void drawGraphLabels(const iRectanglei& rect, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active) = 0;
-        virtual void drawGraphFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
+		virtual void drawGraph(const iRectanglei& rect, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points) = 0;
+		virtual void drawGraphGridlines(const iRectanglei& rect, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active) = 0;
+		virtual void drawGraphLabels(const iRectanglei& rect, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active) = 0;
+		virtual void drawGraphFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
 
-        virtual void setFontMetrics(const float32 fontSize, const float32 lineHeight) = 0;
+		virtual void setFontMetrics(const float32 fontSize, const float32 lineHeight) = 0;
 		virtual float32 getFontSize() = 0;
 		virtual iTextureFont* getFont() = 0;
 

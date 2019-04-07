@@ -77,7 +77,7 @@ namespace Igor
         void drawNumberChooser(const iRectanglei& rect, const iaString& text, iWidgetAppearanceState button_up_state, iWidgetAppearanceState button_down_state, bool active);
         void drawSelectBox(const iRectanglei& rect, const iaString& text, iWidgetAppearanceState buttonAppearance, bool active);
         void drawSelectBoxDropDown(const iRectanglei& rect, vector<iaString>& text, int highlightIndex, bool active);
-        void drawTextEdit(const iRectanglei& rect, const iaString& text, const uint32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active);
+        void drawTextEdit(const iRectanglei& rect, const iaString& text, const float32 cursorPos, const float32 scrollOffset, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active);
         void drawText(const iRectanglei& rect, const iaString& text, int32 textwidth);
         void drawGraph(const iRectanglei& rect, const iaColor4f& lineColor, const iaColor4f& pointColor, float32 lineWidth, float32 pointSize, const vector<iaVector2f>& points);
         void drawGraphGridlines(const iRectanglei& rect, float32 lineWidth, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active);

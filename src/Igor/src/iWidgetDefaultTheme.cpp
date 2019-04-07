@@ -302,7 +302,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawTextEdit(const iRectanglei & rect, const iaString & text, const uint32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawTextEdit(const iRectanglei & rect, const iaString & text, const float32 cursorPos, const float32 scrollOffset, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
 	{
 		iaString modText = text;
 
@@ -339,8 +339,7 @@ namespace Igor
 		if (keyboardFocus)
 		{
 			iRenderer::getInstance().setColor(COLOR_TEXT_DARK);
-			float32 textwidth = _font->measureWidth(modText.getSubString(0, cursorPos), _fontSize);
-			iRenderer::getInstance().drawRectangle(rect._x + textwidth + 2, rect._y + 3, 2, _fontSize);
+			iRenderer::getInstance().drawRectangle(rect._x + cursorPos, rect._y + 3, 2, _fontSize);
 		}
 
 		iRenderer::getInstance().setStencilMask(0xff);
@@ -385,7 +384,7 @@ namespace Igor
 			break;
 		};
 
-		drawStringInt(textPosX, textPosY, modText);
+		drawStringInt(textPosX - scrollOffset, textPosY, modText);
 
 		iRenderer::getInstance().enableStencilTest(false);
 			
