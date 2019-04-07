@@ -615,11 +615,10 @@ namespace Igor
 			return GL_DECR_WRAP;
 		case iRenderStateValue::Invert:
 			return GL_INVERT;
-
-		default:
-			con_err("invalid value");
-			return;
 		}
+
+		con_err("invalid value");
+		return GL_ZERO;
 	}
 
 	void iRenderer::setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask)
