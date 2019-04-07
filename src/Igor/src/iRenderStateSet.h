@@ -91,10 +91,9 @@ namespace Igor
 		Back,
 		Invalid,
         PositionOrientation,
-        Position, //! \todo not implemented
-		RenderStateValueCount
+        Position //! \todo not implemented
 	};
-
+	
 	/*! render state set holds a list of all render states the renderer can process
 
     \todo alpha test besides blending would be nice to have

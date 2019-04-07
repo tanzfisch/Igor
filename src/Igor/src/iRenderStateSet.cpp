@@ -34,7 +34,6 @@ namespace Igor
 	void iRenderStateSet::setRenderState(const iRenderState state, const iRenderStateValue value)
 	{
 		if (value != iRenderStateValue::Invalid ||
-			value != iRenderStateValue::RenderStateValueCount ||
 			state != iRenderState::RenderStateCount)
 		{
 			_renderStates[static_cast<unsigned int>(state)] = value;

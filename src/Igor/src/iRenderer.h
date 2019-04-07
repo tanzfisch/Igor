@@ -33,6 +33,7 @@
 #include <iTexture.h>
 #include <iAABox.h>
 #include <iAACube.h>
+#include <iRenderStateSet.h>
 
 #include <iaGradient.h>
 #include <iaSingleton.h>
@@ -389,6 +390,26 @@ namespace Igor
         /*! clears depth buffer with clear depth
         */
         void clearDepthBuffer();
+
+		/*! enables/disables stencil test
+
+		\param enable if true stencil test will be enabled
+		*/
+		void enableStencilTest(bool enable);
+
+		/*! sets the stencil function
+
+		\param function the stencil function (legal values are Never, Less, LessOrEqual, Greater, GreaterOrEqual, Equal, NotEqual, and Always)
+		\param ref the reference value
+		\param mask the mask value to gate the result of the test
+		*/
+		void setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask);
+
+		/*! 
+
+		\param fail (legal values are Keep, Zero, Replace, Increment, IncrementWrap, Decrement, DecrementWrap, and Invert)
+		*/
+		void setStencilOperation(iRenderStateValue fail, iRenderStateValue zfail, iRenderStateValue zpass);
 
 		/*! sets the stencil mask value
 		*/

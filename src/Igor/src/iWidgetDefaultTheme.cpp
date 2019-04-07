@@ -324,8 +324,8 @@ namespace Igor
 			iRenderer::getInstance().setColor(COLOR_DIFFUSE);
 		}
 
-		glEnable(GL_STENCIL_TEST);
-		glStencilFunc(GL_ALWAYS, 1, 0xff);
+		iRenderer::getInstance().enableStencilTest(true);
+		iRenderer::getInstance().setStencilFunction(iRenderStateValue::Always, 1, 0xff);
 		glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE);  // draw 1s on test fail (always)
 
 		// draw stencil pattern
@@ -349,7 +349,7 @@ namespace Igor
 		}
 
 		iRenderer::getInstance().setStencilMask(0xff);
-		glStencilFunc(GL_EQUAL, 1, 0xff);
+		iRenderer::getInstance().setStencilFunction(iRenderStateValue::Equal, 1, 0xff);
 
 		// render text
 		iRenderer::getInstance().setMaterial(_texturedMaterial);
@@ -392,7 +392,7 @@ namespace Igor
 
 		drawStringInt(textPosX, textPosY, modText);
 
-		glDisable(GL_STENCIL_TEST);
+		iRenderer::getInstance().enableStencilTest(false);
 			
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
