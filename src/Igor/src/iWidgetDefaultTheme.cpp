@@ -9,11 +9,6 @@
 #include <iaConsole.h>
 using namespace IgorAux;
 
-// TODO remove later again
-#include <GLee.h>
-#include <GL\glu.h>
-
-
 #define DEBUG_OUTPUT 0
 
 #if DEBUG_OUTPUT == 1
@@ -326,7 +321,7 @@ namespace Igor
 
 		iRenderer::getInstance().enableStencilTest(true);
 		iRenderer::getInstance().setStencilFunction(iRenderStateValue::Always, 1, 0xff);
-		glStencilOp( GL_KEEP, GL_KEEP, GL_REPLACE);  // draw 1s on test fail (always)
+		iRenderer::getInstance().setStencilOperation(iRenderStateValue::Keep, iRenderStateValue::Keep, iRenderStateValue::Replace);
 
 		// draw stencil pattern
 		iRenderer::getInstance().setStencilMask(0xff);

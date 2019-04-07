@@ -89,8 +89,15 @@ namespace Igor
 		Always,
 		Front,
 		Back,
+		Keep,
+		Replace,  
+		Increment,
+		IncrementWrap, 
+		Decrement, 
+		DecrementWrap, 
+		Invert,
 		Invalid,
-        PositionOrientation,
+        PositionOrientation, // this one does not map to ogl
         Position //! \todo not implemented
 	};
 	

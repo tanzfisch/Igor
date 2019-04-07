@@ -557,50 +557,79 @@ namespace Igor
 		glClearDepth(depth);	GL_CHECK_ERROR();
 	}
 
-	void iRenderer::setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask)
+	GLenum getOGLEnum(iRenderStateValue value)
 	{
-		uint32 func = 0;
-
-		switch (function)
+		switch (value)
 		{
+		case iRenderStateValue::One:
+			return GL_ONE;
+		case iRenderStateValue::Zero:
+			return GL_ZERO;
+		case iRenderStateValue::DestinationColor:
+			return GL_DST_COLOR;
+		case iRenderStateValue::OneMinusDestinationColor:
+			return GL_ONE_MINUS_DST_COLOR;
+		case iRenderStateValue::SourceAlpha:
+			return GL_SRC_ALPHA;
+		case iRenderStateValue::OneMinusSourceAlpha:
+			return GL_ONE_MINUS_SRC_ALPHA;
+		case iRenderStateValue::DestinationAlpha:
+			return GL_DST_ALPHA;
+		case iRenderStateValue::OneMinusDestinationAlpha:
+			return GL_ONE_MINUS_DST_ALPHA;
+		case iRenderStateValue::SourceColor:
+			return GL_SRC_COLOR;
+		case iRenderStateValue::OneMinusSourceColor:
+			return GL_ONE_MINUS_SRC_COLOR;
+		case iRenderStateValue::Front:
+			return GL_FRONT;
+		case iRenderStateValue::Back:
+			return GL_BACK;
 		case iRenderStateValue::Never:
-			func = GL_NEVER;
-			break;
-
+			return GL_NEVER;
 		case iRenderStateValue::Less:
-			func = GL_LESS;
-			break;
-
+			return GL_LESS;
 		case iRenderStateValue::LessOrEqual:
-			func = GL_LEQUAL;
-			break;
-
+			return GL_LEQUAL;
 		case iRenderStateValue::Greater:
-			func = GL_GREATER;
-			break;
-
+			return GL_GREATER;
 		case iRenderStateValue::GreaterOrEqual:
-			func = GL_GEQUAL;
-			break;
-
+			return GL_GEQUAL;
 		case iRenderStateValue::Equal:
-			func = GL_EQUAL;
-			break;
-
+			return GL_EQUAL;
 		case iRenderStateValue::NotEqual:
-			func = GL_NOTEQUAL;
-			break;
-
+			return GL_NOTEQUAL;
 		case iRenderStateValue::Always:
-			func = GL_ALWAYS;
-			break;
+			return GL_ALWAYS;
+		case iRenderStateValue::Keep:
+			return GL_KEEP;
+		case iRenderStateValue::Replace:
+			return GL_REPLACE;
+		case iRenderStateValue::Increment:
+			return GL_INCR;
+		case iRenderStateValue::IncrementWrap:
+			return GL_INCR_WRAP;
+		case iRenderStateValue::Decrement:
+			return GL_DECR;
+		case iRenderStateValue::DecrementWrap:
+			return GL_DECR_WRAP;
+		case iRenderStateValue::Invert:
+			return GL_INVERT;
 
 		default:
 			con_err("invalid value");
 			return;
 		}
+	}
 
-		glStencilFunc(static_cast<GLenum>(func), ref, mask); GL_CHECK_ERROR();
+	void iRenderer::setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask)
+	{
+		glStencilFunc(getOGLEnum(function), ref, mask); GL_CHECK_ERROR();
+	}
+
+	void iRenderer::setStencilOperation(iRenderStateValue fail, iRenderStateValue zfail, iRenderStateValue zpass)
+	{
+		glStencilOp(getOGLEnum(fail), getOGLEnum(zfail), getOGLEnum(zpass)); GL_CHECK_ERROR();
 	}
 
 	void iRenderer::enableStencilTest(bool enable)

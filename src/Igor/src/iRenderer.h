@@ -405,9 +405,13 @@ namespace Igor
 		*/
 		void setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask);
 
-		/*! 
+		/*! sets the stencil test actions
 
-		\param fail (legal values are Keep, Zero, Replace, Increment, IncrementWrap, Decrement, DecrementWrap, and Invert)
+		legal values are Keep, Zero, Replace, Increment, IncrementWrap, Decrement, DecrementWrap, and Invert
+
+		\param fail action when stencil test fails
+		\param zfail action when stencil test passes but depth test fails
+		\param zpass action when stencil and depth test passed
 		*/
 		void setStencilOperation(iRenderStateValue fail, iRenderStateValue zfail, iRenderStateValue zpass);
 
