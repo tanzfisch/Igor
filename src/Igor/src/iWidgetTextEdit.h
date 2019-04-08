@@ -151,21 +151,19 @@ namespace Igor
         */
         virtual bool handleASCII(uint8 c) override;
 
-        /*! handles incomming pressed key events
-
-        \param key the pressed key
-        */
-        virtual bool handleKeyUp(iKeyCode key) override;
-
         /*! handles incomming released key events
 
         \param key the released key
         */
         virtual bool handleKeyDown(iKeyCode key) override;
 
-		/*! handles gained keayboard focus
+		/*! handles gained kayboard focus
 		*/
 		virtual void handleGainedKeyboardFocus() override;
+
+		/*! handles lost keyboard focus
+		*/
+		virtual void handleLostKeyboardFocus() override;
 
 	private:
 

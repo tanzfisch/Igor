@@ -39,42 +39,38 @@ namespace Igor
 
 	bool iWidgetTextEdit::handleASCII(uint8 c)
 	{
-		if (isActive() &&
-			!isWriteProtected())
+		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
 		{
-			if (hasKeyboardFocus())
-			{
-				// filter all we don't handle here
-				if (c < 32 || c > 32 + 128 - 1 || c ==13) 
-				{
-					return false;
-				}
-
-				if (_text.getSize() < _maxTextLenght)
-				{
-					_text.insert(iaString(static_cast<const char>(c)), getCursorPos());
-					incCursorPos();
-				}
-
-				if (_triggerChangeAtOnce)
-				{
-					_change(this);
-				}
-
-				return true;
-			}
+			return false;
 		}
 
-		return false;
-	}
+		// filter all we don't handle here
+		if (c < 32 || c > 32 + 128 - 1 || c == 13)
+		{
+			return false;
+		}
 
-	bool iWidgetTextEdit::handleKeyUp(iKeyCode key)
-	{
-		return false;
+		if (_text.getSize() < _maxTextLenght)
+		{
+			_text.insert(iaString(static_cast<const char>(c)), getCursorPos());
+			incCursorPos();
+		}
+
+		if (_triggerChangeAtOnce)
+		{
+			_change(this);
+		}
+
+		return true;
 	}
 
 	bool iWidgetTextEdit::handleKeyDown(iKeyCode key)
 	{
+		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		{
+			return false;
+		}
+
 		iaString bck = _text;
 
 		switch (key)
@@ -116,7 +112,7 @@ namespace Igor
 			return false;
 		}
 
-		if (_triggerChangeAtOnce && 
+		if (_triggerChangeAtOnce &&
 			bck != _text)
 		{
 			_change(this);
@@ -191,7 +187,7 @@ namespace Igor
 	}
 
 	void iWidgetTextEdit::draw()
-	{		
+	{
 		if (isVisible())
 		{
 			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _scrollOffset, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
@@ -226,6 +222,11 @@ namespace Igor
 	void iWidgetTextEdit::handleGainedKeyboardFocus()
 	{
 		setCursorPos(_text.getSize());
+	}
+
+	void iWidgetTextEdit::handleLostKeyboardFocus()
+	{
+		_change(this);
 	}
 
 	void iWidgetTextEdit::setText(const iaString& text)

@@ -47,6 +47,8 @@ using namespace Igor;
 
 static const wchar_t* WINDOW_TITLE_PREFIX = L"Igor::Model Viewer";
 
+static const wchar_t* DEFAULT_LOAD_SAVE_DIR = L"..\\data\\models";
+
 ModelViewer::ModelViewer()
 {
     iWidgetManager::getInstance().registerDialogType("MenuDialog", iInstanciateDialogDelegate(MenuDialog::createInstance));
@@ -208,7 +210,7 @@ void ModelViewer::init(iaString fileName)
 
     if (fileName.isEmpty())
     {
-        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "..\\data\\models");
+        _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
     }
     else
     {
@@ -400,22 +402,22 @@ void ModelViewer::centerCamOnNode(iNodePtr node)
 
 void ModelViewer::onImportFile(uint64 nodeID)
 {
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), "");
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
 void ModelViewer::onImportFileReference(uint64 nodeID)
 {
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileReferenceDialogClosed), "");
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onImportFileReferenceDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
 void ModelViewer::onLoadFile()
 {
-    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), "");
+    _fileDialog->load(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileLoadDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
 void ModelViewer::onSaveFile()
 {
-    _fileDialog->save(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileSaveDialogClosed), "");
+    _fileDialog->save(iDialogFileSelectCloseDelegate(this, &ModelViewer::onFileSaveDialogClosed), DEFAULT_LOAD_SAVE_DIR);
 }
 
 void ModelViewer::onFileSaveDialogClosed(iFileDialogReturnValue fileDialogReturnValue)

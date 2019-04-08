@@ -76,14 +76,14 @@ namespace Igor
         \param closeDelegate delegate called after dialog was closed
         \param path the path to start with
         */
-        void load(iDialogFileSelectCloseDelegate closeDelegate, iaString path = "");
+        void load(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path = "");
 
         /*! opens dialog in save mode
 
         \param closeDelegate delegate called after dialog was closed
         \param filepath the file path to start with
         */
-        void save(iDialogFileSelectCloseDelegate closeDelegate, iaString filepath = "");
+        void save(iDialogFileSelectCloseDelegate closeDelegate, const iaString& path = "");
 
         /*! \returns full path currently selected by dialog
         */
@@ -114,14 +114,6 @@ namespace Igor
         /*! if true dialog is in load mode; if false it is in save mode
         */
         bool _load = false;
-
-        /*! path last time selected when dialog was opened in load mode
-        */
-        static iaString _lastLoadPath;
-
-        /*! path last time selected when dialog was opened in save mode
-        */
-        static iaString _lastSavePath;
 
         /*! file dialog close event
         */
@@ -155,13 +147,25 @@ namespace Igor
         */
         iWidgetLabel* _headerLabel = nullptr;
 
+		/*! filename label
+		*/
+		iWidgetLabel* _filenameLabel = nullptr;
+
         /*! path edit text field
         */
         iWidgetTextEdit* _pathEdit = nullptr;
 
+		/*! file name text field
+		*/
+		iWidgetTextEdit* _filenameEdit = nullptr;
+
         /*! buttion grid
         */
         iWidgetGrid* _buttonGrid = nullptr;
+
+		/*! filename grid
+		*/
+		iWidgetGrid* _filenameGrid = nullptr;
 
         /*! list of widgets in file grid
         */
@@ -185,15 +189,27 @@ namespace Igor
         */
         void onDoubleClick(iWidget* source);
 
+		/*! handles single click in file grid
+
+		\param source source widget of event
+		*/
+		void onClick(iWidget* source);
+
         /*! handles path edit change
 
         \param source source widget of event
         */
         void onPathEditChange(iWidget* source);
 
+		/*! handles filename edit change
+
+		\param source source widget of event
+		*/
+		void onFilenameEditChange(iWidget* source);
+
         /*! initializes directory and file name
         */
-        void initFileDir();
+        void updateFileDir();
 
         /*! clears fiel grid
         */
@@ -207,7 +223,7 @@ namespace Igor
         \param displayName representive name of entry
         \param isFolder if true it is a folder; if fals it is a file
         */
-        void addToFileGrid(int32 col, int32 row, iaString path, iaString displayName, bool isFolder);
+        void addToFileGrid(int32 col, int32 row, const iaString& path, iaString displayName, bool isFolder);
 
         /*! closes the dialog
         */
@@ -224,6 +240,10 @@ namespace Igor
         /*! updates file grid entries
         */
         void updateFileGrid();
+
+		/*! init dialog with given path
+		*/
+		void initDialog(const iaString& path);
 
         /*! initializes gui elements
         */
