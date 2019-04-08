@@ -151,12 +151,6 @@ namespace Igor
         */
         virtual bool handleASCII(uint8 c) override;
 
-        /*! handles incomming pressed key events
-
-        \param key the pressed key
-        */
-        virtual bool handleKeyUp(iKeyCode key) override;
-
         /*! handles incomming released key events
 
         \param key the released key
