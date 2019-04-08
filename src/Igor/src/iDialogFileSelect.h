@@ -193,7 +193,7 @@ namespace Igor
 
         /*! initializes directory and file name
         */
-        void initFileDir();
+        void updateFileDir();
 
         /*! clears fiel grid
         */
