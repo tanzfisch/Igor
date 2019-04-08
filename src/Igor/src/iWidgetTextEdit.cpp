@@ -224,6 +224,11 @@ namespace Igor
 		setCursorPos(_text.getSize());
 	}
 
+	void iWidgetTextEdit::handleLostKeyboardFocus()
+	{
+		_change(this);
+	}
+
 	void iWidgetTextEdit::setText(const iaString& text)
 	{
 		_text = text;

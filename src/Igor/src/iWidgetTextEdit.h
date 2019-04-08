@@ -157,9 +157,13 @@ namespace Igor
         */
         virtual bool handleKeyDown(iKeyCode key) override;
 
-		/*! handles gained keayboard focus
+		/*! handles gained kayboard focus
 		*/
 		virtual void handleGainedKeyboardFocus() override;
+
+		/*! handles lost keyboard focus
+		*/
+		virtual void handleLostKeyboardFocus() override;
 
 	private:
 
