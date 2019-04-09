@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetScroll.h>
@@ -305,7 +305,7 @@ namespace Igor
             }
 
             // begin rendering
-            iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _widgetAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawBackgroundFrame(getActualRect(), _widgetAppearanceState, isActive());
 
             iaColor4f dark(0.3f, 0.3f, 0.3f, 1.0f);
 
@@ -317,29 +317,29 @@ namespace Igor
                 iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
 
                 // left button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // right button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth * 2 - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + getActualWidth() - _scrollbarWidth * 2 - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // h scroll button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
-                    _hscrollButton.getWidth(), _hscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
+                    _hscrollButton.getWidth(), _hscrollButton.getHeight()), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
 
                 // top button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // bottom button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth * 2, _scrollbarWidth,
-                    _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth * 2, _scrollbarWidth,
+                    _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // v scroll button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
-                    _vscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
+                    _vscrollButton.getHeight()), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
             }
             else if (_hscrollActive) // h scrollbar
             {
@@ -347,16 +347,16 @@ namespace Igor
                 iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + 1), static_cast<float32>(getActualPosY() + getActualHeight() - _scrollbarWidth - 2), static_cast<float32>(getActualWidth() - 3), static_cast<float32>(_scrollbarWidth));
 
                 // left button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // right button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - _scrollbarWidth - 2, _scrollbarWidth, _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // h scroll button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
-                    _hscrollButton.getWidth(), _hscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center,
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + _hscrollButton.getX(), getActualPosY() + _hscrollButton.getY(),
+                    _hscrollButton.getWidth(), _hscrollButton.getHeight()), "", iHorizontalAlignment::Center, iVerticalAlignment::Center,
                     0, iWidgetAppearanceState::Standby, isActive());
             }
             else if (_vscrollActive) // v scrollbar
@@ -365,17 +365,17 @@ namespace Igor
                 iRenderer::getInstance().drawRectangle(static_cast<float32>(getActualPosX() + getActualWidth() - _scrollbarWidth - 2), static_cast<float32>(getActualPosY() + 2), static_cast<float32>(_scrollbarWidth), static_cast<float32>(getActualHeight() - 4));
 
                 // top button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + 2, _scrollbarWidth, _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // bottom button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth, _scrollbarWidth,
-                    _scrollbarWidth, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + getActualWidth() - _scrollbarWidth - 2, getActualPosY() + getActualHeight() - 2 - _scrollbarWidth, _scrollbarWidth,
+                    _scrollbarWidth), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
                 // TODO pic
 
                 // v scroll button
-                iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
-                    _vscrollButton.getHeight(), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
+                iWidgetManager::getInstance().getTheme()->drawButton(iRectanglei(getActualPosX() + _vscrollButton.getX(), getActualPosY() + _vscrollButton.getY(), _vscrollButton.getWidth(),
+                    _vscrollButton.getHeight()), "", iHorizontalAlignment::Center, iVerticalAlignment::Center, 0, iWidgetAppearanceState::Standby, isActive());
             }
 
             //render child

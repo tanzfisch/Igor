@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetCheckBox.h>
@@ -127,7 +127,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _checked, getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawCheckBox(getActualRect(), _text, _checked, getAppearanceState(), isActive());
         }
     }
 

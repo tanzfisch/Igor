@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -47,7 +47,7 @@ namespace IgorAux
     };
 
 
-	/*! wide char (unicode) character string with ending zero and lenght
+	/*! wide char (unicode) character string with ending zero and length
 	*/
 	class IgorAux_API iaString
 	{
@@ -65,16 +65,16 @@ namespace IgorAux
 		/*! ctor converts a multibyte string in to unicode string
 
 		\param text multipbyte string
-		\param lenght if input string is not zero terminated or a custom lenght is needed
+		\param length if input string is not zero terminated or a custom length is needed
 		*/
-		iaString(const char* text, const uint64 lenght = INVALID_POSITION);
+		iaString(const char* text, const uint64 length = INVALID_POSITION);
 
 		/*! copies unicode string
 
 		\param text unicode string
-		\param lenght if input string is not zero terminated or a custom lenght is needed
+		\param length if input string is not zero terminated or a custom length is needed
 		*/
-		iaString(const wchar_t* text, const uint64 lenght = INVALID_POSITION);
+		iaString(const wchar_t* text, const uint64 length = INVALID_POSITION);
 
         /*! creates a string with only one character
 
@@ -97,6 +97,10 @@ namespace IgorAux
 		/*! dtor releases allocated memory
 		*/
 		~iaString();
+
+		/*! \returns character count of the string
+		*/
+		uint64 getLength() const;
 
         /*! \returns hash value for current text
         */
@@ -211,7 +215,7 @@ namespace IgorAux
 		/*! \returns specified substring
 
 		\param pos substring from
-		\param len substring lenght
+		\param len substring length
 		*/
 		iaString getSubString(const uint64 pos, const uint64 len = INVALID_POSITION) const;
 
@@ -361,9 +365,23 @@ namespace IgorAux
         */
         static float32 atof(const iaString& text);
 
+		/*! insert text at given position
+
+		\param text the text to insert
+		\param pos the position where to insert the text
+		*/
+		void insert(const iaString& text, uint64 pos);
+
+		/*! removed charcters from string
+
+		\param pos index of first character to remove
+		\param length amount of characters to remove
+		*/
+		void remove(uint64 pos, uint64 length);
+
 	private:
 
-        /*! string lenght without ending zero
+        /*! string length without ending zero
         */
         uint64 _charCount = 0;
 

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWindow.h>
@@ -344,7 +344,7 @@ namespace Igor
             0,											// No Accumulation Buffer
             0, 0, 0, 0,									// Accumulation Bits Ignored
             16,											// 16Bit Z-Buffer (Depth Buffer)
-            0,											// No Stencil Buffer
+            1,											// use stencil buffer
             0,											// No Auxiliary Buffer
             PFD_MAIN_PLANE,								// Main Drawing Layer
             0,											// Reserved

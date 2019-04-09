@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iaDirectory.h>
@@ -330,8 +330,16 @@ namespace IgorAux
         }
         else
         {
-            iaDirectory dirFrom(from);
-            fromPath = dirFrom.getFullDirectoryName();
+			iaDirectory dirFrom(from);
+			if (iaDirectory::isDirectory(from))
+			{
+				fromPath = dirFrom.getFullDirectoryName();
+			}
+			else
+			{
+				// assuming the subfolder is actually a filename
+				fromPath = dirFrom.getFullParentDirectoryName();
+			}
         }
         
         iaFile fileTo(to);

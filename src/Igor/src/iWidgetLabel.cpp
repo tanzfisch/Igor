@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetLabel.h>
@@ -59,7 +59,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawLabel(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _maxTextWidth, getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawLabel(getActualRect(), _text, _maxTextWidth, getAppearanceState(), isActive());
         }
     }
 

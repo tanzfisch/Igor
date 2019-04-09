@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetManager.h>
@@ -133,6 +133,8 @@ namespace Igor
         iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().registerKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
+        iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
+        iKeyboard::getInstance().registerKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
 
         iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onHandle));
     }
@@ -145,8 +147,61 @@ namespace Igor
         iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &iWidgetManager::onMouseMove));
         iMouse::getInstance().unregisterMouseWheelDelegate(iMouseWheelDelegate(this, &iWidgetManager::onMouseWheel));
         iKeyboard::getInstance().unregisterKeyASCIIDelegate(iKeyASCIIDelegate(this, &iWidgetManager::onASCII));
+        iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &iWidgetManager::onKeyDown));
+        iKeyboard::getInstance().unregisterKeyUpDelegate(iKeyUpDelegate(this, &iWidgetManager::onKeyUp));
 
         iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &iWidgetManager::onHandle));
+    }
+
+    void iWidgetManager::onKeyDown(iKeyCode key)
+    {
+        bool foundModal = false;
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
+        map<uint64, iDialog*> dialogs = _dialogs;
+
+        for (auto dialog : dialogs)
+        {
+            if (isModal(dialog.second))
+            {
+                dialog.second->handleKeyDown(key);
+                foundModal = true;
+                break;
+            }
+        }
+
+        if (!foundModal)
+        {
+            for (auto dialog : dialogs)
+            {
+                dialog.second->handleKeyDown(key);
+            }
+        }
+    }
+    void iWidgetManager::onKeyUp(iKeyCode key)
+    {
+        bool foundModal = false;
+
+        // this copy is not because of a race condition but because the original list might be changed while handling the event
+        map<uint64, iDialog*> dialogs = _dialogs;
+
+        for (auto dialog : dialogs)
+        {
+            if (isModal(dialog.second))
+            {
+                dialog.second->handleKeyUp(key);
+                foundModal = true;
+                break;
+            }
+        }
+
+        if (!foundModal)
+        {
+            for (auto dialog : dialogs)
+            {
+                dialog.second->handleKeyUp(key);
+            }
+        }
     }
 
     void iWidgetManager::onMouseKeyDown(iKeyCode key)
@@ -317,7 +372,7 @@ namespace Igor
         }
     }
 
-    void iWidgetManager::onASCII(char c)
+    void iWidgetManager::onASCII(const char c)
     {
         bool foundModal = false;
 

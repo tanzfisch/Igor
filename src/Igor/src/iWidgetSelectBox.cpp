@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetSelectBox.h>
@@ -247,7 +247,7 @@ namespace Igor
                 displayString = _entries[_currentSelection].first;
             }
 
-            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawSelectBox(getActualRect(), displayString, _buttonAppearanceState, isActive());
         }
     }
 

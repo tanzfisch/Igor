@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -389,8 +389,18 @@ namespace Igor
         void onMouseWheel(int32 d);
 
         /*! internal handler for incomming keyboard events
+
+        \param c the ascii character
         */
-        void onASCII(char c);
+        void onASCII(const char c);
+
+        /*! handles key down event
+        */
+        void onKeyDown(iKeyCode key);
+
+        /*! handles key up event
+        */
+        void onKeyUp(iKeyCode key);
 
         /*! registers to mouse and keyboard evetns
         */

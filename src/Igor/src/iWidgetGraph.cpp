@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetGraph.h>
@@ -184,7 +184,7 @@ namespace Igor
             iRectanglef graphRenderArea;
             calcRenderArea(graphRenderArea);
 
-            iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawGraphFrame(getActualRect(), getAppearanceState(), isActive());
 
             if (_viewGrid)
             {
@@ -206,13 +206,13 @@ namespace Igor
                     horizontalLines.push_back(iaVector2f(static_cast<float32>(i) * stepY, (boundings._y + boundings._height) - static_cast<float32>(i) * stepYData));
                 }
 
-                iWidgetManager::getInstance().getTheme()->drawGraphGridlines(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
-                    static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height), 1.0, verticalLines, horizontalLines, isActive());
+                iWidgetManager::getInstance().getTheme()->drawGraphGridlines(iRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                    static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)), 1.0, verticalLines, horizontalLines, isActive());
 
                 if (_viewLabels)
                 {
-                    iWidgetManager::getInstance().getTheme()->drawGraphLabels(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
-                        static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height), verticalLines, horizontalLines, isActive());
+                    iWidgetManager::getInstance().getTheme()->drawGraphLabels(iRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                        static_cast<int32>(graphRenderArea._width), static_cast<int32>(graphRenderArea._height)), verticalLines, horizontalLines, isActive());
                 }
             }
 
@@ -253,7 +253,7 @@ namespace Igor
                         points.push_back(currentPoint);
                     }
 
-                    iWidgetManager::getInstance().getTheme()->drawGraph(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y),
+                    iWidgetManager::getInstance().getTheme()->drawGraph(iRectanglei(static_cast<int32>(graphRenderArea._x), static_cast<int32>(graphRenderArea._y)),
                         graph.second._lineColor, graph.second._pointColor, graph.second._lineWidth, graph.second._pointSize, points);
                 }
             }
@@ -270,7 +270,7 @@ namespace Igor
                 for (auto point : points)
                 {
                     buttonRect._x = static_cast<int32>((((point._x - boundings._x) / boundings._width) * graphRenderArea._width) + graphRenderArea._x - 4.0f);
-                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect._x, buttonRect._y, buttonRect._width, buttonRect._height, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetAppearanceState::Standby, isActive());
+                    iWidgetManager::getInstance().getTheme()->drawButton(buttonRect, "", iHorizontalAlignment::Center, iVerticalAlignment::Center, nullptr, iWidgetAppearanceState::Standby, isActive());
                 }
             }
         }

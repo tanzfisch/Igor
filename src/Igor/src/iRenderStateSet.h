@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -89,12 +89,18 @@ namespace Igor
 		Always,
 		Front,
 		Back,
+		Keep,
+		Replace,  
+		Increment,
+		IncrementWrap, 
+		Decrement, 
+		DecrementWrap, 
+		Invert,
 		Invalid,
-        PositionOrientation,
-        Position, //! \todo not implemented
-		RenderStateValueCount
+        PositionOrientation, // this one does not map to ogl
+        Position //! \todo not implemented
 	};
-
+	
 	/*! render state set holds a list of all render states the renderer can process
 
     \todo alpha test besides blending would be nice to have

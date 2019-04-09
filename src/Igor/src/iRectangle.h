@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/                     ) )     ((
 //                                           (_(       \)
-//    (c) Copyright 2012-2018 by Martin Loga
+//    (c) Copyright 2012-2019 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -53,12 +53,32 @@ namespace Igor
         \param width width
         \param height height
         */
-        iRectangle(T x, T y, T width, T height)
+        iRectangle(T x, T y, T width = 0, T height = 0)
         {
             _x = x;
             _y = y;
             _width = width;
             _height = height;
+        }
+
+        /*! copy ctor
+
+        \param rect the rectangle to copy
+        */
+        iRectangle(const iRectangle<T>& rect)
+        {
+            _x = rect._x;
+            _y = rect._y;
+            _width = rect._width;
+            _height = rect._height;
+        }
+
+        void adjust(T x, T y, T width, T height)
+        {
+            _x += x;
+            _y += y;
+            _width += width;
+            _height += height;
         }
 
         /*! \returns horrizonal position

@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetTextEdit.h>
@@ -7,87 +7,174 @@
 #include <iWidgetManager.h>
 #include <iWidgetBaseTheme.h>
 #include <iKeyboard.h>
+#include <iTextureFont.h>
 
 namespace Igor
 {
 
 	iWidgetTextEdit::iWidgetTextEdit()
 	{
-        _reactOnMouseWheel = false;
+		_reactOnMouseWheel = false;
 	}
 
-    iWidget* iWidgetTextEdit::createInstance()
-    {
-        return new iWidgetTextEdit();
-    }
+	iWidget* iWidgetTextEdit::createInstance()
+	{
+		return new iWidgetTextEdit();
+	}
 
 	void iWidgetTextEdit::calcMinSize()
 	{
-        setMinSize(0, 0);
+		setMinSize(0, 0);
 	}
 
-    void iWidgetTextEdit::setWriteProtected(bool writeProtected)
-    {
-        _writeProtected = writeProtected;
-    }
+	void iWidgetTextEdit::setWriteProtected(bool writeProtected)
+	{
+		_writeProtected = writeProtected;
+	}
 
-    bool iWidgetTextEdit::isWriteProtected()
-    {
-        return _writeProtected;
-    }
+	bool iWidgetTextEdit::isWriteProtected()
+	{
+		return _writeProtected;
+	}
 
 	bool iWidgetTextEdit::handleASCII(uint8 c)
 	{
-        if (isActive() &&
-            !isWriteProtected())
-        {
-            if (hasKeyboardFocus())
-            {
-                if (c == 13) // handle enter
-                {
-                    if (!_triggerChangeAtOnce)
-                    {
-                        _change(this);
-                    }
-                }
-                else if (c == '\b' && !_text.isEmpty()) // handle backspace
-                {
-                    _text = _text.getSubString(0, _text.getSize() - 1);
-                }
-                else
-                {
-                    if (c < 32 || c > 32 + 128 - 1) // filter all we don't understand
-                    {
-                        return false;
-                    }
+		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		{
+			return false;
+		}
 
-                    if (_text.getSize() < _maxTextLenght)
-                    {
-                        _text = _text + c;
-                    }
-                }
+		// filter all we don't handle here
+		if (c < 32 || c > 32 + 128 - 1 || c == 13)
+		{
+			return false;
+		}
 
-                if (_triggerChangeAtOnce)
-                {
-                    _change(this);
-                }
+		if (_text.getSize() < _maxTextLenght)
+		{
+			_text.insert(iaString(static_cast<const char>(c)), getCursorPos());
+			incCursorPos();
+		}
 
-                return true;
-            }
-        }
+		if (_triggerChangeAtOnce)
+		{
+			_change(this);
+		}
 
-        return false;
+		return true;
 	}
 
-    iHorizontalAlignment iWidgetTextEdit::getHorizontalTextAlignment() const
-    {
-        return _horizontalTextAlignment;
-    }
-        
-    iVerticalAlignment iWidgetTextEdit::getVerticalTextAlignment() const
-    {
-        return _verticalTextAlignment;
-    }
+	bool iWidgetTextEdit::handleKeyDown(iKeyCode key)
+	{
+		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		{
+			return false;
+		}
+
+		iaString bck = _text;
+
+		switch (key)
+		{
+		case iKeyCode::Delete:
+			_text.remove(getCursorPos(), 1);
+			break;
+
+		case iKeyCode::Home:
+			setCursorPos(0);
+			break;
+
+		case iKeyCode::End:
+			setCursorPos(_text.getSize());
+			break;
+
+		case iKeyCode::Enter:
+		case iKeyCode::Return:
+			if (!_triggerChangeAtOnce)
+			{
+				_change(this);
+			}
+			break;
+
+		case iKeyCode::Backspace:
+			decCursorPos();
+			_text.remove(getCursorPos(), 1);
+			break;
+
+		case iKeyCode::Left:
+			decCursorPos();
+			break;
+
+		case iKeyCode::Right:
+			incCursorPos();
+			break;
+
+		default:
+			return false;
+		}
+
+		if (_triggerChangeAtOnce &&
+			bck != _text)
+		{
+			_change(this);
+		}
+
+		return true;
+	}
+
+	void iWidgetTextEdit::updateMetrics()
+	{
+		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
+		_cursorPosPix = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text.getSubString(0, _cursorPos), fontSize) + 2;
+
+		if (_cursorPosPix < getActualWidth())
+		{
+			_scrollOffset = 0;
+		}
+		else
+		{
+			_scrollOffset = _cursorPosPix - getActualWidth();
+			_cursorPosPix -= _scrollOffset;
+		}
+	}
+
+	void iWidgetTextEdit::incCursorPos()
+	{
+		if (_cursorPos < _text.getSize())
+		{
+			_cursorPos++;
+			updateMetrics();
+		}
+	}
+
+	void iWidgetTextEdit::decCursorPos()
+	{
+		if (_cursorPos > 0)
+		{
+			_cursorPos--;
+			updateMetrics();
+		}
+	}
+
+	void iWidgetTextEdit::setCursorPos(uint64 cursorPos)
+	{
+		_cursorPos = min(_text.getSize(), cursorPos);
+		updateMetrics();
+	}
+
+	uint64 iWidgetTextEdit::getCursorPos() const
+	{
+		return _cursorPos;
+	}
+
+	iHorizontalAlignment iWidgetTextEdit::getHorizontalTextAlignment() const
+	{
+		return _horizontalTextAlignment;
+	}
+
+	iVerticalAlignment iWidgetTextEdit::getVerticalTextAlignment() const
+	{
+		return _verticalTextAlignment;
+	}
 
 	void iWidgetTextEdit::setHorizontalTextAlignment(iHorizontalAlignment align)
 	{
@@ -103,7 +190,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _scrollOffset, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
 		}
 	}
 
@@ -124,12 +211,22 @@ namespace Igor
 
 	void iWidgetTextEdit::setChangeEventAtOnce()
 	{
-        _triggerChangeAtOnce = true;
+		_triggerChangeAtOnce = true;
 	}
 
 	void iWidgetTextEdit::setChangeEventOnEnterAndLosFocus()
 	{
-        _triggerChangeAtOnce = false;
+		_triggerChangeAtOnce = false;
+	}
+
+	void iWidgetTextEdit::handleGainedKeyboardFocus()
+	{
+		setCursorPos(_text.getSize());
+	}
+
+	void iWidgetTextEdit::handleLostKeyboardFocus()
+	{
+		_change(this);
 	}
 
 	void iWidgetTextEdit::setText(const iaString& text)

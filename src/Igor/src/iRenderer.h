@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -33,6 +33,7 @@
 #include <iTexture.h>
 #include <iAABox.h>
 #include <iAACube.h>
+#include <iRenderStateSet.h>
 
 #include <iaGradient.h>
 #include <iaSingleton.h>
@@ -389,6 +390,38 @@ namespace Igor
         /*! clears depth buffer with clear depth
         */
         void clearDepthBuffer();
+
+		/*! enables/disables stencil test
+
+		\param enable if true stencil test will be enabled
+		*/
+		void enableStencilTest(bool enable);
+
+		/*! sets the stencil function
+
+		\param function the stencil function (legal values are Never, Less, LessOrEqual, Greater, GreaterOrEqual, Equal, NotEqual, and Always)
+		\param ref the reference value
+		\param mask the mask value to gate the result of the test
+		*/
+		void setStencilFunction(iRenderStateValue function, int32 ref, uint32 mask);
+
+		/*! sets the stencil test actions
+
+		legal values are Keep, Zero, Replace, Increment, IncrementWrap, Decrement, DecrementWrap, and Invert
+
+		\param fail action when stencil test fails
+		\param zfail action when stencil test passes but depth test fails
+		\param zpass action when stencil and depth test passed
+		*/
+		void setStencilOperation(iRenderStateValue fail, iRenderStateValue zfail, iRenderStateValue zpass);
+
+		/*! sets the stencil mask value
+		*/
+		void setStencilMask(uint8 mask);
+
+		/*! clears swtencil buffer with clear depth
+		*/
+		void clearStencilBuffer();
 
         /*! reads rectangular area from screen buffer
 

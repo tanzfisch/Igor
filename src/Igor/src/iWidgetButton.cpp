@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetButton.h>
@@ -97,7 +97,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawButton(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getAppearanceState(), isActive());
+			iWidgetManager::getInstance().getTheme()->drawButton(getActualRect(), _text, _horizontalTextAlignment, _verticalTextAlignment, _texture, getAppearanceState(), isActive());
 		}
 	}
 

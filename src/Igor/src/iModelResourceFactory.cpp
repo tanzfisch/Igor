@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iaFile.h>
@@ -115,7 +115,7 @@ namespace Igor
         }
         else
         {
-            con_err("can't export to folder " << file.getPath());
+            con_err("can't export to relative folder " << file.getPath());
         }
     }
 

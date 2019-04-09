@@ -9,7 +9,7 @@
 //                 /\____/                   ( (       ))
 //                 \_/__/  game engine        ) )     ((
 //                                           (_(       \)
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 //
 // This library is free software; you can redistribute it and or modify it   
 // under the terms of the GNU Lesser General Public License as published by  
@@ -107,6 +107,26 @@ namespace Igor
         */
 		const iaString& getText() const;
 
+        /*! sets cursor pos
+
+        cursor pos will be clamped by current text size
+
+        \param cursorPos the new cursor pos
+        */
+        void setCursorPos(uint64 cursorPos);
+
+        /* \returns current cursor pos
+        */
+		uint64 getCursorPos() const;
+
+        /*! increase cursor pos by one
+        */
+        void incCursorPos();
+
+        /*! decrease cursor pos by one
+        */
+        void decCursorPos();
+
 	protected:
 
         /*! the horizontal alignment
@@ -123,11 +143,45 @@ namespace Igor
 
         /*! the text
         */
-		iaString _text;
+		iaString _text;		
+
+        /*! handles incomming acsii codes from keyboard
+
+        \param c the incomming character from keyboard
+        */
+        virtual bool handleASCII(uint8 c) override;
+
+        /*! handles incomming released key events
+
+        \param key the released key
+        */
+        virtual bool handleKeyDown(iKeyCode key) override;
+
+		/*! handles gained kayboard focus
+		*/
+		virtual void handleGainedKeyboardFocus() override;
+
+		/*! handles lost keyboard focus
+		*/
+		virtual void handleLostKeyboardFocus() override;
+
+	private:
+
+		/*! position of cursor within the text in characters
+*/
+		uint64 _cursorPos = 0;
+
+		/*! cursor position in pixel
+		*/
+		uint64 _cursorPosPix = 0;
+
+		/*! scroll offset of text display in pixel
+		*/
+		uint64 _scrollOffset = 0;
 
         /*! max text lenght in characters
         */
-		int32 _maxTextLenght = 20;
+        int32 _maxTextLenght = 20;
 
         /*! if true text field is write protected
         */
@@ -137,17 +191,13 @@ namespace Igor
         */
         void calcMinSize();
 
-		/*! draws the text edit widget
-		*/
-		void draw();
-
-	private:
-
-        /*! handles incomming acsii codes from keyboard
-
-        \param c the incomming character from keyboard
+        /*! draws the text edit widget
         */
-        bool handleASCII(uint8 c);
+        void draw();
+
+		/*! updates the cursor position and scroll offset 
+		*/
+		void updateMetrics();
 
         /*! initializes member variables
         */

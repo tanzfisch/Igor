@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetNumberChooser.h>
@@ -266,7 +266,7 @@ namespace Igor
             iaString displayString = iaString::ftoa(_value, _afterPoint);
             displayString += _postFix;
 
-            iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawNumberChooser(getActualRect(), displayString, _buttonUpAppearanceState, _buttonDownAppearanceState, isActive());
         }
     }
 

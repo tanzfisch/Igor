@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetSpacer.h>
@@ -13,29 +13,29 @@ using namespace IgorAux;
 
 namespace Igor
 {
-	iWidgetSpacer::iWidgetSpacer()
-	{
+    iWidgetSpacer::iWidgetSpacer()
+    {
         setHorizontalAlignment(iHorizontalAlignment::Center);
         setVerticalAlignment(iVerticalAlignment::Center);
         _reactOnMouseWheel = false;
-	}
+    }
 
     iWidget* iWidgetSpacer::createInstance()
     {
         return new iWidgetSpacer();
     }
 
-	void iWidgetSpacer::calcMinSize()
-	{
+    void iWidgetSpacer::calcMinSize()
+    {
         setMinSize(0, 0);
-	}
+    }
 
-	void iWidgetSpacer::draw()
-	{
-		if (isVisible())
-		{
-			iWidgetManager::getInstance().getTheme()->drawSpacer(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), getAppearanceState(), isActive());
-		}
-	}
+    void iWidgetSpacer::draw()
+    {
+        if (isVisible())
+        {
+            iWidgetManager::getInstance().getTheme()->drawSpacer(getActualRect(), getAppearanceState(), isActive());
+        }
+    }
 
 }

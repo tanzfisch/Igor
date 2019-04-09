@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetGroupBox.h>
@@ -124,7 +124,7 @@ namespace Igor
     {
         if (isVisible())
         {
-            iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _headerOnly, _text, getAppearanceState(), isActive());
+            iWidgetManager::getInstance().getTheme()->drawGroupBox(getActualRect(), _headerOnly, _text, getAppearanceState(), isActive());
 
             if (!_children.empty())
             {

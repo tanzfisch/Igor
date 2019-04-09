@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 #include <iWidgetPicture.h>
@@ -103,7 +103,7 @@ namespace Igor
         if (isVisible() &&
             _texture != nullptr)
         {
-            iWidgetManager::getInstance().getTheme()->drawPicture(getActualPosX(), getActualPosY(), getActualWidth(), getActualHeight(), _texture, _widgetAppearanceState, isActive());
+            iWidgetManager::getInstance().getTheme()->drawPicture(getActualRect(), _texture, _widgetAppearanceState, isActive());
         }
     }
 

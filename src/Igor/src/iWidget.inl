@@ -1,5 +1,5 @@
 // Igor game engine
-// (c) Copyright 2012-2018 by Martin Loga
+// (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
 uint64 iWidget::getID()
@@ -85,6 +85,11 @@ int32 iWidget::getActualPosX() const
 int32 iWidget::getActualPosY() const
 {
 	return _absoluteY;
+}
+
+iRectanglei iWidget::getActualRect() const
+{
+    return iRectanglei(_absoluteX, _absoluteY, _actualWidth, _actualHeight);
 }
 
 int32 iWidget::getRelativePosX() const
