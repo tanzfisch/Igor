@@ -330,8 +330,16 @@ namespace IgorAux
         }
         else
         {
-            iaDirectory dirFrom(from);
-            fromPath = dirFrom.getFullDirectoryName();
+			iaDirectory dirFrom(from);
+			if (iaDirectory::isDirectory(from))
+			{
+				fromPath = dirFrom.getFullDirectoryName();
+			}
+			else
+			{
+				// assuming the subfolder is actually a filename
+				fromPath = dirFrom.getFullParentDirectoryName();
+			}
         }
         
         iaFile fileTo(to);
