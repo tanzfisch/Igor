@@ -115,7 +115,7 @@ namespace Igor
         }
         else
         {
-            con_err("can't export to folder " << file.getPath());
+            con_err("can't export to relative folder " << file.getPath());
         }
     }
 
