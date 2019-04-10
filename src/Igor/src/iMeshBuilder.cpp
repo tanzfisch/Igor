@@ -194,8 +194,19 @@ namespace Igor
 
     void iMeshBuilder::setTexCoord(uint32 index, const iaVector2f& texCoord, uint32 unit)
     {
-        _texCoords[unit][index]._x = texCoord._x;
-        _texCoords[unit][index]._y = texCoord._y;
+		auto &textcoords = _texCoords[unit];
+
+		if (_vertexes.size() > textcoords.size())
+		{
+			while (_vertexes.size() > textcoords.size())
+			{
+				textcoords.push_back(texCoord);
+			}
+		}
+		else
+		{
+			textcoords[index] = texCoord;
+		}
     }
 
     uint32 iMeshBuilder::addTriangle(const uint32 indexA, const uint32 indexB, const uint32 indexC, const uint32 indexOffset)
