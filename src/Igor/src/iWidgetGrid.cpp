@@ -583,6 +583,19 @@ namespace Igor
             return result;
         }
 
+		if (key == iKeyCode::MouseLeft)
+		{
+			if (_selectedCollumn != _mouseOverCollumn ||
+				_selectedRow != _mouseOverRow)
+			{
+				_selectedCollumn = _mouseOverCollumn;
+				_selectedRow = _mouseOverRow;
+				_change(this);
+			}
+
+			return true;
+		}
+
         return false;
     }
 
@@ -605,14 +618,6 @@ namespace Igor
         if (key == iKeyCode::MouseLeft ||
             key == iKeyCode::MouseRight)
         {
-            if (_selectedCollumn != _mouseOverCollumn ||
-                _selectedRow != _mouseOverRow)
-            {
-                _selectedCollumn = _mouseOverCollumn;
-                _selectedRow = _mouseOverRow;
-                _change(this);
-            }
-
             _click(this);
 
             if (key == iKeyCode::MouseRight)

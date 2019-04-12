@@ -189,12 +189,6 @@ namespace Igor
         */
         void onDoubleClick(iWidget* source);
 
-		/*! handles single click in file grid
-
-		\param source source widget of event
-		*/
-		void onClick(iWidget* source);
-
         /*! handles path edit change
 
         \param source source widget of event

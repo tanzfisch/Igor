@@ -69,7 +69,6 @@ namespace Igor
 		_fileGrid->setVerticalAlignment(iVerticalAlignment::Top);
 		_fileGrid->setSelectMode(iSelectionMode::Field);
 		_fileGrid->registerOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
-		_fileGrid->registerOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onClick));
 		_scroll->addWidget(_fileGrid);
 
 		_filenameGrid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
@@ -133,7 +132,6 @@ namespace Igor
 
 		if (_fileGrid != nullptr)
 		{
-			_fileGrid->unregisterOnClickEvent(iClickDelegate(this, &iDialogFileSelect::onClick));
 			_fileGrid->unregisterOnDoubleClickEvent(iDoubleClickDelegate(this, &iDialogFileSelect::onDoubleClick));
 			clearFileGrid();
 			iWidgetManager::getInstance().destroyWidget(_fileGrid);
@@ -399,18 +397,6 @@ namespace Igor
 		_fileGrid->clear();
 	}
 
-	void iDialogFileSelect::onClick(iWidget* source)
-	{
-		iaString* userData = static_cast<iaString*>(_fileGrid->getSelectedUserData());
-		if (userData != nullptr)
-		{
-			_directory = *userData;
-			updateFileDir();
-		}
-
-		updateFileGrid();
-	}
-
 	void iDialogFileSelect::onDoubleClick(iWidget* source)
 	{
 		iaString* userData = static_cast<iaString*>(_fileGrid->getSelectedUserData());
@@ -418,6 +404,8 @@ namespace Igor
 		{
 			_directory = *userData;
 			updateFileDir();
+			updateFileGrid();
+			_fileGrid->unSelect();
 		}
 
 		if (_load)
@@ -429,8 +417,6 @@ namespace Igor
 				return;
 			}
 		}
-
-		updateFileGrid();
 	}
 
 	iFileDialogReturnValue iDialogFileSelect::getReturnState()
