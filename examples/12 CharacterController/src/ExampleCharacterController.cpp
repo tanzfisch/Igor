@@ -118,7 +118,7 @@ void ExampleCharacterController::init()
     iModelDataInputParameter* param = new iModelDataInputParameter();
     param->_keepMesh = true;
     param->_modelSourceType = iModelSourceType::File;
-    floorModel->setModel("grass.ompf", iResourceCacheMode::Keep, param);
+    floorModel->setModel("voxelTerrain.ompf", iResourceCacheMode::Keep, param);
     floorModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform* floorTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     floorTransform->insertNode(floorModel);
@@ -134,7 +134,7 @@ void ExampleCharacterController::init()
     floorBody->setMaterial(_terrainMaterialID);
 
     // create a box that drops on floor
-    {
+   {
         iPhysicsCollision* boxCollision = iPhysics::getInstance().createBox(1, 1, 1, iaMatrixd());
         iPhysicsBody* boxBody = iPhysics::getInstance().createBody(boxCollision);
         boxBody->setMass(10);
@@ -142,7 +142,7 @@ void ExampleCharacterController::init()
         boxBody->setMaterial(_entityMaterialID);
 
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-        transformNode->translate(1, 10, 0);
+        transformNode->translate(111, 200, 110);
 
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
@@ -161,7 +161,7 @@ void ExampleCharacterController::init()
         boxBody->setMaterial(_entityMaterialID);
 
         iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-        transformNode->translate(10, 10, 0);
+        transformNode->translate(110, 200, 112);
 
         iNodeModel* crate = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         crate->setModel("crate.ompf");
@@ -173,7 +173,7 @@ void ExampleCharacterController::init()
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(0,2,0);
+    startMatrix.translate(110,200,110);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
@@ -532,6 +532,10 @@ void ExampleCharacterController::drawLogo()
     float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
+
+	iaMatrixd matrix;
+	_characterController->getRootNode()->calcWorldTransformation(matrix);
+	con_endl(matrix._pos);
 }
 
 void ExampleCharacterController::run()
