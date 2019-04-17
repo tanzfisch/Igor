@@ -261,9 +261,11 @@ void ExampleCharacterController::onModelReady(uint64 modelNodeID)
 void ExampleCharacterController::makeCollisions(iNodePtr node)
 {
     if (node->getType() == iNodeType::iNodeMesh)
-    {
+    {		
         iNodeMesh* meshNode = static_cast<iNodeMesh*>(node);
-        iPhysicsCollision* collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, iaMatrixd());
+		iaMatrixd matrix;
+		meshNode->calcWorldTransformation(matrix);
+        iPhysicsCollision* collision = iPhysics::getInstance().createMesh(meshNode->getMesh(), 0, matrix);
         iPhysicsBody* body = iPhysics::getInstance().createBody(collision);
         body->setMass(0);
         body->setMatrix(iaMatrixd());
