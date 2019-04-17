@@ -118,7 +118,7 @@ void ExampleCharacterController::init()
     iModelDataInputParameter* param = new iModelDataInputParameter();
     param->_keepMesh = true;
     param->_modelSourceType = iModelSourceType::File;
-    floorModel->setModel("level.ompf", iResourceCacheMode::Keep, param);
+    floorModel->setModel("grass.ompf", iResourceCacheMode::Keep, param);
     floorModel->registerModelReadyDelegate(iModelReadyDelegate(this, &ExampleCharacterController::onModelReady));
     iNodeTransform* floorTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     floorTransform->insertNode(floorModel);
@@ -173,7 +173,7 @@ void ExampleCharacterController::init()
 
     // setup character and attache camera to it
     iaMatrixd startMatrix;
-    startMatrix.translate(15,2,0);
+    startMatrix.translate(0,2,0);
     _characterController = new CharacterController(_scene->getRoot(), _entityMaterialID, startMatrix);
 
     // setup camera
