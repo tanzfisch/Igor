@@ -205,6 +205,11 @@ void CharacterController::onApplyForceAndTorque(iPhysicsBody* body, float32 time
 	force += _navigationForce;
 	force += correctionForce;
 
+	if (force.length() > 100000000)
+	{
+		return;
+	}	
+
 	body->setForce(force);
 }
 

@@ -29,6 +29,7 @@ using namespace IgorAux;
 #include <iVoxelData.h>
 #include <iaVector3.h>
 #include <iStatistics.h>
+#include <iNodeVisitorPrintTree.h>
 using namespace Igor;
 
 #include "VoxelTerrainMeshGenerator.h"
@@ -66,11 +67,6 @@ void VoxelExample::init()
 
     // generating voxels
     generateVoxelData();
-
-    // ok this one is kind of a workaround. In order to handle huge worlds beyond float precision we internally mess around with world positions.
-    // in consequence the world positions that end up in the shader are not valid. They are relative to the camera position. To compensate we can 
-    // set the world grid resolution here. It basically makes a modulo on the world coordinates so they never exceed float precision. 
-    iRenderer::getInstance().setWorldGridResolution(1000.0);
 }
 
 void VoxelExample::deinit()
@@ -109,8 +105,7 @@ void VoxelExample::deinit()
 void VoxelExample::registerHandles()
 {
     // register callbacks to all the events that are of interest to us
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeySpacePressed), iKeyCode::Space);
+	iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
     iMouse::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
     iApplication::getInstance().registerApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
     _window.registerWindowResizeDelegate(WindowResizeDelegate(this, &VoxelExample::onWindowResized));
@@ -124,8 +119,7 @@ void VoxelExample::unregisterHandles()
     _window.unregisterWindowCloseDelegate(WindowCloseDelegate(this, &VoxelExample::onWindowClosed));
     iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &VoxelExample::onHandle));
     iMouse::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &VoxelExample::onMouseMoved));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeyESCPressed), iKeyCode::ESC);
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownSpecificDelegate(this, &VoxelExample::onKeySpacePressed), iKeyCode::Space);
+	iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &VoxelExample::onKeyDown));
 }
 
 void VoxelExample::initViews()
@@ -379,15 +373,18 @@ void VoxelExample::prepareMeshGeneration()
     inputParam->_needsRenderContext = false;
     inputParam->_modelSourceType = iModelSourceType::Generated;
     inputParam->_loadPriority = 0;
+	inputParam->_keepMesh = true;
     inputParam->_parameters.setData(reinterpret_cast<const char*>(&tileInformation), sizeof(TileInformation));
     // create a model node
     iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
+	voxelMeshModel->setName("VoxelMeshModel");
     _voxelMeshModel = voxelMeshModel->getID();
     // tell the model node to load data with specified identifier ans the above defined parameter
     // it is important to have a unique identifier each time we generate a mesh otherwhise the cache system would return us a prvious generated mesh
-    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::itoa(_incarnation++), iResourceCacheMode::Free, inputParam);
+    voxelMeshModel->setModel(iaString("VoxelMesh") + iaString::itoa(_incarnation++), iResourceCacheMode::Keep, inputParam);
     // create a transform node to center the mesh to the origin
     iNodeTransform* voxelMeshTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
+	voxelMeshTransform->setName("VoxelMeshTransform");
     _voxelMeshTransform = voxelMeshTransform->getID();
     voxelMeshTransform->translate(-_voxelData->getWidth() / 2, -_voxelData->getHeight() / 2, -_voxelData->getDepth() / 2);
     // and add to scene
@@ -424,14 +421,37 @@ void VoxelExample::onWindowResized(int32 clientWidth, int32 clientHeight)
     _viewOrtho.setOrthogonal(0, clientWidth, clientHeight, 0);
 }
 
-void VoxelExample::onKeySpacePressed()
-{
-    generateVoxelData();
-}
 
-void VoxelExample::onKeyESCPressed()
+void VoxelExample::onKeyDown(iKeyCode key)
 {
-    iApplication::getInstance().stop();
+	switch (key)
+	{
+	case iKeyCode::Space:
+		generateVoxelData();
+		break;
+
+	case iKeyCode::ESC:
+		iApplication::getInstance().stop();
+		break;
+
+	case iKeyCode::F1:
+	{
+		iNodeVisitorPrintTree printTree;
+		if (_scene != nullptr)
+		{
+			printTree.printToConsole(_scene->getRoot());
+		}
+	}
+	break;
+
+	case iKeyCode::W:
+		_view.setWireframeVisible(!_view.isWireframeVisible());
+		break;
+
+	case iKeyCode::B:
+		_view.setBoundingBoxVisible(!_view.isBoundingBoxVisible());
+		break;
+	}
 }
 
 void VoxelExample::onRenderOrtho()

@@ -170,7 +170,7 @@ private:
 
     /*! called when ESC key was pressed
     */
-	void onKeyESCPressed();
+	void onKeyDown(iKeyCode key);
 
     /*! called when space key was released
     */
