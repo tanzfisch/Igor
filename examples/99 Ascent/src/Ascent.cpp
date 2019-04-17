@@ -607,8 +607,6 @@ void Ascent::init()
     _taskFlushTextures = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
     registerHandles();
-
-    iRenderer::getInstance().setWorldGridResolution(1000.0);
 }
 
 void Ascent::deinit()
