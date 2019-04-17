@@ -194,8 +194,6 @@ namespace Igor
         _updateVisBlocksSection = iStatistics::getInstance().registerSection("VT:vis", 3);
 #endif
 
-        iRenderer::getInstance().setWorldGridResolution(1000.0);
-
         // set up terrain material
         _terrainMaterialID = iMaterialResourceFactory::getInstance().getDefaultMaterialID();
 

@@ -352,10 +352,13 @@ namespace Igor
         void setViewMatrix(const iaMatrixd& viewMatrix);
 
         /*! sets world grid resolution
+        
+		This one is kind of a workaround. In order to handle huge worlds beyond float precision we internally mess around with world positions.
+		in consequence the world positions that end up in the shader are not valid. They are relative to the camera position. To compensate we can
+		set the world grid resolution here. It basically makes a modulo on the world coordinates so they never exceed float precision.
 
-        this grid is only relevant if your world to big for float32 to handle AND
-        if you still need in your shaders some sort of world position to know.
-        So in the end you get some modulo world position. modulo with that grid size.
+		The default grid size is 10000.0
+		Set it to zero if you don't want a grid at all
 
         \param gridSize sets the world grid size (only values with )
         */
@@ -747,7 +750,7 @@ namespace Igor
 
         /*! world grid resolution
         */
-        float32 _gridSize = 0;
+        float32 _gridSize = 10000.0;
 
         /*! the pre renderer deinitialize event
         */
