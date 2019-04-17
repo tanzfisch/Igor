@@ -532,10 +532,6 @@ void ExampleCharacterController::drawLogo()
     float32 y = static_cast<float32>(_window.getClientHeight()) - height;
 
     iRenderer::getInstance().drawTexture(x, y, width, height, _igorLogo);
-
-	iaMatrixd matrix;
-	_characterController->getRootNode()->calcWorldTransformation(matrix);
-	con_endl(matrix._pos);
 }
 
 void ExampleCharacterController::run()
