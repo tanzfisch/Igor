@@ -140,14 +140,14 @@ namespace Igor
 
         iMeshBuilder *meshBuilder = nullptr;
 
-        bool hasNormals = _normals.size() != 0 ? true : false;
-        bool hasTexCoord = _texcoord.size() != 0 ? true : false;
-
         for (uint32 i = 0; i<_polygons.size(); i++)
         {
             OBJPolygon& poly = _polygons[i];
 
             meshBuilder = meshBuilders[poly._materialNum];
+
+			bool hasNormals = poly._vertexes[0]._vn != -1 ? true : false;
+			bool hasTexCoord = poly._vertexes[0]._t != -1 ? true : false;
 
             // asuming poly is a triangle fan
             for (uint32 j = 0; j < poly._vertexes.size() - 2; j++)
