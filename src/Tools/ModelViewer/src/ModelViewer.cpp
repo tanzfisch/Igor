@@ -930,8 +930,6 @@ void ModelViewer::onKeyPressed(iKeyCode key)
     case iKeyCode::R:
         setManipulatorMode(ManipulatorMode::Scale);
         break;
-
-
     }
 }
 
