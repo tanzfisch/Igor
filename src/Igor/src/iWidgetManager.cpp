@@ -157,29 +157,24 @@ namespace Igor
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
-		bool handled = false;
 
 		for (auto dialog : dialogs)
 		{
 			if (isModal(dialog.second))
 			{
-				if (dialog.second->handleKeyDown(key))
-				{
-					handled = true;
-					break;
-				}
+				dialog.second->handleKeyDown(key);
+				return;
 			}
 		}
 
-		if (!handled)
+		bool handled = false;
+
+		for (auto dialog : dialogs)
 		{
-			for (auto dialog : dialogs)
+			if (dialog.second->handleKeyDown(key))
 			{
-				if (dialog.second->handleKeyDown(key))
-				{
-					handled = true;
-					break;
-				}
+				handled = true;
+				break;
 			}
 		}
 
@@ -193,29 +188,24 @@ namespace Igor
 	{
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
-		bool handled = false;
 
 		for (auto dialog : dialogs)
 		{
 			if (isModal(dialog.second))
 			{
-				if (dialog.second->handleKeyUp(key))
-				{
-					handled = true;
-					break;
-				}
+				dialog.second->handleKeyUp(key);
+				return;
 			}
 		}
 
-		if (!handled)
+		bool handled = false;
+
+		for (auto dialog : dialogs)
 		{
-			for (auto dialog : dialogs)
+			if (dialog.second->handleKeyUp(key))
 			{
-				if (dialog.second->handleKeyUp(key))
-				{
-					handled = true;
-					break;
-				}
+				handled = true;
+				break;
 			}
 		}
 
@@ -227,8 +217,6 @@ namespace Igor
 
 	void iWidgetManager::onMouseKeyDown(iKeyCode key)
 	{
-		bool consumed = false;
-
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
 
@@ -237,24 +225,23 @@ namespace Igor
 			if (isModal(dialog.second))
 			{
 				dialog.second->handleMouseKeyDown(key);
-				consumed = true;
+				return;
+			}
+		}
+
+		bool handled = false;
+
+		for (auto dialog : dialogs)
+		{
+			if (dialog.second->handleMouseKeyDown(key))
+			{
+				handled = true;
 				break;
 			}
 		}
 
-		if (!consumed)
-		{
-			for (auto dialog : dialogs)
-			{
-				if (dialog.second->handleMouseKeyDown(key))
-				{
-					consumed = true;
-					break;
-				}
-			}
-		}
 
-		if (!consumed)
+		if (!handled)
 		{
 			_mouseKeyDownEvent(key);
 		}
@@ -262,8 +249,6 @@ namespace Igor
 
 	void iWidgetManager::onMouseKeyUp(iKeyCode key)
 	{
-		bool consumed = false;
-
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
 
@@ -272,24 +257,21 @@ namespace Igor
 			if (isModal(dialog.second))
 			{
 				dialog.second->handleMouseKeyUp(key);
-				consumed = true;
+				return;
+			}
+		}
+
+		bool handled = false;
+		for (auto dialog : dialogs)
+		{
+			if (dialog.second->handleMouseKeyUp(key))
+			{
+				handled = true;
 				break;
 			}
 		}
 
-		if (!consumed)
-		{
-			for (auto dialog : dialogs)
-			{
-				if (dialog.second->handleMouseKeyUp(key))
-				{
-					consumed = true;
-					break;
-				}
-			}
-		}
-
-		if (!consumed)
+		if (!handled)
 		{
 			_mouseKeyUpEvent(key);
 		}
@@ -297,8 +279,6 @@ namespace Igor
 
 	void iWidgetManager::onMouseDoubleClick(iKeyCode key)
 	{
-		bool consumed = false;
-
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
 
@@ -307,24 +287,22 @@ namespace Igor
 			if (isModal(dialog.second))
 			{
 				dialog.second->handleMouseDoubleClick(key);
-				consumed = true;
+				return;
+			}
+		}
+
+		bool handled = false;
+
+		for (auto dialog : dialogs)
+		{
+			if (dialog.second->handleMouseDoubleClick(key))
+			{
+				handled = true;
 				break;
 			}
 		}
 
-		if (!consumed)
-		{
-			for (auto dialog : dialogs)
-			{
-				if (dialog.second->handleMouseDoubleClick(key))
-				{
-					consumed = true;
-					break;
-				}
-			}
-		}
-
-		if (!consumed)
+		if (!handled)
 		{
 			_doubleClickEvent(key);
 		}
@@ -332,8 +310,6 @@ namespace Igor
 
 	void iWidgetManager::onMouseMove(const iaVector2i & from, const iaVector2i & to, iWindow * window)
 	{
-		bool foundModal = false;
-
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
 
@@ -342,27 +318,21 @@ namespace Igor
 			if (isModal(dialog.second))
 			{
 				dialog.second->handleMouseMove(to);
-				foundModal = true;
-				break;
+				return;
 			}
 		}
 
-		if (!foundModal)
+		for (auto dialog : dialogs)
 		{
-			for (auto dialog : dialogs)
-			{
-				dialog.second->handleMouseMove(to);
-			}
-
-			_moveFullEvent(from, to, window);
-			_moveEvent(to);
+			dialog.second->handleMouseMove(to);
 		}
+
+		_moveFullEvent(from, to, window);
+		_moveEvent(to);
 	}
 
 	void iWidgetManager::onMouseWheel(int32 d)
 	{
-		bool consumed = false;
-
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
 
@@ -371,23 +341,22 @@ namespace Igor
 			if (isModal(dialog.second))
 			{
 				dialog.second->handleMouseWheel(d);
-				consumed = true;
+				return;
+			}
+		}
+
+		bool handled = false;
+
+		for (auto dialog : dialogs)
+		{
+			if (dialog.second->handleMouseWheel(d))
+			{
+				handled = true;
 				break;
 			}
 		}
 
-		if (!consumed)
-		{
-			for (auto dialog : dialogs)
-			{
-				if (dialog.second->handleMouseWheel(d))
-				{
-					consumed = true;
-				}
-			}
-		}
-
-		if (!consumed)
+		if (!handled)
 		{
 			_wheelEvent(d);
 		}
@@ -395,8 +364,6 @@ namespace Igor
 
 	void iWidgetManager::onASCII(const char c)
 	{
-		bool foundModal = false;
-
 		// this copy is not because of a race condition but because the original list might be changed while handling the event
 		map<uint64, iDialog*> dialogs = _dialogs;
 
@@ -405,17 +372,13 @@ namespace Igor
 			if (isModal(dialog.second))
 			{
 				dialog.second->handleASCII(c);
-				foundModal = true;
-				break;
+				return;
 			}
 		}
 
-		if (!foundModal)
+		for (auto dialog : dialogs)
 		{
-			for (auto dialog : dialogs)
-			{
-				dialog.second->handleASCII(c);
-			}
+			dialog.second->handleASCII(c);
 		}
 	}
 
