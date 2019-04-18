@@ -214,7 +214,7 @@ namespace Igor
 		_triggerChangeAtOnce = true;
 	}
 
-	void iWidgetTextEdit::setChangeEventOnEnterAndLosFocus()
+	void iWidgetTextEdit::setChangeEventOnEnterAndLostFocus()
 	{
 		_triggerChangeAtOnce = false;
 	}

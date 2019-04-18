@@ -95,7 +95,7 @@ namespace Igor
 
         /*! set up that the change event will be triggered for every change in the text field
         */
-		void setChangeEventOnEnterAndLosFocus();
+		void setChangeEventOnEnterAndLostFocus();
 
         /*! sets the text
 
