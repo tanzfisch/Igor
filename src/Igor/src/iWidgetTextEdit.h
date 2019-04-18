@@ -143,7 +143,11 @@ namespace Igor
 
         /*! the text
         */
-		iaString _text;		
+		iaString _text;
+
+		/*! backup text
+		*/
+		iaString _textBackup;
 
         /*! handles incomming acsii codes from keyboard
 
@@ -164,6 +168,10 @@ namespace Igor
 		/*! handles lost keyboard focus
 		*/
 		virtual void handleLostKeyboardFocus() override;
+
+		/*! triggers a change event if the content has changed
+		*/
+		void handleChanges();
 
 	private:
 

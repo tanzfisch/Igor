@@ -58,7 +58,7 @@ namespace Igor
 
 		if (_triggerChangeAtOnce)
 		{
-			_change(this);
+			handleChanges();
 		}
 
 		return true;
@@ -70,8 +70,6 @@ namespace Igor
 		{
 			return false;
 		}
-
-		iaString bck = _text;
 
 		switch (key)
 		{
@@ -87,11 +85,17 @@ namespace Igor
 			setCursorPos(_text.getSize());
 			break;
 
+		case iKeyCode::ESC:
+			_text = _textBackup;
+			resetKeyboardFocus();
+			break;
+
 		case iKeyCode::Enter:
 		case iKeyCode::Return:
 			if (!_triggerChangeAtOnce)
 			{
-				_change(this);
+				resetKeyboardFocus();
+				handleChanges();
 			}
 			break;
 
@@ -112,10 +116,9 @@ namespace Igor
 			return false;
 		}
 
-		if (_triggerChangeAtOnce &&
-			bck != _text)
+		if (_triggerChangeAtOnce)
 		{
-			_change(this);
+			handleChanges();
 		}
 
 		return true;
@@ -222,11 +225,20 @@ namespace Igor
 	void iWidgetTextEdit::handleGainedKeyboardFocus()
 	{
 		setCursorPos(_text.getSize());
+		_textBackup = _text;
+	}
+
+	void iWidgetTextEdit::handleChanges()
+	{
+		if (_textBackup != _text)
+		{
+			_change(this);
+		}
 	}
 
 	void iWidgetTextEdit::handleLostKeyboardFocus()
 	{
-		_change(this);
+		handleChanges();
 	}
 
 	void iWidgetTextEdit::setText(const iaString& text)
