@@ -128,7 +128,7 @@ private:
 
     void onGraphViewSelectionChanged(uint64 nodeID);
 
-    void onKeyPressed(iKeyCode key);
+    void onKeyDown(iKeyCode key);
     void centerCamOnSelectedNode();
     void onWindowClosed();
 

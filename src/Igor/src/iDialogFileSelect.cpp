@@ -52,7 +52,7 @@ namespace Igor
 		_pathEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
 		_pathEdit->setWidth(600);
 		_pathEdit->setWriteProtected(false);
-		_pathEdit->setChangeEventOnEnterAndLosFocus();
+		_pathEdit->setChangeEventOnEnterAndLostFocus();
 		_pathEdit->setMaxTextLength(1024);
 		_pathEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_pathEdit->setVerticalAlignment(iVerticalAlignment::Top);
@@ -86,7 +86,7 @@ namespace Igor
 		_filenameEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
 		_filenameEdit->setWidth(300);
 		_filenameEdit->setWriteProtected(false);
-		_filenameEdit->setChangeEventOnEnterAndLosFocus();
+		_filenameEdit->setChangeEventOnEnterAndLostFocus();
 		_filenameEdit->setMaxTextLength(256);
 		_filenameEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
 		_filenameEdit->setVerticalAlignment(iVerticalAlignment::Top);

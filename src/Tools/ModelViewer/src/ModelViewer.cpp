@@ -64,7 +64,7 @@ void ModelViewer::init(iaString fileName)
 {
     con(" -- Model Viewer --" << endl);
 
-    iKeyboard::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
+	iWidgetManager::getInstance().registerKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyDown));
     iWidgetManager::getInstance().registerMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
     iWidgetManager::getInstance().registerMouseWheelDelegate(iMouseWheelDelegate(this, &ModelViewer::onMouseWheel));
     iWidgetManager::getInstance().registerMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
@@ -261,7 +261,7 @@ void ModelViewer::deinit()
     iWidgetManager::getInstance().unregisterMouseMoveFullDelegate(iMouseMoveFullDelegate(this, &ModelViewer::onMouseMoved));
     iWidgetManager::getInstance().unregisterMouseKeyDownDelegate(iMouseKeyDownDelegate(this, &ModelViewer::onMouseKeyDown));
     iWidgetManager::getInstance().unregisterMouseKeyUpDelegate(iMouseKeyUpDelegate(this, &ModelViewer::onMouseKeyUp));
-    iKeyboard::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyPressed));
+	iWidgetManager::getInstance().unregisterKeyDownDelegate(iKeyDownDelegate(this, &ModelViewer::onKeyDown));
     iApplication::getInstance().unregisterApplicationPreDrawHandleDelegate(iApplicationPreDrawHandleDelegate(this, &ModelViewer::handle));
 
     iTaskManager::getInstance().abortTask(_taskFlushTextures);
@@ -881,11 +881,10 @@ void ModelViewer::onWindowClosed()
     iApplication::getInstance().stop();
 }
 
-void ModelViewer::onKeyPressed(iKeyCode key)
+void ModelViewer::onKeyDown(iKeyCode key)
 {
     switch (key)
     {
-
     case iKeyCode::F:
     {
         centerCamOnSelectedNode();
@@ -930,8 +929,6 @@ void ModelViewer::onKeyPressed(iKeyCode key)
     case iKeyCode::R:
         setManipulatorMode(ManipulatorMode::Scale);
         break;
-
-
     }
 }
 

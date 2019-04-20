@@ -44,10 +44,10 @@ namespace Igor
 			return false;
 		}
 
-		// filter all we don't handle here
+		// skipp all we don't care about
 		if (c < 32 || c > 32 + 128 - 1 || c == 13)
 		{
-			return false;
+			return true;
 		}
 
 		if (_text.getSize() < _maxTextLenght)
@@ -58,9 +58,20 @@ namespace Igor
 
 		if (_triggerChangeAtOnce)
 		{
-			_change(this);
+			handleChanges();
 		}
 
+		return true;
+	}
+
+	bool iWidgetTextEdit::handleKeyUp(iKeyCode key)
+	{
+		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		{
+			return false;
+		}
+
+		// always consume the event when widget has keyboard focus
 		return true;
 	}
 
@@ -70,8 +81,6 @@ namespace Igor
 		{
 			return false;
 		}
-
-		iaString bck = _text;
 
 		switch (key)
 		{
@@ -87,11 +96,17 @@ namespace Igor
 			setCursorPos(_text.getSize());
 			break;
 
+		case iKeyCode::ESC:
+			_text = _textBackup;
+			resetKeyboardFocus();
+			break;
+
 		case iKeyCode::Enter:
 		case iKeyCode::Return:
 			if (!_triggerChangeAtOnce)
 			{
-				_change(this);
+				resetKeyboardFocus();
+				handleChanges();
 			}
 			break;
 
@@ -107,17 +122,14 @@ namespace Igor
 		case iKeyCode::Right:
 			incCursorPos();
 			break;
-
-		default:
-			return false;
 		}
 
-		if (_triggerChangeAtOnce &&
-			bck != _text)
+		if (_triggerChangeAtOnce)
 		{
-			_change(this);
+			handleChanges();
 		}
 
+		// always consume the event when widget has keyboard focus
 		return true;
 	}
 
@@ -214,7 +226,7 @@ namespace Igor
 		_triggerChangeAtOnce = true;
 	}
 
-	void iWidgetTextEdit::setChangeEventOnEnterAndLosFocus()
+	void iWidgetTextEdit::setChangeEventOnEnterAndLostFocus()
 	{
 		_triggerChangeAtOnce = false;
 	}
@@ -222,11 +234,20 @@ namespace Igor
 	void iWidgetTextEdit::handleGainedKeyboardFocus()
 	{
 		setCursorPos(_text.getSize());
+		_textBackup = _text;
+	}
+
+	void iWidgetTextEdit::handleChanges()
+	{
+		if (_textBackup != _text)
+		{
+			_change(this);
+		}
 	}
 
 	void iWidgetTextEdit::handleLostKeyboardFocus()
 	{
-		_change(this);
+		handleChanges();
 	}
 
 	void iWidgetTextEdit::setText(const iaString& text)
