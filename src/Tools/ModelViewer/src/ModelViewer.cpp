@@ -107,7 +107,19 @@ void ModelViewer::init(iaString fileName)
     _transformModel->insertNode(_groupNode);
 
     // init 3D user controls
-    _manipulator = new Manipulator(&_window);
+	_viewWidget3D.setName("ManipulatorView");
+	_viewWidget3D.setClearColor(false);
+	_viewWidget3D.setClearDepth(true);
+	_viewWidget3D.setPerspective(45.0f);
+	_viewWidget3D.setClipPlanes(0.1f, 10000.f);
+	
+	_window.addView(&_viewWidget3D, 1);
+
+	_sceneWidget3D = iSceneFactory::getInstance().createScene();
+	_sceneWidget3D->setName("Modifier Scene");
+	_viewWidget3D.setScene(_sceneWidget3D);
+
+    _manipulator = new Manipulator(&_window, &_viewWidget3D, _sceneWidget3D);
     
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));

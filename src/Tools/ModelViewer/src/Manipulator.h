@@ -69,9 +69,9 @@ public:
 
     /*! initialize manipulator
 
-    \param window the window this manipulator is displayed at
+    \param window the window this manipulator is displayed with
     */
-    Manipulator(iWindow* window);
+    Manipulator(iWindow* window, iView* view, iScene* scene);
 
     /*! cleanup
     */
@@ -151,7 +151,7 @@ private:
     uint64 _materialCelShading;
 
     iWindow* _window = nullptr;
-    iView _view;
+    iView* _view = nullptr;
     iScene* _scene = nullptr;
 
     uint64 _selectedLocatorNodeID = iNode::INVALID_NODE_ID;

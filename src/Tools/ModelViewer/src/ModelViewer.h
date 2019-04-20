@@ -77,10 +77,12 @@ private:
     iWindow _window;
     iView _view;
     iView _viewOrtho;
+	iView _viewWidget3D;
     iaMatrixd _modelViewOrtho;
 
     iTextureFont* _font = nullptr;
     iScene* _scene = nullptr;
+	iScene* _sceneWidget3D = nullptr;
 
     iDialogFileSelect* _fileDialog = nullptr;
     iDialogMessageBox* _messageBox = nullptr;
