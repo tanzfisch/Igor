@@ -178,11 +178,6 @@ namespace Igor
 			}
 		}
 
-		if (iWidget::getKeyboardFocusWidget() != nullptr)
-		{
-			return;
-		}
-
 		if (!handled)
 		{
 			_keyDownEvent(key);

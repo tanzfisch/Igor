@@ -34,132 +34,138 @@
 namespace Igor
 {
 
-    /*! text edit widget
+	/*! text edit widget
 
-    Example:
-    \ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
+	Example:
+	\ref Widgets/src/WidgetsExample.cpp "Widgets usage example"
 
-    */
+	*/
 	class Igor_API iWidgetTextEdit : public iWidget
 	{
 
-        /*! needs to be friend because it's the factory that creates this widget
-        */
-        friend class iWidgetManager;
+		/*! needs to be friend because it's the factory that creates this widget
+		*/
+		friend class iWidgetManager;
 
 	public:
 
-        /*! sets horrizotnal text aligment
+		/*! sets horrizotnal text aligment
 
-        \param align the horizontal allignment of the text
-        */
+		\param align the horizontal allignment of the text
+		*/
 		void setHorizontalTextAlignment(iHorizontalAlignment align);
 
-        /*! \returns horizontal text alignment
-        */
-        iHorizontalAlignment getHorizontalTextAlignment() const;
+		/*! \returns horizontal text alignment
+		*/
+		iHorizontalAlignment getHorizontalTextAlignment() const;
 
-        /*! sets vertical text aligment
+		/*! sets vertical text aligment
 
-        \param valign the vertical allignment of the text
-        */
-        void setVerticalTextAlignment(iVerticalAlignment valign);
+		\param valign the vertical allignment of the text
+		*/
+		void setVerticalTextAlignment(iVerticalAlignment valign);
 
-        /*! \returns vertical text alignment
-        */
-        iVerticalAlignment getVerticalTextAlignment() const;
+		/*! \returns vertical text alignment
+		*/
+		iVerticalAlignment getVerticalTextAlignment() const;
 
-        /*! sets the text max length in characters
+		/*! sets the text max length in characters
 
-        \param chars number of characters
-        */
+		\param chars number of characters
+		*/
 		void setMaxTextLength(int32 chars);
 
-        /*! \returns the max length of text in characters
-        */
+		/*! \returns the max length of text in characters
+		*/
 		int32 getMaxTextLength();
 
-        /*! sets text edit write protected
+		/*! sets text edit write protected
 
-        \param writeProtected true: text edit will be write protected
-        */
-        void setWriteProtected(bool writeProtected);
+		\param writeProtected true: text edit will be write protected
+		*/
+		void setWriteProtected(bool writeProtected);
 
-        /*! \retruns if text edit is write protected
-        */
-        bool isWriteProtected();
+		/*! \retruns if text edit is write protected
+		*/
+		bool isWriteProtected();
 
-        /*! set up that the change event will only triggered if you press enter
-        */
+		/*! set up that the change event will only triggered if you press enter
+		*/
 		void setChangeEventAtOnce();
 
-        /*! set up that the change event will be triggered for every change in the text field
-        */
+		/*! set up that the change event will be triggered for every change in the text field
+		*/
 		void setChangeEventOnEnterAndLostFocus();
 
-        /*! sets the text
+		/*! sets the text
 
-        \param text the text to be set
-        */
+		\param text the text to be set
+		*/
 		void setText(const iaString& text);
 
-        /*! \returns the text
-        */
+		/*! \returns the text
+		*/
 		const iaString& getText() const;
 
-        /*! sets cursor pos
+		/*! sets cursor pos
 
-        cursor pos will be clamped by current text size
+		cursor pos will be clamped by current text size
 
-        \param cursorPos the new cursor pos
-        */
-        void setCursorPos(uint64 cursorPos);
+		\param cursorPos the new cursor pos
+		*/
+		void setCursorPos(uint64 cursorPos);
 
-        /* \returns current cursor pos
-        */
+		/* \returns current cursor pos
+		*/
 		uint64 getCursorPos() const;
 
-        /*! increase cursor pos by one
-        */
-        void incCursorPos();
+		/*! increase cursor pos by one
+		*/
+		void incCursorPos();
 
-        /*! decrease cursor pos by one
-        */
-        void decCursorPos();
+		/*! decrease cursor pos by one
+		*/
+		void decCursorPos();
 
 	protected:
 
-        /*! the horizontal alignment
-        */
+		/*! the horizontal alignment
+		*/
 		iHorizontalAlignment _horizontalTextAlignment = iHorizontalAlignment::Left;
 
-        /*! the vertical alignment
-        */
+		/*! the vertical alignment
+		*/
 		iVerticalAlignment _verticalTextAlignment = iVerticalAlignment::Center;
 
-        /*! flat to handle change event trigger behaviour
-        */
+		/*! flat to handle change event trigger behaviour
+		*/
 		bool _triggerChangeAtOnce = false;
 
-        /*! the text
-        */
+		/*! the text
+		*/
 		iaString _text;
 
 		/*! backup text
 		*/
 		iaString _textBackup;
 
-        /*! handles incomming acsii codes from keyboard
+		/*! handles incomming acsii codes from keyboard
 
-        \param c the incomming character from keyboard
-        */
-        virtual bool handleASCII(uint8 c) override;
+		\param c the incomming character from keyboard
+		*/
+		virtual bool handleASCII(uint8 c) override;
 
-        /*! handles incomming released key events
+		/*! handles incomming released key events
 
-        \param key the released key
-        */
-        virtual bool handleKeyDown(iKeyCode key) override;
+		\param key the released key
+		*/
+		virtual bool handleKeyDown(iKeyCode key) override;
+
+		/*! handles incomming released key events
+		
+		\param key the released key
+		*/
+		virtual bool handleKeyUp(iKeyCode key) override;
 
 		/*! handles gained kayboard focus
 		*/
@@ -187,37 +193,37 @@ namespace Igor
 		*/
 		uint64 _scrollOffset = 0;
 
-        /*! max text lenght in characters
-        */
-        int32 _maxTextLenght = 20;
+		/*! max text lenght in characters
+		*/
+		int32 _maxTextLenght = 20;
 
-        /*! if true text field is write protected
-        */
-        bool _writeProtected = false;
+		/*! if true text field is write protected
+		*/
+		bool _writeProtected = false;
 
-        /*! updates size based on it's content
-        */
-        void calcMinSize();
+		/*! updates size based on it's content
+		*/
+		void calcMinSize();
 
-        /*! draws the text edit widget
-        */
-        void draw();
+		/*! draws the text edit widget
+		*/
+		void draw();
 
-		/*! updates the cursor position and scroll offset 
+		/*! updates the cursor position and scroll offset
 		*/
 		void updateMetrics();
 
-        /*! initializes member variables
-        */
+		/*! initializes member variables
+		*/
 		iWidgetTextEdit();
 
-        /*! deinitializes member variables
-        */
+		/*! deinitializes member variables
+		*/
 		virtual ~iWidgetTextEdit() = default;
 
-        /*! creates instance of this widget type
-        */
-        static iWidget* createInstance();
+		/*! creates instance of this widget type
+		*/
+		static iWidget* createInstance();
 
 	};
 

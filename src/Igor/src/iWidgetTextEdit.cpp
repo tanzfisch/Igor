@@ -44,10 +44,10 @@ namespace Igor
 			return false;
 		}
 
-		// filter all we don't handle here
+		// skipp all we don't care about
 		if (c < 32 || c > 32 + 128 - 1 || c == 13)
 		{
-			return false;
+			return true;
 		}
 
 		if (_text.getSize() < _maxTextLenght)
@@ -61,6 +61,17 @@ namespace Igor
 			handleChanges();
 		}
 
+		return true;
+	}
+
+	bool iWidgetTextEdit::handleKeyUp(iKeyCode key)
+	{
+		if (!isActive() || isWriteProtected() || !hasKeyboardFocus())
+		{
+			return false;
+		}
+
+		// always consume the event when widget has keyboard focus
 		return true;
 	}
 
@@ -111,9 +122,6 @@ namespace Igor
 		case iKeyCode::Right:
 			incCursorPos();
 			break;
-
-		default:
-			return false;
 		}
 
 		if (_triggerChangeAtOnce)
@@ -121,6 +129,7 @@ namespace Igor
 			handleChanges();
 		}
 
+		// always consume the event when widget has keyboard focus
 		return true;
 	}
 
