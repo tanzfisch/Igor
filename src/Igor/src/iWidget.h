@@ -461,6 +461,10 @@ namespace Igor
         */
         iaString getInfo() const;
 
+		/*! \returns the widget that is currently in focus
+		*/
+		static iWidget* getKeyboardFocusWidget();
+
 	protected:
 
         /*! if true this widget will process mouse clicks outside of the widgets boundings

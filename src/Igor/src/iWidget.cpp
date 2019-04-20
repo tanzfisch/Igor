@@ -29,6 +29,11 @@ namespace Igor
         }
     }
 
+	iWidget* iWidget::getKeyboardFocusWidget()
+	{
+		return _keyboardFocus;
+	}
+
     iaString iWidget::getInfo() const
     {
         iaString result;

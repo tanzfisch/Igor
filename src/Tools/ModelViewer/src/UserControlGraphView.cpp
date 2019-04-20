@@ -36,7 +36,6 @@ UserControlGraphView::~UserControlGraphView()
 void UserControlGraphView::setRootNode(uint64 root)
 {
     _root = root;
-
     refresh();
 }
 

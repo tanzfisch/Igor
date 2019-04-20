@@ -30,9 +30,10 @@
 #define __iDIALOGMANAGER__
 
 #include <iDefines.h>
-#include <iaSingleton.h>
-
+#include <iKeyboard.h>
 #include <iWidget.h>
+
+#include <iaSingleton.h>
 
 #include <vector>
 #include <map>
@@ -266,6 +267,30 @@ namespace Igor
         */
         void unregisterMouseWheelDelegate(iMouseWheelDelegate wheel_delegate);
 
+		/*! register delegate to "redirected" key down event
+
+		\param delegate the delegate to register
+		*/
+		void registerKeyDownDelegate(iKeyDownDelegate delegate);
+
+		/*! unregister delegate from "redirected" key down event
+
+		\param delegate the delegate to unregister
+		*/
+		void unregisterKeyDownDelegate(iKeyDownDelegate delegate);
+
+		/*! register delegate to "redirected" key up event
+
+		\param delegate the delegate to register
+		*/
+		void registerKeyUpDelegate(iKeyUpDelegate delegate);
+
+		/*! unregister delegate from "redirected" key up event
+
+		\param delegate the delegate to unregister
+		*/
+		void unregisterKeyUpDelegate(iKeyUpDelegate delegate);
+
 	private:
 
         /*! registered widget types
@@ -282,11 +307,19 @@ namespace Igor
 
         /*! mouse key down event
         */
-        iMouseKeyDownEvent _keyDownEvent;
+        iMouseKeyDownEvent _mouseKeyDownEvent;
 
         /*! mouse key up event
         */
-        iMouseKeyUpEvent _keyUpEvent;
+        iMouseKeyUpEvent _mouseKeyUpEvent;
+
+		/*! keyboard down event
+		*/
+		iKeyDownEvent _keyDownEvent;
+
+		/*! keyboard up event
+		*/
+		iKeyUpEvent _keyUpEvent;
 
         /*! mouse double click event
         */
