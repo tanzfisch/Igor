@@ -91,11 +91,11 @@ Player::Player(iScene* scene, iView* view, const iaMatrixd& matrix)
 
     iNodeEmitter* emitterLeftGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     _emitterLeftGunNodeID = emitterLeftGun->getID();
-    emitterLeftGun->setType(iEmitterType::Point);
+    emitterLeftGun->setEmitterType(iEmitterType::Point);
 
     iNodeEmitter* emitterRightGun = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     _emitterRightGunNodeID = emitterRightGun->getID();
-    emitterRightGun->setType(iEmitterType::Point);
+    emitterRightGun->setEmitterType(iEmitterType::Point);
 
     transformNode->insertNode(transformRecoilLeftGun);
     transformNode->insertNode(transformRecoilRightGun);

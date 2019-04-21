@@ -151,7 +151,7 @@ EnemyDestroyed::EnemyDestroyed(iScene* scene, const iaMatrixd& matrix)
     particleSystem3->start();
 
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-    emitter->setType(iEmitterType::Sphere);
+    emitter->setEmitterType(iEmitterType::Sphere);
     emitter->setSize(1);
     particleSystem->setEmitter(emitter->getID());
     particleSystem2->setEmitter(emitter->getID());

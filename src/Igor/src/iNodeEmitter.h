@@ -53,11 +53,11 @@ namespace Igor
 
         \param emitterType emitter type
         */
-        void setType(iEmitterType emitterType);
+        void setEmitterType(iEmitterType emitterType);
 
         /*! \returns the type of the emitter
         */
-        iEmitterType getType() const;
+        iEmitterType getEmitterType() const;
 
         /*! sets size of emitter
 

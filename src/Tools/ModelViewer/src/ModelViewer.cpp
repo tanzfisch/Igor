@@ -4,6 +4,7 @@
 
 #include "ModelViewer.h"
 #include "Widget3DLocator.h"
+#include "Widget3DEmitter.h"
 
 #include <iaConsole.h>
 #include <iaDirectory.h>
@@ -723,8 +724,11 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
 		switch (node->getType())
 		{
 		case iNodeType::iNodeTransform:
-			_widget3D = new Widget3DLocator(&_window, &_viewWidget3D, _sceneWidget3D);
-			
+			_widget3D = new Widget3DLocator(&_window, &_viewWidget3D, _sceneWidget3D);			
+			break;
+
+		case iNodeType::iNodeEmitter:
+			_widget3D = new Widget3DEmitter(&_window, &_viewWidget3D, _sceneWidget3D);
 			break;
 		}
 	}

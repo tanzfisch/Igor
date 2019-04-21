@@ -30,12 +30,12 @@ namespace Igor
         _emitter.setSize(node->_emitter.getSize());
     }
 
-    void iNodeEmitter::setType(iEmitterType emitterType)
+    void iNodeEmitter::setEmitterType(iEmitterType emitterType)
     {
         _emitter.setType(emitterType);
     }
 
-    iEmitterType iNodeEmitter::getType() const
+    iEmitterType iNodeEmitter::getEmitterType() const
     {
         return _emitter.getType();
     }

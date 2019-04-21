@@ -39,7 +39,7 @@ void UserControlEmitter::updateNode()
         float32 size = iaString::atof(_textSize->getText());
         node->setSize(size);
 
-        node->setType(static_cast<iEmitterType>(_selectType->getSelectedIndex()));
+        node->setEmitterType(static_cast<iEmitterType>(_selectType->getSelectedIndex()));
     }
 }
 
@@ -50,7 +50,7 @@ void UserControlEmitter::updateGUI()
     if (node != nullptr)
     {
         _textSize->setText(iaString::ftoa(node->getSize(), 4));
-        _selectType->setSelection(static_cast<uint32>(node->getType()));
+        _selectType->setSelection(static_cast<uint32>(node->getEmitterType()));
     }
 }
 
