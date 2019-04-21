@@ -176,6 +176,7 @@
     <ClInclude Include="..\src\UserControlProperties.h" />
     <ClInclude Include="..\src\UserControlTransformation.h" />
     <ClInclude Include="..\src\Widget3D.h" />
+    <ClInclude Include="..\src\Widget3DLocator.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
@@ -195,6 +196,7 @@
     <ClCompile Include="..\src\UserControlProperties.cpp" />
     <ClCompile Include="..\src\UserControlTransformation.cpp" />
     <ClCompile Include="..\src\Widget3D.cpp" />
+    <ClCompile Include="..\src\Widget3DLocator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

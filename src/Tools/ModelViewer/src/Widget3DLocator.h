@@ -26,66 +26,62 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __WIDGET3D__
-#define __WIDGET3D__
+#ifndef __WIDGET3DLOCATOR__
+#define __WIDGET3DLOCATOR__
 
-#include <iNode.h>
+#include <iMesh.h>
+#include <iMaterial.h>
 using namespace Igor;
+
+#include "Widget3D.h"
 
 namespace Igor
 {
-	class iScene;
-	class iWindow;
-	class iView;
+	class iTargetMaterial;
+	class iNodeTransform;
 }
 
-class Widget3D
+class Widget3DLocator : public Widget3D
 {
 
 public:
 
-	/*! init 3d widget
+	/*! init 3d widget for loactors
 
 	\param window the window this widget is visible at
 	\param view the view this widget it visible at
 	\param scene the scene to use for the 3d widget
 	\param nodeID id of the node to represent
 	*/
-	Widget3D(iWindow* window, iView* view, iScene* scene);
+	Widget3DLocator(iWindow* window, iView* view, iScene* scene);
 
-	/*! default dtor
+	/*! cleanup
 	*/
-	virtual ~Widget3D() = default;
+	virtual ~Widget3DLocator() override;
+
+private:
+
+	/*! target materials
+	*/
+	iTargetMaterial* _red = nullptr;
+	iTargetMaterial* _green = nullptr;
+	iTargetMaterial* _blue = nullptr;
+
+	iNodeTransform* _rootTransform = nullptr;
+
+	uint64 _material = iMaterial::INVALID_MATERIAL_ID;
 
 	/*! renders the 3d widget
 	*/
-	void setNodeID(uint64 nodeID);
+	void update() override;
 
-	/*! \returns node id
+	/*! create a mesh the represents a locator
 	*/
-	uint64 getNodeID() const;
+	shared_ptr<iMesh> createLocatorMesh();
 
-protected:
-
-	/*! renders the 3d widget
+	/*! create the locator
 	*/
-	virtual void update() = 0;
-
-	/*! the scene to use for the 3d widget
-	*/
-	iScene* _scene = nullptr;
-
-	/*! the window this widget is visible at
-	*/
-	iWindow* _window = nullptr;
-
-	/*! the view this widget it visible at
-	*/
-	iView* _view = nullptr;
-
-	/*! id of node to represent
-	*/
-	uint64 _nodeID = iNode::INVALID_NODE_ID;
+	void createLocator();
 
 };
 

@@ -30,6 +30,7 @@
 #define __MODELVIEWER__
 
 #include "Manipulator.h"
+#include "Widget3D.h"
 
 #include <Igor.h>
 #include <iWindow.h>
@@ -123,6 +124,8 @@ private:
     iStatisticsVisualizer _statisticsVisualizer;
 
     Manipulator* _manipulator = nullptr;
+
+	Widget3D* _widget3D = nullptr;
 
     void resetManipulatorMode();
     void setManipulatorMode(ManipulatorMode modifierMode);
