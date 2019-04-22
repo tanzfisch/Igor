@@ -125,6 +125,7 @@ void Widget3DEmitter::update()
 			break;
 
 		case iEmitterType::Sphere:
+			mesh = createSphere();
 			material = _materialVolume;
 			break;
 
@@ -181,6 +182,15 @@ shared_ptr<iMesh> Widget3DEmitter::createCube()
 	iMeshBuilder meshBuilder;
 
 	iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
+	meshBuilder.calcNormals(true);
+	return meshBuilder.createMesh();
+}
+
+shared_ptr<iMesh> Widget3DEmitter::createSphere()
+{
+	iMeshBuilder meshBuilder;
+
+	iMeshBuilderUtils::addSphere(meshBuilder, 1, 32);
 	meshBuilder.calcNormals(true);
 	return meshBuilder.createMesh();
 }

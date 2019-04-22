@@ -47,6 +47,14 @@ namespace Igor
         */
         void Igor_API addCylinder(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments = 16, bool hasCaps = true);
 
+		/*! adds a sphere to the given mesh builder instance
+
+		\param meshBuilder the given mesh builder instance
+		\param radius the radius of the cylinder
+		\param segments the segment count of the cylinder
+		*/
+		void Igor_API addSphere(iMeshBuilder& meshBuilder, float32 radius, uint32 segments = 16);
+
         /*! adds a box to the given mesh builder instance
 
         \param meshBuilder the given mesh builder instance

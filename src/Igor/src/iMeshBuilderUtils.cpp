@@ -6,168 +6,217 @@
 
 namespace Igor
 {
-    namespace iMeshBuilderUtils
-    {
+	namespace iMeshBuilderUtils
+	{
 
-        void addRectangle(iMeshBuilder& meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ)
-        {
-            const uint32 firstIndex = meshBuilder.getVertexCount();
+		void addRectangle(iMeshBuilder& meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ)
+		{
+			const uint32 firstIndex = meshBuilder.getVertexCount();
 
-            meshBuilder.addVertex(iaVector3f(x, 0, z + sizeZ));
-            meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z + sizeZ));
-            meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z));
-            meshBuilder.addVertex(iaVector3f(x, 0, z));
+			meshBuilder.addVertex(iaVector3f(x, 0, z + sizeZ));
+			meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z + sizeZ));
+			meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z));
+			meshBuilder.addVertex(iaVector3f(x, 0, z));
 
-            meshBuilder.addTriangle(0, 1, 2, firstIndex);
-            meshBuilder.addTriangle(2, 3, 0, firstIndex);
-        }
+			meshBuilder.addTriangle(0, 1, 2, firstIndex);
+			meshBuilder.addTriangle(2, 3, 0, firstIndex);
+		}
 
-        void addCylinder(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments, bool hasCaps)
-        {
-            con_assert(segments >= 3, "parameters out of range");
-            con_assert(radius > 0.0f, "parameters out of range");
-            con_assert(height > 0.0f, "parameters out of range");
+		void addSphere(iMeshBuilder & meshBuilder, float32 radius, uint32 segments)
+		{
+			con_assert(segments >= 3, "parameters out of range");
+			con_assert(radius > 0.0f, "parameters out of range");
 
-            const float32 step = (2.0f * M_PI) / segments;
+			const float32 step = (2.0f * M_PI) / segments;
+			const float32 stepH = (radius * 2) / segments;
 
-            const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 firstIndex = meshBuilder.getVertexCount();
 
-            for (uint32 i = 0; i < segments; ++i)
-            {
-                meshBuilder.addVertex(iaVector3f(sin(i*step) * radius, 0, cos(i*step) * radius));
-                meshBuilder.addVertex(iaVector3f(sin(i*step) * radius, height, cos(i*step) * radius));
-            }
+			// skip first and 6th
+			for (uint32 level = 1; level < segments; ++level)
+			{
+				float32 levelRadius = radius; // TODO sin cos?
 
-            uint32 bottomIndex = 0;
-            uint32 topIndex = 0;
+				for (uint32 segment = 0; segment < segments; ++segment)
+				{
+					iaVector3f vec(sin(segment * step) * levelRadius, -radius + level * stepH, cos(segment * step) * levelRadius);
+					meshBuilder.addVertex(vec);
+				}
+			}
 
-            if (hasCaps)
-            {
-                bottomIndex = meshBuilder.addVertex(iaVector3f(0, 0, 0));
-                topIndex = meshBuilder.addVertex(iaVector3f(0, height, 0));
-            }
+			uint32 bottomIndex = 0;
+			uint32 topIndex = 0;
 
-            const uint32 segmentVertices = 2;
-            const uint32 moduloValue = segments * segmentVertices;
+			bottomIndex = meshBuilder.addVertex(iaVector3f(0, -radius, 0));
+			topIndex = meshBuilder.addVertex(iaVector3f(0, radius, 0));
 
-            for (uint32 segment = 0; segment < segments; ++segment)
-            {
-                uint32 segmentIndex = (segment * segmentVertices);
-                meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 0) % moduloValue, firstIndex);
-                meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 1) % moduloValue, firstIndex);
+			const uint32 segmentVertices = 2;
+			const uint32 moduloValue = segments * segmentVertices;
 
-                if (hasCaps)
-                {
-                    meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 2) % moduloValue) + firstIndex);
-                    meshBuilder.addTriangle(((segmentIndex + 3) % moduloValue) + firstIndex, topIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
-                }
-            }
-        }
 
-        void addBox(iMeshBuilder& meshBuilder, float32 width, float32 height, float32 depth)
-        {
-            con_assert(width > 0.0f, "parameters out of range");
-            con_assert(height > 0.0f, "parameters out of range");
-            con_assert(depth > 0.0f, "parameters out of range");
+			for (uint32 segment = 0; segment < segments; ++segment)
+			{
+//				meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 2) % moduloValue) + firstIndex);
+	//			meshBuilder.addTriangle(((segmentIndex + 3) % moduloValue) + firstIndex, topIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
+			}
 
-            const uint32 firstIndex = meshBuilder.getVertexCount();
+		/*	for (uint32 level = 0; level < segments; ++level)
+			{
+				for (uint32 segment = 0; segment < segments; ++segment)
+				{
+					uint32 segmentIndex = (segment * segmentVertices);
+					meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 0) % moduloValue, firstIndex);
+					meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 1) % moduloValue, firstIndex);
+				}
+			}*/
+		}
 
-            meshBuilder.addVertex(iaVector3f(-0.5, 0, 0.5));
-            meshBuilder.addVertex(iaVector3f(-0.5, 1, 0.5));
-            meshBuilder.addVertex(iaVector3f(0.5, 1, 0.5));
-            meshBuilder.addVertex(iaVector3f(0.5, 0, 0.5));
-            meshBuilder.addVertex(iaVector3f(-0.5, 0, -0.5));
-            meshBuilder.addVertex(iaVector3f(-0.5, 1, -0.5));
-            meshBuilder.addVertex(iaVector3f(0.5, 1, -0.5));
-            meshBuilder.addVertex(iaVector3f(0.5, 0, -0.5));
+		void addCylinder(iMeshBuilder & meshBuilder, float32 radius, float32 height, uint32 segments, bool hasCaps)
+		{
+			con_assert(segments >= 3, "parameters out of range");
+			con_assert(radius > 0.0f, "parameters out of range");
+			con_assert(height > 0.0f, "parameters out of range");
 
-            meshBuilder.addTriangle(2, 1, 0, firstIndex);
-            meshBuilder.addTriangle(3, 2, 0, firstIndex);
-            meshBuilder.addTriangle(7, 4, 5, firstIndex);
-            meshBuilder.addTriangle(6, 7, 5, firstIndex);
-            meshBuilder.addTriangle(2, 5, 1, firstIndex);
-            meshBuilder.addTriangle(2, 6, 5, firstIndex);
-            meshBuilder.addTriangle(3, 0, 4, firstIndex);
-            meshBuilder.addTriangle(7, 3, 4, firstIndex);
-            meshBuilder.addTriangle(7, 2, 3, firstIndex);
-            meshBuilder.addTriangle(6, 2, 7, firstIndex);
-            meshBuilder.addTriangle(4, 0, 1, firstIndex);
-            meshBuilder.addTriangle(5, 4, 1, firstIndex);
-        }
+			const float32 step = (2.0f * M_PI) / segments;
 
-        void addCone(iMeshBuilder& meshBuilder, float32 radius, float32 height, uint32 segments)
-        {
-            con_assert(height > 0.0f, "parameters out of range");
-            con_assert(radius > 0.0f, "parameters out of range");
-            con_assert(segments >= 3, "parameters out of range");
+			const uint32 firstIndex = meshBuilder.getVertexCount();
 
-            const float32 step = (2.0f * M_PI) / segments;
-            const uint32 firstIndex = meshBuilder.getVertexCount();
+			for (uint32 i = 0; i < segments; ++i)
+			{
+				meshBuilder.addVertex(iaVector3f(sin(i * step) * radius, 0, cos(i * step) * radius));
+				meshBuilder.addVertex(iaVector3f(sin(i * step) * radius, height, cos(i * step) * radius));
+			}
 
-            for (uint32 i = 0; i < segments; ++i)
-            {
-                meshBuilder.addVertex(iaVector3f(sin(i*step), 0, cos(i*step)));
-            }
+			uint32 bottomIndex = 0;
+			uint32 topIndex = 0;
 
-            const uint32 bottomIndex = meshBuilder.addVertex(iaVector3f(0, 0, 0));
-            const uint32 tipIndex = meshBuilder.addVertex(iaVector3f(0, height, 0));
+			if (hasCaps)
+			{
+				bottomIndex = meshBuilder.addVertex(iaVector3f(0, 0, 0));
+				topIndex = meshBuilder.addVertex(iaVector3f(0, height, 0));
+			}
 
-            const uint32 moduloValue = segments;
+			const uint32 segmentVertices = 2;
+			const uint32 moduloValue = segments * segmentVertices;
 
-            for (uint32 i = 0; i < segments; ++i)
-            {
-                uint32 segmentIndex = i;
-                meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + firstIndex, tipIndex, ((segmentIndex + 0) % moduloValue) + firstIndex);
-                meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
-            }
-        }
+			for (uint32 segment = 0; segment < segments; ++segment)
+			{
+				uint32 segmentIndex = (segment * segmentVertices);
+				meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 0) % moduloValue, firstIndex);
+				meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 1) % moduloValue, firstIndex);
 
-        void addCircle(iMeshBuilder& meshBuilder, float32 radius, uint32 segments)
-        {
-            con_assert(radius > 0.0f, "parameters out of range");
-            con_assert(segments >= 3, "parameters out of range");
+				if (hasCaps)
+				{
+					meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 2) % moduloValue) + firstIndex);
+					meshBuilder.addTriangle(((segmentIndex + 3) % moduloValue) + firstIndex, topIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
+				}
+			}
+		}
 
-            const float32 step = (2.0f * M_PI) / segments;
-            const uint32 firstIndex = meshBuilder.getVertexCount();
+		void addBox(iMeshBuilder & meshBuilder, float32 width, float32 height, float32 depth)
+		{
+			con_assert(width > 0.0f, "parameters out of range");
+			con_assert(height > 0.0f, "parameters out of range");
+			con_assert(depth > 0.0f, "parameters out of range");
 
-            for (uint32 i = 0; i < segments; ++i)
-            {
-                meshBuilder.addVertex(iaVector3f(sin(i*step), 0, cos(i*step)));
-            }
+			const uint32 firstIndex = meshBuilder.getVertexCount();
 
-            const uint32 centerIndex = meshBuilder.addVertex(iaVector3f(0, 0, 0));
-            const uint32 moduloValue = segments;
+			meshBuilder.addVertex(iaVector3f(-0.5, 0, 0.5));
+			meshBuilder.addVertex(iaVector3f(-0.5, 1, 0.5));
+			meshBuilder.addVertex(iaVector3f(0.5, 1, 0.5));
+			meshBuilder.addVertex(iaVector3f(0.5, 0, 0.5));
+			meshBuilder.addVertex(iaVector3f(-0.5, 0, -0.5));
+			meshBuilder.addVertex(iaVector3f(-0.5, 1, -0.5));
+			meshBuilder.addVertex(iaVector3f(0.5, 1, -0.5));
+			meshBuilder.addVertex(iaVector3f(0.5, 0, -0.5));
 
-            for (uint32 segmentIndex = 0; segmentIndex < segments; ++segmentIndex)
-            {
-                meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + firstIndex, centerIndex, ((segmentIndex + 0) % moduloValue) + firstIndex);
-            }
-        }
+			meshBuilder.addTriangle(2, 1, 0, firstIndex);
+			meshBuilder.addTriangle(3, 2, 0, firstIndex);
+			meshBuilder.addTriangle(7, 4, 5, firstIndex);
+			meshBuilder.addTriangle(6, 7, 5, firstIndex);
+			meshBuilder.addTriangle(2, 5, 1, firstIndex);
+			meshBuilder.addTriangle(2, 6, 5, firstIndex);
+			meshBuilder.addTriangle(3, 0, 4, firstIndex);
+			meshBuilder.addTriangle(7, 3, 4, firstIndex);
+			meshBuilder.addTriangle(7, 2, 3, firstIndex);
+			meshBuilder.addTriangle(6, 2, 7, firstIndex);
+			meshBuilder.addTriangle(4, 0, 1, firstIndex);
+			meshBuilder.addTriangle(5, 4, 1, firstIndex);
+		}
 
-        void addRing(iMeshBuilder& meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments)
-        {
-            con_assert(innerRadius < outerRadius, "parameters out of range");
-            con_assert(innerRadius > 0.0f, "parameters out of range");
-            con_assert(segments >= 3, "parameters out of range");
+		void addCone(iMeshBuilder & meshBuilder, float32 radius, float32 height, uint32 segments)
+		{
+			con_assert(height > 0.0f, "parameters out of range");
+			con_assert(radius > 0.0f, "parameters out of range");
+			con_assert(segments >= 3, "parameters out of range");
 
-            const float32 step = (2.0f * M_PI) / segments;
-            const uint32 firstIndex = meshBuilder.getVertexCount();
+			const float32 step = (2.0f * M_PI) / segments;
+			const uint32 firstIndex = meshBuilder.getVertexCount();
 
-            for (uint32 i = 0; i < segments; ++i)
-            {
-                meshBuilder.addVertex(iaVector3f(sin(i*step) * innerRadius, 0, cos(i*step) * innerRadius));
-                meshBuilder.addVertex(iaVector3f(sin(i*step) * outerRadius, 0, cos(i*step) * outerRadius));
-            }
+			for (uint32 i = 0; i < segments; ++i)
+			{
+				meshBuilder.addVertex(iaVector3f(sin(i * step), 0, cos(i * step)));
+			}
 
-            const uint32 segmentVertices = 2;
-            const uint32 moduloValue = segments * segmentVertices;
+			const uint32 bottomIndex = meshBuilder.addVertex(iaVector3f(0, 0, 0));
+			const uint32 tipIndex = meshBuilder.addVertex(iaVector3f(0, height, 0));
 
-            for (uint32 segment = 0; segment < segments; ++segment)
-            {
-                uint32 segmentIndex = segment * segmentVertices;
-                meshBuilder.addTriangle((segmentIndex + 0) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 2) % moduloValue, firstIndex);
-                meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 2) % moduloValue, firstIndex);
-            }
-        }
-    };
+			const uint32 moduloValue = segments;
+
+			for (uint32 i = 0; i < segments; ++i)
+			{
+				uint32 segmentIndex = i;
+				meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + firstIndex, tipIndex, ((segmentIndex + 0) % moduloValue) + firstIndex);
+				meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
+			}
+		}
+
+		void addCircle(iMeshBuilder & meshBuilder, float32 radius, uint32 segments)
+		{
+			con_assert(radius > 0.0f, "parameters out of range");
+			con_assert(segments >= 3, "parameters out of range");
+
+			const float32 step = (2.0f * M_PI) / segments;
+			const uint32 firstIndex = meshBuilder.getVertexCount();
+
+			for (uint32 i = 0; i < segments; ++i)
+			{
+				meshBuilder.addVertex(iaVector3f(sin(i * step), 0, cos(i * step)));
+			}
+
+			const uint32 centerIndex = meshBuilder.addVertex(iaVector3f(0, 0, 0));
+			const uint32 moduloValue = segments;
+
+			for (uint32 segmentIndex = 0; segmentIndex < segments; ++segmentIndex)
+			{
+				meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + firstIndex, centerIndex, ((segmentIndex + 0) % moduloValue) + firstIndex);
+			}
+		}
+
+		void addRing(iMeshBuilder & meshBuilder, float32 innerRadius, float32 outerRadius, uint32 segments)
+		{
+			con_assert(innerRadius < outerRadius, "parameters out of range");
+			con_assert(innerRadius > 0.0f, "parameters out of range");
+			con_assert(segments >= 3, "parameters out of range");
+
+			const float32 step = (2.0f * M_PI) / segments;
+			const uint32 firstIndex = meshBuilder.getVertexCount();
+
+			for (uint32 i = 0; i < segments; ++i)
+			{
+				meshBuilder.addVertex(iaVector3f(sin(i * step) * innerRadius, 0, cos(i * step) * innerRadius));
+				meshBuilder.addVertex(iaVector3f(sin(i * step) * outerRadius, 0, cos(i * step) * outerRadius));
+			}
+
+			const uint32 segmentVertices = 2;
+			const uint32 moduloValue = segments * segmentVertices;
+
+			for (uint32 segment = 0; segment < segments; ++segment)
+			{
+				uint32 segmentIndex = segment * segmentVertices;
+				meshBuilder.addTriangle((segmentIndex + 0) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 2) % moduloValue, firstIndex);
+				meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 2) % moduloValue, firstIndex);
+			}
+		}
+	};
 };

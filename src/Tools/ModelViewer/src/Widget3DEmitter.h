@@ -112,6 +112,10 @@ private:
 	/*! creates a cube mesh
 	*/
 	shared_ptr<iMesh> createSquare();
+
+	/*! creates a sphere mesh
+	*/
+	shared_ptr<iMesh> createSphere();
 };
 
 #endif
