@@ -32,7 +32,7 @@ namespace Igor
 
 			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
-			// skip first and 6th
+			// generate vertices
 			for (uint32 level = 1; level < segments; ++level)
 			{
 				float v = level * stepLat;
@@ -54,6 +54,7 @@ namespace Igor
 			uint32 topIndex = meshBuilder.addVertex(iaVector3f(0, radius, 0));
 			meshBuilder.setNormal(topIndex, iaVector3f(0, -1, 0));
 
+			// top and bottom triangles
 			uint32 topOffset = bottomIndex - segments;
 			for (uint32 segment = 0; segment < segments; ++segment)
 			{
@@ -61,6 +62,7 @@ namespace Igor
 				meshBuilder.addTriangle(topOffset + (segment + 1) % segments, bottomIndex, topOffset + segment, offsetIndex);
 			}
 
+			// belly triangles
 			for (uint32 level = 0; level < segments - 2; ++level)
 			{
 				uint32 levelOffset = level * segments;
