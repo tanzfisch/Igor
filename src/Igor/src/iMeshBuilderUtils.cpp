@@ -36,12 +36,13 @@ namespace Igor
 			for (uint32 level = 1; level < segments; ++level)
 			{
 				float v = level * stepLat;
+				float sinvr = sin(v) * radius;
 
 				for (uint32 segment = 0; segment < segments; ++segment)
 				{
 					float u = segment * stepLon;
-
-					iaVector3f vec(cos(u) * sin(v) * radius, cos(v) * radius, sin(u) * sin(v) * radius);
+					
+					iaVector3f vec(cos(u) * sinvr, cos(v) * radius, sin(u) * sinvr);
 					meshBuilder.addVertex(vec);
 					vec.normalize();
 					meshBuilder.setNormal(meshBuilder.getVertexCount() - 1, vec);
