@@ -11,64 +11,65 @@ namespace Igor
 
 		void addRectangle(iMeshBuilder& meshBuilder, float32 x, float32 z, float32 sizeX, float32 sizeZ)
 		{
-			const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
 			meshBuilder.addVertex(iaVector3f(x, 0, z + sizeZ));
 			meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z + sizeZ));
 			meshBuilder.addVertex(iaVector3f(x + sizeX, 0, z));
 			meshBuilder.addVertex(iaVector3f(x, 0, z));
 
-			meshBuilder.addTriangle(0, 1, 2, firstIndex);
-			meshBuilder.addTriangle(2, 3, 0, firstIndex);
+			meshBuilder.addTriangle(0, 1, 2, offsetIndex);
+			meshBuilder.addTriangle(2, 3, 0, offsetIndex);
 		}
 
 		void addSphere(iMeshBuilder & meshBuilder, float32 radius, uint32 segments)
 		{
-			con_assert(segments >= 3, "parameters out of range");
+			con_assert(segments >= 4, "parameters out of range");
 			con_assert(radius > 0.0f, "parameters out of range");
 
-			const float32 step = (2.0f * M_PI) / segments;
-			const float32 stepH = (radius * 2) / segments;
+			const float32 stepLon = (2.0f * M_PI) / segments;
+			const float32 stepLat = M_PI / segments;
 
-			const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
 			// skip first and 6th
 			for (uint32 level = 1; level < segments; ++level)
 			{
-				float32 levelRadius = radius; // TODO sin cos?
+				float v = level * stepLat;
 
 				for (uint32 segment = 0; segment < segments; ++segment)
 				{
-					iaVector3f vec(sin(segment * step) * levelRadius, -radius + level * stepH, cos(segment * step) * levelRadius);
+					float u = segment * stepLon;
+
+					iaVector3f vec(cos(u) * sin(v) * radius, cos(v) * radius, sin(u) * sin(v) * radius);
 					meshBuilder.addVertex(vec);
+					vec.normalize();
+					meshBuilder.setNormal(meshBuilder.getVertexCount() - 1, vec);
 				}
 			}
 
-			uint32 bottomIndex = 0;
-			uint32 topIndex = 0;
+			uint32 bottomIndex = meshBuilder.addVertex(iaVector3f(0, -radius, 0));
+			meshBuilder.setNormal(bottomIndex, iaVector3f(0, -1, 0));
+			uint32 topIndex = meshBuilder.addVertex(iaVector3f(0, radius, 0));
+			meshBuilder.setNormal(topIndex, iaVector3f(0, -1, 0));
 
-			bottomIndex = meshBuilder.addVertex(iaVector3f(0, -radius, 0));
-			topIndex = meshBuilder.addVertex(iaVector3f(0, radius, 0));
-
-			const uint32 segmentVertices = 2;
-			const uint32 moduloValue = segments * segmentVertices;
-
-
+			uint32 topOffset = bottomIndex - segments;
 			for (uint32 segment = 0; segment < segments; ++segment)
 			{
-//				meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 2) % moduloValue) + firstIndex);
-	//			meshBuilder.addTriangle(((segmentIndex + 3) % moduloValue) + firstIndex, topIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
+				meshBuilder.addTriangle(segment, topIndex, (segment + 1) % segments, offsetIndex);
+				meshBuilder.addTriangle(topOffset + (segment + 1) % segments, bottomIndex, topOffset + segment, offsetIndex);
 			}
 
-		/*	for (uint32 level = 0; level < segments; ++level)
+			for (uint32 level = 0; level < segments - 2; ++level)
 			{
+				uint32 levelOffset = level * segments;
+
 				for (uint32 segment = 0; segment < segments; ++segment)
 				{
-					uint32 segmentIndex = (segment * segmentVertices);
-					meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 0) % moduloValue, firstIndex);
-					meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 1) % moduloValue, firstIndex);
+					meshBuilder.addTriangle(segment, (segment + 1) % segments, segment + segments, offsetIndex + levelOffset);
+					meshBuilder.addTriangle(segment + segments, (segment + 1) % segments, (segment + 1) % segments + segments, offsetIndex + levelOffset);
 				}
-			}*/
+			}
 		}
 
 		void addCylinder(iMeshBuilder & meshBuilder, float32 radius, float32 height, uint32 segments, bool hasCaps)
@@ -79,7 +80,7 @@ namespace Igor
 
 			const float32 step = (2.0f * M_PI) / segments;
 
-			const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
 			for (uint32 i = 0; i < segments; ++i)
 			{
@@ -102,13 +103,13 @@ namespace Igor
 			for (uint32 segment = 0; segment < segments; ++segment)
 			{
 				uint32 segmentIndex = (segment * segmentVertices);
-				meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 0) % moduloValue, firstIndex);
-				meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 1) % moduloValue, firstIndex);
+				meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 0) % moduloValue, offsetIndex);
+				meshBuilder.addTriangle((segmentIndex + 2) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 1) % moduloValue, offsetIndex);
 
 				if (hasCaps)
 				{
-					meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 2) % moduloValue) + firstIndex);
-					meshBuilder.addTriangle(((segmentIndex + 3) % moduloValue) + firstIndex, topIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
+					meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + offsetIndex, bottomIndex, ((segmentIndex + 2) % moduloValue) + offsetIndex);
+					meshBuilder.addTriangle(((segmentIndex + 3) % moduloValue) + offsetIndex, topIndex, ((segmentIndex + 1) % moduloValue) + offsetIndex);
 				}
 			}
 		}
@@ -119,7 +120,7 @@ namespace Igor
 			con_assert(height > 0.0f, "parameters out of range");
 			con_assert(depth > 0.0f, "parameters out of range");
 
-			const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
 			meshBuilder.addVertex(iaVector3f(-0.5, 0, 0.5));
 			meshBuilder.addVertex(iaVector3f(-0.5, 1, 0.5));
@@ -130,18 +131,18 @@ namespace Igor
 			meshBuilder.addVertex(iaVector3f(0.5, 1, -0.5));
 			meshBuilder.addVertex(iaVector3f(0.5, 0, -0.5));
 
-			meshBuilder.addTriangle(2, 1, 0, firstIndex);
-			meshBuilder.addTriangle(3, 2, 0, firstIndex);
-			meshBuilder.addTriangle(7, 4, 5, firstIndex);
-			meshBuilder.addTriangle(6, 7, 5, firstIndex);
-			meshBuilder.addTriangle(2, 5, 1, firstIndex);
-			meshBuilder.addTriangle(2, 6, 5, firstIndex);
-			meshBuilder.addTriangle(3, 0, 4, firstIndex);
-			meshBuilder.addTriangle(7, 3, 4, firstIndex);
-			meshBuilder.addTriangle(7, 2, 3, firstIndex);
-			meshBuilder.addTriangle(6, 2, 7, firstIndex);
-			meshBuilder.addTriangle(4, 0, 1, firstIndex);
-			meshBuilder.addTriangle(5, 4, 1, firstIndex);
+			meshBuilder.addTriangle(2, 1, 0, offsetIndex);
+			meshBuilder.addTriangle(3, 2, 0, offsetIndex);
+			meshBuilder.addTriangle(7, 4, 5, offsetIndex);
+			meshBuilder.addTriangle(6, 7, 5, offsetIndex);
+			meshBuilder.addTriangle(2, 5, 1, offsetIndex);
+			meshBuilder.addTriangle(2, 6, 5, offsetIndex);
+			meshBuilder.addTriangle(3, 0, 4, offsetIndex);
+			meshBuilder.addTriangle(7, 3, 4, offsetIndex);
+			meshBuilder.addTriangle(7, 2, 3, offsetIndex);
+			meshBuilder.addTriangle(6, 2, 7, offsetIndex);
+			meshBuilder.addTriangle(4, 0, 1, offsetIndex);
+			meshBuilder.addTriangle(5, 4, 1, offsetIndex);
 		}
 
 		void addCone(iMeshBuilder & meshBuilder, float32 radius, float32 height, uint32 segments)
@@ -151,7 +152,7 @@ namespace Igor
 			con_assert(segments >= 3, "parameters out of range");
 
 			const float32 step = (2.0f * M_PI) / segments;
-			const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
 			for (uint32 i = 0; i < segments; ++i)
 			{
@@ -166,8 +167,8 @@ namespace Igor
 			for (uint32 i = 0; i < segments; ++i)
 			{
 				uint32 segmentIndex = i;
-				meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + firstIndex, tipIndex, ((segmentIndex + 0) % moduloValue) + firstIndex);
-				meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + firstIndex, bottomIndex, ((segmentIndex + 1) % moduloValue) + firstIndex);
+				meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + offsetIndex, tipIndex, ((segmentIndex + 0) % moduloValue) + offsetIndex);
+				meshBuilder.addTriangle(((segmentIndex + 0) % moduloValue) + offsetIndex, bottomIndex, ((segmentIndex + 1) % moduloValue) + offsetIndex);
 			}
 		}
 
@@ -177,7 +178,7 @@ namespace Igor
 			con_assert(segments >= 3, "parameters out of range");
 
 			const float32 step = (2.0f * M_PI) / segments;
-			const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
 			for (uint32 i = 0; i < segments; ++i)
 			{
@@ -189,7 +190,7 @@ namespace Igor
 
 			for (uint32 segmentIndex = 0; segmentIndex < segments; ++segmentIndex)
 			{
-				meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + firstIndex, centerIndex, ((segmentIndex + 0) % moduloValue) + firstIndex);
+				meshBuilder.addTriangle(((segmentIndex + 1) % moduloValue) + offsetIndex, centerIndex, ((segmentIndex + 0) % moduloValue) + offsetIndex);
 			}
 		}
 
@@ -200,7 +201,7 @@ namespace Igor
 			con_assert(segments >= 3, "parameters out of range");
 
 			const float32 step = (2.0f * M_PI) / segments;
-			const uint32 firstIndex = meshBuilder.getVertexCount();
+			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
 			for (uint32 i = 0; i < segments; ++i)
 			{
@@ -214,8 +215,8 @@ namespace Igor
 			for (uint32 segment = 0; segment < segments; ++segment)
 			{
 				uint32 segmentIndex = segment * segmentVertices;
-				meshBuilder.addTriangle((segmentIndex + 0) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 2) % moduloValue, firstIndex);
-				meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 2) % moduloValue, firstIndex);
+				meshBuilder.addTriangle((segmentIndex + 0) % moduloValue, (segmentIndex + 1) % moduloValue, (segmentIndex + 2) % moduloValue, offsetIndex);
+				meshBuilder.addTriangle((segmentIndex + 1) % moduloValue, (segmentIndex + 3) % moduloValue, (segmentIndex + 2) % moduloValue, offsetIndex);
 			}
 		}
 	};
