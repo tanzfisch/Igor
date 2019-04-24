@@ -107,7 +107,7 @@ void Manipulator::init()
 
     _scene->getRoot()->insertNode(_rootTransform);
 
-    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial();
+    _materialCelShading = iMaterialResourceFactory::getInstance().createMaterial("ManipulatorCelShading");
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->addShaderSource("ModelViewer/yellow.frag", iShaderObjectType::Fragment);
     iMaterialResourceFactory::getInstance().getMaterial(_materialCelShading)->compileShader();
@@ -330,6 +330,8 @@ void Manipulator::deinit()
     iMaterialResourceFactory::getInstance().destroyTargetMaterial(_green);
     iMaterialResourceFactory::getInstance().destroyTargetMaterial(_blue);
     iMaterialResourceFactory::getInstance().destroyTargetMaterial(_cyan);
+	iMaterialResourceFactory::getInstance().destroyMaterial(_materialCelShading);
+	iMaterialResourceFactory::getInstance().destroyMaterial(_material);
 }
 
 void Manipulator::setVisible(bool visible)
