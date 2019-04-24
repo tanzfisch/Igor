@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{0B46C5AB-8277-4FAF-A654-67D52320EDEF}"
 EndProject
@@ -116,6 +116,35 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OMPF", "..\..\OMPF\vs\OMPF.vcxproj", "{E6761A09-13E3-42C5-94CD-636A5CDF5C5A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{150076EC-4F94-44FA-9AB3-ADF35CC13ADA} = {150076EC-4F94-44FA-9AB3-ADF35CC13ADA}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shaders", "shaders", "{70B0CE8D-2741-417A-88FE-8D22B915E49D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "igor", "igor", "{EFA7EEBF-F3E7-45B6-8D84-2752A45F9832}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\data\shaders\igor\default.vert = ..\..\..\data\shaders\igor\default.vert
+		..\..\..\data\shaders\igor\default_directional_light.frag = ..\..\..\data\shaders\igor\default_directional_light.frag
+		..\..\..\data\shaders\igor\default_ipo.vert = ..\..\..\data\shaders\igor\default_ipo.vert
+		..\..\..\data\shaders\igor\default_ipo_directional_light.frag = ..\..\..\data\shaders\igor\default_ipo_directional_light.frag
+		..\..\..\data\shaders\igor\solidColor.frag = ..\..\..\data\shaders\igor\solidColor.frag
+		..\..\..\data\shaders\igor\terrain.vert = ..\..\..\data\shaders\igor\terrain.vert
+		..\..\..\data\shaders\igor\terrain_directional_light.frag = ..\..\..\data\shaders\igor\terrain_directional_light.frag
+		..\..\..\data\shaders\igor\textured.vert = ..\..\..\data\shaders\igor\textured.vert
+		..\..\..\data\shaders\igor\textured_directional_light.frag = ..\..\..\data\shaders\igor\textured_directional_light.frag
+		..\..\..\data\shaders\igor\textured_ipo.vert = ..\..\..\data\shaders\igor\textured_ipo.vert
+		..\..\..\data\shaders\igor\textured_ipo_directional_light.frag = ..\..\..\data\shaders\igor\textured_ipo_directional_light.frag
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ModelViewer", "ModelViewer", "{F4AA71CA-1D8A-49E6-AC48-AB17B4F87133}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\data\shaders\ModelViewer\yellow.frag = ..\..\..\data\shaders\ModelViewer\yellow.frag
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ascent", "ascent", "{CD1FE640-EB74-4129-ACC5-F385F85B07E3}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\data\shaders\ascent\terrain.vert = ..\..\..\data\shaders\ascent\terrain.vert
+		..\..\..\data\shaders\ascent\terrain_directional_light.frag = ..\..\..\data\shaders\ascent\terrain_directional_light.frag
+		..\..\..\data\shaders\ascent\terrain_directional_light_1texture.frag = ..\..\..\data\shaders\ascent\terrain_directional_light_1texture.frag
 	EndProjectSection
 EndProject
 Global
@@ -338,5 +367,11 @@ Global
 		{4BFF697B-A2DC-472B-BA1A-4169BCEFA532} = {0B46C5AB-8277-4FAF-A654-67D52320EDEF}
 		{150076EC-4F94-44FA-9AB3-ADF35CC13ADA} = {0B46C5AB-8277-4FAF-A654-67D52320EDEF}
 		{E6761A09-13E3-42C5-94CD-636A5CDF5C5A} = {0B46C5AB-8277-4FAF-A654-67D52320EDEF}
+		{EFA7EEBF-F3E7-45B6-8D84-2752A45F9832} = {70B0CE8D-2741-417A-88FE-8D22B915E49D}
+		{F4AA71CA-1D8A-49E6-AC48-AB17B4F87133} = {70B0CE8D-2741-417A-88FE-8D22B915E49D}
+		{CD1FE640-EB74-4129-ACC5-F385F85B07E3} = {70B0CE8D-2741-417A-88FE-8D22B915E49D}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {098BE07D-7587-43C8-B6F6-259A53386771}
 	EndGlobalSection
 EndGlobal

@@ -86,6 +86,7 @@ namespace Igor
         static constexpr const char* UNIFORM_MATERIAL_SPECULAR = "igor_matSpecular";
         static constexpr const char* UNIFORM_MATERIAL_SHININESS = "igor_matShininess";
         static constexpr const char* UNIFORM_MATERIAL_EMISSIVE = "igor_matEmissive";
+		static constexpr const char* UNIFORM_MATERIAL_ALPHA = "igor_matAlpha";
 
         static constexpr const char* SAMPLER_TEXTURE = "igor_matTexture";
 
@@ -237,6 +238,10 @@ namespace Igor
         /*! id of shader property material shininess
         */
         int32 _matShininess;
+
+		/*! if of shader property material alpha
+		*/
+		int32 _matAlpha;
 
         /*! id of shader property material emissive
         */

@@ -27,6 +27,11 @@ float32 iTargetMaterial::getShininess() const
     return _shininess;
 }
 
+float32 iTargetMaterial::getAlpha() const
+{
+	return _alpha;
+}
+
 bool iTargetMaterial::hasTextures() const
 {
     return _textures.size() > 0 ? true : false;

@@ -22,10 +22,11 @@ Widget3DEmitter::Widget3DEmitter(iWindow* window, iView* view, iScene* scene)
 	_view->registerRenderDelegate(RenderDelegate(this, &Widget3DEmitter::update));
 
 	_targetMaterial = iMaterialResourceFactory::getInstance().createTargetMaterial();
-	_targetMaterial->setEmissive(iaColor3f(0.0f, 0.6f, 0.0f));
-	_targetMaterial->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
+	_targetMaterial->setEmissive(iaColor3f(0.0f, 0.0f, 0.0f));
+	_targetMaterial->setSpecular(iaColor3f(0.0f, 0.5f, 0.0f));
 	_targetMaterial->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
-	_targetMaterial->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
+	_targetMaterial->setAmbient(iaColor3f(0.0f, 0.5f, 0.0f));
+	_targetMaterial->setAlpha(0.5);
 
 	_material = iMaterialResourceFactory::getInstance().createMaterial("EmitterFlat");
 	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
@@ -57,6 +58,8 @@ Widget3DEmitter::~Widget3DEmitter()
 	}
 
 	iMaterialResourceFactory::getInstance().destroyTargetMaterial(_targetMaterial);
+	iMaterialResourceFactory::getInstance().destroyMaterial(_material);
+	iMaterialResourceFactory::getInstance().destroyMaterial(_materialVolume);
 }
 
 void Widget3DEmitter::clearMeshNode()
