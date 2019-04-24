@@ -73,7 +73,7 @@ Bullet::Bullet(iScene* scene, const iaVector3d& addForce, const iaMatrixd& matri
 	particleSystem->start();
 
 	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-	emitter->setType(iEmitterType::Disc);
+	emitter->setEmitterType(iEmitterType::Disc);
 	emitter->setSize(0.0);
 	particleSystem->setEmitter(emitter->getID());
 

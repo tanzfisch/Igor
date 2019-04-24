@@ -94,13 +94,15 @@ namespace Igor
             _matDiffuse = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_DIFFUSE);
             _matSpecular = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_SPECULAR);
             _matShininess = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_SHININESS);
+			_matAlpha = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_ALPHA);
             _matEmissive = iRenderer::getInstance().getShaderPropertyID(program, UNIFORM_MATERIAL_EMISSIVE);
 
             if (_matAmbient != -1 &&
                 _matDiffuse != -1 &&
                 _matSpecular != -1 &&
                 _matShininess != -1 &&
-                _matEmissive != -1)
+                _matEmissive != -1 && 
+				_matAlpha != -1)
             {
                 _hasTargetMaterial = true;
             }

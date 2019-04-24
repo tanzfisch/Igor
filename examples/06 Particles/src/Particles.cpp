@@ -196,7 +196,7 @@ void Particles::createWaveParticleSystem()
     // create an mesh emitter with the shape of a cos wave
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(emitter->getID());
-    emitter->setType(iEmitterType::Mesh);
+    emitter->setEmitterType(iEmitterType::Mesh);
 
     iEmitterTriangle triangle;
     for (int i = 0; i < 65; i++)
@@ -269,7 +269,7 @@ void Particles::createFireParticleSystem()
 
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(emitter->getID());
-    emitter->setType(iEmitterType::Disc);
+    emitter->setEmitterType(iEmitterType::Disc);
     emitter->setSize(3.0f);
 
     iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -323,7 +323,7 @@ void Particles::createFontainParticleSystem()
 
     iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(emitter->getID());
-    emitter->setType(iEmitterType::Disc);
+    emitter->setEmitterType(iEmitterType::Disc);
     emitter->setSize(1);
 
     iNodeTransform* transform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -373,7 +373,7 @@ void Particles::createRingParticleSystem()
 
     iNodeEmitter* circleEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     circleParticleSystem->setEmitter(circleEmitter->getID());
-    circleEmitter->setType(iEmitterType::Circle);
+    circleEmitter->setEmitterType(iEmitterType::Circle);
     circleEmitter->setSize(10.0f);
 
     iNodeTransform* circleEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -437,7 +437,7 @@ void Particles::createSmokeParticleSystem()
 
     iNodeEmitter* smokeEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(smokeEmitter->getID());
-    smokeEmitter->setType(iEmitterType::Sphere);
+    smokeEmitter->setEmitterType(iEmitterType::Sphere);
     smokeEmitter->setSize(6.0f);
 
     iNodeTransform* smokeEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -529,7 +529,7 @@ void Particles::createDotParticleSystem()
     iNodeEmitter* dotEmitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
     particleSystem->setEmitter(dotEmitter->getID());
     particleSystem2->setEmitter(dotEmitter->getID());
-    dotEmitter->setType(iEmitterType::Point);
+    dotEmitter->setEmitterType(iEmitterType::Point);
 
     iNodeTransform* dotEmitterTransform = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
     dotEmitterTransform->translate(20, 0, 20);

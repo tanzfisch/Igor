@@ -30,6 +30,7 @@
 #define __MODELVIEWER__
 
 #include "Manipulator.h"
+#include "Widget3D.h"
 
 #include <Igor.h>
 #include <iWindow.h>
@@ -77,10 +78,12 @@ private:
     iWindow _window;
     iView _view;
     iView _viewOrtho;
+	iView _viewWidget3D;
     iaMatrixd _modelViewOrtho;
 
     iTextureFont* _font = nullptr;
     iScene* _scene = nullptr;
+	iScene* _sceneWidget3D = nullptr;
 
     iDialogFileSelect* _fileDialog = nullptr;
     iDialogMessageBox* _messageBox = nullptr;
@@ -121,6 +124,8 @@ private:
     iStatisticsVisualizer _statisticsVisualizer;
 
     Manipulator* _manipulator = nullptr;
+
+	Widget3D* _widget3D = nullptr;
 
     void resetManipulatorMode();
     void setManipulatorMode(ManipulatorMode modifierMode);

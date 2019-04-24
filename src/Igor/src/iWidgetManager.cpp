@@ -651,7 +651,6 @@ namespace Igor
 			while (!_toDeleteDialogs.empty())
 			{
 				auto iter = _dialogs.find(_toDeleteDialogs.front()->getID());
-				con_assert(iter != _dialogs.end(), "possible mem leak. dialog does not exist");
 				if (iter != _dialogs.end())
 				{
 					delete (*iter).second;
@@ -659,7 +658,7 @@ namespace Igor
 				}
 				else
 				{
-					con_err("dialog does not exist");
+					con_err("can't delete dialog with id " << _toDeleteDialogs.front()->getID());
 				}
 
 				_toDeleteDialogs.pop_front();
@@ -668,7 +667,6 @@ namespace Igor
 			while (!_toDeleteWidgets.empty())
 			{
 				auto iter = _widgets.find(_toDeleteWidgets.front()->getID());
-				con_assert(iter != _widgets.end(), "possible mem leak. widget does not exist");
 				if (iter != _widgets.end())
 				{
 					delete (*iter).second;
@@ -676,7 +674,7 @@ namespace Igor
 				}
 				else
 				{
-					con_err("widget does not exist");
+					con_err("can't delete widget with id " << _toDeleteWidgets.front()->getID());
 				}
 
 				_toDeleteWidgets.pop_front();

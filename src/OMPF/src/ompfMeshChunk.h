@@ -118,6 +118,16 @@ namespace OMPF
         */
         float32 getShininess() const;
 
+		/*! sets the alpha value
+
+		\param shininess the shininess factor
+		*/
+		void setAlpha(const float32 alpha);
+
+		/*! \returns the alpha value
+		*/
+		float32 getAlpha() const;
+
         /*! sets amount of normals per vertex
 
         \param count the amount of normals per vertex
@@ -262,6 +272,10 @@ namespace OMPF
         /*! shininess factor
         */
         float32 _shininess = 0;
+
+		/*! alpha value
+		*/
+		float32 _alpha = 1.0;
 
         /*! normal count per vertex
         */
