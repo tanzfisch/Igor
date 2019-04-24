@@ -127,6 +127,14 @@ namespace Igor
         */
         __IGOR_INLINE__ float32 getShininess() const;
 
+		/*! sets alpha value of material
+		*/
+		void setAlpha(float32 alpha);
+
+		/*! \returns alpha value of material
+		*/
+		__IGOR_INLINE__ float32 getAlpha() const;
+
     private:
 
         /*! map of textures associated to the mesh
@@ -151,7 +159,11 @@ namespace Igor
 
         /*! material shininess value
         */
-        float32 _shininess = 1;
+        float32 _shininess;
+
+		/*! alpha value
+		*/
+		float32 _alpha;
 
         /*! initializes members
         */

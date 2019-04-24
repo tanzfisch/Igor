@@ -60,7 +60,7 @@ DigEffect::DigEffect(iScene* scene, const iaMatrixd& matrix)
     particleSystem->start();
 
 	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
-	emitter->setType(iEmitterType::Sphere);
+	emitter->setEmitterType(iEmitterType::Sphere);
     emitter->setSize(5);
 	particleSystem->setEmitter(emitter->getID());
 

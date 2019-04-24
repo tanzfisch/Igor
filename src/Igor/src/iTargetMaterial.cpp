@@ -17,6 +17,7 @@ namespace Igor
         _diffuse.set(0.5f, 0.5f, 0.5f);
         _specular.set(0.6f, 0.6f, 0.6f);
         _shininess = 5.0f;
+		_alpha = 1.0f;
     }
 
     iTargetMaterial::~iTargetMaterial()
@@ -67,4 +68,8 @@ namespace Igor
         _shininess = s;
     }
 
+	void iTargetMaterial::setAlpha(float32 alpha)
+	{
+		_alpha = alpha;
+	}
 }

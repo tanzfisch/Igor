@@ -3,6 +3,8 @@
 // see copyright notice in corresponding header file
 
 #include "ModelViewer.h"
+#include "Widget3DLocator.h"
+#include "Widget3DEmitter.h"
 
 #include <iaConsole.h>
 #include <iaDirectory.h>
@@ -107,7 +109,19 @@ void ModelViewer::init(iaString fileName)
     _transformModel->insertNode(_groupNode);
 
     // init 3D user controls
-    _manipulator = new Manipulator(&_window);
+	_viewWidget3D.setName("UIView");
+	_viewWidget3D.setClearColor(false);
+	_viewWidget3D.setClearDepth(true);
+	_viewWidget3D.setPerspective(45.0f);
+	_viewWidget3D.setClipPlanes(0.1f, 10000.f);
+	
+	_window.addView(&_viewWidget3D, 1);
+
+	_sceneWidget3D = iSceneFactory::getInstance().createScene();
+	_sceneWidget3D->setName("Modifier Scene");
+	_viewWidget3D.setScene(_sceneWidget3D);
+
+    _manipulator = new Manipulator(&_window, &_viewWidget3D, _sceneWidget3D);
     
     // cam
     _cameraCOI = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
@@ -229,7 +243,7 @@ void ModelViewer::init(iaString fileName)
 
 void ModelViewer::resetManipulatorMode()
 {
-    setManipulatorMode(ManipulatorMode::Locator);
+    setManipulatorMode(ManipulatorMode::None);
 }
 
 void ModelViewer::deinit()
@@ -695,7 +709,34 @@ void ModelViewer::onGraphViewSelectionChanged(uint64 nodeID)
 {
     _selectedNodeID = nodeID;
     _manipulator->setNodeID(_selectedNodeID);
-    resetManipulatorMode();
+	resetManipulatorMode();
+
+	// todo caching?
+	if (_widget3D != nullptr)
+	{
+		delete _widget3D;
+		_widget3D = nullptr;
+	}
+
+	iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
+	if (node)
+	{
+		switch (node->getType())
+		{
+		case iNodeType::iNodeTransform:
+			_widget3D = new Widget3DLocator(&_window, &_viewWidget3D, _sceneWidget3D);			
+			break;
+
+		case iNodeType::iNodeEmitter:
+			_widget3D = new Widget3DEmitter(&_window, &_viewWidget3D, _sceneWidget3D);
+			break;
+		}
+	}
+
+	if (_widget3D != nullptr)
+	{
+		_widget3D->setNodeID(_selectedNodeID);
+	}
 }
 
 void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
@@ -711,7 +752,7 @@ void ModelViewer::setManipulatorMode(ManipulatorMode manipulatorMode)
     else
     {
         _manipulator->setVisible(false);
-        _manipulator->setManipulatorMode(ManipulatorMode::Locator);
+        _manipulator->setManipulatorMode(ManipulatorMode::None);
     }
 }
 
@@ -915,7 +956,7 @@ void ModelViewer::onKeyDown(iKeyCode key)
         break;
 
     case iKeyCode::Q:
-        setManipulatorMode(ManipulatorMode::Locator);
+        setManipulatorMode(ManipulatorMode::None);
         break;
 
     case iKeyCode::W:

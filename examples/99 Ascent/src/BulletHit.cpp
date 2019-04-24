@@ -59,7 +59,7 @@ BulletHit::BulletHit(iScene* scene, const iaMatrixd& matrix)
 
 	iNodeEmitter* emitter = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
 	_emitterNodeID = emitter->getID();
-	emitter->setType(iEmitterType::Point);
+	emitter->setEmitterType(iEmitterType::Point);
 	particleSystem->setEmitter(_emitterNodeID);
 
 	iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));

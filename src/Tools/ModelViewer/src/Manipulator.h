@@ -54,7 +54,7 @@ namespace Igor
 */
 enum class ManipulatorMode
 {
-    Locator,
+    None,
     Translate,
     Scale,
     Rotate
@@ -69,9 +69,9 @@ public:
 
     /*! initialize manipulator
 
-    \param window the window this manipulator is displayed at
+    \param window the window this manipulator is displayed with
     */
-    Manipulator(iWindow* window);
+    Manipulator(iWindow* window, iView* view, iScene* scene);
 
     /*! cleanup
     */
@@ -151,10 +151,10 @@ private:
     uint64 _materialCelShading;
 
     iWindow* _window = nullptr;
-    iView _view;
+    iView* _view = nullptr;
     iScene* _scene = nullptr;
 
-    uint64 _selectedLocatorNodeID = iNode::INVALID_NODE_ID;
+    uint64 _selectedManipulatorNodeID = iNode::INVALID_NODE_ID;
     uint64 _selectedNodeID = iNode::INVALID_NODE_ID;
     iNodePtr _parent = nullptr;
     bool _visible = false;
@@ -174,7 +174,7 @@ private:
     iNodePtr _roateModifier = nullptr;
     iNodeTransform* _rotateBillboardTransform = nullptr;
 
-    ManipulatorMode _manipulatorMode = ManipulatorMode::Locator;
+    ManipulatorMode _manipulatorMode = ManipulatorMode::None;
 
     iTargetMaterial* _red = nullptr;
     iTargetMaterial* _green = nullptr;
@@ -211,10 +211,9 @@ private:
 
     void highlightSelected();
 
-    void createLocatorModifier(shared_ptr<iMesh> &locatorMesh);
     void createTranslateModifier(shared_ptr<iMesh> &translateMesh);
     void createScaleModifier(shared_ptr<iMesh> &scaleMesh);
-    void createRotateModifier(shared_ptr<iMesh> &cylinderMesh, shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D);
+    void createRotateModifier(shared_ptr<iMesh> &ringMesh, shared_ptr<iMesh> &ringMesh2D);
 
 };
 

@@ -45,6 +45,15 @@
     <ClCompile Include="..\src\Manipulator.cpp">
       <Filter>3DUserControls</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Widget3D.cpp">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Widget3DLocator.cpp">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Widget3DEmitter.cpp">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\ModelViewer.h" />
@@ -91,6 +100,15 @@
     <ClInclude Include="..\src\Manipulator.h">
       <Filter>3DUserControls</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\Widget3D.h">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Widget3DLocator.h">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Widget3DEmitter.h">
+      <Filter>3DUserControls\Widget</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Dialogs">
@@ -104,6 +122,9 @@
     </Filter>
     <Filter Include="3DUserControls">
       <UniqueIdentifier>{e03b9343-0457-4025-bac1-29a928a847b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="3DUserControls\Widget">
+      <UniqueIdentifier>{34730c11-8298-4870-9f12-18a5d140e429}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

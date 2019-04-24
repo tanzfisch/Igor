@@ -122,7 +122,7 @@ namespace Igor
 			OMPF::ompfEmitterChunk* emitterChunk = static_cast<OMPF::ompfEmitterChunk*>(currentChunk);
 			iNodeEmitter* emitterNode = static_cast<iNodeEmitter*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeEmitter));
 			emitterNode->setSize(emitterChunk->getSize());
-			emitterNode->setType(static_cast<iEmitterType>(emitterChunk->getType()));
+			emitterNode->setEmitterType(static_cast<iEmitterType>(emitterChunk->getType()));
 			result = emitterNode;
 			break;
 		}
@@ -612,7 +612,7 @@ namespace Igor
 	{
 		OMPF::ompfEmitterChunk* result = _ompf->createEmitterChunk();
 		result->setSize(node->getSize());
-		result->setType(static_cast<OMPF::OMPFEmitterType>(node->getType()));
+		result->setType(static_cast<OMPF::OMPFEmitterType>(node->getEmitterType()));
 		return result;
 	}
 

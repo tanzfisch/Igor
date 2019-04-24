@@ -933,8 +933,9 @@ namespace Igor
 				glUniform3fv(_currentMaterial->_matAmbient, 1, static_cast<GLfloat*>(targetMaterial->getAmbient().getData())); GL_CHECK_ERROR();
 				glUniform3fv(_currentMaterial->_matDiffuse, 1, static_cast<GLfloat*>(targetMaterial->getDiffuse().getData())); GL_CHECK_ERROR();
 				glUniform3fv(_currentMaterial->_matSpecular, 1, static_cast<GLfloat*>(targetMaterial->getSpecular().getData())); GL_CHECK_ERROR();
-				glUniform1f(_currentMaterial->_matShininess, targetMaterial->getShininess()); GL_CHECK_ERROR();
 				glUniform3fv(_currentMaterial->_matSpecular, 1, static_cast<GLfloat*>(targetMaterial->getEmissive().getData())); GL_CHECK_ERROR();
+				glUniform1f(_currentMaterial->_matShininess, targetMaterial->getShininess()); GL_CHECK_ERROR();
+				glUniform1f(_currentMaterial->_matAlpha, targetMaterial->getAlpha()); GL_CHECK_ERROR();
 			}
 
 			if (targetMaterial->hasTextureUnit(0) &&

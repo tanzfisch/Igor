@@ -14,8 +14,9 @@ uniform vec3 igor_eyePosition;
 uniform vec3 igor_matAmbient;
 uniform vec3 igor_matDiffuse;
 uniform vec3 igor_matSpecular;
-uniform float igor_matShininess;
 uniform vec3 igor_matEmissive;
+uniform float igor_matShininess;
+uniform float igor_matAlpha;
 
 uniform vec3 igor_lightOrientation;
 uniform vec3 igor_lightAmbient;
@@ -72,5 +73,5 @@ void main()
 	vec3 specular = igor_matSpecular * igor_lightSpecular * specularLightFactor;
 	
 	out_color.rgb = emissive + ambient + diffuse + specular;
-	out_color.a = 1;
+	out_color.a = igor_matAlpha;
 }

@@ -107,8 +107,8 @@ namespace Igor
     \todo light handling is not done by far
 
     Examples:
-    \ref OpenGL3D/src/OpenGL3DExample.cpp "OpenGL3D usage example"
-    \ref OpenGL2D/src/OpenGL2DExample.cpp "OpenGL2D usage example"
+    \ref 3D/src/Example3D.cpp "3D usage example"
+    \ref 2D/src/Example2D.cpp "2D usage example"
 
     */
     class Igor_API iRenderer : public iaSingleton<iRenderer>
