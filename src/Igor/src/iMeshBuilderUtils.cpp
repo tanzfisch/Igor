@@ -125,14 +125,17 @@ namespace Igor
 
 			const uint32 offsetIndex = meshBuilder.getVertexCount();
 
-			meshBuilder.addVertex(iaVector3f(-0.5, 0, 0.5));
-			meshBuilder.addVertex(iaVector3f(-0.5, 1, 0.5));
-			meshBuilder.addVertex(iaVector3f(0.5, 1, 0.5));
-			meshBuilder.addVertex(iaVector3f(0.5, 0, 0.5));
-			meshBuilder.addVertex(iaVector3f(-0.5, 0, -0.5));
-			meshBuilder.addVertex(iaVector3f(-0.5, 1, -0.5));
-			meshBuilder.addVertex(iaVector3f(0.5, 1, -0.5));
-			meshBuilder.addVertex(iaVector3f(0.5, 0, -0.5));
+			float32 halfWidth = width * 0.5;
+			float32 halfDepth = depth * 0.5;
+
+			meshBuilder.addVertex(iaVector3f(-halfWidth, 0, halfDepth));
+			meshBuilder.addVertex(iaVector3f(-halfWidth, height, halfDepth));
+			meshBuilder.addVertex(iaVector3f(halfWidth, height, halfDepth));
+			meshBuilder.addVertex(iaVector3f(halfWidth, 0, halfDepth));
+			meshBuilder.addVertex(iaVector3f(-halfWidth, 0, -halfDepth));
+			meshBuilder.addVertex(iaVector3f(-halfWidth, height, -halfDepth));
+			meshBuilder.addVertex(iaVector3f(halfWidth, height, -halfDepth));
+			meshBuilder.addVertex(iaVector3f(halfWidth, 0, -halfDepth));
 
 			meshBuilder.addTriangle(2, 1, 0, offsetIndex);
 			meshBuilder.addTriangle(3, 2, 0, offsetIndex);

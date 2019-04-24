@@ -181,7 +181,11 @@ shared_ptr<iMesh> Widget3DEmitter::createCube()
 {
 	iMeshBuilder meshBuilder;
 
-	iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
+	iaMatrixf matrix;
+	matrix.translate(0, -1, 0);
+	meshBuilder.setMatrix(matrix);
+
+	iMeshBuilderUtils::addBox(meshBuilder, 2, 2, 2);
 	meshBuilder.calcNormals(true);
 	return meshBuilder.createMesh();
 }
