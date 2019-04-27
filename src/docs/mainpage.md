@@ -5,9 +5,10 @@ Igor Game Engine                                    {#mainpage}
     
 contact: martinloga@protonmail.com
 
+Visit our facebook page [fb/Igor](https://www.facebook.com/IgorThreeD)
 
  - [Changelog](@ref changelog)
  - [Build Igor](@ref build)
  - [Styleguide](@ref styleguide)
-
-Visit our facebook page [fb/Igor](https://www.facebook.com/IgorThreeD)
+ - [Tutorials](@ref tutorials)
+  
