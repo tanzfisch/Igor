@@ -1,7 +1,7 @@
 Physics Example                                             {#example07}
 ===============
 
-The physics part of Igor is still under development. Therefore the example code is not final so it does not make too much sense writing a Tutorial just yet.
+The physics part of Igor is still under development. Therefore the example code is not final so it does not make too much sense writing a Tutorial just yet ([youtube](https://www.youtube.com/watch?v=Mxy_4jwUmVo)).
 
 However here is a link to the current code 
 [example](https://github.com/tanzfisch/Igor/blob/master/examples/07%20Physics/src/PhysicsExample.cpp).

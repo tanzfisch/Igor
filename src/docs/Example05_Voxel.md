@@ -1,7 +1,7 @@
 Voxel Terrain Example                                            {#example05}
 =====================
 
-So in the voxel example we basically learn two things. One is how to use the class iVoxelData and the other is how to write and register a model data loader that derives from iModelDataIO.
+So in the voxel example we basically learn two things. One is how to use the class iVoxelData and the other is how to write and register a model data loader that derives from iModelDataIO ([youtube](https://www.youtube.com/watch?v=EHBsmCx6gBM)).
 
 Build
 =====

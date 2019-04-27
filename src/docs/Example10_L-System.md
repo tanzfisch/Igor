@@ -1,7 +1,7 @@
 L-System Example                                   {#example10}
 ================
 
-The L-System example shows how to set up L-Systems and generate meshs from them by using a skeleton and the iModelDataIO interface.
+The L-System example shows how to set up L-Systems and generate meshs from them by using a skeleton and the iModelDataIO interface ([youtube](https://www.youtube.com/watch?v=5qK0ee4xTug)).
 
 Build
 =====

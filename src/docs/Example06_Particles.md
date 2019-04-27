@@ -1,7 +1,7 @@
 Particle Systems Example                                       {#example06}
 ========================
 
-The particles example shows how to set up particle systems and their corresponding emitters.
+The particles example shows how to set up particle systems and their corresponding emitters ([youtube](https://www.youtube.com/watch?v=pXI5tWLcBKQ)).
 
 Build
 =====

@@ -1,7 +1,7 @@
 3D Rendering Example                                     {#example04}
 ====================
 
-The 3D example shows how to load models and place them in to a 3D scene. It also introduces light, lod and switch nodes.
+The 3D example shows how to load models and place them in to a 3D scene. It also introduces light, lod and switch nodes ([youtube](https://www.youtube.com/watch?v=UQ7iFGFOv10)).
 
 Build
 =====
