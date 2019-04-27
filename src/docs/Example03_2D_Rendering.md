@@ -1,4 +1,4 @@
-2d Rendering Example                                    {#example03}
+2D Rendering Example                                    {#example03}
 ====================
 
 The 2D example shows how to load textures, use the draw callback and draw some simple 2D primitives on the screen. Keep in mind that Igor is primarily a 3D engine so there is really not much more to 2D than in this example.

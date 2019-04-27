@@ -1,4 +1,4 @@
-3d Rendering Example                                     {#example04}
+3D Rendering Example                                     {#example04}
 ====================
 
 The 3D example shows how to load models and place them in to a 3D scene. It also introduces light, lod and switch nodes.
