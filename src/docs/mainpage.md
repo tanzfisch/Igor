@@ -8,7 +8,8 @@ contact: martinloga@protonmail.com
 Visit our facebook page [fb/Igor](https://www.facebook.com/IgorThreeD)
 
  - [Changelog](@ref changelog)
- - [Build Igor](@ref build)
- - [Styleguide](@ref styleguide)
  - [Tutorials](@ref tutorials)
+ - [How to Contribute](@ref contribute)
+ - [Coding style guide](@ref styleguide)
+ 
   
