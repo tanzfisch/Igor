@@ -82,9 +82,7 @@ Example:
 		private:
 		
 			/*! private member index
-			
-			\todo do we need this one?
-			*/
+            */
 			int _index;
 			
 			/*! does nothing
