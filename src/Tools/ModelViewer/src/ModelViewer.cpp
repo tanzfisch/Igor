@@ -616,40 +616,22 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNodePtr groupNode = nullptr;
-
-        auto children = model->getChildren();
+        iNodePtr insertAt = nullptr;
+        
+		auto children = model->getChildren();
         if (children.size() > 1)
         {
-            groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+			insertAt = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
             iaString groupName = "group:";
             groupName += filename;
-            groupNode->setName(groupName);
+			insertAt->setName(groupName);
 
-            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-            if (cursorNode != nullptr)
-            {
-                cursorNode->insertNode(groupNode);
-            }
-            else
-            {
-                _groupNode->insertNode(groupNode);
-            }
-
-            selectNode = groupNode;
+            _groupNode->insertNode(insertAt);
+            selectNode = insertAt;
         }
         else
         {
-            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-            if (cursorNode != nullptr)
-            {
-                groupNode = cursorNode;
-            }
-            else
-            {
-                groupNode = _groupNode;
-            }
-
+			insertAt = _groupNode;
             selectNode = children.front();
         }
 
@@ -657,7 +639,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         while (child != children.end())
         {
             model->removeNode((*child));
-            groupNode->insertNode((*child));
+			insertAt->insertNode((*child));
             child++;
         }
 
