@@ -150,6 +150,9 @@
     <ClInclude Include="..\src\iaIDGenerator.h">
       <Filter>data types</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaTransform.h">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">
@@ -181,6 +184,9 @@
     </None>
     <None Include="..\src\iaBits.inl">
       <Filter>data types</Filter>
+    </None>
+    <None Include="..\src\iaTransform.inl">
+      <Filter>math</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
