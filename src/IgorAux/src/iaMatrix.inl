@@ -631,6 +631,54 @@ __IGOR_INLINE__ void iaMatrix<T>::move(T distance, iaAxis axis)
 }
 
 template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::shear(const iaVector3<T>& vec)
+{
+	iaMatrix<T> shear;
+
+	rotation._right._y = vec._z;
+	rotation._right._z = vec._y;
+	rotation._top._z = vec._x;
+
+	(*this) *= shear;
+}
+
+template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::shear(T x, T y, T z)
+{
+	iaMatrix<T> shear;
+
+	rotation._right._y = z;
+	rotation._right._z = y;
+	rotation._top._z = x;
+
+	(*this) *= shear;
+}
+
+template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::rotate(const iaVector3<T>& vec)
+{
+	iaMatrix<T> rotation;
+
+	rotation.rotate(vec._x, iaAxis::X);
+	rotation.rotate(vec._y, iaAxis::Y);
+	rotation.rotate(vec._z, iaAxis::Z);
+
+	(*this) *= rotation;
+}
+
+template <class T>
+__IGOR_INLINE__ void iaMatrix<T>::rotate(T x, T y, T z)
+{
+	iaMatrix<T> rotation;
+
+	rotation.rotate(x, iaAxis::X);
+	rotation.rotate(y, iaAxis::Y);
+	rotation.rotate(z, iaAxis::Z);
+
+	(*this) *= rotation;
+}
+
+template <class T>
 __IGOR_INLINE__ void iaMatrix<T>::rotate(T angle, iaAxis axis)
 {
     iaMatrix<T> rotation;

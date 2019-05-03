@@ -26,8 +26,8 @@
 // 
 // contact: martinloga@gmx.de  
 
-#ifndef __iMATRIX__
-#define __iMATRIX__
+#ifndef __iaMATRIX__
+#define __iaMATRIX__
 
 #include <iaVector4.h>
 
@@ -42,7 +42,10 @@ namespace IgorAux
 
 	/*! 4x4 Matrix
 
-    \todo cont version for * and *= ?
+	_right._x | _top._x | _depth._x | _pos.x
+	_right._y | _top._y | _depth._y | _pos.y
+	_right._z | _top._z | _depth._z | _pos.z
+	_w0       | _w1     | _w2       | _w3
 	*/
 	template <class T> class IgorAux_API_Template iaMatrix
 	{
@@ -233,6 +236,34 @@ namespace IgorAux
 		\param axis axis to rotate around
 		*/
 		__IGOR_INLINE__ void rotate(T angle, iaAxis axis);
+
+		/*! rotates matrix in three axis
+
+		\param vec the rotation vector
+		*/
+		__IGOR_INLINE__ void rotate(const iaVector3<T>& vec);
+
+		/*! rotates matrix in three axis
+
+		\param x x axis
+		\param y y axis
+		\param z z axis
+		*/
+		__IGOR_INLINE__ void rotate(T x, T y, T z);
+
+		/*! shears matrix in three axis
+
+		\param vec the shear vector
+		*/
+		__IGOR_INLINE__ void shear(const iaVector3<T>& vec);
+
+		/*! shears matrix in three axis
+
+		\param x x axis
+		\param y y axis
+		\param z z axis
+		*/
+		__IGOR_INLINE__ void shear(T x, T y, T z);
 		
 		/*! returns pointer to the data
 		*/
