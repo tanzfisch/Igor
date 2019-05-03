@@ -30,14 +30,23 @@ Only ever the latest Visual Studio project files are included. There is no time 
 Git Flow
 --------
 
-Use git flow for branching and merging. Please find [here](https://danielkummer.github.io/git-flow-cheatsheet/) a very usefull cheat sheet.
+Use git flow for branching and merging etc. Please find [here](https://danielkummer.github.io/git-flow-cheatsheet/) a very usefull cheat sheet.
 
-Release
--------
+Make a release
+--------------
 
-Make sure to update the [Changelog](@ref changelog) before creating a tag for a new release version.
+For making a release create a release branch from develop named by the next release version. 
 
-Good place to do that is while still working on the release branch.
+Update the [Changelog](@ref changelog) before merging in to master and develop.
+
+Run some tests etc and when satisfied merge in to master and develop. Create a tag with the new versio number on master.
+
+Make a Patch Release 
+--------------------
+
+When happy with the hotfix update the [Changelog](@ref changelog) before mergin back in to master and develop.
+
+Crate patch release version tag on master branch.
 
 Doxygen
 -------
