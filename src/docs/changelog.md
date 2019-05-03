@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.17.0
+------
+
+- fixed problem with loading files over existing scene in ModelViewer
+
 0.16.0
 ------
 
