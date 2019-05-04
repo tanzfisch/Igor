@@ -137,9 +137,8 @@ void Particles::init()
     _statisticsVisualizer.setVerbosity(iRenderStatisticsVerbosity::FPSAndMetrics);
 
     // animation
-    _animationTimingHandle = new iTimerHandle();
-    _animationTimingHandle->setIntervall(100);
-    _animationTimingHandle->registerTimerDelegate(iTimerTickDelegate(this, &Particles::onTimer));
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Particles::onTimer), 100);
+	_animationTimingHandle->start();
 
     _taskFlushTexturesID = iTaskManager::getInstance().addTask(new iTaskFlushTextures(&_window));
 
@@ -563,7 +562,6 @@ void Particles::deinit()
     // stop light animation
     if (_animationTimingHandle)
     {
-        _animationTimingHandle->unregisterTimerDelegate(iTimerTickDelegate(this, &Particles::onTimer));
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
     }

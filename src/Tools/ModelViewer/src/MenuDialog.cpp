@@ -88,6 +88,7 @@ void MenuDialog::initGUI()
     _loadButton->setText("");
     _loadButton->setWidth(30);
     _loadButton->setHeight(30);
+	_loadButton->setTooltip("Load file");
     _loadButton->setTexture("icons\\load.png");
     _loadButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onLoadFile));
 
@@ -96,6 +97,7 @@ void MenuDialog::initGUI()
     _saveButton->setText("");
     _saveButton->setWidth(30);
     _saveButton->setHeight(30);
+	_saveButton->setTooltip("Save file");
     _saveButton->setTexture("icons\\save.png");
     _saveButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onSaveFile));
 
@@ -104,6 +106,7 @@ void MenuDialog::initGUI()
     _exitButton->setText("");
     _exitButton->setWidth(30);
     _exitButton->setHeight(30);
+	_exitButton->setTooltip("Exit ModelViewer");
     _exitButton->setTexture("icons\\exit.png");
     _exitButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onExitModelViewer));
 
@@ -122,6 +125,7 @@ void MenuDialog::initGUI()
     _cutButton->setText("");
     _cutButton->setWidth(30);
     _cutButton->setHeight(30);
+	_cutButton->setTooltip("Cut selection");
     _cutButton->setTexture("icons\\cut.png");
     _cutButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onCut));
 
@@ -130,6 +134,7 @@ void MenuDialog::initGUI()
     _copyButton->setText("");
     _copyButton->setWidth(30);
     _copyButton->setHeight(30);
+	_copyButton->setTooltip("Copy selection");
     _copyButton->setTexture("icons\\copy.png");
     _copyButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onCopy));
 
@@ -138,6 +143,7 @@ void MenuDialog::initGUI()
     _pasteButton->setText("");
     _pasteButton->setWidth(30);
     _pasteButton->setHeight(30);
+	_pasteButton->setTooltip("paste from clipboard");
     _pasteButton->setTexture("icons\\paste.png");
     _pasteButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onPaste));
 
@@ -146,6 +152,7 @@ void MenuDialog::initGUI()
     _deleteButton->setText("");
     _deleteButton->setWidth(30);
     _deleteButton->setHeight(30);
+	_deleteButton->setTooltip("delete selection");
     _deleteButton->setTexture("icons\\delete.png");
     _deleteButton->registerOnClickEvent(iClickDelegate(this, &MenuDialog::onDelete));
 

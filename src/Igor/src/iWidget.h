@@ -30,7 +30,7 @@
 #define __iWIDGET__
 
 #include <iMouse.h>
-#include <iStopWatch.h>
+#include <iTimerHandle.h>
 
 #include <iaVector4.h>
 using namespace IgorAux;
@@ -276,9 +276,13 @@ namespace Igor
         */
         void unregisterOnSelectionChangedEvent(iSelectionChangedDelegate delegate);
 
-        /*! \returns actual absolute horizontal position
+        /*! \returns actual absolute position
         */
-        __IGOR_INLINE__ int32 getActualPosX() const;
+        __IGOR_INLINE__ iaVector2i getActualPos() const;
+
+		/*! \returns actual absolute horizontal position
+		*/
+		__IGOR_INLINE__ int32 getActualPosX() const;
 
         /*! \returns actual absolute vertical position
         */
@@ -465,6 +469,16 @@ namespace Igor
 		*/
 		static iWidget* getKeyboardFocusWidget();
 
+		/*! sets the tooltip text
+
+		\param text the tooltip text
+		*/
+		void setTooltip(const iaString& text);
+
+		/*! \returns tooltip text
+		*/
+		iaString getTooltip() const;
+
 	protected:
 
         /*! if true this widget will process mouse clicks outside of the widgets boundings
@@ -538,6 +552,14 @@ namespace Igor
         /*! if true widget will react on mouse wheel
         */
         bool _reactOnMouseWheel = true;
+
+		/*! tooltip text
+		*/
+		iaString _tooltip;
+
+		/*! position for the tooltip to appear
+		*/
+		iaVector2i _tooltipPos;
 
         /*! handles incomming mouse wheel event
 
@@ -642,6 +664,10 @@ namespace Igor
 
 	private:
 
+		/*! tooltip timer
+		*/
+		iTimerHandle* _timerTooltip = nullptr;
+
         /*! horizontal position of the widget relative to parent
         */
         int32 _relativeX = 0;
@@ -718,7 +744,7 @@ namespace Igor
         */
 		bool _visible = true;
 
-        /*! horizontal alignment relative to parent
+		/*! horizontal alignment relative to parent
         */
 		iHorizontalAlignment _horizontalAlignment = iHorizontalAlignment::Center;
         
@@ -733,6 +759,14 @@ namespace Igor
         /*! pointer to widget that owns the keyboard focus
         */
 		static iWidget* _keyboardFocus;
+
+		/*! handles tooltip timer
+		*/
+		void onToolTipTimer();
+
+		/*! destroy tooltip timer
+		*/
+		void destroyTooltipTimer();
 
         /*! updates size based on widgets content
 

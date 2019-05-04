@@ -77,29 +77,25 @@ namespace Igor
 	void iTimer::handleTimerHandles()
 	{
 		float64 time = getMilliSeconds();
-		for (uint32 i = 0; i < _timerHandles.size(); i++)
+		vector<iTimerHandle*> timerHandles(_timerHandles);
+		for(auto handle : timerHandles)
 		{
-			_timerHandles[i]->handle(time);
+			handle->handle(time);
 		}
 	}
 
-	void iTimer::insertTimerHandle(const iTimerHandle* timer_handle)
+	void iTimer::insertTimerHandle(const iTimerHandle* timerHandle)
 	{
-		_timerHandles.push_back(const_cast<iTimerHandle*>(timer_handle));
+		_timerHandles.push_back(const_cast<iTimerHandle*>(timerHandle));
 	}
 
-	void iTimer::removeTimerHandle(const iTimerHandle *timer_handle)
+	void iTimer::removeTimerHandle(const iTimerHandle * timerHandle)
 	{
-		auto iter = _timerHandles.begin();
-		while (iter != _timerHandles.end())
-		{
-			if ((*iter) == timer_handle)
-			{
-				_timerHandles.erase(iter);
-				return;
-			}
+		auto iter = std::find(_timerHandles.begin(), _timerHandles.end(), timerHandle);
 
-			iter++;
+		if(iter != _timerHandles.end())
+		{
+			_timerHandles.erase(iter);
 		}
 	}
 

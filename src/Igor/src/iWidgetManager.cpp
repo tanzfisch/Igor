@@ -22,6 +22,8 @@
 #include <iKeyboard.h>
 #include <iApplication.h>
 #include <iWidgetGraph.h>
+#include <iWidgetBaseTheme.h>
+#include <iTextureFont.h>
 
 #include <iDialogColorChooser.h>
 #include <iDialogDecisionBox.h>
@@ -94,6 +96,34 @@ namespace Igor
 		// we can not delete widgets here anymore because 
 		// they might call iWidgetManager::getInstance in the process
 		_widgets.clear();
+	}
+
+	void iWidgetManager::showTooltip(const iaVector2i& pos, const iaString& text)
+	{
+		con_endl("showTooltip " << text);
+
+		_tooltipPos = pos;
+		_tooltipText = text;
+
+		float32 textWidth = min(300.0f, getTheme()->getFont()->measureWidth(text, getTheme()->getFontSize()));
+		float32 textHeight = getTheme()->getFont()->measureHeight(text, getTheme()->getFontSize(), textWidth);
+
+		if (_tooltipPos._x + textWidth > _desktopWidth)
+		{
+			_tooltipPos._x -= textWidth;
+			_tooltipPos._x -= 30;
+		}
+
+		if (_tooltipPos._y + textHeight > _desktopHeight)
+		{
+			_tooltipPos._y -= textHeight;
+			_tooltipPos._y -= 30;
+		}
+	}
+
+	void iWidgetManager::hideTooltip()
+	{
+		_tooltipText = "";
 	}
 
 	bool iWidgetManager::isModal(iDialog* dialog)
@@ -466,6 +496,11 @@ namespace Igor
 		if (_modal != nullptr)
 		{
 			_modal->draw();
+		}
+
+		if (!_tooltipText.isEmpty())
+		{
+			_currentTheme->drawTooltip(_tooltipPos, _tooltipText);
 		}
 	}
 
