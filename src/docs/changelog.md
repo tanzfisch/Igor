@@ -16,7 +16,7 @@ Changelog                           {#changelog}
 0.16.0
 ------
 
-- adding tutorials to doxygen documentation
+- adding [tutorials](@ref tutorials) to doxygen documentation
 - changing doxygen style
 - generall update of docs
 
