@@ -1,6 +1,13 @@
 Changelog                           {#changelog}
 =========
 
+0.17.0
+------
+
+- introduced tooltips to widgets
+- used tooltips in ModelViewer
+  ![Introduction of tooltips](/images/Tooltips.png)
+
 0.16.1
 ------
 
