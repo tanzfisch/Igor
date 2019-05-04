@@ -50,27 +50,23 @@ namespace Igor
 
 		friend class iTimer;
 
-	private:
-
-		/*! the timer event to trigger
-		*/
-		iTimerTickEvent _timerEvent;
-
-		/*! timer handle intervall in ms
-		*/
-		float64 _intervall = 20;
-
-		/*! time the handle was triggered last time
-		*/
-		float64 _time = 0;
-
-	protected:
-
-		/*! calls timer event according to how much time passed by
-		*/
-		virtual void handle(float64 time);
-
 	public:
+
+		/*! creates timer handle and registers it to the iTimer
+		*/
+		iTimerHandle() = default;
+
+		/*! creates timer handle and registers it to the iTimer running with given interval
+
+		\param timer_delegate timer delegate to register
+		\param intervall intervall in ms the timer handle event will be called
+		\param oneShot if true the timed even only occurs once
+		*/
+		iTimerHandle(iTimerTickDelegate timerDelegate, float64 interval, bool oneShot = false);
+
+		/*! unregisters from iTimer
+		*/
+		virtual ~iTimerHandle();
 
 		/*! register timer delegate to timer event
 
@@ -100,15 +96,41 @@ namespace Igor
 		*/
 		void restart();
 
-		/*! creates timer handle and registers it to the iTimer
-
-		\param intervall intervall in ms the timer handle event will be called
+		/*! start timer handle
 		*/
-		iTimerHandle();
+		void start();
 
-		/*! unregisters from iTimer
+		/*! stop timer handle
 		*/
-		virtual ~iTimerHandle();
+		void stop();
+
+	protected:
+
+		/*! calls timer event according to how much time passed by
+		*/
+		virtual void handle(float64 time);
+
+	private:
+
+		/*! the timer event to trigger
+		*/
+		iTimerTickEvent _timerEvent;
+
+		/*! timer handle intervall in ms
+		*/
+		float64 _intervall = 20;
+
+		/*! time the handle was triggered last time
+		*/
+		float64 _time = 0;
+
+		/*! if true timer triggers event only one time
+		*/
+		bool _oneShot = false;
+
+		/*! if true this timer handle is currently running
+		*/
+		bool _playing = false;
 
 	};
 

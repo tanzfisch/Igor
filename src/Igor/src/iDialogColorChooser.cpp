@@ -95,16 +95,19 @@ namespace Igor
         iWidgetButton* okButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(okButton);
         okButton->setText("OK");
+		okButton->setTooltip("Close the dialog and set new color.");
         okButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onOK));
 
         iWidgetButton* cancelButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(cancelButton);
         cancelButton->setText("Cancel");
+		cancelButton->setTooltip("Close the dialog without changes.");
         cancelButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onCancel));
 
         iWidgetButton* resetButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(resetButton);
         resetButton->setText("Reset");
+		resetButton->setTooltip("Resets dialog to previous color.");
         resetButton->registerOnClickEvent(iClickDelegate(this, &iDialogColorChooser::onReset));
 
         addWidget(_grid);

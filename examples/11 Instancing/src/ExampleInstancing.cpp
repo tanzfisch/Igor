@@ -205,9 +205,8 @@ void ExampleInstancing::init()
     iMaterialResourceFactory::getInstance().getMaterial(_materialWithTextureAndBlending)->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
 
     // animation
-    _animationTimingHandle = new iTimerHandle();
-    _animationTimingHandle->setIntervall(10);
-    _animationTimingHandle->registerTimerDelegate(iTimerTickDelegate(this, &ExampleInstancing::onTimer));
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &ExampleInstancing::onTimer), 10);
+    _animationTimingHandle->start();
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));

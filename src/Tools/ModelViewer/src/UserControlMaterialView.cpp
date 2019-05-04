@@ -55,6 +55,7 @@ void UserControlMaterialView::initGUI()
     iWidgetButton* addMaterialButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(addMaterialButton);
     addMaterialButton->setText("");
+	addMaterialButton->setTooltip("Create new material.");
     addMaterialButton->setWidth(30);
     addMaterialButton->setHeight(30);
     addMaterialButton->setTexture("icons\\addMaterial.png");

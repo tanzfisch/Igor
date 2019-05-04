@@ -98,6 +98,19 @@ namespace Igor
 		}
 	}
 
+	void iWidgetDefaultTheme::drawTooltip(const iaVector2i& pos, const iaString& text)
+	{
+		float32 textWidth = min(300.0f, _font->measureWidth(text, _fontSize));
+		float32 textHeight = _font->measureHeight(text, _fontSize, textWidth);
+
+		iRectanglei rect(pos._x, pos._y, textWidth + 10, textHeight + 10);
+		drawFilledRectangle(rect, COLOR_WHITE);
+		drawRectangle(rect, COLOR_BLACK);
+
+		rect.adjust(5, 5, 0, 0);
+		drawText(rect, text, textWidth);
+	}
+
 	void iWidgetDefaultTheme::drawRectangle(const iRectanglei& rect)
 	{
 		drawRectangle(rect, COLOR_AMBIENT);

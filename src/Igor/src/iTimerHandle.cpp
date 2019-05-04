@@ -12,20 +12,45 @@ using namespace IgorAux;
 namespace Igor
 {
 
-	iTimerHandle::iTimerHandle()
+	iTimerHandle::iTimerHandle(iTimerTickDelegate timerDelegate, float64 interval, bool oneShot)
 	{
-        this->_time = iTimer::getInstance().getMilliSeconds();
-        iTimer::getInstance().insertTimerHandle(this);
+		_timerEvent.append(timerDelegate);
+		setIntervall(interval);
+		_oneShot = oneShot;
 	}
 
 	iTimerHandle::~iTimerHandle()
 	{
-        iTimer::getInstance().removeTimerHandle(this);
+		stop();
 	}
 
 	void iTimerHandle::restart()
 	{
+		stop();
+		start();
+	}
+
+	void iTimerHandle::start()
+	{
+		if (_playing)
+		{
+			return;
+		}
+
+		iTimer::getInstance().insertTimerHandle(this);
 		_time = iTimer::getInstance().getMilliSeconds();
+		_playing = true;
+	}
+
+	void iTimerHandle::stop()
+	{
+		if (!_playing)
+		{
+			return;
+		}
+
+		_playing = false;
+		iTimer::getInstance().removeTimerHandle(this);
 	}
 
 	void iTimerHandle::setIntervall(float64 interval)
@@ -60,6 +85,12 @@ namespace Igor
 		while (time - _time >= _intervall)
 		{
 			_timerEvent();
+			if (_oneShot)
+			{
+				stop();
+				break;
+			}
+
 			_time += _intervall;
 		}
 	}

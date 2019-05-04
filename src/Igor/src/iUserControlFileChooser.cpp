@@ -102,6 +102,7 @@ namespace Igor
         _fileSelectButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
         _allWidgets.push_back(_fileSelectButton);
         _fileSelectButton->setText("...");
+		_fileSelectButton->setTooltip("Browse for file.");
         _fileSelectButton->setHorizontalAlignment(iHorizontalAlignment::Left);
         _fileSelectButton->registerOnClickEvent(iClickDelegate(this, &iUserControlFileChooser::onFileSelectButtonPressed));
 

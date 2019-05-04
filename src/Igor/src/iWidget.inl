@@ -77,6 +77,11 @@ int32 iWidget::getMinHeight() const
     return _minHeight;
 }
 
+iaVector2i iWidget::getActualPos() const
+{
+	return iaVector2i(_absoluteX, _absoluteY);
+}
+
 int32 iWidget::getActualPosX() const
 {
 	return _absoluteX;

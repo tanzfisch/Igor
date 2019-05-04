@@ -90,6 +90,8 @@ namespace Igor
 		virtual void drawGraphLabels(const iRectanglei& rect, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active) = 0;
 		virtual void drawGraphFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active) = 0;
 
+		virtual void drawTooltip(const iaVector2i& pos, const iaString& text) = 0;
+
 		virtual void setFontMetrics(const float32 fontSize, const float32 lineHeight) = 0;
 		virtual float32 getFontSize() = 0;
 		virtual iTextureFont* getFont() = 0;

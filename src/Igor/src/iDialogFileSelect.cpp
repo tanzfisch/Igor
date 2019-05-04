@@ -209,7 +209,7 @@ namespace Igor
 		_load = true;
 		_fileDialogCloseEvent.append(closeDelegate);
 		_headerLabel->setText("Load File");
-		_okButton->setText("Load");
+		_okButton->setText("Load");		
 		
 		initDialog(path);
 	}

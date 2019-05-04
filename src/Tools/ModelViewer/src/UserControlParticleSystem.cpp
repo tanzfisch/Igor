@@ -450,18 +450,21 @@ void UserControlParticleSystem::initGUI()
     _buttonStart = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonStart);
     _buttonStart->setText("Start");
+	_buttonStart->setTooltip("Start/Continue particle system playback");
     _buttonStart->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonStart->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStart));
 
     _buttonStop = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonStop);
     _buttonStop->setText("Stop");
+	_buttonStop->setTooltip("Stop/Pause particle system playback");
     _buttonStop->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonStop->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onStop));
 
     _buttonReset = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(_buttonReset);
     _buttonReset->setText("Reset");
+	_buttonReset->setTooltip("Reset/Restart particle system playback");
     _buttonReset->setWidth(MV_REGULARBUTTON_SIZE);
     _buttonReset->registerOnClickEvent(iClickDelegate(this, &UserControlParticleSystem::onReset));
 
