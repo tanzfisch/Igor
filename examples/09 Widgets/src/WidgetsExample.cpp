@@ -170,6 +170,7 @@ void WidgetsExample::initGUI()
     button1->setVerticalAlignment(iVerticalAlignment::Strech);
     button1->setHorizontalAlignment(iHorizontalAlignment::Center);
     button1->setText("Open Message Box");
+	button1->setTooltip("Opens a message box");
     button1->registerOnClickEvent(iClickDelegate(this, &WidgetsExample::onOpenMessageBox));
 
     _color = static_cast<iWidgetColor*>(iWidgetManager::getInstance().createWidget("Color"));
@@ -200,6 +201,7 @@ void WidgetsExample::initGUI()
     iWidgetButton* exitButton = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
     _allWidgets.push_back(exitButton);
     exitButton->setText("");
+	exitButton->setTooltip("Exists the application.");
     exitButton->setTexture("icons\\exit.png");
     exitButton->setVerticalTextAlignment(iVerticalAlignment::Bottom);
     exitButton->setVerticalAlignment(iVerticalAlignment::Center);

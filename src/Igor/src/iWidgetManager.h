@@ -117,6 +117,17 @@ namespace Igor
         */
         void destroyDialog(uint64 id);
 
+		/*! shows tooltip at given position
+
+		\param pos the position to show the tooltip
+		\param text the text of the tooltip
+		*/
+		void showTooltip(const iaVector2i& pos, const iaString& text);
+
+		/*! hides the tooltip
+		*/
+		void hideTooltip();
+
         /*! registers a dialog type to the widget manager
 
         \param dialogType name of dialog type
@@ -364,6 +375,14 @@ namespace Igor
         /*! current desktop height
         */
 		uint32 _desktopHeight = 0;
+
+		/*! tooltip position
+		*/
+		iaVector2i _tooltipPos;
+
+		/*! tooltip text
+		*/
+		iaString _tooltipText;
 
         /*! last chance for the instance to clean up before shut down
         */

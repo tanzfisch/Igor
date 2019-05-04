@@ -84,6 +84,7 @@ namespace Igor
         void drawGraphLabels(const iRectanglei& rect, const vector<iaVector2f>& verticalLines, const vector<iaVector2f>& horizontalLines, bool active);
         void drawGraphFrame(const iRectanglei& rect, iWidgetAppearanceState state, bool active);
 
+		void drawTooltip(const iaVector2i& pos, const iaString& text) override;
 
         void setFontMetrics(const float32 font_size, const float32 line_height);
         float32 getFontSize();

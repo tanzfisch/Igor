@@ -1723,7 +1723,7 @@ namespace Igor
 						}
 						temptext[j] = 0;
 
-						if (renderPos._x + _font->measureWidth(temptext, _fontSize) > maxWidth)
+						if (renderPos._x + _font->measureWidth(temptext, _fontSize) >= maxWidth)
 						{
 							renderPos._x = 0;
 							renderPos._y += _fontSize * _fontLineHeight;

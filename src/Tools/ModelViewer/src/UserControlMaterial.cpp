@@ -510,6 +510,7 @@ void UserControlMaterial::initGUI()
     _shader0Button->setWidth(20);
     _shader0Button->setHeight(20);
     _shader0Button->setText("...");
+	_shader0Button->setTooltip("Browse for geometry shader");
     _shader0Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader0Button));
 
     _shader1Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
@@ -517,6 +518,7 @@ void UserControlMaterial::initGUI()
     _shader1Button->setWidth(20);
     _shader1Button->setHeight(20);
     _shader1Button->setText("...");
+	_shader1Button->setTooltip("Browse for vertex shader");
     _shader1Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader1Button));
 
     _shader2Button = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
@@ -524,6 +526,7 @@ void UserControlMaterial::initGUI()
     _shader2Button->setWidth(20);
     _shader2Button->setHeight(20);
     _shader2Button->setText("...");
+	_shader2Button->setTooltip("Browse for fragment shader");
     _shader2Button->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onShader2Button));
 
     _shaderReload = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
@@ -531,6 +534,7 @@ void UserControlMaterial::initGUI()
     _shaderReload->setWidth(20);
     _shaderReload->setHeight(20);
     _shaderReload->setText("Reload");
+	_shaderReload->setTooltip("Reload shaders");
     _shaderReload->setHorizontalAlignment(iHorizontalAlignment::Right);
     _shaderReload->registerOnClickEvent(iClickDelegate(this, &UserControlMaterial::onReloadShader));
 
