@@ -497,7 +497,8 @@ namespace Igor
 
 	bool iModelDataIOOBJ::readVertex(vector<iaString> &attributes)
 	{
-        con_assert(attributes.size() == 4, "invalid attributes count");
+
+        con_assert(attributes.size() >= 4, "invalid attributes count");
 
 		iaVector3f result;
 		result[0] = (float32)_wtof(attributes[1].getData());
@@ -509,7 +510,7 @@ namespace Igor
 
 	bool iModelDataIOOBJ::readTexcoord(vector<iaString> &attributes)
 	{
-        con_assert(attributes.size() == 3, "invalid attributes count");
+        con_assert(attributes.size() >= 3, "invalid attributes count");
 
 		iaVector2f result;
 		result[0] = (float32)_wtof(attributes[1].getData());
@@ -520,7 +521,7 @@ namespace Igor
 
 	bool iModelDataIOOBJ::readNormal(vector<iaString> &attributes)
 	{
-        con_assert(attributes.size() == 4, "invalid attributes count");
+        con_assert(attributes.size() >= 4, "invalid attributes count");
 
 		iaVector3f result;
 		result[0] = (float32)_wtof(attributes[1].getData());
