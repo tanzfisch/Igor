@@ -865,7 +865,8 @@ void ModelViewer::onMouseWheel(int32 d)
 
 void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
-    const float32 rotateSensitivity = 0.0075f;
+    const float64 rotateSensitivity = 0.0075;
+	const float64 translateSensitivity = 50.0;
 
     if (iMouse::getInstance().getLeftButton())
     {
@@ -892,6 +893,19 @@ void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
         _directionalLightRotate->rotate((from._y - to._y) * rotateSensitivity, iaAxis::X);
         _directionalLightRotate->rotate((from._x - to._x) * rotateSensitivity, iaAxis::Y);
     }
+
+	if (iMouse::getInstance().getMiddleButton())
+	{
+		if (iKeyboard::getInstance().getKey(iKeyCode::LAlt))
+		{
+			iaMatrixd camWorldMatrix;
+			_camera->calcWorldTransformation(camWorldMatrix);
+			iaVector3d fromWorld = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
+			iaVector3d toWorld = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
+			
+			_cameraCOI->translate((fromWorld - toWorld) * translateSensitivity);
+		}
+	}
 }
 
 void ModelViewer::onExitModelViewer()
