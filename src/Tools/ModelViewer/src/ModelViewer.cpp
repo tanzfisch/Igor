@@ -62,6 +62,19 @@ ModelViewer::~ModelViewer()
     deinit();
 }
 
+iModelDataInputParameter* ModelViewer::createDataInputParameter()
+{
+	iModelDataInputParameter* parameter = new iModelDataInputParameter();
+	parameter->_identifier = "";
+	parameter->_modelSourceType = iModelSourceType::File;
+	parameter->_needsRenderContext = true;
+	parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
+	parameter->_joinVertexes = false;
+	parameter->_keepMesh = true;
+
+	return parameter;
+}
+
 void ModelViewer::init(iaString fileName)
 {
     con(" -- Model Viewer --" << endl);
@@ -206,13 +219,7 @@ void ModelViewer::init(iaString fileName)
     if (!fileName.isEmpty())
     {
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
+        iModelDataInputParameter* parameter = createDataInputParameter();
 
         model->setModel(fileName, iResourceCacheMode::Free, parameter);
         _groupNode->insertNode(model);
@@ -467,13 +474,7 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         iaString filename = _fileDialog->getFullPath();
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
+        iModelDataInputParameter* parameter = createDataInputParameter();
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
@@ -549,13 +550,7 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         iaString filename = _fileDialog->getFullPath();
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
+        iModelDataInputParameter* parameter = createDataInputParameter();
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
@@ -605,13 +600,7 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         }
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
+        iModelDataInputParameter* parameter = createDataInputParameter();
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
