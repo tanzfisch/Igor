@@ -100,8 +100,6 @@ namespace Igor
 
 	void iWidgetManager::showTooltip(const iaVector2i& pos, const iaString& text)
 	{
-		con_endl("showTooltip " << text);
-
 		_tooltipPos = pos;
 		_tooltipText = text;
 
