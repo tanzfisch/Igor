@@ -35,7 +35,7 @@ namespace Igor
         _identifier = "obj";
 
 		OBJGroup defaultgroup;
-		defaultgroup._name = "defaultgroup";
+		defaultgroup._name = "default";
 		_currentGroups.push_back(0);
 		_groups.push_back(defaultgroup);
 
@@ -61,24 +61,23 @@ namespace Igor
 		if(getMaterialCount()==0)
 		{
             con_debug_endl("no materials loaded");
-            vector<iMeshBuilder*> meshes;
-            iMeshBuilder* meshBuilder = new iMeshBuilder();
+            
+            iMeshBuilder meshBuilder;
             if (parameter != nullptr)
             {
-                meshBuilder->setJoinVertexes(parameter->_joinVertexes);
+                meshBuilder.setJoinVertexes(parameter->_joinVertexes);
             }
-            meshes.push_back(meshBuilder);
 
-            transferToMeshBuilder(meshes);
+			vector<iMeshBuilder*> meshBuilders;
+			meshBuilders.push_back(&meshBuilder);
+            transferToMeshBuilder(meshBuilders);
 
             iNodeMesh* mesh = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
             mesh->setName("mesh");
-            mesh->setMesh(meshes[0]->createMesh());
+			meshBuilder.cleanup();
+            mesh->setMesh(meshBuilder.createMesh());
 
 			result->insertNode(mesh);
-
-            delete meshes[0];
-            meshes.clear();
 		}
 		else
 		{
@@ -96,10 +95,13 @@ namespace Igor
 
             transferToMeshBuilder(meshBuilders);
 
-            for(uint32 i=0;i<meshBuilders.size();++i)
+			int materialIndex = 0;
+            for(auto meshBuilder : meshBuilders)
 			{
+				auto material = getMaterial(materialIndex++);
+
                 wstringstream stream;
-                stream << "mesh" << setfill(L'0') << setw(4) << i+1;
+                stream << "mesh" << setfill(L'0') << setw(4) << materialIndex;
 
                 iNodeMesh* mesh = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh)); 
                 mesh->setName(stream.str().data());
@@ -107,20 +109,22 @@ namespace Igor
                 {
                     mesh->setKeepMesh(parameter->_keepMesh);
                 }
-                mesh->setMesh(meshBuilders[i]->createMesh());
+                mesh->setMesh(meshBuilder->createMesh());
 				result->insertNode(mesh);
 
-                mesh->getTargetMaterial()->setAmbient(getMaterial(i)->_ambient);
-                mesh->getTargetMaterial()->setDiffuse(getMaterial(i)->_diffuse);
-                mesh->getTargetMaterial()->setSpecular(getMaterial(i)->_specular);
-                mesh->getTargetMaterial()->setShininess(getMaterial(i)->_shininess);
+				
 
-                if(getMaterial(i)->_texture != "")
+                mesh->getTargetMaterial()->setAmbient(material->_ambient);
+                mesh->getTargetMaterial()->setDiffuse(material->_diffuse);
+                mesh->getTargetMaterial()->setSpecular(material->_specular);
+                mesh->getTargetMaterial()->setShininess(material->_shininess);
+
+                if(material->_texture != "")
                 {
-                    mesh->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(getMaterial(i)->_texture.getData()), 0);
+                    mesh->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(material->_texture.getData()), 0);
                 }
 
-                delete meshBuilders[i];
+                delete meshBuilder;
 			}
 
             meshBuilders.clear();
