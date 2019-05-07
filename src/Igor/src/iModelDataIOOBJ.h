@@ -29,22 +29,21 @@
 #ifndef __iLOADEROBJ__
 #define __iLOADEROBJ__
 
-#include <iaString.h>
-using namespace IgorAux;
-
 #include <iModelDataIO.h>
+#include <iMeshBuilder.h>
+
+#include <iaString.h>
 #include <iaVector4.h>
 #include <iaVector2.h>
 #include <iaColor3.h>
+using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+#include <map>
 
 namespace Igor
 {
-
-    class iMeshBuilder;
-
+	
 	/*! model data loader for the OBJ aka Wavefront format
 
 	source: http://de.wikipedia.org/wiki/Wavefront_OBJ
@@ -75,36 +74,32 @@ namespace Igor
         */
 		struct OBJPolygon
 		{
-            /*! material number
-            */
-			uint32 _materialNum;
-
             /*! list of vertices of this polygon
             */
-			vector<OBJVertex> _vertexes;
+			std::vector<OBJVertex> _vertexes;
 		};
 
         /*! obj group of polygons (aka mesh)
         */
 		struct OBJGroup
 		{
-            /*! name of group
-            */
-			iaString _name;
+			/*! name of material used in this group
+			*/
+			iaString _materialName;
 
             /*! list of polygons in this group
             */
-			vector<uint32> _polygons;
+			std::vector<OBJPolygon> _polygons;
+
+			/*! mesh builder
+			*/
+			iMeshBuilder _meshBuilder;
 		};
 
         /*! obj materil
         */
 		struct OBJMaterial
 		{
-            /*! name of material
-            */
-			iaString _name;
-
             /*! target ambient
             */
 			iaColor3f _ambient;
@@ -153,35 +148,35 @@ namespace Igor
 
         /*! list of vertexes
         */
-		vector<iaVector3f> _vertexes;
+		std::vector<iaVector3f> _vertexes;
 
         /*! list of normals
         */
-		vector<iaVector3f> _normals;
+		std::vector<iaVector3f> _normals;
 
         /*! list of texture coordinates
         */
-		vector<iaVector2f> _texcoord;
-
-        /*! list of polygons
-        */
-		vector<OBJPolygon> _polygons;
+		std::vector<iaVector2f> _texcoord;
 
         /*! list of groups
         */
-		vector<OBJGroup> _groups;
+		std::map<iaString, OBJGroup> _groups;
 
         /*! list of materials
         */
-		vector<OBJMaterial> _materials;
+		std::map<iaString, iModelDataIOOBJ::OBJMaterial> _materials;
 
         /*! current groups
         */
-		vector<uint32> _currentGroups;
+		std::vector<iaString> _currentGroups;
+
+		/*! true if the current group already has a material
+		*/
+		int _currentGroupsIncarnation;
 
         /*! current materials
         */
-        int32 _currentMaterial;
+        iaString _currentMaterial;
 
         /*! source path of model
         */
@@ -191,7 +186,7 @@ namespace Igor
 
         \param meshBuilders list of mesh builders (one per material)
         */
-        void transferToMeshBuilder(vector<iMeshBuilder*>& meshBuilders);
+        void transferToMeshBuilder(OBJGroup& group);
 
         /*! analyse next attributes
 
@@ -305,15 +300,11 @@ namespace Igor
         */
 		uint32 getTexCoordCount();
 
-        /*! \returns polygon count
-        */
-		uint32 getPolygonCount();
-
-        /*! \returns material by ID (aka material number)
+        /*! \returns material by name
         
-        \param materialnum the material ID
+        \param materialName the material name
         */
-		iModelDataIOOBJ::OBJMaterial* getMaterial(uint32 materialnum);
+		iModelDataIOOBJ::OBJMaterial* getMaterial(const iaString& materialName);
 
         /*! \returns vertex at given index
 
@@ -332,13 +323,7 @@ namespace Igor
         \param index index of texture coordinate to return
         */
         iaVector2f* getTexCoord(uint32 index);
-
-        /*! \returns polygon with given index
-
-        \param index index of polygon to return
-        */
-		iModelDataIOOBJ::OBJPolygon* getPolygon(uint32 index);
-
+		
 	};
 
 }
