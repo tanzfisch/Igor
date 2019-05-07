@@ -404,7 +404,13 @@ namespace Igor
 		while (iterAttribute != attributes.end())
 		{
 			iaString groupName = (*iterAttribute);
-			groupName += iaString::itoa(_currentGroupsIncarnation);
+
+			if (groupName == "(null)")
+			{
+				static int i = 0;
+				groupName = "noname";
+				groupName += iaString::itoa(i++);
+			}
 
 			auto iter = _groups.find(groupName);
 			if (iter == _groups.end())
@@ -544,6 +550,11 @@ namespace Igor
 
 	iModelDataIOOBJ::OBJMaterial* iModelDataIOOBJ::getMaterial(const iaString & materialName)
 	{
+		if (materialName.isEmpty())
+		{
+			return nullptr;
+		}
+
 		auto iter = _materials.find(materialName);
 		if (iter == _materials.end())
 		{
