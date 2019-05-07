@@ -855,7 +855,7 @@ void ModelViewer::onMouseWheel(int32 d)
 void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
     const float64 rotateSensitivity = 0.0075;
-	const float64 translateSensitivity = 50.0;
+	const float64 translateSensitivity = 1.0;
 
     if (iMouse::getInstance().getLeftButton())
     {
@@ -892,7 +892,11 @@ void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 			iaVector3d fromWorld = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
 			iaVector3d toWorld = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
 			
-			_cameraCOI->translate((fromWorld - toWorld) * translateSensitivity);
+			iaMatrixd camTranslateMatrix;
+			_cameraTranslation->getMatrix(camTranslateMatrix);
+			float64 translateFactor = camTranslateMatrix._pos.length() * translateSensitivity;
+
+			_cameraCOI->translate((fromWorld - toWorld) * translateFactor);
 		}
 	}
 }
