@@ -101,7 +101,7 @@ namespace Igor
 				auto material = getMaterial(materialIndex++);
 
                 wstringstream stream;
-                stream << "mesh" << setfill(L'0') << setw(4) << materialIndex;
+                stream << "mesh" << setfill(L'0') << setw(4) << materialIndex << "_" << material->_name;
 
                 iNodeMesh* mesh = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh)); 
                 mesh->setName(stream.str().data());
@@ -214,9 +214,9 @@ namespace Igor
 		{
 			return readGroup(attributes);
 		}
-		else if (attributes[0] == "o")	// objects are also groups
+		else if (attributes[0] == "o")	// we ignore objects
 		{
-			return readGroup(attributes);
+			return true; 
 		}
 		else if(attributes[0] == "usemtl") // use material
 		{
@@ -260,18 +260,6 @@ namespace Igor
 		{
 			return readTexture(attributes);
 		}
-
-		return true;
-	}
-
-	bool iModelDataIOOBJ::readMaterial(vector<iaString> &attributes)
-	{
-        con_assert(attributes.size() == 2, "invalid count of attributes");
-
-		OBJMaterial result;
-		result._name = attributes[1];
-		_materials.push_back(result);
-		_currentMaterial = static_cast<int32>(_materials.size()-1);
 
 		return true;
 	}
@@ -377,6 +365,18 @@ namespace Igor
 		}
 		
 		return false;
+	}
+
+	bool iModelDataIOOBJ::readMaterial(vector<iaString>& attributes)
+	{
+		con_assert(attributes.size() >= 2, "invalid count of attributes");
+
+		OBJMaterial result;
+		result._name = attributes[1];
+		_materials.push_back(result);
+		_currentMaterial = static_cast<int32>(_materials.size() - 1);
+
+		return true;
 	}
 
 	bool iModelDataIOOBJ::readGroup(vector<iaString> &attributes)
