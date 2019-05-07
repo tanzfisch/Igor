@@ -95,7 +95,7 @@ void ModelViewer::init(iaString fileName)
     _view.setName("MainSceneView");
     _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
     _view.setPerspective(45.0f);
-    _view.setClipPlanes(0.1f, 10000.f);
+    _view.setClipPlanes(1.0f, 100000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
 
