@@ -133,10 +133,10 @@ namespace Igor
 		glCompileShader(id); GL_CHECK_ERROR();
 
 		int len;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len); GL_CHECK_ERROR();
 
 		char* buffer = new char[len];
-		glGetInfoLogARB(id, len, &result, buffer);
+		glGetInfoLogARB(id, len, &result, buffer); GL_CHECK_ERROR();
 
 		if (0 != result)
 		{
