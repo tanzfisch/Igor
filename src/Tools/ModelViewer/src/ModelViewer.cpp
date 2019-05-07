@@ -384,7 +384,7 @@ void ModelViewer::forceLoadingNow(iNodeModel* modelNode)
         // want everything to be loaded now!
         con_endl("loading data synchronously ... ");
 
-        while (!modelNode->isReady())
+        while (!modelNode->isLoaded())
         {
             tempScene->handle();
             iTextureResourceFactory::getInstance().flush();
@@ -475,57 +475,60 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
         iModelDataInputParameter* parameter = createDataInputParameter();
-
         model->setModel(filename, iResourceCacheMode::Free, parameter);
+
         forceLoadingNow(model);
 
-        iNodePtr groupNode = nullptr;
+		if (model->isValid())
+		{
+			iNodePtr groupNode = nullptr;
 
-        auto children = model->getChildren();
-        if (children.size() > 1)
-        {
-            groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
-            iaString groupName = "group:";
-            groupName += filename;
-            groupNode->setName(groupName);
+			auto children = model->getChildren();
+			if (children.size() > 1)
+			{
+				groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+				iaString groupName = "group:";
+				groupName += filename;
+				groupNode->setName(groupName);
 
-            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-            if (cursorNode != nullptr)
-            {
-                cursorNode->insertNode(groupNode);
-            }
-            else
-            {
-                _groupNode->insertNode(groupNode);
-            }
+				iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+				if (cursorNode != nullptr)
+				{
+					cursorNode->insertNode(groupNode);
+				}
+				else
+				{
+					_groupNode->insertNode(groupNode);
+				}
 
-            selectNode = groupNode;
-        }
-        else
-        {
-            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-            if (cursorNode != nullptr)
-            {
-                groupNode = cursorNode;
-            }
-            else
-            {
-                groupNode = _groupNode;
-            }
+				selectNode = groupNode;
+			}
+			else
+			{
+				iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+				if (cursorNode != nullptr)
+				{
+					groupNode = cursorNode;
+				}
+				else
+				{
+					groupNode = _groupNode;
+				}
 
-            if (!children.empty())
-            {
-                selectNode = children.front();
-            }
-        }
+				if (!children.empty())
+				{
+					selectNode = children.front();
+				}
+			}
 
-        auto child = children.begin();
-        while (child != children.end())
-        {
-            model->removeNode((*child));
-            groupNode->insertNode((*child));
-            child++;
-        }
+			auto child = children.begin();
+			while (child != children.end())
+			{
+				model->removeNode((*child));
+				groupNode->insertNode((*child));
+				child++;
+			}
+		}
 
         iNodeFactory::getInstance().destroyNodeAsync(model);
     }
@@ -555,17 +558,20 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-        if (cursorNode != nullptr)
-        {
-            cursorNode->insertNode(model);
-        }
-        else
-        {
-            _groupNode->insertNode(model);
-        }
+		if (model->isValid())
+		{
+			iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+			if (cursorNode != nullptr)
+			{
+				cursorNode->insertNode(model);
+			}
+			else
+			{
+				_groupNode->insertNode(model);
+			}
 
-        selectNode = model;
+			selectNode = model;
+		}
     }
 
     _menuDialog->setActive();
@@ -605,32 +611,35 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNodePtr insertAt = nullptr;
-        
-		auto children = model->getChildren();
-        if (children.size() > 1)
-        {
-			insertAt = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
-            iaString groupName = "group:";
-            groupName += filename;
-			insertAt->setName(groupName);
+		if (model->isValid())
+		{
+			iNodePtr insertAt = nullptr;
 
-            _groupNode->insertNode(insertAt);
-            selectNode = insertAt;
-        }
-        else
-        {
-			insertAt = _groupNode;
-            selectNode = children.front();
-        }
+			auto children = model->getChildren();
+			if (children.size() > 1)
+			{
+				insertAt = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+				iaString groupName = "group:";
+				groupName += filename;
+				insertAt->setName(groupName);
 
-        auto child = children.begin();
-        while (child != children.end())
-        {
-            model->removeNode((*child));
-			insertAt->insertNode((*child));
-            child++;
-        }
+				_groupNode->insertNode(insertAt);
+				selectNode = insertAt;
+			}
+			else
+			{
+				insertAt = _groupNode;
+				selectNode = children.front();
+			}
+
+			auto child = children.begin();
+			while (child != children.end())
+			{
+				model->removeNode((*child));
+				insertAt->insertNode((*child));
+				child++;
+			}
+		}
 
         iNodeFactory::getInstance().destroyNodeAsync(model);
     }
