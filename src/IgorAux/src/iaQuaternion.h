@@ -29,7 +29,10 @@
 #ifndef __QUATERNION__
 #define __QUATERNION__
 
-#include <iaDefines.h>
+#include <iaVector3.h>
+
+#include <ostream>
+using namespace std;
 
 namespace IgorAux
 {
@@ -38,12 +41,11 @@ namespace IgorAux
 
     \todo not in use yet
     */
-    template <class T>
-    class iaQuaternion
+    template <class T> class IgorAux_API_Template iaQuaternion
     {
     public:
 
-        T x, y, z, w;
+        T _x, _y, _z, _w;
 
         __IGOR_INLINE__ iaQuaternion<T> operator*(iaQuaternion<T> &a);
         __IGOR_INLINE__ iaQuaternion<T> operator*(T a);
@@ -58,7 +60,29 @@ namespace IgorAux
         __IGOR_INLINE__ void normalize();
         __IGOR_INLINE__ void conjugate();
         __IGOR_INLINE__ T dot(iaQuaternion<T> &a);
-        // TODO __IGOR_INLINE__ void slerp(iaQuaternion<T> q1, iaQuaternion<T> q2, T t);
+        // __IGOR_INLINE__ void slerp(iaQuaternion<T> q1, iaQuaternion<T> q2, T t);
+
+		/*! \returns component value by index (const version)
+
+		\param i index of component
+		*/
+		__IGOR_INLINE__ const T& operator[](int i) const;
+
+		/*! \returns component value by index
+
+		\param i index of component
+		*/
+		__IGOR_INLINE__ T& operator[](int i);
+
+		void setEuler(T x, T y, T z);
+
+		void setEuler(const iaVector3<T>& vec);
+
+		void getEuler(T& x, T& y, T& z) const;
+
+		void getEuler(iaVector3<T>& vec) const;
+
+
 
         void set(T x, T y, T z, T w);
 

@@ -30,10 +30,10 @@
 #define __iaMATRIX__
 
 #include <iaVector4.h>
+#include <iaQuaternion.h>
 
 #include <fstream>
 #include <cmath>
-#include <ostream>
 #include <iomanip>
 using namespace std;
 
@@ -46,6 +46,14 @@ namespace IgorAux
 	_right._y | _top._y | _depth._y | _pos.y
 	_right._z | _top._z | _depth._z | _pos.z
 	_w0       | _w1     | _w2       | _w3
+
+	shear
+
+	1      | 0      | 0     | 0
+	z (xy) | 1      | 0     | 0
+	y (xz) | x (yz) | 1     | 0
+	0      | 0      | 0     | 1
+	
 	*/
 	template <class T> class IgorAux_API_Template iaMatrix
 	{
@@ -135,6 +143,19 @@ namespace IgorAux
         /*! transposes the matrix
         */
 		__IGOR_INLINE__ void transpose();
+
+		/*! decompose the matrix in its components
+
+		\param scale the scale component
+		\param rotate the rotate component
+		\param translate the translate component
+		\param shear the shear component
+		\param perspective the perspective component
+
+		thanks to https://glm.g-truc.net
+		and thanks to http://www.opensource.apple.com/source/WebCore/WebCore-514/platform/graphics/transforms/TransformationMatrix.cpp
+		*/
+		bool decompose(iaVector3<T>& scale, iaQuaternion<T>& orientation, iaVector3<T>& translate, iaVector3<T>& shear, iaVector4<T>& perspective);
 
 		/*! calculates a view matrix
 

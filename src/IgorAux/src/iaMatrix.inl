@@ -635,9 +635,9 @@ __IGOR_INLINE__ void iaMatrix<T>::shear(const iaVector3<T>& vec)
 {
 	iaMatrix<T> shear;
 
-	rotation._right._y = vec._z;
-	rotation._right._z = vec._y;
-	rotation._top._z = vec._x;
+	shear._right._y = vec._z;
+	shear._right._z = vec._y;
+	shear._top._z = vec._x;
 
 	(*this) *= shear;
 }
@@ -647,9 +647,9 @@ __IGOR_INLINE__ void iaMatrix<T>::shear(T x, T y, T z)
 {
 	iaMatrix<T> shear;
 
-	rotation._right._y = z;
-	rotation._right._z = y;
-	rotation._top._z = x;
+	shear._right._y = z;
+	shear._right._z = y;
+	shear._top._z = x;
 
 	(*this) *= shear;
 }
@@ -735,4 +735,160 @@ __IGOR_INLINE__ void iaMatrix<T>::rotate(T angle, iaAxis axis)
     }
 
     (*this) *= rotation;
+}
+
+template <class T>
+bool iaMatrix<T>::decompose(iaVector3<T>& scale, iaQuaternion<T>& orientation, iaVector3<T>& translate, iaVector3<T>& shear, iaVector4<T>& perspective)
+{
+	iaMatrix<T> localMatrix(*this);
+
+	// Normalize the matrix.
+	if (_w3 == 0)
+	{
+		return false;
+	}
+
+	for (int i = 0; i < 16; ++i)
+	{
+		localMatrix[i] /= localMatrix._w3;
+	}
+
+	// perspectiveMatrix is used to solve for perspective, but it also provides
+	// an easy way to test for singularity of the upper 3x3 component.
+	iaMatrix<T> perspectiveMatrix(localMatrix);
+	perspectiveMatrix._w0 = 0;
+	perspectiveMatrix._w1 = 0;
+	perspectiveMatrix._w2 = 0;
+	perspectiveMatrix._w3 = 1;
+
+	if (perspectiveMatrix.determinant() == 0)
+	{
+		return false;
+	}
+
+	// First, isolate perspective.  This is the messiest.
+	if (localMatrix._w0 != 0 || localMatrix._w1 != 0 || localMatrix._w2 != 0)
+	{
+		// rightHandSide is the right hand side of the equation.
+		iaVector4<T> rightHandSide;
+		rightHandSide[0] = localMatrix._w0;
+		rightHandSide[1] = localMatrix._w1;
+		rightHandSide[2] = localMatrix._w2;
+		rightHandSide[3] = localMatrix._w3;
+
+		// Solve the equation by inverting perspectiveMatrix and multiplying
+		// rightHandSide by the inverse.  (This is the easiest way, not
+		// necessarily the best.)
+		iaMatrix<T> transposedInversePerspectiveMatrix(perspectiveMatrix);
+		if (!transposedInversePerspectiveMatrix.invert())
+		{
+			return false;
+		}
+		transposedInversePerspectiveMatrix.transpose();
+
+		perspective = transposedInversePerspectiveMatrix * rightHandSide;
+
+		// Clear the perspective partition
+		localMatrix._w0 = 0;
+		localMatrix._w1 = 0;
+		localMatrix._w2 = 0;
+		localMatrix._w3 = 1;
+	}
+	else
+	{
+		// No perspective.
+		perspective.set(0, 0, 0, 1);
+	}
+
+	// Next take care of translation (easy).
+	translate = localMatrix._pos;
+	localMatrix._pos.set(0, 0, 0);
+
+	// Vector4 type and functions need to be added to the common set.
+	iaVector3<T> row[3], pdum3;
+
+	// Now get scale and shear.
+	row[0] = localMatrix._right;
+	row[1] = localMatrix._top;
+	row[2] = localMatrix._depth;
+
+	// Compute X scale factor and normalize first row.
+	scale._x = row[0].length();
+	row[0].normalize();
+
+	// Compute XY shear factor and make 2nd row orthogonal to 1st.
+	shear._z = row[0] * row[1];
+	row[1] = row[1] + (row[0] * -shear._z);
+
+	// Now, compute Y scale and normalize 2nd row.
+	scale._y = row[1].length();
+	row[1].normalize();
+	shear._z /= scale._y;
+
+	// Compute XZ and YZ shears, orthogonalize 3rd row.
+	shear._y = row[0] * row[2];
+	row[2] = row[2] + (row[0] * -shear._y);
+	shear._x = row[1] * row[2];
+	row[2] = row[2] + (row[1] * -shear._x);
+
+	// Next, get Z scale and normalize 3rd row.
+	scale._z = row[2].length();
+	row[2].normalize();
+	shear._y /= scale._z;
+	shear._x /= scale._z;
+
+	// At this point, the matrix (in rows[]) is orthonormal.
+	// Check for a coordinate system flip.  If the determinant
+	// is -1, then negate the matrix and the scaling factors.
+	pdum3 = row[1] % row[2];
+	if ((row[0] * pdum3) < 0)
+	{
+		scale.negate();
+		row[0].negate();
+		row[1].negate();
+		row[2].negate();
+	}
+
+	// Now, get the rotations out
+
+	int i, j, k = 0;
+	T root, trace = row[0]._x + row[1]._y + row[2]._z;
+	if (trace > static_cast<T>(0))
+	{
+		root = sqrt(trace + static_cast<T>(1.0));
+		orientation._w = static_cast<T>(0.5) * root;
+		root = static_cast<T>(0.5) / root;
+
+		orientation._x = root * (row[1]._z - row[2]._y);
+		orientation._y = root * (row[2]._x - row[0]._z);
+		orientation._z = root * (row[0]._y - row[1]._x);
+	}
+	else
+	{
+		int next[3] = { 1, 2, 0 };
+		i = 0;
+
+		if (row[1]._y > row[0]._x)
+		{
+			i = 1;
+		}
+
+		if (row[2]._z > row[i][i])
+		{
+			i = 2;
+		}
+
+		j = next[i];
+		k = next[j];
+
+		root = sqrt(row[i][i] - row[j][j] - row[k][k] + static_cast<T>(1.0));
+
+		orientation[i] = static_cast<T>(0.5) * root;
+		root = static_cast<T>(0.5) / root;
+		orientation[j] = root * (row[i][j] + row[j][i]);
+		orientation[k] = root * (row[i][k] + row[k][i]);
+		orientation._w = root * (row[j][k] - row[k][j]);
+	}
+
+	return true;
 }
