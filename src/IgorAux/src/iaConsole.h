@@ -356,7 +356,7 @@ namespace IgorAux
     iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_LOGGING_TAB__ << __IGOR_FILE_LINE__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::DarkYellow << __IGOR_LOGGING_TAB__ << __IGOR_FUNCTION__ << endl; \
     iaConsole::getInstance() << iaForegroundColor::Gray << UNLOCK; \
-    con_assert_sticky(iaConsole::getInstance().getWarnings() < 100, "too many warnings")
+    con_assert_sticky(iaConsole::getInstance().getWarnings() < 10000, "too many warnings")
 
     /*! prints an info message to console and optionally to the log file
 

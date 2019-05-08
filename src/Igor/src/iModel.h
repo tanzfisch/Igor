@@ -80,13 +80,15 @@ namespace Igor
 
         /*! wether or not vertexes have to be joined
         */
-        bool _joinVertexes = true;
+        bool _joinVertexes = false;
 
         /*! custom parameters for loader or generator
         */
         iaMemBlock _parameters;
 
         /*! keep mesh flag. if true the mesh will not be deleted after buffer creation
+
+		only if kept it can ba saved to disk
         */
         bool _keepMesh = false;
     };

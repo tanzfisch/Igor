@@ -114,6 +114,11 @@ namespace IgorAux
 		return _data[index];
 	}
 
+	bool iaString::operator <(const iaString& text) const
+	{
+		return wcscmp((*this).getData(), text.getData()) < 0;
+	}
+
 	wostream& operator<<(wostream& stream, const iaString& text)
 	{
 		if (!text.isEmpty())

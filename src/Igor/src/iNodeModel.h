@@ -76,7 +76,11 @@ namespace Igor
 
         /*! \returns true if model data is ready to render
         */
-        bool isReady();
+        bool isValid();
+
+		/*! \returns true if model was loaded or attempted to be loaded
+		*/
+		bool isLoaded();
 
         /*! register delegate to model loaded event
 

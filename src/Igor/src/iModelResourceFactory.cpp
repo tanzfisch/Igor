@@ -137,7 +137,7 @@ namespace Igor
             result = modelDataIO->importData(filename, parameter);
             delete modelDataIO;
 
-            if (!result)
+            if (result == nullptr)
             {
                 con_err("can't load: \"" << filename << "\"");
             }

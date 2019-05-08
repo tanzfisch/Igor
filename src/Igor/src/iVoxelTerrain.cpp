@@ -1073,7 +1073,7 @@ namespace Igor
             {
                 iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(voxelBlock->_modelNodeIDCurrent));
                 if (modelNode == nullptr || (modelNode != nullptr &&
-                    modelNode->isReady()))
+                    modelNode->isValid()))
                 {
                     voxelBlock->_transformNodeIDQueued = iNode::INVALID_NODE_ID;
                     voxelBlock->_state = iVoxelBlockState::GeneratingMesh;
@@ -1126,7 +1126,7 @@ namespace Igor
                     {
                         iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(child->_modelNodeIDCurrent));
                         if (modelNode != nullptr &&
-                            modelNode->isReady())
+                            modelNode->isValid())
                         {
                             iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(child->_transformNodeIDCurrent));
                             if (transformNode != nullptr)
@@ -1147,7 +1147,7 @@ namespace Igor
         {
             iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(voxelBlock->_modelNodeIDCurrent));
             if (modelNode != nullptr &&
-                modelNode->isReady())
+                modelNode->isValid())
             {
                 iNodePtr group = static_cast<iNodeMesh*>(modelNode->getChild("group"));
                 if (group != nullptr)
@@ -1349,7 +1349,7 @@ namespace Igor
         static int count = 0;
         iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(voxelBlock->_modelNodeIDQueued));
         if (modelNode != nullptr &&
-            modelNode->isReady())
+            modelNode->isValid())
         {
             if (voxelBlock->_transformNodeIDCurrent != iNode::INVALID_NODE_ID)
             {

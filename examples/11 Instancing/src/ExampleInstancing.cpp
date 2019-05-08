@@ -359,7 +359,7 @@ void ExampleInstancing::onModelReady(uint64 modelNodeID)
 {
     iNodeModel* modelNode = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(modelNodeID));
     if (modelNode != nullptr &&
-        modelNode->isReady())
+        modelNode->isValid())
     {
         iNodeMesh* meshNode = static_cast<iNodeMesh*>(modelNode->getChild("mesh0001"));
         meshNode->setMaterial(_materialWithInstancing);
