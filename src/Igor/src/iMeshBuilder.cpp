@@ -692,8 +692,8 @@ namespace Igor
 
         if (sharpEdges)
         {
-            con_warn("sharpEdges currently not supported");
-            //        separateTriangles(trianglenormals);
+            // TODO sharpEdges currently not supported
+            // separateTriangles(trianglenormals);
         }
 
         if (!_normals.empty())

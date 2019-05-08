@@ -31,8 +31,17 @@ namespace Igor
 		_name = iaString("Wavefront");
 		_identifier = iaString("obj");
 
-		// if there is no groups defined in the model we fall back to this one
-		_currentGroups.push_back("default");
+		iaString groupName = "mesh";
+		groupName += iaString::itoa(_nextID++);
+
+		// create a valid section in case there is no groups defined in the obj file
+		_currentGroups.push_back(groupName);
+		_sections[groupName] = Section();
+		_currentSections.push_back(groupName);
+
+		// also create the default material which is expected by obj files
+		_currentMaterial = "default";
+		_materials[_currentMaterial] = OBJMaterial();
 	}
 
 	iModelDataIO* iModelDataIOOBJ::createInstance()
@@ -177,9 +186,9 @@ namespace Igor
 		{
 			return readGroup(attributes);
 		}
-		else if (attributes[0] == "o")	// we ignore objects
+		else if (attributes[0] == "o")	// interpret objects as groups
 		{
-			return true;
+			return readGroup(attributes);
 		}
 		else if (attributes[0] == "usemtl") // use material
 		{
@@ -342,6 +351,7 @@ namespace Igor
 
 	bool iModelDataIOOBJ::readGroup(vector<iaString> & attributes)
 	{
+		_currentSections.clear();
 		_currentGroups.clear();
 		_currentMaterial.clear();
 
@@ -353,10 +363,9 @@ namespace Igor
 			iaString groupName = (*iterAttribute);
 
 			if (groupName == "(null)")
-			{
-				static int i = 0;
+			{				
 				groupName = "mesh";
-				groupName += iaString::itoa(i++);
+				groupName += iaString::itoa(_nextID++);
 			}
 
 			auto iter = _sections.find(groupName);
@@ -386,7 +395,7 @@ namespace Igor
 			if (_currentMaterial != iter->first)
 			{
 				_currentMaterial = iter->first;
-				_currentSections.clear();;
+				_currentSections.clear();
 
 				for (auto groupName : _currentGroups)
 				{

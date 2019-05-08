@@ -102,6 +102,14 @@ namespace Igor
             /*! texture
             */
 			iaString _texture;
+
+			OBJMaterial()
+			{
+				_ambient.set(0.4f, 0.4f, 0.4f);
+				_diffuse.set(0.5f, 0.5f, 0.5f);
+				_specular.set(0.6f, 0.6f, 0.6f);
+				_shininess = 5.0f;
+			}
 		};
 
 		/*! section describes part of the data framed by a combination of a group and material
@@ -169,6 +177,10 @@ namespace Igor
 		/*! current materials
 		*/
 		iaString _currentMaterial;
+
+		/*! generated mesh name id
+		*/
+		uint32 _nextID = 1;
 
 		/*! map of sections
 		*/
