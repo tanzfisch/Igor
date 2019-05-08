@@ -28,16 +28,11 @@ namespace Igor
 
 	iModelDataIOOBJ::iModelDataIOOBJ()
 	{
-		_name = "Wavefront";
-		_identifier = "obj";
+		_name = iaString("Wavefront");
+		_identifier = iaString("obj");
 
-		OBJGroup defaultgroup;
-		defaultgroup._materialName = "";
-		_groups["default"] = defaultgroup;
+		// if there is no groups defined in the model we fall back to this one
 		_currentGroups.push_back("default");
-		_currentGroupsIncarnation = 0;
-
-		_currentMaterial = "";
 	}
 
 	iModelDataIO* iModelDataIOOBJ::createInstance()
@@ -58,9 +53,9 @@ namespace Igor
 
 		vector<iMeshBuilder*> meshBuilders;
 
-		for (auto group : _groups)
+		for (auto section : _sections)
 		{
-			auto& meshBuilder = group.second._meshBuilder;
+			auto& meshBuilder = section.second._meshBuilder;
 
 			if (parameter != nullptr)
 			{
@@ -68,7 +63,7 @@ namespace Igor
 			}
 
 			// transfer polygons to mesh builder
-			transferToMeshBuilder(group.second);
+			transferToMeshBuilder(section.second);
 
 			// calc normals if needed
 			if (!meshBuilder.hasNormals())
@@ -83,23 +78,18 @@ namespace Igor
 			}
 
 			// create mesh node
-			wstringstream stream;
-			stream << group.first;
-			if (!group.second._materialName.isEmpty())
-			{
-				stream << "_" << group.second._materialName;
-			}
-
 			iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
-			meshNode->setName(stream.str().data());
+			meshNode->setName(section.first);
+
 			if (parameter != nullptr)
 			{
 				meshNode->setKeepMesh(parameter->_keepMesh);
 			}
+
 			meshNode->setMesh(mesh);
 			result->insertNode(meshNode);
 
-			auto material = getMaterial(group.second._materialName);
+			auto material = getMaterial(section.second._materialName);
 			if (material == nullptr)
 			{
 				continue;
@@ -124,10 +114,10 @@ namespace Igor
 		return result;
 	}
 
-	void iModelDataIOOBJ::transferToMeshBuilder(OBJGroup & group)
+	void iModelDataIOOBJ::transferToMeshBuilder(Section & section)
 	{
-		auto polygons = group._polygons;
-		auto& meshBuilder = group._meshBuilder;
+		auto polygons = section._polygons;
+		auto& meshBuilder = section._meshBuilder;
 
 		for (auto polygon : polygons)
 		{
@@ -350,53 +340,10 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readUseMaterial(vector<iaString> & attributes)
-	{
-		con_assert(attributes.size() == 2, "invalid count of attributes");
-
-		if (attributes.size() != 2) return false;
-
-		auto iter = _materials.find(attributes[1]);
-		if (iter != _materials.end())
-		{
-			_currentMaterial = iter->first;
-
-			if (_currentGroupsIncarnation == 0)
-			{
-				for (auto group : _currentGroups)
-				{
-					_groups[group]._materialName = _currentMaterial;
-				}				
-			}
-			else
-			{
-				std::vector<iaString> groups(_currentGroups);
-				_currentGroups.clear();
-				// create copies of these groups with new materials
-
-				for (auto group : groups)
-				{
-					iaString groupName = group;
-					groupName += iaString::itoa(_currentGroupsIncarnation);
-
-					_groups[groupName] = OBJGroup();
-					_groups[groupName]._materialName = _currentMaterial;
-					_currentGroups.push_back(groupName);
-				}
-			}
-
-			_currentGroupsIncarnation++;
-
-			return true;
-		}
-
-		return false;
-	}
-
 	bool iModelDataIOOBJ::readGroup(vector<iaString> & attributes)
 	{
 		_currentGroups.clear();
-		_currentGroupsIncarnation = 0;
+		_currentMaterial.clear();
 
 		auto iterAttribute = attributes.begin();
 		iterAttribute++;
@@ -408,22 +355,60 @@ namespace Igor
 			if (groupName == "(null)")
 			{
 				static int i = 0;
-				groupName = "noname";
+				groupName = "mesh";
 				groupName += iaString::itoa(i++);
 			}
 
-			auto iter = _groups.find(groupName);
-			if (iter == _groups.end())
+			auto iter = _sections.find(groupName);
+			if (iter == _sections.end())
 			{
-				_groups[groupName] = OBJGroup();
+				_sections[groupName] = Section();
 			}
 
 			_currentGroups.push_back(groupName);
+			_currentSections.push_back(groupName);
 
 			iterAttribute++;
 		}
 
 		return true;
+	}
+
+	bool iModelDataIOOBJ::readUseMaterial(vector<iaString> & attributes)
+	{
+		con_assert(attributes.size() == 2, "invalid count of attributes");
+
+		if (attributes.size() != 2) return false;
+
+		auto iter = _materials.find(attributes[1]);
+		if (iter != _materials.end())
+		{
+			if (_currentMaterial != iter->first)
+			{
+				_currentMaterial = iter->first;
+				_currentSections.clear();;
+
+				for (auto groupName : _currentGroups)
+				{
+					iaString sectionName = groupName;
+					sectionName += "_";
+					sectionName += _currentMaterial;
+
+					auto iter = _sections.find(sectionName);
+					if (iter == _sections.end())
+					{
+						_sections[sectionName] = Section();
+						_sections[sectionName]._materialName = _currentMaterial;
+					}
+
+					_currentSections.push_back(sectionName);
+				}
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	bool iModelDataIOOBJ::readFace(vector<iaString> & attributes)
@@ -437,9 +422,9 @@ namespace Igor
 		}
 
 		// add polygon to current groups
-		for (auto group : _currentGroups)
+		for (auto sectionName : _currentSections)
 		{
-			_groups[group]._polygons.push_back(polygon);
+			_sections[sectionName]._polygons.push_back(polygon);
 		}
 
 		return true;

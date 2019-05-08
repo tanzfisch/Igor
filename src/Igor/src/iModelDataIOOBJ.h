@@ -79,23 +79,6 @@ namespace Igor
 			std::vector<OBJVertex> _vertexes;
 		};
 
-        /*! obj group of polygons (aka mesh)
-        */
-		struct OBJGroup
-		{
-			/*! name of material used in this group
-			*/
-			iaString _materialName;
-
-            /*! list of polygons in this group
-            */
-			std::vector<OBJPolygon> _polygons;
-
-			/*! mesh builder
-			*/
-			iMeshBuilder _meshBuilder;
-		};
-
         /*! obj materil
         */
 		struct OBJMaterial
@@ -119,6 +102,23 @@ namespace Igor
             /*! texture
             */
 			iaString _texture;
+		};
+
+		/*! section describes part of the data framed by a combination of a group and material
+		*/
+		struct Section
+		{
+			/*! name of material in use
+			*/
+			iaString _materialName;
+
+			/*! list of polygons in this group
+			*/
+			std::vector<OBJPolygon> _polygons;
+
+			/*! mesh builder
+			*/
+			iMeshBuilder _meshBuilder;
 		};
 
     public:
@@ -158,10 +158,6 @@ namespace Igor
         */
 		std::vector<iaVector2f> _texcoord;
 
-        /*! list of groups
-        */
-		std::map<iaString, OBJGroup> _groups;
-
         /*! list of materials
         */
 		std::map<iaString, iModelDataIOOBJ::OBJMaterial> _materials;
@@ -170,23 +166,27 @@ namespace Igor
         */
 		std::vector<iaString> _currentGroups;
 
-		/*! true if the current group already has a material
+		/*! current materials
 		*/
-		int _currentGroupsIncarnation;
+		iaString _currentMaterial;
 
-        /*! current materials
-        */
-        iaString _currentMaterial;
+		/*! map of sections
+		*/
+		std::map<iaString, iModelDataIOOBJ::Section> _sections;
+
+		/*! list of current sections
+		*/
+		std::vector<iaString> _currentSections;
 
         /*! source path of model
         */
         iaString _pathOfModel;
 
-        /*! transfers data in to a mesh builder per material
+        /*! transfers data in to a mesh builder per section
 
-        \param meshBuilders list of mesh builders (one per material)
+        \param section the section to work with
         */
-        void transferToMeshBuilder(OBJGroup& group);
+        void transferToMeshBuilder(iModelDataIOOBJ::Section& section);
 
         /*! analyse next attributes
 
