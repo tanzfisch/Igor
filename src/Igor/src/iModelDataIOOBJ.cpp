@@ -9,9 +9,7 @@
 #include <iaConsole.h>
 #include <iModel.h>
 #include <iMesh.h>
-#include <iMeshBuilder.h>
 #include <iTargetMaterial.h>
-
 #include <iNode.h>
 #include <iNodeMesh.h>
 #include <iNodeFactory.h>
@@ -24,235 +22,213 @@ using namespace IgorAux;
 #include <iostream>
 #include <fstream>
 #include <sstream>
-using namespace std;
 
 namespace Igor
 {
 
 	iModelDataIOOBJ::iModelDataIOOBJ()
 	{
-        _name = "Wavefront";
-        _identifier = "obj";
+		_name = iaString("Wavefront");
+		_identifier = iaString("obj");
 
-		OBJGroup defaultgroup;
-		defaultgroup._name = "defaultgroup";
-		_currentGroups.push_back(0);
-		_groups.push_back(defaultgroup);
+		iaString groupName = "mesh";
+		groupName += iaString::itoa(_nextID++);
 
-		_currentMaterial = -1;
+		// create a valid section in case there is no groups defined in the obj file
+		_currentGroups.push_back(groupName);
+		_sections[groupName] = Section();
+		_currentSections.push_back(groupName);
+
+		// also create the default material which is expected by obj files
+		_currentMaterial = "default";
+		_materials[_currentMaterial] = OBJMaterial();
 	}
 
-    iModelDataIO* iModelDataIOOBJ::createInstance()
-    {
-        iModelDataIOOBJ* result = new iModelDataIOOBJ();
-        return static_cast<iModelDataIO*>(result);
-    }
-
-    iNodePtr iModelDataIOOBJ::importData(const iaString& filename, iModelDataInputParameter* parameter)
+	iModelDataIO* iModelDataIOOBJ::createInstance()
 	{
-        iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
-        result->setName("obj_root");
+		iModelDataIOOBJ* result = new iModelDataIOOBJ();
+		return static_cast<iModelDataIO*>(result);
+	}
 
-        if (!readFile(filename))
-        {
-            return 0;
-        }
+	iNodePtr iModelDataIOOBJ::importData(const iaString& filename, iModelDataInputParameter* parameter)
+	{
+		iNodePtr result = iNodeFactory::getInstance().createNode(iNodeType::iNode);
+		result->setName("obj_root");
 
-		if(getMaterialCount()==0)
+		if (!readFile(filename))
 		{
-            con_debug_endl("no materials loaded");
-            vector<iMeshBuilder*> meshes;
-            iMeshBuilder* meshBuilder = new iMeshBuilder();
-            if (parameter != nullptr)
-            {
-                meshBuilder->setJoinVertexes(parameter->_joinVertexes);
-            }
-            meshes.push_back(meshBuilder);
-
-            transferToMeshBuilder(meshes);
-
-            iNodeMesh* mesh = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
-            mesh->setName("mesh");
-            mesh->setMesh(meshes[0]->createMesh());
-
-			result->insertNode(mesh);
-
-            delete meshes[0];
-            meshes.clear();
-		}
-		else
-		{
-			vector<iMeshBuilder*> meshBuilders;
-
-			for(uint32 i=0;i<getMaterialCount();i++)
-			{
-                iMeshBuilder* meshBuilder = new iMeshBuilder();
-                if (parameter != nullptr)
-                {
-                    meshBuilder->setJoinVertexes(parameter->_joinVertexes);
-                }
-                meshBuilders.push_back(meshBuilder);
-			}
-
-            transferToMeshBuilder(meshBuilders);
-
-            for(uint32 i=0;i<meshBuilders.size();++i)
-			{
-                wstringstream stream;
-                stream << "mesh" << setfill(L'0') << setw(4) << i+1;
-
-                iNodeMesh* mesh = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh)); 
-                mesh->setName(stream.str().data());
-                if (parameter != nullptr)
-                {
-                    mesh->setKeepMesh(parameter->_keepMesh);
-                }
-                mesh->setMesh(meshBuilders[i]->createMesh());
-				result->insertNode(mesh);
-
-                mesh->getTargetMaterial()->setAmbient(getMaterial(i)->_ambient);
-                mesh->getTargetMaterial()->setDiffuse(getMaterial(i)->_diffuse);
-                mesh->getTargetMaterial()->setSpecular(getMaterial(i)->_specular);
-                mesh->getTargetMaterial()->setShininess(getMaterial(i)->_shininess);
-
-                if(getMaterial(i)->_texture != "")
-                {
-                    mesh->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(getMaterial(i)->_texture.getData()), 0);
-                }
-
-                delete meshBuilders[i];
-			}
-
-            meshBuilders.clear();
+			return 0;
 		}
 
-        if (result != nullptr)
-        {
-            con_info("loaded obj", "\"" << filename << "\"");
-        }
+		vector<iMeshBuilder*> meshBuilders;
+
+		for (auto section : _sections)
+		{
+			auto& meshBuilder = section.second._meshBuilder;
+
+			if (parameter != nullptr)
+			{
+				meshBuilder.setJoinVertexes(parameter->_joinVertexes);
+			}
+
+			// transfer polygons to mesh builder
+			transferToMeshBuilder(section.second);
+
+			// calc normals if needed
+			if (!meshBuilder.hasNormals())
+			{
+				meshBuilder.calcNormals(true);
+			}
+
+			auto mesh = meshBuilder.createMesh();
+			if (mesh == nullptr)
+			{
+				continue;
+			}
+
+			// create mesh node
+			iNodeMesh* meshNode = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+			meshNode->setName(section.first);
+
+			if (parameter != nullptr)
+			{
+				meshNode->setKeepMesh(parameter->_keepMesh);
+			}
+
+			meshNode->setMesh(mesh);
+			result->insertNode(meshNode);
+
+			auto material = getMaterial(section.second._materialName);
+			if (material == nullptr)
+			{
+				continue;
+			}
+
+			meshNode->getTargetMaterial()->setAmbient(material->_ambient);
+			meshNode->getTargetMaterial()->setDiffuse(material->_diffuse);
+			meshNode->getTargetMaterial()->setSpecular(material->_specular);
+			meshNode->getTargetMaterial()->setShininess(material->_shininess);
+
+			if (material->_texture != "")
+			{
+				meshNode->getTargetMaterial()->setTexture(iTextureResourceFactory::getInstance().requestFile(material->_texture.getData()), 0);
+			}
+		}
+
+		if (result != nullptr)
+		{
+			con_info("loaded obj", "\"" << filename << "\"");
+		}
 
 		return result;
 	}
 
-    void iModelDataIOOBJ::transferToMeshBuilder(vector<iMeshBuilder*>& meshBuilders)
-    {
-        con_assert(meshBuilders.size() > 0, "no mesh builder defined");
+	void iModelDataIOOBJ::transferToMeshBuilder(Section & section)
+	{
+		auto polygons = section._polygons;
+		auto& meshBuilder = section._meshBuilder;
 
-        iMeshBuilder *meshBuilder = nullptr;
+		for (auto polygon : polygons)
+		{
+			bool hasNormals = polygon._vertexes[0]._vn != -1 ? true : false;
+			bool hasTexCoord = polygon._vertexes[0]._t != -1 ? true : false;
 
-        for (uint32 i = 0; i<_polygons.size(); i++)
-        {
-            OBJPolygon& poly = _polygons[i];
+			// asuming poly is a triangle fan
+			for (uint32 j = 0; j < polygon._vertexes.size() - 2; j++)
+			{
+				uint32 a = meshBuilder.addVertex(_vertexes[polygon._vertexes[0]._v]);
+				uint32 b = meshBuilder.addVertex(_vertexes[polygon._vertexes[j + 1]._v]);
+				uint32 c = meshBuilder.addVertex(_vertexes[polygon._vertexes[j + 2]._v]);
 
-            meshBuilder = meshBuilders[poly._materialNum];
+				if (hasNormals)
+				{
+					meshBuilder.setNormal(a, _normals[polygon._vertexes[0]._vn]);
+					meshBuilder.setNormal(b, _normals[polygon._vertexes[j + 1]._vn]);
+					meshBuilder.setNormal(c, _normals[polygon._vertexes[j + 2]._vn]);
+				}
 
-			bool hasNormals = poly._vertexes[0]._vn != -1 ? true : false;
-			bool hasTexCoord = poly._vertexes[0]._t != -1 ? true : false;
+				if (hasTexCoord)
+				{
+					meshBuilder.setTexCoord(a, _texcoord[polygon._vertexes[0]._t], 0);
+					meshBuilder.setTexCoord(b, _texcoord[polygon._vertexes[j + 1]._t], 0);
+					meshBuilder.setTexCoord(c, _texcoord[polygon._vertexes[j + 2]._t], 0);
+				}
 
-            // asuming poly is a triangle fan
-            for (uint32 j = 0; j < poly._vertexes.size() - 2; j++)
-            {
-                uint32 a = meshBuilder->addVertex(_vertexes[poly._vertexes[0]._v]);
-                uint32 b = meshBuilder->addVertex(_vertexes[poly._vertexes[j + 1]._v]);
-                uint32 c = meshBuilder->addVertex(_vertexes[poly._vertexes[j + 2]._v]);
+				meshBuilder.addTriangle(a, b, c);
+			}
+		}
+	}
 
-                if (hasNormals)
-                {
-                    meshBuilder->setNormal(a, _normals[poly._vertexes[0]._vn]);
-                    meshBuilder->setNormal(b, _normals[poly._vertexes[j+1]._vn]);
-                    meshBuilder->setNormal(c, _normals[poly._vertexes[j+2]._vn]);
-                }
-
-                if (hasTexCoord)
-                {
-                    meshBuilder->setTexCoord(a, _texcoord[poly._vertexes[0]._t], 0);
-                    meshBuilder->setTexCoord(b, _texcoord[poly._vertexes[j + 1]._t], 0);
-                    meshBuilder->setTexCoord(c, _texcoord[poly._vertexes[j + 2]._t], 0);
-                }
-
-                meshBuilder->addTriangle(a, b, c);
-            }
-        }
-
-        for (uint32 i = 0; i < meshBuilders.size(); ++i)
-        {
-            if (!meshBuilders[i]->hasNormals())
-            {
-                meshBuilders[i]->calcNormals(true);
-            }
-        }
-    }
-    
-	bool iModelDataIOOBJ::analyseAttributes(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::analyseAttributes(vector<iaString> & attributes)
 	{
 		if (attributes.size() == 0)
 		{
 			return true;
 		}
 
-		if(attributes[0] == "v")	// vertex
+		if (attributes[0] == "v")	// vertex
 		{
 			return readVertex(attributes);
 		}
-		else if(attributes[0] == "vt") // texcoord
+		else if (attributes[0] == "vt") // texcoord
 		{
 			return readTexcoord(attributes);
 		}
-		else if(attributes[0] == "vn") // normal
+		else if (attributes[0] == "vn") // normal
 		{
 			return readNormal(attributes);
 		}
-		else if(attributes[0] == "f") // face
+		else if (attributes[0] == "f") // face
 		{
 			return readFace(attributes);
 		}
-		else if(attributes[0] == "g")	// use groups
+		else if (attributes[0] == "g")	// use groups
 		{
 			return readGroup(attributes);
 		}
-		else if (attributes[0] == "o")	// objects are also groups
+		else if (attributes[0] == "o")	// interpret objects as groups
 		{
 			return readGroup(attributes);
 		}
-		else if(attributes[0] == "usemtl") // use material
+		else if (attributes[0] == "usemtl") // use material
 		{
 			return readUseMaterial(attributes);
 		}
-		else if(attributes[0] == "mtllib") // load material lib
+		else if (attributes[0] == "mtllib") // load material lib
 		{
-			if(attributes.size()!=2) return false;
-			return readMaterialFile(_pathOfModel+attributes[1]);
+			if (attributes.size() != 2) return false;
+			return readMaterialFile(_pathOfModel + attributes[1]);
 		}
-		else if(attributes[0] == "newmtl") // new material
+		else if (attributes[0] == "newmtl") // new material
 		{
 			return readMaterial(attributes);
 		}
-		else if(attributes[0] == "Ns") //?
+		else if (attributes[0] == "Ns") //?
 		{
-            return readShininess(attributes);
+			return readShininess(attributes);
 		}
-		else if(attributes[0] == "d") //?
-		{
-		}
-		else if(attributes[0] == "Ni") //?
+		else if (attributes[0] == "d") //?
 		{
 		}
-		else if(attributes[0] == "illum") //?
+		else if (attributes[0] == "Ni") //?
 		{
 		}
-		else if(attributes[0] == "Ka") // ambient
+		else if (attributes[0] == "illum") //?
+		{
+		}
+		else if (attributes[0] == "Ka") // ambient
 		{
 			return readAmbient(attributes);
 		}
-		else if(attributes[0] == "Kd") // diffuse
+		else if (attributes[0] == "Kd") // diffuse
 		{
 			return readDiffuse(attributes);
 		}
-		else if(attributes[0] == "Ks") // specular
+		else if (attributes[0] == "Ks") // specular
 		{
 			return readSpecular(attributes);
 		}
-		else if(attributes[0] == "map_Kd") // diffuse texture
+		else if (attributes[0] == "map_Kd") // diffuse texture
 		{
 			return readTexture(attributes);
 		}
@@ -260,56 +236,44 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readMaterial(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readShininess(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() == 2, "invalid count of attributes");
+		con_assert(attributes.size() == 2, "invalid count of attributes");
 
-		OBJMaterial result;
-		result._name = attributes[1];
-		_materials.push_back(result);
-		_currentMaterial = static_cast<int32>(_materials.size()-1);
+		if (_materials.size() <= 0)
+		{
+			return false;
+		}
+
+		_materials[_currentMaterial]._shininess = (float32)_wtof(attributes[1].getData());
 
 		return true;
 	}
 
-    bool iModelDataIOOBJ::readShininess(vector<iaString> &attributes)
-    {
-        con_assert(attributes.size() == 2, "invalid count of attributes");
-
-        if (_materials.size() <= 0)
-        {
-            return false;
-        }
-
-        _materials[_currentMaterial]._shininess = (float32)_wtof(attributes[1].getData());
-
-        return true;
-    }
-
-	bool iModelDataIOOBJ::readAmbient(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readAmbient(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() == 4, "invalid count of attributes");
+		con_assert(attributes.size() == 4, "invalid count of attributes");
 
-        if (_materials.size() <= 0)
-        {
-            return false;
-        }
-		
-        _materials[_currentMaterial]._ambient._r = (float32)_wtof(attributes[1].getData());
-        _materials[_currentMaterial]._ambient._g = (float32)_wtof(attributes[2].getData());
-        _materials[_currentMaterial]._ambient._b = (float32)_wtof(attributes[3].getData());
+		if (_materials.size() <= 0)
+		{
+			return false;
+		}
 
-        return true;
+		_materials[_currentMaterial]._ambient._r = (float32)_wtof(attributes[1].getData());
+		_materials[_currentMaterial]._ambient._g = (float32)_wtof(attributes[2].getData());
+		_materials[_currentMaterial]._ambient._b = (float32)_wtof(attributes[3].getData());
+
+		return true;
 	}
 
-	bool iModelDataIOOBJ::readDiffuse(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readDiffuse(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() == 4, "invalid count of attributes");
+		con_assert(attributes.size() == 4, "invalid count of attributes");
 
-        if (_materials.size() <= 0)
-        {
-            return false;
-        }
+		if (_materials.size() <= 0)
+		{
+			return false;
+		}
 
 		_materials[_currentMaterial]._diffuse._r = (float32)_wtof(attributes[1].getData());
 		_materials[_currentMaterial]._diffuse._g = (float32)_wtof(attributes[2].getData());
@@ -317,14 +281,14 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readSpecular(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readSpecular(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() == 4, "invalid count of attributes");
+		con_assert(attributes.size() == 4, "invalid count of attributes");
 
-        if (_materials.size() <= 0)
-        {
-            return false;
-        }
+		if (_materials.size() <= 0)
+		{
+			return false;
+		}
 
 		_materials[_currentMaterial]._specular._r = (float32)_wtof(attributes[1].getData());
 		_materials[_currentMaterial]._specular._g = (float32)_wtof(attributes[2].getData());
@@ -332,14 +296,14 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readTexture(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readTexture(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() == 2, "invalid count of attributes");
-		
-        if (_materials.size() <= 0)
-        {
-            return false;
-        }
+		con_assert(attributes.size() == 2, "invalid count of attributes");
+
+		if (_materials.size() <= 0)
+		{
+			return false;
+		}
 
 		_materials[_currentMaterial]._texture = attributes[1];
 		return true;
@@ -371,133 +335,153 @@ namespace Igor
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
-	bool iModelDataIOOBJ::readGroup(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readMaterial(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() >= 2, "unexpected attribute count");
+		con_assert(attributes.size() >= 2, "invalid count of attributes");
 
+		_currentMaterial = attributes[1];
+		_materials[_currentMaterial] = OBJMaterial();
+
+		return true;
+	}
+
+	bool iModelDataIOOBJ::readGroup(vector<iaString> & attributes)
+	{
+		_currentSections.clear();
 		_currentGroups.clear();
+		_currentMaterial.clear();
 
-		bool found = false;
-		for(uint32 j=1;j<attributes.size();j++)
+		auto iterAttribute = attributes.begin();
+		iterAttribute++;
+
+		while (iterAttribute != attributes.end())
 		{
-			found = false;
-			for(uint32 i=0;i<_groups.size();i++)
-			{
-                if (_groups[i]._name == attributes[j])
-                {
-                    found = true;
-                }
+			iaString groupName = (*iterAttribute);
+
+			if (groupName == "(null)")
+			{				
+				groupName = "mesh";
+				groupName += iaString::itoa(_nextID++);
 			}
 
-			if(!found)
+			auto iter = _sections.find(groupName);
+			if (iter == _sections.end())
 			{
-				OBJGroup result;
-				result._name = attributes[j];
-				_groups.push_back(result);
+				_sections[groupName] = Section();
 			}
 
-			for(uint32 i=0;i<_groups.size();i++)
+			_currentGroups.push_back(groupName);
+			_currentSections.push_back(groupName);
+
+			iterAttribute++;
+		}
+
+		return true;
+	}
+
+	bool iModelDataIOOBJ::readUseMaterial(vector<iaString> & attributes)
+	{
+		con_assert(attributes.size() == 2, "invalid count of attributes");
+
+		if (attributes.size() != 2) return false;
+
+		auto iter = _materials.find(attributes[1]);
+		if (iter != _materials.end())
+		{
+			if (_currentMaterial != iter->first)
 			{
-				if(_groups[i]._name == attributes[j])
+				_currentMaterial = iter->first;
+				_currentSections.clear();
+
+				for (auto groupName : _currentGroups)
 				{
-					_currentGroups.push_back(i);
+					iaString sectionName = groupName;
+					sectionName += "_";
+					sectionName += _currentMaterial;
+
+					auto iter = _sections.find(sectionName);
+					if (iter == _sections.end())
+					{
+						_sections[sectionName] = Section();
+						_sections[sectionName]._materialName = _currentMaterial;
+					}
+
+					_currentSections.push_back(sectionName);
 				}
 			}
+
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
-	bool iModelDataIOOBJ::readFace(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readFace(vector<iaString> & attributes)
 	{
-		OBJPolygon result;
+		OBJPolygon polygon;
 
-        for (uint32 i = 1; i < attributes.size(); i++)
-        {
-            result._vertexes.push_back(readVertex(attributes[i]));
-        }
-
-        if (_currentMaterial != -1)
-        {
-            result._materialNum = _currentMaterial;
-        }
-        else
-        {
-            result._materialNum = 0;
-        }
-
-		_polygons.push_back(result);
-
-		for(uint32 i=0;i<_currentGroups.size();i++)
+		// create polygon
+		for (uint32 i = 1; i < attributes.size(); i++)
 		{
-			_groups[_currentGroups[i]]._polygons.push_back(static_cast<uint32>(_polygons.size()-1));
+			polygon._vertexes.push_back(readVertex(attributes[i]));
+		}
+
+		// add polygon to current groups
+		for (auto sectionName : _currentSections)
+		{
+			_sections[sectionName]._polygons.push_back(polygon);
 		}
 
 		return true;
 	}
 
-    iModelDataIOOBJ::OBJVertex iModelDataIOOBJ::readVertex(iaString attributes)
-    {
-        OBJVertex result;
-        result._v = 0;
-        result._t = -1;
-        result._vn = -1;
+	iModelDataIOOBJ::OBJVertex iModelDataIOOBJ::readVertex(iaString attributes)
+	{
+		OBJVertex result;
+		result._v = 0;
+		result._t = -1;
+		result._vn = -1;
 
-        vector<iaString> values;
-        attributes.split("/", values, iaStringSplitMode::RetriveAllEmpties);
+		vector<iaString> values;
+		attributes.split("/", values, iaStringSplitMode::RetriveAllEmpties);
 
-        con_assert(values.size() < 4, "corrupt value count");
-        con_assert(values.size() > 0, "corrupt value count");
+		con_assert(values.size() < 4, "corrupt value count");
+		con_assert(values.size() > 0, "corrupt value count");
 
-		if(values[0] != "")
+		if (values[0] != "")
 		{
-            result._v = _wtoi(values[0].getData()) - 1;
-            con_assert(result._v >= 0, "out of range");
-            con_assert(result._v < _vertexes.size(), "out of range");
+			result._v = _wtoi(values[0].getData()) - 1;
+			con_assert(result._v >= 0, "out of range");
+			con_assert(result._v < _vertexes.size(), "out of range");
 		}
 
-        if (values.size() > 1 &&
-            values[1] != "")
+		if (values.size() > 1 &&
+			values[1] != "")
 		{
-            result._t = _wtoi(values[1].getData()) - 1;
-            con_assert(result._t >= 0, "out of range");
-            con_assert(result._t < _texcoord.size(), "out of range");
+			result._t = _wtoi(values[1].getData()) - 1;
+			con_assert(result._t >= 0, "out of range");
+			con_assert(result._t < _texcoord.size(), "out of range");
 		}
 
-        if (values.size() > 2 &&
-            values[2] != "")
-        {
-            result._vn = _wtoi(values[2].getData()) - 1;
-            con_assert(result._vn >= 0, "out of range");
-            con_assert(result._vn < _normals.size(), "out of range");
-        }
+		if (values.size() > 2 &&
+			values[2] != "")
+		{
+			result._vn = _wtoi(values[2].getData()) - 1;
+			con_assert(result._vn >= 0, "out of range");
+			con_assert(result._vn < _normals.size(), "out of range");
+		}
 
 		return result;
 	}
 
-	bool iModelDataIOOBJ::readUseMaterial(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readVertex(vector<iaString> & attributes)
 	{
-		if(attributes.size() != 2) return false;
 
-		for(uint32 i=0;i<_materials.size();i++)
-		{
-			if(_materials[i]._name == attributes[1])
-			{
-				_currentMaterial = i;
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	bool iModelDataIOOBJ::readVertex(vector<iaString> &attributes)
-	{
-        con_assert(attributes.size() == 4, "invalid attributes count");
+		con_assert(attributes.size() >= 4, "invalid attributes count");
 
 		iaVector3f result;
 		result[0] = (float32)_wtof(attributes[1].getData());
@@ -507,9 +491,9 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readTexcoord(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readTexcoord(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() == 3, "invalid attributes count");
+		con_assert(attributes.size() >= 3, "invalid attributes count");
 
 		iaVector2f result;
 		result[0] = (float32)_wtof(attributes[1].getData());
@@ -518,9 +502,9 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readNormal(vector<iaString> &attributes)
+	bool iModelDataIOOBJ::readNormal(vector<iaString> & attributes)
 	{
-        con_assert(attributes.size() == 4, "invalid attributes count");
+		con_assert(attributes.size() >= 4, "invalid attributes count");
 
 		iaVector3f result;
 		result[0] = (float32)_wtof(attributes[1].getData());
@@ -530,7 +514,7 @@ namespace Igor
 		return true;
 	}
 
-	bool iModelDataIOOBJ::readFile(const iaString& filename)
+	bool iModelDataIOOBJ::readFile(const iaString & filename)
 	{
 		iaFile file(filename);
 		_pathOfModel = file.getPath();
@@ -539,15 +523,15 @@ namespace Igor
 		fileStream.open(filename.getData(), ifstream::in);
 		vector<iaString> attributes;
 
-		if(fileStream.is_open())
+		if (fileStream.is_open())
 		{
 			string line;
 
-			while(getline(fileStream,line,'\n'))
+			while (getline(fileStream, line, '\n'))
 			{
 				attributes.clear();
-                iaString result(line.c_str());
-                result.split(L" \n\r\t", attributes);
+				iaString result(line.c_str());
+				result.split(L" \n\r\t", attributes);
 				analyseAttributes(attributes);
 			}
 
@@ -558,39 +542,38 @@ namespace Igor
 		return true;
 	}
 
-	iModelDataIOOBJ::OBJMaterial* iModelDataIOOBJ::getMaterial(uint32 materialnum)
+	iModelDataIOOBJ::OBJMaterial* iModelDataIOOBJ::getMaterial(const iaString & materialName)
 	{
-		if(materialnum >= _materials.size()) return 0;
-		return &_materials[materialnum];
+		if (materialName.isEmpty())
+		{
+			return nullptr;
+		}
+
+		auto iter = _materials.find(materialName);
+		if (iter == _materials.end())
+		{
+			return nullptr;
+		}
+
+		return &(iter->second);
 	}
 
 	iaVector3f* iModelDataIOOBJ::getVertex(uint32 index)
 	{
-		if(index >= _vertexes.size()) return 0;
+		if (index >= _vertexes.size()) return 0;
 		return &_vertexes[index];
 	}
 
 	iaVector3f* iModelDataIOOBJ::getNormal(uint32 index)
 	{
-		if(index >= _normals.size()) return 0;
+		if (index >= _normals.size()) return 0;
 		return &_normals[index];
 	}
 
 	iaVector2f* iModelDataIOOBJ::getTexCoord(uint32 index)
 	{
-		if(index >= _texcoord.size()) return 0;
+		if (index >= _texcoord.size()) return 0;
 		return &_texcoord[index];
-	}
-
-	iModelDataIOOBJ::OBJPolygon* iModelDataIOOBJ::getPolygon(uint32 index)
-	{
-		if(index >= _polygons.size()) return 0;
-		return &_polygons[index];
-	}
-
-	uint32 iModelDataIOOBJ::getPolygonCount()
-	{
-		return static_cast<uint32>(_polygons.size());
 	}
 
 	uint32 iModelDataIOOBJ::getMaterialCount()

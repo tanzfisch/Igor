@@ -87,6 +87,7 @@ void UserControlGraphView::initGUI()
     addTransformationButton->setText("");
     addTransformationButton->setWidth(30);
     addTransformationButton->setHeight(30);
+	addTransformationButton->setTooltip("Add transformation node. You need to move something you need a transform node.");
     addTransformationButton->setTexture("icons\\addTransformation.png");
     addTransformationButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddTransformation));
 
@@ -95,6 +96,7 @@ void UserControlGraphView::initGUI()
     addModelButton->setText("");
     addModelButton->setWidth(30);
     addModelButton->setHeight(30);
+	addModelButton->setTooltip("Add model node. Adds a model embedded or referenced to the scene.");
     addModelButton->setTexture("icons\\addModel.png");
     addModelButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddModel));
 
@@ -103,6 +105,7 @@ void UserControlGraphView::initGUI()
     addGroupButton->setText("");
     addGroupButton->setWidth(30);
     addGroupButton->setHeight(30);
+	addGroupButton->setTooltip("Add group node. Used to create node hierarchies in the scene.");
     addGroupButton->setTexture("icons\\addGroup.png");
     addGroupButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddGroup));
 
@@ -111,6 +114,7 @@ void UserControlGraphView::initGUI()
     addEmitterButton->setText("");
     addEmitterButton->setWidth(30);
     addEmitterButton->setHeight(30);
+	addEmitterButton->setTooltip("Add emitter node. To emit particles from.");
     addEmitterButton->setTexture("icons\\addEmitter.png");
     addEmitterButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddEmitter));
 
@@ -119,6 +123,7 @@ void UserControlGraphView::initGUI()
     addParticleSystemButton->setText("");
     addParticleSystemButton->setWidth(30);
     addParticleSystemButton->setHeight(30);
+	addParticleSystemButton->setTooltip("Add particle system node. Needs emitter node to function");
     addParticleSystemButton->setTexture("icons\\addParticleSystem.png");
     addParticleSystemButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddParticleSystem));
 
@@ -127,6 +132,7 @@ void UserControlGraphView::initGUI()
     addSwitchButton->setText("");
     addSwitchButton->setWidth(30);
     addSwitchButton->setHeight(30);
+	addSwitchButton->setTooltip("Add switch node. This node can switch the active state of it's child nodes. Only the active node will be visible.");
     addSwitchButton->setTexture("icons\\addSwitch.png");
     addSwitchButton->registerOnClickEvent(iClickDelegate(this, &UserControlGraphView::onAddSwitch));
 

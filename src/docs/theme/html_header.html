@@ -23,10 +23,18 @@
 		<div id="titlearea">
 			<table cellspacing="0" cellpadding="0">
 				<tbody>
-					<tr style="height: 56px;">
+					<tr>
 						<!--BEGIN PROJECT_LOGO-->
-						<td id="projectlogo"><img alt="Logo" src="$relpath^$projectlogo"/></td>
+                        <!--BEGIN PROJECT_NUMBER-->
+						<td id="projectlogo">                        
+                            <div style="position: relative; height: 120px; width: 440px;">
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">$projectnumber</div>
+                                <img alt="Logo" src="$relpath^$projectlogo"></img>                            
+                            </div>
+                        </td>                            
+                        <!--END PROJECT_NUMBER-->                            
 						<!--END PROJECT_LOGO-->
+                        
 						<!--BEGIN DISABLE_INDEX-->
 						<!--BEGIN SEARCHENGINE-->
 						<td>$searchbox</td>

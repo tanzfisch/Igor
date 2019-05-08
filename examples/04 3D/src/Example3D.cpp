@@ -268,9 +268,8 @@ void Example3D::init()
     material->setName("LogoMaterial");
 
     // animation
-    _animationTimingHandle = new iTimerHandle();
-    _animationTimingHandle->setIntervall(10);
-    _animationTimingHandle->registerTimerDelegate(iTimerTickDelegate(this, &Example3D::onTimer));
+    _animationTimingHandle = new iTimerHandle(iTimerTickDelegate(this, &Example3D::onTimer), 10);
+	_animationTimingHandle->start();
 
     // start resource tasks
     _taskFlushModels = iTaskManager::getInstance().addTask(new iTaskFlushModels(&_window));
@@ -305,7 +304,6 @@ void Example3D::deinit()
     // stop light animation
     if (_animationTimingHandle)
     {
-        _animationTimingHandle->unregisterTimerDelegate(iTimerTickDelegate(this, &Example3D::onTimer));
         delete _animationTimingHandle;
         _animationTimingHandle = nullptr;
     }

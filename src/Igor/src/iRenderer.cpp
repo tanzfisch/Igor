@@ -133,10 +133,10 @@ namespace Igor
 		glCompileShader(id); GL_CHECK_ERROR();
 
 		int len;
-		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
+		glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len); GL_CHECK_ERROR();
 
 		char* buffer = new char[len];
-		glGetInfoLogARB(id, len, &result, buffer);
+		glGetInfoLogARB(id, len, &result, buffer); GL_CHECK_ERROR();
 
 		if (0 != result)
 		{
@@ -1723,7 +1723,7 @@ namespace Igor
 						}
 						temptext[j] = 0;
 
-						if (renderPos._x + _font->measureWidth(temptext, _fontSize) > maxWidth)
+						if (renderPos._x + _font->measureWidth(temptext, _fontSize) >= maxWidth)
 						{
 							renderPos._x = 0;
 							renderPos._y += _fontSize * _fontLineHeight;
