@@ -294,6 +294,10 @@ namespace Igor
         */
         void calcPlanarTextureCoordinates(const iaVector3f& center, iaAxis direction, int texunit, float32 scale = 1.0f);
 
+		/*! tries to repair what is inconsistent
+		*/
+		void cleanup();
+
     private:
 
         /*! map for vertex positions

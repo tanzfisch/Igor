@@ -447,6 +447,43 @@ namespace Igor
         return iMeshPtr(mesh);
     }
 
+	void iMeshBuilder::cleanup()
+	{
+		if (_triangles.size() == 0)
+		{
+			return;
+		}
+
+		if (_vertexes.size() == 0)
+		{
+			return;
+		}
+
+		if (_normals.size() != 0)
+		{
+			if (_vertexes.size() > _normals.size())
+			{
+				setNormal(0, iaVector3f(0,0,0));
+			}
+		}
+
+		if (_colors.size() != 0)
+		{
+			if (_vertexes.size() > _colors.size())
+			{
+				setColor(0, iaColor4f(1, 1, 1, 1));
+			}
+		}
+
+		for (int texunit = 0; texunit < _texCoords.size(); ++texunit)
+		{
+			if (_vertexes.size() > _texCoords[texunit].size())
+			{
+				setTexCoord(0, iaVector2f(0, 0), texunit);
+			}
+		}
+	}
+
     iMeshPtr iMeshBuilder::createMesh()
     {
         iMesh* mesh = nullptr;
@@ -465,10 +502,10 @@ namespace Igor
 
     void iMeshBuilder::compile(iMesh* mesh, vector<uint32> triangles)
     {
-        if (!checkConsistency())
-        {
-            return;
-        }
+		if (!checkConsistency())
+		{
+			return;
+		}
 
         mesh->setTrianglesCount(static_cast<uint32>(triangles.size()));
         mesh->setIndexesCount(static_cast<uint32>(triangles.size() * 3));
@@ -558,10 +595,10 @@ namespace Igor
 
     void iMeshBuilder::compile(iMesh* mesh)
     {
-        if (!checkConsistency())
-        {
-            return;
-        }
+		if (!checkConsistency())
+		{
+			return;
+		}
 
         mesh->setTrianglesCount(static_cast<uint32>(_triangles.size()));
         mesh->setIndexesCount(static_cast<uint32>(_triangles.size() * 3));
@@ -655,8 +692,8 @@ namespace Igor
 
         if (sharpEdges)
         {
-            con_warn("sharpEdges currently not supported");
-            //        separateTriangles(trianglenormals);
+            // TODO sharpEdges currently not supported
+            // separateTriangles(trianglenormals);
         }
 
         if (!_normals.empty())

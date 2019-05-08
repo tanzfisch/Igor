@@ -506,7 +506,7 @@ void VoxelExample::onHandle()
         iNodeModel* voxelMeshModel = static_cast<iNodeModel*>(iNodeFactory::getInstance().getNode(_voxelMeshModel));
 
         if (voxelMeshModel != nullptr &&
-            voxelMeshModel->isReady())
+            voxelMeshModel->isValid())
         {
             if (_loading)
             {

@@ -178,6 +178,8 @@ private:
     void renderOrtho();
     void renderOrientationPlane();
 
+	iModelDataInputParameter* createDataInputParameter();
+
 };
 
 #endif

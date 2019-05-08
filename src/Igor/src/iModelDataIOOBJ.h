@@ -29,22 +29,21 @@
 #ifndef __iLOADEROBJ__
 #define __iLOADEROBJ__
 
-#include <iaString.h>
-using namespace IgorAux;
-
 #include <iModelDataIO.h>
+#include <iMeshBuilder.h>
+
+#include <iaString.h>
 #include <iaVector4.h>
 #include <iaVector2.h>
 #include <iaColor3.h>
+using namespace IgorAux;
 
 #include <vector>
-using namespace std;
+#include <map>
 
 namespace Igor
 {
-
-    class iMeshBuilder;
-
+	
 	/*! model data loader for the OBJ aka Wavefront format
 
 	source: http://de.wikipedia.org/wiki/Wavefront_OBJ
@@ -75,36 +74,15 @@ namespace Igor
         */
 		struct OBJPolygon
 		{
-            /*! material number
-            */
-			uint32 _materialNum;
-
             /*! list of vertices of this polygon
             */
-			vector<OBJVertex> _vertexes;
-		};
-
-        /*! obj group of polygons (aka mesh)
-        */
-		struct OBJGroup
-		{
-            /*! name of group
-            */
-			iaString _name;
-
-            /*! list of polygons in this group
-            */
-			vector<uint32> _polygons;
+			std::vector<OBJVertex> _vertexes;
 		};
 
         /*! obj materil
         */
 		struct OBJMaterial
 		{
-            /*! name of material
-            */
-			iaString _name;
-
             /*! target ambient
             */
 			iaColor3f _ambient;
@@ -124,6 +102,31 @@ namespace Igor
             /*! texture
             */
 			iaString _texture;
+
+			OBJMaterial()
+			{
+				_ambient.set(0.4f, 0.4f, 0.4f);
+				_diffuse.set(0.5f, 0.5f, 0.5f);
+				_specular.set(0.6f, 0.6f, 0.6f);
+				_shininess = 5.0f;
+			}
+		};
+
+		/*! section describes part of the data framed by a combination of a group and material
+		*/
+		struct Section
+		{
+			/*! name of material in use
+			*/
+			iaString _materialName;
+
+			/*! list of polygons in this group
+			*/
+			std::vector<OBJPolygon> _polygons;
+
+			/*! mesh builder
+			*/
+			iMeshBuilder _meshBuilder;
 		};
 
     public:
@@ -153,45 +156,49 @@ namespace Igor
 
         /*! list of vertexes
         */
-		vector<iaVector3f> _vertexes;
+		std::vector<iaVector3f> _vertexes;
 
         /*! list of normals
         */
-		vector<iaVector3f> _normals;
+		std::vector<iaVector3f> _normals;
 
         /*! list of texture coordinates
         */
-		vector<iaVector2f> _texcoord;
-
-        /*! list of polygons
-        */
-		vector<OBJPolygon> _polygons;
-
-        /*! list of groups
-        */
-		vector<OBJGroup> _groups;
+		std::vector<iaVector2f> _texcoord;
 
         /*! list of materials
         */
-		vector<OBJMaterial> _materials;
+		std::map<iaString, iModelDataIOOBJ::OBJMaterial> _materials;
 
         /*! current groups
         */
-		vector<uint32> _currentGroups;
+		std::vector<iaString> _currentGroups;
 
-        /*! current materials
-        */
-        int32 _currentMaterial;
+		/*! current materials
+		*/
+		iaString _currentMaterial;
+
+		/*! generated mesh name id
+		*/
+		uint32 _nextID = 1;
+
+		/*! map of sections
+		*/
+		std::map<iaString, iModelDataIOOBJ::Section> _sections;
+
+		/*! list of current sections
+		*/
+		std::vector<iaString> _currentSections;
 
         /*! source path of model
         */
         iaString _pathOfModel;
 
-        /*! transfers data in to a mesh builder per material
+        /*! transfers data in to a mesh builder per section
 
-        \param meshBuilders list of mesh builders (one per material)
+        \param section the section to work with
         */
-        void transferToMeshBuilder(vector<iMeshBuilder*>& meshBuilders);
+        void transferToMeshBuilder(iModelDataIOOBJ::Section& section);
 
         /*! analyse next attributes
 
@@ -305,15 +312,11 @@ namespace Igor
         */
 		uint32 getTexCoordCount();
 
-        /*! \returns polygon count
-        */
-		uint32 getPolygonCount();
-
-        /*! \returns material by ID (aka material number)
+        /*! \returns material by name
         
-        \param materialnum the material ID
+        \param materialName the material name
         */
-		iModelDataIOOBJ::OBJMaterial* getMaterial(uint32 materialnum);
+		iModelDataIOOBJ::OBJMaterial* getMaterial(const iaString& materialName);
 
         /*! \returns vertex at given index
 
@@ -332,13 +335,7 @@ namespace Igor
         \param index index of texture coordinate to return
         */
         iaVector2f* getTexCoord(uint32 index);
-
-        /*! \returns polygon with given index
-
-        \param index index of polygon to return
-        */
-		iModelDataIOOBJ::OBJPolygon* getPolygon(uint32 index);
-
+		
 	};
 
 }

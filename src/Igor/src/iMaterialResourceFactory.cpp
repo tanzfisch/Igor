@@ -142,6 +142,15 @@ namespace Igor
         material->addShaderSource("igor/solidColor.frag", iShaderObjectType::Fragment);
         material->compileShader();
         material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
+
+		// creating this one as option because it is used far more often then the actual default one
+		uint64 defaultTextureMaterial = createMaterial();
+		material = getMaterial(defaultTextureMaterial);
+		material->setName("IgorTexture");
+		material->addShaderSource("igor/textured.vert", iShaderObjectType::Vertex);
+		material->addShaderSource("igor/textured_directional_light.frag", iShaderObjectType::Fragment);
+		material->compileShader();
+		material->setOrder(iMaterial::RENDER_ORDER_DEFAULT);
     }
 
     uint64 iMaterialResourceFactory::createMaterial(iaString name)

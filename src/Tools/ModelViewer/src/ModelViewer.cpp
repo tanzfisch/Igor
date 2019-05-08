@@ -62,6 +62,19 @@ ModelViewer::~ModelViewer()
     deinit();
 }
 
+iModelDataInputParameter* ModelViewer::createDataInputParameter()
+{
+	iModelDataInputParameter* parameter = new iModelDataInputParameter();
+	parameter->_identifier = "";
+	parameter->_modelSourceType = iModelSourceType::File;
+	parameter->_needsRenderContext = true;
+	parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
+	parameter->_joinVertexes = false;
+	parameter->_keepMesh = true;
+
+	return parameter;
+}
+
 void ModelViewer::init(iaString fileName)
 {
     con(" -- Model Viewer --" << endl);
@@ -82,7 +95,7 @@ void ModelViewer::init(iaString fileName)
     _view.setName("MainSceneView");
     _view.setClearColor(iaColor4f(0.25f, 0.25f, 0.25f, 1.0f));
     _view.setPerspective(45.0f);
-    _view.setClipPlanes(0.1f, 10000.f);
+    _view.setClipPlanes(1.0f, 100000.f);
     _view.registerRenderDelegate(RenderDelegate(this, &ModelViewer::render));
     _window.addView(&_view);
 
@@ -206,13 +219,7 @@ void ModelViewer::init(iaString fileName)
     if (!fileName.isEmpty())
     {
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
+        iModelDataInputParameter* parameter = createDataInputParameter();
 
         model->setModel(fileName, iResourceCacheMode::Free, parameter);
         _groupNode->insertNode(model);
@@ -377,7 +384,7 @@ void ModelViewer::forceLoadingNow(iNodeModel* modelNode)
         // want everything to be loaded now!
         con_endl("loading data synchronously ... ");
 
-        while (!modelNode->isReady())
+        while (!modelNode->isLoaded())
         {
             tempScene->handle();
             iTextureResourceFactory::getInstance().flush();
@@ -467,64 +474,61 @@ void ModelViewer::onImportFileDialogClosed(iFileDialogReturnValue fileDialogRetu
         iaString filename = _fileDialog->getFullPath();
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
-
+        iModelDataInputParameter* parameter = createDataInputParameter();
         model->setModel(filename, iResourceCacheMode::Free, parameter);
+
         forceLoadingNow(model);
 
-        iNodePtr groupNode = nullptr;
+		if (model->isValid())
+		{
+			iNodePtr groupNode = nullptr;
 
-        auto children = model->getChildren();
-        if (children.size() > 1)
-        {
-            groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
-            iaString groupName = "group:";
-            groupName += filename;
-            groupNode->setName(groupName);
+			auto children = model->getChildren();
+			if (children.size() > 1)
+			{
+				groupNode = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+				iaString groupName = "group:";
+				groupName += filename;
+				groupNode->setName(groupName);
 
-            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-            if (cursorNode != nullptr)
-            {
-                cursorNode->insertNode(groupNode);
-            }
-            else
-            {
-                _groupNode->insertNode(groupNode);
-            }
+				iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+				if (cursorNode != nullptr)
+				{
+					cursorNode->insertNode(groupNode);
+				}
+				else
+				{
+					_groupNode->insertNode(groupNode);
+				}
 
-            selectNode = groupNode;
-        }
-        else
-        {
-            iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-            if (cursorNode != nullptr)
-            {
-                groupNode = cursorNode;
-            }
-            else
-            {
-                groupNode = _groupNode;
-            }
+				selectNode = groupNode;
+			}
+			else
+			{
+				iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+				if (cursorNode != nullptr)
+				{
+					groupNode = cursorNode;
+				}
+				else
+				{
+					groupNode = _groupNode;
+				}
 
-            if (!children.empty())
-            {
-                selectNode = children.front();
-            }
-        }
+				if (!children.empty())
+				{
+					selectNode = children.front();
+				}
+			}
 
-        auto child = children.begin();
-        while (child != children.end())
-        {
-            model->removeNode((*child));
-            groupNode->insertNode((*child));
-            child++;
-        }
+			auto child = children.begin();
+			while (child != children.end())
+			{
+				model->removeNode((*child));
+				groupNode->insertNode((*child));
+				child++;
+			}
+		}
 
         iNodeFactory::getInstance().destroyNodeAsync(model);
     }
@@ -549,28 +553,25 @@ void ModelViewer::onImportFileReferenceDialogClosed(iFileDialogReturnValue fileD
         iaString filename = _fileDialog->getFullPath();
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
+        iModelDataInputParameter* parameter = createDataInputParameter();
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
-        if (cursorNode != nullptr)
-        {
-            cursorNode->insertNode(model);
-        }
-        else
-        {
-            _groupNode->insertNode(model);
-        }
+		if (model->isValid())
+		{
+			iNodePtr cursorNode = iNodeFactory::getInstance().getNode(_selectedNodeID);
+			if (cursorNode != nullptr)
+			{
+				cursorNode->insertNode(model);
+			}
+			else
+			{
+				_groupNode->insertNode(model);
+			}
 
-        selectNode = model;
+			selectNode = model;
+		}
     }
 
     _menuDialog->setActive();
@@ -605,43 +606,40 @@ void ModelViewer::onFileLoadDialogClosed(iFileDialogReturnValue fileDialogReturn
         }
 
         iNodeModel* model = static_cast<iNodeModel*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeModel));
-        iModelDataInputParameter* parameter = new iModelDataInputParameter();
-        parameter->_identifier = "";
-        parameter->_modelSourceType = iModelSourceType::File;
-        parameter->_needsRenderContext = true;
-        parameter->_loadPriority = iTask::DEFAULT_PRIORITY;
-        parameter->_joinVertexes = true;
-        parameter->_keepMesh = true;
+        iModelDataInputParameter* parameter = createDataInputParameter();
 
         model->setModel(filename, iResourceCacheMode::Free, parameter);
         forceLoadingNow(model);
 
-        iNodePtr insertAt = nullptr;
-        
-		auto children = model->getChildren();
-        if (children.size() > 1)
-        {
-			insertAt = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
-            iaString groupName = "group:";
-            groupName += filename;
-			insertAt->setName(groupName);
+		if (model->isValid())
+		{
+			iNodePtr insertAt = nullptr;
 
-            _groupNode->insertNode(insertAt);
-            selectNode = insertAt;
-        }
-        else
-        {
-			insertAt = _groupNode;
-            selectNode = children.front();
-        }
+			auto children = model->getChildren();
+			if (children.size() > 1)
+			{
+				insertAt = static_cast<iNodePtr>(iNodeFactory::getInstance().createNode(iNodeType::iNode));
+				iaString groupName = "group:";
+				groupName += filename;
+				insertAt->setName(groupName);
 
-        auto child = children.begin();
-        while (child != children.end())
-        {
-            model->removeNode((*child));
-			insertAt->insertNode((*child));
-            child++;
-        }
+				_groupNode->insertNode(insertAt);
+				selectNode = insertAt;
+			}
+			else
+			{
+				insertAt = _groupNode;
+				selectNode = children.front();
+			}
+
+			auto child = children.begin();
+			while (child != children.end())
+			{
+				model->removeNode((*child));
+				insertAt->insertNode((*child));
+				child++;
+			}
+		}
 
         iNodeFactory::getInstance().destroyNodeAsync(model);
     }
@@ -866,7 +864,7 @@ void ModelViewer::onMouseWheel(int32 d)
 void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
     const float64 rotateSensitivity = 0.0075;
-	const float64 translateSensitivity = 50.0;
+	const float64 translateSensitivity = 1.0;
 
     if (iMouse::getInstance().getLeftButton())
     {
@@ -903,7 +901,11 @@ void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 			iaVector3d fromWorld = camWorldMatrix * _view.unProject(iaVector3d(from._x, from._y, 0), camWorldMatrix);
 			iaVector3d toWorld = camWorldMatrix * _view.unProject(iaVector3d(to._x, to._y, 0), camWorldMatrix);
 			
-			_cameraCOI->translate((fromWorld - toWorld) * translateSensitivity);
+			iaMatrixd camTranslateMatrix;
+			_cameraTranslation->getMatrix(camTranslateMatrix);
+			float64 translateFactor = camTranslateMatrix._pos.length() * translateSensitivity;
+
+			_cameraCOI->translate((fromWorld - toWorld) * translateFactor);
 		}
 	}
 }

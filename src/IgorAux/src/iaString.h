@@ -202,6 +202,12 @@ namespace IgorAux
         */
         iaString operator=(const char character);
 
+		/*! compares two strings and returns true if the left hand side string is considered smaller
+
+		\param text the right hand side string
+		*/
+		bool operator <(const iaString& text) const;
+
 		/*! \returns charachter at given position for manipulation
 		\param index the position to get the character from
 		*/
@@ -421,6 +427,17 @@ namespace IgorAux
     */
 	IgorAux_API wostream& operator<<(wostream& stream, const iaString& text);
 
+}
+
+namespace std
+{
+	template<> struct less<IgorAux::iaString>
+	{
+		bool operator() (const IgorAux::iaString& lhs, const IgorAux::iaString& rhs) const
+		{
+			return lhs < rhs;
+		}
+	};
 }
 
 #endif
