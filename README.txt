@@ -13,14 +13,20 @@
 
  contact: martinloga@protonmail.com  
  
- ### get Igor
+ Get Igor
+ --------
+ 
  You can get Igor at github with following link
  https://github.com/tanzfisch/Igor.git
  
- ### doxygen docs
+ doxygen docs
+ ------------
+ 
  https://tanzfisch.github.io/Igor/doxygen/index.html
  
- ### submodules
+ submodules
+ ----------
+ 
  Igor currently links to the following libraries as sub modules.
  newton-dynamics
  
@@ -29,7 +35,8 @@
  and
  git submodule update
  
- ### build
+ build
+ -----
  To build Igor open the solution at src\Igor\vs\Igor.sln
  set the target platform to x64 and build
  (32bit is no longer supported)
