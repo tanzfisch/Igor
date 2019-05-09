@@ -1,9 +1,0 @@
-Hello
-=====
-
-text
-
-foo
----
-
-tst
