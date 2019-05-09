@@ -17,6 +17,9 @@
  You can get Igor at github with following link
  https://github.com/tanzfisch/Igor.git
  
+ ### doxygen docs
+ https://tanzfisch.github.io/Igor/doxygen/index.html
+ 
  ### submodules
  Igor currently links to the following libraries as sub modules.
  newton-dynamics
