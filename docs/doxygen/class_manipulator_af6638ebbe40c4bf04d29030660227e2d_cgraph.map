@@ -1,0 +1,16 @@
+<map id="Manipulator::createTranslateMesh" name="Manipulator::createTranslateMesh">
+<area shape="rect" id="node1" title=" " alt="" coords="5,274,224,301"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#add706d99f7f1e430b475ba326c993c54" title=" " alt="" coords="285,5,411,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title=" " alt="" coords="284,71,412,112"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html#a0d1f814a5844dbda77ed03f55768b8ba" title=" " alt="" coords="284,136,412,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_mesh_builder.html#a458f799e29103966a2c180b0192bb789" title=" " alt="" coords="285,201,411,243"/>
+<area shape="rect" id="node6" href="$namespace_igor_1_1i_mesh_builder_utils.html#a551767159394380d9471dfb2f71b7945" title=" " alt="" coords="272,332,424,373"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title=" " alt="" coords="284,397,412,439"/>
+<area shape="rect" id="node11" href="$namespace_igor_1_1i_mesh_builder_utils.html#a47f09e94d76a32f05fcc8747d341665b" title=" " alt="" coords="272,267,424,308"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" title=" " alt="" coords="285,463,411,504"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title=" " alt="" coords="285,528,411,569"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_mesh_builder.html#abe2dfa2aa215a55508cfaba1d8f83029" title=" " alt="" coords="492,235,619,276"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title=" " alt="" coords="492,300,619,341"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title=" " alt="" coords="492,365,619,407"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title=" " alt="" coords="472,528,639,569"/>
+</map>

@@ -1,0 +1,25 @@
+var class_o_m_p_f_1_1ompf_settings =
+[
+    [ "getChunkIDSize", "class_o_m_p_f_1_1ompf_settings.html#a1aa267a457e47d60cb915be2f82540a4", null ],
+    [ "getChunkSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a29cf3d0ccc1577b2e1fc8089c10b852b", null ],
+    [ "getCustomDataSizeSize", "class_o_m_p_f_1_1ompf_settings.html#ae8ab223b1a2d7cdac001c3e7eadb9f99", null ],
+    [ "getMajorVersion", "class_o_m_p_f_1_1ompf_settings.html#a895b3189cbd1dd67dc414611d759cdb4", null ],
+    [ "getMinorVersion", "class_o_m_p_f_1_1ompf_settings.html#a4204b73f5c2813d2955d1227798c9e63", null ],
+    [ "getPatchVersion", "class_o_m_p_f_1_1ompf_settings.html#a6f15d4013036cd63e32ea473a059eb0f", null ],
+    [ "getStringSizeSize", "class_o_m_p_f_1_1ompf_settings.html#af6eec313be331b616fee6b779d6b7a71", null ],
+    [ "getTypeIDSize", "class_o_m_p_f_1_1ompf_settings.html#a2d4d91f50eec7e4acc5b79619bea4fb4", null ],
+    [ "getVersion", "class_o_m_p_f_1_1ompf_settings.html#a1c1dc7e9b132a31f3dc0c894105fad80", null ],
+    [ "setChunkIDSize", "class_o_m_p_f_1_1ompf_settings.html#a4b0e0e92ed3f562981663fe2217864ef", null ],
+    [ "setChunkSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a252cce523eb557a429d300c5db72f3eb", null ],
+    [ "setCustomDataSizeSize", "class_o_m_p_f_1_1ompf_settings.html#af5d715048426ceb5a7f64a3d601e0520", null ],
+    [ "setStringSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a9c000e77cf07725f7cda977d55ec264f", null ],
+    [ "setTypeIDSize", "class_o_m_p_f_1_1ompf_settings.html#ac651fbd2a01343c6d6510c3c94cb0954", null ],
+    [ "_chunkIDSize", "class_o_m_p_f_1_1ompf_settings.html#a6835c812642f484f470c90e2c4ef9064", null ],
+    [ "_chunkSizeSize", "class_o_m_p_f_1_1ompf_settings.html#ad7310e2ea9a002509e14ed4ce4672fe7", null ],
+    [ "_customDataSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a45df3ea6240859013654621b4371cb17", null ],
+    [ "_majorVersion", "class_o_m_p_f_1_1ompf_settings.html#a008bff4aac58e70c00290935c16ce8f8", null ],
+    [ "_minorVersion", "class_o_m_p_f_1_1ompf_settings.html#a7759aabb557e326662e1481b7d415442", null ],
+    [ "_patchVersion", "class_o_m_p_f_1_1ompf_settings.html#a4c505e63cdbeb8d7cd0b3d1f501a4662", null ],
+    [ "_stringSizeSize", "class_o_m_p_f_1_1ompf_settings.html#a9a1572518dd685abfd8bf1b958604a01", null ],
+    [ "_typeIDSize", "class_o_m_p_f_1_1ompf_settings.html#a0838aa613dfb62b78e7497563c0c0108", null ]
+];

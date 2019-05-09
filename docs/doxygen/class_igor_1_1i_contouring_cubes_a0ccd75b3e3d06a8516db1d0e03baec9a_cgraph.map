@@ -1,0 +1,26 @@
+<map id="Igor::iContouringCubes::compile" name="Igor::iContouringCubes::compile">
+<area shape="rect" id="node1" title=" " alt="" coords="5,325,159,367"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_contouring_cubes.html#a4b8d4cc89981c9e776095f694df5b6c5" title=" " alt="" coords="219,5,372,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_contouring_cubes.html#a5af36984092e3aeab36fc5b08cddaf47" title=" " alt="" coords="701,56,854,97"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title=" " alt="" coords="912,122,1067,149"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_voxel_data.html#ad8e88be6dd6be87540d15b3b6866b46e" title=" " alt="" coords="208,173,383,199"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_voxel_data.html#abd43940ac52f3eb20475b6eeb5e286f1" title=" " alt="" coords="207,223,384,250"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_voxel_data.html#a3c504bc0e4380667ee8b536db2825dc1" title=" " alt="" coords="208,274,383,301"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_mesh_builder.html#aa7721952454d6db77bcb86f207c7bead" title=" " alt="" coords="232,325,359,367"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_contouring_cubes.html#aa71c811ece7e65ac6c61bef8ef0bbc8e" title=" " alt="" coords="219,391,372,432"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_contouring_cubes.html#ad201441d11e7f8d38e313af818b17e8f" title=" " alt="" coords="219,456,372,497"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_contouring_cubes.html#acbdb84a720e39599e880db6b978ce430" title=" " alt="" coords="219,521,372,563"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_mesh_builder.html#a115d817568f29f296c9745668be0f5c9" title=" " alt="" coords="228,587,363,628"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_mesh_builder.html#a87b4b238050ec181357169fc23f295c1" title=" " alt="" coords="228,652,363,693"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title=" " alt="" coords="232,717,359,759"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_voxel_data.html#a462e1f1d57ecd8ba5c9d097a5f8b9590" title=" " alt="" coords="432,287,643,314"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_contouring_cubes.html#ae795ffe83bbe9dfdc4f1681b040ebf39" title=" " alt="" coords="461,339,614,380"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_contouring_cubes.html#a1fa87f92ff7eb7f0c1fd27006954c644" title=" " alt="" coords="701,368,854,409"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title=" " alt="" coords="474,456,601,497"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_mesh_builder.html#a981a52e3fac4e015479f9835b5ba7bc2" title=" " alt="" coords="468,521,607,563"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_contouring_cubes.html#ab13d44dacabafb5ddc515c717662bedf" title=" " alt="" coords="461,587,614,628"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_voxel_data.html#acad28bda9489e5cb57b7a046c5ef1832" title=" " alt="" coords="691,303,864,344"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title=" " alt="" coords="714,587,841,628"/>
+<area shape="rect" id="node22" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title=" " alt="" coords="473,652,602,693"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title=" " alt="" coords="454,717,621,759"/>
+</map>

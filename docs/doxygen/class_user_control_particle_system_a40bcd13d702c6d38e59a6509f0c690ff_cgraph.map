@@ -1,0 +1,44 @@
+<map id="UserControlParticleSystem::initGUI" name="UserControlParticleSystem::initGUI">
+<area shape="rect" id="node1" title=" " alt="" coords="5,868,184,909"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="537,71,752,112"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title=" " alt="" coords="290,260,417,301"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title=" " alt="" coords="290,325,417,367"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title=" " alt="" coords="264,391,443,432"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title=" " alt="" coords="290,456,417,497"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title=" " alt="" coords="271,521,436,563"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title=" " alt="" coords="290,587,417,628"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title=" " alt="" coords="276,653,431,679"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget_label.html#a3affc7e3cd6a6394ae86a18aeb540af9" title=" " alt="" coords="287,704,419,745"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_particle_system3_d.html#ac92932fd829c630bac35174513a518bf" title=" " alt="" coords="274,769,433,811"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget_grid.html#a09e374ec95ecf256ec0d086a0b53284a" title=" " alt="" coords="290,835,417,876"/>
+<area shape="rect" id="node13" href="$class_user_control_particle_system.html#ad4fc2e3e604ff8dc7738ce514bc9cc65" title=" " alt="" coords="264,12,443,53"/>
+<area shape="rect" id="node15" href="$class_user_control_particle_system.html#a59a38cb2436b3b7cece6e774d49ae919" title=" " alt="" coords="264,129,443,171"/>
+<area shape="rect" id="node17" href="$class_user_control_particle_system.html#acb94ca70c3945f9ef0dfc7312ccb34c8" title=" " alt="" coords="264,195,443,236"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd" title=" " alt="" coords="277,900,430,941"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_widget_group_box.html#adde8f5a67bdb4ae01eb033f8470f2e4b" title=" " alt="" coords="277,965,430,1007"/>
+<area shape="rect" id="node21" href="$class_user_control_particle_system.html#aa6052d91889bb9153d6844b9732b197d" title=" " alt="" coords="264,1031,443,1072"/>
+<area shape="rect" id="node22" href="$class_user_control_particle_system.html#a4a23a1f35ab4718739dc25a9a8d4d1e8" title=" " alt="" coords="247,1096,459,1137"/>
+<area shape="rect" id="node24" href="$class_user_control_particle_system.html#abd804fdd4b935b70a19f251862e7999e" title=" " alt="" coords="237,1161,470,1203"/>
+<area shape="rect" id="node26" href="$class_user_control_particle_system.html#aac299f643a939d18c49da71ad4a0d7cf" title=" " alt="" coords="252,1227,455,1268"/>
+<area shape="rect" id="node28" href="$class_user_control_particle_system.html#a4f51b346cfb306e50da73242026d6fba" title=" " alt="" coords="259,1292,447,1333"/>
+<area shape="rect" id="node30" href="$class_user_control_particle_system.html#aeb75c96e8be626af001b713cf362de33" title=" " alt="" coords="247,1357,459,1399"/>
+<area shape="rect" id="node32" href="$class_user_control_particle_system.html#a1b9f6390149242c52667e254f92488b3" title=" " alt="" coords="245,1423,462,1464"/>
+<area shape="rect" id="node34" href="$class_user_control_particle_system.html#a81723e808667efe2bcb3b3aa1b5c8312" title=" " alt="" coords="250,1488,457,1529"/>
+<area shape="rect" id="node36" href="$class_user_control_particle_system.html#a5cd296e6707f2e92e66867bdb787fb40" title=" " alt="" coords="246,1554,461,1610"/>
+<area shape="rect" id="node38" href="$class_user_control_particle_system.html#a30f8d1c504e7a296705834573e46f447" title=" " alt="" coords="232,1634,475,1690"/>
+<area shape="rect" id="node40" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title=" " alt="" coords="290,1715,417,1756"/>
+<area shape="rect" id="node41" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title=" " alt="" coords="271,1781,436,1807"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b" title=" " alt="" coords="558,5,731,47"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_node_particle_system.html#a8a3e6d816d75fee82ff11cededc05288" title=" " alt="" coords="558,136,731,177"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_node_particle_system.html#a48cc9f417b0cd599c85a63fe5a33c420" title=" " alt="" coords="558,201,731,243"/>
+<area shape="rect" id="node23" href="$class_user_control_particle_system.html#a82572b0cbea0f0f30213b6318bbeaa42" title=" " alt="" coords="537,1080,752,1121"/>
+<area shape="rect" id="node25" href="$class_user_control_particle_system.html#a37672e36084f6a05e7ec1a6ce95c9e49" title=" " alt="" coords="544,1146,745,1202"/>
+<area shape="rect" id="node27" href="$class_user_control_particle_system.html#a78407b81fa841ca672863b7d12ffe1c7" title=" " alt="" coords="542,1227,747,1268"/>
+<area shape="rect" id="node29" href="$class_user_control_particle_system.html#abcbd019c1255d697b4b2124538d60a2f" title=" " alt="" coords="549,1292,740,1333"/>
+<area shape="rect" id="node31" href="$class_user_control_particle_system.html#a0e7fe0186c674fb47d160bd0fa1cad75" title=" " alt="" coords="537,1357,752,1399"/>
+<area shape="rect" id="node33" href="$class_user_control_particle_system.html#a9dabaec4bf41c478d3607d92699ae7bd" title=" " alt="" coords="535,1423,754,1464"/>
+<area shape="rect" id="node35" href="$class_user_control_particle_system.html#a04272bfe8903102c7e53ed67bf98f6ac" title=" " alt="" coords="540,1488,749,1529"/>
+<area shape="rect" id="node37" href="$class_user_control_particle_system.html#a910c48c555ae662a72d8af9b8afa2e10" title=" " alt="" coords="536,1554,753,1610"/>
+<area shape="rect" id="node39" href="$class_user_control_particle_system.html#a1130268ceae40a5edd4bbcba13577af7" title=" " alt="" coords="523,1634,767,1690"/>
+<area shape="rect" id="node42" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title=" " alt="" coords="578,1781,711,1807"/>
+</map>

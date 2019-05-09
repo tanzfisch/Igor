@@ -1,0 +1,28 @@
+<map id="Igor::iNode::getType" name="Igor::iNode::getType">
+<area shape="rect" id="node1" title=" " alt="" coords="521,551,660,578"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_material_group.html#a05017d35bf8586ba9319db823976b592" title=" " alt="" coords="289,5,423,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_material_group.html#ae5c9c6cedc257e8a6f58ec1ac02d4d1e" title=" " alt="" coords="285,71,427,112"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#ac26cdefd11bdce0e76c1aa545902520f" title=" " alt="" coords="273,136,439,177"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a694fc4b9bec2cf7b4300afe8aec5e37b" title=" " alt="" coords="273,201,439,243"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node.html#a2529f66706e941541b94098de2f72b8b" title=" " alt="" coords="239,267,473,294"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node_factory.html#a8436905bab0069524779f19bc5557473" title=" " alt="" coords="292,319,420,360"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_node_model.html#ad3e7ea8289565dcfd1cde4a61e4fa8b5" title=" " alt="" coords="265,384,447,425"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685" title=" " alt="" coords="265,449,447,491"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_render_engine.html#ac291d418af682c7d7ea99a170a213f20" title=" " alt="" coords="289,515,423,556"/>
+<area shape="rect" id="node14" href="$class_manipulator.html#a625692bdcdb2e123dbcba3d845ebbbcc" title=" " alt="" coords="258,581,454,607"/>
+<area shape="rect" id="node15" href="$class_manipulator.html#a42640108b0db21295d8a1d8996973ebd" title=" " alt="" coords="263,631,449,658"/>
+<area shape="rect" id="node16" href="$class_model_viewer.html#a235952e168f02d79897b490b74e8db15" title=" " alt="" coords="265,683,447,724"/>
+<area shape="rect" id="node19" href="$class_model_viewer.html#a4f285cd99256bc37dd4b1e60919de91b" title=" " alt="" coords="245,749,467,775"/>
+<area shape="rect" id="node20" href="$class_user_control_emitter.html#ac8a7692d55629eed4dbfa893afe47a06" title=" " alt="" coords="290,800,422,841"/>
+<area shape="rect" id="node21" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title=" " alt="" coords="279,865,433,907"/>
+<area shape="rect" id="node22" href="$class_user_control_properties.html#a9222e773b0da59069756332868248a44" title=" " alt="" coords="281,931,431,972"/>
+<area shape="rect" id="node23" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="272,997,440,1023"/>
+<area shape="rect" id="node26" href="$class_o_b_j2_o_m_p_f.html#a896d6dbea946d0ca63569a00f7a4fa66" title=" " alt="" coords="246,1047,466,1074"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_render_engine.html#afa2b1137025f13fdad0b8f5414cba1a8" title=" " alt="" coords="31,39,165,80"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_render_engine.html#ab5bd16912a4a41154cdc29830040a07e" title=" " alt="" coords="31,104,165,145"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_view.html#a4bf64f1d4d7260afbd3e8f0ea9c3a361" title=" " alt="" coords="21,522,175,549"/>
+<area shape="rect" id="node17" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title=" " alt="" coords="27,665,169,691"/>
+<area shape="rect" id="node18" href="$class_model_viewer.html#a247bac03643084abda6e880573312206" title=" " alt="" coords="19,715,177,742"/>
+<area shape="rect" id="node24" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="9,956,187,997"/>
+<area shape="rect" id="node25" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="5,1021,191,1063"/>
+</map>

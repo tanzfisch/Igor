@@ -1,0 +1,12 @@
+<map id="Igor::iVoxelTerrainTileInformation" name="Igor::iVoxelTerrainTileInformation">
+<area shape="rect" id="node1" title=" " alt="" coords="139,555,349,581"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_data.html" title=" " alt="" coords="33,451,148,477"/>
+<area shape="rect" id="node3" href="$struct_igor_1_1i_voxel_pole.html" title=" " alt="" coords="31,317,145,344"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_r_l_e.html" title=" " alt="" coords="11,199,165,240"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_r_l_e.html" title=" " alt="" coords="5,95,171,136"/>
+<area shape="rect" id="node6" title=" " alt="" coords="58,5,118,32"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_target_material.html" title=" " alt="" coords="176,451,312,477"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_color3.html" title=" " alt="" coords="169,317,321,344"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="336,451,496,477"/>
+<area shape="rect" id="node10" title=" " alt="" coords="397,317,435,344"/>
+</map>

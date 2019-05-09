@@ -1,0 +1,42 @@
+<map id="Igor::iNode::setParent" name="Igor::iNode::setParent">
+<area shape="rect" id="node1" title=" " alt="" coords="951,777,1099,803"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title=" " alt="" coords="748,777,903,803"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_model_data_i_o_o_b_j.html#ae2b3a8127ce9b12d99645e042c88d347" title=" " alt="" coords="515,5,670,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a4872c9dbcc8050a911e76db6167a1ebf" title=" " alt="" coords="509,71,676,112"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_factory.html#a9dbf1c77d2d6cce346f022395714b4c9" title=" " alt="" coords="529,136,657,177"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_factory.html#a1248d97a24b58a43a30bdfe65d864f3c" title=" " alt="" coords="523,201,662,243"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_model.html#ad71a2749c8a41f9c51fbed49603b3f1b" title=" " alt="" coords="488,267,697,294"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_sky_simulation.html#ad05e2b9a7c83f8b208f8404ea2463abb" title=" " alt="" coords="523,319,662,360"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_voxel_terrain.html#a8ea8238ed354338cf92a613aae66f963" title=" " alt="" coords="529,384,656,425"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_voxel_terrain.html#a2866e4ad74ac190ae4591a64329297b0" title=" " alt="" coords="529,449,656,491"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" title=" " alt="" coords="485,515,700,556"/>
+<area shape="rect" id="node13" href="$class_manipulator.html#ada38b5f63a87e181f60eae4ad7d28ded" title=" " alt="" coords="507,580,678,621"/>
+<area shape="rect" id="node14" href="$class_manipulator.html#ad2a69e64a99d9450d3f245b073ef1e32" title=" " alt="" coords="499,645,686,687"/>
+<area shape="rect" id="node15" href="$class_manipulator.html#afcf5d60502dd0a242151edcc551a06a1" title=" " alt="" coords="509,711,676,752"/>
+<area shape="rect" id="node16" href="$class_menu_dialog.html#a4756d14d3797d94d9e53d2aa2d689364" title=" " alt="" coords="519,777,666,803"/>
+<area shape="rect" id="node19" href="$class_model_viewer.html#a83b74e729ea69764b090a0da083bd92e" title=" " alt="" coords="211,826,437,853"/>
+<area shape="rect" id="node22" href="$class_model_viewer.html#ac730a4cc009c3263aa202d05a7fd06e4" title=" " alt="" coords="236,877,412,903"/>
+<area shape="rect" id="node23" href="$class_model_viewer.html#a7bda3d5e0cb51d27131dca86ea865a18" title=" " alt="" coords="233,927,415,954"/>
+<area shape="rect" id="node24" href="$class_model_viewer.html#a560cd92a31f6a943d9b3050bc78aad41" title=" " alt="" coords="231,979,417,1020"/>
+<area shape="rect" id="node25" href="$class_model_viewer.html#aa6f202e4dd8d213db20efd1db27b7f95" title=" " alt="" coords="234,1045,414,1071"/>
+<area shape="rect" id="node26" href="$class_model_viewer.html#a2f15a5df98da1d448de6dca2dff01ca4" title=" " alt="" coords="491,1278,694,1305"/>
+<area shape="rect" id="node27" href="$class_model_viewer.html#a13014378c1aca9d191468a5b17e947f6" title=" " alt="" coords="505,1081,680,1123"/>
+<area shape="rect" id="node29" href="$class_model_viewer.html#a8e8f805fcefbe96a8685e1d957cdbda9" title=" " alt="" coords="505,1147,680,1188"/>
+<area shape="rect" id="node31" href="$class_model_viewer.html#a9f2e19c85aa4ffb6970717d68c171e75" title=" " alt="" coords="491,1212,694,1253"/>
+<area shape="rect" id="node34" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="509,1329,677,1355"/>
+<area shape="rect" id="node37" href="$class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" title=" " alt="" coords="488,1417,697,1443"/>
+<area shape="rect" id="node39" href="$class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" title=" " alt="" coords="522,1471,663,1498"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_sky_simulation.html#a9c884da7016a5b106db44ef9d46630d5" title=" " alt="" coords="255,319,393,360"/>
+<area shape="rect" id="node17" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title=" " alt="" coords="255,725,393,751"/>
+<area shape="rect" id="node18" href="$class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" title=" " alt="" coords="249,775,399,802"/>
+<area shape="rect" id="node20" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title=" " alt="" coords="13,989,155,1015"/>
+<area shape="rect" id="node21" href="$class_model_viewer.html#a247bac03643084abda6e880573312206" title=" " alt="" coords="5,1043,163,1070"/>
+<area shape="rect" id="node28" href="$class_model_viewer.html#a07958faefef0e0a8054fdefa67359f12" title=" " alt="" coords="237,1095,411,1122"/>
+<area shape="rect" id="node30" href="$class_model_viewer.html#aa54c56522db1f2fe99c35cb8a22bea13" title=" " alt="" coords="237,1147,411,1188"/>
+<area shape="rect" id="node32" href="$class_model_viewer.html#a0a80ce07e2d2b7f390678ad21805f3b2" title=" " alt="" coords="263,1263,385,1290"/>
+<area shape="rect" id="node33" href="$class_model_viewer.html#ab188aff8f81707ba02bd93ef2b201fa7" title=" " alt="" coords="241,1213,407,1239"/>
+<area shape="rect" id="node35" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="235,1315,413,1356"/>
+<area shape="rect" id="node36" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="231,1380,417,1421"/>
+<area shape="rect" id="node38" href="$class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" title=" " alt="" coords="235,1445,413,1487"/>
+<area shape="rect" id="node40" href="$_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="299,1511,349,1538"/>
+</map>
