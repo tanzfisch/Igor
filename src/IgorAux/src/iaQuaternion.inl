@@ -247,6 +247,32 @@ void iaQuaternion<T>::setEuler(T x, T y, T z)
 	_z = sy * cp * cr - cy * sp * sr;
 }
 
+/*
+public void set(Quat4d q1) {
+	double sqw = q1.w*q1.w;
+	double sqx = q1.x*q1.x;
+	double sqy = q1.y*q1.y;
+	double sqz = q1.z*q1.z;
+	double unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+	double test = q1.x*q1.y + q1.z*q1.w;
+	if (test > 0.499*unit) { // singularity at north pole
+		heading = 2 * atan2(q1.x,q1.w);
+		attitude = Math.PI/2;
+		bank = 0;
+		return;
+	}
+	if (test < -0.499*unit) { // singularity at south pole
+		heading = -2 * atan2(q1.x,q1.w);
+		attitude = -Math.PI/2;
+		bank = 0;
+		return;
+	}
+	heading = atan2(2*q1.y*q1.w-2*q1.x*q1.z , sqx - sqy - sqz + sqw);
+	attitude = asin(2*test/unit);
+	bank = atan2(2*q1.x*q1.w-2*q1.y*q1.z , -sqx + sqy - sqz + sqw)
+}
+*/
+
 template <class T>
 void iaQuaternion<T>::getEuler(T& x, T& y, T& z) const
 {
@@ -292,4 +318,16 @@ iaQuaternion<T>::iaQuaternion(T x, T y, T z, T w)
 template <class T>
 iaQuaternion<T>::~iaQuaternion(void)
 {
+}
+
+template <class T>
+__IGOR_INLINE__ const T* iaQuaternion<T>::getData() const
+{
+	return (T*)& _x;
+}
+
+template <class T>
+__IGOR_INLINE__ T* iaQuaternion<T>::getData()
+{
+	return (T*)& _x;
 }

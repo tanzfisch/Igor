@@ -82,7 +82,13 @@ namespace IgorAux
 
 		void getEuler(iaVector3<T>& vec) const;
 
+		/*! \returns pointer to the data
+		*/
+		__IGOR_INLINE__ const T* getData() const;
 
+		/*! \returns pointer to the data
+		*/
+		__IGOR_INLINE__ T* getData();
 
         void set(T x, T y, T z, T w);
 

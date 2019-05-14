@@ -299,11 +299,11 @@ namespace IgorAux
 		*/
 		__IGOR_INLINE__ void shear(T x, T y, T z);
 		
-		/*! returns pointer to the data
+		/*! \returns pointer to the data
 		*/
 		__IGOR_INLINE__ const T* getData() const;
 
-        /*! returns pointer to the data
+        /*! \returns pointer to the data
         */
         __IGOR_INLINE__ T* getData();
 
