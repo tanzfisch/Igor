@@ -808,9 +808,9 @@ bool iaMatrix<T>::decompose(iaVector3<T> & scale, iaQuaternion<T> & orientation,
 	iaVector3<T> row[3], pdum3;
 
 	// Now get scale and shear.
-	row[0] = localMatrix._right;
-	row[1] = localMatrix._top;
-	row[2] = localMatrix._depth;
+	row[0].set(localMatrix[0], localMatrix[4], localMatrix[8]);
+	row[1].set(localMatrix[1], localMatrix[5], localMatrix[9]);
+	row[2].set(localMatrix[2], localMatrix[6], localMatrix[10]);
 
 	// Compute X scale factor and normalize first row.
 	scale._x = row[0].length();
@@ -843,14 +843,14 @@ bool iaMatrix<T>::decompose(iaVector3<T> & scale, iaQuaternion<T> & orientation,
 	pdum3 = row[1] % row[2];
 	if ((row[0] * pdum3) < 0)
 	{
-		scale.negate();
+		scale._x *= -1;
 		row[0].negate();
 		row[1].negate();
 		row[2].negate();
 	}
 
 	// Now, get the rotations out
-	T s, t, x, y, z, w;
+	T s, t;
 
 	t = row[0][0] + row[1][1] + row[2][2] + 1.0;
 
@@ -881,134 +881,6 @@ bool iaMatrix<T>::decompose(iaVector3<T> & scale, iaQuaternion<T> & orientation,
 		orientation._y = (row[1][2] + row[2][1]) / s;
 		orientation._z = 0.25 * s;
 		orientation._w = (row[1][0] - row[0][1]) / s;
-	}
-
-	return true;
-}
-
-template <class T>
-bool iaMatrix<T>::decompose(iaVector3<T> & scale, iaVector3<T> & rotate, iaVector3<T> & translate, iaVector3<T> & shear, iaVector4<T> & perspective)
-{
-	iaMatrix<T> localMatrix(*this);
-
-	// Normalize the matrix.
-	if (_w3 == 0)
-	{
-		return false;
-	}
-
-	for (int i = 0; i < 16; ++i)
-	{
-		localMatrix[i] /= localMatrix._w3;
-	}
-
-	// perspectiveMatrix is used to solve for perspective, but it also provides
-	// an easy way to test for singularity of the upper 3x3 component.
-	iaMatrix<T> perspectiveMatrix(localMatrix);
-	perspectiveMatrix._w0 = 0;
-	perspectiveMatrix._w1 = 0;
-	perspectiveMatrix._w2 = 0;
-	perspectiveMatrix._w3 = 1;
-
-	if (perspectiveMatrix.determinant() == 0)
-	{
-		return false;
-	}
-
-	// First, isolate perspective.  This is the messiest.
-	if (localMatrix._w0 != 0 || localMatrix._w1 != 0 || localMatrix._w2 != 0)
-	{
-		// rightHandSide is the right hand side of the equation.
-		iaVector4<T> rightHandSide;
-		rightHandSide[0] = localMatrix._w0;
-		rightHandSide[1] = localMatrix._w1;
-		rightHandSide[2] = localMatrix._w2;
-		rightHandSide[3] = localMatrix._w3;
-
-		// Solve the equation by inverting perspectiveMatrix and multiplying
-		// rightHandSide by the inverse.  (This is the easiest way, not
-		// necessarily the best.)
-		iaMatrix<T> transposedInversePerspectiveMatrix(perspectiveMatrix);
-		if (!transposedInversePerspectiveMatrix.invert())
-		{
-			return false;
-		}
-		transposedInversePerspectiveMatrix.transpose();
-
-		perspective = transposedInversePerspectiveMatrix * rightHandSide;
-
-		// Clear the perspective partition
-		localMatrix._w0 = 0;
-		localMatrix._w1 = 0;
-		localMatrix._w2 = 0;
-		localMatrix._w3 = 1;
-	}
-	else
-	{
-		// No perspective.
-		perspective.set(0, 0, 0, 1);
-	}
-
-	// Next take care of translation (easy).
-	translate = localMatrix._pos;
-	localMatrix._pos.set(0, 0, 0);
-
-	// Vector4 type and functions need to be added to the common set.
-	iaVector3<T> row[3], pdum3;
-
-	// Now get scale and shear.
-	row[0] = localMatrix._right;
-	row[1] = localMatrix._top;
-	row[2] = localMatrix._depth;
-
-	// Compute X scale factor and normalize first row.
-	scale._x = row[0].length();
-	row[0].normalize();
-
-	// Compute XY shear factor and make 2nd row orthogonal to 1st.
-	shear._z = row[0] * row[1];
-	row[1] = row[1] + (row[0] * -shear._z);
-
-	// Now, compute Y scale and normalize 2nd row.
-	scale._y = row[1].length();
-	row[1].normalize();
-	shear._z /= scale._y;
-
-	// Compute XZ and YZ shears, orthogonalize 3rd row.
-	shear._y = row[0] * row[2];
-	row[2] = row[2] + (row[0] * -shear._y);
-	shear._x = row[1] * row[2];
-	row[2] = row[2] + (row[1] * -shear._x);
-
-	// Next, get Z scale and normalize 3rd row.
-	scale._z = row[2].length();
-	row[2].normalize();
-	shear._y /= scale._z;
-	shear._x /= scale._z;
-
-	// At this point, the matrix (in rows[]) is orthonormal.
-	// Check for a coordinate system flip.  If the determinant
-	// is -1, then negate the matrix and the scaling factors.
-	pdum3 = row[1] % row[2];
-	if ((row[0] * pdum3) < 0)
-	{
-		scale.negate();
-		row[0].negate();
-		row[1].negate();
-		row[2].negate();
-	}
-
-	// Now, get the rotations out
-	rotate._y = asin(-row[0][2]);
-	if (cos(rotate._y) != 0) 
-	{
-		rotate._x = atan2(row[1][2], row[2][2]);
-		rotate._z = atan2(row[0][1], row[0][0]);
-	}
-	else 
-	{
-		rotate._x = atan2(-row[2][0], row[1][1]);
-		rotate._z = 0;
 	}
 
 	return true;

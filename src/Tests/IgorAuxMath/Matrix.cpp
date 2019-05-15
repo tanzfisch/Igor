@@ -142,6 +142,93 @@ TEST(MatrixTests, DecomposeTranslateNegative)
 	EXPECT_EQ(translate._z, -453);
 }
 
+TEST(MatrixTests, Transpose)
+{
+	iaMatrixd matrix;
+
+	matrix[1] = 10;
+	matrix[2] = 20;
+	matrix[3] = 30;
+
+	matrix[4] = 40;
+	matrix[8] = 80;
+	matrix[12] = 120;
+
+	matrix[10] = 5;
+
+
+	matrix.transpose();
+
+	static const float64 cmpMatrix[] =
+	{
+		1, 40, 80, 120,
+		10, 1, 0, 0,
+		20, 0, 5, 0,
+		30, 0, 0, 1
+	};
+	
+	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), cmpMatrix, sizeof(matrix)));
+}
+
+// tocalc determinants https://matrix.reshish.com/detCalculation.php
+TEST(MatrixTests, DeterminantOfID)
+{
+	iaMatrixd matrix;
+
+	EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
+}
+
+TEST(MatrixTests, DeterminantOfTranslation)
+{
+	iaMatrixd matrix;
+	matrix.translate(1,2,-3);
+
+	EXPECT_NEAR(matrix.determinant(), 1, 0.00000001);
+}
+
+TEST(MatrixTests, DeterminantOfScale)
+{
+	iaMatrixd matrix;
+	matrix.scale(2, -3, 5);
+
+	EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+}
+
+TEST(MatrixTests, DeterminantOfRotate)
+{
+	iaMatrixd matrix;
+	matrix.rotate(0.1, -0.2, 0.6);
+
+	EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
+}
+
+TEST(MatrixTests, DeterminantOfShear)
+{
+	iaMatrixd matrix;
+	matrix.shear(0.1, -0.2, 0.6);
+
+	EXPECT_NEAR(matrix.determinant(), 1.0, 0.00000001);
+}
+
+TEST(MatrixTests, DeterminantOfPerspective)
+{
+	iaMatrixd matrix;
+	matrix.perspective(45, 0.25, 0.1, 1000);
+
+	EXPECT_NEAR(matrix.determinant(), -4.6632078945301687105, 0.00000001);
+}
+
+TEST(MatrixTests, DeterminantOfMixedMatrix)
+{
+	iaMatrixd matrix;
+	matrix.translate(1, 2, -3);
+	matrix.scale(2, -3, 5);
+	matrix.rotate(0.1, -0.2, 0.6);
+	matrix.shear(0.1, -0.2, 0.6);
+
+	EXPECT_NEAR(matrix.determinant(), -30, 0.00000001);
+}
+
 TEST(MatrixTests, DecomposeScale)
 {
 	iaMatrixd matrix;
@@ -181,7 +268,7 @@ TEST(MatrixTests, DecomposeScaleNegative)
 TEST(MatrixTests, DecomposeShear)
 {
 	iaMatrixd matrix;
-	matrix.shear(5, 0.17,12);
+	matrix.shear(5, 0.17,-12);
 
 	iaVector3d scale;
 	iaQuaterniond orientation;
@@ -193,13 +280,13 @@ TEST(MatrixTests, DecomposeShear)
 
 	EXPECT_EQ(shear._x, 5);
 	EXPECT_EQ(shear._y, 0.17);
-	EXPECT_EQ(shear._z, 12);
+	EXPECT_EQ(shear._z, -12);
 }
 
-TEST(MatrixTests, DecomposeRotate)
+TEST(MatrixTests, DecomposeRotateX)
 {
 	iaMatrixd matrix;
-	matrix.rotate(0.1, 0.2, 0.3);
+	matrix.rotate(0.5, iaAxis::X);
 
 	iaVector3d scale;
 	iaQuaterniond orientation;
@@ -212,7 +299,49 @@ TEST(MatrixTests, DecomposeRotate)
 	iaVector3d rotate;
 	orientation.getEuler(rotate);
 
-	EXPECT_EQ(rotate._x, 0.1);
-	EXPECT_EQ(rotate._y, 0.2);
-	EXPECT_EQ(rotate._z, 0.3);
+	EXPECT_NEAR(rotate._x, 0.5, 0.0000001);
+	EXPECT_NEAR(rotate._y, 0, 0.0000001);
+	EXPECT_NEAR(rotate._z, 0, 0.0000001);
+}
+
+TEST(MatrixTests, DecomposeRotateY)
+{
+	iaMatrixd matrix;
+	matrix.rotate(-0.25, iaAxis::Y);
+
+	iaVector3d scale;
+	iaQuaterniond orientation;
+	iaVector3d translate;
+	iaVector3d shear;
+	iaVector4d perspective;
+
+	matrix.decompose(scale, orientation, translate, shear, perspective);
+
+	iaVector3d rotate;
+	orientation.getEuler(rotate);
+
+	EXPECT_NEAR(rotate._x, 0, 0.0000001);
+	EXPECT_NEAR(rotate._y, -0.25, 0.0000001);
+	EXPECT_NEAR(rotate._z, 0, 0.0000001);
+}
+
+TEST(MatrixTests, DecomposeRotateZ)
+{
+	iaMatrixd matrix;
+	matrix.rotate(0.333, iaAxis::Z);
+
+	iaVector3d scale;
+	iaQuaterniond orientation;
+	iaVector3d translate;
+	iaVector3d shear;
+	iaVector4d perspective;
+
+	matrix.decompose(scale, orientation, translate, shear, perspective);
+
+	iaVector3d rotate;
+	orientation.getEuler(rotate);
+
+	EXPECT_NEAR(rotate._x, 0, 0.0000001);
+	EXPECT_NEAR(rotate._y, 0, 0.0000001);
+	EXPECT_NEAR(rotate._z, 0.333, 0.0000001);
 }
