@@ -3,15 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28803.202
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "engine", "engine", "{0B46C5AB-8277-4FAF-A654-67D52320EDEF}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 engine", "00 engine", "{0B46C5AB-8277-4FAF-A654-67D52320EDEF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3rd", "3rd", "{0F632ED2-9D68-41EF-B907-9339875F6FAC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99 3rd", "99 3rd", "{0F632ED2-9D68-41EF-B907-9339875F6FAC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "newton-dynamics", "newton-dynamics", "{B405F994-43F4-4E4C-A562-B2B38609B70B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{7E6E6B1C-9F5A-4C8A-8347-4ECEDE719AF5}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "30 examples", "30 examples", "{7E6E6B1C-9F5A-4C8A-8347-4ECEDE719AF5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{C9F137FC-86AD-4A45-A55B-67B92D3CA836}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "50 tools", "50 tools", "{C9F137FC-86AD-4A45-A55B-67B92D3CA836}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "00 FirstSteps", "..\..\..\examples\00 FirstSteps\vs\FirstSteps.vcxproj", "{DE10D3FF-0276-4E49-8BBB-D935F15BA21F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -118,7 +118,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OMPF", "..\..\OMPF\vs\OMPF.
 		{150076EC-4F94-44FA-9AB3-ADF35CC13ADA} = {150076EC-4F94-44FA-9AB3-ADF35CC13ADA}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "shaders", "shaders", "{70B0CE8D-2741-417A-88FE-8D22B915E49D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 shaders", "10 shaders", "{70B0CE8D-2741-417A-88FE-8D22B915E49D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "igor", "igor", "{EFA7EEBF-F3E7-45B6-8D84-2752A45F9832}"
 	ProjectSection(SolutionItems) = preProject
@@ -147,7 +147,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ascent", "ascent", "{CD1FE6
 		..\..\..\data\shaders\ascent\terrain_directional_light_1texture.frag = ..\..\..\data\shaders\ascent\terrain_directional_light_1texture.frag
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9760AAD7-4C6F-4A9E-A67E-BA19F6D9C177}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "20 docs", "20 docs", "{9760AAD7-4C6F-4A9E-A67E-BA19F6D9C177}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\docs\changelog.md = ..\..\docs\changelog.md
 		..\..\docs\contribute.md = ..\..\docs\contribute.md
@@ -169,7 +169,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{9760AAD7-4
 		..\..\docs\tutorials.md = ..\..\docs\tutorials.md
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{E24643EA-12BE-43D9-9F75-39C9B13FA6EC}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "40 tests", "40 tests", "{E24643EA-12BE-43D9-9F75-39C9B13FA6EC}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "IgorAuxMath", "..\..\Tests\IgorAuxMath\IgorAuxMath.vcxproj", "{A1A746BA-34BE-4925-B73D-EB2D91855EA4}"
 EndProject
