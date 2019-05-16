@@ -141,12 +141,16 @@ void UserControlTransformation::initGUI()
 	}
 
 	iWidgetLabel* translateLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	translateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	translateLabel->setText("Translate");
 	iWidgetLabel* scaleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	scaleLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	scaleLabel->setText("Scale");
 	iWidgetLabel* rotateLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	rotateLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	rotateLabel->setText("Rotate");
 	iWidgetLabel* shearLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	shearLabel->setHorizontalAlignment(iHorizontalAlignment::Left);
 	shearLabel->setText("Shear");
 
 	_grid->addWidget(translateLabel, 0, 0);

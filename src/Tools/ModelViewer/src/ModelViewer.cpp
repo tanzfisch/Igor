@@ -126,9 +126,9 @@ void ModelViewer::init(iaString fileName)
 	_viewWidget3D.setClearColor(false);
 	_viewWidget3D.setClearDepth(true);
 	_viewWidget3D.setPerspective(45.0f);
-	_viewWidget3D.setClipPlanes(0.1f, 10000.f);
+	_viewWidget3D.setClipPlanes(1.0f, 100000.f);
 	
-	_window.addView(&_viewWidget3D, 1);
+	_window.addView(&_viewWidget3D, 5);
 
 	_sceneWidget3D = iSceneFactory::getInstance().createScene();
 	_sceneWidget3D->setName("Modifier Scene");
