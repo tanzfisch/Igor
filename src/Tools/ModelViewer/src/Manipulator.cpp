@@ -299,6 +299,8 @@ void Manipulator::update()
 
     float64 distanceToCam = camMatrix._pos.distance(matrix._pos) * 0.1;
 
+	con_endl(matrix._pos);
+
 	matrix._right.normalize();
 	matrix._top.normalize();
 	matrix._depth.normalize();
@@ -558,7 +560,6 @@ void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matr
     }
 }
 
-// TODO cleanup rotate, scale, translate
 void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWindow* window)
 {
     if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)

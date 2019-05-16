@@ -62,32 +62,18 @@ private:
 
     iWidgetGrid* _grid = nullptr;
 
-    iWidgetGrid* _gridMatrix = nullptr;
-    vector<iWidgetTextEdit*> _matrixText;
-
-    iWidgetGrid* _gridModifiers = nullptr;
-
-    iWidgetButton* _buttonApplyTranlation = nullptr;
-    iWidgetButton* _buttonApplyScale = nullptr;
-    iWidgetButton* _buttonApplyID = nullptr;
-    iWidgetButton* _buttonApplyRotateX = nullptr;
-    iWidgetButton* _buttonApplyRotateY = nullptr;
-    iWidgetButton* _buttonApplyRotateZ = nullptr;
-
-    vector<iWidgetTextEdit*> _translateText;
+	vector<iWidgetTextEdit*> _translateText;
     vector<iWidgetTextEdit*> _scaleText;
     vector<iWidgetTextEdit*> _rotateText;
+	vector<iWidgetTextEdit*> _shearText;
 
-    uint32 _nodeId = 0;
+	uint32 _nodeId = 0;
 
     vector<iWidget*> _allWidgets;
 
-    void onTranslation(iWidget* source);
-    void onScale(iWidget* source);
-    void onRotationX(iWidget* source);
-    void onRotationY(iWidget* source);
-    void onRotationZ(iWidget* source);
-    void onID(iWidget* source);
+	iWidgetTextEdit* createTextEdit();
+
+    void onChange(iWidget* source);
    
     void updateGUI();
 

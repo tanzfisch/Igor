@@ -906,6 +906,9 @@ void ModelViewer::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 			float64 translateFactor = camTranslateMatrix._pos.length() * translateSensitivity;
 
 			_cameraCOI->translate((fromWorld - toWorld) * translateFactor);
+			iaMatrixd coiMatrix;
+			_cameraCOI->getMatrix(coiMatrix);
+			_manipulator->setCamCOI(coiMatrix);
 		}
 	}
 }

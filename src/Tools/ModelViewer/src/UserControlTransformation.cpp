@@ -17,295 +17,177 @@ using namespace Igor;
 
 UserControlTransformation::UserControlTransformation()
 {
-    initGUI();
+	initGUI();
 }
 
 UserControlTransformation::~UserControlTransformation()
 {
-    deinitGUI();
+	deinitGUI();
 }
 
 void UserControlTransformation::setNode(uint32 id)
 {
-    _nodeId = id;
-    updateGUI();
+	_nodeId = id;
+	updateGUI();
 }
 
 uint32 UserControlTransformation::getNode()
 {
-    return _nodeId;
+	return _nodeId;
 }
 
 void UserControlTransformation::updateGUI()
 {
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
+	iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
 
-    if (node != nullptr)
-    {
-        iaMatrixd matrix;
-        node->getMatrix(matrix);
+	if (node != nullptr)
+	{
+		iaMatrixd matrix;
+		node->getMatrix(matrix);
 
-        for (int i = 0; i < 16; ++i)
-        {
-            _matrixText[i]->setText(iaString::ftoa(matrix[i], 2));
-        }
+		iaVector3d scale;
+		iaQuaterniond orientation;
+		iaVector3d rotate;
+		iaVector3d translate;
+		iaVector3d shear;
+		iaVector4d perspective;
+		matrix.decompose(scale, orientation, translate, shear, perspective);
 
-        for (int i = 0; i < 3; ++i)
-        {
-            _translateText[i]->setText("0.0");
-        }
+		orientation.getEuler(rotate);
 
-        for (int i = 0; i < 3; ++i)
-        {
-            _rotateText[i]->setText("0.0");
-        }
+		_translateText[0]->setText(iaString::ftoa(translate._x, 4));
+		_translateText[1]->setText(iaString::ftoa(translate._y, 4));
+		_translateText[2]->setText(iaString::ftoa(translate._z, 4));
 
-        for (int i = 0; i < 3; ++i)
-        {
-            _scaleText[i]->setText("1.0");
-        }
-    }
+		_rotateText[0]->setText(iaString::ftoa(rotate._x / M_PI * 180.0, 4));
+		_rotateText[1]->setText(iaString::ftoa(rotate._y / M_PI * 180.0, 4));
+		_rotateText[2]->setText(iaString::ftoa(rotate._z / M_PI * 180.0, 4));
+
+		_scaleText[0]->setText(iaString::ftoa(scale._x, 4));
+		_scaleText[1]->setText(iaString::ftoa(scale._y, 4));
+		_scaleText[2]->setText(iaString::ftoa(scale._z, 4));
+
+		_shearText[0]->setText(iaString::ftoa(shear._x, 4));
+		_shearText[1]->setText(iaString::ftoa(shear._y, 4));
+		_shearText[2]->setText(iaString::ftoa(shear._z, 4));
+	}
 }
 
 void UserControlTransformation::deinitGUI()
 {
-    auto iter = _allWidgets.begin();
-    while (iter != _allWidgets.end())
-    {
-        iWidgetManager::getInstance().destroyWidget((*iter));
-        iter++;
-    }
+	auto iter = _allWidgets.begin();
+	while (iter != _allWidgets.end())
+	{
+		iWidgetManager::getInstance().destroyWidget((*iter));
+		iter++;
+	}
 
-    _allWidgets.clear();
-    _translateText.clear();
-    _scaleText.clear();
-    _rotateText.clear();
+	_allWidgets.clear();
+	_translateText.clear();
+	_scaleText.clear();
+	_rotateText.clear();
+	_shearText.clear();
+}
 
-    _matrixText.clear();
+iWidgetTextEdit* UserControlTransformation::createTextEdit()
+{
+	iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+	_allWidgets.push_back(textEdit);
+	textEdit->setText("");
+	textEdit->setWidth(MV_REGULARBUTTON_SIZE);
+	textEdit->setMaxTextLength(11);
+	textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
+	textEdit->setVerticalAlignment(iVerticalAlignment::Top);
+	textEdit->registerOnChangeEvent(iChangeDelegate(this, &UserControlTransformation::onChange));
+
+	return textEdit;
 }
 
 void UserControlTransformation::initGUI()
 {
-    _grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(_grid);
-    _grid->setHorizontalAlignment(iHorizontalAlignment::Right);
-    _grid->setVerticalAlignment(iVerticalAlignment::Top);
-    _grid->appendRows(1);
+	_grid = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
+	_allWidgets.push_back(_grid);
+	_grid->setHorizontalAlignment(iHorizontalAlignment::Right);
+	_grid->setVerticalAlignment(iVerticalAlignment::Top);
+	_grid->appendCollumns(3);
+	_grid->appendRows(3);
 
-    _gridMatrix = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(_gridMatrix);
-    _gridMatrix->appendCollumns(3);
-    _gridMatrix->appendRows(3);
-    _gridMatrix->setHorizontalAlignment(iHorizontalAlignment::Left);
+	for (int i = 0; i < 3; ++i)
+	{
+		iWidgetTextEdit* textEdit = createTextEdit();
+		_translateText.push_back(textEdit);
+		_grid->addWidget(textEdit, i + 1, 0);
+	}
 
-    _gridModifiers = static_cast<iWidgetGrid*>(iWidgetManager::getInstance().createWidget("Grid"));
-    _allWidgets.push_back(_gridModifiers);
-    _gridModifiers->setHorizontalAlignment(iHorizontalAlignment::Left);
-    _gridModifiers->appendCollumns(3);
-    _gridModifiers->appendRows(5);
+	for (int i = 0; i < 3; ++i)
+	{
+		iWidgetTextEdit* textEdit = createTextEdit();
+		_scaleText.push_back(textEdit);
+		_grid->addWidget(textEdit, i + 1, 1);
+	}
 
-    _buttonApplyTranlation = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(_buttonApplyTranlation);
-    _buttonApplyTranlation->setText("Translate");
-    _buttonApplyTranlation->setWidth(MV_REGULARBUTTON_SIZE);
-    _buttonApplyTranlation->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onTranslation));
+	for (int i = 0; i < 3; ++i)
+	{
+		iWidgetTextEdit* textEdit = createTextEdit();
+		_rotateText.push_back(textEdit);
+		_grid->addWidget(textEdit, i + 1, 2);
+	}
 
-    _buttonApplyScale = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(_buttonApplyScale);
-    _buttonApplyScale->setText("Scale");
-    _buttonApplyScale->setWidth(MV_REGULARBUTTON_SIZE);
-    _buttonApplyScale->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onScale));
+	for (int i = 0; i < 3; ++i)
+	{
+		iWidgetTextEdit* textEdit = createTextEdit();
+		_shearText.push_back(textEdit);
+		_grid->addWidget(textEdit, i + 1, 3);
+	}
 
-    _buttonApplyID = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(_buttonApplyID);
-    _buttonApplyID->setText("Identity");
-    _buttonApplyID->setWidth(MV_REGULARBUTTON_SIZE);
-    _buttonApplyID->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onID));
+	iWidgetLabel* translateLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	translateLabel->setText("Translate");
+	iWidgetLabel* scaleLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	scaleLabel->setText("Scale");
+	iWidgetLabel* rotateLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	rotateLabel->setText("Rotate");
+	iWidgetLabel* shearLabel = static_cast<iWidgetLabel*>(iWidgetManager::getInstance().createWidget("Label"));
+	shearLabel->setText("Shear");
 
-    _buttonApplyRotateX = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(_buttonApplyRotateX);
-    _buttonApplyRotateX->setText("Rotate X");
-    _buttonApplyRotateX->setWidth(MV_REGULARBUTTON_SIZE);
-    _buttonApplyRotateX->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationX));
-
-    _buttonApplyRotateY = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(_buttonApplyRotateY);
-    _buttonApplyRotateY->setText("Rotate Y");
-    _buttonApplyRotateY->setWidth(MV_REGULARBUTTON_SIZE);
-    _buttonApplyRotateY->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationY));
-
-    _buttonApplyRotateZ = static_cast<iWidgetButton*>(iWidgetManager::getInstance().createWidget("Button"));
-    _allWidgets.push_back(_buttonApplyRotateZ);
-    _buttonApplyRotateZ->setText("Rotate Z");
-    _buttonApplyRotateZ->setWidth(MV_REGULARBUTTON_SIZE);
-    _buttonApplyRotateZ->registerOnClickEvent(iClickDelegate(this, &UserControlTransformation::onRotationZ));
-
-    for (int i = 0; i < 3; ++i)
-    {
-        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-        _allWidgets.push_back(textEdit);
-        _translateText.push_back(textEdit);
-
-        textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-        textEdit->setText("");
-        textEdit->setWidth(MV_REGULARBUTTON_SIZE);
-        textEdit->setMaxTextLength(11);
-        textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-        textEdit->setVerticalAlignment(iVerticalAlignment::Top);
-
-        _gridModifiers->addWidget(textEdit, i + 1, 1);
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-        _allWidgets.push_back(textEdit);
-        _scaleText.push_back(textEdit);
-
-        textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-        textEdit->setText("");
-        textEdit->setWidth(MV_REGULARBUTTON_SIZE);
-        textEdit->setMaxTextLength(11);
-        textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-        textEdit->setVerticalAlignment(iVerticalAlignment::Top);
-
-        _gridModifiers->addWidget(textEdit, i + 1, 2);
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-        _allWidgets.push_back(textEdit);
-        _rotateText.push_back(textEdit);
-
-        textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-        textEdit->setText("");
-        textEdit->setWidth(MV_REGULARBUTTON_SIZE);
-        textEdit->setMaxTextLength(11);
-        textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-        textEdit->setVerticalAlignment(iVerticalAlignment::Top);
-
-        _gridModifiers->addWidget(textEdit, 1, 3 + i);
-    }
-
-    for (int col = 0; col < 4; ++col)
-    {
-        for (int row = 0; row < 4; ++row)
-        {
-            iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-            _allWidgets.push_back(textEdit);
-            _matrixText.push_back(textEdit);
-
-            textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Right);
-            textEdit->setText("");
-            textEdit->setWidth(MV_REGULARBUTTON_SIZE);
-            textEdit->setWriteProtected(true);
-            textEdit->setMaxTextLength(11);
-            textEdit->setHorizontalAlignment(iHorizontalAlignment::Left);
-            textEdit->setVerticalAlignment(iVerticalAlignment::Top);
-
-            _gridMatrix->addWidget(textEdit, col, row);
-        }
-    }
-
-    _grid->addWidget(_gridMatrix, 0, 0);
-    _grid->addWidget(_gridModifiers, 0, 1);
-
-    _gridModifiers->addWidget(_buttonApplyID, 0, 0);
-    _gridModifiers->addWidget(_buttonApplyTranlation, 0, 1);
-    _gridModifiers->addWidget(_buttonApplyScale, 0, 2);
-    _gridModifiers->addWidget(_buttonApplyRotateX, 0, 3);
-    _gridModifiers->addWidget(_buttonApplyRotateY, 0, 4);
-    _gridModifiers->addWidget(_buttonApplyRotateZ, 0, 5);
+	_grid->addWidget(translateLabel, 0, 0);
+	_grid->addWidget(scaleLabel, 0, 1);
+	_grid->addWidget(rotateLabel, 0, 2);
+	_grid->addWidget(shearLabel, 0, 3);
 }
 
-void UserControlTransformation::onTranslation(iWidget* source)
+void UserControlTransformation::onChange(iWidget* source)
 {
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
+	iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
 
-    if (node != nullptr)
-    {
-        float32 x = iaString::atof(_translateText[0]->getText());
-        float32 y = iaString::atof(_translateText[1]->getText());
-        float32 z = iaString::atof(_translateText[2]->getText());
+	if (node != nullptr)
+	{
+		iaMatrixd matrix;
 
-        node->translate(x, y, z);
+		// translate
+		matrix.translate(iaString::atof(_translateText[0]->getText()),
+			iaString::atof(_translateText[1]->getText()),
+			iaString::atof(_translateText[2]->getText()));
 
-        updateGUI();
-    }
-}
+		// rotate order xyz
+		matrix.rotate(iaString::atof(_rotateText[2]->getText()) / 180.0 * M_PI, iaAxis::Z);
+		matrix.rotate(iaString::atof(_rotateText[1]->getText()) / 180.0 * M_PI, iaAxis::Y);
+		matrix.rotate(iaString::atof(_rotateText[0]->getText()) / 180.0 * M_PI, iaAxis::X);
+			
+		// scale
+		matrix.scale(iaString::atof(_scaleText[0]->getText()),
+			iaString::atof(_scaleText[1]->getText()),
+			iaString::atof(_scaleText[2]->getText()));
 
-void UserControlTransformation::onScale(iWidget* source)
-{
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
+		// shear
+		matrix.shear(iaString::atof(_shearText[0]->getText()),
+			iaString::atof(_shearText[1]->getText()),
+			iaString::atof(_shearText[2]->getText()));
 
-    if (node != nullptr)
-    {
-        float32 x = iaString::atof(_scaleText[0]->getText());
-        float32 y = iaString::atof(_scaleText[1]->getText());
-        float32 z = iaString::atof(_scaleText[2]->getText());
-
-        node->scale(x, y, z);
-
-        updateGUI();
-    }
-}
-
-void UserControlTransformation::onRotationX(iWidget* source)
-{
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
-    {
-        float32 angle = iaString::atof(_rotateText[0]->getText());
-
-        node->rotate(angle / 180.0f * M_PI, iaAxis::X);
-
-        updateGUI();
-    }
-}
-
-void UserControlTransformation::onRotationY(iWidget* source)
-{
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
-    {
-        float32 angle = iaString::atof(_rotateText[1]->getText());
-
-        node->rotate(angle / 180.0f * M_PI, iaAxis::Y);
-
-        updateGUI();
-    }
-}
-
-void UserControlTransformation::onRotationZ(iWidget* source)
-{
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
-    {
-        float32 angle = iaString::atof(_rotateText[2]->getText());
-
-        node->rotate(angle / 180.0f * M_PI, iaAxis::Z);
-
-        updateGUI();
-    }
-}
-
-void UserControlTransformation::onID(iWidget* source)
-{
-    iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
-
-    if (node != nullptr)
-    {
-        node->identity();
-    }
-
-    updateGUI();
+		node->setMatrix(matrix);
+	}
 }
 
 iWidget* UserControlTransformation::getWidget()
 {
-    return _grid;
+	return _grid;
 }

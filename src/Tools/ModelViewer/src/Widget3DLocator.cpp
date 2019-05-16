@@ -66,6 +66,9 @@ void Widget3DLocator::update()
 	{
 		iaMatrixd matrix;
 		node->calcWorldTransformation(matrix);
+		matrix._right.normalize();
+		matrix._top.normalize();
+		matrix._depth.normalize();
 		_rootTransform->setMatrix(matrix);
 		_rootTransform->setActive();
 	}
@@ -118,7 +121,8 @@ shared_ptr<iMesh> Widget3DLocator::createLocatorMesh()
 	iMeshBuilder meshBuilder;
 
 	iaMatrixf matrix;
-	matrix.scale(0.02, 2.0, 0.02);
+	matrix.translate(0.0, -2.0, 0.0);
+	matrix.scale(0.02, 4.0, 0.02);
 	meshBuilder.setMatrix(matrix);
 	iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
 	meshBuilder.calcNormals(true);

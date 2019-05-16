@@ -362,14 +362,14 @@ namespace IgorAux
         \param afterPoint defines how many digits after the point
         \returns isString
         */
-        static iaString ftoa(float32 value, int afterPoint = 0);
+        static iaString ftoa(float64 value, int afterPoint = 0);
 
         /*! transforms a iaString to a float
 
         \param text the string
         \returns value
         */
-        static float32 atof(const iaString& text);
+        static float64 atof(const iaString& text);
 
 		/*! insert text at given position
 
