@@ -299,8 +299,6 @@ void Manipulator::update()
 
     float64 distanceToCam = camMatrix._pos.distance(matrix._pos) * 0.1;
 
-	con_endl(matrix._pos);
-
 	matrix._right.normalize();
 	matrix._top.normalize();
 	matrix._depth.normalize();
