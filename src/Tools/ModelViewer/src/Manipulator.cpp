@@ -19,6 +19,9 @@
 #include <iMesh.h>
 using namespace Igor;
 
+#include <iaConvert.h>
+using namespace IgorAux;
+
 Manipulator::Manipulator(iWindow* window, iView* view, iScene* scene)
 {
 	con_assert(window != nullptr, "zero pointer");
@@ -70,28 +73,28 @@ void Manipulator::init()
 	iMaterialResourceFactory::getInstance().getMaterial(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
 
 	_red = iMaterialResourceFactory::getInstance().createTargetMaterial();
-	_red->setEmissive(iaColor3f(0.6f, 0.0f, 0.0f));
+	_red->setEmissive(iaColor3f(0.8f, 0.0f, 0.0f));
 	_red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
 	_red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
 	_red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
 	_red->setAlpha(0.6);
 
 	_green = iMaterialResourceFactory::getInstance().createTargetMaterial();
-	_green->setEmissive(iaColor3f(0.0f, 0.6f, 0.0f));
+	_green->setEmissive(iaColor3f(0.0f, 0.8f, 0.0f));
 	_green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
 	_green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
 	_green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
 	_green->setAlpha(0.6);
 
 	_blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
-	_blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.6f));
+	_blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.8f));
 	_blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
 	_blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
 	_blue->setAlpha(0.6);
 
 	_cyan = iMaterialResourceFactory::getInstance().createTargetMaterial();
-	_cyan->setEmissive(iaColor3f(0.0f, 0.6f, 0.6f));
+	_cyan->setEmissive(iaColor3f(0.0f, 0.8f, 0.8f));
 	_cyan->setSpecular(iaColor3f(0.0f, 0.2f, 0.2f));
 	_cyan->setDiffuse(iaColor3f(0.0f, 0.5f, 0.5f));
 	_cyan->setAmbient(iaColor3f(0.0f, 0.3f, 0.3f));
@@ -312,9 +315,10 @@ void Manipulator::update()
 	_rootTransform->setMatrix(matrix);
 	_rootTransform->scale(distanceToCam, distanceToCam, distanceToCam);
 
-	// compensate for parent transforms
+	// compensate for parent orientation
 	iaMatrixd parentMatrix;
 	_rotateBillboardTransform->getParent()->calcWorldTransformation(parentMatrix);
+	parentMatrix._pos.set(0,0,0);
 	parentMatrix.invert();
 	parentMatrix._right.normalize();
 	parentMatrix._top.normalize();
@@ -511,15 +515,11 @@ void Manipulator::translate(const iaVector3d& vec, iaMatrixd& matrix)
 	}
 }
 
-void Manipulator::rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matrix)
+void Manipulator::rotate(const iaVector2d& from, const iaVector2d& to, iaMatrixd& matrix)
 {
-	iaVector2d from(x1, y1);
-	iaVector2d to(x2, y2);
-
-	iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
-	iNodeTransform* transformNode = static_cast<iNodeTransform*>(node);
+	iNode* node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 	iaMatrixd transformWorldMatrix;
-	transformNode->calcWorldTransformation(transformWorldMatrix);
+	node->calcWorldTransformation(transformWorldMatrix);
 
 	iaMatrixd camWorldMatrix;
 	_cameraUI->calcWorldTransformation(camWorldMatrix);
@@ -569,6 +569,12 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 {
 	if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)
 	{
+		iaVector2d fromd;
+		iaVector2d tod;
+
+		iaConvert::convert(from, fromd);
+		iaConvert::convert(to, tod);
+
 		iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 		if (node != nullptr &&
 			node->getType() == iNodeType::iNodeTransform)
@@ -597,7 +603,7 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 			case ManipulatorMode::None:
 				break;
 			case ManipulatorMode::Rotate:
-				rotate(from._x, from._y, to._x, to._y, nodeMatrix);
+				rotate(fromd, tod, nodeMatrix);
 				break;
 			case ManipulatorMode::Scale:
 				scale((toWorld - fromWorld) * translateFactor, nodeMatrix);

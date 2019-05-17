@@ -318,18 +318,15 @@ namespace Igor
         return static_cast<float32>(_viewport.getWidth()) / static_cast<float32>(_viewport.getHeight());
     }
 
-    iaVector3d iView::project(const iaVector3d& objectSpacePos, const iaMatrixd& cameraMatrix)
+    iaVector3d iView::project(const iaVector3d& worldSpacePos, const iaMatrixd& cameraMatrix)
     {
         iaMatrixd viewMatrix;
         viewMatrix.lookAt(cameraMatrix._pos, cameraMatrix._pos - cameraMatrix._depth, cameraMatrix._top);
 
-        iaMatrixd modelViewMatrix = viewMatrix;
-        modelViewMatrix *= cameraMatrix;
-
         iaMatrixd projectionMatrix;
         projectionMatrix.perspective(_viewAngel, getAspectRatio(), _nearPlaneDistance, _farPlaneDistance);
 
-        return iRenderer::getInstance().project(objectSpacePos, modelViewMatrix, projectionMatrix, _viewport);
+        return iRenderer::getInstance().project(worldSpacePos, viewMatrix, projectionMatrix, _viewport);
     }
 
     iaVector3d iView::unProject(const iaVector3d& screenpos, const iaMatrixd& cameraMatrix)

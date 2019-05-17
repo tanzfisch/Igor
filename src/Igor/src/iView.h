@@ -227,13 +227,13 @@ namespace Igor
         */
         iaVector3d unProject(const iaVector3d& screenpos, const iaMatrixd& modelMatrix);
 
-        /*! project object position to screen coordinates
+        /*! project world position to screen coordinates
 
-        \param objectSpacePos the object position
-        \param modelMatrix the model matrix to use
+        \param worldSpacePos the position in world space to project
+        \param cameraMatrix the camera matrix
         \returns projected screen position
         */
-        iaVector3d project(const iaVector3d& objectSpacePos, const iaMatrixd& modelMatrix);
+        iaVector3d project(const iaVector3d& worldSpacePos, const iaMatrixd& cameraMatrix);
 
         /*! renders view in an offscreen buffer using the colorID material and returns the color id at given point
 

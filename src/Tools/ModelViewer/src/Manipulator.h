@@ -205,7 +205,7 @@ private:
 
     void translate(const iaVector3d& vec, iaMatrixd& matrix);
     void scale(const iaVector3d& vec, iaMatrixd& matrix);
-    void rotate(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd& matrix);
+    void rotate(const iaVector2d& from, const iaVector2d& to, iaMatrixd& matrix);
 
     void render();
 
