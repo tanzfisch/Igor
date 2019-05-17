@@ -22,13 +22,57 @@ UserControlTransformation::UserControlTransformation()
 
 UserControlTransformation::~UserControlTransformation()
 {
+	iNode* node = iNodeFactory::getInstance().getNode(_nodeId);
+	if (node != nullptr)
+	{
+		node->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
+	}
+
 	deinitGUI();
 }
 
 void UserControlTransformation::setNode(uint32 id)
 {
+	if (_nodeId == id)
+	{
+		return;
+	}
+
+	// unregister from current node
+	iNode* oldNode = iNodeFactory::getInstance().getNode(_nodeId);
+	if (oldNode != nullptr)
+	{
+		oldNode->getTransformationChangeEvent().remove(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
+	}
+
+	// check if new id is a valid node
+	iNode* node = iNodeFactory::getInstance().getNode(id);
+	if (node == nullptr)
+	{
+		return;
+	}
+
+	if (node->getType() != iNodeType::iNodeTransform)
+	{
+		return;
+	}
+
+	// register to new node id
 	_nodeId = id;
-	updateGUI();
+	node->getTransformationChangeEvent().append(iTransformationChangeDelegate(this, &UserControlTransformation::onTransformationChanged));
+
+	updateGUI(static_cast<iNodeTransform*>(node));
+}
+
+void UserControlTransformation::onTransformationChanged(iNode* node)
+{
+	if (node->getID() != _nodeId)
+	{
+		con_err("registered to change event of wrong node " << node->getID() << " should be " << _nodeId);
+		return;
+	}
+
+	updateGUI(static_cast<iNodeTransform*>(node));
 }
 
 uint32 UserControlTransformation::getNode()
@@ -36,41 +80,37 @@ uint32 UserControlTransformation::getNode()
 	return _nodeId;
 }
 
-void UserControlTransformation::updateGUI()
+void UserControlTransformation::updateGUI(iNodeTransform* transformNode)
 {
-	iNodeTransform* node = static_cast<iNodeTransform*>(iNodeFactory::getInstance().getNode(_nodeId));
+	iaMatrixd matrix;
+	transformNode->getMatrix(matrix);
 
-	if (node != nullptr)
-	{
-		iaMatrixd matrix;
-		node->getMatrix(matrix);
+	iaVector3d scale;
+	iaQuaterniond orientation;
+	iaVector3d rotate;
+	iaVector3d translate;
+	iaVector3d shear;
+	iaVector4d perspective;
+	matrix.decompose(scale, orientation, translate, shear, perspective);
 
-		iaVector3d scale;
-		iaQuaterniond orientation;
-		iaVector3d rotate;
-		iaVector3d translate;
-		iaVector3d shear;
-		iaVector4d perspective;
-		matrix.decompose(scale, orientation, translate, shear, perspective);
+	orientation.getEuler(rotate);
 
-		orientation.getEuler(rotate);
+	_translateText[0]->setText(iaString::ftoa(translate._x, 4));
+	_translateText[1]->setText(iaString::ftoa(translate._y, 4));
+	_translateText[2]->setText(iaString::ftoa(translate._z, 4));
 
-		_translateText[0]->setText(iaString::ftoa(translate._x, 4));
-		_translateText[1]->setText(iaString::ftoa(translate._y, 4));
-		_translateText[2]->setText(iaString::ftoa(translate._z, 4));
+	_rotateText[0]->setText(iaString::ftoa(rotate._x / M_PI * 180.0, 4));
+	_rotateText[1]->setText(iaString::ftoa(rotate._y / M_PI * 180.0, 4));
+	_rotateText[2]->setText(iaString::ftoa(rotate._z / M_PI * 180.0, 4));
 
-		_rotateText[0]->setText(iaString::ftoa(rotate._x / M_PI * 180.0, 4));
-		_rotateText[1]->setText(iaString::ftoa(rotate._y / M_PI * 180.0, 4));
-		_rotateText[2]->setText(iaString::ftoa(rotate._z / M_PI * 180.0, 4));
+	_scaleText[0]->setText(iaString::ftoa(scale._x, 4));
+	_scaleText[1]->setText(iaString::ftoa(scale._y, 4));
+	_scaleText[2]->setText(iaString::ftoa(scale._z, 4));
 
-		_scaleText[0]->setText(iaString::ftoa(scale._x, 4));
-		_scaleText[1]->setText(iaString::ftoa(scale._y, 4));
-		_scaleText[2]->setText(iaString::ftoa(scale._z, 4));
+	_shearText[0]->setText(iaString::ftoa(shear._x, 4));
+	_shearText[1]->setText(iaString::ftoa(shear._y, 4));
+	_shearText[2]->setText(iaString::ftoa(shear._z, 4));
 
-		_shearText[0]->setText(iaString::ftoa(shear._x, 4));
-		_shearText[1]->setText(iaString::ftoa(shear._y, 4));
-		_shearText[2]->setText(iaString::ftoa(shear._z, 4));
-	}
 }
 
 void UserControlTransformation::deinitGUI()
@@ -176,7 +216,7 @@ void UserControlTransformation::onChange(iWidget* source)
 		matrix.rotate(iaString::atof(_rotateText[2]->getText()) / 180.0 * M_PI, iaAxis::Z);
 		matrix.rotate(iaString::atof(_rotateText[1]->getText()) / 180.0 * M_PI, iaAxis::Y);
 		matrix.rotate(iaString::atof(_rotateText[0]->getText()) / 180.0 * M_PI, iaAxis::X);
-			
+
 		// scale
 		matrix.scale(iaString::atof(_scaleText[0]->getText()),
 			iaString::atof(_scaleText[1]->getText()),

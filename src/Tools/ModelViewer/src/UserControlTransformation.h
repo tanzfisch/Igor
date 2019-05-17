@@ -32,6 +32,7 @@
 #include <iaMatrix.h>
 using namespace IgorAux;
 
+#include <iNode.h>
 #include <iUserControl.h>
 using namespace Igor;
 
@@ -44,6 +45,7 @@ namespace Igor
     class iWidgetTextEdit;
     class iWidgetLabel;
     class iWidgetButton;
+	class iNodeTransform;
 }
 
 class UserControlTransformation : public iUserControl
@@ -67,15 +69,17 @@ private:
     vector<iWidgetTextEdit*> _rotateText;
 	vector<iWidgetTextEdit*> _shearText;
 
-	uint32 _nodeId = 0;
+	uint32 _nodeId = iNode::INVALID_NODE_ID;
 
     vector<iWidget*> _allWidgets;
+
+	void onTransformationChanged(iNode* node);
 
 	iWidgetTextEdit* createTextEdit();
 
     void onChange(iWidget* source);
    
-    void updateGUI();
+    void updateGUI(iNodeTransform* transformNode);
 
     void initGUI();
     void deinitGUI();
