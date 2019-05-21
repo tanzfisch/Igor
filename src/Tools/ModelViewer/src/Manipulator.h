@@ -184,8 +184,8 @@ private:
     uint64 _material = iMaterial::INVALID_MATERIAL_ID;
 
     shared_ptr<iMesh> createTranslateMesh();
-    shared_ptr<iMesh> createLocatorMesh();
     shared_ptr<iMesh> createScaleMesh();
+	shared_ptr<iMesh> createCube();
     shared_ptr<iMesh> createRingMesh();
     shared_ptr<iMesh> create2DRingMesh();
 

@@ -101,7 +101,7 @@ void Manipulator::init()
 	_cyan->setAlpha(0.6);
 
 	shared_ptr<iMesh> translateMesh = createTranslateMesh();
-	shared_ptr<iMesh> scaleMesh = createScaleMesh();
+	shared_ptr<iMesh> scaleMesh = createScaleMesh();	
 	shared_ptr<iMesh> ringMesh = createRingMesh();
 	shared_ptr<iMesh> ringMesh2D = create2DRingMesh();
 
@@ -284,9 +284,18 @@ void Manipulator::createScaleModifier(shared_ptr<iMesh>& scaleMesh)
 	zCube->setTargetMaterial(_blue);
 	zTransform->insertNode(zCube);
 
+	shared_ptr<iMesh> cube = createCube();
+
+	iNodeMesh* xyzCube = static_cast<iNodeMesh*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeMesh));
+	xyzCube->setMesh(cube);
+	xyzCube->setMaterial(_material);
+	xyzCube->setTargetMaterial(_cyan);
+	_scaleModifier->insertNode(xyzCube);
+
 	_scaleIDs.push_back(xCube->getID());
 	_scaleIDs.push_back(yCube->getID());
 	_scaleIDs.push_back(zCube->getID());
+	_scaleIDs.push_back(xyzCube->getID());
 }
 
 void Manipulator::update()
@@ -391,6 +400,19 @@ shared_ptr<iMesh> Manipulator::createScaleMesh()
 	return meshBuilder.createMesh();
 }
 
+shared_ptr<iMesh> Manipulator::createCube()
+{
+	iMeshBuilder meshBuilder;
+
+	iaMatrixf matrix;
+	matrix.scale(0.25, 0.25, 0.25);
+	meshBuilder.setMatrix(matrix);
+	iMeshBuilderUtils::addBox(meshBuilder, 1, 1, 1);
+
+	meshBuilder.calcNormals(true);
+	return meshBuilder.createMesh();
+}
+
 shared_ptr<iMesh> Manipulator::createTranslateMesh()
 {
 	iMeshBuilder meshBuilder;
@@ -485,10 +507,10 @@ uint64 Manipulator::getNodeID() const
 
 void Manipulator::scale(const iaVector3d& vec, iaMatrixd& matrix)
 {
-	const iaVector3d dir[] = { { 1,0,0 },{ 0,1,0 },{ 0,0,1 } };
+	const iaVector3d dir[] = { { 1,0,0 },{ 0,1,0 },{ 0,0,1 },{ 1,1,1 } };
 	iaVector3d scale;
 
-	for (int i = 0; i < 3; ++i)
+	for (int i = 0; i < 4; ++i)
 	{
 		if (_selectedManipulatorNodeID == _scaleIDs[i])
 		{
@@ -606,7 +628,7 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 				rotate(fromd, tod, nodeMatrix);
 				break;
 			case ManipulatorMode::Scale:
-				scale((toWorld - fromWorld) * translateFactor, nodeMatrix);
+				scale((toWorld - fromWorld) * translateFactor * 2, nodeMatrix);
 				break;
 			case ManipulatorMode::Translate:
 				translate((toWorld - fromWorld) * translateFactor, nodeMatrix);
