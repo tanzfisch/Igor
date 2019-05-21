@@ -26,24 +26,29 @@ Widget3DLocator::Widget3DLocator(iWindow* window, iView* view, iScene* scene)
 	_red->setSpecular(iaColor3f(0.2f, 0.0f, 0.0f));
 	_red->setDiffuse(iaColor3f(0.5f, 0.0f, 0.0f));
 	_red->setAmbient(iaColor3f(0.3f, 0.0f, 0.0f));
+	_red->setAlpha(0.6);
 
 	_green = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_green->setEmissive(iaColor3f(0.0f, 0.6f, 0.0f));
 	_green->setSpecular(iaColor3f(0.0f, 0.2f, 0.0f));
 	_green->setDiffuse(iaColor3f(0.0f, 0.5f, 0.0f));
 	_green->setAmbient(iaColor3f(0.0f, 0.3f, 0.0f));
+	_green->setAlpha(0.6);
 
 	_blue = iMaterialResourceFactory::getInstance().createTargetMaterial();
 	_blue->setEmissive(iaColor3f(0.0f, 0.0f, 0.6f));
 	_blue->setSpecular(iaColor3f(0.0f, 0.0f, 0.2f));
 	_blue->setDiffuse(iaColor3f(0.0f, 0.0f, 0.5f));
 	_blue->setAmbient(iaColor3f(0.0f, 0.0f, 0.3f));
+	_blue->setAlpha(0.6);
 
 	_material = iMaterialResourceFactory::getInstance().createMaterial("Manipulator");
-	iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
-	iMaterialResourceFactory::getInstance().getMaterial(_material)->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
-	iMaterialResourceFactory::getInstance().getMaterial(_material)->compileShader();
-	iMaterialResourceFactory::getInstance().getMaterial(_material)->setOrder(iMaterial::RENDER_ORDER_MAX);
+	auto material = iMaterialResourceFactory::getInstance().getMaterial(_material);
+	material->addShaderSource("igor/default.vert", iShaderObjectType::Vertex);
+	material->addShaderSource("igor/default_directional_light.frag", iShaderObjectType::Fragment);
+	material->getRenderStateSet().setRenderState(iRenderState::Blend, iRenderStateValue::On);
+	material->compileShader();
+	material->setOrder(iMaterial::RENDER_ORDER_MAX);
 
 	createLocator();
 }
@@ -66,6 +71,9 @@ void Widget3DLocator::update()
 	{
 		iaMatrixd matrix;
 		node->calcWorldTransformation(matrix);
+		matrix._right.normalize();
+		matrix._top.normalize();
+		matrix._depth.normalize();
 		_rootTransform->setMatrix(matrix);
 		_rootTransform->setActive();
 	}
@@ -118,9 +126,10 @@ shared_ptr<iMesh> Widget3DLocator::createLocatorMesh()
 	iMeshBuilder meshBuilder;
 
 	iaMatrixf matrix;
-	matrix.scale(0.02, 2.0, 0.02);
+	matrix.translate(0.0, -2.0, 0.0);
+	matrix.scale(0.01, 4.0, 0.01);
 	meshBuilder.setMatrix(matrix);
-	iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 6);
+	iMeshBuilderUtils::addCylinder(meshBuilder, 1, 1, 4);
 	meshBuilder.calcNormals(true);
 	return meshBuilder.createMesh();
 }

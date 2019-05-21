@@ -49,6 +49,11 @@ namespace Igor
         _inactiveChildren.clear();
     }
 
+	iTransformationChangeEvent& iNode::getTransformationChangeEvent()
+	{
+		return _transformationChangeEvent;
+	}
+
     __IGOR_DISABLE_WARNING__(4100)
         void iNode::onPostCopyLink(map<uint64, uint64>& nodeIDMap)
     {
@@ -188,6 +193,10 @@ namespace Igor
                 _children[i]->setTransformationDirtyDown();
             }
         }
+		else
+		{
+			_transformationChangeEvent(this);
+		}
     }
 
     void iNode::setTransformationDirtyUp()

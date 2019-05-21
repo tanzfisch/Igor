@@ -826,10 +826,10 @@ namespace IgorAux
 	}
 
 	// Converts a floating point number to string.
-	iaString iaString::ftoa(float32 value, int afterpoint)
+	iaString iaString::ftoa(float64 value, int afterpoint)
 	{
 		iaString result;
-		float32 n = value;
+		float64 n = value;
 
 		if (value < 0)
 		{
@@ -841,7 +841,7 @@ namespace IgorAux
 		int ipart = (int)n;
 
 		// Extract floating part
-		float32 fpart = n - static_cast<float32>(ipart);
+		float64 fpart = n - static_cast<float64>(ipart);
 
 		// convert integer part to string
 		result += intToStrInternal(ipart, 0);
@@ -854,7 +854,7 @@ namespace IgorAux
 						   // Get the value of fraction part upto given no.
 						   // of points after dot. The third parameter is needed
 						   // to handle cases like 233.007
-			fpart = fpart * static_cast<float32>(pow(10, afterpoint));
+			fpart = fpart * pow(10, afterpoint);
 
 			result += intToStrInternal((int)fpart, afterpoint);
 		}
@@ -862,11 +862,11 @@ namespace IgorAux
 		return result;
 	}
 
-	float32 iaString::atof(const iaString & text)
+	float64 iaString::atof(const iaString & text)
 	{
-		float32 integer = 0.0f;
-		float32 part = 0.0f;
-		float32 sign = 1.0f;
+		float64 integer = 0.0;
+		float64 part = 0.0;
+		float64 sign = 1.0;
 
 		bool beforeDecimal = true;
 		wchar_t character;
@@ -877,23 +877,23 @@ namespace IgorAux
 			if (character >= '0' &&
 				character <= '9')
 			{
-				float32 value = static_cast<float32>(character - '0');
+				float64 value = static_cast<float64>(character - '0');
 
 				if (beforeDecimal)
 				{
-					integer *= 10.0f;
+					integer *= 10.0;
 					integer += value;
 				}
 				else
 				{
-					value /= 10.0f;
-					part /= 10.0f;
+					value /= 10.0;
+					part /= 10.0;
 					part += value;
 				}
 			}
 			else if (character == '-')
 			{
-				sign = -1.0f;
+				sign = -1.0;
 			}
 			else if (character == '.')
 			{
@@ -902,7 +902,7 @@ namespace IgorAux
 			else
 			{
 				con_err("invalid format");
-				return 0.0f;
+				return 0.0;
 			}
 		}
 
