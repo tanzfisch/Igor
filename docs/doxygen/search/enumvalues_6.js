@@ -10,5 +10,9 @@ var searchData=
   ['greater',['Greater',['../namespace_igor.html#a2081511b8afe422e11c11287eb44a3f3a8768a6821cd735aea4f5b0df88c1fc6a',1,'Igor::Greater()'],['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a8768a6821cd735aea4f5b0df88c1fc6a',1,'Igor::Greater()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a8768a6821cd735aea4f5b0df88c1fc6a',1,'OMPF::Greater()']]],
   ['greaterorequal',['GreaterOrEqual',['../namespace_igor.html#a2081511b8afe422e11c11287eb44a3f3a6f2f0aefb3d22da0f3839453add5f937',1,'Igor::GreaterOrEqual()'],['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a6f2f0aefb3d22da0f3839453add5f937',1,'Igor::GreaterOrEqual()'],['../namespace_o_m_p_f.html#af9559df36c3cae8d0b073c8f04df1c72a6f2f0aefb3d22da0f3839453add5f937',1,'OMPF::GreaterOrEqual()']]],
   ['green',['GREEN',['../namespace_igor.html#a1591be7a883348974cbed3cab1bd43d5a9de0e5dd94e861317e74964bed179fa0',1,'Igor::GREEN()'],['../namespace_igor.html#a7e67018151b83309d748c1200262839ead382816a3cbeed082c9e216e7392eed1',1,'Igor::Green()'],['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8ad382816a3cbeed082c9e216e7392eed1',1,'IgorAux::Green()']]],
-  ['group',['Group',['../ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903ba03937134cedab9078be39a77ee3a48a0',1,'ompfDefines.h']]]
+  ['group',['Group',['../ompf_defines_8h.html#a9a1edab516dc52f62789512d1f11903ba03937134cedab9078be39a77ee3a48a0',1,'ompfDefines.h']]],
+  ['gtest_5ferror',['GTEST_ERROR',['../namespacetesting_1_1internal.html#aa6255ef3b023c5b4e1a2198d887fb977a651e9cd2a904e0c8210536271b875f75',1,'testing::internal']]],
+  ['gtest_5ffatal',['GTEST_FATAL',['../namespacetesting_1_1internal.html#aa6255ef3b023c5b4e1a2198d887fb977a75063567740f6bf7da419b1b9197b12e',1,'testing::internal']]],
+  ['gtest_5finfo',['GTEST_INFO',['../namespacetesting_1_1internal.html#aa6255ef3b023c5b4e1a2198d887fb977aff315e0913fcda86fe4de882bf5e33e9',1,'testing::internal']]],
+  ['gtest_5fwarning',['GTEST_WARNING',['../namespacetesting_1_1internal.html#aa6255ef3b023c5b4e1a2198d887fb977a7a051bc2794f15a4bf0eab40562a304c',1,'testing::internal']]]
 ];

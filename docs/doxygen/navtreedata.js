@@ -29,6 +29,7 @@ var NAVTREE =
     [ "Contribute to Igor", "contribute.html", null ],
     [ "Igor Code Style Guide", "styleguide.html", null ],
     [ "Tutorials", "tutorials.html", "tutorials" ],
+    [ "Customization Points", "md__c_1_dev__igor__igor_src__igor_vs_packages__microsoft_8googletest_8v140_8windesktop_8msvcstl_26ce150973e64eef7d6ef1267b7a51ee.html", null ],
     [ "Todo List", "todo.html", null ],
     [ "Deprecated List", "deprecated.html", null ],
     [ "Bug List", "bug.html", null ],
@@ -36,10 +37,11 @@ var NAVTREE =
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", "namespacemembers_dup" ],
-        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Functions", "namespacemembers_func.html", "namespacemembers_func" ],
         [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ]
+        [ "Enumerations", "namespacemembers_enum.html", null ],
+        [ "Enumerator", "namespacemembers_eval.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -51,17 +53,18 @@ var NAVTREE =
         [ "Functions", "functions_func.html", "functions_func" ],
         [ "Variables", "functions_vars.html", "functions_vars" ],
         [ "Typedefs", "functions_type.html", null ],
-        [ "Related Functions", "functions_rela.html", null ]
+        [ "Enumerator", "functions_eval.html", null ],
+        [ "Related Functions", "functions_rela.html", "functions_rela" ]
       ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
+        [ "All", "globals.html", "globals_dup" ],
         [ "Functions", "globals_func.html", null ],
         [ "Variables", "globals_vars.html", null ],
         [ "Enumerations", "globals_enum.html", null ],
-        [ "Macros", "globals_defs.html", null ]
+        [ "Macros", "globals_defs.html", "globals_defs" ]
       ] ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
@@ -71,36 +74,48 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_igor_8cpp.html",
-"class_igor_1_1i_celestial_node.html#a443fcc5b71f6dbb2a68dae3d957024c3",
-"class_igor_1_1i_dialog_message_box.html#aa473ca8bbe425784c1a511d0dc1ff98c",
-"class_igor_1_1i_material.html#ab74bad346bdf8a40bedc9d9254cfa04f",
-"class_igor_1_1i_model_data_i_o_o_b_j.html#aeeaebf53be72f437e31b1385cded16d3",
-"class_igor_1_1i_node_l_o_d_switch.html#ac3e52e4fa80aaea829fbaa8b28fce018",
-"class_igor_1_1i_node_visitor_print_tree.html#ab1e010e833b111c2284fc1573629d8ac",
-"class_igor_1_1i_particle_system3_d.html#a4a81f122aef8ee8652f7cc4ba70a18b5",
-"class_igor_1_1i_physics_body.html#ac8bd98af8573d9d7fb4400413c3c34e7",
-"class_igor_1_1i_renderer.html#a0d4dbb3d43b3a3f8db865e55eb5a7c48",
-"class_igor_1_1i_simple_cubes.html#ae6723fced761bfccb265a3797ed69054",
-"class_igor_1_1i_task_flush_textures.html#a7a378e27accc9775e9b94749364e0fb1",
-"class_igor_1_1i_user_control_color_chooser.html#a690c37b4f3d59d941f40834318aed480",
-"class_igor_1_1i_voxel_terrain.html#afc3d8afbac10d591aca566d37849c000",
-"class_igor_1_1i_widget_color_gradient.html#a4f75715d33fbbacfe76f704c25415b91",
-"class_igor_1_1i_widget_manager.html#a9c2db1e712740f5d62dc2f2a39071464",
-"class_igor_1_1i_window.html#a5fffea0d739d5681ec9f0041d2e9d767",
-"class_igor_aux_1_1ia_matrix.html#ab55fa8b34219d1bb1294ca46abc3526d",
-"class_igor_aux_1_1ia_state_machine.html#adc6557ba7e685f29ef3132731dbe157e",
-"class_menu_dialog.html#a1b8c27e0c601923f3f7aa764e95a6cc6",
-"class_o_m_p_f_1_1ompf_group_chunk.html#a02428e03ce4b9a83a823bc4c9b46b8e4",
-"class_ray.html#afedb537063cc69f8c469e30418798126",
-"class_user_control_node.html#aba793ff2b3d1672b6e205dfb0a6fcdd6",
-"functions_func_q.html",
-"i_key_code_map_8h.html#ab382cf42e4ab1cc6a55599bc1a61aa24a13dba24862cf9128167a59100e154c8d",
-"i_model_resource_factory_8cpp_source.html",
-"i_physics_player_8h_source.html",
-"i_task_voxel_terrain_8h_source.html",
-"ia_color3_8h.html#ad5a37a6b3fd30965767eb1318f469113",
-"ia_vector4_8h.html#a3c3772639442609876504bda590c748f",
-"struct_igor_1_1i_model_data_input_parameter.html#a8c446aea9a122061aabac91ae51dbc73"
+"class_igor_1_1i_application.html#a8c5ecfc772c5ca59f280990941bd6250",
+"class_igor_1_1i_dialog_menu.html",
+"class_igor_1_1i_material.html#a43bb35624bef237f476d95c359595260",
+"class_igor_1_1i_model_data_i_o_o_b_j.html#a3d9d45faf59ef08f011adb6002077af4",
+"class_igor_1_1i_node_factory.html#a8436905bab0069524779f19bc5557473",
+"class_igor_1_1i_node_transform.html#aaec81952dc42939abe8be3bb5795e02d",
+"class_igor_1_1i_particle_system2_d.html#afcd5bf9916e621fda863ca3dafd189db",
+"class_igor_1_1i_physics_body.html#a3b7947b047bb3555733bbebf05ac529e",
+"class_igor_1_1i_render_engine.html#a7099866da0ee444fc37658b4daee5353",
+"class_igor_1_1i_shader.html#a0db197cf73d532e4b6a9ed9bd9b7358f",
+"class_igor_1_1i_task.html#a0d49c86305d3076714a692386bb3f968",
+"class_igor_1_1i_user_control_color_chooser.html#a1615814e0539c3c2c5a83c9e1de97aca",
+"class_igor_1_1i_voxel_terrain.html#a7a7b77bd127253df3f0e11684d9ba0ae",
+"class_igor_1_1i_widget_check_box.html#a48588e50c8492e96cd9fcb371b34dfaf",
+"class_igor_1_1i_widget_manager.html#a2e06d7fd40751b90f470facd2954be0f",
+"class_igor_1_1i_widget_text_edit.html#aeb1236a9fb413a4e093e06bb2ffe912f",
+"class_igor_aux_1_1ia_gradient.html#a3ce9a96516704eb9b7e8e88cadb77043",
+"class_igor_aux_1_1ia_state.html#a22597376ce3a6337bfb3dc34a506a91f",
+"class_manipulator.html#a6da944b87125e3ab79d9c0edbdc7e0fc",
+"class_o_m_p_f_1_1_o_m_p_f.html#a5f7e416319d4d411327befca26ab69b6",
+"class_o_m_p_f_1_1ompf_resource_search_path_chunk.html#aca1209aa9e62ba6babd2c0a77944c910",
+"class_user_control_mesh.html#a32b041a0d57e2ef9c14dfd59198e91df",
+"classstd_1_1tr1_1_1gtest__internal_1_1_get_3_011_01_4.html",
+"classtesting_1_1_test_result.html#a58d7d97bd16a04b932e2863153c13dff",
+"classtesting_1_1internal_1_1_r_e.html#ab215dbc2565fce641e1746ca43e9d68a",
+"classtesting_1_1internal_1_1_value_array17.html#afb64e40218b53e8cd2e5cc320041e16d",
+"classtesting_1_1internal_1_1_value_array26.html#af9c50d0770cc8764064a9fae8acd3ebc",
+"classtesting_1_1internal_1_1_value_array33.html#adbfd2137f81fc8547a13d6f8fa5f115d",
+"classtesting_1_1internal_1_1_value_array39.html#aeeba22fcfcb36a7729722e36f34c7ba4",
+"classtesting_1_1internal_1_1_value_array45.html#a045c3f4b228d73d3bd56830a0e1efd60",
+"classtesting_1_1internal_1_1_value_array49.html#ad97b5419b9884b8574ea50c440675b09",
+"functions_func_s.html",
+"gtest-param-test_8h.html#afebcdc503d4a99cae5924523dcfd02e1",
+"gtest-tuple_8h.html#a61277f5af24b20fce87a9fd94307ab34",
+"i_defines_8h.html#ac9b9b2022cdca46f600793d06ddcce63a02bce93bff905887ad2233110bf9c49e",
+"i_l_system_8h.html#a2081511b8afe422e11c11287eb44a3f3",
+"i_node_visitor_print_tree_8h.html",
+"i_scene_factory_8h_source.html",
+"i_widget_button_8cpp_source.html",
+"ia_gradient_8inl_source.html",
+"ompf_external_reference_chunk_8h_source.html",
+"struct_igor_1_1i_voxel_block.html#ab2ec9c9c923952747ea89990b5a2fd3f"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

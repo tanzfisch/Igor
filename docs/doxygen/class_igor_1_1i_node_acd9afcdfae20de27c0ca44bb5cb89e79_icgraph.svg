@@ -9,29 +9,29 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 740)">
 <title>Igor::iNode::getScene</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-740 804,-740 804,4 -4,4"/>
-<!-- Node281 -->
-<g id="node1" class="node"><title>Node281</title>
+<!-- Node279 -->
+<g id="node1" class="node"><title>Node279</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="690,-324 690,-343 800,-343 800,-324 690,-324"/>
 <text text-anchor="middle" x="745" y="-331" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getScene</text>
 </a>
 </g>
 </g>
-<!-- Node282 -->
-<g id="node2" class="node"><title>Node282</title>
+<!-- Node280 -->
+<g id="node2" class="node"><title>Node280</title>
 <g id="a_node2"><a xlink:href="class_igor_1_1i_node.html#a828e8024ed2a02707f5a482579937556" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="534,-613 534,-632 643,-632 643,-613 534,-613"/>
 <text text-anchor="middle" x="588.5" y="-620" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::setActive</text>
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node282 -->
-<g id="edge1" class="edge"><title>Node281&#45;&gt;Node282</title>
+<!-- Node279&#45;&gt;Node280 -->
+<g id="edge1" class="edge"><title>Node279&#45;&gt;Node280</title>
 <path fill="none" stroke="midnightblue" d="M743.369,-353.293C740.695,-402.846 726.733,-533.289 654,-603.5 649.969,-607.392 645.181,-610.492 640.063,-612.961"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="746.878,-353.151 743.819,-343.008 739.885,-352.845 746.878,-353.151"/>
 </g>
-<!-- Node293 -->
-<g id="node13" class="node"><title>Node293</title>
+<!-- Node291 -->
+<g id="node13" class="node"><title>Node291</title>
 <g id="a_node13"><a xlink:href="class_igor_1_1i_node_camera.html#a3ae5f63f02a69291d969e5847a8c5e2a" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="537,-563.5 537,-593.5 640,-593.5 640,-563.5 537,-563.5"/>
 <text text-anchor="start" x="545" y="-581.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeCamera::</text>
@@ -39,13 +39,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node293 -->
-<g id="edge13" class="edge"><title>Node281&#45;&gt;Node293</title>
+<!-- Node279&#45;&gt;Node291 -->
+<g id="edge13" class="edge"><title>Node279&#45;&gt;Node291</title>
 <path fill="none" stroke="midnightblue" d="M741.33,-353.415C734.58,-396.132 712.963,-497.309 654,-554.5 649.969,-558.41 645.244,-561.693 640.216,-564.448"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="744.805,-353.841 742.799,-343.437 737.88,-352.821 744.805,-353.841"/>
 </g>
-<!-- Node294 -->
-<g id="node14" class="node"><title>Node294</title>
+<!-- Node292 -->
+<g id="node14" class="node"><title>Node292</title>
 <g id="a_node14"><a xlink:href="class_igor_1_1i_node_camera.html#ae5f7fc2cab580c69e34ab6547fd07597" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="537,-514.5 537,-544.5 640,-544.5 640,-514.5 537,-514.5"/>
 <text text-anchor="start" x="545" y="-532.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeCamera::</text>
@@ -53,13 +53,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node294 -->
-<g id="edge14" class="edge"><title>Node281&#45;&gt;Node294</title>
+<!-- Node279&#45;&gt;Node292 -->
+<g id="edge14" class="edge"><title>Node279&#45;&gt;Node292</title>
 <path fill="none" stroke="midnightblue" d="M738.781,-353.239C728.454,-388.614 702.136,-463.07 654,-505.5 649.877,-509.134 645.153,-512.237 640.177,-514.883"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="742.261,-353.79 741.58,-343.217 735.519,-351.907 742.261,-353.79"/>
 </g>
-<!-- Node295 -->
-<g id="node15" class="node"><title>Node295</title>
+<!-- Node293 -->
+<g id="node15" class="node"><title>Node293</title>
 <g id="a_node15"><a xlink:href="class_igor_1_1i_node_light.html#a1f0fb09bc2488bfdacf7e9c21c493d76" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="523,-465.5 523,-495.5 654,-495.5 654,-465.5 523,-465.5"/>
 <text text-anchor="start" x="531" y="-483.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLight::onPreSet</text>
@@ -67,13 +67,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node295 -->
-<g id="edge15" class="edge"><title>Node281&#45;&gt;Node295</title>
+<!-- Node279&#45;&gt;Node293 -->
+<g id="edge15" class="edge"><title>Node279&#45;&gt;Node293</title>
 <path fill="none" stroke="midnightblue" d="M734.751,-352.381C720.762,-379.111 691.797,-427.906 654,-456.5 649.522,-459.888 644.514,-462.841 639.321,-465.404"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="737.953,-353.805 739.366,-343.305 731.713,-350.632 737.953,-353.805"/>
 </g>
-<!-- Node296 -->
-<g id="node16" class="node"><title>Node296</title>
+<!-- Node294 -->
+<g id="node16" class="node"><title>Node294</title>
 <g id="a_node16"><a xlink:href="class_igor_1_1i_node_light.html#a347b0e3d4a3dffc33b69e0b7e015b059" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="528,-416.5 528,-446.5 649,-446.5 649,-416.5 528,-416.5"/>
 <text text-anchor="start" x="536" y="-434.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLight::onPost</text>
@@ -81,13 +81,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node296 -->
-<g id="edge16" class="edge"><title>Node281&#45;&gt;Node296</title>
+<!-- Node279&#45;&gt;Node294 -->
+<g id="edge16" class="edge"><title>Node279&#45;&gt;Node294</title>
 <path fill="none" stroke="midnightblue" d="M726.75,-350.683C709.536,-367.068 681.724,-391.546 654,-407.5 648.304,-410.778 642.079,-413.755 635.814,-416.409"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="729.558,-352.836 734.303,-343.362 724.686,-347.809 729.558,-352.836"/>
 </g>
-<!-- Node297 -->
-<g id="node17" class="node"><title>Node297</title>
+<!-- Node295 -->
+<g id="node17" class="node"><title>Node295</title>
 <g id="a_node17"><a xlink:href="class_igor_1_1i_node_l_o_d_switch.html#a130c39c47cdb0330fabc3b4bfa79df4c" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="532.5,-367.5 532.5,-397.5 644.5,-397.5 644.5,-367.5 532.5,-367.5"/>
 <text text-anchor="start" x="540.5" y="-385.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODSwitch</text>
@@ -95,13 +95,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node297 -->
-<g id="edge17" class="edge"><title>Node281&#45;&gt;Node297</title>
+<!-- Node279&#45;&gt;Node295 -->
+<g id="edge17" class="edge"><title>Node279&#45;&gt;Node295</title>
 <path fill="none" stroke="midnightblue" d="M704.173,-346.131C683.636,-352.645 658.447,-360.633 636.912,-367.463"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="705.37,-349.423 713.844,-343.064 703.254,-342.751 705.37,-349.423"/>
 </g>
-<!-- Node298 -->
-<g id="node18" class="node"><title>Node298</title>
+<!-- Node296 -->
+<g id="node18" class="node"><title>Node296</title>
 <g id="a_node18"><a xlink:href="class_igor_1_1i_node_l_o_d_switch.html#aabe1c19bc008755aa3ff1cfe9fb4f530" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="532.5,-318.5 532.5,-348.5 644.5,-348.5 644.5,-318.5 532.5,-318.5"/>
 <text text-anchor="start" x="540.5" y="-336.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODSwitch</text>
@@ -109,13 +109,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node298 -->
-<g id="edge18" class="edge"><title>Node281&#45;&gt;Node298</title>
+<!-- Node279&#45;&gt;Node296 -->
+<g id="edge18" class="edge"><title>Node279&#45;&gt;Node296</title>
 <path fill="none" stroke="midnightblue" d="M679.805,-333.5C668.094,-333.5 655.969,-333.5 644.552,-333.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="679.963,-337 689.963,-333.5 679.963,-330 679.963,-337"/>
 </g>
-<!-- Node299 -->
-<g id="node19" class="node"><title>Node299</title>
+<!-- Node297 -->
+<g id="node19" class="node"><title>Node297</title>
 <g id="a_node19"><a xlink:href="class_igor_1_1i_node_l_o_d_trigger.html#a1e401abb036749af69fa4581447e1daf" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="532.5,-269.5 532.5,-299.5 644.5,-299.5 644.5,-269.5 532.5,-269.5"/>
 <text text-anchor="start" x="540.5" y="-287.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODTrigger</text>
@@ -123,13 +123,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node299 -->
-<g id="edge19" class="edge"><title>Node281&#45;&gt;Node299</title>
+<!-- Node279&#45;&gt;Node297 -->
+<g id="edge19" class="edge"><title>Node279&#45;&gt;Node297</title>
 <path fill="none" stroke="midnightblue" d="M704.173,-320.869C683.636,-314.355 658.447,-306.367 636.912,-299.537"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="703.254,-324.249 713.844,-323.936 705.37,-317.577 703.254,-324.249"/>
 </g>
-<!-- Node300 -->
-<g id="node20" class="node"><title>Node300</title>
+<!-- Node298 -->
+<g id="node20" class="node"><title>Node298</title>
 <g id="a_node20"><a xlink:href="class_igor_1_1i_node_l_o_d_trigger.html#a8055f4dd11d03c167a3e7749dac313cb" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="532.5,-220.5 532.5,-250.5 644.5,-250.5 644.5,-220.5 532.5,-220.5"/>
 <text text-anchor="start" x="540.5" y="-238.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODTrigger</text>
@@ -137,13 +137,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node300 -->
-<g id="edge20" class="edge"><title>Node281&#45;&gt;Node300</title>
+<!-- Node279&#45;&gt;Node298 -->
+<g id="edge20" class="edge"><title>Node279&#45;&gt;Node298</title>
 <path fill="none" stroke="midnightblue" d="M726.75,-316.317C709.536,-299.932 681.724,-275.454 654,-259.5 648.304,-256.222 642.079,-253.245 635.814,-250.591"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="724.686,-319.191 734.303,-323.638 729.558,-314.164 724.686,-319.191"/>
 </g>
-<!-- Node301 -->
-<g id="node21" class="node"><title>Node301</title>
+<!-- Node299 -->
+<g id="node21" class="node"><title>Node299</title>
 <g id="a_node21"><a xlink:href="class_igor_1_1i_node_model.html#a43f2cf258bc69d849bf24069391ce259" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="525.5,-171.5 525.5,-201.5 651.5,-201.5 651.5,-171.5 525.5,-171.5"/>
 <text text-anchor="start" x="533.5" y="-189.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeModel::onPost</text>
@@ -151,13 +151,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node301 -->
-<g id="edge21" class="edge"><title>Node281&#45;&gt;Node301</title>
+<!-- Node279&#45;&gt;Node299 -->
+<g id="edge21" class="edge"><title>Node279&#45;&gt;Node299</title>
 <path fill="none" stroke="midnightblue" d="M734.751,-314.619C720.762,-287.889 691.797,-239.094 654,-210.5 649.522,-207.112 644.514,-204.159 639.321,-201.596"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="731.713,-316.368 739.366,-323.695 737.953,-313.195 731.713,-316.368"/>
 </g>
-<!-- Node302 -->
-<g id="node22" class="node"><title>Node302</title>
+<!-- Node300 -->
+<g id="node22" class="node"><title>Node300</title>
 <g id="a_node22"><a xlink:href="class_igor_1_1i_node_volume.html#a05ed3c821278647543de7a025173d636" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="537.5,-122.5 537.5,-152.5 639.5,-152.5 639.5,-122.5 537.5,-122.5"/>
 <text text-anchor="start" x="545.5" y="-140.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVolume::</text>
@@ -165,13 +165,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node302 -->
-<g id="edge22" class="edge"><title>Node281&#45;&gt;Node302</title>
+<!-- Node279&#45;&gt;Node300 -->
+<g id="edge22" class="edge"><title>Node279&#45;&gt;Node300</title>
 <path fill="none" stroke="midnightblue" d="M738.781,-313.761C728.454,-278.386 702.136,-203.93 654,-161.5 649.698,-157.708 644.741,-154.494 639.527,-151.775"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="735.519,-315.093 741.58,-323.783 742.261,-313.21 735.519,-315.093"/>
 </g>
-<!-- Node303 -->
-<g id="node23" class="node"><title>Node303</title>
+<!-- Node301 -->
+<g id="node23" class="node"><title>Node301</title>
 <g id="a_node23"><a xlink:href="class_igor_1_1i_node_volume.html#af22460eec7108d791c652222ee3f7bff" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="537.5,-73.5 537.5,-103.5 639.5,-103.5 639.5,-73.5 537.5,-73.5"/>
 <text text-anchor="start" x="545.5" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVolume::</text>
@@ -179,13 +179,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node303 -->
-<g id="edge23" class="edge"><title>Node281&#45;&gt;Node303</title>
+<!-- Node279&#45;&gt;Node301 -->
+<g id="edge23" class="edge"><title>Node279&#45;&gt;Node301</title>
 <path fill="none" stroke="midnightblue" d="M741.33,-313.585C734.58,-270.868 712.963,-169.691 654,-112.5 649.798,-108.424 644.841,-105.029 639.573,-102.204"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="737.88,-314.179 742.799,-323.563 744.805,-313.159 737.88,-314.179"/>
 </g>
-<!-- Node304 -->
-<g id="node24" class="node"><title>Node304</title>
+<!-- Node302 -->
+<g id="node24" class="node"><title>Node302</title>
 <g id="a_node24"><a xlink:href="class_igor_1_1i_node_volume.html#a17aa3c42829bb7e6c302207d7f9568db" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="537.5,-24.5 537.5,-54.5 639.5,-54.5 639.5,-24.5 537.5,-24.5"/>
 <text text-anchor="start" x="545.5" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVolume::</text>
@@ -193,13 +193,13 @@
 </a>
 </g>
 </g>
-<!-- Node281&#45;&gt;Node304 -->
-<g id="edge24" class="edge"><title>Node281&#45;&gt;Node304</title>
+<!-- Node279&#45;&gt;Node302 -->
+<g id="edge24" class="edge"><title>Node279&#45;&gt;Node302</title>
 <path fill="none" stroke="midnightblue" d="M743.044,-313.676C739.623,-264.572 724.082,-136.04 654,-63.5 649.849,-59.2036 644.859,-55.6699 639.516,-52.765"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="739.564,-314.111 743.655,-323.884 746.551,-313.693 739.564,-314.111"/>
 </g>
-<!-- Node283 -->
-<g id="node3" class="node"><title>Node283</title>
+<!-- Node281 -->
+<g id="node3" class="node"><title>Node281</title>
 <g id="a_node3"><a xlink:href="class_igor_1_1i_node_factory.html#a9dbf1c77d2d6cce346f022395714b4c9" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="360.5,-705.5 360.5,-735.5 456.5,-735.5 456.5,-705.5 360.5,-705.5"/>
 <text text-anchor="start" x="368.5" y="-723.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeFactory</text>
@@ -207,13 +207,13 @@
 </a>
 </g>
 </g>
-<!-- Node282&#45;&gt;Node283 -->
-<g id="edge2" class="edge"><title>Node282&#45;&gt;Node283</title>
+<!-- Node280&#45;&gt;Node281 -->
+<g id="edge2" class="edge"><title>Node280&#45;&gt;Node281</title>
 <path fill="none" stroke="midnightblue" d="M569.172,-638.967C549.923,-655.516 518.171,-680.764 487,-696.5 477.57,-701.261 467.013,-705.292 456.799,-708.612"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="571.629,-641.467 576.854,-632.25 567.022,-636.198 571.629,-641.467"/>
 </g>
-<!-- Node284 -->
-<g id="node4" class="node"><title>Node284</title>
+<!-- Node282 -->
+<g id="node4" class="node"><title>Node282</title>
 <g id="a_node4"><a xlink:href="class_igor_1_1i_node_switch.html#a750bbd06d6ebb891863561c9cf578bbb" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="359.5,-656.5 359.5,-686.5 457.5,-686.5 457.5,-656.5 359.5,-656.5"/>
 <text text-anchor="start" x="367.5" y="-674.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeSwitch::</text>
@@ -221,13 +221,13 @@
 </a>
 </g>
 </g>
-<!-- Node282&#45;&gt;Node284 -->
-<g id="edge3" class="edge"><title>Node282&#45;&gt;Node284</title>
+<!-- Node280&#45;&gt;Node282 -->
+<g id="edge3" class="edge"><title>Node280&#45;&gt;Node282</title>
 <path fill="none" stroke="midnightblue" d="M542.807,-634.803C516.85,-641.949 484.142,-650.952 457.622,-658.253"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="544.045,-638.093 552.757,-632.064 542.187,-631.344 544.045,-638.093"/>
 </g>
-<!-- Node285 -->
-<g id="node5" class="node"><title>Node285</title>
+<!-- Node283 -->
+<g id="node5" class="node"><title>Node283</title>
 <g id="a_node5"><a xlink:href="class_model_viewer.html#a8e8f805fcefbe96a8685e1d957cdbda9" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="343,-607.5 343,-637.5 474,-637.5 474,-607.5 343,-607.5"/>
 <text text-anchor="start" x="351" y="-625.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::onImportFile</text>
@@ -235,39 +235,39 @@
 </a>
 </g>
 </g>
-<!-- Node282&#45;&gt;Node285 -->
-<g id="edge4" class="edge"><title>Node282&#45;&gt;Node285</title>
+<!-- Node280&#45;&gt;Node283 -->
+<g id="edge4" class="edge"><title>Node280&#45;&gt;Node283</title>
 <path fill="none" stroke="midnightblue" d="M523.302,-622.5C507.323,-622.5 490.186,-622.5 474.184,-622.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="523.611,-626 533.611,-622.5 523.611,-619 523.611,-626"/>
 </g>
-<!-- Node289 -->
-<g id="node9" class="node"><title>Node289</title>
+<!-- Node287 -->
+<g id="node9" class="node"><title>Node287</title>
 <g id="a_node9"><a xlink:href="class_widget3_d_locator.html#a0354993c66e97375245a3d14e141ea6a" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="345,-531 345,-550 472,-550 472,-531 345,-531"/>
 <text text-anchor="middle" x="408.5" y="-538" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::update</text>
 </a>
 </g>
 </g>
-<!-- Node282&#45;&gt;Node289 -->
-<g id="edge8" class="edge"><title>Node282&#45;&gt;Node289</title>
+<!-- Node280&#45;&gt;Node287 -->
+<g id="edge8" class="edge"><title>Node280&#45;&gt;Node287</title>
 <path fill="none" stroke="midnightblue" d="M532.881,-609.041C529.429,-607.397 526.101,-605.557 523,-603.5 501.945,-589.531 508.371,-572.98 487,-559.5 480.79,-555.583 473.829,-552.473 466.695,-550.005"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="531.656,-612.322 542.232,-612.951 534.357,-605.864 531.656,-612.322"/>
 </g>
-<!-- Node292 -->
-<g id="node12" class="node"><title>Node292</title>
+<!-- Node290 -->
+<g id="node12" class="node"><title>Node290</title>
 <g id="a_node12"><a xlink:href="class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="330,-569 330,-588 487,-588 487,-569 330,-569"/>
 <text text-anchor="middle" x="408.5" y="-576" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocator</text>
 </a>
 </g>
 </g>
-<!-- Node282&#45;&gt;Node292 -->
-<g id="edge11" class="edge"><title>Node282&#45;&gt;Node292</title>
+<!-- Node280&#45;&gt;Node290 -->
+<g id="edge11" class="edge"><title>Node280&#45;&gt;Node290</title>
 <path fill="none" stroke="midnightblue" d="M539.08,-610.531C510.469,-603.459 474.739,-594.626 448.048,-588.029"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="538.329,-613.951 548.877,-612.953 540.009,-607.155 538.329,-613.951"/>
 </g>
-<!-- Node286 -->
-<g id="node6" class="node"><title>Node286</title>
+<!-- Node284 -->
+<g id="node6" class="node"><title>Node284</title>
 <g id="a_node6"><a xlink:href="class_model_viewer.html#aa54c56522db1f2fe99c35cb8a22bea13" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="158.5,-610.5 158.5,-640.5 289.5,-640.5 289.5,-610.5 158.5,-610.5"/>
 <text text-anchor="start" x="166.5" y="-628.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::onImportFile</text>
@@ -275,39 +275,39 @@
 </a>
 </g>
 </g>
-<!-- Node285&#45;&gt;Node286 -->
-<g id="edge5" class="edge"><title>Node285&#45;&gt;Node286</title>
+<!-- Node283&#45;&gt;Node284 -->
+<g id="edge5" class="edge"><title>Node283&#45;&gt;Node284</title>
 <path fill="none" stroke="midnightblue" d="M332.607,-623.731C318.307,-623.966 303.453,-624.21 289.513,-624.44"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="332.959,-627.226 342.9,-623.562 332.844,-620.227 332.959,-627.226"/>
 </g>
-<!-- Node287 -->
-<g id="node7" class="node"><title>Node287</title>
+<!-- Node285 -->
+<g id="node7" class="node"><title>Node285</title>
 <g id="a_node7"><a xlink:href="class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="5.5,-635 5.5,-654 112.5,-654 112.5,-635 5.5,-635"/>
 <text text-anchor="middle" x="59" y="-642" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node286&#45;&gt;Node287 -->
-<g id="edge6" class="edge"><title>Node286&#45;&gt;Node287</title>
+<!-- Node284&#45;&gt;Node285 -->
+<g id="edge6" class="edge"><title>Node284&#45;&gt;Node285</title>
 <path fill="none" stroke="midnightblue" d="M148.114,-634.229C136.134,-635.626 123.961,-637.044 112.642,-638.364"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="148.582,-637.698 158.11,-633.064 147.772,-630.745 148.582,-637.698"/>
 </g>
-<!-- Node288 -->
-<g id="node8" class="node"><title>Node288</title>
+<!-- Node286 -->
+<g id="node8" class="node"><title>Node286</title>
 <g id="a_node8"><a xlink:href="class_model_viewer.html#a247bac03643084abda6e880573312206" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-597 0,-616 118,-616 118,-597 0,-597"/>
 <text text-anchor="middle" x="59" y="-604" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node286&#45;&gt;Node288 -->
-<g id="edge7" class="edge"><title>Node286&#45;&gt;Node288</title>
+<!-- Node284&#45;&gt;Node286 -->
+<g id="edge7" class="edge"><title>Node284&#45;&gt;Node286</title>
 <path fill="none" stroke="midnightblue" d="M148.097,-616.769C138.017,-615.594 127.8,-614.403 118.071,-613.269"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="147.772,-620.255 158.11,-617.936 148.582,-613.302 147.772,-620.255"/>
 </g>
-<!-- Node290 -->
-<g id="node10" class="node"><title>Node290</title>
+<!-- Node288 -->
+<g id="node10" class="node"><title>Node288</title>
 <g id="a_node10"><a xlink:href="class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="157,-561.5 157,-591.5 291,-591.5 291,-561.5 157,-561.5"/>
 <text text-anchor="start" x="165" y="-579.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::Widget3</text>
@@ -315,13 +315,13 @@
 </a>
 </g>
 </g>
-<!-- Node289&#45;&gt;Node290 -->
-<g id="edge9" class="edge"><title>Node289&#45;&gt;Node290</title>
+<!-- Node287&#45;&gt;Node288 -->
+<g id="edge9" class="edge"><title>Node287&#45;&gt;Node288</title>
 <path fill="none" stroke="midnightblue" d="M349.063,-552.027C330.622,-555.665 310.119,-559.709 291.178,-563.446"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="349.939,-555.422 359.072,-550.053 348.584,-548.554 349.939,-555.422"/>
 </g>
-<!-- Node291 -->
-<g id="node11" class="node"><title>Node291</title>
+<!-- Node289 -->
+<g id="node11" class="node"><title>Node289</title>
 <g id="a_node11"><a xlink:href="class_widget3_d_locator.html#a7c92018b711c6370809abe7088a9b264" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="154,-512.5 154,-542.5 294,-542.5 294,-512.5 154,-512.5"/>
 <text text-anchor="start" x="162" y="-530.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::~Widget3</text>
@@ -329,18 +329,18 @@
 </a>
 </g>
 </g>
-<!-- Node289&#45;&gt;Node291 -->
-<g id="edge10" class="edge"><title>Node289&#45;&gt;Node291</title>
+<!-- Node287&#45;&gt;Node289 -->
+<g id="edge10" class="edge"><title>Node287&#45;&gt;Node289</title>
 <path fill="none" stroke="midnightblue" d="M334.802,-535.321C321.362,-534.364 307.362,-533.367 294.035,-532.418"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="334.726,-538.825 344.949,-536.044 335.223,-531.843 334.726,-538.825"/>
 </g>
-<!-- Node292&#45;&gt;Node290 -->
-<g id="edge12" class="edge"><title>Node292&#45;&gt;Node290</title>
+<!-- Node290&#45;&gt;Node288 -->
+<g id="edge12" class="edge"><title>Node290&#45;&gt;Node288</title>
 <path fill="none" stroke="midnightblue" d="M319.804,-577.539C310.138,-577.433 300.418,-577.327 291.081,-577.224"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="319.801,-581.039 329.839,-577.649 319.878,-574.039 319.801,-581.039"/>
 </g>
-<!-- Node305 -->
-<g id="node25" class="node"><title>Node305</title>
+<!-- Node303 -->
+<g id="node25" class="node"><title>Node303</title>
 <g id="a_node25"><a xlink:href="class_igor_1_1i_node_volume.html#a1e9e75c89b3bb3a230a558a188686486" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="357.5,-49.5 357.5,-79.5 459.5,-79.5 459.5,-49.5 357.5,-49.5"/>
 <text text-anchor="start" x="365.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVolume::</text>
@@ -348,13 +348,13 @@
 </a>
 </g>
 </g>
-<!-- Node304&#45;&gt;Node305 -->
-<g id="edge25" class="edge"><title>Node304&#45;&gt;Node305</title>
+<!-- Node302&#45;&gt;Node303 -->
+<g id="edge25" class="edge"><title>Node302&#45;&gt;Node303</title>
 <path fill="none" stroke="midnightblue" d="M527.245,-47.9628C505.314,-51.043 480.775,-54.4895 459.798,-57.4357"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="528.027,-51.3873 537.443,-46.5304 527.054,-44.4554 528.027,-51.3873"/>
 </g>
-<!-- Node306 -->
-<g id="node26" class="node"><title>Node306</title>
+<!-- Node304 -->
+<g id="node26" class="node"><title>Node304</title>
 <g id="a_node26"><a xlink:href="class_igor_1_1i_node_volume.html#a40d766c3877a3125e4733c8203ee8c07" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="357.5,-0.5 357.5,-30.5 459.5,-30.5 459.5,-0.5 357.5,-0.5"/>
 <text text-anchor="start" x="365.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVolume::</text>
@@ -362,8 +362,8 @@
 </a>
 </g>
 </g>
-<!-- Node304&#45;&gt;Node306 -->
-<g id="edge26" class="edge"><title>Node304&#45;&gt;Node306</title>
+<!-- Node302&#45;&gt;Node304 -->
+<g id="edge26" class="edge"><title>Node302&#45;&gt;Node304</title>
 <path fill="none" stroke="midnightblue" d="M527.245,-31.3757C505.314,-28.4187 480.775,-25.1101 459.798,-22.2817"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="527.065,-34.8831 537.443,-32.7508 528.001,-27.9459 527.065,-34.8831"/>
 </g>

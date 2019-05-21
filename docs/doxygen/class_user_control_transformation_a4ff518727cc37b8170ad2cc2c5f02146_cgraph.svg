@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>UserControlTransformation::deinitGUI</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 332,-84 332,4 -4,4"/>
-<!-- Node4 -->
-<g id="node1" class="node"><title>Node4</title>
+<!-- Node30 -->
+<g id="node1" class="node"><title>Node30</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 131,-54.5 131,-24.5 0,-24.5"/>
 <text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlTransformation</text>
@@ -18,8 +18,8 @@
 </a>
 </g>
 </g>
-<!-- Node5 -->
-<g id="node2" class="node"><title>Node5</title>
+<!-- Node31 -->
+<g id="node2" class="node"><title>Node31</title>
 <g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="167,-49.5 167,-79.5 328,-79.5 328,-49.5 167,-49.5"/>
 <text text-anchor="start" x="175" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
@@ -27,13 +27,13 @@
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge1" class="edge"><title>Node4&#45;&gt;Node5</title>
+<!-- Node30&#45;&gt;Node31 -->
+<g id="edge1" class="edge"><title>Node30&#45;&gt;Node31</title>
 <path fill="none" stroke="midnightblue" d="M131.23,-48.4903C139.561,-49.6473 148.206,-50.848 156.847,-52.0482"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="156.583,-55.5451 166.97,-53.4541 157.546,-48.6116 156.583,-55.5451"/>
 </g>
-<!-- Node6 -->
-<g id="node3" class="node"><title>Node6</title>
+<!-- Node32 -->
+<g id="node3" class="node"><title>Node32</title>
 <g id="a_node3"><a xlink:href="class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="193,-0.5 193,-30.5 302,-30.5 302,-0.5 193,-0.5"/>
 <text text-anchor="start" x="201" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetManager</text>
@@ -41,8 +41,8 @@
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node6 -->
-<g id="edge2" class="edge"><title>Node4&#45;&gt;Node6</title>
+<!-- Node30&#45;&gt;Node32 -->
+<g id="edge2" class="edge"><title>Node30&#45;&gt;Node32</title>
 <path fill="none" stroke="midnightblue" d="M131.23,-30.8694C147.923,-28.6436 165.879,-26.2495 182.533,-24.029"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="183.262,-27.4629 192.711,-22.6718 182.336,-20.5243 183.262,-27.4629"/>
 </g>

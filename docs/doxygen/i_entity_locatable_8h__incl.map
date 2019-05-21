@@ -1,27 +1,29 @@
 <map id="C:/dev/Igor/Igor/src/Igor/src/iEntityLocatable.h" name="C:/dev/Igor/Igor/src/Igor/src/iEntityLocatable.h">
-<area shape="rect" id="node1" title=" " alt="" coords="494,5,671,47"/>
-<area shape="rect" id="node2" href="$i_entity_8h.html" title=" " alt="" coords="883,319,954,345"/>
-<area shape="rect" id="node6" href="$i_sphere_8h.html" title=" " alt="" coords="544,95,621,121"/>
-<area shape="rect" id="node9" href="$ia_vector3_8h.html" title=" " alt="" coords="323,393,411,420"/>
-<area shape="rect" id="node3" href="$i_defines_8h.html" title=" " alt="" coords="690,393,769,420"/>
-<area shape="rect" id="node5" href="$ia_mutex_8h.html" title=" " alt="" coords="793,393,871,420"/>
-<area shape="rect" id="node4" href="$ia_defines_8h.html" title=" " alt="" coords="635,468,722,495"/>
-<area shape="rect" id="node7" href="$i_frustum_8h.html" title=" " alt="" coords="433,169,517,196"/>
-<area shape="rect" id="node21" href="$ia_console_8h.html" title=" " alt="" coords="605,244,696,271"/>
-<area shape="rect" id="node25" href="$i_sphere_8inl.html" title=" " alt="" coords="541,169,624,196"/>
-<area shape="rect" id="node8" href="$i_plane_8h.html" title=" " alt="" coords="521,319,591,345"/>
-<area shape="rect" id="node14" href="$ia_matrix_8h.html" title=" " alt="" coords="182,244,261,271"/>
-<area shape="rect" id="node20" href="$i_frustum_8inl.html" title=" " alt="" coords="431,244,521,271"/>
-<area shape="rect" id="node13" href="$i_plane_8inl.html" title=" " alt="" coords="491,393,565,420"/>
+<area shape="rect" id="node1" title=" " alt="" coords="581,5,758,47"/>
+<area shape="rect" id="node2" href="$i_entity_8h.html" title=" " alt="" coords="930,319,1001,345"/>
+<area shape="rect" id="node6" href="$i_sphere_8h.html" title=" " alt="" coords="631,95,708,121"/>
+<area shape="rect" id="node9" href="$ia_vector3_8h.html" title=" " alt="" coords="155,393,243,420"/>
+<area shape="rect" id="node3" href="$i_defines_8h.html" title=" " alt="" coords="735,393,814,420"/>
+<area shape="rect" id="node5" href="$ia_mutex_8h.html" title=" " alt="" coords="838,393,917,420"/>
+<area shape="rect" id="node4" href="$ia_defines_8h.html" title=" " alt="" coords="782,468,869,495"/>
+<area shape="rect" id="node7" href="$i_frustum_8h.html" title=" " alt="" coords="519,169,603,196"/>
+<area shape="rect" id="node23" href="$ia_console_8h.html" title=" " alt="" coords="703,244,793,271"/>
+<area shape="rect" id="node27" href="$i_sphere_8inl.html" title=" " alt="" coords="628,169,711,196"/>
+<area shape="rect" id="node8" href="$i_plane_8h.html" title=" " alt="" coords="619,319,688,345"/>
+<area shape="rect" id="node14" href="$ia_matrix_8h.html" title=" " alt="" coords="331,244,410,271"/>
+<area shape="rect" id="node22" href="$i_frustum_8inl.html" title=" " alt="" coords="516,244,607,271"/>
+<area shape="rect" id="node13" href="$i_plane_8inl.html" title=" " alt="" coords="616,393,691,420"/>
 <area shape="rect" id="node10" title=" " alt="" coords="5,468,64,495"/>
-<area shape="rect" id="node11" title=" " alt="" coords="197,468,267,495"/>
-<area shape="rect" id="node12" href="$ia_vector3_8inl.html" title=" " alt="" coords="319,468,414,495"/>
-<area shape="rect" id="node15" href="$ia_vector4_8h.html" title=" " alt="" coords="177,319,265,345"/>
-<area shape="rect" id="node17" title=" " alt="" coords="431,319,497,345"/>
-<area shape="rect" id="node18" title=" " alt="" coords="289,319,356,345"/>
-<area shape="rect" id="node19" href="$ia_matrix_8inl.html" title=" " alt="" coords="68,319,153,345"/>
-<area shape="rect" id="node16" href="$ia_vector4_8inl.html" title=" " alt="" coords="174,393,269,420"/>
-<area shape="rect" id="node22" href="$ia_singleton_8h.html" title=" " alt="" coords="762,319,859,345"/>
-<area shape="rect" id="node23" href="$ia_clock_8h.html" title=" " alt="" coords="590,393,666,420"/>
-<area shape="rect" id="node24" title=" " alt="" coords="665,319,737,345"/>
+<area shape="rect" id="node11" title=" " alt="" coords="245,468,315,495"/>
+<area shape="rect" id="node12" href="$ia_vector3_8inl.html" title=" " alt="" coords="126,468,221,495"/>
+<area shape="rect" id="node15" href="$ia_vector4_8h.html" title=" " alt="" coords="85,319,173,345"/>
+<area shape="rect" id="node17" href="$ia_quaternion_8h.html" title=" " alt="" coords="197,319,304,345"/>
+<area shape="rect" id="node19" title=" " alt="" coords="529,319,594,345"/>
+<area shape="rect" id="node20" title=" " alt="" coords="437,319,504,345"/>
+<area shape="rect" id="node21" href="$ia_matrix_8inl.html" title=" " alt="" coords="328,319,413,345"/>
+<area shape="rect" id="node16" href="$ia_vector4_8inl.html" title=" " alt="" coords="35,393,130,420"/>
+<area shape="rect" id="node18" href="$ia_quaternion_8inl.html" title=" " alt="" coords="317,393,429,420"/>
+<area shape="rect" id="node24" href="$ia_singleton_8h.html" title=" " alt="" coords="809,319,906,345"/>
+<area shape="rect" id="node25" href="$ia_clock_8h.html" title=" " alt="" coords="981,393,1057,420"/>
+<area shape="rect" id="node26" title=" " alt="" coords="712,319,784,345"/>
 </map>

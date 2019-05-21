@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iMeshBuilderUtils::addCircle</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 634,-84 634,4 -4,4"/>
-<!-- Node14 -->
-<g id="node1" class="node"><title>Node14</title>
+<!-- Node15 -->
+<g id="node1" class="node"><title>Node15</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="516,-24.5 516,-54.5 630,-54.5 630,-24.5 516,-24.5"/>
 <text text-anchor="start" x="524" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilderUtils</text>
@@ -18,34 +18,34 @@
 </a>
 </g>
 </g>
-<!-- Node15 -->
-<g id="node2" class="node"><title>Node15</title>
+<!-- Node16 -->
+<g id="node2" class="node"><title>Node16</title>
 <g id="a_node2"><a xlink:href="class_widget3_d_emitter.html#ad40f79fa12b87993a47aa5de9d8d29f5" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="337,-30 337,-49 480,-49 480,-30 337,-30"/>
 <text text-anchor="middle" x="408.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createDisc</text>
 </a>
 </g>
 </g>
-<!-- Node14&#45;&gt;Node15 -->
-<g id="edge1" class="edge"><title>Node14&#45;&gt;Node15</title>
+<!-- Node15&#45;&gt;Node16 -->
+<g id="edge1" class="edge"><title>Node15&#45;&gt;Node16</title>
 <path fill="none" stroke="midnightblue" d="M505.527,-39.5C497.142,-39.5 488.54,-39.5 480.095,-39.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="505.621,-43.0001 515.621,-39.5 505.621,-36.0001 505.621,-43.0001"/>
 </g>
-<!-- Node16 -->
-<g id="node3" class="node"><title>Node16</title>
+<!-- Node17 -->
+<g id="node3" class="node"><title>Node17</title>
 <g id="a_node3"><a xlink:href="class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="175,-30 175,-49 301,-49 301,-30 175,-30"/>
 <text text-anchor="middle" x="238" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::update</text>
 </a>
 </g>
 </g>
-<!-- Node15&#45;&gt;Node16 -->
-<g id="edge2" class="edge"><title>Node15&#45;&gt;Node16</title>
+<!-- Node16&#45;&gt;Node17 -->
+<g id="edge2" class="edge"><title>Node16&#45;&gt;Node17</title>
 <path fill="none" stroke="midnightblue" d="M326.525,-39.5C317.967,-39.5 309.364,-39.5 301.069,-39.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="326.529,-43.0001 336.529,-39.5 326.529,-36.0001 326.529,-43.0001"/>
 </g>
-<!-- Node17 -->
-<g id="node4" class="node"><title>Node17</title>
+<!-- Node18 -->
+<g id="node4" class="node"><title>Node18</title>
 <g id="a_node4"><a xlink:href="class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="3,-49.5 3,-79.5 136,-79.5 136,-49.5 3,-49.5"/>
 <text text-anchor="start" x="11" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::Widget3</text>
@@ -53,13 +53,13 @@
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node17 -->
-<g id="edge3" class="edge"><title>Node16&#45;&gt;Node17</title>
+<!-- Node17&#45;&gt;Node18 -->
+<g id="edge3" class="edge"><title>Node17&#45;&gt;Node18</title>
 <path fill="none" stroke="midnightblue" d="M164.408,-50.3996C154.994,-51.8132 145.395,-53.2545 136.104,-54.6496"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="165.158,-53.8263 174.528,-48.8802 164.119,-46.9039 165.158,-53.8263"/>
 </g>
-<!-- Node18 -->
-<g id="node5" class="node"><title>Node18</title>
+<!-- Node19 -->
+<g id="node5" class="node"><title>Node19</title>
 <g id="a_node5"><a xlink:href="class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 139,-30.5 139,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::~Widget3</text>
@@ -67,8 +67,8 @@
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node18 -->
-<g id="edge4" class="edge"><title>Node16&#45;&gt;Node18</title>
+<!-- Node17&#45;&gt;Node19 -->
+<g id="edge4" class="edge"><title>Node17&#45;&gt;Node19</title>
 <path fill="none" stroke="midnightblue" d="M164.406,-29.036C156.03,-27.8286 147.507,-26.6001 139.184,-25.4004"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="164.131,-32.5324 174.528,-30.495 165.13,-25.604 164.131,-32.5324"/>
 </g>

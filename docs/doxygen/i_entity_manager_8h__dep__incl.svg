@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 102)">
 <title>C:/dev/Igor/Igor/src/Igor/src/iEntityManager.h</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-102 262,-102 262,4 -4,4"/>
-<!-- Node35 -->
-<g id="node1" class="node"><title>Node35</title>
+<!-- Node39 -->
+<g id="node1" class="node"><title>Node39</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="55.5,-67.5 55.5,-97.5 183.5,-97.5 183.5,-67.5 55.5,-67.5"/>
 <text text-anchor="start" x="63.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -18,8 +18,8 @@
 </a>
 </g>
 </g>
-<!-- Node36 -->
-<g id="node2" class="node"><title>Node36</title>
+<!-- Node40 -->
+<g id="node2" class="node"><title>Node40</title>
 <g id="a_node2"><a xlink:href="i_entity_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 101,-30.5 101,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -27,13 +27,13 @@
 </a>
 </g>
 </g>
-<!-- Node35&#45;&gt;Node36 -->
-<g id="edge1" class="edge"><title>Node35&#45;&gt;Node36</title>
+<!-- Node39&#45;&gt;Node40 -->
+<g id="edge1" class="edge"><title>Node39&#45;&gt;Node40</title>
 <path fill="none" stroke="midnightblue" d="M97.0076,-60.3115C86.6573,-50.5612 74.6596,-39.259 65.4428,-30.5765"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="94.8492,-63.0866 104.528,-67.396 99.649,-57.9914 94.8492,-63.0866"/>
 </g>
-<!-- Node37 -->
-<g id="node3" class="node"><title>Node37</title>
+<!-- Node41 -->
+<g id="node3" class="node"><title>Node41</title>
 <g id="a_node3"><a xlink:href="i_entity_manager_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="119,-0.5 119,-30.5 258,-30.5 258,-0.5 119,-0.5"/>
 <text text-anchor="start" x="127" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -41,8 +41,8 @@
 </a>
 </g>
 </g>
-<!-- Node35&#45;&gt;Node37 -->
-<g id="edge2" class="edge"><title>Node35&#45;&gt;Node37</title>
+<!-- Node39&#45;&gt;Node41 -->
+<g id="edge2" class="edge"><title>Node39&#45;&gt;Node41</title>
 <path fill="none" stroke="midnightblue" d="M141.992,-60.3115C152.343,-50.5612 164.34,-39.259 173.557,-30.5765"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="139.351,-57.9914 134.472,-67.396 144.151,-63.0866 139.351,-57.9914"/>
 </g>

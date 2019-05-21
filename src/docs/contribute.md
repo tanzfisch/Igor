@@ -39,7 +39,7 @@ For making a release create a release branch from develop named by the next rele
 
 Update the [Changelog](@ref changelog) before merging in to master and develop.
 
-Update doxygen.
+Update doxygen config using the new version of the release. And run doxygen.
 
 Run some tests etc and when satisfied merge in to master and develop. Create a tag with the new versio number on master.
 

@@ -4,6 +4,7 @@ var annotated_dup =
     [ "IgorAux", "namespace_igor_aux.html", "namespace_igor_aux" ],
     [ "OMPF", "namespace_o_m_p_f.html", "namespace_o_m_p_f" ],
     [ "std", "namespacestd.html", "namespacestd" ],
+    [ "testing", "namespacetesting.html", "namespacetesting" ],
     [ "AABox", "class_a_a_box.html", "class_a_a_box" ],
     [ "Frustum", "class_frustum.html", "class_frustum" ],
     [ "Manipulator", "class_manipulator.html", "class_manipulator" ],

@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 169)">
 <title>C:/dev/Igor/Igor/src/Igor/src/iVoxelBlock.h</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-169 673,-169 673,4 -4,4"/>
-<!-- Node34 -->
-<g id="node1" class="node"><title>Node34</title>
+<!-- Node36 -->
+<g id="node1" class="node"><title>Node36</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="163.5,-134.5 163.5,-164.5 278.5,-164.5 278.5,-134.5 163.5,-134.5"/>
 <text text-anchor="start" x="171.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -18,8 +18,8 @@
 </a>
 </g>
 </g>
-<!-- Node35 -->
-<g id="node2" class="node"><title>Node35</title>
+<!-- Node37 -->
+<g id="node2" class="node"><title>Node37</title>
 <g id="a_node2"><a xlink:href="i_voxel_operation_box_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 160,-30.5 160,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -27,13 +27,13 @@
 </a>
 </g>
 </g>
-<!-- Node34&#45;&gt;Node35 -->
-<g id="edge1" class="edge"><title>Node34&#45;&gt;Node35</title>
+<!-- Node36&#45;&gt;Node37 -->
+<g id="edge1" class="edge"><title>Node36&#45;&gt;Node37</title>
 <path fill="none" stroke="midnightblue" d="M198.296,-127.245C169.24,-100.044 119.715,-53.68 94.981,-30.5247"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="196.218,-130.094 205.911,-134.374 201.002,-124.984 196.218,-130.094"/>
 </g>
-<!-- Node36 -->
-<g id="node3" class="node"><title>Node36</title>
+<!-- Node38 -->
+<g id="node3" class="node"><title>Node38</title>
 <g id="a_node3"><a xlink:href="i_voxel_operation_sphere_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="178.5,-0.5 178.5,-30.5 351.5,-30.5 351.5,-0.5 178.5,-0.5"/>
 <text text-anchor="start" x="186.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -41,13 +41,13 @@
 </a>
 </g>
 </g>
-<!-- Node34&#45;&gt;Node36 -->
-<g id="edge2" class="edge"><title>Node34&#45;&gt;Node36</title>
+<!-- Node36&#45;&gt;Node38 -->
+<g id="edge2" class="edge"><title>Node36&#45;&gt;Node38</title>
 <path fill="none" stroke="midnightblue" d="M225.088,-124.478C228.253,-108.021 233.241,-85.8469 240,-67 244.558,-54.2922 251.466,-40.6103 256.867,-30.6972"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="221.634,-123.907 223.271,-134.374 228.519,-125.171 221.634,-123.907"/>
 </g>
-<!-- Node37 -->
-<g id="node4" class="node"><title>Node37</title>
+<!-- Node39 -->
+<g id="node4" class="node"><title>Node39</title>
 <g id="a_node4"><a xlink:href="i_voxel_terrain_8h.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="249.5,-67.5 249.5,-97.5 368.5,-97.5 368.5,-67.5 249.5,-67.5"/>
 <text text-anchor="start" x="257.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -55,23 +55,23 @@
 </a>
 </g>
 </g>
-<!-- Node34&#45;&gt;Node37 -->
-<g id="edge3" class="edge"><title>Node34&#45;&gt;Node37</title>
+<!-- Node36&#45;&gt;Node39 -->
+<g id="edge3" class="edge"><title>Node36&#45;&gt;Node39</title>
 <path fill="none" stroke="midnightblue" d="M248.143,-128.451C261.681,-118.452 277.727,-106.6 289.943,-97.5765"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="246.059,-125.639 240.095,-134.396 250.218,-131.27 246.059,-125.639"/>
 </g>
-<!-- Node37&#45;&gt;Node35 -->
-<g id="edge5" class="edge"><title>Node37&#45;&gt;Node35</title>
+<!-- Node39&#45;&gt;Node37 -->
+<g id="edge5" class="edge"><title>Node39&#45;&gt;Node37</title>
 <path fill="none" stroke="midnightblue" d="M249.865,-64.7149C212.599,-54.1373 165.029,-40.6348 129.714,-30.6109"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="249.017,-68.1124 259.592,-67.476 250.928,-61.3784 249.017,-68.1124"/>
 </g>
-<!-- Node37&#45;&gt;Node36 -->
-<g id="edge6" class="edge"><title>Node37&#45;&gt;Node36</title>
+<!-- Node39&#45;&gt;Node38 -->
+<g id="edge6" class="edge"><title>Node39&#45;&gt;Node38</title>
 <path fill="none" stroke="midnightblue" d="M293.679,-58.8669C287.311,-49.4594 280.118,-38.8334 274.529,-30.5765"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="290.949,-61.0769 299.453,-67.396 296.745,-57.1529 290.949,-61.0769"/>
 </g>
-<!-- Node38 -->
-<g id="node5" class="node"><title>Node38</title>
+<!-- Node40 -->
+<g id="node5" class="node"><title>Node40</title>
 <g id="a_node5"><a xlink:href="i_task_voxel_terrain_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="369.5,-0.5 369.5,-30.5 520.5,-30.5 520.5,-0.5 369.5,-0.5"/>
 <text text-anchor="start" x="377.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -79,13 +79,13 @@
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node38 -->
-<g id="edge4" class="edge"><title>Node37&#45;&gt;Node38</title>
+<!-- Node39&#45;&gt;Node40 -->
+<g id="edge4" class="edge"><title>Node39&#45;&gt;Node40</title>
 <path fill="none" stroke="midnightblue" d="M347.724,-62.9921C369.281,-52.6892 395.689,-40.0677 415.548,-30.5765"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="346.023,-59.9258 338.51,-67.396 349.042,-66.2416 346.023,-59.9258"/>
 </g>
-<!-- Node39 -->
-<g id="node6" class="node"><title>Node39</title>
+<!-- Node41 -->
+<g id="node6" class="node"><title>Node41</title>
 <g id="a_node6"><a xlink:href="i_voxel_terrain_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="539,-0.5 539,-30.5 669,-30.5 669,-0.5 539,-0.5"/>
 <text text-anchor="start" x="547" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -93,8 +93,8 @@
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node39 -->
-<g id="edge7" class="edge"><title>Node37&#45;&gt;Node39</title>
+<!-- Node39&#45;&gt;Node41 -->
+<g id="edge7" class="edge"><title>Node39&#45;&gt;Node41</title>
 <path fill="none" stroke="midnightblue" d="M378.585,-66.1678C427.583,-55.3715 492.672,-41.0299 540.307,-30.534"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="377.71,-62.7764 368.698,-68.3463 379.217,-69.6124 377.71,-62.7764"/>
 </g>

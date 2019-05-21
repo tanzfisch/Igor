@@ -1,10 +1,15 @@
 var searchData=
 [
-  ['texture',['texture',['../class_igor_1_1i_celestial_node.html#a56d9443435fa53ae37b3887871f4c029',1,'Igor::iCelestialNode::texture()'],['../struct_igor_1_1i_loader3_d_s_1_1_material.html#a10d438efdf514be70c95dfa5f9e1824d',1,'Igor::iLoader3DS::Material::texture()']]],
-  ['texx',['texx',['../struct_igor_1_1i_loader3_d_s_1_1_vertex.html#af42ffe65114430dfe7d152b8dfd2ec52',1,'Igor::iLoader3DS::Vertex']]],
-  ['texy',['texy',['../struct_igor_1_1i_loader3_d_s_1_1_vertex.html#a9f9ebdba214abf14ed20409b7d6c4ea3',1,'Igor::iLoader3DS::Vertex']]],
-  ['time',['time',['../class_igor_1_1i_sky_simulation.html#adbaea4d09efa3e145b7b0a80f8d7139f',1,'Igor::iSkySimulation']]],
-  ['top_5fplane',['top_plane',['../class_frustum.html#a568ccbfa242f0e6781441a8c101aebdc',1,'Frustum']]],
-  ['trianglecount',['trianglecount',['../class_igor_1_1i_loader3_d_s.html#a279af6d6ee71db2d71595ccf5d483f9c',1,'Igor::iLoader3DS']]],
-  ['typeidsize',['TypeIDSize',['../struct_o_m_p_f_default_configuration.html#a955fd5e6ce8f0043d2d34c7ceb9ed3b6',1,'OMPFDefaultConfiguration']]]
+  ['radius',['radius',['../class_sphere.html#aee8808d067c477a309a860d413460148',1,'Sphere']]],
+  ['random_5fnumbers_5fcount',['RANDOM_NUMBERS_COUNT',['../class_igor_1_1i_perlin_noise.html#a6996871d1b1518be55cd2f59538b91e1',1,'Igor::iPerlinNoise']]],
+  ['rect',['rect',['../class_igor_1_1i_character_dimensions.html#a5cf201eb2a867561ef0f1fea1f6aaaba',1,'Igor::iCharacterDimensions']]],
+  ['refcount',['refcount',['../class_igor_1_1i_sound_buffer.html#a343a26777e475fcad27810ace2e6baa6',1,'Igor::iSoundBuffer']]],
+  ['relrenderwidth',['relRenderWidth',['../class_igor_1_1i_character_dimensions.html#a25f108542fbb36c03d246c3ca2b8401c',1,'Igor::iCharacterDimensions']]],
+  ['remove',['Remove',['../i_node_factory_8h.html#a78b07b41e11198a3694a9b21122bf59b',1,'iNodeFactory.h']]],
+  ['render_5forder_5fdefault',['RENDER_ORDER_DEFAULT',['../class_igor_1_1i_material.html#a8b3943f55ff009a9b51bd5c3c611cf58',1,'Igor::iMaterial']]],
+  ['render_5forder_5fmax',['RENDER_ORDER_MAX',['../class_igor_1_1i_material.html#a43bb35624bef237f476d95c359595260',1,'Igor::iMaterial']]],
+  ['render_5forder_5fmin',['RENDER_ORDER_MIN',['../class_igor_1_1i_material.html#a0d3f42bb60882f11aebc03031390d086',1,'Igor::iMaterial']]],
+  ['repeater_5f',['repeater_',['../classtesting_1_1_test_event_listeners.html#a625d58b951893e80cde12862aece6fd8',1,'testing::TestEventListeners']]],
+  ['result_5f',['result_',['../classtesting_1_1_test_info.html#a108fd469897a8d4e5c4361947a5ed785',1,'testing::TestInfo']]],
+  ['right_5fplane',['right_plane',['../class_frustum.html#a0dc014f4d950d2fcd3971ba3c3021424',1,'Frustum']]]
 ];

@@ -9,16 +9,16 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>IgorAux::getCallStack</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 249,-35 249,4 -4,4"/>
-<!-- Node38 -->
-<g id="node1" class="node"><title>Node38</title>
+<!-- Node41 -->
+<g id="node1" class="node"><title>Node41</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="134,-6 134,-25 245,-25 245,-6 134,-6"/>
 <text text-anchor="middle" x="189.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::getCallStack</text>
 </a>
 </g>
 </g>
-<!-- Node39 -->
-<g id="node2" class="node"><title>Node39</title>
+<!-- Node42 -->
+<g id="node2" class="node"><title>Node42</title>
 <g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_console.html#abc58094b2573cacbf6152f0409d37843" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 98,-30.5 98,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaConsole</text>
@@ -26,8 +26,8 @@
 </a>
 </g>
 </g>
-<!-- Node38&#45;&gt;Node39 -->
-<g id="edge1" class="edge"><title>Node38&#45;&gt;Node39</title>
+<!-- Node41&#45;&gt;Node42 -->
+<g id="edge1" class="edge"><title>Node41&#45;&gt;Node42</title>
 <path fill="none" stroke="midnightblue" d="M123.702,-15.5C115.068,-15.5 106.343,-15.5 98.064,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="123.761,-19.0001 133.761,-15.5 123.761,-12.0001 123.761,-19.0001"/>
 </g>

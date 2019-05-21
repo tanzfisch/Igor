@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122.5)">
 <title>Igor::iNode::getInactiveChildren</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-122.5 586,-122.5 586,4 -4,4"/>
-<!-- Node163 -->
-<g id="node1" class="node"><title>Node163</title>
+<!-- Node166 -->
+<g id="node1" class="node"><title>Node166</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="467,-39 467,-69 582,-69 582,-39 467,-39"/>
 <text text-anchor="start" x="475" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getInactive</text>
@@ -18,8 +18,8 @@
 </a>
 </g>
 </g>
-<!-- Node164 -->
-<g id="node2" class="node"><title>Node164</title>
+<!-- Node167 -->
+<g id="node2" class="node"><title>Node167</title>
 <g id="a_node2"><a xlink:href="class_igor_1_1i_node_visitor.html#a7e4167851e1247dfb90837c8f145f1b5" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="324,-39 324,-69 431,-69 431,-39 324,-39"/>
 <text text-anchor="start" x="332" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVisitor</text>
@@ -27,13 +27,13 @@
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node164 -->
-<g id="edge1" class="edge"><title>Node163&#45;&gt;Node164</title>
+<!-- Node166&#45;&gt;Node167 -->
+<g id="edge1" class="edge"><title>Node166&#45;&gt;Node167</title>
 <path fill="none" stroke="midnightblue" d="M456.454,-54C448.064,-54 439.576,-54 431.443,-54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="456.608,-57.5001 466.608,-54 456.608,-50.5001 456.608,-57.5001"/>
 </g>
-<!-- Node165 -->
-<g id="node3" class="node"><title>Node165</title>
+<!-- Node168 -->
+<g id="node3" class="node"><title>Node168</title>
 <g id="a_node3"><a xlink:href="class_igor_1_1i_node_visitor.html#a66c426b8125fa0205d492b2681884520" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="197,-39 197,-69 288,-69 288,-39 197,-39"/>
 <text text-anchor="start" x="205" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVisitor</text>
@@ -41,13 +41,13 @@
 </a>
 </g>
 </g>
-<!-- Node164&#45;&gt;Node165 -->
-<g id="edge2" class="edge"><title>Node164&#45;&gt;Node165</title>
+<!-- Node167&#45;&gt;Node168 -->
+<g id="edge2" class="edge"><title>Node167&#45;&gt;Node168</title>
 <path fill="none" stroke="midnightblue" d="M313.9,-54C305.289,-54 296.589,-54 288.383,-54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="313.935,-57.5001 323.935,-54 313.935,-50.5001 313.935,-57.5001"/>
 </g>
-<!-- Node166 -->
-<g id="node4" class="node"><title>Node166</title>
+<!-- Node169 -->
+<g id="node4" class="node"><title>Node169</title>
 <g id="a_node4"><a xlink:href="class_igor_1_1i_node_visitor_search_name.html#aa44ad814e68f1427ac581dffaa4d5530" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="19.5,-88 19.5,-118 141.5,-118 141.5,-88 19.5,-88"/>
 <text text-anchor="start" x="27.5" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVisitorSearch</text>
@@ -55,13 +55,13 @@
 </a>
 </g>
 </g>
-<!-- Node165&#45;&gt;Node166 -->
-<g id="edge3" class="edge"><title>Node165&#45;&gt;Node166</title>
+<!-- Node168&#45;&gt;Node169 -->
+<g id="edge3" class="edge"><title>Node168&#45;&gt;Node169</title>
 <path fill="none" stroke="midnightblue" d="M187.09,-70.9619C178.368,-73.6622 169.438,-76.416 161,-79 151.488,-81.9127 141.328,-84.9988 131.561,-87.9533"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="188.296,-74.2524 196.811,-67.9478 186.223,-67.5664 188.296,-74.2524"/>
 </g>
-<!-- Node167 -->
-<g id="node5" class="node"><title>Node167</title>
+<!-- Node170 -->
+<g id="node5" class="node"><title>Node170</title>
 <g id="a_node5"><a xlink:href="class_igor_1_1i_render_engine.html#ab5bd16912a4a41154cdc29830040a07e" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="30,-39 30,-69 131,-69 131,-39 30,-39"/>
 <text text-anchor="start" x="38" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderEngine</text>
@@ -69,21 +69,21 @@
 </a>
 </g>
 </g>
-<!-- Node165&#45;&gt;Node167 -->
-<g id="edge4" class="edge"><title>Node165&#45;&gt;Node167</title>
+<!-- Node168&#45;&gt;Node170 -->
+<g id="edge4" class="edge"><title>Node168&#45;&gt;Node170</title>
 <path fill="none" stroke="midnightblue" d="M186.845,-54C168.796,-54 148.829,-54 131.174,-54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="186.931,-57.5001 196.931,-54 186.931,-50.5001 186.931,-57.5001"/>
 </g>
-<!-- Node168 -->
-<g id="node6" class="node"><title>Node168</title>
+<!-- Node171 -->
+<g id="node6" class="node"><title>Node171</title>
 <g id="a_node6"><a xlink:href="class_model_viewer.html#a05462f268666cbde393de6ba23fca9d8" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 161,-19.5 161,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="80.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::centerCamOnNode</text>
 </a>
 </g>
 </g>
-<!-- Node165&#45;&gt;Node168 -->
-<g id="edge5" class="edge"><title>Node165&#45;&gt;Node168</title>
+<!-- Node168&#45;&gt;Node171 -->
+<g id="edge5" class="edge"><title>Node168&#45;&gt;Node171</title>
 <path fill="none" stroke="midnightblue" d="M187.163,-37.4521C178.432,-34.8936 169.48,-32.3297 161,-30 147.962,-26.4184 133.653,-22.7408 120.812,-19.5317"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="186.308,-40.8489 196.89,-40.3256 188.291,-34.1357 186.308,-40.8489"/>
 </g>

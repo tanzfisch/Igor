@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 46)">
 <title>Igor::iMeshBuilder::calcSphericalTexcoordsByNormals</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 266,-46 266,4 -4,4"/>
-<!-- Node98 -->
-<g id="node1" class="node"><title>Node98</title>
+<!-- Node101 -->
+<g id="node1" class="node"><title>Node101</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-41.5 138,-41.5 138,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
@@ -19,16 +19,16 @@
 </a>
 </g>
 </g>
-<!-- Node99 -->
-<g id="node2" class="node"><title>Node99</title>
+<!-- Node102 -->
+<g id="node2" class="node"><title>Node102</title>
 <g id="a_node2"><a xlink:href="namespace_igor.html#a680564a395ccd1fa4a80c5bb647f6977" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="174,-11.5 174,-30.5 262,-30.5 262,-11.5 174,-11.5"/>
 <text text-anchor="middle" x="218" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::SphereMap</text>
 </a>
 </g>
 </g>
-<!-- Node98&#45;&gt;Node99 -->
-<g id="edge1" class="edge"><title>Node98&#45;&gt;Node99</title>
+<!-- Node101&#45;&gt;Node102 -->
+<g id="edge1" class="edge"><title>Node101&#45;&gt;Node102</title>
 <path fill="none" stroke="midnightblue" d="M138.336,-21C146.771,-21 155.297,-21 163.467,-21"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="163.591,-24.5001 173.591,-21 163.591,-17.5001 163.591,-24.5001"/>
 </g>

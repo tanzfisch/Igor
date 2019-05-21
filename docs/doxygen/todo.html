@@ -32,7 +32,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.18.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.19.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -203,10 +203,10 @@ $(document).ready(function(){initNavTree('todo.html','');});
 <dd><a class="anchor" id="_todo000055"></a>light handling is not done by far </dd>
 <dt>Member <a class="el" href="class_igor_1_1i_renderer.html#ae697adfd4f7c39e98f98a2850ca12181">Igor::iRenderer::_initialized</a>  </dt>
 <dd><a class="anchor" id="_todo000064"></a>not sure if we need this  </dd>
-<dt>Member <a class="el" href="class_igor_1_1i_renderer.html#a0837c37546cf5f086baa71aa7a71300c">Igor::iRenderer::createBuffers</a>  (float64 timeLimit=10.0)</dt>
-<dd><a class="anchor" id="_todo000059"></a>this is weired stuff we should do that differently  </dd>
 <dt>Member <a class="el" href="class_igor_1_1i_renderer.html#aeb58c4059bef485aeab12451370a97a4">Igor::iRenderer::createBuffers</a>  (shared_ptr&lt; iMesh &gt; mesh)</dt>
 <dd><a class="anchor" id="_todo000056"></a>this is weired stuff we should do that differently  </dd>
+<dt>Member <a class="el" href="class_igor_1_1i_renderer.html#a0837c37546cf5f086baa71aa7a71300c">Igor::iRenderer::createBuffers</a>  (float64 timeLimit=10.0)</dt>
+<dd><a class="anchor" id="_todo000059"></a>this is weired stuff we should do that differently  </dd>
 <dt>Member <a class="el" href="class_igor_1_1i_renderer.html#a078a56ef68b558ae714ac3323b6cff10">Igor::iRenderer::createBuffersAsync</a>  (shared_ptr&lt; iMesh &gt; mesh)</dt>
 <dd><a class="anchor" id="_todo000058"></a>this is weired stuff we should do that differently  </dd>
 <dt>Member <a class="el" href="class_igor_1_1i_renderer.html#af060038181972e93166834b1528af0ca">Igor::iRenderer::destroyBuffer</a>  (uint32 bufferID)</dt>
@@ -334,41 +334,39 @@ $(document).ready(function(){initNavTree('todo.html','');});
 <dt>Class <a class="el" href="class_igor_aux_1_1ia_gradient.html">IgorAux::iaGradient&lt; T &gt;</a>  </dt>
 <dd><a class="anchor" id="_todo000111"></a>move to <a class="el" href="namespace_igor_aux.html">IgorAux</a>  </dd>
 <dt>Member <a class="el" href="class_igor_aux_1_1ia_matrix3x3.html#afe1701a296634d2469c16a9860cd4f77">IgorAux::iaMatrix3x3&lt; T &gt;::iaMatrix3x3</a>  (const T data[16])</dt>
-<dd><a class="anchor" id="_todo000114"></a>replace with memcpy  </dd>
-<dt>Class <a class="el" href="class_igor_aux_1_1ia_matrix.html">IgorAux::iaMatrix&lt; T &gt;</a>  </dt>
-<dd><a class="anchor" id="_todo000112"></a>cont version for * and *= ?  </dd>
-<dt>Member <a class="el" href="class_igor_aux_1_1ia_matrix.html#af36134fcecccbe879154dfbf39667e8a">IgorAux::iaMatrix&lt; T &gt;::iaMatrix</a>  (const T data[16])</dt>
 <dd><a class="anchor" id="_todo000113"></a>replace with memcpy  </dd>
+<dt>Member <a class="el" href="class_igor_aux_1_1ia_matrix.html#af36134fcecccbe879154dfbf39667e8a">IgorAux::iaMatrix&lt; T &gt;::iaMatrix</a>  (const T data[16])</dt>
+<dd><a class="anchor" id="_todo000112"></a>replace with memcpy  </dd>
 <dt>Class <a class="el" href="class_igor_aux_1_1ia_mem_block_control.html">IgorAux::iaMemBlockControl</a>  </dt>
-<dd><a class="anchor" id="_todo000115"></a>write buffer functionality  </dd>
+<dd><a class="anchor" id="_todo000114"></a>write buffer functionality  </dd>
 <dt>Class <a class="el" href="class_igor_aux_1_1ia_quaternion.html">IgorAux::iaQuaternion&lt; T &gt;</a>  </dt>
-<dd><a class="anchor" id="_todo000116"></a>not in use yet  </dd>
+<dd><a class="anchor" id="_todo000115"></a>not in use yet  </dd>
 <dt>Member <a class="el" href="class_igor_aux_1_1ia_r_l_e.html#a7c48ec9450b3be1226552e5f01e7977f">IgorAux::iaRLE&lt; TValue, TIndex &gt;::setValue</a>  (TIndex index, TIndex length, TValue value)</dt>
-<dd><a class="anchor" id="_todo000117"></a>not implemented  </dd>
+<dd><a class="anchor" id="_todo000116"></a>not implemented  </dd>
 <dt>Class <a class="el" href="class_igor_aux_1_1ia_singleton.html">IgorAux::iaSingleton&lt; T &gt;</a>  </dt>
-<dd><a class="anchor" id="_todo000118"></a>put here some serious explanation how this works  </dd>
-<dt>Member <a class="el" href="class_igor_aux_1_1ia_string.html#a6ca6e1bb3c3ae57fd3d661985b388caf">IgorAux::iaString::ftoa</a>  (float32 value, int afterPoint=0)</dt>
-<dd><a class="anchor" id="_todo000119"></a>would be nice to have a version that detects it self how many after points make sense </dd>
+<dd><a class="anchor" id="_todo000117"></a>put here some serious explanation how this works  </dd>
+<dt>Member <a class="el" href="class_igor_aux_1_1ia_string.html#abef96b15e0d8f9a45108b12e46632c01">IgorAux::iaString::ftoa</a>  (float64 value, int afterPoint=0)</dt>
+<dd><a class="anchor" id="_todo000118"></a>would be nice to have a version that detects it self how many after points make sense </dd>
 <dt>Class <a class="el" href="class_igor_aux_1_1ia_vector4.html">IgorAux::iaVector4&lt; T &gt;</a>  </dt>
-<dd><a class="anchor" id="_todo000120"></a>implement more operators  </dd>
+<dd><a class="anchor" id="_todo000119"></a>implement more operators  </dd>
 <dt>Member <a class="el" href="class_model_viewer.html#a466edf6efbf8258d211cc05cd323ccbc">ModelViewer::deinit</a>  ()</dt>
-<dd><a class="anchor" id="_todo000130"></a>this should happen automatically  </dd>
+<dd><a class="anchor" id="_todo000129"></a>this should happen automatically  </dd>
 <dt>Class <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html">OMPF::OMPF</a>  </dt>
-<dd><a class="anchor" id="_todo000121"></a><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html">OMPF</a> should be handled as plugin or even all Loaders should be handeled as plugin  </dd>
+<dd><a class="anchor" id="_todo000120"></a><a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html">OMPF</a> should be handled as plugin or even all Loaders should be handeled as plugin  </dd>
 <dt>Member <a class="el" href="class_o_m_p_f_1_1_o_m_p_f.html#a48e04b9b63be0a15f383434dfe43e8da">OMPF::OMPF::saveFile</a>  (iaString filename)</dt>
-<dd><a class="anchor" id="_todo000122"></a>handle save mode  </dd>
+<dd><a class="anchor" id="_todo000121"></a>handle save mode  </dd>
 <dt>Member <a class="el" href="class_o_m_p_f_1_1ompf_header_chunk.html#a68247e6408a64b9535fb1483921b5f19">OMPF::ompfHeaderChunk::read</a>  (ifstream &amp;stream, <a class="el" href="class_o_m_p_f_1_1ompf_settings.html">ompfSettings</a> &amp;settings)</dt>
-<dd><a class="anchor" id="_todo000127"></a>check minor and patch too  </dd>
+<dd><a class="anchor" id="_todo000126"></a>check minor and patch too  </dd>
 <dt>Class <a class="el" href="class_o_m_p_f_1_1ompf_transform_chunk.html">OMPF::ompfTransformChunk</a>  </dt>
-<dd><a class="anchor" id="_todo000129"></a>need additional 64bit transform chunk  </dd>
+<dd><a class="anchor" id="_todo000128"></a>need additional 64bit transform chunk  </dd>
 <dt>Member <a class="el" href="struct_o_m_p_f_default_configuration.html#ab6a82d965d35c426dc1cab9f53b7c210">OMPFDefaultConfiguration::CustomDataSizeSize</a>  </dt>
-<dd><a class="anchor" id="_todo000125"></a>only 2 possible right now. see implementation of iaMemBlock  </dd>
+<dd><a class="anchor" id="_todo000124"></a>only 2 possible right now. see implementation of iaMemBlock  </dd>
 <dt>Member <a class="el" href="struct_o_m_p_f_default_configuration.html#ad7b8f7df4cdb34987d14d6382d67be88">OMPFDefaultConfiguration::StringSizeSize</a>  </dt>
-<dd><a class="anchor" id="_todo000126"></a>only 2 possible right now.see implementation of iaString  </dd>
+<dd><a class="anchor" id="_todo000125"></a>only 2 possible right now.see implementation of iaString  </dd>
 <dt>Member <a class="el" href="i_s_t_b_image_ext_8h.html#a684be545ac01f2f550499b52e2a2d515">stbi_load</a>  (wchar_t const *filename, int *x, int *y, int *comp, int req_comp)</dt>
 <dd><a class="anchor" id="_todo000075"></a>docu  </dd>
 <dt>Member <a class="el" href="class_user_control_particle_system.html#abe6222885f2b055b419cebfc77be6e21">UserControlParticleSystem::getWidget</a>  ()</dt>
-<dd><a class="anchor" id="_todo000131"></a>remove later. but fix the widget mechanism first </dd>
+<dd><a class="anchor" id="_todo000130"></a>remove later. but fix the widget mechanism first </dd>
 </dl>
 </div></div><!-- PageDoc -->
 </div><!-- contents -->
@@ -377,7 +375,7 @@ $(document).ready(function(){initNavTree('todo.html','');});
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Thu May 9 2019 17:28:27 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Wed May 22 2019 00:13:05 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

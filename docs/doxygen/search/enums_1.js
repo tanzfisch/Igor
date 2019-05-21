@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['manipulatormode',['ManipulatorMode',['../_manipulator_8h.html#a77aa559e59121f2c11fb42e8041f9d2f',1,'Manipulator.h']]]
+  ['edittype',['EditType',['../namespacetesting_1_1internal_1_1edit__distance.html#ad46aa6da12aec1a3f166310478b53a08',1,'testing::internal::edit_distance']]]
 ];

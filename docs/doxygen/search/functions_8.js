@@ -18,13 +18,18 @@ var searchData=
   ['haschildren',['hasChildren',['../class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0',1,'Igor::iNode::hasChildren()'],['../class_o_m_p_f_1_1ompf_base_chunk.html#a2f3e165e3965193b9346c23b14790162',1,'OMPF::ompfBaseChunk::hasChildren()']]],
   ['hascolors',['hasColors',['../class_igor_1_1i_mesh.html#a72a2907c1b1d771674fa4bd211e3e574',1,'Igor::iMesh::hasColors()'],['../class_igor_1_1i_mesh_builder.html#a44f8498556cf9d7f4266a18a8900c6cc',1,'Igor::iMeshBuilder::hasColors()']]],
   ['hasdata',['hasData',['../class_igor_1_1i_voxel_data.html#a835aa9e8921dd07a4511e5aa9c94cacf',1,'Igor::iVoxelData::hasData()'],['../class_igor_aux_1_1ia_mem_block.html#a190353bcc4395827e0a8c792ad1ad534',1,'IgorAux::iaMemBlock::hasData()']]],
+  ['hasfailure',['HasFailure',['../classtesting_1_1_test.html#a7a00be7dd0a6bfdc8d47a1b784623613',1,'testing::Test']]],
+  ['hasfatalfailure',['HasFatalFailure',['../classtesting_1_1_test.html#a0a89846458f0e8ed1c9457c957e8182a',1,'testing::Test::HasFatalFailure()'],['../classtesting_1_1_test_result.html#a30e00d4076ae07fb5ad7b623d9dc1fe4',1,'testing::TestResult::HasFatalFailure()']]],
   ['hasindexdata',['hasIndexData',['../class_igor_1_1i_mesh.html#a5712b8305819df6a68e3c47d0ca1809d',1,'Igor::iMesh']]],
   ['haskeyboardfocus',['hasKeyboardFocus',['../class_igor_1_1i_widget.html#a3c97e11a6cb336af49db0373f25c6cba',1,'Igor::iWidget']]],
+  ['hasnonfatalfailure',['HasNonfatalFailure',['../classtesting_1_1_test.html#a07e896f1b1836f8ac075c26d7b7c9fb8',1,'testing::Test::HasNonfatalFailure()'],['../classtesting_1_1_test_result.html#a510564fa67b485ed4589a259f2a032d6',1,'testing::TestResult::HasNonfatalFailure()']]],
   ['hasnormals',['hasNormals',['../class_igor_1_1i_mesh.html#a6924a61a230af674759520a99b1cba4f',1,'Igor::iMesh::hasNormals()'],['../class_igor_1_1i_mesh_builder.html#a6566ae3c78fb812b074b1bf1e331f531',1,'Igor::iMeshBuilder::hasNormals()']]],
   ['hasparent',['hasParent',['../class_igor_1_1i_widget.html#ac13673f0c5904830b35acd9ffe673384',1,'Igor::iWidget::hasParent()'],['../class_igor_1_1i_widget.html#af7fa74aac6b6f99e757fdac08cd82d29',1,'Igor::iWidget::hasParent() const'],['../class_o_m_p_f_1_1ompf_base_chunk.html#a5440aa9434f97db7d223497f5f28f814',1,'OMPF::ompfBaseChunk::hasParent()']]],
+  ['hassamefixtureclass',['HasSameFixtureClass',['../classtesting_1_1_test.html#a2d621c1300d3e850bcf1de70b57eb488',1,'testing::Test']]],
   ['hastextures',['hasTextures',['../class_igor_1_1i_mesh.html#a2984b53a7df395ea94b7e29c5dcd5385',1,'Igor::iMesh::hasTextures()'],['../class_igor_1_1i_target_material.html#abe83cd32f8ec49bbff4b54b582dfa3f6',1,'Igor::iTargetMaterial::hasTextures()']]],
   ['hastextureunit',['hasTextureUnit',['../class_igor_1_1i_mesh.html#a83793c61fe7a28165e082fcfc69b1cc1',1,'Igor::iMesh::hasTextureUnit()'],['../class_igor_1_1i_target_material.html#a7420043c9e7beb430f966f2a8e304f97',1,'Igor::iTargetMaterial::hasTextureUnit()']]],
   ['hasvertexdata',['hasVertexData',['../class_igor_1_1i_mesh.html#af12b4c6f08217388fca9d009af528dfe',1,'Igor::iMesh']]],
+  ['helper',['Helper',['../classtesting_1_1internal_1_1_implicitly_convertible.html#a20029a4415e5f9ae152b8fce8b124980',1,'testing::internal::ImplicitlyConvertible::Helper(To)'],['../classtesting_1_1internal_1_1_implicitly_convertible.html#aba219f30a4cbba407d8141ce53fbfeb7',1,'testing::internal::ImplicitlyConvertible::Helper(...))[2]']]],
   ['hidetooltip',['hideTooltip',['../class_igor_1_1i_widget_manager.html#af048259868df5a172088902ea2f6dade',1,'Igor::iWidgetManager']]],
   ['highlightselected',['highlightSelected',['../class_manipulator.html#a625692bdcdb2e123dbcba3d845ebbbcc',1,'Manipulator']]]
 ];

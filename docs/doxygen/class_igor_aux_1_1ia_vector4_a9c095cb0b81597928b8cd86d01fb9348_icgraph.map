@@ -1,4 +1,7 @@
 <map id="IgorAux::iaVector4::set" name="IgorAux::iaVector4::set">
-<area shape="rect" id="node1" title=" " alt="" coords="229,5,384,32"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#a34213cfb47436c4ec8989dde4314dc66" title=" " alt="" coords="5,5,181,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="452,35,607,61"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#a34213cfb47436c4ec8989dde4314dc66" title=" " alt="" coords="228,5,404,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#a1ac92f361c8748bc939d17f3db41b1c0" title=" " alt="" coords="252,57,380,98"/>
+<area shape="rect" id="node4" href="$_matrix_8cpp.html#a4292d6e5e311a244a15f41b76edffa3f" title=" " alt="" coords="65,35,120,61"/>
+<area shape="rect" id="node5" href="$class_user_control_transformation.html#a90c332e1995255ae5a516a69c3896776" title=" " alt="" coords="5,86,180,127"/>
 </map>

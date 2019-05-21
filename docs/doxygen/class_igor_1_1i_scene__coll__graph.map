@@ -1,13 +1,13 @@
 <map id="Igor::iScene" name="Igor::iScene">
-<area shape="rect" id="node1" title=" " alt="" coords="801,100,892,127"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node.html" title=" " alt="" coords="987,91,1071,117"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="429,5,547,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_octree.html" title=" " alt="" coords="441,64,535,91"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_visitor_update_transform.html" title=" " alt="" coords="407,115,569,157"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor.html" title=" " alt="" coords="135,88,256,115"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="120,139,271,165"/>
-<area shape="rect" id="node7" title=" " alt="" coords="5,139,44,165"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_i_d_generator.html" title=" " alt="" coords="593,221,777,248"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="135,220,255,247"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_data_update_queue.html" title=" " alt="" coords="408,181,568,208"/>
+<area shape="rect" id="node1" title=" " alt="" coords="784,152,875,179"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node.html" title=" " alt="" coords="969,89,1053,116"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="439,73,558,100"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_octree.html" title=" " alt="" coords="452,244,545,271"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_visitor_update_transform.html" title=" " alt="" coords="417,178,580,219"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor.html" title=" " alt="" coords="135,189,256,216"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="120,136,271,163"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,69,44,96"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_i_d_generator.html" title=" " alt="" coords="407,20,591,47"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="135,83,255,109"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_data_update_queue.html" title=" " alt="" coords="419,124,579,151"/>
 </map>

@@ -34,7 +34,7 @@
 </g>
 <!-- Node12 -->
 <g id="node3" class="node"><title>Node12</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_string.html#a6ca6e1bb3c3ae57fd3d661985b388caf" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_string.html#abef96b15e0d8f9a45108b12e46632c01" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="165.5,-137.5 165.5,-156.5 275.5,-156.5 275.5,-137.5 165.5,-137.5"/>
 <text text-anchor="middle" x="220.5" y="-144.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::ftoa</text>
 </a>

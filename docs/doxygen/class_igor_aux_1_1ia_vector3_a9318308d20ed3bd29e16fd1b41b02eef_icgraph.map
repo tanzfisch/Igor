@@ -1,5 +1,5 @@
 <map id="IgorAux::iaVector3::set" name="IgorAux::iaVector3::set">
-<area shape="rect" id="node1" title=" " alt="" coords="1153,693,1308,719"/>
+<area shape="rect" id="node1" title=" " alt="" coords="1153,726,1308,753"/>
 <area shape="rect" id="node2" href="$class_igor_1_1i_contouring_cubes.html#a1fa87f92ff7eb7f0c1fd27006954c644" title=" " alt="" coords="925,60,1079,101"/>
 <area shape="rect" id="node5" href="$class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" title=" " alt="" coords="268,119,421,160"/>
 <area shape="rect" id="node7" href="$class_igor_1_1i_contouring_cubes.html#a5af36984092e3aeab36fc5b08cddaf47" title=" " alt="" coords="469,177,623,219"/>
@@ -20,9 +20,12 @@
 <area shape="rect" id="node22" href="$class_igor_1_1i_voxel_terrain.html#a01654a6bcafb57ca10f8baf8ebd27b8a" title=" " alt="" coords="939,1129,1065,1171"/>
 <area shape="rect" id="node24" href="$class_igor_1_1i_voxel_terrain.html#a6cffe52628e9aac6c5917f4752a7f473" title=" " alt="" coords="927,1195,1077,1236"/>
 <area shape="rect" id="node25" href="$class_igor_1_1i_voxel_terrain.html#a5c227f58bf75ca092936b1a119d5f29a" title=" " alt="" coords="939,1260,1065,1301"/>
-<area shape="rect" id="node26" href="$namespace_testigor.html#a0eb6023506d882b559fef3e19d1143aa" title=" " alt="" coords="923,1326,1081,1353"/>
+<area shape="rect" id="node26" href="$class_igor_aux_1_1ia_matrix.html#a1ac92f361c8748bc939d17f3db41b1c0" title=" " alt="" coords="938,1325,1066,1367"/>
+<area shape="rect" id="node29" href="$namespace_testigor.html#a0eb6023506d882b559fef3e19d1143aa" title=" " alt="" coords="923,1391,1081,1418"/>
 <area shape="rect" id="node3" href="$class_igor_1_1i_contouring_cubes.html#ae795ffe83bbe9dfdc4f1681b040ebf39" title=" " alt="" coords="684,5,837,47"/>
 <area shape="rect" id="node4" href="$class_igor_1_1i_contouring_cubes.html#acbdb84a720e39599e880db6b978ce430" title=" " alt="" coords="469,60,623,101"/>
 <area shape="rect" id="node6" href="$class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" title=" " alt="" coords="5,119,220,160"/>
 <area shape="rect" id="node23" href="$class_igor_1_1i_task_voxel_terrain.html#ad578cdbf85786e8ba443221afe6f7031" title=" " alt="" coords="671,1137,851,1163"/>
+<area shape="rect" id="node27" href="$_matrix_8cpp.html#a4292d6e5e311a244a15f41b76edffa3f" title=" " alt="" coords="733,1303,788,1330"/>
+<area shape="rect" id="node28" href="$class_user_control_transformation.html#a90c332e1995255ae5a516a69c3896776" title=" " alt="" coords="673,1355,848,1396"/>
 </map>

@@ -1,5 +1,5 @@
 <map id="Igor::iWidget::setHorizontalAlignment" name="Igor::iWidget::setHorizontalAlignment">
-<area shape="rect" id="node1" title=" " alt="" coords="997,548,1176,589"/>
+<area shape="rect" id="node1" title=" " alt="" coords="997,580,1176,621"/>
 <area shape="rect" id="node2" href="$class_igor_1_1i_dialog_color_chooser.html#a478dcc24d00c3433a4139cd42faca383" title=" " alt="" coords="765,5,933,47"/>
 <area shape="rect" id="node3" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title=" " alt="" coords="765,71,934,112"/>
 <area shape="rect" id="node4" href="$class_igor_1_1i_dialog_decision_box.html#a86e1dc62325ecff2153ea397aef7ca26" title=" " alt="" coords="768,136,931,177"/>
@@ -17,7 +17,8 @@
 <area shape="rect" id="node18" href="$class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" title=" " alt="" coords="767,907,931,948"/>
 <area shape="rect" id="node19" href="$class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" title=" " alt="" coords="765,973,934,999"/>
 <area shape="rect" id="node20" href="$class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" title=" " alt="" coords="760,1024,939,1065"/>
-<area shape="rect" id="node21" href="$class_user_control_transformation.html#a5f920b175524b5e23698ebe1da531d48" title=" " alt="" coords="762,1089,937,1131"/>
+<area shape="rect" id="node21" href="$class_user_control_transformation.html#a78f585dbaf9da6958bacb936feefcb48" title=" " alt="" coords="762,1089,937,1131"/>
+<area shape="rect" id="node22" href="$class_user_control_transformation.html#a5f920b175524b5e23698ebe1da531d48" title=" " alt="" coords="762,1155,937,1196"/>
 <area shape="rect" id="node9" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title=" " alt="" coords="253,449,453,491"/>
 <area shape="rect" id="node10" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title=" " alt="" coords="5,449,205,491"/>
 </map>

@@ -32,7 +32,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.18.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.19.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -127,7 +127,7 @@ $(document).ready(function(){initNavTree('class_manipulator.html','');});
   <tr><td class="entry"><a class="el" href="class_manipulator.html#aa9ca9a9e572f1509018c446006d618ff">_visible</a></td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#ab81d1e4d3053ea0ad097a5fcdc604e3b">_window</a></td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_manipulator.html#a66cdbd94e7e01bc86e6e648d6fd6e5e5">create2DRingMesh</a>()</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#ac03d73c4d52505432605043b763b234e">createLocatorMesh</a>()</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#a78a316700b064b875a8e3aaa7f5a9f58">createCube</a>()</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_manipulator.html#a22aeed70187ef8467c3d29785d01b3bf">createRingMesh</a>()</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#ada38b5f63a87e181f60eae4ad7d28ded">createRotateModifier</a>(shared_ptr&lt; iMesh &gt; &amp;ringMesh, shared_ptr&lt; iMesh &gt; &amp;ringMesh2D)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_manipulator.html#a6d4ac04bee1d79981d08328704544cd7">createScaleMesh</a>()</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
@@ -147,7 +147,7 @@ $(document).ready(function(){initNavTree('class_manipulator.html','');});
   <tr><td class="entry"><a class="el" href="class_manipulator.html#a42640108b0db21295d8a1d8996973ebd">onMouseMoved</a>(const iaVector2i &amp;from, const iaVector2i &amp;to, iWindow *window)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#ad12f59612ca2e1fd7c2017a524967999">onMouseWheel</a>(int32 d)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_manipulator.html#a1c22577a0b747682d5d0b7d8b27d4a0e">render</a>()</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#a92f6ad9a14a638c2f74be60d63ad5e3e">rotate</a>(int32 x1, int32 y1, int32 x2, int32 y2, iaMatrixd &amp;matrix)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#acac7c534388ab5e30e9cf8d80c4f9f72">rotate</a>(const iaVector2d &amp;from, const iaVector2d &amp;to, iaMatrixd &amp;matrix)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr><td class="entry"><a class="el" href="class_manipulator.html#a6e17a49f07e52b98aa3b40445cb80fb7">scale</a>(const iaVector3d &amp;vec, iaMatrixd &amp;matrix)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_manipulator.html#a7d94f751faef63d8661bdf36df09092f">setCamCOI</a>(const iaMatrixd &amp;matrix)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_manipulator.html#a6392bd8aa1ee43fa21870e8628f50502">setCamHeading</a>(const iaMatrixd &amp;matrix)</td><td class="entry"><a class="el" href="class_manipulator.html">Manipulator</a></td><td class="entry"></td></tr>
@@ -165,7 +165,7 @@ $(document).ready(function(){initNavTree('class_manipulator.html','');});
 		<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
 			<ul>
 				<li class="footer">
-					Generated on Thu May 9 2019 17:28:27 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Wed May 22 2019 00:13:05 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

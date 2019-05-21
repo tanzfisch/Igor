@@ -49,7 +49,7 @@ var dir_81853e009da3367582c439e5f0afaec8 =
       [ "iaMutex", "class_igor_aux_1_1ia_mutex.html", "class_igor_aux_1_1ia_mutex" ]
     ] ],
     [ "iaQuaternion.h", "ia_quaternion_8h.html", "ia_quaternion_8h" ],
-    [ "iaQuaternion.inl", "ia_quaternion_8inl.html", null ],
+    [ "iaQuaternion.inl", "ia_quaternion_8inl.html", "ia_quaternion_8inl" ],
     [ "iaRandomNumberGenerator.cpp", "ia_random_number_generator_8cpp.html", null ],
     [ "iaRandomNumberGenerator.h", "ia_random_number_generator_8h.html", [
       [ "iaRandomNumberGenerator", "class_igor_aux_1_1ia_random_number_generator.html", "class_igor_aux_1_1ia_random_number_generator" ]
@@ -80,6 +80,8 @@ var dir_81853e009da3367582c439e5f0afaec8 =
     [ "iaString.h", "ia_string_8h.html", "ia_string_8h" ],
     [ "iaSystem.cpp", "ia_system_8cpp.html", "ia_system_8cpp" ],
     [ "iaSystem.h", "ia_system_8h.html", "ia_system_8h" ],
+    [ "iaTransform.h", "ia_transform_8h.html", "ia_transform_8h" ],
+    [ "iaTransform.inl", "ia_transform_8inl.html", "ia_transform_8inl" ],
     [ "iaTransition.cpp", "ia_transition_8cpp.html", null ],
     [ "iaTransition.h", "ia_transition_8h.html", [
       [ "iaTransition", "class_igor_aux_1_1ia_transition.html", "class_igor_aux_1_1ia_transition" ]
