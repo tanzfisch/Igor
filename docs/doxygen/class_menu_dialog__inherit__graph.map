@@ -1,0 +1,5 @@
+<map id="MenuDialog" name="MenuDialog">
+<area shape="rect" id="node1" title=" " alt="" coords="7,155,98,181"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog.html" title=" " alt="" coords="7,80,98,107"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="5,5,100,32"/>
+</map>

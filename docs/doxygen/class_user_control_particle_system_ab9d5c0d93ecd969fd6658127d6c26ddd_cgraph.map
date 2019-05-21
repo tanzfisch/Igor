@@ -1,0 +1,30 @@
+<map id="UserControlParticleSystem::updateNode" name="UserControlParticleSystem::updateNode">
+<area shape="rect" id="node1" title=" " alt="" coords="5,855,184,896"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="240,5,439,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_particle_system.html#a10db6023c47ac515953c5184d9f4aa43" title=" " alt="" coords="253,71,426,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_render.html#a96696863a607f3af8dbe4ceecd922538" title=" " alt="" coords="273,136,406,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_particle_system.html#a6bb3786dc7c811048b1844cdce88153a" title=" " alt="" coords="253,201,426,243"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_particle_system.html#a1a30816fd734028e22398f09edeb2d0c" title=" " alt="" coords="253,267,426,308"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_particle_system.html#af791bc832260bf9345b62203facb590f" title=" " alt="" coords="253,332,426,373"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node_particle_system.html#a5a340d5028874ae34f356a7bd0f37709" title=" " alt="" coords="253,397,426,439"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node_particle_system.html#abcc1686e2673aa332781ce657ede99a6" title=" " alt="" coords="253,463,426,504"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_node_particle_system.html#af69462ebfe75daf73e4ff6410a1dad87" title=" " alt="" coords="253,528,426,569"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_node_particle_system.html#a121e431760a4b62abd6339e92d82477c" title=" " alt="" coords="253,593,426,635"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_node_particle_system.html#a6d32b3abff282deedef58ef332bdf7d6" title=" " alt="" coords="253,659,426,700"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_node_particle_system.html#a8eb511f084648343b2463ea60c72fef8" title=" " alt="" coords="253,724,426,765"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_node_particle_system.html#aa823400dd1a5683fa3cba0087ecbac55" title=" " alt="" coords="253,789,426,831"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_node_particle_system.html#a4993f2015efa373ac1f091c3c869208c" title=" " alt="" coords="253,855,426,896"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_node_particle_system.html#a22ec15b52c1262dc883a21f77bfb5bc2" title=" " alt="" coords="253,920,426,961"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_node_particle_system.html#adbf6e7b2fdb59b6422b789371339b4b0" title=" " alt="" coords="253,985,426,1027"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_node_particle_system.html#afa6f3b7fc54f47690188c470d82e2c71" title=" " alt="" coords="253,1051,426,1092"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_node_particle_system.html#af6c2d081a3c1f1b592fb4fc5b4c6beb8" title=" " alt="" coords="253,1116,426,1157"/>
+<area shape="rect" id="node20" href="$class_igor_aux_1_1ia_gradient.html#a3ce9a96516704eb9b7e8e88cadb77043" title=" " alt="" coords="273,1181,406,1223"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_node_particle_system.html#ade34c647b3c773bcf6b81173f4884deb" title=" " alt="" coords="253,1247,426,1288"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_node_particle_system.html#af11e7ed047b876f5b196f13c589b1bc3" title=" " alt="" coords="253,1312,426,1353"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_node_particle_system.html#afe6512f73b93f2ab7b481b105c49bc7d" title=" " alt="" coords="243,1377,435,1419"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_node_particle_system.html#a6c2b9ba90e0d7df7a88e7c259d8c76e9" title=" " alt="" coords="245,1443,433,1484"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_node_particle_system.html#abc31abd5767a5d2c4b3e8aaf68895cf4" title=" " alt="" coords="232,1508,447,1549"/>
+<area shape="rect" id="node26" href="$class_igor_1_1i_node_particle_system.html#ad80b6a2223eb7656e08810f01185cfdd" title=" " alt="" coords="253,1573,426,1615"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_node_particle_system.html#af89f442b2065379ceaf6ddb0971c92fd" title=" " alt="" coords="253,1639,426,1680"/>
+<area shape="rect" id="node28" href="$class_igor_1_1i_node_particle_system.html#a480c78d9739a5296cade8b0bb841eedc" title=" " alt="" coords="253,1704,426,1745"/>
+</map>

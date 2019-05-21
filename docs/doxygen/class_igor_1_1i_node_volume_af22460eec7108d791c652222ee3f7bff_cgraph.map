@@ -1,0 +1,10 @@
+<map id="Igor::iNodeVolume::onPostSetScene" name="Igor::iNodeVolume::onPostSetScene">
+<area shape="rect" id="node1" title=" " alt="" coords="5,68,141,109"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_render.html#a3b6afcd3c7229fd1fa136610f684e5af" title=" " alt="" coords="216,5,349,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title=" " alt="" coords="209,75,356,102"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_scene.html#a7939cd9585b157e897106e82ad4017ed" title=" " alt="" coords="189,133,376,159"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a6e9c01a5d3c644a497bdac9f943d04bb" title=" " alt="" coords="424,10,631,37"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_volume.html#aae3a50db01e4e1834e1c4c61d893d1b7" title=" " alt="" coords="459,61,595,103"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_volume.html#a1ce089a47c6e0a85e49f7ed5a6758ad5" title=" " alt="" coords="459,127,595,168"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="466,193,589,219"/>
+</map>

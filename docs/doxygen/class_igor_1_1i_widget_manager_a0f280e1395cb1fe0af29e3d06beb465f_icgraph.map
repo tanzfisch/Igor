@@ -1,0 +1,18 @@
+<map id="Igor::iWidgetManager::destroyWidget" name="Igor::iWidgetManager::destroyWidget">
+<area shape="rect" id="node1" title=" " alt="" coords="240,421,385,462"/>
+<area shape="rect" id="node2" href="$class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" title=" " alt="" coords="23,5,174,32"/>
+<area shape="rect" id="node3" href="$class_properties_dialog.html#ac146ab337fcf2fcf7a616501d97d0a22" title=" " alt="" coords="9,56,188,83"/>
+<area shape="rect" id="node4" href="$class_user_control_emitter.html#a3d71ddd66354d160e42347a340672eca" title=" " alt="" coords="33,107,165,149"/>
+<area shape="rect" id="node5" href="$class_user_control_graph_view.html#a4d4ca145202566cef119f54a69ec9827" title=" " alt="" coords="22,173,175,214"/>
+<area shape="rect" id="node6" href="$class_user_control_graph_view.html#a3ae9d0b719a84527867c447c33e53080" title=" " alt="" coords="22,238,175,279"/>
+<area shape="rect" id="node7" href="$class_user_control_light.html#aba5702eeb9c4659eebfa31d9cfd179a5" title=" " alt="" coords="9,304,188,331"/>
+<area shape="rect" id="node8" href="$class_user_control_material.html#affeba973623aa2dc91737c9bd57c7479" title=" " alt="" coords="31,355,167,397"/>
+<area shape="rect" id="node9" href="$class_user_control_material_view.html#ac1fd39958043ff4320e482897a074dd3" title=" " alt="" coords="17,421,181,462"/>
+<area shape="rect" id="node10" href="$class_user_control_material_view.html#a586729d9ee46fc9de0fdbc281c6820eb" title=" " alt="" coords="17,486,181,527"/>
+<area shape="rect" id="node11" href="$class_user_control_mesh.html#a5a697f29c5abd237d352bd44ea3a508e" title=" " alt="" coords="7,552,190,579"/>
+<area shape="rect" id="node12" href="$class_user_control_model.html#aedbe67138ef781169049d28552301f26" title=" " alt="" coords="5,603,192,629"/>
+<area shape="rect" id="node13" href="$class_user_control_node.html#acdb39836ba5c9f42db18895e382de56c" title=" " alt="" coords="8,653,189,680"/>
+<area shape="rect" id="node14" href="$class_user_control_particle_system.html#a90d59fb69449d6f5677749fae01ab8c7" title=" " alt="" coords="9,705,188,746"/>
+<area shape="rect" id="node15" href="$class_user_control_properties.html#a114ef778532e24abead88102a6d10e67" title=" " alt="" coords="24,770,173,811"/>
+<area shape="rect" id="node16" href="$class_user_control_transformation.html#a4ff518727cc37b8170ad2cc2c5f02146" title=" " alt="" coords="11,835,186,877"/>
+</map>

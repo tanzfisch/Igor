@@ -1,0 +1,14 @@
+<map id="Igor::iDialogGraph" name="Igor::iDialogGraph">
+<area shape="rect" id="node1" title=" " alt="" coords="980,99,1105,125"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog.html" title=" " alt="" coords="757,99,848,125"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="461,141,556,168"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_graph.html" title=" " alt="" coords="737,207,868,233"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget_grid.html" title=" " alt="" coords="743,149,862,176"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget_label.html" title=" " alt="" coords="739,48,866,75"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="155,27,274,53"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_timer_handle.html" title=" " alt="" coords="151,107,278,133"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html" title=" " alt="" coords="135,183,295,209"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,228,44,255"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_rectangle.html" title=" " alt="" coords="143,272,286,299"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_rectangle.html" title=" " alt="" coords="421,272,596,299"/>
+</map>
