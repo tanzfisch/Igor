@@ -1,0 +1,13 @@
+<map id="UserControlNode" name="UserControlNode">
+<area shape="rect" id="node1" title=" " alt="" coords="849,180,969,207"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title=" " alt="" coords="557,279,680,305"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="397,236,492,263"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_check_box.html" title=" " alt="" coords="541,75,696,101"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_text_edit.html" title=" " alt="" coords="547,177,690,204"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget_label.html" title=" " alt="" coords="555,127,682,153"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget_grid.html" title=" " alt="" coords="559,228,678,255"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="131,83,250,109"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_timer_handle.html" title=" " alt="" coords="127,279,254,305"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html" title=" " alt="" coords="111,228,271,255"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,228,44,255"/>
+</map>

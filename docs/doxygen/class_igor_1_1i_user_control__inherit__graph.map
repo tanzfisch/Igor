@@ -1,0 +1,17 @@
+<map id="Igor::iUserControl" name="Igor::iUserControl">
+<area shape="rect" id="node1" title=" " alt="" coords="148,309,271,336"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html" title=" " alt="" coords="319,5,519,32"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_file_chooser.html" title=" " alt="" coords="323,56,514,83"/>
+<area shape="rect" id="node5" href="$class_user_control_emitter.html" title=" " alt="" coords="353,107,485,133"/>
+<area shape="rect" id="node6" href="$class_user_control_graph_view.html" title=" " alt="" coords="342,157,495,184"/>
+<area shape="rect" id="node7" href="$class_user_control_light.html" title=" " alt="" coords="359,208,478,235"/>
+<area shape="rect" id="node8" href="$class_user_control_material.html" title=" " alt="" coords="351,259,487,285"/>
+<area shape="rect" id="node9" href="$class_user_control_material_view.html" title=" " alt="" coords="337,309,501,336"/>
+<area shape="rect" id="node10" href="$class_user_control_mesh.html" title=" " alt="" coords="357,360,480,387"/>
+<area shape="rect" id="node11" href="$class_user_control_model.html" title=" " alt="" coords="356,411,481,437"/>
+<area shape="rect" id="node12" href="$class_user_control_node.html" title=" " alt="" coords="359,461,479,488"/>
+<area shape="rect" id="node13" href="$class_user_control_particle_system.html" title=" " alt="" coords="329,512,508,539"/>
+<area shape="rect" id="node14" href="$class_user_control_properties.html" title=" " alt="" coords="344,563,493,589"/>
+<area shape="rect" id="node15" href="$class_user_control_transformation.html" title=" " alt="" coords="331,613,506,640"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="5,309,100,336"/>
+</map>

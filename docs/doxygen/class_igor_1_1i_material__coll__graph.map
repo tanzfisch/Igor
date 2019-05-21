@@ -1,0 +1,9 @@
+<map id="Igor::iMaterial" name="Igor::iMaterial">
+<area shape="rect" id="node1" title=" " alt="" coords="325,184,425,211"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="5,95,124,121"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_i_d_generator.html" title=" " alt="" coords="149,95,333,121"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="129,5,249,32"/>
+<area shape="rect" id="node5" title=" " alt="" coords="273,5,312,32"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_render_state_set.html" title=" " alt="" coords="357,95,503,121"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_shader.html" title=" " alt="" coords="528,95,623,121"/>
+</map>

@@ -1,0 +1,28 @@
+var class_igor_1_1i_widget_select_box =
+[
+    [ "iWidgetSelectBox", "class_igor_1_1i_widget_select_box.html#a2f06d3c69106a371425dac141734b810", null ],
+    [ "~iWidgetSelectBox", "class_igor_1_1i_widget_select_box.html#a2554c8fe4f3322a692cf6db47e4e6093", null ],
+    [ "addSelectionEntry", "class_igor_1_1i_widget_select_box.html#a4b9b4ba2304e36e424bb90db8c08fe05", null ],
+    [ "calcMinSize", "class_igor_1_1i_widget_select_box.html#a38c5cc99b6a1ab52ea60f7757ffe4505", null ],
+    [ "clear", "class_igor_1_1i_widget_select_box.html#af1b84d3b60b1dea518eabe0a7261ee55", null ],
+    [ "createInstance", "class_igor_1_1i_widget_select_box.html#ab0d66389fbc88e5b94a3ca8969e46b80", null ],
+    [ "draw", "class_igor_1_1i_widget_select_box.html#a22554f9ea57516a11050c7ff5c341b18", null ],
+    [ "getSelectedIndex", "class_igor_1_1i_widget_select_box.html#a0b71208d328e6dfa7e57d66762092387", null ],
+    [ "getSelectedUserData", "class_igor_1_1i_widget_select_box.html#a3691014c43c929651f34ca267d7cc3a8", null ],
+    [ "getSelectedValue", "class_igor_1_1i_widget_select_box.html#a30cd6019d054cc84d38cdcd05885f57c", null ],
+    [ "getSelectionEntryCount", "class_igor_1_1i_widget_select_box.html#a0f5fab771de8148157aeaecb04b78e53", null ],
+    [ "handleMouseKeyDown", "class_igor_1_1i_widget_select_box.html#aabb0c1b2d59727ff63e575dbbce291c3", null ],
+    [ "handleMouseKeyUp", "class_igor_1_1i_widget_select_box.html#a5e97864be415a7537e08b7e4de15da31", null ],
+    [ "handleMouseMove", "class_igor_1_1i_widget_select_box.html#aea81ff78e267dae587d66aa19e362a11", null ],
+    [ "handleMouseWheel", "class_igor_1_1i_widget_select_box.html#a2f352353401ad2407f5562404c3dcd2b", null ],
+    [ "onSelectionChanged", "class_igor_1_1i_widget_select_box.html#ad6ef88939804b766cb7aac844bfb66bc", null ],
+    [ "setSelection", "class_igor_1_1i_widget_select_box.html#a3c6b646f3de8467f41ca9e349d9a66fa", null ],
+    [ "iWidgetManager", "class_igor_1_1i_widget_select_box.html#a9da20b1c56a70b01ca0ef56f4d4d47fc", null ],
+    [ "_buttonAppearanceState", "class_igor_1_1i_widget_select_box.html#a808e347206f53df49f90e92562cb61ae", null ],
+    [ "_buttonRectangle", "class_igor_1_1i_widget_select_box.html#a2bfe781fdf14058f8df1498e9253d332", null ],
+    [ "_currentSelection", "class_igor_1_1i_widget_select_box.html#a63d82bc802902d50aeed1ca1357fb49b", null ],
+    [ "_entries", "class_igor_1_1i_widget_select_box.html#adb1440a8711fb05b3455a09bb3e9cd86", null ],
+    [ "_mouseOverButton", "class_igor_1_1i_widget_select_box.html#a59f42dce202711d098aefdc15acabf9e", null ],
+    [ "_openSelectBox", "class_igor_1_1i_widget_select_box.html#a4a3f26bb3e8989d4ebdaa39db5065497", null ],
+    [ "_selectBox", "class_igor_1_1i_widget_select_box.html#a3aa97936bd2c6891589394c97f16db48", null ]
+];

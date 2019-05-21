@@ -1,0 +1,28 @@
+<map id="UserControlMesh" name="UserControlMesh">
+<area shape="rect" id="node1" title=" " alt="" coords="1889,1172,2012,1199"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title=" " alt="" coords="841,1239,963,1265"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_user_control_color_chooser.html" title=" " alt="" coords="1196,1172,1396,1199"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_user_control_file_chooser.html" title=" " alt="" coords="1544,507,1735,533"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="456,1031,551,1057"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_color.html" title=" " alt="" coords="839,1289,965,1316"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget_button.html" title=" " alt="" coords="835,553,969,580"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget_number_chooser.html" title=" " alt="" coords="808,1559,996,1585"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_widget_label.html" title=" " alt="" coords="839,783,965,809"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_widget_grid.html" title=" " alt="" coords="843,1003,961,1029"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_widget_spacer.html" title=" " alt="" coords="834,1188,970,1215"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_widget_slider.html" title=" " alt="" coords="838,448,966,475"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_widget_text_edit.html" title=" " alt="" coords="831,153,973,180"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_widget_select_box.html" title=" " alt="" coords="1562,1677,1717,1704"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_dialog.html" title=" " alt="" coords="857,1053,947,1080"/>
+<area shape="rect" id="node26" href="$class_igor_1_1i_widget_scroll.html" title=" " alt="" coords="838,952,966,979"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="155,553,274,580"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_dialog_file_select.html" title=" " alt="" coords="1222,507,1370,533"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_timer_handle.html" title=" " alt="" coords="151,1411,278,1437"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html" title=" " alt="" coords="135,1271,295,1297"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,1700,44,1727"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_color4.html" title=" " alt="" coords="427,1703,579,1729"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_rectangle.html" title=" " alt="" coords="143,1779,286,1805"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_rectangle.html" title=" " alt="" coords="421,1652,585,1679"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_rectangle.html" title=" " alt="" coords="609,1857,784,1884"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_dialog_menu.html" title=" " alt="" coords="1235,1377,1357,1404"/>
+</map>

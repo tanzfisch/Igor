@@ -1,0 +1,16 @@
+<map id="C:/dev/Igor/Igor/src/IgorAux/src/iaStateMachine.h" name="C:/dev/Igor/Igor/src/IgorAux/src/iaStateMachine.h">
+<area shape="rect" id="node1" title=" " alt="" coords="37,5,235,47"/>
+<area shape="rect" id="node2" href="$ia_defines_8h.html" title=" " alt="" coords="51,468,138,495"/>
+<area shape="rect" id="node3" href="$ia_state_8h.html" title=" " alt="" coords="99,95,173,121"/>
+<area shape="rect" id="node14" title=" " alt="" coords="198,95,245,121"/>
+<area shape="rect" id="node4" href="$ia_event_8h.html" title=" " alt="" coords="155,169,229,196"/>
+<area shape="rect" id="node13" title=" " alt="" coords="379,244,435,271"/>
+<area shape="rect" id="node5" href="$ia_mutex_8h.html" title=" " alt="" coords="94,393,173,420"/>
+<area shape="rect" id="node6" href="$ia_delegate_8h.html" title=" " alt="" coords="145,244,239,271"/>
+<area shape="rect" id="node7" href="$ia_console_8h.html" title=" " alt="" coords="264,244,355,271"/>
+<area shape="rect" id="node8" href="$ia_singleton_8h.html" title=" " alt="" coords="145,319,242,345"/>
+<area shape="rect" id="node9" href="$ia_clock_8h.html" title=" " alt="" coords="219,393,295,420"/>
+<area shape="rect" id="node10" title=" " alt="" coords="318,319,383,345"/>
+<area shape="rect" id="node11" title=" " alt="" coords="408,319,480,345"/>
+<area shape="rect" id="node12" title=" " alt="" coords="504,319,571,345"/>
+</map>

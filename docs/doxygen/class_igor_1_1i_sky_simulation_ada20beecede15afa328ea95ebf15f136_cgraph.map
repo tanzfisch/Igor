@@ -1,0 +1,6 @@
+<map id="Igor::iSkySimulation::update" name="Igor::iSkySimulation::update">
+<area shape="rect" id="node1" title=" " alt="" coords="5,71,144,112"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title=" " alt="" coords="197,5,325,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_sky_light_node.html#af7ea9d097996ca00bd0880aa99e15056" title=" " alt="" coords="194,71,329,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_sky_box.html#acb1b3b3b1c0afc25c566abe20bda14ac" title=" " alt="" coords="192,136,331,177"/>
+</map>

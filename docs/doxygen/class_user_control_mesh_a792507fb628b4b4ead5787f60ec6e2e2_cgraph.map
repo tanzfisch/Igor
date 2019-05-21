@@ -1,0 +1,20 @@
+<map id="UserControlMesh::initGUI" name="UserControlMesh::initGUI">
+<area shape="rect" id="node1" title=" " alt="" coords="5,535,175,562"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="231,5,445,47"/>
+<area shape="rect" id="node3" href="$class_user_control_mesh.html#a81161ab2cdc827e49c73a4a119549f07" title=" " alt="" coords="242,71,434,112"/>
+<area shape="rect" id="node4" href="$class_user_control_mesh.html#a7822b65b531741c64b763e07ba77a1bb" title=" " alt="" coords="247,136,429,177"/>
+<area shape="rect" id="node5" href="$class_user_control_mesh.html#a306f1a608c75971864c53dd39df06477" title=" " alt="" coords="241,201,435,243"/>
+<area shape="rect" id="node6" href="$class_user_control_mesh.html#a32b041a0d57e2ef9c14dfd59198e91df" title=" " alt="" coords="240,267,436,308"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title=" " alt="" coords="275,332,401,373"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title=" " alt="" coords="275,397,401,439"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title=" " alt="" coords="275,463,401,504"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title=" " alt="" coords="249,528,427,569"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title=" " alt="" coords="275,593,401,635"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title=" " alt="" coords="261,659,415,686"/>
+<area shape="rect" id="node13" href="$class_user_control_mesh.html#ac1978d35fd95e4ced10be2afafa71ab3" title=" " alt="" coords="249,711,427,752"/>
+<area shape="rect" id="node14" href="$class_user_control_mesh.html#ae5081e4ea98fcdea76a0e24888038324" title=" " alt="" coords="228,776,448,817"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title=" " alt="" coords="255,841,421,883"/>
+<area shape="rect" id="node16" href="$class_user_control_mesh.html#ac901c8a8ea1a2a802ee2038ed9925672" title=" " alt="" coords="223,907,453,934"/>
+<area shape="rect" id="node17" href="$class_user_control_mesh.html#aac5a78a76e9492aa3da4e69f0e287500" title=" " alt="" coords="243,959,433,1000"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title=" " alt="" coords="275,1024,401,1065"/>
+</map>

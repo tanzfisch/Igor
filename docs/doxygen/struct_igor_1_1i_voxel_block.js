@@ -1,0 +1,26 @@
+var struct_igor_1_1i_voxel_block =
+[
+    [ "_childAdress", "struct_igor_1_1i_voxel_block.html#ac5f0768362108ed29d7d157114d570e3", null ],
+    [ "_children", "struct_igor_1_1i_voxel_block.html#afc080710cf3099cd893a79f73d63e642", null ],
+    [ "_dirty", "struct_igor_1_1i_voxel_block.html#ab2ec9c9c923952747ea89990b5a2fd3f", null ],
+    [ "_dirtyNeighbours", "struct_igor_1_1i_voxel_block.html#adc9a399f35a120841e4bf8d9aee1d36f", null ],
+    [ "_id", "struct_igor_1_1i_voxel_block.html#a6bd1da20097bdae121acb8f698aacf32", null ],
+    [ "_inRange", "struct_igor_1_1i_voxel_block.html#a13ea209d0444f00f93d472cbdeb167ea", null ],
+    [ "_lod", "struct_igor_1_1i_voxel_block.html#ab4ab2b8de5d2075c3224ef6fe5fdb6c6", null ],
+    [ "_modelNodeIDCurrent", "struct_igor_1_1i_voxel_block.html#a00672c3e479b6f63cdd2c96a11db5404", null ],
+    [ "_modelNodeIDQueued", "struct_igor_1_1i_voxel_block.html#a892fd5d9d5dc2b04798cd4fad404998c", null ],
+    [ "_mutationCounter", "struct_igor_1_1i_voxel_block.html#acd49c6a9247337b53f9c6bfd782c7fc0", null ],
+    [ "_neighbours", "struct_igor_1_1i_voxel_block.html#aa85c22f761959d060f6d82e83f7eb72e", null ],
+    [ "_neighboursLOD", "struct_igor_1_1i_voxel_block.html#ab8eb8fd9314874738a562ea5bb47d0e3", null ],
+    [ "_parent", "struct_igor_1_1i_voxel_block.html#a1ce44dcbcbb57ff23b0c9880615614c3", null ],
+    [ "_positionInLOD", "struct_igor_1_1i_voxel_block.html#a63c33b9515de6db48a23575eccabe5d7", null ],
+    [ "_size", "struct_igor_1_1i_voxel_block.html#ad6d84e46136c29f9c1350a0ea0ee39b8", null ],
+    [ "_state", "struct_igor_1_1i_voxel_block.html#af29839238d2356baca594c0691b4e530", null ],
+    [ "_transformNodeIDCurrent", "struct_igor_1_1i_voxel_block.html#a998a2b0c148995db7788f5cc465cedba", null ],
+    [ "_transformNodeIDQueued", "struct_igor_1_1i_voxel_block.html#ae185a93c97b5568b445c8114b4b9f93d", null ],
+    [ "_voxelBlockInfo", "struct_igor_1_1i_voxel_block.html#ae54e8668a4d8626de155f9e542e4eec1", null ],
+    [ "_voxelData", "struct_igor_1_1i_voxel_block.html#a4c2e0fcfe3e6330520cf9fa9341131c8", null ],
+    [ "_voxelGenerationTaskID", "struct_igor_1_1i_voxel_block.html#af56da18310ace6d1386ba5a4f7f43ae6", null ],
+    [ "_voxelOperations", "struct_igor_1_1i_voxel_block.html#a2c10dbc787b717a3b8dda615c0912a79", null ],
+    [ "INVALID_VOXELBLOCKID", "struct_igor_1_1i_voxel_block.html#aa763c1363b3a109bf27cb091bb7c13e9", null ]
+];

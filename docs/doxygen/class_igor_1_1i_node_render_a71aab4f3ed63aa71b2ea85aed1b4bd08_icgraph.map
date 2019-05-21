@@ -1,0 +1,8 @@
+<map id="Igor::iNodeRender::getMaterial" name="Igor::iNodeRender::getMaterial">
+<area shape="rect" id="node1" title=" " alt="" coords="245,136,379,177"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#ae7624b5254a10e0d9d1580dd5239e9de" title=" " alt="" coords="5,5,197,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_particle_system.html#aa47e497b438194f01c1ececbcac58812" title=" " alt="" coords="15,71,188,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_render_engine.html#a36278c223dbe35b0d6a74469dff52195" title=" " alt="" coords="34,136,169,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_render_engine.html#ab5bd16912a4a41154cdc29830040a07e" title=" " alt="" coords="34,201,169,243"/>
+<area shape="rect" id="node6" href="$class_user_control_particle_system.html#a60f0ef94fe517d5fcf6e1f9c9ba63d84" title=" " alt="" coords="12,267,191,308"/>
+</map>

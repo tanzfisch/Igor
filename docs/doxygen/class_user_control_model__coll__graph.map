@@ -1,0 +1,12 @@
+<map id="UserControlModel" name="UserControlModel">
+<area shape="rect" id="node1" title=" " alt="" coords="280,381,405,408"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title=" " alt="" coords="60,292,183,319"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="194,215,289,241"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_text_edit.html" title=" " alt="" coords="350,292,493,319"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_label.html" title=" " alt="" coords="517,292,643,319"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget_grid.html" title=" " alt="" coords="207,292,326,319"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="403,109,522,136"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_timer_handle.html" title=" " alt="" coords="190,109,317,136"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html" title=" " alt="" coords="5,109,165,136"/>
+<area shape="rect" id="node7" title=" " alt="" coords="66,5,105,32"/>
+</map>

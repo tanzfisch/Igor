@@ -1,0 +1,13 @@
+<map id="Igor::iDialogDecisionBox" name="Igor::iDialogDecisionBox">
+<area shape="rect" id="node1" title=" " alt="" coords="839,145,1001,172"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog.html" title=" " alt="" coords="564,144,655,171"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="397,128,492,155"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_button.html" title=" " alt="" coords="543,195,676,221"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_label.html" title=" " alt="" coords="546,245,673,272"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget_grid.html" title=" " alt="" coords="550,35,669,61"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget_spacer.html" title=" " alt="" coords="541,93,677,120"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="131,227,250,253"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_timer_handle.html" title=" " alt="" coords="127,129,254,156"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html" title=" " alt="" coords="111,79,271,105"/>
+<area shape="rect" id="node7" title=" " alt="" coords="5,79,44,105"/>
+</map>

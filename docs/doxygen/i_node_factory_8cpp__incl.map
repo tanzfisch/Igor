@@ -1,0 +1,52 @@
+<map id="C:/dev/Igor/Igor/src/Igor/src/iNodeFactory.cpp" name="C:/dev/Igor/Igor/src/Igor/src/iNodeFactory.cpp">
+<area shape="rect" id="node1" title=" " alt="" coords="1560,5,1735,47"/>
+<area shape="rect" id="node2" href="$i_node_factory_8h.html" title=" " alt="" coords="2456,244,2567,271"/>
+<area shape="rect" id="node3" href="$i_node_8h.html" title=" " alt="" coords="1782,319,1849,345"/>
+<area shape="rect" id="node9" href="$ia_console_8h.html" title=" " alt="" coords="675,468,766,495"/>
+<area shape="rect" id="node22" href="$i_node_camera_8h.html" title=" " alt="" coords="1841,244,1952,271"/>
+<area shape="rect" id="node23" href="$i_celestial_node_8h.html" title=" " alt="" coords="1736,169,1852,196"/>
+<area shape="rect" id="node24" href="$i_node_render_8h.html" title=" " alt="" coords="1446,244,1553,271"/>
+<area shape="rect" id="node27" href="$i_node_transform_8h.html" title=" " alt="" coords="285,244,407,271"/>
+<area shape="rect" id="node28" href="$i_node_mesh_8h.html" title=" " alt="" coords="371,95,470,121"/>
+<area shape="rect" id="node31" href="$i_node_model_8h.html" title=" " alt="" coords="1689,244,1790,271"/>
+<area shape="rect" id="node32" href="$i_node_sky_box_8h.html" title=" " alt="" coords="1877,169,1989,196"/>
+<area shape="rect" id="node33" href="$i_sky_light_node_8h.html" title=" " alt="" coords="698,169,815,196"/>
+<area shape="rect" id="node36" href="$i_node_light_8h.html" title=" " alt="" coords="5,244,100,271"/>
+<area shape="rect" id="node37" href="$i_node_switch_8h.html" title=" " alt="" coords="2184,244,2289,271"/>
+<area shape="rect" id="node38" href="$i_node_l_o_d_switch_8h.html" title=" " alt="" coords="2685,244,2815,271"/>
+<area shape="rect" id="node40" href="$i_node_l_o_d_trigger_8h.html" title=" " alt="" coords="2890,244,3021,271"/>
+<area shape="rect" id="node41" href="$i_node_physics_8h.html" title=" " alt="" coords="1056,95,1169,121"/>
+<area shape="rect" id="node46" href="$i_node_particle_system_8h.html" title=" " alt="" coords="1306,95,1461,121"/>
+<area shape="rect" id="node47" href="$i_node_emitter_8h.html" title=" " alt="" coords="2320,244,2428,271"/>
+<area shape="rect" id="node48" href="$i_node_water_8h.html" title=" " alt="" coords="2063,169,2165,196"/>
+<area shape="rect" id="node49" href="$i_node_visitor_print_tree_8h.html" title=" " alt="" coords="1603,319,1758,345"/>
+<area shape="rect" id="node50" href="$i_application_8h.html" title=" " alt="" coords="916,319,1016,345"/>
+<area shape="rect" id="node6" href="$ia_mutex_8h.html" title=" " alt="" coords="1641,617,1720,644"/>
+<area shape="rect" id="node10" href="$ia_singleton_8h.html" title=" " alt="" coords="1901,543,1999,569"/>
+<area shape="rect" id="node20" title=" " alt="" coords="2319,393,2365,420"/>
+<area shape="rect" id="node21" href="$i_node_factory_8inl.html" title=" " alt="" coords="2583,319,2699,345"/>
+<area shape="rect" id="node4" href="$i_data_update_queue_8h.html" title=" " alt="" coords="1547,393,1689,420"/>
+<area shape="rect" id="node5" href="$i_defines_8h.html" title=" " alt="" coords="845,468,924,495"/>
+<area shape="rect" id="node7" title=" " alt="" coords="1455,468,1511,495"/>
+<area shape="rect" id="node8" href="$ia_event_8h.html" title=" " alt="" coords="1050,393,1125,420"/>
+<area shape="rect" id="node15" href="$ia_string_8h.html" title=" " alt="" coords="2002,393,2079,420"/>
+<area shape="rect" id="node16" title=" " alt="" coords="2006,468,2075,495"/>
+<area shape="rect" id="node17" href="$ia_matrix_8h.html" title=" " alt="" coords="460,393,539,420"/>
+<area shape="rect" id="node18" href="$ia_i_d_generator_8h.html" title=" " alt="" coords="1714,393,1826,420"/>
+<area shape="rect" id="node19" title=" " alt="" coords="1250,393,1319,420"/>
+<area shape="rect" id="node11" href="$ia_clock_8h.html" title=" " alt="" coords="779,543,855,569"/>
+<area shape="rect" id="node12" title=" " alt="" coords="363,543,428,569"/>
+<area shape="rect" id="node13" title=" " alt="" coords="591,543,663,569"/>
+<area shape="rect" id="node14" title=" " alt="" coords="687,543,754,569"/>
+<area shape="rect" id="node26" href="$i_texture_resource_factory_8h.html" title=" " alt="" coords="2025,319,2203,345"/>
+<area shape="rect" id="node25" href="$i_material_8h.html" title=" " alt="" coords="1497,319,1579,345"/>
+<area shape="rect" id="node29" href="$i_node_volume_8h.html" title=" " alt="" coords="1209,169,1320,196"/>
+<area shape="rect" id="node30" href="$ia_color3_8h.html" title=" " alt="" coords="305,393,385,420"/>
+<area shape="rect" id="node34" href="$i_mesh_builder_8h.html" title=" " alt="" coords="437,319,545,345"/>
+<area shape="rect" id="node35" href="$ia_color4_8h.html" title=" " alt="" coords="201,393,281,420"/>
+<area shape="rect" id="node39" href="$ia_vector3_8h.html" title=" " alt="" coords="2875,319,2963,345"/>
+<area shape="rect" id="node42" href="$i_task_8h.html" title=" " alt="" coords="625,393,689,420"/>
+<area shape="rect" id="node43" href="$i_physics_collision_config_8h.html" title=" " alt="" coords="1029,244,1197,271"/>
+<area shape="rect" id="node44" href="$i_mesh_8h.html" title=" " alt="" coords="569,319,637,345"/>
+<area shape="rect" id="node45" href="$i_physics_body_8h.html" title=" " alt="" coords="891,244,1004,271"/>
+</map>

@@ -1,0 +1,21 @@
+<map id="Manipulator::createScaleModifier" name="Manipulator::createScaleModifier">
+<area shape="rect" id="node1" title=" " alt="" coords="5,297,172,338"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="220,202,419,243"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#acd7e28d04dabd094e46ec96d345106ee" title=" " alt="" coords="255,267,383,309"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title=" " alt="" coords="242,333,397,360"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_node_transform.html#a36db58a9939509fcb25f957d652b964f" title=" " alt="" coords="249,410,390,451"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="745,5,868,32"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title=" " alt="" coords="741,392,872,419"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node.html#adbeb716577ae857dc4274e8285dd94fe" title=" " alt="" coords="490,359,638,385"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node.html#a0392b6251631e79675f7416827335b70" title=" " alt="" coords="491,199,637,225"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title=" " alt="" coords="467,410,661,451"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143" title=" " alt="" coords="715,56,898,83"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f" title=" " alt="" coords="725,107,888,149"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_scene.html#ab362507531b6b5207a3045283e9820c0" title=" " alt="" coords="731,173,882,200"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title=" " alt="" coords="727,224,887,251"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e" title=" " alt="" coords="711,275,902,301"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21" title=" " alt="" coords="725,326,888,367"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title=" " alt="" coords="952,484,1100,511"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title=" " alt="" coords="709,518,904,559"/>
+<area shape="rect" id="node19" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title=" " alt="" coords="500,475,628,517"/>
+</map>
