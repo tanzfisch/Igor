@@ -2026,9 +2026,12 @@ namespace Igor
 		iaMatrixd modelViewProjection = projection;
 		modelViewProjection *= modelview;
 		out = modelViewProjection * in;
+		out[0] /= out._w;
+		out[1] /= out._w;
+		out[2] /= out._w;
 
-		result._x = (float64)viewport.getWidth() * (out._vec._x + 1.0) / 2.0;
-		result._y = (float64)viewport.getHeight() * (1.0 - ((out._vec._y + 1.0) / 2.0));
+		result._x = static_cast<float64>(viewport.getWidth()) * (out._vec._x + 1.0) / 2.0;
+		result._y = static_cast<float64>(viewport.getHeight()) * (1.0 - ((out._vec._y + 1.0) / 2.0));
 		result._z = out._vec._z;
 
 		return result;

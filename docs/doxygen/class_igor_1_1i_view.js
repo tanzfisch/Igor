@@ -14,7 +14,7 @@ var class_igor_1_1i_view =
     [ "isWireframeVisible", "class_igor_1_1i_view.html#af6e957b09df2daf755575b8295ecca73", null ],
     [ "pickcolorID", "class_igor_1_1i_view.html#a37562758e5ff35f5e1d1e775fe79152e", null ],
     [ "pickcolorID", "class_igor_1_1i_view.html#a4bf64f1d4d7260afbd3e8f0ea9c3a361", null ],
-    [ "project", "class_igor_1_1i_view.html#a1e61cd23501f81febceba0d9a9d458db", null ],
+    [ "project", "class_igor_1_1i_view.html#ae595560146454444796b5ce1c518f6a9", null ],
     [ "registerRenderDelegate", "class_igor_1_1i_view.html#a704953b1b89ae88e7996ce23f8f6d20a", null ],
     [ "setBoundingBoxVisible", "class_igor_1_1i_view.html#a9a282ee2c2440a425e4b8806dd97c869", null ],
     [ "setClearColor", "class_igor_1_1i_view.html#a1dc18566709f1b8269c6ca66ad0777c5", null ],

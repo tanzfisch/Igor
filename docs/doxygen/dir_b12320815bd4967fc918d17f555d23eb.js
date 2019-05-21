@@ -1,5 +1,6 @@
 var dir_b12320815bd4967fc918d17f555d23eb =
 [
+    [ "gitTag.inl", "git_tag_8inl.html", "git_tag_8inl" ],
     [ "iAABox.h", "i_a_a_box_8h.html", "i_a_a_box_8h" ],
     [ "iAABox.inl", "i_a_a_box_8inl.html", null ],
     [ "iAACube.h", "i_a_a_cube_8h.html", "i_a_a_cube_8h" ],

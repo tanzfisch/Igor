@@ -32,7 +32,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.18.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.19.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -103,13 +103,12 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node_volume.html','');
 <div class="dynheader">
 Inheritance diagram for Igor::iNodeVolume:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume__inherit__graph.svg" width="184" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume__inherit__graph.svg" width="184" height="262"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for Igor::iNodeVolume:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume__coll__graph.svg" width="1359" height="562"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume__coll__graph.svg" width="1360" height="567"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -193,6 +192,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afcf9574e0c451509015b42b36be8a6eb inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74ca70a584119d44b03b47c78efa995a inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a74ca70a584119d44b03b47c78efa995a">isActive</a> () const</td></tr>
 <tr class="separator:a74ca70a584119d44b03b47c78efa995a inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443">getTransformationChangeEvent</a> ()</td></tr>
+<tr class="separator:a92a082c4e595b2f485e959b54e67c443 inherit pub_methods_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -284,6 +285,8 @@ Additional Inherited Members</h2></td></tr>
 <tr class="separator:acd7b3ddac0c909296914b9b9a8d9ead9 inherit pro_attribs_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45a96d08dd5de4de995caf92169e0531 inherit pro_attribs_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a45a96d08dd5de4de995caf92169e0531">_inactiveChildren</a></td></tr>
 <tr class="separator:a45a96d08dd5de4de995caf92169e0531 inherit pro_attribs_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c647bfde42f17d248e8ae597a5a910b inherit pro_attribs_class_igor_1_1i_node"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a2c647bfde42f17d248e8ae597a5a910b">_transformationChangeEvent</a></td></tr>
+<tr class="separator:a2c647bfde42f17d248e8ae597a5a910b inherit pro_attribs_class_igor_1_1i_node"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Node that is a renderable and has a volume therefore relevant for the octree structure</p>
@@ -376,8 +379,7 @@ Additional Inherited Members</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a5c88e62b2f49b43cb4b7253b8bade560_cgraph.svg" width="580" height="374"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a5c88e62b2f49b43cb4b7253b8bade560_cgraph.svg" width="580" height="374"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -404,8 +406,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a481e90406211d651e9a4244434daf79f_icgraph.svg" width="416" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a481e90406211d651e9a4244434daf79f_icgraph.svg" width="416" height="104"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -430,8 +431,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a1ce089a47c6e0a85e49f7ed5a6758ad5_icgraph.svg" width="750" height="204"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a1ce089a47c6e0a85e49f7ed5a6758ad5_icgraph.svg" width="750" height="204"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -456,8 +456,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_aae3a50db01e4e1834e1c4c61d893d1b7_icgraph.svg" width="750" height="150"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_aae3a50db01e4e1834e1c4c61d893d1b7_icgraph.svg" width="750" height="150"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -512,8 +511,7 @@ Here is the caller graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_af22460eec7108d791c652222ee3f7bff_cgraph.svg" width="636" height="226"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_af22460eec7108d791c652222ee3f7bff_cgraph.svg" width="636" height="226"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -548,8 +546,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a05ed3c821278647543de7a025173d636_cgraph.svg" width="555" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a05ed3c821278647543de7a025173d636_cgraph.svg" width="555" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -623,8 +620,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a40d766c3877a3125e4733c8203ee8c07_cgraph.svg" width="746" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a40d766c3877a3125e4733c8203ee8c07_cgraph.svg" width="746" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -683,8 +679,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a1e9e75c89b3bb3a230a558a188686486_cgraph.svg" width="746" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a1e9e75c89b3bb3a230a558a188686486_cgraph.svg" width="746" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -717,14 +712,12 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a17aa3c42829bb7e6c302207d7f9568db_cgraph.svg" width="562" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a17aa3c42829bb7e6c302207d7f9568db_cgraph.svg" width="562" height="170"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a17aa3c42829bb7e6c302207d7f9568db_icgraph.svg" width="331" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_volume_a17aa3c42829bb7e6c302207d7f9568db_icgraph.svg" width="331" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -816,7 +809,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node_volume.html">iNodeVolume</a></li>
 				<li class="footer">
-					Generated on Thu May 9 2019 17:28:38 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Wed May 22 2019 00:13:15 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

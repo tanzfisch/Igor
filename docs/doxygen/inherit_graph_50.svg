@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 123)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-123 235,-123 235,4 -4,4"/>
-<!-- Node251 -->
-<g id="node1" class="node"><title>Node251</title>
+<!-- Node425 -->
+<g id="node1" class="node"><title>Node425</title>
 <g id="a_node1"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="4.5,-88.5 4.5,-118.5 108.5,-118.5 108.5,-88.5 4.5,-88.5"/>
 <text text-anchor="start" x="12.5" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
@@ -26,13 +26,13 @@
 </a>
 </g>
 </g>
-<!-- Node251&#45;&gt;Node1 -->
-<g id="edge1" class="edge"><title>Node251&#45;&gt;Node1</title>
+<!-- Node425&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node425&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M118.79,-92.3141C128.945,-90.4606 139.243,-88.5812 148.708,-86.8537"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="117.927,-88.9136 108.718,-94.1523 119.184,-95.7999 117.927,-88.9136"/>
 </g>
-<!-- Node244 -->
-<g id="node3" class="node"><title>Node244</title>
+<!-- Node418 -->
+<g id="node3" class="node"><title>Node418</title>
 <g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="4.5,-0.5 4.5,-30.5 108.5,-30.5 108.5,-0.5 4.5,-0.5"/>
 <text text-anchor="start" x="12.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
@@ -48,8 +48,8 @@
 </a>
 </g>
 </g>
-<!-- Node244&#45;&gt;Node2 -->
-<g id="edge2" class="edge"><title>Node244&#45;&gt;Node2</title>
+<!-- Node418&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node418&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M118.6,-26.1867C131.024,-28.3597 143.67,-30.5716 154.753,-32.51"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="119.171,-22.7336 108.718,-24.4583 117.965,-29.6289 119.171,-22.7336"/>
 </g>

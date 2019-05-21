@@ -31,6 +31,7 @@
 
 #include <iaColor3.h>
 #include <iaColor4.h>
+#include <iaVector2.h>
 #include <iaVector3.h>
 #include <iaMatrix.h>
 
@@ -72,14 +73,27 @@ namespace IgorAux
         */
         static void convert(const iaColor4c& src, iaColor4f& dst);
 
-        /*! converts int64 based 3 dimensional vector in float base
+        /*! converts int64 based 3 dimensional vector in float32 base
 
         \param src src vector
         \param[out] dst destination vector
         */
         static void convert(const iaVector3I& src, iaVector3f& dst);
 
-        static void convert(const iaVector3I& src, iaVector3d& dst);
+		/*! converts int64 based 3 dimensional vector in float64 base
+
+		\param src src vector
+		\param[out] dst destination vector
+		*/
+		static void convert(const iaVector3I& src, iaVector3d& dst);
+
+		static void convert(const iaVector3i& src, iaVector3f& dst);
+		
+		static void convert(const iaVector3i& src, iaVector3d& dst);
+
+		static void convert(const iaVector2i& src, iaVector2f& dst);
+
+		static void convert(const iaVector2i& src, iaVector2d& dst);
 
         /*! converts float32 based 3 dimensional vector in int64 base
 

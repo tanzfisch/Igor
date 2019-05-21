@@ -48,41 +48,55 @@
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
 <g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="131.5,-134.5 131.5,-153.5 221.5,-153.5 221.5,-134.5 131.5,-134.5"/>
-<text text-anchor="middle" x="176.5" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex</text>
+<polygon fill="white" stroke="black" points="92.5,-134.5 92.5,-153.5 182.5,-153.5 182.5,-134.5 92.5,-134.5"/>
+<text text-anchor="middle" x="137.5" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex</text>
 </a>
 </g>
 </g>
 <!-- Node4&#45;&gt;Node3 -->
 <g id="edge3" class="edge"><title>Node4&#45;&gt;Node3</title>
-<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M176.5,-124.037C176.5,-111.67 176.5,-96.1198 176.5,-86.6273"/>
-<polygon fill="#9a32cd" stroke="#9a32cd" points="173,-124.234 176.5,-134.234 180,-124.234 173,-124.234"/>
-<text text-anchor="middle" x="194.5" y="-108" font-family="Helvetica,sans-Serif" font-size="10.00"> _mutex</text>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M146.291,-125.154C149.625,-118.703 153.569,-111.428 157.5,-105 161.328,-98.7408 166.078,-91.9908 169.871,-86.8056"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="143.019,-123.869 141.642,-134.374 149.27,-127.02 143.019,-123.869"/>
+<text text-anchor="middle" x="175.5" y="-108" font-family="Helvetica,sans-Serif" font-size="10.00"> _mutex</text>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node"><title>Node5</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_render_state_set.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:title=" ">
+<polygon fill="white" stroke="#bfbfbf" points="201,-134.5 201,-153.5 230,-153.5 230,-134.5 201,-134.5"/>
+<text text-anchor="middle" x="215.5" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
+</a>
+</g>
+</g>
+<!-- Node5&#45;&gt;Node3 -->
+<g id="edge4" class="edge"><title>Node5&#45;&gt;Node3</title>
+<path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M205.72,-125.795C201.953,-119.253 197.578,-111.752 193.5,-105 189.834,-98.9309 185.584,-92.1809 182.251,-86.9482"/>
+<polygon fill="#9a32cd" stroke="#9a32cd" points="202.693,-127.553 210.696,-134.495 208.769,-124.077 202.693,-127.553"/>
+<text text-anchor="middle" x="219" y="-108" font-family="Helvetica,sans-Serif" font-size="10.00"> _nextID</text>
+</g>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_render_state_set.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="263.5,-67.5 263.5,-86.5 373.5,-86.5 373.5,-67.5 263.5,-67.5"/>
 <text text-anchor="middle" x="318.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderStateSet</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node1 -->
-<g id="edge4" class="edge"><title>Node5&#45;&gt;Node1</title>
+<!-- Node6&#45;&gt;Node1 -->
+<g id="edge5" class="edge"><title>Node6&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M307.483,-58.5347C299.545,-45.9499 289.174,-29.5072 282.942,-19.6273"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="304.675,-60.6431 312.971,-67.2338 310.596,-56.9085 304.675,-60.6431"/>
 <text text-anchor="middle" x="337.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> _renderStateSet</text>
 </g>
-<!-- Node6 -->
-<g id="node6" class="node"><title>Node6</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_shader.html" target="_top" xlink:title=" ">
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_igor_1_1i_shader.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="392,-67.5 392,-86.5 463,-86.5 463,-67.5 392,-67.5"/>
 <text text-anchor="middle" x="427.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iShader</text>
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node1 -->
-<g id="edge5" class="edge"><title>Node6&#45;&gt;Node1</title>
+<!-- Node7&#45;&gt;Node1 -->
+<g id="edge6" class="edge"><title>Node7&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M410.783,-60.3192C401.802,-52.6301 390.194,-43.7998 378.5,-38 358.662,-28.161 334.794,-21.5678 315.242,-17.3613"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="408.713,-63.1622 418.506,-67.2053 413.372,-57.9376 408.713,-63.1622"/>
 <text text-anchor="middle" x="415.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> _shader</text>

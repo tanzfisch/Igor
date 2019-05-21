@@ -59,7 +59,7 @@
 </g>
 <!-- Node22 -->
 <g id="node5" class="node"><title>Node22</title>
-<g id="a_node5"><a xlink:href="class_manipulator.html#a92f6ad9a14a638c2f74be60d63ad5e3e" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="class_manipulator.html#acac7c534388ab5e30e9cf8d80c4f9f72" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="215,-180 215,-199 313,-199 313,-180 215,-180"/>
 <text text-anchor="middle" x="264" y="-187" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::rotate</text>
 </a>

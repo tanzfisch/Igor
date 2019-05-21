@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['_5f_5fgit_5ftag_5f_5f',['__GIT_TAG__',['../git_tag_8inl.html#aacdd7b0851cf757c03f7de1594cd2299',1,'gitTag.inl']]],
   ['_5f_5figor_5faux_5fconfig_5fstr_5f_5f',['__IGOR_AUX_CONFIG_STR__',['../ia_defines_8h.html#a0c06ed665c18c61d73da6cec65742b78',1,'iaDefines.h']]],
   ['_5f_5figor_5fbase_5flenght_5f_5f',['__IGOR_BASE_LENGHT__',['../ia_defines_8h.html#aecdcc79435e20a3de4ca800443fa0a29',1,'iaDefines.h']]],
   ['_5f_5figor_5fbase_5ftime_5f_5f',['__IGOR_BASE_TIME__',['../ia_defines_8h.html#a517d5f37abcf499fb45948e9a5ef6580',1,'iaDefines.h']]],

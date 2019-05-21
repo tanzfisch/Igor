@@ -9,16 +9,16 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 53)">
 <title>IgorAux::LOCK</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-53 220,-53 220,4 -4,4"/>
-<!-- Node54 -->
-<g id="node1" class="node"><title>Node54</title>
+<!-- Node57 -->
+<g id="node1" class="node"><title>Node57</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 82,-25 82,-6 0,-6"/>
 <text text-anchor="middle" x="41" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::LOCK</text>
 </a>
 </g>
 </g>
-<!-- Node55 -->
-<g id="node2" class="node"><title>Node55</title>
+<!-- Node58 -->
+<g id="node2" class="node"><title>Node58</title>
 <g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_console.html#a025216d7b2e29420a663e8119b937ed4" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="118,-0.5 118,-30.5 216,-30.5 216,-0.5 118,-0.5"/>
 <text text-anchor="start" x="126" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaConsole</text>
@@ -26,13 +26,13 @@
 </a>
 </g>
 </g>
-<!-- Node54&#45;&gt;Node55 -->
-<g id="edge1" class="edge"><title>Node54&#45;&gt;Node55</title>
+<!-- Node57&#45;&gt;Node58 -->
+<g id="edge1" class="edge"><title>Node57&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M82.2592,-15.5C90.3917,-15.5 99.0956,-15.5 107.704,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="107.726,-19.0001 117.726,-15.5 107.725,-12.0001 107.726,-19.0001"/>
 </g>
-<!-- Node55&#45;&gt;Node55 -->
-<g id="edge2" class="edge"><title>Node55&#45;&gt;Node55</title>
+<!-- Node58&#45;&gt;Node58 -->
+<g id="edge2" class="edge"><title>Node58&#45;&gt;Node58</title>
 <path fill="none" stroke="midnightblue" d="M145.042,-30.659C139.747,-40.0566 147.066,-49 167,-49 179.147,-49 186.61,-45.679 189.389,-40.9579"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="192.873,-40.504 188.958,-30.659 185.879,-40.7965 192.873,-40.504"/>
 </g>

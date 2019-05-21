@@ -2,6 +2,13 @@
 // (c) Copyright 2012-2019 by Martin Loga
 // see copyright notice in corresponding header file
 
+template <class T>
+__IGOR_INLINE__ std::wostream& operator<<(std::wostream& ostr, const iaQuaternion<T>& q)
+{
+	ostr << "(" << q._x << ", " << q._y << ", " << q._z << ", " << q._w << ")";
+	return ostr;
+}
+
 /*template <class T>
 iaQuaternion<T> slerp(iaQuaternion<T> qa, iaQuaternion<T> qb, T t)
 {
@@ -38,52 +45,65 @@ iaQuaternion<T> slerp(iaQuaternion<T> qa, iaQuaternion<T> qb, T t)
     return qm;
 }*/
 
-template <class T>
-void iaQuaternion<T>::set(T x, T y, T z, T w)
+
+/*template <class T>
+void iaQuaternion<T>::slerp(iaQuaternion<T> q1, iaQuaternion<T> q2, T t)
 {
-    this->x = x;
-    this->y = y;
-    this->z = z;
-    this->w = w;
+	T angle = q1.dot(q2);
+
+	if (angle < (T)0.0)
+	{
+		q1 *= (T)-1.0;
+		angle *= (T)-1.0;
+	}
+
+	T scale;
+	T invscale;
+
+	if ((angle + (T)1.0) >(T)0.05)
+	{
+		if (((T)1.0 - angle) >= (T)0.05)  // spherical interpolation
+		{
+			T theta = (T)acos(angle);
+			T invsintheta = (T)1.0 / (T)sin(theta);
+			scale = (T)sin(theta * ((T)1.0 - t)) * invsintheta;
+			invscale = (T)sin(theta * t) * invsintheta;
+		}
+		else // linear interploation
+		{
+			scale = (T)1.0 - t;
+			invscale = t;
+		}
+	}
+	else
+	{
+		q2.set(-q1._y, q1._x, -q1._w, q1._z);
+		scale = (T)sin((T)M_PI * ((T)0.5 - t));
+		invscale = (T)sin((T)M_PI * t);
+	}
+
+	*this = (q1*scale) + (q2*invscale);
+}*/
+
+template <class T>
+T& iaQuaternion<T>::operator[] (int i)
+{
+	return (&_x)[i];
 }
 
 template <class T>
-void iaQuaternion<T>::slerp(iaQuaternion<T> q1, iaQuaternion<T> q2, T t)
+const T& iaQuaternion<T>::operator[] (int i) const
 {
-    T angle = q1.dot(q2);
+	return (&_x)[i];
+}
 
-    if (angle < (T)0.0)
-    {
-        q1 *= (T)-1.0;
-        angle *= (T)-1.0;
-    }
-
-    T scale;
-    T invscale;
-
-    if ((angle + (T)1.0) >(T)0.05)
-    {
-        if (((T)1.0 - angle) >= (T)0.05)  // spherical interpolation
-        {
-            T theta = (T)acos(angle);
-            T invsintheta = (T)1.0 / (T)sin(theta);
-            scale = (T)sin(theta * ((T)1.0 - t)) * invsintheta;
-            invscale = (T)sin(theta * t) * invsintheta;
-        }
-        else // linear interploation
-        {
-            scale = (T)1.0 - t;
-            invscale = t;
-        }
-    }
-    else
-    {
-        q2.set(-q1.y, q1.x, -q1.w, q1.z);
-        scale = (T)sin((T)M_PI * ((T)0.5 - t));
-        invscale = (T)sin((T)M_PI * t);
-    }
-
-    *this = (q1*scale) + (q2*invscale);
+template <class T>
+void iaQuaternion<T>::set(T x, T y, T z, T w)
+{
+    _x = x;
+    _y = y;
+    _z = z;
+    _w = w;
 }
 
 template <class T>
@@ -91,10 +111,10 @@ iaQuaternion<T> iaQuaternion<T>::operator +	(iaQuaternion<T> &a)
 {
     iaQuaternion<T> c;
 
-    c.x = x + a.x;
-    c.y = y + a.y;
-    c.z = z + a.z;
-    c.w = w + a.w;
+    c._x = _x + a._x;
+    c._y = _y + a._y;
+    c._z = _z + a._z;
+    c._w = _w + a._w;
 
     return c;
 }
@@ -102,10 +122,10 @@ iaQuaternion<T> iaQuaternion<T>::operator +	(iaQuaternion<T> &a)
 template <class T>
 void iaQuaternion<T>::operator += (iaQuaternion<T> &a)
 {
-    x += ax;
-    y += ay;
-    z += az;
-    w += aw;
+    _x += a._x;
+    _y += a._y;
+    _z += a._z;
+    _w += a._w;
 }
 
 template <class T>
@@ -113,10 +133,10 @@ iaQuaternion<T> iaQuaternion<T>::operator -	(iaQuaternion<T> &a)
 {
     iaQuaternion<T> c;
 
-    c.x = x - a.x;
-    c.y = y - a.y;
-    c.z = z - a.z;
-    c.w = w - a.w;
+    c._x = _x - a._x;
+    c._y = _y - a._y;
+    c._z = _z - a._z;
+    c._w = _w - a._w;
 
     return c;
 }
@@ -124,10 +144,10 @@ iaQuaternion<T> iaQuaternion<T>::operator -	(iaQuaternion<T> &a)
 template <class T>
 void iaQuaternion<T>::operator -= (iaQuaternion<T> &a)
 {
-    x -= ax;
-    y -= ay;
-    z -= az;
-    w -= aw;
+    _x -= a._x;
+    _y -= a._y;
+    _z -= a._z;
+    _w -= a._w;
 }
 
 template <class T>
@@ -135,10 +155,10 @@ iaQuaternion<T> iaQuaternion<T>::operator * (iaQuaternion<T> &a)
 {
     iaQuaternion<T> c;
 
-    c.x = w * a.x + x * a.w + y * a.z - z * a.y;
-    c.y = w * a.y - x * a.z + y * a.w + z * a.x;
-    c.z = w * a.z + x * a.y - y * a.x + z * a.w;
-    c.w = w * a.w - x * a.x - y * a.y - z * a.z;
+    c._x = _w * a._x + _x * a._w + _y * a._z - _z * a._y;
+    c._y = _w * a._y - _x * a._z + _y * a._w + _z * a._x;
+    c._z = _w * a._z + _x * a._y - _y * a._x + _z * a._w;
+    c._w = _w * a._w - _x * a._x - _y * a._y - _z * a._z;
 
     return c;
 }
@@ -147,10 +167,10 @@ template <class T>
 iaQuaternion<T> iaQuaternion<T>::operator * (T a)
 {
     iaQuaternion<T> c;
-    c.x = x*a;
-    c.y = y*a;
-    c.z = z*a;
-    c.w = w*a;
+    c._x = _x*a;
+    c._y = _y*a;
+    c._z = _z*a;
+    c._w = _w*a;
 
     return c;
 }
@@ -158,68 +178,156 @@ iaQuaternion<T> iaQuaternion<T>::operator * (T a)
 template <class T>
 void iaQuaternion<T>::operator *= (T a)
 {
-    x *= a;
-    y *= a;
-    z *= a;
-    w *= a;
+    _x *= a;
+    _y *= a;
+    _z *= a;
+    _w *= a;
 }
 
 template <class T>
 T iaQuaternion<T>::length(void)
 {
-    return (T)sqrt(x*x + y*y + z*z + w*w);
+    return (T)sqrt(_x*_x + _y*_y + _z*_z + _w*_w);
 }
 
 template <class T>
 T iaQuaternion<T>::dot(iaQuaternion<T> &a)
 {
-    return a.x*x + a.y*y + a.z*z + a.w*w;
+    return a._x*_x + a._y*_y + a._z*_z + a._w*_w;
 }
 
 template <class T>
 T iaQuaternion<T>::length2(void)
 {
-    return (x*x + y*y + z*z + w*w);
+    return (_x*_x + _y*_y + _z*_z + _w*_w);
 }
 
 template <class T>
 void iaQuaternion<T>::conjugate(void)
 {
-    x *= -1;
-    y *= -1;
-    z *= -1;
-    w *= -1;
+    _x *= -1;
+    _y *= -1;
+    _z *= -1;
+    _w *= -1;
 }
 
 template <class T>
 void iaQuaternion<T>::normalize(void)
 {
-    T h = x*x + y*y + z*z + w*w;
-    x /= h;
-    y /= h;
-    z /= h;
-    w /= h;
+    T h = _x*_x + _y*_y + _z*_z + _w*_w;
+    _x /= h;
+    _y /= h;
+    _z /= h;
+    _w /= h;
 }
 
 template <class T>
 iaQuaternion<T>::iaQuaternion(void)
 {
-    x = 0;
-    y = 0;
-    z = 0;
-    w = 0;
+    _x = 0;
+    _y = 0;
+    _z = 0;
+    _w = 0;
+}
+
+template <class T>
+void iaQuaternion<T>::setEuler(T x, T y, T z)
+{
+	// Abbreviations for the various angular functions
+	double cy = cos(z * 0.5);
+	double sy = sin(z * 0.5);
+	double cp = cos(y * 0.5);
+	double sp = sin(y * 0.5);
+	double cr = cos(x * 0.5);
+	double sr = sin(x * 0.5);
+
+	_w = cy * cp * cr + sy * sp * sr;
+	_x = cy * cp * sr - sy * sp * cr;
+	_y = sy * cp * sr + cy * sp * cr;
+	_z = sy * cp * cr - cy * sp * sr;
+}
+
+/*
+public void set(Quat4d q1) {
+	double sqw = q1.w*q1.w;
+	double sqx = q1.x*q1.x;
+	double sqy = q1.y*q1.y;
+	double sqz = q1.z*q1.z;
+	double unit = sqx + sqy + sqz + sqw; // if normalised is one, otherwise is correction factor
+	double test = q1.x*q1.y + q1.z*q1.w;
+	if (test > 0.499*unit) { // singularity at north pole
+		heading = 2 * atan2(q1.x,q1.w);
+		attitude = Math.PI/2;
+		bank = 0;
+		return;
+	}
+	if (test < -0.499*unit) { // singularity at south pole
+		heading = -2 * atan2(q1.x,q1.w);
+		attitude = -Math.PI/2;
+		bank = 0;
+		return;
+	}
+	heading = atan2(2*q1.y*q1.w-2*q1.x*q1.z , sqx - sqy - sqz + sqw);
+	attitude = asin(2*test/unit);
+	bank = atan2(2*q1.x*q1.w-2*q1.y*q1.z , -sqx + sqy - sqz + sqw)
+}
+*/
+
+template <class T>
+void iaQuaternion<T>::getEuler(T& x, T& y, T& z) const
+{
+	// roll (x-axis rotation)
+	double sinr_cosp = +2.0 * (_w * _x + _y * _z);
+	double cosr_cosp = +1.0 - 2.0 * (_x * _x + _y * _y);
+	x = atan2(sinr_cosp, cosr_cosp);
+
+	// pitch (y-axis rotation)
+	double sinp = +2.0 * (_w * _y - _z * _x);
+	if (fabs(sinp) >= 1)
+		y = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+	else
+		y = asin(sinp);
+
+	// yaw (z-axis rotation)
+	double siny_cosp = +2.0 * (_w * _z + _x * _y);
+	double cosy_cosp = +1.0 - 2.0 * (_y * _y + _z * _z);
+	z = atan2(siny_cosp, cosy_cosp);
+}
+
+template <class T>
+void iaQuaternion<T>::setEuler(const iaVector3<T>& vec)
+{
+	setEuler(vec._x, vec._y, vec._z);
+}
+
+template <class T>
+void iaQuaternion<T>::getEuler(iaVector3<T>& vec) const
+{
+	getEuler(vec._x, vec._y, vec._z);
 }
 
 template <class T>
 iaQuaternion<T>::iaQuaternion(T x, T y, T z, T w)
 {
-    this->x = x;
-    this->y = y;
-    this->z = z;
-    this->w = w;
+    _x = x;
+    _y = y;
+    _z = z;
+    _w = w;
 }
 
 template <class T>
 iaQuaternion<T>::~iaQuaternion(void)
 {
+}
+
+template <class T>
+__IGOR_INLINE__ const T* iaQuaternion<T>::getData() const
+{
+	return (T*)& _x;
+}
+
+template <class T>
+__IGOR_INLINE__ T* iaQuaternion<T>::getData()
+{
+	return (T*)& _x;
 }

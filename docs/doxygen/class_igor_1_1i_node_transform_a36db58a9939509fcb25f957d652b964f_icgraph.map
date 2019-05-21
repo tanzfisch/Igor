@@ -1,12 +1,8 @@
 <map id="Igor::iNodeTransform::rotate" name="Igor::iNodeTransform::rotate">
-<area shape="rect" id="node1" title=" " alt="" coords="489,201,631,243"/>
+<area shape="rect" id="node1" title=" " alt="" coords="489,104,631,145"/>
 <area shape="rect" id="node2" href="$class_manipulator.html#ada38b5f63a87e181f60eae4ad7d28ded" title=" " alt="" coords="251,5,422,47"/>
 <area shape="rect" id="node3" href="$class_manipulator.html#ad2a69e64a99d9450d3f245b073ef1e32" title=" " alt="" coords="243,71,430,112"/>
 <area shape="rect" id="node4" href="$class_manipulator.html#afcf5d60502dd0a242151edcc551a06a1" title=" " alt="" coords="253,136,420,177"/>
-<area shape="rect" id="node5" href="$class_user_control_transformation.html#ac23b3238c2bf21eff787dff6f22d7648" title=" " alt="" coords="249,201,424,243"/>
-<area shape="rect" id="node7" href="$class_user_control_transformation.html#a4cef3548fe059f6665240d40d2502072" title=" " alt="" coords="249,267,424,308"/>
-<area shape="rect" id="node8" href="$class_user_control_transformation.html#a579deda8aaaed66cd9771e619011eda6" title=" " alt="" coords="249,332,424,373"/>
-<area shape="rect" id="node9" href="$class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" title=" " alt="" coords="232,398,441,425"/>
-<area shape="rect" id="node6" href="$class_user_control_transformation.html#a5f920b175524b5e23698ebe1da531d48" title=" " alt="" coords="7,267,182,308"/>
-<area shape="rect" id="node10" href="$class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" title=" " alt="" coords="5,391,184,432"/>
+<area shape="rect" id="node5" href="$class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" title=" " alt="" coords="232,202,441,229"/>
+<area shape="rect" id="node6" href="$class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" title=" " alt="" coords="5,195,184,236"/>
 </map>

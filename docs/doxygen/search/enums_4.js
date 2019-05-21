@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['viewtype',['ViewType',['../_menu_dialog_8h.html#a467386d41067b285e13551fd3becd60f',1,'MenuDialog.h']]]
+  ['manipulatormode',['ManipulatorMode',['../_manipulator_8h.html#a77aa559e59121f2c11fb42e8041f9d2f',1,'Manipulator.h']]]
 ];

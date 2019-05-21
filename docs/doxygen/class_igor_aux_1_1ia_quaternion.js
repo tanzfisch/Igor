@@ -5,6 +5,10 @@ var class_igor_aux_1_1ia_quaternion =
     [ "~iaQuaternion", "class_igor_aux_1_1ia_quaternion.html#aa633c626dc5dff18e50f486a4c2703aa", null ],
     [ "conjugate", "class_igor_aux_1_1ia_quaternion.html#a4f7c185c0b39bca21b423bf330352fa9", null ],
     [ "dot", "class_igor_aux_1_1ia_quaternion.html#a17ba4d7aefc6f0f280840d039663c6f3", null ],
+    [ "getData", "class_igor_aux_1_1ia_quaternion.html#a8e22ad72a6e219ae18fe47fce43532cf", null ],
+    [ "getData", "class_igor_aux_1_1ia_quaternion.html#afbda1f166fbd49d2e927878d0f228dc8", null ],
+    [ "getEuler", "class_igor_aux_1_1ia_quaternion.html#acd276fe2bdd2b3e981b314c2c187ebe4", null ],
+    [ "getEuler", "class_igor_aux_1_1ia_quaternion.html#a200382315e0e92e4713227d3b61ef7fa", null ],
     [ "length", "class_igor_aux_1_1ia_quaternion.html#a3e8330bb789a04f95590028fed4cae29", null ],
     [ "length2", "class_igor_aux_1_1ia_quaternion.html#a10bda497a8ef1c83cf3428c8ab1172b5", null ],
     [ "normalize", "class_igor_aux_1_1ia_quaternion.html#ae932e8e253b2aae279cbb6f607a497a3", null ],
@@ -15,9 +19,13 @@ var class_igor_aux_1_1ia_quaternion =
     [ "operator+=", "class_igor_aux_1_1ia_quaternion.html#acaf50aaf4a0bbc41ee27eaa6b4fc6222", null ],
     [ "operator-", "class_igor_aux_1_1ia_quaternion.html#a3ef74c112c468a2ecbd91bab0f58d794", null ],
     [ "operator-=", "class_igor_aux_1_1ia_quaternion.html#a5d7ca221a82f019a0568203e476f0e38", null ],
+    [ "operator[]", "class_igor_aux_1_1ia_quaternion.html#ac3eb20b68253a3e241c5a954680e463b", null ],
+    [ "operator[]", "class_igor_aux_1_1ia_quaternion.html#a7ae512d61296ed6d1b7ce5c3b66b455f", null ],
     [ "set", "class_igor_aux_1_1ia_quaternion.html#a2349a2160f187be227f663b6ef799d45", null ],
-    [ "w", "class_igor_aux_1_1ia_quaternion.html#afacbd828d6b9c28cf7fb2fb6617dfc1b", null ],
-    [ "x", "class_igor_aux_1_1ia_quaternion.html#a4cfdc8ee2101fbc1fa21a3fcc73d240b", null ],
-    [ "y", "class_igor_aux_1_1ia_quaternion.html#a0c09d1bfbba06db0be9321c883972c9d", null ],
-    [ "z", "class_igor_aux_1_1ia_quaternion.html#a976cef1df17a026d361484dc693792a6", null ]
+    [ "setEuler", "class_igor_aux_1_1ia_quaternion.html#a8fdd4920be245b576bd36917b2699b52", null ],
+    [ "setEuler", "class_igor_aux_1_1ia_quaternion.html#a405b97513e91d5e7b600e1cd6ac39de1", null ],
+    [ "_w", "class_igor_aux_1_1ia_quaternion.html#ace3d71217087f2ecf1ef355585a5111d", null ],
+    [ "_x", "class_igor_aux_1_1ia_quaternion.html#a162db3ca5d9ac8ddc71a6c59a2a093ee", null ],
+    [ "_y", "class_igor_aux_1_1ia_quaternion.html#a3460693f8583d0930720f86d2ed2d297", null ],
+    [ "_z", "class_igor_aux_1_1ia_quaternion.html#a00d293136142d804dbfd673848bcd304", null ]
 ];

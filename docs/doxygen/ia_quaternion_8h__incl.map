@@ -1,5 +1,9 @@
 <map id="C:/dev/Igor/Igor/src/IgorAux/src/iaQuaternion.h" name="C:/dev/Igor/Igor/src/IgorAux/src/iaQuaternion.h">
-<area shape="rect" id="node1" title=" " alt="" coords="20,5,200,47"/>
-<area shape="rect" id="node2" href="$ia_defines_8h.html" title=" " alt="" coords="5,95,92,121"/>
-<area shape="rect" id="node3" href="$ia_quaternion_8inl.html" title=" " alt="" coords="117,95,229,121"/>
+<area shape="rect" id="node1" title=" " alt="" coords="251,5,431,47"/>
+<area shape="rect" id="node2" href="$ia_vector3_8h.html" title=" " alt="" coords="203,95,291,121"/>
+<area shape="rect" id="node5" title=" " alt="" coords="319,169,389,196"/>
+<area shape="rect" id="node7" href="$ia_quaternion_8inl.html" title=" " alt="" coords="378,95,490,121"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="5,169,92,196"/>
+<area shape="rect" id="node4" title=" " alt="" coords="117,169,175,196"/>
+<area shape="rect" id="node6" href="$ia_vector3_8inl.html" title=" " alt="" coords="200,169,295,196"/>
 </map>

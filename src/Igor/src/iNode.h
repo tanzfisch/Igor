@@ -32,6 +32,7 @@
 #include <iDataUpdateQueue.h>
 #include <iDefines.h>
 
+#include <iaEvent.h>
 #include <iaString.h>
 #include <iaMatrix.h>
 #include <iaMutex.h>
@@ -90,6 +91,10 @@ namespace Igor
 	class iScene;
     class iNode;
     typedef iNode* iNodePtr;
+
+	/*! transformation change event
+	*/
+	iaEVENT(iTransformationChangeEvent, iTransformationChangeDelegate, void, (iNode* source), (source));
 
     /*! base node implementation
 
@@ -249,6 +254,10 @@ namespace Igor
         */
         bool isActive() const;
 
+		/* \returns transformation change event
+		*/
+		iTransformationChangeEvent& getTransformationChangeEvent();
+
 	protected:
 
         /*! true: node is active; false: node will be ignored for most operations
@@ -340,6 +349,10 @@ namespace Igor
         \param nodeIDMap map with old node ids to new node ids
         */
         virtual void onPostCopyLink(map<uint64, uint64>& nodeIDMap);
+
+		/*! call this when ever you change something on the node
+		*/
+		iTransformationChangeEvent _transformationChangeEvent;
 
         /*! set's node id
         */

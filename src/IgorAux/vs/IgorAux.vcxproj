@@ -220,6 +220,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <ClInclude Include="..\src\iaStateMachine.h" />
     <ClInclude Include="..\src\iaString.h" />
     <ClInclude Include="..\src\iaSystem.h" />
+    <ClInclude Include="..\src\iaTransform.h" />
     <ClInclude Include="..\src\iaTransition.h" />
     <ClInclude Include="..\src\iaVector2.h" />
     <ClInclude Include="..\src\iaVector3.h" />
@@ -253,6 +254,7 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <None Include="..\src\iaQuaternion.inl" />
     <None Include="..\src\iaRLE.inl" />
     <None Include="..\src\iaSerializable.inl" />
+    <None Include="..\src\iaTransform.inl" />
     <None Include="..\src\iaVector2.inl" />
     <None Include="..\src\iaVector3.inl" />
     <None Include="..\src\iaVector4.inl" />

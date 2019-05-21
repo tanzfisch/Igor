@@ -32,7 +32,7 @@
 					<tr>
 						<td id="projectlogo">                        
                             <div style="position: relative; height: 120px; width: 440px;">
-                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.18.0</div>
+                                <div style="position: absolute; float: right; right: 30px; bottom: 10px; z-index: 1000; background-color: transparent;">0.19.0</div>
                                 <img alt="Logo" src="logo.png"></img>                            
                             </div>
                         </td>                            
@@ -107,13 +107,12 @@ $(document).ready(function(){initNavTree('class_igor_1_1i_node.html','');});
 <div class="dynheader">
 Inheritance diagram for Igor::iNode:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node__inherit__graph.svg" width="696" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node__inherit__graph.svg" width="696" height="443"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for Igor::iNode:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node__coll__graph.svg" width="1066" height="340"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node__coll__graph.svg" width="1067" height="328"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
@@ -169,6 +168,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:afcf9574e0c451509015b42b36be8a6eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74ca70a584119d44b03b47c78efa995a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a74ca70a584119d44b03b47c78efa995a">isActive</a> () const</td></tr>
 <tr class="separator:a74ca70a584119d44b03b47c78efa995a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92a082c4e595b2f485e959b54e67c443"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443">getTransformationChangeEvent</a> ()</td></tr>
+<tr class="separator:a92a082c4e595b2f485e959b54e67c443"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -226,6 +227,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:acd7b3ddac0c909296914b9b9a8d9ead9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45a96d08dd5de4de995caf92169e0531"><td class="memItemLeft" align="right" valign="top">vector&lt; <a class="el" href="namespace_igor.html#a8653487f79196f88f6ffd3a6a1a77e19">iNodePtr</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a45a96d08dd5de4de995caf92169e0531">_inactiveChildren</a></td></tr>
 <tr class="separator:a45a96d08dd5de4de995caf92169e0531"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c647bfde42f17d248e8ae597a5a910b"><td class="memItemLeft" align="right" valign="top">iTransformationChangeEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_igor_1_1i_node.html#a2c647bfde42f17d248e8ae597a5a910b">_transformationChangeEvent</a></td></tr>
+<tr class="separator:a2c647bfde42f17d248e8ae597a5a910b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -261,7 +264,7 @@ Friends</h2></td></tr>
 <p>Make changes to the scene only in main thread. If you want to create nodes multithreaded you can do so but adding them is only save within the main thread</p>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000020">Todo:</a></b></dt><dd>we should not use pointers but IDs of nodes to reference them! all the time? </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00102">102</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00107">107</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a0d7c75b5caba253a2c5cbd078119e7e7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0d7c75b5caba253a2c5cbd078119e7e7">&#9670;&nbsp;</a></span>iNode() <span class="overload">[1/2]</span></h2>
@@ -291,8 +294,7 @@ Friends</h2></td></tr>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a0d7c75b5caba253a2c5cbd078119e7e7_cgraph.svg" width="338" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a0d7c75b5caba253a2c5cbd078119e7e7_cgraph.svg" width="338" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -326,8 +328,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a767c71fb9a79be77681ddf213ab70437_cgraph.svg" width="338" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a767c71fb9a79be77681ddf213ab70437_cgraph.svg" width="338" height="155"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -360,8 +361,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_aa75518fac280a5b7ede42baab0629efc_cgraph.svg" width="1072" height="179"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_aa75518fac280a5b7ede42baab0629efc_cgraph.svg" width="1072" height="179"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -391,12 +391,11 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00238">238</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00247">247</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_afcf9574e0c451509015b42b36be8a6eb_cgraph.svg" width="422" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_afcf9574e0c451509015b42b36be8a6eb_cgraph.svg" width="422" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -450,12 +449,11 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00222">222</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00231">231</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a2529f66706e941541b94098de2f72b8b_cgraph.svg" width="704" height="256"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a2529f66706e941541b94098de2f72b8b_cgraph.svg" width="704" height="256"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -485,12 +483,11 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>node with the name specified. returns zero in case of an error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00130">130</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00135">135</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a3c78aa85a044adc9797618217f133dc9_icgraph.svg" width="446" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a3c78aa85a044adc9797618217f133dc9_icgraph.svg" width="446" height="235"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -519,7 +516,7 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>pointer to child object </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00105">105</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00110">110</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 
 </div>
 </div>
@@ -539,12 +536,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of children </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00362">362</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00371">371</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a48469e19c040925b4937a2b26ca3e978_icgraph.svg" width="922" height="416"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
-</div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a48469e19c040925b4937a2b26ca3e978_icgraph.svg" width="922" height="416"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -567,11 +563,11 @@ Here is the caller graph for this function:</div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a38">Physics/src/PhysicsExample.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00155">155</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00160">160</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_aece61f1af4143a3a1765b19594d72b6e_icgraph.svg" width="868" height="2234"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_aece61f1af4143a3a1765b19594d72b6e_icgraph.svg" width="868" height="2308"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -593,7 +589,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>list of inactive children </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00357">357</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00366">366</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -619,7 +615,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>an information string about this node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00259">259</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00268">268</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -651,7 +647,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>kind (group) of the node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00160">160</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00165">165</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -677,7 +673,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>name of the node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00254">254</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00263">263</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -703,11 +699,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to parent node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00244">244</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00253">253</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a1b3d40431eb4c1c79e5d93ef7fe68129_icgraph.svg" width="1368" height="2002"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a1b3d40431eb4c1c79e5d93ef7fe68129_icgraph.svg" width="1368" height="2035"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -729,11 +725,36 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>pointer to scene this node is in </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00477">477</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00486">486</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_acd9afcdfae20de27c0ca44bb5cb89e79_icgraph.svg" width="1078" height="992"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+</div>
+</div>
+
+</div>
+</div>
+<a id="a92a082c4e595b2f485e959b54e67c443"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92a082c4e595b2f485e959b54e67c443">&#9670;&nbsp;</a></span>getTransformationChangeEvent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">iTransformationChangeEvent &amp; Igor::iNode::getTransformationChangeEvent </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00052">52</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a92a082c4e595b2f485e959b54e67c443_icgraph.svg" width="444" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -755,11 +776,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>the type of the node </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00165">165</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00170">170</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_af2d72831df4a13096e731418b6d6bb4b_icgraph.svg" width="666" height="1080"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_af2d72831df4a13096e731418b6d6bb4b_icgraph.svg" width="666" height="1146"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -781,7 +802,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if node has children; false: if node has no children </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00352">352</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00361">361</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -816,7 +837,7 @@ Here is the caller graph for this function:</div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a35">Physics/src/PhysicsExample.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00304">304</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00313">313</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -855,7 +876,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00294">294</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00303">303</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -881,7 +902,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if node is active </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00367">367</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00376">376</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -907,11 +928,11 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true: if this node has a parent; false if it does not have a parent </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00320">320</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00329">329</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_afcf6efd30c85e8c37a4261a6f27613b8_icgraph.svg" width="910" height="2079"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_afcf6efd30c85e8c37a4261a6f27613b8_icgraph.svg" width="1096" height="1951"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -940,7 +961,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00080">80</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00085">85</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 
 </div>
 </div>
@@ -968,7 +989,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>true if data is dirty and top be queued </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00059">59</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00064">64</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -995,7 +1016,7 @@ Here is the caller graph for this function:</div>
 <dl class="section return"><dt>Returns</dt><dd>true: if transformation flag is dirty; false: if not</dd></dl>
 <p>this flag is set if on the path form root node down to this node the transformations have changed, so it's position will get updated during next frame </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00170">170</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00175">175</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1036,7 +1057,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00053">53</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00058">58</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1072,7 +1093,7 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#aabe1c19bc008755aa3ff1cfe9fb4f530">Igor::iNodeLODSwitch</a>, <a class="el" href="class_igor_1_1i_node_light.html#a347b0e3d4a3dffc33b69e0b7e015b059">Igor::iNodeLight</a>, <a class="el" href="class_igor_1_1i_node_model.html#a43f2cf258bc69d849bf24069391ce259">Igor::iNodeModel</a>, <a class="el" href="class_igor_1_1i_node_render.html#a3b6afcd3c7229fd1fa136610f684e5af">Igor::iNodeRender</a>, <a class="el" href="class_igor_1_1i_node_volume.html#af22460eec7108d791c652222ee3f7bff">Igor::iNodeVolume</a>, <a class="el" href="class_igor_1_1i_node_camera.html#ae5f7fc2cab580c69e34ab6547fd07597">Igor::iNodeCamera</a>, and <a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html#a8055f4dd11d03c167a3e7749dac313cb">Igor::iNodeLODTrigger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00486">486</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00495">495</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1108,7 +1129,7 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#a130c39c47cdb0330fabc3b4bfa79df4c">Igor::iNodeLODSwitch</a>, <a class="el" href="class_igor_1_1i_node_light.html#a1f0fb09bc2488bfdacf7e9c21c493d76">Igor::iNodeLight</a>, <a class="el" href="class_igor_1_1i_node_model.html#ae35005e791900fda3581d86f6808fc42">Igor::iNodeModel</a>, <a class="el" href="class_igor_1_1i_node_render.html#ab8b8f922aa9660b237ca8e791028dcc0">Igor::iNodeRender</a>, <a class="el" href="class_igor_1_1i_node_volume.html#a05ed3c821278647543de7a025173d636">Igor::iNodeVolume</a>, <a class="el" href="class_igor_1_1i_node_camera.html#a3ae5f63f02a69291d969e5847a8c5e2a">Igor::iNodeCamera</a>, and <a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html#a1e401abb036749af69fa4581447e1daf">Igor::iNodeLODTrigger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00482">482</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00491">491</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1145,7 +1166,7 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_model.html#ad71a2749c8a41f9c51fbed49603b3f1b">Igor::iNodeModel</a>, <a class="el" href="class_igor_1_1i_node_render.html#a94561272be34abad7a09eca627c893b0">Igor::iNodeRender</a>, and <a class="el" href="class_igor_1_1i_node_volume.html#ae358e82591d32310900d175b2e2f10c0">Igor::iNodeVolume</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00074">74</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00079">79</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1188,7 +1209,7 @@ Here is the caller graph for this function:</div>
 
 <p>Reimplemented in <a class="el" href="class_igor_1_1i_node_particle_system.html#a158baf83916b64f775d2bd778d2dcc92">Igor::iNodeParticleSystem</a>, <a class="el" href="class_igor_1_1i_node_model.html#ad5a6dc9ebf26cdeee52b997a24756b5d">Igor::iNodeModel</a>, <a class="el" href="class_igor_1_1i_node_l_o_d_switch.html#aafd574d9d91a13908f06eefcbdedde8a">Igor::iNodeLODSwitch</a>, <a class="el" href="class_igor_1_1i_node_light.html#a7f2fab28020ffff40a0d1f5411bc8af7">Igor::iNodeLight</a>, <a class="el" href="class_igor_1_1i_node_transform.html#a4edb50d521112617e8a1288c6313fe1d">Igor::iNodeTransform</a>, <a class="el" href="class_igor_1_1i_node_emitter.html#a4694aa6b4d6b88af9673b29a82e62fbd">Igor::iNodeEmitter</a>, <a class="el" href="class_igor_1_1i_node_render.html#a16845c02388e3bf0b0903131604ca33e">Igor::iNodeRender</a>, <a class="el" href="class_igor_1_1i_node_camera.html#a55a45431eab2f459c03c5732f83a6c66">Igor::iNodeCamera</a>, <a class="el" href="class_igor_1_1i_node_volume.html#a40d766c3877a3125e4733c8203ee8c07">Igor::iNodeVolume</a>, and <a class="el" href="class_igor_1_1i_node_l_o_d_trigger.html#ad2adfd1190889ff4dc4621df13ab1f84">Igor::iNodeLODTrigger</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00326">326</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00335">335</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1221,7 +1242,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00331">331</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00340">340</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1260,7 +1281,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00299">299</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00308">308</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1293,7 +1314,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00372">372</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00381">381</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1332,7 +1353,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00289">289</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00298">298</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1366,7 +1387,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>sets data dirty and puts node in update data queue </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00064">64</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00069">69</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1407,7 +1428,7 @@ Here is the caller graph for this function:</div>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="_physics_2src_2_physics_example_8cpp-example.html#a37">Physics/src/PhysicsExample.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00284">284</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00293">293</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1448,7 +1469,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00249">249</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00258">258</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -1489,7 +1510,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00436">436</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00445">445</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1529,7 +1550,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00175">175</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00180">180</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1539,7 +1560,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a3be538d0d60b148b1eae5cd5892d279d_icgraph.svg" width="878" height="2276"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a3be538d0d60b148b1eae5cd5892d279d_icgraph.svg" width="1159" height="1938"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1569,7 +1590,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>traveses child trees ans sets the transformation dirty flag </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00206">206</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00215">215</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1603,7 +1624,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>goes through all parent nodes and sets the transformation dirty flag </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00193">193</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8cpp_source.html#l00202">202</a> of file <a class="el" href="i_node_8cpp_source.html">iNode.cpp</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -1613,7 +1634,7 @@ Here is the call graph for this function:</div>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a66b6ecf7babaffce68852de186068e01_icgraph.svg" width="934" height="2276"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
+<div class="center"><iframe scrolling="no" frameborder="0" src="class_igor_1_1i_node_a66b6ecf7babaffce68852de186068e01_icgraph.svg" width="1139" height="1948"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe>
 </div>
 </div>
 
@@ -1640,7 +1661,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00108">108</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00113">113</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1664,7 +1685,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00105">105</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00110">110</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1688,7 +1709,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00107">107</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00112">112</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1712,7 +1733,7 @@ Here is the caller graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00106">106</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00111">111</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1738,7 +1759,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>true: node is active; false: node will be ignored for most operations </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00256">256</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00265">265</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1763,7 +1784,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>list of pointers to child nodes </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00284">284</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00293">293</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1788,7 +1809,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>the next node id </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00364">364</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00377">377</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1813,7 +1834,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>list of pointers to child nodes that are inactive </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00288">288</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00297">297</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1838,7 +1859,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>the name of this node </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00268">268</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00277">277</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1863,7 +1884,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>id of this node </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00368">368</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00381">381</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1888,7 +1909,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>the kind of this node </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00264">264</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00273">273</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1913,7 +1934,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>the type of this node </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00260">260</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00269">269</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1938,7 +1959,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>pointer to parent node </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00280">280</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00289">289</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1963,7 +1984,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>flag if there is dirty data </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00360">360</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00373">373</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -1988,7 +2009,32 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>pointer to parenting scene </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00276">276</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00285">285</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+
+</div>
+</div>
+<a id="a2c647bfde42f17d248e8ae597a5a910b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c647bfde42f17d248e8ae597a5a910b">&#9670;&nbsp;</a></span>_transformationChangeEvent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">iTransformationChangeEvent Igor::iNode::_transformationChangeEvent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>call this when ever you change something on the node </p>
+
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00355">355</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -2013,7 +2059,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>dirty flag to detect transformation changes </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00272">272</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00281">281</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -2038,7 +2084,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>invalid node id definition </p>
 
-<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00114">114</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="i_node_8h_source.html#l00119">119</a> of file <a class="el" href="i_node_8h_source.html">iNode.h</a>.</p>
 
 </div>
 </div>
@@ -2053,7 +2099,7 @@ Here is the caller graph for this function:</div>
 			<ul>
 				<li class="navelem"><a class="el" href="namespace_igor.html">Igor</a></li><li class="navelem"><a class="el" href="class_igor_1_1i_node.html">iNode</a></li>
 				<li class="footer">
-					Generated on Thu May 9 2019 17:28:35 for Igor by <a href="http://www.doxygen.org/index.html">
+					Generated on Wed May 22 2019 00:13:12 for Igor by <a href="http://www.doxygen.org/index.html">
 					<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.15.
 					Dark theme by <a href="http://majerle.eu" target="_new">Tilen Majerle</a>. All rights reserved.
 				</li>

@@ -1,13 +1,15 @@
 <map id="Igor::iNodeTransform::setMatrix" name="Igor::iNodeTransform::setMatrix">
-<area shape="rect" id="node1" title=" " alt="" coords="475,165,616,207"/>
+<area shape="rect" id="node1" title=" " alt="" coords="475,195,616,236"/>
 <area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a4872c9dbcc8050a911e76db6167a1ebf" title=" " alt="" coords="250,5,417,47"/>
 <area shape="rect" id="node3" href="$class_igor_1_1i_node_transform.html#aec063e140be66276567ef669b2438629" title=" " alt="" coords="263,71,404,112"/>
 <area shape="rect" id="node4" href="$class_igor_1_1i_physics_body.html#a4f82a7ebad173b99196d46a5d7266f6f" title=" " alt="" coords="248,136,419,177"/>
 <area shape="rect" id="node5" href="$class_manipulator.html#a42640108b0db21295d8a1d8996973ebd" title=" " alt="" coords="240,202,427,229"/>
-<area shape="rect" id="node6" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="249,253,417,279"/>
-<area shape="rect" id="node9" href="$class_widget3_d_locator.html#a0354993c66e97375245a3d14e141ea6a" title=" " alt="" coords="249,318,418,345"/>
-<area shape="rect" id="node7" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="10,180,187,221"/>
-<area shape="rect" id="node8" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="6,245,191,287"/>
-<area shape="rect" id="node10" href="$class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" title=" " alt="" coords="9,311,188,352"/>
-<area shape="rect" id="node11" href="$class_widget3_d_locator.html#a7c92018b711c6370809abe7088a9b264" title=" " alt="" coords="5,376,192,417"/>
+<area shape="rect" id="node6" href="$class_user_control_transformation.html#a1d05ce7b9e9b44dc148fcd4518747d04" title=" " alt="" coords="246,253,421,295"/>
+<area shape="rect" id="node8" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="249,319,417,346"/>
+<area shape="rect" id="node11" href="$class_widget3_d_locator.html#a0354993c66e97375245a3d14e141ea6a" title=" " alt="" coords="249,417,418,443"/>
+<area shape="rect" id="node7" href="$class_user_control_transformation.html#a78f585dbaf9da6958bacb936feefcb48" title=" " alt="" coords="11,213,186,255"/>
+<area shape="rect" id="node9" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="10,279,187,320"/>
+<area shape="rect" id="node10" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="6,344,191,385"/>
+<area shape="rect" id="node12" href="$class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" title=" " alt="" coords="9,409,188,451"/>
+<area shape="rect" id="node13" href="$class_widget3_d_locator.html#a7c92018b711c6370809abe7088a9b264" title=" " alt="" coords="5,475,192,516"/>
 </map>

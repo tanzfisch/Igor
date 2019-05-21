@@ -1,6 +1,4 @@
 <map id="Igor::iNodeTransform::translate" name="Igor::iNodeTransform::translate">
-<area shape="rect" id="node1" title=" " alt="" coords="451,39,592,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_terrain.html#a2866e4ad74ac190ae4591a64329297b0" title=" " alt="" coords="252,5,379,47"/>
-<area shape="rect" id="node3" href="$class_user_control_transformation.html#afc317354393efad087b3760b22aa23a5" title=" " alt="" coords="228,71,403,112"/>
-<area shape="rect" id="node4" href="$class_user_control_transformation.html#a5f920b175524b5e23698ebe1da531d48" title=" " alt="" coords="5,71,180,112"/>
+<area shape="rect" id="node1" title=" " alt="" coords="180,5,321,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_terrain.html#a2866e4ad74ac190ae4591a64329297b0" title=" " alt="" coords="5,5,132,47"/>
 </map>

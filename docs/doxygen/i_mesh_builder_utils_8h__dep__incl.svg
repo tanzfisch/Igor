@@ -9,8 +9,8 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
 <title>C:/dev/Igor/Igor/src/Igor/src/iMeshBuilderUtils.h</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-113 561.5,-113 561.5,4 -4,4"/>
-<!-- Node37 -->
-<g id="node1" class="node"><title>Node37</title>
+<!-- Node39 -->
+<g id="node1" class="node"><title>Node39</title>
 <g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="225,-78.5 225,-108.5 364,-108.5 364,-78.5 225,-78.5"/>
 <text text-anchor="start" x="233" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -18,8 +18,8 @@
 </a>
 </g>
 </g>
-<!-- Node38 -->
-<g id="node2" class="node"><title>Node38</title>
+<!-- Node40 -->
+<g id="node2" class="node"><title>Node40</title>
 <g id="a_node2"><a xlink:href="i_mesh_builder_utils_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="0,-6 0,-36 149,-36 149,-6 0,-6"/>
 <text text-anchor="start" x="8" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -27,13 +27,13 @@
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node38 -->
-<g id="edge1" class="edge"><title>Node37&#45;&gt;Node38</title>
+<!-- Node39&#45;&gt;Node40 -->
+<g id="edge1" class="edge"><title>Node39&#45;&gt;Node40</title>
 <path fill="none" stroke="midnightblue" d="M241.009,-75.3585C203.441,-63.3196 153.801,-47.4123 118.521,-36.1069"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="240.181,-78.7685 250.772,-78.4872 242.317,-72.1024 240.181,-78.7685"/>
 </g>
-<!-- Node39 -->
-<g id="node3" class="node"><title>Node39</title>
+<!-- Node41 -->
+<g id="node3" class="node"><title>Node41</title>
 <g id="a_node3"><a xlink:href="_manipulator_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="167.5,-0.5 167.5,-41.5 285.5,-41.5 285.5,-0.5 167.5,-0.5"/>
 <text text-anchor="start" x="175.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -42,13 +42,13 @@
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node39 -->
-<g id="edge2" class="edge"><title>Node37&#45;&gt;Node39</title>
+<!-- Node39&#45;&gt;Node41 -->
+<g id="edge2" class="edge"><title>Node39&#45;&gt;Node41</title>
 <path fill="none" stroke="midnightblue" d="M273.59,-70.8213C264.594,-61.4941 254.154,-50.6707 245.394,-41.5884"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="271.278,-73.4655 280.739,-78.2333 276.316,-68.6059 271.278,-73.4655"/>
 </g>
-<!-- Node40 -->
-<g id="node4" class="node"><title>Node40</title>
+<!-- Node42 -->
+<g id="node4" class="node"><title>Node42</title>
 <g id="a_node4"><a xlink:href="_widget3_d_emitter_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="303.5,-0.5 303.5,-41.5 421.5,-41.5 421.5,-0.5 303.5,-0.5"/>
 <text text-anchor="start" x="311.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -57,13 +57,13 @@
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node40 -->
-<g id="edge3" class="edge"><title>Node37&#45;&gt;Node40</title>
+<!-- Node39&#45;&gt;Node42 -->
+<g id="edge3" class="edge"><title>Node39&#45;&gt;Node42</title>
 <path fill="none" stroke="midnightblue" d="M315.41,-70.8213C324.406,-61.4941 334.846,-50.6707 343.606,-41.5884"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="312.684,-68.6059 308.261,-78.2333 317.722,-73.4655 312.684,-68.6059"/>
 </g>
-<!-- Node41 -->
-<g id="node5" class="node"><title>Node41</title>
+<!-- Node43 -->
+<g id="node5" class="node"><title>Node43</title>
 <g id="a_node5"><a xlink:href="_widget3_d_locator_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="white" stroke="black" points="439.5,-0.5 439.5,-41.5 557.5,-41.5 557.5,-0.5 439.5,-0.5"/>
 <text text-anchor="start" x="447.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">C:/dev/Igor/Igor/src</text>
@@ -72,8 +72,8 @@
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node41 -->
-<g id="edge4" class="edge"><title>Node37&#45;&gt;Node41</title>
+<!-- Node39&#45;&gt;Node43 -->
+<g id="edge4" class="edge"><title>Node39&#45;&gt;Node43</title>
 <path fill="none" stroke="midnightblue" d="M344.949,-75.0654C374.363,-64.9002 411.537,-52.0535 441.94,-41.5464"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="343.6,-71.8283 335.292,-78.4027 345.887,-78.4443 343.6,-71.8283"/>
 </g>

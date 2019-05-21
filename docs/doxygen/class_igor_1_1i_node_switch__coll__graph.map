@@ -1,14 +1,14 @@
 <map id="Igor::iNodeSwitch" name="Igor::iNodeSwitch">
-<area shape="rect" id="node1" title=" " alt="" coords="969,317,1092,343"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html" title=" " alt="" coords="653,286,737,313"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_scene.html" title=" " alt="" coords="985,159,1076,186"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_i_d_generator.html" title=" " alt="" coords="221,235,405,262"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="5,155,125,182"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_data_update_queue.html" title=" " alt="" coords="429,99,589,126"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="254,167,373,194"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_octree.html" title=" " alt="" coords="648,197,741,223"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node_visitor_update_transform.html" title=" " alt="" coords="613,5,776,47"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_node_visitor.html" title=" " alt="" coords="253,13,374,39"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="238,63,389,90"/>
-<area shape="rect" id="node11" title=" " alt="" coords="46,63,85,90"/>
+<area shape="rect" id="node1" title=" " alt="" coords="971,58,1093,85"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html" title=" " alt="" coords="654,110,738,137"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_scene.html" title=" " alt="" coords="987,161,1077,187"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_i_d_generator.html" title=" " alt="" coords="223,114,407,141"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="5,187,125,214"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_data_update_queue.html" title=" " alt="" coords="431,277,591,303"/>
+<area shape="rect" id="node5" title=" " alt="" coords="46,89,85,115"/>
+<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="239,63,390,90"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="255,173,374,199"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_octree.html" title=" " alt="" coords="649,243,743,270"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node_visitor_update_transform.html" title=" " alt="" coords="615,5,777,47"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_node_visitor.html" title=" " alt="" coords="254,13,375,39"/>
 </map>

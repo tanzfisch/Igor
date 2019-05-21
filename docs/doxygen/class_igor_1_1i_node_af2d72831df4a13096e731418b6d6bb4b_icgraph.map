@@ -1,5 +1,5 @@
 <map id="Igor::iNode::getType" name="Igor::iNode::getType">
-<area shape="rect" id="node1" title=" " alt="" coords="521,551,660,578"/>
+<area shape="rect" id="node1" title=" " alt="" coords="521,581,660,607"/>
 <area shape="rect" id="node2" href="$class_igor_1_1i_material_group.html#a05017d35bf8586ba9319db823976b592" title=" " alt="" coords="289,5,423,47"/>
 <area shape="rect" id="node3" href="$class_igor_1_1i_material_group.html#ae5c9c6cedc257e8a6f58ec1ac02d4d1e" title=" " alt="" coords="285,71,427,112"/>
 <area shape="rect" id="node6" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#ac26cdefd11bdce0e76c1aa545902520f" title=" " alt="" coords="273,136,439,177"/>
@@ -16,13 +16,14 @@
 <area shape="rect" id="node20" href="$class_user_control_emitter.html#ac8a7692d55629eed4dbfa893afe47a06" title=" " alt="" coords="290,800,422,841"/>
 <area shape="rect" id="node21" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title=" " alt="" coords="279,865,433,907"/>
 <area shape="rect" id="node22" href="$class_user_control_properties.html#a9222e773b0da59069756332868248a44" title=" " alt="" coords="281,931,431,972"/>
-<area shape="rect" id="node23" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="272,997,440,1023"/>
-<area shape="rect" id="node26" href="$class_o_b_j2_o_m_p_f.html#a896d6dbea946d0ca63569a00f7a4fa66" title=" " alt="" coords="246,1047,466,1074"/>
+<area shape="rect" id="node23" href="$class_user_control_transformation.html#a356990f3338951491a72adfc5ccdf8ab" title=" " alt="" coords="269,996,443,1037"/>
+<area shape="rect" id="node24" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="272,1062,440,1089"/>
+<area shape="rect" id="node27" href="$class_o_b_j2_o_m_p_f.html#a896d6dbea946d0ca63569a00f7a4fa66" title=" " alt="" coords="246,1113,466,1139"/>
 <area shape="rect" id="node4" href="$class_igor_1_1i_render_engine.html#afa2b1137025f13fdad0b8f5414cba1a8" title=" " alt="" coords="31,39,165,80"/>
 <area shape="rect" id="node5" href="$class_igor_1_1i_render_engine.html#ab5bd16912a4a41154cdc29830040a07e" title=" " alt="" coords="31,104,165,145"/>
 <area shape="rect" id="node13" href="$class_igor_1_1i_view.html#a4bf64f1d4d7260afbd3e8f0ea9c3a361" title=" " alt="" coords="21,522,175,549"/>
 <area shape="rect" id="node17" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title=" " alt="" coords="27,665,169,691"/>
 <area shape="rect" id="node18" href="$class_model_viewer.html#a247bac03643084abda6e880573312206" title=" " alt="" coords="19,715,177,742"/>
-<area shape="rect" id="node24" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="9,956,187,997"/>
-<area shape="rect" id="node25" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="5,1021,191,1063"/>
+<area shape="rect" id="node25" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="9,1021,187,1063"/>
+<area shape="rect" id="node26" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="5,1087,191,1128"/>
 </map>

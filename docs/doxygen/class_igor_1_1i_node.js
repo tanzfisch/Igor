@@ -15,6 +15,7 @@ var class_igor_1_1i_node =
     [ "getName", "class_igor_1_1i_node.html#a80bd4ffd9048275d4921b62160ce50fa", null ],
     [ "getParent", "class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129", null ],
     [ "getScene", "class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79", null ],
+    [ "getTransformationChangeEvent", "class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443", null ],
     [ "getType", "class_igor_1_1i_node.html#af2d72831df4a13096e731418b6d6bb4b", null ],
     [ "hasChildren", "class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0", null ],
     [ "insertNode", "class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0", null ],
@@ -55,6 +56,7 @@ var class_igor_1_1i_node =
     [ "_parent", "class_igor_1_1i_node.html#a2d2f464afa7c2e1842582c22cb49ec73", null ],
     [ "_queueToDirtyData", "class_igor_1_1i_node.html#ab95d2784a896d4c16857d0abdf656f12", null ],
     [ "_scene", "class_igor_1_1i_node.html#ae9eecf7cf169bdb85787c01ef2a4fb48", null ],
+    [ "_transformationChangeEvent", "class_igor_1_1i_node.html#a2c647bfde42f17d248e8ae597a5a910b", null ],
     [ "_transformationDirty", "class_igor_1_1i_node.html#a1a8d676228903a492aad8f55da1435fe", null ],
     [ "INVALID_NODE_ID", "class_igor_1_1i_node.html#a1bd963f9762bf33432fdeb062c800797", null ]
 ];

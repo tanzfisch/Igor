@@ -32,6 +32,7 @@
 #include <iaMatrix.h>
 using namespace IgorAux;
 
+#include <iNode.h>
 #include <iUserControl.h>
 using namespace Igor;
 
@@ -44,6 +45,7 @@ namespace Igor
     class iWidgetTextEdit;
     class iWidgetLabel;
     class iWidgetButton;
+	class iNodeTransform;
 }
 
 class UserControlTransformation : public iUserControl
@@ -62,34 +64,22 @@ private:
 
     iWidgetGrid* _grid = nullptr;
 
-    iWidgetGrid* _gridMatrix = nullptr;
-    vector<iWidgetTextEdit*> _matrixText;
-
-    iWidgetGrid* _gridModifiers = nullptr;
-
-    iWidgetButton* _buttonApplyTranlation = nullptr;
-    iWidgetButton* _buttonApplyScale = nullptr;
-    iWidgetButton* _buttonApplyID = nullptr;
-    iWidgetButton* _buttonApplyRotateX = nullptr;
-    iWidgetButton* _buttonApplyRotateY = nullptr;
-    iWidgetButton* _buttonApplyRotateZ = nullptr;
-
-    vector<iWidgetTextEdit*> _translateText;
+	vector<iWidgetTextEdit*> _translateText;
     vector<iWidgetTextEdit*> _scaleText;
     vector<iWidgetTextEdit*> _rotateText;
+	vector<iWidgetTextEdit*> _shearText;
 
-    uint32 _nodeId = 0;
+	uint32 _nodeId = iNode::INVALID_NODE_ID;
 
     vector<iWidget*> _allWidgets;
 
-    void onTranslation(iWidget* source);
-    void onScale(iWidget* source);
-    void onRotationX(iWidget* source);
-    void onRotationY(iWidget* source);
-    void onRotationZ(iWidget* source);
-    void onID(iWidget* source);
+	void onTransformationChanged(iNode* node);
+
+	iWidgetTextEdit* createTextEdit();
+
+    void onChange(iWidget* source);
    
-    void updateGUI();
+    void updateGUI(iNodeTransform* transformNode);
 
     void initGUI();
     void deinitGUI();
