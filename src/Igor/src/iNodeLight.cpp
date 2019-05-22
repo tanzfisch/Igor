@@ -51,7 +51,9 @@ namespace Igor
     iaVector4d iNodeLight::getPosition()
     {
         iaVector4d result;
-        result._vec = _worldMatrix._pos;
+        result._x = _worldMatrix._pos._x;
+		result._y = _worldMatrix._pos._y;
+		result._z = _worldMatrix._pos._z;
         result._w = 1.0f;
         return result;
     }
@@ -59,9 +61,10 @@ namespace Igor
     iaVector4d iNodeLight::getDirection()
     {
         iaVector4d result;
-        result._vec = _worldMatrix._pos;
+        result._x = _worldMatrix._pos._x;
+		result._y = _worldMatrix._pos._y;
+		result._z = _worldMatrix._pos._z;
         result._w = 0.0f;
-
         return result;
     }
     
