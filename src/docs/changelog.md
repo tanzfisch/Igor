@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.20.0
+------
+
+- replaced vector and matrix conversions in iaConvert with conversion methods directly on the classes
+
 0.19.0
 ------
 
