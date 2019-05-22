@@ -153,12 +153,12 @@
     <ClInclude Include="..\src\iaTransform.h">
       <Filter>math</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\iaVector2.inl">
+      <Filter>math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\iaMatrix.inl">
-      <Filter>math</Filter>
-    </None>
-    <None Include="..\src\iaVector2.inl">
       <Filter>math</Filter>
     </None>
     <None Include="..\src\iaVector3.inl">

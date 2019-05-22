@@ -591,11 +591,8 @@ void Manipulator::onMouseMoved(const iaVector2i& from, const iaVector2i& to, iWi
 {
 	if (_selectedManipulatorNodeID != iNode::INVALID_NODE_ID)
 	{
-		iaVector2d fromd;
-		iaVector2d tod;
-
-		iaConvert::convert(from, fromd);
-		iaConvert::convert(to, tod);
+		iaVector2d fromd = from.convert<float64>();
+		iaVector2d tod = to.convert<float64>();
 
 		iNodePtr node = iNodeFactory::getInstance().getNode(_selectedNodeID);
 		if (node != nullptr &&

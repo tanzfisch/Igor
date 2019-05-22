@@ -62,12 +62,12 @@ namespace IgorAux
 
     bool iaSerializable::write(ofstream& stream, const iaVector4f& value)
     {
-        return iaSerializable::write(stream, reinterpret_cast<const char*>(value._vec.getData()), sizeof(iaVector4f));
+        return iaSerializable::write(stream, reinterpret_cast<const char*>(value.getData()), sizeof(iaVector4f));
     }
 
     bool iaSerializable::read(ifstream& stream, iaVector4f& value)
     {
-        return iaSerializable::read(stream, reinterpret_cast<char*>(value._vec.getData()), sizeof(iaVector4f));
+        return iaSerializable::read(stream, reinterpret_cast<char*>(value.getData()), sizeof(iaVector4f));
     }
 
     bool iaSerializable::write(ofstream& stream, const iaGradientf& value)

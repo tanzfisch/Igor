@@ -10,11 +10,27 @@ static const float64 identityMatrix[] =
 	0, 0, 0, 1 
 };
 
+static const float32 identityMatrixFloat32[] =
+{
+	1, 0, 0, 0,
+	0, 1, 0, 0,
+	0, 0, 1, 0,
+	0, 0, 0, 1
+};
+
 TEST(MatrixTests, Initial) 
 {
 	iaMatrixd matrix;
 
 	EXPECT_TRUE(0 == std::memcmp(matrix.getData(), identityMatrix, sizeof(matrix)));
+}
+
+TEST(MatrixTests, Convert)
+{
+	iaMatrixd matrix;
+	iaMatrixf matrix2 = matrix.convert<float32>();
+	
+	EXPECT_TRUE(0 == std::memcmp(matrix2.getData(), identityMatrixFloat32, sizeof(matrix2)));
 }
 
 TEST(MatrixTests, Identity) 

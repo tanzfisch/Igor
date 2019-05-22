@@ -82,7 +82,7 @@ namespace Igor
 
     uint32 iMeshBuilder::addVertex(const iaVector4f& vertex)
     {
-        iaVector3f vec3(vertex._vec._x, vertex._vec._y, vertex._vec._z);
+        iaVector3f vec3(vertex._x, vertex._y, vertex._z);
         iaVector3f transformed = _matrix * vec3;
         return addVertex(transformed);
     }
