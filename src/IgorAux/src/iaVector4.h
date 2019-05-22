@@ -126,7 +126,7 @@ namespace IgorAux
 		\returns vector for given type
 		*/
 		template<class T2>
-		__IGOR_INLINE__ iaVector4<T2> convert();
+		__IGOR_INLINE__ iaVector4<T2> convert() const;
 
         /*! default ctor
 

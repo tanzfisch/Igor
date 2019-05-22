@@ -163,7 +163,7 @@ void Turret::handle()
                         _time + 1000 < iTimer::getInstance().getApplicationTime())
                     {
                         // check line of sight
-                        iaVector3I outside, inside;                        iaVector3I center;                        iaVector3I pos;                        iaConvert::convert(getSphere()._center, center);                        iaConvert::convert(targetPos, pos);
+                        iaVector3I outside, inside;						iaVector3I center = getSphere()._center.convert<int64>();						iaVector3I pos = targetPos.convert<int64>();
                         if (_voxelTerrain->castRay(center, pos, outside, inside))                        {
                             iaMatrixd matrixOrientation;
                             matrixOrientation._depth = dir;

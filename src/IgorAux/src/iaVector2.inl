@@ -211,7 +211,7 @@ void iaVector2<T>::negate(void)
 
 template <class T>
 template <class T2>
-iaVector2<T2> iaVector2<T>::convert()
+iaVector2<T2> iaVector2<T>::convert() const
 {
 	iaVector2<T2> result(static_cast<T2>(_x), static_cast<T2>(_y));
 	return result;

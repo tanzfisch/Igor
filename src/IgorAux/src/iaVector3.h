@@ -225,7 +225,7 @@ namespace IgorAux
 		\returns vector for given type
 		*/
 		template<class T2>
-		__IGOR_INLINE__ iaVector3<T2> convert();
+		__IGOR_INLINE__ iaVector3<T2> convert() const;
 
         /*! does nothing
         */

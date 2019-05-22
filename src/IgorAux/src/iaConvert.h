@@ -72,55 +72,7 @@ namespace IgorAux
         \param[out] dst destination color
         */
         static void convert(const iaColor4c& src, iaColor4f& dst);
-
-        /*! converts int64 based 3 dimensional vector in float32 base
-
-        \param src src vector
-        \param[out] dst destination vector
-        */
-        static void convert(const iaVector3I& src, iaVector3f& dst);
-
-		/*! converts int64 based 3 dimensional vector in float64 base
-
-		\param src src vector
-		\param[out] dst destination vector
-		*/
-		static void convert(const iaVector3I& src, iaVector3d& dst);
-
-		static void convert(const iaVector3i& src, iaVector3f& dst);
-		
-		static void convert(const iaVector3i& src, iaVector3d& dst);
-
-		static void convert(const iaVector2i& src, iaVector2f& dst);
-
-		static void convert(const iaVector2i& src, iaVector2d& dst);
-
-        /*! converts float32 based 3 dimensional vector in int64 base
-
-        \param src src vector
-        \param[out] dst destination vector
-        */
-        static void convert(const iaVector3f& src, iaVector3I& dst);
-
-        static void convert(const iaVector3d& src, iaVector3I& dst);
-
-        /*! converts float64 based 3 dimensional vector in float32 base
-
-        \param src src vector
-        \param[out] dst destination vector
-        */
-        static void convert(const iaVector3d& src, iaVector3f& dst);
-
-        static void convert(const iaVector3f& src, iaVector3d& dst);
-
-        /*! converts float64 based 4*4 matrix in float32 base 4*4 matrix
-
-        \param src src matrix
-        \param[out] dst destination matrix
-        */
-        static void convert(const iaMatrixd& src, iaMatrixf& dst);
-
-        static void convert(const iaMatrixf& src, iaMatrixd& dst);
+        
     };
 }
 

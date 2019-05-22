@@ -112,7 +112,7 @@ void iaVector4<T>::set(T x, T y, T z, T w)
 
 template <class T>
 template <class T2>
-iaVector4<T2> iaVector4<T>::convert()
+iaVector4<T2> iaVector4<T>::convert() const
 {
 	iaVector4<T2> result(static_cast<T2>(_x), static_cast<T2>(_y), static_cast<T2>(_z), static_cast<T2>(_w));
 	return result;

@@ -266,8 +266,7 @@ namespace Igor
             pos._y = DEBUG_VOXEL_TERRAIN_FIX_HEIGHT;
 #endif
 
-            iaVector3I observerPosition;
-            iaConvert::convert(pos, observerPosition);
+			iaVector3I observerPosition = pos.convert<int64>();
 
 #ifdef USE_VERBOSE_STATISTICS
             iStatistics::getInstance().beginSection(_discoverBlocksSection);
@@ -1320,8 +1319,7 @@ namespace Igor
                     tileName += iaString::itoa(voxelBlock->_mutationCounter++);
 
                     iNodeTransform* transformNode = static_cast<iNodeTransform*>(iNodeFactory::getInstance().createNode(iNodeType::iNodeTransform));
-                    iaVector3d transform;
-                    iaConvert::convert(voxelBlock->_positionInLOD, transform);
+					iaVector3d transform = voxelBlock->_positionInLOD.convert<float64>();
                     transform *= voxelBlock->_size;
                     transformNode->translate(transform);
 

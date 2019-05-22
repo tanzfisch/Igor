@@ -1859,8 +1859,7 @@ namespace Igor
 		iaVector4f camtop;
 		camtop.set(_camWorldMatrix._top._x, _camWorldMatrix._top._y, _camWorldMatrix._top._z, 0);
 
-		iaMatrixf inv;
-		iaConvert::convert(_modelMatrix, inv);
+		iaMatrixf inv = _modelMatrix.convert<float32>();
 		inv.invert();
 
 		iaVector4f rightPreComp = inv * camright;
