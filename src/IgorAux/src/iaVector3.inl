@@ -283,3 +283,11 @@ T iaVector3<T>::angleXZ() const
 
     return heading;
 }
+
+template <class T>
+template <class T2>
+iaVector3<T2> iaVector3<T>::convert()
+{
+	iaVector3<T2> result(static_cast<T2>(_x), static_cast<T2>(_y), static_cast<T2>(_z));
+	return result;
+}

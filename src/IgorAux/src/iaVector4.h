@@ -42,13 +42,21 @@ namespace IgorAux
     {
     public:
 
-        /*! 3d vector
-        */
-        iaVector3<T> _vec;
+		/*! x component
+		*/
+		T _x = static_cast<T>(0);
+
+		/*! y component
+		*/
+		T _y = static_cast<T>(0);
+
+		/*! z component
+		*/
+		T _z = static_cast<T>(0);
 
         /*! w component
         */
-        T _w;
+        T _w = static_cast<T>(1);
 
         /*! copy operator
 
@@ -112,6 +120,13 @@ namespace IgorAux
         const variant
         */
         const T* getData() const;
+
+		/*! converts the vector in to given type of vector
+
+		\returns vector for given type
+		*/
+		template<class T2>
+		__IGOR_INLINE__ iaVector4<T2> convert();
 
         /*! default ctor
 
