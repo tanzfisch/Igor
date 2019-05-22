@@ -136,16 +136,35 @@ namespace Igor
 	void iWidgetTextEdit::updateMetrics()
 	{
 		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-		_cursorPosPix = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text.getSubString(0, _cursorPos), fontSize) + 2;
+		int64 textLenght = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
+		_cursorPosPix = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text.getSubString(0, _cursorPos), fontSize);
 
-		if (_cursorPosPix < getActualWidth())
+		if (textLenght < getActualWidth())
 		{
 			_scrollOffset = 0;
 		}
 		else
 		{
-			_scrollOffset = _cursorPosPix - getActualWidth();
-			_cursorPosPix -= _scrollOffset;
+			switch (_horizontalTextAlignment)
+			{
+			case iHorizontalAlignment::Left:
+				_scrollOffset = _cursorPosPix + 5 - getActualWidth();
+				break;
+			case iHorizontalAlignment::Right:
+				if (textLenght - _cursorPosPix > getActualWidth())
+				{
+					_scrollOffset = _cursorPosPix;
+				}
+				else
+				{
+					_scrollOffset = 0;
+				}
+				con_endl(_scrollOffset << ", " << _cursorPosPix << ", " << textLenght<< ", " << getActualWidth());
+				break;
+			case iHorizontalAlignment::Center:
+				_scrollOffset = _cursorPosPix + 5 - getActualWidth();
+				break;
+			}
 		}
 	}
 

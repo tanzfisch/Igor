@@ -353,28 +353,13 @@ namespace Igor
 		drawLineInt(rect._x, rect._y, rect._x + rect._width, rect._y);
 		drawLineInt(rect._x, rect._y, rect._x, rect._y + rect._height);
 
-		if (keyboardFocus)
-		{
-			iRenderer::getInstance().setColor(COLOR_TEXT_DARK);
-			iRenderer::getInstance().drawRectangle(rect._x + cursorPos, rect._y + 3, 2, _fontSize);
-		}
-
-		iRenderer::getInstance().setStencilMask(0xff);
-		iRenderer::getInstance().setStencilFunction(iRenderStateValue::Equal, 1, 0xff);
-
-		// render text
-		iRenderer::getInstance().setMaterial(_texturedMaterial);
-		iRenderer::getInstance().setFont(_font);
-		iRenderer::getInstance().setFontSize(_fontSize);
-		iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
-
 		int32 textPosX = rect._x;
 		int32 textPosY = rect._y;
 
 		switch (align)
 		{
 		case iHorizontalAlignment::Left:
-			textPosX += 2;
+			textPosX += 2;			
 			break;
 
 		case iHorizontalAlignment::Right:
@@ -401,7 +386,24 @@ namespace Igor
 			break;
 		};
 
-		drawStringInt(textPosX - scrollOffset, textPosY, modText);
+		iRenderer::getInstance().setStencilMask(0xff);
+		iRenderer::getInstance().setStencilFunction(iRenderStateValue::Equal, 1, 0xff);
+
+		if (keyboardFocus)
+		{
+			textPosX += scrollOffset;
+
+			iRenderer::getInstance().setColor(COLOR_TEXT_DARK);
+			iRenderer::getInstance().drawRectangle(textPosX + cursorPos, textPosY, 2, _fontSize);
+		}
+
+		// render text
+		iRenderer::getInstance().setMaterial(_texturedMaterial);
+		iRenderer::getInstance().setFont(_font);
+		iRenderer::getInstance().setFontSize(_fontSize);
+		iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
+
+		drawStringInt(textPosX, textPosY, modText);
 
 		iRenderer::getInstance().enableStencilTest(false);
 			

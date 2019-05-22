@@ -225,6 +225,7 @@ void WidgetsExample::initGUI()
 
     iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
     _allWidgets.push_back(textEdit);
+	textEdit->setHorizontalTextAlignment(iHorizontalAlignment::Left);
     textEdit->setText("bla");
     textEdit->setMaxTextLength(20);
 
