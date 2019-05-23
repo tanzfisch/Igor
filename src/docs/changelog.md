@@ -6,6 +6,11 @@ Changelog                           {#changelog}
 
 - replaced vector and matrix conversions in iaConvert with conversion methods directly on the classes
 
+0.19.1
+------
+
+- fixed cursor position in text edit field when text was not aligned left
+
 0.19.0
 ------
 

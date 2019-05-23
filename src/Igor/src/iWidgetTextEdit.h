@@ -162,7 +162,7 @@ namespace Igor
 		virtual bool handleKeyDown(iKeyCode key) override;
 
 		/*! handles incomming released key events
-		
+
 		\param key the released key
 		*/
 		virtual bool handleKeyUp(iKeyCode key) override;
@@ -182,16 +182,16 @@ namespace Igor
 	private:
 
 		/*! position of cursor within the text in characters
-*/
+		*/
 		uint64 _cursorPos = 0;
 
 		/*! cursor position in pixel
 		*/
-		uint64 _cursorPosPix = 0;
+		int64 _cursorPosPix = 0;
 
 		/*! scroll offset of text display in pixel
 		*/
-		uint64 _scrollOffset = 0;
+		int64 _scrollOffset = 0;
 
 		/*! max text lenght in characters
 		*/
