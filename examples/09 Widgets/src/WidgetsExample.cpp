@@ -223,10 +223,26 @@ void WidgetsExample::initGUI()
     numberChooser->setValue(50);
     numberChooser->setHorizontalAlignment(iHorizontalAlignment::Right);
 
-    iWidgetTextEdit* textEdit = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
-    _allWidgets.push_back(textEdit);
-    textEdit->setText("bla");
-    textEdit->setMaxTextLength(20);
+    iWidgetTextEdit* textEditLeft = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+    _allWidgets.push_back(textEditLeft);
+	textEditLeft->setWidth(150);
+	textEditLeft->setHorizontalTextAlignment(iHorizontalAlignment::Left);
+	textEditLeft->setText("left aligned");
+	textEditLeft->setMaxTextLength(300);
+
+	iWidgetTextEdit* textEditCenter = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+	_allWidgets.push_back(textEditCenter);
+	textEditCenter->setWidth(150);
+	textEditCenter->setHorizontalTextAlignment(iHorizontalAlignment::Center);
+	textEditCenter->setText("center aligned");
+	textEditCenter->setMaxTextLength(300);
+
+	iWidgetTextEdit* textEditRight = static_cast<iWidgetTextEdit*>(iWidgetManager::getInstance().createWidget("TextEdit"));
+	_allWidgets.push_back(textEditRight);
+	textEditRight->setWidth(150);
+	textEditRight->setHorizontalTextAlignment(iHorizontalAlignment::Right);
+	textEditRight->setText("right aligned");
+	textEditRight->setMaxTextLength(300);
 
     iWidgetPicture* picture1 = static_cast<iWidgetPicture*>(iWidgetManager::getInstance().createWidget("Picture"));
     _allWidgets.push_back(picture1);
@@ -322,12 +338,14 @@ void WidgetsExample::initGUI()
 
     grid3->addWidget(label1, 0, 0);
     grid3->addWidget(_labelMousePos, 1, 0);
-    grid3->addWidget(textEdit, 0, 1);
+    grid3->addWidget(textEditLeft, 0, 1);
+	grid3->addWidget(textEditCenter, 0, 2);
+	grid3->addWidget(textEditRight, 0, 3);
     grid3->addWidget(label2, 1, 1);
     grid3->addWidget(label3, 1, 2);
     grid3->addWidget(label4, 2, 2);
-    grid3->addWidget(label5, 0, 2);
-    grid3->addWidget(button1, 0, 3);
+    grid3->addWidget(label5, 2, 3);
+    grid3->addWidget(button1, 1, 3);
     grid3->addWidget(selectBox, 3, 2);
     grid3->addWidget(numberChooser, 3, 1);
     grid3->addWidget(radio1, 0, 4);

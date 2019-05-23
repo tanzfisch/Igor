@@ -129,24 +129,14 @@ namespace Igor
 			handleChanges();
 		}
 
-		// always consume the event when widget has keyboard focus
+		// always consume the event when widget has keyboard fo
 		return true;
 	}
 
 	void iWidgetTextEdit::updateMetrics()
 	{
 		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-		_cursorPosPix = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text.getSubString(0, _cursorPos), fontSize) + 2;
-
-		if (_cursorPosPix < getActualWidth())
-		{
-			_scrollOffset = 0;
-		}
-		else
-		{
-			_scrollOffset = _cursorPosPix - getActualWidth();
-			_cursorPosPix -= _scrollOffset;
-		}
+		_cursorPosPix = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text.getSubString(0, _cursorPos), fontSize);
 	}
 
 	void iWidgetTextEdit::incCursorPos()
@@ -202,7 +192,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _scrollOffset, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
 		}
 	}
 

@@ -1,6 +1,11 @@
 Changelog                           {#changelog}
 =========
 
+0.19.1
+------
+
+- fixed cursor position in text edit field when text was not aligned left
+
 0.19.0
 ------
 
