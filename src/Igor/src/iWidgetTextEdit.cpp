@@ -129,43 +129,14 @@ namespace Igor
 			handleChanges();
 		}
 
-		// always consume the event when widget has keyboard focus
+		// always consume the event when widget has keyboard fo
 		return true;
 	}
 
 	void iWidgetTextEdit::updateMetrics()
 	{
 		float32 fontSize = iWidgetManager::getInstance().getTheme()->getFontSize();
-		int64 textLenght = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text, fontSize);
 		_cursorPosPix = iWidgetManager::getInstance().getTheme()->getFont()->measureWidth(_text.getSubString(0, _cursorPos), fontSize);
-
-		if (textLenght < getActualWidth())
-		{
-			_scrollOffset = 0;
-		}
-		else
-		{
-			switch (_horizontalTextAlignment)
-			{
-			case iHorizontalAlignment::Left:
-				_scrollOffset = _cursorPosPix + 5 - getActualWidth();
-				break;
-			case iHorizontalAlignment::Right:
-				if (textLenght - _cursorPosPix > getActualWidth())
-				{
-					_scrollOffset = _cursorPosPix;
-				}
-				else
-				{
-					_scrollOffset = 0;
-				}
-				con_endl(_scrollOffset << ", " << _cursorPosPix << ", " << textLenght<< ", " << getActualWidth());
-				break;
-			case iHorizontalAlignment::Center:
-				_scrollOffset = _cursorPosPix + 5 - getActualWidth();
-				break;
-			}
-		}
 	}
 
 	void iWidgetTextEdit::incCursorPos()
@@ -221,7 +192,7 @@ namespace Igor
 	{
 		if (isVisible())
 		{
-			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _scrollOffset, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
+			iWidgetManager::getInstance().getTheme()->drawTextEdit(getActualRect(), _text, _cursorPosPix, _horizontalTextAlignment, _verticalTextAlignment, hasKeyboardFocus() && !isWriteProtected(), _widgetAppearanceState, isActive() && !_writeProtected);
 		}
 	}
 

@@ -111,17 +111,17 @@ namespace Igor
 		drawText(rect, text, textWidth);
 	}
 
-	void iWidgetDefaultTheme::drawRectangle(const iRectanglei& rect)
+	void iWidgetDefaultTheme::drawRectangle(const iRectanglei & rect)
 	{
 		drawRectangle(rect, COLOR_AMBIENT);
 	}
 
-	void iWidgetDefaultTheme::drawFilledRectangle(const iRectanglei& rect)
+	void iWidgetDefaultTheme::drawFilledRectangle(const iRectanglei & rect)
 	{
 		drawFilledRectangle(rect, COLOR_DIFFUSE);
 	}
 
-	void iWidgetDefaultTheme::drawGradient(const iRectanglei& rect, const iaGradientColor4f& gradient)
+	void iWidgetDefaultTheme::drawGradient(const iRectanglei & rect, const iaGradientColor4f & gradient)
 	{
 		iRenderer::getInstance().setMaterial(_defaultMaterial);
 		iRenderer::getInstance().setLineWidth(1);
@@ -319,7 +319,7 @@ namespace Igor
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
-	void iWidgetDefaultTheme::drawTextEdit(const iRectanglei & rect, const iaString & text, const float32 cursorPos, const float32 scrollOffset, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
+	void iWidgetDefaultTheme::drawTextEdit(const iRectanglei & rect, const iaString & text, const float32 cursorPos, iHorizontalAlignment align, iVerticalAlignment valign, bool keyboardFocus, iWidgetAppearanceState state, bool active)
 	{
 		iaString modText = text;
 
@@ -353,36 +353,36 @@ namespace Igor
 		drawLineInt(rect._x, rect._y, rect._x + rect._width, rect._y);
 		drawLineInt(rect._x, rect._y, rect._x, rect._y + rect._height);
 
-		int32 textPosX = rect._x;
-		int32 textPosY = rect._y;
+		int32 relativeTextPosX = 0;
+		int32 relatoveTextPosY = 0;
 
 		switch (align)
 		{
 		case iHorizontalAlignment::Left:
-			textPosX += 2;			
+			relativeTextPosX += 2;
 			break;
 
 		case iHorizontalAlignment::Right:
-			textPosX += rect._width - 2 - static_cast<int32>(textwidth);
+			relativeTextPosX += rect._width - 2 - static_cast<int32>(textwidth);
 			break;
 
 		case iHorizontalAlignment::Center:
-			textPosX += static_cast<int32>((static_cast<float32>(rect._width) - textwidth) * 0.5f);
+			relativeTextPosX += static_cast<int32>((static_cast<float32>(rect._width) - textwidth) * 0.5f);
 			break;
 		};
 
 		switch (valign)
 		{
 		case iVerticalAlignment::Top:
-			textPosY += rect._height - 2 - static_cast<int32>(_fontSize);
+			relatoveTextPosY += rect._height - 2 - static_cast<int32>(_fontSize);
 			break;
 
 		case iVerticalAlignment::Bottom:
-			textPosY += 2;
+			relatoveTextPosY += 2;
 			break;
 
 		case iVerticalAlignment::Center:
-			textPosY += static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f);
+			relatoveTextPosY += static_cast<int32>((static_cast<float32>(rect._height) - _fontSize) * 0.5f);
 			break;
 		};
 
@@ -391,10 +391,21 @@ namespace Igor
 
 		if (keyboardFocus)
 		{
-			textPosX += scrollOffset;
+			int scrollOffset = 0;
+
+			if (relativeTextPosX + cursorPos > rect._width)
+			{
+				scrollOffset = rect._width - (relativeTextPosX + cursorPos) - 5;
+			}
+			else if (relativeTextPosX + cursorPos < 0)
+			{
+				scrollOffset = 5 - relativeTextPosX;
+			}
+
+			relativeTextPosX += scrollOffset;
 
 			iRenderer::getInstance().setColor(COLOR_TEXT_DARK);
-			iRenderer::getInstance().drawRectangle(textPosX + cursorPos, textPosY, 2, _fontSize);
+			iRenderer::getInstance().drawRectangle(rect._x + relativeTextPosX + cursorPos, rect._y + relatoveTextPosY, 2, _fontSize);
 		}
 
 		// render text
@@ -403,10 +414,10 @@ namespace Igor
 		iRenderer::getInstance().setFontSize(_fontSize);
 		iRenderer::getInstance().setFontLineHeight(_fontLineHeight);
 
-		drawStringInt(textPosX, textPosY, modText);
+		drawStringInt(rect._x + relativeTextPosX, rect._y + relatoveTextPosY, modText);
 
 		iRenderer::getInstance().enableStencilTest(false);
-			
+
 		DRAW_DEBUG_OUTPUT(rect, state);
 	}
 
