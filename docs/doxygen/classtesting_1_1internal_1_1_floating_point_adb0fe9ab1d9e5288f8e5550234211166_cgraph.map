@@ -1,0 +1,7 @@
+<map id="testing::internal::FloatingPoint::AlmostEquals" name="testing::internal::FloatingPoint::AlmostEquals">
+<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1_floating_point.html#aaef2fd2cd8cdf791206a5e9fed8ef90d" title="testing::internal::\lFloatingPoint::is_nan" alt="" coords="271,71,415,112"/>
+<area shape="rect" id="node5" href="$classtesting_1_1internal_1_1_floating_point.html#afe00f9f26ad2929a061f7e07b8a5071a" title="testing::internal::\lFloatingPoint::DistanceBetween\lSignAndMagnitudeNumbers" alt="" coords="240,137,447,193"/>
+<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_floating_point.html#af53c50b85408c582540d6244c026ce2b" title="testing::internal::\lFloatingPoint::exponent_bits" alt="" coords="509,5,695,47"/>
+<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1_floating_point.html#aa0167b7b10a934b743ba3c1f47421e63" title="testing::internal::\lFloatingPoint::fraction_bits" alt="" coords="514,71,690,112"/>
+<area shape="rect" id="node6" href="$classtesting_1_1internal_1_1_floating_point.html#a2cf0e39c6ebf026bc0353100d031ca85" title="testing::internal::\lFloatingPoint::SignAndMagnitude\lToBiased" alt="" coords="495,137,709,193"/>
+</map>

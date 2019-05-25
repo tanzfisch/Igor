@@ -9,38 +9,35 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iLoader3DS::saveFile</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 378,-35 378,4 -4,4"/>
-<!-- Node104 -->
-<g id="node1" class="node"><title>Node104</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 130,-25 130,-6 0,-6"/>
 <text text-anchor="middle" x="65" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::saveFile</text>
-</a>
 </g>
-</g>
-<!-- Node105 -->
-<g id="node2" class="node"><title>Node105</title>
-<g id="a_node2"><a xlink:href="namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" target="_top" xlink:title="IgorAux::endl">
 <polygon fill="white" stroke="black" points="166,-6 166,-25 240,-25 240,-6 166,-6"/>
 <text text-anchor="middle" x="203" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::endl</text>
 </a>
 </g>
 </g>
-<!-- Node104&#45;&gt;Node105 -->
-<g id="edge1" class="edge"><title>Node104&#45;&gt;Node105</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M130.018,-15.5C138.64,-15.5 147.349,-15.5 155.585,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="155.725,-19.0001 165.725,-15.5 155.725,-12.0001 155.725,-19.0001"/>
 </g>
-<!-- Node106 -->
-<g id="node3" class="node"><title>Node106</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" target="_top" xlink:title="IgorAux::iaConsole\l::setTextColor">
 <polygon fill="white" stroke="black" points="276,-0.5 276,-30.5 374,-30.5 374,-0.5 276,-0.5"/>
 <text text-anchor="start" x="284" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaConsole</text>
 <text text-anchor="middle" x="325" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setTextColor</text>
 </a>
 </g>
 </g>
-<!-- Node105&#45;&gt;Node106 -->
-<g id="edge2" class="edge"><title>Node105&#45;&gt;Node106</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M240.004,-15.5C248.042,-15.5 256.769,-15.5 265.455,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="265.589,-19.0001 275.589,-15.5 265.589,-12.0001 265.589,-19.0001"/>
 </g>

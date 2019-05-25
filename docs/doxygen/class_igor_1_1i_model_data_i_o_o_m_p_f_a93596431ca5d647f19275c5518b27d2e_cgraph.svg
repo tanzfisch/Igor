@@ -9,68 +9,65 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 182)">
 <title>Igor::iModelDataIOOMPF::createEmitterChunk</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-182 296,-182 296,4 -4,4"/>
-<!-- Node9 -->
-<g id="node1" class="node"><title>Node9</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-73.5 0,-103.5 125,-103.5 125,-73.5 0,-73.5"/>
 <text text-anchor="start" x="8" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
 <text text-anchor="middle" x="62.5" y="-80.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createEmitterChunk</text>
-</a>
 </g>
-</g>
-<!-- Node10 -->
-<g id="node2" class="node"><title>Node10</title>
-<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_emitter_chunk.html#a33e20ead157d8f754c536153e2b05b71" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_emitter_chunk.html#a33e20ead157d8f754c536153e2b05b71" target="_top" xlink:title="OMPF::ompfEmitterChunk\l::setSize">
 <polygon fill="white" stroke="black" points="161,-147.5 161,-177.5 292,-177.5 292,-147.5 161,-147.5"/>
 <text text-anchor="start" x="169" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfEmitterChunk</text>
 <text text-anchor="middle" x="226.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setSize</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node10 -->
-<g id="edge1" class="edge"><title>Node9&#45;&gt;Node10</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M90.8185,-103.604C110.138,-114.013 136.803,-127.838 161,-138.5 165.045,-140.283 169.269,-142.051 173.534,-143.773"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="172.299,-147.048 182.886,-147.453 174.863,-140.534 172.299,-147.048"/>
 </g>
-<!-- Node11 -->
-<g id="node3" class="node"><title>Node11</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node_emitter.html#ae5de66ff516e7b86c3c264363f765782" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node_emitter.html#ad9c9bec50aad0f6e2c0807f0b5c36b54" target="_top" xlink:title="Igor::iNodeEmitter\l::getSize">
 <polygon fill="white" stroke="black" points="179,-98.5 179,-128.5 274,-128.5 274,-98.5 179,-98.5"/>
 <text text-anchor="start" x="187" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeEmitter</text>
 <text text-anchor="middle" x="226.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getSize</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node11 -->
-<g id="edge2" class="edge"><title>Node9&#45;&gt;Node11</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M125.207,-98.0227C139.526,-100.232 154.698,-102.574 168.79,-104.748"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="168.415,-108.232 178.832,-106.298 169.483,-101.314 168.415,-108.232"/>
 </g>
-<!-- Node12 -->
-<g id="node4" class="node"><title>Node12</title>
-<g id="a_node4"><a xlink:href="class_o_m_p_f_1_1ompf_emitter_chunk.html#ae915a0066b7f2b32d2985497a8cec187" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_o_m_p_f_1_1ompf_emitter_chunk.html#ae915a0066b7f2b32d2985497a8cec187" target="_top" xlink:title="OMPF::ompfEmitterChunk\l::setType">
 <polygon fill="white" stroke="black" points="161,-49.5 161,-79.5 292,-79.5 292,-49.5 161,-49.5"/>
 <text text-anchor="start" x="169" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfEmitterChunk</text>
 <text text-anchor="middle" x="226.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setType</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node12 -->
-<g id="edge3" class="edge"><title>Node9&#45;&gt;Node12</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M125.207,-79.3582C133.562,-78.1204 142.208,-76.8396 150.76,-75.5726"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="151.354,-79.0229 160.733,-74.0951 150.328,-72.0985 151.354,-79.0229"/>
 </g>
-<!-- Node13 -->
-<g id="node5" class="node"><title>Node13</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_node_emitter.html#a495bb4a7d0ff96e2e910ca165df3d40a" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_node_emitter.html#aed749292f7ac23bf9ffec153a4472644" target="_top" xlink:title="Igor::iNodeEmitter\l::getEmitterType">
 <polygon fill="white" stroke="black" points="179,-0.5 179,-30.5 274,-30.5 274,-0.5 179,-0.5"/>
 <text text-anchor="start" x="187" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeEmitter</text>
 <text text-anchor="middle" x="226.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getEmitterType</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node13 -->
-<g id="edge4" class="edge"><title>Node9&#45;&gt;Node13</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M92.6238,-73.328C111.839,-63.5259 137.677,-50.7374 161,-40.5 165.691,-38.441 170.609,-36.374 175.549,-34.3589"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="177.04,-37.532 185.021,-30.5635 174.437,-31.0342 177.04,-37.532"/>
 </g>

@@ -1,4 +1,3 @@
 <map id="Igor::GetCollisionInfo" name="Igor::GetCollisionInfo">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,147,39"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a37512da0d0dd3c50cd0f5ac54372c4d5" title=" " alt="" coords="195,5,404,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a37512da0d0dd3c50cd0f5ac54372c4d5" title="Igor::iPhysicsUserMeshCollision\lHandler::getCollisionInfo" alt="" coords="195,5,404,47"/>
 </map>

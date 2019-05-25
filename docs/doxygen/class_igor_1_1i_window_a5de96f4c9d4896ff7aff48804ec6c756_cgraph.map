@@ -1,9 +1,8 @@
 <map id="Igor::iWindow::addView" name="Igor::iWindow::addView">
-<area shape="rect" id="node1" title=" " alt="" coords="5,107,163,133"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title=" " alt="" coords="226,5,398,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#a30533fbc10c5e609aafa8b0f251f82ee" title=" " alt="" coords="225,56,399,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_view.html#ab2fe093b71743ba586d42d5f35a322e9" title=" " alt="" coords="211,107,413,133"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_view.html#a4ab7751a13705d520d872899772664c4" title=" " alt="" coords="239,157,385,184"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_view.html#a39b63e6c6a72fdd3766d87c56a131f62" title=" " alt="" coords="239,208,385,235"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" title=" " alt="" coords="461,107,607,133"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title="Igor::iRectangle::setWidth" alt="" coords="226,5,398,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#a30533fbc10c5e609aafa8b0f251f82ee" title="Igor::iRectangle::setHeight" alt="" coords="225,56,399,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_view.html#ab2fe093b71743ba586d42d5f35a322e9" title="Igor::iView::updateWindowRect" alt="" coords="211,107,413,133"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_view.html#a4ab7751a13705d520d872899772664c4" title="Igor::iView::setZIndex" alt="" coords="239,157,385,184"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_view.html#ab679610e7acec8ef689d45adbc345408" title="Igor::iView::getZIndex" alt="" coords="239,208,385,235"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" title="Igor::iRectangle::setX" alt="" coords="461,107,607,133"/>
 </map>

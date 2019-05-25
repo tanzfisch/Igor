@@ -1,5 +1,4 @@
 <map id="Igor::iSkyLightNode::initMesh" name="Igor::iSkyLightNode::initMesh">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,140,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title=" " alt="" coords="188,5,315,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title=" " alt="" coords="363,5,529,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title="Igor::iMeshBuilder\l::createMesh" alt="" coords="188,5,315,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title="Igor::iMesh::setBounding\lSphere" alt="" coords="363,5,529,47"/>
 </map>

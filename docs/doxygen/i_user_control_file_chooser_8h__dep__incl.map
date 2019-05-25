@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iUserControlFileChooser.h" name="C:/dev/Igor/Igor/src/Igor/src/iUserControlFileChooser.h">
-<area shape="rect" id="node1" title=" " alt="" coords="351,5,575,47"/>
-<area shape="rect" id="node2" href="$i_user_control_file_chooser_8cpp.html" title=" " alt="" coords="5,102,244,143"/>
-<area shape="rect" id="node3" href="$i_widget_manager_8cpp.html" title=" " alt="" coords="269,102,461,143"/>
-<area shape="rect" id="node4" href="$_user_control_mesh_8cpp.html" title=" " alt="" coords="485,95,642,151"/>
-<area shape="rect" id="node5" href="$_user_control_particle_system_8cpp.html" title=" " alt="" coords="666,95,874,151"/>
+<map id="C:/dev/Igor/src/Igor/src/iUserControlFileChooser.h" name="C:/dev/Igor/src/Igor/src/iUserControlFileChooser.h">
+<area shape="rect" id="node2" href="$i_user_control_file_chooser_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iUserControlFileChooser.cpp" alt="" coords="5,102,219,143"/>
+<area shape="rect" id="node3" href="$i_widget_manager_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetManager.cpp" alt="" coords="243,102,410,143"/>
+<area shape="rect" id="node4" href="$_user_control_mesh_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lMesh.cpp" alt="" coords="435,95,629,151"/>
+<area shape="rect" id="node5" href="$_user_control_particle_system_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lParticleSystem.cpp" alt="" coords="653,95,848,151"/>
 </map>

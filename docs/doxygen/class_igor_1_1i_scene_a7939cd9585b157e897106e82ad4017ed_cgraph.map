@@ -1,6 +1,5 @@
 <map id="Igor::iScene::registerVolume" name="Igor::iScene::registerVolume">
-<area shape="rect" id="node1" title=" " alt="" coords="5,78,192,105"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_volume.html#aae3a50db01e4e1834e1c4c61d893d1b7" title=" " alt="" coords="240,5,376,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_volume.html#a1ce089a47c6e0a85e49f7ed5a6758ad5" title=" " alt="" coords="240,71,376,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="247,137,369,163"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_volume.html#a74aaf46e343701749b7af3580fd43483" title="Igor::iNodeVolume::\lgetCenter" alt="" coords="240,5,376,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_volume.html#a0b9dce0f82b812f8b6302ce87f2641d3" title="Igor::iNodeVolume::\lgetBoundingSphere" alt="" coords="240,71,376,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="247,137,369,163"/>
 </map>

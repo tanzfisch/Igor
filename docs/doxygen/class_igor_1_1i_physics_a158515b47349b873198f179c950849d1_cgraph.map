@@ -1,8 +1,7 @@
 <map id="Igor::iPhysics::handleQueues" name="Igor::iPhysics::handleQueues">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,197,83"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title=" " alt="" coords="513,5,665,32"/>
-<area shape="rect" id="node3" href="$namespacetesting_1_1internal.html#a0f6d06bf8c3093b9c22bb08723db201e" title=" " alt="" coords="262,31,411,57"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title=" " alt="" coords="505,132,672,159"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a652d7314475cae2d969224ebc6d47853" title=" " alt="" coords="245,81,428,108"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_physics.html#adfede4e16fd914bd6a9fa6e568c0b263" title=" " alt="" coords="476,81,701,108"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="513,5,665,32"/>
+<area shape="rect" id="node3" href="$namespacetesting_1_1internal.html#a0f6d06bf8c3093b9c22bb08723db201e" title="testing::internal::move" alt="" coords="262,31,411,57"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="505,132,672,159"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a652d7314475cae2d969224ebc6d47853" title="Igor::iPhysics::destroyBody" alt="" coords="245,81,428,108"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_physics.html#adfede4e16fd914bd6a9fa6e568c0b263" title="Igor::iPhysics::destroyNewtonBody" alt="" coords="476,81,701,108"/>
 </map>

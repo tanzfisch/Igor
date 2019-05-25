@@ -1,11 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iTargetMaterial.h" name="C:/dev/Igor/Igor/src/Igor/src/iTargetMaterial.h">
-<area shape="rect" id="node1" title=" " alt="" coords="155,5,324,47"/>
-<area shape="rect" id="node2" href="$i_defines_8h.html" title=" " alt="" coords="8,95,87,121"/>
-<area shape="rect" id="node4" href="$ia_color3_8h.html" title=" " alt="" coords="111,95,191,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="216,95,263,121"/>
-<area shape="rect" id="node8" title=" " alt="" coords="287,95,357,121"/>
-<area shape="rect" id="node9" href="$i_target_material_8inl.html" title=" " alt="" coords="381,95,505,121"/>
-<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="5,169,92,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="117,169,183,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="207,169,279,196"/>
+<map id="C:/dev/Igor/src/Igor/src/iTargetMaterial.h" name="C:/dev/Igor/src/Igor/src/iTargetMaterial.h">
+<area shape="rect" id="node2" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="8,95,87,121"/>
+<area shape="rect" id="node4" href="$ia_color3_8h.html" title="iaColor3.h" alt="" coords="111,95,191,121"/>
+<area shape="rect" id="node9" href="$i_target_material_8inl.html" title="iTargetMaterial.inl" alt="" coords="381,95,505,121"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="5,169,92,196"/>
 </map>

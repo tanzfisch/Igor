@@ -9,42 +9,39 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iWidgetGroupBox::setHeaderOnly</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 289,-84 289,4 -4,4"/>
-<!-- Node22 -->
-<g id="node1" class="node"><title>Node22</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="170,-24.5 170,-54.5 285,-54.5 285,-24.5 170,-24.5"/>
-<text text-anchor="start" x="178" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetGroupBox</text>
-<text text-anchor="middle" x="227.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setHeaderOnly</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 115,-54.5 115,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetGroupBox</text>
+<text text-anchor="middle" x="57.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setHeaderOnly</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" target="_top" xlink:title="UserControlMaterial\l::initGUI">
+<polygon fill="white" stroke="black" points="167,-49.5 167,-79.5 269,-79.5 269,-49.5 167,-49.5"/>
+<text text-anchor="start" x="175" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
+<text text-anchor="middle" x="218" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node23 -->
-<g id="node2" class="node"><title>Node23</title>
-<g id="a_node2"><a xlink:href="class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="16,-49.5 16,-79.5 118,-79.5 118,-49.5 16,-49.5"/>
-<text text-anchor="start" x="24" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
-<text text-anchor="middle" x="67" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M125.308,-50.0375C139.249,-52.2365 153.718,-54.5186 166.93,-56.6024"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="125.698,-46.5558 115.274,-48.455 124.607,-53.4703 125.698,-46.5558"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" target="_top" xlink:title="UserControlParticleSystem\l::initGUI">
+<polygon fill="white" stroke="black" points="151,-0.5 151,-30.5 285,-30.5 285,-0.5 151,-0.5"/>
+<text text-anchor="start" x="159" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="218" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node23 -->
-<g id="edge1" class="edge"><title>Node22&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M159.692,-50.0375C145.751,-52.2365 131.282,-54.5186 118.07,-56.6024"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="160.393,-53.4703 169.726,-48.455 159.302,-46.5558 160.393,-53.4703"/>
-</g>
-<!-- Node24 -->
-<g id="node3" class="node"><title>Node24</title>
-<g id="a_node3"><a xlink:href="class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
-</a>
-</g>
-</g>
-<!-- Node22&#45;&gt;Node24 -->
-<g id="edge2" class="edge"><title>Node22&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M159.564,-29.3646C151.134,-28.0882 142.514,-26.7829 134.097,-25.5084"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.314,-32.8666 169.726,-30.9032 160.362,-25.9455 159.314,-32.8666"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M125.436,-29.3646C133.866,-28.0882 142.486,-26.7829 150.903,-25.5084"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="124.638,-25.9455 115.274,-30.9032 125.686,-32.8666 124.638,-25.9455"/>
 </g>
 </g>
 </svg>

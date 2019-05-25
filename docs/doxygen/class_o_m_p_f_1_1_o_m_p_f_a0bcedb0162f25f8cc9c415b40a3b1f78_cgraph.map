@@ -1,4 +1,3 @@
 <map id="OMPF::OMPF::createMaterialChunk" name="OMPF::OMPF::createMaterialChunk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,201,47"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html#a60c963bf58ea5aacd0f1329bec35163c" title=" " alt="" coords="249,5,412,47"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html#a60c963bf58ea5aacd0f1329bec35163c" title="OMPF::ompfBaseChunk\l::setID" alt="" coords="249,5,412,47"/>
 </map>

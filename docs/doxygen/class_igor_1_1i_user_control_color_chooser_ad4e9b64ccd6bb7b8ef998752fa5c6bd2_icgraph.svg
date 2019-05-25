@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iUserControlColorChooser::deinitGUI</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 340,-35 340,4 -4,4"/>
-<!-- Node166 -->
-<g id="node1" class="node"><title>Node166</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="186,-0.5 186,-30.5 336,-30.5 336,-0.5 186,-0.5"/>
-<text text-anchor="start" x="194" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="261" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node167 -->
-<g id="node2" class="node"><title>Node167</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a2a59c28b310f32d77f9a6617d82489b1" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 150,-30.5 150,-0.5 0,-0.5"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 150,-30.5 150,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="75" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~iUserControlColorChooser</text>
+<text text-anchor="middle" x="75" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a2a59c28b310f32d77f9a6617d82489b1" target="_top" xlink:title="Igor::iUserControlColorChooser\l::~iUserControlColorChooser">
+<polygon fill="white" stroke="black" points="186,-0.5 186,-30.5 336,-30.5 336,-0.5 186,-0.5"/>
+<text text-anchor="start" x="194" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="261" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~iUserControlColorChooser</text>
 </a>
 </g>
 </g>
-<!-- Node166&#45;&gt;Node167 -->
-<g id="edge1" class="edge"><title>Node166&#45;&gt;Node167</title>
-<path fill="none" stroke="midnightblue" d="M175.934,-15.5C167.346,-15.5 158.664,-15.5 150.192,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="175.956,-19.0001 185.956,-15.5 175.955,-12.0001 175.956,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M160.066,-15.5C168.654,-15.5 177.336,-15.5 185.808,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="160.045,-12.0001 150.044,-15.5 160.044,-19.0001 160.045,-12.0001"/>
 </g>
 </g>
 </svg>

@@ -1,7 +1,6 @@
 <map id="Igor::iPhysicsPlayer::ApplyForceAndTorque" name="Igor::iPhysicsPlayer::ApplyForceAndTorque">
-<area shape="rect" id="node1" title=" " alt="" coords="5,93,164,135"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="234,5,405,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title=" " alt="" coords="242,71,397,98"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a1cdfc5f611862d8d296e83db3fb8e871" title=" " alt="" coords="255,123,384,164"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a5ded8c896a2acb0350dabc2acbe11986" title=" " alt="" coords="212,189,427,215"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;::getInstance" alt="" coords="234,5,405,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title="IgorAux::iaVector3::set" alt="" coords="242,71,397,98"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a1cdfc5f611862d8d296e83db3fb8e871" title="IgorAux::iaVector3\l::negate" alt="" coords="255,123,384,164"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a5ded8c896a2acb0350dabc2acbe11986" title="Igor::iPhysics::getSimulationRate" alt="" coords="212,189,427,215"/>
 </map>

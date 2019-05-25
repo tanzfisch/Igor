@@ -1,7 +1,6 @@
 <map id="Igor::iOctree::filter" name="Igor::iOctree::filter">
-<area shape="rect" id="node1" title=" " alt="" coords="5,70,131,97"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_octree.html#aa3b54fdf7ba95e2570b3a024facd875b" title=" " alt="" coords="179,45,331,71"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_octree.html#af1deb13e0dc9dd5332d825ab7d6606b6" title=" " alt="" coords="192,95,317,122"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_intersection.html#aa1673ede8c9eebd7becf60742d0f1e4e" title=" " alt="" coords="379,5,500,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_intersection.html#a6014a2a386e8e33b7f8bf22ece42d3f5" title=" " alt="" coords="379,71,500,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_octree.html#aa3b54fdf7ba95e2570b3a024facd875b" title="Igor::iOctree::testFilter" alt="" coords="179,45,331,71"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_octree.html#af1deb13e0dc9dd5332d825ab7d6606b6" title="Igor::iOctree::filter" alt="" coords="192,95,317,122"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_intersection.html#aa1673ede8c9eebd7becf60742d0f1e4e" title="Igor::iIntersection\l::inFrontOf" alt="" coords="379,5,500,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_intersection.html#a6014a2a386e8e33b7f8bf22ece42d3f5" title="Igor::iIntersection\l::intersects" alt="" coords="379,71,500,112"/>
 </map>

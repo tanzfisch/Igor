@@ -1,8 +1,7 @@
 <map id="Igor::iNodeModel::iNodeModel" name="Igor::iNodeModel::iNodeModel">
-<area shape="rect" id="node1" title=" " alt="" coords="5,38,200,65"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_model.html#ab731c3500613a31402bb04315a85b524" title=" " alt="" coords="265,13,445,39"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node_model.html#adf2dd0b4004625024c4daf12d65eb532" title=" " alt="" coords="248,63,463,90"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a7f855c2164f9fc704210c7510afd0a9c" title=" " alt="" coords="511,13,675,39"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88" title=" " alt="" coords="723,5,925,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="973,13,1096,39"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_model.html#ab731c3500613a31402bb04315a85b524" title="Igor::iNodeModel::setModel" alt="" coords="265,13,445,39"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_model.html#a2cc0bff3d271cd2a7a42951d0086730d" title="Igor::iNodeModel::getModelName" alt="" coords="248,63,463,90"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a7f855c2164f9fc704210c7510afd0a9c" title="Igor::iNode::setDataDirty" alt="" coords="511,13,675,39"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88" title="Igor::iScene::addToDataUpdate\lQueue" alt="" coords="723,5,925,47"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="973,13,1096,39"/>
 </map>

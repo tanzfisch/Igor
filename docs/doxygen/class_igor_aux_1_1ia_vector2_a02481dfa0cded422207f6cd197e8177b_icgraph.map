@@ -1,10 +1,10 @@
 <map id="IgorAux::iaVector2::set" name="IgorAux::iaVector2::set">
-<area shape="rect" id="node1" title=" " alt="" coords="451,144,605,171"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_mouse.html#ab28b9a83a441dad90fcc12d5e52c14cf" title=" " alt="" coords="223,5,390,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mouse.html#ad79e27f894736fd41076e19efc588e78" title=" " alt="" coords="223,56,390,83"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_particle_system3_d.html#a493599094c960413d2c98b4753aa88d3" title=" " alt="" coords="227,107,386,149"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_renderer.html#afc75af5b67dede4802299530506ed5c2" title=" " alt="" coords="211,173,403,200"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_renderer.html#a7d1dbb68fd7efb2c3f5605ba49060d5f" title=" " alt="" coords="213,225,401,266"/>
-<area shape="rect" id="node8" href="$namespace_testigor.html#a28742d507b81a31480a280192e64b0ce" title=" " alt="" coords="227,291,386,317"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_mouse.html#a2e47006caf6781de70e88d72b3985ae3" title=" " alt="" coords="5,56,163,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_mouse.html#ab28b9a83a441dad90fcc12d5e52c14cf" title="Igor::iMouse::onOSEvent" alt="" coords="221,5,387,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_mouse.html#ad79e27f894736fd41076e19efc588e78" title="Igor::iMouse::setPosition" alt="" coords="221,56,387,83"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_particle_system3_d.html#a493599094c960413d2c98b4753aa88d3" title="Igor::iParticleSystem3D\l::resetParticle" alt="" coords="225,107,383,149"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_renderer.html#afc75af5b67dede4802299530506ed5c2" title="Igor::iRenderer::drawParticles" alt="" coords="208,173,400,200"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_renderer.html#a7d1dbb68fd7efb2c3f5605ba49060d5f" title="Igor::iRenderer::drawVelocity\lOrientedParticles" alt="" coords="210,225,398,266"/>
+<area shape="rect" id="node8" href="$namespace_testigor.html#a28742d507b81a31480a280192e64b0ce" title="Testigor::TEST_CLASS" alt="" coords="225,291,383,317"/>
+<area shape="rect" id="node9" href="$_vector2_8cpp.html#ad8c39691d07b6cae298c579b477247f5" title="TEST" alt="" coords="277,341,331,368"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_mouse.html#a2e47006caf6781de70e88d72b3985ae3" title="Igor::iMouse::setCenter" alt="" coords="448,56,605,83"/>
 </map>

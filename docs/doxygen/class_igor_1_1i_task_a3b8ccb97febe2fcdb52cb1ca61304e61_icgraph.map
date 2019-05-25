@@ -1,9 +1,8 @@
 <map id="Igor::iTask::finishTask" name="Igor::iTask::finishTask">
-<area shape="rect" id="node1" title=" " alt="" coords="744,46,892,73"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_task_manager.html#a4aed6fc8a88ff9ef945de21743f35208" title=" " alt="" coords="491,5,696,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_task_manager.html#a8f02fd3959c51b04be63e493900f7ffd" title=" " alt="" coords="512,71,675,112"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_task_manager.html#a0371f43d29ddf818acc2f161d6a060f3" title=" " alt="" coords="252,5,443,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_task_manager.html#afd56371d55dce22e809d0a2f5ea9fead" title=" " alt="" coords="5,5,204,47"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_task_manager.html#a8af31ae39ff0bef36e31483276e5d206" title=" " alt="" coords="273,71,422,112"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_task_manager.html#ad9fbf069776eea9885e9cee3c5178f99" title=" " alt="" coords="39,71,171,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_task_manager.html#a4aed6fc8a88ff9ef945de21743f35208" title="Igor::iTaskManager\l::workWithRenderContextTasks" alt="" coords="201,5,407,47"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_task_manager.html#a8f02fd3959c51b04be63e493900f7ffd" title="Igor::iTaskManager\l::workWithRegularTasks" alt="" coords="223,71,385,112"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_task_manager.html#a0371f43d29ddf818acc2f161d6a060f3" title="Igor::iTaskManager\l::createRenderContextThread" alt="" coords="455,5,645,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_task_manager.html#afd56371d55dce22e809d0a2f5ea9fead" title="Igor::iTaskManager\l::createRenderContextThreads" alt="" coords="693,5,892,47"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_task_manager.html#a8af31ae39ff0bef36e31483276e5d206" title="Igor::iTaskManager\l::createRegularThread" alt="" coords="475,71,625,112"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_task_manager.html#ad9fbf069776eea9885e9cee3c5178f99" title="Igor::iTaskManager\l::iTaskManager" alt="" coords="727,71,859,112"/>
 </map>

@@ -1,5 +1,4 @@
 <map id="Igor::iPhysicsBody::applyForceAndTorque" name="Igor::iPhysicsBody::applyForceAndTorque">
-<area shape="rect" id="node1" title=" " alt="" coords="463,5,619,47"/>
-<area shape="rect" id="node2" href="$namespace_igor.html#a5942fa6fe4392dd7ef7852f82cc75937" title=" " alt="" coords="228,5,415,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" title=" " alt="" coords="5,13,180,39"/>
+<area shape="rect" id="node2" href="$namespace_igor.html#a5942fa6fe4392dd7ef7852f82cc75937" title="Igor::PhysicsApplyForceAnd\lTorque" alt="" coords="209,5,396,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" title="Igor::iPhysics::createBody" alt="" coords="444,13,619,39"/>
 </map>

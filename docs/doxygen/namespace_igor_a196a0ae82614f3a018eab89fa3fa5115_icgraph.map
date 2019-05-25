@@ -1,0 +1,7 @@
+<map id="Igor::clear" name="Igor::clear">
+<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#a6704affa7da216efac64b89fea3b11b4" title="Igor::iMeshBuilder\l::iMeshBuilder" alt="" coords="151,5,277,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_r_l_e.html#a1730b891f934b60b1e93fa62f3f8ab34" title="IgorAux::iaRLE::setSize" alt="" coords="133,71,295,98"/>
+<area shape="rect" id="node6" href="$class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" title="UserControlMaterialView\l::refresh" alt="" coords="132,123,296,164"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_voxel_data.html#a54303a2852361b51900a0c2cb582a5ed" title="Igor::iVoxelData::initData" alt="" coords="344,71,511,98"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_voxel_terrain.html#a7fbb3ca437a4ea2aacf6a157d09f5753" title="Igor::iVoxelTerrain\l::update" alt="" coords="559,64,685,105"/>
+</map>

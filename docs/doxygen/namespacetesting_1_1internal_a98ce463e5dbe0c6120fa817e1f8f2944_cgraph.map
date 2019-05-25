@@ -1,5 +1,4 @@
 <map id="testing::internal::CmpHelperFloatingPointEQ" name="testing::internal::CmpHelperFloatingPointEQ">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,187,80"/>
-<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#ac61e2ba2cbf259fd6ee5ffd4e49c9445" title=" " alt="" coords="249,5,367,47"/>
-<area shape="rect" id="node3" href="$namespacetesting_1_1internal.html#a75bdbc38815772055696b2a40bae614e" title=" " alt="" coords="235,71,381,112"/>
+<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#ac61e2ba2cbf259fd6ee5ffd4e49c9445" title="testing::internal::\lEqFailure" alt="" coords="249,5,367,47"/>
+<area shape="rect" id="node3" href="$namespacetesting_1_1internal.html#a75bdbc38815772055696b2a40bae614e" title="testing::internal::\lStringStreamToString" alt="" coords="235,71,381,112"/>
 </map>

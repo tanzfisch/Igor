@@ -1,6 +1,9 @@
 <map id="Igor::iWidgetGrid::removeWidget" name="Igor::iWidgetGrid::removeWidget">
-<area shape="rect" id="node1" title=" " alt="" coords="501,39,628,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#a82993876e647753d5b1b6ab29e1ddc44" title=" " alt="" coords="253,5,453,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#a7f9a58905ee7aa70a01758c5b63a44fe" title=" " alt="" coords="253,71,453,112"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#a4265efe2599790df4dfada25be58b95f" title=" " alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#a82993876e647753d5b1b6ab29e1ddc44" title="Igor::iUserControlColorChooser\l::updateMode" alt="" coords="180,100,380,141"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_user_control_color_chooser.html#a7f9a58905ee7aa70a01758c5b63a44fe" title="Igor::iUserControlColorChooser\l::setHeadlineVisible" alt="" coords="180,165,380,207"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#a4265efe2599790df4dfada25be58b95f" title="Igor::iUserControlColorChooser\l::setMode" alt="" coords="428,100,628,141"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_dialog_color_chooser.html#a478dcc24d00c3433a4139cd42faca383" title="Igor::iDialogColorChooser\l::initGUI" alt="" coords="677,5,845,47"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title="Igor::iDialogColorGradient\l::initGUI" alt="" coords="676,71,845,112"/>
+<area shape="rect" id="node6" href="$class_user_control_light.html#acae8309ee66f4ae0ffd058cc83580311" title="UserControlLight::initGUI" alt="" coords="678,137,843,163"/>
+<area shape="rect" id="node7" href="$class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" title="UserControlMesh::initGUI" alt="" coords="676,187,845,214"/>
 </map>

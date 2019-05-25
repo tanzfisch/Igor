@@ -1,4 +1,3 @@
 <map id="Igor::iPerlinNoise" name="Igor::iPerlinNoise">
-<area shape="rect" id="node1" title=" " alt="" coords="63,95,183,121"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_random_number_generator.html" title=" " alt="" coords="5,5,240,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_random_number_generator.html" title="IgorAux::iaRandomNumberGenerator" alt="" coords="5,5,240,32"/>
 </map>

@@ -9,53 +9,50 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 133)">
 <title>PropertiesDialog::deinitGUI</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-133 335,-133 335,4 -4,4"/>
-<!-- Node7 -->
-<g id="node1" class="node"><title>Node7</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-55 0,-74 134,-74 134,-55 0,-55"/>
 <text text-anchor="middle" x="67" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">PropertiesDialog::deinitGUI</text>
-</a>
 </g>
-</g>
-<!-- Node8 -->
-<g id="node2" class="node"><title>Node8</title>
-<g id="a_node2"><a xlink:href="class_properties_dialog.html#a6003c4e49079a959123c1760601cce2e" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_properties_dialog.html#a6003c4e49079a959123c1760601cce2e" target="_top" xlink:title="PropertiesDialog::onStructure\lChanged">
 <polygon fill="white" stroke="black" points="178.5,-98.5 178.5,-128.5 322.5,-128.5 322.5,-98.5 178.5,-98.5"/>
 <text text-anchor="start" x="186.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">PropertiesDialog::onStructure</text>
 <text text-anchor="middle" x="250.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">Changed</text>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge1" class="edge"><title>Node7&#45;&gt;Node8</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M103.426,-74.064C126.304,-80.2405 156.768,-88.4649 183.954,-95.8045"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="183.235,-99.2356 193.802,-98.463 185.06,-92.4775 183.235,-99.2356"/>
 </g>
-<!-- Node9 -->
-<g id="node3" class="node"><title>Node9</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance">
 <polygon fill="white" stroke="black" points="170,-49.5 170,-79.5 331,-79.5 331,-49.5 170,-49.5"/>
 <text text-anchor="start" x="178" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="middle" x="250.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iWidgetManager &gt;::getInstance</text>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node9 -->
-<g id="edge2" class="edge"><title>Node7&#45;&gt;Node9</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M134.039,-64.5C142.417,-64.5 151.099,-64.5 159.769,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="159.921,-68.0001 169.921,-64.5 159.921,-61.0001 159.921,-68.0001"/>
 </g>
-<!-- Node10 -->
-<g id="node4" class="node"><title>Node10</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" target="_top" xlink:title="Igor::iWidgetManager\l::destroyWidget">
 <polygon fill="white" stroke="black" points="196,-0.5 196,-30.5 305,-30.5 305,-0.5 196,-0.5"/>
 <text text-anchor="start" x="204" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetManager</text>
 <text text-anchor="middle" x="250.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::destroyWidget</text>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node10 -->
-<g id="edge3" class="edge"><title>Node7&#45;&gt;Node10</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M103.426,-54.936C126.855,-48.6107 158.241,-40.1375 185.914,-32.6666"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="187.177,-35.9508 195.919,-29.9653 185.353,-29.1927 187.177,-35.9508"/>
 </g>

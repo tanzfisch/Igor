@@ -9,83 +9,80 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 177)">
 <title>Igor::iNodeTransform::rotate</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-177 473,-177 473,4 -4,4"/>
-<!-- Node46 -->
-<g id="node1" class="node"><title>Node46</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="363,-68.5 363,-98.5 469,-98.5 469,-68.5 363,-68.5"/>
-<text text-anchor="start" x="371" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeTransform</text>
-<text text-anchor="middle" x="416" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">::rotate</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-68.5 0,-98.5 106,-98.5 106,-68.5 0,-68.5"/>
+<text text-anchor="start" x="8" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeTransform</text>
+<text text-anchor="middle" x="53" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">::rotate</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_manipulator.html#ada38b5f63a87e181f60eae4ad7d28ded" target="_top" xlink:title="Manipulator::createRotate\lModifier">
+<polygon fill="white" stroke="black" points="156.5,-142.5 156.5,-172.5 284.5,-172.5 284.5,-142.5 156.5,-142.5"/>
+<text text-anchor="start" x="164.5" y="-160.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createRotate</text>
+<text text-anchor="middle" x="220.5" y="-149.5" font-family="Helvetica,sans-Serif" font-size="10.00">Modifier</text>
 </a>
 </g>
 </g>
-<!-- Node47 -->
-<g id="node2" class="node"><title>Node47</title>
-<g id="a_node2"><a xlink:href="class_manipulator.html#ada38b5f63a87e181f60eae4ad7d28ded" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="184.5,-142.5 184.5,-172.5 312.5,-172.5 312.5,-142.5 184.5,-142.5"/>
-<text text-anchor="start" x="192.5" y="-160.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createRotate</text>
-<text text-anchor="middle" x="248.5" y="-149.5" font-family="Helvetica,sans-Serif" font-size="10.00">Modifier</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M85.8123,-103.795C102.168,-113.65 122.679,-125.137 142,-133.5 149.497,-136.745 157.575,-139.752 165.586,-142.461"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="87.5442,-100.752 77.1874,-98.5182 83.891,-106.723 87.5442,-100.752"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_manipulator.html#ad2a69e64a99d9450d3f245b073ef1e32" target="_top" xlink:title="Manipulator::createTranslate\lModifier">
+<polygon fill="white" stroke="black" points="150.5,-93.5 150.5,-123.5 290.5,-123.5 290.5,-93.5 150.5,-93.5"/>
+<text text-anchor="start" x="158.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createTranslate</text>
+<text text-anchor="middle" x="220.5" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">Modifier</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node47 -->
-<g id="edge1" class="edge"><title>Node46&#45;&gt;Node47</title>
-<path fill="none" stroke="midnightblue" d="M383.188,-103.795C366.832,-113.65 346.321,-125.137 327,-133.5 319.503,-136.745 311.425,-139.752 303.414,-142.461"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="385.109,-106.723 391.813,-98.5182 381.456,-100.752 385.109,-106.723"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M116.348,-92.9182C127.404,-94.5882 138.978,-96.3366 150.212,-98.0336"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="116.776,-89.4431 106.365,-91.4102 115.73,-96.3646 116.776,-89.4431"/>
 </g>
-<!-- Node48 -->
-<g id="node3" class="node"><title>Node48</title>
-<g id="a_node3"><a xlink:href="class_manipulator.html#ad2a69e64a99d9450d3f245b073ef1e32" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="178.5,-93.5 178.5,-123.5 318.5,-123.5 318.5,-93.5 178.5,-93.5"/>
-<text text-anchor="start" x="186.5" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createTranslate</text>
-<text text-anchor="middle" x="248.5" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">Modifier</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_manipulator.html#afcf5d60502dd0a242151edcc551a06a1" target="_top" xlink:title="Manipulator::createScale\lModifier">
+<polygon fill="white" stroke="black" points="158,-44.5 158,-74.5 283,-74.5 283,-44.5 158,-44.5"/>
+<text text-anchor="start" x="166" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createScale</text>
+<text text-anchor="middle" x="220.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">Modifier</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node48 -->
-<g id="edge2" class="edge"><title>Node46&#45;&gt;Node48</title>
-<path fill="none" stroke="midnightblue" d="M352.652,-92.9182C341.596,-94.5882 330.022,-96.3366 318.788,-98.0336"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="353.27,-96.3646 362.635,-91.4102 352.224,-89.4431 353.27,-96.3646"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M116.551,-74.4292C130.101,-72.4642 144.421,-70.3876 157.933,-68.4282"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="115.759,-71.0073 106.365,-75.9063 116.764,-77.9348 115.759,-71.0073"/>
 </g>
-<!-- Node49 -->
-<g id="node4" class="node"><title>Node49</title>
-<g id="a_node4"><a xlink:href="class_manipulator.html#afcf5d60502dd0a242151edcc551a06a1" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="186,-44.5 186,-74.5 311,-74.5 311,-44.5 186,-44.5"/>
-<text text-anchor="start" x="194" y="-62.5" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createScale</text>
-<text text-anchor="middle" x="248.5" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">Modifier</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" target="_top" xlink:title="Widget3DLocator::createLocator">
+<polygon fill="white" stroke="black" points="142,-6 142,-25 299,-25 299,-6 142,-6"/>
+<text text-anchor="middle" x="220.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocator</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node49 -->
-<g id="edge3" class="edge"><title>Node46&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M352.449,-74.4292C338.899,-72.4642 324.579,-70.3876 311.067,-68.4282"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="352.236,-77.9348 362.635,-75.9063 353.241,-71.0073 352.236,-77.9348"/>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M86.8943,-63.0333C103.041,-53.65 123.056,-42.9777 142,-35.5 152.34,-31.4185 163.786,-27.9348 174.637,-25.0739"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="84.6934,-60.2689 77.8714,-68.3751 88.2596,-66.2924 84.6934,-60.2689"/>
 </g>
-<!-- Node50 -->
-<g id="node5" class="node"><title>Node50</title>
-<g id="a_node5"><a xlink:href="class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="170,-6 170,-25 327,-25 327,-6 170,-6"/>
-<text text-anchor="middle" x="248.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocator</text>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" target="_top" xlink:title="Widget3DLocator::Widget3\lDLocator">
+<polygon fill="white" stroke="black" points="335,-0.5 335,-30.5 469,-30.5 469,-0.5 335,-0.5"/>
+<text text-anchor="start" x="343" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::Widget3</text>
+<text text-anchor="middle" x="402" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DLocator</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node50 -->
-<g id="edge4" class="edge"><title>Node46&#45;&gt;Node50</title>
-<path fill="none" stroke="midnightblue" d="M382.106,-63.0333C365.959,-53.65 345.944,-42.9777 327,-35.5 316.66,-31.4185 305.214,-27.9348 294.363,-25.0739"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="380.74,-66.2924 391.129,-68.3751 384.307,-60.2689 380.74,-66.2924"/>
-</g>
-<!-- Node51 -->
-<g id="node6" class="node"><title>Node51</title>
-<g id="a_node6"><a xlink:href="class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::Widget3</text>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DLocator</text>
-</a>
-</g>
-</g>
-<!-- Node50&#45;&gt;Node51 -->
-<g id="edge5" class="edge"><title>Node50&#45;&gt;Node51</title>
-<path fill="none" stroke="midnightblue" d="M159.771,-15.5C151.191,-15.5 142.586,-15.5 134.27,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.813,-19.0001 169.813,-15.5 159.813,-12.0001 159.813,-19.0001"/>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node5&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M309.229,-15.5C317.809,-15.5 326.414,-15.5 334.73,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="309.187,-12.0001 299.187,-15.5 309.187,-19.0001 309.187,-12.0001"/>
 </g>
 </g>
 </svg>

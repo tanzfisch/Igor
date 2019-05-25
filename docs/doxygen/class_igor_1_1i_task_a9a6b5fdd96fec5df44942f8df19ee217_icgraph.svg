@@ -9,41 +9,38 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iTask::isRunning</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 273,-84 273,4 -4,4"/>
-<!-- Node46 -->
-<g id="node1" class="node"><title>Node46</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="159,-30 159,-49 269,-49 269,-30 159,-30"/>
-<text text-anchor="middle" x="214" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTask::isRunning</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-30 0,-49 110,-49 110,-30 0,-30"/>
+<text text-anchor="middle" x="55" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTask::isRunning</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_task_flush_models.html#a244028d6189bf5d44cf6143c3b427f0a" target="_top" xlink:title="Igor::iTaskFlushModels\l::abort">
+<polygon fill="white" stroke="black" points="149,-49.5 149,-79.5 266,-79.5 266,-49.5 149,-49.5"/>
+<text text-anchor="start" x="157" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskFlushModels</text>
+<text text-anchor="middle" x="207.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::abort</text>
 </a>
 </g>
 </g>
-<!-- Node47 -->
-<g id="node2" class="node"><title>Node47</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_task_flush_models.html#a244028d6189bf5d44cf6143c3b427f0a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3,-49.5 3,-79.5 120,-79.5 120,-49.5 3,-49.5"/>
-<text text-anchor="start" x="11" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskFlushModels</text>
-<text text-anchor="middle" x="61.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::abort</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M120.48,-50.211C129.942,-51.7826 139.635,-53.3928 148.945,-54.9393"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="120.772,-46.7116 110.334,-48.5256 119.625,-53.617 120.772,-46.7116"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_task_flush_textures.html#aa8c16154edf5e48e3eda5f25ec96ed28" target="_top" xlink:title="Igor::iTaskFlushTextures\l::abort">
+<polygon fill="white" stroke="black" points="146,-0.5 146,-30.5 269,-30.5 269,-0.5 146,-0.5"/>
+<text text-anchor="start" x="154" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskFlushTextures</text>
+<text text-anchor="middle" x="207.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::abort</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node47 -->
-<g id="edge1" class="edge"><title>Node46&#45;&gt;Node47</title>
-<path fill="none" stroke="midnightblue" d="M148.52,-50.211C139.058,-51.7826 129.365,-53.3928 120.055,-54.9393"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="149.375,-53.617 158.666,-48.5256 148.228,-46.7116 149.375,-53.617"/>
-</g>
-<!-- Node48 -->
-<g id="node3" class="node"><title>Node48</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_task_flush_textures.html#aa8c16154edf5e48e3eda5f25ec96ed28" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 123,-30.5 123,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskFlushTextures</text>
-<text text-anchor="middle" x="61.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::abort</text>
-</a>
-</g>
-</g>
-<!-- Node46&#45;&gt;Node48 -->
-<g id="edge2" class="edge"><title>Node46&#45;&gt;Node48</title>
-<path fill="none" stroke="midnightblue" d="M148.514,-29.2165C140.092,-27.8735 131.487,-26.5012 123.131,-25.1688"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="148.24,-32.7169 158.666,-30.8354 149.342,-25.8043 148.24,-32.7169"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M120.486,-29.2165C128.908,-27.8735 137.513,-26.5012 145.869,-25.1688"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="119.658,-25.8043 110.334,-30.8354 120.76,-32.7169 119.658,-25.8043"/>
 </g>
 </g>
 </svg>

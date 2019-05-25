@@ -48,7 +48,7 @@ var hierarchy =
     [ "testing::internal::FormatForComparison< ToPrint, OtherOperand >", "classtesting_1_1internal_1_1_format_for_comparison.html", null ],
     [ "testing::internal::FormatForComparison< ToPrint[N], OtherOperand >", "classtesting_1_1internal_1_1_format_for_comparison_3_01_to_print[_n]_00_01_other_operand_01_4.html", null ],
     [ "Frustum", "class_frustum.html", null ],
-    [ "std::tr1::gtest_internal::Get< k >", "classstd_1_1tr1_1_1gtest__internal_1_1_get.html", null ],
+    [ "std::tr1::gtest_internal::Get< k >", "singletonstd_1_1tr1_1_1gtest__internal_1_1_get.html", null ],
     [ "std::tr1::gtest_internal::Get< 0 >", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_010_01_4.html", null ],
     [ "std::tr1::gtest_internal::Get< 1 >", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_011_01_4.html", null ],
     [ "std::tr1::gtest_internal::Get< 2 >", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_012_01_4.html", null ],
@@ -393,8 +393,8 @@ var hierarchy =
       [ "testing::internal::ParameterizedTestCaseInfo< TestCase >", "classtesting_1_1internal_1_1_parameterized_test_case_info.html", null ]
     ] ],
     [ "testing::internal::ParameterizedTestCaseRegistry", "classtesting_1_1internal_1_1_parameterized_test_case_registry.html", null ],
-    [ "testing::internal::ParamGenerator< T >", "classtesting_1_1internal_1_1_param_generator.html", null ],
-    [ "testing::internal::ParamGeneratorInterface< T >", "classtesting_1_1internal_1_1_param_generator_interface.html", [
+    [ "testing::internal::ParamGenerator< T >", "singletontesting_1_1internal_1_1_param_generator.html", null ],
+    [ "testing::internal::ParamGeneratorInterface< T >", "singletontesting_1_1internal_1_1_param_generator_interface.html", [
       [ "testing::internal::RangeGenerator< T, IncrementT >", "classtesting_1_1internal_1_1_range_generator.html", null ],
       [ "testing::internal::ValuesInIteratorRangeGenerator< T >", "classtesting_1_1internal_1_1_values_in_iterator_range_generator.html", null ]
     ] ],
@@ -465,7 +465,7 @@ var hierarchy =
     [ "Igor::iTaskManager::ThreadContext", "struct_igor_1_1i_task_manager_1_1_thread_context.html", null ],
     [ "testing::internal::ThreadLocal< T >", "classtesting_1_1internal_1_1_thread_local.html", null ],
     [ "Igor::iNodeLODSwitch::Threshold", "struct_igor_1_1i_node_l_o_d_switch_1_1_threshold.html", null ],
-    [ "std::tr1::tuple<>", "classstd_1_1tr1_1_1tuple.html", null ],
+    [ "std::tr1::tuple<>", "singletonstd_1_1tr1_1_1tuple.html", null ],
     [ "std::tr1::tuple<>", "classstd_1_1tr1_1_1tuple_3_4.html", null ],
     [ "std::tr1::tuple_element< k, Tuple >", "structstd_1_1tr1_1_1tuple__element.html", null ],
     [ "std::tr1::tuple_size< Tuple >", "structstd_1_1tr1_1_1tuple__size.html", null ],
@@ -504,7 +504,7 @@ var hierarchy =
     [ "testing::internal::TypeWithSize< 8 >", "classtesting_1_1internal_1_1_type_with_size_3_018_01_4.html", null ],
     [ "testing::internal::TypeWithSize< sizeof(RawType)>", "classtesting_1_1internal_1_1_type_with_size.html", null ],
     [ "testing::UnitTest", "classtesting_1_1_unit_test.html", null ],
-    [ "testing::internal::UniversalPrinter< T >", "classtesting_1_1internal_1_1_universal_printer.html", null ],
+    [ "testing::internal::UniversalPrinter< T >", "singletontesting_1_1internal_1_1_universal_printer.html", null ],
     [ "testing::internal::UniversalPrinter< T & >", "classtesting_1_1internal_1_1_universal_printer_3_01_t_01_6_01_4.html", null ],
     [ "testing::internal::UniversalPrinter< T[N]>", "classtesting_1_1internal_1_1_universal_printer_3_01_t[_n]_4.html", null ],
     [ "testing::internal::UniversalTersePrinter< T >", "classtesting_1_1internal_1_1_universal_terse_printer.html", null ],

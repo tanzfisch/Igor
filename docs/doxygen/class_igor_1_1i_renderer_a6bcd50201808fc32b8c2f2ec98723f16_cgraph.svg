@@ -9,66 +9,63 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 172)">
 <title>Igor::iRenderer::drawMesh</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-172 326,-172 326,4 -4,4"/>
-<!-- Node68 -->
-<g id="node1" class="node"><title>Node68</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-77 0,-96 130,-96 130,-77 0,-77"/>
 <text text-anchor="middle" x="65" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderer::drawMesh</text>
-</a>
 </g>
-</g>
-<!-- Node69 -->
-<g id="node2" class="node"><title>Node69</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_instancer.html#a2474dc3e525dfc42765ed913e3ed055a" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_instancer.html#acf7be12ded31b1807ca62fa4fabc8f65" target="_top" xlink:title="Igor::iInstancer::getInstance\lArrayObject">
 <polygon fill="white" stroke="black" points="175.5,-137.5 175.5,-167.5 312.5,-167.5 312.5,-137.5 175.5,-137.5"/>
 <text text-anchor="start" x="183.5" y="-155.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iInstancer::getInstance</text>
 <text text-anchor="middle" x="244" y="-144.5" font-family="Helvetica,sans-Serif" font-size="10.00">ArrayObject</text>
 </a>
 </g>
 </g>
-<!-- Node68&#45;&gt;Node69 -->
-<g id="edge1" class="edge"><title>Node68&#45;&gt;Node69</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M88.0547,-96.1013C108.194,-104.734 138.871,-117.55 166,-127.5 172.206,-129.776 178.731,-132.06 185.247,-134.271"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="184.157,-137.597 194.751,-137.45 186.378,-130.959 184.157,-137.597"/>
 </g>
-<!-- Node70 -->
-<g id="node3" class="node"><title>Node70</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_instancer.html#a8983d75897a2c72fad1d945e80ac7ab0" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_instancer.html#a30f6a157114db0ab7213de9ecda66e1e" target="_top" xlink:title="Igor::iInstancer::getInstanceSize">
 <polygon fill="white" stroke="black" points="166,-99 166,-118 322,-118 322,-99 166,-99"/>
 <text text-anchor="middle" x="244" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iInstancer::getInstanceSize</text>
 </a>
 </g>
 </g>
-<!-- Node68&#45;&gt;Node70 -->
-<g id="edge2" class="edge"><title>Node68&#45;&gt;Node70</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M130.151,-94.4736C138.705,-95.5368 147.588,-96.6409 156.445,-97.7418"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="156.06,-101.221 166.415,-98.981 156.923,-94.2742 156.06,-101.221"/>
 </g>
-<!-- Node71 -->
-<g id="node4" class="node"><title>Node71</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_instancer.html#a28ca027b9c5d9143c76c551c1869dfc6" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_instancer.html#a44fe48cf92b9e2347617cba3f8a6dfb9" target="_top" xlink:title="Igor::iInstancer::getInstance\lCount">
 <polygon fill="white" stroke="black" points="175.5,-49.5 175.5,-79.5 312.5,-79.5 312.5,-49.5 175.5,-49.5"/>
 <text text-anchor="start" x="183.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iInstancer::getInstance</text>
 <text text-anchor="middle" x="244" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Count</text>
 </a>
 </g>
 </g>
-<!-- Node68&#45;&gt;Node71 -->
-<g id="edge3" class="edge"><title>Node68&#45;&gt;Node71</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M130.151,-78.5264C141.553,-77.1093 153.539,-75.6195 165.269,-74.1615"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="165.998,-77.5979 175.49,-72.8911 165.134,-70.6514 165.998,-77.5979"/>
 </g>
-<!-- Node72 -->
-<g id="node5" class="node"><title>Node72</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_instancer.html#a044ea40a6cad2368de2d03b4c0e4e6dc" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_instancer.html#a940741f0e88d4fcc394d1e06ab23e05c" target="_top" xlink:title="Igor::iInstancer::getInstance\lDataBuffer">
 <polygon fill="white" stroke="black" points="175.5,-0.5 175.5,-30.5 312.5,-30.5 312.5,-0.5 175.5,-0.5"/>
 <text text-anchor="start" x="183.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iInstancer::getInstance</text>
 <text text-anchor="middle" x="244" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DataBuffer</text>
 </a>
 </g>
 </g>
-<!-- Node68&#45;&gt;Node72 -->
-<g id="edge4" class="edge"><title>Node68&#45;&gt;Node72</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M85.2536,-76.8239C105.179,-67.0055 137.344,-51.6985 166,-40.5 171.842,-38.2171 177.987,-35.9704 184.152,-33.8167"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="185.482,-37.0608 193.815,-30.5171 183.22,-30.4364 185.482,-37.0608"/>
 </g>

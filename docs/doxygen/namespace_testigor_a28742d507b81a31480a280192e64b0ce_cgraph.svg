@@ -9,150 +9,147 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 466)">
 <title>Testigor::TEST_CLASS</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-466 275,-466 275,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-216 0,-235 119,-235 119,-216 0,-216"/>
 <text text-anchor="middle" x="59.5" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00">Testigor::TEST_CLASS</text>
-</a>
 </g>
-</g>
-<!-- Node1 -->
-<g id="node2" class="node"><title>Node1</title>
-<g id="a_node2"><a xlink:href="namespacetesting_1_1internal.html#ab2709373c78eb8b1c22a6ba30cceba52" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespacetesting_1_1internal.html#ab2709373c78eb8b1c22a6ba30cceba52" target="_top" xlink:title="testing::internal::\lIsTrue">
 <polygon fill="white" stroke="black" points="168.5,-431.5 168.5,-461.5 257.5,-461.5 257.5,-431.5 168.5,-431.5"/>
 <text text-anchor="start" x="176.5" y="-449.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="213" y="-438.5" font-family="Helvetica,sans-Serif" font-size="10.00">IsTrue</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node1 -->
-<g id="edge1" class="edge"><title>Node0&#45;&gt;Node1</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M62.5496,-235.147C69.6763,-266.468 96.2178,-366.516 155,-422.5 156.458,-423.888 158.008,-425.202 159.629,-426.445"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="157.944,-429.525 168.226,-432.081 161.782,-423.671 157.944,-429.525"/>
 </g>
-<!-- Node2 -->
-<g id="node3" class="node"><title>Node2</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a3d96ce7b01831169f2523f5ccab97604" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a0b15ea6c680c1d173af90117380988e3" target="_top" xlink:title="IgorAux::iaVector2\l::length">
 <polygon fill="white" stroke="black" points="164.5,-382.5 164.5,-412.5 261.5,-412.5 261.5,-382.5 164.5,-382.5"/>
 <text text-anchor="start" x="172.5" y="-400.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-389.5" font-family="Helvetica,sans-Serif" font-size="10.00">::length</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node2 -->
-<g id="edge2" class="edge"><title>Node0&#45;&gt;Node2</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M64.2586,-235.22C74.7453,-261.162 106.756,-332.821 155,-373.5 156.508,-374.772 158.094,-375.985 159.738,-377.141"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="158.006,-380.185 168.355,-382.454 161.68,-374.226 158.006,-380.185"/>
 </g>
-<!-- Node3 -->
-<g id="node4" class="node"><title>Node3</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a522f58a346c4f1d0fe948ced53d5c8b6" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a34932ce52ea00c49704b2fb62403ccea" target="_top" xlink:title="IgorAux::iaVector2\l::length2">
 <polygon fill="white" stroke="black" points="164.5,-333.5 164.5,-363.5 261.5,-363.5 261.5,-333.5 164.5,-333.5"/>
 <text text-anchor="start" x="172.5" y="-351.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-340.5" font-family="Helvetica,sans-Serif" font-size="10.00">::length2</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node3 -->
-<g id="edge3" class="edge"><title>Node0&#45;&gt;Node3</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M67.5419,-235.205C81.9904,-254.526 116.853,-298.201 155,-324.5 157.088,-325.94 159.277,-327.318 161.529,-328.634"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="159.985,-331.778 170.455,-333.4 163.282,-325.603 159.985,-331.778"/>
 </g>
-<!-- Node4 -->
-<g id="node5" class="node"><title>Node4</title>
-<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a271f39420955ea98017d9e1a6a74f062" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_vector2.html#aa895ecc6adb85626a6986f014b5f5f43" target="_top" xlink:title="IgorAux::iaVector2\l::distance">
 <polygon fill="white" stroke="black" points="164.5,-284.5 164.5,-314.5 261.5,-314.5 261.5,-284.5 164.5,-284.5"/>
 <text text-anchor="start" x="172.5" y="-302.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-291.5" font-family="Helvetica,sans-Serif" font-size="10.00">::distance</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node4 -->
-<g id="edge4" class="edge"><title>Node0&#45;&gt;Node4</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M77.6843,-235.18C96.4463,-245.61 127.493,-262.463 155,-275.5 158.502,-277.16 162.15,-278.829 165.832,-280.471"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="164.43,-283.678 174.995,-284.479 167.235,-277.265 164.43,-283.678"/>
 </g>
-<!-- Node5 -->
-<g id="node6" class="node"><title>Node5</title>
-<g id="a_node6"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a73d97ae43bf24fbc07773bd5e43fa167" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_aux_1_1ia_vector2.html#af5ca9e9ee0cdb4c5b0155b981345171b" target="_top" xlink:title="IgorAux::iaVector2\l::distance2">
 <polygon fill="white" stroke="black" points="164.5,-235.5 164.5,-265.5 261.5,-265.5 261.5,-235.5 164.5,-235.5"/>
 <text text-anchor="start" x="172.5" y="-253.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-242.5" font-family="Helvetica,sans-Serif" font-size="10.00">::distance2</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node5 -->
-<g id="edge5" class="edge"><title>Node0&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M118.208,-235.023C129.979,-236.965 142.367,-239.009 154.143,-240.953"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="153.867,-244.454 164.303,-242.629 155.007,-237.548 153.867,-244.454"/>
 </g>
-<!-- Node6 -->
-<g id="node7" class="node"><title>Node6</title>
-<g id="a_node7"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a08ddf5a2c9c79adbc0af43cb6bf04a98" target="_top" xlink:title=" ">
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a9b431022c82854003b1268395338096f" target="_top" xlink:title="IgorAux::iaVector2\l::angle">
 <polygon fill="white" stroke="black" points="164.5,-186.5 164.5,-216.5 261.5,-216.5 261.5,-186.5 164.5,-186.5"/>
 <text text-anchor="start" x="172.5" y="-204.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-193.5" font-family="Helvetica,sans-Serif" font-size="10.00">::angle</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node6 -->
-<g id="edge6" class="edge"><title>Node0&#45;&gt;Node6</title>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M119.074,-216.221C130.666,-214.385 142.825,-212.458 154.385,-210.627"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="155.031,-214.069 164.36,-209.047 153.936,-207.155 155.031,-214.069"/>
 </g>
-<!-- Node7 -->
-<g id="node8" class="node"><title>Node7</title>
-<g id="a_node8"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" target="_top" xlink:title=" ">
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" target="_top" xlink:title="IgorAux::iaVector2::set">
 <polygon fill="white" stroke="black" points="155,-148 155,-167 271,-167 271,-148 155,-148"/>
 <text text-anchor="middle" x="213" y="-155" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2::set</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node7 -->
-<g id="edge7" class="edge"><title>Node0&#45;&gt;Node7</title>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge7" class="edge"><title>Node1&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M77.5894,-215.951C96.2703,-205.72 127.248,-189.355 155,-177.5 160.622,-175.098 166.64,-172.753 172.581,-170.564"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="174.187,-173.706 182.424,-167.043 171.83,-167.115 174.187,-173.706"/>
 </g>
-<!-- Node8 -->
-<g id="node9" class="node"><title>Node8</title>
-<g id="a_node9"><a xlink:href="class_igor_aux_1_1ia_vector2.html#afe00d6cb20f5354d847d85eb759d637b" target="_top" xlink:title=" ">
+<!-- Node9 -->
+<g id="node9" class="node"><title>Node9</title>
+<g id="a_node9"><a xlink:href="class_igor_aux_1_1ia_vector2.html#afe00d6cb20f5354d847d85eb759d637b" target="_top" xlink:title="IgorAux::iaVector2\l::getData">
 <polygon fill="white" stroke="black" points="164.5,-98.5 164.5,-128.5 261.5,-128.5 261.5,-98.5 164.5,-98.5"/>
 <text text-anchor="start" x="172.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getData</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node8 -->
-<g id="edge8" class="edge"><title>Node0&#45;&gt;Node8</title>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge8" class="edge"><title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M69.0317,-215.755C84.6556,-198.373 119.529,-161.674 155,-138.5 157.759,-136.697 160.67,-134.969 163.657,-133.324"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="165.476,-136.325 172.772,-128.643 162.278,-130.098 165.476,-136.325"/>
 </g>
-<!-- Node9 -->
-<g id="node10" class="node"><title>Node9</title>
-<g id="a_node10"><a xlink:href="class_igor_aux_1_1ia_vector2.html#adfff01ed1568c1c2b0d9b6df3696c63b" target="_top" xlink:title=" ">
+<!-- Node10 -->
+<g id="node10" class="node"><title>Node10</title>
+<g id="a_node10"><a xlink:href="class_igor_aux_1_1ia_vector2.html#adfff01ed1568c1c2b0d9b6df3696c63b" target="_top" xlink:title="IgorAux::iaVector2\l::rotateXY">
 <polygon fill="white" stroke="black" points="164.5,-49.5 164.5,-79.5 261.5,-79.5 261.5,-49.5 164.5,-49.5"/>
 <text text-anchor="start" x="172.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::rotateXY</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node9 -->
-<g id="edge9" class="edge"><title>Node0&#45;&gt;Node9</title>
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge9" class="edge"><title>Node1&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M64.8378,-215.916C76.2663,-191.63 109.484,-126.947 155,-89.5 157.008,-87.8481 159.142,-86.2858 161.361,-84.8109"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="163.427,-87.6554 170.251,-79.5509 159.862,-81.631 163.427,-87.6554"/>
 </g>
-<!-- Node10 -->
-<g id="node11" class="node"><title>Node10</title>
-<g id="a_node11"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a218bc655ec5317409d108ad1e0659fb4" target="_top" xlink:title=" ">
+<!-- Node11 -->
+<g id="node11" class="node"><title>Node11</title>
+<g id="a_node11"><a xlink:href="class_igor_aux_1_1ia_vector2.html#a218bc655ec5317409d108ad1e0659fb4" target="_top" xlink:title="IgorAux::iaVector2\l::normalize">
 <polygon fill="white" stroke="black" points="164.5,-0.5 164.5,-30.5 261.5,-30.5 261.5,-0.5 164.5,-0.5"/>
 <text text-anchor="start" x="172.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2</text>
 <text text-anchor="middle" x="213" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::normalize</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node10 -->
-<g id="edge10" class="edge"><title>Node0&#45;&gt;Node10</title>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge10" class="edge"><title>Node1&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M62.9848,-215.632C71.0685,-185.401 99.3658,-92.9487 155,-40.5 156.629,-38.9642 158.368,-37.5133 160.188,-36.1435"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="162.143,-39.0467 168.599,-30.6463 158.314,-33.1871 162.143,-39.0467"/>
 </g>

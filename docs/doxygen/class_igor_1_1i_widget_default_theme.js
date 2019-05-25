@@ -39,7 +39,7 @@ var class_igor_1_1i_widget_default_theme =
     [ "drawSpacer", "class_igor_1_1i_widget_default_theme.html#a521bc2270ed9acc5af19426581937331", null ],
     [ "drawStringInt", "class_igor_1_1i_widget_default_theme.html#aadbd38f6b1e7c66352637f1dcee6412e", null ],
     [ "drawText", "class_igor_1_1i_widget_default_theme.html#ae4146061c2e44ab99870d1ef57e9bd44", null ],
-    [ "drawTextEdit", "class_igor_1_1i_widget_default_theme.html#ad3e1bd776f9b186fb25d6155c0722635", null ],
+    [ "drawTextEdit", "class_igor_1_1i_widget_default_theme.html#a8fd2cdfaf381fbdd7ae0e525f54e5755", null ],
     [ "drawTiledRectangle", "class_igor_1_1i_widget_default_theme.html#ae36220273ff3984e593ba1b02d02c860", null ],
     [ "drawTooltip", "class_igor_1_1i_widget_default_theme.html#ad9e339664e3aea1aecf160be4592fdeb", null ],
     [ "getFont", "class_igor_1_1i_widget_default_theme.html#ab35319ec1a29ed8905b6261d9cd9ff95", null ],

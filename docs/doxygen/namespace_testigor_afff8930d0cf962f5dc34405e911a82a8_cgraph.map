@@ -1,17 +1,16 @@
 <map id="Testigor::TEST_CLASS" name="Testigor::TEST_CLASS">
-<area shape="rect" id="node1" title=" " alt="" coords="5,487,164,514"/>
-<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#ab2709373c78eb8b1c22a6ba30cceba52" title=" " alt="" coords="216,5,335,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#abdca81f9a7dfc354263de5f174171425" title=" " alt="" coords="387,325,513,367"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" title=" " alt="" coords="561,216,688,257"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#afa2b9ad864db36d1af6c6c67e02d270b" title=" " alt="" coords="561,559,688,600"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#abc7b1d9a289302f79de14684de13ab1f" title=" " alt="" coords="387,824,513,865"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#a1de38f8fb334a5e52a266b9a4e891821" title=" " alt="" coords="387,391,513,432"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_string.html#a7d68b1fee6a735fd99728850ea55e2d1" title=" " alt="" coords="212,480,339,521"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_string.html#a6f6bb95eb9eb1e85f80cde1045e5b9fc" title=" " alt="" coords="387,559,513,600"/>
-<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_string.html#a5dd1aa2c22b200e373d37dd369fea22a" title=" " alt="" coords="387,624,513,665"/>
-<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_string.html#af389f9d2294ee35d6e99c7058ea65e18" title=" " alt="" coords="387,741,513,783"/>
-<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_string.html#a2d5a35cf6b3f2cad753afcd4af72c475" title=" " alt="" coords="212,193,339,235"/>
-<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_string.html#a474231b2ffc7b5d0eb16da1e15c964aa" title=" " alt="" coords="212,287,339,328"/>
-<area shape="rect" id="node15" href="$class_igor_aux_1_1ia_string.html#af98a3f182e1624436ef7c2413934a85d" title=" " alt="" coords="212,843,339,884"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title=" " alt="" coords="561,391,688,432"/>
+<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#ab2709373c78eb8b1c22a6ba30cceba52" title="testing::internal::\lIsTrue" alt="" coords="216,5,335,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17" title="IgorAux::iaString::\lgetSize" alt="" coords="387,325,513,367"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="561,216,688,257"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#afb40afde994d28224201cd9cb28909f7" title="IgorAux::iaString::\lisEmpty" alt="" coords="561,559,688,600"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#abc7b1d9a289302f79de14684de13ab1f" title="IgorAux::iaString::\lclear" alt="" coords="387,824,513,865"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#ad733ce0b92ae32cdb253e4fa0ad85e3f" title="IgorAux::iaString::\lgetSubString" alt="" coords="387,391,513,432"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_string.html#a9d5321ccb47f6bf2910409f0da56f08e" title="IgorAux::iaString::\lsplit" alt="" coords="212,480,339,521"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_string.html#a7e261d6c82b88b2cd963296db78dc7a7" title="IgorAux::iaString::\lfindFirstNotOf" alt="" coords="387,559,513,600"/>
+<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_string.html#ad748ecfc41a5a2c74b3c94572c3db864" title="IgorAux::iaString::\lfindFirstOf" alt="" coords="387,624,513,665"/>
+<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_string.html#a59aa54666dd7c142a73347a73170f7e3" title="IgorAux::iaString::\lfindLastOf" alt="" coords="387,741,513,783"/>
+<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_string.html#a7793c7a60aff4ef3e35bd60c7d6ee703" title="IgorAux::iaString::\lgetUTF8Size" alt="" coords="212,193,339,235"/>
+<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_string.html#a9e29c1ced7cd48ef1a5dcaf53e2684d0" title="IgorAux::iaString::\lgetUTF8" alt="" coords="212,287,339,328"/>
+<area shape="rect" id="node15" href="$class_igor_aux_1_1ia_string.html#af98a3f182e1624436ef7c2413934a85d" title="IgorAux::iaString::\lsetUTF8" alt="" coords="212,843,339,884"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title="IgorAux::iaString::\liaString" alt="" coords="561,391,688,432"/>
 </map>

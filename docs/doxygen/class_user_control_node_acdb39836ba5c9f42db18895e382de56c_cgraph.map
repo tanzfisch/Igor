@@ -1,6 +1,5 @@
 <map id="UserControlNode::deinitGUI" name="UserControlNode::deinitGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,64,187,91"/>
-<area shape="rect" id="node2" href="$class_user_control_node.html#acf414b52bb374b8cf9f849c3f9ca755e" title=" " alt="" coords="235,5,461,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="241,57,455,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title=" " alt="" coords="275,122,421,163"/>
+<area shape="rect" id="node2" href="$class_user_control_node.html#acf414b52bb374b8cf9f849c3f9ca755e" title="UserControlNode::onNameChanged" alt="" coords="235,5,461,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="241,57,455,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title="Igor::iWidgetManager\l::destroyWidget" alt="" coords="275,122,421,163"/>
 </map>

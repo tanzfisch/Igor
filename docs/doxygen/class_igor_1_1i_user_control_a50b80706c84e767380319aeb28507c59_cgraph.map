@@ -1,5 +1,4 @@
 <map id="Igor::iUserControl::calcMinSize" name="Igor::iUserControl::calcMinSize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,23,128,65"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#a7607d7a6a36d25a88976f24227c74391" title=" " alt="" coords="177,5,353,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#ae479f53b5aefb0bd9039bd2d2d62c8be" title=" " alt="" coords="176,56,355,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#a5169814ed11deae6be3760b8304f390c" title="Igor::iWidget::getMinWidth" alt="" coords="177,5,353,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#ac3eaf7987b1842c3b6c1e429e9825512" title="Igor::iWidget::getMinHeight" alt="" coords="176,56,355,83"/>
 </map>

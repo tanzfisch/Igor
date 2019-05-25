@@ -1,11 +1,10 @@
 <map id="Igor::iNodeVisitor" name="Igor::iNodeVisitor">
-<area shape="rect" id="node1" title=" " alt="" coords="5,199,127,225"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html" title=" " alt="" coords="189,5,356,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_visitor_boundings.html" title=" " alt="" coords="181,56,364,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_visitor_print_tree.html" title=" " alt="" coords="186,107,359,133"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor_render_boundings.html" title=" " alt="" coords="191,158,354,199"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node_visitor_render_color_i_d.html" title=" " alt="" coords="191,223,354,265"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node_visitor_search_name.html" title=" " alt="" coords="175,289,371,316"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node_visitor_update_transform.html" title=" " alt="" coords="191,341,354,382"/>
-<area shape="rect" id="node9" href="$class_user_control_graph_view.html" title=" " alt="" coords="196,407,349,433"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html" title="Igor::iModelDataIOOMPF" alt="" coords="189,5,356,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_visitor_boundings.html" title="Igor::iNodeVisitorBoundings" alt="" coords="181,56,364,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_visitor_print_tree.html" title="Igor::iNodeVisitorPrintTree" alt="" coords="186,107,359,133"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor_render_boundings.html" title="Igor::iNodeVisitorRender\lBoundings" alt="" coords="191,158,354,199"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_visitor_render_color_i_d.html" title="Igor::iNodeVisitorRender\lColorID" alt="" coords="191,223,354,265"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_visitor_search_name.html" title="Igor::iNodeVisitorSearchName" alt="" coords="175,289,371,316"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node_visitor_update_transform.html" title="Igor::iNodeVisitorUpdate\lTransform" alt="" coords="191,341,354,382"/>
+<area shape="rect" id="node9" href="$class_user_control_graph_view.html" title="UserControlGraphView" alt="" coords="196,407,349,433"/>
 </map>

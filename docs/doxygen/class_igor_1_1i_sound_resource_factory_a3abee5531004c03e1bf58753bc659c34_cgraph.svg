@@ -9,54 +9,51 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iSoundResourceFactory::setListenerMatrix</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 459,-84 459,4 -4,4"/>
-<!-- Node20 -->
-<g id="node1" class="node"><title>Node20</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 143,-54.5 143,-24.5 0,-24.5"/>
 <text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSoundResourceFactory</text>
 <text text-anchor="middle" x="71.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setListenerMatrix</text>
-</a>
 </g>
-</g>
-<!-- Node21 -->
-<g id="node2" class="node"><title>Node21</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_sound_resource_factory.html#a7dcc547f2e3bb199e005dd91dfbd5f2e" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_sound_resource_factory.html#a7dcc547f2e3bb199e005dd91dfbd5f2e" target="_top" xlink:title="Igor::iSoundResourceFactory\l::setListenerVelocity">
 <polygon fill="white" stroke="black" points="179,-49.5 179,-79.5 322,-79.5 322,-49.5 179,-49.5"/>
 <text text-anchor="start" x="187" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSoundResourceFactory</text>
 <text text-anchor="middle" x="250.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setListenerVelocity</text>
 </a>
 </g>
 </g>
-<!-- Node20&#45;&gt;Node21 -->
-<g id="edge1" class="edge"><title>Node20&#45;&gt;Node21</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M143.218,-49.4884C151.662,-50.681 160.331,-51.9054 168.9,-53.1158"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="168.503,-56.5944 178.894,-54.5274 169.482,-49.6632 168.503,-56.5944"/>
 </g>
-<!-- Node23 -->
-<g id="node4" class="node"><title>Node23</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_matrix.html#a8f8341339caae2135c145ea1ef2e8bf3" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_matrix.html#a996b71eeda2c5f6e6fc621149f01015d" target="_top" xlink:title="IgorAux::iaMatrix::\lgetData">
 <polygon fill="white" stroke="black" points="202.5,-0.5 202.5,-30.5 298.5,-30.5 298.5,-0.5 202.5,-0.5"/>
 <text text-anchor="start" x="210.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix::</text>
 <text text-anchor="middle" x="250.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">getData</text>
 </a>
 </g>
 </g>
-<!-- Node20&#45;&gt;Node23 -->
-<g id="edge3" class="edge"><title>Node20&#45;&gt;Node23</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M143.218,-29.9111C159.49,-27.7047 176.598,-25.385 192.218,-23.267"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="192.805,-26.7195 202.244,-21.9075 191.865,-19.783 192.805,-26.7195"/>
 </g>
-<!-- Node22 -->
-<g id="node3" class="node"><title>Node22</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector3.html#ab9eeed4aa7fd8d95efc7110748bc94a0" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector3.html#a472d397bcfae85248afadb2345716e07" target="_top" xlink:title="IgorAux::iaVector3\l::getData">
 <polygon fill="white" stroke="black" points="358,-49.5 358,-79.5 455,-79.5 455,-49.5 358,-49.5"/>
 <text text-anchor="start" x="366" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector3</text>
 <text text-anchor="middle" x="406.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getData</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node22 -->
-<g id="edge2" class="edge"><title>Node21&#45;&gt;Node22</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M322.19,-64.5C330.641,-64.5 339.193,-64.5 347.437,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="347.683,-68.0001 357.683,-64.5 347.683,-61.0001 347.683,-68.0001"/>
 </g>

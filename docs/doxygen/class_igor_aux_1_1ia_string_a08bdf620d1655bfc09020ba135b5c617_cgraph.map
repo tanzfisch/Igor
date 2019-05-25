@@ -1,8 +1,7 @@
 <map id="IgorAux::iaString::remove" name="IgorAux::iaString::remove">
-<area shape="rect" id="node1" title=" " alt="" coords="5,73,132,115"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#a1de38f8fb334a5e52a266b9a4e891821" title=" " alt="" coords="180,15,307,56"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" title=" " alt="" coords="355,71,481,112"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#ad7adba7a3518fb1798a0883ef3295ea1" title=" " alt="" coords="180,133,307,175"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title=" " alt="" coords="355,5,481,47"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#abc7b1d9a289302f79de14684de13ab1f" title=" " alt="" coords="355,136,481,177"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#ad733ce0b92ae32cdb253e4fa0ad85e3f" title="IgorAux::iaString::\lgetSubString" alt="" coords="180,15,307,56"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="355,71,481,112"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#ad7adba7a3518fb1798a0883ef3295ea1" title="IgorAux::iaString::\lsetData" alt="" coords="180,133,307,175"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title="IgorAux::iaString::\liaString" alt="" coords="355,5,481,47"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#abc7b1d9a289302f79de14684de13ab1f" title="IgorAux::iaString::\lclear" alt="" coords="355,136,481,177"/>
 </map>

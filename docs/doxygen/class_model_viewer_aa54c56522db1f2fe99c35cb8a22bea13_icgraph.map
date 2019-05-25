@@ -1,5 +1,4 @@
 <map id="ModelViewer::onImportFileReference" name="ModelViewer::onImportFileReference">
-<area shape="rect" id="node1" title=" " alt="" coords="211,23,385,65"/>
-<area shape="rect" id="node2" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title=" " alt="" coords="13,5,155,32"/>
-<area shape="rect" id="node3" href="$class_model_viewer.html#a247bac03643084abda6e880573312206" title=" " alt="" coords="5,56,163,83"/>
+<area shape="rect" id="node2" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title="ModelViewer::initGUI" alt="" coords="235,5,378,32"/>
+<area shape="rect" id="node3" href="$class_model_viewer.html#a247bac03643084abda6e880573312206" title="ModelViewer::deinitGUI" alt="" coords="228,56,385,83"/>
 </map>

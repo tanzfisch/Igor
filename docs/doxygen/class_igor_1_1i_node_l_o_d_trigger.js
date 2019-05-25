@@ -3,7 +3,7 @@ var class_igor_1_1i_node_l_o_d_trigger =
     [ "iNodeLODTrigger", "class_igor_1_1i_node_l_o_d_trigger.html#ac068af5f3eb6ff55204bb5a52439b2c4", null ],
     [ "iNodeLODTrigger", "class_igor_1_1i_node_l_o_d_trigger.html#abf2fc3a17a27cde43377b1547749408c", null ],
     [ "~iNodeLODTrigger", "class_igor_1_1i_node_l_o_d_trigger.html#ab3e431e573a513e4c63926b547056870", null ],
-    [ "getWorldPosition", "class_igor_1_1i_node_l_o_d_trigger.html#a3d7bae1822b4b04f66c8cb10facc2f96", null ],
+    [ "getWorldPosition", "class_igor_1_1i_node_l_o_d_trigger.html#a6751274c3280da9c94a058bb09bf0e27", null ],
     [ "onPostCopyLink", "class_igor_1_1i_node_l_o_d_trigger.html#a2cbc0fd5367b8e8db2620981776ea18c", null ],
     [ "onPostSetScene", "class_igor_1_1i_node_l_o_d_trigger.html#a8055f4dd11d03c167a3e7749dac313cb", null ],
     [ "onPreSetScene", "class_igor_1_1i_node_l_o_d_trigger.html#a1e401abb036749af69fa4581447e1daf", null ],

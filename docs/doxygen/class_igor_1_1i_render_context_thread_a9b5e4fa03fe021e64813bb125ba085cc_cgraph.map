@@ -1,5 +1,4 @@
 <map id="Igor::iRenderContextThread::iRenderContextThread" name="Igor::iRenderContextThread::iRenderContextThread">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,184,76"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_window.html#a79e8ba136a8686f2c47065106bbcc8e6" title=" " alt="" coords="232,5,417,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_window.html#a666ce5368abc6749e87e962c1f838164" title=" " alt="" coords="241,71,409,98"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_window.html#a79e8ba136a8686f2c47065106bbcc8e6" title="Igor::iWindow::createRender\lContext" alt="" coords="232,5,417,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_window.html#a666ce5368abc6749e87e962c1f838164" title="Igor::iWindow::shareLists" alt="" coords="241,71,409,98"/>
 </map>

@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iNode::isDataDirty</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 283,-35 283,4 -4,4"/>
-<!-- Node520 -->
-<g id="node1" class="node"><title>Node520</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="162,-6 162,-25 279,-25 279,-6 162,-6"/>
-<text text-anchor="middle" x="220.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::isDataDirty</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 117,-25 117,-6 0,-6"/>
+<text text-anchor="middle" x="58.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::isDataDirty</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node_model.html#a43f2cf258bc69d849bf24069391ce259" target="_top" xlink:title="Igor::iNodeModel::onPost\lSetScene">
+<polygon fill="white" stroke="black" points="153,-0.5 153,-30.5 279,-30.5 279,-0.5 153,-0.5"/>
+<text text-anchor="start" x="161" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeModel::onPost</text>
+<text text-anchor="middle" x="216" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">SetScene</text>
 </a>
 </g>
 </g>
-<!-- Node521 -->
-<g id="node2" class="node"><title>Node521</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node_model.html#a43f2cf258bc69d849bf24069391ce259" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 126,-30.5 126,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeModel::onPost</text>
-<text text-anchor="middle" x="63" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">SetScene</text>
-</a>
-</g>
-</g>
-<!-- Node520&#45;&gt;Node521 -->
-<g id="edge1" class="edge"><title>Node520&#45;&gt;Node521</title>
-<path fill="none" stroke="midnightblue" d="M151.433,-15.5C143.015,-15.5 134.444,-15.5 126.121,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="151.598,-19.0001 161.598,-15.5 151.598,-12.0001 151.598,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M127.567,-15.5C135.985,-15.5 144.556,-15.5 152.879,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="127.402,-12.0001 117.402,-15.5 127.402,-19.0001 127.402,-12.0001"/>
 </g>
 </g>
 </svg>

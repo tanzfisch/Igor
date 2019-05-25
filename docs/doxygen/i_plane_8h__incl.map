@@ -1,10 +1,7 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iPlane.h" name="C:/dev/Igor/Igor/src/Igor/src/iPlane.h">
-<area shape="rect" id="node1" title=" " alt="" coords="91,5,222,47"/>
-<area shape="rect" id="node2" href="$i_defines_8h.html" title=" " alt="" coords="9,95,88,121"/>
-<area shape="rect" id="node4" href="$ia_vector3_8h.html" title=" " alt="" coords="113,95,201,121"/>
-<area shape="rect" id="node8" href="$i_plane_8inl.html" title=" " alt="" coords="225,95,299,121"/>
-<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="5,169,92,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="117,169,175,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="199,169,269,196"/>
-<area shape="rect" id="node7" href="$ia_vector3_8inl.html" title=" " alt="" coords="293,169,388,196"/>
+<map id="C:/dev/Igor/src/Igor/src/iPlane.h" name="C:/dev/Igor/src/Igor/src/iPlane.h">
+<area shape="rect" id="node2" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="9,95,88,121"/>
+<area shape="rect" id="node4" href="$ia_vector3_8h.html" title="iaVector3.h" alt="" coords="113,95,201,121"/>
+<area shape="rect" id="node8" href="$i_plane_8inl.html" title="iPlane.inl" alt="" coords="225,95,299,121"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="5,169,92,196"/>
+<area shape="rect" id="node7" href="$ia_vector3_8inl.html" title="iaVector3.inl" alt="" coords="293,169,388,196"/>
 </map>

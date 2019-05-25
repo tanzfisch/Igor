@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>IgorAux::iaSerializable::readUInt</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 300,-35 300,4 -4,4"/>
-<!-- Node71 -->
-<g id="node1" class="node"><title>Node71</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="183,-0.5 183,-30.5 296,-30.5 296,-0.5 183,-0.5"/>
-<text text-anchor="start" x="191" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSerializable</text>
-<text text-anchor="middle" x="239.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::readUInt</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 113,-30.5 113,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSerializable</text>
+<text text-anchor="middle" x="56.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::readUInt</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1_o_m_p_f.html#a76b94da7e9cdc2fefe059306e35e7085" target="_top" xlink:title="OMPF::OMPF::getNextChunk">
+<polygon fill="white" stroke="black" points="149,-6 149,-25 296,-25 296,-6 149,-6"/>
+<text text-anchor="middle" x="222.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::OMPF::getNextChunk</text>
 </a>
 </g>
 </g>
-<!-- Node72 -->
-<g id="node2" class="node"><title>Node72</title>
-<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1_o_m_p_f.html#a76b94da7e9cdc2fefe059306e35e7085" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-25 147,-25 147,-6 0,-6"/>
-<text text-anchor="middle" x="73.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::OMPF::getNextChunk</text>
-</a>
-</g>
-</g>
-<!-- Node71&#45;&gt;Node72 -->
-<g id="edge1" class="edge"><title>Node71&#45;&gt;Node72</title>
-<path fill="none" stroke="midnightblue" d="M172.814,-15.5C164.364,-15.5 155.673,-15.5 147.119,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="172.977,-19.0001 182.977,-15.5 172.977,-12.0001 172.977,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M123.186,-15.5C131.636,-15.5 140.327,-15.5 148.881,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="123.023,-12.0001 113.023,-15.5 123.023,-19.0001 123.023,-12.0001"/>
 </g>
 </g>
 </svg>

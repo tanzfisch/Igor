@@ -6,7 +6,7 @@ var class_igor_1_1i_node_l_o_d_switch =
     [ "~iNodeLODSwitch", "class_igor_1_1i_node_l_o_d_switch.html#ad115f7f406e32fe3969a700276d59354", null ],
     [ "addTrigger", "class_igor_1_1i_node_l_o_d_switch.html#a4ba79bd5d4f35d24bb2fee863387bdab", null ],
     [ "addTrigger", "class_igor_1_1i_node_l_o_d_switch.html#a17c5fb751a3164f0dae5b514843adc48", null ],
-    [ "getWorldPosition", "class_igor_1_1i_node_l_o_d_switch.html#a26c966f163844b5b3509fc456a37a2d1", null ],
+    [ "getWorldPosition", "class_igor_1_1i_node_l_o_d_switch.html#a58d22e281158a100d9137541ec6be119", null ],
     [ "onPostCopyLink", "class_igor_1_1i_node_l_o_d_switch.html#a07ea92a4b5bed41e8f92be2309257e75", null ],
     [ "onPostSetScene", "class_igor_1_1i_node_l_o_d_switch.html#aabe1c19bc008755aa3ff1cfe9fb4f530", null ],
     [ "onPreSetScene", "class_igor_1_1i_node_l_o_d_switch.html#a130c39c47cdb0330fabc3b4bfa79df4c", null ],

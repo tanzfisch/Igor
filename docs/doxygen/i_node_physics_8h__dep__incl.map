@@ -1,6 +1,5 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iNodePhysics.h" name="C:/dev/Igor/Igor/src/Igor/src/iNodePhysics.h">
-<area shape="rect" id="node1" title=" " alt="" coords="212,5,376,47"/>
-<area shape="rect" id="node2" href="$i_node_factory_8cpp.html" title=" " alt="" coords="5,102,180,143"/>
-<area shape="rect" id="node3" href="$i_node_physics_8cpp.html" title=" " alt="" coords="205,102,383,143"/>
-<area shape="rect" id="node4" href="$i_voxel_terrain_mesh_generator_8cpp.html" title=" " alt="" coords="408,95,588,151"/>
+<map id="C:/dev/Igor/src/Igor/src/iNodePhysics.h" name="C:/dev/Igor/src/Igor/src/iNodePhysics.h">
+<area shape="rect" id="node2" href="$i_node_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeFactory.cpp" alt="" coords="5,95,156,136"/>
+<area shape="rect" id="node3" href="$i_node_physics_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodePhysics.cpp" alt="" coords="180,95,333,136"/>
+<area shape="rect" id="node4" href="$i_voxel_terrain_mesh_generator_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrainMeshGenerator.cpp" alt="" coords="358,95,595,136"/>
 </map>

@@ -9,57 +9,54 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>testing::internal::FormatForComparisonFailureMessage</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 416,-84 416,4 -4,4"/>
-<!-- Node163 -->
-<g id="node1" class="node"><title>Node163</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="269,-19 269,-60 412,-60 412,-19 269,-19"/>
-<text text-anchor="start" x="277" y="-48" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="277" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">FormatForComparisonFailure</text>
-<text text-anchor="middle" x="340.5" y="-26" font-family="Helvetica,sans-Serif" font-size="10.00">Message</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-19 0,-60 143,-60 143,-19 0,-19"/>
+<text text-anchor="start" x="8" y="-48" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="8" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">FormatForComparisonFailure</text>
+<text text-anchor="middle" x="71.5" y="-26" font-family="Helvetica,sans-Serif" font-size="10.00">Message</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespacetesting_1_1internal.html#a1def8ec9393360a1b34a20528703e7f7" target="_top" xlink:title="testing::internal::\lCmpHelperEQFailure">
+<polygon fill="white" stroke="black" points="179,-49.5 179,-79.5 287,-79.5 287,-49.5 179,-49.5"/>
+<text text-anchor="start" x="187" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="233" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperEQFailure</text>
 </a>
 </g>
 </g>
-<!-- Node164 -->
-<g id="node2" class="node"><title>Node164</title>
-<g id="a_node2"><a xlink:href="namespacetesting_1_1internal.html#a1def8ec9393360a1b34a20528703e7f7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="125,-49.5 125,-79.5 233,-79.5 233,-49.5 125,-49.5"/>
-<text text-anchor="start" x="133" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="179" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperEQFailure</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M153.395,-52.1795C161.933,-53.5177 170.453,-54.8532 178.565,-56.1246"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="153.809,-48.7017 143.388,-50.611 152.725,-55.6173 153.809,-48.7017"/>
+</g>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="namespacetesting_1_1internal.html#a894ffccd936d78fd555f490020c27f0a" target="_top" xlink:title="testing::internal::\lCmpHelperOpFailure">
+<polygon fill="white" stroke="black" points="179.5,-0.5 179.5,-30.5 286.5,-30.5 286.5,-0.5 179.5,-0.5"/>
+<text text-anchor="start" x="187.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="233" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperOpFailure</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node164 -->
-<g id="edge1" class="edge"><title>Node163&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M258.605,-52.1795C250.067,-53.5177 241.547,-54.8532 233.435,-56.1246"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="259.275,-55.6173 268.612,-50.611 258.191,-48.7017 259.275,-55.6173"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M153.536,-27.3064C162.194,-26.0037 170.832,-24.704 179.041,-23.4687"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="152.756,-23.8844 143.388,-28.8335 153.797,-30.8065 152.756,-23.8844"/>
 </g>
-<!-- Node166 -->
-<g id="node4" class="node"><title>Node166</title>
-<g id="a_node4"><a xlink:href="namespacetesting_1_1internal.html#a894ffccd936d78fd555f490020c27f0a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="125.5,-0.5 125.5,-30.5 232.5,-30.5 232.5,-0.5 125.5,-0.5"/>
-<text text-anchor="start" x="133.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="179" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperOpFailure</text>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="namespacetesting_1_1internal.html#a4638c74d9b32e971f9b321af6fafc2f1" target="_top" xlink:title="testing::internal::\lCmpHelperEQ">
+<polygon fill="white" stroke="black" points="323,-49.5 323,-79.5 412,-79.5 412,-49.5 323,-49.5"/>
+<text text-anchor="start" x="331" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="367.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperEQ</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node166 -->
-<g id="edge3" class="edge"><title>Node163&#45;&gt;Node166</title>
-<path fill="none" stroke="midnightblue" d="M258.464,-27.3064C249.806,-26.0037 241.168,-24.704 232.959,-23.4687"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="258.203,-30.8065 268.612,-28.8335 259.244,-23.8844 258.203,-30.8065"/>
-</g>
-<!-- Node165 -->
-<g id="node3" class="node"><title>Node165</title>
-<g id="a_node3"><a xlink:href="namespacetesting_1_1internal.html#a4638c74d9b32e971f9b321af6fafc2f1" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-49.5 0,-79.5 89,-79.5 89,-49.5 0,-49.5"/>
-<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="44.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperEQ</text>
-</a>
-</g>
-</g>
-<!-- Node164&#45;&gt;Node165 -->
-<g id="edge2" class="edge"><title>Node164&#45;&gt;Node165</title>
-<path fill="none" stroke="midnightblue" d="M114.806,-64.5C106.175,-64.5 97.4747,-64.5 89.2929,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="114.871,-68.0001 124.871,-64.5 114.871,-61.0001 114.871,-68.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M297.194,-64.5C305.825,-64.5 314.525,-64.5 322.707,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="297.129,-61.0001 287.129,-64.5 297.129,-68.0001 297.129,-61.0001"/>
 </g>
 </g>
 </svg>

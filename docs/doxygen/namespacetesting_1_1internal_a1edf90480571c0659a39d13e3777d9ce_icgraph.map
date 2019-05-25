@@ -1,5 +1,4 @@
 <map id="testing::internal::CmpHelperEQ" name="testing::internal::CmpHelperEQ">
-<area shape="rect" id="node1" title=" " alt="" coords="235,39,353,80"/>
-<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1_eq_helper.html#ae3572c7374534a916b9117efaa89f33f" title=" " alt="" coords="29,5,163,47"/>
-<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_eq_helper_3_01true_01_4.html#a12c7194b2a210b61f06c912eef484ca6" title=" " alt="" coords="5,71,187,112"/>
+<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1_eq_helper.html#ae3572c7374534a916b9117efaa89f33f" title="testing::internal::\lEqHelper::Compare" alt="" coords="195,5,330,47"/>
+<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_eq_helper_3_01true_01_4.html#a12c7194b2a210b61f06c912eef484ca6" title="testing::internal::\lEqHelper\&lt; true \&gt;::Compare" alt="" coords="172,71,353,112"/>
 </map>

@@ -1,5 +1,4 @@
 <map id="Igor::iModelDataIOOMPF" name="Igor::iModelDataIOOMPF">
-<area shape="rect" id="node1" title=" " alt="" coords="61,80,228,107"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o.html" title=" " alt="" coords="5,5,135,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_visitor.html" title=" " alt="" coords="159,5,280,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o.html" title="Igor::iModelDataIO" alt="" coords="5,5,135,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_visitor.html" title="Igor::iNodeVisitor" alt="" coords="159,5,280,32"/>
 </map>

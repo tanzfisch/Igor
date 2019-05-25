@@ -1,41 +1,40 @@
 <map id="IgorAux::iaSingleton&lt; T &gt;" name="IgorAux::iaSingleton&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,601,175,628"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,6,567,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,71,567,113"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="400,137,595,178"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="427,202,567,243"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,267,567,309"/>
-<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="420,333,575,374"/>
-<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,398,567,439"/>
-<area shape="rect" id="node16" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,463,567,505"/>
-<area shape="rect" id="node18" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="402,529,593,570"/>
-<area shape="rect" id="node20" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,594,567,635"/>
-<area shape="rect" id="node22" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="406,659,589,701"/>
-<area shape="rect" id="node24" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,725,567,766"/>
-<area shape="rect" id="node26" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="405,790,590,831"/>
-<area shape="rect" id="node28" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,855,567,897"/>
-<area shape="rect" id="node30" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,921,567,962"/>
-<area shape="rect" id="node32" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,986,567,1027"/>
-<area shape="rect" id="node34" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,1051,567,1093"/>
-<area shape="rect" id="node36" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,1117,567,1158"/>
-<area shape="rect" id="node38" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="428,1182,567,1223"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_statistics.html" title=" " alt="" coords="689,13,798,40"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_entity_manager.html" title=" " alt="" coords="674,79,813,105"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_material_resource_factory.html" title=" " alt="" coords="644,144,843,171"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_widget_manager.html" title=" " alt="" coords="671,209,816,236"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_application.html" title=" " alt="" coords="684,275,803,301"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_resource_manager.html" title=" " alt="" coords="664,340,823,367"/>
-<area shape="rect" id="node15" href="$class_igor_aux_1_1ia_console.html" title=" " alt="" coords="678,405,809,432"/>
-<area shape="rect" id="node17" href="$class_igor_1_1i_node_factory.html" title=" " alt="" coords="679,471,807,497"/>
-<area shape="rect" id="node19" href="$class_igor_1_1i_texture_resource_factory.html" title=" " alt="" coords="645,536,841,563"/>
-<area shape="rect" id="node21" href="$class_igor_1_1i_mouse.html" title=" " alt="" coords="697,601,790,628"/>
-<area shape="rect" id="node23" href="$class_igor_1_1i_model_resource_factory.html" title=" " alt="" coords="649,667,837,693"/>
-<area shape="rect" id="node25" href="$class_igor_1_1i_keyboard.html" title=" " alt="" coords="689,732,798,759"/>
-<area shape="rect" id="node27" href="$class_igor_1_1i_sound_resource_factory.html" title=" " alt="" coords="648,797,839,824"/>
-<area shape="rect" id="node29" href="$class_igor_1_1i_key_code_map.html" title=" " alt="" coords="677,863,809,889"/>
-<area shape="rect" id="node31" href="$class_igor_1_1i_timer.html" title=" " alt="" coords="700,928,787,955"/>
-<area shape="rect" id="node33" href="$class_igor_1_1i_physics.html" title=" " alt="" coords="693,993,794,1020"/>
-<area shape="rect" id="node35" href="$class_igor_1_1i_renderer.html" title=" " alt="" coords="690,1059,797,1085"/>
-<area shape="rect" id="node37" href="$class_igor_1_1i_scene_factory.html" title=" " alt="" coords="676,1124,811,1151"/>
-<area shape="rect" id="node39" href="$class_igor_1_1i_task_manager.html" title=" " alt="" coords="677,1189,809,1216"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iStatistics \&gt;" alt="" coords="428,6,567,47"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iEntityManager \&gt;" alt="" coords="428,71,567,113"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory \&gt;" alt="" coords="400,137,595,178"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;" alt="" coords="427,202,567,243"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iApplication \&gt;" alt="" coords="428,267,567,309"/>
+<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iResourceManager \&gt;" alt="" coords="420,333,575,374"/>
+<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iaConsole \&gt;" alt="" coords="428,398,567,439"/>
+<area shape="rect" id="node16" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;" alt="" coords="428,463,567,505"/>
+<area shape="rect" id="node18" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iTextureResourceFactory \&gt;" alt="" coords="402,529,593,570"/>
+<area shape="rect" id="node20" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iMouse \&gt;" alt="" coords="428,594,567,635"/>
+<area shape="rect" id="node22" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iModelResourceFactory \&gt;" alt="" coords="406,659,589,701"/>
+<area shape="rect" id="node24" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iKeyboard \&gt;" alt="" coords="428,725,567,766"/>
+<area shape="rect" id="node26" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iSoundResourceFactory \&gt;" alt="" coords="405,790,590,831"/>
+<area shape="rect" id="node28" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iKeyCodeMap \&gt;" alt="" coords="428,855,567,897"/>
+<area shape="rect" id="node30" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iTimer \&gt;" alt="" coords="428,921,567,962"/>
+<area shape="rect" id="node32" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;" alt="" coords="428,986,567,1027"/>
+<area shape="rect" id="node34" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iRenderer \&gt;" alt="" coords="428,1051,567,1093"/>
+<area shape="rect" id="node36" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iSceneFactory \&gt;" alt="" coords="428,1117,567,1158"/>
+<area shape="rect" id="node38" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iTaskManager \&gt;" alt="" coords="428,1182,567,1223"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_statistics.html" title="Igor::iStatistics" alt="" coords="689,13,798,40"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_entity_manager.html" title="Igor::iEntityManager" alt="" coords="674,79,813,105"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_material_resource_factory.html" title="Igor::iMaterialResourceFactory" alt="" coords="644,144,843,171"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_manager.html" title="Igor::iWidgetManager" alt="" coords="671,209,816,236"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_application.html" title="Igor::iApplication" alt="" coords="684,275,803,301"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_resource_manager.html" title="Igor::iResourceManager" alt="" coords="664,340,823,367"/>
+<area shape="rect" id="node15" href="$class_igor_aux_1_1ia_console.html" title="IgorAux::iaConsole" alt="" coords="678,405,809,432"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_node_factory.html" title="Igor::iNodeFactory" alt="" coords="679,471,807,497"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_texture_resource_factory.html" title="Igor::iTextureResourceFactory" alt="" coords="645,536,841,563"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_mouse.html" title="Igor::iMouse" alt="" coords="697,601,790,628"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_model_resource_factory.html" title="Igor::iModelResourceFactory" alt="" coords="649,667,837,693"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_keyboard.html" title="Igor::iKeyboard" alt="" coords="689,732,798,759"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_sound_resource_factory.html" title="Igor::iSoundResourceFactory" alt="" coords="648,797,839,824"/>
+<area shape="rect" id="node29" href="$class_igor_1_1i_key_code_map.html" title="Igor::iKeyCodeMap" alt="" coords="677,863,809,889"/>
+<area shape="rect" id="node31" href="$class_igor_1_1i_timer.html" title="Igor::iTimer" alt="" coords="700,928,787,955"/>
+<area shape="rect" id="node33" href="$class_igor_1_1i_physics.html" title="Igor::iPhysics" alt="" coords="693,993,794,1020"/>
+<area shape="rect" id="node35" href="$class_igor_1_1i_renderer.html" title="Igor::iRenderer" alt="" coords="690,1059,797,1085"/>
+<area shape="rect" id="node37" href="$class_igor_1_1i_scene_factory.html" title="Igor::iSceneFactory" alt="" coords="676,1124,811,1151"/>
+<area shape="rect" id="node39" href="$class_igor_1_1i_task_manager.html" title="Igor::iTaskManager" alt="" coords="677,1189,809,1216"/>
 </map>

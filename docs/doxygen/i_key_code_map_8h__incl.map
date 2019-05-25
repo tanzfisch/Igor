@@ -1,11 +1,7 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iKeyCodeMap.h" name="C:/dev/Igor/Igor/src/Igor/src/iKeyCodeMap.h">
-<area shape="rect" id="node1" title=" " alt="" coords="149,5,314,47"/>
-<area shape="rect" id="node2" href="$ia_singleton_8h.html" title=" " alt="" coords="15,95,112,121"/>
-<area shape="rect" id="node5" href="$ia_string_8h.html" title=" " alt="" coords="155,95,233,121"/>
-<area shape="rect" id="node8" href="$i_defines_8h.html" title=" " alt="" coords="333,169,412,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="308,95,355,121"/>
-<area shape="rect" id="node3" href="$ia_mutex_8h.html" title=" " alt="" coords="5,169,84,196"/>
-<area shape="rect" id="node4" href="$ia_defines_8h.html" title=" " alt="" coords="79,244,165,271"/>
-<area shape="rect" id="node6" title=" " alt="" coords="159,169,229,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="253,169,309,196"/>
+<map id="C:/dev/Igor/src/Igor/src/iKeyCodeMap.h" name="C:/dev/Igor/src/Igor/src/iKeyCodeMap.h">
+<area shape="rect" id="node2" href="$ia_singleton_8h.html" title="iaSingleton.h" alt="" coords="15,95,112,121"/>
+<area shape="rect" id="node5" href="$ia_string_8h.html" title="iaString.h" alt="" coords="155,95,233,121"/>
+<area shape="rect" id="node8" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="333,169,412,196"/>
+<area shape="rect" id="node3" href="$ia_mutex_8h.html" title="iaMutex.h" alt="" coords="5,169,84,196"/>
+<area shape="rect" id="node4" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="79,244,165,271"/>
 </map>

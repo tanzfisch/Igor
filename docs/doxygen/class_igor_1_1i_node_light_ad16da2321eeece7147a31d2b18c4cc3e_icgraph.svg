@@ -9,39 +9,36 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>Igor::iNodeLight::setAmbient</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 326,-62 326,4 -4,4"/>
-<!-- Node57 -->
-<g id="node1" class="node"><title>Node57</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="182,-19.5 182,-38.5 322,-38.5 322,-19.5 182,-19.5"/>
-<text text-anchor="middle" x="252" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLight::setAmbient</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-19.5 0,-38.5 140,-38.5 140,-19.5 0,-19.5"/>
+<text text-anchor="middle" x="70" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLight::setAmbient</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node_light.html#ab64c7a40d329d2802b5b9a6a02d96bd7" target="_top" xlink:title="Igor::iNodeLight::iNodeLight">
+<polygon fill="white" stroke="black" points="181,-38.5 181,-57.5 317,-57.5 317,-38.5 181,-38.5"/>
+<text text-anchor="middle" x="249" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLight::iNodeLight</text>
 </a>
 </g>
 </g>
-<!-- Node58 -->
-<g id="node2" class="node"><title>Node58</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node_light.html#ab64c7a40d329d2802b5b9a6a02d96bd7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5,-38.5 5,-57.5 141,-57.5 141,-38.5 5,-38.5"/>
-<text text-anchor="middle" x="73" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLight::iNodeLight</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M150.324,-37.515C160.53,-38.6106 170.901,-39.7239 180.886,-40.7956"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="150.51,-34.0149 140.193,-36.4275 149.763,-40.9749 150.51,-34.0149"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_light.html#abd10835b0dc1fe1b02fa66d09515725b" target="_top" xlink:title="UserControlLight::updateNode">
+<polygon fill="white" stroke="black" points="176,-0.5 176,-19.5 322,-19.5 322,-0.5 176,-0.5"/>
+<text text-anchor="middle" x="249" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlLight::updateNode</text>
 </a>
 </g>
 </g>
-<!-- Node57&#45;&gt;Node58 -->
-<g id="edge1" class="edge"><title>Node57&#45;&gt;Node58</title>
-<path fill="none" stroke="midnightblue" d="M171.676,-37.515C161.47,-38.6106 151.099,-39.7239 141.114,-40.7956"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="172.237,-40.9749 181.807,-36.4275 171.49,-34.0149 172.237,-40.9749"/>
-</g>
-<!-- Node59 -->
-<g id="node3" class="node"><title>Node59</title>
-<g id="a_node3"><a xlink:href="class_user_control_light.html#abd10835b0dc1fe1b02fa66d09515725b" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 146,-19.5 146,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="73" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlLight::updateNode</text>
-</a>
-</g>
-</g>
-<!-- Node57&#45;&gt;Node59 -->
-<g id="edge2" class="edge"><title>Node57&#45;&gt;Node59</title>
-<path fill="none" stroke="midnightblue" d="M171.814,-20.4999C163.24,-19.5794 154.547,-18.6463 146.063,-17.7356"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="171.49,-23.9851 181.807,-21.5725 172.237,-17.0251 171.49,-23.9851"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M150.186,-20.4999C158.76,-19.5794 167.453,-18.6463 175.937,-17.7356"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="149.763,-17.0251 140.193,-21.5725 150.51,-23.9851 149.763,-17.0251"/>
 </g>
 </g>
 </svg>

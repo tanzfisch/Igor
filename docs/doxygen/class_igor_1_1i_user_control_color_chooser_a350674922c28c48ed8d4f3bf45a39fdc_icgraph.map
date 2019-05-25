@@ -1,5 +1,4 @@
 <map id="Igor::iUserControlColorChooser::initGUI" name="Igor::iUserControlColorChooser::initGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="501,5,701,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title=" " alt="" coords="253,5,453,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title=" " alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title="Igor::iUserControlColorChooser\l::iUserControlColorChooser" alt="" coords="253,5,453,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title="Igor::iUserControlColorChooser\l::createInstance" alt="" coords="501,5,701,47"/>
 </map>

@@ -9,84 +9,81 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iVoxelData::getVoxelDensity</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 784,-84 784,4 -4,4"/>
-<!-- Node37 -->
-<g id="node1" class="node"><title>Node37</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="650,-24.5 650,-54.5 780,-54.5 780,-24.5 650,-24.5"/>
-<text text-anchor="start" x="658" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelData::getVoxel</text>
-<text text-anchor="middle" x="715" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">Density</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 130,-54.5 130,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelData::getVoxel</text>
+<text text-anchor="middle" x="65" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">Density</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_contouring_cubes.html#ae795ffe83bbe9dfdc4f1681b040ebf39" target="_top" xlink:title="Igor::iContouringCubes\l::calculateNextLOD">
+<polygon fill="white" stroke="black" points="166,-49.5 166,-79.5 281,-79.5 281,-49.5 166,-49.5"/>
+<text text-anchor="start" x="174" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
+<text text-anchor="middle" x="223.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calculateNextLOD</text>
 </a>
 </g>
 </g>
-<!-- Node38 -->
-<g id="node2" class="node"><title>Node38</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_contouring_cubes.html#ae795ffe83bbe9dfdc4f1681b040ebf39" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="499,-49.5 499,-79.5 614,-79.5 614,-49.5 499,-49.5"/>
-<text text-anchor="start" x="507" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
-<text text-anchor="middle" x="556.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calculateNextLOD</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M140.158,-51.3463C148.768,-52.7217 157.444,-54.1077 165.768,-55.4374"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="140.533,-47.8619 130.106,-49.7406 139.429,-54.7743 140.533,-47.8619"/>
+</g>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_voxel_terrain.html#a716cf857787069604cdbc8b43108f329" target="_top" xlink:title="Igor::iVoxelTerrain\l::getVoxelDensity">
+<polygon fill="white" stroke="black" points="176,-0.5 176,-30.5 271,-30.5 271,-0.5 176,-0.5"/>
+<text text-anchor="start" x="184" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrain</text>
+<text text-anchor="middle" x="223.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getVoxelDensity</text>
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node38 -->
-<g id="edge1" class="edge"><title>Node37&#45;&gt;Node38</title>
-<path fill="none" stroke="midnightblue" d="M639.842,-51.3463C631.232,-52.7217 622.556,-54.1077 614.232,-55.4374"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="640.571,-54.7743 649.894,-49.7406 639.467,-47.8619 640.571,-54.7743"/>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M140.27,-28.1103C152.437,-26.2444 164.733,-24.3588 175.977,-22.6345"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="139.46,-24.6936 130.106,-29.669 140.521,-31.6127 139.46,-24.6936"/>
 </g>
-<!-- Node42 -->
-<g id="node6" class="node"><title>Node42</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_voxel_terrain.html#a716cf857787069604cdbc8b43108f329" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="509,-0.5 509,-30.5 604,-30.5 604,-0.5 509,-0.5"/>
-<text text-anchor="start" x="517" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrain</text>
-<text text-anchor="middle" x="556.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getVoxelDensity</text>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_contouring_cubes.html#acbdb84a720e39599e880db6b978ce430" target="_top" xlink:title="Igor::iContouringCubes\l::generateGeometry">
+<polygon fill="white" stroke="black" points="317,-49.5 317,-79.5 432,-79.5 432,-49.5 317,-49.5"/>
+<text text-anchor="start" x="325" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
+<text text-anchor="middle" x="374.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::generateGeometry</text>
 </a>
 </g>
 </g>
-<!-- Node37&#45;&gt;Node42 -->
-<g id="edge5" class="edge"><title>Node37&#45;&gt;Node42</title>
-<path fill="none" stroke="midnightblue" d="M639.73,-28.1103C627.563,-26.2444 615.267,-24.3588 604.023,-22.6345"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="639.479,-31.6127 649.894,-29.669 640.54,-24.6936 639.479,-31.6127"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M291.508,-64.5C299.99,-64.5 308.604,-64.5 316.902,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="291.256,-61.0001 281.256,-64.5 291.256,-68.0001 291.256,-61.0001"/>
 </g>
-<!-- Node39 -->
-<g id="node3" class="node"><title>Node39</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_contouring_cubes.html#acbdb84a720e39599e880db6b978ce430" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="348,-49.5 348,-79.5 463,-79.5 463,-49.5 348,-49.5"/>
-<text text-anchor="start" x="356" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
-<text text-anchor="middle" x="405.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::generateGeometry</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" target="_top" xlink:title="Igor::iContouringCubes\l::compile">
+<polygon fill="white" stroke="black" points="468,-49.5 468,-79.5 583,-79.5 583,-49.5 468,-49.5"/>
+<text text-anchor="start" x="476" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
+<text text-anchor="middle" x="525.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
 </a>
 </g>
 </g>
-<!-- Node38&#45;&gt;Node39 -->
-<g id="edge2" class="edge"><title>Node38&#45;&gt;Node39</title>
-<path fill="none" stroke="midnightblue" d="M488.492,-64.5C480.01,-64.5 471.396,-64.5 463.098,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="488.744,-68.0001 498.744,-64.5 488.744,-61.0001 488.744,-68.0001"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M442.508,-64.5C450.99,-64.5 459.604,-64.5 467.902,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="442.256,-61.0001 432.256,-64.5 442.256,-68.0001 442.256,-61.0001"/>
 </g>
-<!-- Node40 -->
-<g id="node4" class="node"><title>Node40</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="197,-49.5 197,-79.5 312,-79.5 312,-49.5 197,-49.5"/>
-<text text-anchor="start" x="205" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
-<text text-anchor="middle" x="254.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" target="_top" xlink:title="Igor::iVoxelTerrainMeshGenerator\l::importData">
+<polygon fill="white" stroke="black" points="619,-49.5 619,-79.5 780,-79.5 780,-49.5 619,-49.5"/>
+<text text-anchor="start" x="627" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrainMeshGenerator</text>
+<text text-anchor="middle" x="699.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::importData</text>
 </a>
 </g>
 </g>
-<!-- Node39&#45;&gt;Node40 -->
-<g id="edge3" class="edge"><title>Node39&#45;&gt;Node40</title>
-<path fill="none" stroke="midnightblue" d="M337.492,-64.5C329.01,-64.5 320.396,-64.5 312.098,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="337.744,-68.0001 347.744,-64.5 337.744,-61.0001 337.744,-68.0001"/>
-</g>
-<!-- Node41 -->
-<g id="node5" class="node"><title>Node41</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-49.5 0,-79.5 161,-79.5 161,-49.5 0,-49.5"/>
-<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrainMeshGenerator</text>
-<text text-anchor="middle" x="80.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::importData</text>
-</a>
-</g>
-</g>
-<!-- Node40&#45;&gt;Node41 -->
-<g id="edge4" class="edge"><title>Node40&#45;&gt;Node41</title>
-<path fill="none" stroke="midnightblue" d="M186.69,-64.5C178.359,-64.5 169.775,-64.5 161.273,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="186.704,-68.0001 196.704,-64.5 186.704,-61.0001 186.704,-68.0001"/>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M593.31,-64.5C601.641,-64.5 610.225,-64.5 618.727,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="593.296,-61.0001 583.296,-64.5 593.296,-68.0001 593.296,-61.0001"/>
 </g>
 </g>
 </svg>

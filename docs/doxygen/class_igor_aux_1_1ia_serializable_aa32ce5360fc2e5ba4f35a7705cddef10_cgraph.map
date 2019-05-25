@@ -1,7 +1,6 @@
 <map id="IgorAux::iaSerializable::read" name="IgorAux::iaSerializable::read">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,156,145"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_serializable.html#a184dcce405b1bbbee0d9bac60ac26c02" title=" " alt="" coords="204,5,355,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_serializable.html#a0609b679c17c8b506d112762b549f3b9" title=" " alt="" coords="204,71,355,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_serializable.html#a2f9b887f1bbc3bfadcb423afe1808f1f" title=" " alt="" coords="204,136,355,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_gradient.html#a3ce9a96516704eb9b7e8e88cadb77043" title=" " alt="" coords="213,201,346,243"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_serializable.html#a184dcce405b1bbbee0d9bac60ac26c02" title="IgorAux::iaSerializable\l::readUInt16" alt="" coords="204,5,355,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_serializable.html#a0609b679c17c8b506d112762b549f3b9" title="IgorAux::iaSerializable\l::readFloat32" alt="" coords="204,71,355,112"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_serializable.html#a2f9b887f1bbc3bfadcb423afe1808f1f" title="IgorAux::iaSerializable\l::read" alt="" coords="204,136,355,177"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_gradient.html#a3ce9a96516704eb9b7e8e88cadb77043" title="IgorAux::iaGradient\l::setValue" alt="" coords="213,201,346,243"/>
 </map>

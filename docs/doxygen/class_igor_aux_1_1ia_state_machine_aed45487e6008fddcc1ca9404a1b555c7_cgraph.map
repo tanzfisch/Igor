@@ -1,5 +1,4 @@
 <map id="IgorAux::iaStateMachine::unregisterLeaveStateDelegate" name="IgorAux::iaStateMachine::unregisterLeaveStateDelegate">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,208,80"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#ad83039a214cc8667422fa3f9639950f2" title=" " alt="" coords="264,5,428,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state.html#ae2eb95fc3985d47855f2b6f94d226a96" title=" " alt="" coords="256,71,436,112"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#ad83039a214cc8667422fa3f9639950f2" title="IgorAux::iaStateMachine\l::getState" alt="" coords="264,5,428,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state.html#ae2eb95fc3985d47855f2b6f94d226a96" title="IgorAux::iaState::unregister\lLeaveStateDelegate" alt="" coords="256,71,436,112"/>
 </map>

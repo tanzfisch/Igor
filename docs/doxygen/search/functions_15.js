@@ -1,9 +1,9 @@
 var searchData=
 [
   ['unittest',['UnitTest',['../classtesting_1_1_unit_test.html#a5e646d37f980429c310af696c8775f5c',1,'testing::UnitTest']]],
-  ['universalprint',['UniversalPrint',['../namespacetesting_1_1internal.html#a30708fa2bacf11895b03bdb21eb72309',1,'testing::internal']]],
-  ['universalprintarray',['UniversalPrintArray',['../namespacetesting_1_1internal.html#ad79d71c3110f8eb24ab352d68f29436a',1,'testing::internal::UniversalPrintArray(const T *begin, size_t len, ::std::ostream *os)'],['../namespacetesting_1_1internal.html#a72c997dbd2c562110b2cb56c359decfa',1,'testing::internal::UniversalPrintArray(const char *begin, size_t len, ::std::ostream *os)'],['../namespacetesting_1_1internal.html#ae31e146c35fd75afc6a9cc73ae2692d1',1,'testing::internal::UniversalPrintArray(const wchar_t *begin, size_t len, ::std::ostream *os)']]],
-  ['universalterseprint',['UniversalTersePrint',['../namespacetesting_1_1internal.html#afa92f5a284929dc3723e654a25feb7b9',1,'testing::internal']]],
+  ['universalprint',['UniversalPrint',['../namespacetesting_1_1internal.html#ad121a890bddf866e59605d1a0198dada',1,'testing::internal']]],
+  ['universalprintarray',['UniversalPrintArray',['../namespacetesting_1_1internal.html#a73b5046a2ed65d0e2fb7cdc9bdaee3fe',1,'testing::internal::UniversalPrintArray(const T *begin, size_t len,::std::ostream *os)'],['../namespacetesting_1_1internal.html#a3fac293aeb6e7e6b3ff3e27404f6588b',1,'testing::internal::UniversalPrintArray(const char *begin, size_t len,::std::ostream *os)'],['../namespacetesting_1_1internal.html#ae95ea0aea80977c0870df98b27a17cac',1,'testing::internal::UniversalPrintArray(const wchar_t *begin, size_t len,::std::ostream *os)']]],
+  ['universalterseprint',['UniversalTersePrint',['../namespacetesting_1_1internal.html#ab3d834fb6c31d29e36400cc19905294b',1,'testing::internal']]],
   ['unlinkfromlistener',['unlinkFromListener',['../class_igor_1_1i_sound.html#a3842acf7f6d6fa4b8255cff8254eab6d',1,'Igor::iSound']]],
   ['unloadfile',['unloadFile',['../class_igor_1_1i_sound_resource_factory.html#abab336690b80aaea7ef2d860c3ae10fa',1,'Igor::iSoundResourceFactory']]],
   ['unlock',['unlock',['../class_igor_aux_1_1ia_console.html#ac2ec4404fbf045cefd3c95f31ace3af2',1,'IgorAux::iaConsole::unlock()'],['../class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279',1,'IgorAux::iaMutex::unlock()'],['../classtesting_1_1internal_1_1_mutex.html#a315188055de1be98884519ad84eff2e6',1,'testing::internal::Mutex::Unlock()'],['../namespace_igor_aux.html#ab41772b65bbf298c005b49c1353ed50c',1,'IgorAux::UNLOCK()']]],

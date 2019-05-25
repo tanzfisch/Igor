@@ -1,6 +1,9 @@
 <map id="UserControlTransformation::initGUI" name="UserControlTransformation::initGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,180,112"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="228,5,443,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title=" " alt="" coords="246,71,425,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title=" " alt="" coords="272,136,399,177"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="228,5,443,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27" title="Igor::iWidgetManager\l::createWidget" alt="" coords="263,71,408,112"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="246,136,425,177"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title="Igor::iWidgetLabel\l::setText" alt="" coords="272,201,399,243"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a7bed20819f1376bd433892feeefdc05c" title="IgorAux::iaString::\lgetHashValue" alt="" coords="494,41,621,83"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title="Igor::iWidget::getID" alt="" coords="491,107,624,134"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="672,41,799,83"/>
 </map>

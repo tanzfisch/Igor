@@ -1,11 +1,10 @@
 <map id="Testigor::TEST_CLASS" name="Testigor::TEST_CLASS">
-<area shape="rect" id="node1" title=" " alt="" coords="5,242,164,269"/>
-<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#ab2709373c78eb8b1c22a6ba30cceba52" title=" " alt="" coords="230,5,349,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector2.html#a3d96ce7b01831169f2523f5ccab97604" title=" " alt="" coords="225,71,354,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector2.html#a522f58a346c4f1d0fe948ced53d5c8b6" title=" " alt="" coords="225,136,354,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html#a271f39420955ea98017d9e1a6a74f062" title=" " alt="" coords="225,201,354,243"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html#a73d97ae43bf24fbc07773bd5e43fa167" title=" " alt="" coords="225,267,354,308"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title=" " alt="" coords="212,333,367,359"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_vector2.html#afe00d6cb20f5354d847d85eb759d637b" title=" " alt="" coords="225,384,354,425"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_vector2.html#a218bc655ec5317409d108ad1e0659fb4" title=" " alt="" coords="225,449,354,491"/>
+<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#ab2709373c78eb8b1c22a6ba30cceba52" title="testing::internal::\lIsTrue" alt="" coords="230,5,349,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector2.html#a0b15ea6c680c1d173af90117380988e3" title="IgorAux::iaVector2\l::length" alt="" coords="225,71,354,112"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector2.html#a34932ce52ea00c49704b2fb62403ccea" title="IgorAux::iaVector2\l::length2" alt="" coords="225,136,354,177"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html#aa895ecc6adb85626a6986f014b5f5f43" title="IgorAux::iaVector2\l::distance" alt="" coords="225,201,354,243"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html#af5ca9e9ee0cdb4c5b0155b981345171b" title="IgorAux::iaVector2\l::distance2" alt="" coords="225,267,354,308"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title="IgorAux::iaVector2::set" alt="" coords="212,333,367,359"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_vector2.html#afe00d6cb20f5354d847d85eb759d637b" title="IgorAux::iaVector2\l::getData" alt="" coords="225,384,354,425"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_vector2.html#a218bc655ec5317409d108ad1e0659fb4" title="IgorAux::iaVector2\l::normalize" alt="" coords="225,449,354,491"/>
 </map>

@@ -1,11 +1,10 @@
 <map id="Igor::iPhysics::setCollisionCallback" name="Igor::iPhysics::setCollisionCallback">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,181,112"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics_material_combo.html#a921bc34af28358a6d9689467716132d9" title=" " alt="" coords="230,5,418,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics_material_combo.html#a7cd0dfad67f8c10a3a20509c504f3e29" title=" " alt="" coords="230,71,418,112"/>
-<area shape="rect" id="node4" href="$namespace_igor.html#a91216e7f886da173909bbd5ede48333d" title=" " alt="" coords="229,137,419,163"/>
-<area shape="rect" id="node5" href="$namespace_igor.html#a945362eb01fae26e5cf14f9fa7f7496c" title=" " alt="" coords="467,129,656,171"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="713,100,884,141"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_physics.html#a6f04b7f5dac23b5f8b75e6415b567a9a" title=" " alt="" coords="704,166,893,193"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title=" " alt="" coords="949,141,1101,167"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title=" " alt="" coords="941,191,1108,218"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics_material_combo.html#a92d9f95db1bc0eaffe4f0f8befceb45a" title="Igor::iPhysicsMaterialCombo\l::getMaterial0" alt="" coords="230,5,418,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics_material_combo.html#a713daf91eeed4d99369a6a6a72379e07" title="Igor::iPhysicsMaterialCombo\l::getMaterial1" alt="" coords="230,71,418,112"/>
+<area shape="rect" id="node4" href="$namespace_igor.html#a91216e7f886da173909bbd5ede48333d" title="Igor::GenericContactProcess" alt="" coords="229,137,419,163"/>
+<area shape="rect" id="node5" href="$namespace_igor.html#a945362eb01fae26e5cf14f9fa7f7496c" title="Igor::GenericContactProcess\lCompatible" alt="" coords="467,129,656,171"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;::getInstance" alt="" coords="713,100,884,141"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_physics.html#a6f04b7f5dac23b5f8b75e6415b567a9a" title="Igor::iPhysics::queueContact" alt="" coords="704,166,893,193"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="949,141,1101,167"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="941,191,1108,218"/>
 </map>

@@ -2,7 +2,7 @@ var class_igor_1_1i_physics_collision =
 [
     [ "iPhysicsCollision", "class_igor_1_1i_physics_collision.html#afb0ba05277acd335b774248fc343ed75", null ],
     [ "~iPhysicsCollision", "class_igor_1_1i_physics_collision.html#a4a321b4862b7c30b15a5f4ada7103728", null ],
-    [ "getCollision", "class_igor_1_1i_physics_collision.html#adcd51209db62572b7d36164178f5efbf", null ],
+    [ "getCollision", "class_igor_1_1i_physics_collision.html#a1dc878b923d14d93895289b5c348a72d", null ],
     [ "getID", "class_igor_1_1i_physics_collision.html#a5ac6c86549b5ea83cd8fcf43778ce154", null ],
     [ "getWorldID", "class_igor_1_1i_physics_collision.html#aa7461e5c031fb8af5997a23fb60998c1", null ],
     [ "iPhysics", "class_igor_1_1i_physics_collision.html#a68f9306b9fe2369173dfd12456aa5d41", null ],

@@ -55,8 +55,8 @@ var gtest_internal_8h =
     [ "Float", "gtest-internal_8h.html#a02e1981f5ff70609e6ac06e006ff519a", null ],
     [ "IsContainer", "gtest-internal_8h.html#ad8f0c2883245f1df2a53618a49f0deb3", null ],
     [ "IsNotContainer", "gtest-internal_8h.html#abf080521ce135deb510e0a7830fd3d33", null ],
-    [ "SetUpTestCaseFunc", "gtest-internal_8h.html#a30037044c0b57cdd647c7e2e97cb2cff", null ],
-    [ "TearDownTestCaseFunc", "gtest-internal_8h.html#a085e31321d0d029c04d2a79234f60c1a", null ],
+    [ "SetUpTestCaseFunc", "gtest-internal_8h.html#ada14d66b5460b20e09071f51b9885c8d", null ],
+    [ "TearDownTestCaseFunc", "gtest-internal_8h.html#aad40244621b68546f3b830696225bf9b", null ],
     [ "TypeId", "gtest-internal_8h.html#ab1114197d3c657d8b7f8e0c5caa12d00", null ],
     [ "EditType", "gtest-internal_8h.html#ad46aa6da12aec1a3f166310478b53a08", [
       [ "kMatch", "gtest-internal_8h.html#ad46aa6da12aec1a3f166310478b53a08a7bdb9c74613a94f21b7489e0b5640a63", null ],

@@ -1,0 +1,18 @@
+<map id="IgorAux::iaVector3::getData" name="IgorAux::iaVector3::getData">
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#a34213cfb47436c4ec8989dde4314dc66" title="Igor::iPhysics::convexCast" alt="" coords="197,5,373,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a89dbeb2b126ee2bd4e56f192d77662c9" title="Igor::iPhysics::setAngular\lDamping" alt="" coords="200,57,371,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#a9e10388901a1f8d5f01ac549f3ed8045" title="Igor::iPhysics::getVelocity" alt="" coords="198,123,373,149"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a06281d27964f812b20f875bb1fbb14ea" title="Igor::iPhysics::setForce" alt="" coords="205,173,365,200"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_physics.html#a36217576e2fc9120b27224da718fa646" title="Igor::iPhysics::setTorque" alt="" coords="202,224,369,251"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_physics.html#a8584ff8683bea79a370d48d506349efb" title="Igor::iPhysics::setUserJoint\lAddAngularRow" alt="" coords="195,275,376,317"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_physics.html#ab0cd7a1d22282b70337e1c55aa15c55f" title="Igor::iPhysics::createUser\lMeshCollision" alt="" coords="199,341,371,382"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_renderer.html#acf3a67d8dd5d07ba144a319694e6203b" title="Igor::iRenderer::writeShader\lParameters" alt="" coords="194,406,377,447"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_sound_resource_factory.html#a7dcc547f2e3bb199e005dd91dfbd5f2e" title="Igor::iSoundResourceFactory\l::setListenerVelocity" alt="" coords="190,471,381,513"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_sound.html#af10c26e965a6a617fba08fca933fc2f6" title="Igor::iSound::setSourcePosition" alt="" coords="183,537,388,564"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_sound.html#a2a2cb1c97a6fcd3f6ff7b3ff478843f2" title="Igor::iSound::setSourceVelocity" alt="" coords="183,588,388,615"/>
+<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_serializable.html#a219b64ac5ea23a380413900c49069dcd" title="IgorAux::iaSerializable\l::write" alt="" coords="210,639,361,681"/>
+<area shape="rect" id="node15" href="$class_igor_aux_1_1ia_serializable.html#a777f3778a4ef661b88c9603ebccc83be" title="IgorAux::iaSerializable\l::read" alt="" coords="210,705,361,746"/>
+<area shape="rect" id="node16" href="$namespace_testigor.html#a0eb6023506d882b559fef3e19d1143aa" title="Testigor::TEST_CLASS" alt="" coords="206,771,365,797"/>
+<area shape="rect" id="node17" href="$_vector3_8cpp.html#a04b13cb4f35fd3d3f56ab9b0d5c7a7f6" title="TEST" alt="" coords="258,821,313,848"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_sound_resource_factory.html#a3abee5531004c03e1bf58753bc659c34" title="Igor::iSoundResourceFactory\l::setListenerMatrix" alt="" coords="436,471,627,513"/>
+</map>

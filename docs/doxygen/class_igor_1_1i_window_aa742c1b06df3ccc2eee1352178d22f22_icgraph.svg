@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iWindow::deleteRenderContext</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 312,-35 312,4 -4,4"/>
-<!-- Node25 -->
-<g id="node1" class="node"><title>Node25</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="170,-0.5 170,-30.5 308,-30.5 308,-0.5 170,-0.5"/>
-<text text-anchor="start" x="178" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow::deleteRender</text>
-<text text-anchor="middle" x="239" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Context</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 138,-30.5 138,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow::deleteRender</text>
+<text text-anchor="middle" x="69" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Context</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_render_context_thread.html#aa484a7648ddfb1c67ae98ef8d8a6341a" target="_top" xlink:title="Igor::iRenderContextThread\l::deinit">
+<polygon fill="white" stroke="black" points="174,-0.5 174,-30.5 308,-30.5 308,-0.5 174,-0.5"/>
+<text text-anchor="start" x="182" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderContextThread</text>
+<text text-anchor="middle" x="241" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinit</text>
 </a>
 </g>
 </g>
-<!-- Node26 -->
-<g id="node2" class="node"><title>Node26</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_render_context_thread.html#aa484a7648ddfb1c67ae98ef8d8a6341a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderContextThread</text>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinit</text>
-</a>
-</g>
-</g>
-<!-- Node25&#45;&gt;Node26 -->
-<g id="edge1" class="edge"><title>Node25&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M159.572,-15.5C151.104,-15.5 142.549,-15.5 134.246,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.834,-19.0001 169.834,-15.5 159.834,-12.0001 159.834,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M148.428,-15.5C156.896,-15.5 165.451,-15.5 173.754,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="148.166,-12.0001 138.166,-15.5 148.166,-19.0001 148.166,-12.0001"/>
 </g>
 </g>
 </svg>

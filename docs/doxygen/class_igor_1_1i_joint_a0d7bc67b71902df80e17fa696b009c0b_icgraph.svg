@@ -9,26 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>Igor::iJoint::addChildBone</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 290,-24 290,4 -4,4"/>
-<!-- Node5 -->
-<g id="node1" class="node"><title>Node5</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="159,-0.5 159,-19.5 286,-19.5 286,-0.5 159,-0.5"/>
-<text text-anchor="middle" x="222.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iJoint::addChildBone</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 127,-19.5 127,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="63.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iJoint::addChildBone</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_skeleton.html#a4f3baa020b32b30e933d2d5548a4533f" target="_top" xlink:title="Igor::iSkeleton::addBone">
+<polygon fill="white" stroke="black" points="163,-0.5 163,-19.5 286,-19.5 286,-0.5 163,-0.5"/>
+<text text-anchor="middle" x="224.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkeleton::addBone</text>
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="node2" class="node"><title>Node6</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_skeleton.html#a4f3baa020b32b30e933d2d5548a4533f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 123,-19.5 123,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="61.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkeleton::addBone</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge1" class="edge"><title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M148.396,-10C139.922,-10 131.349,-10 123.068,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="148.659,-13.5001 158.659,-10 148.659,-6.5001 148.659,-13.5001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M137.604,-10C146.078,-10 154.651,-10 162.932,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="137.341,-6.5001 127.341,-10 137.341,-13.5001 137.341,-6.5001"/>
 </g>
 </g>
 </svg>

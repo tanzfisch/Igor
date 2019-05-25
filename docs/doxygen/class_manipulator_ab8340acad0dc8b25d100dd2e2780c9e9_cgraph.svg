@@ -9,39 +9,36 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Manipulator::translate</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 247,-84 247,4 -4,4"/>
-<!-- Node213 -->
-<g id="node1" class="node"><title>Node213</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-30 0,-49 110,-49 110,-30 0,-30"/>
 <text text-anchor="middle" x="55" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::translate</text>
-</a>
 </g>
-</g>
-<!-- Node214 -->
-<g id="node2" class="node"><title>Node214</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_vector3.html#a5f8a5b457691d9db6139d2b0c941aa5e" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_vector3.html#a8502c49538eb5016666463b0678d255d" target="_top" xlink:title="IgorAux::iaVector3\l::project">
 <polygon fill="white" stroke="black" points="146,-49.5 146,-79.5 243,-79.5 243,-49.5 146,-49.5"/>
 <text text-anchor="start" x="154" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector3</text>
 <text text-anchor="middle" x="194.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::project</text>
 </a>
 </g>
 </g>
-<!-- Node213&#45;&gt;Node214 -->
-<g id="edge1" class="edge"><title>Node213&#45;&gt;Node214</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M108.375,-49.0227C117.308,-50.6469 126.633,-52.3423 135.696,-53.9903"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="135.32,-57.4791 145.785,-55.8245 136.572,-50.592 135.32,-57.4791"/>
 </g>
-<!-- Node215 -->
-<g id="node3" class="node"><title>Node215</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" target="_top" xlink:title="IgorAux::iaMatrix::\ltranslate">
 <polygon fill="white" stroke="black" points="146.5,-0.5 146.5,-30.5 242.5,-30.5 242.5,-0.5 146.5,-0.5"/>
 <text text-anchor="start" x="154.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix::</text>
 <text text-anchor="middle" x="194.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">translate</text>
 </a>
 </g>
 </g>
-<!-- Node213&#45;&gt;Node215 -->
-<g id="edge2" class="edge"><title>Node213&#45;&gt;Node215</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M110.344,-30.0146C118.868,-28.5266 127.702,-26.9847 136.289,-25.4859"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="136.973,-28.9195 146.222,-23.7521 135.769,-22.0238 136.973,-28.9195"/>
 </g>

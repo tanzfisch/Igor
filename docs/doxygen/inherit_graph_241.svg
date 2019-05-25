@@ -9,9 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 412.5)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-412.5 296,-412.5 296,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:href="structtesting_1_1internal_1_1bool__constant.html" target="_top" xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<g id="a_node1"><a xlink:href="structtesting_1_1internal_1_1bool__constant.html" target="_top" xlink:title="testing::internal::\lbool_constant\&lt; bool\l_value \&gt;">
 <polygon fill="white" stroke="black" points="0,-188.5 0,-229.5 104,-229.5 104,-188.5 0,-188.5"/>
 <text text-anchor="start" x="8" y="-217.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="8" y="-206.5" font-family="Helvetica,sans-Serif" font-size="10.00">bool_constant&lt; bool</text>
@@ -19,23 +19,23 @@
 </a>
 </g>
 </g>
-<!-- Node1 -->
-<g id="node2" class="node"><title>Node1</title>
-<g id="a_node2"><a xlink:href="structtesting_1_1internal_1_1_has_value_type.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="structtesting_1_1internal_1_1_has_value_type.html" target="_top" xlink:title="testing::internal::\lHasValueType\&lt; T, typename \&gt;">
 <polygon fill="white" stroke="black" points="140,-378 140,-408 292,-408 292,-378 140,-378"/>
 <text text-anchor="start" x="148" y="-396" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="216" y="-385" font-family="Helvetica,sans-Serif" font-size="10.00">HasValueType&lt; T, typename &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node1 -->
-<g id="edge1" class="edge"><title>Node0&#45;&gt;Node1</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M62.1116,-239.613C74.2608,-275.335 99.1187,-333.849 140,-368 144.635,-371.872 149.892,-375.151 155.42,-377.927"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="65.3193,-238.162 58.8821,-229.747 58.6666,-240.339 65.3193,-238.162"/>
 </g>
-<!-- Node2 -->
-<g id="node3" class="node"><title>Node2</title>
-<g id="a_node3"><a xlink:href="structtesting_1_1internal_1_1_has_value_type_3_01_t_00_01_void_t_3_01typename_01_t_1_1value__type_01_4_01_4.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="structtesting_1_1internal_1_1_has_value_type_3_01_t_00_01_void_t_3_01typename_01_t_1_1value__type_01_4_01_4.html" target="_top" xlink:title="testing::internal::\lHasValueType\&lt; T, VoidT\l\&lt; typename T::value_type \&gt; \&gt;">
 <polygon fill="white" stroke="black" points="143,-317.5 143,-358.5 289,-358.5 289,-317.5 143,-317.5"/>
 <text text-anchor="start" x="151" y="-346.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="151" y="-335.5" font-family="Helvetica,sans-Serif" font-size="10.00">HasValueType&lt; T, VoidT</text>
@@ -43,70 +43,70 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node2 -->
-<g id="edge2" class="edge"><title>Node0&#45;&gt;Node2</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M72.6752,-237.996C88.6655,-259.724 112.945,-288.882 140,-308 144.925,-311.48 150.311,-314.637 155.865,-317.482"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="75.4416,-235.848 66.7585,-229.777 69.7606,-239.938 75.4416,-235.848"/>
 </g>
-<!-- Node3 -->
-<g id="node4" class="node"><title>Node3</title>
-<g id="a_node4"><a xlink:href="structtesting_1_1internal_1_1is__pointer.html" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="structtesting_1_1internal_1_1is__pointer.html" target="_top" xlink:title="testing::internal::\lis_pointer\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="171.5,-268 171.5,-298 260.5,-298 260.5,-268 171.5,-268"/>
 <text text-anchor="start" x="179.5" y="-286" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="216" y="-275" font-family="Helvetica,sans-Serif" font-size="10.00">is_pointer&lt; T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node3 -->
-<g id="edge3" class="edge"><title>Node0&#45;&gt;Node3</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M93.7877,-234.823C108.065,-243.215 124.426,-252.126 140,-259 149.881,-263.361 160.805,-267.316 171.189,-270.7"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="95.5723,-231.812 85.1926,-229.687 91.9821,-237.821 95.5723,-231.812"/>
 </g>
-<!-- Node4 -->
-<g id="node5" class="node"><title>Node4</title>
-<g id="a_node5"><a xlink:href="structtesting_1_1internal_1_1is__pointer_3_01_t_01_5_01_4.html" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="structtesting_1_1internal_1_1is__pointer_3_01_t_01_5_01_4.html" target="_top" xlink:title="testing::internal::\lis_pointer\&lt; T * \&gt;">
 <polygon fill="white" stroke="black" points="171.5,-219 171.5,-249 260.5,-249 260.5,-219 171.5,-219"/>
 <text text-anchor="start" x="179.5" y="-237" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="216" y="-226" font-family="Helvetica,sans-Serif" font-size="10.00">is_pointer&lt; T * &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node4 -->
-<g id="edge4" class="edge"><title>Node0&#45;&gt;Node4</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M114.331,-218.465C133.338,-221.398 153.884,-224.569 171.427,-227.276"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="114.675,-214.976 104.258,-216.91 113.607,-221.894 114.675,-214.976"/>
 </g>
-<!-- Node5 -->
-<g id="node6" class="node"><title>Node5</title>
-<g id="a_node6"><a xlink:href="structtesting_1_1internal_1_1is__same.html" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="structtesting_1_1internal_1_1is__same.html" target="_top" xlink:title="testing::internal::\lis_same\&lt; T, U \&gt;">
 <polygon fill="white" stroke="black" points="171.5,-170 171.5,-200 260.5,-200 260.5,-170 171.5,-170"/>
 <text text-anchor="start" x="179.5" y="-188" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="216" y="-177" font-family="Helvetica,sans-Serif" font-size="10.00">is_same&lt; T, U &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node5 -->
-<g id="edge5" class="edge"><title>Node0&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M114.331,-199.914C133.338,-197.098 153.884,-194.054 171.427,-191.455"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="113.637,-196.478 104.258,-201.406 114.663,-203.403 113.637,-196.478"/>
 </g>
-<!-- Node6 -->
-<g id="node7" class="node"><title>Node6</title>
-<g id="a_node7"><a xlink:href="structtesting_1_1internal_1_1is__same_3_01_t_00_01_t_01_4.html" target="_top" xlink:title=" ">
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="structtesting_1_1internal_1_1is__same_3_01_t_00_01_t_01_4.html" target="_top" xlink:title="testing::internal::\lis_same\&lt; T, T \&gt;">
 <polygon fill="white" stroke="black" points="171.5,-121 171.5,-151 260.5,-151 260.5,-121 171.5,-121"/>
 <text text-anchor="start" x="179.5" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="216" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">is_same&lt; T, T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node6 -->
-<g id="edge6" class="edge"><title>Node0&#45;&gt;Node6</title>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M95.7963,-183.36C109.634,-175.623 125.224,-167.474 140,-161 149.931,-156.649 160.876,-152.602 171.262,-149.087"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="93.9513,-180.383 86.9821,-188.363 97.4066,-186.471 93.9513,-180.383"/>
 </g>
-<!-- Node7 -->
-<g id="node8" class="node"><title>Node7</title>
-<g id="a_node8"><a xlink:href="structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01false_00_01_h_v_01_4.html" target="_top" xlink:title=" ">
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01false_00_01_h_v_01_4.html" target="_top" xlink:title="testing::internal::\lIsRecursiveContainerImpl\l\&lt; C, false, HV \&gt;">
 <polygon fill="white" stroke="black" points="153.5,-60.5 153.5,-101.5 278.5,-101.5 278.5,-60.5 153.5,-60.5"/>
 <text text-anchor="start" x="161.5" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="161.5" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">IsRecursiveContainerImpl</text>
@@ -114,14 +114,14 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node7 -->
-<g id="edge7" class="edge"><title>Node0&#45;&gt;Node7</title>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge7" class="edge"><title>Node1&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M73.3653,-180.024C89.4539,-158.865 113.545,-130.72 140,-112 145.406,-108.175 151.354,-104.71 157.464,-101.601"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="70.3474,-178.217 67.1859,-188.329 75.9634,-182.396 70.3474,-178.217"/>
 </g>
-<!-- Node8 -->
-<g id="node9" class="node"><title>Node8</title>
-<g id="a_node9"><a xlink:href="structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01true_00_01false_01_4.html" target="_top" xlink:title=" ">
+<!-- Node9 -->
+<g id="node9" class="node"><title>Node9</title>
+<g id="a_node9"><a xlink:href="structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01true_00_01false_01_4.html" target="_top" xlink:title="testing::internal::\lIsRecursiveContainerImpl\l\&lt; C, true, false \&gt;">
 <polygon fill="white" stroke="black" points="153.5,-0.5 153.5,-41.5 278.5,-41.5 278.5,-0.5 153.5,-0.5"/>
 <text text-anchor="start" x="161.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="161.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IsRecursiveContainerImpl</text>
@@ -129,8 +129,8 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node8 -->
-<g id="edge8" class="edge"><title>Node0&#45;&gt;Node8</title>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge8" class="edge"><title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M62.6146,-178.701C75.187,-143.57 100.392,-86.0191 140,-51 143.992,-47.4701 148.452,-44.3272 153.152,-41.5341"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="59.219,-177.811 59.259,-188.406 65.8347,-180.098 59.219,-177.811"/>
 </g>

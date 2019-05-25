@@ -1,5 +1,4 @@
 <map id="IgorAux::iaStateMachine::registerHandleStateDelegate" name="IgorAux::iaStateMachine::registerHandleStateDelegate">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,200,80"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#ad83039a214cc8667422fa3f9639950f2" title=" " alt="" coords="249,5,413,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state.html#a8d957ebbf0672253ae332ffbcad2d22a" title=" " alt="" coords="248,71,415,112"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#ad83039a214cc8667422fa3f9639950f2" title="IgorAux::iaStateMachine\l::getState" alt="" coords="249,5,413,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state.html#a8d957ebbf0672253ae332ffbcad2d22a" title="IgorAux::iaState::register\lHandleStateDelegate" alt="" coords="248,71,415,112"/>
 </map>

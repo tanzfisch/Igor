@@ -1,4 +1,3 @@
 <map id="OMPF::ompfEmitterChunk::setType" name="OMPF::ompfEmitterChunk::setType">
-<area shape="rect" id="node1" title=" " alt="" coords="220,5,395,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a93596431ca5d647f19275c5518b27d2e" title=" " alt="" coords="5,5,172,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a93596431ca5d647f19275c5518b27d2e" title="Igor::iModelDataIOOMPF\l::createEmitterChunk" alt="" coords="228,5,395,47"/>
 </map>

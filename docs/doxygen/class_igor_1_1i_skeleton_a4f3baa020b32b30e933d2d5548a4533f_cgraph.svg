@@ -9,37 +9,34 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>Igor::iSkeleton::addBone</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 290,-62 290,4 -4,4"/>
-<!-- Node4 -->
-<g id="node1" class="node"><title>Node4</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-19.5 0,-38.5 123,-38.5 123,-19.5 0,-19.5"/>
 <text text-anchor="middle" x="61.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkeleton::addBone</text>
-</a>
 </g>
-</g>
-<!-- Node5 -->
-<g id="node2" class="node"><title>Node5</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_joint.html#a69cd5e88d9a77080b769f7a1692152cb" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_joint.html#a69cd5e88d9a77080b769f7a1692152cb" target="_top" xlink:title="Igor::iJoint::setBaseBone">
 <polygon fill="white" stroke="black" points="160,-38.5 160,-57.5 285,-57.5 285,-38.5 160,-38.5"/>
 <text text-anchor="middle" x="222.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iJoint::setBaseBone</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge1" class="edge"><title>Node4&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M123.065,-36.2373C131.8,-37.2812 140.86,-38.3637 149.787,-39.4305"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="149.441,-42.914 159.786,-40.6253 150.271,-35.9634 149.441,-42.914"/>
 </g>
-<!-- Node6 -->
-<g id="node3" class="node"><title>Node6</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_joint.html#a0d7bc67b71902df80e17fa696b009c0b" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_joint.html#a0d7bc67b71902df80e17fa696b009c0b" target="_top" xlink:title="Igor::iJoint::addChildBone">
 <polygon fill="white" stroke="black" points="159,-0.5 159,-19.5 286,-19.5 286,-0.5 159,-0.5"/>
 <text text-anchor="middle" x="222.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iJoint::addChildBone</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node6 -->
-<g id="edge2" class="edge"><title>Node4&#45;&gt;Node6</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M123.065,-21.7627C131.517,-20.7527 140.273,-19.7064 148.918,-18.6733"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="149.478,-22.1314 158.992,-17.4695 148.648,-15.1808 149.478,-22.1314"/>
 </g>

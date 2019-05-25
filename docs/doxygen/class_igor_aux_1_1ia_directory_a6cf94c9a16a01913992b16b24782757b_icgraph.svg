@@ -9,41 +9,38 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 73.5)">
 <title>IgorAux::iaDirectory::getApplicationDirectory</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-73.5 274,-73.5 274,4 -4,4"/>
-<!-- Node29 -->
-<g id="node1" class="node"><title>Node29</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="147,-17 147,-47 270,-47 270,-17 147,-17"/>
-<text text-anchor="start" x="155" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaDirectory</text>
-<text text-anchor="middle" x="208.5" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">::getApplicationDirectory</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-17 0,-47 123,-47 123,-17 0,-17"/>
+<text text-anchor="start" x="8" y="-35" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaDirectory</text>
+<text text-anchor="middle" x="61.5" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">::getApplicationDirectory</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_dialog_file_select.html#aa6db9a2fa32a6cf4d7e588b3570d16df" target="_top" xlink:title="Igor::iDialogFileSelect\l::initDialog">
+<polygon fill="white" stroke="black" points="159,-39 159,-69 270,-69 270,-39 159,-39"/>
+<text text-anchor="start" x="167" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogFileSelect</text>
+<text text-anchor="middle" x="214.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::initDialog</text>
 </a>
 </g>
 </g>
-<!-- Node30 -->
-<g id="node2" class="node"><title>Node30</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_dialog_file_select.html#aa6db9a2fa32a6cf4d7e588b3570d16df" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-39 0,-69 111,-69 111,-39 0,-39"/>
-<text text-anchor="start" x="8" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogFileSelect</text>
-<text text-anchor="middle" x="55.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::initDialog</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M133.11,-42.2876C141.739,-43.5447 150.453,-44.8143 158.799,-46.0303"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="133.448,-38.7999 123.047,-40.8215 132.438,-45.7267 133.448,-38.7999"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" target="_top" xlink:title="Igor::startup">
+<polygon fill="white" stroke="black" points="180.5,-0.5 180.5,-19.5 248.5,-19.5 248.5,-0.5 180.5,-0.5"/>
+<text text-anchor="middle" x="214.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::startup</text>
 </a>
 </g>
 </g>
-<!-- Node29&#45;&gt;Node30 -->
-<g id="edge1" class="edge"><title>Node29&#45;&gt;Node30</title>
-<path fill="none" stroke="midnightblue" d="M136.89,-42.2876C128.261,-43.5447 119.547,-44.8143 111.201,-46.0303"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="137.562,-45.7267 146.953,-40.8215 136.552,-38.7999 137.562,-45.7267"/>
-</g>
-<!-- Node31 -->
-<g id="node3" class="node"><title>Node31</title>
-<g id="a_node3"><a xlink:href="namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="21.5,-0.5 21.5,-19.5 89.5,-19.5 89.5,-0.5 21.5,-0.5"/>
-<text text-anchor="middle" x="55.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::startup</text>
-</a>
-</g>
-</g>
-<!-- Node29&#45;&gt;Node31 -->
-<g id="edge2" class="edge"><title>Node29&#45;&gt;Node31</title>
-<path fill="none" stroke="midnightblue" d="M136.788,-21.6976C120.356,-19.3035 103.62,-16.8652 89.7106,-14.8386"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="136.552,-25.2001 146.953,-23.1785 137.562,-18.2733 136.552,-25.2001"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M133.212,-21.6976C149.644,-19.3035 166.38,-16.8652 180.289,-14.8386"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="132.438,-18.2733 123.047,-23.1785 133.448,-25.2001 132.438,-18.2733"/>
 </g>
 </g>
 </svg>

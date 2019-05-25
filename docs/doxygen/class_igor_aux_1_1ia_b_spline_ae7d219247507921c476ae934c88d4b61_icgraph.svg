@@ -9,42 +9,39 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>IgorAux::iaBSpline::calc</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 367,-35 367,4 -4,4"/>
-<!-- Node7 -->
-<g id="node1" class="node"><title>Node7</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="266,-0.5 266,-30.5 363,-30.5 363,-0.5 266,-0.5"/>
-<text text-anchor="start" x="274" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
-<text text-anchor="middle" x="314.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calc</text>
-</a>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 97,-30.5 97,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
+<text text-anchor="middle" x="48.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calc</text>
 </g>
-</g>
-<!-- Node8 -->
-<g id="node2" class="node"><title>Node8</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#af0cefef6607e399ccd2651552e193bec" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#af0cefef6607e399ccd2651552e193bec" target="_top" xlink:title="IgorAux::iaBSpline\l::getPointOfSpline">
 <polygon fill="white" stroke="black" points="133,-0.5 133,-30.5 230,-30.5 230,-0.5 133,-0.5"/>
 <text text-anchor="start" x="141" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
 <text text-anchor="middle" x="181.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getPointOfSpline</text>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge1" class="edge"><title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M255.649,-15.5C247.197,-15.5 238.572,-15.5 230.349,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="255.835,-19.0001 265.835,-15.5 255.835,-12.0001 255.835,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M107.351,-15.5C115.803,-15.5 124.428,-15.5 132.651,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="107.165,-12.0001 97.1646,-15.5 107.165,-19.0001 107.165,-12.0001"/>
 </g>
-<!-- Node9 -->
-<g id="node3" class="node"><title>Node9</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#a8bf3b46050dbcb0b415be916ed62a9e1" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 97,-30.5 97,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
-<text text-anchor="middle" x="48.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getSpline</text>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#a8bf3b46050dbcb0b415be916ed62a9e1" target="_top" xlink:title="IgorAux::iaBSpline\l::getSpline">
+<polygon fill="white" stroke="black" points="266,-0.5 266,-30.5 363,-30.5 363,-0.5 266,-0.5"/>
+<text text-anchor="start" x="274" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
+<text text-anchor="middle" x="314.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getSpline</text>
 </a>
 </g>
 </g>
-<!-- Node8&#45;&gt;Node9 -->
-<g id="edge2" class="edge"><title>Node8&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M122.649,-15.5C114.197,-15.5 105.572,-15.5 97.3486,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="122.835,-19.0001 132.835,-15.5 122.835,-12.0001 122.835,-19.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M240.351,-15.5C248.803,-15.5 257.428,-15.5 265.651,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="240.165,-12.0001 230.165,-15.5 240.165,-19.0001 240.165,-12.0001"/>
 </g>
 </g>
 </svg>

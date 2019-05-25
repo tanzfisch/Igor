@@ -1,5 +1,4 @@
 <map id="Igor::iEntityLocatable::getCurrentPos" name="Igor::iEntityLocatable::getCurrentPos">
-<area shape="rect" id="node1" title=" " alt="" coords="192,39,336,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_entity_manager.html#ab9b59ef33842272f13fc52d1b1150c4b" title=" " alt="" coords="5,5,144,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_entity_manager.html#a28701eda1decf679b3e1ab6dc1bbb845" title=" " alt="" coords="5,71,144,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_entity_manager.html#ab9b59ef33842272f13fc52d1b1150c4b" title="Igor::iEntityManager\l::registerEntity" alt="" coords="197,5,336,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_entity_manager.html#a28701eda1decf679b3e1ab6dc1bbb845" title="Igor::iEntityManager\l::handle" alt="" coords="197,71,336,112"/>
 </map>

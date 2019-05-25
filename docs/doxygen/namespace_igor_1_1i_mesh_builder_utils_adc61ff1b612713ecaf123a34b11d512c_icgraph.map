@@ -1,8 +1,7 @@
 <map id="Igor::iMeshBuilderUtils::addRing" name="Igor::iMeshBuilderUtils::addRing">
-<area shape="rect" id="node1" title=" " alt="" coords="709,23,861,65"/>
-<area shape="rect" id="node2" href="$class_manipulator.html#a66cdbd94e7e01bc86e6e648d6fd6e5e5" title=" " alt="" coords="455,5,661,32"/>
-<area shape="rect" id="node3" href="$class_widget3_d_emitter.html#a5fcef2ab9a90c3a1ff1f3ce361b37d44" title=" " alt="" coords="459,56,657,83"/>
-<area shape="rect" id="node4" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="239,56,407,83"/>
-<area shape="rect" id="node5" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="9,15,187,57"/>
-<area shape="rect" id="node6" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="5,81,191,122"/>
+<area shape="rect" id="node2" href="$class_manipulator.html#a66cdbd94e7e01bc86e6e648d6fd6e5e5" title="Manipulator::create2DRingMesh" alt="" coords="205,5,412,32"/>
+<area shape="rect" id="node3" href="$class_widget3_d_emitter.html#a5fcef2ab9a90c3a1ff1f3ce361b37d44" title="Widget3DEmitter::createCircle" alt="" coords="209,56,408,83"/>
+<area shape="rect" id="node4" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title="Widget3DEmitter::update" alt="" coords="460,56,628,83"/>
+<area shape="rect" id="node5" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title="Widget3DEmitter::Widget3\lDEmitter" alt="" coords="680,15,857,57"/>
+<area shape="rect" id="node6" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title="Widget3DEmitter::~Widget3\lDEmitter" alt="" coords="676,81,861,122"/>
 </map>

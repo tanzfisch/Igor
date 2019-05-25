@@ -1,0 +1,5 @@
+<map id="Igor::iDialogDecisionBox::show" name="Igor::iDialogDecisionBox::show">
+<area shape="rect" id="node2" href="$class_menu_dialog.html#a50c8cb83c8d9003bd9525d68c8ee6679" title="MenuDialog::onAddModel" alt="" coords="216,31,387,57"/>
+<area shape="rect" id="node3" href="$class_menu_dialog.html#a0fe6bdf29a3a7095e2d7e4a38f8d8f70" title="MenuDialog::deinitGraphView" alt="" coords="435,5,627,32"/>
+<area shape="rect" id="node4" href="$class_menu_dialog.html#a5f0986a127a923615177c4c264394f7d" title="MenuDialog::initGraphView" alt="" coords="441,56,620,83"/>
+</map>

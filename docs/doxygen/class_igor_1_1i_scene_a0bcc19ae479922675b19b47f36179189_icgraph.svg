@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iScene::unregisterCamera</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 260,-35 260,4 -4,4"/>
-<!-- Node241 -->
-<g id="node1" class="node"><title>Node241</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="139,-0.5 139,-30.5 256,-30.5 256,-0.5 139,-0.5"/>
-<text text-anchor="start" x="147" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iScene::unregister</text>
-<text text-anchor="middle" x="197.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Camera</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 117,-30.5 117,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iScene::unregister</text>
+<text text-anchor="middle" x="58.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Camera</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node_camera.html#a3ae5f63f02a69291d969e5847a8c5e2a" target="_top" xlink:title="Igor::iNodeCamera::\lonPreSetScene">
+<polygon fill="white" stroke="black" points="153,-0.5 153,-30.5 256,-30.5 256,-0.5 153,-0.5"/>
+<text text-anchor="start" x="161" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeCamera::</text>
+<text text-anchor="middle" x="204.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">onPreSetScene</text>
 </a>
 </g>
 </g>
-<!-- Node242 -->
-<g id="node2" class="node"><title>Node242</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node_camera.html#a3ae5f63f02a69291d969e5847a8c5e2a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 103,-30.5 103,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeCamera::</text>
-<text text-anchor="middle" x="51.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">onPreSetScene</text>
-</a>
-</g>
-</g>
-<!-- Node241&#45;&gt;Node242 -->
-<g id="edge1" class="edge"><title>Node241&#45;&gt;Node242</title>
-<path fill="none" stroke="midnightblue" d="M128.481,-15.5C119.999,-15.5 111.442,-15.5 103.285,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="128.759,-19.0001 138.759,-15.5 128.759,-12.0001 128.759,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M127.519,-15.5C136.001,-15.5 144.558,-15.5 152.715,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="127.241,-12.0001 117.241,-15.5 127.241,-19.0001 127.241,-12.0001"/>
 </g>
 </g>
 </svg>

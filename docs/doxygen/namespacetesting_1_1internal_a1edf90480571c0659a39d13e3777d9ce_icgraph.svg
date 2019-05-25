@@ -9,42 +9,39 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>testing::internal::CmpHelperEQ</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 265,-84 265,4 -4,4"/>
-<!-- Node46 -->
-<g id="node1" class="node"><title>Node46</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="172,-24.5 172,-54.5 261,-54.5 261,-24.5 172,-24.5"/>
-<text text-anchor="start" x="180" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="216.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperEQ</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 89,-54.5 89,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="44.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">CmpHelperEQ</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_eq_helper.html#ae3572c7374534a916b9117efaa89f33f" target="_top" xlink:title="testing::internal::\lEqHelper::Compare">
+<polygon fill="white" stroke="black" points="142.5,-49.5 142.5,-79.5 243.5,-79.5 243.5,-49.5 142.5,-49.5"/>
+<text text-anchor="start" x="150.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="193" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">EqHelper::Compare</text>
 </a>
 </g>
 </g>
-<!-- Node47 -->
-<g id="node2" class="node"><title>Node47</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_eq_helper.html#ae3572c7374534a916b9117efaa89f33f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="17.5,-49.5 17.5,-79.5 118.5,-79.5 118.5,-49.5 17.5,-49.5"/>
-<text text-anchor="start" x="25.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="68" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">EqHelper::Compare</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M99.146,-48.6546C113.302,-51.0702 128.512,-53.6658 142.441,-56.0428"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="99.5045,-45.1653 89.0582,-46.9331 98.3269,-52.0655 99.5045,-45.1653"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_eq_helper_3_01true_01_4.html#a12c7194b2a210b61f06c912eef484ca6" target="_top" xlink:title="testing::internal::\lEqHelper\&lt; true \&gt;::Compare">
+<polygon fill="white" stroke="black" points="125,-0.5 125,-30.5 261,-30.5 261,-0.5 125,-0.5"/>
+<text text-anchor="start" x="133" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="193" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">EqHelper&lt; true &gt;::Compare</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node47 -->
-<g id="edge1" class="edge"><title>Node46&#45;&gt;Node47</title>
-<path fill="none" stroke="midnightblue" d="M161.854,-48.6546C147.698,-51.0702 132.488,-53.6658 118.559,-56.0428"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="162.673,-52.0655 171.942,-46.9331 161.496,-45.1653 162.673,-52.0655"/>
-</g>
-<!-- Node48 -->
-<g id="node3" class="node"><title>Node48</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_eq_helper_3_01true_01_4.html#a12c7194b2a210b61f06c912eef484ca6" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 136,-30.5 136,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="68" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">EqHelper&lt; true &gt;::Compare</text>
-</a>
-</g>
-</g>
-<!-- Node46&#45;&gt;Node48 -->
-<g id="edge2" class="edge"><title>Node46&#45;&gt;Node48</title>
-<path fill="none" stroke="midnightblue" d="M161.966,-30.7299C153.611,-29.3611 144.886,-27.9318 136.271,-26.5206"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="161.507,-34.2014 171.942,-32.3642 162.639,-27.2935 161.507,-34.2014"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M99.0341,-30.7299C107.389,-29.3611 116.114,-27.9318 124.729,-26.5206"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="98.3608,-27.2935 89.0582,-32.3642 99.4925,-34.2014 98.3608,-27.2935"/>
 </g>
 </g>
 </svg>

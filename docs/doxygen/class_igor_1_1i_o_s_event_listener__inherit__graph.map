@@ -1,5 +1,4 @@
 <map id="Igor::iOSEventListener" name="Igor::iOSEventListener">
-<area shape="rect" id="node1" title=" " alt="" coords="47,5,198,32"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_keyboard.html" title=" " alt="" coords="5,80,115,107"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mouse.html" title=" " alt="" coords="139,80,232,107"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_keyboard.html" title="Igor::iKeyboard" alt="" coords="5,80,115,107"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_mouse.html" title="Igor::iMouse" alt="" coords="139,80,232,107"/>
 </map>

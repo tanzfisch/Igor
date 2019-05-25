@@ -1,12 +1,11 @@
 <map id="Widget3DEmitter::createCube" name="Widget3DEmitter::createCube">
-<area shape="rect" id="node1" title=" " alt="" coords="5,143,200,170"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title=" " alt="" coords="260,5,388,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#a458f799e29103966a2c180b0192bb789" title=" " alt="" coords="261,71,387,112"/>
-<area shape="rect" id="node4" href="$namespace_igor_1_1i_mesh_builder_utils.html#a476e7c7fee040dbff99a7a8bbcb4e30a" title=" " alt="" coords="248,136,400,177"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" title=" " alt="" coords="261,201,387,243"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title=" " alt="" coords="261,267,387,308"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_mesh_builder.html#abe2dfa2aa215a55508cfaba1d8f83029" title=" " alt="" coords="468,71,595,112"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title=" " alt="" coords="468,136,595,177"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title=" " alt="" coords="468,201,595,243"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title=" " alt="" coords="448,267,615,308"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title="IgorAux::iaMatrix::\ltranslate" alt="" coords="260,5,388,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#a458f799e29103966a2c180b0192bb789" title="Igor::iMeshBuilder\l::setMatrix" alt="" coords="261,71,387,112"/>
+<area shape="rect" id="node4" href="$namespace_igor_1_1i_mesh_builder_utils.html#a476e7c7fee040dbff99a7a8bbcb4e30a" title="Igor::iMeshBuilderUtils\l::addBox" alt="" coords="248,136,400,177"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" title="Igor::iMeshBuilder\l::calcNormals" alt="" coords="261,201,387,243"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title="Igor::iMeshBuilder\l::createMesh" alt="" coords="261,267,387,308"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_mesh_builder.html#a7bc707a833d24cff2eebc2a0432af35c" title="Igor::iMeshBuilder\l::getVertexCount" alt="" coords="468,71,595,112"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title="Igor::iMeshBuilder\l::addVertex" alt="" coords="468,136,595,177"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title="Igor::iMeshBuilder\l::addTriangle" alt="" coords="468,201,595,243"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title="Igor::iMesh::setBounding\lSphere" alt="" coords="448,267,615,308"/>
 </map>

@@ -9,68 +9,65 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iMeshBuilderUtils::addCircle</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 634,-84 634,4 -4,4"/>
-<!-- Node15 -->
-<g id="node1" class="node"><title>Node15</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="516,-24.5 516,-54.5 630,-54.5 630,-24.5 516,-24.5"/>
-<text text-anchor="start" x="524" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilderUtils</text>
-<text text-anchor="middle" x="573" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addCircle</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 114,-54.5 114,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilderUtils</text>
+<text text-anchor="middle" x="57" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addCircle</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_widget3_d_emitter.html#ad40f79fa12b87993a47aa5de9d8d29f5" target="_top" xlink:title="Widget3DEmitter::createDisc">
+<polygon fill="white" stroke="black" points="150,-30 150,-49 293,-49 293,-30 150,-30"/>
+<text text-anchor="middle" x="221.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createDisc</text>
 </a>
 </g>
 </g>
-<!-- Node16 -->
-<g id="node2" class="node"><title>Node16</title>
-<g id="a_node2"><a xlink:href="class_widget3_d_emitter.html#ad40f79fa12b87993a47aa5de9d8d29f5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="337,-30 337,-49 480,-49 480,-30 337,-30"/>
-<text text-anchor="middle" x="408.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createDisc</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M124.473,-39.5C132.858,-39.5 141.46,-39.5 149.905,-39.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="124.379,-36.0001 114.379,-39.5 124.379,-43.0001 124.379,-36.0001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" target="_top" xlink:title="Widget3DEmitter::update">
+<polygon fill="white" stroke="black" points="329,-30 329,-49 455,-49 455,-30 329,-30"/>
+<text text-anchor="middle" x="392" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::update</text>
 </a>
 </g>
 </g>
-<!-- Node15&#45;&gt;Node16 -->
-<g id="edge1" class="edge"><title>Node15&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M505.527,-39.5C497.142,-39.5 488.54,-39.5 480.095,-39.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="505.621,-43.0001 515.621,-39.5 505.621,-36.0001 505.621,-43.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M303.475,-39.5C312.033,-39.5 320.636,-39.5 328.931,-39.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="303.471,-36.0001 293.471,-39.5 303.471,-43.0001 303.471,-36.0001"/>
 </g>
-<!-- Node17 -->
-<g id="node3" class="node"><title>Node17</title>
-<g id="a_node3"><a xlink:href="class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="175,-30 175,-49 301,-49 301,-30 175,-30"/>
-<text text-anchor="middle" x="238" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::update</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" target="_top" xlink:title="Widget3DEmitter::Widget3\lDEmitter">
+<polygon fill="white" stroke="black" points="494,-49.5 494,-79.5 627,-79.5 627,-49.5 494,-49.5"/>
+<text text-anchor="start" x="502" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::Widget3</text>
+<text text-anchor="middle" x="560.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node17 -->
-<g id="edge2" class="edge"><title>Node16&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M326.525,-39.5C317.967,-39.5 309.364,-39.5 301.069,-39.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="326.529,-43.0001 336.529,-39.5 326.529,-36.0001 326.529,-43.0001"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M465.592,-50.3996C475.006,-51.8132 484.605,-53.2545 493.896,-54.6496"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="465.881,-46.9039 455.472,-48.8802 464.842,-53.8263 465.881,-46.9039"/>
 </g>
-<!-- Node18 -->
-<g id="node4" class="node"><title>Node18</title>
-<g id="a_node4"><a xlink:href="class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3,-49.5 3,-79.5 136,-79.5 136,-49.5 3,-49.5"/>
-<text text-anchor="start" x="11" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::Widget3</text>
-<text text-anchor="middle" x="69.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" target="_top" xlink:title="Widget3DEmitter::~Widget3\lDEmitter">
+<polygon fill="white" stroke="black" points="491,-0.5 491,-30.5 630,-30.5 630,-0.5 491,-0.5"/>
+<text text-anchor="start" x="499" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::~Widget3</text>
+<text text-anchor="middle" x="560.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
 </a>
 </g>
 </g>
-<!-- Node17&#45;&gt;Node18 -->
-<g id="edge3" class="edge"><title>Node17&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M164.408,-50.3996C154.994,-51.8132 145.395,-53.2545 136.104,-54.6496"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="165.158,-53.8263 174.528,-48.8802 164.119,-46.9039 165.158,-53.8263"/>
-</g>
-<!-- Node19 -->
-<g id="node5" class="node"><title>Node19</title>
-<g id="a_node5"><a xlink:href="class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 139,-30.5 139,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::~Widget3</text>
-<text text-anchor="middle" x="69.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
-</a>
-</g>
-</g>
-<!-- Node17&#45;&gt;Node19 -->
-<g id="edge4" class="edge"><title>Node17&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M164.406,-29.036C156.03,-27.8286 147.507,-26.6001 139.184,-25.4004"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="164.131,-32.5324 174.528,-30.495 165.13,-25.604 164.131,-32.5324"/>
+<!-- Node3&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node3&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M465.594,-29.036C473.97,-27.8286 482.493,-26.6001 490.816,-25.4004"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="464.87,-25.604 455.472,-30.495 465.869,-32.5324 464.87,-25.604"/>
 </g>
 </g>
 </svg>

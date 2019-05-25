@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iNodeLODSwitch::setThresholds</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 264,-35 264,4 -4,4"/>
-<!-- Node44 -->
-<g id="node1" class="node"><title>Node44</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="148,-0.5 148,-30.5 260,-30.5 260,-0.5 148,-0.5"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 112,-30.5 112,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODSwitch</text>
+<text text-anchor="middle" x="56" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setThresholds</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node_l_o_d_switch.html#af3796795002e581a06d38fa5c8aca55f" target="_top" xlink:title="Igor::iNodeLODSwitch\l::setThresholds">
+<polygon fill="white" stroke="black" points="148,-0.5 148,-30.5 260,-30.5 260,-0.5 148,-0.5"/>
 <text text-anchor="start" x="156" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODSwitch</text>
 <text text-anchor="middle" x="204" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setThresholds</text>
 </a>
 </g>
 </g>
-<!-- Node45 -->
-<g id="node2" class="node"><title>Node45</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node_l_o_d_switch.html#af3796795002e581a06d38fa5c8aca55f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 112,-30.5 112,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODSwitch</text>
-<text text-anchor="middle" x="56" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setThresholds</text>
-</a>
-</g>
-</g>
-<!-- Node44&#45;&gt;Node45 -->
-<g id="edge1" class="edge"><title>Node44&#45;&gt;Node45</title>
-<path fill="none" stroke="midnightblue" d="M137.59,-15.5C129.135,-15.5 120.543,-15.5 112.274,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="137.804,-19.0001 147.804,-15.5 137.804,-12.0001 137.804,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M122.41,-15.5C130.865,-15.5 139.457,-15.5 147.726,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="122.196,-12.0001 112.196,-15.5 122.196,-19.0001 122.196,-12.0001"/>
 </g>
 </g>
 </svg>

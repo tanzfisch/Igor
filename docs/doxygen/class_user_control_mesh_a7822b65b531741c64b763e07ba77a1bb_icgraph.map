@@ -1,4 +1,3 @@
 <map id="UserControlMesh::onDiffuseChange" name="UserControlMesh::onDiffuseChange">
-<area shape="rect" id="node1" title=" " alt="" coords="223,5,405,47"/>
-<area shape="rect" id="node2" href="$class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" title=" " alt="" coords="5,13,175,39"/>
+<area shape="rect" id="node2" href="$class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" title="UserControlMesh::initGUI" alt="" coords="236,13,405,39"/>
 </map>

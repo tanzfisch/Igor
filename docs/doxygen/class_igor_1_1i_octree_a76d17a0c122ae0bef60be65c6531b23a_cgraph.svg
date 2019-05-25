@@ -9,65 +9,62 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 91.5)">
 <title>Igor::iOctree::filter</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-91.5 375,-91.5 375,4 -4,4"/>
-<!-- Node48 -->
-<g id="node1" class="node"><title>Node48</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-19.5 0,-38.5 94,-38.5 94,-19.5 0,-19.5"/>
 <text text-anchor="middle" x="47" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::filter</text>
-</a>
 </g>
-</g>
-<!-- Node49 -->
-<g id="node2" class="node"><title>Node49</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#aa3b54fdf7ba95e2570b3a024facd875b" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#aa3b54fdf7ba95e2570b3a024facd875b" target="_top" xlink:title="Igor::iOctree::testFilter">
 <polygon fill="white" stroke="black" points="130,-38.5 130,-57.5 244,-57.5 244,-38.5 130,-38.5"/>
 <text text-anchor="middle" x="187" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::testFilter</text>
 </a>
 </g>
 </g>
-<!-- Node48&#45;&gt;Node49 -->
-<g id="edge1" class="edge"><title>Node48&#45;&gt;Node49</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M94.3359,-35.3796C102.553,-36.5109 111.252,-37.7086 119.89,-38.898"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="119.587,-42.3891 129.971,-40.2859 120.542,-35.4546 119.587,-42.3891"/>
 </g>
-<!-- Node52 -->
-<g id="node5" class="node"><title>Node52</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_octree.html#af1deb13e0dc9dd5332d825ab7d6606b6" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_octree.html#af1deb13e0dc9dd5332d825ab7d6606b6" target="_top" xlink:title="Igor::iOctree::filter">
 <polygon fill="white" stroke="black" points="140,-0.5 140,-19.5 234,-19.5 234,-0.5 140,-0.5"/>
 <text text-anchor="middle" x="187" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::filter</text>
 </a>
 </g>
 </g>
-<!-- Node48&#45;&gt;Node52 -->
-<g id="edge4" class="edge"><title>Node48&#45;&gt;Node52</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M94.3359,-22.6204C105.6,-21.0695 117.771,-19.3938 129.45,-17.7858"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="130.122,-21.2264 139.551,-16.3951 129.168,-14.2918 130.122,-21.2264"/>
 </g>
-<!-- Node50 -->
-<g id="node3" class="node"><title>Node50</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_intersection.html#aa1673ede8c9eebd7becf60742d0f1e4e" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_intersection.html#aa1673ede8c9eebd7becf60742d0f1e4e" target="_top" xlink:title="Igor::iIntersection\l::inFrontOf">
 <polygon fill="white" stroke="black" points="280,-57 280,-87 371,-87 371,-57 280,-57"/>
 <text text-anchor="start" x="288" y="-75" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iIntersection</text>
 <text text-anchor="middle" x="325.5" y="-64" font-family="Helvetica,sans-Serif" font-size="10.00">::inFrontOf</text>
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node50 -->
-<g id="edge2" class="edge"><title>Node49&#45;&gt;Node50</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M242.341,-57.5544C251.416,-59.15 260.833,-60.8058 269.914,-62.4025"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="269.533,-65.889 279.988,-64.1737 270.745,-58.9948 269.533,-65.889"/>
 </g>
-<!-- Node51 -->
-<g id="node4" class="node"><title>Node51</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_intersection.html#a6014a2a386e8e33b7f8bf22ece42d3f5" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_intersection.html#a6014a2a386e8e33b7f8bf22ece42d3f5" target="_top" xlink:title="Igor::iIntersection\l::intersects">
 <polygon fill="white" stroke="black" points="280,-8 280,-38 371,-38 371,-8 280,-8"/>
 <text text-anchor="start" x="288" y="-26" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iIntersection</text>
 <text text-anchor="middle" x="325.5" y="-15" font-family="Helvetica,sans-Serif" font-size="10.00">::intersects</text>
 </a>
 </g>
 </g>
-<!-- Node49&#45;&gt;Node51 -->
-<g id="edge3" class="edge"><title>Node49&#45;&gt;Node51</title>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node2&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M239.994,-38.4773C249.724,-36.6953 259.921,-34.8276 269.732,-33.0308"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="270.574,-36.4349 279.78,-31.1905 269.313,-29.5494 270.574,-36.4349"/>
 </g>

@@ -1,5 +1,4 @@
 <map id="testing::internal::GetParamNameGen" name="testing::internal::GetParamNameGen">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,144,47"/>
-<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#a954ec4a8a932dac7743e77e459ffefdc" title=" " alt="" coords="192,5,327,47"/>
-<area shape="rect" id="node3" href="$classtesting_1_1_message.html#a2cdc4df62bdcc9df37651a1cf527704e" title=" " alt="" coords="375,13,560,39"/>
+<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#a954ec4a8a932dac7743e77e459ffefdc" title="testing::internal::\lDefaultParamName" alt="" coords="192,5,327,47"/>
+<area shape="rect" id="node3" href="$classtesting_1_1_message.html#abe8c1b7584aa670dd0e2413e8317a937" title="testing::Message::GetString" alt="" coords="375,13,560,39"/>
 </map>

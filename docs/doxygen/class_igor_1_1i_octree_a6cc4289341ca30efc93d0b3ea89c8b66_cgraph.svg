@@ -9,37 +9,34 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>Igor::iOctree::tryMerge</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 418,-24 418,4 -4,4"/>
-<!-- Node106 -->
-<g id="node1" class="node"><title>Node106</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 114,-19.5 114,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="57" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::tryMerge</text>
-</a>
 </g>
-</g>
-<!-- Node107 -->
-<g id="node2" class="node"><title>Node107</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#a9ba6628099fad6c435a7827a11c12c49" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#a9ba6628099fad6c435a7827a11c12c49" target="_top" xlink:title="Igor::iOctree::merge">
 <polygon fill="white" stroke="black" points="150,-0.5 150,-19.5 253,-19.5 253,-0.5 150,-0.5"/>
 <text text-anchor="middle" x="201.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::merge</text>
 </a>
 </g>
 </g>
-<!-- Node106&#45;&gt;Node107 -->
-<g id="edge1" class="edge"><title>Node106&#45;&gt;Node107</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M114.32,-10C122.616,-10 131.195,-10 139.579,-10"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="139.677,-13.5001 149.677,-10 139.677,-6.5001 139.677,-13.5001"/>
 </g>
-<!-- Node108 -->
-<g id="node3" class="node"><title>Node108</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_octree.html#a9ffa1e44d32e542a74eff22e875fed5f" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_octree.html#a9ffa1e44d32e542a74eff22e875fed5f" target="_top" xlink:title="Igor::iOctree::deleteNode">
 <polygon fill="white" stroke="black" points="289,-0.5 289,-19.5 414,-19.5 414,-0.5 289,-0.5"/>
 <text text-anchor="middle" x="351.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::deleteNode</text>
 </a>
 </g>
 </g>
-<!-- Node107&#45;&gt;Node108 -->
-<g id="edge2" class="edge"><title>Node107&#45;&gt;Node108</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M253.019,-10C261.325,-10 270.071,-10 278.775,-10"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="278.945,-13.5001 288.945,-10 278.945,-6.5001 278.945,-13.5001"/>
 </g>

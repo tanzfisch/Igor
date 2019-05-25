@@ -1,5 +1,4 @@
 <map id="Igor::iNodeFactory::handle" name="Igor::iNodeFactory::handle">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,133,47"/>
-<area shape="rect" id="node2" href="$namespace_igor_aux.html#a5ab337bcd8a64231e8296eb97d30af6f" title=" " alt="" coords="181,13,283,39"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" title=" " alt="" coords="331,5,461,47"/>
+<area shape="rect" id="node2" href="$namespace_igor_aux.html#a5ab337bcd8a64231e8296eb97d30af6f" title="IgorAux::flush" alt="" coords="181,13,283,39"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" title="IgorAux::iaConsole\l::setTextColor" alt="" coords="331,5,461,47"/>
 </map>

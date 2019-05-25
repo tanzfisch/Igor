@@ -1,7 +1,6 @@
 <map id="Igor::iPhysicsWorld::getID" name="Igor::iPhysicsWorld::getID">
-<area shape="rect" id="node1" title=" " alt="" coords="680,31,815,72"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#aa9b4c96e545a15d7a615edfae4497896" title=" " alt="" coords="212,5,397,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#a3a004cfcc174b9d974e81261ec035518" title=" " alt="" coords="449,38,628,65"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a5df0993d66eb2e5ab70acb21e5a639f3" title=" " alt="" coords="445,89,632,115"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#ae2f10e679711705bf248d26f05eb848e" title=" " alt="" coords="5,13,164,39"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#aa9b4c96e545a15d7a615edfae4497896" title="Igor::iPhysics::createDefault\lWorld" alt="" coords="423,5,608,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#a3a004cfcc174b9d974e81261ec035518" title="Igor::iPhysics::createWorld" alt="" coords="192,38,371,65"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a5df0993d66eb2e5ab70acb21e5a639f3" title="Igor::iPhysics::destroyWorld" alt="" coords="188,89,375,115"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#ae2f10e679711705bf248d26f05eb848e" title="Igor::iPhysics::iPhysics" alt="" coords="656,13,815,39"/>
 </map>

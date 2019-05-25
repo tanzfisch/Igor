@@ -1,0 +1,5 @@
+<map id="OMPF::ompfMeshChunk::getVertexSize" name="OMPF::ompfMeshChunk::getVertexSize">
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" title="Igor::iModelDataIOOMPF\l::createMeshNode" alt="" coords="219,5,385,47"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_mesh_chunk.html#a83a3fb04f638373d6aa6e736cb42c35b" title="OMPF::ompfMeshChunk\l::write" alt="" coords="219,71,385,112"/>
+<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_mesh_chunk.html#a733ad33625fef8566fb99830577afe94" title="OMPF::ompfMeshChunk\l::read" alt="" coords="219,136,385,177"/>
+</map>

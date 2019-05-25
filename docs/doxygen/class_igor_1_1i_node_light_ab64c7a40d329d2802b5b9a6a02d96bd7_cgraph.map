@@ -1,13 +1,12 @@
 <map id="Igor::iNodeLight::iNodeLight" name="Igor::iNodeLight::iNodeLight">
-<area shape="rect" id="node1" title=" " alt="" coords="5,233,187,260"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title=" " alt="" coords="257,5,401,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a80bd4ffd9048275d4921b62160ce50fa" title=" " alt="" coords="257,56,401,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_light.html#ad16da2321eeece7147a31d2b18c4cc3e" title=" " alt="" coords="236,107,423,133"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_light.html#a74593bf1a06fec9ebc9beee33d34286d" title=" " alt="" coords="236,157,423,184"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node_light.html#a74a7335588bbe010bc7eace0930b0b90" title=" " alt="" coords="241,208,418,235"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node_light.html#af692cb96d4e4b616fc77718283c430e4" title=" " alt="" coords="241,259,418,285"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node_light.html#ab069ba47745eef7f8e08644f2ebcd2e9" title=" " alt="" coords="235,309,424,336"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_node_light.html#a51917c43e19a594b31b3cc5a5f01ccd8" title=" " alt="" coords="235,360,424,387"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_node_light.html#aeba13aaf750051822b8a532a69edbf5d" title=" " alt="" coords="246,411,413,437"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_node_light.html#a728fa9b317b0bd88a391232bb242a0a8" title=" " alt="" coords="246,461,413,488"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title="Igor::iNode::setName" alt="" coords="257,5,401,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a301e06e0e55d6ca93fc64fe44c3ed8bd" title="Igor::iNode::getName" alt="" coords="257,56,401,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_light.html#ad16da2321eeece7147a31d2b18c4cc3e" title="Igor::iNodeLight::setAmbient" alt="" coords="236,107,423,133"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_light.html#a74593bf1a06fec9ebc9beee33d34286d" title="Igor::iNodeLight::getAmbient" alt="" coords="236,157,423,184"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_light.html#a74a7335588bbe010bc7eace0930b0b90" title="Igor::iNodeLight::setDiffuse" alt="" coords="241,208,418,235"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_light.html#af692cb96d4e4b616fc77718283c430e4" title="Igor::iNodeLight::getDiffuse" alt="" coords="241,259,418,285"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node_light.html#ab069ba47745eef7f8e08644f2ebcd2e9" title="Igor::iNodeLight::setSpecular" alt="" coords="235,309,424,336"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node_light.html#a51917c43e19a594b31b3cc5a5f01ccd8" title="Igor::iNodeLight::getSpecular" alt="" coords="235,360,424,387"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_node_light.html#aeba13aaf750051822b8a532a69edbf5d" title="Igor::iNodeLight::setType" alt="" coords="246,411,413,437"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_node_light.html#a728fa9b317b0bd88a391232bb242a0a8" title="Igor::iNodeLight::getType" alt="" coords="246,461,413,488"/>
 </map>

@@ -9,37 +9,34 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 80)">
 <title>Igor::iModelDataIOOMPF</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-80 210,-80 210,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="42,-0.5 42,-19.5 167,-19.5 167,-0.5 42,-0.5"/>
 <text text-anchor="middle" x="104.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
-</a>
 </g>
-</g>
-<!-- Node1 -->
-<g id="node2" class="node"><title>Node1</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o.html" target="_top" xlink:title="Igor::iModelDataIO">
 <polygon fill="white" stroke="black" points="0,-56.5 0,-75.5 97,-75.5 97,-56.5 0,-56.5"/>
 <text text-anchor="middle" x="48.5" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIO</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node0 -->
-<g id="edge1" class="edge"><title>Node1&#45;&gt;Node0</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M64.8299,-49.2533C74.765,-39.6731 87.0875,-27.7906 95.3389,-19.8339"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="62.2664,-46.8631 57.4974,-56.324 67.1253,-51.902 62.2664,-46.8631"/>
 </g>
-<!-- Node2 -->
-<g id="node3" class="node"><title>Node2</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node_visitor.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node_visitor.html" target="_top" xlink:title="Igor::iNodeVisitor">
 <polygon fill="white" stroke="black" points="115,-56.5 115,-75.5 206,-75.5 206,-56.5 115,-56.5"/>
 <text text-anchor="middle" x="160.5" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVisitor</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node0 -->
-<g id="edge2" class="edge"><title>Node2&#45;&gt;Node0</title>
+<!-- Node3&#45;&gt;Node1 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M144.17,-49.2533C134.235,-39.6731 121.912,-27.7906 113.661,-19.8339"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="141.875,-51.902 151.503,-56.324 146.734,-46.8631 141.875,-51.902"/>
 </g>

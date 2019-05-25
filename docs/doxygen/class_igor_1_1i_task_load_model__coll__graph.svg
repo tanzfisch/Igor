@@ -9,71 +9,68 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 215)">
 <title>Igor::iTaskLoadModel</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-215 203.5,-215 203.5,4 -4,4"/>
-<!-- Node2 -->
-<g id="node1" class="node"><title>Node2</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="75,-0.5 75,-19.5 184,-19.5 184,-0.5 75,-0.5"/>
 <text text-anchor="middle" x="129.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskLoadModel</text>
-</a>
 </g>
-</g>
-<!-- Node3 -->
-<g id="node2" class="node"><title>Node3</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_task.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_task.html" target="_top" xlink:title="Igor::iTask">
 <polygon fill="white" stroke="black" points="98.5,-57.5 98.5,-76.5 160.5,-76.5 160.5,-57.5 98.5,-57.5"/>
 <text text-anchor="middle" x="129.5" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTask</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node2 -->
-<g id="edge1" class="edge"><title>Node3&#45;&gt;Node2</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M129.5,-47.1166C129.5,-37.8173 129.5,-27.0557 129.5,-19.7149"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="126,-47.4062 129.5,-57.4063 133,-47.4063 126,-47.4062"/>
 </g>
-<!-- Node4 -->
-<g id="node3" class="node"><title>Node4</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_window.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_window.html" target="_top" xlink:title="Igor::iWindow">
 <polygon fill="white" stroke="black" points="46,-124.5 46,-143.5 121,-143.5 121,-124.5 46,-124.5"/>
 <text text-anchor="middle" x="83.5" y="-131.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node3 -->
-<g id="edge2" class="edge"><title>Node4&#45;&gt;Node3</title>
+<!-- Node3&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M91.635,-115.055C94.9382,-108.503 99.0313,-101.187 103.5,-95 108.301,-88.353 114.674,-81.7084 119.909,-76.6741"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="88.2996,-113.918 87.154,-124.451 94.6178,-116.931 88.2996,-113.918"/>
 <text text-anchor="middle" x="123.5" y="-98" font-family="Helvetica,sans-Serif" font-size="10.00"> _window</text>
 </g>
-<!-- Node5 -->
-<g id="node4" class="node"><title>Node5</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title="IgorAux::iaString">
 <polygon fill="white" stroke="black" points="0,-191.5 0,-210.5 89,-210.5 89,-191.5 0,-191.5"/>
 <text text-anchor="middle" x="44.5" y="-198.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node4 -->
-<g id="edge3" class="edge"><title>Node5&#45;&gt;Node4</title>
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge3" class="edge"><title>Node4&#45;&gt;Node3</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M41.6949,-180.868C41.6074,-174.543 42.4736,-167.678 45.5,-162 49.6871,-154.144 57.2919,-148.054 64.6042,-143.663"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="38.25,-181.643 42.6219,-191.294 45.2225,-181.023 38.25,-181.643"/>
 <text text-anchor="middle" x="58" y="-165" font-family="Helvetica,sans-Serif" font-size="10.00"> _title</text>
 </g>
-<!-- Node6 -->
-<g id="node5" class="node"><title>Node6</title>
-<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title="IgorAux::iaMutex">
 <polygon fill="white" stroke="black" points="109.5,-191.5 109.5,-210.5 199.5,-210.5 199.5,-191.5 109.5,-191.5"/>
 <text text-anchor="middle" x="154.5" y="-198.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex</text>
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node3 -->
-<g id="edge5" class="edge"><title>Node6&#45;&gt;Node3</title>
+<!-- Node5&#45;&gt;Node2 -->
+<g id="edge5" class="edge"><title>Node5&#45;&gt;Node2</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M154.619,-181.083C154.276,-159.735 152.252,-124.182 143.5,-95 141.559,-88.5262 138.059,-81.7762 135.044,-76.6447"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="151.121,-181.368 154.669,-191.35 158.121,-181.334 151.121,-181.368"/>
 <text text-anchor="middle" x="176" y="-131.5" font-family="Helvetica,sans-Serif" font-size="10.00"> _mutexID</text>
 </g>
-<!-- Node6&#45;&gt;Node4 -->
-<g id="edge4" class="edge"><title>Node6&#45;&gt;Node4</title>
+<!-- Node5&#45;&gt;Node3 -->
+<g id="edge4" class="edge"><title>Node5&#45;&gt;Node3</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M111.765,-187.073C104.913,-183.431 98.4575,-178.818 93.5,-173 86.4209,-164.692 84.2844,-151.925 83.6776,-143.519"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="110.706,-190.439 121.251,-191.46 113.644,-184.085 110.706,-190.439"/>
 <text text-anchor="middle" x="118.5" y="-165" font-family="Helvetica,sans-Serif" font-size="10.00"> _wglMutex</text>

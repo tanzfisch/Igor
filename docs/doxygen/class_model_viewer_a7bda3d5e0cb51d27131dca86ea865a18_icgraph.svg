@@ -9,39 +9,36 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>ModelViewer::onAddEmitter</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 295,-62 295,4 -4,4"/>
-<!-- Node217 -->
-<g id="node1" class="node"><title>Node217</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="154,-19.5 154,-38.5 291,-38.5 291,-19.5 154,-19.5"/>
-<text text-anchor="middle" x="222.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::onAddEmitter</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-19.5 0,-38.5 137,-38.5 137,-19.5 0,-19.5"/>
+<text text-anchor="middle" x="68.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::onAddEmitter</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" target="_top" xlink:title="ModelViewer::initGUI">
+<polygon fill="white" stroke="black" points="178.5,-38.5 178.5,-57.5 285.5,-57.5 285.5,-38.5 178.5,-38.5"/>
+<text text-anchor="middle" x="232" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node218 -->
-<g id="node2" class="node"><title>Node218</title>
-<g id="a_node2"><a xlink:href="class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5.5,-38.5 5.5,-57.5 112.5,-57.5 112.5,-38.5 5.5,-38.5"/>
-<text text-anchor="middle" x="59" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::initGUI</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M147.172,-38.1379C157.773,-39.385 168.444,-40.6405 178.454,-41.8181"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="147.395,-34.6401 137.055,-36.9476 146.577,-41.5921 147.395,-34.6401"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_model_viewer.html#a247bac03643084abda6e880573312206" target="_top" xlink:title="ModelViewer::deinitGUI">
+<polygon fill="white" stroke="black" points="173,-0.5 173,-19.5 291,-19.5 291,-0.5 173,-0.5"/>
+<text text-anchor="middle" x="232" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node217&#45;&gt;Node218 -->
-<g id="edge1" class="edge"><title>Node217&#45;&gt;Node218</title>
-<path fill="none" stroke="midnightblue" d="M143.828,-38.1379C133.227,-39.385 122.556,-40.6405 112.546,-41.8181"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="144.423,-41.5921 153.945,-36.9476 143.605,-34.6401 144.423,-41.5921"/>
-</g>
-<!-- Node219 -->
-<g id="node3" class="node"><title>Node219</title>
-<g id="a_node3"><a xlink:href="class_model_viewer.html#a247bac03643084abda6e880573312206" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 118,-19.5 118,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="59" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node217&#45;&gt;Node219 -->
-<g id="edge2" class="edge"><title>Node217&#45;&gt;Node219</title>
-<path fill="none" stroke="midnightblue" d="M143.811,-19.8601C135.14,-18.8399 126.421,-17.8142 118.056,-16.8301"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="143.605,-23.3599 153.945,-21.0524 144.423,-16.4079 143.605,-23.3599"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M147.189,-19.8601C155.86,-18.8399 164.579,-17.8142 172.944,-16.8301"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="146.577,-16.4079 137.055,-21.0524 147.395,-23.3599 146.577,-16.4079"/>
 </g>
 </g>
 </svg>

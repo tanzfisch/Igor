@@ -9,53 +9,50 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122.5)">
 <title>Igor::iWidgetCheckBox::handleMouseKeyUp</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-122.5 291,-122.5 291,4 -4,4"/>
-<!-- Node28 -->
-<g id="node1" class="node"><title>Node28</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-49.5 0,-79.5 116,-79.5 116,-49.5 0,-49.5"/>
 <text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
 <text text-anchor="middle" x="58" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleMouseKeyUp</text>
-</a>
 </g>
-</g>
-<!-- Node29 -->
-<g id="node2" class="node"><title>Node29</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_widget.html#ac7054a328e1bbccd8d7a15c0558f8a08" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_widget.html#ac7054a328e1bbccd8d7a15c0558f8a08" target="_top" xlink:title="Igor::iWidget::isActive">
 <polygon fill="white" stroke="black" points="164,-99 164,-118 275,-118 275,-99 164,-99"/>
 <text text-anchor="middle" x="219.5" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::isActive</text>
 </a>
 </g>
 </g>
-<!-- Node28&#45;&gt;Node29 -->
-<g id="edge1" class="edge"><title>Node28&#45;&gt;Node29</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M113.445,-79.5192C133.181,-84.9638 155.224,-91.0446 174.003,-96.2249"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="173.208,-99.6363 183.779,-98.9217 175.07,-92.8884 173.208,-99.6363"/>
 </g>
-<!-- Node30 -->
-<g id="node3" class="node"><title>Node30</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_widget.html#a7bd9d2da917630ed718526f5198f30d8" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_widget.html#a7bd9d2da917630ed718526f5198f30d8" target="_top" xlink:title="Igor::iWidget::handleMouse\lKeyUp">
 <polygon fill="white" stroke="black" points="152,-49.5 152,-79.5 287,-79.5 287,-49.5 152,-49.5"/>
 <text text-anchor="start" x="160" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::handleMouse</text>
 <text text-anchor="middle" x="219.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">KeyUp</text>
 </a>
 </g>
 </g>
-<!-- Node28&#45;&gt;Node30 -->
-<g id="edge2" class="edge"><title>Node28&#45;&gt;Node30</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M116.133,-64.5C124.485,-64.5 133.198,-64.5 141.862,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="141.986,-68.0001 151.986,-64.5 141.986,-61.0001 141.986,-68.0001"/>
 </g>
-<!-- Node31 -->
-<g id="node4" class="node"><title>Node31</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_widget_check_box.html#ade60771b06b277866e254ec465228643" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_widget_check_box.html#ade60771b06b277866e254ec465228643" target="_top" xlink:title="Igor::iWidgetCheckBox\l::isChecked">
 <polygon fill="white" stroke="black" points="161.5,-0.5 161.5,-30.5 277.5,-30.5 277.5,-0.5 161.5,-0.5"/>
 <text text-anchor="start" x="169.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
 <text text-anchor="middle" x="219.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::isChecked</text>
 </a>
 </g>
 </g>
-<!-- Node28&#45;&gt;Node31 -->
-<g id="edge3" class="edge"><title>Node28&#45;&gt;Node31</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M108.157,-49.3986C124.455,-44.3917 142.762,-38.7676 159.71,-33.561"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="160.974,-36.834 169.506,-30.5516 158.919,-30.1426 160.974,-36.834"/>
 </g>

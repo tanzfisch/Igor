@@ -1,6 +1,5 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iDialogGraph.h" name="C:/dev/Igor/Igor/src/Igor/src/iDialogGraph.h">
-<area shape="rect" id="node1" title=" " alt="" coords="219,5,377,47"/>
-<area shape="rect" id="node2" href="$i_dialog_graph_8cpp.html" title=" " alt="" coords="5,102,177,143"/>
-<area shape="rect" id="node3" href="$i_widget_manager_8cpp.html" title=" " alt="" coords="202,102,394,143"/>
-<area shape="rect" id="node4" href="$_user_control_particle_system_8cpp.html" title=" " alt="" coords="418,95,626,151"/>
+<map id="C:/dev/Igor/src/Igor/src/iDialogGraph.h" name="C:/dev/Igor/src/Igor/src/iDialogGraph.h">
+<area shape="rect" id="node2" href="$i_dialog_graph_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogGraph.cpp" alt="" coords="5,102,152,143"/>
+<area shape="rect" id="node3" href="$i_widget_manager_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetManager.cpp" alt="" coords="177,102,343,143"/>
+<area shape="rect" id="node4" href="$_user_control_particle_system_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lParticleSystem.cpp" alt="" coords="368,95,563,151"/>
 </map>

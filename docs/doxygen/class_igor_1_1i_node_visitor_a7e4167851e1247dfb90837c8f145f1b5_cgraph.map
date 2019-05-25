@@ -1,7 +1,6 @@
 <map id="Igor::iNodeVisitor::traverseTreeInternal" name="Igor::iNodeVisitor::traverseTreeInternal">
-<area shape="rect" id="node1" title=" " alt="" coords="5,93,148,135"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419" title=" " alt="" coords="214,5,335,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a48469e19c040925b4937a2b26ca3e978" title=" " alt="" coords="196,71,353,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#aac50da5b3f33e9c3c94d19e729fa53c8" title=" " alt="" coords="198,123,351,164"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6" title=" " alt="" coords="214,188,335,229"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor.html#a050cf551c53b773e828351e7e7f7f419" title="Igor::iNodeVisitor\l::preOrderVisit" alt="" coords="214,5,335,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a48469e19c040925b4937a2b26ca3e978" title="Igor::iNode::getChildren" alt="" coords="196,71,353,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#aac50da5b3f33e9c3c94d19e729fa53c8" title="Igor::iNode::getInactive\lChildren" alt="" coords="198,123,351,164"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor.html#aac8a35e0f6e32017aa709cd15c51e0e6" title="Igor::iNodeVisitor\l::postOrderVisit" alt="" coords="214,188,335,229"/>
 </map>

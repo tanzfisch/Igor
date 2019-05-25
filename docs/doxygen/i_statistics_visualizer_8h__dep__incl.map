@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iStatisticsVisualizer.h" name="C:/dev/Igor/Igor/src/Igor/src/iStatisticsVisualizer.h">
-<area shape="rect" id="node1" title=" " alt="" coords="117,5,315,47"/>
-<area shape="rect" id="node2" href="$i_statistics_visualizer_8cpp.html" title=" " alt="" coords="5,102,219,143"/>
-<area shape="rect" id="node3" href="$_model_viewer_8h.html" title=" " alt="" coords="243,95,400,151"/>
-<area shape="rect" id="node4" href="$_model_viewer_2src_2main_8cpp.html" title=" " alt="" coords="152,199,309,255"/>
-<area shape="rect" id="node5" href="$_model_viewer_8cpp.html" title=" " alt="" coords="333,199,491,255"/>
+<map id="C:/dev/Igor/src/Igor/src/iStatisticsVisualizer.h" name="C:/dev/Igor/src/Igor/src/iStatisticsVisualizer.h">
+<area shape="rect" id="node2" href="$i_statistics_visualizer_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iStatisticsVisualizer.cpp" alt="" coords="5,95,193,136"/>
+<area shape="rect" id="node3" href="$_model_viewer_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.h" alt="" coords="218,95,429,136"/>
+<area shape="rect" id="node4" href="$_model_viewer_2src_2main_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/main.cpp" alt="" coords="121,184,299,225"/>
+<area shape="rect" id="node5" href="$_model_viewer_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.cpp" alt="" coords="324,184,549,225"/>
 </map>

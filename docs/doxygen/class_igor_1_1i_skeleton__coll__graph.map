@@ -1,7 +1,5 @@
 <map id="Igor::iSkeleton" name="Igor::iSkeleton">
-<area shape="rect" id="node1" title=" " alt="" coords="5,335,111,361"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_joint.html" title=" " alt="" coords="15,139,96,165"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_bone.html" title=" " alt="" coords="116,244,200,271"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="188,139,339,165"/>
-<area shape="rect" id="node5" title=" " alt="" coords="244,5,283,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_joint.html" title="Igor::iJoint" alt="" coords="15,139,96,165"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_bone.html" title="Igor::iBone" alt="" coords="116,244,200,271"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html" title="IgorAux::iaMatrix\&lt; T \&gt;" alt="" coords="188,139,339,165"/>
 </map>

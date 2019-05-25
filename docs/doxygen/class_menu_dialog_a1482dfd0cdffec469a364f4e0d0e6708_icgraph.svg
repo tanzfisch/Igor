@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>MenuDialog::onMaterialSelectionChanged</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 351,-62 351,4 -4,4"/>
-<!-- Node182 -->
-<g id="node1" class="node"><title>Node182</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="188,-14 188,-44 347,-44 347,-14 188,-14"/>
-<text text-anchor="start" x="196" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::onMaterialSelection</text>
-<text text-anchor="middle" x="267.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Changed</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-14 0,-44 159,-44 159,-14 0,-14"/>
+<text text-anchor="start" x="8" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::onMaterialSelection</text>
+<text text-anchor="middle" x="79.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Changed</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_menu_dialog.html#a81fee463a16f315c18f6920f70942182" target="_top" xlink:title="MenuDialog::deinitMaterialView">
+<polygon fill="white" stroke="black" points="195,-38.5 195,-57.5 347,-57.5 347,-38.5 195,-38.5"/>
+<text text-anchor="middle" x="271" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::deinitMaterialView</text>
 </a>
 </g>
 </g>
-<!-- Node183 -->
-<g id="node2" class="node"><title>Node183</title>
-<g id="a_node2"><a xlink:href="class_menu_dialog.html#a81fee463a16f315c18f6920f70942182" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-38.5 0,-57.5 152,-57.5 152,-38.5 0,-38.5"/>
-<text text-anchor="middle" x="76" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::deinitMaterialView</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M169.236,-37.897C177.809,-38.7566 186.448,-39.6227 194.871,-40.4672"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="169.518,-34.4078 159.219,-36.8926 168.82,-41.3729 169.518,-34.4078"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_menu_dialog.html#a6f3e7454676129ead9fdb277f05d955a" target="_top" xlink:title="MenuDialog::initMaterialView">
+<polygon fill="white" stroke="black" points="200,-0.5 200,-19.5 342,-19.5 342,-0.5 200,-0.5"/>
+<text text-anchor="middle" x="271" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initMaterialView</text>
 </a>
 </g>
 </g>
-<!-- Node182&#45;&gt;Node183 -->
-<g id="edge1" class="edge"><title>Node182&#45;&gt;Node183</title>
-<path fill="none" stroke="midnightblue" d="M177.764,-37.897C169.191,-38.7566 160.552,-39.6227 152.129,-40.4672"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="178.18,-41.3729 187.781,-36.8926 177.482,-34.4078 178.18,-41.3729"/>
-</g>
-<!-- Node184 -->
-<g id="node3" class="node"><title>Node184</title>
-<g id="a_node3"><a xlink:href="class_menu_dialog.html#a6f3e7454676129ead9fdb277f05d955a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5,-0.5 5,-19.5 147,-19.5 147,-0.5 5,-0.5"/>
-<text text-anchor="middle" x="76" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initMaterialView</text>
-</a>
-</g>
-</g>
-<!-- Node182&#45;&gt;Node184 -->
-<g id="edge2" class="edge"><title>Node182&#45;&gt;Node184</title>
-<path fill="none" stroke="midnightblue" d="M177.571,-20.0837C167.313,-19.0552 156.964,-18.0175 147.007,-17.0191"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="177.482,-23.5922 187.781,-21.1074 178.18,-16.6271 177.482,-23.5922"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M169.429,-20.0837C179.687,-19.0552 190.036,-18.0175 199.993,-17.0191"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="168.82,-16.6271 159.219,-21.1074 169.518,-23.5922 168.82,-16.6271"/>
 </g>
 </g>
 </svg>

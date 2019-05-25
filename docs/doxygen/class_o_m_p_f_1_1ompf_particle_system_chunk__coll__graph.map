@@ -1,6 +1,5 @@
 <map id="OMPF::ompfParticleSystemChunk" name="OMPF::ompfParticleSystemChunk">
-<area shape="rect" id="node1" title=" " alt="" coords="87,319,272,360"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html" title=" " alt="" coords="98,103,261,130"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="5,5,124,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_gradient.html" title=" " alt="" coords="285,103,449,130"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html" title="OMPF::ompfBaseChunk" alt="" coords="98,103,261,130"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_gradient.html" title="IgorAux::iaGradient\&lt; T \&gt;" alt="" coords="285,103,449,130"/>
 </map>

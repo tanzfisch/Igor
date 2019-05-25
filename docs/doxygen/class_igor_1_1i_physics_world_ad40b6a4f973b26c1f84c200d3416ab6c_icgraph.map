@@ -1,5 +1,16 @@
 <map id="Igor::iPhysicsWorld::getNewtonWorld" name="Igor::iPhysicsWorld::getNewtonWorld">
-<area shape="rect" id="node1" title=" " alt="" coords="445,5,580,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#aa9b4c96e545a15d7a615edfae4497896" title=" " alt="" coords="212,5,397,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#ae2f10e679711705bf248d26f05eb848e" title=" " alt="" coords="5,13,164,39"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#aa9b4c96e545a15d7a615edfae4497896" title="Igor::iPhysics::createDefault\lWorld" alt="" coords="199,5,384,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#afc48f03c083e4e82c5574765e167d28b" title="Igor::iPhysics::destroyNewton\lCollision" alt="" coords="194,71,389,112"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_physics.html#a3ad2e222df06cf49cf4b1564a23c6ee4" title="Igor::iPhysics::createCompound" alt="" coords="188,137,395,163"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_physics.html#a1dbf984bf12d2b21c81f8dc4da015fa6" title="Igor::iPhysics::createBox" alt="" coords="207,187,375,214"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_physics.html#ab0cd7a1d22282b70337e1c55aa15c55f" title="Igor::iPhysics::createUser\lMeshCollision" alt="" coords="205,239,377,280"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_physics.html#a80c2ab77dc398cb49ec810f24b6b2947" title="Igor::iPhysics::createSphere" alt="" coords="198,305,385,331"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_physics.html#a1d3ea96f20f5ac384b38b3e1b91a6c13" title="Igor::iPhysics::createCone" alt="" coords="204,355,379,382"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_physics.html#ad0a6f6c2c0030aed61dbf5e9be42c600" title="Igor::iPhysics::createCapsule" alt="" coords="195,406,387,433"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_physics.html#aa1977450631c4f5bb1a08ff5803ac274" title="Igor::iPhysics::createCylinder" alt="" coords="195,457,387,483"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_physics.html#a7b02a7ab800065f09d54a66a71d8e8cb" title="Igor::iPhysics::createMesh" alt="" coords="203,507,380,534"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#ae2f10e679711705bf248d26f05eb848e" title="Igor::iPhysics::iPhysics" alt="" coords="464,13,623,39"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a06fdc9e347465f7cf295827e6ce5003d" title="Igor::iPhysics::destroyCollision" alt="" coords="443,78,644,105"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_physics.html#aa267695da6309947267ed6735101e2d3" title="Igor::iPhysics::~iPhysics" alt="" coords="709,53,876,79"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_physics.html#a8aa3a0422da2989c7bed370158efe89d" title="Igor::iPhysics::destroyCollision" alt="" coords="692,103,893,130"/>
 </map>

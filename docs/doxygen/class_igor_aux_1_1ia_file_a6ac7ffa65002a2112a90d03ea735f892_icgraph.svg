@@ -9,26 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>IgorAux::iaFile::close</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 259,-24 259,4 -4,4"/>
-<!-- Node5 -->
-<g id="node1" class="node"><title>Node5</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="147,-0.5 147,-19.5 255,-19.5 255,-0.5 147,-0.5"/>
-<text text-anchor="middle" x="201" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaFile::close</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 108,-19.5 108,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="54" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaFile::close</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_shader.html#a1d3e01ce570d193e90cad335c632b8e0" target="_top" xlink:title="Igor::iShader::loadFile">
+<polygon fill="white" stroke="black" points="144,-0.5 144,-19.5 255,-19.5 255,-0.5 144,-0.5"/>
+<text text-anchor="middle" x="199.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iShader::loadFile</text>
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="node2" class="node"><title>Node6</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_shader.html#a1d3e01ce570d193e90cad335c632b8e0" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 111,-19.5 111,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="55.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iShader::loadFile</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge1" class="edge"><title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M136.72,-10C128.222,-10 119.563,-10 111.229,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="136.974,-13.5001 146.974,-10 136.974,-6.5001 136.974,-13.5001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M118.28,-10C126.778,-10 135.437,-10 143.771,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="118.026,-6.5001 108.026,-10 118.026,-13.5001 118.026,-6.5001"/>
 </g>
 </g>
 </svg>

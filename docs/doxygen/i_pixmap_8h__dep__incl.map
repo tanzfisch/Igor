@@ -1,6 +1,5 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iPixmap.h" name="C:/dev/Igor/Igor/src/Igor/src/iPixmap.h">
-<area shape="rect" id="node1" title=" " alt="" coords="195,5,326,47"/>
-<area shape="rect" id="node2" href="$i_pixmap_8cpp.html" title=" " alt="" coords="5,95,151,136"/>
-<area shape="rect" id="node3" href="$i_texture_font_8cpp.html" title=" " alt="" coords="175,95,346,136"/>
-<area shape="rect" id="node4" href="$i_texture_resource_factory_8cpp.html" title=" " alt="" coords="370,95,613,136"/>
+<map id="C:/dev/Igor/src/Igor/src/iPixmap.h" name="C:/dev/Igor/src/Igor/src/iPixmap.h">
+<area shape="rect" id="node2" href="$i_pixmap_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iPixmap.cpp" alt="" coords="5,95,136,136"/>
+<area shape="rect" id="node3" href="$i_texture_font_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTextureFont.cpp" alt="" coords="161,95,306,136"/>
+<area shape="rect" id="node4" href="$i_texture_resource_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTextureResourceFactory.cpp" alt="" coords="331,95,549,136"/>
 </map>

@@ -1,7 +1,6 @@
 <map id="Igor::iMouse::setPosition" name="Igor::iMouse::setPosition">
-<area shape="rect" id="node1" title=" " alt="" coords="5,81,172,108"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_window.html#ab80a14bbc243786a1e2ad6cac4a0f52c" title=" " alt="" coords="220,5,399,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_window.html#a9b3831e380d2db0e5f018f53a3f13c37" title=" " alt="" coords="231,56,387,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_window.html#a87ade6071ae0cd439d3777fac55ec0f3" title=" " alt="" coords="230,107,389,133"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title=" " alt="" coords="232,157,387,184"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_window.html#ab80a14bbc243786a1e2ad6cac4a0f52c" title="Igor::iWindow::isFullscreen" alt="" coords="220,5,399,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_window.html#a697cfc23d18407c55fbb1744df01d8db" title="Igor::iWindow::getXPos" alt="" coords="231,56,387,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_window.html#a2b559393badf120ebedccaa89e7e644c" title="Igor::iWindow::getYPos" alt="" coords="230,107,389,133"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title="IgorAux::iaVector2::set" alt="" coords="232,157,387,184"/>
 </map>

@@ -1,8 +1,6 @@
 <map id="Igor::iSoundResourceFactory" name="Igor::iSoundResourceFactory">
-<area shape="rect" id="node1" title=" " alt="" coords="283,228,474,255"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="142,317,327,359"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="5,139,125,165"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="90,228,259,255"/>
-<area shape="rect" id="node5" title=" " alt="" coords="222,5,261,32"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="293,139,443,165"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iSoundResourceFactory \&gt;" alt="" coords="142,317,327,359"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="5,139,125,165"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\&lt; T \&gt;" alt="" coords="90,228,259,255"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html" title="IgorAux::iaMatrix\&lt; T \&gt;" alt="" coords="293,139,443,165"/>
 </map>

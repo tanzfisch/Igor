@@ -1,8 +1,6 @@
 <map id="testing::TestWithParam&lt; T &gt;" name="testing::TestWithParam&lt; T &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="134,393,325,420"/>
-<area shape="rect" id="node2" href="$classtesting_1_1_test.html" title=" " alt="" coords="49,317,143,344"/>
-<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1scoped__ptr.html" title=" " alt="" coords="5,199,187,255"/>
-<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1scoped__ptr.html" title=" " alt="" coords="37,95,155,136"/>
-<area shape="rect" id="node5" title=" " alt="" coords="77,5,115,32"/>
-<area shape="rect" id="node6" href="$classtesting_1_1_with_param_interface.html" title=" " alt="" coords="167,317,382,344"/>
+<area shape="rect" id="node2" href="$classtesting_1_1_test.html" title="testing::Test" alt="" coords="49,317,143,344"/>
+<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1scoped__ptr.html" title="testing::internal::\lscoped_ptr\&lt; GTEST_FLAG\l_SAVER_ \&gt;" alt="" coords="5,199,187,255"/>
+<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1scoped__ptr.html" title="testing::internal::\lscoped_ptr\&lt; T \&gt;" alt="" coords="37,95,155,136"/>
+<area shape="rect" id="node6" href="$classtesting_1_1_with_param_interface.html" title="testing::WithParamInterface\&lt; T \&gt;" alt="" coords="167,317,382,344"/>
 </map>

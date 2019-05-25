@@ -9,39 +9,36 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>Igor::iWindow::updatePos</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 401,-24 401,4 -4,4"/>
-<!-- Node115 -->
-<g id="node1" class="node"><title>Node115</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="269,-0.5 269,-19.5 397,-19.5 397,-0.5 269,-0.5"/>
-<text text-anchor="middle" x="333" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow::updatePos</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 128,-19.5 128,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="64" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow::updatePos</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespace_igor.html#a6c0b5f6a110206d49314c2c6e09ac827" target="_top" xlink:title="Igor::WndProc">
+<polygon fill="white" stroke="black" points="164,-0.5 164,-19.5 243,-19.5 243,-0.5 164,-0.5"/>
+<text text-anchor="middle" x="203.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::WndProc</text>
 </a>
 </g>
 </g>
-<!-- Node116 -->
-<g id="node2" class="node"><title>Node116</title>
-<g id="a_node2"><a xlink:href="namespace_igor.html#a6c0b5f6a110206d49314c2c6e09ac827" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="154,-0.5 154,-19.5 233,-19.5 233,-0.5 154,-0.5"/>
-<text text-anchor="middle" x="193.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::WndProc</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M138.384,-10C147.12,-10 155.756,-10 163.724,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="138.116,-6.5001 128.116,-10 138.116,-13.5001 138.116,-6.5001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_window.html#a7c68d4b7d97161b7985fd6335859f9cd" target="_top" xlink:title="Igor::iWindow::iWindow">
+<polygon fill="white" stroke="black" points="279,-0.5 279,-19.5 397,-19.5 397,-0.5 279,-0.5"/>
+<text text-anchor="middle" x="338" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow::iWindow</text>
 </a>
 </g>
 </g>
-<!-- Node115&#45;&gt;Node116 -->
-<g id="edge1" class="edge"><title>Node115&#45;&gt;Node116</title>
-<path fill="none" stroke="midnightblue" d="M258.616,-10C249.88,-10 241.244,-10 233.276,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="258.884,-13.5001 268.884,-10 258.884,-6.5001 258.884,-13.5001"/>
-</g>
-<!-- Node117 -->
-<g id="node3" class="node"><title>Node117</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_window.html#a7c68d4b7d97161b7985fd6335859f9cd" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 118,-19.5 118,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="59" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow::iWindow</text>
-</a>
-</g>
-</g>
-<!-- Node116&#45;&gt;Node117 -->
-<g id="edge2" class="edge"><title>Node116&#45;&gt;Node117</title>
-<path fill="none" stroke="midnightblue" d="M143.594,-10C135.324,-10 126.666,-10 118.187,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="143.819,-13.5001 153.819,-10 143.819,-6.5001 143.819,-13.5001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M253.406,-10C261.676,-10 270.334,-10 278.813,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="253.181,-6.5001 243.181,-10 253.181,-13.5001 253.181,-6.5001"/>
 </g>
 </g>
 </svg>

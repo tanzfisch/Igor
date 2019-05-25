@@ -1,5 +1,4 @@
 <map id="ModelViewer::ModelViewer" name="ModelViewer::ModelViewer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,184,61"/>
-<area shape="rect" id="node2" href="$class_menu_dialog.html#a2ac3bf74d436c3ea686a009235975df6" title=" " alt="" coords="232,5,415,32"/>
-<area shape="rect" id="node3" href="$class_properties_dialog.html#a5ee82e0e42c92440a64366aefcc2f8ae" title=" " alt="" coords="243,57,404,98"/>
+<area shape="rect" id="node2" href="$class_menu_dialog.html#a2ac3bf74d436c3ea686a009235975df6" title="MenuDialog::createInstance" alt="" coords="232,5,415,32"/>
+<area shape="rect" id="node3" href="$class_properties_dialog.html#a5ee82e0e42c92440a64366aefcc2f8ae" title="PropertiesDialog::create\lInstance" alt="" coords="243,57,404,98"/>
 </map>

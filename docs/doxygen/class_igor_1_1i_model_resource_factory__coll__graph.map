@@ -1,7 +1,5 @@
 <map id="Igor::iModelResourceFactory" name="Igor::iModelResourceFactory">
-<area shape="rect" id="node1" title=" " alt="" coords="5,139,193,165"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="131,228,313,269"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="182,5,302,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="315,139,484,165"/>
-<area shape="rect" id="node5" title=" " alt="" coords="380,5,419,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iModelResourceFactory \&gt;" alt="" coords="131,228,313,269"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="182,5,302,32"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\&lt; T \&gt;" alt="" coords="315,139,484,165"/>
 </map>

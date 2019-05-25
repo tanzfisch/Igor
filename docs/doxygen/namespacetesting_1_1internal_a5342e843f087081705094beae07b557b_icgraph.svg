@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>testing::internal::CanonicalizeForStdLibVersioning</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 289,-35 289,4 -4,4"/>
-<!-- Node24 -->
-<g id="node1" class="node"><title>Node24</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="125,-0.5 125,-30.5 285,-30.5 285,-0.5 125,-0.5"/>
-<text text-anchor="start" x="133" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="205" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">CanonicalizeForStdLibVersioning</text>
-</a>
-</g>
-</g>
-<!-- Node25 -->
-<g id="node2" class="node"><title>Node25</title>
-<g id="a_node2"><a xlink:href="namespacetesting_1_1internal.html#a635606b4731f843c86ec8ca51cab83a1" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 89,-30.5 89,-0.5 0,-0.5"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 160,-30.5 160,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="44.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">GetTypeName</text>
+<text text-anchor="middle" x="80" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">CanonicalizeForStdLibVersioning</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespacetesting_1_1internal.html#a635606b4731f843c86ec8ca51cab83a1" target="_top" xlink:title="testing::internal::\lGetTypeName">
+<polygon fill="white" stroke="black" points="196,-0.5 196,-30.5 285,-30.5 285,-0.5 196,-0.5"/>
+<text text-anchor="start" x="204" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="240.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">GetTypeName</text>
 </a>
 </g>
 </g>
-<!-- Node24&#45;&gt;Node25 -->
-<g id="edge1" class="edge"><title>Node24&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M114.743,-15.5C105.922,-15.5 97.2688,-15.5 89.2304,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="114.75,-19.0001 124.75,-15.5 114.75,-12.0001 114.75,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M170.257,-15.5C179.078,-15.5 187.731,-15.5 195.77,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="170.25,-12.0001 160.25,-15.5 170.25,-19.0001 170.25,-12.0001"/>
 </g>
 </g>
 </svg>

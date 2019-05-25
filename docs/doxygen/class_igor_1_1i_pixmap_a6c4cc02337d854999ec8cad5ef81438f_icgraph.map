@@ -1,4 +1,3 @@
 <map id="Igor::iPixmap::getBytesPerPixel" name="Igor::iPixmap::getBytesPerPixel">
-<area shape="rect" id="node1" title=" " alt="" coords="249,5,428,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_texture_resource_factory.html#abc70422421a7945de647dceb8db76cd3" title=" " alt="" coords="5,5,201,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_texture_resource_factory.html#abc70422421a7945de647dceb8db76cd3" title="Igor::iTextureResourceFactory\l::loadFromPixmap" alt="" coords="232,5,428,47"/>
 </map>

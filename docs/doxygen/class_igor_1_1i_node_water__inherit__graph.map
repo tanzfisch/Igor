@@ -1,5 +1,4 @@
 <map id="Igor::iNodeWater" name="Igor::iNodeWater">
-<area shape="rect" id="node1" title=" " alt="" coords="9,155,127,181"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_render.html" title=" " alt="" coords="5,80,131,107"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html" title=" " alt="" coords="26,5,110,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_render.html" title="Igor::iNodeRender" alt="" coords="5,80,131,107"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html" title="Igor::iNode" alt="" coords="26,5,110,32"/>
 </map>

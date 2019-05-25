@@ -1,13 +1,7 @@
 <map id="Igor::iEntityManager::handle" name="Igor::iEntityManager::handle">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,144,112"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_entity_locatable.html#a83f7e8d533c25fa1f37b25d7d7d36eb0" title=" " alt="" coords="192,5,336,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_entity_locatable.html#a7ee69c0b75261f492941d9429f53fe33" title=" " alt="" coords="192,71,336,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_octree.html#a23abc7025f6f141f6493b6a4b89a717d" title=" " alt="" coords="194,137,334,163"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_intersection.html#a6014a2a386e8e33b7f8bf22ece42d3f5" title=" " alt="" coords="601,89,723,131"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_octree.html#a502b4efcfc598ebddbf9b7268345c9c0" title=" " alt="" coords="384,187,527,214"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_octree.html#a02356a9825edc88cf92bd483dd4a3fba" title=" " alt="" coords="389,137,522,163"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_octree.html#a480eb157cef57a3cdd299ec710451f67" title=" " alt="" coords="575,177,749,203"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_octree.html#a6cc4289341ca30efc93d0b3ea89c8b66" title=" " alt="" coords="586,227,738,254"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_octree.html#a9ba6628099fad6c435a7827a11c12c49" title=" " alt="" coords="797,227,935,254"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_octree.html#a9ffa1e44d32e542a74eff22e875fed5f" title=" " alt="" coords="983,227,1149,254"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_entity_locatable.html#a83f7e8d533c25fa1f37b25d7d7d36eb0" title="Igor::iEntityLocatable\l::handle" alt="" coords="192,5,336,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_entity_locatable.html#a7ee69c0b75261f492941d9429f53fe33" title="Igor::iEntityLocatable\l::getCurrentPos" alt="" coords="192,71,336,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_octree.html#a23abc7025f6f141f6493b6a4b89a717d" title="Igor::iOctree::update" alt="" coords="194,137,334,163"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_intersection.html#a6014a2a386e8e33b7f8bf22ece42d3f5" title="Igor::iIntersection\l::intersects" alt="" coords="565,129,687,171"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_octree.html#a02356a9825edc88cf92bd483dd4a3fba" title="Igor::iOctree::insert" alt="" coords="384,162,517,189"/>
 </map>

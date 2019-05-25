@@ -1,4 +1,3 @@
 <map id="UserControlGraphView::onAddModel" name="UserControlGraphView::onAddModel">
-<area shape="rect" id="node1" title=" " alt="" coords="207,5,360,47"/>
-<area shape="rect" id="node2" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title=" " alt="" coords="5,5,159,47"/>
+<area shape="rect" id="node2" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title="UserControlGraphView\l::initGUI" alt="" coords="207,5,360,47"/>
 </map>

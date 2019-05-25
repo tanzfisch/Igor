@@ -11,16 +11,13 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-169 201.5,-169 201.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="49,-0.5 49,-30.5 148,-30.5 148,-0.5 49,-0.5"/>
 <text text-anchor="start" x="57" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskManager</text>
 <text text-anchor="middle" x="98.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::ThreadContext</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_window.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_1_1i_window.html" target="_top" xlink:title="Igor::iWindow">
 <polygon fill="white" stroke="black" points="61,-78.5 61,-97.5 136,-97.5 136,-78.5 61,-78.5"/>
 <text text-anchor="middle" x="98.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWindow</text>
 </a>
@@ -34,7 +31,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title="IgorAux::iaString">
 <polygon fill="white" stroke="black" points="0,-145.5 0,-164.5 89,-164.5 89,-145.5 0,-145.5"/>
 <text text-anchor="middle" x="44.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString</text>
 </a>
@@ -48,7 +45,7 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title="IgorAux::iaMutex">
 <polygon fill="white" stroke="black" points="107.5,-145.5 107.5,-164.5 197.5,-164.5 197.5,-145.5 107.5,-145.5"/>
 <text text-anchor="middle" x="152.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex</text>
 </a>

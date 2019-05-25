@@ -9,17 +9,14 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 258)">
 <title>testing::Test</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-258 200,-258 200,4 -4,4"/>
-<!-- Node2 -->
-<g id="node1" class="node"><title>Node2</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="32.5,-0.5 32.5,-19.5 103.5,-19.5 103.5,-0.5 32.5,-0.5"/>
 <text text-anchor="middle" x="68" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::Test</text>
-</a>
 </g>
-</g>
-<!-- Node3 -->
-<g id="node2" class="node"><title>Node3</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; GTEST_FLAG\l_SAVER_ \&gt;">
 <polygon fill="white" stroke="black" points="0,-67.5 0,-108.5 136,-108.5 136,-67.5 0,-67.5"/>
 <text text-anchor="start" x="8" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="8" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; GTEST_FLAG</text>
@@ -27,37 +24,34 @@
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node2 -->
-<g id="edge1" class="edge"><title>Node3&#45;&gt;Node2</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M68,-57.0508C68,-43.5595 68,-28.6493 68,-19.552"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="64.5001,-57.4281 68,-67.4281 71.5001,-57.4281 64.5001,-57.4281"/>
 <text text-anchor="middle" x="107.5" y="-41" font-family="Helvetica,sans-Serif" font-size="10.00"> gtest_flag_saver_</text>
 </g>
-<!-- Node4 -->
-<g id="node3" class="node"><title>Node4</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="23.5,-156.5 23.5,-186.5 112.5,-186.5 112.5,-156.5 23.5,-156.5"/>
 <text text-anchor="start" x="31.5" y="-174.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="68" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node3 -->
-<g id="edge2" class="edge"><title>Node4&#45;&gt;Node3</title>
+<!-- Node3&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M68,-146.066C68,-134.061 68,-119.794 68,-108.528"/>
 <polygon fill="orange" stroke="orange" points="64.5001,-146.304 68,-156.304 71.5001,-146.304 64.5001,-146.304"/>
 <text text-anchor="middle" x="132" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; GTEST_FLAG_SAVER_ &gt;</text>
 </g>
-<!-- Node5 -->
-<g id="node4" class="node"><title>Node5</title>
-<g id="a_node4"><a xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
 <polygon fill="white" stroke="#bfbfbf" points="53.5,-234.5 53.5,-253.5 82.5,-253.5 82.5,-234.5 53.5,-234.5"/>
 <text text-anchor="middle" x="68" y="-241.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
 </g>
-</g>
-<!-- Node5&#45;&gt;Node4 -->
-<g id="edge3" class="edge"><title>Node5&#45;&gt;Node4</title>
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge3" class="edge"><title>Node4&#45;&gt;Node3</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M68,-224.236C68,-212.408 68,-197.383 68,-186.576"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="64.5001,-224.355 68,-234.355 71.5001,-224.355 64.5001,-224.355"/>
 <text text-anchor="middle" x="78" y="-208" font-family="Helvetica,sans-Serif" font-size="10.00"> ptr_</text>

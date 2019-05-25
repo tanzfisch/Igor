@@ -9,66 +9,63 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 160.5)">
 <title>Igor::iPhysics::createDefaultMaterial</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-160.5 304,-160.5 304,4 -4,4"/>
-<!-- Node96 -->
-<g id="node1" class="node"><title>Node96</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-55 0,-85 139,-85 139,-55 0,-55"/>
 <text text-anchor="start" x="8" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createDefault</text>
 <text text-anchor="middle" x="69.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
-</a>
 </g>
-</g>
-<!-- Node97 -->
-<g id="node2" class="node"><title>Node97</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_physics_material.html#afb291832a8f40a984b2e527e1ab71429" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_physics_material.html#afb291832a8f40a984b2e527e1ab71429" target="_top" xlink:title="Igor::iPhysicsMaterial\l::setName">
 <polygon fill="white" stroke="black" points="182.5,-126 182.5,-156 292.5,-156 292.5,-126 182.5,-126"/>
 <text text-anchor="start" x="190.5" y="-144" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsMaterial</text>
 <text text-anchor="middle" x="237.5" y="-133" font-family="Helvetica,sans-Serif" font-size="10.00">::setName</text>
 </a>
 </g>
 </g>
-<!-- Node96&#45;&gt;Node97 -->
-<g id="edge1" class="edge"><title>Node96&#45;&gt;Node97</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M102.795,-85.0329C123.351,-94.4753 150.604,-106.761 175,-117 179.094,-118.718 183.356,-120.466 187.643,-122.194"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="186.426,-125.477 197.011,-125.931 189.019,-118.975 186.426,-125.477"/>
 </g>
-<!-- Node98 -->
-<g id="node3" class="node"><title>Node98</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_physics_material.html#a0cc33137715f8af6f0d1ab03a43396cf" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_physics_material.html#a0cc33137715f8af6f0d1ab03a43396cf" target="_top" xlink:title="Igor::iPhysicsMaterial\l::getID">
 <polygon fill="white" stroke="black" points="182.5,-77 182.5,-107 292.5,-107 292.5,-77 182.5,-77"/>
 <text text-anchor="start" x="190.5" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsMaterial</text>
 <text text-anchor="middle" x="237.5" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">::getID</text>
 </a>
 </g>
 </g>
-<!-- Node96&#45;&gt;Node98 -->
-<g id="edge2" class="edge"><title>Node96&#45;&gt;Node98</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M139.457,-79.1389C150.325,-80.5792 161.524,-82.0635 172.279,-83.4888"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="172.057,-86.9898 182.43,-84.8341 172.976,-80.0505 172.057,-86.9898"/>
 </g>
-<!-- Node99 -->
-<g id="node4" class="node"><title>Node99</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" target="_top" xlink:title="IgorAux::iaMutex::lock">
 <polygon fill="white" stroke="black" points="180.5,-38.5 180.5,-57.5 294.5,-57.5 294.5,-38.5 180.5,-38.5"/>
 <text text-anchor="middle" x="237.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex::lock</text>
 </a>
 </g>
 </g>
-<!-- Node96&#45;&gt;Node99 -->
-<g id="edge3" class="edge"><title>Node96&#45;&gt;Node99</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M139.457,-60.8611C149.679,-59.5065 160.193,-58.113 170.356,-56.7661"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="170.923,-60.2216 180.377,-55.438 170.004,-53.2822 170.923,-60.2216"/>
 </g>
-<!-- Node100 -->
-<g id="node5" class="node"><title>Node100</title>
-<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" target="_top" xlink:title="IgorAux::iaMutex::unlock">
 <polygon fill="white" stroke="black" points="175,-0.5 175,-19.5 300,-19.5 300,-0.5 175,-0.5"/>
 <text text-anchor="middle" x="237.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex::unlock</text>
 </a>
 </g>
 </g>
-<!-- Node96&#45;&gt;Node100 -->
-<g id="edge4" class="edge"><title>Node96&#45;&gt;Node100</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M107.006,-54.9085C126.961,-46.8543 152.191,-36.9853 175,-29 181.16,-26.8433 187.711,-24.6817 194.153,-22.6297"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="195.617,-25.8389 204.115,-19.5118 193.526,-19.1584 195.617,-25.8389"/>
 </g>

@@ -1,5 +1,4 @@
 <map id="Igor::iParticleSystem3D::createParticles" name="Igor::iParticleSystem3D::createParticles">
-<area shape="rect" id="node1" title=" " alt="" coords="5,27,164,69"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title=" " alt="" coords="212,5,367,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title=" " alt="" coords="225,57,354,98"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title="IgorAux::iaVector3::set" alt="" coords="212,5,367,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title="IgorAux::iaVector3\l::normalize" alt="" coords="225,57,354,98"/>
 </map>

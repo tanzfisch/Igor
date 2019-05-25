@@ -1,5 +1,4 @@
 <map id="Igor::iContouringCubes::climb" name="Igor::iContouringCubes::climb">
-<area shape="rect" id="node1" title=" " alt="" coords="469,5,623,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" title=" " alt="" coords="268,5,421,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" title=" " alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" title="Igor::iContouringCubes\l::compile" alt="" coords="207,5,360,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" title="Igor::iVoxelTerrainMeshGenerator\l::importData" alt="" coords="408,5,623,47"/>
 </map>

@@ -1,8 +1,7 @@
 <map id="Manipulator::update" name="Manipulator::update">
-<area shape="rect" id="node1" title=" " alt="" coords="5,107,141,134"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="207,5,406,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#a0cb70c3acc0372b1d60b8a764e7745e3" title=" " alt="" coords="243,71,371,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf9574e0c451509015b42b36be8a6eb" title=" " alt="" coords="189,137,424,163"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#a041b034afbeb7dd3a3e0898ed78215be" title=" " alt="" coords="243,188,371,229"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title=" " alt="" coords="472,129,600,171"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="207,5,406,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="243,71,371,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf9574e0c451509015b42b36be8a6eb" title="Igor::iNode::calcWorldTransformation" alt="" coords="189,137,424,163"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#a041b034afbeb7dd3a3e0898ed78215be" title="IgorAux::iaMatrix::\linvert" alt="" coords="243,188,371,229"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title="IgorAux::iaMatrix::\lidentity" alt="" coords="472,129,600,171"/>
 </map>

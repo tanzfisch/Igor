@@ -9,26 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iUserControlColorChooser::updateColorViews</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 284,-35 284,4 -4,4"/>
-<!-- Node552 -->
-<g id="node1" class="node"><title>Node552</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 150,-30.5 150,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
 <text text-anchor="middle" x="75" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::updateColorViews</text>
-</a>
 </g>
-</g>
-<!-- Node553 -->
-<g id="node2" class="node"><title>Node553</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_widget_color.html#a86abc4ee89b034cac88ce8a927b5acb0" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_widget_color.html#a86abc4ee89b034cac88ce8a927b5acb0" target="_top" xlink:title="Igor::iWidgetColor\l::setColor">
 <polygon fill="white" stroke="black" points="186,-0.5 186,-30.5 280,-30.5 280,-0.5 186,-0.5"/>
 <text text-anchor="start" x="194" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetColor</text>
 <text text-anchor="middle" x="233" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setColor</text>
 </a>
 </g>
 </g>
-<!-- Node552&#45;&gt;Node553 -->
-<g id="edge1" class="edge"><title>Node552&#45;&gt;Node553</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M150.345,-15.5C158.842,-15.5 167.398,-15.5 175.607,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="175.789,-19.0001 185.789,-15.5 175.788,-12.0001 175.789,-19.0001"/>
 </g>

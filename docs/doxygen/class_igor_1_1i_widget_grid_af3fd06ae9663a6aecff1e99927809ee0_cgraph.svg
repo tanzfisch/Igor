@@ -9,38 +9,35 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>Igor::iWidgetGrid::calcMinSize</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 269,-62 269,4 -4,4"/>
-<!-- Node66 -->
-<g id="node1" class="node"><title>Node66</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-14 0,-44 95,-44 95,-14 0,-14"/>
 <text text-anchor="start" x="8" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetGrid::</text>
 <text text-anchor="middle" x="47.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">calcMinSize</text>
-</a>
 </g>
-</g>
-<!-- Node67 -->
-<g id="node2" class="node"><title>Node67</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_widget.html#a7607d7a6a36d25a88976f24227c74391" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_widget.html#a5169814ed11deae6be3760b8304f390c" target="_top" xlink:title="Igor::iWidget::getMinWidth">
 <polygon fill="white" stroke="black" points="132,-38.5 132,-57.5 264,-57.5 264,-38.5 132,-38.5"/>
 <text text-anchor="middle" x="198" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::getMinWidth</text>
 </a>
 </g>
 </g>
-<!-- Node66&#45;&gt;Node67 -->
-<g id="edge1" class="edge"><title>Node66&#45;&gt;Node67</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M95.0789,-34.9596C103.546,-36.0429 112.572,-37.1978 121.622,-38.3556"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="121.456,-41.8629 131.819,-39.6604 122.344,-34.9195 121.456,-41.8629"/>
 </g>
-<!-- Node68 -->
-<g id="node3" class="node"><title>Node68</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_widget.html#ae479f53b5aefb0bd9039bd2d2d62c8be" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_widget.html#ac3eaf7987b1842c3b6c1e429e9825512" target="_top" xlink:title="Igor::iWidget::getMinHeight">
 <polygon fill="white" stroke="black" points="131,-0.5 131,-19.5 265,-19.5 265,-0.5 131,-0.5"/>
 <text text-anchor="middle" x="198" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::getMinHeight</text>
 </a>
 </g>
 </g>
-<!-- Node66&#45;&gt;Node68 -->
-<g id="edge2" class="edge"><title>Node66&#45;&gt;Node68</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M95.0789,-23.0404C103.21,-22.0001 111.858,-20.8936 120.546,-19.782"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="121.26,-23.2193 130.735,-18.4784 120.371,-16.2759 121.26,-23.2193"/>
 </g>

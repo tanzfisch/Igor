@@ -1,5 +1,4 @@
 <map id="Igor::iNodeLODSwitch::onPreSetScene" name="Igor::iNodeLODSwitch::onPreSetScene">
-<area shape="rect" id="node1" title=" " alt="" coords="5,27,155,69"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title=" " alt="" coords="207,5,354,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a1376902e97283f3dded50cd44a7b4838" title=" " alt="" coords="203,57,359,98"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title="Igor::iNode::getScene" alt="" coords="207,5,354,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a1376902e97283f3dded50cd44a7b4838" title="Igor::iScene::unregister\lLODSwitch" alt="" coords="203,57,359,98"/>
 </map>

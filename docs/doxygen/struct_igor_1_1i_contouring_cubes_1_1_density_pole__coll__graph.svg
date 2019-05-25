@@ -11,16 +11,13 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-258 157,-258 157,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="4.5,-0.5 4.5,-30.5 119.5,-30.5 119.5,-0.5 4.5,-0.5"/>
 <text text-anchor="start" x="12.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
 <text text-anchor="middle" x="62" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::DensityPole</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_r_l_e.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_r_l_e.html" target="_top" xlink:title="IgorAux::iaRLE\&lt; uint8,\l uint8 \&gt;">
 <polygon fill="white" stroke="black" points="4.5,-78.5 4.5,-108.5 119.5,-108.5 119.5,-78.5 4.5,-78.5"/>
 <text text-anchor="start" x="12.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaRLE&lt; uint8,</text>
 <text text-anchor="middle" x="62" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00"> uint8 &gt;</text>
@@ -35,7 +32,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_r_l_e.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_r_l_e.html" target="_top" xlink:title="IgorAux::iaRLE\&lt; TValue,\l TIndex \&gt;">
 <polygon fill="white" stroke="black" points="0,-156.5 0,-186.5 124,-186.5 124,-156.5 0,-156.5"/>
 <text text-anchor="start" x="8" y="-174.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaRLE&lt; TValue,</text>
 <text text-anchor="middle" x="62" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00"> TIndex &gt;</text>
@@ -50,11 +47,8 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="39.5,-234.5 39.5,-253.5 84.5,-253.5 84.5,-234.5 39.5,-234.5"/>
 <text text-anchor="middle" x="62" y="-241.5" font-family="Helvetica,sans-Serif" font-size="10.00">TIndex</text>
-</a>
-</g>
 </g>
 <!-- Node4&#45;&gt;Node3 -->
 <g id="edge3" class="edge"><title>Node4&#45;&gt;Node3</title>

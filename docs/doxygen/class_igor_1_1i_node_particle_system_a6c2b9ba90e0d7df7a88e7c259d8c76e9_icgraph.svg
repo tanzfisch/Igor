@@ -9,42 +9,39 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iNodeParticleSystem::setStartOrientationGradient</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 315,-84 315,4 -4,4"/>
-<!-- Node190 -->
-<g id="node1" class="node"><title>Node190</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="170,-24.5 170,-54.5 311,-54.5 311,-24.5 170,-24.5"/>
-<text text-anchor="start" x="178" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeParticleSystem</text>
-<text text-anchor="middle" x="240.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setStartOrientationGradient</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 141,-54.5 141,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeParticleSystem</text>
+<text text-anchor="middle" x="70.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setStartOrientationGradient</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#a0f7b5e12c682ae67747df9583b849597" target="_top" xlink:title="Igor::iModelDataIOOMPF\l::createParticleSystem">
+<polygon fill="white" stroke="black" points="181.5,-49.5 181.5,-79.5 306.5,-79.5 306.5,-49.5 181.5,-49.5"/>
+<text text-anchor="start" x="189.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
+<text text-anchor="middle" x="244" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createParticleSystem</text>
 </a>
 </g>
 </g>
-<!-- Node191 -->
-<g id="node2" class="node"><title>Node191</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#a0f7b5e12c682ae67747df9583b849597" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4.5,-49.5 4.5,-79.5 129.5,-79.5 129.5,-49.5 4.5,-49.5"/>
-<text text-anchor="start" x="12.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
-<text text-anchor="middle" x="67" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createParticleSystem</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M151.28,-51.1297C161.362,-52.5994 171.555,-54.0852 181.297,-55.5053"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="151.656,-47.6476 141.256,-49.6685 150.646,-54.5744 151.656,-47.6476"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_particle_system.html#ab9d5c0d93ecd969fd6658127d6c26ddd" target="_top" xlink:title="UserControlParticleSystem\l::updateNode">
+<polygon fill="white" stroke="black" points="177,-0.5 177,-30.5 311,-30.5 311,-0.5 177,-0.5"/>
+<text text-anchor="start" x="185" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="244" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::updateNode</text>
 </a>
 </g>
 </g>
-<!-- Node190&#45;&gt;Node191 -->
-<g id="edge1" class="edge"><title>Node190&#45;&gt;Node191</title>
-<path fill="none" stroke="midnightblue" d="M159.72,-51.1297C149.638,-52.5994 139.445,-54.0852 129.703,-55.5053"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="160.354,-54.5744 169.744,-49.6685 159.344,-47.6476 160.354,-54.5744"/>
-</g>
-<!-- Node192 -->
-<g id="node3" class="node"><title>Node192</title>
-<g id="a_node3"><a xlink:href="class_user_control_particle_system.html#ab9d5c0d93ecd969fd6658127d6c26ddd" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::updateNode</text>
-</a>
-</g>
-</g>
-<!-- Node190&#45;&gt;Node192 -->
-<g id="edge2" class="edge"><title>Node190&#45;&gt;Node192</title>
-<path fill="none" stroke="midnightblue" d="M159.729,-28.3367C151.148,-27.1359 142.487,-25.9238 134.092,-24.749"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.356,-31.8185 169.744,-29.7383 160.326,-24.8861 159.356,-31.8185"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M151.271,-28.3367C159.852,-27.1359 168.513,-25.9238 176.908,-24.749"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="150.674,-24.8861 141.256,-29.7383 151.644,-31.8185 150.674,-24.8861"/>
 </g>
 </g>
 </svg>

@@ -1,5 +1,4 @@
 <map id="Igor::iWindow::updateSize" name="Igor::iWindow::updateSize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,179,57"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title=" " alt="" coords="228,5,400,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#a30533fbc10c5e609aafa8b0f251f82ee" title=" " alt="" coords="227,56,401,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title="Igor::iRectangle::setWidth" alt="" coords="228,5,400,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#a30533fbc10c5e609aafa8b0f251f82ee" title="Igor::iRectangle::setHeight" alt="" coords="227,56,401,83"/>
 </map>

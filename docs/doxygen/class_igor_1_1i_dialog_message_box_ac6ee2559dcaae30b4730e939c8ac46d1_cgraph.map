@@ -1,0 +1,7 @@
+<map id="Igor::iDialogMessageBox::initGUI" name="Igor::iDialogMessageBox::initGUI">
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title="Igor::iWidgetGrid::\lappendRows" alt="" coords="234,5,361,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title="Igor::iWidgetLabel\l::setText" alt="" coords="234,71,361,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title="Igor::iWidget::setWidth" alt="" coords="220,137,375,163"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title="Igor::iWidgetGrid::\lappendCollumns" alt="" coords="234,188,361,229"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a" title="Igor::iWidgetButton\l::setText" alt="" coords="231,253,364,295"/>
+</map>

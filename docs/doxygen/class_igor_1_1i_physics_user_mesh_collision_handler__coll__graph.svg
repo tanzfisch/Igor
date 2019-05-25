@@ -11,16 +11,13 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-347 225.5,-347 225.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="57.5,-0.5 57.5,-30.5 214.5,-30.5 214.5,-0.5 57.5,-0.5"/>
 <text text-anchor="start" x="65.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsUserMeshCollision</text>
 <text text-anchor="middle" x="136" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Handler</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_a_a_box.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_1_1i_a_a_box.html" target="_top" xlink:title="Igor::iAABox\&lt; float32 \&gt;">
 <polygon fill="white" stroke="black" points="77,-78.5 77,-97.5 195,-97.5 195,-78.5 77,-78.5"/>
 <text text-anchor="middle" x="136" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iAABox&lt; float32 &gt;</text>
 </a>
@@ -34,7 +31,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector3.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector3.html" target="_top" xlink:title="IgorAux::iaVector3\l\&lt; float32 \&gt;">
 <polygon fill="white" stroke="black" points="11.5,-156.5 11.5,-186.5 108.5,-186.5 108.5,-156.5 11.5,-156.5"/>
 <text text-anchor="start" x="19.5" y="-174.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector3</text>
 <text text-anchor="middle" x="60" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; float32 &gt;</text>
@@ -50,7 +47,7 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_vector3.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_vector3.html" target="_top" xlink:title="IgorAux::iaVector3\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="0,-234.5 0,-253.5 120,-253.5 120,-234.5 0,-234.5"/>
 <text text-anchor="middle" x="60" y="-241.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector3&lt; T &gt;</text>
 </a>
@@ -64,11 +61,8 @@
 </g>
 <!-- Node5 -->
 <g id="node5" class="node"><title>Node5</title>
-<g id="a_node5"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="45.5,-323.5 45.5,-342.5 74.5,-342.5 74.5,-323.5 45.5,-323.5"/>
 <text text-anchor="middle" x="60" y="-330.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node5&#45;&gt;Node4 -->
 <g id="edge4" class="edge"><title>Node5&#45;&gt;Node4</title>
@@ -80,7 +74,7 @@
 </g>
 <!-- Node6 -->
 <g id="node6" class="node"><title>Node6</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_a_a_box.html" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="class_igor_1_1i_a_a_box.html" target="_top" xlink:title="Igor::iAABox\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="126.5,-162 126.5,-181 221.5,-181 221.5,-162 126.5,-162"/>
 <text text-anchor="middle" x="174" y="-169" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iAABox&lt; T &gt;</text>
 </a>

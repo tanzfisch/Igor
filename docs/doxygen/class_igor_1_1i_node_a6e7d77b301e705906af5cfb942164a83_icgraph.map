@@ -1,0 +1,12 @@
+<map id="Igor::iNode::getKind" name="Igor::iNode::getKind">
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685" title="Igor::iNodeVisitorBoundings\l::preOrderVisit" alt="" coords="209,5,391,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_visitor_render_boundings.html#ab261bb0c51926523986831a16bf1e8d6" title="Igor::iNodeVisitorRender\lBoundings::preOrderVisit" alt="" coords="217,71,383,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_visitor_render_boundings.html#ab746148be84741a08deda6148bf1a4d5" title="Igor::iNodeVisitorRender\lBoundings::postOrderVisit" alt="" coords="213,136,387,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor_render_color_i_d.html#a4df2a8b810750c412c8d93ad2241f2da" title="Igor::iNodeVisitorRender\lColorID::preOrderVisit" alt="" coords="219,201,381,243"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_visitor_render_color_i_d.html#a21a08c0ea7c6be3e2e1006ab133c08ac" title="Igor::iNodeVisitorRender\lColorID::postOrderVisit" alt="" coords="219,267,381,308"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_visitor_update_transform.html#a68949eb0c13e13d98b38c91b8055fcad" title="Igor::iNodeVisitorUpdate\lTransform::preOrderVisit" alt="" coords="219,332,381,373"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node_visitor_update_transform.html#a76c8f22b5b7af627548d851cc3ef2ac6" title="Igor::iNodeVisitorUpdate\lTransform::postOrderVisit" alt="" coords="215,397,385,439"/>
+<area shape="rect" id="node9" href="$class_manipulator.html#a625692bdcdb2e123dbcba3d845ebbbcc" title="Manipulator::highlightSelected" alt="" coords="202,463,398,490"/>
+<area shape="rect" id="node10" href="$class_model_viewer.html#a5d60270216c2e46d070454536aefe54c" title="ModelViewer::setManipulatorMode" alt="" coords="189,514,411,541"/>
+<area shape="rect" id="node11" href="$class_model_viewer.html#a4f285cd99256bc37dd4b1e60919de91b" title="ModelViewer::renderNodeSelected" alt="" coords="189,565,411,591"/>
+</map>

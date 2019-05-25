@@ -1,6 +1,5 @@
-<map id="C:/dev/Igor/Igor/src/OMPF/src/ompfResourceSearchPathChunk.h" name="C:/dev/Igor/Igor/src/OMPF/src/ompfResourceSearchPathChunk.h">
-<area shape="rect" id="node1" title=" " alt="" coords="213,5,428,61"/>
-<area shape="rect" id="node2" href="$i_model_data_i_o_o_m_p_f_8cpp.html" title=" " alt="" coords="5,117,220,158"/>
-<area shape="rect" id="node3" href="$_o_m_p_f_8cpp.html" title=" " alt="" coords="244,117,397,158"/>
-<area shape="rect" id="node4" href="$ompf_resource_search_path_chunk_8cpp.html" title=" " alt="" coords="421,109,636,165"/>
+<map id="C:/dev/Igor/src/OMPF/src/ompfResourceSearchPathChunk.h" name="C:/dev/Igor/src/OMPF/src/ompfResourceSearchPathChunk.h">
+<area shape="rect" id="node2" href="$i_model_data_i_o_o_m_p_f_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iModelDataIOOMPF.cpp" alt="" coords="5,117,195,158"/>
+<area shape="rect" id="node3" href="$_o_m_p_f_8cpp.html" title="C:/dev/Igor/src/OMPF\l/src/OMPF.cpp" alt="" coords="219,117,365,158"/>
+<area shape="rect" id="node4" href="$ompf_resource_search_path_chunk_8cpp.html" title="C:/dev/Igor/src/OMPF\l/src/ompfResourceSearchPath\lChunk.cpp" alt="" coords="390,109,589,165"/>
 </map>

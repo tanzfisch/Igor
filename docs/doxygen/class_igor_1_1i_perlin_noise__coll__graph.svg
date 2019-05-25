@@ -11,15 +11,12 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-91 180,-91 180,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="43,-0.5 43,-19.5 133,-19.5 133,-0.5 43,-0.5"/>
 <text text-anchor="middle" x="88" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPerlinNoise</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_random_number_generator.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_random_number_generator.html" target="_top" xlink:title="IgorAux::iaRandomNumberGenerator">
 <polygon fill="white" stroke="black" points="0,-67.5 0,-86.5 176,-86.5 176,-67.5 0,-67.5"/>
 <text text-anchor="middle" x="88" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaRandomNumberGenerator</text>
 </a>

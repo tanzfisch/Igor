@@ -1,5 +1,4 @@
 <map id="Igor::iModelDataIOOMPF::createTransformChunk" name="Igor::iModelDataIOOMPF::createTransformChunk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,172,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" title=" " alt="" coords="245,5,386,47"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_transform_chunk.html#a944081109fb6674dd5b9dfb88345fe59" title=" " alt="" coords="220,71,411,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" title="Igor::iNodeTransform\l::getMatrix" alt="" coords="245,5,386,47"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_transform_chunk.html#a944081109fb6674dd5b9dfb88345fe59" title="OMPF::ompfTransformChunk\l::setMatrix" alt="" coords="220,71,411,112"/>
 </map>

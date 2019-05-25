@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iVoxelTerrain.h" name="C:/dev/Igor/Igor/src/Igor/src/iVoxelTerrain.h">
-<area shape="rect" id="node1" title=" " alt="" coords="381,5,540,47"/>
-<area shape="rect" id="node2" href="$i_task_voxel_terrain_8cpp.html" title=" " alt="" coords="5,95,207,136"/>
-<area shape="rect" id="node3" href="$i_voxel_operation_box_8cpp.html" title=" " alt="" coords="231,95,445,136"/>
-<area shape="rect" id="node4" href="$i_voxel_operation_sphere_8cpp.html" title=" " alt="" coords="469,95,700,136"/>
-<area shape="rect" id="node5" href="$i_voxel_terrain_8cpp.html" title=" " alt="" coords="725,95,898,136"/>
+<map id="C:/dev/Igor/src/Igor/src/iVoxelTerrain.h" name="C:/dev/Igor/src/Igor/src/iVoxelTerrain.h">
+<area shape="rect" id="node2" href="$i_task_voxel_terrain_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskVoxelTerrain.cpp" alt="" coords="5,95,181,136"/>
+<area shape="rect" id="node3" href="$i_voxel_operation_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelOperationBox.cpp" alt="" coords="206,95,394,136"/>
+<area shape="rect" id="node4" href="$i_voxel_operation_sphere_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelOperationSphere.cpp" alt="" coords="418,95,625,136"/>
+<area shape="rect" id="node5" href="$i_voxel_terrain_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrain.cpp" alt="" coords="649,95,797,136"/>
 </map>

@@ -9,68 +9,65 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 133)">
 <title>IgorAux::iaSerializable::readUTF8</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-133 397,-133 397,4 -4,4"/>
-<!-- Node84 -->
-<g id="node1" class="node"><title>Node84</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-49.5 0,-79.5 113,-79.5 113,-49.5 0,-49.5"/>
 <text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSerializable</text>
 <text text-anchor="middle" x="56.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::readUTF8</text>
-</a>
 </g>
-</g>
-<!-- Node85 -->
-<g id="node2" class="node"><title>Node85</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_serializable.html#a184dcce405b1bbbee0d9bac60ac26c02" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_serializable.html#a184dcce405b1bbbee0d9bac60ac26c02" target="_top" xlink:title="IgorAux::iaSerializable\l::readUInt16">
 <polygon fill="white" stroke="black" points="149,-98.5 149,-128.5 262,-128.5 262,-98.5 149,-98.5"/>
 <text text-anchor="start" x="157" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSerializable</text>
 <text text-anchor="middle" x="205.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::readUInt16</text>
 </a>
 </g>
 </g>
-<!-- Node84&#45;&gt;Node85 -->
-<g id="edge1" class="edge"><title>Node84&#45;&gt;Node85</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M102.804,-79.6014C117.544,-84.5147 134.067,-90.0224 149.44,-95.1466"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="148.752,-98.6065 159.345,-98.4484 150.965,-91.9657 148.752,-98.6065"/>
 </g>
-<!-- Node86 -->
-<g id="node3" class="node"><title>Node86</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_serializable.html#a2f9b887f1bbc3bfadcb423afe1808f1f" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_serializable.html#a2f9b887f1bbc3bfadcb423afe1808f1f" target="_top" xlink:title="IgorAux::iaSerializable\l::read">
 <polygon fill="white" stroke="black" points="149,-49.5 149,-79.5 262,-79.5 262,-49.5 149,-49.5"/>
 <text text-anchor="start" x="157" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSerializable</text>
 <text text-anchor="middle" x="205.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::read</text>
 </a>
 </g>
 </g>
-<!-- Node84&#45;&gt;Node86 -->
-<g id="edge2" class="edge"><title>Node84&#45;&gt;Node86</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M113.074,-64.5C121.489,-64.5 130.238,-64.5 138.842,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="138.847,-68.0001 148.847,-64.5 138.847,-61.0001 138.847,-68.0001"/>
 </g>
-<!-- Node87 -->
-<g id="node4" class="node"><title>Node87</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_string.html#af98a3f182e1624436ef7c2413934a85d" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_string.html#af98a3f182e1624436ef7c2413934a85d" target="_top" xlink:title="IgorAux::iaString::\lsetUTF8">
 <polygon fill="white" stroke="black" points="158,-0.5 158,-30.5 253,-30.5 253,-0.5 158,-0.5"/>
 <text text-anchor="start" x="166" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::</text>
 <text text-anchor="middle" x="205.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">setUTF8</text>
 </a>
 </g>
 </g>
-<!-- Node84&#45;&gt;Node87 -->
-<g id="edge3" class="edge"><title>Node84&#45;&gt;Node87</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M102.804,-49.3986C117.544,-44.4853 134.067,-38.9776 149.44,-33.8534"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="150.965,-37.0343 159.345,-30.5516 148.752,-30.3935 150.965,-37.0343"/>
 </g>
-<!-- Node88 -->
-<g id="node5" class="node"><title>Node88</title>
-<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_string.html#abc7b1d9a289302f79de14684de13ab1f" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_string.html#abc7b1d9a289302f79de14684de13ab1f" target="_top" xlink:title="IgorAux::iaString::\lclear">
 <polygon fill="white" stroke="black" points="298,-0.5 298,-30.5 393,-30.5 393,-0.5 298,-0.5"/>
 <text text-anchor="start" x="306" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::</text>
 <text text-anchor="middle" x="345.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">clear</text>
 </a>
 </g>
 </g>
-<!-- Node87&#45;&gt;Node88 -->
-<g id="edge4" class="edge"><title>Node87&#45;&gt;Node88</title>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M253.221,-15.5C264.236,-15.5 276.1,-15.5 287.512,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="287.828,-19.0001 297.828,-15.5 287.828,-12.0001 287.828,-19.0001"/>
 </g>

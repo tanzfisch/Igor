@@ -1,4 +1,3 @@
 <map id="UserControlParticleSystem::onOpenStartSizeGradientEditor" name="UserControlParticleSystem::onOpenStartSizeGradientEditor">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,217,47"/>
-<area shape="rect" id="node2" href="$class_user_control_particle_system.html#a0e7fe0186c674fb47d160bd0fa1cad75" title=" " alt="" coords="265,5,480,47"/>
+<area shape="rect" id="node2" href="$class_user_control_particle_system.html#a0e7fe0186c674fb47d160bd0fa1cad75" title="UserControlParticleSystem\l::onCloseStartSizeGradientEditor" alt="" coords="265,5,480,47"/>
 </map>

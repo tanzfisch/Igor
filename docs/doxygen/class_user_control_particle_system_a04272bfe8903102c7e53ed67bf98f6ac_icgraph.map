@@ -1,5 +1,4 @@
 <map id="UserControlParticleSystem::onCloseVisibilityGradientEditor" name="UserControlParticleSystem::onCloseVisibilityGradientEditor">
-<area shape="rect" id="node1" title=" " alt="" coords="487,5,696,47"/>
-<area shape="rect" id="node2" href="$class_user_control_particle_system.html#a81723e808667efe2bcb3b3aa1b5c8312" title=" " alt="" coords="232,5,439,47"/>
-<area shape="rect" id="node3" href="$class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" title=" " alt="" coords="5,5,184,47"/>
+<area shape="rect" id="node2" href="$class_user_control_particle_system.html#a81723e808667efe2bcb3b3aa1b5c8312" title="UserControlParticleSystem\l::onOpenVisibilityGradientEditor" alt="" coords="263,5,469,47"/>
+<area shape="rect" id="node3" href="$class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" title="UserControlParticleSystem\l::initGUI" alt="" coords="517,5,696,47"/>
 </map>

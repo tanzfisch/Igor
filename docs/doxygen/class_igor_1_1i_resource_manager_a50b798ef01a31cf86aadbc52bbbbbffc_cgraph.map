@@ -1,6 +1,5 @@
 <map id="Igor::iResourceManager::getPath" name="Igor::iResourceManager::getPath">
-<area shape="rect" id="node1" title=" " alt="" coords="5,57,164,98"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_file.html#a17e13f21e78652ef9435338acedf2832" title=" " alt="" coords="217,5,359,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_file.html#a0e3107c94c9e4d1c31981166f421ee0f" title=" " alt="" coords="212,57,364,98"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_directory.html#a9dd49ace0ad968ebeedbd1f862beaf2b" title=" " alt="" coords="220,122,356,163"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_file.html#ab459bfac7c17fd8bb45b92a07fcdcbf2" title="IgorAux::iaFile::exist" alt="" coords="217,5,359,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_file.html#a12cc3de5e34e54df43e15e5a6fbd105e" title="IgorAux::iaFile::getFull\lFileName" alt="" coords="212,57,364,98"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_directory.html#a9dd49ace0ad968ebeedbd1f862beaf2b" title="IgorAux::iaDirectory\l::getPathSeperator" alt="" coords="220,122,356,163"/>
 </map>

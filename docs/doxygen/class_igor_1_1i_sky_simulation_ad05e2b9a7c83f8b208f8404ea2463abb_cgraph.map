@@ -1,23 +1,22 @@
 <map id="Igor::iSkySimulation::init" name="Igor::iSkySimulation::init">
-<area shape="rect" id="node1" title=" " alt="" coords="5,483,144,525"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_scene.html#ab45a6b64fa3cd065f8434c96432b6f9b" title=" " alt="" coords="197,385,341,412"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title=" " alt="" coords="192,436,347,463"/>
-<area shape="rect" id="node17" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title=" " alt="" coords="197,491,341,517"/>
-<area shape="rect" id="node18" href="$class_igor_1_1i_node_sky_box.html#acb1b3b3b1c0afc25c566abe20bda14ac" title=" " alt="" coords="423,543,561,585"/>
-<area shape="rect" id="node19" href="$class_igor_1_1i_sky_simulation.html#ada20beecede15afa328ea95ebf15f136" title=" " alt="" coords="200,603,339,645"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title=" " alt="" coords="669,533,800,560"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#adbeb716577ae857dc4274e8285dd94fe" title=" " alt="" coords="418,181,566,208"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a0392b6251631e79675f7416827335b70" title=" " alt="" coords="419,232,565,259"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title=" " alt="" coords="395,426,589,467"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143" title=" " alt="" coords="643,173,826,200"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f" title=" " alt="" coords="653,225,816,266"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="673,291,796,317"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_scene.html#ab362507531b6b5207a3045283e9820c0" title=" " alt="" coords="659,341,810,368"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title=" " alt="" coords="655,5,815,32"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e" title=" " alt="" coords="639,56,830,83"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21" title=" " alt="" coords="653,107,816,149"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title=" " alt="" coords="880,433,1028,460"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title=" " alt="" coords="637,467,832,509"/>
-<area shape="rect" id="node20" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title=" " alt="" coords="428,674,556,715"/>
-<area shape="rect" id="node21" href="$class_igor_1_1i_sky_light_node.html#af7ea9d097996ca00bd0880aa99e15056" title=" " alt="" coords="425,609,559,650"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_scene.html#ab45a6b64fa3cd065f8434c96432b6f9b" title="Igor::iScene::getRoot" alt="" coords="197,385,341,412"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title="Igor::iNode::insertNode" alt="" coords="192,436,347,463"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title="Igor::iNode::setName" alt="" coords="197,491,341,517"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_node_sky_box.html#acb1b3b3b1c0afc25c566abe20bda14ac" title="Igor::iNodeSkyBox::\lsetAlpha" alt="" coords="423,543,561,585"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_sky_simulation.html#ada20beecede15afa328ea95ebf15f136" title="Igor::iSkySimulation\l::update" alt="" coords="200,603,339,645"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title="Igor::iNode::isChild" alt="" coords="669,533,800,560"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#adbeb716577ae857dc4274e8285dd94fe" title="Igor::iNode::setParent" alt="" coords="418,181,566,208"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a0392b6251631e79675f7416827335b70" title="Igor::iNode::setScene" alt="" coords="419,232,565,259"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title="Igor::iNode::setTransformation\lDirty" alt="" coords="395,426,589,467"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143" title="Igor::iNode::onPreSetScene" alt="" coords="643,173,826,200"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f" title="Igor::iScene::signalNode\lRemoved" alt="" coords="653,225,816,266"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="673,291,796,317"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_scene.html#af975e601d89386f2ef11745ecb831870" title="Igor::iScene::getName" alt="" coords="659,341,810,368"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title="Igor::iNode::hasChildren" alt="" coords="655,5,815,32"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e" title="Igor::iNode::onPostSetScene" alt="" coords="639,56,830,83"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21" title="Igor::iScene::signalNode\lAdded" alt="" coords="653,107,816,149"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title="Igor::iNode::getParent" alt="" coords="880,433,1028,460"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title="Igor::iNode::setTransformation\lDirtyUp" alt="" coords="637,467,832,509"/>
+<area shape="rect" id="node20" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title="IgorAux::iaMatrix::\lrotate" alt="" coords="428,674,556,715"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_sky_light_node.html#af7ea9d097996ca00bd0880aa99e15056" title="Igor::iSkyLightNode\l::setLightDirection" alt="" coords="425,609,559,650"/>
 </map>

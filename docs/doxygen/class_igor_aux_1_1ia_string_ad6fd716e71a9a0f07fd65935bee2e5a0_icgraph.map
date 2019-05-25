@@ -1,8 +1,7 @@
 <map id="IgorAux::iaString::insert" name="IgorAux::iaString::insert">
-<area shape="rect" id="node1" title=" " alt="" coords="676,39,803,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" title=" " alt="" coords="455,5,598,47"/>
-<area shape="rect" id="node3" href="$class_model_viewer.html#af14b78d49ac5d577299bb6bd2f7e0a4e" title=" " alt="" coords="425,71,628,112"/>
-<area shape="rect" id="node4" href="$class_model_viewer.html#a86025a02eb0543dafd85da29a585741b" title=" " alt="" coords="211,78,377,105"/>
-<area shape="rect" id="node5" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title=" " alt="" coords="13,53,155,79"/>
-<area shape="rect" id="node6" href="$class_model_viewer.html#a247bac03643084abda6e880573312206" title=" " alt="" coords="5,103,163,130"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" title="Igor::iWidgetTextEdit\l::handleASCII" alt="" coords="210,5,353,47"/>
+<area shape="rect" id="node3" href="$class_model_viewer.html#af14b78d49ac5d577299bb6bd2f7e0a4e" title="ModelViewer::onFileSaveDialog\lClosed" alt="" coords="180,71,383,112"/>
+<area shape="rect" id="node4" href="$class_model_viewer.html#a86025a02eb0543dafd85da29a585741b" title="ModelViewer::onSaveFile" alt="" coords="431,78,597,105"/>
+<area shape="rect" id="node5" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title="ModelViewer::initGUI" alt="" coords="653,53,795,79"/>
+<area shape="rect" id="node6" href="$class_model_viewer.html#a247bac03643084abda6e880573312206" title="ModelViewer::deinitGUI" alt="" coords="645,103,803,130"/>
 </map>

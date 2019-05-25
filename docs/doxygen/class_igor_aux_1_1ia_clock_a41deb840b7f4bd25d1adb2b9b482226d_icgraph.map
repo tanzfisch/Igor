@@ -1,5 +1,4 @@
 <map id="IgorAux::iaClock::getClockTicks" name="IgorAux::iaClock::getClockTicks">
-<area shape="rect" id="node1" title=" " alt="" coords="185,23,361,65"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_timer.html#a50879877d91772df1419a9fed9053ddc" title=" " alt="" coords="7,5,136,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_timer.html#aaa87b03d5a746e8bf7948e0fed4636f1" title=" " alt="" coords="5,56,137,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_timer.html#a50879877d91772df1419a9fed9053ddc" title="Igor::iTimer::iTimer" alt="" coords="231,5,360,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_timer.html#aaa87b03d5a746e8bf7948e0fed4636f1" title="Igor::iTimer::handle" alt="" coords="229,56,361,83"/>
 </map>

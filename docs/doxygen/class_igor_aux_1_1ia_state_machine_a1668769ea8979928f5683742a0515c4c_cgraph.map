@@ -1,12 +1,11 @@
 <map id="IgorAux::iaStateMachine::openGate" name="IgorAux::iaStateMachine::openGate">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,169,145"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#ae4e14aa4dfe04b99756e5c148c387690" title=" " alt="" coords="217,71,381,112"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5" title=" " alt="" coords="217,136,381,177"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_transition.html#aa740e5975f77477e4d8d4cde50d631d6" title=" " alt="" coords="441,5,581,47"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_transition.html#adf84c0c937ee40e70bc84067879a471c" title=" " alt="" coords="441,71,581,112"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_state_machine.html#aa06584a2a534d2c2f1107c146e293de0" title=" " alt="" coords="429,136,593,177"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_state_machine.html#ad83039a214cc8667422fa3f9639950f2" title=" " alt="" coords="429,201,593,243"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_state_machine.html#a36f06385262e4b484fb6c4c9dc933a72" title=" " alt="" coords="429,267,593,308"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_state.html#a93d14d53966c658d848cd41a2ce5655c" title=" " alt="" coords="641,143,807,170"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_state.html#a89809a8e64614e76f3cdfb7c9111bb0a" title=" " alt="" coords="648,274,800,301"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#ae4e14aa4dfe04b99756e5c148c387690" title="IgorAux::iaStateMachine\l::getTransition" alt="" coords="217,71,381,112"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5" title="IgorAux::iaStateMachine\l::transit" alt="" coords="217,136,381,177"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_transition.html#aa740e5975f77477e4d8d4cde50d631d6" title="IgorAux::iaTransition\l::getFrom" alt="" coords="441,5,581,47"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_transition.html#adf84c0c937ee40e70bc84067879a471c" title="IgorAux::iaTransition\l::getTo" alt="" coords="441,71,581,112"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_state_machine.html#aa06584a2a534d2c2f1107c146e293de0" title="IgorAux::iaStateMachine\l::reEnterCurrentState" alt="" coords="429,136,593,177"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_state_machine.html#ad83039a214cc8667422fa3f9639950f2" title="IgorAux::iaStateMachine\l::getState" alt="" coords="429,201,593,243"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_state_machine.html#a36f06385262e4b484fb6c4c9dc933a72" title="IgorAux::iaStateMachine\l::enterCurrentState" alt="" coords="429,267,593,308"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_state.html#a93d14d53966c658d848cd41a2ce5655c" title="IgorAux::iaState::reEnter" alt="" coords="641,143,807,170"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_state.html#a89809a8e64614e76f3cdfb7c9111bb0a" title="IgorAux::iaState::enter" alt="" coords="648,274,800,301"/>
 </map>

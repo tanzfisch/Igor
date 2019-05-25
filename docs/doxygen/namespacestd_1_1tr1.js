@@ -1,7 +1,7 @@
 var namespacestd_1_1tr1 =
 [
     [ "gtest_internal", "namespacestd_1_1tr1_1_1gtest__internal.html", "namespacestd_1_1tr1_1_1gtest__internal" ],
-    [ "tuple", "classstd_1_1tr1_1_1tuple.html", "classstd_1_1tr1_1_1tuple" ],
+    [ "tuple", "singletonstd_1_1tr1_1_1tuple.html", "singletonstd_1_1tr1_1_1tuple" ],
     [ "tuple<>", "classstd_1_1tr1_1_1tuple_3_4.html", "classstd_1_1tr1_1_1tuple_3_4" ],
     [ "tuple_element", "structstd_1_1tr1_1_1tuple__element.html", null ],
     [ "tuple_size", "structstd_1_1tr1_1_1tuple__size.html", null ],

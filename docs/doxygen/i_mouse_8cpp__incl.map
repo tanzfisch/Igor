@@ -1,31 +1,20 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iMouse.cpp" name="C:/dev/Igor/Igor/src/Igor/src/iMouse.cpp">
-<area shape="rect" id="node1" title=" " alt="" coords="725,5,865,47"/>
-<area shape="rect" id="node2" href="$i_mouse_8h.html" title=" " alt="" coords="350,95,424,121"/>
-<area shape="rect" id="node7" href="$ia_console_8h.html" title=" " alt="" coords="847,244,938,271"/>
-<area shape="rect" id="node25" title=" " alt="" coords="898,95,985,121"/>
-<area shape="rect" id="node26" title=" " alt="" coords="1010,95,1103,121"/>
-<area shape="rect" id="node27" href="$i_window_8h.html" title=" " alt="" coords="690,95,772,121"/>
-<area shape="rect" id="node29" href="$i_o_s_event_8h.html" title=" " alt="" coords="54,95,141,121"/>
-<area shape="rect" id="node3" href="$ia_event_8h.html" title=" " alt="" coords="591,169,666,196"/>
-<area shape="rect" id="node14" href="$i_key_code_map_8h.html" title=" " alt="" coords="402,169,516,196"/>
-<area shape="rect" id="node19" href="$i_rectangle_8h.html" title=" " alt="" coords="181,169,276,196"/>
-<area shape="rect" id="node21" href="$ia_vector2_8h.html" title=" " alt="" coords="239,244,327,271"/>
-<area shape="rect" id="node24" href="$i_o_s_event_listener_8h.html" title=" " alt="" coords="23,169,156,196"/>
-<area shape="rect" id="node4" href="$ia_mutex_8h.html" title=" " alt="" coords="676,393,754,420"/>
-<area shape="rect" id="node6" href="$ia_delegate_8h.html" title=" " alt="" coords="576,244,670,271"/>
-<area shape="rect" id="node13" title=" " alt="" coords="543,319,599,345"/>
-<area shape="rect" id="node5" href="$ia_defines_8h.html" title=" " alt="" coords="462,468,549,495"/>
-<area shape="rect" id="node8" href="$ia_singleton_8h.html" title=" " alt="" coords="624,319,721,345"/>
-<area shape="rect" id="node9" href="$ia_clock_8h.html" title=" " alt="" coords="934,393,1010,420"/>
-<area shape="rect" id="node10" title=" " alt="" coords="797,319,862,345"/>
-<area shape="rect" id="node11" title=" " alt="" coords="887,319,959,345"/>
-<area shape="rect" id="node12" title=" " alt="" coords="983,319,1050,345"/>
-<area shape="rect" id="node15" href="$ia_string_8h.html" title=" " alt="" coords="423,244,500,271"/>
-<area shape="rect" id="node17" href="$i_defines_8h.html" title=" " alt="" coords="136,244,214,271"/>
-<area shape="rect" id="node18" title=" " alt="" coords="352,244,398,271"/>
-<area shape="rect" id="node16" title=" " alt="" coords="399,319,468,345"/>
-<area shape="rect" id="node20" href="$i_rectangle_8inl.html" title=" " alt="" coords="12,244,112,271"/>
-<area shape="rect" id="node22" title=" " alt="" coords="196,319,255,345"/>
-<area shape="rect" id="node23" href="$ia_vector2_8inl.html" title=" " alt="" coords="280,319,374,345"/>
-<area shape="rect" id="node28" title=" " alt="" coords="690,169,772,196"/>
+<map id="C:/dev/Igor/src/Igor/src/iMouse.cpp" name="C:/dev/Igor/src/Igor/src/iMouse.cpp">
+<area shape="rect" id="node2" href="$i_mouse_8h.html" title="iMouse.h" alt="" coords="350,95,424,121"/>
+<area shape="rect" id="node7" href="$ia_console_8h.html" title="iaConsole.h" alt="" coords="847,244,938,271"/>
+<area shape="rect" id="node27" href="$i_window_8h.html" title="iWindow.h" alt="" coords="690,95,772,121"/>
+<area shape="rect" id="node29" href="$i_o_s_event_8h.html" title="iOSEvent.h" alt="" coords="54,95,141,121"/>
+<area shape="rect" id="node3" href="$ia_event_8h.html" title="iaEvent.h" alt="" coords="591,169,666,196"/>
+<area shape="rect" id="node14" href="$i_key_code_map_8h.html" title="iKeyCodeMap.h" alt="" coords="402,169,516,196"/>
+<area shape="rect" id="node19" href="$i_rectangle_8h.html" title="iRectangle.h" alt="" coords="181,169,276,196"/>
+<area shape="rect" id="node21" href="$ia_vector2_8h.html" title="iaVector2.h" alt="" coords="239,244,327,271"/>
+<area shape="rect" id="node24" href="$i_o_s_event_listener_8h.html" title="iOSEventListener.h" alt="" coords="23,169,156,196"/>
+<area shape="rect" id="node4" href="$ia_mutex_8h.html" title="iaMutex.h" alt="" coords="676,393,754,420"/>
+<area shape="rect" id="node6" href="$ia_delegate_8h.html" title="iaDelegate.h" alt="" coords="576,244,670,271"/>
+<area shape="rect" id="node5" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="462,468,549,495"/>
+<area shape="rect" id="node8" href="$ia_singleton_8h.html" title="iaSingleton.h" alt="" coords="624,319,721,345"/>
+<area shape="rect" id="node9" href="$ia_clock_8h.html" title="iaClock.h" alt="" coords="934,393,1010,420"/>
+<area shape="rect" id="node15" href="$ia_string_8h.html" title="iaString.h" alt="" coords="423,244,500,271"/>
+<area shape="rect" id="node17" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="136,244,214,271"/>
+<area shape="rect" id="node20" href="$i_rectangle_8inl.html" title="iRectangle.inl" alt="" coords="12,244,112,271"/>
+<area shape="rect" id="node23" href="$ia_vector2_8inl.html" title="iaVector2.inl" alt="" coords="280,319,374,345"/>
 </map>
