@@ -1,7 +1,6 @@
 <map id="Igor::iTaskPrepareCollision::run" name="Igor::iTaskPrepareCollision::run">
-<area shape="rect" id="node1" title=" " alt="" coords="5,64,208,91"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_task.html#a19818331fd89e2705c032f0631121f24" title=" " alt="" coords="272,5,427,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="264,57,435,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics_collision_config.html#a44edae4b322380a8b4fa292b6cf6079d" title=" " alt="" coords="256,122,443,163"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics_collision.html#a5ac6c86549b5ea83cd8fcf43778ce154" title=" " alt="" coords="491,122,641,163"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_task.html#a19818331fd89e2705c032f0631121f24" title="Igor::iTask::getWorldID" alt="" coords="272,5,427,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;::getInstance" alt="" coords="264,57,435,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics_collision_config.html#a44edae4b322380a8b4fa292b6cf6079d" title="Igor::iPhysicsCollisionConfig\l::finalize" alt="" coords="256,122,443,163"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics_collision.html#a5ac6c86549b5ea83cd8fcf43778ce154" title="Igor::iPhysicsCollision\l::getID" alt="" coords="491,122,641,163"/>
 </map>

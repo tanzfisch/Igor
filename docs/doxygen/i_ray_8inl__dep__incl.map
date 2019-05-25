@@ -1,10 +1,9 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iRay.inl" name="C:/dev/Igor/Igor/src/Igor/src/iRay.inl">
-<area shape="rect" id="node1" title=" " alt="" coords="446,5,577,47"/>
-<area shape="rect" id="node2" href="$i_ray_8h.html" title=" " alt="" coords="446,95,577,136"/>
-<area shape="rect" id="node3" href="$i_intersection_8h.html" title=" " alt="" coords="434,184,589,225"/>
-<area shape="rect" id="node4" href="$i_octree_8cpp.html" title=" " alt="" coords="5,281,145,322"/>
-<area shape="rect" id="node5" href="$i_physics_user_mesh_collision_handler_8cpp.html" title=" " alt="" coords="169,273,400,329"/>
-<area shape="rect" id="node6" href="$i_voxel_terrain_8cpp.html" title=" " alt="" coords="425,281,598,322"/>
-<area shape="rect" id="node7" href="$i_widget_color_gradient_8cpp.html" title=" " alt="" coords="622,281,843,322"/>
-<area shape="rect" id="node8" href="$i_widget_graph_8cpp.html" title=" " alt="" coords="868,281,1045,322"/>
+<map id="C:/dev/Igor/src/Igor/src/iRay.inl" name="C:/dev/Igor/src/Igor/src/iRay.inl">
+<area shape="rect" id="node2" href="$i_ray_8h.html" title="C:/dev/Igor/src/Igor\l/src/iRay.h" alt="" coords="400,95,531,136"/>
+<area shape="rect" id="node3" href="$i_intersection_8h.html" title="C:/dev/Igor/src/Igor\l/src/iIntersection.h" alt="" coords="400,184,531,225"/>
+<area shape="rect" id="node4" href="$i_octree_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iOctree.cpp" alt="" coords="5,281,136,322"/>
+<area shape="rect" id="node5" href="$i_physics_user_mesh_collision_handler_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iPhysicsUserMeshCollision\lHandler.cpp" alt="" coords="161,273,367,329"/>
+<area shape="rect" id="node6" href="$i_voxel_terrain_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrain.cpp" alt="" coords="391,281,539,322"/>
+<area shape="rect" id="node7" href="$i_widget_color_gradient_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetColorGradient.cpp" alt="" coords="563,281,759,322"/>
+<area shape="rect" id="node8" href="$i_widget_graph_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetGraph.cpp" alt="" coords="784,281,936,322"/>
 </map>

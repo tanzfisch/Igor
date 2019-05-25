@@ -1,8 +1,7 @@
 <map id="IgorAux::iaString::itoa" name="IgorAux::iaString::itoa">
-<area shape="rect" id="node1" title=" " alt="" coords="220,143,367,170"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_b_j.html#a24ab83198e69cc940e35856177b72149" title=" " alt="" coords="11,5,166,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_model_data_i_o_o_b_j.html#acf101cb9fcef0665f67e72f900b1bfcc" title=" " alt="" coords="11,71,166,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_statistics_visualizer.html#afe5bc54c848d17fdc2ae7b901eb26b33" title=" " alt="" coords="5,136,172,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_voxel_terrain.html#a2866e4ad74ac190ae4591a64329297b0" title=" " alt="" coords="25,201,152,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#aefeff332486029919ccc2cd41608d67a" title=" " alt="" coords="18,267,159,294"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_b_j.html#a24ab83198e69cc940e35856177b72149" title="Igor::iModelDataIOOBJ\l::iModelDataIOOBJ" alt="" coords="206,5,361,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_model_data_i_o_o_b_j.html#acf101cb9fcef0665f67e72f900b1bfcc" title="Igor::iModelDataIOOBJ\l::readGroup" alt="" coords="206,71,361,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_statistics_visualizer.html#afe5bc54c848d17fdc2ae7b901eb26b33" title="Igor::iStatisticsVisualizer\l::drawStatistics" alt="" coords="200,136,367,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_voxel_terrain.html#a2866e4ad74ac190ae4591a64329297b0" title="Igor::iVoxelTerrain\l::updateMesh" alt="" coords="220,201,347,243"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#a4234f5803ed655efe05cd15b46478cfe" title="Igor::iWidget::getInfo" alt="" coords="213,267,354,294"/>
 </map>

@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iPhysicsCollision.h" name="C:/dev/Igor/Igor/src/Igor/src/iPhysicsCollision.h">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,188,47"/>
-<area shape="rect" id="node2" href="$i_defines_8h.html" title=" " alt="" coords="5,169,84,196"/>
-<area shape="rect" id="node4" href="$i_physics_world_8h.html" title=" " alt="" coords="38,95,155,121"/>
-<area shape="rect" id="node5" href="$ia_mutex_8h.html" title=" " alt="" coords="108,169,187,196"/>
-<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="52,244,139,271"/>
+<map id="C:/dev/Igor/src/Igor/src/iPhysicsCollision.h" name="C:/dev/Igor/src/Igor/src/iPhysicsCollision.h">
+<area shape="rect" id="node2" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="5,169,84,196"/>
+<area shape="rect" id="node4" href="$i_physics_world_8h.html" title="iPhysicsWorld.h" alt="" coords="38,95,155,121"/>
+<area shape="rect" id="node5" href="$ia_mutex_8h.html" title="iaMutex.h" alt="" coords="108,169,187,196"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="52,244,139,271"/>
 </map>

@@ -1,18 +1,17 @@
 <map id="IgorAux::iaStateMachine::getState" name="IgorAux::iaStateMachine::getState">
-<area shape="rect" id="node1" title=" " alt="" coords="481,429,645,471"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5" title=" " alt="" coords="243,37,407,79"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_state_machine.html#a28168f5d8e3160b64c4693ae34cfe103" title=" " alt="" coords="243,103,407,144"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_state_machine.html#abe2cd18bb4c8d0be2e0f6ae7cd7ff947" title=" " alt="" coords="243,168,407,209"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_state_machine.html#adc6557ba7e685f29ef3132731dbe157e" title=" " alt="" coords="232,233,419,275"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_state_machine.html#a7d72ac75ff56b2e1eb87dafa487292c7" title=" " alt="" coords="224,299,427,340"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_state_machine.html#a36595caadf2a27c4d8b6fdb1a5f4ac46" title=" " alt="" coords="231,364,419,405"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_state_machine.html#a7c3f8131f696637e19dc164f10350da2" title=" " alt="" coords="228,429,423,471"/>
-<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_state_machine.html#a33e7c2156ba05d1a90254399c1b2a4d7" title=" " alt="" coords="225,495,425,536"/>
-<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_state_machine.html#ad0fa255aec434b38b15417fcaa78eedd" title=" " alt="" coords="217,560,433,601"/>
-<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_state_machine.html#aed45487e6008fddcc1ca9404a1b555c7" title=" " alt="" coords="224,625,427,667"/>
-<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_state_machine.html#ac2ce3840e3f8878e758b8d56f6037170" title=" " alt="" coords="221,691,430,732"/>
-<area shape="rect" id="node15" href="$class_igor_aux_1_1ia_state_machine.html#a841e05bd14b2d1892f7e529aad97011f" title=" " alt="" coords="227,756,423,797"/>
-<area shape="rect" id="node16" href="$class_igor_aux_1_1ia_state_machine.html#a85d030f80748fc0d05d405ddb4e5336f" title=" " alt="" coords="220,821,431,863"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state_machine.html#ad884bcc26a5262c7c82ca505065be81b" title=" " alt="" coords="5,5,169,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_state_machine.html#a1668769ea8979928f5683742a0515c4c" title=" " alt="" coords="5,71,169,112"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5" title="IgorAux::iaStateMachine\l::transit" alt="" coords="243,37,407,79"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_state_machine.html#a28168f5d8e3160b64c4693ae34cfe103" title="IgorAux::iaStateMachine\l::setInitialState" alt="" coords="243,103,407,144"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_state_machine.html#abe2cd18bb4c8d0be2e0f6ae7cd7ff947" title="IgorAux::iaStateMachine\l::createTransition" alt="" coords="243,168,407,209"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_state_machine.html#adc6557ba7e685f29ef3132731dbe157e" title="IgorAux::iaStateMachine\l::registerEnterStateDelegate" alt="" coords="232,233,419,275"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_state_machine.html#a7d72ac75ff56b2e1eb87dafa487292c7" title="IgorAux::iaStateMachine\l::registerReEnterStateDelegate" alt="" coords="224,299,427,340"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_state_machine.html#a36595caadf2a27c4d8b6fdb1a5f4ac46" title="IgorAux::iaStateMachine\l::registerLeaveStateDelegate" alt="" coords="231,364,419,405"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_state_machine.html#a7c3f8131f696637e19dc164f10350da2" title="IgorAux::iaStateMachine\l::registerHandleStateDelegate" alt="" coords="228,429,423,471"/>
+<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_state_machine.html#a33e7c2156ba05d1a90254399c1b2a4d7" title="IgorAux::iaStateMachine\l::unregisterEnterStateDelegate" alt="" coords="225,495,425,536"/>
+<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_state_machine.html#ad0fa255aec434b38b15417fcaa78eedd" title="IgorAux::iaStateMachine\l::unregisterReEnterStateDelegate" alt="" coords="217,560,433,601"/>
+<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_state_machine.html#aed45487e6008fddcc1ca9404a1b555c7" title="IgorAux::iaStateMachine\l::unregisterLeaveStateDelegate" alt="" coords="224,625,427,667"/>
+<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_state_machine.html#ac2ce3840e3f8878e758b8d56f6037170" title="IgorAux::iaStateMachine\l::unregisterHandleStateDelegate" alt="" coords="221,691,430,732"/>
+<area shape="rect" id="node15" href="$class_igor_aux_1_1ia_state_machine.html#a841e05bd14b2d1892f7e529aad97011f" title="IgorAux::iaStateMachine\l::registerRenderStateDelegate" alt="" coords="227,756,423,797"/>
+<area shape="rect" id="node16" href="$class_igor_aux_1_1ia_state_machine.html#a85d030f80748fc0d05d405ddb4e5336f" title="IgorAux::iaStateMachine\l::unregisterRenderStateDelegate" alt="" coords="220,821,431,863"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_state_machine.html#ad884bcc26a5262c7c82ca505065be81b" title="IgorAux::iaStateMachine\l::doTransition" alt="" coords="481,5,645,47"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_state_machine.html#a1668769ea8979928f5683742a0515c4c" title="IgorAux::iaStateMachine\l::openGate" alt="" coords="481,71,645,112"/>
 </map>

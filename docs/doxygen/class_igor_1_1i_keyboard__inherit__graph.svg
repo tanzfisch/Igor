@@ -9,51 +9,48 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 159)">
 <title>Igor::iKeyboard</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-159 252.5,-159 252.5,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="53.5,-0.5 53.5,-19.5 135.5,-19.5 135.5,-0.5 53.5,-0.5"/>
 <text text-anchor="middle" x="94.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iKeyboard</text>
-</a>
 </g>
-</g>
-<!-- Node1 -->
-<g id="node2" class="node"><title>Node1</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_o_s_event_listener.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_o_s_event_listener.html" target="_top" xlink:title="Igor::iOSEventListener">
 <polygon fill="white" stroke="black" points="0,-63 0,-82 113,-82 113,-63 0,-63"/>
 <text text-anchor="middle" x="56.5" y="-70" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOSEventListener</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node0 -->
-<g id="edge1" class="edge"><title>Node1&#45;&gt;Node0</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M67.3539,-54.2194C74.4539,-42.9155 83.426,-28.631 89.0656,-19.6521"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="64.2995,-52.502 61.9445,-62.8318 70.2272,-56.2253 64.2995,-52.502"/>
 </g>
-<!-- Node2 -->
-<g id="node3" class="node"><title>Node2</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iKeyboard \&gt;">
 <polygon fill="white" stroke="black" points="131.5,-57.5 131.5,-87.5 235.5,-87.5 235.5,-57.5 131.5,-57.5"/>
 <text text-anchor="start" x="139.5" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="middle" x="183.5" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iKeyboard &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node0 -->
-<g id="edge2" class="edge"><title>Node2&#45;&gt;Node0</title>
+<!-- Node3&#45;&gt;Node1 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M154.335,-51.6743C138.323,-40.7895 119.292,-27.853 107.063,-19.5399"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="152.62,-54.7407 162.858,-57.468 156.555,-48.9516 152.62,-54.7407"/>
 </g>
-<!-- Node3 -->
-<g id="node4" class="node"><title>Node3</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title="IgorAux::iaSingleton\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="120,-135.5 120,-154.5 247,-154.5 247,-135.5 120,-135.5"/>
 <text text-anchor="middle" x="183.5" y="-142.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton&lt; T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node2 -->
-<g id="edge3" class="edge"><title>Node3&#45;&gt;Node2</title>
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge3" class="edge"><title>Node4&#45;&gt;Node3</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M183.5,-125.236C183.5,-113.408 183.5,-98.3829 183.5,-87.5762"/>
 <polygon fill="orange" stroke="orange" points="180,-125.355 183.5,-135.355 187,-125.355 180,-125.355"/>
 <text text-anchor="middle" x="216" y="-109" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; iKeyboard &gt;</text>

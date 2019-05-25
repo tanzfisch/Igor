@@ -1,0 +1,6 @@
+<map id="Igor::iPhysicsMaterialCombo::getMaterial1" name="Igor::iPhysicsMaterialCombo::getMaterial1">
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#abbdc57d23e7fc2223a77bbf8225759bf" title="Igor::iPhysics::setCollision\lCallback" alt="" coords="244,5,420,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a6f7fc029d486d1aeee8485e0c0bf1d2f" title="Igor::iPhysics::setSoftness" alt="" coords="243,71,421,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#ab47ce6dea8c9458ceafd4acfce22012f" title="Igor::iPhysics::setElasticity" alt="" coords="241,122,423,149"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a9ce93b6c07862cbb25fcc825ff24ba8e" title="Igor::iPhysics::setFriction" alt="" coords="247,173,417,199"/>
+</map>

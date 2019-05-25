@@ -1,10 +1,8 @@
 <map id="Igor::iWidgetNumberChooser" name="Igor::iWidgetNumberChooser">
-<area shape="rect" id="node1" title=" " alt="" coords="117,349,305,376"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="164,244,259,271"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="5,139,124,165"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_timer_handle.html" title=" " alt="" coords="148,139,275,165"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html" title=" " alt="" coords="299,139,459,165"/>
-<area shape="rect" id="node6" title=" " alt="" coords="463,5,501,32"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_rectangle.html" title=" " alt="" coords="484,139,627,165"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_rectangle.html" title=" " alt="" coords="440,244,604,271"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html" title="Igor::iWidget" alt="" coords="164,244,259,271"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,139,124,165"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_timer_handle.html" title="Igor::iTimerHandle" alt="" coords="148,139,275,165"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html" title="IgorAux::iaVector2\&lt; T \&gt;" alt="" coords="299,139,459,165"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_rectangle.html" title="Igor::iRectangle\&lt; T \&gt;" alt="" coords="484,139,627,165"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_rectangle.html" title="Igor::iRectangle\&lt; int32 \&gt;" alt="" coords="440,244,604,271"/>
 </map>

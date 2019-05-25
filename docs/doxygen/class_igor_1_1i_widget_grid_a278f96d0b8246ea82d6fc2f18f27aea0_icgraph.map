@@ -1,5 +1,4 @@
 <map id="Igor::iWidgetGrid::setSelectMode" name="Igor::iWidgetGrid::setSelectMode">
-<area shape="rect" id="node1" title=" " alt="" coords="217,39,344,80"/>
-<area shape="rect" id="node2" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title=" " alt="" coords="11,5,164,47"/>
-<area shape="rect" id="node3" href="$class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" title=" " alt="" coords="5,71,169,112"/>
+<area shape="rect" id="node2" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title="UserControlGraphView\l::preOrderVisit" alt="" coords="185,5,339,47"/>
+<area shape="rect" id="node3" href="$class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" title="UserControlMaterialView\l::refresh" alt="" coords="180,71,344,112"/>
 </map>

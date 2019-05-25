@@ -1,5 +1,4 @@
 <map id="Igor::iWidget::setMinSize" name="Igor::iWidget::setMinSize">
-<area shape="rect" id="node1" title=" " alt="" coords="208,46,376,73"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_check_box.html#a71c7bf404994e38ffd8432f55d4fd53e" title=" " alt="" coords="5,5,160,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_text_edit.html#aee9197ed13d7005e28fad00e43adc41f" title=" " alt="" coords="11,71,154,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_check_box.html#a71c7bf404994e38ffd8432f55d4fd53e" title="Igor::iWidgetCheckBox\l::calcMinSize" alt="" coords="221,5,376,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_text_edit.html#aee9197ed13d7005e28fad00e43adc41f" title="Igor::iWidgetTextEdit\l::calcMinSize" alt="" coords="227,71,370,112"/>
 </map>

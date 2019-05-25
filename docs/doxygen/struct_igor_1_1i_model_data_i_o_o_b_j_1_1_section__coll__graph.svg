@@ -11,16 +11,13 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-269 215,-269 215,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="36.5,-0.5 36.5,-30.5 152.5,-30.5 152.5,-0.5 36.5,-0.5"/>
 <text text-anchor="start" x="44.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOBJ</text>
 <text text-anchor="middle" x="94.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Section</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title="IgorAux::iaString">
 <polygon fill="white" stroke="black" points="0,-78.5 0,-97.5 89,-97.5 89,-78.5 0,-78.5"/>
 <text text-anchor="middle" x="44.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString</text>
 </a>
@@ -34,7 +31,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_mesh_builder.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_igor_1_1i_mesh_builder.html" target="_top" xlink:title="Igor::iMeshBuilder">
 <polygon fill="white" stroke="black" points="107,-78.5 107,-97.5 202,-97.5 202,-78.5 107,-78.5"/>
 <text text-anchor="middle" x="154.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
 </a>
@@ -48,7 +45,7 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_matrix.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_matrix.html" target="_top" xlink:title="IgorAux::iaMatrix\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="98,-145.5 98,-164.5 211,-164.5 211,-145.5 98,-145.5"/>
 <text text-anchor="middle" x="154.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix&lt; T &gt;</text>
 </a>
@@ -62,11 +59,8 @@
 </g>
 <!-- Node5 -->
 <g id="node5" class="node"><title>Node5</title>
-<g id="a_node5"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="140,-245.5 140,-264.5 169,-264.5 169,-245.5 140,-245.5"/>
 <text text-anchor="middle" x="154.5" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node5&#45;&gt;Node4 -->
 <g id="edge4" class="edge"><title>Node5&#45;&gt;Node4</title>

@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iModelDataIOOMPF::createTransformChunk</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 308,-84 308,4 -4,4"/>
-<!-- Node232 -->
-<g id="node1" class="node"><title>Node232</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 125,-54.5 125,-24.5 0,-24.5"/>
 <text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
 <text text-anchor="middle" x="62.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createTransformChunk</text>
-</a>
 </g>
-</g>
-<!-- Node233 -->
-<g id="node2" class="node"><title>Node233</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node_transform.html#a576c7abc9fdf717b81bc649d9dd80838" target="_top" xlink:title="Igor::iNodeTransform\l::getMatrix">
 <polygon fill="white" stroke="black" points="179.5,-49.5 179.5,-79.5 285.5,-79.5 285.5,-49.5 179.5,-49.5"/>
 <text text-anchor="start" x="187.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeTransform</text>
 <text text-anchor="middle" x="232.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getMatrix</text>
 </a>
 </g>
 </g>
-<!-- Node232&#45;&gt;Node233 -->
-<g id="edge1" class="edge"><title>Node232&#45;&gt;Node233</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M125.103,-48.6671C139.421,-50.7977 154.675,-53.0677 169.03,-55.2038"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="168.891,-58.7216 179.297,-56.7317 169.921,-51.7978 168.891,-58.7216"/>
 </g>
-<!-- Node234 -->
-<g id="node3" class="node"><title>Node234</title>
-<g id="a_node3"><a xlink:href="class_o_m_p_f_1_1ompf_transform_chunk.html#a944081109fb6674dd5b9dfb88345fe59" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_o_m_p_f_1_1ompf_transform_chunk.html#a944081109fb6674dd5b9dfb88345fe59" target="_top" xlink:title="OMPF::ompfTransformChunk\l::setMatrix">
 <polygon fill="white" stroke="black" points="161,-0.5 161,-30.5 304,-30.5 304,-0.5 161,-0.5"/>
 <text text-anchor="start" x="169" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfTransformChunk</text>
 <text text-anchor="middle" x="232.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setMatrix</text>
 </a>
 </g>
 </g>
-<!-- Node232&#45;&gt;Node234 -->
-<g id="edge2" class="edge"><title>Node232&#45;&gt;Node234</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M125.103,-30.6996C133.449,-29.5072 142.114,-28.2695 150.733,-27.0382"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="151.404,-30.4779 160.808,-25.5988 150.414,-23.5483 151.404,-30.4779"/>
 </g>

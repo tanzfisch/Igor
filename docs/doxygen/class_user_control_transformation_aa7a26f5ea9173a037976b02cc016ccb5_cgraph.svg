@@ -9,81 +9,78 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 182)">
 <title>UserControlTransformation::~UserControlTransformation</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-182 460,-182 460,4 -4,4"/>
-<!-- Node2 -->
-<g id="node1" class="node"><title>Node2</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-73.5 0,-103.5 143,-103.5 143,-73.5 0,-73.5"/>
 <text text-anchor="start" x="8" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlTransformation</text>
 <text text-anchor="middle" x="71.5" y="-80.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~UserControlTransformation</text>
-</a>
 </g>
-</g>
-<!-- Node3 -->
-<g id="node2" class="node"><title>Node3</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance">
 <polygon fill="white" stroke="black" points="179,-147.5 179,-177.5 328,-177.5 328,-147.5 179,-147.5"/>
 <text text-anchor="start" x="187" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="middle" x="253.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iNodeFactory &gt;::getInstance</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node3 -->
-<g id="edge1" class="edge"><title>Node2&#45;&gt;Node3</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M101.908,-103.506C123.056,-113.999 152.415,-127.965 179,-138.5 183.791,-140.398 188.798,-142.267 193.848,-144.073"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="192.974,-147.474 203.569,-147.457 195.276,-140.863 192.974,-147.474"/>
 </g>
-<!-- Node4 -->
-<g id="node3" class="node"><title>Node4</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node_factory.html#a0cb70c3acc0372b1d60b8a764e7745e3" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" target="_top" xlink:title="Igor::iNodeFactory\l::getNode">
 <polygon fill="white" stroke="black" points="205.5,-98.5 205.5,-128.5 301.5,-128.5 301.5,-98.5 205.5,-98.5"/>
 <text text-anchor="start" x="213.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeFactory</text>
 <text text-anchor="middle" x="253.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getNode</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node4 -->
-<g id="edge2" class="edge"><title>Node2&#45;&gt;Node4</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M143.124,-98.3089C160.416,-100.711 178.709,-103.251 195.284,-105.553"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="194.971,-109.043 205.358,-106.952 195.934,-102.11 194.971,-109.043"/>
 </g>
-<!-- Node5 -->
-<g id="node4" class="node"><title>Node5</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_node.html#a92a082c4e595b2f485e959b54e67c443" target="_top" xlink:title="Igor::iNode::getTransformation\lChangeEvent">
 <polygon fill="white" stroke="black" points="180.5,-49.5 180.5,-79.5 326.5,-79.5 326.5,-49.5 180.5,-49.5"/>
 <text text-anchor="start" x="188.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getTransformation</text>
 <text text-anchor="middle" x="253.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">ChangeEvent</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node5 -->
-<g id="edge3" class="edge"><title>Node2&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M143.124,-79.0834C151.998,-77.9003 161.135,-76.682 170.169,-75.4775"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="170.854,-78.9171 180.304,-74.1261 169.929,-71.9786 170.854,-78.9171"/>
 </g>
-<!-- Node6 -->
-<g id="node5" class="node"><title>Node6</title>
-<g id="a_node5"><a xlink:href="class_user_control_transformation.html#a9127fa4b983b9f2d543bff42c64e8a5d" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_user_control_transformation.html#a9127fa4b983b9f2d543bff42c64e8a5d" target="_top" xlink:title="UserControlTransformation\l::onTransformationChanged">
 <polygon fill="white" stroke="black" points="186,-0.5 186,-30.5 321,-30.5 321,-0.5 186,-0.5"/>
 <text text-anchor="start" x="194" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlTransformation</text>
 <text text-anchor="middle" x="253.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onTransformationChanged</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node6 -->
-<g id="edge4" class="edge"><title>Node2&#45;&gt;Node6</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M103.851,-73.4174C124.888,-63.5336 153.341,-50.6191 179,-40.5 184.542,-38.3142 190.362,-36.1379 196.198,-34.0329"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="197.729,-37.2039 205.989,-30.5688 195.395,-30.6047 197.729,-37.2039"/>
 </g>
-<!-- Node7 -->
-<g id="node6" class="node"><title>Node7</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" target="_top" xlink:title="Igor::iNode::getID">
 <polygon fill="white" stroke="black" points="364,-6 364,-25 456,-25 456,-6 364,-6"/>
 <text text-anchor="middle" x="410" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getID</text>
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge5" class="edge"><title>Node6&#45;&gt;Node7</title>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node5&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M321.367,-15.5C332.132,-15.5 343.171,-15.5 353.628,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="353.858,-19.0001 363.858,-15.5 353.858,-12.0001 353.858,-19.0001"/>
 </g>

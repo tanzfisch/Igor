@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iWidget::handleMouseMove</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 295,-35 295,4 -4,4"/>
-<!-- Node143 -->
-<g id="node1" class="node"><title>Node143</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="133,-6 133,-25 291,-25 291,-6 133,-6"/>
-<text text-anchor="middle" x="212" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::handleMouseMove</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 158,-25 158,-6 0,-6"/>
+<text text-anchor="middle" x="79" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::handleMouseMove</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_widget_grid.html#aee611c1fe39f59359216d9c659fc004f" target="_top" xlink:title="Igor::iWidgetGrid::\lhandleMouseMove">
+<polygon fill="white" stroke="black" points="194,-0.5 194,-30.5 291,-30.5 291,-0.5 194,-0.5"/>
+<text text-anchor="start" x="202" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetGrid::</text>
+<text text-anchor="middle" x="242.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">handleMouseMove</text>
 </a>
 </g>
 </g>
-<!-- Node144 -->
-<g id="node2" class="node"><title>Node144</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_widget_grid.html#aee611c1fe39f59359216d9c659fc004f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 97,-30.5 97,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetGrid::</text>
-<text text-anchor="middle" x="48.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">handleMouseMove</text>
-</a>
-</g>
-</g>
-<!-- Node143&#45;&gt;Node144 -->
-<g id="edge1" class="edge"><title>Node143&#45;&gt;Node144</title>
-<path fill="none" stroke="midnightblue" d="M122.451,-15.5C113.819,-15.5 105.308,-15.5 97.3152,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="122.615,-19.0001 132.615,-15.5 122.615,-12.0001 122.615,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M168.549,-15.5C177.181,-15.5 185.692,-15.5 193.685,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="168.385,-12.0001 158.385,-15.5 168.385,-19.0001 168.385,-12.0001"/>
 </g>
 </g>
 </svg>

@@ -1,7 +1,6 @@
 <map id="Igor::iLoader3DS::skipChunk" name="Igor::iLoader3DS::skipChunk">
-<area shape="rect" id="node1" title=" " alt="" coords="929,27,1116,53"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" title=" " alt="" coords="224,27,420,53"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_loader3_d_s.html#ad4d61d85248ac21d1fc637f9028ef3dc" title=" " alt="" coords="699,27,881,53"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_loader3_d_s.html#adc6bfd41b7e33b44ac4689aba4ecc57c" title=" " alt="" coords="468,77,651,104"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" title=" " alt="" coords="5,27,176,53"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" title="Igor::iLoader3DS::analyze3DS" alt="" coords="701,27,897,53"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_loader3_d_s.html#ad4d61d85248ac21d1fc637f9028ef3dc" title="Igor::iLoader3DS::findChunk" alt="" coords="240,27,423,53"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_loader3_d_s.html#adc6bfd41b7e33b44ac4689aba4ecc57c" title="Igor::iLoader3DS::readMesh" alt="" coords="471,77,653,104"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" title="Igor::iLoader3DS::loadFile" alt="" coords="945,27,1116,53"/>
 </map>

@@ -1,7 +1,6 @@
 <map id="Igor::iNode::onPostCopyLink" name="Igor::iNode::onPostCopyLink">
-<area shape="rect" id="node1" title=" " alt="" coords="575,31,761,57"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_factory.html#ac3adfeb01705fbe221e7767758290542" title=" " alt="" coords="399,23,527,65"/>
-<area shape="rect" id="node3" href="$class_menu_dialog.html#a4756d14d3797d94d9e53d2aa2d689364" title=" " alt="" coords="204,31,351,57"/>
-<area shape="rect" id="node4" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title=" " alt="" coords="12,5,149,32"/>
-<area shape="rect" id="node5" href="$class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" title=" " alt="" coords="5,56,156,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_factory.html#ac3adfeb01705fbe221e7767758290542" title="Igor::iNodeFactory\l::createCopy" alt="" coords="240,23,368,65"/>
+<area shape="rect" id="node3" href="$class_menu_dialog.html#a4756d14d3797d94d9e53d2aa2d689364" title="MenuDialog::onPaste" alt="" coords="416,31,563,57"/>
+<area shape="rect" id="node4" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title="MenuDialog::initGUI" alt="" coords="617,5,755,32"/>
+<area shape="rect" id="node5" href="$class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" title="MenuDialog::deinitGUI" alt="" coords="611,56,761,83"/>
 </map>

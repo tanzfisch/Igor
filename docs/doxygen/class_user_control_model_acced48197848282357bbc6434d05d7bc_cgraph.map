@@ -1,4 +1,10 @@
 <map id="UserControlModel::initGUI" name="UserControlModel::initGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,177,39"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="225,5,440,47"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="225,5,440,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27" title="Igor::iWidgetManager\l::createWidget" alt="" coords="260,71,405,112"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title="Igor::iWidgetGrid::\lappendCollumns" alt="" coords="269,136,396,177"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title="Igor::iWidget::setWidth" alt="" coords="255,202,410,229"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="243,253,422,295"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a7bed20819f1376bd433892feeefdc05c" title="IgorAux::iaString::\lgetHashValue" alt="" coords="491,41,618,83"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title="Igor::iWidget::getID" alt="" coords="488,107,621,134"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="669,41,796,83"/>
 </map>

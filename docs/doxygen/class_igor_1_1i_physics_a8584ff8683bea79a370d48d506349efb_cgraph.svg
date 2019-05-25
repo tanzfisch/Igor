@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iPhysics::setUserJointAddAngularRow</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 273,-84 273,4 -4,4"/>
-<!-- Node406 -->
-<g id="node1" class="node"><title>Node406</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 136,-54.5 136,-24.5 0,-24.5"/>
 <text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::setUserJoint</text>
 <text text-anchor="middle" x="68" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">AddAngularRow</text>
-</a>
 </g>
-</g>
-<!-- Node407 -->
-<g id="node2" class="node"><title>Node407</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_physics_joint.html#ada39db7315393cbf9d359ef4613a02f0" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_physics_joint.html#a4af54b7b979a6fa9ca55569e782acda3" target="_top" xlink:title="Igor::iPhysicsJoint\l::getNewtonJoint">
 <polygon fill="white" stroke="black" points="172.5,-49.5 172.5,-79.5 268.5,-79.5 268.5,-49.5 172.5,-49.5"/>
 <text text-anchor="start" x="180.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsJoint</text>
 <text text-anchor="middle" x="220.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getNewtonJoint</text>
 </a>
 </g>
 </g>
-<!-- Node406&#45;&gt;Node407 -->
-<g id="edge1" class="edge"><title>Node406&#45;&gt;Node407</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M136.327,-50.6838C145.102,-52.1415 154.023,-53.6234 162.604,-55.0489"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="162.055,-58.5055 172.493,-56.6916 163.202,-51.6002 162.055,-58.5055"/>
 </g>
-<!-- Node408 -->
-<g id="node3" class="node"><title>Node408</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector3.html#ab9eeed4aa7fd8d95efc7110748bc94a0" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_vector3.html#a472d397bcfae85248afadb2345716e07" target="_top" xlink:title="IgorAux::iaVector3\l::getData">
 <polygon fill="white" stroke="black" points="172,-0.5 172,-30.5 269,-30.5 269,-0.5 172,-0.5"/>
 <text text-anchor="start" x="180" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector3</text>
 <text text-anchor="middle" x="220.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getData</text>
 </a>
 </g>
 </g>
-<!-- Node406&#45;&gt;Node408 -->
-<g id="edge2" class="edge"><title>Node406&#45;&gt;Node408</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M136.327,-28.7635C144.784,-27.4148 153.376,-26.0446 161.67,-24.722"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="162.285,-28.1682 171.609,-23.137 161.183,-21.2556 162.285,-28.1682"/>
 </g>

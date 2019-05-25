@@ -1,0 +1,5 @@
+<map id="testing::TestInfo::should_run" name="testing::TestInfo::should_run">
+<area shape="rect" id="node2" href="$classtesting_1_1_test_case.html#ad8d9e1ebc410000b679002ba71d78686" title="testing::TestCase::\lTestPassed" alt="" coords="176,5,308,47"/>
+<area shape="rect" id="node3" href="$classtesting_1_1_test_case.html#a5922884cb8b4819e869146dc315a1ac1" title="testing::TestCase::\lTestFailed" alt="" coords="176,71,308,112"/>
+<area shape="rect" id="node4" href="$classtesting_1_1_test_case.html#a75eb139557c43362f94916cfd6762c94" title="testing::TestCase::\lShouldRunTest" alt="" coords="176,136,308,177"/>
+</map>

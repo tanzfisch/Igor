@@ -1,5 +1,4 @@
 <map id="ModelViewer::onMouseKeyUp" name="ModelViewer::onMouseKeyUp">
-<area shape="rect" id="node1" title=" " alt="" coords="188,31,384,57"/>
-<area shape="rect" id="node2" href="$class_model_viewer.html#a0a80ce07e2d2b7f390678ad21805f3b2" title=" " alt="" coords="12,5,133,32"/>
-<area shape="rect" id="node3" href="$class_model_viewer.html#a466edf6efbf8258d211cc05cd323ccbc" title=" " alt="" coords="5,56,140,83"/>
+<area shape="rect" id="node2" href="$class_model_viewer.html#a0a80ce07e2d2b7f390678ad21805f3b2" title="ModelViewer::init" alt="" coords="256,5,377,32"/>
+<area shape="rect" id="node3" href="$class_model_viewer.html#a466edf6efbf8258d211cc05cd323ccbc" title="ModelViewer::deinit" alt="" coords="249,56,384,83"/>
 </map>

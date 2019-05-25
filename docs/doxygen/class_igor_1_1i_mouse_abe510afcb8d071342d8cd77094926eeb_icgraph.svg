@@ -9,55 +9,52 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iMouse::getPos</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 413,-84 413,4 -4,4"/>
-<!-- Node13 -->
-<g id="node1" class="node"><title>Node13</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="302,-30 302,-49 409,-49 409,-30 302,-30"/>
-<text text-anchor="middle" x="355.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMouse::getPos</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-30 0,-49 107,-49 107,-30 0,-30"/>
+<text text-anchor="middle" x="53.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMouse::getPos</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_graph_view.html#a08a7cc49fd21d13b7be92a52c16ec941" target="_top" xlink:title="UserControlGraphView\l::OnContextMenu">
+<polygon fill="white" stroke="black" points="143,-24.5 143,-54.5 258,-54.5 258,-24.5 143,-24.5"/>
+<text text-anchor="start" x="151" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
+<text text-anchor="middle" x="200.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::OnContextMenu</text>
 </a>
 </g>
 </g>
-<!-- Node14 -->
-<g id="node2" class="node"><title>Node14</title>
-<g id="a_node2"><a xlink:href="class_user_control_graph_view.html#a08a7cc49fd21d13b7be92a52c16ec941" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="151,-24.5 151,-54.5 266,-54.5 266,-24.5 151,-24.5"/>
-<text text-anchor="start" x="159" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
-<text text-anchor="middle" x="208.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::OnContextMenu</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M117.379,-39.5C125.772,-39.5 134.34,-39.5 142.623,-39.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="117.259,-36.0001 107.259,-39.5 117.258,-43.0001 117.259,-36.0001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" target="_top" xlink:title="UserControlGraphView\l::initGUI">
+<polygon fill="white" stroke="black" points="294,-49.5 294,-79.5 409,-79.5 409,-49.5 294,-49.5"/>
+<text text-anchor="start" x="302" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
+<text text-anchor="middle" x="351.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node13&#45;&gt;Node14 -->
-<g id="edge1" class="edge"><title>Node13&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M291.621,-39.5C283.228,-39.5 274.66,-39.5 266.377,-39.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="291.742,-43.0001 301.741,-39.5 291.741,-36.0001 291.742,-43.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M268.228,-50.696C276.801,-52.1344 285.513,-53.5961 293.902,-55.0037"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="268.697,-47.2258 258.256,-49.0227 267.539,-54.1293 268.697,-47.2258"/>
 </g>
-<!-- Node15 -->
-<g id="node3" class="node"><title>Node15</title>
-<g id="a_node3"><a xlink:href="class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-49.5 0,-79.5 115,-79.5 115,-49.5 0,-49.5"/>
-<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
-<text text-anchor="middle" x="57.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_user_control_graph_view.html#a4d4ca145202566cef119f54a69ec9827" target="_top" xlink:title="UserControlGraphView\l::deinitGUI">
+<polygon fill="white" stroke="black" points="294,-0.5 294,-30.5 409,-30.5 409,-0.5 294,-0.5"/>
+<text text-anchor="start" x="302" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
+<text text-anchor="middle" x="351.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node14&#45;&gt;Node15 -->
-<g id="edge2" class="edge"><title>Node14&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M140.772,-50.696C132.199,-52.1344 123.487,-53.5961 115.098,-55.0037"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="141.461,-54.1293 150.744,-49.0227 140.303,-47.2258 141.461,-54.1293"/>
-</g>
-<!-- Node16 -->
-<g id="node4" class="node"><title>Node16</title>
-<g id="a_node4"><a xlink:href="class_user_control_graph_view.html#a4d4ca145202566cef119f54a69ec9827" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 115,-30.5 115,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
-<text text-anchor="middle" x="57.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node14&#45;&gt;Node16 -->
-<g id="edge3" class="edge"><title>Node14&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M140.772,-28.7519C132.199,-27.371 123.487,-25.9678 115.098,-24.6164"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="140.315,-32.2233 150.744,-30.3582 141.428,-25.3124 140.315,-32.2233"/>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node2&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M268.228,-28.7519C276.801,-27.371 285.513,-25.9678 293.902,-24.6164"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="267.572,-25.3124 258.256,-30.3582 268.685,-32.2233 267.572,-25.3124"/>
 </g>
 </g>
 </svg>

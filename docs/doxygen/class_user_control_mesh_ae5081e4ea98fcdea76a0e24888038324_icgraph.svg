@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>UserControlMesh::onTextChangedShininess</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 342,-62 342,4 -4,4"/>
-<!-- Node60 -->
-<g id="node1" class="node"><title>Node60</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="173,-14 173,-44 338,-44 338,-14 173,-14"/>
-<text text-anchor="start" x="181" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::onTextChanged</text>
-<text text-anchor="middle" x="255.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Shininess</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-14 0,-44 165,-44 165,-14 0,-14"/>
+<text text-anchor="start" x="8" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::onTextChanged</text>
+<text text-anchor="middle" x="82.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">Shininess</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" target="_top" xlink:title="UserControlMesh::initGUI">
+<polygon fill="white" stroke="black" points="206,-38.5 206,-57.5 333,-57.5 333,-38.5 206,-38.5"/>
+<text text-anchor="middle" x="269.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node61 -->
-<g id="node2" class="node"><title>Node61</title>
-<g id="a_node2"><a xlink:href="class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5,-38.5 5,-57.5 132,-57.5 132,-38.5 5,-38.5"/>
-<text text-anchor="middle" x="68.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::initGUI</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M175.137,-38.4114C185.543,-39.4801 195.963,-40.5503 205.871,-41.5679"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="175.487,-34.929 165.182,-37.389 174.772,-41.8924 175.487,-34.929"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_mesh.html#a5a697f29c5abd237d352bd44ea3a508e" target="_top" xlink:title="UserControlMesh::deinitGUI">
+<polygon fill="white" stroke="black" points="201,-0.5 201,-19.5 338,-19.5 338,-0.5 201,-0.5"/>
+<text text-anchor="middle" x="269.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node60&#45;&gt;Node61 -->
-<g id="edge1" class="edge"><title>Node60&#45;&gt;Node61</title>
-<path fill="none" stroke="midnightblue" d="M162.863,-38.4114C152.457,-39.4801 142.037,-40.5503 132.129,-41.5679"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="163.228,-41.8924 172.818,-37.389 162.513,-34.929 163.228,-41.8924"/>
-</g>
-<!-- Node62 -->
-<g id="node3" class="node"><title>Node62</title>
-<g id="a_node3"><a xlink:href="class_user_control_mesh.html#a5a697f29c5abd237d352bd44ea3a508e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 137,-19.5 137,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="68.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node60&#45;&gt;Node62 -->
-<g id="edge2" class="edge"><title>Node60&#45;&gt;Node62</title>
-<path fill="none" stroke="midnightblue" d="M162.733,-19.5752C154.123,-18.691 145.505,-17.8059 137.177,-16.9506"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="162.513,-23.071 172.818,-20.611 163.228,-16.1076 162.513,-23.071"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M175.267,-19.5752C183.877,-18.691 192.495,-17.8059 200.823,-16.9506"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="174.772,-16.1076 165.182,-20.611 175.487,-23.071 174.772,-16.1076"/>
 </g>
 </g>
 </svg>

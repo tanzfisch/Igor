@@ -11,27 +11,24 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 286,-46 286,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="193,-6 193,-36 282,-36 282,-6 193,-6"/>
-<text text-anchor="start" x="201" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="237.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">posix::Abort</text>
-</a>
-</g>
+<polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-36 89,-36 89,-6 0,-6"/>
+<text text-anchor="start" x="8" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="44.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">posix::Abort</text>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_parameterized_test_case_registry.html#af525816aa348f9e33f5d900965991388" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-41.5 157,-41.5 157,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterizedTestCaseRegistry</text>
-<text text-anchor="middle" x="78.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GetTestCasePatternHolder</text>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_parameterized_test_case_registry.html#af525816aa348f9e33f5d900965991388" target="_top" xlink:title="testing::internal::\lParameterizedTestCaseRegistry\l::GetTestCasePatternHolder">
+<polygon fill="white" stroke="black" points="125,-0.5 125,-41.5 282,-41.5 282,-0.5 125,-0.5"/>
+<text text-anchor="start" x="133" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="133" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParameterizedTestCaseRegistry</text>
+<text text-anchor="middle" x="203.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GetTestCasePatternHolder</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M182.633,-21C174.441,-21 165.85,-21 157.271,-21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="182.767,-24.5001 192.767,-21 182.767,-17.5001 182.767,-24.5001"/>
+<path fill="none" stroke="midnightblue" d="M99.3666,-21C107.559,-21 116.15,-21 124.729,-21"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="99.2333,-17.5001 89.2333,-21 99.2332,-24.5001 99.2333,-17.5001"/>
 </g>
 </g>
 </svg>

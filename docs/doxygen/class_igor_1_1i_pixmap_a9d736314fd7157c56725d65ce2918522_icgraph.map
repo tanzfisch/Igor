@@ -1,5 +1,4 @@
 <map id="Igor::iPixmap::getHeight" name="Igor::iPixmap::getHeight">
-<area shape="rect" id="node1" title=" " alt="" coords="249,46,411,73"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_texture_font.html#a3cb874f65070247f89e95060484dd3fa" title=" " alt="" coords="42,5,165,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_texture_resource_factory.html#abc70422421a7945de647dceb8db76cd3" title=" " alt="" coords="5,71,201,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_texture_font.html#a3cb874f65070247f89e95060484dd3fa" title="Igor::iTextureFont\l::iTextureFont" alt="" coords="251,5,374,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_texture_resource_factory.html#abc70422421a7945de647dceb8db76cd3" title="Igor::iTextureResourceFactory\l::loadFromPixmap" alt="" coords="215,71,411,112"/>
 </map>

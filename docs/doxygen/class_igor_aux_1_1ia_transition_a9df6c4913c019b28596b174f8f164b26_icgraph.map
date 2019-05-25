@@ -1,4 +1,3 @@
 <map id="IgorAux::iaTransition::closeGate" name="IgorAux::iaTransition::closeGate">
-<area shape="rect" id="node1" title=" " alt="" coords="217,5,357,47"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#a01f7e44dc1ff2e29bfdf23fb6304e0ad" title=" " alt="" coords="5,5,169,47"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_state_machine.html#a01f7e44dc1ff2e29bfdf23fb6304e0ad" title="IgorAux::iaStateMachine\l::closeGate" alt="" coords="193,5,357,47"/>
 </map>

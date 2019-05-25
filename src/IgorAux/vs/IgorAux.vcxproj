@@ -255,7 +255,9 @@ xcopy "$(TargetDir)$(TargetName).pdb" "$(ProjectDir)..\..\..\bin\" /Y /D
     <None Include="..\src\iaRLE.inl" />
     <None Include="..\src\iaSerializable.inl" />
     <None Include="..\src\iaTransform.inl" />
-    <None Include="..\src\iaVector2.inl" />
+    <ClInclude Include="..\src\iaVector2.inl">
+      <FileType>Document</FileType>
+    </ClInclude>
     <None Include="..\src\iaVector3.inl" />
     <None Include="..\src\iaVector4.inl" />
   </ItemGroup>

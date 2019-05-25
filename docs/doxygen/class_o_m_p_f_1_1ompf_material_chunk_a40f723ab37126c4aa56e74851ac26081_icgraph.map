@@ -1,5 +1,4 @@
 <map id="OMPF::ompfMaterialChunk::addShader" name="OMPF::ompfMaterialChunk::addShader">
-<area shape="rect" id="node1" title=" " alt="" coords="232,39,411,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#aa4c5bb8e52cf9e579931b36bea02e05d" title=" " alt="" coords="11,5,178,47"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a54e25359ced1186303c9241cb3cc2f18" title=" " alt="" coords="5,71,184,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#aa4c5bb8e52cf9e579931b36bea02e05d" title="Igor::iModelDataIOOMPF\l::createMaterialChunk" alt="" coords="238,5,405,47"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a54e25359ced1186303c9241cb3cc2f18" title="OMPF::ompfMaterialChunk\l::read" alt="" coords="232,71,411,112"/>
 </map>

@@ -1,4 +1,7 @@
 <map id="Igor::iUserControlColorChooser::updateMode" name="Igor::iUserControlColorChooser::updateMode">
-<area shape="rect" id="node1" title=" " alt="" coords="253,5,453,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#a4265efe2599790df4dfada25be58b95f" title=" " alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#a4265efe2599790df4dfada25be58b95f" title="Igor::iUserControlColorChooser\l::setMode" alt="" coords="253,100,453,141"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_dialog_color_chooser.html#a478dcc24d00c3433a4139cd42faca383" title="Igor::iDialogColorChooser\l::initGUI" alt="" coords="502,5,670,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title="Igor::iDialogColorGradient\l::initGUI" alt="" coords="501,71,671,112"/>
+<area shape="rect" id="node5" href="$class_user_control_light.html#acae8309ee66f4ae0ffd058cc83580311" title="UserControlLight::initGUI" alt="" coords="503,137,669,163"/>
+<area shape="rect" id="node6" href="$class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" title="UserControlMesh::initGUI" alt="" coords="501,187,671,214"/>
 </map>

@@ -9,60 +9,57 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 270)">
 <title>OMPF::ompfParticleSystemChunk</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-270 357.5,-270 357.5,4 -4,4"/>
-<!-- Node2 -->
-<g id="node1" class="node"><title>Node2</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="61,-0.5 61,-30.5 200,-30.5 200,-0.5 61,-0.5"/>
 <text text-anchor="start" x="69" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfParticleSystem</text>
 <text text-anchor="middle" x="130.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Chunk</text>
-</a>
 </g>
-</g>
-<!-- Node3 -->
-<g id="node2" class="node"><title>Node3</title>
-<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html" target="_top" xlink:title="OMPF::ompfBaseChunk">
 <polygon fill="white" stroke="black" points="69.5,-173 69.5,-192 191.5,-192 191.5,-173 69.5,-173"/>
 <text text-anchor="middle" x="130.5" y="-180" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfBaseChunk</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node2 -->
-<g id="edge1" class="edge"><title>Node3&#45;&gt;Node2</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M130.5,-162.373C130.5,-128.917 130.5,-60.5085 130.5,-30.8002"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="127,-162.629 130.5,-172.629 134,-162.629 127,-162.629"/>
 </g>
-<!-- Node4 -->
-<g id="node3" class="node"><title>Node4</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title="IgorAux::iaString">
 <polygon fill="white" stroke="black" points="0,-246.5 0,-265.5 89,-265.5 89,-246.5 0,-246.5"/>
 <text text-anchor="middle" x="44.5" y="-253.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node2 -->
-<g id="edge3" class="edge"><title>Node4&#45;&gt;Node2</title>
+<!-- Node3&#45;&gt;Node1 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M32.0141,-238.136C20.3434,-220.225 5.90758,-191.09 14.5,-166 34.4034,-107.881 87.125,-54.8994 114.099,-30.5611"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="29.1617,-240.165 37.7285,-246.399 34.919,-236.183 29.1617,-240.165"/>
 <text text-anchor="middle" x="37.5" y="-191" font-family="Helvetica,sans-Serif" font-size="10.00"> _textureA</text>
 <text text-anchor="middle" x="37.5" y="-180" font-family="Helvetica,sans-Serif" font-size="10.00">_textureB</text>
 <text text-anchor="middle" x="37.5" y="-169" font-family="Helvetica,sans-Serif" font-size="10.00">_textureC</text>
 </g>
-<!-- Node4&#45;&gt;Node3 -->
-<g id="edge2" class="edge"><title>Node4&#45;&gt;Node3</title>
+<!-- Node3&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M62.8752,-239.723C80.3377,-225.205 105.973,-203.891 120.137,-192.116"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="60.4973,-237.148 55.0453,-246.233 64.9724,-242.531 60.4973,-237.148"/>
 <text text-anchor="middle" x="107" y="-220" font-family="Helvetica,sans-Serif" font-size="10.00"> _name</text>
 </g>
-<!-- Node5 -->
-<g id="node4" class="node"><title>Node5</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_gradient.html" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_gradient.html" target="_top" xlink:title="IgorAux::iaGradient\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="210,-173 210,-192 333,-192 333,-173 210,-173"/>
 <text text-anchor="middle" x="271.5" y="-180" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaGradient&lt; T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node2 -->
-<g id="edge4" class="edge"><title>Node5&#45;&gt;Node2</title>
+<!-- Node4&#45;&gt;Node1 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M257.34,-164.93C229.651,-132.528 168.772,-61.2869 142.72,-30.8002"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="254.762,-167.3 263.919,-172.629 260.083,-162.753 254.762,-167.3"/>
 <text text-anchor="middle" x="297.5" y="-140" font-family="Helvetica,sans-Serif" font-size="10.00"> _orientationRateGradient</text>

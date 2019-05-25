@@ -1,7 +1,6 @@
 <map id="Igor::iLoader3DS::readChar" name="Igor::iLoader3DS::readChar">
-<area shape="rect" id="node1" title=" " alt="" coords="965,5,1144,32"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_loader3_d_s.html#aa1e4e6a39e37d9a6bb46c10f3814a34f" title=" " alt="" coords="699,5,917,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" title=" " alt="" coords="224,5,420,32"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_loader3_d_s.html#adc6bfd41b7e33b44ac4689aba4ecc57c" title=" " alt="" coords="468,31,651,57"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" title=" " alt="" coords="5,5,176,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_loader3_d_s.html#aa1e4e6a39e37d9a6bb46c10f3814a34f" title="Igor::iLoader3DS::readASCIIString" alt="" coords="232,5,451,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" title="Igor::iLoader3DS::analyze3DS" alt="" coords="729,5,925,32"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_loader3_d_s.html#adc6bfd41b7e33b44ac4689aba4ecc57c" title="Igor::iLoader3DS::readMesh" alt="" coords="499,31,681,57"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" title="Igor::iLoader3DS::loadFile" alt="" coords="973,5,1144,32"/>
 </map>

@@ -6,6 +6,7 @@ var class_igor_aux_1_1ia_console =
     [ "closeLogfile", "class_igor_aux_1_1ia_console.html#a94d3abfde87d5e60b19aad9ad5b4932c", null ],
     [ "exit", "class_igor_aux_1_1ia_console.html#adbfabe2cdb65c8a143c371200e4a1956", null ],
     [ "getErrors", "class_igor_aux_1_1ia_console.html#a22cde0e9529cd95f56ca27ec62d5e09a", null ],
+    [ "getLogLevel", "class_igor_aux_1_1ia_console.html#ab7d26ddb5ab69bd1240f0eff16dc97a5", null ],
     [ "getWarnings", "class_igor_aux_1_1ia_console.html#a079e10cb40189ffe03d05a52ecb2b240", null ],
     [ "lock", "class_igor_aux_1_1ia_console.html#a025216d7b2e29420a663e8119b937ed4", null ],
     [ "openLogfile", "class_igor_aux_1_1ia_console.html#ab2b1bdc5e85c24837552dd8ee54512ef", null ],
@@ -17,6 +18,7 @@ var class_igor_aux_1_1ia_console =
     [ "printStats", "class_igor_aux_1_1ia_console.html#a44b38227043e0c22160634ef50a89996", null ],
     [ "printTombstone", "class_igor_aux_1_1ia_console.html#a6d58812fef212a8e6f90ad18d9535a2d", null ],
     [ "resetStats", "class_igor_aux_1_1ia_console.html#a5402677d4d16c13430392a38aa734110", null ],
+    [ "setLogLevel", "class_igor_aux_1_1ia_console.html#a8e78b992d9890da720154b6a43bb068e", null ],
     [ "setTextColor", "class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84", null ],
     [ "unlock", "class_igor_aux_1_1ia_console.html#ac2ec4404fbf045cefd3c95f31ace3af2", null ],
     [ "applicationTime", "class_igor_aux_1_1ia_console.html#a841307f90e5f3fb7969b5bed0aceaf53", null ],
@@ -31,6 +33,7 @@ var class_igor_aux_1_1ia_console =
     [ "UNLOCK", "class_igor_aux_1_1ia_console.html#a8044d4cf4037c9b905879780705cf937", null ],
     [ "_errors", "class_igor_aux_1_1ia_console.html#a9b0fc842212a15875fa3876625c912ca", null ],
     [ "_file", "class_igor_aux_1_1ia_console.html#aafbac449fd0055b4c3aff277a8fa9925", null ],
+    [ "_logLevel", "class_igor_aux_1_1ia_console.html#a4ca3e83ca20356ec7b27127508408767", null ],
     [ "_mutex", "class_igor_aux_1_1ia_console.html#a8a67a3387b21ff98270eccdc757c2ffc", null ],
     [ "_streamToLogfile", "class_igor_aux_1_1ia_console.html#a9b223665462bf44452dc883bd67d26f5", null ],
     [ "_warnings", "class_igor_aux_1_1ia_console.html#a2ae988ec164bdc4c28f31986e5483111", null ]

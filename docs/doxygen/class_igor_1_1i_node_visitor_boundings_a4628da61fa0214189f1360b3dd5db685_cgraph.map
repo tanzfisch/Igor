@@ -1,11 +1,11 @@
 <map id="Igor::iNodeVisitorBoundings::preOrderVisit" name="Igor::iNodeVisitorBoundings::preOrderVisit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,181,188,222"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#addb9d2476dbfae0b0879419c842dc4a8" title=" " alt="" coords="285,5,421,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_render.html#ad63121d64309698004ff654ca42cfb43" title=" " alt="" coords="287,57,420,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_volume.html#a1ce089a47c6e0a85e49f7ed5a6758ad5" title=" " alt="" coords="285,122,421,163"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title=" " alt="" coords="276,188,431,215"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#af2d72831df4a13096e731418b6d6bb4b" title=" " alt="" coords="284,239,423,265"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node.html#afcf9574e0c451509015b42b36be8a6eb" title=" " alt="" coords="236,289,471,316"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_sphere.html#ab7d2f247a9c5cd86208a8d7b5d6e6b2d" title=" " alt="" coords="284,340,423,367"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title=" " alt="" coords="519,282,647,323"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a6e7d77b301e705906af5cfb942164a83" title="Igor::iNode::getKind" alt="" coords="285,5,421,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_render.html#ad63121d64309698004ff654ca42cfb43" title="Igor::iNodeRender::\lgetWorldMatrix" alt="" coords="287,57,420,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_volume.html#a0b9dce0f82b812f8b6302ce87f2641d3" title="Igor::iNodeVolume::\lgetBoundingSphere" alt="" coords="285,122,421,163"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title="IgorAux::iaVector3::set" alt="" coords="276,188,431,215"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a43329dc1b2a6ad4056c38290c5df777d" title="Igor::iNode::getType" alt="" coords="284,239,423,265"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node.html#afcf9574e0c451509015b42b36be8a6eb" title="Igor::iNode::calcWorldTransformation" alt="" coords="236,289,471,316"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_sphere.html#ab7d2f247a9c5cd86208a8d7b5d6e6b2d" title="Igor::iSphere::merge" alt="" coords="284,341,423,368"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title="IgorAux::iaMatrix::\lidentity" alt="" coords="531,279,659,321"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_sphere.html#ab09d55baf863d87f45f3cac81ffa7cf9" title="Igor::iSphere::contains" alt="" coords="519,345,671,372"/>
 </map>

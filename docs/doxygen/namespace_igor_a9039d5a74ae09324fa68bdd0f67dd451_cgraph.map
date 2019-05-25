@@ -1,4 +1,3 @@
 <map id="Igor::CollideCallback" name="Igor::CollideCallback">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,145,39"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#af23d829457d517684a92767ce14b55ce" title=" " alt="" coords="193,5,403,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#af23d829457d517684a92767ce14b55ce" title="Igor::iPhysicsUserMeshCollision\lHandler::collideCallback" alt="" coords="193,5,403,47"/>
 </map>

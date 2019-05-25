@@ -1,10 +1,8 @@
 <map id="Igor::iMesh" name="Igor::iMesh">
-<area shape="rect" id="node1" title=" " alt="" coords="189,433,276,460"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_a_a_box.html" title=" " alt="" coords="50,344,207,371"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="156,225,285,267"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_sphere.html" title=" " alt="" coords="231,344,389,371"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="145,124,305,151"/>
-<area shape="rect" id="node5" title=" " alt="" coords="285,5,324,32"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_sphere.html" title=" " alt="" coords="289,175,416,201"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_a_a_box.html" title=" " alt="" coords="5,233,132,259"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_a_a_box.html" title="Igor::iAABox\&lt; float64 \&gt;" alt="" coords="50,344,207,371"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\l\&lt; float64 \&gt;" alt="" coords="156,225,285,267"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_sphere.html" title="Igor::iSphere\&lt; float64 \&gt;" alt="" coords="231,344,389,371"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="145,124,305,151"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_sphere.html" title="Igor::iSphere\&lt; T \&gt;" alt="" coords="289,175,416,201"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_a_a_box.html" title="Igor::iAABox\&lt; T \&gt;" alt="" coords="5,233,132,259"/>
 </map>

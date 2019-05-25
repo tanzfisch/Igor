@@ -1,8 +1,6 @@
 <map id="Igor::iOctree::OctreeNode" name="Igor::iOctree::OctreeNode">
-<area shape="rect" id="node1" title=" " alt="" coords="75,419,245,445"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_a_a_cube.html" title=" " alt="" coords="78,329,242,356"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="17,225,146,267"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="5,124,165,151"/>
-<area shape="rect" id="node5" title=" " alt="" coords="146,5,185,32"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_a_a_cube.html" title=" " alt="" coords="148,175,281,201"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_a_a_cube.html" title="Igor::iAACube\&lt; float64 \&gt;" alt="" coords="78,329,242,356"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\l\&lt; float64 \&gt;" alt="" coords="17,225,146,267"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="5,124,165,151"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_a_a_cube.html" title="Igor::iAACube\&lt; T \&gt;" alt="" coords="148,175,281,201"/>
 </map>

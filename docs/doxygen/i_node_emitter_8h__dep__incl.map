@@ -1,13 +1,12 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iNodeEmitter.h" name="C:/dev/Igor/Igor/src/Igor/src/iNodeEmitter.h">
-<area shape="rect" id="node1" title=" " alt="" coords="820,5,979,47"/>
-<area shape="rect" id="node2" href="$i_model_data_i_o_o_m_p_f_8cpp.html" title=" " alt="" coords="5,102,220,143"/>
-<area shape="rect" id="node3" href="$i_node_emitter_8cpp.html" title=" " alt="" coords="245,102,418,143"/>
-<area shape="rect" id="node4" href="$i_node_factory_8cpp.html" title=" " alt="" coords="443,102,617,143"/>
-<area shape="rect" id="node5" href="$i_node_particle_system_8cpp.html" title=" " alt="" coords="641,102,861,143"/>
-<area shape="rect" id="node6" href="$_widget3_d_emitter_8h.html" title=" " alt="" coords="937,95,1094,151"/>
-<area shape="rect" id="node7" href="$_model_viewer_8cpp.html" title=" " alt="" coords="821,199,978,255"/>
-<area shape="rect" id="node9" href="$_user_control_emitter_8cpp.html" title=" " alt="" coords="1119,95,1280,151"/>
-<area shape="rect" id="node10" href="$_user_control_material_view_8cpp.html" title=" " alt="" coords="1304,95,1497,151"/>
-<area shape="rect" id="node11" href="$_user_control_particle_system_8cpp.html" title=" " alt="" coords="1522,95,1730,151"/>
-<area shape="rect" id="node8" href="$_widget3_d_emitter_8cpp.html" title=" " alt="" coords="1002,199,1159,255"/>
+<map id="C:/dev/Igor/src/Igor/src/iNodeEmitter.h" name="C:/dev/Igor/src/Igor/src/iNodeEmitter.h">
+<area shape="rect" id="node2" href="$i_model_data_i_o_o_m_p_f_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iModelDataIOOMPF.cpp" alt="" coords="5,102,195,143"/>
+<area shape="rect" id="node3" href="$i_node_emitter_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeEmitter.cpp" alt="" coords="219,102,367,143"/>
+<area shape="rect" id="node4" href="$i_node_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeFactory.cpp" alt="" coords="391,102,542,143"/>
+<area shape="rect" id="node5" href="$i_node_particle_system_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeParticleSystem.cpp" alt="" coords="567,102,761,143"/>
+<area shape="rect" id="node6" href="$_widget3_d_emitter_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/Widget3DEmitter.h" alt="" coords="837,102,1073,143"/>
+<area shape="rect" id="node7" href="$_model_viewer_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.cpp" alt="" coords="686,199,911,240"/>
+<area shape="rect" id="node9" href="$_user_control_emitter_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lEmitter.cpp" alt="" coords="1097,95,1292,151"/>
+<area shape="rect" id="node10" href="$_user_control_material_view_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lMaterialView.cpp" alt="" coords="1316,95,1511,151"/>
+<area shape="rect" id="node11" href="$_user_control_particle_system_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lParticleSystem.cpp" alt="" coords="1535,95,1729,151"/>
+<area shape="rect" id="node8" href="$_widget3_d_emitter_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/Widget3DEmitter.cpp" alt="" coords="936,199,1187,240"/>
 </map>

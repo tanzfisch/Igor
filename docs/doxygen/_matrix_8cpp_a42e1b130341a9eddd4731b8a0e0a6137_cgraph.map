@@ -1,13 +1,12 @@
 <map id="TEST" name="TEST">
-<area shape="rect" id="node1" title=" " alt="" coords="5,202,60,229"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title=" " alt="" coords="117,129,245,171"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#a1ac92f361c8748bc939d17f3db41b1c0" title=" " alt="" coords="117,195,245,236"/>
-<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_quaternion.html#acd276fe2bdd2b3e981b314c2c187ebe4" title=" " alt="" coords="108,260,255,301"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html#ac23ffdf05fa6a30634115b86fdf1b9dc" title=" " alt="" coords="316,5,444,47"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_matrix.html#a041b034afbeb7dd3a3e0898ed78215be" title=" " alt="" coords="316,71,444,112"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#a2205310167339df3d03fe1b270de95f8" title=" " alt="" coords="316,136,444,177"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector4.html#a9c095cb0b81597928b8cd86d01fb9348" title=" " alt="" coords="303,202,457,229"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title=" " alt="" coords="303,253,457,279"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_vector3.html#af8892e899d11b34d709f65a9945b9880" title=" " alt="" coords="315,304,445,345"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title=" " alt="" coords="315,369,445,411"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title="IgorAux::iaMatrix::\lrotate" alt="" coords="117,129,245,171"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#a1ac92f361c8748bc939d17f3db41b1c0" title="IgorAux::iaMatrix::\ldecompose" alt="" coords="117,195,245,236"/>
+<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_quaternion.html#a2d4337f83dcb58c77b764122ca497d93" title="IgorAux::iaQuaternion\l::getEuler" alt="" coords="108,260,255,301"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html#ac23ffdf05fa6a30634115b86fdf1b9dc" title="IgorAux::iaMatrix::\ldeterminant" alt="" coords="316,5,444,47"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_matrix.html#a041b034afbeb7dd3a3e0898ed78215be" title="IgorAux::iaMatrix::\linvert" alt="" coords="316,71,444,112"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#a2205310167339df3d03fe1b270de95f8" title="IgorAux::iaMatrix::\ltranspose" alt="" coords="316,136,444,177"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector4.html#a9c095cb0b81597928b8cd86d01fb9348" title="IgorAux::iaVector4::set" alt="" coords="303,202,457,229"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_vector3.html#a9318308d20ed3bd29e16fd1b41b02eef" title="IgorAux::iaVector3::set" alt="" coords="303,253,457,279"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_vector3.html#ac9f6246137f34cd0851a7e0f577ef4a2" title="IgorAux::iaVector3\l::length" alt="" coords="315,304,445,345"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title="IgorAux::iaVector3\l::normalize" alt="" coords="315,369,445,411"/>
 </map>

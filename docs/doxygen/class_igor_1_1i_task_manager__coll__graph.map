@@ -1,7 +1,5 @@
 <map id="Igor::iTaskManager" name="Igor::iTaskManager">
-<area shape="rect" id="node1" title=" " alt="" coords="37,168,169,195"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="131,257,270,299"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="158,5,278,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="290,168,460,195"/>
-<area shape="rect" id="node5" title=" " alt="" coords="356,5,394,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iTaskManager \&gt;" alt="" coords="131,257,270,299"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="158,5,278,32"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\&lt; T \&gt;" alt="" coords="290,168,460,195"/>
 </map>

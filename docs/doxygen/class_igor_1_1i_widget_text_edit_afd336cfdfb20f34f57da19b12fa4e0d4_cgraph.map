@@ -1,11 +1,9 @@
 <map id="Igor::iWidgetTextEdit::handleGainedKeyboardFocus" name="Igor::iWidgetTextEdit::handleGainedKeyboardFocus">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,205,76"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#ad63d8ae5769d0c305509d9f4e20ae5bb" title=" " alt="" coords="253,64,396,105"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#abdca81f9a7dfc354263de5f174171425" title=" " alt="" coords="452,5,579,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_text_edit.html#a3864023407b3d57ef364a578022bb8aa" title=" " alt="" coords="444,71,587,112"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="635,5,849,47"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#a1de38f8fb334a5e52a266b9a4e891821" title=" " alt="" coords="679,71,805,112"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_widget.html#af1b43cee8ee079b1f8fd7e4e0789e0ac" title=" " alt="" coords="663,136,821,177"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title=" " alt="" coords="897,37,1024,79"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" title=" " alt="" coords="897,103,1024,144"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#ad63d8ae5769d0c305509d9f4e20ae5bb" title="Igor::iWidgetTextEdit\l::setCursorPos" alt="" coords="253,64,396,105"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17" title="IgorAux::iaString::\lgetSize" alt="" coords="452,5,579,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget_text_edit.html#a3864023407b3d57ef364a578022bb8aa" title="Igor::iWidgetTextEdit\l::updateMetrics" alt="" coords="444,71,587,112"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="635,37,849,79"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#ad733ce0b92ae32cdb253e4fa0ad85e3f" title="IgorAux::iaString::\lgetSubString" alt="" coords="679,103,805,144"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title="IgorAux::iaString::\liaString" alt="" coords="897,69,1024,111"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="897,135,1024,176"/>
 </map>

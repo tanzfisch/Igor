@@ -1,5 +1,4 @@
 <map id="Igor::iNodeLight::onPreSetScene" name="Igor::iNodeLight::onPreSetScene">
-<area shape="rect" id="node1" title=" " alt="" coords="5,27,180,69"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title=" " alt="" coords="233,5,379,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a86e1a8ce9d0520c4f4f4e7dae74976f1" title=" " alt="" coords="228,57,384,98"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title="Igor::iNode::getScene" alt="" coords="233,5,379,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a86e1a8ce9d0520c4f4f4e7dae74976f1" title="Igor::iScene::unregister\lLight" alt="" coords="228,57,384,98"/>
 </map>

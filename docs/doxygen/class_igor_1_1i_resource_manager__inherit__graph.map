@@ -1,5 +1,4 @@
 <map id="Igor::iResourceManager" name="Igor::iResourceManager">
-<area shape="rect" id="node1" title=" " alt="" coords="11,185,169,212"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="13,95,167,136"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="5,5,175,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iResourceManager \&gt;" alt="" coords="13,95,167,136"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\&lt; T \&gt;" alt="" coords="5,5,175,32"/>
 </map>

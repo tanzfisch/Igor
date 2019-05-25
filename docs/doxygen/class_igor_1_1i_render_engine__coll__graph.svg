@@ -11,15 +11,12 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-263.053 1035,-263.053 1035,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="930,-111.553 930,-130.553 1031,-130.553 1031,-111.553 930,-111.553"/>
 <text text-anchor="middle" x="980.5" y="-118.553" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderEngine</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node_camera.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node_camera.html" target="_top" xlink:title="Igor::iNodeCamera">
 <polygon fill="white" stroke="black" points="724,-92.5529 724,-111.553 821,-111.553 821,-92.5529 724,-92.5529"/>
 <text text-anchor="middle" x="772.5" y="-99.5529" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeCamera</text>
 </a>
@@ -33,7 +30,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node.html" target="_top" xlink:title="Igor::iNode">
 <polygon fill="white" stroke="black" points="486.5,-113.553 486.5,-132.553 549.5,-132.553 549.5,-113.553 486.5,-113.553"/>
 <text text-anchor="middle" x="518" y="-120.553" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode</text>
 </a>
@@ -52,7 +49,7 @@
 </g>
 <!-- Node8 -->
 <g id="node8" class="node"><title>Node8</title>
-<g id="a_node8"><a xlink:href="class_igor_1_1i_scene.html" target="_top" xlink:title=" ">
+<g id="a_node8"><a xlink:href="class_igor_1_1i_scene.html" target="_top" xlink:title="Igor::iScene">
 <polygon fill="white" stroke="black" points="738.5,-130.553 738.5,-149.553 806.5,-149.553 806.5,-130.553 738.5,-130.553"/>
 <text text-anchor="middle" x="772.5" y="-137.553" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iScene</text>
 </a>
@@ -66,7 +63,7 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_i_d_generator.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_i_d_generator.html" target="_top" xlink:title="IgorAux::iaIDGenerator\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="163,-113.553 163,-132.553 301,-132.553 301,-113.553 163,-113.553"/>
 <text text-anchor="middle" x="232" y="-120.553" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaIDGenerator&lt; T &gt;</text>
 </a>
@@ -80,7 +77,7 @@
 </g>
 <!-- Node5 -->
 <g id="node5" class="node"><title>Node5</title>
-<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title="IgorAux::iaMutex">
 <polygon fill="white" stroke="black" points="0,-155.553 0,-174.553 90,-174.553 90,-155.553 0,-155.553"/>
 <text text-anchor="middle" x="45" y="-162.553" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex</text>
 </a>
@@ -94,7 +91,7 @@
 </g>
 <!-- Node13 -->
 <g id="node13" class="node"><title>Node13</title>
-<g id="a_node13"><a xlink:href="class_igor_1_1i_data_update_queue.html" target="_top" xlink:title=" ">
+<g id="a_node13"><a xlink:href="class_igor_1_1i_data_update_queue.html" target="_top" xlink:title="Igor::iDataUpdateQueue">
 <polygon fill="white" stroke="black" points="319,-224.553 319,-243.553 439,-243.553 439,-224.553 319,-224.553"/>
 <text text-anchor="middle" x="379" y="-231.553" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDataUpdateQueue</text>
 </a>
@@ -108,11 +105,8 @@
 </g>
 <!-- Node6 -->
 <g id="node6" class="node"><title>Node6</title>
-<g id="a_node6"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="30.5,-81.5529 30.5,-100.553 59.5,-100.553 59.5,-81.5529 30.5,-81.5529"/>
 <text text-anchor="middle" x="45" y="-88.5529" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node6&#45;&gt;Node4 -->
 <g id="edge5" class="edge"><title>Node6&#45;&gt;Node4</title>
@@ -122,7 +116,7 @@
 </g>
 <!-- Node12 -->
 <g id="node12" class="node"><title>Node12</title>
-<g id="a_node12"><a xlink:href="class_igor_aux_1_1ia_matrix.html" target="_top" xlink:title=" ">
+<g id="a_node12"><a xlink:href="class_igor_aux_1_1ia_matrix.html" target="_top" xlink:title="IgorAux::iaMatrix\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="175.5,-19.5529 175.5,-38.5529 288.5,-38.5529 288.5,-19.5529 175.5,-19.5529"/>
 <text text-anchor="middle" x="232" y="-26.5529" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix&lt; T &gt;</text>
 </a>
@@ -139,7 +133,7 @@
 </g>
 <!-- Node7 -->
 <g id="node7" class="node"><title>Node7</title>
-<g id="a_node7"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title=" ">
+<g id="a_node7"><a xlink:href="class_igor_aux_1_1ia_string.html" target="_top" xlink:title="IgorAux::iaString">
 <polygon fill="white" stroke="black" points="187.5,-156.553 187.5,-175.553 276.5,-175.553 276.5,-156.553 187.5,-156.553"/>
 <text text-anchor="middle" x="232" y="-163.553" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString</text>
 </a>
@@ -171,7 +165,7 @@
 </g>
 <!-- Node9 -->
 <g id="node9" class="node"><title>Node9</title>
-<g id="a_node9"><a xlink:href="class_igor_1_1i_octree.html" target="_top" xlink:title=" ">
+<g id="a_node9"><a xlink:href="class_igor_1_1i_octree.html" target="_top" xlink:title="Igor::iOctree">
 <polygon fill="white" stroke="black" points="483,-75.5529 483,-94.5529 553,-94.5529 553,-75.5529 483,-75.5529"/>
 <text text-anchor="middle" x="518" y="-82.5529" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree</text>
 </a>
@@ -185,7 +179,7 @@
 </g>
 <!-- Node10 -->
 <g id="node10" class="node"><title>Node10</title>
-<g id="a_node10"><a xlink:href="class_igor_1_1i_node_visitor_update_transform.html" target="_top" xlink:title=" ">
+<g id="a_node10"><a xlink:href="class_igor_1_1i_node_visitor_update_transform.html" target="_top" xlink:title="Igor::iNodeVisitorUpdate\lTransform">
 <polygon fill="white" stroke="black" points="457,-26.0529 457,-56.0529 579,-56.0529 579,-26.0529 457,-26.0529"/>
 <text text-anchor="start" x="465" y="-44.0529" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVisitorUpdate</text>
 <text text-anchor="middle" x="518" y="-33.0529" font-family="Helvetica,sans-Serif" font-size="10.00">Transform</text>
@@ -200,7 +194,7 @@
 </g>
 <!-- Node11 -->
 <g id="node11" class="node"><title>Node11</title>
-<g id="a_node11"><a xlink:href="class_igor_1_1i_node_visitor.html" target="_top" xlink:title=" ">
+<g id="a_node11"><a xlink:href="class_igor_1_1i_node_visitor.html" target="_top" xlink:title="Igor::iNodeVisitor">
 <polygon fill="white" stroke="black" points="186.5,-57.5529 186.5,-76.5529 277.5,-76.5529 277.5,-57.5529 186.5,-57.5529"/>
 <text text-anchor="middle" x="232" y="-64.5529" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVisitor</text>
 </a>

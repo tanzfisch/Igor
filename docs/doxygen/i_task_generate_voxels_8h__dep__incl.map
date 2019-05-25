@@ -1,9 +1,8 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iTaskGenerateVoxels.h" name="C:/dev/Igor/Igor/src/Igor/src/iTaskGenerateVoxels.h">
-<area shape="rect" id="node1" title=" " alt="" coords="162,5,370,47"/>
-<area shape="rect" id="node2" href="$i_task_generate_voxels_8cpp.html" title=" " alt="" coords="5,95,228,136"/>
-<area shape="rect" id="node3" href="$i_voxel_terrain_8cpp.html" title=" " alt="" coords="133,184,306,225"/>
-<area shape="rect" id="node4" href="$i_voxel_terrain_8h.html" title=" " alt="" coords="352,95,511,136"/>
-<area shape="rect" id="node5" href="$i_task_voxel_terrain_8cpp.html" title=" " alt="" coords="331,184,532,225"/>
-<area shape="rect" id="node6" href="$i_voxel_operation_box_8cpp.html" title=" " alt="" coords="557,184,770,225"/>
-<area shape="rect" id="node7" href="$i_voxel_operation_sphere_8cpp.html" title=" " alt="" coords="795,184,1025,225"/>
+<map id="C:/dev/Igor/src/Igor/src/iTaskGenerateVoxels.h" name="C:/dev/Igor/src/Igor/src/iTaskGenerateVoxels.h">
+<area shape="rect" id="node2" href="$i_task_generate_voxels_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskGenerateVoxels.cpp" alt="" coords="5,95,203,136"/>
+<area shape="rect" id="node3" href="$i_voxel_terrain_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrain.cpp" alt="" coords="126,184,274,225"/>
+<area shape="rect" id="node4" href="$i_voxel_terrain_8h.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrain.h" alt="" coords="319,95,454,136"/>
+<area shape="rect" id="node5" href="$i_task_voxel_terrain_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskVoxelTerrain.cpp" alt="" coords="299,184,475,225"/>
+<area shape="rect" id="node6" href="$i_voxel_operation_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelOperationBox.cpp" alt="" coords="499,184,687,225"/>
+<area shape="rect" id="node7" href="$i_voxel_operation_sphere_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelOperationSphere.cpp" alt="" coords="711,184,918,225"/>
 </map>

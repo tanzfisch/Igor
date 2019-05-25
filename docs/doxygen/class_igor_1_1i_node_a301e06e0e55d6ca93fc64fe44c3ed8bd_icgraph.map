@@ -1,0 +1,21 @@
+<map id="Igor::iNode::getName" name="Igor::iNode::getName">
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#ac26cdefd11bdce0e76c1aa545902520f" title="Igor::iModelDataIOOMPF\l::preOrderVisit" alt="" coords="211,5,378,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a767c71fb9a79be77681ddf213ab70437" title="Igor::iNode::iNode" alt="" coords="232,71,357,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#ae397893dd8c9dbca7d895033f8a8923c" title="Igor::iNode::getInfo" alt="" coords="229,122,360,149"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_camera.html#af1a669e4d86391467e364bd0fecc2b9f" title="Igor::iNodeCamera::\liNodeCamera" alt="" coords="226,173,363,215"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_emitter.html#a4c4d6f76f70448cc052410bca6d6d71a" title="Igor::iNodeEmitter\l::iNodeEmitter" alt="" coords="231,239,358,280"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node_light.html#ab64c7a40d329d2802b5b9a6a02d96bd7" title="Igor::iNodeLight::iNodeLight" alt="" coords="204,305,385,331"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node_l_o_d_switch.html#a82890d01bc6074af1c17714bad07574e" title="Igor::iNodeLODSwitch\l::iNodeLODSwitch" alt="" coords="220,356,369,397"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_node_l_o_d_trigger.html#abf2fc3a17a27cde43377b1547749408c" title="Igor::iNodeLODTrigger\l::iNodeLODTrigger" alt="" coords="220,421,369,463"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_node_particle_system.html#aa47e497b438194f01c1ececbcac58812" title="Igor::iNodeParticleSystem\l::iNodeParticleSystem" alt="" coords="208,487,381,528"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_node_sky_box.html#ae71aed540705a6d38d905b3d5d40301b" title="Igor::iNodeSkyBox::\liNodeSkyBox" alt="" coords="225,552,364,593"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_node_switch.html#abf1208dac8dcc1f2fade4bc3234b8766" title="Igor::iNodeSwitch::\liNodeSwitch" alt="" coords="229,617,360,659"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_node_transform.html#aec063e140be66276567ef669b2438629" title="Igor::iNodeTransform\l::iNodeTransform" alt="" coords="224,683,365,724"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_node_visitor_search_name.html#acdef84422cbf0491156abf6ab1d30785" title="Igor::iNodeVisitorSearch\lName::preOrderVisit" alt="" coords="213,748,376,789"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_node_water.html#aacc66afb01de209d34b620ac3eb7ea3c" title="Igor::iNodeWater::iNodeWater" alt="" coords="197,814,392,841"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_scene.html#a0bcc19ae479922675b19b47f36179189" title="Igor::iScene::unregister\lCamera" alt="" coords="217,865,373,907"/>
+<area shape="rect" id="node19" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title="UserControlGraphView\l::preOrderVisit" alt="" coords="218,931,371,972"/>
+<area shape="rect" id="node20" href="$class_user_control_particle_system.html#a60f0ef94fe517d5fcf6e1f9c9ba63d84" title="UserControlParticleSystem\l::updateGUI" alt="" coords="205,996,384,1037"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_visitor_print_tree.html#ae54f176919d1cf6840e74755a42d07ab" title="Igor::iNodeVisitorPrintTree\l::preOrderVisit" alt="" coords="440,115,613,156"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_node_camera.html#a3ae5f63f02a69291d969e5847a8c5e2a" title="Igor::iNodeCamera::\lonPreSetScene" alt="" coords="458,865,595,907"/>
+</map>

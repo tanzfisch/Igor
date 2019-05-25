@@ -9,167 +9,164 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 182)">
 <title>OMPF::ompfExternalReferenceChunk::write</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-182 747,-182 747,4 -4,4"/>
-<!-- Node27 -->
-<g id="node1" class="node"><title>Node27</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-51.5 0,-81.5 152,-81.5 152,-51.5 0,-51.5"/>
 <text text-anchor="start" x="8" y="-69.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfExternalReference</text>
 <text text-anchor="middle" x="76" y="-58.5" font-family="Helvetica,sans-Serif" font-size="10.00">Chunk::write</text>
-</a>
 </g>
-</g>
-<!-- Node28 -->
-<g id="node2" class="node"><title>Node28</title>
-<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#a6f186b41de009cec29ae83a8929f8cea" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#a6f186b41de009cec29ae83a8929f8cea" target="_top" xlink:title="OMPF::ompfBaseChunk\l::write">
 <polygon fill="white" stroke="black" points="188,-76.5 188,-106.5 310,-106.5 310,-76.5 188,-76.5"/>
 <text text-anchor="start" x="196" y="-94.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfBaseChunk</text>
 <text text-anchor="middle" x="249" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">::write</text>
 </a>
 </g>
 </g>
-<!-- Node27&#45;&gt;Node28 -->
-<g id="edge1" class="edge"><title>Node27&#45;&gt;Node28</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M152.003,-77.4654C160.646,-78.7289 169.434,-80.0137 178.007,-81.2671"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="177.549,-84.7373 187.95,-82.7208 178.562,-77.8109 177.549,-84.7373"/>
 </g>
-<!-- Node37 -->
-<g id="node11" class="node"><title>Node37</title>
-<g id="a_node11"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#a5f520b618326e0fba9e6a3433f48d345" target="_top" xlink:title=" ">
+<!-- Node11 -->
+<g id="node11" class="node"><title>Node11</title>
+<g id="a_node11"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#af2301d255ce51d9168b808deccaaf8a2" target="_top" xlink:title="OMPF::ompfBaseChunk\l::getName">
 <polygon fill="white" stroke="black" points="188,-27.5 188,-57.5 310,-57.5 310,-27.5 188,-27.5"/>
 <text text-anchor="start" x="196" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfBaseChunk</text>
 <text text-anchor="middle" x="249" y="-34.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getName</text>
 </a>
 </g>
 </g>
-<!-- Node27&#45;&gt;Node37 -->
-<g id="edge13" class="edge"><title>Node27&#45;&gt;Node37</title>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge13" class="edge"><title>Node1&#45;&gt;Node11</title>
 <path fill="none" stroke="midnightblue" d="M152.003,-55.9733C160.646,-54.7602 169.434,-53.5268 178.007,-52.3236"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="178.534,-55.784 187.95,-50.928 177.561,-48.852 178.534,-55.784"/>
 </g>
-<!-- Node29 -->
-<g id="node3" class="node"><title>Node29</title>
-<g id="a_node3"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#aa10a43d86b3c7f1efeb2ecb0ca0bf401" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#aa10a43d86b3c7f1efeb2ecb0ca0bf401" target="_top" xlink:title="OMPF::ompfBaseChunk\l::getSize">
 <polygon fill="white" stroke="black" points="346,-54.5 346,-84.5 468,-84.5 468,-54.5 346,-54.5"/>
 <text text-anchor="start" x="354" y="-72.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfBaseChunk</text>
 <text text-anchor="middle" x="407" y="-61.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getSize</text>
 </a>
 </g>
 </g>
-<!-- Node28&#45;&gt;Node29 -->
-<g id="edge2" class="edge"><title>Node28&#45;&gt;Node29</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M310.314,-82.9942C318.695,-81.8123 327.363,-80.5898 335.904,-79.3853"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="336.433,-82.8454 345.847,-77.9832 335.456,-75.914 336.433,-82.8454"/>
 </g>
-<!-- Node30 -->
-<g id="node4" class="node"><title>Node30</title>
-<g id="a_node4"><a xlink:href="class_o_m_p_f_1_1ompf_settings.html#a2d4d91f50eec7e4acc5b79619bea4fb4" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_o_m_p_f_1_1ompf_settings.html#ac4b44803b6a70b9eb6f3ca573a0a5242" target="_top" xlink:title="OMPF::ompfSettings\l::getTypeIDSize">
 <polygon fill="white" stroke="black" points="504,-147.5 504,-177.5 612,-177.5 612,-147.5 504,-147.5"/>
 <text text-anchor="start" x="512" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfSettings</text>
 <text text-anchor="middle" x="558" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getTypeIDSize</text>
 </a>
 </g>
 </g>
-<!-- Node28&#45;&gt;Node30 -->
-<g id="edge10" class="edge"><title>Node28&#45;&gt;Node30</title>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge10" class="edge"><title>Node2&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M306.252,-106.552C319.278,-109.925 333.102,-113.416 346,-116.5 395.624,-128.366 452.117,-140.615 494.151,-149.488"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="493.464,-152.92 503.971,-151.554 494.906,-146.07 493.464,-152.92"/>
 </g>
-<!-- Node31 -->
-<g id="node5" class="node"><title>Node31</title>
-<g id="a_node5"><a xlink:href="class_o_m_p_f_1_1ompf_settings.html#a1aa267a457e47d60cb915be2f82540a4" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_o_m_p_f_1_1ompf_settings.html#a3b1a3f75376c3ebee9a59a31d7280aa3" target="_top" xlink:title="OMPF::ompfSettings\l::getChunkIDSize">
 <polygon fill="white" stroke="black" points="504,-98.5 504,-128.5 612,-128.5 612,-98.5 504,-98.5"/>
 <text text-anchor="start" x="512" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfSettings</text>
 <text text-anchor="middle" x="558" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getChunkIDSize</text>
 </a>
 </g>
 </g>
-<!-- Node28&#45;&gt;Node31 -->
-<g id="edge12" class="edge"><title>Node28&#45;&gt;Node31</title>
+<!-- Node2&#45;&gt;Node5 -->
+<g id="edge12" class="edge"><title>Node2&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M310.287,-95.8202C363.193,-99.6115 439.875,-105.107 493.668,-108.962"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="493.547,-112.462 503.772,-109.686 494.047,-105.48 493.547,-112.462"/>
 </g>
-<!-- Node32 -->
-<g id="node6" class="node"><title>Node32</title>
-<g id="a_node6"><a xlink:href="class_o_m_p_f_1_1ompf_settings.html#a29cf3d0ccc1577b2e1fc8089c10b852b" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_o_m_p_f_1_1ompf_settings.html#ac8b4c4cf739d5c5fd8d09b15d176c90d" target="_top" xlink:title="OMPF::ompfSettings\l::getChunkSizeSize">
 <polygon fill="white" stroke="black" points="504,-0.5 504,-30.5 612,-30.5 612,-0.5 504,-0.5"/>
 <text text-anchor="start" x="512" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfSettings</text>
 <text text-anchor="middle" x="558" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getChunkSizeSize</text>
 </a>
 </g>
 </g>
-<!-- Node28&#45;&gt;Node32 -->
-<g id="edge11" class="edge"><title>Node28&#45;&gt;Node32</title>
+<!-- Node2&#45;&gt;Node6 -->
+<g id="edge11" class="edge"><title>Node2&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M290.433,-76.41C297.055,-73.6307 303.781,-70.6162 310,-67.5 326.764,-59.0995 328.353,-51.8397 346,-45.5 393.872,-28.302 451.179,-20.9236 493.981,-17.7779"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="494.242,-21.2683 503.983,-17.1001 493.769,-14.2843 494.242,-21.2683"/>
 </g>
-<!-- Node29&#45;&gt;Node30 -->
-<g id="edge3" class="edge"><title>Node29&#45;&gt;Node30</title>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M426.735,-84.6764C445.557,-99.5043 475.747,-122.166 504,-138.5 506.626,-140.018 509.365,-141.511 512.155,-142.962"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="510.649,-146.122 521.161,-147.442 513.766,-139.854 510.649,-146.122"/>
 </g>
-<!-- Node29&#45;&gt;Node31 -->
-<g id="edge4" class="edge"><title>Node29&#45;&gt;Node31</title>
+<!-- Node3&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node3&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M458.861,-84.5192C470.901,-88.0748 483.861,-91.9018 496.289,-95.5721"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="495.534,-98.9983 506.116,-98.4738 497.516,-92.2849 495.534,-98.9983"/>
 </g>
-<!-- Node29&#45;&gt;Node32 -->
-<g id="edge5" class="edge"><title>Node29&#45;&gt;Node32</title>
+<!-- Node3&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node3&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M449.505,-54.458C467.03,-48.1066 487.608,-40.6488 506.042,-33.9678"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="507.251,-37.2528 515.46,-30.5549 504.865,-30.6717 507.251,-37.2528"/>
 </g>
-<!-- Node33 -->
-<g id="node7" class="node"><title>Node33</title>
-<g id="a_node7"><a xlink:href="class_igor_aux_1_1ia_string.html#a2d5a35cf6b3f2cad753afcd4af72c475" target="_top" xlink:title=" ">
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_igor_aux_1_1ia_string.html#a7793c7a60aff4ef3e35bd60c7d6ee703" target="_top" xlink:title="IgorAux::iaString::\lgetUTF8Size">
 <polygon fill="white" stroke="black" points="510.5,-49.5 510.5,-79.5 605.5,-79.5 605.5,-49.5 510.5,-49.5"/>
 <text text-anchor="start" x="518.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::</text>
 <text text-anchor="middle" x="558" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">getUTF8Size</text>
 </a>
 </g>
 </g>
-<!-- Node29&#45;&gt;Node33 -->
-<g id="edge6" class="edge"><title>Node29&#45;&gt;Node33</title>
+<!-- Node3&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node3&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M468.175,-67.4807C478.715,-67.127 489.652,-66.76 500.1,-66.4094"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="500.475,-69.8989 510.352,-66.0654 500.24,-62.9028 500.475,-69.8989"/>
 </g>
-<!-- Node34 -->
-<g id="node8" class="node"><title>Node34</title>
-<g id="a_node8"><a xlink:href="class_igor_aux_1_1ia_string.html#afa2b9ad864db36d1af6c6c67e02d270b" target="_top" xlink:title=" ">
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="class_igor_aux_1_1ia_string.html#afb40afde994d28224201cd9cb28909f7" target="_top" xlink:title="IgorAux::iaString::\lisEmpty">
 <polygon fill="white" stroke="black" points="648,-98.5 648,-128.5 743,-128.5 743,-98.5 648,-98.5"/>
 <text text-anchor="start" x="656" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::</text>
 <text text-anchor="middle" x="695.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">isEmpty</text>
 </a>
 </g>
 </g>
-<!-- Node33&#45;&gt;Node34 -->
-<g id="edge7" class="edge"><title>Node33&#45;&gt;Node34</title>
+<!-- Node7&#45;&gt;Node8 -->
+<g id="edge7" class="edge"><title>Node7&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M600.76,-79.6014C614.154,-84.4451 629.146,-89.8664 643.144,-94.9285"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="642.05,-98.2547 652.645,-98.3641 644.431,-91.6719 642.05,-98.2547"/>
 </g>
-<!-- Node35 -->
-<g id="node9" class="node"><title>Node35</title>
-<g id="a_node9"><a xlink:href="class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" target="_top" xlink:title=" ">
+<!-- Node9 -->
+<g id="node9" class="node"><title>Node9</title>
+<g id="a_node9"><a xlink:href="class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" target="_top" xlink:title="IgorAux::iaString::\lgetData">
 <polygon fill="white" stroke="black" points="648,-49.5 648,-79.5 743,-79.5 743,-49.5 648,-49.5"/>
 <text text-anchor="start" x="656" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::</text>
 <text text-anchor="middle" x="695.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">getData</text>
 </a>
 </g>
 </g>
-<!-- Node33&#45;&gt;Node35 -->
-<g id="edge8" class="edge"><title>Node33&#45;&gt;Node35</title>
+<!-- Node7&#45;&gt;Node9 -->
+<g id="edge8" class="edge"><title>Node7&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M605.631,-64.5C615.958,-64.5 627.011,-64.5 637.692,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="637.783,-68.0001 647.783,-64.5 637.783,-61.0001 637.783,-68.0001"/>
 </g>
-<!-- Node36 -->
-<g id="node10" class="node"><title>Node36</title>
-<g id="a_node10"><a xlink:href="class_igor_aux_1_1ia_string.html#abdca81f9a7dfc354263de5f174171425" target="_top" xlink:title=" ">
+<!-- Node10 -->
+<g id="node10" class="node"><title>Node10</title>
+<g id="a_node10"><a xlink:href="class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17" target="_top" xlink:title="IgorAux::iaString::\lgetSize">
 <polygon fill="white" stroke="black" points="648,-0.5 648,-30.5 743,-30.5 743,-0.5 648,-0.5"/>
 <text text-anchor="start" x="656" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::</text>
 <text text-anchor="middle" x="695.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">getSize</text>
 </a>
 </g>
 </g>
-<!-- Node33&#45;&gt;Node36 -->
-<g id="edge9" class="edge"><title>Node33&#45;&gt;Node36</title>
+<!-- Node7&#45;&gt;Node10 -->
+<g id="edge9" class="edge"><title>Node7&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M600.76,-49.3986C614.154,-44.5549 629.146,-39.1336 643.144,-34.0715"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="644.431,-37.3281 652.645,-30.6359 642.05,-30.7453 644.431,-37.3281"/>
 </g>

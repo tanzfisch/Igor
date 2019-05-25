@@ -220,6 +220,13 @@ namespace IgorAux
         */
         __IGOR_INLINE__ T* getData();
 
+		/*! converts the vector in to given type of vector
+
+		\returns vector for given type
+		*/
+		template<class T2>
+		__IGOR_INLINE__ iaVector3<T2> convert() const;
+
         /*! does nothing
         */
         iaVector3() = default;

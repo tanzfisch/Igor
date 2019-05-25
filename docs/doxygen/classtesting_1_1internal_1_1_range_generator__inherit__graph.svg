@@ -9,26 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 102)">
 <title>testing::internal::RangeGenerator&lt; T, IncrementT &gt;</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-102 168,-102 168,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 164,-30.5 164,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="82" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">RangeGenerator&lt; T, IncrementT &gt;</text>
-</a>
 </g>
-</g>
-<!-- Node1 -->
-<g id="node2" class="node"><title>Node1</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_param_generator_interface.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="singletontesting_1_1internal_1_1_param_generator_interface.html" target="_top" xlink:title="testing::internal::\lParamGeneratorInterface\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="8,-67.5 8,-97.5 156,-97.5 156,-67.5 8,-67.5"/>
 <text text-anchor="start" x="16" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="82" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParamGeneratorInterface&lt; T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node0 -->
-<g id="edge1" class="edge"><title>Node1&#45;&gt;Node0</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M82,-57.1081C82,-48.1539 82,-38.3227 82,-30.5765"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="78.5001,-57.3959 82,-67.396 85.5001,-57.396 78.5001,-57.3959"/>
 </g>

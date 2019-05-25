@@ -304,10 +304,15 @@ float64 CharacterController::getContactPoint(iaVector3d & point, iaVector3d & no
 
 	iPhysics::getInstance().convexCast(matrix, target, _collisionCast, iRayPreFilterDelegate(this, &CharacterController::onRayPreFilter), nullptr, info);
 
-	if (info.size())
+	if (!info.empty())
 	{
-		point = info[0]._point._vec;
-		normal = info[0]._normal._vec;
+		point._x = info[0]._point._x;
+		point._y = info[0]._point._y;
+		point._z = info[0]._point._z;
+
+		normal._x = info[0]._normal._x;
+		normal._y = info[0]._normal._y;
+		normal._z = info[0]._normal._z;
 
 		result = matrix._pos._y - point._y;
 		result -= (_characterHeight * 0.5);

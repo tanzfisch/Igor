@@ -1,13 +1,8 @@
-<map id="C:/dev/Igor/Igor/src/OMPF/src/OMPF.h" name="C:/dev/Igor/Igor/src/OMPF/src/OMPF.h">
-<area shape="rect" id="node1" title=" " alt="" coords="204,5,343,47"/>
-<area shape="rect" id="node2" href="$ompf_defines_8h.html" title=" " alt="" coords="5,244,109,271"/>
-<area shape="rect" id="node4" href="$ompf_settings_8h.html" title=" " alt="" coords="72,95,181,121"/>
-<area shape="rect" id="node6" href="$ia_string_8h.html" title=" " alt="" coords="203,169,280,196"/>
-<area shape="rect" id="node9" href="$ia_mem_block_control_8h.html" title=" " alt="" coords="256,95,403,121"/>
-<area shape="rect" id="node10" title=" " alt="" coords="427,95,474,121"/>
-<area shape="rect" id="node11" title=" " alt="" coords="498,95,563,121"/>
-<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="103,319,190,345"/>
-<area shape="rect" id="node5" href="$ompf_version_8h.html" title=" " alt="" coords="73,169,178,196"/>
-<area shape="rect" id="node7" title=" " alt="" coords="184,244,253,271"/>
-<area shape="rect" id="node8" title=" " alt="" coords="277,244,333,271"/>
+<map id="C:/dev/Igor/src/OMPF/src/OMPF.h" name="C:/dev/Igor/src/OMPF/src/OMPF.h">
+<area shape="rect" id="node2" href="$ompf_defines_8h.html" title="ompfDefines.h" alt="" coords="5,244,109,271"/>
+<area shape="rect" id="node4" href="$ompf_settings_8h.html" title="ompfSettings.h" alt="" coords="72,95,181,121"/>
+<area shape="rect" id="node6" href="$ia_string_8h.html" title="iaString.h" alt="" coords="203,169,280,196"/>
+<area shape="rect" id="node9" href="$ia_mem_block_control_8h.html" title="iaMemBlockControl.h" alt="" coords="256,95,403,121"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="103,319,190,345"/>
+<area shape="rect" id="node5" href="$ompf_version_8h.html" title="ompfVersion.h" alt="" coords="73,169,178,196"/>
 </map>

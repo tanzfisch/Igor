@@ -1,6 +1,5 @@
 <map id="Igor::iIntersection::inFrontOf" name="Igor::iIntersection::inFrontOf">
-<area shape="rect" id="node1" title=" " alt="" coords="565,5,687,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_octree.html#aa3b54fdf7ba95e2570b3a024facd875b" title=" " alt="" coords="365,13,517,39"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_octree.html#a76d17a0c122ae0bef60be65c6531b23a" title=" " alt="" coords="192,13,317,39"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_entity_manager.html#a1be0eeeb3a34c74b1e64068f6ffcf526" title=" " alt="" coords="5,5,144,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_octree.html#aa3b54fdf7ba95e2570b3a024facd875b" title="Igor::iOctree::testFilter" alt="" coords="175,13,327,39"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_octree.html#a76d17a0c122ae0bef60be65c6531b23a" title="Igor::iOctree::filter" alt="" coords="375,13,500,39"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_entity_manager.html#a1be0eeeb3a34c74b1e64068f6ffcf526" title="Igor::iEntityManager\l::getEntities" alt="" coords="548,5,687,47"/>
 </map>

@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iWidgetColorGradient.h" name="C:/dev/Igor/Igor/src/Igor/src/iWidgetColorGradient.h">
-<area shape="rect" id="node1" title=" " alt="" coords="367,5,574,47"/>
-<area shape="rect" id="node2" href="$i_dialog_color_gradient_8cpp.html" title=" " alt="" coords="5,102,221,143"/>
-<area shape="rect" id="node3" href="$i_widget_color_gradient_8cpp.html" title=" " alt="" coords="245,102,467,143"/>
-<area shape="rect" id="node4" href="$i_widget_manager_8cpp.html" title=" " alt="" coords="491,102,683,143"/>
-<area shape="rect" id="node5" href="$_user_control_particle_system_8cpp.html" title=" " alt="" coords="707,95,915,151"/>
+<map id="C:/dev/Igor/src/Igor/src/iWidgetColorGradient.h" name="C:/dev/Igor/src/Igor/src/iWidgetColorGradient.h">
+<area shape="rect" id="node2" href="$i_dialog_color_gradient_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogColorGradient.cpp" alt="" coords="5,102,196,143"/>
+<area shape="rect" id="node3" href="$i_widget_color_gradient_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetColorGradient.cpp" alt="" coords="220,102,416,143"/>
+<area shape="rect" id="node4" href="$i_widget_manager_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetManager.cpp" alt="" coords="440,102,607,143"/>
+<area shape="rect" id="node5" href="$_user_control_particle_system_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lParticleSystem.cpp" alt="" coords="631,95,826,151"/>
 </map>

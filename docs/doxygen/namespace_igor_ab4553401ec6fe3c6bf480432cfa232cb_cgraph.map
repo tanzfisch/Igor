@@ -1,23 +1,22 @@
 <map id="Igor::startup" name="Igor::startup">
-<area shape="rect" id="node1" title=" " alt="" coords="5,356,96,383"/>
-<area shape="rect" id="node2" href="$namespace_igor_aux.html#aba920763eec5d3b65199d4d73bfdbef7" title=" " alt="" coords="180,97,295,124"/>
-<area shape="rect" id="node6" href="$namespace_igor.html#a1fbeba8576121a573f03c2e05d84477f" title=" " alt="" coords="189,213,285,240"/>
-<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_file.html#a17e13f21e78652ef9435338acedf2832" title=" " alt="" coords="167,264,308,291"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_config_reader.html#a9b1620ce0279dfdf14e67310aa217d0b" title=" " alt="" coords="172,315,303,357"/>
-<area shape="rect" id="node17" href="$class_igor_aux_1_1ia_file.html#a0e3107c94c9e4d1c31981166f421ee0f" title=" " alt="" coords="161,381,313,422"/>
-<area shape="rect" id="node18" href="$class_igor_aux_1_1ia_directory.html#af36b64f70daf80bb6b60ee36fe9fdc02" title=" " alt="" coords="166,446,309,487"/>
-<area shape="rect" id="node19" href="$class_igor_aux_1_1ia_directory.html#a6cf94c9a16a01913992b16b24782757b" title=" " alt="" coords="155,511,319,553"/>
-<area shape="rect" id="node21" href="$class_igor_aux_1_1ia_file.html#a0a9b59fbb16f5c2bca184af5ba946b67" title=" " alt="" coords="144,577,331,604"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_clock.html#a9f5c16561acde973d199f6e3ecf84835" title=" " alt="" coords="381,5,555,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="379,122,557,163"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_console.html#ab2b1bdc5e85c24837552dd8ee54512ef" title=" " alt="" coords="403,57,533,98"/>
-<area shape="rect" id="node7" href="$namespace_igor_aux.html#a7dce861889a3c2884129ceb9d03ddb24" title=" " alt="" coords="413,188,523,215"/>
-<area shape="rect" id="node9" href="$namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" title=" " alt="" coords="621,272,720,299"/>
-<area shape="rect" id="node11" href="$namespace_igor_aux.html#ab41772b65bbf298c005b49c1353ed50c" title=" " alt="" coords="405,356,531,383"/>
-<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_console.html#a4d37492837cbe157cb3145eecafedbd8" title=" " alt="" coords="403,290,533,331"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_console.html#a025216d7b2e29420a663e8119b937ed4" title=" " alt="" coords="605,181,736,222"/>
-<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" title=" " alt="" coords="784,265,915,306"/>
-<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_console.html#ac2ec4404fbf045cefd3c95f31ace3af2" title=" " alt="" coords="605,349,736,390"/>
-<area shape="rect" id="node16" href="$class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" title=" " alt="" coords="405,427,531,469"/>
-<area shape="rect" id="node20" href="$class_igor_aux_1_1ia_file.html#ad72dd9d9a50afcf574fc90e64d043d9b" title=" " alt="" coords="389,519,547,545"/>
+<area shape="rect" id="node2" href="$namespace_igor_aux.html#aba920763eec5d3b65199d4d73bfdbef7" title="IgorAux::startup" alt="" coords="180,97,295,124"/>
+<area shape="rect" id="node6" href="$namespace_igor.html#a1fbeba8576121a573f03c2e05d84477f" title="Igor::printInfo" alt="" coords="189,213,285,240"/>
+<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_file.html#ab459bfac7c17fd8bb45b92a07fcdcbf2" title="IgorAux::iaFile::exist" alt="" coords="167,264,308,291"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_config_reader.html#a9b1620ce0279dfdf14e67310aa217d0b" title="Igor::iConfigReader\l::readConfiguration" alt="" coords="172,315,303,357"/>
+<area shape="rect" id="node17" href="$class_igor_aux_1_1ia_file.html#a12cc3de5e34e54df43e15e5a6fbd105e" title="IgorAux::iaFile::getFull\lFileName" alt="" coords="161,381,313,422"/>
+<area shape="rect" id="node18" href="$class_igor_aux_1_1ia_directory.html#af36b64f70daf80bb6b60ee36fe9fdc02" title="IgorAux::iaDirectory\l::setCurrentDirectory" alt="" coords="166,446,309,487"/>
+<area shape="rect" id="node19" href="$class_igor_aux_1_1ia_directory.html#a6cf94c9a16a01913992b16b24782757b" title="IgorAux::iaDirectory\l::getApplicationDirectory" alt="" coords="155,511,319,553"/>
+<area shape="rect" id="node21" href="$class_igor_aux_1_1ia_file.html#a3cfb42293c4b34ba8355b49cdae2dab2" title="IgorAux::iaFile::getFileName" alt="" coords="144,577,331,604"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_clock.html#a9f5c16561acde973d199f6e3ecf84835" title="IgorAux::iaClock::initClock" alt="" coords="381,5,555,32"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iaConsole \&gt;::getInstance" alt="" coords="379,122,557,163"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_console.html#ab2b1bdc5e85c24837552dd8ee54512ef" title="IgorAux::iaConsole\l::openLogfile" alt="" coords="403,57,533,98"/>
+<area shape="rect" id="node7" href="$namespace_igor_aux.html#a7dce861889a3c2884129ceb9d03ddb24" title="IgorAux::LOCK" alt="" coords="413,188,523,215"/>
+<area shape="rect" id="node9" href="$namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" title="IgorAux::endl" alt="" coords="621,272,720,299"/>
+<area shape="rect" id="node11" href="$namespace_igor_aux.html#ab41772b65bbf298c005b49c1353ed50c" title="IgorAux::UNLOCK" alt="" coords="405,356,531,383"/>
+<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_console.html#a4d37492837cbe157cb3145eecafedbd8" title="IgorAux::iaConsole\l::printCake" alt="" coords="403,290,533,331"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_console.html#a025216d7b2e29420a663e8119b937ed4" title="IgorAux::iaConsole\l::lock" alt="" coords="605,181,736,222"/>
+<area shape="rect" id="node10" href="$class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" title="IgorAux::iaConsole\l::setTextColor" alt="" coords="784,265,915,306"/>
+<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_console.html#ac2ec4404fbf045cefd3c95f31ace3af2" title="IgorAux::iaConsole\l::unlock" alt="" coords="605,349,736,390"/>
+<area shape="rect" id="node16" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="405,427,531,469"/>
+<area shape="rect" id="node20" href="$class_igor_aux_1_1ia_file.html#a777e728712c704a9e997eb227a71a6e7" title="IgorAux::iaFile::getPath" alt="" coords="389,519,547,545"/>
 </map>

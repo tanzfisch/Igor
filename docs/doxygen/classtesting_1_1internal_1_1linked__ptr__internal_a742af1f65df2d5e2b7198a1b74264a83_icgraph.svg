@@ -9,47 +9,44 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128)">
 <title>testing::internal::linked_ptr_internal::join_new</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-128 303,-128 303,4 -4,4"/>
-<!-- Node7 -->
-<g id="node1" class="node"><title>Node7</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="204,-41 204,-82 299,-82 299,-41 204,-41"/>
-<text text-anchor="start" x="212" y="-70" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="212" y="-59" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr_internal</text>
-<text text-anchor="middle" x="251.5" y="-48" font-family="Helvetica,sans-Serif" font-size="10.00">::join_new</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-41 0,-82 95,-82 95,-41 0,-41"/>
+<text text-anchor="start" x="8" y="-70" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="8" y="-59" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr_internal</text>
+<text text-anchor="middle" x="47.5" y="-48" font-family="Helvetica,sans-Serif" font-size="10.00">::join_new</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html#a0b4623795339fd29bf9303f926ae2824" target="_top" xlink:title="testing::internal::\llinked_ptr\&lt; const testing\l::internal::ParamGeneratorInterface\l\&lt; T \&gt; \&gt;::capture">
+<polygon fill="white" stroke="black" points="131,-71.5 131,-123.5 299,-123.5 299,-71.5 131,-71.5"/>
+<text text-anchor="start" x="139" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="139" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr&lt; const testing</text>
+<text text-anchor="start" x="139" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamGeneratorInterface</text>
+<text text-anchor="middle" x="215" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::capture</text>
 </a>
 </g>
 </g>
-<!-- Node8 -->
-<g id="node2" class="node"><title>Node8</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html#a0b4623795339fd29bf9303f926ae2824" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-71.5 0,-123.5 168,-123.5 168,-71.5 0,-71.5"/>
-<text text-anchor="start" x="8" y="-111.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-100.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr&lt; const testing</text>
-<text text-anchor="start" x="8" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamGeneratorInterface</text>
-<text text-anchor="middle" x="84" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::capture</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M104.991,-73.7881C113.331,-75.6022 122.068,-77.5027 130.812,-79.4046"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="105.557,-70.3294 95.0414,-71.6238 104.069,-77.1694 105.557,-70.3294"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html#aea2859970b65708fc4f7c8c4cbc7928a" target="_top" xlink:title="testing::internal::\llinked_ptr\&lt; const testing\l::internal::ParamGeneratorInterface\l\&lt; T \&gt; \&gt;::copy">
+<polygon fill="white" stroke="black" points="131,-0.5 131,-52.5 299,-52.5 299,-0.5 131,-0.5"/>
+<text text-anchor="start" x="139" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="139" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr&lt; const testing</text>
+<text text-anchor="start" x="139" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamGeneratorInterface</text>
+<text text-anchor="middle" x="215" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::copy</text>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge1" class="edge"><title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M194.009,-73.7881C185.669,-75.6022 176.932,-77.5027 168.188,-79.4046"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="194.931,-77.1694 203.959,-71.6238 193.443,-70.3294 194.931,-77.1694"/>
-</g>
-<!-- Node9 -->
-<g id="node3" class="node"><title>Node9</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html#aea2859970b65708fc4f7c8c4cbc7928a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-52.5 168,-52.5 168,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr&lt; const testing</text>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamGeneratorInterface</text>
-<text text-anchor="middle" x="84" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::copy</text>
-</a>
-</g>
-</g>
-<!-- Node7&#45;&gt;Node9 -->
-<g id="edge2" class="edge"><title>Node7&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M194.009,-49.5532C185.669,-47.7895 176.932,-45.9418 168.188,-44.0927"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="193.451,-53.0126 203.959,-51.6574 194.899,-46.164 193.451,-53.0126"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M104.991,-49.5532C113.331,-47.7895 122.068,-45.9418 130.812,-44.0927"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="104.101,-46.164 95.0414,-51.6574 105.549,-53.0126 104.101,-46.164"/>
 </g>
 </g>
 </svg>

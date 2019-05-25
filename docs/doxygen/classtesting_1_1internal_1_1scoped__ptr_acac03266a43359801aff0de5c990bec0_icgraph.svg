@@ -9,60 +9,57 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 177.5)">
 <title>testing::internal::scoped_ptr::reset</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-177.5 287,-177.5 287,4 -4,4"/>
-<!-- Node16 -->
-<g id="node1" class="node"><title>Node16</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="191,-66 191,-96 283,-96 283,-66 191,-66"/>
-<text text-anchor="start" x="199" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="237" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr::reset</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-66 0,-96 92,-96 92,-66 0,-66"/>
+<text text-anchor="start" x="8" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="46" y="-73" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr::reset</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html#ab721de9bf4369f002fb563e82352ee36" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; testing\l::internal::ParamIteratorInterface\l\&lt; T \&gt; \&gt;::~scoped_ptr">
+<polygon fill="white" stroke="black" points="128,-121 128,-173 283,-173 283,-121 128,-121"/>
+<text text-anchor="start" x="136" y="-161" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="136" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; testing</text>
+<text text-anchor="start" x="136" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamIteratorInterface</text>
+<text text-anchor="middle" x="205.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::~scoped_ptr</text>
 </a>
 </g>
 </g>
-<!-- Node17 -->
-<g id="node2" class="node"><title>Node17</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html#ab721de9bf4369f002fb563e82352ee36" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-121 0,-173 155,-173 155,-121 0,-121"/>
-<text text-anchor="start" x="8" y="-161" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; testing</text>
-<text text-anchor="start" x="8" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamIteratorInterface</text>
-<text text-anchor="middle" x="77.5" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::~scoped_ptr</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M92.5008,-100.067C108.028,-106.574 125.669,-113.966 142.281,-120.927"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="93.7094,-96.7786 83.1337,-96.1417 91.0039,-103.235 93.7094,-96.7786"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#a49e0c9d26983eb8c76cc9c8ac4469dbf" target="_top" xlink:title="testing::internal::\lValuesInIteratorRangeGenerator\l::Iterator::Advance">
+<polygon fill="white" stroke="black" points="128,-60.5 128,-101.5 283,-101.5 283,-60.5 128,-60.5"/>
+<text text-anchor="start" x="136" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="136" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">ValuesInIteratorRangeGenerator</text>
+<text text-anchor="middle" x="205.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Iterator::Advance</text>
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node17 -->
-<g id="edge1" class="edge"><title>Node16&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M190.499,-100.067C174.972,-106.574 157.331,-113.966 140.719,-120.927"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="191.996,-103.235 199.866,-96.1417 189.291,-96.7786 191.996,-103.235"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M102.354,-81C110.607,-81 119.237,-81 127.834,-81"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="102.133,-77.5001 92.1332,-81 102.133,-84.5001 102.133,-77.5001"/>
 </g>
-<!-- Node18 -->
-<g id="node3" class="node"><title>Node18</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#a49e0c9d26983eb8c76cc9c8ac4469dbf" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-60.5 0,-101.5 155,-101.5 155,-60.5 0,-60.5"/>
-<text text-anchor="start" x="8" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">ValuesInIteratorRangeGenerator</text>
-<text text-anchor="middle" x="77.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Iterator::Advance</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#a8e6087d495d2297ee1d4aabab0b9fe68" target="_top" xlink:title="testing::internal::\lValuesInIteratorRangeGenerator\l::Iterator::Current">
+<polygon fill="white" stroke="black" points="128,-0.5 128,-41.5 283,-41.5 283,-0.5 128,-0.5"/>
+<text text-anchor="start" x="136" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="136" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">ValuesInIteratorRangeGenerator</text>
+<text text-anchor="middle" x="205.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Iterator::Current</text>
 </a>
 </g>
 </g>
-<!-- Node16&#45;&gt;Node18 -->
-<g id="edge2" class="edge"><title>Node16&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M180.646,-81C172.393,-81 163.763,-81 155.166,-81"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="180.867,-84.5001 190.867,-81 180.867,-77.5001 180.867,-84.5001"/>
-</g>
-<!-- Node19 -->
-<g id="node4" class="node"><title>Node19</title>
-<g id="a_node4"><a xlink:href="classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#a37b25780b27c16195042003eaa1a286a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-41.5 155,-41.5 155,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">ValuesInIteratorRangeGenerator</text>
-<text text-anchor="middle" x="77.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Iterator::Current</text>
-</a>
-</g>
-</g>
-<!-- Node16&#45;&gt;Node19 -->
-<g id="edge3" class="edge"><title>Node16&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M186.439,-62.1196C169.292,-55.5876 149.995,-48.2364 132.51,-41.5751"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="185.665,-65.5702 196.256,-65.8595 188.157,-59.0287 185.665,-65.5702"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M96.5611,-62.1196C113.708,-55.5876 133.005,-48.2364 150.49,-41.5751"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="94.8428,-59.0287 86.7439,-65.8595 97.3348,-65.5702 94.8428,-59.0287"/>
 </g>
 </g>
 </svg>

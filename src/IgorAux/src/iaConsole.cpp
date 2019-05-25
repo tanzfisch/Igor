@@ -83,12 +83,19 @@ namespace IgorAux
 
     void iaConsole::exit()
     {
-#ifndef __IGOR_NO_DEBUGBREAK__
         __debugbreak();
-#else
         std::exit(EXIT_FAILURE);
-#endif
     }
+
+	void iaConsole::setLogLevel(LogLevel logLevel)
+	{
+		_logLevel = logLevel;
+	}
+
+	LogLevel iaConsole::getLogLevel() const
+	{
+		return _logLevel;
+	}
 
     void iaConsole::printTombstone()
     {

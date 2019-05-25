@@ -1,7 +1,6 @@
 <map id="Igor::iWidgetGrid::calcChildOffsets" name="Igor::iWidgetGrid::calcChildOffsets">
-<area shape="rect" id="node1" title=" " alt="" coords="5,74,132,115"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" title=" " alt="" coords="195,5,340,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#adf858c6f072682c572aa78044361ac89" title=" " alt="" coords="194,56,341,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title=" " alt="" coords="181,107,353,133"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#a30533fbc10c5e609aafa8b0f251f82ee" title=" " alt="" coords="180,157,355,184"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" title="Igor::iRectangle::setX" alt="" coords="195,5,340,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#adf858c6f072682c572aa78044361ac89" title="Igor::iRectangle::setY" alt="" coords="194,56,341,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title="Igor::iRectangle::setWidth" alt="" coords="181,107,353,133"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#a30533fbc10c5e609aafa8b0f251f82ee" title="Igor::iRectangle::setHeight" alt="" coords="180,157,355,184"/>
 </map>

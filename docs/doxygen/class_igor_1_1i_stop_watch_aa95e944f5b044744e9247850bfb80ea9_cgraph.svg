@@ -9,25 +9,22 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iStopWatch::stop</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 271,-35 271,4 -4,4"/>
-<!-- Node17 -->
-<g id="node1" class="node"><title>Node17</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 114,-25 114,-6 0,-6"/>
 <text text-anchor="middle" x="57" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iStopWatch::stop</text>
-</a>
 </g>
-</g>
-<!-- Node18 -->
-<g id="node2" class="node"><title>Node18</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iTimer \&gt;::getInstance">
 <polygon fill="white" stroke="black" points="150,-0.5 150,-30.5 267,-30.5 267,-0.5 150,-0.5"/>
 <text text-anchor="start" x="158" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="middle" x="208.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iTimer &gt;::getInstance</text>
 </a>
 </g>
 </g>
-<!-- Node17&#45;&gt;Node18 -->
-<g id="edge1" class="edge"><title>Node17&#45;&gt;Node18</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M114.094,-15.5C122.34,-15.5 130.91,-15.5 139.367,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="139.596,-19.0001 149.596,-15.5 139.596,-12.0001 139.596,-19.0001"/>
 </g>

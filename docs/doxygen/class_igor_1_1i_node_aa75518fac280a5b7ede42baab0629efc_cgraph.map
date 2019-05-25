@@ -1,9 +1,8 @@
 <map id="Igor::iNode::~iNode" name="Igor::iNode::~iNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,85,139,112"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ad1adc80c4aa198c0aab3291d9bde8680" title=" " alt="" coords="205,56,367,83"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="187,107,385,149"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title=" " alt="" coords="433,49,628,90"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title=" " alt="" coords="708,5,839,32"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title=" " alt="" coords="919,97,1067,124"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title=" " alt="" coords="676,131,871,173"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ad1adc80c4aa198c0aab3291d9bde8680" title="Igor::iNode::removeNode" alt="" coords="205,56,367,83"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="187,107,385,149"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title="Igor::iNode::setTransformation\lDirty" alt="" coords="433,49,628,90"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title="Igor::iNode::isChild" alt="" coords="708,5,839,32"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title="Igor::iNode::getParent" alt="" coords="919,97,1067,124"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title="Igor::iNode::setTransformation\lDirtyUp" alt="" coords="676,131,871,173"/>
 </map>

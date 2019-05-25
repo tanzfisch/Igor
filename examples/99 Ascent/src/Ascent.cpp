@@ -451,11 +451,9 @@ void Ascent::onVoxelDataGenerated(iVoxelBlockPropsInfo voxelBlockPropsInfo)
     diff = voxelBlockPropsInfo._max;
     diff -= voxelBlockPropsInfo._min;
 
-    iaVector3d offset;
+	iaVector3d offset = voxelBlockPropsInfo._min.convert<float64>();
     iaVector3d pos;
     int count = 0;
-
-    iaConvert::convert(voxelBlockPropsInfo._min, offset);
 
     rand.setSeed(offset._x + offset._y + offset._z);
 

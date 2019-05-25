@@ -1,4 +1,3 @@
 <map id="Igor::iWidget::resetKeyboardFocus" name="Igor::iWidget::resetKeyboardFocus">
-<area shape="rect" id="node1" title=" " alt="" coords="196,5,383,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" title=" " alt="" coords="5,5,148,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" title="Igor::iWidgetTextEdit\l::handleKeyDown" alt="" coords="240,5,383,47"/>
 </map>

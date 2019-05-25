@@ -1,7 +1,7 @@
 <map id="Igor::iPhysics::createCompound" name="Igor::iPhysics::createCompound">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,212,83"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab5efe1f7f2c5a4a94d4eae55289c475a" title=" " alt="" coords="260,31,421,57"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title=" " alt="" coords="477,5,629,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title=" " alt="" coords="469,68,636,95"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics_collision.html#a5ac6c86549b5ea83cd8fcf43778ce154" title=" " alt="" coords="265,133,416,174"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab5efe1f7f2c5a4a94d4eae55289c475a" title="Igor::iPhysics::getWorld" alt="" coords="260,31,421,58"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="477,6,629,33"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="469,69,636,95"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics_world.html#ad40b6a4f973b26c1f84c200d3416ab6c" title="Igor::iPhysicsWorld\l::getNewtonWorld" alt="" coords="273,133,408,175"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_physics_collision.html#a5ac6c86549b5ea83cd8fcf43778ce154" title="Igor::iPhysicsCollision\l::getID" alt="" coords="265,199,416,240"/>
 </map>

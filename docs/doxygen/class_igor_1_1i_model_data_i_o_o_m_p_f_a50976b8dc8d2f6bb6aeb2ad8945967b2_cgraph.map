@@ -1,5 +1,4 @@
 <map id="Igor::iModelDataIOOMPF::createExternalReferenceChunk" name="Igor::iModelDataIOOMPF::createExternalReferenceChunk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,215,76"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_external_reference_chunk.html#ab6547cd77916ae4ec9e531dc59d61aa7" title=" " alt="" coords="269,5,471,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_model.html#adf2dd0b4004625024c4daf12d65eb532" title=" " alt="" coords="263,71,477,98"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_external_reference_chunk.html#ab6547cd77916ae4ec9e531dc59d61aa7" title="OMPF::ompfExternalReference\lChunk::setFilename" alt="" coords="269,5,471,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_model.html#a2cc0bff3d271cd2a7a42951d0086730d" title="Igor::iNodeModel::getModelName" alt="" coords="263,71,477,98"/>
 </map>

@@ -11,25 +11,22 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 325,-35 325,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="189,-0.5 189,-30.5 321,-30.5 321,-0.5 189,-0.5"/>
-<text text-anchor="start" x="197" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaClock::getClock</text>
-<text text-anchor="middle" x="255" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Miliseconds</text>
-</a>
-</g>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 132,-30.5 132,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaClock::getClock</text>
+<text text-anchor="middle" x="66" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Miliseconds</text>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_timer.html#a6cea5cff5b17093ba7c6e64fe795f0dc" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-25 153,-25 153,-6 0,-6"/>
-<text text-anchor="middle" x="76.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTimer::getApplicationTime</text>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_timer.html#ab365ae8f8c1fe9c4ac4d3fb0c34a2036" target="_top" xlink:title="Igor::iTimer::getApplicationTime">
+<polygon fill="white" stroke="black" points="168,-6 168,-25 321,-25 321,-6 168,-6"/>
+<text text-anchor="middle" x="244.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTimer::getApplicationTime</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M178.609,-15.5C170.189,-15.5 161.61,-15.5 153.186,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="178.779,-19.0001 188.779,-15.5 178.779,-12.0001 178.779,-19.0001"/>
+<path fill="none" stroke="midnightblue" d="M142.391,-15.5C150.811,-15.5 159.39,-15.5 167.814,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="142.221,-12.0001 132.221,-15.5 142.221,-19.0001 142.221,-12.0001"/>
 </g>
 </g>
 </svg>

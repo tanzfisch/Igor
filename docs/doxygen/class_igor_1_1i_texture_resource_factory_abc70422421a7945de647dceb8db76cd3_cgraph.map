@@ -1,7 +1,6 @@
 <map id="Igor::iTextureResourceFactory::loadFromPixmap" name="Igor::iTextureResourceFactory::loadFromPixmap">
-<area shape="rect" id="node1" title=" " alt="" coords="5,78,201,119"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_pixmap.html#aa3f88239d2ce086eb26d353bc255e906" title=" " alt="" coords="259,5,418,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_pixmap.html#a9d736314fd7157c56725d65ce2918522" title=" " alt="" coords="258,56,419,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_pixmap.html#a6c4cc02337d854999ec8cad5ef81438f" title=" " alt="" coords="249,107,428,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_pixmap.html#a0216dc530202a89d872d1b01f277fddb" title=" " alt="" coords="263,173,414,200"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_pixmap.html#aa3f88239d2ce086eb26d353bc255e906" title="Igor::iPixmap::getWidth" alt="" coords="259,5,418,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_pixmap.html#a9d736314fd7157c56725d65ce2918522" title="Igor::iPixmap::getHeight" alt="" coords="258,56,419,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_pixmap.html#a6c4cc02337d854999ec8cad5ef81438f" title="Igor::iPixmap::getBytesPer\lPixel" alt="" coords="249,107,428,149"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_pixmap.html#a0216dc530202a89d872d1b01f277fddb" title="Igor::iPixmap::getData" alt="" coords="263,173,414,200"/>
 </map>

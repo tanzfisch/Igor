@@ -1,6 +1,5 @@
 <map id="Igor::iSoundResourceFactory::loadFile" name="Igor::iSoundResourceFactory::loadFile">
-<area shape="rect" id="node1" title=" " alt="" coords="5,50,196,91"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_sound_resource_factory.html#a6427f3498bc7fe736d7f0b59c21cd822" title=" " alt="" coords="244,50,435,91"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="501,5,655,61"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_sound_resource_factory.html#a7463161612f7b252d316fbd7a2d87b0f" title=" " alt="" coords="483,86,673,127"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_sound_resource_factory.html#a6427f3498bc7fe736d7f0b59c21cd822" title="Igor::iSoundResourceFactory\l::loadBuffer" alt="" coords="244,50,435,91"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iResourceManager \&gt;\l::getInstance" alt="" coords="501,5,655,61"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_sound_resource_factory.html#a7463161612f7b252d316fbd7a2d87b0f" title="Igor::iSoundResourceFactory\l::loadWAVBuffer" alt="" coords="483,86,673,127"/>
 </map>

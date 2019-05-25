@@ -1,18 +1,24 @@
 <map id="Igor::iDialogColorGradient::initGUI" name="Igor::iDialogColorGradient::initGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,431,175,472"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_gradient.html#a7366ddddde68bee025df46c328a2887e" title=" " alt="" coords="245,5,379,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title=" " alt="" coords="223,71,401,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title=" " alt="" coords="249,136,375,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd" title=" " alt="" coords="235,201,389,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title=" " alt="" coords="229,267,395,308"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title=" " alt="" coords="249,332,375,373"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title=" " alt="" coords="249,397,375,439"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title=" " alt="" coords="249,463,375,504"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title=" " alt="" coords="235,529,389,555"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a" title=" " alt="" coords="245,580,379,621"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_widget.html#a3e12607670c6f1827838bb42fdb46c3a" title=" " alt="" coords="233,646,391,673"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_widget.html#ad83a7adeddb1e3fdcf75ebbd7c08abfb" title=" " alt="" coords="231,697,393,739"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title=" " alt="" coords="229,763,395,790"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title=" " alt="" coords="249,815,375,856"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title=" " alt="" coords="449,763,583,790"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_gradient.html#a5ac3a4903760f0dec87f134354df67d1" title="IgorAux::iaGradient\l::getValues" alt="" coords="256,5,389,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title="Igor::iWidgetGrid::\lappendRows" alt="" coords="259,71,386,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="233,136,412,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title="Igor::iWidgetLabel\l::setText" alt="" coords="259,201,386,243"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd" title="Igor::iWidgetGroupBox\l::setText" alt="" coords="246,267,399,308"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title="Igor::iWidget::setVertical\lAlignment" alt="" coords="240,332,405,373"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_color_gradient.html#a47d970832ce0248e93502f8ec226e85c" title="Igor::iWidgetColorGradient\l::setGradient" alt="" coords="235,397,410,439"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title="Igor::iWidgetGrid::\lappendCollumns" alt="" coords="259,463,386,504"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title="Igor::iWidgetGrid::\lsetStrechColumn" alt="" coords="259,528,386,569"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title="Igor::iWidget::setWidth" alt="" coords="245,594,400,621"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget_number_chooser.html#a4b8f280d0189e7cfa933f092375150da" title="Igor::iWidgetNumberChooser\l::setMinMaxNumber" alt="" coords="229,645,417,687"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a" title="Igor::iWidgetButton\l::setText" alt="" coords="256,711,389,752"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_widget.html#a3e12607670c6f1827838bb42fdb46c3a" title="Igor::iWidget::setTooltip" alt="" coords="243,777,402,803"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_widget.html#ad83a7adeddb1e3fdcf75ebbd7c08abfb" title="Igor::iWidget::registerOn\lClickEvent" alt="" coords="241,828,404,869"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_user_control_color_chooser.html#a4265efe2599790df4dfada25be58b95f" title="Igor::iUserControlColorChooser\l::setMode" alt="" coords="223,893,423,935"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title="Igor::iWidgetGrid::\laddWidget" alt="" coords="735,955,862,996"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title="Igor::iWidget::addWidget" alt="" coords="240,1010,405,1037"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_user_control_color_chooser.html#a82993876e647753d5b1b6ab29e1ddc44" title="Igor::iUserControlColorChooser\l::updateMode" alt="" coords="471,889,671,931"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_widget.html#adb7456467172baf4989672b6cf489646" title="Igor::iWidget::setActive" alt="" coords="721,787,877,814"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_widget.html#ad472fb1c49ee592a16d50ebb36d7b18a" title="Igor::iWidget::setVisible" alt="" coords="719,838,879,865"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_widget_grid.html#acd624f735fbacd5f01310f5155472ce7" title="Igor::iWidgetGrid::\lremoveWidget" alt="" coords="735,889,862,931"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title="Igor::iWidget::getID" alt="" coords="504,1010,637,1037"/>
 </map>

@@ -9,81 +9,78 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 161.5)">
 <title>Igor::iMaterialResourceFactory::getSortedMaterials</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-161.5 406,-161.5 406,4 -4,4"/>
-<!-- Node42 -->
-<g id="node1" class="node"><title>Node42</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="253,-61 253,-91 402,-91 402,-61 253,-61"/>
-<text text-anchor="start" x="261" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMaterialResourceFactory</text>
-<text text-anchor="middle" x="327.5" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">::getSortedMaterials</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-61 0,-91 149,-91 149,-61 0,-61"/>
+<text text-anchor="start" x="8" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMaterialResourceFactory</text>
+<text text-anchor="middle" x="74.5" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">::getSortedMaterials</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" target="_top" xlink:title="UserControlMaterialView\l::refresh">
+<polygon fill="white" stroke="black" points="195,-127 195,-157 318,-157 318,-127 195,-127"/>
+<text text-anchor="start" x="203" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterialView</text>
+<text text-anchor="middle" x="256.5" y="-134" font-family="Helvetica,sans-Serif" font-size="10.00">::refresh</text>
 </a>
 </g>
 </g>
-<!-- Node43 -->
-<g id="node2" class="node"><title>Node43</title>
-<g id="a_node2"><a xlink:href="class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="84,-127 84,-157 207,-157 207,-127 84,-127"/>
-<text text-anchor="start" x="92" y="-145" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterialView</text>
-<text text-anchor="middle" x="145.5" y="-134" font-family="Helvetica,sans-Serif" font-size="10.00">::refresh</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M124.782,-94.6616C143.599,-101.732 165.267,-109.808 185,-117 193.907,-120.246 203.467,-123.674 212.583,-126.916"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="125.82,-91.3124 115.228,-91.0659 123.354,-97.8639 125.82,-91.3124"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_mesh.html#af55d4328c9fab97659a68bb6eec291aa" target="_top" xlink:title="UserControlMesh::updateGUI">
+<polygon fill="white" stroke="black" points="185,-88.5 185,-107.5 328,-107.5 328,-88.5 185,-88.5"/>
+<text text-anchor="middle" x="256.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::updateGUI</text>
 </a>
 </g>
 </g>
-<!-- Node42&#45;&gt;Node43 -->
-<g id="edge1" class="edge"><title>Node42&#45;&gt;Node43</title>
-<path fill="none" stroke="midnightblue" d="M277.218,-94.6616C258.401,-101.732 236.733,-109.808 217,-117 208.093,-120.246 198.533,-123.674 189.417,-126.916"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="278.646,-97.8639 286.772,-91.0659 276.18,-91.3124 278.646,-97.8639"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M159.217,-86.232C167.767,-87.2771 176.394,-88.3315 184.786,-89.3572"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="159.583,-82.7509 149.232,-85.0117 158.734,-89.6991 159.583,-82.7509"/>
 </g>
-<!-- Node44 -->
-<g id="node3" class="node"><title>Node44</title>
-<g id="a_node3"><a xlink:href="class_user_control_mesh.html#af55d4328c9fab97659a68bb6eec291aa" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="74,-88.5 74,-107.5 217,-107.5 217,-88.5 74,-88.5"/>
-<text text-anchor="middle" x="145.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMesh::updateGUI</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_user_control_particle_system.html#a60f0ef94fe517d5fcf6e1f9c9ba63d84" target="_top" xlink:title="UserControlParticleSystem\l::updateGUI">
+<polygon fill="white" stroke="black" points="189.5,-39 189.5,-69 323.5,-69 323.5,-39 189.5,-39"/>
+<text text-anchor="start" x="197.5" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="256.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::updateGUI</text>
 </a>
 </g>
 </g>
-<!-- Node42&#45;&gt;Node44 -->
-<g id="edge2" class="edge"><title>Node42&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M242.783,-86.232C234.233,-87.2771 225.606,-88.3315 217.214,-89.3572"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="243.266,-89.6991 252.768,-85.0117 242.417,-82.7509 243.266,-89.6991"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M159.281,-65.7601C169.384,-64.5253 179.592,-63.2777 189.392,-62.0799"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="158.734,-62.3009 149.232,-66.9883 159.583,-69.2491 158.734,-62.3009"/>
 </g>
-<!-- Node45 -->
-<g id="node4" class="node"><title>Node45</title>
-<g id="a_node4"><a xlink:href="class_user_control_particle_system.html#a60f0ef94fe517d5fcf6e1f9c9ba63d84" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="78.5,-39 78.5,-69 212.5,-69 212.5,-39 78.5,-39"/>
-<text text-anchor="start" x="86.5" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="145.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::updateGUI</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" target="_top" xlink:title="OBJ2OMPF::convert">
+<polygon fill="white" stroke="black" points="203.5,-0.5 203.5,-19.5 309.5,-19.5 309.5,-0.5 203.5,-0.5"/>
+<text text-anchor="middle" x="256.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">OBJ2OMPF::convert</text>
 </a>
 </g>
 </g>
-<!-- Node42&#45;&gt;Node45 -->
-<g id="edge3" class="edge"><title>Node42&#45;&gt;Node45</title>
-<path fill="none" stroke="midnightblue" d="M242.719,-65.7601C232.616,-64.5253 222.408,-63.2777 212.608,-62.0799"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="242.417,-69.2491 252.768,-66.9883 243.266,-62.3009 242.417,-69.2491"/>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M117.841,-56.7997C137.964,-48.0406 162.489,-37.8886 185,-30 195.806,-26.2132 207.728,-22.617 218.645,-19.5455"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="116.385,-53.6162 108.637,-60.842 119.2,-60.0254 116.385,-53.6162"/>
 </g>
-<!-- Node46 -->
-<g id="node5" class="node"><title>Node46</title>
-<g id="a_node5"><a xlink:href="class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="92.5,-0.5 92.5,-19.5 198.5,-19.5 198.5,-0.5 92.5,-0.5"/>
-<text text-anchor="middle" x="145.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">OBJ2OMPF::convert</text>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" target="_top" xlink:title="main">
+<polygon fill="white" stroke="black" points="364,-0.5 364,-19.5 402,-19.5 402,-0.5 364,-0.5"/>
+<text text-anchor="middle" x="383" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
 </a>
 </g>
 </g>
-<!-- Node42&#45;&gt;Node46 -->
-<g id="edge4" class="edge"><title>Node42&#45;&gt;Node46</title>
-<path fill="none" stroke="midnightblue" d="M284.159,-56.7997C264.036,-48.0406 239.511,-37.8886 217,-30 206.194,-26.2132 194.272,-22.617 183.355,-19.5455"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="282.8,-60.0254 293.363,-60.842 285.615,-53.6162 282.8,-60.0254"/>
-</g>
-<!-- Node47 -->
-<g id="node6" class="node"><title>Node47</title>
-<g id="a_node6"><a xlink:href="_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 38,-19.5 38,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="19" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
-</a>
-</g>
-</g>
-<!-- Node46&#45;&gt;Node47 -->
-<g id="edge5" class="edge"><title>Node46&#45;&gt;Node47</title>
-<path fill="none" stroke="midnightblue" d="M82.3785,-10C66.1824,-10 49.9747,-10 38.1408,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="82.4222,-13.5001 92.4222,-10 82.4221,-6.5001 82.4222,-13.5001"/>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node5&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M319.622,-10C335.818,-10 352.025,-10 363.859,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="319.578,-6.5001 309.578,-10 319.578,-13.5001 319.578,-6.5001"/>
 </g>
 </g>
 </svg>

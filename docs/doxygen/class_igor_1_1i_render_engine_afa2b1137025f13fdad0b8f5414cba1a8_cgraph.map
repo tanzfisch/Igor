@@ -1,11 +1,11 @@
 <map id="Igor::iRenderEngine::drawColorIDs" name="Igor::iRenderEngine::drawColorIDs">
-<area shape="rect" id="node1" title=" " alt="" coords="5,165,140,207"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_material_group.html#aaa0f9de975bbac4ef031085931409f65" title=" " alt="" coords="201,5,335,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_render.html#aef5fe1bc6120f2cca1284646133293ec" title=" " alt="" coords="201,71,335,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_render.html#a3a820bf3205cb6e8556da2544fd53a67" title=" " alt="" coords="201,136,335,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="207,202,329,229"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node_render.html#a555b40da5534a5e54e4235560678bac0" title=" " alt="" coords="188,253,348,279"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_material_group.html#ae5c9c6cedc257e8a6f58ec1ac02d4d1e" title=" " alt="" coords="197,304,339,345"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="396,275,595,316"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_node.html#af2d72831df4a13096e731418b6d6bb4b" title=" " alt="" coords="426,341,565,367"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_material_group.html#ac159f2c1d4d4d226ac8ff15e139677ff" title="Igor::iMaterialGroup\l::getRenderNodes" alt="" coords="201,5,335,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_render.html#aef5fe1bc6120f2cca1284646133293ec" title="Igor::iNodeRender::\lwasReached" alt="" coords="201,71,335,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_render.html#a5506a0bfcea153a15a8b03923e375949" title="Igor::iNodeRender::\lisVisible" alt="" coords="201,136,335,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="207,202,329,229"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_render.html#a555b40da5534a5e54e4235560678bac0" title="Igor::iNodeRender::draw" alt="" coords="188,253,348,279"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_material_group.html#ae5c9c6cedc257e8a6f58ec1ac02d4d1e" title="Igor::iMaterialGroup\l::removeRenderNode" alt="" coords="197,304,339,345"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="396,245,595,287"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node.html#a43329dc1b2a6ad4056c38290c5df777d" title="Igor::iNode::getType" alt="" coords="426,311,565,338"/>
+<area shape="rect" id="node10" href="$namespace_igor.html#a4614e8f1440b806d814d1f8a4a8b82a3" title="Igor::getMeshBuffers" alt="" coords="425,362,566,389"/>
 </map>

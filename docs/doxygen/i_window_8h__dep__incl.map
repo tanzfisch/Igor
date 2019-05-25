@@ -1,52 +1,51 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iWindow.h" name="C:/dev/Igor/Igor/src/Igor/src/iWindow.h">
-<area shape="rect" id="node1" title=" " alt="" coords="4276,5,4409,47"/>
-<area shape="rect" id="node2" href="$i_application_8cpp.html" title=" " alt="" coords="3155,102,3320,143"/>
-<area shape="rect" id="node3" href="$i_keyboard_8cpp.html" title=" " alt="" coords="2969,206,3125,247"/>
-<area shape="rect" id="node4" href="$i_keyboard_8h.html" title=" " alt="" coords="3395,102,3538,143"/>
-<area shape="rect" id="node35" href="$_model_viewer_8h.html" title=" " alt="" coords="6123,303,6280,359"/>
-<area shape="rect" id="node38" href="$i_window_8cpp.html" title=" " alt="" coords="3555,206,3701,247"/>
-<area shape="rect" id="node39" href="$i_mouse_8cpp.html" title=" " alt="" coords="3958,102,4098,143"/>
-<area shape="rect" id="node40" href="$i_render_context_thread_8cpp.html" title=" " alt="" coords="4123,102,4349,143"/>
-<area shape="rect" id="node41" href="$i_renderer_8cpp.html" title=" " alt="" coords="4374,102,4527,143"/>
-<area shape="rect" id="node42" href="$i_statistics_8cpp.html" title=" " alt="" coords="4551,102,4707,143"/>
-<area shape="rect" id="node43" href="$i_statistics_visualizer_8cpp.html" title=" " alt="" coords="4732,102,4945,143"/>
-<area shape="rect" id="node44" href="$i_task_flush_models_8cpp.html" title=" " alt="" coords="4969,102,5172,143"/>
-<area shape="rect" id="node45" href="$i_task_flush_textures_8cpp.html" title=" " alt="" coords="5196,102,5407,143"/>
-<area shape="rect" id="node46" href="$i_task_load_model_8cpp.html" title=" " alt="" coords="5431,102,5623,143"/>
-<area shape="rect" id="node47" href="$i_task_manager_8cpp.html" title=" " alt="" coords="5647,102,5825,143"/>
-<area shape="rect" id="node48" href="$i_view_8cpp.html" title=" " alt="" coords="5849,102,5980,143"/>
-<area shape="rect" id="node49" href="$_manipulator_8h.html" title=" " alt="" coords="3776,95,3933,151"/>
-<area shape="rect" id="node5" href="$_igor_8cpp.html" title=" " alt="" coords="5,310,136,351"/>
-<area shape="rect" id="node6" href="$i_widget_manager_8cpp.html" title=" " alt="" coords="160,310,352,351"/>
-<area shape="rect" id="node7" href="$i_widget_manager_8h.html" title=" " alt="" coords="3251,206,3429,247"/>
-<area shape="rect" id="node34" href="$i_widget_text_edit_8cpp.html" title=" " alt="" coords="5907,310,6098,351"/>
-<area shape="rect" id="node8" href="$i_dialog_8cpp.html" title=" " alt="" coords="3363,310,3501,351"/>
-<area shape="rect" id="node9" href="$i_dialog_color_chooser_8cpp.html" title=" " alt="" coords="3525,310,3739,351"/>
-<area shape="rect" id="node10" href="$i_dialog_color_gradient_8cpp.html" title=" " alt="" coords="3764,310,3980,351"/>
-<area shape="rect" id="node11" href="$i_dialog_decision_box_8cpp.html" title=" " alt="" coords="4004,310,4215,351"/>
-<area shape="rect" id="node12" href="$i_dialog_file_select_8cpp.html" title=" " alt="" coords="4239,310,4433,351"/>
-<area shape="rect" id="node13" href="$i_dialog_graph_8cpp.html" title=" " alt="" coords="4458,310,4630,351"/>
-<area shape="rect" id="node14" href="$i_dialog_menu_8cpp.html" title=" " alt="" coords="4654,310,4823,351"/>
-<area shape="rect" id="node15" href="$i_dialog_message_box_8cpp.html" title=" " alt="" coords="4848,310,5061,351"/>
-<area shape="rect" id="node16" href="$i_user_control_8cpp.html" title=" " alt="" coords="5086,310,5255,351"/>
-<area shape="rect" id="node17" href="$i_user_control_color_chooser_8cpp.html" title=" " alt="" coords="5279,303,5454,359"/>
-<area shape="rect" id="node18" href="$i_user_control_file_chooser_8cpp.html" title=" " alt="" coords="5478,310,5717,351"/>
-<area shape="rect" id="node19" href="$i_widget_8cpp.html" title=" " alt="" coords="5741,310,5883,351"/>
-<area shape="rect" id="node20" href="$i_widget_button_8cpp.html" title=" " alt="" coords="377,310,557,351"/>
-<area shape="rect" id="node21" href="$i_widget_check_box_8cpp.html" title=" " alt="" coords="581,310,784,351"/>
-<area shape="rect" id="node22" href="$i_widget_color_8cpp.html" title=" " alt="" coords="809,310,981,351"/>
-<area shape="rect" id="node23" href="$i_widget_color_gradient_8cpp.html" title=" " alt="" coords="1005,310,1227,351"/>
-<area shape="rect" id="node24" href="$i_widget_graph_8cpp.html" title=" " alt="" coords="1251,310,1429,351"/>
-<area shape="rect" id="node25" href="$i_widget_grid_8cpp.html" title=" " alt="" coords="1453,310,1619,351"/>
-<area shape="rect" id="node26" href="$i_widget_group_box_8cpp.html" title=" " alt="" coords="1644,310,1844,351"/>
-<area shape="rect" id="node27" href="$i_widget_label_8cpp.html" title=" " alt="" coords="1868,310,2041,351"/>
-<area shape="rect" id="node28" href="$i_widget_number_chooser_8cpp.html" title=" " alt="" coords="2065,310,2300,351"/>
-<area shape="rect" id="node29" href="$i_widget_picture_8cpp.html" title=" " alt="" coords="2325,310,2507,351"/>
-<area shape="rect" id="node30" href="$i_widget_scroll_8cpp.html" title=" " alt="" coords="2531,310,2706,351"/>
-<area shape="rect" id="node31" href="$i_widget_select_box_8cpp.html" title=" " alt="" coords="2731,310,2933,351"/>
-<area shape="rect" id="node32" href="$i_widget_slider_8cpp.html" title=" " alt="" coords="2958,310,3133,351"/>
-<area shape="rect" id="node33" href="$i_widget_spacer_8cpp.html" title=" " alt="" coords="3157,310,3339,351"/>
-<area shape="rect" id="node36" href="$_model_viewer_2src_2main_8cpp.html" title=" " alt="" coords="6032,407,6189,463"/>
-<area shape="rect" id="node37" href="$_model_viewer_8cpp.html" title=" " alt="" coords="6213,407,6371,463"/>
-<area shape="rect" id="node50" href="$_manipulator_8cpp.html" title=" " alt="" coords="3892,199,4049,255"/>
+<map id="C:/dev/Igor/src/Igor/src/iWindow.h" name="C:/dev/Igor/src/Igor/src/iWindow.h">
+<area shape="rect" id="node2" href="$i_application_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iApplication.cpp" alt="" coords="2805,95,2945,136"/>
+<area shape="rect" id="node3" href="$i_keyboard_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iKeyboard.cpp" alt="" coords="2637,184,2768,225"/>
+<area shape="rect" id="node4" href="$i_keyboard_8h.html" title="C:/dev/Igor/src/Igor\l/src/iKeyboard.h" alt="" coords="3020,95,3151,136"/>
+<area shape="rect" id="node35" href="$_model_viewer_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.h" alt="" coords="5529,273,5740,315"/>
+<area shape="rect" id="node38" href="$i_window_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWindow.cpp" alt="" coords="3173,184,3304,225"/>
+<area shape="rect" id="node39" href="$i_mouse_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iMouse.cpp" alt="" coords="3608,95,3739,136"/>
+<area shape="rect" id="node40" href="$i_render_context_thread_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iRenderContextThread.cpp" alt="" coords="3763,95,3965,136"/>
+<area shape="rect" id="node41" href="$i_renderer_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iRenderer.cpp" alt="" coords="3989,95,4120,136"/>
+<area shape="rect" id="node42" href="$i_statistics_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iStatistics.cpp" alt="" coords="4144,95,4275,136"/>
+<area shape="rect" id="node43" href="$i_statistics_visualizer_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iStatisticsVisualizer.cpp" alt="" coords="4299,95,4487,136"/>
+<area shape="rect" id="node44" href="$i_task_flush_models_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskFlushModels.cpp" alt="" coords="4512,95,4691,136"/>
+<area shape="rect" id="node45" href="$i_task_flush_textures_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskFlushTextures.cpp" alt="" coords="4715,95,4901,136"/>
+<area shape="rect" id="node46" href="$i_task_load_model_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskLoadModel.cpp" alt="" coords="4926,95,5093,136"/>
+<area shape="rect" id="node47" href="$i_task_manager_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskManager.cpp" alt="" coords="5117,95,5272,136"/>
+<area shape="rect" id="node48" href="$i_view_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iView.cpp" alt="" coords="5296,95,5427,136"/>
+<area shape="rect" id="node49" href="$_manipulator_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/Manipulator.h" alt="" coords="3379,95,3583,136"/>
+<area shape="rect" id="node5" href="$_igor_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/Igor.cpp" alt="" coords="5,273,136,315"/>
+<area shape="rect" id="node6" href="$i_widget_manager_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetManager.cpp" alt="" coords="161,273,327,315"/>
+<area shape="rect" id="node7" href="$i_widget_manager_8h.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetManager.h" alt="" coords="2894,184,3047,225"/>
+<area shape="rect" id="node34" href="$i_widget_text_edit_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetTextEdit.cpp" alt="" coords="5340,273,5505,315"/>
+<area shape="rect" id="node8" href="$i_dialog_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialog.cpp" alt="" coords="2991,273,3121,315"/>
+<area shape="rect" id="node9" href="$i_dialog_color_chooser_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogColorChooser.cpp" alt="" coords="3146,273,3337,315"/>
+<area shape="rect" id="node10" href="$i_dialog_color_gradient_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogColorGradient.cpp" alt="" coords="3361,273,3551,315"/>
+<area shape="rect" id="node11" href="$i_dialog_decision_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogDecisionBox.cpp" alt="" coords="3575,273,3761,315"/>
+<area shape="rect" id="node12" href="$i_dialog_file_select_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogFileSelect.cpp" alt="" coords="3785,273,3956,315"/>
+<area shape="rect" id="node13" href="$i_dialog_graph_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogGraph.cpp" alt="" coords="3980,273,4127,315"/>
+<area shape="rect" id="node14" href="$i_dialog_menu_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogMenu.cpp" alt="" coords="4151,273,4295,315"/>
+<area shape="rect" id="node15" href="$i_dialog_message_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogMessageBox.cpp" alt="" coords="4319,273,4507,315"/>
+<area shape="rect" id="node16" href="$i_user_control_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iUserControl.cpp" alt="" coords="4532,273,4676,315"/>
+<area shape="rect" id="node17" href="$i_user_control_color_chooser_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iUserControlColorChooser.cpp" alt="" coords="4701,273,4923,315"/>
+<area shape="rect" id="node18" href="$i_user_control_file_chooser_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iUserControlFileChooser.cpp" alt="" coords="4948,273,5161,315"/>
+<area shape="rect" id="node19" href="$i_widget_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidget.cpp" alt="" coords="5185,273,5316,315"/>
+<area shape="rect" id="node20" href="$i_widget_button_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetButton.cpp" alt="" coords="352,273,507,315"/>
+<area shape="rect" id="node21" href="$i_widget_check_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetCheckBox.cpp" alt="" coords="531,273,709,315"/>
+<area shape="rect" id="node22" href="$i_widget_color_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetColor.cpp" alt="" coords="733,273,880,315"/>
+<area shape="rect" id="node23" href="$i_widget_color_gradient_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetColorGradient.cpp" alt="" coords="905,273,1101,315"/>
+<area shape="rect" id="node24" href="$i_widget_graph_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetGraph.cpp" alt="" coords="1125,273,1277,315"/>
+<area shape="rect" id="node25" href="$i_widget_grid_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetGrid.cpp" alt="" coords="1301,273,1443,315"/>
+<area shape="rect" id="node26" href="$i_widget_group_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetGroupBox.cpp" alt="" coords="1467,273,1642,315"/>
+<area shape="rect" id="node27" href="$i_widget_label_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetLabel.cpp" alt="" coords="1666,273,1814,315"/>
+<area shape="rect" id="node28" href="$i_widget_number_chooser_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetNumberChooser.cpp" alt="" coords="1839,273,2049,315"/>
+<area shape="rect" id="node29" href="$i_widget_picture_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetPicture.cpp" alt="" coords="2074,273,2233,315"/>
+<area shape="rect" id="node30" href="$i_widget_scroll_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetScroll.cpp" alt="" coords="2257,273,2407,315"/>
+<area shape="rect" id="node31" href="$i_widget_select_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetSelectBox.cpp" alt="" coords="2431,273,2609,315"/>
+<area shape="rect" id="node32" href="$i_widget_slider_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetSlider.cpp" alt="" coords="2633,273,2783,315"/>
+<area shape="rect" id="node33" href="$i_widget_spacer_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetSpacer.cpp" alt="" coords="2807,273,2966,315"/>
+<area shape="rect" id="node36" href="$_model_viewer_2src_2main_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/main.cpp" alt="" coords="5432,363,5611,404"/>
+<area shape="rect" id="node37" href="$_model_viewer_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.cpp" alt="" coords="5635,363,5861,404"/>
+<area shape="rect" id="node50" href="$_manipulator_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/Manipulator.cpp" alt="" coords="3519,184,3737,225"/>
 </map>

@@ -9,43 +9,40 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 95.5)">
 <title>testing::internal::IsTrue</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-95.5 284,-95.5 284,4 -4,4"/>
-<!-- Node240 -->
-<g id="node1" class="node"><title>Node240</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="191,-22 191,-52 280,-52 280,-22 191,-22"/>
-<text text-anchor="start" x="199" y="-40" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="235.5" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">IsTrue</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-22 0,-52 89,-52 89,-22 0,-22"/>
+<text text-anchor="start" x="8" y="-40" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="44.5" y="-29" font-family="Helvetica,sans-Serif" font-size="10.00">IsTrue</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html#acac03266a43359801aff0de5c990bec0" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; testing\l::internal::ParamIteratorInterface\l\&lt; T \&gt; \&gt;::reset">
+<polygon fill="white" stroke="black" points="125,-39 125,-91 280,-91 280,-39 125,-39"/>
+<text text-anchor="start" x="133" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="133" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; testing</text>
+<text text-anchor="start" x="133" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamIteratorInterface</text>
+<text text-anchor="middle" x="202.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::reset</text>
 </a>
 </g>
 </g>
-<!-- Node241 -->
-<g id="node2" class="node"><title>Node241</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html#acac03266a43359801aff0de5c990bec0" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-39 0,-91 155,-91 155,-39 0,-39"/>
-<text text-anchor="start" x="8" y="-79" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-68" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; testing</text>
-<text text-anchor="start" x="8" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamIteratorInterface</text>
-<text text-anchor="middle" x="77.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::reset</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M99.2407,-46.6458C107.521,-48.132 116.207,-49.691 124.87,-51.2459"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="99.8309,-43.1958 89.3698,-44.8741 98.5942,-50.0857 99.8309,-43.1958"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="namespace_testigor.html#afff8930d0cf962f5dc34405e911a82a8" target="_top" xlink:title="Testigor::TEST_CLASS">
+<polygon fill="white" stroke="black" points="143,-0.5 143,-19.5 262,-19.5 262,-0.5 143,-0.5"/>
+<text text-anchor="middle" x="202.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Testigor::TEST_CLASS</text>
 </a>
 </g>
 </g>
-<!-- Node240&#45;&gt;Node241 -->
-<g id="edge1" class="edge"><title>Node240&#45;&gt;Node241</title>
-<path fill="none" stroke="midnightblue" d="M180.759,-46.6458C172.479,-48.132 163.793,-49.691 155.13,-51.2459"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="181.406,-50.0857 190.63,-44.8741 180.169,-43.1958 181.406,-50.0857"/>
-</g>
-<!-- Node242 -->
-<g id="node3" class="node"><title>Node242</title>
-<g id="a_node3"><a xlink:href="namespace_testigor.html#afff8930d0cf962f5dc34405e911a82a8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="18,-0.5 18,-19.5 137,-19.5 137,-0.5 18,-0.5"/>
-<text text-anchor="middle" x="77.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Testigor::TEST_CLASS</text>
-</a>
-</g>
-</g>
-<!-- Node240&#45;&gt;Node242 -->
-<g id="edge2" class="edge"><title>Node240&#45;&gt;Node242</title>
-<path fill="none" stroke="midnightblue" d="M180.366,-27.6307C165.186,-25.0033 148.671,-22.145 133.444,-19.5095"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="180.18,-31.1504 190.63,-29.4071 181.374,-24.2529 180.18,-31.1504"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M99.6338,-27.6307C114.814,-25.0033 131.329,-22.145 146.556,-19.5095"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="98.6264,-24.2529 89.3698,-29.4071 99.8203,-31.1504 98.6264,-24.2529"/>
 </g>
 </g>
 </svg>

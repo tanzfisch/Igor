@@ -9,301 +9,298 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 508)">
 <title>Igor::iMeshBuilder::createMesh</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-508 688,-508 688,4 -4,4"/>
-<!-- Node153 -->
-<g id="node1" class="node"><title>Node153</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="589,-228.5 589,-258.5 684,-258.5 684,-228.5 589,-228.5"/>
-<text text-anchor="start" x="597" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
-<text text-anchor="middle" x="636.5" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMesh</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-228.5 0,-258.5 95,-258.5 95,-228.5 0,-228.5"/>
+<text text-anchor="start" x="8" y="-246.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
+<text text-anchor="middle" x="47.5" y="-235.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMesh</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" target="_top" xlink:title="Igor::iContouringCubes\l::compile">
+<polygon fill="white" stroke="black" points="164,-473.5 164,-503.5 279,-503.5 279,-473.5 164,-473.5"/>
+<text text-anchor="start" x="172" y="-491.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
+<text text-anchor="middle" x="221.5" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
 </a>
 </g>
 </g>
-<!-- Node154 -->
-<g id="node2" class="node"><title>Node154</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="405,-473.5 405,-503.5 520,-503.5 520,-473.5 405,-473.5"/>
-<text text-anchor="start" x="413" y="-491.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
-<text text-anchor="middle" x="462.5" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M50.5462,-268.706C55.6503,-314.584 73.064,-411.837 131,-464.5 140.166,-472.832 151.915,-478.323 163.864,-481.928"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="54.0243,-268.312 49.5414,-258.712 47.0594,-269.012 54.0243,-268.312"/>
+</g>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_sky_light_node.html#a5cfca381b84a67c8274ae66557a726a7" target="_top" xlink:title="Igor::iSkyLightNode\l::initMesh">
+<polygon fill="white" stroke="black" points="171,-424.5 171,-454.5 272,-454.5 272,-424.5 171,-424.5"/>
+<text text-anchor="start" x="179" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkyLightNode</text>
+<text text-anchor="middle" x="221.5" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initMesh</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node154 -->
-<g id="edge1" class="edge"><title>Node153&#45;&gt;Node154</title>
-<path fill="none" stroke="midnightblue" d="M633.454,-268.706C628.35,-314.584 610.936,-411.837 553,-464.5 543.834,-472.832 532.085,-478.323 520.136,-481.928"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="636.941,-269.012 634.459,-258.712 629.976,-268.312 636.941,-269.012"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M53.7262,-268.715C62.8088,-306.139 85.1015,-376.088 131,-414.5 142.259,-423.922 156.822,-429.805 170.918,-433.474"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="57.0629,-267.607 51.4127,-258.644 50.2406,-269.174 57.0629,-267.607"/>
 </g>
-<!-- Node156 -->
-<g id="node4" class="node"><title>Node156</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_sky_light_node.html#a5cfca381b84a67c8274ae66557a726a7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="412,-424.5 412,-454.5 513,-454.5 513,-424.5 412,-424.5"/>
-<text text-anchor="start" x="420" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkyLightNode</text>
-<text text-anchor="middle" x="462.5" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initMesh</text>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_manipulator.html#a22aeed70187ef8467c3d29785d01b3bf" target="_top" xlink:title="Manipulator::createRingMesh">
+<polygon fill="white" stroke="black" points="150,-386 150,-405 293,-405 293,-386 150,-386"/>
+<text text-anchor="middle" x="221.5" y="-393" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createRingMesh</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node156 -->
-<g id="edge3" class="edge"><title>Node153&#45;&gt;Node156</title>
-<path fill="none" stroke="midnightblue" d="M630.274,-268.715C621.191,-306.139 598.899,-376.088 553,-414.5 541.741,-423.922 527.178,-429.805 513.082,-433.474"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="633.759,-269.174 632.587,-258.644 626.937,-267.607 633.759,-269.174"/>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M56.8642,-268.119C68.5214,-298.536 92.6461,-349.557 131,-376.5 136.719,-380.518 143.116,-383.715 149.789,-386.256"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="60.1218,-266.837 53.3863,-258.658 53.5517,-269.252 60.1218,-266.837"/>
 </g>
-<!-- Node158 -->
-<g id="node6" class="node"><title>Node158</title>
-<g id="a_node6"><a xlink:href="class_manipulator.html#a22aeed70187ef8467c3d29785d01b3bf" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="391,-386 391,-405 534,-405 534,-386 391,-386"/>
-<text text-anchor="middle" x="462.5" y="-393" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createRingMesh</text>
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_manipulator.html#a66cdbd94e7e01bc86e6e648d6fd6e5e5" target="_top" xlink:title="Manipulator::create2DRingMesh">
+<polygon fill="white" stroke="black" points="144,-348 144,-367 299,-367 299,-348 144,-348"/>
+<text text-anchor="middle" x="221.5" y="-355" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::create2DRingMesh</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node158 -->
-<g id="edge5" class="edge"><title>Node153&#45;&gt;Node158</title>
-<path fill="none" stroke="midnightblue" d="M627.136,-268.119C615.479,-298.536 591.354,-349.557 553,-376.5 547.281,-380.518 540.884,-383.715 534.211,-386.256"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="630.448,-269.252 630.614,-258.658 623.878,-266.837 630.448,-269.252"/>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node1&#45;&gt;Node7</title>
+<path fill="none" stroke="midnightblue" d="M62.6255,-267.187C77.0168,-289.173 101.391,-321.054 131,-338.5 137.569,-342.371 144.821,-345.458 152.269,-347.919"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="65.5706,-265.295 57.258,-258.726 59.6598,-269.045 65.5706,-265.295"/>
 </g>
-<!-- Node159 -->
-<g id="node7" class="node"><title>Node159</title>
-<g id="a_node7"><a xlink:href="class_manipulator.html#a66cdbd94e7e01bc86e6e648d6fd6e5e5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="385,-348 385,-367 540,-367 540,-348 385,-348"/>
-<text text-anchor="middle" x="462.5" y="-355" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::create2DRingMesh</text>
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="class_manipulator.html#a6d4ac04bee1d79981d08328704544cd7" target="_top" xlink:title="Manipulator::createScaleMesh">
+<polygon fill="white" stroke="black" points="147,-310 147,-329 296,-329 296,-310 147,-310"/>
+<text text-anchor="middle" x="221.5" y="-317" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createScaleMesh</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node159 -->
-<g id="edge6" class="edge"><title>Node153&#45;&gt;Node159</title>
-<path fill="none" stroke="midnightblue" d="M621.375,-267.187C606.983,-289.173 582.609,-321.054 553,-338.5 546.431,-342.371 539.179,-345.458 531.731,-347.919"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="624.34,-269.045 626.742,-258.726 618.429,-265.295 624.34,-269.045"/>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge7" class="edge"><title>Node1&#45;&gt;Node8</title>
+<path fill="none" stroke="midnightblue" d="M74.0054,-265.078C89.5583,-277.187 110.361,-291.606 131,-300.5 139.898,-304.335 149.638,-307.421 159.312,-309.897"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="75.9379,-262.142 65.9394,-258.637 71.5702,-267.612 75.9379,-262.142"/>
 </g>
-<!-- Node160 -->
-<g id="node8" class="node"><title>Node160</title>
-<g id="a_node8"><a xlink:href="class_manipulator.html#a6d4ac04bee1d79981d08328704544cd7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="388,-310 388,-329 537,-329 537,-310 388,-310"/>
-<text text-anchor="middle" x="462.5" y="-317" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createScaleMesh</text>
+<!-- Node9 -->
+<g id="node9" class="node"><title>Node9</title>
+<g id="a_node9"><a xlink:href="class_manipulator.html#a78a316700b064b875a8e3aaa7f5a9f58" target="_top" xlink:title="Manipulator::createCube">
+<polygon fill="white" stroke="black" points="160.5,-272 160.5,-291 282.5,-291 282.5,-272 160.5,-272"/>
+<text text-anchor="middle" x="221.5" y="-279" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createCube</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node160 -->
-<g id="edge7" class="edge"><title>Node153&#45;&gt;Node160</title>
-<path fill="none" stroke="midnightblue" d="M609.995,-265.078C594.442,-277.187 573.639,-291.606 553,-300.5 544.102,-304.335 534.362,-307.421 524.688,-309.897"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="612.43,-267.612 618.061,-258.637 608.062,-262.142 612.43,-267.612"/>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge8" class="edge"><title>Node1&#45;&gt;Node9</title>
+<path fill="none" stroke="midnightblue" d="M105.18,-256.689C113.824,-258.661 122.645,-260.651 131,-262.5 145.269,-265.657 160.841,-268.999 174.936,-271.985"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="105.682,-253.213 95.1528,-254.391 104.119,-260.036 105.682,-253.213"/>
 </g>
-<!-- Node161 -->
-<g id="node9" class="node"><title>Node161</title>
-<g id="a_node9"><a xlink:href="class_manipulator.html#a78a316700b064b875a8e3aaa7f5a9f58" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="401.5,-272 401.5,-291 523.5,-291 523.5,-272 401.5,-272"/>
-<text text-anchor="middle" x="462.5" y="-279" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createCube</text>
+<!-- Node10 -->
+<g id="node10" class="node"><title>Node10</title>
+<g id="a_node10"><a xlink:href="class_manipulator.html#af6638ebbe40c4bf04d29030660227e2d" target="_top" xlink:title="Manipulator::createTranslateMesh">
+<polygon fill="white" stroke="black" points="139.5,-234 139.5,-253 303.5,-253 303.5,-234 139.5,-234"/>
+<text text-anchor="middle" x="221.5" y="-241" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createTranslateMesh</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node161 -->
-<g id="edge8" class="edge"><title>Node153&#45;&gt;Node161</title>
-<path fill="none" stroke="midnightblue" d="M578.82,-256.689C570.176,-258.661 561.355,-260.651 553,-262.5 538.731,-265.657 523.159,-268.999 509.064,-271.985"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="579.881,-260.036 588.847,-254.391 578.318,-253.213 579.881,-260.036"/>
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge9" class="edge"><title>Node1&#45;&gt;Node10</title>
+<path fill="none" stroke="midnightblue" d="M105.295,-243.5C116.243,-243.5 127.907,-243.5 139.452,-243.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="105.046,-240 95.0457,-243.5 105.046,-247 105.046,-240"/>
 </g>
-<!-- Node162 -->
-<g id="node10" class="node"><title>Node162</title>
-<g id="a_node10"><a xlink:href="class_manipulator.html#af6638ebbe40c4bf04d29030660227e2d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="380.5,-234 380.5,-253 544.5,-253 544.5,-234 380.5,-234"/>
-<text text-anchor="middle" x="462.5" y="-241" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::createTranslateMesh</text>
+<!-- Node11 -->
+<g id="node11" class="node"><title>Node11</title>
+<g id="a_node11"><a xlink:href="class_widget3_d_emitter.html#ad40f79fa12b87993a47aa5de9d8d29f5" target="_top" xlink:title="Widget3DEmitter::createDisc">
+<polygon fill="white" stroke="black" points="150,-196 150,-215 293,-215 293,-196 150,-196"/>
+<text text-anchor="middle" x="221.5" y="-203" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createDisc</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node162 -->
-<g id="edge9" class="edge"><title>Node153&#45;&gt;Node162</title>
-<path fill="none" stroke="midnightblue" d="M578.705,-243.5C567.757,-243.5 556.093,-243.5 544.548,-243.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="578.954,-247 588.954,-243.5 578.954,-240 578.954,-247"/>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge10" class="edge"><title>Node1&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M105.18,-230.311C113.824,-228.339 122.645,-226.349 131,-224.5 145.269,-221.343 160.841,-218.001 174.936,-215.015"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="104.119,-226.964 95.1528,-232.609 105.682,-233.787 104.119,-226.964"/>
 </g>
-<!-- Node163 -->
-<g id="node11" class="node"><title>Node163</title>
-<g id="a_node11"><a xlink:href="class_widget3_d_emitter.html#ad40f79fa12b87993a47aa5de9d8d29f5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="391,-196 391,-215 534,-215 534,-196 391,-196"/>
-<text text-anchor="middle" x="462.5" y="-203" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createDisc</text>
+<!-- Node15 -->
+<g id="node15" class="node"><title>Node15</title>
+<g id="a_node15"><a xlink:href="class_widget3_d_emitter.html#a5fcef2ab9a90c3a1ff1f3ce361b37d44" target="_top" xlink:title="Widget3DEmitter::createCircle">
+<polygon fill="white" stroke="black" points="147,-158 147,-177 296,-177 296,-158 147,-158"/>
+<text text-anchor="middle" x="221.5" y="-165" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createCircle</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node163 -->
-<g id="edge10" class="edge"><title>Node153&#45;&gt;Node163</title>
-<path fill="none" stroke="midnightblue" d="M578.82,-230.311C570.176,-228.339 561.355,-226.349 553,-224.5 538.731,-221.343 523.159,-218.001 509.064,-215.015"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="578.318,-233.787 588.847,-232.609 579.881,-226.964 578.318,-233.787"/>
+<!-- Node1&#45;&gt;Node15 -->
+<g id="edge14" class="edge"><title>Node1&#45;&gt;Node15</title>
+<path fill="none" stroke="midnightblue" d="M74.0054,-221.922C89.5583,-209.813 110.361,-195.394 131,-186.5 139.898,-182.665 149.638,-179.579 159.312,-177.103"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="71.5702,-219.388 65.9394,-228.363 75.9379,-224.858 71.5702,-219.388"/>
 </g>
-<!-- Node167 -->
-<g id="node15" class="node"><title>Node167</title>
-<g id="a_node15"><a xlink:href="class_widget3_d_emitter.html#a5fcef2ab9a90c3a1ff1f3ce361b37d44" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="388,-158 388,-177 537,-177 537,-158 388,-158"/>
-<text text-anchor="middle" x="462.5" y="-165" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createCircle</text>
+<!-- Node16 -->
+<g id="node16" class="node"><title>Node16</title>
+<g id="a_node16"><a xlink:href="class_widget3_d_emitter.html#a0a9f47c5ae6ee03ece815f3a19d3d12c" target="_top" xlink:title="Widget3DEmitter::createCube">
+<polygon fill="white" stroke="black" points="148.5,-120 148.5,-139 294.5,-139 294.5,-120 148.5,-120"/>
+<text text-anchor="middle" x="221.5" y="-127" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createCube</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node167 -->
-<g id="edge14" class="edge"><title>Node153&#45;&gt;Node167</title>
-<path fill="none" stroke="midnightblue" d="M609.995,-221.922C594.442,-209.813 573.639,-195.394 553,-186.5 544.102,-182.665 534.362,-179.579 524.688,-177.103"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="608.062,-224.858 618.061,-228.363 612.43,-219.388 608.062,-224.858"/>
+<!-- Node1&#45;&gt;Node16 -->
+<g id="edge16" class="edge"><title>Node1&#45;&gt;Node16</title>
+<path fill="none" stroke="midnightblue" d="M62.6255,-219.813C77.0168,-197.827 101.391,-165.946 131,-148.5 137.569,-144.629 144.821,-141.542 152.269,-139.081"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="59.6598,-217.955 57.258,-228.274 65.5706,-221.705 59.6598,-217.955"/>
 </g>
-<!-- Node168 -->
-<g id="node16" class="node"><title>Node168</title>
-<g id="a_node16"><a xlink:href="class_widget3_d_emitter.html#a0a9f47c5ae6ee03ece815f3a19d3d12c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="389.5,-120 389.5,-139 535.5,-139 535.5,-120 389.5,-120"/>
-<text text-anchor="middle" x="462.5" y="-127" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createCube</text>
+<!-- Node17 -->
+<g id="node17" class="node"><title>Node17</title>
+<g id="a_node17"><a xlink:href="class_widget3_d_emitter.html#af8b8367827875877fe19b75e0edffe23" target="_top" xlink:title="Widget3DEmitter::createSphere">
+<polygon fill="white" stroke="black" points="144,-82 144,-101 299,-101 299,-82 144,-82"/>
+<text text-anchor="middle" x="221.5" y="-89" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createSphere</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node168 -->
-<g id="edge16" class="edge"><title>Node153&#45;&gt;Node168</title>
-<path fill="none" stroke="midnightblue" d="M621.375,-219.813C606.983,-197.827 582.609,-165.946 553,-148.5 546.431,-144.629 539.179,-141.542 531.731,-139.081"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="618.429,-221.705 626.742,-228.274 624.34,-217.955 618.429,-221.705"/>
+<!-- Node1&#45;&gt;Node17 -->
+<g id="edge18" class="edge"><title>Node1&#45;&gt;Node17</title>
+<path fill="none" stroke="midnightblue" d="M56.8642,-218.881C68.5214,-188.464 92.6461,-137.443 131,-110.5 136.459,-106.665 142.536,-103.577 148.881,-101.094"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="53.5517,-217.748 53.3863,-228.342 60.1218,-220.163 53.5517,-217.748"/>
 </g>
-<!-- Node169 -->
-<g id="node17" class="node"><title>Node169</title>
-<g id="a_node17"><a xlink:href="class_widget3_d_emitter.html#af8b8367827875877fe19b75e0edffe23" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="385,-82 385,-101 540,-101 540,-82 385,-82"/>
-<text text-anchor="middle" x="462.5" y="-89" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createSphere</text>
+<!-- Node18 -->
+<g id="node18" class="node"><title>Node18</title>
+<g id="a_node18"><a xlink:href="class_widget3_d_emitter.html#a24c32b3f57fe1033199c31c194ef00ec" target="_top" xlink:title="Widget3DEmitter::createSquare">
+<polygon fill="white" stroke="black" points="144,-44 144,-63 299,-63 299,-44 144,-44"/>
+<text text-anchor="middle" x="221.5" y="-51" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createSquare</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node169 -->
-<g id="edge18" class="edge"><title>Node153&#45;&gt;Node169</title>
-<path fill="none" stroke="midnightblue" d="M627.136,-218.881C615.479,-188.464 591.354,-137.443 553,-110.5 547.541,-106.665 541.464,-103.577 535.119,-101.094"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="623.878,-220.163 630.614,-228.342 630.448,-217.748 623.878,-220.163"/>
+<!-- Node1&#45;&gt;Node18 -->
+<g id="edge20" class="edge"><title>Node1&#45;&gt;Node18</title>
+<path fill="none" stroke="midnightblue" d="M53.3592,-218.197C62.0074,-180.361 83.7927,-109.535 131,-72.5 135.874,-68.6762 141.34,-65.5765 147.105,-63.0691"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="49.8515,-217.861 51.1703,-228.373 56.695,-219.333 49.8515,-217.861"/>
 </g>
-<!-- Node170 -->
-<g id="node18" class="node"><title>Node170</title>
-<g id="a_node18"><a xlink:href="class_widget3_d_emitter.html#a24c32b3f57fe1033199c31c194ef00ec" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="385,-44 385,-63 540,-63 540,-44 385,-44"/>
-<text text-anchor="middle" x="462.5" y="-51" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createSquare</text>
+<!-- Node19 -->
+<g id="node19" class="node"><title>Node19</title>
+<g id="a_node19"><a xlink:href="class_widget3_d_locator.html#af2885d73c346254977b1fa8e1142581e" target="_top" xlink:title="Widget3DLocator::createLocatorMesh">
+<polygon fill="white" stroke="black" points="131,-6 131,-25 312,-25 312,-6 131,-6"/>
+<text text-anchor="middle" x="221.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocatorMesh</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node170 -->
-<g id="edge20" class="edge"><title>Node153&#45;&gt;Node170</title>
-<path fill="none" stroke="midnightblue" d="M630.641,-218.197C621.993,-180.361 600.207,-109.535 553,-72.5 548.126,-68.6762 542.66,-65.5765 536.895,-63.0691"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="627.305,-219.333 632.83,-228.373 634.149,-217.861 627.305,-219.333"/>
+<!-- Node1&#45;&gt;Node19 -->
+<g id="edge22" class="edge"><title>Node1&#45;&gt;Node19</title>
+<path fill="none" stroke="midnightblue" d="M50.8874,-218.143C56.4807,-173.768 74.573,-82.2221 131,-34.5 135.488,-30.7047 140.548,-27.6097 145.921,-25.0916"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="47.3787,-218.02 49.7189,-228.353 54.3333,-218.816 47.3787,-218.02"/>
 </g>
-<!-- Node171 -->
-<g id="node19" class="node"><title>Node171</title>
-<g id="a_node19"><a xlink:href="class_widget3_d_locator.html#af2885d73c346254977b1fa8e1142581e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="372,-6 372,-25 553,-25 553,-6 372,-6"/>
-<text text-anchor="middle" x="462.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocatorMesh</text>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" target="_top" xlink:title="Igor::iVoxelTerrainMeshGenerator\l::importData">
+<polygon fill="white" stroke="black" points="348,-473.5 348,-503.5 509,-503.5 509,-473.5 348,-473.5"/>
+<text text-anchor="start" x="356" y="-491.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrainMeshGenerator</text>
+<text text-anchor="middle" x="428.5" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">::importData</text>
 </a>
 </g>
 </g>
-<!-- Node153&#45;&gt;Node171 -->
-<g id="edge22" class="edge"><title>Node153&#45;&gt;Node171</title>
-<path fill="none" stroke="midnightblue" d="M633.113,-218.143C627.519,-173.768 609.427,-82.2221 553,-34.5 548.512,-30.7047 543.452,-27.6097 538.079,-25.0916"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="629.667,-218.816 634.281,-228.353 636.621,-218.02 629.667,-218.816"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M289.228,-488.5C307.898,-488.5 328.38,-488.5 347.725,-488.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="289.06,-485 279.06,-488.5 289.06,-492 289.06,-485"/>
 </g>
-<!-- Node155 -->
-<g id="node3" class="node"><title>Node155</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="175,-473.5 175,-503.5 336,-503.5 336,-473.5 175,-473.5"/>
-<text text-anchor="start" x="183" y="-491.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrainMeshGenerator</text>
-<text text-anchor="middle" x="255.5" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">::importData</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_sky_light_node.html#a89eeca155c5d763f9627ea56c0460f83" target="_top" xlink:title="Igor::iSkyLightNode\l::iSkyLightNode">
+<polygon fill="white" stroke="black" points="378,-424.5 378,-454.5 479,-454.5 479,-424.5 378,-424.5"/>
+<text text-anchor="start" x="386" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkyLightNode</text>
+<text text-anchor="middle" x="428.5" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iSkyLightNode</text>
 </a>
 </g>
 </g>
-<!-- Node154&#45;&gt;Node155 -->
-<g id="edge2" class="edge"><title>Node154&#45;&gt;Node155</title>
-<path fill="none" stroke="midnightblue" d="M394.772,-488.5C376.102,-488.5 355.62,-488.5 336.275,-488.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="394.94,-492 404.94,-488.5 394.94,-485 394.94,-492"/>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M282.184,-439.5C312.598,-439.5 349.144,-439.5 377.977,-439.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="282.125,-436 272.125,-439.5 282.125,-443 282.125,-436"/>
 </g>
-<!-- Node157 -->
-<g id="node5" class="node"><title>Node157</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_sky_light_node.html#a89eeca155c5d763f9627ea56c0460f83" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="205,-424.5 205,-454.5 306,-454.5 306,-424.5 205,-424.5"/>
-<text text-anchor="start" x="213" y="-442.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkyLightNode</text>
-<text text-anchor="middle" x="255.5" y="-431.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iSkyLightNode</text>
+<!-- Node12 -->
+<g id="node12" class="node"><title>Node12</title>
+<g id="a_node12"><a xlink:href="class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" target="_top" xlink:title="Widget3DEmitter::update">
+<polygon fill="white" stroke="black" points="365.5,-120 365.5,-139 491.5,-139 491.5,-120 365.5,-120"/>
+<text text-anchor="middle" x="428.5" y="-127" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::update</text>
 </a>
 </g>
 </g>
-<!-- Node156&#45;&gt;Node157 -->
-<g id="edge4" class="edge"><title>Node156&#45;&gt;Node157</title>
-<path fill="none" stroke="midnightblue" d="M401.816,-439.5C371.402,-439.5 334.856,-439.5 306.023,-439.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="401.875,-443 411.875,-439.5 401.875,-436 401.875,-443"/>
+<!-- Node11&#45;&gt;Node12 -->
+<g id="edge11" class="edge"><title>Node11&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M287.945,-193.591C296.13,-191.522 304.318,-189.164 312,-186.5 348.972,-173.679 389.369,-151.75 411.232,-139.157"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="286.908,-190.24 277.997,-195.971 288.537,-197.048 286.908,-190.24"/>
 </g>
-<!-- Node164 -->
-<g id="node12" class="node"><title>Node164</title>
-<g id="a_node12"><a xlink:href="class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="192.5,-120 192.5,-139 318.5,-139 318.5,-120 192.5,-120"/>
-<text text-anchor="middle" x="255.5" y="-127" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::update</text>
+<!-- Node13 -->
+<g id="node13" class="node"><title>Node13</title>
+<g id="a_node13"><a xlink:href="class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" target="_top" xlink:title="Widget3DEmitter::Widget3\lDEmitter">
+<polygon fill="white" stroke="black" points="548,-138.5 548,-168.5 681,-168.5 681,-138.5 548,-138.5"/>
+<text text-anchor="start" x="556" y="-156.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::Widget3</text>
+<text text-anchor="middle" x="614.5" y="-145.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node164 -->
-<g id="edge11" class="edge"><title>Node163&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M396.055,-193.591C387.87,-191.522 379.682,-189.164 372,-186.5 335.028,-173.679 294.631,-151.75 272.768,-139.157"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="395.463,-197.048 406.003,-195.971 397.092,-190.24 395.463,-197.048"/>
+<!-- Node12&#45;&gt;Node13 -->
+<g id="edge12" class="edge"><title>Node12&#45;&gt;Node13</title>
+<path fill="none" stroke="midnightblue" d="M501.474,-138.888C516.793,-140.886 532.891,-142.986 547.955,-144.951"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="501.906,-135.415 491.537,-137.592 501.001,-142.356 501.906,-135.415"/>
 </g>
-<!-- Node165 -->
-<g id="node13" class="node"><title>Node165</title>
-<g id="a_node13"><a xlink:href="class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3,-138.5 3,-168.5 136,-168.5 136,-138.5 3,-138.5"/>
-<text text-anchor="start" x="11" y="-156.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::Widget3</text>
-<text text-anchor="middle" x="69.5" y="-145.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
+<!-- Node14 -->
+<g id="node14" class="node"><title>Node14</title>
+<g id="a_node14"><a xlink:href="class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" target="_top" xlink:title="Widget3DEmitter::~Widget3\lDEmitter">
+<polygon fill="white" stroke="black" points="545,-89.5 545,-119.5 684,-119.5 684,-89.5 545,-89.5"/>
+<text text-anchor="start" x="553" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::~Widget3</text>
+<text text-anchor="middle" x="614.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
 </a>
 </g>
 </g>
-<!-- Node164&#45;&gt;Node165 -->
-<g id="edge12" class="edge"><title>Node164&#45;&gt;Node165</title>
-<path fill="none" stroke="midnightblue" d="M182.526,-138.888C167.207,-140.886 151.109,-142.986 136.045,-144.951"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="182.999,-142.356 192.463,-137.592 182.094,-135.415 182.999,-142.356"/>
+<!-- Node12&#45;&gt;Node14 -->
+<g id="edge13" class="edge"><title>Node12&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M501.72,-119.687C515.892,-117.762 530.721,-115.747 544.775,-113.838"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="500.975,-116.256 491.537,-121.071 501.918,-123.193 500.975,-116.256"/>
 </g>
-<!-- Node166 -->
-<g id="node14" class="node"><title>Node166</title>
-<g id="a_node14"><a xlink:href="class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-89.5 0,-119.5 139,-119.5 139,-89.5 0,-89.5"/>
-<text text-anchor="start" x="8" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::~Widget3</text>
-<text text-anchor="middle" x="69.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">DEmitter</text>
+<!-- Node15&#45;&gt;Node12 -->
+<g id="edge15" class="edge"><title>Node15&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M284.098,-156.082C313.43,-150.645 348.107,-144.217 376.013,-139.044"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="283.16,-152.696 273.966,-157.96 284.436,-159.579 283.16,-152.696"/>
+</g>
+<!-- Node16&#45;&gt;Node12 -->
+<g id="edge17" class="edge"><title>Node16&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M304.896,-129.5C325.079,-129.5 346.344,-129.5 365.393,-129.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="304.775,-126 294.775,-129.5 304.775,-133 304.775,-126"/>
+</g>
+<!-- Node17&#45;&gt;Node12 -->
+<g id="edge19" class="edge"><title>Node17&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M284.098,-102.918C313.43,-108.355 348.107,-114.783 376.013,-119.956"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="284.436,-99.4213 273.966,-101.04 283.16,-106.304 284.436,-99.4213"/>
+</g>
+<!-- Node18&#45;&gt;Node12 -->
+<g id="edge21" class="edge"><title>Node18&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M287.945,-65.4093C296.13,-67.4776 304.318,-69.8359 312,-72.5 348.972,-85.3214 389.369,-107.25 411.232,-119.843"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="288.537,-61.9522 277.997,-63.0291 286.908,-68.7601 288.537,-61.9522"/>
+</g>
+<!-- Node20 -->
+<g id="node20" class="node"><title>Node20</title>
+<g id="a_node20"><a xlink:href="class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" target="_top" xlink:title="Widget3DLocator::createLocator">
+<polygon fill="white" stroke="black" points="350,-6 350,-25 507,-25 507,-6 350,-6"/>
+<text text-anchor="middle" x="428.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocator</text>
 </a>
 </g>
 </g>
-<!-- Node164&#45;&gt;Node166 -->
-<g id="edge13" class="edge"><title>Node164&#45;&gt;Node166</title>
-<path fill="none" stroke="midnightblue" d="M182.28,-119.687C168.108,-117.762 153.279,-115.747 139.225,-113.838"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="182.082,-123.193 192.463,-121.071 183.025,-116.256 182.082,-123.193"/>
+<!-- Node19&#45;&gt;Node20 -->
+<g id="edge23" class="edge"><title>Node19&#45;&gt;Node20</title>
+<path fill="none" stroke="midnightblue" d="M322.204,-15.5C331.524,-15.5 340.875,-15.5 349.947,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="322.118,-12.0001 312.118,-15.5 322.118,-19.0001 322.118,-12.0001"/>
 </g>
-<!-- Node167&#45;&gt;Node164 -->
-<g id="edge15" class="edge"><title>Node167&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M399.902,-156.082C370.57,-150.645 335.893,-144.217 307.987,-139.044"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="399.564,-159.579 410.034,-157.96 400.84,-152.696 399.564,-159.579"/>
-</g>
-<!-- Node168&#45;&gt;Node164 -->
-<g id="edge17" class="edge"><title>Node168&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M379.104,-129.5C358.921,-129.5 337.656,-129.5 318.607,-129.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="379.225,-133 389.225,-129.5 379.225,-126 379.225,-133"/>
-</g>
-<!-- Node169&#45;&gt;Node164 -->
-<g id="edge19" class="edge"><title>Node169&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M399.902,-102.918C370.57,-108.355 335.893,-114.783 307.987,-119.956"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="400.84,-106.304 410.034,-101.04 399.564,-99.4213 400.84,-106.304"/>
-</g>
-<!-- Node170&#45;&gt;Node164 -->
-<g id="edge21" class="edge"><title>Node170&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M396.055,-65.4093C387.87,-67.4776 379.682,-69.8359 372,-72.5 335.028,-85.3214 294.631,-107.25 272.768,-119.843"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="397.092,-68.7601 406.003,-63.0291 395.463,-61.9522 397.092,-68.7601"/>
-</g>
-<!-- Node172 -->
-<g id="node20" class="node"><title>Node172</title>
-<g id="a_node20"><a xlink:href="class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="177,-6 177,-25 334,-25 334,-6 177,-6"/>
-<text text-anchor="middle" x="255.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocator</text>
+<!-- Node21 -->
+<g id="node21" class="node"><title>Node21</title>
+<g id="a_node21"><a xlink:href="class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" target="_top" xlink:title="Widget3DLocator::Widget3\lDLocator">
+<polygon fill="white" stroke="black" points="547.5,-0.5 547.5,-30.5 681.5,-30.5 681.5,-0.5 547.5,-0.5"/>
+<text text-anchor="start" x="555.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::Widget3</text>
+<text text-anchor="middle" x="614.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DLocator</text>
 </a>
 </g>
 </g>
-<!-- Node171&#45;&gt;Node172 -->
-<g id="edge23" class="edge"><title>Node171&#45;&gt;Node172</title>
-<path fill="none" stroke="midnightblue" d="M361.796,-15.5C352.476,-15.5 343.125,-15.5 334.053,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="361.882,-19.0001 371.882,-15.5 361.882,-12.0001 361.882,-19.0001"/>
-</g>
-<!-- Node173 -->
-<g id="node21" class="node"><title>Node173</title>
-<g id="a_node21"><a xlink:href="class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2.5,-0.5 2.5,-30.5 136.5,-30.5 136.5,-0.5 2.5,-0.5"/>
-<text text-anchor="start" x="10.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::Widget3</text>
-<text text-anchor="middle" x="69.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DLocator</text>
-</a>
-</g>
-</g>
-<!-- Node172&#45;&gt;Node173 -->
-<g id="edge24" class="edge"><title>Node172&#45;&gt;Node173</title>
-<path fill="none" stroke="midnightblue" d="M166.671,-15.5C156.568,-15.5 146.397,-15.5 136.648,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="166.734,-19.0001 176.734,-15.5 166.734,-12.0001 166.734,-19.0001"/>
+<!-- Node20&#45;&gt;Node21 -->
+<g id="edge24" class="edge"><title>Node20&#45;&gt;Node21</title>
+<path fill="none" stroke="midnightblue" d="M517.329,-15.5C527.432,-15.5 537.603,-15.5 547.352,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="517.266,-12.0001 507.266,-15.5 517.266,-19.0001 517.266,-12.0001"/>
 </g>
 </g>
 </svg>

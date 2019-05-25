@@ -1,8 +1,7 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iWidgetPicture.h" name="C:/dev/Igor/Igor/src/Igor/src/iWidgetPicture.h">
-<area shape="rect" id="node1" title=" " alt="" coords="430,5,599,47"/>
-<area shape="rect" id="node2" href="$i_dialog_file_select_8cpp.html" title=" " alt="" coords="5,102,200,143"/>
-<area shape="rect" id="node3" href="$i_dialog_menu_8cpp.html" title=" " alt="" coords="225,102,394,143"/>
-<area shape="rect" id="node4" href="$i_widget_manager_8cpp.html" title=" " alt="" coords="419,102,611,143"/>
-<area shape="rect" id="node5" href="$i_widget_picture_8cpp.html" title=" " alt="" coords="635,102,818,143"/>
-<area shape="rect" id="node6" href="$_user_control_graph_view_8cpp.html" title=" " alt="" coords="842,95,1025,151"/>
+<map id="C:/dev/Igor/src/Igor/src/iWidgetPicture.h" name="C:/dev/Igor/src/Igor/src/iWidgetPicture.h">
+<area shape="rect" id="node2" href="$i_dialog_file_select_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogFileSelect.cpp" alt="" coords="5,102,176,143"/>
+<area shape="rect" id="node3" href="$i_dialog_menu_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iDialogMenu.cpp" alt="" coords="200,102,344,143"/>
+<area shape="rect" id="node4" href="$i_widget_manager_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetManager.cpp" alt="" coords="369,102,535,143"/>
+<area shape="rect" id="node5" href="$i_widget_picture_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWidgetPicture.cpp" alt="" coords="559,102,718,143"/>
+<area shape="rect" id="node6" href="$_user_control_graph_view_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lGraphView.cpp" alt="" coords="743,95,937,151"/>
 </map>

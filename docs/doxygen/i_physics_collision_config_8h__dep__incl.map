@@ -1,11 +1,10 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iPhysicsCollisionConfig.h" name="C:/dev/Igor/Igor/src/Igor/src/iPhysicsCollisionConfig.h">
-<area shape="rect" id="node1" title=" " alt="" coords="443,5,615,61"/>
-<area shape="rect" id="node2" href="$i_node_physics_8h.html" title=" " alt="" coords="175,117,339,158"/>
-<area shape="rect" id="node6" href="$i_physics_8cpp.html" title=" " alt="" coords="363,117,511,158"/>
-<area shape="rect" id="node7" href="$i_physics_collision_config_8cpp.html" title=" " alt="" coords="535,109,707,165"/>
-<area shape="rect" id="node8" href="$i_task_prepare_collision_8h.html" title=" " alt="" coords="731,117,940,158"/>
-<area shape="rect" id="node3" href="$i_node_factory_8cpp.html" title=" " alt="" coords="5,221,180,262"/>
-<area shape="rect" id="node4" href="$i_node_physics_8cpp.html" title=" " alt="" coords="483,221,662,262"/>
-<area shape="rect" id="node5" href="$i_voxel_terrain_mesh_generator_8cpp.html" title=" " alt="" coords="204,213,384,269"/>
-<area shape="rect" id="node9" href="$i_task_prepare_collision_8cpp.html" title=" " alt="" coords="724,221,947,262"/>
+<map id="C:/dev/Igor/src/Igor/src/iPhysicsCollisionConfig.h" name="C:/dev/Igor/src/Igor/src/iPhysicsCollisionConfig.h">
+<area shape="rect" id="node2" href="$i_node_physics_8h.html" title="C:/dev/Igor/src/Igor\l/src/iNodePhysics.h" alt="" coords="191,95,330,136"/>
+<area shape="rect" id="node6" href="$i_physics_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iPhysics.cpp" alt="" coords="354,95,485,136"/>
+<area shape="rect" id="node7" href="$i_physics_collision_config_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iPhysicsCollisionConfig.cpp" alt="" coords="509,95,717,136"/>
+<area shape="rect" id="node8" href="$i_task_prepare_collision_8h.html" title="C:/dev/Igor/src/Igor\l/src/iTaskPrepareCollision.h" alt="" coords="741,95,925,136"/>
+<area shape="rect" id="node3" href="$i_node_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeFactory.cpp" alt="" coords="5,184,156,225"/>
+<area shape="rect" id="node4" href="$i_node_physics_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodePhysics.cpp" alt="" coords="519,184,672,225"/>
+<area shape="rect" id="node5" href="$i_voxel_terrain_mesh_generator_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrainMeshGenerator.cpp" alt="" coords="181,184,418,225"/>
+<area shape="rect" id="node9" href="$i_task_prepare_collision_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskPrepareCollision.cpp" alt="" coords="733,184,932,225"/>
 </map>

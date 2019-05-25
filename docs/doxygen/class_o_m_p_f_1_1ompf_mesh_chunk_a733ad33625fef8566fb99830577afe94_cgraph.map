@@ -1,10 +1,9 @@
 <map id="OMPF::ompfMeshChunk::read" name="OMPF::ompfMeshChunk::read">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,171,145"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html#a5f520b618326e0fba9e6a3433f48d345" title=" " alt="" coords="220,5,383,47"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_base_chunk.html#aa3b931de6ce181c023f66628c67244da" title=" " alt="" coords="220,71,383,112"/>
-<area shape="rect" id="node7" href="$class_o_m_p_f_1_1ompf_mesh_chunk.html#ab33f0e1acbe9888492a6ed9b4c368a46" title=" " alt="" coords="219,136,384,177"/>
-<area shape="rect" id="node8" href="$class_o_m_p_f_1_1ompf_mesh_chunk.html#a297ea53a1b0a8b1a7855db6ffd1533c4" title=" " alt="" coords="219,201,384,243"/>
-<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_settings.html#a2d4d91f50eec7e4acc5b79619bea4fb4" title=" " alt="" coords="432,5,576,47"/>
-<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_settings.html#a29cf3d0ccc1577b2e1fc8089c10b852b" title=" " alt="" coords="432,71,576,112"/>
-<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_settings.html#a1aa267a457e47d60cb915be2f82540a4" title=" " alt="" coords="432,136,576,177"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_base_chunk.html#af2301d255ce51d9168b808deccaaf8a2" title="OMPF::ompfBaseChunk\l::getName" alt="" coords="220,5,383,47"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_base_chunk.html#aa3b931de6ce181c023f66628c67244da" title="OMPF::ompfBaseChunk\l::read" alt="" coords="220,71,383,112"/>
+<area shape="rect" id="node7" href="$class_o_m_p_f_1_1ompf_mesh_chunk.html#ab33f0e1acbe9888492a6ed9b4c368a46" title="OMPF::ompfMeshChunk\l::setTexture" alt="" coords="219,136,384,177"/>
+<area shape="rect" id="node8" href="$class_o_m_p_f_1_1ompf_mesh_chunk.html#a5f62ef05d2f41907d0fe33859506fc33" title="OMPF::ompfMeshChunk\l::getVertexSize" alt="" coords="219,201,384,243"/>
+<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_settings.html#ac4b44803b6a70b9eb6f3ca573a0a5242" title="OMPF::ompfSettings\l::getTypeIDSize" alt="" coords="432,5,576,47"/>
+<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_settings.html#ac8b4c4cf739d5c5fd8d09b15d176c90d" title="OMPF::ompfSettings\l::getChunkSizeSize" alt="" coords="432,71,576,112"/>
+<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_settings.html#a3b1a3f75376c3ebee9a59a31d7280aa3" title="OMPF::ompfSettings\l::getChunkIDSize" alt="" coords="432,136,576,177"/>
 </map>

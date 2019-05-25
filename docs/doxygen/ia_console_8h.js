@@ -17,6 +17,14 @@ var ia_console_8h =
       [ "Yellow", "ia_console_8h.html#a40f0d9edbd2c9519788b20a95a9facc8a51e6cd92b6c45f9affdc158ecca2b8b8", null ],
       [ "DarkYellow", "ia_console_8h.html#a40f0d9edbd2c9519788b20a95a9facc8a42d873bb34e1055e40aad0ec45039e8b", null ]
     ] ],
+    [ "LogLevel", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3", [
+      [ "Assert", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3ad530f9d1b94f864f2238775b0e19e48c", null ],
+      [ "Error", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3a902b0d55fddef6f8d651fe1035b7d4bd", null ],
+      [ "Warning", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa", null ],
+      [ "Info", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3a4059b0251f66a18cb56f544728796875", null ],
+      [ "DebugInfo", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3af6f6931771db95a6bffec131b856bd50", null ],
+      [ "Debug", "ia_console_8h.html#a95b2b44871530bf71a452919620012e3aa603905470e2a5b8c13e96b579ef0dba", null ]
+    ] ],
     [ "__IGOR_FUNCTION_POINTER__", "ia_console_8h.html#a9179263f314e94a68b38277d350e0e3d", null ],
     [ "applicationTime", "ia_console_8h.html#aaa07a13fdd4cdc0b5ab00ac00c35d3dc", null ],
     [ "endl", "ia_console_8h.html#a95ee90eb942654df4ba5c9f4eb0517f0", null ],

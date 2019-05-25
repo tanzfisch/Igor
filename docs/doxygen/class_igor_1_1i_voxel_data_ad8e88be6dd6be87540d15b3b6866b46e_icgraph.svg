@@ -9,60 +9,57 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 123)">
 <title>Igor::iVoxelData::getWidth</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-123 483,-123 483,4 -4,4"/>
-<!-- Node48 -->
-<g id="node1" class="node"><title>Node48</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="348,-50 348,-69 479,-69 479,-50 348,-50"/>
-<text text-anchor="middle" x="413.5" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelData::getWidth</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-50 0,-69 131,-69 131,-50 0,-50"/>
+<text text-anchor="middle" x="65.5" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelData::getWidth</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" target="_top" xlink:title="Igor::iContouringCubes\l::compile">
+<polygon fill="white" stroke="black" points="167,-88.5 167,-118.5 282,-118.5 282,-88.5 167,-88.5"/>
+<text text-anchor="start" x="175" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
+<text text-anchor="middle" x="224.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
 </a>
 </g>
 </g>
-<!-- Node49 -->
-<g id="node2" class="node"><title>Node49</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_contouring_cubes.html#a0ccd75b3e3d06a8516db1d0e03baec9a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="197,-88.5 197,-118.5 312,-118.5 312,-88.5 197,-88.5"/>
-<text text-anchor="start" x="205" y="-106.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iContouringCubes</text>
-<text text-anchor="middle" x="254.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M110.431,-71.8118C128.834,-76.9694 150.405,-83.0148 169.744,-88.4346"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="111.14,-68.3758 100.567,-69.0473 109.251,-75.1161 111.14,-68.3758"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" target="_top" xlink:title="Igor::iVoxelTerrainMeshGenerator\l::importData">
+<polygon fill="white" stroke="black" points="318,-66.5 318,-96.5 479,-96.5 479,-66.5 318,-66.5"/>
+<text text-anchor="start" x="326" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrainMeshGenerator</text>
+<text text-anchor="middle" x="398.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">::importData</text>
 </a>
 </g>
 </g>
-<!-- Node48&#45;&gt;Node49 -->
-<g id="edge1" class="edge"><title>Node48&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M368.569,-71.8118C350.166,-76.9694 328.595,-83.0148 309.256,-88.4346"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="369.749,-75.1161 378.433,-69.0473 367.86,-68.3758 369.749,-75.1161"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M141.38,-64.4769C193.978,-67.9729 264.232,-72.6423 317.855,-76.2064"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="141.316,-60.965 131.106,-63.794 140.852,-67.9496 141.316,-60.965"/>
 </g>
-<!-- Node50 -->
-<g id="node3" class="node"><title>Node50</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_voxel_terrain_mesh_generator.html#a573443022d97b40da58a922f413a0326" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-66.5 0,-96.5 161,-96.5 161,-66.5 0,-66.5"/>
-<text text-anchor="start" x="8" y="-84.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrainMeshGenerator</text>
-<text text-anchor="middle" x="80.5" y="-73.5" font-family="Helvetica,sans-Serif" font-size="10.00">::importData</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_simple_cubes.html#a60cc60922f4cdeff66992c2bba82a080" target="_top" xlink:title="Igor::iSimpleCubes\l::compile">
+<polygon fill="white" stroke="black" points="175.5,-0.5 175.5,-30.5 273.5,-30.5 273.5,-0.5 175.5,-0.5"/>
+<text text-anchor="start" x="183.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSimpleCubes</text>
+<text text-anchor="middle" x="224.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
 </a>
 </g>
 </g>
-<!-- Node48&#45;&gt;Node50 -->
-<g id="edge4" class="edge"><title>Node48&#45;&gt;Node50</title>
-<path fill="none" stroke="midnightblue" d="M337.62,-64.4769C285.022,-67.9729 214.768,-72.6423 161.145,-76.2064"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="338.148,-67.9496 347.894,-63.794 337.684,-60.965 338.148,-67.9496"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M110.424,-47.1902C130.581,-41.5409 154.54,-34.8263 175.204,-29.0352"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="109.251,-43.8839 100.567,-49.9527 111.14,-50.6242 109.251,-43.8839"/>
 </g>
-<!-- Node51 -->
-<g id="node4" class="node"><title>Node51</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_simple_cubes.html#a60cc60922f4cdeff66992c2bba82a080" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="205.5,-0.5 205.5,-30.5 303.5,-30.5 303.5,-0.5 205.5,-0.5"/>
-<text text-anchor="start" x="213.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSimpleCubes</text>
-<text text-anchor="middle" x="254.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
-</a>
-</g>
-</g>
-<!-- Node48&#45;&gt;Node51 -->
-<g id="edge3" class="edge"><title>Node48&#45;&gt;Node51</title>
-<path fill="none" stroke="midnightblue" d="M368.576,-47.1902C348.419,-41.5409 324.46,-34.8263 303.796,-29.0352"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="367.86,-50.6242 378.433,-49.9527 369.749,-43.8839 367.86,-50.6242"/>
-</g>
-<!-- Node49&#45;&gt;Node50 -->
-<g id="edge2" class="edge"><title>Node49&#45;&gt;Node50</title>
-<path fill="none" stroke="midnightblue" d="M186.69,-94.9546C178.359,-93.889 169.775,-92.791 161.273,-91.7035"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="186.341,-98.4383 196.704,-96.2354 187.229,-91.4949 186.341,-98.4383"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M292.31,-94.9546C300.641,-93.889 309.225,-92.791 317.727,-91.7035"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="291.771,-91.4949 282.296,-96.2354 292.659,-98.4383 291.771,-91.4949"/>
 </g>
 </g>
 </svg>

@@ -1,7 +1,7 @@
 <map id="UserControlParticleSystem::UserControlParticleSystem" name="UserControlParticleSystem::UserControlParticleSystem">
-<area shape="rect" id="node1" title=" " alt="" coords="5,33,192,75"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="481,5,669,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_application.html#a8e53d8005118edbf7516ff285b4c50af" title=" " alt="" coords="240,26,433,82"/>
-<area shape="rect" id="node4" href="$class_user_control_particle_system.html#a550c4698548391b6fb7939f934e22c42" title=" " alt="" coords="247,107,426,148"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_particle_system.html#a532da087f94f9d510630f7127fef3746" title=" " alt="" coords="489,107,662,148"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iApplication \&gt;::getInstance" alt="" coords="481,5,669,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_application.html#a8e53d8005118edbf7516ff285b4c50af" title="Igor::iApplication\l::registerApplicationPostDraw\lHandleDelegate" alt="" coords="240,43,433,99"/>
+<area shape="rect" id="node4" href="$class_user_control_particle_system.html#a550c4698548391b6fb7939f934e22c42" title="UserControlParticleSystem\l::onCyclickUpdate" alt="" coords="247,124,426,165"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="511,91,639,132"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_particle_system.html#a532da087f94f9d510630f7127fef3746" title="Igor::iNodeParticleSystem\l::getParticleCount" alt="" coords="489,156,662,197"/>
 </map>

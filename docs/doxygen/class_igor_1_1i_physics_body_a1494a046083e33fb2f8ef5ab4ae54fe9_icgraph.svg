@@ -9,41 +9,38 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iPhysicsBody::applyForceAndTorque</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 464,-35 464,4 -4,4"/>
-<!-- Node5 -->
-<g id="node1" class="node"><title>Node5</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="343,-0.5 343,-30.5 460,-30.5 460,-0.5 343,-0.5"/>
-<text text-anchor="start" x="351" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsBody</text>
-<text text-anchor="middle" x="401.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::applyForceAndTorque</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 117,-30.5 117,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsBody</text>
+<text text-anchor="middle" x="58.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::applyForceAndTorque</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespace_igor.html#a5942fa6fe4392dd7ef7852f82cc75937" target="_top" xlink:title="Igor::PhysicsApplyForceAnd\lTorque">
+<polygon fill="white" stroke="black" points="153,-0.5 153,-30.5 293,-30.5 293,-0.5 153,-0.5"/>
+<text text-anchor="start" x="161" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::PhysicsApplyForceAnd</text>
+<text text-anchor="middle" x="223" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Torque</text>
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="node2" class="node"><title>Node6</title>
-<g id="a_node2"><a xlink:href="namespace_igor.html#a5942fa6fe4392dd7ef7852f82cc75937" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="167,-0.5 167,-30.5 307,-30.5 307,-0.5 167,-0.5"/>
-<text text-anchor="start" x="175" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::PhysicsApplyForceAnd</text>
-<text text-anchor="middle" x="237" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Torque</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M127.364,-15.5C135.756,-15.5 144.345,-15.5 152.758,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="127.249,-12.0001 117.249,-15.5 127.249,-19.0001 127.249,-12.0001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" target="_top" xlink:title="Igor::iPhysics::createBody">
+<polygon fill="white" stroke="black" points="329,-6 329,-25 460,-25 460,-6 329,-6"/>
+<text text-anchor="middle" x="394.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createBody</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge1" class="edge"><title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M332.636,-15.5C324.244,-15.5 315.655,-15.5 307.242,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="332.751,-19.0001 342.751,-15.5 332.751,-12.0001 332.751,-19.0001"/>
-</g>
-<!-- Node7 -->
-<g id="node3" class="node"><title>Node7</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-25 131,-25 131,-6 0,-6"/>
-<text text-anchor="middle" x="65.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createBody</text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge2" class="edge"><title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M156.342,-15.5C147.912,-15.5 139.415,-15.5 131.185,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="156.569,-19.0001 166.569,-15.5 156.569,-12.0001 156.569,-19.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M303.658,-15.5C312.088,-15.5 320.585,-15.5 328.815,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="303.431,-12.0001 293.431,-15.5 303.431,-19.0001 303.431,-12.0001"/>
 </g>
 </g>
 </svg>

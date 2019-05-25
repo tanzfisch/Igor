@@ -11,16 +11,13 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-302 183.5,-302 183.5,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="28.5,-0.5 28.5,-30.5 126.5,-30.5 126.5,-0.5 28.5,-0.5"/>
 <text text-anchor="start" x="36.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="77.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ParamIterator&lt; T &gt;</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; testing\l::internal::ParamIteratorInterface\l\&lt; T \&gt; \&gt;">
 <polygon fill="white" stroke="black" points="0,-78.5 0,-130.5 155,-130.5 155,-78.5 0,-78.5"/>
 <text text-anchor="start" x="8" y="-118.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="8" y="-107.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; testing</text>
@@ -37,7 +34,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="33,-200.5 33,-230.5 122,-230.5 122,-200.5 33,-200.5"/>
 <text text-anchor="start" x="41" y="-218.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="77.5" y="-207.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; T &gt;</text>
@@ -54,11 +51,8 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="63,-278.5 63,-297.5 92,-297.5 92,-278.5 63,-278.5"/>
 <text text-anchor="middle" x="77.5" y="-285.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node4&#45;&gt;Node3 -->
 <g id="edge3" class="edge"><title>Node4&#45;&gt;Node3</title>

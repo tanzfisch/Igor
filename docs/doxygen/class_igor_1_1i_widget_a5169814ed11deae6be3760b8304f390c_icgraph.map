@@ -1,0 +1,7 @@
+<map id="Igor::iWidget::getMinWidth" name="Igor::iWidget::getMinWidth">
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog.html#a05e3859b95c313b11c25c31c74a1fdfc" title="Igor::iDialog::calcMinSize" alt="" coords="229,5,399,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_user_control.html#a50b80706c84e767380319aeb28507c59" title="Igor::iUserControl\l::calcMinSize" alt="" coords="253,57,375,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget_grid.html#af3fd06ae9663a6aecff1e99927809ee0" title="Igor::iWidgetGrid::\lcalcMinSize" alt="" coords="251,122,377,163"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_widget_group_box.html#a9f870fe9a74f87279840f1410640f69b" title="Igor::iWidgetGroupBox\l::calcMinSize" alt="" coords="237,187,391,229"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget_scroll.html#a1ee966ffe24e24a937f37167983d912b" title="Igor::iWidgetScroll\l::draw" alt="" coords="250,253,378,294"/>
+</map>

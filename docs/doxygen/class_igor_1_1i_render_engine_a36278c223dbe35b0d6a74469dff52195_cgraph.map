@@ -1,11 +1,10 @@
 <map id="Igor::iRenderEngine::cullScene" name="Igor::iRenderEngine::cullScene">
-<area shape="rect" id="node1" title=" " alt="" coords="5,183,140,224"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_camera.html#a9bcfc636b35bb4f392aeeca9ed4123d4" title=" " alt="" coords="188,5,325,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_camera.html#a0bb5bc32a460a0759cdf6db5c90678ad" title=" " alt="" coords="188,71,325,112"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_frustum.html#aec697fd87fb69a87dc49dad46ee43f57" title=" " alt="" coords="193,161,321,187"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node_render.html#a71aab4f3ed63aa71b2ea85aed1b4bd08" title=" " alt="" coords="190,212,323,253"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node_render.html#a3a820bf3205cb6e8556da2544fd53a67" title=" " alt="" coords="190,277,323,319"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="195,343,318,370"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#ae57766fa4a45a1d7ac35d642442a6c79" title=" " alt="" coords="373,5,501,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title=" " alt="" coords="549,5,679,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_camera.html#a9bcfc636b35bb4f392aeeca9ed4123d4" title="Igor::iNodeCamera::\lgetViewMatrix" alt="" coords="188,5,325,47"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_camera.html#a0bb5bc32a460a0759cdf6db5c90678ad" title="Igor::iNodeCamera::\lgetWorldMatrix" alt="" coords="188,71,325,112"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_frustum.html#aec697fd87fb69a87dc49dad46ee43f57" title="Igor::iFrustum::set" alt="" coords="193,161,321,187"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_render.html#a71aab4f3ed63aa71b2ea85aed1b4bd08" title="Igor::iNodeRender::\lgetMaterial" alt="" coords="190,212,323,253"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node_render.html#a5506a0bfcea153a15a8b03923e375949" title="Igor::iNodeRender::\lisVisible" alt="" coords="190,277,323,319"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="195,343,318,370"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#ae57766fa4a45a1d7ac35d642442a6c79" title="IgorAux::iaMatrix::\llookAt" alt="" coords="373,5,501,47"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" title="IgorAux::iaVector3\l::normalize" alt="" coords="549,5,679,47"/>
 </map>

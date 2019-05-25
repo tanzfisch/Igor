@@ -55,7 +55,7 @@ var gtest_param_test_8h =
     [ "Values", "gtest-param-test_8h.html#af3cdf373b137d357bb3a814c097bcd06", null ],
     [ "Values", "gtest-param-test_8h.html#a034785cd0f04e5f5ec9e16c1cad5ccde", null ],
     [ "Values", "gtest-param-test_8h.html#a7b6008393a1fa7b55b07fbad67c1c811", null ],
-    [ "ValuesIn", "gtest-param-test_8h.html#a96240380ae4d3b4855d07de3b84fb336", null ],
+    [ "ValuesIn", "gtest-param-test_8h.html#a5f8e1eb074d24671d679f6ccda6710bc", null ],
     [ "ValuesIn", "gtest-param-test_8h.html#affa90ba3821bd7ac15f147b1c31f9a73", null ],
     [ "ValuesIn", "gtest-param-test_8h.html#aa67d0c8470c5f69fcfcacc9e775fa982", null ]
 ];

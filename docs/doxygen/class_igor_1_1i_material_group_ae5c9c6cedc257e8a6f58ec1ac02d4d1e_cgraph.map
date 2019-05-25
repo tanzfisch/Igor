@@ -1,5 +1,5 @@
 <map id="Igor::iMaterialGroup::removeRenderNode" name="Igor::iMaterialGroup::removeRenderNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,35,148,76"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="196,5,395,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#af2d72831df4a13096e731418b6d6bb4b" title=" " alt="" coords="226,71,365,98"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="196,5,395,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a43329dc1b2a6ad4056c38290c5df777d" title="Igor::iNode::getType" alt="" coords="226,71,365,98"/>
+<area shape="rect" id="node4" href="$namespace_igor.html#a4614e8f1440b806d814d1f8a4a8b82a3" title="Igor::getMeshBuffers" alt="" coords="225,122,366,149"/>
 </map>

@@ -1,12 +1,9 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iVoxelOperationBox.h" name="C:/dev/Igor/Igor/src/Igor/src/iVoxelOperationBox.h">
-<area shape="rect" id="node1" title=" " alt="" coords="57,5,256,47"/>
-<area shape="rect" id="node2" href="$i_voxel_operation_8h.html" title=" " alt="" coords="94,95,219,121"/>
-<area shape="rect" id="node3" href="$i_a_a_box_8h.html" title=" " alt="" coords="118,169,195,196"/>
-<area shape="rect" id="node4" href="$i_defines_8h.html" title=" " alt="" coords="9,244,88,271"/>
-<area shape="rect" id="node6" href="$ia_vector3_8h.html" title=" " alt="" coords="113,244,201,271"/>
-<area shape="rect" id="node10" href="$i_a_a_box_8inl.html" title=" " alt="" coords="225,244,307,271"/>
-<area shape="rect" id="node5" href="$ia_defines_8h.html" title=" " alt="" coords="5,319,92,345"/>
-<area shape="rect" id="node7" title=" " alt="" coords="117,319,175,345"/>
-<area shape="rect" id="node8" title=" " alt="" coords="199,319,269,345"/>
-<area shape="rect" id="node9" href="$ia_vector3_8inl.html" title=" " alt="" coords="293,319,388,345"/>
+<map id="C:/dev/Igor/src/Igor/src/iVoxelOperationBox.h" name="C:/dev/Igor/src/Igor/src/iVoxelOperationBox.h">
+<area shape="rect" id="node2" href="$i_voxel_operation_8h.html" title="iVoxelOperation.h" alt="" coords="94,95,219,121"/>
+<area shape="rect" id="node3" href="$i_a_a_box_8h.html" title="iAABox.h" alt="" coords="118,169,195,196"/>
+<area shape="rect" id="node4" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="9,244,88,271"/>
+<area shape="rect" id="node6" href="$ia_vector3_8h.html" title="iaVector3.h" alt="" coords="113,244,201,271"/>
+<area shape="rect" id="node10" href="$i_a_a_box_8inl.html" title="iAABox.inl" alt="" coords="225,244,307,271"/>
+<area shape="rect" id="node5" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="5,319,92,345"/>
+<area shape="rect" id="node9" href="$ia_vector3_8inl.html" title="iaVector3.inl" alt="" coords="293,319,388,345"/>
 </map>

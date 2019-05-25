@@ -1,0 +1,15 @@
+<map id="Igor::initPhysics" name="Igor::initPhysics">
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics_collision_config.html#af6e0051db163bae9ea49473e58a6a694" title="Igor::iPhysicsCollisionConfig\l::isFinalized" alt="" coords="184,5,371,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics_collision.html#a1dc878b923d14d93895289b5c348a72d" title="Igor::iPhysicsCollision\l::getCollision" alt="" coords="202,71,353,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics_collision_config.html#ab782309c76e5bb5c7c46454a3e540089" title="Igor::iPhysicsCollisionConfig\l::getCollisionID" alt="" coords="184,136,371,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics_body.html#a2ee10c10684f90ea6435fa5716a04bf5" title="Igor::iPhysicsBody\l::setMass" alt="" coords="212,201,343,243"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_physics_body.html#a9a6c9466c21ff7a9b88215fcbebc4c17" title="Igor::iPhysicsBody\l::setMaterial" alt="" coords="212,267,343,308"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_physics_body.html#aa4f881a54530a30e103d2792e7a2423b" title="Igor::iPhysicsBody\l::setUserData" alt="" coords="212,332,343,373"/>
+<area shape="rect" id="node8" href="$namespace_igor.html#a3570edca0d5dcc16fc5b66e4ef900b4b" title="Igor::getUserData" alt="" coords="216,398,339,425"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_physics_body.html#af087e0739cbe1f49c4c80f32f5c384af" title="Igor::iPhysicsBody\l::setLinearDamping" alt="" coords="210,449,345,491"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_physics_body.html#aa0be581e6f78b579969f66d6abd948d9" title="Igor::iPhysicsBody\l::setAngularDamping" alt="" coords="206,515,349,556"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_physics_body.html#a672dd4514eaa0e85990fd4a7c347f93b" title="Igor::iPhysicsBody\l::setForce" alt="" coords="212,580,343,621"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_physics_body.html#a633ec7a273a8f78362d2953ba5e6cb0a" title="Igor::iPhysicsBody\l::setTorque" alt="" coords="212,645,343,687"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_physics_body.html#a3a5ba78edb4ee9f8fc31ac145a2d878b" title="Igor::iPhysicsBody\l::registerForceAndTorqueDelegate" alt="" coords="168,711,387,752"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_physics_body.html#a73ad740d3d2e8f39ea4c3cf4d58bd65c" title="Igor::iPhysicsBody\l::getID" alt="" coords="212,776,343,817"/>
+</map>

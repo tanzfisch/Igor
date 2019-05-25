@@ -1,4 +1,3 @@
 <map id="Igor::iPhysicsBody::getNewtonBody" name="Igor::iPhysicsBody::getNewtonBody">
-<area shape="rect" id="node1" title=" " alt="" coords="225,5,356,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab08566234153b58519067def76caf8e6" title=" " alt="" coords="5,13,177,39"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab08566234153b58519067def76caf8e6" title="Igor::iPhysics::createJoint" alt="" coords="184,13,356,39"/>
 </map>

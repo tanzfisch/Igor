@@ -1,7 +1,6 @@
 <map id="Igor::iSkyLightNode::iSkyLightNode" name="Igor::iSkyLightNode::iSkyLightNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,27,140,69"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title=" " alt="" coords="188,5,332,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_sky_light_node.html#a5cfca381b84a67c8274ae66557a726a7" title=" " alt="" coords="193,57,327,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title=" " alt="" coords="380,57,507,98"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title=" " alt="" coords="555,57,721,98"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title="Igor::iNode::setName" alt="" coords="188,5,332,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_sky_light_node.html#a5cfca381b84a67c8274ae66557a726a7" title="Igor::iSkyLightNode\l::initMesh" alt="" coords="193,57,327,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title="Igor::iMeshBuilder\l::createMesh" alt="" coords="380,57,507,98"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title="Igor::iMesh::setBounding\lSphere" alt="" coords="555,57,721,98"/>
 </map>

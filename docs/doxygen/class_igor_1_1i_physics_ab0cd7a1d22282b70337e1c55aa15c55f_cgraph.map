@@ -1,20 +1,20 @@
 <map id="Igor::iPhysics::createUserMeshCollision" name="Igor::iPhysics::createUserMeshCollision">
-<area shape="rect" id="node1" title=" " alt="" coords="5,234,177,275"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab5efe1f7f2c5a4a94d4eae55289c475a" title=" " alt="" coords="225,48,387,74"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title=" " alt="" coords="463,22,615,49"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title=" " alt="" coords="456,85,623,112"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector3.html#ab9eeed4aa7fd8d95efc7110748bc94a0" title=" " alt="" coords="241,150,371,191"/>
-<area shape="rect" id="node6" href="$namespace_igor.html#a9039d5a74ae09324fa68bdd0f67dd451" title=" " alt="" coords="236,216,376,242"/>
-<area shape="rect" id="node8" href="$namespace_igor.html#a3ac3fc2230f64dab7e8f8ffb4448300e" title=" " alt="" coords="236,266,376,293"/>
-<area shape="rect" id="node10" href="$namespace_igor.html#ab88106732c91a59e8db20f3602058af3" title=" " alt="" coords="233,317,379,344"/>
-<area shape="rect" id="node12" href="$namespace_igor.html#ab357f23003426abe61f2832458ec13f9" title=" " alt="" coords="235,374,377,401"/>
-<area shape="rect" id="node14" href="$namespace_igor.html#ad8f7becee7e7e8428a53916f2eeb7013" title=" " alt="" coords="229,434,383,461"/>
-<area shape="rect" id="node17" href="$namespace_igor.html#ad0037573afb7101ca650fb404d91b54f" title=" " alt="" coords="229,492,383,518"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#af23d829457d517684a92767ce14b55ce" title=" " alt="" coords="435,175,644,216"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a714bb513469878525d8a1af7e1f51157" title=" " alt="" coords="435,240,644,282"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#acce87a4786ff3df3d68dbadcec56afdd" title=" " alt="" coords="435,306,644,347"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a37512da0d0dd3c50cd0f5ac54372c4d5" title=" " alt="" coords="435,371,644,412"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#adafe185350abd149f9e0304a06b099c0" title=" " alt="" coords="435,436,644,478"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_a_a_box.html#a19b29dd9c13b0d0e47fcc45711d819ab" title=" " alt="" coords="692,444,813,470"/>
-<area shape="rect" id="node18" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a9b288b8cc7c83dabb509a9f62bc005d7" title=" " alt="" coords="435,502,644,543"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab5efe1f7f2c5a4a94d4eae55289c475a" title="Igor::iPhysics::getWorld" alt="" coords="225,55,387,81"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="463,17,615,44"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="456,93,623,120"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics_world.html#ad40b6a4f973b26c1f84c200d3416ab6c" title="Igor::iPhysicsWorld\l::getNewtonWorld" alt="" coords="239,157,373,198"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector3.html#a472d397bcfae85248afadb2345716e07" title="IgorAux::iaVector3\l::getData" alt="" coords="241,222,371,263"/>
+<area shape="rect" id="node7" href="$namespace_igor.html#a9039d5a74ae09324fa68bdd0f67dd451" title="Igor::CollideCallback" alt="" coords="236,288,376,315"/>
+<area shape="rect" id="node9" href="$namespace_igor.html#a3ac3fc2230f64dab7e8f8ffb4448300e" title="Igor::RayHitCallback" alt="" coords="236,339,376,365"/>
+<area shape="rect" id="node11" href="$namespace_igor.html#ab88106732c91a59e8db20f3602058af3" title="Igor::DestroyCallback" alt="" coords="233,389,379,416"/>
+<area shape="rect" id="node13" href="$namespace_igor.html#ab357f23003426abe61f2832458ec13f9" title="Igor::GetCollisionInfo" alt="" coords="235,447,377,473"/>
+<area shape="rect" id="node15" href="$namespace_igor.html#ad8f7becee7e7e8428a53916f2eeb7013" title="Igor::AABBOverlapTest" alt="" coords="229,507,383,533"/>
+<area shape="rect" id="node18" href="$namespace_igor.html#ad0037573afb7101ca650fb404d91b54f" title="Igor::GetFacesInAABB" alt="" coords="229,564,383,591"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#af23d829457d517684a92767ce14b55ce" title="Igor::iPhysicsUserMeshCollision\lHandler::collideCallback" alt="" coords="435,247,644,289"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a714bb513469878525d8a1af7e1f51157" title="Igor::iPhysicsUserMeshCollision\lHandler::rayHitCallback" alt="" coords="435,313,644,354"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#acce87a4786ff3df3d68dbadcec56afdd" title="Igor::iPhysicsUserMeshCollision\lHandler::destroyCallback" alt="" coords="435,378,644,419"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a37512da0d0dd3c50cd0f5ac54372c4d5" title="Igor::iPhysicsUserMeshCollision\lHandler::getCollisionInfo" alt="" coords="435,443,644,485"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#adafe185350abd149f9e0304a06b099c0" title="Igor::iPhysicsUserMeshCollision\lHandler::testOverlapAABB" alt="" coords="435,509,644,550"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_a_a_box.html#a19b29dd9c13b0d0e47fcc45711d819ab" title="Igor::iAABox::set" alt="" coords="692,516,813,543"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_physics_user_mesh_collision_handler.html#a9b288b8cc7c83dabb509a9f62bc005d7" title="Igor::iPhysicsUserMeshCollision\lHandler::getFacesInAABB" alt="" coords="435,574,644,615"/>
 </map>

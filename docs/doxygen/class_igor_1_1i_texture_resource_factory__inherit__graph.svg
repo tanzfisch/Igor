@@ -9,38 +9,35 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 159)">
 <title>Igor::iTextureResourceFactory</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-159 207.5,-159 207.5,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 147,-19.5 147,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="73.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureResourceFactory</text>
-</a>
 </g>
-</g>
-<!-- Node1 -->
-<g id="node2" class="node"><title>Node1</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iTextureResourceFactory \&gt;">
 <polygon fill="white" stroke="black" points="2,-57.5 2,-87.5 145,-87.5 145,-57.5 2,-57.5"/>
 <text text-anchor="start" x="10" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="middle" x="73.5" y="-64.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iTextureResourceFactory &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node0 -->
-<g id="edge1" class="edge"><title>Node1&#45;&gt;Node0</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M73.5,-47.3524C73.5,-37.5132 73.5,-26.7753 73.5,-19.5399"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="70.0001,-47.468 73.5,-57.468 77.0001,-47.4681 70.0001,-47.468"/>
 </g>
-<!-- Node2 -->
-<g id="node3" class="node"><title>Node2</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title="IgorAux::iaSingleton\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="10,-135.5 10,-154.5 137,-154.5 137,-135.5 10,-135.5"/>
 <text text-anchor="middle" x="73.5" y="-142.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton&lt; T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node1 -->
-<g id="edge2" class="edge"><title>Node2&#45;&gt;Node1</title>
+<!-- Node3&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M73.5,-125.236C73.5,-113.408 73.5,-98.3829 73.5,-87.5762"/>
 <polygon fill="orange" stroke="orange" points="70.0001,-125.355 73.5,-135.355 77.0001,-125.355 70.0001,-125.355"/>
 <text text-anchor="middle" x="138.5" y="-109" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; iTextureResourceFactory &gt;</text>

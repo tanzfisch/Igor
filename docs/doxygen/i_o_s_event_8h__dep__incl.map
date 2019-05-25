@@ -1,6 +1,5 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iOSEvent.h" name="C:/dev/Igor/Igor/src/Igor/src/iOSEvent.h">
-<area shape="rect" id="node1" title=" " alt="" coords="186,5,325,47"/>
-<area shape="rect" id="node2" href="$i_keyboard_8cpp.html" title=" " alt="" coords="5,95,161,136"/>
-<area shape="rect" id="node3" href="$i_mouse_8cpp.html" title=" " alt="" coords="185,95,325,136"/>
-<area shape="rect" id="node4" href="$i_window_8cpp.html" title=" " alt="" coords="350,95,497,136"/>
+<map id="C:/dev/Igor/src/Igor/src/iOSEvent.h" name="C:/dev/Igor/src/Igor/src/iOSEvent.h">
+<area shape="rect" id="node2" href="$i_keyboard_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iKeyboard.cpp" alt="" coords="5,95,136,136"/>
+<area shape="rect" id="node3" href="$i_mouse_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iMouse.cpp" alt="" coords="160,95,291,136"/>
+<area shape="rect" id="node4" href="$i_window_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iWindow.cpp" alt="" coords="315,95,445,136"/>
 </map>

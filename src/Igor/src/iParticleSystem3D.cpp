@@ -590,11 +590,8 @@ namespace Igor
                 }
             }
 
-            iaVector3d minPosd;
-            iaVector3d maxPosd;
-
-            iaConvert::convert(minPos, minPosd);
-            iaConvert::convert(maxPos, maxPosd);
+			iaVector3d minPosd = minPos.convert<float64>();
+			iaVector3d maxPosd = maxPos.convert<float64>();
 
             _boundingBox._center = minPosd;
             _boundingBox._center += maxPosd;

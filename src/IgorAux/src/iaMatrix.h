@@ -328,6 +328,13 @@ namespace IgorAux
 		*/
 		__IGOR_INLINE__ void setData(const T* data);
 
+		/*! converts the vector in to given type of vector
+
+		\returns vector for given type
+		*/
+		template<class T2>
+		__IGOR_INLINE__ iaMatrix<T2> convert();
+
 		/*! initializes the matrix with the id matrix
 		*/
 		__IGOR_INLINE__ iaMatrix();

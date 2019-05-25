@@ -1,10 +1,8 @@
 <map id="Igor::iWidgetTextEdit::setCursorPos" name="Igor::iWidgetTextEdit::setCursorPos">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,148,80"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#abdca81f9a7dfc354263de5f174171425" title=" " alt="" coords="204,5,331,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_text_edit.html#a3864023407b3d57ef364a578022bb8aa" title=" " alt="" coords="196,71,339,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="387,5,601,47"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a1de38f8fb334a5e52a266b9a4e891821" title=" " alt="" coords="431,71,557,112"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_widget.html#af1b43cee8ee079b1f8fd7e4e0789e0ac" title=" " alt="" coords="415,136,573,177"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title=" " alt="" coords="649,39,776,80"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" title=" " alt="" coords="649,104,776,145"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17" title="IgorAux::iaString::\lgetSize" alt="" coords="204,5,331,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_text_edit.html#a3864023407b3d57ef364a578022bb8aa" title="Igor::iWidgetTextEdit\l::updateMetrics" alt="" coords="196,71,339,112"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="387,37,601,79"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#ad733ce0b92ae32cdb253e4fa0ad85e3f" title="IgorAux::iaString::\lgetSubString" alt="" coords="431,103,557,144"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title="IgorAux::iaString::\liaString" alt="" coords="649,69,776,111"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="649,135,776,176"/>
 </map>

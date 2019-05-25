@@ -1,4 +1,4 @@
 <map id="Igor::iPhysicsBody::getID" name="Igor::iPhysicsBody::getID">
-<area shape="rect" id="node1" title=" " alt="" coords="225,5,356,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#ab08566234153b58519067def76caf8e6" title=" " alt="" coords="5,13,177,39"/>
+<area shape="rect" id="node2" href="$namespace_igor.html#a01f16cc463a915caf99b4ec6f83d1706" title="Igor::initPhysics" alt="" coords="213,5,327,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#ab08566234153b58519067def76caf8e6" title="Igor::iPhysics::createJoint" alt="" coords="184,56,356,83"/>
 </map>

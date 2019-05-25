@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iParticleSystem3D::getSimulationRate</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 293,-35 293,4 -4,4"/>
-<!-- Node43 -->
-<g id="node1" class="node"><title>Node43</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="170,-0.5 170,-30.5 289,-30.5 289,-0.5 170,-0.5"/>
-<text text-anchor="start" x="178" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iParticleSystem3D</text>
-<text text-anchor="middle" x="229.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getSimulationRate</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 119,-30.5 119,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iParticleSystem3D</text>
+<text text-anchor="middle" x="59.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getSimulationRate</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" target="_top" xlink:title="UserControlParticleSystem\l::initGUI">
+<polygon fill="white" stroke="black" points="155,-0.5 155,-30.5 289,-30.5 289,-0.5 155,-0.5"/>
+<text text-anchor="start" x="163" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="222" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node44 -->
-<g id="node2" class="node"><title>Node44</title>
-<g id="a_node2"><a xlink:href="class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
-</a>
-</g>
-</g>
-<!-- Node43&#45;&gt;Node44 -->
-<g id="edge1" class="edge"><title>Node43&#45;&gt;Node44</title>
-<path fill="none" stroke="midnightblue" d="M159.505,-15.5C151.1,-15.5 142.528,-15.5 134.166,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.647,-19.0001 169.647,-15.5 159.647,-12.0001 159.647,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M129.495,-15.5C137.9,-15.5 146.472,-15.5 154.834,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="129.353,-12.0001 119.353,-15.5 129.353,-19.0001 129.353,-12.0001"/>
 </g>
 </g>
 </svg>

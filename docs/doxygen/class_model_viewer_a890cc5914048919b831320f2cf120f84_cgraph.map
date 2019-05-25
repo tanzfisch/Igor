@@ -1,4 +1,3 @@
 <map id="ModelViewer::onKeyDown" name="ModelViewer::onKeyDown">
-<area shape="rect" id="node1" title=" " alt="" coords="5,13,179,39"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor_print_tree.html#a3e5418f8b4ed47ee581c3e8cae1ee273" title=" " alt="" coords="227,5,400,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor_print_tree.html#a3e5418f8b4ed47ee581c3e8cae1ee273" title="Igor::iNodeVisitorPrintTree\l::printToConsole" alt="" coords="227,5,400,47"/>
 </map>

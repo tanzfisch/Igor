@@ -1,4 +1,3 @@
 <map id="Igor::iWidgetCheckBox::beginRadioButtonGroup" name="Igor::iWidgetCheckBox::beginRadioButtonGroup">
-<area shape="rect" id="node1" title=" " alt="" coords="191,5,357,47"/>
-<area shape="rect" id="node2" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title=" " alt="" coords="5,13,143,39"/>
+<area shape="rect" id="node2" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title="MenuDialog::initGUI" alt="" coords="220,13,357,39"/>
 </map>

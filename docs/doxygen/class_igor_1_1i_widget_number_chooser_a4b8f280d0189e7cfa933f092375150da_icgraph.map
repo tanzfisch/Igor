@@ -1,7 +1,11 @@
 <map id="Igor::iWidgetNumberChooser::setMinMaxNumber" name="Igor::iWidgetNumberChooser::setMinMaxNumber">
-<area shape="rect" id="node1" title=" " alt="" coords="997,5,1185,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control_color_chooser.html#ac82a382282c1b5daf90091ec6494d42c" title=" " alt="" coords="749,5,949,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title=" " alt="" coords="501,5,701,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title=" " alt="" coords="253,5,453,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title=" " alt="" coords="5,5,205,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title="Igor::iDialogColorGradient\l::initGUI" alt="" coords="257,5,426,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_dialog_graph.html#a5bab24dca6ef57e9aee12a304b0b5c69" title="Igor::iDialogGraph\l::initGUI" alt="" coords="279,71,404,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#ac82a382282c1b5daf90091ec6494d42c" title="Igor::iUserControlColorChooser\l::createNumberChooser" alt="" coords="241,136,441,177"/>
+<area shape="rect" id="node8" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title="UserControlMaterial\l::initGUI" alt="" coords="273,201,409,243"/>
+<area shape="rect" id="node9" href="$class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" title="UserControlMesh::initGUI" alt="" coords="257,267,426,294"/>
+<area shape="rect" id="node10" href="$class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" title="UserControlParticleSystem\l::initGUI" alt="" coords="252,319,431,360"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title="Igor::iUserControlColorChooser\l::initGUI" alt="" coords="489,136,689,177"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title="Igor::iUserControlColorChooser\l::iUserControlColorChooser" alt="" coords="737,136,937,177"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title="Igor::iUserControlColorChooser\l::createInstance" alt="" coords="985,136,1185,177"/>
 </map>

@@ -9,54 +9,51 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iModelDataIO::exportData</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 494,-35 494,4 -4,4"/>
-<!-- Node5 -->
-<g id="node1" class="node"><title>Node5</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="393,-0.5 393,-30.5 490,-30.5 490,-0.5 393,-0.5"/>
-<text text-anchor="start" x="401" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIO</text>
-<text text-anchor="middle" x="441.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::exportData</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 97,-30.5 97,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIO</text>
+<text text-anchor="middle" x="48.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::exportData</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_model_resource_factory.html#aa57fd26de32bd67598256e6d1de15e79" target="_top" xlink:title="Igor::iModelResourceFactory\l::exportModelData">
+<polygon fill="white" stroke="black" points="133,-0.5 133,-30.5 274,-30.5 274,-0.5 133,-0.5"/>
+<text text-anchor="start" x="141" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelResourceFactory</text>
+<text text-anchor="middle" x="203.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::exportModelData</text>
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="node2" class="node"><title>Node6</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_model_resource_factory.html#aa57fd26de32bd67598256e6d1de15e79" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="216,-0.5 216,-30.5 357,-30.5 357,-0.5 216,-0.5"/>
-<text text-anchor="start" x="224" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelResourceFactory</text>
-<text text-anchor="middle" x="286.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::exportModelData</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M107.104,-15.5C115.483,-15.5 124.186,-15.5 132.774,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="107.072,-12.0001 97.0715,-15.5 107.071,-19.0001 107.072,-12.0001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" target="_top" xlink:title="OBJ2OMPF::convert">
+<polygon fill="white" stroke="black" points="310,-6 310,-25 416,-25 416,-6 310,-6"/>
+<text text-anchor="middle" x="363" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">OBJ2OMPF::convert</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge1" class="edge"><title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M382.896,-15.5C374.517,-15.5 365.814,-15.5 357.226,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="382.929,-19.0001 392.929,-15.5 382.928,-12.0001 382.929,-19.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M284.235,-15.5C292.935,-15.5 301.619,-15.5 309.862,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="284.04,-12.0001 274.04,-15.5 284.04,-19.0001 284.04,-12.0001"/>
 </g>
-<!-- Node7 -->
-<g id="node3" class="node"><title>Node7</title>
-<g id="a_node3"><a xlink:href="class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="74,-6 74,-25 180,-25 180,-6 74,-6"/>
-<text text-anchor="middle" x="127" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">OBJ2OMPF::convert</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" target="_top" xlink:title="main">
+<polygon fill="white" stroke="black" points="452,-6 452,-25 490,-25 490,-6 452,-6"/>
+<text text-anchor="middle" x="471" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge2" class="edge"><title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M205.765,-15.5C197.065,-15.5 188.381,-15.5 180.138,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="205.96,-19.0001 215.96,-15.5 205.96,-12.0001 205.96,-19.0001"/>
-</g>
-<!-- Node8 -->
-<g id="node4" class="node"><title>Node8</title>
-<g id="a_node4"><a xlink:href="_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-25 38,-25 38,-6 0,-6"/>
-<text text-anchor="middle" x="19" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">main</text>
-</a>
-</g>
-</g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge3" class="edge"><title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M63.7918,-15.5C54.5358,-15.5 45.6663,-15.5 38.3598,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="63.9316,-19.0001 73.9316,-15.5 63.9316,-12.0001 63.9316,-19.0001"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M426.208,-15.5C435.464,-15.5 444.334,-15.5 451.64,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="426.068,-12.0001 416.068,-15.5 426.068,-19.0001 426.068,-12.0001"/>
 </g>
 </g>
 </svg>

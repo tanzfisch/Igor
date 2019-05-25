@@ -105,10 +105,10 @@ __IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator * (iaVector4<T>& a) const
 {
 	iaVector4<T> result;
 
-	result._vec._x = _right._x * a._vec._x + _top._x * a._vec._y + _depth._x * a._vec._z + _pos._x * a._w;
-	result._vec._y = _right._y * a._vec._x + _top._y * a._vec._y + _depth._y * a._vec._z + _pos._y * a._w;
-	result._vec._z = _right._z * a._vec._x + _top._z * a._vec._y + _depth._z * a._vec._z + _pos._z * a._w;
-	result._w = _w0 * a._vec._x + _w1 * a._vec._y + _w2 * a._vec._z + _w3 * a._w;
+	result._x = _right._x * a._x + _top._x * a._y + _depth._x * a._z + _pos._x * a._w;
+	result._y = _right._y * a._x + _top._y * a._y + _depth._y * a._z + _pos._y * a._w;
+	result._z = _right._z * a._x + _top._z * a._y + _depth._z * a._z + _pos._z * a._w;
+	result._w = _w0 * a._x + _w1 * a._y + _w2 * a._z + _w3 * a._w;
 
 	return result;
 }
@@ -118,10 +118,10 @@ __IGOR_INLINE__ iaVector4<T> iaMatrix<T>::operator * (const iaVector4<T>& a) con
 {
 	iaVector4<T> result;
 
-	result._vec._x = _right._x * a._vec._x + _top._x * a._vec._y + _depth._x * a._vec._z + _pos._x * a._w;
-	result._vec._y = _right._y * a._vec._x + _top._y * a._vec._y + _depth._y * a._vec._z + _pos._y * a._w;
-	result._vec._z = _right._z * a._vec._x + _top._z * a._vec._y + _depth._z * a._vec._z + _pos._z * a._w;
-	result._w = _w0 * a._vec._x + _w1 * a._vec._y + _w2 * a._vec._z + _w3 * a._w;
+	result._x = _right._x * a._x + _top._x * a._y + _depth._x * a._z + _pos._x * a._w;
+	result._y = _right._y * a._x + _top._y * a._y + _depth._y * a._z + _pos._y * a._w;
+	result._z = _right._z * a._x + _top._z * a._y + _depth._z * a._z + _pos._z * a._w;
+	result._w = _w0 * a._x + _w1 * a._y + _w2 * a._z + _w3 * a._w;
 
 	return result;
 }
@@ -884,4 +884,18 @@ bool iaMatrix<T>::decompose(iaVector3<T> & scale, iaQuaternion<T> & orientation,
 	}
 
 	return true;
+}
+
+template <class T>
+template <class T2>
+iaMatrix<T2> iaMatrix<T>::convert()
+{
+	iaMatrix<T2> result;
+
+	for(int i = 0;i<16;++i)
+	{
+		result[i] = static_cast<T2>((*this)[i]);
+	}
+
+	return result;
 }

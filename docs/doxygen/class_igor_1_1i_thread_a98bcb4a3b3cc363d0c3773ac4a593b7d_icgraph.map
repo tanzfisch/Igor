@@ -1,7 +1,6 @@
 <map id="Igor::iThread::run" name="Igor::iThread::run">
-<area shape="rect" id="node1" title=" " alt="" coords="491,46,609,73"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_task_manager.html#a0371f43d29ddf818acc2f161d6a060f3" title=" " alt="" coords="252,5,443,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_task_manager.html#a8af31ae39ff0bef36e31483276e5d206" title=" " alt="" coords="273,71,422,112"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_task_manager.html#afd56371d55dce22e809d0a2f5ea9fead" title=" " alt="" coords="5,5,204,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_task_manager.html#ad9fbf069776eea9885e9cee3c5178f99" title=" " alt="" coords="39,71,171,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_task_manager.html#a0371f43d29ddf818acc2f161d6a060f3" title="Igor::iTaskManager\l::createRenderContextThread" alt="" coords="172,5,363,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_task_manager.html#a8af31ae39ff0bef36e31483276e5d206" title="Igor::iTaskManager\l::createRegularThread" alt="" coords="193,71,342,112"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_task_manager.html#afd56371d55dce22e809d0a2f5ea9fead" title="Igor::iTaskManager\l::createRenderContextThreads" alt="" coords="411,5,609,47"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_task_manager.html#ad9fbf069776eea9885e9cee3c5178f99" title="Igor::iTaskManager\l::iTaskManager" alt="" coords="444,71,576,112"/>
 </map>

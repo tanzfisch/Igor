@@ -1,5 +1,4 @@
 <map id="Igor::iRectangle::setY" name="Igor::iRectangle::setY">
-<area shape="rect" id="node1" title=" " alt="" coords="181,46,328,73"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#af8ba9074822a1c8e7027d488c60a0e0d" title=" " alt="" coords="6,5,133,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_scroll.html#a9a9cb62229492f44f71fe620bf67e072" title=" " alt="" coords="5,71,133,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#af8ba9074822a1c8e7027d488c60a0e0d" title="Igor::iWidgetGrid::\lcalcChildOffsets" alt="" coords="201,5,327,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_scroll.html#a9a9cb62229492f44f71fe620bf67e072" title="Igor::iWidgetScroll\l::calcChildOffsets" alt="" coords="200,71,328,112"/>
 </map>

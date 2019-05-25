@@ -1,41 +1,49 @@
 <map id="OBJ2OMPF::convert" name="OBJ2OMPF::convert">
-<area shape="rect" id="node1" title=" " alt="" coords="5,431,147,458"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="203,110,385,166"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_material_resource_factory.html#a7f16060265e048a59c11b2a5ef6105cc" title=" " alt="" coords="195,191,393,232"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_material_resource_factory.html#a51a97edf742ff941daa346679887ee9e" title=" " alt="" coords="195,256,393,297"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node_model.html#ab731c3500613a31402bb04315a85b524" title=" " alt="" coords="204,322,384,349"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_scene_factory.html#aa3734f0023b90d8e9be82dc9d7e08219" title=" " alt="" coords="227,424,361,465"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_scene.html#ab45a6b64fa3cd065f8434c96432b6f9b" title=" " alt="" coords="222,490,366,517"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title=" " alt="" coords="217,373,371,399"/>
-<area shape="rect" id="node26" href="$class_igor_1_1i_node.html#a3c78aa85a044adc9797618217f133dc9" title=" " alt="" coords="225,541,363,567"/>
-<area shape="rect" id="node27" href="$class_igor_1_1i_model_resource_factory.html#a43d07adb8bc7e0c540b43ccb435c8d96" title=" " alt="" coords="200,592,388,633"/>
-<area shape="rect" id="node31" href="$class_igor_1_1i_scene.html#a9d83cabbbcad0834badd2e6cd8b78db5" title=" " alt="" coords="225,658,363,685"/>
-<area shape="rect" id="node32" href="$class_igor_1_1i_material_resource_factory.html#a470b7c06bcad28ef79917ae30d58fabe" title=" " alt="" coords="195,709,393,751"/>
-<area shape="rect" id="node33" href="$class_igor_1_1i_node.html#a48469e19c040925b4937a2b26ca3e978" title=" " alt="" coords="215,775,373,802"/>
-<area shape="rect" id="node34" href="$class_igor_1_1i_model_resource_factory.html#aa57fd26de32bd67598256e6d1de15e79" title=" " alt="" coords="200,827,388,868"/>
-<area shape="rect" id="node39" href="$class_igor_1_1i_scene_factory.html#a1f7905d5266282ed8267622abfef33eb" title=" " alt="" coords="227,892,361,933"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_material.html#a6f3811f8c17023644055d11665ff8504" title=" " alt="" coords="459,143,619,170"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_material.html#a1581d26c7601a3fe48321530da3943bb" title=" " alt="" coords="469,194,608,221"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node.html#a7f855c2164f9fc704210c7510afd0a9c" title=" " alt="" coords="457,245,621,271"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88" title=" " alt="" coords="684,5,887,47"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="947,42,1070,69"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title=" " alt="" coords="720,458,851,485"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_node.html#adbeb716577ae857dc4274e8285dd94fe" title=" " alt="" coords="465,510,613,537"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_node.html#a0392b6251631e79675f7416827335b70" title=" " alt="" coords="465,295,612,322"/>
-<area shape="rect" id="node23" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title=" " alt="" coords="441,444,636,485"/>
-<area shape="rect" id="node17" href="$class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143" title=" " alt="" coords="694,122,877,149"/>
-<area shape="rect" id="node18" href="$class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f" title=" " alt="" coords="704,173,867,215"/>
-<area shape="rect" id="node19" href="$class_igor_1_1i_scene.html#ab362507531b6b5207a3045283e9820c0" title=" " alt="" coords="710,239,861,266"/>
-<area shape="rect" id="node20" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title=" " alt="" coords="705,290,865,317"/>
-<area shape="rect" id="node21" href="$class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e" title=" " alt="" coords="690,341,881,367"/>
-<area shape="rect" id="node22" href="$class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21" title=" " alt="" coords="704,392,867,433"/>
-<area shape="rect" id="node24" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title=" " alt="" coords="935,550,1083,577"/>
-<area shape="rect" id="node25" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title=" " alt="" coords="688,584,883,625"/>
-<area shape="rect" id="node28" href="$class_igor_aux_1_1ia_console.html#a025216d7b2e29420a663e8119b937ed4" title=" " alt="" coords="473,585,604,627"/>
-<area shape="rect" id="node29" href="$namespacetesting_1_1internal.html#a0f6d06bf8c3093b9c22bb08723db201e" title=" " alt="" coords="464,651,613,678"/>
-<area shape="rect" id="node30" href="$class_igor_1_1i_task.html#a1286c3225e5b667287de69bf0c0df0c7" title=" " alt="" coords="479,702,599,729"/>
-<area shape="rect" id="node35" href="$class_igor_aux_1_1ia_directory.html#a98786c5b2f0b32bed3db7f2fe452b917" title=" " alt="" coords="468,768,609,809"/>
-<area shape="rect" id="node37" href="$class_igor_aux_1_1ia_file.html#ad72dd9d9a50afcf574fc90e64d043d9b" title=" " alt="" coords="459,834,618,861"/>
-<area shape="rect" id="node38" href="$class_igor_1_1i_model_data_i_o.html#a9992689535f19bd5cf39e1752faeed06" title=" " alt="" coords="474,885,603,927"/>
-<area shape="rect" id="node36" href="$class_igor_aux_1_1ia_string.html#abdca81f9a7dfc354263de5f174171425" title=" " alt="" coords="722,768,849,809"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="694,5,877,61"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_material_resource_factory.html#a7f16060265e048a59c11b2a5ef6105cc" title="Igor::iMaterialResourceFactory\l::createMaterial" alt="" coords="195,597,393,638"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_material_resource_factory.html#a51a97edf742ff941daa346679887ee9e" title="Igor::iMaterialResourceFactory\l::getMaterial" alt="" coords="195,662,393,703"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_factory.html#acd7e28d04dabd094e46ec96d345106ee" title="Igor::iNodeFactory\l::createNode" alt="" coords="230,261,358,302"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_node_model.html#ab731c3500613a31402bb04315a85b524" title="Igor::iNodeModel::setModel" alt="" coords="204,465,384,492"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_scene_factory.html#aa3734f0023b90d8e9be82dc9d7e08219" title="Igor::iSceneFactory\l::createScene" alt="" coords="227,727,361,769"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_scene.html#ab45a6b64fa3cd065f8434c96432b6f9b" title="Igor::iScene::getRoot" alt="" coords="222,793,366,820"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title="Igor::iNode::insertNode" alt="" coords="217,545,371,572"/>
+<area shape="rect" id="node35" href="$class_igor_1_1i_node.html#a3c78aa85a044adc9797618217f133dc9" title="Igor::iNode::getChild" alt="" coords="225,844,363,871"/>
+<area shape="rect" id="node36" href="$class_igor_1_1i_model_resource_factory.html#a43d07adb8bc7e0c540b43ccb435c8d96" title="Igor::iModelResourceFactory\l::flush" alt="" coords="200,895,388,937"/>
+<area shape="rect" id="node40" href="$class_igor_1_1i_scene.html#a9d83cabbbcad0834badd2e6cd8b78db5" title="Igor::iScene::handle" alt="" coords="225,961,363,988"/>
+<area shape="rect" id="node41" href="$class_igor_1_1i_material_resource_factory.html#a470b7c06bcad28ef79917ae30d58fabe" title="Igor::iMaterialResourceFactory\l::getSortedMaterials" alt="" coords="195,1013,393,1054"/>
+<area shape="rect" id="node42" href="$class_igor_1_1i_node.html#a48469e19c040925b4937a2b26ca3e978" title="Igor::iNode::getChildren" alt="" coords="215,1079,373,1105"/>
+<area shape="rect" id="node43" href="$class_igor_1_1i_model_resource_factory.html#aa57fd26de32bd67598256e6d1de15e79" title="Igor::iModelResourceFactory\l::exportModelData" alt="" coords="200,1130,388,1171"/>
+<area shape="rect" id="node48" href="$class_igor_1_1i_scene_factory.html#a1f7905d5266282ed8267622abfef33eb" title="Igor::iSceneFactory\l::destroyScene" alt="" coords="227,1195,361,1237"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_material.html#a6f3811f8c17023644055d11665ff8504" title="Igor::iMaterial::setName" alt="" coords="459,764,619,791"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_material.html#a96a6a781d02097245f4a04a7e1f2be8d" title="Igor::iMaterial::getID" alt="" coords="469,815,608,841"/>
+<area shape="rect" id="node8" href="$namespace_igor.html#abdbfa48a19f5bf62aca91d60d68662ee" title="Igor::iNodeMesh" alt="" coords="481,107,597,133"/>
+<area shape="rect" id="node10" href="$namespace_igor.html#a0964db13b4af0a08fcac87ec45f28dbc" title="Igor::iNodePhysics" alt="" coords="473,217,604,244"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="967,377,1089,404"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_material_resource_factory.html#a55ee78b1783c8787a374907fe17f3d01" title="Igor::iMaterialResourceFactory\l::createTargetMaterial" alt="" coords="686,86,885,127"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_physics.html#a90dcd82ece96f39ec61120a36e15ff18" title="Igor::iPhysics::createCollision\lConfig" alt="" coords="688,151,883,193"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_physics_collision_config.html#a358488967c0a81c0b613972334363a09" title="Igor::iPhysicsCollisionConfig\l::getID" alt="" coords="935,210,1121,251"/>
+<area shape="rect" id="node15" href="$namespace_igor.html#a658bed0072edfc04099eb827d1cfb6ba" title="Igor::setMaterial" alt="" coords="728,268,843,295"/>
+<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="952,108,1104,135"/>
+<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="945,159,1111,185"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_node.html#a7f855c2164f9fc704210c7510afd0a9c" title="Igor::iNode::setDataDirty" alt="" coords="457,407,621,433"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88" title="Igor::iScene::addToDataUpdate\lQueue" alt="" coords="684,370,887,411"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title="Igor::iNode::isChild" alt="" coords="720,823,851,849"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_node.html#adbeb716577ae857dc4274e8285dd94fe" title="Igor::iNode::setParent" alt="" coords="465,713,613,740"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_node.html#a0392b6251631e79675f7416827335b70" title="Igor::iNode::setScene" alt="" coords="465,545,612,572"/>
+<area shape="rect" id="node32" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title="Igor::iNode::setTransformation\lDirty" alt="" coords="441,647,636,689"/>
+<area shape="rect" id="node26" href="$class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143" title="Igor::iNode::onPreSetScene" alt="" coords="694,487,877,513"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f" title="Igor::iScene::signalNode\lRemoved" alt="" coords="704,538,867,579"/>
+<area shape="rect" id="node28" href="$class_igor_1_1i_scene.html#af975e601d89386f2ef11745ecb831870" title="Igor::iScene::getName" alt="" coords="710,604,861,631"/>
+<area shape="rect" id="node29" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title="Igor::iNode::hasChildren" alt="" coords="705,655,865,681"/>
+<area shape="rect" id="node30" href="$class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e" title="Igor::iNode::onPostSetScene" alt="" coords="690,705,881,732"/>
+<area shape="rect" id="node31" href="$class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21" title="Igor::iScene::signalNode\lAdded" alt="" coords="704,757,867,798"/>
+<area shape="rect" id="node33" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title="Igor::iNode::getParent" alt="" coords="954,915,1102,941"/>
+<area shape="rect" id="node34" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title="Igor::iNode::setTransformation\lDirtyUp" alt="" coords="688,949,883,990"/>
+<area shape="rect" id="node37" href="$class_igor_aux_1_1ia_console.html#a025216d7b2e29420a663e8119b937ed4" title="IgorAux::iaConsole\l::lock" alt="" coords="473,890,604,931"/>
+<area shape="rect" id="node38" href="$namespacetesting_1_1internal.html#a0f6d06bf8c3093b9c22bb08723db201e" title="testing::internal::move" alt="" coords="464,956,613,983"/>
+<area shape="rect" id="node39" href="$class_igor_1_1i_task.html#a1286c3225e5b667287de69bf0c0df0c7" title="Igor::iTask::getID" alt="" coords="479,1007,599,1033"/>
+<area shape="rect" id="node44" href="$class_igor_aux_1_1ia_directory.html#a98786c5b2f0b32bed3db7f2fe452b917" title="IgorAux::iaDirectory\l::directoryIsAbsolute" alt="" coords="468,1071,609,1113"/>
+<area shape="rect" id="node46" href="$class_igor_aux_1_1ia_file.html#a777e728712c704a9e997eb227a71a6e7" title="IgorAux::iaFile::getPath" alt="" coords="459,1137,618,1164"/>
+<area shape="rect" id="node47" href="$class_igor_1_1i_model_data_i_o.html#a9992689535f19bd5cf39e1752faeed06" title="Igor::iModelDataIO\l::exportData" alt="" coords="474,1189,603,1230"/>
+<area shape="rect" id="node45" href="$class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17" title="IgorAux::iaString::\lgetSize" alt="" coords="722,1071,849,1113"/>
 </map>

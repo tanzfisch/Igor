@@ -9,9 +9,9 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 46)">
 <title>Graphical Class Hierarchy</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 204,-46 204,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html" target="_top" xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<g id="a_node1"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html" target="_top" xlink:title="testing::internal::\llinked_ptr\&lt; const testing\l::internal::ParamGeneratorInterface\&lt; T \&gt; \&gt;">
 <polygon fill="white" stroke="black" points="0,-0.5 0,-41.5 200,-41.5 200,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr&lt; const testing</text>

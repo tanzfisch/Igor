@@ -1,10 +1,9 @@
 <map id="OMPF::ompfBaseChunk::getSize" name="OMPF::ompfBaseChunk::getSize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,168,145"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_settings.html#a2d4d91f50eec7e4acc5b79619bea4fb4" title=" " alt="" coords="216,5,360,47"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_settings.html#a1aa267a457e47d60cb915be2f82540a4" title=" " alt="" coords="216,71,360,112"/>
-<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_settings.html#a29cf3d0ccc1577b2e1fc8089c10b852b" title=" " alt="" coords="216,136,360,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a2d5a35cf6b3f2cad753afcd4af72c475" title=" " alt="" coords="225,201,351,243"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#afa2b9ad864db36d1af6c6c67e02d270b" title=" " alt="" coords="408,136,535,177"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" title=" " alt="" coords="408,201,535,243"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#abdca81f9a7dfc354263de5f174171425" title=" " alt="" coords="408,267,535,308"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_settings.html#ac4b44803b6a70b9eb6f3ca573a0a5242" title="OMPF::ompfSettings\l::getTypeIDSize" alt="" coords="216,5,360,47"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_settings.html#a3b1a3f75376c3ebee9a59a31d7280aa3" title="OMPF::ompfSettings\l::getChunkIDSize" alt="" coords="216,71,360,112"/>
+<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_settings.html#ac8b4c4cf739d5c5fd8d09b15d176c90d" title="OMPF::ompfSettings\l::getChunkSizeSize" alt="" coords="216,136,360,177"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a7793c7a60aff4ef3e35bd60c7d6ee703" title="IgorAux::iaString::\lgetUTF8Size" alt="" coords="225,201,351,243"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#afb40afde994d28224201cd9cb28909f7" title="IgorAux::iaString::\lisEmpty" alt="" coords="408,136,535,177"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="408,201,535,243"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#a6d9c01e546c1e33c9924bc2695d5fc17" title="IgorAux::iaString::\lgetSize" alt="" coords="408,267,535,308"/>
 </map>

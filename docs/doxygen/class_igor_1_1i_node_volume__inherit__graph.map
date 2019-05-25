@@ -1,6 +1,5 @@
 <map id="Igor::iNodeVolume" name="Igor::iNodeVolume">
-<area shape="rect" id="node1" title=" " alt="" coords="28,155,156,181"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_particle_system.html" title=" " alt="" coords="5,229,179,256"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_render.html" title=" " alt="" coords="29,80,155,107"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html" title=" " alt="" coords="50,5,134,32"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_particle_system.html" title="Igor::iNodeParticleSystem" alt="" coords="5,229,179,256"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_render.html" title="Igor::iNodeRender" alt="" coords="29,80,155,107"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html" title="Igor::iNode" alt="" coords="50,5,134,32"/>
 </map>

@@ -9,39 +9,36 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>MenuDialog::onAddTransformation</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 349,-62 349,4 -4,4"/>
-<!-- Node135 -->
-<g id="node1" class="node"><title>Node135</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="180,-19.5 180,-38.5 345,-38.5 345,-19.5 180,-19.5"/>
-<text text-anchor="middle" x="262.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::onAddTransformation</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-19.5 0,-38.5 165,-38.5 165,-19.5 0,-19.5"/>
+<text text-anchor="middle" x="82.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::onAddTransformation</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_menu_dialog.html#a0fe6bdf29a3a7095e2d7e4a38f8d8f70" target="_top" xlink:title="MenuDialog::deinitGraphView">
+<polygon fill="white" stroke="black" points="201,-38.5 201,-57.5 345,-57.5 345,-38.5 201,-38.5"/>
+<text text-anchor="middle" x="273" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::deinitGraphView</text>
 </a>
 </g>
 </g>
-<!-- Node136 -->
-<g id="node2" class="node"><title>Node136</title>
-<g id="a_node2"><a xlink:href="class_menu_dialog.html#a0fe6bdf29a3a7095e2d7e4a38f8d8f70" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-38.5 0,-57.5 144,-57.5 144,-38.5 0,-38.5"/>
-<text text-anchor="middle" x="72" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::deinitGraphView</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M175.205,-38.2435C183.854,-39.1153 192.532,-39.9899 200.946,-40.8381"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="175.383,-34.7438 165.083,-37.2232 174.681,-41.7085 175.383,-34.7438"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_menu_dialog.html#a5f0986a127a923615177c4c264394f7d" target="_top" xlink:title="MenuDialog::initGraphView">
+<polygon fill="white" stroke="black" points="206,-0.5 206,-19.5 340,-19.5 340,-0.5 206,-0.5"/>
+<text text-anchor="middle" x="273" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initGraphView</text>
 </a>
 </g>
 </g>
-<!-- Node135&#45;&gt;Node136 -->
-<g id="edge1" class="edge"><title>Node135&#45;&gt;Node136</title>
-<path fill="none" stroke="midnightblue" d="M169.795,-38.2435C161.146,-39.1153 152.468,-39.9899 144.054,-40.8381"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="170.319,-41.7085 179.917,-37.2232 169.617,-34.7438 170.319,-41.7085"/>
-</g>
-<!-- Node137 -->
-<g id="node3" class="node"><title>Node137</title>
-<g id="a_node3"><a xlink:href="class_menu_dialog.html#a5f0986a127a923615177c4c264394f7d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5,-0.5 5,-19.5 139,-19.5 139,-0.5 5,-0.5"/>
-<text text-anchor="middle" x="72" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initGraphView</text>
-</a>
-</g>
-</g>
-<!-- Node135&#45;&gt;Node137 -->
-<g id="edge2" class="edge"><title>Node135&#45;&gt;Node137</title>
-<path fill="none" stroke="midnightblue" d="M169.967,-19.7738C159.556,-18.7245 149.101,-17.6707 139.111,-16.6637"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="169.617,-23.2562 179.917,-20.7768 170.319,-16.2915 169.617,-23.2562"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M175.033,-19.7738C185.444,-18.7245 195.899,-17.6707 205.889,-16.6637"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="174.681,-16.2915 165.083,-20.7768 175.383,-23.2562 174.681,-16.2915"/>
 </g>
 </g>
 </svg>

@@ -1,4 +1,3 @@
 <map id="Igor::iVoxelTerrainMeshGenerator" name="Igor::iVoxelTerrainMeshGenerator">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,220,107"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o.html" title=" " alt="" coords="48,5,177,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o.html" title="Igor::iModelDataIO" alt="" coords="48,5,177,32"/>
 </map>

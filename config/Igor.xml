@@ -11,4 +11,8 @@
 			<SearchPath>..\data\effects</SearchPath>
 		</SearchPaths>
 	</ResourceManager>
+    <Logging>
+        <!-- available log levels Assert, Error, Warning, Info, DebugInfo, Debug (default) -->
+        <LogLevel>Debug</LogLevel> 
+    </Logging>
 </Igor>

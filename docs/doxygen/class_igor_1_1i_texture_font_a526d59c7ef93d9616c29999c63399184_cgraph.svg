@@ -9,78 +9,75 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 138)">
 <title>Igor::iTextureFont::makeFixedWidth</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-138 393,-138 393,4 -4,4"/>
-<!-- Node29 -->
-<g id="node1" class="node"><title>Node29</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-52 0,-82 96,-82 96,-52 0,-52"/>
 <text text-anchor="start" x="8" y="-70" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureFont</text>
 <text text-anchor="middle" x="48" y="-59" font-family="Helvetica,sans-Serif" font-size="10.00">::makeFixedWidth</text>
-</a>
 </g>
-</g>
-<!-- Node30 -->
-<g id="node2" class="node"><title>Node30</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_texture_font.html#afbaafb654ccbc0802993e0c81c9cf60d" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_texture_font.html#afbaafb654ccbc0802993e0c81c9cf60d" target="_top" xlink:title="Igor::iTextureFont\l::modifyWidth">
 <polygon fill="white" stroke="black" points="132,-52 132,-82 224,-82 224,-52 132,-52"/>
 <text text-anchor="start" x="140" y="-70" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureFont</text>
 <text text-anchor="middle" x="178" y="-59" font-family="Helvetica,sans-Serif" font-size="10.00">::modifyWidth</text>
 </a>
 </g>
 </g>
-<!-- Node29&#45;&gt;Node30 -->
-<g id="edge1" class="edge"><title>Node29&#45;&gt;Node30</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M96.2988,-67C104.501,-67 113.096,-67 121.493,-67"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="121.598,-70.5001 131.598,-67 121.597,-63.5001 121.598,-70.5001"/>
 </g>
-<!-- Node31 -->
-<g id="node3" class="node"><title>Node31</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_rectangle.html#a653adab6d7e6c99167ce958ae2c1c8a5" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_rectangle.html#ad721f25d8a4a69ff29afc9cabb3b6a4e" target="_top" xlink:title="Igor::iRectangle::getWidth">
 <polygon fill="white" stroke="black" points="260,-114.5 260,-133.5 389,-133.5 389,-114.5 260,-114.5"/>
 <text text-anchor="middle" x="324.5" y="-121.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRectangle::getWidth</text>
 </a>
 </g>
 </g>
-<!-- Node30&#45;&gt;Node31 -->
-<g id="edge2" class="edge"><title>Node30&#45;&gt;Node31</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M208.548,-82.1501C223.7,-89.5868 242.586,-98.3519 260,-105 265.926,-107.262 272.245,-109.432 278.511,-111.443"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="277.665,-114.844 288.253,-114.463 279.738,-108.159 277.665,-114.844"/>
 </g>
-<!-- Node32 -->
-<g id="node4" class="node"><title>Node32</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" target="_top" xlink:title="Igor::iRectangle::setWidth">
 <polygon fill="white" stroke="black" points="260,-76.5 260,-95.5 389,-95.5 389,-76.5 260,-76.5"/>
 <text text-anchor="middle" x="324.5" y="-83.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRectangle::setWidth</text>
 </a>
 </g>
 </g>
-<!-- Node30&#45;&gt;Node32 -->
-<g id="edge3" class="edge"><title>Node30&#45;&gt;Node32</title>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node2&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M224.324,-72.9596C232.415,-74.0234 241.031,-75.1563 249.677,-76.2932"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="249.44,-79.7921 259.811,-77.6257 250.353,-72.8518 249.44,-79.7921"/>
 </g>
-<!-- Node33 -->
-<g id="node5" class="node"><title>Node33</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" target="_top" xlink:title="Igor::iRectangle::setX">
 <polygon fill="white" stroke="black" points="270,-38.5 270,-57.5 379,-57.5 379,-38.5 270,-38.5"/>
 <text text-anchor="middle" x="324.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRectangle::setX</text>
 </a>
 </g>
 </g>
-<!-- Node30&#45;&gt;Node33 -->
-<g id="edge4" class="edge"><title>Node30&#45;&gt;Node33</title>
+<!-- Node2&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node2&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M224.324,-61.0404C235.64,-59.5525 247.984,-57.9294 260.001,-56.3494"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="260.53,-59.8101 269.988,-55.0362 259.617,-52.8698 260.53,-59.8101"/>
 </g>
-<!-- Node34 -->
-<g id="node6" class="node"><title>Node34</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_rectangle.html#aed66bdff144c2e615132a2edda9d973f" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_rectangle.html#aa1157c745d71710bef905851ca8ab1bb" target="_top" xlink:title="Igor::iRectangle::getX">
 <polygon fill="white" stroke="black" points="270,-0.5 270,-19.5 379,-19.5 379,-0.5 270,-0.5"/>
 <text text-anchor="middle" x="324.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRectangle::getX</text>
 </a>
 </g>
 </g>
-<!-- Node30&#45;&gt;Node34 -->
-<g id="edge5" class="edge"><title>Node30&#45;&gt;Node34</title>
+<!-- Node2&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node2&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M208.548,-51.8499C223.7,-44.4132 242.586,-35.6481 260,-29 265.926,-26.7376 272.245,-24.5685 278.511,-22.5575"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="279.738,-25.8415 288.253,-19.5367 277.665,-19.1555 279.738,-25.8415"/>
 </g>

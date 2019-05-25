@@ -1,4 +1,3 @@
 <map id="Igor::iView::setZIndex" name="Igor::iView::setZIndex">
-<area shape="rect" id="node1" title=" " alt="" coords="211,5,357,32"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_window.html#a5de96f4c9d4896ff7aff48804ec6c756" title=" " alt="" coords="5,5,163,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_window.html#a5de96f4c9d4896ff7aff48804ec6c756" title="Igor::iWindow::addView" alt="" coords="200,5,357,32"/>
 </map>

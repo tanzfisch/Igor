@@ -3,7 +3,7 @@ var class_user_control_material =
     [ "UserControlMaterial", "class_user_control_material.html#a05bc0894fe92757d43ad37ec40d2f215", null ],
     [ "~UserControlMaterial", "class_user_control_material.html#aa1ae7f160a90c816166d8fd437ccec29", null ],
     [ "deinitGUI", "class_user_control_material.html#affeba973623aa2dc91737c9bd57c7479", null ],
-    [ "getMaterialID", "class_user_control_material.html#a58e389c61ba760ae5f91ac13710a31f7", null ],
+    [ "getMaterialID", "class_user_control_material.html#abc1fc453686cb1f9af731013825b9f07", null ],
     [ "getWidget", "class_user_control_material.html#a154926560d9da8dcdbb446d1d8f35f55", null ],
     [ "initGUI", "class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b", null ],
     [ "onDoUpdateMaterial", "class_user_control_material.html#a76eaa8978bc849d6b6d169c1ad332e70", null ],

@@ -1,9 +1,8 @@
 <map id="Igor::iWidget::isActive" name="Igor::iWidget::isActive">
-<area shape="rect" id="node1" title=" " alt="" coords="208,177,356,203"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_check_box.html#aee99e0fb8acedbfdf3f2fe39d19d9a7d" title=" " alt="" coords="5,5,160,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_check_box.html#aa54db8546decd504d661331f88225f7d" title=" " alt="" coords="5,71,160,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" title=" " alt="" coords="11,136,154,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_text_edit.html#aab49c9b17ab47ae6f7f40a5f81f84686" title=" " alt="" coords="11,201,154,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" title=" " alt="" coords="11,267,154,308"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_text_edit.html#aa4bcfd88e7154fc128fa0f0126971387" title=" " alt="" coords="11,332,154,373"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_check_box.html#aee99e0fb8acedbfdf3f2fe39d19d9a7d" title="Igor::iWidgetCheckBox\l::handleMouseKeyUp" alt="" coords="201,5,356,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_check_box.html#aa54db8546decd504d661331f88225f7d" title="Igor::iWidgetCheckBox\l::draw" alt="" coords="201,71,356,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" title="Igor::iWidgetTextEdit\l::handleASCII" alt="" coords="207,136,350,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_widget_text_edit.html#aab49c9b17ab47ae6f7f40a5f81f84686" title="Igor::iWidgetTextEdit\l::handleKeyUp" alt="" coords="207,201,350,243"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" title="Igor::iWidgetTextEdit\l::handleKeyDown" alt="" coords="207,267,350,308"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget_text_edit.html#aa4bcfd88e7154fc128fa0f0126971387" title="Igor::iWidgetTextEdit\l::draw" alt="" coords="207,332,350,373"/>
 </map>

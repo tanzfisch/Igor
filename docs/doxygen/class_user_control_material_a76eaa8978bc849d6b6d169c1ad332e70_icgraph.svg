@@ -9,42 +9,39 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>UserControlMaterial::onDoUpdateMaterial</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 252,-84 252,4 -4,4"/>
-<!-- Node54 -->
-<g id="node1" class="node"><title>Node54</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="138,-24.5 138,-54.5 248,-54.5 248,-24.5 138,-24.5"/>
-<text text-anchor="start" x="146" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
-<text text-anchor="middle" x="193" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onDoUpdateMaterial</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 110,-54.5 110,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
+<text text-anchor="middle" x="55" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onDoUpdateMaterial</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" target="_top" xlink:title="UserControlMaterial\l::initGUI">
+<polygon fill="white" stroke="black" points="146,-49.5 146,-79.5 248,-79.5 248,-49.5 146,-49.5"/>
+<text text-anchor="start" x="154" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
+<text text-anchor="middle" x="197" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node55 -->
-<g id="node2" class="node"><title>Node55</title>
-<g id="a_node2"><a xlink:href="class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-49.5 0,-79.5 102,-79.5 102,-49.5 0,-49.5"/>
-<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
-<text text-anchor="middle" x="51" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M120.113,-50.9487C128.692,-52.4807 137.389,-54.0338 145.685,-55.5153"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="120.587,-47.4781 110.128,-49.1657 119.357,-54.3691 120.587,-47.4781"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_material.html#affeba973623aa2dc91737c9bd57c7479" target="_top" xlink:title="UserControlMaterial\l::deinitGUI">
+<polygon fill="white" stroke="black" points="146,-0.5 146,-30.5 248,-30.5 248,-0.5 146,-0.5"/>
+<text text-anchor="start" x="154" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
+<text text-anchor="middle" x="197" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node54&#45;&gt;Node55 -->
-<g id="edge1" class="edge"><title>Node54&#45;&gt;Node55</title>
-<path fill="none" stroke="midnightblue" d="M127.887,-50.9487C119.308,-52.4807 110.611,-54.0338 102.315,-55.5153"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="128.643,-54.3691 137.872,-49.1657 127.413,-47.4781 128.643,-54.3691"/>
-</g>
-<!-- Node56 -->
-<g id="node3" class="node"><title>Node56</title>
-<g id="a_node3"><a xlink:href="class_user_control_material.html#affeba973623aa2dc91737c9bd57c7479" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 102,-30.5 102,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlMaterial</text>
-<text text-anchor="middle" x="51" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node54&#45;&gt;Node56 -->
-<g id="edge2" class="edge"><title>Node54&#45;&gt;Node56</title>
-<path fill="none" stroke="midnightblue" d="M127.887,-28.5092C119.308,-27.0386 110.611,-25.5475 102.315,-24.1253"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="127.425,-31.9809 137.872,-30.221 128.608,-25.0816 127.425,-31.9809"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M120.113,-28.5092C128.692,-27.0386 137.389,-25.5475 145.685,-24.1253"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="119.392,-25.0816 110.128,-30.221 120.575,-31.9809 119.392,-25.0816"/>
 </g>
 </g>
 </svg>

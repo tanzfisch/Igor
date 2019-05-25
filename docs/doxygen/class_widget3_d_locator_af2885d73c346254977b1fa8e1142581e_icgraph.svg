@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Widget3DLocator::createLocatorMesh</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 548,-35 548,4 -4,4"/>
-<!-- Node112 -->
-<g id="node1" class="node"><title>Node112</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="363,-6 363,-25 544,-25 544,-6 363,-6"/>
-<text text-anchor="middle" x="453.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocatorMesh</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 181,-25 181,-6 0,-6"/>
+<text text-anchor="middle" x="90.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocatorMesh</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" target="_top" xlink:title="Widget3DLocator::createLocator">
+<polygon fill="white" stroke="black" points="217,-6 217,-25 374,-25 374,-6 217,-6"/>
+<text text-anchor="middle" x="295.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocator</text>
 </a>
 </g>
 </g>
-<!-- Node113 -->
-<g id="node2" class="node"><title>Node113</title>
-<g id="a_node2"><a xlink:href="class_widget3_d_locator.html#a37756bea74f096cf155c5fdbd904751b" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="170,-6 170,-25 327,-25 327,-6 170,-6"/>
-<text text-anchor="middle" x="248.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::createLocator</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M191.204,-15.5C199.806,-15.5 208.424,-15.5 216.813,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="191.13,-12.0001 181.13,-15.5 191.13,-19.0001 191.13,-12.0001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" target="_top" xlink:title="Widget3DLocator::Widget3\lDLocator">
+<polygon fill="white" stroke="black" points="410,-0.5 410,-30.5 544,-30.5 544,-0.5 410,-0.5"/>
+<text text-anchor="start" x="418" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::Widget3</text>
+<text text-anchor="middle" x="477" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DLocator</text>
 </a>
 </g>
 </g>
-<!-- Node112&#45;&gt;Node113 -->
-<g id="edge1" class="edge"><title>Node112&#45;&gt;Node113</title>
-<path fill="none" stroke="midnightblue" d="M352.796,-15.5C344.194,-15.5 335.576,-15.5 327.187,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="352.87,-19.0001 362.87,-15.5 352.87,-12.0001 352.87,-19.0001"/>
-</g>
-<!-- Node114 -->
-<g id="node3" class="node"><title>Node114</title>
-<g id="a_node3"><a xlink:href="class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DLocator::Widget3</text>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DLocator</text>
-</a>
-</g>
-</g>
-<!-- Node113&#45;&gt;Node114 -->
-<g id="edge2" class="edge"><title>Node113&#45;&gt;Node114</title>
-<path fill="none" stroke="midnightblue" d="M159.771,-15.5C151.191,-15.5 142.586,-15.5 134.27,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.813,-19.0001 169.813,-15.5 159.813,-12.0001 159.813,-19.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M384.229,-15.5C392.809,-15.5 401.414,-15.5 409.73,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="384.187,-12.0001 374.187,-15.5 384.187,-19.0001 384.187,-12.0001"/>
 </g>
 </g>
 </svg>

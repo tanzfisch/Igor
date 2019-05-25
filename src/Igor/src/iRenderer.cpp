@@ -1758,7 +1758,7 @@ namespace Igor
 	void iRenderer::setLightPosition(int32 lightnum, iaVector4d & pos)
 	{
 		// TODO fix with world offset
-		_lights[lightnum]._position.set(pos._vec._x, pos._vec._y, pos._vec._z, pos._w);
+		_lights[lightnum]._position.set(pos._x, pos._y, pos._z, pos._w);
 		glLightfv(GL_LIGHT0 + lightnum, GL_POSITION, _lights[lightnum]._position.getData());		GL_CHECK_ERROR();
 	}
 
@@ -1854,15 +1854,12 @@ namespace Igor
 	void iRenderer::drawParticles(const deque<iParticle> & particles, const iaGradientColor4f & rainbow)
 	{
 		iaVector4f camright;
-		camright._vec.set(_camWorldMatrix._right._x, _camWorldMatrix._right._y, _camWorldMatrix._right._z);
-		camright._w = 0;
+		camright.set(_camWorldMatrix._right._x, _camWorldMatrix._right._y, _camWorldMatrix._right._z, 0);
 
 		iaVector4f camtop;
-		camtop._vec.set(_camWorldMatrix._top._x, _camWorldMatrix._top._y, _camWorldMatrix._top._z);
-		camtop._w = 0;
+		camtop.set(_camWorldMatrix._top._x, _camWorldMatrix._top._y, _camWorldMatrix._top._z, 0);
 
-		iaMatrixf inv;
-		iaConvert::convert(_modelMatrix, inv);
+		iaMatrixf inv = _modelMatrix.convert<float32>();
 		inv.invert();
 
 		iaVector4f rightPreComp = inv * camright;
@@ -1886,9 +1883,13 @@ namespace Igor
 			{
 				size = particle._size * particle._sizeScale;
 
-				right = rightPreComp._vec;
+				right._x = rightPreComp._x;
+				right._y = rightPreComp._y;
+				right._z = rightPreComp._z;
 				right *= size;
-				top = topPreComp._vec;
+				top._x = topPreComp._x;
+				top._y = topPreComp._y;
+				top._z = topPreComp._z;
 				top *= size;
 
 				rainbow.getValue(particle._visibleTime, color);
@@ -2030,9 +2031,9 @@ namespace Igor
 		out[1] /= out._w;
 		out[2] /= out._w;
 
-		result._x = static_cast<float64>(viewport.getWidth()) * (out._vec._x + 1.0) / 2.0;
-		result._y = static_cast<float64>(viewport.getHeight()) * (1.0 - ((out._vec._y + 1.0) / 2.0));
-		result._z = out._vec._z;
+		result._x = static_cast<float64>(viewport.getWidth()) * (out._x + 1.0) / 2.0;
+		result._y = static_cast<float64>(viewport.getHeight()) * (1.0 - ((out._y + 1.0) / 2.0));
+		result._z = out._z;
 
 		return result;
 	}

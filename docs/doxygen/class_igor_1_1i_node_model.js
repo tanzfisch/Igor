@@ -5,7 +5,7 @@ var class_igor_1_1i_node_model =
     [ "~iNodeModel", "class_igor_1_1i_node_model.html#ae40baad51342a4204e13f799dadbfddf", null ],
     [ "checkForBuffers", "class_igor_1_1i_node_model.html#a831ceb2d75710c779216bc88e78f4f0f", null ],
     [ "checkForBuffers", "class_igor_1_1i_node_model.html#ad3e7ea8289565dcfd1cde4a61e4fa8b5", null ],
-    [ "getModelName", "class_igor_1_1i_node_model.html#adf2dd0b4004625024c4daf12d65eb532", null ],
+    [ "getModelName", "class_igor_1_1i_node_model.html#a2cc0bff3d271cd2a7a42951d0086730d", null ],
     [ "isLoaded", "class_igor_1_1i_node_model.html#a98833ff9666c269341597f2e569e57a5", null ],
     [ "isValid", "class_igor_1_1i_node_model.html#acbbe59860156b14802c6c9442c330854", null ],
     [ "onPostSetScene", "class_igor_1_1i_node_model.html#a43f2cf258bc69d849bf24069391ce259", null ],

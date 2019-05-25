@@ -1,5 +1,4 @@
 <map id="IgorAux::iaDirectory::getApplicationDirectory" name="IgorAux::iaDirectory::getApplicationDirectory">
-<area shape="rect" id="node1" title=" " alt="" coords="201,35,365,76"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_file_select.html#aa6db9a2fa32a6cf4d7e588b3570d16df" title=" " alt="" coords="5,5,153,47"/>
-<area shape="rect" id="node3" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title=" " alt="" coords="34,71,125,98"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_file_select.html#aa6db9a2fa32a6cf4d7e588b3570d16df" title="Igor::iDialogFileSelect\l::initDialog" alt="" coords="217,5,365,47"/>
+<area shape="rect" id="node3" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title="Igor::startup" alt="" coords="246,71,337,98"/>
 </map>

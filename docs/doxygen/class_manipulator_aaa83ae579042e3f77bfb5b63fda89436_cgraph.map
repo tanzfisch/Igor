@@ -1,6 +1,5 @@
 <map id="Manipulator::deinit" name="Manipulator::deinit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,93,133,120"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="189,5,372,61"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_material_resource_factory.html#ad43e41d2e034291e68071e73b79ae0fd" title=" " alt="" coords="181,86,380,127"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_material_resource_factory.html#acf490b2841756011dec4fe567b9b403e" title=" " alt="" coords="181,151,380,193"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="189,5,372,61"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_material_resource_factory.html#ad43e41d2e034291e68071e73b79ae0fd" title="Igor::iMaterialResourceFactory\l::destroyTargetMaterial" alt="" coords="181,86,380,127"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_material_resource_factory.html#acf490b2841756011dec4fe567b9b403e" title="Igor::iMaterialResourceFactory\l::destroyMaterial" alt="" coords="181,151,380,193"/>
 </map>

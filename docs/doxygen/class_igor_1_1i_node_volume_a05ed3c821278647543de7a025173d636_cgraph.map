@@ -1,8 +1,7 @@
 <map id="Igor::iNodeVolume::onPreSetScene" name="Igor::iNodeVolume::onPreSetScene">
-<area shape="rect" id="node1" title=" " alt="" coords="5,64,141,105"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_render.html#ab8b8f922aa9660b237ca8e791028dcc0" title=" " alt="" coords="201,5,334,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title=" " alt="" coords="194,71,341,98"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_scene.html#a996938a69498c8157dd99785a20acdef" title=" " alt="" coords="189,123,345,164"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a22b74ff6be7474190f827dbc36316f7e" title=" " alt="" coords="393,5,549,47"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="410,130,533,157"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_render.html#ab8b8f922aa9660b237ca8e791028dcc0" title="Igor::iNodeRender::\lonPreSetScene" alt="" coords="201,5,334,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" title="Igor::iNode::getScene" alt="" coords="194,71,341,98"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_scene.html#a996938a69498c8157dd99785a20acdef" title="Igor::iScene::unregister\lVolume" alt="" coords="189,123,345,164"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a22b74ff6be7474190f827dbc36316f7e" title="Igor::iScene::unregister\lRenderable" alt="" coords="393,5,549,47"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="410,130,533,157"/>
 </map>

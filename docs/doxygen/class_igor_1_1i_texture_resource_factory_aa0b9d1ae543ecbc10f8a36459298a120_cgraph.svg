@@ -9,65 +9,62 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 112)">
 <title>Igor::iTextureResourceFactory::loadFileAsPixmap</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-112 409,-112 409,4 -4,4"/>
-<!-- Node26 -->
-<g id="node1" class="node"><title>Node26</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-39 0,-69 147,-69 147,-39 0,-39"/>
 <text text-anchor="start" x="8" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureResourceFactory</text>
 <text text-anchor="middle" x="73.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::loadFileAsPixmap</text>
-</a>
 </g>
-</g>
-<!-- Node27 -->
-<g id="node2" class="node"><title>Node27</title>
-<g id="a_node2"><a xlink:href="i_s_t_b_image_ext_8h.html#a684be545ac01f2f550499b52e2a2d515" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="i_s_t_b_image_ext_8h.html#a684be545ac01f2f550499b52e2a2d515" target="_top" xlink:title="stbi_load">
 <polygon fill="white" stroke="black" points="211.5,-88.5 211.5,-107.5 267.5,-107.5 267.5,-88.5 211.5,-88.5"/>
 <text text-anchor="middle" x="239.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">stbi_load</text>
 </a>
 </g>
 </g>
-<!-- Node26&#45;&gt;Node27 -->
-<g id="edge1" class="edge"><title>Node26&#45;&gt;Node27</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M130.481,-69.0192C153.925,-75.3092 180.535,-82.4485 201.478,-88.0673"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="200.699,-91.4821 211.265,-90.693 202.513,-84.7212 200.699,-91.4821"/>
 </g>
-<!-- Node29 -->
-<g id="node4" class="node"><title>Node29</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" target="_top" xlink:title="IgorAux::iaString::\lgetData">
 <polygon fill="white" stroke="black" points="192,-39 192,-69 287,-69 287,-39 192,-39"/>
 <text text-anchor="start" x="200" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaString::</text>
 <text text-anchor="middle" x="239.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">getData</text>
 </a>
 </g>
 </g>
-<!-- Node26&#45;&gt;Node29 -->
-<g id="edge3" class="edge"><title>Node26&#45;&gt;Node29</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M147.388,-54C158.798,-54 170.446,-54 181.434,-54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="181.737,-57.5001 191.737,-54 181.737,-50.5001 181.737,-57.5001"/>
 </g>
-<!-- Node30 -->
-<g id="node5" class="node"><title>Node30</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_pixmap.html#a6730b2f6f8098b29a1279fd15eebead8" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_pixmap.html#a6730b2f6f8098b29a1279fd15eebead8" target="_top" xlink:title="Igor::iPixmap::setData">
 <polygon fill="white" stroke="black" points="183,-0.5 183,-19.5 296,-19.5 296,-0.5 183,-0.5"/>
 <text text-anchor="middle" x="239.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPixmap::setData</text>
 </a>
 </g>
 </g>
-<!-- Node26&#45;&gt;Node30 -->
-<g id="edge4" class="edge"><title>Node26&#45;&gt;Node30</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M130.481,-38.9808C150.868,-33.5112 173.648,-27.3993 193.014,-22.2036"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="194.048,-25.5501 202.799,-19.5783 192.234,-18.7892 194.048,-25.5501"/>
 </g>
-<!-- Node28 -->
-<g id="node3" class="node"><title>Node28</title>
-<g id="a_node3"><a xlink:href="i_s_t_b_image_ext_8h.html#ae18990cf422a56f7ac0d841aaf07768e" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="i_s_t_b_image_ext_8h.html#ae18990cf422a56f7ac0d841aaf07768e" target="_top" xlink:title="stbi__wfopen">
 <polygon fill="white" stroke="black" points="332,-88.5 332,-107.5 405,-107.5 405,-88.5 332,-88.5"/>
 <text text-anchor="middle" x="368.5" y="-95.5" font-family="Helvetica,sans-Serif" font-size="10.00">stbi__wfopen</text>
 </a>
 </g>
 </g>
-<!-- Node27&#45;&gt;Node28 -->
-<g id="edge2" class="edge"><title>Node27&#45;&gt;Node28</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M267.745,-98C283.415,-98 303.515,-98 321.561,-98"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="321.616,-101.5 331.616,-98 321.616,-94.5001 321.616,-101.5"/>
 </g>

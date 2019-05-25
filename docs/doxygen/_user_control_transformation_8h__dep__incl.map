@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Tools/ModelViewer/src/UserControlTransformation.h" name="C:/dev/Igor/Igor/src/Tools/ModelViewer/src/UserControlTransformation.h">
-<area shape="rect" id="node1" title=" " alt="" coords="266,5,457,61"/>
-<area shape="rect" id="node2" href="$_menu_dialog_8cpp.html" title=" " alt="" coords="5,109,163,165"/>
-<area shape="rect" id="node3" href="$_properties_dialog_8cpp.html" title=" " alt="" coords="187,109,344,165"/>
-<area shape="rect" id="node4" href="$_user_control_properties_8cpp.html" title=" " alt="" coords="368,109,547,165"/>
-<area shape="rect" id="node5" href="$_user_control_transformation_8cpp.html" title=" " alt="" coords="571,109,775,165"/>
+<map id="C:/dev/Igor/src/Tools/ModelViewer/src/UserControlTransformation.h" name="C:/dev/Igor/src/Tools/ModelViewer/src/UserControlTransformation.h">
+<area shape="rect" id="node2" href="$_menu_dialog_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/MenuDialog.cpp" alt="" coords="5,117,224,158"/>
+<area shape="rect" id="node3" href="$_properties_dialog_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/Properties\lDialog.cpp" alt="" coords="249,109,434,165"/>
+<area shape="rect" id="node4" href="$_user_control_properties_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lProperties.cpp" alt="" coords="459,109,653,165"/>
+<area shape="rect" id="node5" href="$_user_control_transformation_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lTransformation.cpp" alt="" coords="677,109,872,165"/>
 </map>

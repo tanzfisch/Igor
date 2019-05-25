@@ -1,7 +1,6 @@
 <map id="Igor::iModelDataIOOMPF::createEmitterChunk" name="Igor::iModelDataIOOMPF::createEmitterChunk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,104,172,145"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_emitter_chunk.html#a33e20ead157d8f754c536153e2b05b71" title=" " alt="" coords="220,5,395,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_emitter.html#ae5de66ff516e7b86c3c264363f765782" title=" " alt="" coords="244,71,371,112"/>
-<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_emitter_chunk.html#ae915a0066b7f2b32d2985497a8cec187" title=" " alt="" coords="220,136,395,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_emitter.html#a495bb4a7d0ff96e2e910ca165df3d40a" title=" " alt="" coords="244,201,371,243"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_emitter_chunk.html#a33e20ead157d8f754c536153e2b05b71" title="OMPF::ompfEmitterChunk\l::setSize" alt="" coords="220,5,395,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_emitter.html#ad9c9bec50aad0f6e2c0807f0b5c36b54" title="Igor::iNodeEmitter\l::getSize" alt="" coords="244,71,371,112"/>
+<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_emitter_chunk.html#ae915a0066b7f2b32d2985497a8cec187" title="OMPF::ompfEmitterChunk\l::setType" alt="" coords="220,136,395,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_emitter.html#aed749292f7ac23bf9ffec153a4472644" title="Igor::iNodeEmitter\l::getEmitterType" alt="" coords="244,201,371,243"/>
 </map>

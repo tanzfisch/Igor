@@ -1,0 +1,4 @@
+<map id="Igor::iNodeParticleSystem::getStartLiftGradient" name="Igor::iNodeParticleSystem::getStartLiftGradient">
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#ae7624b5254a10e0d9d1580dd5239e9de" title="Igor::iModelDataIOOMPF\l::createParticleSystemChunk" alt="" coords="227,5,419,47"/>
+<area shape="rect" id="node3" href="$class_user_control_particle_system.html#acb892bdda19fb897335bbc1bfa02673f" title="UserControlParticleSystem\l::convertGradientsToUI" alt="" coords="233,71,412,112"/>
+</map>

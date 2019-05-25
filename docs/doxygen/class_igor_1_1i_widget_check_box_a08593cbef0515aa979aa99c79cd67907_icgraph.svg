@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iWidgetCheckBox::endRadioButtonGroup</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 261,-35 261,4 -4,4"/>
-<!-- Node24 -->
-<g id="node1" class="node"><title>Node24</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="139,-0.5 139,-30.5 257,-30.5 257,-0.5 139,-0.5"/>
-<text text-anchor="start" x="147" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
-<text text-anchor="middle" x="198" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::endRadioButtonGroup</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 118,-30.5 118,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
+<text text-anchor="middle" x="59" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::endRadioButtonGroup</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" target="_top" xlink:title="MenuDialog::initGUI">
+<polygon fill="white" stroke="black" points="154,-6 154,-25 257,-25 257,-6 154,-6"/>
+<text text-anchor="middle" x="205.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node25 -->
-<g id="node2" class="node"><title>Node25</title>
-<g id="a_node2"><a xlink:href="class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-25 103,-25 103,-6 0,-6"/>
-<text text-anchor="middle" x="51.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initGUI</text>
-</a>
-</g>
-</g>
-<!-- Node24&#45;&gt;Node25 -->
-<g id="edge1" class="edge"><title>Node24&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M128.638,-15.5C120.061,-15.5 111.412,-15.5 103.174,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="128.643,-19.0001 138.643,-15.5 128.643,-12.0001 128.643,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M128.362,-15.5C136.939,-15.5 145.588,-15.5 153.826,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="128.357,-12.0001 118.357,-15.5 128.357,-19.0001 128.357,-12.0001"/>
 </g>
 </g>
 </svg>

@@ -1,30 +1,29 @@
 <map id="Igor::iVoxelTerrain::updateMesh" name="Igor::iVoxelTerrain::updateMesh">
-<area shape="rect" id="node1" title=" " alt="" coords="5,218,132,259"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_data.html#ae88e8a9001e989304359d6f464767422" title=" " alt="" coords="185,8,355,35"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mem_block.html#a2f7bad3c20d8c355761428deb44719e4" title=" " alt="" coords="197,62,343,103"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#ad543df5c6c62ace85496ee1fda974503" title=" " alt="" coords="197,132,343,159"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_convert.html#a948fbe7c40e2260c868c6e540d192d8e" title=" " alt="" coords="207,185,333,226"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_node_transform.html#aa14a8d9d83fd2de1370c662b29bb4b81" title=" " alt="" coords="199,250,341,291"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_node_model.html#ab731c3500613a31402bb04315a85b524" title=" " alt="" coords="180,749,360,776"/>
-<area shape="rect" id="node19" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="914,697,1037,724"/>
-<area shape="rect" id="node20" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title=" " alt="" coords="193,319,347,345"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_data.html#a36c991837801b1ebda0a79f68466523f" title=" " alt="" coords="410,5,601,32"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mem_block.html#aad65fdabffab6e81dd9ec66447730cb0" title=" " alt="" coords="432,57,579,98"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#af57393290753cb0ff19bd49b5c97d1f4" title=" " alt="" coords="442,122,569,163"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#a5de7775f77c02abad6fb09a235a7721b" title=" " alt="" coords="689,54,815,95"/>
-<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title=" " alt="" coords="441,187,569,229"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title=" " alt="" coords="408,253,603,294"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title=" " alt="" coords="687,260,817,287"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title=" " alt="" coords="901,180,1049,207"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title=" " alt="" coords="655,143,849,185"/>
-<area shape="rect" id="node17" href="$class_igor_1_1i_node.html#a7f855c2164f9fc704210c7510afd0a9c" title=" " alt="" coords="423,753,587,780"/>
-<area shape="rect" id="node18" href="$class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88" title=" " alt="" coords="651,749,853,790"/>
-<area shape="rect" id="node21" href="$class_igor_1_1i_node.html#adbeb716577ae857dc4274e8285dd94fe" title=" " alt="" coords="431,479,579,505"/>
-<area shape="rect" id="node22" href="$class_igor_1_1i_node.html#a0392b6251631e79675f7416827335b70" title=" " alt="" coords="432,428,579,455"/>
-<area shape="rect" id="node23" href="$class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143" title=" " alt="" coords="661,311,843,337"/>
-<area shape="rect" id="node24" href="$class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f" title=" " alt="" coords="671,362,833,403"/>
-<area shape="rect" id="node25" href="$class_igor_1_1i_scene.html#ab362507531b6b5207a3045283e9820c0" title=" " alt="" coords="677,428,827,455"/>
-<area shape="rect" id="node26" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title=" " alt="" coords="672,479,832,505"/>
-<area shape="rect" id="node27" href="$class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e" title=" " alt="" coords="657,580,847,607"/>
-<area shape="rect" id="node28" href="$class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21" title=" " alt="" coords="671,631,833,673"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_data.html#ae88e8a9001e989304359d6f464767422" title="Igor::iVoxelData::getCopy" alt="" coords="185,8,355,35"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mem_block.html#a2f7bad3c20d8c355761428deb44719e4" title="IgorAux::iaMemBlock\l::setData" alt="" coords="197,62,343,103"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#ad543df5c6c62ace85496ee1fda974503" title="IgorAux::iaString::itoa" alt="" coords="197,132,343,159"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_vector3.html#a460281d7b8c0c4cf63c372320f118c15" title="IgorAux::iaVector3\l::convert" alt="" coords="205,185,335,226"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_node_transform.html#aa14a8d9d83fd2de1370c662b29bb4b81" title="Igor::iNodeTransform\l::translate" alt="" coords="199,250,341,291"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_node_model.html#ab731c3500613a31402bb04315a85b524" title="Igor::iNodeModel::setModel" alt="" coords="180,749,360,776"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="914,697,1037,724"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_node.html#a4ce1269afdfb50f10f7b2c10e5aa69e0" title="Igor::iNode::insertNode" alt="" coords="193,319,347,345"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_data.html#a36c991837801b1ebda0a79f68466523f" title="Igor::iVoxelData::freeMemory" alt="" coords="410,5,601,32"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mem_block.html#aad65fdabffab6e81dd9ec66447730cb0" title="IgorAux::iaMemBlock\l::clearData" alt="" coords="432,57,579,98"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#af57393290753cb0ff19bd49b5c97d1f4" title="IgorAux::iaString::\lintToStrInternal" alt="" coords="442,122,569,163"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_string.html#a5de7775f77c02abad6fb09a235a7721b" title="IgorAux::iaString::\lreverse" alt="" coords="689,54,815,95"/>
+<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title="IgorAux::iaMatrix::\ltranslate" alt="" coords="441,187,569,229"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title="Igor::iNode::setTransformation\lDirty" alt="" coords="408,253,603,294"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title="Igor::iNode::isChild" alt="" coords="687,260,817,287"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title="Igor::iNode::getParent" alt="" coords="901,180,1049,207"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title="Igor::iNode::setTransformation\lDirtyUp" alt="" coords="655,143,849,185"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_node.html#a7f855c2164f9fc704210c7510afd0a9c" title="Igor::iNode::setDataDirty" alt="" coords="423,753,587,780"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_scene.html#acfca34eaff8314fd5edb894074abbe88" title="Igor::iScene::addToDataUpdate\lQueue" alt="" coords="651,749,853,790"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_node.html#adbeb716577ae857dc4274e8285dd94fe" title="Igor::iNode::setParent" alt="" coords="431,479,579,505"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_node.html#a0392b6251631e79675f7416827335b70" title="Igor::iNode::setScene" alt="" coords="432,428,579,455"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_node.html#aa8934442e897cfdf775264f161c69143" title="Igor::iNode::onPreSetScene" alt="" coords="661,311,843,337"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_scene.html#aadee04cec2c19e6de83645d9de7e614f" title="Igor::iScene::signalNode\lRemoved" alt="" coords="671,362,833,403"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_scene.html#af975e601d89386f2ef11745ecb831870" title="Igor::iScene::getName" alt="" coords="677,428,827,455"/>
+<area shape="rect" id="node26" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title="Igor::iNode::hasChildren" alt="" coords="672,479,832,505"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_node.html#af5a14599bd4dc62d1534865c8a306e8e" title="Igor::iNode::onPostSetScene" alt="" coords="657,580,847,607"/>
+<area shape="rect" id="node28" href="$class_igor_1_1i_scene.html#a61c6f27b83ccdfbfdc1b7ee02d2fcc21" title="Igor::iScene::signalNode\lAdded" alt="" coords="671,631,833,673"/>
 </map>

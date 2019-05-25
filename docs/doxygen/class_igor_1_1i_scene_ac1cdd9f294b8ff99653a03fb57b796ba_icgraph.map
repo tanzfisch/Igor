@@ -1,4 +1,3 @@
 <map id="Igor::iScene::unregisterLODTrigger" name="Igor::iScene::unregisterLODTrigger">
-<area shape="rect" id="node1" title=" " alt="" coords="203,5,359,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_l_o_d_trigger.html#a1e401abb036749af69fa4581447e1daf" title=" " alt="" coords="5,5,155,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_l_o_d_trigger.html#a1e401abb036749af69fa4581447e1daf" title="Igor::iNodeLODTrigger\l::onPreSetScene" alt="" coords="209,5,359,47"/>
 </map>

@@ -1,7 +1,6 @@
 <map id="Igor::iPhysics::destroyBody" name="Igor::iPhysics::destroyBody">
-<area shape="rect" id="node1" title=" " alt="" coords="440,56,623,83"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#aa267695da6309947267ed6735101e2d3" title=" " alt="" coords="213,5,379,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a158515b47349b873198f179c950849d1" title=" " alt="" coords="200,56,392,83"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a61921b998e304ba748c00eb4e2d6a5ed" title=" " alt="" coords="205,107,387,133"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#ae9c9925bac303a2c4c4065d84ba06956" title=" " alt="" coords="5,56,152,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#aa267695da6309947267ed6735101e2d3" title="Igor::iPhysics::~iPhysics" alt="" coords="249,5,415,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a158515b47349b873198f179c950849d1" title="Igor::iPhysics::handleQueues" alt="" coords="236,56,428,83"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#a61921b998e304ba748c00eb4e2d6a5ed" title="Igor::iPhysics::destroyBody" alt="" coords="241,107,423,133"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#ae9c9925bac303a2c4c4065d84ba06956" title="Igor::iPhysics::handle" alt="" coords="476,56,623,83"/>
 </map>

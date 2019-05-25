@@ -1,0 +1,7 @@
+<map id="Igor::iDialogFileSelect::initGUI" name="Igor::iDialogFileSelect::initGUI">
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#a09e374ec95ecf256ec0d086a0b53284a" title="Igor::iWidgetGrid::\lsetBorder" alt="" coords="227,5,354,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="201,71,380,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title="Igor::iWidget::setWidth" alt="" coords="213,137,368,163"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_widget.html#ad83a7adeddb1e3fdcf75ebbd7c08abfb" title="Igor::iWidget::registerOn\lClickEvent" alt="" coords="209,188,372,229"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a" title="Igor::iWidgetButton\l::setText" alt="" coords="224,253,357,295"/>
+</map>

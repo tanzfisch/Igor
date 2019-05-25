@@ -1,10 +1,9 @@
 <map id="Igor::iNodeRender" name="Igor::iNodeRender">
-<area shape="rect" id="node1" title=" " alt="" coords="137,107,263,133"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_celestial_node.html" title=" " alt="" coords="311,5,445,32"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_sky_box.html" title=" " alt="" coords="313,56,443,83"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_volume.html" title=" " alt="" coords="314,107,442,133"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_node_water.html" title=" " alt="" coords="319,157,437,184"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_sky_light_node.html" title=" " alt="" coords="311,208,445,235"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html" title=" " alt="" coords="5,107,89,133"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node_particle_system.html" title=" " alt="" coords="493,107,667,133"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_celestial_node.html" title="Igor::iCelestialNode" alt="" coords="311,5,445,32"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_sky_box.html" title="Igor::iNodeSkyBox" alt="" coords="313,56,443,83"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_volume.html" title="Igor::iNodeVolume" alt="" coords="314,107,442,133"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_water.html" title="Igor::iNodeWater" alt="" coords="319,157,437,184"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_sky_light_node.html" title="Igor::iSkyLightNode" alt="" coords="311,208,445,235"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html" title="Igor::iNode" alt="" coords="5,107,89,133"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_particle_system.html" title="Igor::iNodeParticleSystem" alt="" coords="493,107,667,133"/>
 </map>

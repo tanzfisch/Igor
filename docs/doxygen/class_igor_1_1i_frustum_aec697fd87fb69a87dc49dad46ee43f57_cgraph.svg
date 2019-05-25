@@ -9,16 +9,13 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 42)">
 <title>Igor::iFrustum::set</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-42 100,-42 100,4 -4,4"/>
-<!-- Node4 -->
-<g id="node1" class="node"><title>Node4</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 96,-19.5 96,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="48" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iFrustum::set</text>
-</a>
 </g>
-</g>
-<!-- Node4&#45;&gt;Node4 -->
-<g id="edge1" class="edge"><title>Node4&#45;&gt;Node4</title>
+<!-- Node1&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M33.2036,-19.7571C26.0054,-28.5653 30.9375,-38 48,-38 58.6641,-38 64.5897,-34.3146 65.7769,-29.4"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="69.0934,-28.2775 62.7964,-19.7571 62.4056,-30.3447 69.0934,-28.2775"/>
 </g>

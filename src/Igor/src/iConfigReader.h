@@ -44,14 +44,6 @@ namespace Igor
 	class iConfigReader
 	{
 
-	private:
-
-        /*! analyses the xml elements
-
-        \param resourceManager root element
-        */
-		void readResourceManagerConfig(TiXmlElement* resourceManager);
-
 	public:
 
 		/*! does nothing
@@ -70,6 +62,19 @@ namespace Igor
 		*/
 		void readConfiguration(const iaString& filename);
 
+	private:
+
+		/*! analyses the xml elements
+
+		\param resourceManager root element
+		*/
+		void readResourceManagerConfig(TiXmlElement* resourceManager);
+
+		/*! read logging xml elements
+
+		\param logging root element
+		*/
+		void readLoggingConfig(TiXmlElement* logging);
 	};
 
 }

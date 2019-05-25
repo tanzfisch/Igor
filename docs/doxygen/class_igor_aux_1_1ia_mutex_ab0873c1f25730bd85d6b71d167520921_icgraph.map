@@ -1,52 +1,51 @@
 <map id="IgorAux::iaMutex::lock" name="IgorAux::iaMutex::lock">
-<area shape="rect" id="node1" title=" " alt="" coords="776,1301,928,1328"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_entity.html#a7147c6bc0a704aaae70e0bcc086a7fb8" title=" " alt="" coords="547,5,680,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a6f04b7f5dac23b5f8b75e6415b567a9a" title=" " alt="" coords="519,56,708,83"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#aa742671945682a3c8d44ced93f42de33" title=" " alt="" coords="499,107,728,133"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_physics.html#a8c7953773bfae128f7794cb927b100ac" title=" " alt="" coords="522,158,705,199"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_physics.html#a90dcd82ece96f39ec61120a36e15ff18" title=" " alt="" coords="516,223,711,265"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_physics.html#a5873b623d8cb15ac08e9abfa593da5f6" title=" " alt="" coords="529,289,697,330"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_physics.html#a98d749d54dd900076c24ce362f5ebd23" title=" " alt="" coords="525,354,701,395"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_physics.html#a37a6c2accde583957a3188c9674bd448" title=" " alt="" coords="513,419,714,461"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_physics.html#a158515b47349b873198f179c950849d1" title=" " alt="" coords="251,511,443,537"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_physics.html#a414350b4c4093ccff47562802a745cff" title=" " alt="" coords="518,587,709,613"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_physics.html#a3e3ad9ce6a1c7730a96d55db89de60f5" title=" " alt="" coords="521,637,706,664"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_physics.html#ac2639c658962c05d9d15fc97f04aff64" title=" " alt="" coords="527,688,700,715"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_physics.html#ab534b77873e66ea734a45f273cac9398" title=" " alt="" coords="245,768,450,795"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_physics.html#acd687fe990ae62bf7c833bc4abebab38" title=" " alt="" coords="517,790,709,831"/>
-<area shape="rect" id="node17" href="$class_igor_1_1i_physics.html#a61101b519bf9db7b07bfd3c5b4f8e2f7" title=" " alt="" coords="521,855,706,897"/>
-<area shape="rect" id="node18" href="$class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" title=" " alt="" coords="526,921,701,948"/>
-<area shape="rect" id="node19" href="$class_igor_1_1i_physics.html#ab08566234153b58519067def76caf8e6" title=" " alt="" coords="527,972,699,999"/>
-<area shape="rect" id="node20" href="$class_igor_1_1i_physics.html#a9370aeee6d006ea05271510e446b13e6" title=" " alt="" coords="536,1023,691,1049"/>
-<area shape="rect" id="node21" href="$class_igor_1_1i_physics.html#a17073049c2a14dcacf2b69381a43403f" title=" " alt="" coords="540,1073,687,1100"/>
-<area shape="rect" id="node22" href="$class_igor_1_1i_physics.html#a3c38da2e6ad2c771afade7a964b10eff" title=" " alt="" coords="539,1124,688,1151"/>
-<area shape="rect" id="node23" href="$class_igor_1_1i_physics.html#aa66bfe02146b75839cefbe15dd6e296a" title=" " alt="" coords="535,1175,692,1201"/>
-<area shape="rect" id="node24" href="$class_igor_1_1i_physics.html#a652d7314475cae2d969224ebc6d47853" title=" " alt="" coords="522,536,705,563"/>
-<area shape="rect" id="node25" href="$class_igor_1_1i_physics.html#a06fdc9e347465f7cf295827e6ce5003d" title=" " alt="" coords="513,1225,714,1252"/>
-<area shape="rect" id="node26" href="$class_igor_1_1i_physics.html#a3ad2e222df06cf49cf4b1564a23c6ee4" title=" " alt="" coords="244,1293,451,1320"/>
-<area shape="rect" id="node27" href="$class_igor_1_1i_physics.html#a3a004cfcc174b9d974e81261ec035518" title=" " alt="" coords="524,1732,703,1759"/>
-<area shape="rect" id="node28" href="$class_igor_1_1i_physics.html#ab5efe1f7f2c5a4a94d4eae55289c475a" title=" " alt="" coords="533,1479,694,1505"/>
-<area shape="rect" id="node29" href="$class_igor_1_1i_physics.html#a1dbf984bf12d2b21c81f8dc4da015fa6" title=" " alt="" coords="263,1345,431,1372"/>
-<area shape="rect" id="node30" href="$class_igor_1_1i_physics.html#ab0cd7a1d22282b70337e1c55aa15c55f" title=" " alt="" coords="261,1399,433,1441"/>
-<area shape="rect" id="node31" href="$class_igor_1_1i_physics.html#a80c2ab77dc398cb49ec810f24b6b2947" title=" " alt="" coords="254,1469,441,1496"/>
-<area shape="rect" id="node32" href="$class_igor_1_1i_physics.html#a1d3ea96f20f5ac384b38b3e1b91a6c13" title=" " alt="" coords="260,1528,435,1555"/>
-<area shape="rect" id="node33" href="$class_igor_1_1i_physics.html#ad0a6f6c2c0030aed61dbf5e9be42c600" title=" " alt="" coords="251,1580,443,1607"/>
-<area shape="rect" id="node34" href="$class_igor_1_1i_physics.html#aa1977450631c4f5bb1a08ff5803ac274" title=" " alt="" coords="251,1631,443,1657"/>
-<area shape="rect" id="node35" href="$class_igor_1_1i_physics.html#a7b02a7ab800065f09d54a66a71d8e8cb" title=" " alt="" coords="259,1681,436,1708"/>
-<area shape="rect" id="node36" href="$class_igor_1_1i_physics.html#a5df0993d66eb2e5ab70acb21e5a639f3" title=" " alt="" coords="520,1783,707,1809"/>
-<area shape="rect" id="node37" href="$class_igor_1_1i_physics.html#a9bc7f823fd495f98c7ff2672fa4ee854" title=" " alt="" coords="537,1833,690,1860"/>
-<area shape="rect" id="node38" href="$class_igor_1_1i_physics.html#a5f5233c9a5036e5ec488d74f99a91f62" title=" " alt="" coords="525,1884,701,1911"/>
-<area shape="rect" id="node39" href="$class_igor_1_1i_physics_collision.html#afb0ba05277acd335b774248fc343ed75" title=" " alt="" coords="538,1935,689,1977"/>
-<area shape="rect" id="node40" href="$class_igor_1_1i_physics_joint.html#a44fe123ce6df82130445a302bb8e1ece" title=" " alt="" coords="549,2001,677,2042"/>
-<area shape="rect" id="node41" href="$class_igor_1_1i_physics_world.html#ab884038819a91e925e71069001a9494d" title=" " alt="" coords="546,2066,681,2107"/>
-<area shape="rect" id="node42" href="$class_igor_1_1i_task_manager.html#aa9792db3fd44be814048eb1bc9c1838d" title=" " alt="" coords="281,2183,413,2225"/>
-<area shape="rect" id="node43" href="$class_igor_1_1i_task_manager.html#a0371f43d29ddf818acc2f161d6a060f3" title=" " alt="" coords="5,2187,196,2229"/>
-<area shape="rect" id="node44" href="$class_igor_1_1i_task_manager.html#a8af31ae39ff0bef36e31483276e5d206" title=" " alt="" coords="26,2365,175,2406"/>
-<area shape="rect" id="node45" href="$class_igor_1_1i_task_manager.html#a4a126ae56c1464dd6a28bee0ffda70a5" title=" " alt="" coords="524,2453,703,2494"/>
-<area shape="rect" id="node46" href="$class_igor_1_1i_task_manager.html#a4aed6fc8a88ff9ef945de21743f35208" title=" " alt="" coords="245,2249,450,2290"/>
-<area shape="rect" id="node47" href="$class_igor_1_1i_task_manager.html#a8f02fd3959c51b04be63e493900f7ffd" title=" " alt="" coords="266,2335,429,2377"/>
-<area shape="rect" id="node48" href="$class_igor_1_1i_task_manager.html#ad73b975973467369ec209771d8812f34" title=" " alt="" coords="536,2234,691,2275"/>
-<area shape="rect" id="node49" href="$class_igor_1_1i_task_manager.html#a443ca201f4e6fdfc673c232c7b839fe9" title=" " alt="" coords="547,2518,679,2559"/>
-<area shape="rect" id="node50" href="$class_igor_1_1i_task_manager.html#ae93d2e816f65a8b226c554b2bb8d6c1e" title=" " alt="" coords="547,2583,679,2625"/>
-<area shape="rect" id="node4" href="$namespace_igor.html#a945362eb01fae26e5cf14f9fa7f7496c" title=" " alt="" coords="253,49,442,90"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_entity.html#a7147c6bc0a704aaae70e0bcc086a7fb8" title="Igor::iEntity::iEntity" alt="" coords="253,5,387,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#a6f04b7f5dac23b5f8b75e6415b567a9a" title="Igor::iPhysics::queueContact" alt="" coords="225,56,415,83"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_physics.html#aa742671945682a3c8d44ced93f42de33" title="Igor::iPhysics::queueTransformation" alt="" coords="205,107,435,133"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_physics.html#a8c7953773bfae128f7794cb927b100ac" title="Igor::iPhysics::destroyBody\lAsync" alt="" coords="229,158,411,199"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_physics.html#a90dcd82ece96f39ec61120a36e15ff18" title="Igor::iPhysics::createCollision\lConfig" alt="" coords="223,223,417,265"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_physics.html#a5873b623d8cb15ac08e9abfa593da5f6" title="Igor::iPhysics::isCollision\lConfig" alt="" coords="236,289,404,330"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_physics.html#a98d749d54dd900076c24ce362f5ebd23" title="Igor::iPhysics::getCollision\lConfig" alt="" coords="232,354,408,395"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_physics.html#a37a6c2accde583957a3188c9674bd448" title="Igor::iPhysics::destroyCollision\lConfig" alt="" coords="219,419,421,461"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_physics.html#a158515b47349b873198f179c950849d1" title="Igor::iPhysics::handleQueues" alt="" coords="490,511,682,537"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_physics.html#a414350b4c4093ccff47562802a745cff" title="Igor::iPhysics::createMaterial" alt="" coords="225,587,415,613"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_physics.html#a3e3ad9ce6a1c7730a96d55db89de60f5" title="Igor::iPhysics::getMaterialID" alt="" coords="227,637,413,664"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_physics.html#ac2639c658962c05d9d15fc97f04aff64" title="Igor::iPhysics::getMaterial" alt="" coords="233,688,407,715"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_physics.html#ab534b77873e66ea734a45f273cac9398" title="Igor::iPhysics::destroyMaterials" alt="" coords="483,768,689,795"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_physics.html#acd687fe990ae62bf7c833bc4abebab38" title="Igor::iPhysics::destroyDefault\lMaterial" alt="" coords="224,790,416,831"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_physics.html#a61101b519bf9db7b07bfd3c5b4f8e2f7" title="Igor::iPhysics::createDefault\lMaterial" alt="" coords="227,855,413,897"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" title="Igor::iPhysics::createBody" alt="" coords="233,921,407,948"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_physics.html#ab08566234153b58519067def76caf8e6" title="Igor::iPhysics::createJoint" alt="" coords="234,972,406,999"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_physics.html#a9370aeee6d006ea05271510e446b13e6" title="Igor::iPhysics::getJoint" alt="" coords="243,1023,397,1049"/>
+<area shape="rect" id="node21" href="$class_igor_1_1i_physics.html#a17073049c2a14dcacf2b69381a43403f" title="Igor::iPhysics::isJoint" alt="" coords="247,1073,393,1100"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_physics.html#a3c38da2e6ad2c771afade7a964b10eff" title="Igor::iPhysics::isBody" alt="" coords="245,1124,395,1151"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_physics.html#aa66bfe02146b75839cefbe15dd6e296a" title="Igor::iPhysics::getBody" alt="" coords="241,1175,399,1201"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_physics.html#a652d7314475cae2d969224ebc6d47853" title="Igor::iPhysics::destroyBody" alt="" coords="229,536,411,563"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_physics.html#a06fdc9e347465f7cf295827e6ce5003d" title="Igor::iPhysics::destroyCollision" alt="" coords="219,1225,421,1252"/>
+<area shape="rect" id="node26" href="$class_igor_1_1i_physics.html#a3ad2e222df06cf49cf4b1564a23c6ee4" title="Igor::iPhysics::createCompound" alt="" coords="483,1293,689,1320"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_physics.html#a3a004cfcc174b9d974e81261ec035518" title="Igor::iPhysics::createWorld" alt="" coords="231,1732,409,1759"/>
+<area shape="rect" id="node28" href="$class_igor_1_1i_physics.html#ab5efe1f7f2c5a4a94d4eae55289c475a" title="Igor::iPhysics::getWorld" alt="" coords="239,1479,401,1505"/>
+<area shape="rect" id="node29" href="$class_igor_1_1i_physics.html#a1dbf984bf12d2b21c81f8dc4da015fa6" title="Igor::iPhysics::createBox" alt="" coords="502,1345,670,1372"/>
+<area shape="rect" id="node30" href="$class_igor_1_1i_physics.html#ab0cd7a1d22282b70337e1c55aa15c55f" title="Igor::iPhysics::createUser\lMeshCollision" alt="" coords="500,1399,672,1441"/>
+<area shape="rect" id="node31" href="$class_igor_1_1i_physics.html#a80c2ab77dc398cb49ec810f24b6b2947" title="Igor::iPhysics::createSphere" alt="" coords="493,1469,679,1496"/>
+<area shape="rect" id="node32" href="$class_igor_1_1i_physics.html#a1d3ea96f20f5ac384b38b3e1b91a6c13" title="Igor::iPhysics::createCone" alt="" coords="499,1528,673,1555"/>
+<area shape="rect" id="node33" href="$class_igor_1_1i_physics.html#ad0a6f6c2c0030aed61dbf5e9be42c600" title="Igor::iPhysics::createCapsule" alt="" coords="490,1580,682,1607"/>
+<area shape="rect" id="node34" href="$class_igor_1_1i_physics.html#aa1977450631c4f5bb1a08ff5803ac274" title="Igor::iPhysics::createCylinder" alt="" coords="490,1631,682,1657"/>
+<area shape="rect" id="node35" href="$class_igor_1_1i_physics.html#a7b02a7ab800065f09d54a66a71d8e8cb" title="Igor::iPhysics::createMesh" alt="" coords="497,1681,675,1708"/>
+<area shape="rect" id="node36" href="$class_igor_1_1i_physics.html#a5df0993d66eb2e5ab70acb21e5a639f3" title="Igor::iPhysics::destroyWorld" alt="" coords="227,1783,413,1809"/>
+<area shape="rect" id="node37" href="$class_igor_1_1i_physics.html#a9bc7f823fd495f98c7ff2672fa4ee854" title="Igor::iPhysics::isWorld" alt="" coords="243,1833,397,1860"/>
+<area shape="rect" id="node38" href="$class_igor_1_1i_physics.html#a5f5233c9a5036e5ec488d74f99a91f62" title="Igor::iPhysics::getCollision" alt="" coords="232,1884,408,1911"/>
+<area shape="rect" id="node39" href="$class_igor_1_1i_physics_collision.html#afb0ba05277acd335b774248fc343ed75" title="Igor::iPhysicsCollision\l::iPhysicsCollision" alt="" coords="245,1935,395,1977"/>
+<area shape="rect" id="node40" href="$class_igor_1_1i_physics_joint.html#a44fe123ce6df82130445a302bb8e1ece" title="Igor::iPhysicsJoint\l::iPhysicsJoint" alt="" coords="256,2001,384,2042"/>
+<area shape="rect" id="node41" href="$class_igor_1_1i_physics_world.html#ab884038819a91e925e71069001a9494d" title="Igor::iPhysicsWorld\l::iPhysicsWorld" alt="" coords="253,2066,387,2107"/>
+<area shape="rect" id="node42" href="$class_igor_1_1i_task_manager.html#aa9792db3fd44be814048eb1bc9c1838d" title="Igor::iTaskManager\l::~iTaskManager" alt="" coords="520,2183,652,2225"/>
+<area shape="rect" id="node43" href="$class_igor_1_1i_task_manager.html#a0371f43d29ddf818acc2f161d6a060f3" title="Igor::iTaskManager\l::createRenderContextThread" alt="" coords="737,2187,928,2229"/>
+<area shape="rect" id="node44" href="$class_igor_1_1i_task_manager.html#a8af31ae39ff0bef36e31483276e5d206" title="Igor::iTaskManager\l::createRegularThread" alt="" coords="758,2365,907,2406"/>
+<area shape="rect" id="node45" href="$class_igor_1_1i_task_manager.html#a4a126ae56c1464dd6a28bee0ffda70a5" title="Igor::iTaskManager\l::killRenderContextThreads" alt="" coords="231,2453,409,2494"/>
+<area shape="rect" id="node46" href="$class_igor_1_1i_task_manager.html#a4aed6fc8a88ff9ef945de21743f35208" title="Igor::iTaskManager\l::workWithRenderContextTasks" alt="" coords="483,2249,689,2290"/>
+<area shape="rect" id="node47" href="$class_igor_1_1i_task_manager.html#a8f02fd3959c51b04be63e493900f7ffd" title="Igor::iTaskManager\l::workWithRegularTasks" alt="" coords="505,2335,667,2377"/>
+<area shape="rect" id="node48" href="$class_igor_1_1i_task_manager.html#ad73b975973467369ec209771d8812f34" title="Igor::iTaskManager\l::flushIncommingTasks" alt="" coords="243,2234,397,2275"/>
+<area shape="rect" id="node49" href="$class_igor_1_1i_task_manager.html#a443ca201f4e6fdfc673c232c7b839fe9" title="Igor::iTaskManager\l::getTask" alt="" coords="254,2518,386,2559"/>
+<area shape="rect" id="node50" href="$class_igor_1_1i_task_manager.html#ae93d2e816f65a8b226c554b2bb8d6c1e" title="Igor::iTaskManager\l::addTask" alt="" coords="254,2583,386,2625"/>
+<area shape="rect" id="node4" href="$namespace_igor.html#a945362eb01fae26e5cf14f9fa7f7496c" title="Igor::GenericContactProcess\lCompatible" alt="" coords="491,49,681,90"/>
 </map>

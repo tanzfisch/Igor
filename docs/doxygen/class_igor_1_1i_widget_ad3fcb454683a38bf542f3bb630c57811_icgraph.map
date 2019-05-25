@@ -1,6 +1,5 @@
 <map id="Igor::iWidget::draw" name="Igor::iWidget::draw">
-<area shape="rect" id="node1" title=" " alt="" coords="208,64,339,91"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#af5da08cf04d409cc0a37cf364d1b596f" title=" " alt="" coords="5,5,160,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_group_box.html#ad283af143639bd11232d8914f395d527" title=" " alt="" coords="6,57,159,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_scroll.html#a1ee966ffe24e24a937f37167983d912b" title=" " alt="" coords="19,122,147,163"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget_grid.html#af5da08cf04d409cc0a37cf364d1b596f" title="Igor::iWidgetGrid::draw" alt="" coords="184,5,339,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_group_box.html#ad283af143639bd11232d8914f395d527" title="Igor::iWidgetGroupBox\l::draw" alt="" coords="185,57,338,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget_scroll.html#a1ee966ffe24e24a937f37167983d912b" title="Igor::iWidgetScroll\l::draw" alt="" coords="197,122,325,163"/>
 </map>

@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iNodeSkyBox.h" name="C:/dev/Igor/Igor/src/Igor/src/iNodeSkyBox.h">
-<area shape="rect" id="node1" title=" " alt="" coords="314,5,477,47"/>
-<area shape="rect" id="node2" href="$i_node_factory_8cpp.html" title=" " alt="" coords="5,102,180,143"/>
-<area shape="rect" id="node3" href="$i_node_sky_box_8cpp.html" title=" " alt="" coords="204,102,381,143"/>
-<area shape="rect" id="node4" href="$i_sky_simulation_8cpp.html" title=" " alt="" coords="405,102,591,143"/>
-<area shape="rect" id="node5" href="$_model_viewer_8cpp.html" title=" " alt="" coords="615,95,773,151"/>
+<map id="C:/dev/Igor/src/Igor/src/iNodeSkyBox.h" name="C:/dev/Igor/src/Igor/src/iNodeSkyBox.h">
+<area shape="rect" id="node2" href="$i_node_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeFactory.cpp" alt="" coords="5,95,156,136"/>
+<area shape="rect" id="node3" href="$i_node_sky_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeSkyBox.cpp" alt="" coords="181,95,333,136"/>
+<area shape="rect" id="node4" href="$i_sky_simulation_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iSkySimulation.cpp" alt="" coords="357,95,517,136"/>
+<area shape="rect" id="node5" href="$_model_viewer_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.cpp" alt="" coords="541,95,767,136"/>
 </map>

@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>IgorAux::iaState::registerLeaveStateDelegate</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 306,-35 306,4 -4,4"/>
-<!-- Node34 -->
-<g id="node1" class="node"><title>Node34</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="177,-0.5 177,-30.5 302,-30.5 302,-0.5 177,-0.5"/>
-<text text-anchor="start" x="185" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaState::register</text>
-<text text-anchor="middle" x="239.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">LeaveStateDelegate</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 125,-30.5 125,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaState::register</text>
+<text text-anchor="middle" x="62.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">LeaveStateDelegate</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#a36595caadf2a27c4d8b6fdb1a5f4ac46" target="_top" xlink:title="IgorAux::iaStateMachine\l::registerLeaveStateDelegate">
+<polygon fill="white" stroke="black" points="161,-0.5 161,-30.5 302,-30.5 302,-0.5 161,-0.5"/>
+<text text-anchor="start" x="169" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
+<text text-anchor="middle" x="231.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::registerLeaveStateDelegate</text>
 </a>
 </g>
 </g>
-<!-- Node35 -->
-<g id="node2" class="node"><title>Node35</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#a36595caadf2a27c4d8b6fdb1a5f4ac46" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 141,-30.5 141,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
-<text text-anchor="middle" x="70.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::registerLeaveStateDelegate</text>
-</a>
-</g>
-</g>
-<!-- Node34&#45;&gt;Node35 -->
-<g id="edge1" class="edge"><title>Node34&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M166.59,-15.5C158.143,-15.5 149.535,-15.5 141.12,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="166.79,-19.0001 176.79,-15.5 166.79,-12.0001 166.79,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M135.41,-15.5C143.857,-15.5 152.465,-15.5 160.88,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="135.21,-12.0001 125.21,-15.5 135.21,-19.0001 135.21,-12.0001"/>
 </g>
 </g>
 </svg>

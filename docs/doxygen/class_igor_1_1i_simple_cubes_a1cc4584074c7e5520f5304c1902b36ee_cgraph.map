@@ -1,5 +1,4 @@
 <map id="Igor::iSimpleCubes::generateGeometry" name="Igor::iSimpleCubes::generateGeometry">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,143,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title=" " alt="" coords="191,5,317,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title=" " alt="" coords="191,71,317,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title="Igor::iMeshBuilder\l::addVertex" alt="" coords="191,5,317,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title="Igor::iMeshBuilder\l::addTriangle" alt="" coords="191,71,317,112"/>
 </map>

@@ -1,13 +1,12 @@
 <map id="testing::internal::bool_constant&lt; bool_value &gt;" name="testing::internal::bool_constant&lt; bool_value &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,275,144,331"/>
-<area shape="rect" id="node2" href="$structtesting_1_1internal_1_1_has_value_type.html" title=" " alt="" coords="465,5,622,47"/>
-<area shape="rect" id="node3" href="$structtesting_1_1internal_1_1_has_value_type_3_01_t_00_01_void_t_3_01typename_01_t_1_1value__type_01_4_01_4.html" title=" " alt="" coords="446,71,641,127"/>
-<area shape="rect" id="node4" href="$structtesting_1_1internal_1_1is__pointer.html" title=" " alt="" coords="479,152,608,193"/>
-<area shape="rect" id="node5" href="$structtesting_1_1internal_1_1is__pointer_3_01_t_01_5_01_4.html" title=" " alt="" coords="484,217,603,259"/>
-<area shape="rect" id="node6" href="$structtesting_1_1internal_1_1is__same.html" title=" " alt="" coords="482,283,605,324"/>
-<area shape="rect" id="node7" href="$structtesting_1_1internal_1_1is__same_3_01_t_00_01_t_01_4.html" title=" " alt="" coords="484,348,603,389"/>
-<area shape="rect" id="node8" href="$structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01false_00_01_h_v_01_4.html" title=" " alt="" coords="460,414,627,470"/>
-<area shape="rect" id="node9" href="$structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01true_00_01false_01_4.html" title=" " alt="" coords="460,494,627,550"/>
-<area shape="rect" id="node10" href="$structtesting_1_1internal_1_1bool__constant.html" title=" " alt="" coords="424,575,663,675"/>
-<area shape="rect" id="node11" href="$structtesting_1_1internal_1_1_is_a_protocol_message.html" title=" " alt="" coords="712,604,885,645"/>
+<area shape="rect" id="node2" href="$structtesting_1_1internal_1_1_has_value_type.html" title="testing::internal::\lHasValueType\&lt; false \&gt;" alt="" coords="465,5,622,47"/>
+<area shape="rect" id="node3" href="$structtesting_1_1internal_1_1_has_value_type_3_01_t_00_01_void_t_3_01typename_01_t_1_1value__type_01_4_01_4.html" title="testing::internal::\lHasValueType\&lt; T, VoidT\l\&lt; typename T::value_type \&gt; \&gt;" alt="" coords="446,71,641,127"/>
+<area shape="rect" id="node4" href="$structtesting_1_1internal_1_1is__pointer.html" title="testing::internal::\lis_pointer\&lt; false \&gt;" alt="" coords="479,152,608,193"/>
+<area shape="rect" id="node5" href="$structtesting_1_1internal_1_1is__pointer_3_01_t_01_5_01_4.html" title="testing::internal::\lis_pointer\&lt; T * \&gt;" alt="" coords="484,217,603,259"/>
+<area shape="rect" id="node6" href="$structtesting_1_1internal_1_1is__same.html" title="testing::internal::\lis_same\&lt; false \&gt;" alt="" coords="482,283,605,324"/>
+<area shape="rect" id="node7" href="$structtesting_1_1internal_1_1is__same_3_01_t_00_01_t_01_4.html" title="testing::internal::\lis_same\&lt; T, T \&gt;" alt="" coords="484,348,603,389"/>
+<area shape="rect" id="node8" href="$structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01false_00_01_h_v_01_4.html" title="testing::internal::\lIsRecursiveContainerImpl\l\&lt; C, false, HV \&gt;" alt="" coords="460,414,627,470"/>
+<area shape="rect" id="node9" href="$structtesting_1_1internal_1_1_is_recursive_container_impl_3_01_c_00_01true_00_01false_01_4.html" title="testing::internal::\lIsRecursiveContainerImpl\l\&lt; C, true, false \&gt;" alt="" coords="460,494,627,550"/>
+<area shape="rect" id="node10" href="$structtesting_1_1internal_1_1bool__constant.html" title="testing::internal::\lbool_constant\&lt; ImplicitlyConvertible\l\&lt; const T *, const ::ProtocolMessage\l * \&gt;::value\|\|ImplicitlyConvertible\l\&lt; const T *, const ::proto2::Message\l * \&gt;::value \&gt;" alt="" coords="424,575,663,675"/>
+<area shape="rect" id="node11" href="$structtesting_1_1internal_1_1_is_a_protocol_message.html" title="testing::internal::\lIsAProtocolMessage\&lt; T \&gt;" alt="" coords="712,604,885,645"/>
 </map>

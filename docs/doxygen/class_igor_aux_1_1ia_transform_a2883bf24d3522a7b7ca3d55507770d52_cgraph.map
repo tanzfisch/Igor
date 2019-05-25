@@ -1,8 +1,7 @@
 <map id="IgorAux::iaTransform::getMatrix" name="IgorAux::iaTransform::getMatrix">
-<area shape="rect" id="node1" title=" " alt="" coords="5,136,147,177"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title=" " alt="" coords="195,5,323,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title=" " alt="" coords="195,71,323,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html#a0d1f814a5844dbda77ed03f55768b8ba" title=" " alt="" coords="195,136,323,177"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_matrix.html#a08581dc9057929f0381ba29a464d19c5" title=" " alt="" coords="195,201,323,243"/>
-<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title=" " alt="" coords="195,267,323,308"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" title="IgorAux::iaMatrix::\lidentity" alt="" coords="195,5,323,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#ae9eba9dbfae8fc7cc139579370386efb" title="IgorAux::iaMatrix::\lrotate" alt="" coords="195,71,323,112"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html#a0d1f814a5844dbda77ed03f55768b8ba" title="IgorAux::iaMatrix::\lscale" alt="" coords="195,136,323,177"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_matrix.html#a08581dc9057929f0381ba29a464d19c5" title="IgorAux::iaMatrix::\lshear" alt="" coords="195,201,323,243"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_matrix.html#ac3391a41520f494b8aa83d41ae89719b" title="IgorAux::iaMatrix::\ltranslate" alt="" coords="195,267,323,308"/>
 </map>

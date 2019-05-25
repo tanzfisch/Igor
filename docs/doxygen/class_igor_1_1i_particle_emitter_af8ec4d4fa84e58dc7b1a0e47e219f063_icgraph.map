@@ -1,6 +1,5 @@
 <map id="Igor::iParticleEmitter::setSize" name="Igor::iParticleEmitter::setSize">
-<area shape="rect" id="node1" title=" " alt="" coords="395,39,535,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_emitter.html#ae0d97308b47c3a530dc45198bce9dc7a" title=" " alt="" coords="220,39,347,80"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a4872c9dbcc8050a911e76db6167a1ebf" title=" " alt="" coords="5,5,172,47"/>
-<area shape="rect" id="node4" href="$class_user_control_emitter.html#a697f46aa1b60daec3a76f25bf2ebf68c" title=" " alt="" coords="23,71,155,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_emitter.html#ae0d97308b47c3a530dc45198bce9dc7a" title="Igor::iNodeEmitter\l::setSize" alt="" coords="193,39,320,80"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a4872c9dbcc8050a911e76db6167a1ebf" title="Igor::iModelDataIOOMPF\l::createNodeTree" alt="" coords="368,5,535,47"/>
+<area shape="rect" id="node4" href="$class_user_control_emitter.html#a697f46aa1b60daec3a76f25bf2ebf68c" title="UserControlEmitter\l::updateNode" alt="" coords="385,71,517,112"/>
 </map>

@@ -4,7 +4,7 @@ var namespacestd_1_1tr1_1_1gtest__internal =
     [ "AddRef< T & >", "structstd_1_1tr1_1_1gtest__internal_1_1_add_ref_3_01_t_01_6_01_4.html", "structstd_1_1tr1_1_1gtest__internal_1_1_add_ref_3_01_t_01_6_01_4" ],
     [ "ByRef", "structstd_1_1tr1_1_1gtest__internal_1_1_by_ref.html", "structstd_1_1tr1_1_1gtest__internal_1_1_by_ref" ],
     [ "ByRef< T & >", "structstd_1_1tr1_1_1gtest__internal_1_1_by_ref_3_01_t_01_6_01_4.html", "structstd_1_1tr1_1_1gtest__internal_1_1_by_ref_3_01_t_01_6_01_4" ],
-    [ "Get", "classstd_1_1tr1_1_1gtest__internal_1_1_get.html", null ],
+    [ "Get", "singletonstd_1_1tr1_1_1gtest__internal_1_1_get.html", null ],
     [ "Get< 0 >", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_010_01_4.html", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_010_01_4" ],
     [ "Get< 1 >", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_011_01_4.html", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_011_01_4" ],
     [ "Get< 2 >", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_012_01_4.html", "classstd_1_1tr1_1_1gtest__internal_1_1_get_3_012_01_4" ],

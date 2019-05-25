@@ -1,23 +1,16 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iShader.h" name="C:/dev/Igor/Igor/src/Igor/src/iShader.h">
-<area shape="rect" id="node1" title=" " alt="" coords="615,5,745,47"/>
-<area shape="rect" id="node2" href="$ia_matrix_8h.html" title=" " alt="" coords="273,95,351,121"/>
-<area shape="rect" id="node4" href="$ia_vector3_8h.html" title=" " alt="" coords="164,244,252,271"/>
-<area shape="rect" id="node15" href="$ia_vector2_8h.html" title=" " alt="" coords="561,244,649,271"/>
-<area shape="rect" id="node17" href="$ia_color3_8h.html" title=" " alt="" coords="563,95,643,121"/>
-<area shape="rect" id="node19" href="$ia_color4_8h.html" title=" " alt="" coords="717,95,797,121"/>
-<area shape="rect" id="node20" href="$ia_string_8h.html" title=" " alt="" coords="827,95,904,121"/>
-<area shape="rect" id="node21" title=" " alt="" coords="920,169,976,196"/>
-<area shape="rect" id="node3" href="$ia_vector4_8h.html" title=" " alt="" coords="37,169,125,196"/>
-<area shape="rect" id="node6" title=" " alt="" coords="128,319,187,345"/>
-<area shape="rect" id="node10" href="$ia_quaternion_8h.html" title=" " alt="" coords="259,169,365,196"/>
-<area shape="rect" id="node12" title=" " alt="" coords="481,169,546,196"/>
-<area shape="rect" id="node13" title=" " alt="" coords="389,169,456,196"/>
-<area shape="rect" id="node14" href="$ia_matrix_8inl.html" title=" " alt="" coords="149,169,235,196"/>
-<area shape="rect" id="node9" href="$ia_vector4_8inl.html" title=" " alt="" coords="38,244,133,271"/>
-<area shape="rect" id="node5" href="$ia_defines_8h.html" title=" " alt="" coords="687,319,774,345"/>
-<area shape="rect" id="node7" title=" " alt="" coords="441,319,511,345"/>
-<area shape="rect" id="node8" href="$ia_vector3_8inl.html" title=" " alt="" coords="211,319,306,345"/>
-<area shape="rect" id="node11" href="$ia_quaternion_8inl.html" title=" " alt="" coords="276,244,388,271"/>
-<area shape="rect" id="node16" href="$ia_vector2_8inl.html" title=" " alt="" coords="558,319,653,345"/>
-<area shape="rect" id="node18" title=" " alt="" coords="571,169,643,196"/>
+<map id="C:/dev/Igor/src/Igor/src/iShader.h" name="C:/dev/Igor/src/Igor/src/iShader.h">
+<area shape="rect" id="node2" href="$ia_matrix_8h.html" title="iaMatrix.h" alt="" coords="273,95,351,121"/>
+<area shape="rect" id="node4" href="$ia_vector3_8h.html" title="iaVector3.h" alt="" coords="164,244,252,271"/>
+<area shape="rect" id="node15" href="$ia_vector2_8h.html" title="iaVector2.h" alt="" coords="561,244,649,271"/>
+<area shape="rect" id="node17" href="$ia_color3_8h.html" title="iaColor3.h" alt="" coords="563,95,643,121"/>
+<area shape="rect" id="node19" href="$ia_color4_8h.html" title="iaColor4.h" alt="" coords="717,95,797,121"/>
+<area shape="rect" id="node20" href="$ia_string_8h.html" title="iaString.h" alt="" coords="827,95,904,121"/>
+<area shape="rect" id="node3" href="$ia_vector4_8h.html" title="iaVector4.h" alt="" coords="37,169,125,196"/>
+<area shape="rect" id="node10" href="$ia_quaternion_8h.html" title="iaQuaternion.h" alt="" coords="259,169,365,196"/>
+<area shape="rect" id="node14" href="$ia_matrix_8inl.html" title="iaMatrix.inl" alt="" coords="149,169,235,196"/>
+<area shape="rect" id="node9" href="$ia_vector4_8inl.html" title="iaVector4.inl" alt="" coords="38,244,133,271"/>
+<area shape="rect" id="node5" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="687,319,774,345"/>
+<area shape="rect" id="node8" href="$ia_vector3_8inl.html" title="iaVector3.inl" alt="" coords="211,319,306,345"/>
+<area shape="rect" id="node11" href="$ia_quaternion_8inl.html" title="iaQuaternion.inl" alt="" coords="276,244,388,271"/>
+<area shape="rect" id="node16" href="$ia_vector2_8inl.html" title="iaVector2.inl" alt="" coords="558,319,653,345"/>
 </map>

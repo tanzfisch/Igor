@@ -42,6 +42,44 @@ namespace Igor
         }
     }
 
+	void iConfigReader::readLoggingConfig(TiXmlElement* logging)
+	{
+		TiXmlElement* logLevel = logging->FirstChildElement("LogLevel");
+		if (logLevel != nullptr)
+		{
+			TiXmlNode* text = logLevel->FirstChild();
+			if (text->Type() == TiXmlNode::NodeType::TINYXML_TEXT)
+			{
+				iaString level(text->ValueStr().data());
+
+				if (level == "Assert")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::Assert);
+				}
+				else if (level == "Error")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::Error);
+				}
+				else if (level == "Warning")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::Warning);
+				}
+				else if (level == "Info")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::Info);
+				}
+				else if (level == "DebugInfo")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::DebugInfo);
+				}
+				else if (level == "Debug")
+				{
+					iaConsole::getInstance().setLogLevel(LogLevel::Debug);
+				}
+			}
+		}
+	}
+
 	void iConfigReader::readConfiguration(const iaString& filename)
 	{
 		char temp[2048];
@@ -57,6 +95,12 @@ namespace Igor
 			if(resourceManager)
 			{
 				readResourceManagerConfig(resourceManager);
+			}
+			
+			TiXmlElement* logging = root->FirstChildElement("Logging");
+			if (logging)
+			{
+				readLoggingConfig(logging);
 			}
 		}
 	}

@@ -9,52 +9,49 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122.5)">
 <title>Igor::iScene::registerVolume</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-122.5 282,-122.5 282,4 -4,4"/>
-<!-- Node122 -->
-<g id="node1" class="node"><title>Node122</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-44.5 0,-63.5 140,-63.5 140,-44.5 0,-44.5"/>
 <text text-anchor="middle" x="70" y="-51.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iScene::registerVolume</text>
-</a>
 </g>
-</g>
-<!-- Node123 -->
-<g id="node2" class="node"><title>Node123</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node_volume.html#aae3a50db01e4e1834e1c4c61d893d1b7" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node_volume.html#a74aaf46e343701749b7af3580fd43483" target="_top" xlink:title="Igor::iNodeVolume::\lgetCenter">
 <polygon fill="white" stroke="black" points="176,-88 176,-118 278,-118 278,-88 176,-88"/>
 <text text-anchor="start" x="184" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVolume::</text>
 <text text-anchor="middle" x="227" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">getCenter</text>
 </a>
 </g>
 </g>
-<!-- Node122&#45;&gt;Node123 -->
-<g id="edge1" class="edge"><title>Node122&#45;&gt;Node123</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M101.254,-63.564C120.449,-69.6321 145.897,-77.677 168.8,-84.9174"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="167.844,-88.2859 178.434,-87.963 169.954,-81.6115 167.844,-88.2859"/>
 </g>
-<!-- Node124 -->
-<g id="node3" class="node"><title>Node124</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node_volume.html#a1ce089a47c6e0a85e49f7ed5a6758ad5" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node_volume.html#a0b9dce0f82b812f8b6302ce87f2641d3" target="_top" xlink:title="Igor::iNodeVolume::\lgetBoundingSphere">
 <polygon fill="white" stroke="black" points="176,-39 176,-69 278,-69 278,-39 176,-39"/>
 <text text-anchor="start" x="184" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVolume::</text>
 <text text-anchor="middle" x="227" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">getBoundingSphere</text>
 </a>
 </g>
 </g>
-<!-- Node122&#45;&gt;Node124 -->
-<g id="edge2" class="edge"><title>Node122&#45;&gt;Node124</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M140.34,-54C148.728,-54 157.244,-54 165.491,-54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="165.763,-57.5001 175.763,-54 165.763,-50.5001 165.763,-57.5001"/>
 </g>
-<!-- Node125 -->
-<g id="node4" class="node"><title>Node125</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" target="_top" xlink:title="Igor::iNode::getID">
 <polygon fill="white" stroke="black" points="181,-0.5 181,-19.5 273,-19.5 273,-0.5 181,-0.5"/>
 <text text-anchor="middle" x="227" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getID</text>
 </a>
 </g>
 </g>
-<!-- Node122&#45;&gt;Node125 -->
-<g id="edge3" class="edge"><title>Node122&#45;&gt;Node125</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M104.633,-44.4527C127.483,-37.9661 157.92,-29.326 182.596,-22.3211"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="183.769,-25.6266 192.433,-19.5287 181.857,-18.8926 183.769,-25.6266"/>
 </g>

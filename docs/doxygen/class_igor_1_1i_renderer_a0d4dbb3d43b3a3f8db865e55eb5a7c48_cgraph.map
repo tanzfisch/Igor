@@ -1,7 +1,8 @@
 <map id="Igor::iRenderer::drawParticles" name="Igor::iRenderer::drawParticles">
-<area shape="rect" id="node1" title=" " alt="" coords="5,107,197,134"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_matrix.html#a041b034afbeb7dd3a3e0898ed78215be" title=" " alt="" coords="259,5,387,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_gradient.html#a11e9b09bb78321bbed082cef25888315" title=" " alt="" coords="256,71,389,112"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title=" " alt="" coords="245,137,400,163"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_vector2.html#adfff01ed1568c1c2b0d9b6df3696c63b" title=" " alt="" coords="258,188,387,229"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector4.html#a9c095cb0b81597928b8cd86d01fb9348" title="IgorAux::iaVector4::set" alt="" coords="245,5,400,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html#a75aa1f9a2249b9bd520e8d14e5a6a559" title="IgorAux::iaMatrix::\lconvert" alt="" coords="259,57,387,98"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_matrix.html#a041b034afbeb7dd3a3e0898ed78215be" title="IgorAux::iaMatrix::\linvert" alt="" coords="259,122,387,163"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_gradient.html#a3442746cb0eb369b524b3a6e1a42942c" title="IgorAux::iaGradient\l::getValue" alt="" coords="256,187,389,229"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title="IgorAux::iaVector2::set" alt="" coords="245,253,400,280"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector2.html#adfff01ed1568c1c2b0d9b6df3696c63b" title="IgorAux::iaVector2\l::rotateXY" alt="" coords="258,305,387,346"/>
 </map>

@@ -9,38 +9,35 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>Igor::iNodeLight::onPostSetScene</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 289,-62 289,4 -4,4"/>
-<!-- Node46 -->
-<g id="node1" class="node"><title>Node46</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-14 0,-44 121,-44 121,-14 0,-14"/>
 <text text-anchor="start" x="8" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLight::onPost</text>
 <text text-anchor="middle" x="60.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">SetScene</text>
-</a>
 </g>
-</g>
-<!-- Node47 -->
-<g id="node2" class="node"><title>Node47</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node.html#acd9afcdfae20de27c0ca44bb5cb89e79" target="_top" xlink:title="Igor::iNode::getScene">
 <polygon fill="white" stroke="black" points="166,-38.5 166,-57.5 276,-57.5 276,-38.5 166,-38.5"/>
 <text text-anchor="middle" x="221" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getScene</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node47 -->
-<g id="edge1" class="edge"><title>Node46&#45;&gt;Node47</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M121.422,-36.1831C132.631,-37.5267 144.389,-38.9362 155.723,-40.2949"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="155.639,-43.8098 165.985,-41.525 156.473,-36.8596 155.639,-43.8098"/>
 </g>
-<!-- Node48 -->
-<g id="node3" class="node"><title>Node48</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_scene.html#ab5ab60d9af7a275a2aab7082e6f5972d" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_scene.html#ab5ab60d9af7a275a2aab7082e6f5972d" target="_top" xlink:title="Igor::iScene::registerLight">
 <polygon fill="white" stroke="black" points="157,-0.5 157,-19.5 285,-19.5 285,-0.5 157,-0.5"/>
 <text text-anchor="middle" x="221" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iScene::registerLight</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node48 -->
-<g id="edge2" class="edge"><title>Node46&#45;&gt;Node48</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M121.422,-21.8169C129.739,-20.8199 138.359,-19.7866 146.883,-18.7648"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="147.311,-22.2387 156.823,-17.5733 146.477,-15.2885 147.311,-22.2387"/>
 </g>

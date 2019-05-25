@@ -9,17 +9,14 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 46)">
 <title>Igor::iTaskUpdateLOD::run</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 299,-46 299,4 -4,4"/>
-<!-- Node6 -->
-<g id="node1" class="node"><title>Node6</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-11.5 0,-30.5 131,-30.5 131,-11.5 0,-11.5"/>
 <text text-anchor="middle" x="65.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskUpdateLOD::run</text>
-</a>
 </g>
-</g>
-<!-- Node7 -->
-<g id="node2" class="node"><title>Node7</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iModelResourceFactory\l \&gt;::getInstance">
 <polygon fill="white" stroke="black" points="167,-0.5 167,-41.5 295,-41.5 295,-0.5 167,-0.5"/>
 <text text-anchor="start" x="175" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="start" x="175" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iModelResourceFactory</text>
@@ -27,13 +24,13 @@
 </a>
 </g>
 </g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge1" class="edge"><title>Node6&#45;&gt;Node7</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M131.12,-14.3835C139.588,-14.2497 148.313,-14.2165 156.91,-14.2838"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="156.875,-17.7835 166.918,-14.4089 156.963,-10.7841 156.875,-17.7835"/>
 </g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge2" class="edge"><title>Node6&#45;&gt;Node7</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M131.12,-27.6165C139.588,-27.7503 148.313,-27.7835 156.91,-27.7162"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="156.963,-31.2159 166.918,-27.5911 156.875,-24.2165 156.963,-31.2159"/>
 </g>

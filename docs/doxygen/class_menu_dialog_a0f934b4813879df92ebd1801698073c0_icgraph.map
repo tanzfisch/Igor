@@ -1,5 +1,4 @@
 <map id="MenuDialog::onSaveFile" name="MenuDialog::onSaveFile">
-<area shape="rect" id="node1" title=" " alt="" coords="204,31,365,57"/>
-<area shape="rect" id="node2" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title=" " alt="" coords="12,5,149,32"/>
-<area shape="rect" id="node3" href="$class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" title=" " alt="" coords="5,56,156,83"/>
+<area shape="rect" id="node2" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title="MenuDialog::initGUI" alt="" coords="221,5,359,32"/>
+<area shape="rect" id="node3" href="$class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" title="MenuDialog::deinitGUI" alt="" coords="215,56,365,83"/>
 </map>

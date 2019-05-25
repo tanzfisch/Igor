@@ -9,56 +9,53 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>IgorAux::iaTransition::getFrom</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 427,-84 427,4 -4,4"/>
-<!-- Node11 -->
-<g id="node1" class="node"><title>Node11</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="318,-24.5 318,-54.5 423,-54.5 423,-24.5 318,-24.5"/>
-<text text-anchor="start" x="326" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaTransition</text>
-<text text-anchor="middle" x="370.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getFrom</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 105,-54.5 105,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaTransition</text>
+<text text-anchor="middle" x="52.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getFrom</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5" target="_top" xlink:title="IgorAux::iaStateMachine\l::transit">
+<polygon fill="white" stroke="black" points="141,-24.5 141,-54.5 264,-54.5 264,-24.5 141,-24.5"/>
+<text text-anchor="start" x="149" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
+<text text-anchor="middle" x="202.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::transit</text>
 </a>
 </g>
 </g>
-<!-- Node12 -->
-<g id="node2" class="node"><title>Node12</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#a91361353dc0886f3f7cee450389688f5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="159,-24.5 159,-54.5 282,-54.5 282,-24.5 159,-24.5"/>
-<text text-anchor="start" x="167" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
-<text text-anchor="middle" x="220.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::transit</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M115.406,-39.5C123.834,-39.5 132.478,-39.5 140.882,-39.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="115.263,-36.0001 105.263,-39.5 115.263,-43.0001 115.263,-36.0001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#ad884bcc26a5262c7c82ca505065be81b" target="_top" xlink:title="IgorAux::iaStateMachine\l::doTransition">
+<polygon fill="white" stroke="black" points="300,-49.5 300,-79.5 423,-79.5 423,-49.5 300,-49.5"/>
+<text text-anchor="start" x="308" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
+<text text-anchor="middle" x="361.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::doTransition</text>
 </a>
 </g>
 </g>
-<!-- Node11&#45;&gt;Node12 -->
-<g id="edge1" class="edge"><title>Node11&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M307.594,-39.5C299.166,-39.5 290.522,-39.5 282.118,-39.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="307.737,-43.0001 317.737,-39.5 307.737,-36.0001 307.737,-43.0001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M274.21,-50.7595C282.807,-52.1285 291.53,-53.5175 299.961,-54.8601"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="274.626,-47.2818 264.2,-49.1657 273.525,-54.1947 274.626,-47.2818"/>
 </g>
-<!-- Node13 -->
-<g id="node3" class="node"><title>Node13</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#ad884bcc26a5262c7c82ca505065be81b" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-49.5 0,-79.5 123,-79.5 123,-49.5 0,-49.5"/>
-<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
-<text text-anchor="middle" x="61.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::doTransition</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#a1668769ea8979928f5683742a0515c4c" target="_top" xlink:title="IgorAux::iaStateMachine\l::openGate">
+<polygon fill="white" stroke="black" points="300,-0.5 300,-30.5 423,-30.5 423,-0.5 300,-0.5"/>
+<text text-anchor="start" x="308" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
+<text text-anchor="middle" x="361.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::openGate</text>
 </a>
 </g>
 </g>
-<!-- Node12&#45;&gt;Node13 -->
-<g id="edge2" class="edge"><title>Node12&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M148.79,-50.7595C140.193,-52.1285 131.47,-53.5175 123.039,-54.8601"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="149.475,-54.1947 158.8,-49.1657 148.374,-47.2818 149.475,-54.1947"/>
-</g>
-<!-- Node14 -->
-<g id="node4" class="node"><title>Node14</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_state_machine.html#a1668769ea8979928f5683742a0515c4c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 123,-30.5 123,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaStateMachine</text>
-<text text-anchor="middle" x="61.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::openGate</text>
-</a>
-</g>
-</g>
-<!-- Node12&#45;&gt;Node14 -->
-<g id="edge3" class="edge"><title>Node12&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M148.79,-28.6909C140.193,-27.3766 131.47,-26.0432 123.039,-24.7543"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="148.386,-32.1696 158.8,-30.221 149.443,-25.25 148.386,-32.1696"/>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node2&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M274.21,-28.6909C282.807,-27.3766 291.53,-26.0432 299.961,-24.7543"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="273.557,-25.25 264.2,-30.221 274.614,-32.1696 273.557,-25.25"/>
 </g>
 </g>
 </svg>

@@ -11,16 +11,13 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-213 118,-213 118,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="8,-0.5 8,-30.5 106,-30.5 106,-0.5 8,-0.5"/>
 <text text-anchor="start" x="16" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetGraph</text>
 <text text-anchor="middle" x="57" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::GraphData</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_color4.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_color4.html" target="_top" xlink:title="IgorAux::iaColor4\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="0,-89.5 0,-108.5 114,-108.5 114,-89.5 0,-89.5"/>
 <text text-anchor="middle" x="57" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaColor4&lt; T &gt;</text>
 </a>
@@ -35,11 +32,8 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="42.5,-189.5 42.5,-208.5 71.5,-208.5 71.5,-189.5 42.5,-189.5"/>
 <text text-anchor="middle" x="57" y="-196.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>

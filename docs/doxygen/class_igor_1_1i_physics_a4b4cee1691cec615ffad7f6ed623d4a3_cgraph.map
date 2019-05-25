@@ -1,6 +1,5 @@
 <map id="Igor::iPhysics::destroyCollisionConfig" name="Igor::iPhysics::destroyCollisionConfig">
-<area shape="rect" id="node1" title=" " alt="" coords="5,23,207,65"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#a98d749d54dd900076c24ce362f5ebd23" title=" " alt="" coords="255,23,431,65"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title=" " alt="" coords="486,5,638,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title=" " alt="" coords="479,56,645,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics.html#a98d749d54dd900076c24ce362f5ebd23" title="Igor::iPhysics::getCollision\lConfig" alt="" coords="255,23,431,65"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="486,5,638,32"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="479,56,645,83"/>
 </map>

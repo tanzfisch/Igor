@@ -5,7 +5,7 @@ var class_igor_1_1i_dialog_menu =
     [ "close", "class_igor_1_1i_dialog_menu.html#a6fe450d69ef2590d0da693efcec2b368", null ],
     [ "createInstance", "class_igor_1_1i_dialog_menu.html#a91f4990af376f173bcccf005130f6a5d", null ],
     [ "deinitGUI", "class_igor_1_1i_dialog_menu.html#aa22c486c7a27daee3c69787cf1fbdcf5", null ],
-    [ "getEntryHeight", "class_igor_1_1i_dialog_menu.html#abc9ae447d449ed08a98f6fe5ace4cb28", null ],
+    [ "getEntryHeight", "class_igor_1_1i_dialog_menu.html#a7212eadb564aabc3e2c6ffc487f6dbc2", null ],
     [ "initGUI", "class_igor_1_1i_dialog_menu.html#aa5946ba67b4f8233644e48873e5c53b3", null ],
     [ "initGUI", "class_igor_1_1i_dialog_menu.html#acf3d056306e0ed2763c13e4d5295a0ad", null ],
     [ "onChange", "class_igor_1_1i_dialog_menu.html#a1c4f1f0a614784ca938b0350a9ed724d", null ],

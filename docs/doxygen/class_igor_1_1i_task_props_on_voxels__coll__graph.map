@@ -1,10 +1,8 @@
 <map id="Igor::iTaskPropsOnVoxels" name="Igor::iTaskPropsOnVoxels">
-<area shape="rect" id="node1" title=" " alt="" coords="221,317,394,344"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_task.html" title=" " alt="" coords="174,228,257,255"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_window.html" title=" " alt="" coords="67,124,167,151"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="5,5,124,32"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="153,5,273,32"/>
-<area shape="rect" id="node6" href="$struct_igor_1_1i_voxel_block_props_info.html" title=" " alt="" coords="284,228,459,255"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="299,124,459,151"/>
-<area shape="rect" id="node8" title=" " alt="" coords="360,5,399,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_task.html" title="Igor::iTask" alt="" coords="174,228,257,255"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_window.html" title="Igor::iWindow" alt="" coords="67,124,167,151"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="153,5,273,32"/>
+<area shape="rect" id="node6" href="$struct_igor_1_1i_voxel_block_props_info.html" title="Igor::iVoxelBlockPropsInfo" alt="" coords="284,228,459,255"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="299,124,459,151"/>
 </map>

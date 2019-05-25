@@ -9,68 +9,65 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122.5)">
 <title>Igor::iPhysicsMaterial::getID</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-122.5 448,-122.5 448,4 -4,4"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-49.5 0,-79.5 110,-79.5 110,-49.5 0,-49.5"/>
+<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsMaterial</text>
+<text text-anchor="middle" x="55" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getID</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_physics.html#a414350b4c4093ccff47562802a745cff" target="_top" xlink:title="Igor::iPhysics::createMaterial">
+<polygon fill="white" stroke="black" points="146,-99 146,-118 289,-118 289,-99 146,-99"/>
+<text text-anchor="middle" x="217.5" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createMaterial</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M119.659,-82.2488C128.504,-84.6955 137.477,-87.1677 146,-89.5 157.371,-92.6115 169.784,-95.9698 180.982,-98.9849"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="120.33,-78.8029 109.759,-79.5059 118.461,-85.5488 120.33,-78.8029"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_physics.html#a61101b519bf9db7b07bfd3c5b4f8e2f7" target="_top" xlink:title="Igor::iPhysics::createDefault\lMaterial">
+<polygon fill="white" stroke="black" points="148,-49.5 148,-79.5 287,-79.5 287,-49.5 148,-49.5"/>
+<text text-anchor="start" x="156" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createDefault</text>
+<text text-anchor="middle" x="217.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M120.431,-64.5C129.5,-64.5 138.849,-64.5 147.99,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="120.338,-61.0001 110.338,-64.5 120.338,-68.0001 120.338,-61.0001"/>
+</g>
 <!-- Node5 -->
-<g id="node1" class="node"><title>Node5</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="334,-49.5 334,-79.5 444,-79.5 444,-49.5 334,-49.5"/>
-<text text-anchor="start" x="342" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsMaterial</text>
-<text text-anchor="middle" x="389" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getID</text>
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_physics_material_combo.html#aec7214c1d258f2972f407a3aae352130" target="_top" xlink:title="Igor::iPhysicsMaterialCombo\l::iPhysicsMaterialCombo">
+<polygon fill="white" stroke="black" points="147,-0.5 147,-30.5 288,-30.5 288,-0.5 147,-0.5"/>
+<text text-anchor="start" x="155" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsMaterialCombo</text>
+<text text-anchor="middle" x="217.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iPhysicsMaterialCombo</text>
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="node2" class="node"><title>Node6</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_physics.html#a414350b4c4093ccff47562802a745cff" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="155,-99 155,-118 298,-118 298,-99 155,-99"/>
-<text text-anchor="middle" x="226.5" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createMaterial</text>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M115.329,-46.3871C132.392,-41.1778 150.812,-35.5543 167.198,-30.5516"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="114.007,-43.1311 105.465,-49.3986 116.051,-49.8261 114.007,-43.1311"/>
+</g>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_physics.html#ae2f10e679711705bf248d26f05eb848e" target="_top" xlink:title="Igor::iPhysics::iPhysics">
+<polygon fill="white" stroke="black" points="325,-55 325,-74 444,-74 444,-55 325,-55"/>
+<text text-anchor="middle" x="384.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::iPhysics</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge1" class="edge"><title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M324.341,-82.2488C315.496,-84.6955 306.523,-87.1677 298,-89.5 286.629,-92.6115 274.216,-95.9698 263.018,-98.9849"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="325.539,-85.5488 334.241,-79.5059 323.67,-78.8029 325.539,-85.5488"/>
-</g>
-<!-- Node7 -->
-<g id="node3" class="node"><title>Node7</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_physics.html#a61101b519bf9db7b07bfd3c5b4f8e2f7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="157,-49.5 157,-79.5 296,-79.5 296,-49.5 157,-49.5"/>
-<text text-anchor="start" x="165" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createDefault</text>
-<text text-anchor="middle" x="226.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">Material</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node7 -->
-<g id="edge2" class="edge"><title>Node5&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M323.569,-64.5C314.5,-64.5 305.151,-64.5 296.01,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="323.662,-68.0001 333.662,-64.5 323.662,-61.0001 323.662,-68.0001"/>
-</g>
-<!-- Node9 -->
-<g id="node5" class="node"><title>Node9</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_physics_material_combo.html#aec7214c1d258f2972f407a3aae352130" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="156,-0.5 156,-30.5 297,-30.5 297,-0.5 156,-0.5"/>
-<text text-anchor="start" x="164" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsMaterialCombo</text>
-<text text-anchor="middle" x="226.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iPhysicsMaterialCombo</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node9 -->
-<g id="edge4" class="edge"><title>Node5&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M328.671,-46.3871C311.608,-41.1778 293.188,-35.5543 276.802,-30.5516"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="327.949,-49.8261 338.535,-49.3986 329.993,-43.1311 327.949,-49.8261"/>
-</g>
-<!-- Node8 -->
-<g id="node4" class="node"><title>Node8</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_physics.html#ae2f10e679711705bf248d26f05eb848e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-55 0,-74 119,-74 119,-55 0,-55"/>
-<text text-anchor="middle" x="59.5" y="-62" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::iPhysics</text>
-</a>
-</g>
-</g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge3" class="edge"><title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M146.868,-64.5C137.524,-64.5 128.113,-64.5 119.117,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="146.959,-68.0001 156.959,-64.5 146.959,-61.0001 146.959,-68.0001"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M297.132,-64.5C306.476,-64.5 315.887,-64.5 324.883,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="297.041,-61.0001 287.041,-64.5 297.041,-68.0001 297.041,-61.0001"/>
 </g>
 </g>
 </svg>

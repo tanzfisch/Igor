@@ -1,5 +1,4 @@
 <map id="TEST" name="TEST">
-<area shape="rect" id="node1" title=" " alt="" coords="5,46,60,73"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_quaternion.html#a8fdd4920be245b576bd36917b2699b52" title=" " alt="" coords="108,5,255,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_quaternion.html#acd276fe2bdd2b3e981b314c2c187ebe4" title=" " alt="" coords="108,71,255,112"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_quaternion.html#a8fdd4920be245b576bd36917b2699b52" title="IgorAux::iaQuaternion\l::setEuler" alt="" coords="108,5,255,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_quaternion.html#a2d4337f83dcb58c77b764122ca497d93" title="IgorAux::iaQuaternion\l::getEuler" alt="" coords="108,71,255,112"/>
 </map>

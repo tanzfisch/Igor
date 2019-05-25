@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>OMPF::ompfSettings::setTypeIDSize</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 279,-35 279,4 -4,4"/>
-<!-- Node132 -->
-<g id="node1" class="node"><title>Node132</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="167,-0.5 167,-30.5 275,-30.5 275,-0.5 167,-0.5"/>
-<text text-anchor="start" x="175" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfSettings</text>
-<text text-anchor="middle" x="221" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setTypeIDSize</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 108,-30.5 108,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfSettings</text>
+<text text-anchor="middle" x="54" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setTypeIDSize</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_header_chunk.html#a68247e6408a64b9535fb1483921b5f19" target="_top" xlink:title="OMPF::ompfHeaderChunk\l::read">
+<polygon fill="white" stroke="black" points="144,-0.5 144,-30.5 275,-30.5 275,-0.5 144,-0.5"/>
+<text text-anchor="start" x="152" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfHeaderChunk</text>
+<text text-anchor="middle" x="209.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::read</text>
 </a>
 </g>
 </g>
-<!-- Node133 -->
-<g id="node2" class="node"><title>Node133</title>
-<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_header_chunk.html#a68247e6408a64b9535fb1483921b5f19" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 131,-30.5 131,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfHeaderChunk</text>
-<text text-anchor="middle" x="65.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::read</text>
-</a>
-</g>
-</g>
-<!-- Node132&#45;&gt;Node133 -->
-<g id="edge1" class="edge"><title>Node132&#45;&gt;Node133</title>
-<path fill="none" stroke="midnightblue" d="M156.59,-15.5C148.151,-15.5 139.491,-15.5 131.034,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="156.744,-19.0001 166.744,-15.5 156.744,-12.0001 156.744,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M118.41,-15.5C126.849,-15.5 135.509,-15.5 143.966,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="118.256,-12.0001 108.256,-15.5 118.256,-19.0001 118.256,-12.0001"/>
 </g>
 </g>
 </svg>

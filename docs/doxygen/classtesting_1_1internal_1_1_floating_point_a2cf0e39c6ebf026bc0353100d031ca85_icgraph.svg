@@ -9,44 +9,41 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 46)">
 <title>testing::internal::FloatingPoint::SignAndMagnitudeToBiased</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 532,-46 532,4 -4,4"/>
-<!-- Node47 -->
-<g id="node1" class="node"><title>Node47</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="367,-0.5 367,-41.5 528,-41.5 528,-0.5 367,-0.5"/>
-<text text-anchor="start" x="375" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="375" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">FloatingPoint::SignAndMagnitude</text>
-<text text-anchor="middle" x="447.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ToBiased</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-41.5 161,-41.5 161,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">FloatingPoint::SignAndMagnitude</text>
+<text text-anchor="middle" x="80.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ToBiased</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_floating_point.html#afe00f9f26ad2929a061f7e07b8a5071a" target="_top" xlink:title="testing::internal::\lFloatingPoint::DistanceBetween\lSignAndMagnitudeNumbers">
+<polygon fill="white" stroke="black" points="197,-0.5 197,-41.5 352,-41.5 352,-0.5 197,-0.5"/>
+<text text-anchor="start" x="205" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="205" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">FloatingPoint::DistanceBetween</text>
+<text text-anchor="middle" x="274.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">SignAndMagnitudeNumbers</text>
 </a>
 </g>
 </g>
-<!-- Node48 -->
-<g id="node2" class="node"><title>Node48</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_floating_point.html#afe00f9f26ad2929a061f7e07b8a5071a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="176,-0.5 176,-41.5 331,-41.5 331,-0.5 176,-0.5"/>
-<text text-anchor="start" x="184" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="184" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">FloatingPoint::DistanceBetween</text>
-<text text-anchor="middle" x="253.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">SignAndMagnitudeNumbers</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M171.509,-21C179.953,-21 188.459,-21 196.765,-21"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="171.257,-17.5001 161.257,-21 171.257,-24.5001 171.257,-17.5001"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_floating_point.html#adb0fe9ab1d9e5288f8e5550234211166" target="_top" xlink:title="testing::internal::\lFloatingPoint::AlmostEquals">
+<polygon fill="white" stroke="black" points="388,-6 388,-36 528,-36 528,-6 388,-6"/>
+<text text-anchor="start" x="396" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="458" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">FloatingPoint::AlmostEquals</text>
 </a>
 </g>
 </g>
-<!-- Node47&#45;&gt;Node48 -->
-<g id="edge1" class="edge"><title>Node47&#45;&gt;Node48</title>
-<path fill="none" stroke="midnightblue" d="M356.491,-21C348.047,-21 339.541,-21 331.235,-21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="356.743,-24.5001 366.743,-21 356.743,-17.5001 356.743,-24.5001"/>
-</g>
-<!-- Node49 -->
-<g id="node3" class="node"><title>Node49</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_floating_point.html#a965214c1af2f9ac5adb1393794aa81e5" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-36 140,-36 140,-6 0,-6"/>
-<text text-anchor="start" x="8" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="70" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">FloatingPoint::AlmostEquals</text>
-</a>
-</g>
-</g>
-<!-- Node48&#45;&gt;Node49 -->
-<g id="edge2" class="edge"><title>Node48&#45;&gt;Node49</title>
-<path fill="none" stroke="midnightblue" d="M165.773,-21C157.205,-21 148.589,-21 140.231,-21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="165.791,-24.5001 175.791,-21 165.791,-17.5001 165.791,-24.5001"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M362.227,-21C370.795,-21 379.411,-21 387.769,-21"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="362.209,-17.5001 352.209,-21 362.209,-24.5001 362.209,-17.5001"/>
 </g>
 </g>
 </svg>

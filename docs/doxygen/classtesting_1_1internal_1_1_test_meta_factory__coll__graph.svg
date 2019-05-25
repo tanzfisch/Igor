@@ -9,18 +9,15 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 203)">
 <title>testing::internal::TestMetaFactory&lt; TestCase &gt;</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-203 196.5,-203 196.5,4 -4,4"/>
-<!-- Node3 -->
-<g id="node1" class="node"><title>Node3</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 149,-30.5 149,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="74.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">TestMetaFactory&lt; TestCase &gt;</text>
-</a>
 </g>
-</g>
-<!-- Node4 -->
-<g id="node2" class="node"><title>Node4</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_test_meta_factory_base.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1_test_meta_factory_base.html" target="_top" xlink:title="testing::internal::\lTestMetaFactoryBase\l\&lt; TestCase::ParamType \&gt;">
 <polygon fill="white" stroke="black" points="9,-68.5 9,-109.5 140,-109.5 140,-68.5 9,-68.5"/>
 <text text-anchor="start" x="17" y="-97.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="17" y="-86.5" font-family="Helvetica,sans-Serif" font-size="10.00">TestMetaFactoryBase</text>
@@ -28,14 +25,14 @@
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node3 -->
-<g id="edge1" class="edge"><title>Node4&#45;&gt;Node3</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M74.5,-58.1581C74.5,-48.6872 74.5,-38.6473 74.5,-30.7972"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="71.0001,-58.4623 74.5,-68.4623 78.0001,-58.4623 71.0001,-58.4623"/>
 </g>
-<!-- Node5 -->
-<g id="node3" class="node"><title>Node5</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_test_meta_factory_base.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_test_meta_factory_base.html" target="_top" xlink:title="testing::internal::\lTestMetaFactoryBase\l\&lt; ParamType \&gt;">
 <polygon fill="white" stroke="black" points="18,-157.5 18,-198.5 131,-198.5 131,-157.5 18,-157.5"/>
 <text text-anchor="start" x="26" y="-186.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="26" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">TestMetaFactoryBase</text>
@@ -43,8 +40,8 @@
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node4 -->
-<g id="edge2" class="edge"><title>Node5&#45;&gt;Node4</title>
+<!-- Node3&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M74.5,-146.941C74.5,-134.601 74.5,-120.662 74.5,-109.664"/>
 <polygon fill="orange" stroke="orange" points="71.0001,-147.258 74.5,-157.258 78.0001,-147.258 71.0001,-147.258"/>
 <text text-anchor="middle" x="133.5" y="-131" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; TestCase::ParamType &gt;</text>

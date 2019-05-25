@@ -1,5 +1,4 @@
 <map id="Igor::iOctree::testFilter" name="Igor::iOctree::testFilter">
-<area shape="rect" id="node1" title=" " alt="" coords="365,13,517,39"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_octree.html#a76d17a0c122ae0bef60be65c6531b23a" title=" " alt="" coords="192,13,317,39"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_entity_manager.html#a1be0eeeb3a34c74b1e64068f6ffcf526" title=" " alt="" coords="5,5,144,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_octree.html#a76d17a0c122ae0bef60be65c6531b23a" title="Igor::iOctree::filter" alt="" coords="205,13,331,39"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_entity_manager.html#a1be0eeeb3a34c74b1e64068f6ffcf526" title="Igor::iEntityManager\l::getEntities" alt="" coords="379,5,517,47"/>
 </map>

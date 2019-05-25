@@ -1,5 +1,4 @@
 <map id="Igor::iVoxelOperation" name="Igor::iVoxelOperation">
-<area shape="rect" id="node1" title=" " alt="" coords="117,5,260,32"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_operation_box.html" title=" " alt="" coords="5,80,172,107"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_operation_sphere.html" title=" " alt="" coords="197,80,381,107"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_operation_box.html" title="Igor::iVoxelOperationBox" alt="" coords="5,80,172,107"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_operation_sphere.html" title="Igor::iVoxelOperationSphere" alt="" coords="197,80,381,107"/>
 </map>

@@ -9,29 +9,26 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 46)">
 <title>Igor::iApplication::unregisterApplicationPostDrawHandleDelegate</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 320,-46 320,4 -4,4"/>
-<!-- Node28 -->
-<g id="node1" class="node"><title>Node28</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="182,-0.5 182,-41.5 316,-41.5 316,-0.5 182,-0.5"/>
-<text text-anchor="start" x="190" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iApplication</text>
-<text text-anchor="start" x="190" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::unregisterApplicationPost</text>
-<text text-anchor="middle" x="249" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DrawHandleDelegate</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-41.5 134,-41.5 134,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iApplication</text>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::unregisterApplicationPost</text>
+<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">DrawHandleDelegate</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_particle_system.html#abf562f5d2e818d635f2d1f6fc43d87aa" target="_top" xlink:title="UserControlParticleSystem\l::~UserControlParticleSystem">
+<polygon fill="white" stroke="black" points="170,-6 170,-36 316,-36 316,-6 170,-6"/>
+<text text-anchor="start" x="178" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="243" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">::~UserControlParticleSystem</text>
 </a>
 </g>
 </g>
-<!-- Node29 -->
-<g id="node2" class="node"><title>Node29</title>
-<g id="a_node2"><a xlink:href="class_user_control_particle_system.html#abf562f5d2e818d635f2d1f6fc43d87aa" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-36 146,-36 146,-6 0,-6"/>
-<text text-anchor="start" x="8" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="73" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">::~UserControlParticleSystem</text>
-</a>
-</g>
-</g>
-<!-- Node28&#45;&gt;Node29 -->
-<g id="edge1" class="edge"><title>Node28&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M171.535,-21C163.111,-21 154.554,-21 146.185,-21"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="171.722,-24.5001 181.722,-21 171.722,-17.5001 171.722,-24.5001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M144.465,-21C152.889,-21 161.446,-21 169.815,-21"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="144.278,-17.5001 134.278,-21 144.278,-24.5001 144.278,-17.5001"/>
 </g>
 </g>
 </svg>

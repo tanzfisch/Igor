@@ -1,20 +1,19 @@
 <map id="OMPF::ompfHeaderChunk::read" name="OMPF::ompfHeaderChunk::read">
-<area shape="rect" id="node1" title=" " alt="" coords="5,483,180,524"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_settings.html#a1c1dc7e9b132a31f3dc0c894105fad80" title=" " alt="" coords="242,5,386,47"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_settings.html#ac651fbd2a01343c6d6510c3c94cb0954" title=" " alt="" coords="242,71,386,112"/>
-<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_settings.html#a4b0e0e92ed3f562981663fe2217864ef" title=" " alt="" coords="242,136,386,177"/>
-<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_settings.html#a252cce523eb557a429d300c5db72f3eb" title=" " alt="" coords="242,201,386,243"/>
-<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_settings.html#af5d715048426ceb5a7f64a3d601e0520" title=" " alt="" coords="228,267,400,308"/>
-<area shape="rect" id="node7" href="$class_o_m_p_f_1_1ompf_settings.html#a9c000e77cf07725f7cda977d55ec264f" title=" " alt="" coords="242,332,386,373"/>
-<area shape="rect" id="node8" href="$namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" title=" " alt="" coords="265,398,363,425"/>
-<area shape="rect" id="node10" href="$class_o_m_p_f_1_1ompf_settings.html#a895b3189cbd1dd67dc414611d759cdb4" title=" " alt="" coords="242,449,386,491"/>
-<area shape="rect" id="node11" href="$class_o_m_p_f_1_1ompf_settings.html#a4204b73f5c2813d2955d1227798c9e63" title=" " alt="" coords="242,515,386,556"/>
-<area shape="rect" id="node12" href="$class_o_m_p_f_1_1ompf_settings.html#a6f15d4013036cd63e32ea473a059eb0f" title=" " alt="" coords="242,580,386,621"/>
-<area shape="rect" id="node13" href="$class_o_m_p_f_1_1ompf_settings.html#a2d4d91f50eec7e4acc5b79619bea4fb4" title=" " alt="" coords="448,657,592,699"/>
-<area shape="rect" id="node14" href="$class_o_m_p_f_1_1ompf_settings.html#a1aa267a457e47d60cb915be2f82540a4" title=" " alt="" coords="448,727,592,768"/>
-<area shape="rect" id="node15" href="$class_o_m_p_f_1_1ompf_settings.html#a29cf3d0ccc1577b2e1fc8089c10b852b" title=" " alt="" coords="448,801,592,843"/>
-<area shape="rect" id="node16" href="$class_o_m_p_f_1_1ompf_settings.html#ae8ab223b1a2d7cdac001c3e7eadb9f99" title=" " alt="" coords="228,865,400,907"/>
-<area shape="rect" id="node17" href="$class_o_m_p_f_1_1ompf_settings.html#af6eec313be331b616fee6b779d6b7a71" title=" " alt="" coords="242,931,386,972"/>
-<area shape="rect" id="node18" href="$class_o_m_p_f_1_1ompf_base_chunk.html#aa3b931de6ce181c023f66628c67244da" title=" " alt="" coords="233,697,395,739"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" title=" " alt="" coords="455,391,585,432"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_settings.html#ae5ac3325cd3521d8b3db11ef3b96b7c2" title="OMPF::ompfSettings\l::getVersion" alt="" coords="242,5,386,47"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_settings.html#ac651fbd2a01343c6d6510c3c94cb0954" title="OMPF::ompfSettings\l::setTypeIDSize" alt="" coords="242,71,386,112"/>
+<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_settings.html#a4b0e0e92ed3f562981663fe2217864ef" title="OMPF::ompfSettings\l::setChunkIDSize" alt="" coords="242,136,386,177"/>
+<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_settings.html#a252cce523eb557a429d300c5db72f3eb" title="OMPF::ompfSettings\l::setChunkSizeSize" alt="" coords="242,201,386,243"/>
+<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_settings.html#af5d715048426ceb5a7f64a3d601e0520" title="OMPF::ompfSettings\l::setCustomDataSizeSize" alt="" coords="228,267,400,308"/>
+<area shape="rect" id="node7" href="$class_o_m_p_f_1_1ompf_settings.html#a9c000e77cf07725f7cda977d55ec264f" title="OMPF::ompfSettings\l::setStringSizeSize" alt="" coords="242,332,386,373"/>
+<area shape="rect" id="node8" href="$namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" title="IgorAux::endl" alt="" coords="265,398,363,425"/>
+<area shape="rect" id="node10" href="$class_o_m_p_f_1_1ompf_settings.html#aa730d7b2e0ceaab11e74d090acdb213e" title="OMPF::ompfSettings\l::getMajorVersion" alt="" coords="242,449,386,491"/>
+<area shape="rect" id="node11" href="$class_o_m_p_f_1_1ompf_settings.html#ac6d681d1ee1f92d865a714c2becfc97c" title="OMPF::ompfSettings\l::getMinorVersion" alt="" coords="242,515,386,556"/>
+<area shape="rect" id="node12" href="$class_o_m_p_f_1_1ompf_settings.html#a57470b4e076ca16843ad879a0e518deb" title="OMPF::ompfSettings\l::getPatchVersion" alt="" coords="242,580,386,621"/>
+<area shape="rect" id="node13" href="$class_o_m_p_f_1_1ompf_settings.html#ac4b44803b6a70b9eb6f3ca573a0a5242" title="OMPF::ompfSettings\l::getTypeIDSize" alt="" coords="448,657,592,699"/>
+<area shape="rect" id="node14" href="$class_o_m_p_f_1_1ompf_settings.html#a3b1a3f75376c3ebee9a59a31d7280aa3" title="OMPF::ompfSettings\l::getChunkIDSize" alt="" coords="448,727,592,768"/>
+<area shape="rect" id="node15" href="$class_o_m_p_f_1_1ompf_settings.html#ac8b4c4cf739d5c5fd8d09b15d176c90d" title="OMPF::ompfSettings\l::getChunkSizeSize" alt="" coords="448,801,592,843"/>
+<area shape="rect" id="node16" href="$class_o_m_p_f_1_1ompf_settings.html#a26027931d5984e3c73cdfc20d819ed96" title="OMPF::ompfSettings\l::getCustomDataSizeSize" alt="" coords="228,865,400,907"/>
+<area shape="rect" id="node17" href="$class_o_m_p_f_1_1ompf_settings.html#a128c905dfc3b728bf43116c9c8414e3b" title="OMPF::ompfSettings\l::getStringSizeSize" alt="" coords="242,931,386,972"/>
+<area shape="rect" id="node18" href="$class_o_m_p_f_1_1ompf_base_chunk.html#aa3b931de6ce181c023f66628c67244da" title="OMPF::ompfBaseChunk\l::read" alt="" coords="233,697,395,739"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_console.html#ae699009a9e7a3a7ec01bd2df43bc7a84" title="IgorAux::iaConsole\l::setTextColor" alt="" coords="455,391,585,432"/>
 </map>

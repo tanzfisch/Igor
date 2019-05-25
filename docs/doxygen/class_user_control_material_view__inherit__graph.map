@@ -1,5 +1,4 @@
 <map id="UserControlMaterialView" name="UserControlMaterialView">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,169,181"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title=" " alt="" coords="26,80,149,107"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="40,5,135,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title="Igor::iUserControl" alt="" coords="26,80,149,107"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title="Igor::iWidget" alt="" coords="40,5,135,32"/>
 </map>

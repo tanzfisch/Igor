@@ -1,4 +1,12 @@
 <map id="Igor::iNodeFactory::createNode" name="Igor::iNodeFactory::createNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,133,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="181,13,304,39"/>
+<area shape="rect" id="node2" href="$namespace_igor.html#abdbfa48a19f5bf62aca91d60d68662ee" title="Igor::iNodeMesh" alt="" coords="189,86,305,113"/>
+<area shape="rect" id="node5" href="$namespace_igor.html#a0964db13b4af0a08fcac87ec45f28dbc" title="Igor::iNodePhysics" alt="" coords="181,159,312,186"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="185,210,308,237"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="368,71,551,127"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_material_resource_factory.html#a55ee78b1783c8787a374907fe17f3d01" title="Igor::iMaterialResourceFactory\l::createTargetMaterial" alt="" coords="360,5,559,47"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_physics.html#a90dcd82ece96f39ec61120a36e15ff18" title="Igor::iPhysics::createCollision\lConfig" alt="" coords="362,152,557,193"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_physics_collision_config.html#a358488967c0a81c0b613972334363a09" title="Igor::iPhysicsCollisionConfig\l::getID" alt="" coords="607,211,793,252"/>
+<area shape="rect" id="node10" href="$namespace_igor.html#a658bed0072edfc04099eb827d1cfb6ba" title="Igor::setMaterial" alt="" coords="402,269,517,295"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="624,109,776,135"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="617,159,783,186"/>
 </map>

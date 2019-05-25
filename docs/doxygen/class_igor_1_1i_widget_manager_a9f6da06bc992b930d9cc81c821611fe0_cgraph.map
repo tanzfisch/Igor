@@ -1,5 +1,4 @@
 <map id="Igor::iWidgetManager::registerWidgetType" name="Igor::iWidgetManager::registerWidgetType">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,151,47"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#a9cb47fcf3e8a9d32a7e27b5e0f3e3947" title=" " alt="" coords="199,5,325,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#a8617a0d26ed0c5b4e1b99223f5ac57ff" title=" " alt="" coords="373,5,500,47"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#a7bed20819f1376bd433892feeefdc05c" title="IgorAux::iaString::\lgetHashValue" alt="" coords="199,5,325,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="373,5,500,47"/>
 </map>

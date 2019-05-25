@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iUserControlFileChooser::~iUserControlFileChooser</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 523,-35 523,4 -4,4"/>
-<!-- Node26 -->
-<g id="node1" class="node"><title>Node26</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 143,-30.5 143,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
 <text text-anchor="middle" x="71.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~iUserControlFileChooser</text>
-</a>
 </g>
-</g>
-<!-- Node27 -->
-<g id="node2" class="node"><title>Node27</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#ad3bee89cb74d9fa2f9ffe365df44dc2a" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#ad3bee89cb74d9fa2f9ffe365df44dc2a" target="_top" xlink:title="Igor::iUserControlFileChooser\l::deinitGUI">
 <polygon fill="white" stroke="black" points="179,-0.5 179,-30.5 322,-30.5 322,-0.5 179,-0.5"/>
 <text text-anchor="start" x="187" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
 <text text-anchor="middle" x="250.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node26&#45;&gt;Node27 -->
-<g id="edge1" class="edge"><title>Node26&#45;&gt;Node27</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M143.218,-15.5C151.57,-15.5 160.142,-15.5 168.62,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="168.894,-19.0001 178.894,-15.5 168.894,-12.0001 168.894,-19.0001"/>
 </g>
-<!-- Node28 -->
-<g id="node3" class="node"><title>Node28</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance">
 <polygon fill="white" stroke="black" points="358,-0.5 358,-30.5 519,-30.5 519,-0.5 358,-0.5"/>
 <text text-anchor="start" x="366" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="middle" x="438.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iWidgetManager &gt;::getInstance</text>
 </a>
 </g>
 </g>
-<!-- Node27&#45;&gt;Node28 -->
-<g id="edge2" class="edge"><title>Node27&#45;&gt;Node28</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M322.084,-15.5C330.505,-15.5 339.186,-15.5 347.829,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="347.94,-19.0001 357.94,-15.5 347.939,-12.0001 347.94,-19.0001"/>
 </g>

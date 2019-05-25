@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>testing::TestCase::ClearResult</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 247,-35 247,4 -4,4"/>
-<!-- Node9 -->
-<g id="node1" class="node"><title>Node9</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="144,-0.5 144,-30.5 243,-30.5 243,-0.5 144,-0.5"/>
-<text text-anchor="start" x="152" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestCase::</text>
-<text text-anchor="middle" x="193.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ClearResult</text>
-</a>
-</g>
-</g>
-<!-- Node10 -->
-<g id="node2" class="node"><title>Node10</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1_test_case.html#a1c05fe33863b79b1b1ed19e665a1cea7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 108,-30.5 108,-0.5 0,-0.5"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 99,-30.5 99,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestCase::</text>
-<text text-anchor="middle" x="54" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ClearTestCaseResult</text>
+<text text-anchor="middle" x="49.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ClearResult</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1_test_case.html#a1c05fe33863b79b1b1ed19e665a1cea7" target="_top" xlink:title="testing::TestCase::\lClearTestCaseResult">
+<polygon fill="white" stroke="black" points="135,-0.5 135,-30.5 243,-30.5 243,-0.5 135,-0.5"/>
+<text text-anchor="start" x="143" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestCase::</text>
+<text text-anchor="middle" x="189" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ClearTestCaseResult</text>
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node10 -->
-<g id="edge1" class="edge"><title>Node9&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M133.562,-15.5C125.195,-15.5 116.63,-15.5 108.376,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="133.636,-19.0001 143.635,-15.5 133.635,-12.0001 133.636,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M109.438,-15.5C117.805,-15.5 126.37,-15.5 134.624,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="109.365,-12.0001 99.3645,-15.5 109.364,-19.0001 109.365,-12.0001"/>
 </g>
 </g>
 </svg>

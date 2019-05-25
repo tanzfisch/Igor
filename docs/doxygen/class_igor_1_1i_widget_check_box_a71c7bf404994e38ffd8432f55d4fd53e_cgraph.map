@@ -1,6 +1,5 @@
 <map id="Igor::iWidgetCheckBox::calcMinSize" name="Igor::iWidgetCheckBox::calcMinSize">
-<area shape="rect" id="node1" title=" " alt="" coords="5,71,160,112"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#afa2b9ad864db36d1af6c6c67e02d270b" title=" " alt="" coords="252,5,379,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="208,71,423,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget.html#a2c3edf6281942ca8d21f91722089ffad" title=" " alt="" coords="231,137,399,163"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#afb40afde994d28224201cd9cb28909f7" title="IgorAux::iaString::\lisEmpty" alt="" coords="252,5,379,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="208,71,423,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget.html#a2c3edf6281942ca8d21f91722089ffad" title="Igor::iWidget::setMinSize" alt="" coords="231,137,399,163"/>
 </map>

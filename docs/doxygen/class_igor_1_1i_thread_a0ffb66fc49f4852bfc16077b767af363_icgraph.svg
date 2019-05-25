@@ -9,26 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>Igor::iThread::deinit</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 226,-24 226,4 -4,4"/>
-<!-- Node6 -->
-<g id="node1" class="node"><title>Node6</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="123,-0.5 123,-19.5 222,-19.5 222,-0.5 123,-0.5"/>
-<text text-anchor="middle" x="172.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iThread::deinit</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 99,-19.5 99,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="49.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iThread::deinit</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespace_igor.html#a8b6d7fb7dfa067c75aab826fb3805f92" target="_top" xlink:title="Igor::threadFunc">
+<polygon fill="white" stroke="black" points="135,-0.5 135,-19.5 222,-19.5 222,-0.5 135,-0.5"/>
+<text text-anchor="middle" x="178.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::threadFunc</text>
 </a>
 </g>
 </g>
-<!-- Node7 -->
-<g id="node2" class="node"><title>Node7</title>
-<g id="a_node2"><a xlink:href="namespace_igor.html#a8b6d7fb7dfa067c75aab826fb3805f92" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 87,-19.5 87,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="43.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::threadFunc</text>
-</a>
-</g>
-</g>
-<!-- Node6&#45;&gt;Node7 -->
-<g id="edge1" class="edge"><title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M112.715,-10C104.079,-10 95.3251,-10 87.0983,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="112.762,-13.5001 122.762,-10 112.762,-6.5001 112.762,-13.5001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M109.285,-10C117.921,-10 126.675,-10 134.902,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="109.238,-6.5001 99.2383,-10 109.238,-13.5001 109.238,-6.5001"/>
 </g>
 </g>
 </svg>

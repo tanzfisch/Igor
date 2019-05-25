@@ -1,32 +1,35 @@
 <map id="UserControlGraphView::initGUI" name="UserControlGraphView::initGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,768,159,809"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="433,665,648,706"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_grid.html#a09e374ec95ecf256ec0d086a0b53284a" title=" " alt="" coords="233,56,359,97"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title=" " alt="" coords="233,121,359,162"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_grid.html#a56bcb476543d78941ee1f2ab756b21bc" title=" " alt="" coords="233,186,359,228"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_grid.html#aa995858da76fa24beaac1c9494489c07" title=" " alt="" coords="233,252,359,293"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title=" " alt="" coords="233,317,359,358"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title=" " alt="" coords="207,382,385,424"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title=" " alt="" coords="213,448,379,489"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title=" " alt="" coords="233,513,359,554"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a" title=" " alt="" coords="229,578,363,620"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title=" " alt="" coords="219,644,373,671"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_widget.html#a3218cd1015986a46e48ce181d1310956" title=" " alt="" coords="217,695,375,722"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_widget.html#a3e12607670c6f1827838bb42fdb46c3a" title=" " alt="" coords="217,746,375,772"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_widget_button.html#a212435b455ddb8bed63779fd145c6a2e" title=" " alt="" coords="229,797,363,838"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_widget.html#ad83a7adeddb1e3fdcf75ebbd7c08abfb" title=" " alt="" coords="215,862,377,904"/>
-<area shape="rect" id="node17" href="$class_user_control_graph_view.html#a4a6f1cb2794854024b0d5506766a815c" title=" " alt="" coords="219,928,373,969"/>
-<area shape="rect" id="node18" href="$class_user_control_graph_view.html#a515df1a65c9790d9235a9b484080c9f6" title=" " alt="" coords="219,993,373,1034"/>
-<area shape="rect" id="node19" href="$class_user_control_graph_view.html#ab78072d6e442b3cc329a44c39cddf57a" title=" " alt="" coords="219,1058,373,1100"/>
-<area shape="rect" id="node20" href="$class_user_control_graph_view.html#abbcb0e6628ebded473829e0977cb0492" title=" " alt="" coords="219,1124,373,1165"/>
-<area shape="rect" id="node21" href="$class_user_control_graph_view.html#a89098b0d4155d2b24b3f122361e0835c" title=" " alt="" coords="218,1189,374,1230"/>
-<area shape="rect" id="node22" href="$class_user_control_graph_view.html#aa8829db9968b7283c59b60bd08bb2bb8" title=" " alt="" coords="219,1254,373,1296"/>
-<area shape="rect" id="node23" href="$class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd" title=" " alt="" coords="219,1320,373,1361"/>
-<area shape="rect" id="node24" href="$class_user_control_graph_view.html#a7bd56ab28ed3970e3a115fdeb2127585" title=" " alt="" coords="219,1385,373,1426"/>
-<area shape="rect" id="node25" href="$class_user_control_graph_view.html#a08a7cc49fd21d13b7be92a52c16ec941" title=" " alt="" coords="219,1450,373,1492"/>
-<area shape="rect" id="node28" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title=" " alt="" coords="233,1516,359,1557"/>
-<area shape="rect" id="node29" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title=" " alt="" coords="213,1582,379,1608"/>
-<area shape="rect" id="node26" href="$class_igor_1_1i_mouse.html#abe510afcb8d071342d8cd77094926eeb" title=" " alt="" coords="469,1428,612,1455"/>
-<area shape="rect" id="node27" href="$class_user_control_graph_view.html#ad04c185ed7efa7548004d3ad46d47ba7" title=" " alt="" coords="462,1480,619,1521"/>
-<area shape="rect" id="node30" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title=" " alt="" coords="474,1582,607,1608"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="433,9,648,50"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27" title="Igor::iWidgetManager\l::createWidget" alt="" coords="223,139,369,181"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget_grid.html#a09e374ec95ecf256ec0d086a0b53284a" title="Igor::iWidgetGrid::\lsetBorder" alt="" coords="233,322,359,363"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title="Igor::iWidgetGrid::\lappendRows" alt="" coords="233,387,359,429"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget_grid.html#a56bcb476543d78941ee1f2ab756b21bc" title="Igor::iWidgetGrid::\lsetCellSpacing" alt="" coords="233,453,359,494"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget_grid.html#aa995858da76fa24beaac1c9494489c07" title="Igor::iWidgetGrid::\lsetStrechRow" alt="" coords="233,518,359,559"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title="Igor::iWidgetGrid::\lsetStrechColumn" alt="" coords="233,583,359,625"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="207,649,385,690"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title="Igor::iWidget::setVertical\lAlignment" alt="" coords="213,714,379,755"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title="Igor::iWidgetGrid::\lappendCollumns" alt="" coords="233,779,359,821"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a" title="Igor::iWidgetButton\l::setText" alt="" coords="229,845,363,886"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title="Igor::iWidget::setWidth" alt="" coords="219,911,373,937"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_widget.html#a3218cd1015986a46e48ce181d1310956" title="Igor::iWidget::setHeight" alt="" coords="217,961,375,988"/>
+<area shape="rect" id="node18" href="$class_igor_1_1i_widget.html#a3e12607670c6f1827838bb42fdb46c3a" title="Igor::iWidget::setTooltip" alt="" coords="217,1012,375,1039"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_widget_button.html#a212435b455ddb8bed63779fd145c6a2e" title="Igor::iWidgetButton\l::setTexture" alt="" coords="229,1063,363,1105"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_widget.html#ad83a7adeddb1e3fdcf75ebbd7c08abfb" title="Igor::iWidget::registerOn\lClickEvent" alt="" coords="215,1129,377,1170"/>
+<area shape="rect" id="node21" href="$class_user_control_graph_view.html#a4a6f1cb2794854024b0d5506766a815c" title="UserControlGraphView\l::onAddTransformation" alt="" coords="219,1194,373,1235"/>
+<area shape="rect" id="node22" href="$class_user_control_graph_view.html#a515df1a65c9790d9235a9b484080c9f6" title="UserControlGraphView\l::onAddModel" alt="" coords="219,1259,373,1301"/>
+<area shape="rect" id="node23" href="$class_user_control_graph_view.html#ab78072d6e442b3cc329a44c39cddf57a" title="UserControlGraphView\l::onAddGroup" alt="" coords="219,1325,373,1366"/>
+<area shape="rect" id="node24" href="$class_user_control_graph_view.html#abbcb0e6628ebded473829e0977cb0492" title="UserControlGraphView\l::onAddEmitter" alt="" coords="219,1390,373,1431"/>
+<area shape="rect" id="node25" href="$class_user_control_graph_view.html#a89098b0d4155d2b24b3f122361e0835c" title="UserControlGraphView\l::onAddParticleSystem" alt="" coords="218,1455,374,1497"/>
+<area shape="rect" id="node26" href="$class_user_control_graph_view.html#aa8829db9968b7283c59b60bd08bb2bb8" title="UserControlGraphView\l::onAddSwitch" alt="" coords="219,1521,373,1562"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd" title="Igor::iWidgetGroupBox\l::setText" alt="" coords="219,1586,373,1627"/>
+<area shape="rect" id="node28" href="$class_user_control_graph_view.html#a7bd56ab28ed3970e3a115fdeb2127585" title="UserControlGraphView\l::OnSelectionChange" alt="" coords="219,1651,373,1693"/>
+<area shape="rect" id="node29" href="$class_user_control_graph_view.html#a08a7cc49fd21d13b7be92a52c16ec941" title="UserControlGraphView\l::OnContextMenu" alt="" coords="219,74,373,115"/>
+<area shape="rect" id="node32" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title="Igor::iWidgetGrid::\laddWidget" alt="" coords="233,1717,359,1758"/>
+<area shape="rect" id="node33" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title="Igor::iWidget::addWidget" alt="" coords="213,271,379,297"/>
+<area shape="rect" id="node34" href="$class_igor_1_1i_widget_manager.html#a3cf3de26ec38048c079b976e07d6bd13" title="Igor::iWidgetManager\l::createDialog" alt="" coords="223,205,369,246"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a7bed20819f1376bd433892feeefdc05c" title="IgorAux::iaString::\lgetHashValue" alt="" coords="477,191,604,233"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title="Igor::iWidget::getID" alt="" coords="474,257,607,284"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="696,191,823,233"/>
+<area shape="rect" id="node30" href="$class_igor_1_1i_mouse.html#abe510afcb8d071342d8cd77094926eeb" title="Igor::iMouse::getPos" alt="" coords="469,140,612,167"/>
+<area shape="rect" id="node31" href="$class_user_control_graph_view.html#ad04c185ed7efa7548004d3ad46d47ba7" title="UserControlGraphView\l::OnContextMenuClose" alt="" coords="462,74,619,115"/>
 </map>

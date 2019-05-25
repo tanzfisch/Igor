@@ -1,4 +1,3 @@
 <map id="Igor::iMouse::onOSEvent" name="Igor::iMouse::onOSEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,172,32"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title=" " alt="" coords="220,5,375,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector2.html#a02481dfa0cded422207f6cd197e8177b" title="IgorAux::iaVector2::set" alt="" coords="220,5,375,32"/>
 </map>

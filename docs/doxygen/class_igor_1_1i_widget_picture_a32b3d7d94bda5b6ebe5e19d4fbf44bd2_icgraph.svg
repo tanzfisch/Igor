@@ -9,56 +9,53 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 133)">
 <title>Igor::iWidgetPicture::setTexture</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-133 257,-133 257,4 -4,4"/>
-<!-- Node26 -->
-<g id="node1" class="node"><title>Node26</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="151,-49.5 151,-79.5 253,-79.5 253,-49.5 151,-49.5"/>
-<text text-anchor="start" x="159" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetPicture</text>
-<text text-anchor="middle" x="202" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setTexture</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-49.5 0,-79.5 102,-79.5 102,-49.5 0,-49.5"/>
+<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetPicture</text>
+<text text-anchor="middle" x="51" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setTexture</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_dialog_file_select.html#a50fab6774dd28ac7611b0aef4383c7a4" target="_top" xlink:title="Igor::iDialogFileSelect\l::addToFileGrid">
+<polygon fill="white" stroke="black" points="140,-98.5 140,-128.5 251,-128.5 251,-98.5 140,-98.5"/>
+<text text-anchor="start" x="148" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogFileSelect</text>
+<text text-anchor="middle" x="195.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addToFileGrid</text>
 </a>
 </g>
 </g>
-<!-- Node27 -->
-<g id="node2" class="node"><title>Node27</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_dialog_file_select.html#a50fab6774dd28ac7611b0aef4383c7a4" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="2,-98.5 2,-128.5 113,-128.5 113,-98.5 2,-98.5"/>
-<text text-anchor="start" x="10" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogFileSelect</text>
-<text text-anchor="middle" x="57.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addToFileGrid</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M105.48,-82.8896C120.317,-87.9916 136.253,-93.4711 150.482,-98.3641"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="106.512,-79.5434 95.9175,-79.6014 104.236,-86.163 106.512,-79.5434"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_dialog_menu.html#acf3d056306e0ed2763c13e4d5295a0ad" target="_top" xlink:title="Igor::iDialogMenu::\linitGUI">
+<polygon fill="white" stroke="black" points="146.5,-49.5 146.5,-79.5 244.5,-79.5 244.5,-49.5 146.5,-49.5"/>
+<text text-anchor="start" x="154.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogMenu::</text>
+<text text-anchor="middle" x="195.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node26&#45;&gt;Node27 -->
-<g id="edge1" class="edge"><title>Node26&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M147.52,-82.8896C132.683,-87.9916 116.747,-93.4711 102.518,-98.3641"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="148.764,-86.163 157.083,-79.6014 146.488,-79.5434 148.764,-86.163"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M112.439,-64.5C123.693,-64.5 135.316,-64.5 146.149,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="112.24,-61.0001 102.24,-64.5 112.24,-68.0001 112.24,-61.0001"/>
 </g>
-<!-- Node28 -->
-<g id="node3" class="node"><title>Node28</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_dialog_menu.html#acf3d056306e0ed2763c13e4d5295a0ad" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="8.5,-49.5 8.5,-79.5 106.5,-79.5 106.5,-49.5 8.5,-49.5"/>
-<text text-anchor="start" x="16.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogMenu::</text>
-<text text-anchor="middle" x="57.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">initGUI</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" target="_top" xlink:title="UserControlGraphView\l::preOrderVisit">
+<polygon fill="white" stroke="black" points="138,-0.5 138,-30.5 253,-30.5 253,-0.5 138,-0.5"/>
+<text text-anchor="start" x="146" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
+<text text-anchor="middle" x="195.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::preOrderVisit</text>
 </a>
 </g>
 </g>
-<!-- Node26&#45;&gt;Node28 -->
-<g id="edge2" class="edge"><title>Node26&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M140.561,-64.5C129.307,-64.5 117.684,-64.5 106.851,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="140.76,-68.0001 150.76,-64.5 140.76,-61.0001 140.76,-68.0001"/>
-</g>
-<!-- Node29 -->
-<g id="node4" class="node"><title>Node29</title>
-<g id="a_node4"><a xlink:href="class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 115,-30.5 115,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlGraphView</text>
-<text text-anchor="middle" x="57.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::preOrderVisit</text>
-</a>
-</g>
-</g>
-<!-- Node26&#45;&gt;Node29 -->
-<g id="edge3" class="edge"><title>Node26&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M147.52,-46.1104C132.683,-41.0084 116.747,-35.5289 102.518,-30.6359"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="146.488,-49.4566 157.083,-49.3986 148.764,-42.837 146.488,-49.4566"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M105.48,-46.1104C120.317,-41.0084 136.253,-35.5289 150.482,-30.6359"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="104.236,-42.837 95.9175,-49.3986 106.512,-49.4566 104.236,-42.837"/>
 </g>
 </g>
 </svg>

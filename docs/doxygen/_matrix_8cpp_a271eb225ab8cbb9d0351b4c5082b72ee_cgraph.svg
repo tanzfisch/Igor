@@ -9,39 +9,36 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>TEST</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 177,-84 177,4 -4,4"/>
-<!-- Node3 -->
-<g id="node1" class="node"><title>Node3</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-30 0,-49 41,-49 41,-30 0,-30"/>
 <text text-anchor="middle" x="20.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">TEST</text>
-</a>
 </g>
-</g>
-<!-- Node4 -->
-<g id="node2" class="node"><title>Node4</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_matrix.html#ad4c84d3532d5b7555a04018ffcba6122" target="_top" xlink:title="IgorAux::iaMatrix::\lidentity">
 <polygon fill="white" stroke="black" points="77,-49.5 77,-79.5 173,-79.5 173,-49.5 77,-49.5"/>
 <text text-anchor="start" x="85" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix::</text>
 <text text-anchor="middle" x="125" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">identity</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node4 -->
-<g id="edge1" class="edge"><title>Node3&#45;&gt;Node4</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M41.263,-44.3203C48.6966,-46.1333 57.5732,-48.2983 66.7094,-50.5267"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="66.1246,-53.9866 76.6692,-52.9559 67.7833,-47.1859 66.1246,-53.9866"/>
 </g>
-<!-- Node5 -->
-<g id="node3" class="node"><title>Node5</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_matrix.html#a8f8341339caae2135c145ea1ef2e8bf3" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_matrix.html#a996b71eeda2c5f6e6fc621149f01015d" target="_top" xlink:title="IgorAux::iaMatrix::\lgetData">
 <polygon fill="white" stroke="black" points="77,-0.5 77,-30.5 173,-30.5 173,-0.5 77,-0.5"/>
 <text text-anchor="start" x="85" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix::</text>
 <text text-anchor="middle" x="125" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">getData</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node5 -->
-<g id="edge2" class="edge"><title>Node3&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M41.263,-34.8726C48.6966,-33.132 57.5732,-31.0536 66.7094,-28.9144"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="67.7305,-32.27 76.6692,-26.5823 66.1346,-25.4544 67.7305,-32.27"/>
 </g>

@@ -1,17 +1,34 @@
 <map id="Igor::iWidget::getID" name="Igor::iWidget::getID">
-<area shape="rect" id="node1" title=" " alt="" coords="983,318,1116,345"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title=" " alt="" coords="759,209,925,235"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_widget.html#a2c9e2c68203a0d9897059364c61ff957" title=" " alt="" coords="749,259,935,286"/>
-<area shape="rect" id="node13" href="$class_igor_1_1i_widget_grid.html#a71ec37f12c277c2a3782cff83b950c81" title=" " alt="" coords="779,311,905,352"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_widget_manager.html#a3cf3de26ec38048c079b976e07d6bd13" title=" " alt="" coords="769,376,915,417"/>
-<area shape="rect" id="node15" href="$class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27" title=" " alt="" coords="769,441,915,483"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title=" " alt="" coords="517,5,686,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_dialog_graph.html#a5bab24dca6ef57e9aee12a304b0b5c69" title=" " alt="" coords="539,71,664,112"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title=" " alt="" coords="501,136,701,177"/>
-<area shape="rect" id="node8" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title=" " alt="" coords="525,201,678,243"/>
-<area shape="rect" id="node9" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title=" " alt="" coords="533,267,669,308"/>
-<area shape="rect" id="node10" href="$class_user_control_material_view.html#af00d3b18c83b4335ffa14bd0b1324dbc" title=" " alt="" coords="519,332,683,373"/>
-<area shape="rect" id="node11" href="$class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" title=" " alt="" coords="512,397,691,439"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title=" " alt="" coords="253,136,453,177"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title=" " alt="" coords="5,136,205,177"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title="Igor::iWidget::addWidget" alt="" coords="197,241,362,267"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget.html#a2c9e2c68203a0d9897059364c61ff957" title="Igor::iWidget::removeWidget" alt="" coords="187,749,372,775"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_widget_grid.html#a71ec37f12c277c2a3782cff83b950c81" title="Igor::iWidgetGrid::\laddWidget" alt="" coords="216,800,343,841"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_widget_manager.html#a3cf3de26ec38048c079b976e07d6bd13" title="Igor::iWidgetManager\l::createDialog" alt="" coords="207,449,352,491"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27" title="Igor::iWidgetManager\l::createWidget" alt="" coords="207,683,352,724"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title="Igor::iDialogColorGradient\l::initGUI" alt="" coords="435,5,605,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_dialog_graph.html#a5bab24dca6ef57e9aee12a304b0b5c69" title="Igor::iDialogGraph\l::initGUI" alt="" coords="457,71,583,112"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title="Igor::iUserControlColorChooser\l::initGUI" alt="" coords="420,136,620,177"/>
+<area shape="rect" id="node8" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title="UserControlGraphView\l::initGUI" alt="" coords="443,449,597,491"/>
+<area shape="rect" id="node9" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title="UserControlMaterial\l::initGUI" alt="" coords="452,201,588,243"/>
+<area shape="rect" id="node10" href="$class_user_control_material_view.html#af00d3b18c83b4335ffa14bd0b1324dbc" title="UserControlMaterialView\l::initGUI" alt="" coords="438,267,602,308"/>
+<area shape="rect" id="node11" href="$class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" title="UserControlParticleSystem\l::initGUI" alt="" coords="431,332,609,373"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title="Igor::iUserControlColorChooser\l::iUserControlColorChooser" alt="" coords="668,136,868,177"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title="Igor::iUserControlColorChooser\l::createInstance" alt="" coords="916,136,1116,177"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" title="Igor::iUserControlFileChooser\l::initGUI" alt="" coords="425,515,615,556"/>
+<area shape="rect" id="node18" href="$class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" title="MenuDialog::initGUI" alt="" coords="451,581,589,607"/>
+<area shape="rect" id="node19" href="$class_menu_dialog.html#a50c8cb83c8d9003bd9525d68c8ee6679" title="MenuDialog::onAddModel" alt="" coords="435,398,605,425"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" title="Igor::iUserControlFileChooser\l::iUserControlFileChooser" alt="" coords="673,515,863,556"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" title="Igor::iUserControlFileChooser\l::createInstance" alt="" coords="921,515,1111,556"/>
+<area shape="rect" id="node20" href="$class_menu_dialog.html#a0fe6bdf29a3a7095e2d7e4a38f8d8f70" title="MenuDialog::deinitGraphView" alt="" coords="672,373,864,399"/>
+<area shape="rect" id="node21" href="$class_menu_dialog.html#a5f0986a127a923615177c4c264394f7d" title="MenuDialog::initGraphView" alt="" coords="679,423,857,450"/>
+<area shape="rect" id="node23" href="$class_properties_dialog.html#a15d6b689c4c129bbcf5da5354fd31498" title="PropertiesDialog::initGUI" alt="" coords="438,1098,602,1125"/>
+<area shape="rect" id="node24" href="$class_user_control_emitter.html#abf148c688ae8b1068607f516cdadc289" title="UserControlEmitter\l::initGUI" alt="" coords="454,1149,586,1191"/>
+<area shape="rect" id="node25" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title="UserControlGraphView\l::preOrderVisit" alt="" coords="443,1215,597,1256"/>
+<area shape="rect" id="node26" href="$class_user_control_light.html#acae8309ee66f4ae0ffd058cc83580311" title="UserControlLight::initGUI" alt="" coords="437,631,603,658"/>
+<area shape="rect" id="node27" href="$class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" title="UserControlMaterialView\l::refresh" alt="" coords="438,683,602,724"/>
+<area shape="rect" id="node28" href="$class_user_control_mesh.html#a792507fb628b4b4ead5787f60ec6e2e2" title="UserControlMesh::initGUI" alt="" coords="435,749,605,775"/>
+<area shape="rect" id="node29" href="$class_user_control_model.html#acced48197848282357bbc6434d05d7bc" title="UserControlModel::initGUI" alt="" coords="434,799,606,826"/>
+<area shape="rect" id="node30" href="$class_user_control_node.html#a0e88553b48518b283b7ba29851af8334" title="UserControlNode::initGUI" alt="" coords="437,850,603,877"/>
+<area shape="rect" id="node31" href="$class_user_control_properties.html#a7741b0b4671d7e9026d49270e2ae1f74" title="UserControlProperties\l::initGUI" alt="" coords="445,901,595,943"/>
+<area shape="rect" id="node32" href="$class_user_control_transformation.html#a78f585dbaf9da6958bacb936feefcb48" title="UserControlTransformation\l::createTextEdit" alt="" coords="433,967,607,1008"/>
+<area shape="rect" id="node33" href="$class_user_control_transformation.html#a5f920b175524b5e23698ebe1da531d48" title="UserControlTransformation\l::initGUI" alt="" coords="433,1032,607,1073"/>
 </map>
