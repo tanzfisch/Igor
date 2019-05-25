@@ -1,4 +1,3 @@
 <map id="Igor::iNodeRender::onPostSetScene" name="Igor::iNodeRender::onPostSetScene">
-<area shape="rect" id="node1" title=" " alt="" coords="189,5,323,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_volume.html#af22460eec7108d791c652222ee3f7bff" title=" " alt="" coords="5,5,141,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_volume.html#af22460eec7108d791c652222ee3f7bff" title="Igor::iNodeVolume::\lonPostSetScene" alt="" coords="187,5,323,47"/>
 </map>

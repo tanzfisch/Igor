@@ -1,29 +1,28 @@
 <map id="IgorAux::iaConsole::setTextColor" name="IgorAux::iaConsole::setTextColor">
-<area shape="rect" id="node1" title=" " alt="" coords="881,717,1012,759"/>
-<area shape="rect" id="node2" href="$namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" title=" " alt="" coords="733,431,832,458"/>
-<area shape="rect" id="node22" href="$namespace_igor_aux.html#a5ab337bcd8a64231e8296eb97d30af6f" title=" " alt="" coords="732,1050,833,1077"/>
-<area shape="rect" id="node3" href="$namespace_igor.html#a1fbeba8576121a573f03c2e05d84477f" title=" " alt="" coords="296,638,392,665"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_loader3_d_s.html#a69f3ed8faf75f67086cfec9978d467f8" title=" " alt="" coords="494,355,667,382"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" title=" " alt="" coords="259,355,429,382"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" title=" " alt="" coords="483,406,679,433"/>
-<area shape="rect" id="node8" href="$classtesting_1_1internal_1_1_range_generator_1_1_iterator.html#a2ae0f453be98bdcfffecc3c71c7a9879" title=" " alt="" coords="499,507,663,563"/>
-<area shape="rect" id="node9" href="$classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#aff9f8c1c01a4e708235d8793b2c44d31" title=" " alt="" coords="477,587,684,643"/>
-<area shape="rect" id="node10" href="$classtesting_1_1internal_1_1_parameterized_test_case_info.html#a7e118820b3074ce70c0440e2e49a50a1" title=" " alt="" coords="490,667,671,723"/>
-<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_console.html#a6d58812fef212a8e6f90ad18d9535a2d" title=" " alt="" coords="515,748,646,789"/>
-<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_console.html#a4d37492837cbe157cb3145eecafedbd8" title=" " alt="" coords="515,813,646,855"/>
-<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_console.html#abc58094b2573cacbf6152f0409d37843" title=" " alt="" coords="515,879,646,920"/>
-<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_console.html#a44b38227043e0c22160634ef50a89996" title=" " alt="" coords="515,5,646,47"/>
-<area shape="rect" id="node18" href="$ia_matrix3x3_8inl.html#affb198d18a2e43169e076c3a30e8238b" title=" " alt="" coords="538,71,623,98"/>
-<area shape="rect" id="node19" href="$class_o_m_p_f_1_1ompf_header_chunk.html#a54b14e4116050ddae69c7a75542bd3e1" title=" " alt="" coords="493,123,668,164"/>
-<area shape="rect" id="node20" href="$class_o_m_p_f_1_1ompf_header_chunk.html#a68247e6408a64b9535fb1483921b5f19" title=" " alt="" coords="493,188,668,229"/>
-<area shape="rect" id="node21" href="$class_model_viewer.html#a0a80ce07e2d2b7f390678ad21805f3b2" title=" " alt="" coords="520,254,641,281"/>
-<area shape="rect" id="node4" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title=" " alt="" coords="112,638,203,665"/>
-<area shape="rect" id="node15" href="$namespace_igor_aux.html#a4f7c01bbc0e0a4c4c8a07156c0c1e8f0" title=" " alt="" coords="279,13,409,39"/>
-<area shape="rect" id="node16" href="$namespace_igor.html#a39537901e9950d2231244072573697bb" title=" " alt="" coords="104,13,211,39"/>
-<area shape="rect" id="node17" href="$_model_viewer_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="5,13,56,39"/>
-<area shape="rect" id="node23" href="$class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2" title=" " alt="" coords="487,944,675,985"/>
-<area shape="rect" id="node24" href="$class_igor_1_1i_node_factory.html#a466a40ab9315291c4e0050d49291df90" title=" " alt="" coords="501,1009,660,1051"/>
-<area shape="rect" id="node25" href="$class_igor_1_1i_node_factory.html#a60069ff0e9189d490cdedd1a9dba5afc" title=" " alt="" coords="517,1075,645,1116"/>
-<area shape="rect" id="node26" href="$class_igor_1_1i_texture_resource_factory.html#a506680aef6355276902a734b56c9cc45" title=" " alt="" coords="483,1140,679,1181"/>
-<area shape="rect" id="node27" href="$class_igor_1_1i_texture_resource_factory.html#a69d8bf5f7733d941b55254bd342c8b08" title=" " alt="" coords="483,1205,679,1247"/>
+<area shape="rect" id="node2" href="$namespace_igor_aux.html#a95ee90eb942654df4ba5c9f4eb0517f0" title="IgorAux::endl" alt="" coords="185,431,284,458"/>
+<area shape="rect" id="node22" href="$namespace_igor_aux.html#a5ab337bcd8a64231e8296eb97d30af6f" title="IgorAux::flush" alt="" coords="184,1050,285,1077"/>
+<area shape="rect" id="node3" href="$namespace_igor.html#a1fbeba8576121a573f03c2e05d84477f" title="Igor::printInfo" alt="" coords="625,638,721,665"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_loader3_d_s.html#a69f3ed8faf75f67086cfec9978d467f8" title="Igor::iLoader3DS::saveFile" alt="" coords="350,355,523,382"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" title="Igor::iLoader3DS::loadFile" alt="" coords="588,355,759,382"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" title="Igor::iLoader3DS::analyze3DS" alt="" coords="339,406,535,433"/>
+<area shape="rect" id="node8" href="$classtesting_1_1internal_1_1_range_generator_1_1_iterator.html#afa80c5b8ba4239a54fb93c3bc7d002ee" title="testing::internal::\lRangeGenerator::Iterator\l::Equals" alt="" coords="355,507,519,563"/>
+<area shape="rect" id="node9" href="$classtesting_1_1internal_1_1_values_in_iterator_range_generator_1_1_iterator.html#a3d4a581f6bb5ea9564d0bf2205871808" title="testing::internal::\lValuesInIteratorRangeGenerator\l::Iterator::Equals" alt="" coords="333,587,540,643"/>
+<area shape="rect" id="node10" href="$classtesting_1_1internal_1_1_parameterized_test_case_info.html#a7e118820b3074ce70c0440e2e49a50a1" title="testing::internal::\lParameterizedTestCaseInfo\l::RegisterTests" alt="" coords="346,667,527,723"/>
+<area shape="rect" id="node11" href="$class_igor_aux_1_1ia_console.html#a6d58812fef212a8e6f90ad18d9535a2d" title="IgorAux::iaConsole\l::printTombstone" alt="" coords="371,748,502,789"/>
+<area shape="rect" id="node12" href="$class_igor_aux_1_1ia_console.html#a4d37492837cbe157cb3145eecafedbd8" title="IgorAux::iaConsole\l::printCake" alt="" coords="371,813,502,855"/>
+<area shape="rect" id="node13" href="$class_igor_aux_1_1ia_console.html#abc58094b2573cacbf6152f0409d37843" title="IgorAux::iaConsole\l::printCallStack" alt="" coords="371,879,502,920"/>
+<area shape="rect" id="node14" href="$class_igor_aux_1_1ia_console.html#a44b38227043e0c22160634ef50a89996" title="IgorAux::iaConsole\l::printStats" alt="" coords="371,5,502,47"/>
+<area shape="rect" id="node18" href="$ia_matrix3x3_8inl.html#affb198d18a2e43169e076c3a30e8238b" title="operator\&lt;\&lt;" alt="" coords="394,71,479,98"/>
+<area shape="rect" id="node19" href="$class_o_m_p_f_1_1ompf_header_chunk.html#a54b14e4116050ddae69c7a75542bd3e1" title="OMPF::ompfHeaderChunk\l::write" alt="" coords="349,123,524,164"/>
+<area shape="rect" id="node20" href="$class_o_m_p_f_1_1ompf_header_chunk.html#a68247e6408a64b9535fb1483921b5f19" title="OMPF::ompfHeaderChunk\l::read" alt="" coords="349,188,524,229"/>
+<area shape="rect" id="node21" href="$class_model_viewer.html#a0a80ce07e2d2b7f390678ad21805f3b2" title="ModelViewer::init" alt="" coords="376,254,497,281"/>
+<area shape="rect" id="node4" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title="Igor::startup" alt="" coords="815,638,905,665"/>
+<area shape="rect" id="node15" href="$namespace_igor_aux.html#a4f7c01bbc0e0a4c4c8a07156c0c1e8f0" title="IgorAux::shutdown" alt="" coords="609,13,738,39"/>
+<area shape="rect" id="node16" href="$namespace_igor.html#a39537901e9950d2231244072573697bb" title="Igor::shutdown" alt="" coords="807,13,913,39"/>
+<area shape="rect" id="node17" href="$_model_viewer_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="961,13,1012,39"/>
+<area shape="rect" id="node23" href="$class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2" title="Igor::iModelResourceFactory\l::~iModelResourceFactory" alt="" coords="343,944,531,985"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_node_factory.html#a466a40ab9315291c4e0050d49291df90" title="Igor::iNodeFactory\l::onPreDestroyInstance" alt="" coords="357,1009,516,1051"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_node_factory.html#a60069ff0e9189d490cdedd1a9dba5afc" title="Igor::iNodeFactory\l::handle" alt="" coords="373,1075,501,1116"/>
+<area shape="rect" id="node26" href="$class_igor_1_1i_texture_resource_factory.html#a506680aef6355276902a734b56c9cc45" title="Igor::iTextureResourceFactory\l::~iTextureResourceFactory" alt="" coords="339,1140,535,1181"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_texture_resource_factory.html#a69d8bf5f7733d941b55254bd342c8b08" title="Igor::iTextureResourceFactory\l::deinit" alt="" coords="339,1205,535,1247"/>
 </map>

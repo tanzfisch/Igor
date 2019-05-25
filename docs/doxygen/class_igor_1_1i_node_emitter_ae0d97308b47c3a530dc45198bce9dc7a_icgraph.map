@@ -1,5 +1,4 @@
 <map id="Igor::iNodeEmitter::setSize" name="Igor::iNodeEmitter::setSize">
-<area shape="rect" id="node1" title=" " alt="" coords="220,39,347,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a4872c9dbcc8050a911e76db6167a1ebf" title=" " alt="" coords="5,5,172,47"/>
-<area shape="rect" id="node3" href="$class_user_control_emitter.html#a697f46aa1b60daec3a76f25bf2ebf68c" title=" " alt="" coords="23,71,155,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#a4872c9dbcc8050a911e76db6167a1ebf" title="Igor::iModelDataIOOMPF\l::createNodeTree" alt="" coords="180,5,347,47"/>
+<area shape="rect" id="node3" href="$class_user_control_emitter.html#a697f46aa1b60daec3a76f25bf2ebf68c" title="UserControlEmitter\l::updateNode" alt="" coords="197,71,329,112"/>
 </map>

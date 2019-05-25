@@ -1,6 +1,5 @@
 <map id="testing::internal::FormatForComparisonFailureMessage" name="testing::internal::FormatForComparisonFailureMessage">
-<area shape="rect" id="node1" title=" " alt="" coords="364,31,555,87"/>
-<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#a1def8ec9393360a1b34a20528703e7f7" title=" " alt="" coords="172,5,316,47"/>
-<area shape="rect" id="node4" href="$namespacetesting_1_1internal.html#a894ffccd936d78fd555f490020c27f0a" title=" " alt="" coords="173,71,315,112"/>
-<area shape="rect" id="node3" href="$namespacetesting_1_1internal.html#a4638c74d9b32e971f9b321af6fafc2f1" title=" " alt="" coords="5,5,124,47"/>
+<area shape="rect" id="node2" href="$namespacetesting_1_1internal.html#a1def8ec9393360a1b34a20528703e7f7" title="testing::internal::\lCmpHelperEQFailure" alt="" coords="244,5,388,47"/>
+<area shape="rect" id="node4" href="$namespacetesting_1_1internal.html#a894ffccd936d78fd555f490020c27f0a" title="testing::internal::\lCmpHelperOpFailure" alt="" coords="245,71,387,112"/>
+<area shape="rect" id="node3" href="$namespacetesting_1_1internal.html#a4638c74d9b32e971f9b321af6fafc2f1" title="testing::internal::\lCmpHelperEQ" alt="" coords="436,5,555,47"/>
 </map>

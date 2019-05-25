@@ -1,10 +1,9 @@
 <map id="Igor::iMaterialResourceFactory::getMaterial" name="Igor::iMaterialResourceFactory::getMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="379,122,577,163"/>
-<area shape="rect" id="node2" href="$class_manipulator.html#a2f84c8ed902d8af5e779292aca54a388" title=" " alt="" coords="203,5,317,32"/>
-<area shape="rect" id="node3" href="$class_user_control_material.html#a0e1ff4e2b6b14f7116c8672ec8e3be9c" title=" " alt="" coords="192,57,328,98"/>
-<area shape="rect" id="node4" href="$class_user_control_material.html#aab26ba72ce2d331c2efeeeb08c000c13" title=" " alt="" coords="192,122,328,163"/>
-<area shape="rect" id="node5" href="$class_user_control_material.html#a30accfffd6fbcf5a734577ab5a263a49" title=" " alt="" coords="192,187,328,229"/>
-<area shape="rect" id="node7" href="$class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" title=" " alt="" coords="189,253,331,280"/>
-<area shape="rect" id="node6" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title=" " alt="" coords="5,187,141,229"/>
-<area shape="rect" id="node8" href="$_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title=" " alt="" coords="48,253,99,280"/>
+<area shape="rect" id="node2" href="$class_manipulator.html#a2f84c8ed902d8af5e779292aca54a388" title="Manipulator::init" alt="" coords="265,5,380,32"/>
+<area shape="rect" id="node3" href="$class_user_control_material.html#a0e1ff4e2b6b14f7116c8672ec8e3be9c" title="UserControlMaterial\l::updateMaterial" alt="" coords="255,57,391,98"/>
+<area shape="rect" id="node4" href="$class_user_control_material.html#aab26ba72ce2d331c2efeeeb08c000c13" title="UserControlMaterial\l::updateGUI" alt="" coords="255,122,391,163"/>
+<area shape="rect" id="node5" href="$class_user_control_material.html#a30accfffd6fbcf5a734577ab5a263a49" title="UserControlMaterial\l::onReloadShader" alt="" coords="255,187,391,229"/>
+<area shape="rect" id="node7" href="$class_o_b_j2_o_m_p_f.html#ad02e6ef54cf7a8530e5c54f4c9d2f61d" title="OBJ2OMPF::convert" alt="" coords="252,253,393,280"/>
+<area shape="rect" id="node6" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title="UserControlMaterial\l::initGUI" alt="" coords="441,187,577,229"/>
+<area shape="rect" id="node8" href="$_o_b_j2_o_m_p_f_2src_2main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97" title="main" alt="" coords="484,253,535,280"/>
 </map>

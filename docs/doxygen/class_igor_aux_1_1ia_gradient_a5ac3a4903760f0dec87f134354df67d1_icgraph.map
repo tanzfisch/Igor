@@ -1,0 +1,6 @@
+<map id="IgorAux::iaGradient::getValues" name="IgorAux::iaGradient::getValues">
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_color_gradient.html#a1c09eeb174db894a5e755b8ef13e914f" title="Igor::iDialogColorGradient\l::initGUI" alt="" coords="195,5,364,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_serializable.html#a8cba7cfbeac7cc329b87cb770b0f7846" title="IgorAux::iaSerializable\l::write" alt="" coords="204,71,355,112"/>
+<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_particle_system_chunk.html#a8a5646c4ca6bebf68bfe651965d3c6a4" title="OMPF::ompfParticleSystem\lChunk::read" alt="" coords="187,136,372,177"/>
+<area shape="rect" id="node5" href="$class_user_control_particle_system.html#acb892bdda19fb897335bbc1bfa02673f" title="UserControlParticleSystem\l::convertGradientsToUI" alt="" coords="190,201,369,243"/>
+</map>

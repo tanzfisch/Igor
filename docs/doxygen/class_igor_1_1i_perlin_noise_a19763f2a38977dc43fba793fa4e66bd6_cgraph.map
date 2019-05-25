@@ -1,6 +1,5 @@
 <map id="Igor::iPerlinNoise::iPerlinNoise" name="Igor::iPerlinNoise::iPerlinNoise">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,125,80"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_perlin_noise.html#a4b8e6b627c856b2c05e4e849d1706c3c" title=" " alt="" coords="173,39,293,80"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_random_number_generator.html#af1660df0d94d79a73c857bcc140326df" title=" " alt="" coords="341,5,576,47"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_random_number_generator.html#aaa7a26492c78c1e95b27791132378432" title=" " alt="" coords="341,71,576,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_perlin_noise.html#a4b8e6b627c856b2c05e4e849d1706c3c" title="Igor::iPerlinNoise\l::generateBase" alt="" coords="173,39,293,80"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_random_number_generator.html#af1660df0d94d79a73c857bcc140326df" title="IgorAux::iaRandomNumberGenerator\l::setSeed" alt="" coords="341,5,576,47"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_random_number_generator.html#aaa7a26492c78c1e95b27791132378432" title="IgorAux::iaRandomNumberGenerator\l::getNext" alt="" coords="341,71,576,112"/>
 </map>

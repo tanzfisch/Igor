@@ -1,6 +1,5 @@
 <map id="Igor::iPhysics::destroyBody" name="Igor::iPhysics::destroyBody">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,188,83"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title=" " alt="" coords="273,5,425,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title=" " alt="" coords="265,56,432,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#adfede4e16fd914bd6a9fa6e568c0b263" title=" " alt="" coords="236,107,461,133"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="273,5,425,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="265,56,432,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_physics.html#adfede4e16fd914bd6a9fa6e568c0b263" title="Igor::iPhysics::destroyNewtonBody" alt="" coords="236,107,461,133"/>
 </map>

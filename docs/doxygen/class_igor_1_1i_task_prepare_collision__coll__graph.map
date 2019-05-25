@@ -1,7 +1,6 @@
 <map id="Igor::iTaskPrepareCollision" name="Igor::iTaskPrepareCollision">
-<area shape="rect" id="node1" title=" " alt="" coords="90,260,266,287"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_task.html" title=" " alt="" coords="137,184,219,211"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_window.html" title=" " alt="" coords="67,95,167,121"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="5,5,124,32"/>
-<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="151,5,271,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_task.html" title="Igor::iTask" alt="" coords="137,184,219,211"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_window.html" title="Igor::iWindow" alt="" coords="67,95,167,121"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="151,5,271,32"/>
 </map>

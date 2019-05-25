@@ -1,5 +1,4 @@
 <map id="UserControlMaterial::updateMaterial" name="UserControlMaterial::updateMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="5,50,141,91"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="197,5,380,61"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_material_resource_factory.html#a51a97edf742ff941daa346679887ee9e" title=" " alt="" coords="189,86,388,127"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="197,5,380,61"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_material_resource_factory.html#a51a97edf742ff941daa346679887ee9e" title="Igor::iMaterialResourceFactory\l::getMaterial" alt="" coords="189,86,388,127"/>
 </map>

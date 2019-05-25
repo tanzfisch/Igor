@@ -1,7 +1,6 @@
 <map id="Igor::iTextureFont::modifyWidth" name="Igor::iTextureFont::modifyWidth">
-<area shape="rect" id="node1" title=" " alt="" coords="5,74,128,115"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#a653adab6d7e6c99167ce958ae2c1c8a5" title=" " alt="" coords="176,5,348,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title=" " alt="" coords="176,56,348,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" title=" " alt="" coords="189,107,335,133"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#aed66bdff144c2e615132a2edda9d973f" title=" " alt="" coords="189,157,335,184"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_rectangle.html#ad721f25d8a4a69ff29afc9cabb3b6a4e" title="Igor::iRectangle::getWidth" alt="" coords="176,5,348,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_rectangle.html#a29546c0e2d54ee9608adbbc8b041ea56" title="Igor::iRectangle::setWidth" alt="" coords="176,56,348,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_rectangle.html#a59f42bd4f0c4d838d19ef6bd326d4e43" title="Igor::iRectangle::setX" alt="" coords="189,107,335,133"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_rectangle.html#aa1157c745d71710bef905851ca8ab1bb" title="Igor::iRectangle::getX" alt="" coords="189,157,335,184"/>
 </map>

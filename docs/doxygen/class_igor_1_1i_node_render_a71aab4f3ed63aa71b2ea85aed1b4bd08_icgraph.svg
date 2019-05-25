@@ -9,84 +9,81 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 231)">
 <title>Igor::iNodeRender::getMaterial</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-231 284,-231 284,4 -4,4"/>
-<!-- Node22 -->
-<g id="node1" class="node"><title>Node22</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="180,-98.5 180,-128.5 280,-128.5 280,-98.5 180,-98.5"/>
-<text text-anchor="start" x="188" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeRender::</text>
-<text text-anchor="middle" x="230" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMaterial</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-98.5 0,-128.5 100,-128.5 100,-98.5 0,-98.5"/>
+<text text-anchor="start" x="8" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeRender::</text>
+<text text-anchor="middle" x="50" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">getMaterial</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#ae7624b5254a10e0d9d1580dd5239e9de" target="_top" xlink:title="Igor::iModelDataIOOMPF\l::createParticleSystemChunk">
+<polygon fill="white" stroke="black" points="136,-196.5 136,-226.5 280,-226.5 280,-196.5 136,-196.5"/>
+<text text-anchor="start" x="144" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
+<text text-anchor="middle" x="208" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createParticleSystemChunk</text>
 </a>
 </g>
 </g>
-<!-- Node23 -->
-<g id="node2" class="node"><title>Node23</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#ae7624b5254a10e0d9d1580dd5239e9de" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-196.5 0,-226.5 144,-226.5 144,-196.5 0,-196.5"/>
-<text text-anchor="start" x="8" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
-<text text-anchor="middle" x="72" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createParticleSystemChunk</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M71.9971,-136.001C88.1703,-152.215 111.794,-173.603 136,-187.5 141.868,-190.869 148.281,-193.859 154.777,-196.486"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="74.1761,-133.222 64.686,-128.512 69.1672,-138.112 74.1761,-133.222"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node_particle_system.html#aa47e497b438194f01c1ececbcac58812" target="_top" xlink:title="Igor::iNodeParticleSystem\l::iNodeParticleSystem">
+<polygon fill="white" stroke="black" points="143,-147.5 143,-177.5 273,-177.5 273,-147.5 143,-147.5"/>
+<text text-anchor="start" x="151" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeParticleSystem</text>
+<text text-anchor="middle" x="208" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iNodeParticleSystem</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node23 -->
-<g id="edge1" class="edge"><title>Node22&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M208.003,-136.001C191.83,-152.215 168.206,-173.603 144,-187.5 138.132,-190.869 131.719,-193.859 125.223,-196.486"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="210.833,-138.112 215.314,-128.512 205.824,-133.222 210.833,-138.112"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M108.666,-131.613C125.25,-136.822 143.154,-142.446 159.081,-147.448"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="109.667,-128.259 99.0781,-128.601 107.57,-134.937 109.667,-128.259"/>
 </g>
-<!-- Node24 -->
-<g id="node3" class="node"><title>Node24</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node_particle_system.html#aa47e497b438194f01c1ececbcac58812" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="7,-147.5 7,-177.5 137,-177.5 137,-147.5 7,-147.5"/>
-<text text-anchor="start" x="15" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeParticleSystem</text>
-<text text-anchor="middle" x="72" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iNodeParticleSystem</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_render_engine.html#a36278c223dbe35b0d6a74469dff52195" target="_top" xlink:title="Igor::iRenderEngine\l::cullScene">
+<polygon fill="white" stroke="black" points="157.5,-98.5 157.5,-128.5 258.5,-128.5 258.5,-98.5 157.5,-98.5"/>
+<text text-anchor="start" x="165.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderEngine</text>
+<text text-anchor="middle" x="208" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::cullScene</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node24 -->
-<g id="edge2" class="edge"><title>Node22&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M171.334,-131.613C154.75,-136.822 136.846,-142.446 120.919,-147.448"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="172.43,-134.937 180.922,-128.601 170.333,-128.259 172.43,-134.937"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M110.382,-113.5C125.905,-113.5 142.473,-113.5 157.426,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="110.359,-110 100.359,-113.5 110.359,-117 110.359,-110"/>
 </g>
-<!-- Node25 -->
-<g id="node4" class="node"><title>Node25</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_render_engine.html#a36278c223dbe35b0d6a74469dff52195" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="21.5,-98.5 21.5,-128.5 122.5,-128.5 122.5,-98.5 21.5,-98.5"/>
-<text text-anchor="start" x="29.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderEngine</text>
-<text text-anchor="middle" x="72" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::cullScene</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_render_engine.html#ab5bd16912a4a41154cdc29830040a07e" target="_top" xlink:title="Igor::iRenderEngine\l::drawScene">
+<polygon fill="white" stroke="black" points="157.5,-49.5 157.5,-79.5 258.5,-79.5 258.5,-49.5 157.5,-49.5"/>
+<text text-anchor="start" x="165.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderEngine</text>
+<text text-anchor="middle" x="208" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::drawScene</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node25 -->
-<g id="edge3" class="edge"><title>Node22&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M169.618,-113.5C154.095,-113.5 137.527,-113.5 122.574,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="169.641,-117 179.641,-113.5 169.641,-110 169.641,-117"/>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M108.666,-95.3871C125.25,-90.1778 143.154,-84.5543 159.081,-79.5516"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="107.57,-92.0627 99.0781,-98.3986 109.667,-98.741 107.57,-92.0627"/>
 </g>
-<!-- Node26 -->
-<g id="node5" class="node"><title>Node26</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_render_engine.html#ab5bd16912a4a41154cdc29830040a07e" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="21.5,-49.5 21.5,-79.5 122.5,-79.5 122.5,-49.5 21.5,-49.5"/>
-<text text-anchor="start" x="29.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderEngine</text>
-<text text-anchor="middle" x="72" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::drawScene</text>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_user_control_particle_system.html#a60f0ef94fe517d5fcf6e1f9c9ba63d84" target="_top" xlink:title="UserControlParticleSystem\l::updateGUI">
+<polygon fill="white" stroke="black" points="141,-0.5 141,-30.5 275,-30.5 275,-0.5 141,-0.5"/>
+<text text-anchor="start" x="149" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="208" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::updateGUI</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node26 -->
-<g id="edge4" class="edge"><title>Node22&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M171.334,-95.3871C154.75,-90.1778 136.846,-84.5543 120.919,-79.5516"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="170.333,-98.741 180.922,-98.3986 172.43,-92.0627 170.333,-98.741"/>
-</g>
-<!-- Node27 -->
-<g id="node6" class="node"><title>Node27</title>
-<g id="a_node6"><a xlink:href="class_user_control_particle_system.html#a60f0ef94fe517d5fcf6e1f9c9ba63d84" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5,-0.5 5,-30.5 139,-30.5 139,-0.5 5,-0.5"/>
-<text text-anchor="start" x="13" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="72" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::updateGUI</text>
-</a>
-</g>
-</g>
-<!-- Node22&#45;&gt;Node27 -->
-<g id="edge5" class="edge"><title>Node22&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M207.602,-91.1192C191.384,-75.2112 167.881,-54.3027 144,-40.5 137.551,-36.7725 130.454,-33.4655 123.317,-30.5765"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="205.405,-93.872 214.948,-98.4738 210.358,-88.9251 205.405,-93.872"/>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M72.3976,-91.1192C88.6155,-75.2112 112.119,-54.3027 136,-40.5 142.449,-36.7725 149.546,-33.4655 156.683,-30.5765"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="69.6422,-88.9251 65.0517,-98.4738 74.5949,-93.872 69.6422,-88.9251"/>
 </g>
 </g>
 </svg>

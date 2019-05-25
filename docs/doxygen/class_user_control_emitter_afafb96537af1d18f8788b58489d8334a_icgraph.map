@@ -1,5 +1,4 @@
 <map id="UserControlEmitter::onTypeChanged" name="UserControlEmitter::onTypeChanged">
-<area shape="rect" id="node1" title=" " alt="" coords="185,39,317,80"/>
-<area shape="rect" id="node2" href="$class_user_control_emitter.html#abf148c688ae8b1068607f516cdadc289" title=" " alt="" coords="5,5,137,47"/>
-<area shape="rect" id="node3" href="$class_user_control_emitter.html#a3d71ddd66354d160e42347a340672eca" title=" " alt="" coords="5,71,137,112"/>
+<area shape="rect" id="node2" href="$class_user_control_emitter.html#abf148c688ae8b1068607f516cdadc289" title="UserControlEmitter\l::initGUI" alt="" coords="185,5,317,47"/>
+<area shape="rect" id="node3" href="$class_user_control_emitter.html#a3d71ddd66354d160e42347a340672eca" title="UserControlEmitter\l::deinitGUI" alt="" coords="185,71,317,112"/>
 </map>

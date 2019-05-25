@@ -1,5 +1,5 @@
 <map id="UserControlParticleSystem::onStart" name="UserControlParticleSystem::onStart">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,184,80"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="232,5,431,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b" title=" " alt="" coords="245,71,418,112"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="232,5,431,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="267,71,395,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b" title="Igor::iNodeParticleSystem\l::start" alt="" coords="245,136,418,177"/>
 </map>

@@ -9,68 +9,65 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>Igor::iAABox::set</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 605,-84 605,4 -4,4"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-30 0,-49 91,-49 91,-30 0,-30"/>
+<text text-anchor="middle" x="45.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iAABox::set</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" target="_top" xlink:title="Igor::iModelDataIOOMPF\l::createMeshNode">
+<polygon fill="white" stroke="black" points="143,-49.5 143,-79.5 268,-79.5 268,-49.5 143,-49.5"/>
+<text text-anchor="start" x="151" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
+<text text-anchor="middle" x="205.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMeshNode</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M101.339,-48.1771C114.695,-50.2904 129.07,-52.5649 142.724,-54.7253"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="101.778,-44.7031 91.3538,-46.5971 100.684,-51.617 101.778,-44.7031"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_physics_user_mesh_collision_handler.html#adafe185350abd149f9e0304a06b099c0" target="_top" xlink:title="Igor::iPhysicsUserMeshCollision\lHandler::testOverlapAABB">
+<polygon fill="white" stroke="black" points="127,-0.5 127,-30.5 284,-30.5 284,-0.5 127,-0.5"/>
+<text text-anchor="start" x="135" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsUserMeshCollision</text>
+<text text-anchor="middle" x="205.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Handler::testOverlapAABB</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M101.259,-31.1822C109.563,-29.9208 118.263,-28.5994 126.939,-27.2814"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="100.715,-27.7246 91.3538,-32.6868 101.766,-34.6452 100.715,-27.7246"/>
+</g>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="namespace_igor.html#ad8f7becee7e7e8428a53916f2eeb7013" target="_top" xlink:title="Igor::AABBOverlapTest">
+<polygon fill="white" stroke="black" points="320,-6 320,-25 436,-25 436,-6 320,-6"/>
+<text text-anchor="middle" x="378" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::AABBOverlapTest</text>
+</a>
+</g>
+</g>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M294.444,-15.5C303.118,-15.5 311.755,-15.5 319.995,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="294.266,-12.0001 284.266,-15.5 294.266,-19.0001 294.266,-12.0001"/>
+</g>
 <!-- Node5 -->
-<g id="node1" class="node"><title>Node5</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="510,-30 510,-49 601,-49 601,-30 510,-30"/>
-<text text-anchor="middle" x="555.5" y="-37" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iAABox::set</text>
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_physics.html#ab0cd7a1d22282b70337e1c55aa15c55f" target="_top" xlink:title="Igor::iPhysics::createUser\lMeshCollision">
+<polygon fill="white" stroke="black" points="472,-0.5 472,-30.5 601,-30.5 601,-0.5 472,-0.5"/>
+<text text-anchor="start" x="480" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createUser</text>
+<text text-anchor="middle" x="536.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MeshCollision</text>
 </a>
 </g>
 </g>
-<!-- Node6 -->
-<g id="node2" class="node"><title>Node6</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="333,-49.5 333,-79.5 458,-79.5 458,-49.5 333,-49.5"/>
-<text text-anchor="start" x="341" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
-<text text-anchor="middle" x="395.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMeshNode</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge1" class="edge"><title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M499.661,-48.1771C486.305,-50.2904 471.93,-52.5649 458.276,-54.7253"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="500.316,-51.617 509.646,-46.5971 499.222,-44.7031 500.316,-51.617"/>
-</g>
-<!-- Node7 -->
-<g id="node3" class="node"><title>Node7</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_physics_user_mesh_collision_handler.html#adafe185350abd149f9e0304a06b099c0" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="317,-0.5 317,-30.5 474,-30.5 474,-0.5 317,-0.5"/>
-<text text-anchor="start" x="325" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysicsUserMeshCollision</text>
-<text text-anchor="middle" x="395.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Handler::testOverlapAABB</text>
-</a>
-</g>
-</g>
-<!-- Node5&#45;&gt;Node7 -->
-<g id="edge2" class="edge"><title>Node5&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M499.741,-31.1822C491.437,-29.9208 482.737,-28.5994 474.061,-27.2814"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="499.234,-34.6452 509.646,-32.6868 500.285,-27.7246 499.234,-34.6452"/>
-</g>
-<!-- Node8 -->
-<g id="node4" class="node"><title>Node8</title>
-<g id="a_node4"><a xlink:href="namespace_igor.html#ad8f7becee7e7e8428a53916f2eeb7013" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="165,-6 165,-25 281,-25 281,-6 165,-6"/>
-<text text-anchor="middle" x="223" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::AABBOverlapTest</text>
-</a>
-</g>
-</g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge3" class="edge"><title>Node7&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M306.556,-15.5C297.882,-15.5 289.245,-15.5 281.005,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="306.734,-19.0001 316.734,-15.5 306.734,-12.0001 306.734,-19.0001"/>
-</g>
-<!-- Node9 -->
-<g id="node5" class="node"><title>Node9</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_physics.html#ab0cd7a1d22282b70337e1c55aa15c55f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 129,-30.5 129,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::createUser</text>
-<text text-anchor="middle" x="64.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MeshCollision</text>
-</a>
-</g>
-</g>
-<!-- Node8&#45;&gt;Node9 -->
-<g id="edge4" class="edge"><title>Node8&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M154.492,-15.5C146.103,-15.5 137.547,-15.5 129.218,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="154.614,-19.0001 164.614,-15.5 154.614,-12.0001 154.614,-19.0001"/>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M446.508,-15.5C454.897,-15.5 463.453,-15.5 471.782,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="446.386,-12.0001 436.386,-15.5 446.386,-19.0001 446.386,-12.0001"/>
 </g>
 </g>
 </svg>

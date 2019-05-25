@@ -1,4 +1,3 @@
 <map id="Igor::iSphere::merge" name="Igor::iSphere::merge">
-<area shape="rect" id="node1" title=" " alt="" coords="236,13,375,39"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685" title=" " alt="" coords="5,5,188,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685" title="Igor::iNodeVisitorBoundings\l::preOrderVisit" alt="" coords="192,5,375,47"/>
 </map>

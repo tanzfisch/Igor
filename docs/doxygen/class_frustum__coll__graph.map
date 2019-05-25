@@ -1,4 +1,3 @@
 <map id="Frustum" name="Frustum">
-<area shape="rect" id="node1" title=" " alt="" coords="5,168,76,195"/>
-<area shape="rect" id="node2" href="$class_plane.html" title=" " alt="" coords="13,5,68,32"/>
+<area shape="rect" id="node2" href="$class_plane.html" title="Plane" alt="" coords="13,5,68,32"/>
 </map>

@@ -1,5 +1,4 @@
 <map id="IgorAux::iaSerializable::write" name="IgorAux::iaSerializable::write">
-<area shape="rect" id="node1" title=" " alt="" coords="5,39,156,80"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_serializable.html#afbeb8c7e9bfa4d9adc20c04ab5ef7423" title=" " alt="" coords="204,5,355,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector2.html#afe00d6cb20f5354d847d85eb759d637b" title=" " alt="" coords="215,71,344,112"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_serializable.html#afbeb8c7e9bfa4d9adc20c04ab5ef7423" title="IgorAux::iaSerializable\l::write" alt="" coords="204,5,355,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector2.html#afe00d6cb20f5354d847d85eb759d637b" title="IgorAux::iaVector2\l::getData" alt="" coords="215,71,344,112"/>
 </map>

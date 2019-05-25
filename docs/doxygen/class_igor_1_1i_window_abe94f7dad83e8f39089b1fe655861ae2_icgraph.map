@@ -1,5 +1,4 @@
 <map id="Igor::iWindow::makeCurrent" name="Igor::iWindow::makeCurrent">
-<area shape="rect" id="node1" title=" " alt="" coords="232,46,415,73"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_render_context_thread.html#aab56c66985cae44abb69d5712fdfd5c5" title=" " alt="" coords="5,5,184,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_render_context_thread.html#aa484a7648ddfb1c67ae98ef8d8a6341a" title=" " alt="" coords="5,71,184,112"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_render_context_thread.html#aab56c66985cae44abb69d5712fdfd5c5" title="Igor::iRenderContextThread\l::init" alt="" coords="236,5,415,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_render_context_thread.html#aa484a7648ddfb1c67ae98ef8d8a6341a" title="Igor::iRenderContextThread\l::deinit" alt="" coords="236,71,415,112"/>
 </map>

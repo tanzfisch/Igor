@@ -9,54 +9,51 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 133)">
 <title>testing::TestCase::TestPassed</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-133 237,-133 237,4 -4,4"/>
-<!-- Node66 -->
-<g id="node1" class="node"><title>Node66</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-49.5 0,-79.5 99,-79.5 99,-49.5 0,-49.5"/>
 <text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestCase::</text>
 <text text-anchor="middle" x="49.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">TestPassed</text>
-</a>
 </g>
-</g>
-<!-- Node67 -->
-<g id="node2" class="node"><title>Node67</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1_test_info.html#a866e33b5bc5ab2a6e5375fc7d3af0f96" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1_test_info.html#a240c9fb051d7b0586ed380c6b4e729e4" target="_top" xlink:title="testing::TestInfo::\lshould_run">
 <polygon fill="white" stroke="black" points="138,-98.5 138,-128.5 230,-128.5 230,-98.5 138,-98.5"/>
 <text text-anchor="start" x="146" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestInfo::</text>
 <text text-anchor="middle" x="184" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">should_run</text>
 </a>
 </g>
 </g>
-<!-- Node66&#45;&gt;Node67 -->
-<g id="edge1" class="edge"><title>Node66&#45;&gt;Node67</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M91.3355,-79.6014C104.307,-84.3985 118.811,-89.7622 132.386,-94.7823"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="131.478,-98.1782 142.071,-98.3641 133.906,-91.6128 131.478,-98.1782"/>
 </g>
-<!-- Node68 -->
-<g id="node3" class="node"><title>Node68</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1_test_info.html#aee8cb884c95cd446129aba936b4159e0" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1_test_info.html#addea8766df3b8abe4cc4103218a49a65" target="_top" xlink:title="testing::TestInfo::\lresult">
 <polygon fill="white" stroke="black" points="138,-49.5 138,-79.5 230,-79.5 230,-49.5 138,-49.5"/>
 <text text-anchor="start" x="146" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestInfo::</text>
 <text text-anchor="middle" x="184" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">result</text>
 </a>
 </g>
 </g>
-<!-- Node66&#45;&gt;Node68 -->
-<g id="edge2" class="edge"><title>Node66&#45;&gt;Node68</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M99.0857,-64.5C108.415,-64.5 118.248,-64.5 127.769,-64.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="127.939,-68.0001 137.939,-64.5 127.939,-61.0001 127.939,-68.0001"/>
 </g>
-<!-- Node69 -->
-<g id="node4" class="node"><title>Node69</title>
-<g id="a_node4"><a xlink:href="classtesting_1_1_test_result.html#acf7e6e72f05a0545c48ea48e7f8851df" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="classtesting_1_1_test_result.html#aa46a04342f02ec297357f47288da3ef3" target="_top" xlink:title="testing::TestResult\l::Passed">
 <polygon fill="white" stroke="black" points="135,-0.5 135,-30.5 233,-30.5 233,-0.5 135,-0.5"/>
 <text text-anchor="start" x="143" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestResult</text>
 <text text-anchor="middle" x="184" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Passed</text>
 </a>
 </g>
 </g>
-<!-- Node66&#45;&gt;Node69 -->
-<g id="edge3" class="edge"><title>Node66&#45;&gt;Node69</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M91.3355,-49.3986C104.307,-44.6015 118.811,-39.2378 132.386,-34.2177"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="133.906,-37.3872 142.071,-30.6359 131.478,-30.8218 133.906,-37.3872"/>
 </g>

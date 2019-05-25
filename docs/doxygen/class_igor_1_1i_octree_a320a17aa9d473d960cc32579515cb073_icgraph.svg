@@ -9,70 +9,67 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>Igor::iOctree::createNode</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 551,-62 551,4 -4,4"/>
-<!-- Node18 -->
-<g id="node1" class="node"><title>Node18</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="422,-19.5 422,-38.5 547,-38.5 547,-19.5 422,-19.5"/>
-<text text-anchor="middle" x="484.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::createNode</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-19.5 0,-38.5 125,-38.5 125,-19.5 0,-19.5"/>
+<text text-anchor="middle" x="62.5" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::createNode</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#aa28334c4ec5d51b48c909dc96ff3182f" target="_top" xlink:title="Igor::iOctree::iOctree">
+<polygon fill="white" stroke="black" points="161,-38.5 161,-57.5 268,-57.5 268,-38.5 161,-38.5"/>
+<text text-anchor="middle" x="214.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::iOctree</text>
 </a>
 </g>
 </g>
-<!-- Node19 -->
-<g id="node2" class="node"><title>Node19</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#aa28334c4ec5d51b48c909dc96ff3182f" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="279,-38.5 279,-57.5 386,-57.5 386,-38.5 279,-38.5"/>
-<text text-anchor="middle" x="332.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::iOctree</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M135.397,-38.107C143.977,-39.1938 152.611,-40.2874 160.85,-41.3309"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="135.737,-34.6222 125.377,-36.8377 134.858,-41.5667 135.737,-34.6222"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_octree.html#a1479ad7f15cf021806b5574da4cc7a23" target="_top" xlink:title="Igor::iOctree::split">
+<polygon fill="white" stroke="black" points="167.5,-0.5 167.5,-19.5 261.5,-19.5 261.5,-0.5 167.5,-0.5"/>
+<text text-anchor="middle" x="214.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::split</text>
 </a>
 </g>
 </g>
-<!-- Node18&#45;&gt;Node19 -->
-<g id="edge1" class="edge"><title>Node18&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M411.603,-38.107C403.023,-39.1938 394.389,-40.2874 386.15,-41.3309"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="412.142,-41.5667 421.623,-36.8377 411.263,-34.6222 412.142,-41.5667"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M135.328,-19.9018C146.22,-18.5221 157.201,-17.1312 167.351,-15.8455"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="134.858,-16.4333 125.377,-21.1623 135.737,-23.3778 134.858,-16.4333"/>
 </g>
-<!-- Node20 -->
-<g id="node3" class="node"><title>Node20</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_octree.html#a1479ad7f15cf021806b5574da4cc7a23" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="285.5,-0.5 285.5,-19.5 379.5,-19.5 379.5,-0.5 285.5,-0.5"/>
-<text text-anchor="middle" x="332.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::split</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_octree.html#a4f0e2a3cb4c930a1f333c5abc10b88da" target="_top" xlink:title="Igor::iOctree::trySplit">
+<polygon fill="white" stroke="black" points="304,-0.5 304,-19.5 411,-19.5 411,-0.5 304,-0.5"/>
+<text text-anchor="middle" x="357.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::trySplit</text>
 </a>
 </g>
 </g>
-<!-- Node18&#45;&gt;Node20 -->
-<g id="edge2" class="edge"><title>Node18&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M411.672,-19.9018C400.78,-18.5221 389.799,-17.1312 379.649,-15.8455"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="411.263,-23.3778 421.623,-21.1623 412.142,-16.4333 411.263,-23.3778"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M271.677,-3.37537C282.296,-3.18713 293.367,-3.21087 303.872,-3.44658"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="271.58,0.123392 261.669,-3.62079 271.751,-6.8745 271.58,0.123392"/>
 </g>
-<!-- Node21 -->
-<g id="node4" class="node"><title>Node21</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_octree.html#a4f0e2a3cb4c930a1f333c5abc10b88da" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="136,-0.5 136,-19.5 243,-19.5 243,-0.5 136,-0.5"/>
-<text text-anchor="middle" x="189.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::trySplit</text>
+<!-- Node4&#45;&gt;Node3 -->
+<g id="edge5" class="edge"><title>Node4&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M293.66,-16.7145C282.897,-16.8147 271.894,-16.7029 261.669,-16.3792"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="293.928,-20.2108 303.872,-16.5534 293.818,-13.2116 293.928,-20.2108"/>
+</g>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_octree.html#a752a714240a21658148771540242d3e2" target="_top" xlink:title="Igor::iOctree::insert">
+<polygon fill="white" stroke="black" points="447,-0.5 447,-19.5 547,-19.5 547,-0.5 447,-0.5"/>
+<text text-anchor="middle" x="497" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::insert</text>
 </a>
 </g>
 </g>
-<!-- Node20&#45;&gt;Node21 -->
-<g id="edge3" class="edge"><title>Node20&#45;&gt;Node21</title>
-<path fill="none" stroke="midnightblue" d="M275.323,-3.37537C264.704,-3.18713 253.633,-3.21087 243.128,-3.44658"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="275.249,-6.8745 285.331,-3.62079 275.42,0.123392 275.249,-6.8745"/>
-</g>
-<!-- Node21&#45;&gt;Node20 -->
-<g id="edge5" class="edge"><title>Node21&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M253.34,-16.7145C264.103,-16.8147 275.106,-16.7029 285.331,-16.3792"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="253.182,-13.2116 243.128,-16.5534 253.072,-20.2108 253.182,-13.2116"/>
-</g>
-<!-- Node22 -->
-<g id="node5" class="node"><title>Node22</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_octree.html#a752a714240a21658148771540242d3e2" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 100,-19.5 100,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="50" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::insert</text>
-</a>
-</g>
-</g>
-<!-- Node21&#45;&gt;Node22 -->
-<g id="edge4" class="edge"><title>Node21&#45;&gt;Node22</title>
-<path fill="none" stroke="midnightblue" d="M125.49,-10C117.017,-10 108.428,-10 100.24,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="125.732,-13.5001 135.732,-10 125.732,-6.5001 125.732,-13.5001"/>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M421.51,-10C429.983,-10 438.572,-10 446.76,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="421.268,-6.5001 411.268,-10 421.268,-13.5001 421.268,-6.5001"/>
 </g>
 </g>
 </svg>

@@ -6,7 +6,7 @@ var class_user_control_graph_view =
     [ "deinitGUI", "class_user_control_graph_view.html#a4d4ca145202566cef119f54a69ec9827", null ],
     [ "getIconTexture", "class_user_control_graph_view.html#aaf0a655cbcfc6339738aa987ac49bb4e", null ],
     [ "getRootNode", "class_user_control_graph_view.html#aa90e93ea4c4c60ea327228632f0ee6b9", null ],
-    [ "getSelectedNode", "class_user_control_graph_view.html#ab7f401685bf43e5ae393c71b08306756", null ],
+    [ "getSelectedNode", "class_user_control_graph_view.html#a4c3961390219bee5c61c50a6eaad56b3", null ],
     [ "getWidget", "class_user_control_graph_view.html#adc76713a8b7cba62e324ce5ea3c54d41", null ],
     [ "initGUI", "class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33", null ],
     [ "onAddEmitter", "class_user_control_graph_view.html#abbcb0e6628ebded473829e0977cb0492", null ],

@@ -11,15 +11,12 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-271 254,-271 254,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 79,-19.5 79,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="39.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iSkeleton</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_joint.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_1_1i_joint.html" target="_top" xlink:title="Igor::iJoint">
 <polygon fill="white" stroke="black" points="7,-147.5 7,-166.5 68,-166.5 68,-147.5 7,-147.5"/>
 <text text-anchor="middle" x="37.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iJoint</text>
 </a>
@@ -34,7 +31,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_bone.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="class_igor_1_1i_bone.html" target="_top" xlink:title="Igor::iBone">
 <polygon fill="white" stroke="black" points="83,-68.5 83,-87.5 146,-87.5 146,-68.5 83,-68.5"/>
 <text text-anchor="middle" x="114.5" y="-75.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iBone</text>
 </a>
@@ -61,7 +58,7 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_matrix.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_matrix.html" target="_top" xlink:title="IgorAux::iaMatrix\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="137,-147.5 137,-166.5 250,-166.5 250,-147.5 137,-147.5"/>
 <text text-anchor="middle" x="193.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix&lt; T &gt;</text>
 </a>
@@ -75,11 +72,8 @@
 </g>
 <!-- Node5 -->
 <g id="node5" class="node"><title>Node5</title>
-<g id="a_node5"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="179,-247.5 179,-266.5 208,-266.5 208,-247.5 179,-247.5"/>
 <text text-anchor="middle" x="193.5" y="-254.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node5&#45;&gt;Node4 -->
 <g id="edge5" class="edge"><title>Node5&#45;&gt;Node4</title>

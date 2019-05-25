@@ -12,9 +12,11 @@ var searchData=
   ['scoped_5fptr_3c_20testing_3a_3ainternal_3a_3atestmetafactorybase_3c_20paramtype_20_3e_20_3e',['scoped_ptr&lt; testing::internal::TestMetaFactoryBase&lt; ParamType &gt; &gt;',['../classtesting_1_1internal_1_1scoped__ptr.html',1,'testing::internal']]],
   ['scopedtrace',['ScopedTrace',['../classtesting_1_1_scoped_trace.html',1,'testing']]],
   ['section',['Section',['../struct_igor_1_1i_model_data_i_o_o_b_j_1_1_section.html',1,'Igor::iModelDataIOOBJ']]],
-  ['setup_5fshould_5fbe_5fspelled_5fsetup',['Setup_should_be_spelled_SetUp',['../structtesting_1_1_environment_1_1_setup__should__be__spelled___set_up.html',1,'testing::Environment::Setup_should_be_spelled_SetUp'],['../structtesting_1_1_test_1_1_setup__should__be__spelled___set_up.html',1,'testing::Test::Setup_should_be_spelled_SetUp']]],
+  ['setup_5fshould_5fbe_5fspelled_5fsetup',['Setup_should_be_spelled_SetUp',['../structtesting_1_1_environment_1_1_setup__should__be__spelled___set_up.html',1,'testing::Environment']]],
+  ['setup_5fshould_5fbe_5fspelled_5fsetup',['Setup_should_be_spelled_SetUp',['../structtesting_1_1_test_1_1_setup__should__be__spelled___set_up.html',1,'testing::Test']]],
   ['shader',['Shader',['../struct_o_m_p_f_1_1ompf_material_chunk_1_1_shader.html',1,'OMPF::ompfMaterialChunk']]],
-  ['sphere',['Sphere',['../class_sphere.html',1,'Sphere'],['../struct_igor_1_1i_physics_collision_config_1_1_sphere.html',1,'Igor::iPhysicsCollisionConfig::Sphere']]],
+  ['sphere',['Sphere',['../class_sphere.html',1,'']]],
+  ['sphere',['Sphere',['../struct_igor_1_1i_physics_collision_config_1_1_sphere.html',1,'Igor::iPhysicsCollisionConfig']]],
   ['staticasserttypeeqhelper',['StaticAssertTypeEqHelper',['../structtesting_1_1internal_1_1_static_assert_type_eq_helper.html',1,'testing::internal']]],
   ['staticasserttypeeqhelper_3c_20t_2c_20t_20_3e',['StaticAssertTypeEqHelper&lt; T, T &gt;',['../structtesting_1_1internal_1_1_static_assert_type_eq_helper_3_01_t_00_01_t_01_4.html',1,'testing::internal']]],
   ['string',['String',['../classtesting_1_1internal_1_1_string.html',1,'testing::internal']]]

@@ -1,7 +1,11 @@
 <map id="ModelViewer::renderNodeSelected" name="ModelViewer::renderNodeSelected">
-<area shape="rect" id="node1" title=" " alt="" coords="5,93,227,120"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#addb9d2476dbfae0b0879419c842dc4a8" title=" " alt="" coords="276,5,412,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_render.html#ad63121d64309698004ff654ca42cfb43" title=" " alt="" coords="277,57,411,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#af2d72831df4a13096e731418b6d6bb4b" title=" " alt="" coords="275,123,413,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_volume.html#a481e90406211d651e9a4244434daf79f" title=" " alt="" coords="276,174,412,215"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a6e7d77b301e705906af5cfb942164a83" title="Igor::iNode::getKind" alt="" coords="276,5,412,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_render.html#ad63121d64309698004ff654ca42cfb43" title="Igor::iNodeRender::\lgetWorldMatrix" alt="" coords="277,57,411,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#a43329dc1b2a6ad4056c38290c5df777d" title="Igor::iNode::getType" alt="" coords="275,123,413,149"/>
+<area shape="rect" id="node5" href="$namespace_igor.html#abdbfa48a19f5bf62aca91d60d68662ee" title="Igor::iNodeMesh" alt="" coords="286,173,402,200"/>
+<area shape="rect" id="node8" href="$namespace_igor.html#a9ca17ac9629ca285f183855e1f350eda" title="Igor::getMaterial" alt="" coords="287,224,401,251"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node_render.html#a96696863a607f3af8dbe4ceecd922538" title="Igor::iNodeRender::\lsetMaterial" alt="" coords="277,275,411,317"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_node_volume.html#aa1198be76092647d0b7e74fd8bf3cede" title="Igor::iNodeVolume::\lgetBoundingBox" alt="" coords="276,341,412,382"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iMaterialResourceFactory\l \&gt;::getInstance" alt="" coords="469,123,652,179"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_material_resource_factory.html#a55ee78b1783c8787a374907fe17f3d01" title="Igor::iMaterialResourceFactory\l::createTargetMaterial" alt="" coords="461,203,660,245"/>
 </map>

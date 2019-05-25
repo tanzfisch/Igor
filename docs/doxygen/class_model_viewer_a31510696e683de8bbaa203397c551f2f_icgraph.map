@@ -1,4 +1,3 @@
 <map id="ModelViewer::onAddMaterial" name="ModelViewer::onAddMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="196,5,383,32"/>
-<area shape="rect" id="node2" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title=" " alt="" coords="5,5,148,32"/>
+<area shape="rect" id="node2" href="$class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" title="ModelViewer::initGUI" alt="" coords="240,5,383,32"/>
 </map>

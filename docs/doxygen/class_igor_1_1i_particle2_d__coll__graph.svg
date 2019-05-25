@@ -11,15 +11,12 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-180 124,-180 124,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="17,-0.5 17,-19.5 103,-19.5 103,-0.5 17,-0.5"/>
 <text text-anchor="middle" x="60" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iParticle2D</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_vector2.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_vector2.html" target="_top" xlink:title="IgorAux::iaVector2\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="0,-78.5 0,-97.5 120,-97.5 120,-78.5 0,-78.5"/>
 <text text-anchor="middle" x="60" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector2&lt; T &gt;</text>
 </a>
@@ -34,11 +31,8 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="45.5,-156.5 45.5,-175.5 74.5,-175.5 74.5,-156.5 45.5,-156.5"/>
 <text text-anchor="middle" x="60" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node3&#45;&gt;Node2 -->
 <g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>

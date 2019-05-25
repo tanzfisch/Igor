@@ -1,7 +1,6 @@
 <map id="OMPF::OMPF" name="OMPF::OMPF">
-<area shape="rect" id="node1" title=" " alt="" coords="97,273,203,300"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_header_chunk.html" title=" " alt="" coords="63,184,237,211"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_base_chunk.html" title=" " alt="" coords="63,95,226,121"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title=" " alt="" coords="5,5,124,32"/>
-<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_settings.html" title=" " alt="" coords="262,184,406,211"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_header_chunk.html" title="OMPF::ompfHeaderChunk" alt="" coords="63,184,237,211"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_base_chunk.html" title="OMPF::ompfBaseChunk" alt="" coords="63,95,226,121"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html" title="IgorAux::iaString" alt="" coords="5,5,124,32"/>
+<area shape="rect" id="node5" href="$class_o_m_p_f_1_1ompf_settings.html" title="OMPF::ompfSettings" alt="" coords="262,184,406,211"/>
 </map>

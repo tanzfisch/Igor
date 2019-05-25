@@ -9,25 +9,22 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iNodeVisitorRenderColorID::postOrderVisit</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 264,-35 264,4 -4,4"/>
-<!-- Node4 -->
-<g id="node1" class="node"><title>Node4</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 122,-30.5 122,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeVisitorRender</text>
 <text text-anchor="middle" x="61" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ColorID::postOrderVisit</text>
-</a>
 </g>
-</g>
-<!-- Node5 -->
-<g id="node2" class="node"><title>Node5</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node.html#addb9d2476dbfae0b0879419c842dc4a8" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node.html#a6e7d77b301e705906af5cfb942164a83" target="_top" xlink:title="Igor::iNode::getKind">
 <polygon fill="white" stroke="black" points="158,-6 158,-25 260,-25 260,-6 158,-6"/>
 <text text-anchor="middle" x="209" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getKind</text>
 </a>
 </g>
 </g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge1" class="edge"><title>Node4&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M122.227,-15.5C130.603,-15.5 139.211,-15.5 147.591,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="147.669,-19.0001 157.669,-15.5 147.669,-12.0001 147.669,-19.0001"/>
 </g>

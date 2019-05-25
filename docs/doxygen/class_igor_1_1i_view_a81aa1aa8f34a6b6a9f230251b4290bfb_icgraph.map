@@ -1,5 +1,4 @@
 <map id="Igor::iView::unregisterRenderDelegate" name="Igor::iView::unregisterRenderDelegate">
-<area shape="rect" id="node1" title=" " alt="" coords="240,39,428,80"/>
-<area shape="rect" id="node2" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="6,5,191,47"/>
-<area shape="rect" id="node3" href="$class_widget3_d_locator.html#a7c92018b711c6370809abe7088a9b264" title=" " alt="" coords="5,71,192,112"/>
+<area shape="rect" id="node2" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title="Widget3DEmitter::~Widget3\lDEmitter" alt="" coords="242,5,427,47"/>
+<area shape="rect" id="node3" href="$class_widget3_d_locator.html#a7c92018b711c6370809abe7088a9b264" title="Widget3DLocator::~Widget3\lDLocator" alt="" coords="241,71,428,112"/>
 </map>

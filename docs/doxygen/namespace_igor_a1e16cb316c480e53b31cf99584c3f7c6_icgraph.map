@@ -1,5 +1,4 @@
 <map id="Igor::PhysicsNodeSetTransform" name="Igor::PhysicsNodeSetTransform">
-<area shape="rect" id="node1" title=" " alt="" coords="509,5,715,32"/>
-<area shape="rect" id="node2" href="$namespace_igor.html#afb63d89d590fb411b03899a40ed32f9d" title=" " alt="" coords="228,5,461,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" title=" " alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node2" href="$namespace_igor.html#afb63d89d590fb411b03899a40ed32f9d" title="Igor::PhysicsNodeSetTransformation" alt="" coords="259,5,492,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_physics.html#aefd0b797f0b534a1fd110b0c5bc0ec43" title="Igor::iPhysics::createBody" alt="" coords="540,5,715,32"/>
 </map>

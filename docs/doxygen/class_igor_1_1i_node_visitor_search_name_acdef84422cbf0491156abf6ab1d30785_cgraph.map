@@ -1,5 +1,4 @@
 <map id="Igor::iNodeVisitorSearchName::preOrderVisit" name="Igor::iNodeVisitorSearchName::preOrderVisit">
-<area shape="rect" id="node1" title=" " alt="" coords="5,23,168,65"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a80bd4ffd9048275d4921b62160ce50fa" title=" " alt="" coords="216,5,360,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#aece61f1af4143a3a1765b19594d72b6e" title=" " alt="" coords="227,56,349,83"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a301e06e0e55d6ca93fc64fe44c3ed8bd" title="Igor::iNode::getName" alt="" coords="216,5,360,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#a865efb791b77d29bb489514326037380" title="Igor::iNode::getID" alt="" coords="227,56,349,83"/>
 </map>

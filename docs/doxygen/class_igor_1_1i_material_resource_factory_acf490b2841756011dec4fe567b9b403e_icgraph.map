@@ -1,4 +1,3 @@
 <map id="Igor::iMaterialResourceFactory::destroyMaterial" name="Igor::iMaterialResourceFactory::destroyMaterial">
-<area shape="rect" id="node1" title=" " alt="" coords="181,5,380,47"/>
-<area shape="rect" id="node2" href="$class_manipulator.html#aaa83ae579042e3f77bfb5b63fda89436" title=" " alt="" coords="5,13,133,39"/>
+<area shape="rect" id="node2" href="$class_manipulator.html#aaa83ae579042e3f77bfb5b63fda89436" title="Manipulator::deinit" alt="" coords="252,13,380,39"/>
 </map>

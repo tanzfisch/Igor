@@ -9,25 +9,22 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iPhysics::setForce</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 257,-35 257,4 -4,4"/>
-<!-- Node384 -->
-<g id="node1" class="node"><title>Node384</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 120,-25 120,-6 0,-6"/>
 <text text-anchor="middle" x="60" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::setForce</text>
-</a>
 </g>
-</g>
-<!-- Node385 -->
-<g id="node2" class="node"><title>Node385</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_vector3.html#ab9eeed4aa7fd8d95efc7110748bc94a0" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_vector3.html#a472d397bcfae85248afadb2345716e07" target="_top" xlink:title="IgorAux::iaVector3\l::getData">
 <polygon fill="white" stroke="black" points="156,-0.5 156,-30.5 253,-30.5 253,-0.5 156,-0.5"/>
 <text text-anchor="start" x="164" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector3</text>
 <text text-anchor="middle" x="204.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getData</text>
 </a>
 </g>
 </g>
-<!-- Node384&#45;&gt;Node385 -->
-<g id="edge1" class="edge"><title>Node384&#45;&gt;Node385</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M120.195,-15.5C128.676,-15.5 137.391,-15.5 145.842,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="145.985,-19.0001 155.985,-15.5 145.985,-12.0001 145.985,-19.0001"/>
 </g>

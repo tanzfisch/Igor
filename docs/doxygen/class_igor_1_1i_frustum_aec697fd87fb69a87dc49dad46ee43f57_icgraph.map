@@ -1,4 +1,3 @@
 <map id="Igor::iFrustum::set" name="Igor::iFrustum::set">
-<area shape="rect" id="node1" title=" " alt="" coords="188,29,316,56"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_render_engine.html#a36278c223dbe35b0d6a74469dff52195" title=" " alt="" coords="5,22,140,63"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_render_engine.html#a36278c223dbe35b0d6a74469dff52195" title="Igor::iRenderEngine\l::cullScene" alt="" coords="181,22,316,63"/>
 </map>

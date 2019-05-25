@@ -1,7 +1,6 @@
 <map id="Igor::iNode::removeNode" name="Igor::iNode::removeNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,168,83"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title=" " alt="" coords="216,49,411,90"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title=" " alt="" coords="491,5,621,32"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title=" " alt="" coords="701,97,849,124"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title=" " alt="" coords="459,131,653,173"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a3be538d0d60b148b1eae5cd5892d279d" title="Igor::iNode::setTransformation\lDirty" alt="" coords="216,49,411,90"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" title="Igor::iNode::isChild" alt="" coords="491,5,621,32"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#a1b3d40431eb4c1c79e5d93ef7fe68129" title="Igor::iNode::getParent" alt="" coords="701,97,849,124"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node.html#a66b6ecf7babaffce68852de186068e01" title="Igor::iNode::setTransformation\lDirtyUp" alt="" coords="459,131,653,173"/>
 </map>

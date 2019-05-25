@@ -1,8 +1,7 @@
 <map id="Igor::iModelDataIOOMPF::createMaterialChunk" name="Igor::iModelDataIOOMPF::createMaterialChunk">
-<area shape="rect" id="node1" title=" " alt="" coords="5,136,172,177"/>
-<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a40f723ab37126c4aa56e74851ac26081" title=" " alt="" coords="220,5,399,47"/>
-<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a3df932d9b1391d1a7a618df0fdf7d461" title=" " alt="" coords="220,71,399,112"/>
-<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a1dc553abd3f7267ccd1ebf735ea07050" title=" " alt="" coords="220,136,399,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_render_state_set.html#aa4d9063c8ae28d506bd7059715cc946e" title=" " alt="" coords="233,201,386,243"/>
-<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_material_chunk.html#ade4cfe73b229eebcb02b986d95e56f5d" title=" " alt="" coords="220,267,399,308"/>
+<area shape="rect" id="node2" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a40f723ab37126c4aa56e74851ac26081" title="OMPF::ompfMaterialChunk\l::addShader" alt="" coords="220,5,399,47"/>
+<area shape="rect" id="node3" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a3df932d9b1391d1a7a618df0fdf7d461" title="OMPF::ompfMaterialChunk\l::setMaterialName" alt="" coords="220,71,399,112"/>
+<area shape="rect" id="node4" href="$class_o_m_p_f_1_1ompf_material_chunk.html#a1dc553abd3f7267ccd1ebf735ea07050" title="OMPF::ompfMaterialChunk\l::setRenderStateValue" alt="" coords="220,136,399,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_render_state_set.html#aa4d9063c8ae28d506bd7059715cc946e" title="Igor::iRenderStateSet\l::getRenderStateValue" alt="" coords="233,201,386,243"/>
+<area shape="rect" id="node6" href="$class_o_m_p_f_1_1ompf_material_chunk.html#ade4cfe73b229eebcb02b986d95e56f5d" title="OMPF::ompfMaterialChunk\l::setOrder" alt="" coords="220,267,399,308"/>
 </map>

@@ -7,6 +7,8 @@ var searchData=
   ['darkmagenta',['DarkMagenta',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8adf1b1322cf6703efd9885b0651ddb57a',1,'IgorAux']]],
   ['darkred',['DarkRed',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a8746d21f8164452063398744f06307dd',1,'IgorAux']]],
   ['darkyellow',['DarkYellow',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a42d873bb34e1055e40aad0ec45039e8b',1,'IgorAux']]],
+  ['debug',['Debug',['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3aa603905470e2a5b8c13e96b579ef0dba',1,'IgorAux']]],
+  ['debuginfo',['DebugInfo',['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3af6f6931771db95a6bffec131b856bd50',1,'IgorAux']]],
   ['decrement',['Decrement',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a6182913ea7b5c02fe2773ea87177d4f9',1,'Igor']]],
   ['decrementwrap',['DecrementWrap',['../namespace_igor.html#a490f00fed47903c329843cb921bbace9a6ec565c329385c8d59333abc6a1003d1',1,'Igor']]],
   ['default',['Default',['../namespace_igor.html#ab02d1970d775268320d0fdf100ad0aefa7a1920d61156abc05a60135aefe8bc67',1,'Igor']]],

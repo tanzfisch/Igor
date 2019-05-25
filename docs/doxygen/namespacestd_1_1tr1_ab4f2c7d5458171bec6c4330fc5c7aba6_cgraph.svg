@@ -9,24 +9,21 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>std::tr1::GTEST_9_TUPLE_</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 311,-24 311,4 -4,4"/>
-<!-- Node46 -->
-<g id="node1" class="node"><title>Node46</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 137,-19.5 137,-0.5 0,-0.5"/>
 <text text-anchor="middle" x="68.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::tr1::GTEST_9_TUPLE_</text>
-</a>
 </g>
-</g>
-<!-- Node47 -->
-<g id="node2" class="node"><title>Node47</title>
-<g id="a_node2"><a xlink:href="namespacestd_1_1tr1.html#ae7b5ea477ac34a3eef5c4c15c42b76ed" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespacestd_1_1tr1.html#a7c131d0c2462612a78012be16114f61d" target="_top" xlink:title="std::tr1::GTEST_BY_REF_">
 <polygon fill="white" stroke="black" points="173,-0.5 173,-19.5 307,-19.5 307,-0.5 173,-0.5"/>
 <text text-anchor="middle" x="240" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">std::tr1::GTEST_BY_REF_</text>
 </a>
 </g>
 </g>
-<!-- Node46&#45;&gt;Node47 -->
-<g id="edge1" class="edge"><title>Node46&#45;&gt;Node47</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M137.465,-10C145.781,-10 154.322,-10 162.749,-10"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="162.949,-13.5001 172.949,-10 162.949,-6.5001 162.949,-13.5001"/>
 </g>

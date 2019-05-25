@@ -9,98 +9,95 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 92.1559)">
 <title>Igor::iLoader3DS::readShort</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-92.1559 1011,-92.1559 1011,4 -4,4"/>
-<!-- Node98 -->
-<g id="node1" class="node"><title>Node98</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="870,-0.5 870,-19.5 1007,-19.5 1007,-0.5 870,-0.5"/>
-<text text-anchor="middle" x="938.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::readShort</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 137,-19.5 137,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="68.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::readShort</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_loader3_d_s.html#a7feda50ab569ef7dba129b7adbf3e2dd" target="_top" xlink:title="Igor::iLoader3DS::readChunk">
+<polygon fill="white" stroke="black" points="173,-29.5 173,-48.5 314,-48.5 314,-29.5 173,-29.5"/>
+<text text-anchor="middle" x="243.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::readChunk</text>
 </a>
 </g>
 </g>
-<!-- Node99 -->
-<g id="node2" class="node"><title>Node99</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_loader3_d_s.html#a7feda50ab569ef7dba129b7adbf3e2dd" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="693,-29.5 693,-48.5 834,-48.5 834,-29.5 693,-29.5"/>
-<text text-anchor="middle" x="763.5" y="-36.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::readChunk</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M136.589,-21.2461C152.824,-23.9676 170.021,-26.8503 185.729,-29.4835"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="137.067,-17.7775 126.626,-19.5761 135.91,-24.6812 137.067,-17.7775"/>
+</g>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_loader3_d_s.html#adc6bfd41b7e33b44ac4689aba4ecc57c" target="_top" xlink:title="Igor::iLoader3DS::readMesh">
+<polygon fill="white" stroke="black" points="523,-10.5 523,-29.5 660,-29.5 660,-10.5 523,-10.5"/>
+<text text-anchor="middle" x="591.5" y="-17.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::readMesh</text>
 </a>
 </g>
 </g>
-<!-- Node98&#45;&gt;Node99 -->
-<g id="edge1" class="edge"><title>Node98&#45;&gt;Node99</title>
-<path fill="none" stroke="midnightblue" d="M870.411,-21.2461C854.176,-23.9676 836.979,-26.8503 821.271,-29.4835"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="871.09,-24.6812 880.374,-19.5761 869.933,-17.7775 871.09,-24.6812"/>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge9" class="edge"><title>Node1&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M147.297,-11.4932C249.127,-13.4477 425.973,-16.8421 522.629,-18.6973"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="147.143,-7.98972 137.078,-11.2971 147.008,-14.9884 147.143,-7.98972"/>
 </g>
-<!-- Node103 -->
-<g id="node6" class="node"><title>Node103</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_loader3_d_s.html#adc6bfd41b7e33b44ac4689aba4ecc57c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="347,-10.5 347,-29.5 484,-29.5 484,-10.5 347,-10.5"/>
-<text text-anchor="middle" x="415.5" y="-17.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::readMesh</text>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" target="_top" xlink:title="Igor::iLoader3DS::analyze3DS">
+<polygon fill="white" stroke="black" points="696,-48.5 696,-67.5 843,-67.5 843,-48.5 696,-48.5"/>
+<text text-anchor="middle" x="769.5" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::analyze3DS</text>
 </a>
 </g>
 </g>
-<!-- Node98&#45;&gt;Node103 -->
-<g id="edge9" class="edge"><title>Node98&#45;&gt;Node103</title>
-<path fill="none" stroke="midnightblue" d="M859.703,-11.4932C757.873,-13.4477 581.027,-16.8421 484.371,-18.6973"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="859.992,-14.9884 869.922,-11.2971 859.857,-7.98972 859.992,-14.9884"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M273.768,-52.6424C294.536,-61.5444 323.345,-72.346 350,-77 480.398,-99.768 636.91,-80.5596 716.497,-67.5522"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="275.11,-49.409 264.547,-48.5879 272.292,-55.8169 275.11,-49.409"/>
 </g>
-<!-- Node100 -->
-<g id="node3" class="node"><title>Node100</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_loader3_d_s.html#aca0e79310e5d9cf03bef571eab095799" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="164,-48.5 164,-67.5 311,-67.5 311,-48.5 164,-48.5"/>
-<text text-anchor="middle" x="237.5" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::analyze3DS</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_loader3_d_s.html#ad4d61d85248ac21d1fc637f9028ef3dc" target="_top" xlink:title="Igor::iLoader3DS::findChunk">
+<polygon fill="white" stroke="black" points="350,-48.5 350,-67.5 487,-67.5 487,-48.5 350,-48.5"/>
+<text text-anchor="middle" x="418.5" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::findChunk</text>
 </a>
 </g>
 </g>
-<!-- Node99&#45;&gt;Node100 -->
-<g id="edge2" class="edge"><title>Node99&#45;&gt;Node100</title>
-<path fill="none" stroke="midnightblue" d="M733.232,-52.6424C712.464,-61.5444 683.655,-72.346 657,-77 526.602,-99.768 370.09,-80.5596 290.503,-67.5522"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="734.708,-55.8169 742.453,-48.5879 731.89,-49.409 734.708,-55.8169"/>
+<!-- Node2&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node2&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M324.338,-47.7683C332.883,-48.7068 341.515,-49.6549 349.898,-50.5756"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="324.689,-44.286 314.367,-46.6733 323.925,-51.2441 324.689,-44.286"/>
 </g>
-<!-- Node102 -->
-<g id="node5" class="node"><title>Node102</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_loader3_d_s.html#ad4d61d85248ac21d1fc637f9028ef3dc" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="520,-48.5 520,-67.5 657,-67.5 657,-48.5 520,-48.5"/>
-<text text-anchor="middle" x="588.5" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::findChunk</text>
+<!-- Node2&#45;&gt;Node6 -->
+<g id="edge8" class="edge"><title>Node2&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M324.306,-34.6176C384.39,-31.3182 465.852,-26.8448 522.777,-23.7189"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="323.895,-31.1348 314.102,-35.1779 324.279,-38.1243 323.895,-31.1348"/>
+</g>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" target="_top" xlink:title="Igor::iLoader3DS::loadFile">
+<polygon fill="white" stroke="black" points="879,-48.5 879,-67.5 1007,-67.5 1007,-48.5 879,-48.5"/>
+<text text-anchor="middle" x="943" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::loadFile</text>
 </a>
 </g>
 </g>
-<!-- Node99&#45;&gt;Node102 -->
-<g id="edge4" class="edge"><title>Node99&#45;&gt;Node102</title>
-<path fill="none" stroke="midnightblue" d="M682.662,-47.7683C674.117,-48.7068 665.485,-49.6549 657.102,-50.5756"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="683.075,-51.2441 692.633,-46.6733 682.311,-44.286 683.075,-51.2441"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M853.305,-58C861.92,-58 870.574,-58 878.92,-58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="853.231,-54.5001 843.231,-58 853.231,-61.5001 853.231,-54.5001"/>
 </g>
-<!-- Node99&#45;&gt;Node103 -->
-<g id="edge8" class="edge"><title>Node99&#45;&gt;Node103</title>
-<path fill="none" stroke="midnightblue" d="M682.694,-34.6176C622.61,-31.3182 541.148,-26.8448 484.223,-23.7189"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="682.721,-38.1243 692.898,-35.1779 683.105,-31.1348 682.721,-38.1243"/>
+<!-- Node5&#45;&gt;Node3 -->
+<g id="edge5" class="edge"><title>Node5&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M497.279,-58C556.638,-58 637.825,-58 695.87,-58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="497.205,-54.5001 487.205,-58 497.204,-61.5001 497.205,-54.5001"/>
 </g>
-<!-- Node101 -->
-<g id="node4" class="node"><title>Node101</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_loader3_d_s.html#a4c261f6da8b9cf51264bb49f0df62718" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-48.5 0,-67.5 128,-67.5 128,-48.5 0,-48.5"/>
-<text text-anchor="middle" x="64" y="-55.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iLoader3DS::loadFile</text>
-</a>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge6" class="edge"><title>Node5&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M472.709,-46.1757C496.817,-40.8184 524.94,-34.5689 547.66,-29.5201"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="471.653,-42.825 462.651,-48.411 473.172,-49.6583 471.653,-42.825"/>
 </g>
-</g>
-<!-- Node100&#45;&gt;Node101 -->
-<g id="edge3" class="edge"><title>Node100&#45;&gt;Node101</title>
-<path fill="none" stroke="midnightblue" d="M153.695,-58C145.08,-58 136.426,-58 128.08,-58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="153.769,-61.5001 163.769,-58 153.769,-54.5001 153.769,-61.5001"/>
-</g>
-<!-- Node102&#45;&gt;Node100 -->
-<g id="edge5" class="edge"><title>Node102&#45;&gt;Node100</title>
-<path fill="none" stroke="midnightblue" d="M509.721,-58C450.362,-58 369.175,-58 311.13,-58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="509.796,-61.5001 519.795,-58 509.795,-54.5001 509.796,-61.5001"/>
-</g>
-<!-- Node102&#45;&gt;Node103 -->
-<g id="edge6" class="edge"><title>Node102&#45;&gt;Node103</title>
-<path fill="none" stroke="midnightblue" d="M534.291,-46.1757C510.183,-40.8184 482.06,-34.5689 459.34,-29.5201"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="533.828,-49.6583 544.349,-48.411 535.347,-42.825 533.828,-49.6583"/>
-</g>
-<!-- Node103&#45;&gt;Node100 -->
-<g id="edge7" class="edge"><title>Node103&#45;&gt;Node100</title>
-<path fill="none" stroke="midnightblue" d="M360.067,-31.7526C335.181,-37.1258 306.081,-43.4086 282.593,-48.4799"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="361.052,-35.1207 370.088,-29.589 359.574,-28.2784 361.052,-35.1207"/>
+<!-- Node6&#45;&gt;Node3 -->
+<g id="edge7" class="edge"><title>Node6&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M646.933,-31.7526C671.819,-37.1258 700.919,-43.4086 724.407,-48.4799"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="647.426,-28.2784 636.912,-29.589 645.948,-35.1207 647.426,-28.2784"/>
 </g>
 </g>
 </svg>

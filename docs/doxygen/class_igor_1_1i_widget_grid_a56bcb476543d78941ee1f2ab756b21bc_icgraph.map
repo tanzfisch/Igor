@@ -1,13 +1,12 @@
 <map id="Igor::iWidgetGrid::setCellSpacing" name="Igor::iWidgetGrid::setCellSpacing">
-<area shape="rect" id="node1" title=" " alt="" coords="997,201,1124,243"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_graph.html#a5bab24dca6ef57e9aee12a304b0b5c69" title=" " alt="" coords="787,5,912,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#a32f721a060e9d1e08479db2f679a3a67" title=" " alt="" coords="749,71,949,112"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_color_chooser.html#a1e744b2e83061214456c18529e2a7d1f" title=" " alt="" coords="749,136,949,177"/>
-<area shape="rect" id="node8" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title=" " alt="" coords="773,201,926,243"/>
-<area shape="rect" id="node9" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title=" " alt="" coords="773,267,926,308"/>
-<area shape="rect" id="node10" href="$class_user_control_material_view.html#af00d3b18c83b4335ffa14bd0b1324dbc" title=" " alt="" coords="767,332,931,373"/>
-<area shape="rect" id="node11" href="$class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" title=" " alt="" coords="767,397,931,439"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title=" " alt="" coords="501,104,701,145"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title=" " alt="" coords="253,104,453,145"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title=" " alt="" coords="5,104,205,145"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_graph.html#a5bab24dca6ef57e9aee12a304b0b5c69" title="Igor::iDialogGraph\l::initGUI" alt="" coords="217,5,343,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_color_chooser.html#a32f721a060e9d1e08479db2f679a3a67" title="Igor::iUserControlColorChooser\l::initExpanded" alt="" coords="180,71,380,112"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_color_chooser.html#a1e744b2e83061214456c18529e2a7d1f" title="Igor::iUserControlColorChooser\l::initCollapsed" alt="" coords="180,136,380,177"/>
+<area shape="rect" id="node8" href="$class_user_control_graph_view.html#afb737ca9c452b2284871b693addd2e33" title="UserControlGraphView\l::initGUI" alt="" coords="203,201,357,243"/>
+<area shape="rect" id="node9" href="$class_user_control_graph_view.html#ab922991d073ecac1a92ea3e040b8f74d" title="UserControlGraphView\l::preOrderVisit" alt="" coords="203,267,357,308"/>
+<area shape="rect" id="node10" href="$class_user_control_material_view.html#af00d3b18c83b4335ffa14bd0b1324dbc" title="UserControlMaterialView\l::initGUI" alt="" coords="198,332,362,373"/>
+<area shape="rect" id="node11" href="$class_user_control_material_view.html#af2ea093914c42bcd7bb48c11288089c1" title="UserControlMaterialView\l::refresh" alt="" coords="198,397,362,439"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" title="Igor::iUserControlColorChooser\l::initGUI" alt="" coords="428,104,628,145"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" title="Igor::iUserControlColorChooser\l::iUserControlColorChooser" alt="" coords="676,104,876,145"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" title="Igor::iUserControlColorChooser\l::createInstance" alt="" coords="924,104,1124,145"/>
 </map>

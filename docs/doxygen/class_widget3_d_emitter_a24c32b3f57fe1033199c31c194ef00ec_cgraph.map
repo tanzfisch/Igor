@@ -1,8 +1,7 @@
 <map id="Widget3DEmitter::createSquare" name="Widget3DEmitter::createSquare">
-<area shape="rect" id="node1" title=" " alt="" coords="5,111,212,138"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title=" " alt="" coords="260,5,387,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title=" " alt="" coords="260,71,387,112"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" title=" " alt="" coords="260,136,387,177"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title=" " alt="" coords="260,201,387,243"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title=" " alt="" coords="435,201,601,243"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" title="Igor::iMeshBuilder\l::addVertex" alt="" coords="260,5,387,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" title="Igor::iMeshBuilder\l::addTriangle" alt="" coords="260,71,387,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" title="Igor::iMeshBuilder\l::calcNormals" alt="" coords="260,136,387,177"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" title="Igor::iMeshBuilder\l::createMesh" alt="" coords="260,201,387,243"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" title="Igor::iMesh::setBounding\lSphere" alt="" coords="435,201,601,243"/>
 </map>

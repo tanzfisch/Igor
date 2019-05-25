@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 46)">
 <title>testing::internal::ValuesInIteratorRangeGenerator::Iterator::Advance</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 287,-46 287,4 -4,4"/>
-<!-- Node7 -->
-<g id="node1" class="node"><title>Node7</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-41.5 155,-41.5 155,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">ValuesInIteratorRangeGenerator</text>
 <text text-anchor="middle" x="77.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::Iterator::Advance</text>
-</a>
 </g>
-</g>
-<!-- Node8 -->
-<g id="node2" class="node"><title>Node8</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html#acac03266a43359801aff0de5c990bec0" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html#acac03266a43359801aff0de5c990bec0" target="_top" xlink:title="testing::internal::\lscoped_ptr::reset">
 <polygon fill="white" stroke="black" points="191,-6 191,-36 283,-36 283,-6 191,-6"/>
 <text text-anchor="start" x="199" y="-24" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="237" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr::reset</text>
 </a>
 </g>
 </g>
-<!-- Node7&#45;&gt;Node8 -->
-<g id="edge1" class="edge"><title>Node7&#45;&gt;Node8</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M155.404,-21C163.97,-21 172.564,-21 180.782,-21"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="180.959,-24.5001 190.959,-21 180.959,-17.5001 180.959,-24.5001"/>
 </g>

@@ -1,7 +1,5 @@
 <map id="IgorAux::iaConsole" name="IgorAux::iaConsole">
-<area shape="rect" id="node1" title=" " alt="" coords="5,95,136,121"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="97,184,236,225"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title=" " alt="" coords="124,5,244,32"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title=" " alt="" coords="257,95,426,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="322,5,361,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\l\&lt; iaConsole \&gt;" alt="" coords="97,184,236,225"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html" title="IgorAux::iaMutex" alt="" coords="124,5,244,32"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_singleton.html" title="IgorAux::iaSingleton\&lt; T \&gt;" alt="" coords="257,95,426,121"/>
 </map>

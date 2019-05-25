@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Tools/ModelViewer/src/UserControlGraphView.h" name="C:/dev/Igor/Igor/src/Tools/ModelViewer/src/UserControlGraphView.h">
-<area shape="rect" id="node1" title=" " alt="" coords="188,5,356,61"/>
-<area shape="rect" id="node2" href="$_menu_dialog_8h.html" title=" " alt="" coords="96,109,253,165"/>
-<area shape="rect" id="node5" href="$_user_control_graph_view_8cpp.html" title=" " alt="" coords="278,109,461,165"/>
-<area shape="rect" id="node3" href="$_menu_dialog_8cpp.html" title=" " alt="" coords="5,213,163,269"/>
-<area shape="rect" id="node4" href="$_model_viewer_8cpp.html" title=" " alt="" coords="187,213,344,269"/>
+<map id="C:/dev/Igor/src/Tools/ModelViewer/src/UserControlGraphView.h" name="C:/dev/Igor/src/Tools/ModelViewer/src/UserControlGraphView.h">
+<area shape="rect" id="node2" href="$_menu_dialog_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/MenuDialog.h" alt="" coords="135,117,340,158"/>
+<area shape="rect" id="node5" href="$_user_control_graph_view_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lGraphView.cpp" alt="" coords="364,109,559,165"/>
+<area shape="rect" id="node3" href="$_menu_dialog_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/MenuDialog.cpp" alt="" coords="5,213,224,255"/>
+<area shape="rect" id="node4" href="$_model_viewer_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.cpp" alt="" coords="249,213,474,255"/>
 </map>

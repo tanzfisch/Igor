@@ -9,25 +9,22 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iPhysics::updateMatrix</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 274,-35 274,4 -4,4"/>
-<!-- Node422 -->
-<g id="node1" class="node"><title>Node422</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 138,-25 138,-6 0,-6"/>
 <text text-anchor="middle" x="69" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::updateMatrix</text>
-</a>
 </g>
-</g>
-<!-- Node423 -->
-<g id="node2" class="node"><title>Node423</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_matrix.html#a8f8341339caae2135c145ea1ef2e8bf3" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_matrix.html#a996b71eeda2c5f6e6fc621149f01015d" target="_top" xlink:title="IgorAux::iaMatrix::\lgetData">
 <polygon fill="white" stroke="black" points="174,-0.5 174,-30.5 270,-30.5 270,-0.5 174,-0.5"/>
 <text text-anchor="start" x="182" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMatrix::</text>
 <text text-anchor="middle" x="222" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">getData</text>
 </a>
 </g>
 </g>
-<!-- Node422&#45;&gt;Node423 -->
-<g id="edge1" class="edge"><title>Node422&#45;&gt;Node423</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M138.431,-15.5C146.881,-15.5 155.449,-15.5 163.709,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="163.973,-19.0001 173.973,-15.5 163.973,-12.0001 163.973,-19.0001"/>
 </g>

@@ -1,5 +1,4 @@
 <map id="MenuDialog::onMaterialSelectionChanged" name="MenuDialog::onMaterialSelectionChanged">
-<area shape="rect" id="node1" title=" " alt="" coords="256,23,468,65"/>
-<area shape="rect" id="node2" href="$class_menu_dialog.html#a81fee463a16f315c18f6920f70942182" title=" " alt="" coords="5,5,208,32"/>
-<area shape="rect" id="node3" href="$class_menu_dialog.html#a6f3e7454676129ead9fdb277f05d955a" title=" " alt="" coords="12,56,201,83"/>
+<area shape="rect" id="node2" href="$class_menu_dialog.html#a81fee463a16f315c18f6920f70942182" title="MenuDialog::deinitMaterialView" alt="" coords="265,5,468,32"/>
+<area shape="rect" id="node3" href="$class_menu_dialog.html#a6f3e7454676129ead9fdb277f05d955a" title="MenuDialog::initMaterialView" alt="" coords="272,56,461,83"/>
 </map>

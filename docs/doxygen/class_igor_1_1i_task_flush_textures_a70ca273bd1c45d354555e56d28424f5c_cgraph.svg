@@ -9,17 +9,14 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 46)">
 <title>Igor::iTaskFlushTextures::run</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-46 317,-46 317,4 -4,4"/>
-<!-- Node9 -->
-<g id="node1" class="node"><title>Node9</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-11.5 0,-30.5 143,-30.5 143,-11.5 0,-11.5"/>
 <text text-anchor="middle" x="71.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskFlushTextures::run</text>
-</a>
 </g>
-</g>
-<!-- Node10 -->
-<g id="node2" class="node"><title>Node10</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iTextureResourceFactory\l \&gt;::getInstance">
 <polygon fill="white" stroke="black" points="179,-0.5 179,-41.5 313,-41.5 313,-0.5 179,-0.5"/>
 <text text-anchor="start" x="187" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="start" x="187" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iTextureResourceFactory</text>
@@ -27,8 +24,8 @@
 </a>
 </g>
 </g>
-<!-- Node9&#45;&gt;Node10 -->
-<g id="edge1" class="edge"><title>Node9&#45;&gt;Node10</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M143.16,-21C151.561,-21 160.166,-21 168.642,-21"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="168.894,-24.5001 178.894,-21 168.894,-17.5001 168.894,-24.5001"/>
 </g>

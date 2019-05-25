@@ -1,5 +1,4 @@
 <map id="UserControlMaterial::onTextChangedName" name="UserControlMaterial::onTextChangedName">
-<area shape="rect" id="node1" title=" " alt="" coords="189,39,344,80"/>
-<area shape="rect" id="node2" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title=" " alt="" coords="5,5,141,47"/>
-<area shape="rect" id="node3" href="$class_user_control_material.html#affeba973623aa2dc91737c9bd57c7479" title=" " alt="" coords="5,71,141,112"/>
+<area shape="rect" id="node2" href="$class_user_control_material.html#a45610f92ae0ae41d9da8fce2aa7bec4b" title="UserControlMaterial\l::initGUI" alt="" coords="208,5,344,47"/>
+<area shape="rect" id="node3" href="$class_user_control_material.html#affeba973623aa2dc91737c9bd57c7479" title="UserControlMaterial\l::deinitGUI" alt="" coords="208,71,344,112"/>
 </map>

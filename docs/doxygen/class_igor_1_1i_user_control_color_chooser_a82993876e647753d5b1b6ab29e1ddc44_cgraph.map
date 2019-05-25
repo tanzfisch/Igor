@@ -1,7 +1,6 @@
 <map id="Igor::iUserControlColorChooser::updateMode" name="Igor::iUserControlColorChooser::updateMode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,78,205,119"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#adb7456467172baf4989672b6cf489646" title=" " alt="" coords="255,5,411,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#ad472fb1c49ee592a16d50ebb36d7b18a" title=" " alt="" coords="253,56,413,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title=" " alt="" coords="270,107,397,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget_grid.html#acd624f735fbacd5f01310f5155472ce7" title=" " alt="" coords="270,173,397,214"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#adb7456467172baf4989672b6cf489646" title="Igor::iWidget::setActive" alt="" coords="255,5,411,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html#ad472fb1c49ee592a16d50ebb36d7b18a" title="Igor::iWidget::setVisible" alt="" coords="253,56,413,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title="Igor::iWidgetGrid::\laddWidget" alt="" coords="270,107,397,149"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_widget_grid.html#acd624f735fbacd5f01310f5155472ce7" title="Igor::iWidgetGrid::\lremoveWidget" alt="" coords="270,173,397,214"/>
 </map>

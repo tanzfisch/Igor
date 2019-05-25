@@ -1,5 +1,3 @@
 <map id="Igor::iSprite" name="Igor::iSprite">
-<area shape="rect" id="node1" title=" " alt="" coords="41,213,129,240"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector2.html" title=" " alt="" coords="5,109,165,136"/>
-<area shape="rect" id="node3" title=" " alt="" coords="66,5,105,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_vector2.html" title="IgorAux::iaVector2\&lt; T \&gt;" alt="" coords="5,109,165,136"/>
 </map>

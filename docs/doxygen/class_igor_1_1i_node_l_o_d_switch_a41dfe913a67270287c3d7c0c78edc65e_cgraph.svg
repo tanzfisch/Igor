@@ -9,52 +9,49 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 73.5)">
 <title>Igor::iNodeLODSwitch::setThresholds</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-73.5 398,-73.5 398,4 -4,4"/>
-<!-- Node51 -->
-<g id="node1" class="node"><title>Node51</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-22.5 0,-52.5 112,-52.5 112,-22.5 0,-22.5"/>
 <text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODSwitch</text>
 <text text-anchor="middle" x="56" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setThresholds</text>
-</a>
 </g>
-</g>
-<!-- Node52 -->
-<g id="node2" class="node"><title>Node52</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_node.html#a3c78aa85a044adc9797618217f133dc9" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_node.html#a3c78aa85a044adc9797618217f133dc9" target="_top" xlink:title="Igor::iNode::getChild">
 <polygon fill="white" stroke="black" points="152,-50 152,-69 256,-69 256,-50 152,-50"/>
 <text text-anchor="middle" x="204" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::getChild</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node52 -->
-<g id="edge1" class="edge"><title>Node51&#45;&gt;Node52</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M112.196,-45.8173C121.786,-47.2622 131.811,-48.7729 141.555,-50.2412"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="141.167,-53.7222 151.577,-51.7514 142.21,-46.8003 141.167,-53.7222"/>
 </g>
-<!-- Node53 -->
-<g id="node3" class="node"><title>Node53</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node_l_o_d_switch.html#a0e19a54aa435fd1cee8a0e599f2cf2cd" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node_l_o_d_switch.html#a0e19a54aa435fd1cee8a0e599f2cf2cd" target="_top" xlink:title="Igor::iNodeLODSwitch\l::setThresholds">
 <polygon fill="white" stroke="black" points="148,-0.5 148,-30.5 260,-30.5 260,-0.5 148,-0.5"/>
 <text text-anchor="start" x="156" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeLODSwitch</text>
 <text text-anchor="middle" x="204" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setThresholds</text>
 </a>
 </g>
 </g>
-<!-- Node51&#45;&gt;Node53 -->
-<g id="edge2" class="edge"><title>Node51&#45;&gt;Node53</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M112.196,-29.1827C120.554,-27.9234 129.243,-26.614 137.789,-25.3263"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="138.359,-28.7801 147.726,-23.829 137.316,-21.8582 138.359,-28.7801"/>
 </g>
-<!-- Node54 -->
-<g id="node4" class="node"><title>Node54</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_node.html#afcf6efd30c85e8c37a4261a6f27613b8" target="_top" xlink:title="Igor::iNode::isChild">
 <polygon fill="white" stroke="black" points="296,-6 296,-25 394,-25 394,-6 296,-6"/>
 <text text-anchor="middle" x="345" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNode::isChild</text>
 </a>
 </g>
 </g>
-<!-- Node53&#45;&gt;Node54 -->
-<g id="edge3" class="edge"><title>Node53&#45;&gt;Node54</title>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M260.336,-15.5C268.625,-15.5 277.194,-15.5 285.546,-15.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="285.59,-19.0001 295.59,-15.5 285.59,-12.0001 285.59,-19.0001"/>
 </g>

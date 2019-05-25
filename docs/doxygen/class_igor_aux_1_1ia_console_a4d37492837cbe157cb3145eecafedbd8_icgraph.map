@@ -1,5 +1,4 @@
 <map id="IgorAux::iaConsole::printCake" name="IgorAux::iaConsole::printCake">
-<area shape="rect" id="node1" title=" " alt="" coords="288,5,419,47"/>
-<area shape="rect" id="node2" href="$namespace_igor.html#a1fbeba8576121a573f03c2e05d84477f" title=" " alt="" coords="144,13,240,39"/>
-<area shape="rect" id="node3" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title=" " alt="" coords="5,13,96,39"/>
+<area shape="rect" id="node2" href="$namespace_igor.html#a1fbeba8576121a573f03c2e05d84477f" title="Igor::printInfo" alt="" coords="184,13,280,39"/>
+<area shape="rect" id="node3" href="$namespace_igor.html#ab4553401ec6fe3c6bf480432cfa232cb" title="Igor::startup" alt="" coords="328,13,419,39"/>
 </map>

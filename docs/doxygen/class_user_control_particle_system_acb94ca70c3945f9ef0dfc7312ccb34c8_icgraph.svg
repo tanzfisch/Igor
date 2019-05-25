@@ -9,42 +9,39 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>UserControlParticleSystem::onReset</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 308,-84 308,4 -4,4"/>
-<!-- Node167 -->
-<g id="node1" class="node"><title>Node167</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="170,-24.5 170,-54.5 304,-54.5 304,-24.5 170,-24.5"/>
-<text text-anchor="start" x="178" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="237" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onReset</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 134,-54.5 134,-24.5 0,-24.5"/>
+<text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="67" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onReset</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" target="_top" xlink:title="UserControlParticleSystem\l::initGUI">
+<polygon fill="white" stroke="black" points="170,-49.5 170,-79.5 304,-79.5 304,-49.5 170,-49.5"/>
+<text text-anchor="start" x="178" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="237" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node168 -->
-<g id="node2" class="node"><title>Node168</title>
-<g id="a_node2"><a xlink:href="class_user_control_particle_system.html#a40bcd13d702c6d38e59a6509f0c690ff" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-49.5 0,-79.5 134,-79.5 134,-49.5 0,-49.5"/>
-<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="67" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M144.317,-50.8567C152.826,-52.1229 161.441,-53.4049 169.809,-54.6502"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="144.804,-47.3908 134.398,-49.3807 143.774,-54.3145 144.804,-47.3908"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_user_control_particle_system.html#a90d59fb69449d6f5677749fae01ab8c7" target="_top" xlink:title="UserControlParticleSystem\l::deinitGUI">
+<polygon fill="white" stroke="black" points="170,-0.5 170,-30.5 304,-30.5 304,-0.5 170,-0.5"/>
+<text text-anchor="start" x="178" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
+<text text-anchor="middle" x="237" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node167&#45;&gt;Node168 -->
-<g id="edge1" class="edge"><title>Node167&#45;&gt;Node168</title>
-<path fill="none" stroke="midnightblue" d="M159.683,-50.8567C151.174,-52.1229 142.559,-53.4049 134.191,-54.6502"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="160.226,-54.3145 169.602,-49.3807 159.196,-47.3908 160.226,-54.3145"/>
-</g>
-<!-- Node169 -->
-<g id="node3" class="node"><title>Node169</title>
-<g id="a_node3"><a xlink:href="class_user_control_particle_system.html#a90d59fb69449d6f5677749fae01ab8c7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">UserControlParticleSystem</text>
-<text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node167&#45;&gt;Node169 -->
-<g id="edge2" class="edge"><title>Node167&#45;&gt;Node169</title>
-<path fill="none" stroke="midnightblue" d="M159.683,-28.5976C151.174,-27.382 142.559,-26.1512 134.191,-24.9558"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="159.207,-32.0651 169.602,-30.0146 160.197,-25.1354 159.207,-32.0651"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M144.317,-28.5976C152.826,-27.382 161.441,-26.1512 169.809,-24.9558"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="143.803,-25.1354 134.398,-30.0146 144.793,-32.0651 143.803,-25.1354"/>
 </g>
 </g>
 </svg>

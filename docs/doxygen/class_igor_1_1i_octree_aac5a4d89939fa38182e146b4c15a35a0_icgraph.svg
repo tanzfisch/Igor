@@ -9,26 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>Igor::iOctree::draw</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 232,-24 232,4 -4,4"/>
-<!-- Node42 -->
-<g id="node1" class="node"><title>Node42</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="132,-0.5 132,-19.5 228,-19.5 228,-0.5 132,-0.5"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 96,-19.5 96,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="48" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::draw</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#a90772eed2a87d0ea7a70f5ed6623f08c" target="_top" xlink:title="Igor::iOctree::draw">
+<polygon fill="white" stroke="black" points="132,-0.5 132,-19.5 228,-19.5 228,-0.5 132,-0.5"/>
 <text text-anchor="middle" x="180" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::draw</text>
 </a>
 </g>
 </g>
-<!-- Node43 -->
-<g id="node2" class="node"><title>Node43</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_octree.html#a90772eed2a87d0ea7a70f5ed6623f08c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 96,-19.5 96,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="48" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iOctree::draw</text>
-</a>
-</g>
-</g>
-<!-- Node42&#45;&gt;Node43 -->
-<g id="edge1" class="edge"><title>Node42&#45;&gt;Node43</title>
-<path fill="none" stroke="midnightblue" d="M121.461,-10C112.966,-10 104.297,-10 96.0478,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="121.699,-13.5001 131.699,-10 121.699,-6.5001 121.699,-13.5001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M106.539,-10C115.034,-10 123.703,-10 131.952,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="106.301,-6.5001 96.3007,-10 106.301,-13.5001 106.301,-6.5001"/>
 </g>
 </g>
 </svg>

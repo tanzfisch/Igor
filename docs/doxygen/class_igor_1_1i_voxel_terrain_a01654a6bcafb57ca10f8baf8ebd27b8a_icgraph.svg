@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iVoxelTerrain::update</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 270,-35 270,4 -4,4"/>
-<!-- Node95 -->
-<g id="node1" class="node"><title>Node95</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="171,-0.5 171,-30.5 266,-30.5 266,-0.5 171,-0.5"/>
-<text text-anchor="start" x="179" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrain</text>
-<text text-anchor="middle" x="218.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::update</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 95,-30.5 95,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iVoxelTerrain</text>
+<text text-anchor="middle" x="47.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::update</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_task_voxel_terrain.html#ad578cdbf85786e8ba443221afe6f7031" target="_top" xlink:title="Igor::iTaskVoxelTerrain::run">
+<polygon fill="white" stroke="black" points="131,-6 131,-25 266,-25 266,-6 131,-6"/>
+<text text-anchor="middle" x="198.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskVoxelTerrain::run</text>
 </a>
 </g>
 </g>
-<!-- Node96 -->
-<g id="node2" class="node"><title>Node96</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_task_voxel_terrain.html#ad578cdbf85786e8ba443221afe6f7031" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-25 135,-25 135,-6 0,-6"/>
-<text text-anchor="middle" x="67.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskVoxelTerrain::run</text>
-</a>
-</g>
-</g>
-<!-- Node95&#45;&gt;Node96 -->
-<g id="edge1" class="edge"><title>Node95&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M160.502,-15.5C152.247,-15.5 143.687,-15.5 135.261,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="160.764,-19.0001 170.764,-15.5 160.764,-12.0001 160.764,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M105.498,-15.5C113.753,-15.5 122.313,-15.5 130.739,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="105.236,-12.0001 95.2357,-15.5 105.236,-19.0001 105.236,-12.0001"/>
 </g>
 </g>
 </svg>

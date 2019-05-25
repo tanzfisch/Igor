@@ -9,369 +9,366 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 718)">
 <title>Igor::iWidgetNumberChooser::setValue</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-718 1075,-718 1075,4 -4,4"/>
-<!-- Node83 -->
-<g id="node1" class="node"><title>Node83</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="930,-365.5 930,-395.5 1071,-395.5 1071,-365.5 930,-365.5"/>
-<text text-anchor="start" x="938" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetNumberChooser</text>
-<text text-anchor="middle" x="1000.5" y="-372.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setValue</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-365.5 0,-395.5 141,-395.5 141,-365.5 0,-365.5"/>
+<text text-anchor="start" x="8" y="-383.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetNumberChooser</text>
+<text text-anchor="middle" x="70.5" y="-372.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setValue</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#aba59339069b9d8e3810947722cd6b604" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedR">
+<polygon fill="white" stroke="black" points="363,-683.5 363,-713.5 513,-713.5 513,-683.5 363,-683.5"/>
+<text text-anchor="start" x="371" y="-701.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-690.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedR</text>
 </a>
 </g>
 </g>
-<!-- Node84 -->
-<g id="node2" class="node"><title>Node84</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#aba59339069b9d8e3810947722cd6b604" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-683.5 558,-713.5 708,-713.5 708,-683.5 558,-683.5"/>
-<text text-anchor="start" x="566" y="-701.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-690.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedR</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M75.72,-405.593C85.1048,-453.591 112.211,-558.757 177,-616.5 228.587,-662.477 305.9,-682.683 362.815,-691.558"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="79.155,-404.92 73.8861,-395.729 72.273,-406.2 79.155,-404.92"/>
+</g>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ae1d11950012f128b89fac28535cabf63" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedG">
+<polygon fill="white" stroke="black" points="363,-634.5 363,-664.5 513,-664.5 513,-634.5 363,-634.5"/>
+<text text-anchor="start" x="371" y="-652.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-641.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedG</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node84 -->
-<g id="edge1" class="edge"><title>Node83&#45;&gt;Node84</title>
-<path fill="none" stroke="midnightblue" d="M995.28,-405.593C985.895,-453.591 958.789,-558.757 894,-616.5 842.413,-662.477 765.1,-682.683 708.185,-691.558"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="998.727,-406.2 997.114,-395.729 991.845,-404.92 998.727,-406.2"/>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M78.4908,-405.422C91.2218,-446.232 122.075,-527.193 177,-571.5 230.186,-614.404 306.534,-633.729 362.743,-642.422"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="81.807,-404.296 75.5742,-395.728 75.1038,-406.313 81.807,-404.296"/>
 </g>
-<!-- Node88 -->
-<g id="node6" class="node"><title>Node88</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ae1d11950012f128b89fac28535cabf63" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-634.5 558,-664.5 708,-664.5 708,-634.5 558,-634.5"/>
-<text text-anchor="start" x="566" y="-652.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-641.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedG</text>
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a4dbfef3fb4c7fe99d584f96618da6db8" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedB">
+<polygon fill="white" stroke="black" points="363,-585.5 363,-615.5 513,-615.5 513,-585.5 363,-585.5"/>
+<text text-anchor="start" x="371" y="-603.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-592.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedB</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node88 -->
-<g id="edge5" class="edge"><title>Node83&#45;&gt;Node88</title>
-<path fill="none" stroke="midnightblue" d="M992.509,-405.422C979.778,-446.232 948.925,-527.193 894,-571.5 840.814,-614.404 764.466,-633.729 708.257,-642.422"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="995.896,-406.313 995.426,-395.728 989.193,-404.296 995.896,-406.313"/>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge7" class="edge"><title>Node1&#45;&gt;Node7</title>
+<path fill="none" stroke="midnightblue" d="M82.4449,-405.09C98.4337,-438.165 131.321,-496.518 177,-528.5 232.25,-567.184 307.609,-585.129 362.974,-593.428"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="85.4505,-403.256 78.03,-395.694 79.115,-406.233 85.4505,-403.256"/>
 </g>
-<!-- Node89 -->
-<g id="node7" class="node"><title>Node89</title>
-<g id="a_node7"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a4dbfef3fb4c7fe99d584f96618da6db8" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-585.5 558,-615.5 708,-615.5 708,-585.5 558,-585.5"/>
-<text text-anchor="start" x="566" y="-603.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-592.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedB</text>
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#aca097612ba969df68ba2ae9d75223ae0" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedA">
+<polygon fill="white" stroke="black" points="363,-536.5 363,-566.5 513,-566.5 513,-536.5 363,-536.5"/>
+<text text-anchor="start" x="371" y="-554.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-543.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedA</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node89 -->
-<g id="edge7" class="edge"><title>Node83&#45;&gt;Node89</title>
-<path fill="none" stroke="midnightblue" d="M988.555,-405.09C972.566,-438.165 939.679,-496.518 894,-528.5 838.75,-567.184 763.391,-585.129 708.026,-593.428"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="991.885,-406.233 992.97,-395.694 985.55,-403.256 991.885,-406.233"/>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge9" class="edge"><title>Node1&#45;&gt;Node8</title>
+<path fill="none" stroke="midnightblue" d="M87.4741,-403.892C106.016,-429.191 138.963,-468.804 177,-490.5 234.39,-523.235 308.45,-538.427 362.838,-545.464"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="90.1992,-401.686 81.5315,-395.593 84.5079,-405.762 90.1992,-401.686"/>
 </g>
-<!-- Node90 -->
-<g id="node8" class="node"><title>Node90</title>
-<g id="a_node8"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#aca097612ba969df68ba2ae9d75223ae0" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-536.5 558,-566.5 708,-566.5 708,-536.5 558,-536.5"/>
-<text text-anchor="start" x="566" y="-554.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-543.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedA</text>
+<!-- Node9 -->
+<g id="node9" class="node"><title>Node9</title>
+<g id="a_node9"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a2cca9e35555c8e25ad1f6869d1506347" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedRExpanded">
+<polygon fill="white" stroke="black" points="363,-487.5 363,-517.5 513,-517.5 513,-487.5 363,-487.5"/>
+<text text-anchor="start" x="371" y="-505.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-494.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedRExpanded</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node90 -->
-<g id="edge9" class="edge"><title>Node83&#45;&gt;Node90</title>
-<path fill="none" stroke="midnightblue" d="M983.526,-403.892C964.984,-429.191 932.037,-468.804 894,-490.5 836.61,-523.235 762.55,-538.427 708.162,-545.464"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="986.492,-405.762 989.469,-395.593 980.801,-401.686 986.492,-405.762"/>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge11" class="edge"><title>Node1&#45;&gt;Node9</title>
+<path fill="none" stroke="midnightblue" d="M94.1623,-402.638C114.242,-420.904 145.229,-445.943 177,-459.5 236.439,-484.864 309.44,-495.329 362.941,-499.615"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="96.4742,-400.009 86.7662,-395.765 91.709,-405.137 96.4742,-400.009"/>
 </g>
-<!-- Node91 -->
-<g id="node9" class="node"><title>Node91</title>
-<g id="a_node9"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a2cca9e35555c8e25ad1f6869d1506347" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-487.5 558,-517.5 708,-517.5 708,-487.5 558,-487.5"/>
-<text text-anchor="start" x="566" y="-505.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-494.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedRExpanded</text>
+<!-- Node10 -->
+<g id="node10" class="node"><title>Node10</title>
+<g id="a_node10"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ab6cb9e428820db046f3b58eba81e463d" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedGExpanded">
+<polygon fill="white" stroke="black" points="363,-438.5 363,-468.5 513,-468.5 513,-438.5 363,-438.5"/>
+<text text-anchor="start" x="371" y="-456.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-445.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedGExpanded</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node91 -->
-<g id="edge11" class="edge"><title>Node83&#45;&gt;Node91</title>
-<path fill="none" stroke="midnightblue" d="M976.838,-402.638C956.758,-420.904 925.771,-445.943 894,-459.5 834.561,-484.864 761.56,-495.329 708.059,-499.615"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="979.291,-405.137 984.234,-395.765 974.526,-400.009 979.291,-405.137"/>
+<!-- Node1&#45;&gt;Node10 -->
+<g id="edge13" class="edge"><title>Node1&#45;&gt;Node10</title>
+<path fill="none" stroke="midnightblue" d="M103.057,-400.896C123.333,-412.903 150.711,-427.139 177,-434.5 238.016,-451.585 310.055,-455.666 362.812,-455.856"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="104.636,-397.76 94.2702,-395.568 101.007,-403.745 104.636,-397.76"/>
 </g>
-<!-- Node92 -->
-<g id="node10" class="node"><title>Node92</title>
-<g id="a_node10"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ab6cb9e428820db046f3b58eba81e463d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-438.5 558,-468.5 708,-468.5 708,-438.5 558,-438.5"/>
-<text text-anchor="start" x="566" y="-456.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-445.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedGExpanded</text>
+<!-- Node11 -->
+<g id="node11" class="node"><title>Node11</title>
+<g id="a_node11"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a79bf4244b35bb85557676a274a8e94fe" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedBExpanded">
+<polygon fill="white" stroke="black" points="363,-389.5 363,-419.5 513,-419.5 513,-389.5 363,-389.5"/>
+<text text-anchor="start" x="371" y="-407.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedBExpanded</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node92 -->
-<g id="edge13" class="edge"><title>Node83&#45;&gt;Node92</title>
-<path fill="none" stroke="midnightblue" d="M967.943,-400.896C947.667,-412.903 920.289,-427.139 894,-434.5 832.984,-451.585 760.945,-455.666 708.188,-455.856"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="969.993,-403.745 976.73,-395.568 966.364,-397.76 969.993,-403.745"/>
+<!-- Node1&#45;&gt;Node11 -->
+<g id="edge15" class="edge"><title>Node1&#45;&gt;Node11</title>
+<path fill="none" stroke="midnightblue" d="M115.762,-399.226C134.322,-406.118 156.352,-413.074 177,-416.5 239.074,-426.799 310.546,-422.344 362.826,-416.137"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="116.988,-395.948 106.398,-395.646 114.489,-402.486 116.988,-395.948"/>
 </g>
-<!-- Node93 -->
-<g id="node11" class="node"><title>Node93</title>
-<g id="a_node11"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a79bf4244b35bb85557676a274a8e94fe" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-389.5 558,-419.5 708,-419.5 708,-389.5 558,-389.5"/>
-<text text-anchor="start" x="566" y="-407.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-396.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedBExpanded</text>
+<!-- Node12 -->
+<g id="node12" class="node"><title>Node12</title>
+<g id="a_node12"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a12a8d0b8772ecb459177ad54eb05f5be" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onValueChangedAExpanded">
+<polygon fill="white" stroke="black" points="363,-340.5 363,-370.5 513,-370.5 513,-340.5 363,-340.5"/>
+<text text-anchor="start" x="371" y="-358.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-347.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedAExpanded</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node93 -->
-<g id="edge15" class="edge"><title>Node83&#45;&gt;Node93</title>
-<path fill="none" stroke="midnightblue" d="M955.238,-399.226C936.678,-406.118 914.648,-413.074 894,-416.5 831.926,-426.799 760.454,-422.344 708.174,-416.137"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="956.511,-402.486 964.602,-395.646 954.012,-395.948 956.511,-402.486"/>
+<!-- Node1&#45;&gt;Node12 -->
+<g id="edge17" class="edge"><title>Node1&#45;&gt;Node12</title>
+<path fill="none" stroke="midnightblue" d="M151.379,-386.355C201.907,-388.768 268.496,-389.575 327,-382.5 346.815,-380.104 368.209,-375.363 386.815,-370.514"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="151.337,-382.849 141.172,-385.836 150.981,-389.84 151.337,-382.849"/>
 </g>
-<!-- Node94 -->
-<g id="node12" class="node"><title>Node94</title>
-<g id="a_node12"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a12a8d0b8772ecb459177ad54eb05f5be" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-340.5 558,-370.5 708,-370.5 708,-340.5 558,-340.5"/>
-<text text-anchor="start" x="566" y="-358.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-347.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onValueChangedAExpanded</text>
+<!-- Node13 -->
+<g id="node13" class="node"><title>Node13</title>
+<g id="a_node13"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a3cae6ee180ec98ef6020994ee9d98922" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onSliderChangedH">
+<polygon fill="white" stroke="black" points="177,-343.5 177,-373.5 327,-373.5 327,-343.5 177,-343.5"/>
+<text text-anchor="start" x="185" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedH</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node94 -->
-<g id="edge17" class="edge"><title>Node83&#45;&gt;Node94</title>
-<path fill="none" stroke="midnightblue" d="M919.621,-386.355C869.093,-388.768 802.504,-389.575 744,-382.5 724.185,-380.104 702.791,-375.363 684.185,-370.514"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="920.019,-389.84 929.828,-385.836 919.663,-382.849 920.019,-389.84"/>
+<!-- Node1&#45;&gt;Node13 -->
+<g id="edge19" class="edge"><title>Node1&#45;&gt;Node13</title>
+<path fill="none" stroke="midnightblue" d="M151.146,-370.738C159.722,-369.687 168.421,-368.621 176.927,-367.579"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="150.656,-367.272 141.156,-371.963 151.508,-374.22 150.656,-367.272"/>
 </g>
-<!-- Node95 -->
-<g id="node13" class="node"><title>Node95</title>
-<g id="a_node13"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a3cae6ee180ec98ef6020994ee9d98922" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-343.5 744,-373.5 894,-373.5 894,-343.5 744,-343.5"/>
-<text text-anchor="start" x="752" y="-361.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-350.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedH</text>
+<!-- Node15 -->
+<g id="node15" class="node"><title>Node15</title>
+<g id="a_node15"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a96622ba2d22cca146b1bea3648b1f9cd" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onSliderChangedS">
+<polygon fill="white" stroke="black" points="177,-294.5 177,-324.5 327,-324.5 327,-294.5 177,-294.5"/>
+<text text-anchor="start" x="185" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedS</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node95 -->
-<g id="edge19" class="edge"><title>Node83&#45;&gt;Node95</title>
-<path fill="none" stroke="midnightblue" d="M919.854,-370.738C911.278,-369.687 902.579,-368.621 894.073,-367.579"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="919.492,-374.22 929.844,-371.963 920.344,-367.272 919.492,-374.22"/>
+<!-- Node1&#45;&gt;Node15 -->
+<g id="edge22" class="edge"><title>Node1&#45;&gt;Node15</title>
+<path fill="none" stroke="midnightblue" d="M112.154,-361.184C131.58,-352.266 155.281,-341.833 177,-333.5 185.07,-330.404 193.73,-327.355 202.181,-324.525"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="110.595,-358.049 102.989,-365.425 113.534,-364.402 110.595,-358.049"/>
 </g>
-<!-- Node97 -->
-<g id="node15" class="node"><title>Node97</title>
-<g id="a_node15"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a96622ba2d22cca146b1bea3648b1f9cd" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-294.5 744,-324.5 894,-324.5 894,-294.5 744,-294.5"/>
-<text text-anchor="start" x="752" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedS</text>
+<!-- Node16 -->
+<g id="node16" class="node"><title>Node16</title>
+<g id="a_node16"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a57a2f6b807ea3c83fa25507a84f7f9b3" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onSliderChangedV">
+<polygon fill="white" stroke="black" points="177,-245.5 177,-275.5 327,-275.5 327,-245.5 177,-245.5"/>
+<text text-anchor="start" x="185" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedV</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node97 -->
-<g id="edge22" class="edge"><title>Node83&#45;&gt;Node97</title>
-<path fill="none" stroke="midnightblue" d="M958.846,-361.184C939.42,-352.266 915.719,-341.833 894,-333.5 885.93,-330.404 877.27,-327.355 868.819,-324.525"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="957.466,-364.402 968.011,-365.425 960.405,-358.049 957.466,-364.402"/>
+<!-- Node1&#45;&gt;Node16 -->
+<g id="edge24" class="edge"><title>Node1&#45;&gt;Node16</title>
+<path fill="none" stroke="midnightblue" d="M91.2294,-357.635C110.972,-336.041 143.196,-304.123 177,-284.5 182.84,-281.11 189.222,-278.128 195.711,-275.525"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="88.3722,-355.578 84.2967,-365.358 93.5813,-360.254 88.3722,-355.578"/>
 </g>
-<!-- Node98 -->
-<g id="node16" class="node"><title>Node98</title>
-<g id="a_node16"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a57a2f6b807ea3c83fa25507a84f7f9b3" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-245.5 744,-275.5 894,-275.5 894,-245.5 744,-245.5"/>
-<text text-anchor="start" x="752" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedV</text>
+<!-- Node17 -->
+<g id="node17" class="node"><title>Node17</title>
+<g id="a_node17"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ad3c851067b17bdd309d178ceb0ca594a" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onSliderChangedR">
+<polygon fill="white" stroke="black" points="177,-196.5 177,-226.5 327,-226.5 327,-196.5 177,-196.5"/>
+<text text-anchor="start" x="185" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedR</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node98 -->
-<g id="edge24" class="edge"><title>Node83&#45;&gt;Node98</title>
-<path fill="none" stroke="midnightblue" d="M979.771,-357.635C960.028,-336.041 927.804,-304.123 894,-284.5 888.16,-281.11 881.778,-278.128 875.289,-275.525"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="977.419,-360.254 986.703,-365.358 982.628,-355.578 977.419,-360.254"/>
+<!-- Node1&#45;&gt;Node17 -->
+<g id="edge26" class="edge"><title>Node1&#45;&gt;Node17</title>
+<path fill="none" stroke="midnightblue" d="M83.0292,-356.194C99.4886,-324.027 132.7,-267.644 177,-235.5 181.701,-232.089 186.91,-229.147 192.324,-226.613"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="79.7959,-354.835 78.4653,-365.346 86.0602,-357.959 79.7959,-354.835"/>
 </g>
-<!-- Node99 -->
-<g id="node17" class="node"><title>Node99</title>
-<g id="a_node17"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ad3c851067b17bdd309d178ceb0ca594a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-196.5 744,-226.5 894,-226.5 894,-196.5 744,-196.5"/>
-<text text-anchor="start" x="752" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedR</text>
+<!-- Node18 -->
+<g id="node18" class="node"><title>Node18</title>
+<g id="a_node18"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ae71f2bc615681288e009fa2f1e8aff52" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onSliderChangedG">
+<polygon fill="white" stroke="black" points="177,-147.5 177,-177.5 327,-177.5 327,-147.5 177,-147.5"/>
+<text text-anchor="start" x="185" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedG</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node99 -->
-<g id="edge26" class="edge"><title>Node83&#45;&gt;Node99</title>
-<path fill="none" stroke="midnightblue" d="M987.971,-356.194C971.511,-324.027 938.3,-267.644 894,-235.5 889.299,-232.089 884.09,-229.147 878.676,-226.613"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="984.94,-357.959 992.535,-365.346 991.204,-354.835 984.94,-357.959"/>
+<!-- Node1&#45;&gt;Node18 -->
+<g id="edge28" class="edge"><title>Node1&#45;&gt;Node18</title>
+<path fill="none" stroke="midnightblue" d="M78.3941,-355.632C91.0629,-314.485 121.927,-232.248 177,-186.5 181.156,-183.048 185.819,-180.089 190.731,-177.553"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="74.9874,-354.809 75.4954,-365.392 81.6977,-356.802 74.9874,-354.809"/>
 </g>
-<!-- Node100 -->
-<g id="node18" class="node"><title>Node100</title>
-<g id="a_node18"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ae71f2bc615681288e009fa2f1e8aff52" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-147.5 744,-177.5 894,-177.5 894,-147.5 744,-147.5"/>
-<text text-anchor="start" x="752" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedG</text>
+<!-- Node19 -->
+<g id="node19" class="node"><title>Node19</title>
+<g id="a_node19"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#af1ef4cd260b4503f1e1b3ea0e9d21494" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onSliderChangedB">
+<polygon fill="white" stroke="black" points="177,-98.5 177,-128.5 327,-128.5 327,-98.5 177,-98.5"/>
+<text text-anchor="start" x="185" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedB</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node100 -->
-<g id="edge28" class="edge"><title>Node83&#45;&gt;Node100</title>
-<path fill="none" stroke="midnightblue" d="M992.606,-355.632C979.937,-314.485 949.073,-232.248 894,-186.5 889.844,-183.048 885.181,-180.089 880.269,-177.553"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="989.302,-356.802 995.505,-365.392 996.013,-354.809 989.302,-356.802"/>
+<!-- Node1&#45;&gt;Node19 -->
+<g id="edge30" class="edge"><title>Node1&#45;&gt;Node19</title>
+<path fill="none" stroke="midnightblue" d="M75.4031,-355.432C84.3396,-306.45 110.851,-197.586 177,-137.5 180.799,-134.049 185.101,-131.094 189.672,-128.563"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="71.9224,-355.021 73.6676,-365.471 78.82,-356.213 71.9224,-355.021"/>
 </g>
-<!-- Node101 -->
-<g id="node19" class="node"><title>Node101</title>
-<g id="a_node19"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#af1ef4cd260b4503f1e1b3ea0e9d21494" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-98.5 744,-128.5 894,-128.5 894,-98.5 744,-98.5"/>
-<text text-anchor="start" x="752" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedB</text>
+<!-- Node20 -->
+<g id="node20" class="node"><title>Node20</title>
+<g id="a_node20"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a227b1fa1d3048cb2027ce945e41d3864" target="_top" xlink:title="Igor::iUserControlColorChooser\l::onSliderChangedA">
+<polygon fill="white" stroke="black" points="177,-49.5 177,-79.5 327,-79.5 327,-49.5 177,-49.5"/>
+<text text-anchor="start" x="185" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedA</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node101 -->
-<g id="edge30" class="edge"><title>Node83&#45;&gt;Node101</title>
-<path fill="none" stroke="midnightblue" d="M995.597,-355.432C986.66,-306.45 960.149,-197.586 894,-137.5 890.201,-134.049 885.899,-131.094 881.328,-128.563"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="992.18,-356.213 997.332,-365.471 999.078,-355.021 992.18,-356.213"/>
+<!-- Node1&#45;&gt;Node20 -->
+<g id="edge32" class="edge"><title>Node1&#45;&gt;Node20</title>
+<path fill="none" stroke="midnightblue" d="M73.3393,-355.193C78.7759,-299.091 99.6419,-163.34 177,-88.5 180.592,-85.0254 184.691,-82.0538 189.076,-79.5124"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="69.8392,-355.04 72.4455,-365.309 76.8121,-355.656 69.8392,-355.04"/>
 </g>
-<!-- Node102 -->
-<g id="node20" class="node"><title>Node102</title>
-<g id="a_node20"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a227b1fa1d3048cb2027ce945e41d3864" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-49.5 744,-79.5 894,-79.5 894,-49.5 744,-49.5"/>
-<text text-anchor="start" x="752" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onSliderChangedA</text>
+<!-- Node21 -->
+<g id="node21" class="node"><title>Node21</title>
+<g id="a_node21"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ac82a382282c1b5daf90091ec6494d42c" target="_top" xlink:title="Igor::iUserControlColorChooser\l::createNumberChooser">
+<polygon fill="white" stroke="black" points="177,-0.5 177,-30.5 327,-30.5 327,-0.5 177,-0.5"/>
+<text text-anchor="start" x="185" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="252" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createNumberChooser</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node102 -->
-<g id="edge32" class="edge"><title>Node83&#45;&gt;Node102</title>
-<path fill="none" stroke="midnightblue" d="M997.661,-355.193C992.224,-299.091 971.358,-163.34 894,-88.5 890.408,-85.0254 886.309,-82.0538 881.924,-79.5124"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="994.188,-355.656 998.554,-365.309 1001.16,-355.04 994.188,-355.656"/>
+<!-- Node1&#45;&gt;Node21 -->
+<g id="edge34" class="edge"><title>Node1&#45;&gt;Node21</title>
+<path fill="none" stroke="midnightblue" d="M71.7935,-355.365C73.9054,-292.979 88.114,-129.601 177,-39.5 180.415,-36.0387 184.332,-33.0762 188.544,-30.5408"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="68.2919,-355.384 71.5304,-365.472 75.2895,-355.566 68.2919,-355.384"/>
 </g>
-<!-- Node103 -->
-<g id="node21" class="node"><title>Node103</title>
-<g id="a_node21"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#ac82a382282c1b5daf90091ec6494d42c" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="744,-0.5 744,-30.5 894,-30.5 894,-0.5 744,-0.5"/>
-<text text-anchor="start" x="752" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="819" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createNumberChooser</text>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" target="_top" xlink:title="Igor::iUserControlColorChooser\l::initGUI">
+<polygon fill="white" stroke="black" points="549,-462.5 549,-492.5 699,-492.5 699,-462.5 549,-462.5"/>
+<text text-anchor="start" x="557" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="624" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node83&#45;&gt;Node103 -->
-<g id="edge34" class="edge"><title>Node83&#45;&gt;Node103</title>
-<path fill="none" stroke="midnightblue" d="M999.207,-355.365C997.095,-292.979 982.886,-129.601 894,-39.5 890.585,-36.0387 886.668,-33.0762 882.456,-30.5408"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="995.71,-355.566 999.47,-365.472 1002.71,-355.384 995.71,-355.566"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M508.105,-678.156C509.798,-677.003 511.434,-675.786 513,-674.5 574.602,-623.907 607.776,-529.265 618.791,-492.574"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="506.06,-675.299 499.228,-683.398 509.619,-681.327 506.06,-675.299"/>
 </g>
-<!-- Node85 -->
-<g id="node3" class="node"><title>Node85</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a350674922c28c48ed8d4f3bf45a39fdc" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="372,-462.5 372,-492.5 522,-492.5 522,-462.5 372,-462.5"/>
-<text text-anchor="start" x="380" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="447" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" target="_top" xlink:title="Igor::iUserControlColorChooser\l::iUserControlColorChooser">
+<polygon fill="white" stroke="black" points="735,-462.5 735,-492.5 885,-492.5 885,-462.5 735,-462.5"/>
+<text text-anchor="start" x="743" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="810" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iUserControlColorChooser</text>
 </a>
 </g>
 </g>
-<!-- Node84&#45;&gt;Node85 -->
-<g id="edge2" class="edge"><title>Node84&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M562.895,-678.156C561.202,-677.003 559.566,-675.786 558,-674.5 496.398,-623.907 463.224,-529.265 452.209,-492.574"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="561.381,-681.327 571.772,-683.398 564.94,-675.299 561.381,-681.327"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M709.066,-477.5C717.654,-477.5 726.336,-477.5 734.808,-477.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="709.045,-474 699.044,-477.5 709.044,-481 709.045,-474"/>
 </g>
-<!-- Node86 -->
-<g id="node4" class="node"><title>Node86</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a3e12c44e1c409cc8f785c67eda400a85" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="186,-462.5 186,-492.5 336,-492.5 336,-462.5 186,-462.5"/>
-<text text-anchor="start" x="194" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="261" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iUserControlColorChooser</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" target="_top" xlink:title="Igor::iUserControlColorChooser\l::createInstance">
+<polygon fill="white" stroke="black" points="921,-462.5 921,-492.5 1071,-492.5 1071,-462.5 921,-462.5"/>
+<text text-anchor="start" x="929" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="996" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createInstance</text>
 </a>
 </g>
 </g>
-<!-- Node85&#45;&gt;Node86 -->
-<g id="edge3" class="edge"><title>Node85&#45;&gt;Node86</title>
-<path fill="none" stroke="midnightblue" d="M361.934,-477.5C353.346,-477.5 344.664,-477.5 336.192,-477.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="361.956,-481 371.956,-477.5 361.955,-474 361.956,-481"/>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M895.066,-477.5C903.654,-477.5 912.336,-477.5 920.808,-477.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="895.045,-474 885.044,-477.5 895.044,-481 895.045,-474"/>
 </g>
-<!-- Node87 -->
-<g id="node5" class="node"><title>Node87</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#af82f3e4ae1b705adacffcdd546439e88" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-462.5 0,-492.5 150,-492.5 150,-462.5 0,-462.5"/>
-<text text-anchor="start" x="8" y="-480.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="75" y="-469.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createInstance</text>
+<!-- Node6&#45;&gt;Node3 -->
+<g id="edge6" class="edge"><title>Node6&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M506.544,-629.686C508.776,-628.375 510.936,-626.982 513,-625.5 563.713,-589.094 600.992,-522.278 615.878,-492.504"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="504.883,-626.605 497.64,-634.338 508.124,-632.809 504.883,-626.605"/>
+</g>
+<!-- Node7&#45;&gt;Node3 -->
+<g id="edge8" class="edge"><title>Node7&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M503.582,-581.402C506.825,-579.873 509.984,-578.24 513,-576.5 552.837,-553.52 590.744,-514.274 609.944,-492.745"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="502.051,-578.252 494.271,-585.444 504.838,-584.673 502.051,-578.252"/>
+</g>
+<!-- Node8&#45;&gt;Node3 -->
+<g id="edge10" class="edge"><title>Node8&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M498.028,-533.023C503.118,-531.228 508.166,-529.376 513,-527.5 540.184,-516.952 570.278,-503.118 592.107,-492.676"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="496.552,-529.83 488.235,-536.393 498.83,-536.449 496.552,-529.83"/>
+</g>
+<!-- Node9&#45;&gt;Node3 -->
+<g id="edge12" class="edge"><title>Node9&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M523.066,-491.078C531.654,-489.911 540.336,-488.732 548.808,-487.581"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="522.482,-487.625 513.044,-492.44 523.425,-494.561 522.482,-487.625"/>
+</g>
+<!-- Node10&#45;&gt;Node3 -->
+<g id="edge14" class="edge"><title>Node10&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M523.066,-464.465C531.654,-465.585 540.336,-466.718 548.808,-467.823"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="523.413,-460.981 513.044,-463.158 522.508,-467.922 523.413,-460.981"/>
+</g>
+<!-- Node11&#45;&gt;Node3 -->
+<g id="edge16" class="edge"><title>Node11&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M497.372,-422.792C502.682,-424.648 507.956,-426.565 513,-428.5 539.936,-438.834 569.797,-452.266 591.601,-462.452"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="498.413,-419.449 487.819,-419.525 496.148,-426.073 498.413,-419.449"/>
+</g>
+<!-- Node12&#45;&gt;Node3 -->
+<g id="edge18" class="edge"><title>Node12&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M503.571,-374.616C506.817,-376.141 509.979,-377.768 513,-379.5 552.715,-402.276 590.671,-441.114 609.911,-462.417"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="504.822,-371.344 494.254,-370.585 502.042,-377.768 504.822,-371.344"/>
+</g>
+<!-- Node14 -->
+<g id="node14" class="node"><title>Node14</title>
+<g id="a_node14"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a32f721a060e9d1e08479db2f679a3a67" target="_top" xlink:title="Igor::iUserControlColorChooser\l::initExpanded">
+<polygon fill="white" stroke="black" points="363,-221.5 363,-251.5 513,-251.5 513,-221.5 363,-221.5"/>
+<text text-anchor="start" x="371" y="-239.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
+<text text-anchor="middle" x="438" y="-228.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initExpanded</text>
 </a>
 </g>
 </g>
-<!-- Node86&#45;&gt;Node87 -->
-<g id="edge4" class="edge"><title>Node86&#45;&gt;Node87</title>
-<path fill="none" stroke="midnightblue" d="M175.934,-477.5C167.346,-477.5 158.664,-477.5 150.192,-477.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="175.956,-481 185.956,-477.5 175.955,-474 175.956,-481"/>
+<!-- Node13&#45;&gt;Node14 -->
+<g id="edge20" class="edge"><title>Node13&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M315.598,-339.376C319.533,-337.558 323.368,-335.6 327,-333.5 366.235,-310.814 404.09,-272.78 423.515,-251.709"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="314.092,-336.214 306.28,-343.37 316.85,-342.648 314.092,-336.214"/>
 </g>
-<!-- Node88&#45;&gt;Node85 -->
-<g id="edge6" class="edge"><title>Node88&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M564.456,-629.686C562.224,-628.375 560.064,-626.982 558,-625.5 507.287,-589.094 470.008,-522.278 455.122,-492.504"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="562.876,-632.809 573.36,-634.338 566.117,-626.605 562.876,-632.809"/>
+<!-- Node14&#45;&gt;Node3 -->
+<g id="edge21" class="edge"><title>Node14&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M457.582,-259.777C472.645,-278.724 494.356,-306.211 513,-330.5 549.682,-378.289 592.157,-435.638 611.878,-462.384"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="460.13,-257.359 451.164,-251.715 454.654,-261.718 460.13,-257.359"/>
 </g>
-<!-- Node89&#45;&gt;Node85 -->
-<g id="edge8" class="edge"><title>Node89&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M567.418,-581.402C564.175,-579.873 561.016,-578.24 558,-576.5 518.163,-553.52 480.256,-514.274 461.056,-492.745"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="566.162,-584.673 576.729,-585.444 568.949,-578.252 566.162,-584.673"/>
+<!-- Node15&#45;&gt;Node14 -->
+<g id="edge23" class="edge"><title>Node15&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M309.661,-290.914C315.542,-288.819 321.408,-286.66 327,-284.5 353.434,-274.289 382.826,-261.38 404.574,-251.522"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="308.08,-287.759 299.799,-294.367 310.393,-294.366 308.08,-287.759"/>
 </g>
-<!-- Node90&#45;&gt;Node85 -->
-<g id="edge10" class="edge"><title>Node90&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M572.972,-533.023C567.882,-531.228 562.834,-529.376 558,-527.5 530.816,-516.952 500.722,-503.118 478.893,-492.676"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="572.17,-536.449 582.765,-536.393 574.448,-529.83 572.17,-536.449"/>
+<!-- Node16&#45;&gt;Node14 -->
+<g id="edge25" class="edge"><title>Node16&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M337.066,-249.535C345.654,-248.415 354.336,-247.282 362.808,-246.177"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="336.508,-246.078 327.044,-250.842 337.413,-253.019 336.508,-246.078"/>
 </g>
-<!-- Node91&#45;&gt;Node85 -->
-<g id="edge12" class="edge"><title>Node91&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M547.934,-491.078C539.346,-489.911 530.664,-488.732 522.192,-487.581"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="547.575,-494.561 557.956,-492.44 548.518,-487.625 547.575,-494.561"/>
+<!-- Node17&#45;&gt;Node14 -->
+<g id="edge27" class="edge"><title>Node17&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M337.066,-222.922C345.654,-224.089 354.336,-225.268 362.808,-226.419"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="337.425,-219.439 327.044,-221.56 336.482,-226.375 337.425,-219.439"/>
 </g>
-<!-- Node92&#45;&gt;Node85 -->
-<g id="edge14" class="edge"><title>Node92&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M547.934,-464.465C539.346,-465.585 530.664,-466.718 522.192,-467.823"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="548.492,-467.922 557.956,-463.158 547.587,-460.981 548.492,-467.922"/>
+<!-- Node18&#45;&gt;Node14 -->
+<g id="edge29" class="edge"><title>Node18&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M312.028,-180.977C317.118,-182.772 322.166,-184.624 327,-186.5 354.184,-197.048 384.278,-210.882 406.107,-221.324"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="312.83,-177.551 302.235,-177.607 310.552,-184.17 312.83,-177.551"/>
 </g>
-<!-- Node93&#45;&gt;Node85 -->
-<g id="edge16" class="edge"><title>Node93&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M573.628,-422.792C568.318,-424.648 563.044,-426.565 558,-428.5 531.064,-438.834 501.203,-452.266 479.399,-462.452"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="574.852,-426.073 583.181,-419.525 572.587,-419.449 574.852,-426.073"/>
+<!-- Node19&#45;&gt;Node14 -->
+<g id="edge31" class="edge"><title>Node19&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M317.582,-132.598C320.825,-134.127 323.984,-135.76 327,-137.5 366.837,-160.48 404.744,-199.726 423.944,-221.255"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="318.838,-129.327 308.271,-128.556 316.051,-135.748 318.838,-129.327"/>
 </g>
-<!-- Node94&#45;&gt;Node85 -->
-<g id="edge18" class="edge"><title>Node94&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M567.429,-374.616C564.183,-376.141 561.021,-377.768 558,-379.5 518.285,-402.276 480.329,-441.114 461.089,-462.417"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="568.958,-377.768 576.746,-370.585 566.178,-371.344 568.958,-377.768"/>
+<!-- Node20&#45;&gt;Node14 -->
+<g id="edge33" class="edge"><title>Node20&#45;&gt;Node14</title>
+<path fill="none" stroke="midnightblue" d="M320.544,-84.3144C322.776,-85.6247 324.936,-87.0183 327,-88.5 377.713,-124.906 414.992,-191.722 429.878,-221.496"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="322.124,-81.1907 311.64,-79.6623 318.883,-87.395 322.124,-81.1907"/>
 </g>
-<!-- Node96 -->
-<g id="node14" class="node"><title>Node96</title>
-<g id="a_node14"><a xlink:href="class_igor_1_1i_user_control_color_chooser.html#a32f721a060e9d1e08479db2f679a3a67" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="558,-221.5 558,-251.5 708,-251.5 708,-221.5 558,-221.5"/>
-<text text-anchor="start" x="566" y="-239.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlColorChooser</text>
-<text text-anchor="middle" x="633" y="-228.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initExpanded</text>
-</a>
-</g>
-</g>
-<!-- Node95&#45;&gt;Node96 -->
-<g id="edge20" class="edge"><title>Node95&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M755.402,-339.376C751.467,-337.558 747.632,-335.6 744,-333.5 704.765,-310.814 666.91,-272.78 647.485,-251.709"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="754.15,-342.648 764.72,-343.37 756.908,-336.214 754.15,-342.648"/>
-</g>
-<!-- Node96&#45;&gt;Node85 -->
-<g id="edge21" class="edge"><title>Node96&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M613.418,-259.777C598.355,-278.724 576.644,-306.211 558,-330.5 521.318,-378.289 478.843,-435.638 459.122,-462.384"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="616.346,-261.718 619.836,-251.715 610.87,-257.359 616.346,-261.718"/>
-</g>
-<!-- Node97&#45;&gt;Node96 -->
-<g id="edge23" class="edge"><title>Node97&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M761.339,-290.914C755.458,-288.819 749.592,-286.66 744,-284.5 717.566,-274.289 688.174,-261.38 666.426,-251.522"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="760.607,-294.366 771.201,-294.367 762.92,-287.759 760.607,-294.366"/>
-</g>
-<!-- Node98&#45;&gt;Node96 -->
-<g id="edge25" class="edge"><title>Node98&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M733.934,-249.535C725.346,-248.415 716.664,-247.282 708.192,-246.177"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="733.587,-253.019 743.956,-250.842 734.492,-246.078 733.587,-253.019"/>
-</g>
-<!-- Node99&#45;&gt;Node96 -->
-<g id="edge27" class="edge"><title>Node99&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M733.934,-222.922C725.346,-224.089 716.664,-225.268 708.192,-226.419"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="734.518,-226.375 743.956,-221.56 733.575,-219.439 734.518,-226.375"/>
-</g>
-<!-- Node100&#45;&gt;Node96 -->
-<g id="edge29" class="edge"><title>Node100&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M758.972,-180.977C753.882,-182.772 748.834,-184.624 744,-186.5 716.816,-197.048 686.722,-210.882 664.893,-221.324"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="760.448,-184.17 768.765,-177.607 758.17,-177.551 760.448,-184.17"/>
-</g>
-<!-- Node101&#45;&gt;Node96 -->
-<g id="edge31" class="edge"><title>Node101&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M753.418,-132.598C750.175,-134.127 747.016,-135.76 744,-137.5 704.163,-160.48 666.256,-199.726 647.056,-221.255"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="754.949,-135.748 762.729,-128.556 752.162,-129.327 754.949,-135.748"/>
-</g>
-<!-- Node102&#45;&gt;Node96 -->
-<g id="edge33" class="edge"><title>Node102&#45;&gt;Node96</title>
-<path fill="none" stroke="midnightblue" d="M750.456,-84.3144C748.224,-85.6247 746.064,-87.0183 744,-88.5 693.287,-124.906 656.008,-191.722 641.122,-221.496"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="752.117,-87.395 759.36,-79.6623 748.876,-81.1907 752.117,-87.395"/>
-</g>
-<!-- Node103&#45;&gt;Node85 -->
-<g id="edge35" class="edge"><title>Node103&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M752.908,-34.7791C749.841,-36.2549 746.855,-37.8273 744,-39.5 646.851,-96.417 622.345,-119.103 558,-211.5 498.455,-297.004 462.937,-419.677 451.806,-462.256"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="754.56,-37.8759 762.296,-30.6369 751.734,-31.4716 754.56,-37.8759"/>
+<!-- Node21&#45;&gt;Node3 -->
+<g id="edge35" class="edge"><title>Node21&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M318.092,-34.7791C321.159,-36.2549 324.145,-37.8273 327,-39.5 424.149,-96.417 448.655,-119.103 513,-211.5 572.545,-297.004 608.063,-419.677 619.194,-462.256"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="319.266,-31.4716 308.704,-30.6369 316.44,-37.8759 319.266,-31.4716"/>
 </g>
 </g>
 </svg>

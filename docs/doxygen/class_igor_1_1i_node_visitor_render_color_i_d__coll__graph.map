@@ -1,6 +1,4 @@
 <map id="Igor::iNodeVisitorRenderColorID" name="Igor::iNodeVisitorRenderColorID">
-<area shape="rect" id="node1" title=" " alt="" coords="35,228,198,269"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor.html" title=" " alt="" coords="5,139,127,165"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="151,139,301,165"/>
-<area shape="rect" id="node4" title=" " alt="" coords="207,5,245,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor.html" title="Igor::iNodeVisitor" alt="" coords="5,139,127,165"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_matrix.html" title="IgorAux::iaMatrix\&lt; T \&gt;" alt="" coords="151,139,301,165"/>
 </map>

@@ -1,6 +1,4 @@
 <map id="Igor::iContouringCubes::DensityPole" name="Igor::iContouringCubes::DensityPole">
-<area shape="rect" id="node1" title=" " alt="" coords="11,303,165,344"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_r_l_e.html" title=" " alt="" coords="11,199,165,240"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_r_l_e.html" title=" " alt="" coords="5,95,171,136"/>
-<area shape="rect" id="node4" title=" " alt="" coords="58,5,118,32"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_r_l_e.html" title="IgorAux::iaRLE\&lt; uint8,\l uint8 \&gt;" alt="" coords="11,199,165,240"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_r_l_e.html" title="IgorAux::iaRLE\&lt; TValue,\l TIndex \&gt;" alt="" coords="5,95,171,136"/>
 </map>

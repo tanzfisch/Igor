@@ -1,6 +1,5 @@
 <map id="testing::internal::FloatingPoint&lt; RawType &gt;" name="testing::internal::FloatingPoint&lt; RawType &gt;">
-<area shape="rect" id="node1" title=" " alt="" coords="5,347,180,388"/>
-<area shape="rect" id="node2" href="$uniontesting_1_1internal_1_1_floating_point_1_1_floating_point_union.html" title=" " alt="" coords="11,228,174,284"/>
-<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_type_with_size.html" title=" " alt="" coords="18,109,167,165"/>
-<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1_type_with_size.html" title=" " alt="" coords="17,5,168,47"/>
+<area shape="rect" id="node2" href="$uniontesting_1_1internal_1_1_floating_point_1_1_floating_point_union.html" title="testing::internal::\lFloatingPoint\&lt; RawType\l \&gt;::FloatingPointUnion" alt="" coords="11,228,174,284"/>
+<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_type_with_size.html" title="testing::internal::\lTypeWithSize\&lt; sizeof\l(RawType)\&gt;" alt="" coords="18,109,167,165"/>
+<area shape="rect" id="node4" href="$classtesting_1_1internal_1_1_type_with_size.html" title="testing::internal::\lTypeWithSize\&lt; size \&gt;" alt="" coords="17,5,168,47"/>
 </map>

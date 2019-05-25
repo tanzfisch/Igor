@@ -1,4 +1,3 @@
 <map id="Igor::iPhysicsPlayer" name="Igor::iPhysicsPlayer">
-<area shape="rect" id="node1" title=" " alt="" coords="5,80,144,107"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_physics_body.html" title=" " alt="" coords="9,5,140,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_physics_body.html" title="Igor::iPhysicsBody" alt="" coords="9,5,140,32"/>
 </map>

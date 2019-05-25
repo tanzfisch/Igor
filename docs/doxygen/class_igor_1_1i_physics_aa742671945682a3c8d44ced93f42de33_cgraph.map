@@ -1,5 +1,4 @@
 <map id="Igor::iPhysics::queueTransformation" name="Igor::iPhysics::queueTransformation">
-<area shape="rect" id="node1" title=" " alt="" coords="5,31,235,57"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title=" " alt="" coords="290,5,442,32"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title=" " alt="" coords="283,56,449,83"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" title="IgorAux::iaMutex::lock" alt="" coords="290,5,442,32"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" title="IgorAux::iaMutex::unlock" alt="" coords="283,56,449,83"/>
 </map>

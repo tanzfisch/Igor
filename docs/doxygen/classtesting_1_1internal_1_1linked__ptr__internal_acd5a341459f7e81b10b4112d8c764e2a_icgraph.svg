@@ -9,30 +9,27 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 57)">
 <title>testing::internal::linked_ptr_internal::join</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-57 324,-57 324,4 -4,4"/>
-<!-- Node4 -->
-<g id="node1" class="node"><title>Node4</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="204,-11.5 204,-41.5 320,-41.5 320,-11.5 204,-11.5"/>
-<text text-anchor="start" x="212" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="middle" x="262" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr_internal::join</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-11.5 0,-41.5 116,-41.5 116,-11.5 0,-11.5"/>
+<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="middle" x="58" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr_internal::join</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html#aea2859970b65708fc4f7c8c4cbc7928a" target="_top" xlink:title="testing::internal::\llinked_ptr\&lt; const testing\l::internal::ParamGeneratorInterface\l\&lt; T \&gt; \&gt;::copy">
+<polygon fill="white" stroke="black" points="152,-0.5 152,-52.5 320,-52.5 320,-0.5 152,-0.5"/>
+<text text-anchor="start" x="160" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
+<text text-anchor="start" x="160" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr&lt; const testing</text>
+<text text-anchor="start" x="160" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamGeneratorInterface</text>
+<text text-anchor="middle" x="236" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::copy</text>
 </a>
 </g>
 </g>
-<!-- Node5 -->
-<g id="node2" class="node"><title>Node5</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1linked__ptr.html#aea2859970b65708fc4f7c8c4cbc7928a" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-52.5 168,-52.5 168,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
-<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">linked_ptr&lt; const testing</text>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::internal::ParamGeneratorInterface</text>
-<text text-anchor="middle" x="84" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; T &gt; &gt;::copy</text>
-</a>
-</g>
-</g>
-<!-- Node4&#45;&gt;Node5 -->
-<g id="edge1" class="edge"><title>Node4&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M193.758,-26.5C185.35,-26.5 176.674,-26.5 168.062,-26.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="193.858,-30.0001 203.858,-26.5 193.858,-23.0001 193.858,-30.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M126.242,-26.5C134.65,-26.5 143.326,-26.5 151.938,-26.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="126.142,-23.0001 116.142,-26.5 126.142,-30.0001 126.142,-23.0001"/>
 </g>
 </g>
 </svg>

@@ -1,8 +1,7 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iNodeLODSwitch.h" name="C:/dev/Igor/Igor/src/Igor/src/iNodeLODSwitch.h">
-<area shape="rect" id="node1" title=" " alt="" coords="403,5,585,47"/>
-<area shape="rect" id="node2" href="$i_node_factory_8cpp.html" title=" " alt="" coords="5,102,180,143"/>
-<area shape="rect" id="node3" href="$i_node_l_o_d_switch_8cpp.html" title=" " alt="" coords="204,102,400,143"/>
-<area shape="rect" id="node4" href="$i_scene_8cpp.html" title=" " alt="" coords="425,102,563,143"/>
-<area shape="rect" id="node5" href="$i_voxel_terrain_8cpp.html" title=" " alt="" coords="587,102,761,143"/>
-<area shape="rect" id="node6" href="$i_voxel_terrain_mesh_generator_8cpp.html" title=" " alt="" coords="785,95,965,151"/>
+<map id="C:/dev/Igor/src/Igor/src/iNodeLODSwitch.h" name="C:/dev/Igor/src/Igor/src/iNodeLODSwitch.h">
+<area shape="rect" id="node2" href="$i_node_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeFactory.cpp" alt="" coords="5,95,156,136"/>
+<area shape="rect" id="node3" href="$i_node_l_o_d_switch_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeLODSwitch.cpp" alt="" coords="181,95,351,136"/>
+<area shape="rect" id="node4" href="$i_scene_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iScene.cpp" alt="" coords="375,95,506,136"/>
+<area shape="rect" id="node5" href="$i_voxel_terrain_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrain.cpp" alt="" coords="531,95,679,136"/>
+<area shape="rect" id="node6" href="$i_voxel_terrain_mesh_generator_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrainMeshGenerator.cpp" alt="" coords="703,95,941,136"/>
 </map>

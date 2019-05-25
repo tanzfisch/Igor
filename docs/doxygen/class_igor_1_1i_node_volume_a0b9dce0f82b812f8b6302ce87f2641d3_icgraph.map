@@ -1,0 +1,9 @@
+<map id="Igor::iNodeVolume::getBoundingSphere" name="Igor::iNodeVolume::getBoundingSphere">
+<area shape="rect" id="node2" href="$class_igor_1_1i_node_visitor_boundings.html#a4628da61fa0214189f1360b3dd5db685" title="Igor::iNodeVisitorBoundings\l::preOrderVisit" alt="" coords="191,5,374,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_scene.html#a7939cd9585b157e897106e82ad4017ed" title="Igor::iScene::registerVolume" alt="" coords="189,71,376,98"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_scene.html#a8a63d0af30f563531ce1feb8ed53f5e2" title="Igor::iScene::updateVolume" alt="" coords="191,126,374,153"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_volume.html#af22460eec7108d791c652222ee3f7bff" title="Igor::iNodeVolume::\lonPostSetScene" alt="" coords="424,60,560,101"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_volume.html#a17aa3c42829bb7e6c302207d7f9568db" title="Igor::iNodeVolume::\lupdateTree" alt="" coords="424,125,560,167"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_volume.html#a1e9e75c89b3bb3a230a558a188686486" title="Igor::iNodeVolume::\lsetBoundingSphere" alt="" coords="608,92,744,133"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_node_volume.html#a40d766c3877a3125e4733c8203ee8c07" title="Igor::iNodeVolume::\lonUpdateTransform" alt="" coords="608,157,744,199"/>
+</map>

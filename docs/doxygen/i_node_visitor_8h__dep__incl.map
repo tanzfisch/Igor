@@ -1,52 +1,51 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iNodeVisitor.h" name="C:/dev/Igor/Igor/src/Igor/src/iNodeVisitor.h">
-<area shape="rect" id="node1" title=" " alt="" coords="1890,5,2045,47"/>
-<area shape="rect" id="node2" href="$i_model_data_i_o_o_m_p_f_8h.html" title=" " alt="" coords="1073,102,1273,143"/>
-<area shape="rect" id="node16" href="$i_node_visitor_8cpp.html" title=" " alt="" coords="1323,102,1491,143"/>
-<area shape="rect" id="node17" href="$i_node_visitor_boundings_8h.html" title=" " alt="" coords="1516,102,1731,143"/>
-<area shape="rect" id="node19" href="$i_node_visitor_print_tree_8h.html" title=" " alt="" coords="1730,199,1901,255"/>
-<area shape="rect" id="node22" href="$i_node_visitor_render_boundings_8h.html" title=" " alt="" coords="1875,95,2059,151"/>
-<area shape="rect" id="node25" href="$i_node_visitor_render_color_i_d_8h.html" title=" " alt="" coords="2114,95,2298,151"/>
-<area shape="rect" id="node27" href="$i_node_visitor_search_name_8h.html" title=" " alt="" coords="2383,95,2567,151"/>
-<area shape="rect" id="node29" href="$i_node_visitor_update_transform_8h.html" title=" " alt="" coords="4007,95,4191,151"/>
-<area shape="rect" id="node48" href="$_user_control_graph_view_8h.html" title=" " alt="" coords="5709,95,5877,151"/>
-<area shape="rect" id="node3" href="$i_model_data_i_o_o_m_p_f_8cpp.html" title=" " alt="" coords="1065,206,1280,247"/>
-<area shape="rect" id="node4" href="$i_model_resource_factory_8h.html" title=" " alt="" coords="819,206,1041,247"/>
-<area shape="rect" id="node5" href="$_igor_8cpp.html" title=" " alt="" coords="911,310,1042,351"/>
-<area shape="rect" id="node6" href="$i_model_resource_factory_8cpp.html" title=" " alt="" coords="1066,310,1301,351"/>
-<area shape="rect" id="node7" href="$i_node_mesh_8cpp.html" title=" " alt="" coords="1325,310,1487,351"/>
-<area shape="rect" id="node8" href="$i_node_model_8cpp.html" title=" " alt="" coords="2483,310,2649,351"/>
-<area shape="rect" id="node9" href="$i_resource_manager_8cpp.html" title=" " alt="" coords="5,310,212,351"/>
-<area shape="rect" id="node10" href="$i_task_flush_models_8cpp.html" title=" " alt="" coords="237,310,439,351"/>
-<area shape="rect" id="node11" href="$i_task_load_model_8cpp.html" title=" " alt="" coords="463,310,655,351"/>
-<area shape="rect" id="node12" href="$i_voxel_terrain_8cpp.html" title=" " alt="" coords="2285,310,2458,351"/>
-<area shape="rect" id="node13" href="$_model_viewer_8h.html" title=" " alt="" coords="679,303,837,359"/>
-<area shape="rect" id="node14" href="$_model_viewer_8cpp.html" title=" " alt="" coords="1471,407,1629,463"/>
-<area shape="rect" id="node15" href="$_o_b_j2_o_m_p_f_8cpp.html" title=" " alt="" coords="2008,310,2260,351"/>
-<area shape="rect" id="node18" href="$i_node_visitor_boundings_8cpp.html" title=" " alt="" coords="1305,206,1534,247"/>
-<area shape="rect" id="node20" href="$i_node_factory_8cpp.html" title=" " alt="" coords="1613,310,1788,351"/>
-<area shape="rect" id="node21" href="$i_node_visitor_print_tree_8cpp.html" title=" " alt="" coords="1813,303,1983,359"/>
-<area shape="rect" id="node23" href="$i_node_visitor_render_boundings_8cpp.html" title=" " alt="" coords="1975,199,2159,255"/>
-<area shape="rect" id="node24" href="$i_render_engine_8cpp.html" title=" " alt="" coords="2673,310,2856,351"/>
-<area shape="rect" id="node26" href="$i_node_visitor_render_color_i_d_8cpp.html" title=" " alt="" coords="2183,199,2367,255"/>
-<area shape="rect" id="node28" href="$i_node_visitor_search_name_8cpp.html" title=" " alt="" coords="2391,199,2575,255"/>
-<area shape="rect" id="node30" href="$i_node_visitor_update_transform_8cpp.html" title=" " alt="" coords="6154,303,6338,359"/>
-<area shape="rect" id="node31" href="$i_scene_8h.html" title=" " alt="" coords="4034,206,4165,247"/>
-<area shape="rect" id="node32" href="$i_node_8cpp.html" title=" " alt="" coords="2931,310,3062,351"/>
-<area shape="rect" id="node33" href="$i_node_camera_8cpp.html" title=" " alt="" coords="3086,310,3262,351"/>
-<area shape="rect" id="node34" href="$i_node_light_8cpp.html" title=" " alt="" coords="3287,310,3445,351"/>
-<area shape="rect" id="node35" href="$i_node_l_o_d_switch_8cpp.html" title=" " alt="" coords="3469,310,3665,351"/>
-<area shape="rect" id="node36" href="$i_node_l_o_d_trigger_8cpp.html" title=" " alt="" coords="3689,310,3885,351"/>
-<area shape="rect" id="node37" href="$i_node_physics_8cpp.html" title=" " alt="" coords="3910,310,4089,351"/>
-<area shape="rect" id="node38" href="$i_node_render_8cpp.html" title=" " alt="" coords="4113,310,4285,351"/>
-<area shape="rect" id="node39" href="$i_node_sky_box_8cpp.html" title=" " alt="" coords="4309,310,4487,351"/>
-<area shape="rect" id="node40" href="$i_node_volume_8cpp.html" title=" " alt="" coords="4511,310,4685,351"/>
-<area shape="rect" id="node41" href="$i_node_water_8cpp.html" title=" " alt="" coords="4709,310,4876,351"/>
-<area shape="rect" id="node42" href="$i_scene_8cpp.html" title=" " alt="" coords="4901,310,5039,351"/>
-<area shape="rect" id="node43" href="$i_scene_factory_8cpp.html" title=" " alt="" coords="5064,310,5247,351"/>
-<area shape="rect" id="node44" href="$i_sky_light_node_8cpp.html" title=" " alt="" coords="5271,310,5453,351"/>
-<area shape="rect" id="node45" href="$i_sky_simulation_8cpp.html" title=" " alt="" coords="5477,310,5663,351"/>
-<area shape="rect" id="node46" href="$i_sound_resource_factory_8h.html" title=" " alt="" coords="5687,310,5909,351"/>
-<area shape="rect" id="node47" href="$i_task_update_l_o_d_8cpp.html" title=" " alt="" coords="5933,310,6129,351"/>
-<area shape="rect" id="node49" href="$_menu_dialog_8h.html" title=" " alt="" coords="6153,199,6310,255"/>
-<area shape="rect" id="node50" href="$_user_control_graph_view_8cpp.html" title=" " alt="" coords="5701,199,5884,255"/>
+<map id="C:/dev/Igor/src/Igor/src/iNodeVisitor.h" name="C:/dev/Igor/src/Igor/src/iNodeVisitor.h">
+<area shape="rect" id="node2" href="$i_model_data_i_o_o_m_p_f_8h.html" title="C:/dev/Igor/src/Igor\l/src/iModelDataIOOMPF.h" alt="" coords="1047,102,1222,143"/>
+<area shape="rect" id="node16" href="$i_node_visitor_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitor.cpp" alt="" coords="1281,102,1423,143"/>
+<area shape="rect" id="node17" href="$i_node_visitor_boundings_8h.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorBoundings.h" alt="" coords="1447,102,1638,143"/>
+<area shape="rect" id="node19" href="$i_node_visitor_print_tree_8h.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorPrintTree.h" alt="" coords="1645,206,1827,247"/>
+<area shape="rect" id="node22" href="$i_node_visitor_render_boundings_8h.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorRenderBoundings.h" alt="" coords="1798,102,2029,143"/>
+<area shape="rect" id="node25" href="$i_node_visitor_render_color_i_d_8h.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorRenderColorID.h" alt="" coords="2085,102,2297,143"/>
+<area shape="rect" id="node27" href="$i_node_visitor_search_name_8h.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorSearchName.h" alt="" coords="2383,102,2587,143"/>
+<area shape="rect" id="node29" href="$i_node_visitor_update_transform_8h.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorUpdateTransform.h" alt="" coords="3680,102,3907,143"/>
+<area shape="rect" id="node48" href="$_user_control_graph_view_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lGraphView.h" alt="" coords="5229,95,5424,151"/>
+<area shape="rect" id="node3" href="$i_model_data_i_o_o_m_p_f_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iModelDataIOOMPF.cpp" alt="" coords="1040,206,1229,247"/>
+<area shape="rect" id="node4" href="$i_model_resource_factory_8h.html" title="C:/dev/Igor/src/Igor\l/src/iModelResourceFactory.h" alt="" coords="819,206,1015,247"/>
+<area shape="rect" id="node5" href="$_igor_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/Igor.cpp" alt="" coords="891,303,1021,344"/>
+<area shape="rect" id="node6" href="$i_model_resource_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iModelResourceFactory.cpp" alt="" coords="1045,303,1256,344"/>
+<area shape="rect" id="node7" href="$i_node_mesh_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeMesh.cpp" alt="" coords="1280,303,1419,344"/>
+<area shape="rect" id="node8" href="$i_node_model_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeModel.cpp" alt="" coords="2353,303,2495,344"/>
+<area shape="rect" id="node9" href="$i_resource_manager_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iResourceManager.cpp" alt="" coords="5,303,187,344"/>
+<area shape="rect" id="node10" href="$i_task_flush_models_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskFlushModels.cpp" alt="" coords="211,303,389,344"/>
+<area shape="rect" id="node11" href="$i_task_load_model_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskLoadModel.cpp" alt="" coords="414,303,581,344"/>
+<area shape="rect" id="node12" href="$i_voxel_terrain_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iVoxelTerrain.cpp" alt="" coords="2181,303,2329,344"/>
+<area shape="rect" id="node13" href="$_model_viewer_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.h" alt="" coords="605,303,816,344"/>
+<area shape="rect" id="node14" href="$_model_viewer_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.cpp" alt="" coords="1369,392,1594,433"/>
+<area shape="rect" id="node15" href="$_o_b_j2_o_m_p_f_8cpp.html" title="C:/dev/Igor/src/Tools\l/OBJ2OMPF/src/OBJ2OMPF.cpp" alt="" coords="1939,303,2157,344"/>
+<area shape="rect" id="node18" href="$i_node_visitor_boundings_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorBoundings.cpp" alt="" coords="1254,206,1458,247"/>
+<area shape="rect" id="node20" href="$i_node_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeFactory.cpp" alt="" coords="1545,303,1695,344"/>
+<area shape="rect" id="node21" href="$i_node_visitor_print_tree_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorPrintTree.cpp" alt="" coords="1720,303,1915,344"/>
+<area shape="rect" id="node23" href="$i_node_visitor_render_boundings_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorRenderBoundings.cpp" alt="" coords="1901,206,2147,247"/>
+<area shape="rect" id="node24" href="$i_render_engine_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iRenderEngine.cpp" alt="" coords="2519,303,2676,344"/>
+<area shape="rect" id="node26" href="$i_node_visitor_render_color_i_d_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorRenderColor\lID.cpp" alt="" coords="2171,199,2360,255"/>
+<area shape="rect" id="node28" href="$i_node_visitor_search_name_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorSearchName.cpp" alt="" coords="2384,206,2603,247"/>
+<area shape="rect" id="node30" href="$i_node_visitor_update_transform_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVisitorUpdateTransform.cpp" alt="" coords="5617,303,5858,344"/>
+<area shape="rect" id="node31" href="$i_scene_8h.html" title="C:/dev/Igor/src/Igor\l/src/iScene.h" alt="" coords="3728,206,3859,247"/>
+<area shape="rect" id="node32" href="$i_node_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNode.cpp" alt="" coords="2751,303,2881,344"/>
+<area shape="rect" id="node33" href="$i_node_camera_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeCamera.cpp" alt="" coords="2906,303,3057,344"/>
+<area shape="rect" id="node34" href="$i_node_light_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeLight.cpp" alt="" coords="3081,303,3215,344"/>
+<area shape="rect" id="node35" href="$i_node_l_o_d_switch_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeLODSwitch.cpp" alt="" coords="3240,303,3411,344"/>
+<area shape="rect" id="node36" href="$i_node_l_o_d_trigger_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeLODTrigger.cpp" alt="" coords="3435,303,3605,344"/>
+<area shape="rect" id="node37" href="$i_node_physics_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodePhysics.cpp" alt="" coords="3630,303,3783,344"/>
+<area shape="rect" id="node38" href="$i_node_render_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeRender.cpp" alt="" coords="3808,303,3955,344"/>
+<area shape="rect" id="node39" href="$i_node_sky_box_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeSkyBox.cpp" alt="" coords="3979,303,4131,344"/>
+<area shape="rect" id="node40" href="$i_node_volume_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeVolume.cpp" alt="" coords="4155,303,4306,344"/>
+<area shape="rect" id="node41" href="$i_node_water_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodeWater.cpp" alt="" coords="4331,303,4472,344"/>
+<area shape="rect" id="node42" href="$i_scene_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iScene.cpp" alt="" coords="4496,303,4627,344"/>
+<area shape="rect" id="node43" href="$i_scene_factory_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iSceneFactory.cpp" alt="" coords="4651,303,4808,344"/>
+<area shape="rect" id="node44" href="$i_sky_light_node_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iSkyLightNode.cpp" alt="" coords="4832,303,4989,344"/>
+<area shape="rect" id="node45" href="$i_sky_simulation_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iSkySimulation.cpp" alt="" coords="5013,303,5173,344"/>
+<area shape="rect" id="node46" href="$i_sound_resource_factory_8h.html" title="C:/dev/Igor/src/Igor\l/src/iSoundResourceFactory.h" alt="" coords="5198,303,5397,344"/>
+<area shape="rect" id="node47" href="$i_task_update_l_o_d_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskUpdateLOD.cpp" alt="" coords="5421,303,5592,344"/>
+<area shape="rect" id="node49" href="$_menu_dialog_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/MenuDialog.h" alt="" coords="5664,206,5869,247"/>
+<area shape="rect" id="node50" href="$_user_control_graph_view_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/UserControl\lGraphView.cpp" alt="" coords="5229,199,5424,255"/>
 </map>

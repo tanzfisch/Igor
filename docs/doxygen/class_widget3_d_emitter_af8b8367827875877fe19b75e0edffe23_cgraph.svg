@@ -9,137 +9,134 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 280)">
 <title>Widget3DEmitter::createSphere</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-280 470,-280 470,4 -4,4"/>
-<!-- Node148 -->
-<g id="node1" class="node"><title>Node148</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-91 0,-110 155,-110 155,-91 0,-91"/>
 <text text-anchor="middle" x="77.5" y="-98" font-family="Helvetica,sans-Serif" font-size="10.00">Widget3DEmitter::createSphere</text>
-</a>
 </g>
-</g>
-<!-- Node149 -->
-<g id="node2" class="node"><title>Node149</title>
-<g id="a_node2"><a xlink:href="namespace_igor_1_1i_mesh_builder_utils.html#a7bcc3632af6aa4b0d3bf667a870781e5" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="namespace_igor_1_1i_mesh_builder_utils.html#a7bcc3632af6aa4b0d3bf667a870781e5" target="_top" xlink:title="Igor::iMeshBuilderUtils\l::addSphere">
 <polygon fill="white" stroke="black" points="191,-140.5 191,-170.5 305,-170.5 305,-140.5 191,-140.5"/>
 <text text-anchor="start" x="199" y="-158.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilderUtils</text>
 <text text-anchor="middle" x="248" y="-147.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addSphere</text>
 </a>
 </g>
 </g>
-<!-- Node148&#45;&gt;Node149 -->
-<g id="edge1" class="edge"><title>Node148&#45;&gt;Node149</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M107.85,-110.08C130.792,-117.569 163.354,-128.197 191.211,-137.29"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="190.253,-140.659 200.845,-140.435 192.425,-134.004 190.253,-140.659"/>
 </g>
-<!-- Node155 -->
-<g id="node8" class="node"><title>Node155</title>
-<g id="a_node8"><a xlink:href="class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" target="_top" xlink:title=" ">
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="class_igor_1_1i_mesh_builder.html#a46e0762ee333059fd53821e286fc3f08" target="_top" xlink:title="Igor::iMeshBuilder\l::calcNormals">
 <polygon fill="white" stroke="black" points="200.5,-85.5 200.5,-115.5 295.5,-115.5 295.5,-85.5 200.5,-85.5"/>
 <text text-anchor="start" x="208.5" y="-103.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
 <text text-anchor="middle" x="248" y="-92.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calcNormals</text>
 </a>
 </g>
 </g>
-<!-- Node148&#45;&gt;Node155 -->
-<g id="edge7" class="edge"><title>Node148&#45;&gt;Node155</title>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge7" class="edge"><title>Node1&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M155.354,-100.5C167.05,-100.5 178.937,-100.5 190.105,-100.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="190.133,-104 200.133,-100.5 190.133,-97.0001 190.133,-104"/>
 </g>
-<!-- Node156 -->
-<g id="node9" class="node"><title>Node156</title>
-<g id="a_node9"><a xlink:href="class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" target="_top" xlink:title=" ">
+<!-- Node9 -->
+<g id="node9" class="node"><title>Node9</title>
+<g id="a_node9"><a xlink:href="class_igor_1_1i_mesh_builder.html#acc4acc76e9103871efa519e29c2e66bf" target="_top" xlink:title="Igor::iMeshBuilder\l::createMesh">
 <polygon fill="white" stroke="black" points="200.5,-24.5 200.5,-54.5 295.5,-54.5 295.5,-24.5 200.5,-24.5"/>
 <text text-anchor="start" x="208.5" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
 <text text-anchor="middle" x="248" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMesh</text>
 </a>
 </g>
 </g>
-<!-- Node148&#45;&gt;Node156 -->
-<g id="edge8" class="edge"><title>Node148&#45;&gt;Node156</title>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge8" class="edge"><title>Node1&#45;&gt;Node9</title>
 <path fill="none" stroke="midnightblue" d="M104.828,-90.9688C129.133,-82.1701 165.902,-68.8589 195.958,-57.9781"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="197.245,-61.2346 205.456,-54.5395 194.862,-54.6526 197.245,-61.2346"/>
 </g>
-<!-- Node150 -->
-<g id="node3" class="node"><title>Node150</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_mesh_builder.html#abe2dfa2aa215a55508cfaba1d8f83029" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_mesh_builder.html#a7bc707a833d24cff2eebc2a0432af35c" target="_top" xlink:title="Igor::iMeshBuilder\l::getVertexCount">
 <polygon fill="white" stroke="black" points="356,-245.5 356,-275.5 451,-275.5 451,-245.5 356,-245.5"/>
 <text text-anchor="start" x="364" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
 <text text-anchor="middle" x="403.5" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getVertexCount</text>
 </a>
 </g>
 </g>
-<!-- Node149&#45;&gt;Node150 -->
-<g id="edge2" class="edge"><title>Node149&#45;&gt;Node150</title>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M263.011,-170.725C280.028,-188.486 310.283,-217.794 341,-236.5 343.608,-238.088 346.339,-239.606 349.139,-241.05"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="347.722,-244.252 358.254,-245.411 350.744,-237.937 347.722,-244.252"/>
 </g>
-<!-- Node151 -->
-<g id="node4" class="node"><title>Node151</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_mesh_builder.html#ae132784ebd5a29f57ff13f2e242ca50b" target="_top" xlink:title="Igor::iMeshBuilder\l::addVertex">
 <polygon fill="white" stroke="black" points="356,-196.5 356,-226.5 451,-226.5 451,-196.5 356,-196.5"/>
 <text text-anchor="start" x="364" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
 <text text-anchor="middle" x="403.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addVertex</text>
 </a>
 </g>
 </g>
-<!-- Node149&#45;&gt;Node151 -->
-<g id="edge3" class="edge"><title>Node149&#45;&gt;Node151</title>
+<!-- Node2&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node2&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M290.135,-170.507C309.062,-177.412 331.701,-185.671 351.683,-192.961"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="350.657,-196.312 361.251,-196.452 353.056,-189.736 350.657,-196.312"/>
 </g>
-<!-- Node152 -->
-<g id="node5" class="node"><title>Node152</title>
-<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_aux_1_1ia_vector3.html#a19d7f1f4d0fba7b22f60fff7d38ea74b" target="_top" xlink:title="IgorAux::iaVector3\l::normalize">
 <polygon fill="white" stroke="black" points="355,-147.5 355,-177.5 452,-177.5 452,-147.5 355,-147.5"/>
 <text text-anchor="start" x="363" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaVector3</text>
 <text text-anchor="middle" x="403.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::normalize</text>
 </a>
 </g>
 </g>
-<!-- Node149&#45;&gt;Node152 -->
-<g id="edge4" class="edge"><title>Node149&#45;&gt;Node152</title>
+<!-- Node2&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node2&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M305.286,-158.067C318.114,-158.652 331.765,-159.274 344.657,-159.862"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="344.653,-163.366 354.803,-160.325 344.972,-156.373 344.653,-163.366"/>
 </g>
-<!-- Node153 -->
-<g id="node6" class="node"><title>Node153</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_mesh_builder.html#a5db412c786880b035e52b9c1aa80934d" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_mesh_builder.html#a5db412c786880b035e52b9c1aa80934d" target="_top" xlink:title="Igor::iMeshBuilder\l::setNormal">
 <polygon fill="white" stroke="black" points="356,-98.5 356,-128.5 451,-128.5 451,-98.5 356,-98.5"/>
 <text text-anchor="start" x="364" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
 <text text-anchor="middle" x="403.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::setNormal</text>
 </a>
 </g>
 </g>
-<!-- Node149&#45;&gt;Node153 -->
-<g id="edge5" class="edge"><title>Node149&#45;&gt;Node153</title>
+<!-- Node2&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node2&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M303.983,-140.456C317.551,-136.743 332.109,-132.76 345.758,-129.025"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="346.788,-132.372 355.51,-126.357 344.94,-125.621 346.788,-132.372"/>
 </g>
-<!-- Node154 -->
-<g id="node7" class="node"><title>Node154</title>
-<g id="a_node7"><a xlink:href="class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" target="_top" xlink:title=" ">
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_igor_1_1i_mesh_builder.html#ac3ae47c63dd2b5b18840482d485de85d" target="_top" xlink:title="Igor::iMeshBuilder\l::addTriangle">
 <polygon fill="white" stroke="black" points="356,-49.5 356,-79.5 451,-79.5 451,-49.5 356,-49.5"/>
 <text text-anchor="start" x="364" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
 <text text-anchor="middle" x="403.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::addTriangle</text>
 </a>
 </g>
 </g>
-<!-- Node149&#45;&gt;Node154 -->
-<g id="edge6" class="edge"><title>Node149&#45;&gt;Node154</title>
+<!-- Node2&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node2&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M281.087,-140.392C289.179,-136.029 297.65,-130.957 305,-125.5 323.168,-112.012 322.145,-102.009 341,-89.5 343.872,-87.5945 346.913,-85.793 350.043,-84.0973"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="351.658,-87.2028 359.037,-79.5996 348.527,-80.942 351.658,-87.2028"/>
 </g>
-<!-- Node157 -->
-<g id="node10" class="node"><title>Node157</title>
-<g id="a_node10"><a xlink:href="class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" target="_top" xlink:title=" ">
+<!-- Node10 -->
+<g id="node10" class="node"><title>Node10</title>
+<g id="a_node10"><a xlink:href="class_igor_1_1i_mesh.html#a727bba08a76e6fbf2bc4fba1abe8703d" target="_top" xlink:title="Igor::iMesh::setBounding\lSphere">
 <polygon fill="white" stroke="black" points="341,-0.5 341,-30.5 466,-30.5 466,-0.5 341,-0.5"/>
 <text text-anchor="start" x="349" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMesh::setBounding</text>
 <text text-anchor="middle" x="403.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Sphere</text>
 </a>
 </g>
 </g>
-<!-- Node156&#45;&gt;Node157 -->
-<g id="edge9" class="edge"><title>Node156&#45;&gt;Node157</title>
+<!-- Node9&#45;&gt;Node10 -->
+<g id="edge9" class="edge"><title>Node9&#45;&gt;Node10</title>
 <path fill="none" stroke="midnightblue" d="M295.889,-32.1688C306.979,-30.4349 319.054,-28.5469 330.961,-26.6852"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="331.559,-30.1343 340.898,-25.1315 330.478,-23.2184 331.559,-30.1343"/>
 </g>

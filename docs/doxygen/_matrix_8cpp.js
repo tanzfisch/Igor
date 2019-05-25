@@ -1,6 +1,7 @@
 var _matrix_8cpp =
 [
     [ "TEST", "_matrix_8cpp.html#af338473cac84e3ab6c7039838c24b915", null ],
+    [ "TEST", "_matrix_8cpp.html#a7d4a2b50b193ae19de959cc93a0c9554", null ],
     [ "TEST", "_matrix_8cpp.html#a271eb225ab8cbb9d0351b4c5082b72ee", null ],
     [ "TEST", "_matrix_8cpp.html#ad61fac25b7f6a40f9d318ad5cd417959", null ],
     [ "TEST", "_matrix_8cpp.html#a07beb48d07cfeee6d608aa8c23030d19", null ],
@@ -23,5 +24,6 @@ var _matrix_8cpp =
     [ "TEST", "_matrix_8cpp.html#a948e613466315ec85d8c5bb42ea01a95", null ],
     [ "TEST", "_matrix_8cpp.html#a0d5857d0212fc474ca4cdf16c2f92104", null ],
     [ "TEST", "_matrix_8cpp.html#a42e1b130341a9eddd4731b8a0e0a6137", null ],
-    [ "identityMatrix", "_matrix_8cpp.html#a40887db10efb7d981a790b24294bd9e9", null ]
+    [ "identityMatrix", "_matrix_8cpp.html#a40887db10efb7d981a790b24294bd9e9", null ],
+    [ "identityMatrixFloat32", "_matrix_8cpp.html#ac9a78e81c22189bb8c4a6c482eeb903f", null ]
 ];

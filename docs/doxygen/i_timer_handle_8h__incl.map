@@ -1,15 +1,10 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iTimerHandle.h" name="C:/dev/Igor/Igor/src/Igor/src/iTimerHandle.h">
-<area shape="rect" id="node1" title=" " alt="" coords="240,5,399,47"/>
-<area shape="rect" id="node2" href="$ia_event_8h.html" title=" " alt="" coords="193,95,268,121"/>
-<area shape="rect" id="node13" href="$i_defines_8h.html" title=" " alt="" coords="370,95,448,121"/>
-<area shape="rect" id="node3" href="$ia_mutex_8h.html" title=" " alt="" coords="26,319,104,345"/>
-<area shape="rect" id="node5" href="$ia_delegate_8h.html" title=" " alt="" coords="66,169,160,196"/>
-<area shape="rect" id="node6" href="$ia_console_8h.html" title=" " alt="" coords="185,169,276,196"/>
-<area shape="rect" id="node12" title=" " alt="" coords="300,169,356,196"/>
-<area shape="rect" id="node4" href="$ia_defines_8h.html" title=" " alt="" coords="123,393,210,420"/>
-<area shape="rect" id="node7" href="$ia_singleton_8h.html" title=" " alt="" coords="24,244,122,271"/>
-<area shape="rect" id="node8" href="$ia_clock_8h.html" title=" " alt="" coords="128,319,204,345"/>
-<area shape="rect" id="node9" title=" " alt="" coords="198,244,263,271"/>
-<area shape="rect" id="node10" title=" " alt="" coords="288,244,360,271"/>
-<area shape="rect" id="node11" title=" " alt="" coords="384,244,450,271"/>
+<map id="C:/dev/Igor/src/Igor/src/iTimerHandle.h" name="C:/dev/Igor/src/Igor/src/iTimerHandle.h">
+<area shape="rect" id="node2" href="$ia_event_8h.html" title="iaEvent.h" alt="" coords="193,95,268,121"/>
+<area shape="rect" id="node13" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="370,95,448,121"/>
+<area shape="rect" id="node3" href="$ia_mutex_8h.html" title="iaMutex.h" alt="" coords="26,319,104,345"/>
+<area shape="rect" id="node5" href="$ia_delegate_8h.html" title="iaDelegate.h" alt="" coords="66,169,160,196"/>
+<area shape="rect" id="node6" href="$ia_console_8h.html" title="iaConsole.h" alt="" coords="185,169,276,196"/>
+<area shape="rect" id="node4" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="123,393,210,420"/>
+<area shape="rect" id="node7" href="$ia_singleton_8h.html" title="iaSingleton.h" alt="" coords="24,244,122,271"/>
+<area shape="rect" id="node8" href="$ia_clock_8h.html" title="iaClock.h" alt="" coords="128,319,204,345"/>
 </map>

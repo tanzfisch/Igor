@@ -1,4 +1,3 @@
 <map id="Igor::iWidgetGrid::addWidget" name="Igor::iWidgetGrid::addWidget">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,132,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title=" " alt="" coords="180,13,313,39"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title="Igor::iWidget::getID" alt="" coords="180,13,313,39"/>
 </map>

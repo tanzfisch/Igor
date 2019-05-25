@@ -1,9 +1,8 @@
 <map id="Igor::iMeshBuilderUtils::addBox" name="Igor::iMeshBuilderUtils::addBox">
-<area shape="rect" id="node1" title=" " alt="" coords="701,49,853,90"/>
-<area shape="rect" id="node2" href="$class_manipulator.html#a6d4ac04bee1d79981d08328704544cd7" title=" " alt="" coords="455,5,653,32"/>
-<area shape="rect" id="node3" href="$class_manipulator.html#a78a316700b064b875a8e3aaa7f5a9f58" title=" " alt="" coords="473,56,635,83"/>
-<area shape="rect" id="node4" href="$class_widget3_d_emitter.html#a0a9f47c5ae6ee03ece815f3a19d3d12c" title=" " alt="" coords="457,107,651,133"/>
-<area shape="rect" id="node5" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title=" " alt="" coords="239,107,407,133"/>
-<area shape="rect" id="node6" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="9,66,187,107"/>
-<area shape="rect" id="node7" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title=" " alt="" coords="5,131,191,173"/>
+<area shape="rect" id="node2" href="$class_manipulator.html#a6d4ac04bee1d79981d08328704544cd7" title="Manipulator::createScaleMesh" alt="" coords="205,5,404,32"/>
+<area shape="rect" id="node3" href="$class_manipulator.html#a78a316700b064b875a8e3aaa7f5a9f58" title="Manipulator::createCube" alt="" coords="223,56,386,83"/>
+<area shape="rect" id="node4" href="$class_widget3_d_emitter.html#a0a9f47c5ae6ee03ece815f3a19d3d12c" title="Widget3DEmitter::createCube" alt="" coords="207,107,402,133"/>
+<area shape="rect" id="node5" href="$class_widget3_d_emitter.html#ada67ed081bc12f2a99fb26918efe24e8" title="Widget3DEmitter::update" alt="" coords="452,107,620,133"/>
+<area shape="rect" id="node6" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title="Widget3DEmitter::Widget3\lDEmitter" alt="" coords="672,66,849,107"/>
+<area shape="rect" id="node7" href="$class_widget3_d_emitter.html#a87ddec2cb5f9e7c5c7f40a84deb63e26" title="Widget3DEmitter::~Widget3\lDEmitter" alt="" coords="668,131,853,173"/>
 </map>

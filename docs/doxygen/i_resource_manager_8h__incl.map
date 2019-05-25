@@ -1,12 +1,8 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iResourceManager.h" name="C:/dev/Igor/Igor/src/Igor/src/iResourceManager.h">
-<area shape="rect" id="node1" title=" " alt="" coords="170,5,362,47"/>
-<area shape="rect" id="node2" href="$i_defines_8h.html" title=" " alt="" coords="5,169,84,196"/>
-<area shape="rect" id="node4" href="$ia_singleton_8h.html" title=" " alt="" coords="80,95,177,121"/>
-<area shape="rect" id="node5" href="$ia_mutex_8h.html" title=" " alt="" coords="113,169,192,196"/>
-<area shape="rect" id="node6" href="$ia_directory_8h.html" title=" " alt="" coords="304,95,399,121"/>
-<area shape="rect" id="node7" href="$ia_string_8h.html" title=" " alt="" coords="267,169,345,196"/>
-<area shape="rect" id="node9" title=" " alt="" coords="361,244,417,271"/>
-<area shape="rect" id="node10" title=" " alt="" coords="475,95,521,121"/>
-<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="132,244,219,271"/>
-<area shape="rect" id="node8" title=" " alt="" coords="267,244,337,271"/>
+<map id="C:/dev/Igor/src/Igor/src/iResourceManager.h" name="C:/dev/Igor/src/Igor/src/iResourceManager.h">
+<area shape="rect" id="node2" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="5,169,84,196"/>
+<area shape="rect" id="node4" href="$ia_singleton_8h.html" title="iaSingleton.h" alt="" coords="80,95,177,121"/>
+<area shape="rect" id="node5" href="$ia_mutex_8h.html" title="iaMutex.h" alt="" coords="113,169,192,196"/>
+<area shape="rect" id="node6" href="$ia_directory_8h.html" title="iaDirectory.h" alt="" coords="304,95,399,121"/>
+<area shape="rect" id="node7" href="$ia_string_8h.html" title="iaString.h" alt="" coords="267,169,345,196"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="132,244,219,271"/>
 </map>

@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iRenderer::setLineWidth</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 304,-35 304,4 -4,4"/>
-<!-- Node195 -->
-<g id="node1" class="node"><title>Node195</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="183,-0.5 183,-30.5 300,-30.5 300,-0.5 183,-0.5"/>
-<text text-anchor="start" x="191" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderer::setLine</text>
-<text text-anchor="middle" x="241.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Width</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 117,-30.5 117,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iRenderer::setLine</text>
+<text text-anchor="middle" x="58.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Width</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_manipulator.html#a625692bdcdb2e123dbcba3d845ebbbcc" target="_top" xlink:title="Manipulator::highlightSelected">
+<polygon fill="white" stroke="black" points="153,-6 153,-25 300,-25 300,-6 153,-6"/>
+<text text-anchor="middle" x="226.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::highlightSelected</text>
 </a>
 </g>
 </g>
-<!-- Node196 -->
-<g id="node2" class="node"><title>Node196</title>
-<g id="a_node2"><a xlink:href="class_manipulator.html#a625692bdcdb2e123dbcba3d845ebbbcc" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-6 0,-25 147,-25 147,-6 0,-6"/>
-<text text-anchor="middle" x="73.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Manipulator::highlightSelected</text>
-</a>
-</g>
-</g>
-<!-- Node195&#45;&gt;Node196 -->
-<g id="edge1" class="edge"><title>Node195&#45;&gt;Node196</title>
-<path fill="none" stroke="midnightblue" d="M172.762,-15.5C164.337,-15.5 155.694,-15.5 147.198,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="172.907,-19.0001 182.907,-15.5 172.907,-12.0001 172.907,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M127.238,-15.5C135.663,-15.5 144.306,-15.5 152.802,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="127.093,-12.0001 117.093,-15.5 127.093,-19.0001 127.093,-12.0001"/>
 </g>
 </g>
 </svg>

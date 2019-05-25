@@ -9,43 +9,40 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 106)">
 <title>Igor::SphereMap</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-106 266,-106 266,4 -4,4"/>
-<!-- Node242 -->
-<g id="node1" class="node"><title>Node242</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="174,-41.5 174,-60.5 262,-60.5 262,-41.5 174,-41.5"/>
-<text text-anchor="middle" x="218" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::SphereMap</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-41.5 0,-60.5 88,-60.5 88,-41.5 0,-41.5"/>
+<text text-anchor="middle" x="44" y="-48.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::SphereMap</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_mesh_builder.html#a26b91a04889ec6829c929a43a95c2200" target="_top" xlink:title="Igor::iMeshBuilder\l::calcSphericalTexcoordsBy\lPosition">
+<polygon fill="white" stroke="black" points="124,-60.5 124,-101.5 262,-101.5 262,-60.5 124,-60.5"/>
+<text text-anchor="start" x="132" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
+<text text-anchor="start" x="132" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calcSphericalTexcoordsBy</text>
+<text text-anchor="middle" x="193" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Position</text>
 </a>
 </g>
 </g>
-<!-- Node243 -->
-<g id="node2" class="node"><title>Node243</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_mesh_builder.html#a26b91a04889ec6829c929a43a95c2200" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-60.5 0,-101.5 138,-101.5 138,-60.5 0,-60.5"/>
-<text text-anchor="start" x="8" y="-89.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
-<text text-anchor="start" x="8" y="-78.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calcSphericalTexcoordsBy</text>
-<text text-anchor="middle" x="69" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Position</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M98.2549,-61.8683C106.587,-63.5688 115.296,-65.3462 123.906,-67.1032"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="98.8077,-58.4091 88.3098,-59.8387 97.4079,-65.2677 98.8077,-58.4091"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_mesh_builder.html#a52407464daa99c2c66802ededaf9be26" target="_top" xlink:title="Igor::iMeshBuilder\l::calcSphericalTexcoordsBy\lNormals">
+<polygon fill="white" stroke="black" points="124,-0.5 124,-41.5 262,-41.5 262,-0.5 124,-0.5"/>
+<text text-anchor="start" x="132" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
+<text text-anchor="start" x="132" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calcSphericalTexcoordsBy</text>
+<text text-anchor="middle" x="193" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Normals</text>
 </a>
 </g>
 </g>
-<!-- Node242&#45;&gt;Node243 -->
-<g id="edge1" class="edge"><title>Node242&#45;&gt;Node243</title>
-<path fill="none" stroke="midnightblue" d="M163.745,-61.8683C155.413,-63.5688 146.704,-65.3462 138.094,-67.1032"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="164.592,-65.2677 173.69,-59.8387 163.192,-58.4091 164.592,-65.2677"/>
-</g>
-<!-- Node244 -->
-<g id="node3" class="node"><title>Node244</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_mesh_builder.html#a52407464daa99c2c66802ededaf9be26" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-41.5 138,-41.5 138,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calcSphericalTexcoordsBy</text>
-<text text-anchor="middle" x="69" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Normals</text>
-</a>
-</g>
-</g>
-<!-- Node242&#45;&gt;Node244 -->
-<g id="edge2" class="edge"><title>Node242&#45;&gt;Node244</title>
-<path fill="none" stroke="midnightblue" d="M163.745,-40.1317C155.413,-38.4312 146.704,-36.6538 138.094,-34.8968"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="163.192,-43.5909 173.69,-42.1613 164.592,-36.7323 163.192,-43.5909"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M98.2549,-40.1317C106.587,-38.4312 115.296,-36.6538 123.906,-34.8968"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="97.4079,-36.7323 88.3098,-42.1613 98.8077,-43.5909 97.4079,-36.7323"/>
 </g>
 </g>
 </svg>

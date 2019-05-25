@@ -1,13 +1,13 @@
 <map id="UserControlParticleSystem::deinitGUI" name="UserControlParticleSystem::deinitGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,195,184,236"/>
-<area shape="rect" id="node2" href="$class_user_control_particle_system.html#acb94ca70c3945f9ef0dfc7312ccb34c8" title=" " alt="" coords="232,129,411,171"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="459,71,657,112"/>
-<area shape="rect" id="node5" href="$class_user_control_particle_system.html#a59a38cb2436b3b7cece6e774d49ae919" title=" " alt="" coords="232,12,411,53"/>
-<area shape="rect" id="node7" href="$class_user_control_particle_system.html#ad4fc2e3e604ff8dc7738ce514bc9cc65" title=" " alt="" coords="232,195,411,236"/>
-<area shape="rect" id="node9" href="$class_user_control_particle_system.html#aa6052d91889bb9153d6844b9732b197d" title=" " alt="" coords="232,260,411,301"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title=" " alt="" coords="249,325,394,367"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_widget_manager.html#afd27ed58f6bc204976ec1bcddd5e9ce3" title=" " alt="" coords="249,391,394,432"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_particle_system.html#a48cc9f417b0cd599c85a63fe5a33c420" title=" " alt="" coords="471,136,645,177"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_node_particle_system.html#a8a3e6d816d75fee82ff11cededc05288" title=" " alt="" coords="471,5,645,47"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b" title=" " alt="" coords="471,201,645,243"/>
+<area shape="rect" id="node2" href="$class_user_control_particle_system.html#acb94ca70c3945f9ef0dfc7312ccb34c8" title="UserControlParticleSystem\l::onReset" alt="" coords="232,136,411,177"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="459,71,657,112"/>
+<area shape="rect" id="node6" href="$class_user_control_particle_system.html#a59a38cb2436b3b7cece6e774d49ae919" title="UserControlParticleSystem\l::onStop" alt="" coords="232,201,411,243"/>
+<area shape="rect" id="node8" href="$class_user_control_particle_system.html#ad4fc2e3e604ff8dc7738ce514bc9cc65" title="UserControlParticleSystem\l::onStart" alt="" coords="232,19,411,60"/>
+<area shape="rect" id="node10" href="$class_user_control_particle_system.html#aa6052d91889bb9153d6844b9732b197d" title="UserControlParticleSystem\l::onDoUpdateNode" alt="" coords="232,267,411,308"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget_manager.html#a0f280e1395cb1fe0af29e3d06beb465f" title="Igor::iWidgetManager\l::destroyWidget" alt="" coords="249,332,394,373"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget_manager.html#afd27ed58f6bc204976ec1bcddd5e9ce3" title="Igor::iWidgetManager\l::destroyDialog" alt="" coords="249,397,394,439"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="494,201,622,243"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_particle_system.html#a48cc9f417b0cd599c85a63fe5a33c420" title="Igor::iNodeParticleSystem\l::reset" alt="" coords="471,136,645,177"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_node_particle_system.html#a8a3e6d816d75fee82ff11cededc05288" title="Igor::iNodeParticleSystem\l::stop" alt="" coords="471,267,645,308"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b" title="Igor::iNodeParticleSystem\l::start" alt="" coords="471,5,645,47"/>
 </map>

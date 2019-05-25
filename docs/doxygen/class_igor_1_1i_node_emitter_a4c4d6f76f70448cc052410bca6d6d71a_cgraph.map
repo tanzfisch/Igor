@@ -1,6 +1,5 @@
 <map id="Igor::iNodeEmitter::iNodeEmitter" name="Igor::iNodeEmitter::iNodeEmitter">
-<area shape="rect" id="node1" title=" " alt="" coords="5,57,132,98"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a80bd4ffd9048275d4921b62160ce50fa" title=" " alt="" coords="180,5,324,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_particle_emitter.html#acb324ef7b8a3f5bfa35d93ccfb87e705" title=" " alt="" coords="182,57,322,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_particle_emitter.html#a2103ff5580223c2c1f590795441bee2e" title=" " alt="" coords="182,122,322,163"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a301e06e0e55d6ca93fc64fe44c3ed8bd" title="Igor::iNode::getName" alt="" coords="180,5,324,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_particle_emitter.html#aa378cb93eba3816d78a5d2a88bf9d4cd" title="Igor::iParticleEmitter\l::getType" alt="" coords="182,57,322,98"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_particle_emitter.html#a41bb73e8e616ece07340bb35bc86f1ee" title="Igor::iParticleEmitter\l::getSize" alt="" coords="182,122,322,163"/>
 </map>

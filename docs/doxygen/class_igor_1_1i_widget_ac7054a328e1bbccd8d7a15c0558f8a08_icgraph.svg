@@ -9,97 +9,94 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 280)">
 <title>Igor::iWidget::isActive</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-280 267,-280 267,4 -4,4"/>
-<!-- Node163 -->
-<g id="node1" class="node"><title>Node163</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="152,-128 152,-147 263,-147 263,-128 152,-128"/>
-<text text-anchor="middle" x="207.5" y="-135" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::isActive</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-128 0,-147 111,-147 111,-128 0,-128"/>
+<text text-anchor="middle" x="55.5" y="-135" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::isActive</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_widget_check_box.html#aee99e0fb8acedbfdf3f2fe39d19d9a7d" target="_top" xlink:title="Igor::iWidgetCheckBox\l::handleMouseKeyUp">
+<polygon fill="white" stroke="black" points="147,-245.5 147,-275.5 263,-275.5 263,-245.5 147,-245.5"/>
+<text text-anchor="start" x="155" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
+<text text-anchor="middle" x="205" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleMouseKeyUp</text>
 </a>
 </g>
 </g>
-<!-- Node164 -->
-<g id="node2" class="node"><title>Node164</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_widget_check_box.html#aee99e0fb8acedbfdf3f2fe39d19d9a7d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-245.5 0,-275.5 116,-275.5 116,-245.5 0,-245.5"/>
-<text text-anchor="start" x="8" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
-<text text-anchor="middle" x="58" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleMouseKeyUp</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M69.1496,-155.546C85.142,-177.245 114.533,-213.596 147,-236.5 151.738,-239.842 157.013,-242.842 162.388,-245.496"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="71.8357,-153.287 63.1461,-147.226 66.1591,-157.383 71.8357,-153.287"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_widget_check_box.html#aa54db8546decd504d661331f88225f7d" target="_top" xlink:title="Igor::iWidgetCheckBox\l::draw">
+<polygon fill="white" stroke="black" points="147,-196.5 147,-226.5 263,-226.5 263,-196.5 147,-196.5"/>
+<text text-anchor="start" x="155" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
+<text text-anchor="middle" x="205" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::draw</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node164 -->
-<g id="edge1" class="edge"><title>Node163&#45;&gt;Node164</title>
-<path fill="none" stroke="midnightblue" d="M193.85,-155.546C177.858,-177.245 148.467,-213.596 116,-236.5 111.262,-239.842 105.987,-242.842 100.612,-245.496"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="196.841,-157.383 199.854,-147.226 191.164,-153.287 196.841,-157.383"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M81.2827,-152.126C99.262,-162.506 124.307,-176.492 147,-187.5 153.279,-190.546 160.045,-193.592 166.644,-196.443"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="82.9787,-149.064 72.5747,-147.062 79.4596,-155.115 82.9787,-149.064"/>
 </g>
-<!-- Node165 -->
-<g id="node3" class="node"><title>Node165</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_widget_check_box.html#aa54db8546decd504d661331f88225f7d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-196.5 0,-226.5 116,-226.5 116,-196.5 0,-196.5"/>
-<text text-anchor="start" x="8" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetCheckBox</text>
-<text text-anchor="middle" x="58" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::draw</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" target="_top" xlink:title="Igor::iWidgetTextEdit\l::handleASCII">
+<polygon fill="white" stroke="black" points="151.5,-147.5 151.5,-177.5 258.5,-177.5 258.5,-147.5 151.5,-147.5"/>
+<text text-anchor="start" x="159.5" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
+<text text-anchor="middle" x="205" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleASCII</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node165 -->
-<g id="edge2" class="edge"><title>Node163&#45;&gt;Node165</title>
-<path fill="none" stroke="midnightblue" d="M181.717,-152.126C163.738,-162.506 138.693,-176.492 116,-187.5 109.721,-190.546 102.955,-193.592 96.3555,-196.443"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="183.54,-155.115 190.425,-147.062 180.021,-149.064 183.54,-155.115"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M120.988,-148.43C131.078,-150.14 141.403,-151.89 151.192,-153.549"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="121.449,-144.958 111.004,-146.738 120.279,-151.86 121.449,-144.958"/>
 </g>
-<!-- Node166 -->
-<g id="node4" class="node"><title>Node166</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_widget_text_edit.html#ae33a89c07b2be35b46652624a3a76348" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4.5,-147.5 4.5,-177.5 111.5,-177.5 111.5,-147.5 4.5,-147.5"/>
-<text text-anchor="start" x="12.5" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
-<text text-anchor="middle" x="58" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleASCII</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_widget_text_edit.html#aab49c9b17ab47ae6f7f40a5f81f84686" target="_top" xlink:title="Igor::iWidgetTextEdit\l::handleKeyUp">
+<polygon fill="white" stroke="black" points="151.5,-98.5 151.5,-128.5 258.5,-128.5 258.5,-98.5 151.5,-98.5"/>
+<text text-anchor="start" x="159.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
+<text text-anchor="middle" x="205" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleKeyUp</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node166 -->
-<g id="edge3" class="edge"><title>Node163&#45;&gt;Node166</title>
-<path fill="none" stroke="midnightblue" d="M142.012,-148.43C131.922,-150.14 121.597,-151.89 111.808,-153.549"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="142.721,-151.86 151.996,-146.738 141.551,-144.958 142.721,-151.86"/>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M120.988,-127.007C131.078,-125.365 141.403,-123.685 151.192,-122.093"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="120.313,-123.571 111.004,-128.631 121.437,-130.48 120.313,-123.571"/>
 </g>
-<!-- Node167 -->
-<g id="node5" class="node"><title>Node167</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_widget_text_edit.html#aab49c9b17ab47ae6f7f40a5f81f84686" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4.5,-98.5 4.5,-128.5 111.5,-128.5 111.5,-98.5 4.5,-98.5"/>
-<text text-anchor="start" x="12.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
-<text text-anchor="middle" x="58" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleKeyUp</text>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" target="_top" xlink:title="Igor::iWidgetTextEdit\l::handleKeyDown">
+<polygon fill="white" stroke="black" points="151.5,-49.5 151.5,-79.5 258.5,-79.5 258.5,-49.5 151.5,-49.5"/>
+<text text-anchor="start" x="159.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
+<text text-anchor="middle" x="205" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleKeyDown</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node167 -->
-<g id="edge4" class="edge"><title>Node163&#45;&gt;Node167</title>
-<path fill="none" stroke="midnightblue" d="M142.012,-127.007C131.922,-125.365 121.597,-123.685 111.808,-122.093"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="141.563,-130.48 151.996,-128.631 142.687,-123.571 141.563,-130.48"/>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M82.8893,-122.837C100.8,-113.051 125.116,-100.085 147,-89.5 153.907,-86.1595 161.367,-82.7489 168.542,-79.5641"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="80.7324,-120.029 73.6537,-127.912 84.1033,-126.164 80.7324,-120.029"/>
 </g>
-<!-- Node168 -->
-<g id="node6" class="node"><title>Node168</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_widget_text_edit.html#a8dc55fe820b437af2e7fd8bf625379d7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4.5,-49.5 4.5,-79.5 111.5,-79.5 111.5,-49.5 4.5,-49.5"/>
-<text text-anchor="start" x="12.5" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
-<text text-anchor="middle" x="58" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handleKeyDown</text>
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_igor_1_1i_widget_text_edit.html#aa4bcfd88e7154fc128fa0f0126971387" target="_top" xlink:title="Igor::iWidgetTextEdit\l::draw">
+<polygon fill="white" stroke="black" points="151.5,-0.5 151.5,-30.5 258.5,-30.5 258.5,-0.5 151.5,-0.5"/>
+<text text-anchor="start" x="159.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
+<text text-anchor="middle" x="205" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::draw</text>
 </a>
 </g>
 </g>
-<!-- Node163&#45;&gt;Node168 -->
-<g id="edge5" class="edge"><title>Node163&#45;&gt;Node168</title>
-<path fill="none" stroke="midnightblue" d="M180.111,-122.837C162.2,-113.051 137.884,-100.085 116,-89.5 109.093,-86.1595 101.633,-82.7489 94.4581,-79.5641"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="178.897,-126.164 189.346,-127.912 182.268,-120.029 178.897,-126.164"/>
-</g>
-<!-- Node169 -->
-<g id="node7" class="node"><title>Node169</title>
-<g id="a_node7"><a xlink:href="class_igor_1_1i_widget_text_edit.html#aa4bcfd88e7154fc128fa0f0126971387" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="4.5,-0.5 4.5,-30.5 111.5,-30.5 111.5,-0.5 4.5,-0.5"/>
-<text text-anchor="start" x="12.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidgetTextEdit</text>
-<text text-anchor="middle" x="58" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::draw</text>
-</a>
-</g>
-</g>
-<!-- Node163&#45;&gt;Node169 -->
-<g id="edge6" class="edge"><title>Node163&#45;&gt;Node169</title>
-<path fill="none" stroke="midnightblue" d="M193.465,-119.587C177.283,-98.3851 147.895,-63.1108 116,-40.5 110.799,-36.8128 104.968,-33.4973 99.0729,-30.578"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="190.767,-121.824 199.56,-127.734 196.372,-117.631 190.767,-121.824"/>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node1&#45;&gt;Node7</title>
+<path fill="none" stroke="midnightblue" d="M69.535,-119.587C85.7173,-98.3851 115.105,-63.1108 147,-40.5 152.201,-36.8128 158.032,-33.4973 163.927,-30.578"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="66.6278,-117.631 63.4395,-127.734 72.2327,-121.824 66.6278,-117.631"/>
 </g>
 </g>
 </svg>

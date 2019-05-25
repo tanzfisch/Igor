@@ -1,7 +1,4 @@
-<map id="C:/dev/Igor/Igor/src/IgorAux/src/iaVector2.h" name="C:/dev/Igor/Igor/src/IgorAux/src/iaVector2.h">
-<area shape="rect" id="node1" title=" " alt="" coords="109,5,271,47"/>
-<area shape="rect" id="node2" href="$ia_defines_8h.html" title=" " alt="" coords="5,95,92,121"/>
-<area shape="rect" id="node3" title=" " alt="" coords="117,95,175,121"/>
-<area shape="rect" id="node4" title=" " alt="" coords="199,95,269,121"/>
-<area shape="rect" id="node5" href="$ia_vector2_8inl.html" title=" " alt="" coords="293,95,388,121"/>
+<map id="C:/dev/Igor/src/IgorAux/src/iaVector2.h" name="C:/dev/Igor/src/IgorAux/src/iaVector2.h">
+<area shape="rect" id="node2" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="5,95,92,121"/>
+<area shape="rect" id="node5" href="$ia_vector2_8inl.html" title="iaVector2.inl" alt="" coords="293,95,388,121"/>
 </map>

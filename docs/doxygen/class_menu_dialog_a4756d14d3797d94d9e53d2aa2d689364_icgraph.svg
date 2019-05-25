@@ -9,39 +9,36 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>MenuDialog::onPaste</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 263,-62 263,4 -4,4"/>
-<!-- Node209 -->
-<g id="node1" class="node"><title>Node209</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="149,-19.5 149,-38.5 259,-38.5 259,-19.5 149,-19.5"/>
-<text text-anchor="middle" x="204" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::onPaste</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-19.5 0,-38.5 110,-38.5 110,-19.5 0,-19.5"/>
+<text text-anchor="middle" x="55" y="-26.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::onPaste</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" target="_top" xlink:title="MenuDialog::initGUI">
+<polygon fill="white" stroke="black" points="151,-38.5 151,-57.5 254,-57.5 254,-38.5 151,-38.5"/>
+<text text-anchor="middle" x="202.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node210 -->
-<g id="node2" class="node"><title>Node210</title>
-<g id="a_node2"><a xlink:href="class_menu_dialog.html#aa11150c7006b0d974a9252f03f8068a3" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5,-38.5 5,-57.5 108,-57.5 108,-38.5 5,-38.5"/>
-<text text-anchor="middle" x="56.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::initGUI</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M120.252,-37.3903C130.43,-38.7194 140.833,-40.0779 150.649,-41.3597"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="120.548,-33.8993 110.179,-36.0749 119.641,-40.8404 120.548,-33.8993"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" target="_top" xlink:title="MenuDialog::deinitGUI">
+<polygon fill="white" stroke="black" points="146,-0.5 146,-19.5 259,-19.5 259,-0.5 146,-0.5"/>
+<text text-anchor="middle" x="202.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node209&#45;&gt;Node210 -->
-<g id="edge1" class="edge"><title>Node209&#45;&gt;Node210</title>
-<path fill="none" stroke="midnightblue" d="M138.748,-37.3903C128.57,-38.7194 118.167,-40.0779 108.351,-41.3597"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="139.359,-40.8404 148.821,-36.0749 138.452,-33.8993 139.359,-40.8404"/>
-</g>
-<!-- Node211 -->
-<g id="node3" class="node"><title>Node211</title>
-<g id="a_node3"><a xlink:href="class_menu_dialog.html#ad45c34150be9cf8c048ee636272137ac" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 113,-19.5 113,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="56.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">MenuDialog::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node209&#45;&gt;Node211 -->
-<g id="edge2" class="edge"><title>Node209&#45;&gt;Node211</title>
-<path fill="none" stroke="midnightblue" d="M138.872,-20.6259C130.309,-19.5077 121.585,-18.3684 113.182,-17.2712"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="138.452,-24.1007 148.821,-21.9251 139.359,-17.1596 138.452,-24.1007"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M120.128,-20.6259C128.691,-19.5077 137.415,-18.3684 145.818,-17.2712"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="119.641,-17.1596 110.179,-21.9251 120.548,-24.1007 119.641,-17.1596"/>
 </g>
 </g>
 </svg>

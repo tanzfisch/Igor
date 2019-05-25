@@ -1,5 +1,4 @@
 <map id="Igor::iNode::getTransformationChangeEvent" name="Igor::iNode::getTransformationChangeEvent">
-<area shape="rect" id="node1" title=" " alt="" coords="244,39,439,80"/>
-<area shape="rect" id="node2" href="$class_user_control_transformation.html#aa7a26f5ea9173a037976b02cc016ccb5" title=" " alt="" coords="5,5,196,47"/>
-<area shape="rect" id="node3" href="$class_user_control_transformation.html#a356990f3338951491a72adfc5ccdf8ab" title=" " alt="" coords="13,71,188,112"/>
+<area shape="rect" id="node2" href="$class_user_control_transformation.html#aa7a26f5ea9173a037976b02cc016ccb5" title="UserControlTransformation\l::~UserControlTransformation" alt="" coords="248,5,439,47"/>
+<area shape="rect" id="node3" href="$class_user_control_transformation.html#a356990f3338951491a72adfc5ccdf8ab" title="UserControlTransformation\l::setNode" alt="" coords="256,71,431,112"/>
 </map>

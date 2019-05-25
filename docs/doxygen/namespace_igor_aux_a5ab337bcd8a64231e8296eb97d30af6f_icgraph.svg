@@ -9,83 +9,80 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 231)">
 <title>IgorAux::flush</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-231 263,-231 263,4 -4,4"/>
-<!-- Node32 -->
-<g id="node1" class="node"><title>Node32</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="183,-104 183,-123 259,-123 259,-104 183,-104"/>
-<text text-anchor="middle" x="221" y="-111" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::flush</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-104 0,-123 76,-123 76,-104 0,-104"/>
+<text text-anchor="middle" x="38" y="-111" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::flush</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2" target="_top" xlink:title="Igor::iModelResourceFactory\l::~iModelResourceFactory">
+<polygon fill="white" stroke="black" points="115,-196.5 115,-226.5 256,-226.5 256,-196.5 115,-196.5"/>
+<text text-anchor="start" x="123" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelResourceFactory</text>
+<text text-anchor="middle" x="185.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~iModelResourceFactory</text>
 </a>
 </g>
 </g>
-<!-- Node33 -->
-<g id="node2" class="node"><title>Node33</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_model_resource_factory.html#a0c82a68c6596d90769a70eaf5788c8f2" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="3,-196.5 3,-226.5 144,-226.5 144,-196.5 3,-196.5"/>
-<text text-anchor="start" x="11" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelResourceFactory</text>
-<text text-anchor="middle" x="73.5" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~iModelResourceFactory</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M52.1561,-130.991C65.5405,-147.669 87.7208,-172.415 112,-187.5 117.406,-190.859 123.333,-193.801 129.396,-196.366"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="54.907,-128.827 45.9941,-123.099 49.3896,-133.135 54.907,-128.827"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_node_factory.html#a466a40ab9315291c4e0050d49291df90" target="_top" xlink:title="Igor::iNodeFactory\l::onPreDestroyInstance">
+<polygon fill="white" stroke="black" points="126,-147.5 126,-177.5 245,-177.5 245,-147.5 126,-147.5"/>
+<text text-anchor="start" x="134" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeFactory</text>
+<text text-anchor="middle" x="185.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onPreDestroyInstance</text>
 </a>
 </g>
 </g>
-<!-- Node32&#45;&gt;Node33 -->
-<g id="edge1" class="edge"><title>Node32&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M206.844,-130.991C193.46,-147.669 171.279,-172.415 147,-187.5 141.594,-190.859 135.667,-193.801 129.604,-196.366"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="209.61,-133.135 213.006,-123.099 204.093,-128.827 209.61,-133.135"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M76.3874,-126.386C87.8098,-130.301 100.413,-134.598 112,-138.5 120.67,-141.42 129.933,-144.509 138.84,-147.464"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="77.3034,-123 66.7088,-123.064 75.0307,-129.621 77.3034,-123"/>
 </g>
-<!-- Node34 -->
-<g id="node3" class="node"><title>Node34</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_node_factory.html#a466a40ab9315291c4e0050d49291df90" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="14,-147.5 14,-177.5 133,-177.5 133,-147.5 14,-147.5"/>
-<text text-anchor="start" x="22" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeFactory</text>
-<text text-anchor="middle" x="73.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onPreDestroyInstance</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_node_factory.html#a60069ff0e9189d490cdedd1a9dba5afc" target="_top" xlink:title="Igor::iNodeFactory\l::handle">
+<polygon fill="white" stroke="black" points="137.5,-98.5 137.5,-128.5 233.5,-128.5 233.5,-98.5 137.5,-98.5"/>
+<text text-anchor="start" x="145.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeFactory</text>
+<text text-anchor="middle" x="185.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handle</text>
 </a>
 </g>
 </g>
-<!-- Node32&#45;&gt;Node34 -->
-<g id="edge2" class="edge"><title>Node32&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M182.613,-126.386C171.19,-130.301 158.587,-134.598 147,-138.5 138.33,-141.42 129.067,-144.509 120.16,-147.464"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="183.969,-129.621 192.291,-123.064 181.697,-123 183.969,-129.621"/>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M86.4824,-113.5C102.779,-113.5 121.006,-113.5 137.282,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="86.0923,-110 76.0923,-113.5 86.0922,-117 86.0923,-110"/>
 </g>
-<!-- Node35 -->
-<g id="node4" class="node"><title>Node35</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_node_factory.html#a60069ff0e9189d490cdedd1a9dba5afc" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="25.5,-98.5 25.5,-128.5 121.5,-128.5 121.5,-98.5 25.5,-98.5"/>
-<text text-anchor="start" x="33.5" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iNodeFactory</text>
-<text text-anchor="middle" x="73.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::handle</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_texture_resource_factory.html#a506680aef6355276902a734b56c9cc45" target="_top" xlink:title="Igor::iTextureResourceFactory\l::~iTextureResourceFactory">
+<polygon fill="white" stroke="black" points="112,-49.5 112,-79.5 259,-79.5 259,-49.5 112,-49.5"/>
+<text text-anchor="start" x="120" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureResourceFactory</text>
+<text text-anchor="middle" x="185.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~iTextureResourceFactory</text>
 </a>
 </g>
 </g>
-<!-- Node32&#45;&gt;Node35 -->
-<g id="edge3" class="edge"><title>Node32&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M172.518,-113.5C156.221,-113.5 137.994,-113.5 121.718,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="172.908,-117 182.908,-113.5 172.908,-110 172.908,-117"/>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M77.0359,-100.691C96.2787,-94.2103 119.754,-86.3045 139.849,-79.537"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="75.7592,-97.4274 67.3993,-103.936 77.9934,-104.061 75.7592,-97.4274"/>
 </g>
-<!-- Node36 -->
-<g id="node5" class="node"><title>Node36</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_texture_resource_factory.html#a506680aef6355276902a734b56c9cc45" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-49.5 0,-79.5 147,-79.5 147,-49.5 0,-49.5"/>
-<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureResourceFactory</text>
-<text text-anchor="middle" x="73.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::~iTextureResourceFactory</text>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_texture_resource_factory.html#a69d8bf5f7733d941b55254bd342c8b08" target="_top" xlink:title="Igor::iTextureResourceFactory\l::deinit">
+<polygon fill="white" stroke="black" points="112,-0.5 112,-30.5 259,-30.5 259,-0.5 112,-0.5"/>
+<text text-anchor="start" x="120" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureResourceFactory</text>
+<text text-anchor="middle" x="185.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinit</text>
 </a>
 </g>
 </g>
-<!-- Node32&#45;&gt;Node36 -->
-<g id="edge4" class="edge"><title>Node32&#45;&gt;Node36</title>
-<path fill="none" stroke="midnightblue" d="M181.964,-100.691C162.721,-94.2103 139.246,-86.3045 119.151,-79.537"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="181.007,-104.061 191.601,-103.936 183.241,-97.4274 181.007,-104.061"/>
-</g>
-<!-- Node37 -->
-<g id="node6" class="node"><title>Node37</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_texture_resource_factory.html#a69d8bf5f7733d941b55254bd342c8b08" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 147,-30.5 147,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureResourceFactory</text>
-<text text-anchor="middle" x="73.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::deinit</text>
-</a>
-</g>
-</g>
-<!-- Node32&#45;&gt;Node37 -->
-<g id="edge5" class="edge"><title>Node32&#45;&gt;Node37</title>
-<path fill="none" stroke="midnightblue" d="M205.943,-95.3337C192.419,-78.958 170.594,-55.2507 147,-40.5 140.904,-36.6887 134.153,-33.373 127.296,-30.5132"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="203.57,-97.9685 212.561,-103.573 209.028,-93.5851 203.57,-97.9685"/>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M53.0571,-95.3337C66.5811,-78.958 88.4057,-55.2507 112,-40.5 118.096,-36.6887 124.847,-33.373 131.704,-30.5132"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="49.9724,-93.5851 46.4392,-103.573 55.4301,-97.9685 49.9724,-93.5851"/>
 </g>
 </g>
 </svg>

@@ -9,110 +9,107 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 329)">
 <title>Igor::iModelDataIOOMPF::createMaterial</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-329 299,-329 299,4 -4,4"/>
-<!-- Node21 -->
-<g id="node1" class="node"><title>Node21</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-147.5 0,-177.5 125,-177.5 125,-147.5 0,-147.5"/>
 <text text-anchor="start" x="8" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
 <text text-anchor="middle" x="62.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMaterial</text>
-</a>
 </g>
-</g>
-<!-- Node22 -->
-<g id="node2" class="node"><title>Node22</title>
-<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#ac5e69b98a95d5e544b4ade1dcdba6577" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#abe4722ab158b56136a0de947ce9ba15c" target="_top" xlink:title="OMPF::ompfMaterialChunk\l::getMaterialName">
 <polygon fill="white" stroke="black" points="161,-294.5 161,-324.5 295,-324.5 295,-294.5 161,-294.5"/>
 <text text-anchor="start" x="169" y="-312.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfMaterialChunk</text>
 <text text-anchor="middle" x="228" y="-301.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getMaterialName</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node22 -->
-<g id="edge1" class="edge"><title>Node21&#45;&gt;Node22</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M71.6872,-177.583C86.3415,-203.249 119.445,-255.541 161,-285.5 163.077,-286.997 165.257,-288.411 167.51,-289.743"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="166.016,-292.913 176.493,-294.493 169.288,-286.724 166.016,-292.913"/>
 </g>
-<!-- Node23 -->
-<g id="node3" class="node"><title>Node23</title>
-<g id="a_node3"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#aab20d95c7f7e4e74682c7e7001d8b5d2" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_o_m_p_f_1_1ompf_base_chunk.html#a975a727d2e35826854206a927ab003b0" target="_top" xlink:title="OMPF::ompfBaseChunk\l::getID">
 <polygon fill="white" stroke="black" points="167,-245.5 167,-275.5 289,-275.5 289,-245.5 167,-245.5"/>
 <text text-anchor="start" x="175" y="-263.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfBaseChunk</text>
 <text text-anchor="middle" x="228" y="-252.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getID</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node23 -->
-<g id="edge2" class="edge"><title>Node21&#45;&gt;Node23</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M80.0303,-177.543C98.6084,-193.83 130.212,-219.721 161,-236.5 164.091,-238.185 167.325,-239.795 170.629,-241.325"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="169.504,-244.652 180.07,-245.426 172.292,-238.232 169.504,-244.652"/>
 </g>
-<!-- Node24 -->
-<g id="node4" class="node"><title>Node24</title>
-<g id="a_node4"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#a6c79a384942b073933d7537f478519fb" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#a100950f36ec4c8c36d998e7ef65258de" target="_top" xlink:title="OMPF::ompfMaterialChunk\l::getOrder">
 <polygon fill="white" stroke="black" points="161,-196.5 161,-226.5 295,-226.5 295,-196.5 161,-196.5"/>
 <text text-anchor="start" x="169" y="-214.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfMaterialChunk</text>
 <text text-anchor="middle" x="228" y="-203.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getOrder</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node24 -->
-<g id="edge3" class="edge"><title>Node21&#45;&gt;Node24</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M113.889,-177.601C130.596,-182.608 149.362,-188.232 166.735,-193.439"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="166.193,-196.93 176.777,-196.448 168.203,-190.225 166.193,-196.93"/>
 </g>
-<!-- Node25 -->
-<g id="node5" class="node"><title>Node25</title>
-<g id="a_node5"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#a1427ac6b62a8b0ff73730ee859cb72b7" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#ae93a078a79520d57509d316044965ab7" target="_top" xlink:title="OMPF::ompfMaterialChunk\l::getShaderObjectCount">
 <polygon fill="white" stroke="black" points="161,-147.5 161,-177.5 295,-177.5 295,-147.5 161,-147.5"/>
 <text text-anchor="start" x="169" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfMaterialChunk</text>
 <text text-anchor="middle" x="228" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getShaderObjectCount</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node25 -->
-<g id="edge4" class="edge"><title>Node21&#45;&gt;Node25</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="midnightblue" d="M125.312,-162.5C133.542,-162.5 142.058,-162.5 150.499,-162.5"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="150.734,-166 160.734,-162.5 150.734,-159 150.734,-166"/>
 </g>
-<!-- Node26 -->
-<g id="node6" class="node"><title>Node26</title>
-<g id="a_node6"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#ae66e7ea06e582f1e08978be2d6c52615" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#a415b7998f8e1c217ba9c1869a7f77765" target="_top" xlink:title="OMPF::ompfMaterialChunk\l::getShaderFilename">
 <polygon fill="white" stroke="black" points="161,-98.5 161,-128.5 295,-128.5 295,-98.5 161,-98.5"/>
 <text text-anchor="start" x="169" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfMaterialChunk</text>
 <text text-anchor="middle" x="228" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getShaderFilename</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node26 -->
-<g id="edge5" class="edge"><title>Node21&#45;&gt;Node26</title>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="midnightblue" d="M113.889,-147.399C130.596,-142.392 149.362,-136.768 166.735,-131.561"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="168.203,-134.775 176.777,-128.552 166.193,-128.07 168.203,-134.775"/>
 </g>
-<!-- Node27 -->
-<g id="node7" class="node"><title>Node27</title>
-<g id="a_node7"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#ae07e664484b317160a55e7b0e2d1d487" target="_top" xlink:title=" ">
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#a79f0fec154468c14c7bcd7f0661c8960" target="_top" xlink:title="OMPF::ompfMaterialChunk\l::getShaderType">
 <polygon fill="white" stroke="black" points="161,-49.5 161,-79.5 295,-79.5 295,-49.5 161,-49.5"/>
 <text text-anchor="start" x="169" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfMaterialChunk</text>
 <text text-anchor="middle" x="228" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getShaderType</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node27 -->
-<g id="edge6" class="edge"><title>Node21&#45;&gt;Node27</title>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="midnightblue" d="M80.4496,-147.462C99.1402,-131.461 130.606,-106.199 161,-89.5 164.745,-87.4424 168.695,-85.4814 172.724,-83.629"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="174.431,-86.7032 182.209,-79.5091 171.643,-80.2826 174.431,-86.7032"/>
 </g>
-<!-- Node28 -->
-<g id="node8" class="node"><title>Node28</title>
-<g id="a_node8"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#a601161fdbc652e0f754417432f1afaf4" target="_top" xlink:title=" ">
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="class_o_m_p_f_1_1ompf_material_chunk.html#a7b22f40f20ab9d01462bc4488f60e8c0" target="_top" xlink:title="OMPF::ompfMaterialChunk\l::getRenderStateValue">
 <polygon fill="white" stroke="black" points="161,-0.5 161,-30.5 295,-30.5 295,-0.5 161,-0.5"/>
 <text text-anchor="start" x="169" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">OMPF::ompfMaterialChunk</text>
 <text text-anchor="middle" x="228" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getRenderStateValue</text>
 </a>
 </g>
 </g>
-<!-- Node21&#45;&gt;Node28 -->
-<g id="edge7" class="edge"><title>Node21&#45;&gt;Node28</title>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge7" class="edge"><title>Node1&#45;&gt;Node8</title>
 <path fill="none" stroke="midnightblue" d="M71.9978,-147.193C86.8798,-121.685 120.011,-70.3432 161,-40.5 163.625,-38.5888 166.414,-36.8054 169.304,-35.1439"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="170.954,-38.2308 178.219,-30.5186 167.73,-32.0174 170.954,-38.2308"/>
 </g>

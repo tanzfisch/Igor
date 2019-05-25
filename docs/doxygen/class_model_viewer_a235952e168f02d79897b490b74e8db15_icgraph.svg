@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>ModelViewer::onGraphViewSelectionChanged</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 294,-62 294,4 -4,4"/>
-<!-- Node344 -->
-<g id="node1" class="node"><title>Node344</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="154,-14 154,-44 290,-44 290,-14 154,-14"/>
-<text text-anchor="start" x="162" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::onGraphView</text>
-<text text-anchor="middle" x="222" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">SelectionChanged</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-14 0,-44 136,-44 136,-14 0,-14"/>
+<text text-anchor="start" x="8" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::onGraphView</text>
+<text text-anchor="middle" x="68" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">SelectionChanged</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" target="_top" xlink:title="ModelViewer::initGUI">
+<polygon fill="white" stroke="black" points="177.5,-38.5 177.5,-57.5 284.5,-57.5 284.5,-38.5 177.5,-38.5"/>
+<text text-anchor="middle" x="231" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node345 -->
-<g id="node2" class="node"><title>Node345</title>
-<g id="a_node2"><a xlink:href="class_model_viewer.html#a6583fbced0dd9654fed6adbad4650911" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="5.5,-38.5 5.5,-57.5 112.5,-57.5 112.5,-38.5 5.5,-38.5"/>
-<text text-anchor="middle" x="59" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::initGUI</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M146.305,-38.123C156.74,-39.3544 167.247,-40.5943 177.122,-41.7598"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="146.687,-34.6438 136.346,-36.9476 145.866,-41.5956 146.687,-34.6438"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_model_viewer.html#a247bac03643084abda6e880573312206" target="_top" xlink:title="ModelViewer::deinitGUI">
+<polygon fill="white" stroke="black" points="172,-0.5 172,-19.5 290,-19.5 290,-0.5 172,-0.5"/>
+<text text-anchor="middle" x="231" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::deinitGUI</text>
 </a>
 </g>
 </g>
-<!-- Node344&#45;&gt;Node345 -->
-<g id="edge1" class="edge"><title>Node344&#45;&gt;Node345</title>
-<path fill="none" stroke="midnightblue" d="M143.695,-38.123C133.26,-39.3544 122.753,-40.5943 112.878,-41.7598"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="144.134,-41.5956 153.654,-36.9476 143.313,-34.6438 144.134,-41.5956"/>
-</g>
-<!-- Node346 -->
-<g id="node3" class="node"><title>Node346</title>
-<g id="a_node3"><a xlink:href="class_model_viewer.html#a247bac03643084abda6e880573312206" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 118,-19.5 118,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="59" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">ModelViewer::deinitGUI</text>
-</a>
-</g>
-</g>
-<!-- Node344&#45;&gt;Node346 -->
-<g id="edge2" class="edge"><title>Node344&#45;&gt;Node346</title>
-<path fill="none" stroke="midnightblue" d="M143.625,-19.8688C135.043,-18.856 126.414,-17.8377 118.128,-16.8599"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="143.313,-23.3562 153.654,-21.0524 144.134,-16.4044 143.313,-23.3562"/>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M146.375,-19.8688C154.957,-18.856 163.586,-17.8377 171.872,-16.8599"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="145.866,-16.4044 136.346,-21.0524 146.687,-23.3562 145.866,-16.4044"/>
 </g>
 </g>
 </svg>

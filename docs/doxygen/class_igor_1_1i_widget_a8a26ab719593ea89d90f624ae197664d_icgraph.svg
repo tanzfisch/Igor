@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iWidget::handleLostKeyboardFocus</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 297,-35 297,4 -4,4"/>
-<!-- Node133 -->
-<g id="node1" class="node"><title>Node133</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="168,-0.5 168,-30.5 293,-30.5 293,-0.5 168,-0.5"/>
-<text text-anchor="start" x="176" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::handleLost</text>
-<text text-anchor="middle" x="230.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">KeyboardFocus</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 125,-30.5 125,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::handleLost</text>
+<text text-anchor="middle" x="62.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">KeyboardFocus</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_widget.html#a7be4df13a7a2021c16c2188d2b795af0" target="_top" xlink:title="Igor::iWidget::setKeyboard\lFocus">
+<polygon fill="white" stroke="black" points="161,-0.5 161,-30.5 293,-30.5 293,-0.5 161,-0.5"/>
+<text text-anchor="start" x="169" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::setKeyboard</text>
+<text text-anchor="middle" x="227" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Focus</text>
 </a>
 </g>
 </g>
-<!-- Node134 -->
-<g id="node2" class="node"><title>Node134</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_widget.html#a7be4df13a7a2021c16c2188d2b795af0" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 132,-30.5 132,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iWidget::setKeyboard</text>
-<text text-anchor="middle" x="66" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Focus</text>
-</a>
-</g>
-</g>
-<!-- Node133&#45;&gt;Node134 -->
-<g id="edge1" class="edge"><title>Node133&#45;&gt;Node134</title>
-<path fill="none" stroke="midnightblue" d="M157.454,-15.5C149.06,-15.5 140.533,-15.5 132.238,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="157.602,-19.0001 167.602,-15.5 157.602,-12.0001 157.602,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M135.546,-15.5C143.94,-15.5 152.467,-15.5 160.762,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="135.398,-12.0001 125.398,-15.5 135.398,-19.0001 135.398,-12.0001"/>
 </g>
 </g>
 </svg>

@@ -1,7 +1,6 @@
-<map id="C:/dev/Igor/Igor/src/Tools/ModelViewer/src/Manipulator.h" name="C:/dev/Igor/Igor/src/Tools/ModelViewer/src/Manipulator.h">
-<area shape="rect" id="node1" title=" " alt="" coords="187,5,344,61"/>
-<area shape="rect" id="node2" href="$_model_viewer_8h.html" title=" " alt="" coords="96,109,253,165"/>
-<area shape="rect" id="node5" href="$_manipulator_8cpp.html" title=" " alt="" coords="277,109,435,165"/>
-<area shape="rect" id="node3" href="$_model_viewer_2src_2main_8cpp.html" title=" " alt="" coords="5,213,163,269"/>
-<area shape="rect" id="node4" href="$_model_viewer_8cpp.html" title=" " alt="" coords="187,213,344,269"/>
+<map id="C:/dev/Igor/src/Tools/ModelViewer/src/Manipulator.h" name="C:/dev/Igor/src/Tools/ModelViewer/src/Manipulator.h">
+<area shape="rect" id="node2" href="$_model_viewer_8h.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.h" alt="" coords="103,95,313,136"/>
+<area shape="rect" id="node5" href="$_manipulator_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/Manipulator.cpp" alt="" coords="337,95,556,136"/>
+<area shape="rect" id="node3" href="$_model_viewer_2src_2main_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/main.cpp" alt="" coords="5,184,184,225"/>
+<area shape="rect" id="node4" href="$_model_viewer_8cpp.html" title="C:/dev/Igor/src/Tools\l/ModelViewer/src/ModelViewer.cpp" alt="" coords="209,184,434,225"/>
 </map>

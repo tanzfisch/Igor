@@ -11,15 +11,12 @@
 <polygon fill="white" stroke="none" points="-4,4 -4,-258 276,-258 276,4 -4,4"/>
 <!-- Node1 -->
 <g id="node1" class="node"><title>Node1</title>
-<g id="a_node1"><a xlink:title=" ">
 <polygon fill="#bfbfbf" stroke="black" points="64.5,-0.5 64.5,-19.5 157.5,-19.5 157.5,-0.5 64.5,-0.5"/>
 <text text-anchor="middle" x="111" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestCase</text>
-</a>
-</g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node"><title>Node2</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1_test_result.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="classtesting_1_1_test_result.html" target="_top" xlink:title="testing::TestResult">
 <polygon fill="white" stroke="black" points="0,-78.5 0,-97.5 98,-97.5 98,-78.5 0,-78.5"/>
 <text text-anchor="middle" x="49" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::TestResult</text>
 </a>
@@ -33,7 +30,7 @@
 </g>
 <!-- Node3 -->
 <g id="node3" class="node"><title>Node3</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_mutex.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1_mutex.html" target="_top" xlink:title="testing::internal::\lMutex">
 <polygon fill="white" stroke="black" points="0.5,-156.5 0.5,-186.5 89.5,-186.5 89.5,-156.5 0.5,-156.5"/>
 <text text-anchor="start" x="8.5" y="-174.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="45" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00">Mutex</text>
@@ -48,7 +45,7 @@
 </g>
 <!-- Node4 -->
 <g id="node4" class="node"><title>Node4</title>
-<g id="a_node4"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; const ::\lstd::string \&gt;">
 <polygon fill="white" stroke="black" points="118.5,-67.5 118.5,-108.5 225.5,-108.5 225.5,-67.5 118.5,-67.5"/>
 <text text-anchor="start" x="126.5" y="-96.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="126.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; const ::</text>
@@ -64,7 +61,7 @@
 </g>
 <!-- Node5 -->
 <g id="node5" class="node"><title>Node5</title>
-<g id="a_node5"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="129.5,-156.5 129.5,-186.5 218.5,-186.5 218.5,-156.5 129.5,-156.5"/>
 <text text-anchor="start" x="137.5" y="-174.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="174" y="-163.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; T &gt;</text>
@@ -79,11 +76,8 @@
 </g>
 <!-- Node6 -->
 <g id="node6" class="node"><title>Node6</title>
-<g id="a_node6"><a xlink:title=" ">
 <polygon fill="white" stroke="#bfbfbf" points="159.5,-234.5 159.5,-253.5 188.5,-253.5 188.5,-234.5 159.5,-234.5"/>
 <text text-anchor="middle" x="174" y="-241.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
-</g>
 </g>
 <!-- Node6&#45;&gt;Node5 -->
 <g id="edge5" class="edge"><title>Node6&#45;&gt;Node5</title>

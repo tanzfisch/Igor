@@ -1,6 +1,7 @@
 var searchData=
 [
   ['w',['W',['../_igor_8cpp.html#a649b8f01fd6c0f47ff3cbddaeba63bfb',1,'W():&#160;Igor.cpp'],['../namespace_igor.html#ab382cf42e4ab1cc6a55599bc1a61aa24a61e9c06ea9a85a5088a499df6458d276',1,'Igor::W()']]],
+  ['warning',['Warning',['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3a0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'IgorAux']]],
   ['wasreached',['wasReached',['../class_igor_1_1i_node_render.html#aef5fe1bc6120f2cca1284646133293ec',1,'Igor::iNodeRender::wasReached()'],['../class_igor_1_1i_node_sky_box.html#a39fc231ab2c7f4330799e0ad6e6ed3fe',1,'Igor::iNodeSkyBox::wasReached()'],['../class_igor_1_1i_node_water.html#a359a5f3ff999f21928df69c397ce480f',1,'Igor::iNodeWater::wasReached()']]],
   ['wheel_5fdelta',['WHEEL_DELTA',['../i_mouse_8h.html#a2a0e477b7ffd2a6e6cb81454a3238140',1,'iMouse.h']]],
   ['white',['White',['../namespace_igor_aux.html#a40f0d9edbd2c9519788b20a95a9facc8a25a81701fbfa4a1efdf660a950c1d006',1,'IgorAux']]],

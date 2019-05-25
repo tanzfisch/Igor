@@ -1,9 +1,5 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iTexture.h" name="C:/dev/Igor/Igor/src/Igor/src/iTexture.h">
-<area shape="rect" id="node1" title=" " alt="" coords="86,5,217,47"/>
-<area shape="rect" id="node2" href="$ia_string_8h.html" title=" " alt="" coords="113,95,190,121"/>
-<area shape="rect" id="node6" href="$i_defines_8h.html" title=" " alt="" coords="9,95,88,121"/>
-<area shape="rect" id="node7" title=" " alt="" coords="214,95,283,121"/>
-<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="5,169,92,196"/>
-<area shape="rect" id="node4" title=" " alt="" coords="117,169,186,196"/>
-<area shape="rect" id="node5" title=" " alt="" coords="210,169,266,196"/>
+<map id="C:/dev/Igor/src/Igor/src/iTexture.h" name="C:/dev/Igor/src/Igor/src/iTexture.h">
+<area shape="rect" id="node2" href="$ia_string_8h.html" title="iaString.h" alt="" coords="113,95,190,121"/>
+<area shape="rect" id="node6" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="9,95,88,121"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="5,169,92,196"/>
 </map>

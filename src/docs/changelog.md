@@ -4,22 +4,23 @@ Changelog                           {#changelog}
 0.20.0
 ------
 
-- replaced vector and matrix conversions in iaConvert with conversion methods directly on the classes
+- Replaced vector and matrix conversions in iaConvert with conversion methods directly on the classes.
+- Added log level to console. Controlable by config file and during runtime.
 
 0.19.1
 ------
 
-- fixed cursor position in text edit field when text was not aligned left
+- Fixed cursor position in text edit field when text was not aligned left
 
 0.19.0
 ------
 
 - ModelViewer: UserControlTransform now handles components instead of a matrix and improved Manipulator
   ![New transform UI and improved scale modifier](/images/TransformUI.png)
-- implemented matrix decomposition
-- fixed iRenderer::project
-- added some google tests for matrix functions
-- introduced iaTransform that potentially will replace matrixes in scene graph
+- Implemented matrix decomposition
+- Fixed iRenderer::project
+- Added some google tests for matrix functions
+- Introduced iaTransform that potentially will replace matrixes in scene graph
 
 0.18.0
 ------

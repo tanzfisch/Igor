@@ -1,44 +1,51 @@
 <map id="UserControlParticleSystem::initGUI" name="UserControlParticleSystem::initGUI">
-<area shape="rect" id="node1" title=" " alt="" coords="5,868,184,909"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="537,71,752,112"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title=" " alt="" coords="290,260,417,301"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title=" " alt="" coords="290,325,417,367"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title=" " alt="" coords="264,391,443,432"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title=" " alt="" coords="290,456,417,497"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title=" " alt="" coords="271,521,436,563"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title=" " alt="" coords="290,587,417,628"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title=" " alt="" coords="276,653,431,679"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_widget_label.html#a3affc7e3cd6a6394ae86a18aeb540af9" title=" " alt="" coords="287,704,419,745"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_particle_system3_d.html#ac92932fd829c630bac35174513a518bf" title=" " alt="" coords="274,769,433,811"/>
-<area shape="rect" id="node12" href="$class_igor_1_1i_widget_grid.html#a09e374ec95ecf256ec0d086a0b53284a" title=" " alt="" coords="290,835,417,876"/>
-<area shape="rect" id="node13" href="$class_user_control_particle_system.html#ad4fc2e3e604ff8dc7738ce514bc9cc65" title=" " alt="" coords="264,12,443,53"/>
-<area shape="rect" id="node15" href="$class_user_control_particle_system.html#a59a38cb2436b3b7cece6e774d49ae919" title=" " alt="" coords="264,129,443,171"/>
-<area shape="rect" id="node17" href="$class_user_control_particle_system.html#acb94ca70c3945f9ef0dfc7312ccb34c8" title=" " alt="" coords="264,195,443,236"/>
-<area shape="rect" id="node19" href="$class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd" title=" " alt="" coords="277,900,430,941"/>
-<area shape="rect" id="node20" href="$class_igor_1_1i_widget_group_box.html#adde8f5a67bdb4ae01eb033f8470f2e4b" title=" " alt="" coords="277,965,430,1007"/>
-<area shape="rect" id="node21" href="$class_user_control_particle_system.html#aa6052d91889bb9153d6844b9732b197d" title=" " alt="" coords="264,1031,443,1072"/>
-<area shape="rect" id="node22" href="$class_user_control_particle_system.html#a4a23a1f35ab4718739dc25a9a8d4d1e8" title=" " alt="" coords="247,1096,459,1137"/>
-<area shape="rect" id="node24" href="$class_user_control_particle_system.html#abd804fdd4b935b70a19f251862e7999e" title=" " alt="" coords="237,1161,470,1203"/>
-<area shape="rect" id="node26" href="$class_user_control_particle_system.html#aac299f643a939d18c49da71ad4a0d7cf" title=" " alt="" coords="252,1227,455,1268"/>
-<area shape="rect" id="node28" href="$class_user_control_particle_system.html#a4f51b346cfb306e50da73242026d6fba" title=" " alt="" coords="259,1292,447,1333"/>
-<area shape="rect" id="node30" href="$class_user_control_particle_system.html#aeb75c96e8be626af001b713cf362de33" title=" " alt="" coords="247,1357,459,1399"/>
-<area shape="rect" id="node32" href="$class_user_control_particle_system.html#a1b9f6390149242c52667e254f92488b3" title=" " alt="" coords="245,1423,462,1464"/>
-<area shape="rect" id="node34" href="$class_user_control_particle_system.html#a81723e808667efe2bcb3b3aa1b5c8312" title=" " alt="" coords="250,1488,457,1529"/>
-<area shape="rect" id="node36" href="$class_user_control_particle_system.html#a5cd296e6707f2e92e66867bdb787fb40" title=" " alt="" coords="246,1554,461,1610"/>
-<area shape="rect" id="node38" href="$class_user_control_particle_system.html#a30f8d1c504e7a296705834573e46f447" title=" " alt="" coords="232,1634,475,1690"/>
-<area shape="rect" id="node40" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title=" " alt="" coords="290,1715,417,1756"/>
-<area shape="rect" id="node41" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title=" " alt="" coords="271,1781,436,1807"/>
-<area shape="rect" id="node14" href="$class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b" title=" " alt="" coords="558,5,731,47"/>
-<area shape="rect" id="node16" href="$class_igor_1_1i_node_particle_system.html#a8a3e6d816d75fee82ff11cededc05288" title=" " alt="" coords="558,136,731,177"/>
-<area shape="rect" id="node18" href="$class_igor_1_1i_node_particle_system.html#a48cc9f417b0cd599c85a63fe5a33c420" title=" " alt="" coords="558,201,731,243"/>
-<area shape="rect" id="node23" href="$class_user_control_particle_system.html#a82572b0cbea0f0f30213b6318bbeaa42" title=" " alt="" coords="537,1080,752,1121"/>
-<area shape="rect" id="node25" href="$class_user_control_particle_system.html#a37672e36084f6a05e7ec1a6ce95c9e49" title=" " alt="" coords="544,1146,745,1202"/>
-<area shape="rect" id="node27" href="$class_user_control_particle_system.html#a78407b81fa841ca672863b7d12ffe1c7" title=" " alt="" coords="542,1227,747,1268"/>
-<area shape="rect" id="node29" href="$class_user_control_particle_system.html#abcbd019c1255d697b4b2124538d60a2f" title=" " alt="" coords="549,1292,740,1333"/>
-<area shape="rect" id="node31" href="$class_user_control_particle_system.html#a0e7fe0186c674fb47d160bd0fa1cad75" title=" " alt="" coords="537,1357,752,1399"/>
-<area shape="rect" id="node33" href="$class_user_control_particle_system.html#a9dabaec4bf41c478d3607d92699ae7bd" title=" " alt="" coords="535,1423,754,1464"/>
-<area shape="rect" id="node35" href="$class_user_control_particle_system.html#a04272bfe8903102c7e53ed67bf98f6ac" title=" " alt="" coords="540,1488,749,1529"/>
-<area shape="rect" id="node37" href="$class_user_control_particle_system.html#a910c48c555ae662a72d8af9b8afa2e10" title=" " alt="" coords="536,1554,753,1610"/>
-<area shape="rect" id="node39" href="$class_user_control_particle_system.html#a1130268ceae40a5edd4bbcba13577af7" title=" " alt="" coords="523,1634,767,1690"/>
-<area shape="rect" id="node42" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title=" " alt="" coords="578,1781,711,1807"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iWidgetManager \&gt;::getInstance" alt="" coords="537,71,752,112"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget_manager.html#a6bd957c51cc937fa860f9e2be73f3d27" title="Igor::iWidgetManager\l::createWidget" alt="" coords="281,332,426,373"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_widget_grid.html#ada59fc39c0e1f9b6b6b1d244b022e4cf" title="Igor::iWidgetGrid::\lappendRows" alt="" coords="290,449,417,491"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_widget_grid.html#a3f9af42fc1b7fdebd5d9f2ad82b68884" title="Igor::iWidgetGrid::\lappendCollumns" alt="" coords="290,515,417,556"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_widget.html#a74cedb6d5151910c64b7d51491775e9a" title="Igor::iWidget::setHorizontal\lAlignment" alt="" coords="264,580,443,621"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_widget_grid.html#a95aaefa85b7b815816b730a6d958cd50" title="Igor::iWidgetGrid::\lsetStrechColumn" alt="" coords="290,645,417,687"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_widget.html#a07294a337cb2c07d5d5088a4ab4550da" title="Igor::iWidget::setVertical\lAlignment" alt="" coords="271,711,436,752"/>
+<area shape="rect" id="node12" href="$class_igor_1_1i_widget_label.html#afb5ed8f5da25c0cb45679dd5c8d9f0ac" title="Igor::iWidgetLabel\l::setText" alt="" coords="290,776,417,817"/>
+<area shape="rect" id="node13" href="$class_igor_1_1i_widget.html#af44098e3682aafa4b2e74fa0d273679d" title="Igor::iWidget::setWidth" alt="" coords="276,842,431,869"/>
+<area shape="rect" id="node14" href="$class_igor_1_1i_widget_label.html#a3affc7e3cd6a6394ae86a18aeb540af9" title="Igor::iWidgetLabel\l::setMaxTextWidth" alt="" coords="287,893,419,935"/>
+<area shape="rect" id="node15" href="$class_igor_1_1i_particle_system3_d.html#ac92932fd829c630bac35174513a518bf" title="Igor::iParticleSystem3D\l::getSimulationRate" alt="" coords="274,959,433,1000"/>
+<area shape="rect" id="node16" href="$class_igor_1_1i_widget_grid.html#a09e374ec95ecf256ec0d086a0b53284a" title="Igor::iWidgetGrid::\lsetBorder" alt="" coords="290,1024,417,1065"/>
+<area shape="rect" id="node17" href="$class_igor_1_1i_widget_button.html#a510b3c7d7e0e6b0be6cd1c15da1b550a" title="Igor::iWidgetButton\l::setText" alt="" coords="287,1089,420,1131"/>
+<area shape="rect" id="node18" href="$class_user_control_particle_system.html#ad4fc2e3e604ff8dc7738ce514bc9cc65" title="UserControlParticleSystem\l::onStart" alt="" coords="264,136,443,177"/>
+<area shape="rect" id="node21" href="$class_user_control_particle_system.html#a59a38cb2436b3b7cece6e774d49ae919" title="UserControlParticleSystem\l::onStop" alt="" coords="264,19,443,60"/>
+<area shape="rect" id="node23" href="$class_user_control_particle_system.html#acb94ca70c3945f9ef0dfc7312ccb34c8" title="UserControlParticleSystem\l::onReset" alt="" coords="264,201,443,243"/>
+<area shape="rect" id="node25" href="$class_igor_1_1i_widget_group_box.html#a1c26446befaab4da76d335cc040761dd" title="Igor::iWidgetGroupBox\l::setText" alt="" coords="277,1155,430,1196"/>
+<area shape="rect" id="node26" href="$class_igor_1_1i_widget_group_box.html#adde8f5a67bdb4ae01eb033f8470f2e4b" title="Igor::iWidgetGroupBox\l::setHeaderOnly" alt="" coords="277,1220,430,1261"/>
+<area shape="rect" id="node27" href="$class_igor_1_1i_widget_number_chooser.html#a4b8f280d0189e7cfa933f092375150da" title="Igor::iWidgetNumberChooser\l::setMinMaxNumber" alt="" coords="259,1285,447,1327"/>
+<area shape="rect" id="node28" href="$class_user_control_particle_system.html#aa6052d91889bb9153d6844b9732b197d" title="UserControlParticleSystem\l::onDoUpdateNode" alt="" coords="264,1351,443,1392"/>
+<area shape="rect" id="node29" href="$class_user_control_particle_system.html#a4a23a1f35ab4718739dc25a9a8d4d1e8" title="UserControlParticleSystem\l::onOpenEmissionGradientEditor" alt="" coords="247,1416,459,1457"/>
+<area shape="rect" id="node31" href="$class_user_control_particle_system.html#abd804fdd4b935b70a19f251862e7999e" title="UserControlParticleSystem\l::onOpenStartVelocityGradientEditor" alt="" coords="237,1481,470,1523"/>
+<area shape="rect" id="node33" href="$class_user_control_particle_system.html#aac299f643a939d18c49da71ad4a0d7cf" title="UserControlParticleSystem\l::onOpenStartLiftGradientEditor" alt="" coords="252,1547,455,1588"/>
+<area shape="rect" id="node35" href="$class_user_control_particle_system.html#a4f51b346cfb306e50da73242026d6fba" title="UserControlParticleSystem\l::onOpenColorGradientEditor" alt="" coords="259,1612,447,1653"/>
+<area shape="rect" id="node37" href="$class_user_control_particle_system.html#aeb75c96e8be626af001b713cf362de33" title="UserControlParticleSystem\l::onOpenStartSizeGradientEditor" alt="" coords="247,1677,459,1719"/>
+<area shape="rect" id="node39" href="$class_user_control_particle_system.html#a1b9f6390149242c52667e254f92488b3" title="UserControlParticleSystem\l::onOpenScaleSizeGradientEditor" alt="" coords="245,1743,462,1784"/>
+<area shape="rect" id="node41" href="$class_user_control_particle_system.html#a81723e808667efe2bcb3b3aa1b5c8312" title="UserControlParticleSystem\l::onOpenVisibilityGradientEditor" alt="" coords="250,1808,457,1849"/>
+<area shape="rect" id="node43" href="$class_user_control_particle_system.html#a5cd296e6707f2e92e66867bdb787fb40" title="UserControlParticleSystem\l::onOpenStartOrientationGradient\lEditor" alt="" coords="246,1874,461,1930"/>
+<area shape="rect" id="node45" href="$class_user_control_particle_system.html#a30f8d1c504e7a296705834573e46f447" title="UserControlParticleSystem\l::onOpenStartOrientationRateGradient\lEditor" alt="" coords="232,1954,475,2010"/>
+<area shape="rect" id="node47" href="$class_igor_1_1i_user_control_file_chooser.html#a4c2b529d388e57156da1d383ddbe3660" title="Igor::iUserControlFileChooser\l::setPreselectedPath" alt="" coords="258,2035,449,2076"/>
+<area shape="rect" id="node48" href="$class_igor_1_1i_widget_grid.html#a764137d148d8977d459c6ea0635eadeb" title="Igor::iWidgetGrid::\laddWidget" alt="" coords="290,2100,417,2141"/>
+<area shape="rect" id="node49" href="$class_igor_1_1i_widget.html#a5a2b456163b1592606d8ce5e075166e3" title="Igor::iWidget::addWidget" alt="" coords="271,398,436,425"/>
+<area shape="rect" id="node50" href="$class_igor_1_1i_widget_manager.html#a3cf3de26ec38048c079b976e07d6bd13" title="Igor::iWidgetManager\l::createDialog" alt="" coords="281,267,426,308"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a7bed20819f1376bd433892feeefdc05c" title="IgorAux::iaString::\lgetHashValue" alt="" coords="581,332,708,373"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_widget.html#aa0816e0911fd5d21a7aed3b9f27bc118" title="Igor::iWidget::getID" alt="" coords="578,398,711,425"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="815,332,941,373"/>
+<area shape="rect" id="node19" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="581,136,709,177"/>
+<area shape="rect" id="node20" href="$class_igor_1_1i_node_particle_system.html#a75ef806092ebbb68a6201d51aed6561b" title="Igor::iNodeParticleSystem\l::start" alt="" coords="558,201,731,243"/>
+<area shape="rect" id="node22" href="$class_igor_1_1i_node_particle_system.html#a8a3e6d816d75fee82ff11cededc05288" title="Igor::iNodeParticleSystem\l::stop" alt="" coords="558,5,731,47"/>
+<area shape="rect" id="node24" href="$class_igor_1_1i_node_particle_system.html#a48cc9f417b0cd599c85a63fe5a33c420" title="Igor::iNodeParticleSystem\l::reset" alt="" coords="558,267,731,308"/>
+<area shape="rect" id="node30" href="$class_user_control_particle_system.html#a82572b0cbea0f0f30213b6318bbeaa42" title="UserControlParticleSystem\l::onCloseEmissionGradientEditor" alt="" coords="537,1400,752,1441"/>
+<area shape="rect" id="node32" href="$class_user_control_particle_system.html#a37672e36084f6a05e7ec1a6ce95c9e49" title="UserControlParticleSystem\l::onCloseStartVelocityGradient\lEditor" alt="" coords="544,1466,745,1522"/>
+<area shape="rect" id="node34" href="$class_user_control_particle_system.html#a78407b81fa841ca672863b7d12ffe1c7" title="UserControlParticleSystem\l::onCloseStartLiftGradientEditor" alt="" coords="542,1547,747,1588"/>
+<area shape="rect" id="node36" href="$class_user_control_particle_system.html#abcbd019c1255d697b4b2124538d60a2f" title="UserControlParticleSystem\l::onCloseColorGradientEditor" alt="" coords="549,1612,740,1653"/>
+<area shape="rect" id="node38" href="$class_user_control_particle_system.html#a0e7fe0186c674fb47d160bd0fa1cad75" title="UserControlParticleSystem\l::onCloseStartSizeGradientEditor" alt="" coords="537,1677,752,1719"/>
+<area shape="rect" id="node40" href="$class_user_control_particle_system.html#a9dabaec4bf41c478d3607d92699ae7bd" title="UserControlParticleSystem\l::onCloseScaleSizeGradientEditor" alt="" coords="535,1743,754,1784"/>
+<area shape="rect" id="node42" href="$class_user_control_particle_system.html#a04272bfe8903102c7e53ed67bf98f6ac" title="UserControlParticleSystem\l::onCloseVisibilityGradientEditor" alt="" coords="540,1808,749,1849"/>
+<area shape="rect" id="node44" href="$class_user_control_particle_system.html#a910c48c555ae662a72d8af9b8afa2e10" title="UserControlParticleSystem\l::onCloseStartOrientationGradient\lEditor" alt="" coords="536,1874,753,1930"/>
+<area shape="rect" id="node46" href="$class_user_control_particle_system.html#a1130268ceae40a5edd4bbcba13577af7" title="UserControlParticleSystem\l::onCloseStartOrientationRateGradient\lEditor" alt="" coords="523,1954,767,2010"/>
 </map>

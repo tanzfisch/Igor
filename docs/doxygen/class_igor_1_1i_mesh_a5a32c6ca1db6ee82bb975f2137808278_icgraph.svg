@@ -9,27 +9,24 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iMesh::setTexture</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 251,-35 251,4 -4,4"/>
-<!-- Node64 -->
-<g id="node1" class="node"><title>Node64</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="131,-6 131,-25 247,-25 247,-6 131,-6"/>
-<text text-anchor="middle" x="189" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMesh::setTexture</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-6 0,-25 116,-25 116,-6 0,-6"/>
+<text text-anchor="middle" x="58" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMesh::setTexture</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_mesh_builder.html#a790b5bf95f8c5a22b70184780421ca57" target="_top" xlink:title="Igor::iMeshBuilder\l::compile">
+<polygon fill="white" stroke="black" points="152,-0.5 152,-30.5 247,-30.5 247,-0.5 152,-0.5"/>
+<text text-anchor="start" x="160" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
+<text text-anchor="middle" x="199.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
 </a>
 </g>
 </g>
-<!-- Node65 -->
-<g id="node2" class="node"><title>Node65</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_mesh_builder.html#a790b5bf95f8c5a22b70184780421ca57" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 95,-30.5 95,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iMeshBuilder</text>
-<text text-anchor="middle" x="47.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::compile</text>
-</a>
-</g>
-</g>
-<!-- Node64&#45;&gt;Node65 -->
-<g id="edge1" class="edge"><title>Node64&#45;&gt;Node65</title>
-<path fill="none" stroke="midnightblue" d="M120.739,-15.5C112.072,-15.5 103.353,-15.5 95.1197,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="120.858,-19.0001 130.858,-15.5 120.857,-12.0001 120.858,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M126.261,-15.5C134.928,-15.5 143.647,-15.5 151.88,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="126.143,-12.0001 116.142,-15.5 126.142,-19.0001 126.143,-12.0001"/>
 </g>
 </g>
 </svg>

@@ -9,126 +9,123 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 133)">
 <title>IgorAux::iaDirectory::getPathSeperator</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-133 1162,-133 1162,4 -4,4"/>
-<!-- Node84 -->
-<g id="node1" class="node"><title>Node84</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="1056,-49.5 1056,-79.5 1158,-79.5 1158,-49.5 1056,-49.5"/>
-<text text-anchor="start" x="1064" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaDirectory</text>
-<text text-anchor="middle" x="1107" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getPathSeperator</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-49.5 0,-79.5 102,-79.5 102,-49.5 0,-49.5"/>
+<text text-anchor="start" x="8" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaDirectory</text>
+<text text-anchor="middle" x="51" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getPathSeperator</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_dialog_file_select.html#a622e7780aa38ad6e55dff5a05ad41070" target="_top" xlink:title="Igor::iDialogFileSelect\l::getFullPath">
+<polygon fill="white" stroke="black" points="145,-98.5 145,-128.5 256,-128.5 256,-98.5 145,-98.5"/>
+<text text-anchor="start" x="153" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogFileSelect</text>
+<text text-anchor="middle" x="200.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getFullPath</text>
 </a>
 </g>
 </g>
-<!-- Node85 -->
-<g id="node2" class="node"><title>Node85</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_dialog_file_select.html#a622e7780aa38ad6e55dff5a05ad41070" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="902,-98.5 902,-128.5 1013,-128.5 1013,-98.5 902,-98.5"/>
-<text text-anchor="start" x="910" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iDialogFileSelect</text>
-<text text-anchor="middle" x="957.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getFullPath</text>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M106.964,-82.7591C122.521,-87.9273 139.273,-93.4924 154.192,-98.4484"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="108.052,-79.4326 97.4584,-79.6014 105.845,-86.0757 108.052,-79.4326"/>
+</g>
+<!-- Node8 -->
+<g id="node8" class="node"><title>Node8</title>
+<g id="a_node8"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" target="_top" xlink:title="Igor::iModelDataIOOMPF\l::createMeshNode">
+<polygon fill="white" stroke="black" points="138,-49.5 138,-79.5 263,-79.5 263,-49.5 138,-49.5"/>
+<text text-anchor="start" x="146" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
+<text text-anchor="middle" x="200.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMeshNode</text>
 </a>
 </g>
 </g>
-<!-- Node84&#45;&gt;Node85 -->
-<g id="edge1" class="edge"><title>Node84&#45;&gt;Node85</title>
-<path fill="none" stroke="midnightblue" d="M1051.04,-82.7591C1035.48,-87.9273 1018.73,-93.4924 1003.81,-98.4484"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1052.15,-86.0757 1060.54,-79.6014 1049.95,-79.4326 1052.15,-86.0757"/>
+<!-- Node1&#45;&gt;Node8 -->
+<g id="edge7" class="edge"><title>Node1&#45;&gt;Node8</title>
+<path fill="none" stroke="midnightblue" d="M112.443,-64.5C120.84,-64.5 129.476,-64.5 137.894,-64.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="112.349,-61.0001 102.349,-64.5 112.349,-68.0001 112.349,-61.0001"/>
 </g>
-<!-- Node91 -->
-<g id="node8" class="node"><title>Node91</title>
-<g id="a_node8"><a xlink:href="class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="895,-49.5 895,-79.5 1020,-79.5 1020,-49.5 895,-49.5"/>
-<text text-anchor="start" x="903" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iModelDataIOOMPF</text>
-<text text-anchor="middle" x="957.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createMeshNode</text>
+<!-- Node9 -->
+<g id="node9" class="node"><title>Node9</title>
+<g id="a_node9"><a xlink:href="class_igor_1_1i_resource_manager.html#a50b798ef01a31cf86aadbc52bbbbbffc" target="_top" xlink:title="Igor::iResourceManager\l::getPath">
+<polygon fill="white" stroke="black" points="141,-0.5 141,-30.5 260,-30.5 260,-0.5 141,-0.5"/>
+<text text-anchor="start" x="149" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iResourceManager</text>
+<text text-anchor="middle" x="200.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getPath</text>
 </a>
 </g>
 </g>
-<!-- Node84&#45;&gt;Node91 -->
-<g id="edge7" class="edge"><title>Node84&#45;&gt;Node91</title>
-<path fill="none" stroke="midnightblue" d="M1045.56,-64.5C1037.16,-64.5 1028.52,-64.5 1020.11,-64.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1045.65,-68.0001 1055.65,-64.5 1045.65,-61.0001 1045.65,-68.0001"/>
+<!-- Node1&#45;&gt;Node9 -->
+<g id="edge8" class="edge"><title>Node1&#45;&gt;Node9</title>
+<path fill="none" stroke="midnightblue" d="M106.964,-46.2409C122.521,-41.0727 139.273,-35.5076 154.192,-30.5516"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="105.845,-42.9243 97.4584,-49.3986 108.052,-49.5674 105.845,-42.9243"/>
 </g>
-<!-- Node92 -->
-<g id="node9" class="node"><title>Node92</title>
-<g id="a_node9"><a xlink:href="class_igor_1_1i_resource_manager.html#a50b798ef01a31cf86aadbc52bbbbbffc" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="898,-0.5 898,-30.5 1017,-30.5 1017,-0.5 898,-0.5"/>
-<text text-anchor="start" x="906" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iResourceManager</text>
-<text text-anchor="middle" x="957.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getPath</text>
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#a385c31c1ecad69cf5bd75e9f8ffe6b96" target="_top" xlink:title="Igor::iUserControlFileChooser\l::onFileLoadDialogClosed">
+<polygon fill="white" stroke="black" points="299,-98.5 299,-128.5 442,-128.5 442,-98.5 299,-98.5"/>
+<text text-anchor="start" x="307" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
+<text text-anchor="middle" x="370.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onFileLoadDialogClosed</text>
 </a>
 </g>
 </g>
-<!-- Node84&#45;&gt;Node92 -->
-<g id="edge8" class="edge"><title>Node84&#45;&gt;Node92</title>
-<path fill="none" stroke="midnightblue" d="M1051.04,-46.2409C1035.48,-41.0727 1018.73,-35.5076 1003.81,-30.5516"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1049.95,-49.5674 1060.54,-49.3986 1052.15,-42.9243 1049.95,-49.5674"/>
+<!-- Node2&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node2&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M266.113,-113.5C276.781,-113.5 287.89,-113.5 298.7,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="266.045,-110 256.045,-113.5 266.045,-117 266.045,-110"/>
 </g>
-<!-- Node86 -->
-<g id="node3" class="node"><title>Node86</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#a385c31c1ecad69cf5bd75e9f8ffe6b96" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="716,-98.5 716,-128.5 859,-128.5 859,-98.5 716,-98.5"/>
-<text text-anchor="start" x="724" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
-<text text-anchor="middle" x="787.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onFileLoadDialogClosed</text>
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#abf208141bc278147ca8d87af84f4315d" target="_top" xlink:title="Igor::iUserControlFileChooser\l::onFileSelectButtonPressed">
+<polygon fill="white" stroke="black" points="478,-98.5 478,-128.5 621,-128.5 621,-98.5 478,-98.5"/>
+<text text-anchor="start" x="486" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
+<text text-anchor="middle" x="549.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onFileSelectButtonPressed</text>
 </a>
 </g>
 </g>
-<!-- Node85&#45;&gt;Node86 -->
-<g id="edge2" class="edge"><title>Node85&#45;&gt;Node86</title>
-<path fill="none" stroke="midnightblue" d="M891.887,-113.5C881.219,-113.5 870.11,-113.5 859.3,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="891.955,-117 901.955,-113.5 891.955,-110 891.955,-117"/>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M452.494,-113.5C460.973,-113.5 469.544,-113.5 477.894,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="452.218,-110 442.218,-113.5 452.218,-117 452.218,-110"/>
 </g>
-<!-- Node87 -->
-<g id="node4" class="node"><title>Node87</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#abf208141bc278147ca8d87af84f4315d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="537,-98.5 537,-128.5 680,-128.5 680,-98.5 537,-98.5"/>
-<text text-anchor="start" x="545" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
-<text text-anchor="middle" x="608.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::onFileSelectButtonPressed</text>
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" target="_top" xlink:title="Igor::iUserControlFileChooser\l::initGUI">
+<polygon fill="white" stroke="black" points="657,-98.5 657,-128.5 800,-128.5 800,-98.5 657,-98.5"/>
+<text text-anchor="start" x="665" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
+<text text-anchor="middle" x="728.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
 </a>
 </g>
 </g>
-<!-- Node86&#45;&gt;Node87 -->
-<g id="edge3" class="edge"><title>Node86&#45;&gt;Node87</title>
-<path fill="none" stroke="midnightblue" d="M705.506,-113.5C697.027,-113.5 688.456,-113.5 680.106,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="705.782,-117 715.782,-113.5 705.782,-110 705.782,-117"/>
+<!-- Node4&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M631.494,-113.5C639.973,-113.5 648.544,-113.5 656.894,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="631.218,-110 621.218,-113.5 631.218,-117 631.218,-110"/>
 </g>
-<!-- Node88 -->
-<g id="node5" class="node"><title>Node88</title>
-<g id="a_node5"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="358,-98.5 358,-128.5 501,-128.5 501,-98.5 358,-98.5"/>
-<text text-anchor="start" x="366" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
-<text text-anchor="middle" x="429.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::initGUI</text>
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" target="_top" xlink:title="Igor::iUserControlFileChooser\l::iUserControlFileChooser">
+<polygon fill="white" stroke="black" points="836,-98.5 836,-128.5 979,-128.5 979,-98.5 836,-98.5"/>
+<text text-anchor="start" x="844" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
+<text text-anchor="middle" x="907.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iUserControlFileChooser</text>
 </a>
 </g>
 </g>
-<!-- Node87&#45;&gt;Node88 -->
-<g id="edge4" class="edge"><title>Node87&#45;&gt;Node88</title>
-<path fill="none" stroke="midnightblue" d="M526.506,-113.5C518.027,-113.5 509.456,-113.5 501.106,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="526.782,-117 536.782,-113.5 526.782,-110 526.782,-117"/>
+<!-- Node5&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node5&#45;&gt;Node6</title>
+<path fill="none" stroke="midnightblue" d="M810.494,-113.5C818.973,-113.5 827.544,-113.5 835.894,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="810.218,-110 800.218,-113.5 810.218,-117 810.218,-110"/>
 </g>
-<!-- Node89 -->
-<g id="node6" class="node"><title>Node89</title>
-<g id="a_node6"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="179,-98.5 179,-128.5 322,-128.5 322,-98.5 179,-98.5"/>
-<text text-anchor="start" x="187" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
-<text text-anchor="middle" x="250.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iUserControlFileChooser</text>
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" target="_top" xlink:title="Igor::iUserControlFileChooser\l::createInstance">
+<polygon fill="white" stroke="black" points="1015,-98.5 1015,-128.5 1158,-128.5 1158,-98.5 1015,-98.5"/>
+<text text-anchor="start" x="1023" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
+<text text-anchor="middle" x="1086.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createInstance</text>
 </a>
 </g>
 </g>
-<!-- Node88&#45;&gt;Node89 -->
-<g id="edge5" class="edge"><title>Node88&#45;&gt;Node89</title>
-<path fill="none" stroke="midnightblue" d="M347.506,-113.5C339.027,-113.5 330.456,-113.5 322.106,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="347.782,-117 357.782,-113.5 347.782,-110 347.782,-117"/>
-</g>
-<!-- Node90 -->
-<g id="node7" class="node"><title>Node90</title>
-<g id="a_node7"><a xlink:href="class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-98.5 0,-128.5 143,-128.5 143,-98.5 0,-98.5"/>
-<text text-anchor="start" x="8" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iUserControlFileChooser</text>
-<text text-anchor="middle" x="71.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00">::createInstance</text>
-</a>
-</g>
-</g>
-<!-- Node89&#45;&gt;Node90 -->
-<g id="edge6" class="edge"><title>Node89&#45;&gt;Node90</title>
-<path fill="none" stroke="midnightblue" d="M168.506,-113.5C160.027,-113.5 151.456,-113.5 143.106,-113.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="168.782,-117 178.782,-113.5 168.782,-110 168.782,-117"/>
+<!-- Node6&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node6&#45;&gt;Node7</title>
+<path fill="none" stroke="midnightblue" d="M989.494,-113.5C997.973,-113.5 1006.54,-113.5 1014.89,-113.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="989.218,-110 979.218,-113.5 989.218,-117 989.218,-110"/>
 </g>
 </g>
 </svg>

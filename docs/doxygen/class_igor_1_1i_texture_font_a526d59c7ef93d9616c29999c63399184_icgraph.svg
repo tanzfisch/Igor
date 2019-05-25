@@ -9,28 +9,25 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 35)">
 <title>Igor::iTextureFont::makeFixedWidth</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-35 228,-35 228,4 -4,4"/>
-<!-- Node35 -->
-<g id="node1" class="node"><title>Node35</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="128,-0.5 128,-30.5 224,-30.5 224,-0.5 128,-0.5"/>
-<text text-anchor="start" x="136" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureFont</text>
-<text text-anchor="middle" x="176" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::makeFixedWidth</text>
-</a>
-</g>
-</g>
-<!-- Node36 -->
-<g id="node2" class="node"><title>Node36</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_texture_font.html#a3cb874f65070247f89e95060484dd3fa" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-30.5 92,-30.5 92,-0.5 0,-0.5"/>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-30.5 96,-30.5 96,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureFont</text>
-<text text-anchor="middle" x="46" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iTextureFont</text>
+<text text-anchor="middle" x="48" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::makeFixedWidth</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_texture_font.html#a3cb874f65070247f89e95060484dd3fa" target="_top" xlink:title="Igor::iTextureFont\l::iTextureFont">
+<polygon fill="white" stroke="black" points="132,-0.5 132,-30.5 224,-30.5 224,-0.5 132,-0.5"/>
+<text text-anchor="start" x="140" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTextureFont</text>
+<text text-anchor="middle" x="178" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::iTextureFont</text>
 </a>
 </g>
 </g>
-<!-- Node35&#45;&gt;Node36 -->
-<g id="edge1" class="edge"><title>Node35&#45;&gt;Node36</title>
-<path fill="none" stroke="midnightblue" d="M117.541,-15.5C109.117,-15.5 100.54,-15.5 92.4025,-15.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="117.701,-19.0001 127.701,-15.5 117.701,-12.0001 117.701,-19.0001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M106.459,-15.5C114.883,-15.5 123.46,-15.5 131.598,-15.5"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="106.299,-12.0001 96.2988,-15.5 106.299,-19.0001 106.299,-12.0001"/>
 </g>
 </g>
 </svg>

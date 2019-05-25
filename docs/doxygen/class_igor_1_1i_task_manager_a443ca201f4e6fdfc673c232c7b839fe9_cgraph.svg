@@ -9,38 +9,35 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 62)">
 <title>Igor::iTaskManager::getTask</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-62 264,-62 264,4 -4,4"/>
-<!-- Node99 -->
-<g id="node1" class="node"><title>Node99</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-14 0,-44 99,-44 99,-14 0,-14"/>
 <text text-anchor="start" x="8" y="-32" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iTaskManager</text>
 <text text-anchor="middle" x="49.5" y="-21" font-family="Helvetica,sans-Serif" font-size="10.00">::getTask</text>
-</a>
 </g>
-</g>
-<!-- Node100 -->
-<g id="node2" class="node"><title>Node100</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_mutex.html#ab0873c1f25730bd85d6b71d167520921" target="_top" xlink:title="IgorAux::iaMutex::lock">
 <polygon fill="white" stroke="black" points="140.5,-38.5 140.5,-57.5 254.5,-57.5 254.5,-38.5 140.5,-38.5"/>
 <text text-anchor="middle" x="197.5" y="-45.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex::lock</text>
 </a>
 </g>
 </g>
-<!-- Node99&#45;&gt;Node100 -->
-<g id="edge1" class="edge"><title>Node99&#45;&gt;Node100</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M99.1159,-35.3267C109.111,-36.6275 119.795,-38.0179 130.29,-39.3837"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="129.898,-42.8621 140.266,-40.6819 130.802,-35.9206 129.898,-42.8621"/>
 </g>
-<!-- Node101 -->
-<g id="node3" class="node"><title>Node101</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_mutex.html#a3beb078a1f64de265044ece54657c279" target="_top" xlink:title="IgorAux::iaMutex::unlock">
 <polygon fill="white" stroke="black" points="135,-0.5 135,-19.5 260,-19.5 260,-0.5 135,-0.5"/>
 <text text-anchor="middle" x="197.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex::unlock</text>
 </a>
 </g>
 </g>
-<!-- Node99&#45;&gt;Node101 -->
-<g id="edge2" class="edge"><title>Node99&#45;&gt;Node101</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M99.1159,-22.6733C107.344,-21.6025 116.038,-20.471 124.71,-19.3425"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="125.386,-22.7842 134.851,-18.0229 124.483,-15.8427 125.386,-22.7842"/>
 </g>

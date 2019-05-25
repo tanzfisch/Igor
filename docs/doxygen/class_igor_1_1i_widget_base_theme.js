@@ -28,7 +28,7 @@ var class_igor_1_1i_widget_base_theme =
     [ "drawSelectBoxDropDown", "class_igor_1_1i_widget_base_theme.html#a3a2a078b5a53e4bfdbc36a134377c60e", null ],
     [ "drawSpacer", "class_igor_1_1i_widget_base_theme.html#af51a65b42e7d642b0058f957128709a9", null ],
     [ "drawText", "class_igor_1_1i_widget_base_theme.html#a95efb80441c7efad494c8d977b60688d", null ],
-    [ "drawTextEdit", "class_igor_1_1i_widget_base_theme.html#ad2dc535c6f231bc405f3d3e839915811", null ],
+    [ "drawTextEdit", "class_igor_1_1i_widget_base_theme.html#ab6c19d64a688258611643249de47102b", null ],
     [ "drawTiledRectangle", "class_igor_1_1i_widget_base_theme.html#abdaa582f62383be739621ff1cabadab7", null ],
     [ "drawTooltip", "class_igor_1_1i_widget_base_theme.html#adc771ca167408733bc213e1d29a1cc1a", null ],
     [ "getFont", "class_igor_1_1i_widget_base_theme.html#aae726600432bda8d1b7f81770494baed", null ],

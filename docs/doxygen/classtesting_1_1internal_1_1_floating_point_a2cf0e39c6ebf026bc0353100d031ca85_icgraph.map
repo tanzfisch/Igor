@@ -1,5 +1,4 @@
 <map id="testing::internal::FloatingPoint::SignAndMagnitudeToBiased" name="testing::internal::FloatingPoint::SignAndMagnitudeToBiased">
-<area shape="rect" id="node1" title=" " alt="" coords="495,5,709,61"/>
-<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1_floating_point.html#afe00f9f26ad2929a061f7e07b8a5071a" title=" " alt="" coords="240,5,447,61"/>
-<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_floating_point.html#a965214c1af2f9ac5adb1393794aa81e5" title=" " alt="" coords="5,13,192,54"/>
+<area shape="rect" id="node2" href="$classtesting_1_1internal_1_1_floating_point.html#afe00f9f26ad2929a061f7e07b8a5071a" title="testing::internal::\lFloatingPoint::DistanceBetween\lSignAndMagnitudeNumbers" alt="" coords="268,5,475,61"/>
+<area shape="rect" id="node3" href="$classtesting_1_1internal_1_1_floating_point.html#adb0fe9ab1d9e5288f8e5550234211166" title="testing::internal::\lFloatingPoint::AlmostEquals" alt="" coords="523,13,709,54"/>
 </map>

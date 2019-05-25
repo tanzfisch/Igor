@@ -1,11 +1,10 @@
 <map id="IgorAux::iaDirectory::getPathSeperator" name="IgorAux::iaDirectory::getPathSeperator">
-<area shape="rect" id="node1" title=" " alt="" coords="1413,71,1549,112"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_file_select.html#a622e7780aa38ad6e55dff5a05ad41070" title=" " alt="" coords="1208,5,1356,47"/>
-<area shape="rect" id="node8" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" title=" " alt="" coords="1199,71,1365,112"/>
-<area shape="rect" id="node9" href="$class_igor_1_1i_resource_manager.html#a50b798ef01a31cf86aadbc52bbbbbffc" title=" " alt="" coords="1203,136,1361,177"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_file_chooser.html#a385c31c1ecad69cf5bd75e9f8ffe6b96" title=" " alt="" coords="960,5,1151,47"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_file_chooser.html#abf208141bc278147ca8d87af84f4315d" title=" " alt="" coords="721,5,912,47"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" title=" " alt="" coords="483,5,673,47"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" title=" " alt="" coords="244,5,435,47"/>
-<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" title=" " alt="" coords="5,5,196,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_dialog_file_select.html#a622e7780aa38ad6e55dff5a05ad41070" title="Igor::iDialogFileSelect\l::getFullPath" alt="" coords="199,5,347,47"/>
+<area shape="rect" id="node8" href="$class_igor_1_1i_model_data_i_o_o_m_p_f.html#af4d4e1cc1453ef7b5eea916f57bb4fb2" title="Igor::iModelDataIOOMPF\l::createMeshNode" alt="" coords="189,71,356,112"/>
+<area shape="rect" id="node9" href="$class_igor_1_1i_resource_manager.html#a50b798ef01a31cf86aadbc52bbbbbffc" title="Igor::iResourceManager\l::getPath" alt="" coords="193,136,352,177"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_user_control_file_chooser.html#a385c31c1ecad69cf5bd75e9f8ffe6b96" title="Igor::iUserControlFileChooser\l::onFileLoadDialogClosed" alt="" coords="404,5,595,47"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_user_control_file_chooser.html#abf208141bc278147ca8d87af84f4315d" title="Igor::iUserControlFileChooser\l::onFileSelectButtonPressed" alt="" coords="643,5,833,47"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_user_control_file_chooser.html#acbdcb369d7f6dabea5fe1a039319b271" title="Igor::iUserControlFileChooser\l::initGUI" alt="" coords="881,5,1072,47"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_user_control_file_chooser.html#a5d8f62c79b5df55c4f6c9ad6b1ed52c7" title="Igor::iUserControlFileChooser\l::iUserControlFileChooser" alt="" coords="1120,5,1311,47"/>
+<area shape="rect" id="node7" href="$class_igor_1_1i_user_control_file_chooser.html#a6e0a7af39998d6e3dfb1f24ae499fa03" title="Igor::iUserControlFileChooser\l::createInstance" alt="" coords="1359,5,1549,47"/>
 </map>

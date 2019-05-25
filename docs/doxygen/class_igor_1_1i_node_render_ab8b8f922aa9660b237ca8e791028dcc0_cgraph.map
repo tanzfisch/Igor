@@ -1,4 +1,3 @@
 <map id="Igor::iNodeRender::onPreSetScene" name="Igor::iNodeRender::onPreSetScene">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,139,47"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_scene.html#a22b74ff6be7474190f827dbc36316f7e" title=" " alt="" coords="187,5,343,47"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_scene.html#a22b74ff6be7474190f827dbc36316f7e" title="Igor::iScene::unregister\lRenderable" alt="" coords="187,5,343,47"/>
 </map>

@@ -1,4 +1,3 @@
 <map id="Igor::iNodeModel::iNodeModel" name="Igor::iNodeModel::iNodeModel">
-<area shape="rect" id="node1" title=" " alt="" coords="5,5,200,32"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title=" " alt="" coords="248,5,392,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#ae0d333770cbc83471e71deb2d60465c5" title="Igor::iNode::setName" alt="" coords="248,5,392,32"/>
 </map>

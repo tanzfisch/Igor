@@ -1,6 +1,5 @@
 <map id="OBJ2OMPF::setMaterialRecursive" name="OBJ2OMPF::setMaterialRecursive">
-<area shape="rect" id="node1" title=" " alt="" coords="5,56,225,83"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#af2d72831df4a13096e731418b6d6bb4b" title=" " alt="" coords="284,5,423,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title=" " alt="" coords="273,56,433,83"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#a48469e19c040925b4937a2b26ca3e978" title=" " alt="" coords="275,107,432,133"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_node.html#a43329dc1b2a6ad4056c38290c5df777d" title="Igor::iNode::getType" alt="" coords="284,5,423,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node.html#aa13a0c809d3f0bb17baf52917d04aff0" title="Igor::iNode::hasChildren" alt="" coords="273,56,433,83"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node.html#a48469e19c040925b4937a2b26ca3e978" title="Igor::iNode::getChildren" alt="" coords="275,107,432,133"/>
 </map>

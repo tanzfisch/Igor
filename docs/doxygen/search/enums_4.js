@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['manipulatormode',['ManipulatorMode',['../_manipulator_8h.html#a77aa559e59121f2c11fb42e8041f9d2f',1,'Manipulator.h']]]
+  ['loglevel',['LogLevel',['../namespace_igor_aux.html#a95b2b44871530bf71a452919620012e3',1,'IgorAux']]]
 ];

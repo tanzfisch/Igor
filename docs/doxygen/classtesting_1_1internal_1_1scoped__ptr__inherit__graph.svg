@@ -9,33 +9,30 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 347)">
 <title>testing::internal::scoped_ptr&lt; T &gt;</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-347 419,-347 419,4 -4,4"/>
-<!-- Node0 -->
-<g id="node1" class="node"><title>Node0</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-164.5 0,-194.5 89,-194.5 89,-164.5 0,-164.5"/>
 <text text-anchor="start" x="8" y="-182.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="44.5" y="-171.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; T &gt;</text>
-</a>
 </g>
-</g>
-<!-- Node1 -->
-<g id="node2" class="node"><title>Node1</title>
-<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; const T \&gt;">
 <polygon fill="white" stroke="black" points="276.5,-312.5 276.5,-342.5 391.5,-342.5 391.5,-312.5 276.5,-312.5"/>
 <text text-anchor="start" x="284.5" y="-330.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="334" y="-319.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; const T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node1 -->
-<g id="edge1" class="edge"><title>Node0&#45;&gt;Node1</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M53.0585,-204.3C61.9018,-228.919 79.0104,-265.753 107,-285.5 156.729,-320.584 227.41,-328.773 276.433,-329.66"/>
 <polygon fill="orange" stroke="orange" points="56.2902,-202.931 49.7669,-194.582 49.6602,-205.177 56.2902,-202.931"/>
 <text text-anchor="middle" x="171" y="-329.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const T &gt;</text>
 </g>
-<!-- Node2 -->
-<g id="node3" class="node"><title>Node2</title>
-<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; testing\l::internal::TestMetaFactory\lBase\&lt; ParamType \&gt; \&gt;">
 <polygon fill="white" stroke="black" points="267,-241.5 267,-293.5 401,-293.5 401,-241.5 267,-241.5"/>
 <text text-anchor="start" x="275" y="-281.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="275" y="-270.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; testing</text>
@@ -44,32 +41,32 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node2 -->
-<g id="edge2" class="edge"><title>Node0&#45;&gt;Node2</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M79.1286,-199.523C87.986,-204.242 97.6774,-208.931 107,-212.5 159.232,-232.495 221.097,-246.953 266.884,-256.013"/>
 <polygon fill="orange" stroke="orange" points="80.6995,-196.392 70.2506,-194.64 77.3261,-202.526 80.6995,-196.392"/>
 <text text-anchor="start" x="119.5" y="-273.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; testing::internal</text>
 <text text-anchor="start" x="119.5" y="-262.5" font-family="Helvetica,sans-Serif" font-size="10.00">::TestMetaFactoryBase</text>
 <text text-anchor="middle" x="171" y="-251.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; ParamType &gt; &gt;</text>
 </g>
-<!-- Node3 -->
-<g id="node4" class="node"><title>Node3</title>
-<g id="a_node4"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; ::std::stringstream \&gt;">
 <polygon fill="white" stroke="black" points="253,-192.5 253,-222.5 415,-222.5 415,-192.5 253,-192.5"/>
 <text text-anchor="start" x="261" y="-210.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="middle" x="334" y="-199.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; ::std::stringstream &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node3 -->
-<g id="edge3" class="edge"><title>Node0&#45;&gt;Node3</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M99.2902,-184.748C101.897,-185.003 104.478,-185.254 107,-185.5 155.456,-190.222 209.757,-195.508 252.986,-199.715"/>
 <polygon fill="orange" stroke="orange" points="99.4682,-181.249 89.1757,-183.762 98.7888,-188.216 99.4682,-181.249"/>
 <text text-anchor="middle" x="171" y="-200.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; ::std::stringstream &gt;</text>
 </g>
-<!-- Node4 -->
-<g id="node5" class="node"><title>Node4</title>
-<g id="a_node5"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
+<g id="a_node5"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; GTEST_FLAG\l_SAVER_ \&gt;">
 <polygon fill="white" stroke="black" points="266,-132 266,-173 402,-173 402,-132 266,-132"/>
 <text text-anchor="start" x="274" y="-161" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="274" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; GTEST_FLAG</text>
@@ -77,15 +74,15 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node4 -->
-<g id="edge4" class="edge"><title>Node0&#45;&gt;Node4</title>
+<!-- Node1&#45;&gt;Node5 -->
+<g id="edge4" class="edge"><title>Node1&#45;&gt;Node5</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M99.1783,-174.459C146.327,-170.031 215.126,-163.57 265.897,-158.802"/>
 <polygon fill="orange" stroke="orange" points="98.794,-170.98 89.1651,-175.399 99.4485,-177.949 98.794,-170.98"/>
 <text text-anchor="middle" x="171" y="-177.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; GTEST_FLAG_SAVER_ &gt;</text>
 </g>
-<!-- Node5 -->
-<g id="node6" class="node"><title>Node5</title>
-<g id="a_node6"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node6 -->
+<g id="node6" class="node"><title>Node6</title>
+<g id="a_node6"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; const ::\lstd::string \&gt;">
 <polygon fill="white" stroke="black" points="280.5,-72 280.5,-113 387.5,-113 387.5,-72 280.5,-72"/>
 <text text-anchor="start" x="288.5" y="-101" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="288.5" y="-90" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; const ::</text>
@@ -93,15 +90,15 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node5 -->
-<g id="edge5" class="edge"><title>Node0&#45;&gt;Node5</title>
+<!-- Node1&#45;&gt;Node6 -->
+<g id="edge5" class="edge"><title>Node1&#45;&gt;Node6</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M80.1775,-159.607C88.7611,-155.204 98.0634,-150.856 107,-147.5 164.65,-125.85 233.814,-110.476 280.317,-101.584"/>
 <polygon fill="orange" stroke="orange" points="78.3964,-156.59 71.1967,-164.363 81.6721,-162.776 78.3964,-156.59"/>
 <text text-anchor="middle" x="171" y="-150.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; const ::std::string &gt;</text>
 </g>
-<!-- Node6 -->
-<g id="node7" class="node"><title>Node6</title>
-<g id="a_node7"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title=" ">
+<!-- Node7 -->
+<g id="node7" class="node"><title>Node7</title>
+<g id="a_node7"><a xlink:href="classtesting_1_1internal_1_1scoped__ptr.html" target="_top" xlink:title="testing::internal::\lscoped_ptr\&lt; testing\l::internal::ParamIteratorInterface\l\&lt; T \&gt; \&gt;">
 <polygon fill="white" stroke="black" points="256.5,-0.5 256.5,-52.5 411.5,-52.5 411.5,-0.5 256.5,-0.5"/>
 <text text-anchor="start" x="264.5" y="-40.5" font-family="Helvetica,sans-Serif" font-size="10.00">testing::internal::</text>
 <text text-anchor="start" x="264.5" y="-29.5" font-family="Helvetica,sans-Serif" font-size="10.00">scoped_ptr&lt; testing</text>
@@ -110,8 +107,8 @@
 </a>
 </g>
 </g>
-<!-- Node0&#45;&gt;Node6 -->
-<g id="edge6" class="edge"><title>Node0&#45;&gt;Node6</title>
+<!-- Node1&#45;&gt;Node7 -->
+<g id="edge6" class="edge"><title>Node1&#45;&gt;Node7</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M53.3745,-154.679C62.3927,-130.407 79.5691,-94.2957 107,-74.5 150.178,-43.34 209.347,-31.5892 256.312,-27.497"/>
 <polygon fill="orange" stroke="orange" points="50.016,-153.679 50.0029,-164.274 56.6202,-156 50.016,-153.679"/>
 <text text-anchor="start" x="120" y="-99.5" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; testing::internal</text>

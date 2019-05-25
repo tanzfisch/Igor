@@ -9,53 +9,50 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 122.5)">
 <title>Igor::iPerlinNoise::getValue</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-122.5 239,-122.5 239,4 -4,4"/>
-<!-- Node22 -->
-<g id="node1" class="node"><title>Node22</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-39 0,-69 90,-69 90,-39 0,-39"/>
 <text text-anchor="start" x="8" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPerlinNoise</text>
 <text text-anchor="middle" x="45" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::getValue</text>
-</a>
 </g>
-</g>
-<!-- Node23 -->
-<g id="node2" class="node"><title>Node23</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_perlin_noise.html#a283827ef80ab08d723007b20a0b4fc3f" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_perlin_noise.html#a283827ef80ab08d723007b20a0b4fc3f" target="_top" xlink:title="Igor::iPerlinNoise\l::fade">
 <polygon fill="white" stroke="black" points="135.5,-88 135.5,-118 225.5,-118 225.5,-88 135.5,-88"/>
 <text text-anchor="start" x="143.5" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPerlinNoise</text>
 <text text-anchor="middle" x="180.5" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">::fade</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node23 -->
-<g id="edge1" class="edge"><title>Node22&#45;&gt;Node23</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M87.1437,-69.1014C100.213,-73.8985 114.827,-79.2622 128.504,-84.2823"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="127.669,-87.704 138.262,-87.8641 130.081,-81.1327 127.669,-87.704"/>
 </g>
-<!-- Node24 -->
-<g id="node3" class="node"><title>Node24</title>
-<g id="a_node3"><a xlink:href="class_igor_1_1i_perlin_noise.html#aedb0187ad344bc00f3d031c1b17c3496" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_1_1i_perlin_noise.html#aedb0187ad344bc00f3d031c1b17c3496" target="_top" xlink:title="Igor::iPerlinNoise\l::lerp">
 <polygon fill="white" stroke="black" points="135.5,-39 135.5,-69 225.5,-69 225.5,-39 135.5,-39"/>
 <text text-anchor="start" x="143.5" y="-57" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPerlinNoise</text>
 <text text-anchor="middle" x="180.5" y="-46" font-family="Helvetica,sans-Serif" font-size="10.00">::lerp</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node24 -->
-<g id="edge2" class="edge"><title>Node22&#45;&gt;Node24</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M90.0829,-54C101.361,-54 113.619,-54 125.34,-54"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="125.463,-57.5001 135.463,-54 125.463,-50.5001 125.463,-57.5001"/>
 </g>
-<!-- Node25 -->
-<g id="node4" class="node"><title>Node25</title>
-<g id="a_node4"><a xlink:href="class_igor_1_1i_perlin_noise.html#a47023a32a668daaa63ef420d8419555c" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_1_1i_perlin_noise.html#a47023a32a668daaa63ef420d8419555c" target="_top" xlink:title="Igor::iPerlinNoise::inc">
 <polygon fill="white" stroke="black" points="126,-0.5 126,-19.5 235,-19.5 235,-0.5 126,-0.5"/>
 <text text-anchor="middle" x="180.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPerlinNoise::inc</text>
 </a>
 </g>
 </g>
-<!-- Node22&#45;&gt;Node25 -->
-<g id="edge3" class="edge"><title>Node22&#45;&gt;Node25</title>
+<!-- Node1&#45;&gt;Node4 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node4</title>
 <path fill="none" stroke="midnightblue" d="M90.0829,-39.4708C106.561,-34.0397 125.131,-27.9193 141.061,-22.6692"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="142.194,-25.981 150.595,-19.5266 140.002,-19.3328 142.194,-25.981"/>
 </g>

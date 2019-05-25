@@ -1,5 +1,4 @@
 <map id="UserControlTransformation" name="UserControlTransformation">
-<area shape="rect" id="node1" title=" " alt="" coords="5,155,180,181"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title=" " alt="" coords="31,80,154,107"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title=" " alt="" coords="45,5,140,32"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_user_control.html" title="Igor::iUserControl" alt="" coords="31,80,154,107"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_widget.html" title="Igor::iWidget" alt="" coords="45,5,140,32"/>
 </map>

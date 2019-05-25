@@ -1,5 +1,4 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iTaskPrepareCollision.h" name="C:/dev/Igor/Igor/src/Igor/src/iTaskPrepareCollision.h">
-<area shape="rect" id="node1" title=" " alt="" coords="102,5,311,47"/>
-<area shape="rect" id="node2" href="$i_node_physics_8cpp.html" title=" " alt="" coords="5,95,184,136"/>
-<area shape="rect" id="node3" href="$i_task_prepare_collision_8cpp.html" title=" " alt="" coords="209,95,431,136"/>
+<map id="C:/dev/Igor/src/Igor/src/iTaskPrepareCollision.h" name="C:/dev/Igor/src/Igor/src/iTaskPrepareCollision.h">
+<area shape="rect" id="node2" href="$i_node_physics_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iNodePhysics.cpp" alt="" coords="5,95,159,136"/>
+<area shape="rect" id="node3" href="$i_task_prepare_collision_8cpp.html" title="C:/dev/Igor/src/Igor\l/src/iTaskPrepareCollision.cpp" alt="" coords="183,95,381,136"/>
 </map>

@@ -9,26 +9,23 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 24)">
 <title>Igor::iPhysics::getCollision</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-24 323,-24 323,4 -4,4"/>
-<!-- Node263 -->
-<g id="node1" class="node"><title>Node263</title>
-<g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="187,-0.5 187,-19.5 319,-19.5 319,-0.5 187,-0.5"/>
-<text text-anchor="middle" x="253" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::getCollision</text>
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
+<polygon fill="#bfbfbf" stroke="black" points="0,-0.5 0,-19.5 132,-19.5 132,-0.5 0,-0.5"/>
+<text text-anchor="middle" x="66" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::getCollision</text>
+</g>
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_1_1i_physics.html#a8aa3a0422da2989c7bed370158efe89d" target="_top" xlink:title="Igor::iPhysics::destroyCollision">
+<polygon fill="white" stroke="black" points="168,-0.5 168,-19.5 319,-19.5 319,-0.5 168,-0.5"/>
+<text text-anchor="middle" x="243.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::destroyCollision</text>
 </a>
 </g>
 </g>
-<!-- Node264 -->
-<g id="node2" class="node"><title>Node264</title>
-<g id="a_node2"><a xlink:href="class_igor_1_1i_physics.html#a8aa3a0422da2989c7bed370158efe89d" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="black" points="0,-0.5 0,-19.5 151,-19.5 151,-0.5 0,-0.5"/>
-<text text-anchor="middle" x="75.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics::destroyCollision</text>
-</a>
-</g>
-</g>
-<!-- Node263&#45;&gt;Node264 -->
-<g id="edge1" class="edge"><title>Node263&#45;&gt;Node264</title>
-<path fill="none" stroke="midnightblue" d="M176.475,-10C168.052,-10 159.477,-10 151.067,-10"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="176.65,-13.5001 186.65,-10 176.65,-6.5001 176.65,-13.5001"/>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M142.525,-10C150.948,-10 159.523,-10 167.933,-10"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="142.35,-6.5001 132.35,-10 142.35,-13.5001 142.35,-6.5001"/>
 </g>
 </g>
 </svg>

@@ -1,6 +1,6 @@
 <map id="Igor::iTargetMaterial::setEmissive" name="Igor::iTargetMaterial::setEmissive">
-<area shape="rect" id="node1" title=" " alt="" coords="232,57,368,98"/>
-<area shape="rect" id="node2" href="$class_manipulator.html#a2f84c8ed902d8af5e779292aca54a388" title=" " alt="" coords="37,5,152,32"/>
-<area shape="rect" id="node3" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title=" " alt="" coords="6,57,183,98"/>
-<area shape="rect" id="node4" href="$class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" title=" " alt="" coords="5,122,184,163"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_terrain.html#a1a041c48e6b97518df16e7b07443fb2d" title="Igor::iVoxelTerrain\l::init" alt="" coords="215,5,342,47"/>
+<area shape="rect" id="node3" href="$class_manipulator.html#a2f84c8ed902d8af5e779292aca54a388" title="Manipulator::init" alt="" coords="221,71,336,98"/>
+<area shape="rect" id="node4" href="$class_widget3_d_emitter.html#a363f3a0acfbb9f55c5bfd54c326f2935" title="Widget3DEmitter::Widget3\lDEmitter" alt="" coords="190,123,367,164"/>
+<area shape="rect" id="node5" href="$class_widget3_d_locator.html#ae3089c10bd105e2327b5e5342c53b0de" title="Widget3DLocator::Widget3\lDLocator" alt="" coords="189,188,368,229"/>
 </map>

@@ -9,40 +9,37 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 84)">
 <title>IgorAux::iaBSpline::getPointOfSpline</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-84 234,-84 234,4 -4,4"/>
-<!-- Node12 -->
-<g id="node1" class="node"><title>Node12</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="0,-24.5 0,-54.5 97,-54.5 97,-24.5 0,-24.5"/>
 <text text-anchor="start" x="8" y="-42.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
 <text text-anchor="middle" x="48.5" y="-31.5" font-family="Helvetica,sans-Serif" font-size="10.00">::getPointOfSpline</text>
-</a>
 </g>
-</g>
-<!-- Node13 -->
-<g id="node2" class="node"><title>Node13</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#a970210cb6758268c275b1933b4c59f44" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#a970210cb6758268c275b1933b4c59f44" target="_top" xlink:title="IgorAux::iaBSpline\l::prepareU">
 <polygon fill="white" stroke="black" points="133,-49.5 133,-79.5 230,-79.5 230,-49.5 133,-49.5"/>
 <text text-anchor="start" x="141" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
 <text text-anchor="middle" x="181.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00">::prepareU</text>
 </a>
 </g>
 </g>
-<!-- Node12&#45;&gt;Node13 -->
-<g id="edge1" class="edge"><title>Node12&#45;&gt;Node13</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge1" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="midnightblue" d="M97.1646,-48.5963C105.472,-50.1818 114.195,-51.8463 122.739,-53.4769"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="122.173,-56.9319 132.651,-55.3686 123.485,-50.056 122.173,-56.9319"/>
 </g>
-<!-- Node14 -->
-<g id="node3" class="node"><title>Node14</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#ae7d219247507921c476ae934c88d4b61" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_b_spline.html#ae7d219247507921c476ae934c88d4b61" target="_top" xlink:title="IgorAux::iaBSpline\l::calc">
 <polygon fill="white" stroke="black" points="133,-0.5 133,-30.5 230,-30.5 230,-0.5 133,-0.5"/>
 <text text-anchor="start" x="141" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaBSpline</text>
 <text text-anchor="middle" x="181.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">::calc</text>
 </a>
 </g>
 </g>
-<!-- Node12&#45;&gt;Node14 -->
-<g id="edge2" class="edge"><title>Node12&#45;&gt;Node14</title>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge"><title>Node1&#45;&gt;Node3</title>
 <path fill="none" stroke="midnightblue" d="M97.1646,-30.7676C105.472,-29.2455 114.195,-27.6475 122.739,-26.0822"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="123.446,-29.511 132.651,-24.2662 122.184,-22.6256 123.446,-29.511"/>
 </g>

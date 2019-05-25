@@ -1,13 +1,11 @@
 <map id="Igor::iParticleSystem3D" name="Igor::iParticleSystem3D">
-<area shape="rect" id="node1" title=" " alt="" coords="1257,261,1416,288"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_a_a_box.html" title=" " alt="" coords="840,20,997,47"/>
-<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="473,229,603,270"/>
-<area shape="rect" id="node10" href="$class_igor_1_1i_sphere.html" title=" " alt="" coords="840,307,997,333"/>
-<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html" title=" " alt="" coords="139,236,299,263"/>
-<area shape="rect" id="node5" title=" " alt="" coords="5,287,44,313"/>
-<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_matrix.html" title=" " alt="" coords="627,379,777,405"/>
-<area shape="rect" id="node11" href="$class_igor_1_1i_sphere.html" title=" " alt="" coords="323,293,449,320"/>
-<area shape="rect" id="node6" href="$class_igor_1_1i_a_a_box.html" title=" " alt="" coords="475,20,601,47"/>
-<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_random_number_generator.html" title=" " alt="" coords="801,71,1036,97"/>
-<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_gradient.html" title=" " alt="" coords="837,256,1001,283"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_a_a_box.html" title="Igor::iAABox\&lt; float64 \&gt;" alt="" coords="840,20,997,47"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\l\&lt; float64 \&gt;" alt="" coords="473,229,603,270"/>
+<area shape="rect" id="node10" href="$class_igor_1_1i_sphere.html" title="Igor::iSphere\&lt; float64 \&gt;" alt="" coords="840,307,997,333"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_vector3.html" title="IgorAux::iaVector3\&lt; T \&gt;" alt="" coords="139,236,299,263"/>
+<area shape="rect" id="node9" href="$class_igor_aux_1_1ia_matrix.html" title="IgorAux::iaMatrix\&lt; T \&gt;" alt="" coords="627,379,777,405"/>
+<area shape="rect" id="node11" href="$class_igor_1_1i_sphere.html" title="Igor::iSphere\&lt; T \&gt;" alt="" coords="323,293,449,320"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_a_a_box.html" title="Igor::iAABox\&lt; T \&gt;" alt="" coords="475,20,601,47"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_random_number_generator.html" title="IgorAux::iaRandomNumberGenerator" alt="" coords="801,71,1036,97"/>
+<area shape="rect" id="node8" href="$class_igor_aux_1_1ia_gradient.html" title="IgorAux::iaGradient\&lt; T \&gt;" alt="" coords="837,256,1001,283"/>
 </map>

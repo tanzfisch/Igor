@@ -1,7 +1,5 @@
-<map id="C:/dev/Igor/Igor/src/Igor/src/iDataUpdateQueue.h" name="C:/dev/Igor/Igor/src/Igor/src/iDataUpdateQueue.h">
-<area shape="rect" id="node1" title=" " alt="" coords="51,5,244,47"/>
-<area shape="rect" id="node2" href="$i_defines_8h.html" title=" " alt="" coords="5,95,84,121"/>
-<area shape="rect" id="node4" href="$ia_mutex_8h.html" title=" " alt="" coords="108,95,187,121"/>
-<area shape="rect" id="node5" title=" " alt="" coords="211,95,267,121"/>
-<area shape="rect" id="node3" href="$ia_defines_8h.html" title=" " alt="" coords="52,169,139,196"/>
+<map id="C:/dev/Igor/src/Igor/src/iDataUpdateQueue.h" name="C:/dev/Igor/src/Igor/src/iDataUpdateQueue.h">
+<area shape="rect" id="node2" href="$i_defines_8h.html" title="iDefines.h" alt="" coords="5,95,84,121"/>
+<area shape="rect" id="node4" href="$ia_mutex_8h.html" title="iaMutex.h" alt="" coords="108,95,187,121"/>
+<area shape="rect" id="node3" href="$ia_defines_8h.html" title="iaDefines.h" alt="" coords="52,169,139,196"/>
 </map>

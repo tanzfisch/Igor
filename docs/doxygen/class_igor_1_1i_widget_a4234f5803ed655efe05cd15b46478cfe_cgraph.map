@@ -1,0 +1,8 @@
+<map id="Igor::iWidget::getInfo" name="Igor::iWidget::getInfo">
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_string.html#ad733ce0b92ae32cdb253e4fa0ad85e3f" title="IgorAux::iaString::\lgetSubString" alt="" coords="205,71,331,112"/>
+<area shape="rect" id="node5" href="$class_igor_aux_1_1ia_string.html#ad543df5c6c62ace85496ee1fda974503" title="IgorAux::iaString::itoa" alt="" coords="195,139,341,166"/>
+<area shape="rect" id="node3" href="$class_igor_aux_1_1ia_string.html#affa8c96a2d7340a79b9e97d84e2585a4" title="IgorAux::iaString::\liaString" alt="" coords="389,5,516,47"/>
+<area shape="rect" id="node4" href="$class_igor_aux_1_1ia_string.html#a527c422c83c563c834a12548728e625d" title="IgorAux::iaString::\lgetData" alt="" coords="389,71,516,112"/>
+<area shape="rect" id="node6" href="$class_igor_aux_1_1ia_string.html#af57393290753cb0ff19bd49b5c97d1f4" title="IgorAux::iaString::\lintToStrInternal" alt="" coords="389,136,516,177"/>
+<area shape="rect" id="node7" href="$class_igor_aux_1_1ia_string.html#a5de7775f77c02abad6fb09a235a7721b" title="IgorAux::iaString::\lreverse" alt="" coords="564,136,691,177"/>
+</map>

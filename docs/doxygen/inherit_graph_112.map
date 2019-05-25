@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_igor_1_1i_voxel_operation.html" title=" " alt="" coords="5,31,148,57"/>
-<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_operation_box.html" title=" " alt="" coords="205,5,371,32"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_operation_sphere.html" title=" " alt="" coords="196,56,380,83"/>
+<area shape="rect" id="node1" href="$class_igor_1_1i_voxel_operation.html" title="Igor::iVoxelOperation" alt="" coords="5,31,148,57"/>
+<area shape="rect" id="node2" href="$class_igor_1_1i_voxel_operation_box.html" title="Igor::iVoxelOperationBox" alt="" coords="205,5,371,32"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_voxel_operation_sphere.html" title="Igor::iVoxelOperationSphere" alt="" coords="196,56,380,83"/>
 </map>

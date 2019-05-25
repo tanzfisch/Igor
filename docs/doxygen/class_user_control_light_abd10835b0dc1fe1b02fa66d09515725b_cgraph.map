@@ -1,7 +1,7 @@
 <map id="UserControlLight::updateNode" name="UserControlLight::updateNode">
-<area shape="rect" id="node1" title=" " alt="" coords="5,97,200,123"/>
-<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title=" " alt="" coords="248,5,447,47"/>
-<area shape="rect" id="node3" href="$class_igor_1_1i_node_light.html#ad16da2321eeece7147a31d2b18c4cc3e" title=" " alt="" coords="254,71,441,98"/>
-<area shape="rect" id="node4" href="$class_igor_1_1i_node_light.html#a74a7335588bbe010bc7eace0930b0b90" title=" " alt="" coords="259,122,436,149"/>
-<area shape="rect" id="node5" href="$class_igor_1_1i_node_light.html#ab069ba47745eef7f8e08644f2ebcd2e9" title=" " alt="" coords="253,173,442,199"/>
+<area shape="rect" id="node2" href="$class_igor_aux_1_1ia_singleton.html#a821f1d891129e6d09b992be81094540e" title="IgorAux::iaSingleton\l\&lt; iNodeFactory \&gt;::getInstance" alt="" coords="248,5,447,47"/>
+<area shape="rect" id="node3" href="$class_igor_1_1i_node_factory.html#ab8074664cc7a6692dda729d1e3e4cfa3" title="Igor::iNodeFactory\l::getNode" alt="" coords="283,71,411,112"/>
+<area shape="rect" id="node4" href="$class_igor_1_1i_node_light.html#ad16da2321eeece7147a31d2b18c4cc3e" title="Igor::iNodeLight::setAmbient" alt="" coords="254,137,441,163"/>
+<area shape="rect" id="node5" href="$class_igor_1_1i_node_light.html#a74a7335588bbe010bc7eace0930b0b90" title="Igor::iNodeLight::setDiffuse" alt="" coords="259,187,436,214"/>
+<area shape="rect" id="node6" href="$class_igor_1_1i_node_light.html#ab069ba47745eef7f8e08644f2ebcd2e9" title="Igor::iNodeLight::setSpecular" alt="" coords="253,238,442,265"/>
 </map>

@@ -9,44 +9,41 @@
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 257)">
 <title>Igor::iPhysics</title>
 <polygon fill="white" stroke="none" points="-4,4 -4,-257 334.364,-257 334.364,4 -4,4"/>
-<!-- Node3 -->
-<g id="node1" class="node"><title>Node3</title>
-<g id="a_node1"><a xlink:title=" ">
+<!-- Node1 -->
+<g id="node1" class="node"><title>Node1</title>
 <polygon fill="#bfbfbf" stroke="black" points="24.8641,-78.5 24.8641,-97.5 100.864,-97.5 100.864,-78.5 24.8641,-78.5"/>
 <text text-anchor="middle" x="62.8641" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">Igor::iPhysics</text>
-</a>
 </g>
-</g>
-<!-- Node4 -->
-<g id="node2" class="node"><title>Node4</title>
-<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
+<!-- Node2 -->
+<g id="node2" class="node"><title>Node2</title>
+<g id="a_node2"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title="IgorAux::iaSingleton\l\&lt; iPhysics \&gt;">
 <polygon fill="white" stroke="black" points="83.8641,-0.5 83.8641,-30.5 187.864,-30.5 187.864,-0.5 83.8641,-0.5"/>
 <text text-anchor="start" x="91.8641" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton</text>
 <text text-anchor="middle" x="135.864" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">&lt; iPhysics &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node3&#45;&gt;Node4 -->
-<g id="edge3" class="edge"><title>Node3&#45;&gt;Node4</title>
+<!-- Node1&#45;&gt;Node2 -->
+<g id="edge3" class="edge"><title>Node1&#45;&gt;Node2</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M56.8539,-68.2551C55.8715,-61.7009 56.1745,-54.5906 59.8641,-49 65.6344,-40.2568 74.2936,-33.8572 83.7251,-29.1756"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="53.5608,-69.5205 59.3498,-78.394 60.3579,-67.8473 53.5608,-69.5205"/>
 <text text-anchor="middle" x="82.8641" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00"> _instance</text>
 </g>
-<!-- Node4&#45;&gt;Node3 -->
-<g id="edge1" class="edge"><title>Node4&#45;&gt;Node3</title>
+<!-- Node2&#45;&gt;Node1 -->
+<g id="edge1" class="edge"><title>Node2&#45;&gt;Node1</title>
 <path fill="none" stroke="midnightblue" d="M124.827,-39.8602C120.781,-46.8766 115.731,-54.2336 109.864,-60 102.079,-67.6517 91.6989,-73.9128 82.6741,-78.4724"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="128.102,-41.1573 129.707,-30.6847 121.921,-37.8707 128.102,-41.1573"/>
 </g>
-<!-- Node5 -->
-<g id="node3" class="node"><title>Node5</title>
-<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title=" ">
+<!-- Node3 -->
+<g id="node3" class="node"><title>Node3</title>
+<g id="a_node3"><a xlink:href="class_igor_aux_1_1ia_mutex.html" target="_top" xlink:title="IgorAux::iaMutex">
 <polygon fill="white" stroke="black" points="103.864,-233.5 103.864,-252.5 193.864,-252.5 193.864,-233.5 103.864,-233.5"/>
 <text text-anchor="middle" x="148.864" y="-240.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaMutex</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node3 -->
-<g id="edge7" class="edge"><title>Node5&#45;&gt;Node3</title>
+<!-- Node3&#45;&gt;Node1 -->
+<g id="edge7" class="edge"><title>Node3&#45;&gt;Node1</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M93.4018,-237.406C62.5324,-233.571 28.4384,-226.767 18.8641,-215 -8.90554,-180.87 -2.62355,-154.396 18.8641,-116 23.4161,-107.866 31.5313,-101.885 39.5633,-97.6499"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="93.3715,-240.925 103.707,-238.595 94.1741,-233.972 93.3715,-240.925"/>
 <text text-anchor="middle" x="76.8641" y="-207" font-family="Helvetica,sans-Serif" font-size="10.00"> _worldListMutex</text>
@@ -59,42 +56,39 @@
 <text text-anchor="middle" x="76.8641" y="-130" font-family="Helvetica,sans-Serif" font-size="10.00">_collisionsListMutex</text>
 <text text-anchor="middle" x="76.8641" y="-119" font-family="Helvetica,sans-Serif" font-size="10.00">_bodyListMutex</text>
 </g>
-<!-- Node5&#45;&gt;Node4 -->
-<g id="edge2" class="edge"><title>Node5&#45;&gt;Node4</title>
+<!-- Node3&#45;&gt;Node2 -->
+<g id="edge2" class="edge"><title>Node3&#45;&gt;Node2</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M147.786,-223.303C145.25,-179.314 138.95,-70.0278 136.689,-30.8012"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="144.301,-223.654 148.37,-233.435 151.289,-223.251 144.301,-223.654"/>
 <text text-anchor="middle" x="158.864" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00"> _mutex</text>
 </g>
-<!-- Node6 -->
-<g id="node4" class="node"><title>Node6</title>
-<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title=" ">
+<!-- Node4 -->
+<g id="node4" class="node"><title>Node4</title>
+<g id="a_node4"><a xlink:href="class_igor_aux_1_1ia_singleton.html" target="_top" xlink:title="IgorAux::iaSingleton\&lt; T \&gt;">
 <polygon fill="white" stroke="black" points="203.364,-78.5 203.364,-97.5 330.364,-97.5 330.364,-78.5 203.364,-78.5"/>
 <text text-anchor="middle" x="266.864" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">IgorAux::iaSingleton&lt; T &gt;</text>
 </a>
 </g>
 </g>
-<!-- Node5&#45;&gt;Node6 -->
-<g id="edge5" class="edge"><title>Node5&#45;&gt;Node6</title>
+<!-- Node3&#45;&gt;Node4 -->
+<g id="edge5" class="edge"><title>Node3&#45;&gt;Node4</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M158.722,-224.069C175.65,-193.642 210.044,-133.497 226.864,-116 233.832,-108.752 243.056,-102.366 250.891,-97.6271"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="155.48,-222.699 153.701,-233.144 161.605,-226.088 155.48,-222.699"/>
 <text text-anchor="middle" x="244.864" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00"> _mutex</text>
 </g>
-<!-- Node6&#45;&gt;Node4 -->
-<g id="edge4" class="edge"><title>Node6&#45;&gt;Node4</title>
+<!-- Node4&#45;&gt;Node2 -->
+<g id="edge4" class="edge"><title>Node4&#45;&gt;Node2</title>
 <path fill="none" stroke="orange" stroke-dasharray="5,2" d="M242.002,-73.6201C219.159,-61.3266 185.414,-43.166 162.135,-30.6383"/>
 <polygon fill="orange" stroke="orange" points="240.598,-76.839 251.062,-78.4961 243.915,-70.675 240.598,-76.839"/>
 <text text-anchor="middle" x="243.364" y="-52" font-family="Helvetica,sans-Serif" font-size="10.00"> &lt; iPhysics &gt;</text>
 </g>
-<!-- Node7 -->
-<g id="node5" class="node"><title>Node7</title>
-<g id="a_node5"><a xlink:title=" ">
+<!-- Node5 -->
+<g id="node5" class="node"><title>Node5</title>
 <polygon fill="white" stroke="#bfbfbf" points="252.364,-233.5 252.364,-252.5 281.364,-252.5 281.364,-233.5 252.364,-233.5"/>
 <text text-anchor="middle" x="266.864" y="-240.5" font-family="Helvetica,sans-Serif" font-size="10.00">T</text>
-</a>
 </g>
-</g>
-<!-- Node7&#45;&gt;Node6 -->
-<g id="edge6" class="edge"><title>Node7&#45;&gt;Node6</title>
+<!-- Node5&#45;&gt;Node4 -->
+<g id="edge6" class="edge"><title>Node5&#45;&gt;Node4</title>
 <path fill="none" stroke="#9a32cd" stroke-dasharray="5,2" d="M266.864,-223.105C266.864,-189.716 266.864,-121.542 266.864,-97.5693"/>
 <polygon fill="#9a32cd" stroke="#9a32cd" points="263.364,-223.336 266.864,-233.336 270.364,-223.336 263.364,-223.336"/>
 <text text-anchor="middle" x="289.864" y="-163" font-family="Helvetica,sans-Serif" font-size="10.00"> _instance</text>

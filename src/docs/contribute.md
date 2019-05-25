@@ -35,13 +35,17 @@ Use git flow for branching and merging etc. Please find [here](https://danielkum
 Make a release
 --------------
 
-For making a release create a release branch from develop named by the next release version. 
+For making a release do the following steps.
 
-Update the [Changelog](@ref changelog) before merging in to master and develop.
+1. create a release branch from develop named by the next release version.
 
-Update doxygen config using the new version of the release. And run doxygen.
+2. Update the [Changelog](@ref changelog)
 
-Run some tests etc and when satisfied merge in to master and develop. Create a tag with the new versio number on master.
+3. Update doxygen config using the new version of the release. And generate the doxygen docs.
+
+4. Run some smoke tests (ig run all the examples once) and when satisfied merge in to master and develop. 
+
+5. Create a tag with the new version number on master and push master, devlop and the new tag to github.
 
 Make a Patch Release 
 --------------------
